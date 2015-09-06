@@ -82,7 +82,7 @@ public class SupportEBXL
 			);
 		}
 		
-	    //FORESTED HILLDS
+	    //FORESTED HILLS
 		if(BiomeManager.forestedhills.isPresent())
 		{
 			Support.addBiome(
@@ -315,7 +315,7 @@ public class SupportEBXL
 			);
 		}
 		
-		//SNOW FOREST
+		//SNOWY FOREST
 		if(BiomeManager.snowforest.isPresent())
 		{
 			Support.addBiome(

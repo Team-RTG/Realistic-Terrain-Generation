@@ -20,7 +20,7 @@ public class SupportBOP
 			new RealisticBiomeSupport(
 				BOPCBiomes.alps, RTGBiomes.baseRiverCold,
 				new TerrainMountainRiver(),
-				new SurfaceMountainSnow(Blocks.grass, Blocks.dirt, false, null, 0.45f)
+				new SurfaceMountainSnow(BOPCBiomes.alps.topBlock, BOPCBiomes.alps.fillerBlock, false, null, 0.45f)
 			),
 			BiomeCategory.SNOW
 		);
@@ -40,7 +40,7 @@ public class SupportBOP
 			new RealisticBiomeSupport(
 				BOPCBiomes.arctic, RTGBiomes.baseRiverIce,
 				new TerrainGrasslandFlats(),
-				new SurfaceTundra(Blocks.grass, Blocks.dirt)
+				new SurfaceTundra(BOPCBiomes.arctic.topBlock, BOPCBiomes.arctic.fillerBlock)
 			),
 			BiomeCategory.SNOW
 		);
@@ -145,7 +145,7 @@ public class SupportBOP
 			new RealisticBiomeSupport(
 				BOPCBiomes.coniferousForest, RTGBiomes.baseRiverCold,
 				new TerrainMountainRiver(),
-				new SurfaceMountainSnow(Blocks.grass, Blocks.dirt, false, null, 0.45f)
+				new SurfaceMountainSnow(BOPCBiomes.snowyConiferousForest.topBlock, BOPCBiomes.snowyConiferousForest.fillerBlock, false, null, 0.45f)
 			),
 			BiomeCategory.COLD
 		);
@@ -153,19 +153,20 @@ public class SupportBOP
 			new RealisticBiomeSupport(
 				BOPCBiomes.snowyConiferousForest, RTGBiomes.baseRiverIce,
 				new TerrainMountainRiver(),
-				new SurfaceMountainSnow(Blocks.grass, Blocks.dirt, false, null, 0.45f, 1.5f, 50f, 60f, 0.4f, 100f, 50f, 1.5f)
+				new SurfaceMountainSnow(BOPCBiomes.snowyConiferousForest.topBlock, BOPCBiomes.snowyConiferousForest.fillerBlock, false, null, 0.45f, 1.5f, 50f, 60f, 0.4f, 100f, 50f, 1.5f)
 			),
 			BiomeCategory.SNOW
 		);
 		
 		//CRAG
-		/*Support.biomes_cold.add(
+		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.crag,
-				new TerrainCanyon(false, new float[]{2.0f, 0.5f, 6.5f, 0.5f, 14.0f, 0.5f, 19.0f, 0.5f}, 35f, 80f, 60f, 40f, 69f),
+				BOPCBiomes.crag, RTGBiomes.baseRiverWet,
+				new TerrainMountain(),
 				new SurfaceGrassland(BOPCBiomes.crag.topBlock, BOPCBiomes.crag.fillerBlock, Blocks.stone, Blocks.cobblestone)
-			)
-		);*/
+			),
+			BiomeCategory.WET
+		);
 		
 		//DEAD FOREST
 		Support.addBiome(

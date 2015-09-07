@@ -70,4 +70,26 @@ public class Support
 			System.out.println("RTG Support: failed to add biome");
 		}
 	}
+	
+	public static void addBiome(RealisticBiomeSupport b, BiomeCategory[] cat)
+	{
+		for (int i = 0; i < cat.length; i++)
+		{
+			try
+			{
+				switch(cat[i])
+				{
+					case SNOW: biomes_snow.add(b); break;
+					case COLD: biomes_cold.add(b); break;
+					case HOT: biomes_hot.add(b); break;
+					case WET: biomes_wet.add(b); break;
+					case SMALL: biomes_small.add(b); break;
+				}
+			}
+			catch(Error e)
+			{
+				System.out.println("RTG Support: failed to add biome");
+			}
+		}
+	}
 }

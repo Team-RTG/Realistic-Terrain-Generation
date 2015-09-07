@@ -25,14 +25,25 @@ public class SupportBOP
 			BiomeCategory.SNOW
 		);
 		
-		//ARCTIC
-		/*Support.biomes_snow.add(
+		//ALPS FOREST
+/*		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.arctic,
+				BOPCBiomes.alpsForest, RTGBiomes.baseRiverCold,
 				new TerrainMountainRiver(),
 				new SurfaceMountainSnow(Blocks.grass, Blocks.dirt, false, null, 0.45f)
-			)
+			),
+			BiomeCategory.SNOW
 		);*/
+		
+		//ARCTIC
+		Support.addBiome(
+			new RealisticBiomeSupport(
+				BOPCBiomes.arctic, RTGBiomes.baseRiverIce,
+				new TerrainGrasslandFlats(),
+				new SurfaceTundra(Blocks.grass, Blocks.dirt)
+			),
+			BiomeCategory.SNOW
+		);
 		
 		//BAMBOO FOREST
 		Support.addBiome(

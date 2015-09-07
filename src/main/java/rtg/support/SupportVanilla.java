@@ -412,6 +412,7 @@ public class SupportVanilla
 				Support.addBiome(
 						new RealisticBiomeSupport(
 							BiomeGenBase.ocean, RTGBiomes.baseRiverWet,
+							RealisticBiomeSupport.coastOasis,
 							new TerrainFlatLakes(),
 							new SurfaceCanyon(Blocks.sand, Blocks.sand, (byte)0, 0)
 						),
@@ -425,6 +426,7 @@ public class SupportVanilla
 				Support.addBiome(
 						new RealisticBiomeSupport(
 							BiomeGenBase.deepOcean, RTGBiomes.baseRiverWet,
+							RealisticBiomeSupport.coastOasis,
 							new TerrainFlatLakes(),
 							new SurfaceCanyon(Blocks.sand, Blocks.sand, (byte)0, 0)
 						),

@@ -3,6 +3,7 @@ package rtg.support;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import rtg.api.RTGBiomes;
+import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.support.edit.*;
 import rtg.surface.*;
 import rtg.surface.river.SurfaceRiverOasis;
@@ -84,6 +85,7 @@ public class SupportBOP
 		Support.addBiome(
 			new RealisticBiomeSupport(
 				BOPCBiomes.brushland, RTGBiomes.baseRiverOasis,
+				RealisticBiomeBase.coastOasis,
 				new TerrainDuneValley(300f),
 				new SurfaceBase[]{
 					new SurfaceDuneValley(BOPCBiomes.brushland.topBlock, BOPCBiomes.brushland.fillerBlock, 300f, false, true),
@@ -255,6 +257,7 @@ public class SupportBOP
 		Support.addBiome(
 			new RealisticBiomeSupport(
 				BOPCBiomes.heathland, RTGBiomes.baseRiverOasis,
+				RealisticBiomeBase.coastOasis,
 				new TerrainDuneValley(300f),
 				new SurfaceBase[]{
 					new SurfaceDuneValley(BOPCBiomes.brushland.topBlock, BOPCBiomes.brushland.fillerBlock, 300f, false, true) ,
@@ -397,6 +400,7 @@ public class SupportBOP
 		Support.addBiome(
 			new RealisticBiomeSupport(
 				BOPCBiomes.outback, RTGBiomes.baseRiverOasis,
+				RealisticBiomeBase.coastOasis,
 				new TerrainDuneValley(300f),
 				new SurfaceBase[]{
 					new SurfaceDuneValley(BOPCBiomes.outback.topBlock, BOPCBiomes.outback.fillerBlock, 300f, false, false),

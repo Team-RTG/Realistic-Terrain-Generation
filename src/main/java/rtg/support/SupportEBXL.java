@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.RTGBiomes;
+import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.support.edit.*;
 import rtg.surface.*;
 import rtg.surface.river.SurfaceRiverOasis;
@@ -192,6 +193,7 @@ public class SupportEBXL
 			Support.addBiome(
 				new RealisticBiomeSupport(
 					BiomeManager.mountaindesert.get(), RTGBiomes.baseRiverOasis,
+					RealisticBiomeBase.coastOasis,
 					new TerrainHilly(230f, 100f, 0f),
 					new SurfaceBase[]{
 						new SurfaceDesertMountain(BiomeManager.mountaindesert.get().topBlock, BiomeManager.mountaindesert.get().fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f),
@@ -211,6 +213,7 @@ public class SupportEBXL
 			Support.addBiome(
 				new RealisticBiomeSupport(
 					BiomeManager.mountainridge.get(), RTGBiomes.baseRiverOasis,
+					RealisticBiomeBase.coastOasis,
 					new TerrainHilly(230f, 110f, 0f),
 					new SurfaceBase[]{
 						new SurfaceDesertMountain(BiomeManager.mountainridge.get().topBlock, BiomeManager.mountainridge.get().fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f),
@@ -373,6 +376,7 @@ public class SupportEBXL
 			Support.addBiome(
 				new RealisticBiomeSupport(
 					BiomeManager.wasteland.get(), RTGBiomes.baseRiverOasis,
+					RealisticBiomeBase.coastOasis,
 					new TerrainGrasslandHills(30f, 180f, 13f, 100f, 28f, 260f, 70f),
 					new SurfaceBase[]{
 						new SurfaceGrassland(BiomeManager.wasteland.get().topBlock, BiomeManager.wasteland.get().fillerBlock, Blocks.stone, Blocks.cobblestone),

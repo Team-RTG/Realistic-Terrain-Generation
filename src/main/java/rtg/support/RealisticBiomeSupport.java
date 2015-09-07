@@ -27,9 +27,9 @@ public class RealisticBiomeSupport extends RealisticBiomeBase
 	public EditBase[] edits;
 	public int editLength;
 	
-	public RealisticBiomeSupport(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s, EditBase[] e)
+	public RealisticBiomeSupport(BiomeGenBase b, BiomeGenBase riverbiome, RealisticBiomeBase coastbiome, TerrainBase t, SurfaceBase[] s, EditBase[] e)
 	{
-		super(0, b, RealisticBiomeBase.coastDunes, riverbiome);
+		super(0, b, coastbiome, riverbiome);
 		customBiome = b;
 		terrain = t;
 		
@@ -47,14 +47,20 @@ public class RealisticBiomeSupport extends RealisticBiomeBase
 		}
 	}
 	
-	public RealisticBiomeSupport(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s, EditBase e)
+	public RealisticBiomeSupport(BiomeGenBase b, BiomeGenBase riverbiome, RealisticBiomeBase coastbiome, TerrainBase t, SurfaceBase s, EditBase e)
 	{
-		this(b, riverbiome, t, new SurfaceBase[]{s}, e != null ? new EditBase[]{e} : null);
+		this(b, riverbiome, coastbiome, t, new SurfaceBase[]{s}, e != null ? new EditBase[]{e} : null);
 	}
 	
+	public RealisticBiomeSupport(BiomeGenBase b, BiomeGenBase riverbiome, RealisticBiomeBase coastbiome, TerrainBase t, SurfaceBase s)
+	{
+		this(b, riverbiome, coastbiome, t, s, null);
+	}
+	
+	//This constructor is used if no coast is provided. Uses coastDunes as the default coast.
 	public RealisticBiomeSupport(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
-		this(b, riverbiome, t, s, null);
+		this(b, riverbiome, RealisticBiomeBase.coastDunes, t, s, null);
 	}
 
     @Override

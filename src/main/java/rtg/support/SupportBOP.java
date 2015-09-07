@@ -16,13 +16,14 @@ public class SupportBOP
 	public static void init()
 	{
 		//ALPS
-		/*Support.biomes_snow.add(
+		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.alps,
+				BOPCBiomes.alps, RTGBiomes.baseRiverCold,
 				new TerrainMountainRiver(),
 				new SurfaceMountainSnow(Blocks.grass, Blocks.dirt, false, null, 0.45f)
-			)
-		);*/
+			),
+			BiomeCategory.SNOW
+		);
 		
 		//ARCTIC
 		/*Support.biomes_snow.add(

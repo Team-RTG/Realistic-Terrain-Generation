@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.RTGBiomes;
+import rtg.biomes.realistic.vanilla.RealisticBiomeVanillaPlains;
 import rtg.config.ConfigRTG;
 import rtg.support.edit.*;
 import rtg.surface.*;
@@ -452,13 +453,9 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaPlains)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.plains, RTGBiomes.baseRiverTemperate,
-							new TerrainGrasslandFlats(),
-							new SurfaceGrassland(Blocks.grass, Blocks.dirt, Blocks.stone, Blocks.cobblestone)
-						),
-						BiomeCategory.WET
-					);
+					new RealisticBiomeVanillaPlains(),
+					BiomeCategory.WET
+				);
 			}
 			
 			/*

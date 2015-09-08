@@ -342,7 +342,8 @@ public class ChunkManagerRealistic extends WorldChunkManager
     	/*
     	 * @todo Add a config option for single-biome worlds.
     	 */
-    	//output = RealisticBiomeBase.vanillaPlains;
+    	
+    	//output = RealisticBiomeBase.vanillaBeach;
     	
 		if (biomeDataMap.size() > 4096) {
 			biomeDataMap.clear();

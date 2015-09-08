@@ -241,9 +241,7 @@ public class ChunkManagerRealistic extends WorldChunkManager
 
     public RealisticBiomeBase getBiomeDataAt(int par1, int par2, float ocean)
     {
-    	//return RealisticBiomeBase.woodmountains;
-    	
-    	//return RealisticBiomeBase.hotForest;
+    	//return RealisticBiomeBase.vanillaPlains;
     	
     	/*
     	if(par1 + par2 < 0)
@@ -341,6 +339,11 @@ public class ChunkManagerRealistic extends WorldChunkManager
 			output = biomes_hot.get((int)(h));
     	}
 
+    	/*
+    	 * @todo Add a config option for single-biome worlds.
+    	 */
+    	//output = RealisticBiomeBase.vanillaPlains;
+    	
 		if (biomeDataMap.size() > 4096) {
 			biomeDataMap.clear();
 		}

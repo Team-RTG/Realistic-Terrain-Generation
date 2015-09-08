@@ -27,6 +27,7 @@ import rtg.biomes.realistic.savanna.RealisticBiomeSavannaDunes;
 import rtg.biomes.realistic.savanna.RealisticBiomeSavannaForest;
 import rtg.biomes.realistic.savanna.RealisticBiomeStoneMountains;
 import rtg.biomes.realistic.savanna.RealisticBiomeStoneMountainsCactus;
+import rtg.biomes.realistic.vanilla.RealisticBiomeVanillaPlains;
 import rtg.surface.SurfaceBase;
 import rtg.terrain.TerrainBase;
 import rtg.util.CellNoise;
@@ -116,6 +117,10 @@ public class RealisticBiomeBase
 	
 	//OCEAN =========================================================================================
 	public static RealisticBiomeBase islandTropical = new RealisticBiomeIslandTropical();
+	
+	
+	//VANILLA =======================================================================================
+	public static RealisticBiomeBase vanillaPlains = new RealisticBiomeVanillaPlains();
 	
 	// ==============================================================================================
 	

@@ -30,6 +30,7 @@ import rtg.biomes.realistic.savanna.RealisticBiomeSavannaDunes;
 import rtg.biomes.realistic.savanna.RealisticBiomeSavannaForest;
 import rtg.biomes.realistic.savanna.RealisticBiomeStoneMountains;
 import rtg.biomes.realistic.savanna.RealisticBiomeStoneMountainsCactus;
+import rtg.biomes.realistic.vanilla.RealisticBiomeVanillaStoneBeach;
 import rtg.support.Support;
 import rtg.util.CellNoise;
 import rtg.util.PerlinNoise;
@@ -343,7 +344,7 @@ public class ChunkManagerRealistic extends WorldChunkManager
     	 * @todo Add a config option for single-biome worlds.
     	 */
     	
-    	//output = RealisticBiomeBase.vanillaBeach;
+    	//output = RealisticBiomeBase.vanillaStoneBeach;
     	
 		if (biomeDataMap.size() > 4096) {
 			biomeDataMap.clear();

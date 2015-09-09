@@ -4,8 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.RTGBiomes;
-import rtg.biomes.realistic.vanilla.RealisticBiomeVanillaBeach;
-import rtg.biomes.realistic.vanilla.RealisticBiomeVanillaPlains;
+import rtg.biomes.realistic.vanilla.*;
 import rtg.config.ConfigRTG;
 import rtg.support.edit.*;
 import rtg.surface.*;
@@ -37,13 +36,9 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaStoneBeach)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.stoneBeach, RTGBiomes.baseRiverWet,
-							new TerrainMountainRiver(),
-							new SurfaceDesertOasis(Blocks.gravel, Blocks.stone, Blocks.dirt, Blocks.gravel, (byte)0, 1)
-						),
-						BiomeCategory.COLD
-					);
+					new RealisticBiomeVanillaStoneBeach(),
+					BiomeCategory.WET
+				);
 			}
 			
 			//vanilla_coldBeach

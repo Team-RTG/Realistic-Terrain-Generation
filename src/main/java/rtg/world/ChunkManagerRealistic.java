@@ -341,7 +341,7 @@ public class ChunkManagerRealistic extends WorldChunkManager
     	}
 
     	/*
-    	 * @todo Add a config option for single-biome worlds.
+    	 * @todo Add a config option for single-biome worlds. - Pink
     	 */
     	
     	//output = RealisticBiomeBase.vanillaStoneBeach;

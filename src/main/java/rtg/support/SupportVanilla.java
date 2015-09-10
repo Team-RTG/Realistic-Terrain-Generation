@@ -128,13 +128,9 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaForest)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.forest, RTGBiomes.baseRiverTemperate,
-							new TerrainGrasslandFlats(),
-							new SurfaceGrassland(Blocks.grass, Blocks.dirt, Blocks.stone, Blocks.cobblestone)
-						),
-						BiomeCategory.WET
-					);
+					new RealisticBiomeVanillaForest(),
+					BiomeCategory.WET
+				);
 			}
 			
 			//vanilla_forestHills

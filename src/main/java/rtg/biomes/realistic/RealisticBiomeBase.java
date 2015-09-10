@@ -27,9 +27,7 @@ import rtg.biomes.realistic.savanna.RealisticBiomeSavannaDunes;
 import rtg.biomes.realistic.savanna.RealisticBiomeSavannaForest;
 import rtg.biomes.realistic.savanna.RealisticBiomeStoneMountains;
 import rtg.biomes.realistic.savanna.RealisticBiomeStoneMountainsCactus;
-import rtg.biomes.realistic.vanilla.RealisticBiomeVanillaBeach;
-import rtg.biomes.realistic.vanilla.RealisticBiomeVanillaPlains;
-import rtg.biomes.realistic.vanilla.RealisticBiomeVanillaStoneBeach;
+import rtg.biomes.realistic.vanilla.*;
 import rtg.surface.SurfaceBase;
 import rtg.terrain.TerrainBase;
 import rtg.util.CellNoise;
@@ -123,6 +121,7 @@ public class RealisticBiomeBase
 	
 	//VANILLA =======================================================================================
 	public static RealisticBiomeBase vanillaBeach = new RealisticBiomeVanillaBeach();
+	public static RealisticBiomeBase vanillaColdBeach = new RealisticBiomeVanillaColdBeach();
 	public static RealisticBiomeBase vanillaPlains = new RealisticBiomeVanillaPlains();
 	public static RealisticBiomeBase vanillaStoneBeach = new RealisticBiomeVanillaStoneBeach();
 	

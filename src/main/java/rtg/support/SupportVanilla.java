@@ -45,13 +45,9 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaColdBeach)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.coldBeach, RTGBiomes.baseRiverWet,
-							new TerrainSwampRiver(),
-							new SurfaceDesertOasis(Blocks.sand, Blocks.sand, Blocks.dirt, Blocks.grass, (byte)0, 1)
-						),
-						BiomeCategory.COLD
-					);
+					new RealisticBiomeVanillaColdBeach(),
+					BiomeCategory.COLD
+				);
 			}
 			
 			/*

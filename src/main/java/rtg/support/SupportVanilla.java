@@ -75,11 +75,7 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaDesertHills)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.desertHills, RTGBiomes.baseRiverOasis,
-							new TerrainHilly(230f, 120f, 0f),
-							new SurfaceDesertMountain(Blocks.sand, Blocks.sandstone, false, null, 0f, 1.5f, 60f, 65f, 1.5f)
-						),
+						new RealisticBiomeVanillaDesertHills(),
 						BiomeCategory.HOT
 					);
 			}

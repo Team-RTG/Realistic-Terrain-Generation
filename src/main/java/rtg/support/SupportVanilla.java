@@ -75,9 +75,9 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaDesertHills)
 			{
 				Support.addBiome(
-						new RealisticBiomeVanillaDesertHills(),
-						BiomeCategory.HOT
-					);
+					new RealisticBiomeVanillaDesertHills(),
+					BiomeCategory.HOT
+				);
 			}
 			
 			/*
@@ -96,13 +96,9 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaExtremeHills)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.extremeHills, RTGBiomes.baseRiverCold,
-							new TerrainHighland(0f, 140f, 68f, 150f),
-							new SurfaceMountainStone(Blocks.grass, Blocks.dirt, false, null, 1f, 1.5f, 85f, 20f, 4f)
-						),
-						BiomeCategory.COLD
-					);
+					new RealisticBiomeVanillaExtremeHills(),
+					BiomeCategory.COLD
+				);
 			}
 			
 			//vanilla_extremeHillsPlus

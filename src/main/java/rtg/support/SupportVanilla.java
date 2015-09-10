@@ -105,13 +105,9 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaExtremeHillsPlus)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.extremeHillsPlus, RTGBiomes.baseRiverCold,
-							new TerrainMountain(),
-							new SurfaceMountainStone(Blocks.gravel, Blocks.gravel, false, null, 1f, 1.5f, 85f, 20f, 4f)
-						),
-						BiomeCategory.COLD
-					);
+					new RealisticBiomeVanillaExtremeHillsPlus(),
+					BiomeCategory.COLD
+				);
 			}
 			
 			//vanilla_extremeHillsEdge - NOT IMPLEMENTED IN VANILLA

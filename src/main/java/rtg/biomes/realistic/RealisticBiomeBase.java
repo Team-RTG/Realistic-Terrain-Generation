@@ -131,6 +131,7 @@ public class RealisticBiomeBase
 	public static RealisticBiomeBase vanillaForest = new RealisticBiomeVanillaForest();
 	public static RealisticBiomeBase vanillaForestHills = new RealisticBiomeVanillaForestHills();
 	public static RealisticBiomeBase vanillaIcePlains = new RealisticBiomeVanillaIcePlains();
+	public static RealisticBiomeBase vanillaIceMountains = new RealisticBiomeVanillaIceMountains();
 	public static RealisticBiomeBase vanillaPlains = new RealisticBiomeVanillaPlains();
 	public static RealisticBiomeBase vanillaRoofedForest = new RealisticBiomeVanillaRoofedForest();
 	public static RealisticBiomeBase vanillaStoneBeach = new RealisticBiomeVanillaStoneBeach();

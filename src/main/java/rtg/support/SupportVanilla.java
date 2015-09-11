@@ -194,13 +194,9 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaIceMountains)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.iceMountains, RTGBiomes.baseRiverIce,
-							new TerrainGrasslandMountains(),
-							new SurfaceGrassland(Blocks.snow, Blocks.dirt, Blocks.packed_ice, Blocks.ice)
-						),
-						BiomeCategory.SNOW
-					);
+					new RealisticBiomeVanillaIceMountains(),
+					BiomeCategory.SNOW
+				);
 			}
 			
 			/*

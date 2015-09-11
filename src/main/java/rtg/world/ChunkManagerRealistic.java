@@ -368,7 +368,7 @@ public class ChunkManagerRealistic extends WorldChunkManager
     	
     	}*/
     	
-    	//output = RealisticBiomeBase.vanillaRoofedForest;
+    	//output = RealisticBiomeBase.vanillaIcePlains;
     	
 		if (biomeDataMap.size() > 4096) {
 			biomeDataMap.clear();

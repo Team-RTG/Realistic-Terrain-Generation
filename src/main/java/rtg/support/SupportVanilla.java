@@ -224,13 +224,9 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaJungleHills)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.jungleHills, RTGBiomes.baseRiverWet,
-							new TerrainMountain(),
-							new SurfaceGrassland(Blocks.grass, Blocks.dirt, Blocks.stone, Blocks.cobblestone)
-						),
-						BiomeCategory.WET
-					);
+					new RealisticBiomeVanillaJungleHills(),
+					BiomeCategory.WET
+				);
 			}
 			
 			//vanilla_jungleEdge

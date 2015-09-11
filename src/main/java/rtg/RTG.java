@@ -13,10 +13,12 @@ import rtg.biomes.base.BaseBiomes;
 import rtg.config.ConfigRTG;
 import rtg.data.TreeReplacement;
 import rtg.data.VillageMaterials;
+import rtg.init.ModMapGen;
+import rtg.reference.ModInfo;
 import rtg.support.Support;
 import rtg.world.WorldTypeRealistic;
 
-@Mod(modid="RTG", name="RealisticWorldGen", version="Alpha 1.3.2", acceptableRemoteVersions="*")
+@Mod(modid=ModInfo.MOD_ID, name=ModInfo.MOD_NAME, version=ModInfo.MOD_VERSION, acceptableRemoteVersions="*")
 public class RTG
 {	
 	@Instance("RTG")
@@ -31,10 +33,15 @@ public class RTG
 		instance = this;
 		
 		ConfigRTG.init(event);
+		
+		
+		
 		BaseBiomes.load();
 		
 		MinecraftForge.TERRAIN_GEN_BUS.register(new VillageMaterials());
 		//MinecraftForge.TERRAIN_GEN_BUS.register(new TreeReplacement());
+		
+		ModMapGen.registerMapGen();
 	}
 	
 	@EventHandler

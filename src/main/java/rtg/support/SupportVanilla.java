@@ -137,52 +137,36 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaForestHills)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.forestHills, RTGBiomes.baseRiverTemperate,
-							new TerrainGrasslandHills(70f, 180f, 7f, 100f, 38f, 260f, 68f),
-							new SurfaceGrassland(Blocks.grass, Blocks.dirt, Blocks.grass, Blocks.grass)
-						),
-						BiomeCategory.WET
-					);
+					new RealisticBiomeVanillaForestHills(),
+					BiomeCategory.WET
+				);
 			}
 			
 			//vanilla_birchForest
 			if (ConfigRTG.generateVanillaBirchForest)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.birchForest, RTGBiomes.baseRiverTemperate,
-							new TerrainGrasslandFlats(),
-							new SurfaceGrassland(Blocks.grass, Blocks.dirt, Blocks.stone, Blocks.cobblestone)
-						),
-						BiomeCategory.WET
-					);
+					new RealisticBiomeVanillaBirchForest(),
+					BiomeCategory.WET
+				);
 			}
 			
 			//vanilla_birchForestHills
 			if (ConfigRTG.generateVanillaBirchForestHills)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.birchForestHills, RTGBiomes.baseRiverTemperate,
-							new TerrainGrasslandHills(70f, 180f, 7f, 100f, 38f, 260f, 68f),
-							new SurfaceGrassland(Blocks.grass, Blocks.dirt, Blocks.stone, Blocks.cobblestone)
-						),
-						BiomeCategory.WET
-					);
+					new RealisticBiomeVanillaBirchForestHills(),
+					BiomeCategory.WET
+				);
 			}
 			
 			//vanilla_roofedForest
 			if (ConfigRTG.generateVanillaRoofedForest)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.roofedForest, RTGBiomes.baseRiverTemperate,
-							new TerrainGrasslandFlats(),
-							new SurfaceGrassland(Blocks.grass, Blocks.dirt, Blocks.stone, Blocks.cobblestone)
-						),
-						BiomeCategory.WET
-					);
+					new RealisticBiomeVanillaRoofedForest(),
+					BiomeCategory.WET
+				);
 			}
 			
 			/*

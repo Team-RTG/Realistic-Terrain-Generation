@@ -21,7 +21,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanilla
 			RTGBiomes.baseRiverTemperate,
 			new CoastVanillaForest(),
 			new TerrainVanillaForest(),
-			new SurfaceVanillaForest(BiomeGenBase.forest.topBlock, BiomeGenBase.forest.fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceVanillaForest(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
 	}	
 }

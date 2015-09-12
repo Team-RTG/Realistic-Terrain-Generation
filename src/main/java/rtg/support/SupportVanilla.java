@@ -436,13 +436,9 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaSwampland)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.swampland, RTGBiomes.baseRiverWet,
-							new TerrainMarsh(),
-							new SurfaceGrassland(Blocks.grass, Blocks.dirt, Blocks.stone, Blocks.cobblestone)
-						),
-						BiomeCategory.WET
-					);
+					new RealisticBiomeVanillaSwampland(),
+					BiomeCategory.WET
+				);
 			}
 			
 			/*

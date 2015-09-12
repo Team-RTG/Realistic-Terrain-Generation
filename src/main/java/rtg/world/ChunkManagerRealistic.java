@@ -368,7 +368,7 @@ public class ChunkManagerRealistic extends WorldChunkManager
     	
     	}*/
     	
-    	//output = RealisticBiomeBase.vanillaColdTaigaHills;
+    	//output = RealisticBiomeBase.vanillaMegaTaiga;
     	
 		if (biomeDataMap.size() > 4096) {
 			biomeDataMap.clear();

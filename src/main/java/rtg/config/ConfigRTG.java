@@ -9,7 +9,7 @@ public class ConfigRTG
 	
 	public static int[] biomeIDs = new int[25];
 
-	public static boolean generateRtgRiverIce = true;
+	/*public static boolean generateRtgRiverIce = true;
 	public static boolean generateRtgRiverCold = true;
 	public static boolean generateRtgRiverTemperate = true;
 	public static boolean generateRtgRiverHot = true;
@@ -33,7 +33,7 @@ public class ConfigRTG
 	public static boolean generateRtgRedwood = true;
 	public static boolean generateRtgJungle = true;
 	public static boolean generateRtgOasis = true;
-	public static boolean generateRtgTemperateForest = true;
+	public static boolean generateRtgTemperateForest = true;*/
 	
 	public static boolean generateVanillaBiomes = true;
 	
@@ -137,7 +137,7 @@ public class ConfigRTG
 			####################################################################################################
 			*/
 			
-			generateRtgRiverIce = config.getBoolean("generateRtgRiverIce", "RTG Biomes", true, "");
+			/*generateRtgRiverIce = config.getBoolean("generateRtgRiverIce", "RTG Biomes", true, "");
 			generateRtgRiverCold = config.getBoolean("generateRtgRiverCold", "RTG Biomes", true, "");
 			generateRtgRiverTemperate = config.getBoolean("generateRtgRiverTemperate", "RTG Biomes", true, "");
 			generateRtgRiverHot = config.getBoolean("generateRtgRiverHot", "RTG Biomes", true, "");
@@ -161,7 +161,7 @@ public class ConfigRTG
 			generateRtgRedwood = config.getBoolean("generateRtgRedwood", "RTG Biomes", true, "");
 			generateRtgJungle = config.getBoolean("generateRtgJungle", "RTG Biomes", true, "");
 			generateRtgOasis = config.getBoolean("generateRtgOasis", "RTG Biomes", true, "");
-			generateRtgTemperateForest = config.getBoolean("generateRtgTemperateForest", "RTG Biomes", true, "");
+			generateRtgTemperateForest = config.getBoolean("generateRtgTemperateForest", "RTG Biomes", true, "");*/
 				
 			/*
 			####################################################################################################

@@ -124,6 +124,7 @@ public class RealisticBiomeBase
 	public static RealisticBiomeBase vanillaBirchForest = new RealisticBiomeVanillaBirchForest();
 	public static RealisticBiomeBase vanillaBirchForestHills = new RealisticBiomeVanillaBirchForestHills();
 	public static RealisticBiomeBase vanillaColdBeach = new RealisticBiomeVanillaColdBeach();
+	public static RealisticBiomeBase vanillaDeepOcean = new RealisticBiomeVanillaDeepOcean();
 	public static RealisticBiomeBase vanillaDesert = new RealisticBiomeVanillaDesert();
 	public static RealisticBiomeBase vanillaDesertHills = new RealisticBiomeVanillaDesertHills();
 	public static RealisticBiomeBase vanillaExtremeHills = new RealisticBiomeVanillaExtremeHills();
@@ -140,6 +141,7 @@ public class RealisticBiomeBase
 	public static RealisticBiomeBase vanillaMesaPlateau_F = new RealisticBiomeVanillaMesaPlateauF();
 	public static RealisticBiomeBase vanillaMushroomIsland = new RealisticBiomeVanillaMushroomIsland();
 	public static RealisticBiomeBase vanillaMushroomIslandShore = new RealisticBiomeVanillaMushroomIslandShore();
+	public static RealisticBiomeBase vanillaOcean = new RealisticBiomeVanillaOcean();
 	public static RealisticBiomeBase vanillaPlains = new RealisticBiomeVanillaPlains();
 	public static RealisticBiomeBase vanillaRoofedForest = new RealisticBiomeVanillaRoofedForest();
 	public static RealisticBiomeBase vanillaStoneBeach = new RealisticBiomeVanillaStoneBeach();

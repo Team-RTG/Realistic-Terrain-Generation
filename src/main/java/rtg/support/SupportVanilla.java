@@ -323,28 +323,18 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaOcean)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.ocean, RTGBiomes.baseRiverWet,
-							RealisticBiomeSupport.coastOasis,
-							new TerrainOcean(),
-							new SurfaceCanyon(Blocks.sand, Blocks.sand, (byte)0, 0)
-						),
-						BiomeCategory.WET
-					);
+					new RealisticBiomeVanillaOcean(),
+					BiomeCategory.WET
+				);
 			}
 			
 			//vanilla_deepOcean
 			if (ConfigRTG.generateVanillaDeepOcean)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.deepOcean, RTGBiomes.baseRiverWet,
-							RealisticBiomeSupport.coastOasis,
-							new TerrainOcean(),
-							new SurfaceCanyon(Blocks.sand, Blocks.sand, (byte)0, 0)
-						),
-						BiomeCategory.WET
-					);
+					new RealisticBiomeVanillaDeepOcean(),
+					BiomeCategory.WET
+				);
 			}
 			
 			//vanilla_frozenOcean - NOT IMPLEMENTED IN VANILLA

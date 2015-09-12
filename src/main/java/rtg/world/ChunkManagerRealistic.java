@@ -344,24 +344,24 @@ public class ChunkManagerRealistic extends WorldChunkManager
     	 * @todo Add a config option for single-biome worlds. - Pink
     	 ###########################################################################################*/
     	
-    	int intMin = 1;
+    	/*int intMin = 1;
     	int intMax = 4;
     	Random objRandom = new Random();
     	int intRandom = objRandom.nextInt(intMax - intMin + 1) + intMin;
     	
-    	/*switch (intRandom)
+    	switch (intRandom)
     	{
     		case 1:
-    			output = RealisticBiomeBase.vanillaMushroomIsland;
+    			output = RealisticBiomeBase.vanillaOcean;
     			break;
     		case 2:
-    			output = RealisticBiomeBase.vanillaMushroomIslandShore;
+    			output = RealisticBiomeBase.vanillaDeepOcean;
     			break;
     		case 3:
-    			output = RealisticBiomeBase.vanillaMushroomIsland;
+    			output = RealisticBiomeBase.vanillaOcean;
     			break;
     		case 4:
-    			output = RealisticBiomeBase.vanillaMushroomIslandShore;
+    			output = RealisticBiomeBase.vanillaDeepOcean;
     			break;
     		default:
     			break;

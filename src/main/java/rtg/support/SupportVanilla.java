@@ -406,13 +406,9 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaSavanna)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.savanna, RTGBiomes.baseRiverHot,
-							new TerrainGrasslandFlats(),
-							new SurfaceGrasslandMix1(Blocks.grass, Blocks.dirt, Blocks.sand, Blocks.stone, Blocks.cobblestone, 13f, 0.27f)
-						),
-						BiomeCategory.HOT
-					);
+					new RealisticBiomeVanillaSavanna(),
+					BiomeCategory.HOT
+				);
 			}
 			
 			//vanilla_savannaPlateau

@@ -1,0 +1,27 @@
+package rtg.biomes.realistic.vanilla;
+
+import rtg.api.RTGBiomes;
+import rtg.biomes.realistic.RealisticBiomeBase;
+import rtg.coast.vanilla.CoastVanillaColdTaiga;
+import rtg.surface.vanilla.SurfaceVanillaColdTaiga;
+import rtg.terrain.vanilla.TerrainVanillaColdTaiga;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
+
+public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanilla
+{	
+	public static Block topBlock = BiomeGenBase.coldTaiga.topBlock;
+	public static Block fillerBlock = BiomeGenBase.coldTaiga.fillerBlock;
+	
+	public RealisticBiomeVanillaColdTaiga()
+	{
+		super(
+			BiomeGenBase.coldTaiga,
+			RTGBiomes.baseRiverCold,
+			new CoastVanillaColdTaiga(),
+			new TerrainVanillaColdTaiga(),
+			new SurfaceVanillaColdTaiga(topBlock, fillerBlock)
+		);
+	}	
+}

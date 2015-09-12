@@ -47,6 +47,7 @@ import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenTallGrass;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraft.world.gen.structure.MapGenMineshaft;
+import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.MapGenStronghold;
 import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraftforge.common.MinecraftForge;
@@ -56,6 +57,9 @@ import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
+/**
+ * Scattered features courtesy of Ezoteric (https://github.com/Ezoteric) and Choonster (https://github.com/Choonster)
+ */
 public class ChunkGeneratorRealistic implements IChunkProvider
 {
     private Random rand;
@@ -67,6 +71,7 @@ public class ChunkGeneratorRealistic implements IChunkProvider
     private final MapGenStronghold strongholdGenerator;
     private final MapGenMineshaft mineshaftGenerator;
     private final MapGenVillage villageGenerator;
+    private final MapGenScatteredFeature scatteredFeatureGenerator;
     
     private PerlinNoise perlin;
     private CellNoise cell;
@@ -120,6 +125,7 @@ public class ChunkGeneratorRealistic implements IChunkProvider
         villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), VILLAGE);
 		strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), STRONGHOLD);
 		mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(), MINESHAFT);
+		scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new net.minecraft.world.gen.structure.MapGenScatteredFeature(), SCATTERED_FEATURE);
         
         CanyonColor.init(l);
 
@@ -174,6 +180,7 @@ public class ChunkGeneratorRealistic implements IChunkProvider
         mineshaftGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
         strongholdGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
         villageGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+        scatteredFeatureGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
         
     	long second = System.currentTimeMillis();
 
@@ -500,6 +507,7 @@ public class ChunkGeneratorRealistic implements IChunkProvider
         mineshaftGenerator.generateStructuresInChunk(worldObj, rand, i, j);
         strongholdGenerator.generateStructuresInChunk(worldObj, rand, i, j);
         villageGenerator.generateStructuresInChunk(worldObj, rand, i, j);
+        scatteredFeatureGenerator.generateStructuresInChunk(worldObj, rand, i, j);
         
         boolean gen = false;
 
@@ -839,5 +847,7 @@ public class ChunkGeneratorRealistic implements IChunkProvider
 		strongholdGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
 		mineshaftGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
         villageGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+		scatteredFeatureGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+        
 	}
 }

@@ -91,27 +91,30 @@ public class MapGenScatteredFeatureModBiomes extends MapGenScatteredFeature {
 
 			BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(chunkX * 16 + 8, chunkZ * 16 + 8);
 
-			List<WeightedRandomScatteredFeature> possibleFeatures = new ArrayList<WeightedRandomScatteredFeature>();
+	//		List<WeightedRandomScatteredFeature> possibleFeatures = new ArrayList<WeightedRandomScatteredFeature>();
 
 			if (BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.SANDY)) {
 				ComponentScatteredFeaturePieces.DesertPyramid desertpyramid = new ComponentScatteredFeaturePieces.DesertPyramid(random, chunkX * 16, chunkZ * 16);
-				possibleFeatures.add(new WeightedRandomScatteredFeature(desertpyramid, 100));
+			//	possibleFeatures.add(new WeightedRandomScatteredFeature(desertpyramid, 100));
+				this.components.add(desertpyramid);
 			}
 
 			if (BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.JUNGLE)) {
 				ComponentScatteredFeaturePieces.JunglePyramid junglepyramid = new ComponentScatteredFeaturePieces.JunglePyramid(random, chunkX * 16, chunkZ * 16);
-				possibleFeatures.add(new WeightedRandomScatteredFeature(junglepyramid, 100));
+			//	possibleFeatures.add(new WeightedRandomScatteredFeature(junglepyramid, 100));
+			        this.components.add(junglepyramid);
 			}
 
 			if (BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.SWAMP)) {
 				ComponentScatteredFeaturePieces.SwampHut swamphut = new ComponentScatteredFeaturePieces.SwampHut(random, chunkX * 16, chunkZ * 16);
-				possibleFeatures.add(new WeightedRandomScatteredFeature(swamphut, 100));
+			//	possibleFeatures.add(new WeightedRandomScatteredFeature(swamphut, 100));
+			        this.components.add(swamphut);
 			}
 
-			WeightedRandomScatteredFeature featureToGenerate = (WeightedRandomScatteredFeature) WeightedRandom.getRandomItem(random, possibleFeatures);
-			this.components.add(featureToGenerate.feature);
+	//		WeightedRandomScatteredFeature featureToGenerate = (WeightedRandomScatteredFeature) WeightedRandom.getRandomItem(random, possibleFeatures);
+	//		this.components.add(featureToGenerate.feature);
 
-			Logger.info("Scattered feature %s at %d, %d", featureToGenerate.feature.toString(), chunkX * 16, chunkZ * 16);
+	//		Logger.info("Scattered feature %s at %d, %d", featureToGenerate.feature.toString(), chunkX * 16, chunkZ * 16);
 
 			this.updateBoundingBox();
 		}

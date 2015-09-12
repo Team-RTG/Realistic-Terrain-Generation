@@ -147,6 +147,7 @@ public class RealisticBiomeBase
 	public static RealisticBiomeBase vanillaRiver = new RealisticBiomeVanillaRiver();
 	public static RealisticBiomeBase vanillaRoofedForest = new RealisticBiomeVanillaRoofedForest();
 	public static RealisticBiomeBase vanillaSavanna = new RealisticBiomeVanillaSavanna();
+	public static RealisticBiomeBase vanillaSavannaPlateau = new RealisticBiomeVanillaSavannaPlateau();
 	public static RealisticBiomeBase vanillaStoneBeach = new RealisticBiomeVanillaStoneBeach();
 	
 	// ==============================================================================================

@@ -457,13 +457,9 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaTaiga)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.taiga, RTGBiomes.baseRiverCold,
-							new TerrainFlatLakes(),
-							new SurfaceTundra(Blocks.grass, Blocks.dirt)
-						),
-						BiomeCategory.COLD
-					);
+					new RealisticBiomeVanillaTaiga(),
+					BiomeCategory.COLD
+				);
 			}
 			
 			//vanilla_taigaHills

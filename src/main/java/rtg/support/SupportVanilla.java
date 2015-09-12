@@ -263,13 +263,9 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaMesaPlateau)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.mesaPlateau, RTGBiomes.baseRiverOasis,
-							new TerrainCanyon(true, 35f, 160f, 60f, 40f, 69f),
-							new SurfaceCanyon(Blocks.sand, Blocks.sand, (byte)1, 0)
-						),
-						BiomeCategory.HOT
-					);
+					new RealisticBiomeVanillaMesaPlateau(),
+					BiomeCategory.HOT
+				);
 			}
 			
 			//vanilla_mesaPlateau_F

@@ -352,23 +352,23 @@ public class ChunkManagerRealistic extends WorldChunkManager
     	/*switch (intRandom)
     	{
     		case 1:
-    			output = RealisticBiomeBase.vanillaRoofedForest;
+    			output = RealisticBiomeBase.vanillaMushroomIsland;
     			break;
     		case 2:
-    			output = RealisticBiomeBase.vanillaRoofedForest;
+    			output = RealisticBiomeBase.vanillaMushroomIslandShore;
     			break;
     		case 3:
-    			output = RealisticBiomeBase.vanillaRoofedForest;
+    			output = RealisticBiomeBase.vanillaMushroomIsland;
     			break;
     		case 4:
-    			output = RealisticBiomeBase.vanillaRoofedForest;
+    			output = RealisticBiomeBase.vanillaMushroomIslandShore;
     			break;
     		default:
     			break;
     	
     	}*/
     	
-    	//output = RealisticBiomeBase.vanillaMushroomIsland;
+    	//output = RealisticBiomeBase.vanillaMushroomIslandShore;
     	
 		if (biomeDataMap.size() > 4096) {
 			biomeDataMap.clear();

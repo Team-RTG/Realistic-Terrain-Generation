@@ -302,13 +302,9 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaMushroomIslandShore)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.mushroomIslandShore, RTGBiomes.baseRiverWet,
-							new TerrainSwampRiver(),
-							new SurfaceIslandMountainStone(Blocks.mycelium, Blocks.dirt, 67, Blocks.mycelium, 0f)
-						),
-						BiomeCategory.WET
-					);
+					new RealisticBiomeVanillaMushroomIslandShore(),
+					BiomeCategory.WET
+				);
 			}
 			
 			/*

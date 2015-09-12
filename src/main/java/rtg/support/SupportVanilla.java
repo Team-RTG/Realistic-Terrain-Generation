@@ -385,13 +385,9 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaFrozenRiver)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.frozenRiver, RTGBiomes.baseRiverIce,
-							new TerrainFlatLakes(),
-							new SurfaceDesertOasis(Blocks.snow, Blocks.snow, Blocks.snow, Blocks.snow, (byte)0, 0)
-						),
-						BiomeCategory.SNOW
-					);
+					new RealisticBiomeVanillaFrozenRiver(),
+					BiomeCategory.SNOW
+				);
 			}
 			
 			/*

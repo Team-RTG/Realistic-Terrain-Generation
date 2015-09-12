@@ -368,7 +368,7 @@ public class ChunkManagerRealistic extends WorldChunkManager
     	
     	}*/
     	
-    	//output = RealisticBiomeBase.vanillaRiver;
+    	//output = RealisticBiomeBase.vanillaFrozenRiver;
     	
 		if (biomeDataMap.size() > 4096) {
 			biomeDataMap.clear();

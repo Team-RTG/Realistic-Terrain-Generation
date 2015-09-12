@@ -140,6 +140,7 @@ public class RealisticBiomeBase
 	public static RealisticBiomeBase vanillaJungleEdge = new RealisticBiomeVanillaJungleEdge();
 	public static RealisticBiomeBase vanillaJungleHills = new RealisticBiomeVanillaJungleHills();
 	public static RealisticBiomeBase vanillaMegaTaiga = new RealisticBiomeVanillaMegaTaiga();
+	public static RealisticBiomeBase vanillaMegaTaigaHills = new RealisticBiomeVanillaMegaTaigaHills();
 	public static RealisticBiomeBase vanillaMesa = new RealisticBiomeVanillaMesa();
 	public static RealisticBiomeBase vanillaMesaPlateau = new RealisticBiomeVanillaMesaPlateau();
 	public static RealisticBiomeBase vanillaMesaPlateau_F = new RealisticBiomeVanillaMesaPlateauF();

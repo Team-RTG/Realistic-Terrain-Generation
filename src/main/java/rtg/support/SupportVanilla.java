@@ -502,13 +502,9 @@ public class SupportVanilla
 			if (ConfigRTG.generateVanillaMegaTaigaHills)
 			{
 				Support.addBiome(
-						new RealisticBiomeSupport(
-							BiomeGenBase.megaTaigaHills, RTGBiomes.baseRiverCold,
-							new TerrainHilly(230f, 120f, 90f),
-							new SurfaceMountainStone(Blocks.grass, Blocks.dirt, true, Blocks.sand, 0.2f)
-						),
-						BiomeCategory.COLD
-					);
+					new RealisticBiomeVanillaMegaTaigaHills(),
+					BiomeCategory.COLD
+				);
 			}
 			
 			/*

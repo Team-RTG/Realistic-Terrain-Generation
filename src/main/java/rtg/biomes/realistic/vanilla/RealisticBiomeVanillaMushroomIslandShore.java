@@ -18,7 +18,7 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
 	{
 		super(
 			BiomeGenBase.mushroomIslandShore,
-			RTGBiomes.baseRiverWet,
+			RTGBiomes.baseOceanCold,
 			new CoastVanillaMushroomIslandShore(),
 			new TerrainVanillaMushroomIslandShore(),
 			new SurfaceVanillaMushroomIslandShore(topBlock, fillerBlock, 67, topBlock, 0f)

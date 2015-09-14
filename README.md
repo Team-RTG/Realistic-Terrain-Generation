@@ -21,3 +21,13 @@ Downloads can be found in the [Releases](https://github.com/whichonespink44/Real
 
 # Credits
 This mod is a re-branded fork of the revolutionary [Realistic World Gen](https://github.com/Ted80-Minecraft-Mods/Realistic-World-Gen) mod by [Ted80](https://github.com/Ted80-Minecraft-Mods). It was created as a new project because it will likely deviate from Ted80's original vision for RWG, and the author of this mod didn't want to interfere with that vision.
+
+# License
+Realistic Terrain Generation
+Copyright (C) 2015 WhichOnesPink
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program. If not, see [http://www.gnu.org/licenses/](http://www.gnu.org/licenses/).

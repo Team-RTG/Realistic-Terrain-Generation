@@ -1,7 +1,6 @@
 package rtg.biomes.realistic.vanilla;
 
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.api.RTGBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.support.RealisticBiomeSupport;
 import rtg.surface.SurfaceBase;

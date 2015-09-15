@@ -13,6 +13,7 @@ import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.RTGBiomes;
+import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.deco.DecoFlowers;
 import rtg.deco.DecoGrass;
@@ -37,7 +38,7 @@ public class RealisticBiomeWoodMountains extends RealisticBiomeBase
 
 	public RealisticBiomeWoodMountains() 
 	{
-		super(0, RTGBiomes.baseTemperateForest, RealisticBiomeBase.coastDunes, RTGBiomes.baseRiverTemperate);
+		super(0, RTGBiomes.baseTemperateForest, RealisticBiomeBase.coastDunes, VanillaBiomes.vanillaRiverTemperate);
 		
 		terrain = new TerrainMountainRiver();
 		surface = new SurfaceMountainSnow(Blocks.grass, Blocks.dirt, true, Blocks.sand, 0.2f);

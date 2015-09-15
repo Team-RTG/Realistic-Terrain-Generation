@@ -2,7 +2,7 @@ package rtg.support;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import rtg.api.RTGBiomes;
+import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.support.edit.*;
 import rtg.surface.*;
@@ -18,7 +18,7 @@ public class SupportBOP
 		//ALPS
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.alps, RTGBiomes.baseRiverCold,
+				BOPCBiomes.alps, VanillaBiomes.vanillaRiverCold,
 				new TerrainMountainRiver(),
 				new SurfaceMountainSnow(BOPCBiomes.alps.topBlock, BOPCBiomes.alps.fillerBlock, false, null, 0.45f)
 			),
@@ -28,7 +28,7 @@ public class SupportBOP
 		//ALPS FOREST
 /*		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.alpsForest, RTGBiomes.baseRiverCold,
+				BOPCBiomes.alpsForest, VanillaBiomes.vanillaRiverCold,
 				new TerrainMountainRiver(),
 				new SurfaceMountainSnow(Blocks.grass, Blocks.dirt, false, null, 0.45f)
 			),
@@ -38,7 +38,7 @@ public class SupportBOP
 		//ARCTIC
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.arctic, RTGBiomes.baseRiverIce,
+				BOPCBiomes.arctic, VanillaBiomes.vanillaRiverIce,
 				new TerrainGrasslandFlats(),
 				new SurfaceTundra(BOPCBiomes.arctic.topBlock, BOPCBiomes.arctic.fillerBlock)
 			),
@@ -48,7 +48,7 @@ public class SupportBOP
 		//BAMBOO FOREST
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.bambooForest, RTGBiomes.baseRiverWet,
+				BOPCBiomes.bambooForest, VanillaBiomes.vanillaRiverWet,
 				new TerrainSwampMountain(135f, 300f),
 				new SurfaceMountainStone(BOPCBiomes.bambooForest.topBlock, BOPCBiomes.bambooForest.fillerBlock, false, null, 0.95f)
 			),
@@ -58,7 +58,7 @@ public class SupportBOP
 		//BAYOU
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.bayou, RTGBiomes.baseRiverWet,
+				BOPCBiomes.bayou, VanillaBiomes.vanillaRiverWet,
 				new TerrainSwampRiver(),
 				new SurfaceGrassland(BOPCBiomes.bayou.topBlock, BOPCBiomes.bayou.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -68,7 +68,7 @@ public class SupportBOP
 		//BOG
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.bog, RTGBiomes.baseRiverHot,
+				BOPCBiomes.bog, VanillaBiomes.vanillaRiverHot,
 				new TerrainMarsh(),
 				new SurfaceGrassland(BOPCBiomes.bog.topBlock, BOPCBiomes.bog.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -78,7 +78,7 @@ public class SupportBOP
 		//BOREAL FOREST
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.borealForest, RTGBiomes.baseRiverCold,
+				BOPCBiomes.borealForest, VanillaBiomes.vanillaRiverCold,
 				new TerrainMountainSpikes(),
 				new SurfaceMountainSnow(BOPCBiomes.borealForest.topBlock, BOPCBiomes.borealForest.fillerBlock, true, Blocks.sand, 0.45f, 1.5f, 60f, 65f, 0.4f, 130f, 50f, 1.5f)
 			),
@@ -88,7 +88,7 @@ public class SupportBOP
 		//BRUSHLAND
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.brushland, RTGBiomes.baseRiverHot,
+				BOPCBiomes.brushland, VanillaBiomes.vanillaRiverHot,
 				new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 				new SurfaceGrasslandMix1(BOPCBiomes.brushland.topBlock, BOPCBiomes.brushland.fillerBlock, Blocks.sand, Blocks.stone, Blocks.cobblestone, 13f, 0.27f)
 			),
@@ -96,7 +96,7 @@ public class SupportBOP
 		);
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.brushland, RTGBiomes.baseRiverOasis,
+				BOPCBiomes.brushland, VanillaBiomes.vanillaRiverOasis,
 				RealisticBiomeBase.coastOasis,
 				new TerrainDuneValley(300f),
 				new SurfaceBase[]{
@@ -113,7 +113,7 @@ public class SupportBOP
 		//CANYON
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.canyon, RTGBiomes.baseRiverHot,
+				BOPCBiomes.canyon, VanillaBiomes.vanillaRiverHot,
 				new TerrainCanyon(true, 35f, 160f, 60f, 40f, 69f),
 				new SurfaceCanyon(BOPCBiomes.canyon.topBlock, BOPCBiomes.canyon.fillerBlock, (byte)0, 0)
 			),
@@ -123,7 +123,7 @@ public class SupportBOP
 		//CHAPARRAL
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.chaparral, RTGBiomes.baseRiverHot,
+				BOPCBiomes.chaparral, VanillaBiomes.vanillaRiverHot,
 				new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 				new SurfaceGrasslandMix1(BOPCBiomes.chaparral.topBlock, BOPCBiomes.chaparral.fillerBlock, Blocks.sand, Blocks.stone, Blocks.cobblestone, 26f, 0.35f)
 			),
@@ -133,7 +133,7 @@ public class SupportBOP
 		//CHERRYBLOSSOM GROVE
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.cherryBlossomGrove, RTGBiomes.baseRiverTemperate,
+				BOPCBiomes.cherryBlossomGrove, VanillaBiomes.vanillaRiverTemperate,
 				new TerrainHighland(6f, 120f, 65f, 200f),
 				new SurfaceMountainStone(BOPCBiomes.borealForest.topBlock, BOPCBiomes.borealForest.fillerBlock, true, Blocks.sand, 0.45f, 1.5f, 60f, 65f, 1.5f)
 			),
@@ -143,7 +143,7 @@ public class SupportBOP
 		//CONIFEROUS FOREST
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.coniferousForest, RTGBiomes.baseRiverCold,
+				BOPCBiomes.coniferousForest, VanillaBiomes.vanillaRiverCold,
 				new TerrainMountainRiver(),
 				new SurfaceMountainSnow(BOPCBiomes.snowyConiferousForest.topBlock, BOPCBiomes.snowyConiferousForest.fillerBlock, false, null, 0.45f)
 			),
@@ -151,7 +151,7 @@ public class SupportBOP
 		);
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.snowyConiferousForest, RTGBiomes.baseRiverIce,
+				BOPCBiomes.snowyConiferousForest, VanillaBiomes.vanillaRiverIce,
 				new TerrainMountainRiver(),
 				new SurfaceMountainSnow(BOPCBiomes.snowyConiferousForest.topBlock, BOPCBiomes.snowyConiferousForest.fillerBlock, false, null, 0.45f, 1.5f, 50f, 60f, 0.4f, 100f, 50f, 1.5f)
 			),
@@ -161,7 +161,7 @@ public class SupportBOP
 		//CRAG
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.crag, RTGBiomes.baseRiverWet,
+				BOPCBiomes.crag, VanillaBiomes.vanillaRiverWet,
 				new TerrainMountain(),
 				new SurfaceGrassland(BOPCBiomes.crag.topBlock, BOPCBiomes.crag.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -171,7 +171,7 @@ public class SupportBOP
 		//DEAD FOREST
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.deadForest, RTGBiomes.baseRiverTemperate,
+				BOPCBiomes.deadForest, VanillaBiomes.vanillaRiverTemperate,
 				new TerrainGrasslandHills(50f, 180f, 13f, 100f, 28f, 260f, 70f),
 				new SurfaceGrassland(BOPCBiomes.deadForest.topBlock, BOPCBiomes.deadForest.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -181,7 +181,7 @@ public class SupportBOP
 		//DEAD SWAMP
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.deadSwamp, RTGBiomes.baseRiverWet,
+				BOPCBiomes.deadSwamp, VanillaBiomes.vanillaRiverWet,
 				new TerrainMarsh(),
 				new SurfaceGrassland(BOPCBiomes.deadSwamp.topBlock, BOPCBiomes.deadSwamp.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -191,7 +191,7 @@ public class SupportBOP
 		//DECIDUOUS FOREST
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.deciduousForest, RTGBiomes.baseRiverHot,
+				BOPCBiomes.deciduousForest, VanillaBiomes.vanillaRiverHot,
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.deciduousForest.topBlock, BOPCBiomes.deciduousForest.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -201,7 +201,7 @@ public class SupportBOP
 		//FEN
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.fen, RTGBiomes.baseRiverHot,
+				BOPCBiomes.fen, VanillaBiomes.vanillaRiverHot,
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.fen.topBlock, BOPCBiomes.fen.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -220,7 +220,7 @@ public class SupportBOP
 		//FROST FOREST
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.frostForest, RTGBiomes.baseRiverIce,
+				BOPCBiomes.frostForest, VanillaBiomes.vanillaRiverIce,
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.frostForest.topBlock, BOPCBiomes.frostForest.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -230,7 +230,7 @@ public class SupportBOP
 		//FUNGI FOREST
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.fungiForest, RTGBiomes.baseRiverWet,
+				BOPCBiomes.fungiForest, VanillaBiomes.vanillaRiverWet,
 				new TerrainSwampMountain(135f, 300f),
 				new SurfaceMountainStone(BOPCBiomes.fungiForest.topBlock, BOPCBiomes.fungiForest.fillerBlock, false, null, 0.95f)
 			),
@@ -240,7 +240,7 @@ public class SupportBOP
 		//GARDEN
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.garden, RTGBiomes.baseRiverTemperate,
+				BOPCBiomes.garden, VanillaBiomes.vanillaRiverTemperate,
 				new TerrainMountainSpikes(),
 				new SurfaceMountainSnow(BOPCBiomes.garden.topBlock, BOPCBiomes.garden.fillerBlock, true, Blocks.sand, 0.45f, 1.5f, 60f, 65f, 0.4f, 130f, 50f, 1.5f)
 			),
@@ -259,7 +259,7 @@ public class SupportBOP
 		//GROVE
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.grove, RTGBiomes.baseRiverTemperate,
+				BOPCBiomes.grove, VanillaBiomes.vanillaRiverTemperate,
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.grove.topBlock, BOPCBiomes.grove.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -269,7 +269,7 @@ public class SupportBOP
 		//HEATHLAND
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.heathland, RTGBiomes.baseRiverOasis,
+				BOPCBiomes.heathland, VanillaBiomes.vanillaRiverOasis,
 				RealisticBiomeBase.coastOasis,
 				new TerrainDuneValley(300f),
 				new SurfaceBase[]{
@@ -286,7 +286,7 @@ public class SupportBOP
 		//HIGHLAND
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.highland, RTGBiomes.baseRiverTemperate,
+				BOPCBiomes.highland, VanillaBiomes.vanillaRiverTemperate,
 				new TerrainHighland(0f, 140f, 68f, 150f),
 				new SurfaceMountainStone(BOPCBiomes.highland.topBlock, BOPCBiomes.highland.fillerBlock, false, null, 1f, 1.5f, 85f, 20f, 4f)
 			),
@@ -296,7 +296,7 @@ public class SupportBOP
 		//JADE CLIFFS
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.jadeCliffs, RTGBiomes.baseRiverHot,
+				BOPCBiomes.jadeCliffs, VanillaBiomes.vanillaRiverHot,
 				new TerrainHilly(230f, 120f, 0f),
 				new SurfaceMountainStone(BOPCBiomes.jadeCliffs.topBlock, BOPCBiomes.jadeCliffs.fillerBlock, false, null, 0.95f)
 			),
@@ -306,7 +306,7 @@ public class SupportBOP
 		//LAVENDER FIELDS
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.lavenderFields, RTGBiomes.baseRiverTemperate,
+				BOPCBiomes.lavenderFields, VanillaBiomes.vanillaRiverTemperate,
 				new TerrainMountainSpikes(),
 				new SurfaceMountainStone(BOPCBiomes.lavenderFields.topBlock, BOPCBiomes.lavenderFields.fillerBlock, false, null, 1.2f)
 			),
@@ -316,7 +316,7 @@ public class SupportBOP
 		//LUSH DESERT
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.lushDesert, RTGBiomes.baseRiverHot,
+				BOPCBiomes.lushDesert, VanillaBiomes.vanillaRiverHot,
 				new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 				new SurfaceGrassland(BOPCBiomes.lushDesert.topBlock, BOPCBiomes.lushDesert.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -326,7 +326,7 @@ public class SupportBOP
 		//LUSH SWAMP
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.lushSwamp, RTGBiomes.baseRiverWet,
+				BOPCBiomes.lushSwamp, VanillaBiomes.vanillaRiverWet,
 				new TerrainSwampRiver(),
 				new SurfaceGrassland(BOPCBiomes.lushSwamp.topBlock, BOPCBiomes.lushSwamp.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -336,7 +336,7 @@ public class SupportBOP
 		//MAPLE WOODS
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.mapleWoods, RTGBiomes.baseRiverTemperate,
+				BOPCBiomes.mapleWoods, VanillaBiomes.vanillaRiverTemperate,
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.mapleWoods.topBlock, BOPCBiomes.mapleWoods.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -355,7 +355,7 @@ public class SupportBOP
 		//MEADOW
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.meadow, RTGBiomes.baseRiverTemperate,
+				BOPCBiomes.meadow, VanillaBiomes.vanillaRiverTemperate,
 				new TerrainMountainSpikes(),
 				new SurfaceMountainStone(BOPCBiomes.meadow.topBlock, BOPCBiomes.meadow.fillerBlock, false, null, 1.2f)
 			),
@@ -374,7 +374,7 @@ public class SupportBOP
 		//MOUNTAIN
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.mountain, RTGBiomes.baseRiverHot,
+				BOPCBiomes.mountain, VanillaBiomes.vanillaRiverHot,
 				new TerrainMountainRiver(),
 				new SurfaceMountainStone(BOPCBiomes.mountain.topBlock, BOPCBiomes.mountain.fillerBlock, true, Blocks.sand, 0.75f)
 			),
@@ -384,7 +384,7 @@ public class SupportBOP
 		//MYSTIC GROVE
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.mysticGrove, RTGBiomes.baseRiverWet,
+				BOPCBiomes.mysticGrove, VanillaBiomes.vanillaRiverWet,
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.mysticGrove.topBlock, BOPCBiomes.mysticGrove.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -412,7 +412,7 @@ public class SupportBOP
 		//OUTBACK
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.outback, RTGBiomes.baseRiverOasis,
+				BOPCBiomes.outback, VanillaBiomes.vanillaRiverOasis,
 				RealisticBiomeBase.coastOasis,
 				new TerrainDuneValley(300f),
 				new SurfaceBase[]{
@@ -429,7 +429,7 @@ public class SupportBOP
 		//PRAIRIE
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.prairie, RTGBiomes.baseRiverHot,
+				BOPCBiomes.prairie, VanillaBiomes.vanillaRiverHot,
 				new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 				new SurfaceGrassland(BOPCBiomes.prairie.topBlock, BOPCBiomes.prairie.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -439,7 +439,7 @@ public class SupportBOP
 		//RAINFOREST
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.rainforest, RTGBiomes.baseRiverWet,
+				BOPCBiomes.rainforest, VanillaBiomes.vanillaRiverWet,
 				new TerrainSwampMountain(120f, 300f),
 				new SurfaceMountainStone(BOPCBiomes.rainforest.topBlock, BOPCBiomes.rainforest.fillerBlock, false, null, 1.3f)
 			),
@@ -449,7 +449,7 @@ public class SupportBOP
 		//REDWOOD FOREST
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.redwoodForest, RTGBiomes.baseRiverTemperate,
+				BOPCBiomes.redwoodForest, VanillaBiomes.vanillaRiverTemperate,
 				new TerrainGrasslandHills(80f, 180f, 13f, 100f, 38f, 260f, 71f),
 				new SurfaceMountainStone(BOPCBiomes.redwoodForest.topBlock, BOPCBiomes.redwoodForest.fillerBlock, false, null, 0.4f)
 			),
@@ -459,7 +459,7 @@ public class SupportBOP
 		//SACRED SPRINGS
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.sacredSprings, RTGBiomes.baseRiverWet,
+				BOPCBiomes.sacredSprings, VanillaBiomes.vanillaRiverWet,
 				new TerrainHighland(0f, 120f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.sacredSprings.topBlock, BOPCBiomes.sacredSprings.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -469,7 +469,7 @@ public class SupportBOP
 		//SEASONAL FOREST
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.seasonalForest, RTGBiomes.baseRiverTemperate,
+				BOPCBiomes.seasonalForest, VanillaBiomes.vanillaRiverTemperate,
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.seasonalForest.topBlock, BOPCBiomes.seasonalForest.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -479,7 +479,7 @@ public class SupportBOP
 		//SHIELD
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.shield, RTGBiomes.baseRiverCold,
+				BOPCBiomes.shield, VanillaBiomes.vanillaRiverCold,
 				new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 				new SurfaceGrassland(BOPCBiomes.shield.topBlock, BOPCBiomes.shield.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -489,7 +489,7 @@ public class SupportBOP
 		//SHRUBLAND
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.shrubland, RTGBiomes.baseRiverHot,
+				BOPCBiomes.shrubland, VanillaBiomes.vanillaRiverHot,
 				new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 				new SurfaceGrassland(BOPCBiomes.shrubland.topBlock, BOPCBiomes.shrubland.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -499,7 +499,7 @@ public class SupportBOP
 		//SLUDGEPIT
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.sludgepit, RTGBiomes.baseRiverWet,
+				BOPCBiomes.sludgepit, VanillaBiomes.vanillaRiverWet,
 				new TerrainMarsh(),
 				new SurfaceGrassland(BOPCBiomes.sludgepit.topBlock, BOPCBiomes.sludgepit.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -518,7 +518,7 @@ public class SupportBOP
 		//TEMPERATE RAINFOREST
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.temperateRainforest, RTGBiomes.baseRiverWet,
+				BOPCBiomes.temperateRainforest, VanillaBiomes.vanillaRiverWet,
 				new TerrainMountainRiver(),
 				new SurfaceMountainStone(BOPCBiomes.temperateRainforest.topBlock, BOPCBiomes.temperateRainforest.fillerBlock, false, null, 0.45f)
 			),
@@ -537,7 +537,7 @@ public class SupportBOP
 		//TROPICAL RAINFOREST
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.tropicalRainforest, RTGBiomes.baseRiverWet,
+				BOPCBiomes.tropicalRainforest, VanillaBiomes.vanillaRiverWet,
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.tropicalRainforest.topBlock, BOPCBiomes.tropicalRainforest.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -547,7 +547,7 @@ public class SupportBOP
 		//TUNDRA
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.tundra, RTGBiomes.baseRiverIce,
+				BOPCBiomes.tundra, VanillaBiomes.vanillaRiverIce,
 				new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 				new SurfaceGrassland(BOPCBiomes.tundra.topBlock, BOPCBiomes.tundra.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -566,7 +566,7 @@ public class SupportBOP
 		//WETLAND
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.wetland, RTGBiomes.baseRiverWet,
+				BOPCBiomes.wetland, VanillaBiomes.vanillaRiverWet,
 				new TerrainMarsh(),
 				new SurfaceGrassland(BOPCBiomes.wetland.topBlock, BOPCBiomes.wetland.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
@@ -576,7 +576,7 @@ public class SupportBOP
 		//WOODLAND
 		Support.addBiome(
 			new RealisticBiomeSupport(
-				BOPCBiomes.woodland, RTGBiomes.baseRiverTemperate,
+				BOPCBiomes.woodland, VanillaBiomes.vanillaRiverTemperate,
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.woodland.topBlock, BOPCBiomes.woodland.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),

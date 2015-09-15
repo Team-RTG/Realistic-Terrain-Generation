@@ -14,6 +14,7 @@ import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.RTGBiomes;
+import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.config.ConfigRTG;
 import rtg.deco.DecoCacti;
@@ -35,7 +36,7 @@ public class RealisticBiomeMesaPlains extends RealisticBiomeBase
 	
 	public RealisticBiomeMesaPlains() 
 	{
-		super(0, RTGBiomes.baseHotDesert, RealisticBiomeBase.coastDunes, RTGBiomes.baseRiverHot);
+		super(0, RTGBiomes.baseHotDesert, RealisticBiomeBase.coastDunes, VanillaBiomes.vanillaRiverHot);
 		
 		terrain = new TerrainMesa();
 		surface = new SurfaceCanyon(Blocks.sand, Blocks.sand, (byte)1, 20);

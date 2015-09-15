@@ -2,7 +2,7 @@ package rtg.biomes.realistic;
 
 import java.util.Random;
 
-import rtg.api.RTGBiomes;
+import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.land.*;
 import rtg.biomes.realistic.coast.*;
 import rtg.biomes.realistic.desert.RealisticBiomeDesert;
@@ -167,7 +167,7 @@ public class RealisticBiomeBase
 	
 	public RealisticBiomeBase(int sub, BiomeGenBase biome)
 	{
-		this(sub, biome, coastIce, RTGBiomes.baseRiverTemperate);
+		this(sub, biome, coastIce, VanillaBiomes.vanillaRiverTemperate);
 	}
 	
 	public RealisticBiomeBase(int sub, BiomeGenBase biome, RealisticBiomeBase coast, BiomeGenBase river)

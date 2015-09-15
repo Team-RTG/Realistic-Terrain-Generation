@@ -11,6 +11,7 @@ import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.RTGBiomes;
+import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.deco.DecoBlob;
 import rtg.deco.DecoFlowers;
@@ -36,7 +37,7 @@ public class RealisticBiomeTaigaHills extends RealisticBiomeBase
 
 	public RealisticBiomeTaigaHills() 
 	{
-		super(0, RTGBiomes.baseColdForest, RealisticBiomeBase.coastDunes, RTGBiomes.baseRiverCold);
+		super(0, RTGBiomes.baseColdForest, RealisticBiomeBase.coastDunes, VanillaBiomes.vanillaRiverCold);
 		
 		terrain = new TerrainMountainRiver();
 		surface = new SurfaceMountainSnow(Blocks.grass, Blocks.dirt, true, Blocks.sand, 0.2f);

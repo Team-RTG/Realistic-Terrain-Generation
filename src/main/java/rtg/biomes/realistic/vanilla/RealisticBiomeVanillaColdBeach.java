@@ -1,6 +1,6 @@
 package rtg.biomes.realistic.vanilla;
 
-import rtg.api.RTGBiomes;
+import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.coast.vanilla.CoastVanillaColdBeach;
 import rtg.surface.vanilla.SurfaceVanillaColdBeach;
@@ -14,7 +14,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanilla
 	{
 		super(
 			BiomeGenBase.coldBeach,
-			RTGBiomes.baseRiverCold,
+			VanillaBiomes.vanillaRiverCold,
 			new CoastVanillaColdBeach(),
 			new TerrainVanillaColdBeach(),
 			new SurfaceVanillaColdBeach(BiomeGenBase.coldBeach.topBlock, BiomeGenBase.coldBeach.fillerBlock, BiomeGenBase.coldBeach.topBlock, BiomeGenBase.coldBeach.fillerBlock, (byte)0, 1)

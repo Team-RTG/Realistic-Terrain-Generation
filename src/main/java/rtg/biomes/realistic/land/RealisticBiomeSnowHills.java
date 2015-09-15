@@ -10,6 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.RTGBiomes;
+import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.deco.DecoBlob;
 import rtg.deco.DecoFlowers;
@@ -34,7 +35,7 @@ public class RealisticBiomeSnowHills extends RealisticBiomeBase
 
 	public RealisticBiomeSnowHills() 
 	{
-		super(0, RTGBiomes.baseSnowForest, RealisticBiomeBase.coastIce, RTGBiomes.baseRiverIce);
+		super(0, RTGBiomes.baseSnowForest, RealisticBiomeBase.coastIce, VanillaBiomes.vanillaRiverIce);
 		
 		terrain = new TerrainMountainSpikes();
 		surface = new SurfaceMountainSnow(Blocks.grass, Blocks.dirt, false, null, 0.2f);

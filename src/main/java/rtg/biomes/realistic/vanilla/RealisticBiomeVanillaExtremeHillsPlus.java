@@ -1,6 +1,6 @@
 package rtg.biomes.realistic.vanilla;
 
-import rtg.api.RTGBiomes;
+import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.coast.vanilla.CoastVanillaExtremeHillsPlus;
 import rtg.surface.vanilla.SurfaceVanillaExtremeHillsPlus;
@@ -18,7 +18,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
 	{
 		super(
 			BiomeGenBase.extremeHillsPlus,
-			RTGBiomes.baseRiverCold,
+			VanillaBiomes.vanillaRiverCold,
 			new CoastVanillaExtremeHillsPlus(),
 			new TerrainVanillaExtremeHillsPlus(),
 			new SurfaceVanillaExtremeHillsPlus(Blocks.gravel, Blocks.gravel, false, null, 1f, 1.5f, 85f, 20f, 4f)

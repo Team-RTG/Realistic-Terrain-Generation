@@ -9,6 +9,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.RTGBiomes;
+import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.deco.DecoFlowers;
 import rtg.deco.DecoGrass;
@@ -31,7 +32,7 @@ public class RealisticBiomeIslandTropical extends RealisticBiomeBase
 	
 	public RealisticBiomeIslandTropical() 
 	{
-		super(0, RTGBiomes.baseOceanWet);
+		super(0, VanillaBiomes.vanillaOceanWet);
 		
 		surface = new SurfaceIslandMountainStone(Blocks.grass, Blocks.dirt, 67, Blocks.sand, 0f);
 	}

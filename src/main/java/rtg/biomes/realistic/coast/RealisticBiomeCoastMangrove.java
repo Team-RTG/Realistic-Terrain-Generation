@@ -11,6 +11,7 @@ import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.RTGBiomes;
+import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.deco.DecoBlob;
 import rtg.deco.DecoGrass;
@@ -24,7 +25,7 @@ public class RealisticBiomeCoastMangrove extends RealisticBiomeBase
 {
 	public RealisticBiomeCoastMangrove() 
 	{
-		super(0, RTGBiomes.baseOceanOasis);
+		super(0, VanillaBiomes.vanillaOceanOasis);
 	}
 	
 	@Override

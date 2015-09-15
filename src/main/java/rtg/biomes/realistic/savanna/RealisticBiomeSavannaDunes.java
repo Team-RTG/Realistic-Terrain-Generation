@@ -12,6 +12,7 @@ import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.RTGBiomes;
+import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.deco.DecoBlob;
 import rtg.deco.DecoCacti;
@@ -37,7 +38,7 @@ public class RealisticBiomeSavannaDunes extends RealisticBiomeBase
 
 	public RealisticBiomeSavannaDunes() 
 	{
-		super(0, RTGBiomes.baseHotPlains, RealisticBiomeBase.coastDunes, RTGBiomes.baseRiverHot);
+		super(0, RTGBiomes.baseHotPlains, RealisticBiomeBase.coastDunes, VanillaBiomes.vanillaRiverHot);
 		terrain = new TerrainDuneValley(300f);
 		surface = new SurfaceDuneValley(Blocks.grass, Blocks.dirt, 300f, true, true);
 		riverSurface = new SurfaceRiverOasis();

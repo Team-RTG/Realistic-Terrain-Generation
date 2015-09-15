@@ -7,6 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.RTGBiomes;
+import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.deco.DecoWaterGrass;
 import rtg.util.CellNoise;
@@ -17,7 +18,7 @@ public class CoastVanillaBirchForestHills extends RealisticBiomeBase
 {
 	public CoastVanillaBirchForestHills() 
 	{
-		super(0, RTGBiomes.baseOceanTemperate);
+		super(0, VanillaBiomes.vanillaOceanTemperate);
 	}
 	
 	@Override

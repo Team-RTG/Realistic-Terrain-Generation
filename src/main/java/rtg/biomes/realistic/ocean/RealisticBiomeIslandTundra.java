@@ -7,6 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.RTGBiomes;
+import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.surface.SurfaceBase;
 import rtg.surface.SurfaceIslandMountainStone;
@@ -19,7 +20,7 @@ public class RealisticBiomeIslandTundra extends RealisticBiomeBase
 	
 	public RealisticBiomeIslandTundra() 
 	{
-		super(0, RTGBiomes.baseOceanCold);
+		super(0, VanillaBiomes.vanillaOceanCold);
 		
 		surface = new SurfaceIslandMountainStone(Blocks.grass, Blocks.dirt, 67, Blocks.sand, 0f);
 	}

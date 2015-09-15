@@ -1,6 +1,6 @@
 package rtg.biomes.realistic.vanilla;
 
-import rtg.api.RTGBiomes;
+import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.coast.vanilla.CoastVanillaMesaPlateauF;
 import rtg.surface.vanilla.SurfaceVanillaMesaPlateauF;
@@ -18,7 +18,7 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanilla
 	{
 		super(
 			BiomeGenBase.mesaPlateau_F,
-			RTGBiomes.baseRiverOasis,
+			VanillaBiomes.vanillaRiverOasis,
 			new CoastVanillaMesaPlateauF(),
 			new TerrainVanillaMesaPlateauF(true, 35f, 160f, 60f, 40f, 69f),
 			new SurfaceVanillaMesaPlateauF(topBlock, fillerBlock, (byte)1, 0)

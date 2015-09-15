@@ -53,6 +53,7 @@ public class RTGBiomes
 			baseOceanTemperate,
 			baseOceanHot,
 			baseOceanWet,
+			baseOceanOasis,
 				
 			baseSnowDesert,
 			baseSnowForest,

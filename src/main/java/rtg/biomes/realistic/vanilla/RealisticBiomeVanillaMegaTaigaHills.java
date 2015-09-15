@@ -1,6 +1,6 @@
 package rtg.biomes.realistic.vanilla;
 
-import rtg.api.RTGBiomes;
+import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.coast.vanilla.CoastVanillaMegaTaigaHills;
 import rtg.surface.vanilla.SurfaceVanillaMegaTaigaHills;
@@ -18,7 +18,7 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanilla
 	{
 		super(
 			BiomeGenBase.megaTaigaHills,
-			RTGBiomes.baseRiverCold,
+			VanillaBiomes.vanillaRiverCold,
 			new CoastVanillaMegaTaigaHills(),
 			new TerrainVanillaMegaTaigaHills(230f, 120f, 90f),
 			new SurfaceVanillaMegaTaigaHills(topBlock, fillerBlock, true, Blocks.sand, 0.2f)

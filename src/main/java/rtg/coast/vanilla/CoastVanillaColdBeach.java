@@ -14,7 +14,7 @@ import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenVines;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.RTGBiomes;
+import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.coast.CoastBase;
 import rtg.deco.DecoCacti;
@@ -30,7 +30,7 @@ public class CoastVanillaColdBeach extends CoastBase
 {
 	public CoastVanillaColdBeach() 
 	{
-		super(0, RTGBiomes.baseRiverCold);
+		super(0, VanillaBiomes.vanillaRiverCold);
 	}
 	
 	@Override

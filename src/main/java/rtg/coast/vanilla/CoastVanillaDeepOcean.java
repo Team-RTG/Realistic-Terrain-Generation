@@ -10,7 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.RTGBiomes;
+import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.deco.DecoCacti;
 import rtg.deco.DecoFlowers;
@@ -25,7 +25,7 @@ public class CoastVanillaDeepOcean extends RealisticBiomeBase
 {
 	public CoastVanillaDeepOcean() 
 	{
-		super(0, RTGBiomes.baseRiverOasis);
+		super(0, VanillaBiomes.vanillaRiverOasis);
 	}
 	
 	@Override

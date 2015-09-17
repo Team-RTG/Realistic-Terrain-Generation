@@ -35,7 +35,7 @@ public class RealisticBiomeStoneMountains extends RealisticBiomeBase
 
 	public RealisticBiomeStoneMountains()
 	{
-		super(0, RTGBiomes.baseHotPlains, RealisticBiomeBase.coastDunes, VanillaBiomes.vanillaRiverOasis);
+		super(0, RTGBiomes.baseHotPlains, VanillaBiomes.vanillaRiverOasis);
 		terrain = new TerrainHilly(230f, 120f, 0f);
 		surface = new SurfaceMountainStoneMix1(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.08f);
 		riverSurface = new SurfaceRiverOasis();

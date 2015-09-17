@@ -2,7 +2,6 @@ package rtg.biomes.realistic.vanilla;
 
 import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
-import rtg.coast.vanilla.CoastVanillaJungle;
 import rtg.surface.vanilla.SurfaceVanillaJungle;
 import rtg.terrain.vanilla.TerrainVanillaJungle;
 import net.minecraft.block.Block;
@@ -19,7 +18,6 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanilla
 		super(
 			BiomeGenBase.jungle,
 			VanillaBiomes.vanillaRiverWet,
-			new CoastVanillaJungle(),
 			new TerrainVanillaJungle(),
 			new SurfaceVanillaJungle(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

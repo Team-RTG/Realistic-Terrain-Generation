@@ -38,7 +38,7 @@ public class RealisticBiomeSavannaDunes extends RealisticBiomeBase
 
 	public RealisticBiomeSavannaDunes() 
 	{
-		super(0, RTGBiomes.baseHotPlains, RealisticBiomeBase.coastDunes, VanillaBiomes.vanillaRiverHot);
+		super(0, RTGBiomes.baseHotPlains, VanillaBiomes.vanillaRiverHot);
 		terrain = new TerrainDuneValley(300f);
 		surface = new SurfaceDuneValley(Blocks.grass, Blocks.dirt, 300f, true, true);
 		riverSurface = new SurfaceRiverOasis();

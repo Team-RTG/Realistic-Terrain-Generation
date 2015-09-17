@@ -2,7 +2,6 @@ package rtg.biomes.realistic.vanilla;
 
 import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
-import rtg.coast.vanilla.CoastVanillaExtremeHills;
 import rtg.surface.vanilla.SurfaceVanillaExtremeHills;
 import rtg.terrain.vanilla.TerrainVanillaExtremeHills;
 import net.minecraft.block.Block;
@@ -19,7 +18,6 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanilla
 		super(
 			BiomeGenBase.extremeHills,
 			VanillaBiomes.vanillaRiverCold,
-			new CoastVanillaExtremeHills(),
 			new TerrainVanillaExtremeHills(0f, 140f, 68f, 150f),
 			new SurfaceVanillaExtremeHills(topBlock, fillerBlock, false, null, 1f, 1.5f, 85f, 20f, 4f)
 		);

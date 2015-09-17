@@ -34,7 +34,7 @@ public class RealisticBiomeCanyonForest extends RealisticBiomeBase
 	
 	public RealisticBiomeCanyonForest() 
 	{
-		super(0, RTGBiomes.baseHotForest, RealisticBiomeBase.coastDunes, VanillaBiomes.vanillaRiverOasis);
+		super(0, RTGBiomes.baseHotForest, VanillaBiomes.vanillaRiverOasis);
 
 		terrain = new TerrainCanyon(true, 35f, 160f, 60f, 40f, 69f);
 		surface = new SurfaceCanyon(Blocks.sand, Blocks.sand, (byte)1, 47);

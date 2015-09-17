@@ -10,17 +10,15 @@ public class RealisticBiomeVanilla extends RealisticBiomeSupport
 {	
 	public BiomeGenBase vanillaBiomeBase;
 	public BiomeGenBase vanillaRiver;
-	public RealisticBiomeBase vanillaCoast;
 	public TerrainBase vanillaTerrain;
 	public SurfaceBase vanillaSurface;
 
-	public RealisticBiomeVanilla(BiomeGenBase b, BiomeGenBase riverbiome, RealisticBiomeBase coastbiome, TerrainBase t, SurfaceBase s)
+	public RealisticBiomeVanilla(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
-		super(b, riverbiome, coastbiome, t, s);
+		super(b, riverbiome, t, s);
 		
 		vanillaBiomeBase = b;
 		vanillaRiver = riverbiome;
-		vanillaCoast = coastbiome;
 		vanillaTerrain = t;
 		vanillaSurface = s;
 	}	

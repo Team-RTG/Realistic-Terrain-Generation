@@ -1,6 +1,5 @@
 package rtg.biomes.vanilla;
 
-import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class VanillaBiomes

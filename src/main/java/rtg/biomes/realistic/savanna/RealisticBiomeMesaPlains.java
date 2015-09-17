@@ -36,7 +36,7 @@ public class RealisticBiomeMesaPlains extends RealisticBiomeBase
 	
 	public RealisticBiomeMesaPlains() 
 	{
-		super(0, RTGBiomes.baseHotDesert, RealisticBiomeBase.coastDunes, VanillaBiomes.vanillaRiverHot);
+		super(0, RTGBiomes.baseHotDesert, VanillaBiomes.vanillaRiverHot);
 		
 		terrain = new TerrainMesa();
 		surface = new SurfaceCanyon(Blocks.sand, Blocks.sand, (byte)1, 20);

@@ -36,7 +36,7 @@ public class RealisticBiomeWoodHills extends RealisticBiomeBase
 	
 	public RealisticBiomeWoodHills() 
 	{
-		super(0, RTGBiomes.baseTemperateForest, RealisticBiomeBase.coastDunes, VanillaBiomes.vanillaRiverTemperate);
+		super(0, RTGBiomes.baseTemperateForest, VanillaBiomes.vanillaRiverTemperate);
 		
 		terrain = new TerrainHilly(230f, 120f, 0f);
 		surface = new SurfaceMountainStone(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f);

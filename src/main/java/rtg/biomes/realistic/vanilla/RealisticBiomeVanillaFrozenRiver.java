@@ -2,7 +2,6 @@ package rtg.biomes.realistic.vanilla;
 
 import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
-import rtg.coast.vanilla.CoastVanillaFrozenRiver;
 import rtg.surface.vanilla.SurfaceVanillaFrozenRiver;
 import rtg.terrain.vanilla.TerrainVanillaFrozenRiver;
 import net.minecraft.block.Block;
@@ -19,7 +18,6 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanilla
 		super(
 			BiomeGenBase.frozenRiver,
 			VanillaBiomes.vanillaRiverIce,
-			new CoastVanillaFrozenRiver(),
 			new TerrainVanillaFrozenRiver(),
 			new SurfaceVanillaFrozenRiver(Blocks.snow, Blocks.snow, Blocks.snow, Blocks.snow, (byte)0, 0)
 		);

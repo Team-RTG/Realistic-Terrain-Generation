@@ -35,7 +35,7 @@ public class RealisticBiomeRedDesertMountains extends RealisticBiomeBase
 
 	public RealisticBiomeRedDesertMountains() 
 	{
-		super(0, RTGBiomes.baseHotDesert, RealisticBiomeBase.coastDunes, VanillaBiomes.vanillaRiverOasis);
+		super(0, RTGBiomes.baseHotDesert, VanillaBiomes.vanillaRiverOasis);
 		terrain = new TerrainHilly(230f, 120f, 0f);
 		surface = new SurfaceRedDesert();
 		riverSurface = new SurfaceRiverOasis();

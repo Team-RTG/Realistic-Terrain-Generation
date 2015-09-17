@@ -2,8 +2,6 @@ package rtg.biomes.realistic.vanilla;
 
 import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
-import rtg.coast.vanilla.CoastVanillaForest;
-import rtg.coast.vanilla.CoastVanillaForestHills;
 import rtg.surface.vanilla.SurfaceVanillaForest;
 import rtg.surface.vanilla.SurfaceVanillaForestHills;
 import rtg.terrain.vanilla.TerrainVanillaForest;
@@ -22,7 +20,6 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanilla
 		super(
 			BiomeGenBase.forestHills,
 			VanillaBiomes.vanillaRiverTemperate,
-			new CoastVanillaForestHills(),
 			new TerrainVanillaForestHills(70f, 180f, 7f, 100f, 38f, 260f, 68f),
 			new SurfaceVanillaForestHills(topBlock, fillerBlock, topBlock, topBlock)
 		);

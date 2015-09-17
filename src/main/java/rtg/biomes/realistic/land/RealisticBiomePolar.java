@@ -28,7 +28,7 @@ public class RealisticBiomePolar extends RealisticBiomeBase
 	
 	public RealisticBiomePolar() 
 	{
-		super(0, RTGBiomes.baseSnowDesert, RealisticBiomeBase.coastIce, VanillaBiomes.vanillaRiverIce);
+		super(0, RTGBiomes.baseSnowDesert, VanillaBiomes.vanillaRiverIce);
 		terrain = new TerrainPolar();
 		surface = new SurfacePolar(Blocks.snow, Blocks.snow);
 	}

@@ -2,7 +2,6 @@ package rtg.biomes.realistic.vanilla;
 
 import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
-import rtg.coast.vanilla.CoastVanillaMesaPlateauF;
 import rtg.surface.vanilla.SurfaceVanillaMesaPlateauF;
 import rtg.terrain.vanilla.TerrainVanillaMesaPlateauF;
 import net.minecraft.block.Block;
@@ -19,7 +18,6 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanilla
 		super(
 			BiomeGenBase.mesaPlateau_F,
 			VanillaBiomes.vanillaRiverOasis,
-			new CoastVanillaMesaPlateauF(),
 			new TerrainVanillaMesaPlateauF(true, 35f, 160f, 60f, 40f, 69f),
 			new SurfaceVanillaMesaPlateauF(topBlock, fillerBlock, (byte)1, 0)
 		);

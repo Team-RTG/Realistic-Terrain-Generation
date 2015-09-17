@@ -39,7 +39,7 @@ public class RealisticBiomeHotRedwood extends RealisticBiomeBase
 	
 	public RealisticBiomeHotRedwood() 
 	{
-		super(0, RTGBiomes.baseHotForest, RealisticBiomeBase.coastDunes, VanillaBiomes.vanillaRiverHot);
+		super(0, RTGBiomes.baseHotForest, VanillaBiomes.vanillaRiverHot);
 		
 		terrain = new TerrainGrasslandFlats();
 		surface = new SurfaceGrasslandMixBig(Blocks.sand, Blocks.sand, Blocks.grass, Blocks.dirt, Blocks.stone, Blocks.cobblestone, 60f, -0.14f, 14f, 0.25f);

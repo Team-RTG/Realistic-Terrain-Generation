@@ -38,7 +38,7 @@ public class RealisticBiomeWoodMountains extends RealisticBiomeBase
 
 	public RealisticBiomeWoodMountains() 
 	{
-		super(0, RTGBiomes.baseTemperateForest, RealisticBiomeBase.coastDunes, VanillaBiomes.vanillaRiverTemperate);
+		super(0, RTGBiomes.baseTemperateForest, VanillaBiomes.vanillaRiverTemperate);
 		
 		terrain = new TerrainMountainRiver();
 		surface = new SurfaceMountainSnow(Blocks.grass, Blocks.dirt, true, Blocks.sand, 0.2f);

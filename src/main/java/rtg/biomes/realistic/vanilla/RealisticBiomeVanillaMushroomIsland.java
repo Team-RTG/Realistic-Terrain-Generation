@@ -3,7 +3,6 @@ package rtg.biomes.realistic.vanilla;
 import rtg.api.RTGBiomes;
 import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
-import rtg.coast.vanilla.CoastVanillaMushroomIsland;
 import rtg.surface.vanilla.SurfaceVanillaMushroomIsland;
 import rtg.terrain.vanilla.TerrainVanillaMushroomIsland;
 import net.minecraft.block.Block;
@@ -20,7 +19,6 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanilla
 		super(
 			BiomeGenBase.mushroomIsland,
 			VanillaBiomes.vanillaOceanCold,
-			new CoastVanillaMushroomIsland(),
 			new TerrainVanillaMushroomIsland(),
 			new SurfaceVanillaMushroomIsland(topBlock, fillerBlock, 67, topBlock, 0f)
 		);

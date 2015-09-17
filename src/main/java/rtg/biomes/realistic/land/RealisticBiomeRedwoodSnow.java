@@ -35,7 +35,7 @@ public class RealisticBiomeRedwoodSnow extends RealisticBiomeBase
 
 	public RealisticBiomeRedwoodSnow() 
 	{
-		super(0, RTGBiomes.baseSnowForest, RealisticBiomeBase.coastIce, VanillaBiomes.vanillaRiverIce);
+		super(0, RTGBiomes.baseSnowForest, VanillaBiomes.vanillaRiverIce);
 		
 		terrain = new TerrainHilly(230f, 120f, 90f);
 		surface = new SurfaceMountainSnow(Blocks.grass, Blocks.dirt, true, Blocks.sand, 0.2f);

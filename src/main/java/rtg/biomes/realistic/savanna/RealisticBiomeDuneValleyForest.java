@@ -33,7 +33,7 @@ public class RealisticBiomeDuneValleyForest extends RealisticBiomeBase
 
 	public RealisticBiomeDuneValleyForest() 
 	{
-		super(0, RTGBiomes.baseHotForest, RealisticBiomeBase.coastDunes, VanillaBiomes.vanillaRiverOasis);
+		super(0, RTGBiomes.baseHotForest, VanillaBiomes.vanillaRiverOasis);
 
 		terrain = new TerrainDuneValley(220f);
 		surface = new SurfaceDuneValley(Blocks.grass, Blocks.dirt, 220f, false, true);

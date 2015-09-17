@@ -2,7 +2,6 @@ package rtg.biomes.realistic.vanilla;
 
 import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
-import rtg.coast.vanilla.CoastVanillaIcePlains;
 import rtg.surface.vanilla.SurfaceVanillaIcePlains;
 import rtg.terrain.vanilla.TerrainVanillaIcePlains;
 import net.minecraft.block.Block;
@@ -19,7 +18,6 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanilla
 		super(
 			BiomeGenBase.icePlains,
 			VanillaBiomes.vanillaRiverIce,
-			new CoastVanillaIcePlains(),
 			new TerrainVanillaIcePlains(),
 			new SurfaceVanillaIcePlains(topBlock, fillerBlock, topBlock, topBlock)
 		);

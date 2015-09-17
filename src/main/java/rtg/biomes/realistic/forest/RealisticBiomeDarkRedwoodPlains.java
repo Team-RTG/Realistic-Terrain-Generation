@@ -37,7 +37,7 @@ public class RealisticBiomeDarkRedwoodPlains extends RealisticBiomeBase
 
 	public RealisticBiomeDarkRedwoodPlains() 
 	{
-		super(0, RTGBiomes.baseColdForest, RealisticBiomeBase.coastDunes, VanillaBiomes.vanillaRiverTemperate);
+		super(0, RTGBiomes.baseColdForest, VanillaBiomes.vanillaRiverTemperate);
 		
 		terrain = new TerrainGrasslandFlats();
 		surface = new SurfaceMountainStoneMix1(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.15f);

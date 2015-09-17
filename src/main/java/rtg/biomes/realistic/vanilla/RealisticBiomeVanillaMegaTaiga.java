@@ -2,7 +2,6 @@ package rtg.biomes.realistic.vanilla;
 
 import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
-import rtg.coast.vanilla.CoastVanillaMegaTaiga;
 import rtg.surface.vanilla.SurfaceVanillaMegaTaiga;
 import rtg.terrain.vanilla.TerrainVanillaMegaTaiga;
 import net.minecraft.block.Block;
@@ -19,7 +18,6 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanilla
 		super(
 			BiomeGenBase.megaTaiga,
 			VanillaBiomes.vanillaRiverCold,
-			new CoastVanillaMegaTaiga(),
 			new TerrainVanillaMegaTaiga(230f, 120f, 90f),
 			new SurfaceVanillaMegaTaiga(topBlock, fillerBlock, true, Blocks.sand, 0.2f)
 		);

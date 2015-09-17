@@ -4,7 +4,6 @@ import java.util.Random;
 
 import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.land.*;
-import rtg.biomes.realistic.coast.*;
 import rtg.biomes.realistic.desert.RealisticBiomeDesert;
 import rtg.biomes.realistic.desert.RealisticBiomeDesertMountains;
 import rtg.biomes.realistic.desert.RealisticBiomeDuneValley;
@@ -47,7 +46,6 @@ public class RealisticBiomeBase
 	public static RealisticBiomeBase river = new RealisticBiomeTestRiver();
 	
 	public static RealisticBiomeBase ocean = new RealisticBiomeOceanTest();
-	public static RealisticBiomeBase coast = new RealisticBiomeCoastTest();
 	
 	//POLAR =========================================================================================
 	public static RealisticBiomeBase polar = new RealisticBiomePolar();
@@ -105,16 +103,6 @@ public class RealisticBiomeBase
 	public static RealisticBiomeBase jungleCanyon = new RealisticBiomeJungleCanyon();
 	public static RealisticBiomeBase redwoodJungle = new RealisticBiomeRedwoodJungle(); 
 	
-	//COAST =========================================================================================
-	public static RealisticBiomeBase coastIce = new RealisticBiomeCoastIce();
-	
-	public static RealisticBiomeBase coastColdSlope = new RealisticBiomeCoastColdSlope();
-	public static RealisticBiomeBase coastColdCliff = new RealisticBiomeCoastColdCliff();
-	public static RealisticBiomeBase coastDunes = new RealisticBiomeCoastDunes();
-	
-	public static RealisticBiomeBase coastMangrove = new RealisticBiomeCoastMangrove();
-	public static RealisticBiomeBase coastOasis = new RealisticBiomeCoastOasis();
-	
 	//OCEAN =========================================================================================
 	public static RealisticBiomeBase islandTropical = new RealisticBiomeIslandTropical();
 	
@@ -162,15 +150,14 @@ public class RealisticBiomeBase
 	public final int biomeID;
 	public final int subID;
 	public final BiomeGenBase baseBiome;
-	public final RealisticBiomeBase beachBiome;
 	public final BiomeGenBase riverBiome;
 	
 	public RealisticBiomeBase(int sub, BiomeGenBase biome)
 	{
-		this(sub, biome, coastIce, VanillaBiomes.vanillaRiverTemperate);
+		this(sub, biome, VanillaBiomes.vanillaRiverTemperate);
 	}
 	
-	public RealisticBiomeBase(int sub, BiomeGenBase biome, RealisticBiomeBase coast, BiomeGenBase river)
+	public RealisticBiomeBase(int sub, BiomeGenBase biome, BiomeGenBase river)
 	{
 		biomeID = nextBiomeID;
 		biomeList[biomeID] = this;
@@ -178,7 +165,6 @@ public class RealisticBiomeBase
 		
 		subID = sub;
 		baseBiome = biome;
-		beachBiome = coast;
 		riverBiome = river;
 	}
 	

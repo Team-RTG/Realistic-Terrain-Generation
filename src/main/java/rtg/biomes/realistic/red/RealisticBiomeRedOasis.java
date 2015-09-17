@@ -36,7 +36,7 @@ public class RealisticBiomeRedOasis extends RealisticBiomeBase
 
 	public RealisticBiomeRedOasis() 
 	{
-		super(0, RTGBiomes.baseOasis, RealisticBiomeBase.coastDunes, VanillaBiomes.vanillaRiverOasis);
+		super(0, RTGBiomes.baseOasis, VanillaBiomes.vanillaRiverOasis);
 		terrain = new TerrainHilly(230f, 120f, 20f, 60f, 63f);
 		surface = new SurfaceDesertOasis(Blocks.grass, Blocks.dirt, Blocks.stained_hardened_clay, Blocks.stained_hardened_clay, (byte)1, 1);
 		riverSurface = new SurfaceRiverOasis();

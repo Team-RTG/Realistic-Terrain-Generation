@@ -37,7 +37,7 @@ public class RealisticBiomeTaigaHills extends RealisticBiomeBase
 
 	public RealisticBiomeTaigaHills() 
 	{
-		super(0, RTGBiomes.baseColdForest, RealisticBiomeBase.coastDunes, VanillaBiomes.vanillaRiverCold);
+		super(0, RTGBiomes.baseColdForest, VanillaBiomes.vanillaRiverCold);
 		
 		terrain = new TerrainMountainRiver();
 		surface = new SurfaceMountainSnow(Blocks.grass, Blocks.dirt, true, Blocks.sand, 0.2f);

@@ -4,7 +4,6 @@ import java.util.Random;
 
 import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
-import rtg.coast.vanilla.CoastVanillaDesert;
 import rtg.deco.DecoBlob;
 import rtg.deco.DecoCacti;
 import rtg.deco.DecoFlowers;
@@ -31,7 +30,6 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanilla
 		super(
 			BiomeGenBase.desert,
 			VanillaBiomes.vanillaRiverOasis,
-			new CoastVanillaDesert(),
 			new TerrainVanillaDesert(),
 			new SurfaceVanillaDesert(BiomeGenBase.desert.topBlock, BiomeGenBase.desert.fillerBlock)
 		);

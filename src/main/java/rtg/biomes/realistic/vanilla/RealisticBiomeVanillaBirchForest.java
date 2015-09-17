@@ -2,7 +2,6 @@ package rtg.biomes.realistic.vanilla;
 
 import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
-import rtg.coast.vanilla.CoastVanillaBirchForest;
 import rtg.surface.vanilla.SurfaceVanillaBirchForest;
 import rtg.terrain.vanilla.TerrainVanillaBirchForest;
 import net.minecraft.block.Block;
@@ -19,7 +18,6 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanilla
 		super(
 			BiomeGenBase.birchForest,
 			VanillaBiomes.vanillaRiverTemperate,
-			new CoastVanillaBirchForest(),
 			new TerrainVanillaBirchForest(),
 			new SurfaceVanillaBirchForest(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

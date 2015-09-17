@@ -99,7 +99,6 @@ public class SupportBOP
 		Support.addBiome(
 			new RealisticBiomeSupport(
 				BOPCBiomes.brushland, VanillaBiomes.vanillaRiverOasis,
-				RealisticBiomeBase.coastOasis,
 				new TerrainDuneValley(300f),
 				new SurfaceBase[]{
 					new SurfaceDuneValley(BOPCBiomes.brushland.topBlock, BOPCBiomes.brushland.fillerBlock, 300f, false, true),
@@ -312,7 +311,6 @@ public class SupportBOP
 		Support.addBiome(
 			new RealisticBiomeSupport(
 				BOPCBiomes.heathland, VanillaBiomes.vanillaRiverOasis,
-				RealisticBiomeBase.coastOasis,
 				new TerrainDuneValley(300f),
 				new SurfaceBase[]{
 					new SurfaceDuneValley(BOPCBiomes.brushland.topBlock, BOPCBiomes.brushland.fillerBlock, 300f, false, true) ,
@@ -505,7 +503,6 @@ public class SupportBOP
 		Support.addBiome(
 			new RealisticBiomeSupport(
 				BOPCBiomes.outback, VanillaBiomes.vanillaRiverOasis,
-				RealisticBiomeBase.coastOasis,
 				new TerrainDuneValley(300f),
 				new SurfaceBase[]{
 					new SurfaceDuneValley(BOPCBiomes.outback.topBlock, BOPCBiomes.outback.fillerBlock, 300f, false, false),
@@ -749,7 +746,7 @@ public class SupportBOP
  		Support.addBiome(
 			new RealisticBiomeSupport(
 				BOPCBiomes.kelpForest, VanillaBiomes.vanillaOceanTemperate,
-				null, new TerrainCanyon(false, -25f, 0f, 0f, 0f, 30f),
+				new TerrainCanyon(false, -25f, 0f, 0f, 0f, 30f),
 				new SurfaceGrassland(BOPCBiomes.kelpForest.topBlock, BOPCBiomes.kelpForest.fillerBlock, Blocks.stone, Blocks.cobblestone)
 			),
 			BiomeCategory.COLD	

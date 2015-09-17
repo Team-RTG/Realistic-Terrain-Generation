@@ -35,7 +35,7 @@ public class RealisticBiomeSavanna extends RealisticBiomeBase
 
 	public RealisticBiomeSavanna() 
 	{
-		super(0, RTGBiomes.baseHotPlains, RealisticBiomeBase.coastDunes, VanillaBiomes.vanillaRiverHot);
+		super(0, RTGBiomes.baseHotPlains, VanillaBiomes.vanillaRiverHot);
 		terrain = new TerrainGrasslandFlats();
 		surface = new SurfaceGrasslandMix1(Blocks.grass, Blocks.dirt, Blocks.sand, Blocks.stone, Blocks.cobblestone, 13f, 0.27f);
 	}

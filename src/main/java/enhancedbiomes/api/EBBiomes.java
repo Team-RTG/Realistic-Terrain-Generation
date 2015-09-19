@@ -4,6 +4,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class EBBiomes
 {
+	/*
 	public static BiomeGenBase alpineMountains;
 	public static BiomeGenBase alpineMountainsEdge;
 	public static BiomeGenBase alpineMountainsM;
@@ -94,5 +95,5 @@ public class EBBiomes
 	public static BiomeGenBase woodlands;
 	public static BiomeGenBase xericSavanna;
 	public static BiomeGenBase xericShrubland;
-	
+	*/
 }

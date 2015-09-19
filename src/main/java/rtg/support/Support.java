@@ -46,6 +46,11 @@ public class Support
 			SupportEBXL.init();
 		}
 		
+		if (Loader.isModLoaded("enhancedbiomes"))
+		{
+			SupportEB.init();
+		}
+		
 		if (Loader.isModLoaded("Thaumcraft"))
 		{
 			SupportTC.init();

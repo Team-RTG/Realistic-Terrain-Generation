@@ -78,6 +78,8 @@ public class ConfigRTG
 	
 	public static boolean enableCobblestoneBoulders = true;
 	
+	public static boolean showDebugInfo = false;
+	
 	public static void init(FMLPreInitializationEvent event)
 	{
 		config = new Configuration(event.getSuggestedConfigurationFile());
@@ -229,6 +231,8 @@ public class ConfigRTG
 			generateEmeralds = config.getBoolean("Generate Emeralds", "Miscellaneous", true, "");
 			
 			enableCobblestoneBoulders = config.getBoolean("Enable Cobblestone Boulders", "Miscellaneous", true, "");
+			
+			showDebugInfo = config.getBoolean("Show Debug Info in F3 Screen", "Miscellaneous", false, "");
 			
 			/*
 			####################################################################################################

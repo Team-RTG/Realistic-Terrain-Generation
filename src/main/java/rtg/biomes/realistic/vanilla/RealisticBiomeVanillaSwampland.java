@@ -1,6 +1,7 @@
 package rtg.biomes.realistic.vanilla;
 
 import rtg.biomes.vanilla.VanillaBiomes;
+import rtg.biomes.vanilla.VanillaBiomes.Climate;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.surface.vanilla.SurfaceVanillaSwampland;
 import rtg.terrain.vanilla.TerrainVanillaSwampland;
@@ -17,7 +18,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanilla
 	{
 		super(
 			BiomeGenBase.swampland,
-			VanillaBiomes.vanillaRiverWet,
+			VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainVanillaSwampland(),
 			new SurfaceVanillaSwampland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

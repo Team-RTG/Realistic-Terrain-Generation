@@ -6,15 +6,19 @@ import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.relauncher.Side;
 import rtg.biomes.base.BaseBiomes;
 import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.config.ConfigRTG;
 import rtg.data.TreeReplacement;
 import rtg.data.VillageMaterials;
+import rtg.debug.DebugHandler;
 import rtg.init.ModMapGen;
+import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
 import rtg.support.Support;
 import rtg.world.WorldTypeRealistic;
@@ -27,6 +31,8 @@ public class RTG
 	
 	public static final WorldTypeRealistic worldtype = (new WorldTypeRealistic("RTG"));  
 	
+	@SidedProxy(serverSide = ModInfo.PROXY_COMMON, clientSide = ModInfo.PROXY_CLIENT)
+	public static CommonProxy proxy;
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) 
@@ -34,11 +40,9 @@ public class RTG
 		instance = this;
 		
 		ConfigRTG.init(event);
-		
+				
 		BaseBiomes.load();
-		
-		VanillaBiomes.load();
-		
+				
 		MinecraftForge.TERRAIN_GEN_BUS.register(new VillageMaterials());
 		//MinecraftForge.TERRAIN_GEN_BUS.register(new TreeReplacement());
 		
@@ -48,7 +52,9 @@ public class RTG
 	@EventHandler
 	public void Init(FMLInitializationEvent event)
 	{
-
+		if ( event.getSide() == Side.CLIENT ) {
+			MinecraftForge.EVENT_BUS.register(new DebugHandler());
+		}
 	}
 	
 	@EventHandler

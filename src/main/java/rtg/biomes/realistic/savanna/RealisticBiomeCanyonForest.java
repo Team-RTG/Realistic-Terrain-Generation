@@ -14,6 +14,7 @@ import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.RTGBiomes;
 import rtg.biomes.vanilla.VanillaBiomes;
+import rtg.biomes.vanilla.VanillaBiomes.Climate;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.config.ConfigRTG;
 import rtg.deco.DecoCacti;
@@ -34,7 +35,7 @@ public class RealisticBiomeCanyonForest extends RealisticBiomeBase
 	
 	public RealisticBiomeCanyonForest() 
 	{
-		super(0, RTGBiomes.baseHotForest, VanillaBiomes.vanillaRiverOasis);
+		super(0, RTGBiomes.baseHotForest, VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.OASIS));
 
 		terrain = new TerrainCanyon(true, 35f, 160f, 60f, 40f, 69f);
 		surface = new SurfaceCanyon(Blocks.sand, Blocks.sand, (byte)1, 47);

@@ -12,6 +12,7 @@ import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.RTGBiomes;
 import rtg.biomes.vanilla.VanillaBiomes;
+import rtg.biomes.vanilla.VanillaBiomes.Climate;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.deco.DecoBlob;
 import rtg.deco.DecoFlowers;
@@ -36,7 +37,7 @@ public class RealisticBiomeTundraPlains extends RealisticBiomeBase
 
 	public RealisticBiomeTundraPlains() 
 	{
-		super(0, RTGBiomes.baseColdPlains, VanillaBiomes.vanillaRiverCold);
+		super(0, RTGBiomes.baseColdPlains, VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.COLD));
 		
 		terrain = new TerrainFlatLakes();
 		surface = new SurfaceTundra(Blocks.grass, Blocks.dirt);

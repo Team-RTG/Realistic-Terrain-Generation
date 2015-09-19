@@ -12,6 +12,7 @@ import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.RTGBiomes;
 import rtg.biomes.vanilla.VanillaBiomes;
+import rtg.biomes.vanilla.VanillaBiomes.Climate;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.deco.DecoBlob;
 import rtg.deco.DecoCacti;
@@ -33,7 +34,7 @@ public class RealisticBiomeDuneValleyForest extends RealisticBiomeBase
 
 	public RealisticBiomeDuneValleyForest() 
 	{
-		super(0, RTGBiomes.baseHotForest, VanillaBiomes.vanillaRiverOasis);
+		super(0, RTGBiomes.baseHotForest, VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.OASIS));
 
 		terrain = new TerrainDuneValley(220f);
 		surface = new SurfaceDuneValley(Blocks.grass, Blocks.dirt, 220f, false, true);

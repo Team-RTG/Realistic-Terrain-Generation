@@ -3,6 +3,7 @@ package rtg.biomes.realistic;
 import java.util.Random;
 
 import rtg.biomes.vanilla.VanillaBiomes;
+import rtg.biomes.vanilla.VanillaBiomes.Climate;
 import rtg.biomes.realistic.land.*;
 import rtg.biomes.realistic.desert.RealisticBiomeDesert;
 import rtg.biomes.realistic.desert.RealisticBiomeDesertMountains;
@@ -154,7 +155,7 @@ public class RealisticBiomeBase
 	
 	public RealisticBiomeBase(int sub, BiomeGenBase biome)
 	{
-		this(sub, biome, VanillaBiomes.vanillaRiverTemperate);
+		this(sub, biome, VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE));
 	}
 	
 	public RealisticBiomeBase(int sub, BiomeGenBase biome, BiomeGenBase river)

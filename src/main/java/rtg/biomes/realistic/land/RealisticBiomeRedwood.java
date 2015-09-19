@@ -13,6 +13,7 @@ import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.RTGBiomes;
 import rtg.biomes.vanilla.VanillaBiomes;
+import rtg.biomes.vanilla.VanillaBiomes.Climate;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.deco.DecoFlowers;
 import rtg.deco.DecoGrass;
@@ -35,7 +36,7 @@ public class RealisticBiomeRedwood extends RealisticBiomeBase
 
 	public RealisticBiomeRedwood() 
 	{
-		super(0, RTGBiomes.baseColdForest, VanillaBiomes.vanillaRiverCold);
+		super(0, RTGBiomes.baseColdForest, VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.COLD));
 		
 		terrain = new TerrainHilly(230f, 120f, 90f);
 		surface = new SurfaceMountainStone(Blocks.grass, Blocks.dirt, true, Blocks.sand, 0.2f);

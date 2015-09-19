@@ -10,6 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.RTGBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.biomes.vanilla.VanillaBiomes;
+import rtg.biomes.vanilla.VanillaBiomes.Climate;
 import rtg.deco.DecoBlob;
 import rtg.deco.trees.DecoPineTree;
 import rtg.deco.trees.DecoSmallPine;
@@ -28,7 +29,7 @@ public class RealisticBiomePolar extends RealisticBiomeBase
 	
 	public RealisticBiomePolar() 
 	{
-		super(0, RTGBiomes.baseSnowDesert, VanillaBiomes.vanillaRiverIce);
+		super(0, RTGBiomes.baseSnowDesert, VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.ICE));
 		terrain = new TerrainPolar();
 		surface = new SurfacePolar(Blocks.snow, Blocks.snow);
 	}

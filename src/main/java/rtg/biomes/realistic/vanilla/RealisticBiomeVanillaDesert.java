@@ -3,6 +3,7 @@ package rtg.biomes.realistic.vanilla;
 import java.util.Random;
 
 import rtg.biomes.vanilla.VanillaBiomes;
+import rtg.biomes.vanilla.VanillaBiomes.Climate;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.deco.DecoBlob;
 import rtg.deco.DecoCacti;
@@ -29,7 +30,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanilla
 	{
 		super(
 			BiomeGenBase.desert,
-			VanillaBiomes.vanillaRiverOasis,
+			VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 			new TerrainVanillaDesert(),
 			new SurfaceVanillaDesert(BiomeGenBase.desert.topBlock, BiomeGenBase.desert.fillerBlock)
 		);

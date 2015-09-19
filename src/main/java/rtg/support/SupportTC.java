@@ -1,6 +1,7 @@
 package rtg.support;
 
 import rtg.biomes.vanilla.VanillaBiomes;
+import rtg.biomes.vanilla.VanillaBiomes.Climate;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.surface.SurfaceGrassland;
 import rtg.terrain.TerrainSmallSupport;
@@ -30,7 +31,7 @@ public class SupportTC
 				{
 					Support.addBiome(
 						new RealisticBiomeSupport(
-							b[i], VanillaBiomes.vanillaRiverTemperate,
+							b[i], VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 							new TerrainSmallSupport(),
 							new SurfaceGrassland(b[i].topBlock, b[i].fillerBlock, Blocks.stone, Blocks.cobblestone)
 						),

@@ -1,6 +1,7 @@
 package rtg.biomes.realistic.vanilla;
 
 import rtg.biomes.vanilla.VanillaBiomes;
+import rtg.biomes.vanilla.VanillaBiomes.Climate;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.surface.vanilla.SurfaceVanillaTaiga;
 import rtg.terrain.vanilla.TerrainVanillaTaiga;
@@ -17,7 +18,7 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanilla
 	{
 		super(
 			BiomeGenBase.taiga,
-			VanillaBiomes.vanillaRiverCold,
+			VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainVanillaTaiga(),
 			new SurfaceVanillaTaiga(topBlock, fillerBlock)
 		);

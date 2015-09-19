@@ -4,60 +4,54 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class VanillaBiomes
 {
-	//RIVER
-	public static BiomeGenBase vanillaRiverCold;
-	public static BiomeGenBase vanillaRiverHot;
-	public static BiomeGenBase vanillaRiverIce;
-	public static BiomeGenBase vanillaRiverOasis;
-	public static BiomeGenBase vanillaRiverTemperate;
-	public static BiomeGenBase vanillaRiverWet;
+	public static enum Climate {
+		COLD,
+		HOT,
+		ICE,
+		OASIS,
+		TEMPERATE,
+		WET
+	}
 	
-	//OCEAN
-	public static BiomeGenBase vanillaOceanCold;
-	public static BiomeGenBase vanillaOceanHot;
-	public static BiomeGenBase vanillaOceanIce;
-	public static BiomeGenBase vanillaOceanOasis;
-	public static BiomeGenBase vanillaOceanTemperate;
-	public static BiomeGenBase vanillaOceanWet;
+	public static float tempCold = 0.5f; public static float rainCold = 0.4f;
+	public static float tempHot = 0.8f; public static float rainHot = 0.2f;
+	public static float tempIce = 0.0f; public static float rainIce = 0.1f;
+	public static float tempOasis = 0.9f; public static float rainOasis = 0.9f;
+	public static float tempTemperate = 0.8f; public static float rainTemperate = 0.6f;
+	public static float tempWet = 0.9f; public static float rainWet = 0.9f;
 
-	public static void load()
+	/**
+	 * We need to set the temp/rain values 'on the fly' when we pass them as arguments to avoid
+	 * the last temp/rain values being used throughout.
+	 * So instead of using vanillaRiverCold, we now use VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.COLD)
+	 * Because Java.
+	 */
+	public static BiomeGenBase climatizedBiome(BiomeGenBase biome, Climate climate)
 	{
-		//RIVER
-		vanillaRiverCold = BiomeGenBase.river;
-		vanillaRiverCold.setTemperatureRainfall(0.5f, 0.4f);
+		switch (climate)
+		{
+			case COLD:
+				biome.setTemperatureRainfall(tempCold, rainCold);
+				break;
+			case HOT:
+				biome.setTemperatureRainfall(tempHot, rainHot);
+				break;
+			case ICE:
+				biome.setTemperatureRainfall(tempIce, rainIce);
+				break;
+			case OASIS:
+				biome.setTemperatureRainfall(tempOasis, rainOasis);
+				break;
+			case TEMPERATE:
+				biome.setTemperatureRainfall(tempTemperate, rainTemperate);
+				break;
+			case WET:
+				biome.setTemperatureRainfall(tempWet, rainWet);
+				break;
+			default:
+				break;
+		}
 		
-		vanillaRiverHot = BiomeGenBase.river;
-		vanillaRiverHot.setTemperatureRainfall(0.8f, 0.2f);
-		
-		vanillaRiverIce = BiomeGenBase.river;
-		vanillaRiverIce.setTemperatureRainfall(0.0f, 0.1f);
-		
-		vanillaRiverOasis = BiomeGenBase.river;
-		vanillaRiverOasis.setTemperatureRainfall(0.9f, 0.9f);
-		
-		vanillaRiverTemperate = BiomeGenBase.river;
-		vanillaRiverTemperate.setTemperatureRainfall(0.8f, 0.6f);
-		
-		vanillaRiverWet = BiomeGenBase.river;
-		vanillaRiverWet.setTemperatureRainfall(0.9f, 0.9f);
-		
-		//OCEAN		
-		vanillaOceanCold = BiomeGenBase.ocean;
-		vanillaOceanCold.setTemperatureRainfall(0.5f, 0.4f);
-		
-		vanillaOceanHot = BiomeGenBase.ocean;
-		vanillaOceanHot.setTemperatureRainfall(0.8f, 0.2f);
-		
-		vanillaOceanIce = BiomeGenBase.ocean;
-		vanillaOceanIce.setTemperatureRainfall(0.0f, 0.1f);
-		
-		vanillaOceanOasis = BiomeGenBase.ocean;
-		vanillaOceanOasis.setTemperatureRainfall(0.9f, 0.9f);
-		
-		vanillaOceanTemperate = BiomeGenBase.ocean;
-		vanillaOceanTemperate.setTemperatureRainfall(0.8f, 0.6f);
-		
-		vanillaOceanWet = BiomeGenBase.ocean;
-		vanillaOceanWet.setTemperatureRainfall(0.9f, 0.9f);
+		return biome;
 	}
 }

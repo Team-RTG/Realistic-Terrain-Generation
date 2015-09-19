@@ -1,6 +1,7 @@
 package rtg.biomes.realistic.vanilla;
 
 import rtg.biomes.vanilla.VanillaBiomes;
+import rtg.biomes.vanilla.VanillaBiomes.Climate;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.surface.vanilla.SurfaceVanillaIceMountains;
 import rtg.terrain.vanilla.TerrainVanillaIceMountains;
@@ -17,7 +18,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanilla
 	{
 		super(
 			BiomeGenBase.iceMountains,
-			VanillaBiomes.vanillaRiverIce,
+			VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.ICE),
 			new TerrainVanillaIceMountains(),
 			new SurfaceVanillaIceMountains(topBlock, fillerBlock, Blocks.packed_ice, Blocks.ice)
 		);

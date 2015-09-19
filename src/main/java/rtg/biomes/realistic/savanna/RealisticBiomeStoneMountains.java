@@ -13,6 +13,7 @@ import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.RTGBiomes;
 import rtg.biomes.vanilla.VanillaBiomes;
+import rtg.biomes.vanilla.VanillaBiomes.Climate;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.config.ConfigRTG;
 import rtg.deco.DecoCacti;
@@ -35,7 +36,7 @@ public class RealisticBiomeStoneMountains extends RealisticBiomeBase
 
 	public RealisticBiomeStoneMountains()
 	{
-		super(0, RTGBiomes.baseHotPlains, VanillaBiomes.vanillaRiverOasis);
+		super(0, RTGBiomes.baseHotPlains, VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.OASIS));
 		terrain = new TerrainHilly(230f, 120f, 0f);
 		surface = new SurfaceMountainStoneMix1(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.08f);
 		riverSurface = new SurfaceRiverOasis();

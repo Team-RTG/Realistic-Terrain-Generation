@@ -13,6 +13,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.RTGBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.config.ConfigRTG;
+import rtg.deco.DecoBlob;
 import rtg.deco.DecoGrass;
 import rtg.deco.trees.DecoJungleFat;
 import rtg.deco.trees.DecoJungleSmall;
@@ -41,7 +42,7 @@ public class RealisticBiomeRedwoodJungle extends RealisticBiomeBase
 	@Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, PerlinNoise perlin, CellNoise cell, float strength, float river)
     {
-		if ( ConfigRTG.enableCobblestoneBoulders ) {
+		if ( ConfigRTG.enableCobblestoneBoulders  && DecoBlob.shouldGenerateCobblestoneBoulder()) {
 
 			for (int i23 = 0; i23 < 2f * strength; i23++)
 			{

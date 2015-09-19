@@ -18,6 +18,7 @@ import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.vanilla.VanillaBiomes.Climate;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.config.ConfigRTG;
+import rtg.deco.DecoBlob;
 import rtg.deco.DecoCacti;
 import rtg.deco.DecoFlowers;
 import rtg.deco.DecoGrass;
@@ -48,13 +49,14 @@ public class RealisticBiomeMesa extends RealisticBiomeBase
 	@Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, PerlinNoise perlin, CellNoise cell, float strength, float river)
     {
-		if ( ConfigRTG.enableCobblestoneBoulders ) {
+		if ( ConfigRTG.enableCobblestoneBoulders && DecoBlob.shouldGenerateCobblestoneBoulder() ) {
 			for (int l = 0; l < 1; ++l)
 			{
 				int i1 = chunkX + rand.nextInt(16) + 8;
 				int j1 = chunkY + rand.nextInt(16) + 8;
 				int k1 = world.getHeightValue(i1, j1);
-				if(k1 < 83)
+				
+				if (k1 < 83)
 				{
 					(new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
 				}

@@ -44,7 +44,7 @@ public class RealisticBiomeSavanna extends RealisticBiomeBase
 	@Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, PerlinNoise perlin, CellNoise cell, float strength, float river)
     {
-		if ( ConfigRTG.enableCobblestoneBoulders ) {
+		if ( ConfigRTG.enableCobblestoneBoulders && DecoBlob.shouldGenerateCobblestoneBoulder() ) {
 			for (int i23 = 0; i23 < 1; i23++)
 			{
 				int i1 = chunkX + rand.nextInt(16) + 8;

@@ -15,6 +15,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.RTGBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.config.ConfigRTG;
+import rtg.deco.DecoBlob;
 import rtg.deco.DecoCacti;
 import rtg.deco.DecoFlowers;
 import rtg.deco.DecoGrass;
@@ -43,13 +44,14 @@ public class RealisticBiomeJungleCanyon extends RealisticBiomeBase
 	@Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, PerlinNoise perlin, CellNoise cell, float strength, float river)
     {
-		if ( ConfigRTG.enableCobblestoneBoulders ) {
+		if ( ConfigRTG.enableCobblestoneBoulders && DecoBlob.shouldGenerateCobblestoneBoulder() ) {
 			for (int l = 0; l < 1f * strength; ++l)
 			{
 				int i1 = chunkX + rand.nextInt(16) + 8;
 				int j1 = chunkY + rand.nextInt(16) + 8;
 				int k1 = world.getHeightValue(i1, j1);
-				if(k1 < 70)
+				
+				if (k1 < 70)
 				{
 					(new WorldGenBlockBlob(Blocks.mossy_cobblestone, 0)).generate(world, rand, i1, k1, j1);
 				}

@@ -7,6 +7,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.config.ConfigRTG;
+import rtg.util.Logger;
+import rtg.util.RandomUtil;
 
 public class DecoBlob extends WorldGenerator
 {
@@ -23,7 +25,7 @@ public class DecoBlob extends WorldGenerator
 
     public boolean generate(World p_76484_1_, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_)
     {
-        if ((field_150545_a == Blocks.mossy_cobblestone || field_150545_a == Blocks.cobblestone) && !ConfigRTG.enableCobblestoneBoulders) {
+        if ((field_150545_a == Blocks.mossy_cobblestone || field_150545_a == Blocks.cobblestone) && !ConfigRTG.enableCobblestoneBoulders && !shouldGenerateCobblestoneBoulder()) {
             return false;
         }
 
@@ -87,5 +89,19 @@ public class DecoBlob extends WorldGenerator
 
             return true;
         }
+    }
+    
+    public static boolean shouldGenerateCobblestoneBoulder()
+    {
+    	int chance = ConfigRTG.cobblestoneBoulderChance;
+    	chance = (chance < 1) ? 1 : ((chance > 100) ? 100 : chance);
+    	
+    	int random = RandomUtil.getRandomInt(1, chance);
+    	
+    	boolean booGenerate = (random == 1) ? true : false;
+    	
+    	//Logger.info("Random = %d; Generate? = %b", random, booGenerate);
+    	
+    	return booGenerate;
     }
 }

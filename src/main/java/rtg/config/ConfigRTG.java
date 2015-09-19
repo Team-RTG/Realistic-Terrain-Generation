@@ -77,6 +77,7 @@ public class ConfigRTG
 	public static boolean generateEmeralds = true;
 	
 	public static boolean enableCobblestoneBoulders = true;
+	public static int cobblestoneBoulderChance = 1;
 	
 	public static boolean showDebugInfo = false;
 	
@@ -231,6 +232,7 @@ public class ConfigRTG
 			generateEmeralds = config.getBoolean("Generate Emeralds", "Miscellaneous", true, "");
 			
 			enableCobblestoneBoulders = config.getBoolean("Enable Cobblestone Boulders", "Miscellaneous", true, "");
+			cobblestoneBoulderChance = config.getInt("1/x chance that Cobblestone Boulders will generate if given the opportunity to do so during world gen", "Miscellaneous", 1, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
 			
 			showDebugInfo = config.getBoolean("Show Debug Info in F3 Screen", "Miscellaneous", false, "");
 			

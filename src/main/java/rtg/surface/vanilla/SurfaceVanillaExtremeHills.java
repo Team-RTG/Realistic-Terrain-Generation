@@ -67,7 +67,7 @@ public class SurfaceVanillaExtremeHills extends SurfaceBase
             		{
             			if(beach)
             			{
-            				gravel = true;
+            				gravel = false; //This will fix falling blocks spam crash (this was true)
             			}
             		}
 

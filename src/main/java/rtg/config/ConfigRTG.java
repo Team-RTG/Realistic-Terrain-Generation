@@ -37,6 +37,8 @@ public class ConfigRTG
 	
 	public static boolean generateVanillaBiomes = true;
 	
+	public static String generateOnlyThisVanillaBiome = "";
+	
 	public static boolean generateVanillaBeach = true;
 	public static boolean generateVanillaBirchForest = true;
 	public static boolean generateVanillaBirchForestHills = true;
@@ -179,6 +181,18 @@ public class ConfigRTG
 			*/
 			
 			generateVanillaBiomes = config.getBoolean("Generate Vanilla Biomes", "Vanilla Biomes", true, "");
+			
+			generateOnlyThisVanillaBiome = 
+				config.getString(
+					"Generate only this vanilla biome", 
+					"Vanilla Biomes", 
+					new String(), 
+					"Must correspond to one of the vanilla biome variables found in the registerVanillaBiomes() method here:" + 
+					Configuration.NEW_LINE +
+					"https://github.com/MinecraftForge/MinecraftForge/blob/master/src/main/java/net/minecraftforge/common/BiomeDictionary.java#L468" +
+					Configuration.NEW_LINE +
+					"(e.g. desert, extremeHills, forest, taiga, taigaHills, etc.)"
+				);
 			
 			generateVanillaBeach = config.getBoolean("generateVanillaBeach", "Vanilla Biomes", true, "");
 			generateVanillaStoneBeach = config.getBoolean("generateVanillaStoneBeach", "Vanilla Biomes", true, "");

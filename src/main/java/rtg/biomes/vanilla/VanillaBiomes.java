@@ -1,9 +1,11 @@
 package rtg.biomes.vanilla;
 
+import rtg.biomes.realistic.RealisticBiomeBase;
+import rtg.util.Logger;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class VanillaBiomes
-{
+{	
 	public static enum Climate {
 		COLD,
 		HOT,
@@ -53,5 +55,47 @@ public class VanillaBiomes
 		}
 		
 		return biome;
+	}
+	
+	public static RealisticBiomeBase getRealisticVanillaBiomeFromVanillaVariableName(String name)
+	{
+		if (name.equals("beach")) { return RealisticBiomeBase.vanillaBeach; }
+		else if (name.equals("birchForest")) { return RealisticBiomeBase.vanillaBirchForest; }
+		else if (name.equals("birchForestHills")) { return RealisticBiomeBase.vanillaBirchForestHills; }
+		else if (name.equals("coldBeach")) { return RealisticBiomeBase.vanillaColdBeach; }
+		else if (name.equals("coldTaiga")) { return RealisticBiomeBase.vanillaColdTaiga; }
+		else if (name.equals("coldTaigaHills")) { return RealisticBiomeBase.vanillaColdTaigaHills; }
+		else if (name.equals("deepOcean")) { return RealisticBiomeBase.vanillaDeepOcean; }
+		else if (name.equals("desert")) { return RealisticBiomeBase.vanillaDesert; }
+		else if (name.equals("desertHills")) { return RealisticBiomeBase.vanillaDesertHills; }
+		else if (name.equals("extremeHills")) { return RealisticBiomeBase.vanillaExtremeHills; }
+		else if (name.equals("extremeHillsPlus")) { return RealisticBiomeBase.vanillaExtremeHillsPlus; }
+		else if (name.equals("forest")) { return RealisticBiomeBase.vanillaForest; }
+		else if (name.equals("forestHills")) { return RealisticBiomeBase.vanillaForestHills; }
+		else if (name.equals("frozenRiver")) { return RealisticBiomeBase.vanillaFrozenRiver; }
+		else if (name.equals("iceMountains")) { return RealisticBiomeBase.vanillaIceMountains; }
+		else if (name.equals("icePlains")) { return RealisticBiomeBase.vanillaIcePlains; }
+		else if (name.equals("jungle")) { return RealisticBiomeBase.vanillaJungle; }
+		else if (name.equals("jungleEdge")) { return RealisticBiomeBase.vanillaJungleEdge; }
+		else if (name.equals("jungleHills")) { return RealisticBiomeBase.vanillaJungleHills; }
+		else if (name.equals("megaTaiga")) { return RealisticBiomeBase.vanillaMegaTaiga; }
+		else if (name.equals("megaTaigaHills")) { return RealisticBiomeBase.vanillaMegaTaigaHills; }
+		else if (name.equals("mesa")) { return RealisticBiomeBase.vanillaMesa; }
+		else if (name.equals("mesaPlateau")) { return RealisticBiomeBase.vanillaMesaPlateau; }
+		else if (name.equals("mesaPlateau_F")) { return RealisticBiomeBase.vanillaMesaPlateau_F; }
+		else if (name.equals("mushroomIsland")) { return RealisticBiomeBase.vanillaMushroomIsland; }
+		else if (name.equals("mushroomIslandShore")) { return RealisticBiomeBase.vanillaMushroomIslandShore; }
+		else if (name.equals("ocean")) { return RealisticBiomeBase.vanillaOcean; }
+		else if (name.equals("plains")) { return RealisticBiomeBase.vanillaPlains; }
+		else if (name.equals("river")) { return RealisticBiomeBase.vanillaRiver; }
+		else if (name.equals("roofedForest")) { return RealisticBiomeBase.vanillaRoofedForest; }
+		else if (name.equals("savanna")) { return RealisticBiomeBase.vanillaSavanna; }
+		else if (name.equals("savannaPlateau")) { return RealisticBiomeBase.vanillaSavannaPlateau; }
+		else if (name.equals("stoneBeach")) { return RealisticBiomeBase.vanillaStoneBeach; }
+		else if (name.equals("swampland")) { return RealisticBiomeBase.vanillaSwampland; }
+		else if (name.equals("taiga")) { return RealisticBiomeBase.vanillaTaiga; }
+		else if (name.equals("taigaHills")) { return RealisticBiomeBase.vanillaTaigaHills; }
+		
+		return null;
 	}
 }

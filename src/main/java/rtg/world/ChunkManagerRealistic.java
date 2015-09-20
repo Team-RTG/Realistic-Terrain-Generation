@@ -31,8 +31,11 @@ import rtg.biomes.realistic.savanna.RealisticBiomeSavannaForest;
 import rtg.biomes.realistic.savanna.RealisticBiomeStoneMountains;
 import rtg.biomes.realistic.savanna.RealisticBiomeStoneMountainsCactus;
 import rtg.biomes.realistic.vanilla.RealisticBiomeVanillaStoneBeach;
+import rtg.biomes.vanilla.VanillaBiomes;
+import rtg.config.ConfigRTG;
 import rtg.support.Support;
 import rtg.util.CellNoise;
+import rtg.util.Logger;
 import rtg.util.PerlinNoise;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
@@ -330,7 +333,17 @@ public class ChunkManagerRealistic extends WorldChunkManager
     	
     	}*/
     	
-    	//output = RealisticBiomeBase.vanillaDesert;
+    	/**
+    	 * Do we only want to generate a single biome for the whole world?
+    	 */
+    	String generateOnlyThisVanillaBiome = ConfigRTG.generateOnlyThisVanillaBiome;
+    	
+    	if (generateOnlyThisVanillaBiome.length() > 0)
+    	{
+    		output = VanillaBiomes.getRealisticVanillaBiomeFromVanillaVariableName(generateOnlyThisVanillaBiome);
+    	}
+    	
+    	//output = RealisticBiomeBase.vanillaExtremeHillsPlus;
     	
 		if (biomeDataMap.size() > 4096) {
 			biomeDataMap.clear();

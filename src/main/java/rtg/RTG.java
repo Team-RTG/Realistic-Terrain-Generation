@@ -14,6 +14,7 @@ import cpw.mods.fml.relauncher.Side;
 import rtg.biomes.base.BaseBiomes;
 import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.config.ConfigRTG;
+import rtg.config.RTGConfig;
 import rtg.data.TreeReplacement;
 import rtg.data.VillageMaterials;
 import rtg.debug.DebugHandler;
@@ -29,6 +30,8 @@ public class RTG
 	@Instance("RTG")
 	public static RTG instance;
 	
+	public static String configPath;
+	
 	public static final WorldTypeRealistic worldtype = (new WorldTypeRealistic("RTG"));  
 	
 	@SidedProxy(serverSide = ModInfo.PROXY_COMMON, clientSide = ModInfo.PROXY_CLIENT)
@@ -39,7 +42,8 @@ public class RTG
 	{
 		instance = this;
 		
-		ConfigRTG.init(event);
+		configPath = event.getModConfigurationDirectory() + "/RTG/";
+		RTGConfig.init(configPath);
 				
 		BaseBiomes.load();
 				

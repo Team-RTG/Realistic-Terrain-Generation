@@ -1,5 +1,10 @@
 package rtg.config;
 
+import java.io.File;
+
+import org.apache.logging.log4j.Level;
+
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.common.config.Configuration;
 
@@ -83,9 +88,9 @@ public class ConfigRTG
 	
 	public static boolean showDebugInfo = false;
 	
-	public static void init(FMLPreInitializationEvent event)
+	public static void init(File configFile) 
 	{
-		config = new Configuration(event.getSuggestedConfigurationFile());
+		config = new Configuration(configFile);
 
 		for(int c = 0; c < biomeIDs.length; c++)
 		{
@@ -262,6 +267,8 @@ public class ConfigRTG
 			{
 				biomeIDs[c] = 200 + c;
 			}
+			
+			FMLLog.log(Level.ERROR, e, "RTG has had a problem loading RTG configuration.");	
 		}
 		finally 
 		{

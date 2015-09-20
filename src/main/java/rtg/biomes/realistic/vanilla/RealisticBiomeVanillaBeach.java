@@ -43,6 +43,6 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanilla
 					worldgenerator.generate(world, rand, j6, z52, k10);
 				}
 			}
-	}
+            }
 	
 }

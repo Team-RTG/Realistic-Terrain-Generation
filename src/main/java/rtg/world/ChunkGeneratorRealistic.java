@@ -787,6 +787,7 @@ public class ChunkGeneratorRealistic implements IChunkProvider
 		                {
 		                	if(b1 != Blocks.snow_layer && b2 != Blocks.packed_ice)
 		                	{
+		                		/** This line here under spawns those annoying snow layers */
 		                		worldObj.setBlock(sn1 + x, sn3, sn2 + y, Blocks.snow_layer, 0, 2);
 		                	}
 		                }

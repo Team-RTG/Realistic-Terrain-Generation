@@ -24,7 +24,7 @@ public class ConfigTest
 		}
 		catch (Exception e)
 		{
-			FMLLog.log(Level.ERROR, "Biomes O Plenty has had a problem loading its configuration", e);
+			FMLLog.log(Level.ERROR, "RTG has had a problem loading its configuration", e);
 		}
 		finally
 		{

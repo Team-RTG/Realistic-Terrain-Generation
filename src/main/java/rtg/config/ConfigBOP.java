@@ -94,9 +94,11 @@ public class ConfigBOP
 		public static boolean generateBOPspruceWoods = true;
 		public static boolean generateBOPtropics = true;
 		public static boolean generateBOPvolcano = true;
-		//Ocean biomes
+		//Water biomes
 		public static boolean generateBOPcoralReef = true;
 		public static boolean generateBOPkelpForest = true;
+		public static boolean generateBOPdryRiver = true;
+		public static boolean generateBOPlushRiver = true;
 		
 	
 
@@ -187,9 +189,11 @@ public static void init(FMLPreInitializationEvent event)
 	generateBOPspruceWoods = config.getBoolean("generateBOPspruceWoods", "BOP Biomes", true, "");
 	generateBOPtropics = config.getBoolean("generateBOPtropics", "BOP Biomes", true, "");
 	generateBOPvolcano = config.getBoolean("generateBOPvolcano", "BOP Biomes", true, "");
-	//Ocean biomes
+	//Water biomes
 	generateBOPcoralReef = config.getBoolean("generateBOPcoralReef", "BOP Biomes", true, "");
 	generateBOPkelpForest = config.getBoolean("generateBOPkelpForest", "BOP Biomes", true, "");
+	generateBOPdryRiver = config.getBoolean("generateBOPdryRiver", "BOP Biomes", true, "");
+	generateBOPlushRiver = config.getBoolean("generateBOPlushRiver", "BOP Biomes", true, "");
 	
 
 		}

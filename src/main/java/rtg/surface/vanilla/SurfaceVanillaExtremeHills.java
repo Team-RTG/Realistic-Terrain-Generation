@@ -95,7 +95,7 @@ public class SurfaceVanillaExtremeHills extends SurfaceBase
             			if(beach)
             			{
 	            			blocks[(y * 16 + x) * 256 + k] = beachBlock;
-	            			gravel = true;
+	            			gravel = false; //This will fix falling blocks spam crash (this was true)
             			}
             			else if(k < 62)
             			{

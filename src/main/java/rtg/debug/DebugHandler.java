@@ -1,8 +1,11 @@
 package rtg.debug;
 
+import org.apache.logging.log4j.Level;
+
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.config.ConfigRTG;
 import rtg.reference.ModInfo;
+import rtg.util.Logger;
 import rtg.world.ChunkManagerRealistic;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -50,9 +53,22 @@ public final class DebugHandler {
 				details = PREFIX;
 				details += "Ocean Value (X/Z): " + chunkManager.getOceanValue(posX, posZ);
 				event.left.add(details);
+				
+				if (ConfigRTG.enableDebugging)
+				{
+					details = PREFIX;
+					details += "WARNING!!! Debugging mode is ENABLED!";
+					event.left.add(details);
+				}
 			}
 		}
 	}
 
-
+	public static void log(String format, Object... data)
+	{
+		if (ConfigRTG.enableDebugging)
+		{
+			Logger.log(Level.INFO, format, data);
+		}
+	}
 }

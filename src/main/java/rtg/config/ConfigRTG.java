@@ -87,6 +87,7 @@ public class ConfigRTG
 	public static int cobblestoneBoulderChance = 1;
 	
 	public static boolean showDebugInfo = false;
+	public static boolean enableDebugging = false;
 	
 	public static void init(File configFile) 
 	{
@@ -254,6 +255,7 @@ public class ConfigRTG
 			cobblestoneBoulderChance = config.getInt("1/x chance that Cobblestone Boulders will generate if given the opportunity to do so during world gen", "Miscellaneous", 1, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
 			
 			showDebugInfo = config.getBoolean("Show Debug Info in F3 Screen", "Miscellaneous", false, "");
+			enableDebugging = config.getBoolean("Enable Debugging", "Miscellaneous", false, "WARNING: This should only be enabled if you know what you're doing.");
 			
 			/*
 			####################################################################################################

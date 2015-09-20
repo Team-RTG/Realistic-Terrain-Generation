@@ -14,6 +14,7 @@ import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import rtg.api.RTGBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.config.ConfigRTG;
+import rtg.debug.DebugHandler;
 import rtg.deco.DecoClay;
 import rtg.map.old.MapGenAncientVillage;
 import rtg.util.CanyonColor;
@@ -107,6 +108,8 @@ public class ChunkGeneratorRealistic implements IChunkProvider
 
     public ChunkGeneratorRealistic(World world, long l)
     {
+    	DebugHandler.log("START ChunkGeneratorRealistic (Seed=%s)", world.getSeed());
+    	
     	caves = TerrainGen.getModdedMapGen(new MapGenCaves(), CAVE);
         worldObj = world;
         cmr = (ChunkManagerRealistic)worldObj.getWorldChunkManager();
@@ -122,9 +125,17 @@ public class ChunkGeneratorRealistic implements IChunkProvider
         Map m = new HashMap();
         m.put("size", "0");
         m.put("distance", "24");
+        
+        DebugHandler.log("START villageGenerator");
         villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), VILLAGE);
+        
+        DebugHandler.log("START strongholdGenerator");
 		strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), STRONGHOLD);
+		
+		DebugHandler.log("START mineshaftGenerator");
 		mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(), MINESHAFT);
+		
+		DebugHandler.log("START scatteredFeatureGenerator");
 		scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new net.minecraft.world.gen.structure.MapGenScatteredFeature(), SCATTERED_FEATURE);
         
         CanyonColor.init(l);
@@ -155,6 +166,8 @@ public class ChunkGeneratorRealistic implements IChunkProvider
     
     public Chunk provideChunk(int cx, int cy)
     {
+    	DebugHandler.log("START provideChunk (cx=%d, cy=%d)", cx, cy);
+    	
     	rand.setSeed((long)cx * 0x4f9939f508L + (long)cy * 0x1ef1565bd5L);
         Block[] blocks = new Block[65536];
         byte[] metadata = new byte[65536];
@@ -162,6 +175,7 @@ public class ChunkGeneratorRealistic implements IChunkProvider
         biomesForGeneration = new RealisticBiomeBase[256];
         int k;
         
+        DebugHandler.log("START generateTerrain");
         generateTerrain(cmr, cx, cy, blocks, metadata, biomesForGeneration, noise);
         
         for(k = 0; k < 256; k++)
@@ -174,12 +188,22 @@ public class ChunkGeneratorRealistic implements IChunkProvider
         	baseBiomesList[k] = biomesForGeneration[k].baseBiome;
         }
         
+        DebugHandler.log("START replaceBlocksForBiome (cx=%d, cy=%d)", cx, cy);
         replaceBlocksForBiome(cx, cy, blocks, metadata, biomesForGeneration, baseBiomesList, noise);
+        
+        DebugHandler.log("START caves (cx=%d, cy=%d)", cx, cy);
         caves.func_151539_a(this, worldObj, cx, cy, blocks);
         
+        DebugHandler.log("START mineshaftGenerator (cx=%d, cy=%d)", cx, cy);
         mineshaftGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+        
+        DebugHandler.log("START strongholdGenerator (cx=%d, cy=%d)", cx, cy);
         strongholdGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+        
+        DebugHandler.log("START villageGenerator (cx=%d, cy=%d)", cx, cy);
         villageGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+        
+        DebugHandler.log("START scatteredFeatureGenerator (cx=%d, cy=%d)", cx, cy);
         scatteredFeatureGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
         
     	long second = System.currentTimeMillis();
@@ -196,7 +220,9 @@ public class ChunkGeneratorRealistic implements IChunkProvider
     }
     
     public void generateTerrain(ChunkManagerRealistic cmr, int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase biomes[], float[] n)
-    {	
+    {
+    	DebugHandler.log("START generateTerrain (cx=%d, cy=%d)", cx, cy);
+    	
     	int p, h;
     	float[] noise = getNewNoise(cmr, cx * 16, cy * 16, biomes);
     	for(int i = 0; i < 16; i++)
@@ -231,6 +257,8 @@ public class ChunkGeneratorRealistic implements IChunkProvider
     
     public float[] getNewNoise(ChunkManagerRealistic cmr, int x, int y, RealisticBiomeBase biomes[])
     {
+    	DebugHandler.log("START getNewNoise (x=%d, y=%d)", x, y);
+    	
     	int i, j, k, l, m, n, p;
     	
     	for(i = -sampleSize; i < sampleSize + 5; i++)
@@ -419,7 +447,7 @@ public class ChunkGeneratorRealistic implements IChunkProvider
     			}
     		}
     	}
-    	
+    	    	
     	return testHeight;
     }
     
@@ -443,6 +471,8 @@ public class ChunkGeneratorRealistic implements IChunkProvider
 
     public void replaceBlocksForBiome(int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase[] biomes, BiomeGenBase[] base, float[] n)
     {
+    	DebugHandler.log("START replaceBlocksForBiome (cx=%d, cy=%d)", cx, cy);
+    	
         ChunkProviderEvent.ReplaceBiomeBlocks event = new ChunkProviderEvent.ReplaceBiomeBlocks(this, cx, cy, blocks, metadata, base, worldObj);
         MinecraftForge.EVENT_BUS.post(event);
         if (event.getResult() == Result.DENY) return;
@@ -476,6 +506,8 @@ public class ChunkGeneratorRealistic implements IChunkProvider
 
     public Chunk loadChunk(int par1, int par2)
     {
+    	DebugHandler.log("START loadChunk (par1=%d, par2=%d)", par1, par2);
+    	
         return provideChunk(par1, par2);
     }
 
@@ -491,6 +523,8 @@ public class ChunkGeneratorRealistic implements IChunkProvider
 
     public void populate(IChunkProvider ichunkprovider, int i, int j)
     {
+    	DebugHandler.log("START populate (i=%d, j=%d)", i, j);
+    	
         BlockFalling.fallInstantly = true;
 		worldObj.scheduledUpdatesAreImmediate = true;
 		int x = i * 16;
@@ -504,6 +538,8 @@ public class ChunkGeneratorRealistic implements IChunkProvider
 
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(ichunkprovider, worldObj, rand, i, j, flag));
 
+        DebugHandler.log("START structure generation (i=%d, j=%d)", i, j);
+        
         mineshaftGenerator.generateStructuresInChunk(worldObj, rand, i, j);
         strongholdGenerator.generateStructuresInChunk(worldObj, rand, i, j);
         villageGenerator.generateStructuresInChunk(worldObj, rand, i, j);
@@ -511,6 +547,8 @@ public class ChunkGeneratorRealistic implements IChunkProvider
         
         boolean gen = false;
 
+        DebugHandler.log("START lake generation (i=%d, j=%d)", i, j);
+        
         gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.LAKE);
         if(gen && rand.nextInt(10) == 0)
 		{
@@ -520,6 +558,8 @@ public class ChunkGeneratorRealistic implements IChunkProvider
 			(new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
 		}
 		
+        DebugHandler.log("START lava generation (i=%d, j=%d)", i, j);
+        
         gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.LAVA);
 		if(gen && rand.nextInt(18) == 0) 
 		{
@@ -532,6 +572,8 @@ public class ChunkGeneratorRealistic implements IChunkProvider
 			}
 		} 
 		
+		DebugHandler.log("START dungeon generation (i=%d, j=%d)", i, j);
+		
 		gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.DUNGEON);
 		for(int k1 = 0; k1 < 8 && gen; k1++)
 		{
@@ -540,6 +582,9 @@ public class ChunkGeneratorRealistic implements IChunkProvider
 			int j11 = y + rand.nextInt(16) + 8;
 			(new WorldGenDungeons()).generate(worldObj, rand, j5, k8, j11);
 		}
+		
+		
+		DebugHandler.log("START ore generation (i=%d, j=%d)", i, j);
 		
 		MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(worldObj, rand, x, y));
 
@@ -657,6 +702,8 @@ public class ChunkGeneratorRealistic implements IChunkProvider
 
 		MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(worldObj, rand, x, y));
 		
+		DebugHandler.log("START shroom generation (i=%d, j=%d)", i, j);
+		
 		if(rand.nextInt(5) == 0)
 		{
 			int k15 = x + rand.nextInt(16) + 8;
@@ -683,6 +730,8 @@ public class ChunkGeneratorRealistic implements IChunkProvider
         
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(worldObj, rand, x, y));
 
+        DebugHandler.log("START lazy decorations (x=%d, y=%d)", x, y);
+        
         //lazy fix
         TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.SAND);
         TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.CLAY);
@@ -728,6 +777,8 @@ public class ChunkGeneratorRealistic implements IChunkProvider
         
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(worldObj, rand, x, y));
         
+        DebugHandler.log("START flowing water (x=%d, y=%d)", x, y);
+        
 		for(int l18 = 0; l18 < 50; l18++)
 		{
 			int l21 = x + rand.nextInt(16) + 8;
@@ -736,6 +787,8 @@ public class ChunkGeneratorRealistic implements IChunkProvider
 			(new WorldGenLiquids(Blocks.flowing_water)).generate(worldObj, rand, l21, k23, l24);
 		}
 
+		DebugHandler.log("START flowing lava (x=%d, y=%d)", x, y);
+		
 		for(int i19 = 0; i19 < 20; i19++)
 		{
 			int i22 = x + rand.nextInt(16) + 8;
@@ -744,6 +797,8 @@ public class ChunkGeneratorRealistic implements IChunkProvider
 			(new WorldGenLiquids(Blocks.flowing_lava)).generate(worldObj, rand, i22, l23, i25);
 		}
 		
+		DebugHandler.log("START animal spawning (i=%d, j=%d)", i, j);
+		
         if (TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.ANIMALS))
         {
             SpawnerAnimals.performWorldGenSpawning(this.worldObj, worldObj.getBiomeGenForCoords(x + 16, y + 16), x + 8, y + 8, 16, 16, this.rand);
@@ -751,6 +806,8 @@ public class ChunkGeneratorRealistic implements IChunkProvider
 
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(ichunkprovider, worldObj, rand, i, j, flag));
 
+        DebugHandler.log("START ice generation (i=%d, j=%d)", i, j);
+        
         TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.ICE);
         if(snow < 0.59f)
         {
@@ -853,10 +910,11 @@ public class ChunkGeneratorRealistic implements IChunkProvider
 
     public void recreateStructures(int par1, int par2)
     {
+    	DebugHandler.log("START recreateStructures (par1=%d, par2=%d)", par1, par2);
+    	
 		strongholdGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
 		mineshaftGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
         villageGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
 		scatteredFeatureGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
-        
 	}
 }

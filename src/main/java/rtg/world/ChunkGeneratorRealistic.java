@@ -787,8 +787,16 @@ public class ChunkGeneratorRealistic implements IChunkProvider
 		                {
 		                	if(b1 != Blocks.snow_layer && b2 != Blocks.packed_ice)
 		                	{
-		                		/** This line here under spawns those annoying snow layers */
-		                		worldObj.setBlock(sn1 + x, sn3, sn2 + y, Blocks.snow_layer, 0, 2);
+		                		
+		                		/**
+		                		 * Not sure if this is the right 'temperature' we need to check, and not sure
+		                		 * if the value is low/high enough, so some testing is still needed here.
+		                		 */
+		                        if (biome.baseBiome.temperature < 0.15f)
+                                {
+			                		/** This line spawns those annoying snow layers */
+			                		worldObj.setBlock(sn1 + x, sn3, sn2 + y, Blocks.snow_layer, 0, 2);
+                                }
 		                	}
 		                }
 	            	}

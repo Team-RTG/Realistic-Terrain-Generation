@@ -33,6 +33,7 @@ import rtg.biomes.realistic.savanna.RealisticBiomeStoneMountainsCactus;
 import rtg.biomes.realistic.vanilla.RealisticBiomeVanillaStoneBeach;
 import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.config.ConfigRTG;
+import rtg.debug.DebugHandler;
 import rtg.support.Support;
 import rtg.util.CellNoise;
 import rtg.util.Logger;
@@ -69,6 +70,11 @@ public class ChunkManagerRealistic extends WorldChunkManager
     private boolean smallEnabled;
 
     private float[] borderNoise;
+    
+    public String previousBaseBiome = "";
+    public String previousRiverBiome = "";
+    public String currentBaseBiome = "";
+    public String currentRiverBiome = "";
 	
 	protected ChunkManagerRealistic()
 	{
@@ -245,13 +251,13 @@ public class ChunkManagerRealistic extends WorldChunkManager
 
     public RealisticBiomeBase getBiomeDataAt(int par1, int par2, float ocean)
     {
-	long coords = ChunkCoordIntPair.chunkXZ2Int(par1, par2);
+    	long coords = ChunkCoordIntPair.chunkXZ2Int(par1, par2);
 
-	if (biomeDataMap.containsKey(coords)) {
-		return biomeDataMap.get(coords);
-	}
+		if (biomeDataMap.containsKey(coords)) {
+			return biomeDataMap.get(coords);
+		}
 
-	RealisticBiomeBase output = null;
+		RealisticBiomeBase output = null;
     	
     	float b = (biomecell.noise((par1 + 4000f) / 1200D, par2 / 1200D, 1D) * 0.5f) + 0.5f;
     	b = b < 0f ? 0f : b >= 0.9999999f ? 0.9999999f : b;
@@ -350,6 +356,17 @@ public class ChunkManagerRealistic extends WorldChunkManager
 		}
 
 		biomeDataMap.put(coords, output);
+		
+		currentBaseBiome = output.baseBiome.biomeName;
+		currentRiverBiome = output.riverBiome.biomeName;
+		
+		if (currentBaseBiome.compareTo(previousBaseBiome) != 0 || currentRiverBiome.compareTo(previousRiverBiome) != 0)
+		{
+			DebugHandler.log("Base Biome = %s; River Biome = %s", currentBaseBiome, currentRiverBiome);
+			previousBaseBiome = currentBaseBiome;
+			previousRiverBiome = currentRiverBiome;
+		}
+		
 		return output;
     }
     

@@ -2,7 +2,7 @@ package rtg.surface;
 
 import java.util.Random;
 
-import rtg.api.RTGBiomes;
+
 import rtg.util.CellNoise;
 import rtg.util.PerlinNoise;
 import net.minecraft.block.Block;
@@ -50,7 +50,7 @@ public class SurfaceDuneValley extends SurfaceBase
                 	if(k > 90f + perlin.noise2(i / 24f, j / 24f) * 10f - h || (m < -0.28f && mix))
         			{
     					blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
-    					base[x * 16 + y] = RTGBiomes.baseHotDesert;
+    					base[x * 16 + y] = BiomeGenBase.desert;
     					sand = true;
         			}
         			else if(dirt && m < 0.22f || k < 62)

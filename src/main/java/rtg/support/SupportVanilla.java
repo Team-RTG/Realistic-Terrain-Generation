@@ -3,7 +3,7 @@ package rtg.support;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.api.RTGBiomes;
+
 import rtg.biomes.realistic.vanilla.*;
 import rtg.config.ConfigRTG;
 import rtg.support.edit.*;

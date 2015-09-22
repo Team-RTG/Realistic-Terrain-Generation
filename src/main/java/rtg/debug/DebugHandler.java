@@ -43,6 +43,10 @@ public final class DebugHandler {
 				event.left.add(details);
 				
 				details = PREFIX;
+				details += "Realistic River Biome (X/Z): " + realisticBiome.riverBiome.biomeName + " (ID=" + realisticBiome.riverBiome.biomeID + ")";
+				event.left.add(details);
+				
+				details = PREFIX;
 				details += "Temperature/Rainfall (Static): " + biome.temperature + "/" + biome.rainfall;
 				event.left.add(details);
 				

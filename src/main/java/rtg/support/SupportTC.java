@@ -1,10 +1,10 @@
 package rtg.support;
 
-import rtg.biomes.vanilla.VanillaBiomes;
-import rtg.biomes.vanilla.VanillaBiomes.Climate;
-import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.surface.SurfaceGrassland;
 import rtg.terrain.TerrainSmallSupport;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.Climate;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -31,7 +31,7 @@ public class SupportTC
 				{
 					Support.addBiome(
 						new RealisticBiomeSupport(
-							b[i], VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+							b[i], BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 							new TerrainSmallSupport(),
 							new SurfaceGrassland(b[i].topBlock, b[i].fillerBlock, Blocks.stone, Blocks.cobblestone)
 						),

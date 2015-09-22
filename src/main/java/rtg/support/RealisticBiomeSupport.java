@@ -6,13 +6,13 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.support.edit.EditBase;
 import rtg.surface.SurfaceBase;
 import rtg.terrain.TerrainBase;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.PerlinNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public class RealisticBiomeSupport extends RealisticBiomeBase
 {

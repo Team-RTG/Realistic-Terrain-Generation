@@ -7,15 +7,15 @@ import java.util.Random;
 import gnu.trove.map.hash.TLongIntHashMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
 import net.minecraft.world.ChunkCoordIntPair;
-import rtg.biomes.realistic.RealisticBiomeBase;
-import rtg.biomes.realistic.vanilla.RealisticBiomeVanillaStoneBeach;
-import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.config.ConfigRTG;
 import rtg.debug.DebugHandler;
 import rtg.support.Support;
 import rtg.util.CellNoise;
 import rtg.util.Logger;
 import rtg.util.PerlinNoise;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaStoneBeach;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeCache;
@@ -289,7 +289,7 @@ public class ChunkManagerRealistic extends WorldChunkManager
     	
     	if (generateOnlyThisVanillaBiome.length() > 0)
     	{
-    		output = VanillaBiomes.getRealisticVanillaBiomeFromVanillaVariableName(generateOnlyThisVanillaBiome);
+    		output = BiomeBase.getRealisticVanillaBiomeFromVanillaVariableName(generateOnlyThisVanillaBiome);
     	}
     	
     	//output = RealisticBiomeBase.vanillaExtremeHillsPlus;

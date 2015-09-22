@@ -1,11 +1,11 @@
 package rtg.support;
 
 import enhancedbiomes.api.EBBiomes;
-import rtg.biomes.vanilla.VanillaBiomes;
-import rtg.biomes.vanilla.VanillaBiomes.Climate;
-import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.surface.*;
 import rtg.terrain.*;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.Climate;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -126,7 +126,7 @@ public class SupportEB
 					//ALPINE MOUNTAINS
 					Support.addBiome(
 						new RealisticBiomeSupport(
-							EBBiome, VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+							EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 							new TerrainMountainRiver(),
 							new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
 						),
@@ -138,7 +138,7 @@ public class SupportEB
 					//ALPINE MOUNTAINS EDGE
 					Support.addBiome(
 						new RealisticBiomeSupport(
-							EBBiome, VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+							EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 							new TerrainMountainRiver(),
 							new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
 						),
@@ -150,7 +150,7 @@ public class SupportEB
 					//ALPINE MOUNTAINS M
 					Support.addBiome(
 						new RealisticBiomeSupport(
-							EBBiome, VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+							EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 							new TerrainMountainRiver(),
 							new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
 						),

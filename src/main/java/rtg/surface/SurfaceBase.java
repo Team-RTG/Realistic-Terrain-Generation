@@ -5,9 +5,9 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.util.CellNoise;
 import rtg.util.PerlinNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public class SurfaceBase 
 {

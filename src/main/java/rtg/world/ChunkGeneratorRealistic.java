@@ -11,8 +11,6 @@ import java.util.Random;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
-
-import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.config.ConfigRTG;
 import rtg.debug.DebugHandler;
 import rtg.deco.DecoClay;
@@ -20,6 +18,7 @@ import rtg.map.old.MapGenAncientVillage;
 import rtg.util.CanyonColor;
 import rtg.util.CellNoise;
 import rtg.util.PerlinNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.BlockSand;

@@ -2,14 +2,14 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import rtg.surface.vanilla.SurfaceVanillaBeach;
-import rtg.terrain.vanilla.TerrainVanillaBeach;
 import rtg.util.CellNoise;
 import rtg.util.PerlinNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeBase.Climate;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.WorldGenTreePalm;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaBeach;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaBeach;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;

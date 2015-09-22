@@ -5,8 +5,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigRTG;
 import rtg.support.edit.*;
-import rtg.surface.*;
-import rtg.terrain.*;
 import rtg.world.biome.realistic.vanilla.*;
 import rtg.support.Support.BiomeCategory;
 

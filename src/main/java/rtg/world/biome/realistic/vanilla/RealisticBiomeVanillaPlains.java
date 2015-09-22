@@ -2,8 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import rtg.surface.vanilla.SurfaceVanillaPlains;
-import rtg.terrain.vanilla.TerrainVanillaPlains;
 import rtg.util.CellNoise;
 import rtg.util.PerlinNoise;
 import rtg.world.biome.BiomeBase;
@@ -17,6 +15,8 @@ import rtg.world.gen.feature.tree.WorldGenTreePineEuro;
 import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeSavanna;
 import rtg.world.gen.feature.tree.WorldGenTreeWillow;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaPlains;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaPlains;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;

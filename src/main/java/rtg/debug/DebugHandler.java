@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Level;
 import rtg.config.ConfigRTG;
 import rtg.reference.ModInfo;
 import rtg.util.Logger;
-import rtg.world.ChunkManagerRealistic;
+import rtg.world.biome.ChunkManagerRealistic;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;

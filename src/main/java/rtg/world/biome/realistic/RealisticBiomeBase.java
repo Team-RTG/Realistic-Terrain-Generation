@@ -2,14 +2,14 @@ package rtg.world.biome.realistic;
 
 import java.util.Random;
 
-import rtg.surface.SurfaceBase;
-import rtg.terrain.TerrainBase;
 import rtg.util.CellNoise;
 import rtg.util.PerlinNoise;
-import rtg.world.ChunkManagerRealistic;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.ChunkManagerRealistic;
 import rtg.world.biome.BiomeBase.Climate;
 import rtg.world.biome.realistic.vanilla.*;
+import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.gen.terrain.TerrainBase;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;

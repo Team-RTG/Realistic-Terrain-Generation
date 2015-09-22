@@ -1,10 +1,10 @@
 package rtg.world.biome.realistic.vanilla;
 
-import rtg.surface.vanilla.SurfaceVanillaIcePlains;
-import rtg.terrain.vanilla.TerrainVanillaIcePlains;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeBase.Climate;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaIcePlains;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaIcePlains;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;

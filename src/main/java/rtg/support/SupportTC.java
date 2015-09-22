@@ -1,10 +1,10 @@
 package rtg.support;
 
-import rtg.surface.SurfaceGrassland;
-import rtg.terrain.TerrainSmallSupport;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeBase.Climate;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.surface.SurfaceGrassland;
+import rtg.world.gen.terrain.TerrainSmallSupport;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;

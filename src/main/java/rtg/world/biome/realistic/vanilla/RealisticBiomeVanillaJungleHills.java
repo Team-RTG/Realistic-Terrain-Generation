@@ -1,10 +1,10 @@
 package rtg.world.biome.realistic.vanilla;
 
-import rtg.surface.vanilla.SurfaceVanillaJungleHills;
-import rtg.terrain.vanilla.TerrainVanillaJungleHills;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeBase.Climate;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleHills;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleHills;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;

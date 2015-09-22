@@ -7,12 +7,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.support.edit.EditBase;
-import rtg.surface.SurfaceBase;
-import rtg.terrain.TerrainBase;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.PerlinNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeSupport extends RealisticBiomeBase
 {

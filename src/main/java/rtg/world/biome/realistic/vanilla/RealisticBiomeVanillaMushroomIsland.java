@@ -1,11 +1,11 @@
 package rtg.world.biome.realistic.vanilla;
 
 
-import rtg.surface.vanilla.SurfaceVanillaMushroomIsland;
-import rtg.terrain.vanilla.TerrainVanillaMushroomIsland;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeBase.Climate;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaMushroomIsland;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaMushroomIsland;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;

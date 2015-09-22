@@ -1,8 +1,8 @@
 package rtg.support;
 
 import enhancedbiomes.api.EBBiomes;
-import rtg.surface.*;
-import rtg.terrain.*;
+import rtg.world.gen.surface.SurfaceMountainSnow;
+import rtg.world.gen.terrain.*;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeBase.Climate;
 import rtg.world.biome.realistic.RealisticBiomeBase;

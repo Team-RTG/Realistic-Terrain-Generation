@@ -78,6 +78,8 @@ public class ChunkManagerRealistic extends WorldChunkManager
     {
         this();
         long seed = par1World.getSeed();
+        GenLayer[] agenlayer = GenLayerRTG.initializeAllBiomeGenerators(par1World.getSeed(), par1World.getWorldInfo().getTerrainType());
+        agenlayer = getModdedBiomeGenerators(par1World.getWorldInfo().getTerrainType(), par1World.getSeed(), agenlayer);
         
     	perlin = new PerlinNoise(seed);
     	cell = new CellNoise(seed, (short)0);

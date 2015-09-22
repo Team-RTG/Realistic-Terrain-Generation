@@ -1,6 +1,6 @@
 package rtg.biomes.realistic.vanilla;
 
-import rtg.api.RTGBiomes;
+
 import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.biomes.vanilla.VanillaBiomes.Climate;
 import rtg.biomes.realistic.RealisticBiomeBase;

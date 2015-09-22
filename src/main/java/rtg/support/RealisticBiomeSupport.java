@@ -6,8 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.api.RTGBiomes;
-import rtg.biomes.base.BaseBiomes;
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.support.edit.EditBase;
 import rtg.surface.SurfaceBase;
@@ -29,7 +27,7 @@ public class RealisticBiomeSupport extends RealisticBiomeBase
 	
 	public RealisticBiomeSupport(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s, EditBase[] e)
 	{
-		super(0, b, riverbiome);
+		super(b, riverbiome);
 		customBiome = b;
 		terrain = t;
 		

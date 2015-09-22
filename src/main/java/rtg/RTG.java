@@ -11,7 +11,6 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
-import rtg.biomes.base.BaseBiomes;
 import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.config.ConfigRTG;
 import rtg.config.RTGConfig;
@@ -44,8 +43,6 @@ public class RTG
 		
 		configPath = event.getModConfigurationDirectory() + "/RTG/";
 		RTGConfig.init(configPath);
-				
-		BaseBiomes.load();
 				
 		MinecraftForge.TERRAIN_GEN_BUS.register(new VillageMaterials());
 		//MinecraftForge.TERRAIN_GEN_BUS.register(new TreeReplacement());

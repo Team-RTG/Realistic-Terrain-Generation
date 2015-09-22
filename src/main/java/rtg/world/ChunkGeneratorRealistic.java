@@ -11,7 +11,7 @@ import java.util.Random;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
-import rtg.api.RTGBiomes;
+
 import rtg.biomes.realistic.RealisticBiomeBase;
 import rtg.config.ConfigRTG;
 import rtg.debug.DebugHandler;

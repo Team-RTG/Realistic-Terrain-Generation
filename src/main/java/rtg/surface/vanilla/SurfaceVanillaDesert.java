@@ -2,7 +2,7 @@ package rtg.surface.vanilla;
 
 import java.util.Random;
 
-import rtg.api.RTGBiomes;
+
 import rtg.surface.SurfaceBase;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;

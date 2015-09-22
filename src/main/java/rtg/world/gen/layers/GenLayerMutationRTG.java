@@ -9,6 +9,8 @@ import net.minecraft.world.gen.layer.IntCache;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import rtg.biomes.realistic.RealisticBiomeBase;
+
 public class GenLayerMutationRTG extends GenLayer
 {
     private GenLayer field_151628_d;
@@ -62,80 +64,80 @@ public class GenLayerMutationRTG extends GenLayer
                     int mutatedBiomeId = currentBiomeId;
                     int j2;
 
-                    if (currentBiomeId == BiomeGenBase.desert.biomeID)
+                    if (currentBiomeId == RealisticBiomeBase.vanillaDesert.biomeID)
                     {
-                        mutatedBiomeId = BiomeGenBase.desertHills.biomeID;
+                        mutatedBiomeId = RealisticBiomeBase.vanillaDesertHills.biomeID;
                     }
-                    else if (currentBiomeId == BiomeGenBase.forest.biomeID)
+                    else if (currentBiomeId == RealisticBiomeBase.vanillaForest.biomeID)
                     {
-                        mutatedBiomeId = BiomeGenBase.forestHills.biomeID;
+                        mutatedBiomeId = RealisticBiomeBase.vanillaForestHills.biomeID;
                     }
-                    else if (currentBiomeId == BiomeGenBase.birchForest.biomeID)
+                    else if (currentBiomeId == RealisticBiomeBase.vanillaBirchForest.biomeID)
                     {
-                        mutatedBiomeId = BiomeGenBase.birchForestHills.biomeID;
+                        mutatedBiomeId = RealisticBiomeBase.vanillaBirchForestHills.biomeID;
                     }
-                    else if (currentBiomeId == BiomeGenBase.roofedForest.biomeID)
+                    else if (currentBiomeId == RealisticBiomeBase.vanillaRoofedForest.biomeID)
                     {
-                        mutatedBiomeId = BiomeGenBase.plains.biomeID;
+                        mutatedBiomeId = RealisticBiomeBase.vanillaPlains.biomeID;
                     }
-                    else if (currentBiomeId == BiomeGenBase.taiga.biomeID)
+                    else if (currentBiomeId == RealisticBiomeBase.vanillaTaiga.biomeID)
                     {
-                        mutatedBiomeId = BiomeGenBase.taigaHills.biomeID;
+                        mutatedBiomeId = RealisticBiomeBase.vanillaTaigaHills.biomeID;
                     }
-                    else if (currentBiomeId == BiomeGenBase.megaTaiga.biomeID)
+                    else if (currentBiomeId == RealisticBiomeBase.vanillaMegaTaiga.biomeID)
                     {
-                        mutatedBiomeId = BiomeGenBase.megaTaigaHills.biomeID;
+                        mutatedBiomeId = RealisticBiomeBase.vanillaMegaTaigaHills.biomeID;
                     }
-                    else if (currentBiomeId == BiomeGenBase.coldTaiga.biomeID)
+                    else if (currentBiomeId == RealisticBiomeBase.vanillaColdTaiga.biomeID)
                     {
-                        mutatedBiomeId = BiomeGenBase.coldTaigaHills.biomeID;
+                        mutatedBiomeId = RealisticBiomeBase.vanillaColdTaigaHills.biomeID;
                     }
-                    else if (currentBiomeId == BiomeGenBase.plains.biomeID)
+                    else if (currentBiomeId == RealisticBiomeBase.vanillaPlains.biomeID)
                     {
                         if (this.nextInt(3) == 0)
                         {
-                            mutatedBiomeId = BiomeGenBase.forestHills.biomeID;
+                            mutatedBiomeId = RealisticBiomeBase.vanillaForestHills.biomeID;
                         }
                         else
                         {
-                            mutatedBiomeId = BiomeGenBase.forest.biomeID;
+                            mutatedBiomeId = RealisticBiomeBase.vanillaForest.biomeID;
                         }
                     }
-                    else if (currentBiomeId == BiomeGenBase.icePlains.biomeID)
+                    else if (currentBiomeId == RealisticBiomeBase.vanillaIcePlains.biomeID)
                     {
-                        mutatedBiomeId = BiomeGenBase.iceMountains.biomeID;
+                        mutatedBiomeId = RealisticBiomeBase.vanillaIceMountains.biomeID;
                     }
-                    else if (currentBiomeId == BiomeGenBase.jungle.biomeID)
+                    else if (currentBiomeId == RealisticBiomeBase.vanillaJungle.biomeID)
                     {
-                        mutatedBiomeId = BiomeGenBase.jungleHills.biomeID;
+                        mutatedBiomeId = RealisticBiomeBase.vanillaJungleHills.biomeID;
                     }
-                    else if (currentBiomeId == BiomeGenBase.ocean.biomeID)
+                    else if (currentBiomeId == RealisticBiomeBase.vanillaOcean.biomeID)
                     {
-                        mutatedBiomeId = BiomeGenBase.deepOcean.biomeID;
+                        mutatedBiomeId = RealisticBiomeBase.vanillaDeepOcean.biomeID;
                     }
-                    else if (currentBiomeId == BiomeGenBase.extremeHills.biomeID)
+                    else if (currentBiomeId == RealisticBiomeBase.vanillaExtremeHills.biomeID)
                     {
-                        mutatedBiomeId = BiomeGenBase.extremeHillsPlus.biomeID;
+                        mutatedBiomeId = RealisticBiomeBase.vanillaExtremeHillsPlus.biomeID;
                     }
-                    else if (currentBiomeId == BiomeGenBase.savanna.biomeID)
+                    else if (currentBiomeId == RealisticBiomeBase.vanillaSavanna.biomeID)
                     {
-                        mutatedBiomeId = BiomeGenBase.savannaPlateau.biomeID;
+                        mutatedBiomeId = RealisticBiomeBase.vanillaSavannaPlateau.biomeID;
                     }
-                    else if (compareBiomesById(currentBiomeId, BiomeGenBase.mesaPlateau_F.biomeID))
+                    else if (compareBiomesById(currentBiomeId, RealisticBiomeBase.vanillaMesaPlateau_F.biomeID))
                     {
-                        mutatedBiomeId = BiomeGenBase.mesa.biomeID;
+                        mutatedBiomeId = RealisticBiomeBase.vanillaMesa.biomeID;
                     }
-                    else if (currentBiomeId == BiomeGenBase.deepOcean.biomeID && this.nextInt(3) == 0)
+                    else if (currentBiomeId == RealisticBiomeBase.vanillaDeepOcean.biomeID && this.nextInt(3) == 0)
                     {
                         j2 = this.nextInt(2);
 
                         if (j2 == 0)
                         {
-                            mutatedBiomeId = BiomeGenBase.plains.biomeID;
+                            mutatedBiomeId = RealisticBiomeBase.vanillaPlains.biomeID;
                         }
                         else
                         {
-                            mutatedBiomeId = BiomeGenBase.forest.biomeID;
+                            mutatedBiomeId = RealisticBiomeBase.vanillaForest.biomeID;
                         }
                     }
 

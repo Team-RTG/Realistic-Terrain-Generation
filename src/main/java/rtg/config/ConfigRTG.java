@@ -58,6 +58,9 @@ public class ConfigRTG
 	public static boolean enableCobblestoneBoulders = true;
 	public static int cobblestoneBoulderChance = 1;
 	
+	public static boolean oceanFiller;
+	public static int landmassPercentage;
+	
 	public static boolean showDebugInfo = false;
 	public static boolean enableDebugging = false;
 	
@@ -145,6 +148,10 @@ public class ConfigRTG
 			
 			showDebugInfo = config.getBoolean("Show Debug Info in F3 Screen", "Miscellaneous", false, "");
 			enableDebugging = config.getBoolean("Enable Debugging", "Miscellaneous", false, "WARNING: This should only be enabled if you know what you're doing.");
+			
+			oceanFiller = config.get("RTG World Type Settings", "OceanFiller", true, "Fills the ocean with land biomes if there is an excessive amount. This must be disabled to use the landmass percentage").getBoolean();
+			landmassPercentage = config.get("RTG World Type Settings", "Landmass Percentage", 10, "Requires ocean filler to be disabled. In Vanilla it is set to 10. Takes values from 0 to 100.").getInt();
+			
 			
 			/*
 			####################################################################################################

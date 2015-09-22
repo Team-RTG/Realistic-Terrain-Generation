@@ -16,11 +16,13 @@ import rtg.support.Support;
 import rtg.util.CellNoise;
 import rtg.util.Logger;
 import rtg.util.PerlinNoise;
+import rtg.world.gen.layers.GenLayerRTG;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeCache;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
+import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
 public class ChunkManagerRealistic extends WorldChunkManager

@@ -1,4 +1,4 @@
-package rtg.biomes.realistic;
+package rtg.world.gen.layers;
 
 public class SpecialBiome // extends //BOPOverworldBiome redirects to the bop api dunno where this needs to be then...
 {

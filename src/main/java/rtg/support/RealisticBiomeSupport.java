@@ -27,7 +27,7 @@ public class RealisticBiomeSupport extends RealisticBiomeBase
 	
 	public RealisticBiomeSupport(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s, EditBase[] e)
 	{
-		super(0, b, riverbiome);
+		super(b, riverbiome);
 		customBiome = b;
 		terrain = t;
 		

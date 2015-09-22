@@ -61,22 +61,20 @@ public class RealisticBiomeBase
 	// ==============================================================================================
 	
 	public final int biomeID;
-	public final int subID;
 	public final BiomeGenBase baseBiome;
 	public final BiomeGenBase riverBiome;
 	
-	public RealisticBiomeBase(int sub, BiomeGenBase biome)
+	public RealisticBiomeBase(BiomeGenBase biome)
 	{
-		this(sub, biome, VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE));
+		this(biome, VanillaBiomes.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE));
 	}
 	
-	public RealisticBiomeBase(int sub, BiomeGenBase biome, BiomeGenBase river)
+	public RealisticBiomeBase(BiomeGenBase biome, BiomeGenBase river)
 	{
 		biomeID = nextBiomeID;
 		biomeList[biomeID] = this;
 		nextBiomeID++;
 		
-		subID = sub;
 		baseBiome = biome;
 		riverBiome = river;
 	}

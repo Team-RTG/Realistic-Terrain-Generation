@@ -2,11 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import rtg.deco.DecoBlob;
-import rtg.deco.DecoCacti;
-import rtg.deco.DecoFlowers;
-import rtg.deco.DecoGrass;
-import rtg.deco.trees.DecoSavannah;
 import rtg.surface.vanilla.SurfaceVanillaDesert;
 import rtg.terrain.vanilla.TerrainVanillaDesert;
 import rtg.util.CellNoise;
@@ -14,6 +9,11 @@ import rtg.util.PerlinNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeBase.Climate;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.feature.WorldGenBlob;
+import rtg.world.gen.feature.WorldGenCacti;
+import rtg.world.gen.feature.WorldGenFlowers;
+import rtg.world.gen.feature.WorldGenGrass;
+import rtg.world.gen.feature.tree.WorldGenTreeSavanna;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -58,7 +58,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
 	
 					if(z52 < 100f || (z52 < 120f && rand.nextInt(10) == 0))
 					{
-						WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(0, 0) : new DecoSavannah(1);
+						WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreeSavanna(1);
 						worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 						worldgenerator.generate(world, rand, j6, z52, k10);
 					}
@@ -72,7 +72,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
 				int k24 = chunkY + rand.nextInt(16) + 8;
 				if(j23 < 120f)
 				{
-					(new DecoCacti(false)).generate(world, rand, k21, j23, k24);
+					(new WorldGenCacti(false)).generate(world, rand, k21, j23, k24);
 				}
 			}
 		}

@@ -13,12 +13,11 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import rtg.config.ConfigRTG;
 import rtg.debug.DebugHandler;
-import rtg.deco.DecoClay;
-import rtg.map.old.MapGenAncientVillage;
 import rtg.util.CanyonColor;
 import rtg.util.CellNoise;
 import rtg.util.PerlinNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.feature.WorldGenClay;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.BlockSand;
@@ -580,7 +579,7 @@ public class ChunkGeneratorRealistic implements IChunkProvider
 				int l5 = x + rand.nextInt(16);
 				int i9 = 53 + rand.nextInt(15);
 				int l11 = y + rand.nextInt(16);
-				(new DecoClay(Blocks.clay, 0, 20)).generate(worldObj, rand, l5, i9, l11);
+				(new WorldGenClay(Blocks.clay, 0, 20)).generate(worldObj, rand, l5, i9, l11);
 			}
         }
 

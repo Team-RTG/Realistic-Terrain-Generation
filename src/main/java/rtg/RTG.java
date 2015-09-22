@@ -13,7 +13,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
 import rtg.config.ConfigRTG;
 import rtg.config.RTGConfig;
-import rtg.data.TreeReplacement;
 import rtg.data.VillageMaterials;
 import rtg.debug.DebugHandler;
 import rtg.init.ModMapGen;
@@ -44,7 +43,6 @@ public class RTG
 		RTGConfig.init(configPath);
 				
 		MinecraftForge.TERRAIN_GEN_BUS.register(new VillageMaterials());
-		//MinecraftForge.TERRAIN_GEN_BUS.register(new TreeReplacement());
 		
 		ModMapGen.registerMapGen();
 	}

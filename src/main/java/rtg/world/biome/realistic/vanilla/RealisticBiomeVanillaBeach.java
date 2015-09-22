@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import rtg.deco.trees.DecoPalm;
 import rtg.surface.vanilla.SurfaceVanillaBeach;
 import rtg.terrain.vanilla.TerrainVanillaBeach;
 import rtg.util.CellNoise;
@@ -10,6 +9,7 @@ import rtg.util.PerlinNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeBase.Climate;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.feature.tree.WorldGenTreePalm;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -38,7 +38,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase
 
 				if(z52 < 80)
 				{
-					WorldGenerator worldgenerator = new DecoPalm();
+					WorldGenerator worldgenerator = new WorldGenTreePalm();
 					worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 					worldgenerator.generate(world, rand, j6, z52, k10);
 				}

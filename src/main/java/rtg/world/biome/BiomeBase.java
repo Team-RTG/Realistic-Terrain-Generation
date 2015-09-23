@@ -9,6 +9,7 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBase;
 import rtg.world.biome.realistic.extrabiomes.RealisticBiomeEBXLBase;
+import rtg.world.biome.realistic.highlands.RealisticBiomeHighlandsBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -100,6 +101,11 @@ public class BiomeBase
 		if (Loader.isModLoaded("enhancedbiomes"))
 		{
 			RealisticBiomeEBBase.init();
+		}
+		
+		if (Loader.isModLoaded("Highlands"))
+		{
+			RealisticBiomeHighlandsBase.init();
 		}
 		
 		if (Loader.isModLoaded("Thaumcraft"))

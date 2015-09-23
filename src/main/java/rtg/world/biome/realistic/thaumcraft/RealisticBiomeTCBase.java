@@ -1,17 +1,21 @@
-package rtg.support;
+package rtg.world.biome.realistic.thaumcraft;
 
-import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
-import rtg.world.biome.BiomeBase.Climate;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.SurfaceGrassland;
-import rtg.world.gen.terrain.TerrainSmallSupport;
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.gen.surface.SurfaceGrassland;
+import rtg.world.gen.terrain.TerrainBase;
+import rtg.world.gen.terrain.TerrainSmallSupport;
 
-public class SupportTC 
-{
+public class RealisticBiomeTCBase extends RealisticBiomeBase
+{	
+	public RealisticBiomeTCBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
+	{
+		super(b, riverbiome, t, s);
+	}
+	
 	/*
 	THAUMCRAFT BIOMES
 	

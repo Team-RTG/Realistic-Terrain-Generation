@@ -118,7 +118,7 @@ public class ConfigBOP
 			generateBOPbrushland = config.getBoolean("generateBOPbrushland", "BOP Biomes", true, "");
 			generateBOPcanyon = config.getBoolean("generateBOPcanyon", "BOP Biomes", true, "");
 			generateBOPchaparral = config.getBoolean("generateBOPchaparral", "BOP Biomes", true, "");
-			generateBOPcherryBlossomGrove = config.getBoolean("generateBOPBlossomGrove", "BOP Biomes", true, "");
+			generateBOPcherryBlossomGrove = config.getBoolean("generateBOPcherryBlossomGrove", "BOP Biomes", true, "");
 			generateBOPconiferousForest = config.getBoolean("generateBOPconiferousForest", "BOP Biomes", true, "");
 			generateBOPsnowyConiferousForest = config.getBoolean("generateBOPsnowyConiferousForest", "BOP Biomes", true, "");
 			generateBOPcrag = config.getBoolean("generateBOPcrag", "BOP Biomes", true, "");

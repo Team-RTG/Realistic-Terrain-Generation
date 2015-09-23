@@ -2,7 +2,6 @@ package rtg.world.biome.realistic;
 
 import java.util.Random;
 
-import rtg.support.edit.EditBase;
 import rtg.util.CellNoise;
 import rtg.util.PerlinNoise;
 import rtg.world.biome.BiomeBase;
@@ -69,10 +68,7 @@ public class RealisticBiomeBase
 	
 	public SurfaceBase[] surfaces;
 	public int surfacesLength;
-	
-	public EditBase[] edits;
-	public int editLength;
-	
+		
 	public RealisticBiomeBase(BiomeGenBase biome)
 	{
 		this(biome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE));
@@ -101,7 +97,7 @@ public class RealisticBiomeBase
 	
 	
 	
-	public RealisticBiomeBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s, EditBase[] e)
+	public RealisticBiomeBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s)
 	{
 		this(b, riverbiome);
 
@@ -109,26 +105,11 @@ public class RealisticBiomeBase
 		
 		surfaces = s;
 		surfacesLength = s.length;
-		
-		if(e != null)
-		{
-			edits = e;
-			editLength = e.length;
-		}
-		else
-		{
-			editLength = 0;
-		}
-	}
-	
-	public RealisticBiomeBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s, EditBase e)
-	{
-		this(b, riverbiome, t, new SurfaceBase[]{s}, e != null ? new EditBase[]{e} : null);
 	}
 	
 	public RealisticBiomeBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
-		this(b, riverbiome, t, s, null);
+		this(b, riverbiome, t, new SurfaceBase[]{s});
 	}
 	
 	
@@ -143,11 +124,6 @@ public class RealisticBiomeBase
     	if(strength > 0.3f)
     	{
     		baseBiome.decorate(world, rand, chunkX, chunkY);
-    	}
-
-    	for(int e = 0; e < editLength; e++)
-    	{
-    		edits[e].decorate(world, rand, chunkX, chunkY, perlin, cell, strength, river);
     	}
     }
     

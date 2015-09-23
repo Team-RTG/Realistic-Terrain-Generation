@@ -6,8 +6,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import rtg.config.ConfigBOP;
-import rtg.support.edit.EditBase;
-import rtg.support.edit.EditRiverOasis;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
@@ -42,9 +40,9 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 		super(b, riverbiome, t, s);
 	}
 	
-	public RealisticBiomeBOPBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s, EditBase[] e)
+	public RealisticBiomeBOPBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s)
 	{
-		super(b, riverbiome, t, s, e);
+		super(b, riverbiome, t, s);
 	}
 	
 	public static void init()
@@ -143,9 +141,6 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 				new SurfaceBase[]{
 					new SurfaceDuneValley(BOPCBiomes.brushland.topBlock, BOPCBiomes.brushland.fillerBlock, 300f, false, true),
 					new SurfaceRiverOasis(),
-				},
-				new EditBase[]{
-					new EditRiverOasis()
 				}
 			),
 			BiomeBase.BiomeCategory.HOT
@@ -376,9 +371,6 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 				new SurfaceBase[]{
 					new SurfaceDuneValley(BOPCBiomes.brushland.topBlock, BOPCBiomes.brushland.fillerBlock, 300f, false, true) ,
 					new SurfaceRiverOasis(),
-				},
-				new EditBase[]{
-					new EditRiverOasis()
 				}
 			),
 			BiomeBase.BiomeCategory.HOT
@@ -597,9 +589,6 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 				new SurfaceBase[]{
 					new SurfaceDuneValley(BOPCBiomes.outback.topBlock, BOPCBiomes.outback.fillerBlock, 300f, false, false),
 					new SurfaceRiverOasis(),
-				},
-				new EditBase[]{
-					new EditRiverOasis()
 				}
 			),
 			BiomeBase.BiomeCategory.HOT

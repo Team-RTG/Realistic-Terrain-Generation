@@ -3,8 +3,6 @@ package rtg.world.biome.realistic.extrabiomes;
 import extrabiomes.api.BiomeManager;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.support.edit.EditBase;
-import rtg.support.edit.EditRiverOasis;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
@@ -216,9 +214,6 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 					new SurfaceBase[]{
 						new SurfaceDesertMountain(BiomeManager.mountaindesert.get().topBlock, BiomeManager.mountaindesert.get().fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f),
 						new SurfaceRiverOasis()
-					},
-					new EditBase[]{
-						new EditRiverOasis()
 					}
 				), 
 				BiomeBase.BiomeCategory.HOT
@@ -235,9 +230,6 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 					new SurfaceBase[]{
 						new SurfaceDesertMountain(BiomeManager.mountainridge.get().topBlock, BiomeManager.mountainridge.get().fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f),
 						new SurfaceRiverOasis()
-					},
-					new EditBase[]{
-						new EditRiverOasis()
 					}
 				), 
 				BiomeBase.BiomeCategory.HOT
@@ -397,9 +389,6 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 					new SurfaceBase[]{
 						new SurfaceGrassland(BiomeManager.wasteland.get().topBlock, BiomeManager.wasteland.get().fillerBlock, Blocks.stone, Blocks.cobblestone),
 						new SurfaceRiverOasis()
-					},
-					new EditBase[]{
-						new EditRiverOasis()
 					}
 				), 
 				BiomeBase.BiomeCategory.HOT

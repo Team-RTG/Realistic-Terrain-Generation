@@ -1,16 +1,14 @@
-package rtg.support;
+package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
+import biomesoplenty.api.content.BOPCBiomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import rtg.config.ConfigBOP;
-import rtg.config.ConfigRTG;
-import rtg.support.edit.*;
+import rtg.support.edit.EditBase;
+import rtg.support.edit.EditRiverOasis;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
-import rtg.world.biome.BiomeBase.Climate;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceCanyon;
@@ -21,19 +19,40 @@ import rtg.world.gen.surface.SurfaceMountainSnow;
 import rtg.world.gen.surface.SurfaceMountainStone;
 import rtg.world.gen.surface.SurfaceTundra;
 import rtg.world.gen.surface.river.SurfaceRiverOasis;
-import rtg.world.gen.terrain.*;
+import rtg.world.gen.terrain.TerrainBase;
+import rtg.world.gen.terrain.TerrainCanyon;
+import rtg.world.gen.terrain.TerrainDuneValley;
+import rtg.world.gen.terrain.TerrainGrasslandFlats;
+import rtg.world.gen.terrain.TerrainGrasslandHills;
+import rtg.world.gen.terrain.TerrainHighland;
+import rtg.world.gen.terrain.TerrainHilly;
+import rtg.world.gen.terrain.TerrainMarsh;
+import rtg.world.gen.terrain.TerrainMountain;
+import rtg.world.gen.terrain.TerrainMountainRiver;
+import rtg.world.gen.terrain.TerrainMountainSpikes;
+import rtg.world.gen.terrain.TerrainSwampMountain;
+import rtg.world.gen.terrain.TerrainSwampRiver;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaForest;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaPlains;
-import biomesoplenty.api.content.BOPCBiomes;
 
-public class SupportBOP 
-{
+public class RealisticBiomeBOPBase extends RealisticBiomeBase
+{	
+	public RealisticBiomeBOPBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
+	{
+		super(b, riverbiome, t, s);
+	}
+	
+	public RealisticBiomeBOPBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s, EditBase[] e)
+	{
+		super(b, riverbiome, t, s, e);
+	}
+	
 	public static void init()
 	{
 		//ALPS
 		if (ConfigBOP.generateBOPalps)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.alps, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
 				new TerrainMountainRiver(),
 				new SurfaceMountainSnow(BOPCBiomes.alps.topBlock, BOPCBiomes.alps.fillerBlock, false, null, 0.45f)
@@ -44,7 +63,7 @@ public class SupportBOP
 		//ALPS FOREST
 		if (ConfigBOP.generateBOPalpsForest)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.alpsForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
 				new TerrainMountainRiver(),
 				new SurfaceMountainSnow(BOPCBiomes.alpsForest.topBlock, BOPCBiomes.alpsForest.fillerBlock, false, null, 0.45f)
@@ -55,7 +74,7 @@ public class SupportBOP
 		//ARCTIC
 		if (ConfigBOP.generateBOParctic)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.arctic, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
 				new TerrainGrasslandFlats(),
 				new SurfaceTundra(BOPCBiomes.arctic.topBlock, BOPCBiomes.arctic.fillerBlock)
@@ -66,7 +85,7 @@ public class SupportBOP
 		//BAMBOO FOREST
 		if (ConfigBOP.generateBOPbambooForest)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.bambooForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 				new TerrainSwampMountain(135f, 300f),
 				new SurfaceMountainStone(BOPCBiomes.bambooForest.topBlock, BOPCBiomes.bambooForest.fillerBlock, false, null, 0.95f)
@@ -77,7 +96,7 @@ public class SupportBOP
 		//BAYOU
 		if (ConfigBOP.generateBOPbayou)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.bayou, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 				new TerrainSwampRiver(),
 				new SurfaceGrassland(BOPCBiomes.bayou.topBlock, BOPCBiomes.bayou.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -88,7 +107,7 @@ public class SupportBOP
 		//BOG
 		if (ConfigBOP.generateBOPbog)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.bog, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
 				new TerrainMarsh(),
 				new SurfaceGrassland(BOPCBiomes.bog.topBlock, BOPCBiomes.bog.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -99,7 +118,7 @@ public class SupportBOP
 		//BOREAL FOREST
 		if (ConfigBOP.generateBOPborealForest)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.borealForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 				new TerrainMountainSpikes(),
 				new SurfaceMountainSnow(BOPCBiomes.borealForest.topBlock, BOPCBiomes.borealForest.fillerBlock, true, Blocks.sand, 0.45f, 1.5f, 60f, 65f, 0.4f, 130f, 50f, 1.5f)
@@ -110,7 +129,7 @@ public class SupportBOP
 		//BRUSHLAND
 		if (ConfigBOP.generateBOPbrushland)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.brushland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
 				new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 				new SurfaceGrasslandMix1(BOPCBiomes.brushland.topBlock, BOPCBiomes.brushland.fillerBlock, Blocks.sand, Blocks.stone, Blocks.cobblestone, 13f, 0.27f)
@@ -118,7 +137,7 @@ public class SupportBOP
 			BiomeBase.BiomeCategory.HOT
 		);
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.brushland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
 				new TerrainDuneValley(300f),
 				new SurfaceBase[]{
@@ -135,7 +154,7 @@ public class SupportBOP
 		//CANYON
 		if (ConfigBOP.generateBOPcanyon)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.canyon, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
 				new TerrainCanyon(true, 35f, 160f, 60f, 40f, 69f),
 				new SurfaceCanyon(BOPCBiomes.canyon.topBlock, BOPCBiomes.canyon.fillerBlock, (byte)0, 0)
@@ -146,7 +165,7 @@ public class SupportBOP
 		//CANYON RAVINE
 		if (ConfigBOP.generateBOPcanyonRavine)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.canyonRavine, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
 				new TerrainCanyon(true, 35f, 160f, 60f, 40f, 69f),
 				new SurfaceCanyon(BOPCBiomes.canyonRavine.topBlock, BOPCBiomes.canyonRavine.fillerBlock, (byte)0, 0)
@@ -157,7 +176,7 @@ public class SupportBOP
 		//CHAPARRAL
 		if (ConfigBOP.generateBOPchaparral)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.chaparral, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
 				new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 				new SurfaceGrasslandMix1(BOPCBiomes.chaparral.topBlock, BOPCBiomes.chaparral.fillerBlock, Blocks.sand, Blocks.stone, Blocks.cobblestone, 26f, 0.35f)
@@ -168,7 +187,7 @@ public class SupportBOP
 		//CHERRYBLOSSOM GROVE
 		if (ConfigBOP.generateBOPcherryBlossomGrove)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.cherryBlossomGrove, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainHighland(6f, 120f, 65f, 200f),
 				new SurfaceMountainStone(BOPCBiomes.borealForest.topBlock, BOPCBiomes.borealForest.fillerBlock, true, Blocks.sand, 0.45f, 1.5f, 60f, 65f, 1.5f)
@@ -179,7 +198,7 @@ public class SupportBOP
 		//CONIFEROUS FOREST
 		if (ConfigBOP.generateBOPconiferousForest)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.coniferousForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 				new TerrainMountainRiver(),
 				new SurfaceMountainSnow(BOPCBiomes.snowyConiferousForest.topBlock, BOPCBiomes.snowyConiferousForest.fillerBlock, false, null, 0.45f)
@@ -188,7 +207,7 @@ public class SupportBOP
 		);
 		if (ConfigBOP.generateBOPsnowyConiferousForest)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.snowyConiferousForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
 				new TerrainMountainRiver(),
 				new SurfaceMountainSnow(BOPCBiomes.snowyConiferousForest.topBlock, BOPCBiomes.snowyConiferousForest.fillerBlock, false, null, 0.45f, 1.5f, 50f, 60f, 0.4f, 100f, 50f, 1.5f)
@@ -199,7 +218,7 @@ public class SupportBOP
 		//CRAG
 		if (ConfigBOP.generateBOPcrag)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.crag, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 				new TerrainMountain(),
 				new SurfaceGrassland(BOPCBiomes.crag.topBlock, BOPCBiomes.crag.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -210,7 +229,7 @@ public class SupportBOP
 		//DEAD FOREST
 		if (ConfigBOP.generateBOPdeadForest)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.deadForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainGrasslandHills(50f, 180f, 13f, 100f, 28f, 260f, 70f),
 				new SurfaceGrassland(BOPCBiomes.deadForest.topBlock, BOPCBiomes.deadForest.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -221,7 +240,7 @@ public class SupportBOP
 		//DEAD SWAMP
 		if (ConfigBOP.generateBOPdeadSwamp)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.deadSwamp, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 				new TerrainMarsh(),
 				new SurfaceGrassland(BOPCBiomes.deadSwamp.topBlock, BOPCBiomes.deadSwamp.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -232,7 +251,7 @@ public class SupportBOP
 		//DECIDUOUS FOREST
 		if (ConfigBOP.generateBOPdeciduousForest)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.deciduousForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.deciduousForest.topBlock, BOPCBiomes.deciduousForest.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -243,7 +262,7 @@ public class SupportBOP
 		//DENSE FOREST
 		if (ConfigBOP.generateBOPdenseForest)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.denseForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.denseForest.topBlock, BOPCBiomes.denseForest.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -254,7 +273,7 @@ public class SupportBOP
 		//EUCALYPTUS FOREST
 		if (ConfigBOP.generateBOPeucalyptusForest)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.eucalyptusForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 				new TerrainHighland(0f, 180f, 68f, 120f),
 				new SurfaceGrassland(BOPCBiomes.eucalyptusForest.topBlock, BOPCBiomes.eucalyptusForest.fillerBlock, Blocks.stone, Blocks.cobblestone)						
@@ -265,7 +284,7 @@ public class SupportBOP
 		//FEN
 		if (ConfigBOP.generateBOPfen)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.fen, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.fen.topBlock, BOPCBiomes.fen.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -276,7 +295,7 @@ public class SupportBOP
 		//FLOWER FIELD
 		if (ConfigBOP.generateBOPflowerField)
 		BiomeBase.biomes_hot.add(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.flowerField, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainGrasslandHills(40f, 180f, 13f, 100f, 28f, 260f, 70f),
 				new SurfaceGrassland(BOPCBiomes.flowerField.topBlock, BOPCBiomes.flowerField.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -286,7 +305,7 @@ public class SupportBOP
 		//FROST FOREST
 		if (ConfigBOP.generateBOPfrostForest)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.frostForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.frostForest.topBlock, BOPCBiomes.frostForest.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -297,7 +316,7 @@ public class SupportBOP
 		//FUNGI FOREST
 		if (ConfigBOP.generateBOPfungiForest)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.fungiForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 				new TerrainSwampMountain(135f, 300f),
 				new SurfaceMountainStone(BOPCBiomes.fungiForest.topBlock, BOPCBiomes.fungiForest.fillerBlock, false, null, 0.95f)
@@ -308,7 +327,7 @@ public class SupportBOP
 		//GARDEN
 		if (ConfigBOP.generateBOPgarden)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.garden, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainMountainSpikes(),
 				new SurfaceMountainSnow(BOPCBiomes.garden.topBlock, BOPCBiomes.garden.fillerBlock, true, Blocks.sand, 0.45f, 1.5f, 60f, 65f, 0.4f, 130f, 50f, 1.5f)
@@ -319,7 +338,7 @@ public class SupportBOP
 		//GLACIER
 		if (ConfigBOP.generateBOPglacier)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.glacier, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 				new TerrainMountainSpikes(),
 				new SurfaceMountainSnow(BOPCBiomes.glacier.topBlock, BOPCBiomes.glacier.fillerBlock, true, Blocks.sand, 0.45f, 1.5f, 60f, 65f, 0.4f, 130f, 50f, 1.5f)
@@ -330,7 +349,7 @@ public class SupportBOP
 		//GRASSLAND
 		if (ConfigBOP.generateBOPgrassland)
 		BiomeBase.biomes_cold.add(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.grassland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainGrasslandHills(47f, 180f, 13f, 100f, 28f, 260f, 70f),
 				new SurfaceGrassland(BOPCBiomes.grassland.topBlock, BOPCBiomes.grassland.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -340,7 +359,7 @@ public class SupportBOP
 		//GROVE
 		if (ConfigBOP.generateBOPgrove)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.grove, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.grove.topBlock, BOPCBiomes.grove.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -351,7 +370,7 @@ public class SupportBOP
 		//HEATHLAND
 		if (ConfigBOP.generateBOPheathland)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.heathland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
 				new TerrainDuneValley(300f),
 				new SurfaceBase[]{
@@ -368,7 +387,7 @@ public class SupportBOP
 		//HIGHLAND
 		if (ConfigBOP.generateBOPhighland)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.highland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainHighland(0f, 140f, 68f, 150f),
 				new SurfaceMountainStone(BOPCBiomes.highland.topBlock, BOPCBiomes.highland.fillerBlock, false, null, 1f, 1.5f, 85f, 20f, 4f)
@@ -379,7 +398,7 @@ public class SupportBOP
 		//JADE CLIFFS
 		if (ConfigBOP.generateBOPjadeCliffs)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.jadeCliffs, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
 				new TerrainHilly(230f, 120f, 0f),
 				new SurfaceMountainStone(BOPCBiomes.jadeCliffs.topBlock, BOPCBiomes.jadeCliffs.fillerBlock, false, null, 0.95f)
@@ -390,7 +409,7 @@ public class SupportBOP
 		//LAND OF LAKES
 		if (ConfigBOP.generateBOPlandOfLakes)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.landOfLakes, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainGrasslandFlats(),
 				new SurfaceGrassland(BOPCBiomes.landOfLakes.topBlock, BOPCBiomes.landOfLakes.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -401,7 +420,7 @@ public class SupportBOP
         //LAND OF LAKES MARCH
 		if (ConfigBOP.generateBOPlandOfLakesMarsh)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.landOfLakesMarsh, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainMarsh(),
 				new SurfaceGrassland(BOPCBiomes.landOfLakes.topBlock, BOPCBiomes.landOfLakes.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -412,7 +431,7 @@ public class SupportBOP
 		//LAVENDER FIELDS
 		if (ConfigBOP.generateBOPlavenderFields)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.lavenderFields, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainMountainSpikes(),
 				new SurfaceMountainStone(BOPCBiomes.lavenderFields.topBlock, BOPCBiomes.lavenderFields.fillerBlock, false, null, 1.2f)
@@ -423,7 +442,7 @@ public class SupportBOP
 		//LUSH DESERT
 		if (ConfigBOP.generateBOPlushDesert)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.lushDesert, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
 				new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 				new SurfaceGrassland(BOPCBiomes.lushDesert.topBlock, BOPCBiomes.lushDesert.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -434,7 +453,7 @@ public class SupportBOP
 		//LUSH SWAMP
 		if (ConfigBOP.generateBOPlushSwamp)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.lushSwamp, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 				new TerrainSwampRiver(),
 				new SurfaceGrassland(BOPCBiomes.lushSwamp.topBlock, BOPCBiomes.lushSwamp.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -445,7 +464,7 @@ public class SupportBOP
 		//MANGROVE
 		if (ConfigBOP.generateBOPmangrove)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.mangrove, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 				new TerrainSwampRiver(),
 				new SurfaceGrassland(BOPCBiomes.mangrove.topBlock, BOPCBiomes.mangrove.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -456,7 +475,7 @@ public class SupportBOP
 		//MAPLE WOODS
 		if (ConfigBOP.generateBOPmapleWoods)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.mapleWoods, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.mapleWoods.topBlock, BOPCBiomes.mapleWoods.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -467,7 +486,7 @@ public class SupportBOP
 		//MARSH
 		if (ConfigBOP.generateBOPmarsh)
 		BiomeBase.biomes_cold.add(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.marsh, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainMarsh(),
 				new SurfaceGrassland(BOPCBiomes.marsh.topBlock, BOPCBiomes.marsh.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -477,7 +496,7 @@ public class SupportBOP
 		//MEADOW
 		if (ConfigBOP.generateBOPmeadow)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.meadow, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainMountainSpikes(),
 				new SurfaceMountainStone(BOPCBiomes.meadow.topBlock, BOPCBiomes.meadow.fillerBlock, false, null, 1.2f)
@@ -488,7 +507,7 @@ public class SupportBOP
 		//MEADOW FOREST
 		if (ConfigBOP.generateBOPmeadowForest)
 		BiomeBase.addBiome(
-				new RealisticBiomeBase(
+				new RealisticBiomeBOPBase(
 					BOPCBiomes.meadowForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 					new TerrainMountainSpikes(),
 					new SurfaceMountainStone(BOPCBiomes.meadowForest.topBlock, BOPCBiomes.meadowForest.fillerBlock, false, null, 1.2f)
@@ -499,7 +518,7 @@ public class SupportBOP
 		//MOOR
 		if (ConfigBOP.generateBOPmoor)
 		BiomeBase.biomes_wet.add(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.moor, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainHighland(0f, 70f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.moor.topBlock, BOPCBiomes.moor.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -509,7 +528,7 @@ public class SupportBOP
 		//MOUNTAIN
 		if (ConfigBOP.generateBOPmountain)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.mountain, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
 				new TerrainMountainRiver(),
 				new SurfaceMountainStone(BOPCBiomes.mountain.topBlock, BOPCBiomes.mountain.fillerBlock, true, Blocks.sand, 0.75f)
@@ -520,7 +539,7 @@ public class SupportBOP
 		//MYSTIC GROVE
 		if (ConfigBOP.generateBOPmysticGrove)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.mysticGrove, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.mysticGrove.topBlock, BOPCBiomes.mysticGrove.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -531,7 +550,7 @@ public class SupportBOP
 		//OASIS
 		if (ConfigBOP.generateBOPoasis)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.oasis, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
 				new TerrainGrasslandFlats(),
 				new SurfaceGrassland(BOPCBiomes.oasis.topBlock, BOPCBiomes.oasis.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -542,7 +561,7 @@ public class SupportBOP
 		//OMINOUS WOODS
 		if (ConfigBOP.generateBOPominousWoods)
 		BiomeBase.biomes_cold.add(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.ominousWoods, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.ominousWoods.topBlock, BOPCBiomes.ominousWoods.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -552,7 +571,7 @@ public class SupportBOP
 		//ORCHARD
 		if (ConfigBOP.generateBOPoriginValley)
 		BiomeBase.biomes_cold.add(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.orchard, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainVanillaPlains(),
 				new SurfaceGrassland(BOPCBiomes.orchard.topBlock, BOPCBiomes.orchard.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -562,7 +581,7 @@ public class SupportBOP
 		//ORIGIN VALLEY
 		if (ConfigBOP.generateBOPoriginValley)
 		BiomeBase.biomes_cold.add(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.originValley, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainHighland(10f, 80f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.originValley.topBlock, BOPCBiomes.originValley.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -572,7 +591,7 @@ public class SupportBOP
 		//OUTBACK
 		if (ConfigBOP.generateBOPoutback)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.outback, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
 				new TerrainDuneValley(300f),
 				new SurfaceBase[]{
@@ -589,7 +608,7 @@ public class SupportBOP
 		//PRAIRIE
 		if (ConfigBOP.generateBOPprairie)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.prairie, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
 				new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 				new SurfaceGrassland(BOPCBiomes.prairie.topBlock, BOPCBiomes.prairie.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -600,7 +619,7 @@ public class SupportBOP
 		//QUAGMIRE
 		if (ConfigBOP.generateBOPquagmire)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.quagmire, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainMountain(),
 				new SurfaceGrassland(BOPCBiomes.quagmire.topBlock, BOPCBiomes.quagmire.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -611,7 +630,7 @@ public class SupportBOP
 		//RAINFOREST
 		if (ConfigBOP.generateBOPrainforest)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.rainforest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 				new TerrainSwampMountain(120f, 300f),
 				new SurfaceMountainStone(BOPCBiomes.rainforest.topBlock, BOPCBiomes.rainforest.fillerBlock, false, null, 1.3f)
@@ -622,7 +641,7 @@ public class SupportBOP
 		//REDWOOD FOREST
 		if (ConfigBOP.generateBOPredwoodForest)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.redwoodForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainGrasslandHills(80f, 180f, 13f, 100f, 38f, 260f, 71f),
 				new SurfaceMountainStone(BOPCBiomes.redwoodForest.topBlock, BOPCBiomes.redwoodForest.fillerBlock, false, null, 0.4f)
@@ -633,7 +652,7 @@ public class SupportBOP
 		//SACRED SPRINGS
 		if (ConfigBOP.generateBOPsacredSprings)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.sacredSprings, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 				new TerrainHighland(0f, 120f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.sacredSprings.topBlock, BOPCBiomes.sacredSprings.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -644,7 +663,7 @@ public class SupportBOP
 		//SCRUBLAND
 		if (ConfigBOP.generateBOPsacredSprings)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.scrubland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainVanillaPlains(),
 				new SurfaceGrassland(BOPCBiomes.scrubland.topBlock, BOPCBiomes.scrubland.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -655,7 +674,7 @@ public class SupportBOP
 		//SEASONAL FOREST
 		if (ConfigBOP.generateBOPseasonalForest)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.seasonalForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.seasonalForest.topBlock, BOPCBiomes.seasonalForest.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -666,7 +685,7 @@ public class SupportBOP
 		//SEASONAL FOREST CLEARING
 		if (ConfigBOP.generateBOPseasonalForestClearing)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.seasonalForestClearing, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainHighland(0f, 140f, 68f, 170f),
 				new SurfaceGrassland(BOPCBiomes.seasonalForestClearing.topBlock, BOPCBiomes.seasonalForestClearing.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -677,7 +696,7 @@ public class SupportBOP
 		//SHIELD
 		if (ConfigBOP.generateBOPshield)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.shield, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 				new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 				new SurfaceGrassland(BOPCBiomes.shield.topBlock, BOPCBiomes.shield.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -688,7 +707,7 @@ public class SupportBOP
 		//SHRUBLAND
 		if (ConfigBOP.generateBOPshrubland)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.shrubland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
 				new TerrainGrasslandHills(70f, 150f, 13f, 90f, 38f, 200f, 71f),
 				new SurfaceGrassland(BOPCBiomes.shrubland.topBlock, BOPCBiomes.shrubland.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -699,7 +718,7 @@ public class SupportBOP
 		//SILKGLADES
 		if (ConfigBOP.generateBOPsilkglades)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.silkglades, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainMarsh(),
 				new SurfaceGrassland(BOPCBiomes.silkglades.topBlock, BOPCBiomes.silkglades.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -710,7 +729,7 @@ public class SupportBOP
 		//SLUDGEPIT
 		if (ConfigBOP.generateBOPsludgepit)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.sludgepit, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 				new TerrainMarsh(),
 				new SurfaceGrassland(BOPCBiomes.sludgepit.topBlock, BOPCBiomes.sludgepit.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -721,7 +740,7 @@ public class SupportBOP
 		//SPURCEWOODS
 		if (ConfigBOP.generateBOPsludgepit)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.spruceWoods, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 				new TerrainVanillaForest(),
 				new SurfaceGrassland(BOPCBiomes.spruceWoods.topBlock, BOPCBiomes.spruceWoods.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -732,7 +751,7 @@ public class SupportBOP
 		//STEPPE
 		if (ConfigBOP.generateBOPsteppe)
 		BiomeBase.biomes_hot.add(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.steppe, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
 				new TerrainGrasslandHills(70f, 180f, 13f, 100f, 38f, 260f, 71f),
 				new SurfaceGrassland(BOPCBiomes.steppe.topBlock, BOPCBiomes.steppe.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -742,7 +761,7 @@ public class SupportBOP
 		//TEMPERATE RAINFOREST
 		if (ConfigBOP.generateBOPtemperateRainforest)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.temperateRainforest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 				new TerrainMountainRiver(),
 				new SurfaceMountainStone(BOPCBiomes.temperateRainforest.topBlock, BOPCBiomes.temperateRainforest.fillerBlock, false, null, 0.45f)
@@ -753,7 +772,7 @@ public class SupportBOP
 		//THICKET
 		if (ConfigBOP.generateBOPthicket)
 		BiomeBase.biomes_hot.add(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.thicket, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 				new TerrainGrasslandHills(70f, 180f, 13f, 100f, 38f, 260f, 71f),
 				new SurfaceGrassland(BOPCBiomes.thicket.topBlock, BOPCBiomes.thicket.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -763,7 +782,7 @@ public class SupportBOP
 		//TROPICAL RAINFOREST
 		if (ConfigBOP.generateBOPtropicalRainforest)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.tropicalRainforest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.tropicalRainforest.topBlock, BOPCBiomes.tropicalRainforest.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -774,7 +793,7 @@ public class SupportBOP
 		//TROPICS
 		if (ConfigBOP.generateBOPtropics)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.tropics, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 				new TerrainHighland(10f, 80f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.tropics.topBlock, BOPCBiomes.tropics.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -785,7 +804,7 @@ public class SupportBOP
 		//TUNDRA
 		if (ConfigBOP.generateBOPtundra)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.tundra, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
 				new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 				new SurfaceGrassland(BOPCBiomes.tundra.topBlock, BOPCBiomes.tundra.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -796,7 +815,7 @@ public class SupportBOP
 		//VOLCANO
 		if (ConfigBOP.generateBOPvolcano)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.volcano, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
 				new TerrainMarsh(),
 				new SurfaceGrassland(BOPCBiomes.volcano.topBlock, BOPCBiomes.volcano.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -807,7 +826,7 @@ public class SupportBOP
 		//WASTELAND
 		if (ConfigBOP.generateBOPwasteland)
 		BiomeBase.biomes_hot.add(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.wasteland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
 				new TerrainHighland(10f, 80f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.wasteland.topBlock, BOPCBiomes.wasteland.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -817,7 +836,7 @@ public class SupportBOP
 		//WETLAND
 		if (ConfigBOP.generateBOPwetland)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.wetland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 				new TerrainMarsh(),
 				new SurfaceGrassland(BOPCBiomes.wetland.topBlock, BOPCBiomes.wetland.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -828,7 +847,7 @@ public class SupportBOP
 		//WOODLAND
 		if (ConfigBOP.generateBOPwoodland)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.woodland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.woodland.topBlock, BOPCBiomes.woodland.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -839,7 +858,7 @@ public class SupportBOP
 		//XERIC SHRUBLAND
 		if (ConfigBOP.generateBOPxericShrubland)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.xericShrubland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
 				new TerrainHighland(0f, 140f, 68f, 200f),
 				new SurfaceGrassland(BOPCBiomes.xericShrubland.topBlock, BOPCBiomes.xericShrubland.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -851,7 +870,7 @@ public class SupportBOP
 		//CORALREEF
 		if (ConfigBOP.generateBOPcoralReef)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.coralReef, BiomeBase.climatizedBiome(BiomeGenBase.ocean, BiomeBase.Climate.WET),
 				new TerrainCanyon(false, -25f, 0f, 0f, 0f, 30f),
 				new SurfaceGrassland(BOPCBiomes.coralReef.topBlock, BOPCBiomes.coralReef.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -862,7 +881,7 @@ public class SupportBOP
 		//KELPFOREST
 		if (ConfigBOP.generateBOPkelpForest)
  		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.kelpForest, BiomeBase.climatizedBiome(BiomeGenBase.ocean, BiomeBase.Climate.TEMPERATE),
 				new TerrainCanyon(false, -25f, 0f, 0f, 0f, 30f),
 				new SurfaceGrassland(BOPCBiomes.kelpForest.topBlock, BOPCBiomes.kelpForest.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -873,7 +892,7 @@ public class SupportBOP
 		//DRY RIVER
 /*		if (ConfigBOP.generateBOPcoralReef)
 		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.dryRiver, VanillaBiomes.climatizedBiome(BiomeGenBase.ocean, Climate.WET),
 				new TerrainCanyon(false, -25f, 0f, 0f, 0f, 30f),
 				new SurfaceGrassland(BOPCBiomes.dryRiver.topBlock, BOPCBiomes.dryRiver.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -884,7 +903,7 @@ public class SupportBOP
 		//LUSH RIVER
 /*		if (ConfigBOP.generateBOPkelpForest)
  		BiomeBase.addBiome(
-			new RealisticBiomeBase(
+			new RealisticBiomeBOPBase(
 				BOPCBiomes.lushRiver, VanillaBiomes.climatizedBiome(BiomeGenBase.ocean, Climate.TEMPERATE),
 				new TerrainCanyon(false, -25f, 0f, 0f, 0f, 30f),
 				new SurfaceGrassland(BOPCBiomes.lushRiver.topBlock, BOPCBiomes.lushRiver.fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -892,9 +911,7 @@ public class SupportBOP
 			BiomeCategory.COLD	
 		);	
 */		
-	}
-	//Biomes 'O Plenty Type support
-	{
+		
         BiomeDictionary.registerBiomeType(BOPCBiomes.alps, Type.SNOWY, Type.MOUNTAIN, Type.COLD);
         BiomeDictionary.registerBiomeType(BOPCBiomes.alpsForest, Type.SNOWY, Type.MOUNTAIN, Type.FOREST, Type.COLD);
         BiomeDictionary.registerBiomeType(BOPCBiomes.arctic, Type.SNOWY, Type.WASTELAND, Type.COLD, Type.DEAD);

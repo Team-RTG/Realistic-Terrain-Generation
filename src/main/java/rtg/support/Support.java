@@ -57,7 +57,7 @@ public class Support
 		}
 	}
 	
-	public static void addBiome(RealisticBiomeSupport b, BiomeCategory cat)
+	public static void addBiome(RealisticBiomeBase b, BiomeCategory cat)
 	{
 		try
 		{
@@ -76,7 +76,7 @@ public class Support
 		}
 	}
 	
-	public static void addBiome(RealisticBiomeSupport b, BiomeCategory[] cat)
+	public static void addBiome(RealisticBiomeBase b, BiomeCategory[] cat)
 	{
 		for (int i = 0; i < cat.length; i++)
 		{

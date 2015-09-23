@@ -2,6 +2,7 @@ package rtg.world.biome.realistic;
 
 import java.util.Random;
 
+import rtg.support.edit.EditBase;
 import rtg.util.CellNoise;
 import rtg.util.PerlinNoise;
 import rtg.world.biome.BiomeBase;
@@ -64,6 +65,14 @@ public class RealisticBiomeBase
 	public final BiomeGenBase baseBiome;
 	public final BiomeGenBase riverBiome;
 	
+	public TerrainBase terrain;
+	
+	public SurfaceBase[] surfaces;
+	public int surfacesLength;
+	
+	public EditBase[] edits;
+	public int editLength;
+	
 	public RealisticBiomeBase(BiomeGenBase biome)
 	{
 		this(biome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE));
@@ -85,11 +94,61 @@ public class RealisticBiomeBase
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	public RealisticBiomeBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s, EditBase[] e)
+	{
+		this(b, riverbiome);
+
+		terrain = t;
+		
+		surfaces = s;
+		surfacesLength = s.length;
+		
+		if(e != null)
+		{
+			edits = e;
+			editLength = e.length;
+		}
+		else
+		{
+			editLength = 0;
+		}
+	}
+	
+	public RealisticBiomeBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s, EditBase e)
+	{
+		this(b, riverbiome, t, new SurfaceBase[]{s}, e != null ? new EditBase[]{e} : null);
+	}
+	
+	public RealisticBiomeBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
+	{
+		this(b, riverbiome, t, s, null);
+	}
+	
+	
+	
+	
+	
 	//======================================================================================================================================
 	
 	
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, PerlinNoise perlin, CellNoise cell, float strength, float river)
     {
+    	if(strength > 0.3f)
+    	{
+    		baseBiome.decorate(world, rand, chunkX, chunkY);
+    	}
+
+    	for(int e = 0; e < editLength; e++)
+    	{
+    		edits[e].decorate(world, rand, chunkX, chunkY, perlin, cell, strength, river);
+    	}
     }
     
     public void generateMapGen(Block[] blocks, byte[] metadata, Long seed, World world, ChunkManagerRealistic cmr, Random mapRand, int chunkX, int chunkY, PerlinNoise perlin, CellNoise cell, float noise[])
@@ -114,40 +173,15 @@ public class RealisticBiomeBase
     
     public float rNoise(PerlinNoise perlin, CellNoise cell, int x, int y, float ocean, float border, float river)
     {
-    	return 63f;
+		return terrain.generateNoise(perlin, cell, x, y, ocean, border, river);
     }
     
     public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, PerlinNoise perlin, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
-    	Block b;
-		for(int k = 255; k > -1; k--)
-		{
-			b = blocks[(y * 16 + x) * 256 + k];
-            if(b == Blocks.air)
-            {
-            	depth = -1;
-            }
-            else if(b == Blocks.stone)
-            {
-            	depth++;
-
-        		if(depth == 0)
-        		{
-    				if(k < 62)
-    				{
-    					blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
-    				}
-    				else
-    				{
-    					blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
-    				}
-        		}
-        		else if(depth < 6)
-        		{
-        			blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
-        		}
-            }
-		}
+    	for(int s = 0; s < surfacesLength; s++)
+    	{
+    		surfaces[s].paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, perlin, cell, noise, river, base);
+    	}
     }
     
     public float r3Dnoise(float z)

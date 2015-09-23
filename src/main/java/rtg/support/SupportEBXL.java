@@ -30,7 +30,7 @@ public class SupportEBXL
 		if(BiomeManager.alpine.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.alpine.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
 					new TerrainMountainRiver(),
 					new SurfaceMountainSnow(Blocks.grass, Blocks.dirt, false, null, 0.45f)
@@ -43,7 +43,7 @@ public class SupportEBXL
 		if(BiomeManager.autumnwoods.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.autumnwoods.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 					new TerrainHighland(0f, 140f, 68f, 200f),
 					new SurfaceGrassland(BiomeManager.autumnwoods.get().topBlock, BiomeManager.autumnwoods.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -56,7 +56,7 @@ public class SupportEBXL
 		if(BiomeManager.birchforest.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.birchforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 					new TerrainHilly(230f, 120f, 0f),
 					new SurfaceMountainStone(BiomeManager.birchforest.get().topBlock, BiomeManager.birchforest.get().fillerBlock, false, null, 0.95f)
@@ -69,7 +69,7 @@ public class SupportEBXL
 		if(BiomeManager.extremejungle.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.extremejungle.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 					new TerrainSwampMountain(135f, 300f),
 					new SurfaceMountainStone(BiomeManager.extremejungle.get().topBlock, BiomeManager.extremejungle.get().fillerBlock, false, null, 0.95f)
@@ -82,7 +82,7 @@ public class SupportEBXL
 		if(BiomeManager.forestedisland.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.forestedisland.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 					new TerrainGrasslandHills(90f, 180f, 13f, 100f, 1f, 260f, 59f),
 					new SurfaceGrassland(BiomeManager.forestedisland.get().topBlock, BiomeManager.forestedisland.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -95,7 +95,7 @@ public class SupportEBXL
 		if(BiomeManager.forestedhills.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.forestedhills.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 					new TerrainHilly(230f, 120f, 0f),
 					new SurfaceMountainStone(BiomeManager.forestedhills.get().topBlock, BiomeManager.forestedhills.get().fillerBlock, false, null, 0.95f)
@@ -108,7 +108,7 @@ public class SupportEBXL
 		if(BiomeManager.glacier.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.glacier.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
 					new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 					new SurfaceMountainStone(BiomeManager.glacier.get().topBlock, BiomeManager.glacier.get().fillerBlock, false, null, 0.95f)
@@ -121,7 +121,7 @@ public class SupportEBXL
 		if(BiomeManager.greenhills.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.greenhills.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 					new TerrainHilly(230f, 120f, 0f),
 					new SurfaceMountainStone(BiomeManager.greenhills.get().topBlock, BiomeManager.greenhills.get().fillerBlock, false, null, 0.95f)
@@ -134,7 +134,7 @@ public class SupportEBXL
 		if(BiomeManager.icewasteland.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.icewasteland.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
 					new TerrainPolar(),
 					new SurfacePolar(BiomeManager.icewasteland.get().topBlock, BiomeManager.icewasteland.get().fillerBlock)
@@ -147,7 +147,7 @@ public class SupportEBXL
 		if(BiomeManager.greenswamp.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.greenswamp.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 					new TerrainSwampRiver(),
 					new SurfaceGrassland(BiomeManager.greenswamp.get().topBlock, BiomeManager.greenswamp.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -160,7 +160,7 @@ public class SupportEBXL
 		if(BiomeManager.marsh.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.marsh.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 					new TerrainMarsh(),
 					new SurfaceMarshFix(BiomeManager.marsh.get().topBlock, BiomeManager.marsh.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -173,7 +173,7 @@ public class SupportEBXL
 		if(BiomeManager.meadow.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.meadow.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 					new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 					new SurfaceGrassland(BiomeManager.meadow.get().topBlock, BiomeManager.meadow.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -186,7 +186,7 @@ public class SupportEBXL
 		if(BiomeManager.minijungle.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.minijungle.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 					new TerrainHighland(0f, 140f, 68f, 200f),
 					new SurfaceGrassland(BiomeManager.minijungle.get().topBlock, BiomeManager.minijungle.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -199,7 +199,7 @@ public class SupportEBXL
 		if(BiomeManager.mountaindesert.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.mountaindesert.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
 					new TerrainHilly(230f, 100f, 0f),
 					new SurfaceBase[]{
@@ -218,7 +218,7 @@ public class SupportEBXL
 		if(BiomeManager.mountainridge.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.mountainridge.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
 					new TerrainHilly(230f, 110f, 0f),
 					new SurfaceBase[]{
@@ -237,7 +237,7 @@ public class SupportEBXL
 		if(BiomeManager.mountaintaiga.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.mountaintaiga.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
 					new TerrainMountainSpikes(),
 					new SurfaceMountainStone(BiomeManager.mountaintaiga.get().topBlock, BiomeManager.mountaintaiga.get().fillerBlock, false, null, 1.2f)
@@ -250,7 +250,7 @@ public class SupportEBXL
 		if(BiomeManager.pineforest.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.pineforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 					new TerrainMountainSpikes(),
 					new SurfaceMountainStone(BiomeManager.pineforest.get().topBlock, BiomeManager.pineforest.get().fillerBlock, false, null, 1.2f)
@@ -263,7 +263,7 @@ public class SupportEBXL
 		if(BiomeManager.rainforest.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.rainforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 					new TerrainHilly(230f, 100f, 0f),
 					new SurfaceGrassland(BiomeManager.rainforest.get().topBlock, BiomeManager.rainforest.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -276,7 +276,7 @@ public class SupportEBXL
 		if(BiomeManager.redwoodforest.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.redwoodforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 					new TerrainHilly(230f, 120f, 0f),
 					new SurfaceMountainStone(BiomeManager.redwoodforest.get().topBlock, BiomeManager.redwoodforest.get().fillerBlock, true, Blocks.sand, 0.2f)
@@ -289,7 +289,7 @@ public class SupportEBXL
 		if(BiomeManager.redwoodlush.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.redwoodlush.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 					new TerrainHilly(230f, 120f, 0f),
 					new SurfaceMountainStone(BiomeManager.redwoodlush.get().topBlock, BiomeManager.redwoodlush.get().fillerBlock, true, Blocks.sand, 0.2f)
@@ -302,7 +302,7 @@ public class SupportEBXL
 		if(BiomeManager.savanna.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.savanna.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
 					new TerrainGrasslandFlats(),
 					new SurfaceGrasslandMix1(BiomeManager.savanna.get().topBlock, BiomeManager.savanna.get().fillerBlock, Blocks.sand, Blocks.stone, Blocks.cobblestone, 13f, 0.27f)
@@ -315,7 +315,7 @@ public class SupportEBXL
 		if(BiomeManager.shrubland.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.shrubland.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 					new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 					new SurfaceGrassland(BiomeManager.shrubland.get().topBlock, BiomeManager.shrubland.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -328,7 +328,7 @@ public class SupportEBXL
 		if(BiomeManager.snowforest.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.snowforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
 					new TerrainHighland(0f, 140f, 68f, 200f),
 					new SurfaceGrassland(BiomeManager.snowforest.get().topBlock, BiomeManager.snowforest.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -341,7 +341,7 @@ public class SupportEBXL
 		if(BiomeManager.snowyrainforest.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.snowyrainforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
 					new TerrainHilly(230f, 120f, 0f),
 					new SurfaceGrassland(BiomeManager.snowforest.get().topBlock, BiomeManager.snowforest.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -354,7 +354,7 @@ public class SupportEBXL
 		if(BiomeManager.temperaterainforest.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.temperaterainforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
 					new TerrainHilly(230f, 120f, 0f),
 					new SurfaceMountainStone(BiomeManager.temperaterainforest.get().topBlock, BiomeManager.temperaterainforest.get().fillerBlock, true, Blocks.sand, 0.2f)
@@ -367,7 +367,7 @@ public class SupportEBXL
 		if(BiomeManager.tundra.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.tundra.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 					new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 					new SurfaceGrassland(BiomeManager.tundra.get().topBlock, BiomeManager.tundra.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
@@ -380,7 +380,7 @@ public class SupportEBXL
 		if(BiomeManager.wasteland.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.wasteland.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
 					new TerrainGrasslandHills(30f, 180f, 13f, 100f, 28f, 260f, 70f),
 					new SurfaceBase[]{
@@ -399,7 +399,7 @@ public class SupportEBXL
 		if(BiomeManager.woodlands.isPresent())
 		{
 			Support.addBiome(
-				new RealisticBiomeSupport(
+				new RealisticBiomeBase(
 					BiomeManager.woodlands.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 					new TerrainHighland(0f, 140f, 68f, 200f),
 					new SurfaceGrassland(BiomeManager.woodlands.get().topBlock, BiomeManager.woodlands.get().fillerBlock, Blocks.stone, Blocks.cobblestone)

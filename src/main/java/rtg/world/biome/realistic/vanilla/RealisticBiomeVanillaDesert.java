@@ -14,6 +14,7 @@ import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.tree.WorldGenTreeSavanna;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesert;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaDesert;
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -26,13 +27,16 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
 {	
+	public static Block topBlock = BiomeGenBase.desert.topBlock;
+	public static Block fillerBlock = BiomeGenBase.desert.fillerBlock;
+	
 	public RealisticBiomeVanillaDesert()
 	{
 		super(
 			BiomeGenBase.desert,
 			BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
 			new TerrainVanillaDesert(),
-			new SurfaceVanillaDesert(BiomeGenBase.desert.topBlock, BiomeGenBase.desert.fillerBlock)
+			new SurfaceVanillaDesert(topBlock, fillerBlock)
 		);
 	}	
 	@Override

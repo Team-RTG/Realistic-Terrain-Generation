@@ -125,7 +125,7 @@ public class SupportEB
 				{
 					//ALPINE MOUNTAINS
 					Support.addBiome(
-						new RealisticBiomeSupport(
+						new RealisticBiomeBase(
 							EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 							new TerrainMountainRiver(),
 							new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
@@ -137,7 +137,7 @@ public class SupportEB
 				{
 					//ALPINE MOUNTAINS EDGE
 					Support.addBiome(
-						new RealisticBiomeSupport(
+						new RealisticBiomeBase(
 							EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 							new TerrainMountainRiver(),
 							new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
@@ -149,7 +149,7 @@ public class SupportEB
 				{
 					//ALPINE MOUNTAINS M
 					Support.addBiome(
-						new RealisticBiomeSupport(
+						new RealisticBiomeBase(
 							EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 							new TerrainMountainRiver(),
 							new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)

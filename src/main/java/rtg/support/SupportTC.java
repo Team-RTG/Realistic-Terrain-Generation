@@ -30,7 +30,7 @@ public class SupportTC
 				if(b[i].biomeName == "Tainted Land" || b[i].biomeName == "Magical Forest")
 				{
 					Support.addBiome(
-						new RealisticBiomeSupport(
+						new RealisticBiomeBase(
 							b[i], BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 							new TerrainSmallSupport(),
 							new SurfaceGrassland(b[i].topBlock, b[i].fillerBlock, Blocks.stone, Blocks.cobblestone)

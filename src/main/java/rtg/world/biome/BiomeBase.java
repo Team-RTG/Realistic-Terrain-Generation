@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 import cpw.mods.fml.common.Loader;
 import rtg.config.ConfigRTG;
-import rtg.support.SupportEB;
 import rtg.support.SupportEBXL;
 import rtg.support.SupportTC;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -99,7 +99,7 @@ public class BiomeBase
 		
 		if (Loader.isModLoaded("enhancedbiomes"))
 		{
-			SupportEB.init();
+			RealisticBiomeEBBase.init();
 		}
 		
 		if (Loader.isModLoaded("Thaumcraft"))

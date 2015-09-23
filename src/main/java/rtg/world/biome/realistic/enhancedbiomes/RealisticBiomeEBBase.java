@@ -1,18 +1,20 @@
-package rtg.support;
+package rtg.world.biome.realistic.enhancedbiomes;
 
-import enhancedbiomes.api.EBBiomes;
-import rtg.world.gen.surface.SurfaceMountainSnow;
-import rtg.world.gen.terrain.*;
-import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
-import rtg.world.biome.BiomeBase.Climate;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.gen.surface.SurfaceMountainSnow;
+import rtg.world.gen.terrain.TerrainBase;
+import rtg.world.gen.terrain.TerrainMountainRiver;
 
-public class SupportEB 
-{
+public class RealisticBiomeEBBase extends RealisticBiomeBase
+{	
+	public RealisticBiomeEBBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
+	{
+		super(b, riverbiome, t, s);
+	}
+	
 	/*
 	EB BIOMES
 	

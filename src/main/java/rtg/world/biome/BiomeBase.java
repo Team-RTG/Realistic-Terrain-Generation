@@ -1,12 +1,20 @@
 package rtg.world.biome;
 
+import java.util.ArrayList;
+
+import cpw.mods.fml.common.Loader;
+import rtg.config.ConfigRTG;
+import rtg.support.SupportBOP;
+import rtg.support.SupportEB;
+import rtg.support.SupportEBXL;
+import rtg.support.SupportTC;
+import rtg.support.SupportVanilla;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeBase
 {
-
 	public static enum Climate {
 		COLD,
 		HOT,
@@ -15,6 +23,21 @@ public class BiomeBase
 		TEMPERATE,
 		WET
 	}
+
+	public enum BiomeCategory
+	{
+		SNOW,
+		COLD,
+		HOT,
+		WET,
+		SMALL
+	}
+	
+	public static ArrayList<RealisticBiomeBase> biomes_snow;
+	public static ArrayList<RealisticBiomeBase> biomes_cold;
+	public static ArrayList<RealisticBiomeBase> biomes_hot;
+	public static ArrayList<RealisticBiomeBase> biomes_wet;
+	public static ArrayList<RealisticBiomeBase> biomes_small;
 
 	/**
 	 * We need to set the temp/rain values 'on the fly' when we pass them as arguments to avoid
@@ -49,6 +72,81 @@ public class BiomeBase
 		}
 		
 		return biome;
+	}
+	
+    public static void init()
+	{
+		biomes_snow = new ArrayList<RealisticBiomeBase>();
+		biomes_cold = new ArrayList<RealisticBiomeBase>();
+		biomes_hot = new ArrayList<RealisticBiomeBase>();
+		biomes_wet = new ArrayList<RealisticBiomeBase>();
+		biomes_small = new ArrayList<RealisticBiomeBase>();
+		
+		if (ConfigRTG.generateVanillaBiomes)
+		{
+			SupportVanilla.init();
+		}
+		
+		if (Loader.isModLoaded("BiomesOPlenty"))
+		{
+			SupportBOP.init();
+		}
+		
+		if (Loader.isModLoaded("ExtrabiomesXL"))
+		{
+			SupportEBXL.init();
+		}
+		
+		if (Loader.isModLoaded("enhancedbiomes"))
+		{
+			SupportEB.init();
+		}
+		
+		if (Loader.isModLoaded("Thaumcraft"))
+		{
+			SupportTC.init();
+		}
+	}
+    
+	public static void addBiome(RealisticBiomeBase b, BiomeBase.BiomeCategory cat)
+	{
+		try
+		{
+			switch(cat)
+			{
+				case SNOW: biomes_snow.add(b); break;
+				case COLD: biomes_cold.add(b); break;
+				case HOT: biomes_hot.add(b); break;
+				case WET: biomes_wet.add(b); break;
+				case SMALL: biomes_small.add(b); break;
+			}
+		}
+		catch(Error e)
+		{
+			System.out.println("RTG Support: failed to add biome");
+		}
+	}
+	
+	public static void addBiome(RealisticBiomeBase b, BiomeBase.BiomeCategory[] cat)
+	{
+		for (int i = 0; i < cat.length; i++)
+		{
+			try
+			{
+				switch(cat[i])
+				{
+					case SNOW: biomes_snow.add(b); break;
+					case COLD: biomes_cold.add(b); break;
+					case HOT: biomes_hot.add(b); break;
+					case WET: biomes_wet.add(b); break;
+					case SMALL: biomes_small.add(b); break;
+				}
+			}
+			catch(Error e)
+			{
+				System.out.println("RTG Support: failed to add biome");
+			}
+		}
 	}
 
 	public static RealisticBiomeBase getRealisticVanillaBiomeFromVanillaVariableName(String name)

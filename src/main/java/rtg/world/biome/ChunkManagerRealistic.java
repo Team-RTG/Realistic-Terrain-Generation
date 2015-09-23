@@ -9,7 +9,6 @@ import gnu.trove.map.hash.TLongObjectHashMap;
 import net.minecraft.world.ChunkCoordIntPair;
 import rtg.config.ConfigRTG;
 import rtg.debug.DebugHandler;
-import rtg.support.Support;
 import rtg.util.CellNoise;
 import rtg.util.Logger;
 import rtg.util.PerlinNoise;
@@ -76,11 +75,11 @@ public class ChunkManagerRealistic extends WorldChunkManager
     	biomes_wet = new ArrayList<RealisticBiomeBase>();
     	biomes_small = new ArrayList<RealisticBiomeBase>();
     	
-    	biomes_snow.addAll(Support.biomes_snow);
-    	biomes_cold.addAll(Support.biomes_cold);
-    	biomes_hot.addAll(Support.biomes_hot);
-    	biomes_wet.addAll(Support.biomes_wet);
-    	biomes_small.addAll(Support.biomes_small);
+    	biomes_snow.addAll(BiomeBase.biomes_snow);
+    	biomes_cold.addAll(BiomeBase.biomes_cold);
+    	biomes_hot.addAll(BiomeBase.biomes_hot);
+    	biomes_wet.addAll(BiomeBase.biomes_wet);
+    	biomes_small.addAll(BiomeBase.biomes_small);
     	
     	biomes_snowLength = biomes_snow.size();
     	biomes_coldLength = biomes_cold.size();

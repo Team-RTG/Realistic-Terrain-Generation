@@ -5,8 +5,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigRTG;
 import rtg.support.edit.*;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.biome.realistic.vanilla.*;
-import rtg.support.Support.BiomeCategory;
 
 public class SupportVanilla
 {
@@ -23,27 +24,27 @@ public class SupportVanilla
 			//vanilla_beach
 			if (ConfigRTG.generateVanillaBeach)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaBeach(),
-					BiomeCategory.WET
+					BiomeBase.BiomeCategory.WET
 				);
 			}
 			
 			//vanilla_stoneBeach
 			if (ConfigRTG.generateVanillaStoneBeach)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaStoneBeach(),
-					BiomeCategory.WET
+					BiomeBase.BiomeCategory.WET
 				);
 			}
 			
 			//vanilla_coldBeach
 			if (ConfigRTG.generateVanillaColdBeach)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaColdBeach(),
-					BiomeCategory.COLD
+					BiomeBase.BiomeCategory.COLD
 				);
 			}
 			
@@ -62,18 +63,18 @@ public class SupportVanilla
 			//vanilla_desert
 			if (ConfigRTG.generateVanillaDesert)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaDesert(),
-					BiomeCategory.HOT
+					BiomeBase.BiomeCategory.HOT
 				);
 			}
 			
 			//vanilla_desertHills
 			if (ConfigRTG.generateVanillaDesertHills)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaDesertHills(),
-					BiomeCategory.HOT
+					BiomeBase.BiomeCategory.HOT
 				);
 			}
 			
@@ -92,18 +93,18 @@ public class SupportVanilla
 			//vanilla_extremeHills
 			if (ConfigRTG.generateVanillaExtremeHills)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaExtremeHills(),
-					BiomeCategory.COLD
+					BiomeBase.BiomeCategory.COLD
 				);
 			}
 			
 			//vanilla_extremeHillsPlus
 			if (ConfigRTG.generateVanillaExtremeHillsPlus)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaExtremeHillsPlus(),
-					BiomeCategory.COLD
+					BiomeBase.BiomeCategory.COLD
 				);
 			}
 			
@@ -124,45 +125,45 @@ public class SupportVanilla
 			//vanilla_forest
 			if (ConfigRTG.generateVanillaForest)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaForest(),
-					BiomeCategory.WET
+					BiomeBase.BiomeCategory.WET
 				);
 			}
 			
 			//vanilla_forestHills
 			if (ConfigRTG.generateVanillaForestHills)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaForestHills(),
-					BiomeCategory.WET
+					BiomeBase.BiomeCategory.WET
 				);
 			}
 			
 			//vanilla_birchForest
 			if (ConfigRTG.generateVanillaBirchForest)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaBirchForest(),
-					BiomeCategory.WET
+					BiomeBase.BiomeCategory.WET
 				);
 			}
 			
 			//vanilla_birchForestHills
 			if (ConfigRTG.generateVanillaBirchForestHills)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaBirchForestHills(),
-					BiomeCategory.WET
+					BiomeBase.BiomeCategory.WET
 				);
 			}
 			
 			//vanilla_roofedForest
 			if (ConfigRTG.generateVanillaRoofedForest)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaRoofedForest(),
-					BiomeCategory.WET
+					BiomeBase.BiomeCategory.WET
 				);
 			}
 			
@@ -181,18 +182,18 @@ public class SupportVanilla
 			//vanilla_icePlains
 			if (ConfigRTG.generateVanillaIcePlains)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaIcePlains(),
-					BiomeCategory.SNOW
+					BiomeBase.BiomeCategory.SNOW
 				);
 			}
 			
 			//vanilla_iceMountains
 			if (ConfigRTG.generateVanillaIceMountains)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaIceMountains(),
-					BiomeCategory.SNOW
+					BiomeBase.BiomeCategory.SNOW
 				);
 			}
 			
@@ -211,27 +212,27 @@ public class SupportVanilla
 			//vanilla_jungle
 			if (ConfigRTG.generateVanillaJungle)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaJungle(),
-					BiomeCategory.WET
+					BiomeBase.BiomeCategory.WET
 				);
 			}
 			
 			//vanilla_jungleHills
 			if (ConfigRTG.generateVanillaJungleHills)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaJungleHills(),
-					BiomeCategory.WET
+					BiomeBase.BiomeCategory.WET
 				);
 			}
 			
 			//vanilla_jungleEdge
 			if (ConfigRTG.generateVanillaJungleEdge)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaJungleEdge(),
-					BiomeCategory.WET
+					BiomeBase.BiomeCategory.WET
 				);
 			}
 			
@@ -250,27 +251,27 @@ public class SupportVanilla
 			//vanilla_mesa
 			if (ConfigRTG.generateVanillaMesa)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaMesa(),
-					BiomeCategory.HOT
+					BiomeBase.BiomeCategory.HOT
 				);
 			}
 			
 			//vanilla_mesaPlateau
 			if (ConfigRTG.generateVanillaMesaPlateau)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaMesaPlateau(),
-					BiomeCategory.HOT
+					BiomeBase.BiomeCategory.HOT
 				);
 			}
 			
 			//vanilla_mesaPlateau_F
 			if (ConfigRTG.generateVanillaMesaPlateau_F)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaMesaPlateauF(),
-					BiomeCategory.HOT
+					BiomeBase.BiomeCategory.HOT
 				);
 			}
 			
@@ -289,18 +290,18 @@ public class SupportVanilla
 			//vanilla_mushroomIsland
 			if (ConfigRTG.generateVanillaMushroomIsland)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaMushroomIsland(),
-					BiomeCategory.WET
+					BiomeBase.BiomeCategory.WET
 				);
 			}
 			
 			//vanilla_mushroomIslandShore
 			if (ConfigRTG.generateVanillaMushroomIslandShore)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaMushroomIslandShore(),
-					BiomeCategory.WET
+					BiomeBase.BiomeCategory.WET
 				);
 			}
 			
@@ -319,18 +320,18 @@ public class SupportVanilla
 			//vanilla_ocean
 			if (ConfigRTG.generateVanillaOcean)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaOcean(),
-					BiomeCategory.WET
+					BiomeBase.BiomeCategory.WET
 				);
 			}
 			
 			//vanilla_deepOcean
 			if (ConfigRTG.generateVanillaDeepOcean)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaDeepOcean(),
-					BiomeCategory.WET
+					BiomeBase.BiomeCategory.WET
 				);
 			}
 			
@@ -351,9 +352,9 @@ public class SupportVanilla
 			//vanilla_plains
 			if (ConfigRTG.generateVanillaPlains)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaPlains(),
-					BiomeCategory.WET
+					BiomeBase.BiomeCategory.WET
 				);
 			}
 			
@@ -372,18 +373,18 @@ public class SupportVanilla
 			//vanilla_river
 			if (ConfigRTG.generateVanillaRiver)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaRiver(),
-					BiomeCategory.WET
+					BiomeBase.BiomeCategory.WET
 				);
 			}
 			
 			//vanilla_frozenRiver
 			if (ConfigRTG.generateVanillaFrozenRiver)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaFrozenRiver(),
-					BiomeCategory.SNOW
+					BiomeBase.BiomeCategory.SNOW
 				);
 			}
 			
@@ -402,18 +403,18 @@ public class SupportVanilla
 			//vanilla_savanna
 			if (ConfigRTG.generateVanillaSavanna)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaSavanna(),
-					BiomeCategory.HOT
+					BiomeBase.BiomeCategory.HOT
 				);
 			}
 			
 			//vanilla_savannaPlateau
 			if (ConfigRTG.generateVanillaSavannaPlateau)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaSavannaPlateau(),
-					BiomeCategory.HOT
+					BiomeBase.BiomeCategory.HOT
 				);
 			}
 			
@@ -432,9 +433,9 @@ public class SupportVanilla
 			//vanilla_swampland
 			if (ConfigRTG.generateVanillaSwampland)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaSwampland(),
-					BiomeCategory.WET
+					BiomeBase.BiomeCategory.WET
 				);
 			}
 			
@@ -453,54 +454,54 @@ public class SupportVanilla
 			//vanilla_taiga
 			if (ConfigRTG.generateVanillaTaiga)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaTaiga(),
-					BiomeCategory.COLD
+					BiomeBase.BiomeCategory.COLD
 				);
 			}
 			
 			//vanilla_taigaHills
 			if (ConfigRTG.generateVanillaTaigaHills)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaTaigaHills(),
-					BiomeCategory.COLD
+					BiomeBase.BiomeCategory.COLD
 				);
 			}
 			
 			//vanilla_coldTaiga
 			if (ConfigRTG.generateVanillaColdTaiga)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaColdTaiga(),
-					BiomeCategory.SNOW
+					BiomeBase.BiomeCategory.SNOW
 				);
 			}
 			
 			//vanilla_coldTaigaHills
 			if (ConfigRTG.generateVanillaColdTaigaHills)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaColdTaigaHills(),
-					BiomeCategory.SNOW
+					BiomeBase.BiomeCategory.SNOW
 				);
 			}
 			
 			//vanilla_megaTaiga
 			if (ConfigRTG.generateVanillaMegaTaiga)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaMegaTaiga(),
-					BiomeCategory.COLD
+					BiomeBase.BiomeCategory.COLD
 				);
 			}
 			
 			//vanilla_megaTaigaHills
 			if (ConfigRTG.generateVanillaMegaTaigaHills)
 			{
-				Support.addBiome(
+				BiomeBase.addBiome(
 					new RealisticBiomeVanillaMegaTaigaHills(),
-					BiomeCategory.COLD
+					BiomeBase.BiomeCategory.COLD
 				);
 			}
 			

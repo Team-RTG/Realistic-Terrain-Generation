@@ -18,8 +18,8 @@ import rtg.debug.DebugHandler;
 import rtg.init.ModMapGen;
 import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
-import rtg.support.Support;
 import rtg.world.WorldTypeRealistic;
+import rtg.world.biome.BiomeBase;
 
 @Mod(modid=ModInfo.MOD_ID, name=ModInfo.MOD_NAME, version=ModInfo.MOD_VERSION, acceptableRemoteVersions="*")
 public class RTG
@@ -58,6 +58,6 @@ public class RTG
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
-		Support.init();
+		BiomeBase.init();
 	}
 }

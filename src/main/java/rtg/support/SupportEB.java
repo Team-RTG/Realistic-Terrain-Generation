@@ -4,12 +4,12 @@ import enhancedbiomes.api.EBBiomes;
 import rtg.world.gen.surface.SurfaceMountainSnow;
 import rtg.world.gen.terrain.*;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.biome.BiomeBase.Climate;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.support.Support.BiomeCategory;
 
 public class SupportEB 
 {
@@ -124,37 +124,37 @@ public class SupportEB
 				if (biomeName == "Alpine Mountains" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenAlpine")
 				{
 					//ALPINE MOUNTAINS
-					Support.addBiome(
+					BiomeBase.addBiome(
 						new RealisticBiomeBase(
 							EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 							new TerrainMountainRiver(),
 							new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
 						),
-						BiomeCategory.SNOW
+						BiomeBase.BiomeCategory.SNOW
 					);
 				}
 				else if (biomeName == "Alpine Mountains Edge" && biomeClass == "enhancedbiomes.world.biome.snow.snowforest.BiomeGenAlpineEdge")
 				{
 					//ALPINE MOUNTAINS EDGE
-					Support.addBiome(
+					BiomeBase.addBiome(
 						new RealisticBiomeBase(
 							EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 							new TerrainMountainRiver(),
 							new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
 						),
-						BiomeCategory.SNOW
+						BiomeBase.BiomeCategory.SNOW
 					);
 				}
 				else if (biomeName == "Alpine Mountains M" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenAlpineM")
 				{
 					//ALPINE MOUNTAINS M
-					Support.addBiome(
+					BiomeBase.addBiome(
 						new RealisticBiomeBase(
 							EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
 							new TerrainMountainRiver(),
 							new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
 						),
-						BiomeCategory.SNOW
+						BiomeBase.BiomeCategory.SNOW
 					);
 				}
 			}

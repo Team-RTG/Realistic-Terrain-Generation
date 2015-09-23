@@ -1,6 +1,7 @@
 package rtg.support;
 
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.biome.BiomeBase.Climate;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceGrassland;
@@ -8,7 +9,6 @@ import rtg.world.gen.terrain.TerrainSmallSupport;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.support.Support.BiomeCategory;
 
 public class SupportTC 
 {
@@ -29,13 +29,13 @@ public class SupportTC
 			{
 				if(b[i].biomeName == "Tainted Land" || b[i].biomeName == "Magical Forest")
 				{
-					Support.addBiome(
+					BiomeBase.addBiome(
 						new RealisticBiomeBase(
 							b[i], BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
 							new TerrainSmallSupport(),
 							new SurfaceGrassland(b[i].topBlock, b[i].fillerBlock, Blocks.stone, Blocks.cobblestone)
 						),
-						BiomeCategory.SMALL
+						BiomeBase.BiomeCategory.SMALL
 					);
 				}
 			}

@@ -124,7 +124,7 @@ public class ConfigBOP
 			generateBOPcrag = config.getBoolean("generateBOPcrag", "BOP Biomes", true, "");
 			generateBOPdeadForest = config.getBoolean("generateBOPdeadForest", "BOP Biomes", true, "");
 			generateBOPdeadSwamp = config.getBoolean("generateBOPdeadSwamp", "BOP Biomes", true, "");
-			generateBOPdeciduousForest = config.getBoolean("generatedeciduousForest*", "BOP Biomes", true, "");
+			generateBOPdeciduousForest = config.getBoolean("generateBOPdeciduousForest", "BOP Biomes", true, "");
 			generateBOPdenseForest = config.getBoolean("generateBOPdenseForest", "BOP Biomes", true, "");
 			generateBOPeucalyptusForest = config.getBoolean("generateBOPeucalyptusForest", "BOP Biomes", true, "");
 			generateBOPfen = config.getBoolean("generateBOPfen", "BOP Biomes", true, "");

@@ -8,9 +8,9 @@ import rtg.support.SupportBOP;
 import rtg.support.SupportEB;
 import rtg.support.SupportEBXL;
 import rtg.support.SupportTC;
-import rtg.support.SupportVanilla;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeBase
@@ -84,7 +84,7 @@ public class BiomeBase
 		
 		if (ConfigRTG.generateVanillaBiomes)
 		{
-			SupportVanilla.init();
+			RealisticBiomeVanillaBase.init();
 		}
 		
 		if (Loader.isModLoaded("BiomesOPlenty"))

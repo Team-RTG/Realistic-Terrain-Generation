@@ -1,12 +1,12 @@
-package rtg.support;
-
-import com.google.common.base.Optional;
+package rtg.world.biome.realistic.extrabiomes;
 
 import extrabiomes.api.BiomeManager;
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.support.edit.*;
+import rtg.support.edit.EditBase;
+import rtg.support.edit.EditRiverOasis;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceDesertMountain;
 import rtg.world.gen.surface.SurfaceGrassland;
@@ -16,14 +16,25 @@ import rtg.world.gen.surface.SurfaceMountainSnow;
 import rtg.world.gen.surface.SurfaceMountainStone;
 import rtg.world.gen.surface.SurfacePolar;
 import rtg.world.gen.surface.river.SurfaceRiverOasis;
-import rtg.world.gen.terrain.*;
-import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
-import rtg.world.biome.BiomeBase.Climate;
-import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.terrain.TerrainBase;
+import rtg.world.gen.terrain.TerrainGrasslandFlats;
+import rtg.world.gen.terrain.TerrainGrasslandHills;
+import rtg.world.gen.terrain.TerrainHighland;
+import rtg.world.gen.terrain.TerrainHilly;
+import rtg.world.gen.terrain.TerrainMarsh;
+import rtg.world.gen.terrain.TerrainMountainRiver;
+import rtg.world.gen.terrain.TerrainMountainSpikes;
+import rtg.world.gen.terrain.TerrainPolar;
+import rtg.world.gen.terrain.TerrainSwampMountain;
+import rtg.world.gen.terrain.TerrainSwampRiver;
 
-public class SupportEBXL 
-{
+public class RealisticBiomeEBXLBase extends RealisticBiomeBase
+{	
+	public RealisticBiomeEBXLBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
+	{
+		super(b, riverbiome, t, s);
+	}
+	
 	public static void init()
 	{
 	    //ALPINE

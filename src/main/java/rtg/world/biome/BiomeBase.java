@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 import cpw.mods.fml.common.Loader;
 import rtg.config.ConfigRTG;
-import rtg.support.SupportEBXL;
 import rtg.support.SupportTC;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBase;
+import rtg.world.biome.realistic.extrabiomes.RealisticBiomeEBXLBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -94,7 +94,7 @@ public class BiomeBase
 		
 		if (Loader.isModLoaded("ExtrabiomesXL"))
 		{
-			SupportEBXL.init();
+			RealisticBiomeEBXLBase.init();
 		}
 		
 		if (Loader.isModLoaded("enhancedbiomes"))

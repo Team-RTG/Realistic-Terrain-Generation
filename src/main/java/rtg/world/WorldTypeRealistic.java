@@ -1,5 +1,7 @@
 package rtg.world;
 
+import rtg.world.biome.ChunkManagerRealistic;
+import rtg.world.gen.ChunkProviderRealistic;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -20,7 +22,7 @@ public class WorldTypeRealistic extends WorldType
 
     public IChunkProvider getChunkGenerator(World world, String generatorOptions)
     {
-        return new ChunkGeneratorRealistic(world, world.getSeed());
+        return new ChunkProviderRealistic(world, world.getSeed());
     }
 	
     public float getCloudHeight()

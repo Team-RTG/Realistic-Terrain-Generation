@@ -11,17 +11,21 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
-import rtg.biomes.vanilla.VanillaBiomes;
 import rtg.config.ConfigRTG;
 import rtg.config.RTGConfig;
-import rtg.data.TreeReplacement;
 import rtg.data.VillageMaterials;
 import rtg.debug.DebugHandler;
 import rtg.init.ModMapGen;
 import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
-import rtg.support.Support;
 import rtg.world.WorldTypeRealistic;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBase;
+import rtg.world.biome.realistic.extrabiomes.RealisticBiomeEBXLBase;
+import rtg.world.biome.realistic.highlands.RealisticBiomeHighlandsBase;
+import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 
 @Mod(modid=ModInfo.MOD_ID, name=ModInfo.MOD_NAME, version=ModInfo.MOD_VERSION, acceptableRemoteVersions="*")
 public class RTG
@@ -45,7 +49,6 @@ public class RTG
 		RTGConfig.init(configPath);
 				
 		MinecraftForge.TERRAIN_GEN_BUS.register(new VillageMaterials());
-		//MinecraftForge.TERRAIN_GEN_BUS.register(new TreeReplacement());
 		
 		ModMapGen.registerMapGen();
 	}
@@ -61,6 +64,13 @@ public class RTG
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
-		Support.init();
+		BiomeBase.init();
+		
+		RealisticBiomeVanillaBase.addBiomes();
+		RealisticBiomeBOPBase.addBiomes();
+		RealisticBiomeEBBase.addBiomes();
+		RealisticBiomeEBXLBase.addBiomes();
+		RealisticBiomeHighlandsBase.addBiomes();
+		RealisticBiomeTCBase.addBiomes();
 	}
 }

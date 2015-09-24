@@ -4,7 +4,7 @@ import java.util.Random;
 
 import rtg.util.CellNoise;
 import rtg.util.PerlinNoise;
-import rtg.util.SnowHeightCalculatorTemp;
+import rtg.util.SnowHeightCalculator;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -62,7 +62,7 @@ public class SurfacePolar extends SurfaceBase
         			blocks[(y * 16 + x) * 256 + k] = Blocks.snow;
             		if(depth == 0 && k > 61 && k < 254)
             		{
-            			SnowHeightCalculatorTemp.calc(x, y, k, blocks, metadata, noise);
+            			SnowHeightCalculator.calc(x, y, k, blocks, metadata, noise);
             		}
         		}
             }

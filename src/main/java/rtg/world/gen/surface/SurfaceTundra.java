@@ -5,7 +5,7 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.PerlinNoise;
-import rtg.util.SnowHeightCalculatorTemp;
+import rtg.util.SnowHeightCalculator;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;

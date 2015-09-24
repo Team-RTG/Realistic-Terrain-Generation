@@ -3,7 +3,7 @@ package rtg.util;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 
-public class SnowHeightCalculator 
+public class SnowHeightCalculatorTemp 
 {
 	public static void calc(int x, int y, int k, Block[] blocks, byte[] metadata, float[] noise)
 	{

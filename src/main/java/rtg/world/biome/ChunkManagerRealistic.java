@@ -13,6 +13,7 @@ import rtg.util.CellNoise;
 import rtg.util.Logger;
 import rtg.util.PerlinNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaStoneBeach;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
@@ -287,7 +288,7 @@ public class ChunkManagerRealistic extends WorldChunkManager
     	
     	if (generateOnlyThisVanillaBiome.length() > 0)
     	{
-    		output = BiomeBase.getRealisticVanillaBiomeFromVanillaVariableName(generateOnlyThisVanillaBiome);
+    		output = RealisticBiomeVanillaBase.getRealisticVanillaBiomeFromVanillaVariableName(generateOnlyThisVanillaBiome);
     	}
     	
     	//output = RealisticBiomeBase.vanillaExtremeHillsPlus;

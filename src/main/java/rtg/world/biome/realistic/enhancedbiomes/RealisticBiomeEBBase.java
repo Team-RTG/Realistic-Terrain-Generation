@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import cpw.mods.fml.common.Loader;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -111,53 +112,56 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 
 	*/
 	
-	public static void init()
+	public static void addBiomes()
 	{
-		BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
-		
-		for (int i = 0; i < 256; i++)
+		if (Loader.isModLoaded("enhancedbiomes"))
 		{
-			if (b[i] != null)
+			BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
+			
+			for (int i = 0; i < 256; i++)
 			{
-				BiomeGenBase EBBiome = b[i];
-				String biomeName = b[i].biomeName;
-				String biomeClass = b[i].getBiomeClass().getName();
-				
-				if (biomeName == "Alpine Mountains" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenAlpine")
+				if (b[i] != null)
 				{
-					//ALPINE MOUNTAINS
-					BiomeBase.addBiome(
-						new RealisticBiomeBase(
-							EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-							new TerrainMountainRiver(),
-							new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
-						),
-						BiomeBase.BiomeCategory.SNOW
-					);
-				}
-				else if (biomeName == "Alpine Mountains Edge" && biomeClass == "enhancedbiomes.world.biome.snow.snowforest.BiomeGenAlpineEdge")
-				{
-					//ALPINE MOUNTAINS EDGE
-					BiomeBase.addBiome(
-						new RealisticBiomeBase(
-							EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-							new TerrainMountainRiver(),
-							new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
-						),
-						BiomeBase.BiomeCategory.SNOW
-					);
-				}
-				else if (biomeName == "Alpine Mountains M" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenAlpineM")
-				{
-					//ALPINE MOUNTAINS M
-					BiomeBase.addBiome(
-						new RealisticBiomeBase(
-							EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-							new TerrainMountainRiver(),
-							new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
-						),
-						BiomeBase.BiomeCategory.SNOW
-					);
+					BiomeGenBase EBBiome = b[i];
+					String biomeName = b[i].biomeName;
+					String biomeClass = b[i].getBiomeClass().getName();
+					
+					if (biomeName == "Alpine Mountains" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenAlpine")
+					{
+						//ALPINE MOUNTAINS
+						BiomeBase.addBiome(
+							new RealisticBiomeBase(
+								EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+								new TerrainMountainRiver(),
+								new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
+							),
+							BiomeBase.BiomeCategory.SNOW
+						);
+					}
+					else if (biomeName == "Alpine Mountains Edge" && biomeClass == "enhancedbiomes.world.biome.snow.snowforest.BiomeGenAlpineEdge")
+					{
+						//ALPINE MOUNTAINS EDGE
+						BiomeBase.addBiome(
+							new RealisticBiomeBase(
+								EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+								new TerrainMountainRiver(),
+								new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
+							),
+							BiomeBase.BiomeCategory.SNOW
+						);
+					}
+					else if (biomeName == "Alpine Mountains M" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenAlpineM")
+					{
+						//ALPINE MOUNTAINS M
+						BiomeBase.addBiome(
+							new RealisticBiomeBase(
+								EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+								new TerrainMountainRiver(),
+								new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
+							),
+							BiomeBase.BiomeCategory.SNOW
+						);
+					}
 				}
 			}
 		}

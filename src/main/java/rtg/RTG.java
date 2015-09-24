@@ -20,6 +20,12 @@ import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
 import rtg.world.WorldTypeRealistic;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBase;
+import rtg.world.biome.realistic.extrabiomes.RealisticBiomeEBXLBase;
+import rtg.world.biome.realistic.highlands.RealisticBiomeHighlandsBase;
+import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 
 @Mod(modid=ModInfo.MOD_ID, name=ModInfo.MOD_NAME, version=ModInfo.MOD_VERSION, acceptableRemoteVersions="*")
 public class RTG
@@ -59,5 +65,12 @@ public class RTG
 	public void postInit(FMLPostInitializationEvent event)
 	{
 		BiomeBase.init();
+		
+		RealisticBiomeVanillaBase.addBiomes();
+		RealisticBiomeBOPBase.addBiomes();
+		RealisticBiomeEBBase.addBiomes();
+		RealisticBiomeEBXLBase.addBiomes();
+		RealisticBiomeHighlandsBase.addBiomes();
+		RealisticBiomeTCBase.addBiomes();
 	}
 }

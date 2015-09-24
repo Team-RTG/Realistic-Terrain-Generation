@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.thaumcraft;
 
+import cpw.mods.fml.common.Loader;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.world.biome.BiomeBase;
@@ -23,24 +24,27 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 	119: "Magical Forest"
 	*/
 	
-	public static void init()
+	public static void addBiomes()
 	{
-		BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
-		
-		for(int i = 0; i < 256; i++)
+		if (Loader.isModLoaded("Thaumcraft"))
 		{
-			if(b[i] != null)
+			BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
+			
+			for(int i = 0; i < 256; i++)
 			{
-				if(b[i].biomeName == "Tainted Land" || b[i].biomeName == "Magical Forest")
+				if(b[i] != null)
 				{
-					BiomeBase.addBiome(
-						new RealisticBiomeBase(
-							b[i], BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-							new TerrainSmallSupport(),
-							new SurfaceGrassland(b[i].topBlock, b[i].fillerBlock, Blocks.stone, Blocks.cobblestone)
-						),
-						BiomeBase.BiomeCategory.SMALL
-					);
+					if(b[i].biomeName == "Tainted Land" || b[i].biomeName == "Magical Forest")
+					{
+						BiomeBase.addBiome(
+							new RealisticBiomeBase(
+								b[i], BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+								new TerrainSmallSupport(),
+								new SurfaceGrassland(b[i].topBlock, b[i].fillerBlock, Blocks.stone, Blocks.cobblestone)
+							),
+							BiomeBase.BiomeCategory.SMALL
+						);
+					}
 				}
 			}
 		}

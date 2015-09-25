@@ -1,5 +1,5 @@
 package rtg.debug;
-
+/*
 import org.apache.logging.log4j.Level;
 
 import rtg.config.ConfigRTG;
@@ -75,4 +75,4 @@ public final class DebugHandler {
 			Logger.log(Level.INFO, format, data);
 		}
 	}
-}
+} */

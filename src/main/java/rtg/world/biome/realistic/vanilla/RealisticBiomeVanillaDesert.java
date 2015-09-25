@@ -39,7 +39,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
 			new SurfaceVanillaDesert(topBlock, fillerBlock)
 		);
 	}	
-	@Override
+/*	@Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, PerlinNoise perlin, CellNoise cell, float strength, float river)
     {
 
@@ -89,5 +89,5 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
 			int l22 = chunkY + rand.nextInt(16) + 8;
 			(new WorldGenDeadBush(Blocks.deadbush)).generate(world, rand, i17, i20, l22);
 		}
-    }
+    }*/
 }

@@ -14,7 +14,7 @@ import cpw.mods.fml.relauncher.Side;
 import rtg.config.ConfigRTG;
 import rtg.config.RTGConfig;
 import rtg.data.VillageMaterials;
-import rtg.debug.DebugHandler;
+//import rtg.debug.DebugHandler;
 import rtg.init.ModMapGen;
 import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
@@ -56,9 +56,9 @@ public class RTG
 	@EventHandler
 	public void Init(FMLInitializationEvent event)
 	{
-		if ( event.getSide() == Side.CLIENT ) {
-			MinecraftForge.EVENT_BUS.register(new DebugHandler());
-		}
+//		if ( event.getSide() == Side.CLIENT ) {
+//			MinecraftForge.EVENT_BUS.register(new DebugHandler());
+	//	}
 	}
 	
 	@EventHandler

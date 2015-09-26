@@ -22,7 +22,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.gen.layer.IntCache;
 
-public class ChunkManagerRealistic extends WorldChunkManager
+public class WorldChunkManagerRTG extends WorldChunkManager
 {
     private BiomeCache biomeCache;
     private List biomesToSpawnIn;
@@ -53,14 +53,14 @@ public class ChunkManagerRealistic extends WorldChunkManager
     public String currentBaseBiome = "";
     public String currentRiverBiome = "";
 	
-	protected ChunkManagerRealistic()
+	protected WorldChunkManagerRTG()
 	{
         this.biomeCache = new BiomeCache(this);
         this.biomesToSpawnIn = new ArrayList();
     	borderNoise = new float[256];
 	}
 
-    public ChunkManagerRealistic(World par1World)
+    public WorldChunkManagerRTG(World par1World)
     {
         this();
         long seed = par1World.getSeed();

@@ -14,8 +14,12 @@ import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class BiomeBase
+public class BiomeBase extends BiomeGenBase
 {
+	public BiomeBase(int intBiomeId) {
+		super(intBiomeId, false);
+	}
+
 	public static enum Climate {
 		COLD,
 		HOT,

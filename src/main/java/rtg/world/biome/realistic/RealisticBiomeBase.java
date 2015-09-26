@@ -15,12 +15,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class RealisticBiomeBase
+public class RealisticBiomeBase extends BiomeBase
 {
 	private static final RealisticBiomeBase[] biomeList = new RealisticBiomeBase[256];
-	private static int nextBiomeID = 0;
 	
-	public final int biomeID;
 	public final BiomeGenBase baseBiome;
 	public final BiomeGenBase riverBiome;
 	
@@ -36,9 +34,9 @@ public class RealisticBiomeBase
 	
 	public RealisticBiomeBase(BiomeGenBase biome, BiomeGenBase river)
 	{
-		biomeID = nextBiomeID;
-		biomeList[biomeID] = this;
-		nextBiomeID++;
+		super(biome.biomeID);
+		
+		biomeList[biome.biomeID] = this;
 		
 		baseBiome = biome;
 		riverBiome = river;

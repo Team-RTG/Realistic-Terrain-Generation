@@ -16,7 +16,7 @@ import rtg.debug.DebugHandler;
 import rtg.util.CanyonColor;
 import rtg.util.CellNoise;
 import rtg.util.PerlinNoise;
-import rtg.world.biome.ChunkManagerRealistic;
+import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenClay;
 import net.minecraft.block.Block;
@@ -66,7 +66,7 @@ public class ChunkProviderRealistic implements IChunkProvider
     private Random mapRand;
 	
     private World worldObj;
-    private ChunkManagerRealistic cmr;
+    private WorldChunkManagerRTG cmr;
     private final MapGenBase caves;
     private final MapGenStronghold strongholdGenerator;
     private final MapGenMineshaft mineshaftGenerator;
@@ -111,7 +111,7 @@ public class ChunkProviderRealistic implements IChunkProvider
     	
     	caves = TerrainGen.getModdedMapGen(new MapGenCaves(), CAVE);
         worldObj = world;
-        cmr = (ChunkManagerRealistic)worldObj.getWorldChunkManager();
+        cmr = (WorldChunkManagerRTG)worldObj.getWorldChunkManager();
         
         rand = new Random(l);
         perlin = new PerlinNoise(l);
@@ -204,7 +204,7 @@ public class ChunkProviderRealistic implements IChunkProvider
         return chunk;
     }
     
-    public void generateTerrain(ChunkManagerRealistic cmr, int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase biomes[], float[] n)
+    public void generateTerrain(WorldChunkManagerRTG cmr, int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase biomes[], float[] n)
     {
     	DebugHandler.log("START generateTerrain (cx=%d, cy=%d)", cx, cy);
     	
@@ -240,7 +240,7 @@ public class ChunkProviderRealistic implements IChunkProvider
     	}
     }
     
-    public float[] getNewNoise(ChunkManagerRealistic cmr, int x, int y, RealisticBiomeBase biomes[])
+    public float[] getNewNoise(WorldChunkManagerRTG cmr, int x, int y, RealisticBiomeBase biomes[])
     {
     	DebugHandler.log("START getNewNoise (x=%d, y=%d)", x, y);
     	

@@ -58,14 +58,12 @@ public class ConfigRTG
 	public static boolean enableCobblestoneBoulders = true;
 	public static int cobblestoneBoulderChance = 1;
 	
-	public static boolean oceanFiller;
-	public static int landmassPercentage;
-	
-	public static int spawnSearchRadius;
-	public static boolean onlySpawnOnBeaches;
-	
 	public static boolean showDebugInfo = false;
 	public static boolean enableDebugging = false;
+	
+	public static int spawnSearchRadius = 1024;
+	public static boolean oceanFiller = true;
+	public static int landmassPercentage = 10;
 	
 	public static void init(File configFile) 
 	{
@@ -149,15 +147,12 @@ public class ConfigRTG
 			enableCobblestoneBoulders = config.getBoolean("Enable Cobblestone Boulders", "Miscellaneous", true, "");
 			cobblestoneBoulderChance = config.getInt("1/x chance that Cobblestone Boulders will generate if given the opportunity to do so during world gen", "Miscellaneous", 1, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
 			
-			oceanFiller = config.get("RTG World Type Settings", "OceanFiller", true, "Fills the ocean with land biomes if there is an excessive amount. This must be disabled to use the landmass percentage").getBoolean();
-			landmassPercentage = config.get("RTG Type Settings", "Landmass Percentage", 10, "Requires ocean filler to be disabled. In Vanilla it is set to 10. Takes values from 0 to 100.").getInt();
-			
-			spawnSearchRadius = config.get("Spawn Settings", "Spawn Location Search Radius", 1024, "Must be 256 or higher").getInt();
-			if (spawnSearchRadius < 256) spawnSearchRadius = 256;
-			onlySpawnOnBeaches = config.get("Spawn Settings", "Only Spawn On Beaches", true).getBoolean(true);
-			
 			showDebugInfo = config.getBoolean("Show Debug Info in F3 Screen", "Miscellaneous", false, "");
 			enableDebugging = config.getBoolean("Enable Debugging", "Miscellaneous", false, "WARNING: This should only be enabled if you know what you're doing.");
+			
+			spawnSearchRadius = config.get("Miscellaneous", "Spawn Location Search Radius", 1024, "Must be 256 or higher").getInt();
+			oceanFiller = config.get("Miscellaneous", "Ocean Filler", true, "Fills the ocean with land biomes if there is an excessive amount. This must be disabled to use the landmass percentage").getBoolean();
+			landmassPercentage = config.get("Miscellaneous", "Landmass Percentage", 10, "Requires ocean filler to be disabled. In Vanilla it is set to 10. Takes values from 0 to 100.").getInt();
 			
 			/*
 			####################################################################################################

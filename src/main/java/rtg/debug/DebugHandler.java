@@ -1,11 +1,11 @@
 package rtg.debug;
-/*
+
 import org.apache.logging.log4j.Level;
 
 import rtg.config.ConfigRTG;
 import rtg.reference.ModInfo;
 import rtg.util.Logger;
-import rtg.world.biome.ChunkManagerRealistic;
+import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -25,38 +25,12 @@ public final class DebugHandler {
 		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 		World world = Minecraft.getMinecraft().theWorld;
 
-		if ( world.getWorldChunkManager() instanceof ChunkManagerRealistic ) {
+		if ( world.getWorldChunkManager() instanceof WorldChunkManagerRTG ) {
 
 			if (ConfigRTG.showDebugInfo && Minecraft.getMinecraft().gameSettings.showDebugInfo) {
 				
-				ChunkManagerRealistic chunkManager = (ChunkManagerRealistic)world.getWorldChunkManager();
+				WorldChunkManagerRTG chunkManager = (WorldChunkManagerRTG)world.getWorldChunkManager();
 				String details = "";
-				
-				event.left.add(null);
-				int posX = (int)player.posX;
-				int posZ = (int)player.posZ;
-				BiomeGenBase biome = chunkManager.getBiomeGenAt(posX, posZ);
-				RealisticBiomeBase realisticBiome = chunkManager.getBiomeDataAt(posX, posZ);
-				
-				details = PREFIX;
-				details += "Realistic Base Biome (X/Z): " + realisticBiome.baseBiome.biomeName + " (ID=" + realisticBiome.baseBiome.biomeID + ")";
-				event.left.add(details);
-				
-				details = PREFIX;
-				details += "Realistic River Biome (X/Z): " + realisticBiome.riverBiome.biomeName + " (ID=" + realisticBiome.riverBiome.biomeID + ")";
-				event.left.add(details);
-				
-				details = PREFIX;
-				details += "Temperature/Rainfall (Static): " + biome.temperature + "/" + biome.rainfall;
-				event.left.add(details);
-				
-				details = PREFIX;
-				details += "Noise (X/Z): " + chunkManager.getNoiseAt(posX, posZ);
-				event.left.add(details);
-
-				details = PREFIX;
-				details += "Ocean Value (X/Z): " + chunkManager.getOceanValue(posX, posZ);
-				event.left.add(details);
 				
 				if (ConfigRTG.enableDebugging)
 				{
@@ -75,4 +49,4 @@ public final class DebugHandler {
 			Logger.log(Level.INFO, format, data);
 		}
 	}
-} */
+}

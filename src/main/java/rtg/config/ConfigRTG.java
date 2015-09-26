@@ -114,7 +114,7 @@ public class ConfigRTG
 			generateVanillaOcean = config.getBoolean("generateVanillaOcean", "Vanilla Biomes", true, "");
 			generateVanillaDeepOcean = config.getBoolean("generateVanillaDeepOcean", "Vanilla Biomes", true, "");
 			generateVanillaPlains = config.getBoolean("generateVanillaPlains", "Vanilla Biomes", true, "");
-			generateVanillaRiver = config.getBoolean("generateVanillaRiver", "Vanilla Biomes", true, "");
+			generateVanillaRiver = config.getBoolean("generateVanillaRiver", "Vanilla Biomes", true, "This setting is ignored. Rivers will always generate, even if set to false.");
 			generateVanillaFrozenRiver = config.getBoolean("generateVanillaFrozenRiver", "Vanilla Biomes", true, "");
 			generateVanillaSavanna = config.getBoolean("generateVanillaSavanna", "Vanilla Biomes", true, "");
 			generateVanillaSavannaPlateau = config.getBoolean("generateVanillaSavannaPlateau", "Vanilla Biomes", true, "");

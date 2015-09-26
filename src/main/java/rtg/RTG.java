@@ -18,7 +18,7 @@ import rtg.debug.DebugHandler;
 import rtg.init.ModMapGen;
 import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
-import rtg.world.WorldTypeRealistic;
+import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBase;
@@ -35,7 +35,7 @@ public class RTG
 	
 	public static String configPath;
 	
-	public static final WorldTypeRealistic worldtype = (new WorldTypeRealistic("RTG"));  
+	public static final WorldTypeRTG worldtype = (new WorldTypeRTG("RTG"));  
 	
 	@SidedProxy(serverSide = ModInfo.PROXY_COMMON, clientSide = ModInfo.PROXY_CLIENT)
 	public static CommonProxy proxy;

@@ -34,7 +34,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase
 	    public void rDecorate(World world, Random rand, int chunkX, int chunkY, PerlinNoise perlin, CellNoise cell, float strength, float river)
 	    {
 	    	
-	    	if(rand.nextInt((int)(2f / strength)) == 0)
+	    	if(rand.nextInt((int)(4f / strength)) == 0)
 			{
 				int j6 = chunkX + rand.nextInt(16) + 8;
 				int k10 = chunkY + rand.nextInt(16) + 8;

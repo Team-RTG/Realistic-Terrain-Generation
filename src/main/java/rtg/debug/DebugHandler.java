@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Level;
 import rtg.config.ConfigRTG;
 import rtg.reference.ModInfo;
 import rtg.util.Logger;
-import rtg.world.biome.ChunkManagerRealistic;
+import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -25,11 +25,11 @@ public final class DebugHandler {
 		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 		World world = Minecraft.getMinecraft().theWorld;
 
-		if ( world.getWorldChunkManager() instanceof ChunkManagerRealistic ) {
+		if ( world.getWorldChunkManager() instanceof WorldChunkManagerRTG ) {
 
 			if (ConfigRTG.showDebugInfo && Minecraft.getMinecraft().gameSettings.showDebugInfo) {
 				
-				ChunkManagerRealistic chunkManager = (ChunkManagerRealistic)world.getWorldChunkManager();
+				WorldChunkManagerRTG chunkManager = (WorldChunkManagerRTG)world.getWorldChunkManager();
 				String details = "";
 				
 				event.left.add(null);

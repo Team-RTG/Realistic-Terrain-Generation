@@ -1,28 +1,28 @@
 package rtg.world;
 
-import rtg.world.biome.ChunkManagerRealistic;
-import rtg.world.gen.ChunkProviderRealistic;
+import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.gen.ChunkProviderRTG;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.chunk.IChunkProvider;
 
-public class WorldTypeRealistic extends WorldType
+public class WorldTypeRTG extends WorldType
 {
-	public WorldTypeRealistic(String name)
+	public WorldTypeRTG(String name)
 	{
 		super(name);
 	}
 	
     public WorldChunkManager getChunkManager(World world)
     {
-        return new ChunkManagerRealistic(world);
+        return new WorldChunkManagerRTG(world);
     }
 
     public IChunkProvider getChunkGenerator(World world, String generatorOptions)
     {
-        return new ChunkProviderRealistic(world, world.getSeed());
+        return new ChunkProviderRTG(world, world.getSeed());
     }
 	
     public float getCloudHeight()

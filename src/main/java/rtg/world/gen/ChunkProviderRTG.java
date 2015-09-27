@@ -110,7 +110,9 @@ public class ChunkProviderRTG implements IChunkProvider
 
     public ChunkProviderRTG(World world, long l)
     {
-    	FMLLog.log(Level.INFO, "START ChunkGeneratorRealistic (Seed=%s)", world.getSeed());
+    	if (ConfigRTG.enableDebugging) {
+    		FMLLog.log(Level.INFO, "START ChunkGeneratorRealistic (Seed=%s)", world.getSeed());
+    	}
     	
     	caves = TerrainGen.getModdedMapGen(new MapGenCaves(), CAVE);
         worldObj = world;
@@ -128,7 +130,9 @@ public class ChunkProviderRTG implements IChunkProvider
         m.put("size", "0");
         m.put("distance", "24");
         
-        FMLLog.log(Level.INFO, "START structure generation 1");
+        if (ConfigRTG.enableDebugging) {
+        	FMLLog.log(Level.INFO, "START structure generation 1");
+        }
         
         villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), VILLAGE);
 		strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), STRONGHOLD);
@@ -163,7 +167,9 @@ public class ChunkProviderRTG implements IChunkProvider
     
     public Chunk provideChunk(int cx, int cy)
     {
-    	FMLLog.log(Level.INFO, "START provideChunk (cx=%d, cy=%d)", cx, cy);
+    	if (ConfigRTG.enableDebugging) {
+    		FMLLog.log(Level.INFO, "START provideChunk (cx=%d, cy=%d)", cx, cy);
+    	}
     	
     	rand.setSeed((long)cx * 0x4f9939f508L + (long)cy * 0x1ef1565bd5L);
         Block[] blocks = new Block[65536];
@@ -172,7 +178,9 @@ public class ChunkProviderRTG implements IChunkProvider
         biomesForGeneration = new RealisticBiomeBase[256];
         int k;
         
-        FMLLog.log(Level.INFO, "START generateTerrain");
+        if (ConfigRTG.enableDebugging) {
+        	FMLLog.log(Level.INFO, "START generateTerrain");
+        }
         
         generateTerrain(cmr, cx, cy, blocks, metadata, biomesForGeneration, noise);
         
@@ -188,7 +196,9 @@ public class ChunkProviderRTG implements IChunkProvider
         
         replaceBlocksForBiome(cx, cy, blocks, metadata, biomesForGeneration, baseBiomesList, noise);
         
-        FMLLog.log(Level.INFO, "START structure generation 2 (cx=%d, cy=%d)", cx, cy);
+        if (ConfigRTG.enableDebugging) {
+        	FMLLog.log(Level.INFO, "START structure generation 2 (cx=%d, cy=%d)", cx, cy);
+        }
         
         caves.func_151539_a(this, worldObj, cx, cy, blocks);
         mineshaftGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
@@ -211,7 +221,9 @@ public class ChunkProviderRTG implements IChunkProvider
     
     public void generateTerrain(WorldChunkManagerRTG cmr, int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase biomes[], float[] n)
     {
-    	FMLLog.log(Level.INFO, "START generateTerrain (cx=%d, cy=%d)", cx, cy);
+    	if (ConfigRTG.enableDebugging) {
+    		FMLLog.log(Level.INFO, "START generateTerrain (cx=%d, cy=%d)", cx, cy);
+    	}
     	
     	int p, h;
     	float[] noise = getNewNoise(cmr, cx * 16, cy * 16, biomes);
@@ -247,7 +259,9 @@ public class ChunkProviderRTG implements IChunkProvider
     
     public float[] getNewNoise(WorldChunkManagerRTG cmr, int x, int y, RealisticBiomeBase biomes[])
     {
-    	FMLLog.log(Level.INFO, "START getNewNoise (x=%d, y=%d)", x, y);
+    	if (ConfigRTG.enableDebugging) {
+    		FMLLog.log(Level.INFO, "START getNewNoise (x=%d, y=%d)", x, y);
+    	}
     	
     	int i, j, k, l, m, n, p;
     	
@@ -461,7 +475,9 @@ public class ChunkProviderRTG implements IChunkProvider
 
     public void replaceBlocksForBiome(int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase[] biomes, BiomeGenBase[] base, float[] n)
     {
-    	FMLLog.log(Level.INFO, "START replaceBlocksForBiome (cx=%d, cy=%d)", cx, cy);
+    	if (ConfigRTG.enableDebugging) {
+    		FMLLog.log(Level.INFO, "START replaceBlocksForBiome (cx=%d, cy=%d)", cx, cy);
+    	}
     	
         ChunkProviderEvent.ReplaceBiomeBlocks event = new ChunkProviderEvent.ReplaceBiomeBlocks(this, cx, cy, blocks, metadata, base, worldObj);
         MinecraftForge.EVENT_BUS.post(event);
@@ -496,7 +512,9 @@ public class ChunkProviderRTG implements IChunkProvider
 
     public Chunk loadChunk(int par1, int par2)
     {
-    	FMLLog.log(Level.INFO, "START loadChunk (par1=%d, par2=%d)", par1, par2);
+    	if (ConfigRTG.enableDebugging) {
+    		FMLLog.log(Level.INFO, "START loadChunk (par1=%d, par2=%d)", par1, par2);
+    	}
     	
         return provideChunk(par1, par2);
     }
@@ -513,7 +531,9 @@ public class ChunkProviderRTG implements IChunkProvider
 
     public void populate(IChunkProvider ichunkprovider, int i, int j)
     {
-    	FMLLog.log(Level.INFO, "START populate (i=%d, j=%d)", i, j);
+    	if (ConfigRTG.enableDebugging) {
+    		FMLLog.log(Level.INFO, "START populate (i=%d, j=%d)", i, j);
+    	}
     	
         BlockFalling.fallInstantly = true;
 		worldObj.scheduledUpdatesAreImmediate = true;
@@ -528,7 +548,9 @@ public class ChunkProviderRTG implements IChunkProvider
 
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(ichunkprovider, worldObj, rand, i, j, flag));
 
-        FMLLog.log(Level.INFO, "START structure generation 3 (i=%d, j=%d)", i, j);
+        if (ConfigRTG.enableDebugging) {
+        	FMLLog.log(Level.INFO, "START structure generation 3 (i=%d, j=%d)", i, j);
+        }
         
         mineshaftGenerator.generateStructuresInChunk(worldObj, rand, i, j);
         strongholdGenerator.generateStructuresInChunk(worldObj, rand, i, j);
@@ -540,7 +562,9 @@ public class ChunkProviderRTG implements IChunkProvider
         gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.LAKE);
         if(gen && rand.nextInt(10) == 0)
 		{
-        	FMLLog.log(Level.INFO, "START lake generation (i=%d, j=%d)", i, j);
+        	if (ConfigRTG.enableDebugging) {
+        		FMLLog.log(Level.INFO, "START lake generation (i=%d, j=%d)", i, j);
+        	}
         	
 			int i2 = x + rand.nextInt(16) + 8;
 			int l4 = rand.nextInt(50);
@@ -551,7 +575,9 @@ public class ChunkProviderRTG implements IChunkProvider
         gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.LAVA);
 		if(gen && rand.nextInt(18) == 0) 
 		{
-			FMLLog.log(Level.INFO, "START lava generation (i=%d, j=%d)", i, j);
+			if (ConfigRTG.enableDebugging) {
+				FMLLog.log(Level.INFO, "START lava generation (i=%d, j=%d)", i, j);
+			}
 			
 			int j2 = x + rand.nextInt(16) + 8;
 			int i5 = rand.nextInt(rand.nextInt(45) + 8);
@@ -562,7 +588,9 @@ public class ChunkProviderRTG implements IChunkProvider
 			}
 		} 
 		
-		FMLLog.log(Level.INFO, "START dungeon generation (i=%d, j=%d)", i, j);
+		if (ConfigRTG.enableDebugging) {
+			FMLLog.log(Level.INFO, "START dungeon generation (i=%d, j=%d)", i, j);
+		}
 		
 		gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.DUNGEON);
 		for(int k1 = 0; k1 < 8 && gen; k1++)
@@ -573,7 +601,9 @@ public class ChunkProviderRTG implements IChunkProvider
 			(new WorldGenDungeons()).generate(worldObj, rand, j5, k8, j11);
 		}
 
-		FMLLog.log(Level.INFO, "START ore generation (i=%d, j=%d)", i, j);
+		if (ConfigRTG.enableDebugging) {
+			FMLLog.log(Level.INFO, "START ore generation (i=%d, j=%d)", i, j);
+		}
 		
 		MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(worldObj, rand, x, y));
 
@@ -693,7 +723,9 @@ public class ChunkProviderRTG implements IChunkProvider
 		
 		if(rand.nextInt(5) == 0)
 		{
-			FMLLog.log(Level.INFO, "START shroom generation (i=%d, j=%d)", i, j);
+			if (ConfigRTG.enableDebugging) {
+				FMLLog.log(Level.INFO, "START shroom generation (i=%d, j=%d)", i, j);
+			}
 			
 			int k15 = x + rand.nextInt(16) + 8;
 			int k17 = rand.nextInt(64);
@@ -719,7 +751,9 @@ public class ChunkProviderRTG implements IChunkProvider
         
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(worldObj, rand, x, y));
 
-        FMLLog.log(Level.INFO, "START lazy decorations (x=%d, y=%d)", x, y);
+        if (ConfigRTG.enableDebugging) {
+        	FMLLog.log(Level.INFO, "START lazy decorations (x=%d, y=%d)", x, y);
+        }
         
         //lazy fix
         TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.SAND);
@@ -766,7 +800,9 @@ public class ChunkProviderRTG implements IChunkProvider
         
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(worldObj, rand, x, y));
         
-        FMLLog.log(Level.INFO, "START flowing water (x=%d, y=%d)", x, y);
+        if (ConfigRTG.enableDebugging) {
+        	FMLLog.log(Level.INFO, "START flowing water (x=%d, y=%d)", x, y);
+        }
         
 		for(int l18 = 0; l18 < 50; l18++)
 		{
@@ -776,7 +812,9 @@ public class ChunkProviderRTG implements IChunkProvider
 			(new WorldGenLiquids(Blocks.flowing_water)).generate(worldObj, rand, l21, k23, l24);
 		}
 
-		FMLLog.log(Level.INFO, "START flowing lava (x=%d, y=%d)", x, y);
+		if (ConfigRTG.enableDebugging) {
+			FMLLog.log(Level.INFO, "START flowing lava (x=%d, y=%d)", x, y);
+		}
 		
 		for(int i19 = 0; i19 < 20; i19++)
 		{
@@ -788,7 +826,9 @@ public class ChunkProviderRTG implements IChunkProvider
 		
         if (TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.ANIMALS))
         {
-        	FMLLog.log(Level.INFO, "START animal spawning (i=%d, j=%d)", i, j);
+        	if (ConfigRTG.enableDebugging) {
+        		FMLLog.log(Level.INFO, "START animal spawning (i=%d, j=%d)", i, j);
+        	}
         	
             SpawnerAnimals.performWorldGenSpawning(this.worldObj, worldObj.getBiomeGenForCoords(x + 16, y + 16), x + 8, y + 8, 16, 16, this.rand);
         }
@@ -798,7 +838,9 @@ public class ChunkProviderRTG implements IChunkProvider
         TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.ICE);
         if(snow < 0.59f)
         {
-        	FMLLog.log(Level.INFO, "START ice generation (i=%d, j=%d)", i, j);
+        	if (ConfigRTG.enableDebugging) {
+        		FMLLog.log(Level.INFO, "START ice generation (i=%d, j=%d)", i, j);
+        	}
         	
 	        x += 8;
 	        y += 8;
@@ -899,7 +941,9 @@ public class ChunkProviderRTG implements IChunkProvider
 
     public void recreateStructures(int par1, int par2)
     {
-    	FMLLog.log(Level.INFO, "START recreateStructures (par1=%d, par2=%d)", par1, par2);
+    	if (ConfigRTG.enableDebugging) {
+    		FMLLog.log(Level.INFO, "START recreateStructures (par1=%d, par2=%d)", par1, par2);
+    	}
     	
 		strongholdGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
 		mineshaftGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);

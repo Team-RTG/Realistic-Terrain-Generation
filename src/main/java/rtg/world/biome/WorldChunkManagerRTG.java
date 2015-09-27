@@ -307,7 +307,9 @@ public class WorldChunkManagerRTG extends WorldChunkManager
 		
 		if (currentBaseBiome.compareTo(previousBaseBiome) != 0 || currentRiverBiome.compareTo(previousRiverBiome) != 0)
 		{
-			FMLLog.log(Level.INFO, "Base Biome = %s; River Biome = %s", currentBaseBiome, currentRiverBiome);
+			if (ConfigRTG.enableDebugging) {
+				FMLLog.log(Level.INFO, "Base Biome = %s; River Biome = %s", currentBaseBiome, currentRiverBiome);
+			}
 			
 			previousBaseBiome = currentBaseBiome;
 			previousRiverBiome = currentRiverBiome;

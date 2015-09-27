@@ -8,4 +8,6 @@ public class ModInfo
     
 	public static final String PROXY_COMMON = "rtg.proxy.CommonProxy";
 	public static final String PROXY_CLIENT = "rtg.proxy.ClientProxy";
+	
+	public static final String WORLD_NAME = "RTG";
 }

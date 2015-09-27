@@ -5,8 +5,8 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.PerlinNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.ChunkManagerRealistic;
 import rtg.world.biome.BiomeBase.Climate;
+import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.vanilla.*;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
@@ -85,7 +85,7 @@ public class RealisticBiomeBase extends BiomeBase
     	}
     }
     
-    public void generateMapGen(Block[] blocks, byte[] metadata, Long seed, World world, ChunkManagerRealistic cmr, Random mapRand, int chunkX, int chunkY, PerlinNoise perlin, CellNoise cell, float noise[])
+    public void generateMapGen(Block[] blocks, byte[] metadata, Long seed, World world, WorldChunkManagerRTG cmr, Random mapRand, int chunkX, int chunkY, PerlinNoise perlin, CellNoise cell, float noise[])
     {
         int k = 5;
         mapRand.setSeed(seed);
@@ -101,7 +101,7 @@ public class RealisticBiomeBase extends BiomeBase
         }
     }
     
-    public void rMapGen(Block[] blocks, byte[] metadata, World world, ChunkManagerRealistic cmr, Random mapRand, int chunkX, int chunkY, int baseX, int baseY, PerlinNoise perlin, CellNoise cell, float noise[])
+    public void rMapGen(Block[] blocks, byte[] metadata, World world, WorldChunkManagerRTG cmr, Random mapRand, int chunkX, int chunkY, int baseX, int baseY, PerlinNoise perlin, CellNoise cell, float noise[])
     {
     }
     

@@ -1,4 +1,12 @@
+/**
+ * No longer used in this branch. Leaving here for reference. Please see WorldChunkManagerRTG.java
+ */
+
 package rtg.world.biome;
+
+/**
+ * No longer used in this branch. Leaving here for reference. Please see WorldChunkManagerRTG.java
+ */
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +29,10 @@ import net.minecraft.world.biome.BiomeCache;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.gen.layer.IntCache;
+
+/**
+ * No longer used in this branch. Leaving here for reference. Please see WorldChunkManagerRTG.java
+ */
 
 public class ChunkManagerRealistic extends WorldChunkManager
 {

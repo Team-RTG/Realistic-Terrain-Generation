@@ -410,14 +410,14 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			###################################################################################################
 			*/
 			
-			//vanilla_river
-			if (ConfigRTG.generateVanillaRiver)
-			{
-				BiomeBase.addBiome(
-					new RealisticBiomeVanillaRiver(),
-					BiomeBase.BiomeCategory.WET
-				);
-			}
+			//vanilla_river - THIS BIOME WILL ALWAYS GENERATE SO WE DON'T NEED TO ADD IT TO THE LIST OF REALISTIC BIOMES
+			//if (ConfigRTG.generateVanillaRiver)
+			//{
+			//	BiomeBase.addBiome(
+			//		new RealisticBiomeVanillaRiver(),
+			//		BiomeBase.BiomeCategory.WET
+			//	);
+			//}
 			
 			//vanilla_frozenRiver
 			if (ConfigRTG.generateVanillaFrozenRiver)

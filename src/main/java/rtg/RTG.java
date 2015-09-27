@@ -1,6 +1,8 @@
 package rtg;
 
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.structure.MapGenStructureIO;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -14,9 +16,12 @@ import rtg.config.ConfigRTG;
 import rtg.config.RTGConfig;
 import rtg.data.VillageMaterials;
 import rtg.debug.DebugHandler;
+import rtg.event.MapGenHandler;
+import rtg.event.TerrainGenHandler;
 import rtg.init.ModMapGen;
 import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
+import rtg.village.*;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
@@ -34,7 +39,7 @@ public class RTG
 	
 	public static String configPath;
 	
-	public static final WorldTypeRTG worldtype = (new WorldTypeRTG());
+	public static final WorldTypeRTG worldtype = (new WorldTypeRTG("RTG"));  
 	
 	@SidedProxy(serverSide = ModInfo.PROXY_COMMON, clientSide = ModInfo.PROXY_CLIENT)
 	public static CommonProxy proxy;
@@ -47,6 +52,12 @@ public class RTG
 		configPath = event.getModConfigurationDirectory() + "/RTG/";
 		RTGConfig.init(configPath);
 				
+		if(ConfigRTG.useVillageMods) {
+			MinecraftForge.TERRAIN_GEN_BUS.register(new MapGenHandler());
+			MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "VillageEB");
+			VillagePieceSelection.registerVillagePieces();
+		}
+		
 		MinecraftForge.TERRAIN_GEN_BUS.register(new VillageMaterials());
 		
 		ModMapGen.registerMapGen();

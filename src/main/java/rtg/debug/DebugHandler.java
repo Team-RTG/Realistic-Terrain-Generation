@@ -32,6 +32,32 @@ public final class DebugHandler {
 				WorldChunkManagerRTG chunkManager = (WorldChunkManagerRTG)world.getWorldChunkManager();
 				String details = "";
 				
+				event.left.add(null);
+				int posX = (int)player.posX;
+				int posZ = (int)player.posZ;
+				BiomeGenBase biome = chunkManager.getBiomeGenAt(posX, posZ);
+				RealisticBiomeBase realisticBiome = chunkManager.getBiomeDataAt(posX, posZ);
+				
+				details = PREFIX;
+				details += "Realistic Base Biome (X/Z): " + realisticBiome.baseBiome.biomeName + " (ID=" + realisticBiome.baseBiome.biomeID + ")";
+				event.left.add(details);
+				
+				details = PREFIX;
+				details += "Realistic River Biome (X/Z): " + realisticBiome.riverBiome.biomeName + " (ID=" + realisticBiome.riverBiome.biomeID + ")";
+				event.left.add(details);
+				
+				details = PREFIX;
+				details += "Temperature/Rainfall (Static): " + biome.temperature + "/" + biome.rainfall;
+				event.left.add(details);
+				
+				details = PREFIX;
+				details += "Noise (X/Z): " + chunkManager.getNoiseAt(posX, posZ);
+				event.left.add(details);
+
+				details = PREFIX;
+				details += "Ocean Value (X/Z): " + chunkManager.getOceanValue(posX, posZ);
+				event.left.add(details);
+				
 				if (ConfigRTG.enableDebugging)
 				{
 					details = PREFIX;
@@ -39,14 +65,6 @@ public final class DebugHandler {
 					event.left.add(details);
 				}
 			}
-		}
-	}
-
-	public static void log(String format, Object... data)
-	{
-		if (ConfigRTG.enableDebugging)
-		{
-			Logger.log(Level.INFO, format, data);
 		}
 	}
 }

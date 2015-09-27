@@ -61,9 +61,12 @@ public class ConfigRTG
 	public static boolean showDebugInfo = false;
 	public static boolean enableDebugging = false;
 	
-	public static int spawnSearchRadius = 1024;
-	public static boolean oceanFiller = true;
-	public static int landmassPercentage = 10;
+	public static int biomeSize;
+	
+	public static boolean useVillageMods;
+	public static int villageDistance;
+	public static int villageSize;
+	
 	
 	public static void init(File configFile) 
 	{
@@ -87,8 +90,6 @@ public class ConfigRTG
 					"Vanilla Biomes", 
 					new String(), 
 					"Must correspond to one of the vanilla biome variables found in the registerVanillaBiomes() method here:" + 
-					Configuration.NEW_LINE +
-					"https://github.com/MinecraftForge/MinecraftForge/blob/master/src/main/java/net/minecraftforge/common/BiomeDictionary.java#L468" +
 					Configuration.NEW_LINE +
 					"(e.g. desert, extremeHills, forest, taiga, taigaHills, etc.)"
 				);
@@ -118,7 +119,7 @@ public class ConfigRTG
 			generateVanillaOcean = config.getBoolean("generateVanillaOcean", "Vanilla Biomes", true, "");
 			generateVanillaDeepOcean = config.getBoolean("generateVanillaDeepOcean", "Vanilla Biomes", true, "");
 			generateVanillaPlains = config.getBoolean("generateVanillaPlains", "Vanilla Biomes", true, "");
-			generateVanillaRiver = config.getBoolean("generateVanillaRiver", "Vanilla Biomes", true, "");
+			generateVanillaRiver = config.getBoolean("generateVanillaRiver", "Vanilla Biomes", true, "This setting is ignored. Rivers will always generate, even if set to false.");
 			generateVanillaFrozenRiver = config.getBoolean("generateVanillaFrozenRiver", "Vanilla Biomes", true, "");
 			generateVanillaSavanna = config.getBoolean("generateVanillaSavanna", "Vanilla Biomes", true, "");
 			generateVanillaSavannaPlateau = config.getBoolean("generateVanillaSavannaPlateau", "Vanilla Biomes", true, "");
@@ -149,10 +150,12 @@ public class ConfigRTG
 			
 			showDebugInfo = config.getBoolean("Show Debug Info in F3 Screen", "Miscellaneous", false, "");
 			enableDebugging = config.getBoolean("Enable Debugging", "Miscellaneous", false, "WARNING: This should only be enabled if you know what you're doing.");
+				
+			biomeSize = config.get(config.CATEGORY_GENERAL, "Size of biomes", 4, "Normal is 4, large biomes is 6, but other sizes can be chosen").getInt();
 			
-			spawnSearchRadius = config.get("Miscellaneous", "Spawn Location Search Radius", 1024, "Must be 256 or higher").getInt();
-			oceanFiller = config.get("Miscellaneous", "Ocean Filler", true, "Fills the ocean with land biomes if there is an excessive amount. This must be disabled to use the landmass percentage").getBoolean();
-			landmassPercentage = config.get("Miscellaneous", "Landmass Percentage", 10, "Requires ocean filler to be disabled. In Vanilla it is set to 10. Takes values from 0 to 100.").getInt();
+			useVillageMods = config.get(config.CATEGORY_GENERAL, "Enable the modifications to villages", true, "Disabling this will solve issues with other mods which edit the way villages generate").getBoolean(true);
+			villageDistance = config.get(config.CATEGORY_GENERAL, "Distance between villages", 32, "Normal is 32").getInt();
+			villageSize = config.get(config.CATEGORY_GENERAL, "Size of villages", 0, "Normal is 0").getInt();
 			
 			/*
 			####################################################################################################

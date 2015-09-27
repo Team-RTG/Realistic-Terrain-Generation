@@ -67,12 +67,4 @@ public final class DebugHandler {
 			}
 		}
 	}
-
-	public static void log(String format, Object... data)
-	{
-		if (ConfigRTG.enableDebugging)
-		{
-			Logger.log(Level.INFO, format, data);
-		}
-	}
 }

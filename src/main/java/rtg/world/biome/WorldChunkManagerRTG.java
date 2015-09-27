@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.logging.log4j.Level;
+
+import cpw.mods.fml.common.FMLLog;
 import gnu.trove.map.hash.TLongIntHashMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
 import net.minecraft.world.ChunkCoordIntPair;
@@ -304,7 +307,8 @@ public class WorldChunkManagerRTG extends WorldChunkManager
 		
 		if (currentBaseBiome.compareTo(previousBaseBiome) != 0 || currentRiverBiome.compareTo(previousRiverBiome) != 0)
 		{
-			DebugHandler.log("Base Biome = %s; River Biome = %s", currentBaseBiome, currentRiverBiome);
+			FMLLog.log(Level.INFO, "Base Biome = %s; River Biome = %s", currentBaseBiome, currentRiverBiome);
+			
 			previousBaseBiome = currentBaseBiome;
 			previousRiverBiome = currentRiverBiome;
 		}

@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import cpw.mods.fml.common.Loader;
+import extrabiomes.api.BiomeManager;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -46,10 +47,10 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 						BiomeBase.addBiome(
 							new RealisticBiomeBase(
 								EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-								new TerrainMountainRiver(),
-								new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
+								new TerrainHilly(230f, 120f, 50f),
+								new SurfaceMountainStone(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
 							),
-							BiomeBase.BiomeCategory.SNOW
+							BiomeBase.BiomeCategory.COLD
 						);
 					}
 					else if (biomeName == "Alpine Mountains M" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenAlpineM")
@@ -65,15 +66,36 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					}
 					else if (biomeName == "Alpine Tundra" && biomeClass == "enhancedbiomes.world.biome.grass.BiomeGenAlpineTundra")
 					{
-						RealisticBiomeEBBase.addPlaceholderBiome(EBBiome);
+						BiomeBase.addBiome(
+								new RealisticBiomeBase(
+									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+									new TerrainMountainRiver(),
+									new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
+								),
+								BiomeBase.BiomeCategory.COLD
+							);
 					}
 					else if (biomeName == "Aspen Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenAspenForest")
 					{
-						RealisticBiomeEBBase.addPlaceholderBiome(EBBiome);
+						BiomeBase.addBiome(
+							new RealisticBiomeBase(
+								EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+								new TerrainHilly(230f, 120f, 0f),
+								new SurfaceMountainStone(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.95f)
+							), 
+							BiomeBase.BiomeCategory.COLD
+						);
 					}
 					else if (biomeName == "Aspen Hills" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenAspenForest")
 					{
-						RealisticBiomeEBBase.addPlaceholderBiome(EBBiome);
+						BiomeBase.addBiome(
+							new RealisticBiomeBase(
+								EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+								new TerrainHilly(230f, 120f, 0f),
+								new SurfaceMountainStone(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.95f)
+							), 
+							BiomeBase.BiomeCategory.COLD
+						);
 					}
 					else if (biomeName == "Badlands" && biomeClass == "enhancedbiomes.world.biome.grass.BiomeGenBadlands")
 					{

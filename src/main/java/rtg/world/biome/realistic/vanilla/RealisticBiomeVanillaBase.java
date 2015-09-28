@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.BiomeDictionary;
 import rtg.config.ConfigRTG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -72,6 +73,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			
 			//vanilla_stoneBeach
 			if (ConfigRTG.generateVanillaStoneBeach)
+				
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeVanillaStoneBeach(),

@@ -18,12 +18,17 @@ import rtg.util.PerlinNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaStoneBeach;
+import rtg.world.gen.layer.GenLayerEB;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeCache;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
+import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.terraingen.WorldTypeEvent;
 
 public class WorldChunkManagerRTG extends WorldChunkManager
 {
@@ -46,6 +51,12 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     private int biomes_wetLength;
     private int biomes_smallLength;
     
+    private GenLayer genBiomes;
+	/**
+	 * A GenLayer containing the indices into BiomeGenBase.biomeList[]
+	 */
+	private GenLayer biomeIndexLayer;
+    
     private boolean wetEnabled;
     private boolean smallEnabled;
 
@@ -61,6 +72,14 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         this.biomeCache = new BiomeCache(this);
         this.biomesToSpawnIn = new ArrayList();
     	borderNoise = new float[256];
+	}
+	
+	public WorldChunkManagerRTG(long par1, WorldType par3WorldType) {
+		this();
+		GenLayer[] agenlayer = GenLayerEB.initializeAllBiomeGenerators(par1, par3WorldType);
+		agenlayer = getModdedBiomeGenerators(par3WorldType, par1, agenlayer);
+		this.genBiomes = agenlayer[0];
+		this.biomeIndexLayer = agenlayer[1];
 	}
 
     public WorldChunkManagerRTG(World par1World)
@@ -493,4 +512,10 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     {
         this.biomeCache.cleanupCache();
     }
+    
+    public GenLayer[] getModdedBiomeGenerators(WorldType worldType, long seed, GenLayer[] original) {
+		WorldTypeEvent.InitBiomeGens event = new WorldTypeEvent.InitBiomeGens(worldType, seed, original);
+		MinecraftForge.TERRAIN_GEN_BUS.post(event);
+		return event.newBiomeGens;
+	}
 }

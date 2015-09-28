@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.vanilla;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeBase.Climate;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.surface.SurfaceDesertMountain;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesertHills;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaDesertHills;
 import net.minecraft.block.Block;
@@ -20,7 +21,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
 			BiomeGenBase.desertHills,
 			BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
 			new TerrainVanillaDesertHills(230f, 120f, 0f),
-			new SurfaceVanillaDesertHills(topBlock, fillerBlock, Blocks.sandstone, topBlock, fillerBlock)
+			new SurfaceDesertMountain(Blocks.sand, Blocks.sandstone, false, null, 0f, 1.5f, 60f, 65f, 1.5f)
 		);
 	}	
 }

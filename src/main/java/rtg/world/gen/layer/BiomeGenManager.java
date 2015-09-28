@@ -2,9 +2,10 @@ package rtg.world.gen.layer;
 
 import java.util.ArrayList;
 
-
 import rtg.config.ConfigRTG;
-//import enhancedbiomes.EnhancedBiomesMod;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.BiomeCategory;
+
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.BiomeManager.BiomeEntry;
@@ -24,7 +25,7 @@ public class BiomeGenManager
 		if(weight < 1) return;
 		for(int a = 0; a < weight; a++)
 			frozenBiomes.add(biome);
-		BiomeManager.addBiome(BiomeType.ICY, new BiomeEntry(biome, weight));
+		BiomeManager.addBiome(BiomeType.ICY, new BiomeEntry(biome, weight));		
 	}
 
 	public static void addCoolBiome(BiomeGenBase biome, int weight) {
@@ -111,7 +112,7 @@ public class BiomeGenManager
 	public static void setRareBiome(int defaultBiome, int rareBiome) {
 		rareBiomes[defaultBiome] = rareBiome;
 	}
-	// need fix
+
 	public static int getRareBiome(int defaultBiome) {
 		return ConfigRTG.useListedRareBiomes ? rareBiomes[defaultBiome] : defaultBiome < 128 && BiomeGenBase.getBiome(defaultBiome + 128) != null ? defaultBiome + 128 : 0;
 	}

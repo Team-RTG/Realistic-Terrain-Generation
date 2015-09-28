@@ -327,7 +327,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     	}
     	
     	float ocean = getOceanValue(x, y);
-    	return getBiomeDataAt(x, y, ocean).rNoise(perlin, cell, x, y, ocean, 1f, river);
+    	return getBiomeDataAt(x, y, ocean).rNoise(perlin, cell, x, y, ocean, 4f, river);
     }
     
     public float getNoiseWithRiverOceanAt(int x, int y, float river, float ocean)

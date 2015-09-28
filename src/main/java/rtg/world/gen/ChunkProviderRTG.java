@@ -73,7 +73,8 @@ public class ChunkProviderRTG implements IChunkProvider
     private final MapGenBase caves;
     private final MapGenStronghold strongholdGenerator;
     private final MapGenMineshaft mineshaftGenerator;
-    private final MapGenVillage villageGenerator;
+    //private final MapGenVillage villageGenerator;
+    private MapGenVillage villageGenerator = new MapGenVillage();
     private final MapGenScatteredFeature scatteredFeatureGenerator;
     
     private PerlinNoise perlin;
@@ -134,7 +135,8 @@ public class ChunkProviderRTG implements IChunkProvider
         	FMLLog.log(Level.INFO, "START structure generation 1");
         }
         
-        villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), VILLAGE);
+       // villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), VILLAGE);
+        villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(villageGenerator, VILLAGE);
 		strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), STRONGHOLD);
 		mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(), MINESHAFT);
 		scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new net.minecraft.world.gen.structure.MapGenScatteredFeature(), SCATTERED_FEATURE);
@@ -834,7 +836,9 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(ichunkprovider, worldObj, rand, i, j, flag));
-        
+    
+        flag = this.villageGenerator.generateStructuresInChunk(this.worldObj, this.rand, i, j);
+           
         TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.ICE);
         if(snow < 0.59f)
         {

@@ -1,4 +1,4 @@
-package rtg.world.layer;
+package rtg.world.gen.layer;
 
 import net.minecraft.world.gen.layer.GenLayer;
 

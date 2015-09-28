@@ -1,4 +1,4 @@
-package rtg.world.layer;
+package rtg.world.gen.layer;
 
 /*import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.handlers.BiomeGenManager;

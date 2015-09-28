@@ -1,4 +1,4 @@
-package rtg.world.layer;
+package rtg.world.gen.layer;
 /*
 import enhancedbiomes.world.biome.EnhancedBiomesArchipelago;
 import enhancedbiomes.world.biome.base.BiomeGenArchipelagoBase;
@@ -80,7 +80,7 @@ public class GenLayerEBShore extends GenLayer
 						this.func_151632_a(aint, aint1, j1, i1, par3, k1, BiomeGenBase.coldBeach.biomeID);
 					}
 					else if(k1 != BiomeGenBase.mesa.biomeID && k1 != BiomeGenBase.mesaPlateau_F.biomeID) {
-						if(k1 != BiomeGenBase.ocean.biomeID && k1 != BiomeGenBase.deepOcean.biomeID && k1 != BiomeGenBase.river.biomeID && k1 != BiomeGenBase.swampland.biomeID && !EnhancedBiomesArchipelago.archipelagoBiomes.contains(biomegenbase)) {
+						if(k1 != BiomeGenBase.ocean.biomeID && k1 != BiomeGenBase.deepOcean.biomeID && k1 != BiomeGenBase.river.biomeID && k1 != BiomeGenBase.swampland.biomeID) {
 							l1 = aint[j1 + 1 + (i1 + 1 - 1) * (par3 + 2)];
 							i2 = aint[j1 + 1 + 1 + (i1 + 1) * (par3 + 2)];
 							j2 = aint[j1 + 1 - 1 + (i1 + 1) * (par3 + 2)];

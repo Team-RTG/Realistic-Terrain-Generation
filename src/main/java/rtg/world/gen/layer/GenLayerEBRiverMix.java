@@ -1,4 +1,4 @@
-package rtg.world.layer;
+package rtg.world.gen.layer;
 /*
 import enhancedbiomes.world.biome.EnhancedBiomesArchipelago;
 import enhancedbiomes.world.biome.EnhancedBiomesBiome;
@@ -40,7 +40,7 @@ public class GenLayerEBRiverMix extends GenLayer
 		int[] aint2 = IntCache.getIntCache(par3 * par4);
 
 		for(int i1 = 0; i1 < par3 * par4; ++i1) {
-			if(aint[i1] != BiomeGenBase.ocean.biomeID && aint[i1] != BiomeGenBase.deepOcean.biomeID && aint[i1] != EnhancedBiomesWetland.biomeLake.biomeID && !isBiomeOceanic(aint[i1])) {
+			if(aint[i1] != BiomeGenBase.ocean.biomeID) {
 				if(aint1[i1] == BiomeGenBase.river.biomeID) {
 					if(aint[i1] == BiomeGenBase.frozenRiver.biomeID) {
 						aint2[i1] = BiomeGenBase.frozenRiver.biomeID;
@@ -48,17 +48,8 @@ public class GenLayerEBRiverMix extends GenLayer
 					else if(aint[i1] == BiomeGenBase.icePlains.biomeID) {
 						aint2[i1] = BiomeGenBase.frozenRiver.biomeID;
 					}
-					else if(aint[i1] == EnhancedBiomesSnow.biomeTundra.biomeID || aint[i1] == BiomeGenBase.frozenOcean.biomeID || aint[i1] == EnhancedBiomesSnow.biomeSnowDesert.biomeID || aint[i1] == EnhancedBiomesArchipelago.biomeSnowArchipelago.biomeID || aint[i1] == EnhancedBiomesSnow.biomePolarDesert.biomeID) {
+					else if(aint[i1] == BiomeGenBase.frozenOcean.biomeID) {
 						aint2[i1] = BiomeGenBase.frozenRiver.biomeID;
-					}
-					else if(aint[i1] == EnhancedBiomesSnow.biomeAlpine.biomeID) {
-						aint2[i1] = EnhancedBiomesSnow.biomeGlacier.biomeID;
-					}
-					else if(aint[i1] == EnhancedBiomesWetland.biomeEphemeralLake.biomeID) {
-						aint2[i1] = EnhancedBiomesWetland.biomeEphemeralLake.biomeID;
-					}
-					else if(aint[i1] == EnhancedBiomesSandstone.biomeSandStoneRanges.biomeID) {
-						aint2[i1] = EnhancedBiomesSandstone.biomeCreekBed.biomeID;
 					}
 					else if(BiomeGenBase.getBiomeGenArray()[aint[i1] % 256].temperature <= 0) {
 						aint2[i1] = BiomeGenBase.frozenRiver.biomeID;

@@ -1,4 +1,4 @@
-package rtg.world.layer;
+package rtg.world.gen.layer;
 /*
 import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.handlers.BiomeGenManager;
@@ -17,6 +17,7 @@ import static enhancedbiomes.world.biome.EnhancedBiomesWoodland.*;
 import static enhancedbiomes.world.biomestats.BiomeCategorisation.*;
 */
 import static net.minecraft.world.biome.BiomeGenBase.*;
+import rtg.config.ConfigRTG;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.layer.GenLayer;
@@ -32,7 +33,7 @@ public class GenLayerSingleBiome extends GenLayer
 
 	public GenLayerSingleBiome(long par1, GenLayer par3GenLayer, WorldType par4WorldType) {
 		super(par1);
-		bl_frozen = new BiomeGenBase[] {BiomeGenBase.getBiome(EnhancedBiomesMod.biomeIDSB)};
+		bl_frozen = new BiomeGenBase[] {BiomeGenBase.getBiome(ConfigRTG.biomeIDSB)};
 		bl_hot = bl_warm = bl_cool = bl_frozen;
 		this.parent = par3GenLayer;
 	}

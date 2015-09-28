@@ -67,6 +67,8 @@ public class ConfigRTG
 	public static int villageDistance;
 	public static int villageSize;
 	
+	public static int biomeIDSB;
+	public static boolean useListedRareBiomes;
 	
 	public static void init(File configFile) 
 	{
@@ -156,6 +158,9 @@ public class ConfigRTG
 			useVillageMods = config.get(config.CATEGORY_GENERAL, "Enable the modifications to villages", true, "Disabling this will solve issues with other mods which edit the way villages generate").getBoolean(true);
 			villageDistance = config.get(config.CATEGORY_GENERAL, "Distance between villages", 32, "Normal is 32").getInt();
 			villageSize = config.get(config.CATEGORY_GENERAL, "Size of villages", 0, "Normal is 0").getInt();
+			
+			biomeIDSB = config.get(config.CATEGORY_GENERAL, "Biome ID to generate in single biome world type", 1, "Check the Biomes config for biome IDs").getInt();
+			useListedRareBiomes = config.get(config.CATEGORY_GENERAL, "Use EB's rare biome code (Rare biomes have to be registered with EB to work)", true, "If true, rare biomes can have any ID, if false, their ID must be 128 more than their standard biome's ID").getBoolean(true);
 			
 			/*
 			####################################################################################################

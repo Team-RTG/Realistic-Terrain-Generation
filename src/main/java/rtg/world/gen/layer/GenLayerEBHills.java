@@ -1,4 +1,4 @@
-package rtg.world.layer;
+package rtg.world.gen.layer;
 
 import java.util.List;
 
@@ -88,7 +88,7 @@ public class GenLayerEBHills extends GenLayer
 
 					if(k1 == BiomeGenBase.ocean.biomeID) {
 						if(this.nextInt(5) < 2) i2 = BiomeGenBase.deepOcean.biomeID;
-						else switch(aintHeat[j1 + i1 * par3] & -3841) {
+	/*					else switch(aintHeat[j1 + i1 * par3] & -3841) {
 							case 1:
 								i2 = EnhancedBiomesArchipelago.ab_hot.get(this.nextInt(EnhancedBiomesArchipelago.ab_hot.size())).biomeID;
 								break;
@@ -114,14 +114,14 @@ public class GenLayerEBHills extends GenLayer
 
 					else if((currentBiome instanceof BiomeGenGrassBase || currentBiome instanceof BiomeGenWoodlandBase) && currentBiome.temperature < 1.0F) {
 						i2 = biomeLake.biomeID;
-					}
+*/					}
 
 					//Hills
-					else if(k1 == biomeRainforest.biomeID)			i2 = biomeRainforestValley.biomeID;
-					else if(k1 == biomeBlossomWoods.biomeID)		i2 = biomeBlossomHills.biomeID;
-					else if(k1 == biomeWoodLands.biomeID)			i2 = biomeWoodLandHills.biomeID;
-					else if(k1 == biomeSilverPineForest.biomeID)	i2 = biomeSilverPineHills.biomeID;
-					else if(k1 == biomeAspenForest.biomeID)			i2 = biomeAspenHills.biomeID;
+			//		else if(k1 == biomeRainforest.biomeID)			i2 = biomeRainforestValley.biomeID;
+			//		else if(k1 == biomeBlossomWoods.biomeID)		i2 = biomeBlossomHills.biomeID;
+			//		else if(k1 == biomeWoodLands.biomeID)			i2 = biomeWoodLandHills.biomeID;
+			//		else if(k1 == biomeSilverPineForest.biomeID)	i2 = biomeSilverPineHills.biomeID;
+			//		else if(k1 == biomeAspenForest.biomeID)			i2 = biomeAspenHills.biomeID;
 					else if(k1 == BiomeGenBase.desert.biomeID)		i2 = BiomeGenBase.desertHills.biomeID;
 					else if(k1 == BiomeGenBase.forest.biomeID)		i2 = BiomeGenBase.forestHills.biomeID;
 					else if(k1 == BiomeGenBase.birchForest.biomeID)	i2 = BiomeGenBase.birchForestHills.biomeID;
@@ -133,19 +133,19 @@ public class GenLayerEBHills extends GenLayer
 					else if(k1 == BiomeGenBase.extremeHills.biomeID)i2 = BiomeGenBase.extremeHillsPlus.biomeID;
 					else if(k1 == BiomeGenBase.savanna.biomeID)		i2 = BiomeGenBase.savannaPlateau.biomeID;
 
-					else if(k1 == biomeMeadow.biomeID)				i2 = biomeMeadowM.biomeID;
+					else if(k1 == BiomeGenBase.savanna.biomeID)				i2 = BiomeGenBase.savannaPlateau.biomeID;
 					
 					//Mini-biomes
-					else if(k1 == biomeRockyDesert.biomeID)			i2 = biomeOasis.biomeID;
-					else if(k1 == biomeSavannah.biomeID)			i2 = biomeOasis.biomeID;
-					else if(k1 == biomeTundra.biomeID)				i2 = BiomeGenBase.frozenOcean.biomeID;
+			//		else if(k1 == biomeRockyDesert.biomeID)			i2 = biomeOasis.biomeID;
+			//		else if(k1 == biomeSavannah.biomeID)			i2 = biomeOasis.biomeID;
+			//		else if(k1 == biomeTundra.biomeID)				i2 = BiomeGenBase.frozenOcean.biomeID;
 					
 					//Plains -> forest
-					else if(k1 == biomeMeadow.biomeID)				i2 = biomeOakForest.biomeID;
-					else if(k1 == biomePlateau.biomeID)				i2 = biomeForestMountains.biomeID;
-					else if(k1 == biomeLowHills.biomeID) {
-						if(this.nextInt(3) == 0) i2 = biomeWoodLandHills.biomeID;
-						else i2 = biomeWoodLands.biomeID;
+			//		else if(k1 == biomeMeadow.biomeID)				i2 = biomeOakForest.biomeID;
+			//		else if(k1 == biomePlateau.biomeID)				i2 = biomeForestMountains.biomeID;
+					else if(k1 == BiomeGenBase.plains.biomeID) {
+						if(this.nextInt(3) == 0) i2 = BiomeGenBase.jungle.biomeID;
+						else i2 = BiomeGenBase.desert.biomeID;
 					}
 					else if(k1 == BiomeGenBase.plains.biomeID) {
 						if(this.nextInt(3) == 0) i2 = BiomeGenBase.forestHills.biomeID;

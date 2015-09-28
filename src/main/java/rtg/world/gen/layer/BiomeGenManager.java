@@ -1,7 +1,9 @@
-package rtg.world.layer;
+package rtg.world.gen.layer;
 
 import java.util.ArrayList;
 
+
+import rtg.config.ConfigRTG;
 //import enhancedbiomes.EnhancedBiomesMod;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeManager;
@@ -110,7 +112,7 @@ public class BiomeGenManager
 		rareBiomes[defaultBiome] = rareBiome;
 	}
 	// need fix
-	//public static int getRareBiome(int defaultBiome) {
-	//	return EnhancedBiomesMod.useListedRareBiomes ? rareBiomes[defaultBiome] : defaultBiome < 128 && BiomeGenBase.getBiome(defaultBiome + 128) != null ? defaultBiome + 128 : 0;
-	//}
+	public static int getRareBiome(int defaultBiome) {
+		return ConfigRTG.useListedRareBiomes ? rareBiomes[defaultBiome] : defaultBiome < 128 && BiomeGenBase.getBiome(defaultBiome + 128) != null ? defaultBiome + 128 : 0;
+	}
 }

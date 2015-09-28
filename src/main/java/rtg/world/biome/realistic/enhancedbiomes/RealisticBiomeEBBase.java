@@ -415,15 +415,36 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					}
 					else if (biomeName == "Grassy Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenPlainsArchipelago")
 					{
-						RealisticBiomeEBBase.addPlaceholderBiome(EBBiome);
+						BiomeBase.addBiome(
+							new RealisticBiomeBase(
+								EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+								new TerrainHilly(200f, 100f, 0f),
+								new SurfaceMountainStone(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.95f)
+							), 
+							BiomeBase.BiomeCategory.COLD
+						);
 					}
 					else if (biomeName == "Ice Sheet" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenIceSheet")
 					{
-						RealisticBiomeEBBase.addPlaceholderBiome(EBBiome);
+						BiomeBase.addBiome(
+							new RealisticBiomeBase(
+								EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
+								new TerrainPolar(),
+								new SurfaceTundra(Blocks.ice, Blocks.packed_ice)
+							), 
+							BiomeBase.BiomeCategory.COLD
+						);
 					}
 					else if (biomeName == "Kakadu" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenKakadu")
 					{
-						RealisticBiomeEBBase.addPlaceholderBiome(EBBiome);
+						BiomeBase.addBiome(
+							new RealisticBiomeBase(
+								EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+								new TerrainGrasslandFlats(),
+								new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, EBBiome.topBlock, EBBiome.fillerBlock)
+							), 
+							BiomeBase.BiomeCategory.HOT
+						);
 					}
 					else if (biomeName == "Lake" && biomeClass == "enhancedbiomes.world.biome.wetland.BiomeGenLake")
 					{
@@ -438,7 +459,14 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					}
 					else if (biomeName == "Low Hills" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenLowHills")
 					{
-						RealisticBiomeEBBase.addPlaceholderBiome(EBBiome);
+						BiomeBase.addBiome(
+							new RealisticBiomeBase(
+								EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+								new TerrainGrasslandFlats(),
+								new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, EBBiome.topBlock, EBBiome.fillerBlock)
+							), 
+							BiomeBase.BiomeCategory.WET
+						);
 					}
 					else if (biomeName == "Mangroves" && biomeClass == "enhancedbiomes.world.biome.wetland.BiomeGenMangrove")
 					{
@@ -464,11 +492,25 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					}
 					else if (biomeName == "Meadow" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenMeadow")
 					{
-						RealisticBiomeEBBase.addPlaceholderBiome(EBBiome);
+						BiomeBase.addBiome(
+							new RealisticBiomeBase(
+								EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+								new TerrainGrasslandFlats(),
+								new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
+							), 
+							BiomeBase.BiomeCategory.WET
+						);
 					}
 					else if (biomeName == "Meadow M" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenMeadowM")
 					{
-						RealisticBiomeEBBase.addPlaceholderBiome(EBBiome);
+						BiomeBase.addBiome(
+							new RealisticBiomeBase(
+								EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+								new TerrainGrasslandFlats(),
+								new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
+							), 
+							BiomeBase.BiomeCategory.WET
+						);
 					}
 					else if (biomeName == "Mountainous Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenMountainsArchipelago")
 					{

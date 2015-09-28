@@ -1,35 +1,34 @@
-package rwg.biomes.realistic.savanna;
+package rtg.world.biome.realistic.Addon;
 
 import java.util.Random;
 
+import rtg.util.CellNoise;
+import rtg.util.PerlinNoise;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.Climate;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.feature.WorldGenBlob;
+import rtg.world.gen.feature.WorldGenCacti;
+import rtg.world.gen.feature.WorldGenFlowers;
+import rtg.world.gen.feature.WorldGenGrass;
+import rtg.world.gen.feature.WorldGenLog;
+import rtg.world.gen.feature.WorldGenWaterGrass;
+import rtg.world.gen.feature.tree.WorldGenTreeBirch;
+import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeSavanna;
+import rtg.world.gen.surface.*;
+import rtg.world.gen.terrain.*;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenFlowers;
+import net.minecraft.world.gen.feature.WorldGenDeadBush;
 import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
+import net.minecraft.world.gen.feature.WorldGenReed;
+import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rwg.api.RWGBiomes;
-import rwg.biomes.realistic.RealisticBiomeBase;
-import rwg.deco.DecoBlob;
-import rwg.deco.DecoFlowers;
-import rwg.deco.DecoGrass;
-import rwg.deco.DecoLog;
-import rwg.deco.DecoWaterGrass;
-import rwg.deco.DecoWildWheat;
-import rwg.deco.trees.DecoBirch;
-import rwg.deco.trees.DecoShrub;
-import rwg.deco.trees.DecoSmallPine;
-import rwg.deco.trees.DecoSmallSpruce;
-import rwg.surface.SurfaceBase;
-import rwg.surface.SurfaceGrasslandMixBig;
-import rwg.surface.SurfaceGrasslandMix1;
-import rwg.terrain.TerrainBase;
-import rwg.terrain.TerrainGrasslandFlats;
-import rwg.util.CellNoise;
-import rwg.util.PerlinNoise;
 
 public class RealisticBiomeHotForest extends RealisticBiomeBase
 {
@@ -38,10 +37,12 @@ public class RealisticBiomeHotForest extends RealisticBiomeBase
 	
 	public RealisticBiomeHotForest() 
 	{
-		super(0, RWGBiomes.baseHotForest, RealisticBiomeBase.coastDunes, RWGBiomes.baseRiverHot);
-		
-		terrain = new TerrainGrasslandFlats();
-		surface = new SurfaceGrasslandMixBig(Blocks.sand, Blocks.sand, Blocks.grass, Blocks.dirt, Blocks.stone, Blocks.cobblestone, 60f, -0.14f, 14f, 0.25f);
+		super(
+				RealisticBiomeAddonBase.hotForest,
+				BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
+				new TerrainGrasslandFlats(),
+				new SurfaceGrasslandMixBig(Blocks.sand, Blocks.sand, Blocks.grass, Blocks.dirt, Blocks.stone, Blocks.cobblestone, 60f, -0.14f, 14f, 0.25f)
+				);
 	}
 	
 	@Override
@@ -66,7 +67,7 @@ public class RealisticBiomeHotForest extends RealisticBiomeBase
 		    int k1 = world.getHeightValue(i1, j1);
 			if(k1 < 95 && (k1 < 64 || rand.nextInt(7) == 0))
 			{
-		    	(new DecoBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
+		    	(new WorldGenBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
 			}
 		}
 		
@@ -78,7 +79,7 @@ public class RealisticBiomeHotForest extends RealisticBiomeBase
 			int k10 = chunkY + rand.nextInt(16) + 8;
 			int z52 = world.getHeightValue(j6, k10);
 
-			WorldGenerator worldgenerator = rand.nextInt(6) == 0 ? new WorldGenTrees(false) : rand.nextInt(12) == 0 ? new DecoBirch(4 + rand.nextInt(5), 6 + rand.nextInt(5)) : rand.nextInt(6) == 0 ? new DecoSmallPine(3 + rand.nextInt(2), 3 + rand.nextInt(3), 0) : new DecoSmallPine(6 + rand.nextInt(5), 3 + rand.nextInt(6), 0);
+			WorldGenerator worldgenerator = rand.nextInt(6) == 0 ? new WorldGenTrees(false) : rand.nextInt(12) == 0 ? new WorldGenTreeBirch(4 + rand.nextInt(5), 6 + rand.nextInt(5)) : rand.nextInt(6) == 0 ? new WorldGenTreePineSmall(3 + rand.nextInt(2), 3 + rand.nextInt(3), 0) : new WorldGenTreePineSmall(6 + rand.nextInt(5), 3 + rand.nextInt(6), 0);
 			worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 			worldgenerator.generate(world, rand, j6, z52, k10);
 		}
@@ -91,7 +92,7 @@ public class RealisticBiomeHotForest extends RealisticBiomeBase
 				int k22 = 64 + rand.nextInt(64);
 				int j24 = chunkY + rand.nextInt(16) + 8;
 
-				(new DecoWaterGrass(Blocks.tallgrass, 1, 65)).generate(world, rand, l19, k22, j24);
+				(new WorldGenWaterGrass(Blocks.tallgrass, 1, 65)).generate(world, rand, l19, k22, j24);
 			}
 		}
 		
@@ -100,7 +101,7 @@ public class RealisticBiomeHotForest extends RealisticBiomeBase
 			int x22 = chunkX + rand.nextInt(16) + 8;
 			int z22 = chunkY + rand.nextInt(16) + 8;
 			int y22 = world.getHeightValue(x22, z22);
-			(new DecoLog(0, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);	
+			(new WorldGenLog(0, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);	
     	}
 		
     	for(int b = 0; b < 2f * strength; b++)
@@ -110,11 +111,11 @@ public class RealisticBiomeHotForest extends RealisticBiomeBase
 		    int k1 = world.getHeightValue(i1, j1);
 		    if(rand.nextInt(10) == 0)
 		    {
-    		    (new DecoShrub(rand.nextInt(5) + 4, rand.nextInt(2), 0)).generate(world, rand, i1, k1, j1);
+    		//   (new WorldGenShrub(rand.nextInt(5) + 4, rand.nextInt(2), 0)).generate(world, rand, i1, k1, j1);
 		    }
 		    else
 		    {
-		    	(new DecoShrub(rand.nextInt(4) + 1, rand.nextInt(2), 0)).generate(world, rand, i1, k1, j1);
+		//    	(new WorldGenShrub(rand.nextInt(4) + 1, rand.nextInt(2), 0)).generate(world, rand, i1, k1, j1);
 		    }
     	}
 
@@ -124,14 +125,14 @@ public class RealisticBiomeHotForest extends RealisticBiomeBase
 			int k17 = rand.nextInt(64) + 64;
 			int k20 = chunkY + rand.nextInt(16) + 8;
 			
-			if(rand.nextBoolean())
+	/*		if(rand.nextBoolean())
 			{
 				(new WorldGenFlowers(Blocks.brown_mushroom)).generate(world, rand, k15, k17, k20);
 			}
 			else
 			{
 				(new WorldGenFlowers(Blocks.red_mushroom)).generate(world, rand, k15, k17, k20);
-			}
+			} */
 		}
 		
 		if(rand.nextInt((int)(20f / strength)) == 0)
@@ -147,7 +148,7 @@ public class RealisticBiomeHotForest extends RealisticBiomeBase
 			int j15 = chunkX + rand.nextInt(16) + 8;
 			int j17 = rand.nextInt(128);
 			int j20 = chunkY + rand.nextInt(16) + 8;
-			(new DecoFlowers(new int[]{9,9,9,9,3,3,3,3,3,2,2,2,11,11,11})).generate(world, rand, j15, j17, j20);
+			(new WorldGenFlowers(new int[]{9,9,9,9,3,3,3,3,3,2,2,2,11,11,11})).generate(world, rand, j15, j17, j20);
 		}
 
 		for(int l14 = 0; l14 < 10f * strength; l14++)
@@ -155,7 +156,7 @@ public class RealisticBiomeHotForest extends RealisticBiomeBase
 			int l19 = chunkX + rand.nextInt(16) + 8;
 			int k22 = rand.nextInt(128);
 			int j24 = chunkY + rand.nextInt(16) + 8;
-			(new DecoGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
+			(new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
 		}
     }
 

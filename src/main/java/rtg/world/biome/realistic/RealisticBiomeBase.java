@@ -7,6 +7,7 @@ import rtg.util.PerlinNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.BiomeBase.Climate;
+import rtg.world.biome.realistic.Addon.*;
 import rtg.world.biome.realistic.vanilla.*;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;

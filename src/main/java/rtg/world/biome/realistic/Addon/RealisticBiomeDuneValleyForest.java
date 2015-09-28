@@ -1,29 +1,30 @@
-package rwg.biomes.realistic.savanna;
+package rtg.world.biome.realistic.Addon;
 
 import java.util.Random;
 
+import rtg.util.CellNoise;
+import rtg.util.PerlinNoise;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.Climate;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.feature.*;
+import rtg.world.gen.feature.tree.WorldGenTreeJungleTall;
+import rtg.world.gen.feature.tree.WorldGenTreePine;
+import rtg.world.gen.feature.tree.WorldGenTreePineBig;
+import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeSavanna;
+import rtg.world.gen.surface.*;
+import rtg.world.gen.terrain.*;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.feature.WorldGenDeadBush;
+import net.minecraft.world.gen.feature.WorldGenForest;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rwg.api.RWGBiomes;
-import rwg.biomes.realistic.RealisticBiomeBase;
-import rwg.deco.DecoBlob;
-import rwg.deco.DecoCacti;
-import rwg.deco.DecoFlowers;
-import rwg.deco.DecoGrass;
-import rwg.deco.trees.DecoJungleTall;
-import rwg.deco.trees.DecoSavannah;
-import rwg.surface.SurfaceBase;
-import rwg.surface.SurfaceDuneValley;
-import rwg.terrain.TerrainBase;
-import rwg.terrain.TerrainDuneValley;
-import rwg.util.CellNoise;
-import rwg.util.PerlinNoise;
 
 public class RealisticBiomeDuneValleyForest extends RealisticBiomeBase
 {
@@ -32,10 +33,12 @@ public class RealisticBiomeDuneValleyForest extends RealisticBiomeBase
 
 	public RealisticBiomeDuneValleyForest() 
 	{
-		super(0, RWGBiomes.baseHotForest, RealisticBiomeBase.coastDunes, RWGBiomes.baseRiverOasis);
-
-		terrain = new TerrainDuneValley(220f);
-		surface = new SurfaceDuneValley(Blocks.grass, Blocks.dirt, 220f, false, true);
+		super(
+				RealisticBiomeAddonBase.duneValleyForest,
+				BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+				new TerrainDuneValley(220f),
+				new SurfaceDuneValley(Blocks.grass, Blocks.dirt, 220f, false, true)
+				);
 	}
 
 	@Override
@@ -48,7 +51,7 @@ public class RealisticBiomeDuneValleyForest extends RealisticBiomeBase
 		    int k1 = world.getHeightValue(i1, j1);
 			if(k1 < 85)
 			{
-				(new DecoBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
+				(new WorldGenBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
 			}
 		}
 		
@@ -65,7 +68,7 @@ public class RealisticBiomeDuneValleyForest extends RealisticBiomeBase
 	
 				if(z52 < 82)
 				{
-					WorldGenerator worldgenerator = new DecoJungleTall(Blocks.log, 2, Blocks.leaves, 2, 6 + rand.nextInt(4), 3 + rand.nextInt(2), 9f + rand.nextFloat() * 4f, 3, 0.32f, 0.1f);
+					WorldGenerator worldgenerator = new WorldGenTreeJungleTall(Blocks.log, 2, Blocks.leaves, 2, 6 + rand.nextInt(4), 3 + rand.nextInt(2), 9f + rand.nextFloat() * 4f, 3, 0.32f, 0.1f);
 					worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 					worldgenerator.generate(world, rand, j6, z52, k10);
 				}
@@ -82,7 +85,7 @@ public class RealisticBiomeDuneValleyForest extends RealisticBiomeBase
 
 				if(z52 < 82)
 				{
-					WorldGenerator worldgenerator = rand.nextInt(2) != 0 ? new WorldGenShrub(0, 0) : new DecoSavannah(1, false);
+					WorldGenerator worldgenerator = rand.nextInt(2) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreeSavanna(1, false);
 					worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 					worldgenerator.generate(world, rand, j6, z52, k10);
 				}
@@ -98,7 +101,7 @@ public class RealisticBiomeDuneValleyForest extends RealisticBiomeBase
 
 				if(z52 < 82)
 				{
-					WorldGenerator worldgenerator = rand.nextInt(6) != 0 ? new WorldGenShrub(0, 0) : new DecoSavannah(1, false);
+					WorldGenerator worldgenerator = rand.nextInt(6) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreeSavanna(1, false);
 					worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 					worldgenerator.generate(world, rand, j6, z52, k10);
 				}
@@ -125,7 +128,7 @@ public class RealisticBiomeDuneValleyForest extends RealisticBiomeBase
 			int j15 = chunkX + rand.nextInt(16) + 8;
 			int j17 = rand.nextInt(128);
 			int j20 = chunkY + rand.nextInt(16) + 8;
-			(new DecoFlowers(new int[]{9,9,9,9,3,3,3,3,3,2,2,2,11,11,11})).generate(world, rand, j15, j17, j20);
+			(new WorldGenFlowers(new int[]{9,9,9,9,3,3,3,3,3,2,2,2,11,11,11})).generate(world, rand, j15, j17, j20);
 		}
 		
 		for(int k18 = 0; k18 < 26f * strength; k18++)
@@ -133,7 +136,7 @@ public class RealisticBiomeDuneValleyForest extends RealisticBiomeBase
 			int k21 = chunkX + rand.nextInt(16) + 8;
 			int j23 = 66 + rand.nextInt(20);
 			int k24 = chunkY + rand.nextInt(16) + 8;
-			(new DecoCacti(false)).generate(world, rand, k21, j23, k24);
+			(new WorldGenCacti(false)).generate(world, rand, k21, j23, k24);
 		}
 		
 		for(int l14 = 0; l14 < 8f * strength; l14++)
@@ -144,11 +147,11 @@ public class RealisticBiomeDuneValleyForest extends RealisticBiomeBase
 
 			if(rand.nextInt(3) == 0)
 			{
-				(new DecoGrass(Blocks.double_plant, 2)).generate(world, rand, l19, k22, j24);
+				(new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, l19, k22, j24);
 			}
 			else
 			{
-				(new DecoGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
+				(new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
 			}
 		}
     }

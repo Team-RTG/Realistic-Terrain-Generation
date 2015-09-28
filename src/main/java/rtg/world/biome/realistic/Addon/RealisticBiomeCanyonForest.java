@@ -2,42 +2,44 @@ package rtg.world.biome.realistic.Addon;
 
 import java.util.Random;
 
+import rtg.util.CellNoise;
+import rtg.util.PerlinNoise;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.Climate;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.feature.WorldGenBlob;
+import rtg.world.gen.feature.WorldGenCacti;
+import rtg.world.gen.feature.WorldGenFlowers;
+import rtg.world.gen.feature.WorldGenGrass;
+import rtg.world.gen.feature.tree.WorldGenTreeSavanna;
+import rtg.world.gen.surface.*;
+import rtg.world.gen.terrain.*;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 import net.minecraft.world.gen.feature.WorldGenDeadBush;
-import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.RWGBiomes;
-import rtg.biomes.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.*;
-import rtg.world.gen.feature.tree.*;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceCanyon;
-import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.TerrainCanyon;
-import rtg.util.CellNoise;
-import rtg.util.PerlinNoise;
 
 public class RealisticBiomeCanyonForest extends RealisticBiomeBase
 {
-	private TerrainBase terrain;
-	private SurfaceBase surface;
+	public static Block topBlock = BiomeGenBase.desert.topBlock;
+	public static Block fillerBlock = BiomeGenBase.desert.fillerBlock;
 	
 	public RealisticBiomeCanyonForest() 
 	{
-		super(0, RWGBiomes.baseHotForest, RealisticBiomeBase.coastDunes, RWGBiomes.baseRiverOasis);
-
-		terrain = new TerrainCanyon(true, 35f, 160f, 60f, 40f, 69f);
-		surface = new SurfaceCanyon(Blocks.sand, Blocks.sand, (byte)1, 47);
+		super(
+				RealisticBiomeAddonBase.canyonForest,
+				BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+				new TerrainCanyon(true, 35f, 160f, 60f, 40f, 69f),
+				new SurfaceCanyon(topBlock, fillerBlock, (byte)1, 47)
+				);
 	}
 
 	@Override
-    public void rWorldGenrate(World world, Random rand, int chunkX, int chunkY, PerlinNoise perlin, CellNoise cell, float strength, float river)
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, PerlinNoise perlin, CellNoise cell, float strength, float river)
     {
 		for (int l = 0; l < 1f * strength; ++l)
 		{
@@ -46,7 +48,7 @@ public class RealisticBiomeCanyonForest extends RealisticBiomeBase
 		    int k1 = world.getHeightValue(i1, j1);
 			if(k1 < 70)
 			{
-		    	(new WorldGenBlockBlob(Blocks.mossy_cobblestone, 0)).generate(world, rand, i1, k1, j1);
+		    	(new WorldGenBlob(Blocks.mossy_cobblestone, 0)).generate(world, rand, i1, k1, j1);
 			}
 		}
 		
@@ -185,9 +187,9 @@ public class RealisticBiomeCanyonForest extends RealisticBiomeBase
     	return terrain.generateNoise(perlin, cell, x, y, ocean, border, river);
     }
     
-    @Override
+ /*   @Override
     public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, PerlinNoise perlin, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
     	surface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, perlin, cell, noise, river, base);
-    }
+    }*/
 }

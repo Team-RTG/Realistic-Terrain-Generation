@@ -39,5 +39,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
 			new TerrainVanillaPlains(),
 			new SurfaceVanillaPlains(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Plains");
 	}
 }

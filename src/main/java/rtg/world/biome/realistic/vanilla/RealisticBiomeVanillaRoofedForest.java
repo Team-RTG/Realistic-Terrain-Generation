@@ -22,5 +22,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 			new TerrainVanillaRoofedForest(),
 			new SurfaceVanillaRoofedForest(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Roofed Forest");
 	}	
 }

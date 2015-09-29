@@ -22,5 +22,7 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanillaBase
 			new TerrainVanillaTaiga(),
 			new SurfaceVanillaTaiga(topBlock, fillerBlock)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Taiga");
 	}	
 }

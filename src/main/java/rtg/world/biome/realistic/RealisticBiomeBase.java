@@ -21,6 +21,7 @@ public class RealisticBiomeBase extends BiomeBase
 	
 	public final BiomeGenBase baseBiome;
 	public final BiomeGenBase riverBiome;
+	public String realisticBiomeName = null;
 	
 	public TerrainBase terrain;
 	
@@ -122,4 +123,14 @@ public class RealisticBiomeBase extends BiomeBase
     {
     	return 0f;
     }
+    
+	public String getRealisticBiomeName()
+	{
+		return this.realisticBiomeName;
+	}
+	
+	public void setRealisticBiomeName(String n)
+	{
+		this.realisticBiomeName = n;
+	}
 }

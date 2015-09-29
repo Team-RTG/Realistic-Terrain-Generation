@@ -22,5 +22,7 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase
 			new TerrainVanillaStoneBeach(0f, 100f, 63f, 80f),
 			new SurfaceVanillaStoneBeach(topBlock, fillerBlock, false, null, 1f, 1.5f, 85f, 20f, 4f)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Stone Beach");
 	}	
 }

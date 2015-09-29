@@ -22,5 +22,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 			new TerrainVanillaColdBeach(),
 			new SurfaceVanillaColdBeach(topBlock, fillerBlock, topBlock, fillerBlock, (byte)0, 1)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Cold Beach");
 	}	
 }

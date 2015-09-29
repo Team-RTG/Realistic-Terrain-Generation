@@ -22,5 +22,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
 			new TerrainVanillaDesertHills(230f, 120f, 0f),
 			new SurfaceVanillaDesertHills(topBlock, fillerBlock, Blocks.sandstone, topBlock, fillerBlock)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Desert Hills");
 	}	
 }

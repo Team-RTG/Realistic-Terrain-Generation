@@ -29,6 +29,8 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase
 			new TerrainVanillaBeach(),
 			new SurfaceVanillaBeach(topBlock, fillerBlock, topBlock, fillerBlock, (byte)0, 1)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Beach");
 	}
 	
 	    public void rDecorate(World world, Random rand, int chunkX, int chunkY, PerlinNoise perlin, CellNoise cell, float strength, float river)

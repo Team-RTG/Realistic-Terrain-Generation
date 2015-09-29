@@ -4,8 +4,11 @@ import java.util.Random;
 
 
 
+
+
 import rtg.util.CellNoise;
 import rtg.util.PerlinNoise;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import rtg.world.gen.surface.SurfaceBase;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -52,7 +55,7 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase
                 	if(k > 90f + perlin.noise2(i / 24f, j / 24f) * 10f - h || (m < -0.28f && mix))
         			{
     					blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
-    					base[x * 16 + y] = BiomeGenBase.desert;
+    					base[x * 16 + y] = RealisticBiomeVanillaBase.vanillaSavannaPlateau;
     					sand = true;
         			}
         			else if(dirt && m < 0.22f || k < 62)

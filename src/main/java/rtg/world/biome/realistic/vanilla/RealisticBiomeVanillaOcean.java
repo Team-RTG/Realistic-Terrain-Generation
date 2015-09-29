@@ -22,5 +22,7 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase
 			new TerrainVanillaOcean(),
 			new SurfaceVanillaOcean(Blocks.sand, Blocks.sand, (byte)0, 0)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Ocean");
 	}	
 }

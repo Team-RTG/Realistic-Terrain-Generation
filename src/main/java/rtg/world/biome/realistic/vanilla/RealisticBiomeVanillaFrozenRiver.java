@@ -22,5 +22,7 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase
 			new TerrainVanillaFrozenRiver(),
 			new SurfaceVanillaFrozenRiver(Blocks.snow, Blocks.snow, Blocks.snow, Blocks.snow, (byte)0, 0)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Frozen River");
 	}	
 }

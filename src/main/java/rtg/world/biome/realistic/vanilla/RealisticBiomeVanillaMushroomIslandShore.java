@@ -22,5 +22,7 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
 			new TerrainVanillaMushroomIslandShore(),
 			new SurfaceVanillaMushroomIslandShore(topBlock, fillerBlock, 67, topBlock, 0f)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Muchroom Island Shore");
 	}	
 }

@@ -25,5 +25,7 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase
 			new TerrainVanillaRiver(),
 			new SurfaceVanillaRiver(Blocks.sand, Blocks.sand, Blocks.grass, Blocks.grass, (byte)0, 0)
 		);
+		
+		this.setRealisticBiomeName("Vanilla River");
 	}	
 }

@@ -22,5 +22,7 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase
 			new TerrainVanillaSavanna(),
 			new SurfaceVanillaSavanna(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Savanna");
 	}	
 }

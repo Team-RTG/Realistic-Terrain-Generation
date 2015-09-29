@@ -22,5 +22,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
 			new TerrainVanillaSavannaPlateau(0f, 120f, 68f, 200f),
 			new SurfaceVanillaSavannaPlateau(topBlock, fillerBlock, 300f, true, true)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Savanna Plateau");
 	}	
 }

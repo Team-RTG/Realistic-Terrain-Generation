@@ -24,5 +24,7 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase
 			new TerrainVanillaForestHills(70f, 180f, 7f, 100f, 38f, 260f, 68f),
 			new SurfaceVanillaForestHills(topBlock, fillerBlock, topBlock, topBlock)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Forest Hills");
 	}	
 }

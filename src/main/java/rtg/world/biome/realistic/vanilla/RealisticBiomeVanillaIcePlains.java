@@ -22,5 +22,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
 			new TerrainVanillaIcePlains(),
 			new SurfaceVanillaIcePlains(topBlock, fillerBlock, topBlock, topBlock)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Ice Plains");
 	}	
 }

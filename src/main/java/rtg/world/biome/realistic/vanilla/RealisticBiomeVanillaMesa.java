@@ -23,5 +23,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase
 			//new SurfaceVanillaMesa(Blocks.sand, Blocks.sand, (byte)1)
 			new SurfaceVanillaMesa(topBlock, fillerBlock, (byte)1)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Mesa");
 	}	
 }

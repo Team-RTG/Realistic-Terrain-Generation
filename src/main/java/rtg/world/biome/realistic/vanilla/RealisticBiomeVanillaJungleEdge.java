@@ -22,5 +22,7 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase
 			new TerrainVanillaJungleEdge(),
 			new SurfaceVanillaJungleEdge(topBlock, fillerBlock, false, null, 1.3f)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Jungle Edge");
 	}	
 }

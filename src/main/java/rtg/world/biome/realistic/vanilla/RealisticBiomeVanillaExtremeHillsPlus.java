@@ -22,5 +22,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
 			new TerrainVanillaExtremeHillsPlus(),
 			new SurfaceVanillaExtremeHillsPlus(Blocks.gravel, Blocks.stone, false, null, 1f, 1.5f, 85f, 20f, 4f)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Extreme Hills +");
 	}	
 }

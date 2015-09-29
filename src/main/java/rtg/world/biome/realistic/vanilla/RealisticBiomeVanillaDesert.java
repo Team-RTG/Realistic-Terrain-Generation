@@ -38,5 +38,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
 			new TerrainVanillaDesert(),
 			new SurfaceVanillaDesert(topBlock, fillerBlock)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Desert");
 	}
 }

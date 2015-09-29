@@ -22,5 +22,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
 			new TerrainVanillaSwampland(),
 			new SurfaceVanillaSwampland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
+		
+		this.setRealisticBiomeName("Vanilla Swampland");
 	}	
 }

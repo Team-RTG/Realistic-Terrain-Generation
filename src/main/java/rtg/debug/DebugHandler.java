@@ -36,14 +36,14 @@ public final class DebugHandler {
 				int posX = (int)player.posX;
 				int posZ = (int)player.posZ;
 				BiomeGenBase biome = chunkManager.getBiomeGenAt(posX, posZ);
-				RealisticBiomeBase realisticBiome = chunkManager.getBiomeDataAt(posX, posZ);
+	//			RealisticBiomeBase realisticBiome = chunkManager.getBiomeDataAt(posX, posZ);
 				
 				details = PREFIX;
-				details += "Realistic Base Biome (X/Z): " + realisticBiome.baseBiome.biomeName + " (ID=" + realisticBiome.baseBiome.biomeID + ")";
+	//			details += "Realistic Base Biome (X/Z): " + realisticBiome.baseBiome.biomeName + " (ID=" + realisticBiome.baseBiome.biomeID + ")";
 				event.left.add(details);
 				
 				details = PREFIX;
-				details += "Realistic River Biome (X/Z): " + realisticBiome.riverBiome.biomeName + " (ID=" + realisticBiome.riverBiome.biomeID + ")";
+//				details += "Realistic River Biome (X/Z): " + realisticBiome.riverBiome.biomeName + " (ID=" + realisticBiome.riverBiome.biomeID + ")";
 				event.left.add(details);
 				
 				details = PREFIX;
@@ -51,7 +51,7 @@ public final class DebugHandler {
 				event.left.add(details);
 				
 				details = PREFIX;
-				details += "Noise (X/Z): " + chunkManager.getNoiseAt(posX, posZ);
+	//			details += "Noise (X/Z): " + chunkManager.getNoiseAt(posX, posZ);
 				event.left.add(details);
 
 				details = PREFIX;

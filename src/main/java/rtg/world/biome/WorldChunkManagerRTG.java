@@ -1,24 +1,19 @@
 package rtg.world.biome;
 
+import rtg.world.gen.layer.GenLayerEB;
+import rtg.util.*;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import org.apache.logging.log4j.Level;
-
-import cpw.mods.fml.common.FMLLog;
-import gnu.trove.map.hash.TLongIntHashMap;
-import gnu.trove.map.hash.TLongObjectHashMap;
-import net.minecraft.world.ChunkCoordIntPair;
-import rtg.config.ConfigRTG;
-import rtg.debug.DebugHandler;
-import rtg.util.CellNoise;
-import rtg.util.Logger;
-import rtg.util.PerlinNoise;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
-import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaStoneBeach;
-import rtg.world.gen.layer.GenLayerEB;
+import net.minecraft.crash.CrashReport;
+import net.minecraft.crash.CrashReportCategory;
+import net.minecraft.util.ReportedException;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
@@ -29,51 +24,36 @@ import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.WorldTypeEvent;
+import static net.minecraft.world.biome.BiomeGenBase.*;
 
 public class WorldChunkManagerRTG extends WorldChunkManager
 {
-    private BiomeCache biomeCache;
-    private List biomesToSpawnIn;
-
+	
     private PerlinNoise perlin;
     private CellNoise cell;
     
     private CellNoise biomecell;
     
-    private ArrayList<RealisticBiomeBase> biomes_snow;
-    private ArrayList<RealisticBiomeBase> biomes_cold;
-    private ArrayList<RealisticBiomeBase> biomes_hot;
-    private ArrayList<RealisticBiomeBase> biomes_wet;
-    private ArrayList<RealisticBiomeBase> biomes_small;
-    private int biomes_snowLength;
-    private int biomes_coldLength;
-    private int biomes_hotLength;
-    private int biomes_wetLength;
-    private int biomes_smallLength;
     
-    private GenLayer genBiomes;
+	private GenLayer genBiomes;
 	/**
 	 * A GenLayer containing the indices into BiomeGenBase.biomeList[]
 	 */
 	private GenLayer biomeIndexLayer;
-    
-    private boolean wetEnabled;
-    private boolean smallEnabled;
+	/**
+	 * The BiomeCache object for this world.
+	 */
+	private BiomeCache biomeCache;
+	/**
+	 * A list of biomes that the player can spawn in.
+	 */
+	private List biomesToSpawnIn;
 
-    private float[] borderNoise;
-    
-    public String previousBaseBiome = "";
-    public String previousRiverBiome = "";
-    public String currentBaseBiome = "";
-    public String currentRiverBiome = "";
-	
-	protected WorldChunkManagerRTG()
-	{
-        this.biomeCache = new BiomeCache(this);
-        this.biomesToSpawnIn = new ArrayList();
-    	borderNoise = new float[256];
+	protected WorldChunkManagerRTG() {
+		this.biomeCache = new BiomeCache(this);
+		this.biomesToSpawnIn = new ArrayList();
 	}
-	
+
 	public WorldChunkManagerRTG(long par1, WorldType par3WorldType) {
 		this();
 		GenLayer[] agenlayer = GenLayerEB.initializeAllBiomeGenerators(par1, par3WorldType);
@@ -82,76 +62,24 @@ public class WorldChunkManagerRTG extends WorldChunkManager
 		this.biomeIndexLayer = agenlayer[1];
 	}
 
-    public WorldChunkManagerRTG(World par1World)
-    {
-        this();
-        long seed = par1World.getSeed();
-        
-    	perlin = new PerlinNoise(seed);
-    	cell = new CellNoise(seed, (short)0);
-    	cell.setUseDistance(true);
-    	biomecell = new CellNoise(seed, (short)0);
-		
-    	biomes_snow = new ArrayList<RealisticBiomeBase>();
-    	biomes_cold = new ArrayList<RealisticBiomeBase>();
-    	biomes_hot = new ArrayList<RealisticBiomeBase>();
-    	biomes_wet = new ArrayList<RealisticBiomeBase>();
-    	biomes_small = new ArrayList<RealisticBiomeBase>();
-    	
-    	biomes_snow.addAll(BiomeBase.biomes_snow);
-    	biomes_cold.addAll(BiomeBase.biomes_cold);
-    	biomes_hot.addAll(BiomeBase.biomes_hot);
-    	biomes_wet.addAll(BiomeBase.biomes_wet);
-    	biomes_small.addAll(BiomeBase.biomes_small);
-    	
-    	biomes_snowLength = biomes_snow.size();
-    	biomes_coldLength = biomes_cold.size();
-    	biomes_hotLength = biomes_hot.size();
-    	biomes_wetLength = biomes_wet.size();
-    	biomes_smallLength = biomes_small.size();
-    	
-    	wetEnabled = false;
-    	if(biomes_wetLength > 0)
-    	{
-    		wetEnabled = true;
-    	}
-    	
-    	smallEnabled = false;
-    	if(biomes_smallLength > 1)
-    	{
-    		smallEnabled = true;
-    	}
-    }    
-	
-    public int[] getBiomesGens(int par1, int par2, int par3, int par4)
-    {	
-    	int[] d = new int[par3 * par4];
-    	
-		for(int i = 0; i < par3; i++)
-		{
-			for(int j = 0; j < par4; j++)
-    		{
-    			d[j * par3 + i] = getBiomeGenAt(par1 + i, par2 + j).biomeID;
-    		}
-		}
-    	return d;
-    }
-    
-    public RealisticBiomeBase[] getBiomesGensData(int par1, int par2, int par3, int par4)
-    {	
-    	RealisticBiomeBase[] data = new RealisticBiomeBase[par3 * par4];
-    	
-		for(int i = 0; i < par3; i++)
-		{
-			for(int j = 0; j < par4; j++)
-    		{
-    			data[j * par3 + i] = getBiomeDataAt(par1 + i, par2 + j);
-    		}
-		}
-    	return data;
-    }
-    
-    public float getOceanValue(int x, int y)
+	public WorldChunkManagerRTG(World par1World) {
+		this(par1World.getSeed(), par1World.getWorldInfo().getTerrainType());
+	}
+
+	/**
+	 * Gets the list of valid biomes for the player to spawn in.
+	 */
+	public List getBiomesToSpawnIn() {
+		return this.biomesToSpawnIn;
+	}
+
+	/**
+	 * Returns the BiomeGenBase related to the x, z position on the world.
+	 */
+	public BiomeGenBase getBiomeGenAt(int par1, int par2) {
+		return this.biomeCache.getBiomeGenAt(par1, par2);
+	}
+	public float getOceanValue(int x, int y)
     {
 		float base = -(-0f);
 		float sample1 = perlin.noise2(x / 1200f, y / 1200f) + base;
@@ -191,7 +119,6 @@ public class WorldChunkManagerRTG extends WorldChunkManager
 		
     	return highest;
     }
-	
 	public boolean diff(float sample1, float sample2, float base)
 	{
 		if((sample1 < base && sample2 > base) || (sample1 > base && sample2 < base))
@@ -200,320 +127,184 @@ public class WorldChunkManagerRTG extends WorldChunkManager
 		}
 		return false;
 	}
+	
+	/**
+	 * Returns a list of rainfall values for the specified blocks. Args: listToReuse, x, z, width, length.
+	 */
+	public float[] getRainfall(float[] par1ArrayOfFloat, int par2, int par3, int par4, int par5) {
+		IntCache.resetIntCache();
 
-    public BiomeGenBase getBiomeGenAt(int par1, int par2)
-    {
-    	return getBiomeDataAt(par1, par2, getOceanValue(par1, par2)).baseBiome;
-    }
-    
-    public RealisticBiomeBase getBiomeDataAt(int par1, int par2)
-    {
-    	return getBiomeDataAt(par1, par2, getOceanValue(par1, par2));
-    }
-
-	private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
-
-    public RealisticBiomeBase getBiomeDataAt(int par1, int par2, float ocean)
-    {
-    	long coords = ChunkCoordIntPair.chunkXZ2Int(par1, par2);
-
-		if (biomeDataMap.containsKey(coords)) {
-			return biomeDataMap.get(coords);
+		if(par1ArrayOfFloat == null || par1ArrayOfFloat.length < par4 * par5) {
+			par1ArrayOfFloat = new float[par4 * par5];
 		}
 
-		RealisticBiomeBase output = null;
-    	
-    	float b = (biomecell.noise((par1 + 4000f) / 1200D, par2 / 1200D, 1D) * 0.5f) + 0.5f;
-    	b = b < 0f ? 0f : b >= 0.9999999f ? 0.9999999f : b;
+		int[] aint = this.biomeIndexLayer.getInts(par2, par3, par4, par5);
 
-    	float s = smallEnabled ? (biomecell.noise(par1 / 140D, par2 / 140D, 1D) * 0.5f) + 0.5f : 0f;
-    	if(smallEnabled && s > 0.975f)
-    	{
-        	float h = (s - 0.975f) * 40f;
-        	h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-        	h *= biomes_smallLength;
-        	output = biomes_small.get((int)(h));
-    	}
-    	else if((wetEnabled && b < 0.25f) || (!wetEnabled && b < 0.33f))
-    	{
-        	float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
-        	h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-        	
-        	h *= biomes_snowLength;
-			output = biomes_snow.get((int)(h));
-    	}
-    	else if((wetEnabled && b < 0.50f) || (!wetEnabled && b < 0.66f))
-    	{
-        	float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
-        	h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-        	
-        	h *= biomes_coldLength;
-			output = biomes_cold.get((int)(h));
-    	}
-    	else if((wetEnabled && b < 0.75f) || (!wetEnabled && b < 1f))
-    	{
-        	float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
-        	h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-        	
-        	h *= biomes_hotLength;
-        	output = biomes_hot.get((int)(h));
-    	}
-    	else if(wetEnabled)
-    	{
-        	float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
-        	h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-        	
-        	h *= biomes_wetLength;
-			output = biomes_wet.get((int)(h));
-    	}
-    	else
-    	{
-        	float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
-        	h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-        	
-        	h *= biomes_hotLength;
-			output = biomes_hot.get((int)(h));
-    	}
+		for(int i1 = 0; i1 < par4 * par5; ++i1) {
+			try {
+				float f = (float) BiomeGenBase.getBiome(aint[i1]).getIntRainfall() / 65536.0F;
 
-    	/*###########################################################################################
-    	 * @todo Add a config option for single-biome worlds. - Pink
-    	 ###########################################################################################*/
-    	
-    	/*int intMin = 1;
-    	int intMax = 4;
-    	Random objRandom = new Random();
-    	int intRandom = objRandom.nextInt(intMax - intMin + 1) + intMin;
-    	
-    	switch (intRandom)
-    	{
-    		case 1:
-    			output = RealisticBiomeBase.vanillaOcean;
-    			break;
-    		case 2:
-    			output = RealisticBiomeBase.vanillaDeepOcean;
-    			break;
-    		case 3:
-    			output = RealisticBiomeBase.vanillaOcean;
-    			break;
-    		case 4:
-    			output = RealisticBiomeBase.vanillaDeepOcean;
-    			break;
-    		default:
-    			break;
-    	
-    	}*/
-    	
-    	/**
-    	 * Do we only want to generate a single biome for the whole world?
-    	 */
-    	String generateOnlyThisVanillaBiome = ConfigRTG.generateOnlyThisVanillaBiome;
-    	
-    	if (generateOnlyThisVanillaBiome.length() > 0)
-    	{
-    		output = RealisticBiomeVanillaBase.getRealisticVanillaBiomeFromVanillaVariableName(generateOnlyThisVanillaBiome);
-    	}
-    	
-    	//output = RealisticBiomeBase.vanillaExtremeHillsPlus;
-    	
-		if (biomeDataMap.size() > 4096) {
-			biomeDataMap.clear();
-		}
+				if(f > 1.0F) {
+					f = 1.0F;
+				}
 
-		biomeDataMap.put(coords, output);
-		
-		currentBaseBiome = output.baseBiome.biomeName;
-		currentRiverBiome = output.riverBiome.biomeName;
-		
-		if (currentBaseBiome.compareTo(previousBaseBiome) != 0 || currentRiverBiome.compareTo(previousRiverBiome) != 0)
-		{
-			if (ConfigRTG.enableDebugging) {
-				FMLLog.log(Level.INFO, "Base Biome = %s; River Biome = %s", currentBaseBiome, currentRiverBiome);
+				par1ArrayOfFloat[i1] = f;
+			} catch(Throwable throwable) {
+				CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
+				CrashReportCategory crashreportcategory = crashreport.makeCategory("DownfallBlock");
+				crashreportcategory.addCrashSection("biome id", Integer.valueOf(i1));
+				crashreportcategory.addCrashSection("downfalls[] size", Integer.valueOf(par1ArrayOfFloat.length));
+				crashreportcategory.addCrashSection("x", Integer.valueOf(par2));
+				crashreportcategory.addCrashSection("z", Integer.valueOf(par3));
+				crashreportcategory.addCrashSection("w", Integer.valueOf(par4));
+				crashreportcategory.addCrashSection("h", Integer.valueOf(par5));
+				throw new ReportedException(crashreport);
 			}
-			
-			previousBaseBiome = currentBaseBiome;
-			previousRiverBiome = currentRiverBiome;
 		}
-		
-		return output;
-    }
-    
-    public float getNoiseAt(int x, int y)
-    {
-    	float river = getRiverStrength(x, y) + 1f;
-    	if(river < 0.5f)
-    	{
-    		return 59f;
-    	}
-    	
-    	float ocean = getOceanValue(x, y);
-    	return getBiomeDataAt(x, y, ocean).rNoise(perlin, cell, x, y, ocean, 4f, river);
-    }
-    
-    public float getNoiseWithRiverOceanAt(int x, int y, float river, float ocean)
-    {
-    	return getBiomeDataAt(x, y, ocean).rNoise(perlin, cell, x, y, ocean, 1f, river);
-    }
-    
-    public float calculateRiver(int x, int y, float st, float biomeHeight)
-    {
-    	if(st < 0f && biomeHeight > 59f)
-    	{
-    		float pX = x + (perlin.noise1(y / 240f) * 220f);
-    		float pY = y + (perlin.noise1(x / 240f) * 220f);
-    		float r = cell.border(pX / 1250D, pY / 1250D, 50D / 1300D, 1f);
-    		return (biomeHeight * (r + 1f)) + ((59f + perlin.noise2(x / 12f, y / 12f) * 2f + perlin.noise2(x / 8f, y / 8f) * 1.5f) * (-r));
-    	}
-    	else
-    	{
-    		return biomeHeight;
-    	}
-    }
-    
-    public float getRiverStrength(int x, int y)
-    {
-    	return cell.border((x + (perlin.noise1(y / 240f) * 220f)) / 1250D, (y + (perlin.noise1(x / 240f) * 220f)) / 1250D, 50D / 300D, 1f);
-    }
-    
-    public boolean isBorderlessAt(int x, int y)
-    {
-    	int bx, by;
-    	
-        for(bx = -2; bx <= 2; bx++)
-        {
-        	for(by = -2; by <= 2; by++)
-        	{
-        		borderNoise[getBiomeDataAt(x + bx * 16, y + by * 16).biomeID] += 0.04f;
-        	}
-        }
-        
-        by = 0;
-        for(bx = 0; bx < 256; bx++)
-        {
-        	if(borderNoise[bx] > 0.98f)
-        	{
-        		by = 1;
-        	}
-        	borderNoise[bx] = 0;
-        }
-        
-    	return by == 1 ? true : false;
-    }
-    
-    public List getBiomesToSpawnIn()
-    {
-        return this.biomesToSpawnIn;
-    }
 
-    public float[] getRainfall(float[] par1ArrayOfFloat, int par2, int par3, int par4, int par5)
-    {
-        if (par1ArrayOfFloat == null || par1ArrayOfFloat.length < par4 * par5)
-        {
-            par1ArrayOfFloat = new float[par4 * par5];
-        }
+		return par1ArrayOfFloat;
+	}
 
-		int var6[] = getBiomesGens(par2, par3, par4, par5);
+	/**
+	 * Return an adjusted version of a given temperature based on the y height
+	 */
+	@SideOnly(Side.CLIENT)
+	public float getTemperatureAtHeight(float par1, int par2) {
+		return par1;
+	}
 
-        for (int var7 = 0; var7 < par4 * par5; ++var7)
-        {
-            float var8 = (float)BiomeGenBase.getBiome(var6[var7]).getIntRainfall() / 65536.0F;
+	/**
+	 * Returns an array of biomes for the location input.
+	 */
+	public BiomeGenBase[] getBiomesForGeneration(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5) {
+		IntCache.resetIntCache();
 
-            if (var8 > 1.0F)
-            {
-                var8 = 1.0F;
-            }
+		if(par1ArrayOfBiomeGenBase == null || par1ArrayOfBiomeGenBase.length < par4 * par5) {
+			par1ArrayOfBiomeGenBase = new BiomeGenBase[par4 * par5];
+		}
 
-            par1ArrayOfFloat[var7] = var8;
-        }
+		int[] aint = this.genBiomes.getInts(par2, par3, par4, par5);
 
-        return par1ArrayOfFloat;
-    }
+		try {
+			for(int i1 = 0; i1 < par4 * par5; ++i1) {
+				par1ArrayOfBiomeGenBase[i1] = BiomeGenBase.getBiome(aint[i1]);
+			}
 
-    public float getTemperatureAtHeight(float par1, int par2)
-    {
-        return par1;
-    }
+			return par1ArrayOfBiomeGenBase;
+		} catch(Throwable throwable) {
+			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
+			CrashReportCategory crashreportcategory = crashreport.makeCategory("RawBiomeBlock");
+			crashreportcategory.addCrashSection("biomes[] size", Integer.valueOf(par1ArrayOfBiomeGenBase.length));
+			crashreportcategory.addCrashSection("x", Integer.valueOf(par2));
+			crashreportcategory.addCrashSection("z", Integer.valueOf(par3));
+			crashreportcategory.addCrashSection("w", Integer.valueOf(par4));
+			crashreportcategory.addCrashSection("h", Integer.valueOf(par5));
+			throw new ReportedException(crashreport);
+		}
+	}
 
-    public BiomeGenBase[] getBiomesForGeneration(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5)
-    {
-        if (par1ArrayOfBiomeGenBase == null || par1ArrayOfBiomeGenBase.length < par4 * par5)
-        {
-            par1ArrayOfBiomeGenBase = new BiomeGenBase[par4 * par5];
-        }
-    	
-		int var7[] = getBiomesGens(par2, par3, par4, par5);
+	/**
+	 * Returns biomes to use for the blocks and loads the other data like temperature and humidity onto the WorldChunkManager Args: oldBiomeList, x, z, width, depth
+	 */
+	public BiomeGenBase[] loadBlockGeneratorData(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5) {
+		return this.getBiomeGenAt(par1ArrayOfBiomeGenBase, par2, par3, par4, par5, true);
+	}
 
-        for (int var8 = 0; var8 < par4 * par5; ++var8)
-        {
-            par1ArrayOfBiomeGenBase[var8] = BiomeGenBase.getBiome(var7[var8]);
-        }
+	/**
+	 * Return a list of biomes for the specified blocks. Args: listToReuse, x, y, width, length, cacheFlag (if false, don't check biomeCache to avoid infinite loop in BiomeCacheBlock)
+	 */
+	public BiomeGenBase[] getBiomeGenAt(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5, boolean par6) {
+		IntCache.resetIntCache();
 
-        return par1ArrayOfBiomeGenBase;
-    }
+		if(par1ArrayOfBiomeGenBase == null || par1ArrayOfBiomeGenBase.length < par4 * par5) {
+			par1ArrayOfBiomeGenBase = new BiomeGenBase[par4 * par5];
+		}
 
-    public BiomeGenBase[] loadBlockGeneratorData(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5)
-    {
-        return this.getBiomeGenAt(par1ArrayOfBiomeGenBase, par2, par3, par4, par5, true);
-    }
+		if(par6 && par4 == 16 && par5 == 16 && (par2 & 15) == 0 && (par3 & 15) == 0) {
+			BiomeGenBase[] abiomegenbase1 = this.biomeCache.getCachedBiomes(par2, par3);
+			System.arraycopy(abiomegenbase1, 0, par1ArrayOfBiomeGenBase, 0, par4 * par5);
+			return par1ArrayOfBiomeGenBase;
+		}
+		else {
+			int[] aint = this.biomeIndexLayer.getInts(par2, par3, par4, par5);
 
-    public BiomeGenBase[] getBiomeGenAt(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5, boolean par6)
-    {
-        if (par1ArrayOfBiomeGenBase == null || par1ArrayOfBiomeGenBase.length < par4 * par5)
-        {
-            par1ArrayOfBiomeGenBase = new BiomeGenBase[par4 * par5];
-        }
-    	
-		int var7[] = getBiomesGens(par2, par3, par4, par5);
+			for(int i1 = 0; i1 < par4 * par5; ++i1) {
+				par1ArrayOfBiomeGenBase[i1] = BiomeGenBase.getBiome(aint[i1]);
+			}
 
-        for (int var8 = 0; var8 < par4 * par5; ++var8)
-        {
-            par1ArrayOfBiomeGenBase[var8] = BiomeGenBase.getBiome(var7[var8]);
-        }
+			return par1ArrayOfBiomeGenBase;
+		}
+	}
 
-        return par1ArrayOfBiomeGenBase;
-    }
+	/**
+	 * checks given Chunk's Biomes against List of allowed ones
+	 */
+	public boolean areBiomesViable(int par1, int par2, int par3, List par4List) {
+		IntCache.resetIntCache();
+		int l = par1 - par3 >> 2;
+		int i1 = par2 - par3 >> 2;
+		int j1 = par1 + par3 >> 2;
+		int k1 = par2 + par3 >> 2;
+		int l1 = j1 - l + 1;
+		int i2 = k1 - i1 + 1;
+		int[] aint = this.genBiomes.getInts(l, i1, l1, i2);
 
-    public boolean areBiomesViable(int x, int y, int par3, List par4List)
-    {
-    	float centerNoise = getNoiseAt(x,y);
-    	if(centerNoise < 62)
-    	{
-    		return false;
-    	}
-    	
-    	float lowestNoise = centerNoise;
-    	float highestNoise = centerNoise;
-    	for(int i = -2; i <= 2; i++)
-    	{
-    		for(int j = -2; j <= 2; j++)
-    		{
-    			if(i != 0 && j != 0)
-    			{
-    				float n = getNoiseAt(x + i * 16, y + j * 16);
-    				if(n < lowestNoise) { lowestNoise = n; }
-    				if(n > highestNoise) { highestNoise = n; }
-    			}
-    		}
-    	}
-    	
-    	if(highestNoise - lowestNoise < 22)
-    	{
-    		return true;
-    	}
-    	
-    	return false;
-    }
+		try {
+			for(int j2 = 0; j2 < l1 * i2; ++j2) {
+				BiomeGenBase biomegenbase = BiomeGenBase.getBiome(aint[j2]);
 
-    public ChunkPosition findBiomePosition(int p_150795_1_, int p_150795_2_, int p_150795_3_, List p_150795_4_, Random p_150795_5_)
-    {
-    	return null;
-    }
+				if(!par4List.contains(biomegenbase)) {
+					return false;
+				}
+			}
 
-    public void cleanupCache()
-    {
-        this.biomeCache.cleanupCache();
-    }
-    
-    public GenLayer[] getModdedBiomeGenerators(WorldType worldType, long seed, GenLayer[] original) {
+			return true;
+		} catch(Throwable throwable) {
+			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
+			CrashReportCategory crashreportcategory = crashreport.makeCategory("Layer");
+			crashreportcategory.addCrashSection("Layer", this.genBiomes.toString());
+			crashreportcategory.addCrashSection("x", Integer.valueOf(par1));
+			crashreportcategory.addCrashSection("z", Integer.valueOf(par2));
+			crashreportcategory.addCrashSection("radius", Integer.valueOf(par3));
+			crashreportcategory.addCrashSection("allowed", par4List);
+			throw new ReportedException(crashreport);
+		}
+	}
+
+	public ChunkPosition findBiomePosition(int p_150795_1_, int p_150795_2_, int p_150795_3_, List p_150795_4_, Random p_150795_5_) {
+		IntCache.resetIntCache();
+		int l = p_150795_1_ - p_150795_3_ >> 2;
+		int i1 = p_150795_2_ - p_150795_3_ >> 2;
+		int j1 = p_150795_1_ + p_150795_3_ >> 2;
+		int k1 = p_150795_2_ + p_150795_3_ >> 2;
+		int l1 = j1 - l + 1;
+		int i2 = k1 - i1 + 1;
+		int[] aint = this.genBiomes.getInts(l, i1, l1, i2);
+		ChunkPosition chunkposition = null;
+		int j2 = 0;
+
+		for(int k2 = 0; k2 < l1 * i2; ++k2) {
+			int l2 = l + k2 % l1 << 2;
+			int i3 = i1 + k2 / l1 << 2;
+			BiomeGenBase biomegenbase = BiomeGenBase.getBiome(aint[k2]);
+
+			if(p_150795_4_.contains(biomegenbase) && (chunkposition == null || p_150795_5_.nextInt(j2 + 1) == 0)) {
+				chunkposition = new ChunkPosition(l2, 0, i3);
+				++j2;
+			}
+		}
+
+		return chunkposition;
+	}
+
+	/**
+	 * Calls the WorldChunkManager's biomeCache.cleanupCache()
+	 */
+	public void cleanupCache() {
+		this.biomeCache.cleanupCache();
+	}
+
+	public GenLayer[] getModdedBiomeGenerators(WorldType worldType, long seed, GenLayer[] original) {
 		WorldTypeEvent.InitBiomeGens event = new WorldTypeEvent.InitBiomeGens(worldType, seed, original);
 		MinecraftForge.TERRAIN_GEN_BUS.post(event);
 		return event.newBiomeGens;

@@ -99,11 +99,16 @@ public class ConfigRTG
 	public static boolean enableCobblestoneBoulders = true;
 	public static int cobblestoneBoulderChance = 1;
 	
+	public static boolean generateTropicalIslandsInOceanicBiomes = true;
+	public static int tropicalIslandChance = 1;
+	
+	public static boolean generateVolcanoesInTropicalIslands = true;
+	public static int volcanoChance = 1;
+	
 	public static boolean showDebugInfo = false;
 	public static boolean enableDebugging = false;
 
 	public static int biomeSize = 4;
-	public static int biomeIDSB = 4;
 	
 	public static void init(File configFile) 
 	{
@@ -224,11 +229,17 @@ public class ConfigRTG
 			enableCobblestoneBoulders = config.getBoolean("Enable Cobblestone Boulders", "Miscellaneous", true, "");
 			cobblestoneBoulderChance = config.getInt("1/x chance that Cobblestone Boulders will generate if given the opportunity to do so during world gen", "Miscellaneous", 1, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
 			
+			generateTropicalIslandsInOceanicBiomes = config.getBoolean("Generate Tropical Islands in Oceanic Biomes", "Miscellaneous", true, "");
+			tropicalIslandChance = config.getInt("1/x chance that Tropical Islands will generate in oceanic biomes if given the opportunity to do so during world gen", "Miscellaneous", 1, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
+			
+			generateVolcanoesInTropicalIslands = config.getBoolean("Generate Volcanoes in Tropical Islands", "Miscellaneous", true, "");
+			volcanoChance = config.getInt("1/x chance that Volcanoes will generate in Tropical Islands if given the opportunity to do so during world gen", "Miscellaneous", 1, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
+			
+			
 			showDebugInfo = config.getBoolean("Show Debug Info in F3 Screen", "Miscellaneous", false, "");
 			enableDebugging = config.getBoolean("Enable Debugging", "Miscellaneous", false, "WARNING: This should only be enabled if you know what you're doing.");
 			
-			biomeSize = config.getInt("Size of Biomes", "Miscellaneous", 4, 4, 6, "4 = Default World Type; 6 = Large Biomes World Type");
-			biomeIDSB = config.getInt("Single Biome ID to Generate", "Miscellaneous", 1, 0, 255, "Not currently used");
+			biomeSize = config.getInt("Size of Biomes", "Miscellaneous", 4, 4, 6, "COMING SOON!!! 4 = Default World Type; 6 = Large Biomes World Type");
 			
 			/*
 			####################################################################################################

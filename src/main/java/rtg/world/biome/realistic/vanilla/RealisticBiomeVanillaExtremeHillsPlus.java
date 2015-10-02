@@ -1,13 +1,13 @@
 package rtg.world.biome.realistic.vanilla;
 
-import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.Climate;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHillsPlus;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHillsPlus;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.config.ConfigRTG;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeGenManager;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHillsPlus;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHillsPlus;
 
 public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanillaBase
 {	
@@ -24,5 +24,6 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
 		);
 		
 		this.setRealisticBiomeName("Vanilla Extreme Hills +");
+		BiomeGenManager.addCoolBiome(this, ConfigRTG.weightVanillaExtremeHillsPlus);
 	}	
 }

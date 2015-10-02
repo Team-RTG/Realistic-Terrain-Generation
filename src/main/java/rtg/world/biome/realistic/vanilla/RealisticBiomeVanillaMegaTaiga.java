@@ -1,13 +1,13 @@
 package rtg.world.biome.realistic.vanilla;
 
-import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.Climate;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaMegaTaiga;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaMegaTaiga;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.config.ConfigRTG;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeGenManager;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaMegaTaiga;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaMegaTaiga;
 
 public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase
 {	
@@ -24,5 +24,6 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase
 		);
 		
 		this.setRealisticBiomeName("Vanilla Mega Taiga");
+		BiomeGenManager.addCoolBiome(this, ConfigRTG.weightVanillaMegaTaiga);
 	}	
 }

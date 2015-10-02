@@ -1,19 +1,16 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import net.minecraft.world.biome.BiomeGenBase;
+
 import org.apache.logging.log4j.Level;
 
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.Loader;
-import extrabiomes.api.BiomeManager;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.*;
-import rtg.world.gen.surface.river.SurfaceRiverOasis;
-import rtg.world.gen.terrain.*;
+import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.gen.terrain.TerrainBase;
+import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.Loader;
 
 public class RealisticBiomeEBBase extends RealisticBiomeBase
 {	
@@ -32,7 +29,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 			{
 				if (b[i] != null)
 				{
-					BiomeGenBase EBBiome = b[i];
+					BiomeGenBase ebBiome = b[i];
 					String biomeName = b[i].biomeName;
 					String biomeClass = b[i].getBiomeClass().getName();
 					
@@ -45,11 +42,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBAlpineMountains) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainMountainRiver(),
-									new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
-								),
+								new RealisticBiomeEBAlpineMountains(ebBiome),
 								BiomeBase.BiomeCategory.SNOW
 							);
 						}
@@ -58,11 +51,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBAlpineMountainsEdge) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainHilly(230f, 120f, 50f),
-									new SurfaceMountainStone(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
-								),
+								new RealisticBiomeEBAlpineMountainsEdge(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -71,11 +60,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBAlpineMountainsM) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainMountainRiver(),
-									new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
-								),
+								new RealisticBiomeEBAlpineMountainsM(ebBiome),
 								BiomeBase.BiomeCategory.SNOW
 							);
 						}
@@ -84,11 +69,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBAlpineTundra) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainMountainRiver(),
-									new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
-								),
+								new RealisticBiomeEBAlpineTundra(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -97,11 +78,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBAspenForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainHilly(230f, 120f, 0f),
-									new SurfaceMountainStone(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.95f)
-								), 
+								new RealisticBiomeEBAspenForest(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -110,11 +87,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBAspenHills) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainHilly(230f, 120f, 0f),
-									new SurfaceMountainStone(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.95f)
-								), 
+								new RealisticBiomeEBAspenHills(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -123,11 +96,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBBadlands) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-									new TerrainPolar(),
-									new SurfacePolar(EBBiome.topBlock, EBBiome.fillerBlock)
-								), 
+								new RealisticBiomeEBBadlands(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -136,11 +105,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBBasin) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainPolar(),
-									new SurfacePolar(EBBiome.topBlock, EBBiome.fillerBlock)
-								), 
+								new RealisticBiomeEBBasin(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -149,11 +114,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBBlossomHills) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainGrasslandHills(70f, 180f, 7f, 100f, 38f, 260f, 68f),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBBlossomHills(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -162,11 +123,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBBlossomWoods) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainGrasslandHills(70f, 180f, 7f, 100f, 38f, 260f, 68f),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBBlossomWoods(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -175,11 +132,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBBorealArchipelago) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainGrasslandHills(70f, 180f, 7f, 100f, 38f, 260f, 68f),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBBorealArchipelago(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -188,11 +141,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBBorealForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBBorealForest(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -201,11 +150,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBBorealPlateau) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainGrasslandHills(70f, 180f, 7f, 100f, 38f, 260f, 68f),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBBorealPlateau(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -214,11 +159,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBBorealPlateauM) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainGrasslandHills(70f, 180f, 7f, 100f, 38f, 260f, 68f),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBBorealPlateauM(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -227,11 +168,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBCarr) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-									new TerrainMarsh(),
-									new SurfaceMarshFix(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBCarr(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -240,11 +177,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBClayHills) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
-									new TerrainMesa(),
-									new SurfaceMesa(EBBiome.topBlock, EBBiome.fillerBlock, (byte)1)
-								), 
+								new RealisticBiomeEBClayHills(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -253,11 +186,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBClearing) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBClearing(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -266,11 +195,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBColdBorealForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainHilly(160f, 80f, 60f),
-									new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
-								),
+								new RealisticBiomeEBColdBorealForest(ebBiome),
 								BiomeBase.BiomeCategory.SNOW
 							);
 						}
@@ -279,11 +204,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBColdCypressForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainHilly(160f, 80f, 60f),
-									new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
-								),
+								new RealisticBiomeEBColdCypressForest(ebBiome),
 								BiomeBase.BiomeCategory.SNOW
 							);
 						}
@@ -292,11 +213,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBColdFirForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainHilly(160f, 80f, 60f),
-									new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
-								),
+								new RealisticBiomeEBColdFirForest(ebBiome),
 								BiomeBase.BiomeCategory.SNOW
 							);
 						}
@@ -305,11 +222,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBColdPineForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainHilly(160f, 80f, 60f),
-									new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
-								),
+								new RealisticBiomeEBColdPineForest(ebBiome),
 								BiomeBase.BiomeCategory.SNOW
 							);
 						}
@@ -318,11 +231,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBCreekBed) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-									new TerrainMarsh(),
-									new SurfaceMarshFix(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBCreekBed(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -331,11 +240,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBCypressForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBCypressForest(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -344,11 +249,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBDesertArchipelago) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
-									new TerrainDunes(),
-									new SurfaceDesert(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.sand, Blocks.sand, Blocks.sand)
-								), 
+								new RealisticBiomeEBDesertArchipelago(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -357,11 +258,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBEphemeralLake) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-									new TerrainMarsh(),
-									new SurfaceMarshFix(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBEphemeralLake(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -370,11 +267,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBEphemeralLakeEdge) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-									new TerrainMarsh(),
-									new SurfaceMarshFix(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBEphemeralLakeEdge(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -383,11 +276,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBFens) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-									new TerrainMarsh(),
-									new SurfaceMarshFix(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBFens(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -396,11 +285,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBFirForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainHilly(160f, 80f, 60f),
-									new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
-								),
+								new RealisticBiomeEBFirForest(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -409,11 +294,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBFloweryArchipelago) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBFloweryArchipelago(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -422,11 +303,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBForestedArchipelago) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBForestedArchipelago(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -435,11 +312,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBForestedMountains) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainHilly(120f, 70f, 60f),
-									new SurfaceMountainSnow(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.45f)
-								),
+								new RealisticBiomeEBForestedMountains(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -448,11 +321,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBForestedValley) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainDuneValley(40f),
-									new SurfaceDuneValley(EBBiome.topBlock, EBBiome.fillerBlock, 20f, false, false)
-								),
+								new RealisticBiomeEBForestedValley(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -461,11 +330,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBFrozenArchipelago) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, EBBiome.topBlock, EBBiome.fillerBlock)
-								), 
+								new RealisticBiomeEBFrozenArchipelago(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -474,11 +339,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBGlacier) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
-									new TerrainMountainSpikes(),
-									new SurfaceMountainPolar(Blocks.ice, Blocks.packed_ice, true, Blocks.packed_ice, 20f)
-								), 
+								new RealisticBiomeEBGlacier(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -487,11 +348,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBGrassyArchipelago) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainHilly(200f, 100f, 0f),
-									new SurfaceMountainStone(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.95f)
-								), 
+								new RealisticBiomeEBGrassyArchipelago(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -500,11 +357,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBIceSheet) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
-									new TerrainPolar(),
-									new SurfaceTundra(Blocks.ice, Blocks.packed_ice)
-								), 
+								new RealisticBiomeEBIceSheet(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -513,11 +366,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBKakadu) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, EBBiome.topBlock, EBBiome.fillerBlock)
-								), 
+								new RealisticBiomeEBKakadu(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -526,11 +375,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBLake) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-									new TerrainMarsh(),
-									new SurfaceMarshFix(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBLake(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -539,11 +384,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBLowHills) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, EBBiome.topBlock, EBBiome.fillerBlock)
-								), 
+								new RealisticBiomeEBLowHills(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -552,11 +393,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBMangroves) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-									new TerrainMarsh(),
-									new SurfaceMarshFix(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBMangrove(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -565,11 +402,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBMarsh) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-									new TerrainMarsh(),
-									new SurfaceMarshFix(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBMarsh(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -578,11 +411,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBMeadow) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBMeadow(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -591,11 +420,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBMeadowM) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBMeadowM(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -604,11 +429,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBMountainousArchipelago) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainHilly(200f, 100f, 0f),
-									new SurfaceMountainStone(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.95f)
-								), 
+								new RealisticBiomeEBMountainousArchipelago(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -617,11 +438,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBMountains) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainHilly(200f, 100f, 0f),
-									new SurfaceMountainStone(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.95f)
-								), 
+								new RealisticBiomeEBMountains(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -630,11 +447,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBMountainsEdge) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainHilly(200f, 100f, 0f),
-									new SurfaceMountainStone(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.95f)
-								), 
+								new RealisticBiomeEBMountainsEdge(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -643,11 +456,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBOakForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBOakForest(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -656,11 +465,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBOasis) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-									new TerrainMarsh(),
-									new SurfaceMarshFix(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBOasis(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -669,11 +474,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBPineForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBPineForest(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -682,11 +483,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBPineForestArchipelago) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainHilly(200f, 100f, 0f),
-									new SurfaceMountainStone(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.95f)
-								), 
+								new RealisticBiomeEBPineForestArchipelago(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -695,11 +492,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBPlateau) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainHilly(200f, 100f, 0f),
-									new SurfaceMountainStone(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.95f)
-								), 
+								new RealisticBiomeEBPlateau(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -708,11 +501,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBPolarDesert) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainPolar(),
-									new SurfacePolar(EBBiome.topBlock, EBBiome.fillerBlock)
-								), 
+								new RealisticBiomeEBPolarDesert(ebBiome),
 								BiomeBase.BiomeCategory.SNOW
 							);
 						}
@@ -721,11 +510,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBPrairie) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBPrairie(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -734,11 +519,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBRainforest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBRainforest(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -747,11 +528,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBRainforestValley) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-									new TerrainMarsh(),
-									new SurfaceMarshFix(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBRainforestValley(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -760,11 +537,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBRedDesert) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
-									new TerrainDunes(),
-									new SurfaceDesert(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.sand, Blocks.sand, Blocks.sand)
-								),
+								new RealisticBiomeEBRedDesert(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -773,11 +546,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBRiparianZone) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainSwampRiver(),
-									new SurfaceRiverOasis()
-								),
+								new RealisticBiomeEBRiparianZone(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -786,11 +555,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBRockyDesert) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-									new TerrainDuneValley(40f),
-									new SurfaceDuneValley(EBBiome.topBlock, EBBiome.fillerBlock, 20f, false, false)
-								),
+								new RealisticBiomeEBRockyDesert(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -799,11 +564,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBRockyHills) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainDuneValley(80f),
-									new SurfaceDuneValley(EBBiome.topBlock, EBBiome.fillerBlock, 40f, false, false)
-								),
+								new RealisticBiomeEBRockyHills(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -812,11 +573,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBRoofedShrublands) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBRoofedShrublands(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -825,11 +582,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSahara) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-									new TerrainPolar(),
-									new SurfacePolar(EBBiome.topBlock, EBBiome.fillerBlock)
-								), 
+								new RealisticBiomeEBSahara(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -838,11 +591,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSandstoneCanyon) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-									new TerrainCanyon(false, 35f, 160f, 40f, 30f, 10),
-									new SurfaceCanyon(EBBiome.topBlock, EBBiome.fillerBlock, (byte)0, 20)
-								), 
+								new RealisticBiomeEBSandstoneCanyon(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -851,11 +600,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSandstoneCanyons) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-									new TerrainCanyon(false, 35f, 80f, 30f, 20f, 10),
-									new SurfaceCanyon(EBBiome.topBlock, EBBiome.fillerBlock, (byte)0, 20)
-								), 
+								new RealisticBiomeEBSandstoneCanyon2(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -864,11 +609,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSandstoneRanges) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-									new TerrainCanyon(false, 35f, 80f, 30f, 20f, 10),
-									new SurfaceCanyon(EBBiome.topBlock, EBBiome.fillerBlock, (byte)0, 20)
-								), 
+								new RealisticBiomeEBSandstoneRanges(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -877,11 +618,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSandstoneRangesM) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-									new TerrainCanyon(false, 35f, 80f, 30f, 20f, 10),
-									new SurfaceCanyon(EBBiome.topBlock, EBBiome.fillerBlock, (byte)0, 20)
-								), 
+								new RealisticBiomeEBSandstoneRangesM(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -890,11 +627,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBScree) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-									new TerrainCanyon(false, 35f, 80f, 30f, 20f, 10),
-									new SurfaceCanyon(EBBiome.topBlock, EBBiome.fillerBlock, (byte)0, 20)
-								), 
+								new RealisticBiomeEBScree(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -903,11 +636,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBScrub) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-									new TerrainCanyon(false, 35f, 80f, 30f, 20f, 10),
-									new SurfaceCanyon(EBBiome.topBlock, EBBiome.fillerBlock, (byte)0, 20)
-								), 
+								new RealisticBiomeEBScrub(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -916,11 +645,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBShield) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBShield(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -929,11 +654,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBShrublands) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBShrublands(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -942,11 +663,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSilverPineForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainHilly(100f, 70f, 0f),
-									new SurfaceMountainStone(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.95f)
-								), 
+								new RealisticBiomeEBSilverPineForest(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -955,11 +672,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSilverPineHills) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainHilly(200f, 100f, 0f),
-									new SurfaceMountainStone(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.95f)
-								), 
+								new RealisticBiomeEBSilverPineHills(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -968,11 +681,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSnowyDesert) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBSnowyDesert(ebBiome),
 								BiomeBase.BiomeCategory.SNOW
 							);
 						}
@@ -981,11 +690,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSnowyPlateau) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBSnowyPlateau(ebBiome),
 								BiomeBase.BiomeCategory.SNOW
 							);
 						}
@@ -994,11 +699,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSnowyRanges) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBSnowyRanges(ebBiome),
 								BiomeBase.BiomeCategory.SNOW
 							);
 						}
@@ -1007,11 +708,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSnowyWastelands) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainPolar(),
-									new SurfaceTundra(Blocks.snow, Blocks.snow)
-								), 
+								new RealisticBiomeEBSnowyWastelands(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -1020,11 +717,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSteppe) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBSteppe(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -1033,11 +726,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBStoneCanyon) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainCanyon(false, 35f, 160f, 40f, 30f, 10),
-									new SurfaceCanyon(EBBiome.topBlock, EBBiome.fillerBlock, (byte)0, 20)
-								), 
+								new RealisticBiomeEBStoneCanyon(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -1046,11 +735,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBStoneCanyons) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainCanyon(false, 35f, 80f, 30f, 20f, 10),
-									new SurfaceCanyon(EBBiome.topBlock, EBBiome.fillerBlock, (byte)0, 20)
-								), 
+								new RealisticBiomeEBStoneCanyon2(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -1059,11 +744,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBTropicalArchipelago) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
-									new TerrainHilly(200f, 100f, 0f),
-									new SurfaceMountainStone(EBBiome.topBlock, EBBiome.fillerBlock, false, null, 0.95f)
-								), 
+								new RealisticBiomeEBTropicalArchipelago(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -1072,11 +753,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBTundra) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainGrasslandFlats(),
-									new SurfaceTundra(EBBiome.topBlock, EBBiome.fillerBlock)
-								), 
+								new RealisticBiomeEBTundra(ebBiome),
 								BiomeBase.BiomeCategory.COLD
 							);
 						}
@@ -1085,11 +762,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBVolcano) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainMountainSpikes(),
-									new SurfaceMountainPolar(EBBiome.topBlock, EBBiome.fillerBlock, false, EBBiome.topBlock, 20f)
-								), 
+								new RealisticBiomeEBVolcano(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -1098,11 +771,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBVolcanoM) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainMountainSpikes(),
-									new SurfaceMountainPolar(EBBiome.topBlock, EBBiome.fillerBlock, false, EBBiome.topBlock, 20f)
-								), 
+								new RealisticBiomeEBVolcanoM(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -1111,11 +780,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBWastelands) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainGrasslandFlats(),
-									new SurfacePolar(EBBiome.topBlock, EBBiome.fillerBlock)
-								), 
+								new RealisticBiomeEBWastelands(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -1124,11 +789,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBWoodlandField) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, EBBiome.topBlock, EBBiome.fillerBlock)
-								), 
+								new RealisticBiomeEBWoodlandField(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -1137,11 +798,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBWoodlandHills) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, EBBiome.topBlock, EBBiome.fillerBlock)
-								), 
+								new RealisticBiomeEBWoodlandHills(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -1150,11 +807,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBWoodlandLake) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainFlatLakes(),
-									new SurfaceMarshFix(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.grass, Blocks.grass)
-								), 
+								new RealisticBiomeEBWoodlandLake(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -1163,11 +816,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBWoodlandLakeEdge) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-									new TerrainFlatLakes(),
-									new SurfaceMarshFix(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.grass, Blocks.grass)
-								), 
+								new RealisticBiomeEBWoodlandLakeEdge(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -1176,11 +825,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBWoodlands) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBWoodlands(ebBiome),
 								BiomeBase.BiomeCategory.WET
 							);
 						}
@@ -1189,11 +834,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBXericSavannah) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBXericSavanna(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}
@@ -1202,11 +843,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBXericShrubland) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									EBBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
-									new TerrainGrasslandFlats(),
-									new SurfaceGrassland(EBBiome.topBlock, EBBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								), 
+								new RealisticBiomeEBXericShrubland(ebBiome),
 								BiomeBase.BiomeCategory.HOT
 							);
 						}

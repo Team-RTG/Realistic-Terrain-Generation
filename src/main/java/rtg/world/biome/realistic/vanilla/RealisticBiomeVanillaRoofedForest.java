@@ -1,13 +1,13 @@
 package rtg.world.biome.realistic.vanilla;
 
-import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.Climate;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaRoofedForest;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForest;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.config.ConfigRTG;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeGenManager;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaRoofedForest;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForest;
 
 public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 {	
@@ -24,5 +24,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 		);
 		
 		this.setRealisticBiomeName("Vanilla Roofed Forest");
+		BiomeGenManager.addWarmBiome(this, ConfigRTG.weightVanillaRoofedForest);
 	}	
 }

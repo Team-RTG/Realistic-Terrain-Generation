@@ -53,33 +53,21 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			//ALPS
 			if (ConfigBOP.generateBOPalps)
 			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.alps, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
-					new TerrainMountainRiver(),
-					new SurfaceMountainSnow(BOPCBiomes.alps.topBlock, BOPCBiomes.alps.fillerBlock, false, null, 0.45f)
-				),
+				new RealisticBiomeBOPAlps(),
 				BiomeBase.BiomeCategory.SNOW
 			);
 			
 			//ALPS FOREST
 			if (ConfigBOP.generateBOPalpsForest)
 			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.alpsForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
-					new TerrainMountainRiver(),
-					new SurfaceMountainSnow(BOPCBiomes.alpsForest.topBlock, BOPCBiomes.alpsForest.fillerBlock, false, null, 0.45f)
-				),
+				new RealisticBiomeBOPAlpsForest(),
 				BiomeBase.BiomeCategory.SNOW
 			);
 			
 			//ARCTIC
 			if (ConfigBOP.generateBOParctic)
 			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.arctic, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
-					new TerrainGrasslandFlats(),
-					new SurfaceTundra(BOPCBiomes.arctic.topBlock, BOPCBiomes.arctic.fillerBlock)
-				),
+				new RealisticBiomeBOPArctic(),
 				BiomeBase.BiomeCategory.SNOW
 			);
 			

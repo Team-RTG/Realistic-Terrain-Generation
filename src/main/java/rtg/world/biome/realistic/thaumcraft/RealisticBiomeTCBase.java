@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.thaumcraft;
 import cpw.mods.fml.common.Loader;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.config.ConfigTC;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
@@ -26,7 +27,7 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 	
 	public static void addBiomes()
 	{
-		if (Loader.isModLoaded("Thaumcraft"))
+		if (Loader.isModLoaded("Thaumcraft") && ConfigTC.generateTCBiomes)
 		{
 			BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
 			
@@ -34,16 +35,31 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 			{
 				if(b[i] != null)
 				{
-					if(b[i].biomeName == "Tainted Land" || b[i].biomeName == "Magical Forest")
+					BiomeGenBase tcBiome = b[i];
+					String biomeName = tcBiome.biomeName;
+					String biomeClass = tcBiome.getBiomeClass().getName();
+					
+					if (biomeName == "Tainted Land")
 					{
-						BiomeBase.addBiome(
-							new RealisticBiomeBase(
-								b[i], BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-								new TerrainSmallSupport(),
-								new SurfaceGrassland(b[i].topBlock, b[i].fillerBlock, Blocks.stone, Blocks.cobblestone)
-							),
-							BiomeBase.BiomeCategory.SMALL
-						);
+						if (ConfigTC.generateTCTaintedLand) {
+							BiomeBase.addBiome(
+								new RealisticBiomeTCTaintedLand(tcBiome),
+								BiomeBase.BiomeCategory.SMALL
+							);
+						}
+					}
+					else if (biomeName == "Magical Forest")
+					{
+						if (ConfigTC.generateTCMagicalForest) {
+							BiomeBase.addBiome(
+								new RealisticBiomeBase(
+									tcBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+									new TerrainSmallSupport(),
+									new SurfaceGrassland(tcBiome.topBlock, tcBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
+								),
+								BiomeBase.BiomeCategory.SMALL
+							);
+						}
 					}
 				}
 			}

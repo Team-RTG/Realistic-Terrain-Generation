@@ -1,13 +1,12 @@
 package rtg.world.biome.realistic.vanilla;
 
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
+import rtg.config.ConfigRTG;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.Climate;
-import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForestHills;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestHills;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanillaBase
 {	
@@ -24,5 +23,6 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
 		);
 		
 		this.setRealisticBiomeName("Vanilla Birch Forest Hills");
+		BiomeGenManager.addWarmBiome(this, ConfigRTG.weightVanillaBirchForestHills);
 	}	
 }

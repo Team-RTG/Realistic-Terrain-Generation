@@ -1,0 +1,23 @@
+package rtg.world.biome.realistic.enhancedbiomes;
+
+import net.minecraft.world.biome.BiomeGenBase;
+import rtg.config.ConfigEB;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeGenManager;
+import rtg.world.gen.surface.enhancedbiomes.SurfaceEBColdCypressForest;
+import rtg.world.gen.terrain.enhancedbiomes.TerrainEBColdCypressForest;
+
+public class RealisticBiomeEBColdCypressForest extends RealisticBiomeEBBase
+{	
+	public RealisticBiomeEBColdCypressForest(BiomeGenBase ebBiome)
+	{
+		super(
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			new TerrainEBColdCypressForest(160f, 80f, 60f),
+			new SurfaceEBColdCypressForest(ebBiome.topBlock, ebBiome.fillerBlock, false, null, 0.45f)
+		);
+		
+		this.setRealisticBiomeName("EB Cold Cypress Forest");
+		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBColdCypressForest);
+	}
+}

@@ -15,6 +15,8 @@ import rtg.debug.DebugHandler;
 import rtg.util.CellNoise;
 import rtg.util.Logger;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.RandomUtil;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaStoneBeach;
@@ -46,15 +48,15 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     private int biomes_wetLength;
     private int biomes_smallLength;
     
+    private boolean snowEnabled;
+    private boolean coldEnabled;
+    private boolean hotEnabled;
     private boolean wetEnabled;
     private boolean smallEnabled;
 
     private float[] borderNoise;
     
-    public String previousBaseBiome = "";
-    public String previousRiverBiome = "";
-    public String currentBaseBiome = "";
-    public String currentRiverBiome = "";
+    public BiomeCategory previousBaseBiomeCategory = BiomeCategory.WET;
 	
 	protected WorldChunkManagerRTG()
 	{
@@ -91,17 +93,11 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     	biomes_wetLength = biomes_wet.size();
     	biomes_smallLength = biomes_small.size();
     	
-    	wetEnabled = false;
-    	if(biomes_wetLength > 0)
-    	{
-    		wetEnabled = true;
-    	}
-    	
-    	smallEnabled = false;
-    	if(biomes_smallLength > 1)
-    	{
-    		smallEnabled = true;
-    	}
+    	snowEnabled = (biomes_snowLength > 0) ? true : false;
+    	coldEnabled = (biomes_coldLength > 0) ? true : false;
+    	hotEnabled = (biomes_hotLength > 0) ? true : false;
+    	wetEnabled = (biomes_wetLength > 0) ? true : false;
+    	smallEnabled = (biomes_smallLength > 1) ? true : false; //Why does it have to be greater than 1, instead of greater than 0? - Pink
     }    
 	
     public int[] getBiomesGens(int par1, int par2, int par3, int par4)
@@ -208,52 +204,82 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     	b = b < 0f ? 0f : b >= 0.9999999f ? 0.9999999f : b;
 
     	float s = smallEnabled ? (biomecell.noise(par1 / 140D, par2 / 140D, 1D) * 0.5f) + 0.5f : 0f;
-    	if(smallEnabled && s > 0.975f)
-    	{
-        	float h = (s - 0.975f) * 40f;
-        	h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-        	h *= biomes_smallLength;
-        	output = biomes_small.get((int)(h));
+    	
+    	if (smallEnabled && s > 0.975f) {
+        	output = chooseSmallBiome(s);
     	}
-    	else if((wetEnabled && b < 0.25f) || (!wetEnabled && b < 0.33f))
-    	{
-        	float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
-        	h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-        	
-        	h *= biomes_snowLength;
-			output = biomes_snow.get((int)(h));
+    	else if ((wetEnabled && b < 0.25f) || (!wetEnabled && b < 0.33f)) {
+    		
+    		switch (previousBaseBiomeCategory)
+    		{
+    			case SNOW:
+    			case COLD:
+    				output = chooseSnowBiome(s, par1, par2);
+    				break;
+    			default:
+    				output = chooseWetBiome(s, par1, par2);
+    				break;
+    		}
     	}
-    	else if((wetEnabled && b < 0.50f) || (!wetEnabled && b < 0.66f))
-    	{
-        	float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
-        	h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-        	
-        	h *= biomes_coldLength;
-			output = biomes_cold.get((int)(h));
+    	else if ((wetEnabled && b < 0.50f) || (!wetEnabled && b < 0.66f)) {
+    		
+    		switch (previousBaseBiomeCategory)
+    		{
+    			case SNOW:
+    			case COLD:
+    			case WET:
+    				output = chooseColdBiome(s, par1, par2);
+    				break;
+    			default:
+    				output = chooseWetBiome(s, par1, par2);
+    				break;
+    		}
     	}
-    	else if((wetEnabled && b < 0.75f) || (!wetEnabled && b < 1f))
-    	{
-        	float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
-        	h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-        	
-        	h *= biomes_hotLength;
-        	output = biomes_hot.get((int)(h));
+    	else if ((wetEnabled && b < 0.75f) || (!wetEnabled && b < 1f)) {
+    		
+    		switch (previousBaseBiomeCategory)
+    		{
+    			case HOT:
+    			case WET:
+    				output = chooseHotBiome(s, par1, par2);
+    				break;
+    			default:
+    				output = chooseWetBiome(s, par1, par2);
+    				break;
+    		}
     	}
-    	else if(wetEnabled)
-    	{
-        	float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
-        	h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-        	
-        	h *= biomes_wetLength;
-			output = biomes_wet.get((int)(h));
+    	else if (wetEnabled) {
+    		
+    		switch (previousBaseBiomeCategory)
+    		{
+    			case HOT:
+    			case WET:
+    			case COLD:
+    				output = chooseWetBiome(s, par1, par2);
+    				break;
+    			default:
+    				output = chooseHotBiome(s, par1, par2);
+    				break;
+    		}
     	}
-    	else
-    	{
-        	float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
-        	h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-        	
-        	h *= biomes_hotLength;
-			output = biomes_hot.get((int)(h));
+    	else {
+    		
+    		switch (previousBaseBiomeCategory)
+    		{
+    			case HOT:
+    				output = chooseHotBiome(s, par1, par2);
+    			case WET:
+    				output = chooseWetBiome(s, par1, par2);
+    			case COLD:
+    				output = chooseColdBiome(s, par1, par2);
+    				break;
+    			case SNOW:
+    				output = chooseSnowBiome(s, par1, par2);
+    				break;
+    			default:
+    				output = chooseHotBiome(s, par1, par2);
+    				break;
+    		}
     	}
 
     	/*###########################################################################################
@@ -261,23 +287,26 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     	 ###########################################################################################*/
     	
     	/*int intMin = 1;
-    	int intMax = 4;
+    	int intMax = 5;
     	Random objRandom = new Random();
     	int intRandom = objRandom.nextInt(intMax - intMin + 1) + intMin;
     	
     	switch (intRandom)
     	{
     		case 1:
-    			output = RealisticBiomeBase.vanillaOcean;
+    			output = RealisticBiomeVanillaBase.vanillaIceMountains;
     			break;
     		case 2:
-    			output = RealisticBiomeBase.vanillaDeepOcean;
+    			output = RealisticBiomeVanillaBase.vanillaBirchForestHills;
     			break;
     		case 3:
-    			output = RealisticBiomeBase.vanillaOcean;
+    			output = RealisticBiomeVanillaBase.vanillaDesert;
     			break;
     		case 4:
-    			output = RealisticBiomeBase.vanillaDeepOcean;
+    			output = RealisticBiomeVanillaBase.vanillaOcean;
+    			break;
+    		case 5:
+    			output = RealisticBiomeVanillaBase.vanillaSwampland;
     			break;
     		default:
     			break;
@@ -302,18 +331,9 @@ public class WorldChunkManagerRTG extends WorldChunkManager
 
 		biomeDataMap.put(coords, output);
 		
-		currentBaseBiome = output.baseBiome.biomeName;
-		currentRiverBiome = output.riverBiome.biomeName;
+		//===========================================================
 		
-		if (currentBaseBiome.compareTo(previousBaseBiome) != 0 || currentRiverBiome.compareTo(previousRiverBiome) != 0)
-		{
-			if (ConfigRTG.enableDebugging) {
-				FMLLog.log(Level.INFO, "Base Biome = %s; River Biome = %s", currentBaseBiome, currentRiverBiome);
-			}
-			
-			previousBaseBiome = currentBaseBiome;
-			previousRiverBiome = currentRiverBiome;
-		}
+		previousBaseBiomeCategory = output.biomeCategory;
 		
 		return output;
     }
@@ -492,5 +512,110 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     public void cleanupCache()
     {
         this.biomeCache.cleanupCache();
+    }
+    
+    private RealisticBiomeBase chooseSnowBiome(float s, double par1, double par2)
+    {
+		//FMLLog.log(Level.INFO, "b = %f, wetEnabled1", b);
+		
+    	float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
+    	
+    	//FMLLog.log(Level.INFO, "h = %f", h);
+    	
+    	h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
+    	
+    	//FMLLog.log(Level.INFO, "h = %f", h);
+    	
+    	h *= biomes_snowLength;
+    	
+    	//FMLLog.log(Level.INFO, "h = %f; (int)h = %d; biomes_snowLength = %d", h, (int)(h), biomes_snowLength);
+    	        	
+		RealisticBiomeBase output = biomes_snow.get((int)(h));
+		
+		return output;
+    }
+    
+    private RealisticBiomeBase chooseColdBiome(float s, double par1, double par2)
+    {
+		//FMLLog.log(Level.INFO, "b = %f, wetEnabled2", b);
+		
+    	float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
+    	
+    	//FMLLog.log(Level.INFO, "h = %f", h);
+    	
+    	h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
+    	
+    	//FMLLog.log(Level.INFO, "h = %f", h);
+    	
+    	h *= biomes_coldLength;
+    	
+    	//FMLLog.log(Level.INFO, "h = %f; (int)h = %d; biomes_coldLength = %d", h, (int)(h), biomes_coldLength);
+    	
+		RealisticBiomeBase output = biomes_cold.get((int)(h));
+		
+		return output;
+    }
+    
+    private RealisticBiomeBase chooseWetBiome(float s, double par1, double par2)
+    {
+		//FMLLog.log(Level.INFO, "b = %f, wetEnabled4", b);
+		
+    	float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
+    	
+    	//FMLLog.log(Level.INFO, "h = %f", h);
+    	
+    	h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
+    	
+    	//FMLLog.log(Level.INFO, "h = %f", h);
+    	
+    	h *= biomes_wetLength;
+    	
+    	//FMLLog.log(Level.INFO, "h = %f; (int)h = %d; biomes_wetLength = %d", h, (int)(h), biomes_wetLength);
+    	
+		RealisticBiomeBase output = biomes_wet.get((int)(h));
+		
+		return output;
+    }
+    
+    private RealisticBiomeBase chooseHotBiome(float s, double par1, double par2)
+    {
+		//FMLLog.log(Level.INFO, "b = %f, wetEnabled3", b);
+		
+    	float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
+    	
+    	//FMLLog.log(Level.INFO, "h = %f", h);
+    	
+    	h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
+    	
+    	//FMLLog.log(Level.INFO, "h = %f", h);
+    	
+    	h *= biomes_hotLength;
+    	
+    	//FMLLog.log(Level.INFO, "h = %f; (int)h = %d; biomes_hotLength = %d", h, (int)(h), biomes_hotLength);
+    	
+    	RealisticBiomeBase output = biomes_hot.get((int)(h));
+    	
+		return output;
+    }
+    
+    private RealisticBiomeBase chooseSmallBiome(float s)
+    {
+		//FMLLog.log(Level.INFO, "s = %f, smallEnabled", s);
+		
+    	float h = (s - 0.975f) * 40f;
+    	
+    	//FMLLog.log(Level.INFO, "h = %f", h);
+    	
+    	h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
+    	
+    	//FMLLog.log(Level.INFO, "h = %f", h);
+    	
+    	h *= biomes_smallLength;
+    	
+    	//FMLLog.log(Level.INFO, "h = %f; (int)h = %d; biomes_smallLength = %d", h, (int)(h), biomes_smallLength);
+    	
+    	RealisticBiomeBase output = biomes_small.get((int)(h));
+    	
+    	return output;
     }
 }

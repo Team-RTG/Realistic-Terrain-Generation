@@ -48,14 +48,6 @@ public class RealisticBiomeBase extends BiomeBase
 		return biomeList[id];
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	public RealisticBiomeBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s)
 	{
 		this(b, riverbiome);
@@ -70,13 +62,6 @@ public class RealisticBiomeBase extends BiomeBase
 	{
 		this(b, riverbiome, t, new SurfaceBase[]{s});
 	}
-	
-	
-	
-	
-	
-	//======================================================================================================================================
-	
 	
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
     {

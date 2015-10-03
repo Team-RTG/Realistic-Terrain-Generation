@@ -15,6 +15,7 @@ import rtg.world.biome.BiomeGenManager;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
+import rtg.world.gen.feature.WorldGenVolcano;
 import rtg.world.gen.feature.tree.WorldGenTreeJungleSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeJungleTall;
 import rtg.world.gen.feature.tree.WorldGenTreePalm;
@@ -23,7 +24,6 @@ import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceIslandMountainStone;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaOcean;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaOcean;
-import rtg.world.map.MapVolcano;
 
 public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase
 {	
@@ -133,7 +133,7 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase
 	            long j1 = mapRand.nextLong() / 2L * 2L + 1L;
 	            mapRand.setSeed((long)chunkX * i1 + (long)chunkY * j1 ^ world.getSeed());
 
-	            MapVolcano.build(blocks, metadata, world, mapRand, baseX, baseY, chunkX, chunkY, perlin, cell, noise);
+	            WorldGenVolcano.build(blocks, metadata, world, mapRand, baseX, baseY, chunkX, chunkY, perlin, cell, noise);
         	}
         }
     }

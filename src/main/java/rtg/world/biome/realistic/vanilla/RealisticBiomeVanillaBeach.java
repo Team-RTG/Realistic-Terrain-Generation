@@ -2,19 +2,18 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import rtg.util.CellNoise;
-import rtg.util.PerlinNoise;
-import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.Climate;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.tree.WorldGenTreePalm;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaBeach;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaBeach;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.config.ConfigRTG;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeGenManager;
+import rtg.world.gen.feature.tree.WorldGenTreePalm;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaBeach;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaBeach;
 
 public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase
 {	
@@ -31,9 +30,10 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase
 		);
 		
 		this.setRealisticBiomeName("Vanilla Beach");
+		BiomeGenManager.addWarmBiome(this, ConfigRTG.weightVanillaBeach);
 	}
 	
-	    public void rDecorate(World world, Random rand, int chunkX, int chunkY, PerlinNoise perlin, CellNoise cell, float strength, float river)
+	    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
 	    {
 	    	
 	    	if(rand.nextInt((int)(4f / strength)) == 0)

@@ -65,7 +65,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaBeach)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaBeach(),
+					vanillaBeach,
 					BiomeBase.BiomeCategory.WET
 				);
 			}
@@ -74,7 +74,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaStoneBeach)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaStoneBeach(),
+					vanillaStoneBeach,
 					BiomeBase.BiomeCategory.WET
 				);
 			}
@@ -83,7 +83,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaColdBeach)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaColdBeach(),
+					vanillaColdBeach,
 					BiomeBase.BiomeCategory.COLD
 				);
 			}
@@ -104,7 +104,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaDesert)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaDesert(),
+					vanillaDesert,
 					BiomeBase.BiomeCategory.HOT
 				);
 			}
@@ -113,7 +113,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaDesertHills)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaDesertHills(),
+					vanillaDesertHills,
 					BiomeBase.BiomeCategory.HOT
 				);
 			}
@@ -134,7 +134,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaExtremeHills)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaExtremeHills(),
+					vanillaExtremeHills,
 					BiomeBase.BiomeCategory.COLD
 				);
 			}
@@ -143,7 +143,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaExtremeHillsPlus)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaExtremeHillsPlus(),
+					vanillaExtremeHillsPlus,
 					BiomeBase.BiomeCategory.COLD
 				);
 			}
@@ -166,7 +166,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaForest)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaForest(),
+					vanillaForest,
 					BiomeBase.BiomeCategory.WET
 				);
 			}
@@ -175,7 +175,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaForestHills)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaForestHills(),
+					vanillaForestHills,
 					BiomeBase.BiomeCategory.WET
 				);
 			}
@@ -184,7 +184,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaBirchForest)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaBirchForest(),
+					vanillaBirchForest,
 					BiomeBase.BiomeCategory.WET
 				);
 			}
@@ -193,7 +193,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaBirchForestHills)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaBirchForestHills(),
+					vanillaBirchForestHills,
 					BiomeBase.BiomeCategory.WET
 				);
 			}
@@ -202,7 +202,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaRoofedForest)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaRoofedForest(),
+					vanillaRoofedForest,
 					BiomeBase.BiomeCategory.WET
 				);
 			}
@@ -223,7 +223,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaIcePlains)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaIcePlains(),
+					vanillaIcePlains,
 					BiomeBase.BiomeCategory.SNOW
 				);
 			}
@@ -232,7 +232,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaIceMountains)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaIceMountains(),
+					vanillaIceMountains,
 					BiomeBase.BiomeCategory.SNOW
 				);
 			}
@@ -253,7 +253,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaJungle)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaJungle(),
+					vanillaJungle,
 					BiomeBase.BiomeCategory.WET
 				);
 			}
@@ -262,7 +262,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaJungleHills)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaJungleHills(),
+					vanillaJungleHills,
 					BiomeBase.BiomeCategory.WET
 				);
 			}
@@ -271,7 +271,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaJungleEdge)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaJungleEdge(),
+					vanillaJungleEdge,
 					BiomeBase.BiomeCategory.WET
 				);
 			}
@@ -292,7 +292,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaMesa)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaMesa(),
+					vanillaMesa,
 					BiomeBase.BiomeCategory.HOT
 				);
 			}
@@ -301,7 +301,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaMesaPlateau)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaMesaPlateau(),
+					vanillaMesaPlateau,
 					BiomeBase.BiomeCategory.HOT
 				);
 			}
@@ -310,7 +310,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaMesaPlateau_F)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaMesaPlateauF(),
+					vanillaMesaPlateau_F,
 					BiomeBase.BiomeCategory.HOT
 				);
 			}
@@ -331,7 +331,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaMushroomIsland)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaMushroomIsland(),
+					vanillaMushroomIsland,
 					BiomeBase.BiomeCategory.WET
 				);
 			}
@@ -340,7 +340,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaMushroomIslandShore)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaMushroomIslandShore(),
+					vanillaMushroomIslandShore,
 					BiomeBase.BiomeCategory.WET
 				);
 			}
@@ -361,7 +361,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaOcean)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaOcean(),
+					vanillaOcean,
 					BiomeBase.BiomeCategory.WET
 				);
 			}
@@ -370,7 +370,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaDeepOcean)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaDeepOcean(),
+					vanillaDeepOcean,
 					BiomeBase.BiomeCategory.WET
 				);
 			}
@@ -393,7 +393,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaPlains)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaPlains(),
+					vanillaPlains,
 					BiomeBase.BiomeCategory.WET
 				);
 			}
@@ -414,7 +414,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			//if (ConfigRTG.generateVanillaRiver)
 			//{
 			//	BiomeBase.addBiome(
-			//		new RealisticBiomeVanillaRiver(),
+			//		vanillaRiver,
 			//		BiomeBase.BiomeCategory.WET
 			//	);
 			//}
@@ -423,7 +423,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaFrozenRiver)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaFrozenRiver(),
+					vanillaFrozenRiver,
 					BiomeBase.BiomeCategory.SNOW
 				);
 			}
@@ -444,7 +444,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaSavanna)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaSavanna(),
+					vanillaSavanna,
 					BiomeBase.BiomeCategory.HOT
 				);
 			}
@@ -453,7 +453,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaSavannaPlateau)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaSavannaPlateau(),
+					vanillaSavannaPlateau,
 					BiomeBase.BiomeCategory.HOT
 				);
 			}
@@ -474,7 +474,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaSwampland)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaSwampland(),
+					vanillaSwampland,
 					BiomeBase.BiomeCategory.WET
 				);
 			}
@@ -495,7 +495,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaTaiga)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaTaiga(),
+					vanillaTaiga,
 					BiomeBase.BiomeCategory.COLD
 				);
 			}
@@ -504,7 +504,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaTaigaHills)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaTaigaHills(),
+					vanillaTaigaHills,
 					BiomeBase.BiomeCategory.COLD
 				);
 			}
@@ -513,7 +513,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaColdTaiga)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaColdTaiga(),
+					vanillaColdTaiga,
 					BiomeBase.BiomeCategory.SNOW
 				);
 			}
@@ -522,7 +522,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaColdTaigaHills)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaColdTaigaHills(),
+					vanillaColdTaigaHills,
 					BiomeBase.BiomeCategory.SNOW
 				);
 			}
@@ -531,7 +531,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaMegaTaiga)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaMegaTaiga(),
+					vanillaMegaTaiga,
 					BiomeBase.BiomeCategory.COLD
 				);
 			}
@@ -540,7 +540,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaMegaTaigaHills)
 			{
 				BiomeBase.addBiome(
-					new RealisticBiomeVanillaMegaTaigaHills(),
+					vanillaMegaTaigaHills,
 					BiomeBase.BiomeCategory.COLD
 				);
 			}

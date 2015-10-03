@@ -5,7 +5,7 @@ import java.util.Random;
 
 
 import rtg.util.CellNoise;
-import rtg.util.PerlinNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -20,9 +20,9 @@ public class SurfaceRiverOasis extends SurfaceBase
 	}
 	
 	@Override
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, PerlinNoise perlin, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
-		if(river > 0.05f && river + (perlin.noise2(i / 10f, j / 10f) * 0.15f) > 0.8f)
+		if(river > 0.05f && river + (simplex.noise2(i / 10f, j / 10f) * 0.15f) > 0.8f)
 		{
 			Block b;
 			for(int k = 255; k > -1; k--)

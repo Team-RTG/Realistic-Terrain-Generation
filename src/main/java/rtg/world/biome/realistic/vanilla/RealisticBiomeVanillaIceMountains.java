@@ -1,13 +1,13 @@
 package rtg.world.biome.realistic.vanilla;
 
-import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.Climate;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaIceMountains;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaIceMountains;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.config.ConfigRTG;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeGenManager;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaIceMountains;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaIceMountains;
 
 public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
 {	
@@ -24,5 +24,6 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
 		);
 		
 		this.setRealisticBiomeName("Vanilla Ice Mountains");
+		BiomeGenManager.addFrozenBiome(this, ConfigRTG.weightVanillaIceMountains);
 	}	
 }

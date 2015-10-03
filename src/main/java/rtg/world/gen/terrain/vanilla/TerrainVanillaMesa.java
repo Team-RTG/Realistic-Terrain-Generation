@@ -1,7 +1,7 @@
 package rtg.world.gen.terrain.vanilla;
 
 import rtg.util.CellNoise;
-import rtg.util.PerlinNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainVanillaMesa extends TerrainBase
@@ -11,12 +11,12 @@ public class TerrainVanillaMesa extends TerrainBase
 	}
 	
 	@Override
-	public float generateNoise(PerlinNoise perlin, CellNoise cell, int x, int y, float ocean, float border, float river)
+	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float ocean, float border, float river)
 	{
-		float b = perlin.noise2(x / 130f, y / 130f) * 50f * river;
+		float b = simplex.noise2(x / 130f, y / 130f) * 50f * river;
 		b *= b / 40f;
 		
-		float hn = perlin.noise2(x / 12f, y / 12f);
+		float hn = simplex.noise2(x / 12f, y / 12f);
 		
 		float sb = 0f;
 		if(b > 2f)
@@ -47,11 +47,11 @@ public class TerrainVanillaMesa extends TerrainBase
 		if(b < 7f)
 		{
 			float bnh = 5f - b;
-			bn += perlin.noise2(x / 70f, y / 70f) * (bnh * 0.4f);
-			bn += perlin.noise2(x / 20f, y / 20f) * (bnh * 0.3f);
+			bn += simplex.noise2(x / 70f, y / 70f) * (bnh * 0.4f);
+			bn += simplex.noise2(x / 20f, y / 20f) * (bnh * 0.3f);
 		}
 		
-		float w = perlin.noise2(x / 80f, y / 80f) * 25f;
+		float w = simplex.noise2(x / 80f, y / 80f) * 25f;
 		w *= w / 25f;
 		
 		b += c1 + c2 + bn - w;

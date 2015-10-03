@@ -7,7 +7,7 @@ import java.util.Random;
 
 
 import rtg.util.CellNoise;
-import rtg.util.PerlinNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import rtg.world.gen.surface.SurfaceBase;
 import net.minecraft.block.Block;
@@ -31,11 +31,11 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase
 	}
 	
 	@Override
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, PerlinNoise perlin, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
-    	float h = (perlin.noise2(i / valley, j / valley) + 0.25f) * 65f;
+    	float h = (simplex.noise2(i / valley, j / valley) + 0.25f) * 65f;
     	h = h < 1f ? 1f : h;
-		float m = perlin.noise2(i / 12f, j / 12f);
+		float m = simplex.noise2(i / 12f, j / 12f);
 		boolean sand = false;
 		
     	Block b;
@@ -52,7 +52,7 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase
             	
             	if(depth == 0)
         		{
-                	if(k > 90f + perlin.noise2(i / 24f, j / 24f) * 10f - h || (m < -0.28f && mix))
+                	if(k > 90f + simplex.noise2(i / 24f, j / 24f) * 10f - h || (m < -0.28f && mix))
         			{
     					blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
     					//base[x * 16 + y] = RealisticBiomeVanillaBase.vanillaSavannaPlateau;

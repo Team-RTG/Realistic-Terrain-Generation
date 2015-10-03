@@ -11,7 +11,11 @@ import net.minecraftforge.common.config.Configuration;
 public class ConfigRTG
 {
 	public static Configuration config;
-		
+	
+	public static final int biomeWeightMin = 0;
+	public static final int biomeWeightMax = 100;
+	public static final int biomeWeightDefault = 10;
+	
 	public static boolean generateVanillaBiomes = true;
 	
 	public static String generateOnlyThisVanillaBiome = "";
@@ -53,13 +57,58 @@ public class ConfigRTG
 	public static boolean generateVanillaTaiga = true;
 	public static boolean generateVanillaTaigaHills = true;
 	
+	public static int weightVanillaBeach = biomeWeightDefault;
+	public static int weightVanillaBirchForest = biomeWeightDefault;
+	public static int weightVanillaBirchForestHills = biomeWeightDefault;
+	public static int weightVanillaColdBeach = biomeWeightDefault;
+	public static int weightVanillaColdTaiga = biomeWeightDefault;
+	public static int weightVanillaColdTaigaHills = biomeWeightDefault;
+	public static int weightVanillaDeepOcean = biomeWeightDefault;
+	public static int weightVanillaDesert = biomeWeightDefault;
+	public static int weightVanillaDesertHills = biomeWeightDefault;
+	public static int weightVanillaExtremeHills = biomeWeightDefault;
+	public static int weightVanillaExtremeHillsPlus = biomeWeightDefault;
+	public static int weightVanillaForest = biomeWeightDefault;
+	public static int weightVanillaForestHills = biomeWeightDefault;
+	public static int weightVanillaFrozenRiver = biomeWeightDefault;
+	public static int weightVanillaIceMountains = biomeWeightDefault;
+	public static int weightVanillaIcePlains = biomeWeightDefault;
+	public static int weightVanillaJungle = biomeWeightDefault;
+	public static int weightVanillaJungleEdge = biomeWeightDefault;
+	public static int weightVanillaJungleHills = biomeWeightDefault;
+	public static int weightVanillaMegaTaiga = biomeWeightDefault;
+	public static int weightVanillaMegaTaigaHills = biomeWeightDefault;
+	public static int weightVanillaMesa = biomeWeightDefault;
+	public static int weightVanillaMesaPlateau = biomeWeightDefault;
+	public static int weightVanillaMesaPlateau_F = biomeWeightDefault;
+	public static int weightVanillaMushroomIsland = biomeWeightDefault;
+	public static int weightVanillaMushroomIslandShore = biomeWeightDefault;
+	public static int weightVanillaOcean = biomeWeightDefault;
+	public static int weightVanillaPlains = biomeWeightDefault;
+	public static int weightVanillaRiver = biomeWeightDefault;
+	public static int weightVanillaRoofedForest = biomeWeightDefault;
+	public static int weightVanillaSavanna = biomeWeightDefault;
+	public static int weightVanillaSavannaPlateau = biomeWeightDefault;
+	public static int weightVanillaStoneBeach = biomeWeightDefault;
+	public static int weightVanillaSwampland = biomeWeightDefault;
+	public static int weightVanillaTaiga = biomeWeightDefault;
+	public static int weightVanillaTaigaHills = biomeWeightDefault;
+	
 	public static boolean generateEmeralds = true;
 	
 	public static boolean enableCobblestoneBoulders = true;
 	public static int cobblestoneBoulderChance = 1;
 	
+	public static boolean generateTropicalIslandsInOceanicBiomes = true;
+	public static int tropicalIslandChance = 1;
+	
+	public static boolean generateVolcanoesInTropicalIslands = true;
+	public static int volcanoChance = 1;
+	
 	public static boolean showDebugInfo = false;
 	public static boolean enableDebugging = false;
+
+	public static int biomeSize = 4;
 	
 	public static void init(File configFile) 
 	{
@@ -126,6 +175,43 @@ public class ConfigRTG
 			generateVanillaMegaTaiga = config.getBoolean("generateVanillaMegaTaiga", "Vanilla Biomes", true, "");
 			generateVanillaMegaTaigaHills = config.getBoolean("generateVanillaMegaTaigaHills", "Vanilla Biomes", true, "");
 			
+			weightVanillaBeach = config.getInt("weightVanillaBeach", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaBirchForest = config.getInt("weightVanillaBirchForest", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaBirchForestHills = config.getInt("weightVanillaBirchForestHills", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaColdBeach = config.getInt("weightVanillaColdBeach", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaColdTaiga = config.getInt("weightVanillaColdTaiga", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaColdTaigaHills = config.getInt("weightVanillaColdTaigaHills", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaDeepOcean = config.getInt("weightVanillaDeepOcean", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaDesert = config.getInt("weightVanillaDesert", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaDesertHills = config.getInt("weightVanillaDesertHills", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaExtremeHills = config.getInt("weightVanillaExtremeHills", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaExtremeHillsPlus = config.getInt("weightVanillaExtremeHillsPlus", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaForest = config.getInt("weightVanillaForest", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaForestHills = config.getInt("weightVanillaForestHills", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaFrozenRiver = config.getInt("weightVanillaFrozenRiver", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaIceMountains = config.getInt("weightVanillaIceMountains", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaIcePlains = config.getInt("weightVanillaIcePlains", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaJungle = config.getInt("weightVanillaJungle", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaJungleEdge = config.getInt("weightVanillaJungleEdge", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaJungleHills = config.getInt("weightVanillaJungleHills", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaMegaTaiga = config.getInt("weightVanillaMegaTaiga", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaMegaTaigaHills = config.getInt("weightVanillaMegaTaigaHills", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaMesa = config.getInt("weightVanillaMesa", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaMesaPlateau = config.getInt("weightVanillaMesaPlateau", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaMesaPlateau_F = config.getInt("weightVanillaMesaPlateau_F", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaMushroomIsland = config.getInt("weightVanillaMushroomIsland", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaMushroomIslandShore = config.getInt("weightVanillaMushroomIslandShore", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaOcean = config.getInt("weightVanillaOcean", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaPlains = config.getInt("weightVanillaPlains", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaRiver = config.getInt("weightVanillaRiver", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaRoofedForest = config.getInt("weightVanillaRoofedForest", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaSavanna = config.getInt("weightVanillaSavanna", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaSavannaPlateau = config.getInt("weightVanillaSavannaPlateau", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaStoneBeach = config.getInt("weightVanillaStoneBeach", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaSwampland = config.getInt("weightVanillaSwampland", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaTaiga = config.getInt("weightVanillaTaiga", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightVanillaTaigaHills = config.getInt("weightVanillaTaigaHills", "Vanilla Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			
 			/*
 			####################################################################################################
 			# END VANILLA BIOMES
@@ -143,8 +229,17 @@ public class ConfigRTG
 			enableCobblestoneBoulders = config.getBoolean("Enable Cobblestone Boulders", "Miscellaneous", true, "");
 			cobblestoneBoulderChance = config.getInt("1/x chance that Cobblestone Boulders will generate if given the opportunity to do so during world gen", "Miscellaneous", 1, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
 			
+			generateTropicalIslandsInOceanicBiomes = config.getBoolean("Generate Tropical Islands in Oceanic Biomes", "Miscellaneous", true, "");
+			tropicalIslandChance = config.getInt("1/x chance that Tropical Islands will generate in oceanic biomes if given the opportunity to do so during world gen", "Miscellaneous", 1, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
+			
+			generateVolcanoesInTropicalIslands = config.getBoolean("Generate Volcanoes in Tropical Islands", "Miscellaneous", true, "");
+			volcanoChance = config.getInt("1/x chance that Volcanoes will generate in Tropical Islands if given the opportunity to do so during world gen", "Miscellaneous", 1, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
+			
+			
 			showDebugInfo = config.getBoolean("Show Debug Info in F3 Screen", "Miscellaneous", false, "");
 			enableDebugging = config.getBoolean("Enable Debugging", "Miscellaneous", false, "WARNING: This should only be enabled if you know what you're doing.");
+			
+			biomeSize = config.getInt("Size of Biomes", "Miscellaneous", 4, 4, 6, "COMING SOON!!! 4 = Default World Type; 6 = Large Biomes World Type");
 			
 			/*
 			####################################################################################################

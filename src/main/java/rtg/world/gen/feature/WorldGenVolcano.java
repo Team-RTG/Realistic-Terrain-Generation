@@ -1,4 +1,4 @@
-package rtg.world.map;
+package rtg.world.gen.feature;
 
 import java.util.Random;
 
@@ -9,7 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
-public class MapVolcano
+public class WorldGenVolcano
 {
 	public static void build(Block[] blocks, byte[] metadata, World world, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, PerlinNoise perlin, CellNoise cell, float[] noise)
 	{	

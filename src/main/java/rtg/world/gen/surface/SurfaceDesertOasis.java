@@ -5,7 +5,7 @@ import java.util.Random;
 
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
-import rtg.util.PerlinNoise;
+import rtg.util.OpenSimplexNoise;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -29,7 +29,7 @@ public class SurfaceDesertOasis extends SurfaceBase
 	}
 	
 	@Override
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, PerlinNoise perlin, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		float c = CliffCalculator.calc(x, y, noise);
 		boolean cliff = c > 1.3f ? true : false;
@@ -72,7 +72,7 @@ public class SurfaceDesertOasis extends SurfaceBase
             	{
 	        		if(depth == 0 && k > 61)
 	        		{
-	        			if(perlin.noise2(i / 12f, j / 12f) > -0.3f + ((k - 61f) / 15f))
+	        			if(simplex.noise2(i / 12f, j / 12f) > -0.3f + ((k - 61f) / 15f))
 	        			{
 	        				dirt = true;
 		        			blocks[(y * 16 + x) * 256 + k] = topBlock;

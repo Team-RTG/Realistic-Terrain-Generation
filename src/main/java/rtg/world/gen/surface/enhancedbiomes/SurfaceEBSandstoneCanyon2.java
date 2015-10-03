@@ -4,7 +4,7 @@ import java.util.Random;
 
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
-import rtg.util.PerlinNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -24,12 +24,12 @@ public class SurfaceEBSandstoneCanyon2 extends SurfaceBase
 		grassRaise = grassHeight;
 		
 		int[] c = new int[]{1, 8, 0};
-		PerlinNoise perlin = new PerlinNoise(2L);
+		OpenSimplexNoise simplex = new OpenSimplexNoise(2L);
 		
 		float n;
 		for(int i = 0; i < 100; i++)
 		{
-			n = perlin.noise1(i / 3f) * 3f + perlin.noise1(i / 1f) * 0.3f + 1.5f;
+			n = simplex.noise1(i / 3f) * 3f + simplex.noise1(i / 1f) * 0.3f + 1.5f;
 			n = n >= 3f ? 2.9f : n < 0f ? 0f : n;
 			claycolor[i] = c[(int)n];
 		}
@@ -43,7 +43,7 @@ public class SurfaceEBSandstoneCanyon2 extends SurfaceBase
 	}
 	
 	@Override
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, PerlinNoise perlin, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		float c = CliffCalculator.calc(x, y, noise);
 		boolean cliff = c > 1.3f ? true : false;

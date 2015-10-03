@@ -1,7 +1,7 @@
 package rtg.world.gen.terrain.enhancedbiomes;
 
 import rtg.util.CellNoise;
-import rtg.util.PerlinNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBStoneCanyon extends TerrainBase
@@ -50,17 +50,17 @@ public class TerrainEBStoneCanyon extends TerrainBase
 	}
 
 	@Override
-	public float generateNoise(PerlinNoise perlin, CellNoise cell, int x, int y, float ocean, float border, float river)
+	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float ocean, float border, float river)
 	{
-		//float b = perlin.noise2(x / cWidth, y / cWidth) * cHeigth * river;
+		//float b = simplex.noise2(x / cWidth, y / cWidth) * cHeigth * river;
 		//b *= b / cStrength;
 		river *= 1.3f;
 		river = river > 1f ? 1f : river;
-		float r = perlin.noise2(x / 100f, y / 100f) * 50f;
+		float r = simplex.noise2(x / 100f, y / 100f) * 50f;
 		r = r < -7.4f ? -7.4f : r > 7.4f ? 7.4f : r;
 		float b = (17f + r) * river;
 		
-		float hn = perlin.noise2(x / 12f, y / 12f) * 0.5f;
+		float hn = simplex.noise2(x / 12f, y / 12f) * 0.5f;
 		float sb = 0f;
 		if(b > 0f)
 		{
@@ -99,7 +99,7 @@ public class TerrainEBStoneCanyon extends TerrainBase
 		}
 		else if(b < 5f)
 		{
-			bn = (perlin.noise2(x / 7f, y / 7f) * 1.3f + perlin.noise2(x / 15f, y / 15f) * 2f) * (5f - b) * 0.2f;
+			bn = (simplex.noise2(x / 7f, y / 7f) * 1.3f + simplex.noise2(x / 15f, y / 15f) * 2f) * (5f - b) * 0.2f;
 		}
 		
 		b += cTotal - bn;

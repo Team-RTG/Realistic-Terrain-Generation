@@ -1,7 +1,7 @@
 package rtg.world.gen.terrain.enhancedbiomes;
 
 import rtg.util.CellNoise;
-import rtg.util.PerlinNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBAspenHills extends TerrainBase
@@ -35,12 +35,12 @@ public class TerrainEBAspenHills extends TerrainBase
 	}
 	
 	@Override
-	public float generateNoise(PerlinNoise perlin, CellNoise cell, int x, int y, float ocean, float border, float river)
+	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float ocean, float border, float river)
 	{
-		float h = perlin.noise2(x / 20f, y / 20f) * 2;
-		h += perlin.noise2(x / 7f, y / 7f) * 0.8f;
+		float h = simplex.noise2(x / 20f, y / 20f) * 2;
+		h += simplex.noise2(x / 7f, y / 7f) * 0.8f;
 		
-		float m = perlin.noise2(x / width, y / width) * strength * river;
+		float m = simplex.noise2(x / width, y / width) * strength * river;
 		m *= m / 35f;
 		m = m > 70f ? 70f + (m - 70f) / 2.5f : m;
 		
@@ -48,13 +48,13 @@ public class TerrainEBAspenHills extends TerrainBase
 		st = st > 20f ? 20f : st;
 		float c = cell.noise(x / 30f, y / 30f, 1D) * (5f + st);
 		
-		float sm = perlin.noise2(x / 30f, y / 30f) * 8f + perlin.noise2(x / 8f, y / 8f);
+		float sm = simplex.noise2(x / 30f, y / 30f) * 8f + simplex.noise2(x / 8f, y / 8f);
 		sm *= (m + 10f) / 20f > 2.5f ? 2.5f : (m + 10f) / 20f;
 		m += sm;
 		
 		m += c;
 		
-		float l = perlin.noise2(x / lakeWidth, y / lakeWidth) * lakeDepth;
+		float l = simplex.noise2(x / lakeWidth, y / lakeWidth) * lakeDepth;
 		l *= l / 25f;
 		l = l < -8f ? -8f : l;
 		

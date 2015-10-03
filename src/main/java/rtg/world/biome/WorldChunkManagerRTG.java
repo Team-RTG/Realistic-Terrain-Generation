@@ -14,7 +14,7 @@ import rtg.config.ConfigRTG;
 import rtg.debug.DebugHandler;
 import rtg.util.CellNoise;
 import rtg.util.Logger;
-import rtg.util.PerlinNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaStoneBeach;
@@ -30,7 +30,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     private BiomeCache biomeCache;
     private List biomesToSpawnIn;
 
-    private PerlinNoise perlin;
+    private OpenSimplexNoise simplex;
     private CellNoise cell;
     
     private CellNoise biomecell;
@@ -68,7 +68,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         this();
         long seed = par1World.getSeed();
         
-    	perlin = new PerlinNoise(seed);
+    	simplex = new OpenSimplexNoise(seed);
     	cell = new CellNoise(seed, (short)0);
     	cell.setUseDistance(true);
     	biomecell = new CellNoise(seed, (short)0);
@@ -135,7 +135,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     public float getOceanValue(int x, int y)
     {
 		float base = -(-0f);
-		float sample1 = perlin.noise2(x / 1200f, y / 1200f) + base;
+		float sample1 = simplex.noise2(x / 1200f, y / 1200f) + base;
 		float sample2 = 0f, sa = 0f, highest = 0f;
 		
 		if(sample1 == 0f)
@@ -143,23 +143,23 @@ public class WorldChunkManagerRTG extends WorldChunkManager
 			highest = 1f;
 		}
 		
-		if(diff(sample1, sample2 = perlin.noise2((x - 100f) / 1200f, y / 1200f) + base, base))
+		if(diff(sample1, sample2 = simplex.noise2((x - 100f) / 1200f, y / 1200f) + base, base))
 		{
 			sa = sample1 * (1 / Math.abs(sample1 - sample2));
 			highest = 1f - Math.abs(sa) > highest ? 1f - Math.abs(sa) : highest;
 		}
-		else if(diff(sample1, sample2 = perlin.noise2((x + 100f) / 1200f, y / 1200f) + base, base))
+		else if(diff(sample1, sample2 = simplex.noise2((x + 100f) / 1200f, y / 1200f) + base, base))
 		{
 			sa = sample1 * (1 / Math.abs(sample1 - sample2));
 			highest = 1f - Math.abs(sa) > highest ? 1f - Math.abs(sa) : highest;
 		}
 		
-		if(diff(sample1, sample2 = perlin.noise2(x / 1200f, (y + 100f) / 1200f) + base, base))
+		if(diff(sample1, sample2 = simplex.noise2(x / 1200f, (y + 100f) / 1200f) + base, base))
 		{
 			sa = sample1 * (1 / Math.abs(sample1 - sample2));
 			highest = 1f - Math.abs(sa) > highest ? 1f - Math.abs(sa) : highest;
 		}
-		else if(diff(sample1, sample2 = perlin.noise2(x / 1200f, (y - 100f) / 1200f) + base, base))
+		else if(diff(sample1, sample2 = simplex.noise2(x / 1200f, (y - 100f) / 1200f) + base, base))
 		{
 			sa = sample1 * (1 / Math.abs(sample1 - sample2));
 			highest = 1f - Math.abs(sa) > highest ? 1f - Math.abs(sa) : highest;
@@ -327,22 +327,22 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     	}
     	
     	float ocean = getOceanValue(x, y);
-    	return getBiomeDataAt(x, y, ocean).rNoise(perlin, cell, x, y, ocean, 1f, river);
+    	return getBiomeDataAt(x, y, ocean).rNoise(simplex, cell, x, y, ocean, 1f, river);
     }
     
     public float getNoiseWithRiverOceanAt(int x, int y, float river, float ocean)
     {
-    	return getBiomeDataAt(x, y, ocean).rNoise(perlin, cell, x, y, ocean, 1f, river);
+    	return getBiomeDataAt(x, y, ocean).rNoise(simplex, cell, x, y, ocean, 1f, river);
     }
     
     public float calculateRiver(int x, int y, float st, float biomeHeight)
     {
     	if(st < 0f && biomeHeight > 59f)
     	{
-    		float pX = x + (perlin.noise1(y / 240f) * 220f);
-    		float pY = y + (perlin.noise1(x / 240f) * 220f);
+    		float pX = x + (simplex.noise1(y / 240f) * 220f);
+    		float pY = y + (simplex.noise1(x / 240f) * 220f);
     		float r = cell.border(pX / 1250D, pY / 1250D, 50D / 1300D, 1f);
-    		return (biomeHeight * (r + 1f)) + ((59f + perlin.noise2(x / 12f, y / 12f) * 2f + perlin.noise2(x / 8f, y / 8f) * 1.5f) * (-r));
+    		return (biomeHeight * (r + 1f)) + ((59f + simplex.noise2(x / 12f, y / 12f) * 2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (-r));
     	}
     	else
     	{
@@ -352,7 +352,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     
     public float getRiverStrength(int x, int y)
     {
-    	return cell.border((x + (perlin.noise1(y / 240f) * 220f)) / 1250D, (y + (perlin.noise1(x / 240f) * 220f)) / 1250D, 50D / 300D, 1f);
+    	return cell.border((x + (simplex.noise1(y / 240f) * 220f)) / 1250D, (y + (simplex.noise1(x / 240f) * 220f)) / 1250D, 50D / 300D, 1f);
     }
     
     public boolean isBorderlessAt(int x, int y)

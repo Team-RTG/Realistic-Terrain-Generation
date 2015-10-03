@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
-import rtg.util.PerlinNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 
 public class SurfaceEBAlpineMountainsEdge extends SurfaceBase
@@ -43,7 +43,7 @@ public class SurfaceEBAlpineMountainsEdge extends SurfaceBase
 	}
 	
 	@Override
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, PerlinNoise perlin, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		float c = CliffCalculator.calc(x, y, noise);
 		int cliff = 0;
@@ -71,7 +71,7 @@ public class SurfaceEBAlpineMountainsEdge extends SurfaceBase
             			}
             		}
 
-					float p = perlin.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+					float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
         			if(c > min && c > sCliff - ((k - sHeight) / sStrength) + p)
         			{
         				cliff = 1;

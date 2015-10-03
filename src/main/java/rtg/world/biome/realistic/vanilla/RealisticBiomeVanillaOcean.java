@@ -9,7 +9,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.config.ConfigRTG;
 import rtg.util.CellNoise;
-import rtg.util.PerlinNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeGenManager;
 import rtg.world.biome.WorldChunkManagerRTG;
@@ -46,7 +46,7 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase
 	}
 	
     @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, PerlinNoise perlin, CellNoise cell, float strength, float river)
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
     {
     	if(rand.nextInt((int)(2f / strength)) == 0)
 		{
@@ -122,7 +122,7 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase
     }
     
     @Override
-    public void rMapGen(Block[] blocks, byte[] metadata, World world, WorldChunkManagerRTG cmr, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, PerlinNoise perlin, CellNoise cell, float noise[])
+    public void rMapGen(Block[] blocks, byte[] metadata, World world, WorldChunkManagerRTG cmr, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[])
     {
         if(baseX % 4 == 0 && baseY % 4 == 0 && mapRand.nextInt(6) == 0)
         {
@@ -133,15 +133,15 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase
 	            long j1 = mapRand.nextLong() / 2L * 2L + 1L;
 	            mapRand.setSeed((long)chunkX * i1 + (long)chunkY * j1 ^ world.getSeed());
 
-	            WorldGenVolcano.build(blocks, metadata, world, mapRand, baseX, baseY, chunkX, chunkY, perlin, cell, noise);
+	            WorldGenVolcano.build(blocks, metadata, world, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
         	}
         }
     }
     
     @Override
-    public float rNoise(PerlinNoise perlin, CellNoise cell, int x, int y, float ocean, float border, float river)
+    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float ocean, float border, float river)
     {
-    	float st = 15f - ((cell.noise(x / 500D, y / 500D, 1D) * 42f) + (perlin.noise2(x / 30f, y / 30f) * 2f));
+    	float st = 15f - ((cell.noise(x / 500D, y / 500D, 1D) * 42f) + (simplex.noise2(x / 30f, y / 30f) * 2f));
     	
     	st = st < 0f ? 0f : st;
 
@@ -155,15 +155,15 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase
 			h += cell.noise(x / 25D, y / 25D, 1D) * d2;
 		}
 		
-		h += perlin.noise2(x / 18f, y / 18f) * 3;
-		h += perlin.noise2(x / 8f, y / 8f) * 2;
+		h += simplex.noise2(x / 18f, y / 18f) * 3;
+		h += simplex.noise2(x / 8f, y / 8f) * 2;
     	
     	return 55f + h * border;
     }
     
     @Override
-    public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, PerlinNoise perlin, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+    public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
-    	surface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, perlin, cell, noise, river, base);
+    	surface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

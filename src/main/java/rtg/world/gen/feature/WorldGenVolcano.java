@@ -3,7 +3,7 @@ package rtg.world.gen.feature;
 import java.util.Random;
 
 import rtg.util.CellNoise;
-import rtg.util.PerlinNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.util.TerrainMath;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 public class WorldGenVolcano
 {
-	public static void build(Block[] blocks, byte[] metadata, World world, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, PerlinNoise perlin, CellNoise cell, float[] noise)
+	public static void build(Block[] blocks, byte[] metadata, World world, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float[] noise)
 	{	
 		int i, j;
 		float distance, height, obsidian;
@@ -25,11 +25,11 @@ public class WorldGenVolcano
 				j = (chunkY * 16) + z;
 				
 				distance = (float)TerrainMath.dis2(i, j, baseX * 16, baseY * 16);
-				obsidian = 140f + distance + perlin.noise2(i / 16f, j / 16f) * 15f;
+				obsidian = 140f + distance + simplex.noise2(i / 16f, j / 16f) * 15f;
 				
-				if(distance < 10 + perlin.noise2(i / 3f, j / 3f) * 1.5f)
+				if(distance < 10 + simplex.noise2(i / 3f, j / 3f) * 1.5f)
 				{
-					height = perlin.noise2(i / 5f, j / 5f) * 2f;
+					height = simplex.noise2(i / 5f, j / 5f) * 2f;
 					for (int y = 255; y > -1; y--)
 					{
 						if(y > 165)
@@ -62,7 +62,7 @@ public class WorldGenVolcano
 				}
 				else
 				{
-					height = 190f - (distance + perlin.noise2(i / 12f, j / 12f) * 5f) * 1.7f;
+					height = 190f - (distance + simplex.noise2(i / 12f, j / 12f) * 5f) * 1.7f;
 					if(height > noise[x * 16 + z])
 					{
 						noise[x * 16 + z] = height;

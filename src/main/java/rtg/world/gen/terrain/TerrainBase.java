@@ -1,7 +1,7 @@
 package rtg.world.gen.terrain;
 
 import rtg.util.CellNoise;
-import rtg.util.PerlinNoise;
+import rtg.util.OpenSimplexNoise;
 
 public class TerrainBase 
 {
@@ -9,7 +9,7 @@ public class TerrainBase
 	{
 	}
 	
-	public float generateNoise(PerlinNoise perlin, CellNoise cell, int x, int y, float ocean, float border, float river)
+	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float ocean, float border, float river)
 	{
 		return 70f;
 	}

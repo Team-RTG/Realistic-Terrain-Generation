@@ -18,7 +18,7 @@ import rtg.config.ConfigRTG;
 import rtg.debug.DebugHandler;
 import rtg.util.CanyonColor;
 import rtg.util.CellNoise;
-import rtg.util.PerlinNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenClay;
@@ -76,7 +76,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private final MapGenVillage villageGenerator;
     private final MapGenScatteredFeature scatteredFeatureGenerator;
     
-    private PerlinNoise perlin;
+    private OpenSimplexNoise simplex;
     private CellNoise cell;
     
 	private RealisticBiomeBase[] biomesForGeneration;
@@ -119,7 +119,7 @@ public class ChunkProviderRTG implements IChunkProvider
         cmr = (WorldChunkManagerRTG)worldObj.getWorldChunkManager();
         
         rand = new Random(l);
-        perlin = new PerlinNoise(l);
+        simplex = new OpenSimplexNoise(l);
     	cell = new CellNoise(l, (short)0);
     	cell.setUseDistance(true);
     	
@@ -188,7 +188,7 @@ public class ChunkProviderRTG implements IChunkProvider
         {
         	if(mapGenBiomes[k] > 0f)
         	{
-        		RealisticBiomeBase.getBiome(k).generateMapGen(blocks, metadata, worldSeed, worldObj, cmr, mapRand, cx, cy, perlin, cell, noise);
+        		RealisticBiomeBase.getBiome(k).generateMapGen(blocks, metadata, worldSeed, worldObj, cmr, mapRand, cx, cy, simplex, cell, noise);
         		mapGenBiomes[k] = 0f;
         	}
         	baseBiomesList[k] = biomesForGeneration[k].baseBiome;
@@ -410,7 +410,7 @@ public class ChunkProviderRTG implements IChunkProvider
     			if(randBiome)
     			{
     				bCount = 0f;
-    				bRand = 0.5f + perlin.noise2((float)(x + i) / 15f, (float)(y + j) / 15f);
+    				bRand = 0.5f + simplex.noise2((float)(x + i) / 15f, (float)(y + j) / 15f);
     				bRand = bRand < 0f ? 0f : bRand > 0.99999f ? 0.99999f : bRand;
     			}
     			
@@ -446,7 +446,7 @@ public class ChunkProviderRTG implements IChunkProvider
     	    				mapGenBiomes[k] = smallRender[312][k];
     	    			}
     	    			
-    					testHeight[i * 16 + j] += cmr.calculateRiver(x + i, y + j, river, RealisticBiomeBase.getBiome(k).rNoise(perlin, cell, x + i, y + j, ocean, smallRender[l][k], river + 1f)) * smallRender[l][k];
+    					testHeight[i * 16 + j] += cmr.calculateRiver(x + i, y + j, river, RealisticBiomeBase.getBiome(k).rNoise(simplex, cell, x + i, y + j, ocean, smallRender[l][k], river + 1f)) * smallRender[l][k];
     				}
     			}
     		}
@@ -492,14 +492,14 @@ public class ChunkProviderRTG implements IChunkProvider
     			RealisticBiomeBase biome = biomes[i * 16 + j];
     			
     			river = -cmr.getRiverStrength(cx * 16 + j, cy * 16 + i);
-    			if(river > 0.05f && river + (perlin.noise2((cx * 16 + j) / 10f, (cy * 16 + i) / 10f) * 0.15f) > 0.8f)
+    			if(river > 0.05f && river + (simplex.noise2((cx * 16 + j) / 10f, (cy * 16 + i) / 10f) * 0.15f) > 0.8f)
     			{
     				base[i * 16 + j] = biome.riverBiome;
     			}
     			
     			depth = -1;
                 
-    			biome.rReplace(blocks, metadata, cx * 16 + j, cy * 16 + i, i, j, depth, worldObj, rand, perlin, cell, n, river, base);
+    			biome.rReplace(blocks, metadata, cx * 16 + j, cy * 16 + i, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
     			
     			blocks[(j * 16 + i) * 256] = Blocks.bedrock;
     			blocks[(j * 16 + i) * 256 + rand.nextInt(2)] = Blocks.bedrock;
@@ -773,7 +773,7 @@ public class ChunkProviderRTG implements IChunkProvider
         			borderNoise[bn] = 1f;
         		}
         		b = RealisticBiomeBase.getBiome(bn);
-                b.rDecorate(this.worldObj, this.rand, x, y, perlin, cell, borderNoise[bn], river);
+                b.rDecorate(this.worldObj, this.rand, x, y, simplex, cell, borderNoise[bn], river);
                 
                 if(b.baseBiome.temperature < 0.15f)
                 {
@@ -857,7 +857,7 @@ public class ChunkProviderRTG implements IChunkProvider
 	            	}
 	            	else
 	            	{
-	            		s = perlin.noise2((sn1 + x) / 3f, (sn2 + y) / 3f) + snow;
+	            		s = simplex.noise2((sn1 + x) / 3f, (sn2 + y) / 3f) + snow;
 	            	}
 	            	
 	            	if(s < 0f)

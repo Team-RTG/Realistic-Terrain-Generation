@@ -1,6 +1,5 @@
 /**
- * Replacement PerlinNoise.java that generates
- * OpenSimplex Noise instead of Perlin Noise.
+ * Generates OpenSimplex Noise
  *
  * 2D function by Kurt Spencer (With new Dodecagonal gradient set)
  * 3D function heavily optimized variant by DigitalShadow
@@ -11,8 +10,9 @@ package rtg.util;
 /**
  * @author Kurt Spencer
  * @version $Revision: 1.1$
+ * @see https://gist.github.com/KdotJPG/b1270127455a94ac5d19
  */
-public class PerlinNoise {
+public class OpenSimplexNoise {
 
 	private static final double STRETCH_2D = -0.211324865405187;    //(1/Math.sqrt(2+1)-1)/2;
 	private static final double STRETCH_3D = -1.0 / 6.0;            //(1/Math.sqrt(3+1)-1)/3;
@@ -25,11 +25,11 @@ public class PerlinNoise {
 	private int[] perm2D;
 	private int[] perm3D;
 	
-	public PerlinNoise() {
+	public OpenSimplexNoise() {
 		this(DEFAULT_SEED);
 	}
 	
-	public PerlinNoise(long seed) {
+	public OpenSimplexNoise(long seed) {
 		perm = new int[256];
 		perm2D = new int[256];
 		perm3D = new int[256];

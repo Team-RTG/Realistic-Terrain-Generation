@@ -4,7 +4,7 @@ import java.util.Random;
 
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
-import rtg.util.PerlinNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.util.SnowHeightCalculator;
 import rtg.world.gen.surface.SurfaceBase;
 import net.minecraft.block.Block;
@@ -20,17 +20,17 @@ public class SurfaceEBSahara extends SurfaceBase
 	}
 	
 	@Override
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, PerlinNoise perlin, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		boolean water = false;
 		boolean riverPaint = false;
 		boolean grass = false;
 		
-		if(river > 0.05f && river + (perlin.noise2(i / 10f, j / 10f) * 0.1f) > 0.86f)
+		if(river > 0.05f && river + (simplex.noise2(i / 10f, j / 10f) * 0.1f) > 0.86f)
 		{
 			riverPaint = true;
 			
-			if(perlin.noise2(i / 12f, j / 12f) > 0.25f)
+			if(simplex.noise2(i / 12f, j / 12f) > 0.25f)
 			{
 				grass = true;
 			}

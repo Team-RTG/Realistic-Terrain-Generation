@@ -10,6 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.config.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.RandomUtil;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeGenManager;
 import rtg.world.biome.WorldChunkManagerRTG;
@@ -27,8 +28,7 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaDeepOcean;
 
 public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase
 {	
-	private SurfaceBase surface = new SurfaceIslandMountainStone(Blocks.grass, Blocks.dirt, 67, Blocks.sand, 0f);
-	
+	public static SurfaceBase islandSurface = new SurfaceIslandMountainStone(Blocks.grass, Blocks.dirt, 67, Blocks.sand, 0f);
 	public static Block topBlock = BiomeGenBase.deepOcean.topBlock;
 	public static Block fillerBlock = BiomeGenBase.deepOcean.fillerBlock;
 	
@@ -124,7 +124,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase
     @Override
     public void rMapGen(Block[] blocks, byte[] metadata, World world, WorldChunkManagerRTG cmr, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[])
     {
-        if(baseX % 4 == 0 && baseY % 4 == 0 && mapRand.nextInt(6) == 0)
+        if(baseX % 4 == 0 && baseY % 4 == 0 && shouldGenerateVolcano()) //Not sure if the factor-of-4 thing is important, or if it's just used to randomly generate the volcano.
         {
         	float river = cmr.getRiverStrength(baseX * 16, baseY * 16) + 1f;
         	if(river > 0.98f && cmr.isBorderlessAt(baseX * 16, baseY * 16) && cmr.getNoiseWithRiverOceanAt(baseX * 16, baseY * 16, river, cmr.getOceanValue(baseX * 16, baseY * 16)) > 110f)
@@ -164,6 +164,26 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase
     @Override
     public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
-    	surface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+    	islandSurface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+    }
+    
+    public static boolean shouldGenerateTropicalIsland()
+    {
+    	int tropicalIslandChance = (ConfigRTG.tropicalIslandChance < 1) ? 1 : ((ConfigRTG.tropicalIslandChance > 100) ? 100 : ConfigRTG.tropicalIslandChance);
+    	int random = RandomUtil.getRandomInt(1, tropicalIslandChance);
+    	return (random == 1) ? true : false;
+    }
+    
+    public static boolean shouldGenerateVolcano()
+    {
+    	boolean shouldGenerateVolcano = false;
+    	
+    	if (ConfigRTG.generateVolcanoesInTropicalIslands) {
+	    	int volcanoChance = (ConfigRTG.volcanoChance < 1) ? 1 : ((ConfigRTG.volcanoChance > 100) ? 100 : ConfigRTG.volcanoChance);
+	    	int random = RandomUtil.getRandomInt(1, volcanoChance);
+	    	shouldGenerateVolcano = (random == 1) ? true : false;
+    	}
+    	
+    	return shouldGenerateVolcano;
     }
 }

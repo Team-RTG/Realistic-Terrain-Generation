@@ -5,6 +5,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigRTG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeGenManager;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIcePlains;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaIcePlains;
 
@@ -23,6 +24,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
 		);
 		
 		this.setRealisticBiomeName("Vanilla Ice Plains");
+		this.biomeCategory = BiomeCategory.SNOW;
 		BiomeGenManager.addFrozenBiome(this, ConfigRTG.weightVanillaIcePlains);
 	}	
 }

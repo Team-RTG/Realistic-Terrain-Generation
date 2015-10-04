@@ -6,6 +6,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigRTG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeGenManager;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaFrozenRiver;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaFrozenRiver;
 
@@ -24,6 +25,7 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase
 		);
 		
 		this.setRealisticBiomeName("Vanilla Frozen River");
+		this.biomeCategory = BiomeCategory.SNOW;
 		BiomeGenManager.addFrozenBiome(this, ConfigRTG.weightVanillaFrozenRiver);
 	}	
 }

@@ -5,6 +5,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigRTG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeGenManager;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaStoneBeach;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaStoneBeach;
 
@@ -23,6 +24,7 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase
 		);
 		
 		this.setRealisticBiomeName("Vanilla Stone Beach");
+		this.biomeCategory = BiomeCategory.WET;
 		BiomeGenManager.addCoolBiome(this, ConfigRTG.weightVanillaStoneBeach);
 	}	
 }

@@ -101,11 +101,21 @@ public class BiomeBase extends BiomeGenBase
 		{
 			switch(cat)
 			{
-				case SNOW: biomes_snow.add(b); b.biomeCategory = BiomeCategory.SNOW; break;
-				case COLD: biomes_cold.add(b); b.biomeCategory = BiomeCategory.COLD; break;
-				case HOT: biomes_hot.add(b); b.biomeCategory = BiomeCategory.HOT; break;
-				case WET: biomes_wet.add(b); b.biomeCategory = BiomeCategory.WET; break;
-				case SMALL: biomes_small.add(b); b.biomeCategory = BiomeCategory.SMALL; break;
+				case SNOW: 
+					biomes_snow.add(b); 
+					break;
+				case COLD: 
+					biomes_cold.add(b); 
+					break;
+				case HOT: 
+					biomes_hot.add(b); 
+					break;
+				case WET: 
+					biomes_wet.add(b); 
+					break;
+				case SMALL: 
+					biomes_small.add(b); 
+					break;
 			}
 		}
 		catch(Error e)

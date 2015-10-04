@@ -5,6 +5,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigRTG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeGenManager;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaForestHills;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaForestHills;
 
@@ -23,6 +24,7 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase
 		);
 		
 		this.setRealisticBiomeName("Vanilla Forest Hills");
+		this.biomeCategory = BiomeCategory.WET;
 		BiomeGenManager.addWarmBiome(this, ConfigRTG.weightVanillaForestHills);
 	}	
 }

@@ -5,6 +5,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigRTG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeGenManager;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSavannaPlateau;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaSavannaPlateau;
 
@@ -23,6 +24,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
 		);
 		
 		this.setRealisticBiomeName("Vanilla Savanna Plateau");
+		this.biomeCategory = BiomeCategory.HOT;
 		BiomeGenManager.addHotBiome(this, ConfigRTG.weightVanillaSavannaPlateau);
 	}	
 }

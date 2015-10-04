@@ -14,6 +14,7 @@ import rtg.util.RandomUtil;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeGenManager;
 import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenVolcano;
@@ -42,6 +43,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase
 		);
 		
 		this.setRealisticBiomeName("Vanilla Deep Ocean");
+		this.biomeCategory = BiomeCategory.WET;
 		BiomeGenManager.addCoolBiome(this, ConfigRTG.weightVanillaDeepOcean);
 	}
 	

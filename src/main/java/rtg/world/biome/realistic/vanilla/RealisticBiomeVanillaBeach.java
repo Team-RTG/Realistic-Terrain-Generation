@@ -30,6 +30,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase
 		);
 		
 		this.setRealisticBiomeName("Vanilla Beach");
+		this.biomeCategory = BiomeCategory.WET;
 		BiomeGenManager.addWarmBiome(this, ConfigRTG.weightVanillaBeach);
 	}
 	

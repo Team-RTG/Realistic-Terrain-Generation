@@ -6,6 +6,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigRTG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeGenManager;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaOcean;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaOcean;
 
@@ -24,6 +25,7 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase
 		);
 		
 		this.setRealisticBiomeName("Vanilla Ocean");
+		this.biomeCategory = BiomeCategory.WET;
 		BiomeGenManager.addCoolBiome(this, ConfigRTG.weightVanillaOcean);
 	}
 }

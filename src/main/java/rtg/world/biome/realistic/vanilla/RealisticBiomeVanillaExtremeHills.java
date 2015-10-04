@@ -5,6 +5,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigRTG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeGenManager;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHills;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHills;
 
@@ -23,6 +24,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
 		);
 		
 		this.setRealisticBiomeName("Vanilla Extreme Hills");
+		this.biomeCategory = BiomeCategory.COLD;
 		BiomeGenManager.addCoolBiome(this, ConfigRTG.weightVanillaExtremeHills);
 	}	
 }

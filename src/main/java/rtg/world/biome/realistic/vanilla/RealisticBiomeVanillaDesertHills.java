@@ -6,6 +6,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigRTG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeGenManager;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesertHills;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaDesertHills;
 
@@ -24,6 +25,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
 		);
 		
 		this.setRealisticBiomeName("Vanilla Desert Hills");
+		this.biomeCategory = BiomeCategory.HOT;
 		BiomeGenManager.addHotBiome(this, ConfigRTG.weightVanillaDesertHills);
 	}	
 }

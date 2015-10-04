@@ -6,6 +6,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigRTG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeGenManager;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaPlains;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaPlains;
 
@@ -24,6 +25,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
 		);
 		
 		this.setRealisticBiomeName("Vanilla Plains");
+		this.biomeCategory = BiomeCategory.WET;
 		BiomeGenManager.addWarmBiome(this, ConfigRTG.weightVanillaPlains);
 	}
 }

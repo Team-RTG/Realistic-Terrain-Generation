@@ -4,6 +4,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRoofedShrublands;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBRoofedShrublands;
 
@@ -18,6 +19,7 @@ public class RealisticBiomeEBRoofedShrublands extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Roofed Shrublands");
+		this.biomeCategory = BiomeCategory.WET;
 		this.biomeWeight = ConfigEB.weightEBRoofedShrublands;
 	}
 }

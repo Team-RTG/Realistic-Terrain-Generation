@@ -123,6 +123,38 @@ public class BiomeBase extends BiomeGenBase
 			System.out.println("RTG Support: failed to add biome");
 		}
 	}
+	
+	public static void addBiome(RealisticBiomeBase b)
+	{
+		BiomeCategory cat = b.biomeCategory;
+		cat = (cat != null) ? cat : BiomeCategory.WET;
+		
+		try
+		{
+			switch(cat)
+			{
+				case SNOW:
+					addWeightedBiome(b, biomes_snow);
+					break;
+				case COLD:
+					addWeightedBiome(b, biomes_cold);
+					break;
+				case HOT: 
+					addWeightedBiome(b, biomes_hot);
+					break;
+				case WET: 
+					addWeightedBiome(b, biomes_wet);
+					break;
+				case SMALL: 
+					addWeightedBiome(b, biomes_small);
+					break;
+			}
+		}
+		catch(Error e)
+		{
+			System.out.println("RTG Support: failed to add biome");
+		}
+	}
 
 	public static void addWeightedBiome(RealisticBiomeBase b, ArrayList<RealisticBiomeBase> ba)
 	{

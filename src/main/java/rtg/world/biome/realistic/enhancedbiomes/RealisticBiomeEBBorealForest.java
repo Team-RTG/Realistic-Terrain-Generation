@@ -4,6 +4,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBBorealForest;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBBorealForest;
 
@@ -18,6 +19,7 @@ public class RealisticBiomeEBBorealForest extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Boreal Forest");
+		this.biomeCategory = BiomeCategory.COLD;
 		this.biomeWeight = ConfigEB.weightEBBorealForest;
 	}
 }

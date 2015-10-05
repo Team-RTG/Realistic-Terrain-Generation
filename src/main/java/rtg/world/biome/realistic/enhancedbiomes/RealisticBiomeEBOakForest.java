@@ -4,6 +4,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBOakForest;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBOakForest;
 
@@ -18,6 +19,7 @@ public class RealisticBiomeEBOakForest extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Oak Forest");
+		this.biomeCategory = BiomeCategory.WET;
 		this.biomeWeight = ConfigEB.weightEBOakForest;
 	}
 }

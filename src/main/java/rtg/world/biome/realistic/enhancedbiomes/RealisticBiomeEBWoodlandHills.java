@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBWoodlandHills;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBWoodlandHills;
 
@@ -17,6 +18,7 @@ public class RealisticBiomeEBWoodlandHills extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Woodland Hills");
+		this.biomeCategory = BiomeCategory.WET;
 		this.biomeWeight = ConfigEB.weightEBWoodlandHills;
 	}
 }

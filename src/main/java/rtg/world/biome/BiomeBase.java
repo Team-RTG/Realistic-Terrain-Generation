@@ -101,20 +101,20 @@ public class BiomeBase extends BiomeGenBase
 		{
 			switch(cat)
 			{
-				case SNOW: 
-					biomes_snow.add(b); 
+				case SNOW:
+					addWeightedBiome(b, biomes_snow);
 					break;
-				case COLD: 
-					biomes_cold.add(b); 
+				case COLD:
+					addWeightedBiome(b, biomes_cold);
 					break;
 				case HOT: 
-					biomes_hot.add(b); 
+					addWeightedBiome(b, biomes_hot);
 					break;
 				case WET: 
-					biomes_wet.add(b); 
+					addWeightedBiome(b, biomes_wet);
 					break;
 				case SMALL: 
-					biomes_small.add(b); 
+					addWeightedBiome(b, biomes_small);
 					break;
 			}
 		}
@@ -123,27 +123,16 @@ public class BiomeBase extends BiomeGenBase
 			System.out.println("RTG Support: failed to add biome");
 		}
 	}
-	
-	public static void addBiome(RealisticBiomeBase b, BiomeBase.BiomeCategory[] cat)
+
+	public static void addWeightedBiome(RealisticBiomeBase b, ArrayList<RealisticBiomeBase> ba)
 	{
-		for (int i = 0; i < cat.length; i++)
-		{
-			try
-			{
-				switch(cat[i])
-				{
-					case SNOW: biomes_snow.add(b); break;
-					case COLD: biomes_cold.add(b); break;
-					case HOT: biomes_hot.add(b); break;
-					case WET: biomes_wet.add(b); break;
-					case SMALL: biomes_small.add(b); break;
-				}
-			}
-			catch(Error e)
-			{
-				System.out.println("RTG Support: failed to add biome");
+		int bw = (int) b.biomeWeight;
+		bw = (bw < 0) ? 0 : ((bw > 100) ? 100 : bw);
+		
+		if (bw > 0) {			
+			for (int i = 0; i < bw; i++) {
+				ba.add(b);
 			}
 		}
 	}
-
 }

@@ -4,7 +4,6 @@ import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigBOP;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPAlpsForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPAlpsForest;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -25,6 +24,6 @@ public class RealisticBiomeBOPAlpsForest extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Alps Forest");
-		BiomeGenManager.addFrozenBiome(this, ConfigBOP.weightBOPalpsForest);
+		this.biomeWeight = ConfigBOP.weightBOPalpsForest;
 	}
 }

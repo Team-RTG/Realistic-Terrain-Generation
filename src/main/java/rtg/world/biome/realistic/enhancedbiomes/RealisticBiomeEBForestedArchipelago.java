@@ -4,7 +4,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBForestedArchipelago;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBForestedArchipelago;
 
@@ -19,6 +18,6 @@ public class RealisticBiomeEBForestedArchipelago extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Forested Archipelago");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBForestedArchipelago);
+		this.biomeWeight = ConfigEB.weightEBForestedArchipelago;
 	}
 }

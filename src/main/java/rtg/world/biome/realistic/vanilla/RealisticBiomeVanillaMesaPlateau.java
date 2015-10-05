@@ -4,8 +4,6 @@ import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigRTG;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
-import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaPlateau;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateau;
 
@@ -25,6 +23,6 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase
 		
 		this.setRealisticBiomeName("Vanilla Mesa Plateau");
 		this.biomeCategory = BiomeCategory.HOT;
-		BiomeGenManager.addHotBiome(this, ConfigRTG.weightVanillaMesaPlateau);
+		this.biomeWeight = ConfigRTG.weightVanillaMesaPlateau;
 	}	
 }

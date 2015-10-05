@@ -4,7 +4,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBCypressForest;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBCypressForest;
 
@@ -19,6 +18,6 @@ public class RealisticBiomeEBCypressForest extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Cypress Forest");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBCypressForest);
+		this.biomeWeight = ConfigEB.weightEBCypressForest;
 	}
 }

@@ -4,8 +4,6 @@ import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigRTG;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
-import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdBeach;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaColdBeach;
 
@@ -25,6 +23,6 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 		
 		this.setRealisticBiomeName("Vanilla Cold Beach");
 		this.biomeCategory = BiomeCategory.COLD;
-		BiomeGenManager.addFrozenBiome(this, ConfigRTG.weightVanillaColdBeach);
+		this.biomeWeight = ConfigRTG.weightVanillaColdBeach;
 	}	
 }

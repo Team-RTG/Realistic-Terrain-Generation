@@ -4,7 +4,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBWoodlands;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBWoodlands;
 
@@ -19,6 +18,6 @@ public class RealisticBiomeEBWoodlands extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Woodlands");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBWoodlands);
+		this.biomeWeight = ConfigEB.weightEBWoodlands;
 	}
 }

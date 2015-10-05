@@ -4,7 +4,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBEphemeralLakeEdge;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBEphemeralLakeEdge;
 
@@ -19,6 +18,6 @@ public class RealisticBiomeEBEphemeralLakeEdge extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Ephemeral Lake Edge");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBEphemeralLakeEdge);
+		this.biomeWeight = ConfigEB.weightEBEphemeralLakeEdge;
 	}
 }

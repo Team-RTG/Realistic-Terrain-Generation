@@ -4,8 +4,6 @@ import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigRTG;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
-import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaTaiga;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaTaiga;
 
@@ -25,6 +23,6 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanillaBase
 		
 		this.setRealisticBiomeName("Vanilla Taiga");
 		this.biomeCategory = BiomeCategory.COLD;
-		BiomeGenManager.addCoolBiome(this, ConfigRTG.weightVanillaTaiga);
+		this.biomeWeight = ConfigRTG.weightVanillaTaiga;
 	}	
 }

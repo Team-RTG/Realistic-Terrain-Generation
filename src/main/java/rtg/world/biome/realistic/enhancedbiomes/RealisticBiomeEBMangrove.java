@@ -4,7 +4,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBMangrove;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBMangrove;
 
@@ -19,6 +18,6 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Mangrove");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBMangroves);
+		this.biomeWeight = ConfigEB.weightEBMangroves;
 	}
 }

@@ -4,8 +4,6 @@ import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigRTG;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
-import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMushroomIsland;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMushroomIsland;
 
@@ -25,6 +23,6 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
 		
 		this.setRealisticBiomeName("Vanilla Mushroom Island");
 		this.biomeCategory = BiomeCategory.WET;
-		BiomeGenManager.addWarmBiome(this, ConfigRTG.weightVanillaMushroomIsland);
+		this.biomeWeight = ConfigRTG.weightVanillaMushroomIsland;
 	}	
 }

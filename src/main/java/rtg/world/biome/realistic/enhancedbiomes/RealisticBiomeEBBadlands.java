@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBBadlands;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBBadlands;
 
@@ -18,6 +17,6 @@ public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Badlands");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBBadlands);
+		this.biomeWeight = ConfigEB.weightEBBadlands;
 	}
 }

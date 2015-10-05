@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBStoneCanyon;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBStoneCanyon;
 
@@ -18,6 +17,6 @@ public class RealisticBiomeEBStoneCanyon extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Stone Canyon");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBStoneCanyon);
+		this.biomeWeight = ConfigEB.weightEBStoneCanyon;
 	}
 }

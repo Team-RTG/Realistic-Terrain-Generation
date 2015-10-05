@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBFirForest;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBFirForest;
 
@@ -18,6 +17,6 @@ public class RealisticBiomeEBFirForest extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Fir Forest");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBFirForest);
+		this.biomeWeight = ConfigEB.weightEBFirForest;
 	}
 }

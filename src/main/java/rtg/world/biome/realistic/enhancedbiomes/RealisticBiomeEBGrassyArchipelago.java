@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBGrassyArchipelago;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBGrassyArchipelago;
 
@@ -18,6 +17,6 @@ public class RealisticBiomeEBGrassyArchipelago extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Grassy Archipelago");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBGrassyArchipelago);
+		this.biomeWeight = ConfigEB.weightEBGrassyArchipelago;
 	}
 }

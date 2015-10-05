@@ -4,7 +4,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBFens;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBFens;
 
@@ -19,6 +18,6 @@ public class RealisticBiomeEBFens extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Fens");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBFens);
+		this.biomeWeight = ConfigEB.weightEBFens;
 	}
 }

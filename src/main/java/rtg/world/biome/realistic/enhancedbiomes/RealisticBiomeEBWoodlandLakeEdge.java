@@ -4,7 +4,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBWoodlandLakeEdge;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBWoodlandLakeEdge;
 
@@ -19,6 +18,6 @@ public class RealisticBiomeEBWoodlandLakeEdge extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Woodland Lake Edge");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBWoodlandLakeEdge);
+		this.biomeWeight = ConfigEB.weightEBWoodlandLakeEdge;
 	}
 }

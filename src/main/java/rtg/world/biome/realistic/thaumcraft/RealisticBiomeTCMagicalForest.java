@@ -1,13 +1,11 @@
 package rtg.world.biome.realistic.thaumcraft;
 
-import rtg.config.ConfigTC;
-import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
-import rtg.world.gen.surface.thaumcraft.SurfaceTCMagicalForest;
-import rtg.world.gen.terrain.thaumcraft.TerrainTCMagicalForest;
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.config.ConfigTC;
+import rtg.world.biome.BiomeBase;
+import rtg.world.gen.surface.thaumcraft.SurfaceTCMagicalForest;
+import rtg.world.gen.terrain.thaumcraft.TerrainTCMagicalForest;
 
 public class RealisticBiomeTCMagicalForest extends RealisticBiomeTCBase
 {	
@@ -20,6 +18,6 @@ public class RealisticBiomeTCMagicalForest extends RealisticBiomeTCBase
 		);
 		
 		this.setRealisticBiomeName("Thaumcraft Magical Forest");
-		BiomeGenManager.addWarmBiome(this, ConfigTC.weightTCMagicalForest);
+		this.biomeWeight = ConfigTC.weightTCMagicalForest;
 	}
 }

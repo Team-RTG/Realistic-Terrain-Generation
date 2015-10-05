@@ -5,8 +5,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigRTG;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
-import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSwampland;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaSwampland;
 
@@ -26,6 +24,6 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
 		
 		this.setRealisticBiomeName("Vanilla Swampland");
 		this.biomeCategory = BiomeCategory.WET;
-		BiomeGenManager.addWarmBiome(this, ConfigRTG.weightVanillaSwampland);
+		this.biomeWeight = ConfigRTG.weightVanillaSwampland;
 	}	
 }

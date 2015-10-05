@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBScrub;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBScrub;
 
@@ -18,6 +17,6 @@ public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Scrub");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBScrub);
+		this.biomeWeight = ConfigEB.weightEBScrub;
 	}
 }

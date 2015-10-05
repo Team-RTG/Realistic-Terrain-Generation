@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAlpineTundra;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBAlpineTundra;
 
@@ -18,6 +17,6 @@ public class RealisticBiomeEBAlpineTundra extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Alpine Tundra");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBAlpineTundra);
+		this.biomeWeight = ConfigEB.weightEBAlpineTundra;
 	}
 }

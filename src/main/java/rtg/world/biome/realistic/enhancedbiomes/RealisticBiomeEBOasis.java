@@ -4,7 +4,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBOasis;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBOasis;
 
@@ -19,6 +18,6 @@ public class RealisticBiomeEBOasis extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Oasis");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBOasis);
+		this.biomeWeight = ConfigEB.weightEBOasis;
 	}
 }

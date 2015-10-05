@@ -4,7 +4,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBLake;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBLake;
 
@@ -19,6 +18,6 @@ public class RealisticBiomeEBLake extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Lake");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBLake);
+		this.biomeWeight = ConfigEB.weightEBLake;
 	}
 }

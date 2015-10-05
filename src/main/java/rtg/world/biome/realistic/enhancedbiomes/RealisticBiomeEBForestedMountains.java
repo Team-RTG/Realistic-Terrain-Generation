@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBForestedMountains;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBForestedMountains;
 
@@ -18,6 +17,6 @@ public class RealisticBiomeEBForestedMountains extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Forested Mountains");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBForestedMountains);
+		this.biomeWeight = ConfigEB.weightEBForestedMountains;
 	}
 }

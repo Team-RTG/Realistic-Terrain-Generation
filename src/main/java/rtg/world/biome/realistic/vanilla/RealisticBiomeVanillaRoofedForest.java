@@ -5,8 +5,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigRTG;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
-import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaRoofedForest;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForest;
 
@@ -26,6 +24,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 		
 		this.setRealisticBiomeName("Vanilla Roofed Forest");
 		this.biomeCategory = BiomeCategory.WET;
-		BiomeGenManager.addWarmBiome(this, ConfigRTG.weightVanillaRoofedForest);
+		this.biomeWeight = ConfigRTG.weightVanillaRoofedForest;
 	}	
 }

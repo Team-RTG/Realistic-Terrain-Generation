@@ -4,7 +4,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBBorealArchipelago;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBBorealArchipelago;
 
@@ -19,6 +18,6 @@ public class RealisticBiomeEBBorealArchipelago extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Boreal Archipelago");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBBorealArchipelago);
+		this.biomeWeight = ConfigEB.weightEBBorealArchipelago;
 	}
 }

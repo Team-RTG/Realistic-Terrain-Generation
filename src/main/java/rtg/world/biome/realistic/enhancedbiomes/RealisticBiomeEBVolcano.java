@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBVolcano;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBVolcano;
 
@@ -18,6 +17,6 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Volcano");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBVolcano);
+		this.biomeWeight = ConfigEB.weightEBVolcano;
 	}
 }

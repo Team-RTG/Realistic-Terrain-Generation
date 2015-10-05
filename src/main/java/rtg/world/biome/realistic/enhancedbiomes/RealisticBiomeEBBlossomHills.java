@@ -4,7 +4,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBBlossomHills;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBBlossomHills;
 
@@ -19,6 +18,6 @@ public class RealisticBiomeEBBlossomHills extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Blossom Hills");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBBlossomHills);
+		this.biomeWeight = ConfigEB.weightEBBlossomHills;
 	}
 }

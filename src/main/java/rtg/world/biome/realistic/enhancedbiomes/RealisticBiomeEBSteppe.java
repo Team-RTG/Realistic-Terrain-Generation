@@ -4,7 +4,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSteppe;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSteppe;
 
@@ -19,6 +18,6 @@ public class RealisticBiomeEBSteppe extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Steppe");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBSteppe);
+		this.biomeWeight = ConfigEB.weightEBSteppe;
 	}
 }

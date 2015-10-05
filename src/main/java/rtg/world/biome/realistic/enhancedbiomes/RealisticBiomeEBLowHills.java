@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBLowHills;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBLowHills;
 
@@ -18,6 +17,6 @@ public class RealisticBiomeEBLowHills extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Low Hills");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBLowHills);
+		this.biomeWeight = ConfigEB.weightEBLowHills;
 	}
 }

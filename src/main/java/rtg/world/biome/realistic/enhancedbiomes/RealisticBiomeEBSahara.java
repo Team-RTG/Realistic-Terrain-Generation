@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeGenManager;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSahara;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSahara;
 
@@ -18,6 +17,6 @@ public class RealisticBiomeEBSahara extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Sahara");
-		BiomeGenManager.addFrozenBiome(this, ConfigEB.weightEBSahara);
+		this.biomeWeight = ConfigEB.weightEBSahara;
 	}
 }

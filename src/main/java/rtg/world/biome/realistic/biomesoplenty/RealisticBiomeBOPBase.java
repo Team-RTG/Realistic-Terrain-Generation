@@ -125,17 +125,6 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 				),
 				BiomeBase.BiomeCategory.HOT
 			);
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.brushland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
-					new TerrainDuneValley(300f),
-					new SurfaceBase[]{
-						new SurfaceDuneValley(BOPCBiomes.brushland.topBlock, BOPCBiomes.brushland.fillerBlock, 300f, false, true),
-						new SurfaceRiverOasis(),
-					}
-				),
-				BiomeBase.BiomeCategory.HOT
-			);
 			
 			//CANYON
 			if (ConfigBOP.generateBOPcanyon)
@@ -400,7 +389,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 				BiomeBase.BiomeCategory.COLD
 			);		
 			
-	        //LAND OF LAKES MARCH
+	        //LAND OF LAKES MARSH
 			if (ConfigBOP.generateBOPlandOfLakesMarsh)
 			BiomeBase.addBiome(
 				new RealisticBiomeBOPBase(
@@ -552,7 +541,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			);
 			
 			//ORCHARD
-			if (ConfigBOP.generateBOPoriginValley)
+			if (ConfigBOP.generateBOPorchard)
 			BiomeBase.biomes_cold.add(
 				new RealisticBiomeBOPBase(
 					BOPCBiomes.orchard, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
@@ -641,7 +630,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			);
 	
 			//SCRUBLAND
-			if (ConfigBOP.generateBOPsacredSprings)
+			if (ConfigBOP.generateBOPscrubland)
 			BiomeBase.addBiome(
 				new RealisticBiomeBOPBase(
 					BOPCBiomes.scrubland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
@@ -717,8 +706,8 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 				BiomeBase.BiomeCategory.WET
 			);	
 			
-			//SPURCEWOODS
-			if (ConfigBOP.generateBOPsludgepit)
+			//SPRUCE WOODS
+			if (ConfigBOP.generateBOPspruceWoods)
 			BiomeBase.addBiome(
 				new RealisticBiomeBOPBase(
 					BOPCBiomes.spruceWoods, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
@@ -869,27 +858,27 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 				BiomeBase.BiomeCategory.COLD	
 			);	
 			
-			/*//DRY RIVER
-			if (ConfigBOP.generateBOPcoralReef)
+			//DRY RIVER
+			if (ConfigBOP.generateBOPdryRiver)
 			BiomeBase.addBiome(
 				new RealisticBiomeBOPBase(
-					BOPCBiomes.dryRiver, VanillaBiomes.climatizedBiome(BiomeGenBase.ocean, Climate.WET),
+					BOPCBiomes.dryRiver, BiomeBase.climatizedBiome(BiomeGenBase.ocean, Climate.WET),
 					new TerrainCanyon(false, -25f, 0f, 0f, 0f, 30f),
 					new SurfaceGrassland(BOPCBiomes.dryRiver.topBlock, BOPCBiomes.dryRiver.fillerBlock, Blocks.stone, Blocks.cobblestone)
 				),
 				BiomeCategory.WET	
-			);*/
+			);
 	
-			/*//LUSH RIVER
-			if (ConfigBOP.generateBOPkelpForest)
+			//LUSH RIVER
+			if (ConfigBOP.generateBOPlushRiver)
 	 		BiomeBase.addBiome(
 				new RealisticBiomeBOPBase(
-					BOPCBiomes.lushRiver, VanillaBiomes.climatizedBiome(BiomeGenBase.ocean, Climate.TEMPERATE),
+					BOPCBiomes.lushRiver, BiomeBase.climatizedBiome(BiomeGenBase.ocean, Climate.TEMPERATE),
 					new TerrainCanyon(false, -25f, 0f, 0f, 0f, 30f),
 					new SurfaceGrassland(BOPCBiomes.lushRiver.topBlock, BOPCBiomes.lushRiver.fillerBlock, Blocks.stone, Blocks.cobblestone)
 				),
 				BiomeCategory.COLD	
-			);*/		
+			);	
 		
 		}
 	}

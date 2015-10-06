@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigBOP;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPArctic;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPArctic;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -24,6 +25,7 @@ public class RealisticBiomeBOPArctic extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Arctic");
+		this.biomeCategory = BiomeCategory.SNOW;
 		this.biomeWeight = ConfigBOP.weightBOParctic;
 	}
 }

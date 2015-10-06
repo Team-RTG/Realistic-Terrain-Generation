@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigBOP;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPAlps;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPAlps;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -23,7 +24,8 @@ public class RealisticBiomeBOPTropics extends RealisticBiomeBOPBase
 			new SurfaceBOPAlps(topBlock, fillerBlock, false, null, 0.45f)
 		);
 		
-		this.setRealisticBiomeName("BOP Alps");
-		this.biomeWeight = ConfigBOP.weightBOPalps;
+		this.setRealisticBiomeName("BOP Tropics");
+		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeWeight = ConfigBOP.weightBOPbrushland;
 	}
 }

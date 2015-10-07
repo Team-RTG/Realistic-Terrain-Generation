@@ -6,7 +6,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPLandOfLakes;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPLandOfLakesZZZ;
+import rtg.world.gen.terrain.biomesoplenty.TerrainBOPLandOfLakes;
 import biomesoplenty.api.content.BOPCBiomes;
 
 public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
@@ -20,7 +20,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-			new TerrainBOPLandOfLakesZZZ(),
+			new TerrainBOPLandOfLakes(),
 			new SurfaceBOPLandOfLakes(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
 		

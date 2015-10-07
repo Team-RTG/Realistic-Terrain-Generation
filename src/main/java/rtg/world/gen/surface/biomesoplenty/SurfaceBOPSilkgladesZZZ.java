@@ -11,12 +11,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class SurfaceBOPSludgepit extends SurfaceBase
+public class SurfaceBOPSilkgladesZZZ extends SurfaceBase
 {
 	private Block cliffBlock1;
 	private Block cliffBlock2;
 	
-	public SurfaceBOPSludgepit(Block top, Block filler, Block cliff1, Block cliff2)
+	public SurfaceBOPSilkgladesZZZ(Block top, Block filler, Block cliff1, Block cliff2)
 	{
 		super(top, filler);
 		

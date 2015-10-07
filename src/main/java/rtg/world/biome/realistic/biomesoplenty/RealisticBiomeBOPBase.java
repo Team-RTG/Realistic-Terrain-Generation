@@ -1,40 +1,12 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import cpw.mods.fml.common.Loader;
-import biomesoplenty.api.content.BOPCBiomes;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
 import rtg.config.ConfigBOP;
-import rtg.config.ConfigRTG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBeach;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceCanyon;
-import rtg.world.gen.surface.SurfaceDuneValley;
-import rtg.world.gen.surface.SurfaceGrassland;
-import rtg.world.gen.surface.SurfaceGrasslandMix1;
-import rtg.world.gen.surface.SurfaceMountainSnow;
-import rtg.world.gen.surface.SurfaceMountainStone;
-import rtg.world.gen.surface.SurfaceTundra;
-import rtg.world.gen.surface.river.SurfaceRiverOasis;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.TerrainCanyon;
-import rtg.world.gen.terrain.TerrainDuneValley;
-import rtg.world.gen.terrain.TerrainGrasslandFlats;
-import rtg.world.gen.terrain.TerrainGrasslandHills;
-import rtg.world.gen.terrain.TerrainHighland;
-import rtg.world.gen.terrain.TerrainHilly;
-import rtg.world.gen.terrain.TerrainMarsh;
-import rtg.world.gen.terrain.TerrainMountain;
-import rtg.world.gen.terrain.TerrainMountainRiver;
-import rtg.world.gen.terrain.TerrainMountainSpikes;
-import rtg.world.gen.terrain.TerrainSwampMountain;
-import rtg.world.gen.terrain.TerrainSwampRiver;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaForest;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaPlains;
+import cpw.mods.fml.common.Loader;
 
 public class RealisticBiomeBOPBase extends RealisticBiomeBase
 {

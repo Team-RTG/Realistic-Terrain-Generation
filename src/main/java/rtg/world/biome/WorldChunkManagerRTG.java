@@ -483,7 +483,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     
     public RealisticBiomeBase chooseHotBiome(double par1, double par2)
     {
-    	float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;    	
+    	float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
     	h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
     	h *= biomes_hotLength;
 

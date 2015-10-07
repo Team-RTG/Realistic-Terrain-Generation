@@ -2,17 +2,12 @@ package rtg.world.biome;
 
 import java.util.ArrayList;
 
-import cpw.mods.fml.common.Loader;
-import rtg.config.ConfigRTG;
-import rtg.util.Logger;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
-import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBase;
-import rtg.world.biome.realistic.extrabiomes.RealisticBiomeEBXLBase;
-import rtg.world.biome.realistic.highlands.RealisticBiomeHighlandsBase;
-import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
-import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import net.minecraft.world.biome.BiomeGenBase;
+
+import org.apache.logging.log4j.Level;
+
+import rtg.world.biome.realistic.RealisticBiomeBase;
+import cpw.mods.fml.common.FMLLog;
 
 public class BiomeBase extends BiomeGenBase
 {
@@ -95,43 +90,66 @@ public class BiomeBase extends BiomeGenBase
 		biomes_small = new ArrayList<RealisticBiomeBase>();
 	}
     
-	public static void addBiome(RealisticBiomeBase b, BiomeBase.BiomeCategory cat)
+	public static void addBiome(RealisticBiomeBase b, BiomeCategory cat)
 	{
 		try
 		{
-			switch(cat)
-			{
-				case SNOW:
-					addWeightedBiome(b, biomes_snow);
-					break;
-				case COLD:
-					addWeightedBiome(b, biomes_cold);
-					break;
-				case HOT: 
-					addWeightedBiome(b, biomes_hot);
-					break;
-				case WET: 
-					addWeightedBiome(b, biomes_wet);
-					break;
-				case SMALL: 
-					addWeightedBiome(b, biomes_small);
-					break;
-			}
+			addWeightedBiome(b, cat);
 		}
 		catch(Error e)
 		{
-			System.out.println("RTG Support: failed to add biome");
+			System.out.println("Failed to add biome.");
+		}
+	}
+	
+	public static void addBiome(RealisticBiomeBase b)
+	{
+		BiomeCategory cat = b.biomeCategory;
+		
+		try
+		{
+			addWeightedBiome(b, cat);
+		}
+		catch(Error e)
+		{
+			System.out.println("Failed to add biome.");
 		}
 	}
 
-	public static void addWeightedBiome(RealisticBiomeBase b, ArrayList<RealisticBiomeBase> ba)
+	public static void addWeightedBiome(RealisticBiomeBase b, BiomeCategory bc)
 	{
 		int bw = (int) b.biomeWeight;
 		bw = (bw < 0) ? 0 : ((bw > 100) ? 100 : bw);
 		
 		if (bw > 0) {			
 			for (int i = 0; i < bw; i++) {
-				ba.add(b);
+				
+				switch (bc)
+				{
+					case SNOW:
+						biomes_snow.add(b);
+						//FMLLog.log(Level.INFO, "Added biome (%s) to category (SNOW). %d biomes in this category so far.", b.getRealisticBiomeName(), biomes_snow.size());
+						break;
+					case COLD:
+						biomes_cold.add(b);
+						//FMLLog.log(Level.INFO, "Added biome (%s) to category (COLD). %d biomes in this category so far.", b.getRealisticBiomeName(), biomes_cold.size());
+						break;
+					case HOT:
+						biomes_hot.add(b);
+						//FMLLog.log(Level.INFO, "Added biome (%s) to category (HOT). %d biomes in this category so far.", b.getRealisticBiomeName(), biomes_hot.size());
+						break;
+					case WET:
+						biomes_wet.add(b);
+						//FMLLog.log(Level.INFO, "Added biome (%s) to category (WET). %d biomes in this category so far.", b.getRealisticBiomeName(), biomes_wet.size());
+						break;
+					case SMALL:
+						biomes_small.add(b);
+						//FMLLog.log(Level.INFO, "Added biome (%s) to category (SMALL). %d biomes in this category so far.", b.getRealisticBiomeName(), biomes_small.size());
+						break;
+					default:
+						//FMLLog.log(Level.INFO, "Failed to add biome (%s) to category.", b.getRealisticBiomeName());
+						break;
+				}
 			}
 		}
 	}

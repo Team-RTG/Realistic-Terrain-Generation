@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRiparianZone;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBRiparianZone;
 
@@ -17,6 +18,7 @@ public class RealisticBiomeEBRiparianZone extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Riparian Zone");
+		this.biomeCategory = BiomeCategory.HOT;
 		this.biomeWeight = ConfigEB.weightEBRiparianZone;
 	}
 }

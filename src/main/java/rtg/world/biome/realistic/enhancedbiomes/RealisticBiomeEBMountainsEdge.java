@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBMountainsEdge;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBMountainsEdge;
 
@@ -17,6 +18,7 @@ public class RealisticBiomeEBMountainsEdge extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Mountains Edge");
+		this.biomeCategory = BiomeCategory.COLD;
 		this.biomeWeight = ConfigEB.weightEBMountainsEdge;
 	}
 }

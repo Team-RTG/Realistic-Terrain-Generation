@@ -4,6 +4,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBEphemeralLake;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBEphemeralLake;
 
@@ -18,6 +19,7 @@ public class RealisticBiomeEBEphemeralLake extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Ephemeral Lake");
+		this.biomeCategory = BiomeCategory.WET;
 		this.biomeWeight = ConfigEB.weightEBEphemeralLake;
 	}
 }

@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigBOP;
 import rtg.world.biome.BiomeBase;
@@ -24,6 +25,7 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Alps");
+		this.biomeCategory = BiomeCategory.SNOW;
 		this.biomeWeight = ConfigBOP.weightBOPalps;
 	}
 }

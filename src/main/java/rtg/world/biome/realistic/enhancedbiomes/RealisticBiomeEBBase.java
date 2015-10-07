@@ -42,8 +42,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBAlpineMountains) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBAlpineMountains(ebBiome),
-								BiomeBase.BiomeCategory.SNOW
+								new RealisticBiomeEBAlpineMountains(ebBiome)
 							);
 						}
 					}
@@ -51,8 +50,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBAlpineMountainsEdge) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBAlpineMountainsEdge(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBAlpineMountainsEdge(ebBiome)
 							);
 						}
 					}
@@ -60,8 +58,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBAlpineMountainsM) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBAlpineMountainsM(ebBiome),
-								BiomeBase.BiomeCategory.SNOW
+								new RealisticBiomeEBAlpineMountainsM(ebBiome)
 							);
 						}
 					}
@@ -69,8 +66,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBAlpineTundra) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBAlpineTundra(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBAlpineTundra(ebBiome)
 							);
 						}
 					}
@@ -78,8 +74,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBAspenForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBAspenForest(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBAspenForest(ebBiome)
 							);
 						}
 					}
@@ -87,8 +82,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBAspenHills) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBAspenHills(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBAspenHills(ebBiome)
 							);
 						}
 					}
@@ -96,8 +90,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBBadlands) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBBadlands(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBBadlands(ebBiome)
 							);
 						}
 					}
@@ -105,8 +98,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBBasin) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBBasin(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBBasin(ebBiome)
 							);
 						}
 					}
@@ -114,8 +106,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBBlossomHills) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBBlossomHills(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBBlossomHills(ebBiome)
 							);
 						}
 					}
@@ -123,8 +114,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBBlossomWoods) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBBlossomWoods(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBBlossomWoods(ebBiome)
 							);
 						}
 					}
@@ -132,8 +122,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBBorealArchipelago) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBBorealArchipelago(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBBorealArchipelago(ebBiome)
 							);
 						}
 					}
@@ -141,8 +130,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBBorealForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBBorealForest(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBBorealForest(ebBiome)
 							);
 						}
 					}
@@ -150,8 +138,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBBorealPlateau) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBBorealPlateau(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBBorealPlateau(ebBiome)
 							);
 						}
 					}
@@ -159,8 +146,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBBorealPlateauM) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBBorealPlateauM(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBBorealPlateauM(ebBiome)
 							);
 						}
 					}
@@ -168,8 +154,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBCarr) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBCarr(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBCarr(ebBiome)
 							);
 						}
 					}
@@ -177,8 +162,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBClayHills) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBClayHills(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBClayHills(ebBiome)
 							);
 						}
 					}
@@ -186,8 +170,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBClearing) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBClearing(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBClearing(ebBiome)
 							);
 						}
 					}
@@ -195,8 +178,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBColdBorealForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBColdBorealForest(ebBiome),
-								BiomeBase.BiomeCategory.SNOW
+								new RealisticBiomeEBColdBorealForest(ebBiome)
 							);
 						}
 					}
@@ -204,8 +186,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBColdCypressForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBColdCypressForest(ebBiome),
-								BiomeBase.BiomeCategory.SNOW
+								new RealisticBiomeEBColdCypressForest(ebBiome)
 							);
 						}
 					}
@@ -213,8 +194,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBColdFirForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBColdFirForest(ebBiome),
-								BiomeBase.BiomeCategory.SNOW
+								new RealisticBiomeEBColdFirForest(ebBiome)
 							);
 						}
 					}
@@ -222,8 +202,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBColdPineForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBColdPineForest(ebBiome),
-								BiomeBase.BiomeCategory.SNOW
+								new RealisticBiomeEBColdPineForest(ebBiome)
 							);
 						}
 					}
@@ -231,8 +210,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBCreekBed) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBCreekBed(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBCreekBed(ebBiome)
 							);
 						}
 					}
@@ -240,8 +218,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBCypressForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBCypressForest(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBCypressForest(ebBiome)
 							);
 						}
 					}
@@ -249,8 +226,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBDesertArchipelago) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBDesertArchipelago(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBDesertArchipelago(ebBiome)
 							);
 						}
 					}
@@ -258,8 +234,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBEphemeralLake) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBEphemeralLake(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBEphemeralLake(ebBiome)
 							);
 						}
 					}
@@ -267,8 +242,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBEphemeralLakeEdge) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBEphemeralLakeEdge(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBEphemeralLakeEdge(ebBiome)
 							);
 						}
 					}
@@ -276,8 +250,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBFens) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBFens(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBFens(ebBiome)
 							);
 						}
 					}
@@ -285,8 +258,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBFirForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBFirForest(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBFirForest(ebBiome)
 							);
 						}
 					}
@@ -294,8 +266,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBFloweryArchipelago) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBFloweryArchipelago(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBFloweryArchipelago(ebBiome)
 							);
 						}
 					}
@@ -303,8 +274,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBForestedArchipelago) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBForestedArchipelago(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBForestedArchipelago(ebBiome)
 							);
 						}
 					}
@@ -312,8 +282,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBForestedMountains) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBForestedMountains(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBForestedMountains(ebBiome)
 							);
 						}
 					}
@@ -321,8 +290,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBForestedValley) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBForestedValley(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBForestedValley(ebBiome)
 							);
 						}
 					}
@@ -330,8 +298,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBFrozenArchipelago) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBFrozenArchipelago(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBFrozenArchipelago(ebBiome)
 							);
 						}
 					}
@@ -339,8 +306,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBGlacier) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBGlacier(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBGlacier(ebBiome)
 							);
 						}
 					}
@@ -348,8 +314,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBGrassyArchipelago) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBGrassyArchipelago(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBGrassyArchipelago(ebBiome)
 							);
 						}
 					}
@@ -357,8 +322,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBIceSheet) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBIceSheet(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBIceSheet(ebBiome)
 							);
 						}
 					}
@@ -366,8 +330,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBKakadu) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBKakadu(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBKakadu(ebBiome)
 							);
 						}
 					}
@@ -375,8 +338,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBLake) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBLake(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBLake(ebBiome)
 							);
 						}
 					}
@@ -384,8 +346,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBLowHills) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBLowHills(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBLowHills(ebBiome)
 							);
 						}
 					}
@@ -393,8 +354,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBMangroves) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBMangrove(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBMangrove(ebBiome)
 							);
 						}
 					}
@@ -402,8 +362,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBMarsh) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBMarsh(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBMarsh(ebBiome)
 							);
 						}
 					}
@@ -411,8 +370,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBMeadow) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBMeadow(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBMeadow(ebBiome)
 							);
 						}
 					}
@@ -420,8 +378,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBMeadowM) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBMeadowM(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBMeadowM(ebBiome)
 							);
 						}
 					}
@@ -429,8 +386,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBMountainousArchipelago) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBMountainousArchipelago(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBMountainousArchipelago(ebBiome)
 							);
 						}
 					}
@@ -438,8 +394,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBMountains) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBMountains(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBMountains(ebBiome)
 							);
 						}
 					}
@@ -447,8 +402,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBMountainsEdge) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBMountainsEdge(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBMountainsEdge(ebBiome)
 							);
 						}
 					}
@@ -456,8 +410,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBOakForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBOakForest(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBOakForest(ebBiome)
 							);
 						}
 					}
@@ -465,8 +418,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBOasis) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBOasis(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBOasis(ebBiome)
 							);
 						}
 					}
@@ -474,8 +426,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBPineForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBPineForest(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBPineForest(ebBiome)
 							);
 						}
 					}
@@ -483,8 +434,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBPineForestArchipelago) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBPineForestArchipelago(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBPineForestArchipelago(ebBiome)
 							);
 						}
 					}
@@ -492,8 +442,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBPlateau) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBPlateau(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBPlateau(ebBiome)
 							);
 						}
 					}
@@ -501,8 +450,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBPolarDesert) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBPolarDesert(ebBiome),
-								BiomeBase.BiomeCategory.SNOW
+								new RealisticBiomeEBPolarDesert(ebBiome)
 							);
 						}
 					}
@@ -510,8 +458,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBPrairie) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBPrairie(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBPrairie(ebBiome)
 							);
 						}
 					}
@@ -519,8 +466,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBRainforest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBRainforest(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBRainforest(ebBiome)
 							);
 						}
 					}
@@ -528,8 +474,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBRainforestValley) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBRainforestValley(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBRainforestValley(ebBiome)
 							);
 						}
 					}
@@ -537,8 +482,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBRedDesert) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBRedDesert(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBRedDesert(ebBiome)
 							);
 						}
 					}
@@ -546,8 +490,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBRiparianZone) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBRiparianZone(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBRiparianZone(ebBiome)
 							);
 						}
 					}
@@ -555,8 +498,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBRockyDesert) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBRockyDesert(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBRockyDesert(ebBiome)
 							);
 						}
 					}
@@ -564,8 +506,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBRockyHills) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBRockyHills(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBRockyHills(ebBiome)
 							);
 						}
 					}
@@ -573,8 +514,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBRoofedShrublands) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBRoofedShrublands(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBRoofedShrublands(ebBiome)
 							);
 						}
 					}
@@ -582,8 +522,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSahara) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBSahara(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBSahara(ebBiome)
 							);
 						}
 					}
@@ -591,8 +530,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSandstoneCanyon) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBSandstoneCanyon(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBSandstoneCanyon(ebBiome)
 							);
 						}
 					}
@@ -600,8 +538,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSandstoneCanyons) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBSandstoneCanyon2(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBSandstoneCanyon2(ebBiome)
 							);
 						}
 					}
@@ -609,8 +546,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSandstoneRanges) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBSandstoneRanges(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBSandstoneRanges(ebBiome)
 							);
 						}
 					}
@@ -618,8 +554,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSandstoneRangesM) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBSandstoneRangesM(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBSandstoneRangesM(ebBiome)
 							);
 						}
 					}
@@ -627,8 +562,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBScree) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBScree(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBScree(ebBiome)
 							);
 						}
 					}
@@ -636,8 +570,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBScrub) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBScrub(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBScrub(ebBiome)
 							);
 						}
 					}
@@ -645,8 +578,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBShield) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBShield(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBShield(ebBiome)
 							);
 						}
 					}
@@ -654,8 +586,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBShrublands) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBShrublands(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBShrublands(ebBiome)
 							);
 						}
 					}
@@ -663,8 +594,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSilverPineForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBSilverPineForest(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBSilverPineForest(ebBiome)
 							);
 						}
 					}
@@ -672,8 +602,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSilverPineHills) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBSilverPineHills(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBSilverPineHills(ebBiome)
 							);
 						}
 					}
@@ -681,8 +610,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSnowyDesert) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBSnowyDesert(ebBiome),
-								BiomeBase.BiomeCategory.SNOW
+								new RealisticBiomeEBSnowyDesert(ebBiome)
 							);
 						}
 					}
@@ -690,8 +618,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSnowyPlateau) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBSnowyPlateau(ebBiome),
-								BiomeBase.BiomeCategory.SNOW
+								new RealisticBiomeEBSnowyPlateau(ebBiome)
 							);
 						}
 					}
@@ -699,8 +626,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSnowyRanges) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBSnowyRanges(ebBiome),
-								BiomeBase.BiomeCategory.SNOW
+								new RealisticBiomeEBSnowyRanges(ebBiome)
 							);
 						}
 					}
@@ -708,8 +634,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSnowyWastelands) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBSnowyWastelands(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBSnowyWastelands(ebBiome)
 							);
 						}
 					}
@@ -717,8 +642,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBSteppe) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBSteppe(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBSteppe(ebBiome)
 							);
 						}
 					}
@@ -726,8 +650,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBStoneCanyon) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBStoneCanyon(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBStoneCanyon(ebBiome)
 							);
 						}
 					}
@@ -735,8 +658,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBStoneCanyons) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBStoneCanyon2(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBStoneCanyon2(ebBiome)
 							);
 						}
 					}
@@ -744,8 +666,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBTropicalArchipelago) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBTropicalArchipelago(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBTropicalArchipelago(ebBiome)
 							);
 						}
 					}
@@ -753,8 +674,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBTundra) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBTundra(ebBiome),
-								BiomeBase.BiomeCategory.COLD
+								new RealisticBiomeEBTundra(ebBiome)
 							);
 						}
 					}
@@ -762,8 +682,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBVolcano) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBVolcano(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBVolcano(ebBiome)
 							);
 						}
 					}
@@ -771,8 +690,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBVolcanoM) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBVolcanoM(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBVolcanoM(ebBiome)
 							);
 						}
 					}
@@ -780,8 +698,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBWastelands) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBWastelands(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBWastelands(ebBiome)
 							);
 						}
 					}
@@ -789,8 +706,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBWoodlandField) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBWoodlandField(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBWoodlandField(ebBiome)
 							);
 						}
 					}
@@ -798,8 +714,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBWoodlandHills) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBWoodlandHills(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBWoodlandHills(ebBiome)
 							);
 						}
 					}
@@ -807,8 +722,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBWoodlandLake) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBWoodlandLake(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBWoodlandLake(ebBiome)
 							);
 						}
 					}
@@ -816,8 +730,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBWoodlandLakeEdge) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBWoodlandLakeEdge(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBWoodlandLakeEdge(ebBiome)
 							);
 						}
 					}
@@ -825,8 +738,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBWoodlands) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBWoodlands(ebBiome),
-								BiomeBase.BiomeCategory.WET
+								new RealisticBiomeEBWoodlands(ebBiome)
 							);
 						}
 					}
@@ -834,8 +746,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBXericSavannah) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBXericSavanna(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBXericSavanna(ebBiome)
 							);
 						}
 					}
@@ -843,8 +754,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBXericShrubland) {
 							BiomeBase.addBiome(
-								new RealisticBiomeEBXericShrubland(ebBiome),
-								BiomeBase.BiomeCategory.HOT
+								new RealisticBiomeEBXericShrubland(ebBiome)
 							);
 						}
 					}

@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBWoodlandField;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBWoodlandField;
 
@@ -17,6 +18,7 @@ public class RealisticBiomeEBWoodlandField extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Woodland Field");
+		this.biomeCategory = BiomeCategory.WET;
 		this.biomeWeight = ConfigEB.weightEBWoodlandField;
 	}
 }

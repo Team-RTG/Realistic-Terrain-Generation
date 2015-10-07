@@ -98,8 +98,6 @@ public class ConfigBOP
 	//Water biomes
 	public static boolean generateBOPcoralReef = true;
 	public static boolean generateBOPkelpForest = true;
-	public static boolean generateBOPdryRiver = true;
-	public static boolean generateBOPlushRiver = true;
 	
 	public static int weightBOPalps = biomeWeightDefault;
 	public static int weightBOParctic = biomeWeightDefault;
@@ -180,8 +178,6 @@ public class ConfigBOP
 	//Water biomes
 	public static int weightBOPcoralReef = biomeWeightDefault;
 	public static int weightBOPkelpForest = biomeWeightDefault;
-	public static int weightBOPdryRiver = biomeWeightDefault;
-	public static int weightBOPlushRiver = biomeWeightDefault;
 		
 	public static void init(File configFile) 
 	{
@@ -274,8 +270,6 @@ public class ConfigBOP
 			//Water biomes
 			generateBOPcoralReef = config.getBoolean("generateBOPcoralReef", "BOP Biomes", true, "");
 			generateBOPkelpForest = config.getBoolean("generateBOPkelpForest", "BOP Biomes", true, "");
-			generateBOPdryRiver = config.getBoolean("generateBOPdryRiver", "BOP Biomes", true, "");
-			generateBOPlushRiver = config.getBoolean("generateBOPlushRiver", "BOP Biomes", true, "");
 			
 			//Overworld biomes
 			weightBOPalps = config.getInt("weightBOPalps", "BOP Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
@@ -357,8 +351,6 @@ public class ConfigBOP
 			//Water biomes
 			weightBOPcoralReef = config.getInt("weightBOPcoralReef", "BOP Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
 			weightBOPkelpForest = config.getInt("weightBOPkelpForest", "BOP Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
-			weightBOPdryRiver = config.getInt("weightBOPdryRiver", "BOP Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
-			weightBOPlushRiver = config.getInt("weightBOPlushRiver", "BOP Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
 		}
 		catch (Exception e)
 		{

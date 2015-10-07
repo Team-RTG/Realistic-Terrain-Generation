@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSandstoneCanyon2;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSandstoneCanyon2;
 
@@ -17,6 +18,7 @@ public class RealisticBiomeEBSandstoneCanyon2 extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Sandstone Canyon 2");
+		this.biomeCategory = BiomeCategory.HOT;
 		this.biomeWeight = ConfigEB.weightEBSandstoneCanyons;
 	}
 }

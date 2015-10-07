@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBColdBorealForest;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBColdBorealForest;
 
@@ -17,6 +18,7 @@ public class RealisticBiomeEBColdBorealForest extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Cold Boreal Forest");
+		this.biomeCategory = BiomeCategory.SNOW;
 		this.biomeWeight = ConfigEB.weightEBColdBorealForest;
 	}
 }

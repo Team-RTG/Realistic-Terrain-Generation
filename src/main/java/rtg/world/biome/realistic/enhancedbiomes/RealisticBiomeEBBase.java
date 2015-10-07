@@ -21,7 +21,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 	
 	public static void addBiomes()
 	{
-		if (Loader.isModLoaded("enhancedbiomes"))
+		if (Loader.isModLoaded("enhancedbiomes") && ConfigEB.generateEBBiomes)
 		{
 			BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
 			

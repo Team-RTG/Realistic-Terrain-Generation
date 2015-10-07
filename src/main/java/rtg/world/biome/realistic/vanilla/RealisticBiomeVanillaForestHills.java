@@ -16,7 +16,7 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase
 	{
 		super(
 			BiomeGenBase.forestHills,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainVanillaForestHills(70f, 180f, 7f, 100f, 38f, 260f, 68f),
 			new SurfaceVanillaForestHills(topBlock, fillerBlock, topBlock, topBlock)
 		);

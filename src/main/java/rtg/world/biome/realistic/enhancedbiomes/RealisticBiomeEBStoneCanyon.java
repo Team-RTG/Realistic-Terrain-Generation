@@ -12,7 +12,7 @@ public class RealisticBiomeEBStoneCanyon extends RealisticBiomeEBBase
 	public RealisticBiomeEBStoneCanyon(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainEBStoneCanyon(false, 35f, 160f, 40f, 30f, 10),
 			new SurfaceEBStoneCanyon(ebBiome.topBlock, ebBiome.fillerBlock, (byte)0, 20)
 		);

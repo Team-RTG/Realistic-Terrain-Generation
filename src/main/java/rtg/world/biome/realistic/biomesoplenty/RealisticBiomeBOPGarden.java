@@ -19,7 +19,7 @@ public class RealisticBiomeBOPGarden extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPGarden()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPGarden(),
 			new SurfaceBOPGarden(topBlock, fillerBlock, true, Blocks.sand, 0.45f, 1.5f, 60f, 65f, 0.4f, 130f, 50f, 1.5f)
 		);

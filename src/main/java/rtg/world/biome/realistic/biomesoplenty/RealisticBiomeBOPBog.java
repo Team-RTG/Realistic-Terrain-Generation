@@ -20,7 +20,7 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPBog()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 			new TerrainBOPBog(),
 			new SurfaceBOPBog(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

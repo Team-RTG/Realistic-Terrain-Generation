@@ -12,7 +12,7 @@ public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
 	public RealisticBiomeEBScrub(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainEBScrub(false, 35f, 80f, 30f, 20f, 10),
 			new SurfaceEBScrub(ebBiome.topBlock, ebBiome.fillerBlock, (byte)0, 20)
 		);

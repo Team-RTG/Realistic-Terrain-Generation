@@ -18,7 +18,7 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPHeathland()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 			new TerrainBOPHeathland(300f),
 			new SurfaceBOPHeathland()
 		);

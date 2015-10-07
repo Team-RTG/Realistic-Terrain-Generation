@@ -53,7 +53,7 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 						if (ConfigTC.generateTCMagicalForest) {
 							BiomeBase.addBiome(
 								new RealisticBiomeBase(
-									tcBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+									tcBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 									new TerrainSmallSupport(),
 									new SurfaceGrassland(tcBiome.topBlock, tcBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 								),

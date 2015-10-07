@@ -12,7 +12,7 @@ public class RealisticBiomeEBKakadu extends RealisticBiomeEBBase
 	public RealisticBiomeEBKakadu(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 			new TerrainEBKakadu(),
 			new SurfaceEBKakadu(ebBiome.topBlock, ebBiome.fillerBlock, ebBiome.topBlock, ebBiome.fillerBlock)
 		);

@@ -19,7 +19,7 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPOutback()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 			new TerrainBOPOutback(300f),
 			new SurfaceBOPOutback(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone, (byte)0, 1)
 		);

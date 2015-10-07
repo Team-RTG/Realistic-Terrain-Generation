@@ -19,7 +19,7 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPGrove()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPGrove(0f, 140f, 68f, 200f),
 			new SurfaceBOPGrove(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

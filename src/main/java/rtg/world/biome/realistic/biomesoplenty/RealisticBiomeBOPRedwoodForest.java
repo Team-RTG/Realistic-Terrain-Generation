@@ -18,7 +18,7 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPRedwoodForest()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPRedwoodForest(80f, 180f, 13f, 100f, 38f, 260f, 71f),
 			new SurfaceBOPRedwoodForest(topBlock, fillerBlock, false, null, 0.4f)
 		);

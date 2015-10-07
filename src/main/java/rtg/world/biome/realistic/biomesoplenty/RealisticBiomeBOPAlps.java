@@ -19,7 +19,7 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPAlps()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
 			new TerrainBOPAlps(),
 			new SurfaceBOPAlps(topBlock, fillerBlock, false, null, 0.45f)
 		);

@@ -19,7 +19,7 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPVolcano()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainBOPVolcano(),
 			new SurfaceBOPVolcano(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

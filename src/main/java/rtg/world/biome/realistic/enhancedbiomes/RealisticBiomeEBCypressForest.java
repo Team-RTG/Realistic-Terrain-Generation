@@ -13,7 +13,7 @@ public class RealisticBiomeEBCypressForest extends RealisticBiomeEBBase
 	public RealisticBiomeEBCypressForest(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBCypressForest(),
 			new SurfaceEBCypressForest(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

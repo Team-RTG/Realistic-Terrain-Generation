@@ -19,7 +19,7 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPSacredSprings()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainBOPSacredSprings(0f, 120f, 68f, 200f),
 			new SurfaceBOPSacredSprings(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

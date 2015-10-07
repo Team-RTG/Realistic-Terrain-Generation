@@ -17,7 +17,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
 	{
 		super(
 			BiomeGenBase.jungleHills,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainVanillaJungleHills(),
 			new SurfaceVanillaJungleHills(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

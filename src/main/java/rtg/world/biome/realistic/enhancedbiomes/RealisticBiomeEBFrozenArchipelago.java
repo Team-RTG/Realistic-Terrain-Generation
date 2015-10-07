@@ -12,7 +12,7 @@ public class RealisticBiomeEBFrozenArchipelago extends RealisticBiomeEBBase
 	public RealisticBiomeEBFrozenArchipelago(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
 			new TerrainEBFrozenArchipelago(),
 			new SurfaceEBFrozenArchipelago(ebBiome.topBlock, ebBiome.fillerBlock, ebBiome.topBlock, ebBiome.fillerBlock)
 		);

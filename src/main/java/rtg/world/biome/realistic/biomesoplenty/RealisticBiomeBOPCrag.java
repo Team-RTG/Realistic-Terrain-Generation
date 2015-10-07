@@ -19,7 +19,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPCrag()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainBOPCrag(),
 			new SurfaceBOPCrag(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

@@ -13,7 +13,7 @@ public class RealisticBiomeEBFens extends RealisticBiomeEBBase
 	public RealisticBiomeEBFens(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainEBFens(),
 			new SurfaceEBFens(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

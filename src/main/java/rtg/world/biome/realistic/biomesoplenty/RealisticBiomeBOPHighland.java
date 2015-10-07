@@ -18,7 +18,7 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPHighland()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPHighland(0f, 140f, 68f, 150f),
 			new SurfaceBOPHighland(topBlock, fillerBlock, false, null, 1f, 1.5f, 85f, 20f, 4f)
 		);

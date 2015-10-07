@@ -12,7 +12,7 @@ public class RealisticBiomeEBWoodlandField extends RealisticBiomeEBBase
 	public RealisticBiomeEBWoodlandField(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainEBWoodlandField(),
 			new SurfaceEBWoodlandField(ebBiome.topBlock, ebBiome.fillerBlock, ebBiome.topBlock, ebBiome.fillerBlock)
 		);

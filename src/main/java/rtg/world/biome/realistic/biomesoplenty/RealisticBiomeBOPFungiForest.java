@@ -18,7 +18,7 @@ public class RealisticBiomeBOPFungiForest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPFungiForest()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainBOPFungiForest(135f, 300f),
 			new SurfaceBOPFungiForest(topBlock, fillerBlock, false, null, 0.95f)
 		);

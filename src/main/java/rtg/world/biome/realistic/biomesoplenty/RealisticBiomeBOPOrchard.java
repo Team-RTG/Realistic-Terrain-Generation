@@ -19,7 +19,7 @@ public class RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPOrchard()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPOrchard(),
 			new SurfaceBOPOrchard(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

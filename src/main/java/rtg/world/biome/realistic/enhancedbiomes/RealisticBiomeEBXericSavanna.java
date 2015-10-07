@@ -13,7 +13,7 @@ public class RealisticBiomeEBXericSavanna extends RealisticBiomeEBBase
 	public RealisticBiomeEBXericSavanna(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 			new TerrainEBXericSavanna(),
 			new SurfaceEBXericSavanna(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

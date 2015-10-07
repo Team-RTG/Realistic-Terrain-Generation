@@ -19,7 +19,7 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPOasis()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 			new TerrainBOPOasis(),
 			new SurfaceBOPOasis(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

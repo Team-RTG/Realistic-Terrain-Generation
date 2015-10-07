@@ -12,7 +12,7 @@ public class RealisticBiomeEBAlpineTundra extends RealisticBiomeEBBase
 	public RealisticBiomeEBAlpineTundra(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBAlpineTundra(),
 			new SurfaceEBAlpineTundra(ebBiome.topBlock, ebBiome.fillerBlock, false, null, 0.45f)
 		);

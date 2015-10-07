@@ -13,7 +13,7 @@ public class RealisticBiomeEBPrairie extends RealisticBiomeEBBase
 	public RealisticBiomeEBPrairie(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainEBPrairie(),
 			new SurfaceEBPrairie(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

@@ -13,7 +13,7 @@ public class RealisticBiomeEBWoodlandLake extends RealisticBiomeEBBase
 	public RealisticBiomeEBWoodlandLake(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBWoodlandLake(),
 			new SurfaceEBWoodlandLake(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.grass, Blocks.grass)
 		);

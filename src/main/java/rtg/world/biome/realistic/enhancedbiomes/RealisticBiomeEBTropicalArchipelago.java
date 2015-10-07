@@ -12,7 +12,7 @@ public class RealisticBiomeEBTropicalArchipelago extends RealisticBiomeEBBase
 	public RealisticBiomeEBTropicalArchipelago(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 			new TerrainEBTropicalArchipelago(200f, 100f, 0f),
 			new SurfaceEBTropicalArchipelago(ebBiome.topBlock, ebBiome.fillerBlock, false, null, 0.95f)
 		);

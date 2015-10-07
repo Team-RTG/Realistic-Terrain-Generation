@@ -19,7 +19,7 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPDeadSwamp()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainBOPDeadSwamp(),
 			new SurfaceBOPDeadSwamp(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

@@ -19,7 +19,7 @@ public class RealisticBiomeBOPSteppe extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPSteppe()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainBOPSteppe(70f, 180f, 13f, 100f, 38f, 260f, 71f),
 			new SurfaceBOPSteppe(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

@@ -19,7 +19,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPMysticGrove()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainBOPMysticGrove(0f, 140f, 68f, 200f),
 			new SurfaceBOPMysticGrove(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

@@ -13,7 +13,7 @@ public class RealisticBiomeEBLake extends RealisticBiomeEBBase
 	public RealisticBiomeEBLake(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainEBLake(),
 			new SurfaceEBLake(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

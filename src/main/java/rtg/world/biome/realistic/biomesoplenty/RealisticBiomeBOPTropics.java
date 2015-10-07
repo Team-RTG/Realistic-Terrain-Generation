@@ -19,7 +19,7 @@ public class RealisticBiomeBOPTropics extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPTropics()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainBOPTropics(10f, 80f, 68f, 200f),
 			new SurfaceBOPTropics(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

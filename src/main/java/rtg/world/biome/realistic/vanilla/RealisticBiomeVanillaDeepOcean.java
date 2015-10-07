@@ -35,7 +35,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase
 	{
 		super(
 			BiomeGenBase.deepOcean,
-			BiomeBase.climatizedBiome(BiomeGenBase.ocean, BiomeBase.Climate.TEMPERATE),
+			BiomeBase.climatizedBiome(BiomeGenBase.ocean, Climate.TEMPERATE),
 			new TerrainVanillaDeepOcean(),
 			new SurfaceVanillaDeepOcean(Blocks.sand, Blocks.sand, (byte)0, 0)
 		);

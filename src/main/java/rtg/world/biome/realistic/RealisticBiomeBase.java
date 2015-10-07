@@ -32,7 +32,7 @@ public class RealisticBiomeBase extends BiomeBase
 		
 	public RealisticBiomeBase(BiomeGenBase biome)
 	{
-		this(biome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE));
+		this(biome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE));
 	}
 	
 	public RealisticBiomeBase(BiomeGenBase biome, BiomeGenBase river)

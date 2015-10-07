@@ -19,7 +19,7 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPLushSwamp()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainBOPLushSwamp(),
 			new SurfaceBOPLushSwamp(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

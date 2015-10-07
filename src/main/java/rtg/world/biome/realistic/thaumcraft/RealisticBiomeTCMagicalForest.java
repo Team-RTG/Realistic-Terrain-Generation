@@ -12,7 +12,7 @@ public class RealisticBiomeTCMagicalForest extends RealisticBiomeTCBase
 	public RealisticBiomeTCMagicalForest(BiomeGenBase tcBiome)
 	{
 		super(
-			tcBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			tcBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainTCMagicalForest(),
 			new SurfaceTCMagicalForest(tcBiome.topBlock, tcBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

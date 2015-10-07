@@ -12,7 +12,7 @@ public class RealisticBiomeEBScree extends RealisticBiomeEBBase
 	public RealisticBiomeEBScree(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainEBScree(false, 35f, 80f, 30f, 20f, 10),
 			new SurfaceEBScree(ebBiome.topBlock, ebBiome.fillerBlock, (byte)0, 20)
 		);

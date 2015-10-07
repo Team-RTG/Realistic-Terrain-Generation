@@ -17,7 +17,7 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
 	{
 		super(
 			BiomeGenBase.megaTaigaHills,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainVanillaMegaTaigaHills(230f, 120f, 90f),
 			new SurfaceVanillaMegaTaigaHills(topBlock, fillerBlock, true, Blocks.sand, 0.2f)
 		);

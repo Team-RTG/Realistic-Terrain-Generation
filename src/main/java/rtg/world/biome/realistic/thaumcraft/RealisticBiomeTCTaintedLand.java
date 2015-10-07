@@ -12,7 +12,7 @@ public class RealisticBiomeTCTaintedLand extends RealisticBiomeTCBase
 	public RealisticBiomeTCTaintedLand(BiomeGenBase tcBiome)
 	{
 		super(
-			tcBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			tcBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainTCTaintedLand(),
 			new SurfaceTCTaintedLand(tcBiome.topBlock, tcBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

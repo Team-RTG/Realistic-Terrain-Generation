@@ -19,7 +19,7 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPCherryBlossomGrove()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPCherryBlossomGrove(6f, 120f, 65f, 200f),
 			new SurfaceBOPCherryBlossomGrove(topBlock, fillerBlock, true, Blocks.sand, 0.45f, 1.5f, 60f, 65f, 1.5f)
 		);

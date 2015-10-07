@@ -16,7 +16,7 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
 	{
 		super(
 			BiomeGenBase.mushroomIslandShore,
-			BiomeBase.climatizedBiome(BiomeGenBase.deepOcean, BiomeBase.Climate.TEMPERATE),
+			BiomeBase.climatizedBiome(BiomeGenBase.deepOcean, Climate.TEMPERATE),
 			new TerrainVanillaMushroomIslandShore(),
 			new SurfaceVanillaMushroomIslandShore(topBlock, fillerBlock, 67, topBlock, 0f)
 		);

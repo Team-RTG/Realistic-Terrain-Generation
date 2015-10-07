@@ -13,7 +13,7 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
 	public RealisticBiomeEBMangrove(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainEBMangrove(),
 			new SurfaceEBMangrove(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

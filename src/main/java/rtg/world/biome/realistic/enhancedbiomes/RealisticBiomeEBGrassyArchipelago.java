@@ -12,7 +12,7 @@ public class RealisticBiomeEBGrassyArchipelago extends RealisticBiomeEBBase
 	public RealisticBiomeEBGrassyArchipelago(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBGrassyArchipelago(200f, 100f, 0f),
 			new SurfaceEBGrassyArchipelago(ebBiome.topBlock, ebBiome.fillerBlock, false, null, 0.95f)
 		);

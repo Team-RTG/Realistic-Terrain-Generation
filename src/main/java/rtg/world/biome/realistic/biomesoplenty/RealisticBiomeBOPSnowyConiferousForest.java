@@ -18,7 +18,7 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
 	public RealisticBiomeBOPSnowyConiferousForest()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
 			new TerrainBOPSnowyConiferousForest(),
 			new SurfaceBOPSnowyConiferousForest(topBlock, fillerBlock, false, null, 0.45f, 1.5f, 50f, 60f, 0.4f, 100f, 50f, 1.5f)
 		);

@@ -12,7 +12,7 @@ public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
 	public RealisticBiomeEBRockyHills(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainEBRockyHills(80f),
 			new SurfaceEBRockyHills(ebBiome.topBlock, ebBiome.fillerBlock, 40f, false, false)
 		);

@@ -19,7 +19,7 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPFen()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainBOPFen(0f, 140f, 68f, 200f),
 			new SurfaceBOPFen(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

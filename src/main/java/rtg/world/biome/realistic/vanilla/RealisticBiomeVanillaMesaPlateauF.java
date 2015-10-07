@@ -16,7 +16,7 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
 	{
 		super(
 			BiomeGenBase.mesaPlateau_F,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 			new TerrainVanillaMesaPlateauF(true, 35f, 160f, 60f, 40f, 69f),
 			new SurfaceVanillaMesaPlateauF(topBlock, fillerBlock, (byte)1, 0)
 		);

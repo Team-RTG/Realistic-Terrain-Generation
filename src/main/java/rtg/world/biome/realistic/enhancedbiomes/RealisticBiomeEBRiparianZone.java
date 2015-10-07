@@ -12,7 +12,7 @@ public class RealisticBiomeEBRiparianZone extends RealisticBiomeEBBase
 	public RealisticBiomeEBRiparianZone(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainEBRiparianZone(),
 			new SurfaceEBRiparianZone(ebBiome.topBlock, ebBiome.fillerBlock, ebBiome.topBlock, ebBiome.topBlock)
 		);

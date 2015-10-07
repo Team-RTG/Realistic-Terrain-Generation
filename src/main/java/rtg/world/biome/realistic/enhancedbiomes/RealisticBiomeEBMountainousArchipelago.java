@@ -12,7 +12,7 @@ public class RealisticBiomeEBMountainousArchipelago extends RealisticBiomeEBBase
 	public RealisticBiomeEBMountainousArchipelago(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBMountainousArchipelago(200f, 100f, 0f),
 			new SurfaceEBMountainousArchipelago(ebBiome.topBlock, ebBiome.fillerBlock, false, null, 0.95f)
 		);

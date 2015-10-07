@@ -19,7 +19,7 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPDeadForest()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPDeadForest(50f, 180f, 13f, 100f, 28f, 260f, 70f),
 			new SurfaceBOPDeadForest(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

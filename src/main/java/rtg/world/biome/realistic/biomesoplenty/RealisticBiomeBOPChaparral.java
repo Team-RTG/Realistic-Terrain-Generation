@@ -19,7 +19,7 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPChaparral()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainBOPChaparral(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 			new SurfaceBOPChaparral(topBlock, fillerBlock, Blocks.sand, Blocks.stone, Blocks.cobblestone, 26f, 0.35f)
 		);

@@ -16,7 +16,7 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase
 	{
 		super(
 			BiomeGenBase.stoneBeach,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 			new TerrainVanillaStoneBeach(0f, 100f, 63f, 80f),
 			new SurfaceVanillaStoneBeach(topBlock, fillerBlock, false, null, 1f, 1.5f, 85f, 20f, 4f)
 		);

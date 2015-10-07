@@ -43,7 +43,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.alpine.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
+						BiomeManager.alpine.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
 						new TerrainMountainRiver(),
 						new SurfaceMountainSnow(Blocks.grass, Blocks.dirt, false, null, 0.45f)
 					), 
@@ -56,7 +56,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.autumnwoods.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+						BiomeManager.autumnwoods.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 						new TerrainHighland(0f, 140f, 68f, 200f),
 						new SurfaceGrassland(BiomeManager.autumnwoods.get().topBlock, BiomeManager.autumnwoods.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
 					), 
@@ -69,7 +69,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.birchforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+						BiomeManager.birchforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 						new TerrainHilly(230f, 120f, 0f),
 						new SurfaceMountainStone(BiomeManager.birchforest.get().topBlock, BiomeManager.birchforest.get().fillerBlock, false, null, 0.95f)
 					), 
@@ -82,7 +82,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.extremejungle.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+						BiomeManager.extremejungle.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 						new TerrainSwampMountain(135f, 300f),
 						new SurfaceMountainStone(BiomeManager.extremejungle.get().topBlock, BiomeManager.extremejungle.get().fillerBlock, false, null, 0.95f)
 					), 
@@ -95,7 +95,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.forestedisland.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+						BiomeManager.forestedisland.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 						new TerrainGrasslandHills(90f, 180f, 13f, 100f, 1f, 260f, 59f),
 						new SurfaceGrassland(BiomeManager.forestedisland.get().topBlock, BiomeManager.forestedisland.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
 					), 
@@ -108,7 +108,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.forestedhills.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+						BiomeManager.forestedhills.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 						new TerrainHilly(230f, 120f, 0f),
 						new SurfaceMountainStone(BiomeManager.forestedhills.get().topBlock, BiomeManager.forestedhills.get().fillerBlock, false, null, 0.95f)
 					), 
@@ -121,7 +121,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.glacier.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
+						BiomeManager.glacier.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
 						new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 						new SurfaceMountainStone(BiomeManager.glacier.get().topBlock, BiomeManager.glacier.get().fillerBlock, false, null, 0.95f)
 					), 
@@ -134,7 +134,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.greenhills.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+						BiomeManager.greenhills.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 						new TerrainHilly(230f, 120f, 0f),
 						new SurfaceMountainStone(BiomeManager.greenhills.get().topBlock, BiomeManager.greenhills.get().fillerBlock, false, null, 0.95f)
 					), 
@@ -147,7 +147,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.icewasteland.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
+						BiomeManager.icewasteland.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
 						new TerrainPolar(),
 						new SurfacePolar(BiomeManager.icewasteland.get().topBlock, BiomeManager.icewasteland.get().fillerBlock)
 					), 
@@ -160,7 +160,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.greenswamp.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+						BiomeManager.greenswamp.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 						new TerrainSwampRiver(),
 						new SurfaceGrassland(BiomeManager.greenswamp.get().topBlock, BiomeManager.greenswamp.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
 					), 
@@ -173,7 +173,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.marsh.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+						BiomeManager.marsh.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 						new TerrainMarsh(),
 						new SurfaceMarshFix(BiomeManager.marsh.get().topBlock, BiomeManager.marsh.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
 					), 
@@ -186,7 +186,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.meadow.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+						BiomeManager.meadow.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 						new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 						new SurfaceGrassland(BiomeManager.meadow.get().topBlock, BiomeManager.meadow.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
 					), 
@@ -199,7 +199,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.minijungle.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+						BiomeManager.minijungle.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 						new TerrainHighland(0f, 140f, 68f, 200f),
 						new SurfaceGrassland(BiomeManager.minijungle.get().topBlock, BiomeManager.minijungle.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
 					), 
@@ -212,7 +212,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.mountaindesert.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+						BiomeManager.mountaindesert.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 						new TerrainHilly(230f, 100f, 0f),
 						new SurfaceBase[]{
 							new SurfaceDesertMountain(BiomeManager.mountaindesert.get().topBlock, BiomeManager.mountaindesert.get().fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f),
@@ -228,7 +228,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.mountainridge.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+						BiomeManager.mountainridge.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 						new TerrainHilly(230f, 110f, 0f),
 						new SurfaceBase[]{
 							new SurfaceDesertMountain(BiomeManager.mountainridge.get().topBlock, BiomeManager.mountainridge.get().fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f),
@@ -244,7 +244,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.mountaintaiga.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
+						BiomeManager.mountaintaiga.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
 						new TerrainMountainSpikes(),
 						new SurfaceMountainStone(BiomeManager.mountaintaiga.get().topBlock, BiomeManager.mountaintaiga.get().fillerBlock, false, null, 1.2f)
 					), 
@@ -257,7 +257,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.pineforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+						BiomeManager.pineforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 						new TerrainMountainSpikes(),
 						new SurfaceMountainStone(BiomeManager.pineforest.get().topBlock, BiomeManager.pineforest.get().fillerBlock, false, null, 1.2f)
 					), 
@@ -270,7 +270,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.rainforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+						BiomeManager.rainforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 						new TerrainHilly(230f, 100f, 0f),
 						new SurfaceGrassland(BiomeManager.rainforest.get().topBlock, BiomeManager.rainforest.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
 					), 
@@ -283,7 +283,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.redwoodforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+						BiomeManager.redwoodforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 						new TerrainHilly(230f, 120f, 0f),
 						new SurfaceMountainStone(BiomeManager.redwoodforest.get().topBlock, BiomeManager.redwoodforest.get().fillerBlock, true, Blocks.sand, 0.2f)
 					), 
@@ -296,7 +296,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.redwoodlush.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+						BiomeManager.redwoodlush.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 						new TerrainHilly(230f, 120f, 0f),
 						new SurfaceMountainStone(BiomeManager.redwoodlush.get().topBlock, BiomeManager.redwoodlush.get().fillerBlock, true, Blocks.sand, 0.2f)
 					), 
@@ -309,7 +309,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.savanna.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
+						BiomeManager.savanna.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 						new TerrainGrasslandFlats(),
 						new SurfaceGrasslandMix1(BiomeManager.savanna.get().topBlock, BiomeManager.savanna.get().fillerBlock, Blocks.sand, Blocks.stone, Blocks.cobblestone, 13f, 0.27f)
 					), 
@@ -322,7 +322,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.shrubland.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+						BiomeManager.shrubland.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 						new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 						new SurfaceGrassland(BiomeManager.shrubland.get().topBlock, BiomeManager.shrubland.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
 					), 
@@ -335,7 +335,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.snowforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
+						BiomeManager.snowforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
 						new TerrainHighland(0f, 140f, 68f, 200f),
 						new SurfaceGrassland(BiomeManager.snowforest.get().topBlock, BiomeManager.snowforest.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
 					), 
@@ -348,7 +348,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.snowyrainforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
+						BiomeManager.snowyrainforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
 						new TerrainHilly(230f, 120f, 0f),
 						new SurfaceGrassland(BiomeManager.snowforest.get().topBlock, BiomeManager.snowforest.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
 					), 
@@ -361,7 +361,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.temperaterainforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+						BiomeManager.temperaterainforest.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 						new TerrainHilly(230f, 120f, 0f),
 						new SurfaceMountainStone(BiomeManager.temperaterainforest.get().topBlock, BiomeManager.temperaterainforest.get().fillerBlock, true, Blocks.sand, 0.2f)
 					), 
@@ -374,7 +374,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.tundra.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+						BiomeManager.tundra.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 						new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 						new SurfaceGrassland(BiomeManager.tundra.get().topBlock, BiomeManager.tundra.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
 					), 
@@ -387,7 +387,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.wasteland.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+						BiomeManager.wasteland.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 						new TerrainGrasslandHills(30f, 180f, 13f, 100f, 28f, 260f, 70f),
 						new SurfaceBase[]{
 							new SurfaceGrassland(BiomeManager.wasteland.get().topBlock, BiomeManager.wasteland.get().fillerBlock, Blocks.stone, Blocks.cobblestone),
@@ -403,7 +403,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			{
 				BiomeBase.addBiome(
 					new RealisticBiomeBase(
-						BiomeManager.woodlands.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+						BiomeManager.woodlands.get(), BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 						new TerrainHighland(0f, 140f, 68f, 200f),
 						new SurfaceGrassland(BiomeManager.woodlands.get().topBlock, BiomeManager.woodlands.get().fillerBlock, Blocks.stone, Blocks.cobblestone)
 					), 

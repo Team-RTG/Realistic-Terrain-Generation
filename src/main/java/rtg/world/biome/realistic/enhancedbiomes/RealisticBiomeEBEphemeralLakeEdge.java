@@ -13,7 +13,7 @@ public class RealisticBiomeEBEphemeralLakeEdge extends RealisticBiomeEBBase
 	public RealisticBiomeEBEphemeralLakeEdge(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainEBEphemeralLakeEdge(),
 			new SurfaceEBEphemeralLakeEdge(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

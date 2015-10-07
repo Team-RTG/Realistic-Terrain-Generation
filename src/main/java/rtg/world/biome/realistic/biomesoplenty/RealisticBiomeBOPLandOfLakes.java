@@ -19,7 +19,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPLandOfLakes()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPLandOfLakes(),
 			new SurfaceBOPLandOfLakes(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

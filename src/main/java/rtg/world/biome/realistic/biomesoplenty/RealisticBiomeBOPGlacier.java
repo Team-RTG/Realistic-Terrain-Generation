@@ -19,7 +19,7 @@ public class RealisticBiomeBOPGlacier extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPGlacier()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainBOPGlacier(),
 			new SurfaceBOPGlacier(topBlock, fillerBlock, true, Blocks.sand, 0.45f, 1.5f, 60f, 65f, 0.4f, 130f, 50f, 1.5f)
 		);

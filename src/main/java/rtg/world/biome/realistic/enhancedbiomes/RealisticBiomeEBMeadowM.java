@@ -13,7 +13,7 @@ public class RealisticBiomeEBMeadowM extends RealisticBiomeEBBase
 	public RealisticBiomeEBMeadowM(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainEBMeadowM(),
 			new SurfaceEBMeadowM(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

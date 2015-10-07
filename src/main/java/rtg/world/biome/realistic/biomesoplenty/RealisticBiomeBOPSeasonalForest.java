@@ -19,7 +19,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPSeasonalForest()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPSeasonalForest(0f, 140f, 68f, 200f),
 			new SurfaceBOPSeasonalForest(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

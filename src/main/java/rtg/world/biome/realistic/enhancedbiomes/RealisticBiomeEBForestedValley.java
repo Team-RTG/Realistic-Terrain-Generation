@@ -12,7 +12,7 @@ public class RealisticBiomeEBForestedValley extends RealisticBiomeEBBase
 	public RealisticBiomeEBForestedValley(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainEBForestedValley(40f),
 			new SurfaceEBForestedValley(ebBiome.topBlock, ebBiome.fillerBlock, 20f, false, false)
 		);

@@ -13,7 +13,7 @@ public class RealisticBiomeEBRoofedShrublands extends RealisticBiomeEBBase
 	public RealisticBiomeEBRoofedShrublands(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainEBRoofedShrublands(),
 			new SurfaceEBRoofedShrublands(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

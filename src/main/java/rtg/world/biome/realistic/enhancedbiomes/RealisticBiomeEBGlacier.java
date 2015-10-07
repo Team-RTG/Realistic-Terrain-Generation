@@ -12,7 +12,7 @@ public class RealisticBiomeEBGlacier extends RealisticBiomeEBBase
 	public RealisticBiomeEBGlacier(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
 			new TerrainEBGlacier(),
 			new SurfaceEBGlacier(ebBiome.topBlock, ebBiome.fillerBlock, false, null, 0.45f)
 		);

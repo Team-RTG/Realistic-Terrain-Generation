@@ -12,7 +12,7 @@ public class RealisticBiomeEBAlpineMountains extends RealisticBiomeEBBase
 	public RealisticBiomeEBAlpineMountains(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBAlpineMountains(),
 			new SurfaceEBAlpineMountains(ebBiome.topBlock, ebBiome.fillerBlock, false, null, 0.45f)
 		);

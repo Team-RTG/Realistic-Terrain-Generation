@@ -18,7 +18,7 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPConiferousForest()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainBOPConiferousForest(),
 			new SurfaceBOPConiferousForest(topBlock, fillerBlock, false, null, 0.45f)
 		);

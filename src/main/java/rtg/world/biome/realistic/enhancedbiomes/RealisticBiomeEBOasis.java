@@ -13,7 +13,7 @@ public class RealisticBiomeEBOasis extends RealisticBiomeEBBase
 	public RealisticBiomeEBOasis(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 			new TerrainEBOasis(),
 			new SurfaceEBOasis(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

@@ -13,7 +13,7 @@ public class RealisticBiomeEBBorealPlateau extends RealisticBiomeEBBase
 	public RealisticBiomeEBBorealPlateau(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBBorealPlateau(70f, 180f, 7f, 100f, 38f, 260f, 68f),
 			new SurfaceEBBorealPlateau(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

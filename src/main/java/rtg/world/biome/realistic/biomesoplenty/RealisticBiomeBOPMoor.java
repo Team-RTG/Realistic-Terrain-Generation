@@ -19,7 +19,7 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPMoor()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPMoor(0f, 70f, 68f, 200f),
 			new SurfaceBOPMoor(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

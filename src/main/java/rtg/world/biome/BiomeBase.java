@@ -15,7 +15,7 @@ public class BiomeBase extends BiomeGenBase
 		super(intBiomeId, false);
 	}
 
-	public static enum Climate {
+	public enum Climate {
 		COLD,
 		HOT,
 		ICE,

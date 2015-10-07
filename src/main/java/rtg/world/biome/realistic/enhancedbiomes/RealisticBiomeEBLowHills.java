@@ -12,7 +12,7 @@ public class RealisticBiomeEBLowHills extends RealisticBiomeEBBase
 	public RealisticBiomeEBLowHills(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainEBLowHills(),
 			new SurfaceEBLowHills(ebBiome.topBlock, ebBiome.fillerBlock, ebBiome.topBlock, ebBiome.fillerBlock)
 		);

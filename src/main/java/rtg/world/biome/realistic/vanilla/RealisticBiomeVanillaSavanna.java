@@ -17,7 +17,7 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase
 	{
 		super(
 			BiomeGenBase.savanna,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
+			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainVanillaSavanna(),
 			new SurfaceVanillaSavanna(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

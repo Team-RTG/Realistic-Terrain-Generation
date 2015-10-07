@@ -13,7 +13,7 @@ public class RealisticBiomeEBSnowyPlateau extends RealisticBiomeEBBase
 	public RealisticBiomeEBSnowyPlateau(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBSnowyPlateau(),
 			new SurfaceEBSnowyPlateau(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

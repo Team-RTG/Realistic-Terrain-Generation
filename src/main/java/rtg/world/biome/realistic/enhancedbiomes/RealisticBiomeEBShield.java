@@ -13,7 +13,7 @@ public class RealisticBiomeEBShield extends RealisticBiomeEBBase
 	public RealisticBiomeEBShield(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBShield(),
 			new SurfaceEBShield(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

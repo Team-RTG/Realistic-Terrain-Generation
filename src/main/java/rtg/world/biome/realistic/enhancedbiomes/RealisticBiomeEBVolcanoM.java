@@ -12,7 +12,7 @@ public class RealisticBiomeEBVolcanoM extends RealisticBiomeEBBase
 	public RealisticBiomeEBVolcanoM(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainEBVolcanoM(),
 			new SurfaceEBVolcanoM(ebBiome.topBlock, ebBiome.fillerBlock, false, ebBiome.topBlock, 20f)
 		);

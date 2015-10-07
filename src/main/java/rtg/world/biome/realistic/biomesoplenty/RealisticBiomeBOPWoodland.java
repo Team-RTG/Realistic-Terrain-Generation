@@ -19,7 +19,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPWoodland()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPWoodland(0f, 140f, 68f, 200f),
 			new SurfaceBOPWoodland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

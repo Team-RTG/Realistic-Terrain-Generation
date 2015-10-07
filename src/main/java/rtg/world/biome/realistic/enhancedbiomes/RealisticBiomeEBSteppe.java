@@ -13,7 +13,7 @@ public class RealisticBiomeEBSteppe extends RealisticBiomeEBBase
 	public RealisticBiomeEBSteppe(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBSteppe(),
 			new SurfaceEBSteppe(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

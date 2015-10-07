@@ -19,7 +19,7 @@ public class RealisticBiomeBOPSludgepit extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPSludgepit()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainBOPSludgepit(),
 			new SurfaceBOPSludgepit(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

@@ -16,7 +16,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
 	{
 		super(
 			BiomeGenBase.desert,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 			new TerrainVanillaDesert(),
 			new SurfaceVanillaDesert(topBlock, fillerBlock)
 		);

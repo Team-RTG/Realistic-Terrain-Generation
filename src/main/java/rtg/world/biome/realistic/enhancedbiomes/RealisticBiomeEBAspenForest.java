@@ -12,7 +12,7 @@ public class RealisticBiomeEBAspenForest extends RealisticBiomeEBBase
 	public RealisticBiomeEBAspenForest(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBAspenForest(230f, 120f, 0f),
 			new SurfaceEBAspenForest(ebBiome.topBlock, ebBiome.fillerBlock, false, null, 0.95f)
 		);

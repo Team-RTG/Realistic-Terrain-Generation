@@ -13,7 +13,7 @@ public class RealisticBiomeEBRedDesert extends RealisticBiomeEBBase
 	public RealisticBiomeEBRedDesert(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 			new TerrainEBRedDesert(),
 			new SurfaceEBRedDesert(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.sand, Blocks.sand, Blocks.sand)
 		);

@@ -16,7 +16,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase
 	{
 		super(
 			BiomeGenBase.mesa,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 			new TerrainVanillaMesa(),
 			//new SurfaceVanillaMesa(Blocks.sand, Blocks.sand, (byte)1)
 			new SurfaceVanillaMesa(topBlock, fillerBlock, (byte)1)

@@ -13,7 +13,7 @@ public class RealisticBiomeEBClearing extends RealisticBiomeEBBase
 	public RealisticBiomeEBClearing(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainEBClearing(),
 			new SurfaceEBClearing(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

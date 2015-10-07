@@ -13,7 +13,7 @@ public class RealisticBiomeEBCarr extends RealisticBiomeEBBase
 	public RealisticBiomeEBCarr(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainEBCarr(),
 			new SurfaceEBCarr(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

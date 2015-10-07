@@ -19,7 +19,7 @@ public class RealisticBiomeBOPSilkglades extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPSilkglades()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPSilkglades(),
 			new SurfaceBOPSilkglades(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

@@ -13,7 +13,7 @@ public class RealisticBiomeEBCreekBed extends RealisticBiomeEBBase
 	public RealisticBiomeEBCreekBed(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainEBCreekBed(),
 			new SurfaceEBCreekBed(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

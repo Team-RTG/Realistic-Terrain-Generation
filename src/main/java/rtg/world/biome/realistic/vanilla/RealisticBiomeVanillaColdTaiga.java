@@ -16,7 +16,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
 	{
 		super(
 			BiomeGenBase.coldTaiga,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainVanillaColdTaiga(),
 			new SurfaceVanillaColdTaiga(topBlock, fillerBlock)
 		);

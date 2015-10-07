@@ -19,7 +19,7 @@ public class RealisticBiomeBOPPrairie extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPPrairie()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainBOPPrairie(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 			new SurfaceBOPPrairie(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

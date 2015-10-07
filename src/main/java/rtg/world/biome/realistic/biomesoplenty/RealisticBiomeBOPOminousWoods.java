@@ -19,7 +19,7 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPOminousWoods()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainBOPOminousWoods(0f, 140f, 68f, 200f),
 			new SurfaceBOPOminousWoods(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

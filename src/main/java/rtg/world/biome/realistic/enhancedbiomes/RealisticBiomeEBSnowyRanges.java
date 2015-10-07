@@ -13,7 +13,7 @@ public class RealisticBiomeEBSnowyRanges extends RealisticBiomeEBBase
 	public RealisticBiomeEBSnowyRanges(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBSnowyRanges(),
 			new SurfaceEBSnowyRanges(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

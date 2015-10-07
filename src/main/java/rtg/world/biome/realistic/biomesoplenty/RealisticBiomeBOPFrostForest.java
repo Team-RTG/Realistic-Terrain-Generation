@@ -19,7 +19,7 @@ public class RealisticBiomeBOPFrostForest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPFrostForest()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
 			new TerrainBOPFrostForest(0f, 140f, 68f, 200f),
 			new SurfaceBOPFrostForest(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

@@ -19,7 +19,7 @@ public class RealisticBiomeBOPScrubland extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPScrubland()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPScrubland(),
 			new SurfaceBOPScrubland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

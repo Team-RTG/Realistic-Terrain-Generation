@@ -19,7 +19,7 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPMountain()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainBOPMountain(),
 			new SurfaceBOPMountain(topBlock, fillerBlock, true, Blocks.sand, 0.75f)
 		);

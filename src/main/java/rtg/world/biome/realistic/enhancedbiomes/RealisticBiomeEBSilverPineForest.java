@@ -12,7 +12,7 @@ public class RealisticBiomeEBSilverPineForest extends RealisticBiomeEBBase
 	public RealisticBiomeEBSilverPineForest(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBSilverPineForest(100f, 70f, 0f),
 			new SurfaceEBSilverPineForest(ebBiome.topBlock, ebBiome.fillerBlock, false, null, 0.95f)
 		);

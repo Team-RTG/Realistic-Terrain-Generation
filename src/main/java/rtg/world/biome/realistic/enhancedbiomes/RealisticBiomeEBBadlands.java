@@ -12,7 +12,7 @@ public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
 	public RealisticBiomeEBBadlands(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainEBBadlands(),
 			new SurfaceEBBadlands(ebBiome.topBlock, ebBiome.fillerBlock)
 		);

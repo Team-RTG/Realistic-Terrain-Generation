@@ -19,7 +19,7 @@ public class RealisticBiomeBOPArctic extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPArctic()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
 			new TerrainBOPArctic(),
 			new SurfaceBOPArctic(topBlock, fillerBlock)
 		);

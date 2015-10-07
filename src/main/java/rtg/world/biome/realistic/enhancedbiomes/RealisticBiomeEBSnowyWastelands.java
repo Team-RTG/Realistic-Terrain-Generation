@@ -13,7 +13,7 @@ public class RealisticBiomeEBSnowyWastelands extends RealisticBiomeEBBase
 	public RealisticBiomeEBSnowyWastelands(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBSnowyWastelands(),
 			new SurfaceEBSnowyWastelands(Blocks.snow, Blocks.snow)
 		);

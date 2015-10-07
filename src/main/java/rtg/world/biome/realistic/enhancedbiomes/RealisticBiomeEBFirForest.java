@@ -12,7 +12,7 @@ public class RealisticBiomeEBFirForest extends RealisticBiomeEBBase
 	public RealisticBiomeEBFirForest(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBFirForest(160f, 80f, 60f),
 			new SurfaceEBFirForest(ebBiome.topBlock, ebBiome.fillerBlock, false, null, 0.45f)
 		);

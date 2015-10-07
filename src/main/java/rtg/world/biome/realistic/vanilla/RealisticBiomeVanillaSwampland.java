@@ -17,7 +17,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
 	{
 		super(
 			BiomeGenBase.swampland,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainVanillaSwampland(),
 			new SurfaceVanillaSwampland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

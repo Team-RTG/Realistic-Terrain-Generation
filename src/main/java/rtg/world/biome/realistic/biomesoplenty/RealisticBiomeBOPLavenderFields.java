@@ -18,7 +18,7 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPLavenderFields()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPLavenderFields(),
 			new SurfaceBOPLavenderFields(topBlock, fillerBlock, false, null, 1.2f)
 		);

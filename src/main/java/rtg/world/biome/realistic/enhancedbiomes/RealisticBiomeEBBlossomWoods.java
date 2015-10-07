@@ -13,7 +13,7 @@ public class RealisticBiomeEBBlossomWoods extends RealisticBiomeEBBase
 	public RealisticBiomeEBBlossomWoods(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainEBBlossomWoods(70f, 180f, 7f, 100f, 38f, 260f, 68f),
 			new SurfaceEBBlossomWoods(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

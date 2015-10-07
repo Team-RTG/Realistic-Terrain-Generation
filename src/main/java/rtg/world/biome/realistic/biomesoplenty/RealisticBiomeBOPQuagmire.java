@@ -19,7 +19,7 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPQuagmire()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPQuagmire(),
 			new SurfaceBOPQuagmire(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

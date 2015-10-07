@@ -20,7 +20,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPBayou()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainBOPBayou(),
 			new SurfaceBOPBayou(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

@@ -19,7 +19,7 @@ public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPTropicalRainforest()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainBOPTropicalRainforest(0f, 140f, 68f, 200f),
 			new SurfaceBOPTropicalRainforest(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

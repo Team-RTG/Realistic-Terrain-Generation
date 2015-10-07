@@ -19,7 +19,7 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPBambooForest()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainBOPBambooForest(135f, 300f),
 			new SurfaceBOPBambooForest(topBlock, fillerBlock, false, null, 0.95f)
 		);

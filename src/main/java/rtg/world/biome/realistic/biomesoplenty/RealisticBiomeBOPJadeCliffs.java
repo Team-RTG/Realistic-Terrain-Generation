@@ -18,7 +18,7 @@ public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPJadeCliffs()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainBOPJadeCliffs(230f, 120f, 0f),
 			new SurfaceBOPJadeCliffs(topBlock, fillerBlock, false, null, 0.95f)
 		);

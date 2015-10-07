@@ -22,7 +22,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
 	{
 		super(
 			BiomeGenBase.beach,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
+			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 			new TerrainVanillaBeach(),
 			new SurfaceVanillaBeach(topBlock, fillerBlock, topBlock, fillerBlock, (byte)0, 1)
 		);

@@ -19,7 +19,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPLushDesert()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainBOPLushDesert(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 			new SurfaceBOPLushDesert(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

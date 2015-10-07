@@ -17,7 +17,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
 	{
 		super(
 			BiomeGenBase.plains,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainVanillaPlains(),
 			new SurfaceVanillaPlains(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

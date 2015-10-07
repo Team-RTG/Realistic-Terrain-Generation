@@ -13,7 +13,7 @@ public class RealisticBiomeEBRainforestValley extends RealisticBiomeEBBase
 	public RealisticBiomeEBRainforestValley(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainEBRainforestValley(),
 			new SurfaceEBRainforestValley(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

@@ -19,7 +19,7 @@ public class RealisticBiomeBOPMarsh extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPMarsh()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPMarsh(),
 			new SurfaceBOPMarsh(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

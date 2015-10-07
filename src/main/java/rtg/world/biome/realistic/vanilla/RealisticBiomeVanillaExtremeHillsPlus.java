@@ -17,7 +17,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
 	{
 		super(
 			BiomeGenBase.extremeHillsPlus,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainVanillaExtremeHillsPlus(),
 			new SurfaceVanillaExtremeHillsPlus(Blocks.gravel, Blocks.stone, false, null, 1f, 1.5f, 85f, 20f, 4f)
 		);

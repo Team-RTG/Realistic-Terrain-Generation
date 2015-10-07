@@ -12,7 +12,7 @@ public class RealisticBiomeEBForestedMountains extends RealisticBiomeEBBase
 	public RealisticBiomeEBForestedMountains(BiomeGenBase ebBiome)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainEBForestedMountains(120f, 70f, 60f),
 			new SurfaceEBForestedMountains(ebBiome.topBlock, ebBiome.fillerBlock, false, null, 0.45f)
 		);

@@ -19,7 +19,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPShield()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainBOPShield(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 			new SurfaceBOPShield(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

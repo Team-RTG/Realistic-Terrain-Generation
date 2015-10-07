@@ -19,7 +19,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPEucalyptusForest()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainBOPEucalyptusForest(0f, 180f, 68f, 120f),
 			new SurfaceBOPEucalyptusForest(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

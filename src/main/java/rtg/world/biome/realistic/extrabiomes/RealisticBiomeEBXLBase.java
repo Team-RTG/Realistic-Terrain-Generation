@@ -4,6 +4,7 @@ import cpw.mods.fml.common.Loader;
 import extrabiomes.api.BiomeManager;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.config.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
@@ -28,7 +29,36 @@ import rtg.world.gen.terrain.TerrainSwampMountain;
 import rtg.world.gen.terrain.TerrainSwampRiver;
 
 public class RealisticBiomeEBXLBase extends RealisticBiomeBase
-{	
+{
+	public static RealisticBiomeBase ebxl_alpine;
+	public static RealisticBiomeBase ebxl_autumnwoods;
+	public static RealisticBiomeBase ebxl_birchforest;
+	public static RealisticBiomeBase ebxl_extremejungle;
+	public static RealisticBiomeBase ebxl_forestedisland;
+	public static RealisticBiomeBase ebxl_forestedhills;
+	public static RealisticBiomeBase ebxl_glacier;
+	public static RealisticBiomeBase ebxl_greenhills;
+	public static RealisticBiomeBase ebxl_icewasteland;
+	public static RealisticBiomeBase ebxl_greenswamp;
+	public static RealisticBiomeBase ebxl_marsh;
+	public static RealisticBiomeBase ebxl_meadow;
+	public static RealisticBiomeBase ebxl_minijungle;
+	public static RealisticBiomeBase ebxl_mountaindesert;
+	public static RealisticBiomeBase ebxl_mountainridge;
+	public static RealisticBiomeBase ebxl_mountaintaiga;
+	public static RealisticBiomeBase ebxl_pineforest;
+	public static RealisticBiomeBase ebxl_rainforest;
+	public static RealisticBiomeBase ebxl_redwoodforest;
+	public static RealisticBiomeBase ebxl_redwoodlush;
+	public static RealisticBiomeBase ebxl_savanna;
+	public static RealisticBiomeBase ebxl_shrubland;
+	public static RealisticBiomeBase ebxl_snowforest;
+	public static RealisticBiomeBase ebxl_snowyrainforest;
+	public static RealisticBiomeBase ebxl_temperaterainforest;
+	public static RealisticBiomeBase ebxl_tundra;
+	public static RealisticBiomeBase ebxl_wasteland;
+	public static RealisticBiomeBase ebxl_woodlands;
+	
 	public RealisticBiomeEBXLBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
 		super(b, riverbiome, t, s);
@@ -36,7 +66,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 	
 	public static void addBiomes()
 	{
-		if (Loader.isModLoaded("ExtrabiomesXL"))
+		if (Loader.isModLoaded("ExtrabiomesXL") && ConfigEBXL.generateEBXLBiomes)
 		{
 		    //ALPINE
 			if(BiomeManager.alpine.isPresent())

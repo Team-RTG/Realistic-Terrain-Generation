@@ -50,9 +50,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     private boolean smallEnabled;
 
     private float[] borderNoise;
-	
-    public BiomeCategory previousBaseBiomeCategory = BiomeCategory.WET;
-	
+		
 	protected WorldChunkManagerRTG()
 	{
         this.biomeCache = new BiomeCache(this);
@@ -204,77 +202,19 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         	output = chooseSmallBiome(s);
     	}
     	else if ((wetEnabled && b < 0.25f) || (!wetEnabled && b < 0.33f)) {
-    		
-    		switch (previousBaseBiomeCategory)
-    		{
-    			case SNOW:
-    			case COLD:
-    				output = chooseSnowBiome(par1, par2);
-    				break;
-    			default:
-    				output = chooseWetBiome(par1, par2);
-    				break;
-    		}
+    		output = chooseSnowBiome(par1, par2);
     	}
     	else if ((wetEnabled && b < 0.50f) || (!wetEnabled && b < 0.66f)) {
-    		
-    		switch (previousBaseBiomeCategory)
-    		{
-    			case SNOW:
-    			case COLD:
-    			case WET:
-    				output = chooseColdBiome(par1, par2);
-    				break;
-    			default:
-    				output = chooseWetBiome(par1, par2);
-    				break;
-    		}
+    		output = chooseColdBiome(par1, par2);
     	}
     	else if ((wetEnabled && b < 0.75f) || (!wetEnabled && b < 1f)) {
-    		
-    		switch (previousBaseBiomeCategory)
-    		{
-    			case HOT:
-    			case WET:
-    				output = chooseHotBiome(par1, par2);
-    				break;
-    			default:
-    				output = chooseWetBiome(par1, par2);
-    				break;
-    		}
+    		output = chooseHotBiome(par1, par2);
     	}
     	else if (wetEnabled) {
-    		
-    		switch (previousBaseBiomeCategory)
-    		{
-    			case HOT:
-    			case WET:
-    			case COLD:
-    				output = chooseWetBiome(par1, par2);
-    				break;
-    			default:
-    				output = chooseHotBiome(par1, par2);
-    				break;
-    		}
+    		output = chooseWetBiome(par1, par2);
     	}
     	else {
-    		
-    		switch (previousBaseBiomeCategory)
-    		{
-    			case HOT:
-    				output = chooseHotBiome(par1, par2);
-    			case WET:
-    				output = chooseWetBiome(par1, par2);
-    			case COLD:
-    				output = chooseColdBiome(par1, par2);
-    				break;
-    			case SNOW:
-    				output = chooseSnowBiome(par1, par2);
-    				break;
-    			default:
-    				output = chooseHotBiome(par1, par2);
-    				break;
-    		}
+    		output = chooseHotBiome(par1, par2);
     	}
 
     	/*int intMin = 1;
@@ -321,11 +261,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
 		}
 
 		biomeDataMap.put(coords, output);
-		
-		//===========================================================
-		
-		previousBaseBiomeCategory = output.biomeCategory;
-		
+
 		return output;
     }
     

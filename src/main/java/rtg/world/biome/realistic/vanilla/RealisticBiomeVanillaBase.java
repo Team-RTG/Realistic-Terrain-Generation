@@ -83,7 +83,12 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigRTG.generateVanillaMushroomIslandShore) { BiomeBase.addBiome(vanillaMushroomIslandShore); }
 			if (ConfigRTG.generateVanillaOcean) { BiomeBase.addBiome(vanillaOcean); }
 			if (ConfigRTG.generateVanillaPlains) { BiomeBase.addBiome(vanillaPlains); }
-			if (ConfigRTG.generateVanillaRiver) { BiomeBase.addBiome(vanillaRiver); }
+			
+			/**
+			 * Rivers will automatically get generated, so we don't need to add them here.
+			 */
+			//if (ConfigRTG.generateVanillaRiver) { BiomeBase.addBiome(vanillaRiver); }
+			
 			if (ConfigRTG.generateVanillaRoofedForest) { BiomeBase.addBiome(vanillaRoofedForest); }
 			if (ConfigRTG.generateVanillaSavanna) { BiomeBase.addBiome(vanillaSavanna); }
 			if (ConfigRTG.generateVanillaSavannaPlateau) { BiomeBase.addBiome(vanillaSavannaPlateau); }

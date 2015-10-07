@@ -1,17 +1,17 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigBOP;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
-import rtg.world.gen.surface.biomesoplenty.SurfaceBOPAlps;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPAlps;
+import rtg.world.gen.surface.biomesoplenty.SurfaceBOPVolcano;
+import rtg.world.gen.terrain.biomesoplenty.TerrainBOPVolcano;
 import biomesoplenty.api.content.BOPCBiomes;
 
 public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.alps;
+	public static BiomeGenBase bopBiome = BOPCBiomes.volcano;
 	
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
@@ -19,13 +19,13 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPVolcano()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
-			new TerrainBOPAlps(),
-			new SurfaceBOPAlps(topBlock, fillerBlock, false, null, 0.45f)
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
+			new TerrainBOPVolcano(),
+			new SurfaceBOPVolcano(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
 		
 		this.setRealisticBiomeName("BOP Volcano");
-		this.biomeCategory = BiomeCategory.COLD;
-		this.biomeWeight = ConfigBOP.weightBOPbrushland;
+		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeWeight = ConfigBOP.weightBOPvolcano;
 	}
 }

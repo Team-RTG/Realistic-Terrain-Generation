@@ -4,9 +4,9 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainBOPLandOflakes extends TerrainBase
+public class TerrainBOPLandOfLakes extends TerrainBase
 {
-	public TerrainBOPLandOflakes()
+	public TerrainBOPLandOfLakes()
 	{
 	}
 	

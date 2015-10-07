@@ -1,17 +1,17 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigBOP;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
-import rtg.world.gen.surface.biomesoplenty.SurfaceBOPAlps;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPAlps;
+import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMoor;
+import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMoor;
 import biomesoplenty.api.content.BOPCBiomes;
 
 public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.alps;
+	public static BiomeGenBase bopBiome = BOPCBiomes.moor;
 	
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
@@ -19,13 +19,13 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPMoor()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
-			new TerrainBOPAlps(),
-			new SurfaceBOPAlps(topBlock, fillerBlock, false, null, 0.45f)
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			new TerrainBOPMoor(0f, 70f, 68f, 200f),
+			new SurfaceBOPMoor(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
 		
 		this.setRealisticBiomeName("BOP Moor");
-		this.biomeCategory = BiomeCategory.COLD;
-		this.biomeWeight = ConfigBOP.weightBOPbrushland;
+		this.biomeCategory = BiomeCategory.WET;
+		this.biomeWeight = ConfigBOP.weightBOPmoor;
 	}
 }

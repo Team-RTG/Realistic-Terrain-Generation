@@ -1,17 +1,17 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigBOP;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
-import rtg.world.gen.surface.biomesoplenty.SurfaceBOPAlps;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPAlps;
+import rtg.world.gen.surface.biomesoplenty.SurfaceBOPFrostForest;
+import rtg.world.gen.terrain.biomesoplenty.TerrainBOPFrostForest;
 import biomesoplenty.api.content.BOPCBiomes;
 
 public class RealisticBiomeBOPFrostForest extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.alps;
+	public static BiomeGenBase bopBiome = BOPCBiomes.frostForest;
 	
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
@@ -20,12 +20,12 @@ public class RealisticBiomeBOPFrostForest extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
-			new TerrainBOPAlps(),
-			new SurfaceBOPAlps(topBlock, fillerBlock, false, null, 0.45f)
+			new TerrainBOPFrostForest(0f, 140f, 68f, 200f),
+			new SurfaceBOPFrostForest(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
 		
 		this.setRealisticBiomeName("BOP Frost Forest");
-		this.biomeCategory = BiomeCategory.COLD;
-		this.biomeWeight = ConfigBOP.weightBOPbrushland;
+		this.biomeCategory = BiomeCategory.SNOW;
+		this.biomeWeight = ConfigBOP.weightBOPfrostForest;
 	}
 }

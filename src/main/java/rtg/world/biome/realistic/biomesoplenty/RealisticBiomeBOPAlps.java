@@ -1,11 +1,10 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigBOP;
-import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPAlps;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPAlps;
 import biomesoplenty.api.content.BOPCBiomes;

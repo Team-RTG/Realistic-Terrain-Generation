@@ -4,14 +4,13 @@ import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigBOP;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
-import rtg.world.gen.surface.biomesoplenty.SurfaceBOPAlps;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPAlps;
+import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMeadowForest;
+import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMeadowForest;
 import biomesoplenty.api.content.BOPCBiomes;
 
 public class RealisticBiomeBOPMeadowForest extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.alps;
+	public static BiomeGenBase bopBiome = BOPCBiomes.meadowForest;
 	
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
@@ -19,13 +18,13 @@ public class RealisticBiomeBOPMeadowForest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPMeadowForest()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
-			new TerrainBOPAlps(),
-			new SurfaceBOPAlps(topBlock, fillerBlock, false, null, 0.45f)
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			new TerrainBOPMeadowForest(),
+			new SurfaceBOPMeadowForest(topBlock, fillerBlock, false, null, 1.2f)
 		);
 		
 		this.setRealisticBiomeName("BOP Meadow Forest");
-		this.biomeCategory = BiomeCategory.COLD;
-		this.biomeWeight = ConfigBOP.weightBOPbrushland;
+		this.biomeCategory = BiomeCategory.WET;
+		this.biomeWeight = ConfigBOP.weightBOPmeadowForest;
 	}
 }

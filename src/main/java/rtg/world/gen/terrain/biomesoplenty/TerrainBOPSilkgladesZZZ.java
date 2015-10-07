@@ -4,9 +4,9 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainBOPSludgepit extends TerrainBase
+public class TerrainBOPSilkgladesZZZ extends TerrainBase
 {
-	public TerrainBOPSludgepit()
+	public TerrainBOPSilkgladesZZZ()
 	{
 	}
 	

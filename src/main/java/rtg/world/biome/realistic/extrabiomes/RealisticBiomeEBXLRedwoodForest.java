@@ -5,8 +5,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
-import rtg.world.gen.surface.extrabiomes.SurfaceEBXLAlpine;
-import rtg.world.gen.terrain.extrabiomes.TerrainEBXLAlpine;
+import rtg.world.gen.surface.extrabiomes.SurfaceEBXLRedwoodForest;
+import rtg.world.gen.terrain.extrabiomes.TerrainEBXLRedwoodForest;
 import extrabiomes.api.BiomeManager;
 
 public class RealisticBiomeEBXLRedwoodForest extends RealisticBiomeEBXLBase
@@ -20,8 +20,8 @@ public class RealisticBiomeEBXLRedwoodForest extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainEBXLAlpine(),
-			new SurfaceEBXLAlpine(topBlock, fillerBlock, false, null, 0.45f)
+			new TerrainEBXLRedwoodForest(230f, 120f, 0f),
+			new SurfaceEBXLRedwoodForest(topBlock, fillerBlock, true, Blocks.sand, 0.2f)
 		);
 		
 		this.setRealisticBiomeName("EBXL Redwood Forest");

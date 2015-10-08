@@ -5,8 +5,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
-import rtg.world.gen.surface.extrabiomes.SurfaceEBXLAlpine;
-import rtg.world.gen.terrain.extrabiomes.TerrainEBXLAlpine;
+import rtg.world.gen.surface.extrabiomes.SurfaceEBXLMarsh;
+import rtg.world.gen.terrain.extrabiomes.TerrainEBXLMarsh;
 import extrabiomes.api.BiomeManager;
 
 public class RealisticBiomeEBXLMarsh extends RealisticBiomeEBXLBase
@@ -20,8 +20,8 @@ public class RealisticBiomeEBXLMarsh extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
-			new TerrainEBXLAlpine(),
-			new SurfaceEBXLAlpine(topBlock, fillerBlock, false, null, 0.45f)
+			new TerrainEBXLMarsh(),
+			new SurfaceEBXLMarsh(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
 		
 		this.setRealisticBiomeName("EBXL Marsh");

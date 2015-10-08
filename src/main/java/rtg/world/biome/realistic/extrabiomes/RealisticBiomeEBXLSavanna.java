@@ -5,8 +5,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
-import rtg.world.gen.surface.extrabiomes.SurfaceEBXLAlpine;
-import rtg.world.gen.terrain.extrabiomes.TerrainEBXLAlpine;
+import rtg.world.gen.surface.extrabiomes.SurfaceEBXLSavanna;
+import rtg.world.gen.terrain.extrabiomes.TerrainEBXLSavanna;
 import extrabiomes.api.BiomeManager;
 
 public class RealisticBiomeEBXLSavanna extends RealisticBiomeEBXLBase
@@ -20,8 +20,8 @@ public class RealisticBiomeEBXLSavanna extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
-			new TerrainEBXLAlpine(),
-			new SurfaceEBXLAlpine(topBlock, fillerBlock, false, null, 0.45f)
+			new TerrainEBXLSavanna(),
+			new SurfaceEBXLSavanna(topBlock, fillerBlock, Blocks.sand, Blocks.stone, Blocks.cobblestone, 13f, 0.27f)
 		);
 		
 		this.setRealisticBiomeName("EBXL Savanna");

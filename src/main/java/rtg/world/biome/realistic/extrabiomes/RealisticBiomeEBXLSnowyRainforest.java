@@ -5,8 +5,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
-import rtg.world.gen.surface.extrabiomes.SurfaceEBXLAlpine;
-import rtg.world.gen.terrain.extrabiomes.TerrainEBXLAlpine;
+import rtg.world.gen.surface.extrabiomes.SurfaceEBXLSnowyRainforest;
+import rtg.world.gen.terrain.extrabiomes.TerrainEBXLSnowyRainforest;
 import extrabiomes.api.BiomeManager;
 
 public class RealisticBiomeEBXLSnowyRainforest extends RealisticBiomeEBXLBase
@@ -20,8 +20,8 @@ public class RealisticBiomeEBXLSnowyRainforest extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
-			new TerrainEBXLAlpine(),
-			new SurfaceEBXLAlpine(topBlock, fillerBlock, false, null, 0.45f)
+			new TerrainEBXLSnowyRainforest(230f, 120f, 0f),
+			new SurfaceEBXLSnowyRainforest(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
 		
 		this.setRealisticBiomeName("EBXL Snowy Rainforest");

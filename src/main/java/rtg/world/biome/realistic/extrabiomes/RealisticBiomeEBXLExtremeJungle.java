@@ -5,8 +5,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
-import rtg.world.gen.surface.extrabiomes.SurfaceEBXLAlpine;
-import rtg.world.gen.terrain.extrabiomes.TerrainEBXLAlpine;
+import rtg.world.gen.surface.extrabiomes.SurfaceEBXLExtremeJungle;
+import rtg.world.gen.terrain.extrabiomes.TerrainEBXLExtremeJungle;
 import extrabiomes.api.BiomeManager;
 
 public class RealisticBiomeEBXLExtremeJungle extends RealisticBiomeEBXLBase
@@ -20,8 +20,8 @@ public class RealisticBiomeEBXLExtremeJungle extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
-			new TerrainEBXLAlpine(),
-			new SurfaceEBXLAlpine(topBlock, fillerBlock, false, null, 0.45f)
+			new TerrainEBXLExtremeJungle(135f, 300f),
+			new SurfaceEBXLExtremeJungle(topBlock, fillerBlock, false, null, 0.95f)
 		);
 		
 		this.setRealisticBiomeName("EBXL Extreme Jungle");

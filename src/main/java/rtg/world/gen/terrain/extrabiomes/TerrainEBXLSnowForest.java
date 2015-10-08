@@ -4,14 +4,14 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainEBXLSnowyForest extends TerrainBase
+public class TerrainEBXLSnowForest extends TerrainBase
 {
 	private float start;
 	private float height;
 	private float base;
 	private float width;
 	
-	public TerrainEBXLSnowyForest(float hillStart, float landHeight, float baseHeight, float hillWidth)
+	public TerrainEBXLSnowForest(float hillStart, float landHeight, float baseHeight, float hillWidth)
 	{
 		start = hillStart;
 		height = landHeight;

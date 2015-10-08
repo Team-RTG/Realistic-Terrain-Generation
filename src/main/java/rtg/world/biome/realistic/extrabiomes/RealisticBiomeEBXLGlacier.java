@@ -5,8 +5,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
-import rtg.world.gen.surface.extrabiomes.SurfaceEBXLAlpine;
-import rtg.world.gen.terrain.extrabiomes.TerrainEBXLAlpine;
+import rtg.world.gen.surface.extrabiomes.SurfaceEBXLGlacier;
+import rtg.world.gen.terrain.extrabiomes.TerrainEBXLGlacier;
 import extrabiomes.api.BiomeManager;
 
 public class RealisticBiomeEBXLGlacier extends RealisticBiomeEBXLBase
@@ -20,8 +20,8 @@ public class RealisticBiomeEBXLGlacier extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
-			new TerrainEBXLAlpine(),
-			new SurfaceEBXLAlpine(topBlock, fillerBlock, false, null, 0.45f)
+			new TerrainEBXLGlacier(90f, 180f, 13f, 100f, 38f, 260f, 71f),
+			new SurfaceEBXLGlacier(topBlock, fillerBlock, false, null, 0.95f)
 		);
 		
 		this.setRealisticBiomeName("EBXL Glacier");

@@ -1,12 +1,11 @@
 package rtg.world.biome.realistic.extrabiomes;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
-import rtg.world.gen.surface.extrabiomes.SurfaceEBXLAlpine;
-import rtg.world.gen.terrain.extrabiomes.TerrainEBXLAlpine;
+import rtg.world.gen.surface.extrabiomes.SurfaceEBXLBirchForest;
+import rtg.world.gen.terrain.extrabiomes.TerrainEBXLBirchForest;
 import extrabiomes.api.BiomeManager;
 
 public class RealisticBiomeEBXLBirchForest extends RealisticBiomeEBXLBase
@@ -20,8 +19,8 @@ public class RealisticBiomeEBXLBirchForest extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainEBXLAlpine(),
-			new SurfaceEBXLAlpine(topBlock, fillerBlock, false, null, 0.45f)
+			new TerrainEBXLBirchForest(230f, 120f, 0f),
+			new SurfaceEBXLBirchForest(topBlock, fillerBlock, false, null, 0.95f)
 		);
 		
 		this.setRealisticBiomeName("EBXL Birch Forest");

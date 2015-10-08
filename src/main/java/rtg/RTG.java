@@ -23,7 +23,7 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBase;
 import rtg.world.biome.realistic.extrabiomes.RealisticBiomeEBXLBase;
-import rtg.world.biome.realistic.highlands.RealisticBiomeHighlandsBase;
+import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 
@@ -70,7 +70,7 @@ public class RTG
 		RealisticBiomeBOPBase.addBiomes();
 		RealisticBiomeEBBase.addBiomes();
 		RealisticBiomeEBXLBase.addBiomes();
-		RealisticBiomeHighlandsBase.addBiomes();
+		RealisticBiomeHLBase.addBiomes();
 		RealisticBiomeTCBase.addBiomes();
 	}
 }

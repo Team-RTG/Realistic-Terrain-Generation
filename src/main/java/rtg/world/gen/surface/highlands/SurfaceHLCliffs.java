@@ -3,8 +3,8 @@ package rtg.world.gen.surface.highlands;
 import java.util.Random;
 
 import rtg.util.CellNoise;
+import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.SnowHeightCalculator;
 import rtg.world.gen.surface.SurfaceBase;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -13,29 +13,43 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceHLCliffs extends SurfaceBase
 {
-	public SurfaceHLCliffs(Block top, Block fill) 
+	private boolean beach;
+	private Block beachBlock;
+	private float min;
+	
+	private float sCliff = 1.5f;
+	private float sHeight = 60f;
+	private float sStrength = 65f;
+	private float cCliff = 1.5f;
+	
+	public byte topByte = 0;
+	
+	public SurfaceHLCliffs(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{
 		super(top, fill);
+		beach = genBeach;
+		beachBlock = genBeachBlock;
+		min = minCliff;
+	}
+	
+	public SurfaceHLCliffs(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
+	{
+		this(top, fill, genBeach, genBeachBlock, minCliff);
+		
+		sCliff = stoneCliff;
+		sHeight = stoneHeight;
+		sStrength = stoneStrength;
+		cCliff = clayCliff;
 	}
 	
 	@Override
 	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
-		boolean water = false;
-		boolean riverPaint = false;
-		boolean grass = false;
+		float c = CliffCalculator.calc(x, y, noise);
+		int cliff = 0;
+		boolean gravel = false;
 		
-		if(river > 0.05f && river + (simplex.noise2(i / 10f, j / 10f) * 0.1f) > 0.86f)
-		{
-			riverPaint = true;
-			
-			if(simplex.noise2(i / 12f, j / 12f) > 0.25f)
-			{
-				grass = true;
-			}
-		}
-		
-		Block b;
+    	Block b;
 		for(int k = 255; k > -1; k--)
 		{
 			b = blocks[(y * 16 + x) * 256 + k];
@@ -46,31 +60,79 @@ public class SurfaceHLCliffs extends SurfaceBase
             else if(b == Blocks.stone)
             {
             	depth++;
-
-            	if(riverPaint)
+            	
+            	if(depth == 0)
             	{
-            		if(grass && depth < 4)
+            		if(k < 63)
             		{
-    	        		blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+            			if(beach)
+            			{
+            				gravel = true;
+            			}
             		}
-            		else if(depth == 0)
+
+					float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+        			if(c > min && c > sCliff - ((k - sHeight) / sStrength) + p)
+        			{
+        				cliff = 1;
+        			}
+            		if(c > cCliff)
+        			{
+        				cliff = 2;
+        			}
+            		
+            		if(cliff == 1)
             		{
-    	        		blocks[(y * 16 + x) * 256 + k] = rand.nextInt(2) == 0 ? Blocks.stone : Blocks.cobblestone;
+            			blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? Blocks.cobblestone : Blocks.stone; 
+            		}
+            		else if(cliff == 2)
+            		{
+        				blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay; 
+        				metadata[(y * 16 + x) * 256 + k] = 9; 
+            		}
+            		else if(k < 63)
+            		{
+            			if(beach)
+            			{
+	            			blocks[(y * 16 + x) * 256 + k] = beachBlock;
+	            			gravel = true;
+            			}
+            			else if(k < 62)
+            			{
+                			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+            			}
+            			else
+            			{
+                			blocks[(y * 16 + x) * 256 + k] = topBlock;
+                			metadata[(y * 16 + x) * 256 + k] = topByte;
+            			}
+            		}
+            		else
+            		{
+            			blocks[(y * 16 + x) * 256 + k] = topBlock;
+            			metadata[(y * 16 + x) * 256 + k] = topByte;
             		}
             	}
-        		else if(depth > -1 && depth < 9)
+            	else if(depth < 6)
         		{
-        			blocks[(y * 16 + x) * 256 + k] = Blocks.snow;
-            		if(depth == 0 && k > 61 && k < 254)
+            		if(cliff == 1)
             		{
-            			SnowHeightCalculator.calc(x, y, k, blocks, metadata, noise);
+            			blocks[(y * 16 + x) * 256 + k] = Blocks.stone; 
+            		}
+            		else if(cliff == 2)
+            		{
+        				blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay; 
+        				metadata[(y * 16 + x) * 256 + k] = 9; 
+            		}
+            		else if(gravel)
+            		{
+            			blocks[(y * 16 + x) * 256 + k] = beachBlock;
+            		}
+            		else
+            		{
+            			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
             		}
         		}
-            }
-            else if(!water && b == Blocks.water)
-            {
-    			blocks[(y * 16 + x) * 256 + k] = Blocks.ice;
-            	water = true;
             }
 		}
 	}

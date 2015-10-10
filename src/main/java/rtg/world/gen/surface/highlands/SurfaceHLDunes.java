@@ -2,9 +2,11 @@ package rtg.world.gen.surface.highlands;
 
 import java.util.Random;
 
+
+
 import rtg.util.CellNoise;
+import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.SnowHeightCalculator;
 import rtg.world.gen.surface.SurfaceBase;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -51,27 +53,21 @@ public class SurfaceHLDunes extends SurfaceBase
             	{
             		if(grass && depth < 4)
             		{
-    	        		blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+    	        		blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
             		}
             		else if(depth == 0)
             		{
-    	        		blocks[(y * 16 + x) * 256 + k] = rand.nextInt(2) == 0 ? Blocks.stone : Blocks.cobblestone;
+    	        		blocks[(y * 16 + x) * 256 + k] = rand.nextInt(2) == 0 ? Blocks.sand : Blocks.sandstone;
             		}
             	}
         		else if(depth > -1 && depth < 9)
         		{
-        			blocks[(y * 16 + x) * 256 + k] = Blocks.snow;
-            		if(depth == 0 && k > 61 && k < 254)
-            		{
-            			SnowHeightCalculator.calc(x, y, k, blocks, metadata, noise);
-            		}
+        			blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
+            		if(depth == 0 && k > 61 && k < 254);
         		}
             }
-            else if(!water && b == Blocks.water)
-            {
-    			blocks[(y * 16 + x) * 256 + k] = Blocks.ice;
-            	water = true;
-            }
+
+            
 		}
 	}
 }

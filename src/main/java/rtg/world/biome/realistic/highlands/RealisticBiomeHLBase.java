@@ -20,7 +20,6 @@ public class RealisticBiomeHLBase extends RealisticBiomeBase
 	public static RealisticBiomeBase hl_desertMountains;
 	public static RealisticBiomeBase hl_dunes;
 	public static RealisticBiomeBase hl_estuary;
-	//public static RealisticBiomeBase hl_everglades; // Not sure why, but this was already commented out. - Pink
 	public static RealisticBiomeBase hl_flyingMountains;
 	public static RealisticBiomeBase hl_glacier;
 	public static RealisticBiomeBase hl_highlandsb;
@@ -41,9 +40,6 @@ public class RealisticBiomeHLBase extends RealisticBiomeBase
 	public static RealisticBiomeBase hl_tundra;
 	public static RealisticBiomeBase hl_woodlands;
 	public static RealisticBiomeBase hl_woodsMountains;
-    
-    //Improved ocean biome
-	public static RealisticBiomeBase hl_ocean2;
     
     //Sub biomes
 	public static RealisticBiomeBase hl_baldHill;
@@ -180,11 +176,6 @@ public class RealisticBiomeHLBase extends RealisticBiomeBase
 			if (ConfigHL.generateHL_oasis) {
 				hl_oasis = new RealisticBiomeHLOasis();
 				BiomeBase.addBiome(hl_oasis);
-			}
-			
-			if (ConfigHL.generateHL_ocean2) {
-				hl_ocean2 = new RealisticBiomeHLOcean2();
-				BiomeBase.addBiome(hl_ocean2);
 			}
 			
 			if (ConfigHL.generateHL_outback) {

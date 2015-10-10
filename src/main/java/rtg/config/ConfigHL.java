@@ -33,7 +33,6 @@ public class ConfigHL
 	public static boolean generateHL_desertMountains = true;
 	public static boolean generateHL_dunes = true;
 	public static boolean generateHL_estuary = true;
-	//public static boolean generateHL_everglades = true; // Not sure why, but this was already commented out. - Pink
 	public static boolean generateHL_flyingMountains = true;
 	public static boolean generateHL_glacier = true;
 	public static boolean generateHL_highlandsb = true;
@@ -54,9 +53,6 @@ public class ConfigHL
 	public static boolean generateHL_tundra = true;
 	public static boolean generateHL_woodlands = true;
 	public static boolean generateHL_woodsMountains = true;
-    
-    //Improved ocean biome
-	public static boolean generateHL_ocean2 = true;
     
     //Sub biomes
 	public static boolean generateHL_baldHill = true;
@@ -90,7 +86,6 @@ public class ConfigHL
 	public static int weightHL_desertMountains = biomeWeightDefault;
 	public static int weightHL_dunes = biomeWeightDefault;
 	public static int weightHL_estuary = biomeWeightDefault;
-	//public static boolean generateHL_everglades = biomeWeightDefault; // Not sure why, but this was already commented out. - Pink
 	public static int weightHL_flyingMountains = biomeWeightDefault;
 	public static int weightHL_glacier = biomeWeightDefault;
 	public static int weightHL_highlandsb = biomeWeightDefault;
@@ -111,9 +106,6 @@ public class ConfigHL
 	public static int weightHL_tundra = biomeWeightDefault;
 	public static int weightHL_woodlands = biomeWeightDefault;
 	public static int weightHL_woodsMountains = biomeWeightDefault;
-    
-    //Improved ocean biome
-	public static int weightHL_ocean2 = biomeWeightDefault;
     
     //Sub biomes
 	public static int weightHL_baldHill = biomeWeightDefault;
@@ -164,7 +156,6 @@ public class ConfigHL
 			generateHL_desertMountains = config.getBoolean("generateHL_desertMountains", "HL Biomes", true, "");
 			generateHL_dunes = config.getBoolean("generateHL_dunes", "HL Biomes", true, "");
 			generateHL_estuary = config.getBoolean("generateHL_estuary", "HL Biomes", true, "");
-			//public static boolean generateHL_everglades = config.getBoolean("generateHL_everglades", "HL Biomes", true, ""); // Not sure why, but this was already commented out. - Pink
 			generateHL_flyingMountains = config.getBoolean("generateHL_flyingMountains", "HL Biomes", true, "");
 			generateHL_glacier = config.getBoolean("generateHL_glacier", "HL Biomes", true, "");
 			generateHL_highlandsb = config.getBoolean("generateHL_highlandsb", "HL Biomes", true, "");
@@ -185,10 +176,7 @@ public class ConfigHL
 			generateHL_tundra = config.getBoolean("generateHL_tundra", "HL Biomes", true, "");
 			generateHL_woodlands = config.getBoolean("generateHL_woodlands", "HL Biomes", true, "");
 			generateHL_woodsMountains = config.getBoolean("generateHL_woodsMountains", "HL Biomes", true, "");
-			    
-			//Improved ocean biome
-			generateHL_ocean2 = config.getBoolean("generateHL_ocean2", "HL Biomes", true, "");
-			    
+
 			//Sub biomes
 			generateHL_baldHill = config.getBoolean("generateHL_baldHill", "HL Biomes", true, "");
 			generateHL_canyon = config.getBoolean("generateHL_canyon", "HL Biomes", true, "");
@@ -223,7 +211,6 @@ public class ConfigHL
 			weightHL_desertMountains = config.getInt("weightHL_desertMountains", "HL Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
 			weightHL_dunes = config.getInt("weightHL_dunes", "HL Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
 			weightHL_estuary = config.getInt("weightHL_estuary", "HL Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
-			//public static boolean weightHL_everglades = config.getInt("weightHL_everglades", "HL Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, ""); // Not sure why, but this was already commented out. - Pink
 			weightHL_flyingMountains = config.getInt("weightHL_flyingMountains", "HL Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
 			weightHL_glacier = config.getInt("weightHL_glacier", "HL Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
 			weightHL_highlandsb = config.getInt("weightHL_highlandsb", "HL Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
@@ -244,9 +231,6 @@ public class ConfigHL
 			weightHL_tundra = config.getInt("weightHL_tundra", "HL Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
 			weightHL_woodlands = config.getInt("weightHL_woodlands", "HL Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
 			weightHL_woodsMountains = config.getInt("weightHL_woodsMountains", "HL Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
-			    
-			//Improved ocean biome
-			weightHL_ocean2 = config.getInt("weightHL_ocean2", "HL Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
 			    
 			//Sub biomes
 			weightHL_baldHill = config.getInt("weightHL_baldHill", "HL Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");

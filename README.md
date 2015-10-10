@@ -1,7 +1,7 @@
 # Realistic Terrain Generation
 Realistic Terrain Generation (RTG) is a Minecraft mod that adds a new world type which generates realistic terrain. It doesn't add new blocks. It doesn't add new mobs. It doesn't even add new biomes. It simply generates existing biomes (including those added by other mods) with more realistic-looking terrain.
 
-Minecraft Forum thread: http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/2524489-wip-realistic-terrain-generation-0-0-9
+Minecraft Forum thread: http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/2524489-wip-realistic-terrain-generation-0-0-10
 
 # Project roadmap
 * ~~Get all vanilla biomes generating 'realistically' alongside custom biomes~~

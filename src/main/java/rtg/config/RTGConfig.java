@@ -24,7 +24,7 @@ public class RTGConfig
 		ConfigBOP.init(bopConfigFile);
 		ConfigEBXL.init(ebxlConfigFile);
 		ConfigEB.init(ebConfigFile);
-		ConfigEB.init(hlConfigFile);
+		ConfigHL.init(hlConfigFile);
 		ConfigTC.init(tcConfigFile);
 	}
 }

@@ -224,16 +224,40 @@ public class WorldChunkManagerRTG extends WorldChunkManager
             output = chooseSmallBiome(s);
         }
         else if ((wetEnabled && b < 0.25f) || (!wetEnabled && b < 0.33f)) {
-            output = chooseSnowBiome(par1, par2);
+            
+            if (biomes_snowLength < 1) {
+                output = chooseColdBiome(par1, par2);
+            }
+            else {
+                output = chooseSnowBiome(par1, par2);
+            }
         }
         else if ((wetEnabled && b < 0.50f) || (!wetEnabled && b < 0.66f)) {
-            output = chooseColdBiome(par1, par2);
+            
+            if (biomes_coldLength < 1) {
+                output = chooseWetBiome(par1, par2);
+            }
+            else {
+                output = chooseColdBiome(par1, par2);
+            }
         }
         else if ((wetEnabled && b < 0.75f) || (!wetEnabled && b < 1f)) {
-            output = chooseHotBiome(par1, par2);
+            
+            if (biomes_hotLength < 1) {
+                output = chooseRandomBiome();
+            }
+            else {
+                output = chooseHotBiome(par1, par2);
+            }
         }
         else if (wetEnabled) {
-            output = chooseWetBiome(par1, par2);
+            
+            if (biomes_wetLength < 1) {
+                output = chooseHotBiome(par1, par2);
+            }
+            else {
+                output = chooseWetBiome(par1, par2);
+            }
         }
         else {
             output = chooseRandomBiome();

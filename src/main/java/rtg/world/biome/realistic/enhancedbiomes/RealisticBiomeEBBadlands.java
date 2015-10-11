@@ -1,6 +1,8 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+
 import rtg.config.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeBase.BiomeCategory;
@@ -14,7 +16,7 @@ public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainEBBadlands(),
-			new SurfaceEBBadlands(ebBiome.topBlock, ebBiome.fillerBlock)
+			new SurfaceEBBadlands(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
 		
 		this.setRealisticBiomeName("EB Badlands");

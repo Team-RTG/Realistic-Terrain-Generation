@@ -6,7 +6,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPCoralReef;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPCoralReef;
+import rtg.world.gen.terrain.TerrainCanyon;
 import biomesoplenty.api.content.BOPCBiomes;
 
 public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase
@@ -20,7 +20,7 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
-			new TerrainBOPCoralReef(true, 35f, 160f, 60f, 40f, 69f),
+			new TerrainCanyon(false, -25f, 0f, 0f, 0f, 30f),
 			new SurfaceBOPCoralReef(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
 		

@@ -19,13 +19,13 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPKelpForest()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
-			new TerrainBOPKelpForest(true, 35f, 160f, 60f, 40f, 69f),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+			new TerrainBOPKelpForest(false, -25f, 0f, 0f, 0f, 30f),
 			new SurfaceBOPKelpForest(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
 		
 		this.setRealisticBiomeName("BOP Kelp Forest");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeCategory = BiomeCategory.WET;
 		this.biomeWeight = ConfigBOP.weightBOPkelpForest;
 	}
 }

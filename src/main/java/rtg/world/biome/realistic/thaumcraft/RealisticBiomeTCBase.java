@@ -43,8 +43,7 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 					{
 						if (ConfigTC.generateTCTaintedLand) {
 							BiomeBase.addBiome(
-								new RealisticBiomeTCTaintedLand(tcBiome),
-								BiomeBase.BiomeCategory.SMALL
+								new RealisticBiomeTCTaintedLand(tcBiome)
 							);
 						}
 					}
@@ -52,12 +51,7 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 					{
 						if (ConfigTC.generateTCMagicalForest) {
 							BiomeBase.addBiome(
-								new RealisticBiomeBase(
-									tcBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
-									new TerrainSmallSupport(),
-									new SurfaceGrassland(tcBiome.topBlock, tcBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
-								),
-								BiomeBase.BiomeCategory.SMALL
+								new RealisticBiomeTCMagicalForest(tcBiome)
 							);
 						}
 					}

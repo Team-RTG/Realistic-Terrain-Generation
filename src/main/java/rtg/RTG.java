@@ -9,6 +9,7 @@ import rtg.reference.ModInfo;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
+import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBase;
 import rtg.world.biome.realistic.extrabiomes.RealisticBiomeEBXLBase;
 import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
@@ -70,5 +71,6 @@ public class RTG {
         RealisticBiomeEBXLBase.addBiomes();
         RealisticBiomeHLBase.addBiomes();
         RealisticBiomeTCBase.addBiomes();
+        RealisticBiomeBCBase.addBiomes();
     }
 }

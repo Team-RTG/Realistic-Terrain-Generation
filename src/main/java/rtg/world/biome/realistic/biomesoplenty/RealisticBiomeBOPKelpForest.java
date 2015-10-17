@@ -6,7 +6,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPKelpForest;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPKelpForest;
+import rtg.world.gen.terrain.TerrainCanyon;
 import biomesoplenty.api.content.BOPCBiomes;
 
 public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase
@@ -20,7 +20,7 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
-			new TerrainBOPKelpForest(true, 35f, 160f, 60f, 40f, 69f),
+			new TerrainCanyon(false, -25f, 0f, 0f, 0f, 30f),
 			new SurfaceBOPKelpForest(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
 		

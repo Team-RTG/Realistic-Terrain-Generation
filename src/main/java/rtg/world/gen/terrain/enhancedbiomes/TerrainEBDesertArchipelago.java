@@ -10,6 +10,7 @@ public class TerrainEBDesertArchipelago extends TerrainBase
 	{
 	}
 
+	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float ocean, float border, float river)
 	{
 		float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * 35f;

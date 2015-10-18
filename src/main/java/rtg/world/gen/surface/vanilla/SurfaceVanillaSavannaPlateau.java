@@ -36,7 +36,6 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase
     	float h = (simplex.noise2(i / valley, j / valley) + 0.25f) * 65f;
     	h = h < 1f ? 1f : h;
 		float m = simplex.noise2(i / 12f, j / 12f);
-		boolean sand = false;
 		
     	Block b;
 		for(int k = 255; k > -1; k--)
@@ -54,13 +53,11 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase
         		{
                 	if(k > 90f + simplex.noise2(i / 24f, j / 24f) * 10f - h || (m < -0.28f && mix))
         			{
-    					blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
-    					//base[x * 16 + y] = RealisticBiomeVanillaBase.vanillaSavannaPlateau;
-    					sand = true;
+    					blocks[(y * 16 + x) * 256 + k] = topBlock;
         			}
         			else if(dirt && m < 0.22f || k < 62)
         			{
-    					blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+    					blocks[(y * 16 + x) * 256 + k] = fillerBlock;
     					metadata[(y * 16 + x) * 256 + k] = 1;
         			}
         			else
@@ -70,21 +67,7 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase
         		}
         		else if(depth < 6)
         		{
-        			if(sand)
-        			{
-        				if(depth < 4)
-        				{
-            				blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
-        				}
-        				else
-        				{
-            				blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone;
-        				}
-        			}
-        			else
-        			{
-        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-        			}
+        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
         		}
             }
 		}

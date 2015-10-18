@@ -19,7 +19,7 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase
 			BiomeGenBase.savanna,
 			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainVanillaSavanna(),
-			new SurfaceVanillaSavanna(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceVanillaSavanna(topBlock, fillerBlock, 300f, true, false)
 		);
 		
 		this.setRealisticBiomeName("Vanilla Savanna");

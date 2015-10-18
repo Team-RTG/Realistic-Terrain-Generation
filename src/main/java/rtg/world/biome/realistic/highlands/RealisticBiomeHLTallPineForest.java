@@ -21,12 +21,12 @@ public class RealisticBiomeHLTallPineForest extends RealisticBiomeHLBase
     {
     
         super(
-            hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+            hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
             new TerrainHLTallPineForest(),
             new SurfaceHLTallPineForest(topBlock, fillerBlock, false, null, 1.2f));
         
         this.setRealisticBiomeName("HL Tall Pine Forest");
-        this.biomeCategory = BiomeCategory.COLD;
+        this.biomeCategory = BiomeCategory.SNOW;
         this.biomeWeight = ConfigHL.weightHL_tallPineForest;
     }
 }

@@ -8,6 +8,7 @@ import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.realistic.arsmagica.RealisticBiomeAMBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBase;
@@ -72,5 +73,6 @@ public class RTG {
         RealisticBiomeHLBase.addBiomes();
         RealisticBiomeTCBase.addBiomes();
         RealisticBiomeBCBase.addBiomes();
+        RealisticBiomeAMBase.addBiomes();
     }
 }

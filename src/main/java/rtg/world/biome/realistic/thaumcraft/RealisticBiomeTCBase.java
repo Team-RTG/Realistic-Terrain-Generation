@@ -39,7 +39,7 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 					String biomeName = tcBiome.biomeName;
 					String biomeClass = tcBiome.getBiomeClass().getName();
 					
-					if (biomeName == "Tainted Land")
+					if (biomeName == "Tainted Land" && biomeClass == "thaumcraft.common.lib.world.biomes.BiomeGenTaint")
 					{
 						if (ConfigTC.generateTCTaintedLand) {
 							BiomeBase.addBiome(
@@ -47,7 +47,7 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 							);
 						}
 					}
-					else if (biomeName == "Magical Forest")
+					else if (biomeName == "Magical Forest" && biomeClass == "thaumcraft.common.lib.world.biomes.BiomeGenMagicalForest")
 					{
 						if (ConfigTC.generateTCMagicalForest) {
 							BiomeBase.addBiome(

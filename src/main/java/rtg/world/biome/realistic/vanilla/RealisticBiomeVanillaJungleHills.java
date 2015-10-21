@@ -40,7 +40,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
     }
     
     @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise perlin, CellNoise cell, float strength,
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
         float river)
     {
     

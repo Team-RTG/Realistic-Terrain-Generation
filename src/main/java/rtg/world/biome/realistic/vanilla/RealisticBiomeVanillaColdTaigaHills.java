@@ -45,7 +45,7 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
     }
     
     @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise perlin, CellNoise cell, float strength,
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
         float river)
     {
     
@@ -60,7 +60,7 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
             }
         }
         
-        float l = perlin.noise2(chunkX / 100f, chunkY / 100f) * 12f + 4f;
+        float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 12f + 4f;
         for (int b1 = 0; b1 < l * strength; b1++)
         {
             int j6 = chunkX + rand.nextInt(16) + 8;

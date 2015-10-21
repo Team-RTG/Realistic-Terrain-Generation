@@ -46,11 +46,11 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
     }
     
     @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise perlin, CellNoise cell, float strength,
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
         float river)
     {
     
-        float l = perlin.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
+        float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
         for (int b1 = 0; b1 < l * strength; b1++)
         {
             if (rand.nextInt(2) == 0)

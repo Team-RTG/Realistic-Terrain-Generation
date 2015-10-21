@@ -46,7 +46,7 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanillaBase
     }
     
     @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise perlin, CellNoise cell, float strength,
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
         float river)
     {
     
@@ -74,7 +74,7 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanillaBase
         }
         
         // trees
-        float l = perlin.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
+        float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
         for (int b1 = 0; b1 < l * 4f * strength; b1++)
         {
             int j6 = chunkX + rand.nextInt(16) + 8;

@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import rtg.config.ConfigRTG;
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
@@ -34,7 +34,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
         
         this.setRealisticBiomeName("Vanilla Plains");
         this.biomeCategory = BiomeCategory.WET;
-        this.biomeWeight = ConfigRTG.weightVanillaPlains;
+        this.biomeWeight = ConfigVanilla.weightVanillaPlains;
     }
     
     @Override

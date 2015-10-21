@@ -4,7 +4,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import org.apache.logging.log4j.Level;
 
-import rtg.config.ConfigEB;
+import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;

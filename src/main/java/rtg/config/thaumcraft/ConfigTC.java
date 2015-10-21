@@ -1,4 +1,4 @@
-package rtg.config;
+package rtg.config.thaumcraft;
 
 import java.io.File;
 
@@ -33,13 +33,13 @@ public class ConfigTC
 		{
 			config.load();
 			
-			generateTCBiomes = config.getBoolean("Generate Thaumcraft Biomes", "Thaumcraft Biomes", true, "");
+			generateTCBiomes = config.getBoolean("Generate Biomes", "Biomes", true, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod.");
 			
-			generateTCTaintedLand = config.getBoolean("generateTCTaintedLand", "Thaumcraft Biomes", true, "");
-			generateTCMagicalForest = config.getBoolean("generateTCMagicalForest", "Thaumcraft Biomes", true, "");
+			generateTCTaintedLand = config.getBoolean("generateTCTaintedLand", "Biomes", true, "");
+			generateTCMagicalForest = config.getBoolean("generateTCMagicalForest", "Biomes", true, "");
 			
-			weightTCTaintedLand = config.getInt("weightTCTaintedLand", "Thaumcraft Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
-			weightTCMagicalForest = config.getInt("weightTCMagicalForest", "Thaumcraft Biome Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightTCTaintedLand = config.getInt("weightTCTaintedLand", "Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightTCMagicalForest = config.getInt("weightTCMagicalForest", "Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
 		}
 		catch (Exception e)
 		{

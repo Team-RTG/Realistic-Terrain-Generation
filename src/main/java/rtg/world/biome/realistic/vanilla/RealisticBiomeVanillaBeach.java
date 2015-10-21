@@ -2,17 +2,18 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.config.ConfigRTG;
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.tree.WorldGenTreePalm;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBeach;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaBeach;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
 	public static Block topBlock = BiomeGenBase.beach.topBlock;
@@ -29,7 +30,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
 		
 		this.setRealisticBiomeName("Vanilla Beach");
 		this.biomeCategory = BiomeCategory.WET;
-		this.biomeWeight = ConfigRTG.weightVanillaBeach;
+		this.biomeWeight = ConfigVanilla.weightVanillaBeach;
 	}
 
 	public void rDecorate(World world, Random rand, int chunkX, int chunkY,

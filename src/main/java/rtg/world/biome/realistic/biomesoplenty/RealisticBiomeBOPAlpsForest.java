@@ -2,7 +2,8 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.config.ConfigBOP;
+
+import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeBase.BiomeCategory;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPAlpsForest;

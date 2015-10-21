@@ -1,11 +1,12 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
-import rtg.config.ConfigRTG;
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaPlateau;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateau;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase
 {	
@@ -23,6 +24,6 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase
 		
 		this.setRealisticBiomeName("Vanilla Mesa Plateau");
 		this.biomeCategory = BiomeCategory.HOT;
-		this.biomeWeight = ConfigRTG.weightVanillaMesaPlateau;
+		this.biomeWeight = ConfigVanilla.weightVanillaMesaPlateau;
 	}	
 }

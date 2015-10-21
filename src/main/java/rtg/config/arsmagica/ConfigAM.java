@@ -1,4 +1,4 @@
-package rtg.config;
+package rtg.config.arsmagica;
 
 import java.io.File;
 
@@ -30,9 +30,9 @@ public class ConfigAM
         {
             config.load();
             
-            generateAMBiomes = config.getBoolean("Generate AM Biomes", "AM Biomes", generateAMBiomes, "");
-            generateAMWitchwoodForest = config.getBoolean("generateAMWitchwoodForest", "AM Biomes", generateAMWitchwoodForest, "");
-            weightAMWitchwoodForest = config.getInt("weightAMWitchwoodForest", "AM Biome Weights", weightAMWitchwoodForest, biomeWeightMin, biomeWeightMax, "");
+            generateAMBiomes = config.getBoolean("Generate Biomes", "Biomes", generateAMBiomes, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod.");
+            generateAMWitchwoodForest = config.getBoolean("generateAMWitchwoodForest", "Biomes", generateAMWitchwoodForest, "");
+            weightAMWitchwoodForest = config.getInt("weightAMWitchwoodForest", "Weights", weightAMWitchwoodForest, biomeWeightMin, biomeWeightMax, "");
             
         } catch (Exception e)
         {

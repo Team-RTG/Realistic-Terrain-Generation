@@ -1,11 +1,12 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
-import rtg.config.ConfigRTG;
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMushroomIslandShore;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMushroomIslandShore;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVanillaBase
 {	
@@ -23,6 +24,6 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
 		
 		this.setRealisticBiomeName("Vanilla Mushroom Island Shore");
 		this.biomeCategory = BiomeCategory.WET;
-		this.biomeWeight = ConfigRTG.weightVanillaMushroomIslandShore;
+		this.biomeWeight = ConfigVanilla.weightVanillaMushroomIslandShore;
 	}	
 }

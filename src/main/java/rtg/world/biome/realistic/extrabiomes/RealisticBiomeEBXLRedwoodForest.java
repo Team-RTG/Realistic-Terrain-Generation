@@ -3,7 +3,8 @@ package rtg.world.biome.realistic.extrabiomes;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.config.ConfigEBXL;
+
+import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLRedwoodForest;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLRedwoodForest;

@@ -1,11 +1,12 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
-import rtg.config.ConfigRTG;
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesert;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaDesert;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
 {	
@@ -23,6 +24,6 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
 		
 		this.setRealisticBiomeName("Vanilla Desert");
 		this.biomeCategory = BiomeCategory.HOT;
-		this.biomeWeight = ConfigRTG.weightVanillaDesert;
+		this.biomeWeight = ConfigVanilla.weightVanillaDesert;
 	}
 }

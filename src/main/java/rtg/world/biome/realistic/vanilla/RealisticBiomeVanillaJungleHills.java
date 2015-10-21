@@ -1,12 +1,13 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-import rtg.config.ConfigRTG;
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleHills;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleHills;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
 {	
@@ -24,6 +25,6 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
 		
 		this.setRealisticBiomeName("Vanilla Jungle Hills");
 		this.biomeCategory = BiomeCategory.WET;
-		this.biomeWeight = ConfigRTG.weightVanillaJungleHills;
+		this.biomeWeight = ConfigVanilla.weightVanillaJungleHills;
 	}	
 }

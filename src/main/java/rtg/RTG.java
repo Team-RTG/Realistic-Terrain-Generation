@@ -1,6 +1,6 @@
 package rtg;
 
-import rtg.config.RTGConfig;
+import rtg.config.ConfigManager;
 import rtg.data.VillageMaterials;
 import rtg.debug.DebugHandler;
 import rtg.init.ModMapGen;
@@ -46,7 +46,7 @@ public class RTG {
         instance = this;
         
         configPath = event.getModConfigurationDirectory() + "/RTG/";
-        RTGConfig.init(configPath);
+        ConfigManager.init(configPath);
         
         MinecraftForge.TERRAIN_GEN_BUS.register(new VillageMaterials());
         

@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import rtg.config.ConfigEB;
+import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRedDesert;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBRedDesert;

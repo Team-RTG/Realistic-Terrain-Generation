@@ -1,7 +1,8 @@
 package rtg.world.biome.realistic.highlands;
 
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.config.ConfigHL;
+
+import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;

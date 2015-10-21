@@ -1,4 +1,4 @@
-package rtg.config;
+package rtg.config.buildcraft;
 
 import java.io.File;
 
@@ -34,15 +34,15 @@ public class ConfigBC
         {
             config.load();
             
-            generateBCBiomes = config.getBoolean("Generate BuildCraft Biomes", "BuildCraft Biomes", true, "");
+            generateBCBiomes = config.getBoolean("Generate Biomes", "Biomes", true, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod.");
             
-            generateBCDesertOilField = config.getBoolean("generateBCDesertOilField", "BuildCraft Biomes", true, "");
-            generateBCOceanOilField = config.getBoolean("generateBCOceanOilField", "BuildCraft Biomes", true, "");
+            generateBCDesertOilField = config.getBoolean("generateBCDesertOilField", "Biomes", true, "");
+            generateBCOceanOilField = config.getBoolean("generateBCOceanOilField", "Biomes", true, "");
             
             weightBCDesertOilField =
-                config.getInt("weightBCDesertOilField", "BuildCraft Biome Weights", weightBCDesertOilField, biomeWeightMin, biomeWeightMax, "");
+                config.getInt("weightBCDesertOilField", "Weights", weightBCDesertOilField, biomeWeightMin, biomeWeightMax, "");
             weightBCOceanOilField =
-                config.getInt("weightBCOceanOilField", "BuildCraft Biome Weights", weightBCOceanOilField, biomeWeightMin, biomeWeightMax, "");
+                config.getInt("weightBCOceanOilField", "Weights", weightBCOceanOilField, biomeWeightMin, biomeWeightMax, "");
         } catch (Exception e)
         {
             FMLLog.log(Level.ERROR, e, "RTG has had a problem loading BuildCraft configuration.");

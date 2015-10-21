@@ -1,11 +1,12 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
-import rtg.config.ConfigRTG;
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIcePlains;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaIcePlains;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
 {	
@@ -23,6 +24,6 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
 		
 		this.setRealisticBiomeName("Vanilla Ice Plains");
 		this.biomeCategory = BiomeCategory.SNOW;
-		this.biomeWeight = ConfigRTG.weightVanillaIcePlains;
+		this.biomeWeight = ConfigVanilla.weightVanillaIcePlains;
 	}	
 }

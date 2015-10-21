@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import rtg.config.ConfigRTG;
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -266,7 +266,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         /**
          * Do we only want to generate a single biome for the whole world?
          */
-        String generateOnlyThisVanillaBiome = ConfigRTG.generateOnlyThisVanillaBiome;
+        String generateOnlyThisVanillaBiome = ConfigVanilla.generateOnlyThisVanillaBiome;
         
         if (generateOnlyThisVanillaBiome.length() > 0)
         {

@@ -1,12 +1,12 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-import rtg.config.ConfigRTG;
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSavanna;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaSavanna;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase
 {	
@@ -24,6 +24,6 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase
 		
 		this.setRealisticBiomeName("Vanilla Savanna");
 		this.biomeCategory = BiomeCategory.HOT;
-		this.biomeWeight = ConfigRTG.weightVanillaSavanna;
+		this.biomeWeight = ConfigVanilla.weightVanillaSavanna;
 	}	
 }

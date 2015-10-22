@@ -70,6 +70,13 @@ public class RealisticBiomeBase extends BiomeBase {
         }
     }
     
+    public static void rDecorateSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
+        
+        if (strength > 0.3f) {
+            seedBiome.decorate(world, rand, chunkX, chunkY);
+        }
+    }
+    
     public void generateMapGen(Block[] blocks, byte[] metadata, Long seed, World world, WorldChunkManagerRTG cmr, Random mapRand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
     
         int k = 5;

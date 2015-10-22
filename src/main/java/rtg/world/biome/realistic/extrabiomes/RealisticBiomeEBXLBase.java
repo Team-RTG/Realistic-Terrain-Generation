@@ -2,9 +2,11 @@ package rtg.world.biome.realistic.extrabiomes;
 
 import cpw.mods.fml.common.Loader;
 import extrabiomes.api.BiomeManager;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.config.ConfigEBXL;
+
+import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;

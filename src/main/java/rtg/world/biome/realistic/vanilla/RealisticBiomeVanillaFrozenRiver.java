@@ -1,12 +1,13 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-import rtg.config.ConfigRTG;
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaFrozenRiver;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaFrozenRiver;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase
 {	
@@ -24,6 +25,6 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase
 		
 		this.setRealisticBiomeName("Vanilla Frozen River");
 		this.biomeCategory = BiomeCategory.SNOW;
-		this.biomeWeight = ConfigRTG.weightVanillaFrozenRiver;
+		this.biomeWeight = ConfigVanilla.weightVanillaFrozenRiver;
 	}	
 }

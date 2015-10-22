@@ -12,9 +12,12 @@ import org.apache.logging.log4j.Level;
 
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.eventhandler.Event.Result;
+
 import net.minecraft.world.WorldServer;
+
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
-import rtg.config.ConfigRTG;
+
+import rtg.config.rtg.ConfigRTG;
 import rtg.debug.DebugHandler;
 import rtg.util.CanyonColor;
 import rtg.util.CellNoise;
@@ -22,6 +25,7 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenClay;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.BlockSand;
@@ -53,6 +57,7 @@ import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.MapGenStronghold;
 import net.minecraft.world.gen.structure.MapGenVillage;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;

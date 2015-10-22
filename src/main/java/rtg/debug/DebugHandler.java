@@ -2,17 +2,20 @@ package rtg.debug;
 
 import org.apache.logging.log4j.Level;
 
-import rtg.config.ConfigRTG;
+import rtg.config.rtg.ConfigRTG;
 import rtg.reference.ModInfo;
 import rtg.util.Logger;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class DebugHandler {

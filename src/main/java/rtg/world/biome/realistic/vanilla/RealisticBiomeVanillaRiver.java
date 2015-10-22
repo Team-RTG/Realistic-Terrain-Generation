@@ -1,12 +1,13 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-import rtg.config.ConfigRTG;
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaRiver;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaRiver;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase
 {	
@@ -24,6 +25,6 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase
 		);
 		
 		this.setRealisticBiomeName("Vanilla River");
-		this.biomeWeight = ConfigRTG.weightVanillaRiver;
+		this.biomeWeight = ConfigVanilla.weightVanillaRiver;
 	}	
 }

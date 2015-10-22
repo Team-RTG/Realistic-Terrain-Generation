@@ -1,7 +1,8 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.config.ConfigBOP;
+
+import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;

@@ -1,11 +1,12 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.world.biome.BiomeGenBase;
-import rtg.config.ConfigRTG;
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 {
@@ -53,49 +54,49 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 	
 	public static void addBiomes()
 	{
-		if (ConfigRTG.generateVanillaBiomes)
+		if (ConfigVanilla.generateVanillaBiomes)
 		{
-			if (ConfigRTG.generateVanillaBeach) { BiomeBase.addBiome(vanillaBeach); }
-			if (ConfigRTG.generateVanillaBirchForest) { BiomeBase.addBiome(vanillaBirchForest); }
-			if (ConfigRTG.generateVanillaBirchForestHills) { BiomeBase.addBiome(vanillaBirchForestHills); }
-			if (ConfigRTG.generateVanillaColdBeach) { BiomeBase.addBiome(vanillaColdBeach); }
-			if (ConfigRTG.generateVanillaColdTaiga) { BiomeBase.addBiome(vanillaColdTaiga); }
-			if (ConfigRTG.generateVanillaColdTaigaHills) { BiomeBase.addBiome(vanillaColdTaigaHills); }
-			if (ConfigRTG.generateVanillaDeepOcean) { BiomeBase.addBiome(vanillaDeepOcean); }
-			if (ConfigRTG.generateVanillaDesert) { BiomeBase.addBiome(vanillaDesert); }
-			if (ConfigRTG.generateVanillaDesertHills) { BiomeBase.addBiome(vanillaDesertHills); }
-			if (ConfigRTG.generateVanillaExtremeHills) { BiomeBase.addBiome(vanillaExtremeHills); }
-			if (ConfigRTG.generateVanillaExtremeHillsPlus) { BiomeBase.addBiome(vanillaExtremeHillsPlus); }
-			if (ConfigRTG.generateVanillaForest) { BiomeBase.addBiome(vanillaForest); }
-			if (ConfigRTG.generateVanillaForestHills) { BiomeBase.addBiome(vanillaForestHills); }
-			if (ConfigRTG.generateVanillaFrozenRiver) { BiomeBase.addBiome(vanillaFrozenRiver); }
-			if (ConfigRTG.generateVanillaIcePlains) { BiomeBase.addBiome(vanillaIcePlains); }
-			if (ConfigRTG.generateVanillaIceMountains) { BiomeBase.addBiome(vanillaIceMountains); }
-			if (ConfigRTG.generateVanillaJungle) { BiomeBase.addBiome(vanillaJungle); }
-			if (ConfigRTG.generateVanillaJungleEdge) { BiomeBase.addBiome(vanillaJungleEdge); }
-			if (ConfigRTG.generateVanillaJungleHills) { BiomeBase.addBiome(vanillaJungleHills); }
-			if (ConfigRTG.generateVanillaMegaTaiga) { BiomeBase.addBiome(vanillaMegaTaiga); }
-			if (ConfigRTG.generateVanillaMegaTaigaHills) { BiomeBase.addBiome(vanillaMegaTaigaHills); }
-			if (ConfigRTG.generateVanillaMesa) { BiomeBase.addBiome(vanillaMesa); }
-			if (ConfigRTG.generateVanillaMesaPlateau) { BiomeBase.addBiome(vanillaMesaPlateau); }
-			if (ConfigRTG.generateVanillaMesaPlateau_F) { BiomeBase.addBiome(vanillaMesaPlateau_F); }
-			if (ConfigRTG.generateVanillaMushroomIsland) { BiomeBase.addBiome(vanillaMushroomIsland); }
-			if (ConfigRTG.generateVanillaMushroomIslandShore) { BiomeBase.addBiome(vanillaMushroomIslandShore); }
-			if (ConfigRTG.generateVanillaOcean) { BiomeBase.addBiome(vanillaOcean); }
-			if (ConfigRTG.generateVanillaPlains) { BiomeBase.addBiome(vanillaPlains); }
+			if (ConfigVanilla.generateVanillaBeach) { BiomeBase.addBiome(vanillaBeach); }
+			if (ConfigVanilla.generateVanillaBirchForest) { BiomeBase.addBiome(vanillaBirchForest); }
+			if (ConfigVanilla.generateVanillaBirchForestHills) { BiomeBase.addBiome(vanillaBirchForestHills); }
+			if (ConfigVanilla.generateVanillaColdBeach) { BiomeBase.addBiome(vanillaColdBeach); }
+			if (ConfigVanilla.generateVanillaColdTaiga) { BiomeBase.addBiome(vanillaColdTaiga); }
+			if (ConfigVanilla.generateVanillaColdTaigaHills) { BiomeBase.addBiome(vanillaColdTaigaHills); }
+			if (ConfigVanilla.generateVanillaDeepOcean) { BiomeBase.addBiome(vanillaDeepOcean); }
+			if (ConfigVanilla.generateVanillaDesert) { BiomeBase.addBiome(vanillaDesert); }
+			if (ConfigVanilla.generateVanillaDesertHills) { BiomeBase.addBiome(vanillaDesertHills); }
+			if (ConfigVanilla.generateVanillaExtremeHills) { BiomeBase.addBiome(vanillaExtremeHills); }
+			if (ConfigVanilla.generateVanillaExtremeHillsPlus) { BiomeBase.addBiome(vanillaExtremeHillsPlus); }
+			if (ConfigVanilla.generateVanillaForest) { BiomeBase.addBiome(vanillaForest); }
+			if (ConfigVanilla.generateVanillaForestHills) { BiomeBase.addBiome(vanillaForestHills); }
+			if (ConfigVanilla.generateVanillaFrozenRiver) { BiomeBase.addBiome(vanillaFrozenRiver); }
+			if (ConfigVanilla.generateVanillaIcePlains) { BiomeBase.addBiome(vanillaIcePlains); }
+			if (ConfigVanilla.generateVanillaIceMountains) { BiomeBase.addBiome(vanillaIceMountains); }
+			if (ConfigVanilla.generateVanillaJungle) { BiomeBase.addBiome(vanillaJungle); }
+			if (ConfigVanilla.generateVanillaJungleEdge) { BiomeBase.addBiome(vanillaJungleEdge); }
+			if (ConfigVanilla.generateVanillaJungleHills) { BiomeBase.addBiome(vanillaJungleHills); }
+			if (ConfigVanilla.generateVanillaMegaTaiga) { BiomeBase.addBiome(vanillaMegaTaiga); }
+			if (ConfigVanilla.generateVanillaMegaTaigaHills) { BiomeBase.addBiome(vanillaMegaTaigaHills); }
+			if (ConfigVanilla.generateVanillaMesa) { BiomeBase.addBiome(vanillaMesa); }
+			if (ConfigVanilla.generateVanillaMesaPlateau) { BiomeBase.addBiome(vanillaMesaPlateau); }
+			if (ConfigVanilla.generateVanillaMesaPlateau_F) { BiomeBase.addBiome(vanillaMesaPlateau_F); }
+			if (ConfigVanilla.generateVanillaMushroomIsland) { BiomeBase.addBiome(vanillaMushroomIsland); }
+			if (ConfigVanilla.generateVanillaMushroomIslandShore) { BiomeBase.addBiome(vanillaMushroomIslandShore); }
+			if (ConfigVanilla.generateVanillaOcean) { BiomeBase.addBiome(vanillaOcean); }
+			if (ConfigVanilla.generateVanillaPlains) { BiomeBase.addBiome(vanillaPlains); }
 			
 			/**
 			 * Rivers will automatically get generated, so we don't need to add them here.
 			 */
-			//if (ConfigRTG.generateVanillaRiver) { BiomeBase.addBiome(vanillaRiver); }
+			//if (ConfigVanilla.generateVanillaRiver) { BiomeBase.addBiome(vanillaRiver); }
 			
-			if (ConfigRTG.generateVanillaRoofedForest) { BiomeBase.addBiome(vanillaRoofedForest); }
-			if (ConfigRTG.generateVanillaSavanna) { BiomeBase.addBiome(vanillaSavanna); }
-			if (ConfigRTG.generateVanillaSavannaPlateau) { BiomeBase.addBiome(vanillaSavannaPlateau); }
-			if (ConfigRTG.generateVanillaStoneBeach) { BiomeBase.addBiome(vanillaStoneBeach); }
-			if (ConfigRTG.generateVanillaSwampland) { BiomeBase.addBiome(vanillaSwampland); }
-			if (ConfigRTG.generateVanillaTaiga) { BiomeBase.addBiome(vanillaTaiga); }
-			if (ConfigRTG.generateVanillaTaigaHills) { BiomeBase.addBiome(vanillaTaigaHills); }
+			if (ConfigVanilla.generateVanillaRoofedForest) { BiomeBase.addBiome(vanillaRoofedForest); }
+			if (ConfigVanilla.generateVanillaSavanna) { BiomeBase.addBiome(vanillaSavanna); }
+			if (ConfigVanilla.generateVanillaSavannaPlateau) { BiomeBase.addBiome(vanillaSavannaPlateau); }
+			if (ConfigVanilla.generateVanillaStoneBeach) { BiomeBase.addBiome(vanillaStoneBeach); }
+			if (ConfigVanilla.generateVanillaSwampland) { BiomeBase.addBiome(vanillaSwampland); }
+			if (ConfigVanilla.generateVanillaTaiga) { BiomeBase.addBiome(vanillaTaiga); }
+			if (ConfigVanilla.generateVanillaTaigaHills) { BiomeBase.addBiome(vanillaTaigaHills); }
 		}
 	}
 	

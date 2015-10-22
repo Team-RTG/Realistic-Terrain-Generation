@@ -6,42 +6,60 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainVanillaSavannaPlateau extends TerrainBase
 {
-    private float start;
-    private float height;
-    private float base;
-    private float width;
     
-    /**
+    private float width;
+    private float strength;
+    private float lakeDepth;
+    private float lakeWidth;
+    private float terrainHeight;
+    
+    /*
+     * width = 230f strength = 120f lake = 50f;
      * 
-     * @param hillStart The Y coord to start calculations?
-     * @param landHeight The max Y coord to generate terrain (fuzzy)?
-     * @param baseHeight The Y cood to start to incline of the hill?
-     * @param hillWidth The horizontal distance of the hill in blocks?
+     * 230f, 120f, 50f
      */
-    public TerrainVanillaSavannaPlateau(float hillStart, float landHeight, float baseHeight, float hillWidth)
+    
+    public TerrainVanillaSavannaPlateau(float mountainWidth, float mountainStrength, float depthLake)
     {
-        start = hillStart;
-        height = landHeight;
-        base = baseHeight;
-        width = hillWidth;
+    
+        this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
+    }
+    
+    public TerrainVanillaSavannaPlateau(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
+    {
+    
+        width = mountainWidth;
+        strength = mountainStrength;
+        lakeDepth = depthLake;
+        lakeWidth = widthLake;
+        terrainHeight = height;
     }
     
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float ocean, float border, float river)
     {
-        float h = simplex.noise2(x / width, y / width) * height * river;
-        h = h < start ? start + ((h - start) / 4.5f) : h;
+    
+        float h = simplex.noise2(x / 20f, y / 20f) * 2;
+        h += simplex.noise2(x / 7f, y / 7f) * 0.8f;
         
-        if(h > 0f)
-        {
-            float st = h * 1.5f > 15f ? 15f : h * 1.5f;
-            h += cell.noise(x / 70D, y / 70D, 1D) * st;
-        }
+        float m = simplex.noise2(x / width, y / width) * strength * river;
+        m *= m / 35f;
+        m = m > 70f ? 70f + (m - 70f) / 2.5f : m;
         
-        h += simplex.noise2(x / 20f, y / 20f) * 5f;
-        h += simplex.noise2(x / 12f, y / 12f) * 3f;
-        h += simplex.noise2(x / 5f, y / 5f) * 1.5f;
+        float st = m * 0.7f;
+        st = st > 20f ? 20f : st;
+        float c = cell.noise(x / 30f, y / 30f, 1D) * (5f + st);
         
-        return base + h;
+        float sm = simplex.noise2(x / 30f, y / 30f) * 8f + simplex.noise2(x / 8f, y / 8f);
+        sm *= (m + 10f) / 20f > 2.5f ? 2.5f : (m + 10f) / 20f;
+        m += sm;
+        
+        m += c;
+        
+        float l = simplex.noise2(x / lakeWidth, y / lakeWidth) * lakeDepth;
+        l *= l / 25f;
+        l = l < -8f ? -8f : l;
+        
+        return terrainHeight + h + m - l;
     }
 }

@@ -20,7 +20,7 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase
     
         super(
             BiomeGenBase.ocean,
-            BiomeBase.climatizedBiome(BiomeGenBase.ocean, Climate.WET),
+            BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
             new TerrainVanillaOcean(),
             new SurfaceVanillaOcean(Blocks.sand, Blocks.sand, Blocks.gravel, 20f, 0.2f));
         

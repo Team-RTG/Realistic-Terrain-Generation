@@ -142,7 +142,7 @@ public class ConfigVanilla
 			generateVanillaDeepOcean = config.getBoolean("generateVanillaDeepOcean", "Biomes", true, "");
 			generateVanillaPlains = config.getBoolean("generateVanillaPlains", "Biomes", true, "");
 			generateVanillaRiver = config.getBoolean("generateVanillaRiver", "Biomes", true, "This setting is ignored. Rivers will always generate, even if set to false.");
-			generateVanillaFrozenRiver = config.getBoolean("generateVanillaFrozenRiver", "Biomes", true, "");
+			generateVanillaFrozenRiver = config.getBoolean("generateVanillaFrozenRiver", "Biomes", true, "This setting is ignored. Frozen Rivers will always generate, even if set to false.");
 			generateVanillaSavanna = config.getBoolean("generateVanillaSavanna", "Biomes", true, "");
 			generateVanillaSavannaPlateau = config.getBoolean("generateVanillaSavannaPlateau", "Biomes", true, "");
 			generateVanillaSwampland = config.getBoolean("generateVanillaSwampland", "Biomes", true, "");

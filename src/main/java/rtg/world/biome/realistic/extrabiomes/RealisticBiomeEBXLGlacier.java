@@ -20,7 +20,7 @@ public class RealisticBiomeEBXLGlacier extends RealisticBiomeEBXLBase
 	public RealisticBiomeEBXLGlacier()
 	{
 		super(
-			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
+			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
 			new TerrainEBXLGlacier(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 			new SurfaceEBXLGlacier(topBlock, fillerBlock, false, null, 0.95f)
 		);

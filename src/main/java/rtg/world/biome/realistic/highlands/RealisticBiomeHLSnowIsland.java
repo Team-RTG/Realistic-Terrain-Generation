@@ -22,7 +22,7 @@ public class RealisticBiomeHLSnowIsland extends RealisticBiomeHLBase
     {
     
         super(
-            hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
+            hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
             new TerrainHLSnowIsland(90f, 180f, 13f, 100f, 1f, 260f, 59f),
             new SurfaceHLSnowIsland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         

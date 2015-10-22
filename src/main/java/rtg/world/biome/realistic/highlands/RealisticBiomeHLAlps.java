@@ -18,7 +18,7 @@ public class RealisticBiomeHLAlps extends RealisticBiomeHLBase {
     
     public RealisticBiomeHLAlps() {
     
-        super(hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE), new TerrainHLAlps(),
+        super(hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE), new TerrainHLAlps(),
             new SurfaceHLAlps(topBlock, fillerBlock, false, null, 0.45f));
         
         this.setRealisticBiomeName("HL Alps");

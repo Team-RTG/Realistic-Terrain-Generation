@@ -21,7 +21,7 @@ public class RealisticBiomeHLTundra extends RealisticBiomeHLBase
     {
     
         super(
-            hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
+            hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
             new TerrainHLTundra(),
             new SurfaceHLTundra(topBlock, fillerBlock));
         

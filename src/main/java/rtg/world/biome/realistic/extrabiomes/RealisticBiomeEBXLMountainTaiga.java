@@ -20,7 +20,7 @@ public class RealisticBiomeEBXLMountainTaiga extends RealisticBiomeEBXLBase
 	public RealisticBiomeEBXLMountainTaiga()
 	{
 		super(
-			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
+			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
 			new TerrainEBXLMountainTaiga(),
 			new SurfaceEBXLMountainTaiga(topBlock, fillerBlock, false, null, 1.2f)
 		);

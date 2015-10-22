@@ -69,7 +69,6 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigVanilla.generateVanillaExtremeHillsPlus) { BiomeBase.addBiome(vanillaExtremeHillsPlus); }
 			if (ConfigVanilla.generateVanillaForest) { BiomeBase.addBiome(vanillaForest); }
 			if (ConfigVanilla.generateVanillaForestHills) { BiomeBase.addBiome(vanillaForestHills); }
-			if (ConfigVanilla.generateVanillaFrozenRiver) { BiomeBase.addBiome(vanillaFrozenRiver); }
 			if (ConfigVanilla.generateVanillaIcePlains) { BiomeBase.addBiome(vanillaIcePlains); }
 			if (ConfigVanilla.generateVanillaIceMountains) { BiomeBase.addBiome(vanillaIceMountains); }
 			if (ConfigVanilla.generateVanillaJungle) { BiomeBase.addBiome(vanillaJungle); }
@@ -89,6 +88,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			 * Rivers will automatically get generated, so we don't need to add them here.
 			 */
 			//if (ConfigVanilla.generateVanillaRiver) { BiomeBase.addBiome(vanillaRiver); }
+			//if (ConfigVanilla.generateVanillaFrozenRiver) { BiomeBase.addBiome(vanillaFrozenRiver); }
 			
 			if (ConfigVanilla.generateVanillaRoofedForest) { BiomeBase.addBiome(vanillaRoofedForest); }
 			if (ConfigVanilla.generateVanillaSavanna) { BiomeBase.addBiome(vanillaSavanna); }

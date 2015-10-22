@@ -21,7 +21,7 @@ public class RealisticBiomeHLTallPineForest extends RealisticBiomeHLBase
     {
     
         super(
-            hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
+            hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
             new TerrainHLTallPineForest(),
             new SurfaceHLTallPineForest(topBlock, fillerBlock, false, null, 1.2f));
         

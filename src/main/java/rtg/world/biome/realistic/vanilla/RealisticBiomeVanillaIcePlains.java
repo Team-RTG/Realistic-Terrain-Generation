@@ -27,7 +27,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
 	{
 		super(
 			BiomeGenBase.icePlains,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
+			BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
 			new TerrainVanillaIcePlains(),
 			new SurfaceVanillaIcePlains(topBlock, fillerBlock, topBlock, topBlock)
 		);

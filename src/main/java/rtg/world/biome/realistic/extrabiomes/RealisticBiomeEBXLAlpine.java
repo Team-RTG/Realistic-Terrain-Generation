@@ -20,7 +20,7 @@ public class RealisticBiomeEBXLAlpine extends RealisticBiomeEBXLBase
 	public RealisticBiomeEBXLAlpine()
 	{
 		super(
-			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
+			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
 			new TerrainEBXLAlpine(),
 			new SurfaceEBXLAlpine(topBlock, fillerBlock, false, null, 0.45f)
 		);

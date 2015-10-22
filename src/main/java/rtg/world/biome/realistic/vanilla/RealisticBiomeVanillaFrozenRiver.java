@@ -18,7 +18,7 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase
 	{
 		super(
 			BiomeGenBase.frozenRiver,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
+			BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
 			new TerrainVanillaFrozenRiver(),
 			new SurfaceVanillaFrozenRiver(Blocks.snow, Blocks.snow, Blocks.snow, Blocks.snow, (byte)0, 0)
 		);

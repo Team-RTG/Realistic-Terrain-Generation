@@ -20,7 +20,7 @@ public class RealisticBiomeEBXLIceWasteland extends RealisticBiomeEBXLBase
 	public RealisticBiomeEBXLIceWasteland()
 	{
 		super(
-			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
+			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
 			new TerrainEBXLIceWasteland(),
 			new SurfaceEBXLIceWasteland(topBlock, fillerBlock)
 		);

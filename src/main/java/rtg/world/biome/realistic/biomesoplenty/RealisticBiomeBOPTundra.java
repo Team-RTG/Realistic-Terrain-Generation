@@ -20,7 +20,7 @@ public class RealisticBiomeBOPTundra extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPTundra()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
 			new TerrainBOPTundra(90f, 180f, 13f, 100f, 38f, 260f, 71f),
 			new SurfaceBOPTundra(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);

@@ -1,12 +1,29 @@
 package rtg.world.biome.realistic.vanilla;
 
+import java.util.Random;
+
 import rtg.config.vanilla.ConfigVanilla;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
+import rtg.world.gen.feature.WorldGenBlob;
+import rtg.world.gen.feature.WorldGenGrass;
+import rtg.world.gen.feature.WorldGenLog;
+import rtg.world.gen.feature.WorldGenWildWheat;
+import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeSpruceSmall;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdBeach;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaColdBeach;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.feature.WorldGenFlowers;
+import net.minecraft.world.gen.feature.WorldGenLakes;
+import net.minecraft.world.gen.feature.WorldGenPumpkin;
+import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 {	
@@ -25,5 +42,34 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 		this.setRealisticBiomeName("Vanilla Cold Beach");
 		this.biomeCategory = BiomeCategory.COLD;
 		this.biomeWeight = ConfigVanilla.weightVanillaColdBeach;
-	}	
+	}
+	
+    @Override
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
+        float river)
+    {
+    
+        if (rand.nextInt((int) (15f / strength)) == 0)
+        {
+            int i2 = chunkX + rand.nextInt(16) + 8;
+            int i8 = chunkY + rand.nextInt(16) + 8;
+            int l4 = world.getHeightValue(i2, i8);
+            if (l4 > 63)
+            {
+                (new WorldGenLakes(Blocks.water)).generate(world, rand, i2, l4, i8);
+            }
+        }
+        
+        // boulders
+        for (int l = 0; l < 3f * strength; ++l)
+        {
+            int i1 = chunkX + rand.nextInt(16) + 8;
+            int j1 = chunkY + rand.nextInt(16) + 8;
+            int k1 = world.getHeightValue(i1, j1);
+            if (k1 < 95 && (rand.nextInt(16) == 0))
+            {
+                (new WorldGenBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
+            }
+        }
+    }
 }

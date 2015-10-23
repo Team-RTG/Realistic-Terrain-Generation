@@ -12,7 +12,7 @@ import biomesoplenty.api.content.BOPCBiomes;
 
 public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.mangrove;
+	public static BiomeGenBase bopBiome = BOPCBiomes.mapleWoods;
 	
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;

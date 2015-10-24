@@ -51,6 +51,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
     {
     
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
+        
         for (int b1 = 0; b1 < l * strength; b1++)
         {
             if (rand.nextInt(2) == 0)
@@ -61,9 +62,16 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
                 
                 if (z52 < 110)
                 {
-                    WorldGenerator worldgenerator = new WorldGenTreePineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 1, 1);
-                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                    worldgenerator.generate(world, rand, j6, z52, k10);
+                    if (rand.nextBoolean()) {
+                        WorldGenerator worldgenerator = new WorldGenTreePineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 1, 1);
+                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+                        worldgenerator.generate(world, rand, j6, z52, k10);
+                    }
+                    else {
+                        WorldGenerator worldgenerator = new WorldGenTreePineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 0, 0);
+                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+                        worldgenerator.generate(world, rand, j6, z52, k10);
+                    }
                 }
             }
         }
@@ -79,7 +87,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
                 if (z52 < 120)
                 {
                     WorldGenerator worldgenerator =
-                        rand.nextInt(4) == 0 ? new WorldGenTreePineSmall(4 + rand.nextInt(7), 6 + rand.nextInt(9), 0)
+                        rand.nextInt(2) == 0 ? new WorldGenTreePineSmall(4 + rand.nextInt(7), 6 + rand.nextInt(9), 0)
                             : rand.nextInt(10) != 0 ? new WorldGenTrees(false) : new WorldGenForest(false, false);
                     worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                     worldgenerator.generate(world, rand, j6, z52, k10);
@@ -87,14 +95,19 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
             }
         }
         
-        if (rand.nextInt((int) (4f / strength)) == 0)
+        if (rand.nextInt((int) (8f / strength)) == 0)
         {
             int x22 = chunkX + rand.nextInt(16) + 8;
             int z22 = chunkY + rand.nextInt(16) + 8;
             int y22 = world.getHeightValue(x22, z22);
             if (y22 < 100)
             {
-                (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
+                if (rand.nextBoolean()) {
+                    (new WorldGenLog(Blocks.log, 0, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+                }
+                else {
+                    (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
+                }
             }
         }
         
@@ -109,15 +122,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
             }
         }
         
-        if (rand.nextInt((int) (150f / strength)) == 0)
-        {
-            int k21 = chunkX + rand.nextInt(16) + 8;
-            int j23 = rand.nextInt(60) + 60;
-            int k24 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenWildWheat(rand.nextInt(3))).generate(world, rand, k21, j23, k24);
-        }
-        
-        if (rand.nextInt((int) (15f / strength)) == 0)
+        if (rand.nextInt((int) (50f / strength)) == 0)
         {
             int j16 = chunkX + rand.nextInt(16) + 8;
             int j18 = rand.nextInt(100);

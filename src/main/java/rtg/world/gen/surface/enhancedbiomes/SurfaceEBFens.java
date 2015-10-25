@@ -14,7 +14,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class SurfaceEBFens extends SurfaceBase
+public class SurfaceEBFens extends SurfaceEBBase
 {
     
     private Block cliffBlock1;
@@ -53,7 +53,7 @@ public class SurfaceEBFens extends SurfaceBase
             {
                 depth++;
                 
-                if (EnhancedBiomesMod.useNewStone == 1) {
+                if (shouldReplaceStone()) {
                     blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB;
                     metadata[(y * 16 + x) * 256 + k] = (byte) 1;
                 }

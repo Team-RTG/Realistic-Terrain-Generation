@@ -206,14 +206,6 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 							);
 						}
 					}
-					else if (biomeName == "Creek Bed" && biomeClass == "enhancedbiomes.world.biome.wasteland.sandstone.BiomeGenCreekBed")
-					{
-						if (ConfigEB.generateEBCreekBed) {
-							BiomeBase.addBiome(
-								new RealisticBiomeEBCreekBed(ebBiome)
-							);
-						}
-					}
 					else if (biomeName == "Cypress Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenCypressForest")
 					{
 						if (ConfigEB.generateEBCypressForest) {
@@ -483,14 +475,6 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 						if (ConfigEB.generateEBRedDesert) {
 							BiomeBase.addBiome(
 								new RealisticBiomeEBRedDesert(ebBiome)
-							);
-						}
-					}
-					else if (biomeName == "Riparian Zone" && biomeClass == "enhancedbiomes.world.biome.base.BiomeGenRiparianZone")
-					{
-						if (ConfigEB.generateEBRiparianZone) {
-							BiomeBase.addBiome(
-								new RealisticBiomeEBRiparianZone(ebBiome)
 							);
 						}
 					}

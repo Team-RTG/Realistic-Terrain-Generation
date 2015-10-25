@@ -11,8 +11,8 @@ import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.tree.WorldGenTreeSavanna;
 import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBClayHills;
-import rtg.world.gen.surface.river.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesa;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBClayHills;
 

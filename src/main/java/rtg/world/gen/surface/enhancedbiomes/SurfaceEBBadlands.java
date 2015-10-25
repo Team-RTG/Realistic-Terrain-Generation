@@ -12,7 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class SurfaceEBBadlands extends SurfaceBase
+public class SurfaceEBBadlands extends SurfaceEBBase
 {
     
     private boolean beach;

@@ -11,7 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class SurfaceEBRockyHills extends SurfaceBase
+public class SurfaceEBRockyHills extends SurfaceEBBase
 {
 	private float valley;
 	private boolean dirt;

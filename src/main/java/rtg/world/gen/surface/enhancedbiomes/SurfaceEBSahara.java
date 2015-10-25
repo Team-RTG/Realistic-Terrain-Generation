@@ -13,7 +13,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class SurfaceEBSahara extends SurfaceBase
+public class SurfaceEBSahara extends SurfaceEBBase
 {
     public SurfaceEBSahara(Block top, Block fill) 
     {

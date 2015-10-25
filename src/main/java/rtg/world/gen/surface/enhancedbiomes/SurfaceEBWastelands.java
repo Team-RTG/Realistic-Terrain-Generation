@@ -12,7 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class SurfaceEBWastelands extends SurfaceBase
+public class SurfaceEBWastelands extends SurfaceEBBase
 {
 	public SurfaceEBWastelands(Block top, Block fill) 
 	{

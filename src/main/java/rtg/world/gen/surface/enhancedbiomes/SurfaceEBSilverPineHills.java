@@ -11,7 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class SurfaceEBSilverPineHills extends SurfaceBase
+public class SurfaceEBSilverPineHills extends SurfaceEBBase
 {
 	private boolean beach;
 	private Block beachBlock;

@@ -2,6 +2,7 @@ package rtg.world.gen.surface.enhancedbiomes;
 
 import java.util.Random;
 
+import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -48,8 +49,10 @@ public class SurfaceEBCarr extends SurfaceBase
             {
                 depth++;
 
-                blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB;
-                metadata[(y * 16 + x) * 256 + k] = (byte) 9;
+                if (EnhancedBiomesMod.useNewStone == 1) {
+                    blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB;
+                    metadata[(y * 16 + x) * 256 + k] = (byte) 9;
+                }
                 
                 if(cliff)
                 {

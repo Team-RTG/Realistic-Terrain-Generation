@@ -39,11 +39,12 @@ public class RealisticBiomeEBEphemeralLake extends RealisticBiomeEBBase
 			new SurfaceEBEphemeralLake(
                 Blocks.sand,
                 EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt,
+                EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.grassEB : Blocks.grass,
                 Blocks.stone,
                 Blocks.cobblestone,
-                (byte)0,
+                13f, 0.27f,
                 EnhancedBiomesMod.useNewGrass ? (byte) 4 : (byte) 0,
-                1
+                EnhancedBiomesMod.useNewGrass ? (byte) 4 : (byte) 0
             )
 		);
 		
@@ -69,26 +70,7 @@ public class RealisticBiomeEBEphemeralLake extends RealisticBiomeEBBase
                 
                 if (z52 < 110)
                 {
-                    if (rand.nextInt(1) == 0) {
-                        WorldGenerator worldgenerator = TreeGen.dead(rand);
-                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                        worldgenerator.generate(world, rand, j6, z52, k10);
-                    }
-                }
-            }
-        }
-        
-        if (l > 5f)
-        {
-            for (int b2 = 0; b2 < 3f * strength; b2++)
-            {
-                int j6 = chunkX + rand.nextInt(16) + 8;
-                int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeightValue(j6, k10);
-                
-                if (z52 < 120)
-                {
-                    if (rand.nextInt(1) == 0) {
+                    if (rand.nextInt(2) == 0) {
                         WorldGenerator worldgenerator = TreeGen.dead(rand);
                         worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                         worldgenerator.generate(world, rand, j6, z52, k10);
@@ -104,7 +86,7 @@ public class RealisticBiomeEBEphemeralLake extends RealisticBiomeEBBase
             int y22 = world.getHeightValue(x22, z22);
             if (y22 < 100)
             {
-                if (rand.nextBoolean()) {
+                if (rand.nextInt(3) == 0) {
                     (new WorldGenLog(EnhancedBiomesBlocks.logJungle, 1, EnhancedBiomesBlocks.leavesJungle, -1, 3 + rand.nextInt(3))).generate(world, rand, x22, y22, z22);
                 }
             }
@@ -115,9 +97,12 @@ public class RealisticBiomeEBEphemeralLake extends RealisticBiomeEBBase
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
             int k1 = world.getHeightValue(i1, j1);
+            
             if (k1 < 110)
             {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                if (rand.nextInt(4) == 0) {
+                    (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                }
             }
         }
         
@@ -126,6 +111,7 @@ public class RealisticBiomeEBEphemeralLake extends RealisticBiomeEBBase
             int l19 = chunkX + rand.nextInt(16) + 8;
             int k22 = rand.nextInt(128);
             int j24 = chunkY + rand.nextInt(16) + 8;
+            
             (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
         }
     }

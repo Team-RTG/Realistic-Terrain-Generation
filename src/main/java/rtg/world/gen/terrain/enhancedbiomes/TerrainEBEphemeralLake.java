@@ -16,7 +16,7 @@ public class TerrainEBEphemeralLake extends TerrainBase
     {
     
         float h = simplex.noise2(x / 300f, y / 300f) * 40f * river;
-        h = h > 3f ? 3f : h;
+        h = h > 2f ? 2f : h;
         h += simplex.noise2(x / 50f, y / 50f) * (12f - h) * 0.4f;
         h += simplex.noise2(x / 15f, y / 15f) * (12f - h) * 0.15f;
         

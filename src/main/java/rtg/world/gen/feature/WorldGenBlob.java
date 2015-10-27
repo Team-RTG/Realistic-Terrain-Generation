@@ -14,6 +14,7 @@ import rtg.util.RandomUtil;
 public class WorldGenBlob extends WorldGenerator
 {
     private Block blobBlock;
+    private byte blobMeta;
     private int blobSize;
     private boolean booShouldGenerate;
     private static final String __OBFID = "CL_00000402";
@@ -22,17 +23,41 @@ public class WorldGenBlob extends WorldGenerator
     {
         super(false);
         this.blobBlock = b;
+        this.blobMeta = 0;
         this.blobSize = s;
+        booShouldGenerate = true;
         
-        if ((blobBlock == Blocks.mossy_cobblestone || blobBlock == Blocks.cobblestone) && !ConfigRTG.enableCobblestoneBoulders && !shouldGenerateCobblestoneBoulder()) {
-            booShouldGenerate = false;
+        if (blobBlock == Blocks.mossy_cobblestone || blobBlock == Blocks.cobblestone) {
+            if (!ConfigRTG.enableCobblestoneBoulders) {
+                booShouldGenerate = false;
+            }
+            else {
+                if (!shouldGenerateCobblestoneBoulder()) {
+                    booShouldGenerate = false;
+                }
+            }
         }
+    }
+    
+    public WorldGenBlob(Block b, byte m, int s)
+    {
+        this(b, s);
+        this.blobMeta = m;
     }
 
     public void generate(World world, Random rand, int x, int y, int z, boolean honourConfig)
     {
         if (honourConfig) {
-            booShouldGenerate = ConfigRTG.enableCobblestoneBoulders;
+            booShouldGenerate = true;
+            
+            if (!ConfigRTG.enableCobblestoneBoulders) {
+                booShouldGenerate = false;
+            }
+            else {
+                if (!shouldGenerateCobblestoneBoulder()) {
+                    booShouldGenerate = false;
+                }
+            }
         }
         
         generate(world, rand, x, y, z);
@@ -91,7 +116,7 @@ public class WorldGenBlob extends WorldGenerator
 
                             if (f1 * f1 + f2 * f2 + f3 * f3 <= f * f)
                             {
-                                world.setBlock(l1, j2, i2, this.blobBlock, 0, 4);
+                                world.setBlock(l1, j2, i2, this.blobBlock, this.blobMeta, 4);
                             }
                         }
                     }

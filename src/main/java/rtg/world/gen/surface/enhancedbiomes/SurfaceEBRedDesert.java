@@ -12,7 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class SurfaceEBRedDesert extends SurfaceBase
+public class SurfaceEBRedDesert extends SurfaceEBBase
 {
     
     private Block cliffBlock1;

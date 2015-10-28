@@ -11,7 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class SurfaceEBBorealPlateau extends SurfaceBase
+public class SurfaceEBBorealPlateau extends SurfaceEBBase
 {
 	private Block cliffBlock1;
 	private Block cliffBlock2;

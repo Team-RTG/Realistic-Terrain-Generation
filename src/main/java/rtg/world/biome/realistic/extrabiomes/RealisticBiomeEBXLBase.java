@@ -17,7 +17,7 @@ import rtg.world.gen.surface.SurfaceMarshFix;
 import rtg.world.gen.surface.SurfaceMountainSnow;
 import rtg.world.gen.surface.SurfaceMountainStone;
 import rtg.world.gen.surface.SurfacePolar;
-import rtg.world.gen.surface.river.SurfaceRiverOasis;
+import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.terrain.TerrainBase;
 import rtg.world.gen.terrain.TerrainGrasslandFlats;
 import rtg.world.gen.terrain.TerrainGrasslandHills;

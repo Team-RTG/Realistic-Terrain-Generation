@@ -11,7 +11,7 @@ import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 
-public class SurfaceEBAlpineMountainsEdge extends SurfaceBase
+public class SurfaceEBAlpineMountainsEdge extends SurfaceEBBase
 {
 	private boolean beach;
 	private Block beachBlock;

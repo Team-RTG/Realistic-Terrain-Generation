@@ -16,7 +16,7 @@ public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainEBBadlands(),
-			new SurfaceEBBadlands(ebBiome.topBlock, ebBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceEBBadlands(ebBiome.topBlock, ebBiome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, ebBiome.topBlock, 0.15f)
 		);
 		
 		this.setRealisticBiomeName("EB Badlands");

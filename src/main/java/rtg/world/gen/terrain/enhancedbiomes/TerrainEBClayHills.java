@@ -6,56 +6,104 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBClayHills extends TerrainBase
 {
-	public TerrainEBClayHills()
-	{
-	}
-	
-	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float ocean, float border, float river)
-	{
-		float b = simplex.noise2(x / 130f, y / 130f) * 50f * river;
-		b *= b / 40f;
-		
-		float hn = simplex.noise2(x / 12f, y / 12f);
-		
-		float sb = 0f;
-		if(b > 2f)
-		{
-			sb = (b - 2f) / 2f;
-			sb = sb < 0f ? 0f : sb > 5.5f ? 5.5f : sb;
-			sb = hn * sb;
-		}
-		b += sb;
-		
-		b = b < 0.1f ? 0.1f : b;
-	
-		float c1 = 0f;
-		if(b > 1f)
-		{
-			c1 = b > 5.5f ? 4.5f : b - 1f;
-			c1 *= 3;
-		}
-	
-		float c2 = 0f;
-		if(b > 5.5f && border > 0.95f + hn * 0.09f)
-		{
-			c2 = b > 6f ? 0.5f : b - 5.5f;
-			c2 *= 35;
-		}
-		
-		float bn = 0f;
-		if(b < 7f)
-		{
-			float bnh = 5f - b;
-			bn += simplex.noise2(x / 70f, y / 70f) * (bnh * 0.4f);
-			bn += simplex.noise2(x / 20f, y / 20f) * (bnh * 0.3f);
-		}
-		
-		float w = simplex.noise2(x / 80f, y / 80f) * 25f;
-		w *= w / 25f;
-		
-		b += c1 + c2 + bn - w;
-		
-		return 74f + b;
-	}
+    private boolean smallRiver;
+    private float[] height;
+    private int heightLength;
+    private float strength;
+    private float cWidth;
+    private float cHeigth;
+    private float cStrength;
+    private float base;
+    
+    /*
+     * Example parameters:
+     * 
+     * allowed to generate rivers?
+     * riverGen = true
+     * 
+     * canyon jump heights
+     * heightArray = new float[]{2.0f, 0.5f, 6.5f, 0.5f, 14.0f, 0.5f, 19.0f, 0.5f}
+     * 
+     * strength of canyon jump heights
+     * heightStrength = 35f
+     * 
+     * canyon width (cliff to cliff)
+     * canyonWidth = 160f
+     * 
+     * canyon heigth (total heigth)
+     * canyonHeight = 60f
+     * 
+     * canyon strength
+     * canyonStrength = 40f
+     * 
+     */
+    public TerrainEBClayHills(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight)
+    {
+        smallRiver = riverGen;
+        height = new float[]{5.0f, 0.5f, 12.5f, 0.5f, 18.0f, 0.5f};
+        strength = heightStrength;
+        heightLength = height.length;
+        cWidth = canyonWidth;
+        cHeigth = canyonHeight;
+        cStrength = canyonStrength;
+        base = baseHeight;
+    }
+
+    @Override
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float ocean, float border, float river)
+    {
+        //float b = simplex.noise2(x / cWidth, y / cWidth) * cHeigth * river;
+        //b *= b / cStrength;
+        river *= 1.3f;
+        river = river > 1f ? 1f : river;
+        float r = simplex.noise2(x / 100f, y / 100f) * 50f;
+        r = r < -7.4f ? -7.4f : r > 7.4f ? 7.4f : r;
+        float b = (17f + r) * river;
+        
+        float hn = simplex.noise2(x / 12f, y / 12f) * 0.5f;
+        float sb = 0f;
+        if(b > 0f)
+        {
+            sb = b;
+            sb = sb < 0f ? 0f : sb > 7f ? 7f : sb;
+            sb = hn * sb;
+        }
+        b += sb;
+
+        float cTotal = 0f;
+        float cTemp = 0f;
+        
+        for(int i = 0; i < heightLength; i += 2)
+        {
+            cTemp = 0;
+            if(b > height[i] && border > 0.6f + (height[i] * 0.015f) + hn * 0.2f)
+            {
+                cTemp = b > height[i] + height[i + 1] ? height[i + 1] : b - height[i];
+                cTemp *= strength;
+            }
+            cTotal += cTemp;
+        }
+        
+        
+        float bn = 0f;
+        if(smallRiver)
+        {
+            if(b < 5f)
+            {
+                bn = 5f - b;
+                for(int i = 0; i < 3; i++)
+                {
+                    bn *= bn / 4.5f;
+                }
+            }
+        }
+        else if(b < 5f)
+        {
+            bn = (simplex.noise2(x / 7f, y / 7f) * 1.3f + simplex.noise2(x / 15f, y / 15f) * 2f) * (5f - b) * 0.2f;
+        }
+        
+        b += cTotal - bn;
+        
+        return base + b;
+    }
 }

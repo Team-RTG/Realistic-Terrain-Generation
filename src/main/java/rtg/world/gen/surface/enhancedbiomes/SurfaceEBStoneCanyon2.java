@@ -11,7 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class SurfaceEBStoneCanyon2 extends SurfaceBase
+public class SurfaceEBStoneCanyon2 extends SurfaceEBBase
 {
 	private int[] claycolor = new int[100];
 	private byte blockByte = 0;

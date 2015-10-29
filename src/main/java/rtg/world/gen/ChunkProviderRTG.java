@@ -81,6 +81,8 @@ public class ChunkProviderRTG implements IChunkProvider
     private final MapGenVillage villageGenerator;
     private final MapGenScatteredFeature scatteredFeatureGenerator;
     
+    private final boolean mapFeaturesEnabled;
+    
     private OpenSimplexNoise simplex;
     private CellNoise cell;
     
@@ -118,6 +120,8 @@ public class ChunkProviderRTG implements IChunkProvider
     	if (ConfigRTG.enableDebugging) {
     		FMLLog.log(Level.INFO, "START ChunkGeneratorRealistic (Seed=%s)", world.getSeed());
     	}
+    	
+    	mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
     	
     	caves = TerrainGen.getModdedMapGen(new MapGenCaves(), CAVE);
         worldObj = world;
@@ -206,12 +210,13 @@ public class ChunkProviderRTG implements IChunkProvider
         }
         
         caves.func_151539_a(this, worldObj, cx, cy, blocks);
-        mineshaftGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
-        strongholdGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
-        villageGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
-        scatteredFeatureGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
         
-    	long second = System.currentTimeMillis();
+        if (mapFeaturesEnabled) {
+            mineshaftGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+            strongholdGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+            villageGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+            scatteredFeatureGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+        }
 
         Chunk chunk = new Chunk(this.worldObj, blocks, metadata, cx, cy);
         byte[] abyte1 = chunk.getBiomeArray();
@@ -557,10 +562,12 @@ public class ChunkProviderRTG implements IChunkProvider
         	FMLLog.log(Level.INFO, "START structure generation 3 (i=%d, j=%d)", i, j);
         }
         
-        mineshaftGenerator.generateStructuresInChunk(worldObj, rand, i, j);
-        strongholdGenerator.generateStructuresInChunk(worldObj, rand, i, j);
-        villageGenerator.generateStructuresInChunk(worldObj, rand, i, j);
-        scatteredFeatureGenerator.generateStructuresInChunk(worldObj, rand, i, j);
+        if (mapFeaturesEnabled) {
+            mineshaftGenerator.generateStructuresInChunk(worldObj, rand, i, j);
+            strongholdGenerator.generateStructuresInChunk(worldObj, rand, i, j);
+            villageGenerator.generateStructuresInChunk(worldObj, rand, i, j);
+            scatteredFeatureGenerator.generateStructuresInChunk(worldObj, rand, i, j);
+        }
         
         boolean gen = false;
 
@@ -950,9 +957,11 @@ public class ChunkProviderRTG implements IChunkProvider
     		FMLLog.log(Level.INFO, "START recreateStructures (par1=%d, par2=%d)", par1, par2);
     	}
     	
-		strongholdGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
-		mineshaftGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
-        villageGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
-		scatteredFeatureGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+    	if (mapFeaturesEnabled) {
+    		strongholdGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
+    		mineshaftGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
+            villageGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+    		scatteredFeatureGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+    	}
 	}
 }

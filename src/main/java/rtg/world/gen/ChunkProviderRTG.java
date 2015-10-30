@@ -23,6 +23,7 @@ import rtg.config.rtg.ConfigRTG;
 import rtg.util.CanyonColor;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.RandomUtil;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenClay;
@@ -530,20 +531,19 @@ public class ChunkProviderRTG implements IChunkProvider
         long j1 = this.rand.nextLong() / 2L * 2L + 1L;
         this.rand.setSeed((long)i * i1 + (long)j * j1 ^ this.worldObj.getSeed());
         boolean flag = false;
+        boolean gen = false;
 
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(ichunkprovider, worldObj, rand, i, j, flag));
 
         if (mapFeaturesEnabled) {
             mineshaftGenerator.generateStructuresInChunk(worldObj, rand, i, j);
             strongholdGenerator.generateStructuresInChunk(worldObj, rand, i, j);
-            villageGenerator.generateStructuresInChunk(worldObj, rand, i, j);
+            flag = villageGenerator.generateStructuresInChunk(worldObj, rand, i, j);
             scatteredFeatureGenerator.generateStructuresInChunk(worldObj, rand, i, j);
         }
-        
-        boolean gen = false;
 
         gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.LAKE);
-        if(gen && rand.nextInt(10) == 0)
+        if(gen && ConfigRTG.enableWaterLakes && (RandomUtil.getRandomInt(1, ConfigRTG.waterLakeChance) == 1))
 		{
 			int i2 = x + rand.nextInt(16) + 8;
 			int l4 = rand.nextInt(50);
@@ -552,7 +552,7 @@ public class ChunkProviderRTG implements IChunkProvider
 		}
         
         gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.LAVA);
-		if(gen && rand.nextInt(18) == 0) 
+		if(gen && ConfigRTG.enableLavaLakes && (RandomUtil.getRandomInt(1, ConfigRTG.lavaLakeChance) == 1))
 		{
 			int j2 = x + rand.nextInt(16) + 8;
 			int i5 = rand.nextInt(rand.nextInt(45) + 8);

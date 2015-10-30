@@ -773,27 +773,27 @@ public class ChunkProviderRTG implements IChunkProvider
 
         //Sand.
         if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.SAND)) {
-            
+          //TODO
         }
         
         //Clay.
         if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.CLAY)) {
-            
+          //TODO
         }
         
         //Sand (Pass 2).
         if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.SAND_PASS2)) {
-            
+          //TODO
         }
         
         //Trees.
         if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.TREE)) {
-            
+          //TODO
         }
         
         //Big shrooms.
         if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.BIG_SHROOM)) {
-            
+          //TODO
         }
 
         //Border noise. (Does this have to be done here? - Pink
@@ -824,47 +824,47 @@ public class ChunkProviderRTG implements IChunkProvider
 
         //Flowers.
         if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.FLOWERS)) {
-            
+          //TODO
         }
         
         //Grass.
         if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.GRASS)) {
-            
+          //TODO
         }
         
         //Dead bushes.
         if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.DEAD_BUSH)) {
-            
+          //TODO
         }
         
         //Lilypads.
         if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.LILYPAD)) {
-            
+          //TODO
         }
         
         //Shrooms.
         if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.SHROOM)) {
-            
+          //TODO
         }
         
         //Sugarcane.
         if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.REED)) {
-            
+          //TODO
         }
         
         //Pumpkins.
         if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.PUMPKIN)) {
-            
+          //TODO
         }
         
         //Cactii
         if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.CACTUS)) {
-            
+          //TODO
         }
         
         //Lakes.
         if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.LAKE)) {
-            
+          //TODO
         }
 
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(worldObj, rand, x, y));

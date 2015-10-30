@@ -542,26 +542,30 @@ public class ChunkProviderRTG implements IChunkProvider
             scatteredFeatureGenerator.generateStructuresInChunk(worldObj, rand, i, j);
         }
 
-        gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.LAKE);
-        if(gen && ConfigRTG.enableWaterLakes && (RandomUtil.getRandomInt(1, ConfigRTG.waterLakeChance) == 1))
-		{
-			int i2 = x + rand.nextInt(16) + 8;
-			int l4 = rand.nextInt(50);
-			int i8 = y + rand.nextInt(16) + 8;
-			(new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
-		}
+        if (ConfigRTG.enableWaterLakes) {
+            gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.LAKE);
+            if(gen && (RandomUtil.getRandomInt(1, ConfigRTG.waterLakeChance) == 1))
+    		{
+    			int i2 = x + rand.nextInt(16) + 8;
+    			int l4 = rand.nextInt(50);
+    			int i8 = y + rand.nextInt(16) + 8;
+    			(new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
+    		}
+        }
         
-        gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.LAVA);
-		if(gen && ConfigRTG.enableLavaLakes && (RandomUtil.getRandomInt(1, ConfigRTG.lavaLakeChance) == 1))
-		{
-			int j2 = x + rand.nextInt(16) + 8;
-			int i5 = rand.nextInt(rand.nextInt(45) + 8);
-			int j8 = y + rand.nextInt(16) + 8;
-			if(i5 < 64 || rand.nextInt(10) == 0)
-			{
-				(new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, j2, i5, j8);
-			}
-		} 
+        if (ConfigRTG.enableLavaLakes) {
+            gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.LAVA);
+    		if(gen && (RandomUtil.getRandomInt(1, ConfigRTG.lavaLakeChance) == 1))
+    		{
+    			int j2 = x + rand.nextInt(16) + 8;
+    			int i5 = rand.nextInt(rand.nextInt(45) + 8);
+    			int j8 = y + rand.nextInt(16) + 8;
+    			if(i5 < 64 || rand.nextInt(10) == 0)
+    			{
+    				(new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, j2, i5, j8);
+    			}
+    		}
+        }
 
 		gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.DUNGEON);
 		for(int k1 = 0; k1 < 8 && gen; k1++)
@@ -572,8 +576,17 @@ public class ChunkProviderRTG implements IChunkProvider
 			(new WorldGenDungeons()).generate(worldObj, rand, j5, k8, j11);
 		}
 		
+		/**
+		 * ########################################################################
+		 * # START GENERATE ORES
+		 * ########################################################################
+		 */
+		
 		MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(worldObj, rand, x, y));
 
+		/**
+		 * Clay
+		 */
         float river = -cmr.getRiverStrength(x + 16, y + 16);
         if(river > 0.85f)
         {
@@ -586,6 +599,10 @@ public class ChunkProviderRTG implements IChunkProvider
 			}
         }
 
+        /**
+         * Dirt
+         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
+         */
 		if (TerrainGen.generateOre(worldObj, rand, ore_dirt, x, y, DIRT))
 		{
 			for(int j2 = 0; j2 < 10; j2++)
@@ -597,6 +614,10 @@ public class ChunkProviderRTG implements IChunkProvider
 			}
 		}
 
+		/**
+		 * Gravel
+		 * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
+		 */
 		if (TerrainGen.generateOre(worldObj, rand, ore_gravel, x, y, GRAVEL))
 		{
 			for(int k2 = 0; k2 < 5; k2++)
@@ -608,6 +629,10 @@ public class ChunkProviderRTG implements IChunkProvider
 			}
 		}
 
+        /**
+         * Coal
+         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
+         */
 		if (TerrainGen.generateOre(worldObj, rand, ore_coal, x, y, COAL))
 		{
 			for(int i3 = 0; i3 < 20; i3++)
@@ -619,6 +644,10 @@ public class ChunkProviderRTG implements IChunkProvider
 			}
 		}
 
+        /**
+         * Iron
+         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
+         */
 		if (TerrainGen.generateOre(worldObj, rand, ore_iron, x, y, IRON))
 		{
 			for(int j3 = 0; j3 < 20; j3++)
@@ -630,6 +659,10 @@ public class ChunkProviderRTG implements IChunkProvider
 			}
 		}
 
+        /**
+         * Gold
+         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
+         */
 		if (TerrainGen.generateOre(worldObj, rand, ore_gold, x, y, GOLD))
 		{
 			for(int k3 = 0; k3 < 2; k3++)
@@ -641,6 +674,10 @@ public class ChunkProviderRTG implements IChunkProvider
 			}
 		}
 
+        /**
+         * Redstone
+         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
+         */
 		if (TerrainGen.generateOre(worldObj, rand, ore_redstone, x, y, REDSTONE))
 		{
 			for(int l3 = 0; l3 < 8; l3++)
@@ -652,6 +689,10 @@ public class ChunkProviderRTG implements IChunkProvider
 			}
 		}
 
+        /**
+         * Diamond
+         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
+         */
 		if (TerrainGen.generateOre(worldObj, rand, ore_diamond, x, y, DIAMOND))
 		{
 			for(int i4 = 0; i4 < 1; i4++)
@@ -663,6 +704,10 @@ public class ChunkProviderRTG implements IChunkProvider
 			}
 		}
 
+        /**
+         * Lapis
+         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
+         */
 		if (TerrainGen.generateOre(worldObj, rand, ore_lapis, x, y, LAPIS))
 		{
 			for(int j4 = 0; j4 < 1; j4++)
@@ -687,6 +732,12 @@ public class ChunkProviderRTG implements IChunkProvider
 		}
 
 		MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(worldObj, rand, x, y));
+		
+        /**
+         * ########################################################################
+         * # END GENERATE ORES
+         * ########################################################################
+         */
 		
 		if(rand.nextInt(5) == 0)
 		{
@@ -779,8 +830,6 @@ public class ChunkProviderRTG implements IChunkProvider
         {
             SpawnerAnimals.performWorldGenSpawning(this.worldObj, worldObj.getBiomeGenForCoords(x + 16, y + 16), x + 8, y + 8, 16, 16, this.rand);
         }
-
-        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(ichunkprovider, worldObj, rand, i, j, flag));
         
         TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.ICE);
         if(snow < 0.59f)
@@ -835,9 +884,9 @@ public class ChunkProviderRTG implements IChunkProvider
 	        }
         }
 
-        BlockFalling.fallInstantly = false;
-        
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(ichunkprovider, worldObj, rand, i, j, flag));
+        
+        BlockFalling.fallInstantly = false;
     }
 
     /**

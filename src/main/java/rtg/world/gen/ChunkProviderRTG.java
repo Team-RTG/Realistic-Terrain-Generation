@@ -771,13 +771,32 @@ public class ChunkProviderRTG implements IChunkProvider
 
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(worldObj, rand, x, y));
 
-        //lazy fix
-        TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.SAND);
-        TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.CLAY);
-        TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.SAND_PASS2);
-        TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.TREE);
-        TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.BIG_SHROOM);
+        //Sand.
+        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.SAND)) {
+            
+        }
+        
+        //Clay.
+        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.CLAY)) {
+            
+        }
+        
+        //Sand (Pass 2).
+        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.SAND_PASS2)) {
+            
+        }
+        
+        //Trees.
+        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.TREE)) {
+            
+        }
+        
+        //Big shrooms.
+        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.BIG_SHROOM)) {
+            
+        }
 
+        //Border noise. (Does this have to be done here? - Pink
         RealisticBiomeBase b;
         float snow = 0f;
         for(int bn = 0; bn < 256; bn++)
@@ -803,16 +822,50 @@ public class ChunkProviderRTG implements IChunkProvider
         	}
         }
 
-        //lazy fix
-        TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.FLOWERS);
-        TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.GRASS);
-        TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.DEAD_BUSH);
-        TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.LILYPAD);
-        TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.SHROOM);
-        TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.REED);
-        TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.PUMPKIN);
-        TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.CACTUS);
-        TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.LAKE);
+        //Flowers.
+        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.FLOWERS)) {
+            
+        }
+        
+        //Grass.
+        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.GRASS)) {
+            
+        }
+        
+        //Dead bushes.
+        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.DEAD_BUSH)) {
+            
+        }
+        
+        //Lilypads.
+        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.LILYPAD)) {
+            
+        }
+        
+        //Shrooms.
+        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.SHROOM)) {
+            
+        }
+        
+        //Sugarcane.
+        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.REED)) {
+            
+        }
+        
+        //Pumpkins.
+        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.PUMPKIN)) {
+            
+        }
+        
+        //Cactii
+        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.CACTUS)) {
+            
+        }
+        
+        //Lakes.
+        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.LAKE)) {
+            
+        }
 
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(worldObj, rand, x, y));
 
@@ -837,57 +890,59 @@ public class ChunkProviderRTG implements IChunkProvider
             SpawnerAnimals.performWorldGenSpawning(this.worldObj, worldObj.getBiomeGenForCoords(x + 16, y + 16), x + 8, y + 8, 16, 16, this.rand);
         }
 
-        TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.ICE);
-        if(snow < 0.59f)
-        {
-	        x += 8;
-	        y += 8;
-			float s;
-			Block b1, b2;
-
-	        for (int sn1 = 0; sn1 < 16; ++sn1)
-	        {
-	            for (int sn2 = 0; sn2 < 16; ++sn2)
-	            {
-	            	if(snow < -0.59f)
-	            	{
-	            		s = -1f;
-	            	}
-	            	else
-	            	{
-	            		s = simplex.noise2((sn1 + x) / 3f, (sn2 + y) / 3f) + snow;
-	            	}
-
-	            	if(s < 0f)
-	            	{
-		                int sn3 = worldObj.getPrecipitationHeight(x + sn1, y + sn2);
-		                b1 = worldObj.getBlock(sn1 + x, sn3, sn2 + y);
-		                b2 = worldObj.getBlock(sn1 + x, sn3 - 1, sn2 + y);
-
-		                if (b2 == Blocks.water || b2 == Blocks.flowing_water)
-		                {
-		                	worldObj.setBlock(sn1 + x, sn3 - 1, sn2 + y, Blocks.ice, 0, 2);
-		                }
-
-		                if (Blocks.snow_layer.canPlaceBlockAt(worldObj, sn1 + x, sn3, sn2 + y) && b2 != Blocks.ice && b2 != Blocks.water && sn3 > 62)
-		                {
-		                	if(b1 != Blocks.snow_layer && b2 != Blocks.packed_ice)
-		                	{
-
-		                		/**
-		                		 * Not sure if this is the right 'temperature' we need to check, and not sure
-		                		 * if the value is low/high enough, so some testing is still needed here.
-		                		 */
-		                        if (biome.baseBiome.temperature < 0.15f)
-                                {
-			                		/** This line spawns those annoying snow layers */
-			                		worldObj.setBlock(sn1 + x, sn3, sn2 + y, Blocks.snow_layer, 0, 2);
-                                }
-		                	}
-		                }
-	            	}
-	            }
-	        }
+        if (TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.ICE)) {
+            
+            if(snow < 0.59f)
+            {
+    	        x += 8;
+    	        y += 8;
+    			float s;
+    			Block b1, b2;
+    
+    	        for (int sn1 = 0; sn1 < 16; ++sn1)
+    	        {
+    	            for (int sn2 = 0; sn2 < 16; ++sn2)
+    	            {
+    	            	if(snow < -0.59f)
+    	            	{
+    	            		s = -1f;
+    	            	}
+    	            	else
+    	            	{
+    	            		s = simplex.noise2((sn1 + x) / 3f, (sn2 + y) / 3f) + snow;
+    	            	}
+    
+    	            	if(s < 0f)
+    	            	{
+    		                int sn3 = worldObj.getPrecipitationHeight(x + sn1, y + sn2);
+    		                b1 = worldObj.getBlock(sn1 + x, sn3, sn2 + y);
+    		                b2 = worldObj.getBlock(sn1 + x, sn3 - 1, sn2 + y);
+    
+    		                if (b2 == Blocks.water || b2 == Blocks.flowing_water)
+    		                {
+    		                	worldObj.setBlock(sn1 + x, sn3 - 1, sn2 + y, Blocks.ice, 0, 2);
+    		                }
+    
+    		                if (Blocks.snow_layer.canPlaceBlockAt(worldObj, sn1 + x, sn3, sn2 + y) && b2 != Blocks.ice && b2 != Blocks.water && sn3 > 62)
+    		                {
+    		                	if(b1 != Blocks.snow_layer && b2 != Blocks.packed_ice)
+    		                	{
+    
+    		                		/**
+    		                		 * Not sure if this is the right 'temperature' we need to check, and not sure
+    		                		 * if the value is low/high enough, so some testing is still needed here.
+    		                		 */
+    		                        if (biome.baseBiome.temperature < 0.15f)
+                                    {
+    			                		/** This line spawns those annoying snow layers */
+    			                		worldObj.setBlock(sn1 + x, sn3, sn2 + y, Blocks.snow_layer, 0, 2);
+                                    }
+    		                	}
+    		                }
+    	            	}
+    	            }
+    	        }
+            }
         }
 
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(ichunkprovider, worldObj, rand, i, j, flag));

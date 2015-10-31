@@ -1,8 +1,10 @@
 package rtg.init;
 
 import rtg.event.TerrainGenHandler;
-import rtg.world.gen.structure.MapGenScatteredFeatureModBiomes;
+import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
+
 import net.minecraft.world.gen.structure.MapGenStructureIO;
+
 import net.minecraftforge.common.MinecraftForge;
 
 /**
@@ -11,7 +13,7 @@ import net.minecraftforge.common.MinecraftForge;
  */
 public class ModMapGen {
 	public static void registerMapGen() {
-		MapGenStructureIO.registerStructure(MapGenScatteredFeatureModBiomes.Start.class, "rtg_MapGenScatteredFeatureModBiomes");
+		MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
 
 		MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainGenHandler());
 	}

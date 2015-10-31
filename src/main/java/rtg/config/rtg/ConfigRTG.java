@@ -32,6 +32,8 @@ public class ConfigRTG
     public static boolean enableLavaLakes = true;
     public static int lavaLakeChance = 18;
 	
+    public static int flatBedrockLayers = 0;
+    
 	public static boolean showDebugInfo = false;
 	public static boolean enableDebugging = false;
 
@@ -62,6 +64,8 @@ public class ConfigRTG
             enableLavaLakes = config.getBoolean("Enable Lava Lakes", "World Gen", enableLavaLakes, "");
             lavaLakeChance = config.getInt("1/x chance that Lava Lakes will generate if given the opportunity to do so during world gen", "World Gen", lavaLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
 			
+            flatBedrockLayers = config.getInt("Number of flat bedrock layers", "World Gen", flatBedrockLayers, 0, 5, "0 = Normal bedrock (rough pattern); 1-5 = Number of flat bedrock layers to generate");
+            
 			showDebugInfo = config.getBoolean("Show Debug Info in F3 Screen", "Debugging", showDebugInfo, "");
 			enableDebugging = config.getBoolean("Enable Debugging", "Debugging", enableDebugging, "WARNING: This should only be enabled if you know what you're doing.");
 			

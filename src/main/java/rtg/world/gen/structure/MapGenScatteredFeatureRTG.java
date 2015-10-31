@@ -10,6 +10,8 @@ import java.util.Random;
 
 import org.apache.logging.log4j.Level;
 
+import rtg.config.rtg.ConfigRTG;
+
 import com.google.common.collect.ImmutableList;
 
 import cpw.mods.fml.common.FMLLog;
@@ -45,9 +47,19 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
     
     public MapGenScatteredFeatureRTG()
     {
+        super();
+        
+        int minDistanceScatteredFeatures = ConfigRTG.minDistanceScatteredFeatures;
+        int maxDistanceScatteredFeatures = ConfigRTG.maxDistanceScatteredFeatures;
+        
+        if (minDistanceScatteredFeatures > maxDistanceScatteredFeatures) {
+            minDistanceScatteredFeatures = 8;
+            maxDistanceScatteredFeatures = 32;
+        }
+        
         this.scatteredFeatureSpawnList = new ArrayList();
-        this.maxDistanceBetweenScatteredFeatures = 32;
-        this.minDistanceBetweenScatteredFeatures = 8;
+        this.minDistanceBetweenScatteredFeatures = minDistanceScatteredFeatures;
+        this.maxDistanceBetweenScatteredFeatures = maxDistanceScatteredFeatures;
         this.scatteredFeatureSpawnList.add(new BiomeGenBase.SpawnListEntry(EntityWitch.class, 1, 1, 1));
     }
     

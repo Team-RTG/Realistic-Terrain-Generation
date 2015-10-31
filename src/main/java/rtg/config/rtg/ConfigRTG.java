@@ -38,6 +38,8 @@ public class ConfigRTG
 	public static boolean enableDebugging = false;
 
 	public static int biomeSize = 4;
+	public static int minDistanceScatteredFeatures = 8;
+	public static int maxDistanceScatteredFeatures = 32;
 	
 	public static void init(File configFile) 
 	{
@@ -70,6 +72,9 @@ public class ConfigRTG
 			enableDebugging = config.getBoolean("Enable Debugging", "Debugging", enableDebugging, "WARNING: This should only be enabled if you know what you're doing.");
 			
 			biomeSize = config.getInt("Size of Biomes", "World Gen", biomeSize, 4, 6, "COMING SOON!!! 4 = Default World Type; 6 = Large Biomes World Type");
+			
+			minDistanceScatteredFeatures = config.getInt("Minimum distance between scattered features", "World Gen", minDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features include desert temples, jungle temples, and witch huts.");
+			maxDistanceScatteredFeatures = config.getInt("Maximum distance between scattered features", "World Gen", maxDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features include desert temples, jungle temples, and witch huts.");
 		}
 		catch (Exception e) 
 		{

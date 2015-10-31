@@ -76,6 +76,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private final MapGenVillage villageGenerator;
     private final MapGenScatteredFeature scatteredFeatureGenerator;
     private final boolean mapFeaturesEnabled;
+    private final int worldHeight;
     private final int sampleSize = 8;
     private final int sampleArraySize;
     private final int parabolicSize;
@@ -115,7 +116,7 @@ public class ChunkProviderRTG implements IChunkProvider
     	caves = TerrainGen.getModdedMapGen(new MapGenCaves(), CAVE);
         worldObj = world;
         cmr = (WorldChunkManagerRTG)worldObj.getWorldChunkManager();
-
+        worldHeight = worldObj.provider.getActualHeight();
         rand = new Random(l);
         simplex = new OpenSimplexNoise(l);
     	cell = new CellNoise(l, (short)0);
@@ -869,21 +870,28 @@ public class ChunkProviderRTG implements IChunkProvider
 
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(worldObj, rand, x, y));
 
-		for(int l18 = 0; l18 < 50; l18++)
-		{
-			int l21 = x + rand.nextInt(16) + 8;
-			int k23 = rand.nextInt(rand.nextInt(120) + 8);
-			int l24 = y + rand.nextInt(16) + 8;
-			(new WorldGenLiquids(Blocks.flowing_water)).generate(worldObj, rand, l21, k23, l24);
-		}
+        //Flowing water.
+        if (rand.nextInt(2) == 0) {
+    		for(int l18 = 0; l18 < 50; l18++)
+    		{
+    			int l21 = x + rand.nextInt(16) + 8;
+    			int k23 = rand.nextInt(rand.nextInt(worldHeight - 16) + 10);
+    			int l24 = y + rand.nextInt(16) + 8;
+                
+    			(new WorldGenLiquids(Blocks.flowing_water)).generate(worldObj, rand, l21, k23, l24);
+    		}
+        }
 
-		for(int i19 = 0; i19 < 20; i19++)
-		{
-			int i22 = x + rand.nextInt(16) + 8;
-			int l23 = rand.nextInt(rand.nextInt(rand.nextInt(112) + 8) + 8);
-			int i25 = y + rand.nextInt(16) + 8;
-			(new WorldGenLiquids(Blocks.flowing_lava)).generate(worldObj, rand, i22, l23, i25);
-		}
+        //Flowing lava.
+        if (rand.nextInt(2) == 0) {
+    		for(int i19 = 0; i19 < 20; i19++)
+    		{
+    			int i22 = x + rand.nextInt(16) + 8;
+    			int l23 = rand.nextInt(worldHeight / 2);
+    			int i25 = y + rand.nextInt(16) + 8;
+    			(new WorldGenLiquids(Blocks.flowing_lava)).generate(worldObj, rand, i22, l23, i25);
+    		}
+        }
 
         if (TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.ANIMALS))
         {
@@ -993,7 +1001,7 @@ public class ChunkProviderRTG implements IChunkProvider
      */
     public String makeString()
     {
-        return "RandomLevelSource";
+        return "RandomLevelSourceRTG";
     }
 
     /**

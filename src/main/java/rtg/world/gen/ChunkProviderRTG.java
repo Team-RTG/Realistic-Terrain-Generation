@@ -479,11 +479,22 @@ public class ChunkProviderRTG implements IChunkProvider
 
     			biome.rReplace(blocks, metadata, cx * 16 + j, cy * 16 + i, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
 
-    			blocks[(j * 16 + i) * 256] = Blocks.bedrock;
-    			blocks[(j * 16 + i) * 256 + rand.nextInt(2)] = Blocks.bedrock;
-    			blocks[(j * 16 + i) * 256 + rand.nextInt(3)] = Blocks.bedrock;
-    			blocks[(j * 16 + i) * 256 + rand.nextInt(4)] = Blocks.bedrock;
-    			blocks[(j * 16 + i) * 256 + rand.nextInt(5)] = Blocks.bedrock;
+    			int flatBedrockLayers = (int) ConfigRTG.flatBedrockLayers;
+    			flatBedrockLayers = flatBedrockLayers < 0 ? 0 : (flatBedrockLayers > 5 ? 5 : flatBedrockLayers);
+    			
+    			if (flatBedrockLayers > 0) {
+    			    for (int bl = 0; bl < flatBedrockLayers; bl++) {
+    			        blocks[(j * 16 + i) * 256 + bl] = Blocks.bedrock;
+    			    }
+    			}
+    			else {
+                    blocks[(j * 16 + i) * 256] = Blocks.bedrock;
+                    blocks[(j * 16 + i) * 256 + rand.nextInt(2)] = Blocks.bedrock;
+                    blocks[(j * 16 + i) * 256 + rand.nextInt(3)] = Blocks.bedrock;
+                    blocks[(j * 16 + i) * 256 + rand.nextInt(4)] = Blocks.bedrock;
+                    blocks[(j * 16 + i) * 256 + rand.nextInt(5)] = Blocks.bedrock;
+    			}
+
     		}
     	}
     }

@@ -57,10 +57,10 @@ public class ConfigVanilla
 	public static boolean generateVanillaTaiga = true;
 	public static boolean generateVanillaTaigaHills = true;
 	
-	public static int weightVanillaBeach = (int)Math.floor((double)(biomeWeightDefault * 0.5));
+	public static int weightVanillaBeach = (int)Math.floor((double)(biomeWeightDefault * 0.4));
 	public static int weightVanillaBirchForest = biomeWeightDefault;
 	public static int weightVanillaBirchForestHills = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightVanillaColdBeach = (int)Math.floor((double)(biomeWeightDefault * 0.5));
+	public static int weightVanillaColdBeach = (int)Math.floor((double)(biomeWeightDefault * 0.4));
 	public static int weightVanillaColdTaiga = biomeWeightDefault;
 	public static int weightVanillaColdTaigaHills = (int)Math.floor((double)(biomeWeightDefault * 0.8));
 	public static int weightVanillaDeepOcean = (int)Math.floor((double)(biomeWeightDefault * 0.8));
@@ -87,9 +87,9 @@ public class ConfigVanilla
 	public static int weightVanillaPlains = biomeWeightDefault;
 	public static int weightVanillaRiver = (int)Math.floor((double)(biomeWeightDefault * 0.1));
 	public static int weightVanillaRoofedForest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightVanillaSavanna = biomeWeightDefault;
-	public static int weightVanillaSavannaPlateau = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightVanillaStoneBeach = (int)Math.floor((double)(biomeWeightDefault * 0.5));
+	public static int weightVanillaSavanna = (int)Math.floor((double)(biomeWeightDefault * 0.8));
+	public static int weightVanillaSavannaPlateau = (int)Math.floor((double)(biomeWeightDefault * 0.7));
+	public static int weightVanillaStoneBeach = (int)Math.floor((double)(biomeWeightDefault * 0.4));
 	public static int weightVanillaSwampland = biomeWeightDefault;
 	public static int weightVanillaTaiga = biomeWeightDefault;
 	public static int weightVanillaTaigaHills = (int)Math.floor((double)(biomeWeightDefault * 0.8));

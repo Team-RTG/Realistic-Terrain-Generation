@@ -14,13 +14,13 @@ public class RealisticBiomeTCTaintedLand extends RealisticBiomeTCBase
 	public RealisticBiomeTCTaintedLand(BiomeGenBase tcBiome)
 	{
 		super(
-			tcBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+			tcBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainTCTaintedLand(),
 			new SurfaceTCTaintedLand(tcBiome.topBlock, tcBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
 		
 		this.setRealisticBiomeName("Thaumcraft Tainted Land");
-		this.biomeCategory = BiomeCategory.SMALL;
+		this.biomeCategory = BiomeCategory.WET;
 		this.biomeWeight = ConfigTC.weightTCTaintedLand;
 	}
 }

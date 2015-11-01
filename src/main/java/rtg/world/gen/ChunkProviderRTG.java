@@ -951,7 +951,7 @@ public class ChunkProviderRTG implements IChunkProvider
     		                		 * Not sure if this is the right 'temperature' we need to check, and not sure
     		                		 * if the value is low/high enough, so some testing is still needed here.
     		                		 */
-    		                        if (biome.baseBiome.temperature < 0.6f)
+    		                        if (biome.baseBiome.temperature < 0.15f)
                                     {
     			                		/** This line spawns those annoying snow layers */
     			                		worldObj.setBlock(sn1 + x, sn3, sn2 + y, Blocks.snow_layer, 0, 2);

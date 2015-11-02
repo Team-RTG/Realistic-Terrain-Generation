@@ -19,7 +19,7 @@ public class RealisticBiomeEBGrassyArchipelago extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Grassy Archipelago");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBGrassyArchipelago;
 	}
 }

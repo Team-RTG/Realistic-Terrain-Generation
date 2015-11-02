@@ -20,7 +20,7 @@ public class RealisticBiomeEBLake extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Lake");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBLake;
 	}
 }

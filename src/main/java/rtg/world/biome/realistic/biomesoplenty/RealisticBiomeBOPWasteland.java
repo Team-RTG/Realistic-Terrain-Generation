@@ -26,7 +26,7 @@ public class RealisticBiomeBOPWasteland extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Wasteland");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPwasteland;
 	}
 }

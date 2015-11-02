@@ -27,7 +27,7 @@ public class RealisticBiomeBOPBorealForest extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Boreal Forest");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPborealForest;
 	}
 }

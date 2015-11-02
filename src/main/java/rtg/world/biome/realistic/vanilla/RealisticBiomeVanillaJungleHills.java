@@ -35,7 +35,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
             new SurfaceVanillaJungleHills(Blocks.grass, Blocks.dirt, false, null, 1f, 1.5f, 60f, 65f, 1.5f));
         
         this.setRealisticBiomeName("Vanilla Jungle Hills");
-        this.biomeCategory = BiomeCategory.WET;
+        this.biomeCategory = BiomeCategory.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaJungleHills;
     }
     

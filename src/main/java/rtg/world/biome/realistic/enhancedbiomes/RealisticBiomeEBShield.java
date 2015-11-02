@@ -20,7 +20,7 @@ public class RealisticBiomeEBShield extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Shield");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBShield;
 	}
 }

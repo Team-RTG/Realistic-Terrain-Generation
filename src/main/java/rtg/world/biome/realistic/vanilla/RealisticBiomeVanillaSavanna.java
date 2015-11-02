@@ -40,7 +40,7 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase
             new SurfaceVanillaSavanna(Blocks.grass, Blocks.dirt, Blocks.sand, Blocks.stone, Blocks.cobblestone, 13f, 0.27f));
         
         this.setRealisticBiomeName("Vanilla Savanna");
-        this.biomeCategory = BiomeCategory.HOT;
+        this.biomeCategory = BiomeCategory.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaSavanna;
     }
     

@@ -26,7 +26,7 @@ public class RealisticBiomeHLGlacier extends RealisticBiomeHLBase
             new SurfaceHLGlacier(topBlock, fillerBlock, false, null, 0.95f));
         
         this.setRealisticBiomeName("HL Glacier");
-        this.biomeCategory = BiomeCategory.SNOW;
+        this.biomeCategory = BiomeCategory.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_glacier;
     }
 }

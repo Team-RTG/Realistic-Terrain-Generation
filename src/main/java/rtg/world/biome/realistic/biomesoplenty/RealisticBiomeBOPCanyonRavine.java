@@ -25,7 +25,7 @@ public class RealisticBiomeBOPCanyonRavine extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Canyon Ravine");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPcanyonRavine;
 	}
 }

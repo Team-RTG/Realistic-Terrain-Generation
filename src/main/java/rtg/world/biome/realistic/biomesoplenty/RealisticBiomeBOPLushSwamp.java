@@ -26,7 +26,7 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Lush Swamp");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPlushSwamp;
 	}
 }

@@ -20,7 +20,7 @@ public class RealisticBiomeEBBorealArchipelago extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Boreal Archipelago");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBBorealArchipelago;
 	}
 }

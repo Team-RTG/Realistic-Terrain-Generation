@@ -20,7 +20,7 @@ public class RealisticBiomeEBOasis extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Oasis");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBOasis;
 	}
 }

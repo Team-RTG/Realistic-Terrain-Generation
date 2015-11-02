@@ -20,7 +20,7 @@ public class RealisticBiomeEBMeadow extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Meadow");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBMeadow;
 	}
 }

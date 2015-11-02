@@ -19,7 +19,7 @@ public class RealisticBiomeEBGlacier extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Glacier");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBGlacier;
 	}
 }

@@ -56,7 +56,7 @@ public class RealisticBiomeEBWastelands extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Wastelands");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBWastelands;
 	}
 	

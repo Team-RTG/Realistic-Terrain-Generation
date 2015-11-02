@@ -26,7 +26,7 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Chaparral");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPchaparral;
 	}
 }

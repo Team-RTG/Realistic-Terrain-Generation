@@ -27,7 +27,7 @@ public class RealisticBiomeHLOutback extends RealisticBiomeHLBase
             new SurfaceHLOutback(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone, (byte) 0, 1));
         
         this.setRealisticBiomeName("HL Outback");
-        this.biomeCategory = BiomeCategory.HOT;
+        this.biomeCategory = BiomeCategory.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_outback;
     }
 }

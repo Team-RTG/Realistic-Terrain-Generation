@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLSavanna extends RealisticBiomeEBXLBase
 		);
 		
 		this.setRealisticBiomeName("EBXL Savanna");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_savanna;
 	}
 }

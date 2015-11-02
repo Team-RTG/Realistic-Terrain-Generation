@@ -19,7 +19,7 @@ public class RealisticBiomeEBSahara extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Sahara");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSahara;
 	}
 }

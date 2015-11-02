@@ -25,7 +25,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase
             new SurfaceVanillaDeepOcean(Blocks.gravel, Blocks.gravel, Blocks.clay, 20f, 0.1f));
         
         this.setRealisticBiomeName("Vanilla Deep Ocean");
-        this.biomeCategory = BiomeCategory.WET;
+        this.biomeCategory = BiomeCategory.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaDeepOcean;
     }
 }

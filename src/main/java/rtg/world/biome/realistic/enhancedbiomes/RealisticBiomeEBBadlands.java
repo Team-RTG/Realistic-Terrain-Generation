@@ -20,7 +20,7 @@ public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Badlands");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBBadlands;
 	}
 }

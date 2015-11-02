@@ -59,7 +59,7 @@ public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
             surface);
         
         this.setRealisticBiomeName("EB Rocky Hills");
-        this.biomeCategory = BiomeCategory.HOT;
+        this.biomeCategory = BiomeCategory.NORMAL;
         this.biomeWeight = ConfigEB.weightEBRockyHills;
     }
     

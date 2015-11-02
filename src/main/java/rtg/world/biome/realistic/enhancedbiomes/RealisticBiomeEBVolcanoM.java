@@ -19,7 +19,7 @@ public class RealisticBiomeEBVolcanoM extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Volcano M");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBVolcanoM;
 	}
 }

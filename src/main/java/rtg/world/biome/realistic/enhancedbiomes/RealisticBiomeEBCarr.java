@@ -45,7 +45,7 @@ public class RealisticBiomeEBCarr extends RealisticBiomeEBBase
             ));
         
         this.setRealisticBiomeName("EB Carr");
-        this.biomeCategory = BiomeCategory.WET;
+        this.biomeCategory = BiomeCategory.NORMAL;
         this.biomeWeight = ConfigEB.weightEBCarr;
     }
     

@@ -26,10 +26,8 @@ public class BiomeBase extends BiomeGenBase
 
 	public enum BiomeCategory
 	{
-		SNOW,
-		COLD,
-		HOT,
-		WET,
+	    LARGE,
+		NORMAL,
 		SMALL
 	}
 	
@@ -124,24 +122,27 @@ public class BiomeBase extends BiomeGenBase
 		if (bw > 0) {			
 			for (int i = 0; i < bw; i++) {
 				
+			    /**
+			     * Sort by temperature.
+			     */
+			    if (b.baseBiome.temperature < 0.15f) {
+			        biomes_snow.add(b);
+			    }
+                else if (b.baseBiome.temperature <= 0.3f) {
+                    biomes_cold.add(b);
+                }
+                else if (b.baseBiome.temperature <= 1f) {
+                    biomes_wet.add(b);
+                }
+                else {
+                    biomes_hot.add(b);
+                }
+
+                /**
+                 * Sort by size.
+                 */
 				switch (bc)
 				{
-					case SNOW:
-						biomes_snow.add(b);
-						//FMLLog.log(Level.INFO, "Added biome (%s) to category (SNOW). %d biomes in this category so far.", b.getRealisticBiomeName(), biomes_snow.size());
-						break;
-					case COLD:
-						biomes_cold.add(b);
-						//FMLLog.log(Level.INFO, "Added biome (%s) to category (COLD). %d biomes in this category so far.", b.getRealisticBiomeName(), biomes_cold.size());
-						break;
-					case HOT:
-						biomes_hot.add(b);
-						//FMLLog.log(Level.INFO, "Added biome (%s) to category (HOT). %d biomes in this category so far.", b.getRealisticBiomeName(), biomes_hot.size());
-						break;
-					case WET:
-						biomes_wet.add(b);
-						//FMLLog.log(Level.INFO, "Added biome (%s) to category (WET). %d biomes in this category so far.", b.getRealisticBiomeName(), biomes_wet.size());
-						break;
 					case SMALL:
 						biomes_small.add(b);
 						//FMLLog.log(Level.INFO, "Added biome (%s) to category (SMALL). %d biomes in this category so far.", b.getRealisticBiomeName(), biomes_small.size());

@@ -20,7 +20,7 @@ public class RealisticBiomeEBOakForest extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Oak Forest");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBOakForest;
 	}
 }

@@ -45,7 +45,7 @@ public class RealisticBiomeEBEphemeralLakeEdge extends RealisticBiomeEBBase
         );
 		
 		this.setRealisticBiomeName("EB Ephemeral Lake Edge");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBEphemeralLakeEdge;
 	}
 	

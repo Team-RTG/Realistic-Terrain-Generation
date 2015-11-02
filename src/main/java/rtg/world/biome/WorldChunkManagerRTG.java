@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.logging.log4j.Level;
+
+import cpw.mods.fml.common.FMLLog;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -43,15 +46,13 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     private int biomes_smallLength;
     private int biomes_allLength;
     
-    private boolean snowEnabled;
-    private boolean coldEnabled;
-    private boolean hotEnabled;
-    private boolean wetEnabled;
     private boolean smallEnabled;
     
     private float[] borderNoise;
     
     private Random rand;
+    
+    private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
     
     protected WorldChunkManagerRTG()
     {
@@ -99,10 +100,6 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         biomes_smallLength = biomes_small.size();
         biomes_allLength = biomes_all.size();
         
-        snowEnabled = (biomes_snowLength > 0) ? true : false;
-        coldEnabled = (biomes_coldLength > 0) ? true : false;
-        hotEnabled = (biomes_hotLength > 0) ? true : false;
-        wetEnabled = (biomes_wetLength > 0) ? true : false;
         smallEnabled = (biomes_smallLength > 1) ? true : false; // Why does it have to be greater
                                                                 // than 1, instead of greater than
                                                                 // 0? - Pink
@@ -202,28 +199,35 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         return getBiomeDataAt(par1, par2, getOceanValue(par1, par2));
     }
     
-    private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
-    
     public RealisticBiomeBase getBiomeDataAt(int par1, int par2, float ocean)
     {
     
         long coords = ChunkCoordIntPair.chunkXZ2Int(par1, par2);
         
         if (biomeDataMap.containsKey(coords)) {
+            //FMLLog.log(Level.INFO, "already found: %s", biomeDataMap.get(coords).getRealisticBiomeName());
             return biomeDataMap.get(coords);
         }
         
         RealisticBiomeBase output = null;
         
         float b = (biomecell.noise((par1 + 4000f) / 1200D, par2 / 1200D, 1D) * 0.5f) + 0.5f;
+        
+        if (b > 1) {
+            FMLLog.log(Level.INFO, "original b: %f", b);
+        }
+        
+        //FMLLog.log(Level.INFO, "original b: %f", b);
         b = b < 0f ? 0f : b >= 0.9999999f ? 0.9999999f : b;
+        //FMLLog.log(Level.INFO, "new b: %f", b);
         
         float s = smallEnabled ? (biomecell.noise(par1 / 140D, par2 / 140D, 1D) * 0.5f) + 0.5f : 0f;
         
-        if (smallEnabled && s > 0.975f) {
+        if (smallEnabled && s >= 0.975f) {
             output = chooseSmallBiome(s);
+            //FMLLog.log(Level.INFO, "chooseSmallBiome: %s", output.getRealisticBiomeName());
         }
-        else if ((wetEnabled && b < 0.25f) || (!wetEnabled && b < 0.33f)) {
+        else if (b < 0.25f) {
             
             if (biomes_snowLength < 1) {
                 output = chooseColdBiome(par1, par2);
@@ -232,7 +236,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
                 output = chooseSnowBiome(par1, par2);
             }
         }
-        else if ((wetEnabled && b < 0.50f) || (!wetEnabled && b < 0.66f)) {
+        else if (b < 0.50f) {
             
             if (biomes_coldLength < 1) {
                 output = chooseWetBiome(par1, par2);
@@ -241,7 +245,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
                 output = chooseColdBiome(par1, par2);
             }
         }
-        else if ((wetEnabled && b < 0.75f) || (!wetEnabled && b < 1f)) {
+        else if (b < 0.75f) {
             
             if (biomes_hotLength < 1) {
                 output = chooseRandomBiome();
@@ -250,7 +254,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
                 output = chooseHotBiome(par1, par2);
             }
         }
-        else if (wetEnabled) {
+        else if (b < 0.975f) {
             
             if (biomes_wetLength < 1) {
                 output = chooseHotBiome(par1, par2);
@@ -280,6 +284,8 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         }
         
         biomeDataMap.put(coords, output);
+        
+        //FMLLog.log(Level.INFO, "b=%s,t=%f,r=%f", output.getRealisticBiomeName(), output.baseBiome.temperature, output.baseBiome.rainfall);
         
         return output;
     }
@@ -496,7 +502,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
             
             output = biomes_snow.get((int) (h));
             
-            // FMLLog.log(Level.INFO, "chooseSnowBiome: %s", output.getRealisticBiomeName());
+            //FMLLog.log(Level.INFO, "chooseSnowBiome: %s", output.getRealisticBiomeName());
             
         }
         
@@ -519,7 +525,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
             
             output = biomes_cold.get((int) (h));
             
-            // FMLLog.log(Level.INFO, "chooseColdBiome: %s", output.getRealisticBiomeName());
+            //FMLLog.log(Level.INFO, "chooseColdBiome: %s", output.getRealisticBiomeName());
         }
         return output;
     }
@@ -540,7 +546,8 @@ public class WorldChunkManagerRTG extends WorldChunkManager
             
             output = biomes_wet.get((int) (h));
         }
-        // FMLLog.log(Level.INFO, "chooseWetBiome: %s", output.getRealisticBiomeName());
+        
+        //FMLLog.log(Level.INFO, "chooseWetBiome: %s", output.getRealisticBiomeName());
         
         return output;
     }
@@ -561,7 +568,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
             
             output = biomes_hot.get((int) (h));
             
-            // FMLLog.log(Level.INFO, "chooseHotBiome: %s", output.getRealisticBiomeName());
+            //FMLLog.log(Level.INFO, "chooseHotBiome: %s", output.getRealisticBiomeName());
         }
         return output;
     }
@@ -582,7 +589,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
             
             output = biomes_small.get((int) (h));
             
-            // FMLLog.log(Level.INFO, "chooseSmallBiome: %s", output.getRealisticBiomeName());
+            //FMLLog.log(Level.INFO, "chooseSmallBiome: %s", output.getRealisticBiomeName());
         }
         return output;
     }
@@ -592,7 +599,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     
         RealisticBiomeBase output = biomes_all.get(rand.nextInt(biomes_allLength));
         
-        // FMLLog.log(Level.INFO, "chooseRandomBiome: %s", output.getRealisticBiomeName());
+        //FMLLog.log(Level.INFO, "chooseRandomBiome: %s", output.getRealisticBiomeName());
         
         return output;
     }

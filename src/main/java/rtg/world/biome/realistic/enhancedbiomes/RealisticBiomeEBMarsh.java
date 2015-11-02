@@ -20,7 +20,7 @@ public class RealisticBiomeEBMarsh extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Marsh");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBMarsh;
 	}
 }

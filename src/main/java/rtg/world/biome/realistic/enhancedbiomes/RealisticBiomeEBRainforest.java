@@ -20,7 +20,7 @@ public class RealisticBiomeEBRainforest extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Rainforest");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBRainforest;
 	}
 }

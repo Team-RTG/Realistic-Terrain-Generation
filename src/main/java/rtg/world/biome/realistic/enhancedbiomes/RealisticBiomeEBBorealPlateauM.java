@@ -20,7 +20,7 @@ public class RealisticBiomeEBBorealPlateauM extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Boreal Plateau M");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBBorealPlateauM;
 	}
 }

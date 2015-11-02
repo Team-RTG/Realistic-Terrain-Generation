@@ -26,7 +26,7 @@ public class RealisticBiomeBOPOriginValley extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Origin Valley");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPoriginValley;
 	}
 }

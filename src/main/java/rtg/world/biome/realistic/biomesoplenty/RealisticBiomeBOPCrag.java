@@ -26,7 +26,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Crag");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPcrag;
 	}
 }

@@ -53,7 +53,7 @@ public class RealisticBiomeEBForestedValley extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Forested Valley");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBForestedValley;
 	}
 	

@@ -19,7 +19,7 @@ public class RealisticBiomeEBFirForest extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Fir Forest");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBFirForest;
 	}
 }

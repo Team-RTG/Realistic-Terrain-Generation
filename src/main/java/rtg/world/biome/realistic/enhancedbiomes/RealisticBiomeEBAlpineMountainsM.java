@@ -19,7 +19,7 @@ public class RealisticBiomeEBAlpineMountainsM extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Alpine Mountains M");
-		this.biomeCategory = BiomeCategory.SNOW;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBAlpineMountainsM;
 	}
 }

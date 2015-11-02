@@ -26,7 +26,7 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Outback");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPoutback;
 	}
 }

@@ -20,7 +20,7 @@ public class RealisticBiomeEBDesertArchipelago extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Desert Archipelago");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBDesertArchipelago;
 	}
 }

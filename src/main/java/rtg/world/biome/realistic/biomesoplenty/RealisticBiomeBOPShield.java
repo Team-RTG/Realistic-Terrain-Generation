@@ -26,7 +26,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Shield");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPshield;
 	}
 }

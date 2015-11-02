@@ -20,7 +20,7 @@ public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase
             new SurfaceAMWitchwoodForest(amBiome.topBlock, amBiome.fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("Ars Magica Witchwood Forest");
-        this.biomeCategory = BiomeCategory.SMALL;
+        this.biomeCategory = BiomeCategory.NORMAL;
         this.biomeWeight = ConfigAM.weightAMWitchwoodForest;
     }
 }

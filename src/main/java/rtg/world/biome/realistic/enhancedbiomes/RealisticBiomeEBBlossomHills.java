@@ -20,7 +20,7 @@ public class RealisticBiomeEBBlossomHills extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Blossom Hills");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBBlossomHills;
 	}
 }

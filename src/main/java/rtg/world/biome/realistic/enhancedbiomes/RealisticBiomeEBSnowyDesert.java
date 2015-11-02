@@ -20,7 +20,7 @@ public class RealisticBiomeEBSnowyDesert extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Snowy Desert");
-		this.biomeCategory = BiomeCategory.SNOW;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSnowyDesert;
 	}
 }

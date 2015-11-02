@@ -39,7 +39,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
 		);
 		
 		this.setRealisticBiomeName("Vanilla Birch Forest Hills");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigVanilla.weightVanillaBirchForestHills;
 	}
 	

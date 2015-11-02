@@ -26,7 +26,7 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Sacred Springs");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPsacredSprings;
 	}
 }

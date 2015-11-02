@@ -26,7 +26,7 @@ public class RealisticBiomeBOPArctic extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Arctic");
-		this.biomeCategory = BiomeCategory.SNOW;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOParctic;
 	}
 }

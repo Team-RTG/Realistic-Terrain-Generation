@@ -20,7 +20,7 @@ public class RealisticBiomeEBSnowyRanges extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Snowy Ranges");
-		this.biomeCategory = BiomeCategory.SNOW;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSnowyRanges;
 	}
 }

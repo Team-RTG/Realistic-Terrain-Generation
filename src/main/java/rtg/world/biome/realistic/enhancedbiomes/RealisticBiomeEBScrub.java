@@ -53,7 +53,7 @@ public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Scrub");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBScrub;
 	}
 	

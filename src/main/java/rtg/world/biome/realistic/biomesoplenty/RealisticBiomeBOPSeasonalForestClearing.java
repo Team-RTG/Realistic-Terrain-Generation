@@ -26,7 +26,7 @@ public class RealisticBiomeBOPSeasonalForestClearing extends RealisticBiomeBOPBa
 		);
 		
 		this.setRealisticBiomeName("BOP Seasonal Forest Clearing");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPseasonalForestClearing;
 	}
 }

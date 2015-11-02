@@ -25,7 +25,7 @@ public class RealisticBiomeHLCanyon extends RealisticBiomeHLBase
             new SurfaceHLCanyon(topBlock, fillerBlock, (byte) 0, 0));
         
         this.setRealisticBiomeName("HL Canyon");
-        this.biomeCategory = BiomeCategory.HOT;
+        this.biomeCategory = BiomeCategory.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_canyon;
     }
 }

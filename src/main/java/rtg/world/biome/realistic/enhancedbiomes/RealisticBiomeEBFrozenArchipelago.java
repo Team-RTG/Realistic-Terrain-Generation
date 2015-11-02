@@ -19,7 +19,7 @@ public class RealisticBiomeEBFrozenArchipelago extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Frozen Archipelago");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBFrozenArchipelago;
 	}
 }

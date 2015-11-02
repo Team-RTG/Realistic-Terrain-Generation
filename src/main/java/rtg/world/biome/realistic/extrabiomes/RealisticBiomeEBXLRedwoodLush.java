@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLRedwoodLush extends RealisticBiomeEBXLBase
 		);
 		
 		this.setRealisticBiomeName("EBXL Redwood Lush");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_redwoodlush;
 	}
 }

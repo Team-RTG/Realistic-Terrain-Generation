@@ -27,7 +27,7 @@ public class RealisticBiomeHLShrubland extends RealisticBiomeHLBase
             new SurfaceHLShrubland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Shrubland");
-        this.biomeCategory = BiomeCategory.HOT;
+        this.biomeCategory = BiomeCategory.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_shrubland;
     }
 }

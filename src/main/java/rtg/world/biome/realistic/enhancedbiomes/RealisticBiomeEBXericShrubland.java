@@ -20,7 +20,7 @@ public class RealisticBiomeEBXericShrubland extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Xeric Shrubland");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBXericShrubland;
 	}
 }

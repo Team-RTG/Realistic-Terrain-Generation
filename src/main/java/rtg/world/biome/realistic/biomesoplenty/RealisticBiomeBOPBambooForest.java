@@ -26,7 +26,7 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Bamboo Forest");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPbambooForest;
 	}
 }

@@ -33,7 +33,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
 		);
 		
 		this.setRealisticBiomeName("Vanilla Ice Plains");
-		this.biomeCategory = BiomeCategory.SNOW;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigVanilla.weightVanillaIcePlains;
 	}
 	

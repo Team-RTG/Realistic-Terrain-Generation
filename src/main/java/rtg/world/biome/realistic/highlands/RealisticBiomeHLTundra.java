@@ -26,7 +26,7 @@ public class RealisticBiomeHLTundra extends RealisticBiomeHLBase
             new SurfaceHLTundra(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("HL Tundra");
-        this.biomeCategory = BiomeCategory.SNOW;
+        this.biomeCategory = BiomeCategory.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_tundra;
     }
 }

@@ -19,7 +19,7 @@ public class RealisticBiomeEBMountains extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Mountains");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBMountains;
 	}
 }

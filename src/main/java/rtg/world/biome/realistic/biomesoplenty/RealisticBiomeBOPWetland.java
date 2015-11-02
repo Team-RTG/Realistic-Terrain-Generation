@@ -26,7 +26,7 @@ public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Wetland");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPwetland;
 	}
 }

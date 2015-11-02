@@ -26,7 +26,7 @@ public class RealisticBiomeBOPFrostForest extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Frost Forest");
-		this.biomeCategory = BiomeCategory.SNOW;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPfrostForest;
 	}
 }

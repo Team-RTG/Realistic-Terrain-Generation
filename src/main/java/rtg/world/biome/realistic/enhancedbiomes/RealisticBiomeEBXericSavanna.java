@@ -20,7 +20,7 @@ public class RealisticBiomeEBXericSavanna extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Xeric Savanna");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBXericSavannah;
 	}
 }

@@ -25,7 +25,7 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Coniferous Forest");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPconiferousForest;
 	}
 }

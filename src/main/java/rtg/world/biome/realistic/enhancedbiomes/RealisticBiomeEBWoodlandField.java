@@ -19,7 +19,7 @@ public class RealisticBiomeEBWoodlandField extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Woodland Field");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBWoodlandField;
 	}
 }

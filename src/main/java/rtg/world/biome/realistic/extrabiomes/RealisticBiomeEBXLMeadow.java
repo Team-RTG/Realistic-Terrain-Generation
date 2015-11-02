@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLMeadow extends RealisticBiomeEBXLBase
 		);
 		
 		this.setRealisticBiomeName("EBXL Meadow");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_meadow;
 	}
 }

@@ -20,7 +20,7 @@ public class RealisticBiomeTCTaintedLand extends RealisticBiomeTCBase
 		);
 		
 		this.setRealisticBiomeName("Thaumcraft Tainted Land");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.SMALL;
 		this.biomeWeight = ConfigTC.weightTCTaintedLand;
 	}
 }

@@ -27,7 +27,7 @@ public class RealisticBiomeHLSahel extends RealisticBiomeHLBase
             new SurfaceHLSahel(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Sahel");
-        this.biomeCategory = BiomeCategory.HOT;
+        this.biomeCategory = BiomeCategory.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_sahel;
     }
 }

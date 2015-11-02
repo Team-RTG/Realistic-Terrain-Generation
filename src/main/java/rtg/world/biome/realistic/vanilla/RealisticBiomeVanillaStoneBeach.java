@@ -24,7 +24,7 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase
 		);
 		
 		this.setRealisticBiomeName("Vanilla Stone Beach");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigVanilla.weightVanillaStoneBeach;
 	}	
 }

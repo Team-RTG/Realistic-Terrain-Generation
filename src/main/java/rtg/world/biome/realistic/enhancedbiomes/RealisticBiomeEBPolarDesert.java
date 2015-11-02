@@ -33,7 +33,7 @@ public class RealisticBiomeEBPolarDesert extends RealisticBiomeEBBase
         );
         
         this.setRealisticBiomeName("EB Polar Desert");
-        this.biomeCategory = BiomeCategory.SNOW;
+        this.biomeCategory = BiomeCategory.NORMAL;
         this.biomeWeight = ConfigEB.weightEBPolarDesert;
     }
     

@@ -26,7 +26,7 @@ public class RealisticBiomeHLRainforest extends RealisticBiomeHLBase
             new SurfaceHLRainforest(topBlock, fillerBlock, false, null, 1.3f));
         
         this.setRealisticBiomeName("HL Rainforest");
-        this.biomeCategory = BiomeCategory.WET;
+        this.biomeCategory = BiomeCategory.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_rainforest;
     }
 }

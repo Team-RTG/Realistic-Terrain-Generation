@@ -19,7 +19,7 @@ public class RealisticBiomeEBKakadu extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Kakadu");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBKakadu;
 	}
 }

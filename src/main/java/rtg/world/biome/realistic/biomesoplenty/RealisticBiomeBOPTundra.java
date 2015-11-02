@@ -26,7 +26,7 @@ public class RealisticBiomeBOPTundra extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Tundra");
-		this.biomeCategory = BiomeCategory.SNOW;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPtundra;
 	}
 }

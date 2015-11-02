@@ -22,7 +22,7 @@ public class RealisticBiomeHLAlps extends RealisticBiomeHLBase {
             new SurfaceHLAlps(topBlock, fillerBlock, false, null, 0.45f));
         
         this.setRealisticBiomeName("HL Alps");
-        this.biomeCategory = BiomeCategory.SNOW;
+        this.biomeCategory = BiomeCategory.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_alps;
     }
 }

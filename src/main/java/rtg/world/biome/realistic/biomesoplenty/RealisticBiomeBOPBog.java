@@ -27,7 +27,7 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Bog");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPbog;
 	}
 }

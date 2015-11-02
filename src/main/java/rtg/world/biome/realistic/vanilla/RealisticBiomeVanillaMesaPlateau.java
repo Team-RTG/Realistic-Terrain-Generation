@@ -37,7 +37,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase
             new SurfaceVanillaMesaPlateau(Blocks.sand, Blocks.sand, (byte) 1, 0));
         
         this.setRealisticBiomeName("Vanilla Mesa Plateau");
-        this.biomeCategory = BiomeCategory.HOT;
+        this.biomeCategory = BiomeCategory.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaMesaPlateau;
     }
     

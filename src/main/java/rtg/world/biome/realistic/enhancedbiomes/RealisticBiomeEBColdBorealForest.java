@@ -19,7 +19,7 @@ public class RealisticBiomeEBColdBorealForest extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Cold Boreal Forest");
-		this.biomeCategory = BiomeCategory.SNOW;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBColdBorealForest;
 	}
 }

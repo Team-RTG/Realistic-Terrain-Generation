@@ -19,7 +19,7 @@ public class RealisticBiomeEBTundra extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Tundra");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBTundra;
 	}
 }

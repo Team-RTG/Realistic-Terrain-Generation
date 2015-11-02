@@ -20,7 +20,7 @@ public class RealisticBiomeEBClearing extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Clearing");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBClearing;
 	}
 }

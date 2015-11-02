@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLAlpine extends RealisticBiomeEBXLBase
 		);
 		
 		this.setRealisticBiomeName("EBXL Alpine");
-		this.biomeCategory = BiomeCategory.SNOW;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_alpine;
 	}
 }

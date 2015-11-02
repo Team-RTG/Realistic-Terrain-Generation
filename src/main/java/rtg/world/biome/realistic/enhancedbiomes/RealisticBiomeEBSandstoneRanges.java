@@ -51,7 +51,7 @@ public class RealisticBiomeEBSandstoneRanges extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Sandstone Ranges");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSandstoneRanges;
 	}
 	

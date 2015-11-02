@@ -56,7 +56,7 @@ public class RealisticBiomeEBForestedMountains extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Forested Mountains");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeCategory = BiomeCategory.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBForestedMountains;
 	}
 	

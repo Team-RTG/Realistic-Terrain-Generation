@@ -27,7 +27,7 @@ public class RealisticBiomeHLSnowIsland extends RealisticBiomeHLBase
             new SurfaceHLSnowIsland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Snow Island");
-        this.biomeCategory = BiomeCategory.NORMAL;
+        this.biomeCategory = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_snowIsland;
     }
 }

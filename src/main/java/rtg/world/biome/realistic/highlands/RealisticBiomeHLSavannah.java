@@ -27,7 +27,7 @@ public class RealisticBiomeHLSavannah extends RealisticBiomeHLBase
             new SurfaceHLSavannah(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Savannah");
-        this.biomeCategory = BiomeCategory.NORMAL;
+        this.biomeCategory = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_savannah;
     }
 }

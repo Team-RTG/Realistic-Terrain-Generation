@@ -17,7 +17,7 @@ import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -53,7 +53,7 @@ public class RealisticBiomeEBForestedValley extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Forested Valley");
-		this.biomeCategory = BiomeCategory.NORMAL;
+		this.biomeCategory = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBForestedValley;
 	}
 	

@@ -33,7 +33,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
             new SurfaceVanillaPlains(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("Vanilla Plains");
-        this.biomeCategory = BiomeCategory.NORMAL;
+        this.biomeCategory = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaPlains;
     }
     

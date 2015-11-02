@@ -5,7 +5,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPBambooForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPBambooForest;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -26,7 +26,7 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Bamboo Forest");
-		this.biomeCategory = BiomeCategory.NORMAL;
+		this.biomeCategory = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPbambooForest;
 	}
 }

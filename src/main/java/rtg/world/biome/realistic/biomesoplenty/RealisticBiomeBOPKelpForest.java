@@ -26,7 +26,7 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Kelp Forest");
-		this.biomeCategory = BiomeCategory.NORMAL;
+		this.biomeCategory = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPkelpForest;
 	}
 }

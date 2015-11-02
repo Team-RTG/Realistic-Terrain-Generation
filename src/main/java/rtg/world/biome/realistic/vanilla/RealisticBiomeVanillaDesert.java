@@ -45,7 +45,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
             surface);
         
         this.setRealisticBiomeName("Vanilla Desert");
-        this.biomeCategory = BiomeCategory.NORMAL;
+        this.biomeCategory = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaDesert;
     }
     

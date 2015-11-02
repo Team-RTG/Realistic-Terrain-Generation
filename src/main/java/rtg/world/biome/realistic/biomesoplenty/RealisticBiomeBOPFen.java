@@ -26,7 +26,7 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Fen");
-		this.biomeCategory = BiomeCategory.NORMAL;
+		this.biomeCategory = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPfen;
 	}
 }

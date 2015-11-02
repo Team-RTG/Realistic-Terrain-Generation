@@ -20,7 +20,7 @@ public class RealisticBiomeBase extends BiomeBase {
     public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;
     public String realisticBiomeName = null;
-    public BiomeCategory biomeCategory;
+    public BiomeSize biomeCategory;
     public int biomeWeight = 10;
     
     public TerrainBase terrain;

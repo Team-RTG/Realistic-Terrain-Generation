@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLPineForest extends RealisticBiomeEBXLBase
 		);
 		
 		this.setRealisticBiomeName("EBXL Pine Forest");
-		this.biomeCategory = BiomeCategory.NORMAL;
+		this.biomeCategory = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_pineforest;
 	}
 }

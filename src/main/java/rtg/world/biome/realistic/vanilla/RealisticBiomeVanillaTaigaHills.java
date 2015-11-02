@@ -40,7 +40,7 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase
             new SurfaceVanillaTaigaHills(Blocks.grass, Blocks.dirt, true, Blocks.sand, 0.2f));
         
         this.setRealisticBiomeName("Vanilla Taiga Hills");
-        this.biomeCategory = BiomeCategory.NORMAL;
+        this.biomeCategory = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaTaigaHills;
     }
     

@@ -26,7 +26,7 @@ public class RealisticBiomeHLMesa extends RealisticBiomeHLBase
             new SurfaceHLMesa(topBlock, fillerBlock, (byte) 1));
         
         this.setRealisticBiomeName("HL Mesa");
-        this.biomeCategory = BiomeCategory.NORMAL;
+        this.biomeCategory = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_mesa;
     }
 }

@@ -40,7 +40,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 		);
 		
 		this.setRealisticBiomeName("Vanilla Cold Beach");
-		this.biomeCategory = BiomeCategory.NORMAL;
+		this.biomeCategory = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigVanilla.weightVanillaColdBeach;
 	}
 	

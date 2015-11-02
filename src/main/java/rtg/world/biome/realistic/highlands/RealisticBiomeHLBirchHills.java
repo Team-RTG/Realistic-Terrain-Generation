@@ -23,7 +23,7 @@ public class RealisticBiomeHLBirchHills extends RealisticBiomeHLBase
             new SurfaceHLBirchHills(topBlock, fillerBlock, false, null, 0.95f));
         
         this.setRealisticBiomeName("HL Birch Hills");
-        this.biomeCategory = BiomeCategory.NORMAL;
+        this.biomeCategory = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_birchHills;
     }
 }

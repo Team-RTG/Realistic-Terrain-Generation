@@ -4,7 +4,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAlpineMountains;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBAlpineMountains;
 
@@ -19,7 +19,7 @@ public class RealisticBiomeEBAlpineMountains extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Alpine Mountains");
-		this.biomeCategory = BiomeCategory.NORMAL;
+		this.biomeCategory = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBAlpineMountains;
 	}
 }

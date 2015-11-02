@@ -40,7 +40,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
             new SurfaceVanillaSwampland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("Vanilla Swampland");
-        this.biomeCategory = BiomeCategory.NORMAL;
+        this.biomeCategory = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaSwampland;
     }
     

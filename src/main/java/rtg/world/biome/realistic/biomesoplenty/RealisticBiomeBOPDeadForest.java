@@ -26,7 +26,7 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Dead Forest");
-		this.biomeCategory = BiomeCategory.NORMAL;
+		this.biomeCategory = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPdeadForest;
 	}
 }

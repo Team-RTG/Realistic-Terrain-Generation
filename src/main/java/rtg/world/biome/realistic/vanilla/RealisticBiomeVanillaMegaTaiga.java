@@ -42,7 +42,7 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase
             new SurfaceVanillaMegaTaiga(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("Vanilla Mega Taiga");
-        this.biomeCategory = BiomeCategory.NORMAL;
+        this.biomeCategory = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaMegaTaiga;
     }
     

@@ -15,7 +15,7 @@ import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.biome.BiomeBase.Climate;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -45,7 +45,7 @@ public class RealisticBiomeEBEphemeralLakeEdge extends RealisticBiomeEBBase
         );
 		
 		this.setRealisticBiomeName("EB Ephemeral Lake Edge");
-		this.biomeCategory = BiomeCategory.NORMAL;
+		this.biomeCategory = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBEphemeralLakeEdge;
 	}
 	

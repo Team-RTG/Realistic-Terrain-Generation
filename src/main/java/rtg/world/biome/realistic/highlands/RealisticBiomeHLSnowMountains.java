@@ -25,7 +25,7 @@ public class RealisticBiomeHLSnowMountains extends RealisticBiomeHLBase
 		);
 		
 		this.setRealisticBiomeName("HL Snow Moutains");
-		this.biomeCategory = BiomeCategory.NORMAL;
+		this.biomeCategory = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigHL.weightHL_snowMountains;
 	}
 }

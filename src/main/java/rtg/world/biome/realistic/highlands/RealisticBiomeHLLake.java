@@ -27,7 +27,7 @@ public class RealisticBiomeHLLake extends RealisticBiomeHLBase
             new SurfaceHLLake(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Lake");
-        this.biomeCategory = BiomeCategory.NORMAL;
+        this.biomeCategory = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_lake;
     }
 }

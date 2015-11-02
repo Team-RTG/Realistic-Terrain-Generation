@@ -25,7 +25,7 @@ public class RealisticBiomeHLDesertMountains extends RealisticBiomeHLBase
             new SurfaceHLDesertMountains(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f));
         
         this.setRealisticBiomeName("HL Desert Mountains");
-        this.biomeCategory = BiomeCategory.NORMAL;
+        this.biomeCategory = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_desertMountains;
     }
 }

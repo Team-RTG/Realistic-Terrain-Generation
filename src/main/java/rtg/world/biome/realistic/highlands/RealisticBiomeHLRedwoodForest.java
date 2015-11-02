@@ -26,7 +26,7 @@ public class RealisticBiomeHLRedwoodForest extends RealisticBiomeHLBase
             new SurfaceHLRedwoodForest(topBlock, fillerBlock, false, null, 0.4f));
         
         this.setRealisticBiomeName("HL Redwood Forest");
-        this.biomeCategory = BiomeCategory.NORMAL;
+        this.biomeCategory = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_redwoodForest;
     }
 }

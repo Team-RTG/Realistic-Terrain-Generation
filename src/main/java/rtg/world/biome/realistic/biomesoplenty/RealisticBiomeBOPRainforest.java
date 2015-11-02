@@ -25,7 +25,7 @@ public class RealisticBiomeBOPRainforest extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Rainforest");
-		this.biomeCategory = BiomeCategory.NORMAL;
+		this.biomeCategory = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPrainforest;
 	}
 }

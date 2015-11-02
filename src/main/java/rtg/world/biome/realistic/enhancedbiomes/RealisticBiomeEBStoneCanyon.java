@@ -4,7 +4,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBStoneCanyon;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBStoneCanyon;
 
@@ -19,7 +19,7 @@ public class RealisticBiomeEBStoneCanyon extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Stone Canyon");
-		this.biomeCategory = BiomeCategory.NORMAL;
+		this.biomeCategory = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBStoneCanyon;
 	}
 }

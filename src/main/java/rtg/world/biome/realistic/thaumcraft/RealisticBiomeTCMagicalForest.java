@@ -5,7 +5,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.thaumcraft.ConfigTC;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.thaumcraft.SurfaceTCMagicalForest;
 import rtg.world.gen.terrain.thaumcraft.TerrainTCMagicalForest;
 
@@ -20,7 +20,7 @@ public class RealisticBiomeTCMagicalForest extends RealisticBiomeTCBase
 		);
 		
 		this.setRealisticBiomeName("Thaumcraft Magical Forest");
-		this.biomeCategory = BiomeCategory.NORMAL;
+		this.biomeCategory = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigTC.weightTCMagicalForest;
 	}
 }

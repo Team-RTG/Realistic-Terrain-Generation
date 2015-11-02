@@ -5,7 +5,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBWoodlandLakeEdge;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBWoodlandLakeEdge;
 
@@ -20,7 +20,7 @@ public class RealisticBiomeEBWoodlandLakeEdge extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Woodland Lake Edge");
-		this.biomeCategory = BiomeCategory.NORMAL;
+		this.biomeCategory = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBWoodlandLakeEdge;
 	}
 }

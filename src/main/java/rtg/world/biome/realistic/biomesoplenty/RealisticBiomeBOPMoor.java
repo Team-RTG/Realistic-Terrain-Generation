@@ -26,7 +26,7 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Moor");
-		this.biomeCategory = BiomeCategory.NORMAL;
+		this.biomeCategory = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPmoor;
 	}
 }

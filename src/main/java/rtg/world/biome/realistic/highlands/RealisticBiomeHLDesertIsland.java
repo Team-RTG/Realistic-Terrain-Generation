@@ -26,7 +26,7 @@ public class RealisticBiomeHLDesertIsland extends RealisticBiomeHLBase
             new SurfaceHLDesertIsland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Desert Island");
-        this.biomeCategory = BiomeCategory.NORMAL;
+        this.biomeCategory = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_desertIsland;
     }
 }

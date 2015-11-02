@@ -26,7 +26,7 @@ public class RealisticBiomeHLWoodlands extends RealisticBiomeHLBase
             new SurfaceHLWoodlands(topBlock, fillerBlock, false, null, 0.95f));
         
         this.setRealisticBiomeName("HL Woodlands");
-        this.biomeCategory = BiomeCategory.NORMAL;
+        this.biomeCategory = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_woodlands;
     }
 }

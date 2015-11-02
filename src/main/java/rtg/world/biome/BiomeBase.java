@@ -24,7 +24,7 @@ public class BiomeBase extends BiomeGenBase
 		WET
 	}
 
-	public enum BiomeCategory
+	public enum BiomeSize
 	{
 	    LARGE,
 		NORMAL,
@@ -88,11 +88,11 @@ public class BiomeBase extends BiomeGenBase
 		biomes_small = new ArrayList<RealisticBiomeBase>();
 	}
     
-	public static void addBiome(RealisticBiomeBase b, BiomeCategory cat)
+	public static void addBiome(RealisticBiomeBase b, BiomeSize size)
 	{
 		try
 		{
-			addWeightedBiome(b, cat);
+			addWeightedBiome(b, size);
 		}
 		catch(Error e)
 		{
@@ -102,11 +102,11 @@ public class BiomeBase extends BiomeGenBase
 	
 	public static void addBiome(RealisticBiomeBase b)
 	{
-		BiomeCategory cat = b.biomeCategory;
+		BiomeSize size = b.biomeCategory;
 		
 		try
 		{
-			addWeightedBiome(b, cat);
+			addWeightedBiome(b, size);
 		}
 		catch(Error e)
 		{
@@ -114,13 +114,13 @@ public class BiomeBase extends BiomeGenBase
 		}
 	}
 
-	public static void addWeightedBiome(RealisticBiomeBase b, BiomeCategory bc)
+	public static void addWeightedBiome(RealisticBiomeBase b, BiomeSize size)
 	{
-		int bw = (int) b.biomeWeight;
-		bw = (bw < 0) ? 0 : ((bw > 100) ? 100 : bw);
+		int weight = (int) b.biomeWeight;
+		weight = (weight < 0) ? 0 : ((weight > 100) ? 100 : weight);
 		
-		if (bw > 0) {			
-			for (int i = 0; i < bw; i++) {
+		if (weight > 0) {			
+			for (int i = 0; i < weight; i++) {
 				
 			    /**
 			     * Sort by temperature.
@@ -141,7 +141,7 @@ public class BiomeBase extends BiomeGenBase
                 /**
                  * Sort by size.
                  */
-				switch (bc)
+				switch (size)
 				{
 					case SMALL:
 						biomes_small.add(b);

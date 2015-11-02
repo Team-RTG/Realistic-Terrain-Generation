@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLAutumnWoods extends RealisticBiomeEBXLBase
 		);
 		
 		this.setRealisticBiomeName("EBXL Autumn Woods");
-		this.biomeCategory = BiomeCategory.NORMAL;
+		this.biomeCategory = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_autumnwoods;
 	}
 }

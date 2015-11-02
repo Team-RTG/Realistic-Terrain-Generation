@@ -27,7 +27,7 @@ public class RealisticBiomeHLRockIsland extends RealisticBiomeHLBase
             new SurfaceHLRockIsland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Rock Island");
-        this.biomeCategory = BiomeCategory.NORMAL;
+        this.biomeCategory = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_rockIsland;
     }
 }

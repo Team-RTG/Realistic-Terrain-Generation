@@ -5,7 +5,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.thaumcraft.ConfigTC;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.thaumcraft.SurfaceTCTaintedLand;
 import rtg.world.gen.terrain.thaumcraft.TerrainTCTaintedLand;
 
@@ -20,7 +20,7 @@ public class RealisticBiomeTCTaintedLand extends RealisticBiomeTCBase
 		);
 		
 		this.setRealisticBiomeName("Thaumcraft Tainted Land");
-		this.biomeCategory = BiomeCategory.SMALL;
+		this.biomeCategory = BiomeSize.SMALL;
 		this.biomeWeight = ConfigTC.weightTCTaintedLand;
 	}
 }

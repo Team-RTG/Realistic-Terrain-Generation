@@ -27,7 +27,7 @@ public class RealisticBiomeHLTropics extends RealisticBiomeHLBase
             new SurfaceHLTropics(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Tropics");
-        this.biomeCategory = BiomeCategory.NORMAL;
+        this.biomeCategory = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_tropics;
     }
 }

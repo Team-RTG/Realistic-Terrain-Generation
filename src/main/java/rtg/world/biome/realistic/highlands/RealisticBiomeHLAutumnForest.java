@@ -25,7 +25,7 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
             new SurfaceHLAutumnForest(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Autumn Forest");
-        this.biomeCategory = BiomeCategory.NORMAL;
+        this.biomeCategory = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_autumnForest;
     }
 }

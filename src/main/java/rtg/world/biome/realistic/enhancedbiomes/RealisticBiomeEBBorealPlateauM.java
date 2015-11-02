@@ -5,7 +5,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBBorealPlateauM;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBBorealPlateauM;
 
@@ -20,7 +20,7 @@ public class RealisticBiomeEBBorealPlateauM extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Boreal Plateau M");
-		this.biomeCategory = BiomeCategory.NORMAL;
+		this.biomeCategory = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBBorealPlateauM;
 	}
 }

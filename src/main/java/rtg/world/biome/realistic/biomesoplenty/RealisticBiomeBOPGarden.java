@@ -26,7 +26,7 @@ public class RealisticBiomeBOPGarden extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Garden");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPgarden;
 	}
 }

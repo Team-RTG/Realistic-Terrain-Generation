@@ -20,7 +20,7 @@ public class RealisticBiomeEBShrublands extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Shrublands");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBShrublands;
 	}
 }

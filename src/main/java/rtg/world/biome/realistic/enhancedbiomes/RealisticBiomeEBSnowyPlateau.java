@@ -20,7 +20,7 @@ public class RealisticBiomeEBSnowyPlateau extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Snowy Plateau");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSnowyPlateau;
 	}
 }

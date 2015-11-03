@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLGreenHills extends RealisticBiomeEBXLBase
 		);
 		
 		this.setRealisticBiomeName("EBXL Green Hills");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_greenhills;
 	}
 }

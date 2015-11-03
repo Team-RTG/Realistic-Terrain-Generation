@@ -27,7 +27,7 @@ public class RealisticBiomeHLTropicalIslands extends RealisticBiomeHLBase
             new SurfaceHLTropicalIslands(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Tropical Islands");
-        this.biomeCategory = BiomeSize.NORMAL;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_tropicalIslands;
     }
 }

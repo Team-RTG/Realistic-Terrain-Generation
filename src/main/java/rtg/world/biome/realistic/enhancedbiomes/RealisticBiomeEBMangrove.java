@@ -20,7 +20,7 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Mangrove");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBMangroves;
 	}
 }

@@ -26,7 +26,7 @@ public class RealisticBiomeBOPSludgepit extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Sludgepit");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPsludgepit;
 	}
 }

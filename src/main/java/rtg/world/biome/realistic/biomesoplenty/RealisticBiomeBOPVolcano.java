@@ -26,7 +26,7 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Volcano");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPvolcano;
 	}
 }

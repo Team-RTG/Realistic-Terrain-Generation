@@ -26,7 +26,7 @@ public class RealisticBiomeHLRockMountains extends RealisticBiomeHLBase
             new SurfaceHLRockMountains(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f));
         
         this.setRealisticBiomeName("HL Rock Mountains");
-        this.biomeCategory = BiomeSize.NORMAL;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_rockMountains;
     }
 }

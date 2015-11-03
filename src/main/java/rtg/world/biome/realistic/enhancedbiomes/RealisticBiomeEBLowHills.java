@@ -19,7 +19,7 @@ public class RealisticBiomeEBLowHills extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Low Hills");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBLowHills;
 	}
 }

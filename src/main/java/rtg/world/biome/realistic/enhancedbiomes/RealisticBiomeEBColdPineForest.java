@@ -19,7 +19,7 @@ public class RealisticBiomeEBColdPineForest extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Cold Pine Forest");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBColdPineForest;
 	}
 }

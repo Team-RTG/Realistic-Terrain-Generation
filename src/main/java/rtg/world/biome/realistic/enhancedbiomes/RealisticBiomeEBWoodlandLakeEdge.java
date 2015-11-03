@@ -20,7 +20,7 @@ public class RealisticBiomeEBWoodlandLakeEdge extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Woodland Lake Edge");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBWoodlandLakeEdge;
 	}
 }

@@ -20,7 +20,7 @@ public class RealisticBiomeEBForestedArchipelago extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Forested Archipelago");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBForestedArchipelago;
 	}
 }

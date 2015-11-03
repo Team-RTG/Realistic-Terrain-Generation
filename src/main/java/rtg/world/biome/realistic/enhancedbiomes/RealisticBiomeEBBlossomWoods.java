@@ -20,7 +20,7 @@ public class RealisticBiomeEBBlossomWoods extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Blossom Woods");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBBlossomWoods;
 	}
 }

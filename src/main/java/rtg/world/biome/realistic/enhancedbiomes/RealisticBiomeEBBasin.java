@@ -19,7 +19,7 @@ public class RealisticBiomeEBBasin extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Basin");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBBasin;
 	}
 }

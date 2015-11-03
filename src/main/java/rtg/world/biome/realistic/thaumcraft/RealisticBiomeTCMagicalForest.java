@@ -20,7 +20,7 @@ public class RealisticBiomeTCMagicalForest extends RealisticBiomeTCBase
 		);
 		
 		this.setRealisticBiomeName("Thaumcraft Magical Forest");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigTC.weightTCMagicalForest;
 	}
 }

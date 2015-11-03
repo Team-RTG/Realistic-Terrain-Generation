@@ -45,7 +45,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase
             new TerrainVanillaMesa(), surface);
         
         this.setRealisticBiomeName("Vanilla Mesa");
-        this.biomeCategory = BiomeSize.NORMAL;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaMesa;
     }
     

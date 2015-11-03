@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLSnowForest extends RealisticBiomeEBXLBase
 		);
 		
 		this.setRealisticBiomeName("EBXL Snow Forest");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_alpine;
 	}
 }

@@ -19,7 +19,7 @@ public class RealisticBiomeEBSilverPineHills extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Silver Pine Hills");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSilverPineHills;
 	}
 }

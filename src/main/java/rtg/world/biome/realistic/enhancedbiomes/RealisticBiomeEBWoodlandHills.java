@@ -19,7 +19,7 @@ public class RealisticBiomeEBWoodlandHills extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Woodland Hills");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBWoodlandHills;
 	}
 }

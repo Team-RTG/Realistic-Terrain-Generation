@@ -26,7 +26,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Mystic Grove");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPmysticGrove;
 	}
 }

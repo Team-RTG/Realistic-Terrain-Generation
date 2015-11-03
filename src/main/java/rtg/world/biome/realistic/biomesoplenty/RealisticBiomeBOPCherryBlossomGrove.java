@@ -26,7 +26,7 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Cherry Blossom Grove");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPcherryBlossomGrove;
 	}
 }

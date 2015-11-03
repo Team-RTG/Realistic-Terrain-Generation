@@ -19,7 +19,7 @@ public class RealisticBiomeEBStoneCanyon2 extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Stone Canyon 2");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBStoneCanyons;
 	}
 }

@@ -41,7 +41,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
                 -0.14f, 14f, 0.25f));
         
         this.setRealisticBiomeName("Vanilla Extreme Hills");
-        this.biomeCategory = BiomeSize.NORMAL;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaExtremeHills;
     }
     

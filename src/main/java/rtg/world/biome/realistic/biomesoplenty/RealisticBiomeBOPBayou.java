@@ -27,7 +27,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Bayou");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPbayou;
 	}
 }

@@ -25,7 +25,7 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Highland");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPhighland;
 	}
 }

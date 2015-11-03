@@ -26,7 +26,7 @@ public class RealisticBiomeHLPinelands extends RealisticBiomeHLBase
             new SurfaceHLPinelands(topBlock, fillerBlock, false, null, 1.2f));
         
         this.setRealisticBiomeName("HL Pinelands");
-        this.biomeCategory = BiomeSize.NORMAL;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_pinelands;
     }
 }

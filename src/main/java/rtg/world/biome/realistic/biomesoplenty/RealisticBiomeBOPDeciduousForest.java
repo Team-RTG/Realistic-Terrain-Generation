@@ -26,7 +26,7 @@ public class RealisticBiomeBOPDeciduousForest extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Deciduous Forest");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPdeciduousForest;
 	}
 }

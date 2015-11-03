@@ -26,7 +26,7 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Mangrove");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPmangrove;
 	}
 }

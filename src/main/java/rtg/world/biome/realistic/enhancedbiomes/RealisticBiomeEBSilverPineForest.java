@@ -19,7 +19,7 @@ public class RealisticBiomeEBSilverPineForest extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Silver Pine Forest");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSilverPineForest;
 	}
 }

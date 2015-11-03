@@ -19,7 +19,7 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Rocky Desert");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBRockyDesert;
 	}
 }

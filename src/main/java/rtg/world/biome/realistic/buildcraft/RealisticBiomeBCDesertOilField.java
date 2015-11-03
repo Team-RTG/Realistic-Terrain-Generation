@@ -20,7 +20,7 @@ public class RealisticBiomeBCDesertOilField extends RealisticBiomeBCBase
             new SurfaceBCDesertOilField(bcBiome.topBlock, bcBiome.fillerBlock));
         
         this.setRealisticBiomeName("BC Desert Oil Field");
-        this.biomeCategory = BiomeSize.NORMAL;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigBC.weightBCDesertOilField;
     }
 }

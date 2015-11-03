@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLMountainTaiga extends RealisticBiomeEBXLBase
 		);
 		
 		this.setRealisticBiomeName("EBXL Mountain Taiga");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_mountaintaiga;
 	}
 }

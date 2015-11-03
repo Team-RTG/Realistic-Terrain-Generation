@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLTemperateRainforest extends RealisticBiomeEBXLBas
 		);
 		
 		this.setRealisticBiomeName("EBXL Temperate Rainforest");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_temperaterainforest;
 	}
 }

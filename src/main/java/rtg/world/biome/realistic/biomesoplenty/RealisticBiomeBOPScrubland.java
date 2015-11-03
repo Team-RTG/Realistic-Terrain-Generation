@@ -26,7 +26,7 @@ public class RealisticBiomeBOPScrubland extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Scrubland");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPscrubland;
 	}
 }

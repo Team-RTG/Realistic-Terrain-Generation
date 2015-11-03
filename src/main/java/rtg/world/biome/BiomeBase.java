@@ -102,7 +102,7 @@ public class BiomeBase extends BiomeGenBase
 	
 	public static void addBiome(RealisticBiomeBase b)
 	{
-		BiomeSize size = b.biomeCategory;
+		BiomeSize size = b.biomeSize;
 		
 		try
 		{

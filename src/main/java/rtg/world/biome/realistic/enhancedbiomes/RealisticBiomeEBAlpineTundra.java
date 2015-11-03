@@ -19,7 +19,7 @@ public class RealisticBiomeEBAlpineTundra extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Alpine Tundra");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBAlpineTundra;
 	}
 }

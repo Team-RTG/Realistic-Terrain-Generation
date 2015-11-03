@@ -19,7 +19,7 @@ public class RealisticBiomeEBTropicalArchipelago extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Tropical Archipelago");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBTropicalArchipelago;
 	}
 }

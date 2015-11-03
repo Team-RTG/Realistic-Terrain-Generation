@@ -19,7 +19,7 @@ public class RealisticBiomeEBColdCypressForest extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Cold Cypress Forest");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBColdCypressForest;
 	}
 }

@@ -26,7 +26,7 @@ public class RealisticBiomeHLWoodsMountains extends RealisticBiomeHLBase
             new SurfaceHLWoodsMountains(topBlock, fillerBlock, false, null, 0.95f));
         
         this.setRealisticBiomeName("HL Woods Mountain");
-        this.biomeCategory = BiomeSize.NORMAL;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_woodsMountains;
     }
 }

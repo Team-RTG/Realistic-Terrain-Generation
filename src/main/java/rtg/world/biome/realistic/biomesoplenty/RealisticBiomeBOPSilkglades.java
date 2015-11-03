@@ -26,7 +26,7 @@ public class RealisticBiomeBOPSilkglades extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Silkglades");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPsilkglades;
 	}
 }

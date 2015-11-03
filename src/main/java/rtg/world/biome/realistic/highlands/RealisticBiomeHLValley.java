@@ -26,7 +26,7 @@ public class RealisticBiomeHLValley extends RealisticBiomeHLBase
             new SurfaceHLValley(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("HL Valley");
-        this.biomeCategory = BiomeSize.NORMAL;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_valley;
     }
 }

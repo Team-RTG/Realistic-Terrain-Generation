@@ -26,7 +26,7 @@ public class RealisticBiomeHLTallPineForest extends RealisticBiomeHLBase
             new SurfaceHLTallPineForest(topBlock, fillerBlock, false, null, 1.2f));
         
         this.setRealisticBiomeName("HL Tall Pine Forest");
-        this.biomeCategory = BiomeSize.NORMAL;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_tallPineForest;
     }
 }

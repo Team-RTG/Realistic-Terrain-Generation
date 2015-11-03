@@ -26,7 +26,7 @@ public class RealisticBiomeHLEstuary extends RealisticBiomeHLBase
             new SurfaceHLEstuary(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Estuary");
-        this.biomeCategory = BiomeSize.NORMAL;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_estuary;
     }
 }

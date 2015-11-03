@@ -20,7 +20,7 @@ public class RealisticBiomeEBRainforestValley extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Rainforest Valley");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBRainforestValley;
 	}
 }

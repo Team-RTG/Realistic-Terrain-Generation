@@ -19,7 +19,7 @@ public class RealisticBiomeEBAspenForest extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Aspen Forest");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBAspenForest;
 	}
 }

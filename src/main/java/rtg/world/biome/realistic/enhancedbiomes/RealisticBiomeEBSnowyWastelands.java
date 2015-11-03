@@ -53,7 +53,7 @@ public class RealisticBiomeEBSnowyWastelands extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Snowy Wastelands");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSnowyWastelands;
 	}
 	

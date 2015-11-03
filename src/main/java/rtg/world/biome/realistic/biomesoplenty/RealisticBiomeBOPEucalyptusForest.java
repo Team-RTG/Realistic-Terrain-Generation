@@ -26,7 +26,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Eucalyptus Forest");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPeucalyptusForest;
 	}
 }

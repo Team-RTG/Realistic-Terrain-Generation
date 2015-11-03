@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLMountainDesert extends RealisticBiomeEBXLBase
 		);
 		
 		this.setRealisticBiomeName("EBXL Mountain Desert");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_mountaindesert;
 	}
 }

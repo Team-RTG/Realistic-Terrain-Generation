@@ -37,7 +37,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
                 -0.14f, 14f, 0.25f));
         
         this.setRealisticBiomeName("Vanilla Ice Mountains");
-        this.biomeCategory = BiomeSize.NORMAL;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaIceMountains;
     }
     

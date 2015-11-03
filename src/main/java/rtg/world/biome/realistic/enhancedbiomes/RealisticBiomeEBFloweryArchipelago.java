@@ -20,7 +20,7 @@ public class RealisticBiomeEBFloweryArchipelago extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Flowery Archipelago");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBFloweryArchipelago;
 	}
 }

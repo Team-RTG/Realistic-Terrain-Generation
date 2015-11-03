@@ -27,7 +27,7 @@ public class RealisticBiomeHLBaldHill extends RealisticBiomeHLBase
         );
         
         this.setRealisticBiomeName("HL Bald Hill");
-        this.biomeCategory = BiomeSize.NORMAL;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_baldHill;
     }
 }

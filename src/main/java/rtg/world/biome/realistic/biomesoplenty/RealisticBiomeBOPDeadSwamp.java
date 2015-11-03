@@ -26,7 +26,7 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Dead Swamp");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPdeadSwamp;
 	}
 }

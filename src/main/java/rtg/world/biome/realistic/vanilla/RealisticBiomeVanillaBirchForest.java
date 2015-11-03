@@ -40,7 +40,7 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase
             new SurfaceVanillaBirchForest(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.15f));
         
         this.setRealisticBiomeName("Vanilla Birch Forest");
-        this.biomeCategory = BiomeSize.NORMAL;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaBirchForest;
     }
     

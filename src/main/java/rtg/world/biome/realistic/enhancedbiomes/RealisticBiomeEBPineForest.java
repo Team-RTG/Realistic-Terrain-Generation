@@ -20,7 +20,7 @@ public class RealisticBiomeEBPineForest extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Pine Forest");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBPineForest;
 	}
 }

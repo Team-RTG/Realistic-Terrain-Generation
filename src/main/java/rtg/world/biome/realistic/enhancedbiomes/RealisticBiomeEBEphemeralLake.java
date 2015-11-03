@@ -49,7 +49,7 @@ public class RealisticBiomeEBEphemeralLake extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Ephemeral Lake");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBEphemeralLake;
 	}
 	

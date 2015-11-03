@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLGreenSwamp extends RealisticBiomeEBXLBase
 		);
 		
 		this.setRealisticBiomeName("EBXL Green Swamp");
-		this.biomeCategory = BiomeSize.NORMAL;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_greenswamp;
 	}
 }

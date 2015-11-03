@@ -145,24 +145,13 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     {
         
         long coords = ChunkCoordIntPair.chunkXZ2Int(par1, par2);
-        
         if (biomeDataMap.containsKey(coords)) {
-            // FMLLog.log(Level.INFO, "already found: %s",
-            // biomeDataMap.get(coords).getRealisticBiomeName());
             return biomeDataMap.get(coords);
         }
         
         RealisticBiomeBase output = null;
-        
-        float b = (biomecell.noise((par1 + 4000f) / 1200D, par2 / 1200D, 1D) * 0.5f) + 0.5f;
-        
-        if (b > 1) {
-            FMLLog.log(Level.INFO, "original b: %f", b);
-        }
-        
-        // FMLLog.log(Level.INFO, "original b: %f", b);
+        float b = (biomecell.noise((par1 + 4000f) / 1200D, par2 / 1200D, 1D) * 0.5f) + 0.5f;        
         b = b < 0f ? 0f : b >= 0.9999999f ? 0.9999999f : b;
-        // FMLLog.log(Level.INFO, "new b: %f", b);
                 
         if (b < 0.25f) {
             

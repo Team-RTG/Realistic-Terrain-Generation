@@ -1,7 +1,7 @@
 # Realistic Terrain Generation
 Realistic Terrain Generation (RTG) is a mod that adds a new world type which generates realistic terrain. It doesn't add new blocks. It doesn't add new mobs. It doesn't even add new biomes. It simply generates more realistic-looking terrain for existing Overworld biomes (including those added by other mods).
 
-Minecraft Forum thread: http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/2524489-wip-realistic-terrain-generation-0-0-14
+Minecraft Forum thread: http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/2524489-wip-realistic-terrain-generation-0-0-15
 
 # Credits
 This mod is a re-branded fork of the revolutionary [Realistic World Gen](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1281910-teds-world-gen-mods-realistic-world-gen-alpha-1-3) mod by Ted80. It was created as a new project because it will likely deviate from Ted80's original vision for RWG, and the author of this mod didn't want to interfere with that vision. It also uses KdotJPG's [OpenSimplex Noise](https://gist.github.com/KdotJPG/b1270127455a94ac5d19) rather than Perlin Noise to generate its terrain.
@@ -16,7 +16,7 @@ This mod is a re-branded fork of the revolutionary [Realistic World Gen](http://
 * Create an API to allow other mods to customise terrain generation.
 
 # Downloads
-Latest alpha release: [RTG-1.7.10-0.0.14.jar](https://github.com/Team-RTG/Realistic-Terrain-Generation/releases/download/v0.0.14/RTG-1.7.10-0.0.14.jar) (Alpha)
+Latest alpha release: [RTG-1.7.10-0.0.15.jar](https://github.com/Team-RTG/Realistic-Terrain-Generation/releases/download/v0.0.15/RTG-1.7.10-0.0.15.jar) (Alpha)
 
 Please note that RTG is currently in alpha, which means that **it should only be used for testing purposes.**
 

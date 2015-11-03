@@ -13,7 +13,7 @@ public class TerrainEBCarr extends TerrainBase
     }
     
     @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float ocean, float border, float river)
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
     
         float floNoise;

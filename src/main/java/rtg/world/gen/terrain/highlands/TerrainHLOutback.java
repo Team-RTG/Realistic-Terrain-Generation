@@ -14,7 +14,7 @@ public class TerrainHLOutback extends TerrainBase
 	}
 
 	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float ocean, float border, float river)
+	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
 		float h = (simplex.noise2(x / valley, y / valley) + 0.25f) * 65f * river;
 		h = h < 1f ? 1f : h;

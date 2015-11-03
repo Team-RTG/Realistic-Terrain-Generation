@@ -63,8 +63,7 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
         if (baseX % 4 == 0 && baseY % 4 == 0 && mapRand.nextInt(6) == 0)
         {
             float river = cmr.getRiverStrength(baseX * 16, baseY * 16) + 1f;
-            if (river > 0.98f && cmr.isBorderlessAt(baseX * 16, baseY * 16)
-                && cmr.getNoiseWithRiverOceanAt(baseX * 16, baseY * 16, river, cmr.getOceanValue(baseX * 16, baseY * 16)) > 110f)
+            if (river > 0.98f && cmr.isBorderlessAt(baseX * 16, baseY * 16))
             {
                 long i1 = mapRand.nextLong() / 2L * 2L + 1L;
                 long j1 = mapRand.nextLong() / 2L * 2L + 1L;

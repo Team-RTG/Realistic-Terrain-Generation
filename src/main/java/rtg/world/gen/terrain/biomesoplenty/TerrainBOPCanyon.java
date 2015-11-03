@@ -50,7 +50,7 @@ public class TerrainBOPCanyon extends TerrainBase
 	}
 
 	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float ocean, float border, float river)
+	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
 		//float b = simplex.noise2(x / cWidth, y / cWidth) * cHeigth * river;
 		//b *= b / cStrength;

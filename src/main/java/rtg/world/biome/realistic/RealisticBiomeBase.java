@@ -95,9 +95,9 @@ public class RealisticBiomeBase extends BiomeBase {
     
     }
     
-    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float ocean, float border, float river) {
+    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
     
-        return terrain.generateNoise(simplex, cell, x, y, ocean, border, river);
+        return terrain.generateNoise(simplex, cell, x, y, border, river);
     }
     
     public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {

@@ -133,48 +133,6 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         return data;
     }
     
-    public float getOceanValue(int x, int y)
-    {
-        
-        float base = -(-0f);
-        float sample1 = simplex.noise2(x / 1200f, y / 1200f) + base;
-        float sample2 = 0f, sa = 0f, highest = 0f;
-        
-        if (sample1 == 0f)
-        {
-            highest = 1f;
-        }
-        
-        if (diff(sample1, sample2 = simplex.noise2((x - 100f) / 1200f, y / 1200f) + base, base))
-        {
-            sa = sample1 * (1 / Math.abs(sample1 - sample2));
-            highest = 1f - Math.abs(sa) > highest ? 1f - Math.abs(sa) : highest;
-        }
-        else if (diff(sample1, sample2 = simplex.noise2((x + 100f) / 1200f, y / 1200f) + base, base))
-        {
-            sa = sample1 * (1 / Math.abs(sample1 - sample2));
-            highest = 1f - Math.abs(sa) > highest ? 1f - Math.abs(sa) : highest;
-        }
-        
-        if (diff(sample1, sample2 = simplex.noise2(x / 1200f, (y + 100f) / 1200f) + base, base))
-        {
-            sa = sample1 * (1 / Math.abs(sample1 - sample2));
-            highest = 1f - Math.abs(sa) > highest ? 1f - Math.abs(sa) : highest;
-        }
-        else if (diff(sample1, sample2 = simplex.noise2(x / 1200f, (y - 100f) / 1200f) + base, base))
-        {
-            sa = sample1 * (1 / Math.abs(sample1 - sample2));
-            highest = 1f - Math.abs(sa) > highest ? 1f - Math.abs(sa) : highest;
-        }
-        
-        if (sample1 > 0f)
-        {
-            highest = 2f - highest;
-        }
-        
-        return highest;
-    }
-    
     public boolean diff(float sample1, float sample2, float base)
     {
         
@@ -188,16 +146,10 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     public BiomeGenBase getBiomeGenAt(int par1, int par2)
     {
         
-        return getBiomeDataAt(par1, par2, getOceanValue(par1, par2)).baseBiome;
+        return getBiomeDataAt(par1, par2).baseBiome;
     }
     
     public RealisticBiomeBase getBiomeDataAt(int par1, int par2)
-    {
-        
-        return getBiomeDataAt(par1, par2, getOceanValue(par1, par2));
-    }
-    
-    public RealisticBiomeBase getBiomeDataAt(int par1, int par2, float ocean)
     {
         
         long coords = ChunkCoordIntPair.chunkXZ2Int(par1, par2);
@@ -299,14 +251,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
             return 59f;
         }
         
-        float ocean = getOceanValue(x, y);
-        return getBiomeDataAt(x, y, ocean).rNoise(simplex, cell, x, y, ocean, 1f, river);
-    }
-    
-    public float getNoiseWithRiverOceanAt(int x, int y, float river, float ocean)
-    {
-        
-        return getBiomeDataAt(x, y, ocean).rNoise(simplex, cell, x, y, ocean, 1f, river);
+        return getBiomeDataAt(x, y).rNoise(simplex, cell, x, y, 1f, river);
     }
     
     public float calculateRiver(int x, int y, float st, float biomeHeight)

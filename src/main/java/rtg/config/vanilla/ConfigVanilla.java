@@ -109,11 +109,9 @@ public class ConfigVanilla
 					"Generate only this vanilla biome", 
 					"Biomes", 
 					new String(), 
-					"Must correspond to one of the vanilla biome variables found in the registerVanillaBiomes() method here:" + 
+					"Must correspond to one of the vanilla biome variables found in the registerVanillaBiomes() method here: https://goo.gl/o6o1zM" +
 					Configuration.NEW_LINE +
-					"https://github.com/MinecraftForge/MinecraftForge/blob/master/src/main/java/net/minecraftforge/common/BiomeDictionary.java#L468" +
-					Configuration.NEW_LINE +
-					"(e.g. desert, extremeHills, forest, taiga, taigaHills, etc.)"
+					"(e.g. desert, extremeHills, forest, plains, taiga, taigaHills, etc.)"
 				);
 			
 			generateVanillaBeach = config.getBoolean("generateVanillaBeach", "Biomes", true, "");

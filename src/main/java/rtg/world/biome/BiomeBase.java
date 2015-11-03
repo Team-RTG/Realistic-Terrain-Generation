@@ -35,7 +35,6 @@ public class BiomeBase extends BiomeGenBase
 	public static ArrayList<RealisticBiomeBase> biomes_cold;
 	public static ArrayList<RealisticBiomeBase> biomes_hot;
 	public static ArrayList<RealisticBiomeBase> biomes_wet;
-	public static ArrayList<RealisticBiomeBase> biomes_small;
 	
 	public static float tempCold = 0.5f, rainCold = 0.4f;
 	public static float tempHot = 0.8f, rainHot = 0.2f;
@@ -85,7 +84,6 @@ public class BiomeBase extends BiomeGenBase
 		biomes_cold = new ArrayList<RealisticBiomeBase>();
 		biomes_hot = new ArrayList<RealisticBiomeBase>();
 		biomes_wet = new ArrayList<RealisticBiomeBase>();
-		biomes_small = new ArrayList<RealisticBiomeBase>();
 	}
     
 	public static void addBiome(RealisticBiomeBase b, BiomeSize size)
@@ -144,11 +142,18 @@ public class BiomeBase extends BiomeGenBase
 				switch (size)
 				{
 					case SMALL:
-						biomes_small.add(b);
-						//FMLLog.log(Level.INFO, "Added biome (%s) to category (SMALL). %d biomes in this category so far.", b.getRealisticBiomeName(), biomes_small.size());
+
 						break;
+                        
+					case NORMAL:
+
+						break;
+                        
+					case LARGE:
+
+						break;
+                        
 					default:
-						//FMLLog.log(Level.INFO, "Failed to add biome (%s) to category.", b.getRealisticBiomeName());
 						break;
 				}
 			}

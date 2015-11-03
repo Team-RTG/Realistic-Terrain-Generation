@@ -37,13 +37,11 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     private ArrayList<RealisticBiomeBase> biomes_cold;
     private ArrayList<RealisticBiomeBase> biomes_hot;
     private ArrayList<RealisticBiomeBase> biomes_wet;
-    private ArrayList<RealisticBiomeBase> biomes_small;
     private ArrayList<RealisticBiomeBase> biomes_all;
     private int biomes_snowLength;
     private int biomes_coldLength;
     private int biomes_hotLength;
     private int biomes_wetLength;
-    private int biomes_smallLength;
     private int biomes_allLength;
     
     private boolean smallEnabled;
@@ -78,29 +76,23 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         biomes_cold = new ArrayList<RealisticBiomeBase>();
         biomes_hot = new ArrayList<RealisticBiomeBase>();
         biomes_wet = new ArrayList<RealisticBiomeBase>();
-        biomes_small = new ArrayList<RealisticBiomeBase>();
         biomes_all = new ArrayList<RealisticBiomeBase>();
         
         biomes_snow.addAll(BiomeBase.biomes_snow);
         biomes_cold.addAll(BiomeBase.biomes_cold);
         biomes_hot.addAll(BiomeBase.biomes_hot);
         biomes_wet.addAll(BiomeBase.biomes_wet);
-        biomes_small.addAll(BiomeBase.biomes_small);
         
         biomes_all.addAll(BiomeBase.biomes_snow);
         biomes_all.addAll(BiomeBase.biomes_cold);
         biomes_all.addAll(BiomeBase.biomes_hot);
         biomes_all.addAll(BiomeBase.biomes_wet);
-        biomes_all.addAll(BiomeBase.biomes_small);
         
         biomes_snowLength = biomes_snow.size();
         biomes_coldLength = biomes_cold.size();
         biomes_hotLength = biomes_hot.size();
         biomes_wetLength = biomes_wet.size();
-        biomes_smallLength = biomes_small.size();
         biomes_allLength = biomes_all.size();
-        
-        smallEnabled = (biomes_smallLength > 0) ? true : false;
     }
     
     public int[] getBiomesGens(int par1, int par2, int par3, int par4)
@@ -171,14 +163,8 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         // FMLLog.log(Level.INFO, "original b: %f", b);
         b = b < 0f ? 0f : b >= 0.9999999f ? 0.9999999f : b;
         // FMLLog.log(Level.INFO, "new b: %f", b);
-        
-        float s = smallEnabled ? (biomecell.noise(par1 / 140D, par2 / 140D, 1D) * 0.5f) + 0.5f : 0f;
-        
-        if (smallEnabled && s >= 0.975f) {
-            output = chooseSmallBiome(s);
-            // FMLLog.log(Level.INFO, "chooseSmallBiome: %s", output.getRealisticBiomeName());
-        }
-        else if (b < 0.25f) {
+                
+        if (b < 0.25f) {
             
             if (biomes_snowLength < 1) {
                 output = chooseColdBiome(par1, par2);
@@ -205,7 +191,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
                 output = chooseHotBiome(par1, par2);
             }
         }
-        else if (b < 0.975f) {
+        else if (b < 1) {
             
             if (biomes_wetLength < 1) {
                 output = chooseHotBiome(par1, par2);
@@ -215,6 +201,8 @@ public class WorldChunkManagerRTG extends WorldChunkManager
             }
         }
         else {
+            
+            //It should never make it into here, but just in case.
             output = chooseRandomBiome();
         }
         
@@ -514,27 +502,6 @@ public class WorldChunkManagerRTG extends WorldChunkManager
             output = biomes_hot.get((int) (h));
             
             // FMLLog.log(Level.INFO, "chooseHotBiome: %s", output.getRealisticBiomeName());
-        }
-        return output;
-    }
-    
-    public RealisticBiomeBase chooseSmallBiome(float s)
-    {
-        
-        RealisticBiomeBase output;
-        
-        if (biomes_smallLength < 1) {
-            output = chooseRandomBiome();
-        }
-        else {
-            
-            float h = (s - 0.975f) * 40f;
-            h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-            h *= biomes_smallLength;
-            
-            output = biomes_small.get((int) (h));
-            
-            // FMLLog.log(Level.INFO, "chooseSmallBiome: %s", output.getRealisticBiomeName());
         }
         return output;
     }

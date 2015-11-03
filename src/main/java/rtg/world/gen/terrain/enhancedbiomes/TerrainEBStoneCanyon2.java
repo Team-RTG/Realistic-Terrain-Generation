@@ -6,7 +6,7 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBStoneCanyon2 extends TerrainBase
 {
-	private boolean smallRiver;
+	private boolean booRiver;
 	private float[] height;
 	private int heightLength;
 	private float strength;
@@ -39,7 +39,7 @@ public class TerrainEBStoneCanyon2 extends TerrainBase
 	 */
 	public TerrainEBStoneCanyon2(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight)
 	{
-		smallRiver = riverGen;
+		booRiver = riverGen;
 		height = new float[]{5.0f, 0.5f, 12.5f, 0.5f, 18.0f, 0.5f};
 		strength = heightStrength;
 		heightLength = height.length;
@@ -86,7 +86,7 @@ public class TerrainEBStoneCanyon2 extends TerrainBase
 		
 		
 		float bn = 0f;
-		if(smallRiver)
+		if(booRiver)
 		{
 			if(b < 5f)
 			{

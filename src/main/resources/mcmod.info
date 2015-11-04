@@ -16,11 +16,11 @@
     "dependencies": [
         "arsmagica2@[1.4.0.008,)",
         "BiomesOPlenty@[2.1.0,)",
-        "BuildCraft|Core@[7.1.9,)",
+        "BuildCraft|Core@[7.1.7,)",
         "enhancedbiomes@2.5 for MC 1.7.10",
         "ExtrabiomesXL@[3.16.2,)",
         "Highlands@[2.2.3,)",
-        "Railcraft@[9.8.0.0,)",
+        "Railcraft@[9.7.0.0,)",
         "Thaumcraft@[4.2.3.4,)"
     ],
     "dependants": [],

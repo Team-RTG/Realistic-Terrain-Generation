@@ -26,7 +26,7 @@ public class RealisticBiomeBOPPrairie extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Prairie");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPprairie;
 	}
 }

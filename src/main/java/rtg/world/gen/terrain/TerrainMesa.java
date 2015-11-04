@@ -10,7 +10,7 @@ public class TerrainMesa extends TerrainBase
 	}
 	
 	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float ocean, float border, float river)
+	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
 		float b = simplex.noise2(x / 130f, y / 130f) * 50f * river;
 		b *= b / 40f;

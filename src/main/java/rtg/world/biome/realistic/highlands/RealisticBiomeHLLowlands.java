@@ -27,7 +27,7 @@ public class RealisticBiomeHLLowlands extends RealisticBiomeHLBase
             new SurfaceHLLowlands(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Lowlands");
-        this.biomeCategory = BiomeCategory.WET;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_lowlands;
     }
 }

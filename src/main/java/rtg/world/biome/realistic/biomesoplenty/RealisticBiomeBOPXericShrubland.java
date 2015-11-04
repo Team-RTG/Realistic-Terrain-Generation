@@ -26,7 +26,7 @@ public class RealisticBiomeBOPXericShrubland extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Xeric Shrubland");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPxericShrubland;
 	}
 }

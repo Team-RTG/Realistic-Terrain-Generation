@@ -20,7 +20,7 @@ public class RealisticBiomeBCOceanOilField extends RealisticBiomeBCBase
             new SurfaceBCOceanOilField(Blocks.sand, Blocks.sand, Blocks.gravel, 20f, 0.2f));
         
         this.setRealisticBiomeName("BC Ocean Oil Field");
-        this.biomeCategory = BiomeCategory.WET;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigBC.weightBCOceanOilField;
     }
 }

@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLSnowyRainforest extends RealisticBiomeEBXLBase
 		);
 		
 		this.setRealisticBiomeName("EBXL Snowy Rainforest");
-		this.biomeCategory = BiomeCategory.SNOW;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_snowyrainforest;
 	}
 }

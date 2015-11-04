@@ -27,7 +27,7 @@ public class RealisticBiomeHLMeadow extends RealisticBiomeHLBase
             new SurfaceHLMeadow(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Meadow");
-        this.biomeCategory = BiomeCategory.WET;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_meadow;
     }
 }

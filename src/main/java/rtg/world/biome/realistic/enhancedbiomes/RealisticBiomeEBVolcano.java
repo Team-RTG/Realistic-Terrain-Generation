@@ -29,7 +29,7 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
             new SurfaceEBVolcano(Blocks.grass, Blocks.dirt, true, Blocks.gravel, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f));
         
         this.setRealisticBiomeName("EB Volcano");
-        this.biomeCategory = BiomeCategory.HOT;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigEB.weightEBVolcano;
     }
     
@@ -63,8 +63,7 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
         if (baseX % 4 == 0 && baseY % 4 == 0 && mapRand.nextInt(6) == 0)
         {
             float river = cmr.getRiverStrength(baseX * 16, baseY * 16) + 1f;
-            if (river > 0.98f && cmr.isBorderlessAt(baseX * 16, baseY * 16)
-                && cmr.getNoiseWithRiverOceanAt(baseX * 16, baseY * 16, river, cmr.getOceanValue(baseX * 16, baseY * 16)) > 110f)
+            if (river > 0.98f && cmr.isBorderlessAt(baseX * 16, baseY * 16))
             {
                 long i1 = mapRand.nextLong() / 2L * 2L + 1L;
                 long j1 = mapRand.nextLong() / 2L * 2L + 1L;

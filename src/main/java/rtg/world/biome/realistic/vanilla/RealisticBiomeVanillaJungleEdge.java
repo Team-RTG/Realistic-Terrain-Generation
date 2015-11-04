@@ -32,7 +32,7 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase
             new SurfaceVanillaJungleEdge(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("Vanilla Jungle Edge");
-        this.biomeCategory = BiomeCategory.WET;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaJungleEdge;
     }
     

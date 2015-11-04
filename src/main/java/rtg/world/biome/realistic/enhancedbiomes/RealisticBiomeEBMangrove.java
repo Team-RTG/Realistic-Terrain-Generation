@@ -5,7 +5,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBMangrove;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBMangrove;
 
@@ -20,7 +20,7 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Mangrove");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBMangroves;
 	}
 }

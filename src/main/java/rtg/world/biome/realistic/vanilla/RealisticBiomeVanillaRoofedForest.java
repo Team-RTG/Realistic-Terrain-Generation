@@ -40,7 +40,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             new SurfaceVanillaRoofedForest(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.15f));
         
         this.setRealisticBiomeName("Vanilla Roofed Forest");
-        this.biomeCategory = BiomeCategory.WET;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaRoofedForest;
     }
     

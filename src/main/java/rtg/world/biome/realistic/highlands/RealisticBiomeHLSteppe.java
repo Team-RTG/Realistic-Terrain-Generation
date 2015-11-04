@@ -27,7 +27,7 @@ public class RealisticBiomeHLSteppe extends RealisticBiomeHLBase
             new SurfaceHLSteppe(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Steppe");
-        this.biomeCategory = BiomeCategory.COLD;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_steppe;
     }
 }

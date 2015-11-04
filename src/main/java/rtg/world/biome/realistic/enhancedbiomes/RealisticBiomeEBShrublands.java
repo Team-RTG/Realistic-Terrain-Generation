@@ -5,7 +5,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBShrublands;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBShrublands;
 
@@ -20,7 +20,7 @@ public class RealisticBiomeEBShrublands extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Shrublands");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBShrublands;
 	}
 }

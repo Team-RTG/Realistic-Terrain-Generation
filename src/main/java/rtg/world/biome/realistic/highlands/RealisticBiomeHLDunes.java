@@ -25,7 +25,7 @@ public class RealisticBiomeHLDunes extends RealisticBiomeHLBase
             new SurfaceHLDunes(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("HL Dunes");
-        this.biomeCategory = BiomeCategory.HOT;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_dunes;
     }
 }

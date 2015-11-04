@@ -11,7 +11,6 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGrassland;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.TerrainSmallSupport;
 
 public class RealisticBiomeTCBase extends RealisticBiomeBase
 {	

@@ -6,11 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.logging.log4j.Level;
+
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
+import cpw.mods.fml.common.FMLLog;
 
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.ChunkPosition;
@@ -34,28 +37,24 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     private ArrayList<RealisticBiomeBase> biomes_cold;
     private ArrayList<RealisticBiomeBase> biomes_hot;
     private ArrayList<RealisticBiomeBase> biomes_wet;
-    private ArrayList<RealisticBiomeBase> biomes_small;
     private ArrayList<RealisticBiomeBase> biomes_all;
     private int biomes_snowLength;
     private int biomes_coldLength;
     private int biomes_hotLength;
     private int biomes_wetLength;
-    private int biomes_smallLength;
     private int biomes_allLength;
     
-    private boolean snowEnabled;
-    private boolean coldEnabled;
-    private boolean hotEnabled;
-    private boolean wetEnabled;
     private boolean smallEnabled;
     
     private float[] borderNoise;
     
     private Random rand;
     
+    private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
+    
     protected WorldChunkManagerRTG()
     {
-    
+        
         this.biomeCache = new BiomeCache(this);
         this.biomesToSpawnIn = new ArrayList();
         borderNoise = new float[256];
@@ -63,7 +62,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     
     public WorldChunkManagerRTG(World par1World)
     {
-    
+        
         this();
         long seed = par1World.getSeed();
         
@@ -77,40 +76,28 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         biomes_cold = new ArrayList<RealisticBiomeBase>();
         biomes_hot = new ArrayList<RealisticBiomeBase>();
         biomes_wet = new ArrayList<RealisticBiomeBase>();
-        biomes_small = new ArrayList<RealisticBiomeBase>();
         biomes_all = new ArrayList<RealisticBiomeBase>();
         
         biomes_snow.addAll(BiomeBase.biomes_snow);
         biomes_cold.addAll(BiomeBase.biomes_cold);
         biomes_hot.addAll(BiomeBase.biomes_hot);
         biomes_wet.addAll(BiomeBase.biomes_wet);
-        biomes_small.addAll(BiomeBase.biomes_small);
         
         biomes_all.addAll(BiomeBase.biomes_snow);
         biomes_all.addAll(BiomeBase.biomes_cold);
         biomes_all.addAll(BiomeBase.biomes_hot);
         biomes_all.addAll(BiomeBase.biomes_wet);
-        biomes_all.addAll(BiomeBase.biomes_small);
         
         biomes_snowLength = biomes_snow.size();
         biomes_coldLength = biomes_cold.size();
         biomes_hotLength = biomes_hot.size();
         biomes_wetLength = biomes_wet.size();
-        biomes_smallLength = biomes_small.size();
         biomes_allLength = biomes_all.size();
-        
-        snowEnabled = (biomes_snowLength > 0) ? true : false;
-        coldEnabled = (biomes_coldLength > 0) ? true : false;
-        hotEnabled = (biomes_hotLength > 0) ? true : false;
-        wetEnabled = (biomes_wetLength > 0) ? true : false;
-        smallEnabled = (biomes_smallLength > 1) ? true : false; // Why does it have to be greater
-                                                                // than 1, instead of greater than
-                                                                // 0? - Pink
     }
     
     public int[] getBiomesGens(int par1, int par2, int par3, int par4)
     {
-    
+        
         int[] d = new int[par3 * par4];
         
         for (int i = 0; i < par3; i++)
@@ -125,7 +112,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     
     public RealisticBiomeBase[] getBiomesGensData(int par1, int par2, int par3, int par4)
     {
-    
+        
         RealisticBiomeBase[] data = new RealisticBiomeBase[par3 * par4];
         
         for (int i = 0; i < par3; i++)
@@ -138,51 +125,9 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         return data;
     }
     
-    public float getOceanValue(int x, int y)
-    {
-    
-        float base = -(-0f);
-        float sample1 = simplex.noise2(x / 1200f, y / 1200f) + base;
-        float sample2 = 0f, sa = 0f, highest = 0f;
-        
-        if (sample1 == 0f)
-        {
-            highest = 1f;
-        }
-        
-        if (diff(sample1, sample2 = simplex.noise2((x - 100f) / 1200f, y / 1200f) + base, base))
-        {
-            sa = sample1 * (1 / Math.abs(sample1 - sample2));
-            highest = 1f - Math.abs(sa) > highest ? 1f - Math.abs(sa) : highest;
-        }
-        else if (diff(sample1, sample2 = simplex.noise2((x + 100f) / 1200f, y / 1200f) + base, base))
-        {
-            sa = sample1 * (1 / Math.abs(sample1 - sample2));
-            highest = 1f - Math.abs(sa) > highest ? 1f - Math.abs(sa) : highest;
-        }
-        
-        if (diff(sample1, sample2 = simplex.noise2(x / 1200f, (y + 100f) / 1200f) + base, base))
-        {
-            sa = sample1 * (1 / Math.abs(sample1 - sample2));
-            highest = 1f - Math.abs(sa) > highest ? 1f - Math.abs(sa) : highest;
-        }
-        else if (diff(sample1, sample2 = simplex.noise2(x / 1200f, (y - 100f) / 1200f) + base, base))
-        {
-            sa = sample1 * (1 / Math.abs(sample1 - sample2));
-            highest = 1f - Math.abs(sa) > highest ? 1f - Math.abs(sa) : highest;
-        }
-        
-        if (sample1 > 0f)
-        {
-            highest = 2f - highest;
-        }
-        
-        return highest;
-    }
-    
     public boolean diff(float sample1, float sample2, float base)
     {
-    
+        
         if ((sample1 < base && sample2 > base) || (sample1 > base && sample2 < base))
         {
             return true;
@@ -192,38 +137,23 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     
     public BiomeGenBase getBiomeGenAt(int par1, int par2)
     {
-    
-        return getBiomeDataAt(par1, par2, getOceanValue(par1, par2)).baseBiome;
+        
+        return getBiomeDataAt(par1, par2).baseBiome;
     }
     
     public RealisticBiomeBase getBiomeDataAt(int par1, int par2)
     {
-    
-        return getBiomeDataAt(par1, par2, getOceanValue(par1, par2));
-    }
-    
-    private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
-    
-    public RealisticBiomeBase getBiomeDataAt(int par1, int par2, float ocean)
-    {
-    
-        long coords = ChunkCoordIntPair.chunkXZ2Int(par1, par2);
         
+        long coords = ChunkCoordIntPair.chunkXZ2Int(par1, par2);
         if (biomeDataMap.containsKey(coords)) {
             return biomeDataMap.get(coords);
         }
         
         RealisticBiomeBase output = null;
-        
-        float b = (biomecell.noise((par1 + 4000f) / 1200D, par2 / 1200D, 1D) * 0.5f) + 0.5f;
+        float b = (biomecell.noise((par1 + 4000f) / 1200D, par2 / 1200D, 1D) * 0.5f) + 0.5f;        
         b = b < 0f ? 0f : b >= 0.9999999f ? 0.9999999f : b;
-        
-        float s = smallEnabled ? (biomecell.noise(par1 / 140D, par2 / 140D, 1D) * 0.5f) + 0.5f : 0f;
-        
-        if (smallEnabled && s > 0.975f) {
-            output = chooseSmallBiome(s);
-        }
-        else if ((wetEnabled && b < 0.25f) || (!wetEnabled && b < 0.33f)) {
+                
+        if (b < 0.25f) {
             
             if (biomes_snowLength < 1) {
                 output = chooseColdBiome(par1, par2);
@@ -232,7 +162,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
                 output = chooseSnowBiome(par1, par2);
             }
         }
-        else if ((wetEnabled && b < 0.50f) || (!wetEnabled && b < 0.66f)) {
+        else if (b < 0.50f) {
             
             if (biomes_coldLength < 1) {
                 output = chooseWetBiome(par1, par2);
@@ -241,7 +171,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
                 output = chooseColdBiome(par1, par2);
             }
         }
-        else if ((wetEnabled && b < 0.75f) || (!wetEnabled && b < 1f)) {
+        else if (b < 0.75f) {
             
             if (biomes_hotLength < 1) {
                 output = chooseRandomBiome();
@@ -250,7 +180,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
                 output = chooseHotBiome(par1, par2);
             }
         }
-        else if (wetEnabled) {
+        else if (b < 1) {
             
             if (biomes_wetLength < 1) {
                 output = chooseHotBiome(par1, par2);
@@ -260,6 +190,8 @@ public class WorldChunkManagerRTG extends WorldChunkManager
             }
         }
         else {
+            
+            //It should never make it into here, but just in case.
             output = chooseRandomBiome();
         }
         
@@ -281,31 +213,27 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         
         biomeDataMap.put(coords, output);
         
+        // FMLLog.log(Level.INFO, "b=%s,t=%f,r=%f", output.getRealisticBiomeName(),
+        // output.baseBiome.temperature, output.baseBiome.rainfall);
+        
         return output;
     }
     
     public float getNoiseAt(int x, int y)
     {
-    
+        
         float river = getRiverStrength(x, y) + 1f;
         if (river < 0.5f)
         {
             return 59f;
         }
         
-        float ocean = getOceanValue(x, y);
-        return getBiomeDataAt(x, y, ocean).rNoise(simplex, cell, x, y, ocean, 1f, river);
-    }
-    
-    public float getNoiseWithRiverOceanAt(int x, int y, float river, float ocean)
-    {
-    
-        return getBiomeDataAt(x, y, ocean).rNoise(simplex, cell, x, y, ocean, 1f, river);
+        return getBiomeDataAt(x, y).rNoise(simplex, cell, x, y, 1f, river);
     }
     
     public float calculateRiver(int x, int y, float st, float biomeHeight)
     {
-    
+        
         if (st < 0f && biomeHeight > 59f)
         {
             float pX = x + (simplex.noise1(y / 240f) * 220f);
@@ -322,14 +250,14 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     
     public float getRiverStrength(int x, int y)
     {
-    
+        
         return cell
             .border((x + (simplex.noise1(y / 240f) * 220f)) / 1250D, (y + (simplex.noise1(x / 240f) * 220f)) / 1250D, 50D / 300D, 1f);
     }
     
     public boolean isBorderlessAt(int x, int y)
     {
-    
+        
         int bx, by;
         
         for (bx = -2; bx <= 2; bx++)
@@ -355,13 +283,13 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     
     public List getBiomesToSpawnIn()
     {
-    
+        
         return this.biomesToSpawnIn;
     }
     
     public float[] getRainfall(float[] par1ArrayOfFloat, int par2, int par3, int par4, int par5)
     {
-    
+        
         if (par1ArrayOfFloat == null || par1ArrayOfFloat.length < par4 * par5)
         {
             par1ArrayOfFloat = new float[par4 * par5];
@@ -386,13 +314,13 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     
     public float getTemperatureAtHeight(float par1, int par2)
     {
-    
+        
         return par1;
     }
     
     public BiomeGenBase[] getBiomesForGeneration(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5)
     {
-    
+        
         if (par1ArrayOfBiomeGenBase == null || par1ArrayOfBiomeGenBase.length < par4 * par5)
         {
             par1ArrayOfBiomeGenBase = new BiomeGenBase[par4 * par5];
@@ -410,13 +338,13 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     
     public BiomeGenBase[] loadBlockGeneratorData(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5)
     {
-    
+        
         return this.getBiomeGenAt(par1ArrayOfBiomeGenBase, par2, par3, par4, par5, true);
     }
     
     public BiomeGenBase[] getBiomeGenAt(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5, boolean par6)
     {
-    
+        
         if (par1ArrayOfBiomeGenBase == null || par1ArrayOfBiomeGenBase.length < par4 * par5)
         {
             par1ArrayOfBiomeGenBase = new BiomeGenBase[par4 * par5];
@@ -434,7 +362,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     
     public boolean areBiomesViable(int x, int y, int par3, List par4List)
     {
-    
+        
         float centerNoise = getNoiseAt(x, y);
         if (centerNoise < 62)
         {
@@ -470,19 +398,19 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     
     public ChunkPosition findBiomePosition(int p_150795_1_, int p_150795_2_, int p_150795_3_, List p_150795_4_, Random p_150795_5_)
     {
-    
+        
         return null;
     }
     
     public void cleanupCache()
     {
-    
+        
         this.biomeCache.cleanupCache();
     }
     
     public RealisticBiomeBase chooseSnowBiome(double par1, double par2)
     {
-    
+        
         RealisticBiomeBase output;
         
         if (biomes_snowLength < 1) {
@@ -505,7 +433,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     
     public RealisticBiomeBase chooseColdBiome(double par1, double par2)
     {
-    
+        
         RealisticBiomeBase output;
         
         if (biomes_coldLength < 1) {
@@ -526,7 +454,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     
     public RealisticBiomeBase chooseWetBiome(double par1, double par2)
     {
-    
+        
         RealisticBiomeBase output;
         
         if (biomes_wetLength < 1) {
@@ -540,6 +468,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
             
             output = biomes_wet.get((int) (h));
         }
+        
         // FMLLog.log(Level.INFO, "chooseWetBiome: %s", output.getRealisticBiomeName());
         
         return output;
@@ -547,7 +476,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     
     public RealisticBiomeBase chooseHotBiome(double par1, double par2)
     {
-    
+        
         RealisticBiomeBase output;
         
         if (biomes_hotLength < 1) {
@@ -566,30 +495,9 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         return output;
     }
     
-    public RealisticBiomeBase chooseSmallBiome(float s)
-    {
-    
-        RealisticBiomeBase output;
-        
-        if (biomes_smallLength < 1) {
-            output = chooseRandomBiome();
-        }
-        else {
-            
-            float h = (s - 0.975f) * 40f;
-            h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-            h *= biomes_smallLength;
-            
-            output = biomes_small.get((int) (h));
-            
-            // FMLLog.log(Level.INFO, "chooseSmallBiome: %s", output.getRealisticBiomeName());
-        }
-        return output;
-    }
-    
     public RealisticBiomeBase chooseRandomBiome()
     {
-    
+        
         RealisticBiomeBase output = biomes_all.get(rand.nextInt(biomes_allLength));
         
         // FMLLog.log(Level.INFO, "chooseRandomBiome: %s", output.getRealisticBiomeName());

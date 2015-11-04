@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLForestedHills extends RealisticBiomeEBXLBase
 		);
 		
 		this.setRealisticBiomeName("EBXL Forested Hills");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_forestedhills;
 	}
 }

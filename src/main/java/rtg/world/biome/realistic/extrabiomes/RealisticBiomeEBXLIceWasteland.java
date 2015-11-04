@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLIceWasteland extends RealisticBiomeEBXLBase
 		);
 		
 		this.setRealisticBiomeName("EBXL Ice Wasteland");
-		this.biomeCategory = BiomeCategory.SNOW;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_icewasteland;
 	}
 }

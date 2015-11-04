@@ -26,7 +26,7 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Quagmire");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPquagmire;
 	}
 }

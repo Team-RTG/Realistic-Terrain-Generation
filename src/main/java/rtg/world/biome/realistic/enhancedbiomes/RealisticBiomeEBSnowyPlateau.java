@@ -5,7 +5,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSnowyPlateau;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSnowyPlateau;
 
@@ -20,7 +20,7 @@ public class RealisticBiomeEBSnowyPlateau extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Snowy Plateau");
-		this.biomeCategory = BiomeCategory.SNOW;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSnowyPlateau;
 	}
 }

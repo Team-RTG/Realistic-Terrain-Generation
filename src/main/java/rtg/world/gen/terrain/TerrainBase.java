@@ -9,7 +9,7 @@ public class TerrainBase
 	{
 	}
 	
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float ocean, float border, float river)
+	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
 		return 70f;
 	}

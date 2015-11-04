@@ -20,7 +20,7 @@ public class TerrainHLAutumnForest extends TerrainBase {
     }
     
     @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float ocean, float border,
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border,
         float river) {
     
         float h = simplex.noise2(x / width, y / width) * height * river;

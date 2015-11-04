@@ -27,7 +27,7 @@ public class RealisticBiomeHLJungleIsland extends RealisticBiomeHLBase
             new SurfaceHLJungleIsland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Jungle Island");
-        this.biomeCategory = BiomeCategory.WET;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_jungleIsland;
     }
 }

@@ -26,7 +26,7 @@ public class RealisticBiomeBOPGlacier extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Glacier");
-		this.biomeCategory = BiomeCategory.SNOW;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPglacier;
 	}
 }

@@ -5,7 +5,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPAlpsForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPAlpsForest;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -26,7 +26,7 @@ public class RealisticBiomeBOPAlpsForest extends RealisticBiomeBOPBase
 		);
 
 		this.setRealisticBiomeName("BOP Alps Forest");
-		this.biomeCategory = BiomeCategory.SNOW;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPalpsForest;
 	}
 }

@@ -4,7 +4,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBBasin;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBBasin;
 
@@ -19,7 +19,7 @@ public class RealisticBiomeEBBasin extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Basin");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBBasin;
 	}
 }

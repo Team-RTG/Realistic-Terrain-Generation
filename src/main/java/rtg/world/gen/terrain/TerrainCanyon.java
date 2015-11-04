@@ -5,7 +5,7 @@ import rtg.util.OpenSimplexNoise;
 
 public class TerrainCanyon extends TerrainBase
 {
-	private boolean smallRiver;
+	private boolean booRiver;
 	private float[] height;
 	private int heightLength;
 	private float strength;
@@ -38,7 +38,7 @@ public class TerrainCanyon extends TerrainBase
 	 */
 	public TerrainCanyon(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight)
 	{
-		smallRiver = riverGen;
+		booRiver = riverGen;
 		height = new float[]{5.0f, 0.5f, 12.5f, 0.5f, 18.0f, 0.5f};
 		strength = heightStrength;
 		heightLength = height.length;
@@ -49,7 +49,7 @@ public class TerrainCanyon extends TerrainBase
 	}
 
 	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float ocean, float border, float river)
+	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
 		//float b = simplex.noise2(x / cWidth, y / cWidth) * cHeigth * river;
 		//b *= b / cStrength;
@@ -85,7 +85,7 @@ public class TerrainCanyon extends TerrainBase
 		
 		
 		float bn = 0f;
-		if(smallRiver)
+		if(booRiver)
 		{
 			if(b < 5f)
 			{

@@ -5,7 +5,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBMeadowM;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBMeadowM;
 
@@ -20,7 +20,7 @@ public class RealisticBiomeEBMeadowM extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Meadow M");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBMeadowM;
 	}
 }

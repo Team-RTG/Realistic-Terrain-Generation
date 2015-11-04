@@ -27,7 +27,7 @@ public class RealisticBiomeHLOasis extends RealisticBiomeHLBase
             new SurfaceHLOasis(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Oasis");
-        this.biomeCategory = BiomeCategory.WET;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_oasis;
     }
 }

@@ -26,7 +26,7 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Oasis");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPoasis;
 	}
 }

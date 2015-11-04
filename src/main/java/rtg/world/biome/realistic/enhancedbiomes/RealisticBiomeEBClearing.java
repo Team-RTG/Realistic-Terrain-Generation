@@ -5,7 +5,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBClearing;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBClearing;
 
@@ -20,7 +20,7 @@ public class RealisticBiomeEBClearing extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Clearing");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBClearing;
 	}
 }

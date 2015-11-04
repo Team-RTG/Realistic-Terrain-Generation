@@ -6,7 +6,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPBayou;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPBayou;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -27,7 +27,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Bayou");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPbayou;
 	}
 }

@@ -26,7 +26,7 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Mountain");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPmountain;
 	}
 }

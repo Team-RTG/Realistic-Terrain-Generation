@@ -26,7 +26,7 @@ public class RealisticBiomeHLBog extends RealisticBiomeHLBase
             new SurfaceHLBog(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Bog");
-        this.biomeCategory = BiomeCategory.WET;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_bog;
     }
 }

@@ -26,7 +26,7 @@ public class RealisticBiomeHLBadlands extends RealisticBiomeHLBase
             new SurfaceHLBadlands(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Badlands");
-        this.biomeCategory = BiomeCategory.WET;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_badlands;
     }
 }

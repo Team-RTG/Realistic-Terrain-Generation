@@ -27,7 +27,7 @@ public class RealisticBiomeHLForestIsland extends RealisticBiomeHLBase
             new SurfaceHLForestIsland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
         this.setRealisticBiomeName("HL Forest Island");
-        this.biomeCategory = BiomeCategory.WET;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_forestIsland;
     }
 }

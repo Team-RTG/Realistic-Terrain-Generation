@@ -19,7 +19,7 @@ public class RealisticBiomeEBRedDesert extends RealisticBiomeEBBase
             new SurfaceEBRedDesert());
         
         this.setRealisticBiomeName("EB Red Desert");
-        this.biomeCategory = BiomeCategory.HOT;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigEB.weightEBRedDesert;
     }
 }

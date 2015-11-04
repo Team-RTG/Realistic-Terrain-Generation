@@ -26,7 +26,7 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
             new SurfaceHLVolcanoIsland(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("HL Volcano Island");
-        this.biomeCategory = BiomeCategory.HOT;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_volcanoIsland;
     }
 }

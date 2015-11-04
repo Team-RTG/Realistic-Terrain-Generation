@@ -4,7 +4,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAspenForest;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBAspenForest;
 
@@ -19,7 +19,7 @@ public class RealisticBiomeEBAspenForest extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Aspen Forest");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBAspenForest;
 	}
 }

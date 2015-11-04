@@ -26,7 +26,7 @@ public class RealisticBiomeBOPThicket extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Thicket");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPthicket;
 	}
 }

@@ -6,7 +6,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPBog;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPBog;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -27,7 +27,7 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Bog");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPbog;
 	}
 }

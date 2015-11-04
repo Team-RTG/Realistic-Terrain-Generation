@@ -25,7 +25,7 @@ public class RealisticBiomeBOPMeadowForest extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Meadow Forest");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPmeadowForest;
 	}
 }

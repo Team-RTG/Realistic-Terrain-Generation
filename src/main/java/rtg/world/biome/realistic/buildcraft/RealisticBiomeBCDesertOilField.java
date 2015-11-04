@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.buildcraft;
 
 import rtg.config.buildcraft.ConfigBC;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.buildcraft.SurfaceBCDesertOilField;
 import rtg.world.gen.terrain.buildcraft.TerrainBCDesertOilField;
 
@@ -20,7 +20,7 @@ public class RealisticBiomeBCDesertOilField extends RealisticBiomeBCBase
             new SurfaceBCDesertOilField(bcBiome.topBlock, bcBiome.fillerBlock));
         
         this.setRealisticBiomeName("BC Desert Oil Field");
-        this.biomeCategory = BiomeCategory.HOT;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigBC.weightBCDesertOilField;
     }
 }

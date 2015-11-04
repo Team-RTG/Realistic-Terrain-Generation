@@ -25,7 +25,7 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Redwood Forest");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPredwoodForest;
 	}
 }

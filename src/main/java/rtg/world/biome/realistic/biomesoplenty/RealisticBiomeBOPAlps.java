@@ -26,7 +26,7 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Alps");
-		this.biomeCategory = BiomeCategory.SNOW;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPalps;
 	}
 }

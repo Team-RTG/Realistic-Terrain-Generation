@@ -26,7 +26,7 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Flower Field");
-		this.biomeCategory = BiomeCategory.HOT;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPflowerField;
 	}
 }

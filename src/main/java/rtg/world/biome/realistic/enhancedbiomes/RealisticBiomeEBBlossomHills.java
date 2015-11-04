@@ -5,7 +5,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBBlossomHills;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBBlossomHills;
 
@@ -20,7 +20,7 @@ public class RealisticBiomeEBBlossomHills extends RealisticBiomeEBBase
 		);
 		
 		this.setRealisticBiomeName("EB Blossom Hills");
-		this.biomeCategory = BiomeCategory.WET;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBBlossomHills;
 	}
 }

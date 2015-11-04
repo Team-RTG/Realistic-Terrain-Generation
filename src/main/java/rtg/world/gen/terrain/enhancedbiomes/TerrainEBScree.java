@@ -13,7 +13,7 @@ public class TerrainEBScree extends TerrainBase
     }
     
     @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float ocean, float border, float river)
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
     
         float h = simplex.noise2(x / 100f, y / 100f) * 7;

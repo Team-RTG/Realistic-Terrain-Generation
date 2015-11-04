@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLRedwoodForest extends RealisticBiomeEBXLBase
 		);
 		
 		this.setRealisticBiomeName("EBXL Redwood Forest");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_redwoodforest;
 	}
 }

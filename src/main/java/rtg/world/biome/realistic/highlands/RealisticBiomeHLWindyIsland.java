@@ -26,7 +26,7 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
             new SurfaceHLWindyIsland(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("HL Windy Island");
-        this.biomeCategory = BiomeCategory.WET;
+        this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_windyIsland;
     }
 }

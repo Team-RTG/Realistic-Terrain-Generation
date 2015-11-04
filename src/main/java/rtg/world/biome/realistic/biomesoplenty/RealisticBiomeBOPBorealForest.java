@@ -6,7 +6,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeCategory;
+import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPBorealForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPBorealForest;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -27,7 +27,7 @@ public class RealisticBiomeBOPBorealForest extends RealisticBiomeBOPBase
 		);
 		
 		this.setRealisticBiomeName("BOP Boreal Forest");
-		this.biomeCategory = BiomeCategory.COLD;
+		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPborealForest;
 	}
 }

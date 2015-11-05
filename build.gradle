@@ -20,7 +20,7 @@ buildscript {
 apply plugin: 'forge'
 
 version = "0.0.16"
-group = "com.github.teamrtg" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "org.teamrtg.rtg" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "RTG-" + project.mcversion
 
 minecraft {

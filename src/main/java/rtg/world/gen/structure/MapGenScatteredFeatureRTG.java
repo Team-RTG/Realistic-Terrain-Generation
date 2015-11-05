@@ -1,4 +1,4 @@
-package rtg.world.gen.structure;
+    package rtg.world.gen.structure;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -126,7 +126,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
                 }
                 
                 //Jungle temple.
-                if (BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.DENSE) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.JUNGLE)) {
+                if (BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.JUNGLE)) {
                     return true;
                 }
                 

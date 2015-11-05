@@ -12,3 +12,7 @@
 /README-fml.txt
 /bin
 /README.txt
+gradlew-setupDecompWorkspace.bat
+gradlew-clean.bat
+gradlew-eclipse.bat
+gradlew-build.bat

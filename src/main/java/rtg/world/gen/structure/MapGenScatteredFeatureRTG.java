@@ -183,17 +183,17 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
 
                 BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(chunkX * 16 + 8, chunkZ * 16 + 8);
 
-                if (BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.SANDY)) {
+                if (BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.DRY) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.SANDY)) {
                     ComponentScatteredFeaturePieces.DesertPyramid desertpyramid = new ComponentScatteredFeaturePieces.DesertPyramid(random, chunkX * 16, chunkZ * 16);
                     arrComponents.add(desertpyramid);
                 }
 
-                if (BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.JUNGLE)) {
+                if (BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.DENSE) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.JUNGLE)) {
                     ComponentScatteredFeaturePieces.JunglePyramid junglepyramid = new ComponentScatteredFeaturePieces.JunglePyramid(random, chunkX * 16, chunkZ * 16);
                     arrComponents.add(junglepyramid);
                 }
 
-                if (BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.SWAMP)) {
+                if (BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.SWAMP)) {
                     ComponentScatteredFeaturePieces.SwampHut swamphut = new ComponentScatteredFeaturePieces.SwampHut(random, chunkX * 16, chunkZ * 16);
                     arrComponents.add(swamphut);
                 }

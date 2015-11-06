@@ -1,9 +1,8 @@
 package rtg;
 
 import rtg.config.ConfigManager;
-import rtg.data.VillageMaterials;
 import rtg.debug.DebugHandler;
-import rtg.init.ModMapGen;
+import rtg.event.EventManagerRTG;
 import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
 import rtg.world.WorldTypeRTG;
@@ -32,10 +31,9 @@ public class RTG {
     
     @Instance("RTG")
     public static RTG instance;
-    
     public static String configPath;
-    
     public static final WorldTypeRTG worldtype = (new WorldTypeRTG("RTG"));
+    public static final EventManagerRTG eventMgr = new EventManagerRTG();
     
     @SidedProxy(serverSide = ModInfo.PROXY_COMMON, clientSide = ModInfo.PROXY_CLIENT)
     public static CommonProxy proxy;
@@ -47,10 +45,9 @@ public class RTG {
         
         configPath = event.getModConfigurationDirectory() + "/RTG/";
         ConfigManager.init(configPath);
-        
-        MinecraftForge.TERRAIN_GEN_BUS.register(new VillageMaterials());
-        
-        ModMapGen.registerMapGen();
+                
+        MinecraftForge.TERRAIN_GEN_BUS.register(eventMgr);
+        MinecraftForge.EVENT_BUS.register(eventMgr);
     }
     
     @EventHandler

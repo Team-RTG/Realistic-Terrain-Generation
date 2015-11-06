@@ -35,9 +35,13 @@ import net.minecraftforge.common.BiomeDictionary;
  * http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/modification-development/2471489-jungle-and-desert-temple-spawn-biome
  * 
  * This class was modified by WhichOnesPink on 2015-11-05 to allow the spawning of scattered features ONLY
- * in biomes that have been registered with ALL of the BiomeDictionary types of their vanilla counterparts.
+ * in biomes that have been registered with multiple BiomeDictionary types that are shared by their vanilla counterparts.
  * For example, desert temples don't generate in SANDY biomes - they are only allowed to generate in biomes that
- * have been registered as HOT + DRY + SANDY. 
+ * have been registered as HOT + DRY + SANDY.
+ * 
+ * This class has also been modified to resolve a very specific use case involving Thaumcraft world gen:
+ * https://github.com/Team-RTG/Realistic-Terrain-Generation/issues/249
+ * 
  */
 public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
 {
@@ -121,17 +125,17 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
             if (biomegenbase != null) {
                 
                 //Desert temple.
-                if (BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.DRY) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.SANDY)) {
+                if (canSpawnDesertTemple(biomegenbase)) {
                     return true;
                 }
                 
                 //Jungle temple.
-                if (BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.JUNGLE)) {
+                if (canSpawnJungleTemple(biomegenbase)) {
                     return true;
                 }
                 
                 //Witch hut.
-                if (BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.SWAMP)) {
+                if (canSpawnWitchHut(biomegenbase)) {
                     return true;
                 }
             }
@@ -172,43 +176,76 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
     }
 
     public static class Start extends MapGenScatteredFeature.Start
-        {
-            public Start() {}
+    {
+        public Start() {}
 
-            public Start(World worldIn, Random random, int chunkX, int chunkZ) {
-                
-                super(worldIn, random, chunkX, chunkZ);
+        public Start(World worldIn, Random random, int chunkX, int chunkZ) {
+            
+            super(worldIn, random, chunkX, chunkZ);
 
-                LinkedList arrComponents = new LinkedList();
+            LinkedList arrComponents = new LinkedList();
 
-                BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(chunkX * 16 + 8, chunkZ * 16 + 8);
+            BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(chunkX * 16 + 8, chunkZ * 16 + 8);
 
-                if (BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.DRY) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.SANDY)) {
-                    ComponentScatteredFeaturePieces.DesertPyramid desertpyramid = new ComponentScatteredFeaturePieces.DesertPyramid(random, chunkX * 16, chunkZ * 16);
-                    arrComponents.add(desertpyramid);
-                }
-
-                if (BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.DENSE) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.JUNGLE)) {
-                    ComponentScatteredFeaturePieces.JunglePyramid junglepyramid = new ComponentScatteredFeaturePieces.JunglePyramid(random, chunkX * 16, chunkZ * 16);
-                    arrComponents.add(junglepyramid);
-                }
-
-                if (BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(biomegenbase, BiomeDictionary.Type.SWAMP)) {
-                    ComponentScatteredFeaturePieces.SwampHut swamphut = new ComponentScatteredFeaturePieces.SwampHut(random, chunkX * 16, chunkZ * 16);
-                    arrComponents.add(swamphut);
-                }
-
-                this.components.clear();
-                
-                if (arrComponents.size() > 0) {
-                    this.components.add(arrComponents.get(random.nextInt(arrComponents.size())));
-                }
-                
-                if (ConfigRTG.enableDebugging) {
-                    FMLLog.log(Level.INFO, "Scattered feature candidate at %d, %d", chunkX * 16, chunkZ * 16);
-                }
-                
-                this.updateBoundingBox();
+            if (canSpawnDesertTemple(biomegenbase)) {
+                ComponentScatteredFeaturePieces.DesertPyramid desertpyramid = new ComponentScatteredFeaturePieces.DesertPyramid(random, chunkX * 16, chunkZ * 16);
+                arrComponents.add(desertpyramid);
             }
+
+            if (canSpawnJungleTemple(biomegenbase)) {
+                ComponentScatteredFeaturePieces.JunglePyramid junglepyramid = new ComponentScatteredFeaturePieces.JunglePyramid(random, chunkX * 16, chunkZ * 16);
+                arrComponents.add(junglepyramid);
+            }
+
+            if (canSpawnWitchHut(biomegenbase)) {
+                ComponentScatteredFeaturePieces.SwampHut swamphut = new ComponentScatteredFeaturePieces.SwampHut(random, chunkX * 16, chunkZ * 16);
+                arrComponents.add(swamphut);
+            }
+
+            this.components.clear();
+            
+            if (arrComponents.size() > 0) {
+                this.components.add(arrComponents.get(random.nextInt(arrComponents.size())));
+            }
+            
+            if (ConfigRTG.enableDebugging) {
+                FMLLog.log(Level.INFO, "Scattered feature candidate at %d, %d", chunkX * 16, chunkZ * 16);
+            }
+            
+            this.updateBoundingBox();
         }
+    }
+    
+    private static boolean canSpawnDesertTemple(BiomeGenBase b)
+    {
+        boolean canSpawn = false;
+        
+        if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.DRY) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SANDY)) {
+            canSpawn = true;
+        }
+        
+        return canSpawn;
+    }
+    
+    private static boolean canSpawnJungleTemple(BiomeGenBase b)
+    {
+        boolean canSpawn = false;
+        
+        if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.JUNGLE)) {
+            canSpawn = true;
+        }
+        
+        return canSpawn;
+    }
+    
+    private static boolean canSpawnWitchHut(BiomeGenBase b)
+    {
+        boolean canSpawn = false;
+        
+        if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SWAMP)) {
+            canSpawn = true;
+        }
+        
+        return canSpawn;
+    }
 }

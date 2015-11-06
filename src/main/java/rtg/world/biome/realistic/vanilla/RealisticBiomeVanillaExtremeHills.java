@@ -2,6 +2,10 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import org.apache.logging.log4j.Level;
+
+import cpw.mods.fml.common.FMLLog;
+import rtg.config.rtg.ConfigRTG;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -21,6 +25,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenLakes;
+import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -29,6 +34,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
     
     public static Block topBlock = BiomeGenBase.extremeHills.topBlock;
     public static Block fillerBlock = BiomeGenBase.extremeHills.fillerBlock;
+    private WorldGenMinable ore_emerald = new WorldGenMinable(Blocks.emerald_ore, 1);
     
     public RealisticBiomeVanillaExtremeHills()
     {
@@ -50,6 +56,32 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
         float river)
     {
     
+        /**
+         * Emeralds
+         * 
+         */
+        if (ConfigRTG.generateOreEmerald) {
+            
+            for (int g12 = 0; g12 < 1; ++g12) {
+                
+                int n1 = chunkX + rand.nextInt(16);
+                int m1 = rand.nextInt(28) + 4;
+                int p1 = chunkY + rand.nextInt(16);
+
+                if (world.getBlock(n1, m1, p1).isReplaceableOreGen(world, n1, m1, p1, Blocks.stone)) {
+                    
+                    if (rand.nextInt(4) == 0) {
+                        
+                        world.setBlock(n1, m1, p1, Blocks.emerald_ore, 0, 2);
+                        
+                        if (ConfigRTG.enableDebugging) {
+                            FMLLog.log(Level.INFO, "Emerald generated at %d, %d, %d", n1, m1, p1);
+                        }
+                    }
+                }
+            }
+        }
+        
         if (rand.nextInt((int) (15f / strength)) == 0)
         {
             int i2 = chunkX + rand.nextInt(16) + 8;

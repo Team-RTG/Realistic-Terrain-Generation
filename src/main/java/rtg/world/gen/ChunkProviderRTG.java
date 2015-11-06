@@ -107,7 +107,6 @@ public class ChunkProviderRTG implements IChunkProvider
 	private WorldGenMinable ore_redstone = new WorldGenMinable(Blocks.redstone_ore, 7);
 	private WorldGenMinable ore_diamond = new WorldGenMinable(Blocks.diamond_ore, 7);
 	private WorldGenMinable ore_lapis = new WorldGenMinable(Blocks.lapis_ore, 6);
-	private WorldGenMinable ore_emerald = new WorldGenMinable(Blocks.emerald_ore, 1);
 
     public ChunkProviderRTG(World world, long l)
     {
@@ -727,23 +726,6 @@ public class ChunkProviderRTG implements IChunkProvider
 				int l10 = rand.nextInt(16) + rand.nextInt(16);
 				int k13 = y + rand.nextInt(16);
 				ore_lapis.generate(worldObj, rand, k7, l10, k13);
-			}
-		}
-
-        /**
-         * Emerald
-         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
-         */
-		if (ConfigRTG.generateOreEmerald && TerrainGen.generateOre(worldObj, rand, ore_lapis, x, y, CUSTOM)) {
-
-			for (int g12 = 0; g12 < 1; ++g12) {
-				int n1 = x + rand.nextInt(16);
-				int m1 = rand.nextInt(28) + 4;
-				int p1 = y + rand.nextInt(16);
-
-				if (rand.nextInt(4) == 0) {
-				    ore_emerald.generate(worldObj, rand, n1, m1, p1);
-				}
 			}
 		}
 

@@ -19,7 +19,7 @@ public class ConfigAM
     
     public static boolean generateAMBiomes = true;
     public static boolean generateAMWitchwoodForest = true;
-    public static int weightAMWitchwoodForest = biomeWeightDefault;
+    public static int weightAMWitchwoodForest = (int)Math.floor((double)(biomeWeightDefault * 0.5));
     
     public static void init(File configFile)
     {

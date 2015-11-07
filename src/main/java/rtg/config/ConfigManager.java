@@ -29,14 +29,14 @@ public class ConfigManager
     {
     
         rtgConfigFile = new File(configpath + "rtg.cfg");
-        vanillaConfigFile = new File(configpath + "vanilla.cfg");
-        bopConfigFile = new File(configpath + "mods/biomesoplenty.cfg");
-        ebxlConfigFile = new File(configpath + "mods/extrabiomes.cfg");
-        ebConfigFile = new File(configpath + "mods/enhancedbiomes.cfg");
-        hlConfigFile = new File(configpath + "mods/highlands.cfg");
-        tcConfigFile = new File(configpath + "mods/thaumcraft.cfg");
-        bcConfigFile = new File(configpath + "mods/buildcraft.cfg");
-        amConfigFile = new File(configpath + "mods/arsmagica.cfg");
+        vanillaConfigFile = new File(configpath + "biomes/vanilla.cfg");
+        bopConfigFile = new File(configpath + "biomes/biomesoplenty.cfg");
+        ebxlConfigFile = new File(configpath + "biomes/extrabiomes.cfg");
+        ebConfigFile = new File(configpath + "biomes/enhancedbiomes.cfg");
+        hlConfigFile = new File(configpath + "biomes/highlands.cfg");
+        tcConfigFile = new File(configpath + "biomes/thaumcraft.cfg");
+        bcConfigFile = new File(configpath + "biomes/buildcraft.cfg");
+        amConfigFile = new File(configpath + "biomes/arsmagica.cfg");
         
         ConfigRTG.init(rtgConfigFile);
         ConfigVanilla.init(vanillaConfigFile);

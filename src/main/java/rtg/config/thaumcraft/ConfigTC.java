@@ -2,12 +2,11 @@ package rtg.config.thaumcraft;
 
 import java.io.File;
 
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.common.config.Configuration;
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-
 import org.apache.logging.log4j.Level;
+
+import cpw.mods.fml.common.FMLLog;
+
+import net.minecraftforge.common.config.Configuration;
 
 public class ConfigTC 
 {
@@ -22,7 +21,7 @@ public class ConfigTC
 	public static boolean generateTCTaintedLand = true;
 	public static boolean generateTCMagicalForest = true;
 	
-	public static int weightTCTaintedLand = biomeWeightDefault;
+	public static int weightTCTaintedLand = (int)Math.floor((double)(biomeWeightDefault * 0.1));
 	public static int weightTCMagicalForest = biomeWeightDefault;
 		
 	public static void init(File configFile) 
@@ -35,11 +34,11 @@ public class ConfigTC
 			
 			generateTCBiomes = config.getBoolean("Generate Biomes", "Biomes", true, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod.");
 			
-			generateTCTaintedLand = config.getBoolean("generateTCTaintedLand", "Biomes", true, "");
-			generateTCMagicalForest = config.getBoolean("generateTCMagicalForest", "Biomes", true, "");
+			generateTCTaintedLand = config.getBoolean("generateTCTaintedLand", "Biomes", generateTCTaintedLand, "");
+			generateTCMagicalForest = config.getBoolean("generateTCMagicalForest", "Biomes", generateTCMagicalForest, "");
 			
-			weightTCTaintedLand = config.getInt("weightTCTaintedLand", "Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
-			weightTCMagicalForest = config.getInt("weightTCMagicalForest", "Weights", biomeWeightDefault, biomeWeightMin, biomeWeightMax, "");
+			weightTCTaintedLand = config.getInt("weightTCTaintedLand", "Weights", weightTCTaintedLand, biomeWeightMin, biomeWeightMax, "");
+			weightTCMagicalForest = config.getInt("weightTCMagicalForest", "Weights", weightTCMagicalForest, biomeWeightMin, biomeWeightMax, "");
 		}
 		catch (Exception e)
 		{

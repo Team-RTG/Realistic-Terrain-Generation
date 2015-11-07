@@ -102,7 +102,7 @@ public class ConfigVanilla
 		{
 			config.load();
 
-			generateVanillaBiomes = config.getBoolean("Generate Biomes", "Biomes", true, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod.");
+			generateVanillaBiomes = config.getBoolean("Generate Biomes", "Biomes", generateVanillaBiomes, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod.");
 			
 			generateOnlyThisVanillaBiome = 
 				config.getString(
@@ -114,42 +114,42 @@ public class ConfigVanilla
 					"(e.g. desert, extremeHills, forest, plains, taiga, taigaHills, etc.)"
 				);
 			
-			generateVanillaBeach = config.getBoolean("generateVanillaBeach", "Biomes", true, "");
-			generateVanillaStoneBeach = config.getBoolean("generateVanillaStoneBeach", "Biomes", true, "");
-			generateVanillaColdBeach = config.getBoolean("generateVanillaColdBeach", "Biomes", true, "");
-			generateVanillaDesert = config.getBoolean("generateVanillaDesert", "Biomes", true, "");
-			generateVanillaDesertHills = config.getBoolean("generateVanillaDesertHills", "Biomes", true, "");
-			generateVanillaExtremeHills = config.getBoolean("generateVanillaExtremeHills", "Biomes", true, "");
-			generateVanillaExtremeHillsPlus = config.getBoolean("generateVanillaExtremeHillsPlus", "Biomes", true, "");
-			generateVanillaForest = config.getBoolean("generateVanillaForest", "Biomes", true, "");
-			generateVanillaForestHills = config.getBoolean("generateVanillaForestHills", "Biomes", true, "");
-			generateVanillaBirchForest = config.getBoolean("generateVanillaBirchForest", "Biomes", true, "");
-			generateVanillaBirchForestHills = config.getBoolean("generateVanillaBirchForestHills", "Biomes", true, "");
-			generateVanillaRoofedForest = config.getBoolean("generateVanillaRoofedForest", "Biomes", true, "");
-			generateVanillaIcePlains = config.getBoolean("generateVanillaIcePlains", "Biomes", true, "");
-			generateVanillaIceMountains = config.getBoolean("generateVanillaIceMountains", "Biomes", true, "");
-			generateVanillaJungle = config.getBoolean("generateVanillaJungle", "Biomes", true, "");
-			generateVanillaJungleHills = config.getBoolean("generateVanillaJungleHills", "Biomes", true, "");
-			generateVanillaJungleEdge = config.getBoolean("generateVanillaJungleEdge", "Biomes", true, "");
-			generateVanillaMesa = config.getBoolean("generateVanillaMesa", "Biomes", true, "");
-			generateVanillaMesaPlateau = config.getBoolean("generateVanillaMesaPlateau", "Biomes", true, "");
-			generateVanillaMesaPlateau_F = config.getBoolean("generateVanillaMesaPlateau_F", "Biomes", true, "");
-			generateVanillaMushroomIsland = config.getBoolean("generateVanillaMushroomIsland", "Biomes", true, "");
-			generateVanillaMushroomIslandShore = config.getBoolean("generateVanillaMushroomIslandShore", "Biomes", true, "");
-			generateVanillaOcean = config.getBoolean("generateVanillaOcean", "Biomes", true, "");
-			generateVanillaDeepOcean = config.getBoolean("generateVanillaDeepOcean", "Biomes", true, "");
-			generateVanillaPlains = config.getBoolean("generateVanillaPlains", "Biomes", true, "");
-			generateVanillaRiver = config.getBoolean("generateVanillaRiver", "Biomes", true, "This setting is ignored. Rivers will always generate, even if set to false.");
-			generateVanillaFrozenRiver = config.getBoolean("generateVanillaFrozenRiver", "Biomes", true, "This setting is ignored. Frozen Rivers will always generate, even if set to false.");
-			generateVanillaSavanna = config.getBoolean("generateVanillaSavanna", "Biomes", true, "");
-			generateVanillaSavannaPlateau = config.getBoolean("generateVanillaSavannaPlateau", "Biomes", true, "");
-			generateVanillaSwampland = config.getBoolean("generateVanillaSwampland", "Biomes", true, "");
-			generateVanillaTaiga = config.getBoolean("generateVanillaTaiga", "Biomes", true, "");
-			generateVanillaTaigaHills = config.getBoolean("generateVanillaTaigaHills", "Biomes", true, "");
-			generateVanillaColdTaiga = config.getBoolean("generateVanillaColdTaiga", "Biomes", true, "");
-			generateVanillaColdTaigaHills = config.getBoolean("generateVanillaColdTaigaHills", "Biomes", true, "");
-			generateVanillaMegaTaiga = config.getBoolean("generateVanillaMegaTaiga", "Biomes", true, "");
-			generateVanillaMegaTaigaHills = config.getBoolean("generateVanillaMegaTaigaHills", "Biomes", true, "");
+			generateVanillaBeach = config.getBoolean("generateVanillaBeach", "Biomes", generateVanillaBeach, "");
+			generateVanillaStoneBeach = config.getBoolean("generateVanillaStoneBeach", "Biomes", generateVanillaStoneBeach, "");
+			generateVanillaColdBeach = config.getBoolean("generateVanillaColdBeach", "Biomes", generateVanillaColdBeach, "");
+			generateVanillaDesert = config.getBoolean("generateVanillaDesert", "Biomes", generateVanillaDesert, "");
+			generateVanillaDesertHills = config.getBoolean("generateVanillaDesertHills", "Biomes", generateVanillaDesertHills, "");
+			generateVanillaExtremeHills = config.getBoolean("generateVanillaExtremeHills", "Biomes", generateVanillaExtremeHills, "");
+			generateVanillaExtremeHillsPlus = config.getBoolean("generateVanillaExtremeHillsPlus", "Biomes", generateVanillaExtremeHillsPlus, "");
+			generateVanillaForest = config.getBoolean("generateVanillaForest", "Biomes", generateVanillaForest, "");
+			generateVanillaForestHills = config.getBoolean("generateVanillaForestHills", "Biomes", generateVanillaForestHills, "");
+			generateVanillaBirchForest = config.getBoolean("generateVanillaBirchForest", "Biomes", generateVanillaBirchForest, "");
+			generateVanillaBirchForestHills = config.getBoolean("generateVanillaBirchForestHills", "Biomes", generateVanillaBirchForestHills, "");
+			generateVanillaRoofedForest = config.getBoolean("generateVanillaRoofedForest", "Biomes", generateVanillaRoofedForest, "");
+			generateVanillaIcePlains = config.getBoolean("generateVanillaIcePlains", "Biomes", generateVanillaIcePlains, "");
+			generateVanillaIceMountains = config.getBoolean("generateVanillaIceMountains", "Biomes", generateVanillaIceMountains, "");
+			generateVanillaJungle = config.getBoolean("generateVanillaJungle", "Biomes", generateVanillaJungle, "");
+			generateVanillaJungleHills = config.getBoolean("generateVanillaJungleHills", "Biomes", generateVanillaJungleHills, "");
+			generateVanillaJungleEdge = config.getBoolean("generateVanillaJungleEdge", "Biomes", generateVanillaJungleEdge, "");
+			generateVanillaMesa = config.getBoolean("generateVanillaMesa", "Biomes", generateVanillaMesa, "");
+			generateVanillaMesaPlateau = config.getBoolean("generateVanillaMesaPlateau", "Biomes", generateVanillaMesaPlateau, "");
+			generateVanillaMesaPlateau_F = config.getBoolean("generateVanillaMesaPlateau_F", "Biomes", generateVanillaMesaPlateau_F, "");
+			generateVanillaMushroomIsland = config.getBoolean("generateVanillaMushroomIsland", "Biomes", generateVanillaMushroomIsland, "");
+			generateVanillaMushroomIslandShore = config.getBoolean("generateVanillaMushroomIslandShore", "Biomes", generateVanillaMushroomIslandShore, "");
+			generateVanillaOcean = config.getBoolean("generateVanillaOcean", "Biomes", generateVanillaOcean, "");
+			generateVanillaDeepOcean = config.getBoolean("generateVanillaDeepOcean", "Biomes", generateVanillaDeepOcean, "");
+			generateVanillaPlains = config.getBoolean("generateVanillaPlains", "Biomes", generateVanillaPlains, "");
+			generateVanillaRiver = config.getBoolean("generateVanillaRiver", "Biomes", generateVanillaRiver, "This setting is ignored. Rivers will always generate, even if set to false.");
+			generateVanillaFrozenRiver = config.getBoolean("generateVanillaFrozenRiver", "Biomes", generateVanillaFrozenRiver, "This setting is ignored. Frozen Rivers will always generate, even if set to false.");
+			generateVanillaSavanna = config.getBoolean("generateVanillaSavanna", "Biomes", generateVanillaSavanna, "");
+			generateVanillaSavannaPlateau = config.getBoolean("generateVanillaSavannaPlateau", "Biomes", generateVanillaSavannaPlateau, "");
+			generateVanillaSwampland = config.getBoolean("generateVanillaSwampland", "Biomes", generateVanillaSwampland, "");
+			generateVanillaTaiga = config.getBoolean("generateVanillaTaiga", "Biomes", generateVanillaTaiga, "");
+			generateVanillaTaigaHills = config.getBoolean("generateVanillaTaigaHills", "Biomes", generateVanillaTaigaHills, "");
+			generateVanillaColdTaiga = config.getBoolean("generateVanillaColdTaiga", "Biomes", generateVanillaColdTaiga, "");
+			generateVanillaColdTaigaHills = config.getBoolean("generateVanillaColdTaigaHills", "Biomes", generateVanillaColdTaigaHills, "");
+			generateVanillaMegaTaiga = config.getBoolean("generateVanillaMegaTaiga", "Biomes", generateVanillaMegaTaiga, "");
+			generateVanillaMegaTaigaHills = config.getBoolean("generateVanillaMegaTaigaHills", "Biomes", generateVanillaMegaTaigaHills, "");
 			
 			weightVanillaBeach = config.getInt("weightVanillaBeach", "Weights", weightVanillaBeach, biomeWeightMin, biomeWeightMax, "");
 			weightVanillaBirchForest = config.getInt("weightVanillaBirchForest", "Weights", weightVanillaBirchForest, biomeWeightMin, biomeWeightMax, "");

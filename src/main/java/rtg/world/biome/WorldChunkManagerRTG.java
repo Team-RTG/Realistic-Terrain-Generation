@@ -85,9 +85,9 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         
         biomes_all.addAll(BiomeBase.biomes_snow);
         biomes_all.addAll(BiomeBase.biomes_cold);
-        biomes_all.addAll(BiomeBase.biomes_hot);
         biomes_all.addAll(BiomeBase.biomes_wet);
-        
+        biomes_all.addAll(BiomeBase.biomes_hot);
+
         biomes_snowLength = biomes_snow.size();
         biomes_coldLength = biomes_cold.size();
         biomes_hotLength = biomes_hot.size();
@@ -173,21 +173,21 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         }
         else if (b < 0.75f) {
             
-            if (biomes_hotLength < 1) {
-                output = chooseRandomBiome();
-            }
-            else {
-                output = chooseHotBiome(par1, par2);
-            }
-        }
-        else if (b < 1) {
-            
             if (biomes_wetLength < 1) {
                 output = chooseHotBiome(par1, par2);
             }
             else {
                 output = chooseWetBiome(par1, par2);
             }
+        }
+        else if (b < 1) {
+
+            if (biomes_hotLength < 1) {
+                output = chooseRandomBiome();
+            }
+            else {
+                output = chooseHotBiome(par1, par2);
+            }            
         }
         else {
             

@@ -77,7 +77,7 @@ public class RealisticBiomeEBSteppe extends RealisticBiomeEBBase
         float river)
     {
     
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        //RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         
         for (int l14 = 0; l14 < 24; l14++)
         {
@@ -96,6 +96,8 @@ public class RealisticBiomeEBSteppe extends RealisticBiomeEBBase
                         (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
                         break;
                     case 2:
+                        (new WorldGenGrass(Blocks.double_plant, 3)).generate(world, rand, l19, k22, j24);
+                        break;
                     case 3:
                         (new WorldGenGrass(Blocks.tallgrass, 2)).generate(world, rand, l19, k22, j24);
                         break;

@@ -4,21 +4,21 @@ import java.io.File;
 
 import org.apache.logging.log4j.Level;
 
+import rtg.world.biome.BiomeBase;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+
 import net.minecraftforge.common.config.Configuration;
 
 public class ConfigVanilla
 {
 	public static Configuration config;
 	
-	public static final int biomeWeightMin = 0;
-	public static final int biomeWeightMax = 100;
-	public static final int biomeWeightDefault = 10;
+	public static final int biomeWeightMin = BiomeBase.MIN_BIOME_WEIGHT;
+	public static final int biomeWeightMax = BiomeBase.MAX_BIOME_WEIGHT;
+	public static final int biomeWeightDefault = BiomeBase.DEFAULT_BIOME_WEIGHT;
 	
 	public static boolean generateVanillaBiomes = true;
-	
-	public static String generateOnlyThisVanillaBiome = "";
 	
 	public static boolean generateVanillaBeach = true;
 	public static boolean generateVanillaBirchForest = true;
@@ -103,17 +103,7 @@ public class ConfigVanilla
 			config.load();
 
 			generateVanillaBiomes = config.getBoolean("Generate Biomes", "Biomes", generateVanillaBiomes, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod.");
-			
-			generateOnlyThisVanillaBiome = 
-				config.getString(
-					"Generate only this vanilla biome", 
-					"Biomes", 
-					new String(), 
-					"Must correspond to one of the vanilla biome variables found in the registerVanillaBiomes() method here: https://goo.gl/o6o1zM" +
-					Configuration.NEW_LINE +
-					"(e.g. desert, extremeHills, forest, plains, taiga, taigaHills, etc.)"
-				);
-			
+
 			generateVanillaBeach = config.getBoolean("generateVanillaBeach", "Biomes", generateVanillaBeach, "");
 			generateVanillaStoneBeach = config.getBoolean("generateVanillaStoneBeach", "Biomes", generateVanillaStoneBeach, "");
 			generateVanillaColdBeach = config.getBoolean("generateVanillaColdBeach", "Biomes", generateVanillaColdBeach, "");

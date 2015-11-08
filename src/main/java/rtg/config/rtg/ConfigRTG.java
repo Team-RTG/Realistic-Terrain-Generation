@@ -16,6 +16,8 @@ public class ConfigRTG
 {
 	public static Configuration config;
 	
+	public static String generateOnlyThisVanillaBiome = "";
+	
     public static boolean generateOreCoal = true;
     public static boolean generateOreIron = true;
     public static boolean generateOreGold = true;
@@ -37,7 +39,7 @@ public class ConfigRTG
 	public static boolean showDebugInfo = false;
 	public static boolean enableDebugging = false;
 
-	public static int biomeSize = 4;
+	public static int biomeSize = 1;
 	public static int minDistanceScatteredFeatures = 8;
 	public static int maxDistanceScatteredFeatures = 32;
 	
@@ -49,6 +51,16 @@ public class ConfigRTG
 		{
 			config.load();
 			
+            generateOnlyThisVanillaBiome = 
+                config.getString(
+                    "Generate only this vanilla biome", 
+                    "Biomes", 
+                    new String(), 
+                    "Must correspond to one of the vanilla biome variables found in the registerVanillaBiomes() method here: https://goo.gl/o6o1zM" +
+                    Configuration.NEW_LINE +
+                    "(e.g. desert, extremeHills, forest, plains, taiga, taigaHills, etc.)"
+                );
+            
 			generateOreCoal = config.getBoolean("Generate Coal Ore", "Ore Gen", generateOreCoal, "");
 			generateOreIron = config.getBoolean("Generate Iron Ore", "Ore Gen", generateOreIron, "");
 			generateOreGold = config.getBoolean("Generate Gold Ore", "Ore Gen", generateOreGold, "");
@@ -60,21 +72,21 @@ public class ConfigRTG
             enableCobblestoneBoulders = config.getBoolean("Enable Cobblestone Boulders", "World Gen", enableCobblestoneBoulders, "");
             cobblestoneBoulderChance = config.getInt("1/x chance that Cobblestone Boulders will generate if given the opportunity to do so during world gen", "World Gen", cobblestoneBoulderChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
             
-            enableWaterLakes = config.getBoolean("Enable Water Lakes", "World Gen", enableWaterLakes, "");
-            waterLakeChance = config.getInt("1/x chance that Water Lakes will generate if given the opportunity to do so during world gen", "World Gen", waterLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
+            enableWaterLakes = config.getBoolean("Enable Water Lakes", "Lakes", enableWaterLakes, "");
+            waterLakeChance = config.getInt("1/x chance that Water Lakes will generate if given the opportunity to do so during world gen", "Lakes", waterLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
             
-            enableLavaLakes = config.getBoolean("Enable Lava Lakes", "World Gen", enableLavaLakes, "");
-            lavaLakeChance = config.getInt("1/x chance that Lava Lakes will generate if given the opportunity to do so during world gen", "World Gen", lavaLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
+            enableLavaLakes = config.getBoolean("Enable Lava Lakes", "Lakes", enableLavaLakes, "");
+            lavaLakeChance = config.getInt("1/x chance that Lava Lakes will generate if given the opportunity to do so during world gen", "Lakes", lavaLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
 			
             flatBedrockLayers = config.getInt("Number of flat bedrock layers", "World Gen", flatBedrockLayers, 0, 5, "0 = Normal bedrock (rough pattern); 1-5 = Number of flat bedrock layers to generate");
             
 			showDebugInfo = config.getBoolean("Show Debug Info in F3 Screen", "Debugging", showDebugInfo, "");
 			enableDebugging = config.getBoolean("Enable Debugging", "Debugging", enableDebugging, "WARNING: This should only be enabled if you know what you're doing.");
 			
-			biomeSize = config.getInt("Size of Biomes", "World Gen", biomeSize, 4, 6, "COMING SOON!!! 4 = Default World Type; 6 = Large Biomes World Type");
+			biomeSize = config.getInt("Size of Biomes", "Biomes", biomeSize, 1, 5, "Lower values = smaller biomes; Higher values = larger biomes");
 			
-			minDistanceScatteredFeatures = config.getInt("Minimum distance between scattered features", "World Gen", minDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features include desert temples, jungle temples, and witch huts.");
-			maxDistanceScatteredFeatures = config.getInt("Maximum distance between scattered features", "World Gen", maxDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features include desert temples, jungle temples, and witch huts.");
+			minDistanceScatteredFeatures = config.getInt("Minimum distance between scattered features", "Scattered Features", minDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts.");
+			maxDistanceScatteredFeatures = config.getInt("Maximum distance between scattered features", "Scattered Features", maxDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts.");
 		}
 		catch (Exception e) 
 		{

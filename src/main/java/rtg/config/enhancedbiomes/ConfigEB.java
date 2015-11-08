@@ -3,19 +3,23 @@ package rtg.config.enhancedbiomes;
 import java.io.File;
 
 import net.minecraft.world.biome.BiomeGenBase;
+
 import net.minecraftforge.common.config.Configuration;
+
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 import org.apache.logging.log4j.Level;
 
+import rtg.world.biome.BiomeBase;
+
 public class ConfigEB 
 {
 	public static Configuration config;
 	
-	public static final int biomeWeightMin = 0;
-	public static final int biomeWeightMax = 100;
-	public static final int biomeWeightDefault = 10;
+    public static final int biomeWeightMin = BiomeBase.MIN_BIOME_WEIGHT;
+    public static final int biomeWeightMax = BiomeBase.MAX_BIOME_WEIGHT;
+    public static final int biomeWeightDefault = BiomeBase.DEFAULT_BIOME_WEIGHT;
 	
 	public static boolean generateEBBiomes = true;
 			

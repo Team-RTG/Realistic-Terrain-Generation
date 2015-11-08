@@ -6,12 +6,9 @@ import rtg.config.rtg.ConfigRTG;
 import rtg.data.VillageMaterialData;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import enhancedbiomes.EnhancedBiomesMod;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;

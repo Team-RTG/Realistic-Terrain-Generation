@@ -29,7 +29,7 @@ public class MapGenMineshaftRTG extends MapGenMineshaft
 
     public MapGenMineshaftRTG(Map p_i2034_1_)
     {
-        FMLLog.log(Level.INFO, "RTG MapGenMineshaftRTG");
+        //FMLLog.log(Level.INFO, "RTG MapGenMineshaftRTG");
         
         Iterator iterator = p_i2034_1_.entrySet().iterator();
 
@@ -51,7 +51,7 @@ public class MapGenMineshaftRTG extends MapGenMineshaft
 
     @Override
     protected StructureStart getStructureStart(int chunkX, int chunkZ) {
-        FMLLog.log(Level.INFO, "RTG getStructureStart");
+        //FMLLog.log(Level.INFO, "RTG getStructureStart");
         return new Start(worldObj, rand, chunkX, chunkZ);
     }
     
@@ -63,7 +63,7 @@ public class MapGenMineshaftRTG extends MapGenMineshaft
             
             super(worldIn, random, chunkX, chunkZ);
             
-            FMLLog.log(Level.INFO, "RTG MapGen Started");
+            //FMLLog.log(Level.INFO, "RTG MapGen Started");
 
         }
     }

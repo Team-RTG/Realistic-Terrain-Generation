@@ -6,11 +6,20 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import org.apache.logging.log4j.Level;
 
+import rtg.config.rtg.ConfigRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import cpw.mods.fml.common.FMLLog;
 
 public class BiomeBase extends BiomeGenBase
 {
+    public static final int DEFAULT_BIOME_SIZE = 1;
+    public static final int MIN_BIOME_SIZE = 1;
+    public static final int MAX_BIOME_SIZE = 5;
+    
+    public static final int DEFAULT_BIOME_WEIGHT = 10;
+    public static final int MIN_BIOME_WEIGHT = 0;
+    public static final int MAX_BIOME_WEIGHT = 20;
+    
 	public BiomeBase(int intBiomeId) {
 		super(intBiomeId, false);
 	}
@@ -115,7 +124,16 @@ public class BiomeBase extends BiomeGenBase
 	public static void addWeightedBiome(RealisticBiomeBase b, BiomeSize size)
 	{
 		int weight = (int) b.biomeWeight;
-		weight = (weight < 0) ? 0 : ((weight > 100) ? 100 : weight);
+		weight = (weight < MIN_BIOME_WEIGHT) ? MIN_BIOME_WEIGHT : ((weight > MAX_BIOME_WEIGHT) ? MAX_BIOME_WEIGHT : weight);
+		
+		/**
+		 * Since biome-specific biome sizes aren't a thing yet,
+		 * use the global biome size setting to increase the weights of the biomes.
+		 */
+		int biomeSize = ConfigRTG.biomeSize;
+		biomeSize = (biomeSize < MIN_BIOME_SIZE) ? MIN_BIOME_SIZE : (biomeSize > MAX_BIOME_SIZE ? MAX_BIOME_SIZE : biomeSize);
+		
+		weight *= biomeSize;
 		
 		if (weight > 0) {			
 			for (int i = 0; i < weight; i++) {

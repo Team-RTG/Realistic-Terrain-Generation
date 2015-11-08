@@ -7,12 +7,6 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
-import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.WorldGenWildWheat;
-import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
-import rtg.world.gen.feature.tree.WorldGenTreeSpruceSmall;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdBeach;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaColdBeach;
 
@@ -20,10 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenLakes;
-import net.minecraft.world.gen.feature.WorldGenPumpkin;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 {	

@@ -9,7 +9,6 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.WorldGenWildWheat;
 import rtg.world.gen.feature.tree.WorldGenTreePine;
 import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
@@ -106,14 +105,6 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase
             {
                 (new WorldGenTreeShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
             }
-        }
-        
-        if (rand.nextInt((int) (150f / strength)) == 0)
-        {
-            int k21 = chunkX + rand.nextInt(16) + 8;
-            int j23 = rand.nextInt(60) + 60;
-            int k24 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenWildWheat(rand.nextInt(3))).generate(world, rand, k21, j23, k24);
         }
         
         if (rand.nextInt((int) (20f / strength)) == 0)

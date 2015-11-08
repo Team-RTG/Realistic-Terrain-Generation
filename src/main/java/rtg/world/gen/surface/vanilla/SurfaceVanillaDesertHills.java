@@ -82,12 +82,13 @@ public class SurfaceVanillaDesertHills extends SurfaceBase
             		
             		if(cliff == 1)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? Blocks.cobblestone : Blocks.stone; 
+                        blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone; 
+                        metadata[(y * 16 + x) * 256 + k] = 0; 
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay; 
-        				metadata[(y * 16 + x) * 256 + k] = 9; 
+                        blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone; 
+                        metadata[(y * 16 + x) * 256 + k] = 0; 
             		}
             		else if(k < 63)
             		{
@@ -114,12 +115,13 @@ public class SurfaceVanillaDesertHills extends SurfaceBase
         		{
             		if(cliff == 1)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.stone; 
+                        blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone; 
+                        metadata[(y * 16 + x) * 256 + k] = 0; 
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay; 
-        				metadata[(y * 16 + x) * 256 + k] = 9; 
+        				blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone; 
+        				metadata[(y * 16 + x) * 256 + k] = 0; 
             		}
             		else if(gravel)
             		{

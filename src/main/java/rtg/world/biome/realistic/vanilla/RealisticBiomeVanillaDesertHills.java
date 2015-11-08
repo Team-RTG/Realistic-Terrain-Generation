@@ -39,7 +39,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
 		super(
 			BiomeGenBase.desertHills,
 			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
-			new TerrainVanillaDesertHills(530f, 120f, 0f),
+			new TerrainVanillaDesertHills(600f, 50f, 0f),
 			surface
 		);
 		
@@ -56,7 +56,8 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
             int k1 = world.getHeightValue(i1, j1);
-            if(k1 < 85)
+            
+            if(k1 < 85 && rand.nextInt(8) == 0)
             {
                 (new WorldGenBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
             }

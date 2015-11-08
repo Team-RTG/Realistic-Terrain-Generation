@@ -6,14 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.apache.logging.log4j.Level;
-
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.biome.realistic.RealisticBiomePool;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
-import cpw.mods.fml.common.FMLLog;
 
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.ChunkPosition;
@@ -24,33 +22,15 @@ import net.minecraft.world.biome.WorldChunkManager;
 
 public class WorldChunkManagerRTG extends WorldChunkManager
 {
-    
     private BiomeCache biomeCache;
     private List biomesToSpawnIn;
-    
     private OpenSimplexNoise simplex;
     private CellNoise cell;
-    
-    private CellNoise biomecell;
-    
-    private ArrayList<RealisticBiomeBase> biomes_snow;
-    private ArrayList<RealisticBiomeBase> biomes_cold;
-    private ArrayList<RealisticBiomeBase> biomes_hot;
-    private ArrayList<RealisticBiomeBase> biomes_wet;
-    private ArrayList<RealisticBiomeBase> biomes_all;
-    private int biomes_snowLength;
-    private int biomes_coldLength;
-    private int biomes_hotLength;
-    private int biomes_wetLength;
-    private int biomes_allLength;
-    
-    private boolean smallEnabled;
-    
+    private CellNoise biomecell;  
     private float[] borderNoise;
-    
-    private Random rand;
-    
+    private Random rand;   
     private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
+    private RealisticBiomePool biomePool;
     
     protected WorldChunkManagerRTG()
     {
@@ -71,28 +51,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         cell.setUseDistance(true);
         biomecell = new CellNoise(seed, (short) 0);
         rand = new Random(seed);
-        
-        biomes_snow = new ArrayList<RealisticBiomeBase>();
-        biomes_cold = new ArrayList<RealisticBiomeBase>();
-        biomes_hot = new ArrayList<RealisticBiomeBase>();
-        biomes_wet = new ArrayList<RealisticBiomeBase>();
-        biomes_all = new ArrayList<RealisticBiomeBase>();
-        
-        biomes_snow.addAll(BiomeBase.biomes_snow);
-        biomes_cold.addAll(BiomeBase.biomes_cold);
-        biomes_hot.addAll(BiomeBase.biomes_hot);
-        biomes_wet.addAll(BiomeBase.biomes_wet);
-        
-        biomes_all.addAll(BiomeBase.biomes_snow);
-        biomes_all.addAll(BiomeBase.biomes_cold);
-        biomes_all.addAll(BiomeBase.biomes_wet);
-        biomes_all.addAll(BiomeBase.biomes_hot);
-
-        biomes_snowLength = biomes_snow.size();
-        biomes_coldLength = biomes_cold.size();
-        biomes_hotLength = biomes_hot.size();
-        biomes_wetLength = biomes_wet.size();
-        biomes_allLength = biomes_all.size();
+        biomePool = new RealisticBiomePool(biomecell, rand);
     }
     
     public int[] getBiomesGens(int par1, int par2, int par3, int par4)
@@ -149,51 +108,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
             return biomeDataMap.get(coords);
         }
         
-        RealisticBiomeBase output = null;
-        float b = (biomecell.noise((par1 + 4000f) / 1200D, par2 / 1200D, 1D) * 0.5f) + 0.5f;        
-        b = b < 0f ? 0f : b >= 0.9999999f ? 0.9999999f : b;
-                
-        if (b < 0.25f) {
-            
-            if (biomes_snowLength < 1) {
-                output = chooseColdBiome(par1, par2);
-            }
-            else {
-                output = chooseSnowBiome(par1, par2);
-            }
-        }
-        else if (b < 0.50f) {
-            
-            if (biomes_coldLength < 1) {
-                output = chooseWetBiome(par1, par2);
-            }
-            else {
-                output = chooseColdBiome(par1, par2);
-            }
-        }
-        else if (b < 0.75f) {
-            
-            if (biomes_wetLength < 1) {
-                output = chooseHotBiome(par1, par2);
-            }
-            else {
-                output = chooseWetBiome(par1, par2);
-            }
-        }
-        else if (b < 1) {
-
-            if (biomes_hotLength < 1) {
-                output = chooseRandomBiome();
-            }
-            else {
-                output = chooseHotBiome(par1, par2);
-            }            
-        }
-        else {
-            
-            //It should never make it into here, but just in case.
-            output = chooseRandomBiome();
-        }
+        RealisticBiomeBase output = biomePool.chooseBiome(par1, par2);
         
         /**
          * Do we only want to generate a single biome for the whole world?
@@ -212,10 +127,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         }
         
         biomeDataMap.put(coords, output);
-        
-        // FMLLog.log(Level.INFO, "b=%s,t=%f,r=%f", output.getRealisticBiomeName(),
-        // output.baseBiome.temperature, output.baseBiome.rainfall);
-        
+
         return output;
     }
     
@@ -406,102 +318,5 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     {
         
         this.biomeCache.cleanupCache();
-    }
-    
-    public RealisticBiomeBase chooseSnowBiome(double par1, double par2)
-    {
-        
-        RealisticBiomeBase output;
-        
-        if (biomes_snowLength < 1) {
-            output = chooseRandomBiome();
-        }
-        else {
-            
-            float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
-            h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-            h *= biomes_snowLength;
-            
-            output = biomes_snow.get((int) (h));
-            
-            // FMLLog.log(Level.INFO, "chooseSnowBiome: %s", output.getRealisticBiomeName());
-            
-        }
-        
-        return output;
-    }
-    
-    public RealisticBiomeBase chooseColdBiome(double par1, double par2)
-    {
-        
-        RealisticBiomeBase output;
-        
-        if (biomes_coldLength < 1) {
-            output = chooseRandomBiome();
-        }
-        else {
-            
-            float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
-            h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-            h *= biomes_coldLength;
-            
-            output = biomes_cold.get((int) (h));
-            
-            // FMLLog.log(Level.INFO, "chooseColdBiome: %s", output.getRealisticBiomeName());
-        }
-        return output;
-    }
-    
-    public RealisticBiomeBase chooseWetBiome(double par1, double par2)
-    {
-        
-        RealisticBiomeBase output;
-        
-        if (biomes_wetLength < 1) {
-            output = chooseRandomBiome();
-        }
-        else {
-            
-            float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
-            h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-            h *= biomes_wetLength;
-            
-            output = biomes_wet.get((int) (h));
-        }
-        
-        // FMLLog.log(Level.INFO, "chooseWetBiome: %s", output.getRealisticBiomeName());
-        
-        return output;
-    }
-    
-    public RealisticBiomeBase chooseHotBiome(double par1, double par2)
-    {
-        
-        RealisticBiomeBase output;
-        
-        if (biomes_hotLength < 1) {
-            output = chooseRandomBiome();
-        }
-        else {
-            
-            float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
-            h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-            h *= biomes_hotLength;
-            
-            output = biomes_hot.get((int) (h));
-            
-            // FMLLog.log(Level.INFO, "chooseHotBiome: %s", output.getRealisticBiomeName());
-        }
-        return output;
-    }
-    
-    public RealisticBiomeBase chooseRandomBiome()
-    {
-        
-        RealisticBiomeBase output = biomes_all.get(rand.nextInt(biomes_allLength));
-        
-        // FMLLog.log(Level.INFO, "chooseRandomBiome: %s", output.getRealisticBiomeName());
-        
-        return output;
     }
 }

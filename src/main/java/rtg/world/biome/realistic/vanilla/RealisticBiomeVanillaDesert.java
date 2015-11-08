@@ -21,6 +21,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenDeadBush;
+import net.minecraft.world.gen.feature.WorldGenDesertWells;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraft.world.gen.feature.WorldGenShrub;
@@ -53,18 +54,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
         float river)
     {
-    
-        if (rand.nextInt((int) (4f / strength)) == 0)
-        {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
-            if (k1 < 85)
-            {
-                (new WorldGenBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
-            }
-        }
-        
+ 
         if (river > 0.7f)
         {
             if (river > 0.86f)
@@ -102,14 +92,6 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
                 (new WorldGenReed()).generate(world, rand, i18, 60 + rand.nextInt(8), i23);
             }
             
-            if (rand.nextInt(28) == 0)
-            {
-                int j16 = chunkX + rand.nextInt(16) + 8;
-                int j18 = rand.nextInt(128);
-                int j21 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenPumpkin()).generate(world, rand, j16, j18, j21);
-            }
-            
             for (int f23 = 0; f23 < 3; f23++)
             {
                 int j15 = chunkX + rand.nextInt(16) + 8;
@@ -131,6 +113,17 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
                 else
                 {
                     (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
+                }
+            }
+            
+            for (int i15 = 0; i15 < 1f * strength; i15++)
+            {
+                if (rand.nextInt(100) == 0) {
+                    int i17 = chunkX + rand.nextInt(16) + 8;
+                    int i20 = 64 + rand.nextInt(64);
+                    int l22 = chunkY + rand.nextInt(16) + 8;
+                    
+                    (new WorldGenDesertWells()).generate(world, rand, i17, i20, l22);
                 }
             }
         }

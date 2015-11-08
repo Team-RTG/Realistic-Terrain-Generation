@@ -19,9 +19,9 @@ public class TerrainVanillaDesert extends TerrainBase
 		float h = simplex.noise2(x / 60f, y / 60f) * st * 2f;
 		h = h > 0f ? -h : h;
 		h += st;
-		h *= h / 50f;
+		h *= h / 80f;
 		h += st;
 		
-    	return 70f + h;
+    	return 63f + h;
 	}
 }

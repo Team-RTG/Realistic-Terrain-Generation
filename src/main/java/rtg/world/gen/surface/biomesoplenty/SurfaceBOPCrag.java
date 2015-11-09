@@ -6,6 +6,7 @@ import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -51,6 +52,9 @@ public class SurfaceBOPCrag extends SurfaceBase
             		{
             			blocks[(y * 16 + x) * 256 + k] = cliffBlock1;
             		}
+            		else {
+            		    blocks[(y * 16 + x) * 256 + k] = topBlock;
+            		}
             	}
             	else
             	{
@@ -61,6 +65,9 @@ public class SurfaceBOPCrag extends SurfaceBase
 	        		else if(depth < 4)
 	        		{
 	        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	        		}
+	        		else {
+	        		    blocks[(y * 16 + x) * 256 + k] = topBlock;
 	        		}
             	}
             }

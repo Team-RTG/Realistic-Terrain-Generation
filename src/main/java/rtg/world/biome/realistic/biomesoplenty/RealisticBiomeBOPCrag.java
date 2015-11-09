@@ -1,14 +1,14 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPCrag;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPCrag;
 import biomesoplenty.api.content.BOPCBiomes;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase
 {	
@@ -21,8 +21,8 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
-			new TerrainBOPCrag(),
-			new SurfaceBOPCrag(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new TerrainBOPCrag(false, new float[]{2.0f, 0.5f, 6.5f, 0.5f, 14.0f, 0.5f, 19.0f, 0.5f}, 35f, 80f, 60f, 40f, 69f),
+			new SurfaceBOPCrag(topBlock, fillerBlock, Blocks.cobblestone, Blocks.mossy_cobblestone)
 		);
 		
 		this.setRealisticBiomeName("BOP Crag");

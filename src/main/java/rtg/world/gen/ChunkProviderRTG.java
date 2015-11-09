@@ -2,11 +2,11 @@ package rtg.world.gen;
 
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.SCATTERED_FEATURE;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.STRONGHOLD;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE;
 import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.COAL;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.CUSTOM;
 import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIAMOND;
 import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIRT;
 import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.GOLD;
@@ -44,6 +44,7 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.MapGenCaves;
+import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenLakes;
@@ -70,7 +71,8 @@ public class ChunkProviderRTG implements IChunkProvider
      * Declare variables.
      */
 
-    private final MapGenBase caves;
+    private final MapGenBase caveGenerator;
+    private final MapGenBase ravineGenerator;
     private final MapGenStronghold strongholdGenerator;
     private final MapGenMineshaft mineshaftGenerator;
     private final MapGenVillage villageGenerator;
@@ -112,7 +114,8 @@ public class ChunkProviderRTG implements IChunkProvider
     {
     	mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
 
-    	caves = TerrainGen.getModdedMapGen(new MapGenCaves(), CAVE);
+    	caveGenerator = TerrainGen.getModdedMapGen(new MapGenCaves(), CAVE);
+    	ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavine(), RAVINE);
         worldObj = world;
         cmr = (WorldChunkManagerRTG)worldObj.getWorldChunkManager();
         worldHeight = worldObj.provider.getActualHeight();
@@ -188,7 +191,8 @@ public class ChunkProviderRTG implements IChunkProvider
 
         replaceBlocksForBiome(cx, cy, blocks, metadata, biomesForGeneration, baseBiomesList, noise);
 
-        caves.func_151539_a(this, worldObj, cx, cy, blocks);
+        caveGenerator.func_151539_a(this, worldObj, cx, cy, blocks);
+        ravineGenerator.func_151539_a(this, worldObj, cx, cy, blocks);
 
         if (mapFeaturesEnabled) {
             mineshaftGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);

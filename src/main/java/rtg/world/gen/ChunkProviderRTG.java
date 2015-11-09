@@ -866,7 +866,7 @@ public class ChunkProviderRTG implements IChunkProvider
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(worldObj, rand, x, y));
 
         //Flowing water.
-        if (rand.nextInt(2) == 0) {
+        if (rand.nextInt(32) == 0) {
     		for(int l18 = 0; l18 < 50; l18++)
     		{
     			int l21 = x + rand.nextInt(16) + 8;
@@ -878,7 +878,7 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
         //Flowing lava.
-        if (rand.nextInt(2) == 0) {
+        if (rand.nextInt(32) == 0) {
     		for(int i19 = 0; i19 < 20; i19++)
     		{
     			int i22 = x + rand.nextInt(16) + 8;

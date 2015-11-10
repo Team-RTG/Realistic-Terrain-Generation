@@ -46,7 +46,7 @@ public class SurfaceBOPCrag extends SurfaceBase
             	{
             		if(depth > -1 && depth < 2)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? cliffBlock2 : cliffBlock1; 
+            			blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? cliffBlock1 : cliffBlock2; 
             		}
             		else if (depth < 10)
             		{

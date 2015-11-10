@@ -47,6 +47,28 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 	public static RealisticBiomeBase vanillaTaiga = new RealisticBiomeVanillaTaiga();
 	public static RealisticBiomeBase vanillaTaigaHills = new RealisticBiomeVanillaTaigaHills();
 	
+    public static RealisticBiomeBase vanillaSunflowerPlains = new RealisticBiomeVanillaSunflowerPlains();
+    public static RealisticBiomeBase vanillaDesertM = new RealisticBiomeVanillaDesertM();
+    public static RealisticBiomeBase vanillaExtremeHillsM = new RealisticBiomeVanillaExtremeHillsM();
+    public static RealisticBiomeBase vanillaFlowerForest = new RealisticBiomeVanillaFlowerForest();
+    public static RealisticBiomeBase vanillaTaigaM = new RealisticBiomeVanillaTaigaM();
+    public static RealisticBiomeBase vanillaSwamplandM = new RealisticBiomeVanillaSwamplandM();
+    public static RealisticBiomeBase vanillaIcePlainsSpikes = new RealisticBiomeVanillaIcePlainsSpikes();
+    public static RealisticBiomeBase vanillaJungleM = new RealisticBiomeVanillaJungleM();
+    public static RealisticBiomeBase vanillaJungleEdgeM = new RealisticBiomeVanillaJungleEdgeM();
+    public static RealisticBiomeBase vanillaBirchForestM = new RealisticBiomeVanillaBirchForestM();
+    public static RealisticBiomeBase vanillaBirchForestHillsM = new RealisticBiomeVanillaBirchForestHillsM();
+    public static RealisticBiomeBase vanillaRoofedForestM = new RealisticBiomeVanillaRoofedForestM();
+    public static RealisticBiomeBase vanillaColdTaigaM = new RealisticBiomeVanillaColdTaigaM();
+    public static RealisticBiomeBase vanillaMegaSpruceTaiga = new RealisticBiomeVanillaMegaSpruceTaiga();
+    public static RealisticBiomeBase vanillaRedwoodTaigaHillsM = new RealisticBiomeVanillaRedwoodTaigaHillsM();
+    public static RealisticBiomeBase vanillaExtremeHillsPlusM = new RealisticBiomeVanillaExtremeHillsPlusM();
+    public static RealisticBiomeBase vanillaSavannaM = new RealisticBiomeVanillaSavannaM();
+    public static RealisticBiomeBase vanillaSavannaPlateauM = new RealisticBiomeVanillaSavannaPlateauM();
+    public static RealisticBiomeBase vanillaMesaBryce = new RealisticBiomeVanillaMesaBryce();
+    public static RealisticBiomeBase vanillaMesaPlateauFM = new RealisticBiomeVanillaMesaPlateauFM();
+    public static RealisticBiomeBase vanillaMesaPlateauM = new RealisticBiomeVanillaMesaPlateauM();
+	
 	public RealisticBiomeVanillaBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
 		super(b, riverbiome, t, s);

@@ -120,7 +120,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
             output = RealisticBiomeVanillaBase.getRealisticVanillaBiomeFromVanillaVariableName(generateOnlyThisVanillaBiome);
         }
         
-        // output = RealisticBiomeBase.vanillaExtremeHillsPlus;
+        output = RealisticBiomeVanillaBase.vanillaFlowerForest;
         
         if (biomeDataMap.size() > 4096) {
             biomeDataMap.clear();

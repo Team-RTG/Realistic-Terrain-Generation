@@ -6,15 +6,15 @@ import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.WorldGenWildWheat;
 import rtg.world.gen.feature.tree.WorldGenTreePineBig;
 import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaForest;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaForest;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaFlowerForest;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaFlowerForest;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -28,21 +28,24 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 {
     
-    public static Block topBlock = BiomeGenBase.forest.topBlock;
-    public static Block fillerBlock = BiomeGenBase.forest.fillerBlock;
+    public static BiomeGenBase standardBiome = BiomeGenBase.forest;
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
+    
+    public static Block topBlock = mutationBiome.topBlock;
+    public static Block fillerBlock = mutationBiome.fillerBlock;
     
     public RealisticBiomeVanillaFlowerForest()
     {
     
         super(
-            BiomeGenBase.forest,
+            mutationBiome,
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
-            new TerrainVanillaForest(),
-            new SurfaceVanillaForest(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.15f));
+            new TerrainVanillaFlowerForest(),
+            new SurfaceVanillaFlowerForest(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.05f));
         
-        this.setRealisticBiomeName("Vanilla Forest");
+        this.setRealisticBiomeName("Vanilla Flower Forest");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaForest;
+        this.biomeWeight = ConfigVanilla.weightVanillaFlowerForest;
     }
     
     @Override
@@ -50,6 +53,8 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         float river)
     {
     
+        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
         
         for (int b1 = 0; b1 < l * strength; b1++)

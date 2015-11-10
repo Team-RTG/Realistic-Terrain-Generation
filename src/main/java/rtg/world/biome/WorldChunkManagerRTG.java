@@ -11,7 +11,6 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePool;
-import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.ChunkPosition;
@@ -120,7 +119,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
             output = RealisticBiomeBase.getBiome(generateOnlyThisBiomeId);
         }
         
-        output = RealisticBiomeVanillaBase.vanillaFlowerForest;
+        //output = RealisticBiomeVanillaBase.vanillaFlowerForest;
         
         if (biomeDataMap.size() > 4096) {
             biomeDataMap.clear();

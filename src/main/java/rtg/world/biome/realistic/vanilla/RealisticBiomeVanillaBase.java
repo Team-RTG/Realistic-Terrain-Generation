@@ -10,6 +10,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 {
+    public static final int MUTATION_ADDEND = 128;
+    
 	public static RealisticBiomeBase vanillaBeach = new RealisticBiomeVanillaBeach();
 	public static RealisticBiomeBase vanillaBirchForest = new RealisticBiomeVanillaBirchForest();
 	public static RealisticBiomeBase vanillaBirchForestHills = new RealisticBiomeVanillaBirchForestHills();

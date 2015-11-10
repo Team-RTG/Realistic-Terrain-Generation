@@ -12,8 +12,8 @@ import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
 import rtg.world.gen.feature.tree.WorldGenTreeSpruceSmall;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaTaiga;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaTaiga;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaTaigaM;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaTaigaM;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -26,22 +26,24 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase
 {
+    public static BiomeGenBase standardBiome = BiomeGenBase.taiga;
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
     
-    public static Block topBlock = BiomeGenBase.taiga.topBlock;
-    public static Block fillerBlock = BiomeGenBase.taiga.fillerBlock;
+    public static Block topBlock = mutationBiome.topBlock;
+    public static Block fillerBlock = mutationBiome.fillerBlock;
     
     public RealisticBiomeVanillaTaigaM()
     {
     
         super(
-            BiomeGenBase.taiga,
+            mutationBiome,
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-            new TerrainVanillaTaiga(),
-            new SurfaceVanillaTaiga(topBlock, fillerBlock));
+            new TerrainVanillaTaigaM(70f, 180f, 7f, 100f, 38f, 260f, 68f),
+            new SurfaceVanillaTaigaM(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("Vanilla Taiga");
+        this.setRealisticBiomeName("Vanilla Taiga M");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaTaiga;
+        this.biomeWeight = ConfigVanilla.weightVanillaTaigaM;
     }
     
     @Override

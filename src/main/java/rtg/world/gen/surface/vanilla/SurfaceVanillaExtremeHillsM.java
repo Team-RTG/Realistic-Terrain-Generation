@@ -15,36 +15,30 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceVanillaExtremeHillsM extends SurfaceBase
 {
     
-    private boolean beach;
-    private Block beachBlock;
-    private float min;
+    private Block mixBlockTop;
+    private Block mixBlockFill;
+    private Block cliffBlock1;
+    private Block cliffBlock2;
+    private float width;
+    private float height;
+    private float smallW;
+    private float smallS;
     
-    private float sCliff = 1.5f;
-    private float sHeight = 60f;
-    private float sStrength = 65f;
-    private float cCliff = 1.5f;
-    
-    private Block mix;
-    private float mixHeight;
-    
-    public byte topByte = 0;
-    
-    public SurfaceVanillaExtremeHillsM(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
-        float stoneHeight, float stoneStrength, float clayCliff, Block mixBlock, float mixSize)
+    public SurfaceVanillaExtremeHillsM(Block top, Block filler, Block mixTop, Block mixFill, Block cliff1, Block cliff2, float mixWidth,
+        float mixHeight, float smallWidth, float smallStrength)
     {
     
-        super(top, fill);
-        beach = genBeach;
-        beachBlock = genBeachBlock;
-        min = minCliff;
+        super(top, filler);
         
-        sCliff = stoneCliff;
-        sHeight = stoneHeight;
-        sStrength = stoneStrength;
-        cCliff = clayCliff;
+        mixBlockTop = mixTop;
+        mixBlockFill = mixFill;
+        cliffBlock1 = cliff1;
+        cliffBlock2 = cliff2;
         
-        mix = mixBlock;
-        mixHeight = mixSize;
+        width = mixWidth;
+        height = mixHeight;
+        smallW = smallWidth;
+        smallS = smallStrength;
     }
     
     @Override
@@ -53,14 +47,12 @@ public class SurfaceVanillaExtremeHillsM extends SurfaceBase
     {
     
         float c = CliffCalculator.calc(x, y, noise);
-        int cliff = 0;
-        boolean gravel = false;
-        boolean m = false;
+        boolean cliff = c > 1.4f ? true : false;
+        boolean mix = false;
         
-        Block b;
         for (int k = 255; k > -1; k--)
         {
-            b = blocks[(y * 16 + x) * 256 + k];
+            Block b = blocks[(y * 16 + x) * 256 + k];
             if (b == Blocks.air)
             {
                 depth = -1;
@@ -69,85 +61,41 @@ public class SurfaceVanillaExtremeHillsM extends SurfaceBase
             {
                 depth++;
                 
-                if (depth == 0)
+                if (cliff)
                 {
-                    if (k < 63)
+                    if (depth > -1 && depth < 2)
                     {
-                        if (beach)
+                        blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? cliffBlock2 : cliffBlock1;
+                    }
+                    else if (depth < 10)
+                    {
+                        blocks[(y * 16 + x) * 256 + k] = cliffBlock1;
+                    }
+                }
+                else
+                {
+                    if (depth == 0 && k > 61)
+                    {
+                        if (simplex.noise2(i / width, j / width) + simplex.noise2(i / smallW, j / smallW) * smallS > height)
                         {
-                            gravel = true;
-                        }
-                    }
-                    
-                    float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
-                    if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p)
-                    {
-                        cliff = 1;
-                    }
-                    if (c > cCliff)
-                    {
-                        cliff = 2;
-                    }
-                    
-                    if (cliff == 1)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? Blocks.cobblestone : Blocks.stone;
-                    }
-                    else if (cliff == 2)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay;
-                        metadata[(y * 16 + x) * 256 + k] = 9;
-                    }
-                    else if (k < 63)
-                    {
-                        if (beach)
-                        {
-                            blocks[(y * 16 + x) * 256 + k] = beachBlock;
-                            gravel = true;
-                        }
-                        else if (k < 62)
-                        {
-                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            blocks[(y * 16 + x) * 256 + k] = mixBlockTop;
+                            mix = true;
                         }
                         else
                         {
                             blocks[(y * 16 + x) * 256 + k] = topBlock;
-                            metadata[(y * 16 + x) * 256 + k] = topByte;
                         }
                     }
-                    else if (simplex.noise2(i / 12f, j / 12f) > mixHeight)
+                    else if (depth < 4)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = mix;
-                        m = true;
-                    }
-                    else
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = topBlock;
-                        metadata[(y * 16 + x) * 256 + k] = topByte;
-                    }
-                }
-                else if (depth < 6)
-                {
-                    if (cliff == 1)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = Blocks.stone;
-                    }
-                    else if (cliff == 2)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay;
-                        metadata[(y * 16 + x) * 256 + k] = 9;
-                    }
-                    else if (gravel)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = beachBlock;
-                    }
-                    else if (m)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = mix;
-                    }
-                    else
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                        if (mix)
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = mixBlockFill;
+                        }
+                        else
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                        }
                     }
                 }
             }

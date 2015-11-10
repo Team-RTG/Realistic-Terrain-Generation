@@ -113,11 +113,11 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         /**
          * Do we only want to generate a single biome for the whole world?
          */
-        String generateOnlyThisVanillaBiome = ConfigRTG.generateOnlyThisVanillaBiome;
+        int generateOnlyThisBiomeId = (int) ConfigRTG.generateOnlyThisBiomeId;
         
-        if (generateOnlyThisVanillaBiome.length() > 0)
+        if (generateOnlyThisBiomeId > -1)
         {
-            output = RealisticBiomeVanillaBase.getRealisticVanillaBiomeFromVanillaVariableName(generateOnlyThisVanillaBiome);
+            output = RealisticBiomeBase.getBiome(generateOnlyThisBiomeId);
         }
         
         output = RealisticBiomeVanillaBase.vanillaFlowerForest;

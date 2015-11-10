@@ -16,7 +16,7 @@ public class ConfigRTG
 {
 	public static Configuration config;
 	
-	public static String generateOnlyThisVanillaBiome = "";
+	public static int generateOnlyThisBiomeId = -1;
 	
     public static boolean generateOreCoal = true;
     public static boolean generateOreIron = true;
@@ -51,15 +51,7 @@ public class ConfigRTG
 		{
 			config.load();
 			
-            generateOnlyThisVanillaBiome = 
-                config.getString(
-                    "Generate only this vanilla biome", 
-                    "Biomes", 
-                    new String(), 
-                    "Must correspond to one of the vanilla biome variables found in the registerVanillaBiomes() method here: https://goo.gl/o6o1zM" +
-                    Configuration.NEW_LINE +
-                    "(e.g. desert, extremeHills, forest, plains, taiga, taigaHills, etc.)"
-                );
+            generateOnlyThisBiomeId = config.getInt("Generate only this biome ID", "Biomes", generateOnlyThisBiomeId, -1, 255, "If you enter a biome ID here, the whole world will consist of only that biome (and rivers). Set to -1 to generate the world normally.");
             
 			generateOreCoal = config.getBoolean("Generate Coal Ore", "Ore Gen", generateOreCoal, "");
 			generateOreIron = config.getBoolean("Generate Iron Ore", "Ore Gen", generateOreIron, "");

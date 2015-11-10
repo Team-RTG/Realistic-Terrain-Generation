@@ -107,13 +107,6 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigVanilla.generateVanillaMushroomIslandShore) { BiomeBase.addBiome(vanillaMushroomIslandShore); }
 			if (ConfigVanilla.generateVanillaOcean) { BiomeBase.addBiome(vanillaOcean); }
 			if (ConfigVanilla.generateVanillaPlains) { BiomeBase.addBiome(vanillaPlains); }
-			
-			/**
-			 * Rivers will automatically get generated, so we don't need to add them here.
-			 */
-			//if (ConfigVanilla.generateVanillaRiver) { BiomeBase.addBiome(vanillaRiver); }
-			//if (ConfigVanilla.generateVanillaFrozenRiver) { BiomeBase.addBiome(vanillaFrozenRiver); }
-			
 			if (ConfigVanilla.generateVanillaRoofedForest) { BiomeBase.addBiome(vanillaRoofedForest); }
 			if (ConfigVanilla.generateVanillaSavanna) { BiomeBase.addBiome(vanillaSavanna); }
 			if (ConfigVanilla.generateVanillaSavannaPlateau) { BiomeBase.addBiome(vanillaSavannaPlateau); }
@@ -121,48 +114,34 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigVanilla.generateVanillaSwampland) { BiomeBase.addBiome(vanillaSwampland); }
 			if (ConfigVanilla.generateVanillaTaiga) { BiomeBase.addBiome(vanillaTaiga); }
 			if (ConfigVanilla.generateVanillaTaigaHills) { BiomeBase.addBiome(vanillaTaigaHills); }
+
+            /**
+             * Rivers will automatically get generated, so we don't need to add them here.
+             */
+            //if (ConfigVanilla.generateVanillaRiver) { BiomeBase.addBiome(vanillaRiver); }
+            //if (ConfigVanilla.generateVanillaFrozenRiver) { BiomeBase.addBiome(vanillaFrozenRiver); }
+			
+		    if (ConfigVanilla.generateVanillaSunflowerPlains) { BiomeBase.addBiome(vanillaSunflowerPlains); }
+		    if (ConfigVanilla.generateVanillaDesertM) { BiomeBase.addBiome(vanillaDesertM); }
+		    if (ConfigVanilla.generateVanillaExtremeHillsM) { BiomeBase.addBiome(vanillaExtremeHillsM); }
+		    if (ConfigVanilla.generateVanillaFlowerForest) { BiomeBase.addBiome(vanillaFlowerForest); }
+		    if (ConfigVanilla.generateVanillaTaigaM) { BiomeBase.addBiome(vanillaTaigaM); }
+		    if (ConfigVanilla.generateVanillaSwamplandM) { BiomeBase.addBiome(vanillaSwamplandM); }
+		    if (ConfigVanilla.generateVanillaIcePlainsSpikes) { BiomeBase.addBiome(vanillaIcePlainsSpikes); }
+		    if (ConfigVanilla.generateVanillaJungleM) { BiomeBase.addBiome(vanillaJungleM); }
+		    if (ConfigVanilla.generateVanillaJungleEdgeM) { BiomeBase.addBiome(vanillaJungleEdgeM); }
+		    if (ConfigVanilla.generateVanillaBirchForestM) { BiomeBase.addBiome(vanillaBirchForestM); }
+		    if (ConfigVanilla.generateVanillaBirchForestHillsM) { BiomeBase.addBiome(vanillaBirchForestHillsM); }
+		    if (ConfigVanilla.generateVanillaRoofedForestM) { BiomeBase.addBiome(vanillaRoofedForestM); }
+		    if (ConfigVanilla.generateVanillaColdTaigaM) { BiomeBase.addBiome(vanillaColdTaigaM); }
+		    if (ConfigVanilla.generateVanillaMegaSpruceTaiga) { BiomeBase.addBiome(vanillaMegaSpruceTaiga); }
+		    if (ConfigVanilla.generateVanillaRedwoodTaigaHillsM) { BiomeBase.addBiome(vanillaRedwoodTaigaHillsM); }
+		    if (ConfigVanilla.generateVanillaExtremeHillsPlusM) { BiomeBase.addBiome(vanillaExtremeHillsPlusM); }
+		    if (ConfigVanilla.generateVanillaSavannaM) { BiomeBase.addBiome(vanillaSavannaM); }
+		    if (ConfigVanilla.generateVanillaSavannaPlateauM) { BiomeBase.addBiome(vanillaSavannaPlateauM); }
+		    if (ConfigVanilla.generateVanillaMesaBryce) { BiomeBase.addBiome(vanillaMesaBryce); }
+		    if (ConfigVanilla.generateVanillaMesaPlateauFM) { BiomeBase.addBiome(vanillaMesaPlateauFM); }
+		    if (ConfigVanilla.generateVanillaMesaPlateauM) { BiomeBase.addBiome(vanillaMesaPlateauM); }
 		}
-	}
-	
-	public static RealisticBiomeBase getRealisticVanillaBiomeFromVanillaVariableName(String name)
-	{
-		if (name.equals("beach")) { return vanillaBeach; }
-		else if (name.equals("birchForest")) { return vanillaBirchForest; }
-		else if (name.equals("birchForestHills")) { return vanillaBirchForestHills; }
-		else if (name.equals("coldBeach")) { return vanillaColdBeach; }
-		else if (name.equals("coldTaiga")) { return vanillaColdTaiga; }
-		else if (name.equals("coldTaigaHills")) { return vanillaColdTaigaHills; }
-		else if (name.equals("deepOcean")) { return vanillaDeepOcean; }
-		else if (name.equals("desert")) { return vanillaDesert; }
-		else if (name.equals("desertHills")) { return vanillaDesertHills; }
-		else if (name.equals("extremeHills")) { return vanillaExtremeHills; }
-		else if (name.equals("extremeHillsPlus")) { return vanillaExtremeHillsPlus; }
-		else if (name.equals("forest")) { return vanillaForest; }
-		else if (name.equals("forestHills")) { return vanillaForestHills; }
-		else if (name.equals("frozenRiver")) { return vanillaFrozenRiver; }
-		else if (name.equals("iceMountains")) { return vanillaIceMountains; }
-		else if (name.equals("icePlains")) { return vanillaIcePlains; }
-		else if (name.equals("jungle")) { return vanillaJungle; }
-		else if (name.equals("jungleEdge")) { return vanillaJungleEdge; }
-		else if (name.equals("jungleHills")) { return vanillaJungleHills; }
-		else if (name.equals("megaTaiga")) { return vanillaMegaTaiga; }
-		else if (name.equals("megaTaigaHills")) { return vanillaMegaTaigaHills; }
-		else if (name.equals("mesa")) { return vanillaMesa; }
-		else if (name.equals("mesaPlateau")) { return vanillaMesaPlateau; }
-		else if (name.equals("mesaPlateau_F")) { return vanillaMesaPlateau_F; }
-		else if (name.equals("mushroomIsland")) { return vanillaMushroomIsland; }
-		else if (name.equals("mushroomIslandShore")) { return vanillaMushroomIslandShore; }
-		else if (name.equals("ocean")) { return vanillaOcean; }
-		else if (name.equals("plains")) { return vanillaPlains; }
-		else if (name.equals("river")) { return vanillaRiver; }
-		else if (name.equals("roofedForest")) { return vanillaRoofedForest; }
-		else if (name.equals("savanna")) { return vanillaSavanna; }
-		else if (name.equals("savannaPlateau")) { return vanillaSavannaPlateau; }
-		else if (name.equals("stoneBeach")) { return vanillaStoneBeach; }
-		else if (name.equals("swampland")) { return vanillaSwampland; }
-		else if (name.equals("taiga")) { return vanillaTaiga; }
-		else if (name.equals("taigaHills")) { return vanillaTaigaHills; }
-		
-		return null;
 	}
 }

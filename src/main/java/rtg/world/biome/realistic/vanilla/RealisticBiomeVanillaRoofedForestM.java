@@ -12,8 +12,8 @@ import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeMangrove;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaRoofedForest;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForest;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaRoofedForestM;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForestM;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -25,22 +25,24 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBase
 {
+    public static BiomeGenBase standardBiome = BiomeGenBase.roofedForest;
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
     
-    public static Block topBlock = BiomeGenBase.roofedForest.topBlock;
-    public static Block fillerBlock = BiomeGenBase.roofedForest.fillerBlock;
+    public static Block topBlock = mutationBiome.topBlock;
+    public static Block fillerBlock = mutationBiome.fillerBlock;
     
     public RealisticBiomeVanillaRoofedForestM()
     {
     
         super(
-            BiomeGenBase.roofedForest,
+            mutationBiome,
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
-            new TerrainVanillaRoofedForest(),
-            new SurfaceVanillaRoofedForest(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.15f));
+            new TerrainVanillaRoofedForestM(),
+            new SurfaceVanillaRoofedForestM(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
-        this.setRealisticBiomeName("Vanilla Roofed Forest");
+        this.setRealisticBiomeName("Vanilla Roofed Forest M");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaRoofedForest;
+        this.biomeWeight = ConfigVanilla.weightVanillaRoofedForestM;
     }
     
     @Override

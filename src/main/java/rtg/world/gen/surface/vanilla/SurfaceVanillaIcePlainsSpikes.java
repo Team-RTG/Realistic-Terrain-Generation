@@ -6,7 +6,6 @@ import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -14,28 +13,15 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceVanillaIcePlainsSpikes extends SurfaceBase
 {
-	private Block mixBlockTop;
-	private Block mixBlockFill;
 	private Block cliffBlock1;
 	private Block cliffBlock2;
-	private float width;
-	private float height;
-	private float smallW;
-	private float smallS;
 	
-	public SurfaceVanillaIcePlainsSpikes(Block top, Block filler, Block mixTop, Block mixFill, Block cliff1, Block cliff2, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
+	public SurfaceVanillaIcePlainsSpikes(Block top, Block filler, Block cliff1, Block cliff2)
 	{
 		super(top, filler);
 		
-		mixBlockTop = mixTop;
-		mixBlockFill = mixFill;
 		cliffBlock1 = cliff1;
 		cliffBlock2 = cliff2;
-		
-		width = mixWidth;
-		height = mixHeight;
-		smallW = smallWidth;
-		smallS = smallStrength;
 	}
 	
 	@Override
@@ -43,7 +29,6 @@ public class SurfaceVanillaIcePlainsSpikes extends SurfaceBase
 	{
 		float c = CliffCalculator.calc(x, y, noise);
 		boolean cliff = c > 1.4f ? true : false;
-		boolean mix = false;
 		
 		for(int k = 255; k > -1; k--)
 		{
@@ -71,26 +56,11 @@ public class SurfaceVanillaIcePlainsSpikes extends SurfaceBase
             	{
 	        		if(depth == 0 && k > 61)
 	        		{
-	        			if(simplex.noise2(i / width, j / width) + simplex.noise2(i / smallW, j / smallW) * smallS > height)
-	        			{
-	        				blocks[(y * 16 + x) * 256 + k] = mixBlockTop;
-	        				mix = true;
-	        			}
-	        			else
-	        			{
-	        				blocks[(y * 16 + x) * 256 + k] = topBlock;
-	        			}
+	        			blocks[(y * 16 + x) * 256 + k] = topBlock;
 	        		}
 	        		else if(depth < 4)
 	        		{
-	        			if(mix)
-	        			{
-		        			blocks[(y * 16 + x) * 256 + k] = mixBlockFill;
-	        			}
-	        			else
-	        			{
-		        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-	        			}
+	        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
 	        		}
             	}
             }

@@ -9,39 +9,38 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeDesertDead;
-import rtg.world.gen.feature.tree.WorldGenTreePineBig;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
 import rtg.world.gen.feature.tree.WorldGenTreeWillow;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaSwampland;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaSwampland;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaSwamplandM;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaSwamplandM;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
-import net.minecraft.world.gen.feature.WorldGenSwamp;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase
 {
+    public static BiomeGenBase standardBiome = BiomeGenBase.swampland;
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
     
-    public static Block topBlock = BiomeGenBase.swampland.topBlock;
-    public static Block fillerBlock = BiomeGenBase.swampland.fillerBlock;
+    public static Block topBlock = mutationBiome.topBlock;
+    public static Block fillerBlock = mutationBiome.fillerBlock;
     
     public RealisticBiomeVanillaSwamplandM()
     {
     
         super(
-            BiomeGenBase.swampland,
+            mutationBiome,
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
-            new TerrainVanillaSwampland(),
-            new SurfaceVanillaSwampland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new TerrainVanillaSwamplandM(230f, 24f, 0f),
+            new SurfaceVanillaSwamplandM(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
-        this.setRealisticBiomeName("Vanilla Swampland");
+        this.setRealisticBiomeName("Vanilla Swampland M");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaSwampland;
+        this.biomeWeight = ConfigVanilla.weightVanillaSwamplandM;
     }
     
     @Override

@@ -9,7 +9,6 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.WorldGenWildWheat;
 import rtg.world.gen.feature.tree.WorldGenTreePineBig;
 import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;

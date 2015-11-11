@@ -10,7 +10,6 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.WorldGenWildWheat;
 import rtg.world.gen.feature.tree.WorldGenTreeBirch;
 import rtg.world.gen.feature.tree.WorldGenTreeBirchSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
@@ -90,14 +89,6 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
             {
                 (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
             }
-        }
-        
-        if (rand.nextInt((int) (150f / strength)) == 0)
-        {
-            int k21 = chunkX + rand.nextInt(16) + 8;
-            int j23 = rand.nextInt(60) + 60;
-            int k24 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenWildWheat(rand.nextInt(3))).generate(world, rand, k21, j23, k24);
         }
         
         for (int f23 = 0; f23 < 8f * strength; f23++)

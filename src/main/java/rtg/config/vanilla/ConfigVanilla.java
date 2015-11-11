@@ -71,7 +71,6 @@ public class ConfigVanilla
     public static boolean generateVanillaRoofedForestM = true;
     public static boolean generateVanillaColdTaigaM = true;
     public static boolean generateVanillaMegaSpruceTaiga = true;
-    public static boolean generateVanillaRedwoodTaigaHillsM = true;
     public static boolean generateVanillaExtremeHillsPlusM = true;
     public static boolean generateVanillaSavannaM = true;
     public static boolean generateVanillaSavannaPlateauM = true;
@@ -131,7 +130,6 @@ public class ConfigVanilla
     public static int weightVanillaRoofedForestM = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     public static int weightVanillaColdTaigaM = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     public static int weightVanillaMegaSpruceTaiga = (int)Math.floor((double)(biomeWeightDefault * 0.1));
-    public static int weightVanillaRedwoodTaigaHillsM = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     public static int weightVanillaExtremeHillsPlusM = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     public static int weightVanillaSavannaM = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     public static int weightVanillaSavannaPlateauM = (int)Math.floor((double)(biomeWeightDefault * 0.1));
@@ -200,7 +198,6 @@ public class ConfigVanilla
             generateVanillaRoofedForestM = config.getBoolean("generateVanillaRoofedForestM", "Biomes", generateVanillaRoofedForestM, "");
             generateVanillaColdTaigaM = config.getBoolean("generateVanillaColdTaigaM", "Biomes", generateVanillaColdTaigaM, "");
             generateVanillaMegaSpruceTaiga = config.getBoolean("generateVanillaMegaSpruceTaiga", "Biomes", generateVanillaMegaSpruceTaiga, "");
-            generateVanillaRedwoodTaigaHillsM = config.getBoolean("generateVanillaRedwoodTaigaHillsM", "Biomes", generateVanillaRedwoodTaigaHillsM, "");
             generateVanillaExtremeHillsPlusM = config.getBoolean("generateVanillaExtremeHillsPlusM", "Biomes", generateVanillaExtremeHillsPlusM, "");
             generateVanillaSavannaM = config.getBoolean("generateVanillaSavannaM", "Biomes", generateVanillaSavannaM, "");
             generateVanillaSavannaPlateauM = config.getBoolean("generateVanillaSavannaPlateauM", "Biomes", generateVanillaSavannaPlateauM, "");
@@ -260,7 +257,6 @@ public class ConfigVanilla
             weightVanillaRoofedForestM = config.getInt("weightVanillaRoofedForestM", "Weights", weightVanillaRoofedForestM, biomeWeightMin, biomeWeightMax, "");
             weightVanillaColdTaigaM = config.getInt("weightVanillaColdTaigaM", "Weights", weightVanillaColdTaigaM, biomeWeightMin, biomeWeightMax, "");
             weightVanillaMegaSpruceTaiga = config.getInt("weightVanillaMegaSpruceTaiga", "Weights", weightVanillaMegaSpruceTaiga, biomeWeightMin, biomeWeightMax, "");
-            weightVanillaRedwoodTaigaHillsM = config.getInt("weightVanillaRedwoodTaigaHillsM", "Weights", weightVanillaRedwoodTaigaHillsM, biomeWeightMin, biomeWeightMax, "");
             weightVanillaExtremeHillsPlusM = config.getInt("weightVanillaExtremeHillsPlusM", "Weights", weightVanillaExtremeHillsPlusM, biomeWeightMin, biomeWeightMax, "");
             weightVanillaSavannaM = config.getInt("weightVanillaSavannaM", "Weights", weightVanillaSavannaM, biomeWeightMin, biomeWeightMax, "");
             weightVanillaSavannaPlateauM = config.getInt("weightVanillaSavannaPlateauM", "Weights", weightVanillaSavannaPlateauM, biomeWeightMin, biomeWeightMax, "");

@@ -63,7 +63,6 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
     public static RealisticBiomeBase vanillaRoofedForestM = new RealisticBiomeVanillaRoofedForestM();
     public static RealisticBiomeBase vanillaColdTaigaM = new RealisticBiomeVanillaColdTaigaM();
     public static RealisticBiomeBase vanillaMegaSpruceTaiga = new RealisticBiomeVanillaMegaSpruceTaiga();
-    public static RealisticBiomeBase vanillaRedwoodTaigaHillsM = new RealisticBiomeVanillaRedwoodTaigaHillsM();
     public static RealisticBiomeBase vanillaExtremeHillsPlusM = new RealisticBiomeVanillaExtremeHillsPlusM();
     public static RealisticBiomeBase vanillaSavannaM = new RealisticBiomeVanillaSavannaM();
     public static RealisticBiomeBase vanillaSavannaPlateauM = new RealisticBiomeVanillaSavannaPlateauM();
@@ -135,7 +134,6 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 		    if (ConfigVanilla.generateVanillaRoofedForestM) { BiomeBase.addBiome(vanillaRoofedForestM); }
 		    if (ConfigVanilla.generateVanillaColdTaigaM) { BiomeBase.addBiome(vanillaColdTaigaM); }
 		    if (ConfigVanilla.generateVanillaMegaSpruceTaiga) { BiomeBase.addBiome(vanillaMegaSpruceTaiga); }
-		    if (ConfigVanilla.generateVanillaRedwoodTaigaHillsM) { BiomeBase.addBiome(vanillaRedwoodTaigaHillsM); }
 		    if (ConfigVanilla.generateVanillaExtremeHillsPlusM) { BiomeBase.addBiome(vanillaExtremeHillsPlusM); }
 		    if (ConfigVanilla.generateVanillaSavannaM) { BiomeBase.addBiome(vanillaSavannaM); }
 		    if (ConfigVanilla.generateVanillaSavannaPlateauM) { BiomeBase.addBiome(vanillaSavannaPlateauM); }

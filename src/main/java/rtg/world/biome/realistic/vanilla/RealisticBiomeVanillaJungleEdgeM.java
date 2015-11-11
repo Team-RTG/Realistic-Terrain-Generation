@@ -8,8 +8,8 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleEdge;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleEdge;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleEdgeM;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleEdgeM;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -18,22 +18,24 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase
 {
+    public static BiomeGenBase standardBiome = BiomeGenBase.jungleEdge;
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
     
-    public static Block topBlock = BiomeGenBase.jungleEdge.topBlock;
-    public static Block fillerBlock = BiomeGenBase.jungleEdge.fillerBlock;
+    public static Block topBlock = mutationBiome.topBlock;
+    public static Block fillerBlock = mutationBiome.fillerBlock;
     
     public RealisticBiomeVanillaJungleEdgeM()
     {
     
         super(
-            BiomeGenBase.jungleEdge,
+            mutationBiome,
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
-            new TerrainVanillaJungleEdge(),
-            new SurfaceVanillaJungleEdge(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new TerrainVanillaJungleEdgeM(),
+            new SurfaceVanillaJungleEdgeM(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
         
-        this.setRealisticBiomeName("Vanilla Jungle Edge");
+        this.setRealisticBiomeName("Vanilla Jungle Edge M");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaJungleEdge;
+        this.biomeWeight = ConfigVanilla.weightVanillaJungleEdgeM;
     }
     
     @Override

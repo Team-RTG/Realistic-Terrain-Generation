@@ -13,8 +13,8 @@ public class RealisticBiomeATGTundra extends RealisticBiomeATGBase
 	{
 		super(
 			atgBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainATGTundra(230f, 120f, 0f),
-			new SurfaceATGTundra(atgBiome.topBlock, atgBiome.fillerBlock, false, null, 0.95f)
+			new TerrainATGTundra(),
+			new SurfaceATGTundra(atgBiome.topBlock, atgBiome.fillerBlock, false, null, 0.45f)
 		);
 		
 		this.setRealisticBiomeName("ATG Tundra");

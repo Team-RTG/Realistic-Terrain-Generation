@@ -7,8 +7,8 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenCacti;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaPlateau;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateau;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaPlateauM;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateauM;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -23,22 +23,24 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
 {
+    public static BiomeGenBase standardBiome = BiomeGenBase.mesaPlateau;
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
     
-    public static Block topBlock = BiomeGenBase.mesaPlateau.topBlock;
-    public static Block fillerBlock = BiomeGenBase.mesaPlateau.fillerBlock;
+    public static Block topBlock = mutationBiome.topBlock;
+    public static Block fillerBlock = mutationBiome.fillerBlock;
     
     public RealisticBiomeVanillaMesaPlateauM()
     {
     
         super(
-            BiomeGenBase.mesaPlateau,
+            mutationBiome,
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
-            new TerrainVanillaMesaPlateau(true, 35f, 160f, 60f, 40f, 69f),
-            new SurfaceVanillaMesaPlateau(Blocks.sand, Blocks.sand, (byte) 1, 0));
+            new TerrainVanillaMesaPlateauM(true, 15f, 260f, 50f, 30f, 79f),
+            new SurfaceVanillaMesaPlateauM(Blocks.sand, Blocks.sand, (byte) 1, 0));
         
-        this.setRealisticBiomeName("Vanilla Mesa Plateau");
+        this.setRealisticBiomeName("Vanilla Mesa Plateau M");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaMesaPlateau;
+        this.biomeWeight = ConfigVanilla.weightVanillaMesaPlateauM;
     }
     
     @Override

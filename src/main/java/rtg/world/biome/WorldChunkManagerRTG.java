@@ -11,7 +11,6 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePool;
-import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.ChunkPosition;
@@ -113,14 +112,14 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         /**
          * Do we only want to generate a single biome for the whole world?
          */
-        String generateOnlyThisVanillaBiome = ConfigRTG.generateOnlyThisVanillaBiome;
+        int generateOnlyThisBiomeId = (int) ConfigRTG.generateOnlyThisBiomeId;
         
-        if (generateOnlyThisVanillaBiome.length() > 0)
+        if (generateOnlyThisBiomeId > -1)
         {
-            output = RealisticBiomeVanillaBase.getRealisticVanillaBiomeFromVanillaVariableName(generateOnlyThisVanillaBiome);
+            output = RealisticBiomeBase.getBiome(generateOnlyThisBiomeId);
         }
         
-        // output = RealisticBiomeBase.vanillaExtremeHillsPlus;
+        //output = RealisticBiomeVanillaBase.vanillaFlowerForest;
         
         if (biomeDataMap.size() > 4096) {
             biomeDataMap.clear();

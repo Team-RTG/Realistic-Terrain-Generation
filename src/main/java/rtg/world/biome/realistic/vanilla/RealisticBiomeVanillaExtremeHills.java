@@ -13,7 +13,6 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.WorldGenWildWheat;
 import rtg.world.gen.feature.tree.WorldGenTreePineEuro;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHills;
@@ -166,14 +165,6 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
             int j18 = rand.nextInt(128);
             int j21 = chunkY + rand.nextInt(16) + 8;
             (new WorldGenPumpkin()).generate(world, rand, j16, j18, j21);
-        }
-        
-        if (rand.nextInt((int) (150f / strength)) == 0)
-        {
-            int k21 = chunkX + rand.nextInt(16) + 8;
-            int j23 = rand.nextInt(60) + 60;
-            int k24 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenWildWheat(rand.nextInt(3))).generate(world, rand, k21, j23, k24);
         }
         
         for (int l14 = 0; l14 < 10f * strength; l14++)

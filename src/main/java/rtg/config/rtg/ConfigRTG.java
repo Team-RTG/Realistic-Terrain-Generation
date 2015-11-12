@@ -16,7 +16,10 @@ public class ConfigRTG
 {
 	public static Configuration config;
 	
-	public static String generateOnlyThisVanillaBiome = "";
+	public static int generateOnlyThisBiomeId = -1;
+	
+	public static String shadowBlockId = "minecraft:stained_hardened_clay";
+	public static int shadowBlockByte = 9;
 	
     public static boolean generateOreCoal = true;
     public static boolean generateOreIron = true;
@@ -51,15 +54,28 @@ public class ConfigRTG
 		{
 			config.load();
 			
-            generateOnlyThisVanillaBiome = 
-                config.getString(
-                    "Generate only this vanilla biome", 
-                    "Biomes", 
-                    new String(), 
-                    "Must correspond to one of the vanilla biome variables found in the registerVanillaBiomes() method here: https://goo.gl/o6o1zM" +
-                    Configuration.NEW_LINE +
-                    "(e.g. desert, extremeHills, forest, plains, taiga, taigaHills, etc.)"
-                );
+            generateOnlyThisBiomeId = config.getInt(
+                "Generate only this biome ID", 
+                "Biomes", 
+                generateOnlyThisBiomeId, 
+                -1, 255, 
+                "If you enter a biome ID here, the whole world will consist of only that biome (and rivers). Set to -1 to generate the world normally." +
+                Configuration.NEW_LINE +
+                "Vanilla biome IDs can be found here: http://goo.gl/WqlAfV" +
+                Configuration.NEW_LINE +
+                "For modded biome IDs, use NEI and go [Options] > [Tools] > [Data Dumps] > Biomes > [Dump], and then refer to the 'biome.csv' file which can be found in your '/.minecraft/dumps' folder."
+            );
+   
+            shadowBlockId = config.getString(
+                "Shadow block ID",
+                "Biomes", 
+                shadowBlockId,
+                "The block to use for terrain shadowing, typically seen on the cliffs of mountains." +
+                Configuration.NEW_LINE +
+                "Defaults to stained hardened clay."
+            );
+            
+            shadowBlockByte = config.getInt("Shadow block meta value", "Biomes", shadowBlockByte, 0, 15, "The meta value of the shadow block. Defaults to " + shadowBlockByte +  " (cyan).");
             
 			generateOreCoal = config.getBoolean("Generate Coal Ore", "Ore Gen", generateOreCoal, "");
 			generateOreIron = config.getBoolean("Generate Iron Ore", "Ore Gen", generateOreIron, "");

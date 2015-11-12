@@ -15,7 +15,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBase extends BiomeBase {
     
-    private static final RealisticBiomeBase[] biomeList = new RealisticBiomeBase[256];
+    private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[256];
     
     public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;
@@ -37,15 +37,15 @@ public class RealisticBiomeBase extends BiomeBase {
     
         super(biome.biomeID);
         
-        biomeList[biome.biomeID] = this;
-        
+        arrRealisticBiomeIds[biome.biomeID] = this;
+                
         baseBiome = biome;
         riverBiome = river;
     }
     
     public static RealisticBiomeBase getBiome(int id) {
     
-        return biomeList[id];
+        return arrRealisticBiomeIds[id];
     }
     
     public RealisticBiomeBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s) {

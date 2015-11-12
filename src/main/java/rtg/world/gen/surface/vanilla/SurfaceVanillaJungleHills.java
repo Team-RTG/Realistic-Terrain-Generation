@@ -94,8 +94,8 @@ public class SurfaceVanillaJungleHills extends SurfaceBase
                     }
                     else if (cliff == 2)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay;
-                        metadata[(y * 16 + x) * 256 + k] = 9;
+                        blocks[(y * 16 + x) * 256 + k] = shadowBlock;
+                        metadata[(y * 16 + x) * 256 + k] = shadowByte;
                     }
                     else if (k < 63)
                     {
@@ -128,8 +128,8 @@ public class SurfaceVanillaJungleHills extends SurfaceBase
                     }
                     else if (cliff == 2)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay;
-                        metadata[(y * 16 + x) * 256 + k] = 9;
+                        blocks[(y * 16 + x) * 256 + k] = shadowBlock;
+                        metadata[(y * 16 + x) * 256 + k] = shadowByte;
                     }
                     else if (gravel)
                     {

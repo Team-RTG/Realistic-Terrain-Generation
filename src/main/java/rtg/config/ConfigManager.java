@@ -3,6 +3,7 @@ package rtg.config;
 import java.io.File;
 
 import rtg.config.arsmagica.ConfigAM;
+import rtg.config.atg.ConfigATG;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.config.buildcraft.ConfigBC;
 import rtg.config.enhancedbiomes.ConfigEB;
@@ -24,6 +25,7 @@ public class ConfigManager
     public static File tcConfigFile;
     public static File bcConfigFile;
     public static File amConfigFile;
+    public static File atgConfigFile;
     
     public static void init(String configpath)
     {
@@ -37,6 +39,7 @@ public class ConfigManager
         tcConfigFile = new File(configpath + "biomes/thaumcraft.cfg");
         bcConfigFile = new File(configpath + "biomes/buildcraft.cfg");
         amConfigFile = new File(configpath + "biomes/arsmagica.cfg");
+        atgConfigFile = new File(configpath + "biomes/atg.cfg");
         
         ConfigRTG.init(rtgConfigFile);
         ConfigVanilla.init(vanillaConfigFile);
@@ -47,5 +50,6 @@ public class ConfigManager
         ConfigTC.init(tcConfigFile);
         ConfigBC.init(bcConfigFile);
         ConfigAM.init(amConfigFile);
+        ConfigATG.init(atgConfigFile);
     }
 }

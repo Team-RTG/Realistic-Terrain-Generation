@@ -15,6 +15,7 @@
     "requiredMods": [ "Forge@[10.13.4.1448,)" ],
     "dependencies": [
         "arsmagica2@[1.4.0.008,)",
+        "ATG@[0.10.0,)",
         "BiomesOPlenty@[2.1.0,)",
         "BuildCraft|Core@[7.1.7,)",
         "enhancedbiomes@2.5 for MC 1.7.10",

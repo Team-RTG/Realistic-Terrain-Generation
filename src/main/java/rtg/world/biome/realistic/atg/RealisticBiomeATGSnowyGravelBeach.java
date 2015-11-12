@@ -13,8 +13,8 @@ public class RealisticBiomeATGSnowyGravelBeach extends RealisticBiomeATGBase
 	{
 		super(
 			atgBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainATGSnowyGravelBeach(230f, 120f, 50f),
-			new SurfaceATGSnowyGravelBeach(atgBiome.topBlock, atgBiome.fillerBlock, false, null, 0.45f)
+			new TerrainATGSnowyGravelBeach(),
+			new SurfaceATGSnowyGravelBeach(atgBiome.topBlock, atgBiome.fillerBlock, atgBiome.topBlock, atgBiome.fillerBlock, (byte)0, 1)
 		);
 		
 		this.setRealisticBiomeName("ATG Snowy Gravel Beach");

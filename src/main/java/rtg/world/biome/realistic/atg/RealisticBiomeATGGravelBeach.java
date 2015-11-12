@@ -12,7 +12,7 @@ public class RealisticBiomeATGGravelBeach extends RealisticBiomeATGBase
 	public RealisticBiomeATGGravelBeach(BiomeGenBase atgBiome)
 	{
 		super(
-			atgBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+			atgBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainATGGravelBeach(),
 			new SurfaceATGGravelBeach(atgBiome.topBlock, atgBiome.fillerBlock, atgBiome.topBlock, atgBiome.fillerBlock, (byte)0, 1)
 		);

@@ -1,14 +1,14 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLGreenSwamp;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLGreenSwamp;
 import extrabiomes.api.BiomeManager;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLGreenSwamp extends RealisticBiomeEBXLBase
 {	
@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLGreenSwamp extends RealisticBiomeEBXLBase
 			new SurfaceEBXLGreenSwamp(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
 		
-		this.setRealisticBiomeName("EBXL Green Swamp");
+		this.setRealisticBiomeName("EBXL Green Swamplands");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_greenswamp;
 	}

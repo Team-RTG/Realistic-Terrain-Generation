@@ -15,7 +15,7 @@ public class RealisticBiomeCCRainbowForest extends RealisticBiomeCCBase
 		super(
 			ccBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainCCRainbowForest(),
-			new SurfaceCCRainbowForest(ccBiome.topBlock, ccBiome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.05f)
+			new SurfaceCCRainbowForest(ccBiome.topBlock, ccBiome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, ccBiome.topBlock, 0.05f)
 		);
 		
 		this.setRealisticBiomeName("CC Rainbow Forest");

@@ -11,6 +11,7 @@ import rtg.world.biome.realistic.arsmagica.RealisticBiomeAMBase;
 import rtg.world.biome.realistic.atg.RealisticBiomeATGBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
+import rtg.world.biome.realistic.chromaticraft.RealisticBiomeCCBase;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBase;
 import rtg.world.biome.realistic.extrabiomes.RealisticBiomeEBXLBase;
 import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
@@ -74,5 +75,6 @@ public class RTG {
         RealisticBiomeBCBase.addBiomes();
         RealisticBiomeAMBase.addBiomes();
         RealisticBiomeATGBase.addBiomes();
+        RealisticBiomeCCBase.addBiomes();
     }
 }

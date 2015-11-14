@@ -6,6 +6,7 @@ import rtg.config.arsmagica.ConfigAM;
 import rtg.config.atg.ConfigATG;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.config.buildcraft.ConfigBC;
+import rtg.config.chromaticraft.ConfigCC;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.config.highlands.ConfigHL;
@@ -26,6 +27,7 @@ public class ConfigManager
     public static File bcConfigFile;
     public static File amConfigFile;
     public static File atgConfigFile;
+    public static File ccConfigFile;
     
     public static void init(String configpath)
     {
@@ -40,9 +42,12 @@ public class ConfigManager
         bcConfigFile = new File(configpath + "biomes/buildcraft.cfg");
         amConfigFile = new File(configpath + "biomes/arsmagica.cfg");
         atgConfigFile = new File(configpath + "biomes/atg.cfg");
+        ccConfigFile = new File(configpath + "biomes/chromaticraft.cfg");
         
         ConfigRTG.init(rtgConfigFile);
+        
         ConfigVanilla.init(vanillaConfigFile);
+        
         ConfigBOP.init(bopConfigFile);
         ConfigEBXL.init(ebxlConfigFile);
         ConfigEB.init(ebConfigFile);
@@ -51,5 +56,6 @@ public class ConfigManager
         ConfigBC.init(bcConfigFile);
         ConfigAM.init(amConfigFile);
         ConfigATG.init(atgConfigFile);
+        ConfigCC.init(ccConfigFile);
     }
 }

@@ -49,7 +49,7 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanillaBase
         float river)
     {
     
-        if (rand.nextInt((int) (15f / strength)) == 0)
+        if (rand.nextInt((int) (24f / strength)) == 0)
         {
             int i2 = chunkX + rand.nextInt(16) + 8;
             int i8 = chunkY + rand.nextInt(16) + 8;

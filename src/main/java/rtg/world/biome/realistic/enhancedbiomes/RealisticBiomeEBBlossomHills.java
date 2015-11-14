@@ -39,7 +39,7 @@ public class RealisticBiomeEBBlossomHills extends RealisticBiomeEBBase
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
-			new TerrainEBBlossomHills(430f, 40f, 65f),
+			new TerrainEBBlossomHills(),
 			new SurfaceEBBlossomHills(
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

@@ -19,7 +19,7 @@ public class WorldGenBlob extends WorldGenerator
     private boolean booShouldGenerate;
     private static final String __OBFID = "CL_00000402";
 
-    public WorldGenBlob(Block b, int s)
+    public WorldGenBlob(Block b, int s, Random rand)
     {
         super(false);
         this.blobBlock = b;
@@ -32,16 +32,16 @@ public class WorldGenBlob extends WorldGenerator
                 booShouldGenerate = false;
             }
             else {
-                if (!shouldGenerateCobblestoneBoulder()) {
+                if (!shouldGenerateCobblestoneBoulder(rand)) {
                     booShouldGenerate = false;
                 }
             }
         }
     }
     
-    public WorldGenBlob(Block b, byte m, int s)
+    public WorldGenBlob(Block b, byte m, int s, Random rand)
     {
-        this(b, s);
+        this(b, s, rand);
         this.blobMeta = m;
     }
 
@@ -54,7 +54,7 @@ public class WorldGenBlob extends WorldGenerator
                 booShouldGenerate = false;
             }
             else {
-                if (!shouldGenerateCobblestoneBoulder()) {
+                if (!shouldGenerateCobblestoneBoulder(rand)) {
                     booShouldGenerate = false;
                 }
             }
@@ -131,12 +131,12 @@ public class WorldGenBlob extends WorldGenerator
         }
     }
     
-    public static boolean shouldGenerateCobblestoneBoulder()
+    public static boolean shouldGenerateCobblestoneBoulder(Random rand)
     {
     	int chance = ConfigRTG.cobblestoneBoulderChance;
     	chance = (chance < 1) ? 1 : ((chance > 100) ? 100 : chance);
     	
-    	int random = RandomUtil.getRandomInt(1, chance);
+    	int random = RandomUtil.getRandomInt(rand, 1, chance);
     	
     	boolean booGenerate = (random == 1) ? true : false;
     	

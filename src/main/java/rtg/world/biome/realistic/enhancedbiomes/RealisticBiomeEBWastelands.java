@@ -73,7 +73,7 @@ public class RealisticBiomeEBWastelands extends RealisticBiomeEBBase
             
             if (k1 < 95 && (k1 < 64 || rand.nextInt(8) == 0))
             {
-                (new WorldGenBlob(cobbleBlock, cobbleByte, rand.nextInt(1))).generate(world, rand, i1, k1, j1, true);
+                (new WorldGenBlob(cobbleBlock, cobbleByte, rand.nextInt(1), rand)).generate(world, rand, i1, k1, j1, true);
             }
         }
         

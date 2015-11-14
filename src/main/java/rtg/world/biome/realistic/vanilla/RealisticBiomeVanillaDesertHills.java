@@ -59,7 +59,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
             
             if(k1 < 85 && rand.nextInt(8) == 0)
             {
-                (new WorldGenBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
+                (new WorldGenBlob(Blocks.cobblestone, 0, rand)).generate(world, rand, i1, k1, j1);
             }
         }
         

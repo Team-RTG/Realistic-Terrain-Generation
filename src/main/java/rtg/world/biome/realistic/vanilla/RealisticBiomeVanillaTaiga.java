@@ -54,9 +54,10 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanillaBase
             int i2 = chunkX + rand.nextInt(16) + 8;
             int i8 = chunkY + rand.nextInt(16) + 8;
             int l4 = world.getHeightValue(i2, i8);
+            
             if (l4 > 63)
             {
-                (new WorldGenLakes(Blocks.water)).generate(world, rand, i2, l4, i8);
+                (new WorldGenLakes(lakeWaterBlock)).generate(world, rand, i2, l4, i8);
             }
         }
         
@@ -68,7 +69,7 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanillaBase
             int k1 = world.getHeightValue(i1, j1);
             if (k1 < 95 && (k1 < 64 || rand.nextInt(7) == 0))
             {
-                (new WorldGenBlob(Blocks.mossy_cobblestone, 0)).generate(world, rand, i1, k1, j1);
+                (new WorldGenBlob(Blocks.mossy_cobblestone, 0, rand)).generate(world, rand, i1, k1, j1);
             }
         }
         

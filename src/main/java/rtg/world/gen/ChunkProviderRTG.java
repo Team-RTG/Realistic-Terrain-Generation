@@ -558,7 +558,7 @@ public class ChunkProviderRTG implements IChunkProvider
 
         if (ConfigRTG.enableWaterLakes) {
             gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.LAKE);
-            if(gen && (RandomUtil.getRandomInt(1, ConfigRTG.waterLakeChance) == 1))
+            if(gen && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterLakeChance) == 1))
     		{
     			int i2 = x + rand.nextInt(16) + 8;
     			int l4 = rand.nextInt(50);
@@ -569,7 +569,7 @@ public class ChunkProviderRTG implements IChunkProvider
 
         if (ConfigRTG.enableLavaLakes) {
             gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.LAVA);
-    		if(gen && (RandomUtil.getRandomInt(1, ConfigRTG.lavaLakeChance) == 1))
+    		if(gen && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.lavaLakeChance) == 1))
     		{
     			int j2 = x + rand.nextInt(16) + 8;
     			int i5 = rand.nextInt(rand.nextInt(45) + 8);

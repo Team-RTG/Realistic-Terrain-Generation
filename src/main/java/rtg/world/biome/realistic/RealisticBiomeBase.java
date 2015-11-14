@@ -10,6 +10,7 @@ import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -27,6 +28,9 @@ public class RealisticBiomeBase extends BiomeBase {
     
     public SurfaceBase[] surfaces;
     public int surfacesLength;
+    
+    public static Block lakeWaterBlock = Blocks.water;
+    public static Block lakeLavaBlock = Blocks.lava;
     
     public RealisticBiomeBase(BiomeGenBase biome) {
     

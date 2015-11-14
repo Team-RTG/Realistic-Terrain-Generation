@@ -52,7 +52,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
                 int k1 = world.getHeightValue(i1, j1);
                 if(k1 < 64)
                 {
-                    (new WorldGenBlob(Blocks.packed_ice, 0)).generate(world, rand, i1, k1, j1);
+                    (new WorldGenBlob(Blocks.packed_ice, 0, rand)).generate(world, rand, i1, k1, j1);
                 }
             }
         }

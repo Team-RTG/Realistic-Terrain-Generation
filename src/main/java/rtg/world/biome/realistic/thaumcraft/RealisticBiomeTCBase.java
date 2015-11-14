@@ -17,6 +17,9 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 	public RealisticBiomeTCBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
 		super(b, riverbiome, t, s);
+		
+        this.waterLakeFrequency = 0;
+        this.lavaLakeFrequency = 0;
 	}
 	
 	/*

@@ -63,6 +63,9 @@ public class RealisticBiomeHLBase extends RealisticBiomeBase
 	public RealisticBiomeHLBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
 		super(b, riverbiome, t, s);
+		
+        this.waterLakeFrequency = 0;
+        this.lavaLakeFrequency = 0;
 	}
 	
 	public static void addBiomes()

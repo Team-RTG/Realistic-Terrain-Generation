@@ -88,34 +88,6 @@ public class RealisticBiomeEBBlossomHills extends RealisticBiomeEBBase
             }
         }
         
-/*        if (ConfigRTG.enableWaterLakes) {
-            if (rand.nextInt((int) (6f / strength)) == 0)
-            {
-                int x22 = chunkX + rand.nextInt(16) + 8;
-                int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
-                
-                if (y22 < 100)
-                {
-                    if (rand.nextBoolean()) {
-                        (new WorldGenLakes(Blocks.water)).generate(world, rand, x22, y22, z22);
-                    }
-                }
-            }
-        }*/
-        
-/*        for (int f24 = 0; f24 < 3f * strength; f24++)
-        {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
-            
-            if (k1 < 110)
-            {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
-            }
-        }*/
-        
         for (int f23 = 0; f23 < 8f * strength; f23++)
         {
             if (rand.nextInt(32) == 0) {

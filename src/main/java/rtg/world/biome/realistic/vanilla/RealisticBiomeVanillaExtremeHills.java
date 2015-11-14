@@ -4,7 +4,6 @@ import java.util.Random;
 
 import org.apache.logging.log4j.Level;
 
-import cpw.mods.fml.common.FMLLog;
 import rtg.config.rtg.ConfigRTG;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
@@ -17,13 +16,13 @@ import rtg.world.gen.feature.tree.WorldGenTreePineEuro;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHills;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHills;
+import cpw.mods.fml.common.FMLLog;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenFlowers;
-import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -78,17 +77,6 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
                         }
                     }
                 }
-            }
-        }
-        
-        if (rand.nextInt((int) (15f / strength)) == 0)
-        {
-            int i2 = chunkX + rand.nextInt(16) + 8;
-            int i8 = chunkY + rand.nextInt(16) + 8;
-            int l4 = world.getHeightValue(i2, i8);
-            if (l4 > 63)
-            {
-                (new WorldGenLakes(Blocks.water)).generate(world, rand, i2, l4, i8);
             }
         }
         

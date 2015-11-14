@@ -27,5 +27,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase
         this.setRealisticBiomeName("Vanilla Deep Ocean");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaDeepOcean;
+        this.waterLakeFrequency = 0;
+        this.lavaLakeFrequency = 0;
     }
 }

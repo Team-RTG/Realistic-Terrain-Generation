@@ -29,8 +29,8 @@ public class RealisticBiomeBase extends BiomeBase {
     public SurfaceBase[] surfaces;
     public int surfacesLength;
     
-    public static Block lakeWaterBlock = Blocks.water;
-    public static Block lakeLavaBlock = Blocks.lava;
+    public int waterLakeFrequency; //Lower = more frequent
+    public int lavaLakeFrequency; //Lower = more frequent
     
     public RealisticBiomeBase(BiomeGenBase biome) {
     
@@ -45,6 +45,9 @@ public class RealisticBiomeBase extends BiomeBase {
                 
         baseBiome = biome;
         riverBiome = river;
+        
+        waterLakeFrequency = 10;
+        lavaLakeFrequency = 0; // Disabled.
     }
     
     public static RealisticBiomeBase getBiome(int id) {

@@ -26,5 +26,7 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase
 		
 		this.setRealisticBiomeName("Vanilla River");
 		this.biomeWeight = ConfigVanilla.weightVanillaRiver;
+        this.waterLakeFrequency = 0;
+        this.lavaLakeFrequency = 0;
 	}	
 }

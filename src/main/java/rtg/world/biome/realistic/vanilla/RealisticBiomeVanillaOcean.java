@@ -27,5 +27,7 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase
         this.setRealisticBiomeName("Vanilla Ocean");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaOcean;
+        this.waterLakeFrequency = 0;
+        this.lavaLakeFrequency = 0;
     }
 }

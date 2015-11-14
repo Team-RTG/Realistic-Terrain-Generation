@@ -558,12 +558,24 @@ public class ChunkProviderRTG implements IChunkProvider
 
         if (ConfigRTG.enableWaterLakes) {
             gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.LAKE);
+            
             if(gen && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterLakeChance) == 1))
     		{
+                //Underwater lakes.
     			int i2 = x + rand.nextInt(16) + 8;
     			int l4 = rand.nextInt(50);
     			int i8 = y + rand.nextInt(16) + 8;
     			(new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
+    			
+    			//Overworld lakes.
+    	        if (biome.waterLakeFrequency > 0 && rand.nextInt(biome.waterLakeFrequency) == 0) {
+    	            
+    	            l4 = worldObj.getHeightValue(i2, i8);
+    	            
+    	            if (l4 > 63) {
+    	                (new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
+    	            }
+    	        }
     		}
         }
 

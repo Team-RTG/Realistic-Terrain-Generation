@@ -26,5 +26,7 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase
 		this.setRealisticBiomeName("Vanilla Frozen River");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigVanilla.weightVanillaFrozenRiver;
+        this.waterLakeFrequency = 0;
+        this.lavaLakeFrequency = 0;
 	}	
 }

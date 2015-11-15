@@ -47,7 +47,6 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigVanilla.weightVanillaDesertHills;
         this.waterLakeFrequency = 0;
-        this.lavaLakeFrequency = 24;
 	}
 	
     @Override

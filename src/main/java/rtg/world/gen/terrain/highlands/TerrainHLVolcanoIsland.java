@@ -13,15 +13,23 @@ public class TerrainHLVolcanoIsland extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-		float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * 35f * river;
-		st = st < 0.2f ? 0.2f : st;
-		
-		float h = simplex.noise2(x / 60f, y / 60f) * st * 2f;
-		h = h > 0f ? -h : h;
-		h += st;
-		h *= h / 50f;
-		h += st;
-		
-    	return 70f + h;
+        float st = 15f - ((cell.noise(x / 500D, y / 500D, 1D) * 42f) + (simplex.noise2(x / 30f, y / 30f) * 2f));
+        
+        st = st < 0f ? 0f : st;
+
+        float h = st;
+        h = h < 0f ? 0f : h;
+        h += (h * 0.4f) * ((h * 0.4f) * 2f);
+        
+        if(h > 10f)
+        {
+            float d2 = (h - 10f) / 1.5f > 30f ? 30f : (h - 10f) / 1.5f;
+            h += cell.noise(x / 25D, y / 25D, 1D) * d2;
+        }
+        
+        h += simplex.noise2(x / 18f, y / 18f) * 3;
+        h += simplex.noise2(x / 8f, y / 8f) * 2;
+        
+        return 65f + h * border;
 	}
 }

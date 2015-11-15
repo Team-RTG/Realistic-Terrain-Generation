@@ -5,7 +5,8 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.surface.SurfaceBase;
+import enhancedbiomes.EnhancedBiomesMod;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -14,37 +15,53 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBVolcano extends SurfaceEBBase
 {
+    private static Block ebStoneBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone;
+    private static byte ebStoneByte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)0 : (byte)0;
     
-    private boolean beach;
-    private Block beachBlock;
-    private float min;
+    private Block blockTop;
+    private byte byteTop;
+    private Block blockFiller;
+    private byte byteFiller;
+    private Block blockMixTop;
+    private byte byteMixTop;
+    private Block blockMixFiller;
+    private byte byteMixFiller;
+    private Block blockCliff1;
+    private byte byteCliff1;
+    private Block blockCliff2;
+    private byte byteCliff2;
+    private float floMixWidth;
+    private float floMixHeight;
+    private float floSmallWidth;
+    private float floSmallStrength;
     
-    private float sCliff = 1.5f;
-    private float sHeight = 60f;
-    private float sStrength = 65f;
-    private float cCliff = 1.5f;
-    
-    private Block mix;
-    private float mixHeight;
-    
-    public byte topByte = 0;
-    
-    public SurfaceEBVolcano(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
-        float stoneHeight, float stoneStrength, float clayCliff, Block mixBlock, float mixSize)
+    public SurfaceEBVolcano(Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
+        byte mixFillerByte, Block cliff1, byte cliff1Byte, Block cliff2, byte cliff2Byte, float mixWidth, float mixHeight,
+        float smallWidth, float smallStrength)
     {
     
-        super(top, fill);
-        beach = genBeach;
-        beachBlock = genBeachBlock;
-        min = minCliff;
+        super(top, filler);
         
-        sCliff = stoneCliff;
-        sHeight = stoneHeight;
-        sStrength = stoneStrength;
-        cCliff = clayCliff;
+        blockTop = top;
+        byteTop = topByte;
+        blockFiller = filler;
+        byteFiller = fillerByte;
         
-        mix = mixBlock;
-        mixHeight = mixSize;
+        blockMixTop = mixTop;
+        byteMixTop = mixTopByte;
+        blockMixFiller = mixFiller;
+        byteMixFiller = mixFillerByte;
+        
+        blockCliff1 = cliff1;
+        byteCliff1 = cliff1Byte;
+        
+        blockCliff2 = cliff2;
+        byteCliff2 = cliff2Byte;
+        
+        floMixWidth = mixWidth;
+        floMixHeight = mixHeight;
+        floSmallWidth = smallWidth;
+        floSmallStrength = smallStrength;
     }
     
     @Override
@@ -53,14 +70,12 @@ public class SurfaceEBVolcano extends SurfaceEBBase
     {
     
         float c = CliffCalculator.calc(x, y, noise);
-        int cliff = 0;
-        boolean gravel = false;
-        boolean m = false;
+        boolean cliff = c > 1.4f ? true : false;
+        boolean mix = false;
         
-        Block b;
         for (int k = 255; k > -1; k--)
         {
-            b = blocks[(y * 16 + x) * 256 + k];
+            Block b = blocks[(y * 16 + x) * 256 + k];
             if (b == Blocks.air)
             {
                 depth = -1;
@@ -69,85 +84,61 @@ public class SurfaceEBVolcano extends SurfaceEBBase
             {
                 depth++;
                 
-                if (depth == 0)
+                if (shouldReplaceStone()) {
+                    blocks[(y * 16 + x) * 256 + k] = ebStoneBlock;
+                    metadata[(y * 16 + x) * 256 + k] = ebStoneByte;
+                }
+                
+                if (cliff)
                 {
-                    if (k < 63)
+                    if (depth > -1 && depth < 2)
                     {
-                        if (beach)
-                        {
-                            gravel = true;
+                        if (rand.nextInt(3) == 0) {
+                            blocks[(y * 16 + x) * 256 + k] = blockCliff2;
+                            metadata[(y * 16 + x) * 256 + k] = byteCliff2;
                         }
-                    }
-                    
-                    float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
-                    if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p)
-                    {
-                        cliff = 1;
-                    }
-                    if (c > cCliff)
-                    {
-                        cliff = 2;
-                    }
-                    
-                    if (cliff == 1)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? Blocks.cobblestone : Blocks.stone;
-                    }
-                    else if (cliff == 2)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock;
-                        metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
-                    }
-                    else if (k < 63)
-                    {
-                        if (beach)
-                        {
-                            blocks[(y * 16 + x) * 256 + k] = beachBlock;
-                            gravel = true;
+                        else {
+                            blocks[(y * 16 + x) * 256 + k] = blockCliff1;
+                            metadata[(y * 16 + x) * 256 + k] = byteCliff1;
                         }
-                        else if (k < 62)
+                        
+                    }
+                    else if (depth < 10)
+                    {
+                        blocks[(y * 16 + x) * 256 + k] = blockCliff1;
+                        metadata[(y * 16 + x) * 256 + k] = byteCliff1;
+                    }
+                }
+                else
+                {
+                    if (depth == 0 && k > 61)
+                    {
+                        if (simplex.noise2(i / floMixWidth, j / floMixWidth) + simplex.noise2(i / floSmallWidth, j / floSmallWidth)
+                            * floSmallStrength > floMixHeight)
                         {
-                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            blocks[(y * 16 + x) * 256 + k] = blockMixTop;
+                            metadata[(y * 16 + x) * 256 + k] = byteMixTop;
+                            
+                            mix = true;
                         }
                         else
                         {
                             blocks[(y * 16 + x) * 256 + k] = topBlock;
-                            metadata[(y * 16 + x) * 256 + k] = topByte;
+                            metadata[(y * 16 + x) * 256 + k] = byteTop;
                         }
                     }
-                    else if (simplex.noise2(i / 12f, j / 12f) > mixHeight)
+                    else if (depth < 4)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = mix;
-                        m = true;
-                    }
-                    else
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = topBlock;
-                        metadata[(y * 16 + x) * 256 + k] = topByte;
-                    }
-                }
-                else if (depth < 6)
-                {
-                    if (cliff == 1)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = Blocks.stone;
-                    }
-                    else if (cliff == 2)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock;
-                        metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
-                    }
-                    else if (gravel)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = beachBlock;
-                    }
-                    else if (m)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = mix;
-                    }
-                    else
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                        if (mix)
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = blockMixFiller;
+                            metadata[(y * 16 + x) * 256 + k] = byteMixFiller;
+                        }
+                        else
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            metadata[(y * 16 + x) * 256 + k] = byteFiller;
+                        }
                     }
                 }
             }

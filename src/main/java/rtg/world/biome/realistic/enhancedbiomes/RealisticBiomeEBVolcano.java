@@ -2,6 +2,8 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import enhancedbiomes.EnhancedBiomesMod;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -9,6 +11,9 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenVolcano;
+import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.gen.surface.SurfaceRiverOasis;
+import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRockyHills;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBVolcano;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBVolcano;
 
@@ -19,14 +24,47 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
 {
+    private static Block ebTopBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.grassEB : Blocks.grass;
+    private static byte ebTopByte = EnhancedBiomesMod.useNewGrass ? (byte)1 : (byte)0;
+    private static Block ebFillBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt;
+    private static byte ebFillByte = EnhancedBiomesMod.useNewGrass ? (byte)1 : (byte)0;
+    private static Block ebMixTopBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone;
+    private static byte ebMixTopByte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)0 : (byte)0;
+    private static Block ebMixFillBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
+    private static byte ebMixFillByte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)0 : (byte)0;
+    private static Block ebCliff1Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone;
+    private static byte ebCliff1Byte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)0 : (byte)0;
+    private static Block ebCliff2Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
+    private static byte ebCliff2Byte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)0 : (byte)0;
+    
+    private static SurfaceBase surface = new SurfaceEBVolcano(
+        ebTopBlock, //Block top 
+        ebTopByte, //byte topByte
+        ebFillBlock, //Block filler, 
+        ebFillByte, //byte fillerByte
+        ebMixTopBlock, //Block mixTop, 
+        ebMixTopByte, //byte mixTopByte, 
+        ebMixFillBlock, //Block mixFill, 
+        ebMixFillByte, //byte mixFillByte, 
+        ebCliff1Block, //Block cliff1, 
+        ebCliff1Byte, //byte cliff1Byte, 
+        ebCliff2Block, //Block cliff2, 
+        ebCliff2Byte, //byte cliff2Byte, 
+        80f, //float mixWidth, 
+        -0.15f, //float mixHeight, 
+        10f, //float smallWidth, 
+        0.5f //float smallStrength
+    );
+    
+    private static SurfaceBase riverSurface = new SurfaceRiverOasis();
     
     public RealisticBiomeEBVolcano(BiomeGenBase ebBiome)
     {
-    
         super(
             ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
             new TerrainEBVolcano(),
-            new SurfaceEBVolcano(Blocks.grass, Blocks.dirt, true, Blocks.gravel, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f));
+            surface
+        );
         
         this.setRealisticBiomeName("EB Volcano");
         this.biomeSize = BiomeSize.NORMAL;
@@ -72,5 +110,14 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
                 WorldGenVolcano.build(blocks, metadata, world, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
             }
         }
+    }
+    
+    @Override
+    public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
+        OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+    {
+    
+        surface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        riverSurface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

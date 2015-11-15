@@ -2,13 +2,13 @@ package rtg.world.biome;
 
 import java.util.ArrayList;
 
-import net.minecraft.world.biome.BiomeGenBase;
-
 import org.apache.logging.log4j.Level;
 
 import rtg.config.rtg.ConfigRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import cpw.mods.fml.common.FMLLog;
+
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeBase extends BiomeGenBase
 {
@@ -143,15 +143,31 @@ public class BiomeBase extends BiomeGenBase
 			     */
 			    if (b.baseBiome.temperature < 0.15f) {
 			        biomes_snow.add(b);
+			        
+			        if (ConfigRTG.enableDebugging) {
+			            FMLLog.log(Level.INFO, "Added %s to SNOW category (%d in total)", b.getRealisticBiomeName(), biomes_snow.size());
+			        }
 			    }
                 else if (b.baseBiome.temperature <= 0.3f) {
                     biomes_cold.add(b);
+                    
+                    if (ConfigRTG.enableDebugging) {
+                        FMLLog.log(Level.INFO, "Added %s to COLD category (%d in total)", b.getRealisticBiomeName(), biomes_cold.size());
+                    }
                 }
                 else if (b.baseBiome.temperature <= 1f) {
                     biomes_wet.add(b);
+                    
+                    if (ConfigRTG.enableDebugging) {
+                        FMLLog.log(Level.INFO, "Added %s to WET category (%d in total)", b.getRealisticBiomeName(), biomes_wet.size());
+                    }
                 }
                 else {
                     biomes_hot.add(b);
+                    
+                    if (ConfigRTG.enableDebugging) {
+                        FMLLog.log(Level.INFO, "Added %s to HOT category (%d in total)", b.getRealisticBiomeName(), biomes_hot.size());
+                    }
                 }
 
                 /**

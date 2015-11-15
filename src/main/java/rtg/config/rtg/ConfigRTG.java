@@ -35,7 +35,7 @@ public class ConfigRTG
     public static boolean enableWaterLakes = true;
     public static int waterLakeChance = 10;
     public static boolean enableLavaLakes = true;
-    public static int lavaLakeChance = 18;
+    public static int lavaLakeChance = 10;
 	
     public static int flatBedrockLayers = 0;
     

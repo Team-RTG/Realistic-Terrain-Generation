@@ -557,22 +557,25 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
         if (ConfigRTG.enableWaterLakes) {
+            
             gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.LAKE);
             
-            if(gen && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterLakeChance) == 1))
-    		{
-                //Underwater lakes.
+            if (gen && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterLakeChance) == 1)) {
+                
+                //Underground lakes.
     			int i2 = x + rand.nextInt(16) + 8;
-    			int l4 = rand.nextInt(50);
+    			int l4 = RandomUtil.getRandomInt(rand, 1, 50);
     			int i8 = y + rand.nextInt(16) + 8;
+    			
     			(new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
     			
-    			//Overworld lakes.
+    			//Surface lakes.
     	        if (biome.waterLakeFrequency > 0 && rand.nextInt(biome.waterLakeFrequency) == 0) {
     	            
     	            l4 = worldObj.getHeightValue(i2, i8);
     	            
     	            if (l4 > 63) {
+    	                
     	                (new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
     	            }
     	        }
@@ -580,16 +583,31 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
         if (ConfigRTG.enableLavaLakes) {
+            
             gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.LAVA);
-    		if(gen && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.lavaLakeChance) == 1))
-    		{
-    			int j2 = x + rand.nextInt(16) + 8;
-    			int i5 = rand.nextInt(rand.nextInt(45) + 8);
-    			int j8 = y + rand.nextInt(16) + 8;
-    			if(i5 < 64 || rand.nextInt(10) == 0)
-    			{
-    				(new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, j2, i5, j8);
-    			}
+            
+    		if (gen && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.lavaLakeChance) == 1)) {
+
+                //Underground lakes.
+                int j2 = x + rand.nextInt(16) + 8;
+                int i5 = RandomUtil.getRandomInt(rand, 1, 50);
+                int j8 = y + rand.nextInt(16) + 8;
+                
+                if (i5 <= 50)
+                {
+                    (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, j2, i5, j8);
+                }
+                
+                //Surface lakes.
+                if (biome.lavaLakeFrequency > 0 && rand.nextInt(biome.lavaLakeFrequency) == 0) {
+                    
+                    i5 = worldObj.getHeightValue(j2, j8);
+                    
+                    if (i5 > 62)
+                    {
+                        (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, j2, i5, j8);
+                    }
+                }
     		}
         }
 

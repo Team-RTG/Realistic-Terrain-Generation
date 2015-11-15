@@ -54,8 +54,8 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
             int k1 = world.getHeightValue(i1, j1);
-            if (k1 < 95 && (k1 < 64 || rand.nextInt(7) == 0))
-            {
+            
+            if (k1 < 95 && rand.nextInt(16) == 0) {
                 (new WorldGenBlob(Blocks.mossy_cobblestone, 0, rand)).generate(world, rand, i1, k1, j1);
             }
         }

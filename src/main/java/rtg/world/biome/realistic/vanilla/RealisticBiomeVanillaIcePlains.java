@@ -50,8 +50,8 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
                 int i1 = chunkX + rand.nextInt(16) + 8;
                 int j1 = chunkY + rand.nextInt(16) + 8;
                 int k1 = world.getHeightValue(i1, j1);
-                if(k1 < 64)
-                {
+                
+                if (k1 < 64 && rand.nextInt(16) == 0) {
                     (new WorldGenBlob(Blocks.packed_ice, 0, rand)).generate(world, rand, i1, k1, j1);
                 }
             }

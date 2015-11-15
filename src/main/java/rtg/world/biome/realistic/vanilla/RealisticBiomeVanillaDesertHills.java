@@ -58,8 +58,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
             int j1 = chunkY + rand.nextInt(16) + 8;
             int k1 = world.getHeightValue(i1, j1);
             
-            if(k1 < 85 && rand.nextInt(8) == 0)
-            {
+            if (k1 < 85 && rand.nextInt(16) == 0) {
                 (new WorldGenBlob(Blocks.cobblestone, 0, rand)).generate(world, rand, i1, k1, j1);
             }
         }

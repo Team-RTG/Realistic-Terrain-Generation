@@ -85,8 +85,8 @@ public class SurfaceHLDesertMountains extends SurfaceBase
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = shadowBlock; 
-        				metadata[(y * 16 + x) * 256 + k] = shadowByte;
+        				blocks[(y * 16 + x) * 256 + k] = shadowDesertBlock; 
+        				metadata[(y * 16 + x) * 256 + k] = shadowDesertByte;
             		}
             		else if(k < 63)
             		{
@@ -117,8 +117,8 @@ public class SurfaceHLDesertMountains extends SurfaceBase
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = shadowBlock; 
-        				metadata[(y * 16 + x) * 256 + k] = shadowByte;
+        				blocks[(y * 16 + x) * 256 + k] = shadowDesertBlock; 
+        				metadata[(y * 16 + x) * 256 + k] = shadowDesertByte;
             		}
             		else if(gravel)
             		{

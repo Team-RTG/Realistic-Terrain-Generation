@@ -18,8 +18,11 @@ public class ConfigRTG
 	
 	public static int generateOnlyThisBiomeId = -1;
 	
-	public static String shadowBlockId = "minecraft:stained_hardened_clay";
-	public static int shadowBlockByte = 9;
+    public static String shadowStoneBlockId = "minecraft:stained_hardened_clay";
+    public static int shadowStoneBlockByte = 9;
+    
+    public static String shadowDesertBlockId = "minecraft:stained_hardened_clay";
+    public static int shadowDesertBlockByte = 8;
 	
     public static boolean generateOreCoal = true;
     public static boolean generateOreIron = true;
@@ -66,16 +69,27 @@ public class ConfigRTG
                 "For modded biome IDs, use NEI and go [Options] > [Tools] > [Data Dumps] > Biomes > [Dump], and then refer to the 'biome.csv' file which can be found in your '/.minecraft/dumps' folder."
             );
    
-            shadowBlockId = config.getString(
-                "Shadow block ID",
-                "Biomes", 
-                shadowBlockId,
-                "The block to use for terrain shadowing, typically seen on the cliffs of mountains." +
+            shadowStoneBlockId = config.getString(
+                "Stone shadow block ID",
+                "Terrain shadowing", 
+                shadowStoneBlockId,
+                "The block to use for stone terrain shadowing, typically seen on the cliffs of stone mountains." +
                 Configuration.NEW_LINE +
                 "Defaults to stained hardened clay."
             );
             
-            shadowBlockByte = config.getInt("Shadow block meta value", "Biomes", shadowBlockByte, 0, 15, "The meta value of the shadow block. Defaults to " + shadowBlockByte +  " (cyan).");
+            shadowStoneBlockByte = config.getInt("Stone shadow block meta value", "Terrain shadowing", shadowStoneBlockByte, 0, 15, "The meta value of the shadow block for stone structures. Defaults to " + shadowStoneBlockByte +  " (cyan).");
+            
+            shadowDesertBlockId = config.getString(
+                "Desert shadow block ID",
+                "Terrain shadowing", 
+                shadowDesertBlockId,
+                "The block to use for desert terrain shadowing, typically seen on the cliffs of desert mountains." +
+                Configuration.NEW_LINE +
+                "Defaults to stained hardened clay."
+            );
+            
+            shadowDesertBlockByte = config.getInt("Desert shadow block meta value", "Terrain shadowing", shadowDesertBlockByte, 0, 15, "The meta value of the shadow block for desert structures. Defaults to " + shadowDesertBlockByte +  " (light gray).");
             
 			generateOreCoal = config.getBoolean("Generate Coal Ore", "Ore Gen", generateOreCoal, "");
 			generateOreIron = config.getBoolean("Generate Iron Ore", "Ore Gen", generateOreIron, "");

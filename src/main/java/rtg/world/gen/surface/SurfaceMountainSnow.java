@@ -94,8 +94,8 @@ public class SurfaceMountainSnow extends SurfaceBase
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = shadowBlock; 
-        				metadata[(y * 16 + x) * 256 + k] = shadowByte;
+        				blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock; 
+        				metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
             		}
             		else if(cliff == 3)
             		{
@@ -130,8 +130,8 @@ public class SurfaceMountainSnow extends SurfaceBase
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = shadowBlock; 
-        				metadata[(y * 16 + x) * 256 + k] = shadowByte;
+        				blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock; 
+        				metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
             		}
             		else if(cliff == 3)
             		{

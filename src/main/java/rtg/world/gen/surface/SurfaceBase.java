@@ -15,8 +15,10 @@ public class SurfaceBase
 {
 	protected Block topBlock;
 	protected Block fillerBlock;
-	protected Block shadowBlock = GameData.getBlockRegistry().getObject(ConfigRTG.shadowBlockId);
-	protected byte shadowByte = (byte)ConfigRTG.shadowBlockByte;
+    protected Block shadowStoneBlock = GameData.getBlockRegistry().getObject(ConfigRTG.shadowStoneBlockId);
+    protected byte shadowStoneByte = (byte)ConfigRTG.shadowStoneBlockByte;
+    protected Block shadowDesertBlock = GameData.getBlockRegistry().getObject(ConfigRTG.shadowDesertBlockId);
+    protected byte shadowDesertByte = (byte)ConfigRTG.shadowDesertBlockByte;
 	
 	public SurfaceBase(Block top, Block fill)
 	{

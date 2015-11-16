@@ -1,7 +1,7 @@
 # Realistic Terrain Generation
 Realistic Terrain Generation (RTG) is a mod that adds a new world type which generates realistic terrain. It doesn't add new blocks. It doesn't add new mobs. It doesn't even add new biomes. It simply generates more realistic-looking terrain for existing Overworld biomes (including those added by other mods).
 
-Minecraft Forum thread: http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/2524489-wip-realistic-terrain-generation-0-0-16
+Minecraft Forum thread: http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/2524489-wip-realistic-terrain-generation-0-0-17
 
 # Credits
 This mod is a re-branded fork of the revolutionary [Realistic World Gen](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1281910-teds-world-gen-mods-realistic-world-gen-alpha-1-3) mod by Ted80. It was created as a new project because it will likely deviate from Ted80's original vision for RWG, and the author of this mod didn't want to interfere with that vision. It also uses KdotJPG's [OpenSimplex Noise](https://gist.github.com/KdotJPG/b1270127455a94ac5d19) rather than Perlin Noise to generate its terrain.
@@ -16,7 +16,7 @@ This mod is a re-branded fork of the revolutionary [Realistic World Gen](http://
 * Create an API to allow other mods to customise terrain generation.
 
 # Downloads
-Latest alpha release: [RTG-1.7.10-0.0.16.jar](https://github.com/Team-RTG/Realistic-Terrain-Generation/releases/download/v0.0.16/RTG-1.7.10-0.0.16.jar) (Alpha)
+Latest alpha release: [RTG-1.7.10-0.0.17.jar](https://github.com/Team-RTG/Realistic-Terrain-Generation/releases/download/v0.0.17/RTG-1.7.10-0.0.17.jar) (Alpha)
 
 Please note that RTG is currently in alpha, which means that **it should only be used for testing purposes.**
 
@@ -37,10 +37,11 @@ https://github.com/Team-RTG/Realistic-Terrain-Generation/tree/master/config/RTG
 **IMPORTANT:**
 Biome enabling/disabling is handled exclusively through RTG's config files. For example, if you set `Bayou=false` in BOP's _biomegen.cfg_ file, and you set `generateBOPbayou=true` in RTG's _biomesoplenty.cfg_ file, the Bayou biome will still be enabled.
 
-# Mod Compatibility
-RTG is compatible with most mods, including Mo' Creatures, Pam's HarvestCraft, Plant Mega Pack, Thaumcraft, and more! (Please see the 'Known Issues' section for exceptions.)
+# Mod compatibility
+Because RTG generates vanilla biomes, it is compatible with most mods, including (but not limited to) AE2, AgriCraft, Ancient Trees, Animals+, Better Villages, Blood Magic, Botania, Butterfly Mania, Camping Mod, Chocolate Quest, DoggyStyle, Ender Zoo, Et Futurum, Ex Nihilo, Galacticraft, Gany's Mods, Just a Few Fish, Lycanite's Mobs, Magneticraft, Mariculture, Metallurgy, Millenaire, Mo' Creatures, Mutant Creatures, Nevermine, Oceancraft, OreSpawn, Pam's HarvestCraft, Plant Mega Pack, Primitive Mobs, RailCraft, Roguelike Dungeons, Ruins, Runic Dungeons, Streams, Tinkers' Construct, Wild Caves, Witchery, and many more!
 
-RTG currently generates realistic versions of the biomes added by these mods:
+In addition, RTG currently generates realistic versions of the biomes added by these mods:
+
 * Biomes O' Plenty (supports version 2.1.0.1387 or later)
 * ExtrabiomesXL (supports version 3.16.2 or later)
 * Enhanced Biomes (supports version 2.5 or later)
@@ -48,9 +49,8 @@ RTG currently generates realistic versions of the biomes added by these mods:
 * Thaumcraft (supports version 4.2.3.4 or later)
 * BuildCraft (supports version 7.1.7 or later)
 * Ars Magica 2 (supports version 1.4.0.008 or later)
-
-RTG would like to eventually generate realistic versions of the biomes added by these mods:
-* TerraFirmaCraft
+* Alternate Terrain Generation (ATG) (supports version 0.11.0 or later)
+* ChromatiCraft (supports version V9b or later)
 
 # Known Issues
 RTG's list of known issues can be found [here](https://github.com/Team-RTG/Realistic-Terrain-Generation/issues).
@@ -64,12 +64,6 @@ Video by 7ERr0r using RTG 0.0.13 (Alpha): https://www.youtube.com/watch?v=AtI1bt
 
 # How to report an issue
 You may report issues in this thread, but please use spoiler tags or [pastebin](http://pastebin.com/) for crash reports, and - if possible - please describe what you were doing immediately before the crash. The more information you provide, the easier it will be to resolve the issue.
-
-# How to contribute
-If you would like to contribute to this project, please take a look through the [Milestones](https://github.com/Team-RTG/Realistic-Terrain-Generation/milestones) in the [Issues section](https://github.com/Team-RTG/Realistic-Terrain-Generation/issues) on GitHub to see if there's anything you can help with, then comment on the issue to express your interest and explain what you'd like to do. Alternatively, you can create a new issue explaining how you'd like to help. Please note, however, that this project has a roadmap (see above), so all contributions should help to further the project down that road.
-
-# IRC Web Chat
-Got a question or suggestion that just can't wait? Come join us on the official [#TeamRTG channel](http://webchat.freenode.net/?channels=#TeamRTG) on IRC!
 
 # Mod Packs
 You may use RTG in your public or private mod pack as long the following conditions are met:

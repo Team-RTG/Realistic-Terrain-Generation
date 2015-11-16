@@ -34,7 +34,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
 			BiomeGenBase.birchForestHills,
 			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainVanillaBirchForestHills(),
-			new SurfaceVanillaBirchForestHills(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.15f)
+			new SurfaceVanillaBirchForestHills(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.10f)
 		);
 		
 		this.setRealisticBiomeName("Vanilla Birch Forest Hills");

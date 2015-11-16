@@ -43,7 +43,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.MapGenBase;
-import net.minecraft.world.gen.MapGenCaves;
 import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenFlowers;
@@ -114,7 +113,7 @@ public class ChunkProviderRTG implements IChunkProvider
     {
     	mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
 
-    	caveGenerator = TerrainGen.getModdedMapGen(new MapGenCaves(), CAVE);
+    	caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), CAVE);
     	ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavine(), RAVINE);
         worldObj = world;
         cmr = (WorldChunkManagerRTG)worldObj.getWorldChunkManager();
@@ -134,7 +133,7 @@ public class ChunkProviderRTG implements IChunkProvider
         villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), VILLAGE);
 		strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), STRONGHOLD);
 		mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(), MINESHAFT);
-		scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new net.minecraft.world.gen.structure.MapGenScatteredFeature(), SCATTERED_FEATURE);
+		scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(), SCATTERED_FEATURE);
 
         CanyonColor.init(l);
 

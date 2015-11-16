@@ -4,6 +4,7 @@ import org.apache.logging.log4j.Level;
 
 import rtg.config.rtg.ConfigRTG;
 import rtg.data.VillageMaterialData;
+import rtg.world.gen.MapGenCavesRTG;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.eventhandler.Event.Result;
@@ -39,9 +40,12 @@ public class EventManagerRTG {
 		if (event.type == InitMapGenEvent.EventType.SCATTERED_FEATURE) {
 			event.newGen = new MapGenScatteredFeatureRTG();
 		}
-		else if (event.type == InitMapGenEvent.EventType.MINESHAFT) {
-		    //event.newGen = new MapGenMineshaftRTG();
-		}
+        else if (event.type == InitMapGenEvent.EventType.CAVE) {
+            event.newGen = new MapGenCavesRTG();
+        }
+        else if (event.type == InitMapGenEvent.EventType.MINESHAFT) {
+            //event.newGen = new MapGenMineshaftRTG();
+        }
 		
         if (ConfigRTG.enableDebugging) {
             FMLLog.log(Level.INFO, "event newGen = %s", event.newGen.toString());

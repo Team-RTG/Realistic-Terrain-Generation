@@ -50,7 +50,7 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase
     
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
         
-        if (l > 5f)
+        if (l > 4f)
         {
             for (int b2 = 0; b2 < 3f * strength; b2++)
             {

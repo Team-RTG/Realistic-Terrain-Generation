@@ -25,12 +25,13 @@ public class SurfaceVanillaBirchForestM extends SurfaceBase
     private float cCliff = 1.5f;
     
     private Block mix;
+    private byte mixByte;
     private float mixHeight;
     
     public byte topByte = 0;
     
     public SurfaceVanillaBirchForestM(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
-        float stoneHeight, float stoneStrength, float clayCliff, Block mixBlock, float mixSize)
+        float stoneHeight, float stoneStrength, float clayCliff, Block mixBlock, byte mixMeta, float mixSize)
     {
     
         super(top, fill);
@@ -44,6 +45,7 @@ public class SurfaceVanillaBirchForestM extends SurfaceBase
         cCliff = clayCliff;
         
         mix = mixBlock;
+        mixByte = mixMeta;
         mixHeight = mixSize;
     }
     
@@ -118,6 +120,7 @@ public class SurfaceVanillaBirchForestM extends SurfaceBase
                     else if (simplex.noise2(i / 12f, j / 12f) > mixHeight)
                     {
                         blocks[(y * 16 + x) * 256 + k] = mix;
+                        metadata[(y * 16 + x) * 256 + k] = mixByte;
                         m = true;
                     }
                     else
@@ -144,6 +147,7 @@ public class SurfaceVanillaBirchForestM extends SurfaceBase
                     else if (m)
                     {
                         blocks[(y * 16 + x) * 256 + k] = mix;
+                        metadata[(y * 16 + x) * 256 + k] = mixByte;
                     }
                     else
                     {

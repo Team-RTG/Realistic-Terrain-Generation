@@ -5,11 +5,12 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.TerrainMath;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
-public class WorldGenVolcano
+public class WorldGenVolcano 
 {
 	public static void build(Block[] blocks, byte[] metadata, World world, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float[] noise)
 	{	
@@ -25,7 +26,7 @@ public class WorldGenVolcano
 				j = (chunkY * 16) + z;
 				
 				distance = (float)TerrainMath.dis2(i, j, baseX * 16, baseY * 16);
-				obsidian = 10f + distance + simplex.noise2(i / 16f, j / 16f) * 15f;
+				obsidian = 32f + distance + simplex.noise2(i / 16f, j / 16f) * 15f;
 				
 				if(distance < 10 + simplex.noise2(i / 3f, j / 3f) * 1.5f)
 				{
@@ -45,7 +46,7 @@ public class WorldGenVolcano
 						}
 						else if(y < 166)
 						{
-							blocks[cta(x, y, z)] = Blocks.lava;
+							blocks[cta(x, y, z)] = Blocks.flowing_lava;
 						}
 						else if(y < obsidian + 1)
 						{

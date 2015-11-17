@@ -13,11 +13,13 @@ public class MapGenCavesRTG extends MapGenCaves
 {
     private static final String __OBFID = "CL_00000393";
 
+    @Override
     protected void func_151542_a(long rtgSeed, int p_151542_3_, int p_151542_4_, Block[] p_151542_5_, double p_151542_6_, double p_151542_8_, double p_151542_10_)
     {
         this.func_151541_a(rtgSeed, p_151542_3_, p_151542_4_, p_151542_5_, p_151542_6_, p_151542_8_, p_151542_10_, 1.0F + this.rand.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
     }
 
+    @Override
     protected void func_151541_a(long rtgSeed, int chunkX, int chunkZ, Block[] blocks, double p_151541_6_, double p_151541_8_, double p_151541_10_, float p_151541_12_, float p_151541_13_, float p_151541_14_, int p_151541_15_, int p_151541_16_, double p_151541_17_)
     {
         double d4 = (double)(chunkX * 16 + 8);
@@ -201,6 +203,7 @@ public class MapGenCavesRTG extends MapGenCaves
         }
     }
 
+    @Override
     protected void func_151538_a(World p_151538_1_, int p_151538_2_, int p_151538_3_, int p_151538_4_, int p_151538_5_, Block[] p_151538_6_)
     {
         int i1 = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(15) + 1) + 1);
@@ -239,12 +242,14 @@ public class MapGenCavesRTG extends MapGenCaves
         }
     }
 
+    @Override
     protected boolean isOceanBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ)
     {
         return data[index] == Blocks.flowing_water || data[index] == Blocks.water;
     }
 
     //Exception biomes to make sure we generate like vanilla
+    
     private boolean isExceptionBiome(BiomeGenBase biome)
     {
         boolean booException = false;
@@ -258,6 +263,7 @@ public class MapGenCavesRTG extends MapGenCaves
 
     //Determine if the block at the specified location is the top block for the biome, we take into account
     //Vanilla bugs to make sure that we generate the map the same way vanilla does.
+    
     private boolean isTopBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ)
     {
         BiomeGenBase biome = worldObj.getBiomeGenForCoords(x + chunkX * 16, z + chunkZ * 16);
@@ -279,6 +285,8 @@ public class MapGenCavesRTG extends MapGenCaves
      * @param chunkZ Chunk Y position
      * @param foundTop True if we've encountered the biome's top block. Ideally if we've broken the surface.
      */
+    
+    @Override
     protected void digBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop)
     {
         BiomeGenBase biome = worldObj.getBiomeGenForCoords(x + chunkX * 16, z + chunkZ * 16);

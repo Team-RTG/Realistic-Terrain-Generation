@@ -26,7 +26,7 @@ public class WorldGenVolcano
 				j = (chunkY * 16) + z;
 				
 				distance = (float)TerrainMath.dis2(i, j, baseX * 16, baseY * 16);
-				obsidian = 32f + distance + simplex.noise2(i / 16f, j / 16f) * 15f;
+				obsidian = 24f + distance + simplex.noise2(i / 16f, j / 16f) * 15f;
 				
 				if(distance < 10 + simplex.noise2(i / 3f, j / 3f) * 1.5f)
 				{

@@ -9,7 +9,7 @@
     "updateUrl": "",
     "authorList": [ "WhichOnesPink" ],
     "credits": "Forked from the RWG mod by Ted80. OpenSimplex Noise by KdotJPEG",
-    "logoFile": "/assets/RTG/logo.png",
+    "logoFile": "assets/RTG/logo.png",
     "screenshots": [],
     "parent": "",
     "requiredMods": [ "Forge@[10.13.4.1448,)" ],

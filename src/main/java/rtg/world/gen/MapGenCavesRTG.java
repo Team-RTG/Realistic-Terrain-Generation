@@ -2,18 +2,14 @@ package rtg.world.gen;
 
 import java.util.Random;
 
-import org.apache.logging.log4j.Level;
-
-import cpw.mods.fml.common.FMLLog;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.MapGenBase;
+import net.minecraft.world.gen.MapGenCaves;
 
-public class MapGenCavesRTG extends MapGenBase
+public class MapGenCavesRTG extends MapGenCaves
 {
     private static final String __OBFID = "CL_00000393";
 

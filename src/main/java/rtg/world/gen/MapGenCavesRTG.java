@@ -2,6 +2,8 @@ package rtg.world.gen;
 
 import java.util.Random;
 
+import rtg.config.rtg.ConfigRTG;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
@@ -12,6 +14,10 @@ import net.minecraft.world.gen.MapGenCaves;
 public class MapGenCavesRTG extends MapGenCaves
 {
     private static final String __OBFID = "CL_00000393";
+    
+    private boolean enableCaves;
+    private int caveDensity;
+    private int caveFrequency;
 
     @Override
     protected void func_151542_a(long rtgSeed, int p_151542_3_, int p_151542_4_, Block[] p_151542_5_, double p_151542_6_, double p_151542_8_, double p_151542_10_)
@@ -206,9 +212,23 @@ public class MapGenCavesRTG extends MapGenCaves
     @Override
     protected void func_151538_a(World p_151538_1_, int p_151538_2_, int p_151538_3_, int p_151538_4_, int p_151538_5_, Block[] p_151538_6_)
     {
-        int i1 = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(15) + 1) + 1);
+        enableCaves = ConfigRTG.enableCaves;
+        caveDensity = ConfigRTG.caveDensity;
+        caveFrequency = ConfigRTG.caveFrequency;
+        
+        if (!enableCaves) {
+            return;
+        }
+        
+        caveDensity = (caveDensity < 1) ? 1 : ((caveDensity > 39) ? 39 : caveDensity);
+        caveDensity += 1;
+        
+        int i1 = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(caveDensity) + 1) + 1);
 
-        if (this.rand.nextInt(7) != 0)
+        caveFrequency = (caveFrequency < 1) ? 1 : ((caveFrequency > 39) ? 39 : caveFrequency);
+        caveFrequency += 1;
+        
+        if (this.rand.nextInt(caveFrequency) != 0)
         {
             i1 = 0;
         }

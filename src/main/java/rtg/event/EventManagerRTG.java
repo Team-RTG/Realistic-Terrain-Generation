@@ -30,7 +30,7 @@ public class EventManagerRTG {
         MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
     }
     
-	@SubscribeEvent(priority = EventPriority.LOWEST)
+	@SubscribeEvent(priority = EventPriority.LOW)
 	public void initMapGen(InitMapGenEvent event) {
 	    
 	    if (ConfigRTG.enableDebugging) {

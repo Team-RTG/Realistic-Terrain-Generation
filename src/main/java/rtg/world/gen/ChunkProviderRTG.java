@@ -43,6 +43,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.MapGenBase;
+import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenLakes;
@@ -110,10 +111,6 @@ public class ChunkProviderRTG implements IChunkProvider
 
     public ChunkProviderRTG(World world, long l)
     {
-    	mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
-
-    	caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), CAVE);
-    	ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(), RAVINE);
         worldObj = world;
         cmr = (WorldChunkManagerRTG)worldObj.getWorldChunkManager();
         worldHeight = worldObj.provider.getActualHeight();
@@ -129,6 +126,20 @@ public class ChunkProviderRTG implements IChunkProvider
         m.put("size", "0");
         m.put("distance", "24");
 
+        mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
+
+        caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), CAVE);
+        
+        /**
+         * RTG doesn't generate ravines, but it still calls getModdedMapGen()
+         * so that other mods can hook into InitMapGenEvent if they want to
+         * generate their own ravines.
+         * 
+         * Modders, if you want to generate ravines in RTG, you need to subscribe
+         * to InitMapGenEvent with a priority higher than LOW.
+         */
+        ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(), RAVINE);
+        
         villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), VILLAGE);
 		strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), STRONGHOLD);
 		mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(), MINESHAFT);

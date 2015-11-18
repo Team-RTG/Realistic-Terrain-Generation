@@ -37,8 +37,13 @@ public class ConfigRTG
     
     public static boolean enableWaterLakes = true;
     public static int waterLakeChance = 10;
+    
     public static boolean enableLavaLakes = true;
     public static int lavaLakeChance = 10;
+    
+    public static boolean enableCaves = true;
+    public static int caveDensity = 8;
+    public static int caveFrequency = 12;
 	
     public static int flatBedrockLayers = 0;
     
@@ -108,6 +113,10 @@ public class ConfigRTG
             enableLavaLakes = config.getBoolean("Enable Lava Lakes", "Lakes", enableLavaLakes, "");
             lavaLakeChance = config.getInt("1/x chance that Lava Lakes will generate if given the opportunity to do so during world gen", "Lakes", lavaLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
 			
+            enableCaves = config.getBoolean("Enable Caves", "Caves", enableCaves, "");
+            caveDensity = config.getInt("Cave Density", "Caves", caveDensity, 1, 40, "This setting controls the size of caves." + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)" + Configuration.NEW_LINE);
+            caveFrequency = config.getInt("Cave Frequency", "Caves", caveFrequency, 1, 40, "This setting controls the number of caves that generate." + Configuration.NEW_LINE + "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)" + Configuration.NEW_LINE);
+            
             flatBedrockLayers = config.getInt("Number of flat bedrock layers", "World Gen", flatBedrockLayers, 0, 5, "0 = Normal bedrock (rough pattern); 1-5 = Number of flat bedrock layers to generate");
             
 			showDebugInfo = config.getBoolean("Show Debug Info in F3 Screen", "Debugging", showDebugInfo, "");

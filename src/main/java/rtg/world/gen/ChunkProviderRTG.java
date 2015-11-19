@@ -6,14 +6,6 @@ import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVI
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.SCATTERED_FEATURE;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.STRONGHOLD;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.COAL;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIAMOND;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIRT;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.GOLD;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.GRAVEL;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.IRON;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.LAPIS;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.REDSTONE;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +19,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenClay;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 
 import net.minecraft.block.Block;
@@ -43,12 +34,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.MapGenBase;
-import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
-import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.feature.WorldGenLiquids;
-import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.MapGenStronghold;
@@ -57,7 +45,6 @@ import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
-import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
@@ -100,14 +87,6 @@ public class ChunkProviderRTG implements IChunkProvider
     private float[] mapGenBiomes;
     private float[] borderNoise;
     private long worldSeed;
-	private WorldGenMinable ore_dirt = new WorldGenMinable(Blocks.dirt, 32);
-	private WorldGenMinable ore_gravel = new WorldGenMinable(Blocks.gravel, 32);
-	private WorldGenMinable ore_coal = new WorldGenMinable(Blocks.coal_ore, 16);
-	private WorldGenMinable ore_iron = new WorldGenMinable(Blocks.iron_ore, 8);
-	private WorldGenMinable ore_gold = new WorldGenMinable(Blocks.gold_ore, 8);
-	private WorldGenMinable ore_redstone = new WorldGenMinable(Blocks.redstone_ore, 7);
-	private WorldGenMinable ore_diamond = new WorldGenMinable(Blocks.diamond_ore, 7);
-	private WorldGenMinable ore_lapis = new WorldGenMinable(Blocks.lapis_ore, 6);
 
     public ChunkProviderRTG(World world, long l)
     {
@@ -629,172 +608,7 @@ public class ChunkProviderRTG implements IChunkProvider
 			(new WorldGenDungeons()).generate(worldObj, rand, j5, k8, j11);
 		}
 
-		/**
-		 * ########################################################################
-		 * # START GENERATE ORES
-		 * ########################################################################
-		 */
 
-		MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(worldObj, rand, x, y));
-
-		/**
-		 * Clay
-		 */
-        float river = -cmr.getRiverStrength(x + 16, y + 16);
-        if(river > 0.85f)
-        {
-			for(int j2 = 0; j2 < 3; j2++)
-			{
-				int l5 = x + rand.nextInt(16);
-				int i9 = 53 + rand.nextInt(15);
-				int l11 = y + rand.nextInt(16);
-				(new WorldGenClay(Blocks.clay, 0, 20)).generate(worldObj, rand, l5, i9, l11);
-			}
-        }
-
-        /**
-         * Dirt
-         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
-         */
-		if (TerrainGen.generateOre(worldObj, rand, ore_dirt, x, y, DIRT))
-		{
-			for(int j2 = 0; j2 < 10; j2++)
-			{
-				int l5 = x + rand.nextInt(16);
-				int i9 = rand.nextInt(64);
-				int l11 = y + rand.nextInt(16);
-				ore_dirt.generate(worldObj, rand, l5, i9, l11);
-			}
-		}
-
-		/**
-		 * Gravel
-		 * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
-		 */
-		if (TerrainGen.generateOre(worldObj, rand, ore_gravel, x, y, GRAVEL))
-		{
-			for(int k2 = 0; k2 < 5; k2++)
-			{
-				int i6 = x + rand.nextInt(16);
-				int j9 = rand.nextInt(64);
-				int i12 = y + rand.nextInt(16);
-				ore_gravel.generate(worldObj, rand, i6, j9, i12);
-			}
-		}
-
-        /**
-         * Coal
-         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
-         */
-		if (ConfigRTG.generateOreCoal && TerrainGen.generateOre(worldObj, rand, ore_coal, x, y, COAL))
-		{
-			for(int i3 = 0; i3 < 20; i3++)
-			{
-				int j6 = x + rand.nextInt(16);
-				int k9 = rand.nextInt(128);
-				int j12 = y + rand.nextInt(16);
-				ore_coal.generate(worldObj, rand, j6, k9, j12);
-			}
-		}
-
-        /**
-         * Iron
-         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
-         */
-		if (ConfigRTG.generateOreIron && TerrainGen.generateOre(worldObj, rand, ore_iron, x, y, IRON))
-		{
-			for(int j3 = 0; j3 < 20; j3++)
-			{
-				int k6 = x + rand.nextInt(16);
-				int l9 = rand.nextInt(64);
-				int k12 = y + rand.nextInt(16);
-				ore_iron.generate(worldObj, rand, k6, l9, k12);
-			}
-		}
-
-        /**
-         * Gold
-         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
-         */
-		if (ConfigRTG.generateOreGold && TerrainGen.generateOre(worldObj, rand, ore_gold, x, y, GOLD))
-		{
-			for(int k3 = 0; k3 < 2; k3++)
-			{
-				int l6 = x + rand.nextInt(16);
-				int i10 = rand.nextInt(32);
-				int l12 = y + rand.nextInt(16);
-				ore_gold.generate(worldObj, rand, l6, i10, l12);
-			}
-		}
-
-        /**
-         * Redstone
-         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
-         */
-		if (ConfigRTG.generateOreRedstone && TerrainGen.generateOre(worldObj, rand, ore_redstone, x, y, REDSTONE))
-		{
-			for(int l3 = 0; l3 < 8; l3++)
-			{
-				int i7 = x + rand.nextInt(16);
-				int j10 = rand.nextInt(16);
-				int i13 = y + rand.nextInt(16);
-				ore_redstone.generate(worldObj, rand, i7, j10, i13);
-			}
-		}
-
-        /**
-         * Diamond
-         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
-         */
-		if (ConfigRTG.generateOreDiamond && TerrainGen.generateOre(worldObj, rand, ore_diamond, x, y, DIAMOND))
-		{
-			for(int i4 = 0; i4 < 1; i4++)
-			{
-				int j7 = x + rand.nextInt(16);
-				int k10 = rand.nextInt(16);
-				int j13 = y + rand.nextInt(16);
-				ore_diamond.generate(worldObj, rand, j7, k10, j13);
-			}
-		}
-
-        /**
-         * Lapis
-         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
-         */
-		if (ConfigRTG.generateOreLapis && TerrainGen.generateOre(worldObj, rand, ore_lapis, x, y, LAPIS))
-		{
-			for(int j4 = 0; j4 < 1; j4++)
-			{
-				int k7 = x + rand.nextInt(16);
-				int l10 = rand.nextInt(16) + rand.nextInt(16);
-				int k13 = y + rand.nextInt(16);
-				ore_lapis.generate(worldObj, rand, k7, l10, k13);
-			}
-		}
-
-		MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(worldObj, rand, x, y));
-
-        /**
-         * ########################################################################
-         * # END GENERATE ORES
-         * ########################################################################
-         */
-
-		if(rand.nextInt(5) == 0)
-		{
-			int k15 = x + rand.nextInt(16) + 8;
-			int k17 = rand.nextInt(64);
-			int k20 = y + rand.nextInt(16) + 8;
-
-			if(rand.nextBoolean())
-			{
-				(new WorldGenFlowers(Blocks.brown_mushroom)).generate(worldObj, rand, k15, k17, k20);
-			}
-			else
-			{
-				(new WorldGenFlowers(Blocks.red_mushroom)).generate(worldObj, rand, k15, k17, k20);
-			}
-		}
 
         for(int bx = -4; bx <= 4; bx++)
         {
@@ -804,33 +618,21 @@ public class ChunkProviderRTG implements IChunkProvider
         	}
         }
 
+        /**
+         * ########################################################################
+         * # START DECORATE BIOME
+         * ########################################################################
+         */
+        
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(worldObj, rand, x, y));
 
-        //Sand.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.SAND)) {
-          //TODO
-        }
+        //Initialise variables.
+        float river = -cmr.getRiverStrength(x + 16, y + 16);
         
         //Clay.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.CLAY)) {
-          //TODO
-        }
+        biome.rDecorateClay(worldObj, rand, i, j, river, x, y);
+        biome.rGenerateOres(worldObj, rand, x, y);
         
-        //Sand (Pass 2).
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.SAND_PASS2)) {
-          //TODO
-        }
-        
-        //Trees.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.TREE)) {
-          //TODO
-        }
-        
-        //Big shrooms.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.BIG_SHROOM)) {
-          //TODO
-        }
-
         //Border noise. (Does this have to be done here? - Pink
         RealisticBiomeBase b;
         float snow = 0f;
@@ -856,54 +658,15 @@ public class ChunkProviderRTG implements IChunkProvider
                 borderNoise[bn] = 0f;
         	}
         }
-
-        //Flowers.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.FLOWERS)) {
-          //TODO
-        }
         
-        //Grass.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.GRASS)) {
-          //TODO
-        }
-        
-        //Dead bushes.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.DEAD_BUSH)) {
-          //TODO
-        }
-        
-        //Lilypads.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.LILYPAD)) {
-          //TODO
-        }
-        
-        //Shrooms.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.SHROOM)) {
-          //TODO
-        }
-        
-        //Sugarcane.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.REED)) {
-          //TODO
-        }
-        
-        //Pumpkins.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.PUMPKIN)) {
-          //TODO
-        }
-        
-        //Cactii
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.CACTUS)) {
-          //TODO
-        }
-        
-        //Lakes.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.LAKE)) {
-          //TODO
-        }
-
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(worldObj, rand, x, y));
 
+        /**
+         * ########################################################################
+         * # END DECORATE BIOME
+         * ########################################################################
+         */
+        
         //Flowing water.
         if (rand.nextInt(32) == 0) {
     		for(int l18 = 0; l18 < 50; l18++)

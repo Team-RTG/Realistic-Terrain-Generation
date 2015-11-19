@@ -166,169 +166,169 @@ public class RealisticBiomeBase extends BiomeBase {
         this.realisticBiomeName = n;
     }
     
-    public void rGenerateOres(World worldObj, Random rand, int x, int y)
+    public void rGenerateOres(World worldObj, Random rand, int worldX, int worldZ)
     {
-        MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(worldObj, rand, x, y));
+        MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(worldObj, rand, worldX, worldZ));
         
-        rGenerateOreDirt(worldObj, rand, x, y);
-        rGenerateOreGravel(worldObj, rand, x, y);
-        rGenerateOreCoal(worldObj, rand, x, y);
-        rGenerateOreIron(worldObj, rand, x, y);
-        rGenerateOreGold(worldObj, rand, x, y);
-        rGenerateOreRedstone(worldObj, rand, x, y);
-        rGenerateOreDiamond(worldObj, rand, x, y);
-        rGenerateOreLapis(worldObj, rand, x, y);
+        rGenerateOreDirt(worldObj, rand, worldX, worldZ);
+        rGenerateOreGravel(worldObj, rand, worldX, worldZ);
+        rGenerateOreCoal(worldObj, rand, worldX, worldZ);
+        rGenerateOreIron(worldObj, rand, worldX, worldZ);
+        rGenerateOreGold(worldObj, rand, worldX, worldZ);
+        rGenerateOreRedstone(worldObj, rand, worldX, worldZ);
+        rGenerateOreDiamond(worldObj, rand, worldX, worldZ);
+        rGenerateOreLapis(worldObj, rand, worldX, worldZ);
         
-        MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(worldObj, rand, x, y));
+        MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(worldObj, rand, worldX, worldZ));
     }
     
-    public void rGenerateOreDirt(World worldObj, Random rand, int x, int y)
+    public void rGenerateOreDirt(World worldObj, Random rand, int worldX, int worldZ)
     {
         WorldGenMinable ore_dirt = new WorldGenMinable(Blocks.dirt, dirtPerChunk);
         
-        if (TerrainGen.generateOre(worldObj, rand, ore_dirt, x, y, DIRT)) {
+        if (TerrainGen.generateOre(worldObj, rand, ore_dirt, worldX, worldZ, DIRT)) {
             
             for (int j2 = 0; j2 < 10; j2++) {
                 
-                int l5 = x + rand.nextInt(16);
+                int l5 = worldX + rand.nextInt(16);
                 int i9 = rand.nextInt(64);
-                int l11 = y + rand.nextInt(16);
+                int l11 = worldZ + rand.nextInt(16);
                 
                 ore_dirt.generate(worldObj, rand, l5, i9, l11);
             }
         }
     }
     
-    public void rGenerateOreGravel(World worldObj, Random rand, int x, int y)
+    public void rGenerateOreGravel(World worldObj, Random rand, int worldX, int worldZ)
     {
         WorldGenMinable ore_gravel = new WorldGenMinable(Blocks.gravel, gravelPerChunk);
         
-        if (TerrainGen.generateOre(worldObj, rand, ore_gravel, x, y, GRAVEL)) {
+        if (TerrainGen.generateOre(worldObj, rand, ore_gravel, worldX, worldZ, GRAVEL)) {
             
             for (int k2 = 0; k2 < 5; k2++) {
                 
-                int i6 = x + rand.nextInt(16);
+                int i6 = worldX + rand.nextInt(16);
                 int j9 = rand.nextInt(64);
-                int i12 = y + rand.nextInt(16);
+                int i12 = worldZ + rand.nextInt(16);
                 
                 ore_gravel.generate(worldObj, rand, i6, j9, i12);
             }
         }
     }
     
-    public void rGenerateOreCoal(World worldObj, Random rand, int x, int y)
+    public void rGenerateOreCoal(World worldObj, Random rand, int worldX, int worldZ)
     {
         WorldGenMinable ore_coal = new WorldGenMinable(Blocks.coal_ore, coalPerChunk);
         
-        if (ConfigRTG.generateOreCoal && TerrainGen.generateOre(worldObj, rand, ore_coal, x, y, COAL)) {
+        if (ConfigRTG.generateOreCoal && TerrainGen.generateOre(worldObj, rand, ore_coal, worldX, worldZ, COAL)) {
             
             for (int i3 = 0; i3 < 20; i3++) {
                 
-                int j6 = x + rand.nextInt(16);
+                int j6 = worldX + rand.nextInt(16);
                 int k9 = rand.nextInt(128);
-                int j12 = y + rand.nextInt(16);
+                int j12 = worldZ + rand.nextInt(16);
                 
                 ore_coal.generate(worldObj, rand, j6, k9, j12);
             }
         }
     }
     
-    public void rGenerateOreIron(World worldObj, Random rand, int x, int y)
+    public void rGenerateOreIron(World worldObj, Random rand, int worldX, int worldZ)
     {
         WorldGenMinable ore_iron = new WorldGenMinable(Blocks.iron_ore, ironPerChunk);
         
-        if (ConfigRTG.generateOreIron && TerrainGen.generateOre(worldObj, rand, ore_iron, x, y, IRON)) {
+        if (ConfigRTG.generateOreIron && TerrainGen.generateOre(worldObj, rand, ore_iron, worldX, worldZ, IRON)) {
             
             for (int j3 = 0; j3 < 20; j3++) {
                 
-                int k6 = x + rand.nextInt(16);
+                int k6 = worldX + rand.nextInt(16);
                 int l9 = rand.nextInt(64);
-                int k12 = y + rand.nextInt(16);
+                int k12 = worldZ + rand.nextInt(16);
                 
                 ore_iron.generate(worldObj, rand, k6, l9, k12);
             }
         }
     }
     
-    public void rGenerateOreGold(World worldObj, Random rand, int x, int y)
+    public void rGenerateOreGold(World worldObj, Random rand, int worldX, int worldZ)
     {
         WorldGenMinable ore_gold = new WorldGenMinable(Blocks.gold_ore, goldPerChunk);
         
-        if (ConfigRTG.generateOreGold && TerrainGen.generateOre(worldObj, rand, ore_gold, x, y, GOLD)) {
+        if (ConfigRTG.generateOreGold && TerrainGen.generateOre(worldObj, rand, ore_gold, worldX, worldZ, GOLD)) {
             
             for (int k3 = 0; k3 < 2; k3++) {
                 
-                int l6 = x + rand.nextInt(16);
+                int l6 = worldX + rand.nextInt(16);
                 int i10 = rand.nextInt(32);
-                int l12 = y + rand.nextInt(16);
+                int l12 = worldZ + rand.nextInt(16);
                 
                 ore_gold.generate(worldObj, rand, l6, i10, l12);
             }
         }
     }
     
-    public void rGenerateOreRedstone(World worldObj, Random rand, int x, int y)
+    public void rGenerateOreRedstone(World worldObj, Random rand, int worldX, int worldZ)
     {
         WorldGenMinable ore_redstone = new WorldGenMinable(Blocks.redstone_ore, redstonePerChunk);
         
-        if (ConfigRTG.generateOreRedstone && TerrainGen.generateOre(worldObj, rand, ore_redstone, x, y, REDSTONE)) {
+        if (ConfigRTG.generateOreRedstone && TerrainGen.generateOre(worldObj, rand, ore_redstone, worldX, worldZ, REDSTONE)) {
             
             for (int l3 = 0; l3 < 8; l3++) {
                 
-                int i7 = x + rand.nextInt(16);
+                int i7 = worldX + rand.nextInt(16);
                 int j10 = rand.nextInt(16);
-                int i13 = y + rand.nextInt(16);
+                int i13 = worldZ + rand.nextInt(16);
                 
                 ore_redstone.generate(worldObj, rand, i7, j10, i13);
             }
         }
     }
     
-    public void rGenerateOreDiamond(World worldObj, Random rand, int x, int y)
+    public void rGenerateOreDiamond(World worldObj, Random rand, int worldX, int worldZ)
     {
         WorldGenMinable ore_diamond = new WorldGenMinable(Blocks.diamond_ore, diamondPerChunk);
         
-        if (ConfigRTG.generateOreDiamond && TerrainGen.generateOre(worldObj, rand, ore_diamond, x, y, DIAMOND)) {
+        if (ConfigRTG.generateOreDiamond && TerrainGen.generateOre(worldObj, rand, ore_diamond, worldX, worldZ, DIAMOND)) {
             
             for (int i4 = 0; i4 < 1; i4++) {
                 
-                int j7 = x + rand.nextInt(16);
+                int j7 = worldX + rand.nextInt(16);
                 int k10 = rand.nextInt(16);
-                int j13 = y + rand.nextInt(16);
+                int j13 = worldZ + rand.nextInt(16);
                 
                 ore_diamond.generate(worldObj, rand, j7, k10, j13);
             }
         }
     }
     
-    public void rGenerateOreLapis(World worldObj, Random rand, int x, int y)
+    public void rGenerateOreLapis(World worldObj, Random rand, int worldX, int worldZ)
     {
         WorldGenMinable ore_lapis = new WorldGenMinable(Blocks.lapis_ore, lapisPerChunk);
         
-        if (ConfigRTG.generateOreLapis && TerrainGen.generateOre(worldObj, rand, ore_lapis, x, y, LAPIS)) {
+        if (ConfigRTG.generateOreLapis && TerrainGen.generateOre(worldObj, rand, ore_lapis, worldX, worldZ, LAPIS)) {
             
             for (int j4 = 0; j4 < 1; j4++) {
                 
-                int k7 = x + rand.nextInt(16);
+                int k7 = worldX + rand.nextInt(16);
                 int l10 = rand.nextInt(16) + rand.nextInt(16);
-                int k13 = y + rand.nextInt(16);
+                int k13 = worldZ + rand.nextInt(16);
                 
                 ore_lapis.generate(worldObj, rand, k7, l10, k13);
             }
         }
     }
     
-    public void rDecorateClay(World worldObj, Random rand, int i, int j, float river, int x, int y)
+    public void rDecorateClay(World worldObj, Random rand, int chunkX, int chunkZ, float river, int worldX, int worldZ)
     {
-        if (TerrainGen.decorate(worldObj, rand, i, j, CLAY)) {
+        if (TerrainGen.decorate(worldObj, rand, chunkX, chunkZ, CLAY)) {
             
             if (river > 0.85f) {
                 
                 for (int j2 = 0; j2 < 3; j2++) {
                     
-                    int l5 = x + rand.nextInt(16);
+                    int l5 = worldX + rand.nextInt(16);
                     int i9 = 53 + rand.nextInt(15);
-                    int l11 = y + rand.nextInt(16);
+                    int l11 = worldZ + rand.nextInt(16);
                     
                     (new WorldGenClay(Blocks.clay, 0, clayPerChunk)).generate(worldObj, rand, l5, i9, l11);
                 }

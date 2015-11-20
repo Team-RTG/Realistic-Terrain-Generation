@@ -567,75 +567,14 @@ public class ChunkProviderRTG implements IChunkProvider
                 scatteredFeatureGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
             }
         }
+        
+        biome.rPopulatePreDecorate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag);
 
-        if (ConfigRTG.enableWaterLakes) {
+        /**
+         * What is this doing? And why does it need to be done here? - Pink
+         */
+        for (int bx = -4; bx <= 4; bx++) {
             
-            gen = TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.LAKE);
-            
-            if (gen && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterLakeChance) == 1)) {
-                
-                //Underground lakes.
-    			int i2 = worldX + rand.nextInt(16) + 8;
-    			int l4 = RandomUtil.getRandomInt(rand, 1, 50);
-    			int i8 = worldZ + rand.nextInt(16) + 8;
-    			
-    			(new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
-    			
-    			//Surface lakes.
-    	        if (biome.waterLakeFrequency > 0 && rand.nextInt(biome.waterLakeFrequency) == 0) {
-    	            
-    	            l4 = worldObj.getHeightValue(i2, i8);
-    	            
-    	            if (l4 > 63) {
-    	                
-    	                (new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
-    	            }
-    	        }
-    		}
-        }
-
-        if (ConfigRTG.enableLavaLakes) {
-            
-            gen = TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.LAVA);
-            
-    		if (gen && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.lavaLakeChance) == 1)) {
-
-                //Underground lakes.
-                int j2 = worldX + rand.nextInt(16) + 8;
-                int i5 = RandomUtil.getRandomInt(rand, 1, 50);
-                int j8 = worldZ + rand.nextInt(16) + 8;
-                
-                if (i5 <= 50)
-                {
-                    (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, j2, i5, j8);
-                }
-                
-                //Surface lakes.
-                if (biome.lavaLakeFrequency > 0 && rand.nextInt(biome.lavaLakeFrequency) == 0) {
-                    
-                    i5 = worldObj.getHeightValue(j2, j8);
-                    
-                    if (i5 > 62)
-                    {
-                        (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, j2, i5, j8);
-                    }
-                }
-    		}
-        }
-
-		gen = TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.DUNGEON);
-		for(int k1 = 0; k1 < 8 && gen; k1++)
-		{
-			int j5 = worldX + rand.nextInt(16) + 8;
-			int k8 = rand.nextInt(128);
-			int j11 = worldZ + rand.nextInt(16) + 8;
-			(new WorldGenDungeons()).generate(worldObj, rand, j5, k8, j11);
-		}
-
-
-
-        for(int bx = -4; bx <= 4; bx++)
-        {
         	for(int by = -4; by <= 4; by++)
         	{
         		borderNoise[cmr.getBiomeDataAt(worldX + 24 + bx * 16, worldZ + 24 + by * 16).biomeID] += 0.01234569f;
@@ -657,9 +596,10 @@ public class ChunkProviderRTG implements IChunkProvider
         biome.rDecorateClay(worldObj, rand, chunkX, chunkZ, river, worldX, worldZ);
         biome.rGenerateOres(worldObj, rand, worldX, worldZ);
         
-        //Border noise. (Does this have to be done here? - Pink
+        //Border noise. (Does this have to be done here? - Pink)
         RealisticBiomeBase b;
         float snow = 0f;
+        
         for(int bn = 0; bn < 256; bn++)
         {
         	if(borderNoise[bn] > 0f)

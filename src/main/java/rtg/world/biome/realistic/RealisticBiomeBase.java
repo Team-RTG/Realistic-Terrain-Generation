@@ -15,6 +15,7 @@ import java.util.Random;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.RandomUtil;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.gen.feature.WorldGenClay;
@@ -25,10 +26,14 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.feature.WorldGenDungeons;
+import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.OreGenEvent;
+import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class RealisticBiomeBase extends BiomeBase {
@@ -107,11 +112,90 @@ public class RealisticBiomeBase extends BiomeBase {
         this(b, riverbiome, t, new SurfaceBase[] {s});
     }
     
+    public void rPopulatePreDecorate(IChunkProvider ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag)
+    {
+        int worldX = chunkX * 16;
+        int worldZ = chunkZ * 16;
+        boolean gen = true;
+        
+        if (ConfigRTG.enableWaterLakes) {
+            
+            gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.LAKE);
+            if (gen && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterLakeChance) == 1)) {
+                
+                //Underground lakes.
+                int i2 = worldX + rand.nextInt(16) + 8;
+                int l4 = RandomUtil.getRandomInt(rand, 1, 50);
+                int i8 = worldZ + rand.nextInt(16) + 8;
+                
+                (new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
+                
+                //Surface lakes.
+                if (waterLakeFrequency > 0 && rand.nextInt(waterLakeFrequency) == 0) {
+                    
+                    l4 = worldObj.getHeightValue(i2, i8);
+                    
+                    if (l4 > 63) {
+                        
+                        (new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
+                    }
+                }
+            }
+        }
+        
+        if (ConfigRTG.enableLavaLakes) {
+            
+            gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.LAVA);
+            
+            if (gen && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.lavaLakeChance) == 1)) {
+
+                //Underground lakes.
+                int j2 = worldX + rand.nextInt(16) + 8;
+                int i5 = RandomUtil.getRandomInt(rand, 1, 50);
+                int j8 = worldZ + rand.nextInt(16) + 8;
+                
+                if (i5 <= 50)
+                {
+                    (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, j2, i5, j8);
+                }
+                
+                //Surface lakes.
+                if (lavaLakeFrequency > 0 && rand.nextInt(lavaLakeFrequency) == 0) {
+                    
+                    i5 = worldObj.getHeightValue(j2, j8);
+                    
+                    if (i5 > 62)
+                    {
+                        (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, j2, i5, j8);
+                    }
+                }
+            }
+        }
+        
+        if (ConfigRTG.generateDungeons) {
+            
+            gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.DUNGEON);
+            for(int k1 = 0; k1 < 8 && gen; k1++)
+            {
+                int j5 = worldX + rand.nextInt(16) + 8;
+                int k8 = rand.nextInt(128);
+                int j11 = worldZ + rand.nextInt(16) + 8;
+                
+                (new WorldGenDungeons()).generate(worldObj, rand, j5, k8, j11);
+            }
+        }
+    }
+    
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
     
         if (strength > 0.3f) {
             baseBiome.decorate(world, rand, chunkX, chunkY);
         }
+    }
+    
+    public void rPopulatePostDecorate()
+    {
+        
     }
     
     public static void rDecorateSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {

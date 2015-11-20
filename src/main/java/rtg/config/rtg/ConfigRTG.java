@@ -45,6 +45,7 @@ public class ConfigRTG
     public static boolean generateStrongholds = true;
     public static boolean generateVillages = true;
     public static boolean generateScatteredFeatures = true;
+    public static boolean generateDungeons = true;
     
     public static boolean enableCaves = true;
     public static int caveDensity = 8;
@@ -122,6 +123,7 @@ public class ConfigRTG
             generateStrongholds = config.getBoolean("Generate Strongholds", "Strongholds", generateStrongholds, "");
             generateVillages = config.getBoolean("Generate Villages", "Villages", generateVillages, "");
             generateScatteredFeatures = config.getBoolean("Generate Scattered Features", "Scattered Features", generateScatteredFeatures, "");
+            generateDungeons = config.getBoolean("Generate Dungeons", "Dungeons", generateDungeons, "");
             
             enableCaves = config.getBoolean("Enable Caves", "Caves", enableCaves, "");
             caveDensity = config.getInt("Cave Density", "Caves", caveDensity, 1, 40, "This setting controls the size of caves." + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)" + Configuration.NEW_LINE);

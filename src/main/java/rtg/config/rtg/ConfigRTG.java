@@ -41,6 +41,11 @@ public class ConfigRTG
     public static boolean enableLavaLakes = true;
     public static int lavaLakeChance = 10;
     
+    public static boolean generateMineshafts = true;
+    public static boolean generateStrongholds = true;
+    public static boolean generateVillages = true;
+    public static boolean generateScatteredFeatures = true;
+    
     public static boolean enableCaves = true;
     public static int caveDensity = 8;
     public static int caveFrequency = 12;
@@ -113,6 +118,11 @@ public class ConfigRTG
             enableLavaLakes = config.getBoolean("Enable Lava Lakes", "Lakes", enableLavaLakes, "");
             lavaLakeChance = config.getInt("1/x chance that Lava Lakes will generate if given the opportunity to do so during world gen", "Lakes", lavaLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
 			
+            generateMineshafts = config.getBoolean("Generate Mineshafts", "Mineshafts", generateMineshafts, "");
+            generateStrongholds = config.getBoolean("Generate Strongholds", "Strongholds", generateStrongholds, "");
+            generateVillages = config.getBoolean("Generate Villages", "Villages", generateVillages, "");
+            generateScatteredFeatures = config.getBoolean("Generate Scattered Features", "Scattered Features", generateScatteredFeatures, "");
+            
             enableCaves = config.getBoolean("Enable Caves", "Caves", enableCaves, "");
             caveDensity = config.getInt("Cave Density", "Caves", caveDensity, 1, 40, "This setting controls the size of caves." + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)" + Configuration.NEW_LINE);
             caveFrequency = config.getInt("Cave Frequency", "Caves", caveFrequency, 1, 40, "This setting controls the number of caves that generate." + Configuration.NEW_LINE + "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)" + Configuration.NEW_LINE);

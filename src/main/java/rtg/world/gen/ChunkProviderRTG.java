@@ -538,10 +538,22 @@ public class ChunkProviderRTG implements IChunkProvider
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag));
 
         if (mapFeaturesEnabled) {
-            mineshaftGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
-            strongholdGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
-            flag = villageGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
-            scatteredFeatureGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+            
+            if (ConfigRTG.generateMineshafts) {
+                mineshaftGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+            }
+            
+            if (ConfigRTG.generateStrongholds) {
+                strongholdGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+            }
+            
+            if (ConfigRTG.generateVillages) {
+                flag = villageGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+            }
+            
+            if (ConfigRTG.generateScatteredFeatures) {
+                scatteredFeatureGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+            }
         }
 
         if (ConfigRTG.enableWaterLakes) {
@@ -798,7 +810,7 @@ public class ChunkProviderRTG implements IChunkProvider
      */
     public String makeString()
     {
-        return "RandomLevelSourceRTG";
+        return "ChunkProviderRTG";
     }
 
     /**
@@ -817,6 +829,10 @@ public class ChunkProviderRTG implements IChunkProvider
      */
     public ChunkPosition func_147416_a(World par1World, String par2Str, int par3, int par4, int par5)
     {
+        if (ConfigRTG.generateStrongholds) {
+            return null;
+        }
+        
         return "Stronghold".equals(par2Str) && this.strongholdGenerator != null ? this.strongholdGenerator.func_151545_a(par1World, par3, par4, par5) : null;
     }
 
@@ -833,12 +849,25 @@ public class ChunkProviderRTG implements IChunkProvider
      */
     public void recreateStructures(int par1, int par2)
     {
-    	if (mapFeaturesEnabled) {
-    		strongholdGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
-    		mineshaftGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
-            villageGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
-    		scatteredFeatureGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
-    	}
+
+        if (mapFeaturesEnabled) {
+            
+            if (ConfigRTG.generateMineshafts) {
+                mineshaftGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
+            }
+            
+            if (ConfigRTG.generateStrongholds) {
+                strongholdGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
+            }
+            
+            if (ConfigRTG.generateVillages) {
+                villageGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+            }
+            
+            if (ConfigRTG.generateScatteredFeatures) {
+                scatteredFeatureGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+            }
+        }
 	}
 
     /**

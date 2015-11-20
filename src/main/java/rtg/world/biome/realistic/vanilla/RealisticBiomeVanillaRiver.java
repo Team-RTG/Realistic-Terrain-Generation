@@ -6,7 +6,6 @@ import rtg.world.gen.surface.vanilla.SurfaceVanillaRiver;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaRiver;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase
@@ -21,7 +20,7 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase
 			vanillaBiome,
 			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainVanillaRiver(),
-			new SurfaceVanillaRiver(Blocks.sand, Blocks.sand, Blocks.grass, Blocks.grass, (byte)0, 0)
+			new SurfaceVanillaRiver()
 		);
 		
 		this.setRealisticBiomeName("Vanilla River");

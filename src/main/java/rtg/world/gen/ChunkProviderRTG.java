@@ -183,10 +183,22 @@ public class ChunkProviderRTG implements IChunkProvider
         ravineGenerator.func_151539_a(this, worldObj, cx, cy, blocks);
 
         if (mapFeaturesEnabled) {
-            mineshaftGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
-            strongholdGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
-            villageGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
-            scatteredFeatureGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+
+            if (ConfigRTG.generateMineshafts) {
+                mineshaftGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+            }
+            
+            if (ConfigRTG.generateStrongholds) {
+                strongholdGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+            }
+            
+            if (ConfigRTG.generateVillages) {
+                villageGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+            }
+            
+            if (ConfigRTG.generateScatteredFeatures) {
+                scatteredFeatureGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+            }
         }
 
         Chunk chunk = new Chunk(this.worldObj, blocks, metadata, cx, cy);

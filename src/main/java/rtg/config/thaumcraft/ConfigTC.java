@@ -22,8 +22,8 @@ public class ConfigTC
 	public static boolean generateTCTaintedLand = true;
 	public static boolean generateTCMagicalForest = true;
 	
-	public static int weightTCTaintedLand = (int)Math.floor((double)(biomeWeightDefault * 0.1));
-	public static int weightTCMagicalForest = biomeWeightDefault;
+	public static int weightTCTaintedLand = (int)Math.floor((double)(biomeWeightDefault * 0.5));
+	public static int weightTCMagicalForest = (int)Math.floor((double)(biomeWeightDefault * 1.5));
 		
 	public static void init(File configFile) 
 	{

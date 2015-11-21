@@ -59,8 +59,12 @@ public class ConfigRTG
 	public static boolean enableDebugging = false;
 
 	public static int biomeSize = 1;
-	public static int minDistanceScatteredFeatures = 8;
-	public static int maxDistanceScatteredFeatures = 32;
+	
+    public static int minDistanceScatteredFeatures = 8;
+    public static int maxDistanceScatteredFeatures = 32;
+    
+    public static int minDistanceVillages = 8;
+    public static int maxDistanceVillages = 32;
 	
 	public static void init(File configFile) 
 	{
@@ -123,9 +127,12 @@ public class ConfigRTG
 			
             generateMineshafts = config.getBoolean("Generate Mineshafts", "Mineshafts", generateMineshafts, "");
             generateStrongholds = config.getBoolean("Generate Strongholds", "Strongholds", generateStrongholds, "");
-            generateVillages = config.getBoolean("Generate Villages", "Villages", generateVillages, "");
             generateScatteredFeatures = config.getBoolean("Generate Scattered Features", "Scattered Features", generateScatteredFeatures, "");
             generateDungeons = config.getBoolean("Generate Dungeons", "Dungeons", generateDungeons, "");
+            
+            generateVillages = config.getBoolean("Generate Villages", "Villages", generateVillages, "");
+            minDistanceVillages = config.getInt("Minimum distance between villages", "Villages", minDistanceVillages, 1, Integer.MAX_VALUE, "");
+            maxDistanceVillages = config.getInt("Maximum distance between villages", "Villages", maxDistanceVillages, 1, Integer.MAX_VALUE, "");
             
             enableCaves = config.getBoolean("Enable Caves", "Caves", enableCaves, "");
             caveDensity = config.getInt("Cave Density", "Caves", caveDensity, 1, 40, "This setting controls the size of caves." + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)" + Configuration.NEW_LINE);
@@ -140,8 +147,8 @@ public class ConfigRTG
 			
 			biomeSize = config.getInt("Size of Biomes", "Biomes", biomeSize, 1, 5, "Lower values = smaller biomes; Higher values = larger biomes");
 			
-			minDistanceScatteredFeatures = config.getInt("Minimum distance between scattered features", "Scattered Features", minDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts.");
-			maxDistanceScatteredFeatures = config.getInt("Maximum distance between scattered features", "Scattered Features", maxDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts.");
+            minDistanceScatteredFeatures = config.getInt("Minimum distance between scattered features", "Scattered Features", minDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts.");
+            maxDistanceScatteredFeatures = config.getInt("Maximum distance between scattered features", "Scattered Features", maxDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts.");
 		}
 		catch (Exception e) 
 		{

@@ -44,8 +44,8 @@ public class ConfigVanilla
 	public static boolean generateVanillaMesa = true;
 	public static boolean generateVanillaMesaPlateau = true;
 	public static boolean generateVanillaMesaPlateau_F = true;
-	public static boolean generateVanillaMushroomIsland = true;
-	public static boolean generateVanillaMushroomIslandShore = true;
+	public static boolean generateVanillaMushroomIsland = false;
+	public static boolean generateVanillaMushroomIslandShore = false;
 	public static boolean generateVanillaOcean = true;
 	public static boolean generateVanillaPlains = true;
 	public static boolean generateVanillaRiver = true;

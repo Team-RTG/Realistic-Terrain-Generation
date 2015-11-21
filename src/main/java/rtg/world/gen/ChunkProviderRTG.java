@@ -16,7 +16,6 @@ import rtg.config.rtg.ConfigRTG;
 import rtg.util.CanyonColor;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.RandomUtil;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import cpw.mods.fml.common.eventhandler.Event.Result;
@@ -34,8 +33,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.MapGenBase;
-import net.minecraft.world.gen.feature.WorldGenDungeons;
-import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.feature.WorldGenLiquids;
 import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.MapGenScatteredFeature;
@@ -91,7 +88,7 @@ public class ChunkProviderRTG implements IChunkProvider
     public ChunkProviderRTG(World world, long l)
     {
         worldObj = world;
-        cmr = (WorldChunkManagerRTG)worldObj.getWorldChunkManager();
+        cmr = (WorldChunkManagerRTG) worldObj.getWorldChunkManager();
         worldHeight = worldObj.provider.getActualHeight();
         rand = new Random(l);
         simplex = new OpenSimplexNoise(l);
@@ -660,57 +657,23 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
         if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.ICE)) {
+
+            int k1, l1, i2;
             
-            if(snow < 0.59f)
-            {
-    	        worldX += 8;
-    	        worldZ += 8;
-    			float s;
-    			Block b1, b2;
-    
-    	        for (int sn1 = 0; sn1 < 16; ++sn1)
-    	        {
-    	            for (int sn2 = 0; sn2 < 16; ++sn2)
-    	            {
-    	            	if(snow < -0.59f)
-    	            	{
-    	            		s = -1f;
-    	            	}
-    	            	else
-    	            	{
-    	            		s = simplex.noise2((sn1 + worldX) / 3f, (sn2 + worldZ) / 3f) + snow;
-    	            	}
-    
-    	            	if(s < 0f)
-    	            	{
-    		                int sn3 = worldObj.getPrecipitationHeight(worldX + sn1, worldZ + sn2);
-    		                b1 = worldObj.getBlock(sn1 + worldX, sn3, sn2 + worldZ);
-    		                b2 = worldObj.getBlock(sn1 + worldX, sn3 - 1, sn2 + worldZ);
-    
-    		                if (b2 == Blocks.water || b2 == Blocks.flowing_water)
-    		                {
-    		                	worldObj.setBlock(sn1 + worldX, sn3 - 1, sn2 + worldZ, Blocks.ice, 0, 2);
-    		                }
-    
-    		                if (Blocks.snow_layer.canPlaceBlockAt(worldObj, sn1 + worldX, sn3, sn2 + worldZ) && b2 != Blocks.ice && b2 != Blocks.water && sn3 > 62)
-    		                {
-    		                	if(b1 != Blocks.snow_layer && b2 != Blocks.packed_ice)
-    		                	{
-    
-    		                		/**
-    		                		 * Not sure if this is the right 'temperature' we need to check, and not sure
-    		                		 * if the value is low/high enough, so some testing is still needed here.
-    		                		 */
-    		                        if (biome.baseBiome.temperature < 0.15f)
-                                    {
-    			                		/** This line spawns those annoying snow layers */
-    			                		worldObj.setBlock(sn1 + worldX, sn3, sn2 + worldZ, Blocks.snow_layer, 0, 2);
-                                    }
-    		                	}
-    		                }
-    	            	}
-    	            }
-    	        }
+            for(k1 = 0; k1 < 16; ++k1) {
+                
+                for(l1 = 0; l1 < 16; ++l1) {
+                    
+                    i2 = this.worldObj.getPrecipitationHeight(worldX + k1, worldZ + l1);
+
+                    if(this.worldObj.isBlockFreezable(k1 + worldX, i2 - 1, l1 + worldZ)) {
+                        this.worldObj.setBlock(k1 + worldX, i2 - 1, l1 + worldZ, Blocks.ice, 0, 2);
+                    }
+
+                    if(this.worldObj.func_147478_e(k1 + worldX, i2, l1 + worldZ, true)) {
+                        this.worldObj.setBlock(k1 + worldX, i2, l1 + worldZ, Blocks.snow_layer, 0, 2);
+                    }
+                }
             }
         }
 

@@ -4,11 +4,7 @@ import java.io.File;
 
 import org.apache.logging.log4j.Level;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.world.gen.feature.WorldGenMinable;
-
 import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 import net.minecraftforge.common.config.Configuration;
 
@@ -63,6 +59,7 @@ public class ConfigRTG
     public static int minDistanceScatteredFeatures = 8;
     public static int maxDistanceScatteredFeatures = 32;
     
+    public static int villageSize = 0;
     public static int minDistanceVillages = 8;
     public static int maxDistanceVillages = 32;
 	
@@ -131,6 +128,7 @@ public class ConfigRTG
             generateDungeons = config.getBoolean("Generate Dungeons", "Dungeons", generateDungeons, "");
             
             generateVillages = config.getBoolean("Generate Villages", "Villages", generateVillages, "");
+            villageSize = config.getInt("Size of villages", "Villages", villageSize, 0, 10, "Higher values = bigger villages; 0 = Vanilla village size");
             minDistanceVillages = config.getInt("Minimum distance between villages", "Villages", minDistanceVillages, 1, Integer.MAX_VALUE, "");
             maxDistanceVillages = config.getInt("Maximum distance between villages", "Villages", maxDistanceVillages, 1, Integer.MAX_VALUE, "");
             

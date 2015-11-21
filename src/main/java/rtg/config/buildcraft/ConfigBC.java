@@ -23,8 +23,8 @@ public class ConfigBC
     public static boolean generateBCDesertOilField = true;
     public static boolean generateBCOceanOilField = true;
     
-    public static int weightBCDesertOilField = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-    public static int weightBCOceanOilField = (int)Math.floor((double)(biomeWeightDefault * 0.5));
+    public static int weightBCDesertOilField = (int)Math.floor((double)(biomeWeightDefault * 0.1));
+    public static int weightBCOceanOilField = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     
     public static void init(File configFile)
     {

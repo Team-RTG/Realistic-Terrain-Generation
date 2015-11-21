@@ -6,6 +6,7 @@ import rtg.config.rtg.ConfigRTG;
 import rtg.world.gen.MapGenCavesRTG;
 import rtg.world.gen.MapGenRavineRTG;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
+import rtg.world.gen.structure.MapGenVillageRTG;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -24,6 +25,7 @@ public class EventManagerRTG
     public EventManagerRTG()
     {
         MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
+        MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
     }
     
 	@SubscribeEvent(priority = EventPriority.LOW)
@@ -37,6 +39,9 @@ public class EventManagerRTG
 		if (event.type == InitMapGenEvent.EventType.SCATTERED_FEATURE) {
 			event.newGen = new MapGenScatteredFeatureRTG();
 		}
+        else if (event.type == InitMapGenEvent.EventType.VILLAGE) {
+            event.newGen = new MapGenVillageRTG();
+        }
         else if (event.type == InitMapGenEvent.EventType.CAVE) {
             event.newGen = new MapGenCavesRTG();
         }

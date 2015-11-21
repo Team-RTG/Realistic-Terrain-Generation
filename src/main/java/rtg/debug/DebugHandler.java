@@ -10,6 +10,7 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -38,16 +39,28 @@ public final class DebugHandler {
 				event.left.add(null);
 				int posX = (int)player.posX;
 				int posZ = (int)player.posZ;
-				BiomeGenBase biome = chunkManager.getBiomeGenAt(posX, posZ);
-				RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(biome.biomeID);
 				
+//                RealisticBiomeBase realisticBiome = chunkManager.getBiomeDataAt(
+//                    (int)Math.floor(posX / 16), 
+//                    (int)Math.floor(posZ / 16)
+//                );
+                
+                BiomeGenBase biome = world.getBiomeGenForCoords(posX, posZ);
+                RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(biome.biomeID);
+                				
 				details = PREFIX;
-				details += "Realistic Base Biome (X/Z): " + realisticBiome.getRealisticBiomeName();
+				details += "Realistic Base Biome (" + posX + "/" + posZ + "): " + realisticBiome.getRealisticBiomeName();
 				event.left.add(details);
 				
-				details = PREFIX;
-				details += "Temperature/Rainfall (Static): " + biome.temperature + "/" + biome.rainfall;
-				event.left.add(details);
+				
+				
+                details = PREFIX;
+                details += "River Strength: " + chunkManager.getRiverStrength(posX, posZ);
+                event.left.add(details);
+                
+                details = PREFIX;
+                details += "Temperature/Rainfall: " + biome.temperature + "/" + biome.rainfall;
+                event.left.add(details);
 				
 				//details = PREFIX;
 				//details += "Noise (X/Z): " + chunkManager.getNoiseAt(posX, posZ);

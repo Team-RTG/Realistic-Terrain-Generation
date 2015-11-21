@@ -59,7 +59,7 @@ public class SurfaceVanillaOcean extends SurfaceBase
                         blocks[(y * 16 + x) * 256 + k] = topBlock;
                     }
                 }
-                else if (depth < 4)
+                else if (depth < 4 && k < 63)
                 {
                     blocks[(y * 16 + x) * 256 + k] = fillerBlock;
                 }

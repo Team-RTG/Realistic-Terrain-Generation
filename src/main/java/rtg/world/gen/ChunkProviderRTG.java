@@ -6,14 +6,6 @@ import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVI
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.SCATTERED_FEATURE;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.STRONGHOLD;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.COAL;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIAMOND;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIRT;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.GOLD;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.GRAVEL;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.IRON;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.LAPIS;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.REDSTONE;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,10 +16,8 @@ import rtg.config.rtg.ConfigRTG;
 import rtg.util.CanyonColor;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.RandomUtil;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenClay;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 
 import net.minecraft.block.Block;
@@ -43,12 +33,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.MapGenBase;
-import net.minecraft.world.gen.MapGenRavine;
-import net.minecraft.world.gen.feature.WorldGenDungeons;
-import net.minecraft.world.gen.feature.WorldGenFlowers;
-import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.feature.WorldGenLiquids;
-import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.MapGenStronghold;
@@ -57,7 +42,6 @@ import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
-import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
@@ -100,19 +84,11 @@ public class ChunkProviderRTG implements IChunkProvider
     private float[] mapGenBiomes;
     private float[] borderNoise;
     private long worldSeed;
-	private WorldGenMinable ore_dirt = new WorldGenMinable(Blocks.dirt, 32);
-	private WorldGenMinable ore_gravel = new WorldGenMinable(Blocks.gravel, 32);
-	private WorldGenMinable ore_coal = new WorldGenMinable(Blocks.coal_ore, 16);
-	private WorldGenMinable ore_iron = new WorldGenMinable(Blocks.iron_ore, 8);
-	private WorldGenMinable ore_gold = new WorldGenMinable(Blocks.gold_ore, 8);
-	private WorldGenMinable ore_redstone = new WorldGenMinable(Blocks.redstone_ore, 7);
-	private WorldGenMinable ore_diamond = new WorldGenMinable(Blocks.diamond_ore, 7);
-	private WorldGenMinable ore_lapis = new WorldGenMinable(Blocks.lapis_ore, 6);
 
     public ChunkProviderRTG(World world, long l)
     {
         worldObj = world;
-        cmr = (WorldChunkManagerRTG)worldObj.getWorldChunkManager();
+        cmr = (WorldChunkManagerRTG) worldObj.getWorldChunkManager();
         worldHeight = worldObj.provider.getActualHeight();
         rand = new Random(l);
         simplex = new OpenSimplexNoise(l);
@@ -204,10 +180,22 @@ public class ChunkProviderRTG implements IChunkProvider
         ravineGenerator.func_151539_a(this, worldObj, cx, cy, blocks);
 
         if (mapFeaturesEnabled) {
-            mineshaftGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
-            strongholdGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
-            villageGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
-            scatteredFeatureGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+
+            if (ConfigRTG.generateMineshafts) {
+                mineshaftGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+            }
+            
+            if (ConfigRTG.generateStrongholds) {
+                strongholdGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+            }
+            
+            if (ConfigRTG.generateVillages) {
+                villageGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+            }
+            
+            if (ConfigRTG.generateScatteredFeatures) {
+                scatteredFeatureGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+            }
         }
 
         Chunk chunk = new Chunk(this.worldObj, blocks, metadata, cx, cy);
@@ -542,298 +530,73 @@ public class ChunkProviderRTG implements IChunkProvider
      *
      * Populates chunk with ores etc etc
      */
-    public void populate(IChunkProvider ichunkprovider, int i, int j)
+    public void populate(IChunkProvider ichunkprovider, int chunkX, int chunkZ)
     {
         BlockFalling.fallInstantly = true;
 
-		int x = i * 16;
-        int y = j * 16;
-        RealisticBiomeBase biome = cmr.getBiomeDataAt(x + 16, y + 16);
+		int worldX = chunkX * 16;
+        int worldZ = chunkZ * 16;
+        RealisticBiomeBase biome = cmr.getBiomeDataAt(worldX + 16, worldZ + 16);
         this.rand.setSeed(this.worldObj.getSeed());
         long i1 = this.rand.nextLong() / 2L * 2L + 1L;
         long j1 = this.rand.nextLong() / 2L * 2L + 1L;
-        this.rand.setSeed((long)i * i1 + (long)j * j1 ^ this.worldObj.getSeed());
+        this.rand.setSeed((long)chunkX * i1 + (long)chunkZ * j1 ^ this.worldObj.getSeed());
         boolean flag = false;
         boolean gen = false;
 
-        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(ichunkprovider, worldObj, rand, i, j, flag));
+        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag));
 
         if (mapFeaturesEnabled) {
-            mineshaftGenerator.generateStructuresInChunk(worldObj, rand, i, j);
-            strongholdGenerator.generateStructuresInChunk(worldObj, rand, i, j);
-            flag = villageGenerator.generateStructuresInChunk(worldObj, rand, i, j);
-            scatteredFeatureGenerator.generateStructuresInChunk(worldObj, rand, i, j);
-        }
-
-        if (ConfigRTG.enableWaterLakes) {
             
-            gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.LAKE);
+            if (ConfigRTG.generateMineshafts) {
+                mineshaftGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+            }
             
-            if (gen && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterLakeChance) == 1)) {
-                
-                //Underground lakes.
-    			int i2 = x + rand.nextInt(16) + 8;
-    			int l4 = RandomUtil.getRandomInt(rand, 1, 50);
-    			int i8 = y + rand.nextInt(16) + 8;
-    			
-    			(new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
-    			
-    			//Surface lakes.
-    	        if (biome.waterLakeFrequency > 0 && rand.nextInt(biome.waterLakeFrequency) == 0) {
-    	            
-    	            l4 = worldObj.getHeightValue(i2, i8);
-    	            
-    	            if (l4 > 63) {
-    	                
-    	                (new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
-    	            }
-    	        }
-    		}
-        }
-
-        if (ConfigRTG.enableLavaLakes) {
+            if (ConfigRTG.generateStrongholds) {
+                strongholdGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+            }
             
-            gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.LAVA);
+            if (ConfigRTG.generateVillages) {
+                flag = villageGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+            }
             
-    		if (gen && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.lavaLakeChance) == 1)) {
-
-                //Underground lakes.
-                int j2 = x + rand.nextInt(16) + 8;
-                int i5 = RandomUtil.getRandomInt(rand, 1, 50);
-                int j8 = y + rand.nextInt(16) + 8;
-                
-                if (i5 <= 50)
-                {
-                    (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, j2, i5, j8);
-                }
-                
-                //Surface lakes.
-                if (biome.lavaLakeFrequency > 0 && rand.nextInt(biome.lavaLakeFrequency) == 0) {
-                    
-                    i5 = worldObj.getHeightValue(j2, j8);
-                    
-                    if (i5 > 62)
-                    {
-                        (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, j2, i5, j8);
-                    }
-                }
-    		}
+            if (ConfigRTG.generateScatteredFeatures) {
+                scatteredFeatureGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+            }
         }
-
-		gen = TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.DUNGEON);
-		for(int k1 = 0; k1 < 8 && gen; k1++)
-		{
-			int j5 = x + rand.nextInt(16) + 8;
-			int k8 = rand.nextInt(128);
-			int j11 = y + rand.nextInt(16) + 8;
-			(new WorldGenDungeons()).generate(worldObj, rand, j5, k8, j11);
-		}
-
-		/**
-		 * ########################################################################
-		 * # START GENERATE ORES
-		 * ########################################################################
-		 */
-
-		MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(worldObj, rand, x, y));
-
-		/**
-		 * Clay
-		 */
-        float river = -cmr.getRiverStrength(x + 16, y + 16);
-        if(river > 0.85f)
-        {
-			for(int j2 = 0; j2 < 3; j2++)
-			{
-				int l5 = x + rand.nextInt(16);
-				int i9 = 53 + rand.nextInt(15);
-				int l11 = y + rand.nextInt(16);
-				(new WorldGenClay(Blocks.clay, 0, 20)).generate(worldObj, rand, l5, i9, l11);
-			}
-        }
+        
+        biome.rPopulatePreDecorate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag);
 
         /**
-         * Dirt
-         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
+         * What is this doing? And why does it need to be done here? - Pink
          */
-		if (TerrainGen.generateOre(worldObj, rand, ore_dirt, x, y, DIRT))
-		{
-			for(int j2 = 0; j2 < 10; j2++)
-			{
-				int l5 = x + rand.nextInt(16);
-				int i9 = rand.nextInt(64);
-				int l11 = y + rand.nextInt(16);
-				ore_dirt.generate(worldObj, rand, l5, i9, l11);
-			}
-		}
-
-		/**
-		 * Gravel
-		 * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
-		 */
-		if (TerrainGen.generateOre(worldObj, rand, ore_gravel, x, y, GRAVEL))
-		{
-			for(int k2 = 0; k2 < 5; k2++)
-			{
-				int i6 = x + rand.nextInt(16);
-				int j9 = rand.nextInt(64);
-				int i12 = y + rand.nextInt(16);
-				ore_gravel.generate(worldObj, rand, i6, j9, i12);
-			}
-		}
-
-        /**
-         * Coal
-         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
-         */
-		if (ConfigRTG.generateOreCoal && TerrainGen.generateOre(worldObj, rand, ore_coal, x, y, COAL))
-		{
-			for(int i3 = 0; i3 < 20; i3++)
-			{
-				int j6 = x + rand.nextInt(16);
-				int k9 = rand.nextInt(128);
-				int j12 = y + rand.nextInt(16);
-				ore_coal.generate(worldObj, rand, j6, k9, j12);
-			}
-		}
-
-        /**
-         * Iron
-         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
-         */
-		if (ConfigRTG.generateOreIron && TerrainGen.generateOre(worldObj, rand, ore_iron, x, y, IRON))
-		{
-			for(int j3 = 0; j3 < 20; j3++)
-			{
-				int k6 = x + rand.nextInt(16);
-				int l9 = rand.nextInt(64);
-				int k12 = y + rand.nextInt(16);
-				ore_iron.generate(worldObj, rand, k6, l9, k12);
-			}
-		}
-
-        /**
-         * Gold
-         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
-         */
-		if (ConfigRTG.generateOreGold && TerrainGen.generateOre(worldObj, rand, ore_gold, x, y, GOLD))
-		{
-			for(int k3 = 0; k3 < 2; k3++)
-			{
-				int l6 = x + rand.nextInt(16);
-				int i10 = rand.nextInt(32);
-				int l12 = y + rand.nextInt(16);
-				ore_gold.generate(worldObj, rand, l6, i10, l12);
-			}
-		}
-
-        /**
-         * Redstone
-         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
-         */
-		if (ConfigRTG.generateOreRedstone && TerrainGen.generateOre(worldObj, rand, ore_redstone, x, y, REDSTONE))
-		{
-			for(int l3 = 0; l3 < 8; l3++)
-			{
-				int i7 = x + rand.nextInt(16);
-				int j10 = rand.nextInt(16);
-				int i13 = y + rand.nextInt(16);
-				ore_redstone.generate(worldObj, rand, i7, j10, i13);
-			}
-		}
-
-        /**
-         * Diamond
-         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
-         */
-		if (ConfigRTG.generateOreDiamond && TerrainGen.generateOre(worldObj, rand, ore_diamond, x, y, DIAMOND))
-		{
-			for(int i4 = 0; i4 < 1; i4++)
-			{
-				int j7 = x + rand.nextInt(16);
-				int k10 = rand.nextInt(16);
-				int j13 = y + rand.nextInt(16);
-				ore_diamond.generate(worldObj, rand, j7, k10, j13);
-			}
-		}
-
-        /**
-         * Lapis
-         * TerrainGen.generateOre() automatically posts an event to ORE_GEN_BUS, so we don't need to post it here.
-         */
-		if (ConfigRTG.generateOreLapis && TerrainGen.generateOre(worldObj, rand, ore_lapis, x, y, LAPIS))
-		{
-			for(int j4 = 0; j4 < 1; j4++)
-			{
-				int k7 = x + rand.nextInt(16);
-				int l10 = rand.nextInt(16) + rand.nextInt(16);
-				int k13 = y + rand.nextInt(16);
-				ore_lapis.generate(worldObj, rand, k7, l10, k13);
-			}
-		}
-
-		MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(worldObj, rand, x, y));
-
-        /**
-         * ########################################################################
-         * # END GENERATE ORES
-         * ########################################################################
-         */
-
-		if(rand.nextInt(5) == 0)
-		{
-			int k15 = x + rand.nextInt(16) + 8;
-			int k17 = rand.nextInt(64);
-			int k20 = y + rand.nextInt(16) + 8;
-
-			if(rand.nextBoolean())
-			{
-				(new WorldGenFlowers(Blocks.brown_mushroom)).generate(worldObj, rand, k15, k17, k20);
-			}
-			else
-			{
-				(new WorldGenFlowers(Blocks.red_mushroom)).generate(worldObj, rand, k15, k17, k20);
-			}
-		}
-
-        for(int bx = -4; bx <= 4; bx++)
-        {
+        for (int bx = -4; bx <= 4; bx++) {
+            
         	for(int by = -4; by <= 4; by++)
         	{
-        		borderNoise[cmr.getBiomeDataAt(x + 24 + bx * 16, y + 24 + by * 16).biomeID] += 0.01234569f;
+        		borderNoise[cmr.getBiomeDataAt(worldX + 24 + bx * 16, worldZ + 24 + by * 16).biomeID] += 0.01234569f;
         	}
         }
 
-        MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(worldObj, rand, x, y));
+        /**
+         * ########################################################################
+         * # START DECORATE BIOME
+         * ########################################################################
+         */
+        
+        MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(worldObj, rand, worldX, worldZ));
 
-        //Sand.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.SAND)) {
-          //TODO
-        }
+        //Initialise variables.
+        float river = -cmr.getRiverStrength(worldX + 16, worldZ + 16);
         
         //Clay.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.CLAY)) {
-          //TODO
-        }
+        biome.rDecorateClay(worldObj, rand, chunkX, chunkZ, river, worldX, worldZ);
+        biome.rGenerateOres(worldObj, rand, worldX, worldZ);
         
-        //Sand (Pass 2).
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.SAND_PASS2)) {
-          //TODO
-        }
-        
-        //Trees.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.TREE)) {
-          //TODO
-        }
-        
-        //Big shrooms.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.BIG_SHROOM)) {
-          //TODO
-        }
-
-        //Border noise. (Does this have to be done here? - Pink
+        //Border noise. (Does this have to be done here? - Pink)
         RealisticBiomeBase b;
         float snow = 0f;
+        
         for(int bn = 0; bn < 256; bn++)
         {
         	if(borderNoise[bn] > 0f)
@@ -843,7 +606,7 @@ public class ChunkProviderRTG implements IChunkProvider
         			borderNoise[bn] = 1f;
         		}
         		b = RealisticBiomeBase.getBiome(bn);
-                b.rDecorate(this.worldObj, this.rand, x, y, simplex, cell, borderNoise[bn], river);
+                b.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
 
                 if(b.baseBiome.temperature < 0.15f)
                 {
@@ -856,61 +619,22 @@ public class ChunkProviderRTG implements IChunkProvider
                 borderNoise[bn] = 0f;
         	}
         }
+        
+        MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(worldObj, rand, worldX, worldZ));
 
-        //Flowers.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.FLOWERS)) {
-          //TODO
-        }
+        /**
+         * ########################################################################
+         * # END DECORATE BIOME
+         * ########################################################################
+         */
         
-        //Grass.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.GRASS)) {
-          //TODO
-        }
-        
-        //Dead bushes.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.DEAD_BUSH)) {
-          //TODO
-        }
-        
-        //Lilypads.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.LILYPAD)) {
-          //TODO
-        }
-        
-        //Shrooms.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.SHROOM)) {
-          //TODO
-        }
-        
-        //Sugarcane.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.REED)) {
-          //TODO
-        }
-        
-        //Pumpkins.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.PUMPKIN)) {
-          //TODO
-        }
-        
-        //Cactii
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.CACTUS)) {
-          //TODO
-        }
-        
-        //Lakes.
-        if (TerrainGen.decorate(worldObj, rand, x, y, DecorateBiomeEvent.Decorate.EventType.LAKE)) {
-          //TODO
-        }
-
-        MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(worldObj, rand, x, y));
-
         //Flowing water.
         if (rand.nextInt(32) == 0) {
     		for(int l18 = 0; l18 < 50; l18++)
     		{
-    			int l21 = x + rand.nextInt(16) + 8;
+    			int l21 = worldX + rand.nextInt(16) + 8;
     			int k23 = rand.nextInt(rand.nextInt(worldHeight - 16) + 10);
-    			int l24 = y + rand.nextInt(16) + 8;
+    			int l24 = worldZ + rand.nextInt(16) + 8;
                 
     			(new WorldGenLiquids(Blocks.flowing_water)).generate(worldObj, rand, l21, k23, l24);
     		}
@@ -920,74 +644,40 @@ public class ChunkProviderRTG implements IChunkProvider
         if (rand.nextInt(32) == 0) {
     		for(int i19 = 0; i19 < 20; i19++)
     		{
-    			int i22 = x + rand.nextInt(16) + 8;
+    			int i22 = worldX + rand.nextInt(16) + 8;
     			int l23 = rand.nextInt(worldHeight / 2);
-    			int i25 = y + rand.nextInt(16) + 8;
+    			int i25 = worldZ + rand.nextInt(16) + 8;
     			(new WorldGenLiquids(Blocks.flowing_lava)).generate(worldObj, rand, i22, l23, i25);
     		}
         }
 
-        if (TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.ANIMALS))
+        if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.ANIMALS))
         {
-            SpawnerAnimals.performWorldGenSpawning(this.worldObj, worldObj.getBiomeGenForCoords(x + 16, y + 16), x + 8, y + 8, 16, 16, this.rand);
+            SpawnerAnimals.performWorldGenSpawning(this.worldObj, worldObj.getBiomeGenForCoords(worldX + 16, worldZ + 16), worldX + 8, worldZ + 8, 16, 16, this.rand);
         }
 
-        if (TerrainGen.populate(this, worldObj, rand, i, j, flag, PopulateChunkEvent.Populate.EventType.ICE)) {
+        if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.ICE)) {
+
+            int k1, l1, i2;
             
-            if(snow < 0.59f)
-            {
-    	        x += 8;
-    	        y += 8;
-    			float s;
-    			Block b1, b2;
-    
-    	        for (int sn1 = 0; sn1 < 16; ++sn1)
-    	        {
-    	            for (int sn2 = 0; sn2 < 16; ++sn2)
-    	            {
-    	            	if(snow < -0.59f)
-    	            	{
-    	            		s = -1f;
-    	            	}
-    	            	else
-    	            	{
-    	            		s = simplex.noise2((sn1 + x) / 3f, (sn2 + y) / 3f) + snow;
-    	            	}
-    
-    	            	if(s < 0f)
-    	            	{
-    		                int sn3 = worldObj.getPrecipitationHeight(x + sn1, y + sn2);
-    		                b1 = worldObj.getBlock(sn1 + x, sn3, sn2 + y);
-    		                b2 = worldObj.getBlock(sn1 + x, sn3 - 1, sn2 + y);
-    
-    		                if (b2 == Blocks.water || b2 == Blocks.flowing_water)
-    		                {
-    		                	worldObj.setBlock(sn1 + x, sn3 - 1, sn2 + y, Blocks.ice, 0, 2);
-    		                }
-    
-    		                if (Blocks.snow_layer.canPlaceBlockAt(worldObj, sn1 + x, sn3, sn2 + y) && b2 != Blocks.ice && b2 != Blocks.water && sn3 > 62)
-    		                {
-    		                	if(b1 != Blocks.snow_layer && b2 != Blocks.packed_ice)
-    		                	{
-    
-    		                		/**
-    		                		 * Not sure if this is the right 'temperature' we need to check, and not sure
-    		                		 * if the value is low/high enough, so some testing is still needed here.
-    		                		 */
-    		                        if (biome.baseBiome.temperature < 0.15f)
-                                    {
-    			                		/** This line spawns those annoying snow layers */
-    			                		worldObj.setBlock(sn1 + x, sn3, sn2 + y, Blocks.snow_layer, 0, 2);
-                                    }
-    		                	}
-    		                }
-    	            	}
-    	            }
-    	        }
+            for(k1 = 0; k1 < 16; ++k1) {
+                
+                for(l1 = 0; l1 < 16; ++l1) {
+                    
+                    i2 = this.worldObj.getPrecipitationHeight(worldX + k1, worldZ + l1);
+
+                    if(this.worldObj.isBlockFreezable(k1 + worldX, i2 - 1, l1 + worldZ)) {
+                        this.worldObj.setBlock(k1 + worldX, i2 - 1, l1 + worldZ, Blocks.ice, 0, 2);
+                    }
+
+                    if(ConfigRTG.enableSnowLayers && this.worldObj.func_147478_e(k1 + worldX, i2, l1 + worldZ, true)) {
+                        this.worldObj.setBlock(k1 + worldX, i2, l1 + worldZ, Blocks.snow_layer, 0, 2);
+                    }
+                }
             }
         }
 
-        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(ichunkprovider, worldObj, rand, i, j, flag));
+        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag));
 
         BlockFalling.fallInstantly = false;
     }
@@ -1035,7 +725,7 @@ public class ChunkProviderRTG implements IChunkProvider
      */
     public String makeString()
     {
-        return "RandomLevelSourceRTG";
+        return "ChunkProviderRTG";
     }
 
     /**
@@ -1054,6 +744,10 @@ public class ChunkProviderRTG implements IChunkProvider
      */
     public ChunkPosition func_147416_a(World par1World, String par2Str, int par3, int par4, int par5)
     {
+        if (ConfigRTG.generateStrongholds) {
+            return null;
+        }
+        
         return "Stronghold".equals(par2Str) && this.strongholdGenerator != null ? this.strongholdGenerator.func_151545_a(par1World, par3, par4, par5) : null;
     }
 
@@ -1070,12 +764,25 @@ public class ChunkProviderRTG implements IChunkProvider
      */
     public void recreateStructures(int par1, int par2)
     {
-    	if (mapFeaturesEnabled) {
-    		strongholdGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
-    		mineshaftGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
-            villageGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
-    		scatteredFeatureGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
-    	}
+
+        if (mapFeaturesEnabled) {
+            
+            if (ConfigRTG.generateMineshafts) {
+                mineshaftGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
+            }
+            
+            if (ConfigRTG.generateStrongholds) {
+                strongholdGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
+            }
+            
+            if (ConfigRTG.generateVillages) {
+                villageGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+            }
+            
+            if (ConfigRTG.generateScatteredFeatures) {
+                scatteredFeatureGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+            }
+        }
 	}
 
     /**

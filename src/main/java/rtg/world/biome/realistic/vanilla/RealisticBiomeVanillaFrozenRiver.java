@@ -20,7 +20,7 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase
 			BiomeGenBase.frozenRiver,
 			BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
 			new TerrainVanillaFrozenRiver(),
-			new SurfaceVanillaFrozenRiver(Blocks.snow, Blocks.snow, Blocks.snow, Blocks.snow, (byte)0, 0)
+			new SurfaceVanillaFrozenRiver()
 		);
 		
 		this.setRealisticBiomeName("Vanilla Frozen River");

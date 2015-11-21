@@ -45,12 +45,12 @@ public class BiomeBase extends BiomeGenBase
 	public static ArrayList<RealisticBiomeBase> biomes_hot;
 	public static ArrayList<RealisticBiomeBase> biomes_wet;
 	
-	public static float tempCold = 0.5f, rainCold = 0.4f;
-	public static float tempHot = 0.8f, rainHot = 0.2f;
-	public static float tempIce = 0.0f, rainIce = 0.1f;
-	public static float tempOasis = 0.9f, rainOasis = 0.9f;
-	public static float tempTemperate = 0.8f, rainTemperate = 0.6f;
-	public static float tempWet = 0.9f, rainWet = 0.9f;	
+	public static float tempCold = 0.2f, rainCold = 0.3f;
+	public static float tempHot = 2f, rainHot = 0f;
+	public static float tempIce = -0.5f, rainIce = 0.4f;
+	public static float tempOasis = 0.9f, rainOasis = 1f;
+	public static float tempTemperate = 0.8f, rainTemperate = 0.4f;
+	public static float tempWet = 0.95f, rainWet = 0.9f;	
 
 	/**
 	 * We need to set the temp/rain values 'on the fly' when we pass them as arguments to avoid

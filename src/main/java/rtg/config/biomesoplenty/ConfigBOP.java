@@ -97,11 +97,11 @@ public class ConfigBOP
 	public static boolean generateBOPsilkglades = true;
 	public static boolean generateBOPspruceWoods = true;
 	public static boolean generateBOPtropics = true;
-	public static boolean generateBOPvolcano = true;
+	public static boolean generateBOPvolcano = false;
 	
 	//Water biomes
-	public static boolean generateBOPcoralReef = true;
-	public static boolean generateBOPkelpForest = true;
+	public static boolean generateBOPcoralReef = false;
+	public static boolean generateBOPkelpForest = false;
 	
 	public static int weightBOPalps = biomeWeightDefault;
 	public static int weightBOParctic = biomeWeightDefault;
@@ -177,7 +177,7 @@ public class ConfigBOP
 	public static int weightBOPsilkglades = biomeWeightDefault;
 	public static int weightBOPspruceWoods = biomeWeightDefault;
 	public static int weightBOPtropics = biomeWeightDefault;
-	public static int weightBOPvolcano = biomeWeightDefault;
+	public static int weightBOPvolcano = (int)Math.floor((double)(biomeWeightDefault * 0.1));
 	
 	//Water biomes
 	public static int weightBOPcoralReef = biomeWeightDefault;
@@ -257,7 +257,7 @@ public class ConfigBOP
     public static boolean villageBOPsilkglades = true;
     public static boolean villageBOPspruceWoods = true;
     public static boolean villageBOPtropics = true;
-    public static boolean villageBOPvolcano = true;
+    public static boolean villageBOPvolcano = false;
     
     //Water biomes
     public static boolean villageBOPcoralReef = false;

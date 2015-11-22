@@ -25,7 +25,7 @@ public class ConfigATG
     public static boolean generateATGRockySteppe = true;
     public static boolean generateATGTropicalShrubland = true;
     public static boolean generateATGTundra = true;
-    public static boolean generateATGVolcano = true;
+    public static boolean generateATGVolcano = false;
     public static boolean generateATGWoodland = true;
 	
     public static int weightATGGravelBeach = biomeWeightDefault;
@@ -34,17 +34,17 @@ public class ConfigATG
     public static int weightATGRockySteppe = biomeWeightDefault;
     public static int weightATGTropicalShrubland = biomeWeightDefault;
     public static int weightATGTundra = biomeWeightDefault;
-    public static int weightATGVolcano = biomeWeightDefault;
+    public static int weightATGVolcano = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     public static int weightATGWoodland = biomeWeightDefault;
     
     public static boolean villageATGGravelBeach = false;
     public static boolean villageATGSnowyGravelBeach = false;
-    public static boolean villageATGShrubland = false;
-    public static boolean villageATGRockySteppe = false;
-    public static boolean villageATGTropicalShrubland = false;
-    public static boolean villageATGTundra = false;
+    public static boolean villageATGShrubland = true;
+    public static boolean villageATGRockySteppe = true;
+    public static boolean villageATGTropicalShrubland = true;
+    public static boolean villageATGTundra = true;
     public static boolean villageATGVolcano = false;
-    public static boolean villageATGWoodland = false;
+    public static boolean villageATGWoodland = true;
 		
 	public static void init(File configFile) 
 	{

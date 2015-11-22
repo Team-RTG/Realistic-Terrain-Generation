@@ -101,9 +101,9 @@ public class ConfigEB
 	public static boolean generateEBStoneCanyons =true;
 	public static boolean generateEBTropicalArchipelago = true;
 	public static boolean generateEBTundra = true;
-	public static boolean generateEBVolcano =true;
-	public static boolean generateEBVolcanoM =true;
-	public static boolean generateEBWastelands =true;
+	public static boolean generateEBVolcano = false;
+	public static boolean generateEBVolcanoM = false;
+	public static boolean generateEBWastelands = true;
 	public static boolean generateEBWoodlandField = true;
 	public static boolean generateEBWoodlandHills = true;
 	public static boolean generateEBWoodlandLake = true;
@@ -190,8 +190,8 @@ public class ConfigEB
 	public static int weightEBStoneCanyons = biomeWeightDefault;
 	public static int weightEBTropicalArchipelago = biomeWeightDefault;
 	public static int weightEBTundra = biomeWeightDefault;
-	public static int weightEBVolcano = biomeWeightDefault;
-	public static int weightEBVolcanoM = biomeWeightDefault;
+	public static int weightEBVolcano = (int)Math.floor((double)(biomeWeightDefault * 0.1));
+	public static int weightEBVolcanoM = (int)Math.floor((double)(biomeWeightDefault * 0.1));
 	public static int weightEBWastelands = biomeWeightDefault;
 	public static int weightEBWoodlandField = biomeWeightDefault;
 	public static int weightEBWoodlandHills = biomeWeightDefault;
@@ -279,8 +279,8 @@ public class ConfigEB
     public static boolean villageEBStoneCanyons =true;
     public static boolean villageEBTropicalArchipelago = true;
     public static boolean villageEBTundra = true;
-    public static boolean villageEBVolcano =true;
-    public static boolean villageEBVolcanoM =true;
+    public static boolean villageEBVolcano =false;
+    public static boolean villageEBVolcanoM =false;
     public static boolean villageEBWastelands =true;
     public static boolean villageEBWoodlandField = true;
     public static boolean villageEBWoodlandHills = true;

@@ -66,7 +66,7 @@ public class ConfigHL
 	public static boolean generateHL_rockIsland = true;
 	public static boolean generateHL_snowIsland = true;
 	public static boolean generateHL_valley = true;
-	public static boolean generateHL_volcanoIsland = true;
+	public static boolean generateHL_volcanoIsland = false;
 	public static boolean generateHL_windyIsland = true;
     
     //Border biomes
@@ -119,7 +119,7 @@ public class ConfigHL
 	public static int weightHL_rockIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
 	public static int weightHL_snowIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
 	public static int weightHL_valley = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHL_volcanoIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
+	public static int weightHL_volcanoIsland = (int)Math.floor((double)(biomeWeightDefault * 0.1));
 	public static int weightHL_windyIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
     
     //Border biomes
@@ -172,7 +172,7 @@ public class ConfigHL
     public static boolean villageHL_rockIsland = true;
     public static boolean villageHL_snowIsland = true;
     public static boolean villageHL_valley = true;
-    public static boolean villageHL_volcanoIsland = true;
+    public static boolean villageHL_volcanoIsland = false;
     public static boolean villageHL_windyIsland = true;
     
     //Border biomes

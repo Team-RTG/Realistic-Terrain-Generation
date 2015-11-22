@@ -113,7 +113,9 @@ public class BiomeBase extends BiomeGenBase
     
     public static void addVillageBiome(RealisticBiomeBase b)
     {
-        arrVillageBiomes.add(b.baseBiome);
+        if (b.generateVillages) {
+            arrVillageBiomes.add(b.baseBiome);
+        }
     }
 	
 	public static void addBiome(RealisticBiomeBase b)

@@ -12,6 +12,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class RealisticBiomeBCBase extends RealisticBiomeBase
 {
     
+    public static RealisticBiomeBase bcDesertOilField;
+    public static RealisticBiomeBase bcOceanOilField;
+    
     public RealisticBiomeBCBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
     {
     
@@ -39,17 +42,21 @@ public class RealisticBiomeBCBase extends RealisticBiomeBase
                     if (biomeName == "Desert Oil Field" && biomeClass == "buildcraft.energy.worldgen.BiomeGenOilDesert")
                     {
                         if (ConfigBC.generateBCDesertOilField) {
-                            BiomeBase.addBiome(
-                                new RealisticBiomeBCDesertOilField(bcBiome)
-                                );
+                            
+                            bcDesertOilField = new RealisticBiomeBCDesertOilField(bcBiome);
+                            
+                            BiomeBase.addBiome(bcDesertOilField);
+                            BiomeBase.addVillageBiome(bcDesertOilField);
                         }
                     }
                     else if (biomeName == "Ocean Oil Field" && biomeClass == "buildcraft.energy.worldgen.BiomeGenOilOcean")
                     {
                         if (ConfigBC.generateBCOceanOilField) {
-                            BiomeBase.addBiome(
-                                new RealisticBiomeBCOceanOilField(bcBiome)
-                                );
+                            
+                            bcOceanOilField = new RealisticBiomeBCOceanOilField(bcBiome);
+                            
+                            BiomeBase.addBiome(bcOceanOilField);
+                            BiomeBase.addVillageBiome(bcOceanOilField);
                         }
                     }
                 }

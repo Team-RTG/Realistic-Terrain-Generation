@@ -22,5 +22,6 @@ public class RealisticBiomeBCDesertOilField extends RealisticBiomeBCBase
         this.setRealisticBiomeName("BC Desert Oil Field");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigBC.weightBCDesertOilField;
+        this.generateVillages = ConfigBC.villageBCDesertOilField;
     }
 }

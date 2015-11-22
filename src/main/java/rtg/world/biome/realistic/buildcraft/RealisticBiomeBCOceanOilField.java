@@ -22,5 +22,6 @@ public class RealisticBiomeBCOceanOilField extends RealisticBiomeBCBase
         this.setRealisticBiomeName("BC Ocean Oil Field");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigBC.weightBCOceanOilField;
+        this.generateVillages = ConfigBC.villageBCOceanOilField;
     }
 }

@@ -26,6 +26,9 @@ public class ConfigBC
     public static int weightBCDesertOilField = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     public static int weightBCOceanOilField = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     
+    public static boolean villageBCDesertOilField = false;
+    public static boolean villageBCOceanOilField = false;
+    
     public static void init(File configFile)
     {
     
@@ -44,6 +47,10 @@ public class ConfigBC
                 config.getInt("weightBCDesertOilField", "Weights", weightBCDesertOilField, biomeWeightMin, biomeWeightMax, "");
             weightBCOceanOilField =
                 config.getInt("weightBCOceanOilField", "Weights", weightBCOceanOilField, biomeWeightMin, biomeWeightMax, "");
+            
+            villageBCDesertOilField = config.getBoolean("villageBCDesertOilField", "Villages", villageBCDesertOilField, "");
+            villageBCOceanOilField = config.getBoolean("villageBCOceanOilField", "Villages", villageBCOceanOilField, "");
+            
         } catch (Exception e)
         {
             FMLLog.log(Level.ERROR, e, "RTG has had a problem loading BuildCraft configuration.");

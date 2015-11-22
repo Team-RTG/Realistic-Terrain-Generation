@@ -31,6 +31,7 @@ public class RealisticBiomeATGVolcano extends RealisticBiomeATGBase
 		this.setRealisticBiomeName("ATG Volcano");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigATG.weightATGVolcano;
+		this.generateVillages = ConfigATG.villageATGVolcano;
 	}
 	
     @Override

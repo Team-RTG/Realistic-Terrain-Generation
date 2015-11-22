@@ -36,6 +36,15 @@ public class ConfigATG
     public static int weightATGTundra = biomeWeightDefault;
     public static int weightATGVolcano = biomeWeightDefault;
     public static int weightATGWoodland = biomeWeightDefault;
+    
+    public static boolean villageATGGravelBeach = false;
+    public static boolean villageATGSnowyGravelBeach = false;
+    public static boolean villageATGShrubland = false;
+    public static boolean villageATGRockySteppe = false;
+    public static boolean villageATGTropicalShrubland = false;
+    public static boolean villageATGTundra = false;
+    public static boolean villageATGVolcano = false;
+    public static boolean villageATGWoodland = false;
 		
 	public static void init(File configFile) 
 	{
@@ -64,6 +73,15 @@ public class ConfigATG
             weightATGTundra = config.getInt("weightATGTundra", "Weights", weightATGTundra, biomeWeightMin, biomeWeightMax, "");
             weightATGVolcano = config.getInt("weightATGVolcano", "Weights", weightATGVolcano, biomeWeightMin, biomeWeightMax, "");
             weightATGWoodland = config.getInt("weightATGWoodland", "Weights", weightATGWoodland, biomeWeightMin, biomeWeightMax, "");
+            
+            villageATGGravelBeach = config.getBoolean("villageATGGravelBeach", "Villages", villageATGGravelBeach, "");
+            villageATGSnowyGravelBeach = config.getBoolean("villageATGSnowyGravelBeach", "Villages", villageATGSnowyGravelBeach, "");
+            villageATGShrubland = config.getBoolean("villageATGShrubland", "Villages", villageATGShrubland, "");
+            villageATGRockySteppe = config.getBoolean("villageATGRockySteppe", "Villages", villageATGRockySteppe, "");
+            villageATGTropicalShrubland = config.getBoolean("villageATGTropicalShrubland", "Villages", villageATGTropicalShrubland, "");
+            villageATGTundra = config.getBoolean("villageATGTundra", "Villages", villageATGTundra, "");
+            villageATGVolcano = config.getBoolean("villageATGVolcano", "Villages", villageATGVolcano, "");
+            villageATGWoodland = config.getBoolean("villageATGWoodland", "Villages", villageATGWoodland, "");
 		}
 		catch (Exception e)
 		{

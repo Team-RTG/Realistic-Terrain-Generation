@@ -20,5 +20,6 @@ public class RealisticBiomeATGTundra extends RealisticBiomeATGBase
 		this.setRealisticBiomeName("ATG Tundra");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigATG.weightATGTundra;
+		this.generateVillages = ConfigATG.villageATGTundra;
 	}
 }

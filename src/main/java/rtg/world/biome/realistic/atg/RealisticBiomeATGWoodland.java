@@ -21,5 +21,6 @@ public class RealisticBiomeATGWoodland extends RealisticBiomeATGBase
 		this.setRealisticBiomeName("ATG Woodland");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigATG.weightATGWoodland;
+		this.generateVillages = ConfigATG.villageATGWoodland;
 	}
 }

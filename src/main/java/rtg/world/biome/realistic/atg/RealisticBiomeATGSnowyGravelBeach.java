@@ -20,5 +20,6 @@ public class RealisticBiomeATGSnowyGravelBeach extends RealisticBiomeATGBase
 		this.setRealisticBiomeName("ATG Snowy Gravel Beach");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigATG.weightATGSnowyGravelBeach;
+		this.generateVillages = ConfigATG.villageATGSnowyGravelBeach;
 	}
 }

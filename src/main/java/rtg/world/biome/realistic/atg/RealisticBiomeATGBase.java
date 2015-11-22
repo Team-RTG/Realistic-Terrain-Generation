@@ -49,7 +49,8 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
 					{
 						if (ConfigATG.generateATGGravelBeach) {
 						    atgGravelBeach = new RealisticBiomeATGGravelBeach(atgBiome);
-							BiomeBase.addBiome(atgGravelBeach);
+						    BiomeBase.addBiome(atgGravelBeach);
+						    BiomeBase.addVillageBiome(atgGravelBeach);
 						}
 					}
                     else if (biomeName == "Snowy Gravel Beach" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenGravelBeach")
@@ -57,6 +58,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                         if (ConfigATG.generateATGSnowyGravelBeach) {
                             atgSnowyGravelBeach = new RealisticBiomeATGSnowyGravelBeach(atgBiome);
                             BiomeBase.addBiome(atgSnowyGravelBeach);
+                            BiomeBase.addVillageBiome(atgSnowyGravelBeach);
                         }
                     }
                     else if (biomeName == "Shrubland" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenShrubland")
@@ -64,6 +66,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                         if (ConfigATG.generateATGShrubland) {
                             atgShrubland = new RealisticBiomeATGShrubland(atgBiome);
                             BiomeBase.addBiome(atgShrubland);
+                            BiomeBase.addVillageBiome(atgShrubland);
                         }
                     }
                     else if (biomeName == "Rocky Steppe" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenSteppe")
@@ -71,6 +74,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                         if (ConfigATG.generateATGRockySteppe) {
                             atgRockySteppe = new RealisticBiomeATGRockySteppe(atgBiome);
                             BiomeBase.addBiome(atgRockySteppe);
+                            BiomeBase.addVillageBiome(atgRockySteppe);
                         }
                     }
                     else if (biomeName == "Tropical Shrubland" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenTropicalShrubland")
@@ -78,6 +82,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                         if (ConfigATG.generateATGTropicalShrubland) {
                             atgTropicalShrubland = new RealisticBiomeATGTropicalShrubland(atgBiome);
                             BiomeBase.addBiome(atgTropicalShrubland);
+                            BiomeBase.addVillageBiome(atgTropicalShrubland);
                         }
                     }
                     else if (biomeName == "Tundra" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenTundra")
@@ -85,6 +90,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                         if (ConfigATG.generateATGTundra) {
                             atgTundra = new RealisticBiomeATGTundra(atgBiome);
                             BiomeBase.addBiome(atgTundra);
+                            BiomeBase.addVillageBiome(atgTundra);
                         }
                     }
                     else if (biomeName == "Volcano" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenVolcano")
@@ -92,6 +98,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                         if (ConfigATG.generateATGVolcano) {
                             atgVolcano = new RealisticBiomeATGVolcano(atgBiome);
                             BiomeBase.addBiome(atgVolcano);
+                            BiomeBase.addVillageBiome(atgVolcano);
                         }
                     }
                     else if (biomeName == "Woodland" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenWoodland")
@@ -99,6 +106,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                         if (ConfigATG.generateATGWoodland) {
                             atgWoodland = new RealisticBiomeATGWoodland(atgBiome);
                             BiomeBase.addBiome(atgWoodland);
+                            BiomeBase.addVillageBiome(atgWoodland);
                         }
                     }
 					else if (biomeClass.contains("ttftcuts.atg.biome"))

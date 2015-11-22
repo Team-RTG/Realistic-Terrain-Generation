@@ -21,5 +21,6 @@ public class RealisticBiomeATGShrubland extends RealisticBiomeATGBase
 		this.setRealisticBiomeName("ATG Shrubland");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigATG.weightATGShrubland;
+		this.generateVillages = ConfigATG.villageATGShrubland;
 	}
 }

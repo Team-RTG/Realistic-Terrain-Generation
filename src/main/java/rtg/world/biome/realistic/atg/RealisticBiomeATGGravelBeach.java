@@ -20,5 +20,6 @@ public class RealisticBiomeATGGravelBeach extends RealisticBiomeATGBase
 		this.setRealisticBiomeName("ATG Gravel Beach");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigATG.weightATGGravelBeach;
+		this.generateVillages = ConfigATG.villageATGGravelBeach;
 	}
 }

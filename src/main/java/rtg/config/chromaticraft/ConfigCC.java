@@ -25,8 +25,8 @@ public class ConfigCC
 	public static int weightCCEnderForest = biomeWeightDefault;
 	public static int weightCCRainbowForest = biomeWeightDefault;
 	
-    public static boolean villageCCEnderForest = true;
-    public static boolean villageCCRainbowForest = true;
+    public static boolean villageCCEnderForest = false;
+    public static boolean villageCCRainbowForest = false;
 		
 	public static void init(File configFile) 
 	{

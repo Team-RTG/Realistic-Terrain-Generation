@@ -2,9 +2,11 @@ package rtg.world.gen.feature;
 
 import java.util.Random;
 
+import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.TerrainMath;
+import cpw.mods.fml.common.registry.GameData;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -12,11 +14,15 @@ import net.minecraft.world.World;
 
 public class WorldGenVolcano 
 {
+    protected static Block volcanoBlock = GameData.getBlockRegistry().getObject(ConfigRTG.volcanoBlockId);
+    protected static byte volcanoByte = (byte) ConfigRTG.volcanoBlockByte;
+    
 	public static void build(Block[] blocks, byte[] metadata, World world, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float[] noise)
 	{	
 		int i, j;
 		float distance, height, obsidian;
 		Block b;
+		byte meta;
 		
 		for (int x = 0; x < 16; x++)
 		{
@@ -42,7 +48,10 @@ public class WorldGenVolcano
 						}
 						else if(y > obsidian && y < 156 + height)
 						{
-							blocks[cta(x, y, z)] = Blocks.obsidian;
+						    blocks[cta(x, y, z)] = volcanoBlock;
+						    metadata[cta(x, y, z)] = volcanoByte;
+							
+							
 						}
 						else if(y < 166)
 						{
@@ -52,7 +61,8 @@ public class WorldGenVolcano
 						{
 							if(blocks[cta(x, y, z)] == Blocks.air)
 							{
-								blocks[cta(x, y, z)] = Blocks.stone;
+							    blocks[cta(x, y, z)] = Blocks.stone;
+							    metadata[cta(x, y, z)] = (byte)0;
 							}
 							else
 							{
@@ -74,22 +84,28 @@ public class WorldGenVolcano
 						if(y <= height)
 						{
 							b = blocks[cta(x, y, z)];
+							meta = metadata[cta(x, y, z)];
+							
 							if(b == Blocks.air)
 							{
 								if(y > obsidian)
 								{
-									b = Blocks.obsidian;
+									b = volcanoBlock;
+									meta = volcanoByte;
 								}
 								else
 								{
 									b = Blocks.stone;
+									meta = (byte)0;
 								}
 							}
 							else
 							{
 								break;
 							}
+							
 							blocks[cta(x, y, z)] = b;
+							metadata[cta(x, y, z)] = meta;
 						}
 					}
 				}

@@ -19,6 +19,9 @@ public class ConfigRTG
     
     public static String shadowDesertBlockId = "minecraft:stained_hardened_clay";
     public static int shadowDesertBlockByte = 8;
+    
+    public static String volcanoBlockId = "minecraft:obsidian";
+    public static int volcanoBlockByte = 0;
 	
     public static boolean generateOreCoal = true;
     public static boolean generateOreIron = true;
@@ -104,6 +107,17 @@ public class ConfigRTG
             );
             
             shadowDesertBlockByte = config.getInt("Desert shadow block meta value", "Terrain shadowing", shadowDesertBlockByte, 0, 15, "The meta value of the shadow block for desert structures. Defaults to " + shadowDesertBlockByte +  " (light gray).");
+            
+            volcanoBlockId = config.getString(
+                "Volcano block ID",
+                "Volcanoes", 
+                volcanoBlockId,
+                "The block to use for top of the volcano." +
+                Configuration.NEW_LINE +
+                "Defaults to Obsidian."
+            );
+            
+            volcanoBlockByte = config.getInt("Volcano block meta value", "Volcanoes", volcanoBlockByte, 0, 15, "The meta value of the volcano block. Defaults to " + volcanoBlockByte +  ".");
             
 			generateOreCoal = config.getBoolean("Generate Coal Ore", "Ore Gen", generateOreCoal, "");
 			generateOreIron = config.getBoolean("Generate Iron Ore", "Ore Gen", generateOreIron, "");

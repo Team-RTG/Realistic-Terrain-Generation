@@ -22,5 +22,6 @@ public class RealisticBiomeEBSnowyRanges extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Snowy Ranges");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSnowyRanges;
+		this.generateVillages = ConfigEB.villageEBSnowyRanges;
 	}
 }

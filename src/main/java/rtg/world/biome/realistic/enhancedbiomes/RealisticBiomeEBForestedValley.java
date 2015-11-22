@@ -55,6 +55,7 @@ public class RealisticBiomeEBForestedValley extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Forested Valley");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBForestedValley;
+		this.generateVillages = ConfigEB.villageEBForestedValley;
 	}
 	
     @Override

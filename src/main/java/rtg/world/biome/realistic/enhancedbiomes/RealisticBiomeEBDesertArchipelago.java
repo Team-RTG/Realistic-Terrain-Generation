@@ -22,5 +22,6 @@ public class RealisticBiomeEBDesertArchipelago extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Desert Archipelago");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBDesertArchipelago;
+		this.generateVillages = ConfigEB.villageEBDesertArchipelago;
 	}
 }

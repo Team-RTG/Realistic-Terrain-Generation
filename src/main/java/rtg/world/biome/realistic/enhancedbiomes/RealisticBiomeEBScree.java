@@ -53,6 +53,7 @@ public class RealisticBiomeEBScree extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Scree");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBScree;
+		this.generateVillages = ConfigEB.villageEBScree;
 	}
 	
     @Override

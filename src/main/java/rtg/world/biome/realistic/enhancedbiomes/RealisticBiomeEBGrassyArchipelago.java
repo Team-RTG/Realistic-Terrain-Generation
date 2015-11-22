@@ -21,5 +21,6 @@ public class RealisticBiomeEBGrassyArchipelago extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Grassy Archipelago");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBGrassyArchipelago;
+		this.generateVillages = ConfigEB.villageEBGrassyArchipelago;
 	}
 }

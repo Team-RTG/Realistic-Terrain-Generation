@@ -44,6 +44,7 @@ public class RealisticBiomeEBClayHills extends RealisticBiomeEBBase
         this.setRealisticBiomeName("EB Clay Hills");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigEB.weightEBClayHills;
+        this.generateVillages = ConfigEB.villageEBClayHills;
     }
     
     @Override

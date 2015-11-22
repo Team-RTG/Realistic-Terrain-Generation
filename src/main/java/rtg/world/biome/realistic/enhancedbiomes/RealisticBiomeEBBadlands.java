@@ -56,5 +56,6 @@ public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Badlands");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBBadlands;
+		this.generateVillages = ConfigEB.villageEBBadlands;
 	}
 }

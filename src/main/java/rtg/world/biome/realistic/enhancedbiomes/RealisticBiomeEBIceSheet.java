@@ -22,5 +22,6 @@ public class RealisticBiomeEBIceSheet extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Ice Sheet");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBIceSheet;
+		this.generateVillages = ConfigEB.villageEBIceSheet;
 	}
 }

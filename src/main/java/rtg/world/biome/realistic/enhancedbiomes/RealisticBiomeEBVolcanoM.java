@@ -68,6 +68,7 @@ public class RealisticBiomeEBVolcanoM extends RealisticBiomeEBBase
         this.setRealisticBiomeName("EB Volcano M");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigEB.weightEBVolcanoM;
+        this.generateVillages = ConfigEB.villageEBVolcanoM;
     }
     
     @Override

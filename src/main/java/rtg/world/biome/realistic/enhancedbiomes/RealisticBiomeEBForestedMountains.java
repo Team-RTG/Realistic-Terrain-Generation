@@ -58,6 +58,7 @@ public class RealisticBiomeEBForestedMountains extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Forested Mountains");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBForestedMountains;
+		this.generateVillages = ConfigEB.villageEBForestedMountains;
 	}
 	
     @Override

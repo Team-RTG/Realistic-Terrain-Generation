@@ -21,5 +21,6 @@ public class RealisticBiomeEBFirForest extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Fir Forest");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBFirForest;
+		this.generateVillages = ConfigEB.villageEBFirForest;
 	}
 }

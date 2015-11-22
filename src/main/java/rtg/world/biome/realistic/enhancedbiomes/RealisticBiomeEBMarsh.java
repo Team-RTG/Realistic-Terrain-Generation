@@ -22,5 +22,6 @@ public class RealisticBiomeEBMarsh extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Marsh");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBMarsh;
+		this.generateVillages = ConfigEB.villageEBMarsh;
 	}
 }

@@ -21,5 +21,6 @@ public class RealisticBiomeEBSilverPineForest extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Silver Pine Forest");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSilverPineForest;
+		this.generateVillages = ConfigEB.villageEBSilverPineForest;
 	}
 }

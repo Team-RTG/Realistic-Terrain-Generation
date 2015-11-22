@@ -21,5 +21,6 @@ public class RealisticBiomeEBGlacier extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Glacier");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBGlacier;
+		this.generateVillages = ConfigEB.villageEBGlacier;
 	}
 }

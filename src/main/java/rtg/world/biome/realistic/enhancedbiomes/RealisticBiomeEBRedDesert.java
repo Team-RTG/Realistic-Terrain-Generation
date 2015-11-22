@@ -21,5 +21,6 @@ public class RealisticBiomeEBRedDesert extends RealisticBiomeEBBase
         this.setRealisticBiomeName("EB Red Desert");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigEB.weightEBRedDesert;
+        this.generateVillages = ConfigEB.villageEBRedDesert;
     }
 }

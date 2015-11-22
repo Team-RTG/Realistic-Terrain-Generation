@@ -54,5 +54,6 @@ public class RealisticBiomeEBKakadu extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Kakadu");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBKakadu;
+		this.generateVillages = ConfigEB.villageEBKakadu;
 	}
 }

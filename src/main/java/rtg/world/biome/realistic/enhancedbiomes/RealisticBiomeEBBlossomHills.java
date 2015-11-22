@@ -63,6 +63,7 @@ public class RealisticBiomeEBBlossomHills extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Blossom Hills");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBBlossomHills;
+		this.generateVillages = ConfigEB.villageEBBlossomHills;
 	}
 	
     @Override

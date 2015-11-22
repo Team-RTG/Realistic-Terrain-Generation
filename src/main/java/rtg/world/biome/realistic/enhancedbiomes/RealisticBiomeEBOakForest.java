@@ -22,5 +22,6 @@ public class RealisticBiomeEBOakForest extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Oak Forest");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBOakForest;
+		this.generateVillages = ConfigEB.villageEBOakForest;
 	}
 }

@@ -35,6 +35,7 @@ public class RealisticBiomeEBPolarDesert extends RealisticBiomeEBBase
         this.setRealisticBiomeName("EB Polar Desert");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigEB.weightEBPolarDesert;
+        this.generateVillages = ConfigEB.villageEBPolarDesert;
     }
     
     @Override

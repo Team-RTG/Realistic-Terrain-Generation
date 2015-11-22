@@ -62,5 +62,6 @@ public class RealisticBiomeEBMeadow extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Meadow");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBMeadow;
+		this.generateVillages = ConfigEB.villageEBMeadow;
 	}
 }

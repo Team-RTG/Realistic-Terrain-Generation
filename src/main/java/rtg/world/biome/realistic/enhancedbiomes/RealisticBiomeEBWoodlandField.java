@@ -21,5 +21,6 @@ public class RealisticBiomeEBWoodlandField extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Woodland Field");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBWoodlandField;
+		this.generateVillages = ConfigEB.villageEBWoodlandField;
 	}
 }

@@ -21,5 +21,6 @@ public class RealisticBiomeEBColdBorealForest extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Cold Boreal Forest");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBColdBorealForest;
+		this.generateVillages = ConfigEB.villageEBColdBorealForest;
 	}
 }

@@ -75,6 +75,7 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Rocky Desert");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBRockyDesert;
+		this.generateVillages = ConfigEB.villageEBRockyDesert;
 	}
 	
     @Override

@@ -22,5 +22,6 @@ public class RealisticBiomeEBLake extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Lake");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBLake;
+		this.generateVillages = ConfigEB.villageEBLake;
 	}
 }

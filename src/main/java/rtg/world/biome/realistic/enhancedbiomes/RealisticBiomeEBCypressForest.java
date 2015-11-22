@@ -22,5 +22,6 @@ public class RealisticBiomeEBCypressForest extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Cypress Forest");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBCypressForest;
+		this.generateVillages = ConfigEB.villageEBCypressForest;
 	}
 }

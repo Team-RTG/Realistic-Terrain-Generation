@@ -54,5 +54,6 @@ public class RealisticBiomeEBPrairie extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Prairie");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBPrairie;
+		this.generateVillages = ConfigEB.villageEBPrairie;
 	}
 }

@@ -22,5 +22,6 @@ public class RealisticBiomeEBRainforest extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Rainforest");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBRainforest;
+		this.generateVillages = ConfigEB.villageEBRainforest;
 	}
 }

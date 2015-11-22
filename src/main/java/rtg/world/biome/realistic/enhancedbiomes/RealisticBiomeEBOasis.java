@@ -22,5 +22,6 @@ public class RealisticBiomeEBOasis extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Oasis");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBOasis;
+		this.generateVillages = ConfigEB.villageEBOasis;
 	}
 }

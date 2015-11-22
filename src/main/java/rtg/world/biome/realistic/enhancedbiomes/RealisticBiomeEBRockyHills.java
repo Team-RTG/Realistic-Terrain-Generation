@@ -61,6 +61,7 @@ public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
         this.setRealisticBiomeName("EB Rocky Hills");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigEB.weightEBRockyHills;
+        this.generateVillages = ConfigEB.villageEBRockyHills;
     }
     
     @Override

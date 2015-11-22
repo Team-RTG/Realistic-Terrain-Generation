@@ -21,5 +21,6 @@ public class RealisticBiomeEBFrozenArchipelago extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Frozen Archipelago");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBFrozenArchipelago;
+		this.generateVillages = ConfigEB.villageEBFrozenArchipelago;
 	}
 }

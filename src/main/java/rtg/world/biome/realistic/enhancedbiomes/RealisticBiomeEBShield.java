@@ -22,5 +22,6 @@ public class RealisticBiomeEBShield extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Shield");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBShield;
+		this.generateVillages = ConfigEB.villageEBShield;
 	}
 }

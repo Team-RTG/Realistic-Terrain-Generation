@@ -21,5 +21,6 @@ public class RealisticBiomeEBAspenHills extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Aspen Hills");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBAspenHills;
+		this.generateVillages = ConfigEB.villageEBAspenHills;
 	}
 }

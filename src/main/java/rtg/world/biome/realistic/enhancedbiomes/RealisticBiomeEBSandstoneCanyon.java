@@ -56,6 +56,7 @@ public class RealisticBiomeEBSandstoneCanyon extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Sandstone Canyon");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSandstoneCanyon;
+		this.generateVillages = ConfigEB.villageEBSandstoneCanyon;
 	}
 	
     @Override

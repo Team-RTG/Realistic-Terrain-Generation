@@ -62,5 +62,6 @@ public class RealisticBiomeEBClearing extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Clearing");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBClearing;
+		this.generateVillages = ConfigEB.villageEBClearing;
 	}
 }

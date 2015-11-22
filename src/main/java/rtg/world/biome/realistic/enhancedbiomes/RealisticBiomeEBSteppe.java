@@ -70,6 +70,7 @@ public class RealisticBiomeEBSteppe extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Steppe");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSteppe;
+		this.generateVillages = ConfigEB.villageEBSteppe;
 	}
 	
     @Override

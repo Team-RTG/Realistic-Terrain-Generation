@@ -21,5 +21,6 @@ public class RealisticBiomeEBTundra extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Tundra");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBTundra;
+		this.generateVillages = ConfigEB.villageEBTundra;
 	}
 }

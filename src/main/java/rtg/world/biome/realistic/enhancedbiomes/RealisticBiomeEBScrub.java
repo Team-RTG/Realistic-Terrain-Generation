@@ -55,6 +55,7 @@ public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Scrub");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBScrub;
+		this.generateVillages = ConfigEB.villageEBScrub;
 	}
 	
     @Override

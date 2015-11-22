@@ -22,5 +22,6 @@ public class RealisticBiomeEBWoodlands extends RealisticBiomeEBBase
 		this.setRealisticBiomeName("EB Woodlands");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBWoodlands;
+		this.generateVillages = ConfigEB.villageEBWoodlands;
 	}
 }

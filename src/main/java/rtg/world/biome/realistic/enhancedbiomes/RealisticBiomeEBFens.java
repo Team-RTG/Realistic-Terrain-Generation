@@ -43,6 +43,7 @@ public class RealisticBiomeEBFens extends RealisticBiomeEBBase
         this.setRealisticBiomeName("EB Fens");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigEB.weightEBFens;
+        this.generateVillages = ConfigEB.villageEBFens;
     }
     
     @Override

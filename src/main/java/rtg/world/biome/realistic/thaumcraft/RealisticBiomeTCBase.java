@@ -14,6 +14,9 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeTCBase extends RealisticBiomeBase
 {	
+    public static RealisticBiomeBase tcMagicalForest;
+    public static RealisticBiomeBase tcTaintedLand;
+    
 	public RealisticBiomeTCBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
 		super(b, riverbiome, t, s);
@@ -43,22 +46,27 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 					String biomeName = tcBiome.biomeName;
 					String biomeClass = tcBiome.getBiomeClass().getName();
 					
-					if (biomeName == "Tainted Land" && biomeClass == "thaumcraft.common.lib.world.biomes.BiomeGenTaint")
+                    if (biomeName == "Magical Forest" && biomeClass == "thaumcraft.common.lib.world.biomes.BiomeGenMagicalForest")
+                    {
+                        if (ConfigTC.generateTCMagicalForest) {
+                            
+                            tcMagicalForest = new RealisticBiomeTCMagicalForest(tcBiome);
+                            
+                            BiomeBase.addBiome(tcMagicalForest);
+                            BiomeBase.addVillageBiome(tcMagicalForest);
+                        }
+                    }
+                    else if (biomeName == "Tainted Land" && biomeClass == "thaumcraft.common.lib.world.biomes.BiomeGenTaint")
 					{
 						if (ConfigTC.generateTCTaintedLand) {
-							BiomeBase.addBiome(
-								new RealisticBiomeTCTaintedLand(tcBiome)
-							);
+						    
+						    tcTaintedLand = new RealisticBiomeTCTaintedLand(tcBiome);
+						    
+						    BiomeBase.addBiome(tcTaintedLand);
+						    BiomeBase.addVillageBiome(tcTaintedLand);
 						}
 					}
-					else if (biomeName == "Magical Forest" && biomeClass == "thaumcraft.common.lib.world.biomes.BiomeGenMagicalForest")
-					{
-						if (ConfigTC.generateTCMagicalForest) {
-							BiomeBase.addBiome(
-								new RealisticBiomeTCMagicalForest(tcBiome)
-							);
-						}
-					}
+
 				}
 			}
 		}

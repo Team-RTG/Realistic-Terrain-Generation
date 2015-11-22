@@ -37,5 +37,6 @@ public class RealisticBiomeCCEnderForest extends RealisticBiomeCCBase
 		this.setRealisticBiomeName("CC Ender Forest");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigCC.weightCCEnderForest;
+		this.generateVillages = ConfigCC.villageCCEnderForest;
 	}
 }

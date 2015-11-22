@@ -21,5 +21,6 @@ public class RealisticBiomeCCRainbowForest extends RealisticBiomeCCBase
 		this.setRealisticBiomeName("CC Rainbow Forest");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigCC.weightCCRainbowForest;
+		this.generateVillages = ConfigCC.villageCCRainbowForest;
 	}
 }

@@ -11,6 +11,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeCCBase extends RealisticBiomeBase
 {	
+    public static RealisticBiomeBase ccEnderForest;
+    public static RealisticBiomeBase ccRainbowForest;
+    
 	public RealisticBiomeCCBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
 		super(b, riverbiome, t, s);
@@ -36,17 +39,21 @@ public class RealisticBiomeCCBase extends RealisticBiomeBase
 					if (biomeName == "Ender Forest" && biomeClass == "Reika.ChromatiCraft.World.BiomeEnderForest")
 					{
 						if (ConfigCC.generateCCEnderForest) {
-							BiomeBase.addBiome(
-								new RealisticBiomeCCEnderForest(ccBiome)
-							);
+						    
+						    ccEnderForest = new RealisticBiomeCCEnderForest(ccBiome);
+						    
+						    BiomeBase.addBiome(ccEnderForest);
+						    BiomeBase.addVillageBiome(ccEnderForest);
 						}
 					}
 					else if (biomeName == "Rainbow Forest" && biomeClass == "Reika.ChromatiCraft.World.BiomeRainbowForest")
 					{
 						if (ConfigCC.generateCCRainbowForest) {
-							BiomeBase.addBiome(
-								new RealisticBiomeCCRainbowForest(ccBiome)
-							);
+						    
+						    ccRainbowForest = new RealisticBiomeCCRainbowForest(ccBiome);
+						    
+						    BiomeBase.addBiome(ccRainbowForest);
+						    BiomeBase.addVillageBiome(ccRainbowForest);
 						}
 					}
 				}

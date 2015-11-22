@@ -24,6 +24,9 @@ public class ConfigCC
 	
 	public static int weightCCEnderForest = biomeWeightDefault;
 	public static int weightCCRainbowForest = biomeWeightDefault;
+	
+    public static boolean villageCCEnderForest = true;
+    public static boolean villageCCRainbowForest = true;
 		
 	public static void init(File configFile) 
 	{
@@ -40,6 +43,9 @@ public class ConfigCC
 			
 			weightCCEnderForest = config.getInt("weightCCEnderForest", "Weights", weightCCEnderForest, biomeWeightMin, biomeWeightMax, "");
 			weightCCRainbowForest = config.getInt("weightCCRainbowForest", "Weights", weightCCRainbowForest, biomeWeightMin, biomeWeightMax, "");
+			
+            villageCCEnderForest = config.getBoolean("villageCCEnderForest", "Villages", villageCCEnderForest, "");
+            villageCCRainbowForest = config.getBoolean("villageCCRainbowForest", "Villages", villageCCRainbowForest, "");
 		}
 		catch (Exception e)
 		{

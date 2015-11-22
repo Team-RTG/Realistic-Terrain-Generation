@@ -28,5 +28,6 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Quagmire");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPquagmire;
+		this.generateVillages = ConfigBOP.villageBOPquagmire;
 	}
 }

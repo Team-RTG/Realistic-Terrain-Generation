@@ -28,5 +28,6 @@ public class RealisticBiomeBOPShrubland extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Shrubland");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPshrubland;
+		this.generateVillages = ConfigBOP.villageBOPshrubland;
 	}
 }

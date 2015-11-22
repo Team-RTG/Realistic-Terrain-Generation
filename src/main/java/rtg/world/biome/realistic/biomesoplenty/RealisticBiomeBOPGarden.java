@@ -28,5 +28,6 @@ public class RealisticBiomeBOPGarden extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Garden");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPgarden;
+		this.generateVillages = ConfigBOP.villageBOPgarden;
 	}
 }

@@ -182,6 +182,86 @@ public class ConfigBOP
 	//Water biomes
 	public static int weightBOPcoralReef = biomeWeightDefault;
 	public static int weightBOPkelpForest = biomeWeightDefault;
+	
+    public static boolean villageBOPalps = true;
+    public static boolean villageBOParctic = true;
+    public static boolean villageBOPbambooForest = true;
+    public static boolean villageBOPbayou = true;
+    public static boolean villageBOPbog = true;
+    public static boolean villageBOPborealForest = true;
+    public static boolean villageBOPbrushland = true;
+    public static boolean villageBOPcanyon = true;
+    public static boolean villageBOPchaparral = true;
+    public static boolean villageBOPcherryBlossomGrove = true;
+    public static boolean villageBOPconiferousForest = true;
+    public static boolean villageBOPsnowyConiferousForest = true;
+    public static boolean villageBOPcrag = true;
+    public static boolean villageBOPdeadForest = true;
+    public static boolean villageBOPdeadSwamp = true;
+    public static boolean villageBOPdeciduousForest = true;
+    public static boolean villageBOPdenseForest = true;
+    public static boolean villageBOPeucalyptusForest = true;
+    public static boolean villageBOPfen = true;
+    public static boolean villageBOPflowerField = true;
+    public static boolean villageBOPfrostForest = true;
+    public static boolean villageBOPfungiForest = true;
+    public static boolean villageBOPgarden = true;
+    public static boolean villageBOPgrassland = true;
+    public static boolean villageBOPgrove = true;
+    public static boolean villageBOPheathland = true;
+    public static boolean villageBOPhighland = true;
+    public static boolean villageBOPjadeCliffs = true;
+    public static boolean villageBOPlandOfLakes = true;
+    public static boolean villageBOPlavenderFields = true;
+    public static boolean villageBOPlushDesert = true;
+    public static boolean villageBOPlushSwamp = true;
+    public static boolean villageBOPmapleWoods = true;
+    public static boolean villageBOPmarsh = true;
+    public static boolean villageBOPmeadow = true;
+    public static boolean villageBOPmoor = true;
+    public static boolean villageBOPmountain = true;
+    public static boolean villageBOPmysticGrove = true;
+    public static boolean villageBOPominousWoods = true;
+    public static boolean villageBOPoriginValley = true;
+    public static boolean villageBOPoutback = true;
+    public static boolean villageBOPprairie = true;
+    public static boolean villageBOPrainforest = true;
+    public static boolean villageBOPredwoodForest = true;
+    public static boolean villageBOPsacredSprings = true;
+    public static boolean villageBOPseasonalForest = true;
+    public static boolean villageBOPshield = true;
+    public static boolean villageBOPshrubland = true;
+    public static boolean villageBOPsludgepit = true;
+    public static boolean villageBOPsteppe = true;
+    public static boolean villageBOPtemperateRainforest = true;
+    public static boolean villageBOPthicket = true;
+    public static boolean villageBOPtropicalRainforest = true;
+    public static boolean villageBOPtundra = true;
+    public static boolean villageBOPwasteland = true;
+    public static boolean villageBOPwetland = true;
+    public static boolean villageBOPwoodland = true;
+    public static boolean villageBOPxericShrubland = true;
+        
+    //Sub biomes
+    public static boolean villageBOPalpsForest = true;
+    public static boolean villageBOPcanyonRavine = true;
+    public static boolean villageBOPglacier = true;
+    public static boolean villageBOPlandOfLakesMarsh = true;
+    public static boolean villageBOPmangrove = true;
+    public static boolean villageBOPmeadowForest = true;
+    public static boolean villageBOPoasis = true;
+    public static boolean villageBOPorchard = true;
+    public static boolean villageBOPquagmire = true;
+    public static boolean villageBOPscrubland = true;
+    public static boolean villageBOPseasonalForestClearing = true;
+    public static boolean villageBOPsilkglades = true;
+    public static boolean villageBOPspruceWoods = true;
+    public static boolean villageBOPtropics = true;
+    public static boolean villageBOPvolcano = true;
+    
+    //Water biomes
+    public static boolean villageBOPcoralReef = false;
+    public static boolean villageBOPkelpForest = false;
 		
 	public static void init(File configFile) 
 	{
@@ -355,6 +435,88 @@ public class ConfigBOP
 			//Water biomes
 			weightBOPcoralReef = config.getInt("weightBOPcoralReef", "Weights", weightBOPcoralReef, biomeWeightMin, biomeWeightMax, "");
 			weightBOPkelpForest = config.getInt("weightBOPkelpForest", "Weights", weightBOPkelpForest, biomeWeightMin, biomeWeightMax, "");
+			
+			
+            //Overworld biomes
+            villageBOPalps = config.getBoolean("villageBOPalps", "Villages", villageBOPalps, "");
+            villageBOParctic = config.getBoolean("villageBOParctic", "Villages", villageBOParctic, "");
+            villageBOPbambooForest = config.getBoolean("villageBOPbambooForest", "Villages", villageBOPbambooForest, "");
+            villageBOPbayou = config.getBoolean("villageBOPbayou", "Villages", villageBOPbayou, "");
+            villageBOPbog = config.getBoolean("villageBOPbog", "Villages", villageBOPbog, "");
+            villageBOPborealForest = config.getBoolean("villageBOPborealForest", "Villages", villageBOPborealForest, "");
+            villageBOPbrushland = config.getBoolean("villageBOPbrushland", "Villages", villageBOPbrushland, "");
+            villageBOPcanyon = config.getBoolean("villageBOPcanyon", "Villages", villageBOPcanyon, "");
+            villageBOPchaparral = config.getBoolean("villageBOPchaparral", "Villages", villageBOPchaparral, "");
+            villageBOPcherryBlossomGrove = config.getBoolean("villageBOPcherryBlossomGrove", "Villages", villageBOPcherryBlossomGrove, "");
+            villageBOPconiferousForest = config.getBoolean("villageBOPconiferousForest", "Villages", villageBOPconiferousForest, "");
+            villageBOPsnowyConiferousForest = config.getBoolean("villageBOPsnowyConiferousForest", "Villages", villageBOPsnowyConiferousForest, "");
+            villageBOPcrag = config.getBoolean("villageBOPcrag", "Villages", villageBOPcrag, "");
+            villageBOPdeadForest = config.getBoolean("villageBOPdeadForest", "Villages", villageBOPdeadForest, "");
+            villageBOPdeadSwamp = config.getBoolean("villageBOPdeadSwamp", "Villages", villageBOPdeadSwamp, "");
+            villageBOPdeciduousForest = config.getBoolean("villageBOPdeciduousForest", "Villages", villageBOPdeciduousForest, "");
+            villageBOPdenseForest = config.getBoolean("villageBOPdenseForest", "Villages", villageBOPdenseForest, "");
+            villageBOPeucalyptusForest = config.getBoolean("villageBOPeucalyptusForest", "Villages", villageBOPeucalyptusForest, "");
+            villageBOPfen = config.getBoolean("villageBOPfen", "Villages", villageBOPfen, "");
+            villageBOPflowerField = config.getBoolean("villageBOPflowerField", "Villages", villageBOPflowerField, "");
+            villageBOPfrostForest = config.getBoolean("villageBOPfrostForest", "Villages", villageBOPfrostForest, "");
+            villageBOPfungiForest = config.getBoolean("villageBOPfungiForest", "Villages", villageBOPfungiForest, "");
+            villageBOPgarden = config.getBoolean("villageBOPgarden", "Villages", villageBOPgarden, "");
+            villageBOPgrassland = config.getBoolean("villageBOPgrassland", "Villages", villageBOPgrassland, "");
+            villageBOPgrove = config.getBoolean("villageBOPgrove", "Villages", villageBOPgrove, "");
+            villageBOPheathland = config.getBoolean("villageBOPheathland", "Villages", villageBOPheathland, "");
+            villageBOPhighland = config.getBoolean("villageBOPhighland", "Villages", villageBOPhighland, "");
+            villageBOPjadeCliffs = config.getBoolean("villageBOPjadeCliffs", "Villages", villageBOPjadeCliffs, "");
+            villageBOPlandOfLakes = config.getBoolean("villageBOPlandOfLakes", "Villages", villageBOPlandOfLakes, "");
+            villageBOPlavenderFields = config.getBoolean("villageBOPlavenderFields", "Villages", villageBOPlavenderFields, "");
+            villageBOPlushDesert = config.getBoolean("villageBOPlushDesert", "Villages", villageBOPlushDesert, "");
+            villageBOPlushSwamp = config.getBoolean("villageBOPlushSwamp", "Villages", villageBOPlushSwamp, "");
+            villageBOPmapleWoods = config.getBoolean("villageBOPmapleWoods", "Villages", villageBOPmapleWoods, "");
+            villageBOPmarsh = config.getBoolean("villageBOPmarsh", "Villages", villageBOPmarsh, "");
+            villageBOPmeadow = config.getBoolean("villageBOPmeadow", "Villages", villageBOPmeadow, "");
+            villageBOPmoor = config.getBoolean("villageBOPmoor", "Villages", villageBOPmoor, "");
+            villageBOPmountain = config.getBoolean("villageBOPmountain", "Villages", villageBOPmountain, "");
+            villageBOPmysticGrove = config.getBoolean("villageBOPmysticGrove", "Villages", villageBOPmysticGrove, "");
+            villageBOPominousWoods = config.getBoolean("villageBOPominousWoods", "Villages", villageBOPominousWoods, "");
+            villageBOPoriginValley = config.getBoolean("villageBOPoriginValley", "Villages", villageBOPoriginValley, "");
+            villageBOPoutback = config.getBoolean("villageBOPoutback", "Villages", villageBOPoutback, "");
+            villageBOPprairie = config.getBoolean("villageBOPprairie", "Villages", villageBOPprairie, "");
+            villageBOPrainforest = config.getBoolean("villageBOPrainforest", "Villages", villageBOPrainforest, "");
+            villageBOPredwoodForest = config.getBoolean("villageBOPredwoodForest", "Villages", villageBOPredwoodForest, "");
+            villageBOPsacredSprings = config.getBoolean("villageBOPsacredSprings", "Villages", villageBOPsacredSprings, "");
+            villageBOPseasonalForest = config.getBoolean("villageBOPseasonalForest", "Villages", villageBOPseasonalForest, "");
+            villageBOPshield = config.getBoolean("villageBOPshield", "Villages", villageBOPshield, "");
+            villageBOPshrubland = config.getBoolean("villageBOPshrubland", "Villages", villageBOPshrubland, "");
+            villageBOPsludgepit = config.getBoolean("villageBOPsludgepit", "Villages", villageBOPsludgepit, "");
+            villageBOPsteppe = config.getBoolean("villageBOPsteppe", "Villages", villageBOPsteppe, "");
+            villageBOPtemperateRainforest = config.getBoolean("villageBOPtemperateRainforest", "Villages", villageBOPtemperateRainforest, "");
+            villageBOPthicket = config.getBoolean("villageBOPthicket", "Villages", villageBOPthicket, "");
+            villageBOPtropicalRainforest = config.getBoolean("villageBOPtropicalRainforest", "Villages", villageBOPtropicalRainforest, "");
+            villageBOPtundra = config.getBoolean("villageBOPtundra", "Villages", villageBOPtundra, "");
+            villageBOPwasteland = config.getBoolean("villageBOPwasteland", "Villages", villageBOPwasteland, "");
+            villageBOPwetland = config.getBoolean("villageBOPwetland", "Villages", villageBOPwetland, "");
+            villageBOPwoodland = config.getBoolean("villageBOPwoodland", "Villages", villageBOPwoodland, "");
+            villageBOPxericShrubland = config.getBoolean("villageBOPxericShrubland", "Villages", villageBOPxericShrubland, "");
+            
+            //Sub biomes
+            villageBOPalpsForest = config.getBoolean("villageBOPalpsForest", "Villages", villageBOPalpsForest, "");
+            villageBOPcanyonRavine = config.getBoolean("villageBOPcanyonRavine", "Villages", villageBOPcanyonRavine, "");
+            villageBOPglacier = config.getBoolean("villageBOPglacier", "Villages", villageBOPglacier, "");
+            villageBOPlandOfLakesMarsh = config.getBoolean("villageBOPlandOfLakesMarsh", "Villages", villageBOPlandOfLakesMarsh, "");
+            villageBOPmangrove = config.getBoolean("villageBOPmangrove", "Villages", villageBOPmangrove, "");
+            villageBOPmeadowForest = config.getBoolean("villageBOPmeadowForest", "Villages", villageBOPmeadowForest, "");
+            villageBOPoasis = config.getBoolean("villageBOPoasis", "Villages", villageBOPoasis, "");
+            villageBOPorchard = config.getBoolean("villageBOPorchard", "Villages", villageBOPorchard, "");
+            villageBOPquagmire = config.getBoolean("villageBOPquagmire", "Villages", villageBOPquagmire, "");
+            villageBOPscrubland = config.getBoolean("villageBOPscrubland", "Villages", villageBOPscrubland, "");
+            villageBOPseasonalForestClearing = config.getBoolean("villageBOPseasonalForestClearing", "Villages", villageBOPseasonalForestClearing, "");
+            villageBOPsilkglades = config.getBoolean("villageBOPsilkglades", "Villages", villageBOPsilkglades, "");
+            villageBOPspruceWoods = config.getBoolean("villageBOPspruceWoods", "Villages", villageBOPspruceWoods, "");
+            villageBOPtropics = config.getBoolean("villageBOPtropics", "Villages", villageBOPtropics, "");
+            villageBOPvolcano = config.getBoolean("villageBOPvolcano", "Villages", villageBOPvolcano, "");
+            
+            //Water biomes
+            villageBOPcoralReef = config.getBoolean("villageBOPcoralReef", "Villages", villageBOPcoralReef, "");
+            villageBOPkelpForest = config.getBoolean("villageBOPkelpForest", "Villages", villageBOPkelpForest, "");
 		}
 		catch (Exception e)
 		{

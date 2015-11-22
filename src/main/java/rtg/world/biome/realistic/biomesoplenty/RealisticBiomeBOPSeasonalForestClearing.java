@@ -28,5 +28,6 @@ public class RealisticBiomeBOPSeasonalForestClearing extends RealisticBiomeBOPBa
 		this.setRealisticBiomeName("BOP Seasonal Forest Clearing");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPseasonalForestClearing;
+		this.generateVillages = ConfigBOP.villageBOPseasonalForestClearing;
 	}
 }

@@ -28,5 +28,6 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Moor");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPmoor;
+		this.generateVillages = ConfigBOP.villageBOPmoor;
 	}
 }

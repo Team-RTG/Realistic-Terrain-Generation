@@ -28,5 +28,6 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Maple Woods");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPmapleWoods;
+		this.generateVillages = ConfigBOP.villageBOPmapleWoods;
 	}
 }

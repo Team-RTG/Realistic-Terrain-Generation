@@ -28,5 +28,6 @@ public class RealisticBiomeBOPTundra extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Tundra");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPtundra;
+		this.generateVillages = ConfigBOP.villageBOPtundra;
 	}
 }

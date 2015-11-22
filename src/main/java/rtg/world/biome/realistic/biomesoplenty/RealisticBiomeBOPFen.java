@@ -28,5 +28,6 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Fen");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPfen;
+		this.generateVillages = ConfigBOP.villageBOPfen;
 	}
 }

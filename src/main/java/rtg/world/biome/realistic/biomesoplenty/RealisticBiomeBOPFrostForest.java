@@ -28,5 +28,6 @@ public class RealisticBiomeBOPFrostForest extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Frost Forest");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPfrostForest;
+		this.generateVillages = ConfigBOP.villageBOPfrostForest;
 	}
 }

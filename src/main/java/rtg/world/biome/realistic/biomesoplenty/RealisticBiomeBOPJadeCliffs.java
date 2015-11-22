@@ -27,5 +27,6 @@ public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Jade Cliffs");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPjadeCliffs;
+		this.generateVillages = ConfigBOP.villageBOPjadeCliffs;
 	}
 }

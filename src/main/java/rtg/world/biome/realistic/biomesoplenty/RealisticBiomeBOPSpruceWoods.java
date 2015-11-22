@@ -28,5 +28,6 @@ public class RealisticBiomeBOPSpruceWoods extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Spruce Woods");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPspruceWoods;
+		this.generateVillages = ConfigBOP.villageBOPspruceWoods;
 	}
 }

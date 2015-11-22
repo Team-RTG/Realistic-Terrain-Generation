@@ -27,5 +27,6 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Heathland");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPheathland;
+		this.generateVillages = ConfigBOP.villageBOPheathland;
 	}
 }

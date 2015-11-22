@@ -27,5 +27,6 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Lavender Fields");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPlavenderFields;
+		this.generateVillages = ConfigBOP.villageBOPlavenderFields;
 	}
 }

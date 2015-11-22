@@ -28,5 +28,6 @@ public class RealisticBiomeBOPOriginValley extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Origin Valley");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPoriginValley;
+		this.generateVillages = ConfigBOP.villageBOPoriginValley;
 	}
 }

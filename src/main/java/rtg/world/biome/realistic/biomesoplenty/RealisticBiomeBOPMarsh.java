@@ -28,5 +28,6 @@ public class RealisticBiomeBOPMarsh extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Marsh");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPmarsh;
+		this.generateVillages = ConfigBOP.villageBOPmarsh;
 	}
 }

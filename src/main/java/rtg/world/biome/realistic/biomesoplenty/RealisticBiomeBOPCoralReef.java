@@ -28,5 +28,6 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Coral Reef");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPcoralReef;
+		this.generateVillages = ConfigBOP.villageBOPcoralReef;
 	}
 }

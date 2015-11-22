@@ -28,5 +28,6 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Bamboo Forest");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPbambooForest;
+		this.generateVillages = ConfigBOP.villageBOPbambooForest;
 	}
 }

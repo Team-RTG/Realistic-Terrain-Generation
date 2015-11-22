@@ -273,6 +273,88 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			//Ocean Biomes
 			if (ConfigBOP.generateBOPcoralReef) { BiomeBase.addBiome(bopCoralReef); }
 			if (ConfigBOP.generateBOPkelpForest) { BiomeBase.addBiome(bopKelpForest); }
+			
+			
+            //Overworld Biomes
+            if (ConfigBOP.villageBOPalps) { BiomeBase.addVillageBiome(bopAlps); }
+            if (ConfigBOP.villageBOParctic) { BiomeBase.addVillageBiome(bopArctic); }
+            if (ConfigBOP.villageBOPbambooForest) { BiomeBase.addVillageBiome(bopBambooForest); }
+            if (ConfigBOP.villageBOPbayou) { BiomeBase.addVillageBiome(bopBayou); }
+            if (ConfigBOP.villageBOPbog) { BiomeBase.addVillageBiome(bopBog); }
+            if (ConfigBOP.villageBOPborealForest) { BiomeBase.addVillageBiome(bopBorealForest); }
+            if (ConfigBOP.villageBOPbrushland) { BiomeBase.addVillageBiome(bopBrushland); }
+            if (ConfigBOP.villageBOPcanyon) { BiomeBase.addVillageBiome(bopCanyon); }
+            if (ConfigBOP.villageBOPchaparral) { BiomeBase.addVillageBiome(bopChaparral); }
+            if (ConfigBOP.villageBOPcherryBlossomGrove) { BiomeBase.addVillageBiome(bopCherryBlossomGrove); }
+            if (ConfigBOP.villageBOPconiferousForest) { BiomeBase.addVillageBiome(bopConiferousForest); }
+            if (ConfigBOP.villageBOPcrag) { BiomeBase.addVillageBiome(bopCrag); }
+            if (ConfigBOP.villageBOPdeadForest) { BiomeBase.addVillageBiome(bopDeadForest); }
+            if (ConfigBOP.villageBOPdeadSwamp) { BiomeBase.addVillageBiome(bopDeadSwamp); }
+            if (ConfigBOP.villageBOPdeciduousForest) { BiomeBase.addVillageBiome(bopDeciduousForest); }
+            if (ConfigBOP.villageBOPdenseForest) { BiomeBase.addVillageBiome(bopDenseForest); }
+            if (ConfigBOP.villageBOPeucalyptusForest) { BiomeBase.addVillageBiome(bopEucalyptusForest); }
+            if (ConfigBOP.villageBOPfen) { BiomeBase.addVillageBiome(bopFen); }
+            if (ConfigBOP.villageBOPflowerField) { BiomeBase.addVillageBiome(bopFlowerField); }
+            if (ConfigBOP.villageBOPfrostForest) { BiomeBase.addVillageBiome(bopFrostForest); }
+            if (ConfigBOP.villageBOPfungiForest) { BiomeBase.addVillageBiome(bopFungiForest); }
+            if (ConfigBOP.villageBOPgarden) { BiomeBase.addVillageBiome(bopGarden); }
+            if (ConfigBOP.villageBOPgrassland) { BiomeBase.addVillageBiome(bopGrassland); }
+            if (ConfigBOP.villageBOPgrove) { BiomeBase.addVillageBiome(bopGrove); }
+            if (ConfigBOP.villageBOPheathland) { BiomeBase.addVillageBiome(bopHeathland); }
+            if (ConfigBOP.villageBOPhighland) { BiomeBase.addVillageBiome(bopHighland); }
+            if (ConfigBOP.villageBOPjadeCliffs) { BiomeBase.addVillageBiome(bopJadeCliffs); }
+            if (ConfigBOP.villageBOPlandOfLakes) { BiomeBase.addVillageBiome(bopLandOfLakes); }
+            if (ConfigBOP.villageBOPlandOfLakesMarsh) { BiomeBase.addVillageBiome(bopLavenderFields); }
+            if (ConfigBOP.villageBOPlushDesert) { BiomeBase.addVillageBiome(bopLushDesert); }
+            if (ConfigBOP.villageBOPlushSwamp) { BiomeBase.addVillageBiome(bopLushSwamp); }
+            if (ConfigBOP.villageBOPmapleWoods) { BiomeBase.addVillageBiome(bopMapleWoods); }
+            if (ConfigBOP.villageBOPmarsh) { BiomeBase.addVillageBiome(bopMarsh); }
+            if (ConfigBOP.villageBOPmeadow) { BiomeBase.addVillageBiome(bopMeadow); }
+            if (ConfigBOP.villageBOPmoor) { BiomeBase.addVillageBiome(bopMoor); }
+            if (ConfigBOP.villageBOPmountain) { BiomeBase.addVillageBiome(bopMountain); }
+            if (ConfigBOP.villageBOPmysticGrove) { BiomeBase.addVillageBiome(bopMysticGrove); }
+            if (ConfigBOP.villageBOPominousWoods) { BiomeBase.addVillageBiome(bopOminousWoods); }
+            if (ConfigBOP.villageBOPoriginValley) { BiomeBase.addVillageBiome(bopOriginValley); }
+            if (ConfigBOP.villageBOPoutback) { BiomeBase.addVillageBiome(bopOutback); }
+            if (ConfigBOP.villageBOPprairie) { BiomeBase.addVillageBiome(bopPrairie); }
+            if (ConfigBOP.villageBOPrainforest) { BiomeBase.addVillageBiome(bopRainforest); }
+            if (ConfigBOP.villageBOPredwoodForest) { BiomeBase.addVillageBiome(bopRedwoodForest); }
+            if (ConfigBOP.villageBOPsacredSprings) { BiomeBase.addVillageBiome(bopSacredSprings); }
+            if (ConfigBOP.villageBOPseasonalForest) { BiomeBase.addVillageBiome(bopSeasonalForest); }
+            if (ConfigBOP.villageBOPshield) { BiomeBase.addVillageBiome(bopShield); }
+            if (ConfigBOP.villageBOPshrubland) { BiomeBase.addVillageBiome(bopShrubland); }
+            if (ConfigBOP.villageBOPsludgepit) { BiomeBase.addVillageBiome(bopSludgepit); }
+            if (ConfigBOP.villageBOPsnowyConiferousForest) { BiomeBase.addVillageBiome(bopSnowyConiferousForest); }
+            if (ConfigBOP.villageBOPsteppe) { BiomeBase.addVillageBiome(bopSteppe); }
+            if (ConfigBOP.villageBOPtemperateRainforest) { BiomeBase.addVillageBiome(bopTemperateRainforest); }
+            if (ConfigBOP.villageBOPthicket) { BiomeBase.addVillageBiome(bopThicket); }
+            if (ConfigBOP.villageBOPtropicalRainforest) { BiomeBase.addVillageBiome(bopTropicalRainforest); }
+            if (ConfigBOP.villageBOPtundra) { BiomeBase.addVillageBiome(bopTundra); }
+            if (ConfigBOP.villageBOPwasteland) { BiomeBase.addVillageBiome(bopWasteland); }
+            if (ConfigBOP.villageBOPwetland) { BiomeBase.addVillageBiome(bopWetland); }
+            if (ConfigBOP.villageBOPwoodland) { BiomeBase.addVillageBiome(bopWoodland); }
+            if (ConfigBOP.villageBOPxericShrubland) { BiomeBase.addVillageBiome(bopXericShrubland); }
+            
+            //Sub Biomes
+            if (ConfigBOP.villageBOPalpsForest) { BiomeBase.addVillageBiome(bopAlpsForest); }
+            if (ConfigBOP.villageBOPcanyonRavine) { BiomeBase.addVillageBiome(bopCanyonRavine); }
+            if (ConfigBOP.villageBOPglacier) { BiomeBase.addVillageBiome(bopGlacier); }
+            if (ConfigBOP.villageBOPlandOfLakesMarsh) { BiomeBase.addVillageBiome(bopLandOfLakesMarsh); }
+            if (ConfigBOP.villageBOPmangrove) { BiomeBase.addVillageBiome(bopMangrove); }
+            if (ConfigBOP.villageBOPmeadowForest) { BiomeBase.addVillageBiome(bopMeadowForest); }
+            if (ConfigBOP.villageBOPoasis) { BiomeBase.addVillageBiome(bopOasis); }
+            if (ConfigBOP.villageBOPorchard) { BiomeBase.addVillageBiome(bopOrchard); }
+            if (ConfigBOP.villageBOPquagmire) { BiomeBase.addVillageBiome(bopQuagmire); }
+            if (ConfigBOP.villageBOPscrubland) { BiomeBase.addVillageBiome(bopScrubland); }
+            if (ConfigBOP.villageBOPseasonalForestClearing) { BiomeBase.addVillageBiome(bopSeasonalForestClearing); }
+            if (ConfigBOP.villageBOPsilkglades) { BiomeBase.addVillageBiome(bopSilkglades); }
+            if (ConfigBOP.villageBOPspruceWoods) { BiomeBase.addVillageBiome(bopSpruceWoods); }
+            if (ConfigBOP.villageBOPtropics) { BiomeBase.addVillageBiome(bopTropics); }
+            if (ConfigBOP.villageBOPvolcano) { BiomeBase.addVillageBiome(bopVolcano); }
+            
+            //Ocean Biomes
+            if (ConfigBOP.villageBOPcoralReef) { BiomeBase.addVillageBiome(bopCoralReef); }
+            if (ConfigBOP.villageBOPkelpForest) { BiomeBase.addVillageBiome(bopKelpForest); }
 		}
 	}
 }

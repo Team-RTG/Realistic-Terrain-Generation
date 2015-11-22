@@ -27,5 +27,6 @@ public class RealisticBiomeBOPCanyonRavine extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Canyon Ravine");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPcanyonRavine;
+		this.generateVillages = ConfigBOP.villageBOPcanyonRavine;
 	}
 }

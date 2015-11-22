@@ -70,6 +70,8 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Volcano");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPvolcano;
+		this.generateVillages = ConfigBOP.villageBOPvolcano;
+		
 		this.waterLakeFrequency = 0;
 		this.lavaLakeFrequency = 1;
 	}

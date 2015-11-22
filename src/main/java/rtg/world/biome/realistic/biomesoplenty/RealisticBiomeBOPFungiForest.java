@@ -27,5 +27,6 @@ public class RealisticBiomeBOPFungiForest extends RealisticBiomeBOPBase
 		this.setRealisticBiomeName("BOP Fungi Forest");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPfungiForest;
+		this.generateVillages = ConfigBOP.villageBOPfungiForest;
 	}
 }

@@ -28,5 +28,6 @@ public class RealisticBiomeEBXLExtremeJungle extends RealisticBiomeEBXLBase
 		this.setRealisticBiomeName("EBXL Extreme Jungle");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_extremejungle;
+		this.generateVillages = ConfigEBXL.villageEBXL_extremejungle;
 	}
 }

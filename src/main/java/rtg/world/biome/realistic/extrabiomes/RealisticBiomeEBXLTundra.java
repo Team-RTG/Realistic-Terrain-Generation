@@ -28,5 +28,6 @@ public class RealisticBiomeEBXLTundra extends RealisticBiomeEBXLBase
 		this.setRealisticBiomeName("EBXL Tundra");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_tundra;
+		this.generateVillages = ConfigEBXL.villageEBXL_tundra;
 	}
 }

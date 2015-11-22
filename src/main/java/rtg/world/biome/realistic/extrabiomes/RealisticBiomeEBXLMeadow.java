@@ -28,5 +28,6 @@ public class RealisticBiomeEBXLMeadow extends RealisticBiomeEBXLBase
 		this.setRealisticBiomeName("EBXL Meadow");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_meadow;
+		this.generateVillages = ConfigEBXL.villageEBXL_meadow;
 	}
 }

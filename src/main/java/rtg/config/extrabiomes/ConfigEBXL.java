@@ -76,6 +76,35 @@ public class ConfigEBXL
 	public static int weightEBXL_tundra = biomeWeightDefault;
 	public static int weightEBXL_wasteland = biomeWeightDefault;
 	public static int weightEBXL_woodlands = biomeWeightDefault;
+	
+    public static boolean villageEBXL_alpine = true;
+    public static boolean villageEBXL_autumnwoods = true;
+    public static boolean villageEBXL_birchforest = true;
+    public static boolean villageEBXL_extremejungle = true;
+    public static boolean villageEBXL_forestedisland = true;
+    public static boolean villageEBXL_forestedhills = true;
+    public static boolean villageEBXL_glacier = true;
+    public static boolean villageEBXL_greenhills = true;
+    public static boolean villageEBXL_icewasteland = true;
+    public static boolean villageEBXL_greenswamp = true;
+    public static boolean villageEBXL_marsh = true;
+    public static boolean villageEBXL_meadow = true;
+    public static boolean villageEBXL_minijungle = true;
+    public static boolean villageEBXL_mountaindesert = true;
+    public static boolean villageEBXL_mountainridge = true;
+    public static boolean villageEBXL_mountaintaiga = true;
+    public static boolean villageEBXL_pineforest = true;
+    public static boolean villageEBXL_rainforest = true;
+    public static boolean villageEBXL_redwoodforest = true;
+    public static boolean villageEBXL_redwoodlush = true;
+    public static boolean villageEBXL_savanna = true;
+    public static boolean villageEBXL_shrubland = true;
+    public static boolean villageEBXL_snowforest = true;
+    public static boolean villageEBXL_snowyrainforest = true;
+    public static boolean villageEBXL_temperaterainforest = true;
+    public static boolean villageEBXL_tundra = true;
+    public static boolean villageEBXL_wasteland = true;
+    public static boolean villageEBXL_woodlands = true;
 		
 	public static void init(File configFile) 
 	{
@@ -147,6 +176,36 @@ public class ConfigEBXL
 			weightEBXL_tundra = config.getInt("weightEBXL_tundra", "Weights", weightEBXL_tundra, biomeWeightMin, biomeWeightMax, "");
 			weightEBXL_wasteland = config.getInt("weightEBXL_wasteland", "Weights", weightEBXL_wasteland, biomeWeightMin, biomeWeightMax, "");
 			weightEBXL_woodlands = config.getInt("weightEBXL_woodlands", "Weights", weightEBXL_woodlands, biomeWeightMin, biomeWeightMax, "");
+			
+            //Villages
+            villageEBXL_alpine = config.getBoolean("villageEBXL_alpine", "Villages", villageEBXL_alpine, "");
+            villageEBXL_autumnwoods = config.getBoolean("villageEBXL_autumnwoods", "Villages", villageEBXL_autumnwoods, "");
+            villageEBXL_birchforest = config.getBoolean("villageEBXL_birchforest", "Villages", villageEBXL_birchforest, "");
+            villageEBXL_extremejungle = config.getBoolean("villageEBXL_extremejungle", "Villages", villageEBXL_extremejungle, "");
+            villageEBXL_forestedisland = config.getBoolean("villageEBXL_forestedisland", "Villages", villageEBXL_forestedisland, "");
+            villageEBXL_forestedhills = config.getBoolean("villageEBXL_forestedhills", "Villages", villageEBXL_forestedhills, "");
+            villageEBXL_glacier = config.getBoolean("villageEBXL_glacier", "Villages", villageEBXL_glacier, "");
+            villageEBXL_greenhills = config.getBoolean("villageEBXL_greenhills", "Villages", villageEBXL_greenhills, "");
+            villageEBXL_icewasteland = config.getBoolean("villageEBXL_icewasteland", "Villages", villageEBXL_icewasteland, "");
+            villageEBXL_greenswamp = config.getBoolean("villageEBXL_greenswamp", "Villages", villageEBXL_greenswamp, "");
+            villageEBXL_marsh = config.getBoolean("villageEBXL_marsh", "Villages", villageEBXL_marsh, "");
+            villageEBXL_meadow = config.getBoolean("villageEBXL_meadow", "Villages", villageEBXL_meadow, "");
+            villageEBXL_minijungle = config.getBoolean("villageEBXL_minijungle", "Villages", villageEBXL_minijungle, "");
+            villageEBXL_mountaindesert = config.getBoolean("villageEBXL_mountaindesert", "Villages", villageEBXL_mountaindesert, "");
+            villageEBXL_mountainridge = config.getBoolean("villageEBXL_mountainridge", "Villages", villageEBXL_mountainridge, "");
+            villageEBXL_mountaintaiga = config.getBoolean("villageEBXL_mountaintaiga", "Villages", villageEBXL_mountaintaiga, "");
+            villageEBXL_pineforest = config.getBoolean("villageEBXL_pineforest", "Villages", villageEBXL_pineforest, "");
+            villageEBXL_rainforest = config.getBoolean("villageEBXL_rainforest", "Villages", villageEBXL_rainforest, "");
+            villageEBXL_redwoodforest = config.getBoolean("villageEBXL_redwoodforest", "Villages", villageEBXL_redwoodforest, "");
+            villageEBXL_redwoodlush = config.getBoolean("villageEBXL_redwoodlush", "Villages", villageEBXL_redwoodlush, "");
+            villageEBXL_savanna = config.getBoolean("villageEBXL_savanna", "Villages", villageEBXL_savanna, "");
+            villageEBXL_shrubland = config.getBoolean("villageEBXL_shrubland", "Villages", villageEBXL_shrubland, "");
+            villageEBXL_snowforest = config.getBoolean("villageEBXL_snowforest", "Villages", villageEBXL_snowforest, "");
+            villageEBXL_snowyrainforest = config.getBoolean("villageEBXL_snowyrainforest", "Villages", villageEBXL_snowyrainforest, "");
+            villageEBXL_temperaterainforest = config.getBoolean("villageEBXL_temperaterainforest", "Villages", villageEBXL_temperaterainforest, "");
+            villageEBXL_tundra = config.getBoolean("villageEBXL_tundra", "Villages", villageEBXL_tundra, "");
+            villageEBXL_wasteland = config.getBoolean("villageEBXL_wasteland", "Villages", villageEBXL_wasteland, "");
+            villageEBXL_woodlands = config.getBoolean("villageEBXL_woodlands", "Villages", villageEBXL_woodlands, "");
 		}
 		catch (Exception e)
 		{

@@ -28,5 +28,6 @@ public class RealisticBiomeEBXLForestedIsland extends RealisticBiomeEBXLBase
 		this.setRealisticBiomeName("EBXL Forested Island");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_forestedisland;
+		this.generateVillages = ConfigEBXL.villageEBXL_forestedisland;
 	}
 }

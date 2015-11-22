@@ -28,5 +28,6 @@ public class RealisticBiomeEBXLAlpine extends RealisticBiomeEBXLBase
 		this.setRealisticBiomeName("EBXL Alpine");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXL_alpine;
+		this.generateVillages = ConfigEBXL.villageEBXL_alpine;
 	}
 }

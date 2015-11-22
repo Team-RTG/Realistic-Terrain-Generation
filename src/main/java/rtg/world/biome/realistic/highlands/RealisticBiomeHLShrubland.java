@@ -29,5 +29,6 @@ public class RealisticBiomeHLShrubland extends RealisticBiomeHLBase
         this.setRealisticBiomeName("HL Shrubland");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_shrubland;
+        this.generateVillages = ConfigHL.villageHL_shrubland;
     }
 }

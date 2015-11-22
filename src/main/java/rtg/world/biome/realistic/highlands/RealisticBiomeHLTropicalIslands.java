@@ -29,5 +29,6 @@ public class RealisticBiomeHLTropicalIslands extends RealisticBiomeHLBase
         this.setRealisticBiomeName("HL Tropical Islands");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_tropicalIslands;
+        this.generateVillages = ConfigHL.villageHL_tropicalIslands;
     }
 }

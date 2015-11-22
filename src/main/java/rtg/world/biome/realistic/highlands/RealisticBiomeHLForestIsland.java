@@ -29,5 +29,6 @@ public class RealisticBiomeHLForestIsland extends RealisticBiomeHLBase
         this.setRealisticBiomeName("HL Forest Island");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_forestIsland;
+        this.generateVillages = ConfigHL.villageHL_forestIsland;
     }
 }

@@ -28,5 +28,6 @@ public class RealisticBiomeHLRedwoodForest extends RealisticBiomeHLBase
         this.setRealisticBiomeName("HL Redwood Forest");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_redwoodForest;
+        this.generateVillages = ConfigHL.villageHL_redwoodForest;
     }
 }

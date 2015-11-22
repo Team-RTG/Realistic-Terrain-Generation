@@ -28,5 +28,6 @@ public class RealisticBiomeHLRockMountains extends RealisticBiomeHLBase
         this.setRealisticBiomeName("HL Rock Mountains");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_rockMountains;
+        this.generateVillages = ConfigHL.villageHL_rockMountains;
     }
 }

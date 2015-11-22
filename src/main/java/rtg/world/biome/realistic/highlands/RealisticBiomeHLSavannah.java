@@ -29,5 +29,6 @@ public class RealisticBiomeHLSavannah extends RealisticBiomeHLBase
         this.setRealisticBiomeName("HL Savannah");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_savannah;
+        this.generateVillages = ConfigHL.villageHL_savannah;
     }
 }

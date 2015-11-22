@@ -28,5 +28,6 @@ public class RealisticBiomeHLMesa extends RealisticBiomeHLBase
         this.setRealisticBiomeName("HL Mesa");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_mesa;
+        this.generateVillages = ConfigHL.villageHL_mesa;
     }
 }

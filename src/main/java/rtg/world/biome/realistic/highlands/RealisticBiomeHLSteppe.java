@@ -29,5 +29,6 @@ public class RealisticBiomeHLSteppe extends RealisticBiomeHLBase
         this.setRealisticBiomeName("HL Steppe");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_steppe;
+        this.generateVillages = ConfigHL.villageHL_steppe;
     }
 }

@@ -28,5 +28,6 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
         this.setRealisticBiomeName("HL Windy Island");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_windyIsland;
+        this.generateVillages = ConfigHL.villageHL_windyIsland;
     }
 }

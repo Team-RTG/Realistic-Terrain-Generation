@@ -29,5 +29,6 @@ public class RealisticBiomeHLSahel extends RealisticBiomeHLBase
         this.setRealisticBiomeName("HL Sahel");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_sahel;
+        this.generateVillages = ConfigHL.villageHL_sahel;
     }
 }

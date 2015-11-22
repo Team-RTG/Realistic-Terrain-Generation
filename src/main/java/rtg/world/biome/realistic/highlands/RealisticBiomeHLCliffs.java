@@ -27,5 +27,6 @@ public class RealisticBiomeHLCliffs extends RealisticBiomeHLBase
         this.setRealisticBiomeName("HL Cliffs");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_cliffs;
+        this.generateVillages = ConfigHL.villageHL_cliffs;
     }
 }

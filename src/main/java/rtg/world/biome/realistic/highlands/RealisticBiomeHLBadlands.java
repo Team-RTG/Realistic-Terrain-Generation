@@ -28,5 +28,6 @@ public class RealisticBiomeHLBadlands extends RealisticBiomeHLBase
         this.setRealisticBiomeName("HL Badlands");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_badlands;
+        this.generateVillages = ConfigHL.villageHL_badlands;
     }
 }

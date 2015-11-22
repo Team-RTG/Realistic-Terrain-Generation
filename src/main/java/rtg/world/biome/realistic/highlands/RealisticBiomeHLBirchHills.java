@@ -25,5 +25,6 @@ public class RealisticBiomeHLBirchHills extends RealisticBiomeHLBase
         this.setRealisticBiomeName("HL Birch Hills");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_birchHills;
+        this.generateVillages = ConfigHL.villageHL_birchHills;
     }
 }

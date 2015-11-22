@@ -28,5 +28,6 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
         this.setRealisticBiomeName("HL Flying Mountains");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_flyingMountains;
+        this.generateVillages = ConfigHL.villageHL_flyingMountains;
     }
 }

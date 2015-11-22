@@ -29,5 +29,6 @@ public class RealisticBiomeHLRockIsland extends RealisticBiomeHLBase
         this.setRealisticBiomeName("HL Rock Island");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_rockIsland;
+        this.generateVillages = ConfigHL.villageHL_rockIsland;
     }
 }

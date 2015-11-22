@@ -27,5 +27,6 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
         this.setRealisticBiomeName("HL Autumn Forest");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_autumnForest;
+        this.generateVillages = ConfigHL.villageHL_autumnForest;
     }
 }

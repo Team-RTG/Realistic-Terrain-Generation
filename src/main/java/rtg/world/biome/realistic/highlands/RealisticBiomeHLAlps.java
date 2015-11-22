@@ -24,5 +24,6 @@ public class RealisticBiomeHLAlps extends RealisticBiomeHLBase {
         this.setRealisticBiomeName("HL Alps");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigHL.weightHL_alps;
+        this.generateVillages = ConfigHL.villageHL_alps;
     }
 }

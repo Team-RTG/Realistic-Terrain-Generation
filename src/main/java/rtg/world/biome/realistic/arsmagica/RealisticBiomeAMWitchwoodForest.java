@@ -22,5 +22,6 @@ public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase
         this.setRealisticBiomeName("Ars Magica Witchwood Forest");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigAM.weightAMWitchwoodForest;
+        this.generateVillages = ConfigAM.villageAMWitchwoodForest;
     }
 }

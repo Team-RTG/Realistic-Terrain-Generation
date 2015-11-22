@@ -39,6 +39,7 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
 		this.setRealisticBiomeName("Vanilla Mesa Plateau F");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigVanilla.weightVanillaMesaPlateau_F;
+		this.generateVillages = ConfigVanilla.villageVanillaMesaPlateau_F;
 	}
 	
     @Override

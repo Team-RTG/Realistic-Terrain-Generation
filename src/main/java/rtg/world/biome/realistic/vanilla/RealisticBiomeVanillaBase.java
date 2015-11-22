@@ -142,6 +142,62 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 		    if (ConfigVanilla.generateVanillaMesaBryce) { BiomeBase.addBiome(vanillaMesaBryce); }
 		    if (ConfigVanilla.generateVanillaMesaPlateauFM) { BiomeBase.addBiome(vanillaMesaPlateauFM); }
 		    if (ConfigVanilla.generateVanillaMesaPlateauM) { BiomeBase.addBiome(vanillaMesaPlateauM); }
+		    
+		    
+            if (ConfigVanilla.villageVanillaBeach) { BiomeBase.addVillageBiome(vanillaBeach); }
+            if (ConfigVanilla.villageVanillaBirchForest) { BiomeBase.addVillageBiome(vanillaBirchForest); }
+            if (ConfigVanilla.villageVanillaBirchForestHills) { BiomeBase.addVillageBiome(vanillaBirchForestHills); }
+            if (ConfigVanilla.villageVanillaColdBeach) { BiomeBase.addVillageBiome(vanillaColdBeach); }
+            if (ConfigVanilla.villageVanillaColdTaiga) { BiomeBase.addVillageBiome(vanillaColdTaiga); }
+            if (ConfigVanilla.villageVanillaColdTaigaHills) { BiomeBase.addVillageBiome(vanillaColdTaigaHills); }
+            if (ConfigVanilla.villageVanillaDeepOcean) { BiomeBase.addVillageBiome(vanillaDeepOcean); }
+            if (ConfigVanilla.villageVanillaDesert) { BiomeBase.addVillageBiome(vanillaDesert); }
+            if (ConfigVanilla.villageVanillaDesertHills) { BiomeBase.addVillageBiome(vanillaDesertHills); }
+            if (ConfigVanilla.villageVanillaExtremeHills) { BiomeBase.addVillageBiome(vanillaExtremeHills); }
+            if (ConfigVanilla.villageVanillaExtremeHillsPlus) { BiomeBase.addVillageBiome(vanillaExtremeHillsPlus); }
+            if (ConfigVanilla.villageVanillaForest) { BiomeBase.addVillageBiome(vanillaForest); }
+            if (ConfigVanilla.villageVanillaForestHills) { BiomeBase.addVillageBiome(vanillaForestHills); }
+            if (ConfigVanilla.villageVanillaIcePlains) { BiomeBase.addVillageBiome(vanillaIcePlains); }
+            if (ConfigVanilla.villageVanillaIceMountains) { BiomeBase.addVillageBiome(vanillaIceMountains); }
+            if (ConfigVanilla.villageVanillaJungle) { BiomeBase.addVillageBiome(vanillaJungle); }
+            if (ConfigVanilla.villageVanillaJungleEdge) { BiomeBase.addVillageBiome(vanillaJungleEdge); }
+            if (ConfigVanilla.villageVanillaJungleHills) { BiomeBase.addVillageBiome(vanillaJungleHills); }
+            if (ConfigVanilla.villageVanillaMegaTaiga) { BiomeBase.addVillageBiome(vanillaMegaTaiga); }
+            if (ConfigVanilla.villageVanillaMegaTaigaHills) { BiomeBase.addVillageBiome(vanillaMegaTaigaHills); }
+            if (ConfigVanilla.villageVanillaMesa) { BiomeBase.addVillageBiome(vanillaMesa); }
+            if (ConfigVanilla.villageVanillaMesaPlateau) { BiomeBase.addVillageBiome(vanillaMesaPlateau); }
+            if (ConfigVanilla.villageVanillaMesaPlateau_F) { BiomeBase.addVillageBiome(vanillaMesaPlateau_F); }
+            if (ConfigVanilla.villageVanillaMushroomIsland) { BiomeBase.addVillageBiome(vanillaMushroomIsland); }
+            if (ConfigVanilla.villageVanillaMushroomIslandShore) { BiomeBase.addVillageBiome(vanillaMushroomIslandShore); }
+            if (ConfigVanilla.villageVanillaOcean) { BiomeBase.addVillageBiome(vanillaOcean); }
+            if (ConfigVanilla.villageVanillaPlains) { BiomeBase.addVillageBiome(vanillaPlains); }
+            if (ConfigVanilla.villageVanillaRoofedForest) { BiomeBase.addVillageBiome(vanillaRoofedForest); }
+            if (ConfigVanilla.villageVanillaSavanna) { BiomeBase.addVillageBiome(vanillaSavanna); }
+            if (ConfigVanilla.villageVanillaSavannaPlateau) { BiomeBase.addVillageBiome(vanillaSavannaPlateau); }
+            if (ConfigVanilla.villageVanillaStoneBeach) { BiomeBase.addVillageBiome(vanillaStoneBeach); }
+            if (ConfigVanilla.villageVanillaSwampland) { BiomeBase.addVillageBiome(vanillaSwampland); }
+            if (ConfigVanilla.villageVanillaTaiga) { BiomeBase.addVillageBiome(vanillaTaiga); }
+            if (ConfigVanilla.villageVanillaTaigaHills) { BiomeBase.addVillageBiome(vanillaTaigaHills); }
+            if (ConfigVanilla.villageVanillaSunflowerPlains) { BiomeBase.addVillageBiome(vanillaSunflowerPlains); }
+            if (ConfigVanilla.villageVanillaDesertM) { BiomeBase.addVillageBiome(vanillaDesertM); }
+            if (ConfigVanilla.villageVanillaExtremeHillsM) { BiomeBase.addVillageBiome(vanillaExtremeHillsM); }
+            if (ConfigVanilla.villageVanillaFlowerForest) { BiomeBase.addVillageBiome(vanillaFlowerForest); }
+            if (ConfigVanilla.villageVanillaTaigaM) { BiomeBase.addVillageBiome(vanillaTaigaM); }
+            if (ConfigVanilla.villageVanillaSwamplandM) { BiomeBase.addVillageBiome(vanillaSwamplandM); }
+            if (ConfigVanilla.villageVanillaIcePlainsSpikes) { BiomeBase.addVillageBiome(vanillaIcePlainsSpikes); }
+            if (ConfigVanilla.villageVanillaJungleM) { BiomeBase.addVillageBiome(vanillaJungleM); }
+            if (ConfigVanilla.villageVanillaJungleEdgeM) { BiomeBase.addVillageBiome(vanillaJungleEdgeM); }
+            if (ConfigVanilla.villageVanillaBirchForestM) { BiomeBase.addVillageBiome(vanillaBirchForestM); }
+            if (ConfigVanilla.villageVanillaBirchForestHillsM) { BiomeBase.addVillageBiome(vanillaBirchForestHillsM); }
+            if (ConfigVanilla.villageVanillaRoofedForestM) { BiomeBase.addVillageBiome(vanillaRoofedForestM); }
+            if (ConfigVanilla.villageVanillaColdTaigaM) { BiomeBase.addVillageBiome(vanillaColdTaigaM); }
+            if (ConfigVanilla.villageVanillaMegaSpruceTaiga) { BiomeBase.addVillageBiome(vanillaMegaSpruceTaiga); }
+            if (ConfigVanilla.villageVanillaExtremeHillsPlusM) { BiomeBase.addVillageBiome(vanillaExtremeHillsPlusM); }
+            if (ConfigVanilla.villageVanillaSavannaM) { BiomeBase.addVillageBiome(vanillaSavannaM); }
+            if (ConfigVanilla.villageVanillaSavannaPlateauM) { BiomeBase.addVillageBiome(vanillaSavannaPlateauM); }
+            if (ConfigVanilla.villageVanillaMesaBryce) { BiomeBase.addVillageBiome(vanillaMesaBryce); }
+            if (ConfigVanilla.villageVanillaMesaPlateauFM) { BiomeBase.addVillageBiome(vanillaMesaPlateauFM); }
+            if (ConfigVanilla.villageVanillaMesaPlateauM) { BiomeBase.addVillageBiome(vanillaMesaPlateauM); }
 		}
 	}
 }

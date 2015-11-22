@@ -49,6 +49,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         this.setRealisticBiomeName("Vanilla Birch Forest M");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaBirchForestM;
+        this.generateVillages = ConfigVanilla.villageVanillaBirchForestM;
     }
     
     @Override

@@ -37,6 +37,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase
 		this.setRealisticBiomeName("Vanilla Jungle M");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigVanilla.weightVanillaJungleM;
+		this.generateVillages = ConfigVanilla.villageVanillaJungleM;
 	}
 	
     @Override

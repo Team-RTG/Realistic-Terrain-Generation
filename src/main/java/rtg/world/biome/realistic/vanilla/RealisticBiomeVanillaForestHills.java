@@ -42,6 +42,7 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase
         this.setRealisticBiomeName("Vanilla Forest Hills");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaForestHills;
+        this.generateVillages = ConfigVanilla.villageVanillaForestHills;
     }
     
     @Override

@@ -35,6 +35,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
 		this.setRealisticBiomeName("Vanilla Ice Plains");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigVanilla.weightVanillaIcePlains;
+		this.generateVillages = ConfigVanilla.villageVanillaIcePlains;
 	}
 	
     @Override

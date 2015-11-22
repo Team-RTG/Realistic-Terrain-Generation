@@ -42,6 +42,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
         this.setRealisticBiomeName("Vanilla Swampland");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaSwampland;
+        this.generateVillages = ConfigVanilla.villageVanillaSwampland;
     }
     
     @Override

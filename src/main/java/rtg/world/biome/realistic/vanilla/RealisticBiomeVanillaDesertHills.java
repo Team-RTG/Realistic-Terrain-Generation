@@ -46,6 +46,8 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
 		this.setRealisticBiomeName("Vanilla Desert Hills");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigVanilla.weightVanillaDesertHills;
+		this.generateVillages = ConfigVanilla.villageVanillaDesertHills;
+		
         this.waterLakeFrequency = 0;
 	}
 	

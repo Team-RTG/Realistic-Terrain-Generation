@@ -64,6 +64,8 @@ public class RealisticBiomeBase extends BiomeBase {
     public int diamondPerChunk;
     public int lapisPerChunk;
     
+    public boolean generateVillages;
+    
     public RealisticBiomeBase(BiomeGenBase biome) {
     
         this(biome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE));
@@ -90,6 +92,8 @@ public class RealisticBiomeBase extends BiomeBase {
         redstonePerChunk = 7;
         diamondPerChunk = 7;
         lapisPerChunk = 6;
+        
+        generateVillages = true;
     }
     
     public static RealisticBiomeBase getBiome(int id) {

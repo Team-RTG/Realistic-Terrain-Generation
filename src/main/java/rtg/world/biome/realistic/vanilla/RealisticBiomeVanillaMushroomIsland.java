@@ -25,5 +25,6 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
 		this.setRealisticBiomeName("Vanilla Mushroom Island");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigVanilla.weightVanillaMushroomIsland;
+		this.generateVillages = ConfigVanilla.villageVanillaMushroomIsland;
 	}	
 }

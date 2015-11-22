@@ -43,6 +43,7 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase
         this.setRealisticBiomeName("Vanilla Cold Taiga M");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaColdTaigaM;
+        this.generateVillages = ConfigVanilla.villageVanillaColdTaigaM;
     }
     
     @Override

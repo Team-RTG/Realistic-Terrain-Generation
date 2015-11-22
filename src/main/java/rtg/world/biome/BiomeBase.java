@@ -51,6 +51,8 @@ public class BiomeBase extends BiomeGenBase
 	public static float tempOasis = 0.9f, rainOasis = 1f;
 	public static float tempTemperate = 0.8f, rainTemperate = 0.4f;
 	public static float tempWet = 0.95f, rainWet = 0.9f;	
+	
+	public static ArrayList<BiomeGenBase> arrVillageBiomes;
 
 	/**
 	 * We need to set the temp/rain values 'on the fly' when we pass them as arguments to avoid
@@ -93,19 +95,26 @@ public class BiomeBase extends BiomeGenBase
 		biomes_cold = new ArrayList<RealisticBiomeBase>();
 		biomes_hot = new ArrayList<RealisticBiomeBase>();
 		biomes_wet = new ArrayList<RealisticBiomeBase>();
+		
+		arrVillageBiomes = new ArrayList<BiomeGenBase>();
 	}
     
-	public static void addBiome(RealisticBiomeBase b, BiomeSize size)
-	{
-		try
-		{
-			addWeightedBiome(b, size);
-		}
-		catch(Error e)
-		{
-			System.out.println("Failed to add biome.");
-		}
-	}
+    public static void addBiome(RealisticBiomeBase b, BiomeSize size)
+    {
+        try
+        {
+            addWeightedBiome(b, size);
+        }
+        catch(Error e)
+        {
+            System.out.println("Failed to add biome.");
+        }
+    }
+    
+    public static void addVillageBiome(RealisticBiomeBase b)
+    {
+        arrVillageBiomes.add(b.baseBiome);
+    }
 	
 	public static void addBiome(RealisticBiomeBase b)
 	{

@@ -35,6 +35,7 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
         this.setRealisticBiomeName("Vanilla Mega Spruce Taiga");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaMegaSpruceTaiga;
+        this.generateVillages = ConfigVanilla.villageVanillaMegaSpruceTaiga;
     }
     
     @Override

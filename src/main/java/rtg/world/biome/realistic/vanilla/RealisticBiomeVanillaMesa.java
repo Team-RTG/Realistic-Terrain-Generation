@@ -47,6 +47,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase
         this.setRealisticBiomeName("Vanilla Mesa");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaMesa;
+        this.generateVillages = ConfigVanilla.villageVanillaMesa;
     }
     
     @Override

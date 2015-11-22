@@ -35,6 +35,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
         this.setRealisticBiomeName("Vanilla Beach");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaBeach;
+        this.generateVillages = ConfigVanilla.villageVanillaBeach;
     }
     
     @Override

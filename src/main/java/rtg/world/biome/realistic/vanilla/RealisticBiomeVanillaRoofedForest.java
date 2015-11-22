@@ -41,6 +41,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         this.setRealisticBiomeName("Vanilla Roofed Forest");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaRoofedForest;
+        this.generateVillages = ConfigVanilla.villageVanillaRoofedForest;
     }
     
     @Override

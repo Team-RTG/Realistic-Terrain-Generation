@@ -7,10 +7,14 @@ import java.util.Map.Entry;
 import java.util.Random;
 
 import rtg.config.rtg.ConfigRTG;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
@@ -20,6 +24,8 @@ import net.minecraft.world.gen.structure.StructureVillagePieces.Road;
 public class MapGenVillageRTG extends MapGenVillage
 {
 
+    public static List villageSpawnBiomes = BiomeBase.arrVillageBiomes;
+    
     private int terrainType = ConfigRTG.villageSize;
     private int field_82665_g;
     private int field_82666_h;
@@ -62,6 +68,17 @@ public class MapGenVillageRTG extends MapGenVillage
 
     protected boolean canSpawnStructureAtCoords(int par1, int par2)
     {
+        if (villageSpawnBiomes.size() < 1) {
+            return false;
+        }
+        
+        WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) worldObj.getWorldChunkManager();
+        int worldX = par1;
+        int worldZ = par2;
+        RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldX + 16, worldZ + 16);
+        BiomeGenBase biome = realisticBiome.baseBiome;
+        boolean canSpawnVillage = false;
+        
         int k = par1;
         int l = par2;
 
@@ -85,15 +102,16 @@ public class MapGenVillageRTG extends MapGenVillage
 
         if (k == i1 && l == j1)
         {
-            boolean flag = this.worldObj.getWorldChunkManager().areBiomesViable(k * 16 + 8, l * 16 + 8, 0, villageSpawnBiomes);
-
-            if (flag)
-            {
-                return true;
+            for (int intBiomeIndex = 0; intBiomeIndex < villageSpawnBiomes.size(); intBiomeIndex++) {
+                
+                if (villageSpawnBiomes.get(intBiomeIndex) == biome) {
+                    canSpawnVillage = true;
+                    break;
+                }
             }
         }
 
-        return false;
+        return canSpawnVillage;
     }
 
     protected StructureStart getStructureStart(int par1, int par2)

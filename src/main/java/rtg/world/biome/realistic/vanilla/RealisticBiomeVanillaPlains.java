@@ -35,5 +35,6 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
         this.setRealisticBiomeName("Vanilla Plains");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaPlains;
+        this.generateVillages = ConfigVanilla.villageVanillaPlains;
     }
 }

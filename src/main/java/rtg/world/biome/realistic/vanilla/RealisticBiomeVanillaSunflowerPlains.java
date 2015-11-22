@@ -36,5 +36,6 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
         this.setRealisticBiomeName("Vanilla Sunflower Plains");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaSunflowerPlains;
+        this.generateVillages = ConfigVanilla.villageVanillaSunflowerPlains;
     }
 }

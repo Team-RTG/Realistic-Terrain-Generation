@@ -56,7 +56,6 @@ public class ConfigVanilla
 	public static boolean generateVanillaSwampland = true;
 	public static boolean generateVanillaTaiga = true;
 	public static boolean generateVanillaTaigaHills = true;
-	
     public static boolean generateVanillaSunflowerPlains = true;
     public static boolean generateVanillaDesertM = true;
     public static boolean generateVanillaExtremeHillsM = true;
@@ -115,7 +114,6 @@ public class ConfigVanilla
 	public static int weightVanillaSwampland = biomeWeightDefault;
 	public static int weightVanillaTaiga = biomeWeightDefault;
 	public static int weightVanillaTaigaHills = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	
     public static int weightVanillaSunflowerPlains = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     public static int weightVanillaDesertM = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     public static int weightVanillaExtremeHillsM = (int)Math.floor((double)(biomeWeightDefault * 0.1));
@@ -136,6 +134,63 @@ public class ConfigVanilla
     public static int weightVanillaMesaBryce = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     public static int weightVanillaMesaPlateauFM = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     public static int weightVanillaMesaPlateauM = (int)Math.floor((double)(biomeWeightDefault * 0.1));
+    
+    public static boolean villageVanillaBeach = true;
+    public static boolean villageVanillaBirchForest = true;
+    public static boolean villageVanillaBirchForestHills = true;
+    public static boolean villageVanillaColdBeach = true;
+    public static boolean villageVanillaColdTaiga = true;
+    public static boolean villageVanillaColdTaigaHills = true;
+    public static boolean villageVanillaDeepOcean = false;
+    public static boolean villageVanillaDesert = true;
+    public static boolean villageVanillaDesertHills = true;
+    public static boolean villageVanillaExtremeHills = true;
+    public static boolean villageVanillaExtremeHillsPlus = true;
+    public static boolean villageVanillaForest = true;
+    public static boolean villageVanillaForestHills = true;
+    //public static boolean villageVanillaFrozenRiver = true;
+    public static boolean villageVanillaIceMountains = true;
+    public static boolean villageVanillaIcePlains = true;
+    public static boolean villageVanillaJungle = true;
+    public static boolean villageVanillaJungleEdge = true;
+    public static boolean villageVanillaJungleHills = true;
+    public static boolean villageVanillaMegaTaiga = true;
+    public static boolean villageVanillaMegaTaigaHills = true;
+    public static boolean villageVanillaMesa = true;
+    public static boolean villageVanillaMesaPlateau = true;
+    public static boolean villageVanillaMesaPlateau_F = true;
+    public static boolean villageVanillaMushroomIsland = true;
+    public static boolean villageVanillaMushroomIslandShore = true;
+    public static boolean villageVanillaOcean = false;
+    public static boolean villageVanillaPlains = true;
+    //public static boolean villageVanillaRiver = true;
+    public static boolean villageVanillaRoofedForest = true;
+    public static boolean villageVanillaSavanna = true;
+    public static boolean villageVanillaSavannaPlateau = true;
+    public static boolean villageVanillaStoneBeach = true;
+    public static boolean villageVanillaSwampland = true;
+    public static boolean villageVanillaTaiga = true;
+    public static boolean villageVanillaTaigaHills = true;
+    public static boolean villageVanillaSunflowerPlains = true;
+    public static boolean villageVanillaDesertM = true;
+    public static boolean villageVanillaExtremeHillsM = true;
+    public static boolean villageVanillaFlowerForest = true;
+    public static boolean villageVanillaTaigaM = true;
+    public static boolean villageVanillaSwamplandM = true;
+    public static boolean villageVanillaIcePlainsSpikes = true;
+    public static boolean villageVanillaJungleM = true;
+    public static boolean villageVanillaJungleEdgeM = true;
+    public static boolean villageVanillaBirchForestM = true;
+    public static boolean villageVanillaBirchForestHillsM = true;
+    public static boolean villageVanillaRoofedForestM = true;
+    public static boolean villageVanillaColdTaigaM = true;
+    public static boolean villageVanillaMegaSpruceTaiga = true;
+    public static boolean villageVanillaExtremeHillsPlusM = true;
+    public static boolean villageVanillaSavannaM = true;
+    public static boolean villageVanillaSavannaPlateauM = true;
+    public static boolean villageVanillaMesaBryce = true;
+    public static boolean villageVanillaMesaPlateauFM = true;
+    public static boolean villageVanillaMesaPlateauM = true;
 	
 	public static void init(File configFile) 
 	{
@@ -183,7 +238,6 @@ public class ConfigVanilla
 			generateVanillaColdTaigaHills = config.getBoolean("generateVanillaColdTaigaHills", "Biomes", generateVanillaColdTaigaHills, "");
 			generateVanillaMegaTaiga = config.getBoolean("generateVanillaMegaTaiga", "Biomes", generateVanillaMegaTaiga, "");
 			generateVanillaMegaTaigaHills = config.getBoolean("generateVanillaMegaTaigaHills", "Biomes", generateVanillaMegaTaigaHills, "");
-			
             generateVanillaSunflowerPlains = config.getBoolean("generateVanillaSunflowerPlains", "Biomes", generateVanillaSunflowerPlains, "");
             generateVanillaDesertM = config.getBoolean("generateVanillaDesertM", "Biomes", generateVanillaDesertM, "");
             generateVanillaExtremeHillsM = config.getBoolean("generateVanillaExtremeHillsM", "Biomes", generateVanillaExtremeHillsM, "");
@@ -242,7 +296,6 @@ public class ConfigVanilla
 			weightVanillaSwampland = config.getInt("weightVanillaSwampland", "Weights", weightVanillaSwampland, biomeWeightMin, biomeWeightMax, "");
 			weightVanillaTaiga = config.getInt("weightVanillaTaiga", "Weights", weightVanillaTaiga, biomeWeightMin, biomeWeightMax, "");
 			weightVanillaTaigaHills = config.getInt("weightVanillaTaigaHills", "Weights", weightVanillaTaigaHills, biomeWeightMin, biomeWeightMax, "");
-			
             weightVanillaSunflowerPlains = config.getInt("weightVanillaSunflowerPlains", "Weights", weightVanillaSunflowerPlains, biomeWeightMin, biomeWeightMax, "");
             weightVanillaDesertM = config.getInt("weightVanillaDesertM", "Weights", weightVanillaDesertM, biomeWeightMin, biomeWeightMax, "");
             weightVanillaExtremeHillsM = config.getInt("weightVanillaExtremeHillsM", "Weights", weightVanillaExtremeHillsM, biomeWeightMin, biomeWeightMax, "");
@@ -263,6 +316,64 @@ public class ConfigVanilla
             weightVanillaMesaBryce = config.getInt("weightVanillaMesaBryce", "Weights", weightVanillaMesaBryce, biomeWeightMin, biomeWeightMax, "");
             weightVanillaMesaPlateauFM = config.getInt("weightVanillaMesaPlateauFM", "Weights", weightVanillaMesaPlateauFM, biomeWeightMin, biomeWeightMax, "");
             weightVanillaMesaPlateauM = config.getInt("weightVanillaMesaPlateauM", "Weights", weightVanillaMesaPlateauM, biomeWeightMin, biomeWeightMax, "");
+            
+            
+            villageVanillaBeach = config.getBoolean("villageVanillaBeach", "Villages", villageVanillaBeach, "");
+            villageVanillaStoneBeach = config.getBoolean("villageVanillaStoneBeach", "Villages", villageVanillaStoneBeach, "");
+            villageVanillaColdBeach = config.getBoolean("villageVanillaColdBeach", "Villages", villageVanillaColdBeach, "");
+            villageVanillaDesert = config.getBoolean("villageVanillaDesert", "Villages", villageVanillaDesert, "");
+            villageVanillaDesertHills = config.getBoolean("villageVanillaDesertHills", "Villages", villageVanillaDesertHills, "");
+            villageVanillaExtremeHills = config.getBoolean("villageVanillaExtremeHills", "Villages", villageVanillaExtremeHills, "");
+            villageVanillaExtremeHillsPlus = config.getBoolean("villageVanillaExtremeHillsPlus", "Villages", villageVanillaExtremeHillsPlus, "");
+            villageVanillaForest = config.getBoolean("villageVanillaForest", "Villages", villageVanillaForest, "");
+            villageVanillaForestHills = config.getBoolean("villageVanillaForestHills", "Villages", villageVanillaForestHills, "");
+            villageVanillaBirchForest = config.getBoolean("villageVanillaBirchForest", "Villages", villageVanillaBirchForest, "");
+            villageVanillaBirchForestHills = config.getBoolean("villageVanillaBirchForestHills", "Villages", villageVanillaBirchForestHills, "");
+            villageVanillaRoofedForest = config.getBoolean("villageVanillaRoofedForest", "Villages", villageVanillaRoofedForest, "");
+            villageVanillaIcePlains = config.getBoolean("villageVanillaIcePlains", "Villages", villageVanillaIcePlains, "");
+            villageVanillaIceMountains = config.getBoolean("villageVanillaIceMountains", "Villages", villageVanillaIceMountains, "");
+            villageVanillaJungle = config.getBoolean("villageVanillaJungle", "Villages", villageVanillaJungle, "");
+            villageVanillaJungleHills = config.getBoolean("villageVanillaJungleHills", "Villages", villageVanillaJungleHills, "");
+            villageVanillaJungleEdge = config.getBoolean("villageVanillaJungleEdge", "Villages", villageVanillaJungleEdge, "");
+            villageVanillaMesa = config.getBoolean("villageVanillaMesa", "Villages", villageVanillaMesa, "");
+            villageVanillaMesaPlateau = config.getBoolean("villageVanillaMesaPlateau", "Villages", villageVanillaMesaPlateau, "");
+            villageVanillaMesaPlateau_F = config.getBoolean("villageVanillaMesaPlateau_F", "Villages", villageVanillaMesaPlateau_F, "");
+            villageVanillaMushroomIsland = config.getBoolean("villageVanillaMushroomIsland", "Villages", villageVanillaMushroomIsland, "");
+            villageVanillaMushroomIslandShore = config.getBoolean("villageVanillaMushroomIslandShore", "Villages", villageVanillaMushroomIslandShore, "");
+            villageVanillaOcean = config.getBoolean("villageVanillaOcean", "Villages", villageVanillaOcean, "");
+            villageVanillaDeepOcean = config.getBoolean("villageVanillaDeepOcean", "Villages", villageVanillaDeepOcean, "");
+            villageVanillaPlains = config.getBoolean("villageVanillaPlains", "Villages", villageVanillaPlains, "");
+            //villageVanillaRiver = config.getBoolean("villageVanillaRiver", "Villages", villageVanillaRiver, "This setting is ignored. Rivers will always generate, even if set to false.");
+            //villageVanillaFrozenRiver = config.getBoolean("villageVanillaFrozenRiver", "Villages", villageVanillaFrozenRiver, "This setting is ignored. Frozen Rivers will always generate, even if set to false.");
+            villageVanillaSavanna = config.getBoolean("villageVanillaSavanna", "Villages", villageVanillaSavanna, "");
+            villageVanillaSavannaPlateau = config.getBoolean("villageVanillaSavannaPlateau", "Villages", villageVanillaSavannaPlateau, "");
+            villageVanillaSwampland = config.getBoolean("villageVanillaSwampland", "Villages", villageVanillaSwampland, "");
+            villageVanillaTaiga = config.getBoolean("villageVanillaTaiga", "Villages", villageVanillaTaiga, "");
+            villageVanillaTaigaHills = config.getBoolean("villageVanillaTaigaHills", "Villages", villageVanillaTaigaHills, "");
+            villageVanillaColdTaiga = config.getBoolean("villageVanillaColdTaiga", "Villages", villageVanillaColdTaiga, "");
+            villageVanillaColdTaigaHills = config.getBoolean("villageVanillaColdTaigaHills", "Villages", villageVanillaColdTaigaHills, "");
+            villageVanillaMegaTaiga = config.getBoolean("villageVanillaMegaTaiga", "Villages", villageVanillaMegaTaiga, "");
+            villageVanillaMegaTaigaHills = config.getBoolean("villageVanillaMegaTaigaHills", "Villages", villageVanillaMegaTaigaHills, "");
+            villageVanillaSunflowerPlains = config.getBoolean("villageVanillaSunflowerPlains", "Villages", villageVanillaSunflowerPlains, "");
+            villageVanillaDesertM = config.getBoolean("villageVanillaDesertM", "Villages", villageVanillaDesertM, "");
+            villageVanillaExtremeHillsM = config.getBoolean("villageVanillaExtremeHillsM", "Villages", villageVanillaExtremeHillsM, "");
+            villageVanillaFlowerForest = config.getBoolean("villageVanillaFlowerForest", "Villages", villageVanillaFlowerForest, "");
+            villageVanillaTaigaM = config.getBoolean("villageVanillaTaigaM", "Villages", villageVanillaTaigaM, "");
+            villageVanillaSwamplandM = config.getBoolean("villageVanillaSwamplandM", "Villages", villageVanillaSwamplandM, "");
+            villageVanillaIcePlainsSpikes = config.getBoolean("villageVanillaIcePlainsSpikes", "Villages", villageVanillaIcePlainsSpikes, "");
+            villageVanillaJungleM = config.getBoolean("villageVanillaJungleM", "Villages", villageVanillaJungleM, "");
+            villageVanillaJungleEdgeM = config.getBoolean("villageVanillaJungleEdgeM", "Villages", villageVanillaJungleEdgeM, "");
+            villageVanillaBirchForestM = config.getBoolean("villageVanillaBirchForestM", "Villages", villageVanillaBirchForestM, "");
+            villageVanillaBirchForestHillsM = config.getBoolean("villageVanillaBirchForestHillsM", "Villages", villageVanillaBirchForestHillsM, "");
+            villageVanillaRoofedForestM = config.getBoolean("villageVanillaRoofedForestM", "Villages", villageVanillaRoofedForestM, "");
+            villageVanillaColdTaigaM = config.getBoolean("villageVanillaColdTaigaM", "Villages", villageVanillaColdTaigaM, "");
+            villageVanillaMegaSpruceTaiga = config.getBoolean("villageVanillaMegaSpruceTaiga", "Villages", villageVanillaMegaSpruceTaiga, "");
+            villageVanillaExtremeHillsPlusM = config.getBoolean("villageVanillaExtremeHillsPlusM", "Villages", villageVanillaExtremeHillsPlusM, "");
+            villageVanillaSavannaM = config.getBoolean("villageVanillaSavannaM", "Villages", villageVanillaSavannaM, "");
+            villageVanillaSavannaPlateauM = config.getBoolean("villageVanillaSavannaPlateauM", "Villages", villageVanillaSavannaPlateauM, "");
+            villageVanillaMesaBryce = config.getBoolean("villageVanillaMesaBryce", "Villages", villageVanillaMesaBryce, "");
+            villageVanillaMesaPlateauFM = config.getBoolean("villageVanillaMesaPlateauFM", "Villages", villageVanillaMesaPlateauFM, "");
+            villageVanillaMesaPlateauM = config.getBoolean("villageVanillaMesaPlateauM", "Villages", villageVanillaMesaPlateauM, "");
 		}
 		catch (Exception e) 
 		{

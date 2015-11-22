@@ -41,6 +41,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
         this.setRealisticBiomeName("Vanilla Savanna Plateau");
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaSavannaPlateau;
+        this.generateVillages = ConfigVanilla.villageVanillaSavannaPlateau;
     }
     
     @Override

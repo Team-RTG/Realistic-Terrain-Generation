@@ -73,8 +73,8 @@ public class MapGenVillageRTG extends MapGenVillage
         }
         
         WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) worldObj.getWorldChunkManager();
-        int worldX = par1;
-        int worldZ = par2;
+        int worldX = par1 * 16;
+        int worldZ = par2 * 16;
         RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldX + 16, worldZ + 16);
         BiomeGenBase biome = realisticBiome.baseBiome;
         boolean canSpawnVillage = false;

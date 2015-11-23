@@ -48,7 +48,7 @@ public class ConfigRTG
     
     public static boolean enableCaves = true;
     public static int caveDensity = 8;
-    public static int caveFrequency = 12;
+    public static int caveFrequency = 16;
 	
     public static boolean enableSnowLayers = true;
     
@@ -57,7 +57,7 @@ public class ConfigRTG
 	public static boolean showDebugInfo = false;
 	public static boolean enableDebugging = false;
 
-	public static int biomeSize = 1;
+	public static int biomeSize = 2;
 	
     public static int minDistanceScatteredFeatures = 8;
     public static int maxDistanceScatteredFeatures = 32;

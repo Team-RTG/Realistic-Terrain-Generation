@@ -43,7 +43,7 @@ public class Torch extends StructureVillagePiecesRTG.Village
 		this.placeBlockAtCurrentPosition(p_74875_1_, Blocks.fence, 0, 1, 0, 0, p_74875_3_);
 		this.placeBlockAtCurrentPosition(p_74875_1_, Blocks.fence, 0, 1, 1, 0, p_74875_3_);
 		this.placeBlockAtCurrentPosition(p_74875_1_, Blocks.fence, 0, 1, 2, 0, p_74875_3_);
-		this.placeBlockAtCurrentPosition(p_74875_1_, Blocks.redstone_lamp, 15, 1, 3, 0, p_74875_3_);
+		this.placeBlockAtCurrentPosition(p_74875_1_, Blocks.lit_redstone_lamp, 15, 1, 3, 0, p_74875_3_);
 		//this.placeBlockAtCurrentPosition(p_74875_1_, Blocks.torch, 0, 0, 3, 0, p_74875_3_);
 		//this.placeBlockAtCurrentPosition(p_74875_1_, Blocks.torch, 0, 1, 3, 1, p_74875_3_);
 		//this.placeBlockAtCurrentPosition(p_74875_1_, Blocks.torch, 0, 2, 3, 0, p_74875_3_);

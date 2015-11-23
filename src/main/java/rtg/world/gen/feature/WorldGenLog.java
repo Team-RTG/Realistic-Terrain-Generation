@@ -16,16 +16,33 @@ public class WorldGenLog extends WorldGenerator
 	private Block leavesBlock;
 	private int logLength;
 	
-	public WorldGenLog(int meta, int length, boolean leaves)
-	{
-		logBlock = meta > 2 ? Blocks.log2 : Blocks.log;
-		leavesBlock = meta > 2 ? Blocks.leaves2 : Blocks.leaves;
-		meta = meta > 2 ? meta - 2 : meta;
-		
-		logMeta = meta;
-		leavesMeta = leaves ? meta : -1;
-		logLength = length < 2 ? 2 : length;
-	}
+    public WorldGenLog(int meta, int length, boolean leaves)
+    {
+        logBlock = meta > 2 ? Blocks.log2 : Blocks.log;
+        leavesBlock = meta > 2 ? Blocks.leaves2 : Blocks.leaves;
+        meta = meta > 2 ? meta - 2 : meta;
+        
+        logMeta = meta;
+        leavesMeta = leaves ? meta : -1;
+        logLength = length < 2 ? 2 : length;
+    }
+    
+    /**
+     * 
+     * @param blockLog
+     * @param metaLog
+     * @param blockLeaves
+     * @param metaLeaves Set to -1 to disable leaves.
+     * @param length
+     */
+    public WorldGenLog(Block blockLog, int metaLog, Block blockLeaves, int metaLeaves, int length)
+    {
+        logBlock = blockLog;
+        leavesBlock = blockLeaves;      
+        logMeta = metaLog;
+        leavesMeta = metaLeaves;
+        logLength = length;
+    }
 
 	public boolean generate(World world, Random rand, int x, int y, int z) 
 	{

@@ -1,908 +1,360 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import cpw.mods.fml.common.Loader;
-import biomesoplenty.api.content.BOPCBiomes;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
-import rtg.config.ConfigBOP;
+
+import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceCanyon;
-import rtg.world.gen.surface.SurfaceDuneValley;
-import rtg.world.gen.surface.SurfaceGrassland;
-import rtg.world.gen.surface.SurfaceGrasslandMix1;
-import rtg.world.gen.surface.SurfaceMountainSnow;
-import rtg.world.gen.surface.SurfaceMountainStone;
-import rtg.world.gen.surface.SurfaceTundra;
-import rtg.world.gen.surface.river.SurfaceRiverOasis;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.TerrainCanyon;
-import rtg.world.gen.terrain.TerrainDuneValley;
-import rtg.world.gen.terrain.TerrainGrasslandFlats;
-import rtg.world.gen.terrain.TerrainGrasslandHills;
-import rtg.world.gen.terrain.TerrainHighland;
-import rtg.world.gen.terrain.TerrainHilly;
-import rtg.world.gen.terrain.TerrainMarsh;
-import rtg.world.gen.terrain.TerrainMountain;
-import rtg.world.gen.terrain.TerrainMountainRiver;
-import rtg.world.gen.terrain.TerrainMountainSpikes;
-import rtg.world.gen.terrain.TerrainSwampMountain;
-import rtg.world.gen.terrain.TerrainSwampRiver;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaForest;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaPlains;
+import cpw.mods.fml.common.Loader;
 
 public class RealisticBiomeBOPBase extends RealisticBiomeBase
-{	
+{
+	//Overworld Biomes
+	public static RealisticBiomeBase bopAlps;
+	public static RealisticBiomeBase bopArctic;
+	public static RealisticBiomeBase bopBambooForest;
+	public static RealisticBiomeBase bopBayou;
+	public static RealisticBiomeBase bopBog;
+	public static RealisticBiomeBase bopBorealForest;
+	public static RealisticBiomeBase bopBrushland;
+	public static RealisticBiomeBase bopCanyon;
+	public static RealisticBiomeBase bopChaparral;
+	public static RealisticBiomeBase bopCherryBlossomGrove;
+	public static RealisticBiomeBase bopConiferousForest;
+	public static RealisticBiomeBase bopCrag;
+	public static RealisticBiomeBase bopDeadForest;
+	public static RealisticBiomeBase bopDeadSwamp;
+	public static RealisticBiomeBase bopDeciduousForest;
+	public static RealisticBiomeBase bopDenseForest;
+	public static RealisticBiomeBase bopEucalyptusForest;
+	public static RealisticBiomeBase bopFen;
+	public static RealisticBiomeBase bopFlowerField;
+	public static RealisticBiomeBase bopFrostForest;
+	public static RealisticBiomeBase bopFungiForest;
+	public static RealisticBiomeBase bopGarden;
+	public static RealisticBiomeBase bopGrassland;
+	public static RealisticBiomeBase bopGrove;
+	public static RealisticBiomeBase bopHeathland;
+	public static RealisticBiomeBase bopHighland;
+	public static RealisticBiomeBase bopJadeCliffs;
+	public static RealisticBiomeBase bopLandOfLakes;
+	public static RealisticBiomeBase bopLavenderFields;
+	public static RealisticBiomeBase bopLushDesert;
+	public static RealisticBiomeBase bopLushSwamp;
+	public static RealisticBiomeBase bopMapleWoods;
+	public static RealisticBiomeBase bopMarsh;
+	public static RealisticBiomeBase bopMeadow;
+	public static RealisticBiomeBase bopMoor;
+	public static RealisticBiomeBase bopMountain;
+	public static RealisticBiomeBase bopMysticGrove;
+	public static RealisticBiomeBase bopOminousWoods;
+	public static RealisticBiomeBase bopOriginValley;
+	public static RealisticBiomeBase bopOutback;
+	public static RealisticBiomeBase bopPrairie;
+	public static RealisticBiomeBase bopRainforest;
+	public static RealisticBiomeBase bopRedwoodForest;
+	public static RealisticBiomeBase bopSacredSprings;
+	public static RealisticBiomeBase bopSeasonalForest;
+	public static RealisticBiomeBase bopShield;
+	public static RealisticBiomeBase bopShrubland;
+	public static RealisticBiomeBase bopSludgepit;
+	public static RealisticBiomeBase bopSnowyConiferousForest;
+	public static RealisticBiomeBase bopSteppe;
+	public static RealisticBiomeBase bopTemperateRainforest;
+	public static RealisticBiomeBase bopThicket;
+	public static RealisticBiomeBase bopTropicalRainforest;
+	public static RealisticBiomeBase bopTundra;
+	public static RealisticBiomeBase bopWasteland;
+	public static RealisticBiomeBase bopWetland;
+	public static RealisticBiomeBase bopWoodland;
+	public static RealisticBiomeBase bopXericShrubland;
+	
+	//Sub Biomes (treated as normal biomes in RTG)
+	public static RealisticBiomeBase bopAlpsForest;
+	public static RealisticBiomeBase bopCanyonRavine;
+	public static RealisticBiomeBase bopGlacier;
+	public static RealisticBiomeBase bopLandOfLakesMarsh;
+	public static RealisticBiomeBase bopMangrove;
+	public static RealisticBiomeBase bopMeadowForest;
+	public static RealisticBiomeBase bopOasis;
+	public static RealisticBiomeBase bopOrchard;
+	public static RealisticBiomeBase bopQuagmire;
+	public static RealisticBiomeBase bopScrubland;
+	public static RealisticBiomeBase bopSeasonalForestClearing;
+	public static RealisticBiomeBase bopSilkglades;
+	public static RealisticBiomeBase bopSpruceWoods;
+	public static RealisticBiomeBase bopTropics;
+	public static RealisticBiomeBase bopVolcano;
+	
+	//Ocean Biomes
+	public static RealisticBiomeBase bopCoralReef;
+	public static RealisticBiomeBase bopKelpForest;
+	
 	public RealisticBiomeBOPBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
 		super(b, riverbiome, t, s);
+		
+        this.waterLakeFrequency = 0;
+        this.lavaLakeFrequency = 0;
 	}
 	
 	public RealisticBiomeBOPBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s)
 	{
 		super(b, riverbiome, t, s);
+		
+        this.waterLakeFrequency = 0;
+        this.lavaLakeFrequency = 0;
 	}
 	
 	public static void addBiomes()
 	{
-		if (Loader.isModLoaded("BiomesOPlenty"))
+		if (Loader.isModLoaded("BiomesOPlenty") && ConfigBOP.generateBOPBiomes)
 		{
-			//ALPS
-			if (ConfigBOP.generateBOPalps)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.alps, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
-					new TerrainMountainRiver(),
-					new SurfaceMountainSnow(BOPCBiomes.alps.topBlock, BOPCBiomes.alps.fillerBlock, false, null, 0.45f)
-				),
-				BiomeBase.BiomeCategory.SNOW
-			);
-			
-			//ALPS FOREST
-			if (ConfigBOP.generateBOPalpsForest)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.alpsForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
-					new TerrainMountainRiver(),
-					new SurfaceMountainSnow(BOPCBiomes.alpsForest.topBlock, BOPCBiomes.alpsForest.fillerBlock, false, null, 0.45f)
-				),
-				BiomeBase.BiomeCategory.SNOW
-			);
-			
-			//ARCTIC
-			if (ConfigBOP.generateBOParctic)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.arctic, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
-					new TerrainGrasslandFlats(),
-					new SurfaceTundra(BOPCBiomes.arctic.topBlock, BOPCBiomes.arctic.fillerBlock)
-				),
-				BiomeBase.BiomeCategory.SNOW
-			);
-			
-			//BAMBOO FOREST
-			if (ConfigBOP.generateBOPbambooForest)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.bambooForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-					new TerrainSwampMountain(135f, 300f),
-					new SurfaceMountainStone(BOPCBiomes.bambooForest.topBlock, BOPCBiomes.bambooForest.fillerBlock, false, null, 0.95f)
-				),
-				BiomeBase.BiomeCategory.WET
-			);
-			
-			//BAYOU
-			if (ConfigBOP.generateBOPbayou)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.bayou, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-					new TerrainSwampRiver(),
-					new SurfaceGrassland(BOPCBiomes.bayou.topBlock, BOPCBiomes.bayou.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.WET
-			);
-			
-			//BOG
-			if (ConfigBOP.generateBOPbog)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.bog, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-					new TerrainMarsh(),
-					new SurfaceGrassland(BOPCBiomes.bog.topBlock, BOPCBiomes.bog.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.HOT
-			);
-			
-			//BOREAL FOREST
-			if (ConfigBOP.generateBOPborealForest)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.borealForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-					new TerrainMountainSpikes(),
-					new SurfaceMountainSnow(BOPCBiomes.borealForest.topBlock, BOPCBiomes.borealForest.fillerBlock, true, Blocks.sand, 0.45f, 1.5f, 60f, 65f, 0.4f, 130f, 50f, 1.5f)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);
-			
-			//BRUSHLAND
-			if (ConfigBOP.generateBOPbrushland)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.brushland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-					new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
-					new SurfaceGrasslandMix1(BOPCBiomes.brushland.topBlock, BOPCBiomes.brushland.fillerBlock, Blocks.sand, Blocks.stone, Blocks.cobblestone, 13f, 0.27f)
-				),
-				BiomeBase.BiomeCategory.HOT
-			);
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.brushland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
-					new TerrainDuneValley(300f),
-					new SurfaceBase[]{
-						new SurfaceDuneValley(BOPCBiomes.brushland.topBlock, BOPCBiomes.brushland.fillerBlock, 300f, false, true),
-						new SurfaceRiverOasis(),
-					}
-				),
-				BiomeBase.BiomeCategory.HOT
-			);
-			
-			//CANYON
-			if (ConfigBOP.generateBOPcanyon)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.canyon, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-					new TerrainCanyon(true, 35f, 160f, 60f, 40f, 69f),
-					new SurfaceCanyon(BOPCBiomes.canyon.topBlock, BOPCBiomes.canyon.fillerBlock, (byte)0, 0)
-				),
-				BiomeBase.BiomeCategory.HOT
-			);
-			
-			//CANYON RAVINE
-			if (ConfigBOP.generateBOPcanyonRavine)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.canyonRavine, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-					new TerrainCanyon(true, 35f, 160f, 60f, 40f, 69f),
-					new SurfaceCanyon(BOPCBiomes.canyonRavine.topBlock, BOPCBiomes.canyonRavine.fillerBlock, (byte)0, 0)
-				),
-				BiomeBase.BiomeCategory.HOT
-			); 
-			
-			//CHAPARRAL
-			if (ConfigBOP.generateBOPchaparral)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.chaparral, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-					new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
-					new SurfaceGrasslandMix1(BOPCBiomes.chaparral.topBlock, BOPCBiomes.chaparral.fillerBlock, Blocks.sand, Blocks.stone, Blocks.cobblestone, 26f, 0.35f)
-				),
-				BiomeBase.BiomeCategory.HOT
-			);
-			
-			//CHERRYBLOSSOM GROVE
-			if (ConfigBOP.generateBOPcherryBlossomGrove)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.cherryBlossomGrove, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainHighland(6f, 120f, 65f, 200f),
-					new SurfaceMountainStone(BOPCBiomes.borealForest.topBlock, BOPCBiomes.borealForest.fillerBlock, true, Blocks.sand, 0.45f, 1.5f, 60f, 65f, 1.5f)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);
-			
-			//CONIFEROUS FOREST
-			if (ConfigBOP.generateBOPconiferousForest)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.coniferousForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-					new TerrainMountainRiver(),
-					new SurfaceMountainSnow(BOPCBiomes.snowyConiferousForest.topBlock, BOPCBiomes.snowyConiferousForest.fillerBlock, false, null, 0.45f)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);
-			if (ConfigBOP.generateBOPsnowyConiferousForest)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.snowyConiferousForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
-					new TerrainMountainRiver(),
-					new SurfaceMountainSnow(BOPCBiomes.snowyConiferousForest.topBlock, BOPCBiomes.snowyConiferousForest.fillerBlock, false, null, 0.45f, 1.5f, 50f, 60f, 0.4f, 100f, 50f, 1.5f)
-				),
-				BiomeBase.BiomeCategory.SNOW
-			);
-			
-			//CRAG
-			if (ConfigBOP.generateBOPcrag)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.crag, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-					new TerrainMountain(),
-					new SurfaceGrassland(BOPCBiomes.crag.topBlock, BOPCBiomes.crag.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.WET
-			);
-			
-			//DEAD FOREST
-			if (ConfigBOP.generateBOPdeadForest)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.deadForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainGrasslandHills(50f, 180f, 13f, 100f, 28f, 260f, 70f),
-					new SurfaceGrassland(BOPCBiomes.deadForest.topBlock, BOPCBiomes.deadForest.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);
-			
-			//DEAD SWAMP
-			if (ConfigBOP.generateBOPdeadSwamp)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.deadSwamp, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-					new TerrainMarsh(),
-					new SurfaceGrassland(BOPCBiomes.deadSwamp.topBlock, BOPCBiomes.deadSwamp.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.WET
-			);
-			
-			//DECIDUOUS FOREST
-			if (ConfigBOP.generateBOPdeciduousForest)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.deciduousForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-					new TerrainHighland(0f, 140f, 68f, 200f),
-					new SurfaceGrassland(BOPCBiomes.deciduousForest.topBlock, BOPCBiomes.deciduousForest.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.HOT
-			);
-			
-			//DENSE FOREST
-			if (ConfigBOP.generateBOPdenseForest)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.denseForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainHighland(0f, 140f, 68f, 200f),
-					new SurfaceGrassland(BOPCBiomes.denseForest.topBlock, BOPCBiomes.denseForest.fillerBlock, Blocks.stone, Blocks.cobblestone)
-		    	),
-				BiomeBase.BiomeCategory.COLD
-			);
-			
-			//EUCALYPTUS FOREST
-			if (ConfigBOP.generateBOPeucalyptusForest)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.eucalyptusForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-					new TerrainHighland(0f, 180f, 68f, 120f),
-					new SurfaceGrassland(BOPCBiomes.eucalyptusForest.topBlock, BOPCBiomes.eucalyptusForest.fillerBlock, Blocks.stone, Blocks.cobblestone)						
-				),
-				BiomeBase.BiomeCategory.WET
-			); 
-			
-			//FEN
-			if (ConfigBOP.generateBOPfen)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.fen, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-					new TerrainHighland(0f, 140f, 68f, 200f),
-					new SurfaceGrassland(BOPCBiomes.fen.topBlock, BOPCBiomes.fen.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.HOT
-			);
-			
-			//FLOWER FIELD
-			if (ConfigBOP.generateBOPflowerField)
-			BiomeBase.biomes_hot.add(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.flowerField, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainGrasslandHills(40f, 180f, 13f, 100f, 28f, 260f, 70f),
-					new SurfaceGrassland(BOPCBiomes.flowerField.topBlock, BOPCBiomes.flowerField.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				)
-			);
-			
-			//FROST FOREST
-			if (ConfigBOP.generateBOPfrostForest)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.frostForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
-					new TerrainHighland(0f, 140f, 68f, 200f),
-					new SurfaceGrassland(BOPCBiomes.frostForest.topBlock, BOPCBiomes.frostForest.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.SNOW
-			);
-			
-			//FUNGI FOREST
-			if (ConfigBOP.generateBOPfungiForest)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.fungiForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-					new TerrainSwampMountain(135f, 300f),
-					new SurfaceMountainStone(BOPCBiomes.fungiForest.topBlock, BOPCBiomes.fungiForest.fillerBlock, false, null, 0.95f)
-				),
-				BiomeBase.BiomeCategory.WET
-			);
-			
-			//GARDEN
-			if (ConfigBOP.generateBOPgarden)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.garden, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainMountainSpikes(),
-					new SurfaceMountainSnow(BOPCBiomes.garden.topBlock, BOPCBiomes.garden.fillerBlock, true, Blocks.sand, 0.45f, 1.5f, 60f, 65f, 0.4f, 130f, 50f, 1.5f)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);
-			
-			//GLACIER
-			if (ConfigBOP.generateBOPglacier)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.glacier, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-					new TerrainMountainSpikes(),
-					new SurfaceMountainSnow(BOPCBiomes.glacier.topBlock, BOPCBiomes.glacier.fillerBlock, true, Blocks.sand, 0.45f, 1.5f, 60f, 65f, 0.4f, 130f, 50f, 1.5f)
-				),
-				BiomeBase.BiomeCategory.SNOW
-			);
-			
-			//GRASSLAND
-			if (ConfigBOP.generateBOPgrassland)
-			BiomeBase.biomes_cold.add(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.grassland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainGrasslandHills(47f, 180f, 13f, 100f, 28f, 260f, 70f),
-					new SurfaceGrassland(BOPCBiomes.grassland.topBlock, BOPCBiomes.grassland.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				)
-			);
-			
-			//GROVE
-			if (ConfigBOP.generateBOPgrove)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.grove, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainHighland(0f, 140f, 68f, 200f),
-					new SurfaceGrassland(BOPCBiomes.grove.topBlock, BOPCBiomes.grove.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);
-			
-			//HEATHLAND
-			if (ConfigBOP.generateBOPheathland)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.heathland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
-					new TerrainDuneValley(300f),
-					new SurfaceBase[]{
-						new SurfaceDuneValley(BOPCBiomes.brushland.topBlock, BOPCBiomes.brushland.fillerBlock, 300f, false, true) ,
-						new SurfaceRiverOasis(),
-					}
-				),
-				BiomeBase.BiomeCategory.HOT
-			);
-			
-			//HIGHLAND
-			if (ConfigBOP.generateBOPhighland)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.highland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainHighland(0f, 140f, 68f, 150f),
-					new SurfaceMountainStone(BOPCBiomes.highland.topBlock, BOPCBiomes.highland.fillerBlock, false, null, 1f, 1.5f, 85f, 20f, 4f)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);
-			
-			//JADE CLIFFS
-			if (ConfigBOP.generateBOPjadeCliffs)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.jadeCliffs, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-					new TerrainHilly(230f, 120f, 0f),
-					new SurfaceMountainStone(BOPCBiomes.jadeCliffs.topBlock, BOPCBiomes.jadeCliffs.fillerBlock, false, null, 0.95f)
-				),
-				BiomeBase.BiomeCategory.HOT
-			);
-			
-			//LAND OF LAKES
-			if (ConfigBOP.generateBOPlandOfLakes)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.landOfLakes, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainGrasslandFlats(),
-					new SurfaceGrassland(BOPCBiomes.landOfLakes.topBlock, BOPCBiomes.landOfLakes.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);		
-			
-	        //LAND OF LAKES MARCH
-			if (ConfigBOP.generateBOPlandOfLakesMarsh)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.landOfLakesMarsh, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainMarsh(),
-					new SurfaceGrassland(BOPCBiomes.landOfLakes.topBlock, BOPCBiomes.landOfLakes.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);		
-			
-			//LAVENDER FIELDS
-			if (ConfigBOP.generateBOPlavenderFields)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.lavenderFields, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainMountainSpikes(),
-					new SurfaceMountainStone(BOPCBiomes.lavenderFields.topBlock, BOPCBiomes.lavenderFields.fillerBlock, false, null, 1.2f)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);
-			
-			//LUSH DESERT
-			if (ConfigBOP.generateBOPlushDesert)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.lushDesert, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-					new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
-					new SurfaceGrassland(BOPCBiomes.lushDesert.topBlock, BOPCBiomes.lushDesert.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.HOT
-			);
-			
-			//LUSH SWAMP
-			if (ConfigBOP.generateBOPlushSwamp)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.lushSwamp, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-					new TerrainSwampRiver(),
-					new SurfaceGrassland(BOPCBiomes.lushSwamp.topBlock, BOPCBiomes.lushSwamp.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.WET
-			);
-			
-			//MANGROVE
-			if (ConfigBOP.generateBOPmangrove)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.mangrove, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-					new TerrainSwampRiver(),
-					new SurfaceGrassland(BOPCBiomes.mangrove.topBlock, BOPCBiomes.mangrove.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.WET
-			);
-			
-			//MAPLE WOODS
-			if (ConfigBOP.generateBOPmapleWoods)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.mapleWoods, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainHighland(0f, 140f, 68f, 200f),
-					new SurfaceGrassland(BOPCBiomes.mapleWoods.topBlock, BOPCBiomes.mapleWoods.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);
-			
-			//MARSH
-			if (ConfigBOP.generateBOPmarsh)
-			BiomeBase.biomes_cold.add(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.marsh, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainMarsh(),
-					new SurfaceGrassland(BOPCBiomes.marsh.topBlock, BOPCBiomes.marsh.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				)
-			);
-			
-			//MEADOW
-			if (ConfigBOP.generateBOPmeadow)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.meadow, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainMountainSpikes(),
-					new SurfaceMountainStone(BOPCBiomes.meadow.topBlock, BOPCBiomes.meadow.fillerBlock, false, null, 1.2f)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);
-			
-			//MEADOW FOREST
-			if (ConfigBOP.generateBOPmeadowForest)
-			BiomeBase.addBiome(
-					new RealisticBiomeBOPBase(
-						BOPCBiomes.meadowForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-						new TerrainMountainSpikes(),
-						new SurfaceMountainStone(BOPCBiomes.meadowForest.topBlock, BOPCBiomes.meadowForest.fillerBlock, false, null, 1.2f)
-					),
-					BiomeBase.BiomeCategory.COLD
-				);
-			
-			//MOOR
-			if (ConfigBOP.generateBOPmoor)
-			BiomeBase.biomes_wet.add(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.moor, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainHighland(0f, 70f, 68f, 200f),
-					new SurfaceGrassland(BOPCBiomes.moor.topBlock, BOPCBiomes.moor.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				)
-			);
-			
-			//MOUNTAIN
-			if (ConfigBOP.generateBOPmountain)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.mountain, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-					new TerrainMountainRiver(),
-					new SurfaceMountainStone(BOPCBiomes.mountain.topBlock, BOPCBiomes.mountain.fillerBlock, true, Blocks.sand, 0.75f)
-				),
-				BiomeBase.BiomeCategory.HOT
-			);
-			
-			//MYSTIC GROVE
-			if (ConfigBOP.generateBOPmysticGrove)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.mysticGrove, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-					new TerrainHighland(0f, 140f, 68f, 200f),
-					new SurfaceGrassland(BOPCBiomes.mysticGrove.topBlock, BOPCBiomes.mysticGrove.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.WET
-			);
-			
-			//OASIS
-			if (ConfigBOP.generateBOPoasis)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.oasis, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
-					new TerrainGrasslandFlats(),
-					new SurfaceGrassland(BOPCBiomes.oasis.topBlock, BOPCBiomes.oasis.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.WET
-			);		
-			
-			//OMINOUS WOODS
-			if (ConfigBOP.generateBOPominousWoods)
-			BiomeBase.biomes_cold.add(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.ominousWoods, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-					new TerrainHighland(0f, 140f, 68f, 200f),
-					new SurfaceGrassland(BOPCBiomes.ominousWoods.topBlock, BOPCBiomes.ominousWoods.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				)
-			);
-			
-			//ORCHARD
-			if (ConfigBOP.generateBOPoriginValley)
-			BiomeBase.biomes_cold.add(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.orchard, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainVanillaPlains(),
-					new SurfaceGrassland(BOPCBiomes.orchard.topBlock, BOPCBiomes.orchard.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				)
-			);
-			
-			//ORIGIN VALLEY
-			if (ConfigBOP.generateBOPoriginValley)
-			BiomeBase.biomes_cold.add(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.originValley, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainHighland(10f, 80f, 68f, 200f),
-					new SurfaceGrassland(BOPCBiomes.originValley.topBlock, BOPCBiomes.originValley.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				)
-			);
-			
-			//OUTBACK
-			if (ConfigBOP.generateBOPoutback)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.outback, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.OASIS),
-					new TerrainDuneValley(300f),
-					new SurfaceBase[]{
-						new SurfaceDuneValley(BOPCBiomes.outback.topBlock, BOPCBiomes.outback.fillerBlock, 300f, false, false),
-						new SurfaceRiverOasis(),
-					}
-				),
-				BiomeBase.BiomeCategory.HOT
-			);
-			
-			//PRAIRIE
-			if (ConfigBOP.generateBOPprairie)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.prairie, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-					new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
-					new SurfaceGrassland(BOPCBiomes.prairie.topBlock, BOPCBiomes.prairie.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.HOT
-			);
-			
-			//QUAGMIRE
-			if (ConfigBOP.generateBOPquagmire)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.quagmire, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainMountain(),
-					new SurfaceGrassland(BOPCBiomes.quagmire.topBlock, BOPCBiomes.quagmire.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);
-		
-			//RAINFOREST
-			if (ConfigBOP.generateBOPrainforest)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.rainforest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-					new TerrainSwampMountain(120f, 300f),
-					new SurfaceMountainStone(BOPCBiomes.rainforest.topBlock, BOPCBiomes.rainforest.fillerBlock, false, null, 1.3f)
-				),
-				BiomeBase.BiomeCategory.WET
-			);
-			
-			//REDWOOD FOREST
-			if (ConfigBOP.generateBOPredwoodForest)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.redwoodForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainGrasslandHills(80f, 180f, 13f, 100f, 38f, 260f, 71f),
-					new SurfaceMountainStone(BOPCBiomes.redwoodForest.topBlock, BOPCBiomes.redwoodForest.fillerBlock, false, null, 0.4f)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);
-			
-			//SACRED SPRINGS
-			if (ConfigBOP.generateBOPsacredSprings)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.sacredSprings, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-					new TerrainHighland(0f, 120f, 68f, 200f),
-					new SurfaceGrassland(BOPCBiomes.sacredSprings.topBlock, BOPCBiomes.sacredSprings.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.WET
-			);
-	
-			//SCRUBLAND
-			if (ConfigBOP.generateBOPsacredSprings)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.scrubland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainVanillaPlains(),
-					new SurfaceGrassland(BOPCBiomes.scrubland.topBlock, BOPCBiomes.scrubland.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.WET
-			);
-			
-			//SEASONAL FOREST
-			if (ConfigBOP.generateBOPseasonalForest)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.seasonalForest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainHighland(0f, 140f, 68f, 200f),
-					new SurfaceGrassland(BOPCBiomes.seasonalForest.topBlock, BOPCBiomes.seasonalForest.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);
-			
-			//SEASONAL FOREST CLEARING
-			if (ConfigBOP.generateBOPseasonalForestClearing)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.seasonalForestClearing, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainHighland(0f, 140f, 68f, 170f),
-					new SurfaceGrassland(BOPCBiomes.seasonalForestClearing.topBlock, BOPCBiomes.seasonalForestClearing.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);
-					
-			//SHIELD
-			if (ConfigBOP.generateBOPshield)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.shield, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-					new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
-					new SurfaceGrassland(BOPCBiomes.shield.topBlock, BOPCBiomes.shield.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);
-			
-			//SHRUBLAND
-			if (ConfigBOP.generateBOPshrubland)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.shrubland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-					new TerrainGrasslandHills(70f, 150f, 13f, 90f, 38f, 200f, 71f),
-					new SurfaceGrassland(BOPCBiomes.shrubland.topBlock, BOPCBiomes.shrubland.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.HOT
-			);
-				
-			//SILKGLADES
-			if (ConfigBOP.generateBOPsilkglades)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.silkglades, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainMarsh(),
-					new SurfaceGrassland(BOPCBiomes.silkglades.topBlock, BOPCBiomes.silkglades.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);
-			
-			//SLUDGEPIT
-			if (ConfigBOP.generateBOPsludgepit)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.sludgepit, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-					new TerrainMarsh(),
-					new SurfaceGrassland(BOPCBiomes.sludgepit.topBlock, BOPCBiomes.sludgepit.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.WET
-			);	
-			
-			//SPURCEWOODS
-			if (ConfigBOP.generateBOPsludgepit)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.spruceWoods, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-					new TerrainVanillaForest(),
-					new SurfaceGrassland(BOPCBiomes.spruceWoods.topBlock, BOPCBiomes.spruceWoods.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.WET
-			);		
-			
-			//STEPPE
-			if (ConfigBOP.generateBOPsteppe)
-			BiomeBase.biomes_hot.add(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.steppe, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-					new TerrainGrasslandHills(70f, 180f, 13f, 100f, 38f, 260f, 71f),
-					new SurfaceGrassland(BOPCBiomes.steppe.topBlock, BOPCBiomes.steppe.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				)
-			);
-			
-			//TEMPERATE RAINFOREST
-			if (ConfigBOP.generateBOPtemperateRainforest)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.temperateRainforest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-					new TerrainMountainRiver(),
-					new SurfaceMountainStone(BOPCBiomes.temperateRainforest.topBlock, BOPCBiomes.temperateRainforest.fillerBlock, false, null, 0.45f)
-				),
-				BiomeBase.BiomeCategory.WET
-			);
-			
-			//THICKET
-			if (ConfigBOP.generateBOPthicket)
-			BiomeBase.biomes_hot.add(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.thicket, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.COLD),
-					new TerrainGrasslandHills(70f, 180f, 13f, 100f, 38f, 260f, 71f),
-					new SurfaceGrassland(BOPCBiomes.thicket.topBlock, BOPCBiomes.thicket.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				)
-			);
-			
-			//TROPICAL RAINFOREST
-			if (ConfigBOP.generateBOPtropicalRainforest)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.tropicalRainforest, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-					new TerrainHighland(0f, 140f, 68f, 200f),
-					new SurfaceGrassland(BOPCBiomes.tropicalRainforest.topBlock, BOPCBiomes.tropicalRainforest.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.WET
-			);
-			
-			//TROPICS
-			if (ConfigBOP.generateBOPtropics)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.tropics, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-					new TerrainHighland(10f, 80f, 68f, 200f),
-					new SurfaceGrassland(BOPCBiomes.tropics.topBlock, BOPCBiomes.tropics.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.WET
-			);
-			
-			//TUNDRA
-			if (ConfigBOP.generateBOPtundra)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.tundra, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.ICE),
-					new TerrainGrasslandHills(90f, 180f, 13f, 100f, 38f, 260f, 71f),
-					new SurfaceGrassland(BOPCBiomes.tundra.topBlock, BOPCBiomes.tundra.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.SNOW
-			);
-	
-			//VOLCANO
-			if (ConfigBOP.generateBOPvolcano)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.volcano, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-					new TerrainMarsh(),
-					new SurfaceGrassland(BOPCBiomes.volcano.topBlock, BOPCBiomes.volcano.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.HOT
-			);
-			
-			//WASTELAND
-			if (ConfigBOP.generateBOPwasteland)
-			BiomeBase.biomes_hot.add(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.wasteland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-					new TerrainHighland(10f, 80f, 68f, 200f),
-					new SurfaceGrassland(BOPCBiomes.wasteland.topBlock, BOPCBiomes.wasteland.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				)
-			);
-			
-			//WETLAND
-			if (ConfigBOP.generateBOPwetland)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.wetland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.WET),
-					new TerrainMarsh(),
-					new SurfaceGrassland(BOPCBiomes.wetland.topBlock, BOPCBiomes.wetland.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.WET
-			);
-			
-			//WOODLAND
-			if (ConfigBOP.generateBOPwoodland)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.woodland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-					new TerrainHighland(0f, 140f, 68f, 200f),
-					new SurfaceGrassland(BOPCBiomes.woodland.topBlock, BOPCBiomes.woodland.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.COLD
-			);
-			
-			//XERIC SHRUBLAND
-			if (ConfigBOP.generateBOPxericShrubland)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.xericShrubland, BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.HOT),
-					new TerrainHighland(0f, 140f, 68f, 200f),
-					new SurfaceGrassland(BOPCBiomes.xericShrubland.topBlock, BOPCBiomes.xericShrubland.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.HOT
-			);
-			
-			/** WATER BIOMES */
-			//CORALREEF
-			if (ConfigBOP.generateBOPcoralReef)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.coralReef, BiomeBase.climatizedBiome(BiomeGenBase.ocean, BiomeBase.Climate.WET),
-					new TerrainCanyon(false, -25f, 0f, 0f, 0f, 30f),
-					new SurfaceGrassland(BOPCBiomes.coralReef.topBlock, BOPCBiomes.coralReef.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.WET	
-			);
-	
-			//KELPFOREST
-			if (ConfigBOP.generateBOPkelpForest)
-	 		BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.kelpForest, BiomeBase.climatizedBiome(BiomeGenBase.ocean, BiomeBase.Climate.TEMPERATE),
-					new TerrainCanyon(false, -25f, 0f, 0f, 0f, 30f),
-					new SurfaceGrassland(BOPCBiomes.kelpForest.topBlock, BOPCBiomes.kelpForest.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeBase.BiomeCategory.COLD	
-			);	
-			
-			/*//DRY RIVER
-			if (ConfigBOP.generateBOPcoralReef)
-			BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.dryRiver, VanillaBiomes.climatizedBiome(BiomeGenBase.ocean, Climate.WET),
-					new TerrainCanyon(false, -25f, 0f, 0f, 0f, 30f),
-					new SurfaceGrassland(BOPCBiomes.dryRiver.topBlock, BOPCBiomes.dryRiver.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeCategory.WET	
-			);*/
-	
-			/*//LUSH RIVER
-			if (ConfigBOP.generateBOPkelpForest)
-	 		BiomeBase.addBiome(
-				new RealisticBiomeBOPBase(
-					BOPCBiomes.lushRiver, VanillaBiomes.climatizedBiome(BiomeGenBase.ocean, Climate.TEMPERATE),
-					new TerrainCanyon(false, -25f, 0f, 0f, 0f, 30f),
-					new SurfaceGrassland(BOPCBiomes.lushRiver.topBlock, BOPCBiomes.lushRiver.fillerBlock, Blocks.stone, Blocks.cobblestone)
-				),
-				BiomeCategory.COLD	
-			);*/		
-		
+			//Overworld Biomes
+			bopAlps = new RealisticBiomeBOPAlps();
+			bopArctic = new RealisticBiomeBOPArctic();
+			bopBambooForest = new RealisticBiomeBOPBambooForest();
+			bopBayou = new RealisticBiomeBOPBayou();
+			bopBog = new RealisticBiomeBOPBog();
+			bopBorealForest = new RealisticBiomeBOPBorealForest();
+			bopBrushland = new RealisticBiomeBOPBrushland();
+			bopCanyon = new RealisticBiomeBOPCanyon();
+			bopChaparral = new RealisticBiomeBOPChaparral();
+			bopCherryBlossomGrove = new RealisticBiomeBOPCherryBlossomGrove();
+			bopConiferousForest = new RealisticBiomeBOPConiferousForest();
+			bopCrag = new RealisticBiomeBOPCrag();
+			bopDeadForest = new RealisticBiomeBOPDeadForest();
+			bopDeadSwamp = new RealisticBiomeBOPDeadSwamp();
+			bopDeciduousForest = new RealisticBiomeBOPDeciduousForest();
+			bopDenseForest = new RealisticBiomeBOPDenseForest();
+			bopEucalyptusForest = new RealisticBiomeBOPEucalyptusForest();
+			bopFen = new RealisticBiomeBOPFen();
+			bopFlowerField = new RealisticBiomeBOPFlowerField();
+			bopFrostForest = new RealisticBiomeBOPFrostForest();
+			bopFungiForest = new RealisticBiomeBOPFungiForest();
+			bopGarden = new RealisticBiomeBOPGarden();
+			bopGrassland = new RealisticBiomeBOPGrassland();
+			bopGrove = new RealisticBiomeBOPGrove();
+			bopHeathland = new RealisticBiomeBOPHeathland();
+			bopHighland = new RealisticBiomeBOPHighland();
+			bopJadeCliffs = new RealisticBiomeBOPJadeCliffs();
+			bopLandOfLakes = new RealisticBiomeBOPLandOfLakes();
+			bopLavenderFields = new RealisticBiomeBOPLavenderFields();
+			bopLushDesert = new RealisticBiomeBOPLushDesert();
+			bopLushSwamp = new RealisticBiomeBOPLushSwamp();
+			bopMapleWoods = new RealisticBiomeBOPMapleWoods();
+			bopMarsh = new RealisticBiomeBOPMarsh();
+			bopMeadow = new RealisticBiomeBOPMeadow();
+			bopMoor = new RealisticBiomeBOPMoor();
+			bopMountain = new RealisticBiomeBOPMountain();
+			bopMysticGrove = new RealisticBiomeBOPMysticGrove();
+			bopOminousWoods = new RealisticBiomeBOPOminousWoods();
+			bopOriginValley = new RealisticBiomeBOPOriginValley();
+			bopOutback = new RealisticBiomeBOPOutback();
+			bopPrairie = new RealisticBiomeBOPPrairie();
+			bopRainforest = new RealisticBiomeBOPRainforest();
+			bopRedwoodForest = new RealisticBiomeBOPRedwoodForest();
+			bopSacredSprings = new RealisticBiomeBOPSacredSprings();
+			bopSeasonalForest = new RealisticBiomeBOPSeasonalForest();
+			bopShield = new RealisticBiomeBOPShield();
+			bopShrubland = new RealisticBiomeBOPShrubland();
+			bopSludgepit = new RealisticBiomeBOPSludgepit();
+			bopSnowyConiferousForest = new RealisticBiomeBOPSnowyConiferousForest();
+			bopSteppe = new RealisticBiomeBOPSteppe();
+			bopTemperateRainforest = new RealisticBiomeBOPTemperateRainforest();
+			bopThicket = new RealisticBiomeBOPThicket();
+			bopTropicalRainforest = new RealisticBiomeBOPTropicalRainforest();
+			bopTundra = new RealisticBiomeBOPTundra();
+			bopWasteland = new RealisticBiomeBOPWasteland();
+			bopWetland = new RealisticBiomeBOPWetland();
+			bopWoodland = new RealisticBiomeBOPWoodland();
+			bopXericShrubland = new RealisticBiomeBOPXericShrubland();
+			
+			//Sub Biomes (treated as normal biomes in RTG)
+			bopAlpsForest = new RealisticBiomeBOPAlpsForest();
+			bopCanyonRavine = new RealisticBiomeBOPCanyonRavine();
+			bopGlacier = new RealisticBiomeBOPGlacier();
+			bopLandOfLakesMarsh = new RealisticBiomeBOPLandOfLakesMarsh();
+			bopMangrove = new RealisticBiomeBOPMangrove();
+			bopMeadowForest = new RealisticBiomeBOPMeadowForest();
+			bopOasis = new RealisticBiomeBOPOasis();
+			bopOrchard = new RealisticBiomeBOPOrchard();
+			bopQuagmire = new RealisticBiomeBOPQuagmire();
+			bopScrubland = new RealisticBiomeBOPScrubland();
+			bopSeasonalForestClearing = new RealisticBiomeBOPSeasonalForestClearing();
+			bopSilkglades = new RealisticBiomeBOPSilkglades();
+			bopSpruceWoods = new RealisticBiomeBOPSpruceWoods();
+			bopTropics = new RealisticBiomeBOPTropics();
+			bopVolcano = new RealisticBiomeBOPVolcano();
+			
+			//Ocean Biomes
+			bopCoralReef = new RealisticBiomeBOPCoralReef();
+			bopKelpForest = new RealisticBiomeBOPKelpForest();
+			
+			//Overworld Biomes
+			if (ConfigBOP.generateBOPalps) { BiomeBase.addBiome(bopAlps); }
+			if (ConfigBOP.generateBOParctic) { BiomeBase.addBiome(bopArctic); }
+			if (ConfigBOP.generateBOPbambooForest) { BiomeBase.addBiome(bopBambooForest); }
+			if (ConfigBOP.generateBOPbayou) { BiomeBase.addBiome(bopBayou); }
+			if (ConfigBOP.generateBOPbog) { BiomeBase.addBiome(bopBog); }
+			if (ConfigBOP.generateBOPborealForest) { BiomeBase.addBiome(bopBorealForest); }
+			if (ConfigBOP.generateBOPbrushland) { BiomeBase.addBiome(bopBrushland); }
+			if (ConfigBOP.generateBOPcanyon) { BiomeBase.addBiome(bopCanyon); }
+			if (ConfigBOP.generateBOPchaparral) { BiomeBase.addBiome(bopChaparral); }
+			if (ConfigBOP.generateBOPcherryBlossomGrove) { BiomeBase.addBiome(bopCherryBlossomGrove); }
+			if (ConfigBOP.generateBOPconiferousForest) { BiomeBase.addBiome(bopConiferousForest); }
+			if (ConfigBOP.generateBOPcrag) { BiomeBase.addBiome(bopCrag); }
+			if (ConfigBOP.generateBOPdeadForest) { BiomeBase.addBiome(bopDeadForest); }
+			if (ConfigBOP.generateBOPdeadSwamp) { BiomeBase.addBiome(bopDeadSwamp); }
+			if (ConfigBOP.generateBOPdeciduousForest) { BiomeBase.addBiome(bopDeciduousForest); }
+			if (ConfigBOP.generateBOPdenseForest) { BiomeBase.addBiome(bopDenseForest); }
+			if (ConfigBOP.generateBOPeucalyptusForest) { BiomeBase.addBiome(bopEucalyptusForest); }
+			if (ConfigBOP.generateBOPfen) { BiomeBase.addBiome(bopFen); }
+			if (ConfigBOP.generateBOPflowerField) { BiomeBase.addBiome(bopFlowerField); }
+			if (ConfigBOP.generateBOPfrostForest) { BiomeBase.addBiome(bopFrostForest); }
+			if (ConfigBOP.generateBOPfungiForest) { BiomeBase.addBiome(bopFungiForest); }
+			if (ConfigBOP.generateBOPgarden) { BiomeBase.addBiome(bopGarden); }
+			if (ConfigBOP.generateBOPgrassland) { BiomeBase.addBiome(bopGrassland); }
+			if (ConfigBOP.generateBOPgrove) { BiomeBase.addBiome(bopGrove); }
+			if (ConfigBOP.generateBOPheathland) { BiomeBase.addBiome(bopHeathland); }
+			if (ConfigBOP.generateBOPhighland) { BiomeBase.addBiome(bopHighland); }
+			if (ConfigBOP.generateBOPjadeCliffs) { BiomeBase.addBiome(bopJadeCliffs); }
+			if (ConfigBOP.generateBOPlandOfLakes) { BiomeBase.addBiome(bopLandOfLakes); }
+			if (ConfigBOP.generateBOPlandOfLakesMarsh) { BiomeBase.addBiome(bopLavenderFields); }
+			if (ConfigBOP.generateBOPlushDesert) { BiomeBase.addBiome(bopLushDesert); }
+			if (ConfigBOP.generateBOPlushSwamp) { BiomeBase.addBiome(bopLushSwamp); }
+			if (ConfigBOP.generateBOPmapleWoods) { BiomeBase.addBiome(bopMapleWoods); }
+			if (ConfigBOP.generateBOPmarsh) { BiomeBase.addBiome(bopMarsh); }
+			if (ConfigBOP.generateBOPmeadow) { BiomeBase.addBiome(bopMeadow); }
+			if (ConfigBOP.generateBOPmoor) { BiomeBase.addBiome(bopMoor); }
+			if (ConfigBOP.generateBOPmountain) { BiomeBase.addBiome(bopMountain); }
+			if (ConfigBOP.generateBOPmysticGrove) { BiomeBase.addBiome(bopMysticGrove); }
+			if (ConfigBOP.generateBOPominousWoods) { BiomeBase.addBiome(bopOminousWoods); }
+			if (ConfigBOP.generateBOPoriginValley) { BiomeBase.addBiome(bopOriginValley); }
+			if (ConfigBOP.generateBOPoutback) { BiomeBase.addBiome(bopOutback); }
+			if (ConfigBOP.generateBOPprairie) { BiomeBase.addBiome(bopPrairie); }
+			if (ConfigBOP.generateBOPrainforest) { BiomeBase.addBiome(bopRainforest); }
+			if (ConfigBOP.generateBOPredwoodForest) { BiomeBase.addBiome(bopRedwoodForest); }
+			if (ConfigBOP.generateBOPsacredSprings) { BiomeBase.addBiome(bopSacredSprings); }
+			if (ConfigBOP.generateBOPseasonalForest) { BiomeBase.addBiome(bopSeasonalForest); }
+			if (ConfigBOP.generateBOPshield) { BiomeBase.addBiome(bopShield); }
+			if (ConfigBOP.generateBOPshrubland) { BiomeBase.addBiome(bopShrubland); }
+			if (ConfigBOP.generateBOPsludgepit) { BiomeBase.addBiome(bopSludgepit); }
+			if (ConfigBOP.generateBOPsnowyConiferousForest) { BiomeBase.addBiome(bopSnowyConiferousForest); }
+			if (ConfigBOP.generateBOPsteppe) { BiomeBase.addBiome(bopSteppe); }
+			if (ConfigBOP.generateBOPtemperateRainforest) { BiomeBase.addBiome(bopTemperateRainforest); }
+			if (ConfigBOP.generateBOPthicket) { BiomeBase.addBiome(bopThicket); }
+			if (ConfigBOP.generateBOPtropicalRainforest) { BiomeBase.addBiome(bopTropicalRainforest); }
+			if (ConfigBOP.generateBOPtundra) { BiomeBase.addBiome(bopTundra); }
+			if (ConfigBOP.generateBOPwasteland) { BiomeBase.addBiome(bopWasteland); }
+			if (ConfigBOP.generateBOPwetland) { BiomeBase.addBiome(bopWetland); }
+			if (ConfigBOP.generateBOPwoodland) { BiomeBase.addBiome(bopWoodland); }
+			if (ConfigBOP.generateBOPxericShrubland) { BiomeBase.addBiome(bopXericShrubland); }
+			
+			//Sub Biomes
+			if (ConfigBOP.generateBOPalpsForest) { BiomeBase.addBiome(bopAlpsForest); }
+			if (ConfigBOP.generateBOPcanyonRavine) { BiomeBase.addBiome(bopCanyonRavine); }
+			if (ConfigBOP.generateBOPglacier) { BiomeBase.addBiome(bopGlacier); }
+			if (ConfigBOP.generateBOPlandOfLakesMarsh) { BiomeBase.addBiome(bopLandOfLakesMarsh); }
+			if (ConfigBOP.generateBOPmangrove) { BiomeBase.addBiome(bopMangrove); }
+			if (ConfigBOP.generateBOPmeadowForest) { BiomeBase.addBiome(bopMeadowForest); }
+			if (ConfigBOP.generateBOPoasis) { BiomeBase.addBiome(bopOasis); }
+			if (ConfigBOP.generateBOPorchard) { BiomeBase.addBiome(bopOrchard); }
+			if (ConfigBOP.generateBOPquagmire) { BiomeBase.addBiome(bopQuagmire); }
+			if (ConfigBOP.generateBOPscrubland) { BiomeBase.addBiome(bopScrubland); }
+			if (ConfigBOP.generateBOPseasonalForestClearing) { BiomeBase.addBiome(bopSeasonalForestClearing); }
+			if (ConfigBOP.generateBOPsilkglades) { BiomeBase.addBiome(bopSilkglades); }
+			if (ConfigBOP.generateBOPspruceWoods) { BiomeBase.addBiome(bopSpruceWoods); }
+			if (ConfigBOP.generateBOPtropics) { BiomeBase.addBiome(bopTropics); }
+			if (ConfigBOP.generateBOPvolcano) { BiomeBase.addBiome(bopVolcano); }
+			
+			//Ocean Biomes
+			if (ConfigBOP.generateBOPcoralReef) { BiomeBase.addBiome(bopCoralReef); }
+			if (ConfigBOP.generateBOPkelpForest) { BiomeBase.addBiome(bopKelpForest); }
+			
+			
+            //Overworld Biomes
+            if (ConfigBOP.villageBOPalps) { BiomeBase.addVillageBiome(bopAlps); }
+            if (ConfigBOP.villageBOParctic) { BiomeBase.addVillageBiome(bopArctic); }
+            if (ConfigBOP.villageBOPbambooForest) { BiomeBase.addVillageBiome(bopBambooForest); }
+            if (ConfigBOP.villageBOPbayou) { BiomeBase.addVillageBiome(bopBayou); }
+            if (ConfigBOP.villageBOPbog) { BiomeBase.addVillageBiome(bopBog); }
+            if (ConfigBOP.villageBOPborealForest) { BiomeBase.addVillageBiome(bopBorealForest); }
+            if (ConfigBOP.villageBOPbrushland) { BiomeBase.addVillageBiome(bopBrushland); }
+            if (ConfigBOP.villageBOPcanyon) { BiomeBase.addVillageBiome(bopCanyon); }
+            if (ConfigBOP.villageBOPchaparral) { BiomeBase.addVillageBiome(bopChaparral); }
+            if (ConfigBOP.villageBOPcherryBlossomGrove) { BiomeBase.addVillageBiome(bopCherryBlossomGrove); }
+            if (ConfigBOP.villageBOPconiferousForest) { BiomeBase.addVillageBiome(bopConiferousForest); }
+            if (ConfigBOP.villageBOPcrag) { BiomeBase.addVillageBiome(bopCrag); }
+            if (ConfigBOP.villageBOPdeadForest) { BiomeBase.addVillageBiome(bopDeadForest); }
+            if (ConfigBOP.villageBOPdeadSwamp) { BiomeBase.addVillageBiome(bopDeadSwamp); }
+            if (ConfigBOP.villageBOPdeciduousForest) { BiomeBase.addVillageBiome(bopDeciduousForest); }
+            if (ConfigBOP.villageBOPdenseForest) { BiomeBase.addVillageBiome(bopDenseForest); }
+            if (ConfigBOP.villageBOPeucalyptusForest) { BiomeBase.addVillageBiome(bopEucalyptusForest); }
+            if (ConfigBOP.villageBOPfen) { BiomeBase.addVillageBiome(bopFen); }
+            if (ConfigBOP.villageBOPflowerField) { BiomeBase.addVillageBiome(bopFlowerField); }
+            if (ConfigBOP.villageBOPfrostForest) { BiomeBase.addVillageBiome(bopFrostForest); }
+            if (ConfigBOP.villageBOPfungiForest) { BiomeBase.addVillageBiome(bopFungiForest); }
+            if (ConfigBOP.villageBOPgarden) { BiomeBase.addVillageBiome(bopGarden); }
+            if (ConfigBOP.villageBOPgrassland) { BiomeBase.addVillageBiome(bopGrassland); }
+            if (ConfigBOP.villageBOPgrove) { BiomeBase.addVillageBiome(bopGrove); }
+            if (ConfigBOP.villageBOPheathland) { BiomeBase.addVillageBiome(bopHeathland); }
+            if (ConfigBOP.villageBOPhighland) { BiomeBase.addVillageBiome(bopHighland); }
+            if (ConfigBOP.villageBOPjadeCliffs) { BiomeBase.addVillageBiome(bopJadeCliffs); }
+            if (ConfigBOP.villageBOPlandOfLakes) { BiomeBase.addVillageBiome(bopLandOfLakes); }
+            if (ConfigBOP.villageBOPlandOfLakesMarsh) { BiomeBase.addVillageBiome(bopLavenderFields); }
+            if (ConfigBOP.villageBOPlushDesert) { BiomeBase.addVillageBiome(bopLushDesert); }
+            if (ConfigBOP.villageBOPlushSwamp) { BiomeBase.addVillageBiome(bopLushSwamp); }
+            if (ConfigBOP.villageBOPmapleWoods) { BiomeBase.addVillageBiome(bopMapleWoods); }
+            if (ConfigBOP.villageBOPmarsh) { BiomeBase.addVillageBiome(bopMarsh); }
+            if (ConfigBOP.villageBOPmeadow) { BiomeBase.addVillageBiome(bopMeadow); }
+            if (ConfigBOP.villageBOPmoor) { BiomeBase.addVillageBiome(bopMoor); }
+            if (ConfigBOP.villageBOPmountain) { BiomeBase.addVillageBiome(bopMountain); }
+            if (ConfigBOP.villageBOPmysticGrove) { BiomeBase.addVillageBiome(bopMysticGrove); }
+            if (ConfigBOP.villageBOPominousWoods) { BiomeBase.addVillageBiome(bopOminousWoods); }
+            if (ConfigBOP.villageBOPoriginValley) { BiomeBase.addVillageBiome(bopOriginValley); }
+            if (ConfigBOP.villageBOPoutback) { BiomeBase.addVillageBiome(bopOutback); }
+            if (ConfigBOP.villageBOPprairie) { BiomeBase.addVillageBiome(bopPrairie); }
+            if (ConfigBOP.villageBOPrainforest) { BiomeBase.addVillageBiome(bopRainforest); }
+            if (ConfigBOP.villageBOPredwoodForest) { BiomeBase.addVillageBiome(bopRedwoodForest); }
+            if (ConfigBOP.villageBOPsacredSprings) { BiomeBase.addVillageBiome(bopSacredSprings); }
+            if (ConfigBOP.villageBOPseasonalForest) { BiomeBase.addVillageBiome(bopSeasonalForest); }
+            if (ConfigBOP.villageBOPshield) { BiomeBase.addVillageBiome(bopShield); }
+            if (ConfigBOP.villageBOPshrubland) { BiomeBase.addVillageBiome(bopShrubland); }
+            if (ConfigBOP.villageBOPsludgepit) { BiomeBase.addVillageBiome(bopSludgepit); }
+            if (ConfigBOP.villageBOPsnowyConiferousForest) { BiomeBase.addVillageBiome(bopSnowyConiferousForest); }
+            if (ConfigBOP.villageBOPsteppe) { BiomeBase.addVillageBiome(bopSteppe); }
+            if (ConfigBOP.villageBOPtemperateRainforest) { BiomeBase.addVillageBiome(bopTemperateRainforest); }
+            if (ConfigBOP.villageBOPthicket) { BiomeBase.addVillageBiome(bopThicket); }
+            if (ConfigBOP.villageBOPtropicalRainforest) { BiomeBase.addVillageBiome(bopTropicalRainforest); }
+            if (ConfigBOP.villageBOPtundra) { BiomeBase.addVillageBiome(bopTundra); }
+            if (ConfigBOP.villageBOPwasteland) { BiomeBase.addVillageBiome(bopWasteland); }
+            if (ConfigBOP.villageBOPwetland) { BiomeBase.addVillageBiome(bopWetland); }
+            if (ConfigBOP.villageBOPwoodland) { BiomeBase.addVillageBiome(bopWoodland); }
+            if (ConfigBOP.villageBOPxericShrubland) { BiomeBase.addVillageBiome(bopXericShrubland); }
+            
+            //Sub Biomes
+            if (ConfigBOP.villageBOPalpsForest) { BiomeBase.addVillageBiome(bopAlpsForest); }
+            if (ConfigBOP.villageBOPcanyonRavine) { BiomeBase.addVillageBiome(bopCanyonRavine); }
+            if (ConfigBOP.villageBOPglacier) { BiomeBase.addVillageBiome(bopGlacier); }
+            if (ConfigBOP.villageBOPlandOfLakesMarsh) { BiomeBase.addVillageBiome(bopLandOfLakesMarsh); }
+            if (ConfigBOP.villageBOPmangrove) { BiomeBase.addVillageBiome(bopMangrove); }
+            if (ConfigBOP.villageBOPmeadowForest) { BiomeBase.addVillageBiome(bopMeadowForest); }
+            if (ConfigBOP.villageBOPoasis) { BiomeBase.addVillageBiome(bopOasis); }
+            if (ConfigBOP.villageBOPorchard) { BiomeBase.addVillageBiome(bopOrchard); }
+            if (ConfigBOP.villageBOPquagmire) { BiomeBase.addVillageBiome(bopQuagmire); }
+            if (ConfigBOP.villageBOPscrubland) { BiomeBase.addVillageBiome(bopScrubland); }
+            if (ConfigBOP.villageBOPseasonalForestClearing) { BiomeBase.addVillageBiome(bopSeasonalForestClearing); }
+            if (ConfigBOP.villageBOPsilkglades) { BiomeBase.addVillageBiome(bopSilkglades); }
+            if (ConfigBOP.villageBOPspruceWoods) { BiomeBase.addVillageBiome(bopSpruceWoods); }
+            if (ConfigBOP.villageBOPtropics) { BiomeBase.addVillageBiome(bopTropics); }
+            if (ConfigBOP.villageBOPvolcano) { BiomeBase.addVillageBiome(bopVolcano); }
+            
+            //Ocean Biomes
+            if (ConfigBOP.villageBOPcoralReef) { BiomeBase.addVillageBiome(bopCoralReef); }
+            if (ConfigBOP.villageBOPkelpForest) { BiomeBase.addVillageBiome(bopKelpForest); }
 		}
 	}
 }

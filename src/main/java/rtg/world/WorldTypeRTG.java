@@ -20,14 +20,10 @@ public class WorldTypeRTG extends WorldType
         return new WorldChunkManagerRTG(world);
     }
 
-    @Override
-	public IChunkProvider getChunkGenerator(World world, String generatorOptions) {
-		return new ChunkProviderRTG(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled());
-	}
-  /*  public IChunkProvider getChunkGenerator(World world, String generatorOptions)
+    public IChunkProvider getChunkGenerator(World world, String generatorOptions)
     {
         return new ChunkProviderRTG(world, world.getSeed());
-    }*/
+    }
 	
     public float getCloudHeight()
     {

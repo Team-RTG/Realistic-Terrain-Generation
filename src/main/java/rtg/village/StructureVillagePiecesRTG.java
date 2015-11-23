@@ -9,6 +9,7 @@ import cpw.mods.fml.common.eventhandler.Event.Result;
 //import enhancedbiomes.handlers.VillagerRegistryEB;
 import rtg.village.standard.*;
 import rtg.village.oriental.*;
+import rtg.world.gen.structure.MapGenVillageRTG;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.passive.EntityVillager;

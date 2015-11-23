@@ -2,20 +2,30 @@
 {
     "modid": "RTG",
     "name": "Realistic Terrain Generation",
-    "description": "Adds a new world type which generates realistic terrain.",
+    "description": "Adds a new world type which generates realistic terrain for Overworld biomes.",
     "version": "${version}",
     "mcversion": "${mcversion}",
     "url": "https://github.com/whichonespink44/Realistic-Terrain-Generation",
     "updateUrl": "",
     "authorList": [ "WhichOnesPink" ],
-    "credits": "Forked from and based heavily on the RWG mod by Ted80.",
-    "logoFile": "",
+    "credits": "Forked from the RWG mod by Ted80. OpenSimplex Noise by KdotJPEG",
+    "logoFile": "assets/RTG/logo.png",
     "screenshots": [],
     "parent": "",
-    "requiredMods": [ "Forge" ],
-    "dependencies": [],
+    "requiredMods": [ "Forge@[10.13.4.1448,)" ],
+    "dependencies": [
+        "arsmagica2@[1.4.0.008,)",
+        "ATG@[0.10.0,)",
+        "BiomesOPlenty@[2.1.0,)",
+        "BuildCraft|Core@[7.1.7,)",
+        "enhancedbiomes@2.5 for MC 1.7.10",
+        "ExtrabiomesXL@[3.16.2,)",
+        "Highlands@[2.2.3,)",
+        "Railcraft@[9.7.0.0,)",
+        "Thaumcraft@[4.2.3.4,)"
+    ],
     "dependants": [],
-    "useDependencyInformation": false
+    "useDependencyInformation": true
 }
 ]
 

@@ -1,6 +1,6 @@
 package rtg.event;
 
-import rtg.village.MapGenVillageRTG;
+import rtg.world.gen.structure.MapGenVillageRTG;
 //import enhancedbiomes.world.MapGenScatteredFeatureEnhancedBiomes;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.InitMapGenEvent.EventType;

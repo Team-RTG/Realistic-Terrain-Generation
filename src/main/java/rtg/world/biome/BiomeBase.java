@@ -2,25 +2,29 @@ package rtg.world.biome;
 
 import java.util.ArrayList;
 
-import cpw.mods.fml.common.Loader;
-import rtg.config.ConfigRTG;
-import rtg.util.Logger;
+import org.apache.logging.log4j.Level;
+
+import rtg.config.rtg.ConfigRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
-import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBase;
-import rtg.world.biome.realistic.extrabiomes.RealisticBiomeEBXLBase;
-import rtg.world.biome.realistic.highlands.RealisticBiomeHighlandsBase;
-import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
-import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
+import cpw.mods.fml.common.FMLLog;
+
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeBase extends BiomeGenBase
 {
+    public static final int DEFAULT_BIOME_SIZE = 1;
+    public static final int MIN_BIOME_SIZE = 1;
+    public static final int MAX_BIOME_SIZE = 5;
+    
+    public static final int DEFAULT_BIOME_WEIGHT = 10;
+    public static final int MIN_BIOME_WEIGHT = 0;
+    public static final int MAX_BIOME_WEIGHT = 20;
+    
 	public BiomeBase(int intBiomeId) {
 		super(intBiomeId, false);
 	}
 
-	public static enum Climate {
+	public enum Climate {
 		COLD,
 		HOT,
 		ICE,
@@ -29,12 +33,10 @@ public class BiomeBase extends BiomeGenBase
 		WET
 	}
 
-	public enum BiomeCategory
+	public enum BiomeSize
 	{
-		SNOW,
-		COLD,
-		HOT,
-		WET,
+	    LARGE,
+		NORMAL,
 		SMALL
 	}
 	
@@ -42,14 +44,15 @@ public class BiomeBase extends BiomeGenBase
 	public static ArrayList<RealisticBiomeBase> biomes_cold;
 	public static ArrayList<RealisticBiomeBase> biomes_hot;
 	public static ArrayList<RealisticBiomeBase> biomes_wet;
-	public static ArrayList<RealisticBiomeBase> biomes_small;
 	
-	public static float tempCold = 0.5f, rainCold = 0.4f;
-	public static float tempHot = 0.8f, rainHot = 0.2f;
-	public static float tempIce = 0.0f, rainIce = 0.1f;
-	public static float tempOasis = 0.9f, rainOasis = 0.9f;
-	public static float tempTemperate = 0.8f, rainTemperate = 0.6f;
-	public static float tempWet = 0.9f, rainWet = 0.9f;	
+	public static float tempCold = 0.2f, rainCold = 0.3f;
+	public static float tempHot = 2f, rainHot = 0f;
+	public static float tempIce = -0.5f, rainIce = 0.4f;
+	public static float tempOasis = 0.9f, rainOasis = 1f;
+	public static float tempTemperate = 0.8f, rainTemperate = 0.4f;
+	public static float tempWet = 0.95f, rainWet = 0.9f;	
+	
+	public static ArrayList<BiomeGenBase> arrVillageBiomes;
 
 	/**
 	 * We need to set the temp/rain values 'on the fly' when we pass them as arguments to avoid
@@ -92,48 +95,113 @@ public class BiomeBase extends BiomeGenBase
 		biomes_cold = new ArrayList<RealisticBiomeBase>();
 		biomes_hot = new ArrayList<RealisticBiomeBase>();
 		biomes_wet = new ArrayList<RealisticBiomeBase>();
-		biomes_small = new ArrayList<RealisticBiomeBase>();
+		
+		arrVillageBiomes = new ArrayList<BiomeGenBase>();
 	}
     
-	public static void addBiome(RealisticBiomeBase b, BiomeBase.BiomeCategory cat)
+    public static void addBiome(RealisticBiomeBase b, BiomeSize size)
+    {
+        try
+        {
+            addWeightedBiome(b, size);
+        }
+        catch(Error e)
+        {
+            System.out.println("Failed to add biome.");
+        }
+    }
+    
+    public static void addVillageBiome(RealisticBiomeBase b)
+    {
+        if (b.generateVillages) {
+            arrVillageBiomes.add(b.baseBiome);
+        }
+    }
+	
+	public static void addBiome(RealisticBiomeBase b)
 	{
+		BiomeSize size = b.biomeSize;
+		
 		try
 		{
-			switch(cat)
-			{
-				case SNOW: biomes_snow.add(b); break;
-				case COLD: biomes_cold.add(b); break;
-				case HOT: biomes_hot.add(b); break;
-				case WET: biomes_wet.add(b); break;
-				case SMALL: biomes_small.add(b); break;
-			}
+			addWeightedBiome(b, size);
 		}
 		catch(Error e)
 		{
-			System.out.println("RTG Support: failed to add biome");
-		}
-	}
-	
-	public static void addBiome(RealisticBiomeBase b, BiomeBase.BiomeCategory[] cat)
-	{
-		for (int i = 0; i < cat.length; i++)
-		{
-			try
-			{
-				switch(cat[i])
-				{
-					case SNOW: biomes_snow.add(b); break;
-					case COLD: biomes_cold.add(b); break;
-					case HOT: biomes_hot.add(b); break;
-					case WET: biomes_wet.add(b); break;
-					case SMALL: biomes_small.add(b); break;
-				}
-			}
-			catch(Error e)
-			{
-				System.out.println("RTG Support: failed to add biome");
-			}
+			System.out.println("Failed to add biome.");
 		}
 	}
 
+	public static void addWeightedBiome(RealisticBiomeBase b, BiomeSize size)
+	{
+		int weight = (int) b.biomeWeight;
+		weight = (weight < MIN_BIOME_WEIGHT) ? MIN_BIOME_WEIGHT : ((weight > MAX_BIOME_WEIGHT) ? MAX_BIOME_WEIGHT : weight);
+		
+		/**
+		 * Since biome-specific biome sizes aren't a thing yet,
+		 * use the global biome size setting to increase the weights of the biomes.
+		 */
+		int biomeSize = ConfigRTG.biomeSize;
+		biomeSize = (biomeSize < MIN_BIOME_SIZE) ? MIN_BIOME_SIZE : (biomeSize > MAX_BIOME_SIZE ? MAX_BIOME_SIZE : biomeSize);
+		
+		weight *= biomeSize;
+		
+		if (weight > 0) {			
+			for (int i = 0; i < weight; i++) {
+				
+			    /**
+			     * Sort by temperature.
+			     */
+			    if (b.baseBiome.temperature < 0.15f) {
+			        biomes_snow.add(b);
+			        
+			        if (ConfigRTG.enableDebugging) {
+			            FMLLog.log(Level.INFO, "Added %s to SNOW category (%d in total)", b.getRealisticBiomeName(), biomes_snow.size());
+			        }
+			    }
+                else if (b.baseBiome.temperature <= 0.3f) {
+                    biomes_cold.add(b);
+                    
+                    if (ConfigRTG.enableDebugging) {
+                        FMLLog.log(Level.INFO, "Added %s to COLD category (%d in total)", b.getRealisticBiomeName(), biomes_cold.size());
+                    }
+                }
+                else if (b.baseBiome.temperature <= 1f) {
+                    biomes_wet.add(b);
+                    
+                    if (ConfigRTG.enableDebugging) {
+                        FMLLog.log(Level.INFO, "Added %s to WET category (%d in total)", b.getRealisticBiomeName(), biomes_wet.size());
+                    }
+                }
+                else {
+                    biomes_hot.add(b);
+                    
+                    if (ConfigRTG.enableDebugging) {
+                        FMLLog.log(Level.INFO, "Added %s to HOT category (%d in total)", b.getRealisticBiomeName(), biomes_hot.size());
+                    }
+                }
+
+                /**
+                 * Sort by size.
+                 */
+				switch (size)
+				{
+					case SMALL:
+					    //TODO
+						break;
+                        
+					case NORMAL:
+					  //TODO
+						break;
+                        
+					case LARGE:
+					  //TODO
+						break;
+                        
+					default:
+						break;
+				}
+			}
+		}
+	}
 }

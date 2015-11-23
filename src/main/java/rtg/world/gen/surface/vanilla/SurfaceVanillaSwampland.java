@@ -4,8 +4,9 @@ import java.util.Random;
 
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
-import rtg.util.PerlinNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -25,7 +26,7 @@ public class SurfaceVanillaSwampland extends SurfaceBase
 	}
 	
 	@Override
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, PerlinNoise perlin, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		float c = CliffCalculator.calc(x, y, noise);
 		boolean cliff = c > 1.4f ? true : false;
@@ -41,7 +42,7 @@ public class SurfaceVanillaSwampland extends SurfaceBase
             {
             	depth++;
 
-            	if(cliff)
+            	if(cliff && k > 64)
             	{
             		if(depth > -1 && depth < 2)
             		{

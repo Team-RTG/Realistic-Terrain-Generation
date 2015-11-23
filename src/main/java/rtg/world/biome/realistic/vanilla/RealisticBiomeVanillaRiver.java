@@ -1,14 +1,11 @@
 package rtg.world.biome.realistic.vanilla;
 
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.Climate;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaRiver;
-import rtg.world.gen.terrain.TerrainBase;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaRiver;
+
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase
@@ -21,9 +18,16 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase
 	{
 		super(
 			vanillaBiome,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
+			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainVanillaRiver(),
-			new SurfaceVanillaRiver(Blocks.sand, Blocks.sand, Blocks.grass, Blocks.grass, (byte)0, 0)
+			new SurfaceVanillaRiver()
 		);
+		
+		this.setRealisticBiomeName("Vanilla River");
+		this.biomeWeight = ConfigVanilla.weightVanillaRiver;
+		this.generateVillages = false;
+		
+        this.waterLakeFrequency = 0;
+        this.lavaLakeFrequency = 0;
 	}	
 }

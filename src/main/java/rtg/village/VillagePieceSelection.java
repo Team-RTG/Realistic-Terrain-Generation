@@ -16,6 +16,10 @@ import rtg.event.*;
 import rtg.village.StructureVillagePiecesRTG.Start;
 import rtg.village.oriental.*;
 import rtg.village.standard.*;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+
 /*import enhancedbiomes.world.biomestats.BiomeCategorisation;
 import static enhancedbiomes.world.biome.EnhancedBiomesArchipelago.*;
 import static enhancedbiomes.world.biome.EnhancedBiomesBiome.*;

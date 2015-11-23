@@ -26,11 +26,7 @@ public class WorldGenTreePineSmall extends WorldGenerator
 		metadata = m;
 	}
 	
-    public WorldGenTreePineSmall(boolean b) {
-		// TODO Auto-generated constructor stub
-	}
-
-	public boolean generate(World world, Random rand, int x, int y, int z)
+    public boolean generate(World world, Random rand, int x, int y, int z)
     {
     	Block g = world.getBlock(x, y - 1, z);
     	if(g != Blocks.grass && g != Blocks.dirt)

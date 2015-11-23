@@ -4,7 +4,7 @@ import java.util.Random;
 
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
-import rtg.util.PerlinNoise;
+import rtg.util.OpenSimplexNoise;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -46,7 +46,7 @@ public class SurfaceMountainSnow extends SurfaceBase
 	}
 
 	@Override
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, PerlinNoise perlin, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		float c = CliffCalculator.calc(x, y, noise);
 		int cliff = 0;
@@ -74,7 +74,7 @@ public class SurfaceMountainSnow extends SurfaceBase
             			}
             		}
 
-					float p = perlin.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+					float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
         			if(c > min && c > sCliff - ((k - sHeight) / sStrength) + p)
         			{
         				cliff = 1;
@@ -94,8 +94,8 @@ public class SurfaceMountainSnow extends SurfaceBase
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay; 
-        				metadata[(y * 16 + x) * 256 + k] = 9; 
+        				blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock; 
+        				metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
             		}
             		else if(cliff == 3)
             		{
@@ -130,8 +130,8 @@ public class SurfaceMountainSnow extends SurfaceBase
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay; 
-        				metadata[(y * 16 + x) * 256 + k] = 9; 
+        				blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock; 
+        				metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
             		}
             		else if(cliff == 3)
             		{

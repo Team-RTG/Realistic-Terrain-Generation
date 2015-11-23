@@ -1,20 +1,28 @@
 package rtg.world.biome.realistic.thaumcraft;
 
 import cpw.mods.fml.common.Loader;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+
+import rtg.config.thaumcraft.ConfigTC;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGrassland;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.TerrainSmallSupport;
 
 public class RealisticBiomeTCBase extends RealisticBiomeBase
 {	
+    public static RealisticBiomeBase tcMagicalForest;
+    public static RealisticBiomeBase tcTaintedLand;
+    
 	public RealisticBiomeTCBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
 		super(b, riverbiome, t, s);
+		
+        this.waterLakeFrequency = 0;
+        this.lavaLakeFrequency = 0;
 	}
 	
 	/*
@@ -26,7 +34,7 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 	
 	public static void addBiomes()
 	{
-		if (Loader.isModLoaded("Thaumcraft"))
+		if (Loader.isModLoaded("Thaumcraft") && ConfigTC.generateTCBiomes)
 		{
 			BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
 			
@@ -34,17 +42,31 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 			{
 				if(b[i] != null)
 				{
-					if(b[i].biomeName == "Tainted Land" || b[i].biomeName == "Magical Forest")
+					BiomeGenBase tcBiome = b[i];
+					String biomeName = tcBiome.biomeName;
+					String biomeClass = tcBiome.getBiomeClass().getName();
+					
+                    if (biomeName == "Magical Forest" && biomeClass == "thaumcraft.common.lib.world.biomes.BiomeGenMagicalForest")
+                    {
+                        if (ConfigTC.generateTCMagicalForest) {
+                            
+                            tcMagicalForest = new RealisticBiomeTCMagicalForest(tcBiome);
+                            
+                            BiomeBase.addBiome(tcMagicalForest);
+                            BiomeBase.addVillageBiome(tcMagicalForest);
+                        }
+                    }
+                    else if (biomeName == "Tainted Land" && biomeClass == "thaumcraft.common.lib.world.biomes.BiomeGenTaint")
 					{
-						BiomeBase.addBiome(
-							new RealisticBiomeBase(
-								b[i], BiomeBase.climatizedBiome(BiomeGenBase.river, BiomeBase.Climate.TEMPERATE),
-								new TerrainSmallSupport(),
-								new SurfaceGrassland(b[i].topBlock, b[i].fillerBlock, Blocks.stone, Blocks.cobblestone)
-							),
-							BiomeBase.BiomeCategory.SMALL
-						);
+						if (ConfigTC.generateTCTaintedLand) {
+						    
+						    tcTaintedLand = new RealisticBiomeTCTaintedLand(tcBiome);
+						    
+						    BiomeBase.addBiome(tcTaintedLand);
+						    BiomeBase.addVillageBiome(tcTaintedLand);
+						}
 					}
+
 				}
 			}
 		}

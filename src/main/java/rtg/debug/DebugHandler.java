@@ -2,17 +2,21 @@ package rtg.debug;
 
 import org.apache.logging.log4j.Level;
 
-import rtg.config.ConfigRTG;
+import rtg.config.rtg.ConfigRTG;
 import rtg.reference.ModInfo;
 import rtg.util.Logger;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class DebugHandler {
@@ -35,28 +39,32 @@ public final class DebugHandler {
 				event.left.add(null);
 				int posX = (int)player.posX;
 				int posZ = (int)player.posZ;
-				BiomeGenBase biome = chunkManager.getBiomeGenAt(posX, posZ);
-	//			RealisticBiomeBase realisticBiome = chunkManager.getBiomeDataAt(posX, posZ);
 				
+//                RealisticBiomeBase realisticBiome = chunkManager.getBiomeDataAt(
+//                    (int)Math.floor(posX / 16), 
+//                    (int)Math.floor(posZ / 16)
+//                );
+                
+                BiomeGenBase biome = world.getBiomeGenForCoords(posX, posZ);
+                RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(biome.biomeID);
+                				
 				details = PREFIX;
-	//			details += "Realistic Base Biome (X/Z): " + realisticBiome.baseBiome.biomeName + " (ID=" + realisticBiome.baseBiome.biomeID + ")";
-				event.left.add(details);
-				
-				details = PREFIX;
-//				details += "Realistic River Biome (X/Z): " + realisticBiome.riverBiome.biomeName + " (ID=" + realisticBiome.riverBiome.biomeID + ")";
-				event.left.add(details);
-				
-				details = PREFIX;
-				details += "Temperature/Rainfall (Static): " + biome.temperature + "/" + biome.rainfall;
+				details += "Realistic Base Biome (" + posX + "/" + posZ + "): " + realisticBiome.getRealisticBiomeName();
 				event.left.add(details);
 				
-				details = PREFIX;
-	//			details += "Noise (X/Z): " + chunkManager.getNoiseAt(posX, posZ);
-				event.left.add(details);
-
-				details = PREFIX;
-				details += "Ocean Value (X/Z): " + chunkManager.getOceanValue(posX, posZ);
-				event.left.add(details);
+				
+				
+                details = PREFIX;
+                details += "River Strength: " + chunkManager.getRiverStrength(posX, posZ);
+                event.left.add(details);
+                
+                details = PREFIX;
+                details += "Temperature/Rainfall: " + biome.temperature + "/" + biome.rainfall;
+                event.left.add(details);
+				
+				//details = PREFIX;
+				//details += "Noise (X/Z): " + chunkManager.getNoiseAt(posX, posZ);
+				//event.left.add(details);
 				
 				if (ConfigRTG.enableDebugging)
 				{

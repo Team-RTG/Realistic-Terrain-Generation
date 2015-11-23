@@ -4,8 +4,9 @@ import java.util.Random;
 
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
-import rtg.util.PerlinNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -13,22 +14,36 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceVanillaIceMountains extends SurfaceBase
 {
+	private Block mixBlockTop;
+	private Block mixBlockFill;
 	private Block cliffBlock1;
 	private Block cliffBlock2;
+	private float width;
+	private float height;
+	private float smallW;
+	private float smallS;
 	
-	public SurfaceVanillaIceMountains(Block top, Block filler, Block cliff1, Block cliff2)
+	public SurfaceVanillaIceMountains(Block top, Block filler, Block mixTop, Block mixFill, Block cliff1, Block cliff2, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
 	{
 		super(top, filler);
 		
+		mixBlockTop = mixTop;
+		mixBlockFill = mixFill;
 		cliffBlock1 = cliff1;
 		cliffBlock2 = cliff2;
+		
+		width = mixWidth;
+		height = mixHeight;
+		smallW = smallWidth;
+		smallS = smallStrength;
 	}
 	
 	@Override
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, PerlinNoise perlin, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		float c = CliffCalculator.calc(x, y, noise);
 		boolean cliff = c > 1.4f ? true : false;
+		boolean mix = false;
 		
 		for(int k = 255; k > -1; k--)
 		{
@@ -56,11 +71,26 @@ public class SurfaceVanillaIceMountains extends SurfaceBase
             	{
 	        		if(depth == 0 && k > 61)
 	        		{
-	        			blocks[(y * 16 + x) * 256 + k] = topBlock;
+	        			if(simplex.noise2(i / width, j / width) + simplex.noise2(i / smallW, j / smallW) * smallS > height)
+	        			{
+	        				blocks[(y * 16 + x) * 256 + k] = mixBlockTop;
+	        				mix = true;
+	        			}
+	        			else
+	        			{
+	        				blocks[(y * 16 + x) * 256 + k] = topBlock;
+	        			}
 	        		}
 	        		else if(depth < 4)
 	        		{
-	        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	        			if(mix)
+	        			{
+		        			blocks[(y * 16 + x) * 256 + k] = mixBlockFill;
+	        			}
+	        			else
+	        			{
+		        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	        			}
 	        		}
             	}
             }

@@ -16,7 +16,7 @@ This mod is a re-branded fork of the revolutionary [Realistic World Gen](http://
 * Create an API to allow other mods to customise terrain generation.
 
 # Downloads
-Latest alpha release: [RTG-1.7.10-0.0.18.jar](https://github.com/Team-RTG/Realistic-Terrain-Generation/releases/download/v0.0.18/RTG-1.7.10-0.0.18.jar) (Alpha)
+Latest alpha release: [RTG-1.7.10-0.0.19.jar](https://github.com/Team-RTG/Realistic-Terrain-Generation/releases/download/v0.0.19/RTG-1.7.10-0.0.19.jar) (Alpha)
 
 Please note that RTG is currently in alpha, which means that **it should only be used for testing purposes.**
 

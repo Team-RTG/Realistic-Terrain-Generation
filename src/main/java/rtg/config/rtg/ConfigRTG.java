@@ -5,6 +5,7 @@ import java.io.File;
 import org.apache.logging.log4j.Level;
 
 import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.Loader;
 
 import net.minecraftforge.common.config.Configuration;
 
@@ -62,10 +63,11 @@ public class ConfigRTG
     public static int minDistanceScatteredFeatures = 8;
     public static int maxDistanceScatteredFeatures = 32;
     
+    public static boolean enableVillageModifications = enableVillageTweaks();
     public static int villageSize = 0;
     public static int minDistanceVillages = 8;
     public static int maxDistanceVillages = 32;
-	
+    	
 	public static void init(File configFile) 
 	{
 		config = new Configuration(configFile);
@@ -141,6 +143,16 @@ public class ConfigRTG
             generateScatteredFeatures = config.getBoolean("Generate Scattered Features", "Scattered Features", generateScatteredFeatures, "");
             generateDungeons = config.getBoolean("Generate Dungeons", "Dungeons", generateDungeons, "");
             
+            enableVillageModifications = config.getBoolean(
+                "Enable village modifications",
+                "Villages",
+                enableVillageModifications,
+                "Set this to FALSE to resolve issues with mods that also modify villages."
+                + Configuration.NEW_LINE +
+                "If set to FALSE, the 'Minimum distance between villages', 'Maximum distance between villages' & 'Size of villages' settings will have no effect."
+                + Configuration.NEW_LINE
+            );
+            
             generateVillages = config.getBoolean("Generate Villages", "Villages", generateVillages, "");
             villageSize = config.getInt("Size of villages", "Villages", villageSize, 0, 10, "Higher values = bigger villages; 0 = Vanilla");
             minDistanceVillages = config.getInt("Minimum distance between villages", "Villages", minDistanceVillages, 1, Integer.MAX_VALUE, "Higher values = villages further apart; 8 = Vanilla");
@@ -173,5 +185,15 @@ public class ConfigRTG
 				config.save();
 			}
 		}
+	}
+	
+	private static boolean enableVillageTweaks()
+	{
+	    boolean enableVillageModifications = true;
+	    
+	    if (Loader.isModLoaded("GalacticraftMars")) { enableVillageModifications = false; }
+	    if (Loader.isModLoaded("GalaxySpace")) { enableVillageModifications = false; }
+	    
+	    return enableVillageModifications;
 	}
 }

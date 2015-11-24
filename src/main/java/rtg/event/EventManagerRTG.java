@@ -40,7 +40,10 @@ public class EventManagerRTG
 			event.newGen = new MapGenScatteredFeatureRTG();
 		}
         else if (event.type == InitMapGenEvent.EventType.VILLAGE) {
-            event.newGen = new MapGenVillageRTG();
+            
+            if (ConfigRTG.enableVillageModifications) {
+                event.newGen = new MapGenVillageRTG();
+            }
         }
         else if (event.type == InitMapGenEvent.EventType.CAVE) {
             event.newGen = new MapGenCavesRTG();

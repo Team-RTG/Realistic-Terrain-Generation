@@ -2,7 +2,7 @@ package biomesoplenty.api.content;
 
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class BOPCBiomes
+public class BOPCBiomes 
 {
 	//Overworld Biomes
 	public static BiomeGenBase alps;

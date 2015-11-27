@@ -1,13 +1,19 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
 
 import rtg.config.biomesoplenty.ConfigBOP;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPJadeCliffs;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPJadeCliffs;
 import biomesoplenty.api.content.BOPCBiomes;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
 {	
@@ -20,7 +26,7 @@ public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
-			new TerrainBOPJadeCliffs(230f, 120f, 0f),
+			new TerrainBOPJadeCliffs(200f, 100f, 10f),
 			new SurfaceBOPJadeCliffs(topBlock, fillerBlock, false, null, 0.95f)
 		);
 		
@@ -29,4 +35,16 @@ public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
 		this.biomeWeight = ConfigBOP.weightBOPjadeCliffs;
 		this.generateVillages = ConfigBOP.villageBOPjadeCliffs;
 	}
+	
+    @Override
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
+        float river)
+    {
+        
+        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        
+        //Emeralds.
+        rRemoveEmeralds(world, rand, chunkX, chunkY, false);
+        //rGenerateEmeralds(world, rand, chunkX, chunkY, false);
+    }
 }

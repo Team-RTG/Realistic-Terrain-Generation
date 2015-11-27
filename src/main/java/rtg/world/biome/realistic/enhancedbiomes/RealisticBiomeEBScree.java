@@ -2,6 +2,16 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.config.enhancedbiomes.ConfigEB;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.feature.WorldGenGrass;
+import rtg.world.gen.feature.WorldGenLog;
+import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSandstoneCanyon;
+import rtg.world.gen.terrain.enhancedbiomes.TerrainEBScree;
 import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import enhancedbiomes.helpers.TreeGen;
@@ -10,18 +20,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
-import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeSize;
-import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
-import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSandstoneCanyon;
-import rtg.world.gen.surface.enhancedbiomes.SurfaceEBScree;
-import rtg.world.gen.terrain.enhancedbiomes.TerrainEBScree;
 
 public class RealisticBiomeEBScree extends RealisticBiomeEBBase
 {	
@@ -60,7 +58,13 @@ public class RealisticBiomeEBScree extends RealisticBiomeEBBase
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
         float river)
     {
-    
+
+        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        
+        //Emeralds.
+        //rRemoveEmeralds(world, rand, chunkX, chunkY, false);
+        rGenerateEmeralds(world, rand, chunkX, chunkY, false);
+        
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
         
         if (l > 5f)

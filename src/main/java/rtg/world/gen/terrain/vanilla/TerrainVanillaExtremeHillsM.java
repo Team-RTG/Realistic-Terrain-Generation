@@ -38,6 +38,6 @@ public class TerrainVanillaExtremeHillsM extends TerrainBase
         h += simplex.noise2(x / 12f, y / 12f) * 3f;
         h += simplex.noise2(x / 5f, y / 5f) * 1.5f;
         
-        return base + h;
+        return base + h + 10f;
     }
 }

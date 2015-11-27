@@ -69,6 +69,11 @@ public class RealisticBiomeBase extends BiomeBase {
     
     public boolean generateVillages;
     
+    public Block emeraldEmeraldBlock;
+    public byte emeraldEmeraldMeta;
+    public Block emeraldStoneBlock;
+    public byte emeraldStoneMeta;
+    
     public RealisticBiomeBase(BiomeGenBase biome) {
     
         this(biome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE));
@@ -97,6 +102,11 @@ public class RealisticBiomeBase extends BiomeBase {
         lapisPerChunk = 6;
         
         generateVillages = true;
+        
+        emeraldEmeraldBlock = Blocks.emerald_ore;
+        emeraldEmeraldMeta = (byte)0;
+        emeraldStoneBlock = Blocks.stone;
+        emeraldStoneMeta = (byte)0;
     }
     
     public static RealisticBiomeBase getBiome(int id) {
@@ -437,11 +447,11 @@ public class RealisticBiomeBase extends BiomeBase {
                 int m1 = rand.nextInt(28) + 4;
                 int p1 = chunkZ + rand.nextInt(16);
 
-                if (world.getBlock(n1, m1, p1).isReplaceableOreGen(world, n1, m1, p1, Blocks.stone)) {
+                if (world.getBlock(n1, m1, p1).isReplaceableOreGen(world, n1, m1, p1, emeraldStoneBlock)) {
                     
                     if (rand.nextInt(4) == 0) {
                         
-                        world.setBlock(n1, m1, p1, Blocks.emerald_ore, 0, 2);
+                        world.setBlock(n1, m1, p1, emeraldEmeraldBlock, emeraldEmeraldMeta, 2);
                         
                         if (ConfigRTG.enableDebugging) {
                             FMLLog.log(Level.INFO, "Emerald generated at %d, %d, %d", n1, m1, p1);
@@ -458,9 +468,6 @@ public class RealisticBiomeBase extends BiomeBase {
 
             int endX = (chunkX * 16) + 16;
             int endZ = (chunkZ * 16) + 16;
-            Block needleBlock = Blocks.emerald_ore;
-            Block replaceBlock = Blocks.stone;
-            int replaceBlockMeta = 0;
             boolean enableDebugging = ConfigRTG.enableDebugging;
 
             // Get the highest possible existing block location.
@@ -472,9 +479,9 @@ public class RealisticBiomeBase extends BiomeBase {
                 {
                     for (int y = 0; y < maxY; ++y)
                     {   
-                        if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, needleBlock)) {
+                        if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, emeraldEmeraldBlock)) {
                             
-                            world.setBlock(x, y, z, replaceBlock, replaceBlockMeta, 2);
+                            world.setBlock(x, y, z, emeraldStoneBlock, emeraldStoneMeta, 2);
                             
                             if (enableDebugging) {
                                 FMLLog.log(Level.INFO, "Emerald replaced at %d, %d, %d", x, y, z);

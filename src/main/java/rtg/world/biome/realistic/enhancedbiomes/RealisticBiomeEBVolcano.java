@@ -2,20 +2,20 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
-import enhancedbiomes.EnhancedBiomesMod;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenVolcano;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
-import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRockyHills;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBVolcano;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBVolcano;
+import enhancedbiomes.EnhancedBiomesMod;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -76,6 +76,12 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
         float river)
     {
+
+        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        
+        //Emeralds.
+        //rRemoveEmeralds(world, rand, chunkX, chunkY, false);
+        rGenerateEmeralds(world, rand, chunkX, chunkY, false);
     
         for (int l14 = 0; l14 < 15; l14++)
         {

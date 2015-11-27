@@ -458,10 +458,10 @@ public class RealisticBiomeBase extends BiomeBase {
 
             int endX = (chunkX * 16) + 16;
             int endZ = (chunkZ * 16) + 16;
-            Block checkBlock;
             Block needleBlock = Blocks.emerald_ore;
             Block replaceBlock = Blocks.stone;
             int replaceBlockMeta = 0;
+            boolean enableDebugging = ConfigRTG.enableDebugging;
 
             // Get the highest possible existing block location.
             int maxY = world.getHeightValue(chunkX, chunkZ);
@@ -476,7 +476,7 @@ public class RealisticBiomeBase extends BiomeBase {
                             
                             world.setBlock(x, y, z, replaceBlock, replaceBlockMeta, 2);
                             
-                            if (ConfigRTG.enableDebugging) {
+                            if (enableDebugging) {
                                 FMLLog.log(Level.INFO, "Emerald replaced at %d, %d, %d", x, y, z);
                             }
                         }

@@ -5,7 +5,8 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.surface.SurfaceBase;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -13,141 +14,133 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBMountains extends SurfaceEBBase
 {
-	private boolean beach;
-	private Block beachBlock;
-	private float min;
-	
-	private float sCliff = 1.5f;
-	private float sHeight = 60f;
-	private float sStrength = 65f;
-	private float iCliff = 0.3f;
-	private float iHeight = 100f;
-	private float iStrength = 50f;
-	private float cCliff = 1.5f;
-	
-	public SurfaceEBMountains(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
-	{
-		super(top, fill);
-		beach = genBeach;
-		beachBlock = genBeachBlock;
-		min = minCliff;
-	}
-	
-	public SurfaceEBMountains(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float snowCliff, float snowHeight, float snowStrength, float clayCliff)
-	{
-		this(top, fill, genBeach, genBeachBlock, minCliff);
-		
-		sCliff = stoneCliff;
-		sHeight = stoneHeight;
-		sStrength = stoneStrength;
-		iCliff = snowCliff;
-		iHeight = snowHeight;
-		iStrength = snowStrength;
-		cCliff = clayCliff;
-	}
-
-	@Override
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
-	{
-		float c = CliffCalculator.calc(x, y, noise);
-		int cliff = 0;
-		boolean gravel = false;
-		
-    	Block b;
-		for(int k = 255; k > -1; k--)
-		{
-			b = blocks[(y * 16 + x) * 256 + k];
-            if(b == Blocks.air)
+    private static Block ebStoneBlock = EnhancedBiomesBlocks.stoneEB;
+    private static byte ebStoneByte = (byte)10;
+    
+    private Block blockTop;
+    private byte byteTop;
+    private Block blockFiller;
+    private byte byteFiller;
+    private Block blockMixTop;
+    private byte byteMixTop;
+    private Block blockMixFiller;
+    private byte byteMixFiller;
+    private Block blockCliff1;
+    private byte byteCliff1;
+    private Block blockCliff2;
+    private byte byteCliff2;
+    private float floMixWidth;
+    private float floMixHeight;
+    private float floSmallWidth;
+    private float floSmallStrength;
+    
+    public SurfaceEBMountains(Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
+        byte mixFillerByte, Block cliff1, byte cliff1Byte, Block cliff2, byte cliff2Byte, float mixWidth, float mixHeight,
+        float smallWidth, float smallStrength)
+    {
+    
+        super(top, filler);
+        
+        blockTop = top;
+        byteTop = topByte;
+        blockFiller = filler;
+        byteFiller = fillerByte;
+        
+        blockMixTop = mixTop;
+        byteMixTop = mixTopByte;
+        blockMixFiller = mixFiller;
+        byteMixFiller = mixFillerByte;
+        
+        blockCliff1 = cliff1;
+        byteCliff1 = cliff1Byte;
+        
+        blockCliff2 = cliff2;
+        byteCliff2 = cliff2Byte;
+        
+        floMixWidth = mixWidth;
+        floMixHeight = mixHeight;
+        floSmallWidth = smallWidth;
+        floSmallStrength = smallStrength;
+    }
+    
+    @Override
+    public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
+        OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+    {
+    
+        float c = CliffCalculator.calc(x, y, noise);
+        boolean cliff = c > 1.4f ? true : false;
+        boolean mix = false;
+        
+        for (int k = 255; k > -1; k--)
+        {
+            Block b = blocks[(y * 16 + x) * 256 + k];
+            if (b == Blocks.air)
             {
-            	depth = -1;
+                depth = -1;
             }
-            else if(b == Blocks.stone)
+            else if (b == Blocks.stone)
             {
-            	depth++;
-            	
-            	if(depth == 0)
-            	{
-            		if(k < 63)
-            		{
-            			if(beach)
-            			{
-            				gravel = true;
-            			}
-            		}
-
-					float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
-        			if(c > min && c > sCliff - ((k - sHeight) / sStrength) + p)
-        			{
-        				cliff = 1;
-        			}
-            		if(c > cCliff)
-        			{
-        				cliff = 2;
-        			}
-        			if(k > 110 + (p * 4) && c < iCliff + ((k - iHeight) / iStrength) + p)
-        			{
-        				cliff = 3;
-        			}
-            		
-            		if(cliff == 1)
-            		{
-            			blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? Blocks.cobblestone : Blocks.stone; 
-            		}
-            		else if(cliff == 2)
-            		{
-        				blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock; 
-        				metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
-            		}
-            		else if(cliff == 3)
-            		{
-	        			blocks[(y * 16 + x) * 256 + k] = Blocks.snow;
-            		}
-            		else if(k < 63)
-            		{
-            			if(beach)
-            			{
-	            			blocks[(y * 16 + x) * 256 + k] = beachBlock;
-	            			gravel = true;
-            			}
-            			else if(k < 62)
-            			{
-                			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-            			}
-            			else
-            			{
-                			blocks[(y * 16 + x) * 256 + k] = topBlock;
-            			}
-            		}
-            		else
-            		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
-            		}
-            	}
-            	else if(depth < 6)
-        		{
-            		if(cliff == 1)
-            		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.stone; 
-            		}
-            		else if(cliff == 2)
-            		{
-        				blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock; 
-        				metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
-            		}
-            		else if(cliff == 3)
-            		{
-	        			blocks[(y * 16 + x) * 256 + k] = Blocks.snow;
-            		}
-            		else if(gravel)
-            		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.gravel;
-            		}
-            		else
-            		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
-            		}
-        		}
+                depth++;
+                
+                if (shouldReplaceStone()) {
+                    blocks[(y * 16 + x) * 256 + k] = ebStoneBlock;
+                    metadata[(y * 16 + x) * 256 + k] = ebStoneByte;
+                }
+                
+                if (cliff)
+                {
+                    if (depth > -1 && depth < 2)
+                    {
+                        if (rand.nextInt(3) == 0) {
+                            blocks[(y * 16 + x) * 256 + k] = blockCliff2;
+                            metadata[(y * 16 + x) * 256 + k] = byteCliff2;
+                        }
+                        else {
+                            blocks[(y * 16 + x) * 256 + k] = blockCliff1;
+                            metadata[(y * 16 + x) * 256 + k] = byteCliff1;
+                        }
+                        
+                    }
+                    else if (depth < 10)
+                    {
+                        blocks[(y * 16 + x) * 256 + k] = blockCliff1;
+                        metadata[(y * 16 + x) * 256 + k] = byteCliff1;
+                    }
+                }
+                else
+                {
+                    if (depth == 0 && k > 61)
+                    {
+                        if (simplex.noise2(i / floMixWidth, j / floMixWidth) + simplex.noise2(i / floSmallWidth, j / floSmallWidth)
+                            * floSmallStrength > floMixHeight)
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = blockMixTop;
+                            metadata[(y * 16 + x) * 256 + k] = byteMixTop;
+                            
+                            mix = true;
+                        }
+                        else
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = topBlock;
+                            metadata[(y * 16 + x) * 256 + k] = byteTop;
+                        }
+                    }
+                    else if (depth < 4)
+                    {
+                        if (mix)
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = blockMixFiller;
+                            metadata[(y * 16 + x) * 256 + k] = byteMixFiller;
+                        }
+                        else
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            metadata[(y * 16 + x) * 256 + k] = byteFiller;
+                        }
+                    }
+                }
             }
-		}
-	}
+        }
+    }
 }

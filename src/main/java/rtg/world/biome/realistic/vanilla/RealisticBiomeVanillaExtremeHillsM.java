@@ -24,7 +24,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
         super(
             mutationBiome,
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-            new TerrainVanillaExtremeHillsM(0f, 140f, 68f, 150f),
+            new TerrainVanillaExtremeHillsM(10f, 140f, 68f, 200f),
             new SurfaceVanillaExtremeHillsM(topBlock, fillerBlock, Blocks.grass, Blocks.dirt, Blocks.stone, Blocks.cobblestone, 60f,
                 -0.14f, 14f, 0.25f));
         

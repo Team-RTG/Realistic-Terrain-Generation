@@ -42,33 +42,36 @@ public class SurfaceBOPCrag extends SurfaceBase
             {
             	depth++;
 
-            	if(cliff)
-            	{
-            		if(depth > -1 && depth < 2)
-            		{
-            			blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? cliffBlock1 : cliffBlock2; 
-            		}
-            		else if (depth < 10)
-            		{
-            			blocks[(y * 16 + x) * 256 + k] = cliffBlock1;
-            		}
-            		else {
-            		    blocks[(y * 16 + x) * 256 + k] = topBlock;
-            		}
-            	}
-            	else
-            	{
-	        		if(depth == 0 && k > 61)
-	        		{
-	        			blocks[(y * 16 + x) * 256 + k] = topBlock;
-	        		}
-	        		else if(depth < 4)
-	        		{
-	        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-	        		}
-	        		else {
-	        		    blocks[(y * 16 + x) * 256 + k] = topBlock;
-	        		}
+            	if (k > 50) {
+            	    
+                	if(cliff)
+                	{
+                		if(depth > -1 && depth < 2)
+                		{
+                			blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? cliffBlock1 : cliffBlock2; 
+                		}
+                		else if (depth < 10)
+                		{
+                			blocks[(y * 16 + x) * 256 + k] = cliffBlock1;
+                		}
+                		else {
+                		    blocks[(y * 16 + x) * 256 + k] = topBlock;
+                		}
+                	}
+                	else
+                	{
+    	        		if(depth == 0 && k > 61)
+    	        		{
+    	        			blocks[(y * 16 + x) * 256 + k] = topBlock;
+    	        		}
+    	        		else if(depth < 4)
+    	        		{
+    	        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+    	        		}
+    	        		else {
+    	        		    blocks[(y * 16 + x) * 256 + k] = topBlock;
+    	        		}
+                	}
             	}
             }
 		}

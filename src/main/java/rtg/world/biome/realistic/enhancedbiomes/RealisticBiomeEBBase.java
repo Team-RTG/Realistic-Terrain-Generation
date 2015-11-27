@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import net.minecraft.world.biome.BiomeGenBase;
-
 import org.apache.logging.log4j.Level;
 
 import rtg.config.enhancedbiomes.ConfigEB;
@@ -11,6 +9,8 @@ import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Loader;
+
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBBase extends RealisticBiomeBase
 {

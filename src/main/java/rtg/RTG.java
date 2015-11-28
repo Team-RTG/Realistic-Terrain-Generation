@@ -24,6 +24,11 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
+import cpw.mods.fml.common.event.FMLServerStartedEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.FMLServerStoppedEvent;
+import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.relauncher.Side;
 
 import net.minecraftforge.common.MinecraftForge;
@@ -34,35 +39,38 @@ public class RTG {
     @Instance("RTG")
     public static RTG instance;
     public static String configPath;
-    public static final WorldTypeRTG worldtype = (new WorldTypeRTG("RTG"));
-    public static final EventManagerRTG eventMgr = new EventManagerRTG();
+    public static WorldTypeRTG worldtype;
+    public static EventManagerRTG eventMgr;
     
     @SidedProxy(serverSide = ModInfo.PROXY_COMMON, clientSide = ModInfo.PROXY_CLIENT)
     public static CommonProxy proxy;
-    
+
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-    
+    public void fmlLifeCycleEvent(FMLPreInitializationEvent event) 
+    {    
         instance = this;
         
         configPath = event.getModConfigurationDirectory() + "/RTG/";
         ConfigManager.init(configPath);
-                
+        
+        worldtype = new WorldTypeRTG("RTG");
+    }
+    
+    @EventHandler
+    public void fmlLifeCycleEvent(FMLInitializationEvent event) 
+    {
+        if (event.getSide() == Side.CLIENT) {
+            MinecraftForge.EVENT_BUS.register(new DebugHandler());
+        }
+        
+        eventMgr = new EventManagerRTG();
         MinecraftForge.TERRAIN_GEN_BUS.register(eventMgr);
         MinecraftForge.EVENT_BUS.register(eventMgr);
     }
     
     @EventHandler
-    public void Init(FMLInitializationEvent event) {
-    
-        if (event.getSide() == Side.CLIENT) {
-            MinecraftForge.EVENT_BUS.register(new DebugHandler());
-        }
-    }
-    
-    @EventHandler
-    public void postInit(FMLPostInitializationEvent event) {
-    
+    public void fmlLifeCycle(FMLPostInitializationEvent event)
+    {
         BiomeBase.init();
         
         RealisticBiomeVanillaBase.addBiomes();
@@ -76,5 +84,35 @@ public class RTG {
         RealisticBiomeAMBase.addBiomes();
         RealisticBiomeATGBase.addBiomes();
         RealisticBiomeCCBase.addBiomes();
+    }
+    
+    @EventHandler
+    public void fmlLifeCycle(FMLServerAboutToStartEvent event)
+    {
+
+    }
+    
+    @EventHandler
+    public void fmlLifeCycle(FMLServerStartingEvent event)
+    {
+
+    }
+    
+    @EventHandler
+    public void fmlLifeCycle(FMLServerStartedEvent event)
+    {
+
+    }
+    
+    @EventHandler
+    public void fmlLifeCycle(FMLServerStoppingEvent event)
+    {
+
+    }
+    
+    @EventHandler
+    public void fmlLifeCycle(FMLServerStoppedEvent event)
+    {
+
     }
 }

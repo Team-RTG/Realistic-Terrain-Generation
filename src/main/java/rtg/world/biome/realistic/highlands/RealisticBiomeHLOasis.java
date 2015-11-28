@@ -28,7 +28,7 @@ public class RealisticBiomeHLOasis extends RealisticBiomeHLBase
         
         this.setRealisticBiomeName("HL Oasis");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHL_oasis;
-        this.generateVillages = ConfigHL.villageHL_oasis;
+        this.biomeWeight = ConfigHL.weightHLOasis;
+        this.generateVillages = ConfigHL.villageHLOasis;
     }
 }

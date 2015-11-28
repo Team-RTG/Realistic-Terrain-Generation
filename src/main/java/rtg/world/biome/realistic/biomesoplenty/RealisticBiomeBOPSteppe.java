@@ -27,7 +27,7 @@ public class RealisticBiomeBOPSteppe extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Steppe");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPsteppe;
-		this.generateVillages = ConfigBOP.villageBOPsteppe;
+		this.biomeWeight = ConfigBOP.weightBOPSteppe;
+		this.generateVillages = ConfigBOP.villageBOPSteppe;
 	}
 }

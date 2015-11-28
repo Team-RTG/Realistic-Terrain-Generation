@@ -27,7 +27,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Land of Lakes");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPlandOfLakes;
-		this.generateVillages = ConfigBOP.villageBOPlandOfLakes;
+		this.biomeWeight = ConfigBOP.weightBOPLandOfLakes;
+		this.generateVillages = ConfigBOP.villageBOPLandOfLakes;
 	}
 }

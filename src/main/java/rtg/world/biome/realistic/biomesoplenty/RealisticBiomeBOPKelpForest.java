@@ -27,7 +27,7 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Kelp Forest");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPkelpForest;
-		this.generateVillages = ConfigBOP.villageBOPkelpForest;
+		this.biomeWeight = ConfigBOP.weightBOPKelpForest;
+		this.generateVillages = ConfigBOP.villageBOPKelpForest;
 	}
 }

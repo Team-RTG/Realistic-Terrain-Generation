@@ -27,7 +27,7 @@ public class RealisticBiomeBOPArctic extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Arctic");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOParctic;
-		this.generateVillages = ConfigBOP.villageBOParctic;
+		this.biomeWeight = ConfigBOP.weightBOPArctic;
+		this.generateVillages = ConfigBOP.villageBOPArctic;
 	}
 }

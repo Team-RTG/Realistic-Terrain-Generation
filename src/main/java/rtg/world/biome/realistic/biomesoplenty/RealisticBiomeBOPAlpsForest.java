@@ -36,8 +36,8 @@ public class RealisticBiomeBOPAlpsForest extends RealisticBiomeBOPBase
 
 		this.setRealisticBiomeName("BOP Alps Forest");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPalpsForest;
-		this.generateVillages = ConfigBOP.villageBOPalpsForest;
+		this.biomeWeight = ConfigBOP.weightBOPAlpsForest;
+		this.generateVillages = ConfigBOP.villageBOPAlpsForest;
 	}
 	
     @Override

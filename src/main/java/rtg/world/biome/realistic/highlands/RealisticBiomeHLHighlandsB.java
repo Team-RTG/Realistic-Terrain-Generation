@@ -27,7 +27,7 @@ public class RealisticBiomeHLHighlandsB extends RealisticBiomeHLBase
         
         this.setRealisticBiomeName("HL HighlandsB");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHL_highlandsb;
-        this.generateVillages = ConfigHL.villageHL_highlandsb;
+        this.biomeWeight = ConfigHL.weightHLHighlandsB;
+        this.generateVillages = ConfigHL.villageHLHighlandsB;
     }
 }

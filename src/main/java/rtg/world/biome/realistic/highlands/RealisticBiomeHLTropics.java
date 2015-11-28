@@ -28,7 +28,7 @@ public class RealisticBiomeHLTropics extends RealisticBiomeHLBase
         
         this.setRealisticBiomeName("HL Tropics");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHL_tropics;
-        this.generateVillages = ConfigHL.villageHL_tropics;
+        this.biomeWeight = ConfigHL.weightHLTropics;
+        this.generateVillages = ConfigHL.villageHLTropics;
     }
 }

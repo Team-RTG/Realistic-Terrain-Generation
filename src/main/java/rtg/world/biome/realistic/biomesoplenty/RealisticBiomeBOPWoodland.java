@@ -27,7 +27,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Woodland");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPwoodland;
-		this.generateVillages = ConfigBOP.villageBOPwoodland;
+		this.biomeWeight = ConfigBOP.weightBOPWoodland;
+		this.generateVillages = ConfigBOP.villageBOPWoodland;
 	}
 }

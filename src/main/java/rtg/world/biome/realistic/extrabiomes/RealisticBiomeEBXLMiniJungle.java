@@ -27,7 +27,7 @@ public class RealisticBiomeEBXLMiniJungle extends RealisticBiomeEBXLBase
 		
 		this.setRealisticBiomeName("EBXL Mini Jungle");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEBXL.weightEBXL_minijungle;
-		this.generateVillages = ConfigEBXL.villageEBXL_minijungle;
+		this.biomeWeight = ConfigEBXL.weightEBXLMiniJungle;
+		this.generateVillages = ConfigEBXL.villageEBXLMiniJungle;
 	}
 }

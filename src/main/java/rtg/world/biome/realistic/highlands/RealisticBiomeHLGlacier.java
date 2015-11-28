@@ -27,7 +27,7 @@ public class RealisticBiomeHLGlacier extends RealisticBiomeHLBase
         
         this.setRealisticBiomeName("HL Glacier");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHL_glacier;
-        this.generateVillages = ConfigHL.villageHL_glacier;
+        this.biomeWeight = ConfigHL.weightHLGlacier;
+        this.generateVillages = ConfigHL.villageHLGlacier;
     }
 }

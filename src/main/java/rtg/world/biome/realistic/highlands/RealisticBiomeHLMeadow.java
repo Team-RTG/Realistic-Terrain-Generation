@@ -28,7 +28,7 @@ public class RealisticBiomeHLMeadow extends RealisticBiomeHLBase
         
         this.setRealisticBiomeName("HL Meadow");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHL_meadow;
-        this.generateVillages = ConfigHL.villageHL_meadow;
+        this.biomeWeight = ConfigHL.weightHLMeadow;
+        this.generateVillages = ConfigHL.villageHLMeadow;
     }
 }

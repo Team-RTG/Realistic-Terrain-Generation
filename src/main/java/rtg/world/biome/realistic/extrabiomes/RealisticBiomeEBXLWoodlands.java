@@ -27,7 +27,7 @@ public class RealisticBiomeEBXLWoodlands extends RealisticBiomeEBXLBase
 		
 		this.setRealisticBiomeName("EBXL Woodlands");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEBXL.weightEBXL_woodlands;
-		this.generateVillages = ConfigEBXL.villageEBXL_woodlands;
+		this.biomeWeight = ConfigEBXL.weightEBXLWoodlands;
+		this.generateVillages = ConfigEBXL.villageEBXLWoodlands;
 	}
 }

@@ -28,7 +28,7 @@ public class RealisticBiomeHLSnowIsland extends RealisticBiomeHLBase
         
         this.setRealisticBiomeName("HL Snow Island");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHL_snowIsland;
-        this.generateVillages = ConfigHL.villageHL_snowIsland;
+        this.biomeWeight = ConfigHL.weightHLSnowIsland;
+        this.generateVillages = ConfigHL.villageHLSnowIsland;
     }
 }

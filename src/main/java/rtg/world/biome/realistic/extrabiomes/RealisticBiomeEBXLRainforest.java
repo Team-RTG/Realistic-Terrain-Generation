@@ -27,7 +27,7 @@ public class RealisticBiomeEBXLRainforest extends RealisticBiomeEBXLBase
 		
 		this.setRealisticBiomeName("EBXL Rainforest");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEBXL.weightEBXL_rainforest;
-		this.generateVillages = ConfigEBXL.villageEBXL_rainforest;
+		this.biomeWeight = ConfigEBXL.weightEBXLRainforest;
+		this.generateVillages = ConfigEBXL.villageEBXLRainforest;
 	}
 }

@@ -2,7 +2,9 @@ package rtg.event;
 
 import org.apache.logging.log4j.Level;
 
+import rtg.RTG;
 import rtg.config.rtg.ConfigRTG;
+import rtg.world.WorldTypeRTG;
 import rtg.world.gen.MapGenCavesRTG;
 import rtg.world.gen.MapGenRavineRTG;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
@@ -13,7 +15,9 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
+import net.minecraftforge.event.world.WorldEvent;
 
 public class EventManagerRTG
 {
@@ -25,7 +29,7 @@ public class EventManagerRTG
     }
     
 	@SubscribeEvent(priority = EventPriority.LOW)
-	public void initMapGen(InitMapGenEvent event) {
+	public void eventListenerRTG(InitMapGenEvent event) {
 	    
 	    if (ConfigRTG.enableDebugging) {
 	        FMLLog.log(Level.INFO, "event type = %s", event.type.toString());
@@ -52,4 +56,14 @@ public class EventManagerRTG
             FMLLog.log(Level.INFO, "event newGen = %s", event.newGen.toString());
         }
 	}
+	
+    @SubscribeEvent
+    public void eventListenerRTG(WorldEvent.Load event) {
+
+        if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
+            
+            MinecraftForge.TERRAIN_GEN_BUS.unregister(RTG.eventMgr);
+            MinecraftForge.EVENT_BUS.unregister(RTG.eventMgr);
+        }
+    }
 }

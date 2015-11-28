@@ -5,7 +5,7 @@
     "description": "Adds a new world type which generates realistic terrain for Overworld biomes.",
     "version": "${version}",
     "mcversion": "${mcversion}",
-    "url": "https://github.com/whichonespink44/Realistic-Terrain-Generation",
+    "url": "https://github.com/Team-RTG/Realistic-Terrain-Generation",
     "updateUrl": "",
     "authorList": [ "WhichOnesPink" ],
     "credits": "Forked from the RWG mod by Ted80. OpenSimplex Noise by KdotJPEG",

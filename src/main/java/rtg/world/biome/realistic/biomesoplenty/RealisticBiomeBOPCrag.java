@@ -36,8 +36,8 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Crag");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPcrag;
-		this.generateVillages = ConfigBOP.villageBOPcrag;
+		this.biomeWeight = ConfigBOP.weightBOPCrag;
+		this.generateVillages = ConfigBOP.villageBOPCrag;
 	}
 	
     @Override

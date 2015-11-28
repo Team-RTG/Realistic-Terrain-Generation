@@ -27,7 +27,7 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Outback");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPoutback;
-		this.generateVillages = ConfigBOP.villageBOPoutback;
+		this.biomeWeight = ConfigBOP.weightBOPOutback;
+		this.generateVillages = ConfigBOP.villageBOPOutback;
 	}
 }

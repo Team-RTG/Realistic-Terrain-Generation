@@ -28,7 +28,7 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Bog");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPbog;
-		this.generateVillages = ConfigBOP.villageBOPbog;
+		this.biomeWeight = ConfigBOP.weightBOPBog;
+		this.generateVillages = ConfigBOP.villageBOPBog;
 	}
 }

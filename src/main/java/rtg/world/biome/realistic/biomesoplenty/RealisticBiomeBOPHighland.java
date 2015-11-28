@@ -32,8 +32,8 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Highland");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPhighland;
-		this.generateVillages = ConfigBOP.villageBOPhighland;
+		this.biomeWeight = ConfigBOP.weightBOPHighland;
+		this.generateVillages = ConfigBOP.villageBOPHighland;
 	}
 	
     @Override

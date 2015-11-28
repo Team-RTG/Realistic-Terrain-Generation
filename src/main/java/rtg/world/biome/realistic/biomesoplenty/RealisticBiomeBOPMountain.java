@@ -38,8 +38,8 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Mountain");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPmountain;
-		this.generateVillages = ConfigBOP.villageBOPmountain;
+		this.biomeWeight = ConfigBOP.weightBOPMountain;
+		this.generateVillages = ConfigBOP.villageBOPMountain;
 	}
 	
     @Override

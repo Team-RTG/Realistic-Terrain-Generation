@@ -27,7 +27,7 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Chaparral");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPchaparral;
-		this.generateVillages = ConfigBOP.villageBOPchaparral;
+		this.biomeWeight = ConfigBOP.weightBOPChaparral;
+		this.generateVillages = ConfigBOP.villageBOPChaparral;
 	}
 }

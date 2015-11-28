@@ -27,7 +27,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Lush Desert");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPlushDesert;
-		this.generateVillages = ConfigBOP.villageBOPlushDesert;
+		this.biomeWeight = ConfigBOP.weightBOPLushDesert;
+		this.generateVillages = ConfigBOP.villageBOPLushDesert;
 	}
 }

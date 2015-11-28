@@ -27,7 +27,7 @@ public class RealisticBiomeBOPBrushland extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Brushland");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPbrushland;
-		this.generateVillages = ConfigBOP.villageBOPbrushland;
+		this.biomeWeight = ConfigBOP.weightBOPBrushland;
+		this.generateVillages = ConfigBOP.villageBOPBrushland;
 	}
 }

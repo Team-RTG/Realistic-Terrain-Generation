@@ -27,7 +27,7 @@ public class RealisticBiomeBOPTropics extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Tropics");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPtropics;
-		this.generateVillages = ConfigBOP.villageBOPtropics;
+		this.biomeWeight = ConfigBOP.weightBOPTropics;
+		this.generateVillages = ConfigBOP.villageBOPTropics;
 	}
 }

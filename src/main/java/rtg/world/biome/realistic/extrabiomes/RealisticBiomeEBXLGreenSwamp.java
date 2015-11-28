@@ -27,7 +27,7 @@ public class RealisticBiomeEBXLGreenSwamp extends RealisticBiomeEBXLBase
 		
 		this.setRealisticBiomeName("EBXL Green Swamplands");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEBXL.weightEBXL_greenswamp;
-		this.generateVillages = ConfigEBXL.villageEBXL_greenswamp;
+		this.biomeWeight = ConfigEBXL.weightEBXLGreenSwamp;
+		this.generateVillages = ConfigEBXL.villageEBXLGreenSwamp;
 	}
 }

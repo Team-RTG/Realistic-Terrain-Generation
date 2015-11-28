@@ -27,7 +27,7 @@ public class RealisticBiomeEBXLWasteland extends RealisticBiomeEBXLBase
 		
 		this.setRealisticBiomeName("EBXL Wasteland");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEBXL.weightEBXL_wasteland;
-		this.generateVillages = ConfigEBXL.villageEBXL_wasteland;
+		this.biomeWeight = ConfigEBXL.weightEBXLWasteland;
+		this.generateVillages = ConfigEBXL.villageEBXLWasteland;
 	}
 }

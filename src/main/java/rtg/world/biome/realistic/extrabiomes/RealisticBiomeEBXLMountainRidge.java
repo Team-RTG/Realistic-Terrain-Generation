@@ -32,8 +32,8 @@ public class RealisticBiomeEBXLMountainRidge extends RealisticBiomeEBXLBase
 		
 		this.setRealisticBiomeName("EBXL Mountain Ridge");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEBXL.weightEBXL_mountainridge;
-		this.generateVillages = ConfigEBXL.villageEBXL_mountainridge;
+		this.biomeWeight = ConfigEBXL.weightEBXLMountainRidge;
+		this.generateVillages = ConfigEBXL.villageEBXLMountainRidge;
 	}
 	
     @Override

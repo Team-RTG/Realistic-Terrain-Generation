@@ -2,6 +2,7 @@ package rtg.config.arsmagica;
 
 import java.io.File;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 
 import rtg.world.biome.BiomeBase;
@@ -35,13 +36,13 @@ public class ConfigAM
         {
             config.load();
             
-            generateAMBiomes = config.getBoolean("Generate Biomes", "Biomes", generateAMBiomes, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod.");
+            generateAMBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", generateAMBiomes, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
             
-            generateAMWitchwoodForest = config.getBoolean("generateAMWitchwoodForest", "Biomes", generateAMWitchwoodForest, "");
+            generateAMWitchwoodForest = config.getBoolean(formatConfig("generateAMWitchwoodForest"), "Biomes", generateAMWitchwoodForest, "");
             
-            weightAMWitchwoodForest = config.getInt("weightAMWitchwoodForest", "Weights", weightAMWitchwoodForest, biomeWeightMin, biomeWeightMax, "");
+            weightAMWitchwoodForest = config.getInt(formatConfig("weightAMWitchwoodForest"), "Weights", weightAMWitchwoodForest, biomeWeightMin, biomeWeightMax, "");
             
-            villageAMWitchwoodForest = config.getBoolean("villageAMWitchwoodForest", "Villages", villageAMWitchwoodForest, "");
+            villageAMWitchwoodForest = config.getBoolean(formatConfig("villageAMWitchwoodForest"), "Villages", villageAMWitchwoodForest, "");
             
         } catch (Exception e)
         {
@@ -53,5 +54,24 @@ public class ConfigAM
                 config.save();
             }
         }
+    }
+    
+    private static String formatConfig(String s)
+    {
+        String returnString = s;        
+        
+        returnString = StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(returnString), " ");
+
+        if (s.startsWith("generate")) {
+            returnString = StringUtils.replace(returnString, "generate", "Generate", 1);
+        }
+        else if (s.startsWith("village")) {
+            returnString = StringUtils.replace(returnString, "village", "Allow villages to generate in", 1);
+        }
+        else if (s.startsWith("weight")) {
+            returnString = StringUtils.replace(returnString, "weight", "Weight of", 1);
+        }
+        
+        return returnString;
     }
 }

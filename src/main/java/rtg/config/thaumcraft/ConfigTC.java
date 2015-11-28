@@ -2,6 +2,7 @@ package rtg.config.thaumcraft;
 
 import java.io.File;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 
 import rtg.world.biome.BiomeBase;
@@ -36,16 +37,16 @@ public class ConfigTC
 		{
 			config.load();
 			
-			generateTCBiomes = config.getBoolean("Generate Biomes", "Biomes", true, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod.");
+			generateTCBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", true, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
 			
-			generateTCTaintedLand = config.getBoolean("generateTCTaintedLand", "Biomes", generateTCTaintedLand, "");
-			generateTCMagicalForest = config.getBoolean("generateTCMagicalForest", "Biomes", generateTCMagicalForest, "");
+			generateTCTaintedLand = config.getBoolean(formatConfig("generateTCTaintedLand"), "Biomes", generateTCTaintedLand, "");
+			generateTCMagicalForest = config.getBoolean(formatConfig("generateTCMagicalForest"), "Biomes", generateTCMagicalForest, "");
 			
-			weightTCTaintedLand = config.getInt("weightTCTaintedLand", "Weights", weightTCTaintedLand, biomeWeightMin, biomeWeightMax, "");
-			weightTCMagicalForest = config.getInt("weightTCMagicalForest", "Weights", weightTCMagicalForest, biomeWeightMin, biomeWeightMax, "");
+			weightTCTaintedLand = config.getInt(formatConfig("weightTCTaintedLand"), "Weights", weightTCTaintedLand, biomeWeightMin, biomeWeightMax, "");
+			weightTCMagicalForest = config.getInt(formatConfig("weightTCMagicalForest"), "Weights", weightTCMagicalForest, biomeWeightMin, biomeWeightMax, "");
 			
-            villageTCTaintedLand = config.getBoolean("villageTCTaintedLand", "Villages", villageTCTaintedLand, "");
-            villageTCMagicalForest = config.getBoolean("villageTCMagicalForest", "Villages", villageTCMagicalForest, "");
+            villageTCTaintedLand = config.getBoolean(formatConfig("villageTCTaintedLand"), "Villages", villageTCTaintedLand, "");
+            villageTCMagicalForest = config.getBoolean(formatConfig("villageTCMagicalForest"), "Villages", villageTCMagicalForest, "");
 		}
 		catch (Exception e)
 		{
@@ -59,4 +60,23 @@ public class ConfigTC
 			}
 		}
 	}
+	
+    private static String formatConfig(String s)
+    {
+        String returnString = s;        
+        
+        returnString = StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(returnString), " ");
+
+        if (s.startsWith("generate")) {
+            returnString = StringUtils.replace(returnString, "generate", "Generate", 1);
+        }
+        else if (s.startsWith("village")) {
+            returnString = StringUtils.replace(returnString, "village", "Allow villages to generate in", 1);
+        }
+        else if (s.startsWith("weight")) {
+            returnString = StringUtils.replace(returnString, "weight", "Weight of", 1);
+        }
+        
+        return returnString;
+    }
 }

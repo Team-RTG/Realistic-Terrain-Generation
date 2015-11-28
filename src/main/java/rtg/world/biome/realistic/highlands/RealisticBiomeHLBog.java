@@ -27,7 +27,7 @@ public class RealisticBiomeHLBog extends RealisticBiomeHLBase
         
         this.setRealisticBiomeName("HL Bog");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHL_bog;
-        this.generateVillages = ConfigHL.villageHL_bog;
+        this.biomeWeight = ConfigHL.weightHLBog;
+        this.generateVillages = ConfigHL.villageHLBog;
     }
 }

@@ -27,7 +27,7 @@ public class RealisticBiomeHLTundra extends RealisticBiomeHLBase
         
         this.setRealisticBiomeName("HL Tundra");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHL_tundra;
-        this.generateVillages = ConfigHL.villageHL_tundra;
+        this.biomeWeight = ConfigHL.weightHLTundra;
+        this.generateVillages = ConfigHL.villageHLTundra;
     }
 }

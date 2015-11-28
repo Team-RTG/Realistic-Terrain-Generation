@@ -28,7 +28,7 @@ public class RealisticBiomeHLOutback extends RealisticBiomeHLBase
         
         this.setRealisticBiomeName("HL Outback");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHL_outback;
-        this.generateVillages = ConfigHL.villageHL_outback;
+        this.biomeWeight = ConfigHL.weightHLOutback;
+        this.generateVillages = ConfigHL.villageHLOutback;
     }
 }

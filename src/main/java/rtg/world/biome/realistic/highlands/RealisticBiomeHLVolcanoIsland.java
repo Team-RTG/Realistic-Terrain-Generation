@@ -71,8 +71,8 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
         
         this.setRealisticBiomeName("HL Volcano Island");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHL_volcanoIsland;
-        this.generateVillages = ConfigHL.villageHL_volcanoIsland;
+        this.biomeWeight = ConfigHL.weightHLVolcanoIsland;
+        this.generateVillages = ConfigHL.villageHLVolcanoIsland;
         
         this.waterLakeFrequency = 0;
         this.lavaLakeFrequency = 1;

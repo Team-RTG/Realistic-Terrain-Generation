@@ -26,7 +26,7 @@ public class RealisticBiomeHLCanyon extends RealisticBiomeHLBase
         
         this.setRealisticBiomeName("HL Canyon");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHL_canyon;
-        this.generateVillages = ConfigHL.villageHL_canyon;
+        this.biomeWeight = ConfigHL.weightHLCanyon;
+        this.generateVillages = ConfigHL.villageHLCanyon;
     }
 }

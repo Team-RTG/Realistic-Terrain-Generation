@@ -178,7 +178,7 @@ public class ConfigBOP
 	public static int weightBOPSilkglades = (int)Math.floor((double)(biomeWeightDefault * 0.6));
 	public static int weightBOPSpruceWoods = (int)Math.floor((double)(biomeWeightDefault * 0.6));
 	public static int weightBOPTropics = (int)Math.floor((double)(biomeWeightDefault * 0.6));
-	public static int weightBOPVolcano = (int)Math.floor((double)(biomeWeightDefault * 0.2));
+	public static int weightBOPVolcano = (int)Math.floor((double)(biomeWeightDefault * 0.1));
 	
 	//Water biomes
 	public static int weightBOPCoralReef = (int)Math.floor((double)(biomeWeightDefault * 1.2));

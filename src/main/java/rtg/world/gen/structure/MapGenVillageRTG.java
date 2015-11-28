@@ -75,7 +75,9 @@ public class MapGenVillageRTG extends MapGenVillage
             return false;
         }
         
-        boolean booRTG = (worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG) ? true : false;
+        boolean booRTGWorld = (worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG) ? true : false;
+        boolean booRTGChunkManager = (worldObj.getWorldChunkManager() instanceof WorldChunkManagerRTG) ? true : false;
+        
         boolean canSpawnVillage = false;
         
         int k = par1;
@@ -101,7 +103,7 @@ public class MapGenVillageRTG extends MapGenVillage
 
         if (k == i1 && l == j1)
         {
-            if (booRTG) {
+            if (booRTGWorld && booRTGChunkManager) {
                 
                 WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) worldObj.getWorldChunkManager();
                 int worldX = par1 * 16;

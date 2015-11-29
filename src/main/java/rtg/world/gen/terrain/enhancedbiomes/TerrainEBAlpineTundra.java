@@ -14,7 +14,7 @@ public class TerrainEBAlpineTundra extends TerrainBase
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
 		float h = simplex.noise2(x / 300f, y / 300f) * 135f * river;
-		h *= h / 32f;
+		h *= h / 40f;
 		h = h > 150f ? 150f : h;
 
 		/*float bn = 0f;

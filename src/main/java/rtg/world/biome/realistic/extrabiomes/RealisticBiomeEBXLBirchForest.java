@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLBirchForest extends RealisticBiomeEBXLBase
 		
 		this.setRealisticBiomeName("EBXL Birch Forest");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEBXL.weightEBXL_birchforest;
-		this.generateVillages = ConfigEBXL.villageEBXL_birchforest;
+		this.biomeWeight = ConfigEBXL.weightEBXLBirchForest;
+		this.generateVillages = ConfigEBXL.villageEBXLBirchForest;
 	}
 }

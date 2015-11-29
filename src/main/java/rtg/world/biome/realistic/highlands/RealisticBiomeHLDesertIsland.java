@@ -27,7 +27,7 @@ public class RealisticBiomeHLDesertIsland extends RealisticBiomeHLBase
         
         this.setRealisticBiomeName("HL Desert Island");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHL_desertIsland;
-        this.generateVillages = ConfigHL.villageHL_desertIsland;
+        this.biomeWeight = ConfigHL.weightHLDesertIsland;
+        this.generateVillages = ConfigHL.villageHLDesertIsland;
     }
 }

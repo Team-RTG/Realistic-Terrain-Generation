@@ -27,7 +27,7 @@ public class RealisticBiomeHLEstuary extends RealisticBiomeHLBase
         
         this.setRealisticBiomeName("HL Estuary");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHL_estuary;
-        this.generateVillages = ConfigHL.villageHL_estuary;
+        this.biomeWeight = ConfigHL.weightHLEstuary;
+        this.generateVillages = ConfigHL.villageHLEstuary;
     }
 }

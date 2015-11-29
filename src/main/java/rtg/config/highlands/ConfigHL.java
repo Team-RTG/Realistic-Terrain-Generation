@@ -2,6 +2,7 @@ package rtg.config.highlands;
 
 import java.io.File;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 
 import rtg.world.biome.BiomeBase;
@@ -24,159 +25,159 @@ public class ConfigHL
 	 */
 	
 	//Main biomes
-	public static boolean generateHL_alps = true;
-	public static boolean generateHL_autumnForest = true;
-	public static boolean generateHL_badlands = true;
-	public static boolean generateHL_birchHills = true;
-	public static boolean generateHL_bog = true;
-	public static boolean generateHL_cliffs = true;
-	public static boolean generateHL_desertMountains = true;
-	public static boolean generateHL_dunes = true;
-	public static boolean generateHL_estuary = true;
-	public static boolean generateHL_flyingMountains = true;
-	public static boolean generateHL_glacier = true;
-	public static boolean generateHL_highlandsb = true;
-	public static boolean generateHL_lowlands = true;
-	public static boolean generateHL_meadow = true;
-	public static boolean generateHL_outback = true;
-	public static boolean generateHL_pinelands = true;
-	public static boolean generateHL_rainforest = true;
-	public static boolean generateHL_redwoodForest = true;
-	public static boolean generateHL_rockMountains = true;
-	public static boolean generateHL_sahel = true;
-	public static boolean generateHL_savannah = true;
-	public static boolean generateHL_snowMountains = true;
-	public static boolean generateHL_steppe = true;
-	public static boolean generateHL_tallPineForest = true;
-	public static boolean generateHL_tropicalIslands = true;
-	public static boolean generateHL_tropics = true;
-	public static boolean generateHL_tundra = true;
-	public static boolean generateHL_woodlands = true;
-	public static boolean generateHL_woodsMountains = true;
+	public static boolean generateHLAlps = true;
+	public static boolean generateHLAutumnForest = true;
+	public static boolean generateHLBadlands = true;
+	public static boolean generateHLBirchHills = true;
+	public static boolean generateHLBog = true;
+	public static boolean generateHLCliffs = true;
+	public static boolean generateHLDesertMountains = true;
+	public static boolean generateHLDunes = true;
+	public static boolean generateHLEstuary = true;
+	public static boolean generateHLFlyingMountains = true;
+	public static boolean generateHLGlacier = true;
+	public static boolean generateHLHighlandsB = true;
+	public static boolean generateHLLowlands = true;
+	public static boolean generateHLMeadow = true;
+	public static boolean generateHLOutback = true;
+	public static boolean generateHLPinelands = true;
+	public static boolean generateHLRainforest = true;
+	public static boolean generateHLRedwoodForest = true;
+	public static boolean generateHLRockMountains = true;
+	public static boolean generateHLSahel = true;
+	public static boolean generateHLSavannah = true;
+	public static boolean generateHLSnowMountains = true;
+	public static boolean generateHLSteppe = true;
+	public static boolean generateHLTallPineForest = true;
+	public static boolean generateHLTropicalIslands = true;
+	public static boolean generateHLTropics = true;
+	public static boolean generateHLTundra = true;
+	public static boolean generateHLWoodlands = true;
+	public static boolean generateHLWoodsMountains = true;
     
     //Sub biomes
-	public static boolean generateHL_baldHill = true;
-	public static boolean generateHL_canyon = true;
-	public static boolean generateHL_desertIsland = true;
-	public static boolean generateHL_forestIsland = true;
-	public static boolean generateHL_jungleIsland = true;
-	public static boolean generateHL_lake = true;
-	public static boolean generateHL_mesa = true;
-	public static boolean generateHL_oasis = true;
-	public static boolean generateHL_rockIsland = true;
-	public static boolean generateHL_snowIsland = true;
-	public static boolean generateHL_valley = true;
-	public static boolean generateHL_volcanoIsland = false;
-	public static boolean generateHL_windyIsland = true;
+	public static boolean generateHLBaldHill = true;
+	public static boolean generateHLCanyon = true;
+	public static boolean generateHLDesertIsland = true;
+	public static boolean generateHLForestIsland = true;
+	public static boolean generateHLJungleIsland = true;
+	public static boolean generateHLLake = true;
+	public static boolean generateHLMesa = true;
+	public static boolean generateHLOasis = true;
+	public static boolean generateHLRockIsland = true;
+	public static boolean generateHLSnowIsland = true;
+	public static boolean generateHLValley = true;
+	public static boolean generateHLVolcanoIsland = false;
+	public static boolean generateHLWindyIsland = true;
     
     //Border biomes
-	public static boolean generateHL_shrubland = true;
+	public static boolean generateHLShrubland = true;
 
 	/*
 	 * ######################################################################################
 	 */
 	
 	//Main biomes
-	public static int weightHL_alps = biomeWeightDefault;
-	public static int weightHL_autumnForest = biomeWeightDefault;
-	public static int weightHL_badlands = biomeWeightDefault;
-	public static int weightHL_birchHills = biomeWeightDefault;
-	public static int weightHL_bog = biomeWeightDefault;
-	public static int weightHL_cliffs = biomeWeightDefault;
-	public static int weightHL_desertMountains = biomeWeightDefault;
-	public static int weightHL_dunes = biomeWeightDefault;
-	public static int weightHL_estuary = biomeWeightDefault;
-	public static int weightHL_flyingMountains = biomeWeightDefault;
-	public static int weightHL_glacier = biomeWeightDefault;
-	public static int weightHL_highlandsb = biomeWeightDefault;
-	public static int weightHL_lowlands = biomeWeightDefault;
-	public static int weightHL_meadow = biomeWeightDefault;
-	public static int weightHL_outback = biomeWeightDefault;
-	public static int weightHL_pinelands = biomeWeightDefault;
-	public static int weightHL_rainforest = biomeWeightDefault;
-	public static int weightHL_redwoodForest = biomeWeightDefault;
-	public static int weightHL_rockMountains = biomeWeightDefault;
-	public static int weightHL_sahel = biomeWeightDefault;
-	public static int weightHL_savannah = biomeWeightDefault;
-	public static int weightHL_snowMountains = biomeWeightDefault;
-	public static int weightHL_steppe = biomeWeightDefault;
-	public static int weightHL_tallPineForest = biomeWeightDefault;
-	public static int weightHL_tropicalIslands = biomeWeightDefault;
-	public static int weightHL_tropics = biomeWeightDefault;
-	public static int weightHL_tundra = biomeWeightDefault;
-	public static int weightHL_woodlands = biomeWeightDefault;
-	public static int weightHL_woodsMountains = biomeWeightDefault;
+	public static int weightHLAlps = biomeWeightDefault;
+	public static int weightHLAutumnForest = biomeWeightDefault;
+	public static int weightHLBadlands = biomeWeightDefault;
+	public static int weightHLBirchHills = biomeWeightDefault;
+	public static int weightHLBog = biomeWeightDefault;
+	public static int weightHLCliffs = biomeWeightDefault;
+	public static int weightHLDesertMountains = biomeWeightDefault;
+	public static int weightHLDunes = biomeWeightDefault;
+	public static int weightHLEstuary = biomeWeightDefault;
+	public static int weightHLFlyingMountains = biomeWeightDefault;
+	public static int weightHLGlacier = biomeWeightDefault;
+	public static int weightHLHighlandsB = biomeWeightDefault;
+	public static int weightHLLowlands = biomeWeightDefault;
+	public static int weightHLMeadow = biomeWeightDefault;
+	public static int weightHLOutback = biomeWeightDefault;
+	public static int weightHLPinelands = biomeWeightDefault;
+	public static int weightHLRainforest = biomeWeightDefault;
+	public static int weightHLRedwoodForest = biomeWeightDefault;
+	public static int weightHLRockMountains = biomeWeightDefault;
+	public static int weightHLSahel = biomeWeightDefault;
+	public static int weightHLSavannah = biomeWeightDefault;
+	public static int weightHLSnowMountains = biomeWeightDefault;
+	public static int weightHLSteppe = biomeWeightDefault;
+	public static int weightHLTallPineForest = biomeWeightDefault;
+	public static int weightHLTropicalIslands = biomeWeightDefault;
+	public static int weightHLTropics = biomeWeightDefault;
+	public static int weightHLTundra = biomeWeightDefault;
+	public static int weightHLWoodlands = biomeWeightDefault;
+	public static int weightHLWoodsMountains = biomeWeightDefault;
     
     //Sub biomes
-	public static int weightHL_baldHill = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHL_canyon = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHL_desertIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHL_forestIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHL_jungleIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHL_lake = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHL_mesa = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHL_oasis = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHL_rockIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHL_snowIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHL_valley = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHL_volcanoIsland = (int)Math.floor((double)(biomeWeightDefault * 0.1));
-	public static int weightHL_windyIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
+	public static int weightHLBaldHill = (int)Math.floor((double)(biomeWeightDefault * 0.5));
+	public static int weightHLCanyon = (int)Math.floor((double)(biomeWeightDefault * 0.5));
+	public static int weightHLDesertIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
+	public static int weightHLForestIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
+	public static int weightHLJungleIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
+	public static int weightHLLake = (int)Math.floor((double)(biomeWeightDefault * 0.5));
+	public static int weightHLMesa = (int)Math.floor((double)(biomeWeightDefault * 0.5));
+	public static int weightHLOasis = (int)Math.floor((double)(biomeWeightDefault * 0.5));
+	public static int weightHLRockIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
+	public static int weightHLSnowIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
+	public static int weightHLValley = (int)Math.floor((double)(biomeWeightDefault * 0.5));
+	public static int weightHLVolcanoIsland = (int)Math.floor((double)(biomeWeightDefault * 0.1));
+	public static int weightHLWindyIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
     
     //Border biomes
-	public static int weightHL_shrubland = (int)Math.floor((double)(biomeWeightDefault * 0.1));
+	public static int weightHLShrubland = (int)Math.floor((double)(biomeWeightDefault * 0.1));
 	
     /*
      * ######################################################################################
      */
     
     //Main biomes
-    public static boolean villageHL_alps = true;
-    public static boolean villageHL_autumnForest = true;
-    public static boolean villageHL_badlands = true;
-    public static boolean villageHL_birchHills = true;
-    public static boolean villageHL_bog = true;
-    public static boolean villageHL_cliffs = true;
-    public static boolean villageHL_desertMountains = true;
-    public static boolean villageHL_dunes = true;
-    public static boolean villageHL_estuary = true;
-    public static boolean villageHL_flyingMountains = true;
-    public static boolean villageHL_glacier = true;
-    public static boolean villageHL_highlandsb = true;
-    public static boolean villageHL_lowlands = true;
-    public static boolean villageHL_meadow = true;
-    public static boolean villageHL_outback = true;
-    public static boolean villageHL_pinelands = true;
-    public static boolean villageHL_rainforest = true;
-    public static boolean villageHL_redwoodForest = true;
-    public static boolean villageHL_rockMountains = true;
-    public static boolean villageHL_sahel = true;
-    public static boolean villageHL_savannah = true;
-    public static boolean villageHL_snowMountains = true;
-    public static boolean villageHL_steppe = true;
-    public static boolean villageHL_tallPineForest = true;
-    public static boolean villageHL_tropicalIslands = true;
-    public static boolean villageHL_tropics = true;
-    public static boolean villageHL_tundra = true;
-    public static boolean villageHL_woodlands = true;
-    public static boolean villageHL_woodsMountains = true;
+    public static boolean villageHLAlps = true;
+    public static boolean villageHLAutumnForest = true;
+    public static boolean villageHLBadlands = true;
+    public static boolean villageHLBirchHills = true;
+    public static boolean villageHLBog = true;
+    public static boolean villageHLCliffs = true;
+    public static boolean villageHLDesertMountains = true;
+    public static boolean villageHLDunes = true;
+    public static boolean villageHLEstuary = true;
+    public static boolean villageHLFlyingMountains = true;
+    public static boolean villageHLGlacier = true;
+    public static boolean villageHLHighlandsB = true;
+    public static boolean villageHLLowlands = true;
+    public static boolean villageHLMeadow = true;
+    public static boolean villageHLOutback = true;
+    public static boolean villageHLPinelands = true;
+    public static boolean villageHLRainforest = true;
+    public static boolean villageHLRedwoodForest = true;
+    public static boolean villageHLRockMountains = true;
+    public static boolean villageHLSahel = true;
+    public static boolean villageHLSavannah = true;
+    public static boolean villageHLSnowMountains = true;
+    public static boolean villageHLSteppe = true;
+    public static boolean villageHLTallPineForest = true;
+    public static boolean villageHLTropicalIslands = true;
+    public static boolean villageHLTropics = true;
+    public static boolean villageHLTundra = true;
+    public static boolean villageHLWoodlands = true;
+    public static boolean villageHLWoodsMountains = true;
     
     //Sub biomes
-    public static boolean villageHL_baldHill = true;
-    public static boolean villageHL_canyon = true;
-    public static boolean villageHL_desertIsland = true;
-    public static boolean villageHL_forestIsland = true;
-    public static boolean villageHL_jungleIsland = true;
-    public static boolean villageHL_lake = true;
-    public static boolean villageHL_mesa = true;
-    public static boolean villageHL_oasis = true;
-    public static boolean villageHL_rockIsland = true;
-    public static boolean villageHL_snowIsland = true;
-    public static boolean villageHL_valley = true;
-    public static boolean villageHL_volcanoIsland = false;
-    public static boolean villageHL_windyIsland = true;
+    public static boolean villageHLBaldHill = true;
+    public static boolean villageHLCanyon = true;
+    public static boolean villageHLDesertIsland = true;
+    public static boolean villageHLForestIsland = true;
+    public static boolean villageHLJungleIsland = true;
+    public static boolean villageHLLake = true;
+    public static boolean villageHLMesa = true;
+    public static boolean villageHLOasis = true;
+    public static boolean villageHLRockIsland = true;
+    public static boolean villageHLSnowIsland = true;
+    public static boolean villageHLValley = true;
+    public static boolean villageHLVolcanoIsland = false;
+    public static boolean villageHLWindyIsland = true;
     
     //Border biomes
-    public static boolean villageHL_shrubland = true;
+    public static boolean villageHLShrubland = true;
     
 	/*
 	 * ######################################################################################
@@ -191,7 +192,7 @@ public class ConfigHL
 			config.load();
 			
 			//HL
-			generateHLBiomes = config.getBoolean("Generate Biomes", "Biomes", true, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod.");
+			generateHLBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", true, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
 			
 			//Generations
 			
@@ -200,53 +201,53 @@ public class ConfigHL
 			 */
 			
 			//Main biomes
-			generateHL_alps = config.getBoolean("generateHL_alps", "Biomes", generateHL_alps, "");
-			generateHL_autumnForest = config.getBoolean("generateHL_autumnForest", "Biomes", generateHL_autumnForest, "");
-			generateHL_badlands = config.getBoolean("generateHL_badlands", "Biomes", generateHL_badlands, "");
-			generateHL_birchHills = config.getBoolean("generateHL_birchHills", "Biomes", generateHL_birchHills, "");
-			generateHL_bog = config.getBoolean("generateHL_bog", "Biomes", generateHL_bog, "");
-			generateHL_cliffs = config.getBoolean("generateHL_cliffs", "Biomes", generateHL_cliffs, "");
-			generateHL_desertMountains = config.getBoolean("generateHL_desertMountains", "Biomes", generateHL_desertMountains, "");
-			generateHL_dunes = config.getBoolean("generateHL_dunes", "Biomes", generateHL_dunes, "");
-			generateHL_estuary = config.getBoolean("generateHL_estuary", "Biomes", generateHL_estuary, "");
-			generateHL_flyingMountains = config.getBoolean("generateHL_flyingMountains", "Biomes", generateHL_flyingMountains, "");
-			generateHL_glacier = config.getBoolean("generateHL_glacier", "Biomes", generateHL_glacier, "");
-			generateHL_highlandsb = config.getBoolean("generateHL_highlandsb", "Biomes", generateHL_highlandsb, "");
-			generateHL_lowlands = config.getBoolean("generateHL_lowlands", "Biomes", generateHL_lowlands, "");
-			generateHL_meadow = config.getBoolean("generateHL_meadow", "Biomes", generateHL_meadow, "");
-			generateHL_outback = config.getBoolean("generateHL_outback", "Biomes", generateHL_outback, "");
-			generateHL_pinelands = config.getBoolean("generateHL_pinelands", "Biomes", generateHL_pinelands, "");
-			generateHL_rainforest = config.getBoolean("generateHL_rainforest", "Biomes", generateHL_rainforest, "");
-			generateHL_redwoodForest = config.getBoolean("generateHL_redwoodForest", "Biomes", generateHL_redwoodForest, "");
-			generateHL_rockMountains = config.getBoolean("generateHL_rockMountains", "Biomes", generateHL_rockMountains, "");
-			generateHL_sahel = config.getBoolean("generateHL_sahel", "Biomes", generateHL_sahel, "");
-			generateHL_savannah = config.getBoolean("generateHL_savannah", "Biomes", generateHL_savannah, "");
-			generateHL_snowMountains = config.getBoolean("generateHL_snowMountains", "Biomes", generateHL_snowMountains, "");
-			generateHL_steppe = config.getBoolean("generateHL_steppe", "Biomes", generateHL_steppe, "");
-			generateHL_tallPineForest = config.getBoolean("generateHL_tallPineForest", "Biomes", generateHL_tallPineForest, "");
-			generateHL_tropicalIslands = config.getBoolean("generateHL_tropicalIslands", "Biomes", generateHL_tropicalIslands, "");
-			generateHL_tropics = config.getBoolean("generateHL_tropics", "Biomes", generateHL_tropics, "");
-			generateHL_tundra = config.getBoolean("generateHL_tundra", "Biomes", generateHL_tundra, "");
-			generateHL_woodlands = config.getBoolean("generateHL_woodlands", "Biomes", generateHL_woodlands, "");
-			generateHL_woodsMountains = config.getBoolean("generateHL_woodsMountains", "Biomes", generateHL_woodsMountains, "");
+			generateHLAlps = config.getBoolean(formatConfig("generateHLAlps"), "Biomes", generateHLAlps, "");
+			generateHLAutumnForest = config.getBoolean(formatConfig("generateHLAutumnForest"), "Biomes", generateHLAutumnForest, "");
+			generateHLBadlands = config.getBoolean(formatConfig("generateHLBadlands"), "Biomes", generateHLBadlands, "");
+			generateHLBirchHills = config.getBoolean(formatConfig("generateHLBirchHills"), "Biomes", generateHLBirchHills, "");
+			generateHLBog = config.getBoolean(formatConfig("generateHLBog"), "Biomes", generateHLBog, "");
+			generateHLCliffs = config.getBoolean(formatConfig("generateHLCliffs"), "Biomes", generateHLCliffs, "");
+			generateHLDesertMountains = config.getBoolean(formatConfig("generateHLDesertMountains"), "Biomes", generateHLDesertMountains, "");
+			generateHLDunes = config.getBoolean(formatConfig("generateHLDunes"), "Biomes", generateHLDunes, "");
+			generateHLEstuary = config.getBoolean(formatConfig("generateHLEstuary"), "Biomes", generateHLEstuary, "");
+			generateHLFlyingMountains = config.getBoolean(formatConfig("generateHLFlyingMountains"), "Biomes", generateHLFlyingMountains, "");
+			generateHLGlacier = config.getBoolean(formatConfig("generateHLGlacier"), "Biomes", generateHLGlacier, "");
+			generateHLHighlandsB = config.getBoolean(formatConfig("generateHLHighlandsB"), "Biomes", generateHLHighlandsB, "");
+			generateHLLowlands = config.getBoolean(formatConfig("generateHLLowlands"), "Biomes", generateHLLowlands, "");
+			generateHLMeadow = config.getBoolean(formatConfig("generateHLMeadow"), "Biomes", generateHLMeadow, "");
+			generateHLOutback = config.getBoolean(formatConfig("generateHLOutback"), "Biomes", generateHLOutback, "");
+			generateHLPinelands = config.getBoolean(formatConfig("generateHLPinelands"), "Biomes", generateHLPinelands, "");
+			generateHLRainforest = config.getBoolean(formatConfig("generateHLRainforest"), "Biomes", generateHLRainforest, "");
+			generateHLRedwoodForest = config.getBoolean(formatConfig("generateHLRedwoodForest"), "Biomes", generateHLRedwoodForest, "");
+			generateHLRockMountains = config.getBoolean(formatConfig("generateHLRockMountains"), "Biomes", generateHLRockMountains, "");
+			generateHLSahel = config.getBoolean(formatConfig("generateHLSahel"), "Biomes", generateHLSahel, "");
+			generateHLSavannah = config.getBoolean(formatConfig("generateHLSavannah"), "Biomes", generateHLSavannah, "");
+			generateHLSnowMountains = config.getBoolean(formatConfig("generateHLSnowMountains"), "Biomes", generateHLSnowMountains, "");
+			generateHLSteppe = config.getBoolean(formatConfig("generateHLSteppe"), "Biomes", generateHLSteppe, "");
+			generateHLTallPineForest = config.getBoolean(formatConfig("generateHLTallPineForest"), "Biomes", generateHLTallPineForest, "");
+			generateHLTropicalIslands = config.getBoolean(formatConfig("generateHLTropicalIslands"), "Biomes", generateHLTropicalIslands, "");
+			generateHLTropics = config.getBoolean(formatConfig("generateHLTropics"), "Biomes", generateHLTropics, "");
+			generateHLTundra = config.getBoolean(formatConfig("generateHLTundra"), "Biomes", generateHLTundra, "");
+			generateHLWoodlands = config.getBoolean(formatConfig("generateHLWoodlands"), "Biomes", generateHLWoodlands, "");
+			generateHLWoodsMountains = config.getBoolean(formatConfig("generateHLWoodsMountains"), "Biomes", generateHLWoodsMountains, "");
 
 			//Sub biomes
-			generateHL_baldHill = config.getBoolean("generateHL_baldHill", "Biomes", generateHL_baldHill, "");
-			generateHL_canyon = config.getBoolean("generateHL_canyon", "Biomes", generateHL_canyon, "");
-			generateHL_desertIsland = config.getBoolean("generateHL_desertIsland", "Biomes", generateHL_desertIsland, "");
-			generateHL_forestIsland = config.getBoolean("generateHL_forestIsland", "Biomes", generateHL_forestIsland, "");
-			generateHL_jungleIsland = config.getBoolean("generateHL_jungleIsland", "Biomes", generateHL_jungleIsland, "");
-			generateHL_lake = config.getBoolean("generateHL_lake", "Biomes", generateHL_lake, "");
-			generateHL_mesa = config.getBoolean("generateHL_mesa", "Biomes", generateHL_mesa, "");
-			generateHL_oasis = config.getBoolean("generateHL_oasis", "Biomes", generateHL_oasis, "");
-			generateHL_rockIsland = config.getBoolean("generateHL_rockIsland", "Biomes", generateHL_rockIsland, "");
-			generateHL_snowIsland = config.getBoolean("generateHL_snowIsland", "Biomes", generateHL_snowIsland, "");
-			generateHL_valley = config.getBoolean("generateHL_valley", "Biomes", generateHL_valley, "");
-			generateHL_volcanoIsland = config.getBoolean("generateHL_volcanoIsland", "Biomes", generateHL_volcanoIsland, "");
-			generateHL_windyIsland = config.getBoolean("generateHL_windyIsland", "Biomes", generateHL_windyIsland, "");
+			generateHLBaldHill = config.getBoolean(formatConfig("generateHLBaldHill"), "Biomes", generateHLBaldHill, "");
+			generateHLCanyon = config.getBoolean(formatConfig("generateHLCanyon"), "Biomes", generateHLCanyon, "");
+			generateHLDesertIsland = config.getBoolean(formatConfig("generateHLDesertIsland"), "Biomes", generateHLDesertIsland, "");
+			generateHLForestIsland = config.getBoolean(formatConfig("generateHLForestIsland"), "Biomes", generateHLForestIsland, "");
+			generateHLJungleIsland = config.getBoolean(formatConfig("generateHLJungleIsland"), "Biomes", generateHLJungleIsland, "");
+			generateHLLake = config.getBoolean(formatConfig("generateHLLake"), "Biomes", generateHLLake, "");
+			generateHLMesa = config.getBoolean(formatConfig("generateHLMesa"), "Biomes", generateHLMesa, "");
+			generateHLOasis = config.getBoolean(formatConfig("generateHLOasis"), "Biomes", generateHLOasis, "");
+			generateHLRockIsland = config.getBoolean(formatConfig("generateHLRockIsland"), "Biomes", generateHLRockIsland, "");
+			generateHLSnowIsland = config.getBoolean(formatConfig("generateHLSnowIsland"), "Biomes", generateHLSnowIsland, "");
+			generateHLValley = config.getBoolean(formatConfig("generateHLValley"), "Biomes", generateHLValley, "");
+			generateHLVolcanoIsland = config.getBoolean(formatConfig("generateHLVolcanoIsland"), "Biomes", generateHLVolcanoIsland, "");
+			generateHLWindyIsland = config.getBoolean(formatConfig("generateHLWindyIsland"), "Biomes", generateHLWindyIsland, "");
 			    
 			//Border Biomes
-			generateHL_shrubland = config.getBoolean("generateHL_shrubland", "Biomes", generateHL_shrubland, "");
+			generateHLShrubland = config.getBoolean(formatConfig("generateHLShrubland"), "Biomes", generateHLShrubland, "");
 			
 			/*
 			 * ######################################################################################
@@ -255,53 +256,53 @@ public class ConfigHL
 			//Weights
 
 			//Main biomes
-			weightHL_alps = config.getInt("weightHL_alps", "Weights", weightHL_alps, biomeWeightMin, biomeWeightMax, "");
-			weightHL_autumnForest = config.getInt("weightHL_autumnForest", "Weights", weightHL_autumnForest, biomeWeightMin, biomeWeightMax, "");
-			weightHL_badlands = config.getInt("weightHL_badlands", "Weights", weightHL_badlands, biomeWeightMin, biomeWeightMax, "");
-			weightHL_birchHills = config.getInt("weightHL_birchHills", "Weights", weightHL_birchHills, biomeWeightMin, biomeWeightMax, "");
-			weightHL_bog = config.getInt("weightHL_bog", "Weights", weightHL_bog, biomeWeightMin, biomeWeightMax, "");
-			weightHL_cliffs = config.getInt("weightHL_cliffs", "Weights", weightHL_cliffs, biomeWeightMin, biomeWeightMax, "");
-			weightHL_desertMountains = config.getInt("weightHL_desertMountains", "Weights", weightHL_desertMountains, biomeWeightMin, biomeWeightMax, "");
-			weightHL_dunes = config.getInt("weightHL_dunes", "Weights", weightHL_dunes, biomeWeightMin, biomeWeightMax, "");
-			weightHL_estuary = config.getInt("weightHL_estuary", "Weights", weightHL_estuary, biomeWeightMin, biomeWeightMax, "");
-			weightHL_flyingMountains = config.getInt("weightHL_flyingMountains", "Weights", weightHL_flyingMountains, biomeWeightMin, biomeWeightMax, "");
-			weightHL_glacier = config.getInt("weightHL_glacier", "Weights", weightHL_glacier, biomeWeightMin, biomeWeightMax, "");
-			weightHL_highlandsb = config.getInt("weightHL_highlandsb", "Weights", weightHL_highlandsb, biomeWeightMin, biomeWeightMax, "");
-			weightHL_lowlands = config.getInt("weightHL_lowlands", "Weights", weightHL_lowlands, biomeWeightMin, biomeWeightMax, "");
-			weightHL_meadow = config.getInt("weightHL_meadow", "Weights", weightHL_meadow, biomeWeightMin, biomeWeightMax, "");
-			weightHL_outback = config.getInt("weightHL_outback", "Weights", weightHL_outback, biomeWeightMin, biomeWeightMax, "");
-			weightHL_pinelands = config.getInt("weightHL_pinelands", "Weights", weightHL_pinelands, biomeWeightMin, biomeWeightMax, "");
-			weightHL_rainforest = config.getInt("weightHL_rainforest", "Weights", weightHL_rainforest, biomeWeightMin, biomeWeightMax, "");
-			weightHL_redwoodForest = config.getInt("weightHL_redwoodForest", "Weights", weightHL_redwoodForest, biomeWeightMin, biomeWeightMax, "");
-			weightHL_rockMountains = config.getInt("weightHL_rockMountains", "Weights", weightHL_rockMountains, biomeWeightMin, biomeWeightMax, "");
-			weightHL_sahel = config.getInt("weightHL_sahel", "Weights", weightHL_sahel, biomeWeightMin, biomeWeightMax, "");
-			weightHL_savannah = config.getInt("weightHL_savannah", "Weights", weightHL_savannah, biomeWeightMin, biomeWeightMax, "");
-			weightHL_snowMountains = config.getInt("weightHL_snowMountains", "Weights", weightHL_snowMountains, biomeWeightMin, biomeWeightMax, "");
-			weightHL_steppe = config.getInt("weightHL_steppe", "Weights", weightHL_steppe, biomeWeightMin, biomeWeightMax, "");
-			weightHL_tallPineForest = config.getInt("weightHL_tallPineForest", "Weights", weightHL_tallPineForest, biomeWeightMin, biomeWeightMax, "");
-			weightHL_tropicalIslands = config.getInt("weightHL_tropicalIslands", "Weights", weightHL_tropicalIslands, biomeWeightMin, biomeWeightMax, "");
-			weightHL_tropics = config.getInt("weightHL_tropics", "Weights", weightHL_tropics, biomeWeightMin, biomeWeightMax, "");
-			weightHL_tundra = config.getInt("weightHL_tundra", "Weights", weightHL_tundra, biomeWeightMin, biomeWeightMax, "");
-			weightHL_woodlands = config.getInt("weightHL_woodlands", "Weights", weightHL_woodlands, biomeWeightMin, biomeWeightMax, "");
-			weightHL_woodsMountains = config.getInt("weightHL_woodsMountains", "Weights", weightHL_woodsMountains, biomeWeightMin, biomeWeightMax, "");
+			weightHLAlps = config.getInt(formatConfig("weightHLAlps"), "Weights", weightHLAlps, biomeWeightMin, biomeWeightMax, "");
+			weightHLAutumnForest = config.getInt(formatConfig("weightHLAutumnForest"), "Weights", weightHLAutumnForest, biomeWeightMin, biomeWeightMax, "");
+			weightHLBadlands = config.getInt(formatConfig("weightHLBadlands"), "Weights", weightHLBadlands, biomeWeightMin, biomeWeightMax, "");
+			weightHLBirchHills = config.getInt(formatConfig("weightHLBirchHills"), "Weights", weightHLBirchHills, biomeWeightMin, biomeWeightMax, "");
+			weightHLBog = config.getInt(formatConfig("weightHLBog"), "Weights", weightHLBog, biomeWeightMin, biomeWeightMax, "");
+			weightHLCliffs = config.getInt(formatConfig("weightHLCliffs"), "Weights", weightHLCliffs, biomeWeightMin, biomeWeightMax, "");
+			weightHLDesertMountains = config.getInt(formatConfig("weightHLDesertMountains"), "Weights", weightHLDesertMountains, biomeWeightMin, biomeWeightMax, "");
+			weightHLDunes = config.getInt(formatConfig("weightHLDunes"), "Weights", weightHLDunes, biomeWeightMin, biomeWeightMax, "");
+			weightHLEstuary = config.getInt(formatConfig("weightHLEstuary"), "Weights", weightHLEstuary, biomeWeightMin, biomeWeightMax, "");
+			weightHLFlyingMountains = config.getInt(formatConfig("weightHLFlyingMountains"), "Weights", weightHLFlyingMountains, biomeWeightMin, biomeWeightMax, "");
+			weightHLGlacier = config.getInt(formatConfig("weightHLGlacier"), "Weights", weightHLGlacier, biomeWeightMin, biomeWeightMax, "");
+			weightHLHighlandsB = config.getInt(formatConfig("weightHLHighlandsB"), "Weights", weightHLHighlandsB, biomeWeightMin, biomeWeightMax, "");
+			weightHLLowlands = config.getInt(formatConfig("weightHLLowlands"), "Weights", weightHLLowlands, biomeWeightMin, biomeWeightMax, "");
+			weightHLMeadow = config.getInt(formatConfig("weightHLMeadow"), "Weights", weightHLMeadow, biomeWeightMin, biomeWeightMax, "");
+			weightHLOutback = config.getInt(formatConfig("weightHLOutback"), "Weights", weightHLOutback, biomeWeightMin, biomeWeightMax, "");
+			weightHLPinelands = config.getInt(formatConfig("weightHLPinelands"), "Weights", weightHLPinelands, biomeWeightMin, biomeWeightMax, "");
+			weightHLRainforest = config.getInt(formatConfig("weightHLRainforest"), "Weights", weightHLRainforest, biomeWeightMin, biomeWeightMax, "");
+			weightHLRedwoodForest = config.getInt(formatConfig("weightHLRedwoodForest"), "Weights", weightHLRedwoodForest, biomeWeightMin, biomeWeightMax, "");
+			weightHLRockMountains = config.getInt(formatConfig("weightHLRockMountains"), "Weights", weightHLRockMountains, biomeWeightMin, biomeWeightMax, "");
+			weightHLSahel = config.getInt(formatConfig("weightHLSahel"), "Weights", weightHLSahel, biomeWeightMin, biomeWeightMax, "");
+			weightHLSavannah = config.getInt(formatConfig("weightHLSavannah"), "Weights", weightHLSavannah, biomeWeightMin, biomeWeightMax, "");
+			weightHLSnowMountains = config.getInt(formatConfig("weightHLSnowMountains"), "Weights", weightHLSnowMountains, biomeWeightMin, biomeWeightMax, "");
+			weightHLSteppe = config.getInt(formatConfig("weightHLSteppe"), "Weights", weightHLSteppe, biomeWeightMin, biomeWeightMax, "");
+			weightHLTallPineForest = config.getInt(formatConfig("weightHLTallPineForest"), "Weights", weightHLTallPineForest, biomeWeightMin, biomeWeightMax, "");
+			weightHLTropicalIslands = config.getInt(formatConfig("weightHLTropicalIslands"), "Weights", weightHLTropicalIslands, biomeWeightMin, biomeWeightMax, "");
+			weightHLTropics = config.getInt(formatConfig("weightHLTropics"), "Weights", weightHLTropics, biomeWeightMin, biomeWeightMax, "");
+			weightHLTundra = config.getInt(formatConfig("weightHLTundra"), "Weights", weightHLTundra, biomeWeightMin, biomeWeightMax, "");
+			weightHLWoodlands = config.getInt(formatConfig("weightHLWoodlands"), "Weights", weightHLWoodlands, biomeWeightMin, biomeWeightMax, "");
+			weightHLWoodsMountains = config.getInt(formatConfig("weightHLWoodsMountains"), "Weights", weightHLWoodsMountains, biomeWeightMin, biomeWeightMax, "");
 			    
 			//Sub biomes
-			weightHL_baldHill = config.getInt("weightHL_baldHill", "Weights", weightHL_baldHill, biomeWeightMin, biomeWeightMax, "");
-			weightHL_canyon = config.getInt("weightHL_canyon", "Weights", weightHL_canyon, biomeWeightMin, biomeWeightMax, "");
-			weightHL_desertIsland = config.getInt("weightHL_desertIsland", "Weights", weightHL_desertIsland, biomeWeightMin, biomeWeightMax, "");
-			weightHL_forestIsland = config.getInt("weightHL_forestIsland", "Weights", weightHL_forestIsland, biomeWeightMin, biomeWeightMax, "");
-			weightHL_jungleIsland = config.getInt("weightHL_jungleIsland", "Weights", weightHL_jungleIsland, biomeWeightMin, biomeWeightMax, "");
-			weightHL_lake = config.getInt("weightHL_lake", "Weights", weightHL_lake, biomeWeightMin, biomeWeightMax, "");
-			weightHL_mesa = config.getInt("weightHL_mesa", "Weights", weightHL_mesa, biomeWeightMin, biomeWeightMax, "");
-			weightHL_oasis = config.getInt("weightHL_oasis", "Weights", weightHL_oasis, biomeWeightMin, biomeWeightMax, "");
-			weightHL_rockIsland = config.getInt("weightHL_rockIsland", "Weights", weightHL_rockIsland, biomeWeightMin, biomeWeightMax, "");
-			weightHL_snowIsland = config.getInt("weightHL_snowIsland", "Weights", weightHL_snowIsland, biomeWeightMin, biomeWeightMax, "");
-			weightHL_valley = config.getInt("weightHL_valley", "Weights", weightHL_valley, biomeWeightMin, biomeWeightMax, "");
-			weightHL_volcanoIsland = config.getInt("weightHL_volcanoIsland", "Weights", weightHL_volcanoIsland, biomeWeightMin, biomeWeightMax, "");
-			weightHL_windyIsland = config.getInt("weightHL_windyIsland", "Weights", weightHL_windyIsland, biomeWeightMin, biomeWeightMax, "");
+			weightHLBaldHill = config.getInt(formatConfig("weightHLBaldHill"), "Weights", weightHLBaldHill, biomeWeightMin, biomeWeightMax, "");
+			weightHLCanyon = config.getInt(formatConfig("weightHLCanyon"), "Weights", weightHLCanyon, biomeWeightMin, biomeWeightMax, "");
+			weightHLDesertIsland = config.getInt(formatConfig("weightHLDesertIsland"), "Weights", weightHLDesertIsland, biomeWeightMin, biomeWeightMax, "");
+			weightHLForestIsland = config.getInt(formatConfig("weightHLForestIsland"), "Weights", weightHLForestIsland, biomeWeightMin, biomeWeightMax, "");
+			weightHLJungleIsland = config.getInt(formatConfig("weightHLJungleIsland"), "Weights", weightHLJungleIsland, biomeWeightMin, biomeWeightMax, "");
+			weightHLLake = config.getInt(formatConfig("weightHLLake"), "Weights", weightHLLake, biomeWeightMin, biomeWeightMax, "");
+			weightHLMesa = config.getInt(formatConfig("weightHLMesa"), "Weights", weightHLMesa, biomeWeightMin, biomeWeightMax, "");
+			weightHLOasis = config.getInt(formatConfig("weightHLOasis"), "Weights", weightHLOasis, biomeWeightMin, biomeWeightMax, "");
+			weightHLRockIsland = config.getInt(formatConfig("weightHLRockIsland"), "Weights", weightHLRockIsland, biomeWeightMin, biomeWeightMax, "");
+			weightHLSnowIsland = config.getInt(formatConfig("weightHLSnowIsland"), "Weights", weightHLSnowIsland, biomeWeightMin, biomeWeightMax, "");
+			weightHLValley = config.getInt(formatConfig("weightHLValley"), "Weights", weightHLValley, biomeWeightMin, biomeWeightMax, "");
+			weightHLVolcanoIsland = config.getInt(formatConfig("weightHLVolcanoIsland"), "Weights", weightHLVolcanoIsland, biomeWeightMin, biomeWeightMax, "");
+			weightHLWindyIsland = config.getInt(formatConfig("weightHLWindyIsland"), "Weights", weightHLWindyIsland, biomeWeightMin, biomeWeightMax, "");
 			    
 			//Border biomes
-			weightHL_shrubland = config.getInt("weightHL_shrubland", "Weights", weightHL_shrubland, biomeWeightMin, biomeWeightMax, "");
+			weightHLShrubland = config.getInt(formatConfig("weightHLShrubland"), "Weights", weightHLShrubland, biomeWeightMin, biomeWeightMax, "");
 			
             /*
              * ######################################################################################
@@ -310,53 +311,53 @@ public class ConfigHL
             //Villages
 
             //Main biomes
-            villageHL_alps = config.getBoolean("villageHL_alps", "Villages", villageHL_alps, "");
-            villageHL_autumnForest = config.getBoolean("villageHL_autumnForest", "Villages", villageHL_autumnForest, "");
-            villageHL_badlands = config.getBoolean("villageHL_badlands", "Villages", villageHL_badlands, "");
-            villageHL_birchHills = config.getBoolean("villageHL_birchHills", "Villages", villageHL_birchHills, "");
-            villageHL_bog = config.getBoolean("villageHL_bog", "Villages", villageHL_bog, "");
-            villageHL_cliffs = config.getBoolean("villageHL_cliffs", "Villages", villageHL_cliffs, "");
-            villageHL_desertMountains = config.getBoolean("villageHL_desertMountains", "Villages", villageHL_desertMountains, "");
-            villageHL_dunes = config.getBoolean("villageHL_dunes", "Villages", villageHL_dunes, "");
-            villageHL_estuary = config.getBoolean("villageHL_estuary", "Villages", villageHL_estuary, "");
-            villageHL_flyingMountains = config.getBoolean("villageHL_flyingMountains", "Villages", villageHL_flyingMountains, "");
-            villageHL_glacier = config.getBoolean("villageHL_glacier", "Villages", villageHL_glacier, "");
-            villageHL_highlandsb = config.getBoolean("villageHL_highlandsb", "Villages", villageHL_highlandsb, "");
-            villageHL_lowlands = config.getBoolean("villageHL_lowlands", "Villages", villageHL_lowlands, "");
-            villageHL_meadow = config.getBoolean("villageHL_meadow", "Villages", villageHL_meadow, "");
-            villageHL_outback = config.getBoolean("villageHL_outback", "Villages", villageHL_outback, "");
-            villageHL_pinelands = config.getBoolean("villageHL_pinelands", "Villages", villageHL_pinelands, "");
-            villageHL_rainforest = config.getBoolean("villageHL_rainforest", "Villages", villageHL_rainforest, "");
-            villageHL_redwoodForest = config.getBoolean("villageHL_redwoodForest", "Villages", villageHL_redwoodForest, "");
-            villageHL_rockMountains = config.getBoolean("villageHL_rockMountains", "Villages", villageHL_rockMountains, "");
-            villageHL_sahel = config.getBoolean("villageHL_sahel", "Villages", villageHL_sahel, "");
-            villageHL_savannah = config.getBoolean("villageHL_savannah", "Villages", villageHL_savannah, "");
-            villageHL_snowMountains = config.getBoolean("villageHL_snowMountains", "Villages", villageHL_snowMountains, "");
-            villageHL_steppe = config.getBoolean("villageHL_steppe", "Villages", villageHL_steppe, "");
-            villageHL_tallPineForest = config.getBoolean("villageHL_tallPineForest", "Villages", villageHL_tallPineForest, "");
-            villageHL_tropicalIslands = config.getBoolean("villageHL_tropicalIslands", "Villages", villageHL_tropicalIslands, "");
-            villageHL_tropics = config.getBoolean("villageHL_tropics", "Villages", villageHL_tropics, "");
-            villageHL_tundra = config.getBoolean("villageHL_tundra", "Villages", villageHL_tundra, "");
-            villageHL_woodlands = config.getBoolean("villageHL_woodlands", "Villages", villageHL_woodlands, "");
-            villageHL_woodsMountains = config.getBoolean("villageHL_woodsMountains", "Villages", villageHL_woodsMountains, "");
+            villageHLAlps = config.getBoolean(formatConfig("villageHLAlps"), "Villages", villageHLAlps, "");
+            villageHLAutumnForest = config.getBoolean(formatConfig("villageHLAutumnForest"), "Villages", villageHLAutumnForest, "");
+            villageHLBadlands = config.getBoolean(formatConfig("villageHLBadlands"), "Villages", villageHLBadlands, "");
+            villageHLBirchHills = config.getBoolean(formatConfig("villageHLBirchHills"), "Villages", villageHLBirchHills, "");
+            villageHLBog = config.getBoolean(formatConfig("villageHLBog"), "Villages", villageHLBog, "");
+            villageHLCliffs = config.getBoolean(formatConfig("villageHLCliffs"), "Villages", villageHLCliffs, "");
+            villageHLDesertMountains = config.getBoolean(formatConfig("villageHLDesertMountains"), "Villages", villageHLDesertMountains, "");
+            villageHLDunes = config.getBoolean(formatConfig("villageHLDunes"), "Villages", villageHLDunes, "");
+            villageHLEstuary = config.getBoolean(formatConfig("villageHLEstuary"), "Villages", villageHLEstuary, "");
+            villageHLFlyingMountains = config.getBoolean(formatConfig("villageHLFlyingMountains"), "Villages", villageHLFlyingMountains, "");
+            villageHLGlacier = config.getBoolean(formatConfig("villageHLGlacier"), "Villages", villageHLGlacier, "");
+            villageHLHighlandsB = config.getBoolean(formatConfig("villageHLHighlandsB"), "Villages", villageHLHighlandsB, "");
+            villageHLLowlands = config.getBoolean(formatConfig("villageHLLowlands"), "Villages", villageHLLowlands, "");
+            villageHLMeadow = config.getBoolean(formatConfig("villageHLMeadow"), "Villages", villageHLMeadow, "");
+            villageHLOutback = config.getBoolean(formatConfig("villageHLOutback"), "Villages", villageHLOutback, "");
+            villageHLPinelands = config.getBoolean(formatConfig("villageHLPinelands"), "Villages", villageHLPinelands, "");
+            villageHLRainforest = config.getBoolean(formatConfig("villageHLRainforest"), "Villages", villageHLRainforest, "");
+            villageHLRedwoodForest = config.getBoolean(formatConfig("villageHLRedwoodForest"), "Villages", villageHLRedwoodForest, "");
+            villageHLRockMountains = config.getBoolean(formatConfig("villageHLRockMountains"), "Villages", villageHLRockMountains, "");
+            villageHLSahel = config.getBoolean(formatConfig("villageHLSahel"), "Villages", villageHLSahel, "");
+            villageHLSavannah = config.getBoolean(formatConfig("villageHLSavannah"), "Villages", villageHLSavannah, "");
+            villageHLSnowMountains = config.getBoolean(formatConfig("villageHLSnowMountains"), "Villages", villageHLSnowMountains, "");
+            villageHLSteppe = config.getBoolean(formatConfig("villageHLSteppe"), "Villages", villageHLSteppe, "");
+            villageHLTallPineForest = config.getBoolean(formatConfig("villageHLTallPineForest"), "Villages", villageHLTallPineForest, "");
+            villageHLTropicalIslands = config.getBoolean(formatConfig("villageHLTropicalIslands"), "Villages", villageHLTropicalIslands, "");
+            villageHLTropics = config.getBoolean(formatConfig("villageHLTropics"), "Villages", villageHLTropics, "");
+            villageHLTundra = config.getBoolean(formatConfig("villageHLTundra"), "Villages", villageHLTundra, "");
+            villageHLWoodlands = config.getBoolean(formatConfig("villageHLWoodlands"), "Villages", villageHLWoodlands, "");
+            villageHLWoodsMountains = config.getBoolean(formatConfig("villageHLWoodsMountains"), "Villages", villageHLWoodsMountains, "");
 
             //Sub biomes
-            villageHL_baldHill = config.getBoolean("villageHL_baldHill", "Villages", villageHL_baldHill, "");
-            villageHL_canyon = config.getBoolean("villageHL_canyon", "Villages", villageHL_canyon, "");
-            villageHL_desertIsland = config.getBoolean("villageHL_desertIsland", "Villages", villageHL_desertIsland, "");
-            villageHL_forestIsland = config.getBoolean("villageHL_forestIsland", "Villages", villageHL_forestIsland, "");
-            villageHL_jungleIsland = config.getBoolean("villageHL_jungleIsland", "Villages", villageHL_jungleIsland, "");
-            villageHL_lake = config.getBoolean("villageHL_lake", "Villages", villageHL_lake, "");
-            villageHL_mesa = config.getBoolean("villageHL_mesa", "Villages", villageHL_mesa, "");
-            villageHL_oasis = config.getBoolean("villageHL_oasis", "Villages", villageHL_oasis, "");
-            villageHL_rockIsland = config.getBoolean("villageHL_rockIsland", "Villages", villageHL_rockIsland, "");
-            villageHL_snowIsland = config.getBoolean("villageHL_snowIsland", "Villages", villageHL_snowIsland, "");
-            villageHL_valley = config.getBoolean("villageHL_valley", "Villages", villageHL_valley, "");
-            villageHL_volcanoIsland = config.getBoolean("villageHL_volcanoIsland", "Villages", villageHL_volcanoIsland, "");
-            villageHL_windyIsland = config.getBoolean("villageHL_windyIsland", "Villages", villageHL_windyIsland, "");
+            villageHLBaldHill = config.getBoolean(formatConfig("villageHLBaldHill"), "Villages", villageHLBaldHill, "");
+            villageHLCanyon = config.getBoolean(formatConfig("villageHLCanyon"), "Villages", villageHLCanyon, "");
+            villageHLDesertIsland = config.getBoolean(formatConfig("villageHLDesertIsland"), "Villages", villageHLDesertIsland, "");
+            villageHLForestIsland = config.getBoolean(formatConfig("villageHLForestIsland"), "Villages", villageHLForestIsland, "");
+            villageHLJungleIsland = config.getBoolean(formatConfig("villageHLJungleIsland"), "Villages", villageHLJungleIsland, "");
+            villageHLLake = config.getBoolean(formatConfig("villageHLLake"), "Villages", villageHLLake, "");
+            villageHLMesa = config.getBoolean(formatConfig("villageHLMesa"), "Villages", villageHLMesa, "");
+            villageHLOasis = config.getBoolean(formatConfig("villageHLOasis"), "Villages", villageHLOasis, "");
+            villageHLRockIsland = config.getBoolean(formatConfig("villageHLRockIsland"), "Villages", villageHLRockIsland, "");
+            villageHLSnowIsland = config.getBoolean(formatConfig("villageHLSnowIsland"), "Villages", villageHLSnowIsland, "");
+            villageHLValley = config.getBoolean(formatConfig("villageHLValley"), "Villages", villageHLValley, "");
+            villageHLVolcanoIsland = config.getBoolean(formatConfig("villageHLVolcanoIsland"), "Villages", villageHLVolcanoIsland, "");
+            villageHLWindyIsland = config.getBoolean(formatConfig("villageHLWindyIsland"), "Villages", villageHLWindyIsland, "");
                 
             //Border Biomes
-            villageHL_shrubland = config.getBoolean("villageHL_shrubland", "Villages", villageHL_shrubland, "");
+            villageHLShrubland = config.getBoolean(formatConfig("villageHLShrubland"), "Villages", villageHLShrubland, "");
 			
 		}
 		catch (Exception e)
@@ -371,4 +372,23 @@ public class ConfigHL
 			}
 		}
 	}
+	
+    private static String formatConfig(String s)
+    {
+        String returnString = s;        
+        
+        returnString = StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(returnString), " ");
+
+        if (s.startsWith("generate")) {
+            returnString = StringUtils.replace(returnString, "generate", "Generate", 1);
+        }
+        else if (s.startsWith("village")) {
+            returnString = StringUtils.replace(returnString, "village", "Allow villages to generate in", 1);
+        }
+        else if (s.startsWith("weight")) {
+            returnString = StringUtils.replace(returnString, "weight", "Weight of", 1);
+        }
+        
+        return returnString;
+    }
 }

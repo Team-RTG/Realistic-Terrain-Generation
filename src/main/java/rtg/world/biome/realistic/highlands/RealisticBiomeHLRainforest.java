@@ -27,7 +27,7 @@ public class RealisticBiomeHLRainforest extends RealisticBiomeHLBase
         
         this.setRealisticBiomeName("HL Rainforest");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHL_rainforest;
-        this.generateVillages = ConfigHL.villageHL_rainforest;
+        this.biomeWeight = ConfigHL.weightHLRainforest;
+        this.generateVillages = ConfigHL.villageHLRainforest;
     }
 }

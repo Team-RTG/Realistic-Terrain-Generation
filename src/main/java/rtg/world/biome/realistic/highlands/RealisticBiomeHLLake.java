@@ -28,7 +28,7 @@ public class RealisticBiomeHLLake extends RealisticBiomeHLBase
         
         this.setRealisticBiomeName("HL Lake");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHL_lake;
-        this.generateVillages = ConfigHL.villageHL_lake;
+        this.biomeWeight = ConfigHL.weightHLLake;
+        this.generateVillages = ConfigHL.villageHLLake;
     }
 }

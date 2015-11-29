@@ -27,7 +27,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Seasonal Forest");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPseasonalForest;
-		this.generateVillages = ConfigBOP.villageBOPseasonalForest;
+		this.biomeWeight = ConfigBOP.weightBOPSeasonalForest;
+		this.generateVillages = ConfigBOP.villageBOPSeasonalForest;
 	}
 }

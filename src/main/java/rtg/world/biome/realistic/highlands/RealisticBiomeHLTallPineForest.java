@@ -27,7 +27,7 @@ public class RealisticBiomeHLTallPineForest extends RealisticBiomeHLBase
         
         this.setRealisticBiomeName("HL Tall Pine Forest");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHL_tallPineForest;
-        this.generateVillages = ConfigHL.villageHL_tallPineForest;
+        this.biomeWeight = ConfigHL.weightHLTallPineForest;
+        this.generateVillages = ConfigHL.villageHLTallPineForest;
     }
 }

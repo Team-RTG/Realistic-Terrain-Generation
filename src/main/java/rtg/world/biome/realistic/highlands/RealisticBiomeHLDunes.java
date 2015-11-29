@@ -26,7 +26,7 @@ public class RealisticBiomeHLDunes extends RealisticBiomeHLBase
         
         this.setRealisticBiomeName("HL Dunes");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHL_dunes;
-        this.generateVillages = ConfigHL.villageHL_dunes;
+        this.biomeWeight = ConfigHL.weightHLDunes;
+        this.generateVillages = ConfigHL.villageHLDunes;
     }
 }

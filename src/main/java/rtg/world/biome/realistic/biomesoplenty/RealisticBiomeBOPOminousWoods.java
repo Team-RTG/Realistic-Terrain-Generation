@@ -27,7 +27,7 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Ominous Woods");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPominousWoods;
-		this.generateVillages = ConfigBOP.villageBOPominousWoods;
+		this.biomeWeight = ConfigBOP.weightBOPOminousWoods;
+		this.generateVillages = ConfigBOP.villageBOPOminousWoods;
 	}
 }

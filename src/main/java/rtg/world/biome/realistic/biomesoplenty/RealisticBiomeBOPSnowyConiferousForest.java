@@ -26,7 +26,7 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
 		
 		this.setRealisticBiomeName("BOP Snowy Coniferous Forest");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPsnowyConiferousForest;
-		this.generateVillages = ConfigBOP.villageBOPsnowyConiferousForest;
+		this.biomeWeight = ConfigBOP.weightBOPSnowyConiferousForest;
+		this.generateVillages = ConfigBOP.villageBOPSnowyConiferousForest;
 	}
 }

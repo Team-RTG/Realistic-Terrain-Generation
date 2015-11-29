@@ -36,8 +36,8 @@ public class RealisticBiomeEBXLAutumnWoods extends RealisticBiomeEBXLBase
 		
 		this.setRealisticBiomeName("EBXL Autumn Woods");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEBXL.weightEBXL_autumnwoods;
-		this.generateVillages = ConfigEBXL.villageEBXL_autumnwoods;
+		this.biomeWeight = ConfigEBXL.weightEBXLAutumnWoods;
+		this.generateVillages = ConfigEBXL.villageEBXLAutumnWoods;
 	}
 	
     @Override

@@ -2,6 +2,7 @@ package rtg.config.chromaticraft;
 
 import java.io.File;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 
 import rtg.world.biome.BiomeBase;
@@ -36,16 +37,16 @@ public class ConfigCC
 		{
 			config.load();
 			
-			generateCCBiomes = config.getBoolean("Generate Biomes", "Biomes", true, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod.");
+			generateCCBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", true, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
 			
-			generateCCEnderForest = config.getBoolean("generateCCEnderForest", "Biomes", generateCCEnderForest, "");
-			generateCCRainbowForest = config.getBoolean("generateCCRainbowForest", "Biomes", generateCCRainbowForest, "");
+			generateCCEnderForest = config.getBoolean(formatConfig("generateCCEnderForest"), "Biomes", generateCCEnderForest, "");
+			generateCCRainbowForest = config.getBoolean(formatConfig("generateCCRainbowForest"), "Biomes", generateCCRainbowForest, "");
 			
-			weightCCEnderForest = config.getInt("weightCCEnderForest", "Weights", weightCCEnderForest, biomeWeightMin, biomeWeightMax, "");
-			weightCCRainbowForest = config.getInt("weightCCRainbowForest", "Weights", weightCCRainbowForest, biomeWeightMin, biomeWeightMax, "");
+			weightCCEnderForest = config.getInt(formatConfig("weightCCEnderForest"), "Weights", weightCCEnderForest, biomeWeightMin, biomeWeightMax, "");
+			weightCCRainbowForest = config.getInt(formatConfig("weightCCRainbowForest"), "Weights", weightCCRainbowForest, biomeWeightMin, biomeWeightMax, "");
 			
-            villageCCEnderForest = config.getBoolean("villageCCEnderForest", "Villages", villageCCEnderForest, "");
-            villageCCRainbowForest = config.getBoolean("villageCCRainbowForest", "Villages", villageCCRainbowForest, "");
+            villageCCEnderForest = config.getBoolean(formatConfig("villageCCEnderForest"), "Villages", villageCCEnderForest, "");
+            villageCCRainbowForest = config.getBoolean(formatConfig("villageCCRainbowForest"), "Villages", villageCCRainbowForest, "");
 		}
 		catch (Exception e)
 		{
@@ -59,4 +60,23 @@ public class ConfigCC
 			}
 		}
 	}
+	
+    private static String formatConfig(String s)
+    {
+        String returnString = s;        
+        
+        returnString = StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(returnString), " ");
+
+        if (s.startsWith("generate")) {
+            returnString = StringUtils.replace(returnString, "generate", "Generate", 1);
+        }
+        else if (s.startsWith("village")) {
+            returnString = StringUtils.replace(returnString, "village", "Allow villages to generate in", 1);
+        }
+        else if (s.startsWith("weight")) {
+            returnString = StringUtils.replace(returnString, "weight", "Weight of", 1);
+        }
+        
+        return returnString;
+    }
 }

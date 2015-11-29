@@ -12,6 +12,8 @@ import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.Ev
 
 import java.util.Random;
 
+import org.apache.logging.log4j.Level;
+
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -21,6 +23,7 @@ import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import cpw.mods.fml.common.FMLLog;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -66,6 +69,11 @@ public class RealisticBiomeBase extends BiomeBase {
     
     public boolean generateVillages;
     
+    public Block emeraldEmeraldBlock;
+    public byte emeraldEmeraldMeta;
+    public Block emeraldStoneBlock;
+    public byte emeraldStoneMeta;
+    
     public RealisticBiomeBase(BiomeGenBase biome) {
     
         this(biome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE));
@@ -94,6 +102,11 @@ public class RealisticBiomeBase extends BiomeBase {
         lapisPerChunk = 6;
         
         generateVillages = true;
+        
+        emeraldEmeraldBlock = Blocks.emerald_ore;
+        emeraldEmeraldMeta = (byte)0;
+        emeraldStoneBlock = Blocks.stone;
+        emeraldStoneMeta = (byte)0;
     }
     
     public static RealisticBiomeBase getBiome(int id) {
@@ -419,6 +432,62 @@ public class RealisticBiomeBase extends BiomeBase {
                     int l11 = worldZ + rand.nextInt(16);
                     
                     (new WorldGenClay(Blocks.clay, 0, clayPerChunk)).generate(worldObj, rand, l5, i9, l11);
+                }
+            }
+        }
+    }
+    
+    public void rGenerateEmeralds(World world, Random rand, int chunkX, int chunkZ, boolean forceGeneration)
+    {
+        if (ConfigRTG.generateOreEmerald || forceGeneration) {
+            
+            for (int g12 = 0; g12 < 1; ++g12) {
+                
+                int n1 = chunkX + rand.nextInt(16);
+                int m1 = rand.nextInt(28) + 4;
+                int p1 = chunkZ + rand.nextInt(16);
+
+                if (world.getBlock(n1, m1, p1).isReplaceableOreGen(world, n1, m1, p1, emeraldStoneBlock)) {
+                    
+                    if (rand.nextInt(4) == 0) {
+                        
+                        world.setBlock(n1, m1, p1, emeraldEmeraldBlock, emeraldEmeraldMeta, 2);
+                        
+                        if (ConfigRTG.enableDebugging) {
+                            FMLLog.log(Level.INFO, "Emerald generated at %d, %d, %d", n1, m1, p1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    public void rRemoveEmeralds(World world, Random rand, int chunkX, int chunkZ, boolean forceRemoval)
+    {
+        if (!ConfigRTG.generateOreEmerald || forceRemoval) {
+
+            int endX = (chunkX * 16) + 16;
+            int endZ = (chunkZ * 16) + 16;
+            boolean enableDebugging = ConfigRTG.enableDebugging;
+
+            // Get the highest possible existing block location.
+            int maxY = world.getHeightValue(chunkX, chunkZ);
+            
+            for (int x = chunkX * 16; x < endX; ++x)
+            {
+                for (int z = chunkZ * 16; z < endZ; ++z)
+                {
+                    for (int y = 0; y < maxY; ++y)
+                    {   
+                        if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, emeraldEmeraldBlock)) {
+                            
+                            world.setBlock(x, y, z, emeraldStoneBlock, emeraldStoneMeta, 2);
+                            
+                            if (enableDebugging) {
+                                FMLLog.log(Level.INFO, "Emerald replaced at %d, %d, %d", x, y, z);
+                            }
+                        }
+                    }
                 }
             }
         }

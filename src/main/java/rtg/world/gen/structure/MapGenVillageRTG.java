@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import java.util.Random;
 
 import rtg.config.rtg.ConfigRTG;
+import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -61,22 +62,22 @@ public class MapGenVillageRTG extends MapGenVillage
         }
     }
 
+    @Override
     public String func_143025_a()
     {
         return "Village";
     }
 
+    @Override
     protected boolean canSpawnStructureAtCoords(int par1, int par2)
     {
         if (villageSpawnBiomes.size() < 1) {
             return false;
         }
         
-        WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) worldObj.getWorldChunkManager();
-        int worldX = par1 * 16;
-        int worldZ = par2 * 16;
-        RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldX + 16, worldZ + 16);
-        BiomeGenBase biome = realisticBiome.baseBiome;
+        boolean booRTGWorld = (worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG) ? true : false;
+        boolean booRTGChunkManager = (worldObj.getWorldChunkManager() instanceof WorldChunkManagerRTG) ? true : false;
+        
         boolean canSpawnVillage = false;
         
         int k = par1;
@@ -102,18 +103,35 @@ public class MapGenVillageRTG extends MapGenVillage
 
         if (k == i1 && l == j1)
         {
-            for (int intBiomeIndex = 0; intBiomeIndex < villageSpawnBiomes.size(); intBiomeIndex++) {
+            if (booRTGWorld && booRTGChunkManager) {
                 
-                if (villageSpawnBiomes.get(intBiomeIndex) == biome) {
-                    canSpawnVillage = true;
-                    break;
+                WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) worldObj.getWorldChunkManager();
+                int worldX = par1 * 16;
+                int worldZ = par2 * 16;
+                RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldX + 16, worldZ + 16);
+                BiomeGenBase biome = realisticBiome.baseBiome;
+                
+                
+                for (int intBiomeIndex = 0; intBiomeIndex < villageSpawnBiomes.size(); intBiomeIndex++) {
+                    
+                    if (villageSpawnBiomes.get(intBiomeIndex) == biome) {
+                        canSpawnVillage = true;
+                        break;
+                    }
                 }
+                
+                
+            }
+            else {
+
+                canSpawnVillage = this.worldObj.getWorldChunkManager().areBiomesViable(k * 16 + 8, l * 16 + 8, 0, villageSpawnBiomes);
             }
         }
-
+        
         return canSpawnVillage;
     }
 
+    @Override
     protected StructureStart getStructureStart(int par1, int par2)
     {
         return new MapGenVillageRTG.Start(this.worldObj, this.rand, par1, par2, this.terrainType);

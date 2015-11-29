@@ -26,7 +26,7 @@ public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Temperate Rainforest");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPtemperateRainforest;
-		this.generateVillages = ConfigBOP.villageBOPtemperateRainforest;
+		this.biomeWeight = ConfigBOP.weightBOPTemperateRainforest;
+		this.generateVillages = ConfigBOP.villageBOPTemperateRainforest;
 	}
 }

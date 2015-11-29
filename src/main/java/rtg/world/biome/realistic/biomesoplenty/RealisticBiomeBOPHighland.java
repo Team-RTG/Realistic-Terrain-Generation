@@ -1,13 +1,19 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
 
 import rtg.config.biomesoplenty.ConfigBOP;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPHighland;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPHighland;
 import biomesoplenty.api.content.BOPCBiomes;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase
 {	
@@ -26,7 +32,19 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Highland");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPhighland;
-		this.generateVillages = ConfigBOP.villageBOPhighland;
+		this.biomeWeight = ConfigBOP.weightBOPHighland;
+		this.generateVillages = ConfigBOP.villageBOPHighland;
 	}
+	
+    @Override
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
+        float river)
+    {
+        
+        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        
+        //Emeralds.
+        rRemoveEmeralds(world, rand, chunkX, chunkY, false);
+        //rGenerateEmeralds(world, rand, chunkX, chunkY, false);
+    }
 }

@@ -27,7 +27,7 @@ public class RealisticBiomeHLWoodlands extends RealisticBiomeHLBase
         
         this.setRealisticBiomeName("HL Woodlands");
         this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHL_woodlands;
-        this.generateVillages = ConfigHL.villageHL_woodlands;
+        this.biomeWeight = ConfigHL.weightHLWoodlands;
+        this.generateVillages = ConfigHL.villageHLWoodlands;
     }
 }

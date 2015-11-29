@@ -27,7 +27,7 @@ public class RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Orchard");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPorchard;
-		this.generateVillages = ConfigBOP.villageBOPorchard;
+		this.biomeWeight = ConfigBOP.weightBOPOrchard;
+		this.generateVillages = ConfigBOP.villageBOPOrchard;
 	}
 }

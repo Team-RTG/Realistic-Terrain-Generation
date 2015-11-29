@@ -744,7 +744,7 @@ public class ChunkProviderRTG implements IChunkProvider
      */
     public ChunkPosition func_147416_a(World par1World, String par2Str, int par3, int par4, int par5)
     {
-        if (ConfigRTG.generateStrongholds) {
+        if (!ConfigRTG.generateStrongholds) {
             return null;
         }
         

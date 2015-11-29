@@ -27,7 +27,7 @@ public class RealisticBiomeBOPDenseForest extends RealisticBiomeBOPBase
 		
 		this.setRealisticBiomeName("BOP Dense Forest");
 		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPdenseForest;
-		this.generateVillages = ConfigBOP.villageBOPdenseForest;
+		this.biomeWeight = ConfigBOP.weightBOPDenseForest;
+		this.generateVillages = ConfigBOP.villageBOPDenseForest;
 	}
 }

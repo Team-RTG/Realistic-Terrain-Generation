@@ -1,7 +1,7 @@
 # Realistic Terrain Generation
 Realistic Terrain Generation (RTG) is a mod that adds a new world type which generates realistic terrain. It doesn't add new blocks. It doesn't add new mobs. It doesn't even add new biomes. It simply generates more realistic-looking terrain for existing Overworld biomes (including those added by other mods).
 
-Minecraft Forum thread: http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/2524489
+Minecraft Forum thread: http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2524489
 
 # Credits
 This mod is a re-branded fork of the revolutionary [Realistic World Gen](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1281910-teds-world-gen-mods-realistic-world-gen-alpha-1-3) mod by Ted80. It was created as a new project because it will likely deviate from Ted80's original vision for RWG, and the author of this mod didn't want to interfere with that vision. It also uses KdotJPG's [OpenSimplex Noise](https://gist.github.com/KdotJPG/b1270127455a94ac5d19) rather than Perlin Noise to generate its terrain.
@@ -16,17 +16,15 @@ This mod is a re-branded fork of the revolutionary [Realistic World Gen](http://
 * Create an API to allow other mods to customise terrain generation.
 
 # Downloads
-Latest alpha release: [RTG-1.7.10-0.0.19.jar](https://github.com/Team-RTG/Realistic-Terrain-Generation/releases/download/v0.0.19/RTG-1.7.10-0.0.19.jar) (Alpha)
+Latest beta release: [RTG-1.7.10-0.1.0.jar](http://curse.com/mc-mods/minecraft/237989-realistic-terrain-generation/2268572) (Beta)
 
-Please note that RTG is currently in alpha, which means that **it should only be used for testing purposes.**
+All downloads can also be found in the [Releases section](https://github.com/Team-RTG/Realistic-Terrain-Generation/releases) on GitHub.
 
-**Do not attempt to load any of your existing worlds** with this mod installed or you run the risk of corrupting them.
-
-Older downloads can be found in the [Releases section](https://github.com/Team-RTG/Realistic-Terrain-Generation/releases) on GitHub.
+__(Please note that RTG is currently in beta, which means that it should primarily be used for testing purposes. Please backup your worlds before installing RTG if you plan on using it in your public or private mod pack.)__
 
 # Installation
 1. Download and install the latest recommended version of [Forge for 1.7.10](http://files.minecraftforge.net/).
-2. [Download this mod](https://github.com/Team-RTG/Realistic-Terrain-Generation/releases) and place it in your 'mods' folder.
+2. [Download this mod](http://www.curse.com/mc-mods/minecraft/237989-realistic-terrain-generation) and place it in your 'mods' folder.
 3. For singleplayer... create a new world, click the [More World Options] button, choose 'Realistic' from the [World Type] button, then click [Create New World]
 4. For servers... use **level-type=RTG** in server.properties
 
@@ -60,7 +58,6 @@ RTG's list of known issues can be found [here](https://github.com/Team-RTG/Reali
 * Mushroom Islands do not generate as actual islands. For this reason, they are disabled by default.
 * Volcanic biomes sometimes contain partially-generated volcanoes. For this reason, they are disabled by default.
 * Hot-to-cold biome transitions are still occurring.
-* If emerald generation has been disabled, emerald ore will still generate in some modded biomes. This is relatively easy to fix and should be resolved in a future version.
 
 # Screenshots
 http://imgur.com/a/322dY
@@ -72,13 +69,10 @@ Video by 7ERr0r using RTG 0.0.13 (Alpha): https://www.youtube.com/watch?v=AtI1bt
 # How to report an issue
 You may report issues in this thread, but please use spoiler tags or [pastebin](http://pastebin.com/) for crash reports, and - if possible - please describe what you were doing immediately before the crash. The more information you provide, the easier it will be to resolve the issue.
 
-**IMPORTANT:**
-Optifine is not currently supported, so if your crash report shows that you have Optifine installed, you will likely be asked to reproduce the crash without Optifine installed. **(Please note: This does not mean that RTG and Optifine are incompatible - just that support will not be given for crash reports containing Optifine.)**
-
 # Mod Packs
 You may use RTG in your public or private mod pack as long the following conditions are met:
 
-* You understand and accept that RTG is in Alpha, which means that it is currently under heavy development and could change radically from version to version, with no guarantee of backwards-compatibility.
+* You understand and accept that RTG is in beta, which means that it is currently under heavy development and could change radically from version to version, with no guarantee of backwards-compatibility.
 * You understand and accept that only the latest version of RTG will be supported at any given time. If your mod pack is using an older version and you report an issue with that version, we will only try to resolve that issue if it is still present in the latest version.
 * You must credit 'Team RTG' as the author of this mod and link back to this forum thread.
 * Your mod pack must be made available to everyone, free of charge. If your modpack is private, it must be made available free of charge to whomever is given access to it.

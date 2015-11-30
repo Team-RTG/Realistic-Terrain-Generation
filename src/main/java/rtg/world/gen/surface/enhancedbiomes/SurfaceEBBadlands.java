@@ -6,8 +6,6 @@ import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBadlands;
-import enhancedbiomes.EnhancedBiomesMod;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -16,9 +14,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBBadlands extends SurfaceEBBase
 {
-    private static Block ebStoneBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone;
-    private static byte ebStoneByte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)7 : (byte)0;
-    
     private Block blockTop;
     private byte byteTop;
     private Block blockFiller;

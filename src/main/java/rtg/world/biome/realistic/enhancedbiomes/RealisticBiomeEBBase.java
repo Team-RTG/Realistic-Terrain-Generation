@@ -9,7 +9,12 @@ import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Loader;
+import enhancedbiomes.EnhancedBiomesMod;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
+import enhancedbiomes.world.biomestats.BiomeCategorisation;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBBase extends RealisticBiomeBase
@@ -844,4 +849,89 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 			}
 		}
 	}
+	
+    public static Block getDominantEBGrass(BiomeGenBase biome)
+    {
+        if (!EnhancedBiomesMod.useNewGrass || biome == null) {
+            return Blocks.grass;
+        }
+        
+        switch (BiomeCategorisation.getCatForBiome(biome).ordinal()) {
+            
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+                return EnhancedBiomesBlocks.grassEB;
+            default:
+                return Blocks.grass;
+        }
+    }
+    
+    public static Block getDominantEBDirt(BiomeGenBase biome)
+    {
+        if (!EnhancedBiomesMod.useNewGrass || biome == null) {
+            return Blocks.dirt;
+        }
+        
+        switch (BiomeCategorisation.getCatForBiome(biome).ordinal()) {
+            
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+                return EnhancedBiomesBlocks.dirtEB;
+            default:
+                return Blocks.dirt;
+        }
+    }
+    
+    public static byte getDominantEBSoilMeta(BiomeGenBase biome)
+    {
+        if (!EnhancedBiomesMod.useNewGrass || biome == null) {
+            FMLLog.log(Level.INFO, "nope");
+            return (byte)0;
+        }
+
+        switch (BiomeCategorisation.getCatForBiome(biome).ordinal()) {
+            
+            case 1:
+                FMLLog.log(Level.INFO, "%s = 1", biome.biomeName);
+                return (byte)6;
+            case 2:
+            case 3:
+                FMLLog.log(Level.INFO, "%s = 2/3", biome.biomeName);
+                return (byte)7;
+            case 4:
+            case 5:
+                FMLLog.log(Level.INFO, "%s = 4/5", biome.biomeName);
+                return (byte)0;
+            case 6:
+                FMLLog.log(Level.INFO, "%s = 6", biome.biomeName);
+                return (byte)4;
+            case 7:
+                FMLLog.log(Level.INFO, "%s = 7", biome.biomeName);
+                return (byte)5;
+            case 8:
+            case 9:
+                FMLLog.log(Level.INFO, "%s = 8/9", biome.biomeName);
+                return (byte)1;
+            case 10:
+                FMLLog.log(Level.INFO, "%s = 10", biome.biomeName);
+                return (byte)3;
+            default:
+                FMLLog.log(Level.INFO, "%s = default", biome.biomeName);
+                return (byte)0;
+        }
+    }
 }

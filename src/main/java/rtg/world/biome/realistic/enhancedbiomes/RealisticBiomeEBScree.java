@@ -16,13 +16,19 @@ import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import enhancedbiomes.helpers.TreeGen;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeEBScree extends RealisticBiomeEBBase
-{	
+{
+    public static Block ebDominantStoneBlock;
+    public static byte ebDominantStoneMeta;
+    public static Block ebDominantCobblestoneBlock;
+    public static byte ebDominantCobblestoneMeta;
+    
 	public RealisticBiomeEBScree(BiomeGenBase ebBiome)
 	{
 		super(
@@ -52,7 +58,12 @@ public class RealisticBiomeEBScree extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBScree;
 		this.generateVillages = ConfigEB.villageEBScree;
-	}
+        
+        this.ebDominantStoneBlock = EnhancedBiomesMod.getDominantStone(ebBiome.biomeID);
+        this.ebDominantStoneMeta = EnhancedBiomesMod.getDominantStoneMeta(ebBiome.biomeID);
+        this.ebDominantCobblestoneBlock = EnhancedBiomesMod.getCobbleFromStone(ebDominantStoneBlock);
+        this.ebDominantCobblestoneMeta = ebDominantStoneMeta;
+    }
 	
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,

@@ -6,6 +6,7 @@ import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.SnowHeightCalculator;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBPolarDesert;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -51,10 +52,10 @@ public class SurfaceEBPolarDesert extends SurfaceEBBase
             else if (b == Blocks.stone)
             {
                 depth++;
-                
+
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB;
-                    metadata[(y * 16 + x) * 256 + k] = (byte) 12;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBPolarDesert.ebDominantStoneBlock;
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBPolarDesert.ebDominantStoneMeta;
                 }
                 
                 if (riverPaint)

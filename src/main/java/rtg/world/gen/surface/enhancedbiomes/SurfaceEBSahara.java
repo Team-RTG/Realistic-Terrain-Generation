@@ -6,6 +6,7 @@ import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.SnowHeightCalculator;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBSahara;
 import rtg.world.gen.surface.SurfaceBase;
 
 import net.minecraft.block.Block;
@@ -48,6 +49,11 @@ public class SurfaceEBSahara extends SurfaceEBBase
             else if(b == Blocks.stone)
             {
                 depth++;
+
+                if (shouldReplaceStone()) {
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBSahara.ebDominantStoneBlock;
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBSahara.ebDominantStoneMeta;
+                }
 
                 if(riverPaint)
                 {

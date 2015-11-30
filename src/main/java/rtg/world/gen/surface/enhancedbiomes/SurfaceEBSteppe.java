@@ -5,6 +5,7 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBSteppe;
 import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
@@ -83,10 +84,10 @@ public class SurfaceEBSteppe extends SurfaceEBBase
             else if (b == Blocks.stone)
             {
                 depth++;
-                
+
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = ebStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = ebStoneByte;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBSteppe.ebDominantStoneBlock;
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBSteppe.ebDominantStoneMeta;
                 }
                 
                 if (cliff)

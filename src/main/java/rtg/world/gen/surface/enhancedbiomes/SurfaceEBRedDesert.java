@@ -5,6 +5,7 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBRedDesert;
 import rtg.world.gen.surface.SurfaceBase;
 
 import net.minecraft.block.Block;
@@ -46,6 +47,11 @@ public class SurfaceEBRedDesert extends SurfaceEBBase
             else if (b == Blocks.stone)
             {
                 depth++;
+
+                if (shouldReplaceStone()) {
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBRedDesert.ebDominantStoneBlock;
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBRedDesert.ebDominantStoneMeta;
+                }
                 
                 if (cliff)
                 {

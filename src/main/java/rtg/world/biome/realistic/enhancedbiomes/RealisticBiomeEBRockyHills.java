@@ -8,7 +8,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.tree.WorldGenTreePineEuro;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRockyHills;
@@ -28,6 +27,10 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
 {
+    public static Block ebDominantStoneBlock;
+    public static byte ebDominantStoneMeta;
+    public static Block ebDominantCobblestoneBlock;
+    public static byte ebDominantCobblestoneMeta;
     
     private static SurfaceBase surface = new SurfaceEBRockyHills(
         (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone,
@@ -62,6 +65,11 @@ public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigEB.weightEBRockyHills;
         this.generateVillages = ConfigEB.villageEBRockyHills;
+        
+        this.ebDominantStoneBlock = EnhancedBiomesMod.getDominantStone(ebBiome.biomeID);
+        this.ebDominantStoneMeta = EnhancedBiomesMod.getDominantStoneMeta(ebBiome.biomeID);
+        this.ebDominantCobblestoneBlock = EnhancedBiomesMod.getCobbleFromStone(ebDominantStoneBlock);
+        this.ebDominantCobblestoneMeta = ebDominantStoneMeta;
     }
     
     @Override

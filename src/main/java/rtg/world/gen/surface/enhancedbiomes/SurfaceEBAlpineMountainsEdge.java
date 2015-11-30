@@ -6,9 +6,11 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBAlpineMountainsEdge;
 import rtg.world.gen.surface.SurfaceBase;
 
 public class SurfaceEBAlpineMountainsEdge extends SurfaceEBBase
@@ -59,7 +61,12 @@ public class SurfaceEBAlpineMountainsEdge extends SurfaceEBBase
             }
             else if(b == Blocks.stone)
             {
-            	depth++;
+                depth++;
+
+                if (shouldReplaceStone()) {
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBAlpineMountainsEdge.ebDominantStoneBlock;
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBAlpineMountainsEdge.ebDominantStoneMeta;
+                }
             	
             	if(depth == 0)
             	{

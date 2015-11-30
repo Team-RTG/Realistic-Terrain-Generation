@@ -19,6 +19,11 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBSnowyRanges extends RealisticBiomeEBBase
 {
+    public static Block ebDominantStoneBlock;
+    public static byte ebDominantStoneMeta;
+    public static Block ebDominantCobblestoneBlock;
+    public static byte ebDominantCobblestoneMeta;
+    
     private static Block ebTopBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.grassEB : Blocks.grass;
     private static byte ebTopByte = EnhancedBiomesMod.useNewGrass ? (byte)5 : (byte)0;
     private static Block ebFillBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt;
@@ -61,7 +66,12 @@ public class RealisticBiomeEBSnowyRanges extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSnowyRanges;
 		this.generateVillages = ConfigEB.villageEBSnowyRanges;
-	}
+        
+        this.ebDominantStoneBlock = EnhancedBiomesMod.getDominantStone(ebBiome.biomeID);
+        this.ebDominantStoneMeta = EnhancedBiomesMod.getDominantStoneMeta(ebBiome.biomeID);
+        this.ebDominantCobblestoneBlock = EnhancedBiomesMod.getCobbleFromStone(ebDominantStoneBlock);
+        this.ebDominantCobblestoneMeta = ebDominantStoneMeta;
+    }
 	
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,

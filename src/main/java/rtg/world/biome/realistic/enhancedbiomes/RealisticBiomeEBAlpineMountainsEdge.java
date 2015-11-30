@@ -1,5 +1,8 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import enhancedbiomes.EnhancedBiomesMod;
+
+import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.enhancedbiomes.ConfigEB;
@@ -9,7 +12,12 @@ import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAlpineMountainsEdge;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBAlpineMountainsEdge;
 
 public class RealisticBiomeEBAlpineMountainsEdge extends RealisticBiomeEBBase
-{	
+{
+    public static Block ebDominantStoneBlock;
+    public static byte ebDominantStoneMeta;
+    public static Block ebDominantCobblestoneBlock;
+    public static byte ebDominantCobblestoneMeta;
+    
 	public RealisticBiomeEBAlpineMountainsEdge(BiomeGenBase ebBiome)
 	{
 		super(
@@ -22,5 +30,10 @@ public class RealisticBiomeEBAlpineMountainsEdge extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBAlpineMountainsEdge;
 		this.generateVillages = ConfigEB.villageEBAlpineMountainsEdge;
-	}
+        
+        this.ebDominantStoneBlock = EnhancedBiomesMod.getDominantStone(ebBiome.biomeID);
+        this.ebDominantStoneMeta = EnhancedBiomesMod.getDominantStoneMeta(ebBiome.biomeID);
+        this.ebDominantCobblestoneBlock = EnhancedBiomesMod.getCobbleFromStone(ebDominantStoneBlock);
+        this.ebDominantCobblestoneMeta = ebDominantStoneMeta;
+    }
 }

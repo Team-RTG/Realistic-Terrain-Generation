@@ -5,7 +5,9 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBStoneCanyon;
 import rtg.world.gen.surface.SurfaceBase;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -57,7 +59,12 @@ public class SurfaceEBStoneCanyon extends SurfaceEBBase
             }
             else if(b == Blocks.stone)
             {
-            	depth++;
+                depth++;
+
+                if (shouldReplaceStone()) {
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBStoneCanyon.ebDominantStoneBlock;
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBStoneCanyon.ebDominantStoneMeta;
+                }
 
         		if(depth > -1 && depth < 12)
 	        	{

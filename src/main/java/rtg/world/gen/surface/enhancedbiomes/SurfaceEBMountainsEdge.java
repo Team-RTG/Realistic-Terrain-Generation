@@ -5,7 +5,9 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBMountainsEdge;
 import rtg.world.gen.surface.SurfaceBase;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -63,7 +65,12 @@ public class SurfaceEBMountainsEdge extends SurfaceEBBase
             }
             else if(b == Blocks.stone)
             {
-            	depth++;
+                depth++;
+
+                if (shouldReplaceStone()) {
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBMountainsEdge.ebDominantStoneBlock;
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBMountainsEdge.ebDominantStoneMeta;
+                }
             	
             	if(depth == 0)
             	{

@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import enhancedbiomes.EnhancedBiomesMod;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -30,6 +31,11 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeEBClayHills extends RealisticBiomeEBBase
 {
+    public static Block ebDominantStoneBlock;
+    public static byte ebDominantStoneMeta;
+    public static Block ebDominantCobblestoneBlock;
+    public static byte ebDominantCobblestoneMeta;
+    
     private static SurfaceBase surface = new SurfaceEBClayHills(Blocks.sandstone, Blocks.sandstone, (byte) 0, 0);
     private static SurfaceBase riverSurface = new SurfaceRiverOasis();
     
@@ -45,6 +51,11 @@ public class RealisticBiomeEBClayHills extends RealisticBiomeEBBase
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigEB.weightEBClayHills;
         this.generateVillages = ConfigEB.villageEBClayHills;
+        
+        this.ebDominantStoneBlock = EnhancedBiomesMod.getDominantStone(ebBiome.biomeID);
+        this.ebDominantStoneMeta = EnhancedBiomesMod.getDominantStoneMeta(ebBiome.biomeID);
+        this.ebDominantCobblestoneBlock = EnhancedBiomesMod.getCobbleFromStone(ebDominantStoneBlock);
+        this.ebDominantCobblestoneMeta = ebDominantStoneMeta;
     }
     
     @Override

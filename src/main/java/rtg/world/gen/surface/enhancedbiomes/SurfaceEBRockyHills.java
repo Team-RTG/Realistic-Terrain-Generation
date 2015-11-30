@@ -2,11 +2,11 @@ package rtg.world.gen.surface.enhancedbiomes;
 
 import java.util.Random;
 
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBRockyHills;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBRockyHills;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -80,10 +80,10 @@ public class SurfaceEBRockyHills extends SurfaceEBBase
             else if (b == Blocks.stone)
             {
                 depth++;
-                
+
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB;
-                    metadata[(y * 16 + x) * 256 + k] = (byte) 10;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBRockyHills.ebDominantStoneBlock;
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBRockyHills.ebDominantStoneMeta;
                 }
                 
                 if (depth == 0)

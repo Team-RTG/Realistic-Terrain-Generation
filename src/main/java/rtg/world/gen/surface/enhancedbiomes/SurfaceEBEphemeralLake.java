@@ -6,6 +6,7 @@ import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBEphemeralLake;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -55,8 +56,8 @@ public class SurfaceEBEphemeralLake extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB;
-                    metadata[(y * 16 + x) * 256 + k] = (byte) 9;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBEphemeralLake.ebDominantStoneBlock;
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBEphemeralLake.ebDominantStoneMeta;
                 }
                 
                 if(cliff)

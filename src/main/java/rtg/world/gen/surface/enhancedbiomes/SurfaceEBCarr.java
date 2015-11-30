@@ -7,6 +7,7 @@ import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBCarr;
 import rtg.world.gen.surface.SurfaceBase;
 
 import net.minecraft.block.Block;
@@ -50,8 +51,8 @@ public class SurfaceEBCarr extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB;
-                    metadata[(y * 16 + x) * 256 + k] = (byte) 9;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBCarr.ebDominantStoneBlock;
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBCarr.ebDominantStoneMeta;
                 }
                 
                 if(cliff)

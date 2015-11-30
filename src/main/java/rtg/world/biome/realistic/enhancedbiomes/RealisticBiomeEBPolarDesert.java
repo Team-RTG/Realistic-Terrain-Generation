@@ -12,6 +12,7 @@ import rtg.world.gen.feature.tree.WorldGenTreeSpruceSmall;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBPolarDesert;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBPolarDesert;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -19,6 +20,10 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeEBPolarDesert extends RealisticBiomeEBBase
 {
+    public static Block ebDominantStoneBlock;
+    public static byte ebDominantStoneMeta;
+    public static Block ebDominantCobblestoneBlock;
+    public static byte ebDominantCobblestoneMeta;
     
     public RealisticBiomeEBPolarDesert(BiomeGenBase ebBiome)
     {
@@ -36,6 +41,11 @@ public class RealisticBiomeEBPolarDesert extends RealisticBiomeEBBase
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigEB.weightEBPolarDesert;
         this.generateVillages = ConfigEB.villageEBPolarDesert;
+        
+        this.ebDominantStoneBlock = EnhancedBiomesMod.getDominantStone(ebBiome.biomeID);
+        this.ebDominantStoneMeta = EnhancedBiomesMod.getDominantStoneMeta(ebBiome.biomeID);
+        this.ebDominantCobblestoneBlock = EnhancedBiomesMod.getCobbleFromStone(ebDominantStoneBlock);
+        this.ebDominantCobblestoneMeta = ebDominantStoneMeta;
     }
     
     @Override

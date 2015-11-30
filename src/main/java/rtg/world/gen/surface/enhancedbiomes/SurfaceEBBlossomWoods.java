@@ -5,6 +5,7 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBlossomWoods;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
@@ -82,10 +83,10 @@ public class SurfaceEBBlossomWoods extends SurfaceEBBase
             else if (b == Blocks.stone)
             {
                 depth++;
-                
+
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = ebStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = ebStoneByte;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBBlossomWoods.ebDominantStoneBlock;
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBBlossomWoods.ebDominantStoneMeta;
                 }
                 
                 if (cliff)

@@ -30,6 +30,11 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
 {
+    public static Block ebDominantStoneBlock;
+    public static byte ebDominantStoneMeta;
+    public static Block ebDominantCobblestoneBlock;
+    public static byte ebDominantCobblestoneMeta;
+    
     private static Block ebTopBlock = Blocks.sand;
     private static byte ebTopByte = (byte)0;
     private static Block ebFillBlock = Blocks.sandstone;
@@ -76,7 +81,12 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBRockyDesert;
 		this.generateVillages = ConfigEB.villageEBRockyDesert;
-	}
+        
+        this.ebDominantStoneBlock = EnhancedBiomesMod.getDominantStone(ebBiome.biomeID);
+        this.ebDominantStoneMeta = EnhancedBiomesMod.getDominantStoneMeta(ebBiome.biomeID);
+        this.ebDominantCobblestoneBlock = EnhancedBiomesMod.getCobbleFromStone(ebDominantStoneBlock);
+        this.ebDominantCobblestoneMeta = ebDominantStoneMeta;
+    }
 	
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,

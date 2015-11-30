@@ -23,7 +23,12 @@ import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSnowyWastelands;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSnowyWastelands;
 
 public class RealisticBiomeEBSnowyWastelands extends RealisticBiomeEBBase
-{	
+{
+    public static Block ebDominantStoneBlock;
+    public static byte ebDominantStoneMeta;
+    public static Block ebDominantCobblestoneBlock;
+    public static byte ebDominantCobblestoneMeta;
+    
     private static Block cobbleBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
     private static byte cobbleByte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)4 : (byte)0;
     
@@ -56,7 +61,12 @@ public class RealisticBiomeEBSnowyWastelands extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSnowyWastelands;
 		this.generateVillages = ConfigEB.villageEBSnowyWastelands;
-	}
+        
+        this.ebDominantStoneBlock = EnhancedBiomesMod.getDominantStone(ebBiome.biomeID);
+        this.ebDominantStoneMeta = EnhancedBiomesMod.getDominantStoneMeta(ebBiome.biomeID);
+        this.ebDominantCobblestoneBlock = EnhancedBiomesMod.getCobbleFromStone(ebDominantStoneBlock);
+        this.ebDominantCobblestoneMeta = ebDominantStoneMeta;
+    }
 	
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,

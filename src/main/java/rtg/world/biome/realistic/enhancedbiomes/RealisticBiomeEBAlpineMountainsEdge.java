@@ -1,8 +1,10 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import enhancedbiomes.EnhancedBiomesMod;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.enhancedbiomes.ConfigEB;
@@ -22,7 +24,7 @@ public class RealisticBiomeEBAlpineMountainsEdge extends RealisticBiomeEBBase
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainEBAlpineMountainsEdge(230f, 120f, 50f),
+			new TerrainEBAlpineMountainsEdge(300f, 80f, 30f),
 			new SurfaceEBAlpineMountainsEdge(ebBiome.topBlock, ebBiome.fillerBlock, false, null, 0.45f)
 		);
 		

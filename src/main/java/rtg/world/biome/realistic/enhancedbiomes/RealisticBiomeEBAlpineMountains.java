@@ -1,15 +1,15 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import enhancedbiomes.EnhancedBiomesMod;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAlpineMountains;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBAlpineMountains;
+import enhancedbiomes.EnhancedBiomesMod;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBAlpineMountains extends RealisticBiomeEBBase
 {
@@ -23,7 +23,7 @@ public class RealisticBiomeEBAlpineMountains extends RealisticBiomeEBBase
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBAlpineMountains(),
-			new SurfaceEBAlpineMountains(ebBiome.topBlock, ebBiome.fillerBlock, false, null, 0.45f)
+			new SurfaceEBAlpineMountains(Blocks.snow, EnhancedBiomesBlocks.stoneEB, false, null, 0.45f)
 		);
 		
 		this.setRealisticBiomeName("EB Alpine Mountains");

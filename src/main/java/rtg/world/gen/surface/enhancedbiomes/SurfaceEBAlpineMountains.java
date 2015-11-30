@@ -6,7 +6,8 @@ import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBAlpineMountains;
-import rtg.world.gen.surface.SurfaceBase;
+import enhancedbiomes.api.EBStoneMeta;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -25,6 +26,7 @@ public class SurfaceEBAlpineMountains extends SurfaceEBBase
 	private float cCliff = 1.5f;
 	
 	public byte topByte = 0;
+	public byte fillerByte = EBStoneMeta.LIMESTONE;
 	
 	public SurfaceEBAlpineMountains(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{
@@ -90,12 +92,13 @@ public class SurfaceEBAlpineMountains extends SurfaceEBBase
             		
             		if(cliff == 1)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? Blocks.cobblestone : Blocks.stone; 
+                        blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB; 
+                        metadata[(y * 16 + x) * 256 + k] = EBStoneMeta.LIMESTONE;
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock; 
-        				metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
+                        blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneCobbleEB; 
+                        metadata[(y * 16 + x) * 256 + k] = EBStoneMeta.LIMESTONE;
             		}
             		else if(k < 63)
             		{
@@ -107,6 +110,7 @@ public class SurfaceEBAlpineMountains extends SurfaceEBBase
             			else if(k < 62)
             			{
                 			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                			metadata[(y * 16 + x) * 256 + k] = fillerByte;
             			}
             			else
             			{
@@ -124,12 +128,13 @@ public class SurfaceEBAlpineMountains extends SurfaceEBBase
         		{
             		if(cliff == 1)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.stone; 
+                        blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB; 
+                        metadata[(y * 16 + x) * 256 + k] = EBStoneMeta.LIMESTONE;
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock; 
-        				metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
+                        blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneCobbleEB; 
+                        metadata[(y * 16 + x) * 256 + k] = EBStoneMeta.LIMESTONE;
             		}
             		else if(gravel)
             		{
@@ -137,7 +142,8 @@ public class SurfaceEBAlpineMountains extends SurfaceEBBase
             		}
             		else
             		{
-            			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                        blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                        metadata[(y * 16 + x) * 256 + k] = fillerByte;
             		}
         		}
             }

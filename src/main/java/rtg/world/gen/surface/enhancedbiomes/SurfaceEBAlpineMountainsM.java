@@ -5,8 +5,9 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBAlpineMountainsM;
-import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBAlpineMountains;
+import enhancedbiomes.api.EBStoneMeta;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -22,10 +23,10 @@ public class SurfaceEBAlpineMountainsM extends SurfaceEBBase
 	private float sCliff = 1.5f;
 	private float sHeight = 60f;
 	private float sStrength = 65f;
-	private float iCliff = 0.3f;
-	private float iHeight = 100f;
-	private float iStrength = 50f;
 	private float cCliff = 1.5f;
+	
+	public byte topByte = 0;
+	public byte fillerByte = 0;
 	
 	public SurfaceEBAlpineMountainsM(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{
@@ -35,19 +36,16 @@ public class SurfaceEBAlpineMountainsM extends SurfaceEBBase
 		min = minCliff;
 	}
 	
-	public SurfaceEBAlpineMountainsM(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float snowCliff, float snowHeight, float snowStrength, float clayCliff)
+	public SurfaceEBAlpineMountainsM(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
 	{
 		this(top, fill, genBeach, genBeachBlock, minCliff);
 		
 		sCliff = stoneCliff;
 		sHeight = stoneHeight;
 		sStrength = stoneStrength;
-		iCliff = snowCliff;
-		iHeight = snowHeight;
-		iStrength = snowStrength;
 		cCliff = clayCliff;
 	}
-
+	
 	@Override
 	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
@@ -68,8 +66,8 @@ public class SurfaceEBAlpineMountainsM extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBAlpineMountainsM.ebDominantStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBAlpineMountainsM.ebDominantStoneMeta;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBAlpineMountains.ebDominantStoneBlock;
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBAlpineMountains.ebDominantStoneMeta;
                 }
             	
             	if(depth == 0)
@@ -91,23 +89,16 @@ public class SurfaceEBAlpineMountainsM extends SurfaceEBBase
         			{
         				cliff = 2;
         			}
-        			if(k > 110 + (p * 4) && c < iCliff + ((k - iHeight) / iStrength) + p)
-        			{
-        				cliff = 3;
-        			}
             		
             		if(cliff == 1)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? Blocks.cobblestone : Blocks.stone; 
+                        blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB; 
+                        metadata[(y * 16 + x) * 256 + k] = EBStoneMeta.SLATE;
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock; 
-        				metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
-            		}
-            		else if(cliff == 3)
-            		{
-	        			blocks[(y * 16 + x) * 256 + k] = Blocks.snow;
+                        blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneCobbleEB; 
+                        metadata[(y * 16 + x) * 256 + k] = EBStoneMeta.SLATE;
             		}
             		else if(k < 63)
             		{
@@ -119,39 +110,40 @@ public class SurfaceEBAlpineMountainsM extends SurfaceEBBase
             			else if(k < 62)
             			{
                 			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                			metadata[(y * 16 + x) * 256 + k] = fillerByte;
             			}
             			else
             			{
                 			blocks[(y * 16 + x) * 256 + k] = topBlock;
+                			metadata[(y * 16 + x) * 256 + k] = topByte;
             			}
             		}
             		else
             		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
+            			blocks[(y * 16 + x) * 256 + k] = topBlock;
+            			metadata[(y * 16 + x) * 256 + k] = topByte;
             		}
             	}
             	else if(depth < 6)
         		{
             		if(cliff == 1)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.stone; 
+                        blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB; 
+                        metadata[(y * 16 + x) * 256 + k] = EBStoneMeta.SLATE;
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock; 
-        				metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
-            		}
-            		else if(cliff == 3)
-            		{
-	        			blocks[(y * 16 + x) * 256 + k] = Blocks.snow;
+                        blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneCobbleEB; 
+                        metadata[(y * 16 + x) * 256 + k] = EBStoneMeta.SLATE;
             		}
             		else if(gravel)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.gravel;
+            			blocks[(y * 16 + x) * 256 + k] = beachBlock;
             		}
             		else
             		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+                        blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                        metadata[(y * 16 + x) * 256 + k] = fillerByte;
             		}
         		}
             }

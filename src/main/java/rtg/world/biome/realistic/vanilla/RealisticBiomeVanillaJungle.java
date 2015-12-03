@@ -15,9 +15,9 @@ import rtg.util.RandomUtil;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
-import rtg.world.gen.feature.WorldGenCacti;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
+import rtg.world.gen.feature.WorldGenJungleCacti;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeMangrove;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungle;
@@ -173,10 +173,13 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
                 
                 (new WorldGenGrass(Blocks.tallgrass, grassMeta)).generate(world, rand, l19, k22, j24);
                 
-                for (int h44 = 0; h44 < 4 && k22 > 63; h44++) {
-                    WorldGenerator worldgenerator4 = new WorldGenVines();
-                    worldgenerator4.setScale(1.0D, 1.0D, 1.0D);
-                    worldgenerator4.generate(world, rand, l19, k22, j24);
+                if (k22 > 63) {
+                    
+                    for (int h44 = 0; h44 < 8; h44++) {
+                        WorldGenerator worldgenerator4 = new WorldGenVines();
+                        worldgenerator4.setScale(1.0D, 1.0D, 1.0D);
+                        worldgenerator4.generate(world, rand, l19, k22, j24);
+                    }
                 }
             }
         }
@@ -191,21 +194,21 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
                 
                 if (rand.nextInt(4) == 0) {
                     
-                    (new WorldGenFlowers(new int[] {6})).generate(world, rand, j15, j17, j20);
+                    (new WorldGenFlowers(new int[] {5})).generate(world, rand, j15, j17, j20);
                 }
             }
         }
         
         if (TerrainGen.decorate(world, rand, chunkX, chunkY, CACTUS)) {
             
-            for (int k18 = 0; k18 < 4f * strength; k18++)
+            for (int k18 = 0; k18 < 8f * strength; k18++)
             {
                 int k21 = chunkX + rand.nextInt(16) + 8;
                 int j23 = rand.nextInt(160);
                 int k24 = chunkY + rand.nextInt(16) + 8;
                 if (j23 < 120f)
                 {
-                    (new WorldGenCacti(false)).generate(world, rand, k21, j23, k24);
+                    (new WorldGenJungleCacti(false, rand.nextInt(8), (byte)1)).generate(world, rand, k21, j23, k24);
                 }
             }
         }

@@ -2,64 +2,107 @@ package rtg.world.gen.terrain.vanilla;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainVanillaSavannaPlateau extends TerrainBase
+public class TerrainCanyon extends TerrainBase
 {
-    
-    private float width;
-    private float strength;
-    private float lakeDepth;
-    private float lakeWidth;
-    private float terrainHeight;
-    
-    /*
-     * width = 230f strength = 120f lake = 50f;
-     * 
-     * 230f, 120f, 50f
-     */
-    
-    public TerrainVanillaSavannaPlateau(float mountainWidth, float mountainStrength, float depthLake)
-    {
-    
-        this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
-    }
-    
-    public TerrainVanillaSavannaPlateau(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
-    {
-    
-        width = mountainWidth;
-        strength = mountainStrength;
-        lakeDepth = depthLake;
-        lakeWidth = widthLake;
-        terrainHeight = height;
-    }
-    
-    @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-    {
-    
-        float h = simplex.noise2(x / 20f, y / 20f) * 2;
-        h += simplex.noise2(x / 7f, y / 7f) * 0.8f;
-        
-        float m = simplex.noise2(x / width, y / width) * strength * river;
-        m *= m / 35f;
-        m = m > 70f ? 70f + (m - 70f) / 2.5f : m;
-        
-        float st = m * 0.7f;
-        st = st > 20f ? 20f : st;
-        float c = cell.noise(x / 30f, y / 30f, 1D) * (5f + st);
-        
-        float sm = simplex.noise2(x / 30f, y / 30f) * 8f + simplex.noise2(x / 8f, y / 8f);
-        sm *= (m + 10f) / 20f > 2.5f ? 2.5f : (m + 10f) / 20f;
-        m += sm;
-        
-        m += c;
-        
-        float l = simplex.noise2(x / lakeWidth, y / lakeWidth) * lakeDepth;
-        l *= l / 25f;
-        l = l < -8f ? -8f : l;
-        
-        return terrainHeight + h + m - l;
-    }
+	private boolean booRiver;
+	private float[] height;
+	private int heightLength;
+	private float strength;
+	private float cWidth;
+	private float cHeigth;
+	private float cStrength;
+	private float base;
+	
+	/*
+	 * Example parameters:
+	 * 
+	 * allowed to generate rivers?
+	 * riverGen = true
+	 * 
+	 * canyon jump heights
+	 * heightArray = new float[]{2.0f, 0.5f, 6.5f, 0.5f, 14.0f, 0.5f, 19.0f, 0.5f}
+	 * 
+	 * strength of canyon jump heights
+	 * heightStrength = 35f
+	 * 
+	 * canyon width (cliff to cliff)
+	 * canyonWidth = 160f
+	 * 
+	 * canyon heigth (total heigth)
+	 * canyonHeight = 60f
+	 * 
+	 * canyon strength
+	 * canyonStrength = 40f
+	 * 
+	 */
+	public TerrainCanyon(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight)
+	{
+		booRiver = riverGen;
+		height = new float[]{5.0f, 0.5f, 12.5f, 0.5f, 18.0f, 0.5f};
+		strength = heightStrength;
+		heightLength = height.length;
+		cWidth = canyonWidth;
+		cHeigth = canyonHeight;
+		cStrength = canyonStrength;
+		base = baseHeight;
+	}
+
+	@Override
+	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
+	{
+		//float b = simplex.noise2(x / cWidth, y / cWidth) * cHeigth * river;
+		//b *= b / cStrength;
+		river *= 1.3f;
+		river = river > 1f ? 1f : river;
+		float r = simplex.noise2(x / 100f, y / 100f) * 50f;
+		r = r < -7.4f ? -7.4f : r > 7.4f ? 7.4f : r;
+		float b = (17f + r) * river;
+		
+		float hn = simplex.noise2(x / 12f, y / 12f) * 0.5f;
+		float sb = 0f;
+		if(b > 0f)
+		{
+			sb = b;
+			sb = sb < 0f ? 0f : sb > 7f ? 7f : sb;
+			sb = hn * sb;
+		}
+		b += sb;
+
+		float cTotal = 0f;
+		float cTemp = 0f;
+		
+		for(int i = 0; i < heightLength; i += 2)
+		{
+			cTemp = 0;
+			if(b > height[i] && border > 0.6f + (height[i] * 0.015f) + hn * 0.2f)
+			{
+				cTemp = b > height[i] + height[i + 1] ? height[i + 1] : b - height[i];
+				cTemp *= strength;
+			}
+			cTotal += cTemp;
+		}
+		
+		
+		float bn = 0f;
+		if(booRiver)
+		{
+			if(b < 5f)
+			{
+				bn = 5f - b;
+				for(int i = 0; i < 3; i++)
+				{
+					bn *= bn / 4.5f;
+				}
+			}
+		}
+		else if(b < 5f)
+		{
+			bn = (simplex.noise2(x / 7f, y / 7f) * 1.3f + simplex.noise2(x / 15f, y / 15f) * 2f) * (5f - b) * 0.2f;
+		}
+		
+		b += cTotal - bn;
+		
+		return base + b;
+	}
 }

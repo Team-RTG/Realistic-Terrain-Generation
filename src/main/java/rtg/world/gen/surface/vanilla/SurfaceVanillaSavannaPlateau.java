@@ -14,12 +14,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceVanillaSavannaPlateau extends SurfaceBase
 {
-	private byte claycolor;
-	
+    
 	public SurfaceVanillaSavannaPlateau(Block top, Block fill, byte b)
 	{
 		super(top, fill);
-		claycolor = b;
 	}
 	
 	@Override
@@ -43,15 +41,15 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase
 	        	{
 	            	if(cliff)
 	            	{
-	        			blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay;
-	        			metadata[(y * 16 + x) * 256 + k] = claycolor;
+	        			blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone;
+	        			metadata[(y * 16 + x) * 256 + k] = 0;
 	            	}
 	            	else
 	            	{
 	        			if(depth > 4)
 	        			{
-		        			blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay;
-		        			metadata[(y * 16 + x) * 256 + k] = claycolor;
+	                        blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone;
+	                        metadata[(y * 16 + x) * 256 + k] = 0;
 	        			}
 	        			else
 	        			{
@@ -68,8 +66,8 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase
         		}
         		else if(k > 63)
         		{
-        			blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay;
-        			metadata[(y * 16 + x) * 256 + k] = claycolor;
+                    blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone;
+                    metadata[(y * 16 + x) * 256 + k] = 0;
         		}
             }
 		}

@@ -5,7 +5,6 @@ import java.io.File;
 import org.apache.logging.log4j.Level;
 
 import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.Loader;
 
 import net.minecraftforge.common.config.Configuration;
 
@@ -20,6 +19,9 @@ public class ConfigRTG
     
     public static String shadowDesertBlockId = "minecraft:stained_hardened_clay";
     public static int shadowDesertBlockByte = 8;
+    
+    public static String bedrockBlockId = "minecraft:bedrock";
+    public static int bedrockBlockByte = 0;
     
     public static String volcanoBlockId = "minecraft:obsidian";
     public static int volcanoBlockByte = 0;
@@ -76,6 +78,22 @@ public class ConfigRTG
 		{
 			config.load();
 			
+			/* ==================== Bedrock ==================== */
+			
+            flatBedrockLayers = config.getInt("Number of flat bedrock layers", "Bedrock", flatBedrockLayers, 0, 5, "0 = Normal bedrock (rough pattern); 1-5 = Number of flat bedrock layers to generate" + Configuration.NEW_LINE);
+            
+            bedrockBlockId = config.getString(
+                "Bedrock block ID",
+                "Bedrock", 
+                bedrockBlockId,
+                "The block to use for the bottom of the Overworld." +
+                Configuration.NEW_LINE
+            );
+            
+            bedrockBlockByte = config.getInt("Bedrock block meta value", "Bedrock", bedrockBlockByte, 0, 15, "The meta value of the bedrock block." + Configuration.NEW_LINE);
+            
+            /* ==================== Biomes ==================== */
+            
             generateOnlyThisBiomeId = config.getInt(
                 "Generate only this biome ID", 
                 "Biomes", 
@@ -85,63 +103,92 @@ public class ConfigRTG
                 Configuration.NEW_LINE +
                 "Vanilla biome IDs can be found here: http://goo.gl/WqlAfV" +
                 Configuration.NEW_LINE +
-                "For modded biome IDs, use NEI and go [Options] > [Tools] > [Data Dumps] > Biomes > [Dump], and then refer to the 'biome.csv' file which can be found in your '/.minecraft/dumps' folder."
+                "For modded biome IDs, use NEI and go [Options] > [Tools] > [Data Dumps] > Biomes > [Dump], and then refer to the 'biome.csv' file which can be found in your '/.minecraft/dumps' folder." +
+                Configuration.NEW_LINE
             );
-   
+            
+            biomeSize = config.getInt("Size of Biomes", "Biomes", biomeSize, 1, 5, "Lower values = smaller biomes; Higher values = larger biomes" + Configuration.NEW_LINE);
+            
+            /* ==================== Boulders ==================== */
+            
+            enableCobblestoneBoulders = config.getBoolean("Enable Cobblestone Boulders", "Boulders", enableCobblestoneBoulders, "");
+            cobblestoneBoulderChance = config.getInt("1/x chance that Cobblestone Boulders will generate if given the opportunity to do so during world gen", "Boulders", cobblestoneBoulderChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
+            
+            /* ==================== Caves ==================== */
+            
+            enableCaves = config.getBoolean("Enable Caves", "Caves", enableCaves, "");
+            caveDensity = config.getInt("Cave Density", "Caves", caveDensity, 1, 40, "This setting controls the size of caves." + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)" + Configuration.NEW_LINE);
+            caveFrequency = config.getInt("Cave Frequency", "Caves", caveFrequency, 1, 40, "This setting controls the number of caves that generate." + Configuration.NEW_LINE + "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)" + Configuration.NEW_LINE);
+            
+            /* ==================== Debugging ==================== */
+            
+            showDebugInfo = config.getBoolean("Show Debug Info in F3 Screen", "Debugging", showDebugInfo, "");
+            enableDebugging = config.getBoolean("Enable Debugging", "Debugging", enableDebugging, "WARNING: This should only be enabled if you know what you're doing." + Configuration.NEW_LINE);
+            
+            /* ==================== Dungeons ==================== */
+            
+            generateDungeons = config.getBoolean("Generate Dungeons", "Dungeons", generateDungeons, "");
+            
+            /* ==================== Lakes ==================== */
+            
+            enableWaterLakes = config.getBoolean("Enable Water Lakes", "Lakes", enableWaterLakes, "");
+            waterLakeChance = config.getInt("1/x chance that Water Lakes will generate if given the opportunity to do so during world gen", "Lakes", waterLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
+            
+            enableLavaLakes = config.getBoolean("Enable Lava Lakes", "Lakes", enableLavaLakes, "");
+            lavaLakeChance = config.getInt("1/x chance that Lava Lakes will generate if given the opportunity to do so during world gen", "Lakes", lavaLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
+            
+            /* ==================== Mineshafts ==================== */
+            
+            generateMineshafts = config.getBoolean("Generate Mineshafts", "Mineshafts", generateMineshafts, "");
+            
+            /* ==================== Ore Gen ==================== */
+            
+            generateOreCoal = config.getBoolean("Generate Coal Ore", "Ore Gen", generateOreCoal, "");
+            generateOreIron = config.getBoolean("Generate Iron Ore", "Ore Gen", generateOreIron, "");
+            generateOreGold = config.getBoolean("Generate Gold Ore", "Ore Gen", generateOreGold, "");
+            generateOreRedstone = config.getBoolean("Generate Redstone Ore", "Ore Gen", generateOreRedstone, "");
+            generateOreLapis = config.getBoolean("Generate Lapis Lazuli Ore", "Ore Gen", generateOreLapis, "");
+            generateOreDiamond = config.getBoolean("Generate Diamond Ore", "Ore Gen", generateOreDiamond, "");
+            generateOreEmerald = config.getBoolean("Generate Emerald Ore", "Ore Gen", generateOreEmerald, "");
+            
+            /* ==================== Scattered Features ==================== */
+            
+            generateScatteredFeatures = config.getBoolean("Generate Scattered Features", "Scattered Features", generateScatteredFeatures, "");
+            
+            minDistanceScatteredFeatures = config.getInt("Minimum distance between scattered features", "Scattered Features", minDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts." + Configuration.NEW_LINE);
+            maxDistanceScatteredFeatures = config.getInt("Maximum distance between scattered features", "Scattered Features", maxDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts." + Configuration.NEW_LINE);
+            
+            /* ==================== Snow ==================== */
+            
+            enableSnowLayers = config.getBoolean("Enable Snow Layers", "Snow", enableSnowLayers, "This applies to newly-generated chunks only. Snow layers will still appear in cold/snowy biomes after it snows." + Configuration.NEW_LINE);
+            
+            /* ==================== Strongholds ==================== */
+            
+            generateStrongholds = config.getBoolean("Generate Strongholds", "Strongholds", generateStrongholds, "");
+            
+            /* ==================== Terrain Shadowing ==================== */
+            
             shadowStoneBlockId = config.getString(
                 "Stone shadow block ID",
                 "Terrain shadowing", 
                 shadowStoneBlockId,
-                "The block to use for stone terrain shadowing, typically seen on the cliffs of stone mountains." +
-                Configuration.NEW_LINE +
-                "Defaults to stained hardened clay."
+                "The block to use for stone terrain shadowing, typically seen on the cliffs of stone mountains. Defaults to stained hardened clay." +
+                Configuration.NEW_LINE
             );
             
-            shadowStoneBlockByte = config.getInt("Stone shadow block meta value", "Terrain shadowing", shadowStoneBlockByte, 0, 15, "The meta value of the shadow block for stone structures. Defaults to " + shadowStoneBlockByte +  " (cyan).");
+            shadowStoneBlockByte = config.getInt("Stone shadow block meta value", "Terrain shadowing", shadowStoneBlockByte, 0, 15, "The meta value of the shadow block for stone structures. Defaults to " + shadowStoneBlockByte +  " (cyan)." + Configuration.NEW_LINE);
             
             shadowDesertBlockId = config.getString(
                 "Desert shadow block ID",
                 "Terrain shadowing", 
                 shadowDesertBlockId,
-                "The block to use for desert terrain shadowing, typically seen on the cliffs of desert mountains." +
-                Configuration.NEW_LINE +
-                "Defaults to stained hardened clay."
+                "The block to use for desert terrain shadowing, typically seen on the cliffs of desert mountains. Defaults to stained hardened clay." +
+                Configuration.NEW_LINE
             );
             
-            shadowDesertBlockByte = config.getInt("Desert shadow block meta value", "Terrain shadowing", shadowDesertBlockByte, 0, 15, "The meta value of the shadow block for desert structures. Defaults to " + shadowDesertBlockByte +  " (light gray).");
+            shadowDesertBlockByte = config.getInt("Desert shadow block meta value", "Terrain shadowing", shadowDesertBlockByte, 0, 15, "The meta value of the shadow block for desert structures. Defaults to " + shadowDesertBlockByte +  " (light gray)." + Configuration.NEW_LINE);
             
-            volcanoBlockId = config.getString(
-                "Volcano block ID",
-                "Volcanoes", 
-                volcanoBlockId,
-                "The block to use for top of the volcano." +
-                Configuration.NEW_LINE +
-                "Defaults to Obsidian."
-            );
-            
-            volcanoBlockByte = config.getInt("Volcano block meta value", "Volcanoes", volcanoBlockByte, 0, 15, "The meta value of the volcano block. Defaults to " + volcanoBlockByte +  ".");
-            
-			generateOreCoal = config.getBoolean("Generate Coal Ore", "Ore Gen", generateOreCoal, "");
-			generateOreIron = config.getBoolean("Generate Iron Ore", "Ore Gen", generateOreIron, "");
-			generateOreGold = config.getBoolean("Generate Gold Ore", "Ore Gen", generateOreGold, "");
-			generateOreRedstone = config.getBoolean("Generate Redstone Ore", "Ore Gen", generateOreRedstone, "");
-			generateOreLapis = config.getBoolean("Generate Lapis Lazuli Ore", "Ore Gen", generateOreLapis, "");
-			generateOreDiamond = config.getBoolean("Generate Diamond Ore", "Ore Gen", generateOreDiamond, "");
-			generateOreEmerald = config.getBoolean("Generate Emerald Ore", "Ore Gen", generateOreEmerald, "");
-			
-            enableCobblestoneBoulders = config.getBoolean("Enable Cobblestone Boulders", "Boulders", enableCobblestoneBoulders, "");
-            cobblestoneBoulderChance = config.getInt("1/x chance that Cobblestone Boulders will generate if given the opportunity to do so during world gen", "Boulders", cobblestoneBoulderChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
-            
-            enableWaterLakes = config.getBoolean("Enable Water Lakes", "Lakes", enableWaterLakes, "");
-            waterLakeChance = config.getInt("1/x chance that Water Lakes will generate if given the opportunity to do so during world gen", "Lakes", waterLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
-            
-            enableLavaLakes = config.getBoolean("Enable Lava Lakes", "Lakes", enableLavaLakes, "");
-            lavaLakeChance = config.getInt("1/x chance that Lava Lakes will generate if given the opportunity to do so during world gen", "Lakes", lavaLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
-			
-            generateMineshafts = config.getBoolean("Generate Mineshafts", "Mineshafts", generateMineshafts, "");
-            generateStrongholds = config.getBoolean("Generate Strongholds", "Strongholds", generateStrongholds, "");
-            generateScatteredFeatures = config.getBoolean("Generate Scattered Features", "Scattered Features", generateScatteredFeatures, "");
-            generateDungeons = config.getBoolean("Generate Dungeons", "Dungeons", generateDungeons, "");
+            /* ==================== Villages ==================== */
             
             enableVillageModifications = config.getBoolean(
                 "Enable village modifications",
@@ -154,25 +201,22 @@ public class ConfigRTG
             );
             
             generateVillages = config.getBoolean("Generate Villages", "Villages", generateVillages, "");
-            villageSize = config.getInt("Size of villages", "Villages", villageSize, 0, 10, "Higher values = bigger villages; 0 = Vanilla");
-            minDistanceVillages = config.getInt("Minimum distance between villages", "Villages", minDistanceVillages, 1, Integer.MAX_VALUE, "Higher values = villages further apart; 8 = Vanilla");
-            maxDistanceVillages = config.getInt("Maximum distance between villages", "Villages", maxDistanceVillages, 1, Integer.MAX_VALUE, "Lower values = villages closer together; 32 = Vanilla");
+            villageSize = config.getInt("Size of villages", "Villages", villageSize, 0, 10, "Higher values = bigger villages; 0 = Vanilla" + Configuration.NEW_LINE);
+            minDistanceVillages = config.getInt("Minimum distance between villages", "Villages", minDistanceVillages, 1, Integer.MAX_VALUE, "Higher values = villages further apart; 8 = Vanilla" + Configuration.NEW_LINE);
+            maxDistanceVillages = config.getInt("Maximum distance between villages", "Villages", maxDistanceVillages, 1, Integer.MAX_VALUE, "Lower values = villages closer together; 32 = Vanilla" + Configuration.NEW_LINE);
             
-            enableCaves = config.getBoolean("Enable Caves", "Caves", enableCaves, "");
-            caveDensity = config.getInt("Cave Density", "Caves", caveDensity, 1, 40, "This setting controls the size of caves." + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)" + Configuration.NEW_LINE);
-            caveFrequency = config.getInt("Cave Frequency", "Caves", caveFrequency, 1, 40, "This setting controls the number of caves that generate." + Configuration.NEW_LINE + "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)" + Configuration.NEW_LINE);
+            /* ==================== Volcanoes ==================== */
             
-            enableSnowLayers = config.getBoolean("Enable Snow Layers", "Snow", enableSnowLayers, "This applies to newly-generated chunks only. Snow layers will still appear in cold/snowy biomes after it snows.");
+            volcanoBlockId = config.getString(
+                "Volcano block ID",
+                "Volcanoes", 
+                volcanoBlockId,
+                "The block to use for the top of the volcano. Defaults to Obsidian." +
+                Configuration.NEW_LINE
+            );
             
-            flatBedrockLayers = config.getInt("Number of flat bedrock layers", "Bedrock", flatBedrockLayers, 0, 5, "0 = Normal bedrock (rough pattern); 1-5 = Number of flat bedrock layers to generate");
+            volcanoBlockByte = config.getInt("Volcano block meta value", "Volcanoes", volcanoBlockByte, 0, 15, "The meta value of the volcano block." + Configuration.NEW_LINE);
             
-			showDebugInfo = config.getBoolean("Show Debug Info in F3 Screen", "Debugging", showDebugInfo, "");
-			enableDebugging = config.getBoolean("Enable Debugging", "Debugging", enableDebugging, "WARNING: This should only be enabled if you know what you're doing.");
-			
-			biomeSize = config.getInt("Size of Biomes", "Biomes", biomeSize, 1, 5, "Lower values = smaller biomes; Higher values = larger biomes");
-			
-            minDistanceScatteredFeatures = config.getInt("Minimum distance between scattered features", "Scattered Features", minDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts.");
-            maxDistanceScatteredFeatures = config.getInt("Maximum distance between scattered features", "Scattered Features", maxDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts.");
 		}
 		catch (Exception e) 
 		{

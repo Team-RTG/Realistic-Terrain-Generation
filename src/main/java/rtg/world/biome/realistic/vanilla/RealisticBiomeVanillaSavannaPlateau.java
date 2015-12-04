@@ -10,8 +10,8 @@ import rtg.world.gen.feature.WorldGenCacti;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.tree.WorldGenTreeSavanna;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaSavannaPlateau;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaSavannaPlateau;
+import rtg.world.gen.surface.SurfaceGrassCanyon;
+import rtg.world.gen.terrain.TerrainCanyon;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -35,8 +35,8 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
         super(
             BiomeGenBase.savannaPlateau,
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
-            new TerrainVanillaSavannaPlateau(230f, 120f, 0f),
-            new SurfaceVanillaSavannaPlateau(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.20f));
+            new TerrainCanyon(true, 35f, 160f, 60f, 40f, 69f),
+            new SurfaceGrassCanyon(Blocks.grass, Blocks.dirt, (byte)0));
         
         this.setRealisticBiomeName("Vanilla Savanna Plateau");
         this.biomeSize = BiomeSize.NORMAL;

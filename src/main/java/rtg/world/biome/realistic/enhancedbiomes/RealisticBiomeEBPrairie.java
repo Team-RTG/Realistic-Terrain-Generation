@@ -34,14 +34,14 @@ public class RealisticBiomeEBPrairie extends RealisticBiomeEBBase
         EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
     };
     
-    private static Block ebTopBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.grassEB : Blocks.grass;
-    private static byte ebTopByte = EnhancedBiomesMod.useNewGrass ? (byte)6 : (byte)0;
-    private static Block ebFillBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt;
-    private static byte ebFillByte = EnhancedBiomesMod.useNewGrass ? (byte)6 : (byte)0;
-    private static Block ebMixTopBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.grassEB : Blocks.grass;
-    private static byte ebMixTopByte = EnhancedBiomesMod.useNewGrass ? (byte)6 : (byte)0;
-    private static Block ebMixFillBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt;
-    private static byte ebMixFillByte = EnhancedBiomesMod.useNewGrass ? (byte)6 : (byte)0;
+    private static Block ebTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);
+    private static byte ebTopByte = EBAPI.ebGrassify(EBAPI.MOLLISOL, (byte)0);
+    private static Block ebFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    private static byte ebFillByte = EBAPI.ebGrassify(EBAPI.MOLLISOL, (byte)0);
+    private static Block ebMixTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);
+    private static byte ebMixTopByte = EBAPI.ebGrassify(EBAPI.MOLLISOL, (byte)0);
+    private static Block ebMixFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    private static byte ebMixFillByte = EBAPI.ebGrassify(EBAPI.MOLLISOL, (byte)0);
     private static Block ebCliff1Block = Blocks.stone;
     private static byte ebCliff1Byte = (byte)0;
     private static Block ebCliff2Block = Blocks.cobblestone;

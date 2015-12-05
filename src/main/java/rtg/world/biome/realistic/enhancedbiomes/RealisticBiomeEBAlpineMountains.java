@@ -35,15 +35,15 @@ public class RealisticBiomeEBAlpineMountains extends RealisticBiomeEBBase
     
     public static Block ebTopBlock = Blocks.snow;
     public static byte ebTopByte = (byte)0;
-    public static Block ebFillerBlock = EnhancedBiomesBlocks.stoneEB;
-    public static byte ebFillerByte = EBAPI.CHERT;
+    public static Block ebFillBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+    public static byte ebFillByte = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
     
 	public RealisticBiomeEBAlpineMountains(BiomeGenBase ebBiome)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBAlpineMountains(),
-			new SurfaceEBAlpineMountains(ebTopBlock, ebFillerBlock, ebFillerByte, false, null, 0.45f)
+			new SurfaceEBAlpineMountains(ebTopBlock, ebFillBlock, ebFillByte, false, null, 0.45f)
 		);
 		
 		this.setRealisticBiomeName("EB Alpine Mountains");

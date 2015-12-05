@@ -55,8 +55,8 @@ public class RealisticBiomeEBCarr extends RealisticBiomeEBBase
             ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
             new TerrainEBCarr(),
             new SurfaceEBCarr(
-                EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.grassEB : Blocks.grass,
-                EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt,
+                EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass),
+                EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt),
                 Blocks.stone,
                 Blocks.cobblestone,
                 EnhancedBiomesMod.useNewGrass ? (byte) 4 : (byte) 0,

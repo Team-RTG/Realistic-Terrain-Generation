@@ -40,7 +40,7 @@ public class RealisticBiomeEBSnowyWastelands extends RealisticBiomeEBBase
     };
     
     private static Block cobbleBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
-    private static byte cobbleByte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)4 : (byte)0;
+    private static byte cobbleByte = EBAPI.ebStonify(EBAPI.SLATE, (byte)0);
     
 	public RealisticBiomeEBSnowyWastelands(BiomeGenBase ebBiome)
 	{

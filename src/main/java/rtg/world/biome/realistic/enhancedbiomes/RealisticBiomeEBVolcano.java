@@ -45,18 +45,18 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
         EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
     };
     
-    private static Block ebTopBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.grassEB : Blocks.grass;
-    private static byte ebTopByte = EnhancedBiomesMod.useNewGrass ? (byte)1 : (byte)0;
-    private static Block ebFillBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt;
-    private static byte ebFillByte = EnhancedBiomesMod.useNewGrass ? (byte)1 : (byte)0;
-    private static Block ebMixTopBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone;
-    private static byte ebMixTopByte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)0 : (byte)0;
+    private static Block ebTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);
+    private static byte ebTopByte = EBAPI.ebGrassify(EBAPI.ANDISOL, (byte)0);
+    private static Block ebFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    private static byte ebFillByte = EBAPI.ebGrassify(EBAPI.ANDISOL, (byte)0);
+    private static Block ebMixTopBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+    private static byte ebMixTopByte = EBAPI.ebStonify(EBAPI.BASALT, (byte)0);
     private static Block ebMixFillBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
-    private static byte ebMixFillByte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)0 : (byte)0;
-    private static Block ebCliff1Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone;
-    private static byte ebCliff1Byte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)0 : (byte)0;
+    private static byte ebMixFillByte = EBAPI.ebStonify(EBAPI.BASALT, (byte)0);
+    private static Block ebCliff1Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+    private static byte ebCliff1Byte = EBAPI.ebStonify(EBAPI.BASALT, (byte)0);
     private static Block ebCliff2Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
-    private static byte ebCliff2Byte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)0 : (byte)0;
+    private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.BASALT, (byte)0);
     
     private static SurfaceBase surface = new SurfaceEBVolcano(
         ebTopBlock, //Block top 

@@ -51,8 +51,8 @@ public class RealisticBiomeEBEphemeralLakeEdge extends RealisticBiomeEBBase
             new TerrainEBEphemeralLakeEdge(),
             new SurfaceEBEphemeralLakeEdge(
                 Blocks.sand,
-                EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt,
-                EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.grassEB : Blocks.grass,
+                EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt),
+                EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass),
                 Blocks.stone,
                 Blocks.cobblestone,
                 13f, 0.27f,

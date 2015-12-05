@@ -51,16 +51,16 @@ public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
 			new SurfaceEBSandstoneCanyon(
                 Blocks.sand, //Block top 
                 (byte)0, //byte topByte
-                EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt, //Block filler, 
-                EnhancedBiomesMod.useNewGrass ? (byte)7 : (byte)0, //byte fillerByte
-                EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt, //Block mixTop, 
-                EnhancedBiomesMod.useNewGrass ? (byte)7 : (byte)0, //byte mixTopByte, 
-                EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt, //Block mixFill, 
-                EnhancedBiomesMod.useNewGrass ? (byte)7 : (byte)0, //byte mixFillByte, 
-                (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone, //Block cliff1, 
-                (EnhancedBiomesMod.useNewStone == 1) ? (byte)7 : (byte)0, //byte cliff1Byte, 
+                EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt), //Block filler, 
+                EBAPI.ebGrassify(EBAPI.OXISOL, (byte)0), //byte fillerByte
+                EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt), //Block mixTop, 
+                EBAPI.ebGrassify(EBAPI.OXISOL, (byte)0), //byte mixTopByte, 
+                EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt), //Block mixFill, 
+                EBAPI.ebGrassify(EBAPI.OXISOL, (byte)0), //byte mixFillByte, 
+                EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone), //Block cliff1, 
+                EBAPI.ebStonify(EBAPI.MARBLE, (byte)0), //byte cliff1Byte, 
                 (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone, //Block cliff2, 
-                (EnhancedBiomesMod.useNewStone == 1) ? (byte)7 : (byte)0, //byte cliff2Byte, 
+                EBAPI.ebStonify(EBAPI.MARBLE, (byte)0), //byte cliff2Byte, 
                 90f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 
@@ -91,7 +91,7 @@ public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
             if (k1 < 110)
             {
                 if (rand.nextInt(4) != 0) {
-                    (new WorldGenSpikedBush(Blocks.log, 0, Blocks.leaves, 0, (EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt))).generate(world, rand, i1, k1, j1);
+                    (new WorldGenSpikedBush(Blocks.log, 0, Blocks.leaves, 0, (EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt)))).generate(world, rand, i1, k1, j1);
                 }
                 else {
                     (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);

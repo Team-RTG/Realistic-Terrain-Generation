@@ -33,12 +33,17 @@ public class RealisticBiomeEBAspenHills extends RealisticBiomeEBBase
         EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
     };
     
+    public static Block ebTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);
+    public static byte ebTopByte = EBAPI.ebGrassify(EBAPI.ALFISOL, (byte)0);
+    public static Block ebFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    public static byte ebFillByte = EBAPI.ebGrassify(EBAPI.ALFISOL, (byte)0);
+    
 	public RealisticBiomeEBAspenHills(BiomeGenBase ebBiome)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBAspenHills(230f, 120f, 0f),
-			new SurfaceEBAspenHills(ebBiome.topBlock, ebBiome.fillerBlock, false, null, 0.95f)
+			new SurfaceEBAspenHills(ebTopBlock, ebTopByte, ebFillBlock, ebFillByte, false, null, 0.95f)
 		);
 		
 		this.setRealisticBiomeName("EB Aspen Hills");

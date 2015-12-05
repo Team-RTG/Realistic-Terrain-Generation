@@ -52,16 +52,16 @@ public class RealisticBiomeEBSandstoneCanyon extends RealisticBiomeEBBase
 			new SurfaceEBSandstoneCanyon(
     	        Blocks.sandstone, //Block top 
     	        (byte)0, //byte topByte
-    	        (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.sandstone, //Block filler, 
-    	        (EnhancedBiomesMod.useNewStone == 1) ? (byte)2 : (byte)0, //byte fillerByte
-    	        EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt, //Block mixTop, 
-    	        EnhancedBiomesMod.useNewGrass ? (byte)7 : (byte)0, //byte mixTopByte, 
-    	        (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.sandstone, //Block mixFill, 
-    	        (EnhancedBiomesMod.useNewStone == 1) ? (byte)2 : (byte)0, //byte mixFillByte, 
-    	        (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone, //Block cliff1, 
-    	        (EnhancedBiomesMod.useNewStone == 1) ? (byte)2 : (byte)0, //byte cliff1Byte, 
+    	        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.sandstone), //Block filler, 
+    	        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0), //byte fillerByte
+    	        EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt), //Block mixTop, 
+    	        EBAPI.ebGrassify(EBAPI.OXISOL, (byte)0), //byte mixTopByte, 
+    	        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.sandstone), //Block mixFill, 
+    	        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0), //byte mixFillByte, 
+    	        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone), //Block cliff1, 
+    	        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0), //byte cliff1Byte, 
     	        (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone, //Block cliff2, 
-    	        (EnhancedBiomesMod.useNewStone == 1) ? (byte)2 : (byte)0, //byte cliff2Byte, 
+    	        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0), //byte cliff2Byte, 
     	        20f, //float mixWidth, 
     	        -0.15f, //float mixHeight, 
     	        10f, //float smallWidth, 

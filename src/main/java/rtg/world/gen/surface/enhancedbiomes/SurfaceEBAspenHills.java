@@ -6,7 +6,8 @@ import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBAspenHills;
-import rtg.world.gen.surface.SurfaceBase;
+import enhancedbiomes.api.EBAPI;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -27,7 +28,10 @@ public class SurfaceEBAspenHills extends SurfaceEBBase
 	private float iStrength = 50f;
 	private float cCliff = 1.5f;
 	
-	public SurfaceEBAspenHills(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
+    private byte topByte;
+    private byte fillerByte;
+	
+	public SurfaceEBAspenHills(Block top, byte topMeta, Block fill, byte fillMeta, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{
 		super(top, fill);
 		beach = genBeach;
@@ -35,9 +39,9 @@ public class SurfaceEBAspenHills extends SurfaceEBBase
 		min = minCliff;
 	}
 	
-	public SurfaceEBAspenHills(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float snowCliff, float snowHeight, float snowStrength, float clayCliff)
+	public SurfaceEBAspenHills(Block top, byte topMeta, Block fill, byte fillMeta, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float snowCliff, float snowHeight, float snowStrength, float clayCliff)
 	{
-		this(top, fill, genBeach, genBeachBlock, minCliff);
+		this(top, topMeta, fill, fillMeta, genBeach, genBeachBlock, minCliff);
 		
 		sCliff = stoneCliff;
 		sHeight = stoneHeight;
@@ -46,6 +50,9 @@ public class SurfaceEBAspenHills extends SurfaceEBBase
 		iHeight = snowHeight;
 		iStrength = snowStrength;
 		cCliff = clayCliff;
+		
+        topByte = topMeta;
+        fillerByte = fillMeta;
 	}
 
 	@Override
@@ -98,7 +105,16 @@ public class SurfaceEBAspenHills extends SurfaceEBBase
             		
             		if(cliff == 1)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? Blocks.cobblestone : Blocks.stone; 
+                        if (rand.nextInt(3) == 0) {
+                            
+                            blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
+                            metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
+                        }
+                        else {
+                            
+                            blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+                            metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
+                        }
             		}
             		else if(cliff == 2)
             		{
@@ -118,23 +134,27 @@ public class SurfaceEBAspenHills extends SurfaceEBBase
             			}
             			else if(k < 62)
             			{
-                			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            metadata[(y * 16 + x) * 256 + k] = fillerByte;
             			}
             			else
             			{
-                			blocks[(y * 16 + x) * 256 + k] = topBlock;
+                            blocks[(y * 16 + x) * 256 + k] = topBlock;
+                            metadata[(y * 16 + x) * 256 + k] = topByte;
             			}
             		}
             		else
             		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
+                        blocks[(y * 16 + x) * 256 + k] = topBlock;
+                        metadata[(y * 16 + x) * 256 + k] = topByte;
             		}
             	}
             	else if(depth < 6)
         		{
             		if(cliff == 1)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.stone; 
+                        blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone); 
+                        metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.CHERT, (byte)0); 
             		}
             		else if(cliff == 2)
             		{
@@ -151,7 +171,8 @@ public class SurfaceEBAspenHills extends SurfaceEBBase
             		}
             		else
             		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+                        blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                        metadata[(y * 16 + x) * 256 + k] = fillerByte;
             		}
         		}
             }

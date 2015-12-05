@@ -6,7 +6,7 @@ import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBVolcanoM;
-import enhancedbiomes.EnhancedBiomesMod;
+import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
@@ -16,8 +16,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBVolcanoM extends SurfaceEBBase
 {
-    private static Block ebStoneBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone;
-    private static byte ebStoneByte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)0 : (byte)0;
+    private static Block ebStoneBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+    private static byte ebStoneByte = EBAPI.ebStonify(EBAPI.BASALT, (byte)0);
 
     private Block blockTop;
     private byte byteTop;

@@ -40,10 +40,10 @@ public class RealisticBiomeEBSnowyRanges extends RealisticBiomeEBBase
         EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
     };
     
-    private static Block ebTopBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.grassEB : Blocks.grass;
-    private static byte ebTopByte = EnhancedBiomesMod.useNewGrass ? (byte)5 : (byte)0;
-    private static Block ebFillBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt;
-    private static byte ebFillByte = EnhancedBiomesMod.useNewGrass ? (byte)5 : (byte)0;
+    private static Block ebTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);
+    private static byte ebTopByte = EBAPI.ebGrassify(EBAPI.INCEPTISOL, (byte)0);
+    private static Block ebFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    private static byte ebFillByte = EBAPI.ebGrassify(EBAPI.INCEPTISOL, (byte)0);
     private static Block ebMixTopBlock = Blocks.snow;
     private static byte ebMixTopByte = (byte)0;
     private static Block ebMixFillBlock = Blocks.snow;

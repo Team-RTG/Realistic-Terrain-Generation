@@ -33,12 +33,17 @@ public class RealisticBiomeEBAlpineMountainsEdge extends RealisticBiomeEBBase
         EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
     };
     
+    public static Block ebTopBlock = Blocks.grass;
+    public static byte ebTopByte = (byte)0;
+    public static Block ebFillBlock = Blocks.dirt;
+    public static byte ebFillByte = (byte)0;
+    
 	public RealisticBiomeEBAlpineMountainsEdge(BiomeGenBase ebBiome)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBAlpineMountainsEdge(300f, 80f, 30f),
-			new SurfaceEBAlpineMountainsEdge(ebBiome.topBlock, ebBiome.fillerBlock, false, null, 0.45f)
+			new SurfaceEBAlpineMountainsEdge(ebTopBlock, ebFillBlock, false, null, 0.45f)
 		);
 		
 		this.setRealisticBiomeName("EB Alpine Mountains Edge");

@@ -50,18 +50,18 @@ public class RealisticBiomeEBSandstoneRanges extends RealisticBiomeEBBase
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainEBSandstoneRanges(false, 35f, 160f, 30f, 30f, 10),
 			new SurfaceEBSandstoneCanyon(
-			    (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.sandstone, //Block top 
-			    (EnhancedBiomesMod.useNewStone == 1) ? (byte)2 : (byte)0, //byte topByte
+			    EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.sandstone), //Block top 
+			    EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0), //byte topByte
                 Blocks.sandstone, //Block filler, 
                 (byte)0, //byte fillerByte
-                EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt, //Block mixTop, 
-                EnhancedBiomesMod.useNewGrass ? (byte)7 : (byte)0, //byte mixTopByte, 
+                EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt), //Block mixTop, 
+                EBAPI.ebGrassify(EBAPI.OXISOL, (byte)0), //byte mixTopByte, 
                 Blocks.sandstone, //Block mixFill, 
                 (byte)0, //byte mixFillByte, 
-                (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone, //Block cliff1, 
-                (EnhancedBiomesMod.useNewStone == 1) ? (byte)2 : (byte)0, //byte cliff1Byte, 
+                EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone), //Block cliff1, 
+                EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0), //byte cliff1Byte, 
                 (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone, //Block cliff2, 
-                (EnhancedBiomesMod.useNewStone == 1) ? (byte)2 : (byte)0, //byte cliff2Byte, 
+                EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0), //byte cliff2Byte, 
                 80f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 

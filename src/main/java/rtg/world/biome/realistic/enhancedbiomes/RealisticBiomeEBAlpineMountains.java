@@ -5,6 +5,7 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAlpineMountains;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBAlpineMountains;
 import enhancedbiomes.EnhancedBiomesMod;
+import enhancedbiomes.api.EBStoneMeta;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
@@ -18,12 +19,17 @@ public class RealisticBiomeEBAlpineMountains extends RealisticBiomeEBBase
     public static Block ebDominantCobblestoneBlock;
     public static byte ebDominantCobblestoneMeta;
     
+    public static Block ebTopBlock = Blocks.snow;
+    public static byte ebTopByte = (byte)0;
+    public static Block ebFillerBlock = EnhancedBiomesBlocks.stoneEB;
+    public static byte ebFillerByte = EBStoneMeta.CHERT;
+    
 	public RealisticBiomeEBAlpineMountains(BiomeGenBase ebBiome)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBAlpineMountains(),
-			new SurfaceEBAlpineMountains(Blocks.snow, EnhancedBiomesBlocks.stoneEB, false, null, 0.45f)
+			new SurfaceEBAlpineMountains(ebTopBlock, ebFillerBlock, ebFillerByte, false, null, 0.45f)
 		);
 		
 		this.setRealisticBiomeName("EB Alpine Mountains");

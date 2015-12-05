@@ -26,19 +26,20 @@ public class SurfaceEBAlpineMountains extends SurfaceEBBase
 	private float cCliff = 1.5f;
 	
 	public byte topByte = 0;
-	public byte fillerByte = EBStoneMeta.LIMESTONE;
+	public byte fillerByte;
 	
-	public SurfaceEBAlpineMountains(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
+	public SurfaceEBAlpineMountains(Block top, Block fill, byte fillByte, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{
 		super(top, fill);
 		beach = genBeach;
 		beachBlock = genBeachBlock;
 		min = minCliff;
+		fillerByte = fillByte;
 	}
 	
-	public SurfaceEBAlpineMountains(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
+	public SurfaceEBAlpineMountains(Block top, Block fill, byte fillByte, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
 	{
-		this(top, fill, genBeach, genBeachBlock, minCliff);
+		this(top, fill, fillByte, genBeach, genBeachBlock, minCliff);
 		
 		sCliff = stoneCliff;
 		sHeight = stoneHeight;

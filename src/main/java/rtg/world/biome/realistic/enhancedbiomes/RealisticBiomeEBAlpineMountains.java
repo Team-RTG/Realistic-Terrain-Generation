@@ -4,7 +4,6 @@ import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAlpineMountains;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBAlpineMountains;
-import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBStoneMeta;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
@@ -14,10 +13,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBAlpineMountains extends RealisticBiomeEBBase
 {
-    public static Block ebDominantStoneBlock;
-    public static byte ebDominantStoneMeta;
-    public static Block ebDominantCobblestoneBlock;
-    public static byte ebDominantCobblestoneMeta;
+    public static Block[] ebDominantStoneBlock = new Block[]{EnhancedBiomesBlocks.stoneEB, EnhancedBiomesBlocks.stoneEB};
+    public static byte[] ebDominantStoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
+    public static Block[] ebDominantCobblestoneBlock = new Block[]{EnhancedBiomesBlocks.stoneCobbleEB, EnhancedBiomesBlocks.stoneCobbleEB};
+    public static byte[] ebDominantCobblestoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
     
     public static Block ebTopBlock = Blocks.snow;
     public static byte ebTopByte = (byte)0;
@@ -36,10 +35,5 @@ public class RealisticBiomeEBAlpineMountains extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBAlpineMountains;
 		this.generateVillages = ConfigEB.villageEBAlpineMountains;
-		
-        this.ebDominantStoneBlock = EnhancedBiomesMod.getDominantStone(ebBiome.biomeID);
-        this.ebDominantStoneMeta = EnhancedBiomesMod.getDominantStoneMeta(ebBiome.biomeID);
-        this.ebDominantCobblestoneBlock = EnhancedBiomesMod.getCobbleFromStone(ebDominantStoneBlock);
-        this.ebDominantCobblestoneMeta = ebDominantStoneMeta;
 	}
 }

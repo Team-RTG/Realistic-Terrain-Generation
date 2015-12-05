@@ -1,30 +1,23 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import java.util.Random;
-
+import rtg.config.enhancedbiomes.ConfigEB;
+import rtg.world.biome.BiomeBase;
+import rtg.world.gen.surface.enhancedbiomes.SurfaceEBMeadow;
+import rtg.world.gen.terrain.enhancedbiomes.TerrainEBMeadow;
 import enhancedbiomes.EnhancedBiomesMod;
+import enhancedbiomes.api.EBStoneMeta;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-
-import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeSize;
-import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.surface.enhancedbiomes.SurfaceEBMeadow;
-import rtg.world.gen.terrain.enhancedbiomes.TerrainEBMeadow;
 
 public class RealisticBiomeEBMeadow extends RealisticBiomeEBBase
 {
-    public static Block ebDominantStoneBlock;
-    public static byte ebDominantStoneMeta;
-    public static Block ebDominantCobblestoneBlock;
-    public static byte ebDominantCobblestoneMeta;
+    public static Block[] ebDominantStoneBlock = new Block[]{EnhancedBiomesBlocks.stoneEB, EnhancedBiomesBlocks.stoneEB};
+    public static byte[] ebDominantStoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
+    public static Block[] ebDominantCobblestoneBlock = new Block[]{EnhancedBiomesBlocks.stoneCobbleEB, EnhancedBiomesBlocks.stoneCobbleEB};
+    public static byte[] ebDominantCobblestoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
     
     private static Block ebTopBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.grassEB : Blocks.grass;
     private static byte ebTopByte = EnhancedBiomesMod.useNewGrass ? (byte)6 : (byte)0;
@@ -69,9 +62,5 @@ public class RealisticBiomeEBMeadow extends RealisticBiomeEBBase
 		this.biomeWeight = ConfigEB.weightEBMeadow;
 		this.generateVillages = ConfigEB.villageEBMeadow;
         
-        this.ebDominantStoneBlock = EnhancedBiomesMod.getDominantStone(ebBiome.biomeID);
-        this.ebDominantStoneMeta = EnhancedBiomesMod.getDominantStoneMeta(ebBiome.biomeID);
-        this.ebDominantCobblestoneBlock = EnhancedBiomesMod.getCobbleFromStone(ebDominantStoneBlock);
-        this.ebDominantCobblestoneMeta = ebDominantStoneMeta;
     }
 }

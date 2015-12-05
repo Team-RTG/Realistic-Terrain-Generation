@@ -10,6 +10,7 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAlpineTundra;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBAlpineTundra;
 import enhancedbiomes.EnhancedBiomesMod;
+import enhancedbiomes.api.EBStoneMeta;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
@@ -19,10 +20,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBAlpineTundra extends RealisticBiomeEBBase
 {
-    public static Block ebDominantStoneBlock;
-    public static byte ebDominantStoneMeta;
-    public static Block ebDominantCobblestoneBlock;
-    public static byte ebDominantCobblestoneMeta;
+    public static Block[] ebDominantStoneBlock = new Block[]{EnhancedBiomesBlocks.stoneEB, EnhancedBiomesBlocks.stoneEB};
+    public static byte[] ebDominantStoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
+    public static Block[] ebDominantCobblestoneBlock = new Block[]{EnhancedBiomesBlocks.stoneCobbleEB, EnhancedBiomesBlocks.stoneCobbleEB};
+    public static byte[] ebDominantCobblestoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
     
     private static Block ebTopBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.grassEB : Blocks.grass;
     private static byte ebTopByte = EnhancedBiomesMod.useNewGrass ? (byte)5 : (byte)0;
@@ -72,10 +73,6 @@ public class RealisticBiomeEBAlpineTundra extends RealisticBiomeEBBase
         emeraldStoneBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone;
         emeraldStoneMeta = (EnhancedBiomesMod.useNewStone == 1) ? (byte)3 : (byte)0;
         
-        this.ebDominantStoneBlock = EnhancedBiomesMod.getDominantStone(ebBiome.biomeID);
-        this.ebDominantStoneMeta = EnhancedBiomesMod.getDominantStoneMeta(ebBiome.biomeID);
-        this.ebDominantCobblestoneBlock = EnhancedBiomesMod.getCobbleFromStone(ebDominantStoneBlock);
-        this.ebDominantCobblestoneMeta = ebDominantStoneMeta;
     }
 	
     @Override

@@ -13,6 +13,7 @@ import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRockyHills;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBRockyHills;
 import enhancedbiomes.EnhancedBiomesMod;
+import enhancedbiomes.api.EBStoneMeta;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import enhancedbiomes.helpers.TreeGen;
 
@@ -27,10 +28,10 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
 {
-    public static Block ebDominantStoneBlock;
-    public static byte ebDominantStoneMeta;
-    public static Block ebDominantCobblestoneBlock;
-    public static byte ebDominantCobblestoneMeta;
+    public static Block[] ebDominantStoneBlock = new Block[]{EnhancedBiomesBlocks.stoneEB, EnhancedBiomesBlocks.stoneEB};
+    public static byte[] ebDominantStoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
+    public static Block[] ebDominantCobblestoneBlock = new Block[]{EnhancedBiomesBlocks.stoneCobbleEB, EnhancedBiomesBlocks.stoneCobbleEB};
+    public static byte[] ebDominantCobblestoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
     
     private static SurfaceBase surface = new SurfaceEBRockyHills(
         (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone,
@@ -66,10 +67,6 @@ public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
         this.biomeWeight = ConfigEB.weightEBRockyHills;
         this.generateVillages = ConfigEB.villageEBRockyHills;
         
-        this.ebDominantStoneBlock = EnhancedBiomesMod.getDominantStone(ebBiome.biomeID);
-        this.ebDominantStoneMeta = EnhancedBiomesMod.getDominantStoneMeta(ebBiome.biomeID);
-        this.ebDominantCobblestoneBlock = EnhancedBiomesMod.getCobbleFromStone(ebDominantStoneBlock);
-        this.ebDominantCobblestoneMeta = ebDominantStoneMeta;
     }
     
     @Override

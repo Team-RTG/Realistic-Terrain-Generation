@@ -1,22 +1,21 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import enhancedbiomes.EnhancedBiomesMod;
+import rtg.config.enhancedbiomes.ConfigEB;
+import rtg.world.biome.BiomeBase;
+import rtg.world.gen.surface.enhancedbiomes.SurfaceEBGrassyArchipelago;
+import rtg.world.gen.terrain.enhancedbiomes.TerrainEBGrassyArchipelago;
+import enhancedbiomes.api.EBStoneMeta;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
 
-import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeSize;
-import rtg.world.gen.surface.enhancedbiomes.SurfaceEBGrassyArchipelago;
-import rtg.world.gen.terrain.enhancedbiomes.TerrainEBGrassyArchipelago;
-
 public class RealisticBiomeEBGrassyArchipelago extends RealisticBiomeEBBase
 {
-    public static Block ebDominantStoneBlock;
-    public static byte ebDominantStoneMeta;
-    public static Block ebDominantCobblestoneBlock;
-    public static byte ebDominantCobblestoneMeta;
+    public static Block[] ebDominantStoneBlock = new Block[]{EnhancedBiomesBlocks.stoneEB, EnhancedBiomesBlocks.stoneEB};
+    public static byte[] ebDominantStoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
+    public static Block[] ebDominantCobblestoneBlock = new Block[]{EnhancedBiomesBlocks.stoneCobbleEB, EnhancedBiomesBlocks.stoneCobbleEB};
+    public static byte[] ebDominantCobblestoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
     
 	public RealisticBiomeEBGrassyArchipelago(BiomeGenBase ebBiome)
 	{
@@ -31,9 +30,5 @@ public class RealisticBiomeEBGrassyArchipelago extends RealisticBiomeEBBase
 		this.biomeWeight = ConfigEB.weightEBGrassyArchipelago;
 		this.generateVillages = ConfigEB.villageEBGrassyArchipelago;
         
-        this.ebDominantStoneBlock = EnhancedBiomesMod.getDominantStone(ebBiome.biomeID);
-        this.ebDominantStoneMeta = EnhancedBiomesMod.getDominantStoneMeta(ebBiome.biomeID);
-        this.ebDominantCobblestoneBlock = EnhancedBiomesMod.getCobbleFromStone(ebDominantStoneBlock);
-        this.ebDominantCobblestoneMeta = ebDominantStoneMeta;
     }
 }

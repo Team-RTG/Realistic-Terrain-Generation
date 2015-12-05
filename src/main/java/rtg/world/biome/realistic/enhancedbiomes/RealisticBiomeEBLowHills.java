@@ -1,22 +1,21 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import enhancedbiomes.EnhancedBiomesMod;
+import rtg.config.enhancedbiomes.ConfigEB;
+import rtg.world.biome.BiomeBase;
+import rtg.world.gen.surface.enhancedbiomes.SurfaceEBLowHills;
+import rtg.world.gen.terrain.enhancedbiomes.TerrainEBLowHills;
+import enhancedbiomes.api.EBStoneMeta;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
 
-import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeSize;
-import rtg.world.gen.surface.enhancedbiomes.SurfaceEBLowHills;
-import rtg.world.gen.terrain.enhancedbiomes.TerrainEBLowHills;
-
 public class RealisticBiomeEBLowHills extends RealisticBiomeEBBase
 {
-    public static Block ebDominantStoneBlock;
-    public static byte ebDominantStoneMeta;
-    public static Block ebDominantCobblestoneBlock;
-    public static byte ebDominantCobblestoneMeta;
+    public static Block[] ebDominantStoneBlock = new Block[]{EnhancedBiomesBlocks.stoneEB, EnhancedBiomesBlocks.stoneEB};
+    public static byte[] ebDominantStoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
+    public static Block[] ebDominantCobblestoneBlock = new Block[]{EnhancedBiomesBlocks.stoneCobbleEB, EnhancedBiomesBlocks.stoneCobbleEB};
+    public static byte[] ebDominantCobblestoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
     
 	public RealisticBiomeEBLowHills(BiomeGenBase ebBiome)
 	{
@@ -31,9 +30,5 @@ public class RealisticBiomeEBLowHills extends RealisticBiomeEBBase
 		this.biomeWeight = ConfigEB.weightEBLowHills;
 		this.generateVillages = ConfigEB.villageEBLowHills;
         
-        this.ebDominantStoneBlock = EnhancedBiomesMod.getDominantStone(ebBiome.biomeID);
-        this.ebDominantStoneMeta = EnhancedBiomesMod.getDominantStoneMeta(ebBiome.biomeID);
-        this.ebDominantCobblestoneBlock = EnhancedBiomesMod.getCobbleFromStone(ebDominantStoneBlock);
-        this.ebDominantCobblestoneMeta = ebDominantStoneMeta;
     }
 }

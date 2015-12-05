@@ -20,6 +20,7 @@ import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenJungleCacti;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeMangrove;
+import rtg.world.gen.feature.tree.WorldGenTreePalmCustom;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleM;
 
@@ -83,6 +84,30 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase
                     worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                     worldgenerator.generate(world, rand, j6, z52, k10);
                 }
+                
+                if (rand.nextInt(3) == 0) {
+                    
+                    int j61 = chunkX + rand.nextInt(16) + 8;
+                    int k101 = chunkY + rand.nextInt(16) + 8;
+                    int z521 = world.getHeightValue(j61, k101);
+
+                    WorldGenerator worldgenerator = new WorldGenTreePalmCustom((float)(10 + rand.nextInt(11)));
+                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+                    worldgenerator.generate(world, rand, j61, z521, k101);
+                }
+                
+                if (rand.nextInt(3) == 0) {
+                    
+                    int j61 = chunkX + rand.nextInt(16) + 8;
+                    int k101 = chunkY + rand.nextInt(16) + 8;
+                    int z521 = world.getHeightValue(j61, k101);
+
+                    WorldGenerator worldgenerator = new WorldGenMegaJungle(false, 20 + rand.nextInt(20), 0, 3, 3);
+                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+                    worldgenerator.generate(world, rand, j61, z521, k101);
+                }
+                
+                
             }
     
             if (l > 0f && rand.nextInt(3) == 0)
@@ -115,7 +140,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase
                     }
                 }
                 
-                for (int h44 = 0; h44 < 8; h44++) {
+                for (int h44 = 0; h44 < 50; h44++) {
                     WorldGenerator worldgenerator4 = new WorldGenVines();
                     worldgenerator4.setScale(1.0D, 1.0D, 1.0D);
                     worldgenerator4.generate(world, rand, j6, z52, k10);
@@ -208,9 +233,10 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase
                 int k21 = chunkX + rand.nextInt(16) + 8;
                 int j23 = rand.nextInt(160);
                 int k24 = chunkY + rand.nextInt(16) + 8;
+                
                 if (j23 < 120f)
                 {
-                    (new WorldGenJungleCacti(false, rand.nextInt(8), (byte)1)).generate(world, rand, k21, j23, k24);
+                    (new WorldGenJungleCacti(false, rand.nextInt(7), (byte)1)).generate(world, rand, k21, j23, k24);
                 }
             }
         }

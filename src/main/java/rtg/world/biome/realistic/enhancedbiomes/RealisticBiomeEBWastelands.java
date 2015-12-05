@@ -11,7 +11,7 @@ import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSandstoneCanyon;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBWastelands;
 import enhancedbiomes.EnhancedBiomesMod;
-import enhancedbiomes.api.EBStoneMeta;
+import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
@@ -23,9 +23,9 @@ import net.minecraft.world.gen.feature.WorldGenDeadBush;
 public class RealisticBiomeEBWastelands extends RealisticBiomeEBBase
 {
     public static Block[] ebDominantStoneBlock = new Block[]{EnhancedBiomesBlocks.stoneEB, EnhancedBiomesBlocks.stoneEB};
-    public static byte[] ebDominantStoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
+    public static byte[] ebDominantStoneMeta = new byte[]{EBAPI.CHERT, EBAPI.LIMESTONE};
     public static Block[] ebDominantCobblestoneBlock = new Block[]{EnhancedBiomesBlocks.stoneCobbleEB, EnhancedBiomesBlocks.stoneCobbleEB};
-    public static byte[] ebDominantCobblestoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
+    public static byte[] ebDominantCobblestoneMeta = new byte[]{EBAPI.CHERT, EBAPI.LIMESTONE};
     
     private static Block cobbleBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
     private static byte cobbleByte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)11 : (byte)0;

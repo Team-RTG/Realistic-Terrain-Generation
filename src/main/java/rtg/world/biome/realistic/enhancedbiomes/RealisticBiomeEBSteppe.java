@@ -10,7 +10,7 @@ import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSteppe;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSteppe;
 import enhancedbiomes.EnhancedBiomesMod;
-import enhancedbiomes.api.EBStoneMeta;
+import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
@@ -21,9 +21,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class RealisticBiomeEBSteppe extends RealisticBiomeEBBase
 {
     public static Block[] ebDominantStoneBlock = new Block[]{EnhancedBiomesBlocks.stoneEB, EnhancedBiomesBlocks.stoneEB};
-    public static byte[] ebDominantStoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
+    public static byte[] ebDominantStoneMeta = new byte[]{EBAPI.CHERT, EBAPI.LIMESTONE};
     public static Block[] ebDominantCobblestoneBlock = new Block[]{EnhancedBiomesBlocks.stoneCobbleEB, EnhancedBiomesBlocks.stoneCobbleEB};
-    public static byte[] ebDominantCobblestoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
+    public static byte[] ebDominantCobblestoneMeta = new byte[]{EBAPI.CHERT, EBAPI.LIMESTONE};
     
     private static Block ebTopBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.grassEB : Blocks.grass;
     private static byte ebTopByte = EnhancedBiomesMod.useNewGrass ? (byte)6 : (byte)0;

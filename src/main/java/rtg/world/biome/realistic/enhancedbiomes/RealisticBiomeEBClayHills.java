@@ -14,7 +14,7 @@ import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBClayHills;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBClayHills;
-import enhancedbiomes.api.EBStoneMeta;
+import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
@@ -32,9 +32,9 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 public class RealisticBiomeEBClayHills extends RealisticBiomeEBBase
 {
     public static Block[] ebDominantStoneBlock = new Block[]{EnhancedBiomesBlocks.stoneEB, EnhancedBiomesBlocks.stoneEB};
-    public static byte[] ebDominantStoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
+    public static byte[] ebDominantStoneMeta = new byte[]{EBAPI.CHERT, EBAPI.LIMESTONE};
     public static Block[] ebDominantCobblestoneBlock = new Block[]{EnhancedBiomesBlocks.stoneCobbleEB, EnhancedBiomesBlocks.stoneCobbleEB};
-    public static byte[] ebDominantCobblestoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
+    public static byte[] ebDominantCobblestoneMeta = new byte[]{EBAPI.CHERT, EBAPI.LIMESTONE};
     
     private static SurfaceBase surface = new SurfaceEBClayHills(Blocks.sandstone, Blocks.sandstone, (byte) 0, 0);
     private static SurfaceBase riverSurface = new SurfaceRiverOasis();

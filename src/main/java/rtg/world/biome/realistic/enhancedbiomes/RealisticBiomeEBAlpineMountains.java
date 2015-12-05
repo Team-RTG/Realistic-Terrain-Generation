@@ -4,7 +4,7 @@ import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAlpineMountains;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBAlpineMountains;
-import enhancedbiomes.api.EBStoneMeta;
+import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
@@ -14,14 +14,14 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class RealisticBiomeEBAlpineMountains extends RealisticBiomeEBBase
 {
     public static Block[] ebDominantStoneBlock = new Block[]{EnhancedBiomesBlocks.stoneEB, EnhancedBiomesBlocks.stoneEB};
-    public static byte[] ebDominantStoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
+    public static byte[] ebDominantStoneMeta = new byte[]{EBAPI.CHERT, EBAPI.LIMESTONE};
     public static Block[] ebDominantCobblestoneBlock = new Block[]{EnhancedBiomesBlocks.stoneCobbleEB, EnhancedBiomesBlocks.stoneCobbleEB};
-    public static byte[] ebDominantCobblestoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
+    public static byte[] ebDominantCobblestoneMeta = new byte[]{EBAPI.CHERT, EBAPI.LIMESTONE};
     
     public static Block ebTopBlock = Blocks.snow;
     public static byte ebTopByte = (byte)0;
     public static Block ebFillerBlock = EnhancedBiomesBlocks.stoneEB;
-    public static byte ebFillerByte = EBStoneMeta.CHERT;
+    public static byte ebFillerByte = EBAPI.CHERT;
     
 	public RealisticBiomeEBAlpineMountains(BiomeGenBase ebBiome)
 	{

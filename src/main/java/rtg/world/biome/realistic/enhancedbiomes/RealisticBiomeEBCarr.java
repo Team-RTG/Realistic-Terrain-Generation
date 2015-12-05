@@ -14,7 +14,7 @@ import rtg.world.gen.feature.tree.WorldGenTreeShrub;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBCarr;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBCarr;
 import enhancedbiomes.EnhancedBiomesMod;
-import enhancedbiomes.api.EBStoneMeta;
+import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import enhancedbiomes.helpers.TreeGen;
 
@@ -29,9 +29,9 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 public class RealisticBiomeEBCarr extends RealisticBiomeEBBase
 {
     public static Block[] ebDominantStoneBlock = new Block[]{EnhancedBiomesBlocks.stoneEB, EnhancedBiomesBlocks.stoneEB};
-    public static byte[] ebDominantStoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
+    public static byte[] ebDominantStoneMeta = new byte[]{EBAPI.CHERT, EBAPI.LIMESTONE};
     public static Block[] ebDominantCobblestoneBlock = new Block[]{EnhancedBiomesBlocks.stoneCobbleEB, EnhancedBiomesBlocks.stoneCobbleEB};
-    public static byte[] ebDominantCobblestoneMeta = new byte[]{EBStoneMeta.CHERT, EBStoneMeta.LIMESTONE};
+    public static byte[] ebDominantCobblestoneMeta = new byte[]{EBAPI.CHERT, EBAPI.LIMESTONE};
     
     public RealisticBiomeEBCarr(BiomeGenBase ebBiome)
     {

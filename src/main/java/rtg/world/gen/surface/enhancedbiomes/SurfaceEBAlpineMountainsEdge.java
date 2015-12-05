@@ -6,7 +6,7 @@ import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBAlpineMountains;
-import enhancedbiomes.api.EBStoneMeta;
+import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
@@ -93,12 +93,12 @@ public class SurfaceEBAlpineMountainsEdge extends SurfaceEBBase
             		if(cliff == 1)
             		{
                         blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB; 
-                        metadata[(y * 16 + x) * 256 + k] = EBStoneMeta.SLATE;
+                        metadata[(y * 16 + x) * 256 + k] = EBAPI.SLATE;
             		}
             		else if(cliff == 2)
             		{
                         blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneCobbleEB; 
-                        metadata[(y * 16 + x) * 256 + k] = EBStoneMeta.SLATE;
+                        metadata[(y * 16 + x) * 256 + k] = EBAPI.SLATE;
             		}
             		else if(k < 63)
             		{
@@ -129,12 +129,12 @@ public class SurfaceEBAlpineMountainsEdge extends SurfaceEBBase
             		if(cliff == 1)
             		{
                         blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB; 
-                        metadata[(y * 16 + x) * 256 + k] = EBStoneMeta.SLATE;
+                        metadata[(y * 16 + x) * 256 + k] = EBAPI.SLATE;
             		}
             		else if(cliff == 2)
             		{
                         blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneCobbleEB; 
-                        metadata[(y * 16 + x) * 256 + k] = EBStoneMeta.SLATE;
+                        metadata[(y * 16 + x) * 256 + k] = EBAPI.SLATE;
             		}
             		else if(gravel)
             		{

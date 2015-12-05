@@ -13,10 +13,25 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBShield extends RealisticBiomeEBBase
 {
-    public static Block[] ebDominantStoneBlock = new Block[]{EnhancedBiomesBlocks.stoneEB, EnhancedBiomesBlocks.stoneEB};
-    public static byte[] ebDominantStoneMeta = new byte[]{EBAPI.CHERT, EBAPI.LIMESTONE};
-    public static Block[] ebDominantCobblestoneBlock = new Block[]{EnhancedBiomesBlocks.stoneCobbleEB, EnhancedBiomesBlocks.stoneCobbleEB};
-    public static byte[] ebDominantCobblestoneMeta = new byte[]{EBAPI.CHERT, EBAPI.LIMESTONE};
+    public static Block[] ebDominantStoneBlock = new Block[]{
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone),
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone)
+    };
+    
+    public static byte[] ebDominantStoneMeta = new byte[]{
+        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
+        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+    };
+    
+    public static Block[] ebDominantCobblestoneBlock = new Block[]{
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone),
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone)
+    };
+    
+    public static byte[] ebDominantCobblestoneMeta = new byte[]{
+        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
+        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+    };
     
 	public RealisticBiomeEBShield(BiomeGenBase ebBiome)
 	{

@@ -1,8 +1,15 @@
 package enhancedbiomes.api;
 
+import enhancedbiomes.EnhancedBiomesMod;
+
+import net.minecraft.block.Block;
+
 
 public class EBAPI
 {
+    public static final boolean ebStoneEnabled = (EnhancedBiomesMod.useNewStone == 1) ? true : false;
+    public static final boolean ebGrassEnabled = EnhancedBiomesMod.useNewGrass ? true : false;
+    
     public static final byte BASALT = (byte)0;
     public static final byte SHALE = (byte)1;
     public static final byte HARDENED_SANDSTONE = (byte)2;
@@ -24,4 +31,24 @@ public class EBAPI
     public static final byte INCEPTISOL = (byte)5;
     public static final byte MOLLISOL = (byte)6;
     public static final byte OXISOL = (byte)7;
+    
+    public static Block ebStonify(Block ebBlock, Block vanillaBlock)
+    {
+        return ebStoneEnabled ? ebBlock : vanillaBlock;
+    }
+    
+    public static byte ebStonify(byte ebByte, byte vanillaByte)
+    {
+        return ebStoneEnabled ? ebByte : vanillaByte;
+    }
+    
+    public static Block ebGrassify(Block ebBlock, Block vanillaBlock)
+    {
+        return ebGrassEnabled ? ebBlock : vanillaBlock;
+    }
+    
+    public static byte ebGrassify(byte ebByte, byte vanillaByte)
+    {
+        return ebGrassEnabled ? ebByte : vanillaByte;
+    }
 }

@@ -40,7 +40,7 @@ public class TerrainVanillaSavannaPlateau extends TerrainBase
 	public TerrainVanillaSavannaPlateau(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight)
 	{
 		booRiver = riverGen;
-		height = new float[]{5.0f, 0.5f, 18.0f, 0.5f};
+		height = new float[]{18f, 0.5f};
 		strength = heightStrength;
 		heightLength = height.length;
 		cWidth = canyonWidth;

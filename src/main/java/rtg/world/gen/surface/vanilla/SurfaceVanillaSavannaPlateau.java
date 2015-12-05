@@ -15,9 +15,21 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceVanillaSavannaPlateau extends SurfaceBase
 {
     
+    private Block cliff1Block;
+    private byte cliff1Byte;
+    
+    private Block cliff2Block;
+    private byte cliff2Byte;
+    
 	public SurfaceVanillaSavannaPlateau(Block top, Block fill, byte b)
 	{
 		super(top, fill);
+		
+        cliff1Block = Blocks.dirt;
+        cliff1Byte = (byte)0;
+        
+        cliff2Block = Blocks.stone;
+        cliff2Byte = (byte)0;
 	}
 	
 	@Override
@@ -41,15 +53,15 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase
 	        	{
 	            	if(cliff)
 	            	{
-	        			blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone;
-	        			metadata[(y * 16 + x) * 256 + k] = 0;
+	        			blocks[(y * 16 + x) * 256 + k] = cliff2Block;
+	        			metadata[(y * 16 + x) * 256 + k] = cliff2Byte;
 	            	}
 	            	else
 	            	{
 	        			if(depth > 4)
 	        			{
-	                        blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone;
-	                        metadata[(y * 16 + x) * 256 + k] = 0;
+	                        blocks[(y * 16 + x) * 256 + k] = cliff1Block;
+	                        metadata[(y * 16 + x) * 256 + k] = cliff1Byte;
 	        			}
 	        			else
 	        			{
@@ -66,8 +78,8 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase
         		}
         		else if(k > 63)
         		{
-                    blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone;
-                    metadata[(y * 16 + x) * 256 + k] = 0;
+                    blocks[(y * 16 + x) * 256 + k] = cliff2Block;
+                    metadata[(y * 16 + x) * 256 + k] = cliff2Byte;
         		}
             }
 		}

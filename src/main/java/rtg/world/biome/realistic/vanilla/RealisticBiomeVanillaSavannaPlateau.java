@@ -56,7 +56,17 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
             int j1 = chunkY + rand.nextInt(16) + 8;
             int k1 = world.getHeightValue(i1, j1);
             
-            (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
+            if (rand.nextInt(4) == 0 && (k1 < 80 || k1 > 110)) {
+                
+                if (rand.nextBoolean()) {
+                    
+                    (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
+                }
+                else {
+                    
+                    (new WorldGenBlockBlob(Blocks.mossy_cobblestone, 0)).generate(world, rand, i1, k1, j1);
+                }
+            }
         }
         
         if (river > 0.7f)
@@ -134,7 +144,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
             int k10 = chunkY + rand.nextInt(16) + 8;
             int z52 = world.getHeightValue(j6, k10);
             
-            if (rand.nextInt(2) == 0)
+            if (rand.nextInt(3) == 0)
             {
                 WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreeSavanna(1);
                 worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -147,16 +157,9 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
                 int j23 = 64 + rand.nextInt(64);
                 int k24 = chunkY + rand.nextInt(16) + 8;
                 
-                if (rand.nextInt(4) == 0) {
+                if (rand.nextInt(8) == 0) {
                     (new WorldGenCacti(false)).generate(world, rand, k21, j23, k24);
                 }
-            }
-            
-            if (rand.nextInt((int) (3f / strength)) == 0)
-            {
-                int i18 = chunkX + rand.nextInt(16) + 8;
-                int i23 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenReed()).generate(world, rand, i18, 60 + rand.nextInt(8), i23);
             }
             
             for (int f23 = 0; f23 < 3; f23++)

@@ -18,7 +18,7 @@ public class SurfaceEBStoneCanyon2 extends SurfaceEBBase
 	private int[] claycolor = new int[100];
 	private byte blockByte = 0;
 	private int grassRaise = 0;
-	
+
 	public SurfaceEBStoneCanyon2(Block top, Block fill, byte b, int grassHeight)
 	{
 		super(top, fill);

@@ -17,7 +17,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBFens extends SurfaceEBBase
 {
-    
     private Block cliffBlock1;
     private Block cliffBlock2;
     private byte topByte;

@@ -17,7 +17,7 @@ public class SurfaceEBBlossomHills extends SurfaceEBBase
 {
     private static Block ebStoneBlock = EnhancedBiomesBlocks.stoneEB;
     private static byte ebStoneByte = (byte)4;
-    
+
     private Block blockTop;
     private byte byteTop;
     private Block blockFiller;

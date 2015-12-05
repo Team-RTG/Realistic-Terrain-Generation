@@ -15,7 +15,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBRedDesert extends SurfaceEBBase
 {
-    
     private Block cliffBlock1;
     private Block cliffBlock2;
     private Block bottomBlock;

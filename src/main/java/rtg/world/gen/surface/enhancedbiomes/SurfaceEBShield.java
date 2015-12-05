@@ -17,7 +17,7 @@ public class SurfaceEBShield extends SurfaceEBBase
 {
 	private Block cliffBlock1;
 	private Block cliffBlock2;
-	
+
 	public SurfaceEBShield(Block top, Block filler, Block cliff1, Block cliff2)
 	{
 		super(top, filler);

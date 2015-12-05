@@ -23,7 +23,7 @@ public class SurfaceEBGlacier extends SurfaceEBBase
 	private float height;
 	private float smallW;
 	private float smallS;
-	
+
 	public SurfaceEBGlacier(Block top, Block filler, Block mixTop, Block mixFill, Block cliff1, Block cliff2, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
 	{
 		super(top, filler);

@@ -15,7 +15,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBRockyHills extends SurfaceEBBase
 {
-    
     private boolean beach;
     private Block beachBlock;
     private float min;

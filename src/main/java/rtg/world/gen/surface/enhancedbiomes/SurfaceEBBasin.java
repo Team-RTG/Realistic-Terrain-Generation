@@ -30,7 +30,7 @@ public class SurfaceEBBasin extends SurfaceEBBase
     private float floMixHeight;
     private float floSmallWidth;
     private float floSmallStrength;
-    
+
     public SurfaceEBBasin(Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
         byte mixFillerByte, Block cliff1, byte cliff1Byte, Block cliff2, byte cliff2Byte, float mixWidth, float mixHeight,
         float smallWidth, float smallStrength)

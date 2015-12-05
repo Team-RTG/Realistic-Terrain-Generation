@@ -26,7 +26,7 @@ public class SurfaceEBGrassyArchipelago extends SurfaceEBBase
 	private float iHeight = 100f;
 	private float iStrength = 50f;
 	private float cCliff = 1.5f;
-	
+
 	public SurfaceEBGrassyArchipelago(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{
 		super(top, fill);

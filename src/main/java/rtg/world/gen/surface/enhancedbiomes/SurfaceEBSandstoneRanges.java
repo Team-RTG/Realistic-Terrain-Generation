@@ -15,7 +15,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBSandstoneRanges extends SurfaceEBBase
 {
-    
     private Block blockTop;
     private byte byteTop;
     private Block blockFiller;

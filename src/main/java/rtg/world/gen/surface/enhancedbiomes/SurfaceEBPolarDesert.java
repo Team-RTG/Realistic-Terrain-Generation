@@ -15,7 +15,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBPolarDesert extends SurfaceEBBase
 {
-    
     public SurfaceEBPolarDesert(Block top, Block fill)
     {
     

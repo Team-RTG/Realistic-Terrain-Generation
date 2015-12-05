@@ -18,7 +18,7 @@ public class SurfaceEBPrairie extends SurfaceEBBase
 {
     private static Block ebStoneBlock = Blocks.stone;
     private static byte ebStoneByte = (byte)0;
-    
+
     private Block blockTop;
     private byte byteTop;
     private Block blockFiller;

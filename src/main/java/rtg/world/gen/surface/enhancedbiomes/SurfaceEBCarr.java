@@ -21,7 +21,7 @@ public class SurfaceEBCarr extends SurfaceEBBase
     private Block cliffBlock2;
     private byte topByte;
     private byte fillerByte;
-    
+
     public SurfaceEBCarr(Block top, Block filler, Block cliff1, Block cliff2, byte modTopByte, byte modFillerByte)
     {
         super(top, filler);

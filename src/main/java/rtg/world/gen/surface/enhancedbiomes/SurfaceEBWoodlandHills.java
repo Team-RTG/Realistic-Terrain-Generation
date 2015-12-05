@@ -17,7 +17,7 @@ public class SurfaceEBWoodlandHills extends SurfaceEBBase
 {
 	private Block cliffBlock1;
 	private Block cliffBlock2;
-	
+
 	public SurfaceEBWoodlandHills(Block top, Block filler, Block cliff1, Block cliff2)
 	{
 		super(top, filler);

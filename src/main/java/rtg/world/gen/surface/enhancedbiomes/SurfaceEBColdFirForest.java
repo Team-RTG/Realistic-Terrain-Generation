@@ -18,7 +18,7 @@ public class SurfaceEBColdFirForest extends SurfaceEBBase
 	private boolean beach;
 	private Block beachBlock;
 	private float min;
-	
+
 	private float sCliff = 1.5f;
 	private float sHeight = 60f;
 	private float sStrength = 65f;

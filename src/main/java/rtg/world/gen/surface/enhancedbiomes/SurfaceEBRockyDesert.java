@@ -18,7 +18,7 @@ public class SurfaceEBRockyDesert extends SurfaceEBBase
 {
     private static Block ebStoneBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone;
     private static byte ebStoneByte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)2 : (byte)0;
-    
+
     private Block blockTop;
     private byte byteTop;
     private Block blockFiller;

@@ -18,7 +18,7 @@ public class SurfaceEBDesertArchipelago extends SurfaceEBBase
 	private Block cliffBlock1;
 	private Block cliffBlock2;
 	private Block bottomBlock;
-	
+
 	public SurfaceEBDesertArchipelago(Block top, Block filler, Block bottom, Block cliff1, Block cliff2)
 	{
 		super(top, filler);

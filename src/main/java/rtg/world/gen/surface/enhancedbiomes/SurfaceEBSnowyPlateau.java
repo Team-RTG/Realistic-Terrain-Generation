@@ -17,7 +17,7 @@ public class SurfaceEBSnowyPlateau extends SurfaceEBBase
 {
     private static Block ebStoneBlock = EnhancedBiomesBlocks.stoneEB;
     private static byte ebStoneByte = (byte)10;
-    
+
     private Block blockTop;
     private byte byteTop;
     private Block blockFiller;

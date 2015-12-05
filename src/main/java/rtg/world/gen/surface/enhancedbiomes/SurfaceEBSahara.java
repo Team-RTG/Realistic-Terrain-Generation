@@ -20,7 +20,7 @@ public class SurfaceEBSahara extends SurfaceEBBase
     {
         super(top, fill);
     }
-    
+
     @Override
     public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {

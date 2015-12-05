@@ -22,7 +22,7 @@ public class SurfaceEBEphemeralLakeEdge extends SurfaceEBBase
     private float height;
     private byte fillerByte;
     private byte mixByte;
-    
+
     public SurfaceEBEphemeralLakeEdge(Block top, Block filler, Block mix, Block cliff1, Block cliff2, float mixWidth, float mixHeight, byte modFillerByte, byte modMixByte)
     {
         super(top, filler);

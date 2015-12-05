@@ -86,8 +86,8 @@ public class SurfaceEBVolcano extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBVolcano.ebDominantStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBVolcano.ebDominantStoneMeta;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBVolcano.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBVolcano.ebDominantStoneMeta[0];
                 }
                 
                 if (cliff)

@@ -85,8 +85,8 @@ public class SurfaceEBAlpineTundra extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBAlpineTundra.ebDominantStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBAlpineTundra.ebDominantStoneMeta;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBAlpineTundra.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBAlpineTundra.ebDominantStoneMeta[0];
                 }
                 
                 if (cliff)

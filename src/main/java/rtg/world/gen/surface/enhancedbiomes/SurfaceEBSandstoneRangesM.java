@@ -83,8 +83,8 @@ public class SurfaceEBSandstoneRangesM extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBSandstoneRangesM.ebDominantStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBSandstoneRangesM.ebDominantStoneMeta;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBSandstoneRangesM.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBSandstoneRangesM.ebDominantStoneMeta[0];
                 }
                 
                 if (cliff)

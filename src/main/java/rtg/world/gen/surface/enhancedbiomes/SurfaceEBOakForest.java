@@ -44,8 +44,8 @@ public class SurfaceEBOakForest extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBOakForest.ebDominantStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBOakForest.ebDominantStoneMeta;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBOakForest.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBOakForest.ebDominantStoneMeta[0];
                 }
 
             	if(cliff)

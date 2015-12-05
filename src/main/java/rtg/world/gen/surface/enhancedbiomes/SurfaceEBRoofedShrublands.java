@@ -44,8 +44,8 @@ public class SurfaceEBRoofedShrublands extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBRoofedShrublands.ebDominantStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBRoofedShrublands.ebDominantStoneMeta;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBRoofedShrublands.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBRoofedShrublands.ebDominantStoneMeta[0];
                 }
 
             	if(cliff)

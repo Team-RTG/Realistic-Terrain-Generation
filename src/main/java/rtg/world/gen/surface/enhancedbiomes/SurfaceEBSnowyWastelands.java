@@ -83,8 +83,8 @@ public class SurfaceEBSnowyWastelands extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBSnowyWastelands.ebDominantStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBSnowyWastelands.ebDominantStoneMeta;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBSnowyWastelands.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBSnowyWastelands.ebDominantStoneMeta[0];
                 }
                 
                 if (cliff)

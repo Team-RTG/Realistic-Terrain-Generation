@@ -62,8 +62,8 @@ public class SurfaceEBStoneCanyon extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBStoneCanyon.ebDominantStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBStoneCanyon.ebDominantStoneMeta;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBStoneCanyon.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBStoneCanyon.ebDominantStoneMeta[0];
                 }
 
         		if(depth > -1 && depth < 12)

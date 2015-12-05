@@ -83,8 +83,8 @@ public class SurfaceEBSandstoneCanyon extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBSandstoneCanyon.ebDominantStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBSandstoneCanyon.ebDominantStoneMeta;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBSandstoneCanyon.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBSandstoneCanyon.ebDominantStoneMeta[0];
                 }
                 
                 if (cliff)

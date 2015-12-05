@@ -85,8 +85,8 @@ public class SurfaceEBMountainousArchipelago extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBMountainousArchipelago.ebDominantStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBMountainousArchipelago.ebDominantStoneMeta;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBMountainousArchipelago.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBMountainousArchipelago.ebDominantStoneMeta[0];
                 }
                 
                 if (cliff)

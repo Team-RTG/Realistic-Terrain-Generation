@@ -68,8 +68,8 @@ public class SurfaceEBTropicalArchipelago extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBTropicalArchipelago.ebDominantStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBTropicalArchipelago.ebDominantStoneMeta;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBTropicalArchipelago.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBTropicalArchipelago.ebDominantStoneMeta[0];
                 }
             	
             	if(depth == 0)

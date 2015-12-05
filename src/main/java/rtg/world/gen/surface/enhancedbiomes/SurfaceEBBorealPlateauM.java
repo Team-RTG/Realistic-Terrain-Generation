@@ -44,8 +44,8 @@ public class SurfaceEBBorealPlateauM extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBBorealPlateauM.ebDominantStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBBorealPlateauM.ebDominantStoneMeta;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBBorealPlateauM.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBBorealPlateauM.ebDominantStoneMeta[0];
                 }
 
             	if(cliff)

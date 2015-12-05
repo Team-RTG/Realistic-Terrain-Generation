@@ -44,8 +44,8 @@ public class SurfaceEBWoodlandLake extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBWoodlandLake.ebDominantStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBWoodlandLake.ebDominantStoneMeta;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBWoodlandLake.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBWoodlandLake.ebDominantStoneMeta[0];
                 }
 
             	if(cliff && k > 64)

@@ -56,8 +56,8 @@ public class SurfaceEBEphemeralLakeEdge extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBEphemeralLakeEdge.ebDominantStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBEphemeralLakeEdge.ebDominantStoneMeta;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBEphemeralLakeEdge.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBEphemeralLakeEdge.ebDominantStoneMeta[0];
                 }
                 
                 if(cliff)

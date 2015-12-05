@@ -19,8 +19,8 @@ public class RealisticBiomeEBAlpineMountainsEdge extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantStoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.SLATE, (byte)0),
+        EBAPI.ebStonify(EBAPI.DOLOMITE, (byte)0)
     };
     
     public static Block[] ebDominantCobblestoneBlock = new Block[]{
@@ -29,8 +29,8 @@ public class RealisticBiomeEBAlpineMountainsEdge extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantCobblestoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.SLATE, (byte)0),
+        EBAPI.ebStonify(EBAPI.DOLOMITE, (byte)0)
     };
     
     public static Block ebTopBlock = Blocks.grass;

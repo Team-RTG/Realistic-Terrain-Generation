@@ -20,8 +20,8 @@ public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantStoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0),
+        EBAPI.ebStonify(EBAPI.MARBLE, (byte)0)
     };
     
     public static Block[] ebDominantCobblestoneBlock = new Block[]{
@@ -30,8 +30,8 @@ public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantCobblestoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0),
+        EBAPI.ebStonify(EBAPI.MARBLE, (byte)0)
     };
     
     private static Block ebTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);
@@ -53,18 +53,18 @@ public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainEBBadlands(),
 			new SurfaceEBBadlands(
-			    getDominantEBGrass(ebBiome), //Block top 
-			    getDominantEBSoilMeta(ebBiome), //byte topByte
-			    getDominantEBDirt(ebBiome), //Block filler, 
-			    getDominantEBSoilMeta(ebBiome), //byte fillerByte
-			    getDominantEBGrass(ebBiome), //Block mixTop, 
-			    getDominantEBSoilMeta(ebBiome), //byte mixTopByte, 
-			    getDominantEBDirt(ebBiome), //Block mixFill, 
-			    getDominantEBSoilMeta(ebBiome), //byte mixFillByte, 
-			    EnhancedBiomesMod.getDominantStone(ebBiome.biomeID), //Block cliff1, 
-			    EnhancedBiomesMod.getDominantStoneMeta(ebBiome.biomeID), //byte cliff1Byte, 
-			    EnhancedBiomesMod.getCobbleFromStone(EnhancedBiomesMod.getDominantStone(ebBiome.biomeID)), //Block cliff2, 
-			    EnhancedBiomesMod.getDominantStoneMeta(ebBiome.biomeID), //byte cliff2Byte, 
+			    ebTopBlock, //Block top 
+			    ebTopByte, //byte topByte
+			    ebFillBlock, //Block filler, 
+			    ebFillByte, //byte fillerByte
+			    ebMixTopBlock, //Block mixTop, 
+			    ebMixTopByte, //byte mixTopByte, 
+			    ebMixFillBlock, //Block mixFill, 
+			    ebMixFillByte, //byte mixFillByte, 
+			    ebCliff1Block, //Block cliff1, 
+			    ebCliff1Byte, //byte cliff1Byte, 
+			    ebCliff2Block, //Block cliff2, 
+			    ebCliff2Byte, //byte cliff2Byte, 
                 80f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 

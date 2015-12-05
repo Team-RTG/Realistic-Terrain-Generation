@@ -108,12 +108,12 @@ public class SurfaceEBAspenForest extends SurfaceEBBase
             		    if (rand.nextInt(3) == 0) {
             		        
                             blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
-                            metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
+                            metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.DOLOMITE, (byte)0);
             		    }
             		    else {
             		        
             		        blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
-            		        metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
+            		        metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.DOLOMITE, (byte)0);
             		    }
             		}
             		else if(cliff == 2)
@@ -154,7 +154,7 @@ public class SurfaceEBAspenForest extends SurfaceEBBase
             		if(cliff == 1)
             		{
             		    blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone); 
-            		    metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.CHERT, (byte)0); 
+            		    metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.DOLOMITE, (byte)0); 
             		}
             		else if(cliff == 2)
             		{

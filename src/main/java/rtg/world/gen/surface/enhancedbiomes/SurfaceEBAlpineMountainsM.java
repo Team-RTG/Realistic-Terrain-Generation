@@ -5,7 +5,7 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBAlpineMountains;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBAlpineMountainsM;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
@@ -69,8 +69,8 @@ public class SurfaceEBAlpineMountainsM extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBAlpineMountains.ebDominantStoneBlock[0];
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBAlpineMountains.ebDominantStoneMeta[0];
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBAlpineMountainsM.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBAlpineMountainsM.ebDominantStoneMeta[0];
                 }
             	
             	if(depth == 0)
@@ -96,12 +96,12 @@ public class SurfaceEBAlpineMountainsM extends SurfaceEBBase
             		if(cliff == 1)
             		{
                         blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB; 
-                        metadata[(y * 16 + x) * 256 + k] = EBAPI.SLATE;
+                        metadata[(y * 16 + x) * 256 + k] = EBAPI.LIMESTONE;
             		}
             		else if(cliff == 2)
             		{
                         blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneCobbleEB; 
-                        metadata[(y * 16 + x) * 256 + k] = EBAPI.SLATE;
+                        metadata[(y * 16 + x) * 256 + k] = EBAPI.LIMESTONE;
             		}
             		else if(k < 63)
             		{
@@ -132,12 +132,12 @@ public class SurfaceEBAlpineMountainsM extends SurfaceEBBase
             		if(cliff == 1)
             		{
                         blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB; 
-                        metadata[(y * 16 + x) * 256 + k] = EBAPI.SLATE;
+                        metadata[(y * 16 + x) * 256 + k] = EBAPI.LIMESTONE;
             		}
             		else if(cliff == 2)
             		{
                         blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneCobbleEB; 
-                        metadata[(y * 16 + x) * 256 + k] = EBAPI.SLATE;
+                        metadata[(y * 16 + x) * 256 + k] = EBAPI.LIMESTONE;
             		}
             		else if(gravel)
             		{

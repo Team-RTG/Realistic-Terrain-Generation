@@ -4,7 +4,6 @@ import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBBasin;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBBasin;
-import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
@@ -34,24 +33,37 @@ public class RealisticBiomeEBBasin extends RealisticBiomeEBBase
         EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
     };
     
+    private static Block ebTopBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.stone);
+    private static byte ebTopByte = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
+    private static Block ebFillBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.stone);
+    private static byte ebFillByte = EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0);
+    private static Block ebMixTopBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.stone);
+    private static byte ebMixTopByte = EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0);
+    private static Block ebMixFillBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.stone);
+    private static byte ebMixFillByte = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
+    private static Block ebCliff1Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+    private static byte ebCliff1Byte = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
+    private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.stone);
+    private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
+    
 	public RealisticBiomeEBBasin(BiomeGenBase ebBiome)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainEBBasin(false, -15f, 0f, 0f, 0f, 63f),
 			new SurfaceEBBasin(
-                getDominantEBGrass(ebBiome), //Block top 
-                getDominantEBSoilMeta(ebBiome), //byte topByte
-                getDominantEBDirt(ebBiome), //Block filler, 
-                getDominantEBSoilMeta(ebBiome), //byte fillerByte
-                getDominantEBGrass(ebBiome), //Block mixTop, 
-                getDominantEBSoilMeta(ebBiome), //byte mixTopByte, 
-                getDominantEBDirt(ebBiome), //Block mixFill, 
-                getDominantEBSoilMeta(ebBiome), //byte mixFillByte, 
-                EnhancedBiomesMod.getDominantStone(ebBiome.biomeID), //Block cliff1, 
-                EnhancedBiomesMod.getDominantStoneMeta(ebBiome.biomeID), //byte cliff1Byte, 
-                EnhancedBiomesMod.getCobbleFromStone(EnhancedBiomesMod.getDominantStone(ebBiome.biomeID)), //Block cliff2, 
-                EnhancedBiomesMod.getDominantStoneMeta(ebBiome.biomeID), //byte cliff2Byte, 
+                ebTopBlock, //Block top 
+                ebTopByte, //byte topByte
+                ebFillBlock, //Block filler, 
+                ebFillByte, //byte fillerByte
+                ebMixTopBlock, //Block mixTop, 
+                ebMixTopByte, //byte mixTopByte, 
+                ebMixFillBlock, //Block mixFill, 
+                ebMixFillByte, //byte mixFillByte, 
+                ebCliff1Block, //Block cliff1, 
+                ebCliff1Byte, //byte cliff1Byte, 
+                ebCliff2Block, //Block cliff2, 
+                ebCliff2Byte, //byte cliff2Byte, 
                 80f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 

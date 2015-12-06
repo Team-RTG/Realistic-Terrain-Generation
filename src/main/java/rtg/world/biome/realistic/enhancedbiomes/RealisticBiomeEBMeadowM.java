@@ -4,7 +4,6 @@ import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBMeadowM;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBMeadowM;
-import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
@@ -20,8 +19,8 @@ public class RealisticBiomeEBMeadowM extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantStoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.CHALK, (byte)0),
+        EBAPI.ebStonify(EBAPI.CHALK, (byte)0)
     };
     
     public static Block[] ebDominantCobblestoneBlock = new Block[]{
@@ -30,8 +29,8 @@ public class RealisticBiomeEBMeadowM extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantCobblestoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.CHALK, (byte)0),
+        EBAPI.ebStonify(EBAPI.CHALK, (byte)0)
     };
     
     private static Block ebTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);

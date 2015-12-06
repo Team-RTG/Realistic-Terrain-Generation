@@ -6,8 +6,6 @@ import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBSteppe;
-import enhancedbiomes.EnhancedBiomesMod;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -16,9 +14,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBSteppe extends SurfaceEBBase
 {
-    private static Block ebStoneBlock = Blocks.stone;
-    private static byte ebStoneByte = (byte)0;
-
     private Block blockTop;
     private byte byteTop;
     private Block blockFiller;

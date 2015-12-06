@@ -20,8 +20,8 @@ public class RealisticBiomeEBKakadu extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantStoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.SLATE, (byte)0),
+        EBAPI.ebStonify(EBAPI.DOLOMITE, (byte)0)
     };
     
     public static Block[] ebDominantCobblestoneBlock = new Block[]{
@@ -30,8 +30,8 @@ public class RealisticBiomeEBKakadu extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantCobblestoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.SLATE, (byte)0),
+        EBAPI.ebStonify(EBAPI.DOLOMITE, (byte)0)
     };
     
     private static Block ebTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);
@@ -65,9 +65,9 @@ public class RealisticBiomeEBKakadu extends RealisticBiomeEBBase
                 ebCliff1Byte, //byte cliff1Byte, 
                 ebCliff2Block, //Block cliff2, 
                 ebCliff2Byte, //byte cliff2Byte, 
-                80f, //float mixWidth, 
+                1f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
-                10f, //float smallWidth, 
+                2f, //float smallWidth, 
                 0.5f //float smallStrength
             )
 		);

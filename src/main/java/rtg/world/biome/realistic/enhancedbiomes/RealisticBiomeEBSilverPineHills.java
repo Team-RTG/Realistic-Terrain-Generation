@@ -4,6 +4,7 @@ import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSilverPineHills;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSilverPineHills;
+import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
@@ -19,8 +20,8 @@ public class RealisticBiomeEBSilverPineHills extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantStoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.DOLOMITE, (byte)0),
+        EBAPI.ebStonify(EBAPI.SLATE, (byte)0)
     };
     
     public static Block[] ebDominantCobblestoneBlock = new Block[]{
@@ -29,16 +30,46 @@ public class RealisticBiomeEBSilverPineHills extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantCobblestoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.DOLOMITE, (byte)0),
+        EBAPI.ebStonify(EBAPI.SLATE, (byte)0)
     };
+    
+    private static Block ebTopBlock = Blocks.grass;
+    private static byte ebTopByte = (byte)0;
+    private static Block ebFillBlock = Blocks.dirt;
+    private static byte ebFillByte = (byte)0;
+    private static Block ebMixTopBlock = Blocks.grass;
+    private static byte ebMixTopByte = (byte)0;
+    private static Block ebMixFillBlock = Blocks.dirt;
+    private static byte ebMixFillByte = (byte)0;
+    private static Block ebCliff1Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+    private static byte ebCliff1Byte = EBAPI.ebStonify(EBAPI.DOLOMITE, (byte)0);
+    private static Block ebCliff2Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
+    private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.DOLOMITE, (byte)0);
     
 	public RealisticBiomeEBSilverPineHills(BiomeGenBase ebBiome)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBSilverPineHills(200f, 100f, 0f),
-			new SurfaceEBSilverPineHills(ebBiome.topBlock, ebBiome.fillerBlock, false, null, 0.95f)
+			new SurfaceEBSilverPineHills(
+                ebTopBlock, //Block top 
+                ebTopByte, //byte topByte
+                ebFillBlock, //Block filler, 
+                ebFillByte, //byte fillerByte
+                ebMixTopBlock, //Block mixTop, 
+                ebMixTopByte, //byte mixTopByte, 
+                ebMixFillBlock, //Block mixFill, 
+                ebMixFillByte, //byte mixFillByte, 
+                ebCliff1Block, //Block cliff1, 
+                ebCliff1Byte, //byte cliff1Byte, 
+                ebCliff2Block, //Block cliff2, 
+                ebCliff2Byte, //byte cliff2Byte, 
+                1f, //float mixWidth, 
+                -0.15f, //float mixHeight, 
+                2f, //float smallWidth, 
+                0.5f //float smallStrength
+            )
 		);
 		
 		this.setRealisticBiomeName("EB Silver Pine Hills");

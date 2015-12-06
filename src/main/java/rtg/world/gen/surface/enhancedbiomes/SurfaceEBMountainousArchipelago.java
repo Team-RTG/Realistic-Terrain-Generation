@@ -6,7 +6,6 @@ import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBMountainousArchipelago;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -15,8 +14,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBMountainousArchipelago extends SurfaceEBBase
 {
-    private static Block ebStoneBlock = EnhancedBiomesBlocks.stoneEB;
-    private static byte ebStoneByte = (byte)11;
 
     private Block blockTop;
     private byte byteTop;

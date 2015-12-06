@@ -47,27 +47,40 @@ public class RealisticBiomeEBForestedMountains extends RealisticBiomeEBBase
         EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
     };
     
+    private static Block ebTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);
+    private static byte ebTopByte = EBAPI.ebGrassify(EBAPI.INCEPTISOL, (byte)0);
+    private static Block ebFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    private static byte ebFillByte = EBAPI.ebGrassify(EBAPI.INCEPTISOL, (byte)0);
+    private static Block ebMixTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);
+    private static byte ebMixTopByte = EBAPI.ebGrassify(EBAPI.INCEPTISOL, (byte)0);
+    private static Block ebMixFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    private static byte ebMixFillByte = EBAPI.ebGrassify(EBAPI.INCEPTISOL, (byte)0);
+    private static Block ebCliff1Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+    private static byte ebCliff1Byte = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
+    private static Block ebCliff2Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
+    private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
+    
 	public RealisticBiomeEBForestedMountains(BiomeGenBase ebBiome)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainEBForestedMountains(440f, 70f, 0f),
 			new SurfaceEBForestedMountains(
-			    EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass), //Block top 
-			    EBAPI.ebGrassify(EBAPI.INCEPTISOL, (byte)0), //byte topByte
-			    EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt), //Block filler, 
-			    EBAPI.ebGrassify(EBAPI.INCEPTISOL, (byte)0), //byte fillerByte
-			    EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass), //Block mixTop, 
-                EBAPI.ebGrassify(EBAPI.INCEPTISOL, (byte)0), //byte mixTopByte, 
-                EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt), //Block mixFill, 
-                EBAPI.ebGrassify(EBAPI.INCEPTISOL, (byte)0), //byte mixFillByte, 
-                EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone), //Block cliff1, 
-                EBAPI.ebStonify(EBAPI.CHERT, (byte)0), //byte cliff1Byte, 
-                (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone, //Block cliff2, 
-                EBAPI.ebStonify(EBAPI.CHERT, (byte)0), //byte cliff2Byte, 
-                80f, //float mixWidth, 
+                ebTopBlock, //Block top 
+                ebTopByte, //byte topByte
+                ebFillBlock, //Block filler, 
+                ebFillByte, //byte fillerByte
+                ebMixTopBlock, //Block mixTop, 
+                ebMixTopByte, //byte mixTopByte, 
+                ebMixFillBlock, //Block mixFill, 
+                ebMixFillByte, //byte mixFillByte, 
+                ebCliff1Block, //Block cliff1, 
+                ebCliff1Byte, //byte cliff1Byte, 
+                ebCliff2Block, //Block cliff2, 
+                ebCliff2Byte, //byte cliff2Byte, 
+                1f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
-                10f, //float smallWidth, 
+                2f, //float smallWidth, 
                 0.5f //float smallStrength
             )
 		);

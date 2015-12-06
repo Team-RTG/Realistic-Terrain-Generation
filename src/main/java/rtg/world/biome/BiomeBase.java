@@ -40,10 +40,10 @@ public class BiomeBase extends BiomeGenBase
 		SMALL
 	}
 	
-	public static ArrayList<RealisticBiomeBase> biomes_snow;
-	public static ArrayList<RealisticBiomeBase> biomes_cold;
-	public static ArrayList<RealisticBiomeBase> biomes_hot;
-	public static ArrayList<RealisticBiomeBase> biomes_wet;
+	public static ArrayList<Integer> biomes_snow;
+	public static ArrayList<Integer> biomes_cold;
+	public static ArrayList<Integer> biomes_hot;
+	public static ArrayList<Integer> biomes_wet;
 	
 	public static float tempCold = 0.2f, rainCold = 0.3f;
 	public static float tempHot = 2f, rainHot = 0f;
@@ -91,10 +91,10 @@ public class BiomeBase extends BiomeGenBase
 	
     public static void init()
 	{
-		biomes_snow = new ArrayList<RealisticBiomeBase>();
-		biomes_cold = new ArrayList<RealisticBiomeBase>();
-		biomes_hot = new ArrayList<RealisticBiomeBase>();
-		biomes_wet = new ArrayList<RealisticBiomeBase>();
+		biomes_snow = new ArrayList<Integer>();
+		biomes_cold = new ArrayList<Integer>();
+		biomes_hot = new ArrayList<Integer>();
+		biomes_wet = new ArrayList<Integer>();
 		
 		arrVillageBiomes = new ArrayList<BiomeGenBase>();
 	}
@@ -153,28 +153,28 @@ public class BiomeBase extends BiomeGenBase
 			     * Sort by temperature.
 			     */
 			    if (b.baseBiome.temperature < 0.15f) {
-			        biomes_snow.add(b);
+			        biomes_snow.add(b.biomeID);
 			        
 			        if (ConfigRTG.enableDebugging) {
 			            FMLLog.log(Level.INFO, "Added %s to SNOW category (%d in total)", b.getRealisticBiomeName(), biomes_snow.size());
 			        }
 			    }
                 else if (b.baseBiome.temperature <= 0.3f) {
-                    biomes_cold.add(b);
+                    biomes_cold.add(b.biomeID);
                     
                     if (ConfigRTG.enableDebugging) {
                         FMLLog.log(Level.INFO, "Added %s to COLD category (%d in total)", b.getRealisticBiomeName(), biomes_cold.size());
                     }
                 }
                 else if (b.baseBiome.temperature <= 1f) {
-                    biomes_wet.add(b);
+                    biomes_wet.add(b.biomeID);
                     
                     if (ConfigRTG.enableDebugging) {
                         FMLLog.log(Level.INFO, "Added %s to WET category (%d in total)", b.getRealisticBiomeName(), biomes_wet.size());
                     }
                 }
                 else {
-                    biomes_hot.add(b);
+                    biomes_hot.add(b.biomeID);
                     
                     if (ConfigRTG.enableDebugging) {
                         FMLLog.log(Level.INFO, "Added %s to HOT category (%d in total)", b.getRealisticBiomeName(), biomes_hot.size());

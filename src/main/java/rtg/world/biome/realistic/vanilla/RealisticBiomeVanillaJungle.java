@@ -100,7 +100,9 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
                     int k101 = chunkY + rand.nextInt(16) + 8;
                     int z521 = world.getHeightValue(j61, k101);
 
-                    WorldGenerator worldgenerator = new WorldGenMegaJungle(false, 20 + rand.nextInt(20), 0, 3, 3);
+                    int megaHeight = (rand.nextInt(40) == 0) ? (40 + rand.nextInt(20)) : 20 + rand.nextInt(20);
+                    
+                    WorldGenerator worldgenerator = new WorldGenMegaJungle(false, megaHeight, 0, 3, 3);
                     worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                     worldgenerator.generate(world, rand, j61, z521, k101);
                 }
@@ -117,7 +119,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
             }
         }
         
-        if (rand.nextInt(4) != 0) {
+        if (rand.nextInt(6) != 0) {
             RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         }
         
@@ -138,7 +140,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
                     }
                 }
                 
-                for (int h44 = 0; h44 < 50; h44++) {
+                for (int h44 = 0; h44 < 100; h44++) {
                     WorldGenerator worldgenerator4 = new WorldGenVines();
                     worldgenerator4.setScale(1.0D, 1.0D, 1.0D);
                     worldgenerator4.generate(world, rand, j6, z52, k10);

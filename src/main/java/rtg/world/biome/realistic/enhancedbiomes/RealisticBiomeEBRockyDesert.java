@@ -37,8 +37,8 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantStoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0),
+        EBAPI.ebStonify(EBAPI.MARBLE, (byte)0)
     };
     
     public static Block[] ebDominantCobblestoneBlock = new Block[]{
@@ -47,8 +47,8 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantCobblestoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0),
+        EBAPI.ebStonify(EBAPI.MARBLE, (byte)0)
     };
     
     private static Block ebTopBlock = Blocks.sand;
@@ -61,8 +61,8 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
     private static byte ebMixFillByte = (byte)0;
     private static Block ebCliff1Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
     private static byte ebCliff1Byte = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
-    private static Block ebCliff2Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
-    private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
+    private static Block ebCliff2Block = ebDominantCobblestoneBlock[0];
+    private static byte ebCliff2Byte = ebDominantCobblestoneMeta[0];
     
     private static SurfaceBase surface = new SurfaceEBRockyDesert(
         ebTopBlock, //Block top 

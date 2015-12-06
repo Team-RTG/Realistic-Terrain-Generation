@@ -6,7 +6,6 @@ import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBSandstoneCanyon;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -15,6 +14,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBSandstoneCanyon extends SurfaceEBBase
 {
+
     private Block blockTop;
     private byte byteTop;
     private Block blockFiller;

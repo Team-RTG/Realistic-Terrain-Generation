@@ -49,10 +49,10 @@ public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
     };
     
     private static SurfaceBase surface = new SurfaceEBRockyHills(
-        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone),
-        (EnhancedBiomesMod.useNewStone == 1) ? (byte) 3 : (byte) 0,
-        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone),
-        (EnhancedBiomesMod.useNewStone == 1) ? (byte) 10 : (byte) 0,
+        ebDominantStoneBlock[0],
+        ebDominantStoneMeta[0],
+        ebDominantStoneBlock[1],
+        ebDominantStoneMeta[1],
         false,
         null,
         0f,
@@ -60,10 +60,10 @@ public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
         60f,
         65f,
         1.5f,
-        (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone,
-        (EnhancedBiomesMod.useNewStone == 1) ? (byte) 3 : (byte) 0,
-        (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone,
-        (EnhancedBiomesMod.useNewStone == 1) ? (byte) 10 : (byte) 0,
+        ebDominantCobblestoneBlock[0],
+        ebDominantCobblestoneMeta[0],
+        ebDominantCobblestoneBlock[1],
+        ebDominantCobblestoneMeta[1],
         0.08f
         );
     

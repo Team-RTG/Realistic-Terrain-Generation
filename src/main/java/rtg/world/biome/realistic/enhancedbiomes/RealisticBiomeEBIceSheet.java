@@ -19,8 +19,8 @@ public class RealisticBiomeEBIceSheet extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantStoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.DACITE, (byte)0),
+        EBAPI.ebStonify(EBAPI.RHYOLITE, (byte)0)
     };
     
     public static Block[] ebDominantCobblestoneBlock = new Block[]{
@@ -29,16 +29,46 @@ public class RealisticBiomeEBIceSheet extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantCobblestoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.DACITE, (byte)0),
+        EBAPI.ebStonify(EBAPI.RHYOLITE, (byte)0)
     };
+    
+    private static Block ebTopBlock = EBAPI.ebGrassify(Blocks.ice, Blocks.ice);
+    private static byte ebTopByte = EBAPI.ebGrassify((byte)0, (byte)0);
+    private static Block ebFillBlock = EBAPI.ebGrassify(Blocks.ice, Blocks.ice);
+    private static byte ebFillByte = EBAPI.ebGrassify((byte)0, (byte)0);
+    private static Block ebMixTopBlock = EBAPI.ebGrassify(Blocks.ice, Blocks.ice);
+    private static byte ebMixTopByte = EBAPI.ebGrassify((byte)0, (byte)0);
+    private static Block ebMixFillBlock = EBAPI.ebGrassify(Blocks.ice, Blocks.ice);
+    private static byte ebMixFillByte = EBAPI.ebGrassify((byte)0, (byte)0);
+    private static Block ebCliff1Block = EBAPI.ebStonify(Blocks.packed_ice, Blocks.packed_ice);
+    private static byte ebCliff1Byte = EBAPI.ebStonify((byte)0, (byte)0);
+    private static Block ebCliff2Block = EBAPI.ebStonify(Blocks.packed_ice, Blocks.packed_ice);
+    private static byte ebCliff2Byte = EBAPI.ebStonify((byte)0, (byte)0);
     
 	public RealisticBiomeEBIceSheet(BiomeGenBase ebBiome)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
 			new TerrainEBIceSheet(),
-			new SurfaceEBIceSheet(Blocks.ice, Blocks.packed_ice)
+			new SurfaceEBIceSheet(
+                ebTopBlock, //Block top 
+                ebTopByte, //byte topByte
+                ebFillBlock, //Block filler, 
+                ebFillByte, //byte fillerByte
+                ebMixTopBlock, //Block mixTop, 
+                ebMixTopByte, //byte mixTopByte, 
+                ebMixFillBlock, //Block mixFill, 
+                ebMixFillByte, //byte mixFillByte, 
+                ebCliff1Block, //Block cliff1, 
+                ebCliff1Byte, //byte cliff1Byte, 
+                ebCliff2Block, //Block cliff2, 
+                ebCliff2Byte, //byte cliff2Byte, 
+                80f, //float mixWidth, 
+                -0.15f, //float mixHeight, 
+                10f, //float smallWidth, 
+                0.5f //float smallStrength
+            )
 		);
 		
 		this.setRealisticBiomeName("EB Ice Sheet");

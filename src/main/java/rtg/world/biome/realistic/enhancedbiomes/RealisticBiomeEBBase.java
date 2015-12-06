@@ -540,6 +540,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Polar Desert" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenPolarDesert")
 					{
 						if (ConfigEB.generateEBPolarDesert) {
+						    ebBiome.setEnableSnow();
 						    ebPolarDesert = new RealisticBiomeEBPolarDesert(ebBiome);
 							BiomeBase.addBiome(ebPolarDesert);
 							BiomeBase.addVillageBiome(ebPolarDesert);

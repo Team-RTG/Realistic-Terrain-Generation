@@ -11,7 +11,6 @@ import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBEphemeralLakeEdge;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBEphemeralLakeEdge;
-import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import enhancedbiomes.helpers.TreeGen;
@@ -30,8 +29,8 @@ public class RealisticBiomeEBEphemeralLakeEdge extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantStoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.SCHIST, (byte)0),
+        EBAPI.ebStonify(EBAPI.SHALE, (byte)0)
     };
     
     public static Block[] ebDominantCobblestoneBlock = new Block[]{
@@ -40,9 +39,22 @@ public class RealisticBiomeEBEphemeralLakeEdge extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantCobblestoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.SCHIST, (byte)0),
+        EBAPI.ebStonify(EBAPI.SHALE, (byte)0)
     };
+    
+    private static Block ebTopBlock = EBAPI.ebGrassify(Blocks.sand, Blocks.sand);
+    private static byte ebTopByte = EBAPI.ebGrassify((byte)0, (byte)0);
+    private static Block ebFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    private static byte ebFillByte = EBAPI.ebGrassify(EBAPI.HISTOSOL, (byte)0);
+    private static Block ebMixTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);
+    private static byte ebMixTopByte = EBAPI.ebGrassify(EBAPI.HISTOSOL, (byte)0);
+    private static Block ebMixFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    private static byte ebMixFillByte = EBAPI.ebGrassify(EBAPI.HISTOSOL, (byte)0);
+    private static Block ebCliff1Block = EBAPI.ebStonify(Blocks.stone, Blocks.stone);
+    private static byte ebCliff1Byte = EBAPI.ebStonify((byte)0, (byte)0);
+    private static Block ebCliff2Block = EBAPI.ebStonify(Blocks.cobblestone, Blocks.cobblestone);
+    private static byte ebCliff2Byte = EBAPI.ebStonify((byte)0, (byte)0);
     
 	public RealisticBiomeEBEphemeralLakeEdge(BiomeGenBase ebBiome)
 	{
@@ -50,14 +62,22 @@ public class RealisticBiomeEBEphemeralLakeEdge extends RealisticBiomeEBBase
             ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
             new TerrainEBEphemeralLakeEdge(),
             new SurfaceEBEphemeralLakeEdge(
-                Blocks.sand,
-                EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt),
-                EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass),
-                Blocks.stone,
-                Blocks.cobblestone,
-                13f, 0.27f,
-                EnhancedBiomesMod.useNewGrass ? (byte) 4 : (byte) 0,
-                EnhancedBiomesMod.useNewGrass ? (byte) 4 : (byte) 0
+                ebTopBlock, //Block top 
+                ebTopByte, //byte topByte
+                ebFillBlock, //Block filler, 
+                ebFillByte, //byte fillerByte
+                ebMixTopBlock, //Block mixTop, 
+                ebMixTopByte, //byte mixTopByte, 
+                ebMixFillBlock, //Block mixFill, 
+                ebMixFillByte, //byte mixFillByte, 
+                ebCliff1Block, //Block cliff1, 
+                ebCliff1Byte, //byte cliff1Byte, 
+                ebCliff2Block, //Block cliff2, 
+                ebCliff2Byte, //byte cliff2Byte, 
+                80f, //float mixWidth, 
+                -0.15f, //float mixHeight, 
+                10f, //float smallWidth, 
+                0.5f //float smallStrength
             )
         );
 		

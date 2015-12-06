@@ -13,11 +13,11 @@ public class TerrainEBAlpineMountains extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-		float h = simplex.noise2(x / 300f, y / 300f) * 135f * river;
+		float h = simplex.noise2(x / 300f, y / 300f) * 125f * river;
 		h *= h / 32f;
 		h = h > 150f ? 150f : h;
 
-		/*float bn = 0f;
+		float bn = 0f;
 		if(h < 1f)
 		{
 			bn = 1f - h;
@@ -27,7 +27,7 @@ public class TerrainEBAlpineMountains extends TerrainBase
 			}
 			
 			bn = bn > 3f ? 3f : bn;
-		}*/
+		}
 
 		if(h < 10f)
 		{
@@ -55,6 +55,6 @@ public class TerrainEBAlpineMountains extends TerrainBase
     		h += simplex.noise2(x / 8f, y / 8f) * (d / 2f);
 		}
 		
-		return h + 67f;// - bn;
+		return h + 67f - bn;
 	}
 }

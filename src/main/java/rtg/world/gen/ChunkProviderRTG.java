@@ -19,6 +19,7 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.registry.GameData;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -67,6 +68,9 @@ public class ChunkProviderRTG implements IChunkProvider
     private final int parabolicSize;
     private final int parabolicArraySize;
     private final float[] parabolicField;
+    
+    private Block bedrockBlock = GameData.getBlockRegistry().getObject(ConfigRTG.bedrockBlockId);
+    private byte bedrockByte = (byte)ConfigRTG.bedrockBlockByte;
 
     private Random rand;
     private Random mapRand;
@@ -477,20 +481,36 @@ public class ChunkProviderRTG implements IChunkProvider
 
     			biome.rReplace(blocks, metadata, cx * 16 + j, cy * 16 + i, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
 
+    			int rough;
     			int flatBedrockLayers = (int) ConfigRTG.flatBedrockLayers;
     			flatBedrockLayers = flatBedrockLayers < 0 ? 0 : (flatBedrockLayers > 5 ? 5 : flatBedrockLayers);
-    			
+    			    			
     			if (flatBedrockLayers > 0) {
     			    for (int bl = 0; bl < flatBedrockLayers; bl++) {
-    			        blocks[(j * 16 + i) * 256 + bl] = Blocks.bedrock;
+    			        blocks[(j * 16 + i) * 256 + bl] = bedrockBlock;
+    			        metadata[(j * 16 + i) * 256 + bl] = bedrockByte;
     			    }
     			}
     			else {
-                    blocks[(j * 16 + i) * 256] = Blocks.bedrock;
-                    blocks[(j * 16 + i) * 256 + rand.nextInt(2)] = Blocks.bedrock;
-                    blocks[(j * 16 + i) * 256 + rand.nextInt(3)] = Blocks.bedrock;
-                    blocks[(j * 16 + i) * 256 + rand.nextInt(4)] = Blocks.bedrock;
-                    blocks[(j * 16 + i) * 256 + rand.nextInt(5)] = Blocks.bedrock;
+    			    
+    			    blocks[(j * 16 + i) * 256] = bedrockBlock;
+    			    metadata[(j * 16 + i) * 256] = bedrockByte;
+                    
+                    rough = rand.nextInt(2);
+                    blocks[(j * 16 + i) * 256 + rough] = bedrockBlock;
+                    metadata[(j * 16 + i) * 256 + rough] = bedrockByte;
+                    
+                    rough = rand.nextInt(3);
+                    blocks[(j * 16 + i) * 256 + rough] = bedrockBlock;
+                    metadata[(j * 16 + i) * 256 + rough] = bedrockByte;
+                    
+                    rough = rand.nextInt(4);
+                    blocks[(j * 16 + i) * 256 + rough] = bedrockBlock;
+                    metadata[(j * 16 + i) * 256 + rough] = bedrockByte;
+                    
+                    rough = rand.nextInt(5);
+                    blocks[(j * 16 + i) * 256 + rough] = bedrockBlock;
+                    metadata[(j * 16 + i) * 256 + rough] = bedrockByte;
     			}
 
     		}

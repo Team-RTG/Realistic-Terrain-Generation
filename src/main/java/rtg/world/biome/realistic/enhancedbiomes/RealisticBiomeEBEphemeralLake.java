@@ -2,49 +2,82 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
-import enhancedbiomes.EnhancedBiomesMod;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
-import enhancedbiomes.helpers.TreeGen;
-
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenForest;
-import net.minecraft.world.gen.feature.WorldGenPumpkin;
-import net.minecraft.world.gen.feature.WorldGenTrees;
-import net.minecraft.world.gen.feature.WorldGenerator;
-
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeSize;
-import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreePineBig;
-import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBEphemeralLake;
-import rtg.world.gen.surface.enhancedbiomes.SurfaceEBFens;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBEphemeralLake;
+import enhancedbiomes.api.EBAPI;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
+import enhancedbiomes.helpers.TreeGen;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeEBEphemeralLake extends RealisticBiomeEBBase
-{	
+{
+    public static Block[] ebDominantStoneBlock = new Block[]{
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone),
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone)
+    };
+    
+    public static byte[] ebDominantStoneMeta = new byte[]{
+        EBAPI.ebStonify(EBAPI.SCHIST, (byte)0),
+        EBAPI.ebStonify(EBAPI.SHALE, (byte)0)
+    };
+    
+    public static Block[] ebDominantCobblestoneBlock = new Block[]{
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone),
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone)
+    };
+    
+    public static byte[] ebDominantCobblestoneMeta = new byte[]{
+        EBAPI.ebStonify(EBAPI.SCHIST, (byte)0),
+        EBAPI.ebStonify(EBAPI.SHALE, (byte)0)
+    };
+    
+    private static Block ebTopBlock = EBAPI.ebGrassify(Blocks.sand, Blocks.sand);
+    private static byte ebTopByte = EBAPI.ebGrassify((byte)0, (byte)0);
+    private static Block ebFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    private static byte ebFillByte = EBAPI.ebGrassify(EBAPI.HISTOSOL, (byte)0);
+    private static Block ebMixTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);
+    private static byte ebMixTopByte = EBAPI.ebGrassify(EBAPI.HISTOSOL, (byte)0);
+    private static Block ebMixFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    private static byte ebMixFillByte = EBAPI.ebGrassify(EBAPI.HISTOSOL, (byte)0);
+    private static Block ebCliff1Block = EBAPI.ebStonify(Blocks.stone, Blocks.stone);
+    private static byte ebCliff1Byte = EBAPI.ebStonify((byte)0, (byte)0);
+    private static Block ebCliff2Block = EBAPI.ebStonify(Blocks.cobblestone, Blocks.cobblestone);
+    private static byte ebCliff2Byte = EBAPI.ebStonify((byte)0, (byte)0);
+    
 	public RealisticBiomeEBEphemeralLake(BiomeGenBase ebBiome)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainEBEphemeralLake(),
 			new SurfaceEBEphemeralLake(
-                Blocks.sand,
-                EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt,
-                EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.grassEB : Blocks.grass,
-                Blocks.stone,
-                Blocks.cobblestone,
-                13f, 0.27f,
-                EnhancedBiomesMod.useNewGrass ? (byte) 4 : (byte) 0,
-                EnhancedBiomesMod.useNewGrass ? (byte) 4 : (byte) 0
+                ebTopBlock, //Block top 
+                ebTopByte, //byte topByte
+                ebFillBlock, //Block filler, 
+                ebFillByte, //byte fillerByte
+                ebMixTopBlock, //Block mixTop, 
+                ebMixTopByte, //byte mixTopByte, 
+                ebMixFillBlock, //Block mixFill, 
+                ebMixFillByte, //byte mixFillByte, 
+                ebCliff1Block, //Block cliff1, 
+                ebCliff1Byte, //byte cliff1Byte, 
+                ebCliff2Block, //Block cliff2, 
+                ebCliff2Byte, //byte cliff2Byte, 
+                80f, //float mixWidth, 
+                -0.15f, //float mixHeight, 
+                10f, //float smallWidth, 
+                0.5f //float smallStrength
             )
 		);
 		
@@ -52,7 +85,8 @@ public class RealisticBiomeEBEphemeralLake extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBEphemeralLake;
 		this.generateVillages = ConfigEB.villageEBEphemeralLake;
-	}
+        
+    }
 	
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,

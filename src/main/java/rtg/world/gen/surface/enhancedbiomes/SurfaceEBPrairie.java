@@ -5,8 +5,7 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import enhancedbiomes.EnhancedBiomesMod;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBPrairie;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -15,9 +14,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBPrairie extends SurfaceEBBase
 {
-    private static Block ebStoneBlock = Blocks.stone;
-    private static byte ebStoneByte = (byte)0;
-    
     private Block blockTop;
     private byte byteTop;
     private Block blockFiller;
@@ -34,7 +30,7 @@ public class SurfaceEBPrairie extends SurfaceEBBase
     private float floMixHeight;
     private float floSmallWidth;
     private float floSmallStrength;
-    
+
     public SurfaceEBPrairie(Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
         byte mixFillerByte, Block cliff1, byte cliff1Byte, Block cliff2, byte cliff2Byte, float mixWidth, float mixHeight,
         float smallWidth, float smallStrength)
@@ -83,10 +79,10 @@ public class SurfaceEBPrairie extends SurfaceEBBase
             else if (b == Blocks.stone)
             {
                 depth++;
-                
+
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = ebStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = ebStoneByte;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBPrairie.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBPrairie.ebDominantStoneMeta[0];
                 }
                 
                 if (cliff)

@@ -14,6 +14,7 @@ import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRockyDesert;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBRockyDesert;
 import enhancedbiomes.EnhancedBiomesMod;
+import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import enhancedbiomes.helpers.TreeGen;
 import enhancedbiomes.world.gen.WorldGenRockSpire;
@@ -30,18 +31,38 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
 {
+    public static Block[] ebDominantStoneBlock = new Block[]{
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone),
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone)
+    };
+    
+    public static byte[] ebDominantStoneMeta = new byte[]{
+        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0),
+        EBAPI.ebStonify(EBAPI.MARBLE, (byte)0)
+    };
+    
+    public static Block[] ebDominantCobblestoneBlock = new Block[]{
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone),
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone)
+    };
+    
+    public static byte[] ebDominantCobblestoneMeta = new byte[]{
+        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0),
+        EBAPI.ebStonify(EBAPI.MARBLE, (byte)0)
+    };
+    
     private static Block ebTopBlock = Blocks.sand;
     private static byte ebTopByte = (byte)0;
     private static Block ebFillBlock = Blocks.sandstone;
     private static byte ebFillByte = (byte)0;
-    private static Block ebMixTopBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.sandstone;
-    private static byte ebMixTopByte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)2 : (byte)0;
+    private static Block ebMixTopBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.sandstone);
+    private static byte ebMixTopByte = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
     private static Block ebMixFillBlock = Blocks.sandstone;
     private static byte ebMixFillByte = (byte)0;
-    private static Block ebCliff1Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone;
-    private static byte ebCliff1Byte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)2 : (byte)0;
-    private static Block ebCliff2Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
-    private static byte ebCliff2Byte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)2 : (byte)0;
+    private static Block ebCliff1Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+    private static byte ebCliff1Byte = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
+    private static Block ebCliff2Block = ebDominantCobblestoneBlock[0];
+    private static byte ebCliff2Byte = ebDominantCobblestoneMeta[0];
     
     private static SurfaceBase surface = new SurfaceEBRockyDesert(
         ebTopBlock, //Block top 
@@ -76,7 +97,8 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBRockyDesert;
 		this.generateVillages = ConfigEB.villageEBRockyDesert;
-	}
+        
+    }
 	
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
@@ -156,13 +178,13 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
                 
                 new WorldGenRockSpire(
                     new Block[] { 
-                        (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone, 
+                        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone), 
                         (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone, 
                         Blocks.sandstone 
                     }, 
                     new byte[] {
-                        (EnhancedBiomesMod.useNewStone == 1) ? (byte)2 : (byte)0, 
-                        (EnhancedBiomesMod.useNewStone == 1) ? (byte)2 : (byte)0, 
+                        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0), 
+                        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0), 
                         0
                     },
                     10

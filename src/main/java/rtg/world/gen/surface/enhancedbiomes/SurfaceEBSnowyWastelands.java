@@ -5,7 +5,7 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBSnowyWastelands;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -14,7 +14,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBSnowyWastelands extends SurfaceEBBase
 {
-    
     private Block blockTop;
     private byte byteTop;
     private Block blockFiller;
@@ -31,7 +30,7 @@ public class SurfaceEBSnowyWastelands extends SurfaceEBBase
     private float floMixHeight;
     private float floSmallWidth;
     private float floSmallStrength;
-    
+
     public SurfaceEBSnowyWastelands(Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
         byte mixFillerByte, Block cliff1, byte cliff1Byte, Block cliff2, byte cliff2Byte, float mixWidth, float mixHeight,
         float smallWidth, float smallStrength)
@@ -80,10 +79,10 @@ public class SurfaceEBSnowyWastelands extends SurfaceEBBase
             else if (b == Blocks.stone)
             {
                 depth++;
-                
+
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB;
-                    metadata[(y * 16 + x) * 256 + k] = (byte) 4;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBSnowyWastelands.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBSnowyWastelands.ebDominantStoneMeta[0];
                 }
                 
                 if (cliff)

@@ -2,50 +2,78 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
-import enhancedbiomes.EnhancedBiomesMod;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
-import enhancedbiomes.helpers.TreeGen;
-import enhancedbiomes.world.gen.WorldGenSpikedBush;
-
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenerator;
-
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
-import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSandstoneCanyon;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBScrub;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBScrub;
+import enhancedbiomes.api.EBAPI;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
+import enhancedbiomes.world.gen.WorldGenSpikedBush;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
-{	
+{
+    public static Block[] ebDominantStoneBlock = new Block[]{
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone),
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone)
+    };
+    
+    public static byte[] ebDominantStoneMeta = new byte[]{
+        EBAPI.ebStonify(EBAPI.MARBLE, (byte)0),
+        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0)
+    };
+    
+    public static Block[] ebDominantCobblestoneBlock = new Block[]{
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone),
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone)
+    };
+    
+    public static byte[] ebDominantCobblestoneMeta = new byte[]{
+        EBAPI.ebStonify(EBAPI.MARBLE, (byte)0),
+        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0)
+    };
+    
+    private static Block ebTopBlock = Blocks.sand;
+    private static byte ebTopByte = (byte)0;
+    private static Block ebFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    private static byte ebFillByte = EBAPI.ebGrassify(EBAPI.OXISOL, (byte)0);
+    private static Block ebMixTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);
+    private static byte ebMixTopByte = EBAPI.ebGrassify(EBAPI.OXISOL, (byte)0);
+    private static Block ebMixFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    private static byte ebMixFillByte = EBAPI.ebGrassify(EBAPI.OXISOL, (byte)0);
+    private static Block ebCliff1Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+    private static byte ebCliff1Byte = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
+    private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
+    private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
+    
 	public RealisticBiomeEBScrub(BiomeGenBase ebBiome)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainEBScrub(),
-			new SurfaceEBSandstoneCanyon(
-                Blocks.sand, //Block top 
-                (byte)0, //byte topByte
-                EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt, //Block filler, 
-                EnhancedBiomesMod.useNewGrass ? (byte)7 : (byte)0, //byte fillerByte
-                EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt, //Block mixTop, 
-                EnhancedBiomesMod.useNewGrass ? (byte)7 : (byte)0, //byte mixTopByte, 
-                EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt, //Block mixFill, 
-                EnhancedBiomesMod.useNewGrass ? (byte)7 : (byte)0, //byte mixFillByte, 
-                (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone, //Block cliff1, 
-                (EnhancedBiomesMod.useNewStone == 1) ? (byte)7 : (byte)0, //byte cliff1Byte, 
-                (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone, //Block cliff2, 
-                (EnhancedBiomesMod.useNewStone == 1) ? (byte)7 : (byte)0, //byte cliff2Byte, 
-                90f, //float mixWidth, 
+			new SurfaceEBScrub(
+                ebTopBlock, //Block top 
+                ebTopByte, //byte topByte
+                ebFillBlock, //Block filler, 
+                ebFillByte, //byte fillerByte
+                ebMixTopBlock, //Block mixTop, 
+                ebMixTopByte, //byte mixTopByte, 
+                ebMixFillBlock, //Block mixFill, 
+                ebMixFillByte, //byte mixFillByte, 
+                ebCliff1Block, //Block cliff1, 
+                ebCliff1Byte, //byte cliff1Byte, 
+                ebCliff2Block, //Block cliff2, 
+                ebCliff2Byte, //byte cliff2Byte, 
+                80f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 
                 0.5f //float smallStrength
@@ -56,7 +84,8 @@ public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBScrub;
 		this.generateVillages = ConfigEB.villageEBScrub;
-	}
+        
+    }
 	
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
@@ -74,7 +103,7 @@ public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
             if (k1 < 110)
             {
                 if (rand.nextInt(4) != 0) {
-                    (new WorldGenSpikedBush(Blocks.log, 0, Blocks.leaves, 0, (EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt))).generate(world, rand, i1, k1, j1);
+                    (new WorldGenSpikedBush(Blocks.log, 0, Blocks.leaves, 0, (EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt)))).generate(world, rand, i1, k1, j1);
                 }
                 else {
                     (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);

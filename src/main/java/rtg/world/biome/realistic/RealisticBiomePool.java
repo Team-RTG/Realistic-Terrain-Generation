@@ -15,15 +15,15 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomePool 
 {
-    private ArrayList<RealisticBiomeBase> biomePool;
+    private ArrayList<Integer> biomePool;
     
     private CellNoise biomecell;
     private Random rand;
-    private ArrayList<RealisticBiomeBase> biomes_snow;
-    private ArrayList<RealisticBiomeBase> biomes_cold;
-    private ArrayList<RealisticBiomeBase> biomes_hot;
-    private ArrayList<RealisticBiomeBase> biomes_wet;
-    private ArrayList<RealisticBiomeBase> biomes_all;
+    private ArrayList<Integer> biomes_snow;
+    private ArrayList<Integer> biomes_cold;
+    private ArrayList<Integer> biomes_hot;
+    private ArrayList<Integer> biomes_wet;
+    private ArrayList<Integer> biomes_all;
     private int biomes_snowLength;
     private int biomes_coldLength;
     private int biomes_hotLength;
@@ -35,13 +35,13 @@ public class RealisticBiomePool
         biomecell = bc;
         rand = r;
         
-        biomePool = new ArrayList<RealisticBiomeBase>();
+        biomePool = new ArrayList<Integer>();
         
-        biomes_snow = new ArrayList<RealisticBiomeBase>();
-        biomes_cold = new ArrayList<RealisticBiomeBase>();
-        biomes_hot = new ArrayList<RealisticBiomeBase>();
-        biomes_wet = new ArrayList<RealisticBiomeBase>();
-        biomes_all = new ArrayList<RealisticBiomeBase>();
+        biomes_snow = new ArrayList<Integer>();
+        biomes_cold = new ArrayList<Integer>();
+        biomes_hot = new ArrayList<Integer>();
+        biomes_wet = new ArrayList<Integer>();
+        biomes_all = new ArrayList<Integer>();
         
         biomes_snow.addAll(BiomeBase.biomes_snow);
         biomes_cold.addAll(BiomeBase.biomes_cold);
@@ -64,7 +64,7 @@ public class RealisticBiomePool
         
         for (int intBiomeIndex = 0; intBiomeIndex < biomes_allLength; intBiomeIndex++) {
             
-            RealisticBiomeBase rb = biomes_all.get(intBiomeIndex);
+            RealisticBiomeBase rb = RealisticBiomeBase.getBiome(biomes_all.get(intBiomeIndex));
             BiomeGenBase rbb = rb.baseBiome;
             float rbbtemp = rbb.temperature;
             int btemp = (int) (rbbtemp * 100);
@@ -76,14 +76,14 @@ public class RealisticBiomePool
         for (int intTempIndex = minTemp; intTempIndex <= maxTemp; intTempIndex++) {
             for (int intBiomeIndex = 0; intBiomeIndex < biomes_all.size(); intBiomeIndex++) {
 
-                RealisticBiomeBase rb = biomes_all.get(intBiomeIndex);
+                RealisticBiomeBase rb = RealisticBiomeBase.getBiome(biomes_all.get(intBiomeIndex));
                 BiomeGenBase rbb = rb.baseBiome;
                 float rbbtemp = rbb.temperature;
                 int btemp = (int) (rbbtemp * 100);
                 
                 if (btemp == intTempIndex) {
                     
-                    biomePool.add(rb);
+                    biomePool.add(rb.baseBiome.biomeID);
                     
                     if (ConfigRTG.enableDebugging) {
                         FMLLog.log(Level.INFO, "Added %s at temp %d.", rb.getRealisticBiomeName(), btemp);
@@ -161,7 +161,7 @@ public class RealisticBiomePool
             float h = calculateNoiseForTempBiome(par1, par2);
             h *= biomes_snowLength;
             
-            output = biomes_snow.get((int) (h));
+            output = RealisticBiomeBase.getBiome(biomes_snow.get((int) (h)));
             
             // FMLLog.log(Level.INFO, "chooseSnowBiome: %s", output.getRealisticBiomeName());
             
@@ -183,7 +183,7 @@ public class RealisticBiomePool
             float h = calculateNoiseForTempBiome(par1, par2);
             h *= biomes_coldLength;
             
-            output = biomes_cold.get((int) (h));
+            output = RealisticBiomeBase.getBiome(biomes_cold.get((int) (h)));
             
             // FMLLog.log(Level.INFO, "chooseColdBiome: %s", output.getRealisticBiomeName());
         }
@@ -203,7 +203,7 @@ public class RealisticBiomePool
             float h = calculateNoiseForTempBiome(par1, par2);
             h *= biomes_wetLength;
             
-            output = biomes_wet.get((int) (h));
+            output = RealisticBiomeBase.getBiome(biomes_wet.get((int) (h)));
         }
         
         // FMLLog.log(Level.INFO, "chooseWetBiome: %s", output.getRealisticBiomeName());
@@ -224,7 +224,7 @@ public class RealisticBiomePool
             float h = calculateNoiseForTempBiome(par1, par2);
             h *= biomes_hotLength;
             
-            output = biomes_hot.get((int) (h));
+            output = RealisticBiomeBase.getBiome(biomes_hot.get((int) (h)));
             
             // FMLLog.log(Level.INFO, "chooseHotBiome: %s", output.getRealisticBiomeName());
         }
@@ -234,7 +234,7 @@ public class RealisticBiomePool
     public RealisticBiomeBase chooseRandomBiome()
     {
         
-        RealisticBiomeBase output = biomes_all.get(rand.nextInt(biomes_allLength));
+        RealisticBiomeBase output = RealisticBiomeBase.getBiome(biomes_all.get(rand.nextInt(biomes_allLength)));
         
         // FMLLog.log(Level.INFO, "chooseRandomBiome: %s", output.getRealisticBiomeName());
         

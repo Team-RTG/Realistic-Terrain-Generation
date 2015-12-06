@@ -2,8 +2,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
-import enhancedbiomes.EnhancedBiomesMod;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -11,6 +9,9 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSnowyPlateau;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSnowyPlateau;
+import enhancedbiomes.EnhancedBiomesMod;
+import enhancedbiomes.api.EBAPI;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -19,18 +20,38 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBSnowyPlateau extends RealisticBiomeEBBase
 {
-    private static Block ebTopBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.grassEB : Blocks.grass;
-    private static byte ebTopByte = EnhancedBiomesMod.useNewGrass ? (byte)5 : (byte)0;
-    private static Block ebFillBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt;
-    private static byte ebFillByte = EnhancedBiomesMod.useNewGrass ? (byte)5 : (byte)0;
-    private static Block ebMixTopBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.grassEB : Blocks.grass;
-    private static byte ebMixTopByte = EnhancedBiomesMod.useNewGrass ? (byte)5 : (byte)0;
-    private static Block ebMixFillBlock = EnhancedBiomesMod.useNewGrass ? EnhancedBiomesBlocks.dirtEB : Blocks.dirt;
-    private static byte ebMixFillByte = EnhancedBiomesMod.useNewGrass ? (byte)5 : (byte)0;
-    private static Block ebCliff1Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone;
-    private static byte ebCliff1Byte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)10 : (byte)0;
+    public static Block[] ebDominantStoneBlock = new Block[]{
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone),
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone)
+    };
+    
+    public static byte[] ebDominantStoneMeta = new byte[]{
+        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
+        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+    };
+    
+    public static Block[] ebDominantCobblestoneBlock = new Block[]{
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone),
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone)
+    };
+    
+    public static byte[] ebDominantCobblestoneMeta = new byte[]{
+        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
+        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+    };
+    
+    private static Block ebTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);
+    private static byte ebTopByte = EBAPI.ebGrassify(EBAPI.INCEPTISOL, (byte)0);
+    private static Block ebFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    private static byte ebFillByte = EBAPI.ebGrassify(EBAPI.INCEPTISOL, (byte)0);
+    private static Block ebMixTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);
+    private static byte ebMixTopByte = EBAPI.ebGrassify(EBAPI.INCEPTISOL, (byte)0);
+    private static Block ebMixFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    private static byte ebMixFillByte = EBAPI.ebGrassify(EBAPI.INCEPTISOL, (byte)0);
+    private static Block ebCliff1Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+    private static byte ebCliff1Byte = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
     private static Block ebCliff2Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
-    private static byte ebCliff2Byte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)10 : (byte)0;
+    private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
     
 	public RealisticBiomeEBSnowyPlateau(BiomeGenBase ebBiome)
 	{
@@ -61,7 +82,8 @@ public class RealisticBiomeEBSnowyPlateau extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSnowyPlateau;
 		this.generateVillages = ConfigEB.villageEBSnowyPlateau;
-	}
+        
+    }
 	
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,

@@ -5,7 +5,8 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import enhancedbiomes.EnhancedBiomesMod;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBVolcano;
+import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
@@ -15,9 +16,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBVolcano extends SurfaceEBBase
 {
-    private static Block ebStoneBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone;
-    private static byte ebStoneByte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)0 : (byte)0;
-    
+    private static Block ebStoneBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+    private static byte ebStoneByte = EBAPI.ebStonify(EBAPI.BASALT, (byte)0);
+
     private Block blockTop;
     private byte byteTop;
     private Block blockFiller;
@@ -83,10 +84,10 @@ public class SurfaceEBVolcano extends SurfaceEBBase
             else if (b == Blocks.stone)
             {
                 depth++;
-                
+
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = ebStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = ebStoneByte;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBVolcano.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBVolcano.ebDominantStoneMeta[0];
                 }
                 
                 if (cliff)

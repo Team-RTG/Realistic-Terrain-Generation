@@ -5,8 +5,7 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import enhancedbiomes.EnhancedBiomesMod;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBadlands;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -15,9 +14,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBBadlands extends SurfaceEBBase
 {
-    private static Block ebStoneBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone;
-    private static byte ebStoneByte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)7 : (byte)0;
-    
     private Block blockTop;
     private byte byteTop;
     private Block blockFiller;
@@ -34,7 +30,7 @@ public class SurfaceEBBadlands extends SurfaceEBBase
     private float floMixHeight;
     private float floSmallWidth;
     private float floSmallStrength;
-    
+
     public SurfaceEBBadlands(Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
         byte mixFillerByte, Block cliff1, byte cliff1Byte, Block cliff2, byte cliff2Byte, float mixWidth, float mixHeight,
         float smallWidth, float smallStrength)
@@ -83,10 +79,10 @@ public class SurfaceEBBadlands extends SurfaceEBBase
             else if (b == Blocks.stone)
             {
                 depth++;
-                
+
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = ebStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = ebStoneByte;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBBadlands.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBBadlands.ebDominantStoneMeta[0];
                 }
                 
                 if (cliff)

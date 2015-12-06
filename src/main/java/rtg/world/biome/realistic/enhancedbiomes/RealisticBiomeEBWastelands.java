@@ -2,9 +2,16 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
-import enhancedbiomes.EnhancedBiomesMod;
+import rtg.config.enhancedbiomes.ConfigEB;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.BiomeBase;
+import rtg.world.gen.feature.WorldGenBlob;
+import rtg.world.gen.feature.WorldGenGrass;
+import rtg.world.gen.surface.enhancedbiomes.SurfaceEBWastelands;
+import rtg.world.gen.terrain.enhancedbiomes.TerrainEBWastelands;
+import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
-import enhancedbiomes.world.gen.WorldGenSpikedBush;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -12,30 +19,37 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenDeadBush;
 
-import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeSize;
-import rtg.world.gen.feature.WorldGenBlob;
-import rtg.world.gen.feature.WorldGenFlowers;
-import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
-import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSandstoneCanyon;
-import rtg.world.gen.surface.enhancedbiomes.SurfaceEBWastelands;
-import rtg.world.gen.terrain.enhancedbiomes.TerrainEBWastelands;
-
 public class RealisticBiomeEBWastelands extends RealisticBiomeEBBase
-{	
-    private static Block cobbleBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
-    private static byte cobbleByte = (EnhancedBiomesMod.useNewStone == 1) ? (byte)11 : (byte)0;
+{
+    public static Block[] ebDominantStoneBlock = new Block[]{
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone),
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone)
+    };
+    
+    public static byte[] ebDominantStoneMeta = new byte[]{
+        EBAPI.ebStonify(EBAPI.GABBRO, (byte)0),
+        EBAPI.ebStonify(EBAPI.BASALT, (byte)0)
+    };
+    
+    public static Block[] ebDominantCobblestoneBlock = new Block[]{
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone),
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone)
+    };
+    
+    public static byte[] ebDominantCobblestoneMeta = new byte[]{
+        EBAPI.ebStonify(EBAPI.GABBRO, (byte)0),
+        EBAPI.ebStonify(EBAPI.BASALT, (byte)0)
+    };
+    
+    private static Block cobbleBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
+    private static byte cobbleByte = EBAPI.ebStonify(EBAPI.GABBRO, (byte)0);
     
 	public RealisticBiomeEBWastelands(BiomeGenBase ebBiome)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainEBWastelands(),
-			new SurfaceEBSandstoneCanyon(
+			new SurfaceEBWastelands(
                 Blocks.gravel, //Block top 
                 (byte)0, //byte topByte
                 cobbleBlock, //Block filler, 
@@ -59,7 +73,8 @@ public class RealisticBiomeEBWastelands extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBWastelands;
 		this.generateVillages = ConfigEB.villageEBWastelands;
-	}
+        
+    }
 	
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,

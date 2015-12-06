@@ -2,10 +2,10 @@ package rtg.world.gen.surface.enhancedbiomes;
 
 import java.util.Random;
 
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.SnowHeightCalculator;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBPolarDesert;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -14,11 +14,50 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBPolarDesert extends SurfaceEBBase
 {
-    
-    public SurfaceEBPolarDesert(Block top, Block fill)
+    private Block blockTop;
+    private byte byteTop;
+    private Block blockFiller;
+    private byte byteFiller;
+    private Block blockMixTop;
+    private byte byteMixTop;
+    private Block blockMixFiller;
+    private byte byteMixFiller;
+    private Block blockCliff1;
+    private byte byteCliff1;
+    private Block blockCliff2;
+    private byte byteCliff2;
+    private float floMixWidth;
+    private float floMixHeight;
+    private float floSmallWidth;
+    private float floSmallStrength;
+
+    public SurfaceEBPolarDesert(Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
+        byte mixFillerByte, Block cliff1, byte cliff1Byte, Block cliff2, byte cliff2Byte, float mixWidth, float mixHeight,
+        float smallWidth, float smallStrength)
     {
     
-        super(top, fill);
+        super(top, filler);
+        
+        blockTop = top;
+        byteTop = topByte;
+        blockFiller = filler;
+        byteFiller = fillerByte;
+        
+        blockMixTop = mixTop;
+        byteMixTop = mixTopByte;
+        blockMixFiller = mixFiller;
+        byteMixFiller = mixFillerByte;
+        
+        blockCliff1 = cliff1;
+        byteCliff1 = cliff1Byte;
+        
+        blockCliff2 = cliff2;
+        byteCliff2 = cliff2Byte;
+        
+        floMixWidth = mixWidth;
+        floMixHeight = mixHeight;
+        floSmallWidth = smallWidth;
+        floSmallStrength = smallStrength;
     }
     
     @Override
@@ -30,54 +69,66 @@ public class SurfaceEBPolarDesert extends SurfaceEBBase
         boolean riverPaint = false;
         boolean grass = false;
         
-        if (river > 0.05f && river + (simplex.noise2(i / 10f, j / 10f) * 0.1f) > 0.86f)
+        if(river > 0.05f && river + (simplex.noise2(i / 10f, j / 10f) * 0.1f) > 0.86f)
         {
             riverPaint = true;
             
-            if (simplex.noise2(i / 12f, j / 12f) > 0.25f)
+            if(simplex.noise2(i / 12f, j / 12f) > 0.25f)
             {
                 grass = true;
             }
         }
         
         Block b;
-        for (int k = 255; k > -1; k--)
+        for(int k = 255; k > -1; k--)
         {
             b = blocks[(y * 16 + x) * 256 + k];
-            if (b == Blocks.air)
+            if(b == Blocks.air)
             {
                 depth = -1;
             }
-            else if (b == Blocks.stone)
+            else if(b == Blocks.stone)
             {
                 depth++;
-                
+
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB;
-                    metadata[(y * 16 + x) * 256 + k] = (byte) 12;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBPolarDesert.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBPolarDesert.ebDominantStoneMeta[0];
                 }
-                
-                if (riverPaint)
+
+                if(riverPaint)
                 {
-                    if (grass && depth < 4)
+                    if(grass && depth < 4)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+                        blocks[(y * 16 + x) * 256 + k] = blockFiller;
+                        metadata[(y * 16 + x) * 256 + k] = byteFiller;
                     }
-                    else if (depth == 0)
+                    else if(depth == 0)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = rand.nextInt(2) == 0 ? Blocks.stone : Blocks.cobblestone;
+                        if (rand.nextInt(2) == 0) {
+                            
+                            blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBPolarDesert.ebDominantStoneBlock[0];
+                            metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBPolarDesert.ebDominantStoneMeta[0];
+                        }
+                        else {
+                            
+                            blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBPolarDesert.ebDominantCobblestoneBlock[0];
+                            metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBPolarDesert.ebDominantCobblestoneMeta[0];
+                        }
                     }
                 }
-                else if (depth > -1 && depth < 9)
+                else if(depth > -1 && depth < 9)
                 {
-                    blocks[(y * 16 + x) * 256 + k] = Blocks.snow;
-                    if (depth == 0 && k > 61 && k < 254)
+                    blocks[(y * 16 + x) * 256 + k] = blockTop;
+                    metadata[(y * 16 + x) * 256 + k] = byteTop;
+                    
+                    if(depth == 0 && k > 61 && k < 254)
                     {
                         SnowHeightCalculator.calc(x, y, k, blocks, metadata, noise);
                     }
                 }
             }
-            else if (!water && b == Blocks.water)
+            else if(!water && b == Blocks.water)
             {
                 blocks[(y * 16 + x) * 256 + k] = Blocks.ice;
                 water = true;

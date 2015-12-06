@@ -5,7 +5,10 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBAlpineMountains;
+import enhancedbiomes.api.EBAPI;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -23,18 +26,20 @@ public class SurfaceEBAlpineMountains extends SurfaceEBBase
 	private float cCliff = 1.5f;
 	
 	public byte topByte = 0;
+	public byte fillerByte;
 	
-	public SurfaceEBAlpineMountains(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
+	public SurfaceEBAlpineMountains(Block top, Block fill, byte fillByte, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{
 		super(top, fill);
 		beach = genBeach;
 		beachBlock = genBeachBlock;
 		min = minCliff;
+		fillerByte = fillByte;
 	}
 	
-	public SurfaceEBAlpineMountains(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
+	public SurfaceEBAlpineMountains(Block top, Block fill, byte fillByte, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
 	{
-		this(top, fill, genBeach, genBeachBlock, minCliff);
+		this(top, fill, fillByte, genBeach, genBeachBlock, minCliff);
 		
 		sCliff = stoneCliff;
 		sHeight = stoneHeight;
@@ -59,7 +64,12 @@ public class SurfaceEBAlpineMountains extends SurfaceEBBase
             }
             else if(b == Blocks.stone)
             {
-            	depth++;
+                depth++;
+
+                if (shouldReplaceStone()) {
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBAlpineMountains.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBAlpineMountains.ebDominantStoneMeta[0];
+                }
             	
             	if(depth == 0)
             	{
@@ -83,12 +93,13 @@ public class SurfaceEBAlpineMountains extends SurfaceEBBase
             		
             		if(cliff == 1)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? Blocks.cobblestone : Blocks.stone; 
+                        blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB; 
+                        metadata[(y * 16 + x) * 256 + k] = EBAPI.LIMESTONE;
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock; 
-        				metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
+                        blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneCobbleEB; 
+                        metadata[(y * 16 + x) * 256 + k] = EBAPI.LIMESTONE;
             		}
             		else if(k < 63)
             		{
@@ -100,6 +111,7 @@ public class SurfaceEBAlpineMountains extends SurfaceEBBase
             			else if(k < 62)
             			{
                 			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                			metadata[(y * 16 + x) * 256 + k] = fillerByte;
             			}
             			else
             			{
@@ -117,12 +129,13 @@ public class SurfaceEBAlpineMountains extends SurfaceEBBase
         		{
             		if(cliff == 1)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.stone; 
+                        blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB; 
+                        metadata[(y * 16 + x) * 256 + k] = EBAPI.LIMESTONE;
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock; 
-        				metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
+                        blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneCobbleEB; 
+                        metadata[(y * 16 + x) * 256 + k] = EBAPI.LIMESTONE;
             		}
             		else if(gravel)
             		{
@@ -130,7 +143,8 @@ public class SurfaceEBAlpineMountains extends SurfaceEBBase
             		}
             		else
             		{
-            			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                        blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                        metadata[(y * 16 + x) * 256 + k] = fillerByte;
             		}
         		}
             }

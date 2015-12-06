@@ -8,12 +8,12 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.tree.WorldGenTreePineEuro;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRockyHills;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBRockyHills;
 import enhancedbiomes.EnhancedBiomesMod;
+import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import enhancedbiomes.helpers.TreeGen;
 
@@ -28,12 +28,31 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
 {
+    public static Block[] ebDominantStoneBlock = new Block[]{
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone),
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone)
+    };
+    
+    public static byte[] ebDominantStoneMeta = new byte[]{
+        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
+        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+    };
+    
+    public static Block[] ebDominantCobblestoneBlock = new Block[]{
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone),
+        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone)
+    };
+    
+    public static byte[] ebDominantCobblestoneMeta = new byte[]{
+        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
+        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+    };
     
     private static SurfaceBase surface = new SurfaceEBRockyHills(
-        (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone,
-        (EnhancedBiomesMod.useNewStone == 1) ? (byte) 3 : (byte) 0,
-        (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneEB : Blocks.stone,
-        (EnhancedBiomesMod.useNewStone == 1) ? (byte) 10 : (byte) 0,
+        ebDominantStoneBlock[0],
+        ebDominantStoneMeta[0],
+        ebDominantStoneBlock[1],
+        ebDominantStoneMeta[1],
         false,
         null,
         0f,
@@ -41,10 +60,10 @@ public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
         60f,
         65f,
         1.5f,
-        (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone,
-        (EnhancedBiomesMod.useNewStone == 1) ? (byte) 3 : (byte) 0,
-        (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone,
-        (EnhancedBiomesMod.useNewStone == 1) ? (byte) 10 : (byte) 0,
+        ebDominantCobblestoneBlock[0],
+        ebDominantCobblestoneMeta[0],
+        ebDominantCobblestoneBlock[1],
+        ebDominantCobblestoneMeta[1],
         0.08f
         );
     
@@ -62,6 +81,7 @@ public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigEB.weightEBRockyHills;
         this.generateVillages = ConfigEB.villageEBRockyHills;
+        
     }
     
     @Override

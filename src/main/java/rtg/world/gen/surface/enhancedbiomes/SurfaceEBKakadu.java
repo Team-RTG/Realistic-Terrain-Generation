@@ -5,7 +5,7 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
+import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBKakadu;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -14,9 +14,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBKakadu extends SurfaceEBBase
 {
-    private static Block ebStoneBlock = EnhancedBiomesBlocks.stoneEB;
-    private static byte ebStoneByte = (byte)4;
-    
+
     private Block blockTop;
     private byte byteTop;
     private Block blockFiller;
@@ -82,10 +80,10 @@ public class SurfaceEBKakadu extends SurfaceEBBase
             else if (b == Blocks.stone)
             {
                 depth++;
-                
+
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = ebStoneBlock;
-                    metadata[(y * 16 + x) * 256 + k] = ebStoneByte;
+                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBKakadu.ebDominantStoneBlock[0];
+                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBKakadu.ebDominantStoneMeta[0];
                 }
                 
                 if (cliff)

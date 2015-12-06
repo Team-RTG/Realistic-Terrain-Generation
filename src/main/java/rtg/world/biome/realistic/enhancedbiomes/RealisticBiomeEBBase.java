@@ -9,7 +9,12 @@ import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Loader;
+import enhancedbiomes.EnhancedBiomesMod;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
+import enhancedbiomes.world.biomestats.BiomeCategorisation;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBBase extends RealisticBiomeBase
@@ -535,6 +540,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Polar Desert" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenPolarDesert")
 					{
 						if (ConfigEB.generateEBPolarDesert) {
+						    ebBiome.setEnableSnow();
 						    ebPolarDesert = new RealisticBiomeEBPolarDesert(ebBiome);
 							BiomeBase.addBiome(ebPolarDesert);
 							BiomeBase.addVillageBiome(ebPolarDesert);
@@ -844,4 +850,87 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 			}
 		}
 	}
+	
+    public static Block getDominantEBGrass(BiomeGenBase biome)
+    {
+        if (!EnhancedBiomesMod.useNewGrass || biome == null) {
+            return Blocks.grass;
+        }
+        
+        int intCategoryId = BiomeCategorisation.getCatForBiome(biome).ordinal();
+            
+        //FMLLog.log(Level.INFO, "%s = %d", biome.biomeName, intCategoryId);
+        
+        switch (intCategoryId) {
+            
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+                //FMLLog.log(Level.INFO, "EB");
+                return EnhancedBiomesBlocks.grassEB;
+            default:
+                //FMLLog.log(Level.INFO, "VANILLA");
+                return Blocks.grass;
+        }
+    }
+    
+    public static Block getDominantEBDirt(BiomeGenBase biome)
+    {
+        if (!EnhancedBiomesMod.useNewGrass || biome == null) {
+            return Blocks.dirt;
+        }
+        
+        switch (BiomeCategorisation.getCatForBiome(biome).ordinal()) {
+            
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+                return EnhancedBiomesBlocks.dirtEB;
+            default:
+                return Blocks.dirt;
+        }
+    }
+    
+    public static byte getDominantEBSoilMeta(BiomeGenBase biome)
+    {
+        if (!EnhancedBiomesMod.useNewGrass || biome == null) {
+
+            return (byte)0;
+        }
+
+        switch (BiomeCategorisation.getCatForBiome(biome).ordinal()) {
+            
+            case 1:
+                return (byte)6;
+            case 2:
+            case 3:
+                return (byte)7;
+            case 4:
+            case 5:
+                return (byte)0;
+            case 6:
+                return (byte)4;
+            case 7:
+                return (byte)5;
+            case 8:
+            case 9:
+                return (byte)1;
+            case 10:
+                return (byte)3;
+            default:
+                return (byte)0;
+        }
+    }
 }

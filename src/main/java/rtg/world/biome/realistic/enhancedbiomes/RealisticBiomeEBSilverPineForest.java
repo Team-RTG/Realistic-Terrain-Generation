@@ -44,7 +44,7 @@ public class RealisticBiomeEBSilverPineForest extends RealisticBiomeEBBase
     private static byte ebMixFillByte = (byte)0;
     private static Block ebCliff1Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
     private static byte ebCliff1Byte = EBAPI.ebStonify(EBAPI.DOLOMITE, (byte)0);
-    private static Block ebCliff2Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
+    private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.DOLOMITE, (byte)0);
     
 	public RealisticBiomeEBSilverPineForest(BiomeGenBase ebBiome)

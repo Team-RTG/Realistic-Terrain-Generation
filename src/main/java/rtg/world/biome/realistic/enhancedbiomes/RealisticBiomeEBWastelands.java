@@ -8,9 +8,8 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSandstoneCanyon;
+import rtg.world.gen.surface.enhancedbiomes.SurfaceEBWastelands;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBWastelands;
-import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
@@ -28,8 +27,8 @@ public class RealisticBiomeEBWastelands extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantStoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.GABBRO, (byte)0),
+        EBAPI.ebStonify(EBAPI.BASALT, (byte)0)
     };
     
     public static Block[] ebDominantCobblestoneBlock = new Block[]{
@@ -38,11 +37,11 @@ public class RealisticBiomeEBWastelands extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantCobblestoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.GABBRO, (byte)0),
+        EBAPI.ebStonify(EBAPI.BASALT, (byte)0)
     };
     
-    private static Block cobbleBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
+    private static Block cobbleBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
     private static byte cobbleByte = EBAPI.ebStonify(EBAPI.GABBRO, (byte)0);
     
 	public RealisticBiomeEBWastelands(BiomeGenBase ebBiome)
@@ -50,7 +49,7 @@ public class RealisticBiomeEBWastelands extends RealisticBiomeEBBase
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainEBWastelands(),
-			new SurfaceEBSandstoneCanyon(
+			new SurfaceEBWastelands(
                 Blocks.gravel, //Block top 
                 (byte)0, //byte topByte
                 cobbleBlock, //Block filler, 

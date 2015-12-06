@@ -8,7 +8,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSnowyWastelands;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSnowyWastelands;
-import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
@@ -25,8 +24,8 @@ public class RealisticBiomeEBSnowyWastelands extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantStoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.DACITE, (byte)0),
+        EBAPI.ebStonify(EBAPI.RHYOLITE, (byte)0)
     };
     
     public static Block[] ebDominantCobblestoneBlock = new Block[]{
@@ -35,12 +34,22 @@ public class RealisticBiomeEBSnowyWastelands extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantCobblestoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.DACITE, (byte)0),
+        EBAPI.ebStonify(EBAPI.RHYOLITE, (byte)0)
     };
     
-    private static Block cobbleBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
-    private static byte cobbleByte = EBAPI.ebStonify(EBAPI.SLATE, (byte)0);
+    private static Block ebTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);
+    private static byte ebTopByte = EBAPI.ebGrassify(EBAPI.GELISOL, (byte)0);
+    private static Block ebFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    private static byte ebFillByte = EBAPI.ebGrassify(EBAPI.GELISOL, (byte)0);
+    private static Block ebMixTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);
+    private static byte ebMixTopByte = EBAPI.ebGrassify(EBAPI.GELISOL, (byte)0);
+    private static Block ebMixFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    private static byte ebMixFillByte = EBAPI.ebGrassify(EBAPI.GELISOL, (byte)0);
+    private static Block ebCliff1Block = EBAPI.ebStonify(Blocks.stone, Blocks.stone);
+    private static byte ebCliff1Byte = EBAPI.ebStonify((byte)0, (byte)0);
+    private static Block ebCliff2Block = EBAPI.ebStonify(Blocks.cobblestone, Blocks.cobblestone);
+    private static byte ebCliff2Byte = EBAPI.ebStonify((byte)0, (byte)0);
     
 	public RealisticBiomeEBSnowyWastelands(BiomeGenBase ebBiome)
 	{
@@ -48,22 +57,22 @@ public class RealisticBiomeEBSnowyWastelands extends RealisticBiomeEBBase
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
 			new TerrainEBSnowyWastelands(),
 			new SurfaceEBSnowyWastelands(
-                Blocks.packed_ice, //Block top 
-                (byte)0, //byte topByte
-                cobbleBlock, //Block filler, 
-                cobbleByte, //byte fillerByte
-                Blocks.snow, //Block mixTop, 
-                (byte)0, //byte mixTopByte, 
-                cobbleBlock, //Block mixFill, 
-                cobbleByte, //byte mixFillByte, 
-                cobbleBlock, //Block cliff1, 
-                cobbleByte, //byte cliff1Byte, 
-                cobbleBlock, //Block cliff2, 
-                cobbleByte, //byte cliff2Byte, 
-                40f, //float mixWidth, 
-                -0.10f, //float mixHeight, 
-                20f, //float smallWidth, 
-                0.7f //float smallStrength
+                ebTopBlock, //Block top 
+                ebTopByte, //byte topByte
+                ebFillBlock, //Block filler, 
+                ebFillByte, //byte fillerByte
+                ebMixTopBlock, //Block mixTop, 
+                ebMixTopByte, //byte mixTopByte, 
+                ebMixFillBlock, //Block mixFill, 
+                ebMixFillByte, //byte mixFillByte, 
+                ebCliff1Block, //Block cliff1, 
+                ebCliff1Byte, //byte cliff1Byte, 
+                ebCliff2Block, //Block cliff2, 
+                ebCliff2Byte, //byte cliff2Byte, 
+                80f, //float mixWidth, 
+                -0.15f, //float mixHeight, 
+                10f, //float smallWidth, 
+                0.5f //float smallStrength
             )
 		);
 		

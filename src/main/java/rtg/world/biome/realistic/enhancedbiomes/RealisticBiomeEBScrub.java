@@ -9,9 +9,8 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
-import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSandstoneCanyon;
+import rtg.world.gen.surface.enhancedbiomes.SurfaceEBScrub;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBScrub;
-import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import enhancedbiomes.world.gen.WorldGenSpikedBush;
@@ -29,8 +28,8 @@ public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantStoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.MARBLE, (byte)0),
+        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0)
     };
     
     public static Block[] ebDominantCobblestoneBlock = new Block[]{
@@ -39,29 +38,42 @@ public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantCobblestoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.MARBLE, (byte)0),
+        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0)
     };
+    
+    private static Block ebTopBlock = Blocks.sand;
+    private static byte ebTopByte = (byte)0;
+    private static Block ebFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    private static byte ebFillByte = EBAPI.ebGrassify(EBAPI.OXISOL, (byte)0);
+    private static Block ebMixTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);
+    private static byte ebMixTopByte = EBAPI.ebGrassify(EBAPI.OXISOL, (byte)0);
+    private static Block ebMixFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
+    private static byte ebMixFillByte = EBAPI.ebGrassify(EBAPI.OXISOL, (byte)0);
+    private static Block ebCliff1Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+    private static byte ebCliff1Byte = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
+    private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
+    private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
     
 	public RealisticBiomeEBScrub(BiomeGenBase ebBiome)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainEBScrub(),
-			new SurfaceEBSandstoneCanyon(
-                Blocks.sand, //Block top 
-                (byte)0, //byte topByte
-                EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt), //Block filler, 
-                EBAPI.ebGrassify(EBAPI.OXISOL, (byte)0), //byte fillerByte
-                EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt), //Block mixTop, 
-                EBAPI.ebGrassify(EBAPI.OXISOL, (byte)0), //byte mixTopByte, 
-                EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt), //Block mixFill, 
-                EBAPI.ebGrassify(EBAPI.OXISOL, (byte)0), //byte mixFillByte, 
-                EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone), //Block cliff1, 
-                EBAPI.ebStonify(EBAPI.MARBLE, (byte)0), //byte cliff1Byte, 
-                (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone, //Block cliff2, 
-                EBAPI.ebStonify(EBAPI.MARBLE, (byte)0), //byte cliff2Byte, 
-                90f, //float mixWidth, 
+			new SurfaceEBScrub(
+                ebTopBlock, //Block top 
+                ebTopByte, //byte topByte
+                ebFillBlock, //Block filler, 
+                ebFillByte, //byte fillerByte
+                ebMixTopBlock, //Block mixTop, 
+                ebMixTopByte, //byte mixTopByte, 
+                ebMixFillBlock, //Block mixFill, 
+                ebMixFillByte, //byte mixFillByte, 
+                ebCliff1Block, //Block cliff1, 
+                ebCliff1Byte, //byte cliff1Byte, 
+                ebCliff2Block, //Block cliff2, 
+                ebCliff2Byte, //byte cliff2Byte, 
+                80f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 
                 0.5f //float smallStrength

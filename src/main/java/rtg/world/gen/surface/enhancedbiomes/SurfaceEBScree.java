@@ -6,7 +6,6 @@ import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBScree;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -31,7 +30,7 @@ public class SurfaceEBScree extends SurfaceEBBase
     private float floMixHeight;
     private float floSmallWidth;
     private float floSmallStrength;
-    
+
     public SurfaceEBScree(Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
         byte mixFillerByte, Block cliff1, byte cliff1Byte, Block cliff2, byte cliff2Byte, float mixWidth, float mixHeight,
         float smallWidth, float smallStrength)

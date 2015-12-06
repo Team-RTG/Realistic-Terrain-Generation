@@ -37,8 +37,8 @@ public class RealisticBiomeEBClayHills extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantStoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0),
+        EBAPI.ebStonify(EBAPI.MARBLE, (byte)0)
     };
     
     public static Block[] ebDominantCobblestoneBlock = new Block[]{
@@ -47,11 +47,42 @@ public class RealisticBiomeEBClayHills extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantCobblestoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0),
+        EBAPI.ebStonify(EBAPI.MARBLE, (byte)0)
     };
     
-    private static SurfaceBase surface = new SurfaceEBClayHills(Blocks.sandstone, Blocks.sandstone, (byte) 0, 0);
+    private static Block ebTopBlock = Blocks.sandstone;
+    private static byte ebTopByte = (byte)0;
+    private static Block ebFillBlock = Blocks.sandstone;
+    private static byte ebFillByte = (byte)0;
+    private static Block ebMixTopBlock = Blocks.hardened_clay;
+    private static byte ebMixTopByte = (byte)0;
+    private static Block ebMixFillBlock = Blocks.hardened_clay;
+    private static byte ebMixFillByte = (byte)0;
+    private static Block ebCliff1Block = Blocks.hardened_clay;
+    private static byte ebCliff1Byte = (byte)0;
+    private static Block ebCliff2Block = Blocks.hardened_clay;
+    private static byte ebCliff2Byte = (byte)0;
+    
+    private static SurfaceBase surface = new SurfaceEBClayHills(
+        ebTopBlock, //Block top 
+        ebTopByte, //byte topByte
+        ebFillBlock, //Block filler, 
+        ebFillByte, //byte fillerByte
+        ebMixTopBlock, //Block mixTop, 
+        ebMixTopByte, //byte mixTopByte, 
+        ebMixFillBlock, //Block mixFill, 
+        ebMixFillByte, //byte mixFillByte, 
+        ebCliff1Block, //Block cliff1, 
+        ebCliff1Byte, //byte cliff1Byte, 
+        ebCliff2Block, //Block cliff2, 
+        ebCliff2Byte, //byte cliff2Byte, 
+        80f, //float mixWidth, 
+        -0.15f, //float mixHeight, 
+        10f, //float smallWidth, 
+        0.5f //float smallStrength
+    );
+    
     private static SurfaceBase riverSurface = new SurfaceRiverOasis();
     
     public RealisticBiomeEBClayHills(BiomeGenBase ebBiome)

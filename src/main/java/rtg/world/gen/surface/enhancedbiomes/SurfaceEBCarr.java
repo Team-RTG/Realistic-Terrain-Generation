@@ -2,13 +2,10 @@ package rtg.world.gen.surface.enhancedbiomes;
 
 import java.util.Random;
 
-import enhancedbiomes.EnhancedBiomesMod;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBCarr;
-import rtg.world.gen.surface.SurfaceBase;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -17,36 +14,69 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBCarr extends SurfaceEBBase
 {
-    private Block cliffBlock1;
-    private Block cliffBlock2;
-    private byte topByte;
-    private byte fillerByte;
+    private Block blockTop;
+    private byte byteTop;
+    private Block blockFiller;
+    private byte byteFiller;
+    private Block blockMixTop;
+    private byte byteMixTop;
+    private Block blockMixFiller;
+    private byte byteMixFiller;
+    private Block blockCliff1;
+    private byte byteCliff1;
+    private Block blockCliff2;
+    private byte byteCliff2;
+    private float floMixWidth;
+    private float floMixHeight;
+    private float floSmallWidth;
+    private float floSmallStrength;
 
-    public SurfaceEBCarr(Block top, Block filler, Block cliff1, Block cliff2, byte modTopByte, byte modFillerByte)
+    public SurfaceEBCarr(Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
+        byte mixFillerByte, Block cliff1, byte cliff1Byte, Block cliff2, byte cliff2Byte, float mixWidth, float mixHeight,
+        float smallWidth, float smallStrength)
     {
+    
         super(top, filler);
         
-        cliffBlock1 = cliff1;
-        cliffBlock2 = cliff2;
+        blockTop = top;
+        byteTop = topByte;
+        blockFiller = filler;
+        byteFiller = fillerByte;
         
-        topByte = modTopByte;
-        fillerByte = modFillerByte;
+        blockMixTop = mixTop;
+        byteMixTop = mixTopByte;
+        blockMixFiller = mixFiller;
+        byteMixFiller = mixFillerByte;
+        
+        blockCliff1 = cliff1;
+        byteCliff1 = cliff1Byte;
+        
+        blockCliff2 = cliff2;
+        byteCliff2 = cliff2Byte;
+        
+        floMixWidth = mixWidth;
+        floMixHeight = mixHeight;
+        floSmallWidth = smallWidth;
+        floSmallStrength = smallStrength;
     }
     
     @Override
-    public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+    public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
+        OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
+    
         float c = CliffCalculator.calc(x, y, noise);
         boolean cliff = c > 1.4f ? true : false;
+        boolean mix = false;
         
-        for(int k = 255; k > -1; k--)
+        for (int k = 255; k > -1; k--)
         {
             Block b = blocks[(y * 16 + x) * 256 + k];
-            if(b == Blocks.air)
+            if (b == Blocks.air)
             {
                 depth = -1;
             }
-            else if(b == Blocks.stone)
+            else if (b == Blocks.stone)
             {
                 depth++;
 
@@ -55,28 +85,56 @@ public class SurfaceEBCarr extends SurfaceEBBase
                     metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBCarr.ebDominantStoneMeta[0];
                 }
                 
-                if(cliff)
+                if (cliff)
                 {
-                    if(depth > -1 && depth < 2)
+                    if (depth > -1 && depth < 2)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? cliffBlock2 : cliffBlock1; 
+                        if (rand.nextInt(3) == 0) {
+                            blocks[(y * 16 + x) * 256 + k] = blockCliff2;
+                            metadata[(y * 16 + x) * 256 + k] = byteCliff2;
+                        }
+                        else {
+                            blocks[(y * 16 + x) * 256 + k] = blockCliff1;
+                            metadata[(y * 16 + x) * 256 + k] = byteCliff1;
+                        }
+                        
                     }
                     else if (depth < 10)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = cliffBlock1;
+                        blocks[(y * 16 + x) * 256 + k] = blockCliff1;
+                        metadata[(y * 16 + x) * 256 + k] = byteCliff1;
                     }
                 }
                 else
                 {
-                    if(depth == 0 && k > 61)
+                    if (depth == 0 && k > 61)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = topBlock;
-                        metadata[(y * 16 + x) * 256 + k] = topByte;
+                        if (simplex.noise2(i / floMixWidth, j / floMixWidth) + simplex.noise2(i / floSmallWidth, j / floSmallWidth)
+                            * floSmallStrength > floMixHeight)
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = blockMixTop;
+                            metadata[(y * 16 + x) * 256 + k] = byteMixTop;
+                            
+                            mix = true;
+                        }
+                        else
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = topBlock;
+                            metadata[(y * 16 + x) * 256 + k] = byteTop;
+                        }
                     }
-                    else if(depth < 4)
+                    else if (depth < 4)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                        metadata[(y * 16 + x) * 256 + k] = fillerByte;
+                        if (mix)
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = blockMixFiller;
+                            metadata[(y * 16 + x) * 256 + k] = byteMixFiller;
+                        }
+                        else
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            metadata[(y * 16 + x) * 256 + k] = byteFiller;
+                        }
                     }
                 }
             }

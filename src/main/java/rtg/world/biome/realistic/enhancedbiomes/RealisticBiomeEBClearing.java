@@ -15,23 +15,23 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class RealisticBiomeEBClearing extends RealisticBiomeEBBase
 {
     public static Block[] ebDominantStoneBlock = new Block[]{
-        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone),
-        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone)
+        EBAPI.ebStonify(Blocks.stone, Blocks.stone),
+        EBAPI.ebStonify(Blocks.stone, Blocks.stone)
     };
     
     public static byte[] ebDominantStoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify((byte)0, (byte)0),
+        EBAPI.ebStonify((byte)0, (byte)0)
     };
     
     public static Block[] ebDominantCobblestoneBlock = new Block[]{
-        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone),
-        EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone)
+        EBAPI.ebStonify(Blocks.cobblestone, Blocks.cobblestone),
+        EBAPI.ebStonify(Blocks.cobblestone, Blocks.cobblestone)
     };
     
     public static byte[] ebDominantCobblestoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
-        EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
+        EBAPI.ebStonify((byte)0, (byte)0),
+        EBAPI.ebStonify((byte)0, (byte)0)
     };
     
     private static Block ebTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.grassEB, Blocks.grass);
@@ -42,10 +42,10 @@ public class RealisticBiomeEBClearing extends RealisticBiomeEBBase
     private static byte ebMixTopByte = EBAPI.ebGrassify(EBAPI.MOLLISOL, (byte)0);
     private static Block ebMixFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
     private static byte ebMixFillByte = EBAPI.ebGrassify(EBAPI.MOLLISOL, (byte)0);
-    private static Block ebCliff1Block = Blocks.stone;
-    private static byte ebCliff1Byte = (byte)0;
-    private static Block ebCliff2Block = Blocks.cobblestone;
-    private static byte ebCliff2Byte = (byte)0;
+    private static Block ebCliff1Block = EBAPI.ebStonify(Blocks.stone, Blocks.stone);
+    private static byte ebCliff1Byte = EBAPI.ebStonify((byte)0, (byte)0);
+    private static Block ebCliff2Block = EBAPI.ebStonify(Blocks.cobblestone, Blocks.cobblestone);
+    private static byte ebCliff2Byte = EBAPI.ebStonify((byte)0, (byte)0);
     
 	public RealisticBiomeEBClearing(BiomeGenBase ebBiome)
 	{

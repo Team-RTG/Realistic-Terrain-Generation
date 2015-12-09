@@ -74,10 +74,18 @@ public class RealisticBiomePool
     public RealisticBiomeBase chooseBiome(double par1, double par2)
     {
         RealisticBiomeBase output = null;
+        int biomeSize = ConfigRTG.biomeSize;
         
-        float bcn = (biomecell.noise(par1 / 450D, par2 / 450D, 1D));
+        /**
+         * This is where we determine the size of the biomes.
+         */
+        int normalSize = 3;
+        int normalDivisor = 450;
+        biomeSize = (int)((normalDivisor * biomeSize) / normalSize);
         
-        //FMLLog.log(Level.INFO, "bcn=%f", bcn);
+        float bcn = (biomecell.noise(par1 / (double)biomeSize, par2 / (double)biomeSize, 1D));
+        
+        //FMLLog.log(Level.INFO, "%f|%f", par1, par2);
         
         bcn = normalize(bcn, -1f, 1f, 0f, 1f);
         bcn = bcn < 0f ? 0f : bcn >= 0.9999999f ? 0.9999999f : bcn;

@@ -75,38 +75,21 @@ public class RealisticBiomePool
     {
         RealisticBiomeBase output = null;
         
-        //float b = (biomecell.noise((par1 + (float)(biomes_allLength * 20)) / (float)(biomes_allLength * 6), par2 / (float)(biomes_allLength * 6), 1D) * 0.5f) + 0.5f;
-        float b = (biomecell.noise((par1 + 4000f) / 1200D, par2 / 1200D, 1D) * 0.5f) + 0.5f;
-        b = b < 0f ? 0f : b >= 0.9999999f ? 0.9999999f : b;
+        float bcn = (biomecell.noise(par1 / 450D, par2 / 450D, 1D));
         
-        //FMLLog.log(Level.INFO, "bcn=%f|b=%f|%d", bcn, b, biomes_allLength);
+        //FMLLog.log(Level.INFO, "bcn=%f", bcn);
         
-        float h = calculateNoiseForTempBiome(par1, par2);
-        h *= biomePool.size();
-        
-        output = RealisticBiomeBase.getBiome(biomePool.get((int) (h)));
-        
-        // FMLLog.log(Level.INFO, "chooseSnowBiome: %s", output.getRealisticBiomeName());
-        
+        bcn = normalize(bcn, -1f, 1f, 0f, 1f);
+        bcn = bcn < 0f ? 0f : bcn >= 0.9999999f ? 0.9999999f : bcn;
+        bcn *= biomePool.size();
+                
+        output = RealisticBiomeBase.getBiome(biomePool.get((int) (bcn)));
+                
         return output;
     }
     
-    public RealisticBiomeBase chooseRandomBiome()
-    {
-        
-        RealisticBiomeBase output = RealisticBiomeBase.getBiome(biomePool.get(rand.nextInt(biomePool.size())));
-        
-        // FMLLog.log(Level.INFO, "chooseRandomBiome: %s", output.getRealisticBiomeName());
-        
-        return output;
-    }
-    
-    private float calculateNoiseForTempBiome(double par1, double par2) {
-        
-        //float h = (biomecell.noise(par1 / (float)(biomes_allLength * 2), par2 / (float)(biomes_allLength * 2), 1D) * 0.5f) + 0.5f;
-        float h = (biomecell.noise(par1 / 450D, par2 / 450D, 1D) * 0.5f) + 0.5f;
-        h = h < 0f ? 0f : h >= 0.9999999f ? 0.9999999f : h;
-        
-        return h;
+    private float normalize(float value, float minOld, float maxOld, float minNew, float maxNew) {
+                 
+        return (maxNew - minNew) / (maxOld - minOld) * (value - maxOld) + maxNew;
     }
 }

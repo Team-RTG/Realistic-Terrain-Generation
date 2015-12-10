@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.apache.logging.log4j.Level;
 
+import rtg.world.biome.BiomeBase;
 import cpw.mods.fml.common.FMLLog;
 
 import net.minecraftforge.common.config.Configuration;
@@ -60,7 +61,7 @@ public class ConfigRTG
 	public static boolean showDebugInfo = false;
 	public static boolean enableDebugging = false;
 
-	public static int biomeSize = 2;
+	public static int biomeSize = BiomeBase.DEFAULT_BIOME_SIZE;
 	
     public static int minDistanceScatteredFeatures = 8;
     public static int maxDistanceScatteredFeatures = 32;

@@ -14,7 +14,7 @@ public class BiomeBase extends BiomeGenBase
 {
     public static final int DEFAULT_BIOME_SIZE = 3;
     public static final int MIN_BIOME_SIZE = 1;
-    public static final int MAX_BIOME_SIZE = 5;
+    public static final int MAX_BIOME_SIZE = 10;
     
     public static final int DEFAULT_BIOME_WEIGHT = 10;
     public static final int MIN_BIOME_WEIGHT = 0;

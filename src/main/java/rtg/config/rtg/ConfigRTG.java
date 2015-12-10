@@ -108,7 +108,7 @@ public class ConfigRTG
                 Configuration.NEW_LINE
             );
             
-            biomeSize = config.getInt("Size of Biomes", "Biomes", biomeSize, 1, 5, "Lower values = smaller biomes; Higher values = larger biomes" + Configuration.NEW_LINE);
+            biomeSize = config.getInt("Size of Biomes", "Biomes", biomeSize, BiomeBase.MIN_BIOME_SIZE, BiomeBase.MAX_BIOME_SIZE, "Lower values = smaller biomes; Higher values = larger biomes" + Configuration.NEW_LINE);
             
             /* ==================== Boulders ==================== */
             

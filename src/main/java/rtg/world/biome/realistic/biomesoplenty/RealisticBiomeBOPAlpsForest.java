@@ -7,14 +7,14 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
-import rtg.world.gen.feature.tree.WorldGenTreeSpruceSmall;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPAlpsForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPAlpsForest;
 import biomesoplenty.api.content.BOPCBiomes;
+import biomesoplenty.common.world.features.trees.WorldGenBOPTaiga2;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -31,7 +31,7 @@ public class RealisticBiomeBOPAlpsForest extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
 			new TerrainBOPAlpsForest(),
-			new SurfaceBOPAlpsForest(topBlock, fillerBlock, false, null, 0.45f)
+			new SurfaceBOPAlpsForest(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.15f)
 		);
 
 		this.setRealisticBiomeName("BOP Alps Forest");
@@ -60,13 +60,12 @@ public class RealisticBiomeBOPAlpsForest extends RealisticBiomeBOPBase
             int z52 = world.getHeightValue(j6, k10);
             
             WorldGenerator worldgenerator =
-                rand.nextInt(4) == 0 ? new WorldGenTreeSpruceSmall(1 + rand.nextInt(2)) : rand.nextInt(6) == 0 ? new WorldGenTreePineSmall(
-                    1 + rand.nextInt(3), 4 + rand.nextInt(4)) : new WorldGenTreePineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
+                new WorldGenBOPTaiga2(Blocks.log, Blocks.leaves, 1, 1, false, 9, 9, 6, 4);
             worldgenerator.setScale(1.0D, 1.0D, 1.0D);
             worldgenerator.generate(world, rand, j6, z52, k10);
         }
         
-        if (l > 0f && rand.nextInt(6) == 0)
+        if (l > 0f && rand.nextInt(12) == 0)
         {
             int x22 = chunkX + rand.nextInt(16) + 8;
             int z22 = chunkY + rand.nextInt(16) + 8;
@@ -79,13 +78,17 @@ public class RealisticBiomeBOPAlpsForest extends RealisticBiomeBOPBase
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
             int k1 = world.getHeightValue(i1, j1);
-            if (rand.nextInt(10) == 0)
-            {
-                (new WorldGenTreeShrub(rand.nextInt(5) + 4, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
-            }
-            else
-            {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
+            
+            if (rand.nextInt(8) == 0) {
+                
+                if (rand.nextInt(10) == 0)
+                {
+                    (new WorldGenTreeShrub(rand.nextInt(5) + 4, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
+                }
+                else
+                {
+                    (new WorldGenTreeShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
+                }
             }
         }
     }

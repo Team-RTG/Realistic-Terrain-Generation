@@ -145,7 +145,10 @@ public class RealisticBiomeBase extends BiomeBase {
                 int l4 = RandomUtil.getRandomInt(rand, 1, 50);
                 int i8 = worldZ + rand.nextInt(16) + 8;
                 
-                (new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
+                if (waterLakeFrequency > 0 && rand.nextInt(waterLakeFrequency) == 0) {
+                    
+                    (new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
+                }
                 
                 //Surface lakes.
                 if (waterLakeFrequency > 0 && rand.nextInt(waterLakeFrequency) == 0) {
@@ -173,7 +176,10 @@ public class RealisticBiomeBase extends BiomeBase {
                 
                 if (i5 <= 50)
                 {
-                    (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, j2, i5, j8);
+                    if (lavaLakeFrequency > 0 && rand.nextInt(lavaLakeFrequency) == 0) {
+                        
+                        (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, j2, i5, j8);
+                    }
                 }
                 
                 //Surface lakes.

@@ -6,7 +6,7 @@ import rtg.util.OpenSimplexNoise;
 public class TerrainRollingHills extends TerrainBase
 {
     private float minHeight = 63f;
-    private float maxHeight = 120f;
+    private float maxHeight = 80f;
     private float hillStrength = 30f;
     
     public TerrainRollingHills()
@@ -17,7 +17,7 @@ public class TerrainRollingHills extends TerrainBase
     public TerrainRollingHills(float minHeight, float maxHeight, float hillStrength)
     {
         this.minHeight = minHeight;
-        this.maxHeight = maxHeight;
+        this.maxHeight = (maxHeight > 80f) ? 80f : ((maxHeight < this.minHeight) ? 80f : maxHeight);
         this.hillStrength = hillStrength;
     }
     

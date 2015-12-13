@@ -14,22 +14,33 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceVanillaSavannaPlateau extends SurfaceBase
 {
-    
-    private Block cliff1Block;
-    private byte cliff1Byte;
-    
-    private Block cliff2Block;
-    private byte cliff2Byte;
-    
-	public SurfaceVanillaSavannaPlateau(Block top, Block fill, byte b)
+	private int[] claycolor = new int[100];
+	private byte blockByte = 0;
+	private int grassRaise = 0;
+	
+	public SurfaceVanillaSavannaPlateau(Block top, Block fill, byte b, int grassHeight)
 	{
 		super(top, fill);
+		blockByte = b;
+		grassRaise = grassHeight;
 		
-        cliff1Block = Blocks.dirt;
-        cliff1Byte = (byte)0;
-        
-        cliff2Block = Blocks.stone;
-        cliff2Byte = (byte)0;
+		int[] c = new int[]{1, 8, 0};
+		OpenSimplexNoise simplex = new OpenSimplexNoise(2L);
+		
+		float n;
+		for(int i = 0; i < 100; i++)
+		{
+			n = simplex.noise1(i / 3f) * 3f + simplex.noise1(i / 1f) * 0.3f + 1.5f;
+			n = n >= 3f ? 2.9f : n < 0f ? 0f : n;
+			claycolor[i] = c[(int)n];
+		}
+	}
+	
+	public byte getClayColorForHeight(int k)
+	{
+		k -= 60;
+		k = k < 0 ? 0 : k > 99 ? 99 : k;
+		return (claycolor[k] == 0) ? (byte)12 : ((claycolor[k] == 1) ? (byte)0 : (byte)claycolor[k]);
 	}
 	
 	@Override
@@ -53,33 +64,95 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase
 	        	{
 	            	if(cliff)
 	            	{
-	        			blocks[(y * 16 + x) * 256 + k] = cliff2Block;
-	        			metadata[(y * 16 + x) * 256 + k] = cliff2Byte;
+	        			blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay;
+	        			metadata[(y * 16 + x) * 256 + k] = getClayColorForHeight(k);
 	            	}
 	            	else
 	            	{
 	        			if(depth > 4)
 	        			{
-	                        blocks[(y * 16 + x) * 256 + k] = cliff1Block;
-	                        metadata[(y * 16 + x) * 256 + k] = cliff1Byte;
+		        			blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay;
+		        			metadata[(y * 16 + x) * 256 + k] = getClayColorForHeight(k);
+	        			}
+	        			else if(k > 74 + grassRaise)
+	        			{
+	        				if(rand.nextInt(5) == 0)
+	        				{
+		        				blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+	        				}
+	        				else
+	        				{
+		        				if(depth == 0)
+		        				{
+			        				blocks[(y * 16 + x) * 256 + k] = topBlock;
+			        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+		        				}
+		        				else
+		        				{
+			        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+			        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+		        				}
+	        				}
+	        			}
+	        			else if(k < 62)
+	        			{
+	        				blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+	        			}
+	        			else if(k < 62 + grassRaise)
+	        			{
+	        				if(depth == 0)
+	        				{
+	        					blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
+	        				}
+	        				else
+	        				{
+	        					blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+	        				}
+	        			}
+	        			else if(k < 75 + grassRaise)
+	        			{
+	        				if(depth == 0)
+	        				{
+		        				int r = (int)((k - (62 + grassRaise)) / 2f);
+		        				if(rand.nextInt(r + 1) == 0)
+		        				{
+			        				blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
+		        				}
+		        				else if(rand.nextInt((int)(r / 2f) + 1) == 0)
+		        				{
+			        				blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+		        				}
+		        				else
+		        				{
+			        				blocks[(y * 16 + x) * 256 + k] = topBlock;
+			        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+		        				}
+	        				}
+	        				else
+	        				{
+		        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+	        				}
 	        			}
 	        			else
 	        			{
 	        				if(depth == 0)
 	        				{
 		        				blocks[(y * 16 + x) * 256 + k] = topBlock;
+		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
 	        				}
 	        				else
 	        				{
 		        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
 	        				}
 	        			}
 	            	}
         		}
         		else if(k > 63)
         		{
-                    blocks[(y * 16 + x) * 256 + k] = cliff2Block;
-                    metadata[(y * 16 + x) * 256 + k] = cliff2Byte;
+        			blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay;
+        			metadata[(y * 16 + x) * 256 + k] = getClayColorForHeight(k);
         		}
             }
 		}

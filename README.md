@@ -54,8 +54,8 @@ In addition, RTG currently generates realistic versions of the biomes added by t
 
 Unfortunately, however, RTG is currently not compatible with the following mods:
 
-Wildycraft - crashes on startup
-TerraFirmaCraft - deviates too far from standard biome generation
+* Wildycraft - crashes on startup
+* TerraFirmaCraft - deviates too far from standard biome generation
 
 # Known Issues
 RTG's list of known issues can be found [here](https://github.com/Team-RTG/Realistic-Terrain-Generation/issues).

@@ -32,8 +32,25 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
-			new TerrainBOPMountain(),
-			new SurfaceBOPMountain(topBlock, fillerBlock, true, Blocks.sand, 0.75f)
+			new TerrainBOPMountain(200f, 100f, 0f),
+			new SurfaceBOPMountain(
+                topBlock, //Block top 
+                (byte)0, //byte topByte
+                fillerBlock, //Block filler, 
+                (byte)0, //byte fillerByte
+                topBlock, //Block mixTop, 
+                (byte)0, //byte mixTopByte, 
+                fillerBlock, //Block mixFill, 
+                (byte)0, //byte mixFillByte, 
+                Blocks.stone, //Block cliff1, 
+                (byte)0, //byte cliff1Byte, 
+                Blocks.cobblestone, //Block cliff2, 
+                (byte)0, //byte cliff2Byte, 
+                80f, //float mixWidth, 
+                -0.15f, //float mixHeight, 
+                10f, //float smallWidth, 
+                0.5f //float smallStrength
+            )
 		);
 		
 		this.setRealisticBiomeName("BOP Mountain");

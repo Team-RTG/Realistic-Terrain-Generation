@@ -1,14 +1,14 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPXericShrubland;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPXericShrubland;
 import biomesoplenty.api.content.BOPCBiomes;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPXericShrubland extends RealisticBiomeBOPBase
 {	
@@ -21,8 +21,25 @@ public class RealisticBiomeBOPXericShrubland extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
-			new TerrainBOPXericShrubland(0f, 140f, 68f, 200f),
-			new SurfaceBOPXericShrubland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new TerrainBOPXericShrubland(),
+			new SurfaceBOPXericShrubland(
+                topBlock, //Block top 
+                (byte)0, //byte topByte
+                fillerBlock, //Block filler, 
+                (byte)0, //byte fillerByte
+                topBlock, //Block mixTop, 
+                (byte)0, //byte mixTopByte, 
+                fillerBlock, //Block mixFill, 
+                (byte)0, //byte mixFillByte, 
+                Blocks.stone, //Block cliff1, 
+                (byte)0, //byte cliff1Byte, 
+                Blocks.cobblestone, //Block cliff2, 
+                (byte)0, //byte cliff2Byte, 
+                80f, //float mixWidth, 
+                -0.15f, //float mixHeight, 
+                10f, //float smallWidth, 
+                0.5f //float smallStrength
+            )
 		);
 		
 		this.setRealisticBiomeName("BOP Xeric Shrubland");

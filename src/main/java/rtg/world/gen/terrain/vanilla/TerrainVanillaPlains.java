@@ -29,7 +29,7 @@ public class TerrainVanillaPlains extends TerrainBase
         h *= h / 200f;
         h += st;
         
-        floNoise = 62f + h;
+        floNoise = 63f + h;
         
         //FMLLog.log(Level.INFO, "floNoise = %f", floNoise);
         

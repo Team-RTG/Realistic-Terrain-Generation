@@ -1,14 +1,22 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
 
 import rtg.config.biomesoplenty.ConfigBOP;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMysticGrove;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMysticGrove;
 import biomesoplenty.api.content.BOPCBiomes;
+import biomesoplenty.api.content.BOPCBlocks;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
 {	
@@ -21,7 +29,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
-			new TerrainBOPMysticGrove(0f, 140f, 68f, 200f),
+			new TerrainBOPMysticGrove(),
 			new SurfaceBOPMysticGrove(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
 		
@@ -30,4 +38,68 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
 		this.biomeWeight = ConfigBOP.weightBOPMysticGrove;
 		this.generateVillages = ConfigBOP.villageBOPMysticGrove;
 	}
+	
+    @Override
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
+        float river)
+    {
+    
+        float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
+        
+        if (rand.nextInt(8) == 0) {
+            
+            int x22 = chunkX + rand.nextInt(16) + 8;
+            int z22 = chunkY + rand.nextInt(16) + 8;
+            int y22 = world.getHeightValue(x22, z22);
+                        
+            Block logBlock;
+            byte logByte;
+            int logLength;
+            
+            if (rand.nextInt(5) == 0) {
+                
+                logBlock = Blocks.log;
+                logByte = (byte)0;
+                logLength = 3 + rand.nextInt(4);
+            }
+            else {
+                
+                if (rand.nextInt(3) == 0) {
+                    
+                    logBlock = Blocks.log;
+                    logByte = (byte)0;
+                    logLength = 3 + rand.nextInt(2);
+                }
+                else {
+                    if (rand.nextInt(3) == 0) {
+                        
+                        logBlock = BOPCBlocks.logs4;
+                        logByte = (byte)2;
+                        logLength = 3 + rand.nextInt(2);
+                    }
+                    else {
+                        if (rand.nextInt(4) == 0) {
+                            
+                            logBlock = BOPCBlocks.logs2;
+                            logByte = (byte)1;
+                            logLength = 3 + rand.nextInt(2);
+                        }
+                        else {                            
+                            
+                            logBlock = Blocks.log;
+                            logByte = (byte)0;
+                            logLength = 3 + rand.nextInt(3);
+                        }
+                    }
+                }
+            }
+            
+            if (y22 < 100)
+            {
+                (new WorldGenLog(logBlock, logByte, Blocks.leaves, -1, logLength)).generate(world, rand, x22, y22, z22);
+            }
+        }
+
+        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+    }
 }

@@ -2,22 +2,25 @@ package rtg.world.gen.terrain;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainRollingHills extends TerrainBase
 {
-    private float baseHeight = 76f;
+    private float minHeight = 63f;
+    private float maxHeight = 80f;
     private float hillStrength = 30f;
+    
+    // 63f, 80f, 30f
     
     public TerrainRollingHills()
     {
     
     }
     
-    public TerrainRollingHills(float bh, float hs)
+    public TerrainRollingHills(float minHeight, float maxHeight, float hillStrength)
     {
-        baseHeight = bh;
-        hillStrength = hs;
+        this.minHeight = minHeight;
+        this.maxHeight = (maxHeight > 80f) ? 80f : ((maxHeight < this.minHeight) ? 80f : maxHeight);
+        this.hillStrength = hillStrength;
     }
     
     @Override
@@ -38,6 +41,9 @@ public class TerrainRollingHills extends TerrainBase
         l *= l / 25f;
         l = l < -8f ? -8f : l;
         
-        return baseHeight + h + m - l;
+        float floNoise = maxHeight + h + m - l;
+        floNoise = (floNoise < minHeight) ? minHeight : floNoise;
+        
+        return floNoise;
     }
 }

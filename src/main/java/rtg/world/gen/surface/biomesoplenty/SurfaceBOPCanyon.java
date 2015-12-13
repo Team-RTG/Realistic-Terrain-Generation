@@ -2,14 +2,15 @@ package rtg.world.gen.surface.biomesoplenty;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceBOPCanyon extends SurfaceBase
 {
@@ -39,7 +40,7 @@ public class SurfaceBOPCanyon extends SurfaceBase
 	{
 		k -= 60;
 		k = k < 0 ? 0 : k > 99 ? 99 : k;
-		return (byte)claycolor[k];
+		return (claycolor[k] == 0) ? (byte)12 : (byte)claycolor[k];
 	}
 	
 	@Override

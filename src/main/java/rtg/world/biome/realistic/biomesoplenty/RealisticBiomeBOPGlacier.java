@@ -1,14 +1,14 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPGlacier;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPGlacier;
 import biomesoplenty.api.content.BOPCBiomes;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPGlacier extends RealisticBiomeBOPBase
 {	
@@ -20,9 +20,10 @@ public class RealisticBiomeBOPGlacier extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPGlacier()
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainBOPGlacier(),
-			new SurfaceBOPGlacier(topBlock, fillerBlock, true, Blocks.sand, 0.45f, 1.5f, 60f, 65f, 0.4f, 130f, 50f, 1.5f)
+			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
+			new TerrainBOPGlacier(230f, 100f, 0f),
+			new SurfaceBOPGlacier(topBlock, fillerBlock, topBlock, fillerBlock, Blocks.packed_ice, Blocks.ice, 60f,
+                -0.14f, 14f, 0.25f)
 		);
 		
 		this.setRealisticBiomeName("BOP Glacier");

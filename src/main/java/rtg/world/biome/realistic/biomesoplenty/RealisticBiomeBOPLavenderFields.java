@@ -12,8 +12,6 @@ import rtg.world.gen.feature.tree.WorldGenTreeShrub;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPLavenderFields;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPLavenderFields;
 import biomesoplenty.api.content.BOPCBiomes;
-import biomesoplenty.api.content.BOPCBlocks;
-import biomesoplenty.common.world.features.trees.WorldGenBOPShrub;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -45,15 +43,6 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
         float river)
     {
-    
-//        for (int f23 = 0; f23 < 16f * strength; f23++)
-//        {
-//            int j15 = chunkX + rand.nextInt(16) + 8;
-//            int j20 = chunkY + rand.nextInt(16) + 8;
-//            int j17 = world.getHeightValue(j15, j20);
-//            
-//            (new WorldGenFlowers(new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 15})).generate(world, rand, j15, j17, j20);
-//        }
 
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
         
@@ -67,15 +56,7 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase
                 
                 if (k1 < 110)
                 {
-                    if (rand.nextBoolean()) {
-                        
-                        (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
-                    }
-                    else {
-                        
-                        (new WorldGenBOPShrub(BOPCBlocks.logs4, BOPCBlocks.leaves4, 2, 1, new Block[] { Blocks.grass })).generate(world, rand, i1, k1, j1);
-                        
-                    }
+                    (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
                 }
             }
         }

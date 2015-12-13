@@ -26,6 +26,7 @@ public class ConfigRTG
     
     public static String volcanoBlockId = "minecraft:obsidian";
     public static int volcanoBlockByte = 0;
+    public static boolean enableVolcanoEruptions = true;
 	
     public static boolean generateOreCoal = true;
     public static boolean generateOreIron = true;
@@ -228,6 +229,14 @@ public class ConfigRTG
             );
             
             volcanoBlockByte = config.getInt("Volcano block meta value", "Volcanoes", volcanoBlockByte, 0, 15, "The meta value of the volcano block." + Configuration.NEW_LINE);
+            
+            enableVolcanoEruptions = config.getBoolean(
+                "Enable volcano eruptions",
+                "Volcanoes",
+                enableVolcanoEruptions,
+                "Set this to FALSE to prevent lava from flowing down the sides of volcanoes."
+                + Configuration.NEW_LINE
+            );
             
 		}
 		catch (Exception e) 

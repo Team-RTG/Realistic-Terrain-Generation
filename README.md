@@ -61,11 +61,11 @@ Unfortunately, however, RTG is currently not compatible with the following mods:
 RTG's list of known issues can be found [here](https://github.com/Team-RTG/Realistic-Terrain-Generation/issues).
 
 Major issues:
-Issue #136 - Island biomes do not generate as actual islands. (Mushroom Islands are disabled by default.)
-Issue #327 - Edge biomes do not always generate along the edges of their related biomes.
-Issue #275 - Volcanic biomes sometimes contain partially-generated volcanoes. (All volcanic biomes are disabled by default.)
-Issue #282 - Hot-to-cold biome transitions are still occurring.
-Issue #314 - ChromatiCraft biomes aren't generating when Biomes O' Plenty is also installed.
+* Issue #136 - Island biomes do not generate as actual islands. (Mushroom Islands are disabled by default.)
+* Issue #327 - Edge biomes do not always generate along the edges of their related biomes.
+* Issue #275 - Volcanic biomes sometimes contain partially-generated volcanoes. (All volcanic biomes are disabled by default.)
+* Issue #282 - Hot-to-cold biome transitions are still occurring.
+* Issue #314 - ChromatiCraft biomes aren't generating when Biomes O' Plenty is also installed.
 
 # Screenshots
 http://imgur.com/a/322dY

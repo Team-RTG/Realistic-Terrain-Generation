@@ -20,16 +20,13 @@ public class RealisticBiomeBOPCanyon extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
-			new TerrainBOPCanyon(),
-			new SurfaceBOPCanyon(topBlock, fillerBlock, topBlock, 20f, 0.2f)
+			new TerrainBOPCanyon(true, 35f, 160f, 60f, 40f, 69f),
+			new SurfaceBOPCanyon(topBlock, fillerBlock, (byte)0, 0)
 		);
 		
 		this.setRealisticBiomeName("BOP Canyon");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPCanyon;
 		this.generateVillages = ConfigBOP.villageBOPCanyon;
-		
-		this.waterLakeFrequency = 0;
-		this.lavaLakeFrequency = 0;
 	}
 }

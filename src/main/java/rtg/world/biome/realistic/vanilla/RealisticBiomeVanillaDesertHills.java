@@ -39,7 +39,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
 		super(
 			BiomeGenBase.desertHills,
 			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
-			new TerrainVanillaDesertHills(65f, 80f, 34f),
+			new TerrainVanillaDesertHills(600f, 50f, 0f),
 			surface
 		);
 		

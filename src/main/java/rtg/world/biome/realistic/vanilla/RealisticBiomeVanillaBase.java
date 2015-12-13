@@ -74,7 +74,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 	{
 		super(b, riverbiome, t, s);
 		
-		this.lavaLakeFrequency = 0;
+		this.lavaSurfaceLakeChance = 0;
 	}
 	
 	public static void addBiomes()

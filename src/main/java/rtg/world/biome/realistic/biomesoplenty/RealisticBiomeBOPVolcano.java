@@ -72,8 +72,8 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
 		this.biomeWeight = ConfigBOP.weightBOPVolcano;
 		this.generateVillages = ConfigBOP.villageBOPVolcano;
 		
-		this.waterLakeFrequency = 0;
-		this.lavaLakeFrequency = 1;
+		this.waterSurfaceLakeChance = 0;
+		this.lavaSurfaceLakeChance = 1;
 	}
 	
     @Override

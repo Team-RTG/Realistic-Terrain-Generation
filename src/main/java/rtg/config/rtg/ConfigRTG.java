@@ -39,11 +39,17 @@ public class ConfigRTG
     public static boolean enableCobblestoneBoulders = true;
     public static int cobblestoneBoulderChance = 1;
     
-    public static boolean enableWaterLakes = true;
-    public static int waterLakeChance = 10;
+    public static boolean enableWaterSurfaceLakes = true;
+    public static int waterSurfaceLakeChance = 10;
     
-    public static boolean enableLavaLakes = true;
-    public static int lavaLakeChance = 10;
+    public static boolean enableWaterUndergroundLakes = true;
+    public static int waterUndergroundLakeChance = 10;
+    
+    public static boolean enableLavaSurfaceLakes = true;
+    public static int lavaSurfaceLakeChance = 10;
+    
+    public static boolean enableLavaUndergroundLakes = true;
+    public static int lavaUndergroundLakeChance = 10;
     
     public static boolean generateMineshafts = true;
     public static boolean generateStrongholds = true;
@@ -142,13 +148,21 @@ public class ConfigRTG
             
             generateDungeons = config.getBoolean("Generate Dungeons", "Dungeons", generateDungeons, "");
             
-            /* ==================== Lakes ==================== */
+            /* ==================== Lakes (Surface) ==================== */
             
-            enableWaterLakes = config.getBoolean("Enable Water Lakes", "Lakes", enableWaterLakes, "");
-            waterLakeChance = config.getInt("1/x chance that Water Lakes will generate if given the opportunity to do so during world gen", "Lakes", waterLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
+            enableWaterSurfaceLakes = config.getBoolean("Enable Water Surface Lakes", "Lakes (Surface)", enableWaterSurfaceLakes, "");
+            waterSurfaceLakeChance = config.getInt("1/x chance that Water Surface Lakes will generate if given the opportunity to do so during world gen", "Lakes (Surface)", waterSurfaceLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
             
-            enableLavaLakes = config.getBoolean("Enable Lava Lakes", "Lakes", enableLavaLakes, "");
-            lavaLakeChance = config.getInt("1/x chance that Lava Lakes will generate if given the opportunity to do so during world gen", "Lakes", lavaLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
+            enableLavaSurfaceLakes = config.getBoolean("Enable Lava Surface Lakes", "Lakes (Surface)", enableLavaSurfaceLakes, "");
+            lavaSurfaceLakeChance = config.getInt("1/x chance that Lava Surface Lakes will generate if given the opportunity to do so during world gen", "Lakes (Surface)", lavaSurfaceLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
+            
+            /* ==================== Lakes (Underground) ==================== */
+            
+            enableWaterUndergroundLakes = config.getBoolean("Enable Water Underground Lakes", "Lakes (Underground)", enableWaterUndergroundLakes, "");
+            waterUndergroundLakeChance = config.getInt("1/x chance that Water Underground Lakes will generate if given the opportunity to do so during world gen", "Lakes (Underground)", waterUndergroundLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
+            
+            enableLavaUndergroundLakes = config.getBoolean("Enable Lava Underground Lakes", "Lakes (Underground)", enableLavaUndergroundLakes, "");
+            lavaUndergroundLakeChance = config.getInt("1/x chance that Lava Underground Lakes will generate if given the opportunity to do so during world gen", "Lakes (Underground)", lavaUndergroundLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
             
             /* ==================== Mineshafts ==================== */
             

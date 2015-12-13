@@ -65,8 +65,8 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 	{
 		super(b, riverbiome, t, s);
 		
-        this.waterLakeFrequency = 0;
-        this.lavaLakeFrequency = 0;
+        this.waterSurfaceLakeChance = 0;
+        this.lavaSurfaceLakeChance = 0;
 	}
 	
 	public static void addBiomes()

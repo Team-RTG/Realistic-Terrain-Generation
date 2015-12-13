@@ -70,13 +70,13 @@ public class ConfigRTG
 
 	public static int biomeSize = BiomeBase.DEFAULT_BIOME_SIZE;
 	
-    public static int minDistanceScatteredFeatures = 8;
-    public static int maxDistanceScatteredFeatures = 32;
+    public static int minDistanceScatteredFeatures = 16;
+    public static int maxDistanceScatteredFeatures = 64;
     
     public static boolean enableVillageModifications = enableVillageTweaks();
     public static int villageSize = 0;
-    public static int minDistanceVillages = 8;
-    public static int maxDistanceVillages = 32;
+    public static int minDistanceVillages = 16;
+    public static int maxDistanceVillages = 64;
     	
 	public static void init(File configFile) 
 	{

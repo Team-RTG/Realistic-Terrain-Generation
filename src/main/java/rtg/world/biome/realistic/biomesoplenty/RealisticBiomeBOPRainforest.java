@@ -20,7 +20,7 @@ public class RealisticBiomeBOPRainforest extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
-			new TerrainBOPRainforest(120f, 300f),
+			new TerrainBOPRainforest(90f, 300f),
 			new SurfaceBOPRainforest(topBlock, fillerBlock, false, null, 1.3f)
 		);
 		

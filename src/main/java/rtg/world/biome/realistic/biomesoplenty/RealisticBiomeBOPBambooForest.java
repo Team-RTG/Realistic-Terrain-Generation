@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.config.biomesoplenty.ConfigBOP;
@@ -21,8 +22,8 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
-			new TerrainBOPBambooForest(135f, 300f),
-			new SurfaceBOPBambooForest(topBlock, fillerBlock, false, null, 0.95f)
+			new TerrainBOPBambooForest(),
+			new SurfaceBOPBambooForest(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f)
 		);
 		
 		this.setRealisticBiomeName("BOP Bamboo Forest");

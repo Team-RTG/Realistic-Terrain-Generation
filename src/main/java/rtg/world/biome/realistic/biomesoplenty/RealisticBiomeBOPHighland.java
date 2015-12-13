@@ -12,6 +12,7 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPHighland;
 import biomesoplenty.api.content.BOPCBiomes;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -26,8 +27,8 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
-			new TerrainBOPHighland(0f, 140f, 68f, 150f),
-			new SurfaceBOPHighland(topBlock, fillerBlock, false, null, 1f, 1.5f, 85f, 20f, 4f)
+			new TerrainBOPHighland(),
+			new SurfaceBOPHighland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
 		
 		this.setRealisticBiomeName("BOP Highland");

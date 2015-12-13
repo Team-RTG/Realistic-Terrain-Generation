@@ -19,8 +19,8 @@ public class TerrainBOPRainforest extends TerrainBase
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
 		float h = simplex.noise2(x / width, y / width) * heigth * river;
-		h *= h / 32f;
-		h = h > 150f ? 150f : h;
+		h *= h / 39f;
+		h = h > 140f ? 140f : h;
 
 		if(h < 14f)
 		{

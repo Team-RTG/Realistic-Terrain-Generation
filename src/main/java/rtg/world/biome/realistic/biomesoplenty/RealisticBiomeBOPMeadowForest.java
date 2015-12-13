@@ -1,13 +1,14 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMeadowForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMeadowForest;
 import biomesoplenty.api.content.BOPCBiomes;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPMeadowForest extends RealisticBiomeBOPBase
 {	
@@ -21,7 +22,7 @@ public class RealisticBiomeBOPMeadowForest extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPMeadowForest(),
-			new SurfaceBOPMeadowForest(topBlock, fillerBlock, false, null, 1.2f)
+			new SurfaceBOPMeadowForest(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
 		
 		this.setRealisticBiomeName("BOP Meadow Forest");

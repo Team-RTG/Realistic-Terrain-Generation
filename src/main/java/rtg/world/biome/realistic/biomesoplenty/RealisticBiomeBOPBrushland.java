@@ -1,14 +1,14 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPBrushland;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPBrushland;
 import biomesoplenty.api.content.BOPCBiomes;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPBrushland extends RealisticBiomeBOPBase
 {	
@@ -21,7 +21,7 @@ public class RealisticBiomeBOPBrushland extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
-			new TerrainBOPBrushland(90f, 180f, 13f, 100f, 38f, 260f, 71f),
+			new TerrainBOPBrushland(),
 			new SurfaceBOPBrushland(topBlock, fillerBlock, Blocks.sand, Blocks.stone, Blocks.cobblestone, 13f, 0.27f)
 		);
 		

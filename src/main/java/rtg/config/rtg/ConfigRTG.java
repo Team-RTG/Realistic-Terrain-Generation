@@ -108,7 +108,18 @@ public class ConfigRTG
                 Configuration.NEW_LINE
             );
             
-            biomeSize = config.getInt("Size of Biomes", "Biomes", biomeSize, 1, 5, "Lower values = smaller biomes; Higher values = larger biomes" + Configuration.NEW_LINE);
+            biomeSize = config.getInt(
+                "Size of Biomes",
+                "Biomes", biomeSize,
+                BiomeBase.MIN_BIOME_SIZE,
+                BiomeBase.MAX_BIOME_SIZE,
+                "Lower values = smaller biomes; Higher values = larger biomes" +
+                Configuration.NEW_LINE +
+                "1 = Tiny biomes; 2 = Small biomes; 3 = Normal biomes; 4 = Large biomes; 5 = Huge biomes" +
+                Configuration.NEW_LINE +
+                "Values greater than 5 are not recommended. Use at your own risk." +
+                Configuration.NEW_LINE
+            );
             
             /* ==================== Boulders ==================== */
             

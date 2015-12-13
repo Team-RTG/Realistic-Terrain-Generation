@@ -16,7 +16,7 @@ public class TerrainBOPOutback extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-		float h = (simplex.noise2(x / valley, y / valley) + 0.25f) * 65f * river;
+		float h = (simplex.noise2(x / valley, y / valley) + 0.25f) * 45f * river;
 		h = h < 1f ? 1f : h;
 		
 		float r = cell.noise(x / 50D, y / 50D, 1D) * h * 2;

@@ -16,14 +16,14 @@ This mod is a re-branded fork of the revolutionary [Realistic World Gen](http://
 * Create an API to allow other mods to customise terrain generation.
 
 # Downloads
-Latest beta release: [RTG-1.7.10-0.2.0.jar](http://curse.com/mc-mods/minecraft/237989-realistic-terrain-generation/2268572) (Beta)
+Latest beta release: [RTG-1.7.10-0.3.0.jar](http://curse.com/mc-mods/minecraft/237989-realistic-terrain-generation/2268572) (Beta)
 
 All downloads can also be found in the [Releases section](https://github.com/Team-RTG/Realistic-Terrain-Generation/releases) on GitHub.
 
 __(Please note that RTG is currently in beta, which means that it should primarily be used for testing purposes. Please backup your worlds before installing RTG if you plan on using it in your public or private mod pack.)__
 
 # Installation
-1. Download and install the latest recommended version of [Forge for 1.7.10](http://files.minecraftforge.net/).
+1. Download and install the latest **recommended** version of [Forge for 1.7.10](http://files.minecraftforge.net/).
 2. [Download this mod](http://www.curse.com/mc-mods/minecraft/237989-realistic-terrain-generation) and place it in your 'mods' folder.
 3. For singleplayer... create a new world, click the [More World Options] button, choose 'Realistic' from the [World Type] button, then click [Create New World]
 4. For servers... use **level-type=RTG** in server.properties
@@ -36,7 +36,9 @@ https://github.com/Team-RTG/Realistic-Terrain-Generation/tree/master/config/RTG
 Biome enabling/disabling is handled exclusively through RTG's config files. For example, if you set `Bayou=false` in BOP's _biomegen.cfg_ file, and you set `generateBOPbayou=true` in RTG's _biomesoplenty.cfg_ file, the Bayou biome will still be enabled.
 
 # Mod compatibility
-Because RTG generates vanilla biomes, it is compatible with most mods, including (but not limited to) AE2, AgriCraft, Ancient Trees, Animals+, Ars Magica, ATG, Better Villages, Biomes O' Plenty, Blood Magic, Botania, BuildCraft, Butterfly Mania, Camping Mod, Chocolate Quest, ChromatiCraft, DoggyStyle, Ender Zoo, Enhanced Biomes, EnviroMine, Et Futurum, Ex Nihilo, ExtraBiomesXL, Galacticraft, Gany's Mods, Highlands, Just a Few Fish, Lycanite's Mobs, Magneticraft, Mariculture, Metallurgy, Millenaire, Mo' Creatures, Mutant Creatures, Nevermine, Oceancraft, OreSpawn, Pam's HarvestCraft, Plant Mega Pack, Primitive Mobs, RailCraft, Roguelike Dungeons, Ruins, Runic Dungeons, Streams, Thaumcraft, Tinkers' Construct, Wild Caves, Witchery, **and many more!**
+Because RTG generates vanilla biomes, it is compatible with most mods, including (but not limited to):
+
+Applied Energistics 2, AgriCraft, Ancient Trees, Animals+, Ars Magica 2, Alternate Terrain Generation (ATG), Battle Towers, Better Villages, Biomes O' Plenty, Blood Magic, Botania, BuildCraft, **Butterfly Mania**, Chocolate Quest, Deadly World, Deep Resonance, Dense Ores, DoggyStyle, Doomlike Dungeons, Draconic Evolution, Ender Zoo, Enhanced Biomes, EnviroMine, Et Futurum, Ex Nihilo, ExtraBiomesXL, Forestry, Fossils and Archeology, **Galacticraft**, Gany's Mods, GrowthCraft, Highlands, Just a Few Fish, Lycanite's Mobs, Magnanimous Tools, Magneticraft, Mariculture, Metallurgy, Millenaire, Minechem, MineFactory Reloaded, **Mo' Creatures**, Mutant Creatures, Natura, Nevermine, Oceancraft, OreSpawn, Pam's HarvestCraft, Plant Mega Pack, Primitive Mobs, Project Red, RailCraft, ReactorCraft, Recurrent Complex, Reika's Mods, RFTools, Roguelike Dungeons, Ruins, Streams, **Thaumcraft**, Thermal Expansion, **Tinkers' Construct**, Underground Biomes Constructs, Wild Caves, Witchery, WTF's Mods, **and many more!**
 
 In addition, RTG currently generates realistic versions of the biomes added by these mods:
 
@@ -50,14 +52,20 @@ In addition, RTG currently generates realistic versions of the biomes added by t
 * Alternate Terrain Generation (ATG) (supports version 0.11.0 or later)
 * ChromatiCraft (supports version V9b or later)
 
+Unfortunately, however, RTG is currently not compatible with the following mods:
+
+Wildycraft - crashes on startup
+TerraFirmaCraft - deviates too far from standard biome generation
+
 # Known Issues
 RTG's list of known issues can be found [here](https://github.com/Team-RTG/Realistic-Terrain-Generation/issues).
 
-**Other things worth mentioning:**
-
-* Mushroom Islands do not generate as actual islands. For this reason, they are disabled by default.
-* Volcanic biomes sometimes contain partially-generated volcanoes. For this reason, they are disabled by default.
-* Hot-to-cold biome transitions are still occurring.
+Major issues:
+Issue #136 - Island biomes do not generate as actual islands. (Mushroom Islands are disabled by default.)
+Issue #327 - Edge biomes do not always generate along the edges of their related biomes.
+Issue #275 - Volcanic biomes sometimes contain partially-generated volcanoes. (All volcanic biomes are disabled by default.)
+Issue #282 - Hot-to-cold biome transitions are still occurring.
+Issue #314 - ChromatiCraft biomes aren't generating when Biomes O' Plenty is also installed.
 
 # Screenshots
 http://imgur.com/a/322dY

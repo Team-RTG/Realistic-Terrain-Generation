@@ -24,6 +24,8 @@ public class ConfigRTG
     public static String bedrockBlockId = "minecraft:bedrock";
     public static int bedrockBlockByte = 0;
     
+    public static int duneHeight = 4;
+    
     public static String volcanoBlockId = "minecraft:obsidian";
     public static int volcanoBlockByte = 0;
     public static boolean enableVolcanoEruptions = true;
@@ -138,6 +140,10 @@ public class ConfigRTG
             enableCaves = config.getBoolean("Enable Caves", "Caves", enableCaves, "");
             caveDensity = config.getInt("Cave Density", "Caves", caveDensity, 1, 40, "This setting controls the size of caves." + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)" + Configuration.NEW_LINE);
             caveFrequency = config.getInt("Cave Frequency", "Caves", caveFrequency, 1, 40, "This setting controls the number of caves that generate." + Configuration.NEW_LINE + "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)" + Configuration.NEW_LINE);
+            
+            /* ==================== Dunes ==================== */
+            
+            duneHeight = config.getInt("Height of Dunes", "Dunes", duneHeight, 1, 12, "This setting controls the height of both sand dunes and snow dunes." + Configuration.NEW_LINE + "Higher values = taller dunes." + Configuration.NEW_LINE);
             
             /* ==================== Debugging ==================== */
             

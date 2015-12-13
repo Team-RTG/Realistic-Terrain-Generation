@@ -9,6 +9,8 @@ public class TerrainRollingHills extends TerrainBase
     private float maxHeight = 80f;
     private float hillStrength = 30f;
     
+    // 63f, 80f, 30f
+    
     public TerrainRollingHills()
     {
     

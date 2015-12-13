@@ -28,7 +28,7 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase
 		this.biomeWeight = ConfigVanilla.weightVanillaFrozenRiver;
 		this.generateVillages = false;
 		
-        this.waterLakeFrequency = 0;
-        this.lavaLakeFrequency = 0;
+        this.waterSurfaceLakeChance = 0;
+        this.lavaSurfaceLakeChance = 0;
 	}	
 }

@@ -21,7 +21,7 @@ public class RealisticBiomeBOPThicket extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainBOPThicket(70f, 180f, 13f, 100f, 38f, 260f, 71f),
+			new TerrainBOPThicket(),
 			new SurfaceBOPThicket(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
 		);
 		

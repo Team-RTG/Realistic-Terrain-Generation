@@ -1,14 +1,30 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
+
+import java.util.Random;
 
 import rtg.config.biomesoplenty.ConfigBOP;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.feature.WorldGenLog;
+import rtg.world.gen.feature.tree.WorldGenTreeBirch;
+import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeShrub;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPLandOfLakes;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPLandOfLakes;
 import biomesoplenty.api.content.BOPCBiomes;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.feature.WorldGenBlockBlob;
+import net.minecraft.world.gen.feature.WorldGenerator;
+
+import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 {	
@@ -21,8 +37,8 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
-			new TerrainBOPLandOfLakes(),
-			new SurfaceBOPLandOfLakes(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new TerrainBOPLandOfLakes(63f, 76f, 36f),
+			new SurfaceBOPLandOfLakes(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.10f)
 		);
 		
 		this.setRealisticBiomeName("BOP Land of Lakes");
@@ -30,4 +46,74 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 		this.biomeWeight = ConfigBOP.weightBOPLandOfLakes;
 		this.generateVillages = ConfigBOP.villageBOPLandOfLakes;
 	}
+	
+    @Override
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
+        float river)
+    {
+
+        float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
+        
+        if (TerrainGen.decorate(world, rand, chunkX, chunkY, TREE)) {
+            
+            if (l > 0f) {
+                
+                for (int b2 = 0; b2 < 9f * strength; b2++) {
+                    
+                    int j6 = chunkX + rand.nextInt(16) + 8;
+                    int k10 = chunkY + rand.nextInt(16) + 8;
+                    int z52 = world.getHeightValue(j6, k10);
+                    
+                    if (z52 < 120) {
+                        
+                        WorldGenerator worldgenerator =
+                            rand.nextBoolean() ? new WorldGenTreeBirch(4 + rand.nextInt(7), 8 + rand.nextInt(12))
+                            : new WorldGenTreePineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
+                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+                        worldgenerator.generate(world, rand, j6, z52, k10);
+                    }
+                }
+            }
+            
+            if (l > 0f && rand.nextInt(12) == 0)
+            {
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                
+                Block log;
+                byte logMeta;
+                
+                log = Blocks.log;
+                logMeta = (byte)rand.nextInt(3);
+                
+                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, 10 + rand.nextInt(14))).generate(world, rand, x22, y22, z22);
+            }
+            
+            for (int f24 = 0; f24 < 3f * strength; f24++)
+            {
+                int i1 = chunkX + rand.nextInt(16) + 8;
+                int j1 = chunkY + rand.nextInt(16) + 8;
+                int k1 = world.getHeightValue(i1, j1);
+                if (k1 < 110)
+                {
+                    (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                }
+            }
+        }
+        
+        for (int i23 = 0; i23 < 1; i23++)
+        {
+            int i1 = chunkX + rand.nextInt(16) + 8;
+            int j1 = chunkY + rand.nextInt(16) + 8;
+            int k1 = world.getHeightValue(i1, j1);
+            
+            if (rand.nextInt(12) == 0) {
+                
+                (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
+            }
+        }
+        
+        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+    }
 }

@@ -54,8 +54,11 @@ public class RealisticBiomeBase extends BiomeBase {
     public SurfaceBase[] surfaces;
     public int surfacesLength;
     
-    public int waterLakeFrequency; //Lower = more frequent
-    public int lavaLakeFrequency; //Lower = more frequent
+    public int waterSurfaceLakeChance; //Lower = more frequent
+    public int lavaSurfaceLakeChance; //Lower = more frequent
+    
+    public int waterUndergroundLakeChance; //Lower = more frequent
+    public int lavaUndergroundLakeChance; //Lower = more frequent
     
     public int clayPerChunk;
     public int dirtPerChunk;
@@ -88,8 +91,11 @@ public class RealisticBiomeBase extends BiomeBase {
         baseBiome = biome;
         riverBiome = river;
         
-        waterLakeFrequency = 10;
-        lavaLakeFrequency = 0; // Disabled.
+        waterSurfaceLakeChance = 10;
+        lavaSurfaceLakeChance = 0; // Disabled.
+        
+        waterUndergroundLakeChance = 1;
+        lavaUndergroundLakeChance = 1;
         
         clayPerChunk = 20;
         dirtPerChunk = 32;
@@ -135,23 +141,36 @@ public class RealisticBiomeBase extends BiomeBase {
         int worldZ = chunkZ * 16;
         boolean gen = true;
         
-        if (ConfigRTG.enableWaterLakes) {
-            
-            gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.LAKE);
-            if (gen && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterLakeChance) == 1)) {
+        gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.LAKE);
+        
+        // Underground water lakes.
+        if (ConfigRTG.enableWaterUndergroundLakes) {
+
+            if (gen && (waterUndergroundLakeChance > 0)) {
                 
-                //Underground lakes.
                 int i2 = worldX + rand.nextInt(16) + 8;
                 int l4 = RandomUtil.getRandomInt(rand, 1, 50);
                 int i8 = worldZ + rand.nextInt(16) + 8;
                 
-                (new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
+                if (rand.nextInt(waterUndergroundLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterUndergroundLakeChance) == 1)) {
+                    
+                    (new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
+                }
+            }
+        }
+        
+        // Surface water lakes.
+        if (ConfigRTG.enableWaterSurfaceLakes) {
+            
+            if (gen && (waterSurfaceLakeChance > 0)) {
+                
+                int i2 = worldX + rand.nextInt(16) + 8;
+                int i8 = worldZ + rand.nextInt(16) + 8;
+                int l4 = worldObj.getHeightValue(i2, i8);
                 
                 //Surface lakes.
-                if (waterLakeFrequency > 0 && rand.nextInt(waterLakeFrequency) == 0) {
-                    
-                    l4 = worldObj.getHeightValue(i2, i8);
-                    
+                if (rand.nextInt(waterSurfaceLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterSurfaceLakeChance) == 1)) {
+
                     if (l4 > 63) {
                         
                         (new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
@@ -159,31 +178,40 @@ public class RealisticBiomeBase extends BiomeBase {
                 }
             }
         }
-        
-        if (ConfigRTG.enableLavaLakes) {
-            
-            gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.LAVA);
-            
-            if (gen && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.lavaLakeChance) == 1)) {
 
-                //Underground lakes.
-                int j2 = worldX + rand.nextInt(16) + 8;
-                int i5 = RandomUtil.getRandomInt(rand, 1, 50);
-                int j8 = worldZ + rand.nextInt(16) + 8;
+        gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.LAVA);
+        
+        // Underground lava lakes.
+        if (ConfigRTG.enableLavaUndergroundLakes) {
+
+            if (gen && (lavaUndergroundLakeChance > 0)) {
                 
-                if (i5 <= 50)
-                {
-                    (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, j2, i5, j8);
+                int i2 = worldX + rand.nextInt(16) + 8;
+                int l4 = RandomUtil.getRandomInt(rand, 1, 50);
+                int i8 = worldZ + rand.nextInt(16) + 8;
+                
+                if (rand.nextInt(lavaUndergroundLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.lavaUndergroundLakeChance) == 1)) {
+                    
+                    (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, i2, l4, i8);
                 }
+            }
+        }
+        
+        // Surface lava lakes.
+        if (ConfigRTG.enableLavaSurfaceLakes) {
+            
+            if (gen && (lavaSurfaceLakeChance > 0)) {
+                
+                int i2 = worldX + rand.nextInt(16) + 8;
+                int i8 = worldZ + rand.nextInt(16) + 8;
+                int l4 = worldObj.getHeightValue(i2, i8);
                 
                 //Surface lakes.
-                if (lavaLakeFrequency > 0 && rand.nextInt(lavaLakeFrequency) == 0) {
-                    
-                    i5 = worldObj.getHeightValue(j2, j8);
-                    
-                    if (i5 > 62)
-                    {
-                        (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, j2, i5, j8);
+                if (rand.nextInt(lavaSurfaceLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.lavaSurfaceLakeChance) == 1)) {
+
+                    if (l4 > 63) {
+                        
+                        (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, i2, l4, i8);
                     }
                 }
             }

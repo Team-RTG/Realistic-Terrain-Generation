@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.apache.logging.log4j.Level;
 
+import rtg.world.biome.BiomeBase;
 import cpw.mods.fml.common.FMLLog;
 
 import net.minecraftforge.common.config.Configuration;
@@ -23,8 +24,11 @@ public class ConfigRTG
     public static String bedrockBlockId = "minecraft:bedrock";
     public static int bedrockBlockByte = 0;
     
+    public static int duneHeight = 4;
+    
     public static String volcanoBlockId = "minecraft:obsidian";
     public static int volcanoBlockByte = 0;
+    public static boolean enableVolcanoEruptions = true;
 	
     public static boolean generateOreCoal = true;
     public static boolean generateOreIron = true;
@@ -37,11 +41,17 @@ public class ConfigRTG
     public static boolean enableCobblestoneBoulders = true;
     public static int cobblestoneBoulderChance = 1;
     
-    public static boolean enableWaterLakes = true;
-    public static int waterLakeChance = 10;
+    public static boolean enableWaterSurfaceLakes = true;
+    public static int waterSurfaceLakeChance = 10;
     
-    public static boolean enableLavaLakes = true;
-    public static int lavaLakeChance = 10;
+    public static boolean enableWaterUndergroundLakes = true;
+    public static int waterUndergroundLakeChance = 10;
+    
+    public static boolean enableLavaSurfaceLakes = true;
+    public static int lavaSurfaceLakeChance = 10;
+    
+    public static boolean enableLavaUndergroundLakes = true;
+    public static int lavaUndergroundLakeChance = 10;
     
     public static boolean generateMineshafts = true;
     public static boolean generateStrongholds = true;
@@ -60,15 +70,15 @@ public class ConfigRTG
 	public static boolean showDebugInfo = false;
 	public static boolean enableDebugging = false;
 
-	public static int biomeSize = 2;
+	public static int biomeSize = BiomeBase.DEFAULT_BIOME_SIZE;
 	
-    public static int minDistanceScatteredFeatures = 8;
-    public static int maxDistanceScatteredFeatures = 32;
+    public static int minDistanceScatteredFeatures = 16;
+    public static int maxDistanceScatteredFeatures = 64;
     
     public static boolean enableVillageModifications = enableVillageTweaks();
     public static int villageSize = 0;
-    public static int minDistanceVillages = 8;
-    public static int maxDistanceVillages = 32;
+    public static int minDistanceVillages = 16;
+    public static int maxDistanceVillages = 64;
     	
 	public static void init(File configFile) 
 	{
@@ -107,7 +117,18 @@ public class ConfigRTG
                 Configuration.NEW_LINE
             );
             
-            biomeSize = config.getInt("Size of Biomes", "Biomes", biomeSize, 1, 5, "Lower values = smaller biomes; Higher values = larger biomes" + Configuration.NEW_LINE);
+            biomeSize = config.getInt(
+                "Size of Biomes",
+                "Biomes", biomeSize,
+                BiomeBase.MIN_BIOME_SIZE,
+                BiomeBase.MAX_BIOME_SIZE,
+                "Lower values = smaller biomes; Higher values = larger biomes" +
+                Configuration.NEW_LINE +
+                "1 = Tiny biomes; 2 = Small biomes; 3 = Normal biomes; 4 = Large biomes; 5 = Huge biomes" +
+                Configuration.NEW_LINE +
+                "Values greater than 5 are not recommended. Use at your own risk." +
+                Configuration.NEW_LINE
+            );
             
             /* ==================== Boulders ==================== */
             
@@ -120,6 +141,10 @@ public class ConfigRTG
             caveDensity = config.getInt("Cave Density", "Caves", caveDensity, 1, 40, "This setting controls the size of caves." + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)" + Configuration.NEW_LINE);
             caveFrequency = config.getInt("Cave Frequency", "Caves", caveFrequency, 1, 40, "This setting controls the number of caves that generate." + Configuration.NEW_LINE + "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)" + Configuration.NEW_LINE);
             
+            /* ==================== Dunes ==================== */
+            
+            duneHeight = config.getInt("Height of Dunes", "Dunes", duneHeight, 1, 12, "This setting controls the height of both sand dunes and snow dunes." + Configuration.NEW_LINE + "Higher values = taller dunes." + Configuration.NEW_LINE);
+            
             /* ==================== Debugging ==================== */
             
             showDebugInfo = config.getBoolean("Show Debug Info in F3 Screen", "Debugging", showDebugInfo, "");
@@ -129,13 +154,21 @@ public class ConfigRTG
             
             generateDungeons = config.getBoolean("Generate Dungeons", "Dungeons", generateDungeons, "");
             
-            /* ==================== Lakes ==================== */
+            /* ==================== Lakes (Surface) ==================== */
             
-            enableWaterLakes = config.getBoolean("Enable Water Lakes", "Lakes", enableWaterLakes, "");
-            waterLakeChance = config.getInt("1/x chance that Water Lakes will generate if given the opportunity to do so during world gen", "Lakes", waterLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
+            enableWaterSurfaceLakes = config.getBoolean("Enable Water Surface Lakes", "Lakes (Surface)", enableWaterSurfaceLakes, "");
+            waterSurfaceLakeChance = config.getInt("1/x chance that Water Surface Lakes will generate if given the opportunity to do so during world gen", "Lakes (Surface)", waterSurfaceLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
             
-            enableLavaLakes = config.getBoolean("Enable Lava Lakes", "Lakes", enableLavaLakes, "");
-            lavaLakeChance = config.getInt("1/x chance that Lava Lakes will generate if given the opportunity to do so during world gen", "Lakes", lavaLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
+            enableLavaSurfaceLakes = config.getBoolean("Enable Lava Surface Lakes", "Lakes (Surface)", enableLavaSurfaceLakes, "");
+            lavaSurfaceLakeChance = config.getInt("1/x chance that Lava Surface Lakes will generate if given the opportunity to do so during world gen", "Lakes (Surface)", lavaSurfaceLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
+            
+            /* ==================== Lakes (Underground) ==================== */
+            
+            enableWaterUndergroundLakes = config.getBoolean("Enable Water Underground Lakes", "Lakes (Underground)", enableWaterUndergroundLakes, "");
+            waterUndergroundLakeChance = config.getInt("1/x chance that Water Underground Lakes will generate if given the opportunity to do so during world gen", "Lakes (Underground)", waterUndergroundLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
+            
+            enableLavaUndergroundLakes = config.getBoolean("Enable Lava Underground Lakes", "Lakes (Underground)", enableLavaUndergroundLakes, "");
+            lavaUndergroundLakeChance = config.getInt("1/x chance that Lava Underground Lakes will generate if given the opportunity to do so during world gen", "Lakes (Underground)", lavaUndergroundLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
             
             /* ==================== Mineshafts ==================== */
             
@@ -216,6 +249,14 @@ public class ConfigRTG
             );
             
             volcanoBlockByte = config.getInt("Volcano block meta value", "Volcanoes", volcanoBlockByte, 0, 15, "The meta value of the volcano block." + Configuration.NEW_LINE);
+            
+            enableVolcanoEruptions = config.getBoolean(
+                "Enable volcano eruptions",
+                "Volcanoes",
+                enableVolcanoEruptions,
+                "Set this to FALSE to prevent lava from flowing down the sides of volcanoes."
+                + Configuration.NEW_LINE
+            );
             
 		}
 		catch (Exception e) 

@@ -16,6 +16,7 @@ public class WorldGenVolcano
 {
     protected static Block volcanoBlock = GameData.getBlockRegistry().getObject(ConfigRTG.volcanoBlockId);
     protected static byte volcanoByte = (byte) ConfigRTG.volcanoBlockByte;
+    protected static Block lavaBlock = ConfigRTG.enableVolcanoEruptions ? Blocks.flowing_lava : Blocks.lava;
     
 	public static void build(Block[] blocks, byte[] metadata, World world, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float[] noise)
 	{	
@@ -55,7 +56,7 @@ public class WorldGenVolcano
 						}
 						else if(y < 166)
 						{
-							blocks[cta(x, y, z)] = Blocks.flowing_lava;
+							blocks[cta(x, y, z)] = lavaBlock;
 						}
 						else if(y < obsidian + 1)
 						{

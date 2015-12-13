@@ -86,7 +86,7 @@ public class ConfigVanilla
     public static int weightVanillaColdTaiga = biomeWeightDefault;
     public static int weightVanillaColdTaigaHills = (int)Math.floor((double)(biomeWeightDefault * 0.8));
     public static int weightVanillaColdTaigaM = (int)Math.floor((double)(biomeWeightDefault * 0.4));
-    public static int weightVanillaDeepOcean = (int)Math.floor((double)(biomeWeightDefault * 1.2));
+    public static int weightVanillaDeepOcean = (int)Math.floor((double)(biomeWeightDefault * 2));
     public static int weightVanillaDesert = biomeWeightDefault;
     public static int weightVanillaDesertHills = (int)Math.floor((double)(biomeWeightDefault * 0.8));
     public static int weightVanillaDesertM = (int)Math.floor((double)(biomeWeightDefault * 0.4));
@@ -117,7 +117,7 @@ public class ConfigVanilla
     public static int weightVanillaMesaPlateauM = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     public static int weightVanillaMushroomIsland = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     public static int weightVanillaMushroomIslandShore = (int)Math.floor((double)(biomeWeightDefault * 0.1));
-    public static int weightVanillaOcean = (int)Math.floor((double)(biomeWeightDefault * 1.2));
+    public static int weightVanillaOcean = (int)Math.floor((double)(biomeWeightDefault * 2));
     public static int weightVanillaPlains = biomeWeightDefault;
     public static int weightVanillaRiver = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     public static int weightVanillaRoofedForest = (int)Math.floor((double)(biomeWeightDefault * 0.8));

@@ -53,6 +53,8 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigVanilla.weightVanillaJungle;
 		this.generateVillages = ConfigVanilla.villageVanillaJungle;
+		
+		this.waterSurfaceLakeChance = 3;
 	}
 	
     
@@ -130,10 +132,11 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
                 int j6 = chunkX + rand.nextInt(16) + 8;
                 int k10 = chunkY + rand.nextInt(16) + 8;
                 int z52 = world.getHeightValue(j6, k10);
-                
-                if (river < 0.8f) {
+ 
+                for (int h44 = 0; h44 < 8; h44++) {
                     
-                    for (int h44 = 0; h44 < 2; h44++) {
+                    if (z52 > 64) {
+                        
                         WorldGenerator worldgenerator2 = new WorldGenWaterlily();
                         worldgenerator2.setScale(1.0D, 1.0D, 1.0D);
                         worldgenerator2.generate(world, rand, j6, z52, k10);

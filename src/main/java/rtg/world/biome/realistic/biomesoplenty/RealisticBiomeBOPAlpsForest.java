@@ -6,18 +6,17 @@ import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPAlpsForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPAlpsForest;
 import biomesoplenty.api.content.BOPCBiomes;
-import biomesoplenty.common.world.features.trees.WorldGenBOPTaiga2;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeBOPAlpsForest extends RealisticBiomeBOPBase
 {	
@@ -45,25 +44,13 @@ public class RealisticBiomeBOPAlpsForest extends RealisticBiomeBOPBase
         float river)
     {
         
-        //RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         
         //Emeralds.
         //rRemoveEmeralds(world, rand, chunkX, chunkY, false);
         rGenerateEmeralds(world, rand, chunkX, chunkY, false);
         
         float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
-        
-        for (int b1 = 0; b1 < l * 4f * strength; b1++)
-        {
-            int j6 = chunkX + rand.nextInt(16) + 8;
-            int k10 = chunkY + rand.nextInt(16) + 8;
-            int z52 = world.getHeightValue(j6, k10);
-            
-            WorldGenerator worldgenerator =
-                new WorldGenBOPTaiga2(Blocks.log, Blocks.leaves, 1, 1, false, 9, 9, 6, 4);
-            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-            worldgenerator.generate(world, rand, j6, z52, k10);
-        }
         
         if (l > 0f && rand.nextInt(12) == 0)
         {

@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import java.util.Random;
 
 import rtg.config.enhancedbiomes.ConfigEB;
+import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
@@ -99,10 +100,12 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
         float river)
     {
 
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-        
+        if (ConfigRTG.enableVolcanoEruptions) {
+            
+            RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        }
+
         //Emeralds.
-        //rRemoveEmeralds(world, rand, chunkX, chunkY, false);
         rGenerateEmeralds(world, rand, chunkX, chunkY, false);
     
         for (int l14 = 0; l14 < 15; l14++)

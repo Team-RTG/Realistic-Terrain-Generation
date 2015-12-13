@@ -29,7 +29,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase
         this.biomeWeight = ConfigVanilla.weightVanillaDeepOcean;
         this.generateVillages = ConfigVanilla.villageVanillaDeepOcean;
         
-        this.waterLakeFrequency = 0;
-        this.lavaLakeFrequency = 0;
+        this.waterSurfaceLakeChance = 0;
+        this.lavaSurfaceLakeChance = 0;
     }
 }

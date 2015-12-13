@@ -50,7 +50,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
         this.biomeWeight = ConfigVanilla.weightVanillaDesert;
         this.generateVillages = ConfigVanilla.villageVanillaDesert;
         
-        this.waterLakeFrequency = 0;
+        this.waterSurfaceLakeChance = 0;
     }
     
     @Override

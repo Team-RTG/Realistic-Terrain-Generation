@@ -16,7 +16,7 @@ public class TerrainVanillaMegaTaigaHills extends TerrainBase
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
     
-        float h = simplex.noise2(x / 300f, y / 300f) * 135f * river;
+        float h = simplex.noise2(x / 500f, y / 500f) * 135f * river;
         h *= h / 32f;
         h = h > 150f ? 150f : h;
         
@@ -39,8 +39,8 @@ public class TerrainVanillaMegaTaigaHills extends TerrainBase
             
             if (h > 35f)
             {
-                float d2 = (h - 35f) / 1.5f > 30f ? 30f : (h - 35f) / 1.5f;
-                h += cell.noise(x / 25D, y / 25D, 1D) * d2;
+                float d2 = (h - 35f) / 1.5f > 30f ? 30f : (h - 35f) / 1.5f;                
+                h += simplex.noise2(x / 60f, y / 60f) * d2;
             }
         }
         

@@ -40,7 +40,7 @@ public class TerrainVanillaColdTaigaHills extends TerrainBase
             if (h > 35f)
             {
                 float d2 = (h - 35f) / 1.5f > 30f ? 30f : (h - 35f) / 1.5f;
-                h += cell.noise(x / 25D, y / 25D, 1D) * d2;
+                h += simplex.noise2(x / 60f, y / 60f) * d * 0.5f;
             }
         }
         

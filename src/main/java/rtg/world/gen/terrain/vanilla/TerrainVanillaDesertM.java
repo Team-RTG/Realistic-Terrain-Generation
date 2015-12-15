@@ -55,14 +55,6 @@ public class TerrainVanillaDesertM extends TerrainBase
         sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
         m += sm;
         
-        float cm = cell.noise(x / 25D, y / 25D, 1D) * 12f;
-        cm *= m / 20f > 3.75f ? 3.75f : m / 20f;
-        m += cm;
-        
-//        float l = simplex.noise2(x / lWidth, y / lWidth) * lHeight;
-//        l *= l / 25f;
-//        l = l < 8f ? 8f : l;
-        
         h += simplex.noise2(x / 12f, y / 12f) * 3f;
         h += simplex.noise2(x / 5f, y / 5f) * 1.5f;
         

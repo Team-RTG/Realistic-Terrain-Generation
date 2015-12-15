@@ -46,13 +46,10 @@ public class TerrainVanillaDesertHills extends TerrainBase
 		
 		float st = m * 0.7f;
 		st = st > 20f ? 20f : st;
-		float c = cell.noise(x / 30f, y / 30f, 1D) * (5f + st);
 		
 		float sm = simplex.noise2(x / 30f, y / 30f) * 8f + simplex.noise2(x / 8f, y / 8f);
 		sm *= (m + 10f) / 20f > 2.5f ? 2.5f : (m + 10f) / 20f;
 		m += sm;
-		
-		m += c;
 		
 		float l = simplex.noise2(x / lakeWidth, y / lakeWidth) * lakeDepth;
 		l *= l / 25f;

@@ -25,12 +25,6 @@ public class TerrainVanillaExtremeHills extends TerrainBase
 		float h = simplex.noise2(x / width, y / width) * height * river;
 		h = h < start ? start + ((h - start) / 4.5f) : h;
 		
-		if(h > 0f)
-		{
-			float st = h * 1.5f > 15f ? 15f : h * 1.5f;
-			h += cell.noise(x / 70D, y / 70D, 1D) * st;
-		}
-		
 		h += simplex.noise2(x / 20f, y / 20f) * 5f;
 		h += simplex.noise2(x / 12f, y / 12f) * 3f;
 		h += simplex.noise2(x / 5f, y / 5f) * 1.5f;

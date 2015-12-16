@@ -50,7 +50,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         cell.setUseDistance(true);
         biomecell = new CellNoise(seed, (short) 0);
         rand = new Random(seed);
-        biomePool = new RealisticBiomePool(biomecell, rand);
+        biomePool = new RealisticBiomePool(biomecell, rand, seed);
     }
     
     public int[] getBiomesGens(int par1, int par2, int par3, int par4)

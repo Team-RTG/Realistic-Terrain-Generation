@@ -11,18 +11,34 @@ import rtg.world.biome.BiomeBase;
 import cpw.mods.fml.common.FMLLog;
 
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.layer.GenLayer;
 
-
-public class RealisticBiomePool 
+/**
+ * The realistic biome pool contains an ArrayList of BiomeGenBase IDs.
+ * 
+ * Because of the current biome weighting system (see BiomeBase.addWeightedBiome),
+ * each unique biome ID will appear multiple times within the pool.
+ * 
+ * For example, if Vanilla Ocean has a weight of 10, then 0 will appear 10 times.
+ * 
+ * This is also important (for now) to ensure that the chooseBiome() method works as intended.
+ * 
+ * @author WhichOnesPink
+ *
+ */
+public class RealisticBiomePool extends GenLayer
 {
     private ArrayList<Integer> biomePool;
     private CellNoise biomecell;
     private Random rand;
+    private static long worldSeed;
     private ArrayList<Integer> biomes_all;
     private int biomes_allLength;
     
-    public RealisticBiomePool(CellNoise bc, Random r)
+    public RealisticBiomePool(CellNoise bc, Random r, long seed)
     {
+        super(worldSeed);
+        
         biomecell = bc;
         rand = r;
         
@@ -99,5 +115,11 @@ public class RealisticBiomePool
     private float normalize(float value, float minOld, float maxOld, float minNew, float maxNew) {
                  
         return (maxNew - minNew) / (maxOld - minOld) * (value - maxOld) + maxNew;
+    }
+
+    @Override
+    public int[] getInts(int p_75904_1_, int p_75904_2_, int p_75904_3_, int p_75904_4_) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

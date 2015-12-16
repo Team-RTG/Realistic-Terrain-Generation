@@ -79,6 +79,11 @@ public class ConfigRTG
     public static int villageSize = 0;
     public static int minDistanceVillages = 16;
     public static int maxDistanceVillages = 64;
+    
+    /**
+     * TODO: Refactor to use a more user-friendly name.
+     */
+    public static boolean interceptInitBiomeGensEvent = true;
     	
 	public static void init(File configFile) 
 	{
@@ -129,6 +134,11 @@ public class ConfigRTG
                 "Values greater than 5 are not recommended. Use at your own risk." +
                 Configuration.NEW_LINE
             );
+
+            /**
+             * TODO: Describe what this config option does in a user-friendly way.
+             */
+            interceptInitBiomeGensEvent = config.getBoolean("Intercept InitBiomeGens Event", "Biomes", interceptInitBiomeGensEvent, "");
             
             /* ==================== Boulders ==================== */
             

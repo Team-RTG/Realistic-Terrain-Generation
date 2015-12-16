@@ -13,10 +13,12 @@ import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
+import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
+import net.minecraftforge.event.terraingen.WorldTypeEvent;
 import net.minecraftforge.event.world.WorldEvent;
 
 public class EventManagerRTG
@@ -64,6 +66,17 @@ public class EventManagerRTG
             
             MinecraftForge.TERRAIN_GEN_BUS.unregister(RTG.eventMgr);
             MinecraftForge.EVENT_BUS.unregister(RTG.eventMgr);
+        }
+    }
+    
+    @SubscribeEvent
+    public void eventListenerRTG(WorldTypeEvent.InitBiomeGens event) {
+
+        if (ConfigRTG.interceptInitBiomeGensEvent) {
+            
+            GenLayer[] genLayers = null;
+            
+            event.newBiomeGens = genLayers;
         }
     }
 }

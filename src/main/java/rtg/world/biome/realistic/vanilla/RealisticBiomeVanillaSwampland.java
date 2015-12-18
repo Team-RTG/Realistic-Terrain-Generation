@@ -37,7 +37,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
             BiomeGenBase.swampland,
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
             new TerrainVanillaSwampland(),
-            new SurfaceVanillaSwampland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new SurfaceVanillaSwampland(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("Vanilla Swampland");
         this.biomeSize = BiomeSize.NORMAL;

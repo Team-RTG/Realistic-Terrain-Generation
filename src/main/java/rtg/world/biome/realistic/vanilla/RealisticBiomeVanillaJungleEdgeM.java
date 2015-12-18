@@ -31,7 +31,7 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase
             mutationBiome,
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
             new TerrainVanillaJungleEdgeM(),
-            new SurfaceVanillaJungleEdgeM(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new SurfaceVanillaJungleEdgeM(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("Vanilla Jungle Edge M");
         this.biomeSize = BiomeSize.NORMAL;

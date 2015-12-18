@@ -25,7 +25,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
             mutationBiome,
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
             new TerrainVanillaExtremeHillsM(10f, 140f, 68f, 200f),
-            new SurfaceVanillaExtremeHillsM(topBlock, fillerBlock, Blocks.grass, Blocks.dirt, Blocks.stone, Blocks.cobblestone, 60f,
+            new SurfaceVanillaExtremeHillsM(topBlock, fillerBlock, Blocks.grass, Blocks.dirt, 60f,
                 -0.14f, 14f, 0.25f));
         
         this.setRealisticBiomeName("Vanilla Extreme Hills M");

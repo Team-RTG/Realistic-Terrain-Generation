@@ -43,7 +43,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
 		    mutationBiome,
 			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainVanillaBirchForestHillsM(),
-			new SurfaceVanillaBirchForestHillsM(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceVanillaBirchForestHillsM(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("Vanilla Birch Forest Hills M");

@@ -16,8 +16,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBRockyDesert extends SurfaceEBBase
 {
-    private static Block ebStoneBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
-    private static byte ebStoneByte = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
 
     private Block blockTop;
     private byte byteTop;

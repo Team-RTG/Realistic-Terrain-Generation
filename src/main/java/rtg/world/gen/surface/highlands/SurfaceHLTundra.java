@@ -55,7 +55,16 @@ public class SurfaceHLTundra extends SurfaceBase
             		}
             		else if(depth == 0)
             		{
-    	        		blocks[(y * 16 + x) * 256 + k] = rand.nextInt(2) == 0 ? Blocks.stone : Blocks.cobblestone;
+                        if (rand.nextInt(2) == 0) {
+                            
+                            blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
+                        }
+                        else {
+                            
+                            blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
+                        }
             		}
             	}
         		else if(depth > -1 && depth < 9)

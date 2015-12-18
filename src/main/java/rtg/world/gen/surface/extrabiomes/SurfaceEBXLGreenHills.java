@@ -83,7 +83,16 @@ public class SurfaceEBXLGreenHills extends SurfaceBase
             		
             		if(cliff == 1)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? Blocks.cobblestone : Blocks.stone; 
+                        if (rand.nextInt(3) == 0) {
+                            
+                            blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
+                        }
+                        else {
+                            
+                            blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
+                        }
             		}
             		else if(cliff == 2)
             		{
@@ -117,7 +126,8 @@ public class SurfaceEBXLGreenHills extends SurfaceBase
         		{
             		if(cliff == 1)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.stone; 
+                        blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                        metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
             		}
             		else if(cliff == 2)
             		{

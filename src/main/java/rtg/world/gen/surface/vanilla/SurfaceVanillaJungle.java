@@ -142,7 +142,8 @@ public class SurfaceVanillaJungle extends SurfaceBase
                 {
                     if (cliff == 1)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = Blocks.stone;
+                        blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                        metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                     }
                     else if (cliff == 2)
                     {

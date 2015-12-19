@@ -12,23 +12,18 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class SurfaceHLAutumnForest extends SurfaceBase {
+public class SurfaceHLAutumnForest extends SurfaceBase
+{
     
-    private Block cliffBlock1;
-    private Block cliffBlock2;
-    
-    public SurfaceHLAutumnForest(Block top, Block filler, Block cliff1, Block cliff2) {
-    
-        super(top, filler);
+    public SurfaceHLAutumnForest(Block top, Block filler) {
         
-        cliffBlock1 = cliff1;
-        cliffBlock2 = cliff2;
+        super(top, filler);
     }
     
     @Override
     public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world,
         Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
-    
+        
         float c = CliffCalculator.calc(x, y, noise);
         boolean cliff = c > 1.4f ? true : false;
         
@@ -41,9 +36,19 @@ public class SurfaceHLAutumnForest extends SurfaceBase {
                 
                 if (cliff) {
                     if (depth > -1 && depth < 2) {
-                        blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? cliffBlock2 : cliffBlock1;
+                        if (rand.nextInt(3) == 0) {
+                            
+                            blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
+                        }
+                        else {
+                            
+                            blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
+                        }
                     } else if (depth < 10) {
-                        blocks[(y * 16 + x) * 256 + k] = cliffBlock1;
+                        blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                        metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                     }
                 } else {
                     if (depth == 0 && k > 61) {

@@ -7,7 +7,6 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPScrubland;
 import biomesoplenty.api.content.BOPCBiomes;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPScrubland extends RealisticBiomeBOPBase
@@ -22,7 +21,7 @@ public class RealisticBiomeBOPScrubland extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPScrubland(63f, 80f, 30f),
-			new SurfaceBOPScrubland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceBOPScrubland(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("BOP Scrubland");

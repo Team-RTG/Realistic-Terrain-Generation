@@ -7,7 +7,6 @@ import rtg.world.gen.surface.highlands.SurfaceHLAutumnForest;
 import rtg.world.gen.terrain.highlands.TerrainHLAutumnForest;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
@@ -22,7 +21,7 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
             new TerrainHLAutumnForest(0f, 140f, 68f, 200f),
-            new SurfaceHLAutumnForest(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new SurfaceHLAutumnForest(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("HL Autumn Forest");
         this.biomeSize = BiomeSize.NORMAL;

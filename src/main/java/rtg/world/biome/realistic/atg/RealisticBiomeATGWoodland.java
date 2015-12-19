@@ -5,7 +5,6 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.atg.SurfaceATGWoodland;
 import rtg.world.gen.terrain.atg.TerrainATGWoodland;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeATGWoodland extends RealisticBiomeATGBase
@@ -15,7 +14,7 @@ public class RealisticBiomeATGWoodland extends RealisticBiomeATGBase
 		super(
 			atgBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainATGWoodland(),
-			new SurfaceATGWoodland(atgBiome.topBlock, atgBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceATGWoodland(atgBiome.topBlock, atgBiome.fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("ATG Woodland");

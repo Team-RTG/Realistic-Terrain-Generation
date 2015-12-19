@@ -1,14 +1,13 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLMeadow;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLMeadow;
 import extrabiomes.api.BiomeManager;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLMeadow extends RealisticBiomeEBXLBase
 {	
@@ -22,7 +21,7 @@ public class RealisticBiomeEBXLMeadow extends RealisticBiomeEBXLBase
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBXLMeadow(90f, 180f, 13f, 100f, 38f, 260f, 71f),
-			new SurfaceEBXLMeadow(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceEBXLMeadow(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("EBXL Meadow");

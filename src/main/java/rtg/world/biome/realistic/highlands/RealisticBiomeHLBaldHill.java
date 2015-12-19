@@ -7,7 +7,6 @@ import rtg.world.gen.surface.highlands.SurfaceHLBaldHill;
 import rtg.world.gen.terrain.highlands.TerrainHLBaldHill;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeHLBaldHill extends RealisticBiomeHLBase
@@ -23,7 +22,7 @@ public class RealisticBiomeHLBaldHill extends RealisticBiomeHLBase
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
             new TerrainHLBaldHill(90f, 180f, 13f, 100f, 38f, 260f, 71f),
-            new SurfaceHLBaldHill(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+            new SurfaceHLBaldHill(topBlock, fillerBlock)
         );
         
         this.setRealisticBiomeName("HL Bald Hill");

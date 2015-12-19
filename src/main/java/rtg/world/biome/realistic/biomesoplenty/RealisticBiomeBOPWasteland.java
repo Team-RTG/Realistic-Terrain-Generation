@@ -1,15 +1,13 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.Climate;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPWasteland;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaSavannaM;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPWasteland;
 import biomesoplenty.api.content.BOPCBiomes;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPWasteland extends RealisticBiomeBOPBase
 {	
@@ -23,7 +21,7 @@ public class RealisticBiomeBOPWasteland extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainBOPWasteland(),
-			new SurfaceBOPWasteland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceBOPWasteland(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("BOP Wasteland");

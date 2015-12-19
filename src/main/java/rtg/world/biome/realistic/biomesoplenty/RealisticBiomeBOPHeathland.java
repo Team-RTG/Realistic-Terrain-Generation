@@ -29,7 +29,7 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 			new TerrainBOPHeathland(),
-			new SurfaceBOPHeathland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceBOPHeathland(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("BOP Heathland");

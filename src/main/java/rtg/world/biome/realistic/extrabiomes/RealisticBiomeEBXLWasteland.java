@@ -1,14 +1,13 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLWasteland;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLWasteland;
 import extrabiomes.api.BiomeManager;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLWasteland extends RealisticBiomeEBXLBase
 {	
@@ -22,7 +21,7 @@ public class RealisticBiomeEBXLWasteland extends RealisticBiomeEBXLBase
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 			new TerrainEBXLWasteland(30f, 180f, 13f, 100f, 28f, 260f, 70f),
-			new SurfaceEBXLWasteland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceEBXLWasteland(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("EBXL Wasteland");

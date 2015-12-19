@@ -7,7 +7,6 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMeadow;
 import biomesoplenty.api.content.BOPCBiomes;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPMeadow extends RealisticBiomeBOPBase
@@ -22,7 +21,7 @@ public class RealisticBiomeBOPMeadow extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPMeadow(),
-			new SurfaceBOPMeadow(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceBOPMeadow(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("BOP Meadow");

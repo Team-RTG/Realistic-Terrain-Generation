@@ -30,7 +30,7 @@ public class RealisticBiomeBOPSeasonalForestClearing extends RealisticBiomeBOPBa
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPSeasonalForestClearing(63f, 66f, 24f),
-			new SurfaceBOPSeasonalForestClearing(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceBOPSeasonalForestClearing(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("BOP Seasonal Forest Clearing");

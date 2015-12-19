@@ -7,7 +7,6 @@ import rtg.world.gen.surface.highlands.SurfaceHLSteppe;
 import rtg.world.gen.terrain.highlands.TerrainHLSteppe;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeHLSteppe extends RealisticBiomeHLBase
@@ -24,7 +23,7 @@ public class RealisticBiomeHLSteppe extends RealisticBiomeHLBase
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
             new TerrainHLSteppe(70f, 180f, 13f, 100f, 38f, 260f, 71f),
-            new SurfaceHLSteppe(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new SurfaceHLSteppe(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("HL Steppe");
         this.biomeSize = BiomeSize.NORMAL;

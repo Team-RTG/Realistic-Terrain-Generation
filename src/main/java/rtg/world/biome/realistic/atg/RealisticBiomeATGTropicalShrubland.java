@@ -5,7 +5,6 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.atg.SurfaceATGTropicalShrubland;
 import rtg.world.gen.terrain.atg.TerrainATGTropicalShrubland;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeATGTropicalShrubland extends RealisticBiomeATGBase
@@ -15,7 +14,7 @@ public class RealisticBiomeATGTropicalShrubland extends RealisticBiomeATGBase
 		super(
 			atgBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainATGTropicalShrubland(),
-			new SurfaceATGTropicalShrubland(atgBiome.topBlock, atgBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceATGTropicalShrubland(atgBiome.topBlock, atgBiome.fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("ATG Tropical Shrubland");

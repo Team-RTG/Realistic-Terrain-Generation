@@ -11,13 +11,11 @@ import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPFungiForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPFungiForest;
 import biomesoplenty.api.content.BOPCBiomes;
-import biomesoplenty.api.content.BOPCBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 
 public class RealisticBiomeBOPFungiForest extends RealisticBiomeBOPBase
 {	
@@ -39,11 +37,7 @@ public class RealisticBiomeBOPFungiForest extends RealisticBiomeBOPBase
                 Blocks.mycelium, //Block mixTop, 
                 (byte)0, //byte mixTopByte, 
                 fillerBlock, //Block mixFill, 
-                (byte)0, //byte mixFillByte, 
-                Blocks.stone, //Block cliff1, 
-                (byte)0, //byte cliff1Byte, 
-                Blocks.cobblestone, //Block cliff2, 
-                (byte)0, //byte cliff2Byte, 
+                (byte)0, //byte mixFillByte,
                 40f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 

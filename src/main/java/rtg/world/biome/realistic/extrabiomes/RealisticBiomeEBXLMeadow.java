@@ -20,7 +20,7 @@ public class RealisticBiomeEBXLMeadow extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainEBXLMeadow(90f, 180f, 13f, 100f, 38f, 260f, 71f),
+			new TerrainEBXLMeadow(),
 			new SurfaceEBXLMeadow(topBlock, fillerBlock)
 		);
 		

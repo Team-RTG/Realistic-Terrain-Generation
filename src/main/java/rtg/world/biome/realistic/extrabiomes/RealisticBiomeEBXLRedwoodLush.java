@@ -1,14 +1,14 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLRedwoodLush;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLRedwoodLush;
 import extrabiomes.api.BiomeManager;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLRedwoodLush extends RealisticBiomeEBXLBase
 {	
@@ -21,7 +21,7 @@ public class RealisticBiomeEBXLRedwoodLush extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
-			new TerrainEBXLRedwoodLush(230f, 120f, 0f),
+			new TerrainEBXLRedwoodLush(230f, 53f, 0f),
 			new SurfaceEBXLRedwoodLush(topBlock, fillerBlock, true, Blocks.sand, 0.2f)
 		);
 		

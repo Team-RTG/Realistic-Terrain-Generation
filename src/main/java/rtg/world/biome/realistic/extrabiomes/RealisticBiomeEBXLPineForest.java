@@ -1,14 +1,13 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLPineForest;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLPineForest;
 import extrabiomes.api.BiomeManager;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLPineForest extends RealisticBiomeEBXLBase
 {	
@@ -21,7 +20,7 @@ public class RealisticBiomeEBXLPineForest extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainEBXLPineForest(),
+			new TerrainEBXLPineForest(63f, 90f, 20),
 			new SurfaceEBXLPineForest(topBlock, fillerBlock, false, null, 1.2f)
 		);
 		

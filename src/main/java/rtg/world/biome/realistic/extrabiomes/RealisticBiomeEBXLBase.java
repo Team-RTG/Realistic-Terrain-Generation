@@ -1,34 +1,14 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import cpw.mods.fml.common.Loader;
-import extrabiomes.api.BiomeManager;
-
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceDesertMountain;
-import rtg.world.gen.surface.SurfaceGrassland;
-import rtg.world.gen.surface.SurfaceGrasslandMix1;
-import rtg.world.gen.surface.SurfaceMarshFix;
-import rtg.world.gen.surface.SurfaceMountainSnow;
-import rtg.world.gen.surface.SurfaceMountainStone;
-import rtg.world.gen.surface.SurfacePolar;
-import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.TerrainGrasslandFlats;
-import rtg.world.gen.terrain.TerrainGrasslandHills;
-import rtg.world.gen.terrain.TerrainHighland;
-import rtg.world.gen.terrain.TerrainHilly;
-import rtg.world.gen.terrain.TerrainMarsh;
-import rtg.world.gen.terrain.TerrainMountainRiver;
-import rtg.world.gen.terrain.TerrainMountainSpikes;
-import rtg.world.gen.terrain.TerrainPolar;
-import rtg.world.gen.terrain.TerrainSwampMountain;
-import rtg.world.gen.terrain.TerrainSwampRiver;
+import cpw.mods.fml.common.Loader;
+import extrabiomes.api.BiomeManager;
+
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 {

@@ -20,7 +20,7 @@ public class RealisticBiomeEBXLForestedIsland extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainEBXLForestedIsland(90f, 180f, 13f, 100f, 1f, 260f, 59f),
+			new TerrainEBXLForestedIsland(31f, 280f, 1f, 100f, 1f, 260f, 59f),
 			new SurfaceEBXLForestedIsland(topBlock, fillerBlock)
 		);
 		

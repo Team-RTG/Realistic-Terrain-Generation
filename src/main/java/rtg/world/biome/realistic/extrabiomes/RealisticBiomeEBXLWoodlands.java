@@ -20,7 +20,7 @@ public class RealisticBiomeEBXLWoodlands extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
-			new TerrainEBXLWoodlands(0f, 140f, 68f, 200f),
+			new TerrainEBXLWoodlands(0f, 80f, 68f, 200f),
 			new SurfaceEBXLWoodlands(topBlock, fillerBlock)
 		);
 		

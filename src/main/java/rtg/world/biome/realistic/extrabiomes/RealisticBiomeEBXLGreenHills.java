@@ -1,14 +1,13 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLGreenHills;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLGreenHills;
 import extrabiomes.api.BiomeManager;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLGreenHills extends RealisticBiomeEBXLBase
 {	
@@ -21,7 +20,7 @@ public class RealisticBiomeEBXLGreenHills extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainEBXLGreenHills(230f, 120f, 0f),
+			new TerrainEBXLGreenHills(230f, 100f, 0f),
 			new SurfaceEBXLGreenHills(topBlock, fillerBlock, false, null, 0.95f)
 		);
 		

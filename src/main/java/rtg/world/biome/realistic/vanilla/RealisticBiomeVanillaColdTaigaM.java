@@ -38,7 +38,7 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase
             mutationBiome,
             BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
             new TerrainVanillaColdTaigaM(),
-            new SurfaceVanillaColdTaigaM(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new SurfaceVanillaColdTaigaM(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("Vanilla Cold Taiga M");
         this.biomeSize = BiomeSize.NORMAL;

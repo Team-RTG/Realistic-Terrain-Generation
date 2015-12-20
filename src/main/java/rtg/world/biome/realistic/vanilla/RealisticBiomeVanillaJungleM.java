@@ -49,7 +49,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase
 		    mutationBiome,
 			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainVanillaJungleM(),
-			new SurfaceVanillaJungleM(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceVanillaJungleM(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("Vanilla Jungle M");

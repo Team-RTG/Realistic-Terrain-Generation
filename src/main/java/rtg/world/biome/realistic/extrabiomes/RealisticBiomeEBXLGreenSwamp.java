@@ -7,7 +7,6 @@ import rtg.world.gen.terrain.extrabiomes.TerrainEBXLGreenSwamp;
 import extrabiomes.api.BiomeManager;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLGreenSwamp extends RealisticBiomeEBXLBase
@@ -22,7 +21,7 @@ public class RealisticBiomeEBXLGreenSwamp extends RealisticBiomeEBXLBase
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainEBXLGreenSwamp(),
-			new SurfaceEBXLGreenSwamp(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceEBXLGreenSwamp(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("EBXL Green Swamplands");

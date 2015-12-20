@@ -31,7 +31,7 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
             mutationBiome,
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
             new TerrainVanillaSunflowerPlains(),
-            new SurfaceVanillaSunflowerPlains(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new SurfaceVanillaSunflowerPlains(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("Vanilla Sunflower Plains");
         this.biomeSize = BiomeSize.NORMAL;

@@ -29,7 +29,7 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase
             BiomeGenBase.jungleEdge,
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
             new TerrainVanillaJungleEdge(),
-            new SurfaceVanillaJungleEdge(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new SurfaceVanillaJungleEdge(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("Vanilla Jungle Edge");
         this.biomeSize = BiomeSize.NORMAL;

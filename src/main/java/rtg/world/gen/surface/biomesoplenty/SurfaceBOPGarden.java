@@ -23,18 +23,13 @@ public class SurfaceBOPGarden extends SurfaceBase
     private byte byteMixTop;
     private Block blockMixFiller;
     private byte byteMixFiller;
-    private Block blockCliff1;
-    private byte byteCliff1;
-    private Block blockCliff2;
-    private byte byteCliff2;
     private float floMixWidth;
     private float floMixHeight;
     private float floSmallWidth;
     private float floSmallStrength;
     
     public SurfaceBOPGarden(Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
-        byte mixFillerByte, Block cliff1, byte cliff1Byte, Block cliff2, byte cliff2Byte, float mixWidth, float mixHeight,
-        float smallWidth, float smallStrength)
+        byte mixFillerByte, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
     {
     
         super(top, filler);
@@ -48,12 +43,6 @@ public class SurfaceBOPGarden extends SurfaceBase
         byteMixTop = mixTopByte;
         blockMixFiller = mixFiller;
         byteMixFiller = mixFillerByte;
-        
-        blockCliff1 = cliff1;
-        byteCliff1 = cliff1Byte;
-        
-        blockCliff2 = cliff2;
-        byteCliff2 = cliff2Byte;
         
         floMixWidth = mixWidth;
         floMixHeight = mixHeight;
@@ -86,19 +75,20 @@ public class SurfaceBOPGarden extends SurfaceBase
                     if (depth > -1 && depth < 2)
                     {
                         if (rand.nextInt(3) == 0) {
-                            blocks[(y * 16 + x) * 256 + k] = blockCliff2;
-                            metadata[(y * 16 + x) * 256 + k] = byteCliff2;
+                            
+                            blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
                         }
                         else {
-                            blocks[(y * 16 + x) * 256 + k] = blockCliff1;
-                            metadata[(y * 16 + x) * 256 + k] = byteCliff1;
+                            
+                            blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                         }
-                        
                     }
                     else if (depth < 10)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = blockCliff1;
-                        metadata[(y * 16 + x) * 256 + k] = byteCliff1;
+                        blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                        metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                     }
                 }
                 else

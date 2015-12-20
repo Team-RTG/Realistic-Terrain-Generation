@@ -1,14 +1,13 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLShrubland;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLShrubland;
 import extrabiomes.api.BiomeManager;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLShrubland extends RealisticBiomeEBXLBase
 {	
@@ -22,7 +21,7 @@ public class RealisticBiomeEBXLShrubland extends RealisticBiomeEBXLBase
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainEBXLShrubland(90f, 180f, 13f, 100f, 38f, 260f, 71f),
-			new SurfaceEBXLShrubland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceEBXLShrubland(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("EBXL Shrubland");

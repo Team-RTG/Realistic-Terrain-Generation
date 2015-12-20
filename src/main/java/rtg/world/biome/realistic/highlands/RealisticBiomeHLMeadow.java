@@ -7,7 +7,6 @@ import rtg.world.gen.surface.highlands.SurfaceHLMeadow;
 import rtg.world.gen.terrain.highlands.TerrainHLMeadow;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeHLMeadow extends RealisticBiomeHLBase
@@ -24,7 +23,7 @@ public class RealisticBiomeHLMeadow extends RealisticBiomeHLBase
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
             new TerrainHLMeadow(90f, 180f, 13f, 100f, 38f, 260f, 71f),
-            new SurfaceHLMeadow(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new SurfaceHLMeadow(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("HL Meadow");
         this.biomeSize = BiomeSize.NORMAL;

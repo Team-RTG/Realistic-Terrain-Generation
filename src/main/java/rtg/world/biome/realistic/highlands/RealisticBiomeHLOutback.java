@@ -7,7 +7,6 @@ import rtg.world.gen.surface.highlands.SurfaceHLOutback;
 import rtg.world.gen.terrain.highlands.TerrainHLOutback;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeHLOutback extends RealisticBiomeHLBase
@@ -24,7 +23,7 @@ public class RealisticBiomeHLOutback extends RealisticBiomeHLBase
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
             new TerrainHLOutback(300f),
-            new SurfaceHLOutback(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone, (byte) 0, 1));
+            new SurfaceHLOutback(topBlock, fillerBlock, (byte) 0, 1));
         
         this.setRealisticBiomeName("HL Outback");
         this.biomeSize = BiomeSize.NORMAL;

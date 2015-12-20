@@ -7,7 +7,6 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPXericShrubland;
 import biomesoplenty.api.content.BOPCBiomes;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPXericShrubland extends RealisticBiomeBOPBase
@@ -30,11 +29,7 @@ public class RealisticBiomeBOPXericShrubland extends RealisticBiomeBOPBase
                 topBlock, //Block mixTop, 
                 (byte)0, //byte mixTopByte, 
                 fillerBlock, //Block mixFill, 
-                (byte)0, //byte mixFillByte, 
-                Blocks.stone, //Block cliff1, 
-                (byte)0, //byte cliff1Byte, 
-                Blocks.cobblestone, //Block cliff2, 
-                (byte)0, //byte cliff2Byte, 
+                (byte)0, //byte mixFillByte,
                 80f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 

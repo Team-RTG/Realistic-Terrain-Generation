@@ -30,7 +30,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainBOPMysticGrove(),
-			new SurfaceBOPMysticGrove(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceBOPMysticGrove(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("BOP Mystic Grove");

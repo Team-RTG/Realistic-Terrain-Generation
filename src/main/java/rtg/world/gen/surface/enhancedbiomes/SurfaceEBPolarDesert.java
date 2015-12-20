@@ -5,7 +5,8 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.SnowHeightCalculator;
-import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBPolarDesert;
+import enhancedbiomes.api.EBAPI;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -92,8 +93,8 @@ public class SurfaceEBPolarDesert extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBPolarDesert.ebDominantStoneBlock[0];
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBPolarDesert.ebDominantStoneMeta[0];
+                    blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, hcStone(world, i, j, x, y, k));
+                    metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.RHYOLITE, hcStoneMeta(world, i, j, x, y, k));
                 }
 
                 if(riverPaint)
@@ -107,13 +108,13 @@ public class SurfaceEBPolarDesert extends SurfaceEBBase
                     {
                         if (rand.nextInt(2) == 0) {
                             
-                            blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBPolarDesert.ebDominantStoneBlock[0];
-                            metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBPolarDesert.ebDominantStoneMeta[0];
+                            blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, hcStone(world, i, j, x, y, k));
+                            metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.RHYOLITE, hcStoneMeta(world, i, j, x, y, k));
                         }
                         else {
                             
-                            blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBPolarDesert.ebDominantCobblestoneBlock[0];
-                            metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBPolarDesert.ebDominantCobblestoneMeta[0];
+                            blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, hcCobble(world, i, j, x, y, k));
+                            metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.RHYOLITE, hcCobbleMeta(world, i, j, x, y, k));
                         }
                     }
                 }

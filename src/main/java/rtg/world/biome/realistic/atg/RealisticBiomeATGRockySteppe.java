@@ -5,7 +5,6 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.atg.SurfaceATGRockySteppe;
 import rtg.world.gen.terrain.atg.TerrainATGRockySteppe;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeATGRockySteppe extends RealisticBiomeATGBase
@@ -15,7 +14,7 @@ public class RealisticBiomeATGRockySteppe extends RealisticBiomeATGBase
 		super(
 			atgBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
 			new TerrainATGRockySteppe(),
-			new SurfaceATGRockySteppe(atgBiome.topBlock, atgBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceATGRockySteppe(atgBiome.topBlock, atgBiome.fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("ATG Rocky Steppe");

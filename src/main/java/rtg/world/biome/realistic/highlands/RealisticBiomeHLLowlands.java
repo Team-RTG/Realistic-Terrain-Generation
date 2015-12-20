@@ -7,7 +7,6 @@ import rtg.world.gen.surface.highlands.SurfaceHLLowlands;
 import rtg.world.gen.terrain.highlands.TerrainHLLowlands;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeHLLowlands extends RealisticBiomeHLBase
@@ -24,7 +23,7 @@ public class RealisticBiomeHLLowlands extends RealisticBiomeHLBase
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
             new TerrainHLLowlands(),
-            new SurfaceHLLowlands(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new SurfaceHLLowlands(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("HL Lowlands");
         this.biomeSize = BiomeSize.NORMAL;

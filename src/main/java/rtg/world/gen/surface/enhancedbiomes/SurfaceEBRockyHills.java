@@ -5,8 +5,8 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBRockyHills;
-import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBRockyHills;
+import enhancedbiomes.api.EBAPI;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -81,8 +81,8 @@ public class SurfaceEBRockyHills extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBRockyHills.ebDominantStoneBlock[0];
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBRockyHills.ebDominantStoneMeta[0];
+                    blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, hcStone(world, i, j, x, y, k));
+                    metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.CHERT, hcStoneMeta(world, i, j, x, y, k));
                 }
                 
                 if (depth == 0)

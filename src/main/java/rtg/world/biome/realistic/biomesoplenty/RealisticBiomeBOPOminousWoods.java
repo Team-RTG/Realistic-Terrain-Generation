@@ -30,7 +30,7 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPOminousWoods(63f, 80f, 48f),
-			new SurfaceBOPOminousWoods(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceBOPOminousWoods(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("BOP Ominous Woods");

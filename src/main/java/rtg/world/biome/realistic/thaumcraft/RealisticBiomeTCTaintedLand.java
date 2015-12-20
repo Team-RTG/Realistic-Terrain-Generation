@@ -1,13 +1,11 @@
 package rtg.world.biome.realistic.thaumcraft;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.thaumcraft.ConfigTC;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.thaumcraft.SurfaceTCTaintedLand;
 import rtg.world.gen.terrain.thaumcraft.TerrainTCTaintedLand;
+
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeTCTaintedLand extends RealisticBiomeTCBase
 {	
@@ -16,7 +14,7 @@ public class RealisticBiomeTCTaintedLand extends RealisticBiomeTCBase
 		super(
 			tcBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainTCTaintedLand(),
-			new SurfaceTCTaintedLand(tcBiome.topBlock, tcBiome.fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceTCTaintedLand(tcBiome.topBlock, tcBiome.fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("Thaumcraft Tainted Land");

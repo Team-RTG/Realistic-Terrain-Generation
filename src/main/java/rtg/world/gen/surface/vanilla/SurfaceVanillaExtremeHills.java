@@ -17,14 +17,12 @@ public class SurfaceVanillaExtremeHills extends SurfaceBase
     
     private Block mixBlockTop;
     private Block mixBlockFill;
-    private Block cliffBlock1;
-    private Block cliffBlock2;
     private float width;
     private float height;
     private float smallW;
     private float smallS;
     
-    public SurfaceVanillaExtremeHills(Block top, Block filler, Block mixTop, Block mixFill, Block cliff1, Block cliff2, float mixWidth,
+    public SurfaceVanillaExtremeHills(Block top, Block filler, Block mixTop, Block mixFill, float mixWidth,
         float mixHeight, float smallWidth, float smallStrength)
     {
     
@@ -32,8 +30,6 @@ public class SurfaceVanillaExtremeHills extends SurfaceBase
         
         mixBlockTop = mixTop;
         mixBlockFill = mixFill;
-        cliffBlock1 = cliff1;
-        cliffBlock2 = cliff2;
         
         width = mixWidth;
         height = mixHeight;
@@ -65,11 +61,21 @@ public class SurfaceVanillaExtremeHills extends SurfaceBase
                 {
                     if (depth > -1 && depth < 2)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? cliffBlock2 : cliffBlock1;
+                        if (rand.nextInt(3) == 0) {
+                            
+                            blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
+                        }
+                        else {
+                            
+                            blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
+                        }
                     }
                     else if (depth < 10)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = cliffBlock1;
+                        blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                        metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                     }
                 }
                 else

@@ -7,7 +7,6 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPPrairie;
 import biomesoplenty.api.content.BOPCBiomes;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPPrairie extends RealisticBiomeBOPBase
@@ -22,7 +21,7 @@ public class RealisticBiomeBOPPrairie extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainBOPPrairie(63f, 80f, 25f),
-			new SurfaceBOPPrairie(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceBOPPrairie(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("BOP Prairie");

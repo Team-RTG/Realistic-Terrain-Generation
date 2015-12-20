@@ -7,7 +7,6 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPSteppe;
 import biomesoplenty.api.content.BOPCBiomes;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPSteppe extends RealisticBiomeBOPBase
@@ -22,7 +21,7 @@ public class RealisticBiomeBOPSteppe extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainBOPSteppe(63f, 66f, 30f),
-			new SurfaceBOPSteppe(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceBOPSteppe(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("BOP Steppe");

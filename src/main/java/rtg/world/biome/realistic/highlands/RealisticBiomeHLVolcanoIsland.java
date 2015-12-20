@@ -1,9 +1,9 @@
 package rtg.world.biome.realistic.highlands;
 
+import highlands.api.HighlandsBiomes;
+
 import java.util.Random;
 
-import cpw.mods.fml.common.registry.GameData;
-import highlands.api.HighlandsBiomes;
 import rtg.config.highlands.ConfigHL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -14,7 +14,6 @@ import rtg.world.gen.feature.WorldGenVolcano;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPVolcano;
-import rtg.world.gen.surface.highlands.SurfaceHLVolcanoIsland;
 import rtg.world.gen.terrain.highlands.TerrainHLVolcanoIsland;
 
 import net.minecraft.block.Block;
@@ -34,10 +33,6 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
     private static byte bopMixTopByte = (byte)0;
     private static Block bopMixFillBlock = Blocks.dirt;
     private static byte bopMixFillByte = (byte)0;
-    private static Block bopCliff1Block = Blocks.stone;
-    private static byte bopCliff1Byte = (byte)0;
-    private static Block bopCliff2Block = Blocks.cobblestone;
-    private static byte bopCliff2Byte = (byte)0;
     
     private static SurfaceBase surface = new SurfaceBOPVolcano(
         bopTopBlock, //Block top 
@@ -48,10 +43,6 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
         bopMixTopByte, //byte mixTopByte, 
         bopMixFillBlock, //Block mixFill, 
         bopMixFillByte, //byte mixFillByte, 
-        bopCliff1Block, //Block cliff1, 
-        bopCliff1Byte, //byte cliff1Byte, 
-        bopCliff2Block, //Block cliff2, 
-        bopCliff2Byte, //byte cliff2Byte, 
         80f, //float mixWidth, 
         -0.15f, //float mixHeight, 
         10f, //float smallWidth, 

@@ -7,7 +7,6 @@ import rtg.world.gen.surface.highlands.SurfaceHLSahel;
 import rtg.world.gen.terrain.highlands.TerrainHLSahel;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeHLSahel extends RealisticBiomeHLBase
@@ -24,7 +23,7 @@ public class RealisticBiomeHLSahel extends RealisticBiomeHLBase
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
             new TerrainHLSahel(),
-            new SurfaceHLSahel(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new SurfaceHLSahel(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("HL Sahel");
         this.biomeSize = BiomeSize.NORMAL;

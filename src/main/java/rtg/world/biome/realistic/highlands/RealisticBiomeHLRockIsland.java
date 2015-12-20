@@ -7,7 +7,6 @@ import rtg.world.gen.surface.highlands.SurfaceHLRockIsland;
 import rtg.world.gen.terrain.highlands.TerrainHLRockIsland;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeHLRockIsland extends RealisticBiomeHLBase
@@ -24,7 +23,7 @@ public class RealisticBiomeHLRockIsland extends RealisticBiomeHLBase
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
             new TerrainHLRockIsland(90f, 180f, 13f, 100f, 38f, 260f, 71f),
-            new SurfaceHLRockIsland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new SurfaceHLRockIsland(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("HL Rock Island");
         this.biomeSize = BiomeSize.NORMAL;

@@ -8,7 +8,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeShrubCustom;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMapleWoods;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMapleWoods;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -30,7 +29,7 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPMapleWoods(63f, 80f, 30f),
-			new SurfaceBOPMapleWoods(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceBOPMapleWoods(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("BOP Maple Woods");

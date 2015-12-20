@@ -33,7 +33,7 @@ public class SurfaceBase
 	
     protected Block getShadowStoneBlock(World world, int i, int j, int x, int y, int k)
     {
-        if (Loader.isModLoaded("UndergroundBiomes")) {
+        if (Loader.isModLoaded("UndergroundBiomes") && ConfigRTG.enableUBCStoneShadowing) {
             
             return Blocks.stone;
         }
@@ -45,7 +45,7 @@ public class SurfaceBase
     
     protected byte getShadowStoneMeta(World world, int i, int j, int x, int y, int k)
     {
-        if (Loader.isModLoaded("UndergroundBiomes")) {
+        if (Loader.isModLoaded("UndergroundBiomes") && ConfigRTG.enableUBCStoneShadowing) {
             
             return (byte)0;
         }
@@ -57,7 +57,7 @@ public class SurfaceBase
 	
     protected Block getShadowDesertBlock(World world, int i, int j, int x, int y, int k)
     {
-        if (Loader.isModLoaded("UndergroundBiomes")) {
+        if (Loader.isModLoaded("UndergroundBiomes") && ConfigRTG.enableUBCDesertShadowing) {
             
             return Blocks.stone;
         }
@@ -69,7 +69,7 @@ public class SurfaceBase
     
     protected byte getShadowDesertMeta(World world, int i, int j, int x, int y, int k)
     {
-        if (Loader.isModLoaded("UndergroundBiomes")) {
+        if (Loader.isModLoaded("UndergroundBiomes") && ConfigRTG.enableUBCDesertShadowing) {
             
             return (byte)0;
         }

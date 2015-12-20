@@ -7,7 +7,6 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPGrassland;
 import biomesoplenty.api.content.BOPCBiomes;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPGrassland extends RealisticBiomeBOPBase
@@ -22,7 +21,7 @@ public class RealisticBiomeBOPGrassland extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPGrassland(),
-			new SurfaceBOPGrassland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceBOPGrassland(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("BOP Grassland");

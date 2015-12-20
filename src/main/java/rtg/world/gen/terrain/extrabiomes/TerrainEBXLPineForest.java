@@ -6,34 +6,45 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBXLPineForest extends TerrainBase
 {
-	public TerrainEBXLPineForest()
-	{
+	  private float minHeight = 63f;
+	    private float maxHeight = 90f;
+	    private float hillStrength = 30f;
+	    
+	    // 63f, 80f, 30f
+	    
+	    public TerrainEBXLPineForest()
+	    {
+	    
+	    }
+	    
+	    public TerrainEBXLPineForest(float minHeight, float maxHeight, float hillStrength)
+	    {
+	        this.minHeight = minHeight;
+	        this.maxHeight = (maxHeight > 80f) ? 80f : ((maxHeight < this.minHeight) ? 80f : maxHeight);
+	        this.hillStrength = hillStrength;
+	    }
+	    
+	    @Override
+	    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
+	    {
+	    
+	        float h = simplex.noise2(x / 200f, y / 200f) * 4;
+	        h += simplex.noise2(x / 100f, y / 100f) * 2;
+	        
+	        float m = simplex.noise2(x / 200f, y / 200f) * hillStrength * river;
+	        m *= m / ((hillStrength * 0.1f) + hillStrength);
+	        
+	        float sm = simplex.noise2(x / hillStrength, y / hillStrength) * 8f;
+	        sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
+	        m += sm;
+	        
+	        float l = simplex.noise2(x / 260f, y / 260f) * 38f;
+	        l *= l / 25f;
+	        l = l < -8f ? -8f : l;
+	        
+	        float floNoise = maxHeight + h + m - l;
+	        floNoise = (floNoise < minHeight) ? minHeight : floNoise;
+	        
+	        return floNoise;
+	    }
 	}
-	
-	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-	{
-		float b = (12f + (simplex.noise2(x / 300f, y / 300f) * 6f));
-		float h = cell.noise(x / 200D, y / 200D, 1D) * b * river;
-		h *= h * 1.5f;
-		h = h > 155f ? 155f : h;
-		
-		if(h > 2f)
-		{
-			float d = (h - 2f) / 2f > 8f ? 8f : (h - 2f) / 2f;
-			h += simplex.noise2(x / 30f, y / 30f) * d;
-			h += simplex.noise2(x / 50f, y / 50f) * d * 0.5f;
-
-			if(h > 35f)
-			{
-				float d2 = (h - 35f) / 1.5f > 30f ? 30f : (h - 35f) / 1.5f;
-				h += cell.noise(x / 25D, y / 25D, 1D) * d2;
-			}
-		}
-		
-		h += simplex.noise2(x / 18f, y / 18f) * 3;
-		h += simplex.noise2(x / 8f, y / 8f) * 2;
-				
-		return 45f + h + (b * 2);
-	}
-}

@@ -38,7 +38,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
             mutationBiome,
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
             new TerrainVanillaRoofedForestM(),
-            new SurfaceVanillaRoofedForestM(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new SurfaceVanillaRoofedForestM(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("Vanilla Roofed Forest M");
         this.biomeSize = BiomeSize.NORMAL;

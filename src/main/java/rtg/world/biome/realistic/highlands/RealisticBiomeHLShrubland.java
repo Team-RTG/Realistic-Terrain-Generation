@@ -7,7 +7,6 @@ import rtg.world.gen.surface.highlands.SurfaceHLShrubland;
 import rtg.world.gen.terrain.highlands.TerrainHLShrubland;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeHLShrubland extends RealisticBiomeHLBase
@@ -24,7 +23,7 @@ public class RealisticBiomeHLShrubland extends RealisticBiomeHLBase
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
             new TerrainHLShrubland(70f, 150f, 13f, 90f, 38f, 200f, 71f),
-            new SurfaceHLShrubland(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new SurfaceHLShrubland(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("HL Shrubland");
         this.biomeSize = BiomeSize.NORMAL;

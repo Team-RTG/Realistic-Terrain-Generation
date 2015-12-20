@@ -1,14 +1,13 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPCoralReef;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPCoralReef;
 import biomesoplenty.api.content.BOPCBiomes;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase
 {	
@@ -22,7 +21,7 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainBOPCoralReef(false, -25f, 0f, 0f, 0f, 30f),
-			new SurfaceBOPCoralReef(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceBOPCoralReef(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("BOP Coral Reef");

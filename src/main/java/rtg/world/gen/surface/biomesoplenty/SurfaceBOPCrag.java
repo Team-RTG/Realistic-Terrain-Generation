@@ -15,14 +15,12 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceBOPCrag extends SurfaceBase
 {
 	private Block cliffBlock1;
-	private Block cliffBlock2;
 	
-	public SurfaceBOPCrag(Block top, Block filler, Block cliff1, Block cliff2)
+	public SurfaceBOPCrag(Block top, Block filler, Block cliff1)
 	{
 		super(top, filler);
 		
 		cliffBlock1 = cliff1;
-		cliffBlock2 = cliff2;
 	}
 	
 	@Override
@@ -48,7 +46,16 @@ public class SurfaceBOPCrag extends SurfaceBase
                 	{
                 		if(depth > -1 && depth < 2)
                 		{
-                			blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? cliffBlock1 : cliffBlock2; 
+                            if (rand.nextInt(3) == 0) {
+                                
+                                blocks[(y * 16 + x) * 256 + k] = cliffBlock1;
+                                metadata[(y * 16 + x) * 256 + k] = (byte)0;
+                            }
+                            else {
+                                
+                                blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
+                                metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
+                            }
                 		}
                 		else if (depth < 10)
                 		{

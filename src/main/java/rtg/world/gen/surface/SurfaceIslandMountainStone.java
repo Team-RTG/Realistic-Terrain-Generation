@@ -77,12 +77,21 @@ public class SurfaceIslandMountainStone extends SurfaceBase
             		
             		if(cliff == 1)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? Blocks.cobblestone : Blocks.stone; 
+                        if (rand.nextInt(3) == 0) {
+                            
+                            blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
+                        }
+                        else {
+                            
+                            blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
+                        }
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock; 
-        				metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
+        				blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k); 
+        				metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
             		}
             		else if(k < beach)
             		{
@@ -98,12 +107,13 @@ public class SurfaceIslandMountainStone extends SurfaceBase
         		{
             		if(cliff == 1)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.stone; 
+                        blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                        metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock; 
-        				metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
+        				blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k); 
+        				metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
             		}
             		else if(gravel)
             		{

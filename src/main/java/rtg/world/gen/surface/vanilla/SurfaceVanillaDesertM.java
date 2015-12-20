@@ -86,8 +86,8 @@ public class SurfaceVanillaDesertM extends SurfaceBase
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = shadowDesertBlock; 
-        				metadata[(y * 16 + x) * 256 + k] = shadowDesertByte;
+        				blocks[(y * 16 + x) * 256 + k] = getShadowDesertBlock(world, i, j, x, y, k); 
+        				metadata[(y * 16 + x) * 256 + k] = getShadowDesertMeta(world, i, j, x, y, k);
             		}
             		else if(k < 63)
             		{
@@ -118,8 +118,8 @@ public class SurfaceVanillaDesertM extends SurfaceBase
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = shadowDesertBlock; 
-        				metadata[(y * 16 + x) * 256 + k] = shadowDesertByte;
+        				blocks[(y * 16 + x) * 256 + k] = getShadowDesertBlock(world, i, j, x, y, k); 
+        				metadata[(y * 16 + x) * 256 + k] = getShadowDesertMeta(world, i, j, x, y, k);
             		}
             		else if(gravel)
             		{

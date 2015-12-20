@@ -5,7 +5,7 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBSnowyRanges;
+import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
@@ -15,8 +15,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBSnowyRanges extends SurfaceEBBase
 {
-    private static Block ebStoneBlock = EnhancedBiomesBlocks.stoneEB;
-    private static byte ebStoneByte = (byte)3;
 
     private Block blockTop;
     private byte byteTop;
@@ -85,8 +83,8 @@ public class SurfaceEBSnowyRanges extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBSnowyRanges.ebDominantStoneBlock[0];
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBSnowyRanges.ebDominantStoneMeta[0];
+                    blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, hcStone(world, i, j, x, y, k));
+                    metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.CHERT, hcStoneMeta(world, i, j, x, y, k));
                 }
                 
                 if (cliff)

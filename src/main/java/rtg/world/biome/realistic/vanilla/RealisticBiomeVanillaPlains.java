@@ -30,7 +30,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
             BiomeGenBase.plains,
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
             new TerrainVanillaPlains(),
-            new SurfaceVanillaPlains(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new SurfaceVanillaPlains(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("Vanilla Plains");
         this.biomeSize = BiomeSize.NORMAL;

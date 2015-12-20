@@ -22,18 +22,13 @@ public class SurfaceBOPArctic extends SurfaceBase
     private byte byteMixTop;
     private Block blockMixFiller;
     private byte byteMixFiller;
-    private Block blockCliff1;
-    private byte byteCliff1;
-    private Block blockCliff2;
-    private byte byteCliff2;
     private float floMixWidth;
     private float floMixHeight;
     private float floSmallWidth;
     private float floSmallStrength;
 
     public SurfaceBOPArctic(Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
-        byte mixFillerByte, Block cliff1, byte cliff1Byte, Block cliff2, byte cliff2Byte, float mixWidth, float mixHeight,
-        float smallWidth, float smallStrength)
+        byte mixFillerByte, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
     {
     
         super(top, filler);
@@ -47,12 +42,6 @@ public class SurfaceBOPArctic extends SurfaceBase
         byteMixTop = mixTopByte;
         blockMixFiller = mixFiller;
         byteMixFiller = mixFillerByte;
-        
-        blockCliff1 = cliff1;
-        byteCliff1 = cliff1Byte;
-        
-        blockCliff2 = cliff2;
-        byteCliff2 = cliff2Byte;
         
         floMixWidth = mixWidth;
         floMixHeight = mixHeight;
@@ -102,13 +91,13 @@ public class SurfaceBOPArctic extends SurfaceBase
                     {
                         if (rand.nextInt(2) == 0) {
                             
-                            blocks[(y * 16 + x) * 256 + k] = Blocks.stone;
-                            metadata[(y * 16 + x) * 256 + k] = (byte)0;
+                            blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                         }
                         else {
                             
-                            blocks[(y * 16 + x) * 256 + k] = Blocks.cobblestone;
-                            metadata[(y * 16 + x) * 256 + k] = (byte)0;
+                            blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
                         }
                     }
                 }

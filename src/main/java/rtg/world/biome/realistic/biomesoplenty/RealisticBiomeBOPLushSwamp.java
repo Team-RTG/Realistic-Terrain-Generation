@@ -30,7 +30,7 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainBOPLushSwamp(),
-			new SurfaceBOPLushSwamp(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceBOPLushSwamp(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("BOP Lush Swamp");

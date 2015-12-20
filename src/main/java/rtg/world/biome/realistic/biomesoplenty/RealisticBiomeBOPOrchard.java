@@ -29,7 +29,7 @@ public class RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
 			new TerrainBOPOrchard(63f, 67f, 25f),
-			new SurfaceBOPOrchard(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceBOPOrchard(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("BOP Orchard");

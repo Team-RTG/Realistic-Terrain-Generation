@@ -7,7 +7,6 @@ import rtg.world.gen.surface.highlands.SurfaceHLBog;
 import rtg.world.gen.terrain.highlands.TerrainHLBog;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeHLBog extends RealisticBiomeHLBase
@@ -23,7 +22,7 @@ public class RealisticBiomeHLBog extends RealisticBiomeHLBase
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
             new TerrainHLBog(),
-            new SurfaceHLBog(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new SurfaceHLBog(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("HL Bog");
         this.biomeSize = BiomeSize.NORMAL;

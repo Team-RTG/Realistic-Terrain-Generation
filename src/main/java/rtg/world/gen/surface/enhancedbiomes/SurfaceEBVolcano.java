@@ -5,7 +5,6 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBVolcano;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
@@ -16,8 +15,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBVolcano extends SurfaceEBBase
 {
-    private static Block ebStoneBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
-    private static byte ebStoneByte = EBAPI.ebStonify(EBAPI.BASALT, (byte)0);
 
     private Block blockTop;
     private byte byteTop;
@@ -86,8 +83,8 @@ public class SurfaceEBVolcano extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBVolcano.ebDominantStoneBlock[0];
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBVolcano.ebDominantStoneMeta[0];
+                    blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, hcStone(world, i, j, x, y, k));
+                    metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.CHERT, hcStoneMeta(world, i, j, x, y, k));
                 }
                 
                 if (cliff)

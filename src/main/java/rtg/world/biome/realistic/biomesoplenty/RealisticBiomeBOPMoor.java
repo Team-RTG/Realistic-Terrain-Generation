@@ -7,7 +7,6 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMoor;
 import biomesoplenty.api.content.BOPCBiomes;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase
@@ -22,7 +21,7 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPMoor(63f, 69f, 32f),
-			new SurfaceBOPMoor(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceBOPMoor(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("BOP Moor");

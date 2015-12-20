@@ -1,14 +1,13 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLMarsh;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLMarsh;
 import extrabiomes.api.BiomeManager;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLMarsh extends RealisticBiomeEBXLBase
 {	
@@ -22,7 +21,7 @@ public class RealisticBiomeEBXLMarsh extends RealisticBiomeEBXLBase
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
 			new TerrainEBXLMarsh(),
-			new SurfaceEBXLMarsh(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceEBXLMarsh(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("EBXL Marsh");

@@ -7,7 +7,6 @@ import rtg.world.gen.surface.highlands.SurfaceHLBadlands;
 import rtg.world.gen.terrain.highlands.TerrainHLBadlands;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeHLBadlands extends RealisticBiomeHLBase
@@ -23,7 +22,7 @@ public class RealisticBiomeHLBadlands extends RealisticBiomeHLBase
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
             new TerrainHLBadlands(),
-            new SurfaceHLBadlands(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new SurfaceHLBadlands(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("HL Badlands");
         this.biomeSize = BiomeSize.NORMAL;

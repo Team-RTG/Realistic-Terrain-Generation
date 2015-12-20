@@ -22,7 +22,7 @@ public class RealisticBiomeBOPBrushland extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
 			new TerrainBOPBrushland(),
-			new SurfaceBOPBrushland(topBlock, fillerBlock, Blocks.sand, Blocks.stone, Blocks.cobblestone, 13f, 0.27f)
+			new SurfaceBOPBrushland(topBlock, fillerBlock, Blocks.sand, 13f, 0.27f)
 		);
 		
 		this.setRealisticBiomeName("BOP Brushland");

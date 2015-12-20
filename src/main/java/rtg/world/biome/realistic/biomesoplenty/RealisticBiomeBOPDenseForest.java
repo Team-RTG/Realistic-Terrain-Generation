@@ -30,7 +30,7 @@ public class RealisticBiomeBOPDenseForest extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPDenseForest(),
-			new SurfaceBOPDenseForest(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceBOPDenseForest(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("BOP Dense Forest");

@@ -36,7 +36,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase
             mutationBiome,
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
             new TerrainVanillaSwamplandM(230f, 24f, 0f),
-            new SurfaceVanillaSwamplandM(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone));
+            new SurfaceVanillaSwamplandM(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("Vanilla Swampland M");
         this.biomeSize = BiomeSize.NORMAL;

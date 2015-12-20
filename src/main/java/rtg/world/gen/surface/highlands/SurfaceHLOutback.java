@@ -13,17 +13,14 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceHLOutback extends SurfaceBase
 {
-	private Block cliffBlock1;
-	private Block cliffBlock2;
+
 	private byte sandMetadata;
 	private int cliffType;
 	
-	public SurfaceHLOutback(Block top, Block filler, Block cliff1, Block cliff2, byte metadata, int cliff)
+	public SurfaceHLOutback(Block top, Block filler, byte metadata, int cliff)
 	{
 		super(top, filler);
-		
-		cliffBlock1 = cliff1;
-		cliffBlock2 = cliff2;
+
 		sandMetadata = metadata;
 		cliffType = cliff;
 	}
@@ -52,19 +49,29 @@ public class SurfaceHLOutback extends SurfaceBase
             		{
             			if (depth < 6)
 	            		{
-                			blocks[(y * 16 + x) * 256 + k] = cliffBlock1;
-                			metadata[(y * 16 + x) * 256 + k] = 14;
+                            blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
 	            		}
             		}
             		else
             		{
 	            		if(depth > -1 && depth < 2)
 	            		{
-	            			blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? cliffBlock2 : cliffBlock1; 
+	                        if (rand.nextInt(3) == 0) {
+	                            
+	                            blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
+	                            metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
+	                        }
+	                        else {
+	                            
+	                            blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+	                            metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
+	                        }
 	            		}
 	            		else if (depth < 10)
 	            		{
-	            			blocks[(y * 16 + x) * 256 + k] = cliffBlock1;
+	                        blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+	                        metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
 	            		}
             		}
             	}

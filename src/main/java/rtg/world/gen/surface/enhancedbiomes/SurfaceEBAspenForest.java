@@ -5,7 +5,6 @@ import java.util.Random;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBAspenForest;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
@@ -75,8 +74,8 @@ public class SurfaceEBAspenForest extends SurfaceEBBase
                 depth++;
 
                 if (shouldReplaceStone()) {
-                    blocks[(y * 16 + x) * 256 + k] = RealisticBiomeEBAspenForest.ebDominantStoneBlock[0];
-                    metadata[(y * 16 + x) * 256 + k] = RealisticBiomeEBAspenForest.ebDominantStoneMeta[0];
+                    blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, hcStone(world, i, j, x, y, k));
+                    metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.DOLOMITE, hcStoneMeta(world, i, j, x, y, k));
                 }
             	
             	if(depth == 0)
@@ -107,19 +106,19 @@ public class SurfaceEBAspenForest extends SurfaceEBBase
             		{
             		    if (rand.nextInt(3) == 0) {
             		        
-                            blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
-                            metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.DOLOMITE, (byte)0);
+                            blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, hcCobble(world, i, j, x, y, k));
+                            metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.DOLOMITE, hcCobbleMeta(world, i, j, x, y, k));
             		    }
             		    else {
             		        
-            		        blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
-            		        metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.DOLOMITE, (byte)0);
+            		        blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, hcStone(world, i, j, x, y, k));
+            		        metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.DOLOMITE, hcStoneMeta(world, i, j, x, y, k));
             		    }
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock; 
-        				metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
+        				blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k); 
+        				metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
             		}
             		else if(cliff == 3)
             		{
@@ -153,13 +152,13 @@ public class SurfaceEBAspenForest extends SurfaceEBBase
         		{
             		if(cliff == 1)
             		{
-            		    blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone); 
-            		    metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.DOLOMITE, (byte)0); 
+            		    blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, hcStone(world, i, j, x, y, k)); 
+            		    metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.DOLOMITE, hcStoneMeta(world, i, j, x, y, k)); 
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock; 
-        				metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
+        				blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k); 
+        				metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
             		}
             		else if(cliff == 3)
             		{

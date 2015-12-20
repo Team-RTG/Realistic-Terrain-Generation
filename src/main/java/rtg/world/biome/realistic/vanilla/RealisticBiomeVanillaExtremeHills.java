@@ -35,8 +35,8 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
             BiomeGenBase.extremeHills,
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
             new TerrainVanillaExtremeHills(10f, 120f, 68f, 200f),
-            new SurfaceVanillaExtremeHills(topBlock, fillerBlock, Blocks.grass, Blocks.dirt, Blocks.stone, Blocks.cobblestone, 60f,
-                -0.14f, 14f, 0.25f));
+            new SurfaceVanillaExtremeHills(topBlock, fillerBlock, Blocks.grass, Blocks.dirt, 60f, -0.14f, 14f, 0.25f)
+        );
         
         this.setRealisticBiomeName("Vanilla Extreme Hills");
         this.biomeSize = BiomeSize.NORMAL;

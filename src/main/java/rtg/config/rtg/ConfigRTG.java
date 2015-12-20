@@ -15,6 +15,9 @@ public class ConfigRTG
 	
 	public static int generateOnlyThisBiomeId = -1;
 	
+	public static boolean enableUBCStoneShadowing = true;
+	public static boolean enableUBCDesertShadowing = true;
+	
     public static String shadowStoneBlockId = "minecraft:stained_hardened_clay";
     public static int shadowStoneBlockByte = 9;
     
@@ -209,7 +212,7 @@ public class ConfigRTG
                 Configuration.NEW_LINE
             );
             
-            shadowStoneBlockByte = config.getInt("Stone shadow block meta value", "Terrain shadowing", shadowStoneBlockByte, 0, 15, "The meta value of the shadow block for stone structures. Defaults to " + shadowStoneBlockByte +  " (cyan)." + Configuration.NEW_LINE);
+            shadowStoneBlockByte = config.getInt("Stone shadow block meta value", "Terrain shadowing", shadowStoneBlockByte, 0, 15, "The meta value of the shadow block for stone cliffs. Defaults to " + shadowStoneBlockByte +  " (cyan)." + Configuration.NEW_LINE);
             
             shadowDesertBlockId = config.getString(
                 "Desert shadow block ID",
@@ -219,8 +222,28 @@ public class ConfigRTG
                 Configuration.NEW_LINE
             );
             
-            shadowDesertBlockByte = config.getInt("Desert shadow block meta value", "Terrain shadowing", shadowDesertBlockByte, 0, 15, "The meta value of the shadow block for desert structures. Defaults to " + shadowDesertBlockByte +  " (light gray)." + Configuration.NEW_LINE);
+            shadowDesertBlockByte = config.getInt("Desert shadow block meta value", "Terrain shadowing", shadowDesertBlockByte, 0, 15, "The meta value of the shadow block for desert cliffs. Defaults to " + shadowDesertBlockByte +  " (light gray)." + Configuration.NEW_LINE);
             
+            enableUBCStoneShadowing = config.getBoolean(
+                "UBC Mode (Stone)",
+                "Terrain shadowing",
+                enableUBCStoneShadowing,
+                "Set this to TRUE to allow UBC to override stone shadowing."
+                + Configuration.NEW_LINE +
+                "This setting doesn't have any effect if UBC is not installed."
+                + Configuration.NEW_LINE
+            );
+            
+            enableUBCDesertShadowing = config.getBoolean(
+                "UBC Mode (Desert)",
+                "Terrain shadowing",
+                enableUBCDesertShadowing,
+                "Set this to TRUE to allow UBC to override desert shadowing."
+                + Configuration.NEW_LINE +
+                "This setting doesn't have any effect if UBC is not installed."
+                + Configuration.NEW_LINE
+            );
+
             /* ==================== Villages ==================== */
             
             enableVillageModifications = config.getBoolean(

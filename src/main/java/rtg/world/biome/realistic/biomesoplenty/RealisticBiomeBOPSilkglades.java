@@ -1,14 +1,13 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPSilkglades;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPSilkglades;
 import biomesoplenty.api.content.BOPCBiomes;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPSilkglades extends RealisticBiomeBOPBase
 {	
@@ -22,7 +21,7 @@ public class RealisticBiomeBOPSilkglades extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
 			new TerrainBOPSilkglades(),
-			new SurfaceBOPSilkglades(topBlock, fillerBlock, Blocks.stone, Blocks.cobblestone)
+			new SurfaceBOPSilkglades(topBlock, fillerBlock)
 		);
 		
 		this.setRealisticBiomeName("BOP Silkglades");

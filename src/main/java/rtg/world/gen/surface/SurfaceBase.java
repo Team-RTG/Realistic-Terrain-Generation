@@ -2,12 +2,9 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
-import org.apache.logging.log4j.Level;
-
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameData;
 import exterminatorJeff.undergroundBiomes.api.BlockCodes;
@@ -23,12 +20,7 @@ public class SurfaceBase
 {
 	protected Block topBlock;
 	protected Block fillerBlock;
-	
-    protected Block shadowStoneBlock = GameData.getBlockRegistry().getObject(ConfigRTG.shadowStoneBlockId);
-    protected byte shadowStoneByte = (byte)ConfigRTG.shadowStoneBlockByte;
-    protected Block shadowDesertBlock = GameData.getBlockRegistry().getObject(ConfigRTG.shadowDesertBlockId);
-    protected byte shadowDesertByte = (byte)ConfigRTG.shadowDesertBlockByte;
-	
+
 	public SurfaceBase(Block top, Block fill)
 	{
 		topBlock = top;
@@ -39,6 +31,54 @@ public class SurfaceBase
 	{
 	}
 	
+    protected Block getShadowStoneBlock(World world, int i, int j, int x, int y, int k)
+    {
+        if (Loader.isModLoaded("UndergroundBiomes")) {
+            
+            return Blocks.stone;
+        }
+        else {
+            
+            return GameData.getBlockRegistry().getObject(ConfigRTG.shadowStoneBlockId);
+        }
+    }
+    
+    protected byte getShadowStoneMeta(World world, int i, int j, int x, int y, int k)
+    {
+        if (Loader.isModLoaded("UndergroundBiomes")) {
+            
+            return (byte)0;
+        }
+        else {
+            
+            return (byte)ConfigRTG.shadowStoneBlockByte;
+        }
+    }
+	
+    protected Block getShadowDesertBlock(World world, int i, int j, int x, int y, int k)
+    {
+        if (Loader.isModLoaded("UndergroundBiomes")) {
+            
+            return Blocks.stone;
+        }
+        else {
+            
+            return GameData.getBlockRegistry().getObject(ConfigRTG.shadowDesertBlockId);
+        }
+    }
+    
+    protected byte getShadowDesertMeta(World world, int i, int j, int x, int y, int k)
+    {
+        if (Loader.isModLoaded("UndergroundBiomes")) {
+            
+            return (byte)0;
+        }
+        else {
+            
+            return (byte)ConfigRTG.shadowDesertBlockByte;
+        }
+    }
+    
     protected Block hcStone(World world, int i, int j, int x, int y, int k)
     {
         int worldX = i;

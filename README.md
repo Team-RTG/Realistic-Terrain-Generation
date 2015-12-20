@@ -16,7 +16,7 @@ This mod is a re-branded fork of the revolutionary [Realistic World Gen](http://
 * Create an API to allow other mods to customise terrain generation.
 
 # Downloads
-Latest beta release: [RTG-1.7.10-0.4.0.jar](http://curse.com/mc-mods/minecraft/237989-realistic-terrain-generation/2268572) (Beta)
+Latest beta release: [RTG-1.7.10-0.4.0.jar](http://www.curse.com/mc-mods/minecraft/237989-realistic-terrain-generation) (Beta)
 
 All downloads can also be found in the [Releases section](https://github.com/Team-RTG/Realistic-Terrain-Generation/releases) on GitHub.
 

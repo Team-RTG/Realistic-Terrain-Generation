@@ -19,7 +19,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "0.4.0-dev"
+version = "0.4.0"
 group = "org.teamrtg.rtg" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "RTG-" + project.mcversion
 

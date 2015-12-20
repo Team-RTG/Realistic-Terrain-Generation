@@ -2,9 +2,12 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
+import org.apache.logging.log4j.Level;
+
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameData;
 import exterminatorJeff.undergroundBiomes.api.BlockCodes;
@@ -38,18 +41,18 @@ public class SurfaceBase
 	
     protected Block hcStone(World world, int i, int j, int x, int y, int k)
     {
-        int worldX = i * 16;
+        int worldX = i;
         int worldY = k;
-        int worldZ = j * 16;
+        int worldZ = j;
         
         return Blocks.stone;
     }
     
     protected byte hcStoneMeta(World world, int i, int j, int x, int y, int k)
     {
-        int worldX = i * 16;
+        int worldX = i;
         int worldY = k;
-        int worldZ = j * 16;
+        int worldZ = j;
         
         return (byte)0;
     }
@@ -58,9 +61,9 @@ public class SurfaceBase
     {
         if (Loader.isModLoaded("UndergroundBiomes")) {
             
-            int worldX = i * 16;
+            int worldX = i;
             int worldY = k;
-            int worldZ = j * 16;
+            int worldZ = j;
             
             UBStrataColumnProvider columnProvider = UBAPIHook.ubAPIHook.dimensionalStrataColumnProvider.ubStrataColumnProvider(0);
             BlockCodes cobble = columnProvider.strataColumn(worldX, worldZ).cobblestone(worldY);
@@ -77,9 +80,9 @@ public class SurfaceBase
     {
         if (Loader.isModLoaded("UndergroundBiomes")) {
             
-            int worldX = i * 16;
+            int worldX = i;
             int worldY = k;
-            int worldZ = j * 16;
+            int worldZ = j;
 
             UBStrataColumnProvider columnProvider = UBAPIHook.ubAPIHook.dimensionalStrataColumnProvider.ubStrataColumnProvider(0);
             BlockCodes cobble = columnProvider.strataColumn(worldX, worldZ).cobblestone(worldY);

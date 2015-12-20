@@ -24,6 +24,8 @@ public class RealisticBiomeEBXLSnowForest extends RealisticBiomeEBXLBase
 			new SurfaceEBXLSnowForest(topBlock, fillerBlock)
 		);
 		
+		ebxlBiome.setTemperatureRainfall(-2f, ebxlBiome.rainfall);
+		
 		this.setRealisticBiomeName("EBXL Snow Forest");
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXLSnowForest;

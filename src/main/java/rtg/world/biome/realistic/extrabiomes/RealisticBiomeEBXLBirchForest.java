@@ -20,7 +20,7 @@ public class RealisticBiomeEBXLBirchForest extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainEBXLBirchForest(230f, 120f, 0f),
+			new TerrainEBXLBirchForest(63f, 74f, 33f),
 			new SurfaceEBXLBirchForest(topBlock, fillerBlock, false, null, 0.95f)
 		);
 		

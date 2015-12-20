@@ -20,7 +20,7 @@ public class RealisticBiomeEBXLGreenHills extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainEBXLGreenHills(230f, 100f, 0f),
+			new TerrainEBXLGreenHills(360f, 100f, 0f),
 			new SurfaceEBXLGreenHills(topBlock, fillerBlock, false, null, 0.95f)
 		);
 		

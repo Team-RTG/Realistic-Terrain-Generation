@@ -15,8 +15,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBMountains extends SurfaceEBBase
 {
-    private static Block ebStoneBlock = EnhancedBiomesBlocks.stoneEB;
-    private static byte ebStoneByte = (byte)10;
 
     private Block blockTop;
     private byte byteTop;

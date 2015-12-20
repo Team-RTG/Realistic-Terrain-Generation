@@ -91,13 +91,13 @@ public class SurfaceEBAlpineMountainsEdge extends SurfaceEBBase
             		
             		if(cliff == 1)
             		{
-                        blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB; 
-                        metadata[(y * 16 + x) * 256 + k] = EBAPI.SLATE;
+                        blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, hcStone(world, i, j, x, y, k));
+                        metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.SLATE, hcStoneMeta(world, i, j, x, y, k));
             		}
             		else if(cliff == 2)
             		{
-                        blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneCobbleEB; 
-                        metadata[(y * 16 + x) * 256 + k] = EBAPI.SLATE;
+                        blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, hcCobble(world, i, j, x, y, k));
+                        metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.SLATE, hcCobbleMeta(world, i, j, x, y, k));
             		}
             		else if(k < 63)
             		{
@@ -127,13 +127,13 @@ public class SurfaceEBAlpineMountainsEdge extends SurfaceEBBase
         		{
             		if(cliff == 1)
             		{
-                        blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneEB; 
-                        metadata[(y * 16 + x) * 256 + k] = EBAPI.SLATE;
+                        blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, hcStone(world, i, j, x, y, k));
+                        metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.SLATE, hcStoneMeta(world, i, j, x, y, k));
             		}
             		else if(cliff == 2)
             		{
-                        blocks[(y * 16 + x) * 256 + k] = EnhancedBiomesBlocks.stoneCobbleEB; 
-                        metadata[(y * 16 + x) * 256 + k] = EBAPI.SLATE;
+                        blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, hcCobble(world, i, j, x, y, k));
+                        metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.SLATE, hcCobbleMeta(world, i, j, x, y, k));
             		}
             		else if(gravel)
             		{

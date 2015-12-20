@@ -15,8 +15,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBSnowyRanges extends SurfaceEBBase
 {
-    private static Block ebStoneBlock = EnhancedBiomesBlocks.stoneEB;
-    private static byte ebStoneByte = (byte)3;
 
     private Block blockTop;
     private byte byteTop;

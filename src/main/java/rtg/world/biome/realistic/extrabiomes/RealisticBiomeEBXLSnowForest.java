@@ -20,9 +20,11 @@ public class RealisticBiomeEBXLSnowForest extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
-			new TerrainEBXLSnowForest(0f, 140f, 68f, 200f),
+			new TerrainEBXLSnowForest(),
 			new SurfaceEBXLSnowForest(topBlock, fillerBlock)
 		);
+		
+		ebxlBiome.setTemperatureRainfall(-2f, ebxlBiome.rainfall);
 		
 		this.setRealisticBiomeName("EBXL Snow Forest");
 		this.biomeSize = BiomeSize.NORMAL;

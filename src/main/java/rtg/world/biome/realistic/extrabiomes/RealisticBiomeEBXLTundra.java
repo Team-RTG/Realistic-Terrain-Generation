@@ -20,7 +20,7 @@ public class RealisticBiomeEBXLTundra extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainEBXLTundra(90f, 180f, 13f, 100f, 38f, 260f, 71f),
+			new TerrainEBXLTundra(63f, 130f, 30f),
 			new SurfaceEBXLTundra(topBlock, fillerBlock)
 		);
 		

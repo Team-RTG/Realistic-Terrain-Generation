@@ -20,7 +20,7 @@ public class RealisticBiomeEBXLWasteland extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
-			new TerrainEBXLWasteland(30f, 180f, 13f, 100f, 28f, 260f, 70f),
+			new TerrainEBXLWasteland(),
 			new SurfaceEBXLWasteland(topBlock, fillerBlock)
 		);
 		

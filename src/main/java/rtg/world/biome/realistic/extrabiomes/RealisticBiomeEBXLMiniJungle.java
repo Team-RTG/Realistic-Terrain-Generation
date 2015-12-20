@@ -20,7 +20,7 @@ public class RealisticBiomeEBXLMiniJungle extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
-			new TerrainEBXLMiniJungle(0f, 140f, 68f, 200f),
+			new TerrainEBXLMiniJungle(0f, 81f, 68f, 200f),
 			new SurfaceEBXLMiniJungle(topBlock, fillerBlock)
 		);
 		

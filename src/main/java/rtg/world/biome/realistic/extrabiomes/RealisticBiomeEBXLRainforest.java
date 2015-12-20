@@ -20,7 +20,7 @@ public class RealisticBiomeEBXLRainforest extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
-			new TerrainEBXLRainforest(230f, 100f, 0f),
+			new TerrainEBXLRainforest(230f, 43f, 0f),
 			new SurfaceEBXLRainforest(topBlock, fillerBlock)
 		);
 		

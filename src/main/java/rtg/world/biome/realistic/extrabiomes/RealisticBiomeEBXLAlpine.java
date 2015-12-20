@@ -1,14 +1,13 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLAlpine;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLAlpine;
 import extrabiomes.api.BiomeManager;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLAlpine extends RealisticBiomeEBXLBase
 {	

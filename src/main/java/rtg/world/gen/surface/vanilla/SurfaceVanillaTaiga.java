@@ -78,8 +78,8 @@ public class SurfaceVanillaTaiga extends SurfaceBase
                     }
                     else if (cliff == 2)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock;
-                        metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
+                        blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k);
+                        metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
                     }
                     else if (cliff == 3)
                     {
@@ -109,8 +109,8 @@ public class SurfaceVanillaTaiga extends SurfaceBase
                     }
                     else if (cliff == 2)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = shadowStoneBlock;
-                        metadata[(y * 16 + x) * 256 + k] = shadowStoneByte;
+                        blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k);
+                        metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
                     }
                     else if (cliff == 3)
                     {

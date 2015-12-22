@@ -28,6 +28,11 @@ public class ConfigManager
     public static File amConfigFile;
     public static File atgConfigFile;
     public static File ccConfigFile;
+
+    private ConfigRTG configRTG = new ConfigRTG();
+    public ConfigRTG rtg() {
+        return configRTG;
+    }
     
     public static void init(String configpath)
     {

@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Random;
 
 import rtg.config.rtg.ConfigRTG;
+import rtg.RTG;
 import rtg.util.CanyonColor;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -88,6 +89,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private float[] mapGenBiomes;
     private float[] borderNoise;
     private long worldSeed;
+    private boolean doJitter;
 
     public ChunkProviderRTG(World world, long l)
     {
@@ -98,6 +100,7 @@ public class ChunkProviderRTG implements IChunkProvider
         simplex = new OpenSimplexNoise(l);
     	cell = new CellNoise(l, (short)0);
     	cell.setUseDistance(true);
+        doJitter  = RTG.instance.configManager(worldObj.provider.dimensionId).rtg().useRTGBiomeGeneration;
 
     	mapRand = new Random(l);
     	worldSeed = l;
@@ -167,7 +170,7 @@ public class ChunkProviderRTG implements IChunkProvider
         int k;
 
         generateTerrain(cmr, cx, cy, blocks, metadata, biomesForGeneration, noise);
-
+        // that routine can change the biome array so put it back if not
         for(k = 0; k < 256; k++)
         {
         	if(mapGenBiomes[k] > 0f)
@@ -203,10 +206,12 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
         Chunk chunk = new Chunk(this.worldObj, blocks, metadata, cx, cy);
+        if (doJitter) {
         byte[] abyte1 = chunk.getBiomeArray();
-        for (k = 0; k < abyte1.length; ++k)
-        {
-            abyte1[k] = (byte)this.baseBiomesList[k].biomeID;
+            for (k = 0; k < abyte1.length; ++k)
+            {
+                abyte1[k] = (byte)this.baseBiomesList[k].biomeID;
+            }
         }
         chunk.generateSkylightMap();
 

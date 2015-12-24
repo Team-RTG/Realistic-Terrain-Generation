@@ -9,14 +9,18 @@ import rtg.world.gen.MapGenCavesRTG;
 import rtg.world.gen.MapGenRavineRTG;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
+import rtg.world.biome.realistic.RealisticBiomePool;
+import rtg.world.gen.genlayer.RiverRemover;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
+import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
+import net.minecraftforge.event.terraingen.WorldTypeEvent;
 import net.minecraftforge.event.world.WorldEvent;
 
 public class EventManagerRTG
@@ -64,6 +68,30 @@ public class EventManagerRTG
             
             MinecraftForge.TERRAIN_GEN_BUS.unregister(RTG.eventMgr);
             MinecraftForge.EVENT_BUS.unregister(RTG.eventMgr);
+        }
+    }
+
+    @SubscribeEvent
+    public void onBiomeGenInit(WorldTypeEvent.InitBiomeGens event) {
+        @SuppressWarnings("static-access")
+        boolean replace = RTG.instance.configManager(0).rtg().useRTGBiomeGeneration;
+        if (replace) {
+            GenLayer[] rtgGeneration = new GenLayer[3];
+            GenLayer rtgBiomes = new RealisticBiomePool(event.seed);
+            rtgGeneration[0]= rtgBiomes;
+            rtgGeneration[1]= rtgBiomes;
+            rtgGeneration[2]= rtgBiomes;
+            event.newBiomeGens = rtgGeneration;
+        } else {
+            @SuppressWarnings("static-access")
+            boolean stripRivers = RTG.instance.configManager(0).rtg().stripRivers;
+            if (stripRivers) {
+                try {
+                    event.newBiomeGens = new RiverRemover().riverLess(event.originalBiomeGens);
+                } catch (ClassCastException ex) {
+                    // failed attempt because the GenLayers don't end with GenLayerRiverMix
+                }
+            }
         }
     }
 }

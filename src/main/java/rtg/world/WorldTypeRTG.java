@@ -24,7 +24,7 @@ public class WorldTypeRTG extends WorldType
 	@Override
     public WorldChunkManager getChunkManager(World world)
     {
-        return new WorldChunkManagerRTG(world);
+        return new WorldChunkManagerRTG(world,this);
     }
 
     @Override

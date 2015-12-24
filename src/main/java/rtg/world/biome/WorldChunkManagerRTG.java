@@ -15,21 +15,24 @@ import rtg.world.biome.realistic.RealisticBiomePool;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeCache;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
+import net.minecraft.world.gen.layer.GenLayer;
+import net.minecraft.world.gen.layer.IntCache;
 
 public class WorldChunkManagerRTG extends WorldChunkManager
 {
-    private BiomeCache biomeCache;
+    /** A GenLayer containing the indices into BiomeGenBase.biomeList[] */
+    private GenLayer genBiomes;
+    private GenLayer biomeIndexLayer;
     private List biomesToSpawnIn;
     private OpenSimplexNoise simplex;
     private CellNoise cell;
-    private CellNoise biomecell;  
     private float[] borderNoise;
-    private Random rand;   
     private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
-    private RealisticBiomePool biomePool;
+    private BiomeCache biomeCache;
     
     protected WorldChunkManagerRTG()
     {
@@ -39,18 +42,19 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         borderNoise = new float[256];
     }
     
-    public WorldChunkManagerRTG(World par1World)
+    public WorldChunkManagerRTG(World par1World,WorldType worldType)
     {
-        
+
         this();
         long seed = par1World.getSeed();
-        
+
         simplex = new OpenSimplexNoise(seed);
         cell = new CellNoise(seed, (short) 0);
         cell.setUseDistance(true);
-        biomecell = new CellNoise(seed, (short) 0);
-        rand = new Random(seed);
-        biomePool = new RealisticBiomePool(biomecell, rand);
+        GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType);
+        agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
+        this.genBiomes = agenlayer[0]; //maybe this will be needed
+        this.biomeIndexLayer = agenlayer[1];
     }
     
     public int[] getBiomesGens(int par1, int par2, int par3, int par4)
@@ -68,21 +72,6 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         return d;
     }
     
-    public RealisticBiomeBase[] getBiomesGensData(int par1, int par2, int par3, int par4)
-    {
-        
-        RealisticBiomeBase[] data = new RealisticBiomeBase[par3 * par4];
-        
-        for (int i = 0; i < par3; i++)
-        {
-            for (int j = 0; j < par4; j++)
-            {
-                data[j * par3 + i] = getBiomeDataAt(par1 + i, par2 + j);
-            }
-        }
-        return data;
-    }
-    
     public boolean diff(float sample1, float sample2, float base)
     {
         
@@ -93,43 +82,107 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         return false;
     }
     
+    public float[] getRainfall(float[] par1ArrayOfFloat, int par2, int par3, int par4, int par5)
+    {
+        IntCache.resetIntCache();
+
+        if (par1ArrayOfFloat == null || par1ArrayOfFloat.length < par4 * par5)
+        {
+            par1ArrayOfFloat = new float[par4 * par5];
+        }
+
+        int[] aint = this.biomeIndexLayer.getInts(par2, par3, par4, par5);
+
+        for (int i1 = 0; i1 < par4 * par5; ++i1)
+        {
+            float f = 0;
+            f = (float) RealisticBiomeBase.getBiome(aint[i1]).getIntRainfall() / 65536.0F;
+            if (f > 1.0F)
+            {
+                f = 1.0F;
+            }
+
+            par1ArrayOfFloat[i1] = f;
+        }
+
+        return par1ArrayOfFloat;
+    }
+
+    @Override
+    public BiomeGenBase[] loadBlockGeneratorData(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5)
+    {
+
+        return this.getBiomeGenAt(par1ArrayOfBiomeGenBase, par2, par3, par4, par5, true);
+    }
+
+    @Override
     public BiomeGenBase getBiomeGenAt(int par1, int par2)
     {
-        
-        return getBiomeDataAt(par1, par2).baseBiome;
+        BiomeGenBase result = this.biomeCache.getBiomeGenAt(par1, par2);
+        if (result == null) {
+            throw new RuntimeException();
+        }
+        if (result.biomeName == null) {
+            result.biomeName = "";
+        }
+        return result;
     }
-    
+
+    public BiomeGenBase[] getBiomesForGeneration(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5)
+    {
+        IntCache.resetIntCache();
+
+        if (par1ArrayOfBiomeGenBase == null || par1ArrayOfBiomeGenBase.length < par4 * par5)
+        {
+            par1ArrayOfBiomeGenBase = new BiomeGenBase[par4 * par5];
+        }
+
+        int[] aint = this.genBiomes.getInts(par2, par3, par4, par5);
+
+        for (int i1 = 0; i1 < par4 * par5; ++i1)
+        {
+            par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]);
+        }
+
+        return par1ArrayOfBiomeGenBase;
+    }
+
     public RealisticBiomeBase getBiomeDataAt(int par1, int par2)
     {
-        
         long coords = ChunkCoordIntPair.chunkXZ2Int(par1, par2);
         if (biomeDataMap.containsKey(coords)) {
             return biomeDataMap.get(coords);
         }
-        
-        RealisticBiomeBase output = biomePool.chooseBiome(par1, par2);
-        
+
+        RealisticBiomeBase output = (RealisticBiomeBase)(this.getBiomeGenAt(par1, par2));
+
         /**
          * Do we only want to generate a single biome for the whole world?
          */
         int generateOnlyThisBiomeId = (int) ConfigRTG.generateOnlyThisBiomeId;
-        
+
         if (generateOnlyThisBiomeId > -1)
         {
             output = RealisticBiomeBase.getBiome(generateOnlyThisBiomeId);
         }
-        
+
         //output = RealisticBiomeVanillaBase.vanillaFlowerForest;
-        
+
         if (biomeDataMap.size() > 4096) {
             biomeDataMap.clear();
         }
-        
+
         biomeDataMap.put(coords, output);
 
         return output;
     }
-    
+
+    @Override
+    public void cleanupCache()
+    {
+        this.biomeCache.cleanupCache();
+    }
+
     public float getNoiseAt(int x, int y)
     {
         
@@ -198,77 +251,41 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         return this.biomesToSpawnIn;
     }
     
-    public float[] getRainfall(float[] par1ArrayOfFloat, int par2, int par3, int par4, int par5)
-    {
-        
-        if (par1ArrayOfFloat == null || par1ArrayOfFloat.length < par4 * par5)
-        {
-            par1ArrayOfFloat = new float[par4 * par5];
-        }
-        
-        int var6[] = getBiomesGens(par2, par3, par4, par5);
-        
-        for (int var7 = 0; var7 < par4 * par5; ++var7)
-        {
-            float var8 = (float) BiomeGenBase.getBiome(var6[var7]).getIntRainfall() / 65536.0F;
-            
-            if (var8 > 1.0F)
-            {
-                var8 = 1.0F;
-            }
-            
-            par1ArrayOfFloat[var7] = var8;
-        }
-        
-        return par1ArrayOfFloat;
-    }
-    
     public float getTemperatureAtHeight(float par1, int par2)
     {
         
         return par1;
     }
     
-    public BiomeGenBase[] getBiomesForGeneration(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5)
-    {
-        
-        if (par1ArrayOfBiomeGenBase == null || par1ArrayOfBiomeGenBase.length < par4 * par5)
-        {
-            par1ArrayOfBiomeGenBase = new BiomeGenBase[par4 * par5];
-        }
-        
-        int var7[] = getBiomesGens(par2, par3, par4, par5);
-        
-        for (int var8 = 0; var8 < par4 * par5; ++var8)
-        {
-            par1ArrayOfBiomeGenBase[var8] = BiomeGenBase.getBiome(var7[var8]);
-        }
-        
-        return par1ArrayOfBiomeGenBase;
-    }
-    
-    public BiomeGenBase[] loadBlockGeneratorData(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5)
-    {
-        
-        return this.getBiomeGenAt(par1ArrayOfBiomeGenBase, par2, par3, par4, par5, true);
-    }
-    
     public BiomeGenBase[] getBiomeGenAt(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5, boolean par6)
     {
-        
+        IntCache.resetIntCache();
+
         if (par1ArrayOfBiomeGenBase == null || par1ArrayOfBiomeGenBase.length < par4 * par5)
         {
             par1ArrayOfBiomeGenBase = new BiomeGenBase[par4 * par5];
         }
-        
-        int var7[] = getBiomesGens(par2, par3, par4, par5);
-        
-        for (int var8 = 0; var8 < par4 * par5; ++var8)
+
+        if (par6 && par4 == 16 && par5 == 16 && (par2 & 15) == 0 && (par3 & 15) == 0)
         {
-            par1ArrayOfBiomeGenBase[var8] = BiomeGenBase.getBiome(var7[var8]);
+            BiomeGenBase[] abiomegenbase1 = this.biomeCache.getCachedBiomes(par2, par3);
+            System.arraycopy(abiomegenbase1, 0, par1ArrayOfBiomeGenBase, 0, par4 * par5);
+            return par1ArrayOfBiomeGenBase;
         }
-        
-        return par1ArrayOfBiomeGenBase;
+        else
+        {
+            int[] aint = this.biomeIndexLayer.getInts(par2, par3, par4, par5);
+
+            for (int i1 = 0; i1 < par4 * par5; ++i1)
+            {
+                par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]);
+                if (par1ArrayOfBiomeGenBase[i1] == null) {
+                    throw new RuntimeException("missing biome "+aint[i1]);
+                }
+            }
+
+            return par1ArrayOfBiomeGenBase;
+        }
     }
     
     public boolean areBiomesViable(int x, int y, int par3, List par4List)
@@ -313,9 +330,4 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         return null;
     }
     
-    public void cleanupCache()
-    {
-        
-        this.biomeCache.cleanupCache();
-    }
 }

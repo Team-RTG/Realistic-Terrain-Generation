@@ -45,6 +45,12 @@ public class RTG {
     @SidedProxy(serverSide = ModInfo.PROXY_COMMON, clientSide = ModInfo.PROXY_CLIENT)
     public static CommonProxy proxy;
 
+    private ConfigManager configManager = new ConfigManager();
+
+    public ConfigManager configManager(int dimension) {
+        return configManager;
+    }
+
     @EventHandler
     public void fmlLifeCycleEvent(FMLPreInitializationEvent event) 
     {    

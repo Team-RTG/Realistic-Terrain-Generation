@@ -69,11 +69,7 @@ public class SurfaceHLValley extends SurfaceBase
             	}
         		else if(depth > -1 && depth < 9)
         		{
-        			blocks[(y * 16 + x) * 256 + k] = Blocks.snow;
-            		if(depth == 0 && k > 61 && k < 254)
-            		{
-            			SnowHeightCalculator.calc(x, y, k, blocks, metadata, noise);
-            		}
+        			blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
         		}
             }
             else if(!water && b == Blocks.water)

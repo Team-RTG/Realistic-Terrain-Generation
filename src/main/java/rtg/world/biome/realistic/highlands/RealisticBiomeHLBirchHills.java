@@ -19,7 +19,7 @@ public class RealisticBiomeHLBirchHills extends RealisticBiomeHLBase
     public RealisticBiomeHLBirchHills()
     {
     
-        super(hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE), new TerrainHLBirchHills(230f, 120f, 0f),
+        super(hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE), new TerrainHLBirchHills(230f, 60f, 0f),
             new SurfaceHLBirchHills(topBlock, fillerBlock, false, null, 0.95f));
         
         this.setRealisticBiomeName("HL Birch Hills");

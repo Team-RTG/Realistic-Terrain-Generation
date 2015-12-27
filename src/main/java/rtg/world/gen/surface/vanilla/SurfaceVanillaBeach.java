@@ -22,10 +22,10 @@ public class SurfaceVanillaBeach extends SurfaceBase
 	
 	public SurfaceVanillaBeach(Block top, Block filler, Block cliff1, Block cliff2, byte metadata, int cliff)
 	{
-		super(top, filler);
+		super(Blocks.dirt, Blocks.dirt);
 		
-		cliffBlock1 = cliff1;
-		cliffBlock2 = cliff2;
+		cliffBlock1 = Blocks.dirt;
+		cliffBlock2 = Blocks.stone;
 		sandMetadata = metadata;
 		cliffType = cliff;
 	}
@@ -72,9 +72,10 @@ public class SurfaceVanillaBeach extends SurfaceBase
             	}
             	else if(depth < 6)
             	{
-	        		if(depth == 0 && k > 61)
+	        		if(depth == 0 && k > 61 && k < 69)
 	        		{
-	        			if(simplex.noise2(i / 12f, j / 12f) > -0.3f + ((k - 61f) / 15f))
+	        			//if(simplex.noise2(i / 12f, j / 12f) > -0.3f + ((k - 61f) / 15f))
+                        if (false)
 	        			{
 	        				dirt = true;
 		        			blocks[(y * 16 + x) * 256 + k] = topBlock;
@@ -93,13 +94,19 @@ public class SurfaceVanillaBeach extends SurfaceBase
 	        			}
 	        			else
 	        			{
-	        				blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
-		        			metadata[(y * 16 + x) * 256 + k] = sandMetadata;
+                            if (k > 61 && k < 69) {
+	        				    blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
+		        			    metadata[(y * 16 + x) * 256 + k] = sandMetadata;
+                            }
 	        			}
 	        		}
 	        		else if(!dirt)
 	        		{
-	        			blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone;
+                        if ( k > 56 && k < 68) { // one lower for under sand and 4 deeper
+	        			    blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone;
+                        } else {
+                            blocks[(y * 16 + x) * 256 + k] = Blocks.stone;
+                        }
 	        		}
             	}
             }

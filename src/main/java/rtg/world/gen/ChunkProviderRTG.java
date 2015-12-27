@@ -86,7 +86,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private float[][] hugeRender;
     private float[][] smallRender;
     private float[] testHeight;
-    private float[] mapGenBiomes;
+    private float[] biomesGeneratedInChunk;
     private float[] borderNoise;
     private long worldSeed;
     private boolean doJitter;
@@ -150,7 +150,7 @@ public class ChunkProviderRTG implements IChunkProvider
     	hugeRender = new float[81][256];
     	smallRender = new float[625][256];
     	testHeight = new float[256];
-    	mapGenBiomes = new float[257];
+    	biomesGeneratedInChunk = new float[257];
     	borderNoise = new float[256];
     }
 
@@ -171,14 +171,25 @@ public class ChunkProviderRTG implements IChunkProvider
 
         generateTerrain(cmr, cx, cy, blocks, metadata, biomesForGeneration, noise);
         // that routine can change the biome array so put it back if not
+
+                //fill with biomeData
+        int [] biomeIndices= cmr.getBiomesGens(cx *16, cy*16,16,16);
+                for (int i = 0; i < 256; i++) {
+                    biomesForGeneration[i] =  RealisticBiomeBase.getBiome(biomeIndices[i]);
+                }
+
         for(k = 0; k < 256; k++)
         {
-        	if(mapGenBiomes[k] > 0f)
+        	if(biomesGeneratedInChunk[k] > 0f)
         	{
         		RealisticBiomeBase.getBiome(k).generateMapGen(blocks, metadata, worldSeed, worldObj, cmr, mapRand, cx, cy, simplex, cell, noise);
-        		mapGenBiomes[k] = 0f;
+        		biomesGeneratedInChunk[k] = 0f;
         	}
-        	baseBiomesList[k] = biomesForGeneration[k].baseBiome;
+            try {
+                baseBiomesList[k] = biomesForGeneration[k].baseBiome;
+            } catch (Exception e) {
+                throw new RuntimeException(""+biomesForGeneration[k].biomeID);
+            }
         }
 
         replaceBlocksForBiome(cx, cy, blocks, metadata, biomesForGeneration, baseBiomesList, noise);
@@ -252,9 +263,11 @@ public class ChunkProviderRTG implements IChunkProvider
     	}
     }
 
+    private static final int centerLocationIndex = 312;// this is x=8, y=8 with the calcs below
+
     public float[] getNewNoise(WorldChunkManagerRTG cmr, int x, int y, RealisticBiomeBase biomes[])
     {
-    	int i, j, k, l, m, n, p;
+    	int i, j, k, locationIndex, m, n, p;
 
     	for(i = -sampleSize; i < sampleSize + 5; i++)
     	{
@@ -271,9 +284,9 @@ public class ChunkProviderRTG implements IChunkProvider
         		hugeRender[(i * 2 + 2) * 9 + (j * 2 + 2)] = new float[256];
         		for(k = -parabolicSize; k <= parabolicSize; k++)
         		{
-        			for(l = -parabolicSize; l <= parabolicSize; l++)
+        			for(locationIndex = -parabolicSize; locationIndex <= parabolicSize; locationIndex++)
         			{
-        				hugeRender[(i * 2 + 2) * 9 + (j * 2 + 2)][biomeData[(i + k + sampleSize + 1) * sampleArraySize + (j + l + sampleSize + 1)]] += parabolicField[k + parabolicSize + (l + parabolicSize) * parabolicArraySize] / parabolicFieldTotal;
+        				hugeRender[(i * 2 + 2) * 9 + (j * 2 + 2)][biomeData[(i + k + sampleSize + 1) * sampleArraySize + (j + locationIndex + sampleSize + 1)]] += parabolicField[k + parabolicSize + (locationIndex + parabolicSize) * parabolicArraySize] / parabolicFieldTotal;
         			}
         		}
 
@@ -387,11 +400,22 @@ public class ChunkProviderRTG implements IChunkProvider
     	if(b != null)
     	{
     		randBiome = false;
-    		for(i = 0; i < 256; i++)
-    		{
-    			biomes[i] = b;
-    		}
-    	}
+            if (doJitter) {
+                for(i = 0; i < 256; i++)
+                {
+                    biomes[i] = b;
+                }
+            } else {
+                //fill with biomeData
+                for (i = 0; i < 16; i++) {
+                    for (j=0; j<16; j++) {
+
+                        biomes[i] =  cmr.getBiomeDataAt(x + i, y + j);
+                        //biomes[i] =  cmr.getBiomeDataAt(x + ((i * 8) - 8), y + ((j * 8) - 8));
+                    }
+                }
+            }
+        }
 
     	float river;
     	for(i = 0; i < 16; i++)
@@ -405,37 +429,39 @@ public class ChunkProviderRTG implements IChunkProvider
     				bRand = bRand < 0f ? 0f : bRand > 0.99999f ? 0.99999f : bRand;
     			}
 
-    			l = ((int)(i + 4) * 25 + (j + 4));
+    			locationIndex = ((int)(i + 4) * 25 + (j + 4));
 
     			testHeight[i * 16 + j] = 0f;
 
     			river = cmr.getRiverStrength(x + i, y + j);
 
-    			if(l == 312)
+    			if(locationIndex == centerLocationIndex)
     			{
-	    			mapGenBiomes[256] = river;
+	    			biomesGeneratedInChunk[256] = river;
     			}
 
     			for(k = 0; k < 256; k++)
     			{
-    				if(smallRender[l][k] > 0f)
+    				if(smallRender[locationIndex][k] > 0f)
     				{
     	    			if(randBiome && bCount <= 1f) //3f)
     	    			{
-	    					bCount += smallRender[l][k];// * 3f;
+	    					bCount += smallRender[locationIndex][k];// * 3f;
     	    				if(bCount > bRand)
     	    				{
-    	    					biomes[j * 16 + i] = RealisticBiomeBase.getBiome(k);
+                                if (doJitter) {
+    	    					   biomes[j * 16 + i] = RealisticBiomeBase.getBiome(k);
+                                }
     	    					bCount = 2f; //20f;
     	    				}
     	    			}
 
-    	    			if(l == 312)
+    	    			if(locationIndex == centerLocationIndex)
     	    			{
-    	    				mapGenBiomes[k] = smallRender[312][k];
+    	    				biomesGeneratedInChunk[k] = smallRender[centerLocationIndex][k];
     	    			}
 
-    					testHeight[i * 16 + j] += cmr.calculateRiver(x + i, y + j, river, RealisticBiomeBase.getBiome(k).rNoise(simplex, cell, x + i, y + j, smallRender[l][k], river + 1f)) * smallRender[l][k];
+    					testHeight[i * 16 + j] += cmr.calculateRiver(x + i, y + j, river, RealisticBiomeBase.getBiome(k).rNoise(simplex, cell, x + i, y + j, smallRender[locationIndex][k], river + 1f)) * smallRender[locationIndex][k];
     				}
     			}
     		}

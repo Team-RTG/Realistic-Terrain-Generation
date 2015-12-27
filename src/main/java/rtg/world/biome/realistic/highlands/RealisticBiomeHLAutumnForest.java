@@ -20,7 +20,7 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
     
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-            new TerrainHLAutumnForest(0f, 140f, 68f, 200f),
+            new TerrainHLAutumnForest(0f, 50f, 68f, 200f),
             new SurfaceHLAutumnForest(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("HL Autumn Forest");

@@ -18,6 +18,7 @@ public class SurfaceVanillaOcean extends SurfaceBase
     private float width;
     private float height;
     private float mixCheck;
+    private final int sandMetadata = 0;
     
     public SurfaceVanillaOcean(Block top, Block filler, Block mix, float mixWidth, float mixHeight)
     {
@@ -62,6 +63,12 @@ public class SurfaceVanillaOcean extends SurfaceBase
                 else if (depth < 4 && k < 63)
                 {
                     blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                }
+
+                else if (depth == 0 && k <69){
+                    blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
+                    metadata[(y * 16 + x) * 256 + k] = sandMetadata;
+
                 }
             }
         }

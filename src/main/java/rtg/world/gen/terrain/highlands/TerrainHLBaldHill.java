@@ -45,10 +45,11 @@ public class TerrainHLBaldHill extends TerrainBase
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        float h = simplex.noise2(x / vWidth, y / vWidth) * vHeight * river;
+        // add to the simplex noise to increase chance of a hill
+        float h = (simplex.noise2(x / vWidth, y / vWidth)+.5f) * vHeight * river;
         h += simplex.noise2(x / 20f, y / 20f) * 2;
         
-        float m = simplex.noise2(x / hWidth, y / hWidth) * hHeight * river;
+        float m = (simplex.noise2(x / hWidth, y / hWidth)+.5f) * hHeight * river;
         m *= m / 40f;
         
         float sm = simplex.noise2(x / 30f, y / 30f) * 8f;

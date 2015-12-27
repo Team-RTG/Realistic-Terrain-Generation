@@ -21,7 +21,7 @@ public class RealisticBiomeHLCliffs extends RealisticBiomeHLBase
     
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-            new TerrainHLCliffs(230f, 120f, 0f),
+            new TerrainHLCliffs(75f, 70f, 0f),
             new SurfaceHLCliffs(topBlock, fillerBlock, false, null, 0.95f));
         
         this.setRealisticBiomeName("HL Cliffs");

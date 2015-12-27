@@ -22,7 +22,7 @@ public class RealisticBiomeHLHighlandsB extends RealisticBiomeHLBase
     
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-            new TerrainHLHighlandsB(0f, 140f, 68f, 150f),
+            new TerrainHLHighlandsB(15f, 60f, 68f, 150f),
             new SurfaceHLHighlandsB(topBlock, fillerBlock, false, null, 1f, 1.5f, 85f, 20f, 4f));
         
         this.setRealisticBiomeName("HL HighlandsB");

@@ -51,7 +51,7 @@ public class SurfaceHLValley extends SurfaceBase
             	{
             		if(grass && depth < 4)
             		{
-    	        		blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+    	        		blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
             		}
             		else if(depth == 0)
             		{
@@ -69,7 +69,7 @@ public class SurfaceHLValley extends SurfaceBase
             	}
         		else if(depth > -1 && depth < 9)
         		{
-        			blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+        			blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
         		}
             }
             else if(!water && b == Blocks.water)

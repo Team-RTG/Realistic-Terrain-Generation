@@ -22,7 +22,7 @@ public class RealisticBiomeHLRainforest extends RealisticBiomeHLBase
     
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
-            new TerrainHLRainforest(120f, 300f),
+            new TerrainHLRainforest(120f, 300f,8f),
             new SurfaceHLRainforest(topBlock, fillerBlock, false, null, 1.3f));
         
         this.setRealisticBiomeName("HL Rainforest");

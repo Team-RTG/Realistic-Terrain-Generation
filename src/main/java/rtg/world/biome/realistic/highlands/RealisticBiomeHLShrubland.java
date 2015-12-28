@@ -22,7 +22,7 @@ public class RealisticBiomeHLShrubland extends RealisticBiomeHLBase
     
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
-            new TerrainHLShrubland(70f, 150f, 13f, 90f, 38f, 200f, 71f),
+            new TerrainHLShrubland(10f, 20f, 7f, 90f, 10f, 200f, 68f),
             new SurfaceHLShrubland(topBlock, fillerBlock));
         
         this.setRealisticBiomeName("HL Shrubland");

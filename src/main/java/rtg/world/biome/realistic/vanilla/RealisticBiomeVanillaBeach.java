@@ -51,7 +51,6 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
                 int z52 = world.getHeightValue(j6, k10);
                 
                 if (z52 < 80) {
-                    
                     WorldGenerator worldgenerator = new WorldGenTreePalm();
                     worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                     worldgenerator.generate(world, rand, j6, z52, k10);

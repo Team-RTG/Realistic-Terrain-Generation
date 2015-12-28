@@ -30,6 +30,8 @@ public class TerrainHLAutumnForest extends TerrainBase {
             float st = h * 1.5f > 15f ? 15f : h * 1.5f;
             h += cell.noise(x / 70D, y / 70D, 1D) * st;
         }
+
+        h = above(h,10f);
         
         h += simplex.noise2(x / 20f, y / 20f) * 5f;
         h += simplex.noise2(x / 12f, y / 12f) * 3f;

@@ -11,7 +11,7 @@ public class TerrainHLCliffs extends TerrainBase
 	private float lakeDepth;
 	private float lakeWidth;
 	private float terrainHeight;
-    private static float startCliffsAt = 70f;
+    private static float startCliffsAt = 30f;
 
 	/*
 	 * width = 230f
@@ -49,13 +49,14 @@ public class TerrainHLCliffs extends TerrainBase
 		st = st > 20f ? 20f : st;
 		float c = cell.noise(x / 30f, y / 30f, 1D) * (5f + st);
 
-        c = this.above(c, startCliffsAt);
+        //c = this.above(c, startCliffsAt);
 
 		float sm = simplex.noise2(x / 30f, y / 30f) * 8f + simplex.noise2(x / 8f, y / 8f);
 		sm *= (m + 10f) / 20f > 2.5f ? 2.5f : (m + 10f) / 20f;
 		m += sm;
 
 		m += c;
+        m = above(m, startCliffsAt);
 
 		float l = simplex.noise2(x / lakeWidth, y / lakeWidth) * lakeDepth;
 		l *= l / 25f;

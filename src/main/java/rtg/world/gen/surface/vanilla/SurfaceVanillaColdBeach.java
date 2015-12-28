@@ -84,8 +84,11 @@ public class SurfaceVanillaColdBeach extends SurfaceBase
                         }
                         else
                         {
-                            blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
-                            metadata[(y * 16 + x) * 256 + k] = sandMetadata;
+                            if (k<69) {
+                                blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
+                                metadata[(y * 16 + x) * 256 + k] = sandMetadata;
+                            } // else probably steep shore so leave stone
+
                         }
                     }
                     else if (depth < 4)
@@ -96,8 +99,10 @@ public class SurfaceVanillaColdBeach extends SurfaceBase
                         }
                         else
                         {
-                            blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
-                            metadata[(y * 16 + x) * 256 + k] = sandMetadata;
+                            if (k<69) {
+                                blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
+                                metadata[(y * 16 + x) * 256 + k] = sandMetadata;
+                            } 
                         }
                     }
                     else if (!dirt)

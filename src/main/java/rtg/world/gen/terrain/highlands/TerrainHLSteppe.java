@@ -13,7 +13,7 @@ public class TerrainHLSteppe extends TerrainBase
 	private float lHeight;
 	private float lWidth;
 	private float bHeight;
-	
+	public static float mountainStart = 30;
 	/*
 	 * hillHeight = 70f
 	 * hillWidth = 180f
@@ -58,6 +58,9 @@ public class TerrainHLSteppe extends TerrainBase
 		float cm = cell.noise(x / 25D, y / 25D, 1D) * 12f;
 		cm *= m / 20f > 3.75f ? 3.75f : m / 20f;
 		m += cm;
+
+        // make mountains less common
+        m = above(m, mountainStart);
 		
 		float l = simplex.noise2(x / lWidth, y / lWidth) * lHeight;
 		l *= l / 25f;
@@ -65,7 +68,8 @@ public class TerrainHLSteppe extends TerrainBase
 		
 		h += simplex.noise2(x / 12f, y / 12f) * 3f;
 		h += simplex.noise2(x / 5f, y / 5f) * 1.5f;
-		
-		return bHeight + h + m - l;
+
+        // no lakes
+		return bHeight + h + m;
 	}
 }

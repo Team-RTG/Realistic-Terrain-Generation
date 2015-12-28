@@ -22,7 +22,7 @@ public class RealisticBiomeHLWoodlands extends RealisticBiomeHLBase
     
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
-            new TerrainHLWoodlands(230f, 120f, 0f),
+            new TerrainHLWoodlands(230f, 40f, 0f),
             new SurfaceHLWoodlands(topBlock, fillerBlock, false, null, 0.95f));
         
         this.setRealisticBiomeName("HL Woodlands");

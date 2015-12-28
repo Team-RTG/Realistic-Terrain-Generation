@@ -26,7 +26,7 @@ public class TerrainVanillaForest extends TerrainBase
         h *= h / 80f;
         h += st;
         
-        floNoise = 63f + h;
+        floNoise = 68f + h;
         
         // FMLLog.log(Level.INFO, "floNoise = %f", floNoise);
         

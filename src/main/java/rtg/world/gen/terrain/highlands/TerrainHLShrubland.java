@@ -49,15 +49,16 @@ public class TerrainHLShrubland extends TerrainBase
 		h += simplex.noise2(x / 20f, y / 20f) * 2;
 		
 		float m = simplex.noise2(x / hWidth, y / hWidth) * hHeight * river;
-		m *= m / 40f;
+		//m *= m / 40f;
 		
-		float sm = simplex.noise2(x / 30f, y / 30f) * 8f;
-		sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
+		float sm = simplex.noise2(x / 30f, y / 30f) * 2f;
+		sm *= m / 5f > 3.75f ? 3.75f : m / 20f;
 		m += sm;
 		
-		float cm = cell.noise(x / 25D, y / 25D, 1D) * 12f;
-		cm *= m / 20f > 3.75f ? 3.75f : m / 20f;
+		float cm = cell.noise(x / 25D, y / 25D, 1D) * 4f;
+		cm *= m / 5f > 3.75f ? 3.75f : m / 20f;
 		m += cm;
+        m = above(m,hHeight/2);
 		
 		float l = simplex.noise2(x / lWidth, y / lWidth) * lHeight;
 		l *= l / 25f;

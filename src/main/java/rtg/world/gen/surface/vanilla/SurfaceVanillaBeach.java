@@ -4,10 +4,12 @@ import java.util.Random;
 
 
 
+
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -30,7 +32,8 @@ public class SurfaceVanillaBeach extends SurfaceBase
 		cliffType = cliff;
 	}
 	
-	@Override
+	@SuppressWarnings("unused")
+    @Override
 	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		float c = CliffCalculator.calc(x, y, noise);

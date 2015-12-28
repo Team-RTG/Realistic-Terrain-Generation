@@ -1,0 +1,381 @@
+﻿tile.logOakEB.greatOak.name=Древесина великого дуба
+tile.logOakEB.savannah.name=Древесина колючего дерева
+tile.logOakEB.poplar.name=Древесина тополя
+tile.logOakEB.mangrove.name=Древесина мангрового дерева
+
+tile.logSpruceEB.fir.name=Древесина пихты
+tile.logSpruceEB.cypress.name=Древесина кипариса
+tile.logSpruceEB.pine.name=Древесина сосны
+tile.logSpruceEB.silverPine.name=Древесина серебряной сосны
+
+tile.logBirchEB.alder.name=Древесина ольхи
+tile.logBirchEB.eucalyptus.name=Древесина эвкалипта
+tile.logBirchEB.aspen.name=Древесина осины
+tile.logBirchEB.birchEB.name=Древесина берёзы (EB)
+
+tile.logJungleEB.baobab.name=Древесина баобаба
+tile.logJungleEB.dead.name=Мёртвая древесина
+tile.logJungleEB.cherry.name=Древесина вишнёвого дерева
+tile.logJungleEB.kapok.name=Древесина хлопкового дерева
+
+
+tile.leavesOakEB_0.name=Листва великого дуба
+tile.leavesOakEB_1.name=Листва колючего дерева
+tile.leavesOakEB_2.name=Листва тополя
+tile.leavesOakEB_3.name=Листва мангрового дерева
+
+tile.leavesSpruceEB_0.name=Листва пихты
+tile.leavesSpruceEB_1.name=Листва кипариса
+tile.leavesSpruceEB_2.name=Листва сосны
+tile.leavesSpruceEB_3.name=Листва серебряной сосны
+
+tile.leavesBirchEB_0.name=Листва ольхи
+tile.leavesBirchEB_1.name=Листва эвкалипта
+tile.leavesBirchEB_2.name=Листва осины
+tile.leavesBirchEB_3.name=Листва берёзы (EB)
+
+tile.leavesJungleEB_0.name=Листва баобаба
+tile.leavesJungleEB_1.name=Листва вишнёвого дерева
+tile.leavesJungleEB_2.name=Листва вишнёвого дерева
+tile.leavesJungleEB_3.name=Листва хлопкового дерева
+
+
+tile.planksEB_0.name=Доски из великого дуба
+tile.planksEB_1.name=Доски из колючего дерева
+tile.planksEB_2.name=Доски из тополя
+tile.planksEB_3.name=Доски из мангрового дерева
+
+tile.planksEB_4.name=Доски из пихты
+tile.planksEB_5.name=Доски из кипариса
+tile.planksEB_6.name=Доски из сосны
+tile.planksEB_7.name=Доски из серебряной сосны
+
+tile.planksEB_8.name=Доски из ольхи
+tile.planksEB_9.name=Доски из эвкалипта
+tile.planksEB_10.name=Доски из осины
+tile.planksEB_11.name=Доски из берёзы (EB)
+
+tile.planksEB_12.name=Доски из баобаба
+tile.planksEB_13.name=Мёртвые доски
+tile.planksEB_14.name=Доски из вишнёвого дерева
+tile.planksEB_15.name=Доски из хлопкового дерева
+
+
+tile.stairsWoodEB0.name=Ступеньки из великого дуба
+tile.stairsWoodEB1.name=Ступеньки из колючего дерева
+tile.stairsWoodEB2.name=Ступеньки из тополя
+tile.stairsWoodEB3.name=Ступеньки из мангрового дерева
+
+tile.stairsWoodEB4.name=Ступеньки из пихты
+tile.stairsWoodEB5.name=Ступеньки из кипариса
+tile.stairsWoodEB6.name=Ступеньки из сосны
+tile.stairsWoodEB7.name=Ступеньки из серебряной сосны
+
+tile.stairsWoodEB8.name=Ступеньки из ольхи
+tile.stairsWoodEB9.name=Ступеньки из эвкалипта
+tile.stairsWoodEB10.name=Ступеньки из осины
+tile.stairsWoodEB11.name=Ступеньки из берёзы (EB)
+
+tile.stairsWoodEB12.name=Ступеньки из баобаба
+tile.stairsWoodEB13.name=Мёртвые ступеньки
+tile.stairsWoodEB14.name=Ступеньки из вишнёвого дерева
+tile.stairsWoodEB15.name=Ступеньки из хлопкового дерева
+
+
+tile.slab1EB_0.name=Плита из великого дуба
+tile.slab1EB_1.name=Плита из колючего дерева
+tile.slab1EB_2.name=Плита из тополя
+tile.slab1EB_3.name=Плита из мангрового дерева
+
+tile.slab1EB_4.name=Плита из пихты
+tile.slab1EB_5.name=Плита из кипариса
+tile.slab1EB_6.name=Плита из сосны
+tile.slab1EB_7.name=Плита из серебряной сосны
+
+tile.slab2EB_0.name=Плита из ольхи
+tile.slab2EB_1.name=Плита из эвкалипта
+tile.slab2EB_2.name=Плита из осины
+tile.slab2EB_3.name=Плита из берёзы (EB)
+
+tile.slab2EB_4.name=Плита из баобаба
+tile.slab2EB_5.name=Мёртвая плита
+tile.slab2EB_6.name=Плита из вишнёвого дерева
+tile.slab2EB_7.name=Плита из хлопкового дерева
+
+
+tile.saplingEB_0.name=Саженец великого дуба
+tile.saplingEB_1.name=Саженец колючего дерева
+tile.saplingEB_2.name=Саженец тополя
+tile.saplingEB_3.name=Саженец мангрового дерева
+
+tile.saplingEB_4.name=Саженец пихты
+tile.saplingEB_5.name=Саженец кипариса
+tile.saplingEB_6.name=Саженец сосны
+tile.saplingEB_7.name=Саженец серебряной сосны
+
+tile.saplingEB_8.name=Саженец ольхи
+tile.saplingEB_9.name=Саженец эвкалипта
+tile.saplingEB_10.name=Саженец осины
+tile.saplingEB_11.name=Саженец берёзы (EB)
+
+tile.saplingEB_12.name=Саженец баобаба
+tile.saplingEB_13.name=Мёртвый саженец
+tile.saplingEB_14.name=Саженец вишнёвого дерева
+tile.saplingEB_15.name=Саженец хлопкового дерева
+
+
+tile.stoneEB_0.name=Базальт
+tile.stoneEB_1.name=Сланец
+tile.stoneEB_2.name=Затвердевший песок
+tile.stoneEB_3.name=Известняк
+tile.stoneEB_4.name=Шифер
+tile.stoneEB_5.name=Риолит
+tile.stoneEB_6.name=Мел
+tile.stoneEB_7.name=Мрамор
+tile.stoneEB_8.name=Доломит
+tile.stoneEB_9.name=Аспидный сланец
+tile.stoneEB_10.name=Кремнистый известняк
+tile.stoneEB_11.name=Габбро
+tile.stoneEB_12.name=Дацит
+
+
+tile.stoneBrickEB_0.name=Базальтовый кирпич
+tile.stoneBrickEB_1.name=Сланцевый кирпич
+tile.stoneBrickEB_2.name=Кирпич из затвердевшего песка
+tile.stoneBrickEB_3.name=Известняковый кирпич
+tile.stoneBrickEB_4.name=Шиферный кирпич
+tile.stoneBrickEB_5.name=Риолитовый кирпич
+tile.stoneBrickEB_6.name=Меловый кирпич
+tile.stoneBrickEB_7.name=Мраморный кирпич
+tile.stoneBrickEB_8.name=Доломитовый кирпич
+tile.stoneBrickEB_9.name=Кирпич из аспидного сланца
+tile.stoneBrickEB_10.name=Кирпич из кремнистого известняка
+tile.stoneBrickEB_11.name=Габбровый кирпич
+tile.stoneBrickEB_12.name=Дацитовый кирпич
+
+
+tile.stoneCobbleEB_0.name=Мощёный базальт
+tile.stoneCobbleEB_1.name=Мощёный сланец
+tile.stoneCobbleEB_2.name=Мощёный песок
+tile.stoneCobbleEB_3.name=Мощёный известняк
+tile.stoneCobbleEB_4.name=Мощёный шифер
+tile.stoneCobbleEB_5.name=Мощёный риолит
+tile.stoneCobbleEB_6.name=Мощёный мел
+tile.stoneCobbleEB_7.name=Мощёный мрамор
+tile.stoneCobbleEB_8.name=Мощёный доломит
+tile.stoneCobbleEB_9.name=Мощёный аспидный сланец
+tile.stoneCobbleEB_10.name=Мощёный кремнистый известняк
+tile.stoneCobbleEB_11.name=Мощёный габбро
+tile.stoneCobbleEB_12.name=Мощёный дацит
+
+
+tile.oreGoldEB_0.name=Золотая руда
+tile.oreGoldEB_1.name=Золотая руда
+tile.oreGoldEB_2.name=Золотая руда
+tile.oreGoldEB_3.name=Золотая руда
+tile.oreGoldEB_4.name=Золотая руда
+tile.oreGoldEB_5.name=Золотая руда
+tile.oreGoldEB_6.name=Золотая руда
+tile.oreGoldEB_7.name=Золотая руда
+tile.oreGoldEB_8.name=Золотая руда
+tile.oreGoldEB_9.name=Золотая руда
+tile.oreGoldEB_10.name=Золотая руда
+tile.oreGoldEB_11.name=Золотая руда
+tile.oreGoldEB_12.name=Золотая руда
+
+
+tile.oreIronEB_0.name=Железная руда
+tile.oreIronEB_1.name=Железная руда
+tile.oreIronEB_2.name=Железная руда
+tile.oreIronEB_3.name=Железная руда
+tile.oreIronEB_4.name=Железная руда
+tile.oreIronEB_5.name=Железная руда
+tile.oreIronEB_6.name=Железная руда
+tile.oreIronEB_7.name=Железная руда
+tile.oreIronEB_8.name=Железная руда
+tile.oreIronEB_9.name=Железная руда
+tile.oreIronEB_10.name=Железная руда
+tile.oreIronEB_11.name=Железная руда
+tile.oreIronEB_12.name=Железная руда
+
+
+tile.oreCoalEB_0.name=Угольная руда
+tile.oreCoalEB_1.name=Угольная руда
+tile.oreCoalEB_2.name=Угольная руда
+tile.oreCoalEB_3.name=Угольная руда
+tile.oreCoalEB_4.name=Угольная руда
+tile.oreCoalEB_5.name=Угольная руда
+tile.oreCoalEB_6.name=Угольная руда
+tile.oreCoalEB_7.name=Угольная руда
+tile.oreCoalEB_8.name=Угольная руда
+tile.oreCoalEB_9.name=Угольная руда
+tile.oreCoalEB_10.name=Угольная руда
+tile.oreCoalEB_11.name=Угольная руда
+tile.oreCoalEB_12.name=Угольная руда
+
+
+tile.oreLapisEB_0.name=Лазуритовая руда
+tile.oreLapisEB_1.name=Лазуритовая руда
+tile.oreLapisEB_2.name=Лазуритовая руда
+tile.oreLapisEB_3.name=Лазуритовая руда
+tile.oreLapisEB_4.name=Лазуритовая руда
+tile.oreLapisEB_5.name=Лазуритовая руда
+tile.oreLapisEB_6.name=Лазуритовая руда
+tile.oreLapisEB_7.name=Лазуритовая руда
+tile.oreLapisEB_8.name=Лазуритовая руда
+tile.oreLapisEB_9.name=Лазуритовая руда
+tile.oreLapisEB_10.name=Лазуритовая руда
+tile.oreLapisEB_11.name=Лазуритовая руда
+tile.oreLapisEB_12.name=Лазуритовая руда
+
+
+tile.oreRedstoneEB_0.name=Красная руда
+tile.oreRedstoneEB_1.name=Красная руда
+tile.oreRedstoneEB_2.name=Красная руда
+tile.oreRedstoneEB_3.name=Красная руда
+tile.oreRedstoneEB_4.name=Красная руда
+tile.oreRedstoneEB_5.name=Красная руда
+tile.oreRedstoneEB_6.name=Красная руда
+tile.oreRedstoneEB_7.name=Красная руда
+tile.oreRedstoneEB_8.name=Красная руда
+tile.oreRedstoneEB_9.name=Красная руда
+tile.oreRedstoneEB_10.name=Красная руда
+tile.oreRedstoneEB_11.name=Красная руда
+tile.oreRedstoneEB_12.name=Красная руда
+
+
+tile.oreDiamondEB_0.name=Алмазная руда
+tile.oreDiamondEB_1.name=Алмазная руда
+tile.oreDiamondEB_2.name=Алмазная руда
+tile.oreDiamondEB_3.name=Алмазная руда
+tile.oreDiamondEB_4.name=Алмазная руда
+tile.oreDiamondEB_5.name=Алмазная руда
+tile.oreDiamondEB_6.name=Алмазная руда
+tile.oreDiamondEB_7.name=Алмазная руда
+tile.oreDiamondEB_8.name=Алмазная руда
+tile.oreDiamondEB_9.name=Алмазная руда
+tile.oreDiamondEB_10.name=Алмазная руда
+tile.oreDiamondEB_11.name=Алмазная руда
+tile.oreDiamondEB_12.name=Алмазная руда
+
+
+tile.oreEmeraldEB_0.name=Изумрудная руда
+tile.oreEmeraldEB_1.name=Изумрудная руда
+tile.oreEmeraldEB_2.name=Изумрудная руда
+tile.oreEmeraldEB_3.name=Изумрудная руда
+tile.oreEmeraldEB_4.name=Изумрудная руда
+tile.oreEmeraldEB_5.name=Изумрудная руда
+tile.oreEmeraldEB_6.name=Изумрудная руда
+tile.oreEmeraldEB_7.name=Изумрудная руда
+tile.oreEmeraldEB_8.name=Изумрудная руда
+tile.oreEmeraldEB_9.name=Изумрудная руда
+tile.oreEmeraldEB_10.name=Изумрудная руда
+tile.oreEmeraldEB_11.name=Изумрудная руда
+tile.oreEmeraldEB_12.name=Изумрудная руда
+
+
+tile.slabSEB_0.name=Базальтовая плита
+tile.slabSEB_1.name=Сланцевая плита
+tile.slabSEB_2.name=Плита из затвердевшего песка
+tile.slabSEB_3.name=Известняковая плита
+tile.slabSEB_4.name=Шиферная плита
+tile.slabSEB_5.name=Риолитовая плита
+tile.slabSEB2_0.name=Меловая плита
+tile.slabSEB2_1.name=Мраморная плита
+tile.slabSEB2_2.name=Доломитовая плита
+tile.slabSEB2_3.name=Плита из аспидного сланца
+tile.slabSEB2_4.name=Плита из кремнистого известняка
+tile.slabSEB2_5.name=Габбровая плита
+tile.slabSEB2_6.name=Дацитовая плита
+
+
+tile.slabSEBB_0.name=Плита из базальтового кирпича
+tile.slabSEBB_1.name=Плита из сланцевого кирпича
+tile.slabSEBB_2.name=Плита из кирпича затвердевшего песка
+tile.slabSEBB_3.name=Плита из известнякового кирпича
+tile.slabSEBB_4.name=Плита из шиферного кирпича
+tile.slabSEBB_5.name=Плита из риолитового кирпича
+tile.slabSEBB2_0.name=Плита из мелового кирпича
+tile.slabSEBB2_1.name=Плита из мраморного кирпича
+tile.slabSEBB2_2.name=Плита из доломитового кирпича
+tile.slabSEBB2_3.name=Плита из кирпича из аспидного сланца
+tile.slabSEBB2_4.name=Плита из кирпича из кремнистого известняка
+tile.slabSEBB2_5.name=Плита из габбрового кирпича
+tile.slabSEBB2_6.name=Плита из дацитового кирпича
+
+
+tile.slabSCEB_0.name=Мощёная базальтовая плита
+tile.slabSCEB_1.name=Мощёная сланцевая плита
+tile.slabSCEB_3.name=Мощёная известняковая плита
+tile.slabSCEB_4.name=Мощёная шиферная плита
+tile.slabSCEB_5.name=Мощёная риолитовая плита
+tile.slabSCEB2_0.name=Мощёная меловая плита
+tile.slabSCEB2_1.name=Мощёная мраморная плита
+tile.slabSCEB2_2.name=Мощёная доломитовая плита
+tile.slabSCEB2_3.name=Мощёная плита из аспидного сланца
+tile.slabSCEB2_4.name=Мощёная плита из кремнистого известняка
+tile.slabSCEB2_5.name=Мощёная габбровая плита
+tile.slabSCEB2_6.name=Мощёная дацитовая плита
+
+
+tile.stairsSEBB0.name=Ступеньки из базальтового кирпича
+tile.stairsSEBB1.name=Ступеньки из сланцевого кирпича
+tile.stairsSEBB2.name=Ступеньки из кирпича затвердевшего песка
+tile.stairsSEBB3.name=Ступеньки из известнякового кирпича
+tile.stairsSEBB4.name=Ступеньки из шиферного кирпича
+tile.stairsSEBB5.name=Ступеньки из риолитового кирпича
+tile.stairsSEBB6.name=Ступеньки из мелового кирпича
+tile.stairsSEBB7.name=Ступеньки из мраморного кирпича
+tile.stairsSEBB8.name=Ступеньки из доломитового кирпича
+tile.stairsSEBB9.name=Ступеньки из кирпича из аспидного сланца
+tile.stairsSEBB10.name=Ступеньки из кирпича из кремнистого известняка
+tile.stairsSEBB11.name=Ступеньки из габбрового кирпича
+tile.stairsSEBB12.name=Ступеньки из дацитового кирпича
+
+
+tile.stairsSCEB0.name=Мощёные базальтовые ступеньки
+tile.stairsSCEB1.name=Мощёные сланцевые ступеньки
+tile.stairsSCEB3.name=Мощёные известняковые ступеньки
+tile.stairsSCEB4.name=Мощёные шиферные ступеньки
+tile.stairsSCEB5.name=Мощёные риолитовые ступеньки
+tile.stairsSCEB6.name=Мощёные ступеньки из мела
+tile.stairsSCEB7.name=Мощёные мраморные ступеньки
+tile.stairsSCEB8.name=Мощёные доломитовые ступеньки
+tile.stairsSCEB9.name=Мощёные ступеньки из аспидного сланца
+tile.stairsSCEB10.name=Мощёные ступеньки из кремнистого известняка
+tile.stairsSCEB11.name=Мощёные габбровые ступеньки
+tile.stairsSCEB12.name=Мощёные дацитовое ступеньки
+
+
+tile.dirtEB_0.name=Серая лесная земля
+tile.dirtEB_1.name=Вулканическая земля
+tile.dirtEB_3.name=Арктическая земля
+tile.dirtEB_4.name=Торф
+tile.dirtEB_5.name=Инсептисоль
+tile.dirtEB_6.name=Мёрзлая земля
+tile.dirtEB_7.name=Оксисоль
+
+
+tile.grassEB_0.name=Серая лесная трава
+tile.grassEB_1.name=Вулканическая трава
+tile.grassEB_3.name=Арктическая трава
+tile.grassEB_4.name=Торфяник
+tile.grassEB_5.name=Трава
+tile.grassEB_6.name=Мёрзлая трава
+tile.grassEB_7.name=Трава
+
+
+tile.shoji.name=Сёдзи
+tile.shojiLamp.name=Андон
+
+
+tile.saguaroSapling.name=Сагуаро
+item.saguaroFruit.name=Плод сагуаро
+
+
+tile.util.name=НЕ ИСПОЛЬЗУЙТЕ ЭТОТ БЛОК. СКАЖИТЕ SMEZ1234, ЧТО ЭТО ЕГО ВЕЩИ.
+
+
+itemGroup.enhancedBiomesOrganic=Enhanced Biomes: Основа
+itemGroup.enhancedBiomesMineral=Enhanced Biomes: Минералы
+generator.typeEB=Enhanced Biomes

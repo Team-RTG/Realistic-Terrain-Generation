@@ -125,6 +125,12 @@ public class RealisticBiomePool extends GenLayer
     
     public RealisticBiomeBase chooseBiome(double par1, double par2)
     {
+        int generateOnlyThisBiomeId = (int) ConfigRTG.generateOnlyThisBiomeId;
+
+        if (generateOnlyThisBiomeId > -1)
+        {
+            return RealisticBiomeBase.getBiome(generateOnlyThisBiomeId);
+        }
         RealisticBiomeBase output = null;
         int biomeSize = ConfigRTG.biomeSize;
         

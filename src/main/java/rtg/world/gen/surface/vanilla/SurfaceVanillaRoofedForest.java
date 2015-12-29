@@ -57,6 +57,8 @@ public class SurfaceVanillaRoofedForest extends SurfaceBase
         boolean gravel = false;
         boolean m = false;
         
+        // varying clay densities; 
+        float mixModifier = mixHeight + simplex.noise2(((float)i)/800f, ((float)j)/800f);
         Block b;
         for (int k = 255; k > -1; k--)
         {
@@ -124,9 +126,10 @@ public class SurfaceVanillaRoofedForest extends SurfaceBase
                             metadata[(y * 16 + x) * 256 + k] = topByte;
                         }
                     }
-                    else if (simplex.noise2(i / 12f, j / 12f) > mixHeight)
+                    else if (simplex.noise2(i / 12f, j / 12f) > mixModifier)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = mix;
+                        blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay;
+                        metadata[(y * 16 + x) * 256 + k] = 13;
                         m = true;
                     }
                     else

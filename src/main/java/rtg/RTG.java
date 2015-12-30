@@ -31,6 +31,7 @@ import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.relauncher.Side;
 
+import java.util.ArrayList;
 import net.minecraftforge.common.MinecraftForge;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, acceptableRemoteVersions = "*")
@@ -109,16 +110,24 @@ public class RTG {
     {
 
     }
-    
+
     @EventHandler
     public void fmlLifeCycle(FMLServerStoppingEvent event)
     {
 
     }
+
+    public void runOnServerClose(Runnable action) {
+        serverCloseActions.add(action);
+    }
     
+    private ArrayList<Runnable> serverCloseActions = new ArrayList<Runnable>();
     @EventHandler
     public void fmlLifeCycle(FMLServerStoppedEvent event)
     {
+        for (Runnable action: serverCloseActions) {
+            action.run();
+        }
 
     }
 }

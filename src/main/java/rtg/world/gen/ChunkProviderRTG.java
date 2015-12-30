@@ -225,7 +225,6 @@ public class ChunkProviderRTG implements IChunkProvider
             }
         }
         chunk.generateSkylightMap();
-
         return chunk;
     }
 

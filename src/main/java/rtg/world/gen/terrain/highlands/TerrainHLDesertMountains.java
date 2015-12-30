@@ -32,32 +32,40 @@ public class TerrainHLDesertMountains extends TerrainBase
 		lakeDepth = depthLake;
 		lakeWidth = widthLake;
 		terrainHeight = height;
+                // experimentation
+        terrainHeight = 45;
+        width = 120;
 	}
-	
+
+    // based on rock mountains but there's one noise abs'd instead of two, to stop lakes
+    // and everything is a little lower and rounder
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-		float h = simplex.noise2(x / 20f, y / 20f) * 2;
-		h += simplex.noise2(x / 7f, y / 7f) * 0.8f;
-		
-		float m = simplex.noise2(x / width, y / width) * strength * river;
-		m *= m / 35f;
-		m = m > 70f ? 70f + (m - 70f) / 2.5f : m;
-		
-		float st = m * 0.7f;
-		st = st > 20f ? 20f : st;
-		float c = cell.noise(x / 30f, y / 30f, 1D) * (5f + st);
-		
-		float sm = simplex.noise2(x / 30f, y / 30f) * 8f + simplex.noise2(x / 8f, y / 8f);
-		sm *= (m + 10f) / 20f > 2.5f ? 2.5f : (m + 10f) / 20f;
-		m += sm;
-		
-		m += c;
-		
-		float l = simplex.noise2(x / lakeWidth, y / lakeWidth) * lakeDepth;
-		l *= l / 25f;
-		l = l < -8f ? -8f : l;
-		
-		return terrainHeight + h + m - l;
+        float h = simplex.noise2(x / 20f, y / 20f);
+        h = h*h*1.5f;
+        float h2 = simplex.noise2(x / 14f, y / 14f);
+        h2 = h2 * h2 * 1f;
+        h = Math.max(h, h2);
+		h += h2;
+        float h3 = simplex.noise2(x/50f,y/50f);
+        h3= h3*h3*4f;
+        h+= h3;
+
+        float m = unsignedPower(Math.abs(simplex.noise2(x / width, y / width)),1.3f) * strength * river;
+        // invert y and x for complexity
+        //float m2 = unsignedPower(simplex.noise2(y / (width*1.5f), x / (width*1.5f)),1.4f) * strength * river;
+
+        //m = Math.max(m, m2);
+
+        // intensify ruggedness at height
+        h = m>10? h * m/10: h;
+
+        m = above(m,-50f);
+
+        float longNoise = simplex.noise2(x /100f, y / 100f)*10f;
+
+
+        return terrainHeight + h + m + longNoise;
 	}
 }

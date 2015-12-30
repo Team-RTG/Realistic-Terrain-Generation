@@ -28,6 +28,14 @@ public class TerrainBase
         //(else)
         return (-1f)*(float)Math.sqrt((-1f)*toStretch);
     }
+
+    public static final float unsignedPower(float number, float power) {
+        if (number > 0) {
+            return (float)Math.pow(number,power);
+        }
+        //(else)
+        return (-1f)*(float)Math.pow((-1f)*number,power);
+    }
     
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{

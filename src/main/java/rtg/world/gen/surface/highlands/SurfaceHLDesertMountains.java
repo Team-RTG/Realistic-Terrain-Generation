@@ -83,19 +83,19 @@ public class SurfaceHLDesertMountains extends SurfaceBase
             		{
                         if (rand.nextInt(3) == 0) {
                             
-                            blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
-                            metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
+                            blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone;
+                            metadata[(y * 16 + x) * 256 + k] = 2;
                         }
                         else {
                             
-                            blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
-                            metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
+                            blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone;
+                            metadata[(y * 16 + x) * 256 + k] = 0;
                         }
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = getShadowDesertBlock(world, i, j, x, y, k); 
-        				metadata[(y * 16 + x) * 256 + k] = getShadowDesertMeta(world, i, j, x, y, k);
+        				blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone;
+        				metadata[(y * 16 + x) * 256 + k] = 0;
             		}
             		else if(k < 63)
             		{
@@ -115,7 +115,11 @@ public class SurfaceHLDesertMountains extends SurfaceBase
             		}
             		else
             		{
-            			blocks[(y * 16 + x) * 256 + k] = topBlock;
+                            if (k<95) {
+                			   blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
+                            } else {
+                			   blocks[(y * 16 + x) * 256 + k] = topBlock;
+                            }
             		}
             	}
             	else if(depth < 6)

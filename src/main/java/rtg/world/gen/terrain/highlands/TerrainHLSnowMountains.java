@@ -13,7 +13,8 @@ public class TerrainHLSnowMountains extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-		float b = (12f + (simplex.noise2(x / 300f, y / 300f) * 6f));
+        // use abs for mountains everywhere.
+		float b = (12f + Math.abs((simplex.noise2(x / 300f, y / 300f)) * 6f));
 		float h = cell.noise(x / 200D, y / 200D, 1D) * b * river;
 		h *= h * 1.5f;
 		h = h > 155f ? 155f : h;
@@ -30,7 +31,10 @@ public class TerrainHLSnowMountains extends TerrainBase
 				h += cell.noise(x / 25D, y / 25D, 1D) * d2;
 			}
 		}
-		
+
+        // rolling variation for valley level
+		h += simplex.noise2(x / 52f, y / 52f) * 10;
+
 		h += simplex.noise2(x / 18f, y / 18f) * 3;
 		h += simplex.noise2(x / 8f, y / 8f) * 2;
 				

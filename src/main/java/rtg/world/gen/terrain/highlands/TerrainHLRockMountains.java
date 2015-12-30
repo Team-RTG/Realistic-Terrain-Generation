@@ -32,12 +32,39 @@ public class TerrainHLRockMountains extends TerrainBase
 		lakeDepth = depthLake;
 		lakeWidth = widthLake;
 		terrainHeight = height;
+
+        // experimentation
+        terrainHeight = 30;
+        width = 120;
 	}
 	
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-		float h = simplex.noise2(x / 20f, y / 20f) * 2;
+        float h = simplex.noise2(x / 20f, y / 20f);
+        h = h*h*2f;
+        float h2 = simplex.noise2(x / 14f, y / 14f);
+        h2 = h2 * h2 * 1.3f;
+        h = Math.max(h, h2);
+		h += h2;
+        float h3 = simplex.noise2(x/50f,y/50f);
+        h3= h3*h3*5f;
+        h+= h3;
+
+        float m = unsignedPower(simplex.noise2(x / width, y / width),1.4f) * strength * river;
+        // invert y and x for complexity
+        float m2 = unsignedPower(simplex.noise2(y / (width*1.5f), x / (width*1.5f)),1.4f) * strength * river;
+
+        m = Math.max(m, m2);
+
+        // intensify ruggedness at height
+        h = m>10? h * m/10: h;
+
+        m = above(m,-50f);
+
+
+        return terrainHeight + h + m;
+		/*float h = simplex.noise2(x / 20f, y / 20f) * 2;
 		h += simplex.noise2(x / 7f, y / 7f) * 0.8f;
 		
 		float m = simplex.noise2(x / width, y / width) * strength * river;
@@ -58,6 +85,7 @@ public class TerrainHLRockMountains extends TerrainBase
 		l *= l / 25f;
 		l = l < -8f ? -8f : l;
 		
-		return terrainHeight + h + m - l;
+		return terrainHeight + h + m - l;*/
+
 	}
 }

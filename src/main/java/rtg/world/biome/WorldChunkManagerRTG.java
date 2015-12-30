@@ -160,18 +160,6 @@ public class WorldChunkManagerRTG extends WorldChunkManager
 
         RealisticBiomeBase output = (RealisticBiomeBase)(this.getBiomeGenAt(par1, par2));
 
-        /**
-         * Do we only want to generate a single biome for the whole world?
-         */
-        int generateOnlyThisBiomeId = (int) ConfigRTG.generateOnlyThisBiomeId;
-
-        if (generateOnlyThisBiomeId > -1)
-        {
-            output = RealisticBiomeBase.getBiome(generateOnlyThisBiomeId);
-        }
-
-        //output = RealisticBiomeVanillaBase.vanillaFlowerForest;
-
         if (biomeDataMap.size() > 4096) {
             biomeDataMap.clear();
         }

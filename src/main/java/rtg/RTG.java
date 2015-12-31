@@ -71,8 +71,9 @@ public class RTG {
         }
         
         eventMgr = new EventManagerRTG();
-        MinecraftForge.TERRAIN_GEN_BUS.register(eventMgr);
         MinecraftForge.EVENT_BUS.register(eventMgr);
+        MinecraftForge.ORE_GEN_BUS.register(eventMgr);
+        MinecraftForge.TERRAIN_GEN_BUS.register(eventMgr);
     }
     
     @EventHandler

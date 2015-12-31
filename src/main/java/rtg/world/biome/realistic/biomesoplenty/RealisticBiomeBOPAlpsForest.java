@@ -46,10 +46,6 @@ public class RealisticBiomeBOPAlpsForest extends RealisticBiomeBOPBase
         
         RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         
-        //Emeralds.
-        //rRemoveEmeralds(world, rand, chunkX, chunkY, false);
-        rGenerateEmeralds(world, rand, chunkX, chunkY, false);
-        
         float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
         
         if (l > 0f && rand.nextInt(12) == 0)

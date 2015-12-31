@@ -62,10 +62,6 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
         
         RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         
-        //Emeralds.
-        rRemoveEmeralds(world, rand, chunkX, chunkY, false);
-        //rGenerateEmeralds(world, rand, chunkX, chunkY, false);
-        
         // boulders
         for (int l = 0; l < 3f * strength; ++l)
         {

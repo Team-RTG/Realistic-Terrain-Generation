@@ -91,9 +91,5 @@ public class RealisticBiomeEBMountainousArchipelago extends RealisticBiomeEBBase
     {
         
         RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-        
-        //Emeralds.
-        //rRemoveEmeralds(world, rand, chunkX, chunkY, false);
-        rGenerateEmeralds(world, rand, chunkX, chunkY, false);
     }
 }

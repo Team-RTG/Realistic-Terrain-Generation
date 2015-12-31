@@ -9,7 +9,6 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAlpineTundra;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBAlpineTundra;
-import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
@@ -82,12 +81,6 @@ public class RealisticBiomeEBAlpineTundra extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBAlpineTundra;
 		this.generateVillages = ConfigEB.villageEBAlpineTundra;
-		
-        emeraldEmeraldBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.oreEmeraldEB : Blocks.emerald_ore;
-        emeraldEmeraldMeta = EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0);
-        emeraldStoneBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
-        emeraldStoneMeta = EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0);
-        
     }
 	
     @Override
@@ -96,9 +89,5 @@ public class RealisticBiomeEBAlpineTundra extends RealisticBiomeEBBase
     {
         
         RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-        
-        //Emeralds.
-        //rRemoveEmeralds(world, rand, chunkX, chunkY, false);
-        rGenerateEmeralds(world, rand, chunkX, chunkY, false);
     }
 }

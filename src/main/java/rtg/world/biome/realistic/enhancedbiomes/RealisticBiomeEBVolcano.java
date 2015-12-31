@@ -104,9 +104,6 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
             
             RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         }
-
-        //Emeralds.
-        rGenerateEmeralds(world, rand, chunkX, chunkY, false);
     
         for (int l14 = 0; l14 < 15; l14++)
         {

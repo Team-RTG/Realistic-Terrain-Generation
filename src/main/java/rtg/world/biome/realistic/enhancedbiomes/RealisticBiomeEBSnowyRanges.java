@@ -9,7 +9,6 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSnowyRanges;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSnowyRanges;
-import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
@@ -91,9 +90,5 @@ public class RealisticBiomeEBSnowyRanges extends RealisticBiomeEBBase
     {
         
         RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-        
-        //Emeralds.
-        //rRemoveEmeralds(world, rand, chunkX, chunkY, false);
-        rGenerateEmeralds(world, rand, chunkX, chunkY, false);
     }
 }

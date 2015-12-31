@@ -37,18 +37,6 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase
 		this.biomeWeight = ConfigBOP.weightBOPCrag;
 		this.generateVillages = ConfigBOP.villageBOPCrag;
 	}
-	
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
-        float river)
-    {
-        
-        //RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-        
-        //Emeralds.
-        //rRemoveEmeralds(world, rand, chunkX, chunkY, false);
-        rGenerateEmeralds(world, rand, chunkX, chunkY, false);
-    }
     
     @Override
     public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,

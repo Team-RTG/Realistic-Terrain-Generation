@@ -5,13 +5,14 @@ import org.apache.logging.log4j.Level;
 import rtg.RTG;
 import rtg.config.rtg.ConfigRTG;
 import rtg.world.WorldTypeRTG;
+import rtg.world.biome.realistic.RealisticBiomePool;
 import rtg.world.gen.MapGenCavesRTG;
 import rtg.world.gen.MapGenRavineRTG;
+import rtg.world.gen.genlayer.RiverRemover;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
-import rtg.world.biome.realistic.RealisticBiomePool;
-import rtg.world.gen.genlayer.RiverRemover;
 import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
@@ -20,6 +21,7 @@ import net.minecraft.world.gen.structure.MapGenStructureIO;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
+import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.WorldTypeEvent;
 import net.minecraftforge.event.world.WorldEvent;
 
@@ -67,8 +69,63 @@ public class EventManagerRTG
         if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
             
             MinecraftForge.TERRAIN_GEN_BUS.unregister(RTG.eventMgr);
+            MinecraftForge.ORE_GEN_BUS.unregister(RTG.eventMgr);
             MinecraftForge.EVENT_BUS.unregister(RTG.eventMgr);
         }
+    }
+
+    @SubscribeEvent
+    public void onGenerateMinable(OreGenEvent.GenerateMinable event) {
+
+        switch (event.type) {
+
+            case DIRT:
+                event.setResult(Result.ALLOW);
+                break;
+                
+            case GRAVEL:
+                event.setResult(Result.ALLOW);
+                break;
+            
+            case COAL:
+                event.setResult(Result.DENY);
+                break;
+            
+            case IRON:
+                event.setResult(Result.DENY);
+                break;
+            
+            case GOLD:
+                event.setResult(Result.DENY);
+                break;
+            
+            case DIAMOND:
+                event.setResult(Result.DENY);
+                break;
+            
+            case REDSTONE:
+                event.setResult(Result.DENY);
+                break;
+            
+            case LAPIS:
+                event.setResult(Result.DENY);
+                break;
+            
+            case QUARTZ:
+                event.setResult(Result.DENY);
+                break;
+            
+            case CUSTOM:
+                event.setResult(Result.ALLOW);
+                break;
+            
+            default:
+                event.setResult(Result.DENY);
+                break;
+        }
+        
+        event.setResult(Result.DENY);
+        FMLLog.log(Level.INFO, "new event result = %s", event.getResult().toString());
     }
 
     @SubscribeEvent

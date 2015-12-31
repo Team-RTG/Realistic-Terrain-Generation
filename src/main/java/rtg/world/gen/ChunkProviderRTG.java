@@ -223,6 +223,20 @@ public class ChunkProviderRTG implements IChunkProvider
             {
                 abyte1[k] = (byte)this.baseBiomesList[k].biomeID;
             }
+        } else {
+            // put in the rivers
+
+            byte[] abyte1 = chunk.getBiomeArray();
+            for (k = 0; k < abyte1.length; ++k)
+            {
+                if (biomesForGeneration[k].baseBiome.biomeID == BiomeGenBase.ocean.biomeID) continue;
+                if (biomesForGeneration[k].baseBiome.biomeID == BiomeGenBase.deepOcean.biomeID) continue;
+                if (biomesForGeneration[k].riverBiome == baseBiomesList[k]) {
+                    if (noise[k] < 62.5f) {
+                       abyte1[k] = (byte)this.baseBiomesList[k].biomeID;
+                    }
+                }
+            }
         }
         chunk.generateSkylightMap();
         return chunk;

@@ -47,6 +47,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
 
         this();
         long seed = par1World.getSeed();
+        if (par1World.provider.dimensionId !=0) throw new RuntimeException();
 
         simplex = new OpenSimplexNoise(seed);
         cell = new CellNoise(seed, (short) 0);

@@ -21,7 +21,7 @@ public class RealisticBiomeHLBaldHill extends RealisticBiomeHLBase
     
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
-            new TerrainHLBaldHill(90f, 180f, 13f, 100f, 38f, 260f, 81f),
+            new TerrainHLBaldHill(90f, 180f, 13f, 100f, 38f, 260f, 90f),
             new SurfaceHLBaldHill(topBlock, fillerBlock)
         );
         

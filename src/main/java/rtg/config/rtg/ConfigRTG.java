@@ -34,6 +34,14 @@ public class ConfigRTG
     public static String volcanoBlockId = "minecraft:obsidian";
     public static int volcanoBlockByte = 0;
     public static boolean enableVolcanoEruptions = true;
+    
+    public static boolean generateOreCoal = true;
+    public static boolean generateOreIron = true;
+    public static boolean generateOreGold = true;
+    public static boolean generateOreRedstone = true;
+    public static boolean generateOreLapis = true;
+    public static boolean generateOreDiamond = true;
+    public static boolean generateOreEmerald = true;
 	
     public static boolean enableCobblestoneBoulders = true;
     public static int cobblestoneBoulderChance = 1;
@@ -182,6 +190,16 @@ public class ConfigRTG
             /* ==================== Mineshafts ==================== */
             
             generateMineshafts = config.getBoolean("Generate Mineshafts", "Mineshafts", generateMineshafts, "");
+            
+            /* ==================== Ore Gen ==================== */
+            
+            generateOreCoal = config.getBoolean("Generate Coal Ore", "Ore Gen", generateOreCoal, "");
+            generateOreIron = config.getBoolean("Generate Iron Ore", "Ore Gen", generateOreIron, "");
+            generateOreGold = config.getBoolean("Generate Gold Ore", "Ore Gen", generateOreGold, "");
+            generateOreRedstone = config.getBoolean("Generate Redstone Ore", "Ore Gen", generateOreRedstone, "");
+            generateOreLapis = config.getBoolean("Generate Lapis Lazuli Ore", "Ore Gen", generateOreLapis, "");
+            generateOreDiamond = config.getBoolean("Generate Diamond Ore", "Ore Gen", generateOreDiamond, "");
+            generateOreEmerald = config.getBoolean("Generate Emerald Ore", "Ore Gen", generateOreEmerald, "");
             
             /* ==================== Scattered Features ==================== */
             

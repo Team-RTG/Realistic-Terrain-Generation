@@ -78,54 +78,58 @@ public class EventManagerRTG
     public void onGenerateMinable(OreGenEvent.GenerateMinable event) {
 
         switch (event.type) {
-
-            case DIRT:
-                event.setResult(Result.ALLOW);
-                break;
-                
-            case GRAVEL:
-                event.setResult(Result.ALLOW);
-                break;
             
             case COAL:
-                event.setResult(Result.DENY);
+                
+                if (!ConfigRTG.generateOreCoal) {
+                    event.setResult(Result.DENY);
+                }
+                
                 break;
             
             case IRON:
-                event.setResult(Result.DENY);
+                
+                if (!ConfigRTG.generateOreIron) {
+                    event.setResult(Result.DENY);
+                }
+                
                 break;
             
             case GOLD:
-                event.setResult(Result.DENY);
+                
+                if (!ConfigRTG.generateOreGold) {
+                    event.setResult(Result.DENY);
+                }
+                
                 break;
             
             case DIAMOND:
-                event.setResult(Result.DENY);
+                
+                if (!ConfigRTG.generateOreDiamond) {
+                    event.setResult(Result.DENY);
+                }
+                
                 break;
             
             case REDSTONE:
-                event.setResult(Result.DENY);
+                
+                if (!ConfigRTG.generateOreRedstone) {
+                    event.setResult(Result.DENY);
+                }
+                
                 break;
             
             case LAPIS:
-                event.setResult(Result.DENY);
-                break;
-            
-            case QUARTZ:
-                event.setResult(Result.DENY);
-                break;
-            
-            case CUSTOM:
-                event.setResult(Result.ALLOW);
+                
+                if (!ConfigRTG.generateOreLapis) {
+                    event.setResult(Result.DENY);
+                }
+                
                 break;
             
             default:
-                event.setResult(Result.DENY);
                 break;
         }
-        
-        event.setResult(Result.DENY);
-        FMLLog.log(Level.INFO, "new event result = %s", event.getResult().toString());
     }
 
     @SubscribeEvent

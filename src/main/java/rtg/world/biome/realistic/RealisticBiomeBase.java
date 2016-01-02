@@ -1,6 +1,14 @@
 package rtg.world.biome.realistic;
 
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CLAY;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.COAL;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIAMOND;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIRT;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.GOLD;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.GRAVEL;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.IRON;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.LAPIS;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.REDSTONE;
 
 import java.util.Random;
 
@@ -21,7 +29,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenLakes;
+import net.minecraft.world.gen.feature.WorldGenerator;
 
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
@@ -203,6 +214,10 @@ public class RealisticBiomeBase extends BiomeBase {
         
     }
     
+    /**
+     * When manually decorating biomes by overriding rDecorate(), sometimes you want the biome
+     * to partially decorate itself. That's what this method does... it calls the biome's decorate() method.
+     */
     public static void rDecorateSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
         
         if (strength > 0.3f) {
@@ -210,14 +225,32 @@ public class RealisticBiomeBase extends BiomeBase {
         }
     }
     
+    /**
+     * This method should be called if both of the following conditions are true:
+     * 
+     * 1) You are manually decorating a biome by overrding rDecorate().
+     * 2) You are NOT calling rDecorateSeedBiome() within rDecorate().
+     */
     public static void rOreGenSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
 
-        seedBiome.theBiomeDecorator.coalGen.generate(world, rand, chunkX, chunkY, 0);
-        seedBiome.theBiomeDecorator.ironGen.generate(world, rand, chunkX, chunkY, 0);
-        seedBiome.theBiomeDecorator.goldGen.generate(world, rand, chunkX, chunkY, 0);
-        seedBiome.theBiomeDecorator.diamondGen.generate(world, rand, chunkX, chunkY, 0);
-        seedBiome.theBiomeDecorator.redstoneGen.generate(world, rand, chunkX, chunkY, 0);
-        seedBiome.theBiomeDecorator.lapisGen.generate(world, rand, chunkX, chunkY, 0);
+        MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(world, rand, chunkX, chunkY));
+        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.dirtGen, chunkX, chunkY, DIRT))
+        genStandardOre1(20, seedBiome.theBiomeDecorator.dirtGen, 0, 256, world, rand, chunkX, chunkY);
+        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.gravelGen, chunkX, chunkY, GRAVEL))
+        genStandardOre1(10, seedBiome.theBiomeDecorator.gravelGen, 0, 256, world, rand, chunkX, chunkY);
+        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.coalGen, chunkX, chunkY, COAL))
+        genStandardOre1(20, seedBiome.theBiomeDecorator.coalGen, 0, 128, world, rand, chunkX, chunkY);
+        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.ironGen, chunkX, chunkY, IRON))
+        genStandardOre1(20, seedBiome.theBiomeDecorator.ironGen, 0, 64, world, rand, chunkX, chunkY);
+        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.goldGen, chunkX, chunkY, GOLD))
+        genStandardOre1(2, seedBiome.theBiomeDecorator.goldGen, 0, 32, world, rand, chunkX, chunkY);
+        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.redstoneGen, chunkX, chunkY, REDSTONE))
+        genStandardOre1(8, seedBiome.theBiomeDecorator.redstoneGen, 0, 16, world, rand, chunkX, chunkY);
+        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.diamondGen, chunkX, chunkY, DIAMOND))
+        genStandardOre1(1, seedBiome.theBiomeDecorator.diamondGen, 0, 16, world, rand, chunkX, chunkY);
+        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.lapisGen, chunkX, chunkY, LAPIS))
+        genStandardOre2(1, seedBiome.theBiomeDecorator.lapisGen, 16, 16, world, rand, chunkX, chunkY);
+        MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(world, rand, chunkX, chunkY));
     }
     
     public void generateMapGen(Block[] blocks, byte[] metadata, Long seed, World world, WorldChunkManagerRTG cmr, Random mapRand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
@@ -280,6 +313,36 @@ public class RealisticBiomeBase extends BiomeBase {
                     (new WorldGenClay(Blocks.clay, 0, clayPerVein)).generate(worldObj, rand, l5, i9, l11);
                 }
             }
+        }
+    }
+    
+    /**
+     * Standard ore generation helper. Generates most ores.
+     * @see net.minecraft.world.biome.BiomeDecorator
+     */
+    protected static void genStandardOre1(int numBlocks, WorldGenerator oreGen, int minY, int maxY, World worldObj, Random rand, int chunkX, int chunkZ)
+    {
+        for (int l = 0; l < numBlocks; ++l)
+        {
+            int i1 = chunkX + rand.nextInt(16);
+            int j1 = rand.nextInt(maxY - minY) + minY;
+            int k1 = chunkZ + rand.nextInt(16);
+            oreGen.generate(worldObj, rand, i1, j1, k1);
+        }
+    }
+    
+    /**
+     * Standard ore generation helper. Generates Lapis Lazuli.
+     * @see net.minecraft.world.biome.BiomeDecorator
+     */
+    protected static void genStandardOre2(int numBlocks, WorldGenerator oreGen, int minY, int maxY, World worldObj, Random rand, int chunkX, int chunkZ)
+    {
+        for (int l = 0; l < numBlocks; ++l)
+        {
+            int i1 = chunkX + rand.nextInt(16);
+            int j1 = rand.nextInt(maxY) + rand.nextInt(maxY) + (minY - maxY);
+            int k1 = chunkZ + rand.nextInt(16);
+            oreGen.generate(worldObj, rand, i1, j1, k1);
         }
     }
 }

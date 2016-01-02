@@ -207,6 +207,9 @@ public class RealisticBiomeBase extends BiomeBase {
         if (strength > 0.3f) {
             baseBiome.decorate(world, rand, chunkX, chunkY);
         }
+        else {
+            rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        }
     }
     
     public void rPopulatePostDecorate()
@@ -222,6 +225,9 @@ public class RealisticBiomeBase extends BiomeBase {
         
         if (strength > 0.3f) {
             seedBiome.decorate(world, rand, chunkX, chunkY);
+        }
+        else {
+            rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, seedBiome);
         }
     }
     

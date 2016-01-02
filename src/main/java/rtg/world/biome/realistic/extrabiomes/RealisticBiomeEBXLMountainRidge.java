@@ -35,12 +35,4 @@ public class RealisticBiomeEBXLMountainRidge extends RealisticBiomeEBXLBase
 		this.biomeWeight = ConfigEBXL.weightEBXLMountainRidge;
 		this.generateVillages = ConfigEBXL.villageEBXLMountainRidge;
 	}
-	
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
-        float river)
-    {
-        
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-    }
 }

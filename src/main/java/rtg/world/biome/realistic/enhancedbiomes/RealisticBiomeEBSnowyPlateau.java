@@ -84,12 +84,4 @@ public class RealisticBiomeEBSnowyPlateau extends RealisticBiomeEBBase
 		this.generateVillages = ConfigEB.villageEBSnowyPlateau;
         
     }
-	
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
-        float river)
-    {
-        
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-    }
 }

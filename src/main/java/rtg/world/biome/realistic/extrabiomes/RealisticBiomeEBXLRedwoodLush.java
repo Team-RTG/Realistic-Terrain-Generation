@@ -55,7 +55,7 @@ public class RealisticBiomeEBXLRedwoodLush extends RealisticBiomeEBXLBase
         for (int b1 = 0; b1 < l * strength; b1++)
         {
             if (rand.nextInt(3) != 0) {
-                RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+                rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
             }
             else {
                 rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);

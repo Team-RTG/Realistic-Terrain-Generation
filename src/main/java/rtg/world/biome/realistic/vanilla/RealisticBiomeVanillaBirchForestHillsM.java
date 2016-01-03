@@ -132,6 +132,6 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
             }
         }
         
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
     }
 }

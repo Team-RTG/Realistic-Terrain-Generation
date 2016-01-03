@@ -46,7 +46,7 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase
          */
         //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
     
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         
         float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
         

@@ -81,5 +81,6 @@ public class RealisticBiomeEBAlpineTundra extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBAlpineTundra;
 		this.generateVillages = ConfigEB.villageEBAlpineTundra;
+		this.generatesEmeralds = true;
     }
 }

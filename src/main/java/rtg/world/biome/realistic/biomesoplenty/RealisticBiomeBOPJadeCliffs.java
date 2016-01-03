@@ -37,6 +37,7 @@ public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPJadeCliffs;
 		this.generateVillages = ConfigBOP.villageBOPJadeCliffs;
+		this.generatesEmeralds = true;
 	}
 	
     @Override
@@ -62,6 +63,6 @@ public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
             }
         }
         
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
     }
 }

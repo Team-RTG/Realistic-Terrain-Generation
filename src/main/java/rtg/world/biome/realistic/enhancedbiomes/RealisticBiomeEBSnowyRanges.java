@@ -81,6 +81,7 @@ public class RealisticBiomeEBSnowyRanges extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSnowyRanges;
 		this.generateVillages = ConfigEB.villageEBSnowyRanges;
+		this.generatesEmeralds = true;
         
     }
 }

@@ -47,7 +47,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
          */
         //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
     
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         
         if(river > 0.86f)
         {

@@ -82,6 +82,7 @@ public class RealisticBiomeEBSnowyPlateau extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSnowyPlateau;
 		this.generateVillages = ConfigEB.villageEBSnowyPlateau;
+		this.generatesEmeralds = true;
         
     }
 }

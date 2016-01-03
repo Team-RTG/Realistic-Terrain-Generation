@@ -47,7 +47,7 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
          */
         //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
     
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         
         // trees
         float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;

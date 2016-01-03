@@ -34,5 +34,6 @@ public class RealisticBiomeEBXLMountainRidge extends RealisticBiomeEBXLBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEBXL.weightEBXLMountainRidge;
 		this.generateVillages = ConfigEBXL.villageEBXLMountainRidge;
+		this.generatesEmeralds = true;
 	}
 }

@@ -691,6 +691,8 @@ public class ChunkProviderRTG implements IChunkProvider
          * ########################################################################
          */
         
+        biome.rPopulatePostDecorate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag);
+        
         //Flowing water.
         if (rand.nextInt(100) == 0) {
     		for(int l18 = 0; l18 < 50; l18++)

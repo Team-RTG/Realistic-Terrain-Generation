@@ -82,6 +82,7 @@ public class RealisticBiomeEBMountains extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBMountains;
 		this.generateVillages = ConfigEB.villageEBMountains;
+		this.generatesEmeralds = true;
         
     }
 }

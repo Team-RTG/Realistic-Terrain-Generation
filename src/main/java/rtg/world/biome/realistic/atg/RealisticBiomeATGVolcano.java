@@ -43,7 +43,7 @@ public class RealisticBiomeATGVolcano extends RealisticBiomeATGBase
          */
         //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
     
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         
         for (int l14 = 0; l14 < 15; l14++)
         {

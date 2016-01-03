@@ -97,7 +97,7 @@ public class RealisticBiomeEBBlossomHills extends RealisticBiomeEBBase
          */
         //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
     
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
         

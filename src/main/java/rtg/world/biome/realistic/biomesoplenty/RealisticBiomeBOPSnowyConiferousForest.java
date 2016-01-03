@@ -78,7 +78,7 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
         }
         
         if (rand.nextInt(12) != 0) {
-            RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+            rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         }
         else {
             rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);

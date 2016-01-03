@@ -28,5 +28,6 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPAlps;
 		this.generateVillages = ConfigBOP.villageBOPAlps;
+		this.generatesEmeralds = true;
 	}
 }

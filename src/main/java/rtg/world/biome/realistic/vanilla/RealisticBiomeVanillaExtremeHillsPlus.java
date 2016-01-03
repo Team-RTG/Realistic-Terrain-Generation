@@ -42,6 +42,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigVanilla.weightVanillaExtremeHillsPlus;
         this.generateVillages = ConfigVanilla.villageVanillaExtremeHillsPlus;
+        this.generatesEmeralds = true;
     }
     
     @Override

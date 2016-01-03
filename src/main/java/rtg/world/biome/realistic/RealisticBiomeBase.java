@@ -12,6 +12,8 @@ import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.Ev
 
 import java.util.Random;
 
+import org.apache.logging.log4j.Level;
+
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -21,6 +23,7 @@ import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import cpw.mods.fml.common.FMLLog;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -61,6 +64,12 @@ public class RealisticBiomeBase extends BiomeBase {
     
     public boolean generateVillages;
     
+    public boolean generatesEmeralds;
+    public Block emeraldEmeraldBlock;
+    public byte emeraldEmeraldMeta;
+    public Block emeraldStoneBlock;
+    public byte emeraldStoneMeta;
+    
     public RealisticBiomeBase(BiomeGenBase biome) {
     
         this(biome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE));
@@ -84,6 +93,12 @@ public class RealisticBiomeBase extends BiomeBase {
         clayPerVein = 20;
         
         generateVillages = true;
+        
+        generatesEmeralds = false;
+        emeraldEmeraldBlock = Blocks.emerald_ore;
+        emeraldEmeraldMeta = (byte)0;
+        emeraldStoneBlock = Blocks.stone;
+        emeraldStoneMeta = (byte)0;
     }
     
     public static RealisticBiomeBase getBiome(int id) {
@@ -212,16 +227,22 @@ public class RealisticBiomeBase extends BiomeBase {
         }
     }
     
-    public void rPopulatePostDecorate()
+    public void rPopulatePostDecorate(IChunkProvider ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag)
     {
-        
+        /**
+         * Has emerald gen been disabled in the configs?
+         * If so, check to see if this biome generated emeralds & remove them if necessary.
+         */
+        if (!ConfigRTG.generateOreEmerald && generatesEmeralds) {
+            rRemoveEmeralds(worldObj, rand, chunkX, chunkZ);
+        }
     }
     
     /**
      * When manually decorating biomes by overriding rDecorate(), sometimes you want the biome
      * to partially decorate itself. That's what this method does... it calls the biome's decorate() method.
      */
-    public static void rDecorateSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
+    public void rDecorateSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
         
         if (strength > 0.3f) {
             seedBiome.decorate(world, rand, chunkX, chunkY);
@@ -237,9 +258,10 @@ public class RealisticBiomeBase extends BiomeBase {
      * 1) You are manually decorating a biome by overrding rDecorate().
      * 2) You are NOT calling rDecorateSeedBiome() within rDecorate().
      */
-    public static void rOreGenSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
+    public void rOreGenSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
 
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(world, rand, chunkX, chunkY));
+        
         if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.dirtGen, chunkX, chunkY, DIRT))
         genStandardOre1(20, seedBiome.theBiomeDecorator.dirtGen, 0, 256, world, rand, chunkX, chunkY);
         if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.gravelGen, chunkX, chunkY, GRAVEL))
@@ -256,6 +278,11 @@ public class RealisticBiomeBase extends BiomeBase {
         genStandardOre1(1, seedBiome.theBiomeDecorator.diamondGen, 0, 16, world, rand, chunkX, chunkY);
         if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.lapisGen, chunkX, chunkY, LAPIS))
         genStandardOre2(1, seedBiome.theBiomeDecorator.lapisGen, 16, 16, world, rand, chunkX, chunkY);
+        
+        if (ConfigRTG.generateOreEmerald && generatesEmeralds) {
+            rGenerateEmeralds(world, rand, chunkX, chunkY);
+        }
+        
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(world, rand, chunkX, chunkY));
     }
     
@@ -326,7 +353,7 @@ public class RealisticBiomeBase extends BiomeBase {
      * Standard ore generation helper. Generates most ores.
      * @see net.minecraft.world.biome.BiomeDecorator
      */
-    protected static void genStandardOre1(int numBlocks, WorldGenerator oreGen, int minY, int maxY, World worldObj, Random rand, int chunkX, int chunkZ)
+    protected void genStandardOre1(int numBlocks, WorldGenerator oreGen, int minY, int maxY, World worldObj, Random rand, int chunkX, int chunkZ)
     {
         for (int l = 0; l < numBlocks; ++l)
         {
@@ -341,7 +368,7 @@ public class RealisticBiomeBase extends BiomeBase {
      * Standard ore generation helper. Generates Lapis Lazuli.
      * @see net.minecraft.world.biome.BiomeDecorator
      */
-    protected static void genStandardOre2(int numBlocks, WorldGenerator oreGen, int minY, int maxY, World worldObj, Random rand, int chunkX, int chunkZ)
+    protected void genStandardOre2(int numBlocks, WorldGenerator oreGen, int minY, int maxY, World worldObj, Random rand, int chunkX, int chunkZ)
     {
         for (int l = 0; l < numBlocks; ++l)
         {
@@ -349,6 +376,58 @@ public class RealisticBiomeBase extends BiomeBase {
             int j1 = rand.nextInt(maxY) + rand.nextInt(maxY) + (minY - maxY);
             int k1 = chunkZ + rand.nextInt(16);
             oreGen.generate(worldObj, rand, i1, j1, k1);
+        }
+    }
+
+    public void rGenerateEmeralds(World world, Random rand, int chunkX, int chunkZ)
+    {
+        int k = 3 + rand.nextInt(6);
+        int l;
+        int i1;
+        int j1;
+
+        for (l = 0; l < k; ++l)
+        {
+            i1 = chunkX + rand.nextInt(16);
+            j1 = rand.nextInt(28) + 4;
+            int k1 = chunkZ + rand.nextInt(16);
+
+            if (world.getBlock(i1, j1, k1).isReplaceableOreGen(world, i1, j1, k1, emeraldStoneBlock))
+            {
+                world.setBlock(i1, j1, k1, emeraldEmeraldBlock, emeraldEmeraldMeta, 2);
+                
+                if (ConfigRTG.enableDebugging) {
+                    FMLLog.log(Level.INFO, "Emerald generated at %d, %d, %d", i1, j1, k1);
+                }
+            }
+        }
+    }
+    
+    public void rRemoveEmeralds(World world, Random rand, int chunkX, int chunkZ)
+    {
+        int endX = (chunkX * 16) + 16;
+        int endZ = (chunkZ * 16) + 16;
+        boolean enableDebugging = ConfigRTG.enableDebugging;
+
+        // Get the highest possible existing block location.
+        int maxY = world.getHeightValue(chunkX, chunkZ);
+        
+        for (int x = chunkX * 16; x < endX; ++x)
+        {
+            for (int z = chunkZ * 16; z < endZ; ++z)
+            {
+                for (int y = 0; y < maxY; ++y)
+                {   
+                    if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, emeraldEmeraldBlock)) {
+                        
+                        world.setBlock(x, y, z, emeraldStoneBlock, emeraldStoneMeta, 2);
+                        
+                        if (enableDebugging) {
+                            FMLLog.log(Level.INFO, "Emerald replaced at %d, %d, %d", x, y, z);
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -73,6 +73,6 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase
             (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
         }
         
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
     }
 }

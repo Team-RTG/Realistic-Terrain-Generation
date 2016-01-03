@@ -53,6 +53,7 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPMountain;
 		this.generateVillages = ConfigBOP.villageBOPMountain;
+		this.generatesEmeralds = true;
 	}
 	
     @Override
@@ -64,7 +65,7 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
          */
         //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         
         // boulders
         for (int l = 0; l < 3f * strength; ++l)

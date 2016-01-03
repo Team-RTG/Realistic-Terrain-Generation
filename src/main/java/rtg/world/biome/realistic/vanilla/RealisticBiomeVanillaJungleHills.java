@@ -126,7 +126,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
         }
         
         if (rand.nextInt(6) != 0) {
-            RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+            rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         }
         else {
             rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);

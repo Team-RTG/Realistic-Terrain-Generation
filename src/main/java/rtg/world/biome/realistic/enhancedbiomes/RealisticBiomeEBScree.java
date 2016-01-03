@@ -85,6 +85,7 @@ public class RealisticBiomeEBScree extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBScree;
 		this.generateVillages = ConfigEB.villageEBScree;
+		this.generatesEmeralds = true;
         
     }
 	

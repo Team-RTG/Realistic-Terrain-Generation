@@ -104,6 +104,6 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
             }
         }
 
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
     }
 }

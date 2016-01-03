@@ -92,6 +92,7 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
         this.biomeSize = BiomeSize.NORMAL;
         this.biomeWeight = ConfigEB.weightEBVolcano;
         this.generateVillages = ConfigEB.villageEBVolcano;
+        this.generatesEmeralds = true;
         
     }
     
@@ -105,7 +106,7 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
         //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
 
         if (ConfigRTG.enableVolcanoEruptions) {
-            RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+            rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         }
         else {
             rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);

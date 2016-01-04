@@ -8,7 +8,6 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.WorldChunkManagerRTG;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenVolcano;
 import rtg.world.gen.surface.SurfaceBase;
@@ -93,20 +92,28 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
         this.biomeWeight = ConfigEB.weightEBVolcano;
         this.generateVillages = ConfigEB.villageEBVolcano;
         
+        this.generatesEmeralds = true;
+        this.emeraldEmeraldBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.oreEmeraldEB, Blocks.emerald_ore);
+        this.emeraldEmeraldMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
+        this.emeraldStoneBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+        this.emeraldStoneMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
     }
     
     @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
-        float river)
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
     {
+        
+        /**
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
+         */
+        //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
 
         if (ConfigRTG.enableVolcanoEruptions) {
-            
-            RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+            rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         }
-
-        //Emeralds.
-        rGenerateEmeralds(world, rand, chunkX, chunkY, false);
+        else {
+            rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        }
     
         for (int l14 = 0; l14 < 15; l14++)
         {

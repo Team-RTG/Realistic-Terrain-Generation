@@ -82,18 +82,11 @@ public class RealisticBiomeEBSnowyPlateau extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBSnowyPlateau;
 		this.generateVillages = ConfigEB.villageEBSnowyPlateau;
-        
-    }
-	
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
-        float river)
-    {
-        
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-        
-        //Emeralds.
-        //rRemoveEmeralds(world, rand, chunkX, chunkY, false);
-        rGenerateEmeralds(world, rand, chunkX, chunkY, false);
+		
+        this.generatesEmeralds = true;
+        this.emeraldEmeraldBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.oreEmeraldEB, Blocks.emerald_ore);
+        this.emeraldEmeraldMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
+        this.emeraldStoneBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+        this.emeraldStoneMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
     }
 }

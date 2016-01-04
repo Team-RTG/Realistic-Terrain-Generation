@@ -39,9 +39,13 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase
 	}
 	
     @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
-        float river)
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
     {
+        
+        /**
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
+         */
+        //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
     
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
         
@@ -62,25 +66,6 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase
             }
         }
         
-//        for (int f24 = 0; f24 < 2f * strength; f24++)
-//        {
-//            int i1 = chunkX + rand.nextInt(16) + 8;
-//            int j1 = chunkY + rand.nextInt(16) + 8;
-//            int k1 = world.getHeightValue(i1, j1);
-//            
-//            if (k1 < 110)
-//            {
-//                if (rand.nextBoolean()) {
-//                    
-//                    (new WorldGenTreeShrubCustom(rand.nextInt(4) + 1, Blocks.log, (byte)0, Blocks.leaves, (byte)2)).generate(world, rand, i1, k1, j1);
-//                }
-//                else {
-//                    
-//                    (new WorldGenTreeShrubCustom(rand.nextInt(4) + 1, Blocks.log, (byte)1, Blocks.leaves, (byte)1)).generate(world, rand, i1, k1, j1);
-//                }
-//            }
-//        }
-        
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
     }
 }

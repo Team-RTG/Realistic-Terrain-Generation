@@ -116,7 +116,7 @@ public class WorldGenBlob extends WorldGenerator
 
                             if (f1 * f1 + f2 * f2 + f3 * f3 <= f * f)
                             {
-                                world.setBlock(l1, j2, i2, this.blobBlock, this.blobMeta, 4);
+                                world.setBlock(l1, j2, i2, this.blobBlock, this.blobMeta, 2);
                             }
                         }
                     }

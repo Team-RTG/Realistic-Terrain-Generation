@@ -34,7 +34,7 @@ public class ConfigRTG
     public static String volcanoBlockId = "minecraft:obsidian";
     public static int volcanoBlockByte = 0;
     public static boolean enableVolcanoEruptions = true;
-	
+    
     public static boolean generateOreCoal = true;
     public static boolean generateOreIron = true;
     public static boolean generateOreGold = true;

@@ -6,7 +6,6 @@ import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
@@ -86,19 +85,22 @@ public class RealisticBiomeEBScree extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBScree;
 		this.generateVillages = ConfigEB.villageEBScree;
-        
+		
+        this.generatesEmeralds = true;
+        this.emeraldEmeraldBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.oreEmeraldEB, Blocks.emerald_ore);
+        this.emeraldEmeraldMeta = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
+        this.emeraldStoneBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+        this.emeraldStoneMeta = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
     }
 	
     @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
-        float river)
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
     {
-
-        //RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         
-        //Emeralds.
-        //rRemoveEmeralds(world, rand, chunkX, chunkY, false);
-        rGenerateEmeralds(world, rand, chunkX, chunkY, false);
+        /**
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
+         */
+        rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
         

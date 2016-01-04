@@ -82,7 +82,11 @@ public class RealisticBiomeEBMountainousArchipelago extends RealisticBiomeEBBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigEB.weightEBMountainousArchipelago;
 		this.generateVillages = ConfigEB.villageEBMountainousArchipelago;
-		this.generatesEmeralds = true;
-        
+		
+        this.generatesEmeralds = true;
+        this.emeraldEmeraldBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.oreEmeraldEB, Blocks.emerald_ore);
+        this.emeraldEmeraldMeta = EBAPI.ebStonify(EBAPI.GABBRO, (byte)0);
+        this.emeraldStoneBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+        this.emeraldStoneMeta = EBAPI.ebStonify(EBAPI.GABBRO, (byte)0);
     }
 }

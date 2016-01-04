@@ -37,7 +37,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
             BiomeGenBase.forest,
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
             new TerrainVanillaForest(),
-            new SurfaceVanillaForest(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.15f));
+            new SurfaceVanillaForest(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f));
         
         this.setRealisticBiomeName("Vanilla Forest");
         this.biomeSize = BiomeSize.NORMAL;
@@ -58,44 +58,35 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
         
         for (int b1 = 0; b1 < l * strength; b1++)
         {
-            if (rand.nextInt(2) == 0)
-            {
-                int j6 = chunkX + rand.nextInt(16) + 8;
-                int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeightValue(j6, k10);
-                
-                if (z52 < 110)
-                {
-                    if (rand.nextBoolean()) {
-                        WorldGenerator worldgenerator = new WorldGenTreePineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 1, 1);
-                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                        worldgenerator.generate(world, rand, j6, z52, k10);
-                    }
-                    else {
-                        WorldGenerator worldgenerator = new WorldGenTreePineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 0, 0);
-                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                        worldgenerator.generate(world, rand, j6, z52, k10);
-                    }
-                }
+            int j6 = chunkX + rand.nextInt(16) + 8;
+            int k10 = chunkY + rand.nextInt(16) + 8;
+            int z52 = world.getHeightValue(j6, k10);
+            
+            if (rand.nextBoolean()) {
+                WorldGenerator worldgenerator = new WorldGenTreePineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 1, 1);
+                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+                worldgenerator.generate(world, rand, j6, z52, k10);
+            }
+            else {
+                WorldGenerator worldgenerator = new WorldGenTreePineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 0, 0);
+                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+                worldgenerator.generate(world, rand, j6, z52, k10);
             }
         }
         
-        if (l > 5f)
+        for (int b2 = 0; b2 < 3f * strength; b2++)
         {
-            for (int b2 = 0; b2 < 3f * strength; b2++)
+            int j6 = chunkX + rand.nextInt(16) + 8;
+            int k10 = chunkY + rand.nextInt(16) + 8;
+            int z52 = world.getHeightValue(j6, k10);
+            
+            if (z52 < 120)
             {
-                int j6 = chunkX + rand.nextInt(16) + 8;
-                int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeightValue(j6, k10);
-                
-                if (z52 < 120)
-                {
-                    WorldGenerator worldgenerator =
-                        rand.nextInt(2) == 0 ? new WorldGenTreePineSmall(4 + rand.nextInt(7), 6 + rand.nextInt(9), 0)
-                            : rand.nextInt(10) != 0 ? new WorldGenTrees(false) : new WorldGenForest(false, false);
-                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                    worldgenerator.generate(world, rand, j6, z52, k10);
-                }
+                WorldGenerator worldgenerator =
+                    rand.nextInt(4) != 0 ? new WorldGenTreePineSmall(4 + rand.nextInt(7), 6 + rand.nextInt(9), 0)
+                        : rand.nextInt(10) != 0 ? new WorldGenTrees(false) : new WorldGenForest(false, false);
+                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+                worldgenerator.generate(world, rand, j6, z52, k10);
             }
         }
         
@@ -124,14 +115,6 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
             {
                 (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
             }
-        }
-        
-        if (rand.nextInt((int) (50f / strength)) == 0)
-        {
-            int j16 = chunkX + rand.nextInt(16) + 8;
-            int j18 = rand.nextInt(100);
-            int j21 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenPumpkin()).generate(world, rand, j16, j18, j21);
         }
         
         for (int f23 = 0; f23 < 8f * strength; f23++)

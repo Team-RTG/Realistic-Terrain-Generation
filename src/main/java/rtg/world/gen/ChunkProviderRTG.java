@@ -736,7 +736,9 @@ public class ChunkProviderRTG implements IChunkProvider
                     }
 
                     if(ConfigRTG.enableSnowLayers && this.worldObj.func_147478_e(k1 + worldX, i2, l1 + worldZ, true)) {
+                    	if (i2 > 160) {
                         this.worldObj.setBlock(k1 + worldX, i2, l1 + worldZ, Blocks.snow_layer, 0, 2);
+                       }
                     }
                 }
             }

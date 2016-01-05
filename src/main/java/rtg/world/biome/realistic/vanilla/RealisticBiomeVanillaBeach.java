@@ -51,8 +51,8 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
             
             if (rand.nextInt((int) (4f / strength)) == 0) {
                 
-                int j6 = chunkX + rand.nextInt(16) + 8;
-                int k10 = chunkY + rand.nextInt(16) + 8;
+                int j6 = chunkX + rand.nextInt(4) + 8;
+                int k10 = chunkY + rand.nextInt(4) + 8;
                 int z52 = world.getHeightValue(j6, k10);
                 
                 if (z52 < 80) {

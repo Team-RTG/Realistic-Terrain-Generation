@@ -655,7 +655,6 @@ public class ChunkProviderRTG implements IChunkProvider
         
         //Clay.
         biome.rDecorateClay(worldObj, rand, chunkX, chunkZ, river, worldX, worldZ);
-        biome.rGenerateOres(worldObj, rand, worldX, worldZ);
         
         //Border noise. (Does this have to be done here? - Pink)
         RealisticBiomeBase b;
@@ -691,6 +690,8 @@ public class ChunkProviderRTG implements IChunkProvider
          * # END DECORATE BIOME
          * ########################################################################
          */
+        
+        biome.rPopulatePostDecorate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag);
         
         //Flowing water.
         if (rand.nextInt(100) == 0) {
@@ -735,7 +736,9 @@ public class ChunkProviderRTG implements IChunkProvider
                     }
 
                     if(ConfigRTG.enableSnowLayers && this.worldObj.func_147478_e(k1 + worldX, i2, l1 + worldZ, true)) {
+                    	if (i2 > 160) {
                         this.worldObj.setBlock(k1 + worldX, i2, l1 + worldZ, Blocks.snow_layer, 0, 2);
+                       }
                     }
                 }
             }

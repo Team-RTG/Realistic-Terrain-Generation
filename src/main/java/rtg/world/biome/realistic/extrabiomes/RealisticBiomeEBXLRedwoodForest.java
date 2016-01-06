@@ -42,17 +42,23 @@ public class RealisticBiomeEBXLRedwoodForest extends RealisticBiomeEBXLBase
 	}
 	
     @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
-        float river)
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
     {
+        
+        /**
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
+         */
+        //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
 
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
         
         for (int b1 = 0; b1 < l * strength; b1++)
         {
-            if (rand.nextInt(3) != 0)
-            {
-                RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+            if (rand.nextInt(3) != 0) {
+                rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+            }
+            else {
+                rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
             }
         }
         

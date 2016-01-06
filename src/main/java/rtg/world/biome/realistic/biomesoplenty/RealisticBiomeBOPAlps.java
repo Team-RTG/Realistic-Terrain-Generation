@@ -1,17 +1,12 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
 import rtg.config.biomesoplenty.ConfigBOP;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPAlps;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPAlps;
 import biomesoplenty.api.content.BOPCBiomes;
 
 import net.minecraft.block.Block;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase
@@ -33,17 +28,6 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPAlps;
 		this.generateVillages = ConfigBOP.villageBOPAlps;
+		this.generatesEmeralds = true;
 	}
-	
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
-        float river)
-    {
-        
-        //RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-        
-        //Emeralds.
-        //rRemoveEmeralds(world, rand, chunkX, chunkY, true);
-        rGenerateEmeralds(world, rand, chunkX, chunkY, false);
-    }
 }

@@ -9,7 +9,6 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAlpineTundra;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBAlpineTundra;
-import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
@@ -83,22 +82,10 @@ public class RealisticBiomeEBAlpineTundra extends RealisticBiomeEBBase
 		this.biomeWeight = ConfigEB.weightEBAlpineTundra;
 		this.generateVillages = ConfigEB.villageEBAlpineTundra;
 		
-        emeraldEmeraldBlock = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.oreEmeraldEB : Blocks.emerald_ore;
-        emeraldEmeraldMeta = EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0);
-        emeraldStoneBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
-        emeraldStoneMeta = EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0);
-        
-    }
-	
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
-        float river)
-    {
-        
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-        
-        //Emeralds.
-        //rRemoveEmeralds(world, rand, chunkX, chunkY, false);
-        rGenerateEmeralds(world, rand, chunkX, chunkY, false);
+        this.generatesEmeralds = true;
+        this.emeraldEmeraldBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.oreEmeraldEB, Blocks.emerald_ore);
+        this.emeraldEmeraldMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
+        this.emeraldStoneBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+        this.emeraldStoneMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
     }
 }

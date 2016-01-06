@@ -46,9 +46,13 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
     }
     
     @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
-        float river)
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
     {
+        
+        /**
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
+         */
+        //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
     
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
         for (int b1 = 0; b1 < l * strength; b1++)
@@ -106,6 +110,6 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
             (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
         }
         
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
     }
 }

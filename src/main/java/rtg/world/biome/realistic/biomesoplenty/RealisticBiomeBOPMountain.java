@@ -53,18 +53,19 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
 		this.biomeSize = BiomeSize.NORMAL;
 		this.biomeWeight = ConfigBOP.weightBOPMountain;
 		this.generateVillages = ConfigBOP.villageBOPMountain;
+		this.generatesEmeralds = true;
 	}
 	
     @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength,
-        float river)
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
     {
         
-        RealisticBiomeBase.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        /**
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
+         */
+        //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         
-        //Emeralds.
-        rRemoveEmeralds(world, rand, chunkX, chunkY, false);
-        //rGenerateEmeralds(world, rand, chunkX, chunkY, false);
+        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         
         // boulders
         for (int l = 0; l < 3f * strength; ++l)

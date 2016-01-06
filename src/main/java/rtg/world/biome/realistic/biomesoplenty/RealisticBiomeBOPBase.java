@@ -91,7 +91,10 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 	//Ocean Biomes
 	public static RealisticBiomeBase bopCoralReef;
 	public static RealisticBiomeBase bopKelpForest;
-	
+
+    public static boolean            olderBoP = false;
+    // true if it's the older version without Dense Forest, etc.
+
 	public RealisticBiomeBOPBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
 		super(b, riverbiome, t, s);
@@ -127,9 +130,13 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			bopCrag = new RealisticBiomeBOPCrag();
 			bopDeadForest = new RealisticBiomeBOPDeadForest();
 			bopDeadSwamp = new RealisticBiomeBOPDeadSwamp();
-			bopDeciduousForest = new RealisticBiomeBOPDeciduousForest();
-			bopDenseForest = new RealisticBiomeBOPDenseForest();
-			bopEucalyptusForest = new RealisticBiomeBOPEucalyptusForest();
+			bopDeciduousForest = new RealisticBiomeBOPDeciduousForest();try {
+                bopDenseForest = new RealisticBiomeBOPDenseForest();
+                bopEucalyptusForest = new RealisticBiomeBOPEucalyptusForest();
+            } catch (NoSuchFieldError e) {
+                /// old BoP
+                olderBoP = true;
+            }
 			bopFen = new RealisticBiomeBOPFen();
 			bopFlowerField = new RealisticBiomeBOPFlowerField();
 			bopFrostForest = new RealisticBiomeBOPFrostForest();
@@ -140,7 +147,10 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			bopHeathland = new RealisticBiomeBOPHeathland();
 			bopHighland = new RealisticBiomeBOPHighland();
 			bopJadeCliffs = new RealisticBiomeBOPJadeCliffs();
-			bopLandOfLakes = new RealisticBiomeBOPLandOfLakes();
+            try {
+                bopLandOfLakes = new RealisticBiomeBOPLandOfLakes();
+            } catch (NoSuchFieldError e) {
+            }
 			bopLavenderFields = new RealisticBiomeBOPLavenderFields();
 			bopLushDesert = new RealisticBiomeBOPLushDesert();
 			bopLushSwamp = new RealisticBiomeBOPLushSwamp();
@@ -170,20 +180,28 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			bopWasteland = new RealisticBiomeBOPWasteland();
 			bopWetland = new RealisticBiomeBOPWetland();
 			bopWoodland = new RealisticBiomeBOPWoodland();
-			bopXericShrubland = new RealisticBiomeBOPXericShrubland();
+            try {
+                bopXericShrubland = new RealisticBiomeBOPXericShrubland();
+            } catch (NoSuchFieldError e) {
+                // oldBoP
+            }
 			
 			//Sub Biomes (treated as normal biomes in RTG)
 			bopAlpsForest = new RealisticBiomeBOPAlpsForest();
 			bopCanyonRavine = new RealisticBiomeBOPCanyonRavine();
 			bopGlacier = new RealisticBiomeBOPGlacier();
-			bopLandOfLakesMarsh = new RealisticBiomeBOPLandOfLakesMarsh();
+            try {
+                bopLandOfLakesMarsh = new RealisticBiomeBOPLandOfLakesMarsh();
+			    bopSeasonalForestClearing = new RealisticBiomeBOPSeasonalForestClearing();
+            } catch (NoSuchFieldError e) {
+                //old BoP
+            }
 			bopMangrove = new RealisticBiomeBOPMangrove();
 			bopMeadowForest = new RealisticBiomeBOPMeadowForest();
 			bopOasis = new RealisticBiomeBOPOasis();
 			bopOrchard = new RealisticBiomeBOPOrchard();
 			bopQuagmire = new RealisticBiomeBOPQuagmire();
 			bopScrubland = new RealisticBiomeBOPScrubland();
-			bopSeasonalForestClearing = new RealisticBiomeBOPSeasonalForestClearing();
 			bopSilkglades = new RealisticBiomeBOPSilkglades();
 			bopSpruceWoods = new RealisticBiomeBOPSpruceWoods();
 			bopTropics = new RealisticBiomeBOPTropics();
@@ -209,8 +227,6 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			if (ConfigBOP.generateBOPDeadForest) { BiomeBase.addBiome(bopDeadForest); }
 			if (ConfigBOP.generateBOPDeadSwamp) { BiomeBase.addBiome(bopDeadSwamp); }
 			if (ConfigBOP.generateBOPDeciduousForest) { BiomeBase.addBiome(bopDeciduousForest); }
-			if (ConfigBOP.generateBOPDenseForest) { BiomeBase.addBiome(bopDenseForest); }
-			if (ConfigBOP.generateBOPEucalyptusForest) { BiomeBase.addBiome(bopEucalyptusForest); }
 			if (ConfigBOP.generateBOPFen) { BiomeBase.addBiome(bopFen); }
 			if (ConfigBOP.generateBOPFlowerField) { BiomeBase.addBiome(bopFlowerField); }
 			if (ConfigBOP.generateBOPFrostForest) { BiomeBase.addBiome(bopFrostForest); }
@@ -221,8 +237,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			if (ConfigBOP.generateBOPHeathland) { BiomeBase.addBiome(bopHeathland); }
 			if (ConfigBOP.generateBOPHighland) { BiomeBase.addBiome(bopHighland); }
 			if (ConfigBOP.generateBOPJadeCliffs) { BiomeBase.addBiome(bopJadeCliffs); }
-			if (ConfigBOP.generateBOPLandOfLakes) { BiomeBase.addBiome(bopLandOfLakes); }
-			if (ConfigBOP.generateBOPLandOfLakesMarsh) { BiomeBase.addBiome(bopLavenderFields); }
+			if (ConfigBOP.generateBOPLavenderFields) { BiomeBase.addBiome(bopLavenderFields); }
 			if (ConfigBOP.generateBOPLushDesert) { BiomeBase.addBiome(bopLushDesert); }
 			if (ConfigBOP.generateBOPLushSwamp) { BiomeBase.addBiome(bopLushSwamp); }
 			if (ConfigBOP.generateBOPMapleWoods) { BiomeBase.addBiome(bopMapleWoods); }
@@ -251,20 +266,27 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			if (ConfigBOP.generateBOPWasteland) { BiomeBase.addBiome(bopWasteland); }
 			if (ConfigBOP.generateBOPWetland) { BiomeBase.addBiome(bopWetland); }
 			if (ConfigBOP.generateBOPWoodland) { BiomeBase.addBiome(bopWoodland); }
-			if (ConfigBOP.generateBOPXericShrubland) { BiomeBase.addBiome(bopXericShrubland); }
+
+            if (!olderBoP) {
+                if (ConfigBOP.generateBOPDenseForest) { BiomeBase.addBiome(bopDenseForest); }
+                if (ConfigBOP.generateBOPEucalyptusForest) { BiomeBase.addBiome(bopEucalyptusForest); }
+                if (ConfigBOP.generateBOPLandOfLakesMarsh) { BiomeBase.addBiome(bopLandOfLakesMarsh); }
+                if (ConfigBOP.generateBOPLandOfLakes) { BiomeBase.addBiome(bopLandOfLakes); }
+			    if (ConfigBOP.generateBOPSeasonalForestClearing) { BiomeBase.addBiome(bopSeasonalForestClearing); }
+                if (ConfigBOP.generateBOPXericShrubland) { BiomeBase.addBiome(bopXericShrubland); }
+            }
+
 			
 			//Sub Biomes
 			if (ConfigBOP.generateBOPAlpsForest) { BiomeBase.addBiome(bopAlpsForest); }
 			if (ConfigBOP.generateBOPCanyonRavine) { BiomeBase.addBiome(bopCanyonRavine); }
 			if (ConfigBOP.generateBOPGlacier) { BiomeBase.addBiome(bopGlacier); }
-			if (ConfigBOP.generateBOPLandOfLakesMarsh) { BiomeBase.addBiome(bopLandOfLakesMarsh); }
 			if (ConfigBOP.generateBOPMangrove) { BiomeBase.addBiome(bopMangrove); }
 			if (ConfigBOP.generateBOPMeadowForest) { BiomeBase.addBiome(bopMeadowForest); }
 			if (ConfigBOP.generateBOPOasis) { BiomeBase.addBiome(bopOasis); }
 			if (ConfigBOP.generateBOPOrchard) { BiomeBase.addBiome(bopOrchard); }
 			if (ConfigBOP.generateBOPQuagmire) { BiomeBase.addBiome(bopQuagmire); }
 			if (ConfigBOP.generateBOPScrubland) { BiomeBase.addBiome(bopScrubland); }
-			if (ConfigBOP.generateBOPSeasonalForestClearing) { BiomeBase.addBiome(bopSeasonalForestClearing); }
 			if (ConfigBOP.generateBOPSilkglades) { BiomeBase.addBiome(bopSilkglades); }
 			if (ConfigBOP.generateBOPSpruceWoods) { BiomeBase.addBiome(bopSpruceWoods); }
 			if (ConfigBOP.generateBOPTropics) { BiomeBase.addBiome(bopTropics); }
@@ -291,8 +313,6 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
             if (ConfigBOP.villageBOPDeadForest) { BiomeBase.addVillageBiome(bopDeadForest); }
             if (ConfigBOP.villageBOPDeadSwamp) { BiomeBase.addVillageBiome(bopDeadSwamp); }
             if (ConfigBOP.villageBOPDeciduousForest) { BiomeBase.addVillageBiome(bopDeciduousForest); }
-            if (ConfigBOP.villageBOPDenseForest) { BiomeBase.addVillageBiome(bopDenseForest); }
-            if (ConfigBOP.villageBOPEucalyptusForest) { BiomeBase.addVillageBiome(bopEucalyptusForest); }
             if (ConfigBOP.villageBOPFen) { BiomeBase.addVillageBiome(bopFen); }
             if (ConfigBOP.villageBOPFlowerField) { BiomeBase.addVillageBiome(bopFlowerField); }
             if (ConfigBOP.villageBOPFrostForest) { BiomeBase.addVillageBiome(bopFrostForest); }
@@ -303,8 +323,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
             if (ConfigBOP.villageBOPHeathland) { BiomeBase.addVillageBiome(bopHeathland); }
             if (ConfigBOP.villageBOPHighland) { BiomeBase.addVillageBiome(bopHighland); }
             if (ConfigBOP.villageBOPJadeCliffs) { BiomeBase.addVillageBiome(bopJadeCliffs); }
-            if (ConfigBOP.villageBOPLandOfLakes) { BiomeBase.addVillageBiome(bopLandOfLakes); }
-            if (ConfigBOP.villageBOPLandOfLakesMarsh) { BiomeBase.addVillageBiome(bopLavenderFields); }
+            if (ConfigBOP.villageBOPLavenderFields) { BiomeBase.addVillageBiome(bopLavenderFields); }
             if (ConfigBOP.villageBOPLushDesert) { BiomeBase.addVillageBiome(bopLushDesert); }
             if (ConfigBOP.villageBOPLushSwamp) { BiomeBase.addVillageBiome(bopLushSwamp); }
             if (ConfigBOP.villageBOPMapleWoods) { BiomeBase.addVillageBiome(bopMapleWoods); }
@@ -333,20 +352,26 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
             if (ConfigBOP.villageBOPWasteland) { BiomeBase.addVillageBiome(bopWasteland); }
             if (ConfigBOP.villageBOPWetland) { BiomeBase.addVillageBiome(bopWetland); }
             if (ConfigBOP.villageBOPWoodland) { BiomeBase.addVillageBiome(bopWoodland); }
-            if (ConfigBOP.villageBOPXericShrubland) { BiomeBase.addVillageBiome(bopXericShrubland); }
+            
+            if (!olderBoP){
+                if (ConfigBOP.villageBOPDenseForest) { BiomeBase.addVillageBiome(bopDenseForest); }
+                if (ConfigBOP.villageBOPEucalyptusForest) { BiomeBase.addVillageBiome(bopEucalyptusForest); }
+                if (ConfigBOP.villageBOPLandOfLakes) { BiomeBase.addVillageBiome(bopLandOfLakes); }
+                if (ConfigBOP.villageBOPXericShrubland) { BiomeBase.addVillageBiome(bopXericShrubland); }
+                if (ConfigBOP.villageBOPLandOfLakesMarsh) { BiomeBase.addVillageBiome(bopLandOfLakesMarsh); }
+                if (ConfigBOP.villageBOPSeasonalForestClearing) { BiomeBase.addVillageBiome(bopSeasonalForestClearing); }
+            }
             
             //Sub Biomes
             if (ConfigBOP.villageBOPAlpsForest) { BiomeBase.addVillageBiome(bopAlpsForest); }
             if (ConfigBOP.villageBOPCanyonRavine) { BiomeBase.addVillageBiome(bopCanyonRavine); }
             if (ConfigBOP.villageBOPGlacier) { BiomeBase.addVillageBiome(bopGlacier); }
-            if (ConfigBOP.villageBOPLandOfLakesMarsh) { BiomeBase.addVillageBiome(bopLandOfLakesMarsh); }
             if (ConfigBOP.villageBOPMangrove) { BiomeBase.addVillageBiome(bopMangrove); }
             if (ConfigBOP.villageBOPMeadowForest) { BiomeBase.addVillageBiome(bopMeadowForest); }
             if (ConfigBOP.villageBOPOasis) { BiomeBase.addVillageBiome(bopOasis); }
             if (ConfigBOP.villageBOPOrchard) { BiomeBase.addVillageBiome(bopOrchard); }
             if (ConfigBOP.villageBOPQuagmire) { BiomeBase.addVillageBiome(bopQuagmire); }
             if (ConfigBOP.villageBOPScrubland) { BiomeBase.addVillageBiome(bopScrubland); }
-            if (ConfigBOP.villageBOPSeasonalForestClearing) { BiomeBase.addVillageBiome(bopSeasonalForestClearing); }
             if (ConfigBOP.villageBOPSilkglades) { BiomeBase.addVillageBiome(bopSilkglades); }
             if (ConfigBOP.villageBOPSpruceWoods) { BiomeBase.addVillageBiome(bopSpruceWoods); }
             if (ConfigBOP.villageBOPTropics) { BiomeBase.addVillageBiome(bopTropics); }

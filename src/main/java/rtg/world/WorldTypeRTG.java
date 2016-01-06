@@ -24,7 +24,11 @@ public class WorldTypeRTG extends WorldType
 	@Override
     public WorldChunkManager getChunkManager(World world)
     {
+        if (world.provider.dimensionId == 0) {
         return new WorldChunkManagerRTG(world,this);
+        } else {
+            return new WorldChunkManager(world);
+        }
     }
 
     @Override

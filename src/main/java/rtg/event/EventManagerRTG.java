@@ -135,7 +135,7 @@ public class EventManagerRTG
     @SubscribeEvent
     public void onBiomeGenInit(WorldTypeEvent.InitBiomeGens event) {
         // only handle RTG world type
-        if (event.worldType.getWorldTypeName().equalsIgnoreCase("RTG")) return;
+        if (!event.worldType.getWorldTypeName().equalsIgnoreCase("RTG")) return;
         @SuppressWarnings("static-access")
         boolean replace = RTG.instance.configManager(0).rtg().useRTGBiomeGeneration;
         if (replace) {

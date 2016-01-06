@@ -152,6 +152,7 @@ public class EventManagerRTG
                 try {
                     event.newBiomeGens = new RiverRemover().riverLess(event.originalBiomeGens);
                 } catch (ClassCastException ex) {
+                    //throw ex;
                     // failed attempt because the GenLayers don't end with GenLayerRiverMix
                 }
             }

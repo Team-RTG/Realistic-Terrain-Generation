@@ -16,6 +16,7 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 {	
     public static RealisticBiomeBase tcMagicalForest;
     public static RealisticBiomeBase tcTaintedLand;
+    public static RealisticBiomeBase tcEerie;
     
 	public RealisticBiomeTCBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
@@ -64,6 +65,16 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 						    
 						    BiomeBase.addBiome(tcTaintedLand);
 						    BiomeBase.addVillageBiome(tcTaintedLand);
+						}
+					}
+                    else if (biomeName.equals("Eerie") && biomeClass.contains("thaumcraft.common.lib.world.biomes"))
+					{
+						if (ConfigTC.generateTCEerie) {
+
+						    tcEerie = new RealisticBiomeTCTaintedLand(tcBiome);
+
+						    BiomeBase.addBiome(tcEerie);
+						    BiomeBase.addVillageBiome(tcEerie);
 						}
 					}
 

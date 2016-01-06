@@ -1,21 +1,19 @@
 package rtg.world.biome.realistic.thaumcraft;
 
-import cpw.mods.fml.common.Loader;
-
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.thaumcraft.ConfigTC;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceGrassland;
 import rtg.world.gen.terrain.TerrainBase;
+import cpw.mods.fml.common.Loader;
+
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeTCBase extends RealisticBiomeBase
 {	
     public static RealisticBiomeBase tcMagicalForest;
     public static RealisticBiomeBase tcTaintedLand;
+    public static RealisticBiomeBase tcEerie;
     
 	public RealisticBiomeTCBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
@@ -64,6 +62,16 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 						    
 						    BiomeBase.addBiome(tcTaintedLand);
 						    BiomeBase.addVillageBiome(tcTaintedLand);
+						}
+					}
+                    else if (biomeName.equals("Eerie") && biomeClass.contains("thaumcraft.common.lib.world.biomes"))
+					{
+						if (ConfigTC.generateTCEerie) {
+
+						    tcEerie = new RealisticBiomeTCEerie(tcBiome);
+
+						    BiomeBase.addBiome(tcEerie);
+						    BiomeBase.addVillageBiome(tcEerie);
 						}
 					}
 

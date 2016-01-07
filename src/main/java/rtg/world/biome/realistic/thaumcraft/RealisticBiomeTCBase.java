@@ -68,7 +68,11 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 					{
 						if (ConfigTC.generateTCEerie) {
 
+<<<<<<< HEAD
 						    tcEerie = new RealisticBiomeTCEerie(tcBiome);
+=======
+						    tcEerie = new RealisticBiomeTCTaintedLand(tcBiome);
+>>>>>>> master
 
 						    BiomeBase.addBiome(tcEerie);
 						    BiomeBase.addVillageBiome(tcEerie);

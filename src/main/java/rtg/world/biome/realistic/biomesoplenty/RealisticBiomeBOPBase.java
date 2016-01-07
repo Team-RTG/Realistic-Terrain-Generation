@@ -28,6 +28,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 	public static RealisticBiomeBase bopDeadSwamp;
 	public static RealisticBiomeBase bopDeciduousForest;
 	public static RealisticBiomeBase bopDenseForest;
+	public static RealisticBiomeBase bopDryRiver;
 	public static RealisticBiomeBase bopEucalyptusForest;
 	public static RealisticBiomeBase bopFen;
 	public static RealisticBiomeBase bopFlowerField;
@@ -138,6 +139,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
                 /// old BoP
                 olderBoP = true;
             }
+			bopDryRiver = new RealisticBiomeBOPDryRiver();
 			bopFen = new RealisticBiomeBOPFen();
 			bopFlowerField = new RealisticBiomeBOPFlowerField();
 			bopFrostForest = new RealisticBiomeBOPFrostForest();
@@ -229,6 +231,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			if (ConfigBOP.generateBOPDeadForest) { BiomeBase.addBiome(bopDeadForest); }
 			if (ConfigBOP.generateBOPDeadSwamp) { BiomeBase.addBiome(bopDeadSwamp); }
 			if (ConfigBOP.generateBOPDeciduousForest) { BiomeBase.addBiome(bopDeciduousForest); }
+			if (ConfigBOP.generateBOPDryRiver) { BiomeBase.addBiome(bopDryRiver); }
 			if (ConfigBOP.generateBOPFen) { BiomeBase.addBiome(bopFen); }
 			if (ConfigBOP.generateBOPFlowerField) { BiomeBase.addBiome(bopFlowerField); }
 			if (ConfigBOP.generateBOPFrostForest) { BiomeBase.addBiome(bopFrostForest); }
@@ -316,6 +319,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
             if (ConfigBOP.villageBOPDeadForest) { BiomeBase.addVillageBiome(bopDeadForest); }
             if (ConfigBOP.villageBOPDeadSwamp) { BiomeBase.addVillageBiome(bopDeadSwamp); }
             if (ConfigBOP.villageBOPDeciduousForest) { BiomeBase.addVillageBiome(bopDeciduousForest); }
+            if (ConfigBOP.villageBOPDryRiver) { BiomeBase.addVillageBiome(bopDryRiver); }
             if (ConfigBOP.villageBOPFen) { BiomeBase.addVillageBiome(bopFen); }
             if (ConfigBOP.villageBOPFlowerField) { BiomeBase.addVillageBiome(bopFlowerField); }
             if (ConfigBOP.villageBOPFrostForest) { BiomeBase.addVillageBiome(bopFrostForest); }

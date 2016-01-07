@@ -25,6 +25,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 	public static RealisticBiomeBase vanillaExtremeHillsPlus = new RealisticBiomeVanillaExtremeHillsPlus();
 	public static RealisticBiomeBase vanillaForest = new RealisticBiomeVanillaForest();
 	public static RealisticBiomeBase vanillaForestHills = new RealisticBiomeVanillaForestHills();
+	public static RealisticBiomeBase vanillaFrozenOcean = new RealisticBiomeVanillaFrozenOcean();
 	public static RealisticBiomeBase vanillaFrozenRiver = new RealisticBiomeVanillaFrozenRiver();
 	public static RealisticBiomeBase vanillaIcePlains = new RealisticBiomeVanillaIcePlains();
 	public static RealisticBiomeBase vanillaIceMountains = new RealisticBiomeVanillaIceMountains();
@@ -95,6 +96,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 			if (ConfigVanilla.generateVanillaExtremeHillsPlus) { BiomeBase.addBiome(vanillaExtremeHillsPlus); }
 			if (ConfigVanilla.generateVanillaForest) { BiomeBase.addBiome(vanillaForest); }
 			if (ConfigVanilla.generateVanillaForestHills) { BiomeBase.addBiome(vanillaForestHills); }
+			if (ConfigVanilla.generateVanillaFrozenOcean) { BiomeBase.addBiome(vanillaFrozenOcean); }
 			if (ConfigVanilla.generateVanillaIcePlains) { BiomeBase.addBiome(vanillaIcePlains); }
 			if (ConfigVanilla.generateVanillaIceMountains) { BiomeBase.addBiome(vanillaIceMountains); }
 			if (ConfigVanilla.generateVanillaJungle) { BiomeBase.addBiome(vanillaJungle); }
@@ -159,6 +161,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
             if (ConfigVanilla.villageVanillaExtremeHillsPlus) { BiomeBase.addVillageBiome(vanillaExtremeHillsPlus); }
             if (ConfigVanilla.villageVanillaForest) { BiomeBase.addVillageBiome(vanillaForest); }
             if (ConfigVanilla.villageVanillaForestHills) { BiomeBase.addVillageBiome(vanillaForestHills); }
+            if (ConfigVanilla.villageVanillaFrozenOcean) { BiomeBase.addVillageBiome(vanillaFrozenOcean); }
             if (ConfigVanilla.villageVanillaIcePlains) { BiomeBase.addVillageBiome(vanillaIcePlains); }
             if (ConfigVanilla.villageVanillaIceMountains) { BiomeBase.addVillageBiome(vanillaIceMountains); }
             if (ConfigVanilla.villageVanillaJungle) { BiomeBase.addVillageBiome(vanillaJungle); }

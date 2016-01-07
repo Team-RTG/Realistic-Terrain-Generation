@@ -139,7 +139,13 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
                 /// old BoP
                 olderBoP = true;
             }
-			bopDryRiver = new RealisticBiomeBOPDryRiver();
+			
+			/**
+			 * Enabling either of these river biomes causes a crash on startup for some reason... disabling for now. - Pink
+			 */
+			//bopDryRiver = new RealisticBiomeBOPDryRiver();
+			//bopLushRiver = new RealisticBiomeBOPLushRiver();
+			
 			bopFen = new RealisticBiomeBOPFen();
 			bopFlowerField = new RealisticBiomeBOPFlowerField();
 			bopFrostForest = new RealisticBiomeBOPFrostForest();
@@ -156,7 +162,6 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
             }
 			bopLavenderFields = new RealisticBiomeBOPLavenderFields();
 			bopLushDesert = new RealisticBiomeBOPLushDesert();
-			bopLushRiver = new RealisticBiomeBOPLushRiver();
 			bopLushSwamp = new RealisticBiomeBOPLushSwamp();
 			bopMapleWoods = new RealisticBiomeBOPMapleWoods();
 			bopMarsh = new RealisticBiomeBOPMarsh();
@@ -231,7 +236,13 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			if (ConfigBOP.generateBOPDeadForest) { BiomeBase.addBiome(bopDeadForest); }
 			if (ConfigBOP.generateBOPDeadSwamp) { BiomeBase.addBiome(bopDeadSwamp); }
 			if (ConfigBOP.generateBOPDeciduousForest) { BiomeBase.addBiome(bopDeciduousForest); }
-			if (ConfigBOP.generateBOPDryRiver) { BiomeBase.addBiome(bopDryRiver); }
+			
+            /**
+             * Enabling either of these river biomes causes a crash on startup for some reason... disabling for now. - Pink
+             */
+			//if (ConfigBOP.generateBOPDryRiver) { BiomeBase.addBiome(bopDryRiver); }
+			//if (ConfigBOP.generateBOPLushRiver) { BiomeBase.addBiome(bopLushRiver); }
+			
 			if (ConfigBOP.generateBOPFen) { BiomeBase.addBiome(bopFen); }
 			if (ConfigBOP.generateBOPFlowerField) { BiomeBase.addBiome(bopFlowerField); }
 			if (ConfigBOP.generateBOPFrostForest) { BiomeBase.addBiome(bopFrostForest); }
@@ -244,7 +255,6 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			if (ConfigBOP.generateBOPJadeCliffs) { BiomeBase.addBiome(bopJadeCliffs); }
 			if (ConfigBOP.generateBOPLavenderFields) { BiomeBase.addBiome(bopLavenderFields); }
 			if (ConfigBOP.generateBOPLushDesert) { BiomeBase.addBiome(bopLushDesert); }
-			if (ConfigBOP.generateBOPLushRiver) { BiomeBase.addBiome(bopLushRiver); }
 			if (ConfigBOP.generateBOPLushSwamp) { BiomeBase.addBiome(bopLushSwamp); }
 			if (ConfigBOP.generateBOPMapleWoods) { BiomeBase.addBiome(bopMapleWoods); }
 			if (ConfigBOP.generateBOPMarsh) { BiomeBase.addBiome(bopMarsh); }

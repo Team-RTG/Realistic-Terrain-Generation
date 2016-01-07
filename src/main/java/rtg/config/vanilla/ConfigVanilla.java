@@ -34,6 +34,7 @@ public class ConfigVanilla
     public static boolean generateVanillaDesertHills = true;
     public static boolean generateVanillaDesertM = true;
     public static boolean generateVanillaExtremeHills = true;
+    public static boolean generateVanillaExtremeHillsEdge = true;
     public static boolean generateVanillaExtremeHillsM = true;
     public static boolean generateVanillaExtremeHillsPlus = true;
     public static boolean generateVanillaExtremeHillsPlusM = true;
@@ -93,6 +94,7 @@ public class ConfigVanilla
     public static int weightVanillaDesertHills = (int)Math.floor((double)(biomeWeightDefault * 0.8));
     public static int weightVanillaDesertM = (int)Math.floor((double)(biomeWeightDefault * 0.4));
     public static int weightVanillaExtremeHills = biomeWeightDefault;
+    public static int weightVanillaExtremeHillsEdge = 0;
     public static int weightVanillaExtremeHillsM = (int)Math.floor((double)(biomeWeightDefault * 0.4));
     public static int weightVanillaExtremeHillsPlus = (int)Math.floor((double)(biomeWeightDefault * 0.4));
     public static int weightVanillaExtremeHillsPlusM = (int)Math.floor((double)(biomeWeightDefault * 0.2));
@@ -152,6 +154,7 @@ public class ConfigVanilla
     public static boolean villageVanillaDesertHills = true;
     public static boolean villageVanillaDesertM = true;
     public static boolean villageVanillaExtremeHills = true;
+    public static boolean villageVanillaExtremeHillsEdge = true;
     public static boolean villageVanillaExtremeHillsM = true;
     public static boolean villageVanillaExtremeHillsPlus = true;
     public static boolean villageVanillaExtremeHillsPlusM = true;
@@ -221,6 +224,7 @@ public class ConfigVanilla
             generateVanillaDesertHills = config.getBoolean(formatConfig("generateVanillaDesertHills"), "Biomes", generateVanillaDesertHills, "");
             generateVanillaDesertM = config.getBoolean(formatConfig("generateVanillaDesertM"), "Biomes", generateVanillaDesertM, "");
             generateVanillaExtremeHills = config.getBoolean(formatConfig("generateVanillaExtremeHills"), "Biomes", generateVanillaExtremeHills, "");
+            generateVanillaExtremeHillsEdge = config.getBoolean(formatConfig("generateVanillaExtremeHillsEdge"), "Biomes", generateVanillaExtremeHillsEdge, "");
             generateVanillaExtremeHillsM = config.getBoolean(formatConfig("generateVanillaExtremeHillsM"), "Biomes", generateVanillaExtremeHillsM, "");
             generateVanillaExtremeHillsPlus = config.getBoolean(formatConfig("generateVanillaExtremeHillsPlus"), "Biomes", generateVanillaExtremeHillsPlus, "");
             generateVanillaExtremeHillsPlusM = config.getBoolean(formatConfig("generateVanillaExtremeHillsPlusM"), "Biomes", generateVanillaExtremeHillsPlusM, "");
@@ -280,6 +284,7 @@ public class ConfigVanilla
             weightVanillaDesertHills = config.getInt(formatConfig("weightVanillaDesertHills"), "Weights", weightVanillaDesertHills, biomeWeightMin, biomeWeightMax, "");
             weightVanillaDesertM = config.getInt(formatConfig("weightVanillaDesertM"), "Weights", weightVanillaDesertM, biomeWeightMin, biomeWeightMax, "");
             weightVanillaExtremeHills = config.getInt(formatConfig("weightVanillaExtremeHills"), "Weights", weightVanillaExtremeHills, biomeWeightMin, biomeWeightMax, "");
+            weightVanillaExtremeHillsEdge = config.getInt(formatConfig("weightVanillaExtremeHillsEdge"), "Weights", weightVanillaExtremeHillsEdge, biomeWeightMin, biomeWeightMax, "");
             weightVanillaExtremeHillsM = config.getInt(formatConfig("weightVanillaExtremeHillsM"), "Weights", weightVanillaExtremeHillsM, biomeWeightMin, biomeWeightMax, "");
             weightVanillaExtremeHillsPlus = config.getInt(formatConfig("weightVanillaExtremeHillsPlus"), "Weights", weightVanillaExtremeHillsPlus, biomeWeightMin, biomeWeightMax, "");
             weightVanillaExtremeHillsPlusM = config.getInt(formatConfig("weightVanillaExtremeHillsPlusM"), "Weights", weightVanillaExtremeHillsPlusM, biomeWeightMin, biomeWeightMax, "");
@@ -339,6 +344,7 @@ public class ConfigVanilla
             villageVanillaDesertHills = config.getBoolean(formatConfig("villageVanillaDesertHills"), "Villages", villageVanillaDesertHills, "");
             villageVanillaDesertM = config.getBoolean(formatConfig("villageVanillaDesertM"), "Villages", villageVanillaDesertM, "");
             villageVanillaExtremeHills = config.getBoolean(formatConfig("villageVanillaExtremeHills"), "Villages", villageVanillaExtremeHills, "");
+            villageVanillaExtremeHillsEdge = config.getBoolean(formatConfig("villageVanillaExtremeHillsEdge"), "Villages", villageVanillaExtremeHillsEdge, "");
             villageVanillaExtremeHillsM = config.getBoolean(formatConfig("villageVanillaExtremeHillsM"), "Villages", villageVanillaExtremeHillsM, "");
             villageVanillaExtremeHillsPlus = config.getBoolean(formatConfig("villageVanillaExtremeHillsPlus"), "Villages", villageVanillaExtremeHillsPlus, "");
             villageVanillaExtremeHillsPlusM = config.getBoolean(formatConfig("villageVanillaExtremeHillsPlusM"), "Villages", villageVanillaExtremeHillsPlusM, "");

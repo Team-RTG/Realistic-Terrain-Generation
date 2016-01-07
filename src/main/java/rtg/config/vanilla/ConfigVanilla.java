@@ -62,6 +62,7 @@ public class ConfigVanilla
     public static boolean generateVanillaMushroomIslandShore = false;
     public static boolean generateVanillaOcean = true;
     public static boolean generateVanillaPlains = true;
+    public static boolean generateVanillaRedwoodTaigaHills = true;
     public static boolean generateVanillaRiver = true;
     public static boolean generateVanillaRoofedForest = true;
     public static boolean generateVanillaRoofedForestM = true;
@@ -119,6 +120,7 @@ public class ConfigVanilla
     public static int weightVanillaMushroomIslandShore = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     public static int weightVanillaOcean = (int)Math.floor((double)(biomeWeightDefault * 2));
     public static int weightVanillaPlains = biomeWeightDefault;
+    public static int weightVanillaRedwoodTaigaHills = 0;
     public static int weightVanillaRiver = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     public static int weightVanillaRoofedForest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
     public static int weightVanillaRoofedForestM = (int)Math.floor((double)(biomeWeightDefault * 0.4));
@@ -176,6 +178,7 @@ public class ConfigVanilla
     public static boolean villageVanillaMushroomIslandShore = true;
     public static boolean villageVanillaOcean = false;
     public static boolean villageVanillaPlains = true;
+    public static boolean villageVanillaRedwoodTaigaHills = true;
     //public static boolean villageVanillaRiver = true;
     public static boolean villageVanillaRoofedForest = true;
     public static boolean villageVanillaRoofedForestM = true;
@@ -243,6 +246,7 @@ public class ConfigVanilla
             generateVanillaMushroomIslandShore = config.getBoolean(formatConfig("generateVanillaMushroomIslandShore"), "Biomes", generateVanillaMushroomIslandShore, "");
             generateVanillaOcean = config.getBoolean(formatConfig("generateVanillaOcean"), "Biomes", generateVanillaOcean, "");
             generateVanillaPlains = config.getBoolean(formatConfig("generateVanillaPlains"), "Biomes", generateVanillaPlains, "");
+            generateVanillaRedwoodTaigaHills = config.getBoolean(formatConfig("generateVanillaRedwoodTaigaHills"), "Biomes", generateVanillaRedwoodTaigaHills, "");
             generateVanillaRiver = config.getBoolean(formatConfig("generateVanillaRiver"), "Biomes", generateVanillaRiver, "This setting is ignored. Rivers will always generate, even if set to false." + Configuration.NEW_LINE);
             generateVanillaRoofedForest = config.getBoolean(formatConfig("generateVanillaRoofedForest"), "Biomes", generateVanillaRoofedForest, "");
             generateVanillaRoofedForestM = config.getBoolean(formatConfig("generateVanillaRoofedForestM"), "Biomes", generateVanillaRoofedForestM, "");
@@ -300,6 +304,7 @@ public class ConfigVanilla
             weightVanillaMushroomIslandShore = config.getInt(formatConfig("weightVanillaMushroomIslandShore"), "Weights", weightVanillaMushroomIslandShore, biomeWeightMin, biomeWeightMax, "");
             weightVanillaOcean = config.getInt(formatConfig("weightVanillaOcean"), "Weights", weightVanillaOcean, biomeWeightMin, biomeWeightMax, "");
             weightVanillaPlains = config.getInt(formatConfig("weightVanillaPlains"), "Weights", weightVanillaPlains, biomeWeightMin, biomeWeightMax, "");
+            weightVanillaRedwoodTaigaHills = config.getInt(formatConfig("weightVanillaRedwoodTaigaHills"), "Weights", weightVanillaRedwoodTaigaHills, biomeWeightMin, biomeWeightMax, "");
             weightVanillaRiver = config.getInt(formatConfig("weightVanillaRiver"), "Weights", weightVanillaRiver, biomeWeightMin, biomeWeightMax, "");
             weightVanillaRoofedForest = config.getInt(formatConfig("weightVanillaRoofedForest"), "Weights", weightVanillaRoofedForest, biomeWeightMin, biomeWeightMax, "");
             weightVanillaRoofedForestM = config.getInt(formatConfig("weightVanillaRoofedForestM"), "Weights", weightVanillaRoofedForestM, biomeWeightMin, biomeWeightMax, "");
@@ -358,6 +363,7 @@ public class ConfigVanilla
             villageVanillaOcean = config.getBoolean(formatConfig("villageVanillaOcean"), "Villages", villageVanillaOcean, "");
             villageVanillaPlains = config.getBoolean(formatConfig("villageVanillaPlains"), "Villages", villageVanillaPlains, "");
             //villageVanillaRiver = config.getBoolean(formatConfig("villageVanillaRiver"), "Villages", villageVanillaRiver, "This setting is ignored. Rivers will always generate, even if set to false.");
+            villageVanillaRedwoodTaigaHills = config.getBoolean(formatConfig("villageVanillaRedwoodTaigaHills"), "Villages", villageVanillaRedwoodTaigaHills, "");
             villageVanillaRoofedForest = config.getBoolean(formatConfig("villageVanillaRoofedForest"), "Villages", villageVanillaRoofedForest, "");
             villageVanillaRoofedForestM = config.getBoolean(formatConfig("villageVanillaRoofedForestM"), "Villages", villageVanillaRoofedForestM, "");
             villageVanillaSavanna = config.getBoolean(formatConfig("villageVanillaSavanna"), "Villages", villageVanillaSavanna, "");

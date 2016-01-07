@@ -26,7 +26,11 @@ public class ConfigTC
 	
 	public static int weightTCTaintedLand = (int)Math.floor((double)(biomeWeightDefault * 0.5));
 	public static int weightTCMagicalForest = (int)Math.floor((double)(biomeWeightDefault * 1.5));
+<<<<<<< HEAD
+	public static int weightTCEerie = 0;
+=======
     // not putting TC Eerie into the RTG layout for now
+>>>>>>> master
 	
     public static boolean villageTCTaintedLand = false;
     public static boolean villageTCMagicalForest = false;
@@ -44,14 +48,23 @@ public class ConfigTC
 			
 			generateTCTaintedLand = config.getBoolean(formatConfig("generateTCTaintedLand"), "Biomes", generateTCTaintedLand, "");
 			generateTCMagicalForest = config.getBoolean(formatConfig("generateTCMagicalForest"), "Biomes", generateTCMagicalForest, "");
+<<<<<<< HEAD
+			generateTCEerie = config.getBoolean(formatConfig("generateTCEerie"), "Biomes", generateTCEerie, "");
+=======
 			generateTCMagicalForest = config.getBoolean(formatConfig("generateTCEerie"), "Biomes", generateTCEerie, "");
+>>>>>>> master
 			
 			weightTCTaintedLand = config.getInt(formatConfig("weightTCTaintedLand"), "Weights", weightTCTaintedLand, biomeWeightMin, biomeWeightMax, "");
 			weightTCMagicalForest = config.getInt(formatConfig("weightTCMagicalForest"), "Weights", weightTCMagicalForest, biomeWeightMin, biomeWeightMax, "");
+			weightTCEerie = config.getInt(formatConfig("weightTCEerie"), "Weights", weightTCEerie, biomeWeightMin, biomeWeightMax, "");
 			
             villageTCTaintedLand = config.getBoolean(formatConfig("villageTCTaintedLand"), "Villages", villageTCTaintedLand, "");
             villageTCMagicalForest = config.getBoolean(formatConfig("villageTCMagicalForest"), "Villages", villageTCMagicalForest, "");
+<<<<<<< HEAD
+            villageTCEerie = config.getBoolean(formatConfig("villageTCEerie"), "Villages", villageTCEerie, "");
+=======
             villageTCEerie = config.getBoolean(formatConfig("villageTCMagicalForest"), "Villages", villageTCEerie, "");
+>>>>>>> master
 		}
 		catch (Exception e)
 		{

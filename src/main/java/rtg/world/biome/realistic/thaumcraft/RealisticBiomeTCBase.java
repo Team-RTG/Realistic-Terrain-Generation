@@ -1,16 +1,13 @@
 package rtg.world.biome.realistic.thaumcraft;
 
-import cpw.mods.fml.common.Loader;
-
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.config.thaumcraft.ConfigTC;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceGrassland;
 import rtg.world.gen.terrain.TerrainBase;
+import cpw.mods.fml.common.Loader;
+
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeTCBase extends RealisticBiomeBase
 {	
@@ -71,7 +68,11 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 					{
 						if (ConfigTC.generateTCEerie) {
 
+<<<<<<< HEAD
+						    tcEerie = new RealisticBiomeTCEerie(tcBiome);
+=======
 						    tcEerie = new RealisticBiomeTCTaintedLand(tcBiome);
+>>>>>>> master
 
 						    BiomeBase.addBiome(tcEerie);
 						    BiomeBase.addVillageBiome(tcEerie);

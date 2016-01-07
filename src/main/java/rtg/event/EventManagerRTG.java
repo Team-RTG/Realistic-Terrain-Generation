@@ -134,6 +134,8 @@ public class EventManagerRTG
 
     @SubscribeEvent
     public void onBiomeGenInit(WorldTypeEvent.InitBiomeGens event) {
+        // only handle RTG world type
+        if (!event.worldType.getWorldTypeName().equalsIgnoreCase("RTG")) return;
         @SuppressWarnings("static-access")
         boolean replace = RTG.instance.configManager(0).rtg().useRTGBiomeGeneration;
         if (replace) {
@@ -150,6 +152,7 @@ public class EventManagerRTG
                 try {
                     event.newBiomeGens = new RiverRemover().riverLess(event.originalBiomeGens);
                 } catch (ClassCastException ex) {
+                    //throw ex;
                     // failed attempt because the GenLayers don't end with GenLayerRiverMix
                 }
             }

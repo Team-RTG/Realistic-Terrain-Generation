@@ -22,12 +22,15 @@ public class ConfigTC
 			
 	public static boolean generateTCTaintedLand = true;
 	public static boolean generateTCMagicalForest = true;
+    public static boolean generateTCEerie = true;
 	
 	public static int weightTCTaintedLand = (int)Math.floor((double)(biomeWeightDefault * 0.5));
 	public static int weightTCMagicalForest = (int)Math.floor((double)(biomeWeightDefault * 1.5));
+	public static int weightTCEerie = 0;
 	
     public static boolean villageTCTaintedLand = false;
     public static boolean villageTCMagicalForest = false;
+    public static boolean villageTCEerie = false;
 		
 	public static void init(File configFile) 
 	{
@@ -41,12 +44,15 @@ public class ConfigTC
 			
 			generateTCTaintedLand = config.getBoolean(formatConfig("generateTCTaintedLand"), "Biomes", generateTCTaintedLand, "");
 			generateTCMagicalForest = config.getBoolean(formatConfig("generateTCMagicalForest"), "Biomes", generateTCMagicalForest, "");
+			generateTCEerie = config.getBoolean(formatConfig("generateTCEerie"), "Biomes", generateTCEerie, "");
 			
 			weightTCTaintedLand = config.getInt(formatConfig("weightTCTaintedLand"), "Weights", weightTCTaintedLand, biomeWeightMin, biomeWeightMax, "");
 			weightTCMagicalForest = config.getInt(formatConfig("weightTCMagicalForest"), "Weights", weightTCMagicalForest, biomeWeightMin, biomeWeightMax, "");
+			weightTCEerie = config.getInt(formatConfig("weightTCEerie"), "Weights", weightTCEerie, biomeWeightMin, biomeWeightMax, "");
 			
             villageTCTaintedLand = config.getBoolean(formatConfig("villageTCTaintedLand"), "Villages", villageTCTaintedLand, "");
             villageTCMagicalForest = config.getBoolean(formatConfig("villageTCMagicalForest"), "Villages", villageTCMagicalForest, "");
+            villageTCEerie = config.getBoolean(formatConfig("villageTCEerie"), "Villages", villageTCEerie, "");
 		}
 		catch (Exception e)
 		{

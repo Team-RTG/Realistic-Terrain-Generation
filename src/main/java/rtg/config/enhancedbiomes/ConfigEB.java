@@ -80,6 +80,7 @@ public class ConfigEB
 	public static boolean generateEBRainforest = true;
 	public static boolean generateEBRainforestValley = true;
 	public static boolean generateEBRedDesert = true;
+	public static boolean generateEBRiparianZone = true;
 	public static boolean generateEBRockyDesert =true;
 	public static boolean generateEBRockyHills =true;
 	public static boolean generateEBRoofedShrublands = true;
@@ -170,6 +171,7 @@ public class ConfigEB
 	public static int weightEBRainforest = biomeWeightDefault;
 	public static int weightEBRainforestValley = biomeWeightDefault;
 	public static int weightEBRedDesert = biomeWeightDefault;
+	public static int weightEBRiparianZone = 0;
 	public static int weightEBRockyDesert = biomeWeightDefault;
 	public static int weightEBRockyHills = biomeWeightDefault;
 	public static int weightEBRoofedShrublands = biomeWeightDefault;
@@ -260,6 +262,7 @@ public class ConfigEB
     public static boolean villageEBRainforest = true;
     public static boolean villageEBRainforestValley = true;
     public static boolean villageEBRedDesert = true;
+    public static boolean villageEBRiparianZone = true;
     public static boolean villageEBRockyDesert =true;
     public static boolean villageEBRockyHills =true;
     public static boolean villageEBRoofedShrublands = true;
@@ -360,6 +363,7 @@ public class ConfigEB
 			generateEBRainforest = config.getBoolean(formatConfig("generateEBRainforest"), "Biomes", generateEBRainforest, "");
 			generateEBRainforestValley = config.getBoolean(formatConfig("generateEBRainforestValley"), "Biomes", generateEBRainforestValley, "");
 			generateEBRedDesert = config.getBoolean(formatConfig("generateEBRedDesert"), "Biomes", generateEBRedDesert, "");
+			generateEBRiparianZone = config.getBoolean(formatConfig("generateEBRiparianZone"), "Biomes", generateEBRiparianZone, "");
 			generateEBRockyDesert = config.getBoolean(formatConfig("generateEBRockyDesert"), "Biomes", generateEBRockyDesert, "");
 			generateEBRockyHills = config.getBoolean(formatConfig("generateEBRockyHills"), "Biomes", generateEBRockyHills, "");
 			generateEBRoofedShrublands = config.getBoolean(formatConfig("generateEBRoofedShrublands"), "Biomes", generateEBRoofedShrublands, "");
@@ -450,6 +454,7 @@ public class ConfigEB
 			weightEBRainforest = config.getInt(formatConfig("weightEBRainforest"), "Weights", weightEBRainforest, biomeWeightMin, biomeWeightMax, "");
 			weightEBRainforestValley = config.getInt(formatConfig("weightEBRainforestValley"), "Weights", weightEBRainforestValley, biomeWeightMin, biomeWeightMax, "");
 			weightEBRedDesert = config.getInt(formatConfig("weightEBRedDesert"), "Weights", weightEBRedDesert, biomeWeightMin, biomeWeightMax, "");
+			weightEBRiparianZone = config.getInt(formatConfig("weightEBRiparianZone"), "Weights", weightEBRiparianZone, biomeWeightMin, biomeWeightMax, "");
 			weightEBRockyDesert = config.getInt(formatConfig("weightEBRockyDesert"), "Weights", weightEBRockyDesert, biomeWeightMin, biomeWeightMax, "");
 			weightEBRockyHills = config.getInt(formatConfig("weightEBRockyHills"), "Weights", weightEBRockyHills, biomeWeightMin, biomeWeightMax, "");
 			weightEBRoofedShrublands = config.getInt(formatConfig("weightEBRoofedShrublands"), "Weights", weightEBRoofedShrublands, biomeWeightMin, biomeWeightMax, "");
@@ -540,6 +545,7 @@ public class ConfigEB
             villageEBRainforest = config.getBoolean(formatConfig("villageEBRainforest"), "Villages", villageEBRainforest, "");
             villageEBRainforestValley = config.getBoolean(formatConfig("villageEBRainforestValley"), "Villages", villageEBRainforestValley, "");
             villageEBRedDesert = config.getBoolean(formatConfig("villageEBRedDesert"), "Villages", villageEBRedDesert, "");
+            villageEBRiparianZone = config.getBoolean(formatConfig("villageEBRiparianZone"), "Villages", villageEBRiparianZone, "");
             villageEBRockyDesert = config.getBoolean(formatConfig("villageEBRockyDesert"), "Villages", villageEBRockyDesert, "");
             villageEBRockyHills = config.getBoolean(formatConfig("villageEBRockyHills"), "Villages", villageEBRockyHills, "");
             villageEBRoofedShrublands = config.getBoolean(formatConfig("villageEBRoofedShrublands"), "Villages", villageEBRoofedShrublands, "");

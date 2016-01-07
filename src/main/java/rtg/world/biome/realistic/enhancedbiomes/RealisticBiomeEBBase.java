@@ -70,7 +70,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
     public static RealisticBiomeBase ebRainforest;
     public static RealisticBiomeBase ebRainforestValley;
     public static RealisticBiomeBase ebRedDesert;
-    //public static RealisticBiomeBase ebRiparianZone;
+    public static RealisticBiomeBase ebRiparianZone;
     public static RealisticBiomeBase ebRockyDesert;
     public static RealisticBiomeBase ebRockyHills;
     public static RealisticBiomeBase ebRoofedShrublands;
@@ -573,14 +573,22 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 							BiomeBase.addVillageBiome(ebRainforestValley);
 						}
 					}
-					else if (biomeName == "Red Desert" && biomeClass == "enhancedbiomes.world.biome.sand.BiomeGenRedDesert")
-					{
-						if (ConfigEB.generateEBRedDesert) {
-						    ebRedDesert = new RealisticBiomeEBRedDesert(ebBiome);
-							BiomeBase.addBiome(ebRedDesert);
-							BiomeBase.addVillageBiome(ebRedDesert);
-						}
-					}
+                    else if (biomeName == "Red Desert" && biomeClass == "enhancedbiomes.world.biome.sand.BiomeGenRedDesert")
+                    {
+                        if (ConfigEB.generateEBRedDesert) {
+                            ebRedDesert = new RealisticBiomeEBRedDesert(ebBiome);
+                            BiomeBase.addBiome(ebRedDesert);
+                            BiomeBase.addVillageBiome(ebRedDesert);
+                        }
+                    }
+                    else if (biomeName == "Riparian Zone" && biomeClass == "enhancedbiomes.world.biome.base.BiomeGenRiparianZone")
+                    {
+                        if (ConfigEB.generateEBRiparianZone) {
+                            ebRiparianZone = new RealisticBiomeEBRiparianZone(ebBiome);
+                            BiomeBase.addBiome(ebRiparianZone);
+                            BiomeBase.addVillageBiome(ebRiparianZone);
+                        }
+                    }
 					else if (biomeName == "Rocky Desert" && biomeClass == "enhancedbiomes.world.biome.sand.BiomeGenRockyDesert")
 					{
 						if (ConfigEB.generateEBRockyDesert) {

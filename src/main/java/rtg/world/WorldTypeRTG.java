@@ -8,6 +8,7 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.chunk.IChunkProvider;
 
+import net.minecraft.world.gen.ChunkProviderGenerate;
 import net.minecraftforge.common.DimensionManager;
 
 public class WorldTypeRTG extends WorldType
@@ -24,13 +25,21 @@ public class WorldTypeRTG extends WorldType
 	@Override
     public WorldChunkManager getChunkManager(World world)
     {
+        if (world.provider.dimensionId == 0) {
         return new WorldChunkManagerRTG(world,this);
+        } else {
+            return new WorldChunkManager(world);
+        }
     }
 
     @Override
     public IChunkProvider getChunkGenerator(World world, String generatorOptions)
     {
-        return new ChunkProviderRTG(world, world.getSeed());
+        if (world.provider.dimensionId == 0) {
+            return new ChunkProviderRTG(world, world.getSeed());
+        } else {
+            return new ChunkProviderGenerate(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled());
+        }
     }
 	
     @Override

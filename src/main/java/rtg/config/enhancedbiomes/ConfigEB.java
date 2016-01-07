@@ -104,8 +104,8 @@ public class ConfigEB
 	public static boolean generateEBStoneCanyons =true;
 	public static boolean generateEBTropicalArchipelago = true;
 	public static boolean generateEBTundra = true;
-	public static boolean generateEBVolcano = false;
-	public static boolean generateEBVolcanoM = false;
+	public static boolean generateEBVolcano = true;
+	public static boolean generateEBVolcanoM = true;
 	public static boolean generateEBWastelands = true;
 	public static boolean generateEBWoodlandField = true;
 	public static boolean generateEBWoodlandHills = true;

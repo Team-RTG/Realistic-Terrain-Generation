@@ -100,7 +100,7 @@ public class ConfigBOP
 	public static boolean generateBOPSilkglades = true;
 	public static boolean generateBOPSpruceWoods = true;
 	public static boolean generateBOPTropics = true;
-	public static boolean generateBOPVolcano = false;
+	public static boolean generateBOPVolcano = true;
 	
 	//Water biomes
 	public static boolean generateBOPCoralReef = true;

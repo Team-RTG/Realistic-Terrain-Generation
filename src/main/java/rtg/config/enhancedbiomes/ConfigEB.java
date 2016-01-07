@@ -45,6 +45,7 @@ public class ConfigEB
 	public static boolean generateEBColdCypressForest = true;
 	public static boolean generateEBColdFirForest = true;
 	public static boolean generateEBColdPineForest = true;
+	public static boolean generateEBCreekBed = true;
 	public static boolean generateEBCypressForest = true;
 	public static boolean generateEBDesertArchipelago = true;
 	public static boolean generateEBEphemeralLake =true;
@@ -134,6 +135,7 @@ public class ConfigEB
 	public static int weightEBColdCypressForest = biomeWeightDefault;
 	public static int weightEBColdFirForest = biomeWeightDefault;
 	public static int weightEBColdPineForest = biomeWeightDefault;
+	public static int weightEBCreekBed = 0;
 	public static int weightEBCypressForest = biomeWeightDefault;
 	public static int weightEBDesertArchipelago = biomeWeightDefault;
 	public static int weightEBEphemeralLake = biomeWeightDefault;
@@ -223,6 +225,7 @@ public class ConfigEB
     public static boolean villageEBColdCypressForest = true;
     public static boolean villageEBColdFirForest = true;
     public static boolean villageEBColdPineForest = true;
+    public static boolean villageEBCreekBed = true;
     public static boolean villageEBCypressForest = true;
     public static boolean villageEBDesertArchipelago = true;
     public static boolean villageEBEphemeralLake =true;
@@ -322,6 +325,7 @@ public class ConfigEB
 			generateEBColdCypressForest = config.getBoolean(formatConfig("generateEBColdCypressForest"), "Biomes", generateEBColdCypressForest, "");
 			generateEBColdFirForest = config.getBoolean(formatConfig("generateEBColdFirForest"), "Biomes", generateEBColdFirForest, "");
 			generateEBColdPineForest = config.getBoolean(formatConfig("generateEBColdPineForest"), "Biomes", generateEBColdPineForest, "");
+			generateEBCreekBed = config.getBoolean(formatConfig("generateEBCreekBed"), "Biomes", generateEBCreekBed, "");
 			generateEBCypressForest = config.getBoolean(formatConfig("generateEBCypressForest"), "Biomes", generateEBCypressForest, "");
 			generateEBDesertArchipelago = config.getBoolean(formatConfig("generateEBDesertArchipelago"), "Biomes", generateEBDesertArchipelago, "");
 			generateEBEphemeralLake = config.getBoolean(formatConfig("generateEBEphemeralLake"), "Biomes", generateEBEphemeralLake, "");
@@ -411,6 +415,7 @@ public class ConfigEB
 			weightEBColdCypressForest = config.getInt(formatConfig("weightEBColdCypressForest"), "Weights", weightEBColdCypressForest, biomeWeightMin, biomeWeightMax, "");
 			weightEBColdFirForest = config.getInt(formatConfig("weightEBColdFirForest"), "Weights", weightEBColdFirForest, biomeWeightMin, biomeWeightMax, "");
 			weightEBColdPineForest = config.getInt(formatConfig("weightEBColdPineForest"), "Weights", weightEBColdPineForest, biomeWeightMin, biomeWeightMax, "");
+			weightEBCreekBed = config.getInt(formatConfig("weightEBCreekBed"), "Weights", weightEBCreekBed, biomeWeightMin, biomeWeightMax, "");
 			weightEBCypressForest = config.getInt(formatConfig("weightEBCypressForest"), "Weights", weightEBCypressForest, biomeWeightMin, biomeWeightMax, "");
 			weightEBDesertArchipelago = config.getInt(formatConfig("weightEBDesertArchipelago"), "Weights", weightEBDesertArchipelago, biomeWeightMin, biomeWeightMax, "");
 			weightEBEphemeralLake = config.getInt(formatConfig("weightEBEphemeralLake"), "Weights", weightEBEphemeralLake, biomeWeightMin, biomeWeightMax, "");
@@ -500,6 +505,7 @@ public class ConfigEB
             villageEBColdCypressForest = config.getBoolean(formatConfig("villageEBColdCypressForest"), "Villages", villageEBColdCypressForest, "");
             villageEBColdFirForest = config.getBoolean(formatConfig("villageEBColdFirForest"), "Villages", villageEBColdFirForest, "");
             villageEBColdPineForest = config.getBoolean(formatConfig("villageEBColdPineForest"), "Villages", villageEBColdPineForest, "");
+            villageEBCreekBed = config.getBoolean(formatConfig("villageEBCreekBed"), "Villages", villageEBCreekBed, "");
             villageEBCypressForest = config.getBoolean(formatConfig("villageEBCypressForest"), "Villages", villageEBCypressForest, "");
             villageEBDesertArchipelago = config.getBoolean(formatConfig("villageEBDesertArchipelago"), "Villages", villageEBDesertArchipelago, "");
             villageEBEphemeralLake = config.getBoolean(formatConfig("villageEBEphemeralLake"), "Villages", villageEBEphemeralLake, "");

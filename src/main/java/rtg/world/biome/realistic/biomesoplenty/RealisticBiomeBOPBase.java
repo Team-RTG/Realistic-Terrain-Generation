@@ -42,6 +42,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 	public static RealisticBiomeBase bopLandOfLakes;
 	public static RealisticBiomeBase bopLavenderFields;
 	public static RealisticBiomeBase bopLushDesert;
+	public static RealisticBiomeBase bopLushRiver;
 	public static RealisticBiomeBase bopLushSwamp;
 	public static RealisticBiomeBase bopMapleWoods;
 	public static RealisticBiomeBase bopMarsh;
@@ -153,6 +154,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
             }
 			bopLavenderFields = new RealisticBiomeBOPLavenderFields();
 			bopLushDesert = new RealisticBiomeBOPLushDesert();
+			bopLushRiver = new RealisticBiomeBOPLushRiver();
 			bopLushSwamp = new RealisticBiomeBOPLushSwamp();
 			bopMapleWoods = new RealisticBiomeBOPMapleWoods();
 			bopMarsh = new RealisticBiomeBOPMarsh();
@@ -239,6 +241,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			if (ConfigBOP.generateBOPJadeCliffs) { BiomeBase.addBiome(bopJadeCliffs); }
 			if (ConfigBOP.generateBOPLavenderFields) { BiomeBase.addBiome(bopLavenderFields); }
 			if (ConfigBOP.generateBOPLushDesert) { BiomeBase.addBiome(bopLushDesert); }
+			if (ConfigBOP.generateBOPLushRiver) { BiomeBase.addBiome(bopLushRiver); }
 			if (ConfigBOP.generateBOPLushSwamp) { BiomeBase.addBiome(bopLushSwamp); }
 			if (ConfigBOP.generateBOPMapleWoods) { BiomeBase.addBiome(bopMapleWoods); }
 			if (ConfigBOP.generateBOPMarsh) { BiomeBase.addBiome(bopMarsh); }
@@ -325,6 +328,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
             if (ConfigBOP.villageBOPJadeCliffs) { BiomeBase.addVillageBiome(bopJadeCliffs); }
             if (ConfigBOP.villageBOPLavenderFields) { BiomeBase.addVillageBiome(bopLavenderFields); }
             if (ConfigBOP.villageBOPLushDesert) { BiomeBase.addVillageBiome(bopLushDesert); }
+            if (ConfigBOP.villageBOPLushRiver) { BiomeBase.addVillageBiome(bopLushRiver); }
             if (ConfigBOP.villageBOPLushSwamp) { BiomeBase.addVillageBiome(bopLushSwamp); }
             if (ConfigBOP.villageBOPMapleWoods) { BiomeBase.addVillageBiome(bopMapleWoods); }
             if (ConfigBOP.villageBOPMarsh) { BiomeBase.addVillageBiome(bopMarsh); }

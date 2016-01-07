@@ -55,6 +55,7 @@ public class ConfigBOP
 	public static boolean generateBOPLandOfLakes = true;
 	public static boolean generateBOPLavenderFields = true;
 	public static boolean generateBOPLushDesert = true;
+	public static boolean generateBOPLushRiver = true;
 	public static boolean generateBOPLushSwamp = true;
 	public static boolean generateBOPMapleWoods = true;
 	public static boolean generateBOPMarsh = true;
@@ -135,6 +136,7 @@ public class ConfigBOP
 	public static int weightBOPLandOfLakes = (int)Math.floor((double)(biomeWeightDefault * 0.8));
 	public static int weightBOPLavenderFields = (int)Math.floor((double)(biomeWeightDefault * 0.8));
 	public static int weightBOPLushDesert = (int)Math.floor((double)(biomeWeightDefault * 0.8));
+	public static int weightBOPLushRiver = 0;
 	public static int weightBOPLushSwamp = (int)Math.floor((double)(biomeWeightDefault * 0.8));
 	public static int weightBOPMapleWoods = (int)Math.floor((double)(biomeWeightDefault * 0.8));
 	public static int weightBOPMarsh = (int)Math.floor((double)(biomeWeightDefault * 0.8));
@@ -215,6 +217,7 @@ public class ConfigBOP
     public static boolean villageBOPLandOfLakes = true;
     public static boolean villageBOPLavenderFields = true;
     public static boolean villageBOPLushDesert = true;
+    public static boolean villageBOPLushRiver = true;
     public static boolean villageBOPLushSwamp = true;
     public static boolean villageBOPMapleWoods = true;
     public static boolean villageBOPMarsh = true;
@@ -307,6 +310,7 @@ public class ConfigBOP
 			generateBOPLandOfLakes = config.getBoolean(formatConfig("generateBOPLandOfLakes"), "Biomes", generateBOPLandOfLakes, "");
 			generateBOPLavenderFields = config.getBoolean(formatConfig("generateBOPLavenderFields"), "Biomes", generateBOPLavenderFields, "");
 			generateBOPLushDesert = config.getBoolean(formatConfig("generateBOPLushDesert"), "Biomes", generateBOPLushDesert, "");
+			generateBOPLushRiver = config.getBoolean(formatConfig("generateBOPLushRiver"), "Biomes", generateBOPLushRiver, "");
 			generateBOPLushSwamp = config.getBoolean(formatConfig("generateBOPLushSwamp"), "Biomes", generateBOPLushSwamp, "");
 			generateBOPMapleWoods = config.getBoolean(formatConfig("generateBOPMapleWoods"), "Biomes", generateBOPMapleWoods, "");
 			generateBOPMarsh = config.getBoolean(formatConfig("generateBOPMarsh"), "Biomes", generateBOPMarsh, "");
@@ -388,6 +392,7 @@ public class ConfigBOP
 			weightBOPLandOfLakes = config.getInt(formatConfig("weightBOPLandOfLakes"), "Weights", weightBOPLandOfLakes, biomeWeightMin, biomeWeightMax, "");
 			weightBOPLavenderFields = config.getInt(formatConfig("weightBOPLavenderFields"), "Weights", weightBOPLavenderFields, biomeWeightMin, biomeWeightMax, "");
 			weightBOPLushDesert = config.getInt(formatConfig("weightBOPLushDesert"), "Weights", weightBOPLushDesert, biomeWeightMin, biomeWeightMax, "");
+			weightBOPLushRiver = config.getInt(formatConfig("weightBOPLushRiver"), "Weights", weightBOPLushRiver, biomeWeightMin, biomeWeightMax, "");
 			weightBOPLushSwamp = config.getInt(formatConfig("weightBOPLushSwamp"), "Weights", weightBOPLushSwamp, biomeWeightMin, biomeWeightMax, "");
 			weightBOPMapleWoods = config.getInt(formatConfig("weightBOPMapleWoods"), "Weights", weightBOPMapleWoods, biomeWeightMin, biomeWeightMax, "");
 			weightBOPMarsh = config.getInt(formatConfig("weightBOPMarsh"), "Weights", weightBOPMarsh, biomeWeightMin, biomeWeightMax, "");
@@ -470,6 +475,7 @@ public class ConfigBOP
             villageBOPLandOfLakes = config.getBoolean(formatConfig("villageBOPLandOfLakes"), "Villages", villageBOPLandOfLakes, "");
             villageBOPLavenderFields = config.getBoolean(formatConfig("villageBOPLavenderFields"), "Villages", villageBOPLavenderFields, "");
             villageBOPLushDesert = config.getBoolean(formatConfig("villageBOPLushDesert"), "Villages", villageBOPLushDesert, "");
+            villageBOPLushRiver = config.getBoolean(formatConfig("villageBOPLushRiver"), "Villages", villageBOPLushRiver, "");
             villageBOPLushSwamp = config.getBoolean(formatConfig("villageBOPLushSwamp"), "Villages", villageBOPLushSwamp, "");
             villageBOPMapleWoods = config.getBoolean(formatConfig("villageBOPMapleWoods"), "Villages", villageBOPMapleWoods, "");
             villageBOPMarsh = config.getBoolean(formatConfig("villageBOPMarsh"), "Villages", villageBOPMarsh, "");

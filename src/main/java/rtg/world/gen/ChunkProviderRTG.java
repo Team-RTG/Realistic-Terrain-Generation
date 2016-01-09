@@ -178,12 +178,16 @@ public class ChunkProviderRTG implements IChunkProvider
                 //fill with biomeData
         int [] biomeIndices= cmr.getBiomesGens(cx *16, cy*16,16,16);
 
-        for (int i = 0; i < 256; i++) {
-            if (biomesForGeneration[i] == null) throw new RuntimeException();
-            //biomesForGeneration[i] =  RealisticBiomeBase.getBiome(biomeIndices[i]);
-        }
 
-        analyzer.repair(biomeIndices, biomesForGeneration, noise,-cmr.getRiverStrength(cx * 16 + 7, cy * 16 + 7));
+
+
+        if (!doJitter){
+            analyzer.repair(biomeIndices, biomesForGeneration, noise,-cmr.getRiverStrength(cx * 16 + 7, cy * 16 + 7));
+        } else {
+            for (int i = 0; i < 256; i++) {
+                biomesForGeneration[i] =  RealisticBiomeBase.getBiome(biomeIndices[i]);
+            }
+        }
 
         for(k = 0; k < 256; k++)
         {
@@ -417,10 +421,6 @@ public class ChunkProviderRTG implements IChunkProvider
                     biomes[i*16+j] =  cmr.getBiomeDataAt(x + (((i-8) * 8)), y + (((j-8) * 8)));
                 }
             }
-        }
-
-        for (i = 0; i <256; i++) {
-            if (biomes[i]== null) throw new RuntimeException();
         }
 
     	float river;

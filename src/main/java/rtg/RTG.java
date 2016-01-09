@@ -1,10 +1,13 @@
 package rtg;
 
+import java.util.ArrayList;
+
 import rtg.config.ConfigManager;
 import rtg.debug.DebugHandler;
 import rtg.event.EventManagerRTG;
 import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
+import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.arsmagica.RealisticBiomeAMBase;
@@ -31,7 +34,6 @@ import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.relauncher.Side;
 
-import java.util.ArrayList;
 import net.minecraftforge.common.MinecraftForge;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, acceptableRemoteVersions = "*")
@@ -92,6 +94,8 @@ public class RTG {
         RealisticBiomeAMBase.addBiomes();
         RealisticBiomeATGBase.addBiomes();
         RealisticBiomeCCBase.addBiomes();
+        
+        RealisticBiomePresenceTester.doBiomeCheck();
     }
     
     @EventHandler

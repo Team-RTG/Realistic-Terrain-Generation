@@ -35,7 +35,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
     public static RealisticBiomeBase ebColdCypressForest;
     public static RealisticBiomeBase ebColdFirForest;
     public static RealisticBiomeBase ebColdPineForest;
-    //public static RealisticBiomeBase ebCreekBed;
+    public static RealisticBiomeBase ebCreekBed;
     public static RealisticBiomeBase ebCypressForest;
     public static RealisticBiomeBase ebDesertArchipelago;
     public static RealisticBiomeBase ebEphemeralLake;
@@ -70,7 +70,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
     public static RealisticBiomeBase ebRainforest;
     public static RealisticBiomeBase ebRainforestValley;
     public static RealisticBiomeBase ebRedDesert;
-    //public static RealisticBiomeBase ebRiparianZone;
+    public static RealisticBiomeBase ebRiparianZone;
     public static RealisticBiomeBase ebRockyDesert;
     public static RealisticBiomeBase ebRockyHills;
     public static RealisticBiomeBase ebRoofedShrublands;
@@ -292,14 +292,22 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 							BiomeBase.addVillageBiome(ebColdFirForest);
 						}
 					}
-					else if (biomeName == "Cold Pine Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenPineForest")
-					{
-						if (ConfigEB.generateEBColdPineForest) {
-						    ebColdPineForest = new RealisticBiomeEBColdPineForest(ebBiome);
-							BiomeBase.addBiome(ebColdPineForest);
-							BiomeBase.addVillageBiome(ebColdPineForest);
-						}
-					}
+                    else if (biomeName == "Cold Pine Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenPineForest")
+                    {
+                        if (ConfigEB.generateEBColdPineForest) {
+                            ebColdPineForest = new RealisticBiomeEBColdPineForest(ebBiome);
+                            BiomeBase.addBiome(ebColdPineForest);
+                            BiomeBase.addVillageBiome(ebColdPineForest);
+                        }
+                    }
+                    else if (biomeName == "Creek Bed" && biomeClass == "enhancedbiomes.world.biome.wasteland.sandstone.BiomeGenCreekBed")
+                    {
+                        if (ConfigEB.generateEBCreekBed) {
+                            ebCreekBed = new RealisticBiomeEBCreekBed(ebBiome);
+                            BiomeBase.addBiome(ebCreekBed);
+                            BiomeBase.addVillageBiome(ebCreekBed);
+                        }
+                    }
 					else if (biomeName == "Cypress Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenCypressForest")
 					{
 						if (ConfigEB.generateEBCypressForest) {
@@ -565,14 +573,22 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 							BiomeBase.addVillageBiome(ebRainforestValley);
 						}
 					}
-					else if (biomeName == "Red Desert" && biomeClass == "enhancedbiomes.world.biome.sand.BiomeGenRedDesert")
-					{
-						if (ConfigEB.generateEBRedDesert) {
-						    ebRedDesert = new RealisticBiomeEBRedDesert(ebBiome);
-							BiomeBase.addBiome(ebRedDesert);
-							BiomeBase.addVillageBiome(ebRedDesert);
-						}
-					}
+                    else if (biomeName == "Red Desert" && biomeClass == "enhancedbiomes.world.biome.sand.BiomeGenRedDesert")
+                    {
+                        if (ConfigEB.generateEBRedDesert) {
+                            ebRedDesert = new RealisticBiomeEBRedDesert(ebBiome);
+                            BiomeBase.addBiome(ebRedDesert);
+                            BiomeBase.addVillageBiome(ebRedDesert);
+                        }
+                    }
+                    else if (biomeName == "Riparian Zone" && biomeClass == "enhancedbiomes.world.biome.base.BiomeGenRiparianZone")
+                    {
+                        if (ConfigEB.generateEBRiparianZone) {
+                            ebRiparianZone = new RealisticBiomeEBRiparianZone(ebBiome);
+                            BiomeBase.addBiome(ebRiparianZone);
+                            BiomeBase.addVillageBiome(ebRiparianZone);
+                        }
+                    }
 					else if (biomeName == "Rocky Desert" && biomeClass == "enhancedbiomes.world.biome.sand.BiomeGenRockyDesert")
 					{
 						if (ConfigEB.generateEBRockyDesert) {

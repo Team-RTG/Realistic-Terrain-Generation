@@ -67,7 +67,7 @@ public class ConfigHL
 	public static boolean generateHLRockIsland = true;
 	public static boolean generateHLSnowIsland = true;
 	public static boolean generateHLValley = true;
-	public static boolean generateHLVolcanoIsland = false;
+	public static boolean generateHLVolcanoIsland = true;
 	public static boolean generateHLWindyIsland = true;
     
     //Border biomes

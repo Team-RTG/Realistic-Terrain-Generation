@@ -45,6 +45,7 @@ public class ConfigEB
 	public static boolean generateEBColdCypressForest = true;
 	public static boolean generateEBColdFirForest = true;
 	public static boolean generateEBColdPineForest = true;
+	public static boolean generateEBCreekBed = true;
 	public static boolean generateEBCypressForest = true;
 	public static boolean generateEBDesertArchipelago = true;
 	public static boolean generateEBEphemeralLake =true;
@@ -79,6 +80,7 @@ public class ConfigEB
 	public static boolean generateEBRainforest = true;
 	public static boolean generateEBRainforestValley = true;
 	public static boolean generateEBRedDesert = true;
+	public static boolean generateEBRiparianZone = true;
 	public static boolean generateEBRockyDesert =true;
 	public static boolean generateEBRockyHills =true;
 	public static boolean generateEBRoofedShrublands = true;
@@ -102,8 +104,8 @@ public class ConfigEB
 	public static boolean generateEBStoneCanyons =true;
 	public static boolean generateEBTropicalArchipelago = true;
 	public static boolean generateEBTundra = true;
-	public static boolean generateEBVolcano = false;
-	public static boolean generateEBVolcanoM = false;
+	public static boolean generateEBVolcano = true;
+	public static boolean generateEBVolcanoM = true;
 	public static boolean generateEBWastelands = true;
 	public static boolean generateEBWoodlandField = true;
 	public static boolean generateEBWoodlandHills = true;
@@ -134,6 +136,7 @@ public class ConfigEB
 	public static int weightEBColdCypressForest = biomeWeightDefault;
 	public static int weightEBColdFirForest = biomeWeightDefault;
 	public static int weightEBColdPineForest = biomeWeightDefault;
+	public static int weightEBCreekBed = 0;
 	public static int weightEBCypressForest = biomeWeightDefault;
 	public static int weightEBDesertArchipelago = biomeWeightDefault;
 	public static int weightEBEphemeralLake = biomeWeightDefault;
@@ -168,6 +171,7 @@ public class ConfigEB
 	public static int weightEBRainforest = biomeWeightDefault;
 	public static int weightEBRainforestValley = biomeWeightDefault;
 	public static int weightEBRedDesert = biomeWeightDefault;
+	public static int weightEBRiparianZone = 0;
 	public static int weightEBRockyDesert = biomeWeightDefault;
 	public static int weightEBRockyHills = biomeWeightDefault;
 	public static int weightEBRoofedShrublands = biomeWeightDefault;
@@ -223,6 +227,7 @@ public class ConfigEB
     public static boolean villageEBColdCypressForest = true;
     public static boolean villageEBColdFirForest = true;
     public static boolean villageEBColdPineForest = true;
+    public static boolean villageEBCreekBed = true;
     public static boolean villageEBCypressForest = true;
     public static boolean villageEBDesertArchipelago = true;
     public static boolean villageEBEphemeralLake =true;
@@ -257,6 +262,7 @@ public class ConfigEB
     public static boolean villageEBRainforest = true;
     public static boolean villageEBRainforestValley = true;
     public static boolean villageEBRedDesert = true;
+    public static boolean villageEBRiparianZone = true;
     public static boolean villageEBRockyDesert =true;
     public static boolean villageEBRockyHills =true;
     public static boolean villageEBRoofedShrublands = true;
@@ -322,6 +328,7 @@ public class ConfigEB
 			generateEBColdCypressForest = config.getBoolean(formatConfig("generateEBColdCypressForest"), "Biomes", generateEBColdCypressForest, "");
 			generateEBColdFirForest = config.getBoolean(formatConfig("generateEBColdFirForest"), "Biomes", generateEBColdFirForest, "");
 			generateEBColdPineForest = config.getBoolean(formatConfig("generateEBColdPineForest"), "Biomes", generateEBColdPineForest, "");
+			generateEBCreekBed = config.getBoolean(formatConfig("generateEBCreekBed"), "Biomes", generateEBCreekBed, "");
 			generateEBCypressForest = config.getBoolean(formatConfig("generateEBCypressForest"), "Biomes", generateEBCypressForest, "");
 			generateEBDesertArchipelago = config.getBoolean(formatConfig("generateEBDesertArchipelago"), "Biomes", generateEBDesertArchipelago, "");
 			generateEBEphemeralLake = config.getBoolean(formatConfig("generateEBEphemeralLake"), "Biomes", generateEBEphemeralLake, "");
@@ -356,6 +363,7 @@ public class ConfigEB
 			generateEBRainforest = config.getBoolean(formatConfig("generateEBRainforest"), "Biomes", generateEBRainforest, "");
 			generateEBRainforestValley = config.getBoolean(formatConfig("generateEBRainforestValley"), "Biomes", generateEBRainforestValley, "");
 			generateEBRedDesert = config.getBoolean(formatConfig("generateEBRedDesert"), "Biomes", generateEBRedDesert, "");
+			generateEBRiparianZone = config.getBoolean(formatConfig("generateEBRiparianZone"), "Biomes", generateEBRiparianZone, "");
 			generateEBRockyDesert = config.getBoolean(formatConfig("generateEBRockyDesert"), "Biomes", generateEBRockyDesert, "");
 			generateEBRockyHills = config.getBoolean(formatConfig("generateEBRockyHills"), "Biomes", generateEBRockyHills, "");
 			generateEBRoofedShrublands = config.getBoolean(formatConfig("generateEBRoofedShrublands"), "Biomes", generateEBRoofedShrublands, "");
@@ -411,6 +419,7 @@ public class ConfigEB
 			weightEBColdCypressForest = config.getInt(formatConfig("weightEBColdCypressForest"), "Weights", weightEBColdCypressForest, biomeWeightMin, biomeWeightMax, "");
 			weightEBColdFirForest = config.getInt(formatConfig("weightEBColdFirForest"), "Weights", weightEBColdFirForest, biomeWeightMin, biomeWeightMax, "");
 			weightEBColdPineForest = config.getInt(formatConfig("weightEBColdPineForest"), "Weights", weightEBColdPineForest, biomeWeightMin, biomeWeightMax, "");
+			weightEBCreekBed = config.getInt(formatConfig("weightEBCreekBed"), "Weights", weightEBCreekBed, biomeWeightMin, biomeWeightMax, "");
 			weightEBCypressForest = config.getInt(formatConfig("weightEBCypressForest"), "Weights", weightEBCypressForest, biomeWeightMin, biomeWeightMax, "");
 			weightEBDesertArchipelago = config.getInt(formatConfig("weightEBDesertArchipelago"), "Weights", weightEBDesertArchipelago, biomeWeightMin, biomeWeightMax, "");
 			weightEBEphemeralLake = config.getInt(formatConfig("weightEBEphemeralLake"), "Weights", weightEBEphemeralLake, biomeWeightMin, biomeWeightMax, "");
@@ -445,6 +454,7 @@ public class ConfigEB
 			weightEBRainforest = config.getInt(formatConfig("weightEBRainforest"), "Weights", weightEBRainforest, biomeWeightMin, biomeWeightMax, "");
 			weightEBRainforestValley = config.getInt(formatConfig("weightEBRainforestValley"), "Weights", weightEBRainforestValley, biomeWeightMin, biomeWeightMax, "");
 			weightEBRedDesert = config.getInt(formatConfig("weightEBRedDesert"), "Weights", weightEBRedDesert, biomeWeightMin, biomeWeightMax, "");
+			weightEBRiparianZone = config.getInt(formatConfig("weightEBRiparianZone"), "Weights", weightEBRiparianZone, biomeWeightMin, biomeWeightMax, "");
 			weightEBRockyDesert = config.getInt(formatConfig("weightEBRockyDesert"), "Weights", weightEBRockyDesert, biomeWeightMin, biomeWeightMax, "");
 			weightEBRockyHills = config.getInt(formatConfig("weightEBRockyHills"), "Weights", weightEBRockyHills, biomeWeightMin, biomeWeightMax, "");
 			weightEBRoofedShrublands = config.getInt(formatConfig("weightEBRoofedShrublands"), "Weights", weightEBRoofedShrublands, biomeWeightMin, biomeWeightMax, "");
@@ -500,6 +510,7 @@ public class ConfigEB
             villageEBColdCypressForest = config.getBoolean(formatConfig("villageEBColdCypressForest"), "Villages", villageEBColdCypressForest, "");
             villageEBColdFirForest = config.getBoolean(formatConfig("villageEBColdFirForest"), "Villages", villageEBColdFirForest, "");
             villageEBColdPineForest = config.getBoolean(formatConfig("villageEBColdPineForest"), "Villages", villageEBColdPineForest, "");
+            villageEBCreekBed = config.getBoolean(formatConfig("villageEBCreekBed"), "Villages", villageEBCreekBed, "");
             villageEBCypressForest = config.getBoolean(formatConfig("villageEBCypressForest"), "Villages", villageEBCypressForest, "");
             villageEBDesertArchipelago = config.getBoolean(formatConfig("villageEBDesertArchipelago"), "Villages", villageEBDesertArchipelago, "");
             villageEBEphemeralLake = config.getBoolean(formatConfig("villageEBEphemeralLake"), "Villages", villageEBEphemeralLake, "");
@@ -534,6 +545,7 @@ public class ConfigEB
             villageEBRainforest = config.getBoolean(formatConfig("villageEBRainforest"), "Villages", villageEBRainforest, "");
             villageEBRainforestValley = config.getBoolean(formatConfig("villageEBRainforestValley"), "Villages", villageEBRainforestValley, "");
             villageEBRedDesert = config.getBoolean(formatConfig("villageEBRedDesert"), "Villages", villageEBRedDesert, "");
+            villageEBRiparianZone = config.getBoolean(formatConfig("villageEBRiparianZone"), "Villages", villageEBRiparianZone, "");
             villageEBRockyDesert = config.getBoolean(formatConfig("villageEBRockyDesert"), "Villages", villageEBRockyDesert, "");
             villageEBRockyHills = config.getBoolean(formatConfig("villageEBRockyHills"), "Villages", villageEBRockyHills, "");
             villageEBRoofedShrublands = config.getBoolean(formatConfig("villageEBRoofedShrublands"), "Villages", villageEBRoofedShrublands, "");

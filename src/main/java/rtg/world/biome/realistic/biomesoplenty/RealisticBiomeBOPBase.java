@@ -28,6 +28,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 	public static RealisticBiomeBase bopDeadSwamp;
 	public static RealisticBiomeBase bopDeciduousForest;
 	public static RealisticBiomeBase bopDenseForest;
+	public static RealisticBiomeBase bopDryRiver;
 	public static RealisticBiomeBase bopEucalyptusForest;
 	public static RealisticBiomeBase bopFen;
 	public static RealisticBiomeBase bopFlowerField;
@@ -42,6 +43,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 	public static RealisticBiomeBase bopLandOfLakes;
 	public static RealisticBiomeBase bopLavenderFields;
 	public static RealisticBiomeBase bopLushDesert;
+	public static RealisticBiomeBase bopLushRiver;
 	public static RealisticBiomeBase bopLushSwamp;
 	public static RealisticBiomeBase bopMapleWoods;
 	public static RealisticBiomeBase bopMarsh;
@@ -137,6 +139,13 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
                 /// old BoP
                 olderBoP = true;
             }
+			
+			/**
+			 * Enabling either of these river biomes causes a crash on startup for some reason... disabling for now. - Pink
+			 */
+			//bopDryRiver = new RealisticBiomeBOPDryRiver();
+			//bopLushRiver = new RealisticBiomeBOPLushRiver();
+			
 			bopFen = new RealisticBiomeBOPFen();
 			bopFlowerField = new RealisticBiomeBOPFlowerField();
 			bopFrostForest = new RealisticBiomeBOPFrostForest();
@@ -227,6 +236,13 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			if (ConfigBOP.generateBOPDeadForest) { BiomeBase.addBiome(bopDeadForest); }
 			if (ConfigBOP.generateBOPDeadSwamp) { BiomeBase.addBiome(bopDeadSwamp); }
 			if (ConfigBOP.generateBOPDeciduousForest) { BiomeBase.addBiome(bopDeciduousForest); }
+			
+            /**
+             * Enabling either of these river biomes causes a crash on startup for some reason... disabling for now. - Pink
+             */
+			//if (ConfigBOP.generateBOPDryRiver) { BiomeBase.addBiome(bopDryRiver); }
+			//if (ConfigBOP.generateBOPLushRiver) { BiomeBase.addBiome(bopLushRiver); }
+			
 			if (ConfigBOP.generateBOPFen) { BiomeBase.addBiome(bopFen); }
 			if (ConfigBOP.generateBOPFlowerField) { BiomeBase.addBiome(bopFlowerField); }
 			if (ConfigBOP.generateBOPFrostForest) { BiomeBase.addBiome(bopFrostForest); }
@@ -313,6 +329,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
             if (ConfigBOP.villageBOPDeadForest) { BiomeBase.addVillageBiome(bopDeadForest); }
             if (ConfigBOP.villageBOPDeadSwamp) { BiomeBase.addVillageBiome(bopDeadSwamp); }
             if (ConfigBOP.villageBOPDeciduousForest) { BiomeBase.addVillageBiome(bopDeciduousForest); }
+            if (ConfigBOP.villageBOPDryRiver) { BiomeBase.addVillageBiome(bopDryRiver); }
             if (ConfigBOP.villageBOPFen) { BiomeBase.addVillageBiome(bopFen); }
             if (ConfigBOP.villageBOPFlowerField) { BiomeBase.addVillageBiome(bopFlowerField); }
             if (ConfigBOP.villageBOPFrostForest) { BiomeBase.addVillageBiome(bopFrostForest); }
@@ -325,6 +342,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
             if (ConfigBOP.villageBOPJadeCliffs) { BiomeBase.addVillageBiome(bopJadeCliffs); }
             if (ConfigBOP.villageBOPLavenderFields) { BiomeBase.addVillageBiome(bopLavenderFields); }
             if (ConfigBOP.villageBOPLushDesert) { BiomeBase.addVillageBiome(bopLushDesert); }
+            if (ConfigBOP.villageBOPLushRiver) { BiomeBase.addVillageBiome(bopLushRiver); }
             if (ConfigBOP.villageBOPLushSwamp) { BiomeBase.addVillageBiome(bopLushSwamp); }
             if (ConfigBOP.villageBOPMapleWoods) { BiomeBase.addVillageBiome(bopMapleWoods); }
             if (ConfigBOP.villageBOPMarsh) { BiomeBase.addVillageBiome(bopMarsh); }

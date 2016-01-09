@@ -41,6 +41,7 @@ public class ConfigBOP
 	public static boolean generateBOPDeadSwamp = true;
 	public static boolean generateBOPDeciduousForest = true;
 	public static boolean generateBOPDenseForest = true;
+	public static boolean generateBOPDryRiver = true;
 	public static boolean generateBOPEucalyptusForest = true;
 	public static boolean generateBOPFen = true;
 	public static boolean generateBOPFlowerField = true;
@@ -55,6 +56,7 @@ public class ConfigBOP
 	public static boolean generateBOPLandOfLakes = true;
 	public static boolean generateBOPLavenderFields = true;
 	public static boolean generateBOPLushDesert = true;
+	public static boolean generateBOPLushRiver = true;
 	public static boolean generateBOPLushSwamp = true;
 	public static boolean generateBOPMapleWoods = true;
 	public static boolean generateBOPMarsh = true;
@@ -98,7 +100,7 @@ public class ConfigBOP
 	public static boolean generateBOPSilkglades = true;
 	public static boolean generateBOPSpruceWoods = true;
 	public static boolean generateBOPTropics = true;
-	public static boolean generateBOPVolcano = false;
+	public static boolean generateBOPVolcano = true;
 	
 	//Water biomes
 	public static boolean generateBOPCoralReef = true;
@@ -121,6 +123,7 @@ public class ConfigBOP
 	public static int weightBOPDeadSwamp = (int)Math.floor((double)(biomeWeightDefault * 0.8));
 	public static int weightBOPDeciduousForest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
 	public static int weightBOPDenseForest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
+	public static int weightBOPDryRiver = 0;
 	public static int weightBOPEucalyptusForest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
 	public static int weightBOPFen = (int)Math.floor((double)(biomeWeightDefault * 0.8));
 	public static int weightBOPFlowerField = (int)Math.floor((double)(biomeWeightDefault * 0.8));
@@ -135,6 +138,7 @@ public class ConfigBOP
 	public static int weightBOPLandOfLakes = (int)Math.floor((double)(biomeWeightDefault * 0.8));
 	public static int weightBOPLavenderFields = (int)Math.floor((double)(biomeWeightDefault * 0.8));
 	public static int weightBOPLushDesert = (int)Math.floor((double)(biomeWeightDefault * 0.8));
+	public static int weightBOPLushRiver = 0;
 	public static int weightBOPLushSwamp = (int)Math.floor((double)(biomeWeightDefault * 0.8));
 	public static int weightBOPMapleWoods = (int)Math.floor((double)(biomeWeightDefault * 0.8));
 	public static int weightBOPMarsh = (int)Math.floor((double)(biomeWeightDefault * 0.8));
@@ -201,6 +205,7 @@ public class ConfigBOP
     public static boolean villageBOPDeadSwamp = true;
     public static boolean villageBOPDeciduousForest = true;
     public static boolean villageBOPDenseForest = true;
+    public static boolean villageBOPDryRiver = false;
     public static boolean villageBOPEucalyptusForest = true;
     public static boolean villageBOPFen = true;
     public static boolean villageBOPFlowerField = true;
@@ -215,6 +220,7 @@ public class ConfigBOP
     public static boolean villageBOPLandOfLakes = true;
     public static boolean villageBOPLavenderFields = true;
     public static boolean villageBOPLushDesert = true;
+    public static boolean villageBOPLushRiver = false;
     public static boolean villageBOPLushSwamp = true;
     public static boolean villageBOPMapleWoods = true;
     public static boolean villageBOPMarsh = true;
@@ -293,6 +299,7 @@ public class ConfigBOP
 			generateBOPDeadSwamp = config.getBoolean(formatConfig("generateBOPDeadSwamp"), "Biomes", generateBOPDeadSwamp, "");
 			generateBOPDeciduousForest = config.getBoolean(formatConfig("generateBOPDeciduousForest"), "Biomes", generateBOPDeciduousForest, "");
 			generateBOPDenseForest = config.getBoolean(formatConfig("generateBOPDenseForest"), "Biomes", generateBOPDenseForest, "");
+			generateBOPDryRiver = config.getBoolean(formatConfig("generateBOPDryRiver"), "Biomes", generateBOPDryRiver, "");
 			generateBOPEucalyptusForest = config.getBoolean(formatConfig("generateBOPEucalyptusForest"), "Biomes", generateBOPEucalyptusForest, "");
 			generateBOPFen = config.getBoolean(formatConfig("generateBOPFen"), "Biomes", generateBOPFen, "");
 			generateBOPFlowerField = config.getBoolean(formatConfig("generateBOPFlowerField"), "Biomes", generateBOPFlowerField, "");
@@ -307,6 +314,7 @@ public class ConfigBOP
 			generateBOPLandOfLakes = config.getBoolean(formatConfig("generateBOPLandOfLakes"), "Biomes", generateBOPLandOfLakes, "");
 			generateBOPLavenderFields = config.getBoolean(formatConfig("generateBOPLavenderFields"), "Biomes", generateBOPLavenderFields, "");
 			generateBOPLushDesert = config.getBoolean(formatConfig("generateBOPLushDesert"), "Biomes", generateBOPLushDesert, "");
+			generateBOPLushRiver = config.getBoolean(formatConfig("generateBOPLushRiver"), "Biomes", generateBOPLushRiver, "");
 			generateBOPLushSwamp = config.getBoolean(formatConfig("generateBOPLushSwamp"), "Biomes", generateBOPLushSwamp, "");
 			generateBOPMapleWoods = config.getBoolean(formatConfig("generateBOPMapleWoods"), "Biomes", generateBOPMapleWoods, "");
 			generateBOPMarsh = config.getBoolean(formatConfig("generateBOPMarsh"), "Biomes", generateBOPMarsh, "");
@@ -374,6 +382,7 @@ public class ConfigBOP
 			weightBOPDeadSwamp = config.getInt(formatConfig("weightBOPDeadSwamp"), "Weights", weightBOPDeadSwamp, biomeWeightMin, biomeWeightMax, "");
 			weightBOPDeciduousForest = config.getInt(formatConfig("weightBOPDeciduousForest"), "Weights", weightBOPDeciduousForest, biomeWeightMin, biomeWeightMax, "");
 			weightBOPDenseForest = config.getInt(formatConfig("weightBOPDenseForest"), "Weights", weightBOPDenseForest, biomeWeightMin, biomeWeightMax, "");
+			weightBOPDryRiver = config.getInt(formatConfig("weightBOPDryRiver"), "Weights", weightBOPDryRiver, biomeWeightMin, biomeWeightMax, "");
 			weightBOPEucalyptusForest = config.getInt(formatConfig("weightBOPEucalyptusForest"), "Weights", weightBOPEucalyptusForest, biomeWeightMin, biomeWeightMax, "");
 			weightBOPFen = config.getInt(formatConfig("weightBOPFen"), "Weights", weightBOPFen, biomeWeightMin, biomeWeightMax, "");
 			weightBOPFlowerField = config.getInt(formatConfig("weightBOPFlowerField"), "Weights", weightBOPFlowerField, biomeWeightMin, biomeWeightMax, "");
@@ -388,6 +397,7 @@ public class ConfigBOP
 			weightBOPLandOfLakes = config.getInt(formatConfig("weightBOPLandOfLakes"), "Weights", weightBOPLandOfLakes, biomeWeightMin, biomeWeightMax, "");
 			weightBOPLavenderFields = config.getInt(formatConfig("weightBOPLavenderFields"), "Weights", weightBOPLavenderFields, biomeWeightMin, biomeWeightMax, "");
 			weightBOPLushDesert = config.getInt(formatConfig("weightBOPLushDesert"), "Weights", weightBOPLushDesert, biomeWeightMin, biomeWeightMax, "");
+			weightBOPLushRiver = config.getInt(formatConfig("weightBOPLushRiver"), "Weights", weightBOPLushRiver, biomeWeightMin, biomeWeightMax, "");
 			weightBOPLushSwamp = config.getInt(formatConfig("weightBOPLushSwamp"), "Weights", weightBOPLushSwamp, biomeWeightMin, biomeWeightMax, "");
 			weightBOPMapleWoods = config.getInt(formatConfig("weightBOPMapleWoods"), "Weights", weightBOPMapleWoods, biomeWeightMin, biomeWeightMax, "");
 			weightBOPMarsh = config.getInt(formatConfig("weightBOPMarsh"), "Weights", weightBOPMarsh, biomeWeightMin, biomeWeightMax, "");
@@ -456,6 +466,7 @@ public class ConfigBOP
             villageBOPDeadSwamp = config.getBoolean(formatConfig("villageBOPDeadSwamp"), "Villages", villageBOPDeadSwamp, "");
             villageBOPDeciduousForest = config.getBoolean(formatConfig("villageBOPDeciduousForest"), "Villages", villageBOPDeciduousForest, "");
             villageBOPDenseForest = config.getBoolean(formatConfig("villageBOPDenseForest"), "Villages", villageBOPDenseForest, "");
+            villageBOPDryRiver = config.getBoolean(formatConfig("villageBOPDryRiver"), "Villages", villageBOPDryRiver, "");
             villageBOPEucalyptusForest = config.getBoolean(formatConfig("villageBOPEucalyptusForest"), "Villages", villageBOPEucalyptusForest, "");
             villageBOPFen = config.getBoolean(formatConfig("villageBOPFen"), "Villages", villageBOPFen, "");
             villageBOPFlowerField = config.getBoolean(formatConfig("villageBOPFlowerField"), "Villages", villageBOPFlowerField, "");
@@ -470,6 +481,7 @@ public class ConfigBOP
             villageBOPLandOfLakes = config.getBoolean(formatConfig("villageBOPLandOfLakes"), "Villages", villageBOPLandOfLakes, "");
             villageBOPLavenderFields = config.getBoolean(formatConfig("villageBOPLavenderFields"), "Villages", villageBOPLavenderFields, "");
             villageBOPLushDesert = config.getBoolean(formatConfig("villageBOPLushDesert"), "Villages", villageBOPLushDesert, "");
+            villageBOPLushRiver = config.getBoolean(formatConfig("villageBOPLushRiver"), "Villages", villageBOPLushRiver, "");
             villageBOPLushSwamp = config.getBoolean(formatConfig("villageBOPLushSwamp"), "Villages", villageBOPLushSwamp, "");
             villageBOPMapleWoods = config.getBoolean(formatConfig("villageBOPMapleWoods"), "Villages", villageBOPMapleWoods, "");
             villageBOPMarsh = config.getBoolean(formatConfig("villageBOPMarsh"), "Villages", villageBOPMarsh, "");

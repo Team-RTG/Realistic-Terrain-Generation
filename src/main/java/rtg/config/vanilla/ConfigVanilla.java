@@ -34,6 +34,7 @@ public class ConfigVanilla
     public static boolean generateVanillaDesertHills = true;
     public static boolean generateVanillaDesertM = true;
     public static boolean generateVanillaExtremeHills = true;
+    public static boolean generateVanillaExtremeHillsEdge = true;
     public static boolean generateVanillaExtremeHillsM = true;
     public static boolean generateVanillaExtremeHillsPlus = true;
     public static boolean generateVanillaExtremeHillsPlusM = true;
@@ -41,6 +42,7 @@ public class ConfigVanilla
     public static boolean generateVanillaForest = true;
     public static boolean generateVanillaForestHills = true;
     public static boolean generateVanillaFrozenRiver = true;
+    public static boolean generateVanillaFrozenOcean = true;
     public static boolean generateVanillaIceMountains = true;
     public static boolean generateVanillaIcePlains = true;
     public static boolean generateVanillaIcePlainsSpikes = true;
@@ -92,6 +94,7 @@ public class ConfigVanilla
     public static int weightVanillaDesertHills = (int)Math.floor((double)(biomeWeightDefault * 0.8));
     public static int weightVanillaDesertM = (int)Math.floor((double)(biomeWeightDefault * 0.4));
     public static int weightVanillaExtremeHills = biomeWeightDefault;
+    public static int weightVanillaExtremeHillsEdge = 0;
     public static int weightVanillaExtremeHillsM = (int)Math.floor((double)(biomeWeightDefault * 0.4));
     public static int weightVanillaExtremeHillsPlus = (int)Math.floor((double)(biomeWeightDefault * 0.4));
     public static int weightVanillaExtremeHillsPlusM = (int)Math.floor((double)(biomeWeightDefault * 0.2));
@@ -99,6 +102,7 @@ public class ConfigVanilla
     public static int weightVanillaForest = biomeWeightDefault;
     public static int weightVanillaForestHills = (int)Math.floor((double)(biomeWeightDefault * 0.8));
     public static int weightVanillaFrozenRiver = (int)Math.floor((double)(biomeWeightDefault * 0.1));
+    public static int weightVanillaFrozenOcean = 0;
     public static int weightVanillaIceMountains = (int)Math.floor((double)(biomeWeightDefault * 0.2));
     public static int weightVanillaIcePlains = biomeWeightDefault;
     public static int weightVanillaIcePlainsSpikes = (int)Math.floor((double)(biomeWeightDefault * 0.1));
@@ -150,6 +154,7 @@ public class ConfigVanilla
     public static boolean villageVanillaDesertHills = true;
     public static boolean villageVanillaDesertM = true;
     public static boolean villageVanillaExtremeHills = true;
+    public static boolean villageVanillaExtremeHillsEdge = true;
     public static boolean villageVanillaExtremeHillsM = true;
     public static boolean villageVanillaExtremeHillsPlus = true;
     public static boolean villageVanillaExtremeHillsPlusM = true;
@@ -157,6 +162,7 @@ public class ConfigVanilla
     public static boolean villageVanillaForest = true;
     public static boolean villageVanillaForestHills = true;
     //public static boolean villageVanillaFrozenRiver = true;
+    public static boolean villageVanillaFrozenOcean = false;
     public static boolean villageVanillaIceMountains = true;
     public static boolean villageVanillaIcePlains = true;
     public static boolean villageVanillaIcePlainsSpikes = true;
@@ -218,6 +224,7 @@ public class ConfigVanilla
             generateVanillaDesertHills = config.getBoolean(formatConfig("generateVanillaDesertHills"), "Biomes", generateVanillaDesertHills, "");
             generateVanillaDesertM = config.getBoolean(formatConfig("generateVanillaDesertM"), "Biomes", generateVanillaDesertM, "");
             generateVanillaExtremeHills = config.getBoolean(formatConfig("generateVanillaExtremeHills"), "Biomes", generateVanillaExtremeHills, "");
+            generateVanillaExtremeHillsEdge = config.getBoolean(formatConfig("generateVanillaExtremeHillsEdge"), "Biomes", generateVanillaExtremeHillsEdge, "");
             generateVanillaExtremeHillsM = config.getBoolean(formatConfig("generateVanillaExtremeHillsM"), "Biomes", generateVanillaExtremeHillsM, "");
             generateVanillaExtremeHillsPlus = config.getBoolean(formatConfig("generateVanillaExtremeHillsPlus"), "Biomes", generateVanillaExtremeHillsPlus, "");
             generateVanillaExtremeHillsPlusM = config.getBoolean(formatConfig("generateVanillaExtremeHillsPlusM"), "Biomes", generateVanillaExtremeHillsPlusM, "");
@@ -225,6 +232,7 @@ public class ConfigVanilla
             generateVanillaForest = config.getBoolean(formatConfig("generateVanillaForest"), "Biomes", generateVanillaForest, "");
             generateVanillaForestHills = config.getBoolean(formatConfig("generateVanillaForestHills"), "Biomes", generateVanillaForestHills, "");
             generateVanillaFrozenRiver = config.getBoolean(formatConfig("generateVanillaFrozenRiver"), "Biomes", generateVanillaFrozenRiver, "This setting is ignored. Frozen Rivers will always generate, even if set to false." + Configuration.NEW_LINE);
+            generateVanillaFrozenOcean = config.getBoolean(formatConfig("generateVanillaFrozenOcean"), "Biomes", generateVanillaFrozenOcean, "");
             generateVanillaIceMountains = config.getBoolean(formatConfig("generateVanillaIceMountains"), "Biomes", generateVanillaIceMountains, "");
             generateVanillaIcePlains = config.getBoolean(formatConfig("generateVanillaIcePlains"), "Biomes", generateVanillaIcePlains, "");
             generateVanillaIcePlainsSpikes = config.getBoolean(formatConfig("generateVanillaIcePlainsSpikes"), "Biomes", generateVanillaIcePlainsSpikes, "");
@@ -276,12 +284,14 @@ public class ConfigVanilla
             weightVanillaDesertHills = config.getInt(formatConfig("weightVanillaDesertHills"), "Weights", weightVanillaDesertHills, biomeWeightMin, biomeWeightMax, "");
             weightVanillaDesertM = config.getInt(formatConfig("weightVanillaDesertM"), "Weights", weightVanillaDesertM, biomeWeightMin, biomeWeightMax, "");
             weightVanillaExtremeHills = config.getInt(formatConfig("weightVanillaExtremeHills"), "Weights", weightVanillaExtremeHills, biomeWeightMin, biomeWeightMax, "");
+            weightVanillaExtremeHillsEdge = config.getInt(formatConfig("weightVanillaExtremeHillsEdge"), "Weights", weightVanillaExtremeHillsEdge, biomeWeightMin, biomeWeightMax, "");
             weightVanillaExtremeHillsM = config.getInt(formatConfig("weightVanillaExtremeHillsM"), "Weights", weightVanillaExtremeHillsM, biomeWeightMin, biomeWeightMax, "");
             weightVanillaExtremeHillsPlus = config.getInt(formatConfig("weightVanillaExtremeHillsPlus"), "Weights", weightVanillaExtremeHillsPlus, biomeWeightMin, biomeWeightMax, "");
             weightVanillaExtremeHillsPlusM = config.getInt(formatConfig("weightVanillaExtremeHillsPlusM"), "Weights", weightVanillaExtremeHillsPlusM, biomeWeightMin, biomeWeightMax, "");
             weightVanillaFlowerForest = config.getInt(formatConfig("weightVanillaFlowerForest"), "Weights", weightVanillaFlowerForest, biomeWeightMin, biomeWeightMax, "");
             weightVanillaForest = config.getInt(formatConfig("weightVanillaForest"), "Weights", weightVanillaForest, biomeWeightMin, biomeWeightMax, "");
             weightVanillaForestHills = config.getInt(formatConfig("weightVanillaForestHills"), "Weights", weightVanillaForestHills, biomeWeightMin, biomeWeightMax, "");
+            weightVanillaFrozenOcean = config.getInt(formatConfig("weightVanillaFrozenOcean"), "Weights", weightVanillaFrozenOcean, biomeWeightMin, biomeWeightMax, "");
             weightVanillaFrozenRiver = config.getInt(formatConfig("weightVanillaFrozenRiver"), "Weights", weightVanillaFrozenRiver, biomeWeightMin, biomeWeightMax, "");
             weightVanillaIceMountains = config.getInt(formatConfig("weightVanillaIceMountains"), "Weights", weightVanillaIceMountains, biomeWeightMin, biomeWeightMax, "");
             weightVanillaIcePlains = config.getInt(formatConfig("weightVanillaIcePlains"), "Weights", weightVanillaIcePlains, biomeWeightMin, biomeWeightMax, "");
@@ -334,6 +344,7 @@ public class ConfigVanilla
             villageVanillaDesertHills = config.getBoolean(formatConfig("villageVanillaDesertHills"), "Villages", villageVanillaDesertHills, "");
             villageVanillaDesertM = config.getBoolean(formatConfig("villageVanillaDesertM"), "Villages", villageVanillaDesertM, "");
             villageVanillaExtremeHills = config.getBoolean(formatConfig("villageVanillaExtremeHills"), "Villages", villageVanillaExtremeHills, "");
+            villageVanillaExtremeHillsEdge = config.getBoolean(formatConfig("villageVanillaExtremeHillsEdge"), "Villages", villageVanillaExtremeHillsEdge, "");
             villageVanillaExtremeHillsM = config.getBoolean(formatConfig("villageVanillaExtremeHillsM"), "Villages", villageVanillaExtremeHillsM, "");
             villageVanillaExtremeHillsPlus = config.getBoolean(formatConfig("villageVanillaExtremeHillsPlus"), "Villages", villageVanillaExtremeHillsPlus, "");
             villageVanillaExtremeHillsPlusM = config.getBoolean(formatConfig("villageVanillaExtremeHillsPlusM"), "Villages", villageVanillaExtremeHillsPlusM, "");
@@ -341,6 +352,7 @@ public class ConfigVanilla
             villageVanillaForest = config.getBoolean(formatConfig("villageVanillaForest"), "Villages", villageVanillaForest, "");
             villageVanillaForestHills = config.getBoolean(formatConfig("villageVanillaForestHills"), "Villages", villageVanillaForestHills, "");
             //villageVanillaFrozenRiver = config.getBoolean(formatConfig("villageVanillaFrozenRiver"), "Villages", villageVanillaFrozenRiver, "This setting is ignored. Frozen Rivers will always generate, even if set to false.");
+            villageVanillaFrozenOcean = config.getBoolean(formatConfig("villageVanillaFrozenOcean"), "Villages", villageVanillaFrozenOcean, "");
             villageVanillaIceMountains = config.getBoolean(formatConfig("villageVanillaIceMountains"), "Villages", villageVanillaIceMountains, "");
             villageVanillaIcePlains = config.getBoolean(formatConfig("villageVanillaIcePlains"), "Villages", villageVanillaIcePlains, "");
             villageVanillaIcePlainsSpikes = config.getBoolean(formatConfig("villageVanillaIcePlainsSpikes"), "Villages", villageVanillaIcePlainsSpikes, "");

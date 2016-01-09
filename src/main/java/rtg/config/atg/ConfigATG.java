@@ -26,7 +26,7 @@ public class ConfigATG
     public static boolean generateATGRockySteppe = true;
     public static boolean generateATGTropicalShrubland = true;
     public static boolean generateATGTundra = true;
-    public static boolean generateATGVolcano = false;
+    public static boolean generateATGVolcano = true;
     public static boolean generateATGWoodland = true;
 	
     public static int weightATGGravelBeach = (int)Math.floor((double)(biomeWeightDefault * 0.5));

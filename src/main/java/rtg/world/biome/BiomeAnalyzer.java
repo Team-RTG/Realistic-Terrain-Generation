@@ -242,8 +242,11 @@ public class BiomeAnalyzer {
         int [] result = new int [256];
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j<16;j++) {
-                result[i*16+j]= j+16+i;
+                result[i*16+j]= j*16+i;
             }
+        }
+        for (int i = 0; i<256;i++) {
+            if (result[result[i]]!=i) throw new RuntimeException(""+i + "" + result[i]+ " "+ result[result[i]]);
         }
         return result;
     }

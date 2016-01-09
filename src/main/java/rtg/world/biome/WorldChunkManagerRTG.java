@@ -67,7 +67,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         {
             for (int j = 0; j < par4; j++)
             {
-                d[j * par3 + i] = getBiomeGenAt(par1 + i, par2 + j).biomeID;
+                d[j * par3  + i] = getBiomeGenAt(par1 + i, par2 + j).biomeID;
             }
         }
         return d;
@@ -154,18 +154,19 @@ public class WorldChunkManagerRTG extends WorldChunkManager
 
     public RealisticBiomeBase getBiomeDataAt(int par1, int par2)
     {
-        long coords = ChunkCoordIntPair.chunkXZ2Int(par1, par2);
+        /*long coords = ChunkCoordIntPair.chunkXZ2Int(par1, par2);
         if (biomeDataMap.containsKey(coords)) {
             return biomeDataMap.get(coords);
-        }
+        }*/
 
         RealisticBiomeBase output = (RealisticBiomeBase)(this.getBiomeGenAt(par1, par2));
+        if (output== null) throw new RuntimeException("no biome "+par1 + " " + par2);
 
-        if (biomeDataMap.size() > 4096) {
+        /*if (biomeDataMap.size() > 4096) {
             biomeDataMap.clear();
         }
 
-        biomeDataMap.put(coords, output);
+        biomeDataMap.put(coords, output);*/
 
         return output;
     }

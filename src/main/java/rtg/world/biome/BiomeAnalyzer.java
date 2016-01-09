@@ -16,6 +16,7 @@ public class BiomeAnalyzer {
     private boolean [] landBiome;
     private int [] searchPattern;
     private RealisticBiomeBase [] savedJittered = new RealisticBiomeBase[256];
+    private int [] xyinverted = xyinverted();
 
     // beach fixing
     float beachTop = 64.5f;
@@ -109,16 +110,16 @@ public class BiomeAnalyzer {
             if (savedJittered[i]== null) throw new RuntimeException();
             if (noise[i]>62.5) {
                 // replace
-                jitteredBiomes[i] =  RealisticBiomeBase.getBiome(genLayerBiomes[i]);
+                jitteredBiomes[i] =  RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]);
             } else {
                 // check for river
-                if (canBeRiver&&!oceanBiome[genLayerBiomes[i]]) {
+                if (canBeRiver&&!oceanBiome[genLayerBiomes[xyinverted[i]]]) {
                     // make river
-                    int riverBiomeID = RealisticBiomeBase.getBiome(genLayerBiomes[i]).riverBiome.biomeID;
+                    int riverBiomeID = RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]).riverBiome.biomeID;
                     jitteredBiomes[i] =  RealisticBiomeBase.getBiome(riverBiomeID);
                 } else {
                     // replace
-                    jitteredBiomes[i] =  RealisticBiomeBase.getBiome(genLayerBiomes[i]);
+                    jitteredBiomes[i] =  RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]);
                 }
             }
         }
@@ -237,6 +238,15 @@ public class BiomeAnalyzer {
         searchPattern = result;
     }
 
+    public int[] xyinverted() {
+        int [] result = new int [256];
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j<16;j++) {
+                result[i*16+j]= j+16+i;
+            }
+        }
+        return result;
+    }
     private class SearchStatus {
         boolean absent = false;
         boolean notHunted = true;

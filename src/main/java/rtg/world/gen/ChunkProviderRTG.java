@@ -71,6 +71,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private final int parabolicArraySize;
     private final float[] parabolicField;
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
+    private int [] xyinverted = analyzer.xyinverted();
     
     private Block bedrockBlock = GameData.getBlockRegistry().getObject(ConfigRTG.bedrockBlockId);
     private byte bedrockByte = (byte)ConfigRTG.bedrockBlockByte;
@@ -227,7 +228,8 @@ public class ChunkProviderRTG implements IChunkProvider
         byte[] abyte1 = chunk.getBiomeArray();
         for (k = 0; k < abyte1.length; ++k)
         {
-            abyte1[k] = (byte)this.baseBiomesList[k].biomeID;
+            // biomes are y-first and terrain x-first
+            abyte1[k] = (byte)this.baseBiomesList[this.xyinverted[k]].biomeID;
         }
         chunk.generateSkylightMap();
         return chunk;
@@ -454,7 +456,7 @@ public class ChunkProviderRTG implements IChunkProvider
     	    				if(bCount > bRand)
     	    				{
                                 if (doJitter) {
-    	    					   biomes[j * 16 + i] = RealisticBiomeBase.getBiome(k);
+    	    					   biomes[i * 16 + j] = RealisticBiomeBase.getBiome(k);
                                 }
     	    					bCount = 2f; //20f;
     	    				}

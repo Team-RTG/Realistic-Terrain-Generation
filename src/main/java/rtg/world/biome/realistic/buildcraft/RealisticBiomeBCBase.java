@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.buildcraft;
 
+import rtg.api.biomes.buildcraft.config.BiomeConfigBC;
 import rtg.config.buildcraft.ConfigBC;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -43,7 +44,7 @@ public class RealisticBiomeBCBase extends RealisticBiomeBase
                     {
                         if (ConfigBC.generateBCDesertOilField) {
                             
-                            bcDesertOilField = new RealisticBiomeBCDesertOilField(bcBiome);
+                            bcDesertOilField = new RealisticBiomeBCDesertOilField(bcBiome, BiomeConfigBC.biomeConfigBCDesertOilField);
                             
                             BiomeBase.addBiome(bcDesertOilField);
                             BiomeBase.addVillageBiome(bcDesertOilField);
@@ -53,7 +54,7 @@ public class RealisticBiomeBCBase extends RealisticBiomeBase
                     {
                         if (ConfigBC.generateBCOceanOilField) {
                             
-                            bcOceanOilField = new RealisticBiomeBCOceanOilField(bcBiome);
+                            bcOceanOilField = new RealisticBiomeBCOceanOilField(bcBiome, BiomeConfigBC.biomeConfigBCOceanOilField);
                             
                             BiomeBase.addBiome(bcOceanOilField);
                             BiomeBase.addVillageBiome(bcOceanOilField);

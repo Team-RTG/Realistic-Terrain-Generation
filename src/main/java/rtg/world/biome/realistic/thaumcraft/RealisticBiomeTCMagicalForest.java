@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.thaumcraft;
 
-import rtg.api.biomes.thaumcraft.config.BiomeConfigTCMagicalForest;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.thaumcraft.ConfigTC;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.thaumcraft.SurfaceTCMagicalForest;
@@ -10,7 +10,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeTCMagicalForest extends RealisticBiomeTCBase
 {	
-	public RealisticBiomeTCMagicalForest(BiomeGenBase tcBiome)
+	public RealisticBiomeTCMagicalForest(BiomeGenBase tcBiome, BiomeConfig config)
 	{
 		super(
 			tcBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -18,7 +18,7 @@ public class RealisticBiomeTCMagicalForest extends RealisticBiomeTCBase
 			new SurfaceTCMagicalForest(tcBiome.topBlock, tcBiome.fillerBlock)
 		);
 		
-		this.biomeConfig = new BiomeConfigTCMagicalForest();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigTC.weightTCMagicalForest;
 		this.generateVillages = ConfigTC.villageTCMagicalForest;
 	}

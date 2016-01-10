@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.thaumcraft;
 
+import rtg.api.biomes.thaumcraft.config.BiomeConfigTC;
 import rtg.config.thaumcraft.ConfigTC;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -48,7 +49,7 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
                     {
                         if (ConfigTC.generateTCMagicalForest) {
                             
-                            tcMagicalForest = new RealisticBiomeTCMagicalForest(tcBiome);
+                            tcMagicalForest = new RealisticBiomeTCMagicalForest(tcBiome, BiomeConfigTC.biomeConfigTCMagicalForest);
                             
                             BiomeBase.addBiome(tcMagicalForest);
                             BiomeBase.addVillageBiome(tcMagicalForest);
@@ -58,7 +59,7 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 					{
 						if (ConfigTC.generateTCTaintedLand) {
 						    
-						    tcTaintedLand = new RealisticBiomeTCTaintedLand(tcBiome);
+						    tcTaintedLand = new RealisticBiomeTCTaintedLand(tcBiome, BiomeConfigTC.biomeConfigTCTaintedLand);
 						    
 						    BiomeBase.addBiome(tcTaintedLand);
 						    BiomeBase.addVillageBiome(tcTaintedLand);
@@ -68,7 +69,7 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 					{
 						if (ConfigTC.generateTCEerie) {
 
-						    tcEerie = new RealisticBiomeTCEerie(tcBiome);
+						    tcEerie = new RealisticBiomeTCEerie(tcBiome, BiomeConfigTC.biomeConfigTCEerie);
 
 						    BiomeBase.addBiome(tcEerie);
 						    BiomeBase.addVillageBiome(tcEerie);

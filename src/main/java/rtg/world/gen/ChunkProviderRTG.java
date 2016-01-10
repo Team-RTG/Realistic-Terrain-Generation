@@ -46,6 +46,7 @@ import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.world.biome.BiomeAnalyzer;
 
 /**
  * Scattered features courtesy of Ezoteric (https://github.com/Ezoteric) and Choonster (https://github.com/Choonster)
@@ -69,6 +70,8 @@ public class ChunkProviderRTG implements IChunkProvider
     private final int parabolicSize;
     private final int parabolicArraySize;
     private final float[] parabolicField;
+    private BiomeAnalyzer analyzer = new BiomeAnalyzer();
+    private int [] xyinverted = analyzer.xyinverted();
     
     private Block bedrockBlock = GameData.getBlockRegistry().getObject(ConfigRTG.bedrockBlockId);
     private byte bedrockByte = (byte)ConfigRTG.bedrockBlockByte;
@@ -174,9 +177,17 @@ public class ChunkProviderRTG implements IChunkProvider
 
                 //fill with biomeData
         int [] biomeIndices= cmr.getBiomesGens(cx *16, cy*16,16,16);
-                for (int i = 0; i < 256; i++) {
-                    biomesForGeneration[i] =  RealisticBiomeBase.getBiome(biomeIndices[i]);
-                }
+
+
+
+
+        if (!doJitter){
+            analyzer.repair(biomeIndices, biomesForGeneration, noise,-cmr.getRiverStrength(cx * 16 + 7, cy * 16 + 7));
+        } else {
+            for (int i = 0; i < 256; i++) {
+                biomesForGeneration[i] =  RealisticBiomeBase.getBiome(biomeIndices[i]);
+            }
+        }
 
         for(k = 0; k < 256; k++)
         {
@@ -217,26 +228,12 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
         Chunk chunk = new Chunk(this.worldObj, blocks, metadata, cx, cy);
-        if (doJitter) {
+        // doJitter no longer needed as the biome array gets fixed
         byte[] abyte1 = chunk.getBiomeArray();
-            for (k = 0; k < abyte1.length; ++k)
-            {
-                abyte1[k] = (byte)this.baseBiomesList[k].biomeID;
-            }
-        } else {
-            // put in the rivers
-
-            byte[] abyte1 = chunk.getBiomeArray();
-            for (k = 0; k < abyte1.length; ++k)
-            {
-                if (biomesForGeneration[k].baseBiome.biomeID == BiomeGenBase.ocean.biomeID) continue;
-                if (biomesForGeneration[k].baseBiome.biomeID == BiomeGenBase.deepOcean.biomeID) continue;
-                if (biomesForGeneration[k].riverBiome == baseBiomesList[k]) {
-                    if (noise[k] < 62.5f) {
-                       abyte1[k] = (byte)this.baseBiomesList[k].biomeID;
-                    }
-                }
-            }
+        for (k = 0; k < abyte1.length; ++k)
+        {
+            // biomes are y-first and terrain x-first
+            abyte1[k] = (byte)this.baseBiomesList[this.xyinverted[k]].biomeID;
         }
         chunk.generateSkylightMap();
         return chunk;
@@ -307,12 +304,12 @@ public class ChunkProviderRTG implements IChunkProvider
     	}
 
     	//MAIN BIOME CHECK
-    	RealisticBiomeBase b = null;
+    	RealisticBiomeBase realisticBiomeBase = null;
     	for(i = 0; i < 256; i++)
     	{
     		if(hugeRender[4 * 9 + 4][i] > 0.95f)
     		{
-    			b = RealisticBiomeBase.getBiome(i);
+    			realisticBiomeBase = RealisticBiomeBase.getBiome(i);
     		}
     	}
 
@@ -410,22 +407,18 @@ public class ChunkProviderRTG implements IChunkProvider
     	//CREATE BIOMES ARRAY
     	boolean randBiome = true;
     	float bCount = 0f, bRand = 0f;
-    	if(b != null)
-    	{
-    		randBiome = false;
-            if (doJitter) {
-                for(i = 0; i < 256; i++)
-                {
-                    biomes[i] = b;
+        randBiome = false;
+        if (doJitter) {
+            if(realisticBiomeBase != null) {
+                for(i = 0; i < 256; i++) {
+                    biomes[i] = realisticBiomeBase;
                 }
-            } else {
-                //fill with biomeData
-                for (i = 0; i < 16; i++) {
-                    for (j=0; j<16; j++) {
-
-                        biomes[i] =  cmr.getBiomeDataAt(x + i, y + j);
-                        //biomes[i] =  cmr.getBiomeDataAt(x + ((i * 8) - 8), y + ((j * 8) - 8));
-                    }
+            }
+        } else {
+            //fill with biomeData
+            for (i = 0; i < 16; i++) {
+                for (j=0; j<16; j++) {
+                    biomes[i*16+j] =  cmr.getBiomeDataAt(x + (((i-8) * 8)), y + (((j-8) * 8)));
                 }
             }
         }
@@ -463,7 +456,7 @@ public class ChunkProviderRTG implements IChunkProvider
     	    				if(bCount > bRand)
     	    				{
                                 if (doJitter) {
-    	    					   biomes[j * 16 + i] = RealisticBiomeBase.getBiome(k);
+    	    					   biomes[i * 16 + j] = RealisticBiomeBase.getBiome(k);
                                 }
     	    					bCount = 2f; //20f;
     	    				}
@@ -479,7 +472,6 @@ public class ChunkProviderRTG implements IChunkProvider
     			}
     		}
     	}
-
     	return testHeight;
     }
 
@@ -513,12 +505,12 @@ public class ChunkProviderRTG implements IChunkProvider
     	{
     		for(j = 0; j < 16; j++)
     		{
-    			RealisticBiomeBase biome = biomes[i * 16 + j];
+    			RealisticBiomeBase biome = biomes[j * 16 + i];
 
     			river = -cmr.getRiverStrength(cx * 16 + j, cy * 16 + i);
     			if(river > 0.05f && river + (simplex.noise2((cx * 16 + j) / 10f, (cy * 16 + i) / 10f) * 0.15f) > 0.8f)
     			{
-    				base[i * 16 + j] = biome.riverBiome;
+    				base[j * 16 + i] = biome.riverBiome;
     			}
 
     			depth = -1;
@@ -657,7 +649,7 @@ public class ChunkProviderRTG implements IChunkProvider
         biome.rDecorateClay(worldObj, rand, chunkX, chunkZ, river, worldX, worldZ);
         
         //Border noise. (Does this have to be done here? - Pink)
-        RealisticBiomeBase b;
+        RealisticBiomeBase realisticBiome;
         float snow = 0f;
         
         for(int bn = 0; bn < 256; bn++)
@@ -668,10 +660,11 @@ public class ChunkProviderRTG implements IChunkProvider
         		{
         			borderNoise[bn] = 1f;
         		}
-        		b = RealisticBiomeBase.getBiome(bn);
-                b.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+        		realisticBiome = RealisticBiomeBase.getBiome(bn);
+                if (realisticBiome == null) throw new RuntimeException();
+                realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
 
-                if(b.baseBiome.temperature < 0.15f)
+                if(realisticBiome.baseBiome.temperature < 0.15f)
                 {
                 	snow -= 0.6f * borderNoise[bn];
                 }

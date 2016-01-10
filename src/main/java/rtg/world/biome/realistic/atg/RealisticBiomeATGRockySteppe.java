@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.atg;
 
-import rtg.api.biomes.atg.config.BiomeConfigATGRockySteppe;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.atg.ConfigATG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.atg.SurfaceATGRockySteppe;
@@ -10,7 +10,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeATGRockySteppe extends RealisticBiomeATGBase
 {	
-	public RealisticBiomeATGRockySteppe(BiomeGenBase atgBiome)
+	public RealisticBiomeATGRockySteppe(BiomeGenBase atgBiome, BiomeConfig config)
 	{
 		super(
 			atgBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
@@ -18,7 +18,7 @@ public class RealisticBiomeATGRockySteppe extends RealisticBiomeATGBase
 			new SurfaceATGRockySteppe(atgBiome.topBlock, atgBiome.fillerBlock)
 		);
 		
-		this.biomeConfig = new BiomeConfigATGRockySteppe();
+		this.biomeConfig = config;
 		this.biomeWeight = rtg.config.atg.ConfigATG.weightATGRockySteppe;
 		this.generateVillages = ConfigATG.villageATGGravelBeach;
 	}

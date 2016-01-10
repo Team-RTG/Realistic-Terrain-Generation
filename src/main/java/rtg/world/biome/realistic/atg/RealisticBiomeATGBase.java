@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.atg;
 
 import org.apache.logging.log4j.Level;
 
+import rtg.api.biomes.atg.config.BiomeConfigATG;
 import rtg.config.atg.ConfigATG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -48,7 +49,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
 					if (biomeName == "Gravel Beach" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenGravelBeach")
 					{
 						if (ConfigATG.generateATGGravelBeach) {
-						    atgGravelBeach = new RealisticBiomeATGGravelBeach(atgBiome);
+						    atgGravelBeach = new RealisticBiomeATGGravelBeach(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
 						    BiomeBase.addBiome(atgGravelBeach);
 						    BiomeBase.addVillageBiome(atgGravelBeach);
 						}
@@ -56,7 +57,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                     else if (biomeName == "Snowy Gravel Beach" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenGravelBeach")
                     {
                         if (ConfigATG.generateATGSnowyGravelBeach) {
-                            atgSnowyGravelBeach = new RealisticBiomeATGSnowyGravelBeach(atgBiome);
+                            atgSnowyGravelBeach = new RealisticBiomeATGSnowyGravelBeach(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
                             BiomeBase.addBiome(atgSnowyGravelBeach);
                             BiomeBase.addVillageBiome(atgSnowyGravelBeach);
                         }
@@ -64,7 +65,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                     else if (biomeName == "Shrubland" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenShrubland")
                     {
                         if (ConfigATG.generateATGShrubland) {
-                            atgShrubland = new RealisticBiomeATGShrubland(atgBiome);
+                            atgShrubland = new RealisticBiomeATGShrubland(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
                             BiomeBase.addBiome(atgShrubland);
                             BiomeBase.addVillageBiome(atgShrubland);
                         }
@@ -72,7 +73,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                     else if (biomeName == "Rocky Steppe" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenSteppe")
                     {
                         if (ConfigATG.generateATGRockySteppe) {
-                            atgRockySteppe = new RealisticBiomeATGRockySteppe(atgBiome);
+                            atgRockySteppe = new RealisticBiomeATGRockySteppe(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
                             BiomeBase.addBiome(atgRockySteppe);
                             BiomeBase.addVillageBiome(atgRockySteppe);
                         }
@@ -80,7 +81,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                     else if (biomeName == "Tropical Shrubland" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenTropicalShrubland")
                     {
                         if (ConfigATG.generateATGTropicalShrubland) {
-                            atgTropicalShrubland = new RealisticBiomeATGTropicalShrubland(atgBiome);
+                            atgTropicalShrubland = new RealisticBiomeATGTropicalShrubland(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
                             BiomeBase.addBiome(atgTropicalShrubland);
                             BiomeBase.addVillageBiome(atgTropicalShrubland);
                         }
@@ -88,7 +89,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                     else if (biomeName == "Tundra" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenTundra")
                     {
                         if (ConfigATG.generateATGTundra) {
-                            atgTundra = new RealisticBiomeATGTundra(atgBiome);
+                            atgTundra = new RealisticBiomeATGTundra(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
                             BiomeBase.addBiome(atgTundra);
                             BiomeBase.addVillageBiome(atgTundra);
                         }
@@ -96,7 +97,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                     else if (biomeName == "Volcano" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenVolcano")
                     {
                         if (ConfigATG.generateATGVolcano) {
-                            atgVolcano = new RealisticBiomeATGVolcano(atgBiome);
+                            atgVolcano = new RealisticBiomeATGVolcano(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
                             BiomeBase.addBiome(atgVolcano);
                             BiomeBase.addVillageBiome(atgVolcano);
                         }
@@ -104,7 +105,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                     else if (biomeName == "Woodland" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenWoodland")
                     {
                         if (ConfigATG.generateATGWoodland) {
-                            atgWoodland = new RealisticBiomeATGWoodland(atgBiome);
+                            atgWoodland = new RealisticBiomeATGWoodland(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
                             BiomeBase.addBiome(atgWoodland);
                             BiomeBase.addVillageBiome(atgWoodland);
                         }

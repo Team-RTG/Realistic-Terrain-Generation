@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.atg;
 
 import java.util.Random;
 
-import rtg.api.biomes.atg.config.BiomeConfigATGVolcano;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.atg.ConfigATG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -20,7 +20,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeATGVolcano extends RealisticBiomeATGBase
 {	
-	public RealisticBiomeATGVolcano(BiomeGenBase atgBiome)
+	public RealisticBiomeATGVolcano(BiomeGenBase atgBiome, BiomeConfig config)
 	{
 		super(
 			atgBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
@@ -28,7 +28,7 @@ public class RealisticBiomeATGVolcano extends RealisticBiomeATGBase
 			new SurfaceATGVolcano(atgBiome.topBlock, atgBiome.fillerBlock, true, Blocks.gravel, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f)
 		);
 		
-		this.biomeConfig = new BiomeConfigATGVolcano();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigATG.weightATGVolcano;
 		this.generateVillages = ConfigATG.villageATGVolcano;
 	}

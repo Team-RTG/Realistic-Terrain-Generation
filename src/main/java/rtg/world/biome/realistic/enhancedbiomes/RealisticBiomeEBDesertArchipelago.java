@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBDesertArchipelago;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBDesertArchipelago;
@@ -47,7 +47,7 @@ public class RealisticBiomeEBDesertArchipelago extends RealisticBiomeEBBase
     private static Block ebCliff2Block = Blocks.sandstone;
     private static byte ebCliff2Byte = (byte)0;
     
-	public RealisticBiomeEBDesertArchipelago(BiomeGenBase ebBiome)
+	public RealisticBiomeEBDesertArchipelago(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
@@ -72,7 +72,7 @@ public class RealisticBiomeEBDesertArchipelago extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = new BiomeConfigEBDesertArchipelago();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEB.weightEBDesertArchipelago;
 		this.generateVillages = ConfigEB.villageEBDesertArchipelago;
         

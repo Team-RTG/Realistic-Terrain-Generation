@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBSnowyDesert;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSnowyDesert;
@@ -47,7 +47,7 @@ public class RealisticBiomeEBSnowyDesert extends RealisticBiomeEBBase
     private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.DACITE, (byte)0);
     
-	public RealisticBiomeEBSnowyDesert(BiomeGenBase ebBiome)
+	public RealisticBiomeEBSnowyDesert(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
@@ -72,7 +72,7 @@ public class RealisticBiomeEBSnowyDesert extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = new BiomeConfigEBSnowyDesert();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEB.weightEBSnowyDesert;
 		this.generateVillages = ConfigEB.villageEBSnowyDesert;
         

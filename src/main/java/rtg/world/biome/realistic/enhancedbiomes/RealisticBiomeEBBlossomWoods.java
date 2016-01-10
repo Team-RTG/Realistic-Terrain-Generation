@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBBlossomWoods;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -56,7 +56,7 @@ public class RealisticBiomeEBBlossomWoods extends RealisticBiomeEBBase
     private static Block ebCliff2Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.SLATE, (byte)0);
     
-	public RealisticBiomeEBBlossomWoods(BiomeGenBase ebBiome)
+	public RealisticBiomeEBBlossomWoods(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -81,7 +81,7 @@ public class RealisticBiomeEBBlossomWoods extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = new BiomeConfigEBBlossomWoods();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEB.weightEBBlossomWoods;
 		this.generateVillages = ConfigEB.villageEBBlossomWoods;
         

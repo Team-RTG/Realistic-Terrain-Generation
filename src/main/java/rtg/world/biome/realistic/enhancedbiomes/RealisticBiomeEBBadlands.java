@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBBadlands;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBBadlands;
@@ -47,7 +47,7 @@ public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
     private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.sandstone);
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
     
-	public RealisticBiomeEBBadlands(BiomeGenBase ebBiome)
+	public RealisticBiomeEBBadlands(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
@@ -72,7 +72,7 @@ public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = new BiomeConfigEBBadlands();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEB.weightEBBadlands;
 		this.generateVillages = ConfigEB.villageEBBadlands;
         

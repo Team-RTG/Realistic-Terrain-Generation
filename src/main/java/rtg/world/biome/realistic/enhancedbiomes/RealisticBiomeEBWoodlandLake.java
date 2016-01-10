@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBWoodlandLake;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBWoodlandLake;
@@ -47,7 +47,7 @@ public class RealisticBiomeEBWoodlandLake extends RealisticBiomeEBBase
     private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.SCHIST, (byte)0);
     
-	public RealisticBiomeEBWoodlandLake(BiomeGenBase ebBiome)
+	public RealisticBiomeEBWoodlandLake(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
@@ -72,7 +72,7 @@ public class RealisticBiomeEBWoodlandLake extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = new BiomeConfigEBWoodlandLake();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEB.weightEBWoodlandLake;
 		this.generateVillages = ConfigEB.villageEBWoodlandLake;
         

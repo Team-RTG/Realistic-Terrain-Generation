@@ -1,8 +1,8 @@
 package rtg.api.biomes.enhancedbiomes.config;
 
-public class BiomeConfigEBMangrove extends BiomeConfigEBBase
+public class BiomeConfigEBMangroves extends BiomeConfigEBBase
 {
-    public BiomeConfigEBMangrove()
+    public BiomeConfigEBMangroves()
     {
         super();
         

@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import org.apache.logging.log4j.Level;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEB;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -135,7 +136,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					if (biomeName == "Alpine Mountains" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenAlpine")
 					{
 						if (ConfigEB.generateEBAlpineMountains) {
-						    ebAlpineMountains = new RealisticBiomeEBAlpineMountains(ebBiome);
+						    ebAlpineMountains = new RealisticBiomeEBAlpineMountains(ebBiome, BiomeConfigEB.biomeConfigEBAlpineMountains);
 						    BiomeBase.addBiome(ebAlpineMountains);
 						    BiomeBase.addVillageBiome(ebAlpineMountains);
 						}
@@ -143,7 +144,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Alpine Mountains Edge" && biomeClass == "enhancedbiomes.world.biome.snow.snowforest.BiomeGenAlpineEdge")
 					{
 						if (ConfigEB.generateEBAlpineMountainsEdge) {
-						    ebAlpineMountainsEdge = new RealisticBiomeEBAlpineMountainsEdge(ebBiome);
+						    ebAlpineMountainsEdge = new RealisticBiomeEBAlpineMountainsEdge(ebBiome, BiomeConfigEB.biomeConfigEBAlpineMountainsEdge);
 							BiomeBase.addBiome(ebAlpineMountainsEdge);
 							BiomeBase.addVillageBiome(ebAlpineMountainsEdge);
 						}
@@ -151,7 +152,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Alpine Mountains M" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenAlpineM")
 					{
 						if (ConfigEB.generateEBAlpineMountainsM) {
-						    ebAlpineMountainsM = new RealisticBiomeEBAlpineMountainsM(ebBiome);
+						    ebAlpineMountainsM = new RealisticBiomeEBAlpineMountainsM(ebBiome, BiomeConfigEB.biomeConfigEBAlpineMountainsM);
 							BiomeBase.addBiome(ebAlpineMountainsM);
 							BiomeBase.addVillageBiome(ebAlpineMountainsM);
 						}
@@ -159,7 +160,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Alpine Tundra" && biomeClass == "enhancedbiomes.world.biome.grass.BiomeGenAlpineTundra")
 					{
 						if (ConfigEB.generateEBAlpineTundra) {
-						    ebAlpineTundra = new RealisticBiomeEBAlpineTundra(ebBiome);
+						    ebAlpineTundra = new RealisticBiomeEBAlpineTundra(ebBiome, BiomeConfigEB.biomeConfigEBAlpineTundra);
 							BiomeBase.addBiome(ebAlpineTundra);
 							BiomeBase.addVillageBiome(ebAlpineTundra);
 						}
@@ -167,7 +168,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Aspen Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenAspenForest")
 					{
 						if (ConfigEB.generateEBAspenForest) {
-						    ebAspenForest = new RealisticBiomeEBAspenForest(ebBiome);
+						    ebAspenForest = new RealisticBiomeEBAspenForest(ebBiome, BiomeConfigEB.biomeConfigEBAspenForest);
 							BiomeBase.addBiome(ebAspenForest);
 							BiomeBase.addVillageBiome(ebAspenForest);
 						}
@@ -175,7 +176,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Aspen Hills" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenAspenForest")
 					{
 						if (ConfigEB.generateEBAspenHills) {
-						    ebAspenHills = new RealisticBiomeEBAspenHills(ebBiome);
+						    ebAspenHills = new RealisticBiomeEBAspenHills(ebBiome, BiomeConfigEB.biomeConfigEBAspenHills);
 							BiomeBase.addBiome(ebAspenHills);
 							BiomeBase.addVillageBiome(ebAspenHills);
 						}
@@ -183,7 +184,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Badlands" && biomeClass == "enhancedbiomes.world.biome.grass.BiomeGenBadlands")
 					{
 						if (ConfigEB.generateEBBadlands) {
-						    ebBadlands = new RealisticBiomeEBBadlands(ebBiome);
+						    ebBadlands = new RealisticBiomeEBBadlands(ebBiome, BiomeConfigEB.biomeConfigEBBadlands);
 							BiomeBase.addBiome(ebBadlands);
 							BiomeBase.addVillageBiome(ebBadlands);
 						}
@@ -191,7 +192,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Basin" && biomeClass == "enhancedbiomes.world.biome.wasteland.rock.BiomeGenBasin")
 					{
 						if (ConfigEB.generateEBBasin) {
-						    ebBasin = new RealisticBiomeEBBasin(ebBiome);
+						    ebBasin = new RealisticBiomeEBBasin(ebBiome, BiomeConfigEB.biomeConfigEBBasin);
 							BiomeBase.addBiome(ebBasin);
 							BiomeBase.addVillageBiome(ebBasin);
 						}
@@ -199,7 +200,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Blossom Hills" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenCherryBlossom")
 					{
 						if (ConfigEB.generateEBBlossomHills) {
-						    ebBlossomHills = new RealisticBiomeEBBlossomHills(ebBiome);
+						    ebBlossomHills = new RealisticBiomeEBBlossomHills(ebBiome, BiomeConfigEB.biomeConfigEBBlossomHills);
 							BiomeBase.addBiome(ebBlossomHills);
 							BiomeBase.addVillageBiome(ebBlossomHills);
 						}
@@ -207,7 +208,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Blossom Woods" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenCherryBlossom")
 					{
 						if (ConfigEB.generateEBBlossomWoods) {
-						    ebBlossomWoods = new RealisticBiomeEBBlossomWoods(ebBiome);
+						    ebBlossomWoods = new RealisticBiomeEBBlossomWoods(ebBiome, BiomeConfigEB.biomeConfigEBBlossomWoods);
 							BiomeBase.addBiome(ebBlossomWoods);
 							BiomeBase.addVillageBiome(ebBlossomWoods);
 						}
@@ -215,7 +216,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Boreal Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenBorealArchipelago")
 					{
 						if (ConfigEB.generateEBBorealArchipelago) {
-						    ebBorealArchipelago = new RealisticBiomeEBBorealArchipelago(ebBiome);
+						    ebBorealArchipelago = new RealisticBiomeEBBorealArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBBorealArchipelago);
 							BiomeBase.addBiome(ebBorealArchipelago);
 							BiomeBase.addVillageBiome(ebBorealArchipelago);
 						}
@@ -223,7 +224,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Boreal Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenBorealForest")
 					{
 						if (ConfigEB.generateEBBorealForest) {
-						    ebBorealForest = new RealisticBiomeEBBorealForest(ebBiome);
+						    ebBorealForest = new RealisticBiomeEBBorealForest(ebBiome, BiomeConfigEB.biomeConfigEBBorealForest);
 							BiomeBase.addBiome(ebBorealForest);
 							BiomeBase.addVillageBiome(ebBorealForest);
 						}
@@ -231,7 +232,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Boreal Plateau" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenBorealForest")
 					{
 						if (ConfigEB.generateEBBorealPlateau) {
-						    ebBorealPlateau = new RealisticBiomeEBBorealPlateau(ebBiome);
+						    ebBorealPlateau = new RealisticBiomeEBBorealPlateau(ebBiome, BiomeConfigEB.biomeConfigEBBorealPlateau);
 							BiomeBase.addBiome(ebBorealPlateau);
 							BiomeBase.addVillageBiome(ebBorealPlateau);
 						}
@@ -239,7 +240,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Boreal Plateau M" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenBorealForest")
 					{
 						if (ConfigEB.generateEBBorealPlateauM) {
-						    ebBorealPlateauM = new RealisticBiomeEBBorealPlateauM(ebBiome);
+						    ebBorealPlateauM = new RealisticBiomeEBBorealPlateauM(ebBiome, BiomeConfigEB.biomeConfigEBBorealPlateauM);
 							BiomeBase.addBiome(ebBorealPlateauM);
 							BiomeBase.addVillageBiome(ebBorealPlateauM);
 						}
@@ -247,7 +248,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Carr" && biomeClass == "enhancedbiomes.world.biome.wetland.BiomeGenCarr")
 					{
 						if (ConfigEB.generateEBCarr) {
-						    ebCarr = new RealisticBiomeEBCarr(ebBiome);
+						    ebCarr = new RealisticBiomeEBCarr(ebBiome, BiomeConfigEB.biomeConfigEBCarr);
 							BiomeBase.addBiome(ebCarr);
 							BiomeBase.addVillageBiome(ebCarr);
 						}
@@ -255,7 +256,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Clay Hills" && biomeClass == "enhancedbiomes.world.biome.wasteland.sandstone.BiomeGenClayHills")
 					{
 						if (ConfigEB.generateEBClayHills) {
-						    ebClayHills = new RealisticBiomeEBClayHills(ebBiome);
+						    ebClayHills = new RealisticBiomeEBClayHills(ebBiome, BiomeConfigEB.biomeConfigEBClayHills);
 							BiomeBase.addBiome(ebClayHills);
 							BiomeBase.addVillageBiome(ebClayHills);
 						}
@@ -263,7 +264,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Clearing" && biomeClass == "enhancedbiomes.world.biome.base.BiomeGenGrassBase")
 					{
 						if (ConfigEB.generateEBClearing) {
-						    ebClearing = new RealisticBiomeEBClearing(ebBiome);
+						    ebClearing = new RealisticBiomeEBClearing(ebBiome, BiomeConfigEB.biomeConfigEBClearing);
 							BiomeBase.addBiome(ebClearing);
 							BiomeBase.addVillageBiome(ebClearing);
 						}
@@ -271,7 +272,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Cold Boreal Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenBorealForest")
 					{
 						if (ConfigEB.generateEBColdBorealForest) {
-						    ebColdBorealForest = new RealisticBiomeEBColdBorealForest(ebBiome);
+						    ebColdBorealForest = new RealisticBiomeEBColdBorealForest(ebBiome, BiomeConfigEB.biomeConfigEBColdBorealForest);
 							BiomeBase.addBiome(ebColdBorealForest);
 							BiomeBase.addVillageBiome(ebColdBorealForest);
 						}
@@ -279,7 +280,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Cold Cypress Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenCypressForest")
 					{
 						if (ConfigEB.generateEBColdCypressForest) {
-						    ebColdCypressForest = new RealisticBiomeEBColdCypressForest(ebBiome);
+						    ebColdCypressForest = new RealisticBiomeEBColdCypressForest(ebBiome, BiomeConfigEB.biomeConfigEBColdCypressForest);
 							BiomeBase.addBiome(ebColdCypressForest);
 							BiomeBase.addVillageBiome(ebColdCypressForest);
 						}
@@ -287,7 +288,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Cold Fir Forest" && biomeClass == "enhancedbiomes.world.biome.snow.snowforest.BiomeGenFirForest")
 					{
 						if (ConfigEB.generateEBColdFirForest) {
-						    ebColdFirForest = new RealisticBiomeEBColdFirForest(ebBiome);
+						    ebColdFirForest = new RealisticBiomeEBColdFirForest(ebBiome, BiomeConfigEB.biomeConfigEBColdFirForest);
 							BiomeBase.addBiome(ebColdFirForest);
 							BiomeBase.addVillageBiome(ebColdFirForest);
 						}
@@ -295,7 +296,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
                     else if (biomeName == "Cold Pine Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenPineForest")
                     {
                         if (ConfigEB.generateEBColdPineForest) {
-                            ebColdPineForest = new RealisticBiomeEBColdPineForest(ebBiome);
+                            ebColdPineForest = new RealisticBiomeEBColdPineForest(ebBiome, BiomeConfigEB.biomeConfigEBColdPineForest);
                             BiomeBase.addBiome(ebColdPineForest);
                             BiomeBase.addVillageBiome(ebColdPineForest);
                         }
@@ -303,7 +304,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
                     else if (biomeName == "Creek Bed" && biomeClass == "enhancedbiomes.world.biome.wasteland.sandstone.BiomeGenCreekBed")
                     {
                         if (ConfigEB.generateEBCreekBed) {
-                            ebCreekBed = new RealisticBiomeEBCreekBed(ebBiome);
+                            ebCreekBed = new RealisticBiomeEBCreekBed(ebBiome, BiomeConfigEB.biomeConfigEBCreekBed);
                             BiomeBase.addBiome(ebCreekBed);
                             BiomeBase.addVillageBiome(ebCreekBed);
                         }
@@ -311,7 +312,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Cypress Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenCypressForest")
 					{
 						if (ConfigEB.generateEBCypressForest) {
-						    ebCypressForest = new RealisticBiomeEBCypressForest(ebBiome);
+						    ebCypressForest = new RealisticBiomeEBCypressForest(ebBiome, BiomeConfigEB.biomeConfigEBCypressForest);
 							BiomeBase.addBiome(ebCypressForest);
 							BiomeBase.addVillageBiome(ebCypressForest);
 						}
@@ -319,7 +320,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Desert Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenDesertArchipelago")
 					{
 						if (ConfigEB.generateEBDesertArchipelago) {
-						    ebDesertArchipelago = new RealisticBiomeEBDesertArchipelago(ebBiome);
+						    ebDesertArchipelago = new RealisticBiomeEBDesertArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBDesertArchipelago);
 							BiomeBase.addBiome(ebDesertArchipelago);
 							BiomeBase.addVillageBiome(ebDesertArchipelago);
 						}
@@ -327,7 +328,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Ephemeral Lake" && biomeClass == "enhancedbiomes.world.biome.wetland.BiomeGenEphemeralLake")
 					{
 						if (ConfigEB.generateEBEphemeralLake) {
-						    ebEphemeralLake = new RealisticBiomeEBEphemeralLake(ebBiome);
+						    ebEphemeralLake = new RealisticBiomeEBEphemeralLake(ebBiome, BiomeConfigEB.biomeConfigEBEphemeralLake);
 							BiomeBase.addBiome(ebEphemeralLake);
 							BiomeBase.addVillageBiome(ebEphemeralLake);
 						}
@@ -335,7 +336,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Ephemeral Lake Edge" && biomeClass == "enhancedbiomes.world.biome.wetland.BiomeGenEphemeralLake")
 					{
 						if (ConfigEB.generateEBEphemeralLakeEdge) {
-						    ebEphemeralLakeEdge = new RealisticBiomeEBEphemeralLakeEdge(ebBiome);
+						    ebEphemeralLakeEdge = new RealisticBiomeEBEphemeralLakeEdge(ebBiome, BiomeConfigEB.biomeConfigEBEphemeralLakeEdge);
 							BiomeBase.addBiome(ebEphemeralLakeEdge);
 							BiomeBase.addVillageBiome(ebEphemeralLakeEdge);
 						}
@@ -343,7 +344,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Fens" && biomeClass == "enhancedbiomes.world.biome.wetland.BiomeGenFen")
 					{
 						if (ConfigEB.generateEBFens) {
-						    ebFens = new RealisticBiomeEBFens(ebBiome);
+						    ebFens = new RealisticBiomeEBFens(ebBiome, BiomeConfigEB.biomeConfigEBFens);
 							BiomeBase.addBiome(ebFens);
 							BiomeBase.addVillageBiome(ebFens);
 						}
@@ -351,7 +352,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Fir Forest" && biomeClass == "enhancedbiomes.world.biome.snow.snowforest.BiomeGenFirForest")
 					{
 						if (ConfigEB.generateEBFirForest) {
-						    ebFirForest = new RealisticBiomeEBFirForest(ebBiome);
+						    ebFirForest = new RealisticBiomeEBFirForest(ebBiome, BiomeConfigEB.biomeConfigEBFirForest);
 							BiomeBase.addBiome(ebFirForest);
 							BiomeBase.addVillageBiome(ebFirForest);
 						}
@@ -359,7 +360,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Flowery Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenFlowerArchipelago")
 					{
 						if (ConfigEB.generateEBFloweryArchipelago) {
-						    ebFloweryArchipelago = new RealisticBiomeEBFloweryArchipelago(ebBiome);
+						    ebFloweryArchipelago = new RealisticBiomeEBFloweryArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBFloweryArchipelago);
 							BiomeBase.addBiome(ebFloweryArchipelago);
 							BiomeBase.addVillageBiome(ebFloweryArchipelago);
 						}
@@ -367,7 +368,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Forested Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenForestArchipelago")
 					{
 						if (ConfigEB.generateEBForestedArchipelago) {
-						    ebForestedArchipelago = new RealisticBiomeEBForestedArchipelago(ebBiome);
+						    ebForestedArchipelago = new RealisticBiomeEBForestedArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBForestedArchipelago);
 							BiomeBase.addBiome(ebForestedArchipelago);
 							BiomeBase.addVillageBiome(ebForestedArchipelago);
 						}
@@ -375,7 +376,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Forested Mountains" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenWoodlands")
 					{
 						if (ConfigEB.generateEBForestedMountains) {
-						    ebForestedMountains = new RealisticBiomeEBForestedMountains(ebBiome);
+						    ebForestedMountains = new RealisticBiomeEBForestedMountains(ebBiome, BiomeConfigEB.biomeConfigEBForestedMountains);
 							BiomeBase.addBiome(ebForestedMountains);
 							BiomeBase.addVillageBiome(ebForestedMountains);
 						}
@@ -383,7 +384,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Forested Valley" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenWoodlands")
 					{
 						if (ConfigEB.generateEBForestedValley) {
-						    ebForestedValley = new RealisticBiomeEBForestedValley(ebBiome);
+						    ebForestedValley = new RealisticBiomeEBForestedValley(ebBiome, BiomeConfigEB.biomeConfigEBForestedValley);
 							BiomeBase.addBiome(ebForestedValley);
 							BiomeBase.addVillageBiome(ebForestedValley);
 						}
@@ -391,7 +392,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Frozen Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenSnowArchipelago")
 					{
 						if (ConfigEB.generateEBFrozenArchipelago) {
-						    ebFrozenArchipelago = new RealisticBiomeEBFrozenArchipelago(ebBiome);
+						    ebFrozenArchipelago = new RealisticBiomeEBFrozenArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBFrozenArchipelago);
 							BiomeBase.addBiome(ebFrozenArchipelago);
 							BiomeBase.addVillageBiome(ebFrozenArchipelago);
 						}
@@ -399,7 +400,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Glacier" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenGlacier")
 					{
 						if (ConfigEB.generateEBGlacier) {
-						    ebGlacier = new RealisticBiomeEBGlacier(ebBiome);
+						    ebGlacier = new RealisticBiomeEBGlacier(ebBiome, BiomeConfigEB.biomeConfigEBGlacier);
 							BiomeBase.addBiome(ebGlacier);
 							BiomeBase.addVillageBiome(ebGlacier);
 						}
@@ -407,7 +408,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Grassy Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenPlainsArchipelago")
 					{
 						if (ConfigEB.generateEBGrassyArchipelago) {
-						    ebGrassyArchipelago = new RealisticBiomeEBGrassyArchipelago(ebBiome);
+						    ebGrassyArchipelago = new RealisticBiomeEBGrassyArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBGrassyArchipelago);
 							BiomeBase.addBiome(ebGrassyArchipelago);
 							BiomeBase.addVillageBiome(ebGrassyArchipelago);
 						}
@@ -415,7 +416,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Ice Sheet" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenIceSheet")
 					{
 						if (ConfigEB.generateEBIceSheet) {
-						    ebIceSheet = new RealisticBiomeEBIceSheet(ebBiome);
+						    ebIceSheet = new RealisticBiomeEBIceSheet(ebBiome, BiomeConfigEB.biomeConfigEBIceSheet);
 							BiomeBase.addBiome(ebIceSheet);
 							BiomeBase.addVillageBiome(ebIceSheet);
 						}
@@ -423,7 +424,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Kakadu" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenKakadu")
 					{
 						if (ConfigEB.generateEBKakadu) {
-						    ebKakadu = new RealisticBiomeEBKakadu(ebBiome);
+						    ebKakadu = new RealisticBiomeEBKakadu(ebBiome, BiomeConfigEB.biomeConfigEBKakadu);
 							BiomeBase.addBiome(ebKakadu);
 							BiomeBase.addVillageBiome(ebKakadu);
 						}
@@ -431,7 +432,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Lake" && biomeClass == "enhancedbiomes.world.biome.wetland.BiomeGenLake")
 					{
 						if (ConfigEB.generateEBLake) {
-						    ebLake = new RealisticBiomeEBLake(ebBiome);
+						    ebLake = new RealisticBiomeEBLake(ebBiome, BiomeConfigEB.biomeConfigEBLake);
 							BiomeBase.addBiome(ebLake);
 							BiomeBase.addVillageBiome(ebLake);
 						}
@@ -439,7 +440,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Low Hills" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenLowHills")
 					{
 						if (ConfigEB.generateEBLowHills) {
-						    ebLowHills = new RealisticBiomeEBLowHills(ebBiome);
+						    ebLowHills = new RealisticBiomeEBLowHills(ebBiome, BiomeConfigEB.biomeConfigEBLowHills);
 							BiomeBase.addBiome(ebLowHills);
 							BiomeBase.addVillageBiome(ebLowHills);
 						}
@@ -447,7 +448,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Mangroves" && biomeClass == "enhancedbiomes.world.biome.wetland.BiomeGenMangrove")
 					{
 						if (ConfigEB.generateEBMangroves) {
-						    ebMangroves = new RealisticBiomeEBMangrove(ebBiome);
+						    ebMangroves = new RealisticBiomeEBMangrove(ebBiome, BiomeConfigEB.biomeConfigEBMangroves);
 							BiomeBase.addBiome(ebMangroves);
 							BiomeBase.addVillageBiome(ebMangroves);
 						}
@@ -455,7 +456,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Marsh" && biomeClass == "enhancedbiomes.world.biome.wetland.BiomeGenMarsh")
 					{
 						if (ConfigEB.generateEBMarsh) {
-						    ebMarsh = new RealisticBiomeEBMarsh(ebBiome);
+						    ebMarsh = new RealisticBiomeEBMarsh(ebBiome, BiomeConfigEB.biomeConfigEBMarsh);
 							BiomeBase.addBiome(ebMarsh);
 							BiomeBase.addVillageBiome(ebMarsh);
 						}
@@ -463,7 +464,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Meadow" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenMeadow")
 					{
 						if (ConfigEB.generateEBMeadow) {
-						    ebMeadow = new RealisticBiomeEBMeadow(ebBiome);
+						    ebMeadow = new RealisticBiomeEBMeadow(ebBiome, BiomeConfigEB.biomeConfigEBMeadow);
 							BiomeBase.addBiome(ebMeadow);
 							BiomeBase.addVillageBiome(ebMeadow);
 						}
@@ -471,7 +472,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Meadow M" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenMeadowM")
 					{
 						if (ConfigEB.generateEBMeadowM) {
-						    ebMeadowM = new RealisticBiomeEBMeadowM(ebBiome);
+						    ebMeadowM = new RealisticBiomeEBMeadowM(ebBiome, BiomeConfigEB.biomeConfigEBMeadowM);
 							BiomeBase.addBiome(ebMeadowM);
 							BiomeBase.addVillageBiome(ebMeadowM);
 						}
@@ -479,7 +480,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Mountainous Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenMountainsArchipelago")
 					{
 						if (ConfigEB.generateEBMountainousArchipelago) {
-						    ebMountainousArchipelago = new RealisticBiomeEBMountainousArchipelago(ebBiome);
+						    ebMountainousArchipelago = new RealisticBiomeEBMountainousArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBMountainousArchipelago);
 							BiomeBase.addBiome(ebMountainousArchipelago);
 							BiomeBase.addVillageBiome(ebMountainousArchipelago);
 						}
@@ -487,7 +488,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Mountains" && biomeClass == "enhancedbiomes.world.biome.grass.BiomeGenMountains")
 					{
 						if (ConfigEB.generateEBMountains) {
-						    ebMountains = new RealisticBiomeEBMountains(ebBiome);
+						    ebMountains = new RealisticBiomeEBMountains(ebBiome, BiomeConfigEB.biomeConfigEBMountains);
 							BiomeBase.addBiome(ebMountains);
 							BiomeBase.addVillageBiome(ebMountains);
 						}
@@ -495,7 +496,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Mountains Edge" && biomeClass == "enhancedbiomes.world.biome.grass.BiomeGenMountains")
 					{
 						if (ConfigEB.generateEBMountainsEdge) {
-						    ebMountainsEdge = new RealisticBiomeEBMountainsEdge(ebBiome);
+						    ebMountainsEdge = new RealisticBiomeEBMountainsEdge(ebBiome, BiomeConfigEB.biomeConfigEBMountainsEdge);
 							BiomeBase.addBiome(ebMountainsEdge);
 							BiomeBase.addVillageBiome(ebMountainsEdge);
 						}
@@ -503,7 +504,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Oak Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenOakForest")
 					{
 						if (ConfigEB.generateEBOakForest) {
-						    ebOakForest = new RealisticBiomeEBOakForest(ebBiome);
+						    ebOakForest = new RealisticBiomeEBOakForest(ebBiome, BiomeConfigEB.biomeConfigEBOakForest);
 							BiomeBase.addBiome(ebOakForest);
 							BiomeBase.addVillageBiome(ebOakForest);
 						}
@@ -511,7 +512,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Oasis" && biomeClass == "enhancedbiomes.world.biome.woodland.tropical.BiomeGenOasis")
 					{
 						if (ConfigEB.generateEBOasis) {
-						    ebOasis = new RealisticBiomeEBOasis(ebBiome);
+						    ebOasis = new RealisticBiomeEBOasis(ebBiome, BiomeConfigEB.biomeConfigEBOasis);
 							BiomeBase.addBiome(ebOasis);
 							BiomeBase.addVillageBiome(ebOasis);
 						}
@@ -519,7 +520,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Pine Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenPineForest")
 					{
 						if (ConfigEB.generateEBPineForest) {
-						    ebPineForest = new RealisticBiomeEBPineForest(ebBiome);
+						    ebPineForest = new RealisticBiomeEBPineForest(ebBiome, BiomeConfigEB.biomeConfigEBPineForest);
 							BiomeBase.addBiome(ebPineForest);
 							BiomeBase.addVillageBiome(ebPineForest);
 						}
@@ -527,7 +528,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Pine Forest Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenPineForestArchipelago")
 					{
 						if (ConfigEB.generateEBPineForestArchipelago) {
-						    ebPineForestArchipelago = new RealisticBiomeEBPineForestArchipelago(ebBiome);
+						    ebPineForestArchipelago = new RealisticBiomeEBPineForestArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBPineForestArchipelago);
 							BiomeBase.addBiome(ebPineForestArchipelago);
 							BiomeBase.addVillageBiome(ebPineForestArchipelago);
 						}
@@ -535,7 +536,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Plateau" && biomeClass == "enhancedbiomes.world.biome.grass.BiomeGenPlateau")
 					{
 						if (ConfigEB.generateEBPlateau) {
-						    ebPlateau = new RealisticBiomeEBPlateau(ebBiome);
+						    ebPlateau = new RealisticBiomeEBPlateau(ebBiome, BiomeConfigEB.biomeConfigEBPlateau);
 							BiomeBase.addBiome(ebPlateau);
 							BiomeBase.addVillageBiome(ebPlateau);
 						}
@@ -544,7 +545,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 						if (ConfigEB.generateEBPolarDesert) {
 						    ebBiome.setEnableSnow();
-						    ebPolarDesert = new RealisticBiomeEBPolarDesert(ebBiome);
+						    ebPolarDesert = new RealisticBiomeEBPolarDesert(ebBiome, BiomeConfigEB.biomeConfigEBPolarDesert);
 							BiomeBase.addBiome(ebPolarDesert);
 							BiomeBase.addVillageBiome(ebPolarDesert);
 						}
@@ -552,7 +553,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Prairie" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenPrairie")
 					{
 						if (ConfigEB.generateEBPrairie) {
-						    ebPrairie = new RealisticBiomeEBPrairie(ebBiome);
+						    ebPrairie = new RealisticBiomeEBPrairie(ebBiome, BiomeConfigEB.biomeConfigEBPrairie);
 							BiomeBase.addBiome(ebPrairie);
 							BiomeBase.addVillageBiome(ebPrairie);
 						}
@@ -560,7 +561,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Rainforest" && biomeClass == "enhancedbiomes.world.biome.woodland.tropical.BiomeGenRainforest")
 					{
 						if (ConfigEB.generateEBRainforest) {
-						    ebRainforest = new RealisticBiomeEBRainforest(ebBiome);
+						    ebRainforest = new RealisticBiomeEBRainforest(ebBiome, BiomeConfigEB.biomeConfigEBRainforest);
 							BiomeBase.addBiome(ebRainforest);
 							BiomeBase.addVillageBiome(ebRainforest);
 						}
@@ -568,7 +569,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Rainforest Valley" && biomeClass == "enhancedbiomes.world.biome.woodland.tropical.BiomeGenRainforest")
 					{
 						if (ConfigEB.generateEBRainforestValley) {
-						    ebRainforestValley = new RealisticBiomeEBRainforestValley(ebBiome);
+						    ebRainforestValley = new RealisticBiomeEBRainforestValley(ebBiome, BiomeConfigEB.biomeConfigEBRainforestValley);
 							BiomeBase.addBiome(ebRainforestValley);
 							BiomeBase.addVillageBiome(ebRainforestValley);
 						}
@@ -576,7 +577,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
                     else if (biomeName == "Red Desert" && biomeClass == "enhancedbiomes.world.biome.sand.BiomeGenRedDesert")
                     {
                         if (ConfigEB.generateEBRedDesert) {
-                            ebRedDesert = new RealisticBiomeEBRedDesert(ebBiome);
+                            ebRedDesert = new RealisticBiomeEBRedDesert(ebBiome, BiomeConfigEB.biomeConfigEBRedDesert);
                             BiomeBase.addBiome(ebRedDesert);
                             BiomeBase.addVillageBiome(ebRedDesert);
                         }
@@ -584,7 +585,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
                     else if (biomeName == "Riparian Zone" && biomeClass == "enhancedbiomes.world.biome.base.BiomeGenRiparianZone")
                     {
                         if (ConfigEB.generateEBRiparianZone) {
-                            ebRiparianZone = new RealisticBiomeEBRiparianZone(ebBiome);
+                            ebRiparianZone = new RealisticBiomeEBRiparianZone(ebBiome, BiomeConfigEB.biomeConfigEBRiparianZone);
                             BiomeBase.addBiome(ebRiparianZone);
                             BiomeBase.addVillageBiome(ebRiparianZone);
                         }
@@ -592,7 +593,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Rocky Desert" && biomeClass == "enhancedbiomes.world.biome.sand.BiomeGenRockyDesert")
 					{
 						if (ConfigEB.generateEBRockyDesert) {
-						    ebRockyDesert = new RealisticBiomeEBRockyDesert(ebBiome);
+						    ebRockyDesert = new RealisticBiomeEBRockyDesert(ebBiome, BiomeConfigEB.biomeConfigEBRockyDesert);
 							BiomeBase.addBiome(ebRockyDesert);
 							BiomeBase.addVillageBiome(ebRockyDesert);
 						}
@@ -600,7 +601,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Rocky Hills" && biomeClass == "enhancedbiomes.world.biome.wasteland.rock.BiomeGenRockHills")
 					{
 						if (ConfigEB.generateEBRockyHills) {
-						    ebRockyHills = new RealisticBiomeEBRockyHills(ebBiome);
+						    ebRockyHills = new RealisticBiomeEBRockyHills(ebBiome, BiomeConfigEB.biomeConfigEBRockyHills);
 							BiomeBase.addBiome(ebRockyHills);
 							BiomeBase.addVillageBiome(ebRockyHills);
 						}
@@ -608,7 +609,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Roofed Shrublands" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenGrasslandsRoofed")
 					{
 						if (ConfigEB.generateEBRoofedShrublands) {
-						    ebRoofedShrublands = new RealisticBiomeEBRoofedShrublands(ebBiome);
+						    ebRoofedShrublands = new RealisticBiomeEBRoofedShrublands(ebBiome, BiomeConfigEB.biomeConfigEBRoofedShrublands);
 							BiomeBase.addBiome(ebRoofedShrublands);
 							BiomeBase.addVillageBiome(ebRoofedShrublands);
 						}
@@ -616,7 +617,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Sahara" && biomeClass == "enhancedbiomes.world.biome.sand.BiomeGenSahara")
 					{
 						if (ConfigEB.generateEBSahara) {
-						    ebSahara = new RealisticBiomeEBSahara(ebBiome);
+						    ebSahara = new RealisticBiomeEBSahara(ebBiome, BiomeConfigEB.biomeConfigEBSahara);
 							BiomeBase.addBiome(ebSahara);
 							BiomeBase.addVillageBiome(ebSahara);
 						}
@@ -624,7 +625,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Sandstone Canyon" && biomeClass == "enhancedbiomes.world.biome.wasteland.sandstone.BiomeGenSandStoneGorge")
 					{
 						if (ConfigEB.generateEBSandstoneCanyon) {
-						    ebSandstoneCanyon = new RealisticBiomeEBSandstoneCanyon(ebBiome);
+						    ebSandstoneCanyon = new RealisticBiomeEBSandstoneCanyon(ebBiome, BiomeConfigEB.biomeConfigEBSandstoneCanyon);
 							BiomeBase.addBiome(ebSandstoneCanyon);
 							BiomeBase.addVillageBiome(ebSandstoneCanyon);
 						}
@@ -632,7 +633,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Sandstone Canyons" && biomeClass == "enhancedbiomes.world.biome.wasteland.sandstone.BiomeGenSandStoneCanyon")
 					{
 						if (ConfigEB.generateEBSandstoneCanyons) {
-						    ebSandstoneCanyons = new RealisticBiomeEBSandstoneCanyon2(ebBiome);
+						    ebSandstoneCanyons = new RealisticBiomeEBSandstoneCanyon2(ebBiome, BiomeConfigEB.biomeConfigEBSandstoneCanyon2);
 							BiomeBase.addBiome(ebSandstoneCanyons);
 							BiomeBase.addVillageBiome(ebSandstoneCanyons);
 						}
@@ -640,7 +641,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Sandstone Ranges" && biomeClass == "enhancedbiomes.world.biome.wasteland.sandstone.BiomeGenSandStoneRanges")
 					{
 						if (ConfigEB.generateEBSandstoneRanges) {
-						    ebSandstoneRanges = new RealisticBiomeEBSandstoneRanges(ebBiome);
+						    ebSandstoneRanges = new RealisticBiomeEBSandstoneRanges(ebBiome, BiomeConfigEB.biomeConfigEBSandstoneRanges);
 							BiomeBase.addBiome(ebSandstoneRanges);
 							BiomeBase.addVillageBiome(ebSandstoneRanges);
 						}
@@ -648,7 +649,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Sandstone Ranges M" && biomeClass == "enhancedbiomes.world.biome.wasteland.sandstone.BiomeGenSandStoneRanges")
 					{
 						if (ConfigEB.generateEBSandstoneRangesM) {
-						    ebSandstoneRangesM = new RealisticBiomeEBSandstoneRangesM(ebBiome);
+						    ebSandstoneRangesM = new RealisticBiomeEBSandstoneRangesM(ebBiome, BiomeConfigEB.biomeConfigEBSandstoneRangesM);
 							BiomeBase.addBiome(ebSandstoneRangesM);
 							BiomeBase.addVillageBiome(ebSandstoneRangesM);
 						}
@@ -656,7 +657,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Scree" && biomeClass == "enhancedbiomes.world.biome.wasteland.sandstone.BiomeGenSandStoneRanges")
 					{
 						if (ConfigEB.generateEBScree) {
-						    ebScree = new RealisticBiomeEBScree(ebBiome);
+						    ebScree = new RealisticBiomeEBScree(ebBiome, BiomeConfigEB.biomeConfigEBScree);
 							BiomeBase.addBiome(ebScree);
 							BiomeBase.addVillageBiome(ebScree);
 						}
@@ -664,7 +665,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Scrub" && biomeClass == "enhancedbiomes.world.biome.sand.BiomeGenScrub")
 					{
 						if (ConfigEB.generateEBScrub) {
-						    ebScrub = new RealisticBiomeEBScrub(ebBiome);
+						    ebScrub = new RealisticBiomeEBScrub(ebBiome, BiomeConfigEB.biomeConfigEBScrub);
 							BiomeBase.addBiome(ebScrub);
 							BiomeBase.addVillageBiome(ebScrub);
 						}
@@ -672,7 +673,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Shield" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenShield")
 					{
 						if (ConfigEB.generateEBShield) {
-						    ebShield = new RealisticBiomeEBShield(ebBiome);
+						    ebShield = new RealisticBiomeEBShield(ebBiome, BiomeConfigEB.biomeConfigEBShield);
 							BiomeBase.addBiome(ebShield);
 							BiomeBase.addVillageBiome(ebShield);
 						}
@@ -680,7 +681,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Shrublands" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenGrasslands")
 					{
 						if (ConfigEB.generateEBShrublands) {
-						    ebShrublands = new RealisticBiomeEBShrublands(ebBiome);
+						    ebShrublands = new RealisticBiomeEBShrublands(ebBiome, BiomeConfigEB.biomeConfigEBShrublands);
 							BiomeBase.addBiome(ebShrublands);
 							BiomeBase.addVillageBiome(ebShrublands);
 						}
@@ -688,7 +689,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Silver Pine Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenSilverPineForest")
 					{
 						if (ConfigEB.generateEBSilverPineForest) {
-						    ebSilverPineForest = new RealisticBiomeEBSilverPineForest(ebBiome);
+						    ebSilverPineForest = new RealisticBiomeEBSilverPineForest(ebBiome, BiomeConfigEB.biomeConfigEBSilverPineForest);
 							BiomeBase.addBiome(ebSilverPineForest);
 							BiomeBase.addVillageBiome(ebSilverPineForest);
 						}
@@ -696,7 +697,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Silver Pine Hills" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenSilverPineForest")
 					{
 						if (ConfigEB.generateEBSilverPineHills) {
-						    ebSilverPineHills = new RealisticBiomeEBSilverPineHills(ebBiome);
+						    ebSilverPineHills = new RealisticBiomeEBSilverPineHills(ebBiome, BiomeConfigEB.biomeConfigEBSilverPineHills);
 							BiomeBase.addBiome(ebSilverPineHills);
 							BiomeBase.addVillageBiome(ebSilverPineHills);
 						}
@@ -704,7 +705,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Snowy Desert" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenSnowyDesert")
 					{
 						if (ConfigEB.generateEBSnowyDesert) {
-						    ebSnowyDesert = new RealisticBiomeEBSnowyDesert(ebBiome);
+						    ebSnowyDesert = new RealisticBiomeEBSnowyDesert(ebBiome, BiomeConfigEB.biomeConfigEBSnowyDesert);
 							BiomeBase.addBiome(ebSnowyDesert);
 							BiomeBase.addVillageBiome(ebSnowyDesert);
 						}
@@ -712,7 +713,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Snowy Plateau" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenSnowyPlateau")
 					{
 						if (ConfigEB.generateEBSnowyPlateau) {
-						    ebSnowyPlateau = new RealisticBiomeEBSnowyPlateau(ebBiome);
+						    ebSnowyPlateau = new RealisticBiomeEBSnowyPlateau(ebBiome, BiomeConfigEB.biomeConfigEBSnowyPlateau);
 							BiomeBase.addBiome(ebSnowyPlateau);
 							BiomeBase.addVillageBiome(ebSnowyPlateau);
 						}
@@ -720,7 +721,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Snowy Ranges" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenSnowyRanges")
 					{
 						if (ConfigEB.generateEBSnowyRanges) {
-						    ebSnowyRanges = new RealisticBiomeEBSnowyRanges(ebBiome);
+						    ebSnowyRanges = new RealisticBiomeEBSnowyRanges(ebBiome, BiomeConfigEB.biomeConfigEBSnowyRanges);
 							BiomeBase.addBiome(ebSnowyRanges);
 							BiomeBase.addVillageBiome(ebSnowyRanges);
 						}
@@ -728,7 +729,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Snowy Wastelands" && biomeClass == "enhancedbiomes.world.biome.wasteland.rock.BiomeGenWasteLands")
 					{
 						if (ConfigEB.generateEBSnowyWastelands) {
-						    ebSnowyWastelands = new RealisticBiomeEBSnowyWastelands(ebBiome);
+						    ebSnowyWastelands = new RealisticBiomeEBSnowyWastelands(ebBiome, BiomeConfigEB.biomeConfigEBSnowyWastelands);
 							BiomeBase.addBiome(ebSnowyWastelands);
 							BiomeBase.addVillageBiome(ebSnowyWastelands);
 						}
@@ -736,7 +737,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Steppe" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenSteppe")
 					{
 						if (ConfigEB.generateEBSteppe) {
-						    ebSteppe = new RealisticBiomeEBSteppe(ebBiome);
+						    ebSteppe = new RealisticBiomeEBSteppe(ebBiome, BiomeConfigEB.biomeConfigEBSteppe);
 							BiomeBase.addBiome(ebSteppe);
 							BiomeBase.addVillageBiome(ebSteppe);
 						}
@@ -744,7 +745,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Stone Canyon" && biomeClass == "enhancedbiomes.world.biome.wasteland.rock.BiomeGenStoneCanyon")
 					{
 						if (ConfigEB.generateEBStoneCanyon) {
-						    ebStoneCanyon = new RealisticBiomeEBStoneCanyon(ebBiome);
+						    ebStoneCanyon = new RealisticBiomeEBStoneCanyon(ebBiome, BiomeConfigEB.biomeConfigEBStoneCanyon);
 							BiomeBase.addBiome(ebStoneCanyon);
 							BiomeBase.addVillageBiome(ebStoneCanyon);
 						}
@@ -752,7 +753,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Stone Canyons" && biomeClass == "enhancedbiomes.world.biome.wasteland.rock.BiomeGenStoneCanyon")
 					{
 						if (ConfigEB.generateEBStoneCanyons) {
-						    ebStoneCanyons = new RealisticBiomeEBStoneCanyon2(ebBiome);
+						    ebStoneCanyons = new RealisticBiomeEBStoneCanyon2(ebBiome, BiomeConfigEB.biomeConfigEBStoneCanyons);
 							BiomeBase.addBiome(ebStoneCanyons);
 							BiomeBase.addVillageBiome(ebStoneCanyons);
 						}
@@ -760,7 +761,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Tropical Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenJungleArchipelago")
 					{
 						if (ConfigEB.generateEBTropicalArchipelago) {
-						    ebTropicalArchipelago = new RealisticBiomeEBTropicalArchipelago(ebBiome);
+						    ebTropicalArchipelago = new RealisticBiomeEBTropicalArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBTropicalArchipelago);
 							BiomeBase.addBiome(ebTropicalArchipelago);
 							BiomeBase.addVillageBiome(ebTropicalArchipelago);
 						}
@@ -768,7 +769,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Tundra" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenTundra")
 					{
 						if (ConfigEB.generateEBTundra) {
-						    ebTundra = new RealisticBiomeEBTundra(ebBiome);
+						    ebTundra = new RealisticBiomeEBTundra(ebBiome, BiomeConfigEB.biomeConfigEBTundra);
 							BiomeBase.addBiome(ebTundra);
 							BiomeBase.addVillageBiome(ebTundra);
 						}
@@ -776,7 +777,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Volcano" && biomeClass == "enhancedbiomes.world.biome.wasteland.rock.BiomeGenVolcano")
 					{
 						if (ConfigEB.generateEBVolcano) {
-						    ebVolcano = new RealisticBiomeEBVolcano(ebBiome);
+						    ebVolcano = new RealisticBiomeEBVolcano(ebBiome, BiomeConfigEB.biomeConfigEBVolcano);
 							BiomeBase.addBiome(ebVolcano);
 							BiomeBase.addVillageBiome(ebVolcano);
 						}
@@ -784,7 +785,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Volcano M" && biomeClass == "enhancedbiomes.world.biome.wasteland.rock.BiomeGenVolcano")
 					{
 						if (ConfigEB.generateEBVolcanoM) {
-						    ebVolcanoM = new RealisticBiomeEBVolcanoM(ebBiome);
+						    ebVolcanoM = new RealisticBiomeEBVolcanoM(ebBiome, BiomeConfigEB.biomeConfigEBVolcanoM);
 							BiomeBase.addBiome(ebVolcanoM);
 							BiomeBase.addVillageBiome(ebVolcanoM);
 						}
@@ -792,7 +793,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Wastelands" && biomeClass == "enhancedbiomes.world.biome.wasteland.rock.BiomeGenWasteLands")
 					{
 						if (ConfigEB.generateEBWastelands) {
-						    ebWastelands = new RealisticBiomeEBWastelands(ebBiome);
+						    ebWastelands = new RealisticBiomeEBWastelands(ebBiome, BiomeConfigEB.biomeConfigEBWastelands);
 							BiomeBase.addBiome(ebWastelands);
 							BiomeBase.addVillageBiome(ebWastelands);
 						}
@@ -800,7 +801,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Woodland Field" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenWoodlands")
 					{
 						if (ConfigEB.generateEBWoodlandField) {
-						    ebWoodlandField = new RealisticBiomeEBWoodlandField(ebBiome);
+						    ebWoodlandField = new RealisticBiomeEBWoodlandField(ebBiome, BiomeConfigEB.biomeConfigEBWoodlandField);
 							BiomeBase.addBiome(ebWoodlandField);
 							BiomeBase.addVillageBiome(ebWoodlandField);
 						}
@@ -808,7 +809,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Woodland Hills" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenWoodlands")
 					{
 						if (ConfigEB.generateEBWoodlandHills) {
-						    ebWoodlandHills = new RealisticBiomeEBWoodlandHills(ebBiome);
+						    ebWoodlandHills = new RealisticBiomeEBWoodlandHills(ebBiome, BiomeConfigEB.biomeConfigEBWoodlandHills);
 							BiomeBase.addBiome(ebWoodlandHills);
 							BiomeBase.addVillageBiome(ebWoodlandHills);
 						}
@@ -816,7 +817,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Woodland Lake" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenWoodlands")
 					{
 						if (ConfigEB.generateEBWoodlandLake) {
-						    ebWoodlandLake = new RealisticBiomeEBWoodlandLake(ebBiome);
+						    ebWoodlandLake = new RealisticBiomeEBWoodlandLake(ebBiome, BiomeConfigEB.biomeConfigEBWoodlandLake);
 							BiomeBase.addBiome(ebWoodlandLake);
 							BiomeBase.addVillageBiome(ebWoodlandLake);
 						}
@@ -824,7 +825,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Woodland Lake Edge" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenWoodlands")
 					{
 						if (ConfigEB.generateEBWoodlandLakeEdge) {
-						    ebWoodlandLakeEdge = new RealisticBiomeEBWoodlandLakeEdge(ebBiome);
+						    ebWoodlandLakeEdge = new RealisticBiomeEBWoodlandLakeEdge(ebBiome, BiomeConfigEB.biomeConfigEBWoodlandLakeEdge);
 							BiomeBase.addBiome(ebWoodlandLakeEdge);
 							BiomeBase.addVillageBiome(ebWoodlandLakeEdge);
 						}
@@ -832,7 +833,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Woodlands" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenWoodlands")
 					{
 						if (ConfigEB.generateEBWoodlands) {
-						    ebWoodlands = new RealisticBiomeEBWoodlands(ebBiome);
+						    ebWoodlands = new RealisticBiomeEBWoodlands(ebBiome, BiomeConfigEB.biomeConfigEBWoodlands);
 							BiomeBase.addBiome(ebWoodlands);
 							BiomeBase.addVillageBiome(ebWoodlands);
 						}
@@ -840,7 +841,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Xeric Savannah" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenSavannah")
 					{
 						if (ConfigEB.generateEBXericSavannah) {
-						    ebXericSavannah = new RealisticBiomeEBXericSavanna(ebBiome);
+						    ebXericSavannah = new RealisticBiomeEBXericSavanna(ebBiome, BiomeConfigEB.biomeConfigEBXericSavannah);
 							BiomeBase.addBiome(ebXericSavannah);
 							BiomeBase.addVillageBiome(ebXericSavannah);
 						}
@@ -848,7 +849,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					else if (biomeName == "Xeric Shrubland" && biomeClass == "enhancedbiomes.world.biome.sand.BiomeGenXericShrubland")
 					{
 						if (ConfigEB.generateEBXericShrubland) {
-						    ebXericShrubland = new RealisticBiomeEBXericShrubland(ebBiome);
+						    ebXericShrubland = new RealisticBiomeEBXericShrubland(ebBiome, BiomeConfigEB.biomeConfigEBXericShrubland);
 							BiomeBase.addBiome(ebXericShrubland);
 							BiomeBase.addVillageBiome(ebXericShrubland);
 						}

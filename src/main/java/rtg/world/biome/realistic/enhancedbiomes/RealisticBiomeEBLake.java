@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBLake;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBLake;
@@ -47,7 +47,7 @@ public class RealisticBiomeEBLake extends RealisticBiomeEBBase
     private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.SCHIST, (byte)0);
     
-	public RealisticBiomeEBLake(BiomeGenBase ebBiome)
+	public RealisticBiomeEBLake(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
@@ -72,7 +72,7 @@ public class RealisticBiomeEBLake extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = new BiomeConfigEBLake();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEB.weightEBLake;
 		this.generateVillages = ConfigEB.villageEBLake;
         

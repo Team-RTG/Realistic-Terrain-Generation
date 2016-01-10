@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBBorealPlateauM;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBBorealPlateauM;
@@ -48,7 +48,7 @@ public class RealisticBiomeEBBorealPlateauM extends RealisticBiomeEBBase
     private static Block ebCliff2Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.DOLOMITE, (byte)0);
     
-	public RealisticBiomeEBBorealPlateauM(BiomeGenBase ebBiome)
+	public RealisticBiomeEBBorealPlateauM(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
@@ -73,7 +73,7 @@ public class RealisticBiomeEBBorealPlateauM extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = new BiomeConfigEBBorealPlateauM();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEB.weightEBBorealPlateauM;
 		this.generateVillages = ConfigEB.villageEBBorealPlateauM;
         

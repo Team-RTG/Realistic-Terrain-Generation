@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBWastelands;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -45,7 +45,7 @@ public class RealisticBiomeEBWastelands extends RealisticBiomeEBBase
     private static Block cobbleBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
     private static byte cobbleByte = EBAPI.ebStonify(EBAPI.GABBRO, (byte)0);
     
-	public RealisticBiomeEBWastelands(BiomeGenBase ebBiome)
+	public RealisticBiomeEBWastelands(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -70,7 +70,7 @@ public class RealisticBiomeEBWastelands extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = new BiomeConfigEBWastelands();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEB.weightEBWastelands;
 		this.generateVillages = ConfigEB.villageEBWastelands;
         

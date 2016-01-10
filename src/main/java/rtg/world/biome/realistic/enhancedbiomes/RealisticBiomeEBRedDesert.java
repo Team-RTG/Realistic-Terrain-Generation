@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBRedDesert;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRedDesert;
@@ -47,7 +47,7 @@ public class RealisticBiomeEBRedDesert extends RealisticBiomeEBBase
     private static Block ebCliff2Block = Blocks.sand;
     private static byte ebCliff2Byte = (byte)1;
     
-    public RealisticBiomeEBRedDesert(BiomeGenBase ebBiome)
+    public RealisticBiomeEBRedDesert(BiomeGenBase ebBiome, BiomeConfig config)
     {
     
         super(
@@ -73,7 +73,7 @@ public class RealisticBiomeEBRedDesert extends RealisticBiomeEBBase
             )
         );
         
-        this.biomeConfig = new BiomeConfigEBRedDesert();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigEB.weightEBRedDesert;
         this.generateVillages = ConfigEB.villageEBRedDesert;
         

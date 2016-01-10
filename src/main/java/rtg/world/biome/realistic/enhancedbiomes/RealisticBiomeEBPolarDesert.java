@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBPolarDesert;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -55,7 +55,7 @@ public class RealisticBiomeEBPolarDesert extends RealisticBiomeEBBase
     private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.RHYOLITE, (byte)0);
     
-    public RealisticBiomeEBPolarDesert(BiomeGenBase ebBiome)
+    public RealisticBiomeEBPolarDesert(BiomeGenBase ebBiome, BiomeConfig config)
     {
     
         super(
@@ -81,7 +81,7 @@ public class RealisticBiomeEBPolarDesert extends RealisticBiomeEBBase
             )
         );
         
-        this.biomeConfig = new BiomeConfigEBPolarDesert();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigEB.weightEBPolarDesert;
         this.generateVillages = ConfigEB.villageEBPolarDesert;
         

@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBAlpineMountainsM;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAlpineMountainsM;
@@ -39,7 +39,7 @@ public class RealisticBiomeEBAlpineMountainsM extends RealisticBiomeEBBase
     public static Block ebFillBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
     public static byte ebFillByte = EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0);
     
-	public RealisticBiomeEBAlpineMountainsM(BiomeGenBase ebBiome)
+	public RealisticBiomeEBAlpineMountainsM(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
@@ -47,7 +47,7 @@ public class RealisticBiomeEBAlpineMountainsM extends RealisticBiomeEBBase
 			new SurfaceEBAlpineMountainsM(ebTopBlock, ebTopByte, ebFillBlock, ebFillByte, false, null, 0.45f)
 		);
 		
-		this.biomeConfig = new BiomeConfigEBAlpineMountainsM();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEB.weightEBAlpineMountainsM;
 		this.generateVillages = ConfigEB.villageEBAlpineMountainsM;
         

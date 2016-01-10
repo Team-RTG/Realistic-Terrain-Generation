@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBMeadow;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBMeadow;
@@ -47,7 +47,7 @@ public class RealisticBiomeEBMeadow extends RealisticBiomeEBBase
     private static Block ebCliff2Block = Blocks.cobblestone;
     private static byte ebCliff2Byte = (byte)0;
     
-	public RealisticBiomeEBMeadow(BiomeGenBase ebBiome)
+	public RealisticBiomeEBMeadow(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -72,7 +72,7 @@ public class RealisticBiomeEBMeadow extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = new BiomeConfigEBMeadow();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEB.weightEBMeadow;
 		this.generateVillages = ConfigEB.villageEBMeadow;
         

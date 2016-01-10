@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBVolcano;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
@@ -80,7 +80,7 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
     
     private static SurfaceBase riverSurface = new SurfaceRiverOasis();
     
-    public RealisticBiomeEBVolcano(BiomeGenBase ebBiome)
+    public RealisticBiomeEBVolcano(BiomeGenBase ebBiome, BiomeConfig config)
     {
         super(
             ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
@@ -88,7 +88,7 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
             surface
         );
         
-        this.biomeConfig = new BiomeConfigEBVolcano();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigEB.weightEBVolcano;
         this.generateVillages = ConfigEB.villageEBVolcano;
         

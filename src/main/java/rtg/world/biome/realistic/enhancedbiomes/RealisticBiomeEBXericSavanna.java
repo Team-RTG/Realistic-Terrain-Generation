@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBXericSavanna;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBXericSavanna;
@@ -47,7 +47,7 @@ public class RealisticBiomeEBXericSavanna extends RealisticBiomeEBBase
     private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.MARBLE, (byte)0);
     
-	public RealisticBiomeEBXericSavanna(BiomeGenBase ebBiome)
+	public RealisticBiomeEBXericSavanna(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
@@ -72,7 +72,7 @@ public class RealisticBiomeEBXericSavanna extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = new BiomeConfigEBXericSavanna();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEB.weightEBXericSavannah;
 		this.generateVillages = ConfigEB.villageEBXericSavannah;
         

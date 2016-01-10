@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBShrublands;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBShrublands;
@@ -47,7 +47,7 @@ public class RealisticBiomeEBShrublands extends RealisticBiomeEBBase
     private static Block ebCliff2Block = Blocks.cobblestone;
     private static byte ebCliff2Byte = (byte)0;
     
-	public RealisticBiomeEBShrublands(BiomeGenBase ebBiome)
+	public RealisticBiomeEBShrublands(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -72,7 +72,7 @@ public class RealisticBiomeEBShrublands extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = new BiomeConfigEBShrublands();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEB.weightEBShrublands;
 		this.generateVillages = ConfigEB.villageEBShrublands;
         

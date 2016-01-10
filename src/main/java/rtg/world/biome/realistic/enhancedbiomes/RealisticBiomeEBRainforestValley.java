@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBRainforestValley;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRainforestValley;
@@ -47,7 +47,7 @@ public class RealisticBiomeEBRainforestValley extends RealisticBiomeEBBase
     private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.SCHIST, (byte)0);
     
-	public RealisticBiomeEBRainforestValley(BiomeGenBase ebBiome)
+	public RealisticBiomeEBRainforestValley(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
@@ -72,7 +72,7 @@ public class RealisticBiomeEBRainforestValley extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = new BiomeConfigEBRainforestValley();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEB.weightEBRainforestValley;
 		this.generateVillages = ConfigEB.villageEBRainforestValley;
         

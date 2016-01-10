@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBSahara;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -54,7 +54,7 @@ public class RealisticBiomeEBSahara extends RealisticBiomeEBBase
     private static Block ebCliff2Block = Blocks.sandstone;
     private static byte ebCliff2Byte = (byte)0;
     
-	public RealisticBiomeEBSahara(BiomeGenBase ebBiome)
+	public RealisticBiomeEBSahara(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
@@ -79,7 +79,7 @@ public class RealisticBiomeEBSahara extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = new BiomeConfigEBSahara();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEB.weightEBSahara;
 		this.generateVillages = ConfigEB.villageEBSahara;
         

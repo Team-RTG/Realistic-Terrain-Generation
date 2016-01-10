@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBRockyDesert;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -86,7 +86,7 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
     
     private static SurfaceBase riverSurface = new SurfaceRiverOasis();
     
-	public RealisticBiomeEBRockyDesert(BiomeGenBase ebBiome)
+	public RealisticBiomeEBRockyDesert(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
@@ -94,7 +94,7 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
 			surface
 		);
 		
-		this.biomeConfig = new BiomeConfigEBRockyDesert();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEB.weightEBRockyDesert;
 		this.generateVillages = ConfigEB.villageEBRockyDesert;
         

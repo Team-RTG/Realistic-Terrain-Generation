@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBCarr;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -61,7 +61,7 @@ public class RealisticBiomeEBCarr extends RealisticBiomeEBBase
     private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.SCHIST, (byte)0);
     
-    public RealisticBiomeEBCarr(BiomeGenBase ebBiome)
+    public RealisticBiomeEBCarr(BiomeGenBase ebBiome, BiomeConfig config)
     {
     
         super(
@@ -87,7 +87,7 @@ public class RealisticBiomeEBCarr extends RealisticBiomeEBBase
             )
         );
         
-        this.biomeConfig = new BiomeConfigEBCarr();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigEB.weightEBCarr;
         this.generateVillages = ConfigEB.villageEBCarr;
         

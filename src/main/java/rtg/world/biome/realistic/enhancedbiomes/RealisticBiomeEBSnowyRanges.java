@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBSnowyRanges;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSnowyRanges;
@@ -47,7 +47,7 @@ public class RealisticBiomeEBSnowyRanges extends RealisticBiomeEBBase
     private static Block ebCliff2Block = Blocks.snow;
     private static byte ebCliff2Byte = (byte)0;
     
-	public RealisticBiomeEBSnowyRanges(BiomeGenBase ebBiome)
+	public RealisticBiomeEBSnowyRanges(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
@@ -72,7 +72,7 @@ public class RealisticBiomeEBSnowyRanges extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = new BiomeConfigEBSnowyRanges();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEB.weightEBSnowyRanges;
 		this.generateVillages = ConfigEB.villageEBSnowyRanges;
 		

@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import rtg.api.biomes.vanilla.config.BiomeConfigVanillaMesaBryce;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -34,7 +34,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase
     private static SurfaceBase surface = new SurfaceVanillaMesaBryce(Blocks.sand, Blocks.sand, (byte) 1, 0);
     private static SurfaceBase riverSurface = new SurfaceRiverOasis();
     
-    public RealisticBiomeVanillaMesaBryce()
+    public RealisticBiomeVanillaMesaBryce(BiomeConfig config)
     {
     
         super(
@@ -42,7 +42,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
             new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f), surface);
         
-        this.biomeConfig = new BiomeConfigVanillaMesaBryce();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigVanilla.weightVanillaMesaBryce;
         this.generateVillages = ConfigVanilla.villageVanillaMesaBryce;
     }

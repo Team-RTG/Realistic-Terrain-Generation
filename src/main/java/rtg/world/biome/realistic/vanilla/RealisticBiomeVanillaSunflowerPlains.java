@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import rtg.api.biomes.vanilla.config.BiomeConfigVanillaSunflowerPlains;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSunflowerPlains;
@@ -17,7 +17,7 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
     public static Block topBlock = mutationBiome.topBlock;
     public static Block fillerBlock = mutationBiome.fillerBlock;
     
-    public RealisticBiomeVanillaSunflowerPlains()
+    public RealisticBiomeVanillaSunflowerPlains(BiomeConfig config)
     {
         super(
             mutationBiome,
@@ -25,7 +25,7 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
             new TerrainVanillaSunflowerPlains(),
             new SurfaceVanillaSunflowerPlains(topBlock, fillerBlock));
         
-        this.biomeConfig = new BiomeConfigVanillaSunflowerPlains();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigVanilla.weightVanillaSunflowerPlains;
         this.generateVillages = ConfigVanilla.villageVanillaSunflowerPlains;
     }

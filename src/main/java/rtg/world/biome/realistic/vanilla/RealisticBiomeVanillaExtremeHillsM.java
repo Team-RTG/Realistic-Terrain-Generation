@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import rtg.api.biomes.vanilla.config.BiomeConfigVanillaExtremeHillsM;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHillsM;
@@ -19,7 +19,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
     public static Block topBlock = mutationBiome.topBlock;
     public static Block fillerBlock = mutationBiome.fillerBlock;
         
-    public RealisticBiomeVanillaExtremeHillsM()
+    public RealisticBiomeVanillaExtremeHillsM(BiomeConfig config)
     {
     
         super(
@@ -29,7 +29,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
             new SurfaceVanillaExtremeHillsM(topBlock, fillerBlock, Blocks.grass, Blocks.dirt, 60f,
                 -0.14f, 14f, 0.25f));
         
-        this.biomeConfig = new BiomeConfigVanillaExtremeHillsM();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigVanilla.weightVanillaExtremeHillsM;
         this.generateVillages = ConfigVanilla.villageVanillaExtremeHillsM;
         this.generatesEmeralds = true;

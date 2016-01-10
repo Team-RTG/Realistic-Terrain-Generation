@@ -5,7 +5,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
-import rtg.api.biomes.vanilla.config.BiomeConfigVanillaBirchForestM;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -35,7 +35,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
     public static Block topBlock = mutationBiome.topBlock;
     public static Block fillerBlock = mutationBiome.fillerBlock;
     
-    public RealisticBiomeVanillaBirchForestM()
+    public RealisticBiomeVanillaBirchForestM(BiomeConfig config)
     {
         
         super(
@@ -44,7 +44,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
             new TerrainVanillaBirchForestM(),
             new SurfaceVanillaBirchForestM(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f));
         
-        this.biomeConfig = new BiomeConfigVanillaBirchForestM();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigVanilla.weightVanillaBirchForestM;
         this.generateVillages = ConfigVanilla.villageVanillaBirchForestM;
     }

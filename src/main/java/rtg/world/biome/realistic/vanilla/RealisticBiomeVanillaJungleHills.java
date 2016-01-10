@@ -8,7 +8,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
-import rtg.api.biomes.vanilla.config.BiomeConfigVanillaJungleHills;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -41,7 +41,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
     public static Block topBlock = BiomeGenBase.jungleHills.topBlock;
     public static Block fillerBlock = BiomeGenBase.jungleHills.fillerBlock;
     
-    public RealisticBiomeVanillaJungleHills()
+    public RealisticBiomeVanillaJungleHills(BiomeConfig config)
     {
     
         super(
@@ -50,7 +50,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
             new TerrainVanillaJungleHills(),
             new SurfaceVanillaJungleHills(Blocks.grass, Blocks.dirt, false, null, 1f, 1.5f, 60f, 65f, 1.5f));
         
-        this.biomeConfig = new BiomeConfigVanillaJungleHills();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigVanilla.weightVanillaJungleHills;
         this.generateVillages = ConfigVanilla.villageVanillaJungleHills;
         

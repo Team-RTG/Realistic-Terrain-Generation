@@ -7,7 +7,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
-import rtg.api.biomes.vanilla.config.BiomeConfigVanillaColdTaiga;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -37,7 +37,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
     public static Block topBlock = BiomeGenBase.coldTaiga.topBlock;
     public static Block fillerBlock = BiomeGenBase.coldTaiga.fillerBlock;
     
-    public RealisticBiomeVanillaColdTaiga()
+    public RealisticBiomeVanillaColdTaiga(BiomeConfig config)
     {
     
         super(
@@ -46,7 +46,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
             new TerrainVanillaColdTaiga(),
             new SurfaceVanillaColdTaiga(topBlock, fillerBlock));
         
-        this.biomeConfig = new BiomeConfigVanillaColdTaiga();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigVanilla.weightVanillaColdTaiga;
         this.generateVillages = ConfigVanilla.villageVanillaColdTaiga;
     }

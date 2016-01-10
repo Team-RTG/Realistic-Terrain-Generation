@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import rtg.api.biomes.vanilla.config.BiomeConfigVanillaDesert;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -35,7 +35,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
     private static SurfaceBase surface = new SurfaceVanillaDesert(topBlock, fillerBlock);
     private static SurfaceBase riverSurface = new SurfaceRiverOasis();
     
-    public RealisticBiomeVanillaDesert()
+    public RealisticBiomeVanillaDesert(BiomeConfig config)
     {
     
         super(
@@ -44,7 +44,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
             new TerrainVanillaDesert(),
             surface);
         
-        this.biomeConfig = new BiomeConfigVanillaDesert();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigVanilla.weightVanillaDesert;
         this.generateVillages = ConfigVanilla.villageVanillaDesert;
         

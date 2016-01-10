@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import rtg.api.biomes.vanilla.config.BiomeConfigVanillaMegaTaiga;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -31,7 +31,7 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase
     public static Block topBlock = BiomeGenBase.megaTaiga.topBlock;
     public static Block fillerBlock = BiomeGenBase.megaTaiga.fillerBlock;
     
-    public RealisticBiomeVanillaMegaTaiga()
+    public RealisticBiomeVanillaMegaTaiga(BiomeConfig config)
     {
     
         super(
@@ -40,7 +40,7 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase
             new TerrainVanillaMegaTaiga(),
             new SurfaceVanillaMegaTaiga(topBlock, fillerBlock));
         
-        this.biomeConfig = new BiomeConfigVanillaMegaTaiga();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigVanilla.weightVanillaMegaTaiga;
         this.generateVillages = ConfigVanilla.villageVanillaMegaTaiga;
     }

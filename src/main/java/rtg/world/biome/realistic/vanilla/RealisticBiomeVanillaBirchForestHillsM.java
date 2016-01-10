@@ -6,7 +6,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
-import rtg.api.biomes.vanilla.config.BiomeConfigVanillaBirchForestHillsM;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -37,7 +37,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
     public static Block topBlock = mutationBiome.topBlock;
     public static Block fillerBlock = mutationBiome.fillerBlock;
 	
-	public RealisticBiomeVanillaBirchForestHillsM()
+	public RealisticBiomeVanillaBirchForestHillsM(BiomeConfig config)
 	{
 		super(
 		    mutationBiome,
@@ -46,7 +46,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
 			new SurfaceVanillaBirchForestHillsM(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = new BiomeConfigVanillaBirchForestHillsM();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigVanilla.weightVanillaBirchForestHillsM;
 		this.generateVillages = ConfigVanilla.villageVanillaBirchForestHillsM;
 	}

@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import rtg.api.biomes.vanilla.config.BiomeConfigVanillaJungleEdgeM;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -24,7 +24,7 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase
     public static Block topBlock = mutationBiome.topBlock;
     public static Block fillerBlock = mutationBiome.fillerBlock;
     
-    public RealisticBiomeVanillaJungleEdgeM()
+    public RealisticBiomeVanillaJungleEdgeM(BiomeConfig config)
     {
     
         super(
@@ -33,7 +33,7 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase
             new TerrainVanillaJungleEdgeM(),
             new SurfaceVanillaJungleEdgeM(topBlock, fillerBlock));
         
-        this.biomeConfig = new BiomeConfigVanillaJungleEdgeM();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigVanilla.weightVanillaJungleEdgeM;
         this.generateVillages = ConfigVanilla.villageVanillaJungleEdgeM;
     }

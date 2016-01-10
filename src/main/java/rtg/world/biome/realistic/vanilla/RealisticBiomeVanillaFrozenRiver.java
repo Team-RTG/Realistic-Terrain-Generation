@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import rtg.api.biomes.vanilla.config.BiomeConfigVanillaFrozenRiver;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaFrozenRiver;
@@ -14,7 +14,7 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase
 	public static Block topBlock = BiomeGenBase.frozenRiver.topBlock;
 	public static Block fillerBlock = BiomeGenBase.frozenRiver.fillerBlock;
 	
-	public RealisticBiomeVanillaFrozenRiver()
+	public RealisticBiomeVanillaFrozenRiver(BiomeConfig config)
 	{
 		super(
 			BiomeGenBase.frozenRiver,
@@ -23,7 +23,7 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase
 			new SurfaceVanillaFrozenRiver()
 		);
 		
-		this.biomeConfig = new BiomeConfigVanillaFrozenRiver();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigVanilla.weightVanillaFrozenRiver;
 		this.generateVillages = false;
 		

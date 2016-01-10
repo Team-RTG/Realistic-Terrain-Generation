@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import rtg.api.biomes.vanilla.config.BiomeConfigVanillaSwamplandM;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -29,7 +29,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase
     public static Block topBlock = mutationBiome.topBlock;
     public static Block fillerBlock = mutationBiome.fillerBlock;
     
-    public RealisticBiomeVanillaSwamplandM()
+    public RealisticBiomeVanillaSwamplandM(BiomeConfig config)
     {
     
         super(
@@ -38,7 +38,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase
             new TerrainVanillaSwamplandM(230f, 24f, 0f),
             new SurfaceVanillaSwamplandM(topBlock, fillerBlock));
         
-        this.biomeConfig = new BiomeConfigVanillaSwamplandM();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigVanilla.weightVanillaSwamplandM;
         this.generateVillages = ConfigVanilla.villageVanillaSwamplandM;
     }

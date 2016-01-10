@@ -4,7 +4,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
-import rtg.api.biomes.vanilla.config.BiomeConfigVanillaBeach;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -25,7 +25,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
     public static Block topBlock = BiomeGenBase.beach.topBlock;
     public static Block fillerBlock = BiomeGenBase.beach.fillerBlock;
     
-    public RealisticBiomeVanillaBeach()
+    public RealisticBiomeVanillaBeach(BiomeConfig config)
     {
         super(
             BiomeGenBase.beach,
@@ -33,7 +33,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
             new TerrainVanillaBeach(),
             new SurfaceVanillaBeach(topBlock, fillerBlock, topBlock, fillerBlock, (byte) 0, 1));
         
-        this.biomeConfig = new BiomeConfigVanillaBeach();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigVanilla.weightVanillaBeach;
         this.generateVillages = ConfigVanilla.villageVanillaBeach;
     }

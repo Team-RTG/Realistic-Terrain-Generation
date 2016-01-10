@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import rtg.api.biomes.vanilla.config.BiomeConfigVanillaIcePlainsSpikes;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIcePlainsSpikes;
@@ -17,7 +17,7 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
     public static Block topBlock = mutationBiome.topBlock;
     public static Block fillerBlock = mutationBiome.fillerBlock;
 	
-	public RealisticBiomeVanillaIcePlainsSpikes()
+	public RealisticBiomeVanillaIcePlainsSpikes(BiomeConfig config)
 	{
 		super(
 		    mutationBiome,
@@ -26,7 +26,7 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
 			new SurfaceVanillaIcePlainsSpikes(topBlock, fillerBlock, topBlock, topBlock)
 		);
 		
-		this.biomeConfig = new BiomeConfigVanillaIcePlainsSpikes();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigVanilla.weightVanillaIcePlainsSpikes;
 		this.generateVillages = ConfigVanilla.villageVanillaIcePlainsSpikes;
 	}

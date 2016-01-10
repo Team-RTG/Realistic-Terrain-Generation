@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import rtg.api.biomes.vanilla.config.BiomeConfigVanillaRoofedForestM;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -31,7 +31,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
     public static Block topBlock = mutationBiome.topBlock;
     public static Block fillerBlock = mutationBiome.fillerBlock;
     
-    public RealisticBiomeVanillaRoofedForestM()
+    public RealisticBiomeVanillaRoofedForestM(BiomeConfig config)
     {
     
         super(
@@ -40,7 +40,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
             new TerrainVanillaRoofedForestM(),
             new SurfaceVanillaRoofedForestM(topBlock, fillerBlock));
         
-        this.biomeConfig = new BiomeConfigVanillaRoofedForestM();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigVanilla.weightVanillaRoofedForestM;
         this.generateVillages = ConfigVanilla.villageVanillaRoofedForestM;
     }

@@ -4,7 +4,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
-import rtg.api.biomes.vanilla.config.BiomeConfigVanillaRoofedForest;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -33,7 +33,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
     public static Block topBlock = BiomeGenBase.roofedForest.topBlock;
     public static Block fillerBlock = BiomeGenBase.roofedForest.fillerBlock;
     
-    public RealisticBiomeVanillaRoofedForest()
+    public RealisticBiomeVanillaRoofedForest(BiomeConfig config)
     {
     
         super(
@@ -42,7 +42,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             new TerrainVanillaRoofedForest(),
             new SurfaceVanillaRoofedForest(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.08f));
         
-        this.biomeConfig = new BiomeConfigVanillaRoofedForest();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigVanilla.weightVanillaRoofedForest;
         this.generateVillages = ConfigVanilla.villageVanillaRoofedForest;
     }

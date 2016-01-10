@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLForestedIsland;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLForestedIsland;
@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLForestedIsland extends RealisticBiomeEBXLBase
 	public static Block topBlock = ebxlBiome.topBlock;
 	public static Block fillerBlock = ebxlBiome.fillerBlock;
 	
-	public RealisticBiomeEBXLForestedIsland()
+	public RealisticBiomeEBXLForestedIsland(BiomeConfig config)
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLForestedIsland extends RealisticBiomeEBXLBase
 			new SurfaceEBXLForestedIsland(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = new BiomeConfigEBXLForestedIsland();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLForestedIsland;
 		this.generateVillages = ConfigEBXL.villageEBXLForestedIsland;
 	}

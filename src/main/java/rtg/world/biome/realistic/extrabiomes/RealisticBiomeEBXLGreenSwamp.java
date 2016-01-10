@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLGreenSwamp;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLGreenSwamp;
@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLGreenSwamp extends RealisticBiomeEBXLBase
 	public static Block topBlock = ebxlBiome.topBlock;
 	public static Block fillerBlock = ebxlBiome.fillerBlock;
 	
-	public RealisticBiomeEBXLGreenSwamp()
+	public RealisticBiomeEBXLGreenSwamp(BiomeConfig config)
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLGreenSwamp extends RealisticBiomeEBXLBase
 			new SurfaceEBXLGreenSwamp(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = new BiomeConfigEBXLGreenSwamp();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLGreenSwamp;
 		this.generateVillages = ConfigEBXL.villageEBXLGreenSwamp;
 	}

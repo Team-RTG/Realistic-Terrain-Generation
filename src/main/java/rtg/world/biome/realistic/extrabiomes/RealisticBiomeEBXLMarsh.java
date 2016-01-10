@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLMarsh;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLMarsh;
@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLMarsh extends RealisticBiomeEBXLBase
 	public static Block topBlock = ebxlBiome.topBlock;
 	public static Block fillerBlock = ebxlBiome.fillerBlock;
 	
-	public RealisticBiomeEBXLMarsh()
+	public RealisticBiomeEBXLMarsh(BiomeConfig config)
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLMarsh extends RealisticBiomeEBXLBase
 			new SurfaceEBXLMarsh(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = new BiomeConfigEBXLMarsh();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLMarsh;
 		this.generateVillages = ConfigEBXL.villageEBXLMarsh;
 	}

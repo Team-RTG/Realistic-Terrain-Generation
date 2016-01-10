@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLSavanna;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLSavanna;
@@ -18,7 +18,7 @@ public class RealisticBiomeEBXLSavanna extends RealisticBiomeEBXLBase
 	public static Block topBlock = ebxlBiome.topBlock;
 	public static Block fillerBlock = ebxlBiome.fillerBlock;
 	
-	public RealisticBiomeEBXLSavanna()
+	public RealisticBiomeEBXLSavanna(BiomeConfig config)
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLSavanna extends RealisticBiomeEBXLBase
 			new SurfaceEBXLSavanna(topBlock, fillerBlock, Blocks.sand, 13f, 0.27f)
 		);
 		
-		this.biomeConfig = new BiomeConfigEBXLSavanna();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLSavanna;
 		this.generateVillages = ConfigEBXL.villageEBXLSavanna;
 	}

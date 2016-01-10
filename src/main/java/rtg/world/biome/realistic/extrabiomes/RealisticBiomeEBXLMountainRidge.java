@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLMountainRidge;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLMountainRidge;
@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLMountainRidge extends RealisticBiomeEBXLBase
 	public static Block topBlock = ebxlBiome.topBlock;
 	public static Block fillerBlock = ebxlBiome.fillerBlock;
 	
-	public RealisticBiomeEBXLMountainRidge()
+	public RealisticBiomeEBXLMountainRidge(BiomeConfig config)
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLMountainRidge extends RealisticBiomeEBXLBase
 			new SurfaceEBXLMountainRidge(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f)
 		);
 		
-		this.biomeConfig = new BiomeConfigEBXLMountainRidge();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLMountainRidge;
 		this.generateVillages = ConfigEBXL.villageEBXLMountainRidge;
 		this.generatesEmeralds = true;

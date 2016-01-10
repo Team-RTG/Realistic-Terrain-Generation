@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.extrabiomes;
 
 import java.util.Random;
 
-import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLMeadow;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLMeadow extends RealisticBiomeEBXLBase
 	public static Block topBlock = ebxlBiome.topBlock;
 	public static Block fillerBlock = ebxlBiome.fillerBlock;
 	
-	public RealisticBiomeEBXLMeadow()
+	public RealisticBiomeEBXLMeadow(BiomeConfig config)
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
@@ -34,7 +34,7 @@ public class RealisticBiomeEBXLMeadow extends RealisticBiomeEBXLBase
 			new SurfaceEBXLMeadow(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = new BiomeConfigEBXLMeadow();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLMeadow;
 		this.generateVillages = ConfigEBXL.villageEBXLMeadow;
 	}

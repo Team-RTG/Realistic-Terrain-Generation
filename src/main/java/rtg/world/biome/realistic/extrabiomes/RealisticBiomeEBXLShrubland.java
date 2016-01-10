@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLShrubland;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLShrubland;
@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLShrubland extends RealisticBiomeEBXLBase
 	public static Block topBlock = ebxlBiome.topBlock;
 	public static Block fillerBlock = ebxlBiome.fillerBlock;
 	
-	public RealisticBiomeEBXLShrubland()
+	public RealisticBiomeEBXLShrubland(BiomeConfig config)
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLShrubland extends RealisticBiomeEBXLBase
 			new SurfaceEBXLShrubland(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = new BiomeConfigEBXLShrubland();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLShrubland;
 		this.generateVillages = ConfigEBXL.villageEBXLShrubland;
 	}

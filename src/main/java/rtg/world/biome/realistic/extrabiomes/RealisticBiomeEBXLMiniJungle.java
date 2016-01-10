@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLMiniJungle;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLMiniJungle;
@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLMiniJungle extends RealisticBiomeEBXLBase
 	public static Block topBlock = ebxlBiome.topBlock;
 	public static Block fillerBlock = ebxlBiome.fillerBlock;
 	
-	public RealisticBiomeEBXLMiniJungle()
+	public RealisticBiomeEBXLMiniJungle(BiomeConfig config)
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLMiniJungle extends RealisticBiomeEBXLBase
 			new SurfaceEBXLMiniJungle(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = new BiomeConfigEBXLMiniJungle();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLMiniJungle;
 		this.generateVillages = ConfigEBXL.villageEBXLMiniJungle;
 	}

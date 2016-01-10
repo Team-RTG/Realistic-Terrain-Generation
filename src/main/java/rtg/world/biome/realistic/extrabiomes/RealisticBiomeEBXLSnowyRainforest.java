@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLSnowyRainforest;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLSnowyRainforest;
@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLSnowyRainforest extends RealisticBiomeEBXLBase
 	public static Block topBlock = ebxlBiome.topBlock;
 	public static Block fillerBlock = ebxlBiome.fillerBlock;
 	
-	public RealisticBiomeEBXLSnowyRainforest()
+	public RealisticBiomeEBXLSnowyRainforest(BiomeConfig config)
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
@@ -27,7 +27,7 @@ public class RealisticBiomeEBXLSnowyRainforest extends RealisticBiomeEBXLBase
 		
 		ebxlBiome.setTemperatureRainfall(-2f, ebxlBiome.rainfall);
 		
-		this.biomeConfig = new BiomeConfigEBXLSnowyRainforest();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLSnowyRainforest;
 		this.generateVillages = ConfigEBXL.villageEBXLSnowyRainforest;
 	}

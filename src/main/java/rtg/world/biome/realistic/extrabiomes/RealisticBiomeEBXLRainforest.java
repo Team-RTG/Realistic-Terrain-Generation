@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLRainforest;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLRainforest;
@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLRainforest extends RealisticBiomeEBXLBase
 	public static Block topBlock = ebxlBiome.topBlock;
 	public static Block fillerBlock = ebxlBiome.fillerBlock;
 	
-	public RealisticBiomeEBXLRainforest()
+	public RealisticBiomeEBXLRainforest(BiomeConfig config)
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLRainforest extends RealisticBiomeEBXLBase
 			new SurfaceEBXLRainforest(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = new BiomeConfigEBXLRainforest();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLRainforest;
 		this.generateVillages = ConfigEBXL.villageEBXLRainforest;
 	}

@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
-import rtg.api.biomes.highlands.config.BiomeConfigHLMeadow;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLMeadow;
@@ -18,7 +18,7 @@ public class RealisticBiomeHLMeadow extends RealisticBiomeHLBase
     public static Block topBlock = hlBiome.topBlock;
     public static Block fillerBlock = hlBiome.fillerBlock;
     
-    public RealisticBiomeHLMeadow()
+    public RealisticBiomeHLMeadow(BiomeConfig config)
     {
     
         super(
@@ -26,7 +26,7 @@ public class RealisticBiomeHLMeadow extends RealisticBiomeHLBase
             new TerrainHLMeadow(90f, 180f, 13f, 100f, 38f, 260f, 71f),
             new SurfaceHLMeadow(topBlock, fillerBlock));
         
-        this.biomeConfig = new BiomeConfigHLMeadow();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigHL.weightHLMeadow;
         this.generateVillages = ConfigHL.villageHLMeadow;
     }

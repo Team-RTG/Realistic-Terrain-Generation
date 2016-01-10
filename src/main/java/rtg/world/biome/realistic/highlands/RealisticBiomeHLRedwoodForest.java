@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
-import rtg.api.biomes.highlands.config.BiomeConfigHLRedwoodForest;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLRedwoodForest;
@@ -18,7 +18,7 @@ public class RealisticBiomeHLRedwoodForest extends RealisticBiomeHLBase
     public static Block topBlock = hlBiome.topBlock;
     public static Block fillerBlock = hlBiome.fillerBlock;
     
-    public RealisticBiomeHLRedwoodForest()
+    public RealisticBiomeHLRedwoodForest(BiomeConfig config)
     {
     
         super(
@@ -26,7 +26,7 @@ public class RealisticBiomeHLRedwoodForest extends RealisticBiomeHLBase
             new TerrainHLRedwoodForest(40f, 180f, 13f, 100f, 38f, 260f, 71f),
             new SurfaceHLRedwoodForest(topBlock, fillerBlock, false, null, 0.4f));
         
-        this.biomeConfig = new BiomeConfigHLRedwoodForest();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigHL.weightHLRedwoodForest;
         this.generateVillages = ConfigHL.villageHLRedwoodForest;
     }

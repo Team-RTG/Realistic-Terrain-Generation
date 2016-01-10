@@ -4,7 +4,7 @@ import highlands.api.HighlandsBiomes;
 
 import java.util.Random;
 
-import rtg.api.biomes.highlands.config.BiomeConfigHLRockMountains;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -33,7 +33,7 @@ public class RealisticBiomeHLRockMountains extends RealisticBiomeHLBase
     public static Block topBlock = hlBiome.topBlock;
     public static Block fillerBlock = hlBiome.fillerBlock;
     
-    public RealisticBiomeHLRockMountains()
+    public RealisticBiomeHLRockMountains(BiomeConfig config)
     {
     
         super(
@@ -41,7 +41,7 @@ public class RealisticBiomeHLRockMountains extends RealisticBiomeHLBase
             new TerrainHLRockMountains(230f, 100f, 0f),
             new SurfaceHLRockMountains(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f));
         
-        this.biomeConfig = new BiomeConfigHLRockMountains();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigHL.weightHLRockMountains;
         this.generateVillages = ConfigHL.villageHLRockMountains;
         this.generatesEmeralds = true;

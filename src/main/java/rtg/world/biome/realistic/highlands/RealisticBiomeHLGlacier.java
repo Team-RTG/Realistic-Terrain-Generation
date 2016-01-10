@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
-import rtg.api.biomes.highlands.config.BiomeConfigHLGlacier;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLGlacier;
@@ -18,7 +18,7 @@ public class RealisticBiomeHLGlacier extends RealisticBiomeHLBase
     public static Block topBlock = hlBiome.topBlock;
     public static Block fillerBlock = hlBiome.fillerBlock;
     
-    public RealisticBiomeHLGlacier()
+    public RealisticBiomeHLGlacier(BiomeConfig config)
     {
     
         super(
@@ -26,7 +26,7 @@ public class RealisticBiomeHLGlacier extends RealisticBiomeHLBase
             new TerrainHLGlacier(90f, 180f, 13f, 100f, 38f, 260f, 71f),
             new SurfaceHLGlacier(topBlock, fillerBlock, false, null, 0.95f));
         
-        this.biomeConfig = new BiomeConfigHLGlacier();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigHL.weightHLGlacier;
         this.generateVillages = ConfigHL.villageHLGlacier;
     }

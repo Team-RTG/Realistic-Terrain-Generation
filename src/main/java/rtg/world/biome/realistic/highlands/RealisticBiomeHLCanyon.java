@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
-import rtg.api.biomes.highlands.config.BiomeConfigHLCanyon;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLCanyon;
@@ -17,7 +17,7 @@ public class RealisticBiomeHLCanyon extends RealisticBiomeHLBase
     public static Block topBlock = hlBiome.topBlock;
     public static Block fillerBlock = hlBiome.fillerBlock;
     
-    public RealisticBiomeHLCanyon()
+    public RealisticBiomeHLCanyon(BiomeConfig config)
     {
     
         super(
@@ -25,7 +25,7 @@ public class RealisticBiomeHLCanyon extends RealisticBiomeHLBase
             new TerrainHLCanyon(true, 35f, 160f, 60f, 40f, 69f),
             new SurfaceHLCanyon(topBlock, fillerBlock, (byte) 0, 0));
         
-        this.biomeConfig = new BiomeConfigHLCanyon();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigHL.weightHLCanyon;
         this.generateVillages = ConfigHL.villageHLCanyon;
     }

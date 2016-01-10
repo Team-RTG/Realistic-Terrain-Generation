@@ -4,7 +4,7 @@ import highlands.api.HighlandsBiomes;
 
 import java.util.Random;
 
-import rtg.api.biomes.highlands.config.BiomeConfigHLDesertMountains;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -23,7 +23,7 @@ public class RealisticBiomeHLDesertMountains extends RealisticBiomeHLBase
     public static Block topBlock = hlBiome.topBlock;
     public static Block fillerBlock = hlBiome.fillerBlock;
     
-    public RealisticBiomeHLDesertMountains()
+    public RealisticBiomeHLDesertMountains(BiomeConfig config)
     {
     
         super(
@@ -31,7 +31,7 @@ public class RealisticBiomeHLDesertMountains extends RealisticBiomeHLBase
             new TerrainHLDesertMountains(230f, 100f, 0f),
             new SurfaceHLDesertMountains(topBlock, fillerBlock, false, null, 0f, 1.5f, 90f, 30f, 1.5f));
         
-        this.biomeConfig = new BiomeConfigHLDesertMountains();
+        this.biomeConfig = config;
         this.biomeWeight = ConfigHL.weightHLDesertMountains;
         this.generateVillages = ConfigHL.villageHLDesertMountains;
     }

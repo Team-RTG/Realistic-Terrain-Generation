@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPCoralReef;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPCoralReef;
@@ -17,7 +17,7 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPCoralReef()
+	public RealisticBiomeBOPCoralReef(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
@@ -25,7 +25,7 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase
 			new SurfaceBOPCoralReef(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = new BiomeConfigBOPCoralReef();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigBOP.weightBOPCoralReef;
 		this.generateVillages = ConfigBOP.villageBOPCoralReef;
 	}

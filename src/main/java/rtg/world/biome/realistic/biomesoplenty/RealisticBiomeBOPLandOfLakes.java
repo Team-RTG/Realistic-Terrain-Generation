@@ -4,7 +4,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
-import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPLandOfLakes;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -33,7 +33,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPLandOfLakes()
+	public RealisticBiomeBOPLandOfLakes(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -41,7 +41,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 			new SurfaceBOPLandOfLakes(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.10f)
 		);
 		
-		this.biomeConfig = new BiomeConfigBOPLandOfLakes();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigBOP.weightBOPLandOfLakes;
 		this.generateVillages = ConfigBOP.villageBOPLandOfLakes;
 	}

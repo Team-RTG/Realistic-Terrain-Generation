@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPSnowyConiferousForest;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -26,7 +26,7 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPSnowyConiferousForest()
+	public RealisticBiomeBOPSnowyConiferousForest(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
@@ -34,7 +34,7 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
 			new SurfaceBOPSnowyConiferousForest(topBlock, fillerBlock, false, null, 0.45f, 1.5f, 50f, 60f, 0.4f, 100f, 50f, 1.5f)
 		);
 		
-		this.biomeConfig = new BiomeConfigBOPSnowyConiferousForest();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigBOP.weightBOPSnowyConiferousForest;
 		this.generateVillages = ConfigBOP.villageBOPSnowyConiferousForest;
 	}

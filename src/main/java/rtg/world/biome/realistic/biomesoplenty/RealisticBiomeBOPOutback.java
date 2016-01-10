@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPOutback;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPOutback;
@@ -18,7 +18,7 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPOutback()
+	public RealisticBiomeBOPOutback(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
@@ -39,7 +39,7 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
             )
 		);
 		
-		this.biomeConfig = new BiomeConfigBOPOutback();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigBOP.weightBOPOutback;
 		this.generateVillages = ConfigBOP.villageBOPOutback;
 	}

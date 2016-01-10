@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPCrag;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -25,7 +25,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase
 	
     private static SurfaceBase surface = new SurfaceBOPCrag(topBlock, fillerBlock, topBlock);
 	
-	public RealisticBiomeBOPCrag()
+	public RealisticBiomeBOPCrag(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -33,7 +33,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase
 			surface
 		);
 		
-		this.biomeConfig = new BiomeConfigBOPCrag();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigBOP.weightBOPCrag;
 		this.generateVillages = ConfigBOP.villageBOPCrag;
 		this.generatesEmeralds = true;

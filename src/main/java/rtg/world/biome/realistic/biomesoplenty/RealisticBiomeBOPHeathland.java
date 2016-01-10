@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPHeathland;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -24,7 +24,7 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPHeathland()
+	public RealisticBiomeBOPHeathland(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
@@ -32,7 +32,7 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase
 			new SurfaceBOPHeathland(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = new BiomeConfigBOPHeathland();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigBOP.weightBOPHeathland;
 		this.generateVillages = ConfigBOP.villageBOPHeathland;
 	}

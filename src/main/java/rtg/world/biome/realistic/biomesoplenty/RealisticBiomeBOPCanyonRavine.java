@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPCanyonRavine;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPCanyonRavine;
@@ -17,7 +17,7 @@ public class RealisticBiomeBOPCanyonRavine extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPCanyonRavine()
+	public RealisticBiomeBOPCanyonRavine(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
@@ -25,7 +25,7 @@ public class RealisticBiomeBOPCanyonRavine extends RealisticBiomeBOPBase
 			new SurfaceBOPCanyonRavine(topBlock, fillerBlock, (byte)0, 0)
 		);
 		
-		this.biomeConfig = new BiomeConfigBOPCanyonRavine();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigBOP.weightBOPCanyonRavine;
 		this.generateVillages = ConfigBOP.villageBOPCanyonRavine;
 	}

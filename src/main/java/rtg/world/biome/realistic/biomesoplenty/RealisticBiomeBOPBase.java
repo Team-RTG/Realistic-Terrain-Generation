@@ -1,13 +1,14 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.world.biome.BiomeGenBase;
-
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOP;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 import cpw.mods.fml.common.Loader;
+
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPBase extends RealisticBiomeBase
 {
@@ -118,23 +119,25 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 		if (Loader.isModLoaded("BiomesOPlenty") && ConfigBOP.generateBOPBiomes)
 		{
 			//Overworld Biomes
-			bopAlps = new RealisticBiomeBOPAlps();
-			bopArctic = new RealisticBiomeBOPArctic();
-			bopBambooForest = new RealisticBiomeBOPBambooForest();
-			bopBayou = new RealisticBiomeBOPBayou();
-			bopBog = new RealisticBiomeBOPBog();
-			bopBorealForest = new RealisticBiomeBOPBorealForest();
-			bopBrushland = new RealisticBiomeBOPBrushland();
-			bopCanyon = new RealisticBiomeBOPCanyon();
-			bopChaparral = new RealisticBiomeBOPChaparral();
-			bopCherryBlossomGrove = new RealisticBiomeBOPCherryBlossomGrove();
-			bopConiferousForest = new RealisticBiomeBOPConiferousForest();
-			bopCrag = new RealisticBiomeBOPCrag();
-			bopDeadForest = new RealisticBiomeBOPDeadForest();
-			bopDeadSwamp = new RealisticBiomeBOPDeadSwamp();
-			bopDeciduousForest = new RealisticBiomeBOPDeciduousForest();try {
-                bopDenseForest = new RealisticBiomeBOPDenseForest();
-                bopEucalyptusForest = new RealisticBiomeBOPEucalyptusForest();
+			bopAlps = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPAlps);
+			bopArctic = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPArctic);
+			bopBambooForest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPBambooForest);
+			bopBayou = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPBayou);
+			bopBog = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPBog);
+			bopBorealForest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPBorealForest);
+			bopBrushland = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPBrushland);
+			bopCanyon = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPCanyon);
+			bopChaparral = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPChaparral);
+			bopCherryBlossomGrove = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPCherryBlossomGrove);
+			bopConiferousForest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPConiferousForest);
+			bopCrag = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPCrag);
+			bopDeadForest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPDeadForest);
+			bopDeadSwamp = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPDeadSwamp);
+			bopDeciduousForest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPDeciduousForest);
+			
+			try {
+                bopDenseForest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPDenseForest);
+                bopEucalyptusForest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPEucalyptusForest);
             } catch (NoSuchFieldError e) {
                 /// old BoP
                 olderBoP = true;
@@ -143,82 +146,91 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			/**
 			 * Enabling either of these river biomes causes a crash on startup for some reason... disabling for now. - Pink
 			 */
-			//bopDryRiver = new RealisticBiomeBOPDryRiver();
-			//bopLushRiver = new RealisticBiomeBOPLushRiver();
+			//bopDryRiver = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPDryRiver);
+			//bopLushRiver = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPLushRiver);
 			
-			bopFen = new RealisticBiomeBOPFen();
-			bopFlowerField = new RealisticBiomeBOPFlowerField();
-			bopFrostForest = new RealisticBiomeBOPFrostForest();
-			bopFungiForest = new RealisticBiomeBOPFungiForest();
-			bopGarden = new RealisticBiomeBOPGarden();
-			bopGrassland = new RealisticBiomeBOPGrassland();
-			bopGrove = new RealisticBiomeBOPGrove();
-			bopHeathland = new RealisticBiomeBOPHeathland();
-			bopHighland = new RealisticBiomeBOPHighland();
-			bopJadeCliffs = new RealisticBiomeBOPJadeCliffs();
+			bopFen = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPFen);
+			bopFlowerField = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPFlowerField);
+			bopFrostForest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPFrostForest);
+			bopFungiForest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPFungiForest);
+			bopGarden = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPGarden);
+			bopGrassland = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPGrassland);
+			bopGrove = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPGrove);
+			bopHeathland = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPHeathland);
+			bopHighland = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPHighland);
+			bopJadeCliffs = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPJadeCliffs);
+			
             try {
-                bopLandOfLakes = new RealisticBiomeBOPLandOfLakes();
-            } catch (NoSuchFieldError e) {
+                bopLandOfLakes = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPLandOfLakes);
             }
-			bopLavenderFields = new RealisticBiomeBOPLavenderFields();
-			bopLushDesert = new RealisticBiomeBOPLushDesert();
-			bopLushSwamp = new RealisticBiomeBOPLushSwamp();
-			bopMapleWoods = new RealisticBiomeBOPMapleWoods();
-			bopMarsh = new RealisticBiomeBOPMarsh();
-			bopMeadow = new RealisticBiomeBOPMeadow();
-			bopMoor = new RealisticBiomeBOPMoor();
-			bopMountain = new RealisticBiomeBOPMountain();
-			bopMysticGrove = new RealisticBiomeBOPMysticGrove();
-			bopOminousWoods = new RealisticBiomeBOPOminousWoods();
-			bopOriginValley = new RealisticBiomeBOPOriginValley();
-			bopOutback = new RealisticBiomeBOPOutback();
-			bopPrairie = new RealisticBiomeBOPPrairie();
-			bopRainforest = new RealisticBiomeBOPRainforest();
-			bopRedwoodForest = new RealisticBiomeBOPRedwoodForest();
-			bopSacredSprings = new RealisticBiomeBOPSacredSprings();
-			bopSeasonalForest = new RealisticBiomeBOPSeasonalForest();
-			bopShield = new RealisticBiomeBOPShield();
-			bopShrubland = new RealisticBiomeBOPShrubland();
-			bopSludgepit = new RealisticBiomeBOPSludgepit();
-			bopSnowyConiferousForest = new RealisticBiomeBOPSnowyConiferousForest();
-			bopSteppe = new RealisticBiomeBOPSteppe();
-			bopTemperateRainforest = new RealisticBiomeBOPTemperateRainforest();
-			bopThicket = new RealisticBiomeBOPThicket();
-			bopTropicalRainforest = new RealisticBiomeBOPTropicalRainforest();
-			bopTundra = new RealisticBiomeBOPTundra();
-			bopWasteland = new RealisticBiomeBOPWasteland();
-			bopWetland = new RealisticBiomeBOPWetland();
-			bopWoodland = new RealisticBiomeBOPWoodland();
+            catch (NoSuchFieldError e) {
+                
+            }
+            
+			bopLavenderFields = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPLavenderFields);
+			bopLushDesert = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPLushDesert);
+			bopLushSwamp = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPLushSwamp);
+			bopMapleWoods = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPMapleWoods);
+			bopMarsh = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPMarsh);
+			bopMeadow = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPMeadow);
+			bopMoor = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPMoor);
+			bopMountain = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPMountain);
+			bopMysticGrove = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPMysticGrove);
+			bopOminousWoods = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPOminousWoods);
+			bopOriginValley = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPOriginValley);
+			bopOutback = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPOutback);
+			bopPrairie = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPPrairie);
+			bopRainforest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPRainforest);
+			bopRedwoodForest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPRedwoodForest);
+			bopSacredSprings = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPSacredSprings);
+			bopSeasonalForest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPSeasonalForest);
+			bopShield = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPShield);
+			bopShrubland = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPShrubland);
+			bopSludgepit = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPSludgepit);
+			bopSnowyConiferousForest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPSnowyConiferousForest);
+			bopSteppe = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPSteppe);
+			bopTemperateRainforest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPTemperateRainforest);
+			bopThicket = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPThicket);
+			bopTropicalRainforest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPTropicalRainforest);
+			bopTundra = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPTundra);
+			bopWasteland = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPWasteland);
+			bopWetland = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPWetland);
+			bopWoodland = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPWoodland);
+			
             try {
-                bopXericShrubland = new RealisticBiomeBOPXericShrubland();
-            } catch (NoSuchFieldError e) {
+                bopXericShrubland = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPXericShrubland);
+            }
+            catch (NoSuchFieldError e) {
                 // oldBoP
             }
 			
 			//Sub Biomes (treated as normal biomes in RTG)
-			bopAlpsForest = new RealisticBiomeBOPAlpsForest();
-			bopCanyonRavine = new RealisticBiomeBOPCanyonRavine();
-			bopGlacier = new RealisticBiomeBOPGlacier();
+			bopAlpsForest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPAlpsForest);
+			bopCanyonRavine = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPCanyonRavine);
+			bopGlacier = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPGlacier);
+			
             try {
-                bopLandOfLakesMarsh = new RealisticBiomeBOPLandOfLakesMarsh();
-			    bopSeasonalForestClearing = new RealisticBiomeBOPSeasonalForestClearing();
-            } catch (NoSuchFieldError e) {
+                bopLandOfLakesMarsh = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPLandOfLakesMarsh);
+			    bopSeasonalForestClearing = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPSeasonalForestClearing);
+            }
+            catch (NoSuchFieldError e) {
                 //old BoP
             }
-			bopMangrove = new RealisticBiomeBOPMangrove();
-			bopMeadowForest = new RealisticBiomeBOPMeadowForest();
-			bopOasis = new RealisticBiomeBOPOasis();
-			bopOrchard = new RealisticBiomeBOPOrchard();
-			bopQuagmire = new RealisticBiomeBOPQuagmire();
-			bopScrubland = new RealisticBiomeBOPScrubland();
-			bopSilkglades = new RealisticBiomeBOPSilkglades();
-			bopSpruceWoods = new RealisticBiomeBOPSpruceWoods();
-			bopTropics = new RealisticBiomeBOPTropics();
-			bopVolcano = new RealisticBiomeBOPVolcano();
+            
+			bopMangrove = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPMangrove);
+			bopMeadowForest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPMeadowForest);
+			bopOasis = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPOasis);
+			bopOrchard = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPOrchard);
+			bopQuagmire = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPQuagmire);
+			bopScrubland = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPScrubland);
+			bopSilkglades = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPSilkglades);
+			bopSpruceWoods = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPSpruceWoods);
+			bopTropics = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPTropics);
+			bopVolcano = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPVolcano);
 			
 			//Ocean Biomes
-			bopCoralReef = new RealisticBiomeBOPCoralReef();
-			bopKelpForest = new RealisticBiomeBOPKelpForest();
+			bopCoralReef = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPCoralReef);
+			bopKelpForest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPKelpForest);
 			
 			//Overworld Biomes
 			if (ConfigBOP.generateBOPAlps) { BiomeBase.addBiome(bopAlps); }

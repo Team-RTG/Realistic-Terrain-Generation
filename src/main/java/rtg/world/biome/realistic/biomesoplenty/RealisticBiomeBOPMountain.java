@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPMountain;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -28,7 +28,7 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPMountain()
+	public RealisticBiomeBOPMountain(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
@@ -49,7 +49,7 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
             )
 		);
 		
-		this.biomeConfig = new BiomeConfigBOPMountain();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigBOP.weightBOPMountain;
 		this.generateVillages = ConfigBOP.villageBOPMountain;
 		this.generatesEmeralds = true;

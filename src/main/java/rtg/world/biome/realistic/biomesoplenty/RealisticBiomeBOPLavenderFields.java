@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPLavenderFields;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -25,7 +25,7 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPLavenderFields()
+	public RealisticBiomeBOPLavenderFields(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -33,7 +33,7 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase
 			new SurfaceBOPLavenderFields(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, topBlock, 0.05f)
 		);
 		
-		this.biomeConfig = new BiomeConfigBOPLavenderFields();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigBOP.weightBOPLavenderFields;
 		this.generateVillages = ConfigBOP.villageBOPLavenderFields;
 	}

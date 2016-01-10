@@ -4,7 +4,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
-import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPLushDesert;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -31,7 +31,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPLushDesert()
+	public RealisticBiomeBOPLushDesert(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
@@ -52,7 +52,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
             )
 		);
 		
-		this.biomeConfig = new BiomeConfigBOPLushDesert();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigBOP.weightBOPLushDesert;
 		this.generateVillages = ConfigBOP.villageBOPLushDesert;
 	}

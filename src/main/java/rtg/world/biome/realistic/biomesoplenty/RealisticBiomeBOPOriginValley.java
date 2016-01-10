@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPOriginValley;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPOriginValley;
@@ -17,7 +17,7 @@ public class RealisticBiomeBOPOriginValley extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPOriginValley()
+	public RealisticBiomeBOPOriginValley(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -25,7 +25,7 @@ public class RealisticBiomeBOPOriginValley extends RealisticBiomeBOPBase
 			new SurfaceBOPOriginValley(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = new BiomeConfigBOPOriginValley();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigBOP.weightBOPOriginValley;
 		this.generateVillages = ConfigBOP.villageBOPOriginValley;
 	}

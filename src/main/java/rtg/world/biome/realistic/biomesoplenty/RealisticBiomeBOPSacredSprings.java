@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPSacredSprings;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPSacredSprings;
@@ -17,7 +17,7 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPSacredSprings()
+	public RealisticBiomeBOPSacredSprings(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
@@ -25,7 +25,7 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase
 			new SurfaceBOPSacredSprings(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = new BiomeConfigBOPSacredSprings();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigBOP.weightBOPSacredSprings;
 		this.generateVillages = ConfigBOP.villageBOPSacredSprings;
 	}

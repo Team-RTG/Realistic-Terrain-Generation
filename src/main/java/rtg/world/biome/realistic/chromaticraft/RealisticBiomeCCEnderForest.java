@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.chromaticraft;
 
-import rtg.api.biomes.chromaticraft.config.BiomeConfigCCEnderForest;
+import rtg.api.biomes.BiomeConfig;
 import rtg.config.chromaticraft.ConfigCC;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.chromaticraft.SurfaceCCEnderForest;
@@ -10,7 +10,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeCCEnderForest extends RealisticBiomeCCBase
 {	
-	public RealisticBiomeCCEnderForest(BiomeGenBase ccBiome)
+	public RealisticBiomeCCEnderForest(BiomeGenBase ccBiome, BiomeConfig config)
 	{
 		super(
 			ccBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -18,7 +18,7 @@ public class RealisticBiomeCCEnderForest extends RealisticBiomeCCBase
 			new SurfaceCCEnderForest(ccBiome.topBlock, ccBiome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, ccBiome.topBlock, 0.05f)
 		);
 		
-		this.biomeConfig = new BiomeConfigCCEnderForest();
+		this.biomeConfig = config;
 		this.biomeWeight = ConfigCC.weightCCEnderForest;
 		this.generateVillages = ConfigCC.villageCCEnderForest;
 	}

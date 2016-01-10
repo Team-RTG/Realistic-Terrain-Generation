@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBMarsh;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBMarsh;
@@ -71,8 +72,7 @@ public class RealisticBiomeEBMarsh extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Marsh");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBMarsh();
 		this.biomeWeight = ConfigEB.weightEBMarsh;
 		this.generateVillages = ConfigEB.villageEBMarsh;
         

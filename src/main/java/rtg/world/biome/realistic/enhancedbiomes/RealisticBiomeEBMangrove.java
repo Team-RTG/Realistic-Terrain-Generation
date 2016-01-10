@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBMangrove;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -81,8 +82,7 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Mangrove");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBMangrove();
 		this.biomeWeight = ConfigEB.weightEBMangroves;
 		this.generateVillages = ConfigEB.villageEBMangroves;
         

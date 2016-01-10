@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biomes.highlands.config.BiomeConfigHLBadlands;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLBadlands;
@@ -24,8 +25,7 @@ public class RealisticBiomeHLBadlands extends RealisticBiomeHLBase
             new TerrainHLBadlands(),
             new SurfaceHLBadlands(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("HL Badlands");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigHLBadlands();
         this.biomeWeight = ConfigHL.weightHLBadlands;
         this.generateVillages = ConfigHL.villageHLBadlands;
     }

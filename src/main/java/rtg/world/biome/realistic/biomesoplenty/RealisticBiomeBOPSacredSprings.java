@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPSacredSprings;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPSacredSprings;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase
 			new SurfaceBOPSacredSprings(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Sacred Springs");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPSacredSprings();
 		this.biomeWeight = ConfigBOP.weightBOPSacredSprings;
 		this.generateVillages = ConfigBOP.villageBOPSacredSprings;
 	}

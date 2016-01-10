@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPShrubland;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPShrubland;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPShrubland extends RealisticBiomeBOPBase
 			new SurfaceBOPShrubland(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Shrubland");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPShrubland();
 		this.biomeWeight = ConfigBOP.weightBOPShrubland;
 		this.generateVillages = ConfigBOP.villageBOPShrubland;
 	}

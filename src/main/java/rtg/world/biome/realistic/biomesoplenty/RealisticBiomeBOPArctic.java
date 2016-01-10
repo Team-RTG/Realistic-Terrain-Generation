@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPArctic;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPArctic;
@@ -38,8 +39,7 @@ public class RealisticBiomeBOPArctic extends RealisticBiomeBOPBase
             )
 		);
 		
-		this.setRealisticBiomeName("BOP Arctic");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPArctic();
 		this.biomeWeight = ConfigBOP.weightBOPArctic;
 		this.generateVillages = ConfigBOP.villageBOPArctic;
 	}

@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biomes.vanilla.config.BiomeConfigVanillaBirchForestHills;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -36,8 +37,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
 			new SurfaceVanillaBirchForestHills(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f)
 		);
 		
-		this.setRealisticBiomeName("Vanilla Birch Forest Hills");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigVanillaBirchForestHills();
 		this.biomeWeight = ConfigVanilla.weightVanillaBirchForestHills;
 		this.generateVillages = ConfigVanilla.villageVanillaBirchForestHills;
 	}

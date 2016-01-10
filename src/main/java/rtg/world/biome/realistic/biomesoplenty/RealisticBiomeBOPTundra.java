@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPTundra;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPTundra;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPTundra extends RealisticBiomeBOPBase
 			new SurfaceBOPTundra(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Tundra");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPTundra();
 		this.biomeWeight = ConfigBOP.weightBOPTundra;
 		this.generateVillages = ConfigBOP.villageBOPTundra;
 	}

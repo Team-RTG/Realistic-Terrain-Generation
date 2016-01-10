@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBBlossomWoods;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -81,8 +81,7 @@ public class RealisticBiomeEBBlossomWoods extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Blossom Woods");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBBlossomWoods();
 		this.biomeWeight = ConfigEB.weightEBBlossomWoods;
 		this.generateVillages = ConfigEB.villageEBBlossomWoods;
         

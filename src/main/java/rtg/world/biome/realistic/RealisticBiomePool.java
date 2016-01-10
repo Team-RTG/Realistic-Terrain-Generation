@@ -66,7 +66,7 @@ public class RealisticBiomePool extends GenLayer
                     biomePool.add(rb.baseBiome.biomeID);
 
                     if (ConfigRTG.enableDebugging) {
-                        FMLLog.log(Level.INFO, "Added %s at temp %d.", rb.getRealisticBiomeName(), btemp);
+                        FMLLog.log(Level.INFO, "Added %s at temp %d.", rb.biomeConfig.getRealisticBiomeName(), btemp);
                     }
                 }
             }
@@ -116,7 +116,7 @@ public class RealisticBiomePool extends GenLayer
                     biomePool.add(rb.baseBiome.biomeID);
                     
                     if (ConfigRTG.enableDebugging) {
-                        FMLLog.log(Level.INFO, "Added %s at temp %d.", rb.getRealisticBiomeName(), btemp);
+                        FMLLog.log(Level.INFO, "Added %s at temp %d.", rb.biomeConfig.getRealisticBiomeName(), btemp);
                     }
                 }
             }

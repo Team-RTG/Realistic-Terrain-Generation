@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.atg;
 
+import rtg.api.biomes.atg.config.BiomeConfigATGSnowyGravelBeach;
 import rtg.config.atg.ConfigATG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.atg.SurfaceATGSnowyGravelBeach;
@@ -17,8 +18,7 @@ public class RealisticBiomeATGSnowyGravelBeach extends RealisticBiomeATGBase
 			new SurfaceATGSnowyGravelBeach(atgBiome.topBlock, atgBiome.fillerBlock, atgBiome.topBlock, atgBiome.fillerBlock, (byte)0, 1)
 		);
 		
-		this.setRealisticBiomeName("ATG Snowy Gravel Beach");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigATGSnowyGravelBeach();
 		this.biomeWeight = ConfigATG.weightATGSnowyGravelBeach;
 		this.generateVillages = ConfigATG.villageATGSnowyGravelBeach;
 	}

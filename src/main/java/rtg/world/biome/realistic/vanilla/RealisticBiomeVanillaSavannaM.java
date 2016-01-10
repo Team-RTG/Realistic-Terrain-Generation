@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biomes.vanilla.config.BiomeConfigVanillaSavannaM;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -40,8 +40,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase
             new TerrainVanillaSavannaM(),
             new SurfaceVanillaSavannaM(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("Vanilla Savanna M");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigVanillaSavannaM();
         this.biomeWeight = ConfigVanilla.weightVanillaSavannaM;
         this.generateVillages = ConfigVanilla.villageVanillaSavannaM;
     }

@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBXericSavanna;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBXericSavanna;
@@ -71,8 +72,7 @@ public class RealisticBiomeEBXericSavanna extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Xeric Savanna");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBXericSavanna();
 		this.biomeWeight = ConfigEB.weightEBXericSavannah;
 		this.generateVillages = ConfigEB.villageEBXericSavannah;
         

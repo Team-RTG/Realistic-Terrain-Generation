@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBVolcanoM;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -86,8 +87,7 @@ public class RealisticBiomeEBVolcanoM extends RealisticBiomeEBBase
             surface
         );
         
-        this.setRealisticBiomeName("EB Volcano M");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigEBVolcanoM();
         this.biomeWeight = ConfigEB.weightEBVolcanoM;
         this.generateVillages = ConfigEB.villageEBVolcanoM;
         

@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPMangrove;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMangrove;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase
 			new SurfaceBOPMangrove(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Mangrove");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPMangrove();
 		this.biomeWeight = ConfigBOP.weightBOPMangrove;
 		this.generateVillages = ConfigBOP.villageBOPMangrove;
 	}

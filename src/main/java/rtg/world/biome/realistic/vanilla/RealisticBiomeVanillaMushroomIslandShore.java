@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
+import rtg.api.biomes.vanilla.config.BiomeConfigVanillaMushroomIslandShore;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMushroomIslandShore;
@@ -22,8 +23,7 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
 			new SurfaceVanillaMushroomIslandShore(topBlock, fillerBlock, 67, topBlock, 0f)
 		);
 		
-		this.setRealisticBiomeName("Vanilla Mushroom Island Shore");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigVanillaMushroomIslandShore();
 		this.biomeWeight = ConfigVanilla.weightVanillaMushroomIslandShore;
 		this.generateVillages = ConfigVanilla.villageVanillaMushroomIslandShore;
 	}	

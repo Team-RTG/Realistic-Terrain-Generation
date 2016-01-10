@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBIceSheet;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBIceSheet;
@@ -71,8 +72,7 @@ public class RealisticBiomeEBIceSheet extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Ice Sheet");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBIceSheet();
 		this.biomeWeight = ConfigEB.weightEBIceSheet;
 		this.generateVillages = ConfigEB.villageEBIceSheet;
         

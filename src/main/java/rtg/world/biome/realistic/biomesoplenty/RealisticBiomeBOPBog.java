@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPBog;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPBog;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase
 			new SurfaceBOPBog(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Bog");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPBog();
 		this.biomeWeight = ConfigBOP.weightBOPBog;
 		this.generateVillages = ConfigBOP.villageBOPBog;
 	}

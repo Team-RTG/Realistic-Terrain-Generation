@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBPolarDesert;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -80,8 +81,7 @@ public class RealisticBiomeEBPolarDesert extends RealisticBiomeEBBase
             )
         );
         
-        this.setRealisticBiomeName("EB Polar Desert");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigEBPolarDesert();
         this.biomeWeight = ConfigEB.weightEBPolarDesert;
         this.generateVillages = ConfigEB.villageEBPolarDesert;
         

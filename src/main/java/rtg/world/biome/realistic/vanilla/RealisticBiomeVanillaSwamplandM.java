@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biomes.vanilla.config.BiomeConfigVanillaSwamplandM;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
@@ -38,8 +38,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase
             new TerrainVanillaSwamplandM(230f, 24f, 0f),
             new SurfaceVanillaSwamplandM(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("Vanilla Swampland M");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigVanillaSwamplandM();
         this.biomeWeight = ConfigVanilla.weightVanillaSwamplandM;
         this.generateVillages = ConfigVanilla.villageVanillaSwamplandM;
     }

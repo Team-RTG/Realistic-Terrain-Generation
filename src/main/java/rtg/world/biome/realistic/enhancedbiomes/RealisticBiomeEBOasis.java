@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBOasis;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBOasis;
@@ -71,8 +72,7 @@ public class RealisticBiomeEBOasis extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Oasis");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBOasis();
 		this.biomeWeight = ConfigEB.weightEBOasis;
 		this.generateVillages = ConfigEB.villageEBOasis;
         

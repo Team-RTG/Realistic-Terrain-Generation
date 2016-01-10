@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBRedDesert;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRedDesert;
@@ -72,8 +73,7 @@ public class RealisticBiomeEBRedDesert extends RealisticBiomeEBBase
             )
         );
         
-        this.setRealisticBiomeName("EB Red Desert");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigEBRedDesert();
         this.biomeWeight = ConfigEB.weightEBRedDesert;
         this.generateVillages = ConfigEB.villageEBRedDesert;
         

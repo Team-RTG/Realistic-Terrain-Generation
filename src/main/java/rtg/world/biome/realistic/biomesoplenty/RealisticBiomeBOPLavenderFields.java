@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPLavenderFields;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPLavenderFields;
@@ -33,8 +33,7 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase
 			new SurfaceBOPLavenderFields(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, topBlock, 0.05f)
 		);
 		
-		this.setRealisticBiomeName("BOP Lavender Fields");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPLavenderFields();
 		this.biomeWeight = ConfigBOP.weightBOPLavenderFields;
 		this.generateVillages = ConfigBOP.villageBOPLavenderFields;
 	}

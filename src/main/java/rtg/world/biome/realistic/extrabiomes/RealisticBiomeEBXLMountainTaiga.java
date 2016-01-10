@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLMountainTaiga;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLMountainTaiga;
@@ -24,8 +25,7 @@ public class RealisticBiomeEBXLMountainTaiga extends RealisticBiomeEBXLBase
 			new SurfaceEBXLMountainTaiga(topBlock, fillerBlock, false, null, 1.2f)
 		);
 		
-		this.setRealisticBiomeName("EBXL Mountain Taiga");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBXLMountainTaiga();
 		this.biomeWeight = ConfigEBXL.weightEBXLMountainTaiga;
 		this.generateVillages = ConfigEBXL.villageEBXLMountainTaiga;
 	}

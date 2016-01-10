@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBCarr;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -86,8 +87,7 @@ public class RealisticBiomeEBCarr extends RealisticBiomeEBBase
             )
         );
         
-        this.setRealisticBiomeName("EB Carr");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigEBCarr();
         this.biomeWeight = ConfigEB.weightEBCarr;
         this.generateVillages = ConfigEB.villageEBCarr;
         

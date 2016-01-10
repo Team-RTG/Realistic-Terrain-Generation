@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.atg;
 
+import rtg.api.biomes.atg.config.BiomeConfigATGTundra;
 import rtg.config.atg.ConfigATG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.atg.SurfaceATGTundra;
@@ -17,8 +18,7 @@ public class RealisticBiomeATGTundra extends RealisticBiomeATGBase
 			new SurfaceATGTundra(atgBiome.topBlock, atgBiome.fillerBlock, false, null, 0.45f)
 		);
 		
-		this.setRealisticBiomeName("ATG Tundra");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigATGTundra();
 		this.biomeWeight = ConfigATG.weightATGTundra;
 		this.generateVillages = ConfigATG.villageATGTundra;
 	}

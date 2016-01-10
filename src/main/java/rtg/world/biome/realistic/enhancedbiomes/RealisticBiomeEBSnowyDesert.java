@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBSnowyDesert;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSnowyDesert;
@@ -71,8 +72,7 @@ public class RealisticBiomeEBSnowyDesert extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Snowy Desert");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBSnowyDesert();
 		this.biomeWeight = ConfigEB.weightEBSnowyDesert;
 		this.generateVillages = ConfigEB.villageEBSnowyDesert;
         

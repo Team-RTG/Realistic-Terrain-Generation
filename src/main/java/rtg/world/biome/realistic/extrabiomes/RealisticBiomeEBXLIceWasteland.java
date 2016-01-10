@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLIceWasteland;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLIceWasteland;
@@ -24,8 +25,7 @@ public class RealisticBiomeEBXLIceWasteland extends RealisticBiomeEBXLBase
 			new SurfaceEBXLIceWasteland(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("EBXL Ice Wasteland");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBXLIceWasteland();
 		this.biomeWeight = ConfigEBXL.weightEBXLIceWasteland;
 		this.generateVillages = ConfigEBXL.villageEBXLIceWasteland;
 	}

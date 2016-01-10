@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLBirchForest;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLBirchForest;
@@ -24,8 +25,7 @@ public class RealisticBiomeEBXLBirchForest extends RealisticBiomeEBXLBase
 			new SurfaceEBXLBirchForest(topBlock, fillerBlock, false, null, 0.95f)
 		);
 		
-		this.setRealisticBiomeName("EBXL Birch Forest");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBXLBirchForest();
 		this.biomeWeight = ConfigEBXL.weightEBXLBirchForest;
 		this.generateVillages = ConfigEBXL.villageEBXLBirchForest;
 	}

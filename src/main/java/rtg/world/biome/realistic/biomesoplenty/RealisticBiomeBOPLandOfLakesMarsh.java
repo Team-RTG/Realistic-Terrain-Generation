@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPLandOfLakesMarsh;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPLandOfLakesMarsh;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPLandOfLakesMarsh extends RealisticBiomeBOPBase
 			new SurfaceBOPLandOfLakesMarsh(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Land of Lakes Marsh");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPLandOfLakesMarsh();
 		this.biomeWeight = ConfigBOP.weightBOPLandOfLakesMarsh;
 		this.generateVillages = ConfigBOP.villageBOPLandOfLakesMarsh;
 	}

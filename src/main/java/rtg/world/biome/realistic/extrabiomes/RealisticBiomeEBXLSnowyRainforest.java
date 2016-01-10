@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLSnowyRainforest;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLSnowyRainforest;
@@ -26,8 +27,7 @@ public class RealisticBiomeEBXLSnowyRainforest extends RealisticBiomeEBXLBase
 		
 		ebxlBiome.setTemperatureRainfall(-2f, ebxlBiome.rainfall);
 		
-		this.setRealisticBiomeName("EBXL Snowy Rainforest");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBXLSnowyRainforest();
 		this.biomeWeight = ConfigEBXL.weightEBXLSnowyRainforest;
 		this.generateVillages = ConfigEBXL.villageEBXLSnowyRainforest;
 	}

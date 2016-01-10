@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBCreekBed;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBCreekBed;
@@ -71,8 +72,7 @@ public class RealisticBiomeEBCreekBed extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Creek Bed");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBCreekBed();
 		this.biomeWeight = ConfigEB.weightEBCreekBed;
 		this.generateVillages = ConfigEB.villageEBCreekBed;
         

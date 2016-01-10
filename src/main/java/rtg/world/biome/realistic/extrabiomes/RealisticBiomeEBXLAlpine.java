@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLAlpine;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLAlpine;
@@ -24,8 +25,7 @@ public class RealisticBiomeEBXLAlpine extends RealisticBiomeEBXLBase
 			new SurfaceEBXLAlpine(topBlock, fillerBlock, false, null, 0.45f)
 		);
 		
-		this.setRealisticBiomeName("EBXL Alpine");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBXLAlpine();
 		this.biomeWeight = ConfigEBXL.weightEBXLAlpine;
 		this.generateVillages = ConfigEBXL.villageEBXLAlpine;
 	}

@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPMoor;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMoor;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase
 			new SurfaceBOPMoor(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Moor");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPMoor();
 		this.biomeWeight = ConfigBOP.weightBOPMoor;
 		this.generateVillages = ConfigBOP.villageBOPMoor;
 	}

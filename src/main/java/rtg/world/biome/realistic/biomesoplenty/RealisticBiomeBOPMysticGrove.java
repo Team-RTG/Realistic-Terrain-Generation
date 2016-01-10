@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPMysticGrove;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMysticGrove;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMysticGrove;
@@ -33,8 +33,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
 			new SurfaceBOPMysticGrove(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Mystic Grove");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPMysticGrove();
 		this.biomeWeight = ConfigBOP.weightBOPMysticGrove;
 		this.generateVillages = ConfigBOP.villageBOPMysticGrove;
 	}

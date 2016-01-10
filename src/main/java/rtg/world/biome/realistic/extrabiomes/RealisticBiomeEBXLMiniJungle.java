@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLMiniJungle;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLMiniJungle;
@@ -24,8 +25,7 @@ public class RealisticBiomeEBXLMiniJungle extends RealisticBiomeEBXLBase
 			new SurfaceEBXLMiniJungle(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("EBXL Mini Jungle");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBXLMiniJungle();
 		this.biomeWeight = ConfigEBXL.weightEBXLMiniJungle;
 		this.generateVillages = ConfigEBXL.villageEBXLMiniJungle;
 	}

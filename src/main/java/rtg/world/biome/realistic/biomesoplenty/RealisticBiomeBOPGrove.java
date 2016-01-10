@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPGrove;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -35,8 +35,7 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase
 			new SurfaceBOPGrove(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f)
 		);
 		
-		this.setRealisticBiomeName("BOP Grove");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPGrove();
 		this.biomeWeight = ConfigBOP.weightBOPGrove;
 		this.generateVillages = ConfigBOP.villageBOPGrove;
 	}

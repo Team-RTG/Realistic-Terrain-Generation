@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPBrushland;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPBrushland;
@@ -25,8 +26,7 @@ public class RealisticBiomeBOPBrushland extends RealisticBiomeBOPBase
 			new SurfaceBOPBrushland(topBlock, fillerBlock, Blocks.sand, 13f, 0.27f)
 		);
 		
-		this.setRealisticBiomeName("BOP Brushland");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPBrushland();
 		this.biomeWeight = ConfigBOP.weightBOPBrushland;
 		this.generateVillages = ConfigBOP.villageBOPBrushland;
 	}

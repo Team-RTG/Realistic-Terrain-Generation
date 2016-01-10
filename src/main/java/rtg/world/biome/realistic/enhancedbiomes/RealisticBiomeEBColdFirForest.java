@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBColdFirForest;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBColdFirForest;
@@ -72,8 +73,7 @@ public class RealisticBiomeEBColdFirForest extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Cold Fir Forest");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBColdFirForest();
 		this.biomeWeight = ConfigEB.weightEBColdFirForest;
 		this.generateVillages = ConfigEB.villageEBColdFirForest;
         

@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPChaparral;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPChaparral;
@@ -25,8 +26,7 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase
 			new SurfaceBOPChaparral(topBlock, fillerBlock, Blocks.sand, 26f, 0.35f)
 		);
 		
-		this.setRealisticBiomeName("BOP Chaparral");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPChaparral();
 		this.biomeWeight = ConfigBOP.weightBOPChaparral;
 		this.generateVillages = ConfigBOP.villageBOPChaparral;
 	}

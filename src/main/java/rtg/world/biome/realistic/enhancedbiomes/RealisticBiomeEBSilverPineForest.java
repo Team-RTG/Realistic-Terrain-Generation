@@ -1,10 +1,10 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBSilverPineForest;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSilverPineForest;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSilverPineForest;
-import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
@@ -72,8 +72,7 @@ public class RealisticBiomeEBSilverPineForest extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Silver Pine Forest");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBSilverPineForest();
 		this.biomeWeight = ConfigEB.weightEBSilverPineForest;
 		this.generateVillages = ConfigEB.villageEBSilverPineForest;
         

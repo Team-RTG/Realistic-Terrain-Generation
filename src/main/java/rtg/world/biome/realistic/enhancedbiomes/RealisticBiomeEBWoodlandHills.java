@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBWoodlandHills;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBWoodlandHills;
@@ -72,8 +73,7 @@ public class RealisticBiomeEBWoodlandHills extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Woodland Hills");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBWoodlandHills();
 		this.biomeWeight = ConfigEB.weightEBWoodlandHills;
 		this.generateVillages = ConfigEB.villageEBWoodlandHills;
         

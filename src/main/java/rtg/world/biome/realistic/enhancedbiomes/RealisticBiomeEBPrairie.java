@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBPrairie;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBPrairie;
@@ -71,8 +72,7 @@ public class RealisticBiomeEBPrairie extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Prairie");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBPrairie();
 		this.biomeWeight = ConfigEB.weightEBPrairie;
 		this.generateVillages = ConfigEB.villageEBPrairie;
         

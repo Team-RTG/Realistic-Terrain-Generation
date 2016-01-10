@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLTemperateRainforest;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLTemperateRainforest;
@@ -25,8 +26,7 @@ public class RealisticBiomeEBXLTemperateRainforest extends RealisticBiomeEBXLBas
 			new SurfaceEBXLTemperateRainforest(topBlock, fillerBlock, true, Blocks.sand, 0.2f)
 		);
 		
-		this.setRealisticBiomeName("EBXL Temperate Rainforest");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBXLTemperateRainforest();
 		this.biomeWeight = ConfigEBXL.weightEBXLTemperateRainforest;
 		this.generateVillages = ConfigEBXL.villageEBXLTemperateRainforest;
 	}

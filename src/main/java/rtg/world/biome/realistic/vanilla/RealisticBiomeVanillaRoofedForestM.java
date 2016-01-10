@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biomes.vanilla.config.BiomeConfigVanillaRoofedForestM;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -40,8 +40,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
             new TerrainVanillaRoofedForestM(),
             new SurfaceVanillaRoofedForestM(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("Vanilla Roofed Forest M");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigVanillaRoofedForestM();
         this.biomeWeight = ConfigVanilla.weightVanillaRoofedForestM;
         this.generateVillages = ConfigVanilla.villageVanillaRoofedForestM;
     }

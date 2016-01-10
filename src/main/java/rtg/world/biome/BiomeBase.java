@@ -33,13 +33,6 @@ public class BiomeBase extends BiomeGenBase
 		WET
 	}
 
-	public enum BiomeSize
-	{
-	    LARGE,
-		NORMAL,
-		SMALL
-	}
-	
 	public static ArrayList<Integer> biomes_snow;
 	public static ArrayList<Integer> biomes_cold;
 	public static ArrayList<Integer> biomes_hot;
@@ -99,18 +92,6 @@ public class BiomeBase extends BiomeGenBase
 		arrVillageBiomes = new ArrayList<BiomeGenBase>();
 	}
     
-    public static void addBiome(RealisticBiomeBase b, BiomeSize size)
-    {
-        try
-        {
-            addWeightedBiome(b, size);
-        }
-        catch(Error e)
-        {
-            FMLLog.log(Level.ERROR, "Failed to add biome.");
-        }
-    }
-    
     public static void addVillageBiome(RealisticBiomeBase b)
     {
         if (b.generateVillages) {
@@ -120,11 +101,9 @@ public class BiomeBase extends BiomeGenBase
 	
 	public static void addBiome(RealisticBiomeBase b)
 	{
-		BiomeSize size = b.biomeSize;
-		
 		try
 		{
-			addWeightedBiome(b, size);
+			addWeightedBiome(b);
 		}
 		catch(Error e)
 		{
@@ -132,7 +111,7 @@ public class BiomeBase extends BiomeGenBase
 		}
 	}
 
-	public static void addWeightedBiome(RealisticBiomeBase b, BiomeSize size)
+	public static void addWeightedBiome(RealisticBiomeBase b)
 	{
 		int weight = (int) b.biomeWeight;
 		weight = (weight < MIN_BIOME_WEIGHT) ? MIN_BIOME_WEIGHT : ((weight > MAX_BIOME_WEIGHT) ? MAX_BIOME_WEIGHT : weight);
@@ -156,51 +135,30 @@ public class BiomeBase extends BiomeGenBase
 			        biomes_snow.add(b.biomeID);
 			        
 			        if (ConfigRTG.enableDebugging) {
-			            FMLLog.log(Level.INFO, "Added %s to SNOW category (%d in total)", b.getRealisticBiomeName(), biomes_snow.size());
+			            FMLLog.log(Level.INFO, "Added %s to SNOW category (%d in total)", b.biomeConfig.getRealisticBiomeName(), biomes_snow.size());
 			        }
 			    }
                 else if (b.baseBiome.temperature <= 0.3f) {
                     biomes_cold.add(b.biomeID);
                     
                     if (ConfigRTG.enableDebugging) {
-                        FMLLog.log(Level.INFO, "Added %s to COLD category (%d in total)", b.getRealisticBiomeName(), biomes_cold.size());
+                        FMLLog.log(Level.INFO, "Added %s to COLD category (%d in total)", b.biomeConfig.getRealisticBiomeName(), biomes_cold.size());
                     }
                 }
                 else if (b.baseBiome.temperature <= 1f) {
                     biomes_wet.add(b.biomeID);
                     
                     if (ConfigRTG.enableDebugging) {
-                        FMLLog.log(Level.INFO, "Added %s to WET category (%d in total)", b.getRealisticBiomeName(), biomes_wet.size());
+                        FMLLog.log(Level.INFO, "Added %s to WET category (%d in total)", b.biomeConfig.getRealisticBiomeName(), biomes_wet.size());
                     }
                 }
                 else {
                     biomes_hot.add(b.biomeID);
                     
                     if (ConfigRTG.enableDebugging) {
-                        FMLLog.log(Level.INFO, "Added %s to HOT category (%d in total)", b.getRealisticBiomeName(), biomes_hot.size());
+                        FMLLog.log(Level.INFO, "Added %s to HOT category (%d in total)", b.biomeConfig.getRealisticBiomeName(), biomes_hot.size());
                     }
                 }
-
-                /**
-                 * Sort by size.
-                 */
-				switch (size)
-				{
-					case SMALL:
-					    //TODO
-						break;
-                        
-					case NORMAL:
-					  //TODO
-						break;
-                        
-					case LARGE:
-					  //TODO
-						break;
-                        
-					default:
-						break;
-				}
 			}
 		}
 	}

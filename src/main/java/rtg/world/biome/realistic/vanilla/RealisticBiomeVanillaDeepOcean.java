@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
+import rtg.api.biomes.vanilla.config.BiomeConfigVanillaDeepOcean;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDeepOcean;
@@ -24,8 +25,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase
             new TerrainVanillaDeepOcean(),
             new SurfaceVanillaDeepOcean(Blocks.gravel, Blocks.gravel, Blocks.clay, 20f, 0.1f));
         
-        this.setRealisticBiomeName("Vanilla Deep Ocean");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigVanillaDeepOcean();
         this.biomeWeight = ConfigVanilla.weightVanillaDeepOcean;
         this.generateVillages = ConfigVanilla.villageVanillaDeepOcean;
         

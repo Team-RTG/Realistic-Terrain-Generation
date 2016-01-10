@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPSludgepit;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPSludgepit;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPSludgepit extends RealisticBiomeBOPBase
 			new SurfaceBOPSludgepit(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Sludgepit");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPSludgepit();
 		this.biomeWeight = ConfigBOP.weightBOPSludgepit;
 		this.generateVillages = ConfigBOP.villageBOPSludgepit;
 	}

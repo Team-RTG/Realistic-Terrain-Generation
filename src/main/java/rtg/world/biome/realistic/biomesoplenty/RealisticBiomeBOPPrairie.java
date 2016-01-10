@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPPrairie;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPPrairie;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPPrairie extends RealisticBiomeBOPBase
 			new SurfaceBOPPrairie(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Prairie");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPPrairie();
 		this.biomeWeight = ConfigBOP.weightBOPPrairie;
 		this.generateVillages = ConfigBOP.villageBOPPrairie;
 	}

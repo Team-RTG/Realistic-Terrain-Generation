@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBPineForestArchipelago;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBPineForestArchipelago;
@@ -72,8 +73,7 @@ public class RealisticBiomeEBPineForestArchipelago extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Pine Forest Archipelago");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBPineForestArchipelago();
 		this.biomeWeight = ConfigEB.weightEBPineForestArchipelago;
 		this.generateVillages = ConfigEB.villageEBPineForestArchipelago;
         

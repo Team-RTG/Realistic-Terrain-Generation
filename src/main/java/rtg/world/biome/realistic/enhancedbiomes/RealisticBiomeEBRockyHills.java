@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBRockyHills;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -12,7 +13,6 @@ import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRockyHills;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBRockyHills;
-import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import enhancedbiomes.helpers.TreeGen;
@@ -77,8 +77,7 @@ public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
             new TerrainEBRockyHills(230f, 120f, 0f),
             surface);
         
-        this.setRealisticBiomeName("EB Rocky Hills");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigEBRockyHills();
         this.biomeWeight = ConfigEB.weightEBRockyHills;
         this.generateVillages = ConfigEB.villageEBRockyHills;
         

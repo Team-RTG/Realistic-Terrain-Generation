@@ -4,11 +4,11 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPLandOfLakes;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeBirch;
 import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
@@ -41,8 +41,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 			new SurfaceBOPLandOfLakes(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.10f)
 		);
 		
-		this.setRealisticBiomeName("BOP Land of Lakes");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPLandOfLakes();
 		this.biomeWeight = ConfigBOP.weightBOPLandOfLakes;
 		this.generateVillages = ConfigBOP.villageBOPLandOfLakes;
 	}

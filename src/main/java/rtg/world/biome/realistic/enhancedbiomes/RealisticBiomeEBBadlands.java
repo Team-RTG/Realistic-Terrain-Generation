@@ -1,10 +1,10 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBBadlands;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBBadlands;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBBadlands;
-import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
@@ -72,8 +72,7 @@ public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Badlands");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBBadlands();
 		this.biomeWeight = ConfigEB.weightEBBadlands;
 		this.generateVillages = ConfigEB.villageEBBadlands;
         

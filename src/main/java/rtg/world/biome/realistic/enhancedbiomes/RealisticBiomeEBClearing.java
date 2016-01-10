@@ -1,10 +1,10 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBClearing;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBClearing;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBClearing;
-import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
@@ -72,8 +72,7 @@ public class RealisticBiomeEBClearing extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Clearing");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBClearing();
 		this.biomeWeight = ConfigEB.weightEBClearing;
 		this.generateVillages = ConfigEB.villageEBClearing;
         

@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPGarden;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPGarden;
@@ -37,8 +38,7 @@ public class RealisticBiomeBOPGarden extends RealisticBiomeBOPBase
             )
 		);
 		
-		this.setRealisticBiomeName("BOP Garden");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPGarden();
 		this.biomeWeight = ConfigBOP.weightBOPGarden;
 		this.generateVillages = ConfigBOP.villageBOPGarden;
 	}

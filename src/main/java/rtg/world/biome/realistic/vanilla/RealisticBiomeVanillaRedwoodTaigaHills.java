@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biomes.vanilla.config.BiomeConfigVanillaRedwoodTaigaHills;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -40,8 +41,7 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
             new TerrainVanillaRedwoodTaigaHills(),
             new SurfaceVanillaRedwoodTaigaHills(Blocks.grass, Blocks.dirt, true, Blocks.sand, 0.2f));
         
-        this.setRealisticBiomeName("Vanilla Redwood Taiga Hills");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigVanillaRedwoodTaigaHills();
         this.biomeWeight = ConfigVanilla.weightVanillaRedwoodTaigaHills;
         this.generateVillages = ConfigVanilla.villageVanillaRedwoodTaigaHills;
     }

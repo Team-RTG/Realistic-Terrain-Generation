@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBCypressForest;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBCypressForest;
@@ -72,8 +73,7 @@ public class RealisticBiomeEBCypressForest extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Cypress Forest");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBCypressForest();
 		this.biomeWeight = ConfigEB.weightEBCypressForest;
 		this.generateVillages = ConfigEB.villageEBCypressForest;
         

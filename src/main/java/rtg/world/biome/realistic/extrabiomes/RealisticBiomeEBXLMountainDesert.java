@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLMountainDesert;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLMountainDesert;
@@ -24,8 +25,7 @@ public class RealisticBiomeEBXLMountainDesert extends RealisticBiomeEBXLBase
 			new SurfaceEBXLMountainDesert(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f)
 		);
 		
-		this.setRealisticBiomeName("EBXL Mountain Desert");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBXLMountainDesert();
 		this.biomeWeight = ConfigEBXL.weightEBXLMountainDesert;
 		this.generateVillages = ConfigEBXL.villageEBXLMountainDesert;
 	}

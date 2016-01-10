@@ -1,12 +1,8 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import java.util.Random;
-
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBMountainousArchipelago;
 import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBMountainousArchipelago;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBMountainousArchipelago;
 import enhancedbiomes.EnhancedBiomesMod;
@@ -15,7 +11,6 @@ import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBMountainousArchipelago extends RealisticBiomeEBBase
@@ -78,8 +73,7 @@ public class RealisticBiomeEBMountainousArchipelago extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Mountainous Archipelago");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBMountainousArchipelago();
 		this.biomeWeight = ConfigEB.weightEBMountainousArchipelago;
 		this.generateVillages = ConfigEB.villageEBMountainousArchipelago;
 		

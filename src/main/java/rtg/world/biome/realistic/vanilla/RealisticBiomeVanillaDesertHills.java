@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biomes.vanilla.config.BiomeConfigVanillaDesertHills;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -43,8 +44,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
 			surface
 		);
 		
-		this.setRealisticBiomeName("Vanilla Desert Hills");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigVanillaDesertHills();
 		this.biomeWeight = ConfigVanilla.weightVanillaDesertHills;
 		this.generateVillages = ConfigVanilla.villageVanillaDesertHills;
 		

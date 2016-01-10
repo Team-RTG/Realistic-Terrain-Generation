@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBSteppe;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -77,8 +78,7 @@ public class RealisticBiomeEBSteppe extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Steppe");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBSteppe();
 		this.biomeWeight = ConfigEB.weightEBSteppe;
 		this.generateVillages = ConfigEB.villageEBSteppe;
         

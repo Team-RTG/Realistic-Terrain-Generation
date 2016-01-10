@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biomes.highlands.config.BiomeConfigHLHighlandsB;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLHighlandsB;
@@ -25,8 +26,7 @@ public class RealisticBiomeHLHighlandsB extends RealisticBiomeHLBase
             new TerrainHLHighlandsB(15f, 60f, 68f, 150f),
             new SurfaceHLHighlandsB(topBlock, fillerBlock, false, null, 1f, 1.5f, 85f, 20f, 4f));
         
-        this.setRealisticBiomeName("HL HighlandsB");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigHLHighlandsB();
         this.biomeWeight = ConfigHL.weightHLHighlandsB;
         this.generateVillages = ConfigHL.villageHLHighlandsB;
     }

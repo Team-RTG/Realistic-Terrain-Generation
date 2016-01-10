@@ -1,12 +1,8 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import java.util.Random;
-
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBSnowyPlateau;
 import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSnowyPlateau;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSnowyPlateau;
 import enhancedbiomes.EnhancedBiomesMod;
@@ -15,7 +11,6 @@ import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBSnowyPlateau extends RealisticBiomeEBBase
@@ -78,8 +73,7 @@ public class RealisticBiomeEBSnowyPlateau extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Snowy Plateau");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBSnowyPlateau();
 		this.biomeWeight = ConfigEB.weightEBSnowyPlateau;
 		this.generateVillages = ConfigEB.villageEBSnowyPlateau;
 		

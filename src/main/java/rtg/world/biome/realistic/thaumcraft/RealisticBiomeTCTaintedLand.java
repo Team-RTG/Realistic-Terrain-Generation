@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.thaumcraft;
 
+import rtg.api.biomes.thaumcraft.config.BiomeConfigTCTaintedLand;
 import rtg.config.thaumcraft.ConfigTC;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.thaumcraft.SurfaceTCTaintedLand;
@@ -17,8 +18,7 @@ public class RealisticBiomeTCTaintedLand extends RealisticBiomeTCBase
 			new SurfaceTCTaintedLand(tcBiome.topBlock, tcBiome.fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("Thaumcraft Tainted Land");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigTCTaintedLand();
 		this.biomeWeight = ConfigTC.weightTCTaintedLand;
 		this.generateVillages = ConfigTC.villageTCTaintedLand;
 	}

@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPMountain;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -49,8 +49,7 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
             )
 		);
 		
-		this.setRealisticBiomeName("BOP Mountain");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPMountain();
 		this.biomeWeight = ConfigBOP.weightBOPMountain;
 		this.generateVillages = ConfigBOP.villageBOPMountain;
 		this.generatesEmeralds = true;

@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBShield;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBShield;
@@ -71,8 +72,7 @@ public class RealisticBiomeEBShield extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Shield");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBShield();
 		this.biomeWeight = ConfigEB.weightEBShield;
 		this.generateVillages = ConfigEB.villageEBShield;
         

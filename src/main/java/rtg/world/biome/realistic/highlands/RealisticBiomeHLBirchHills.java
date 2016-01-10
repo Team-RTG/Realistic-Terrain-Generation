@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biomes.highlands.config.BiomeConfigHLBirchHills;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLBirchHills;
@@ -22,8 +23,7 @@ public class RealisticBiomeHLBirchHills extends RealisticBiomeHLBase
         super(hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE), new TerrainHLBirchHills(230f, 60f, 0f),
             new SurfaceHLBirchHills(topBlock, fillerBlock, false, null, 0.95f));
         
-        this.setRealisticBiomeName("HL Birch Hills");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigHLBirchHills();
         this.biomeWeight = ConfigHL.weightHLBirchHills;
         this.generateVillages = ConfigHL.villageHLBirchHills;
     }

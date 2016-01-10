@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPBayou;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPBayou;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase
 			new SurfaceBOPBayou(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Bayou");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPBayou();
 		this.biomeWeight = ConfigBOP.weightBOPBayou;
 		this.generateVillages = ConfigBOP.villageBOPBayou;
 	}

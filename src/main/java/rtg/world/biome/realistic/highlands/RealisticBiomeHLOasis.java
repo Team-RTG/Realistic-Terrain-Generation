@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biomes.highlands.config.BiomeConfigHLOasis;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLOasis;
@@ -26,8 +27,7 @@ public class RealisticBiomeHLOasis extends RealisticBiomeHLBase
             new TerrainHLOasis(),
             new SurfaceHLOasis(Blocks.sand, fillerBlock));
         
-        this.setRealisticBiomeName("HL Oasis");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigHLOasis();
         this.biomeWeight = ConfigHL.weightHLOasis;
         this.generateVillages = ConfigHL.villageHLOasis;
     }

@@ -38,7 +38,7 @@ public class RealisticBiomePresenceTester {
                             
                         try {
                             RealisticBiomeBase rBiome = RealisticBiomeBase.getBiome(biomeId);
-                            String rBiomeName = rBiome.getRealisticBiomeName();
+                            String rBiomeName = rBiome.biomeConfig.getRealisticBiomeName();
                         }
                         catch (Exception e) {
                             FMLLog.log(Level.WARN, "WARNING! RTG could not find a realistic version of %s (%d) from %s", biomeName, biomeId, biomeClass);

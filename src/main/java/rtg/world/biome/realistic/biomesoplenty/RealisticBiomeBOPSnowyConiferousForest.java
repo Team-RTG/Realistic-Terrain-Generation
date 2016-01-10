@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPSnowyConiferousForest;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPSnowyConiferousForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPSnowyConiferousForest;
@@ -34,8 +34,7 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
 			new SurfaceBOPSnowyConiferousForest(topBlock, fillerBlock, false, null, 0.45f, 1.5f, 50f, 60f, 0.4f, 100f, 50f, 1.5f)
 		);
 		
-		this.setRealisticBiomeName("BOP Snowy Coniferous Forest");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPSnowyConiferousForest();
 		this.biomeWeight = ConfigBOP.weightBOPSnowyConiferousForest;
 		this.generateVillages = ConfigBOP.villageBOPSnowyConiferousForest;
 	}

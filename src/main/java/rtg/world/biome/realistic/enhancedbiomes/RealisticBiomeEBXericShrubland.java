@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBXericShrubland;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBXericShrubland;
@@ -71,8 +72,7 @@ public class RealisticBiomeEBXericShrubland extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Xeric Shrubland");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBXericShrubland();
 		this.biomeWeight = ConfigEB.weightEBXericShrubland;
 		this.generateVillages = ConfigEB.villageEBXericShrubland;
         

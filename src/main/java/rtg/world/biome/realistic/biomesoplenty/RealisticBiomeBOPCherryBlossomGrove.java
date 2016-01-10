@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPCherryBlossomGrove;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPCherryBlossomGrove;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPCherryBlossomGrove;
@@ -47,8 +47,7 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase
             )
 		);
 		
-		this.setRealisticBiomeName("BOP Cherry Blossom Grove");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPCherryBlossomGrove();
 		this.biomeWeight = ConfigBOP.weightBOPCherryBlossomGrove;
 		this.generateVillages = ConfigBOP.villageBOPCherryBlossomGrove;
 	}

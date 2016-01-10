@@ -1,11 +1,11 @@
 package rtg.world.biome.realistic.chromaticraft;
 
+import rtg.api.biomes.chromaticraft.config.BiomeConfigCCRainbowForest;
 import rtg.config.chromaticraft.ConfigCC;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.chromaticraft.SurfaceCCRainbowForest;
 import rtg.world.gen.terrain.chromaticraft.TerrainCCRainbowForest;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeCCRainbowForest extends RealisticBiomeCCBase
@@ -18,8 +18,7 @@ public class RealisticBiomeCCRainbowForest extends RealisticBiomeCCBase
 			new SurfaceCCRainbowForest(ccBiome.topBlock, ccBiome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, ccBiome.topBlock, 0.05f)
 		);
 		
-		this.setRealisticBiomeName("CC Rainbow Forest");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigCCRainbowForest();
 		this.biomeWeight = ConfigCC.weightCCRainbowForest;
 		this.generateVillages = ConfigCC.villageCCRainbowForest;
 	}

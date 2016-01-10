@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBColdPineForest;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBColdPineForest;
@@ -72,8 +73,7 @@ public class RealisticBiomeEBColdPineForest extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Cold Pine Forest");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBColdPineForest();
 		this.biomeWeight = ConfigEB.weightEBColdPineForest;
 		this.generateVillages = ConfigEB.villageEBColdPineForest;
         

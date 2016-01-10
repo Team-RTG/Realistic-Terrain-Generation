@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPWetland;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPWetland;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase
 			new SurfaceBOPWetland(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Wetland");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPWetland();
 		this.biomeWeight = ConfigBOP.weightBOPWetland;
 		this.generateVillages = ConfigBOP.villageBOPWetland;
 	}

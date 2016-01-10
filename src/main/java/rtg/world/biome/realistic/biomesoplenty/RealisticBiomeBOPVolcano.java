@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPVolcano;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -63,8 +64,7 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
 			surface
 		);
 		
-		this.setRealisticBiomeName("BOP Volcano");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPVolcano();
 		this.biomeWeight = ConfigBOP.weightBOPVolcano;
 		this.generateVillages = ConfigBOP.villageBOPVolcano;
 		

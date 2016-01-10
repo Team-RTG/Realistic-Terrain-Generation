@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBAspenHills;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAspenHills;
@@ -46,8 +47,7 @@ public class RealisticBiomeEBAspenHills extends RealisticBiomeEBBase
 			new SurfaceEBAspenHills(ebTopBlock, ebTopByte, ebFillBlock, ebFillByte, false, null, 0.95f)
 		);
 		
-		this.setRealisticBiomeName("EB Aspen Hills");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBAspenHills();
 		this.biomeWeight = ConfigEB.weightEBAspenHills;
 		this.generateVillages = ConfigEB.villageEBAspenHills;
         

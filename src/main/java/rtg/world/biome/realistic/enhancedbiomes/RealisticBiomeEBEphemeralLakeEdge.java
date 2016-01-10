@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBEphemeralLakeEdge;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -81,8 +82,7 @@ public class RealisticBiomeEBEphemeralLakeEdge extends RealisticBiomeEBBase
             )
         );
 		
-		this.setRealisticBiomeName("EB Ephemeral Lake Edge");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBEphemeralLakeEdge();
 		this.biomeWeight = ConfigEB.weightEBEphemeralLakeEdge;
 		this.generateVillages = ConfigEB.villageEBEphemeralLakeEdge;
         

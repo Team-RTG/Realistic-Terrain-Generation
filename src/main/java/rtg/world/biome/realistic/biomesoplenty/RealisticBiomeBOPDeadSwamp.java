@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPDeadSwamp;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPDeadSwamp;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase
 			new SurfaceBOPDeadSwamp(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Dead Swamp");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPDeadSwamp();
 		this.biomeWeight = ConfigBOP.weightBOPDeadSwamp;
 		this.generateVillages = ConfigBOP.villageBOPDeadSwamp;
 	}

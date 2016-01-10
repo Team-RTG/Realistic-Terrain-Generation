@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.atg;
 
+import rtg.api.biomes.atg.config.BiomeConfigATGGravelBeach;
 import rtg.config.atg.ConfigATG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.atg.SurfaceATGGravelBeach;
@@ -17,8 +18,7 @@ public class RealisticBiomeATGGravelBeach extends RealisticBiomeATGBase
 			new SurfaceATGGravelBeach(atgBiome.topBlock, atgBiome.fillerBlock, atgBiome.topBlock, atgBiome.fillerBlock, (byte)0, 1)
 		);
 		
-		this.setRealisticBiomeName("ATG Gravel Beach");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigATGGravelBeach();
 		this.biomeWeight = ConfigATG.weightATGGravelBeach;
 		this.generateVillages = ConfigATG.villageATGGravelBeach;
 	}

@@ -2,12 +2,12 @@ package rtg.world.biome.realistic.atg;
 
 import java.util.Random;
 
+import rtg.api.biomes.atg.config.BiomeConfigATGVolcano;
 import rtg.config.atg.ConfigATG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.WorldChunkManagerRTG;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenVolcano;
 import rtg.world.gen.surface.atg.SurfaceATGVolcano;
@@ -28,8 +28,7 @@ public class RealisticBiomeATGVolcano extends RealisticBiomeATGBase
 			new SurfaceATGVolcano(atgBiome.topBlock, atgBiome.fillerBlock, true, Blocks.gravel, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f)
 		);
 		
-		this.setRealisticBiomeName("ATG Volcano");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigATGVolcano();
 		this.biomeWeight = ConfigATG.weightATGVolcano;
 		this.generateVillages = ConfigATG.villageATGVolcano;
 	}

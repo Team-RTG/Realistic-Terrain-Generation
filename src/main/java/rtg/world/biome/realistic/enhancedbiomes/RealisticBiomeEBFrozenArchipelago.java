@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBFrozenArchipelago;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBFrozenArchipelago;
@@ -72,8 +73,7 @@ public class RealisticBiomeEBFrozenArchipelago extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Frozen Archipelago");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBFrozenArchipelago();
 		this.biomeWeight = ConfigEB.weightEBFrozenArchipelago;
 		this.generateVillages = ConfigEB.villageEBFrozenArchipelago;
         

@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBWoodlandLake;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBWoodlandLake;
@@ -71,8 +72,7 @@ public class RealisticBiomeEBWoodlandLake extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Woodland Lake");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBWoodlandLake();
 		this.biomeWeight = ConfigEB.weightEBWoodlandLake;
 		this.generateVillages = ConfigEB.villageEBWoodlandLake;
         

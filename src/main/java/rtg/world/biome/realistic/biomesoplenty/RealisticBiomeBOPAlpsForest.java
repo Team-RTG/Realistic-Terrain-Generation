@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPAlpsForest;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPAlpsForest;
@@ -33,8 +33,7 @@ public class RealisticBiomeBOPAlpsForest extends RealisticBiomeBOPBase
 			new SurfaceBOPAlpsForest(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.15f)
 		);
 
-		this.setRealisticBiomeName("BOP Alps Forest");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPAlpsForest();
 		this.biomeWeight = ConfigBOP.weightBOPAlpsForest;
 		this.generateVillages = ConfigBOP.villageBOPAlpsForest;
 		this.generatesEmeralds = true;

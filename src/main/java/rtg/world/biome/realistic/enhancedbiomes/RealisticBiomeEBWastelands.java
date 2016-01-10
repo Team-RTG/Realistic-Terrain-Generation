@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBWastelands;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -69,8 +70,7 @@ public class RealisticBiomeEBWastelands extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Wastelands");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBWastelands();
 		this.biomeWeight = ConfigEB.weightEBWastelands;
 		this.generateVillages = ConfigEB.villageEBWastelands;
         

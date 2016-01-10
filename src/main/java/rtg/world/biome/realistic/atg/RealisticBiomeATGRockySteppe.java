@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.atg;
 
+import rtg.api.biomes.atg.config.BiomeConfigATGRockySteppe;
 import rtg.config.atg.ConfigATG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.atg.SurfaceATGRockySteppe;
@@ -17,8 +18,7 @@ public class RealisticBiomeATGRockySteppe extends RealisticBiomeATGBase
 			new SurfaceATGRockySteppe(atgBiome.topBlock, atgBiome.fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("ATG Rocky Steppe");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigATGRockySteppe();
 		this.biomeWeight = rtg.config.atg.ConfigATG.weightATGRockySteppe;
 		this.generateVillages = ConfigATG.villageATGGravelBeach;
 	}

@@ -4,6 +4,7 @@ import highlands.api.HighlandsBiomes;
 
 import java.util.Random;
 
+import rtg.api.biomes.highlands.config.BiomeConfigHLVolcanoIsland;
 import rtg.config.highlands.ConfigHL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -60,8 +61,7 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
             surface
         );
         
-        this.setRealisticBiomeName("HL Volcano Island");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigHLVolcanoIsland();
         this.biomeWeight = ConfigHL.weightHLVolcanoIsland;
         this.generateVillages = ConfigHL.villageHLVolcanoIsland;
         

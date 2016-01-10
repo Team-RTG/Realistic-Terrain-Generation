@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBClayHills;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -93,8 +94,7 @@ public class RealisticBiomeEBClayHills extends RealisticBiomeEBBase
             new TerrainEBClayHills(true, 35f, 160f, 60f, 40f, 69f),
             surface);
         
-        this.setRealisticBiomeName("EB Clay Hills");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigEBClayHills();
         this.biomeWeight = ConfigEB.weightEBClayHills;
         this.generateVillages = ConfigEB.villageEBClayHills;
         

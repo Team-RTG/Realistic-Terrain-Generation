@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBRockyDesert;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -93,8 +94,7 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
 			surface
 		);
 		
-		this.setRealisticBiomeName("EB Rocky Desert");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBRockyDesert();
 		this.biomeWeight = ConfigEB.weightEBRockyDesert;
 		this.generateVillages = ConfigEB.villageEBRockyDesert;
         

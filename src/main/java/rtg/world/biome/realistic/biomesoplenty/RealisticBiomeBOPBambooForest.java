@@ -1,15 +1,15 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPBambooForest;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeBase.BiomeSize;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPBambooForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPBambooForest;
 import biomesoplenty.api.content.BOPCBiomes;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase
 {	
@@ -26,8 +26,7 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase
 			new SurfaceBOPBambooForest(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f)
 		);
 		
-		this.setRealisticBiomeName("BOP Bamboo Forest");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPBambooForest();
 		this.biomeWeight = ConfigBOP.weightBOPBambooForest;
 		this.generateVillages = ConfigBOP.villageBOPBambooForest;
 	}

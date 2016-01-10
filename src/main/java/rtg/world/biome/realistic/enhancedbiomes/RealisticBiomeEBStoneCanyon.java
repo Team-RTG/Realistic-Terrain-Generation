@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBStoneCanyon;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -81,8 +82,7 @@ public class RealisticBiomeEBStoneCanyon extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Stone Canyon");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBStoneCanyon();
 		this.biomeWeight = ConfigEB.weightEBStoneCanyon;
 		this.generateVillages = ConfigEB.villageEBStoneCanyon;
         

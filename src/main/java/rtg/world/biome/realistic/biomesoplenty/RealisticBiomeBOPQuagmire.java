@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPQuagmire;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPQuagmire;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase
 			new SurfaceBOPQuagmire(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Quagmire");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPQuagmire();
 		this.biomeWeight = ConfigBOP.weightBOPQuagmire;
 		this.generateVillages = ConfigBOP.villageBOPQuagmire;
 	}

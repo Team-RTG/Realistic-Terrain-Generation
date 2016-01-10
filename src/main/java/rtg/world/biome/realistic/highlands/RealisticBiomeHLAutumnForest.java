@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biomes.highlands.config.BiomeConfigHLAutumnForest;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLAutumnForest;
@@ -23,8 +24,7 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
             new TerrainHLAutumnForest(0f, 50f, 68f, 200f),
             new SurfaceHLAutumnForest(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("HL Autumn Forest");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigHLAutumnForest();
         this.biomeWeight = ConfigHL.weightHLAutumnForest;
         this.generateVillages = ConfigHL.villageHLAutumnForest;
     }

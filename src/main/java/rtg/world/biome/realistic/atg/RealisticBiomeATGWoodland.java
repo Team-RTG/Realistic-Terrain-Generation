@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.atg;
 
+import rtg.api.biomes.atg.config.BiomeConfigATGWoodland;
 import rtg.config.atg.ConfigATG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.atg.SurfaceATGWoodland;
@@ -17,8 +18,7 @@ public class RealisticBiomeATGWoodland extends RealisticBiomeATGBase
 			new SurfaceATGWoodland(atgBiome.topBlock, atgBiome.fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("ATG Woodland");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigATGWoodland();
 		this.biomeWeight = ConfigATG.weightATGWoodland;
 		this.generateVillages = ConfigATG.villageATGWoodland;
 	}

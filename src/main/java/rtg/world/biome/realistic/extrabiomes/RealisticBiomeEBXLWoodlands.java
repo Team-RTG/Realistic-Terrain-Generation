@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLWoodlands;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLWoodlands;
@@ -24,8 +25,7 @@ public class RealisticBiomeEBXLWoodlands extends RealisticBiomeEBXLBase
 			new SurfaceEBXLWoodlands(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("EBXL Woodlands");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBXLWoodlands();
 		this.biomeWeight = ConfigEBXL.weightEBXLWoodlands;
 		this.generateVillages = ConfigEBXL.villageEBXLWoodlands;
 	}

@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBBorealPlateau;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBBorealPlateau;
@@ -72,8 +73,7 @@ public class RealisticBiomeEBBorealPlateau extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Boreal Plateau");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBBorealPlateau();
 		this.biomeWeight = ConfigEB.weightEBBorealPlateau;
 		this.generateVillages = ConfigEB.villageEBBorealPlateau;
         

@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPFrostForest;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPFrostForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPFrostForest;
@@ -46,8 +46,7 @@ public class RealisticBiomeBOPFrostForest extends RealisticBiomeBOPBase
             )
 		);
 		
-		this.setRealisticBiomeName("BOP Frost Forest");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPFrostForest();
 		this.biomeWeight = ConfigBOP.weightBOPFrostForest;
 		this.generateVillages = ConfigBOP.villageBOPFrostForest;
 	}

@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPOutback;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPOutback;
@@ -38,8 +39,7 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
             )
 		);
 		
-		this.setRealisticBiomeName("BOP Outback");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPOutback();
 		this.biomeWeight = ConfigBOP.weightBOPOutback;
 		this.generateVillages = ConfigBOP.villageBOPOutback;
 	}

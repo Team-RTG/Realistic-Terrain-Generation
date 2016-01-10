@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPCanyon;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPCanyon;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPCanyon extends RealisticBiomeBOPBase
 			new SurfaceBOPCanyon(topBlock, fillerBlock, (byte)0, 0)
 		);
 		
-		this.setRealisticBiomeName("BOP Canyon");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPCanyon();
 		this.biomeWeight = ConfigBOP.weightBOPCanyon;
 		this.generateVillages = ConfigBOP.villageBOPCanyon;
 	}

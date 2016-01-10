@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBLowHills;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBLowHills;
@@ -71,8 +72,7 @@ public class RealisticBiomeEBLowHills extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Low Hills");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBLowHills();
 		this.biomeWeight = ConfigEB.weightEBLowHills;
 		this.generateVillages = ConfigEB.villageEBLowHills;
         

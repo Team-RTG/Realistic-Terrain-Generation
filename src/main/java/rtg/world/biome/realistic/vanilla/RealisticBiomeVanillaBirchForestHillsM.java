@@ -6,11 +6,11 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
+import rtg.api.biomes.vanilla.config.BiomeConfigVanillaBirchForestHillsM;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -46,8 +46,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
 			new SurfaceVanillaBirchForestHillsM(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("Vanilla Birch Forest Hills M");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigVanillaBirchForestHillsM();
 		this.biomeWeight = ConfigVanilla.weightVanillaBirchForestHillsM;
 		this.generateVillages = ConfigVanilla.villageVanillaBirchForestHillsM;
 	}

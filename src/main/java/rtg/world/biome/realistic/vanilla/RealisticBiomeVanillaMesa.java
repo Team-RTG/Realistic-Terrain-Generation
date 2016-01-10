@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biomes.vanilla.config.BiomeConfigVanillaMesa;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -44,8 +45,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
             new TerrainVanillaMesa(), surface);
         
-        this.setRealisticBiomeName("Vanilla Mesa");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigVanillaMesa();
         this.biomeWeight = ConfigVanilla.weightVanillaMesa;
         this.generateVillages = ConfigVanilla.villageVanillaMesa;
     }

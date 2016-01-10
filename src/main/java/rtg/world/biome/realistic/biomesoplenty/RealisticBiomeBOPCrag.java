@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPCrag;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -32,8 +33,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase
 			surface
 		);
 		
-		this.setRealisticBiomeName("BOP Crag");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPCrag();
 		this.biomeWeight = ConfigBOP.weightBOPCrag;
 		this.generateVillages = ConfigBOP.villageBOPCrag;
 		this.generatesEmeralds = true;

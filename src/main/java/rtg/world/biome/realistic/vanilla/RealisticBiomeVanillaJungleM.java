@@ -8,12 +8,12 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
+import rtg.api.biomes.vanilla.config.BiomeConfigVanillaJungleM;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
@@ -52,8 +52,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase
 			new SurfaceVanillaJungleM(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("Vanilla Jungle M");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigVanillaJungleM();
 		this.biomeWeight = ConfigVanilla.weightVanillaJungleM;
 		this.generateVillages = ConfigVanilla.villageVanillaJungleM;
 		

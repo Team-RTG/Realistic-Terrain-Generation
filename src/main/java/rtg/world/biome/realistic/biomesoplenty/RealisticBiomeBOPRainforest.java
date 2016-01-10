@@ -1,13 +1,14 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
-
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPRainforest;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPRainforest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPRainforest;
 import biomesoplenty.api.content.BOPCBiomes;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPRainforest extends RealisticBiomeBOPBase
 {	
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPRainforest extends RealisticBiomeBOPBase
 			new SurfaceBOPRainforest(topBlock, fillerBlock, false, null, 1.3f)
 		);
 		
-		this.setRealisticBiomeName("BOP Rainforest");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPRainforest();
 		this.biomeWeight = ConfigBOP.weightBOPRainforest;
 		this.generateVillages = ConfigBOP.villageBOPRainforest;
 	}

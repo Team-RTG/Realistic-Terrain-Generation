@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biomes.highlands.config.BiomeConfigHLRainforest;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLRainforest;
@@ -25,8 +26,7 @@ public class RealisticBiomeHLRainforest extends RealisticBiomeHLBase
             new TerrainHLRainforest(120f, 300f,8f),
             new SurfaceHLRainforest(topBlock, fillerBlock, false, null, 1.3f));
         
-        this.setRealisticBiomeName("HL Rainforest");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigHLRainforest();
         this.biomeWeight = ConfigHL.weightHLRainforest;
         this.generateVillages = ConfigHL.villageHLRainforest;
     }

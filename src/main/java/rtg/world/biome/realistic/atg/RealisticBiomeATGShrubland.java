@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.atg;
 
+import rtg.api.biomes.atg.config.BiomeConfigATGShrubland;
 import rtg.config.atg.ConfigATG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.atg.SurfaceATGShrubland;
@@ -17,8 +18,7 @@ public class RealisticBiomeATGShrubland extends RealisticBiomeATGBase
 			new SurfaceATGShrubland(atgBiome.topBlock, atgBiome.fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("ATG Shrubland");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigATGShrubland();
 		this.biomeWeight = ConfigATG.weightATGShrubland;
 		this.generateVillages = ConfigATG.villageATGShrubland;
 	}

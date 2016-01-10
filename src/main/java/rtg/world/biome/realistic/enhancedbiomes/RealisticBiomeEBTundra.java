@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBTundra;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBTundra;
@@ -71,8 +72,7 @@ public class RealisticBiomeEBTundra extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Tundra");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBTundra();
 		this.biomeWeight = ConfigEB.weightEBTundra;
 		this.generateVillages = ConfigEB.villageEBTundra;
         

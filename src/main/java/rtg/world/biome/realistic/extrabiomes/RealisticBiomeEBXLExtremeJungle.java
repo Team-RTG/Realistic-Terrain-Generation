@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLExtremeJungle;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLExtremeJungle;
@@ -24,8 +25,7 @@ public class RealisticBiomeEBXLExtremeJungle extends RealisticBiomeEBXLBase
 			new SurfaceEBXLExtremeJungle(topBlock, fillerBlock, false, null, 0.95f)
 		);
 		
-		this.setRealisticBiomeName("EBXL Extreme Jungle");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBXLExtremeJungle();
 		this.biomeWeight = ConfigEBXL.weightEBXLExtremeJungle;
 		this.generateVillages = ConfigEBXL.villageEBXLExtremeJungle;
 	}

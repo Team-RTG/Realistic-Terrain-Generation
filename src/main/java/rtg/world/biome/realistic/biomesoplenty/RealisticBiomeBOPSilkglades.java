@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPSilkglades;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPSilkglades;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPSilkglades extends RealisticBiomeBOPBase
 			new SurfaceBOPSilkglades(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Silkglades");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPSilkglades();
 		this.biomeWeight = ConfigBOP.weightBOPSilkglades;
 		this.generateVillages = ConfigBOP.villageBOPSilkglades;
 	}

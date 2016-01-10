@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBLake;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBLake;
@@ -71,8 +72,7 @@ public class RealisticBiomeEBLake extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Lake");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBLake();
 		this.biomeWeight = ConfigEB.weightEBLake;
 		this.generateVillages = ConfigEB.villageEBLake;
         

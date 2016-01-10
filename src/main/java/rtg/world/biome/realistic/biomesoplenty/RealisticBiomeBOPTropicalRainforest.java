@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPTropicalRainforest;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPTropicalRainforest;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBOPBase
 			new SurfaceBOPTropicalRainforest(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Tropical Rainforest");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPTropicalRainforest();
 		this.biomeWeight = ConfigBOP.weightBOPTropicalRainforest;
 		this.generateVillages = ConfigBOP.villageBOPTropicalRainforest;
 	}

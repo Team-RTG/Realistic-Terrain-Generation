@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBMeadowM;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBMeadowM;
@@ -71,8 +72,7 @@ public class RealisticBiomeEBMeadowM extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Meadow M");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBMeadowM();
 		this.biomeWeight = ConfigEB.weightEBMeadowM;
 		this.generateVillages = ConfigEB.villageEBMeadowM;
         

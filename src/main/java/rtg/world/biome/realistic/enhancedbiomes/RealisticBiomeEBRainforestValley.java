@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBRainforestValley;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRainforestValley;
@@ -71,8 +72,7 @@ public class RealisticBiomeEBRainforestValley extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Rainforest Valley");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBRainforestValley();
 		this.biomeWeight = ConfigEB.weightEBRainforestValley;
 		this.generateVillages = ConfigEB.villageEBRainforestValley;
         

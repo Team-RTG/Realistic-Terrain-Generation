@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPMeadow;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMeadow;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPMeadow extends RealisticBiomeBOPBase
 			new SurfaceBOPMeadow(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Meadow");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPMeadow();
 		this.biomeWeight = ConfigBOP.weightBOPMeadow;
 		this.generateVillages = ConfigBOP.villageBOPMeadow;
 	}

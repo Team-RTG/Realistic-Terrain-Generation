@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biomes.vanilla.config.BiomeConfigVanillaSavanna;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -37,8 +38,7 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase
             new TerrainVanillaSavanna(),
             new SurfaceVanillaSavanna(Blocks.grass, Blocks.dirt, Blocks.grass, 13f, 0.27f));
         
-        this.setRealisticBiomeName("Vanilla Savanna");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigVanillaSavanna();
         this.biomeWeight = ConfigVanilla.weightVanillaSavanna;
         this.generateVillages = ConfigVanilla.villageVanillaSavanna;
     }

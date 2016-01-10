@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.extrabiomes;
 
 import java.util.Random;
 
+import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLRedwoodLush;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -35,8 +35,7 @@ public class RealisticBiomeEBXLRedwoodLush extends RealisticBiomeEBXLBase
 			new SurfaceEBXLRedwoodLush(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f)
 		);
 		
-		this.setRealisticBiomeName("EBXL Redwood Lush");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBXLRedwoodLush();
 		this.biomeWeight = ConfigEBXL.weightEBXLRedwoodLush;
 		this.generateVillages = ConfigEBXL.villageEBXLRedwoodLush;
 	}

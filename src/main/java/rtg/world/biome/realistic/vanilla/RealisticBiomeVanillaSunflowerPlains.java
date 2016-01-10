@@ -1,21 +1,13 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
+import rtg.api.biomes.vanilla.config.BiomeConfigVanillaSunflowerPlains;
 import rtg.config.vanilla.ConfigVanilla;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSunflowerPlains;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaSunflowerPlains;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaBase
 {
@@ -33,8 +25,7 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
             new TerrainVanillaSunflowerPlains(),
             new SurfaceVanillaSunflowerPlains(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("Vanilla Sunflower Plains");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigVanillaSunflowerPlains();
         this.biomeWeight = ConfigVanilla.weightVanillaSunflowerPlains;
         this.generateVillages = ConfigVanilla.villageVanillaSunflowerPlains;
     }

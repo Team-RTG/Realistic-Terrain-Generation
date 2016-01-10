@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
+import rtg.api.biomes.vanilla.config.BiomeConfigVanillaStoneBeach;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaStoneBeach;
@@ -23,8 +24,7 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase
 			new SurfaceVanillaStoneBeach(topBlock, fillerBlock, true, Blocks.gravel, 1f, 1.5f, 85f, 20f, 4f)
 		);
 		
-		this.setRealisticBiomeName("Vanilla Stone Beach");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigVanillaStoneBeach();
 		this.biomeWeight = ConfigVanilla.weightVanillaStoneBeach;
 		this.generateVillages = ConfigVanilla.villageVanillaStoneBeach;
 	}	

@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBMountainsEdge;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBMountainsEdge;
@@ -72,8 +73,7 @@ public class RealisticBiomeEBMountainsEdge extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Mountains Edge");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBMountainsEdge();
 		this.biomeWeight = ConfigEB.weightEBMountainsEdge;
 		this.generateVillages = ConfigEB.villageEBMountainsEdge;
         

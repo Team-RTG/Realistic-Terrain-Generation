@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBFens;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -78,8 +79,7 @@ public class RealisticBiomeEBFens extends RealisticBiomeEBBase
             )
         );
         
-        this.setRealisticBiomeName("EB Fens");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigEBFens();
         this.biomeWeight = ConfigEB.weightEBFens;
         this.generateVillages = ConfigEB.villageEBFens;
         

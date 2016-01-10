@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBRiparianZone;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRiparianZone;
@@ -71,8 +72,7 @@ public class RealisticBiomeEBRiparianZone extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Riparian Zone");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBRiparianZone();
 		this.biomeWeight = ConfigEB.weightEBRiparianZone;
 		this.generateVillages = ConfigEB.villageEBRiparianZone;
         

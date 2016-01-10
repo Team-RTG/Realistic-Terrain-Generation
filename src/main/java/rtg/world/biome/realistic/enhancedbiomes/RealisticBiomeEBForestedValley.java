@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBForestedValley;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -85,8 +86,7 @@ public class RealisticBiomeEBForestedValley extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Forested Valley");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBForestedValley();
 		this.biomeWeight = ConfigEB.weightEBForestedValley;
 		this.generateVillages = ConfigEB.villageEBForestedValley;
         

@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBGlacier;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBGlacier;
@@ -71,8 +72,7 @@ public class RealisticBiomeEBGlacier extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Glacier");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBGlacier();
 		this.biomeWeight = ConfigEB.weightEBGlacier;
 		this.generateVillages = ConfigEB.villageEBGlacier;
         

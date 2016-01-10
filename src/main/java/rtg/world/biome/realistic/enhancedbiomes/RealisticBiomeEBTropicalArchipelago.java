@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBTropicalArchipelago;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBTropicalArchipelago;
@@ -72,8 +73,7 @@ public class RealisticBiomeEBTropicalArchipelago extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Tropical Archipelago");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBTropicalArchipelago();
 		this.biomeWeight = ConfigEB.weightEBTropicalArchipelago;
 		this.generateVillages = ConfigEB.villageEBTropicalArchipelago;
         

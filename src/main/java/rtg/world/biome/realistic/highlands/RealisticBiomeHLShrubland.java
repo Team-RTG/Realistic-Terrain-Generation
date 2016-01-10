@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biomes.highlands.config.BiomeConfigHLShrubland;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLShrubland;
@@ -25,8 +26,7 @@ public class RealisticBiomeHLShrubland extends RealisticBiomeHLBase
             new TerrainHLShrubland(10f, 20f, 7f, 90f, 10f, 200f, 68f),
             new SurfaceHLShrubland(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("HL Shrubland");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigHLShrubland();
         this.biomeWeight = ConfigHL.weightHLShrubland;
         this.generateVillages = ConfigHL.villageHLShrubland;
     }

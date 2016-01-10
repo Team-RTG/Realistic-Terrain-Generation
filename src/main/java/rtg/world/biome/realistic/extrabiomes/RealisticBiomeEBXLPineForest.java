@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLPineForest;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLPineForest;
@@ -24,8 +25,7 @@ public class RealisticBiomeEBXLPineForest extends RealisticBiomeEBXLBase
 			new SurfaceEBXLPineForest(topBlock, fillerBlock, false, null, 1.2f)
 		);
 		
-		this.setRealisticBiomeName("EBXL Pine Forest");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBXLPineForest();
 		this.biomeWeight = ConfigEBXL.weightEBXLPineForest;
 		this.generateVillages = ConfigEBXL.villageEBXLPineForest;
 	}

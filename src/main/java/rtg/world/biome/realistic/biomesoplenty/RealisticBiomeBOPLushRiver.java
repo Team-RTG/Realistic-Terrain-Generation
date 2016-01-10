@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPLushRiver;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPLushRiver;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPLushRiver extends RealisticBiomeBOPBase
 			new SurfaceBOPLushRiver()
 		);
 		
-		this.setRealisticBiomeName("BOP Lush River");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPLushRiver();
 		this.biomeWeight = ConfigBOP.weightBOPLushRiver;
 		this.generateVillages = ConfigBOP.villageBOPLushRiver;
 	}

@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.extrabiomes;
 
 import java.util.Random;
 
+import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLMeadow;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -33,8 +34,7 @@ public class RealisticBiomeEBXLMeadow extends RealisticBiomeEBXLBase
 			new SurfaceEBXLMeadow(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("EBXL Meadow");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBXLMeadow();
 		this.biomeWeight = ConfigEBXL.weightEBXLMeadow;
 		this.generateVillages = ConfigEBXL.villageEBXLMeadow;
 	}

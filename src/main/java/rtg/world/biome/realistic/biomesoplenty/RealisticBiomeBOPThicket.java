@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPThicket;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPThicket;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPThicket extends RealisticBiomeBOPBase
 			new SurfaceBOPThicket(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Thicket");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPThicket();
 		this.biomeWeight = ConfigBOP.weightBOPThicket;
 		this.generateVillages = ConfigBOP.villageBOPThicket;
 	}

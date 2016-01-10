@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biomes.highlands.config.BiomeConfigHLAlps;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLAlps;
@@ -21,8 +22,7 @@ public class RealisticBiomeHLAlps extends RealisticBiomeHLBase {
         super(hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE), new TerrainHLAlps(),
             new SurfaceHLAlps(topBlock, fillerBlock, false, null, 0.45f));
         
-        this.setRealisticBiomeName("HL Alps");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigHLAlps();
         this.biomeWeight = ConfigHL.weightHLAlps;
         this.generateVillages = ConfigHL.villageHLAlps;
     }

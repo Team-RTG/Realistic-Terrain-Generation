@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biomes.vanilla.config.BiomeConfigVanillaIcePlains;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIcePlains;
@@ -32,8 +32,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
 			new SurfaceVanillaIcePlains(topBlock, fillerBlock, topBlock, topBlock)
 		);
 		
-		this.setRealisticBiomeName("Vanilla Ice Plains");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigVanillaIcePlains();
 		this.biomeWeight = ConfigVanilla.weightVanillaIcePlains;
 		this.generateVillages = ConfigVanilla.villageVanillaIcePlains;
 	}

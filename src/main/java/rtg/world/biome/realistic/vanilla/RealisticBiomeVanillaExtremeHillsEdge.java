@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biomes.vanilla.config.BiomeConfigVanillaExtremeHillsEdge;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -38,8 +39,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
             new SurfaceVanillaExtremeHillsEdge(topBlock, fillerBlock, Blocks.grass, Blocks.dirt, 60f, -0.14f, 14f, 0.25f)
         );
         
-        this.setRealisticBiomeName("Vanilla Extreme Hills Edge");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigVanillaExtremeHillsEdge();
         this.biomeWeight = ConfigVanilla.weightVanillaExtremeHillsEdge;
         this.generateVillages = ConfigVanilla.villageVanillaExtremeHillsEdge;
         this.generatesEmeralds = true;

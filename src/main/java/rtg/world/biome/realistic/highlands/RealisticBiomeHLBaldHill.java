@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biomes.highlands.config.BiomeConfigHLBaldHill;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLBaldHill;
@@ -26,8 +27,7 @@ public class RealisticBiomeHLBaldHill extends RealisticBiomeHLBase
             new SurfaceHLBaldHill(Blocks.cobblestone, Blocks.stone)
         );
         
-        this.setRealisticBiomeName("HL Bald Hill");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigHLBaldHill();
         this.biomeWeight = ConfigHL.weightHLBaldHill;
         this.generateVillages = ConfigHL.villageHLBaldHill;
     }

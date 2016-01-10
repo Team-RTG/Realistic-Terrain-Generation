@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPDeciduousForest;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPDeciduousForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPDeciduousForest;
@@ -46,8 +46,7 @@ public class RealisticBiomeBOPDeciduousForest extends RealisticBiomeBOPBase
             )
 		);
 		
-		this.setRealisticBiomeName("BOP Deciduous Forest");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPDeciduousForest();
 		this.biomeWeight = ConfigBOP.weightBOPDeciduousForest;
 		this.generateVillages = ConfigBOP.villageBOPDeciduousForest;
 	}

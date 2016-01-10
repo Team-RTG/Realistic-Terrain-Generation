@@ -1,13 +1,14 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
-
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPCanyonRavine;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPCanyonRavine;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPCanyonRavine;
 import biomesoplenty.api.content.BOPCBiomes;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPCanyonRavine extends RealisticBiomeBOPBase
 {	
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPCanyonRavine extends RealisticBiomeBOPBase
 			new SurfaceBOPCanyonRavine(topBlock, fillerBlock, (byte)0, 0)
 		);
 		
-		this.setRealisticBiomeName("BOP Canyon Ravine");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPCanyonRavine();
 		this.biomeWeight = ConfigBOP.weightBOPCanyonRavine;
 		this.generateVillages = ConfigBOP.villageBOPCanyonRavine;
 	}

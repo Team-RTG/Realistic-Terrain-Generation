@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biomes.highlands.config.BiomeConfigHLSnowIsland;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLSnowIsland;
@@ -25,8 +26,7 @@ public class RealisticBiomeHLSnowIsland extends RealisticBiomeHLBase
             new TerrainHLSnowIsland(90f, 180f, 13f, 100f, 1f, 260f, 59f),
             new SurfaceHLSnowIsland(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("HL Snow Island");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigHLSnowIsland();
         this.biomeWeight = ConfigHL.weightHLSnowIsland;
         this.generateVillages = ConfigHL.villageHLSnowIsland;
     }

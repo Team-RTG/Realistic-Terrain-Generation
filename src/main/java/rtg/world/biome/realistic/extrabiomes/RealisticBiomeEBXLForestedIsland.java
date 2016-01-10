@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLForestedIsland;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLForestedIsland;
@@ -24,8 +25,7 @@ public class RealisticBiomeEBXLForestedIsland extends RealisticBiomeEBXLBase
 			new SurfaceEBXLForestedIsland(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("EBXL Forested Island");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBXLForestedIsland();
 		this.biomeWeight = ConfigEBXL.weightEBXLForestedIsland;
 		this.generateVillages = ConfigEBXL.villageEBXLForestedIsland;
 	}

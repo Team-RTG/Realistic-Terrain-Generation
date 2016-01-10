@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPOriginValley;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPOriginValley;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPOriginValley extends RealisticBiomeBOPBase
 			new SurfaceBOPOriginValley(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Origin Valley");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPOriginValley();
 		this.biomeWeight = ConfigBOP.weightBOPOriginValley;
 		this.generateVillages = ConfigBOP.villageBOPOriginValley;
 	}

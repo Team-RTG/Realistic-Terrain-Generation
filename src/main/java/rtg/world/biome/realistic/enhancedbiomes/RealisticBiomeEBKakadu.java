@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBKakadu;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBKakadu;
@@ -72,8 +73,7 @@ public class RealisticBiomeEBKakadu extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Kakadu");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBKakadu();
 		this.biomeWeight = ConfigEB.weightEBKakadu;
 		this.generateVillages = ConfigEB.villageEBKakadu;
         

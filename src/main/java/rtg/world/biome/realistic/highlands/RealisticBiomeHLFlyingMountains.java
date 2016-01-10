@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biomes.highlands.config.BiomeConfigHLFlyingMountains;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLFlyingMountains;
@@ -25,8 +26,7 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
             new TerrainHLFlyingMountains(230f, 100f, 0f),
             new SurfaceHLFlyingMountains(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f));
         
-        this.setRealisticBiomeName("HL Flying Mountains");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigHLFlyingMountains();
         this.biomeWeight = ConfigHL.weightHLFlyingMountains;
         this.generateVillages = ConfigHL.villageHLFlyingMountains;
     }

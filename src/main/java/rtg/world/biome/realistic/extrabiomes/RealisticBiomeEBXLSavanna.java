@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLSavanna;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLSavanna;
@@ -25,8 +26,7 @@ public class RealisticBiomeEBXLSavanna extends RealisticBiomeEBXLBase
 			new SurfaceEBXLSavanna(topBlock, fillerBlock, Blocks.sand, 13f, 0.27f)
 		);
 		
-		this.setRealisticBiomeName("EBXL Savanna");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBXLSavanna();
 		this.biomeWeight = ConfigEBXL.weightEBXLSavanna;
 		this.generateVillages = ConfigEBXL.villageEBXLSavanna;
 	}

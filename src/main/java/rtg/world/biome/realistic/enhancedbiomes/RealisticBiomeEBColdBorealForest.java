@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEBColdBorealForest;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBColdBorealForest;
@@ -72,8 +73,7 @@ public class RealisticBiomeEBColdBorealForest extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Cold Boreal Forest");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBColdBorealForest();
 		this.biomeWeight = ConfigEB.weightEBColdBorealForest;
 		this.generateVillages = ConfigEB.villageEBColdBorealForest;
         

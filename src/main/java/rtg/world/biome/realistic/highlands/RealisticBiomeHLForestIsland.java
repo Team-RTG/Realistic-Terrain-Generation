@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biomes.highlands.config.BiomeConfigHLForestIsland;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLForestIsland;
@@ -25,8 +26,7 @@ public class RealisticBiomeHLForestIsland extends RealisticBiomeHLBase
             new TerrainHLForestIsland(90f, 180f, 13f, 100f, 1f, 260f, 59f),
             new SurfaceHLForestIsland(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("HL Forest Island");
-        this.biomeSize = BiomeSize.NORMAL;
+        this.biomeConfig = new BiomeConfigHLForestIsland();
         this.biomeWeight = ConfigHL.weightHLForestIsland;
         this.generateVillages = ConfigHL.villageHLForestIsland;
     }

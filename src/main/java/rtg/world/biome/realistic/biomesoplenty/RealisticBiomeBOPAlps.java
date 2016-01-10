@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPAlps;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPAlps;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase
 			new SurfaceBOPAlps(topBlock, fillerBlock, false, null, 0.45f)
 		);
 		
-		this.setRealisticBiomeName("BOP Alps");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPAlps();
 		this.biomeWeight = ConfigBOP.weightBOPAlps;
 		this.generateVillages = ConfigBOP.villageBOPAlps;
 		this.generatesEmeralds = true;

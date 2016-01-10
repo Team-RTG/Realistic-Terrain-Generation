@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPGrassland;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPGrassland;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPGrassland extends RealisticBiomeBOPBase
 			new SurfaceBOPGrassland(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Grassland");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPGrassland();
 		this.biomeWeight = ConfigBOP.weightBOPGrassland;
 		this.generateVillages = ConfigBOP.villageBOPGrassland;
 	}

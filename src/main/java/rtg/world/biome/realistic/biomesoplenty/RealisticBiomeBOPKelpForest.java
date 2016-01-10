@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPKelpForest;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPKelpForest;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase
 			new SurfaceBOPKelpForest(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Kelp Forest");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPKelpForest();
 		this.biomeWeight = ConfigBOP.weightBOPKelpForest;
 		this.generateVillages = ConfigBOP.villageBOPKelpForest;
 	}

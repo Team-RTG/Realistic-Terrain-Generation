@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biomes.biomesoplenty.config.BiomeConfigBOPCoralReef;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPCoralReef;
@@ -24,8 +25,7 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase
 			new SurfaceBOPCoralReef(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Coral Reef");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigBOPCoralReef();
 		this.biomeWeight = ConfigBOP.weightBOPCoralReef;
 		this.generateVillages = ConfigBOP.villageBOPCoralReef;
 	}

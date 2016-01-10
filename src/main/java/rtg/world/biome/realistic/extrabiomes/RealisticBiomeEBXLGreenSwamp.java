@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import rtg.api.biomes.extrabiomes.config.BiomeConfigEBXLGreenSwamp;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLGreenSwamp;
@@ -24,8 +25,7 @@ public class RealisticBiomeEBXLGreenSwamp extends RealisticBiomeEBXLBase
 			new SurfaceEBXLGreenSwamp(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("EBXL Green Swamplands");
-		this.biomeSize = BiomeSize.NORMAL;
+		this.biomeConfig = new BiomeConfigEBXLGreenSwamp();
 		this.biomeWeight = ConfigEBXL.weightEBXLGreenSwamp;
 		this.generateVillages = ConfigEBXL.villageEBXLGreenSwamp;
 	}

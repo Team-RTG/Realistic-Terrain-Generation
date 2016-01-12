@@ -7,6 +7,6 @@ public class BiomeConfigHLFlyingMountains extends BiomeConfigHLBase
     {
         super();
         
-        this.setRealisticBiomeName("HL Flying Mountains");
+        this.biomeSlug = "HLFlyingMountains";
     }
 }

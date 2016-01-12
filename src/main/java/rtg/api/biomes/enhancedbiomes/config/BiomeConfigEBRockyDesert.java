@@ -6,6 +6,6 @@ public class BiomeConfigEBRockyDesert extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Rocky Desert");
+        this.biomeSlug = "EBRockyDesert";
     }
 }

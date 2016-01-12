@@ -133,31 +133,15 @@ public class BiomeBase extends BiomeGenBase
 			     */
 			    if (b.baseBiome.temperature < 0.15f) {
 			        biomes_snow.add(b.biomeID);
-			        
-			        if (ConfigRTG.enableDebugging) {
-			            FMLLog.log(Level.INFO, "Added %s to SNOW category (%d in total)", b.biomeConfig.getRealisticBiomeName(), biomes_snow.size());
-			        }
 			    }
                 else if (b.baseBiome.temperature <= 0.3f) {
                     biomes_cold.add(b.biomeID);
-                    
-                    if (ConfigRTG.enableDebugging) {
-                        FMLLog.log(Level.INFO, "Added %s to COLD category (%d in total)", b.biomeConfig.getRealisticBiomeName(), biomes_cold.size());
-                    }
                 }
                 else if (b.baseBiome.temperature <= 1f) {
                     biomes_wet.add(b.biomeID);
-                    
-                    if (ConfigRTG.enableDebugging) {
-                        FMLLog.log(Level.INFO, "Added %s to WET category (%d in total)", b.biomeConfig.getRealisticBiomeName(), biomes_wet.size());
-                    }
                 }
                 else {
                     biomes_hot.add(b.biomeID);
-                    
-                    if (ConfigRTG.enableDebugging) {
-                        FMLLog.log(Level.INFO, "Added %s to HOT category (%d in total)", b.biomeConfig.getRealisticBiomeName(), biomes_hot.size());
-                    }
                 }
 			}
 		}

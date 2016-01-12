@@ -7,6 +7,6 @@ public class BiomeConfigHLOutback extends BiomeConfigHLBase
     {
         super();
         
-        this.setRealisticBiomeName("HL Outback");
+        this.biomeSlug = "HLOutback";
     }
 }

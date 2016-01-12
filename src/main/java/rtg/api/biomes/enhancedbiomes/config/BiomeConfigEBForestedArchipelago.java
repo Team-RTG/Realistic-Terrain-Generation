@@ -6,6 +6,6 @@ public class BiomeConfigEBForestedArchipelago extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Forested Archipelago");
+        this.biomeSlug = "EBForestedArchipelago";
     }
 }

@@ -7,6 +7,6 @@ public class BiomeConfigHLWindyIsland extends BiomeConfigHLBase
     {
         super();
         
-        this.setRealisticBiomeName("HL Windy Island");
+        this.biomeSlug = "HLWindyIsland";
     }
 }

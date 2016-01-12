@@ -7,6 +7,6 @@ public class BiomeConfigEBXLForestedHills extends BiomeConfigEBXLBase
     {
         super();
         
-        this.setRealisticBiomeName("EBXL Forested Hills");
+        this.biomeSlug = "EBXLForestedHills";
     }
 }

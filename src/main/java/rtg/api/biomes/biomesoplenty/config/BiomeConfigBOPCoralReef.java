@@ -8,6 +8,6 @@ public class BiomeConfigBOPCoralReef extends BiomeConfigBOPBase
     {
         super();
         
-        this.setRealisticBiomeName("BOP Coral Reef");
+        this.biomeSlug = "BOPCoralReef";
     }
 }

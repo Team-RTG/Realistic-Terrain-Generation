@@ -7,6 +7,6 @@ public class BiomeConfigHLGlacier extends BiomeConfigHLBase
     {
         super();
         
-        this.setRealisticBiomeName("HL Glacier");
+        this.biomeSlug = "HLGlacier";
     }
 }

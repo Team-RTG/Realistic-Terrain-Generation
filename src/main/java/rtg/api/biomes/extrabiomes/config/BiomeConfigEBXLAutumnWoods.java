@@ -7,6 +7,6 @@ public class BiomeConfigEBXLAutumnWoods extends BiomeConfigEBXLBase
     {
         super();
         
-        this.setRealisticBiomeName("EBXL Autumn Woods");
+        this.biomeSlug = "EBXLAutumnWoods";
     }
 }

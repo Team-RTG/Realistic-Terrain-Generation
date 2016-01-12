@@ -6,6 +6,6 @@ public class BiomeConfigEBSilverPineHills extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Silver Pine Hills");
+        this.biomeSlug = "EBSilverPineHills";
     }
 }

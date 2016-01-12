@@ -6,6 +6,6 @@ public class BiomeConfigEBMountainousArchipelago extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Mountainous Archipelago");
+        this.biomeSlug = "EBMountainousArchipelago";
     }
 }

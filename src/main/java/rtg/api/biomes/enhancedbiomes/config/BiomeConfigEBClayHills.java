@@ -6,6 +6,6 @@ public class BiomeConfigEBClayHills extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Clay Hills");
+        this.biomeSlug = "EBClayHills";
     }
 }

@@ -8,6 +8,6 @@ public class BiomeConfigBOPWasteland extends BiomeConfigBOPBase
     {
         super();
         
-        this.setRealisticBiomeName("BOP Wasteland");
+        this.biomeSlug = "BOPWasteland";
     }
 }

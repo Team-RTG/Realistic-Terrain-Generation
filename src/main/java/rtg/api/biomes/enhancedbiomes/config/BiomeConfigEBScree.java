@@ -6,6 +6,6 @@ public class BiomeConfigEBScree extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Scree");
+        this.biomeSlug = "EBScree";
     }
 }

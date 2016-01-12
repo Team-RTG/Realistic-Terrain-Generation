@@ -6,6 +6,6 @@ public class BiomeConfigEBWoodlandHills extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Woodland Hills");
+        this.biomeSlug = "EBWoodlandHills";
     }
 }

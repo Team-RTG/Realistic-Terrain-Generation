@@ -6,6 +6,6 @@ public class BiomeConfigEBColdCypressForest extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Cold Cypress Forest");
+        this.biomeSlug = "EBColdCypressForest";
     }
 }

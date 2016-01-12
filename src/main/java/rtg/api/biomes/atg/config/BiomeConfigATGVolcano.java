@@ -7,6 +7,6 @@ public class BiomeConfigATGVolcano extends BiomeConfigATGBase
     {
         super();
         
-        this.setRealisticBiomeName("ATG Volcano");
+        this.biomeSlug = "ATGVolcano";
     }
 }

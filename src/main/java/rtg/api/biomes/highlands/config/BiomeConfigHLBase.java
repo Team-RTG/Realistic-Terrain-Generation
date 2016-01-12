@@ -8,6 +8,6 @@ public class BiomeConfigHLBase extends BiomeConfig
     {
         super();
         
-        
+        this.modSlug = "highlands";
     }
 }

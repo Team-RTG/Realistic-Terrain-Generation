@@ -7,6 +7,6 @@ public class BiomeConfigVanillaIcePlains extends BiomeConfigVanillaBase
     {
         super();
         
-        this.setRealisticBiomeName("Vanilla Ice Plains");
+        this.biomeSlug = "VanillaIcePlains";
     }
 }

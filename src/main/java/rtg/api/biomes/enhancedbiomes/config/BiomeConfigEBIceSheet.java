@@ -6,6 +6,6 @@ public class BiomeConfigEBIceSheet extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Ice Sheet");
+        this.biomeSlug = "EBIceSheet";
     }
 }

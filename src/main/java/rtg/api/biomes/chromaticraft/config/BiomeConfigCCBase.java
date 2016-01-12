@@ -8,6 +8,6 @@ public class BiomeConfigCCBase extends BiomeConfig
     {
         super();
         
-        
+        this.modSlug = "chromaticraft";
     }
 }

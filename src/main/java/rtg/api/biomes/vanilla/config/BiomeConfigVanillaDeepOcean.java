@@ -7,6 +7,6 @@ public class BiomeConfigVanillaDeepOcean extends BiomeConfigVanillaBase
     {
         super();
         
-        this.setRealisticBiomeName("Vanilla Deep Ocean");
+        this.biomeSlug = "VanillaDeepOcean";
     }
 }

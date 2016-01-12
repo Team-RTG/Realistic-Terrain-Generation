@@ -6,6 +6,6 @@ public class BiomeConfigEBSnowyRanges extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Snowy Ranges");
+        this.biomeSlug = "EBSnowyRanges";
     }
 }

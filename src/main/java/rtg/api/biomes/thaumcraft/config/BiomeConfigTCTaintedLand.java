@@ -7,6 +7,6 @@ public class BiomeConfigTCTaintedLand extends BiomeConfigTCBase
     {
         super();
         
-        this.setRealisticBiomeName("TC Tainted Land");
+        this.biomeSlug = "TCTaintedLand";
     }
 }

@@ -7,6 +7,6 @@ public class BiomeConfigHLHighlandsB extends BiomeConfigHLBase
     {
         super();
         
-        this.setRealisticBiomeName("HL Highlands B");
+        this.biomeSlug = "HLHighlandsB";
     }
 }

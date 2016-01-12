@@ -5,10 +5,13 @@ import java.io.File;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 
+import rtg.api.biomes.BiomeConfig;
+import rtg.api.biomes.vanilla.config.BiomeConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import cpw.mods.fml.common.FMLLog;
 
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 
 public class ConfigVanilla
 {
@@ -199,6 +202,8 @@ public class ConfigVanilla
     public static boolean villageVanillaTaiga = true;
     public static boolean villageVanillaTaigaHills = true;
     public static boolean villageVanillaTaigaM = true;
+    
+    public static String[] realisticBiomeNames;
 	
 	public static void init(File configFile) 
 	{
@@ -389,6 +394,37 @@ public class ConfigVanilla
             villageVanillaTaiga = config.getBoolean(formatConfig("villageVanillaTaiga"), "Villages", villageVanillaTaiga, "");
             villageVanillaTaigaHills = config.getBoolean(formatConfig("villageVanillaTaigaHills"), "Villages", villageVanillaTaigaHills, "");
             villageVanillaTaigaM = config.getBoolean(formatConfig("villageVanillaTaigaM"), "Villages", villageVanillaTaigaM, "");
+            
+            BiomeConfig[] biomeConfigs = BiomeConfigVanilla.getBiomeConfigsVanilla();
+            String categoryName;
+            
+            for (int i = 0; i < biomeConfigs.length; i++) {
+                
+                categoryName = "biome." + biomeConfigs[i].modSlug + "." + biomeConfigs[i].biomeSlug;
+                
+                biomeConfigs[i].enableBiome = config.getBoolean(
+                    "enableBiome",
+                    categoryName,
+                    biomeConfigs[i].enableBiome,
+                    ""
+                );
+                
+                biomeConfigs[i].biomeWeight = config.getInt(
+                    "biomeWeight",
+                    categoryName,
+                    biomeConfigs[i].biomeWeight,
+                    biomeWeightMin,
+                    biomeWeightMax,
+                    ""
+                );
+                
+                biomeConfigs[i].villageBiome = config.getBoolean(
+                    "villageBiome",
+                    categoryName,
+                    biomeConfigs[i].villageBiome,
+                    ""
+                );
+            }
 		}
 		catch (Exception e) 
 		{

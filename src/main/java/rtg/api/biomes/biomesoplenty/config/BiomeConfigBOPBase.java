@@ -8,6 +8,6 @@ public class BiomeConfigBOPBase extends BiomeConfig
     {
         super();
         
-        
+        this.modSlug = "biomesoplenty";
     }
 }

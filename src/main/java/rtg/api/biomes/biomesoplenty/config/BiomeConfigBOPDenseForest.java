@@ -8,6 +8,6 @@ public class BiomeConfigBOPDenseForest extends BiomeConfigBOPBase
     {
         super();
         
-        this.setRealisticBiomeName("BOP Dense Forest");
+        this.biomeSlug = "BOPDenseForest";
     }
 }

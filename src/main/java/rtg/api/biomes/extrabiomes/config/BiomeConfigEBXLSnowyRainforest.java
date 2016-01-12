@@ -7,6 +7,6 @@ public class BiomeConfigEBXLSnowyRainforest extends BiomeConfigEBXLBase
     {
         super();
         
-        this.setRealisticBiomeName("EBXL Snowy Rainforest");
+        this.biomeSlug = "EBXLSnowyRainforest";
     }
 }

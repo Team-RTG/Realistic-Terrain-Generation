@@ -3,20 +3,18 @@ package rtg.api.biomes;
 
 public class BiomeConfig {
 
-    private String realisticBiomeName;
+    public String modSlug;
+    public String biomeSlug;
+    public boolean enableBiome;
+    public int biomeWeight;
+    public boolean villageBiome;
     
     public BiomeConfig()
     {
-        this.setRealisticBiomeName(null);
-    }
-
-    public String getRealisticBiomeName()
-    {
-        return this.realisticBiomeName;
-    }
-    
-    public void setRealisticBiomeName(String n)
-    {
-        this.realisticBiomeName = n;
+        this.modSlug = null;
+        this.biomeSlug = null;
+        this.enableBiome = true;
+        this.biomeWeight = 10;
+        this.villageBiome = true;
     }
 }

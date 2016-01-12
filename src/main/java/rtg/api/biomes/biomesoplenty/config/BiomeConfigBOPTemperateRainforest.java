@@ -8,6 +8,6 @@ public class BiomeConfigBOPTemperateRainforest extends BiomeConfigBOPBase
     {
         super();
         
-        this.setRealisticBiomeName("BOP Temperate Rainforest");
+        this.biomeSlug = "BOPTemperateRainforest";
     }
 }

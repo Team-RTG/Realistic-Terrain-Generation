@@ -8,6 +8,6 @@ public class BiomeConfigBOPChaparral extends BiomeConfigBOPBase
     {
         super();
         
-        this.setRealisticBiomeName("BOP Chaparral");
+        this.biomeSlug = "BOPChaparral";
     }
 }

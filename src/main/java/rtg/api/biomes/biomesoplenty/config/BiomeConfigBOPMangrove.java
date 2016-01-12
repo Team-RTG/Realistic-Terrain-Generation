@@ -8,6 +8,6 @@ public class BiomeConfigBOPMangrove extends BiomeConfigBOPBase
     {
         super();
         
-        this.setRealisticBiomeName("BOP Mangrove");
+        this.biomeSlug = "BOPMangrove";
     }
 }

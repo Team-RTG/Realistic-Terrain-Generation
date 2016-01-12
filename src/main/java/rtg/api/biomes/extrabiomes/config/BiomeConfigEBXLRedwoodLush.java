@@ -7,6 +7,6 @@ public class BiomeConfigEBXLRedwoodLush extends BiomeConfigEBXLBase
     {
         super();
         
-        this.setRealisticBiomeName("EBXL Redwood Lush");
+        this.biomeSlug = "EBXLRedwoodLush";
     }
 }

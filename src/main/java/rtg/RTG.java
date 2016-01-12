@@ -2,6 +2,7 @@ package rtg;
 
 import java.util.ArrayList;
 
+import rtg.config.BiomeConfigManager;
 import rtg.config.ConfigManager;
 import rtg.debug.DebugHandler;
 import rtg.event.EventManagerRTG;
@@ -58,6 +59,9 @@ public class RTG {
     public void fmlLifeCycleEvent(FMLPreInitializationEvent event) 
     {    
         instance = this;
+        
+        // This MUST get called before the config is initialised.
+        BiomeConfigManager.initBiomeConfigs();
         
         configPath = event.getModConfigurationDirectory() + "/RTG/";
         ConfigManager.init(configPath);

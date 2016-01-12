@@ -6,6 +6,6 @@ public class BiomeConfigEBSahara extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Sahara");
+        this.biomeSlug = "EBSahara";
     }
 }

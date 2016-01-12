@@ -7,6 +7,6 @@ public class BiomeConfigHLDesertIsland extends BiomeConfigHLBase
     {
         super();
         
-        this.setRealisticBiomeName("HL Desert Island");
+        this.biomeSlug = "HLDesertIsland";
     }
 }

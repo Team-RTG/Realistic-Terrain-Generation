@@ -8,6 +8,6 @@ public class BiomeConfigBOPGlacier extends BiomeConfigBOPBase
     {
         super();
         
-        this.setRealisticBiomeName("BOP Glacier");
+        this.biomeSlug = "BOPGlacier";
     }
 }

@@ -8,6 +8,6 @@ public class BiomeConfigTCBase extends BiomeConfig
     {
         super();
         
-        
+        this.modSlug = "thaumcraft";
     }
 }

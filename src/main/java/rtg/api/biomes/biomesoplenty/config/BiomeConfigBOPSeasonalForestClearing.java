@@ -8,6 +8,6 @@ public class BiomeConfigBOPSeasonalForestClearing extends BiomeConfigBOPBase
     {
         super();
         
-        this.setRealisticBiomeName("BOP Seasonal Forest Clearing");
+        this.biomeSlug = "BOPSeasonalForestClearing";
     }
 }

@@ -8,6 +8,6 @@ public class BiomeConfigBOPShield extends BiomeConfigBOPBase
     {
         super();
         
-        this.setRealisticBiomeName("BOP Shield");
+        this.biomeSlug = "BOPShield";
     }
 }

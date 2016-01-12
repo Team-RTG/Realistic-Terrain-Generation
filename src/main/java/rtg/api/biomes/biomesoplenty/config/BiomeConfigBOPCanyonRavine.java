@@ -8,6 +8,6 @@ public class BiomeConfigBOPCanyonRavine extends BiomeConfigBOPBase
     {
         super();
         
-        this.setRealisticBiomeName("BOP Canyon Ravine");
+        this.biomeSlug = "BOPCanyonRavine";
     }
 }

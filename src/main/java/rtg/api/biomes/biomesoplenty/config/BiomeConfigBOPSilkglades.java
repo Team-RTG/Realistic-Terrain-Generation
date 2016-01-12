@@ -8,6 +8,6 @@ public class BiomeConfigBOPSilkglades extends BiomeConfigBOPBase
     {
         super();
         
-        this.setRealisticBiomeName("BOP Silkglades");
+        this.biomeSlug = "BOPSilkglades";
     }
 }

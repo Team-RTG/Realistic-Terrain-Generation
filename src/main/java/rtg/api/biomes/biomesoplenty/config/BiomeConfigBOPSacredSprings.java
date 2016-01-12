@@ -8,6 +8,6 @@ public class BiomeConfigBOPSacredSprings extends BiomeConfigBOPBase
     {
         super();
         
-        this.setRealisticBiomeName("BOP Sacred Springs");
+        this.biomeSlug = "BOPSacredSprings";
     }
 }

@@ -6,6 +6,6 @@ public class BiomeConfigEBBorealPlateau extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Boreal Plateau");
+        this.biomeSlug = "EBBorealPlateau";
     }
 }

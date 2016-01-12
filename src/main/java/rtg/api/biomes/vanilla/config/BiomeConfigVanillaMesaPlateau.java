@@ -7,6 +7,6 @@ public class BiomeConfigVanillaMesaPlateau extends BiomeConfigVanillaBase
     {
         super();
         
-        this.setRealisticBiomeName("Vanilla Mesa Plateau");
+        this.biomeSlug = "VanillaMesaPlateau";
     }
 }

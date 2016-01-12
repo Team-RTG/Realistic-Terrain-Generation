@@ -6,6 +6,6 @@ public class BiomeConfigEBGlacier extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Glacier");
+        this.biomeSlug = "EBGlacier";
     }
 }

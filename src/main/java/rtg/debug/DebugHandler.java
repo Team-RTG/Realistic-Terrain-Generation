@@ -42,12 +42,6 @@ public final class DebugHandler {
                 
                 BiomeGenBase biome = world.getBiomeGenForCoords(posX, posZ);
                 RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(biome.biomeID);
-                				
-				details = PREFIX;
-				details += "Realistic Base Biome (" + posX + "/" + posZ + "): " + realisticBiome.biomeConfig.getRealisticBiomeName();
-				event.left.add(details);
-				
-				
 				
                 details = PREFIX;
                 details += "River Strength: " + chunkManager.getRiverStrength(posX, posZ);

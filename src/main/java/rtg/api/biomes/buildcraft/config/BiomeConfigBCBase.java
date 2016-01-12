@@ -8,6 +8,6 @@ public class BiomeConfigBCBase extends BiomeConfig
     {
         super();
         
-        
+        this.modSlug = "buildcraft";
     }
 }

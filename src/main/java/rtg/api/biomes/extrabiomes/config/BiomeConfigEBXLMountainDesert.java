@@ -7,6 +7,6 @@ public class BiomeConfigEBXLMountainDesert extends BiomeConfigEBXLBase
     {
         super();
         
-        this.setRealisticBiomeName("EBXL Mountain Desert");
+        this.biomeSlug = "EBXLMountainDesert";
     }
 }

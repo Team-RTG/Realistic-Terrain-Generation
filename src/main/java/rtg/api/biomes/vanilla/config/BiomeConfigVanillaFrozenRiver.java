@@ -7,6 +7,6 @@ public class BiomeConfigVanillaFrozenRiver extends BiomeConfigVanillaBase
     {
         super();
         
-        this.setRealisticBiomeName("Vanilla Frozen River");
+        this.biomeSlug = "VanillaFrozenRiver";
     }
 }

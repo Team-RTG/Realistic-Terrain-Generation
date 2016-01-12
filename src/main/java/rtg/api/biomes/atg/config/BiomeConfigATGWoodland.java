@@ -7,6 +7,6 @@ public class BiomeConfigATGWoodland extends BiomeConfigATGBase
     {
         super();
         
-        this.setRealisticBiomeName("ATG Woodland");
+        this.biomeSlug = "ATGWoodland";
     }
 }

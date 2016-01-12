@@ -7,6 +7,6 @@ public class BiomeConfigVanillaSavannaPlateau extends BiomeConfigVanillaBase
     {
         super();
         
-        this.setRealisticBiomeName("Vanilla Savanna Plateau");
+        this.biomeSlug = "VanillaSavannaPlateau";
     }
 }

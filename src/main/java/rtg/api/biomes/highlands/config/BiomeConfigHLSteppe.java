@@ -7,6 +7,6 @@ public class BiomeConfigHLSteppe extends BiomeConfigHLBase
     {
         super();
         
-        this.setRealisticBiomeName("HL Steppe");
+        this.biomeSlug = "HLSteppe";
     }
 }

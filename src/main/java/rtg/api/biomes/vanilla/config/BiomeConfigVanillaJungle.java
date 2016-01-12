@@ -7,6 +7,6 @@ public class BiomeConfigVanillaJungle extends BiomeConfigVanillaBase
     {
         super();
         
-        this.setRealisticBiomeName("Vanilla Jungle");
+        this.biomeSlug = "VanillaJungle";
     }
 }

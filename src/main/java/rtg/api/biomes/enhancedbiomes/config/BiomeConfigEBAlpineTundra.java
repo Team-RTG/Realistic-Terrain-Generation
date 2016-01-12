@@ -6,6 +6,6 @@ public class BiomeConfigEBAlpineTundra extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Alpine Tundra");
+        this.biomeSlug = "EBAlpineTundra";
     }
 }

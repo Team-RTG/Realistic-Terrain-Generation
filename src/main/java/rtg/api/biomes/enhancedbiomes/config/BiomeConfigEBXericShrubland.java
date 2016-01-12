@@ -6,6 +6,6 @@ public class BiomeConfigEBXericShrubland extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Xeric Shrubland");
+        this.biomeSlug = "EBXericShrubland";
     }
 }

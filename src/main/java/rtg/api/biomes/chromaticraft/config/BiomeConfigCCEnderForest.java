@@ -10,6 +10,6 @@ public class BiomeConfigCCEnderForest extends BiomeConfigCCBase
     {
         super();
         
-        this.setRealisticBiomeName("CC Ender Forest");
+        this.biomeSlug = "CCEnderForest";
     }
 }

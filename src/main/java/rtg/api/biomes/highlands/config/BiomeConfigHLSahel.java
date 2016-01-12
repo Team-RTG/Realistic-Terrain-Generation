@@ -7,6 +7,6 @@ public class BiomeConfigHLSahel extends BiomeConfigHLBase
     {
         super();
         
-        this.setRealisticBiomeName("HL Sahel");
+        this.biomeSlug = "HLSahel";
     }
 }

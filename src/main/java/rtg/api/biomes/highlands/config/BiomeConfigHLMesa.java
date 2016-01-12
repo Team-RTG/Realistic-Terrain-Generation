@@ -7,6 +7,6 @@ public class BiomeConfigHLMesa extends BiomeConfigHLBase
     {
         super();
         
-        this.setRealisticBiomeName("HL Mesa");
+        this.biomeSlug = "HLMesa";
     }
 }

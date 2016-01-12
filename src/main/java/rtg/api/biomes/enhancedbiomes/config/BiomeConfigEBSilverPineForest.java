@@ -6,6 +6,6 @@ public class BiomeConfigEBSilverPineForest extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Silver Pine Forest");
+        this.biomeSlug = "EBSilverPineForest";
     }
 }

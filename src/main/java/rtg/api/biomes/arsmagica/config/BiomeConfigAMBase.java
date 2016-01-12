@@ -8,5 +8,7 @@ public class BiomeConfigAMBase extends BiomeConfig
     public BiomeConfigAMBase()
     {
         super();
+        
+        this.modSlug = "arsmagica";
     }
 }

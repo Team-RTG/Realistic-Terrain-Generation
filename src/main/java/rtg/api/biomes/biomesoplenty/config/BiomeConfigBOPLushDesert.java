@@ -8,6 +8,6 @@ public class BiomeConfigBOPLushDesert extends BiomeConfigBOPBase
     {
         super();
         
-        this.setRealisticBiomeName("BOP Lush Desert");
+        this.biomeSlug = "BOPLushDesert";
     }
 }

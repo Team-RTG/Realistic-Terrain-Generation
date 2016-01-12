@@ -7,6 +7,6 @@ public class BiomeConfigVanillaRedwoodTaigaHills extends BiomeConfigVanillaBase
     {
         super();
         
-        this.setRealisticBiomeName("Vanilla Redwood Taiga Hills");
+        this.biomeSlug = "VanillaRedwoodTaigaHills";
     }
 }

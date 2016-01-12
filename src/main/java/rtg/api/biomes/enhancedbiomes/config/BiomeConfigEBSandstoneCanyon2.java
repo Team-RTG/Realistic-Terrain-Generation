@@ -6,6 +6,6 @@ public class BiomeConfigEBSandstoneCanyon2 extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Sandstone Canyon 2");
+        this.biomeSlug = "EBSandstoneCanyon2";
     }
 }

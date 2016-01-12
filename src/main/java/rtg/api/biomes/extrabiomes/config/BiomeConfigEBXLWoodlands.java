@@ -7,6 +7,6 @@ public class BiomeConfigEBXLWoodlands extends BiomeConfigEBXLBase
     {
         super();
         
-        this.setRealisticBiomeName("EBXL Woodlands");
+        this.biomeSlug = "EBXLWoodlands";
     }
 }

@@ -6,6 +6,6 @@ public class BiomeConfigEBRainforestValley extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Rainforest Valley");
+        this.biomeSlug = "EBRainforestValley";
     }
 }

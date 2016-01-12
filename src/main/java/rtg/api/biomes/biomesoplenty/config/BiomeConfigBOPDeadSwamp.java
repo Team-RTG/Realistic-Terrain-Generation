@@ -8,6 +8,6 @@ public class BiomeConfigBOPDeadSwamp extends BiomeConfigBOPBase
     {
         super();
         
-        this.setRealisticBiomeName("BOP Dead Swamp");
+        this.biomeSlug = "BOPDeadSwamp";
     }
 }

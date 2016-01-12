@@ -6,6 +6,6 @@ public class BiomeConfigEBBlossomHills extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Blossom Hills");
+        this.biomeSlug = "EBBlossomHills";
     }
 }

@@ -8,6 +8,6 @@ public class BiomeConfigATGBase extends BiomeConfig
     {
         super();
         
-        
+        this.modSlug = "atg";
     }
 }

@@ -8,6 +8,6 @@ public class BiomeConfigBOPFlowerField extends BiomeConfigBOPBase
     {
         super();
         
-        this.setRealisticBiomeName("BOP Flower Field");
+        this.biomeSlug = "BOPFlowerField";
     }
 }

@@ -7,6 +7,6 @@ public class BiomeConfigHLRainforest extends BiomeConfigHLBase
     {
         super();
         
-        this.setRealisticBiomeName("HL Rainforest");
+        this.biomeSlug = "HLRainforest";
     }
 }

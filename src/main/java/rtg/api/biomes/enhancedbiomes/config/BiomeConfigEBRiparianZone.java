@@ -6,6 +6,6 @@ public class BiomeConfigEBRiparianZone extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Riparian Zone");
+        this.biomeSlug = "EBRiparianZone";
     }
 }

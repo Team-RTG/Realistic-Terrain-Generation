@@ -8,6 +8,6 @@ public class BiomeConfigEBXLBase extends BiomeConfig
     {
         super();
         
-        
+        this.modSlug = "extrabiomes";
     }
 }

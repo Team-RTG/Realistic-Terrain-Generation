@@ -7,6 +7,6 @@ public class BiomeConfigEBXLPineForest extends BiomeConfigEBXLBase
     {
         super();
         
-        this.setRealisticBiomeName("EBXL Pine Forest");
+        this.biomeSlug = "EBXLPineForest";
     }
 }

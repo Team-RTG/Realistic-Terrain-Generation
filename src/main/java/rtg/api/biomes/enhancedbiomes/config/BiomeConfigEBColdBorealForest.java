@@ -6,6 +6,6 @@ public class BiomeConfigEBColdBorealForest extends BiomeConfigEBBase
     {
         super();
         
-        this.setRealisticBiomeName("EB Cold Boreal Forest");
+        this.biomeSlug = "EBColdBorealForest";
     }
 }

@@ -41,7 +41,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class RealisticBiomeBase extends BiomeBase {
     
-    private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[256];
+    private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[BiomeGenBase.getBiomeGenArray().length];
     
     public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;

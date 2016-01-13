@@ -395,7 +395,7 @@ public class ConfigVanilla
             villageVanillaTaigaHills = config.getBoolean(formatConfig("villageVanillaTaigaHills"), "Villages", villageVanillaTaigaHills, "");
             villageVanillaTaigaM = config.getBoolean(formatConfig("villageVanillaTaigaM"), "Villages", villageVanillaTaigaM, "");
             
-            BiomeConfig[] biomeConfigs = BiomeConfigVanilla.getBiomeConfigsVanilla();
+            BiomeConfig[] biomeConfigs = BiomeConfigVanilla.getBiomeConfigs();
             String categoryName;
             
             for (int i = 0; i < biomeConfigs.length; i++) {

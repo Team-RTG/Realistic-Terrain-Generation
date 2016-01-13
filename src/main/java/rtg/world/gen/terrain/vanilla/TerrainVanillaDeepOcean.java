@@ -23,7 +23,7 @@ public class TerrainVanillaDeepOcean extends TerrainBase
         h += simplex.noise2(x / 50f, y / 50f) * (12f - h) * 0.4f;
         h += simplex.noise2(x / 15f, y / 15f) * (12f - h) * 0.15f;
                 
-        float floNoise = 20f + h;
+        float floNoise = 40f + h;
         floNoise = floNoise < 6 ? 6 : floNoise;
         
         return floNoise;

@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.arsmagica;
 
-import rtg.api.biomes.BiomeConfig;
-import rtg.api.biomes.arsmagica.config.BiomeConfigAMWitchwoodForest;
+import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.arsmagica.config.BiomeConfigAMWitchwoodForest;
 import rtg.config.arsmagica.ConfigAM;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.arsmagica.SurfaceAMWitchwoodForest;

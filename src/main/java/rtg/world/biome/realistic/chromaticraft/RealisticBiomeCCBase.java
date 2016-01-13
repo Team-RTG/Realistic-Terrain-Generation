@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.chromaticraft;
 
-import rtg.api.biomes.chromaticraft.config.BiomeConfigCC;
+import rtg.api.biome.chromaticraft.config.BiomeConfigCC;
 import rtg.config.chromaticraft.ConfigCC;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;

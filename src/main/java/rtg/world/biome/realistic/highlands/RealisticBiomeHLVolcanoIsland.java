@@ -4,7 +4,7 @@ import highlands.api.HighlandsBiomes;
 
 import java.util.Random;
 
-import rtg.api.biomes.BiomeConfig;
+import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;

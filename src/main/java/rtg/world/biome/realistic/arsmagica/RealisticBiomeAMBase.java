@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.arsmagica;
 
-import rtg.api.biomes.arsmagica.config.BiomeConfigAM;
+import rtg.api.biome.arsmagica.config.BiomeConfigAM;
 import rtg.config.arsmagica.ConfigAM;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;

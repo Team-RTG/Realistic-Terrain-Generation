@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.thaumcraft;
 
-import rtg.api.biomes.thaumcraft.config.BiomeConfigTC;
+import rtg.api.biome.thaumcraft.config.BiomeConfigTC;
 import rtg.config.thaumcraft.ConfigTC;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;

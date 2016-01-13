@@ -5,8 +5,8 @@ import java.io.File;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 
-import rtg.api.biomes.BiomeConfig;
-import rtg.api.biomes.vanilla.config.BiomeConfigVanilla;
+import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import cpw.mods.fml.common.FMLLog;
 

@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.atg;
 
 import org.apache.logging.log4j.Level;
 
-import rtg.api.biomes.atg.config.BiomeConfigATG;
+import rtg.api.biome.atg.config.BiomeConfigATG;
 import rtg.config.atg.ConfigATG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;

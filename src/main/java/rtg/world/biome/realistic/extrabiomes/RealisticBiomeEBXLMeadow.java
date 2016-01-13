@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.extrabiomes;
 
 import java.util.Random;
 
-import rtg.api.biomes.BiomeConfig;
+import rtg.api.biome.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;

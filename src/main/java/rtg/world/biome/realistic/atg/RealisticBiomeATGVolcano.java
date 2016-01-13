@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.atg;
 
 import java.util.Random;
 
-import rtg.api.biomes.BiomeConfig;
+import rtg.api.biome.BiomeConfig;
 import rtg.config.atg.ConfigATG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;

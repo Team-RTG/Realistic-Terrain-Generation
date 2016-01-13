@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.highlands;
 
-import rtg.api.biomes.highlands.config.BiomeConfigHL;
+import rtg.api.biome.highlands.config.BiomeConfigHL;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;

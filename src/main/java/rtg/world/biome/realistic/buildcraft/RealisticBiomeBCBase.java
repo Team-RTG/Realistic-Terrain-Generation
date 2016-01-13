@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.buildcraft;
 
-import rtg.api.biomes.buildcraft.config.BiomeConfigBC;
+import rtg.api.biome.buildcraft.config.BiomeConfigBC;
 import rtg.config.buildcraft.ConfigBC;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;

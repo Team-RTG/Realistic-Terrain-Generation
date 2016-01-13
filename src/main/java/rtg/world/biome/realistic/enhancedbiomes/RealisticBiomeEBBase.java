@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import org.apache.logging.log4j.Level;
 
-import rtg.api.biomes.enhancedbiomes.config.BiomeConfigEB;
+import rtg.api.biome.enhancedbiomes.config.BiomeConfigEB;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;

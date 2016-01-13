@@ -78,8 +78,15 @@ public class RealisticBiomeBase extends BiomeBase {
     public RealisticBiomeBase(BiomeGenBase biome, BiomeGenBase river) {
     
         super(biome.biomeID);
-        
-        arrRealisticBiomeIds[biome.biomeID] = this;
+
+    	if (biome.biomeID == 160 && this instanceof rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaRedwoodTaigaHills) {
+
+        	arrRealisticBiomeIds[161] = this;
+
+		} else {
+
+	        arrRealisticBiomeIds[biome.biomeID] = this;
+	    }
                 
         baseBiome = biome;
         riverBiome = river;

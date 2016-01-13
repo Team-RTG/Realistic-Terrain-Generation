@@ -104,12 +104,12 @@ public class BiomeAnalyzer {
 
     public void repair(int [] genLayerBiomes, RealisticBiomeBase [] jitteredBiomes, float [] noise, float riverStrength) {
         // currently just stuffs the genLayer into the jitter;
-        boolean canBeRiver = riverStrength < -0.7;
+        boolean canBeRiver = riverStrength < -0.8;
         for (int i = 0; i < 256; i++) {
             // save what's there since the jitter keeps changing
             savedJittered [i]= jitteredBiomes[i];
             //if (savedJittered[i]== null) throw new RuntimeException();
-            if (noise[i]>62.5) {
+            if (noise[i]>61.5) {
                 // replace
                 jitteredBiomes[i] =  RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]);
             } else {

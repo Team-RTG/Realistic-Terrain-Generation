@@ -100,7 +100,10 @@ public class WorldChunkManagerRTG extends WorldChunkManager
             try {
                 f = (float) RealisticBiomeBase.getBiome(aint[i1]).getIntRainfall() / 65536.0F;
             } catch (Exception e) {
-                throw new RuntimeException("problem with biome "+aint[i1]);
+                if (RealisticBiomeBase.getBiome(aint[i1])== null) {
+                    throw new RuntimeException("No realistic version of biome "+aint[i1]);
+                }
+                throw new RuntimeException("problem with biome "+aint[i1]+"from "+e.getMessage());
             }
             if (f > 1.0F)
             {

@@ -5,8 +5,8 @@ import java.io.File;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 
-import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.arsmagica.config.BiomeConfigAM;
+import rtg.config.BiomeConfigManager;
 import rtg.world.biome.BiomeBase;
 import cpw.mods.fml.common.FMLLog;
 
@@ -46,43 +46,7 @@ public class ConfigAM
             
             villageAMWitchwoodForest = config.getBoolean(formatConfig("villageAMWitchwoodForest"), "Villages", villageAMWitchwoodForest, "");
             
-            BiomeConfig[] biomeConfigs = BiomeConfigAM.getBiomeConfigs();
-            String categoryName;
-            
-            for (int i = 0; i < biomeConfigs.length; i++) {
-                
-                categoryName = "biome." + biomeConfigs[i].modSlug + "." + biomeConfigs[i].biomeSlug;
-                
-                biomeConfigs[i].enableBiome = config.getBoolean(
-                    "enableBiome",
-                    categoryName,
-                    biomeConfigs[i].enableBiome,
-                    ""
-                );
-                
-                biomeConfigs[i].biomeWeight = config.getInt(
-                    "biomeWeight",
-                    categoryName,
-                    biomeConfigs[i].biomeWeight,
-                    biomeWeightMin,
-                    biomeWeightMax,
-                    ""
-                );
-                
-                biomeConfigs[i].villageBiome = config.getBoolean(
-                    "villageBiome",
-                    categoryName,
-                    biomeConfigs[i].villageBiome,
-                    ""
-                );
-                
-                biomeConfigs[i].enableRTGDecorations = config.getBoolean(
-                    "Enable RTG decorations",
-                    categoryName,
-                    biomeConfigs[i].enableRTGDecorations,
-                    ""
-                );
-            }
+            BiomeConfigManager.setBiomeConfigsFromUserConfigs(BiomeConfigAM.getBiomeConfigs(), config);
             
         } catch (Exception e)
         {

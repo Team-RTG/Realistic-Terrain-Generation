@@ -1,5 +1,6 @@
 package rtg.config;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.arsmagica.config.BiomeConfigAM;
 import rtg.api.biome.arsmagica.config.BiomeConfigAMWitchwoodForest;
 import rtg.api.biome.atg.config.BiomeConfigATG;
@@ -323,6 +324,9 @@ import rtg.api.biome.vanilla.config.BiomeConfigVanillaSwamplandM;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaTaiga;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaTaigaHills;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaTaigaM;
+import rtg.world.biome.BiomeBase;
+
+import net.minecraftforge.common.config.Configuration;
 
 public class BiomeConfigManager
 {
@@ -692,5 +696,45 @@ public class BiomeConfigManager
         BiomeConfigVanilla.biomeConfigVanillaMesaBryce = new BiomeConfigVanillaMesaBryce();
         BiomeConfigVanilla.biomeConfigVanillaMesaPlateauFM = new BiomeConfigVanillaMesaPlateauFM();
         BiomeConfigVanilla.biomeConfigVanillaMesaPlateauM = new BiomeConfigVanillaMesaPlateauM();
+    }
+    
+    public static void setBiomeConfigsFromUserConfigs(BiomeConfig[] biomeConfigs, Configuration config)
+    {
+        String categoryName;
+        
+        for (int i = 0; i < biomeConfigs.length; i++) {
+            
+            categoryName = "biome." + biomeConfigs[i].modSlug + "." + biomeConfigs[i].biomeSlug;
+            
+            biomeConfigs[i].enableBiome = config.getBoolean(
+                "enableBiome",
+                categoryName,
+                biomeConfigs[i].enableBiome,
+                ""
+            );
+            
+            biomeConfigs[i].biomeWeight = config.getInt(
+                "biomeWeight",
+                categoryName,
+                biomeConfigs[i].biomeWeight,
+                BiomeBase.MIN_BIOME_WEIGHT,
+                BiomeBase.MAX_BIOME_WEIGHT,
+                ""
+            );
+            
+            biomeConfigs[i].villageBiome = config.getBoolean(
+                "villageBiome",
+                categoryName,
+                biomeConfigs[i].villageBiome,
+                ""
+            );
+            
+            biomeConfigs[i].enableRTGDecorations = config.getBoolean(
+                "Enable RTG decorations",
+                categoryName,
+                biomeConfigs[i].enableRTGDecorations,
+                ""
+            );
+        }
     }
 }

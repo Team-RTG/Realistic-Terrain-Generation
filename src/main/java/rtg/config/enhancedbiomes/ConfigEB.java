@@ -607,6 +607,13 @@ public class ConfigEB
                     biomeConfigs[i].villageBiome,
                     ""
                 );
+                
+                biomeConfigs[i].enableRTGDecorations = config.getBoolean(
+                    "Enable RTG decorations",
+                    categoryName,
+                    biomeConfigs[i].enableRTGDecorations,
+                    ""
+                );
             }
 		}
 		catch (Exception e)

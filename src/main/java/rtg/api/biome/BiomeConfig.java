@@ -8,6 +8,7 @@ public class BiomeConfig {
     public boolean enableBiome;
     public int biomeWeight;
     public boolean villageBiome;
+    public boolean enableRTGDecorations;
     
     public BiomeConfig()
     {
@@ -16,5 +17,6 @@ public class BiomeConfig {
         this.enableBiome = true;
         this.biomeWeight = 10;
         this.villageBiome = true;
+        this.enableRTGDecorations = true;
     }
 }

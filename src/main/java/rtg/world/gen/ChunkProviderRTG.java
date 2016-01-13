@@ -12,11 +12,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import rtg.config.rtg.ConfigRTG;
 import rtg.RTG;
+import rtg.config.rtg.ConfigRTG;
 import rtg.util.CanyonColor;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import cpw.mods.fml.common.eventhandler.Event.Result;
@@ -46,7 +47,6 @@ import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.world.biome.BiomeAnalyzer;
 
 /**
  * Scattered features courtesy of Ezoteric (https://github.com/Ezoteric) and Choonster (https://github.com/Choonster)
@@ -662,7 +662,29 @@ public class ChunkProviderRTG implements IChunkProvider
         		}
         		realisticBiome = RealisticBiomeBase.getBiome(bn);
                 if (realisticBiome == null) throw new RuntimeException();
-                realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                
+                /**
+                 * When decorating the biome, we need to look at the biome configs to see if RTG is allowed to decorate it.
+                 * If the biome configs don't allow it, then we try to let the base biome decorate itself.
+                 * However, there are some mod biomes that crash when they try to decorate themselves,
+                 * so that's what the try/catch is for. If it fails, then it falls back to RTG decoration.
+                 * TODO: Is there a more efficient way to do this? - Pink
+                 */
+                if (realisticBiome.biomeConfig.enableRTGDecorations) {
+                    
+                    realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                }
+                else {
+                    
+                    try {
+                        
+                        realisticBiome.baseBiome.decorate(this.worldObj, rand, worldX, worldZ);
+                    }
+                    catch (Exception e) {
+                        
+                        realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                    }
+                }
 
                 if(realisticBiome.baseBiome.temperature < 0.15f)
                 {

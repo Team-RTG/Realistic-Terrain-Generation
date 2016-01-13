@@ -1,5 +1,7 @@
 package rtg.api.biome.atg.config;
 
+import rtg.api.biome.BiomeConfig;
+
 
 
 public class BiomeConfigATG
@@ -14,4 +16,19 @@ public class BiomeConfigATG
     public static BiomeConfigATGVolcano biomeConfigATGVolcano;
     public static BiomeConfigATGWoodland biomeConfigATGWoodland;
     
+    public static BiomeConfig[] getBiomeConfigs()
+    {
+        BiomeConfig[] biomeConfigs = new BiomeConfig[]{
+            biomeConfigATGGravelBeach,
+            biomeConfigATGRockySteppe,
+            biomeConfigATGShrubland,
+            biomeConfigATGSnowyGravelBeach,
+            biomeConfigATGTropicalShrubland,
+            biomeConfigATGTundra,
+            biomeConfigATGVolcano,
+            biomeConfigATGWoodland
+        };
+        
+        return biomeConfigs;
+    }
 }

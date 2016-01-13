@@ -1,5 +1,7 @@
 package rtg.api.biome.enhancedbiomes.config;
 
+import rtg.api.biome.BiomeConfig;
+
 
 
 public class BiomeConfigEB
@@ -94,4 +96,102 @@ public class BiomeConfigEB
     public static BiomeConfigEBWoodlands biomeConfigEBWoodlands;
     public static BiomeConfigEBXericSavanna biomeConfigEBXericSavannah;
     public static BiomeConfigEBXericShrubland biomeConfigEBXericShrubland;
+    
+    public static BiomeConfig[] getBiomeConfigs()
+    {
+        BiomeConfig[] biomeConfigs = new BiomeConfig[]{
+            biomeConfigEBAlpineMountains,
+            biomeConfigEBAlpineMountainsEdge,
+            biomeConfigEBAlpineMountainsM,
+            biomeConfigEBAlpineTundra,
+            biomeConfigEBAspenForest,
+            biomeConfigEBAspenHills,
+            biomeConfigEBBadlands,
+            biomeConfigEBBasin,
+            biomeConfigEBBlossomHills,
+            biomeConfigEBBlossomWoods,
+            biomeConfigEBBorealArchipelago,
+            biomeConfigEBBorealForest,
+            biomeConfigEBBorealPlateau,
+            biomeConfigEBBorealPlateauM,
+            biomeConfigEBCarr,
+            biomeConfigEBClayHills,
+            biomeConfigEBClearing,
+            biomeConfigEBColdBorealForest,
+            biomeConfigEBColdCypressForest,
+            biomeConfigEBColdFirForest,
+            biomeConfigEBColdPineForest,
+            biomeConfigEBCreekBed,
+            biomeConfigEBCypressForest,
+            biomeConfigEBDesertArchipelago,
+            biomeConfigEBEphemeralLake,
+            biomeConfigEBEphemeralLakeEdge,
+            biomeConfigEBFens,
+            biomeConfigEBFirForest,
+            biomeConfigEBFloweryArchipelago,
+            biomeConfigEBForestedArchipelago,
+            biomeConfigEBForestedMountains,
+            biomeConfigEBForestedValley,
+            biomeConfigEBFrozenArchipelago,
+            biomeConfigEBGlacier,
+            biomeConfigEBGrassyArchipelago,
+            biomeConfigEBIceSheet,
+            biomeConfigEBKakadu,
+            biomeConfigEBLake,
+            biomeConfigEBLowHills,
+            biomeConfigEBMangroves,
+            biomeConfigEBMarsh,
+            biomeConfigEBMeadow,
+            biomeConfigEBMeadowM,
+            biomeConfigEBMountainousArchipelago,
+            biomeConfigEBMountains,
+            biomeConfigEBMountainsEdge,
+            biomeConfigEBOakForest,
+            biomeConfigEBOasis,
+            biomeConfigEBPineForest,
+            biomeConfigEBPineForestArchipelago,
+            biomeConfigEBPlateau,
+            biomeConfigEBPolarDesert,
+            biomeConfigEBPrairie,
+            biomeConfigEBRainforest,
+            biomeConfigEBRainforestValley,
+            biomeConfigEBRedDesert,
+            biomeConfigEBRiparianZone,
+            biomeConfigEBRockyDesert,
+            biomeConfigEBRockyHills,
+            biomeConfigEBRoofedShrublands,
+            biomeConfigEBSahara,
+            biomeConfigEBSandstoneCanyon,
+            biomeConfigEBSandstoneCanyon2,
+            biomeConfigEBSandstoneRanges,
+            biomeConfigEBSandstoneRangesM,
+            biomeConfigEBScree,
+            biomeConfigEBScrub,
+            biomeConfigEBShield,
+            biomeConfigEBShrublands,
+            biomeConfigEBSilverPineForest,
+            biomeConfigEBSilverPineHills,
+            biomeConfigEBSnowyDesert,
+            biomeConfigEBSnowyPlateau,
+            biomeConfigEBSnowyRanges,
+            biomeConfigEBSnowyWastelands,
+            biomeConfigEBSteppe,
+            biomeConfigEBStoneCanyon,
+            biomeConfigEBStoneCanyons,
+            biomeConfigEBTropicalArchipelago,
+            biomeConfigEBTundra,
+            biomeConfigEBVolcano,
+            biomeConfigEBVolcanoM,
+            biomeConfigEBWastelands,
+            biomeConfigEBWoodlandField,
+            biomeConfigEBWoodlandHills,
+            biomeConfigEBWoodlandLake,
+            biomeConfigEBWoodlandLakeEdge,
+            biomeConfigEBWoodlands,
+            biomeConfigEBXericSavannah,
+            biomeConfigEBXericShrubland
+        };
+        
+        return biomeConfigs;
+    }
 }

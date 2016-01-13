@@ -1,5 +1,7 @@
 package rtg.api.biome.highlands.config;
 
+import rtg.api.biome.BiomeConfig;
+
 public class BiomeConfigHL
 {
     public static BiomeConfigHLAlps biomeConfigHLAlps;
@@ -45,4 +47,55 @@ public class BiomeConfigHL
     public static BiomeConfigHLWindyIsland biomeConfigHLWindyIsland;
     public static BiomeConfigHLWoodlands biomeConfigHLWoodlands;
     public static BiomeConfigHLWoodsMountains biomeConfigHLWoodsMountains;
+    
+    public static BiomeConfig[] getBiomeConfigs()
+    {
+        BiomeConfig[] biomeConfigs = new BiomeConfig[]{
+            biomeConfigHLAlps,
+            biomeConfigHLAutumnForest,
+            biomeConfigHLBadlands,
+            biomeConfigHLBaldHill,
+            biomeConfigHLBirchHills,
+            biomeConfigHLBog,
+            biomeConfigHLCanyon,
+            biomeConfigHLCliffs,
+            biomeConfigHLDesertIsland,
+            biomeConfigHLDesertMountains,
+            biomeConfigHLDunes,
+            biomeConfigHLEstuary,
+            biomeConfigHLFlyingMountains,
+            biomeConfigHLForestIsland,
+            biomeConfigHLGlacier,
+            biomeConfigHLHighlandsB,
+            biomeConfigHLJungleIsland,
+            biomeConfigHLLake,
+            biomeConfigHLLowlands,
+            biomeConfigHLMeadow,
+            biomeConfigHLMesa,
+            biomeConfigHLOasis,
+            biomeConfigHLOutback,
+            biomeConfigHLPinelands,
+            biomeConfigHLRainforest,
+            biomeConfigHLRedwoodForest,
+            biomeConfigHLRockIsland,
+            biomeConfigHLRockMountains,
+            biomeConfigHLSahel,
+            biomeConfigHLSavannah,
+            biomeConfigHLShrubland,
+            biomeConfigHLSnowIsland,
+            biomeConfigHLSnowMountains,
+            biomeConfigHLSteppe,
+            biomeConfigHLTallPineForest,
+            biomeConfigHLTropicalIslands,
+            biomeConfigHLTropics,
+            biomeConfigHLTundra,
+            biomeConfigHLValley,
+            biomeConfigHLVolcanoIsland,
+            biomeConfigHLWindyIsland,
+            biomeConfigHLWoodlands,
+            biomeConfigHLWoodsMountains
+        };
+        
+        return biomeConfigs;
+    }
 }

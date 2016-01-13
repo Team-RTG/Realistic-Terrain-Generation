@@ -6,6 +6,6 @@ public class BiomeConfigEBSandstoneRanges extends BiomeConfigEBBase
     {
         super();
         
-        this.biomeSlug = "EBSandstoneRanges";
+        this.biomeSlug = "sandstoneranges";
     }
 }

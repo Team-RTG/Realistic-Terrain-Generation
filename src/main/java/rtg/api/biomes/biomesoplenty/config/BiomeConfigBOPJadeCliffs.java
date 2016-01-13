@@ -8,6 +8,6 @@ public class BiomeConfigBOPJadeCliffs extends BiomeConfigBOPBase
     {
         super();
         
-        this.biomeSlug = "BOPJadeCliffs";
+        this.biomeSlug = "jadecliffs";
     }
 }

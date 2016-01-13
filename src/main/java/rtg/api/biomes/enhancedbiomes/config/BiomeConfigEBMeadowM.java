@@ -6,6 +6,6 @@ public class BiomeConfigEBMeadowM extends BiomeConfigEBBase
     {
         super();
         
-        this.biomeSlug = "EBMeadowM";
+        this.biomeSlug = "meadowm";
     }
 }

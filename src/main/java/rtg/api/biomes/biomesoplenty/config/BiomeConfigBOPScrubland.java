@@ -8,6 +8,6 @@ public class BiomeConfigBOPScrubland extends BiomeConfigBOPBase
     {
         super();
         
-        this.biomeSlug = "BOPScrubland";
+        this.biomeSlug = "scrubland";
     }
 }

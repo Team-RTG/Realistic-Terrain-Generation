@@ -6,6 +6,6 @@ public class BiomeConfigEBEphemeralLakeEdge extends BiomeConfigEBBase
     {
         super();
         
-        this.biomeSlug = "EBEphemeralLakeEdge";
+        this.biomeSlug = "ephemerallakeedge";
     }
 }

@@ -7,6 +7,6 @@ public class BiomeConfigEBXLMiniJungle extends BiomeConfigEBXLBase
     {
         super();
         
-        this.biomeSlug = "EBXLMiniJungle";
+        this.biomeSlug = "minijungle";
     }
 }

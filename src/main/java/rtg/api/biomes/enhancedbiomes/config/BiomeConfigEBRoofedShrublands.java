@@ -6,6 +6,6 @@ public class BiomeConfigEBRoofedShrublands extends BiomeConfigEBBase
     {
         super();
         
-        this.biomeSlug = "EBRoofedShrublands";
+        this.biomeSlug = "roofedshrublands";
     }
 }

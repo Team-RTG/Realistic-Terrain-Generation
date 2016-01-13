@@ -7,6 +7,6 @@ public class BiomeConfigAMWitchwoodForest extends BiomeConfigAMBase
     {
         super();
         
-        this.biomeSlug = "AMWitchwoodForest";
+        this.biomeSlug = "witchwoodforest";
     }
 }

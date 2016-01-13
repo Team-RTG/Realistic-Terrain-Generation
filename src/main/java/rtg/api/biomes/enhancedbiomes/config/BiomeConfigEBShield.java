@@ -6,6 +6,6 @@ public class BiomeConfigEBShield extends BiomeConfigEBBase
     {
         super();
         
-        this.biomeSlug = "EBShield";
+        this.biomeSlug = "shield";
     }
 }

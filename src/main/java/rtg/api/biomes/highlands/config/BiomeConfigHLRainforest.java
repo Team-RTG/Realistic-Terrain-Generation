@@ -7,6 +7,6 @@ public class BiomeConfigHLRainforest extends BiomeConfigHLBase
     {
         super();
         
-        this.biomeSlug = "HLRainforest";
+        this.biomeSlug = "rainforest";
     }
 }

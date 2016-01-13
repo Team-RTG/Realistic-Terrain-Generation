@@ -7,6 +7,6 @@ public class BiomeConfigEBXLTemperateRainforest extends BiomeConfigEBXLBase
     {
         super();
         
-        this.biomeSlug = "EBXLTemperateRainforest";
+        this.biomeSlug = "temperaterainforest";
     }
 }

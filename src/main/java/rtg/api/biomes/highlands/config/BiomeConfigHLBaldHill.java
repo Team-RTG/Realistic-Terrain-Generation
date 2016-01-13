@@ -7,6 +7,6 @@ public class BiomeConfigHLBaldHill extends BiomeConfigHLBase
     {
         super();
         
-        this.biomeSlug = "HLBaldHill";
+        this.biomeSlug = "baldhill";
     }
 }

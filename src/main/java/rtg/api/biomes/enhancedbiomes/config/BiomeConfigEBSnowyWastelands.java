@@ -6,6 +6,6 @@ public class BiomeConfigEBSnowyWastelands extends BiomeConfigEBBase
     {
         super();
         
-        this.biomeSlug = "EBSnowyWastelands";
+        this.biomeSlug = "snowywastelands";
     }
 }

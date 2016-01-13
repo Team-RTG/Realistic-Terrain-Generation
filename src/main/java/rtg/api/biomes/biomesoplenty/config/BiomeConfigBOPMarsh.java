@@ -8,6 +8,6 @@ public class BiomeConfigBOPMarsh extends BiomeConfigBOPBase
     {
         super();
         
-        this.biomeSlug = "BOPMarsh";
+        this.biomeSlug = "marsh";
     }
 }

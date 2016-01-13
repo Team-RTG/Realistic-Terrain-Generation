@@ -7,6 +7,6 @@ public class BiomeConfigATGTropicalShrubland extends BiomeConfigATGBase
     {
         super();
         
-        this.biomeSlug = "ATGTropicalShrubland";
+        this.biomeSlug = "tropicalshrubland";
     }
 }

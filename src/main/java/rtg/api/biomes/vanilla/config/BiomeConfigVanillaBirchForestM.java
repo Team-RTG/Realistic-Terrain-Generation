@@ -7,6 +7,6 @@ public class BiomeConfigVanillaBirchForestM extends BiomeConfigVanillaBase
     {
         super();
         
-        this.biomeSlug = "VanillaBirchForestM";
+        this.biomeSlug = "birchforestm";
     }
 }

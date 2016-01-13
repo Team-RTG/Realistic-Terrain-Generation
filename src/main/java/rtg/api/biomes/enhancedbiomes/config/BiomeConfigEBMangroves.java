@@ -6,6 +6,6 @@ public class BiomeConfigEBMangroves extends BiomeConfigEBBase
     {
         super();
         
-        this.biomeSlug = "EBMangroves";
+        this.biomeSlug = "mangroves";
     }
 }

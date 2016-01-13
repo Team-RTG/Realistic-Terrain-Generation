@@ -7,6 +7,6 @@ public class BiomeConfigTCEerie extends BiomeConfigTCBase
     {
         super();
         
-        this.biomeSlug = "TCEerie";
+        this.biomeSlug = "eerie";
     }
 }

@@ -7,6 +7,6 @@ public class BiomeConfigEBXLGreenSwamp extends BiomeConfigEBXLBase
     {
         super();
         
-        this.biomeSlug = "EBXLGreenSwamp";
+        this.biomeSlug = "greenswamp";
     }
 }

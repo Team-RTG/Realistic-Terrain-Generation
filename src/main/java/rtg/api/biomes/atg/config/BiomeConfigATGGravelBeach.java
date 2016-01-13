@@ -7,6 +7,6 @@ public class BiomeConfigATGGravelBeach extends BiomeConfigATGBase
     {
         super();
         
-        this.biomeSlug = "ATGGravelBeach";
+        this.biomeSlug = "gravelbeach";
     }
 }

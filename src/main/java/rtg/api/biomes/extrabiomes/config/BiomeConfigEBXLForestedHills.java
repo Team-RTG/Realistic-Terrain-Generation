@@ -7,6 +7,6 @@ public class BiomeConfigEBXLForestedHills extends BiomeConfigEBXLBase
     {
         super();
         
-        this.biomeSlug = "EBXLForestedHills";
+        this.biomeSlug = "forestedhills";
     }
 }

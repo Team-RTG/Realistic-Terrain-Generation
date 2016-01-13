@@ -9,6 +9,6 @@ public class BiomeConfigBCOceanOilField extends BiomeConfigBCBase
     {
         super();
         
-        this.biomeSlug = "BCOceanOilField";
+        this.biomeSlug = "oceanoilfield";
     }
 }

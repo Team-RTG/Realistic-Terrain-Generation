@@ -8,6 +8,6 @@ public class BiomeConfigBOPOriginValley extends BiomeConfigBOPBase
     {
         super();
         
-        this.biomeSlug = "BOPOriginValley";
+        this.biomeSlug = "originvalley";
     }
 }

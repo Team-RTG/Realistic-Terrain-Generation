@@ -9,6 +9,6 @@ public class BiomeConfigBCDesertOilField extends BiomeConfigBCBase
     {
         super();
         
-        this.biomeSlug = "BCDesertOilField";
+        this.biomeSlug = "desertoilfield";
     }
 }

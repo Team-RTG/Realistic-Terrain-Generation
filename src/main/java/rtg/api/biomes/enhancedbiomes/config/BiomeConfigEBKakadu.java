@@ -6,6 +6,6 @@ public class BiomeConfigEBKakadu extends BiomeConfigEBBase
     {
         super();
         
-        this.biomeSlug = "EBKakadu";
+        this.biomeSlug = "kakadu";
     }
 }

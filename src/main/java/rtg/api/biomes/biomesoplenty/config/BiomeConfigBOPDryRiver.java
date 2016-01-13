@@ -8,6 +8,6 @@ public class BiomeConfigBOPDryRiver extends BiomeConfigBOPBase
     {
         super();
         
-        this.biomeSlug = "BOPDryRiver";
+        this.biomeSlug = "dryriver";
     }
 }

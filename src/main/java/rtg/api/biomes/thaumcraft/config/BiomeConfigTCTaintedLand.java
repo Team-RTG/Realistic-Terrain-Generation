@@ -7,6 +7,6 @@ public class BiomeConfigTCTaintedLand extends BiomeConfigTCBase
     {
         super();
         
-        this.biomeSlug = "TCTaintedLand";
+        this.biomeSlug = "taintedland";
     }
 }

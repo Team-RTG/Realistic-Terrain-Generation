@@ -6,6 +6,6 @@ public class BiomeConfigEBFloweryArchipelago extends BiomeConfigEBBase
     {
         super();
         
-        this.biomeSlug = "EBFloweryArchipelago";
+        this.biomeSlug = "floweryarchipelago";
     }
 }

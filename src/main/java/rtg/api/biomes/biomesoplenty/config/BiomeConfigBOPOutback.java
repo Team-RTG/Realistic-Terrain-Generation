@@ -8,6 +8,6 @@ public class BiomeConfigBOPOutback extends BiomeConfigBOPBase
     {
         super();
         
-        this.biomeSlug = "BOPOutback";
+        this.biomeSlug = "outback";
     }
 }

@@ -7,6 +7,6 @@ public class BiomeConfigVanillaMegaSpruceTaiga extends BiomeConfigVanillaBase
     {
         super();
         
-        this.biomeSlug = "VanillaMegaSpruceTaiga";
+        this.biomeSlug = "megasprucetaiga";
     }
 }

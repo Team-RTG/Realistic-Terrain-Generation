@@ -6,6 +6,6 @@ public class BiomeConfigEBCarr extends BiomeConfigEBBase
     {
         super();
         
-        this.biomeSlug = "EBCarr";
+        this.biomeSlug = "carr";
     }
 }

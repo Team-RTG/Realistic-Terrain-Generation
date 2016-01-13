@@ -8,6 +8,6 @@ public class BiomeConfigBOPThicket extends BiomeConfigBOPBase
     {
         super();
         
-        this.biomeSlug = "BOPThicket";
+        this.biomeSlug = "thicket";
     }
 }

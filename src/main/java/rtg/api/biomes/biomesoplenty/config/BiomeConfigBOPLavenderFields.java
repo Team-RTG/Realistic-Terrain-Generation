@@ -8,6 +8,6 @@ public class BiomeConfigBOPLavenderFields extends BiomeConfigBOPBase
     {
         super();
         
-        this.biomeSlug = "BOPLavenderFields";
+        this.biomeSlug = "lavenderfields";
     }
 }

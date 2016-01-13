@@ -6,6 +6,6 @@ public class BiomeConfigEBScrub extends BiomeConfigEBBase
     {
         super();
         
-        this.biomeSlug = "EBScrub";
+        this.biomeSlug = "scrub";
     }
 }

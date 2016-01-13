@@ -52,6 +52,7 @@ public class BiomeAnalyzer {
                 oceanBiome[index] = true;
             }
         }
+        oceanBiome[BiomeGenBase.deepOcean.biomeID]=true;// not getting set?
     }
 
     private void determineSwampBiomes() {
@@ -107,7 +108,7 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             // save what's there since the jitter keeps changing
             savedJittered [i]= jitteredBiomes[i];
-            if (savedJittered[i]== null) throw new RuntimeException();
+            //if (savedJittered[i]== null) throw new RuntimeException();
             if (noise[i]>62.5) {
                 // replace
                 jitteredBiomes[i] =  RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]);
@@ -153,8 +154,8 @@ public class BiomeAnalyzer {
                 huntForLand(this.savedJittered);
                 if (!land.absent) {
                     jitteredBiomes[i] = land.biome;
-                    if (beachBiome[land.biome.biomeID]) throw new RuntimeException();
-                    if (oceanBiome[land.biome.biomeID]) throw new RuntimeException();
+                    //if (beachBiome[land.biome.biomeID]) throw new RuntimeException();
+                    //if (oceanBiome[land.biome.biomeID]) throw new RuntimeException();
                 }
             } else {
                 //we already found it
@@ -169,7 +170,7 @@ public class BiomeAnalyzer {
                         summary += " " + savedJittered [j].biomeID;
                     }
                 }
-                throw new RuntimeException(jitteredBiomes[i].biomeName+ " " + biomeID + " " + oceanBiome[biomeID]+ " " + landBiome[biomeID]+ " " + beachBiome[biomeID]+" "+summary);
+                //throw new RuntimeException(jitteredBiomes[i].biomeName+ " " + biomeID + " " + oceanBiome[biomeID]+ " " + landBiome[biomeID]+ " " + beachBiome[biomeID]+" "+summary);
             }
         }
     }

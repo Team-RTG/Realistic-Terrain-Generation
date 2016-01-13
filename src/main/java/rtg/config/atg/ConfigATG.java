@@ -5,6 +5,8 @@ import java.io.File;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 
+import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.atg.config.BiomeConfigATG;
 import rtg.world.biome.BiomeBase;
 import cpw.mods.fml.common.FMLLog;
 
@@ -83,6 +85,37 @@ public class ConfigATG
             villageATGTundra = config.getBoolean(formatConfig("villageATGTundra"), "Villages", villageATGTundra, "");
             villageATGVolcano = config.getBoolean(formatConfig("villageATGVolcano"), "Villages", villageATGVolcano, "");
             villageATGWoodland = config.getBoolean(formatConfig("villageATGWoodland"), "Villages", villageATGWoodland, "");
+            
+            BiomeConfig[] biomeConfigs = BiomeConfigATG.getBiomeConfigs();
+            String categoryName;
+            
+            for (int i = 0; i < biomeConfigs.length; i++) {
+                
+                categoryName = "biome." + biomeConfigs[i].modSlug + "." + biomeConfigs[i].biomeSlug;
+                
+                biomeConfigs[i].enableBiome = config.getBoolean(
+                    "enableBiome",
+                    categoryName,
+                    biomeConfigs[i].enableBiome,
+                    ""
+                );
+                
+                biomeConfigs[i].biomeWeight = config.getInt(
+                    "biomeWeight",
+                    categoryName,
+                    biomeConfigs[i].biomeWeight,
+                    biomeWeightMin,
+                    biomeWeightMax,
+                    ""
+                );
+                
+                biomeConfigs[i].villageBiome = config.getBoolean(
+                    "villageBiome",
+                    categoryName,
+                    biomeConfigs[i].villageBiome,
+                    ""
+                );
+            }
 		}
 		catch (Exception e)
 		{

@@ -5,6 +5,8 @@ import java.io.File;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 
+import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.highlands.config.BiomeConfigHL;
 import rtg.world.biome.BiomeBase;
 import cpw.mods.fml.common.FMLLog;
 
@@ -358,6 +360,37 @@ public class ConfigHL
                 
             //Border Biomes
             villageHLShrubland = config.getBoolean(formatConfig("villageHLShrubland"), "Villages", villageHLShrubland, "");
+            
+            BiomeConfig[] biomeConfigs = BiomeConfigHL.getBiomeConfigs();
+            String categoryName;
+            
+            for (int i = 0; i < biomeConfigs.length; i++) {
+                
+                categoryName = "biome." + biomeConfigs[i].modSlug + "." + biomeConfigs[i].biomeSlug;
+                
+                biomeConfigs[i].enableBiome = config.getBoolean(
+                    "enableBiome",
+                    categoryName,
+                    biomeConfigs[i].enableBiome,
+                    ""
+                );
+                
+                biomeConfigs[i].biomeWeight = config.getInt(
+                    "biomeWeight",
+                    categoryName,
+                    biomeConfigs[i].biomeWeight,
+                    biomeWeightMin,
+                    biomeWeightMax,
+                    ""
+                );
+                
+                biomeConfigs[i].villageBiome = config.getBoolean(
+                    "villageBiome",
+                    categoryName,
+                    biomeConfigs[i].villageBiome,
+                    ""
+                );
+            }
 			
 		}
 		catch (Exception e)

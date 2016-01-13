@@ -5,6 +5,8 @@ import java.io.File;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 
+import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.chromaticraft.config.BiomeConfigCC;
 import rtg.world.biome.BiomeBase;
 import cpw.mods.fml.common.FMLLog;
 
@@ -47,6 +49,37 @@ public class ConfigCC
 			
             villageCCEnderForest = config.getBoolean(formatConfig("villageCCEnderForest"), "Villages", villageCCEnderForest, "");
             villageCCRainbowForest = config.getBoolean(formatConfig("villageCCRainbowForest"), "Villages", villageCCRainbowForest, "");
+            
+            BiomeConfig[] biomeConfigs = BiomeConfigCC.getBiomeConfigs();
+            String categoryName;
+            
+            for (int i = 0; i < biomeConfigs.length; i++) {
+                
+                categoryName = "biome." + biomeConfigs[i].modSlug + "." + biomeConfigs[i].biomeSlug;
+                
+                biomeConfigs[i].enableBiome = config.getBoolean(
+                    "enableBiome",
+                    categoryName,
+                    biomeConfigs[i].enableBiome,
+                    ""
+                );
+                
+                biomeConfigs[i].biomeWeight = config.getInt(
+                    "biomeWeight",
+                    categoryName,
+                    biomeConfigs[i].biomeWeight,
+                    biomeWeightMin,
+                    biomeWeightMax,
+                    ""
+                );
+                
+                biomeConfigs[i].villageBiome = config.getBoolean(
+                    "villageBiome",
+                    categoryName,
+                    biomeConfigs[i].villageBiome,
+                    ""
+                );
+            }
 		}
 		catch (Exception e)
 		{

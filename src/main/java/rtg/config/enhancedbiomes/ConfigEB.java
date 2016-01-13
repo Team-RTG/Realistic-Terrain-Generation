@@ -2,17 +2,15 @@ package rtg.config.enhancedbiomes;
 
 import java.io.File;
 
-import net.minecraft.world.biome.BiomeGenBase;
-
-import net.minecraftforge.common.config.Configuration;
-
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 
+import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.enhancedbiomes.config.BiomeConfigEB;
 import rtg.world.biome.BiomeBase;
+import cpw.mods.fml.common.FMLLog;
+
+import net.minecraftforge.common.config.Configuration;
 
 public class ConfigEB 
 {
@@ -579,6 +577,37 @@ public class ConfigEB
             villageEBWoodlands = config.getBoolean(formatConfig("villageEBWoodlands"), "Villages", villageEBWoodlands, "");
             villageEBXericSavannah = config.getBoolean(formatConfig("villageEBXericSavannah"), "Villages", villageEBXericSavannah, "");
             villageEBXericShrubland = config.getBoolean(formatConfig("villageEBXericShrubland"), "Villages", villageEBXericShrubland, "");
+            
+            BiomeConfig[] biomeConfigs = BiomeConfigEB.getBiomeConfigs();
+            String categoryName;
+            
+            for (int i = 0; i < biomeConfigs.length; i++) {
+                
+                categoryName = "biome." + biomeConfigs[i].modSlug + "." + biomeConfigs[i].biomeSlug;
+                
+                biomeConfigs[i].enableBiome = config.getBoolean(
+                    "enableBiome",
+                    categoryName,
+                    biomeConfigs[i].enableBiome,
+                    ""
+                );
+                
+                biomeConfigs[i].biomeWeight = config.getInt(
+                    "biomeWeight",
+                    categoryName,
+                    biomeConfigs[i].biomeWeight,
+                    biomeWeightMin,
+                    biomeWeightMax,
+                    ""
+                );
+                
+                biomeConfigs[i].villageBiome = config.getBoolean(
+                    "villageBiome",
+                    categoryName,
+                    biomeConfigs[i].villageBiome,
+                    ""
+                );
+            }
 		}
 		catch (Exception e)
 		{

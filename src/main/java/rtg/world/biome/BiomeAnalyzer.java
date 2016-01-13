@@ -74,6 +74,9 @@ public class BiomeAnalyzer {
             if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("marsh")) {
                 swampBiome[index] = true;
             }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("fen")) {
+                swampBiome[index] = true;
+            }
         }
     }
     private void determineLandBiomes() {

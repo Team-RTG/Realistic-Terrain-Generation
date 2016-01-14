@@ -104,6 +104,9 @@ public class TerrainBOPCoralReef extends TerrainBase
 		
 		b += cTotal - bn;
 		
-		return base + b;
+		float floNoise = base + b;
+		floNoise = floNoise < this.minOceanFloor ? this.minOceanFloor : floNoise;
+		
+		return floNoise;
 	}
 }

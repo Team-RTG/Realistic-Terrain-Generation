@@ -104,6 +104,9 @@ public class TerrainBOPKelpForest extends TerrainBase
 		
 		b += cTotal - bn;
 		
-		return base + b;
+        float floNoise = base + b;
+        floNoise = floNoise < this.minOceanFloor ? this.minOceanFloor : floNoise;
+        
+        return floNoise;
 	}
 }

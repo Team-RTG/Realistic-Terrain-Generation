@@ -21,7 +21,7 @@ public class TerrainBCOceanOilField extends TerrainBase
         h += simplex.noise2(x / 15f, y / 15f) * (12f - h) * 0.15f;
 
         float floNoise = 50f + h;
-        floNoise = floNoise < 6 ? 6 : floNoise;
+        floNoise = floNoise < this.minOceanFloor ? this.minOceanFloor : floNoise;
 
         return floNoise;
     }

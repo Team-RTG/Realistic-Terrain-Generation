@@ -21,7 +21,7 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
-			new TerrainBOPCoralReef(false, -25f, 0f, 0f, 0f, 30f),
+			new TerrainBOPCoralReef(false, -10f, 0f, 0f, 0f, 30f),
 			new SurfaceBOPCoralReef(topBlock, fillerBlock)
 		);
 		

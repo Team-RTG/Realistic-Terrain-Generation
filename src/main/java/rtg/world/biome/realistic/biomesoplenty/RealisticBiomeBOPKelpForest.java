@@ -21,7 +21,7 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
-			new TerrainBOPKelpForest(false, -25f, 0f, 0f, 0f, 30f),
+			new TerrainBOPKelpForest(false, -10f, 0f, 0f, 0f, 30f),
 			new SurfaceBOPKelpForest(topBlock, fillerBlock)
 		);
 		

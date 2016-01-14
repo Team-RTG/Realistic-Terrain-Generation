@@ -40,7 +40,7 @@ public class TerrainBOPKelpForest extends TerrainBase
 	public TerrainBOPKelpForest(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight)
 	{
 		booRiver = riverGen;
-		height = new float[]{5.0f, 0.5f, 12.5f, 0.5f, 18.0f, 0.5f};
+		height = new float[]{5.0f, 0.5f, 12.5f, 0.5f};
 		strength = heightStrength;
 		heightLength = height.length;
 		cWidth = canyonWidth;
@@ -104,6 +104,9 @@ public class TerrainBOPKelpForest extends TerrainBase
 		
 		b += cTotal - bn;
 		
-		return base + b;
+        float floNoise = base + b;
+        floNoise = floNoise < this.minOceanFloor ? this.minOceanFloor : floNoise;
+        
+        return floNoise;
 	}
 }

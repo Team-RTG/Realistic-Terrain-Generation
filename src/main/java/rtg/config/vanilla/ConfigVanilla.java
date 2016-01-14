@@ -201,8 +201,6 @@ public class ConfigVanilla
     public static boolean villageVanillaTaiga = true;
     public static boolean villageVanillaTaigaHills = true;
     public static boolean villageVanillaTaigaM = true;
-    
-    public static String[] realisticBiomeNames;
 	
 	public static void init(File configFile) 
 	{

@@ -6,12 +6,15 @@ import rtg.util.OpenSimplexNoise;
 public class TerrainBase 
 {
     protected float base; // added as most terrains have this;
+    protected final float minOceanFloor; // The lowest Y coord an ocean floor is allowed to be.
+    
 	public TerrainBase(){
         this(68f);// default to marginally above sea level;
 	}
 
     public TerrainBase(float base) {
         this.base = base;
+        this.minOceanFloor = 30f;
     }
 
     public static final float above(float limited, float limit) {

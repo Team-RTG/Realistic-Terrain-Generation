@@ -1,7 +1,6 @@
 package rtg.config;
 
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.ArrayList;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.BiomeConfigProperty;
@@ -707,14 +706,11 @@ public class BiomeConfigManager
         for (int i = 0; i < biomeConfigs.length; i++) {
             
             String categoryName = "biome." + biomeConfigs[i].modSlug + "." + biomeConfigs[i].biomeSlug;
+            ArrayList<BiomeConfigProperty> properties = biomeConfigs[i].getProperties();
             
-            HashMap<String, BiomeConfigProperty> properties = biomeConfigs[i].getProperties();
-            Iterator<String> keySetIterator = properties.keySet().iterator();
-            
-            while (keySetIterator.hasNext()) {
+            for (int j = 0; j < properties.size(); j++) {
                 
-                String key = keySetIterator.next();
-                BiomeConfigProperty prop = properties.get(key);
+                BiomeConfigProperty prop = properties.get(j);
                                 
                 switch (prop.type) {
                     
@@ -739,7 +735,7 @@ public class BiomeConfigManager
                             prop.valueBoolean,
                             prop.description
                         );
-
+                        
                         break;
                         
                     case STRING:
@@ -756,8 +752,6 @@ public class BiomeConfigManager
                     default:
                         throw new RuntimeException("BiomeConfigProperty type not supported.");
                 }
-                
-                properties.put(key, prop);
             }
         }
     }

@@ -1,6 +1,6 @@
 package rtg.api.biome;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import rtg.api.biome.BiomeConfigProperty.Type;
 
@@ -10,21 +10,14 @@ public class BiomeConfig {
     public String modSlug;
     public String biomeSlug;
     
-    public HashMap<String, BiomeConfigProperty> properties;
-    
-    public HashMap<String, Boolean> propBools;
-    public HashMap<String, Integer> propInts;
-    public HashMap<String, String> propStrings;
+    public ArrayList<BiomeConfigProperty> properties;
     
     public static final String enableBiomeId = "biomeEnabled";
     public static final String enableBiomeName = "Biome Enabled";
-    
     public static final String weightId = "weight";
-    public static final String weightName = "Biome Weight";
-    
+    public static final String weightName = "Weight";
     public static final String allowVillagesId = "allowVillages";
     public static final String allowVillagesName = "Allow Villages";
-    
     public static final String enableRTGDecorationsId = "enableRTGDecorations";
     public static final String enableRTGDecorationsName = "Use RTG Decorations";
     
@@ -33,11 +26,7 @@ public class BiomeConfig {
         this.modSlug = null;
         this.biomeSlug = null;
         
-        this.properties = new HashMap<String, BiomeConfigProperty>();
-        
-        this.propBools = new HashMap<String, Boolean>();
-        this.propInts = new HashMap<String, Integer>();
-        this.propStrings = new HashMap<String, String>();
+        this.properties = new ArrayList<BiomeConfigProperty>();
 
         this.addProperty(new BiomeConfigProperty(enableBiomeId, Type.BOOLEAN, enableBiomeName, "", true));
         this.addProperty(new BiomeConfigProperty(weightId, Type.INTEGER, weightName, "", 10, 1, 100));
@@ -47,45 +36,41 @@ public class BiomeConfig {
     
     public void addProperty(BiomeConfigProperty property)
     {
-
-        switch (property.type) {
+        for (int i = 0; i < this.properties.size(); i++) {
             
-            case INTEGER: this.propInts.put(property.id, property.valueInt); break;
-            case BOOLEAN: this.propBools.put(property.id, property.valueBoolean); break;
-            case STRING: this.propStrings.put(property.id, property.valueString); break;
-            default: throw new RuntimeException("BiomeConfigProperty type not supported.");
+            if (this.properties.get(i).id.contentEquals(property.id)) {
+                removeProperty(property.id);
+                break;
+            }
         }
         
-        this.properties.put(property.id, property);
+        this.properties.add(property);
     }
     
     public void removeProperty(String id)
     {
-        
-        if (this.properties.containsKey(id)) {
-
-            this.properties.remove(id);
-        }
-        else {
+        for (int i = 0; i < this.properties.size(); i++) {
             
-            throw new RuntimeException("Could not remove property ID (" + id + ").");
+            if (this.properties.get(i).id.contentEquals(id)) {
+                this.properties.remove(i);
+                return;
+            }
         }
     }
     
-    public HashMap<String, BiomeConfigProperty> getProperties()
+    public ArrayList<BiomeConfigProperty> getProperties()
     {
         return this.properties;
     }
     
     public BiomeConfigProperty getPropertyById(String id)
     {
-        if (this.properties.containsKey(id)) {
+        for (int i = 0; i < this.properties.size(); i++) {
             
-            return this.properties.get(id);
+            if (this.properties.get(i).id.contentEquals(id)) {
+                return this.properties.get(i);
+            }
         }
-        else {
-            
-            throw new RuntimeException("Could not get property by ID (" + id + ").");
-        }
+        return null;
     }
 }

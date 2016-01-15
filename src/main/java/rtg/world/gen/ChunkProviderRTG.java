@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Random;
 
 import rtg.RTG;
+import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CanyonColor;
 import rtg.util.CellNoise;
@@ -670,7 +671,7 @@ public class ChunkProviderRTG implements IChunkProvider
                  * so that's what the try/catch is for. If it fails, then it falls back to RTG decoration.
                  * TODO: Is there a more efficient way to do this? - Pink
                  */
-                if (realisticBiome.biomeConfig.enableRTGDecorations) {
+                if (realisticBiome.biomeConfig.getPropertyById(BiomeConfig.enableRTGDecorationsId).valueBoolean) {
                     
                     realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
                 }

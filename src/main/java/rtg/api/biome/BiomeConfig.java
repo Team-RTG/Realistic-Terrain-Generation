@@ -62,4 +62,15 @@ public class BiomeConfig {
     {
         return this.properties;
     }
+    
+    public BiomeConfigProperty getPropertyById(String id)
+    {
+        for (int i = 0; i < this.properties.size(); i++) {
+            
+            if (this.properties.get(i).id.contentEquals(id)) {
+                return this.properties.get(i);
+            }
+        }
+        return null;
+    }
 }

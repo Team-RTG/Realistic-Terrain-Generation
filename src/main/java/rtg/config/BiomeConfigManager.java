@@ -1,6 +1,7 @@
 package rtg.config;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.BiomeConfigProperty;
@@ -706,11 +707,14 @@ public class BiomeConfigManager
         for (int i = 0; i < biomeConfigs.length; i++) {
             
             String categoryName = "biome." + biomeConfigs[i].modSlug + "." + biomeConfigs[i].biomeSlug;
-            ArrayList<BiomeConfigProperty> properties = biomeConfigs[i].getProperties();
             
-            for (int j = 0; j < properties.size(); j++) {
+            HashMap<String, BiomeConfigProperty> properties = biomeConfigs[i].getProperties();
+            Iterator<String> keySetIterator = properties.keySet().iterator();
+            
+            while (keySetIterator.hasNext()) {
                 
-                BiomeConfigProperty prop = properties.get(j);
+                String key = keySetIterator.next();
+                BiomeConfigProperty prop = properties.get(key);
                                 
                 switch (prop.type) {
                     

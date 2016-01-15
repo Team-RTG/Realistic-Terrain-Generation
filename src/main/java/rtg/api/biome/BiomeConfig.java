@@ -1,6 +1,5 @@
 package rtg.api.biome;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import rtg.api.biome.BiomeConfigProperty.Type;
@@ -11,7 +10,8 @@ public class BiomeConfig {
     public String modSlug;
     public String biomeSlug;
     
-    public ArrayList<BiomeConfigProperty> properties;
+    public HashMap<String, BiomeConfigProperty> properties;
+    
     public HashMap<String, Boolean> propBools;
     public HashMap<String, Integer> propInts;
     public HashMap<String, String> propStrings;
@@ -33,7 +33,7 @@ public class BiomeConfig {
         this.modSlug = null;
         this.biomeSlug = null;
         
-        this.properties = new ArrayList<BiomeConfigProperty>();
+        this.properties = new HashMap<String, BiomeConfigProperty>();
         
         this.propBools = new HashMap<String, Boolean>();
         this.propInts = new HashMap<String, Integer>();
@@ -47,87 +47,55 @@ public class BiomeConfig {
     
     public void addProperty(BiomeConfigProperty property)
     {
-        for (int i = 0; i < this.properties.size(); i++) {
-            
-            if (this.properties.get(i).id.contentEquals(property.id)) {
-                removeProperty(property.id);
-                break;
-            }
-        }
-        
-        this.properties.add(property);
+
+        this.properties.put(property.id, property);
         
         switch (property.type) {
             
-            case INTEGER:
-                
-                this.propInts.put(property.id, property.valueInt);
-                break;
-                
-            case BOOLEAN:
-                
-                this.propBools.put(property.id, property.valueBoolean);
-                break;
-                
-            case STRING:
-                
-                this.propStrings.put(property.id, property.valueString);
-                break;
-                
-            default:
-                throw new RuntimeException("BiomeConfigProperty type not supported.");
+            case INTEGER: this.propInts.put(property.id, property.valueInt); break;
+            case BOOLEAN: this.propBools.put(property.id, property.valueBoolean); break;
+            case STRING: this.propStrings.put(property.id, property.valueString); break;
+            default: throw new RuntimeException("BiomeConfigProperty type not supported.");
         }
     }
     
     public void removeProperty(String id)
     {
-        for (int i = 0; i < this.properties.size(); i++) {
+        
+        if (this.properties.containsKey(id)) {
             
-            BiomeConfigProperty property = this.properties.get(i);
-            
-            if (property.id.contentEquals(id)) {
+            BiomeConfigProperty property = this.properties.get(id);
+ 
+            switch (property.type) {
                 
-                switch (property.type) {
-                    
-                    case INTEGER:
-                        
-                        this.propInts.remove(id);
-                        break;
-                        
-                    case BOOLEAN:
-                        
-                        this.propBools.remove(id);
-                        break;
-                        
-                    case STRING:
-                        
-                        this.propStrings.remove(id);
-                        break;
-                        
-                    default:
-                        throw new RuntimeException("BiomeConfigProperty type not supported.");
-                }
-                
-                this.properties.remove(i);
-                
-                return;
+                case INTEGER: this.propInts.remove(id); break;
+                case BOOLEAN: this.propBools.remove(id); break;
+                case STRING: this.propStrings.remove(id); break;
+                default: throw new RuntimeException("BiomeConfigProperty type not supported.");
             }
+            
+            this.properties.remove(id);
+        }
+        else {
+            
+            throw new RuntimeException("Could not remove property ID (" + id + ").");
         }
     }
     
-    public ArrayList<BiomeConfigProperty> getProperties()
+    public HashMap<String, BiomeConfigProperty> getProperties()
     {
         return this.properties;
     }
     
     public BiomeConfigProperty getPropertyById(String id)
     {
-        for (int i = 0; i < this.properties.size(); i++) {
+        if (this.properties.containsKey(id)) {
             
-            if (this.properties.get(i).id.contentEquals(id)) {
-                return this.properties.get(i);
-            }
+            return this.properties.get(id);
         }
-        return null;
+        else {
+            
+            throw new RuntimeException("Could not get property by ID (" + id + ").");
+        }
     }
 }

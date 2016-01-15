@@ -20,7 +20,7 @@ public class BiomeConfig {
     public static final String enableBiomeName = "Biome Enabled";
     
     public static final String weightId = "weight";
-    public static final String weightName = "Weight";
+    public static final String weightName = "Biome Weight";
     
     public static final String allowVillagesId = "allowVillages";
     public static final String allowVillagesName = "Allow Villages";

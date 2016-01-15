@@ -739,7 +739,7 @@ public class BiomeConfigManager
                             prop.valueBoolean,
                             prop.description
                         );
-                        
+
                         break;
                         
                     case STRING:
@@ -756,6 +756,8 @@ public class BiomeConfigManager
                     default:
                         throw new RuntimeException("BiomeConfigProperty type not supported.");
                 }
+                
+                properties.put(key, prop);
             }
         }
     }

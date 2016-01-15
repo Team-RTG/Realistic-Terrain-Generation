@@ -48,8 +48,6 @@ public class BiomeConfig {
     public void addProperty(BiomeConfigProperty property)
     {
 
-        this.properties.put(property.id, property);
-        
         switch (property.type) {
             
             case INTEGER: this.propInts.put(property.id, property.valueInt); break;
@@ -57,23 +55,15 @@ public class BiomeConfig {
             case STRING: this.propStrings.put(property.id, property.valueString); break;
             default: throw new RuntimeException("BiomeConfigProperty type not supported.");
         }
+        
+        this.properties.put(property.id, property);
     }
     
     public void removeProperty(String id)
     {
         
         if (this.properties.containsKey(id)) {
-            
-            BiomeConfigProperty property = this.properties.get(id);
- 
-            switch (property.type) {
-                
-                case INTEGER: this.propInts.remove(id); break;
-                case BOOLEAN: this.propBools.remove(id); break;
-                case STRING: this.propStrings.remove(id); break;
-                default: throw new RuntimeException("BiomeConfigProperty type not supported.");
-            }
-            
+
             this.properties.remove(id);
         }
         else {

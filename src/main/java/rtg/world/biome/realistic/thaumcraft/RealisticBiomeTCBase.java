@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.thaumcraft;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTC;
 import rtg.config.thaumcraft.ConfigTC;
 import rtg.world.biome.BiomeBase;
@@ -49,7 +50,7 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
                     {
                         tcMagicalForest = new RealisticBiomeTCMagicalForest(tcBiome, BiomeConfigTC.biomeConfigTCMagicalForest);
                         
-                        if (ConfigTC.generateTCBiomes && tcMagicalForest.config._boolean("biomeEnabled")) {
+                        if (ConfigTC.generateTCBiomes && tcMagicalForest.config._boolean(BiomeConfig.enableBiomeId)) {
 
                             BiomeBase.addBiome(tcMagicalForest);
                             BiomeBase.addVillageBiome(tcMagicalForest);
@@ -59,7 +60,7 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 					{
                         tcTaintedLand = new RealisticBiomeTCTaintedLand(tcBiome, BiomeConfigTC.biomeConfigTCTaintedLand);
                         
-						if (ConfigTC.generateTCBiomes && tcTaintedLand.config._boolean("biomeEnabled")) {
+						if (ConfigTC.generateTCBiomes && tcTaintedLand.config._boolean(BiomeConfig.enableBiomeId)) {
 
 						    BiomeBase.addBiome(tcTaintedLand);
 						    BiomeBase.addVillageBiome(tcTaintedLand);
@@ -69,7 +70,7 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 					{
                         tcEerie = new RealisticBiomeTCEerie(tcBiome, BiomeConfigTC.biomeConfigTCEerie);
                         
-						if (ConfigTC.generateTCBiomes && tcEerie.config._boolean("biomeEnabled")) {
+						if (ConfigTC.generateTCBiomes && tcEerie.config._boolean(BiomeConfig.enableBiomeId)) {
 
 						    BiomeBase.addBiome(tcEerie);
 						    BiomeBase.addVillageBiome(tcEerie);

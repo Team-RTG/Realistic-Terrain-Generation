@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.highlands;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.highlands.config.BiomeConfigHL;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
@@ -117,258 +118,258 @@ public class RealisticBiomeHLBase extends RealisticBiomeBase
 		    hl_WindyIsland = new RealisticBiomeHLWindyIsland(BiomeConfigHL.biomeConfigHLWindyIsland);
 		    hl_Shrubland = new RealisticBiomeHLShrubland(BiomeConfigHL.biomeConfigHLShrubland);
 		    
-			if (ConfigHL.generateHLBiomes && hl_Alps.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Alps.config._boolean(BiomeConfig.enableBiomeId)) {
 				
 				BiomeBase.addBiome(hl_Alps);
 				BiomeBase.addVillageBiome(hl_Alps);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_AutumnForest.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_AutumnForest.config._boolean(BiomeConfig.enableBiomeId)) {
 				BiomeBase.addBiome(hl_AutumnForest);
 				BiomeBase.addVillageBiome(hl_AutumnForest);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Badlands.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Badlands.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Badlands);
 				BiomeBase.addVillageBiome(hl_Badlands);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_BaldHill.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_BaldHill.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_BaldHill);
 				BiomeBase.addVillageBiome(hl_BaldHill);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_BirchHills.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_BirchHills.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_BirchHills);
 				BiomeBase.addVillageBiome(hl_BirchHills);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Bog.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Bog.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Bog);
 				BiomeBase.addVillageBiome(hl_Bog);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Canyon.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Canyon.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Canyon);
 				BiomeBase.addVillageBiome(hl_Canyon);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Cliffs.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Cliffs.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Cliffs);
 				BiomeBase.addVillageBiome(hl_Cliffs);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_DesertIsland.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_DesertIsland.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_DesertIsland);
 				BiomeBase.addVillageBiome(hl_DesertIsland);
 			}			
 					    
-			if (ConfigHL.generateHLBiomes && hl_DesertMountains.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_DesertMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_DesertMountains);
 				BiomeBase.addVillageBiome(hl_DesertMountains);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Dunes.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Dunes.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Dunes);
 				BiomeBase.addVillageBiome(hl_Dunes);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Estuary.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Estuary.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Estuary);
 				BiomeBase.addVillageBiome(hl_Estuary);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_FlyingMountains.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_FlyingMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_FlyingMountains);
 				BiomeBase.addVillageBiome(hl_FlyingMountains);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_ForestIsland.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_ForestIsland.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_ForestIsland);
 				BiomeBase.addVillageBiome(hl_ForestIsland);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Glacier.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Glacier.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Glacier);
 				BiomeBase.addVillageBiome(hl_Glacier);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_HighlandsB.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_HighlandsB.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_HighlandsB);
 				BiomeBase.addVillageBiome(hl_HighlandsB);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_JungleIsland.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_JungleIsland.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_JungleIsland);
 				BiomeBase.addVillageBiome(hl_JungleIsland);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Lake.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Lake.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Lake);
 				BiomeBase.addVillageBiome(hl_Lake);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Lowlands.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Lowlands.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Lowlands);
 				BiomeBase.addVillageBiome(hl_Lowlands);
 			}
 
-			if (ConfigHL.generateHLBiomes && hl_Meadow.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Meadow.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Meadow);
 				BiomeBase.addVillageBiome(hl_Meadow);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Mesa.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Mesa.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Mesa);
 				BiomeBase.addVillageBiome(hl_Mesa);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Oasis.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Oasis.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Oasis);
 				BiomeBase.addVillageBiome(hl_Oasis);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Outback.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Outback.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Outback);
 				BiomeBase.addVillageBiome(hl_Outback);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Pinelands.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Pinelands.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Pinelands);
 				BiomeBase.addVillageBiome(hl_Pinelands);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Rainforest.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Rainforest.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Rainforest);
 				BiomeBase.addVillageBiome(hl_Rainforest);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_RedwoodForest.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_RedwoodForest.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_RedwoodForest);
 				BiomeBase.addVillageBiome(hl_RedwoodForest);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_RockIsland.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_RockIsland.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_RockIsland);
 				BiomeBase.addVillageBiome(hl_RockIsland);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_RockMountains.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_RockMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_RockMountains);
 				BiomeBase.addVillageBiome(hl_RockMountains);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Sahel.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Sahel.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Sahel);
 				BiomeBase.addVillageBiome(hl_Sahel);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Savannah.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Savannah.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Savannah);
 				BiomeBase.addVillageBiome(hl_Savannah);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Shrubland.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Shrubland.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Shrubland);
 				BiomeBase.addVillageBiome(hl_Shrubland);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_SnowIsland.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_SnowIsland.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_SnowIsland);
 				BiomeBase.addVillageBiome(hl_SnowIsland);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_SnowMountains.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_SnowMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_SnowMountains);
 				BiomeBase.addVillageBiome(hl_SnowMountains);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Steppe.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Steppe.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Steppe);
 				BiomeBase.addVillageBiome(hl_Steppe);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_TallPineForest.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_TallPineForest.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_TallPineForest);
 				BiomeBase.addVillageBiome(hl_TallPineForest);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_TropicalIslands.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_TropicalIslands.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_TropicalIslands);
 				BiomeBase.addVillageBiome(hl_TropicalIslands);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Tropics.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Tropics.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Tropics);
 				BiomeBase.addVillageBiome(hl_Tropics);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Tundra.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Tundra.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Tundra);
 				BiomeBase.addVillageBiome(hl_Tundra);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Valley.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Valley.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Valley);
 				BiomeBase.addVillageBiome(hl_Valley);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_VolcanoIsland.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_VolcanoIsland.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_VolcanoIsland);
 				BiomeBase.addVillageBiome(hl_VolcanoIsland);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_WindyIsland.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_WindyIsland.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_WindyIsland);
 				BiomeBase.addVillageBiome(hl_WindyIsland);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_Woodlands.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_Woodlands.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_Woodlands);
 				BiomeBase.addVillageBiome(hl_Woodlands);
 			}
 					    
-			if (ConfigHL.generateHLBiomes && hl_WoodsMountains.config._boolean("biomeEnabled")) {
+			if (ConfigHL.generateHLBiomes && hl_WoodsMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 
 				BiomeBase.addBiome(hl_WoodsMountains);
 				BiomeBase.addVillageBiome(hl_WoodsMountains);

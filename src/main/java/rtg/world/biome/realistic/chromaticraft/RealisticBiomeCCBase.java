@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.chromaticraft;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.chromaticraft.config.BiomeConfigCC;
 import rtg.config.chromaticraft.ConfigCC;
 import rtg.world.biome.BiomeBase;
@@ -41,7 +42,7 @@ public class RealisticBiomeCCBase extends RealisticBiomeBase
 					{
 					    ccEnderForest = new RealisticBiomeCCEnderForest(ccBiome, BiomeConfigCC.biomeConfigCCEnderForest);
 					    
-						if (ConfigCC.generateCCBiomes && ccEnderForest.config._boolean("biomeEnabled")) {
+						if (ConfigCC.generateCCBiomes && ccEnderForest.config._boolean(BiomeConfig.enableBiomeId)) {
 						    
 						    BiomeBase.addBiome(ccEnderForest);
 						    BiomeBase.addVillageBiome(ccEnderForest);
@@ -51,7 +52,7 @@ public class RealisticBiomeCCBase extends RealisticBiomeBase
 					{
 					    ccRainbowForest = new RealisticBiomeCCRainbowForest(ccBiome, BiomeConfigCC.biomeConfigCCRainbowForest);
 					    
-						if (ConfigCC.generateCCBiomes && ccRainbowForest.config._boolean("biomeEnabled")) {
+						if (ConfigCC.generateCCBiomes && ccRainbowForest.config._boolean(BiomeConfig.enableBiomeId)) {
 						    
 						    BiomeBase.addBiome(ccRainbowForest);
 						    BiomeBase.addVillageBiome(ccRainbowForest);

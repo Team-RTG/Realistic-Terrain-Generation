@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import org.apache.logging.log4j.Level;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.enhancedbiomes.config.BiomeConfigEB;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
@@ -137,7 +138,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebAlpineMountains = new RealisticBiomeEBAlpineMountains(ebBiome, BiomeConfigEB.biomeConfigEBAlpineMountains);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 						    BiomeBase.addBiome(ebAlpineMountains);
 						    BiomeBase.addVillageBiome(ebAlpineMountains);
 						}
@@ -146,7 +147,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebAlpineMountainsEdge = new RealisticBiomeEBAlpineMountainsEdge(ebBiome, BiomeConfigEB.biomeConfigEBAlpineMountainsEdge);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebAlpineMountainsEdge);
 							BiomeBase.addVillageBiome(ebAlpineMountainsEdge);
 						}
@@ -155,7 +156,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebAlpineMountainsM = new RealisticBiomeEBAlpineMountainsM(ebBiome, BiomeConfigEB.biomeConfigEBAlpineMountainsM);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebAlpineMountainsM);
 							BiomeBase.addVillageBiome(ebAlpineMountainsM);
 						}
@@ -164,7 +165,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebAlpineTundra = new RealisticBiomeEBAlpineTundra(ebBiome, BiomeConfigEB.biomeConfigEBAlpineTundra);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebAlpineTundra);
 							BiomeBase.addVillageBiome(ebAlpineTundra);
 						}
@@ -173,7 +174,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebAspenForest = new RealisticBiomeEBAspenForest(ebBiome, BiomeConfigEB.biomeConfigEBAspenForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebAspenForest);
 							BiomeBase.addVillageBiome(ebAspenForest);
 						}
@@ -182,7 +183,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebAspenHills = new RealisticBiomeEBAspenHills(ebBiome, BiomeConfigEB.biomeConfigEBAspenHills);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebAspenHills);
 							BiomeBase.addVillageBiome(ebAspenHills);
 						}
@@ -191,7 +192,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebBadlands = new RealisticBiomeEBBadlands(ebBiome, BiomeConfigEB.biomeConfigEBBadlands);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebBadlands);
 							BiomeBase.addVillageBiome(ebBadlands);
 						}
@@ -200,7 +201,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebBasin = new RealisticBiomeEBBasin(ebBiome, BiomeConfigEB.biomeConfigEBBasin);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebBasin);
 							BiomeBase.addVillageBiome(ebBasin);
 						}
@@ -209,7 +210,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebBlossomHills = new RealisticBiomeEBBlossomHills(ebBiome, BiomeConfigEB.biomeConfigEBBlossomHills);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebBlossomHills);
 							BiomeBase.addVillageBiome(ebBlossomHills);
 						}
@@ -218,7 +219,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebBlossomWoods = new RealisticBiomeEBBlossomWoods(ebBiome, BiomeConfigEB.biomeConfigEBBlossomWoods);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebBlossomWoods);
 							BiomeBase.addVillageBiome(ebBlossomWoods);
 						}
@@ -227,7 +228,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebBorealArchipelago = new RealisticBiomeEBBorealArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBBorealArchipelago);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebBorealArchipelago);
 							BiomeBase.addVillageBiome(ebBorealArchipelago);
 						}
@@ -236,7 +237,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebBorealForest = new RealisticBiomeEBBorealForest(ebBiome, BiomeConfigEB.biomeConfigEBBorealForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebBorealForest);
 							BiomeBase.addVillageBiome(ebBorealForest);
 						}
@@ -245,7 +246,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebBorealPlateau = new RealisticBiomeEBBorealPlateau(ebBiome, BiomeConfigEB.biomeConfigEBBorealPlateau);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebBorealPlateau);
 							BiomeBase.addVillageBiome(ebBorealPlateau);
 						}
@@ -254,7 +255,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebBorealPlateauM = new RealisticBiomeEBBorealPlateauM(ebBiome, BiomeConfigEB.biomeConfigEBBorealPlateauM);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebBorealPlateauM);
 							BiomeBase.addVillageBiome(ebBorealPlateauM);
 						}
@@ -263,7 +264,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebCarr = new RealisticBiomeEBCarr(ebBiome, BiomeConfigEB.biomeConfigEBCarr);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebCarr);
 							BiomeBase.addVillageBiome(ebCarr);
 						}
@@ -272,7 +273,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebClayHills = new RealisticBiomeEBClayHills(ebBiome, BiomeConfigEB.biomeConfigEBClayHills);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebClayHills);
 							BiomeBase.addVillageBiome(ebClayHills);
 						}
@@ -281,7 +282,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebClearing = new RealisticBiomeEBClearing(ebBiome, BiomeConfigEB.biomeConfigEBClearing);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebClearing);
 							BiomeBase.addVillageBiome(ebClearing);
 						}
@@ -290,7 +291,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebColdBorealForest = new RealisticBiomeEBColdBorealForest(ebBiome, BiomeConfigEB.biomeConfigEBColdBorealForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebColdBorealForest);
 							BiomeBase.addVillageBiome(ebColdBorealForest);
 						}
@@ -299,7 +300,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebColdCypressForest = new RealisticBiomeEBColdCypressForest(ebBiome, BiomeConfigEB.biomeConfigEBColdCypressForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebColdCypressForest);
 							BiomeBase.addVillageBiome(ebColdCypressForest);
 						}
@@ -308,14 +309,14 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebColdFirForest = new RealisticBiomeEBColdFirForest(ebBiome, BiomeConfigEB.biomeConfigEBColdFirForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebColdFirForest);
 							BiomeBase.addVillageBiome(ebColdFirForest);
 						}
 					}
                     else if (biomeName == "Cold Pine Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenPineForest")
                     {
-                        if (ConfigEB.generateEBBiomes && ebColdPineForest.config._boolean("biomeEnabled")) {
+                        if (ConfigEB.generateEBBiomes && ebColdPineForest.config._boolean(BiomeConfig.enableBiomeId)) {
                             ebColdPineForest = new RealisticBiomeEBColdPineForest(ebBiome, BiomeConfigEB.biomeConfigEBColdPineForest);
                             BiomeBase.addBiome(ebColdPineForest);
                             BiomeBase.addVillageBiome(ebColdPineForest);
@@ -323,7 +324,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
                     }
                     else if (biomeName == "Creek Bed" && biomeClass == "enhancedbiomes.world.biome.wasteland.sandstone.BiomeGenCreekBed")
                     {
-                        if (ConfigEB.generateEBBiomes && ebCreekBed.config._boolean("biomeEnabled")) {
+                        if (ConfigEB.generateEBBiomes && ebCreekBed.config._boolean(BiomeConfig.enableBiomeId)) {
                             ebCreekBed = new RealisticBiomeEBCreekBed(ebBiome, BiomeConfigEB.biomeConfigEBCreekBed);
                             BiomeBase.addBiome(ebCreekBed);
                             BiomeBase.addVillageBiome(ebCreekBed);
@@ -333,7 +334,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebCypressForest = new RealisticBiomeEBCypressForest(ebBiome, BiomeConfigEB.biomeConfigEBCypressForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebCypressForest);
 							BiomeBase.addVillageBiome(ebCypressForest);
 						}
@@ -342,7 +343,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebDesertArchipelago = new RealisticBiomeEBDesertArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBDesertArchipelago);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebDesertArchipelago);
 							BiomeBase.addVillageBiome(ebDesertArchipelago);
 						}
@@ -351,7 +352,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebEphemeralLake = new RealisticBiomeEBEphemeralLake(ebBiome, BiomeConfigEB.biomeConfigEBEphemeralLake);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebEphemeralLake);
 							BiomeBase.addVillageBiome(ebEphemeralLake);
 						}
@@ -360,7 +361,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebEphemeralLakeEdge = new RealisticBiomeEBEphemeralLakeEdge(ebBiome, BiomeConfigEB.biomeConfigEBEphemeralLakeEdge);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebEphemeralLakeEdge);
 							BiomeBase.addVillageBiome(ebEphemeralLakeEdge);
 						}
@@ -369,7 +370,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebFens = new RealisticBiomeEBFens(ebBiome, BiomeConfigEB.biomeConfigEBFens);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebFens);
 							BiomeBase.addVillageBiome(ebFens);
 						}
@@ -378,7 +379,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebFirForest = new RealisticBiomeEBFirForest(ebBiome, BiomeConfigEB.biomeConfigEBFirForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebFirForest);
 							BiomeBase.addVillageBiome(ebFirForest);
 						}
@@ -387,7 +388,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebFloweryArchipelago = new RealisticBiomeEBFloweryArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBFloweryArchipelago);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebFloweryArchipelago);
 							BiomeBase.addVillageBiome(ebFloweryArchipelago);
 						}
@@ -396,7 +397,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebForestedArchipelago = new RealisticBiomeEBForestedArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBForestedArchipelago);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebForestedArchipelago);
 							BiomeBase.addVillageBiome(ebForestedArchipelago);
 						}
@@ -405,7 +406,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebForestedMountains = new RealisticBiomeEBForestedMountains(ebBiome, BiomeConfigEB.biomeConfigEBForestedMountains);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebForestedMountains);
 							BiomeBase.addVillageBiome(ebForestedMountains);
 						}
@@ -414,7 +415,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebForestedValley = new RealisticBiomeEBForestedValley(ebBiome, BiomeConfigEB.biomeConfigEBForestedValley);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebForestedValley);
 							BiomeBase.addVillageBiome(ebForestedValley);
 						}
@@ -423,7 +424,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebFrozenArchipelago = new RealisticBiomeEBFrozenArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBFrozenArchipelago);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebFrozenArchipelago);
 							BiomeBase.addVillageBiome(ebFrozenArchipelago);
 						}
@@ -432,7 +433,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebGlacier = new RealisticBiomeEBGlacier(ebBiome, BiomeConfigEB.biomeConfigEBGlacier);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebGlacier);
 							BiomeBase.addVillageBiome(ebGlacier);
 						}
@@ -441,7 +442,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebGrassyArchipelago = new RealisticBiomeEBGrassyArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBGrassyArchipelago);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebGrassyArchipelago);
 							BiomeBase.addVillageBiome(ebGrassyArchipelago);
 						}
@@ -450,7 +451,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebIceSheet = new RealisticBiomeEBIceSheet(ebBiome, BiomeConfigEB.biomeConfigEBIceSheet);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebIceSheet);
 							BiomeBase.addVillageBiome(ebIceSheet);
 						}
@@ -459,7 +460,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebKakadu = new RealisticBiomeEBKakadu(ebBiome, BiomeConfigEB.biomeConfigEBKakadu);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebKakadu);
 							BiomeBase.addVillageBiome(ebKakadu);
 						}
@@ -468,7 +469,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebLake = new RealisticBiomeEBLake(ebBiome, BiomeConfigEB.biomeConfigEBLake);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebLake);
 							BiomeBase.addVillageBiome(ebLake);
 						}
@@ -477,7 +478,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebLowHills = new RealisticBiomeEBLowHills(ebBiome, BiomeConfigEB.biomeConfigEBLowHills);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebLowHills);
 							BiomeBase.addVillageBiome(ebLowHills);
 						}
@@ -486,7 +487,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebMangroves = new RealisticBiomeEBMangrove(ebBiome, BiomeConfigEB.biomeConfigEBMangroves);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebMangroves);
 							BiomeBase.addVillageBiome(ebMangroves);
 						}
@@ -495,7 +496,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebMarsh = new RealisticBiomeEBMarsh(ebBiome, BiomeConfigEB.biomeConfigEBMarsh);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebMarsh);
 							BiomeBase.addVillageBiome(ebMarsh);
 						}
@@ -504,7 +505,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebMeadow = new RealisticBiomeEBMeadow(ebBiome, BiomeConfigEB.biomeConfigEBMeadow);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebMeadow);
 							BiomeBase.addVillageBiome(ebMeadow);
 						}
@@ -513,7 +514,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebMeadowM = new RealisticBiomeEBMeadowM(ebBiome, BiomeConfigEB.biomeConfigEBMeadowM);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebMeadowM);
 							BiomeBase.addVillageBiome(ebMeadowM);
 						}
@@ -522,7 +523,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebMountainousArchipelago = new RealisticBiomeEBMountainousArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBMountainousArchipelago);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebMountainousArchipelago);
 							BiomeBase.addVillageBiome(ebMountainousArchipelago);
 						}
@@ -531,7 +532,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebMountains = new RealisticBiomeEBMountains(ebBiome, BiomeConfigEB.biomeConfigEBMountains);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebMountains);
 							BiomeBase.addVillageBiome(ebMountains);
 						}
@@ -540,7 +541,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebMountainsEdge = new RealisticBiomeEBMountainsEdge(ebBiome, BiomeConfigEB.biomeConfigEBMountainsEdge);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebMountainsEdge);
 							BiomeBase.addVillageBiome(ebMountainsEdge);
 						}
@@ -549,7 +550,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebOakForest = new RealisticBiomeEBOakForest(ebBiome, BiomeConfigEB.biomeConfigEBOakForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebOakForest);
 							BiomeBase.addVillageBiome(ebOakForest);
 						}
@@ -558,7 +559,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebOasis = new RealisticBiomeEBOasis(ebBiome, BiomeConfigEB.biomeConfigEBOasis);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebOasis);
 							BiomeBase.addVillageBiome(ebOasis);
 						}
@@ -567,7 +568,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebPineForest = new RealisticBiomeEBPineForest(ebBiome, BiomeConfigEB.biomeConfigEBPineForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebPineForest);
 							BiomeBase.addVillageBiome(ebPineForest);
 						}
@@ -576,7 +577,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebPineForestArchipelago = new RealisticBiomeEBPineForestArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBPineForestArchipelago);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebPineForestArchipelago);
 							BiomeBase.addVillageBiome(ebPineForestArchipelago);
 						}
@@ -585,14 +586,14 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebPlateau = new RealisticBiomeEBPlateau(ebBiome, BiomeConfigEB.biomeConfigEBPlateau);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebPlateau);
 							BiomeBase.addVillageBiome(ebPlateau);
 						}
 					}
 					else if (biomeName == "Polar Desert" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenPolarDesert")
 					{
-						if (ConfigEB.generateEBBiomes && ebPolarDesert.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebPolarDesert.config._boolean(BiomeConfig.enableBiomeId)) {
 						    ebBiome.setEnableSnow();
 						    ebPolarDesert = new RealisticBiomeEBPolarDesert(ebBiome, BiomeConfigEB.biomeConfigEBPolarDesert);
 							BiomeBase.addBiome(ebPolarDesert);
@@ -603,7 +604,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebPrairie = new RealisticBiomeEBPrairie(ebBiome, BiomeConfigEB.biomeConfigEBPrairie);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebPrairie);
 							BiomeBase.addVillageBiome(ebPrairie);
 						}
@@ -612,7 +613,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebRainforest = new RealisticBiomeEBRainforest(ebBiome, BiomeConfigEB.biomeConfigEBRainforest);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebRainforest);
 							BiomeBase.addVillageBiome(ebRainforest);
 						}
@@ -621,14 +622,14 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebRainforestValley = new RealisticBiomeEBRainforestValley(ebBiome, BiomeConfigEB.biomeConfigEBRainforestValley);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebRainforestValley);
 							BiomeBase.addVillageBiome(ebRainforestValley);
 						}
 					}
                     else if (biomeName == "Red Desert" && biomeClass == "enhancedbiomes.world.biome.sand.BiomeGenRedDesert")
                     {
-                        if (ConfigEB.generateEBBiomes && ebRedDesert.config._boolean("biomeEnabled")) {
+                        if (ConfigEB.generateEBBiomes && ebRedDesert.config._boolean(BiomeConfig.enableBiomeId)) {
                             ebRedDesert = new RealisticBiomeEBRedDesert(ebBiome, BiomeConfigEB.biomeConfigEBRedDesert);
                             BiomeBase.addBiome(ebRedDesert);
                             BiomeBase.addVillageBiome(ebRedDesert);
@@ -636,7 +637,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
                     }
                     else if (biomeName == "Riparian Zone" && biomeClass == "enhancedbiomes.world.biome.base.BiomeGenRiparianZone")
                     {
-                        if (ConfigEB.generateEBBiomes && ebRiparianZone.config._boolean("biomeEnabled")) {
+                        if (ConfigEB.generateEBBiomes && ebRiparianZone.config._boolean(BiomeConfig.enableBiomeId)) {
                             ebRiparianZone = new RealisticBiomeEBRiparianZone(ebBiome, BiomeConfigEB.biomeConfigEBRiparianZone);
                             BiomeBase.addBiome(ebRiparianZone);
                             BiomeBase.addVillageBiome(ebRiparianZone);
@@ -646,7 +647,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebRockyDesert = new RealisticBiomeEBRockyDesert(ebBiome, BiomeConfigEB.biomeConfigEBRockyDesert);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebRockyDesert);
 							BiomeBase.addVillageBiome(ebRockyDesert);
 						}
@@ -655,7 +656,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebRockyHills = new RealisticBiomeEBRockyHills(ebBiome, BiomeConfigEB.biomeConfigEBRockyHills);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebRockyHills);
 							BiomeBase.addVillageBiome(ebRockyHills);
 						}
@@ -664,7 +665,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebRoofedShrublands = new RealisticBiomeEBRoofedShrublands(ebBiome, BiomeConfigEB.biomeConfigEBRoofedShrublands);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebRoofedShrublands);
 							BiomeBase.addVillageBiome(ebRoofedShrublands);
 						}
@@ -673,7 +674,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebSahara = new RealisticBiomeEBSahara(ebBiome, BiomeConfigEB.biomeConfigEBSahara);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebSahara);
 							BiomeBase.addVillageBiome(ebSahara);
 						}
@@ -682,7 +683,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebSandstoneCanyon = new RealisticBiomeEBSandstoneCanyon(ebBiome, BiomeConfigEB.biomeConfigEBSandstoneCanyon);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebSandstoneCanyon);
 							BiomeBase.addVillageBiome(ebSandstoneCanyon);
 						}
@@ -691,7 +692,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebSandstoneCanyons = new RealisticBiomeEBSandstoneCanyon2(ebBiome, BiomeConfigEB.biomeConfigEBSandstoneCanyon2);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebSandstoneCanyons);
 							BiomeBase.addVillageBiome(ebSandstoneCanyons);
 						}
@@ -700,7 +701,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebSandstoneRanges = new RealisticBiomeEBSandstoneRanges(ebBiome, BiomeConfigEB.biomeConfigEBSandstoneRanges);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebSandstoneRanges);
 							BiomeBase.addVillageBiome(ebSandstoneRanges);
 						}
@@ -709,7 +710,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebSandstoneRangesM = new RealisticBiomeEBSandstoneRangesM(ebBiome, BiomeConfigEB.biomeConfigEBSandstoneRangesM);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebSandstoneRangesM);
 							BiomeBase.addVillageBiome(ebSandstoneRangesM);
 						}
@@ -718,7 +719,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebScree = new RealisticBiomeEBScree(ebBiome, BiomeConfigEB.biomeConfigEBScree);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebScree);
 							BiomeBase.addVillageBiome(ebScree);
 						}
@@ -727,7 +728,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebScrub = new RealisticBiomeEBScrub(ebBiome, BiomeConfigEB.biomeConfigEBScrub);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebScrub);
 							BiomeBase.addVillageBiome(ebScrub);
 						}
@@ -736,7 +737,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebShield = new RealisticBiomeEBShield(ebBiome, BiomeConfigEB.biomeConfigEBShield);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebShield);
 							BiomeBase.addVillageBiome(ebShield);
 						}
@@ -745,7 +746,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebShrublands = new RealisticBiomeEBShrublands(ebBiome, BiomeConfigEB.biomeConfigEBShrublands);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebShrublands);
 							BiomeBase.addVillageBiome(ebShrublands);
 						}
@@ -754,7 +755,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebSilverPineForest = new RealisticBiomeEBSilverPineForest(ebBiome, BiomeConfigEB.biomeConfigEBSilverPineForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebSilverPineForest);
 							BiomeBase.addVillageBiome(ebSilverPineForest);
 						}
@@ -763,7 +764,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebSilverPineHills = new RealisticBiomeEBSilverPineHills(ebBiome, BiomeConfigEB.biomeConfigEBSilverPineHills);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebSilverPineHills);
 							BiomeBase.addVillageBiome(ebSilverPineHills);
 						}
@@ -772,7 +773,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebSnowyDesert = new RealisticBiomeEBSnowyDesert(ebBiome, BiomeConfigEB.biomeConfigEBSnowyDesert);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebSnowyDesert);
 							BiomeBase.addVillageBiome(ebSnowyDesert);
 						}
@@ -781,7 +782,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebSnowyPlateau = new RealisticBiomeEBSnowyPlateau(ebBiome, BiomeConfigEB.biomeConfigEBSnowyPlateau);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebSnowyPlateau);
 							BiomeBase.addVillageBiome(ebSnowyPlateau);
 						}
@@ -790,7 +791,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebSnowyRanges = new RealisticBiomeEBSnowyRanges(ebBiome, BiomeConfigEB.biomeConfigEBSnowyRanges);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebSnowyRanges);
 							BiomeBase.addVillageBiome(ebSnowyRanges);
 						}
@@ -799,7 +800,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebSnowyWastelands = new RealisticBiomeEBSnowyWastelands(ebBiome, BiomeConfigEB.biomeConfigEBSnowyWastelands);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebSnowyWastelands);
 							BiomeBase.addVillageBiome(ebSnowyWastelands);
 						}
@@ -808,7 +809,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebSteppe = new RealisticBiomeEBSteppe(ebBiome, BiomeConfigEB.biomeConfigEBSteppe);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebSteppe);
 							BiomeBase.addVillageBiome(ebSteppe);
 						}
@@ -817,7 +818,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebStoneCanyon = new RealisticBiomeEBStoneCanyon(ebBiome, BiomeConfigEB.biomeConfigEBStoneCanyon);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebStoneCanyon);
 							BiomeBase.addVillageBiome(ebStoneCanyon);
 						}
@@ -826,7 +827,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebStoneCanyons = new RealisticBiomeEBStoneCanyon2(ebBiome, BiomeConfigEB.biomeConfigEBStoneCanyons);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebStoneCanyons);
 							BiomeBase.addVillageBiome(ebStoneCanyons);
 						}
@@ -835,7 +836,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebTropicalArchipelago = new RealisticBiomeEBTropicalArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBTropicalArchipelago);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebTropicalArchipelago);
 							BiomeBase.addVillageBiome(ebTropicalArchipelago);
 						}
@@ -844,7 +845,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebTundra = new RealisticBiomeEBTundra(ebBiome, BiomeConfigEB.biomeConfigEBTundra);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebTundra);
 							BiomeBase.addVillageBiome(ebTundra);
 						}
@@ -853,7 +854,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebVolcano = new RealisticBiomeEBVolcano(ebBiome, BiomeConfigEB.biomeConfigEBVolcano);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebVolcano);
 							BiomeBase.addVillageBiome(ebVolcano);
 						}
@@ -862,7 +863,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebVolcanoM = new RealisticBiomeEBVolcanoM(ebBiome, BiomeConfigEB.biomeConfigEBVolcanoM);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebVolcanoM);
 							BiomeBase.addVillageBiome(ebVolcanoM);
 						}
@@ -871,7 +872,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebWastelands = new RealisticBiomeEBWastelands(ebBiome, BiomeConfigEB.biomeConfigEBWastelands);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebWastelands);
 							BiomeBase.addVillageBiome(ebWastelands);
 						}
@@ -880,7 +881,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebWoodlandField = new RealisticBiomeEBWoodlandField(ebBiome, BiomeConfigEB.biomeConfigEBWoodlandField);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebWoodlandField);
 							BiomeBase.addVillageBiome(ebWoodlandField);
 						}
@@ -889,7 +890,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebWoodlandHills = new RealisticBiomeEBWoodlandHills(ebBiome, BiomeConfigEB.biomeConfigEBWoodlandHills);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebWoodlandHills);
 							BiomeBase.addVillageBiome(ebWoodlandHills);
 						}
@@ -898,7 +899,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebWoodlandLake = new RealisticBiomeEBWoodlandLake(ebBiome, BiomeConfigEB.biomeConfigEBWoodlandLake);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebWoodlandLake);
 							BiomeBase.addVillageBiome(ebWoodlandLake);
 						}
@@ -907,7 +908,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebWoodlandLakeEdge = new RealisticBiomeEBWoodlandLakeEdge(ebBiome, BiomeConfigEB.biomeConfigEBWoodlandLakeEdge);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebWoodlandLakeEdge);
 							BiomeBase.addVillageBiome(ebWoodlandLakeEdge);
 						}
@@ -916,7 +917,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebWoodlands = new RealisticBiomeEBWoodlands(ebBiome, BiomeConfigEB.biomeConfigEBWoodlands);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebWoodlands);
 							BiomeBase.addVillageBiome(ebWoodlands);
 						}
@@ -925,7 +926,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebXericSavannah = new RealisticBiomeEBXericSavanna(ebBiome, BiomeConfigEB.biomeConfigEBXericSavannah);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebXericSavannah);
 							BiomeBase.addVillageBiome(ebXericSavannah);
 						}
@@ -934,7 +935,7 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebXericShrubland = new RealisticBiomeEBXericShrubland(ebBiome, BiomeConfigEB.biomeConfigEBXericShrubland);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean("biomeEnabled")) {
+						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
 							BiomeBase.addBiome(ebXericShrubland);
 							BiomeBase.addVillageBiome(ebXericShrubland);
 						}

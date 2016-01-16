@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.atg;
 
 import org.apache.logging.log4j.Level;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.atg.config.BiomeConfigATG;
 import rtg.config.atg.ConfigATG;
 import rtg.world.biome.BiomeBase;
@@ -50,7 +51,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
 					{
 					    atgGravelBeach = new RealisticBiomeATGGravelBeach(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
 					    
-						if (ConfigATG.generateATGBiomes && atgGravelBeach.config._boolean("biomeEnabled")) {
+						if (ConfigATG.generateATGBiomes && atgGravelBeach.config._boolean(BiomeConfig.enableBiomeId)) {
 						    
 						    BiomeBase.addBiome(atgGravelBeach);
 						    BiomeBase.addVillageBiome(atgGravelBeach);
@@ -60,7 +61,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                     {
                         atgSnowyGravelBeach = new RealisticBiomeATGSnowyGravelBeach(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
                         
-                        if (ConfigATG.generateATGBiomes && atgSnowyGravelBeach.config._boolean("biomeEnabled")) {
+                        if (ConfigATG.generateATGBiomes && atgSnowyGravelBeach.config._boolean(BiomeConfig.enableBiomeId)) {
                             
                             BiomeBase.addBiome(atgSnowyGravelBeach);
                             BiomeBase.addVillageBiome(atgSnowyGravelBeach);
@@ -70,7 +71,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                     {
                         atgShrubland = new RealisticBiomeATGShrubland(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
                         
-                        if (ConfigATG.generateATGBiomes && atgShrubland.config._boolean("biomeEnabled")) {
+                        if (ConfigATG.generateATGBiomes && atgShrubland.config._boolean(BiomeConfig.enableBiomeId)) {
                             
                             BiomeBase.addBiome(atgShrubland);
                             BiomeBase.addVillageBiome(atgShrubland);
@@ -80,7 +81,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                     {
                         atgRockySteppe = new RealisticBiomeATGRockySteppe(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
                         
-                        if (ConfigATG.generateATGBiomes && atgRockySteppe.config._boolean("biomeEnabled")) {
+                        if (ConfigATG.generateATGBiomes && atgRockySteppe.config._boolean(BiomeConfig.enableBiomeId)) {
                             
                             BiomeBase.addBiome(atgRockySteppe);
                             BiomeBase.addVillageBiome(atgRockySteppe);
@@ -90,7 +91,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                     {
                         atgTropicalShrubland = new RealisticBiomeATGTropicalShrubland(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
                         
-                        if (ConfigATG.generateATGBiomes && atgTropicalShrubland.config._boolean("biomeEnabled")) {
+                        if (ConfigATG.generateATGBiomes && atgTropicalShrubland.config._boolean(BiomeConfig.enableBiomeId)) {
                             
                             BiomeBase.addBiome(atgTropicalShrubland);
                             BiomeBase.addVillageBiome(atgTropicalShrubland);
@@ -100,7 +101,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                     {
                         atgTundra = new RealisticBiomeATGTundra(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
                         
-                        if (ConfigATG.generateATGBiomes && atgTundra.config._boolean("biomeEnabled")) {
+                        if (ConfigATG.generateATGBiomes && atgTundra.config._boolean(BiomeConfig.enableBiomeId)) {
                             
                             BiomeBase.addBiome(atgTundra);
                             BiomeBase.addVillageBiome(atgTundra);
@@ -110,7 +111,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                     {
                         atgVolcano = new RealisticBiomeATGVolcano(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
                         
-                        if (ConfigATG.generateATGBiomes && atgVolcano.config._boolean("biomeEnabled")) {
+                        if (ConfigATG.generateATGBiomes && atgVolcano.config._boolean(BiomeConfig.enableBiomeId)) {
                             
                             BiomeBase.addBiome(atgVolcano);
                             BiomeBase.addVillageBiome(atgVolcano);
@@ -120,7 +121,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
                     {
                         atgWoodland = new RealisticBiomeATGWoodland(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
                         
-                        if (ConfigATG.generateATGBiomes && atgWoodland.config._boolean("biomeEnabled")) {
+                        if (ConfigATG.generateATGBiomes && atgWoodland.config._boolean(BiomeConfig.enableBiomeId)) {
                             
                             BiomeBase.addBiome(atgWoodland);
                             BiomeBase.addVillageBiome(atgWoodland);

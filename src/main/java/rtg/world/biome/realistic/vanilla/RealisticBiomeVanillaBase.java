@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanilla;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
@@ -85,70 +86,70 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 	{
 		if (ConfigVanilla.generateVanillaBiomes)
 		{
-			if (vanillaBeach.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaBeach); }
-			if (vanillaBirchForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaBirchForest); }
-			if (vanillaBirchForestHills.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaBirchForestHills); }
-			if (vanillaColdBeach.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaColdBeach); }
-			if (vanillaColdTaiga.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaColdTaiga); }
-			if (vanillaColdTaigaHills.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaColdTaigaHills); }
-			if (vanillaDeepOcean.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaDeepOcean); }
-			if (vanillaDesert.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaDesert); }
-			if (vanillaDesertHills.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaDesertHills); }
-			if (vanillaExtremeHills.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaExtremeHills); }
-			if (vanillaExtremeHillsEdge.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaExtremeHillsEdge); }
-			if (vanillaExtremeHillsPlus.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaExtremeHillsPlus); }
-			if (vanillaForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaForest); }
-			if (vanillaForestHills.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaForestHills); }
-			if (vanillaFrozenOcean.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaFrozenOcean); }
-			if (vanillaIcePlains.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaIcePlains); }
-			if (vanillaIceMountains.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaIceMountains); }
-			if (vanillaJungle.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaJungle); }
-			if (vanillaJungleEdge.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaJungleEdge); }
-			if (vanillaJungleHills.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaJungleHills); }
-			if (vanillaMegaTaiga.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaMegaTaiga); }
-			if (vanillaMegaTaigaHills.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaMegaTaigaHills); }
-			if (vanillaMesa.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaMesa); }
-			if (vanillaMesaPlateau.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaMesaPlateau); }
-			if (vanillaMesaPlateau_F.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaMesaPlateau_F); }
-			if (vanillaMushroomIsland.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaMushroomIsland); }
-			if (vanillaMushroomIslandShore.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaMushroomIslandShore); }
-			if (vanillaOcean.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaOcean); }
-			if (vanillaPlains.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaPlains); }
-			if (vanillaRoofedForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaRoofedForest); }
-			if (vanillaSavanna.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaSavanna); }
-			if (vanillaSavannaPlateau.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaSavannaPlateau); }
-			if (vanillaStoneBeach.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaStoneBeach); }
-			if (vanillaSwampland.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaSwampland); }
-			if (vanillaTaiga.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaTaiga); }
-			if (vanillaTaigaHills.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaTaigaHills); }
+			if (vanillaBeach.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaBeach); }
+			if (vanillaBirchForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaBirchForest); }
+			if (vanillaBirchForestHills.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaBirchForestHills); }
+			if (vanillaColdBeach.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaColdBeach); }
+			if (vanillaColdTaiga.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaColdTaiga); }
+			if (vanillaColdTaigaHills.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaColdTaigaHills); }
+			if (vanillaDeepOcean.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaDeepOcean); }
+			if (vanillaDesert.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaDesert); }
+			if (vanillaDesertHills.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaDesertHills); }
+			if (vanillaExtremeHills.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaExtremeHills); }
+			if (vanillaExtremeHillsEdge.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaExtremeHillsEdge); }
+			if (vanillaExtremeHillsPlus.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaExtremeHillsPlus); }
+			if (vanillaForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaForest); }
+			if (vanillaForestHills.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaForestHills); }
+			if (vanillaFrozenOcean.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaFrozenOcean); }
+			if (vanillaIcePlains.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaIcePlains); }
+			if (vanillaIceMountains.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaIceMountains); }
+			if (vanillaJungle.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaJungle); }
+			if (vanillaJungleEdge.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaJungleEdge); }
+			if (vanillaJungleHills.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaJungleHills); }
+			if (vanillaMegaTaiga.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaMegaTaiga); }
+			if (vanillaMegaTaigaHills.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaMegaTaigaHills); }
+			if (vanillaMesa.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaMesa); }
+			if (vanillaMesaPlateau.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaMesaPlateau); }
+			if (vanillaMesaPlateau_F.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaMesaPlateau_F); }
+			if (vanillaMushroomIsland.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaMushroomIsland); }
+			if (vanillaMushroomIslandShore.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaMushroomIslandShore); }
+			if (vanillaOcean.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaOcean); }
+			if (vanillaPlains.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaPlains); }
+			if (vanillaRoofedForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaRoofedForest); }
+			if (vanillaSavanna.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaSavanna); }
+			if (vanillaSavannaPlateau.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaSavannaPlateau); }
+			if (vanillaStoneBeach.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaStoneBeach); }
+			if (vanillaSwampland.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaSwampland); }
+			if (vanillaTaiga.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaTaiga); }
+			if (vanillaTaigaHills.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaTaigaHills); }
 
             /**
              * Rivers will automatically get generated, so we don't need to add them here.
              */
-            //if (vanillaRiver.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaRiver); }
-            //if (vanillaFrozenRiver.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaFrozenRiver); }
+            //if (vanillaRiver.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaRiver); }
+            //if (vanillaFrozenRiver.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaFrozenRiver); }
 			
-		    if (vanillaSunflowerPlains.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaSunflowerPlains); }
-		    if (vanillaDesertM.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaDesertM); }
-		    if (vanillaExtremeHillsM.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaExtremeHillsM); }
-		    if (vanillaFlowerForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaFlowerForest); }
-		    if (vanillaTaigaM.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaTaigaM); }
-		    if (vanillaSwamplandM.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaSwamplandM); }
-		    if (vanillaIcePlainsSpikes.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaIcePlainsSpikes); }
-		    if (vanillaJungleM.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaJungleM); }
-		    if (vanillaJungleEdgeM.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaJungleEdgeM); }
-		    if (vanillaBirchForestM.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaBirchForestM); }
-		    if (vanillaBirchForestHillsM.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaBirchForestHillsM); }
-		    if (vanillaRoofedForestM.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaRoofedForestM); }
-		    if (vanillaColdTaigaM.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaColdTaigaM); }
-		    if (vanillaMegaSpruceTaiga.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaMegaSpruceTaiga); }
-		    if (vanillaRedwoodTaigaHills.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaRedwoodTaigaHills); }
-		    if (vanillaExtremeHillsPlusM.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaExtremeHillsPlusM); }
-		    if (vanillaSavannaM.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaSavannaM); }
-		    if (vanillaSavannaPlateauM.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaSavannaPlateauM); }
-		    if (vanillaMesaBryce.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaMesaBryce); }
-		    if (vanillaMesaPlateauFM.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaMesaPlateauFM); }
-		    if (vanillaMesaPlateauM.config._boolean("biomeEnabled")) { BiomeBase.addBiome(vanillaMesaPlateauM); }
+		    if (vanillaSunflowerPlains.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaSunflowerPlains); }
+		    if (vanillaDesertM.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaDesertM); }
+		    if (vanillaExtremeHillsM.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaExtremeHillsM); }
+		    if (vanillaFlowerForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaFlowerForest); }
+		    if (vanillaTaigaM.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaTaigaM); }
+		    if (vanillaSwamplandM.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaSwamplandM); }
+		    if (vanillaIcePlainsSpikes.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaIcePlainsSpikes); }
+		    if (vanillaJungleM.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaJungleM); }
+		    if (vanillaJungleEdgeM.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaJungleEdgeM); }
+		    if (vanillaBirchForestM.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaBirchForestM); }
+		    if (vanillaBirchForestHillsM.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaBirchForestHillsM); }
+		    if (vanillaRoofedForestM.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaRoofedForestM); }
+		    if (vanillaColdTaigaM.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaColdTaigaM); }
+		    if (vanillaMegaSpruceTaiga.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaMegaSpruceTaiga); }
+		    if (vanillaRedwoodTaigaHills.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaRedwoodTaigaHills); }
+		    if (vanillaExtremeHillsPlusM.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaExtremeHillsPlusM); }
+		    if (vanillaSavannaM.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaSavannaM); }
+		    if (vanillaSavannaPlateauM.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaSavannaPlateauM); }
+		    if (vanillaMesaBryce.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaMesaBryce); }
+		    if (vanillaMesaPlateauFM.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaMesaPlateauFM); }
+		    if (vanillaMesaPlateauM.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(vanillaMesaPlateauM); }
 		    
 		    
             if (ConfigVanilla.villageVanillaBeach) { BiomeBase.addVillageBiome(vanillaBeach); }

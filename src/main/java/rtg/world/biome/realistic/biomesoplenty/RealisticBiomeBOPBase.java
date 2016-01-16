@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOP;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
@@ -233,96 +234,96 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			bopKelpForest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPKelpForest);
 			
 			//Overworld Biomes
-			if (bopAlps.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopAlps); }
-			if (bopArctic.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopArctic); }
-			if (bopBambooForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopBambooForest); }
-			if (bopBayou.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopBayou); }
-			if (bopBog.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopBog); }
-			if (bopBorealForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopBorealForest); }
-			if (bopBrushland.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopBrushland); }
-			if (bopCanyon.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopCanyon); }
-			if (bopChaparral.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopChaparral); }
-			if (bopCherryBlossomGrove.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopCherryBlossomGrove); }
-			if (bopConiferousForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopConiferousForest); }
-			if (bopCrag.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopCrag); }
-			if (bopDeadForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopDeadForest); }
-			if (bopDeadSwamp.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopDeadSwamp); }
-			if (bopDeciduousForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopDeciduousForest); }
+			if (bopAlps.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopAlps); }
+			if (bopArctic.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopArctic); }
+			if (bopBambooForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopBambooForest); }
+			if (bopBayou.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopBayou); }
+			if (bopBog.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopBog); }
+			if (bopBorealForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopBorealForest); }
+			if (bopBrushland.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopBrushland); }
+			if (bopCanyon.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopCanyon); }
+			if (bopChaparral.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopChaparral); }
+			if (bopCherryBlossomGrove.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopCherryBlossomGrove); }
+			if (bopConiferousForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopConiferousForest); }
+			if (bopCrag.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopCrag); }
+			if (bopDeadForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopDeadForest); }
+			if (bopDeadSwamp.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopDeadSwamp); }
+			if (bopDeciduousForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopDeciduousForest); }
 			
             /**
              * Enabling either of these river biomes causes a crash on startup for some reason... disabling for now. - Pink
              */
-			//if (bopDryRiver.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopDryRiver); }
-			//if (bopLushRiver.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopLushRiver); }
+			//if (bopDryRiver.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopDryRiver); }
+			//if (bopLushRiver.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopLushRiver); }
 			
-			if (bopFen.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopFen); }
-			if (bopFlowerField.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopFlowerField); }
-			if (bopFrostForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopFrostForest); }
-			if (bopFungiForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopFungiForest); }
-			if (bopGarden.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopGarden); }
-			if (bopGrassland.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopGrassland); }
-			if (bopGrove.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopGrove); }
-			if (bopHeathland.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopHeathland); }
-			if (bopHighland.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopHighland); }
-			if (bopJadeCliffs.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopJadeCliffs); }
-			if (bopLavenderFields.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopLavenderFields); }
-			if (bopLushDesert.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopLushDesert); }
-			if (bopLushSwamp.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopLushSwamp); }
-			if (bopMapleWoods.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopMapleWoods); }
-			if (bopMarsh.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopMarsh); }
-			if (bopMeadow.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopMeadow); }
-			if (bopMoor.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopMoor); }
-			if (bopMountain.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopMountain); }
-			if (bopMysticGrove.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopMysticGrove); }
-			if (bopOminousWoods.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopOminousWoods); }
-			if (bopOriginValley.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopOriginValley); }
-			if (bopOutback.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopOutback); }
-			if (bopPrairie.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopPrairie); }
-			if (bopRainforest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopRainforest); }
-			if (bopRedwoodForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopRedwoodForest); }
-			if (bopSacredSprings.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopSacredSprings); }
-			if (bopSeasonalForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopSeasonalForest); }
-			if (bopShield.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopShield); }
-			if (bopShrubland.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopShrubland); }
-			if (bopSludgepit.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopSludgepit); }
-			if (bopSnowyConiferousForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopSnowyConiferousForest); }
-			if (bopSteppe.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopSteppe); }
-			if (bopTemperateRainforest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopTemperateRainforest); }
-			if (bopThicket.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopThicket); }
-			if (bopTropicalRainforest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopTropicalRainforest); }
-			if (bopTundra.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopTundra); }
-			if (bopWasteland.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopWasteland); }
-			if (bopWetland.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopWetland); }
-			if (bopWoodland.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopWoodland); }
+			if (bopFen.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopFen); }
+			if (bopFlowerField.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopFlowerField); }
+			if (bopFrostForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopFrostForest); }
+			if (bopFungiForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopFungiForest); }
+			if (bopGarden.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopGarden); }
+			if (bopGrassland.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopGrassland); }
+			if (bopGrove.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopGrove); }
+			if (bopHeathland.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopHeathland); }
+			if (bopHighland.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopHighland); }
+			if (bopJadeCliffs.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopJadeCliffs); }
+			if (bopLavenderFields.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopLavenderFields); }
+			if (bopLushDesert.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopLushDesert); }
+			if (bopLushSwamp.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopLushSwamp); }
+			if (bopMapleWoods.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopMapleWoods); }
+			if (bopMarsh.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopMarsh); }
+			if (bopMeadow.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopMeadow); }
+			if (bopMoor.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopMoor); }
+			if (bopMountain.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopMountain); }
+			if (bopMysticGrove.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopMysticGrove); }
+			if (bopOminousWoods.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopOminousWoods); }
+			if (bopOriginValley.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopOriginValley); }
+			if (bopOutback.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopOutback); }
+			if (bopPrairie.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopPrairie); }
+			if (bopRainforest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopRainforest); }
+			if (bopRedwoodForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopRedwoodForest); }
+			if (bopSacredSprings.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopSacredSprings); }
+			if (bopSeasonalForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopSeasonalForest); }
+			if (bopShield.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopShield); }
+			if (bopShrubland.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopShrubland); }
+			if (bopSludgepit.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopSludgepit); }
+			if (bopSnowyConiferousForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopSnowyConiferousForest); }
+			if (bopSteppe.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopSteppe); }
+			if (bopTemperateRainforest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopTemperateRainforest); }
+			if (bopThicket.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopThicket); }
+			if (bopTropicalRainforest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopTropicalRainforest); }
+			if (bopTundra.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopTundra); }
+			if (bopWasteland.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopWasteland); }
+			if (bopWetland.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopWetland); }
+			if (bopWoodland.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopWoodland); }
 
             if (!olderBoP) {
-                if (bopDenseForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopDenseForest); }
-                if (bopEucalyptusForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopEucalyptusForest); }
-                if (bopLandOfLakesMarsh.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopLandOfLakesMarsh); }
-                if (bopLandOfLakes.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopLandOfLakes); }
-			    if (bopSeasonalForestClearing.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopSeasonalForestClearing); }
-                if (bopXericShrubland.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopXericShrubland); }
+                if (bopDenseForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopDenseForest); }
+                if (bopEucalyptusForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopEucalyptusForest); }
+                if (bopLandOfLakesMarsh.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopLandOfLakesMarsh); }
+                if (bopLandOfLakes.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopLandOfLakes); }
+			    if (bopSeasonalForestClearing.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopSeasonalForestClearing); }
+                if (bopXericShrubland.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopXericShrubland); }
             }
 
 			
 			//Sub Biomes
-			if (bopAlpsForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopAlpsForest); }
-			if (bopCanyonRavine.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopCanyonRavine); }
-			if (bopGlacier.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopGlacier); }
-			if (bopMangrove.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopMangrove); }
-			if (bopMeadowForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopMeadowForest); }
-			if (bopOasis.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopOasis); }
-			if (bopOrchard.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopOrchard); }
-			if (bopQuagmire.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopQuagmire); }
-			if (bopScrubland.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopScrubland); }
-			if (bopSilkglades.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopSilkglades); }
-			if (bopSpruceWoods.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopSpruceWoods); }
-			if (bopTropics.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopTropics); }
-			if (bopVolcano.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopVolcano); }
+			if (bopAlpsForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopAlpsForest); }
+			if (bopCanyonRavine.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopCanyonRavine); }
+			if (bopGlacier.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopGlacier); }
+			if (bopMangrove.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopMangrove); }
+			if (bopMeadowForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopMeadowForest); }
+			if (bopOasis.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopOasis); }
+			if (bopOrchard.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopOrchard); }
+			if (bopQuagmire.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopQuagmire); }
+			if (bopScrubland.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopScrubland); }
+			if (bopSilkglades.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopSilkglades); }
+			if (bopSpruceWoods.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopSpruceWoods); }
+			if (bopTropics.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopTropics); }
+			if (bopVolcano.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopVolcano); }
 			
 			//Ocean Biomes
-			if (bopCoralReef.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopCoralReef); }
-			if (bopKelpForest.config._boolean("biomeEnabled")) { BiomeBase.addBiome(bopKelpForest); }
+			if (bopCoralReef.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopCoralReef); }
+			if (bopKelpForest.config._boolean(BiomeConfig.enableBiomeId)) { BiomeBase.addBiome(bopKelpForest); }
 			
 			
             //Overworld Biomes

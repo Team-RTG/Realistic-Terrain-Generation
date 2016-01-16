@@ -14,10 +14,13 @@ public class BiomeConfig {
     
     public static final String enableBiomeId = "biomeEnabled";
     public static final String enableBiomeName = "Biome Enabled";
+    
     public static final String weightId = "weight";
-    public static final String weightName = "Weight";
+    public static final String weightName = "Biome Weight";
+    
     public static final String allowVillagesId = "allowVillages";
     public static final String allowVillagesName = "Allow Villages";
+    
     public static final String enableRTGDecorationsId = "enableRTGDecorations";
     public static final String enableRTGDecorationsName = "Use RTG Decorations";
     

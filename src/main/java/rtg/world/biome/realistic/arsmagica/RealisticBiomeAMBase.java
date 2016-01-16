@@ -26,7 +26,7 @@ public class RealisticBiomeAMBase extends RealisticBiomeBase
     public static void addBiomes()
     {
     
-        if (Loader.isModLoaded("arsmagica2") && ConfigAM.generateAMBiomes)
+        if (Loader.isModLoaded("arsmagica2"))
         {
             BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
             
@@ -40,10 +40,10 @@ public class RealisticBiomeAMBase extends RealisticBiomeBase
                     
                     if (biomeName == "WitchwoodForest" && biomeClass == "am2.worldgen.BiomeWitchwoodForest")
                     {
-                        if (ConfigAM.generateAMWitchwoodForest) {
-                            
-                            amWitchwoodForest = new RealisticBiomeAMWitchwoodForest(amBiome, BiomeConfigAM.biomeConfigAMWitchwoodForest);
-                            
+                        amWitchwoodForest = new RealisticBiomeAMWitchwoodForest(amBiome, BiomeConfigAM.biomeConfigAMWitchwoodForest);
+                        
+                        if (ConfigAM.generateAMBiomes && amWitchwoodForest.config._boolean("biomeEnabled")) {
+
                             BiomeBase.addBiome(amWitchwoodForest);
                             BiomeBase.addVillageBiome(amWitchwoodForest);
                         }

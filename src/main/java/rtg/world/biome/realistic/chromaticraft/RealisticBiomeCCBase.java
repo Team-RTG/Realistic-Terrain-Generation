@@ -25,7 +25,7 @@ public class RealisticBiomeCCBase extends RealisticBiomeBase
 	
 	public static void addBiomes()
 	{
-		if (Loader.isModLoaded("ChromatiCraft") && ConfigCC.generateCCBiomes)
+		if (Loader.isModLoaded("ChromatiCraft"))
 		{
 			BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
 			
@@ -39,9 +39,9 @@ public class RealisticBiomeCCBase extends RealisticBiomeBase
 					
 					if (biomeName == "Ender Forest" && biomeClass == "Reika.ChromatiCraft.World.BiomeEnderForest")
 					{
-						if (ConfigCC.generateCCEnderForest) {
-						    
-						    ccEnderForest = new RealisticBiomeCCEnderForest(ccBiome, BiomeConfigCC.biomeConfigCCEnderForest);
+					    ccEnderForest = new RealisticBiomeCCEnderForest(ccBiome, BiomeConfigCC.biomeConfigCCEnderForest);
+					    
+						if (ConfigCC.generateCCBiomes && ccEnderForest.config._boolean("biomeEnabled")) {
 						    
 						    BiomeBase.addBiome(ccEnderForest);
 						    BiomeBase.addVillageBiome(ccEnderForest);
@@ -49,9 +49,9 @@ public class RealisticBiomeCCBase extends RealisticBiomeBase
 					}
 					else if (biomeName == "Rainbow Forest" && biomeClass == "Reika.ChromatiCraft.World.BiomeRainbowForest")
 					{
-						if (ConfigCC.generateCCRainbowForest) {
-						    
-						    ccRainbowForest = new RealisticBiomeCCRainbowForest(ccBiome, BiomeConfigCC.biomeConfigCCRainbowForest);
+					    ccRainbowForest = new RealisticBiomeCCRainbowForest(ccBiome, BiomeConfigCC.biomeConfigCCRainbowForest);
+					    
+						if (ConfigCC.generateCCBiomes && ccRainbowForest.config._boolean("biomeEnabled")) {
 						    
 						    BiomeBase.addBiome(ccRainbowForest);
 						    BiomeBase.addVillageBiome(ccRainbowForest);

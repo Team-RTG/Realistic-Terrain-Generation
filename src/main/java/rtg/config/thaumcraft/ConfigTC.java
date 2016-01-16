@@ -21,10 +21,6 @@ public class ConfigTC
     public static final int biomeWeightDefault = BiomeBase.DEFAULT_BIOME_WEIGHT;
 	
 	public static boolean generateTCBiomes = true;
-			
-	public static boolean generateTCTaintedLand = true;
-	public static boolean generateTCMagicalForest = true;
-    public static boolean generateTCEerie = true;
 	
 	public static int weightTCTaintedLand = (int)Math.floor((double)(biomeWeightDefault * 0.5));
 	public static int weightTCMagicalForest = (int)Math.floor((double)(biomeWeightDefault * 1.5));
@@ -43,11 +39,7 @@ public class ConfigTC
 			config.load();
 			
 			generateTCBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", true, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
-			
-			generateTCTaintedLand = config.getBoolean(formatConfig("generateTCTaintedLand"), "Biomes", generateTCTaintedLand, "");
-			generateTCMagicalForest = config.getBoolean(formatConfig("generateTCMagicalForest"), "Biomes", generateTCMagicalForest, "");
-			generateTCEerie = config.getBoolean(formatConfig("generateTCEerie"), "Biomes", generateTCEerie, "");
-			
+
 			weightTCTaintedLand = config.getInt(formatConfig("weightTCTaintedLand"), "Weights", weightTCTaintedLand, biomeWeightMin, biomeWeightMax, "");
 			weightTCMagicalForest = config.getInt(formatConfig("weightTCMagicalForest"), "Weights", weightTCMagicalForest, biomeWeightMin, biomeWeightMax, "");
 			weightTCEerie = config.getInt(formatConfig("weightTCEerie"), "Weights", weightTCEerie, biomeWeightMin, biomeWeightMax, "");

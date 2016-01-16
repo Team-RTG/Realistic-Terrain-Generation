@@ -68,7 +68,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 		    //AUTUMNWOODS
-			if(BiomeManager.autumnwoods.isPresent() && ConfigEBXL.generateEBXLAutumnWoods) {
+			if(BiomeManager.autumnwoods.isPresent()) {
 			    
 				ebxl_autumnwoods = new RealisticBiomeEBXLAutumnWoods(BiomeConfigEBXL.biomeConfigEBXLAutumnWoods);
 
@@ -80,7 +80,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 			//BIRCHFOREST
-			if(BiomeManager.birchforest.isPresent() && ConfigEBXL.generateEBXLBirchForest) {
+			if(BiomeManager.birchforest.isPresent()) {
 			    
 				ebxl_birchforest = new RealisticBiomeEBXLBirchForest(BiomeConfigEBXL.biomeConfigEBXLBirchForest);
                 
@@ -92,7 +92,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 		    //EXTREME JUNGLE
-			if(BiomeManager.extremejungle.isPresent() && ConfigEBXL.generateEBXLExtremeJungle) {
+			if(BiomeManager.extremejungle.isPresent()) {
 			    
 				ebxl_extremejungle = new RealisticBiomeEBXLExtremeJungle(BiomeConfigEBXL.biomeConfigEBXLExtremeJungle);
                 
@@ -104,7 +104,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 		    //FORESTED HILLS
-			if(BiomeManager.forestedhills.isPresent() && ConfigEBXL.generateEBXLForestedHills) {
+			if(BiomeManager.forestedhills.isPresent()) {
 			    
 				ebxl_forestedhills = new RealisticBiomeEBXLForestedHills(BiomeConfigEBXL.biomeConfigEBXLForestedHills);
                 
@@ -116,7 +116,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 			//FORESTED ISLAND
-			if(BiomeManager.forestedisland.isPresent() && ConfigEBXL.generateEBXLForestedIsland) {
+			if(BiomeManager.forestedisland.isPresent()) {
 			    
 				ebxl_forestedisland = new RealisticBiomeEBXLForestedIsland(BiomeConfigEBXL.biomeConfigEBXLForestedIsland);
                 
@@ -128,7 +128,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 
 			//GLACIER
-			if(BiomeManager.glacier.isPresent() && ConfigEBXL.generateEBXLGlacier) {
+			if(BiomeManager.glacier.isPresent()) {
 			    
 				ebxl_glacier = new RealisticBiomeEBXLGlacier(BiomeConfigEBXL.biomeConfigEBXLGlacier);
                 
@@ -140,7 +140,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 			//GREENHILLS
-			if(BiomeManager.greenhills.isPresent() && ConfigEBXL.generateEBXLGreenHills) {
+			if(BiomeManager.greenhills.isPresent()) {
 			    
 				ebxl_greenhills = new RealisticBiomeEBXLGreenHills(BiomeConfigEBXL.biomeConfigEBXLGreenHills);
 
@@ -152,7 +152,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 			//GREENSWAMP
-			if(BiomeManager.greenswamp.isPresent() && ConfigEBXL.generateEBXLGreenSwamp) {
+			if(BiomeManager.greenswamp.isPresent()) {
 			    
 				ebxl_greenswamp = new RealisticBiomeEBXLGreenSwamp(BiomeConfigEBXL.biomeConfigEBXLGreenSwamp);
 
@@ -164,7 +164,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 		    //ICEWASTELAND
-			if(BiomeManager.icewasteland.isPresent() && ConfigEBXL.generateEBXLIceWasteland) {
+			if(BiomeManager.icewasteland.isPresent()) {
 			    
 				ebxl_icewasteland = new RealisticBiomeEBXLIceWasteland(BiomeConfigEBXL.biomeConfigEBXLIceWasteland);
                 
@@ -176,7 +176,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 		    //MARSH
-			if(BiomeManager.marsh.isPresent() && ConfigEBXL.generateEBXLMarsh) {
+			if(BiomeManager.marsh.isPresent()) {
 			    
 				ebxl_marsh = new RealisticBiomeEBXLMarsh(BiomeConfigEBXL.biomeConfigEBXLMarsh);
                 
@@ -188,7 +188,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 		    //MEADOW
-			if(BiomeManager.meadow.isPresent() && ConfigEBXL.generateEBXLMeadow) {
+			if(BiomeManager.meadow.isPresent()) {
 			    
 				ebxl_meadow = new RealisticBiomeEBXLMeadow(BiomeConfigEBXL.biomeConfigEBXLMeadow);
                 
@@ -200,7 +200,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 			//MINI JUNGLE
-			if(BiomeManager.minijungle.isPresent() && ConfigEBXL.generateEBXLMiniJungle) {
+			if(BiomeManager.minijungle.isPresent()) {
 			    
 				ebxl_minijungle = new RealisticBiomeEBXLMiniJungle(BiomeConfigEBXL.biomeConfigEBXLMiniJungle);
                 
@@ -212,7 +212,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 		    //MOUNTAIN DESERT
-			if(BiomeManager.mountaindesert.isPresent() && ConfigEBXL.generateEBXLMountainDesert) {
+			if(BiomeManager.mountaindesert.isPresent()) {
 			    
 				ebxl_mountaindesert = new RealisticBiomeEBXLMountainDesert(BiomeConfigEBXL.biomeConfigEBXLMountainDesert);
                 
@@ -224,7 +224,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 			//MOUNTAIN RIDGE
-			if(BiomeManager.mountainridge.isPresent() && ConfigEBXL.generateEBXLMountainRidge) {
+			if(BiomeManager.mountainridge.isPresent()) {
 			    
 				ebxl_mountainridge = new RealisticBiomeEBXLMountainRidge(BiomeConfigEBXL.biomeConfigEBXLMountainRidge);
 
@@ -236,7 +236,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 		    //MOUNTAIN TAIGA
-			if(BiomeManager.mountaintaiga.isPresent() && ConfigEBXL.generateEBXLMountainTaiga) {
+			if(BiomeManager.mountaintaiga.isPresent()) {
 			    
 				ebxl_mountaintaiga = new RealisticBiomeEBXLMountainTaiga(BiomeConfigEBXL.biomeConfigEBXLMountainTaiga);
                 
@@ -248,7 +248,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 		    //PINE FOREST
-			if(BiomeManager.pineforest.isPresent() && ConfigEBXL.generateEBXLPineForest) {
+			if(BiomeManager.pineforest.isPresent()) {
 			    
 				ebxl_pineforest = new RealisticBiomeEBXLPineForest(BiomeConfigEBXL.biomeConfigEBXLPineForest);
                 
@@ -260,7 +260,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 		    //RAINFOREST
-			if(BiomeManager.rainforest.isPresent() && ConfigEBXL.generateEBXLRainforest) {
+			if(BiomeManager.rainforest.isPresent()) {
 			    
 				ebxl_rainforest = new RealisticBiomeEBXLRainforest(BiomeConfigEBXL.biomeConfigEBXLRainforest);
                 
@@ -272,7 +272,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 			//REDWOOD FOREST
-			if(BiomeManager.redwoodforest.isPresent() && ConfigEBXL.generateEBXLRedwoodForest) {
+			if(BiomeManager.redwoodforest.isPresent()) {
 			    
 				ebxl_redwoodforest = new RealisticBiomeEBXLRedwoodForest(BiomeConfigEBXL.biomeConfigEBXLRedwoodForest);
                 
@@ -284,7 +284,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 		    //REDWOOD LUSH
-			if(BiomeManager.redwoodlush.isPresent() && ConfigEBXL.generateEBXLRedwoodLush) {
+			if(BiomeManager.redwoodlush.isPresent()) {
 			    
 				ebxl_redwoodlush = new RealisticBiomeEBXLRedwoodLush(BiomeConfigEBXL.biomeConfigEBXLRedwoodLush);
                 
@@ -296,7 +296,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 		    //SAVANNA
-			if(BiomeManager.savanna.isPresent() && ConfigEBXL.generateEBXLSavanna) {
+			if(BiomeManager.savanna.isPresent()) {
 			    
 				ebxl_savanna = new RealisticBiomeEBXLSavanna(BiomeConfigEBXL.biomeConfigEBXLSavanna);
                 
@@ -308,7 +308,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 			//SHRUBLAND
-			if(BiomeManager.shrubland.isPresent() && ConfigEBXL.generateEBXLShrubland) {
+			if(BiomeManager.shrubland.isPresent()) {
 			    
 				ebxl_shrubland = new RealisticBiomeEBXLShrubland(BiomeConfigEBXL.biomeConfigEBXLShrubland);
                 
@@ -320,7 +320,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 			//SNOW FOREST
-			if(BiomeManager.snowforest.isPresent() && ConfigEBXL.generateEBXLSnowForest) {
+			if(BiomeManager.snowforest.isPresent()) {
 			    
 				ebxl_snowforest = new RealisticBiomeEBXLSnowForest(BiomeConfigEBXL.biomeConfigEBXLSnowForest);
                 
@@ -332,7 +332,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 		    //SNOWY RAIN FOREST
-			if(BiomeManager.snowyrainforest.isPresent() && ConfigEBXL.generateEBXLSnowyRainforest) {
+			if(BiomeManager.snowyrainforest.isPresent()) {
 			    
 				ebxl_snowyrainforest = new RealisticBiomeEBXLSnowyRainforest(BiomeConfigEBXL.biomeConfigEBXLSnowyRainforest);
                 
@@ -344,7 +344,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 		    //TEMPERATE RAINFOREST
-			if(BiomeManager.temperaterainforest.isPresent() && ConfigEBXL.generateEBXLTemperateRainforest) {
+			if(BiomeManager.temperaterainforest.isPresent()) {
 			    
 				ebxl_temperaterainforest = new RealisticBiomeEBXLTemperateRainforest(BiomeConfigEBXL.biomeConfigEBXLTemperateRainforest);
                 
@@ -356,7 +356,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 		    //TUNDRA
-			if(BiomeManager.tundra.isPresent() && ConfigEBXL.generateEBXLTundra) {
+			if(BiomeManager.tundra.isPresent()) {
 			    
 				ebxl_tundra = new RealisticBiomeEBXLTundra(BiomeConfigEBXL.biomeConfigEBXLTundra);
                 
@@ -368,7 +368,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 			//WASTELAND
-			if(BiomeManager.wasteland.isPresent() && ConfigEBXL.generateEBXLWasteland) {
+			if(BiomeManager.wasteland.isPresent()) {
 			    
 				ebxl_wasteland = new RealisticBiomeEBXLWasteland(BiomeConfigEBXL.biomeConfigEBXLWasteland);
                 
@@ -380,7 +380,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			}
 			
 			//WOODLANDS
-			if(BiomeManager.woodlands.isPresent() && ConfigEBXL.generateEBXLWoodlands) {
+			if(BiomeManager.woodlands.isPresent()) {
 			    
 				ebxl_woodlands = new RealisticBiomeEBXLWoodlands(BiomeConfigEBXL.biomeConfigEBXLWoodlands);
                 

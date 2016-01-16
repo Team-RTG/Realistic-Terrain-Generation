@@ -21,15 +21,6 @@ public class ConfigATG
     public static final int biomeWeightDefault = BiomeBase.DEFAULT_BIOME_WEIGHT;
 	
 	public static boolean generateATGBiomes = true;
-			
-    public static boolean generateATGGravelBeach = true;
-    public static boolean generateATGSnowyGravelBeach = true;
-    public static boolean generateATGShrubland = true;
-    public static boolean generateATGRockySteppe = true;
-    public static boolean generateATGTropicalShrubland = true;
-    public static boolean generateATGTundra = true;
-    public static boolean generateATGVolcano = true;
-    public static boolean generateATGWoodland = true;
 	
     public static int weightATGGravelBeach = (int)Math.floor((double)(biomeWeightDefault * 0.5));
     public static int weightATGSnowyGravelBeach = (int)Math.floor((double)(biomeWeightDefault * 0.5));
@@ -58,16 +49,7 @@ public class ConfigATG
 			config.load();
 			
 			generateATGBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", generateATGBiomes, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
-			
-            generateATGGravelBeach = config.getBoolean(formatConfig("generateATGGravelBeach"), "Biomes", generateATGGravelBeach, "");
-            generateATGSnowyGravelBeach = config.getBoolean(formatConfig("generateATGSnowyGravelBeach"), "Biomes", generateATGSnowyGravelBeach, "");
-            generateATGShrubland = config.getBoolean(formatConfig("generateATGShrubland"), "Biomes", generateATGShrubland, "");
-            generateATGRockySteppe = config.getBoolean(formatConfig("generateATGRockySteppe"), "Biomes", generateATGRockySteppe, "");
-            generateATGTropicalShrubland = config.getBoolean(formatConfig("generateATGTropicalShrubland"), "Biomes", generateATGTropicalShrubland, "");
-            generateATGTundra = config.getBoolean(formatConfig("generateATGTundra"), "Biomes", generateATGTundra, "");
-            generateATGVolcano = config.getBoolean(formatConfig("generateATGVolcano"), "Biomes", generateATGVolcano, "");
-            generateATGWoodland = config.getBoolean(formatConfig("generateATGWoodland"), "Biomes", generateATGWoodland, "");
-			
+
             weightATGGravelBeach = config.getInt(formatConfig("weightATGGravelBeach"), "Weights", weightATGGravelBeach, biomeWeightMin, biomeWeightMax, "");
             weightATGSnowyGravelBeach = config.getInt(formatConfig("weightATGSnowyGravelBeach"), "Weights", weightATGSnowyGravelBeach, biomeWeightMin, biomeWeightMax, "");
             weightATGShrubland = config.getInt(formatConfig("weightATGShrubland"), "Weights", weightATGShrubland, biomeWeightMin, biomeWeightMax, "");

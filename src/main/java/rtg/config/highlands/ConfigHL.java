@@ -27,59 +27,6 @@ public class ConfigHL
 	 */
 	
 	//Main biomes
-	public static boolean generateHLAlps = true;
-	public static boolean generateHLAutumnForest = true;
-	public static boolean generateHLBadlands = true;
-	public static boolean generateHLBirchHills = true;
-	public static boolean generateHLBog = true;
-	public static boolean generateHLCliffs = true;
-	public static boolean generateHLDesertMountains = true;
-	public static boolean generateHLDunes = true;
-	public static boolean generateHLEstuary = true;
-	public static boolean generateHLFlyingMountains = true;
-	public static boolean generateHLGlacier = true;
-	public static boolean generateHLHighlandsB = true;
-	public static boolean generateHLLowlands = true;
-	public static boolean generateHLMeadow = true;
-	public static boolean generateHLOutback = true;
-	public static boolean generateHLPinelands = true;
-	public static boolean generateHLRainforest = true;
-	public static boolean generateHLRedwoodForest = true;
-	public static boolean generateHLRockMountains = true;
-	public static boolean generateHLSahel = true;
-	public static boolean generateHLSavannah = true;
-	public static boolean generateHLSnowMountains = true;
-	public static boolean generateHLSteppe = true;
-	public static boolean generateHLTallPineForest = true;
-	public static boolean generateHLTropicalIslands = true;
-	public static boolean generateHLTropics = true;
-	public static boolean generateHLTundra = true;
-	public static boolean generateHLWoodlands = true;
-	public static boolean generateHLWoodsMountains = true;
-    
-    //Sub biomes
-	public static boolean generateHLBaldHill = true;
-	public static boolean generateHLCanyon = true;
-	public static boolean generateHLDesertIsland = true;
-	public static boolean generateHLForestIsland = true;
-	public static boolean generateHLJungleIsland = true;
-	public static boolean generateHLLake = true;
-	public static boolean generateHLMesa = true;
-	public static boolean generateHLOasis = true;
-	public static boolean generateHLRockIsland = true;
-	public static boolean generateHLSnowIsland = true;
-	public static boolean generateHLValley = true;
-	public static boolean generateHLVolcanoIsland = true;
-	public static boolean generateHLWindyIsland = true;
-    
-    //Border biomes
-	public static boolean generateHLShrubland = true;
-
-	/*
-	 * ######################################################################################
-	 */
-	
-	//Main biomes
 	public static int weightHLAlps = biomeWeightDefault;
 	public static int weightHLAutumnForest = biomeWeightDefault;
 	public static int weightHLBadlands = biomeWeightDefault;
@@ -195,61 +142,6 @@ public class ConfigHL
 			
 			//HL
 			generateHLBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", true, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
-			
-			//Generations
-			
-			/*
-			 * ######################################################################################
-			 */
-			
-			//Main biomes
-			generateHLAlps = config.getBoolean(formatConfig("generateHLAlps"), "Biomes", generateHLAlps, "");
-			generateHLAutumnForest = config.getBoolean(formatConfig("generateHLAutumnForest"), "Biomes", generateHLAutumnForest, "");
-			generateHLBadlands = config.getBoolean(formatConfig("generateHLBadlands"), "Biomes", generateHLBadlands, "");
-			generateHLBirchHills = config.getBoolean(formatConfig("generateHLBirchHills"), "Biomes", generateHLBirchHills, "");
-			generateHLBog = config.getBoolean(formatConfig("generateHLBog"), "Biomes", generateHLBog, "");
-			generateHLCliffs = config.getBoolean(formatConfig("generateHLCliffs"), "Biomes", generateHLCliffs, "");
-			generateHLDesertMountains = config.getBoolean(formatConfig("generateHLDesertMountains"), "Biomes", generateHLDesertMountains, "");
-			generateHLDunes = config.getBoolean(formatConfig("generateHLDunes"), "Biomes", generateHLDunes, "");
-			generateHLEstuary = config.getBoolean(formatConfig("generateHLEstuary"), "Biomes", generateHLEstuary, "");
-			generateHLFlyingMountains = config.getBoolean(formatConfig("generateHLFlyingMountains"), "Biomes", generateHLFlyingMountains, "");
-			generateHLGlacier = config.getBoolean(formatConfig("generateHLGlacier"), "Biomes", generateHLGlacier, "");
-			generateHLHighlandsB = config.getBoolean(formatConfig("generateHLHighlandsB"), "Biomes", generateHLHighlandsB, "");
-			generateHLLowlands = config.getBoolean(formatConfig("generateHLLowlands"), "Biomes", generateHLLowlands, "");
-			generateHLMeadow = config.getBoolean(formatConfig("generateHLMeadow"), "Biomes", generateHLMeadow, "");
-			generateHLOutback = config.getBoolean(formatConfig("generateHLOutback"), "Biomes", generateHLOutback, "");
-			generateHLPinelands = config.getBoolean(formatConfig("generateHLPinelands"), "Biomes", generateHLPinelands, "");
-			generateHLRainforest = config.getBoolean(formatConfig("generateHLRainforest"), "Biomes", generateHLRainforest, "");
-			generateHLRedwoodForest = config.getBoolean(formatConfig("generateHLRedwoodForest"), "Biomes", generateHLRedwoodForest, "");
-			generateHLRockMountains = config.getBoolean(formatConfig("generateHLRockMountains"), "Biomes", generateHLRockMountains, "");
-			generateHLSahel = config.getBoolean(formatConfig("generateHLSahel"), "Biomes", generateHLSahel, "");
-			generateHLSavannah = config.getBoolean(formatConfig("generateHLSavannah"), "Biomes", generateHLSavannah, "");
-			generateHLSnowMountains = config.getBoolean(formatConfig("generateHLSnowMountains"), "Biomes", generateHLSnowMountains, "");
-			generateHLSteppe = config.getBoolean(formatConfig("generateHLSteppe"), "Biomes", generateHLSteppe, "");
-			generateHLTallPineForest = config.getBoolean(formatConfig("generateHLTallPineForest"), "Biomes", generateHLTallPineForest, "");
-			generateHLTropicalIslands = config.getBoolean(formatConfig("generateHLTropicalIslands"), "Biomes", generateHLTropicalIslands, "");
-			generateHLTropics = config.getBoolean(formatConfig("generateHLTropics"), "Biomes", generateHLTropics, "");
-			generateHLTundra = config.getBoolean(formatConfig("generateHLTundra"), "Biomes", generateHLTundra, "");
-			generateHLWoodlands = config.getBoolean(formatConfig("generateHLWoodlands"), "Biomes", generateHLWoodlands, "");
-			generateHLWoodsMountains = config.getBoolean(formatConfig("generateHLWoodsMountains"), "Biomes", generateHLWoodsMountains, "");
-
-			//Sub biomes
-			generateHLBaldHill = config.getBoolean(formatConfig("generateHLBaldHill"), "Biomes", generateHLBaldHill, "");
-			generateHLCanyon = config.getBoolean(formatConfig("generateHLCanyon"), "Biomes", generateHLCanyon, "");
-			generateHLDesertIsland = config.getBoolean(formatConfig("generateHLDesertIsland"), "Biomes", generateHLDesertIsland, "");
-			generateHLForestIsland = config.getBoolean(formatConfig("generateHLForestIsland"), "Biomes", generateHLForestIsland, "");
-			generateHLJungleIsland = config.getBoolean(formatConfig("generateHLJungleIsland"), "Biomes", generateHLJungleIsland, "");
-			generateHLLake = config.getBoolean(formatConfig("generateHLLake"), "Biomes", generateHLLake, "");
-			generateHLMesa = config.getBoolean(formatConfig("generateHLMesa"), "Biomes", generateHLMesa, "");
-			generateHLOasis = config.getBoolean(formatConfig("generateHLOasis"), "Biomes", generateHLOasis, "");
-			generateHLRockIsland = config.getBoolean(formatConfig("generateHLRockIsland"), "Biomes", generateHLRockIsland, "");
-			generateHLSnowIsland = config.getBoolean(formatConfig("generateHLSnowIsland"), "Biomes", generateHLSnowIsland, "");
-			generateHLValley = config.getBoolean(formatConfig("generateHLValley"), "Biomes", generateHLValley, "");
-			generateHLVolcanoIsland = config.getBoolean(formatConfig("generateHLVolcanoIsland"), "Biomes", generateHLVolcanoIsland, "");
-			generateHLWindyIsland = config.getBoolean(formatConfig("generateHLWindyIsland"), "Biomes", generateHLWindyIsland, "");
-			    
-			//Border Biomes
-			generateHLShrubland = config.getBoolean(formatConfig("generateHLShrubland"), "Biomes", generateHLShrubland, "");
 			
 			/*
 			 * ######################################################################################

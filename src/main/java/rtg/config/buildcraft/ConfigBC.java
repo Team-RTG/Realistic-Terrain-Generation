@@ -23,9 +23,6 @@ public class ConfigBC
     
     public static boolean generateBCBiomes = true;
     
-    public static boolean generateBCDesertOilField = true;
-    public static boolean generateBCOceanOilField = true;
-    
     public static int weightBCDesertOilField = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     public static int weightBCOceanOilField = (int)Math.floor((double)(biomeWeightDefault * 0.1));
     
@@ -42,10 +39,7 @@ public class ConfigBC
             config.load();
             
             generateBCBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", generateBCBiomes, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
-            
-            generateBCDesertOilField = config.getBoolean(formatConfig("generateBCDesertOilField"), "Biomes", generateBCDesertOilField, "");
-            generateBCOceanOilField = config.getBoolean(formatConfig("generateBCOceanOilField"), "Biomes", generateBCOceanOilField, "");
-            
+
             weightBCDesertOilField =
                 config.getInt(formatConfig("weightBCDesertOilField"), "Weights", weightBCDesertOilField, biomeWeightMin, biomeWeightMax, "");
             weightBCOceanOilField =

@@ -21,9 +21,6 @@ public class ConfigCC
     public static final int biomeWeightDefault = BiomeBase.DEFAULT_BIOME_WEIGHT;
 	
 	public static boolean generateCCBiomes = true;
-			
-	public static boolean generateCCEnderForest = true;
-	public static boolean generateCCRainbowForest = true;
 	
 	public static int weightCCEnderForest = biomeWeightDefault;
 	public static int weightCCRainbowForest = biomeWeightDefault;
@@ -39,11 +36,8 @@ public class ConfigCC
 		{
 			config.load();
 			
-			generateCCBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", true, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
-			
-			generateCCEnderForest = config.getBoolean(formatConfig("generateCCEnderForest"), "Biomes", generateCCEnderForest, "");
-			generateCCRainbowForest = config.getBoolean(formatConfig("generateCCRainbowForest"), "Biomes", generateCCRainbowForest, "");
-			
+			generateCCBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", generateCCBiomes, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
+
 			weightCCEnderForest = config.getInt(formatConfig("weightCCEnderForest"), "Weights", weightCCEnderForest, biomeWeightMin, biomeWeightMax, "");
 			weightCCRainbowForest = config.getInt(formatConfig("weightCCRainbowForest"), "Weights", weightCCRainbowForest, biomeWeightMin, biomeWeightMax, "");
 			

@@ -21,35 +21,6 @@ public class ConfigEBXL
     public static final int biomeWeightDefault = BiomeBase.DEFAULT_BIOME_WEIGHT;
 	
 	public static boolean generateEBXLBiomes = true;
-			
-	public static boolean generateEBXLAlpine = true;
-	public static boolean generateEBXLAutumnWoods = true;
-	public static boolean generateEBXLBirchForest = true;
-	public static boolean generateEBXLExtremeJungle = true;
-	public static boolean generateEBXLForestedIsland = true;
-	public static boolean generateEBXLForestedHills = true;
-	public static boolean generateEBXLGlacier = true;
-	public static boolean generateEBXLGreenHills = true;
-	public static boolean generateEBXLIceWasteland = true;
-	public static boolean generateEBXLGreenSwamp = true;
-	public static boolean generateEBXLMarsh = true;
-	public static boolean generateEBXLMeadow = true;
-	public static boolean generateEBXLMiniJungle = true;
-	public static boolean generateEBXLMountainDesert = true;
-	public static boolean generateEBXLMountainRidge = true;
-	public static boolean generateEBXLMountainTaiga = true;
-	public static boolean generateEBXLPineForest = true;
-	public static boolean generateEBXLRainforest = true;
-	public static boolean generateEBXLRedwoodForest = true;
-	public static boolean generateEBXLRedwoodLush = true;
-	public static boolean generateEBXLSavanna = true;
-	public static boolean generateEBXLShrubland = true;
-	public static boolean generateEBXLSnowForest = true;
-	public static boolean generateEBXLSnowyRainforest = true;
-	public static boolean generateEBXLTemperateRainforest = true;
-	public static boolean generateEBXLTundra = true;
-	public static boolean generateEBXLWasteland = true;
-	public static boolean generateEBXLWoodlands = true;
 
 	public static int weightEBXLAlpine = biomeWeightDefault;
 	public static int weightEBXLAutumnWoods = biomeWeightDefault;
@@ -119,36 +90,6 @@ public class ConfigEBXL
 			
 			//EBXL
 			generateEBXLBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", generateEBXLBiomes, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
-			
-			//Generations
-			generateEBXLAlpine = config.getBoolean(formatConfig("generateEBXLAlpine"), "Biomes", generateEBXLAlpine, "");
-			generateEBXLAutumnWoods = config.getBoolean(formatConfig("generateEBXLAutumnWoods"), "Biomes", generateEBXLAutumnWoods, "");
-			generateEBXLBirchForest = config.getBoolean(formatConfig("generateEBXLBirchForest"), "Biomes", generateEBXLBirchForest, "");
-			generateEBXLExtremeJungle = config.getBoolean(formatConfig("generateEBXLExtremeJungle"), "Biomes", generateEBXLExtremeJungle, "");
-			generateEBXLForestedIsland = config.getBoolean(formatConfig("generateEBXLForestedIsland"), "Biomes", generateEBXLForestedIsland, "");
-			generateEBXLForestedHills = config.getBoolean(formatConfig("generateEBXLForestedHills"), "Biomes", generateEBXLForestedHills, "");
-			generateEBXLGlacier = config.getBoolean(formatConfig("generateEBXLGlacier"), "Biomes", generateEBXLGlacier, "");
-			generateEBXLGreenHills = config.getBoolean(formatConfig("generateEBXLGreenHills"), "Biomes", generateEBXLGreenHills, "");
-			generateEBXLIceWasteland = config.getBoolean(formatConfig("generateEBXLIceWasteland"), "Biomes", generateEBXLIceWasteland, "");
-			generateEBXLGreenSwamp = config.getBoolean(formatConfig("generateEBXLGreenSwamp"), "Biomes", generateEBXLGreenSwamp, "");
-			generateEBXLMarsh = config.getBoolean(formatConfig("generateEBXLMarsh"), "Biomes", generateEBXLMarsh, "");
-			generateEBXLMeadow = config.getBoolean(formatConfig("generateEBXLMeadow"), "Biomes", generateEBXLMeadow, "");
-			generateEBXLMiniJungle = config.getBoolean(formatConfig("generateEBXLMiniJungle"), "Biomes", generateEBXLMiniJungle, "");
-			generateEBXLMountainDesert = config.getBoolean(formatConfig("generateEBXLMountainDesert"), "Biomes", generateEBXLMountainDesert, "");
-			generateEBXLMountainRidge = config.getBoolean(formatConfig("generateEBXLMountainRidge"), "Biomes", generateEBXLMountainRidge, "");
-			generateEBXLMountainTaiga = config.getBoolean(formatConfig("generateEBXLMountainTaiga"), "Biomes", generateEBXLMountainTaiga, "");
-			generateEBXLPineForest = config.getBoolean(formatConfig("generateEBXLPineForest"), "Biomes", generateEBXLPineForest, "");
-			generateEBXLRainforest = config.getBoolean(formatConfig("generateEBXLRainforest"), "Biomes", generateEBXLRainforest, "");
-			generateEBXLRedwoodForest = config.getBoolean(formatConfig("generateEBXLRedwoodForest"), "Biomes", generateEBXLRedwoodForest, "");
-			generateEBXLRedwoodLush = config.getBoolean(formatConfig("generateEBXLRedwoodLush"), "Biomes", generateEBXLRedwoodLush, "");
-			generateEBXLSavanna = config.getBoolean(formatConfig("generateEBXLSavanna"), "Biomes", generateEBXLSavanna, "");
-			generateEBXLShrubland = config.getBoolean(formatConfig("generateEBXLShrubland"), "Biomes", generateEBXLShrubland, "");
-			generateEBXLSnowForest = config.getBoolean(formatConfig("generateEBXLSnowForest"), "Biomes", generateEBXLSnowForest, "");
-			generateEBXLSnowyRainforest = config.getBoolean(formatConfig("generateEBXLSnowyRainforest"), "Biomes", generateEBXLSnowyRainforest, "");
-			generateEBXLTemperateRainforest = config.getBoolean(formatConfig("generateEBXLTemperateRainforest"), "Biomes", generateEBXLTemperateRainforest, "");
-			generateEBXLTundra = config.getBoolean(formatConfig("generateEBXLTundra"), "Biomes", generateEBXLTundra, "");
-			generateEBXLWasteland = config.getBoolean(formatConfig("generateEBXLWasteland"), "Biomes", generateEBXLWasteland, "");
-			generateEBXLWoodlands = config.getBoolean(formatConfig("generateEBXLWoodlands"), "Biomes", generateEBXLWoodlands, "");
 			
 			//Weights
 			weightEBXLAlpine = config.getInt(formatConfig("weightEBXLAlpine"), "Weights", weightEBXLAlpine, biomeWeightMin, biomeWeightMax, "");

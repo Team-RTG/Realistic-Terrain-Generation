@@ -22,9 +22,7 @@ public class ConfigAM
     public static final int biomeWeightDefault = BiomeBase.DEFAULT_BIOME_WEIGHT;
     
     public static boolean generateAMBiomes = true;
-    
-    public static boolean generateAMWitchwoodForest = true;
-    
+        
     public static int weightAMWitchwoodForest = (int)Math.floor((double)(biomeWeightDefault * 1.5));
     
     public static boolean villageAMWitchwoodForest = false;
@@ -39,9 +37,7 @@ public class ConfigAM
             config.load();
             
             generateAMBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", generateAMBiomes, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
-            
-            generateAMWitchwoodForest = config.getBoolean(formatConfig("generateAMWitchwoodForest"), "Biomes", generateAMWitchwoodForest, "");
-            
+                        
             weightAMWitchwoodForest = config.getInt(formatConfig("weightAMWitchwoodForest"), "Weights", weightAMWitchwoodForest, biomeWeightMin, biomeWeightMax, "");
             
             villageAMWitchwoodForest = config.getBoolean(formatConfig("villageAMWitchwoodForest"), "Villages", villageAMWitchwoodForest, "");

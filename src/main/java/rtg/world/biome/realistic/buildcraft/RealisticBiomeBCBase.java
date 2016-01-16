@@ -28,7 +28,7 @@ public class RealisticBiomeBCBase extends RealisticBiomeBase
     public static void addBiomes()
     {
     
-        if (Loader.isModLoaded("BuildCraft|Core") && ConfigBC.generateBCBiomes)
+        if (Loader.isModLoaded("BuildCraft|Core"))
         {
             BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
             
@@ -42,19 +42,19 @@ public class RealisticBiomeBCBase extends RealisticBiomeBase
                     
                     if (biomeName == "Desert Oil Field" && biomeClass == "buildcraft.energy.worldgen.BiomeGenOilDesert")
                     {
-                        if (ConfigBC.generateBCDesertOilField) {
-                            
-                            bcDesertOilField = new RealisticBiomeBCDesertOilField(bcBiome, BiomeConfigBC.biomeConfigBCDesertOilField);
-                            
+                        bcDesertOilField = new RealisticBiomeBCDesertOilField(bcBiome, BiomeConfigBC.biomeConfigBCDesertOilField);
+                        
+                        if (ConfigBC.generateBCBiomes && bcDesertOilField.config._boolean("biomeEnabled")) {
+
                             BiomeBase.addBiome(bcDesertOilField);
                             BiomeBase.addVillageBiome(bcDesertOilField);
                         }
                     }
                     else if (biomeName == "Ocean Oil Field" && biomeClass == "buildcraft.energy.worldgen.BiomeGenOilOcean")
                     {
-                        if (ConfigBC.generateBCOceanOilField) {
-                            
-                            bcOceanOilField = new RealisticBiomeBCOceanOilField(bcBiome, BiomeConfigBC.biomeConfigBCOceanOilField);
+                        bcOceanOilField = new RealisticBiomeBCOceanOilField(bcBiome, BiomeConfigBC.biomeConfigBCOceanOilField);
+                        
+                        if (ConfigBC.generateBCBiomes && bcOceanOilField.config._boolean("biomeEnabled")) {
                             
                             BiomeBase.addBiome(bcOceanOilField);
                             BiomeBase.addVillageBiome(bcOceanOilField);

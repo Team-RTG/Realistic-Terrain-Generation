@@ -13,53 +13,53 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class RealisticBiomeHLBase extends RealisticBiomeBase
 {	
 	//Main biomes
-	public static RealisticBiomeBase hl_alps;
-	public static RealisticBiomeBase hl_autumnForest;
-	public static RealisticBiomeBase hl_badlands;
-	public static RealisticBiomeBase hl_birchHills;
-	public static RealisticBiomeBase hl_bog;
-	public static RealisticBiomeBase hl_cliffs;
-	public static RealisticBiomeBase hl_desertMountains;
-	public static RealisticBiomeBase hl_dunes;
-	public static RealisticBiomeBase hl_estuary;
-	public static RealisticBiomeBase hl_flyingMountains;
-	public static RealisticBiomeBase hl_glacier;
-	public static RealisticBiomeBase hl_highlandsb;
-	public static RealisticBiomeBase hl_lowlands;
-	public static RealisticBiomeBase hl_meadow;
-	public static RealisticBiomeBase hl_outback;
-	public static RealisticBiomeBase hl_pinelands;
-	public static RealisticBiomeBase hl_rainforest;
-	public static RealisticBiomeBase hl_redwoodForest;
-	public static RealisticBiomeBase hl_rockMountains;
-	public static RealisticBiomeBase hl_sahel;
-	public static RealisticBiomeBase hl_savannah;
-	public static RealisticBiomeBase hl_snowMountains;
-	public static RealisticBiomeBase hl_steppe;
-	public static RealisticBiomeBase hl_tallPineForest;
-	public static RealisticBiomeBase hl_tropicalIslands;
-	public static RealisticBiomeBase hl_tropics;
-	public static RealisticBiomeBase hl_tundra;
-	public static RealisticBiomeBase hl_woodlands;
-	public static RealisticBiomeBase hl_woodsMountains;
+	public static RealisticBiomeBase hl_Alps;
+	public static RealisticBiomeBase hl_AutumnForest;
+	public static RealisticBiomeBase hl_Badlands;
+	public static RealisticBiomeBase hl_BirchHills;
+	public static RealisticBiomeBase hl_Bog;
+	public static RealisticBiomeBase hl_Cliffs;
+	public static RealisticBiomeBase hl_DesertMountains;
+	public static RealisticBiomeBase hl_Dunes;
+	public static RealisticBiomeBase hl_Estuary;
+	public static RealisticBiomeBase hl_FlyingMountains;
+	public static RealisticBiomeBase hl_Glacier;
+	public static RealisticBiomeBase hl_HighlandsB;
+	public static RealisticBiomeBase hl_Lowlands;
+	public static RealisticBiomeBase hl_Meadow;
+	public static RealisticBiomeBase hl_Outback;
+	public static RealisticBiomeBase hl_Pinelands;
+	public static RealisticBiomeBase hl_Rainforest;
+	public static RealisticBiomeBase hl_RedwoodForest;
+	public static RealisticBiomeBase hl_RockMountains;
+	public static RealisticBiomeBase hl_Sahel;
+	public static RealisticBiomeBase hl_Savannah;
+	public static RealisticBiomeBase hl_SnowMountains;
+	public static RealisticBiomeBase hl_Steppe;
+	public static RealisticBiomeBase hl_TallPineForest;
+	public static RealisticBiomeBase hl_TropicalIslands;
+	public static RealisticBiomeBase hl_Tropics;
+	public static RealisticBiomeBase hl_Tundra;
+	public static RealisticBiomeBase hl_Woodlands;
+	public static RealisticBiomeBase hl_WoodsMountains;
     
     //Sub biomes
-	public static RealisticBiomeBase hl_baldHill;
-	public static RealisticBiomeBase hl_canyon;
-	public static RealisticBiomeBase hl_desertIsland;
-	public static RealisticBiomeBase hl_forestIsland;
-	public static RealisticBiomeBase hl_jungleIsland;
-	public static RealisticBiomeBase hl_lake;
-	public static RealisticBiomeBase hl_mesa;
-	public static RealisticBiomeBase hl_oasis;
-	public static RealisticBiomeBase hl_rockIsland;
-	public static RealisticBiomeBase hl_snowIsland;
-	public static RealisticBiomeBase hl_valley;
-	public static RealisticBiomeBase hl_volcanoIsland;
-	public static RealisticBiomeBase hl_windyIsland;
+	public static RealisticBiomeBase hl_BaldHill;
+	public static RealisticBiomeBase hl_Canyon;
+	public static RealisticBiomeBase hl_DesertIsland;
+	public static RealisticBiomeBase hl_ForestIsland;
+	public static RealisticBiomeBase hl_JungleIsland;
+	public static RealisticBiomeBase hl_Lake;
+	public static RealisticBiomeBase hl_Mesa;
+	public static RealisticBiomeBase hl_Oasis;
+	public static RealisticBiomeBase hl_RockIsland;
+	public static RealisticBiomeBase hl_SnowIsland;
+	public static RealisticBiomeBase hl_Valley;
+	public static RealisticBiomeBase hl_VolcanoIsland;
+	public static RealisticBiomeBase hl_WindyIsland;
     
     //Border biomes
-	public static RealisticBiomeBase hl_shrubland;
+	public static RealisticBiomeBase hl_Shrubland;
 	
 	public RealisticBiomeHLBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
@@ -71,264 +71,307 @@ public class RealisticBiomeHLBase extends RealisticBiomeBase
 	
 	public static void addBiomes()
 	{
-		if (Loader.isModLoaded("Highlands") && ConfigHL.generateHLBiomes)
+		if (Loader.isModLoaded("Highlands"))
 		{
-			if (ConfigHL.generateHLAlps) {
-				hl_alps = new RealisticBiomeHLAlps(BiomeConfigHL.biomeConfigHLAlps);
-				BiomeBase.addBiome(hl_alps);
-				BiomeBase.addVillageBiome(hl_alps);
+		    hl_Alps = new RealisticBiomeHLAlps(BiomeConfigHL.biomeConfigHLAlps);
+		    hl_AutumnForest = new RealisticBiomeHLAutumnForest(BiomeConfigHL.biomeConfigHLAutumnForest);
+		    hl_Badlands = new RealisticBiomeHLBadlands(BiomeConfigHL.biomeConfigHLBadlands);
+		    hl_BirchHills = new RealisticBiomeHLBirchHills(BiomeConfigHL.biomeConfigHLBirchHills);
+		    hl_Bog = new RealisticBiomeHLBog(BiomeConfigHL.biomeConfigHLBog);
+		    hl_Cliffs = new RealisticBiomeHLCliffs(BiomeConfigHL.biomeConfigHLCliffs);
+		    hl_DesertMountains = new RealisticBiomeHLDesertMountains(BiomeConfigHL.biomeConfigHLDesertMountains);
+		    hl_Dunes = new RealisticBiomeHLDunes(BiomeConfigHL.biomeConfigHLDunes);
+		    hl_Estuary = new RealisticBiomeHLEstuary(BiomeConfigHL.biomeConfigHLEstuary);
+		    hl_FlyingMountains = new RealisticBiomeHLFlyingMountains(BiomeConfigHL.biomeConfigHLFlyingMountains);
+		    hl_Glacier = new RealisticBiomeHLGlacier(BiomeConfigHL.biomeConfigHLGlacier);
+		    hl_HighlandsB = new RealisticBiomeHLHighlandsB(BiomeConfigHL.biomeConfigHLHighlandsB);
+		    hl_Lowlands = new RealisticBiomeHLLowlands(BiomeConfigHL.biomeConfigHLLowlands);
+		    hl_Meadow = new RealisticBiomeHLMeadow(BiomeConfigHL.biomeConfigHLMeadow);
+		    hl_Outback = new RealisticBiomeHLOutback(BiomeConfigHL.biomeConfigHLOutback);
+		    hl_Pinelands = new RealisticBiomeHLPinelands(BiomeConfigHL.biomeConfigHLPinelands);
+		    hl_Rainforest = new RealisticBiomeHLRainforest(BiomeConfigHL.biomeConfigHLRainforest);
+		    hl_RedwoodForest = new RealisticBiomeHLRedwoodForest(BiomeConfigHL.biomeConfigHLRedwoodForest);
+		    hl_RockMountains = new RealisticBiomeHLRockMountains(BiomeConfigHL.biomeConfigHLRockMountains);
+		    hl_Sahel = new RealisticBiomeHLSahel(BiomeConfigHL.biomeConfigHLSahel);
+		    hl_Savannah = new RealisticBiomeHLSavannah(BiomeConfigHL.biomeConfigHLSavannah);
+		    hl_SnowMountains = new RealisticBiomeHLSnowMountains(BiomeConfigHL.biomeConfigHLSnowMountains);
+		    hl_Steppe = new RealisticBiomeHLSteppe(BiomeConfigHL.biomeConfigHLSteppe);
+		    hl_TallPineForest = new RealisticBiomeHLTallPineForest(BiomeConfigHL.biomeConfigHLTallPineForest);
+		    hl_TropicalIslands = new RealisticBiomeHLTropicalIslands(BiomeConfigHL.biomeConfigHLTropicalIslands);
+		    hl_Tropics = new RealisticBiomeHLTropics(BiomeConfigHL.biomeConfigHLTropics);
+		    hl_Tundra = new RealisticBiomeHLTundra(BiomeConfigHL.biomeConfigHLTundra);
+		    hl_Woodlands = new RealisticBiomeHLWoodlands(BiomeConfigHL.biomeConfigHLWoodlands);
+		    hl_WoodsMountains = new RealisticBiomeHLWoodsMountains(BiomeConfigHL.biomeConfigHLWoodsMountains);
+		    hl_BaldHill = new RealisticBiomeHLBaldHill(BiomeConfigHL.biomeConfigHLBaldHill);
+		    hl_Canyon = new RealisticBiomeHLCanyon(BiomeConfigHL.biomeConfigHLCanyon);
+		    hl_DesertIsland = new RealisticBiomeHLDesertIsland(BiomeConfigHL.biomeConfigHLDesertIsland);
+		    hl_ForestIsland = new RealisticBiomeHLForestIsland(BiomeConfigHL.biomeConfigHLForestIsland);
+		    hl_JungleIsland = new RealisticBiomeHLJungleIsland(BiomeConfigHL.biomeConfigHLJungleIsland);
+		    hl_Lake = new RealisticBiomeHLLake(BiomeConfigHL.biomeConfigHLLake);
+		    hl_Mesa = new RealisticBiomeHLMesa(BiomeConfigHL.biomeConfigHLMesa);
+		    hl_Oasis = new RealisticBiomeHLOasis(BiomeConfigHL.biomeConfigHLOasis);
+		    hl_RockIsland = new RealisticBiomeHLRockIsland(BiomeConfigHL.biomeConfigHLRockIsland);
+		    hl_SnowIsland = new RealisticBiomeHLSnowIsland(BiomeConfigHL.biomeConfigHLSnowIsland);
+		    hl_Valley = new RealisticBiomeHLValley(BiomeConfigHL.biomeConfigHLValley);
+		    hl_VolcanoIsland = new RealisticBiomeHLVolcanoIsland(BiomeConfigHL.biomeConfigHLVolcanoIsland);
+		    hl_WindyIsland = new RealisticBiomeHLWindyIsland(BiomeConfigHL.biomeConfigHLWindyIsland);
+		    hl_Shrubland = new RealisticBiomeHLShrubland(BiomeConfigHL.biomeConfigHLShrubland);
+		    
+			if (ConfigHL.generateHLBiomes && hl_Alps.config._boolean("biomeEnabled")) {
+				
+				BiomeBase.addBiome(hl_Alps);
+				BiomeBase.addVillageBiome(hl_Alps);
 			}
-			
-			if (ConfigHL.generateHLAutumnForest) {
-				hl_autumnForest = new RealisticBiomeHLAutumnForest(BiomeConfigHL.biomeConfigHLAutumnForest);
-				BiomeBase.addBiome(hl_autumnForest);
-				BiomeBase.addVillageBiome(hl_autumnForest);
+					    
+			if (ConfigHL.generateHLBiomes && hl_AutumnForest.config._boolean("biomeEnabled")) {
+				BiomeBase.addBiome(hl_AutumnForest);
+				BiomeBase.addVillageBiome(hl_AutumnForest);
 			}
-			
-			if (ConfigHL.generateHLBadlands) {
-				hl_badlands = new RealisticBiomeHLBadlands(BiomeConfigHL.biomeConfigHLBadlands);
-				BiomeBase.addBiome(hl_badlands);
-				BiomeBase.addVillageBiome(hl_badlands);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Badlands.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Badlands);
+				BiomeBase.addVillageBiome(hl_Badlands);
 			}
-			
-			if (ConfigHL.generateHLBaldHill) {
-				hl_baldHill = new RealisticBiomeHLBaldHill(BiomeConfigHL.biomeConfigHLBaldHill);
-				BiomeBase.addBiome(hl_baldHill);
-				BiomeBase.addVillageBiome(hl_baldHill);
+					    
+			if (ConfigHL.generateHLBiomes && hl_BaldHill.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_BaldHill);
+				BiomeBase.addVillageBiome(hl_BaldHill);
 			}
-			
-			if (ConfigHL.generateHLBirchHills) {
-				hl_birchHills = new RealisticBiomeHLBirchHills(BiomeConfigHL.biomeConfigHLBirchHills);
-				BiomeBase.addBiome(hl_birchHills);
-				BiomeBase.addVillageBiome(hl_birchHills);
+					    
+			if (ConfigHL.generateHLBiomes && hl_BirchHills.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_BirchHills);
+				BiomeBase.addVillageBiome(hl_BirchHills);
 			}
-			
-			if (ConfigHL.generateHLBog) {
-				hl_bog = new RealisticBiomeHLBog(BiomeConfigHL.biomeConfigHLBog);
-				BiomeBase.addBiome(hl_bog);
-				BiomeBase.addVillageBiome(hl_bog);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Bog.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Bog);
+				BiomeBase.addVillageBiome(hl_Bog);
 			}
-			
-			if (ConfigHL.generateHLCanyon) {
-				hl_canyon = new RealisticBiomeHLCanyon(BiomeConfigHL.biomeConfigHLCanyon);
-				BiomeBase.addBiome(hl_canyon);
-				BiomeBase.addVillageBiome(hl_canyon);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Canyon.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Canyon);
+				BiomeBase.addVillageBiome(hl_Canyon);
 			}
-			
-			if (ConfigHL.generateHLCliffs) {
-				hl_cliffs = new RealisticBiomeHLCliffs(BiomeConfigHL.biomeConfigHLCliffs);
-				BiomeBase.addBiome(hl_cliffs);
-				BiomeBase.addVillageBiome(hl_cliffs);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Cliffs.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Cliffs);
+				BiomeBase.addVillageBiome(hl_Cliffs);
 			}
-			
-			if (ConfigHL.generateHLDesertIsland) {
-				hl_desertIsland = new RealisticBiomeHLDesertIsland(BiomeConfigHL.biomeConfigHLDesertIsland);
-				BiomeBase.addBiome(hl_desertIsland);
-				BiomeBase.addVillageBiome(hl_desertIsland);
+					    
+			if (ConfigHL.generateHLBiomes && hl_DesertIsland.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_DesertIsland);
+				BiomeBase.addVillageBiome(hl_DesertIsland);
 			}			
-			
-			if (ConfigHL.generateHLDesertMountains) {
-				hl_desertMountains = new RealisticBiomeHLDesertMountains(BiomeConfigHL.biomeConfigHLDesertMountains);
-				BiomeBase.addBiome(hl_desertMountains);
-				BiomeBase.addVillageBiome(hl_desertMountains);
+					    
+			if (ConfigHL.generateHLBiomes && hl_DesertMountains.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_DesertMountains);
+				BiomeBase.addVillageBiome(hl_DesertMountains);
 			}
-			
-			if (ConfigHL.generateHLDunes) {
-				hl_dunes = new RealisticBiomeHLDunes(BiomeConfigHL.biomeConfigHLDunes);
-				BiomeBase.addBiome(hl_dunes);
-				BiomeBase.addVillageBiome(hl_dunes);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Dunes.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Dunes);
+				BiomeBase.addVillageBiome(hl_Dunes);
 			}
-			
-			if (ConfigHL.generateHLEstuary) {
-				hl_estuary = new RealisticBiomeHLEstuary(BiomeConfigHL.biomeConfigHLEstuary);
-				BiomeBase.addBiome(hl_estuary);
-				BiomeBase.addVillageBiome(hl_estuary);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Estuary.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Estuary);
+				BiomeBase.addVillageBiome(hl_Estuary);
 			}
-			
-			if (ConfigHL.generateHLFlyingMountains) {
-				hl_flyingMountains = new RealisticBiomeHLFlyingMountains(BiomeConfigHL.biomeConfigHLFlyingMountains);
-				BiomeBase.addBiome(hl_flyingMountains);
-				BiomeBase.addVillageBiome(hl_flyingMountains);
+					    
+			if (ConfigHL.generateHLBiomes && hl_FlyingMountains.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_FlyingMountains);
+				BiomeBase.addVillageBiome(hl_FlyingMountains);
 			}
-			
-			if (ConfigHL.generateHLForestIsland) {
-				hl_forestIsland = new RealisticBiomeHLForestIsland(BiomeConfigHL.biomeConfigHLForestIsland);
-				BiomeBase.addBiome(hl_forestIsland);
-				BiomeBase.addVillageBiome(hl_forestIsland);
+					    
+			if (ConfigHL.generateHLBiomes && hl_ForestIsland.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_ForestIsland);
+				BiomeBase.addVillageBiome(hl_ForestIsland);
 			}
-			
-			if (ConfigHL.generateHLGlacier) {
-				hl_glacier = new RealisticBiomeHLGlacier(BiomeConfigHL.biomeConfigHLGlacier);
-				BiomeBase.addBiome(hl_glacier);
-				BiomeBase.addVillageBiome(hl_glacier);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Glacier.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Glacier);
+				BiomeBase.addVillageBiome(hl_Glacier);
 			}
-			
-			if (ConfigHL.generateHLHighlandsB) {
-				hl_highlandsb = new RealisticBiomeHLHighlandsB(BiomeConfigHL.biomeConfigHLHighlandsB);
-				BiomeBase.addBiome(hl_highlandsb);
-				BiomeBase.addVillageBiome(hl_highlandsb);
+					    
+			if (ConfigHL.generateHLBiomes && hl_HighlandsB.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_HighlandsB);
+				BiomeBase.addVillageBiome(hl_HighlandsB);
 			}
-			
-			if (ConfigHL.generateHLJungleIsland) {
-				hl_jungleIsland = new RealisticBiomeHLJungleIsland(BiomeConfigHL.biomeConfigHLJungleIsland);
-				BiomeBase.addBiome(hl_jungleIsland);
-				BiomeBase.addVillageBiome(hl_jungleIsland);
+					    
+			if (ConfigHL.generateHLBiomes && hl_JungleIsland.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_JungleIsland);
+				BiomeBase.addVillageBiome(hl_JungleIsland);
 			}
-			
-			if (ConfigHL.generateHLLake) {
-				hl_lake = new RealisticBiomeHLLake(BiomeConfigHL.biomeConfigHLLake);
-				BiomeBase.addBiome(hl_lake);
-				BiomeBase.addVillageBiome(hl_lake);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Lake.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Lake);
+				BiomeBase.addVillageBiome(hl_Lake);
 			}
-			
-			if (ConfigHL.generateHLLowlands) {
-				hl_lowlands = new RealisticBiomeHLLowlands(BiomeConfigHL.biomeConfigHLLowlands);
-				BiomeBase.addBiome(hl_lowlands);
-				BiomeBase.addVillageBiome(hl_lowlands);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Lowlands.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Lowlands);
+				BiomeBase.addVillageBiome(hl_Lowlands);
 			}
-			
-			if (ConfigHL.generateHLMeadow) {
-				hl_meadow = new RealisticBiomeHLMeadow(BiomeConfigHL.biomeConfigHLMeadow);
-				BiomeBase.addBiome(hl_meadow);
-				BiomeBase.addVillageBiome(hl_meadow);
+
+			if (ConfigHL.generateHLBiomes && hl_Meadow.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Meadow);
+				BiomeBase.addVillageBiome(hl_Meadow);
 			}
-			
-			if (ConfigHL.generateHLMesa) {
-				hl_mesa = new RealisticBiomeHLMesa(BiomeConfigHL.biomeConfigHLMesa);
-				BiomeBase.addBiome(hl_mesa);
-				BiomeBase.addVillageBiome(hl_mesa);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Mesa.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Mesa);
+				BiomeBase.addVillageBiome(hl_Mesa);
 			}
-			
-			if (ConfigHL.generateHLOasis) {
-				hl_oasis = new RealisticBiomeHLOasis(BiomeConfigHL.biomeConfigHLOasis);
-				BiomeBase.addBiome(hl_oasis);
-				BiomeBase.addVillageBiome(hl_oasis);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Oasis.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Oasis);
+				BiomeBase.addVillageBiome(hl_Oasis);
 			}
-			
-			if (ConfigHL.generateHLOutback) {
-				hl_outback = new RealisticBiomeHLOutback(BiomeConfigHL.biomeConfigHLOutback);
-				BiomeBase.addBiome(hl_outback);
-				BiomeBase.addVillageBiome(hl_outback);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Outback.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Outback);
+				BiomeBase.addVillageBiome(hl_Outback);
 			}
-			
-			if (ConfigHL.generateHLPinelands) {
-				hl_pinelands = new RealisticBiomeHLPinelands(BiomeConfigHL.biomeConfigHLPinelands);
-				BiomeBase.addBiome(hl_pinelands);
-				BiomeBase.addVillageBiome(hl_pinelands);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Pinelands.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Pinelands);
+				BiomeBase.addVillageBiome(hl_Pinelands);
 			}
-			
-			if (ConfigHL.generateHLRainforest) {
-				hl_rainforest = new RealisticBiomeHLRainforest(BiomeConfigHL.biomeConfigHLRainforest);
-				BiomeBase.addBiome(hl_rainforest);
-				BiomeBase.addVillageBiome(hl_rainforest);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Rainforest.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Rainforest);
+				BiomeBase.addVillageBiome(hl_Rainforest);
 			}
-			
-			if (ConfigHL.generateHLRedwoodForest) {
-				hl_redwoodForest = new RealisticBiomeHLRedwoodForest(BiomeConfigHL.biomeConfigHLRedwoodForest);
-				BiomeBase.addBiome(hl_redwoodForest);
-				BiomeBase.addVillageBiome(hl_redwoodForest);
+					    
+			if (ConfigHL.generateHLBiomes && hl_RedwoodForest.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_RedwoodForest);
+				BiomeBase.addVillageBiome(hl_RedwoodForest);
 			}
-			
-			if (ConfigHL.generateHLRockIsland) {
-				hl_rockIsland = new RealisticBiomeHLRockIsland(BiomeConfigHL.biomeConfigHLRockIsland);
-				BiomeBase.addBiome(hl_rockIsland);
-				BiomeBase.addVillageBiome(hl_rockIsland);
+					    
+			if (ConfigHL.generateHLBiomes && hl_RockIsland.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_RockIsland);
+				BiomeBase.addVillageBiome(hl_RockIsland);
 			}
-			
-			if (ConfigHL.generateHLRockMountains) {
-				hl_rockMountains = new RealisticBiomeHLRockMountains(BiomeConfigHL.biomeConfigHLRockMountains);
-				BiomeBase.addBiome(hl_rockMountains);
-				BiomeBase.addVillageBiome(hl_rockMountains);
+					    
+			if (ConfigHL.generateHLBiomes && hl_RockMountains.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_RockMountains);
+				BiomeBase.addVillageBiome(hl_RockMountains);
 			}
-			
-			if (ConfigHL.generateHLSahel) {
-				hl_sahel = new RealisticBiomeHLSahel(BiomeConfigHL.biomeConfigHLSahel);
-				BiomeBase.addBiome(hl_sahel);
-				BiomeBase.addVillageBiome(hl_sahel);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Sahel.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Sahel);
+				BiomeBase.addVillageBiome(hl_Sahel);
 			}
-			
-			if (ConfigHL.generateHLSavannah) {
-				hl_savannah = new RealisticBiomeHLSavannah(BiomeConfigHL.biomeConfigHLSavannah);
-				BiomeBase.addBiome(hl_savannah);
-				BiomeBase.addVillageBiome(hl_savannah);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Savannah.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Savannah);
+				BiomeBase.addVillageBiome(hl_Savannah);
 			}
-			
-			if (ConfigHL.generateHLShrubland) {
-				hl_shrubland = new RealisticBiomeHLShrubland(BiomeConfigHL.biomeConfigHLShrubland);
-				BiomeBase.addBiome(hl_shrubland);
-				BiomeBase.addVillageBiome(hl_shrubland);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Shrubland.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Shrubland);
+				BiomeBase.addVillageBiome(hl_Shrubland);
 			}
-			
-			if (ConfigHL.generateHLSnowIsland) {
-				hl_snowIsland = new RealisticBiomeHLSnowIsland(BiomeConfigHL.biomeConfigHLSnowIsland);
-				BiomeBase.addBiome(hl_snowIsland);
-				BiomeBase.addVillageBiome(hl_snowIsland);
+					    
+			if (ConfigHL.generateHLBiomes && hl_SnowIsland.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_SnowIsland);
+				BiomeBase.addVillageBiome(hl_SnowIsland);
 			}
-			
-			if (ConfigHL.generateHLSnowMountains) {
-				hl_snowMountains = new RealisticBiomeHLSnowMountains(BiomeConfigHL.biomeConfigHLSnowMountains);
-				BiomeBase.addBiome(hl_snowMountains);
-				BiomeBase.addVillageBiome(hl_snowMountains);
+					    
+			if (ConfigHL.generateHLBiomes && hl_SnowMountains.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_SnowMountains);
+				BiomeBase.addVillageBiome(hl_SnowMountains);
 			}
-			
-			if (ConfigHL.generateHLSteppe) {
-				hl_steppe = new RealisticBiomeHLSteppe(BiomeConfigHL.biomeConfigHLSteppe);
-				BiomeBase.addBiome(hl_steppe);
-				BiomeBase.addVillageBiome(hl_steppe);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Steppe.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Steppe);
+				BiomeBase.addVillageBiome(hl_Steppe);
 			}
-			
-			if (ConfigHL.generateHLTallPineForest) {
-				hl_tallPineForest = new RealisticBiomeHLTallPineForest(BiomeConfigHL.biomeConfigHLTallPineForest);
-				BiomeBase.addBiome(hl_tallPineForest);
-				BiomeBase.addVillageBiome(hl_tallPineForest);
+					    
+			if (ConfigHL.generateHLBiomes && hl_TallPineForest.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_TallPineForest);
+				BiomeBase.addVillageBiome(hl_TallPineForest);
 			}
-			
-			if (ConfigHL.generateHLTropicalIslands) {
-				hl_tropicalIslands = new RealisticBiomeHLTropicalIslands(BiomeConfigHL.biomeConfigHLTropicalIslands);
-				BiomeBase.addBiome(hl_tropicalIslands);
-				BiomeBase.addVillageBiome(hl_tropicalIslands);
+					    
+			if (ConfigHL.generateHLBiomes && hl_TropicalIslands.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_TropicalIslands);
+				BiomeBase.addVillageBiome(hl_TropicalIslands);
 			}
-			
-			if (ConfigHL.generateHLTropics) {
-				hl_tropics = new RealisticBiomeHLTropics(BiomeConfigHL.biomeConfigHLTropics);
-				BiomeBase.addBiome(hl_tropics);
-				BiomeBase.addVillageBiome(hl_tropics);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Tropics.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Tropics);
+				BiomeBase.addVillageBiome(hl_Tropics);
 			}
-			
-			if (ConfigHL.generateHLTundra) {
-				hl_tundra = new RealisticBiomeHLTundra(BiomeConfigHL.biomeConfigHLTundra);
-				BiomeBase.addBiome(hl_tundra);
-				BiomeBase.addVillageBiome(hl_tundra);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Tundra.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Tundra);
+				BiomeBase.addVillageBiome(hl_Tundra);
 			}
-			
-			if (ConfigHL.generateHLValley) {
-				hl_valley = new RealisticBiomeHLValley(BiomeConfigHL.biomeConfigHLValley);
-				BiomeBase.addBiome(hl_valley);
-				BiomeBase.addVillageBiome(hl_valley);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Valley.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Valley);
+				BiomeBase.addVillageBiome(hl_Valley);
 			}
-			
-			if (ConfigHL.generateHLVolcanoIsland) {
-				hl_volcanoIsland = new RealisticBiomeHLVolcanoIsland(BiomeConfigHL.biomeConfigHLVolcanoIsland);
-				BiomeBase.addBiome(hl_volcanoIsland);
-				BiomeBase.addVillageBiome(hl_volcanoIsland);
+					    
+			if (ConfigHL.generateHLBiomes && hl_VolcanoIsland.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_VolcanoIsland);
+				BiomeBase.addVillageBiome(hl_VolcanoIsland);
 			}
-			
-			if (ConfigHL.generateHLWindyIsland) {
-				hl_windyIsland = new RealisticBiomeHLWindyIsland(BiomeConfigHL.biomeConfigHLWindyIsland);
-				BiomeBase.addBiome(hl_windyIsland);
-				BiomeBase.addVillageBiome(hl_windyIsland);
+					    
+			if (ConfigHL.generateHLBiomes && hl_WindyIsland.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_WindyIsland);
+				BiomeBase.addVillageBiome(hl_WindyIsland);
 			}
-			
-			if (ConfigHL.generateHLWoodlands) {
-				hl_woodlands = new RealisticBiomeHLWoodlands(BiomeConfigHL.biomeConfigHLWoodlands);
-				BiomeBase.addBiome(hl_woodlands);
-				BiomeBase.addVillageBiome(hl_woodlands);
+					    
+			if (ConfigHL.generateHLBiomes && hl_Woodlands.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_Woodlands);
+				BiomeBase.addVillageBiome(hl_Woodlands);
 			}
-			
-			if (ConfigHL.generateHLWoodsMountains) {
-				hl_woodsMountains = new RealisticBiomeHLWoodsMountains(BiomeConfigHL.biomeConfigHLWoodsMountains);
-				BiomeBase.addBiome(hl_woodsMountains);
-				BiomeBase.addVillageBiome(hl_woodsMountains);
+					    
+			if (ConfigHL.generateHLBiomes && hl_WoodsMountains.config._boolean("biomeEnabled")) {
+
+				BiomeBase.addBiome(hl_WoodsMountains);
+				BiomeBase.addVillageBiome(hl_WoodsMountains);
 			}
 		}
 	}

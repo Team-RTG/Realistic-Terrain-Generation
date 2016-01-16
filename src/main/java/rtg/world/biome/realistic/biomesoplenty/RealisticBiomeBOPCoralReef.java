@@ -25,7 +25,7 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase
 			new SurfaceBOPCoralReef(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPCoralReef;
 		this.generateVillages = ConfigBOP.villageBOPCoralReef;
 	}

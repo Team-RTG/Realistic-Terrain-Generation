@@ -45,7 +45,7 @@ public class RealisticBiomeBOPFungiForest extends RealisticBiomeBOPBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPFungiForest;
 		this.generateVillages = ConfigBOP.villageBOPFungiForest;
 	}

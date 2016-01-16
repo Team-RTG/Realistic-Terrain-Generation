@@ -26,7 +26,7 @@ public class RealisticBiomeHLMeadow extends RealisticBiomeHLBase
             new TerrainHLMeadow(90f, 180f, 13f, 100f, 38f, 260f, 71f),
             new SurfaceHLMeadow(topBlock, fillerBlock));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLMeadow;
         this.generateVillages = ConfigHL.villageHLMeadow;
     }

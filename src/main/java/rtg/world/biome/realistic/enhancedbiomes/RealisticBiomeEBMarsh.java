@@ -72,7 +72,7 @@ public class RealisticBiomeEBMarsh extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBMarsh;
 		this.generateVillages = ConfigEB.villageEBMarsh;
         

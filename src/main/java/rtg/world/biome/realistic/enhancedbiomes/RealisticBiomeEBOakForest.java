@@ -73,7 +73,7 @@ public class RealisticBiomeEBOakForest extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBOakForest;
 		this.generateVillages = ConfigEB.villageEBOakForest;
         

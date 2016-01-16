@@ -26,7 +26,7 @@ public class RealisticBiomeHLWoodlands extends RealisticBiomeHLBase
             new TerrainHLWoodlands(230f, 40f, 0f),
             new SurfaceHLWoodlands(topBlock, fillerBlock, false, null, 0.95f));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLWoodlands;
         this.generateVillages = ConfigHL.villageHLWoodlands;
     }

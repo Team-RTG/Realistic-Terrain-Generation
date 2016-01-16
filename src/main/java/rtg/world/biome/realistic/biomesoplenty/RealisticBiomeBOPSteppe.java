@@ -25,7 +25,7 @@ public class RealisticBiomeBOPSteppe extends RealisticBiomeBOPBase
 			new SurfaceBOPSteppe(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPSteppe;
 		this.generateVillages = ConfigBOP.villageBOPSteppe;
 	}

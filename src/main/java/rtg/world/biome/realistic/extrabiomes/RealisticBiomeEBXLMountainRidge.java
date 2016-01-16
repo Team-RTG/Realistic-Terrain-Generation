@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLMountainRidge extends RealisticBiomeEBXLBase
 			new SurfaceEBXLMountainRidge(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLMountainRidge;
 		this.generateVillages = ConfigEBXL.villageEBXLMountainRidge;
 		this.generatesEmeralds = true;

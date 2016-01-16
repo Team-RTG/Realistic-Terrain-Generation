@@ -61,7 +61,7 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
             surface
         );
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLVolcanoIsland;
         this.generateVillages = ConfigHL.villageHLVolcanoIsland;
         

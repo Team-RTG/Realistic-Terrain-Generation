@@ -28,7 +28,7 @@ public class RealisticBiomeATGVolcano extends RealisticBiomeATGBase
 			new SurfaceATGVolcano(atgBiome.topBlock, atgBiome.fillerBlock, true, Blocks.gravel, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigATG.weightATGVolcano;
 		this.generateVillages = ConfigATG.villageATGVolcano;
 	}

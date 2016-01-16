@@ -72,7 +72,7 @@ public class RealisticBiomeEBXericSavanna extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBXericSavannah;
 		this.generateVillages = ConfigEB.villageEBXericSavannah;
         

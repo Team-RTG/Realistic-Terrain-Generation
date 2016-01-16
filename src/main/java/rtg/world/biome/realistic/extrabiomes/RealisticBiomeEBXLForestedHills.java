@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLForestedHills extends RealisticBiomeEBXLBase
 			new SurfaceEBXLForestedHills(topBlock, fillerBlock, false, null, 0.95f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLForestedHills;
 		this.generateVillages = ConfigEBXL.villageEBXLForestedHills;
 	}

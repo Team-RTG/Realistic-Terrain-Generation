@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLExtremeJungle extends RealisticBiomeEBXLBase
 			new SurfaceEBXLExtremeJungle(topBlock, fillerBlock, false, null, 0.95f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLExtremeJungle;
 		this.generateVillages = ConfigEBXL.villageEBXLExtremeJungle;
 	}

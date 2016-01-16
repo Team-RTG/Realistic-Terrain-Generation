@@ -25,7 +25,7 @@ public class RealisticBiomeBOPThicket extends RealisticBiomeBOPBase
 			new SurfaceBOPThicket(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPThicket;
 		this.generateVillages = ConfigBOP.villageBOPThicket;
 	}

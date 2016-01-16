@@ -18,7 +18,7 @@ public class RealisticBiomeCCRainbowForest extends RealisticBiomeCCBase
 			new SurfaceCCRainbowForest(ccBiome.topBlock, ccBiome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, ccBiome.topBlock, 0.05f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigCC.weightCCRainbowForest;
 		this.generateVillages = ConfigCC.villageCCRainbowForest;
 	}

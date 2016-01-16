@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLTemperateRainforest extends RealisticBiomeEBXLBas
 			new SurfaceEBXLTemperateRainforest(topBlock, fillerBlock, true, Blocks.sand, 0.2f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLTemperateRainforest;
 		this.generateVillages = ConfigEBXL.villageEBXLTemperateRainforest;
 	}

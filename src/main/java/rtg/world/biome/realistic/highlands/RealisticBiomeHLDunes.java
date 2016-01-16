@@ -25,7 +25,7 @@ public class RealisticBiomeHLDunes extends RealisticBiomeHLBase
             new TerrainHLDunes(),
             new SurfaceHLDunes(topBlock, fillerBlock));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLDunes;
         this.generateVillages = ConfigHL.villageHLDunes;
     }

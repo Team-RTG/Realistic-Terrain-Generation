@@ -26,7 +26,7 @@ public class RealisticBiomeHLPinelands extends RealisticBiomeHLBase
             new TerrainHLPinelands(),
             new SurfaceHLPinelands(topBlock, fillerBlock, false, null, 1.2f));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLPinelands;
         this.generateVillages = ConfigHL.villageHLPinelands;
     }

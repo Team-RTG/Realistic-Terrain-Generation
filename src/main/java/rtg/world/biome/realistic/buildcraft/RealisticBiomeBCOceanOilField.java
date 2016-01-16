@@ -20,7 +20,7 @@ public class RealisticBiomeBCOceanOilField extends RealisticBiomeBCBase
             new TerrainBCOceanOilField(),
             new SurfaceBCOceanOilField(Blocks.sand, Blocks.sand, Blocks.gravel, 20f, 0.2f));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigBC.weightBCOceanOilField;
         this.generateVillages = ConfigBC.villageBCOceanOilField;
     }

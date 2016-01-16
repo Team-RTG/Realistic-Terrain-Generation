@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLIceWasteland extends RealisticBiomeEBXLBase
 			new SurfaceEBXLIceWasteland(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLIceWasteland;
 		this.generateVillages = ConfigEBXL.villageEBXLIceWasteland;
 	}

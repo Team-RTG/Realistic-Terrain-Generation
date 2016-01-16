@@ -25,7 +25,7 @@ public class RealisticBiomeBOPRainforest extends RealisticBiomeBOPBase
 			new SurfaceBOPRainforest(topBlock, fillerBlock, false, null, 1.3f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPRainforest;
 		this.generateVillages = ConfigBOP.villageBOPRainforest;
 	}

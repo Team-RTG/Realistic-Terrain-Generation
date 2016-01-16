@@ -25,7 +25,7 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase
 			new SurfaceBOPBog(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPBog;
 		this.generateVillages = ConfigBOP.villageBOPBog;
 	}

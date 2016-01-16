@@ -34,7 +34,7 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase
 			new SurfaceBOPFlowerField(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, topBlock, 0.05f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPFlowerField;
 		this.generateVillages = ConfigBOP.villageBOPFlowerField;
 	}

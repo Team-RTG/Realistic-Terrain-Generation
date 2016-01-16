@@ -19,7 +19,7 @@ public class RealisticBiomeTCEerie extends RealisticBiomeTCBase
 			new SurfaceTCEerie(tcBiome.topBlock, tcBiome.fillerBlock)
 		);
 
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigTC.weightTCEerie;
         this.generateVillages = ConfigTC.villageTCEerie;
 	}

@@ -25,7 +25,7 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase
 			new SurfaceBOPMoor(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPMoor;
 		this.generateVillages = ConfigBOP.villageBOPMoor;
 	}

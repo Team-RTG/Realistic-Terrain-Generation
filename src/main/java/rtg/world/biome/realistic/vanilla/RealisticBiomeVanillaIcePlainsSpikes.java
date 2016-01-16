@@ -26,7 +26,7 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
 			new SurfaceVanillaIcePlainsSpikes(topBlock, fillerBlock, topBlock, topBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigVanilla.weightVanillaIcePlainsSpikes;
 		this.generateVillages = ConfigVanilla.villageVanillaIcePlainsSpikes;
 	}

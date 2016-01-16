@@ -72,7 +72,7 @@ public class RealisticBiomeEBTundra extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBTundra;
 		this.generateVillages = ConfigEB.villageEBTundra;
         

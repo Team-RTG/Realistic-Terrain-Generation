@@ -25,7 +25,7 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase
 			new SurfaceBOPDeadSwamp(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPDeadSwamp;
 		this.generateVillages = ConfigBOP.villageBOPDeadSwamp;
 	}

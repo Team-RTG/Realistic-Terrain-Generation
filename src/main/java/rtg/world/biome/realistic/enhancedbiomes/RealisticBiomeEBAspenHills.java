@@ -47,7 +47,7 @@ public class RealisticBiomeEBAspenHills extends RealisticBiomeEBBase
 			new SurfaceEBAspenHills(ebTopBlock, ebTopByte, ebFillBlock, ebFillByte, false, null, 0.95f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBAspenHills;
 		this.generateVillages = ConfigEB.villageEBAspenHills;
         

@@ -37,7 +37,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase
             new TerrainVanillaMesaPlateau(true, 35f, 160f, 60f, 40f, 69f),
             new SurfaceVanillaMesaPlateau(Blocks.sand, Blocks.sand, (byte) 1, 0));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigVanilla.weightVanillaMesaBryce;
         this.generateVillages = ConfigVanilla.villageVanillaMesaBryce;
     }

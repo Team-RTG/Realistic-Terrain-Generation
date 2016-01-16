@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLMountainTaiga extends RealisticBiomeEBXLBase
 			new SurfaceEBXLMountainTaiga(topBlock, fillerBlock, false, null, 1.2f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLMountainTaiga;
 		this.generateVillages = ConfigEBXL.villageEBXLMountainTaiga;
 	}

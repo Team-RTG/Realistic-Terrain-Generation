@@ -82,7 +82,7 @@ public class RealisticBiomeEBSandstoneRanges extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBSandstoneRanges;
 		this.generateVillages = ConfigEB.villageEBSandstoneRanges;
         

@@ -72,7 +72,7 @@ public class RealisticBiomeEBShrublands extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBShrublands;
 		this.generateVillages = ConfigEB.villageEBShrublands;
         

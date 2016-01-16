@@ -25,7 +25,7 @@ public class RealisticBiomeBOPTundra extends RealisticBiomeBOPBase
 			new SurfaceBOPTundra(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPTundra;
 		this.generateVillages = ConfigBOP.villageBOPTundra;
 	}

@@ -18,7 +18,7 @@ public class RealisticBiomeTCTaintedLand extends RealisticBiomeTCBase
 			new SurfaceTCTaintedLand(tcBiome.topBlock, tcBiome.fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigTC.weightTCTaintedLand;
 		this.generateVillages = ConfigTC.villageTCTaintedLand;
 	}

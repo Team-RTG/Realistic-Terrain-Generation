@@ -25,7 +25,7 @@ public class RealisticBiomeHLDesertIsland extends RealisticBiomeHLBase
             new TerrainHLDesertIsland(90f, 180f, 13f, 100f, 38f, 260f, 71f),
             new SurfaceHLDesertIsland(topBlock, fillerBlock));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLDesertIsland;
         this.generateVillages = ConfigHL.villageHLDesertIsland;
     }

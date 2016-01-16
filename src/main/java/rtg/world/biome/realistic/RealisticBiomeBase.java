@@ -47,7 +47,7 @@ public class RealisticBiomeBase extends BiomeBase {
     public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;
     public int biomeWeight = 10;
-    public BiomeConfig biomeConfig;
+    public BiomeConfig config;
     
     public TerrainBase terrain;
     

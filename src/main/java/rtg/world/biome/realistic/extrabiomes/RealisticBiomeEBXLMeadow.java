@@ -34,7 +34,7 @@ public class RealisticBiomeEBXLMeadow extends RealisticBiomeEBXLBase
 			new SurfaceEBXLMeadow(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLMeadow;
 		this.generateVillages = ConfigEBXL.villageEBXLMeadow;
 	}

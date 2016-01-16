@@ -26,7 +26,7 @@ public class RealisticBiomeHLSavannah extends RealisticBiomeHLBase
             new TerrainHLSavannah(),
             new SurfaceHLSavannah(topBlock, fillerBlock));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLSavannah;
         this.generateVillages = ConfigHL.villageHLSavannah;
     }

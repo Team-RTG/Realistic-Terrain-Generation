@@ -27,7 +27,7 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
             new TerrainVanillaExtremeHillsPlusM(230f, 120f, 0f),
             new SurfaceVanillaExtremeHillsPlusM(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigVanilla.weightVanillaExtremeHillsPlusM;
         this.generateVillages = ConfigVanilla.villageVanillaExtremeHillsPlusM;
         this.generatesEmeralds = true;

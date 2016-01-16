@@ -73,7 +73,7 @@ public class RealisticBiomeEBCypressForest extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBCypressForest;
 		this.generateVillages = ConfigEB.villageEBCypressForest;
         

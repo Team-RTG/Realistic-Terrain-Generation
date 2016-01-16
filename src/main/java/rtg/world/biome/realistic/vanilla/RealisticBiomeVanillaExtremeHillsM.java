@@ -29,7 +29,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
             new SurfaceVanillaExtremeHillsM(topBlock, fillerBlock, Blocks.grass, Blocks.dirt, 60f,
                 -0.14f, 14f, 0.25f));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigVanilla.weightVanillaExtremeHillsM;
         this.generateVillages = ConfigVanilla.villageVanillaExtremeHillsM;
         this.generatesEmeralds = true;

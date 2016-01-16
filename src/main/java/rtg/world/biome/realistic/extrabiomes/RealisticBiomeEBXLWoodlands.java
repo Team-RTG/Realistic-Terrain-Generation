@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLWoodlands extends RealisticBiomeEBXLBase
 			new SurfaceEBXLWoodlands(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLWoodlands;
 		this.generateVillages = ConfigEBXL.villageEBXLWoodlands;
 	}

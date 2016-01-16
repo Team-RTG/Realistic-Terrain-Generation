@@ -94,7 +94,7 @@ public class RealisticBiomeEBClayHills extends RealisticBiomeEBBase
             new TerrainEBClayHills(true, 35f, 160f, 60f, 40f, 69f),
             surface);
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigEB.weightEBClayHills;
         this.generateVillages = ConfigEB.villageEBClayHills;
         

@@ -33,7 +33,7 @@ public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
 			new SurfaceBOPJadeCliffs(topBlock, fillerBlock, false, null, 0.95f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPJadeCliffs;
 		this.generateVillages = ConfigBOP.villageBOPJadeCliffs;
 		this.generatesEmeralds = true;

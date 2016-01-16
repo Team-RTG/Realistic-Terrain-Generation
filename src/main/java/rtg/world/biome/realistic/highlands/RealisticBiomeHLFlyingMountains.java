@@ -26,7 +26,7 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
             new TerrainHLFlyingMountains(230f, 100f, 0f),
             new SurfaceHLFlyingMountains(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLFlyingMountains;
         this.generateVillages = ConfigHL.villageHLFlyingMountains;
     }

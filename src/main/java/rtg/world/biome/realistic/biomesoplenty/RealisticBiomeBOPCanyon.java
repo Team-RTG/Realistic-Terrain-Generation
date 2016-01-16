@@ -25,7 +25,7 @@ public class RealisticBiomeBOPCanyon extends RealisticBiomeBOPBase
 			new SurfaceBOPCanyon(topBlock, fillerBlock, (byte)0, 0)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPCanyon;
 		this.generateVillages = ConfigBOP.villageBOPCanyon;
 	}

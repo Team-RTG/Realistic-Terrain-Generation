@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLSavanna extends RealisticBiomeEBXLBase
 			new SurfaceEBXLSavanna(topBlock, fillerBlock, Blocks.sand, 13f, 0.27f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLSavanna;
 		this.generateVillages = ConfigEBXL.villageEBXLSavanna;
 	}

@@ -34,7 +34,7 @@ public class RealisticBiomeEBXLAutumnWoods extends RealisticBiomeEBXLBase
 			new SurfaceEBXLAutumnWoods(topBlock, fillerBlock, false, null, 0f, 1.5f, 62f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLAutumnWoods;
 		this.generateVillages = ConfigEBXL.villageEBXLAutumnWoods;
 	}

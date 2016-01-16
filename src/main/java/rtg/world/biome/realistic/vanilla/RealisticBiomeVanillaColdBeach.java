@@ -30,7 +30,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 			new SurfaceVanillaColdBeach(topBlock, fillerBlock, topBlock, fillerBlock, (byte)0, 1)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigVanilla.weightVanillaColdBeach;
 		this.generateVillages = ConfigVanilla.villageVanillaColdBeach;
 	}

@@ -26,7 +26,7 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
             new TerrainHLWindyIsland(),
             new SurfaceHLWindyIsland(topBlock, fillerBlock));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLWindyIsland;
         this.generateVillages = ConfigHL.villageHLWindyIsland;
     }

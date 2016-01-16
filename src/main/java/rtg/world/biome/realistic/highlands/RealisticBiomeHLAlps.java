@@ -22,7 +22,7 @@ public class RealisticBiomeHLAlps extends RealisticBiomeHLBase {
         super(hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE), new TerrainHLAlps(),
             new SurfaceHLAlps(topBlock, fillerBlock, false, null, 0.45f));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLAlps;
         this.generateVillages = ConfigHL.villageHLAlps;
     }

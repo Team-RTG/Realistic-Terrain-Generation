@@ -25,7 +25,7 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase
             new TerrainVanillaOcean(),
             new SurfaceVanillaOcean(Blocks.sand, Blocks.sand, Blocks.gravel, 20f, 0.2f));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigVanilla.weightVanillaOcean;
         this.generateVillages = ConfigVanilla.villageVanillaOcean;
         

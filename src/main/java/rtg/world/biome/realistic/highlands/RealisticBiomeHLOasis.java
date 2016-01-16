@@ -27,7 +27,7 @@ public class RealisticBiomeHLOasis extends RealisticBiomeHLBase
             new TerrainHLOasis(),
             new SurfaceHLOasis(Blocks.sand, fillerBlock));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLOasis;
         this.generateVillages = ConfigHL.villageHLOasis;
     }

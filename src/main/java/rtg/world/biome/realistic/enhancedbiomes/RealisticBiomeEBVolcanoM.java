@@ -87,7 +87,7 @@ public class RealisticBiomeEBVolcanoM extends RealisticBiomeEBBase
             surface
         );
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigEB.weightEBVolcanoM;
         this.generateVillages = ConfigEB.villageEBVolcanoM;
         

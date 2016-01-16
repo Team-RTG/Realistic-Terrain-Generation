@@ -23,7 +23,7 @@ public class RealisticBiomeHLBirchHills extends RealisticBiomeHLBase
         super(hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE), new TerrainHLBirchHills(230f, 60f, 0f),
             new SurfaceHLBirchHills(topBlock, fillerBlock, false, null, 0.95f));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLBirchHills;
         this.generateVillages = ConfigHL.villageHLBirchHills;
     }

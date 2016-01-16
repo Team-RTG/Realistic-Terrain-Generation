@@ -46,7 +46,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
 			new SurfaceVanillaBirchForestHillsM(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigVanilla.weightVanillaBirchForestHillsM;
 		this.generateVillages = ConfigVanilla.villageVanillaBirchForestHillsM;
 	}

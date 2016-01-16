@@ -26,7 +26,7 @@ public class RealisticBiomeBOPBrushland extends RealisticBiomeBOPBase
 			new SurfaceBOPBrushland(topBlock, fillerBlock, Blocks.sand, 13f, 0.27f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPBrushland;
 		this.generateVillages = ConfigBOP.villageBOPBrushland;
 	}

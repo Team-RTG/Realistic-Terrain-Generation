@@ -47,7 +47,7 @@ public class RealisticBiomeEBAspenForest extends RealisticBiomeEBBase
 			new SurfaceEBAspenForest(ebTopBlock, ebTopByte, ebFillBlock, ebFillByte, false, null, 0.95f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBAspenForest;
 		this.generateVillages = ConfigEB.villageEBAspenForest;
         

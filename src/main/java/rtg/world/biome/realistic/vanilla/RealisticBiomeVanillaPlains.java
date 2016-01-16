@@ -24,7 +24,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
             new TerrainVanillaPlains(),
             new SurfaceVanillaPlains(topBlock, fillerBlock));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigVanilla.weightVanillaPlains;
         this.generateVillages = ConfigVanilla.villageVanillaPlains;
     }

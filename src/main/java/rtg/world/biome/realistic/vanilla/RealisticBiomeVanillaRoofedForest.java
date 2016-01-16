@@ -43,7 +43,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             new TerrainVanillaRoofedForest(),
             new SurfaceVanillaRoofedForest(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.08f));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigVanilla.weightVanillaRoofedForest;
         this.generateVillages = ConfigVanilla.villageVanillaRoofedForest;
     }
@@ -71,7 +71,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
                     (new WorldGenBlob(Blocks.mossy_cobblestone, 0, rand)).generate(world, rand, i1, k1, j1);
                 }
                 else {
-                    if (this.biomeConfig.getPropertyById(BiomeConfigVanillaRoofedForest.decorationCobwebsId).valueBoolean) {
+                    if (config._boolean("decorationCobwebsId")) {
                         (new WorldGenBlob(Blocks.web, 0, rand)).generate(world, rand, i1, k1, j1);
                     }
                 }

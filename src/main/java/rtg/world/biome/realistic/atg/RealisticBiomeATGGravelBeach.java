@@ -18,7 +18,7 @@ public class RealisticBiomeATGGravelBeach extends RealisticBiomeATGBase
 			new SurfaceATGGravelBeach(atgBiome.topBlock, atgBiome.fillerBlock, atgBiome.topBlock, atgBiome.fillerBlock, (byte)0, 1)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigATG.weightATGGravelBeach;
 		this.generateVillages = ConfigATG.villageATGGravelBeach;
 	}

@@ -46,7 +46,7 @@ public class RealisticBiomeBOPDeciduousForest extends RealisticBiomeBOPBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPDeciduousForest;
 		this.generateVillages = ConfigBOP.villageBOPDeciduousForest;
 	}

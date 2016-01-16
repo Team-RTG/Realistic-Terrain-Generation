@@ -41,7 +41,7 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase
             new TerrainVanillaColdTaigaM(),
             new SurfaceVanillaColdTaigaM(topBlock, fillerBlock));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigVanilla.weightVanillaColdTaigaM;
         this.generateVillages = ConfigVanilla.villageVanillaColdTaigaM;
     }

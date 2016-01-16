@@ -25,7 +25,7 @@ public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBOPBase
 			new SurfaceBOPTemperateRainforest(topBlock, fillerBlock, false, null, 0.45f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPTemperateRainforest;
 		this.generateVillages = ConfigBOP.villageBOPTemperateRainforest;
 	}

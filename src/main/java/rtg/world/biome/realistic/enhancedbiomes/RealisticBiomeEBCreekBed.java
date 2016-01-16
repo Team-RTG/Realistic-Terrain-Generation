@@ -72,7 +72,7 @@ public class RealisticBiomeEBCreekBed extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBCreekBed;
 		this.generateVillages = ConfigEB.villageEBCreekBed;
         

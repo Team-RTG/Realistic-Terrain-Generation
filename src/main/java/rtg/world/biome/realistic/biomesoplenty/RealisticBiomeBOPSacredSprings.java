@@ -25,7 +25,7 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase
 			new SurfaceBOPSacredSprings(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPSacredSprings;
 		this.generateVillages = ConfigBOP.villageBOPSacredSprings;
 	}

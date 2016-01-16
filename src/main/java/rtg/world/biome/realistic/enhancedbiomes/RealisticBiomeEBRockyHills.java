@@ -77,7 +77,7 @@ public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
             new TerrainEBRockyHills(230f, 120f, 0f),
             surface);
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigEB.weightEBRockyHills;
         this.generateVillages = ConfigEB.villageEBRockyHills;
         

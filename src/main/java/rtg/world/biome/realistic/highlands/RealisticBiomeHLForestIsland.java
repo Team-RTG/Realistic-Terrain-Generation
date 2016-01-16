@@ -26,7 +26,7 @@ public class RealisticBiomeHLForestIsland extends RealisticBiomeHLBase
             new TerrainHLForestIsland(90f, 180f, 13f, 100f, 1f, 260f, 59f),
             new SurfaceHLForestIsland(topBlock, fillerBlock));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLForestIsland;
         this.generateVillages = ConfigHL.villageHLForestIsland;
     }

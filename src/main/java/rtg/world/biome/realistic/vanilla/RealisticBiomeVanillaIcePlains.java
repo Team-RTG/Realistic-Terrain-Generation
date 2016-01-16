@@ -32,7 +32,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
 			new SurfaceVanillaIcePlains(topBlock, fillerBlock, topBlock, topBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigVanilla.weightVanillaIcePlains;
 		this.generateVillages = ConfigVanilla.villageVanillaIcePlains;
 	}

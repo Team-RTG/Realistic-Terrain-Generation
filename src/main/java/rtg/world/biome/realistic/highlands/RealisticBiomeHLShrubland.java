@@ -26,7 +26,7 @@ public class RealisticBiomeHLShrubland extends RealisticBiomeHLBase
             new TerrainHLShrubland(10f, 20f, 7f, 90f, 10f, 200f, 68f),
             new SurfaceHLShrubland(topBlock, fillerBlock));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLShrubland;
         this.generateVillages = ConfigHL.villageHLShrubland;
     }

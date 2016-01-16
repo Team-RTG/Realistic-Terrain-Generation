@@ -26,7 +26,7 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase
 			new SurfaceBOPChaparral(topBlock, fillerBlock, Blocks.sand, 26f, 0.35f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPChaparral;
 		this.generateVillages = ConfigBOP.villageBOPChaparral;
 	}

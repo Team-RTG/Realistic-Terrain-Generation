@@ -25,7 +25,7 @@ public class RealisticBiomeHLCanyon extends RealisticBiomeHLBase
             new TerrainHLCanyon(true, 35f, 160f, 60f, 40f, 69f),
             new SurfaceHLCanyon(topBlock, fillerBlock, (byte) 0, 0));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLCanyon;
         this.generateVillages = ConfigHL.villageHLCanyon;
     }

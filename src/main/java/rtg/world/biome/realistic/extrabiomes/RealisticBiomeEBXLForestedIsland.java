@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLForestedIsland extends RealisticBiomeEBXLBase
 			new SurfaceEBXLForestedIsland(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLForestedIsland;
 		this.generateVillages = ConfigEBXL.villageEBXLForestedIsland;
 	}

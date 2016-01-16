@@ -25,7 +25,7 @@ public class RealisticBiomeBOPWasteland extends RealisticBiomeBOPBase
 			new SurfaceBOPWasteland(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPWasteland;
 		this.generateVillages = ConfigBOP.villageBOPWasteland;
 	}

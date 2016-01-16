@@ -27,7 +27,7 @@ public class RealisticBiomeHLBaldHill extends RealisticBiomeHLBase
             new SurfaceHLBaldHill(Blocks.cobblestone, Blocks.stone)
         );
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLBaldHill;
         this.generateVillages = ConfigHL.villageHLBaldHill;
     }

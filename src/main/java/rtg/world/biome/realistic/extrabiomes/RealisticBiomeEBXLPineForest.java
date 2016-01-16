@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLPineForest extends RealisticBiomeEBXLBase
 			new SurfaceEBXLPineForest(topBlock, fillerBlock, false, null, 1.2f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLPineForest;
 		this.generateVillages = ConfigEBXL.villageEBXLPineForest;
 	}

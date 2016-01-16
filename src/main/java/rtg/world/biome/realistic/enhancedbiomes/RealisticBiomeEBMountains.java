@@ -73,7 +73,7 @@ public class RealisticBiomeEBMountains extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBMountains;
 		this.generateVillages = ConfigEB.villageEBMountains;
 		

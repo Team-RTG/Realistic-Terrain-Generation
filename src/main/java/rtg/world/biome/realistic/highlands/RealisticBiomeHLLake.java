@@ -26,7 +26,7 @@ public class RealisticBiomeHLLake extends RealisticBiomeHLBase
             new TerrainHLLake(),
             new SurfaceHLLake(topBlock, fillerBlock));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLLake;
         this.generateVillages = ConfigHL.villageHLLake;
     }

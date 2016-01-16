@@ -26,7 +26,7 @@ public class RealisticBiomeHLTropicalIslands extends RealisticBiomeHLBase
             new TerrainHLTropicalIslands(90f, 180f, 13f, 100f, 1f, 260f, 59f),
             new SurfaceHLTropicalIslands(topBlock, fillerBlock));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLTropicalIslands;
         this.generateVillages = ConfigHL.villageHLTropicalIslands;
     }

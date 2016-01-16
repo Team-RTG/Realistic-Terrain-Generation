@@ -23,7 +23,7 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase
 			new SurfaceVanillaFrozenRiver()
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigVanilla.weightVanillaFrozenRiver;
 		this.generateVillages = false;
 		

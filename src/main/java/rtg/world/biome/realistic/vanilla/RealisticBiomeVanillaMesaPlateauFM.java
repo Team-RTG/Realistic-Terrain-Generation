@@ -39,7 +39,7 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
 			new SurfaceVanillaMesaPlateauFM(Blocks.sand, Blocks.sand, (byte) 1, 0)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigVanilla.weightVanillaMesaPlateauFM;
 		this.generateVillages = ConfigVanilla.villageVanillaMesaPlateauFM;
 	}

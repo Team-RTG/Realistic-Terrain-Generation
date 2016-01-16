@@ -26,7 +26,7 @@ public class RealisticBiomeHLSnowIsland extends RealisticBiomeHLBase
             new TerrainHLSnowIsland(90f, 180f, 13f, 100f, 1f, 260f, 59f),
             new SurfaceHLSnowIsland(topBlock, fillerBlock));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLSnowIsland;
         this.generateVillages = ConfigHL.villageHLSnowIsland;
     }

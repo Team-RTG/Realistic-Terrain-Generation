@@ -47,7 +47,7 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPFen;
 		this.generateVillages = ConfigBOP.villageBOPFen;
 	}

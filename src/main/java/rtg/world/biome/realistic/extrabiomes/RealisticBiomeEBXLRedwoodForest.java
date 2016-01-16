@@ -35,7 +35,7 @@ public class RealisticBiomeEBXLRedwoodForest extends RealisticBiomeEBXLBase
 			new SurfaceEBXLRedwoodForest(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLRedwoodForest;
 		this.generateVillages = ConfigEBXL.villageEBXLRedwoodForest;
 	}

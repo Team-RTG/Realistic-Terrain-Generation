@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLShrubland extends RealisticBiomeEBXLBase
 			new SurfaceEBXLShrubland(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLShrubland;
 		this.generateVillages = ConfigEBXL.villageEBXLShrubland;
 	}

@@ -82,7 +82,7 @@ public class RealisticBiomeEBScree extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBScree;
 		this.generateVillages = ConfigEB.villageEBScree;
 		

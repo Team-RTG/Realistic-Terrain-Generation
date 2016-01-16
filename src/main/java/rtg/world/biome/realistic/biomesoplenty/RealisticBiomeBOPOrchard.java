@@ -32,7 +32,7 @@ public class RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase
 			new SurfaceBOPOrchard(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPOrchard;
 		this.generateVillages = ConfigBOP.villageBOPOrchard;
 	}

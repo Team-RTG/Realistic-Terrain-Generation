@@ -18,7 +18,7 @@ public class RealisticBiomeATGWoodland extends RealisticBiomeATGBase
 			new SurfaceATGWoodland(atgBiome.topBlock, atgBiome.fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigATG.weightATGWoodland;
 		this.generateVillages = ConfigATG.villageATGWoodland;
 	}

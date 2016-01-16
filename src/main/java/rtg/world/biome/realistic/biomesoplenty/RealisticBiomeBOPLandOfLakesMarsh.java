@@ -25,7 +25,7 @@ public class RealisticBiomeBOPLandOfLakesMarsh extends RealisticBiomeBOPBase
 			new SurfaceBOPLandOfLakesMarsh(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPLandOfLakesMarsh;
 		this.generateVillages = ConfigBOP.villageBOPLandOfLakesMarsh;
 	}

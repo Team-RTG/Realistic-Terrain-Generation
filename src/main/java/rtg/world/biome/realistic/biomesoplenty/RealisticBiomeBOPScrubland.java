@@ -25,7 +25,7 @@ public class RealisticBiomeBOPScrubland extends RealisticBiomeBOPBase
 			new SurfaceBOPScrubland(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPScrubland;
 		this.generateVillages = ConfigBOP.villageBOPScrubland;
 	}

@@ -33,7 +33,7 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase
 			new SurfaceBOPLavenderFields(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, topBlock, 0.05f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPLavenderFields;
 		this.generateVillages = ConfigBOP.villageBOPLavenderFields;
 	}

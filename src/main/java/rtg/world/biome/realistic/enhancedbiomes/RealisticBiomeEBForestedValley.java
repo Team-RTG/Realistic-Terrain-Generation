@@ -86,7 +86,7 @@ public class RealisticBiomeEBForestedValley extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBForestedValley;
 		this.generateVillages = ConfigEB.villageEBForestedValley;
         

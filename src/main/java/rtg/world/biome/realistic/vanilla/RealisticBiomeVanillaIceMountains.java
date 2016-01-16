@@ -37,7 +37,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
             new SurfaceVanillaIceMountains(topBlock, fillerBlock, Blocks.snow, Blocks.snow, Blocks.packed_ice, Blocks.ice, 60f,
                 -0.14f, 14f, 0.25f));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigVanilla.weightVanillaIceMountains;
         this.generateVillages = ConfigVanilla.villageVanillaIceMountains;
     }

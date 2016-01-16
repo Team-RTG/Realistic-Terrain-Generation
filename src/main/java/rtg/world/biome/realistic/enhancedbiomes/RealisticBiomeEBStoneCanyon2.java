@@ -82,7 +82,7 @@ public class RealisticBiomeEBStoneCanyon2 extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBStoneCanyons;
 		this.generateVillages = ConfigEB.villageEBStoneCanyons;
         

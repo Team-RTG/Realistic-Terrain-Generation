@@ -45,7 +45,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
             new TerrainVanillaMesa(), surface);
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigVanilla.weightVanillaMesa;
         this.generateVillages = ConfigVanilla.villageVanillaMesa;
     }

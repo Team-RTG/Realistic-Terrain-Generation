@@ -25,7 +25,7 @@ public class RealisticBiomeBOPSludgepit extends RealisticBiomeBOPBase
 			new SurfaceBOPSludgepit(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPSludgepit;
 		this.generateVillages = ConfigBOP.villageBOPSludgepit;
 	}

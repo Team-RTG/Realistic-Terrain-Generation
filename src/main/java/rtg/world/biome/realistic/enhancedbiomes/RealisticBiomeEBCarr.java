@@ -87,7 +87,7 @@ public class RealisticBiomeEBCarr extends RealisticBiomeEBBase
             )
         );
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigEB.weightEBCarr;
         this.generateVillages = ConfigEB.villageEBCarr;
         

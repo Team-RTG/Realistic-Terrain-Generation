@@ -39,7 +39,7 @@ public class RealisticBiomeBOPArctic extends RealisticBiomeBOPBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPArctic;
 		this.generateVillages = ConfigBOP.villageBOPArctic;
 	}

@@ -25,7 +25,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase
 			new SurfaceBOPBayou(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPBayou;
 		this.generateVillages = ConfigBOP.villageBOPBayou;
 	}

@@ -72,7 +72,7 @@ public class RealisticBiomeEBSnowyDesert extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBSnowyDesert;
 		this.generateVillages = ConfigEB.villageEBSnowyDesert;
         

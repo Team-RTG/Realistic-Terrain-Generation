@@ -25,7 +25,7 @@ public class RealisticBiomeBOPDryRiver extends RealisticBiomeBOPBase
 			new SurfaceBOPDryRiver()
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPDryRiver;
 		this.generateVillages = ConfigBOP.villageBOPDryRiver;
 	}

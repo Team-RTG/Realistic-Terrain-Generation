@@ -76,4 +76,40 @@ public class BiomeConfig {
         }
         return null;
     }
+    
+    public boolean _boolean(String id)
+    {
+        try {
+            
+            return getPropertyById(id).valueBoolean;
+        }
+        catch (Exception e) {
+            
+            throw new RuntimeException("Biome config (" + id + ") could not be found. Reason: " + e.getMessage());
+        }
+    }
+    
+    public int _int(String id)
+    {
+        try {
+            
+            return getPropertyById(id).valueInt;
+        }
+        catch (Exception e) {
+            
+            throw new RuntimeException("Biome config (" + id + ") could not be found. Reason: " + e.getMessage());
+        }
+    }
+    
+    public String _string(String id)
+    {
+        try {
+            
+            return getPropertyById(id).valueString;
+        }
+        catch (Exception e) {
+            
+            throw new RuntimeException("Biome config (" + id + ") could not be found. Reason: " + e.getMessage());
+        }
+    }
 }

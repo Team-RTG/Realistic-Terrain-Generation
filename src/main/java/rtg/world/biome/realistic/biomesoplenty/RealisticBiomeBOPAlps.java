@@ -25,7 +25,7 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase
 			new SurfaceBOPAlps(topBlock, fillerBlock, false, null, 0.45f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPAlps;
 		this.generateVillages = ConfigBOP.villageBOPAlps;
 		this.generatesEmeralds = true;

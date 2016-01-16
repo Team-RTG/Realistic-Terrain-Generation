@@ -25,7 +25,7 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase
 			new SurfaceBOPQuagmire(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPQuagmire;
 		this.generateVillages = ConfigBOP.villageBOPQuagmire;
 	}

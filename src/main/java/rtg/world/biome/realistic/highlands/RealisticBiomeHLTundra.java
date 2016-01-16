@@ -26,7 +26,7 @@ public class RealisticBiomeHLTundra extends RealisticBiomeHLBase
             new TerrainHLTundra(),
             new SurfaceHLTundra(topBlock, fillerBlock));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLTundra;
         this.generateVillages = ConfigHL.villageHLTundra;
     }

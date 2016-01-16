@@ -34,7 +34,7 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase
 			new SurfaceBOPRedwoodForest(topBlock, fillerBlock, false, null, 0.4f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPRedwoodForest;
 		this.generateVillages = ConfigBOP.villageBOPRedwoodForest;
 	}

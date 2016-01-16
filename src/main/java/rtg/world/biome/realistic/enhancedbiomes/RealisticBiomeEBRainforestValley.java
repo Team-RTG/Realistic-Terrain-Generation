@@ -72,7 +72,7 @@ public class RealisticBiomeEBRainforestValley extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBRainforestValley;
 		this.generateVillages = ConfigEB.villageEBRainforestValley;
         

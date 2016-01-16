@@ -72,7 +72,7 @@ public class RealisticBiomeEBLowHills extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBLowHills;
 		this.generateVillages = ConfigEB.villageEBLowHills;
         

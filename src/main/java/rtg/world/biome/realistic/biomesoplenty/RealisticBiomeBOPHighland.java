@@ -25,7 +25,7 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase
 			new SurfaceBOPHighland(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPHighland;
 		this.generateVillages = ConfigBOP.villageBOPHighland;
 		this.generatesEmeralds = true;

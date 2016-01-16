@@ -26,7 +26,7 @@ public class RealisticBiomeHLOutback extends RealisticBiomeHLBase
             new TerrainHLOutback(300f),
             new SurfaceHLOutback(topBlock, fillerBlock, (byte) 0, 1));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLOutback;
         this.generateVillages = ConfigHL.villageHLOutback;
     }

@@ -86,7 +86,7 @@ public class RealisticBiomeEBForestedMountains extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBForestedMountains;
 		this.generateVillages = ConfigEB.villageEBForestedMountains;
         

@@ -39,7 +39,7 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase
             new TerrainVanillaTaigaHills(),
             new SurfaceVanillaTaigaHills(Blocks.grass, Blocks.dirt, true, Blocks.gravel, 0.2f));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigVanilla.weightVanillaTaigaHills;
         this.generateVillages = ConfigVanilla.villageVanillaTaigaHills;
     }

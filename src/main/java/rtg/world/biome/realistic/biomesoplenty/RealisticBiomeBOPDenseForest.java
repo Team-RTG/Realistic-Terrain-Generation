@@ -33,7 +33,7 @@ public class RealisticBiomeBOPDenseForest extends RealisticBiomeBOPBase
 			new SurfaceBOPDenseForest(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPDenseForest;
 		this.generateVillages = ConfigBOP.villageBOPDenseForest;
 	}

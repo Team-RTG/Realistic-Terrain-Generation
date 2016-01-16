@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLAlpine extends RealisticBiomeEBXLBase
 			new SurfaceEBXLAlpine(topBlock, fillerBlock, false, null, 0.45f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLAlpine;
 		this.generateVillages = ConfigEBXL.villageEBXLAlpine;
 	}

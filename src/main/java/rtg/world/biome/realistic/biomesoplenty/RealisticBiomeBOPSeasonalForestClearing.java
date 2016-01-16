@@ -33,7 +33,7 @@ public class RealisticBiomeBOPSeasonalForestClearing extends RealisticBiomeBOPBa
 			new SurfaceBOPSeasonalForestClearing(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPSeasonalForestClearing;
 		this.generateVillages = ConfigBOP.villageBOPSeasonalForestClearing;
 	}

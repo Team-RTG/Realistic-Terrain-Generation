@@ -18,7 +18,7 @@ public class RealisticBiomeATGTundra extends RealisticBiomeATGBase
 			new SurfaceATGTundra(atgBiome.topBlock, atgBiome.fillerBlock, false, null, 0.45f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigATG.weightATGTundra;
 		this.generateVillages = ConfigATG.villageATGTundra;
 	}

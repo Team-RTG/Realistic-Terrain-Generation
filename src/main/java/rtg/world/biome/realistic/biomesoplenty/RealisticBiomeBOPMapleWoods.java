@@ -32,7 +32,7 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase
 			new SurfaceBOPMapleWoods(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigBOP.weightBOPMapleWoods;
 		this.generateVillages = ConfigBOP.villageBOPMapleWoods;
 	}

@@ -25,7 +25,7 @@ public class RealisticBiomeHLCliffs extends RealisticBiomeHLBase
             new TerrainHLCliffs(75f, 70f, 0f),
             new SurfaceHLCliffs(topBlock, fillerBlock, false, null, 0.95f));
         
-        this.biomeConfig = config;
+        this.config = config;
         this.biomeWeight = ConfigHL.weightHLCliffs;
         this.generateVillages = ConfigHL.villageHLCliffs;
     }

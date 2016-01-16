@@ -82,7 +82,7 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBMangroves;
 		this.generateVillages = ConfigEB.villageEBMangroves;
         

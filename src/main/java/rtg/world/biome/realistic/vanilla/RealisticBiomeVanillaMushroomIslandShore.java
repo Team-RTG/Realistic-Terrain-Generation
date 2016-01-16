@@ -23,7 +23,7 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
 			new SurfaceVanillaMushroomIslandShore(topBlock, fillerBlock, 67, topBlock, 0f)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigVanilla.weightVanillaMushroomIslandShore;
 		this.generateVillages = ConfigVanilla.villageVanillaMushroomIslandShore;
 	}	

@@ -73,7 +73,7 @@ public class RealisticBiomeEBSilverPineHills extends RealisticBiomeEBBase
             )
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEB.weightEBSilverPineHills;
 		this.generateVillages = ConfigEB.villageEBSilverPineHills;
         

@@ -25,7 +25,7 @@ public class RealisticBiomeEBXLRainforest extends RealisticBiomeEBXLBase
 			new SurfaceEBXLRainforest(topBlock, fillerBlock)
 		);
 		
-		this.biomeConfig = config;
+		this.config = config;
 		this.biomeWeight = ConfigEBXL.weightEBXLRainforest;
 		this.generateVillages = ConfigEBXL.villageEBXLRainforest;
 	}

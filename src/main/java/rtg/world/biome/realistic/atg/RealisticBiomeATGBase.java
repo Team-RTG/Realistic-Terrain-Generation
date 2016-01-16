@@ -34,7 +34,7 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
 	
 	public static void addBiomes()
 	{
-		if (Loader.isModLoaded("ATG") && ConfigATG.generateATGBiomes)
+		if (Loader.isModLoaded("ATG"))
 		{
 			BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
 			
@@ -48,64 +48,80 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
 					
 					if (biomeName == "Gravel Beach" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenGravelBeach")
 					{
-						if (ConfigATG.generateATGGravelBeach) {
-						    atgGravelBeach = new RealisticBiomeATGGravelBeach(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
+					    atgGravelBeach = new RealisticBiomeATGGravelBeach(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
+					    
+						if (ConfigATG.generateATGBiomes && atgGravelBeach.config._boolean("biomeEnabled")) {
+						    
 						    BiomeBase.addBiome(atgGravelBeach);
 						    BiomeBase.addVillageBiome(atgGravelBeach);
 						}
 					}
                     else if (biomeName == "Snowy Gravel Beach" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenGravelBeach")
                     {
-                        if (ConfigATG.generateATGSnowyGravelBeach) {
-                            atgSnowyGravelBeach = new RealisticBiomeATGSnowyGravelBeach(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
+                        atgSnowyGravelBeach = new RealisticBiomeATGSnowyGravelBeach(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
+                        
+                        if (ConfigATG.generateATGBiomes && atgSnowyGravelBeach.config._boolean("biomeEnabled")) {
+                            
                             BiomeBase.addBiome(atgSnowyGravelBeach);
                             BiomeBase.addVillageBiome(atgSnowyGravelBeach);
                         }
                     }
                     else if (biomeName == "Shrubland" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenShrubland")
                     {
-                        if (ConfigATG.generateATGShrubland) {
-                            atgShrubland = new RealisticBiomeATGShrubland(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
+                        atgShrubland = new RealisticBiomeATGShrubland(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
+                        
+                        if (ConfigATG.generateATGBiomes && atgShrubland.config._boolean("biomeEnabled")) {
+                            
                             BiomeBase.addBiome(atgShrubland);
                             BiomeBase.addVillageBiome(atgShrubland);
                         }
                     }
                     else if (biomeName == "Rocky Steppe" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenSteppe")
                     {
-                        if (ConfigATG.generateATGRockySteppe) {
-                            atgRockySteppe = new RealisticBiomeATGRockySteppe(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
+                        atgRockySteppe = new RealisticBiomeATGRockySteppe(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
+                        
+                        if (ConfigATG.generateATGBiomes && atgRockySteppe.config._boolean("biomeEnabled")) {
+                            
                             BiomeBase.addBiome(atgRockySteppe);
                             BiomeBase.addVillageBiome(atgRockySteppe);
                         }
                     }
                     else if (biomeName == "Tropical Shrubland" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenTropicalShrubland")
                     {
-                        if (ConfigATG.generateATGTropicalShrubland) {
-                            atgTropicalShrubland = new RealisticBiomeATGTropicalShrubland(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
+                        atgTropicalShrubland = new RealisticBiomeATGTropicalShrubland(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
+                        
+                        if (ConfigATG.generateATGBiomes && atgTropicalShrubland.config._boolean("biomeEnabled")) {
+                            
                             BiomeBase.addBiome(atgTropicalShrubland);
                             BiomeBase.addVillageBiome(atgTropicalShrubland);
                         }
                     }
                     else if (biomeName == "Tundra" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenTundra")
                     {
-                        if (ConfigATG.generateATGTundra) {
-                            atgTundra = new RealisticBiomeATGTundra(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
+                        atgTundra = new RealisticBiomeATGTundra(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
+                        
+                        if (ConfigATG.generateATGBiomes && atgTundra.config._boolean("biomeEnabled")) {
+                            
                             BiomeBase.addBiome(atgTundra);
                             BiomeBase.addVillageBiome(atgTundra);
                         }
                     }
                     else if (biomeName == "Volcano" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenVolcano")
                     {
-                        if (ConfigATG.generateATGVolcano) {
-                            atgVolcano = new RealisticBiomeATGVolcano(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
+                        atgVolcano = new RealisticBiomeATGVolcano(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
+                        
+                        if (ConfigATG.generateATGBiomes && atgVolcano.config._boolean("biomeEnabled")) {
+                            
                             BiomeBase.addBiome(atgVolcano);
                             BiomeBase.addVillageBiome(atgVolcano);
                         }
                     }
                     else if (biomeName == "Woodland" && biomeClass == "ttftcuts.atg.biome.ATGBiomeGenWoodland")
                     {
-                        if (ConfigATG.generateATGWoodland) {
-                            atgWoodland = new RealisticBiomeATGWoodland(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
+                        atgWoodland = new RealisticBiomeATGWoodland(atgBiome, BiomeConfigATG.biomeConfigATGGravelBeach);
+                        
+                        if (ConfigATG.generateATGBiomes && atgWoodland.config._boolean("biomeEnabled")) {
+                            
                             BiomeBase.addBiome(atgWoodland);
                             BiomeBase.addVillageBiome(atgWoodland);
                         }

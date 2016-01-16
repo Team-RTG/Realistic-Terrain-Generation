@@ -33,7 +33,7 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 	
 	public static void addBiomes()
 	{
-		if (Loader.isModLoaded("Thaumcraft") && ConfigTC.generateTCBiomes)
+		if (Loader.isModLoaded("Thaumcraft"))
 		{
 			BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
 			
@@ -47,29 +47,29 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 					
                     if (biomeName == "Magical Forest" && biomeClass == "thaumcraft.common.lib.world.biomes.BiomeGenMagicalForest")
                     {
-                        if (ConfigTC.generateTCMagicalForest) {
-                            
-                            tcMagicalForest = new RealisticBiomeTCMagicalForest(tcBiome, BiomeConfigTC.biomeConfigTCMagicalForest);
-                            
+                        tcMagicalForest = new RealisticBiomeTCMagicalForest(tcBiome, BiomeConfigTC.biomeConfigTCMagicalForest);
+                        
+                        if (ConfigTC.generateTCBiomes && tcMagicalForest.config._boolean("biomeEnabled")) {
+
                             BiomeBase.addBiome(tcMagicalForest);
                             BiomeBase.addVillageBiome(tcMagicalForest);
                         }
                     }
                     else if (biomeName == "Tainted Land" && biomeClass == "thaumcraft.common.lib.world.biomes.BiomeGenTaint")
 					{
-						if (ConfigTC.generateTCTaintedLand) {
-						    
-						    tcTaintedLand = new RealisticBiomeTCTaintedLand(tcBiome, BiomeConfigTC.biomeConfigTCTaintedLand);
-						    
+                        tcTaintedLand = new RealisticBiomeTCTaintedLand(tcBiome, BiomeConfigTC.biomeConfigTCTaintedLand);
+                        
+						if (ConfigTC.generateTCBiomes && tcTaintedLand.config._boolean("biomeEnabled")) {
+
 						    BiomeBase.addBiome(tcTaintedLand);
 						    BiomeBase.addVillageBiome(tcTaintedLand);
 						}
 					}
                     else if (biomeName.equals("Eerie") && biomeClass.contains("thaumcraft.common.lib.world.biomes"))
 					{
-						if (ConfigTC.generateTCEerie) {
-
-						    tcEerie = new RealisticBiomeTCEerie(tcBiome, BiomeConfigTC.biomeConfigTCEerie);
+                        tcEerie = new RealisticBiomeTCEerie(tcBiome, BiomeConfigTC.biomeConfigTCEerie);
+                        
+						if (ConfigTC.generateTCBiomes && tcEerie.config._boolean("biomeEnabled")) {
 
 						    BiomeBase.addBiome(tcEerie);
 						    BiomeBase.addVillageBiome(tcEerie);

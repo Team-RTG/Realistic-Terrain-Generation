@@ -33,7 +33,6 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigVanilla.weightVanillaIcePlains;
 		this.generateVillages = ConfigVanilla.villageVanillaIcePlains;
 	}
 	

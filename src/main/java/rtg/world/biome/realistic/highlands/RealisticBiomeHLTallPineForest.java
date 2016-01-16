@@ -27,7 +27,6 @@ public class RealisticBiomeHLTallPineForest extends RealisticBiomeHLBase
             new SurfaceHLTallPineForest(topBlock, fillerBlock, false, null, 1.2f));
         
         this.config = config;
-        this.biomeWeight = ConfigHL.weightHLTallPineForest;
         this.generateVillages = ConfigHL.villageHLTallPineForest;
     }
 }

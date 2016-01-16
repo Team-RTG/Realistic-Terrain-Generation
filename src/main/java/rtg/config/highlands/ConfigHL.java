@@ -15,65 +15,8 @@ import net.minecraftforge.common.config.Configuration;
 public class ConfigHL 
 {
 	public static Configuration config;
-	
-    public static final int biomeWeightMin = BiomeBase.MIN_BIOME_WEIGHT;
-    public static final int biomeWeightMax = BiomeBase.MAX_BIOME_WEIGHT;
-    public static final int biomeWeightDefault = BiomeBase.DEFAULT_BIOME_WEIGHT;
-	
+
 	public static boolean generateHLBiomes = true;
-		
-	/*
-	 * ######################################################################################
-	 */
-	
-	//Main biomes
-	public static int weightHLAlps = biomeWeightDefault;
-	public static int weightHLAutumnForest = biomeWeightDefault;
-	public static int weightHLBadlands = biomeWeightDefault;
-	public static int weightHLBirchHills = biomeWeightDefault;
-	public static int weightHLBog = biomeWeightDefault;
-	public static int weightHLCliffs = biomeWeightDefault;
-	public static int weightHLDesertMountains = biomeWeightDefault;
-	public static int weightHLDunes = biomeWeightDefault;
-	public static int weightHLEstuary = biomeWeightDefault;
-	public static int weightHLFlyingMountains = biomeWeightDefault;
-	public static int weightHLGlacier = biomeWeightDefault;
-	public static int weightHLHighlandsB = biomeWeightDefault;
-	public static int weightHLLowlands = biomeWeightDefault;
-	public static int weightHLMeadow = biomeWeightDefault;
-	public static int weightHLOutback = biomeWeightDefault;
-	public static int weightHLPinelands = biomeWeightDefault;
-	public static int weightHLRainforest = biomeWeightDefault;
-	public static int weightHLRedwoodForest = biomeWeightDefault;
-	public static int weightHLRockMountains = biomeWeightDefault;
-	public static int weightHLSahel = biomeWeightDefault;
-	public static int weightHLSavannah = biomeWeightDefault;
-	public static int weightHLSnowMountains = biomeWeightDefault;
-	public static int weightHLSteppe = biomeWeightDefault;
-	public static int weightHLTallPineForest = biomeWeightDefault;
-	public static int weightHLTropicalIslands = biomeWeightDefault;
-	public static int weightHLTropics = biomeWeightDefault;
-	public static int weightHLTundra = biomeWeightDefault;
-	public static int weightHLWoodlands = biomeWeightDefault;
-	public static int weightHLWoodsMountains = biomeWeightDefault;
-    
-    //Sub biomes
-	public static int weightHLBaldHill = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHLCanyon = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHLDesertIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHLForestIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHLJungleIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHLLake = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHLMesa = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHLOasis = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHLRockIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHLSnowIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHLValley = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-	public static int weightHLVolcanoIsland = (int)Math.floor((double)(biomeWeightDefault * 0.1));
-	public static int weightHLWindyIsland = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-    
-    //Border biomes
-	public static int weightHLShrubland = (int)Math.floor((double)(biomeWeightDefault * 0.1));
 	
     /*
      * ######################################################################################
@@ -142,61 +85,6 @@ public class ConfigHL
 			
 			//HL
 			generateHLBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", true, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
-			
-			/*
-			 * ######################################################################################
-			 */
-			
-			//Weights
-
-			//Main biomes
-			weightHLAlps = config.getInt(formatConfig("weightHLAlps"), "Weights", weightHLAlps, biomeWeightMin, biomeWeightMax, "");
-			weightHLAutumnForest = config.getInt(formatConfig("weightHLAutumnForest"), "Weights", weightHLAutumnForest, biomeWeightMin, biomeWeightMax, "");
-			weightHLBadlands = config.getInt(formatConfig("weightHLBadlands"), "Weights", weightHLBadlands, biomeWeightMin, biomeWeightMax, "");
-			weightHLBirchHills = config.getInt(formatConfig("weightHLBirchHills"), "Weights", weightHLBirchHills, biomeWeightMin, biomeWeightMax, "");
-			weightHLBog = config.getInt(formatConfig("weightHLBog"), "Weights", weightHLBog, biomeWeightMin, biomeWeightMax, "");
-			weightHLCliffs = config.getInt(formatConfig("weightHLCliffs"), "Weights", weightHLCliffs, biomeWeightMin, biomeWeightMax, "");
-			weightHLDesertMountains = config.getInt(formatConfig("weightHLDesertMountains"), "Weights", weightHLDesertMountains, biomeWeightMin, biomeWeightMax, "");
-			weightHLDunes = config.getInt(formatConfig("weightHLDunes"), "Weights", weightHLDunes, biomeWeightMin, biomeWeightMax, "");
-			weightHLEstuary = config.getInt(formatConfig("weightHLEstuary"), "Weights", weightHLEstuary, biomeWeightMin, biomeWeightMax, "");
-			weightHLFlyingMountains = config.getInt(formatConfig("weightHLFlyingMountains"), "Weights", weightHLFlyingMountains, biomeWeightMin, biomeWeightMax, "");
-			weightHLGlacier = config.getInt(formatConfig("weightHLGlacier"), "Weights", weightHLGlacier, biomeWeightMin, biomeWeightMax, "");
-			weightHLHighlandsB = config.getInt(formatConfig("weightHLHighlandsB"), "Weights", weightHLHighlandsB, biomeWeightMin, biomeWeightMax, "");
-			weightHLLowlands = config.getInt(formatConfig("weightHLLowlands"), "Weights", weightHLLowlands, biomeWeightMin, biomeWeightMax, "");
-			weightHLMeadow = config.getInt(formatConfig("weightHLMeadow"), "Weights", weightHLMeadow, biomeWeightMin, biomeWeightMax, "");
-			weightHLOutback = config.getInt(formatConfig("weightHLOutback"), "Weights", weightHLOutback, biomeWeightMin, biomeWeightMax, "");
-			weightHLPinelands = config.getInt(formatConfig("weightHLPinelands"), "Weights", weightHLPinelands, biomeWeightMin, biomeWeightMax, "");
-			weightHLRainforest = config.getInt(formatConfig("weightHLRainforest"), "Weights", weightHLRainforest, biomeWeightMin, biomeWeightMax, "");
-			weightHLRedwoodForest = config.getInt(formatConfig("weightHLRedwoodForest"), "Weights", weightHLRedwoodForest, biomeWeightMin, biomeWeightMax, "");
-			weightHLRockMountains = config.getInt(formatConfig("weightHLRockMountains"), "Weights", weightHLRockMountains, biomeWeightMin, biomeWeightMax, "");
-			weightHLSahel = config.getInt(formatConfig("weightHLSahel"), "Weights", weightHLSahel, biomeWeightMin, biomeWeightMax, "");
-			weightHLSavannah = config.getInt(formatConfig("weightHLSavannah"), "Weights", weightHLSavannah, biomeWeightMin, biomeWeightMax, "");
-			weightHLSnowMountains = config.getInt(formatConfig("weightHLSnowMountains"), "Weights", weightHLSnowMountains, biomeWeightMin, biomeWeightMax, "");
-			weightHLSteppe = config.getInt(formatConfig("weightHLSteppe"), "Weights", weightHLSteppe, biomeWeightMin, biomeWeightMax, "");
-			weightHLTallPineForest = config.getInt(formatConfig("weightHLTallPineForest"), "Weights", weightHLTallPineForest, biomeWeightMin, biomeWeightMax, "");
-			weightHLTropicalIslands = config.getInt(formatConfig("weightHLTropicalIslands"), "Weights", weightHLTropicalIslands, biomeWeightMin, biomeWeightMax, "");
-			weightHLTropics = config.getInt(formatConfig("weightHLTropics"), "Weights", weightHLTropics, biomeWeightMin, biomeWeightMax, "");
-			weightHLTundra = config.getInt(formatConfig("weightHLTundra"), "Weights", weightHLTundra, biomeWeightMin, biomeWeightMax, "");
-			weightHLWoodlands = config.getInt(formatConfig("weightHLWoodlands"), "Weights", weightHLWoodlands, biomeWeightMin, biomeWeightMax, "");
-			weightHLWoodsMountains = config.getInt(formatConfig("weightHLWoodsMountains"), "Weights", weightHLWoodsMountains, biomeWeightMin, biomeWeightMax, "");
-			    
-			//Sub biomes
-			weightHLBaldHill = config.getInt(formatConfig("weightHLBaldHill"), "Weights", weightHLBaldHill, biomeWeightMin, biomeWeightMax, "");
-			weightHLCanyon = config.getInt(formatConfig("weightHLCanyon"), "Weights", weightHLCanyon, biomeWeightMin, biomeWeightMax, "");
-			weightHLDesertIsland = config.getInt(formatConfig("weightHLDesertIsland"), "Weights", weightHLDesertIsland, biomeWeightMin, biomeWeightMax, "");
-			weightHLForestIsland = config.getInt(formatConfig("weightHLForestIsland"), "Weights", weightHLForestIsland, biomeWeightMin, biomeWeightMax, "");
-			weightHLJungleIsland = config.getInt(formatConfig("weightHLJungleIsland"), "Weights", weightHLJungleIsland, biomeWeightMin, biomeWeightMax, "");
-			weightHLLake = config.getInt(formatConfig("weightHLLake"), "Weights", weightHLLake, biomeWeightMin, biomeWeightMax, "");
-			weightHLMesa = config.getInt(formatConfig("weightHLMesa"), "Weights", weightHLMesa, biomeWeightMin, biomeWeightMax, "");
-			weightHLOasis = config.getInt(formatConfig("weightHLOasis"), "Weights", weightHLOasis, biomeWeightMin, biomeWeightMax, "");
-			weightHLRockIsland = config.getInt(formatConfig("weightHLRockIsland"), "Weights", weightHLRockIsland, biomeWeightMin, biomeWeightMax, "");
-			weightHLSnowIsland = config.getInt(formatConfig("weightHLSnowIsland"), "Weights", weightHLSnowIsland, biomeWeightMin, biomeWeightMax, "");
-			weightHLValley = config.getInt(formatConfig("weightHLValley"), "Weights", weightHLValley, biomeWeightMin, biomeWeightMax, "");
-			weightHLVolcanoIsland = config.getInt(formatConfig("weightHLVolcanoIsland"), "Weights", weightHLVolcanoIsland, biomeWeightMin, biomeWeightMax, "");
-			weightHLWindyIsland = config.getInt(formatConfig("weightHLWindyIsland"), "Weights", weightHLWindyIsland, biomeWeightMin, biomeWeightMax, "");
-			    
-			//Border biomes
-			weightHLShrubland = config.getInt(formatConfig("weightHLShrubland"), "Weights", weightHLShrubland, biomeWeightMin, biomeWeightMax, "");
 			
             /*
              * ######################################################################################
@@ -274,14 +162,8 @@ public class ConfigHL
         
         returnString = StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(returnString), " ");
 
-        if (s.startsWith("generate")) {
-            returnString = StringUtils.replace(returnString, "generate", "Generate", 1);
-        }
-        else if (s.startsWith("village")) {
+        if (s.startsWith("village")) {
             returnString = StringUtils.replace(returnString, "village", "Allow villages to generate in", 1);
-        }
-        else if (s.startsWith("weight")) {
-            returnString = StringUtils.replace(returnString, "weight", "Weight of", 1);
         }
         
         return returnString;

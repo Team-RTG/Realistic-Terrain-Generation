@@ -79,7 +79,6 @@ public class RealisticBiomeEBSteppe extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEB.weightEBSteppe;
 		this.generateVillages = ConfigEB.villageEBSteppe;
         
     }

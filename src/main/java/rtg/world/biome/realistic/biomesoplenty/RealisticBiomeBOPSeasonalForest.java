@@ -47,7 +47,6 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPSeasonalForest;
 		this.generateVillages = ConfigBOP.villageBOPSeasonalForest;
 	}
 	

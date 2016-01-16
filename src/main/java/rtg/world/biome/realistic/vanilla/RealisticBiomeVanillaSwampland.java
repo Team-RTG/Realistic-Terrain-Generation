@@ -37,7 +37,6 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
             new SurfaceVanillaSwampland(topBlock, fillerBlock));
         
         this.config = config;
-        this.biomeWeight = ConfigVanilla.weightVanillaSwampland;
         this.generateVillages = ConfigVanilla.villageVanillaSwampland;
     }
     

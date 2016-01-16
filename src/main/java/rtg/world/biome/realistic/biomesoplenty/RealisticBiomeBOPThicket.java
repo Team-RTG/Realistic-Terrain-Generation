@@ -26,7 +26,6 @@ public class RealisticBiomeBOPThicket extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPThicket;
 		this.generateVillages = ConfigBOP.villageBOPThicket;
 	}
 }

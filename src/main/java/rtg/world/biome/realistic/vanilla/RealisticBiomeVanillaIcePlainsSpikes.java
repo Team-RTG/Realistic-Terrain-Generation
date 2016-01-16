@@ -27,7 +27,6 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigVanilla.weightVanillaIcePlainsSpikes;
 		this.generateVillages = ConfigVanilla.villageVanillaIcePlainsSpikes;
 	}
 }

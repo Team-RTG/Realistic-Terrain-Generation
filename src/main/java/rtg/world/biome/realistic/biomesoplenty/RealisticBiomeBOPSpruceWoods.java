@@ -47,7 +47,6 @@ public class RealisticBiomeBOPSpruceWoods extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPSpruceWoods;
 		this.generateVillages = ConfigBOP.villageBOPSpruceWoods;
 	}
 	

@@ -26,7 +26,6 @@ public class RealisticBiomeEBXLWoodlands extends RealisticBiomeEBXLBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEBXL.weightEBXLWoodlands;
 		this.generateVillages = ConfigEBXL.villageEBXLWoodlands;
 	}
 }

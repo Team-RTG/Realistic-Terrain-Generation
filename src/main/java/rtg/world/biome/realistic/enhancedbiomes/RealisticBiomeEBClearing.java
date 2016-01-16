@@ -73,7 +73,6 @@ public class RealisticBiomeEBClearing extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEB.weightEBClearing;
 		this.generateVillages = ConfigEB.villageEBClearing;
         
     }

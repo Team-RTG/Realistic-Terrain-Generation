@@ -26,7 +26,6 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase
             new SurfaceVanillaFrozenOcean(Blocks.sand, Blocks.sand, Blocks.gravel, 20f, 0.2f));
         
         this.config = config;
-        this.biomeWeight = ConfigVanilla.weightVanillaFrozenOcean;
         this.generateVillages = ConfigVanilla.villageVanillaFrozenOcean;
         
         this.waterSurfaceLakeChance = 0;

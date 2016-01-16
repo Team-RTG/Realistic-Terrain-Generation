@@ -26,7 +26,6 @@ public class RealisticBiomeBOPSludgepit extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPSludgepit;
 		this.generateVillages = ConfigBOP.villageBOPSludgepit;
 	}
 }

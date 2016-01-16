@@ -41,7 +41,6 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
             new SurfaceVanillaRoofedForestM(topBlock, fillerBlock));
         
         this.config = config;
-        this.biomeWeight = ConfigVanilla.weightVanillaRoofedForestM;
         this.generateVillages = ConfigVanilla.villageVanillaRoofedForestM;
     }
     

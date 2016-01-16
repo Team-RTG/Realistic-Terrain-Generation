@@ -26,7 +26,6 @@ public class RealisticBiomeEBXLGlacier extends RealisticBiomeEBXLBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEBXL.weightEBXLGlacier;
 		this.generateVillages = ConfigEBXL.villageEBXLGlacier;
 	}
 }

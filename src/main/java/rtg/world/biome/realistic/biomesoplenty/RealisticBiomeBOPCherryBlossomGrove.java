@@ -48,7 +48,6 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPCherryBlossomGrove;
 		this.generateVillages = ConfigBOP.villageBOPCherryBlossomGrove;
 	}
 	

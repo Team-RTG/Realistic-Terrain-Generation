@@ -26,7 +26,6 @@ public class RealisticBiomeHLBadlands extends RealisticBiomeHLBase
             new SurfaceHLBadlands(topBlock, fillerBlock));
         
         this.config = config;
-        this.biomeWeight = ConfigHL.weightHLBadlands;
         this.generateVillages = ConfigHL.villageHLBadlands;
     }
 }

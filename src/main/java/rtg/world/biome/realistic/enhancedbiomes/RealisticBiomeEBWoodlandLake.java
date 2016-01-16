@@ -73,7 +73,6 @@ public class RealisticBiomeEBWoodlandLake extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEB.weightEBWoodlandLake;
 		this.generateVillages = ConfigEB.villageEBWoodlandLake;
         
     }

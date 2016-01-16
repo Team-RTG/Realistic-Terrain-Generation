@@ -35,7 +35,6 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPShield;
 		this.generateVillages = ConfigBOP.villageBOPShield;
 	}
 	

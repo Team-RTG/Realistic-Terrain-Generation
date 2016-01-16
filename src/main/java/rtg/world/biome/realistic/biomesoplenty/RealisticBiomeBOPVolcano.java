@@ -65,7 +65,6 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPVolcano;
 		this.generateVillages = ConfigBOP.villageBOPVolcano;
 		
 		this.waterSurfaceLakeChance = 0;

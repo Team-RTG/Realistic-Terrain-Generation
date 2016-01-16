@@ -19,7 +19,6 @@ public class RealisticBiomeTCTaintedLand extends RealisticBiomeTCBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigTC.weightTCTaintedLand;
 		this.generateVillages = ConfigTC.villageTCTaintedLand;
 	}
 }

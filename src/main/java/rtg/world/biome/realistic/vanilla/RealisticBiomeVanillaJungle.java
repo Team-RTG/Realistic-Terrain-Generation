@@ -50,7 +50,6 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigVanilla.weightVanillaJungle;
 		this.generateVillages = ConfigVanilla.villageVanillaJungle;
 		
 		this.waterSurfaceLakeChance = 3;

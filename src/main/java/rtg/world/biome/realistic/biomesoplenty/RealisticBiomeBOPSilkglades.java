@@ -26,7 +26,6 @@ public class RealisticBiomeBOPSilkglades extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPSilkglades;
 		this.generateVillages = ConfigBOP.villageBOPSilkglades;
 	}
 }

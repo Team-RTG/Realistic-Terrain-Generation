@@ -19,7 +19,6 @@ public class RealisticBiomeATGGravelBeach extends RealisticBiomeATGBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigATG.weightATGGravelBeach;
 		this.generateVillages = ConfigATG.villageATGGravelBeach;
 	}
 }

@@ -20,7 +20,6 @@ public class RealisticBiomeBCDesertOilField extends RealisticBiomeBCBase
             new SurfaceBCDesertOilField(bcBiome.topBlock, bcBiome.fillerBlock));
         
         this.config = config;
-        this.biomeWeight = ConfigBC.weightBCDesertOilField;
         this.generateVillages = ConfigBC.villageBCDesertOilField;
     }
 }

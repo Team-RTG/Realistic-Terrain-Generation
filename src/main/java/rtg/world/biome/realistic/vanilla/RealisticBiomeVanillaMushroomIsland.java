@@ -24,7 +24,6 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigVanilla.weightVanillaMushroomIsland;
 		this.generateVillages = ConfigVanilla.villageVanillaMushroomIsland;
 	}	
 }

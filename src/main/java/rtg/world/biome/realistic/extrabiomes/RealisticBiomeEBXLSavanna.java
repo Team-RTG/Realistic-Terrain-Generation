@@ -27,7 +27,6 @@ public class RealisticBiomeEBXLSavanna extends RealisticBiomeEBXLBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEBXL.weightEBXLSavanna;
 		this.generateVillages = ConfigEBXL.villageEBXLSavanna;
 	}
 }

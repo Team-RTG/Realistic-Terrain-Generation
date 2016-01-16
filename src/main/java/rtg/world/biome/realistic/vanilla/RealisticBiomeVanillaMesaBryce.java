@@ -43,7 +43,6 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase
             new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f), surface);
         
         this.config = config;
-        this.biomeWeight = ConfigVanilla.weightVanillaMesaBryce;
         this.generateVillages = ConfigVanilla.villageVanillaMesaBryce;
     }
     

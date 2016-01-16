@@ -50,7 +50,6 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPMountain;
 		this.generateVillages = ConfigBOP.villageBOPMountain;
 		this.generatesEmeralds = true;
 	}

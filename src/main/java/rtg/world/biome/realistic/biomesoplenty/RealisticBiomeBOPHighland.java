@@ -26,7 +26,6 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPHighland;
 		this.generateVillages = ConfigBOP.villageBOPHighland;
 		this.generatesEmeralds = true;
 	}

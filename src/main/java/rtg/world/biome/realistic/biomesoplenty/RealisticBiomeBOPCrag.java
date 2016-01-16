@@ -34,7 +34,6 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPCrag;
 		this.generateVillages = ConfigBOP.villageBOPCrag;
 		this.generatesEmeralds = true;
 	}

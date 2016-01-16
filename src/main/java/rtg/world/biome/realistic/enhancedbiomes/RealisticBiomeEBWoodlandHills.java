@@ -74,7 +74,6 @@ public class RealisticBiomeEBWoodlandHills extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEB.weightEBWoodlandHills;
 		this.generateVillages = ConfigEB.villageEBWoodlandHills;
         
     }

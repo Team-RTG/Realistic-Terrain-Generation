@@ -16,93 +16,7 @@ public class ConfigBOP
 {
 	public static Configuration config;
 	
-    public static final int biomeWeightMin = BiomeBase.MIN_BIOME_WEIGHT;
-    public static final int biomeWeightMax = BiomeBase.MAX_BIOME_WEIGHT;
-    public static final int biomeWeightDefault = BiomeBase.DEFAULT_BIOME_WEIGHT;
-	
 	public static boolean generateBOPBiomes = true;
-	
-	public static int weightBOPAlps = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPArctic = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPBambooForest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPBayou = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPBog = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPBorealForest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPBrushland = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPCanyon = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPChaparral = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPCherryBlossomGrove = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPConiferousForest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPSnowyConiferousForest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPCrag = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPDeadForest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPDeadSwamp = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPDeciduousForest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPDenseForest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPDryRiver = 0;
-	public static int weightBOPEucalyptusForest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPFen = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPFlowerField = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPFrostForest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPFungiForest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPGarden = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPGrassland = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPGrove = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPHeathland = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPHighland = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPJadeCliffs = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPLandOfLakes = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPLavenderFields = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPLushDesert = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPLushRiver = 0;
-	public static int weightBOPLushSwamp = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPMapleWoods = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPMarsh = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPMeadow = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPMoor = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPMountain = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPMysticGrove = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPOminousWoods = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPOriginValley = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPOutback = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPPrairie = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPRainforest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPRedwoodForest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPSacredSprings = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPSeasonalForest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPShield = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPShrubland = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPSludgepit = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPSteppe = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPTemperateRainforest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPThicket = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPTropicalRainforest = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPTundra = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPWasteland = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPWetland = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPWoodland = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-	public static int weightBOPXericShrubland = (int)Math.floor((double)(biomeWeightDefault * 0.8));
-		
-	//Sub biomes
-	public static int weightBOPAlpsForest = (int)Math.floor((double)(biomeWeightDefault * 0.6));
-	public static int weightBOPCanyonRavine = (int)Math.floor((double)(biomeWeightDefault * 0.6));
-	public static int weightBOPGlacier = (int)Math.floor((double)(biomeWeightDefault * 0.6));
-	public static int weightBOPLandOfLakesMarsh = (int)Math.floor((double)(biomeWeightDefault * 0.6));
-	public static int weightBOPMangrove = (int)Math.floor((double)(biomeWeightDefault * 0.6));
-	public static int weightBOPMeadowForest = (int)Math.floor((double)(biomeWeightDefault * 0.6));
-	public static int weightBOPOasis = (int)Math.floor((double)(biomeWeightDefault * 0.6));
-	public static int weightBOPOrchard = (int)Math.floor((double)(biomeWeightDefault * 0.6));
-	public static int weightBOPQuagmire = (int)Math.floor((double)(biomeWeightDefault * 0.6));
-	public static int weightBOPScrubland = (int)Math.floor((double)(biomeWeightDefault * 0.6));
-	public static int weightBOPSeasonalForestClearing = (int)Math.floor((double)(biomeWeightDefault * 0.6));
-	public static int weightBOPSilkglades = (int)Math.floor((double)(biomeWeightDefault * 0.6));
-	public static int weightBOPSpruceWoods = (int)Math.floor((double)(biomeWeightDefault * 0.6));
-	public static int weightBOPTropics = (int)Math.floor((double)(biomeWeightDefault * 0.6));
-	public static int weightBOPVolcano = (int)Math.floor((double)(biomeWeightDefault * 0.1));
-	
-	//Water biomes
-	public static int weightBOPCoralReef = (int)Math.floor((double)(biomeWeightDefault * 1.2));
-	public static int weightBOPKelpForest = (int)Math.floor((double)(biomeWeightDefault * 1.2));
 	
     public static boolean villageBOPAlps = true;
     public static boolean villageBOPArctic = true;
@@ -196,91 +110,7 @@ public class ConfigBOP
 			
 			//Bop
 			generateBOPBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", generateBOPBiomes, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
-			
-			//Overworld biomes
-			weightBOPAlps = config.getInt(formatConfig("weightBOPAlps"), "Weights", weightBOPAlps, biomeWeightMin, biomeWeightMax, "");
-			weightBOPArctic = config.getInt(formatConfig("weightBOPArctic"), "Weights", weightBOPArctic, biomeWeightMin, biomeWeightMax, "");
-			weightBOPBambooForest = config.getInt(formatConfig("weightBOPBambooForest"), "Weights", weightBOPBambooForest, biomeWeightMin, biomeWeightMax, "");
-			weightBOPBayou = config.getInt(formatConfig("weightBOPBayou"), "Weights", weightBOPBayou, biomeWeightMin, biomeWeightMax, "");
-			weightBOPBog = config.getInt(formatConfig("weightBOPBog"), "Weights", weightBOPBog, biomeWeightMin, biomeWeightMax, "");
-			weightBOPBorealForest = config.getInt(formatConfig("weightBOPBorealForest"), "Weights", weightBOPBorealForest, biomeWeightMin, biomeWeightMax, "");
-			weightBOPBrushland = config.getInt(formatConfig("weightBOPBrushland"), "Weights", weightBOPBrushland, biomeWeightMin, biomeWeightMax, "");
-			weightBOPCanyon = config.getInt(formatConfig("weightBOPCanyon"), "Weights", weightBOPCanyon, biomeWeightMin, biomeWeightMax, "");
-			weightBOPChaparral = config.getInt(formatConfig("weightBOPChaparral"), "Weights", weightBOPChaparral, biomeWeightMin, biomeWeightMax, "");
-			weightBOPCherryBlossomGrove = config.getInt(formatConfig("weightBOPCherryBlossomGrove"), "Weights", weightBOPCherryBlossomGrove, biomeWeightMin, biomeWeightMax, "");
-			weightBOPConiferousForest = config.getInt(formatConfig("weightBOPConiferousForest"), "Weights", weightBOPConiferousForest, biomeWeightMin, biomeWeightMax, "");
-			weightBOPSnowyConiferousForest = config.getInt(formatConfig("weightBOPSnowyConiferousForest"), "Weights", weightBOPSnowyConiferousForest, biomeWeightMin, biomeWeightMax, "");
-			weightBOPCrag = config.getInt(formatConfig("weightBOPCrag"), "Weights", weightBOPCrag, biomeWeightMin, biomeWeightMax, "");
-			weightBOPDeadForest = config.getInt(formatConfig("weightBOPDeadForest"), "Weights", weightBOPDeadForest, biomeWeightMin, biomeWeightMax, "");
-			weightBOPDeadSwamp = config.getInt(formatConfig("weightBOPDeadSwamp"), "Weights", weightBOPDeadSwamp, biomeWeightMin, biomeWeightMax, "");
-			weightBOPDeciduousForest = config.getInt(formatConfig("weightBOPDeciduousForest"), "Weights", weightBOPDeciduousForest, biomeWeightMin, biomeWeightMax, "");
-			weightBOPDenseForest = config.getInt(formatConfig("weightBOPDenseForest"), "Weights", weightBOPDenseForest, biomeWeightMin, biomeWeightMax, "");
-			weightBOPDryRiver = config.getInt(formatConfig("weightBOPDryRiver"), "Weights", weightBOPDryRiver, biomeWeightMin, biomeWeightMax, "");
-			weightBOPEucalyptusForest = config.getInt(formatConfig("weightBOPEucalyptusForest"), "Weights", weightBOPEucalyptusForest, biomeWeightMin, biomeWeightMax, "");
-			weightBOPFen = config.getInt(formatConfig("weightBOPFen"), "Weights", weightBOPFen, biomeWeightMin, biomeWeightMax, "");
-			weightBOPFlowerField = config.getInt(formatConfig("weightBOPFlowerField"), "Weights", weightBOPFlowerField, biomeWeightMin, biomeWeightMax, "");
-			weightBOPFrostForest = config.getInt(formatConfig("weightBOPFrostForest"), "Weights", weightBOPFrostForest, biomeWeightMin, biomeWeightMax, "");
-			weightBOPFungiForest = config.getInt(formatConfig("weightBOPFungiForest"), "Weights", weightBOPFungiForest, biomeWeightMin, biomeWeightMax, "");
-			weightBOPGarden = config.getInt(formatConfig("weightBOPGarden"), "Weights", weightBOPGarden, biomeWeightMin, biomeWeightMax, "");
-			weightBOPGrassland = config.getInt(formatConfig("weightBOPGrassland"), "Weights", weightBOPGrassland, biomeWeightMin, biomeWeightMax, "");
-			weightBOPGrove = config.getInt(formatConfig("weightBOPGrove"), "Weights", weightBOPGrove, biomeWeightMin, biomeWeightMax, "");
-			weightBOPHeathland = config.getInt(formatConfig("weightBOPHeathland"), "Weights", weightBOPHeathland, biomeWeightMin, biomeWeightMax, "");
-			weightBOPHighland = config.getInt(formatConfig("weightBOPHighland"), "Weights", weightBOPHighland, biomeWeightMin, biomeWeightMax, "");
-			weightBOPJadeCliffs = config.getInt(formatConfig("weightBOPJadeCliffs"), "Weights", weightBOPJadeCliffs, biomeWeightMin, biomeWeightMax, "");
-			weightBOPLandOfLakes = config.getInt(formatConfig("weightBOPLandOfLakes"), "Weights", weightBOPLandOfLakes, biomeWeightMin, biomeWeightMax, "");
-			weightBOPLavenderFields = config.getInt(formatConfig("weightBOPLavenderFields"), "Weights", weightBOPLavenderFields, biomeWeightMin, biomeWeightMax, "");
-			weightBOPLushDesert = config.getInt(formatConfig("weightBOPLushDesert"), "Weights", weightBOPLushDesert, biomeWeightMin, biomeWeightMax, "");
-			weightBOPLushRiver = config.getInt(formatConfig("weightBOPLushRiver"), "Weights", weightBOPLushRiver, biomeWeightMin, biomeWeightMax, "");
-			weightBOPLushSwamp = config.getInt(formatConfig("weightBOPLushSwamp"), "Weights", weightBOPLushSwamp, biomeWeightMin, biomeWeightMax, "");
-			weightBOPMapleWoods = config.getInt(formatConfig("weightBOPMapleWoods"), "Weights", weightBOPMapleWoods, biomeWeightMin, biomeWeightMax, "");
-			weightBOPMarsh = config.getInt(formatConfig("weightBOPMarsh"), "Weights", weightBOPMarsh, biomeWeightMin, biomeWeightMax, "");
-			weightBOPMeadow = config.getInt(formatConfig("weightBOPMeadow"), "Weights", weightBOPMeadow, biomeWeightMin, biomeWeightMax, "");
-			weightBOPMoor = config.getInt(formatConfig("weightBOPMoor"), "Weights", weightBOPMoor, biomeWeightMin, biomeWeightMax, "");
-			weightBOPMountain = config.getInt(formatConfig("weightBOPMountain"), "Weights", weightBOPMountain, biomeWeightMin, biomeWeightMax, "");
-			weightBOPMysticGrove = config.getInt(formatConfig("weightBOPMysticGrove"), "Weights", weightBOPMysticGrove, biomeWeightMin, biomeWeightMax, "");
-			weightBOPOminousWoods = config.getInt(formatConfig("weightBOPOminousWoods"), "Weights", weightBOPOminousWoods, biomeWeightMin, biomeWeightMax, "");
-			weightBOPOriginValley = config.getInt(formatConfig("weightBOPOriginValley"), "Weights", weightBOPOriginValley, biomeWeightMin, biomeWeightMax, "");
-			weightBOPOutback = config.getInt(formatConfig("weightBOPOutback"), "Weights", weightBOPOutback, biomeWeightMin, biomeWeightMax, "");
-			weightBOPPrairie = config.getInt(formatConfig("weightBOPPrairie"), "Weights", weightBOPPrairie, biomeWeightMin, biomeWeightMax, "");
-			weightBOPRainforest = config.getInt(formatConfig("weightBOPRainforest"), "Weights", weightBOPRainforest, biomeWeightMin, biomeWeightMax, "");
-			weightBOPRedwoodForest = config.getInt(formatConfig("weightBOPRedwoodForest"), "Weights", weightBOPRedwoodForest, biomeWeightMin, biomeWeightMax, "");
-			weightBOPSacredSprings = config.getInt(formatConfig("weightBOPSacredSprings"), "Weights", weightBOPSacredSprings, biomeWeightMin, biomeWeightMax, "");
-			weightBOPSeasonalForest = config.getInt(formatConfig("weightBOPSeasonalForest"), "Weights", weightBOPSeasonalForest, biomeWeightMin, biomeWeightMax, "");
-			weightBOPShield = config.getInt(formatConfig("weightBOPShield"), "Weights", weightBOPShield, biomeWeightMin, biomeWeightMax, "");
-			weightBOPShrubland = config.getInt(formatConfig("weightBOPShrubland"), "Weights", weightBOPShrubland, biomeWeightMin, biomeWeightMax, "");
-			weightBOPSludgepit = config.getInt(formatConfig("weightBOPSludgepit"), "Weights", weightBOPSludgepit, biomeWeightMin, biomeWeightMax, "");
-			weightBOPSteppe = config.getInt(formatConfig("weightBOPSteppe"), "Weights", weightBOPSteppe, biomeWeightMin, biomeWeightMax, "");
-			weightBOPTemperateRainforest = config.getInt(formatConfig("weightBOPTemperateRainforest"), "Weights", weightBOPTemperateRainforest, biomeWeightMin, biomeWeightMax, "");
-			weightBOPThicket = config.getInt(formatConfig("weightBOPThicket"), "Weights", weightBOPThicket, biomeWeightMin, biomeWeightMax, "");
-			weightBOPTropicalRainforest = config.getInt(formatConfig("weightBOPTropicalRainforest"), "Weights", weightBOPTropicalRainforest, biomeWeightMin, biomeWeightMax, "");
-			weightBOPTundra = config.getInt(formatConfig("weightBOPTundra"), "Weights", weightBOPTundra, biomeWeightMin, biomeWeightMax, "");
-			weightBOPWasteland = config.getInt(formatConfig("weightBOPWasteland"), "Weights", weightBOPWasteland, biomeWeightMin, biomeWeightMax, "");
-			weightBOPWetland = config.getInt(formatConfig("weightBOPWetland"), "Weights", weightBOPWetland, biomeWeightMin, biomeWeightMax, "");
-			weightBOPWoodland = config.getInt(formatConfig("weightBOPWoodland"), "Weights", weightBOPWoodland, biomeWeightMin, biomeWeightMax, "");
-			weightBOPXericShrubland = config.getInt(formatConfig("weightBOPXericShrubland"), "Weights", weightBOPXericShrubland, biomeWeightMin, biomeWeightMax, "");
-			
-			//Sub biomes
-			weightBOPAlpsForest = config.getInt(formatConfig("weightBOPAlpsForest"), "Weights", weightBOPAlpsForest, biomeWeightMin, biomeWeightMax, "");
-			weightBOPCanyonRavine = config.getInt(formatConfig("weightBOPCanyonRavine"), "Weights", weightBOPCanyonRavine, biomeWeightMin, biomeWeightMax, "");
-			weightBOPGlacier = config.getInt(formatConfig("weightBOPGlacier"), "Weights", weightBOPGlacier, biomeWeightMin, biomeWeightMax, "");
-			weightBOPLandOfLakesMarsh = config.getInt(formatConfig("weightBOPLandOfLakesMarsh"), "Weights", weightBOPLandOfLakesMarsh, biomeWeightMin, biomeWeightMax, "");
-			weightBOPMangrove = config.getInt(formatConfig("weightBOPMangrove"), "Weights", weightBOPMangrove, biomeWeightMin, biomeWeightMax, "");
-			weightBOPMeadowForest = config.getInt(formatConfig("weightBOPMeadowForest"), "Weights", weightBOPMeadowForest, biomeWeightMin, biomeWeightMax, "");
-			weightBOPOasis = config.getInt(formatConfig("weightBOPOasis"), "Weights", weightBOPOasis, biomeWeightMin, biomeWeightMax, "");
-			weightBOPOrchard = config.getInt(formatConfig("weightBOPOrchard"), "Weights", weightBOPOrchard, biomeWeightMin, biomeWeightMax, "");
-			weightBOPQuagmire = config.getInt(formatConfig("weightBOPQuagmire"), "Weights", weightBOPQuagmire, biomeWeightMin, biomeWeightMax, "");
-			weightBOPScrubland = config.getInt(formatConfig("weightBOPScrubland"), "Weights", weightBOPScrubland, biomeWeightMin, biomeWeightMax, "");
-			weightBOPSeasonalForestClearing = config.getInt(formatConfig("weightBOPSeasonalForestClearing"), "Weights", weightBOPSeasonalForestClearing, biomeWeightMin, biomeWeightMax, "");
-			weightBOPSilkglades = config.getInt(formatConfig("weightBOPSilkglades"), "Weights", weightBOPSilkglades, biomeWeightMin, biomeWeightMax, "");
-			weightBOPSpruceWoods = config.getInt(formatConfig("weightBOPSpruceWoods"), "Weights", weightBOPSpruceWoods, biomeWeightMin, biomeWeightMax, "");
-			weightBOPTropics = config.getInt(formatConfig("weightBOPTropics"), "Weights", weightBOPTropics, biomeWeightMin, biomeWeightMax, "");
-			weightBOPVolcano = config.getInt(formatConfig("weightBOPVolcano"), "Weights", weightBOPVolcano, biomeWeightMin, biomeWeightMax, "");
-			
-			//Water biomes
-			weightBOPCoralReef = config.getInt(formatConfig("weightBOPCoralReef"), "Weights", weightBOPCoralReef, biomeWeightMin, biomeWeightMax, "");
-			weightBOPKelpForest = config.getInt(formatConfig("weightBOPKelpForest"), "Weights", weightBOPKelpForest, biomeWeightMin, biomeWeightMax, "");
-			
-			
+
             //Overworld biomes
             villageBOPAlps = config.getBoolean(formatConfig("villageBOPAlps"), "Villages", villageBOPAlps, "");
             villageBOPArctic = config.getBoolean(formatConfig("villageBOPArctic"), "Villages", villageBOPArctic, "");
@@ -385,14 +215,8 @@ public class ConfigBOP
         
         returnString = StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(returnString), " ");
 
-        if (s.startsWith("generate")) {
-            returnString = StringUtils.replace(returnString, "generate", "Generate", 1);
-        }
-        else if (s.startsWith("village")) {
+        if (s.startsWith("village")) {
             returnString = StringUtils.replace(returnString, "village", "Allow villages to generate in", 1);
-        }
-        else if (s.startsWith("weight")) {
-            returnString = StringUtils.replace(returnString, "weight", "Weight of", 1);
         }
         
         return returnString;

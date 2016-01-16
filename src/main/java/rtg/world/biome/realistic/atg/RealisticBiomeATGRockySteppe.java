@@ -19,7 +19,6 @@ public class RealisticBiomeATGRockySteppe extends RealisticBiomeATGBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = rtg.config.atg.ConfigATG.weightATGRockySteppe;
 		this.generateVillages = ConfigATG.villageATGGravelBeach;
 	}
 }

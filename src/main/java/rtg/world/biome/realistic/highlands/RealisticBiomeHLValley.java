@@ -27,7 +27,6 @@ public class RealisticBiomeHLValley extends RealisticBiomeHLBase
             new SurfaceHLValley(topBlock, fillerBlock));
         
         this.config = config;
-        this.biomeWeight = ConfigHL.weightHLValley;
         this.generateVillages = ConfigHL.villageHLValley;
     }
 }

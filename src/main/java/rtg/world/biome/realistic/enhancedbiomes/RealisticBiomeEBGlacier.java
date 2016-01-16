@@ -73,7 +73,6 @@ public class RealisticBiomeEBGlacier extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEB.weightEBGlacier;
 		this.generateVillages = ConfigEB.villageEBGlacier;
         
     }

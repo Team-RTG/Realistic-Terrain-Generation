@@ -47,7 +47,6 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPOasis;
 		this.generateVillages = ConfigBOP.villageBOPOasis;
 	}
 	

@@ -48,7 +48,6 @@ public class RealisticBiomeEBAlpineMountainsEdge extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEB.weightEBAlpineMountainsEdge;
 		this.generateVillages = ConfigEB.villageEBAlpineMountainsEdge;
         
     }

@@ -27,7 +27,6 @@ public class RealisticBiomeHLRainforest extends RealisticBiomeHLBase
             new SurfaceHLRainforest(topBlock, fillerBlock, false, null, 1.3f));
         
         this.config = config;
-        this.biomeWeight = ConfigHL.weightHLRainforest;
         this.generateVillages = ConfigHL.villageHLRainforest;
     }
 }

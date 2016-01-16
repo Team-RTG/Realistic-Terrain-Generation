@@ -47,7 +47,6 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
             new SurfaceVanillaColdTaiga(topBlock, fillerBlock));
         
         this.config = config;
-        this.biomeWeight = ConfigVanilla.weightVanillaColdTaiga;
         this.generateVillages = ConfigVanilla.villageVanillaColdTaiga;
     }
     

@@ -89,7 +89,6 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
         );
         
         this.config = config;
-        this.biomeWeight = ConfigEB.weightEBVolcano;
         this.generateVillages = ConfigEB.villageEBVolcano;
         
         this.generatesEmeralds = true;

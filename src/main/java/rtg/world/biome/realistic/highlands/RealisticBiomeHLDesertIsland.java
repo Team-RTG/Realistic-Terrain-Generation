@@ -26,7 +26,6 @@ public class RealisticBiomeHLDesertIsland extends RealisticBiomeHLBase
             new SurfaceHLDesertIsland(topBlock, fillerBlock));
         
         this.config = config;
-        this.biomeWeight = ConfigHL.weightHLDesertIsland;
         this.generateVillages = ConfigHL.villageHLDesertIsland;
     }
 }

@@ -28,7 +28,6 @@ public class RealisticBiomeHLBaldHill extends RealisticBiomeHLBase
         );
         
         this.config = config;
-        this.biomeWeight = ConfigHL.weightHLBaldHill;
         this.generateVillages = ConfigHL.villageHLBaldHill;
     }
 }

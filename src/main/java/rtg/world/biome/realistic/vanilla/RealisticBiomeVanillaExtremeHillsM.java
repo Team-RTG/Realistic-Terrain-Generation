@@ -30,7 +30,6 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
                 -0.14f, 14f, 0.25f));
         
         this.config = config;
-        this.biomeWeight = ConfigVanilla.weightVanillaExtremeHillsM;
         this.generateVillages = ConfigVanilla.villageVanillaExtremeHillsM;
         this.generatesEmeralds = true;
     }

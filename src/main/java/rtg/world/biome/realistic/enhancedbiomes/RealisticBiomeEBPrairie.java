@@ -73,7 +73,6 @@ public class RealisticBiomeEBPrairie extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEB.weightEBPrairie;
 		this.generateVillages = ConfigEB.villageEBPrairie;
         
     }

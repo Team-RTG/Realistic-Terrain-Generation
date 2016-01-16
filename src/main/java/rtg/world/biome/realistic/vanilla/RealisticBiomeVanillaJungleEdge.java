@@ -32,7 +32,6 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase
             new SurfaceVanillaJungleEdge(topBlock, fillerBlock));
         
         this.config = config;
-        this.biomeWeight = ConfigVanilla.weightVanillaJungleEdge;
         this.generateVillages = ConfigVanilla.villageVanillaJungleEdge;
     }
     

@@ -26,7 +26,6 @@ public class RealisticBiomeHLEstuary extends RealisticBiomeHLBase
             new SurfaceHLEstuary(topBlock, fillerBlock));
         
         this.config = config;
-        this.biomeWeight = ConfigHL.weightHLEstuary;
         this.generateVillages = ConfigHL.villageHLEstuary;
     }
 }

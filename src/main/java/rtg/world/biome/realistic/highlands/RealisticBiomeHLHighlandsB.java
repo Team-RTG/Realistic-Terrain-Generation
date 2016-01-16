@@ -27,7 +27,6 @@ public class RealisticBiomeHLHighlandsB extends RealisticBiomeHLBase
             new SurfaceHLHighlandsB(topBlock, fillerBlock, false, null, 1f, 1.5f, 85f, 20f, 4f));
         
         this.config = config;
-        this.biomeWeight = ConfigHL.weightHLHighlandsB;
         this.generateVillages = ConfigHL.villageHLHighlandsB;
     }
 }

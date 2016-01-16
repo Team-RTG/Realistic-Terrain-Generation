@@ -26,7 +26,6 @@ public class RealisticBiomeBOPSteppe extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPSteppe;
 		this.generateVillages = ConfigBOP.villageBOPSteppe;
 	}
 }

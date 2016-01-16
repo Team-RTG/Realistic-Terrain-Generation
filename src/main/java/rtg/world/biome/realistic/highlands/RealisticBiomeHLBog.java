@@ -26,7 +26,6 @@ public class RealisticBiomeHLBog extends RealisticBiomeHLBase
             new SurfaceHLBog(topBlock, fillerBlock));
         
         this.config = config;
-        this.biomeWeight = ConfigHL.weightHLBog;
         this.generateVillages = ConfigHL.villageHLBog;
     }
 }

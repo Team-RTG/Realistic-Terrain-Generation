@@ -26,7 +26,6 @@ public class RealisticBiomeBOPTundra extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPTundra;
 		this.generateVillages = ConfigBOP.villageBOPTundra;
 	}
 }

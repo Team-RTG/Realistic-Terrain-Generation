@@ -19,7 +19,6 @@ public class RealisticBiomeTCMagicalForest extends RealisticBiomeTCBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigTC.weightTCMagicalForest;
 		this.generateVillages = ConfigTC.villageTCMagicalForest;
 	}
 }

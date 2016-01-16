@@ -26,7 +26,6 @@ public class RealisticBiomeBOPMarsh extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPMarsh;
 		this.generateVillages = ConfigBOP.villageBOPMarsh;
 	}
 }

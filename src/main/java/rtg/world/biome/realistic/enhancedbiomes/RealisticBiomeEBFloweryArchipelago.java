@@ -74,7 +74,6 @@ public class RealisticBiomeEBFloweryArchipelago extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEB.weightEBFloweryArchipelago;
 		this.generateVillages = ConfigEB.villageEBFloweryArchipelago;
         
     }

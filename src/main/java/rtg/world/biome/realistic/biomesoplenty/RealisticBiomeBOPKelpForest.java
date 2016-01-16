@@ -26,7 +26,6 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPKelpForest;
 		this.generateVillages = ConfigBOP.villageBOPKelpForest;
 	}
 }

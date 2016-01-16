@@ -27,7 +27,6 @@ public class RealisticBiomeHLMesa extends RealisticBiomeHLBase
             new SurfaceHLMesa(topBlock, fillerBlock, (byte) 1));
         
         this.config = config;
-        this.biomeWeight = ConfigHL.weightHLMesa;
         this.generateVillages = ConfigHL.villageHLMesa;
     }
 }

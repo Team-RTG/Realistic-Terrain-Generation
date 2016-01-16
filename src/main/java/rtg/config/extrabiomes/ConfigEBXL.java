@@ -16,41 +16,8 @@ public class ConfigEBXL
 {
 	public static Configuration config;
 	
-    public static final int biomeWeightMin = BiomeBase.MIN_BIOME_WEIGHT;
-    public static final int biomeWeightMax = BiomeBase.MAX_BIOME_WEIGHT;
-    public static final int biomeWeightDefault = BiomeBase.DEFAULT_BIOME_WEIGHT;
-	
 	public static boolean generateEBXLBiomes = true;
 
-	public static int weightEBXLAlpine = biomeWeightDefault;
-	public static int weightEBXLAutumnWoods = biomeWeightDefault;
-	public static int weightEBXLBirchForest = biomeWeightDefault;
-	public static int weightEBXLExtremeJungle = biomeWeightDefault;
-	public static int weightEBXLForestedIsland = biomeWeightDefault;
-	public static int weightEBXLForestedHills = biomeWeightDefault;
-	public static int weightEBXLGlacier = biomeWeightDefault;
-	public static int weightEBXLGreenHills = biomeWeightDefault;
-	public static int weightEBXLIceWasteland = biomeWeightDefault;
-	public static int weightEBXLGreenSwamp = biomeWeightDefault;
-	public static int weightEBXLMarsh = biomeWeightDefault;
-	public static int weightEBXLMeadow = biomeWeightDefault;
-	public static int weightEBXLMiniJungle = biomeWeightDefault;
-	public static int weightEBXLMountainDesert = biomeWeightDefault;
-	public static int weightEBXLMountainRidge = biomeWeightDefault;
-	public static int weightEBXLMountainTaiga = biomeWeightDefault;
-	public static int weightEBXLPineForest = biomeWeightDefault;
-	public static int weightEBXLRainforest = biomeWeightDefault;
-	public static int weightEBXLRedwoodForest = biomeWeightDefault;
-	public static int weightEBXLRedwoodLush = biomeWeightDefault;
-	public static int weightEBXLSavanna = biomeWeightDefault;
-	public static int weightEBXLShrubland = biomeWeightDefault;
-	public static int weightEBXLSnowForest = biomeWeightDefault;
-	public static int weightEBXLSnowyRainforest = biomeWeightDefault;
-	public static int weightEBXLTemperateRainforest = biomeWeightDefault;
-	public static int weightEBXLTundra = biomeWeightDefault;
-	public static int weightEBXLWasteland = biomeWeightDefault;
-	public static int weightEBXLWoodlands = biomeWeightDefault;
-	
     public static boolean villageEBXLAlpine = true;
     public static boolean villageEBXLAutumnWoods = true;
     public static boolean villageEBXLBirchForest = true;
@@ -90,36 +57,6 @@ public class ConfigEBXL
 			
 			//EBXL
 			generateEBXLBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", generateEBXLBiomes, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
-			
-			//Weights
-			weightEBXLAlpine = config.getInt(formatConfig("weightEBXLAlpine"), "Weights", weightEBXLAlpine, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLAutumnWoods = config.getInt(formatConfig("weightEBXLAutumnWoods"), "Weights", weightEBXLAutumnWoods, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLBirchForest = config.getInt(formatConfig("weightEBXLBirchForest"), "Weights", weightEBXLBirchForest, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLExtremeJungle = config.getInt(formatConfig("weightEBXLExtremeJungle"), "Weights", weightEBXLExtremeJungle, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLForestedIsland = config.getInt(formatConfig("weightEBXLForestedIsland"), "Weights", weightEBXLForestedIsland, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLForestedHills = config.getInt(formatConfig("weightEBXLForestedHills"), "Weights", weightEBXLForestedHills, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLGlacier = config.getInt(formatConfig("weightEBXLGlacier"), "Weights", weightEBXLGlacier, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLGreenHills = config.getInt(formatConfig("weightEBXLGreenHills"), "Weights", weightEBXLGreenHills, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLIceWasteland = config.getInt(formatConfig("weightEBXLIceWasteland"), "Weights", weightEBXLIceWasteland, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLGreenSwamp = config.getInt(formatConfig("weightEBXLGreenSwamp"), "Weights", weightEBXLGreenSwamp, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLMarsh = config.getInt(formatConfig("weightEBXLMarsh"), "Weights", weightEBXLMarsh, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLMeadow = config.getInt(formatConfig("weightEBXLMeadow"), "Weights", weightEBXLMeadow, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLMiniJungle = config.getInt(formatConfig("weightEBXLMiniJungle"), "Weights", weightEBXLMiniJungle, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLMountainDesert = config.getInt(formatConfig("weightEBXLMountainDesert"), "Weights", weightEBXLMountainDesert, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLMountainRidge = config.getInt(formatConfig("weightEBXLMountainRidge"), "Weights", weightEBXLMountainRidge, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLMountainTaiga = config.getInt(formatConfig("weightEBXLMountainTaiga"), "Weights", weightEBXLMountainTaiga, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLPineForest = config.getInt(formatConfig("weightEBXLPineForest"), "Weights", weightEBXLPineForest, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLRainforest = config.getInt(formatConfig("weightEBXLRainforest"), "Weights", weightEBXLRainforest, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLRedwoodForest = config.getInt(formatConfig("weightEBXLRedwoodForest"), "Weights", weightEBXLRedwoodForest, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLRedwoodLush = config.getInt(formatConfig("weightEBXLRedwoodLush"), "Weights", weightEBXLRedwoodLush, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLSavanna = config.getInt(formatConfig("weightEBXLSavanna"), "Weights", weightEBXLSavanna, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLShrubland = config.getInt(formatConfig("weightEBXLShrubland"), "Weights", weightEBXLShrubland, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLSnowForest = config.getInt(formatConfig("weightEBXLSnowForest"), "Weights", weightEBXLSnowForest, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLSnowyRainforest = config.getInt(formatConfig("weightEBXLSnowyRainforest"), "Weights", weightEBXLSnowyRainforest, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLTemperateRainforest = config.getInt(formatConfig("weightEBXLTemperateRainforest"), "Weights", weightEBXLTemperateRainforest, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLTundra = config.getInt(formatConfig("weightEBXLTundra"), "Weights", weightEBXLTundra, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLWasteland = config.getInt(formatConfig("weightEBXLWasteland"), "Weights", weightEBXLWasteland, biomeWeightMin, biomeWeightMax, "");
-			weightEBXLWoodlands = config.getInt(formatConfig("weightEBXLWoodlands"), "Weights", weightEBXLWoodlands, biomeWeightMin, biomeWeightMax, "");
 			
             //Villages
             villageEBXLAlpine = config.getBoolean(formatConfig("villageEBXLAlpine"), "Villages", villageEBXLAlpine, "");
@@ -172,14 +109,8 @@ public class ConfigEBXL
         
         returnString = StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(returnString), " ");
 
-        if (s.startsWith("generate")) {
-            returnString = StringUtils.replace(returnString, "generate", "Generate", 1);
-        }
-        else if (s.startsWith("village")) {
+        if (s.startsWith("village")) {
             returnString = StringUtils.replace(returnString, "village", "Allow villages to generate in", 1);
-        }
-        else if (s.startsWith("weight")) {
-            returnString = StringUtils.replace(returnString, "weight", "Weight of", 1);
         }
         
         return returnString;

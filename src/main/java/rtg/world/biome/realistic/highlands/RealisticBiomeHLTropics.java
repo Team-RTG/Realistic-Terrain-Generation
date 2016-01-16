@@ -27,7 +27,6 @@ public class RealisticBiomeHLTropics extends RealisticBiomeHLBase
             new SurfaceHLTropics(topBlock, fillerBlock));
         
         this.config = config;
-        this.biomeWeight = ConfigHL.weightHLTropics;
         this.generateVillages = ConfigHL.villageHLTropics;
     }
 }

@@ -83,7 +83,6 @@ public class RealisticBiomeEBEphemeralLakeEdge extends RealisticBiomeEBBase
         );
 		
 		this.config = config;
-		this.biomeWeight = ConfigEB.weightEBEphemeralLakeEdge;
 		this.generateVillages = ConfigEB.villageEBEphemeralLakeEdge;
         
     }

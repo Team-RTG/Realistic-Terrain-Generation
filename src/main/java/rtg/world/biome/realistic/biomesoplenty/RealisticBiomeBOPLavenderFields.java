@@ -34,7 +34,6 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPLavenderFields;
 		this.generateVillages = ConfigBOP.villageBOPLavenderFields;
 	}
 	

@@ -82,7 +82,6 @@ public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEB.weightEBScrub;
 		this.generateVillages = ConfigEB.villageEBScrub;
         
     }

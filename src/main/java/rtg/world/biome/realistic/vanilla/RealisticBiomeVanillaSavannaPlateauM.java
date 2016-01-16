@@ -42,7 +42,6 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
             new SurfaceVanillaSavannaPlateauM(topBlock, fillerBlock, (byte)0, 0));
         
         this.config = config;
-        this.biomeWeight = ConfigVanilla.weightVanillaSavannaPlateauM;
         this.generateVillages = ConfigVanilla.villageVanillaSavannaPlateauM;
     }
     

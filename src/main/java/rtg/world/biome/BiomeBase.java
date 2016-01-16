@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.logging.log4j.Level;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import cpw.mods.fml.common.FMLLog;
@@ -113,7 +114,7 @@ public class BiomeBase extends BiomeGenBase
 
 	public static void addWeightedBiome(RealisticBiomeBase b)
 	{
-		int weight = (int) b.biomeWeight;
+		int weight = (int) b.config._int(BiomeConfig.weightId);
 		weight = (weight < MIN_BIOME_WEIGHT) ? MIN_BIOME_WEIGHT : ((weight > MAX_BIOME_WEIGHT) ? MAX_BIOME_WEIGHT : weight);
 		
 		/**

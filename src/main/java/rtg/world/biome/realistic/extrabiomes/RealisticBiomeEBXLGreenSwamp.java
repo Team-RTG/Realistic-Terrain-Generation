@@ -26,7 +26,6 @@ public class RealisticBiomeEBXLGreenSwamp extends RealisticBiomeEBXLBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEBXL.weightEBXLGreenSwamp;
 		this.generateVillages = ConfigEBXL.villageEBXLGreenSwamp;
 	}
 }

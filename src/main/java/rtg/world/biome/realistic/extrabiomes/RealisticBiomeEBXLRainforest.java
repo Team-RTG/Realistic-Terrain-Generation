@@ -26,7 +26,6 @@ public class RealisticBiomeEBXLRainforest extends RealisticBiomeEBXLBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEBXL.weightEBXLRainforest;
 		this.generateVillages = ConfigEBXL.villageEBXLRainforest;
 	}
 }

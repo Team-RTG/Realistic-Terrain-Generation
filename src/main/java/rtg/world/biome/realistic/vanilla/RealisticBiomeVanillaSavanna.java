@@ -39,7 +39,6 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase
             new SurfaceVanillaSavanna(Blocks.grass, Blocks.dirt, Blocks.grass, 13f, 0.27f));
         
         this.config = config;
-        this.biomeWeight = ConfigVanilla.weightVanillaSavanna;
         this.generateVillages = ConfigVanilla.villageVanillaSavanna;
     }
     

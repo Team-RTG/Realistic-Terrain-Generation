@@ -28,7 +28,6 @@ public class RealisticBiomeBOPGlacier extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPGlacier;
 		this.generateVillages = ConfigBOP.villageBOPGlacier;
 	}
 }

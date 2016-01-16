@@ -74,7 +74,6 @@ public class RealisticBiomeEBMountainousArchipelago extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEB.weightEBMountainousArchipelago;
 		this.generateVillages = ConfigEB.villageEBMountainousArchipelago;
 		
         this.generatesEmeralds = true;

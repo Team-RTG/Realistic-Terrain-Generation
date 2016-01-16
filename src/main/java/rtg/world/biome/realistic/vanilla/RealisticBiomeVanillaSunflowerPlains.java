@@ -26,7 +26,6 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
             new SurfaceVanillaSunflowerPlains(topBlock, fillerBlock));
         
         this.config = config;
-        this.biomeWeight = ConfigVanilla.weightVanillaSunflowerPlains;
         this.generateVillages = ConfigVanilla.villageVanillaSunflowerPlains;
     }
 }

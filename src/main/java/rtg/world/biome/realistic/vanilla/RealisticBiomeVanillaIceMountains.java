@@ -38,7 +38,6 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
                 -0.14f, 14f, 0.25f));
         
         this.config = config;
-        this.biomeWeight = ConfigVanilla.weightVanillaIceMountains;
         this.generateVillages = ConfigVanilla.villageVanillaIceMountains;
     }
     

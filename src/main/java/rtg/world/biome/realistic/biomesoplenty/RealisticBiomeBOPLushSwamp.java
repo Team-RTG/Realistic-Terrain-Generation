@@ -34,7 +34,6 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPLushSwamp;
 		this.generateVillages = ConfigBOP.villageBOPLushSwamp;
 	}
 	

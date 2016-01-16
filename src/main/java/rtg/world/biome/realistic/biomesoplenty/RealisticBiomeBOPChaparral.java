@@ -27,7 +27,6 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPChaparral;
 		this.generateVillages = ConfigBOP.villageBOPChaparral;
 	}
 }

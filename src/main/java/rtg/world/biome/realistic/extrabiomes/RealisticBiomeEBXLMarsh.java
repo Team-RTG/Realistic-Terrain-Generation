@@ -26,7 +26,6 @@ public class RealisticBiomeEBXLMarsh extends RealisticBiomeEBXLBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEBXL.weightEBXLMarsh;
 		this.generateVillages = ConfigEBXL.villageEBXLMarsh;
 	}
 }

@@ -78,7 +78,6 @@ public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
             surface);
         
         this.config = config;
-        this.biomeWeight = ConfigEB.weightEBRockyHills;
         this.generateVillages = ConfigEB.villageEBRockyHills;
         
     }

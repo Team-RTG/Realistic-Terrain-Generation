@@ -83,7 +83,6 @@ public class RealisticBiomeEBSandstoneCanyon2 extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEB.weightEBSandstoneCanyons;
 		this.generateVillages = ConfigEB.villageEBSandstoneCanyons;
         
     }

@@ -26,7 +26,6 @@ public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPWetland;
 		this.generateVillages = ConfigBOP.villageBOPWetland;
 	}
 }

@@ -95,7 +95,6 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEB.weightEBRockyDesert;
 		this.generateVillages = ConfigEB.villageEBRockyDesert;
         
     }

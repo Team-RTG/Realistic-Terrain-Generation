@@ -26,7 +26,6 @@ public class RealisticBiomeHLSnowMountains extends RealisticBiomeHLBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigHL.weightHLSnowMountains;
 		this.generateVillages = ConfigHL.villageHLSnowMountains;
 	}
 }

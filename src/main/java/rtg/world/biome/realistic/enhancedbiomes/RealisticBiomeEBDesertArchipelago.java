@@ -73,7 +73,6 @@ public class RealisticBiomeEBDesertArchipelago extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEB.weightEBDesertArchipelago;
 		this.generateVillages = ConfigEB.villageEBDesertArchipelago;
         
     }

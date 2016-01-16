@@ -33,7 +33,6 @@ public class RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPOrchard;
 		this.generateVillages = ConfigBOP.villageBOPOrchard;
 	}
 	

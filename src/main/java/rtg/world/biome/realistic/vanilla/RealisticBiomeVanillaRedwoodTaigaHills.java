@@ -42,7 +42,6 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
             new SurfaceVanillaRedwoodTaigaHills(Blocks.grass, Blocks.dirt, true, Blocks.sand, 0.2f));
         
         this.config = config;
-        this.biomeWeight = ConfigVanilla.weightVanillaRedwoodTaigaHills;
         this.generateVillages = ConfigVanilla.villageVanillaRedwoodTaigaHills;
     }
     

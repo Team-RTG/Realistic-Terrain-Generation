@@ -26,7 +26,6 @@ public class RealisticBiomeBOPGrassland extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPGrassland;
 		this.generateVillages = ConfigBOP.villageBOPGrassland;
 	}
 }

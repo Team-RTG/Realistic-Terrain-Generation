@@ -19,7 +19,6 @@ public class RealisticBiomeCCEnderForest extends RealisticBiomeCCBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigCC.weightCCEnderForest;
 		this.generateVillages = ConfigCC.villageCCEnderForest;
 	}
 }

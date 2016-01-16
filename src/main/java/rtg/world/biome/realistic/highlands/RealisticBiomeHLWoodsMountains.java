@@ -27,7 +27,6 @@ public class RealisticBiomeHLWoodsMountains extends RealisticBiomeHLBase
             new SurfaceHLWoodsMountains(topBlock, fillerBlock, false, null, 0.95f));
         
         this.config = config;
-        this.biomeWeight = ConfigHL.weightHLWoodsMountains;
         this.generateVillages = ConfigHL.villageHLWoodsMountains;
     }
 }

@@ -27,7 +27,6 @@ public class RealisticBiomeHLRockIsland extends RealisticBiomeHLBase
             new SurfaceHLRockIsland(topBlock, fillerBlock));
         
         this.config = config;
-        this.biomeWeight = ConfigHL.weightHLRockIsland;
         this.generateVillages = ConfigHL.villageHLRockIsland;
     }
 }

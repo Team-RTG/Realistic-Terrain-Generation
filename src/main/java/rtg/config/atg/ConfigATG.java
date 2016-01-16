@@ -16,21 +16,8 @@ public class ConfigATG
 {
 	public static Configuration config;
 	
-    public static final int biomeWeightMin = BiomeBase.MIN_BIOME_WEIGHT;
-    public static final int biomeWeightMax = BiomeBase.MAX_BIOME_WEIGHT;
-    public static final int biomeWeightDefault = BiomeBase.DEFAULT_BIOME_WEIGHT;
-	
 	public static boolean generateATGBiomes = true;
-	
-    public static int weightATGGravelBeach = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-    public static int weightATGSnowyGravelBeach = (int)Math.floor((double)(biomeWeightDefault * 0.5));
-    public static int weightATGShrubland = biomeWeightDefault;
-    public static int weightATGRockySteppe = biomeWeightDefault;
-    public static int weightATGTropicalShrubland = biomeWeightDefault;
-    public static int weightATGTundra = biomeWeightDefault;
-    public static int weightATGVolcano = (int)Math.floor((double)(biomeWeightDefault * 0.1));
-    public static int weightATGWoodland = biomeWeightDefault;
-    
+
     public static boolean villageATGGravelBeach = false;
     public static boolean villageATGSnowyGravelBeach = false;
     public static boolean villageATGShrubland = true;
@@ -49,16 +36,7 @@ public class ConfigATG
 			config.load();
 			
 			generateATGBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", generateATGBiomes, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
-
-            weightATGGravelBeach = config.getInt(formatConfig("weightATGGravelBeach"), "Weights", weightATGGravelBeach, biomeWeightMin, biomeWeightMax, "");
-            weightATGSnowyGravelBeach = config.getInt(formatConfig("weightATGSnowyGravelBeach"), "Weights", weightATGSnowyGravelBeach, biomeWeightMin, biomeWeightMax, "");
-            weightATGShrubland = config.getInt(formatConfig("weightATGShrubland"), "Weights", weightATGShrubland, biomeWeightMin, biomeWeightMax, "");
-            weightATGRockySteppe = config.getInt(formatConfig("weightATGRockySteppe"), "Weights", weightATGRockySteppe, biomeWeightMin, biomeWeightMax, "");
-            weightATGTropicalShrubland = config.getInt(formatConfig("weightATGTropicalShrubland"), "Weights", weightATGTropicalShrubland, biomeWeightMin, biomeWeightMax, "");
-            weightATGTundra = config.getInt(formatConfig("weightATGTundra"), "Weights", weightATGTundra, biomeWeightMin, biomeWeightMax, "");
-            weightATGVolcano = config.getInt(formatConfig("weightATGVolcano"), "Weights", weightATGVolcano, biomeWeightMin, biomeWeightMax, "");
-            weightATGWoodland = config.getInt(formatConfig("weightATGWoodland"), "Weights", weightATGWoodland, biomeWeightMin, biomeWeightMax, "");
-            
+ 
             villageATGGravelBeach = config.getBoolean(formatConfig("villageATGGravelBeach"), "Villages", villageATGGravelBeach, "");
             villageATGSnowyGravelBeach = config.getBoolean(formatConfig("villageATGSnowyGravelBeach"), "Villages", villageATGSnowyGravelBeach, "");
             villageATGShrubland = config.getBoolean(formatConfig("villageATGShrubland"), "Villages", villageATGShrubland, "");
@@ -89,14 +67,8 @@ public class ConfigATG
         
         returnString = StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(returnString), " ");
 
-        if (s.startsWith("generate")) {
-            returnString = StringUtils.replace(returnString, "generate", "Generate", 1);
-        }
-        else if (s.startsWith("village")) {
+        if (s.startsWith("village")) {
             returnString = StringUtils.replace(returnString, "village", "Allow villages to generate in", 1);
-        }
-        else if (s.startsWith("weight")) {
-            returnString = StringUtils.replace(returnString, "weight", "Weight of", 1);
         }
         
         return returnString;

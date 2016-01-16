@@ -19,7 +19,6 @@ public class RealisticBiomeATGTundra extends RealisticBiomeATGBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigATG.weightATGTundra;
 		this.generateVillages = ConfigATG.villageATGTundra;
 	}
 }

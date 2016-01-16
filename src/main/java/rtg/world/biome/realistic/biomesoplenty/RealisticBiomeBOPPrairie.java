@@ -26,7 +26,6 @@ public class RealisticBiomeBOPPrairie extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigBOP.weightBOPPrairie;
 		this.generateVillages = ConfigBOP.villageBOPPrairie;
 	}
 }

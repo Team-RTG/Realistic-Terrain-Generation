@@ -27,7 +27,6 @@ public class RealisticBiomeEBXLTemperateRainforest extends RealisticBiomeEBXLBas
 		);
 		
 		this.config = config;
-		this.biomeWeight = ConfigEBXL.weightEBXLTemperateRainforest;
 		this.generateVillages = ConfigEBXL.villageEBXLTemperateRainforest;
 	}
 }

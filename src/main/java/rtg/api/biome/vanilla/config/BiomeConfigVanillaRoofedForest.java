@@ -1,12 +1,20 @@
 package rtg.api.biome.vanilla.config;
 
+import rtg.api.biome.BiomeConfigProperty;
+import rtg.api.biome.BiomeConfigProperty.Type;
+
 
 public class BiomeConfigVanillaRoofedForest extends BiomeConfigVanillaBase
 {
+    public static final String decorationCobwebsId = "decorationCobwebs";
+    public static final String decorationCobwebsName = "Decoration: Cobwebs";
+    
     public BiomeConfigVanillaRoofedForest()
     {
         super();
         
         this.biomeSlug = "roofedforest";
+        
+        this.addProperty(new BiomeConfigProperty(decorationCobwebsId, Type.BOOLEAN, decorationCobwebsName, "", true));
     }
 }

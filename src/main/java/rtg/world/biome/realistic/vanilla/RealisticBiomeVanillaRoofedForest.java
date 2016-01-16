@@ -5,6 +5,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForest;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -70,7 +71,9 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
                     (new WorldGenBlob(Blocks.mossy_cobblestone, 0, rand)).generate(world, rand, i1, k1, j1);
                 }
                 else {
-                    (new WorldGenBlob(Blocks.web, 0, rand)).generate(world, rand, i1, k1, j1);
+                    if (this.biomeConfig.getPropertyById(BiomeConfigVanillaRoofedForest.decorationCobwebsId).valueBoolean) {
+                        (new WorldGenBlob(Blocks.web, 0, rand)).generate(world, rand, i1, k1, j1);
+                    }
                 }
             }
         }

@@ -85,7 +85,7 @@ public class BiomeConfig {
         }
         catch (Exception e) {
             
-            throw new RuntimeException("Biome config (" + id + ") could not be found. Reason: " + e.getMessage());
+            throw new RuntimeException("Biome config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
         }
     }
     
@@ -97,7 +97,7 @@ public class BiomeConfig {
         }
         catch (Exception e) {
             
-            throw new RuntimeException("Biome config (" + id + ") could not be found. Reason: " + e.getMessage());
+            throw new RuntimeException("Biome config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
         }
     }
     
@@ -109,7 +109,7 @@ public class BiomeConfig {
         }
         catch (Exception e) {
             
-            throw new RuntimeException("Biome config (" + id + ") could not be found. Reason: " + e.getMessage());
+            throw new RuntimeException("Biome config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
         }
     }
 }

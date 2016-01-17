@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPLushRiver;
@@ -16,7 +17,7 @@ public class RealisticBiomeBOPLushRiver extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPLushRiver()
+	public RealisticBiomeBOPLushRiver(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
@@ -24,9 +25,6 @@ public class RealisticBiomeBOPLushRiver extends RealisticBiomeBOPBase
 			new SurfaceBOPLushRiver()
 		);
 		
-		this.setRealisticBiomeName("BOP Lush River");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPLushRiver;
-		this.generateVillages = ConfigBOP.villageBOPLushRiver;
+		this.config = config;
 	}
 }

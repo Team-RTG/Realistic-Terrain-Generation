@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLSnowMountains;
@@ -16,7 +17,7 @@ public class RealisticBiomeHLSnowMountains extends RealisticBiomeHLBase
 	public static Block topBlock = hlBiome.topBlock;
 	public static Block fillerBlock = hlBiome.fillerBlock;
 	
-	public RealisticBiomeHLSnowMountains()
+	public RealisticBiomeHLSnowMountains(BiomeConfig config)
 	{
 		super(
 			hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
@@ -24,9 +25,6 @@ public class RealisticBiomeHLSnowMountains extends RealisticBiomeHLBase
 			new SurfaceHLSnowMountains(topBlock, fillerBlock, false, null, 1.2f)
 		);
 		
-		this.setRealisticBiomeName("HL Snow Moutains");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigHL.weightHLSnowMountains;
-		this.generateVillages = ConfigHL.villageHLSnowMountains;
+		this.config = config;
 	}
 }

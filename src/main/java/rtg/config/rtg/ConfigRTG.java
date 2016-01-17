@@ -14,7 +14,8 @@ public class ConfigRTG
 	public static Configuration config;
 	
 	public static int generateOnlyThisBiomeId = -1;
-    public static boolean useRTGBiomeGeneration = true;
+	public static boolean useRTGBiomeGeneration = true;
+	public static boolean enableRTGBiomeDecorations = true;
     public static boolean stripRivers = true;
 	
 	public static boolean enableUBCStoneShadowing = true;
@@ -120,6 +121,14 @@ public class ConfigRTG
                 Configuration.NEW_LINE +
                 "For modded biome IDs, use NEI and go [Options] > [Tools] > [Data Dumps] > Biomes > [Dump], and then refer to the 'biome.csv' file which can be found in your '/.minecraft/dumps' folder." +
                 Configuration.NEW_LINE
+            );
+            
+            enableRTGBiomeDecorations = config.getBoolean(
+                "Enable RTG Biome Decorations",
+                "Biomes",
+                enableRTGBiomeDecorations,
+                "If TRUE, uses the individual biome settings in the biome config files. If FALSE, disables all RTG decorations and uses vanilla decorations instead."
+                + Configuration.NEW_LINE
             );
             
             useRTGBiomeGeneration = config.getBoolean(

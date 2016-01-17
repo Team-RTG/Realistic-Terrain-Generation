@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -29,7 +30,7 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase
     public static Block topBlock = BiomeGenBase.forestHills.topBlock;
     public static Block fillerBlock = BiomeGenBase.forestHills.fillerBlock;
     
-    public RealisticBiomeVanillaForestHills()
+    public RealisticBiomeVanillaForestHills(BiomeConfig config)
     {
     
         super(
@@ -38,10 +39,7 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase
             new TerrainVanillaForestHills(),
             new SurfaceVanillaForestHills(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f));
         
-        this.setRealisticBiomeName("Vanilla Forest Hills");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaForestHills;
-        this.generateVillages = ConfigVanilla.villageVanillaForestHills;
+        this.config = config;
     }
     
     @Override

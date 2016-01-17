@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -60,7 +61,7 @@ public class RealisticBiomeEBForestedMountains extends RealisticBiomeEBBase
     private static Block ebCliff2Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
     
-	public RealisticBiomeEBForestedMountains(BiomeGenBase ebBiome)
+	public RealisticBiomeEBForestedMountains(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -85,10 +86,7 @@ public class RealisticBiomeEBForestedMountains extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Forested Mountains");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEB.weightEBForestedMountains;
-		this.generateVillages = ConfigEB.villageEBForestedMountains;
+		this.config = config;
         
     }
 	

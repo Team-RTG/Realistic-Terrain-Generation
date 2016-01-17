@@ -1,21 +1,13 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
+import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaPlains;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaPlains;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
 {
@@ -23,7 +15,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
     public static Block topBlock = BiomeGenBase.plains.topBlock;
     public static Block fillerBlock = BiomeGenBase.plains.fillerBlock;
     
-    public RealisticBiomeVanillaPlains()
+    public RealisticBiomeVanillaPlains(BiomeConfig config)
     {
     
         super(
@@ -32,9 +24,6 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
             new TerrainVanillaPlains(),
             new SurfaceVanillaPlains(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("Vanilla Plains");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaPlains;
-        this.generateVillages = ConfigVanilla.villageVanillaPlains;
+        this.config = config;
     }
 }

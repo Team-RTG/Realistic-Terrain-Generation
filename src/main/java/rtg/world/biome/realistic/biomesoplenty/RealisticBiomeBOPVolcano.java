@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -55,7 +56,7 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
     
     private static SurfaceBase riverSurface = new SurfaceRiverOasis();
     
-	public RealisticBiomeBOPVolcano()
+	public RealisticBiomeBOPVolcano(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
@@ -63,10 +64,7 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
 			surface
 		);
 		
-		this.setRealisticBiomeName("BOP Volcano");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPVolcano;
-		this.generateVillages = ConfigBOP.villageBOPVolcano;
+		this.config = config;
 		
 		this.waterSurfaceLakeChance = 0;
 		this.lavaSurfaceLakeChance = 1;

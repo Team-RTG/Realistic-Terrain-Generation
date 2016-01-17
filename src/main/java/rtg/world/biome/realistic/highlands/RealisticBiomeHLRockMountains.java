@@ -1,26 +1,29 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+
 import java.util.Random;
-import net.minecraft.world.World;
+
+import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.gen.surface.highlands.SurfaceHLRockMountains;
-import rtg.world.gen.terrain.highlands.TerrainHLRockMountains;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenFlowers;
-import net.minecraft.world.gen.feature.WorldGenPumpkin;
-import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreePineEuro;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.surface.highlands.SurfaceHLRockMountains;
+import rtg.world.gen.terrain.highlands.TerrainHLRockMountains;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.feature.WorldGenFlowers;
+import net.minecraft.world.gen.feature.WorldGenPumpkin;
+import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeHLRockMountains extends RealisticBiomeHLBase
 {
@@ -30,7 +33,7 @@ public class RealisticBiomeHLRockMountains extends RealisticBiomeHLBase
     public static Block topBlock = hlBiome.topBlock;
     public static Block fillerBlock = hlBiome.fillerBlock;
     
-    public RealisticBiomeHLRockMountains()
+    public RealisticBiomeHLRockMountains(BiomeConfig config)
     {
     
         super(
@@ -38,10 +41,7 @@ public class RealisticBiomeHLRockMountains extends RealisticBiomeHLBase
             new TerrainHLRockMountains(230f, 100f, 0f),
             new SurfaceHLRockMountains(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f));
         
-        this.setRealisticBiomeName("HL Rock Mountains");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHLRockMountains;
-        this.generateVillages = ConfigHL.villageHLRockMountains;
+        this.config = config;
         this.generatesEmeralds = true;
     }
 

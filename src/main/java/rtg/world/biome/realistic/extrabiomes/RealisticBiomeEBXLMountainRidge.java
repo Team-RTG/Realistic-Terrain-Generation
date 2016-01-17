@@ -1,18 +1,13 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import java.util.Random;
-
+import rtg.api.biome.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLMountainRidge;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLMountainRidge;
 import extrabiomes.api.BiomeManager;
 
 import net.minecraft.block.Block;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLMountainRidge extends RealisticBiomeEBXLBase
@@ -22,7 +17,7 @@ public class RealisticBiomeEBXLMountainRidge extends RealisticBiomeEBXLBase
 	public static Block topBlock = ebxlBiome.topBlock;
 	public static Block fillerBlock = ebxlBiome.fillerBlock;
 	
-	public RealisticBiomeEBXLMountainRidge()
+	public RealisticBiomeEBXLMountainRidge(BiomeConfig config)
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
@@ -30,10 +25,7 @@ public class RealisticBiomeEBXLMountainRidge extends RealisticBiomeEBXLBase
 			new SurfaceEBXLMountainRidge(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f)
 		);
 		
-		this.setRealisticBiomeName("EBXL Mountain Ridge");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEBXL.weightEBXLMountainRidge;
-		this.generateVillages = ConfigEBXL.villageEBXLMountainRidge;
+		this.config = config;
 		this.generatesEmeralds = true;
 	}
 }

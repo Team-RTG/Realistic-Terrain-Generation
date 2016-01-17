@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLSahel;
@@ -17,7 +18,7 @@ public class RealisticBiomeHLSahel extends RealisticBiomeHLBase
     public static Block topBlock = hlBiome.topBlock;
     public static Block fillerBlock = hlBiome.fillerBlock;
     
-    public RealisticBiomeHLSahel()
+    public RealisticBiomeHLSahel(BiomeConfig config)
     {
     
         super(
@@ -25,9 +26,6 @@ public class RealisticBiomeHLSahel extends RealisticBiomeHLBase
             new TerrainHLSahel(),
             new SurfaceHLSahel(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("HL Sahel");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHLSahel;
-        this.generateVillages = ConfigHL.villageHLSahel;
+        this.config = config;
     }
 }

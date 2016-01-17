@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPSteppe;
@@ -16,7 +17,7 @@ public class RealisticBiomeBOPSteppe extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPSteppe()
+	public RealisticBiomeBOPSteppe(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
@@ -24,9 +25,6 @@ public class RealisticBiomeBOPSteppe extends RealisticBiomeBOPBase
 			new SurfaceBOPSteppe(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Steppe");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPSteppe;
-		this.generateVillages = ConfigBOP.villageBOPSteppe;
+		this.config = config;
 	}
 }

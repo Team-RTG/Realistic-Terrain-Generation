@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBIceSheet;
@@ -46,7 +47,7 @@ public class RealisticBiomeEBIceSheet extends RealisticBiomeEBBase
     private static Block ebCliff2Block = EBAPI.ebStonify(Blocks.packed_ice, Blocks.packed_ice);
     private static byte ebCliff2Byte = EBAPI.ebStonify((byte)0, (byte)0);
     
-	public RealisticBiomeEBIceSheet(BiomeGenBase ebBiome)
+	public RealisticBiomeEBIceSheet(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
@@ -71,10 +72,7 @@ public class RealisticBiomeEBIceSheet extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Ice Sheet");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEB.weightEBIceSheet;
-		this.generateVillages = ConfigEB.villageEBIceSheet;
+		this.config = config;
         
     }
 }

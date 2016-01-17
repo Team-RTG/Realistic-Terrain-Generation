@@ -1,9 +1,13 @@
 package rtg.world.biome.realistic.vanilla;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.*;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.PUMPKIN;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.SHROOM;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -33,7 +37,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
     public static Block topBlock = BiomeGenBase.coldTaiga.topBlock;
     public static Block fillerBlock = BiomeGenBase.coldTaiga.fillerBlock;
     
-    public RealisticBiomeVanillaColdTaiga()
+    public RealisticBiomeVanillaColdTaiga(BiomeConfig config)
     {
     
         super(
@@ -42,10 +46,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
             new TerrainVanillaColdTaiga(),
             new SurfaceVanillaColdTaiga(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("Vanilla Cold Taiga");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaColdTaiga;
-        this.generateVillages = ConfigVanilla.villageVanillaColdTaiga;
+        this.config = config;
     }
     
     @Override

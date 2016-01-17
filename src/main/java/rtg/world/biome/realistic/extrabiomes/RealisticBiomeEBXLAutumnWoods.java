@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.extrabiomes;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLAutumnWoods;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLAutumnWoods;
@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLAutumnWoods extends RealisticBiomeEBXLBase
 	public static Block fillerBlock = ebxlBiome.fillerBlock;
 	public static Block logBlock = GameData.getBlockRegistry().getObject("ExtrabiomesXL:log2");
 	
-	public RealisticBiomeEBXLAutumnWoods()
+	public RealisticBiomeEBXLAutumnWoods(BiomeConfig config)
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
@@ -34,10 +34,7 @@ public class RealisticBiomeEBXLAutumnWoods extends RealisticBiomeEBXLBase
 			new SurfaceEBXLAutumnWoods(topBlock, fillerBlock, false, null, 0f, 1.5f, 62f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f)
 		);
 		
-		this.setRealisticBiomeName("EBXL Autumn Woods");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEBXL.weightEBXLAutumnWoods;
-		this.generateVillages = ConfigEBXL.villageEBXLAutumnWoods;
+		this.config = config;
 	}
 	
     @Override

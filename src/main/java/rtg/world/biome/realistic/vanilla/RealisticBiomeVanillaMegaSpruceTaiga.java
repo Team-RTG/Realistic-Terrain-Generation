@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMegaSpruceTaiga;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMegaSpruceTaiga;
@@ -23,7 +23,7 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
     public static Block topBlock = mutationBiome.topBlock;
     public static Block fillerBlock = mutationBiome.fillerBlock;
     
-    public RealisticBiomeVanillaMegaSpruceTaiga()
+    public RealisticBiomeVanillaMegaSpruceTaiga(BiomeConfig config)
     {
     
         super(
@@ -32,10 +32,7 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
             new TerrainVanillaMegaSpruceTaiga(),
             new SurfaceVanillaMegaSpruceTaiga(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("Vanilla Mega Spruce Taiga");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaMegaSpruceTaiga;
-        this.generateVillages = ConfigVanilla.villageVanillaMegaSpruceTaiga;
+        this.config = config;
     }
     
     @Override

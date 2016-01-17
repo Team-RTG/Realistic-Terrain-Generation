@@ -14,6 +14,7 @@ import java.util.Random;
 
 import org.apache.logging.log4j.Level;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -45,9 +46,7 @@ public class RealisticBiomeBase extends BiomeBase {
     
     public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;
-    public String realisticBiomeName = null;
-    public BiomeSize biomeSize;
-    public int biomeWeight = 10;
+    public BiomeConfig config;
     
     public TerrainBase terrain;
     
@@ -326,16 +325,6 @@ public class RealisticBiomeBase extends BiomeBase {
     public float r3Dnoise(float z) {
     
         return 0f;
-    }
-    
-    public String getRealisticBiomeName() {
-    
-        return this.realisticBiomeName;
-    }
-    
-    public void setRealisticBiomeName(String n) {
-    
-        this.realisticBiomeName = n;
     }
     
     public void rDecorateClay(World worldObj, Random rand, int chunkX, int chunkZ, float river, int worldX, int worldZ)

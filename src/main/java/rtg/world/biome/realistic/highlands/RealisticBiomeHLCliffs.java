@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLCliffs;
@@ -16,7 +17,7 @@ public class RealisticBiomeHLCliffs extends RealisticBiomeHLBase
     public static Block topBlock = hlBiome.topBlock;
     public static Block fillerBlock = hlBiome.fillerBlock;
     
-    public RealisticBiomeHLCliffs()
+    public RealisticBiomeHLCliffs(BiomeConfig config)
     {
     
         super(
@@ -24,9 +25,6 @@ public class RealisticBiomeHLCliffs extends RealisticBiomeHLBase
             new TerrainHLCliffs(75f, 70f, 0f),
             new SurfaceHLCliffs(topBlock, fillerBlock, false, null, 0.95f));
         
-        this.setRealisticBiomeName("HL Cliffs");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHLCliffs;
-        this.generateVillages = ConfigHL.villageHLCliffs;
+        this.config = config;
     }
 }

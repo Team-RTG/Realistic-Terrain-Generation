@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLWindyIsland;
@@ -17,7 +18,7 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
     public static Block topBlock = hlBiome.topBlock;
     public static Block fillerBlock = hlBiome.fillerBlock;
     
-    public RealisticBiomeHLWindyIsland()
+    public RealisticBiomeHLWindyIsland(BiomeConfig config)
     {
     
         super(
@@ -25,9 +26,6 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
             new TerrainHLWindyIsland(),
             new SurfaceHLWindyIsland(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("HL Windy Island");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHLWindyIsland;
-        this.generateVillages = ConfigHL.villageHLWindyIsland;
+        this.config = config;
     }
 }

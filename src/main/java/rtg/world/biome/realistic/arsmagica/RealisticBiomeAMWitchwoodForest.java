@@ -1,5 +1,7 @@
 package rtg.world.biome.realistic.arsmagica;
 
+import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.arsmagica.config.BiomeConfigAMWitchwoodForest;
 import rtg.config.arsmagica.ConfigAM;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.arsmagica.SurfaceAMWitchwoodForest;
@@ -10,7 +12,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase
 {
     
-    public RealisticBiomeAMWitchwoodForest(BiomeGenBase amBiome)
+    public RealisticBiomeAMWitchwoodForest(BiomeGenBase amBiome, BiomeConfig config)
     {
     
         super(
@@ -18,9 +20,6 @@ public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase
             new TerrainAMWitchwoodForest(),
             new SurfaceAMWitchwoodForest(amBiome.topBlock, amBiome.fillerBlock));
         
-        this.setRealisticBiomeName("Ars Magica Witchwood Forest");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigAM.weightAMWitchwoodForest;
-        this.generateVillages = ConfigAM.villageAMWitchwoodForest;
+        this.config = config;
     }
 }

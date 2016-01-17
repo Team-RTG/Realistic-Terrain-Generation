@@ -4,7 +4,8 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
-import rtg.config.vanilla.ConfigVanilla;
+import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForest;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
@@ -32,7 +33,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
     public static Block topBlock = BiomeGenBase.roofedForest.topBlock;
     public static Block fillerBlock = BiomeGenBase.roofedForest.fillerBlock;
     
-    public RealisticBiomeVanillaRoofedForest()
+    public RealisticBiomeVanillaRoofedForest(BiomeConfig config)
     {
     
         super(
@@ -41,10 +42,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             new TerrainVanillaRoofedForest(),
             new SurfaceVanillaRoofedForest(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.08f));
         
-        this.setRealisticBiomeName("Vanilla Roofed Forest");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaRoofedForest;
-        this.generateVillages = ConfigVanilla.villageVanillaRoofedForest;
+        this.config = config;
     }
     
     @Override
@@ -70,7 +68,9 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
                     (new WorldGenBlob(Blocks.mossy_cobblestone, 0, rand)).generate(world, rand, i1, k1, j1);
                 }
                 else {
-                    (new WorldGenBlob(Blocks.web, 0, rand)).generate(world, rand, i1, k1, j1);
+                    if (config._boolean(BiomeConfigVanillaRoofedForest.decorationCobwebsId)) {
+                        (new WorldGenBlob(Blocks.web, 0, rand)).generate(world, rand, i1, k1, j1);
+                    }
                 }
             }
         }

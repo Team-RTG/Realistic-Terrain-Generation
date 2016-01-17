@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -56,7 +57,7 @@ public class RealisticBiomeEBEphemeralLakeEdge extends RealisticBiomeEBBase
     private static Block ebCliff2Block = EBAPI.ebStonify(Blocks.cobblestone, Blocks.cobblestone);
     private static byte ebCliff2Byte = EBAPI.ebStonify((byte)0, (byte)0);
     
-	public RealisticBiomeEBEphemeralLakeEdge(BiomeGenBase ebBiome)
+	public RealisticBiomeEBEphemeralLakeEdge(BiomeGenBase ebBiome, BiomeConfig config)
 	{
         super(
             ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
@@ -81,10 +82,7 @@ public class RealisticBiomeEBEphemeralLakeEdge extends RealisticBiomeEBBase
             )
         );
 		
-		this.setRealisticBiomeName("EB Ephemeral Lake Edge");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEB.weightEBEphemeralLakeEdge;
-		this.generateVillages = ConfigEB.villageEBEphemeralLakeEdge;
+		this.config = config;
         
     }
 	

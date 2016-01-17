@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLSavannah;
@@ -17,7 +18,7 @@ public class RealisticBiomeHLSavannah extends RealisticBiomeHLBase
     public static Block topBlock = hlBiome.topBlock;
     public static Block fillerBlock = hlBiome.fillerBlock;
     
-    public RealisticBiomeHLSavannah()
+    public RealisticBiomeHLSavannah(BiomeConfig config)
     {
     
         super(
@@ -25,9 +26,6 @@ public class RealisticBiomeHLSavannah extends RealisticBiomeHLBase
             new TerrainHLSavannah(),
             new SurfaceHLSavannah(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("HL Savannah");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHLSavannah;
-        this.generateVillages = ConfigHL.villageHLSavannah;
+        this.config = config;
     }
 }

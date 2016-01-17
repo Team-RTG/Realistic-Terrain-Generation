@@ -89,7 +89,6 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
         );
         
         this.config = config;
-        this.generateVillages = ConfigEB.villageEBVolcano;
         
         this.generatesEmeralds = true;
         this.emeraldEmeraldBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.oreEmeraldEB, Blocks.emerald_ore);

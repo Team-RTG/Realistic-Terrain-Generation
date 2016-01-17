@@ -74,7 +74,6 @@ public class RealisticBiomeEBBorealPlateauM extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBBorealPlateauM;
         
     }
 }

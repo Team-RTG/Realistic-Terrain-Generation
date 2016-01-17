@@ -27,6 +27,5 @@ public class RealisticBiomeBOPBorealForest extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPBorealForest;
 	}
 }

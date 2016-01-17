@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.thaumcraft;
 
-import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTC;
 import rtg.config.thaumcraft.ConfigTC;
 import rtg.world.biome.BiomeBase;
@@ -50,31 +49,19 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
                     {
                         tcMagicalForest = new RealisticBiomeTCMagicalForest(tcBiome, BiomeConfigTC.biomeConfigTCMagicalForest);
                         
-                        if (ConfigTC.generateTCBiomes && tcMagicalForest.config._boolean(BiomeConfig.enableBiomeId)) {
-
-                            BiomeBase.addBiome(tcMagicalForest);
-                            BiomeBase.addVillageBiome(tcMagicalForest);
-                        }
+                        if (ConfigTC.generateTCBiomes) { BiomeBase.addBiome(tcMagicalForest); }
                     }
                     else if (biomeName == "Tainted Land" && biomeClass == "thaumcraft.common.lib.world.biomes.BiomeGenTaint")
 					{
                         tcTaintedLand = new RealisticBiomeTCTaintedLand(tcBiome, BiomeConfigTC.biomeConfigTCTaintedLand);
                         
-						if (ConfigTC.generateTCBiomes && tcTaintedLand.config._boolean(BiomeConfig.enableBiomeId)) {
-
-						    BiomeBase.addBiome(tcTaintedLand);
-						    BiomeBase.addVillageBiome(tcTaintedLand);
-						}
+						if (ConfigTC.generateTCBiomes) { BiomeBase.addBiome(tcTaintedLand); }
 					}
                     else if (biomeName.equals("Eerie") && biomeClass.contains("thaumcraft.common.lib.world.biomes"))
 					{
                         tcEerie = new RealisticBiomeTCEerie(tcBiome, BiomeConfigTC.biomeConfigTCEerie);
                         
-						if (ConfigTC.generateTCBiomes && tcEerie.config._boolean(BiomeConfig.enableBiomeId)) {
-
-						    BiomeBase.addBiome(tcEerie);
-						    BiomeBase.addVillageBiome(tcEerie);
-						}
+						if (ConfigTC.generateTCBiomes) { BiomeBase.addBiome(tcEerie); }
 					}
 
 				}

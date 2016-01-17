@@ -26,6 +26,5 @@ public class RealisticBiomeEBXLWasteland extends RealisticBiomeEBXLBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEBXL.villageEBXLWasteland;
 	}
 }

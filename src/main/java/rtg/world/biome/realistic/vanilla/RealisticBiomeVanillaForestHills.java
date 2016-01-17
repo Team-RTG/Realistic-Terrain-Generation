@@ -40,7 +40,6 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase
             new SurfaceVanillaForestHills(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f));
         
         this.config = config;
-        this.generateVillages = ConfigVanilla.villageVanillaForestHills;
     }
     
     @Override

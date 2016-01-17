@@ -73,7 +73,6 @@ public class RealisticBiomeEBSilverPineForest extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBSilverPineForest;
         
     }
 }

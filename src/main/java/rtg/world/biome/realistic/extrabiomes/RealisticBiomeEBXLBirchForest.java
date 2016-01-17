@@ -26,6 +26,5 @@ public class RealisticBiomeEBXLBirchForest extends RealisticBiomeEBXLBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEBXL.villageEBXLBirchForest;
 	}
 }

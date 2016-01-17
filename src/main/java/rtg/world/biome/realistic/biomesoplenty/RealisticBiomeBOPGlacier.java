@@ -28,6 +28,5 @@ public class RealisticBiomeBOPGlacier extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPGlacier;
 	}
 }

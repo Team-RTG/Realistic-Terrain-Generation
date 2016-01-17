@@ -23,6 +23,5 @@ public class RealisticBiomeHLAlps extends RealisticBiomeHLBase {
             new SurfaceHLAlps(topBlock, fillerBlock, false, null, 0.45f));
         
         this.config = config;
-        this.generateVillages = ConfigHL.villageHLAlps;
     }
 }

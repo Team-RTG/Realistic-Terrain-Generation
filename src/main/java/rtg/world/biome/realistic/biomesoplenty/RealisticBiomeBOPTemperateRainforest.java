@@ -26,6 +26,5 @@ public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPTemperateRainforest;
 	}
 }

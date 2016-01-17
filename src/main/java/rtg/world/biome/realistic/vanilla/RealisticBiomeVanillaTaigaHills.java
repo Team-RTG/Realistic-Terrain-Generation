@@ -40,7 +40,6 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase
             new SurfaceVanillaTaigaHills(Blocks.grass, Blocks.dirt, true, Blocks.gravel, 0.2f));
         
         this.config = config;
-        this.generateVillages = ConfigVanilla.villageVanillaTaigaHills;
     }
     
     @Override

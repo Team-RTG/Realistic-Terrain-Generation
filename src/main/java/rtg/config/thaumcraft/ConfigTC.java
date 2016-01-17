@@ -18,10 +18,6 @@ public class ConfigTC
 
 	public static boolean generateTCBiomes = true;
 
-    public static boolean villageTCTaintedLand = false;
-    public static boolean villageTCMagicalForest = false;
-    public static boolean villageTCEerie = false;
-		
 	public static void init(File configFile) 
 	{
 		config = new Configuration(configFile);
@@ -32,10 +28,6 @@ public class ConfigTC
 			
 			generateTCBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", true, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
 
-            villageTCTaintedLand = config.getBoolean(formatConfig("villageTCTaintedLand"), "Villages", villageTCTaintedLand, "");
-            villageTCMagicalForest = config.getBoolean(formatConfig("villageTCMagicalForest"), "Villages", villageTCMagicalForest, "");
-            villageTCEerie = config.getBoolean(formatConfig("villageTCEerie"), "Villages", villageTCEerie, "");
-            
             BiomeConfigManager.setBiomeConfigsFromUserConfigs(BiomeConfigTC.getBiomeConfigs(), config);
 		}
 		catch (Exception e)
@@ -50,17 +42,4 @@ public class ConfigTC
 			}
 		}
 	}
-	
-    private static String formatConfig(String s)
-    {
-        String returnString = s;        
-        
-        returnString = StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(returnString), " ");
-
-        if (s.startsWith("village")) {
-            returnString = StringUtils.replace(returnString, "village", "Allow villages to generate in", 1);
-        }
-        
-        return returnString;
-    }
 }

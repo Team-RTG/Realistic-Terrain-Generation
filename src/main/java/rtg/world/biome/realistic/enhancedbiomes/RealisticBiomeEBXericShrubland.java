@@ -73,7 +73,6 @@ public class RealisticBiomeEBXericShrubland extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBXericShrubland;
         
     }
 }

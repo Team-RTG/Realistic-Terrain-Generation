@@ -26,7 +26,6 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPAlps;
 		this.generatesEmeralds = true;
 	}
 }

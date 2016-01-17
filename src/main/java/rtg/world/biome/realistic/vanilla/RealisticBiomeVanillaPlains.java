@@ -25,6 +25,5 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
             new SurfaceVanillaPlains(topBlock, fillerBlock));
         
         this.config = config;
-        this.generateVillages = ConfigVanilla.villageVanillaPlains;
     }
 }

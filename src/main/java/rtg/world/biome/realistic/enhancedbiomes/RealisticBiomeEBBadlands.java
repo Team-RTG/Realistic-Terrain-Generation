@@ -73,7 +73,6 @@ public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBBadlands;
         
     }
 }

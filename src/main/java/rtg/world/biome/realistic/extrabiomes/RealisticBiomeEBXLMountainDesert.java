@@ -26,6 +26,5 @@ public class RealisticBiomeEBXLMountainDesert extends RealisticBiomeEBXLBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEBXL.villageEBXLMountainDesert;
 	}
 }

@@ -19,9 +19,6 @@ public class ConfigBC
     
     public static boolean generateBCBiomes = true;
 
-    public static boolean villageBCDesertOilField = false;
-    public static boolean villageBCOceanOilField = false;
-    
     public static void init(File configFile)
     {
     
@@ -33,9 +30,6 @@ public class ConfigBC
             
             generateBCBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", generateBCBiomes, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
 
-            villageBCDesertOilField = config.getBoolean(formatConfig("villageBCDesertOilField"), "Villages", villageBCDesertOilField, "");
-            villageBCOceanOilField = config.getBoolean(formatConfig("villageBCOceanOilField"), "Villages", villageBCOceanOilField, "");
-            
             BiomeConfigManager.setBiomeConfigsFromUserConfigs(BiomeConfigBC.getBiomeConfigs(), config);
             
         } catch (Exception e)
@@ -48,18 +42,5 @@ public class ConfigBC
                 config.save();
             }
         }
-    }
-    
-    private static String formatConfig(String s)
-    {
-        String returnString = s;        
-        
-        returnString = StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(returnString), " ");
-
-        if (s.startsWith("village")) {
-            returnString = StringUtils.replace(returnString, "village", "Allow villages to generate in", 1);
-        }
-        
-        return returnString;
     }
 }

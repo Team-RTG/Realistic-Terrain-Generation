@@ -73,7 +73,6 @@ public class RealisticBiomeEBWoodlandLakeEdge extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBWoodlandLakeEdge;
         
     }
 }

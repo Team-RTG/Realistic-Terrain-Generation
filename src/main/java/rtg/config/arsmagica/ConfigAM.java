@@ -18,8 +18,6 @@ public class ConfigAM
     public static Configuration config;
     
     public static boolean generateAMBiomes = true;
-
-    public static boolean villageAMWitchwoodForest = false;
     
     public static void init(File configFile)
     {
@@ -31,8 +29,6 @@ public class ConfigAM
             config.load();
             
             generateAMBiomes = config.getBoolean("Allow biomes from this mod to generate", "Allow mod biomes", generateAMBiomes, "If TRUE, uses the individual biome settings below. If FALSE, disables all biomes from this mod." + Configuration.NEW_LINE);
-
-            villageAMWitchwoodForest = config.getBoolean(formatConfig("villageAMWitchwoodForest"), "Villages", villageAMWitchwoodForest, "");
             
             BiomeConfigManager.setBiomeConfigsFromUserConfigs(BiomeConfigAM.getBiomeConfigs(), config);
             
@@ -46,18 +42,5 @@ public class ConfigAM
                 config.save();
             }
         }
-    }
-    
-    private static String formatConfig(String s)
-    {
-        String returnString = s;        
-        
-        returnString = StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(returnString), " ");
-
-        if (s.startsWith("village")) {
-            returnString = StringUtils.replace(returnString, "village", "Allow villages to generate in", 1);
-        }
-        
-        return returnString;
     }
 }

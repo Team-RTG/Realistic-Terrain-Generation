@@ -80,7 +80,6 @@ public class RealisticBiomeEBSahara extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBSahara;
         
     }
 	

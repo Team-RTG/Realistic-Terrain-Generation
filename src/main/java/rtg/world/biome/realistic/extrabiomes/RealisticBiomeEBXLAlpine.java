@@ -26,6 +26,5 @@ public class RealisticBiomeEBXLAlpine extends RealisticBiomeEBXLBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEBXL.villageEBXLAlpine;
 	}
 }

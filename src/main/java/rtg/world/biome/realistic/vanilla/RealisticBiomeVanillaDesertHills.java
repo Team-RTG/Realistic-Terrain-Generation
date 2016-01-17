@@ -45,7 +45,6 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigVanilla.villageVanillaDesertHills;
 		
         this.waterSurfaceLakeChance = 0;
 	}

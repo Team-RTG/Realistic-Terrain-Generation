@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import org.apache.logging.log4j.Level;
 
-import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.enhancedbiomes.config.BiomeConfigEB;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
@@ -138,807 +137,541 @@ public class RealisticBiomeEBBase extends RealisticBiomeBase
 					{
 					    ebAlpineMountains = new RealisticBiomeEBAlpineMountains(ebBiome, BiomeConfigEB.biomeConfigEBAlpineMountains);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountains.config._boolean(BiomeConfig.enableBiomeId)) {
-						    BiomeBase.addBiome(ebAlpineMountains);
-						    BiomeBase.addVillageBiome(ebAlpineMountains);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebAlpineMountains); }
 					}
 					else if (biomeName == "Alpine Mountains Edge" && biomeClass == "enhancedbiomes.world.biome.snow.snowforest.BiomeGenAlpineEdge")
 					{
 					    ebAlpineMountainsEdge = new RealisticBiomeEBAlpineMountainsEdge(ebBiome, BiomeConfigEB.biomeConfigEBAlpineMountainsEdge);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountainsEdge.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebAlpineMountainsEdge);
-							BiomeBase.addVillageBiome(ebAlpineMountainsEdge);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebAlpineMountainsEdge); }
 					}
 					else if (biomeName == "Alpine Mountains M" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenAlpineM")
 					{
 					    ebAlpineMountainsM = new RealisticBiomeEBAlpineMountainsM(ebBiome, BiomeConfigEB.biomeConfigEBAlpineMountainsM);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineMountainsM.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebAlpineMountainsM);
-							BiomeBase.addVillageBiome(ebAlpineMountainsM);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebAlpineMountainsM); }
 					}
 					else if (biomeName == "Alpine Tundra" && biomeClass == "enhancedbiomes.world.biome.grass.BiomeGenAlpineTundra")
 					{
 					    ebAlpineTundra = new RealisticBiomeEBAlpineTundra(ebBiome, BiomeConfigEB.biomeConfigEBAlpineTundra);
 					    
-						if (ConfigEB.generateEBBiomes && ebAlpineTundra.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebAlpineTundra);
-							BiomeBase.addVillageBiome(ebAlpineTundra);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebAlpineTundra); }
 					}
 					else if (biomeName == "Aspen Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenAspenForest")
 					{
 					    ebAspenForest = new RealisticBiomeEBAspenForest(ebBiome, BiomeConfigEB.biomeConfigEBAspenForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebAspenForest.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebAspenForest);
-							BiomeBase.addVillageBiome(ebAspenForest);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebAspenForest); }
 					}
 					else if (biomeName == "Aspen Hills" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenAspenForest")
 					{
 					    ebAspenHills = new RealisticBiomeEBAspenHills(ebBiome, BiomeConfigEB.biomeConfigEBAspenHills);
 					    
-						if (ConfigEB.generateEBBiomes && ebAspenHills.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebAspenHills);
-							BiomeBase.addVillageBiome(ebAspenHills);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebAspenHills); }
 					}
 					else if (biomeName == "Badlands" && biomeClass == "enhancedbiomes.world.biome.grass.BiomeGenBadlands")
 					{
 					    ebBadlands = new RealisticBiomeEBBadlands(ebBiome, BiomeConfigEB.biomeConfigEBBadlands);
 					    
-						if (ConfigEB.generateEBBiomes && ebBadlands.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebBadlands);
-							BiomeBase.addVillageBiome(ebBadlands);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebBadlands); }
 					}
 					else if (biomeName == "Basin" && biomeClass == "enhancedbiomes.world.biome.wasteland.rock.BiomeGenBasin")
 					{
 					    ebBasin = new RealisticBiomeEBBasin(ebBiome, BiomeConfigEB.biomeConfigEBBasin);
 					    
-						if (ConfigEB.generateEBBiomes && ebBasin.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebBasin);
-							BiomeBase.addVillageBiome(ebBasin);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebBasin); }
 					}
 					else if (biomeName == "Blossom Hills" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenCherryBlossom")
 					{
 					    ebBlossomHills = new RealisticBiomeEBBlossomHills(ebBiome, BiomeConfigEB.biomeConfigEBBlossomHills);
 					    
-						if (ConfigEB.generateEBBiomes && ebBlossomHills.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebBlossomHills);
-							BiomeBase.addVillageBiome(ebBlossomHills);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebBlossomHills); }
 					}
 					else if (biomeName == "Blossom Woods" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenCherryBlossom")
 					{
 					    ebBlossomWoods = new RealisticBiomeEBBlossomWoods(ebBiome, BiomeConfigEB.biomeConfigEBBlossomWoods);
 					    
-						if (ConfigEB.generateEBBiomes && ebBlossomWoods.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebBlossomWoods);
-							BiomeBase.addVillageBiome(ebBlossomWoods);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebBlossomWoods); }
 					}
 					else if (biomeName == "Boreal Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenBorealArchipelago")
 					{
 					    ebBorealArchipelago = new RealisticBiomeEBBorealArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBBorealArchipelago);
 					    
-						if (ConfigEB.generateEBBiomes && ebBorealArchipelago.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebBorealArchipelago);
-							BiomeBase.addVillageBiome(ebBorealArchipelago);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebBorealArchipelago); }
 					}
 					else if (biomeName == "Boreal Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenBorealForest")
 					{
 					    ebBorealForest = new RealisticBiomeEBBorealForest(ebBiome, BiomeConfigEB.biomeConfigEBBorealForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebBorealForest.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebBorealForest);
-							BiomeBase.addVillageBiome(ebBorealForest);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebBorealForest); }
 					}
 					else if (biomeName == "Boreal Plateau" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenBorealForest")
 					{
 					    ebBorealPlateau = new RealisticBiomeEBBorealPlateau(ebBiome, BiomeConfigEB.biomeConfigEBBorealPlateau);
 					    
-						if (ConfigEB.generateEBBiomes && ebBorealPlateau.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebBorealPlateau);
-							BiomeBase.addVillageBiome(ebBorealPlateau);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebBorealPlateau); }
 					}
 					else if (biomeName == "Boreal Plateau M" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenBorealForest")
 					{
 					    ebBorealPlateauM = new RealisticBiomeEBBorealPlateauM(ebBiome, BiomeConfigEB.biomeConfigEBBorealPlateauM);
 					    
-						if (ConfigEB.generateEBBiomes && ebBorealPlateauM.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebBorealPlateauM);
-							BiomeBase.addVillageBiome(ebBorealPlateauM);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebBorealPlateauM); }
 					}
 					else if (biomeName == "Carr" && biomeClass == "enhancedbiomes.world.biome.wetland.BiomeGenCarr")
 					{
 					    ebCarr = new RealisticBiomeEBCarr(ebBiome, BiomeConfigEB.biomeConfigEBCarr);
 					    
-						if (ConfigEB.generateEBBiomes && ebCarr.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebCarr);
-							BiomeBase.addVillageBiome(ebCarr);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebCarr); }
 					}
 					else if (biomeName == "Clay Hills" && biomeClass == "enhancedbiomes.world.biome.wasteland.sandstone.BiomeGenClayHills")
 					{
 					    ebClayHills = new RealisticBiomeEBClayHills(ebBiome, BiomeConfigEB.biomeConfigEBClayHills);
 					    
-						if (ConfigEB.generateEBBiomes && ebClayHills.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebClayHills);
-							BiomeBase.addVillageBiome(ebClayHills);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebClayHills); }
 					}
 					else if (biomeName == "Clearing" && biomeClass == "enhancedbiomes.world.biome.base.BiomeGenGrassBase")
 					{
 					    ebClearing = new RealisticBiomeEBClearing(ebBiome, BiomeConfigEB.biomeConfigEBClearing);
 					    
-						if (ConfigEB.generateEBBiomes && ebClearing.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebClearing);
-							BiomeBase.addVillageBiome(ebClearing);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebClearing); }
 					}
 					else if (biomeName == "Cold Boreal Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenBorealForest")
 					{
 					    ebColdBorealForest = new RealisticBiomeEBColdBorealForest(ebBiome, BiomeConfigEB.biomeConfigEBColdBorealForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebColdBorealForest.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebColdBorealForest);
-							BiomeBase.addVillageBiome(ebColdBorealForest);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebColdBorealForest); }
 					}
 					else if (biomeName == "Cold Cypress Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenCypressForest")
 					{
 					    ebColdCypressForest = new RealisticBiomeEBColdCypressForest(ebBiome, BiomeConfigEB.biomeConfigEBColdCypressForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebColdCypressForest.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebColdCypressForest);
-							BiomeBase.addVillageBiome(ebColdCypressForest);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebColdCypressForest); }
 					}
 					else if (biomeName == "Cold Fir Forest" && biomeClass == "enhancedbiomes.world.biome.snow.snowforest.BiomeGenFirForest")
 					{
 					    ebColdFirForest = new RealisticBiomeEBColdFirForest(ebBiome, BiomeConfigEB.biomeConfigEBColdFirForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebColdFirForest.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebColdFirForest);
-							BiomeBase.addVillageBiome(ebColdFirForest);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebColdFirForest); }
 					}
                     else if (biomeName == "Cold Pine Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenPineForest")
                     {
-                        if (ConfigEB.generateEBBiomes && ebColdPineForest.config._boolean(BiomeConfig.enableBiomeId)) {
-                            ebColdPineForest = new RealisticBiomeEBColdPineForest(ebBiome, BiomeConfigEB.biomeConfigEBColdPineForest);
-                            BiomeBase.addBiome(ebColdPineForest);
-                            BiomeBase.addVillageBiome(ebColdPineForest);
-                        }
+                        ebColdPineForest = new RealisticBiomeEBColdPineForest(ebBiome, BiomeConfigEB.biomeConfigEBColdPineForest);
+                        
+                        if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebColdPineForest); }
                     }
                     else if (biomeName == "Creek Bed" && biomeClass == "enhancedbiomes.world.biome.wasteland.sandstone.BiomeGenCreekBed")
                     {
-                        if (ConfigEB.generateEBBiomes && ebCreekBed.config._boolean(BiomeConfig.enableBiomeId)) {
-                            ebCreekBed = new RealisticBiomeEBCreekBed(ebBiome, BiomeConfigEB.biomeConfigEBCreekBed);
-                            BiomeBase.addBiome(ebCreekBed);
-                            BiomeBase.addVillageBiome(ebCreekBed);
-                        }
+                        ebCreekBed = new RealisticBiomeEBCreekBed(ebBiome, BiomeConfigEB.biomeConfigEBCreekBed);
+                        
+                        if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebCreekBed); }
                     }
 					else if (biomeName == "Cypress Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenCypressForest")
 					{
 					    ebCypressForest = new RealisticBiomeEBCypressForest(ebBiome, BiomeConfigEB.biomeConfigEBCypressForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebCypressForest.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebCypressForest);
-							BiomeBase.addVillageBiome(ebCypressForest);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebCypressForest); }
 					}
 					else if (biomeName == "Desert Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenDesertArchipelago")
 					{
 					    ebDesertArchipelago = new RealisticBiomeEBDesertArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBDesertArchipelago);
 					    
-						if (ConfigEB.generateEBBiomes && ebDesertArchipelago.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebDesertArchipelago);
-							BiomeBase.addVillageBiome(ebDesertArchipelago);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebDesertArchipelago); }
 					}
 					else if (biomeName == "Ephemeral Lake" && biomeClass == "enhancedbiomes.world.biome.wetland.BiomeGenEphemeralLake")
 					{
 					    ebEphemeralLake = new RealisticBiomeEBEphemeralLake(ebBiome, BiomeConfigEB.biomeConfigEBEphemeralLake);
 					    
-						if (ConfigEB.generateEBBiomes && ebEphemeralLake.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebEphemeralLake);
-							BiomeBase.addVillageBiome(ebEphemeralLake);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebEphemeralLake); }
 					}
 					else if (biomeName == "Ephemeral Lake Edge" && biomeClass == "enhancedbiomes.world.biome.wetland.BiomeGenEphemeralLake")
 					{
 					    ebEphemeralLakeEdge = new RealisticBiomeEBEphemeralLakeEdge(ebBiome, BiomeConfigEB.biomeConfigEBEphemeralLakeEdge);
 					    
-						if (ConfigEB.generateEBBiomes && ebEphemeralLakeEdge.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebEphemeralLakeEdge);
-							BiomeBase.addVillageBiome(ebEphemeralLakeEdge);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebEphemeralLakeEdge); }
 					}
 					else if (biomeName == "Fens" && biomeClass == "enhancedbiomes.world.biome.wetland.BiomeGenFen")
 					{
 					    ebFens = new RealisticBiomeEBFens(ebBiome, BiomeConfigEB.biomeConfigEBFens);
 					    
-						if (ConfigEB.generateEBBiomes && ebFens.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebFens);
-							BiomeBase.addVillageBiome(ebFens);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebFens); }
 					}
 					else if (biomeName == "Fir Forest" && biomeClass == "enhancedbiomes.world.biome.snow.snowforest.BiomeGenFirForest")
 					{
 					    ebFirForest = new RealisticBiomeEBFirForest(ebBiome, BiomeConfigEB.biomeConfigEBFirForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebFirForest.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebFirForest);
-							BiomeBase.addVillageBiome(ebFirForest);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebFirForest); }
 					}
 					else if (biomeName == "Flowery Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenFlowerArchipelago")
 					{
 					    ebFloweryArchipelago = new RealisticBiomeEBFloweryArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBFloweryArchipelago);
 					    
-						if (ConfigEB.generateEBBiomes && ebFloweryArchipelago.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebFloweryArchipelago);
-							BiomeBase.addVillageBiome(ebFloweryArchipelago);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebFloweryArchipelago); }
 					}
 					else if (biomeName == "Forested Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenForestArchipelago")
 					{
 					    ebForestedArchipelago = new RealisticBiomeEBForestedArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBForestedArchipelago);
 					    
-						if (ConfigEB.generateEBBiomes && ebForestedArchipelago.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebForestedArchipelago);
-							BiomeBase.addVillageBiome(ebForestedArchipelago);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebForestedArchipelago); }
 					}
 					else if (biomeName == "Forested Mountains" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenWoodlands")
 					{
 					    ebForestedMountains = new RealisticBiomeEBForestedMountains(ebBiome, BiomeConfigEB.biomeConfigEBForestedMountains);
 					    
-						if (ConfigEB.generateEBBiomes && ebForestedMountains.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebForestedMountains);
-							BiomeBase.addVillageBiome(ebForestedMountains);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebForestedMountains); }
 					}
 					else if (biomeName == "Forested Valley" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenWoodlands")
 					{
 					    ebForestedValley = new RealisticBiomeEBForestedValley(ebBiome, BiomeConfigEB.biomeConfigEBForestedValley);
 					    
-						if (ConfigEB.generateEBBiomes && ebForestedValley.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebForestedValley);
-							BiomeBase.addVillageBiome(ebForestedValley);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebForestedValley); }
 					}
 					else if (biomeName == "Frozen Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenSnowArchipelago")
 					{
 					    ebFrozenArchipelago = new RealisticBiomeEBFrozenArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBFrozenArchipelago);
 					    
-						if (ConfigEB.generateEBBiomes && ebFrozenArchipelago.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebFrozenArchipelago);
-							BiomeBase.addVillageBiome(ebFrozenArchipelago);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebFrozenArchipelago); }
 					}
 					else if (biomeName == "Glacier" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenGlacier")
 					{
 					    ebGlacier = new RealisticBiomeEBGlacier(ebBiome, BiomeConfigEB.biomeConfigEBGlacier);
 					    
-						if (ConfigEB.generateEBBiomes && ebGlacier.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebGlacier);
-							BiomeBase.addVillageBiome(ebGlacier);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebGlacier); }
 					}
 					else if (biomeName == "Grassy Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenPlainsArchipelago")
 					{
 					    ebGrassyArchipelago = new RealisticBiomeEBGrassyArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBGrassyArchipelago);
 					    
-						if (ConfigEB.generateEBBiomes && ebGrassyArchipelago.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebGrassyArchipelago);
-							BiomeBase.addVillageBiome(ebGrassyArchipelago);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebGrassyArchipelago); }
 					}
 					else if (biomeName == "Ice Sheet" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenIceSheet")
 					{
 					    ebIceSheet = new RealisticBiomeEBIceSheet(ebBiome, BiomeConfigEB.biomeConfigEBIceSheet);
 					    
-						if (ConfigEB.generateEBBiomes && ebIceSheet.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebIceSheet);
-							BiomeBase.addVillageBiome(ebIceSheet);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebIceSheet); }
 					}
 					else if (biomeName == "Kakadu" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenKakadu")
 					{
 					    ebKakadu = new RealisticBiomeEBKakadu(ebBiome, BiomeConfigEB.biomeConfigEBKakadu);
 					    
-						if (ConfigEB.generateEBBiomes && ebKakadu.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebKakadu);
-							BiomeBase.addVillageBiome(ebKakadu);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebKakadu); }
 					}
 					else if (biomeName == "Lake" && biomeClass == "enhancedbiomes.world.biome.wetland.BiomeGenLake")
 					{
 					    ebLake = new RealisticBiomeEBLake(ebBiome, BiomeConfigEB.biomeConfigEBLake);
 					    
-						if (ConfigEB.generateEBBiomes && ebLake.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebLake);
-							BiomeBase.addVillageBiome(ebLake);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebLake); }
 					}
 					else if (biomeName == "Low Hills" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenLowHills")
 					{
 					    ebLowHills = new RealisticBiomeEBLowHills(ebBiome, BiomeConfigEB.biomeConfigEBLowHills);
 					    
-						if (ConfigEB.generateEBBiomes && ebLowHills.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebLowHills);
-							BiomeBase.addVillageBiome(ebLowHills);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebLowHills); }
 					}
 					else if (biomeName == "Mangroves" && biomeClass == "enhancedbiomes.world.biome.wetland.BiomeGenMangrove")
 					{
 					    ebMangroves = new RealisticBiomeEBMangrove(ebBiome, BiomeConfigEB.biomeConfigEBMangroves);
 					    
-						if (ConfigEB.generateEBBiomes && ebMangroves.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebMangroves);
-							BiomeBase.addVillageBiome(ebMangroves);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebMangroves); }
 					}
 					else if (biomeName == "Marsh" && biomeClass == "enhancedbiomes.world.biome.wetland.BiomeGenMarsh")
 					{
 					    ebMarsh = new RealisticBiomeEBMarsh(ebBiome, BiomeConfigEB.biomeConfigEBMarsh);
 					    
-						if (ConfigEB.generateEBBiomes && ebMarsh.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebMarsh);
-							BiomeBase.addVillageBiome(ebMarsh);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebMarsh); }
 					}
 					else if (biomeName == "Meadow" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenMeadow")
 					{
 					    ebMeadow = new RealisticBiomeEBMeadow(ebBiome, BiomeConfigEB.biomeConfigEBMeadow);
 					    
-						if (ConfigEB.generateEBBiomes && ebMeadow.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebMeadow);
-							BiomeBase.addVillageBiome(ebMeadow);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebMeadow); }
 					}
 					else if (biomeName == "Meadow M" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenMeadowM")
 					{
 					    ebMeadowM = new RealisticBiomeEBMeadowM(ebBiome, BiomeConfigEB.biomeConfigEBMeadowM);
 					    
-						if (ConfigEB.generateEBBiomes && ebMeadowM.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebMeadowM);
-							BiomeBase.addVillageBiome(ebMeadowM);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebMeadowM); }
 					}
 					else if (biomeName == "Mountainous Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenMountainsArchipelago")
 					{
 					    ebMountainousArchipelago = new RealisticBiomeEBMountainousArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBMountainousArchipelago);
 					    
-						if (ConfigEB.generateEBBiomes && ebMountainousArchipelago.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebMountainousArchipelago);
-							BiomeBase.addVillageBiome(ebMountainousArchipelago);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebMountainousArchipelago); }
 					}
 					else if (biomeName == "Mountains" && biomeClass == "enhancedbiomes.world.biome.grass.BiomeGenMountains")
 					{
 					    ebMountains = new RealisticBiomeEBMountains(ebBiome, BiomeConfigEB.biomeConfigEBMountains);
 					    
-						if (ConfigEB.generateEBBiomes && ebMountains.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebMountains);
-							BiomeBase.addVillageBiome(ebMountains);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebMountains); }
 					}
 					else if (biomeName == "Mountains Edge" && biomeClass == "enhancedbiomes.world.biome.grass.BiomeGenMountains")
 					{
 					    ebMountainsEdge = new RealisticBiomeEBMountainsEdge(ebBiome, BiomeConfigEB.biomeConfigEBMountainsEdge);
 					    
-						if (ConfigEB.generateEBBiomes && ebMountainsEdge.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebMountainsEdge);
-							BiomeBase.addVillageBiome(ebMountainsEdge);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebMountainsEdge); }
 					}
 					else if (biomeName == "Oak Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenOakForest")
 					{
 					    ebOakForest = new RealisticBiomeEBOakForest(ebBiome, BiomeConfigEB.biomeConfigEBOakForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebOakForest.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebOakForest);
-							BiomeBase.addVillageBiome(ebOakForest);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebOakForest); }
 					}
 					else if (biomeName == "Oasis" && biomeClass == "enhancedbiomes.world.biome.woodland.tropical.BiomeGenOasis")
 					{
 					    ebOasis = new RealisticBiomeEBOasis(ebBiome, BiomeConfigEB.biomeConfigEBOasis);
 					    
-						if (ConfigEB.generateEBBiomes && ebOasis.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebOasis);
-							BiomeBase.addVillageBiome(ebOasis);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebOasis); }
 					}
 					else if (biomeName == "Pine Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenPineForest")
 					{
 					    ebPineForest = new RealisticBiomeEBPineForest(ebBiome, BiomeConfigEB.biomeConfigEBPineForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebPineForest.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebPineForest);
-							BiomeBase.addVillageBiome(ebPineForest);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebPineForest); }
 					}
 					else if (biomeName == "Pine Forest Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenPineForestArchipelago")
 					{
 					    ebPineForestArchipelago = new RealisticBiomeEBPineForestArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBPineForestArchipelago);
 					    
-						if (ConfigEB.generateEBBiomes && ebPineForestArchipelago.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebPineForestArchipelago);
-							BiomeBase.addVillageBiome(ebPineForestArchipelago);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebPineForestArchipelago); }
 					}
 					else if (biomeName == "Plateau" && biomeClass == "enhancedbiomes.world.biome.grass.BiomeGenPlateau")
 					{
 					    ebPlateau = new RealisticBiomeEBPlateau(ebBiome, BiomeConfigEB.biomeConfigEBPlateau);
 					    
-						if (ConfigEB.generateEBBiomes && ebPlateau.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebPlateau);
-							BiomeBase.addVillageBiome(ebPlateau);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebPlateau); }
 					}
 					else if (biomeName == "Polar Desert" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenPolarDesert")
 					{
-						if (ConfigEB.generateEBBiomes && ebPolarDesert.config._boolean(BiomeConfig.enableBiomeId)) {
-						    ebBiome.setEnableSnow();
-						    ebPolarDesert = new RealisticBiomeEBPolarDesert(ebBiome, BiomeConfigEB.biomeConfigEBPolarDesert);
-							BiomeBase.addBiome(ebPolarDesert);
-							BiomeBase.addVillageBiome(ebPolarDesert);
-						}
+					    ebPolarDesert = new RealisticBiomeEBPolarDesert(ebBiome, BiomeConfigEB.biomeConfigEBPolarDesert);
+					    
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebPolarDesert); }
 					}
 					else if (biomeName == "Prairie" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenPrairie")
 					{
 					    ebPrairie = new RealisticBiomeEBPrairie(ebBiome, BiomeConfigEB.biomeConfigEBPrairie);
 					    
-						if (ConfigEB.generateEBBiomes && ebPrairie.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebPrairie);
-							BiomeBase.addVillageBiome(ebPrairie);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebPrairie); }
 					}
 					else if (biomeName == "Rainforest" && biomeClass == "enhancedbiomes.world.biome.woodland.tropical.BiomeGenRainforest")
 					{
 					    ebRainforest = new RealisticBiomeEBRainforest(ebBiome, BiomeConfigEB.biomeConfigEBRainforest);
 					    
-						if (ConfigEB.generateEBBiomes && ebRainforest.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebRainforest);
-							BiomeBase.addVillageBiome(ebRainforest);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebRainforest); }
 					}
 					else if (biomeName == "Rainforest Valley" && biomeClass == "enhancedbiomes.world.biome.woodland.tropical.BiomeGenRainforest")
 					{
 					    ebRainforestValley = new RealisticBiomeEBRainforestValley(ebBiome, BiomeConfigEB.biomeConfigEBRainforestValley);
 					    
-						if (ConfigEB.generateEBBiomes && ebRainforestValley.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebRainforestValley);
-							BiomeBase.addVillageBiome(ebRainforestValley);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebRainforestValley); }
 					}
                     else if (biomeName == "Red Desert" && biomeClass == "enhancedbiomes.world.biome.sand.BiomeGenRedDesert")
                     {
-                        if (ConfigEB.generateEBBiomes && ebRedDesert.config._boolean(BiomeConfig.enableBiomeId)) {
-                            ebRedDesert = new RealisticBiomeEBRedDesert(ebBiome, BiomeConfigEB.biomeConfigEBRedDesert);
-                            BiomeBase.addBiome(ebRedDesert);
-                            BiomeBase.addVillageBiome(ebRedDesert);
-                        }
+                        ebRedDesert = new RealisticBiomeEBRedDesert(ebBiome, BiomeConfigEB.biomeConfigEBRedDesert);
+                        
+                        if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebRedDesert); }
                     }
                     else if (biomeName == "Riparian Zone" && biomeClass == "enhancedbiomes.world.biome.base.BiomeGenRiparianZone")
                     {
-                        if (ConfigEB.generateEBBiomes && ebRiparianZone.config._boolean(BiomeConfig.enableBiomeId)) {
-                            ebRiparianZone = new RealisticBiomeEBRiparianZone(ebBiome, BiomeConfigEB.biomeConfigEBRiparianZone);
-                            BiomeBase.addBiome(ebRiparianZone);
-                            BiomeBase.addVillageBiome(ebRiparianZone);
-                        }
+                        ebRiparianZone = new RealisticBiomeEBRiparianZone(ebBiome, BiomeConfigEB.biomeConfigEBRiparianZone);
+                        
+                        if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebRiparianZone); }
                     }
 					else if (biomeName == "Rocky Desert" && biomeClass == "enhancedbiomes.world.biome.sand.BiomeGenRockyDesert")
 					{
 					    ebRockyDesert = new RealisticBiomeEBRockyDesert(ebBiome, BiomeConfigEB.biomeConfigEBRockyDesert);
 					    
-						if (ConfigEB.generateEBBiomes && ebRockyDesert.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebRockyDesert);
-							BiomeBase.addVillageBiome(ebRockyDesert);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebRockyDesert); }
 					}
 					else if (biomeName == "Rocky Hills" && biomeClass == "enhancedbiomes.world.biome.wasteland.rock.BiomeGenRockHills")
 					{
 					    ebRockyHills = new RealisticBiomeEBRockyHills(ebBiome, BiomeConfigEB.biomeConfigEBRockyHills);
 					    
-						if (ConfigEB.generateEBBiomes && ebRockyHills.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebRockyHills);
-							BiomeBase.addVillageBiome(ebRockyHills);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebRockyHills); }
 					}
 					else if (biomeName == "Roofed Shrublands" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenGrasslandsRoofed")
 					{
 					    ebRoofedShrublands = new RealisticBiomeEBRoofedShrublands(ebBiome, BiomeConfigEB.biomeConfigEBRoofedShrublands);
 					    
-						if (ConfigEB.generateEBBiomes && ebRoofedShrublands.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebRoofedShrublands);
-							BiomeBase.addVillageBiome(ebRoofedShrublands);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebRoofedShrublands); }
 					}
 					else if (biomeName == "Sahara" && biomeClass == "enhancedbiomes.world.biome.sand.BiomeGenSahara")
 					{
 					    ebSahara = new RealisticBiomeEBSahara(ebBiome, BiomeConfigEB.biomeConfigEBSahara);
 					    
-						if (ConfigEB.generateEBBiomes && ebSahara.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebSahara);
-							BiomeBase.addVillageBiome(ebSahara);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebSahara); }
 					}
 					else if (biomeName == "Sandstone Canyon" && biomeClass == "enhancedbiomes.world.biome.wasteland.sandstone.BiomeGenSandStoneGorge")
 					{
 					    ebSandstoneCanyon = new RealisticBiomeEBSandstoneCanyon(ebBiome, BiomeConfigEB.biomeConfigEBSandstoneCanyon);
 					    
-						if (ConfigEB.generateEBBiomes && ebSandstoneCanyon.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebSandstoneCanyon);
-							BiomeBase.addVillageBiome(ebSandstoneCanyon);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebSandstoneCanyon); }
 					}
 					else if (biomeName == "Sandstone Canyons" && biomeClass == "enhancedbiomes.world.biome.wasteland.sandstone.BiomeGenSandStoneCanyon")
 					{
 					    ebSandstoneCanyons = new RealisticBiomeEBSandstoneCanyon2(ebBiome, BiomeConfigEB.biomeConfigEBSandstoneCanyon2);
 					    
-						if (ConfigEB.generateEBBiomes && ebSandstoneCanyons.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebSandstoneCanyons);
-							BiomeBase.addVillageBiome(ebSandstoneCanyons);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebSandstoneCanyons); }
 					}
 					else if (biomeName == "Sandstone Ranges" && biomeClass == "enhancedbiomes.world.biome.wasteland.sandstone.BiomeGenSandStoneRanges")
 					{
 					    ebSandstoneRanges = new RealisticBiomeEBSandstoneRanges(ebBiome, BiomeConfigEB.biomeConfigEBSandstoneRanges);
 					    
-						if (ConfigEB.generateEBBiomes && ebSandstoneRanges.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebSandstoneRanges);
-							BiomeBase.addVillageBiome(ebSandstoneRanges);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebSandstoneRanges); }
 					}
 					else if (biomeName == "Sandstone Ranges M" && biomeClass == "enhancedbiomes.world.biome.wasteland.sandstone.BiomeGenSandStoneRanges")
 					{
 					    ebSandstoneRangesM = new RealisticBiomeEBSandstoneRangesM(ebBiome, BiomeConfigEB.biomeConfigEBSandstoneRangesM);
 					    
-						if (ConfigEB.generateEBBiomes && ebSandstoneRangesM.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebSandstoneRangesM);
-							BiomeBase.addVillageBiome(ebSandstoneRangesM);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebSandstoneRangesM); }
 					}
 					else if (biomeName == "Scree" && biomeClass == "enhancedbiomes.world.biome.wasteland.sandstone.BiomeGenSandStoneRanges")
 					{
 					    ebScree = new RealisticBiomeEBScree(ebBiome, BiomeConfigEB.biomeConfigEBScree);
 					    
-						if (ConfigEB.generateEBBiomes && ebScree.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebScree);
-							BiomeBase.addVillageBiome(ebScree);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebScree); }
 					}
 					else if (biomeName == "Scrub" && biomeClass == "enhancedbiomes.world.biome.sand.BiomeGenScrub")
 					{
 					    ebScrub = new RealisticBiomeEBScrub(ebBiome, BiomeConfigEB.biomeConfigEBScrub);
 					    
-						if (ConfigEB.generateEBBiomes && ebScrub.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebScrub);
-							BiomeBase.addVillageBiome(ebScrub);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebScrub); }
 					}
 					else if (biomeName == "Shield" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenShield")
 					{
 					    ebShield = new RealisticBiomeEBShield(ebBiome, BiomeConfigEB.biomeConfigEBShield);
 					    
-						if (ConfigEB.generateEBBiomes && ebShield.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebShield);
-							BiomeBase.addVillageBiome(ebShield);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebShield); }
 					}
 					else if (biomeName == "Shrublands" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenGrasslands")
 					{
 					    ebShrublands = new RealisticBiomeEBShrublands(ebBiome, BiomeConfigEB.biomeConfigEBShrublands);
 					    
-						if (ConfigEB.generateEBBiomes && ebShrublands.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebShrublands);
-							BiomeBase.addVillageBiome(ebShrublands);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebShrublands); }
 					}
 					else if (biomeName == "Silver Pine Forest" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenSilverPineForest")
 					{
 					    ebSilverPineForest = new RealisticBiomeEBSilverPineForest(ebBiome, BiomeConfigEB.biomeConfigEBSilverPineForest);
 					    
-						if (ConfigEB.generateEBBiomes && ebSilverPineForest.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebSilverPineForest);
-							BiomeBase.addVillageBiome(ebSilverPineForest);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebSilverPineForest); }
 					}
 					else if (biomeName == "Silver Pine Hills" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenSilverPineForest")
 					{
 					    ebSilverPineHills = new RealisticBiomeEBSilverPineHills(ebBiome, BiomeConfigEB.biomeConfigEBSilverPineHills);
 					    
-						if (ConfigEB.generateEBBiomes && ebSilverPineHills.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebSilverPineHills);
-							BiomeBase.addVillageBiome(ebSilverPineHills);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebSilverPineHills); }
 					}
 					else if (biomeName == "Snowy Desert" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenSnowyDesert")
 					{
 					    ebSnowyDesert = new RealisticBiomeEBSnowyDesert(ebBiome, BiomeConfigEB.biomeConfigEBSnowyDesert);
 					    
-						if (ConfigEB.generateEBBiomes && ebSnowyDesert.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebSnowyDesert);
-							BiomeBase.addVillageBiome(ebSnowyDesert);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebSnowyDesert); }
 					}
 					else if (biomeName == "Snowy Plateau" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenSnowyPlateau")
 					{
 					    ebSnowyPlateau = new RealisticBiomeEBSnowyPlateau(ebBiome, BiomeConfigEB.biomeConfigEBSnowyPlateau);
 					    
-						if (ConfigEB.generateEBBiomes && ebSnowyPlateau.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebSnowyPlateau);
-							BiomeBase.addVillageBiome(ebSnowyPlateau);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebSnowyPlateau); }
 					}
 					else if (biomeName == "Snowy Ranges" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenSnowyRanges")
 					{
 					    ebSnowyRanges = new RealisticBiomeEBSnowyRanges(ebBiome, BiomeConfigEB.biomeConfigEBSnowyRanges);
 					    
-						if (ConfigEB.generateEBBiomes && ebSnowyRanges.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebSnowyRanges);
-							BiomeBase.addVillageBiome(ebSnowyRanges);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebSnowyRanges); }
 					}
 					else if (biomeName == "Snowy Wastelands" && biomeClass == "enhancedbiomes.world.biome.wasteland.rock.BiomeGenWasteLands")
 					{
 					    ebSnowyWastelands = new RealisticBiomeEBSnowyWastelands(ebBiome, BiomeConfigEB.biomeConfigEBSnowyWastelands);
 					    
-						if (ConfigEB.generateEBBiomes && ebSnowyWastelands.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebSnowyWastelands);
-							BiomeBase.addVillageBiome(ebSnowyWastelands);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebSnowyWastelands); }
 					}
 					else if (biomeName == "Steppe" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenSteppe")
 					{
 					    ebSteppe = new RealisticBiomeEBSteppe(ebBiome, BiomeConfigEB.biomeConfigEBSteppe);
 					    
-						if (ConfigEB.generateEBBiomes && ebSteppe.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebSteppe);
-							BiomeBase.addVillageBiome(ebSteppe);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebSteppe); }
 					}
 					else if (biomeName == "Stone Canyon" && biomeClass == "enhancedbiomes.world.biome.wasteland.rock.BiomeGenStoneCanyon")
 					{
 					    ebStoneCanyon = new RealisticBiomeEBStoneCanyon(ebBiome, BiomeConfigEB.biomeConfigEBStoneCanyon);
 					    
-						if (ConfigEB.generateEBBiomes && ebStoneCanyon.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebStoneCanyon);
-							BiomeBase.addVillageBiome(ebStoneCanyon);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebStoneCanyon); }
 					}
 					else if (biomeName == "Stone Canyons" && biomeClass == "enhancedbiomes.world.biome.wasteland.rock.BiomeGenStoneCanyon")
 					{
 					    ebStoneCanyons = new RealisticBiomeEBStoneCanyon2(ebBiome, BiomeConfigEB.biomeConfigEBStoneCanyons);
 					    
-						if (ConfigEB.generateEBBiomes && ebStoneCanyons.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebStoneCanyons);
-							BiomeBase.addVillageBiome(ebStoneCanyons);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebStoneCanyons); }
 					}
 					else if (biomeName == "Tropical Archipelago" && biomeClass == "enhancedbiomes.world.biome.archipelago.BiomeGenJungleArchipelago")
 					{
 					    ebTropicalArchipelago = new RealisticBiomeEBTropicalArchipelago(ebBiome, BiomeConfigEB.biomeConfigEBTropicalArchipelago);
 					    
-						if (ConfigEB.generateEBBiomes && ebTropicalArchipelago.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebTropicalArchipelago);
-							BiomeBase.addVillageBiome(ebTropicalArchipelago);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebTropicalArchipelago); }
 					}
 					else if (biomeName == "Tundra" && biomeClass == "enhancedbiomes.world.biome.snow.BiomeGenTundra")
 					{
 					    ebTundra = new RealisticBiomeEBTundra(ebBiome, BiomeConfigEB.biomeConfigEBTundra);
 					    
-						if (ConfigEB.generateEBBiomes && ebTundra.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebTundra);
-							BiomeBase.addVillageBiome(ebTundra);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebTundra); }
 					}
 					else if (biomeName == "Volcano" && biomeClass == "enhancedbiomes.world.biome.wasteland.rock.BiomeGenVolcano")
 					{
 					    ebVolcano = new RealisticBiomeEBVolcano(ebBiome, BiomeConfigEB.biomeConfigEBVolcano);
 					    
-						if (ConfigEB.generateEBBiomes && ebVolcano.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebVolcano);
-							BiomeBase.addVillageBiome(ebVolcano);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebVolcano); }
 					}
 					else if (biomeName == "Volcano M" && biomeClass == "enhancedbiomes.world.biome.wasteland.rock.BiomeGenVolcano")
 					{
 					    ebVolcanoM = new RealisticBiomeEBVolcanoM(ebBiome, BiomeConfigEB.biomeConfigEBVolcanoM);
 					    
-						if (ConfigEB.generateEBBiomes && ebVolcanoM.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebVolcanoM);
-							BiomeBase.addVillageBiome(ebVolcanoM);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebVolcanoM); }
 					}
 					else if (biomeName == "Wastelands" && biomeClass == "enhancedbiomes.world.biome.wasteland.rock.BiomeGenWasteLands")
 					{
 					    ebWastelands = new RealisticBiomeEBWastelands(ebBiome, BiomeConfigEB.biomeConfigEBWastelands);
 					    
-						if (ConfigEB.generateEBBiomes && ebWastelands.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebWastelands);
-							BiomeBase.addVillageBiome(ebWastelands);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebWastelands); }
 					}
 					else if (biomeName == "Woodland Field" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenWoodlands")
 					{
 					    ebWoodlandField = new RealisticBiomeEBWoodlandField(ebBiome, BiomeConfigEB.biomeConfigEBWoodlandField);
 					    
-						if (ConfigEB.generateEBBiomes && ebWoodlandField.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebWoodlandField);
-							BiomeBase.addVillageBiome(ebWoodlandField);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebWoodlandField); }
 					}
 					else if (biomeName == "Woodland Hills" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenWoodlands")
 					{
 					    ebWoodlandHills = new RealisticBiomeEBWoodlandHills(ebBiome, BiomeConfigEB.biomeConfigEBWoodlandHills);
 					    
-						if (ConfigEB.generateEBBiomes && ebWoodlandHills.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebWoodlandHills);
-							BiomeBase.addVillageBiome(ebWoodlandHills);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebWoodlandHills); }
 					}
 					else if (biomeName == "Woodland Lake" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenWoodlands")
 					{
 					    ebWoodlandLake = new RealisticBiomeEBWoodlandLake(ebBiome, BiomeConfigEB.biomeConfigEBWoodlandLake);
 					    
-						if (ConfigEB.generateEBBiomes && ebWoodlandLake.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebWoodlandLake);
-							BiomeBase.addVillageBiome(ebWoodlandLake);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebWoodlandLake); }
 					}
 					else if (biomeName == "Woodland Lake Edge" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenWoodlands")
 					{
 					    ebWoodlandLakeEdge = new RealisticBiomeEBWoodlandLakeEdge(ebBiome, BiomeConfigEB.biomeConfigEBWoodlandLakeEdge);
 					    
-						if (ConfigEB.generateEBBiomes && ebWoodlandLakeEdge.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebWoodlandLakeEdge);
-							BiomeBase.addVillageBiome(ebWoodlandLakeEdge);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebWoodlandLakeEdge); }
 					}
 					else if (biomeName == "Woodlands" && biomeClass == "enhancedbiomes.world.biome.woodland.BiomeGenWoodlands")
 					{
 					    ebWoodlands = new RealisticBiomeEBWoodlands(ebBiome, BiomeConfigEB.biomeConfigEBWoodlands);
 					    
-						if (ConfigEB.generateEBBiomes && ebWoodlands.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebWoodlands);
-							BiomeBase.addVillageBiome(ebWoodlands);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebWoodlands); }
 					}
 					else if (biomeName == "Xeric Savannah" && biomeClass == "enhancedbiomes.world.biome.grass.plains.BiomeGenSavannah")
 					{
 					    ebXericSavannah = new RealisticBiomeEBXericSavanna(ebBiome, BiomeConfigEB.biomeConfigEBXericSavannah);
 					    
-						if (ConfigEB.generateEBBiomes && ebXericSavannah.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebXericSavannah);
-							BiomeBase.addVillageBiome(ebXericSavannah);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebXericSavannah); }
 					}
 					else if (biomeName == "Xeric Shrubland" && biomeClass == "enhancedbiomes.world.biome.sand.BiomeGenXericShrubland")
 					{
 					    ebXericShrubland = new RealisticBiomeEBXericShrubland(ebBiome, BiomeConfigEB.biomeConfigEBXericShrubland);
 					    
-						if (ConfigEB.generateEBBiomes && ebXericShrubland.config._boolean(BiomeConfig.enableBiomeId)) {
-							BiomeBase.addBiome(ebXericShrubland);
-							BiomeBase.addVillageBiome(ebXericShrubland);
-						}
+						if (ConfigEB.generateEBBiomes) { BiomeBase.addBiome(ebXericShrubland); }
 					}
 					else if (biomeClass.contains("enhancedbiomes.world.biome"))
 					{

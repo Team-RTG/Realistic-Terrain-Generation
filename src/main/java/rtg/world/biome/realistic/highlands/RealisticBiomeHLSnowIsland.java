@@ -27,6 +27,5 @@ public class RealisticBiomeHLSnowIsland extends RealisticBiomeHLBase
             new SurfaceHLSnowIsland(topBlock, fillerBlock));
         
         this.config = config;
-        this.generateVillages = ConfigHL.villageHLSnowIsland;
     }
 }

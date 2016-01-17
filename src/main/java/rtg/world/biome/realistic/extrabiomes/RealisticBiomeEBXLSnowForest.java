@@ -28,6 +28,5 @@ public class RealisticBiomeEBXLSnowForest extends RealisticBiomeEBXLBase
 		ebxlBiome.setTemperatureRainfall(-2f, ebxlBiome.rainfall);
 		
 		this.config = config;
-		this.generateVillages = ConfigEBXL.villageEBXLSnowForest;
 	}
 }

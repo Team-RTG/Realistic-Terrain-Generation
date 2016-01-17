@@ -74,7 +74,6 @@ public class RealisticBiomeEBColdCypressForest extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBColdCypressForest;
         
     }
 }

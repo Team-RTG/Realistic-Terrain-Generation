@@ -34,7 +34,6 @@ public class RealisticBiomeBOPDenseForest extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPDenseForest;
 	}
 	
     @Override

@@ -45,7 +45,6 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
             surface);
         
         this.config = config;
-        this.generateVillages = ConfigVanilla.villageVanillaDesert;
         
         this.waterSurfaceLakeChance = 0;
     }

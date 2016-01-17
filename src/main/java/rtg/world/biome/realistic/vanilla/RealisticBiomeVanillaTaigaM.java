@@ -42,7 +42,6 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase
             new SurfaceVanillaTaigaM(topBlock, fillerBlock));
         
         this.config = config;
-        this.generateVillages = ConfigVanilla.villageVanillaTaigaM;
     }
     
     @Override

@@ -78,7 +78,6 @@ public class RealisticBiomeEBSnowyWastelands extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBSnowyWastelands;
         
     }
 	

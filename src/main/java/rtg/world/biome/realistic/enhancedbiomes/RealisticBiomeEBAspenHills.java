@@ -48,7 +48,6 @@ public class RealisticBiomeEBAspenHills extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBAspenHills;
         
     }
 }

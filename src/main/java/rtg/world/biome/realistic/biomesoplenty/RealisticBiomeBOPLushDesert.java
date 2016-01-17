@@ -53,7 +53,6 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPLushDesert;
 	}
 	
     @Override

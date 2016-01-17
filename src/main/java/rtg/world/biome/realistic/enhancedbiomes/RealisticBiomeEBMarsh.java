@@ -73,7 +73,6 @@ public class RealisticBiomeEBMarsh extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBMarsh;
         
     }
 }

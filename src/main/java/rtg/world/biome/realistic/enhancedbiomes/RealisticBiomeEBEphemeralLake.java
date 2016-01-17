@@ -83,7 +83,6 @@ public class RealisticBiomeEBEphemeralLake extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBEphemeralLake;
         
     }
 	

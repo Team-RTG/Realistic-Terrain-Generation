@@ -46,7 +46,6 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase
             new TerrainVanillaMesa(), surface);
         
         this.config = config;
-        this.generateVillages = ConfigVanilla.villageVanillaMesa;
     }
     
     @Override

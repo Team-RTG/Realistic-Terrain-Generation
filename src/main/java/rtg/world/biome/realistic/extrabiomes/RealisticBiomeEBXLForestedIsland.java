@@ -26,6 +26,5 @@ public class RealisticBiomeEBXLForestedIsland extends RealisticBiomeEBXLBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEBXL.villageEBXLForestedIsland;
 	}
 }

@@ -21,6 +21,5 @@ public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase
             new SurfaceAMWitchwoodForest(amBiome.topBlock, amBiome.fillerBlock));
         
         this.config = config;
-        this.generateVillages = ConfigAM.villageAMWitchwoodForest;
     }
 }

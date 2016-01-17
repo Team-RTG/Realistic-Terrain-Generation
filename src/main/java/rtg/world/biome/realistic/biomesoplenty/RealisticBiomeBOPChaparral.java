@@ -27,6 +27,5 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPChaparral;
 	}
 }

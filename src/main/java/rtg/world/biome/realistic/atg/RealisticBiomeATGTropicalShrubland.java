@@ -19,6 +19,5 @@ public class RealisticBiomeATGTropicalShrubland extends RealisticBiomeATGBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigATG.villageATGTropicalShrubland;
 	}
 }

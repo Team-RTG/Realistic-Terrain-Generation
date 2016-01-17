@@ -25,6 +25,5 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
             new SurfaceHLAutumnForest(topBlock, fillerBlock));
         
         this.config = config;
-        this.generateVillages = ConfigHL.villageHLAutumnForest;
     }
 }

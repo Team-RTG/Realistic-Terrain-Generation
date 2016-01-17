@@ -41,7 +41,6 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
         );
         
         this.config = config;
-        this.generateVillages = ConfigVanilla.villageVanillaSavannaPlateau;
     }
     
     @Override

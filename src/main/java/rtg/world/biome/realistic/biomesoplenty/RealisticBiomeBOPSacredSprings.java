@@ -26,6 +26,5 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPSacredSprings;
 	}
 }

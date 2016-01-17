@@ -40,6 +40,5 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPOutback;
 	}
 }

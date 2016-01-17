@@ -26,6 +26,5 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPMangrove;
 	}
 }

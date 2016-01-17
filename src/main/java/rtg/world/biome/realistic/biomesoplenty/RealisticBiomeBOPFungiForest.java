@@ -46,7 +46,6 @@ public class RealisticBiomeBOPFungiForest extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPFungiForest;
 	}
 	
     @Override

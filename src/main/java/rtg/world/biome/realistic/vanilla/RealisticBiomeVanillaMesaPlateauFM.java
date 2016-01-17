@@ -40,7 +40,6 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigVanilla.villageVanillaMesaPlateauFM;
 	}
 	
     @Override

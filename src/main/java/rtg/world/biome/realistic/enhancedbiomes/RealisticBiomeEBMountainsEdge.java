@@ -74,7 +74,6 @@ public class RealisticBiomeEBMountainsEdge extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBMountainsEdge;
         
     }
 }

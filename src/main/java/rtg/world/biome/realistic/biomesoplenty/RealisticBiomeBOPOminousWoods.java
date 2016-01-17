@@ -34,7 +34,6 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPOminousWoods;
 	}
 	
     @Override

@@ -34,7 +34,6 @@ public class RealisticBiomeBOPAlpsForest extends RealisticBiomeBOPBase
 		);
 
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPAlpsForest;
 		this.generatesEmeralds = true;
 	}
 	

@@ -74,7 +74,6 @@ public class RealisticBiomeEBRainforest extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBRainforest;
         
     }
 }

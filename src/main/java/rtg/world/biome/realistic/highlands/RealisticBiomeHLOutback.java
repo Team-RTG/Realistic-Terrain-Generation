@@ -27,6 +27,5 @@ public class RealisticBiomeHLOutback extends RealisticBiomeHLBase
             new SurfaceHLOutback(topBlock, fillerBlock, (byte) 0, 1));
         
         this.config = config;
-        this.generateVillages = ConfigHL.villageHLOutback;
     }
 }

@@ -73,7 +73,6 @@ public class RealisticBiomeEBCreekBed extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBCreekBed;
         
     }
 }

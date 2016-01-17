@@ -32,7 +32,6 @@ public class RealisticBiomeHLDesertMountains extends RealisticBiomeHLBase
             new SurfaceHLDesertMountains(topBlock, fillerBlock, false, null, 0f, 1.5f, 90f, 30f, 1.5f));
         
         this.config = config;
-        this.generateVillages = ConfigHL.villageHLDesertMountains;
     }
 
     @Override

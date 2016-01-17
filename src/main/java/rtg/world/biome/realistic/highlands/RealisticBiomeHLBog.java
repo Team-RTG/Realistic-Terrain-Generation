@@ -26,6 +26,5 @@ public class RealisticBiomeHLBog extends RealisticBiomeHLBase
             new SurfaceHLBog(topBlock, fillerBlock));
         
         this.config = config;
-        this.generateVillages = ConfigHL.villageHLBog;
     }
 }

@@ -19,6 +19,5 @@ public class RealisticBiomeATGWoodland extends RealisticBiomeATGBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigATG.villageATGWoodland;
 	}
 }

@@ -35,7 +35,6 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPFlowerField;
 	}
 	
     @Override

@@ -41,7 +41,6 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase
             new SurfaceVanillaMegaTaiga(topBlock, fillerBlock));
         
         this.config = config;
-        this.generateVillages = ConfigVanilla.villageVanillaMegaTaiga;
     }
     
     @Override

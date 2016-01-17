@@ -26,6 +26,5 @@ public class RealisticBiomeBOPLushRiver extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPLushRiver;
 	}
 }

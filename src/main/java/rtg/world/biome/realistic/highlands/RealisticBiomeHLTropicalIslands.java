@@ -27,6 +27,5 @@ public class RealisticBiomeHLTropicalIslands extends RealisticBiomeHLBase
             new SurfaceHLTropicalIslands(topBlock, fillerBlock));
         
         this.config = config;
-        this.generateVillages = ConfigHL.villageHLTropicalIslands;
     }
 }

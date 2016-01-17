@@ -34,7 +34,6 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPLavenderFields;
 	}
 	
     @Override

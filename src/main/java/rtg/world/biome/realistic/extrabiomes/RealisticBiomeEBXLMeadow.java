@@ -35,7 +35,6 @@ public class RealisticBiomeEBXLMeadow extends RealisticBiomeEBXLBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEBXL.villageEBXLMeadow;
 	}
 	
     @Override

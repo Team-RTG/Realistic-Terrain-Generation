@@ -27,6 +27,5 @@ public class RealisticBiomeHLSahel extends RealisticBiomeHLBase
             new SurfaceHLSahel(topBlock, fillerBlock));
         
         this.config = config;
-        this.generateVillages = ConfigHL.villageHLSahel;
     }
 }

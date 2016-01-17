@@ -34,7 +34,6 @@ public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPJadeCliffs;
 		this.generatesEmeralds = true;
 	}
 	

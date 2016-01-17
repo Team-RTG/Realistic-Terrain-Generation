@@ -83,7 +83,6 @@ public class RealisticBiomeEBSandstoneRanges extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBSandstoneRanges;
         
     }
 	

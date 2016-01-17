@@ -74,7 +74,6 @@ public class RealisticBiomeEBRoofedShrublands extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBRoofedShrublands;
         
     }
 }

@@ -83,7 +83,6 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBMangroves;
         
     }
 	

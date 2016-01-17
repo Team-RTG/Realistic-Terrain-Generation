@@ -26,6 +26,5 @@ public class RealisticBiomeEBXLExtremeJungle extends RealisticBiomeEBXLBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEBXL.villageEBXLExtremeJungle;
 	}
 }

@@ -27,6 +27,5 @@ public class RealisticBiomeHLSteppe extends RealisticBiomeHLBase
             new SurfaceHLSteppe(topBlock, fillerBlock));
         
         this.config = config;
-        this.generateVillages = ConfigHL.villageHLSteppe;
     }
 }

@@ -47,7 +47,6 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPOasis;
 	}
 	
     @Override

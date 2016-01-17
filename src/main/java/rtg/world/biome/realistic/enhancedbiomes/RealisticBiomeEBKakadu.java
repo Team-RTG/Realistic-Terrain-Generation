@@ -74,7 +74,6 @@ public class RealisticBiomeEBKakadu extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBKakadu;
         
     }
 }

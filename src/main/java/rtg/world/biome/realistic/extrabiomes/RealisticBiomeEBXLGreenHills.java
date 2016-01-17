@@ -26,6 +26,5 @@ public class RealisticBiomeEBXLGreenHills extends RealisticBiomeEBXLBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEBXL.villageEBXLGreenHills;
 	}
 }

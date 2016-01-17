@@ -73,7 +73,6 @@ public class RealisticBiomeEBRiparianZone extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBRiparianZone;
         
     }
 }

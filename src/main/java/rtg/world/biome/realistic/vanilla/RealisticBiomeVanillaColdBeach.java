@@ -31,7 +31,6 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigVanilla.villageVanillaColdBeach;
 	}
 	
     @Override

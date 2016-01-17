@@ -20,6 +20,5 @@ public class RealisticBiomeTCEerie extends RealisticBiomeTCBase
 		);
 
         this.config = config;
-        this.generateVillages = ConfigTC.villageTCEerie;
 	}
 }

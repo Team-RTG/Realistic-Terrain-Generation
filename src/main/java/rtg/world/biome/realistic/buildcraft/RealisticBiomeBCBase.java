@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.buildcraft;
 
-import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.buildcraft.config.BiomeConfigBC;
 import rtg.config.buildcraft.ConfigBC;
 import rtg.world.biome.BiomeBase;
@@ -45,21 +44,13 @@ public class RealisticBiomeBCBase extends RealisticBiomeBase
                     {
                         bcDesertOilField = new RealisticBiomeBCDesertOilField(bcBiome, BiomeConfigBC.biomeConfigBCDesertOilField);
                         
-                        if (ConfigBC.generateBCBiomes && bcDesertOilField.config._boolean(BiomeConfig.enableBiomeId)) {
-
-                            BiomeBase.addBiome(bcDesertOilField);
-                            BiomeBase.addVillageBiome(bcDesertOilField);
-                        }
+                        if (ConfigBC.generateBCBiomes) { BiomeBase.addBiome(bcDesertOilField); }
                     }
                     else if (biomeName == "Ocean Oil Field" && biomeClass == "buildcraft.energy.worldgen.BiomeGenOilOcean")
                     {
                         bcOceanOilField = new RealisticBiomeBCOceanOilField(bcBiome, BiomeConfigBC.biomeConfigBCOceanOilField);
                         
-                        if (ConfigBC.generateBCBiomes && bcOceanOilField.config._boolean(BiomeConfig.enableBiomeId)) {
-                            
-                            BiomeBase.addBiome(bcOceanOilField);
-                            BiomeBase.addVillageBiome(bcOceanOilField);
-                        }
+                        if (ConfigBC.generateBCBiomes) { BiomeBase.addBiome(bcOceanOilField); }
                     }
                 }
             }

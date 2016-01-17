@@ -34,7 +34,6 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPMysticGrove;
 	}
 	
     @Override

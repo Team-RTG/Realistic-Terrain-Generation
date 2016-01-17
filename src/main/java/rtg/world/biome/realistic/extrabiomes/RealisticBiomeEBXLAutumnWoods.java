@@ -35,7 +35,6 @@ public class RealisticBiomeEBXLAutumnWoods extends RealisticBiomeEBXLBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEBXL.villageEBXLAutumnWoods;
 	}
 	
     @Override

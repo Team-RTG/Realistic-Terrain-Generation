@@ -26,6 +26,5 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPWoodland;
 	}
 }

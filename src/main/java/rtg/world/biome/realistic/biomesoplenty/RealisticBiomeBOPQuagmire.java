@@ -26,6 +26,5 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPQuagmire;
 	}
 }

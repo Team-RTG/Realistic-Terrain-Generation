@@ -73,7 +73,6 @@ public class RealisticBiomeEBSnowyDesert extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBSnowyDesert;
         
     }
 }

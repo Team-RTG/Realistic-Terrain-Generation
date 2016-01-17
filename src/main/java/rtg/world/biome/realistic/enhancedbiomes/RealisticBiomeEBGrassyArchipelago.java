@@ -74,7 +74,6 @@ public class RealisticBiomeEBGrassyArchipelago extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBGrassyArchipelago;
         
     }
 }

@@ -65,7 +65,6 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPVolcano;
 		
 		this.waterSurfaceLakeChance = 0;
 		this.lavaSurfaceLakeChance = 1;

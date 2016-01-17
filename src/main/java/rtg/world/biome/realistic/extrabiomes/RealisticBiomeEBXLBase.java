@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.extrabiomes.config.BiomeConfigEBXL;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
@@ -60,11 +59,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_alpine = new RealisticBiomeEBXLAlpine(BiomeConfigEBXL.biomeConfigEBXLAlpine);
 				
-				if (ConfigEBXL.generateEBXLBiomes && ebxl_alpine.config._boolean(BiomeConfig.enableBiomeId)) {
-				    
-    				BiomeBase.addBiome(ebxl_alpine);
-    				BiomeBase.addVillageBiome(ebxl_alpine);
-				}
+				if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_alpine); }
 			}
 			
 		    //AUTUMNWOODS
@@ -72,11 +67,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_autumnwoods = new RealisticBiomeEBXLAutumnWoods(BiomeConfigEBXL.biomeConfigEBXLAutumnWoods);
 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_autumnwoods.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_autumnwoods);
-    				BiomeBase.addVillageBiome(ebxl_autumnwoods);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_autumnwoods); }
 			}
 			
 			//BIRCHFOREST
@@ -84,11 +75,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_birchforest = new RealisticBiomeEBXLBirchForest(BiomeConfigEBXL.biomeConfigEBXLBirchForest);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_birchforest.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_birchforest);
-    				BiomeBase.addVillageBiome(ebxl_birchforest);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_birchforest); }
 			}
 			
 		    //EXTREME JUNGLE
@@ -96,11 +83,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_extremejungle = new RealisticBiomeEBXLExtremeJungle(BiomeConfigEBXL.biomeConfigEBXLExtremeJungle);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_extremejungle.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_extremejungle);
-    				BiomeBase.addVillageBiome(ebxl_extremejungle);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_extremejungle); }
 			}
 			
 		    //FORESTED HILLS
@@ -108,11 +91,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_forestedhills = new RealisticBiomeEBXLForestedHills(BiomeConfigEBXL.biomeConfigEBXLForestedHills);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_forestedhills.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_forestedhills);
-    				BiomeBase.addVillageBiome(ebxl_forestedhills);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_forestedhills); }
 			}
 			
 			//FORESTED ISLAND
@@ -120,11 +99,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_forestedisland = new RealisticBiomeEBXLForestedIsland(BiomeConfigEBXL.biomeConfigEBXLForestedIsland);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_forestedisland.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_forestedisland);
-    				BiomeBase.addVillageBiome(ebxl_forestedisland);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_forestedisland); }
 			}
 
 			//GLACIER
@@ -132,11 +107,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_glacier = new RealisticBiomeEBXLGlacier(BiomeConfigEBXL.biomeConfigEBXLGlacier);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_glacier.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_glacier);
-    				BiomeBase.addVillageBiome(ebxl_glacier);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_glacier); }
 			}
 			
 			//GREENHILLS
@@ -144,11 +115,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_greenhills = new RealisticBiomeEBXLGreenHills(BiomeConfigEBXL.biomeConfigEBXLGreenHills);
 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_greenhills.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_greenhills);
-    				BiomeBase.addVillageBiome(ebxl_greenhills);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_greenhills); }
 			}
 			
 			//GREENSWAMP
@@ -156,11 +123,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_greenswamp = new RealisticBiomeEBXLGreenSwamp(BiomeConfigEBXL.biomeConfigEBXLGreenSwamp);
 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_greenswamp.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_greenswamp);
-    				BiomeBase.addVillageBiome(ebxl_greenswamp);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_greenswamp); }
 			}
 			
 		    //ICEWASTELAND
@@ -168,11 +131,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_icewasteland = new RealisticBiomeEBXLIceWasteland(BiomeConfigEBXL.biomeConfigEBXLIceWasteland);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_icewasteland.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_icewasteland);
-    				BiomeBase.addVillageBiome(ebxl_icewasteland);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_icewasteland); }
 			}
 			
 		    //MARSH
@@ -180,11 +139,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_marsh = new RealisticBiomeEBXLMarsh(BiomeConfigEBXL.biomeConfigEBXLMarsh);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_marsh.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_marsh);
-    				BiomeBase.addVillageBiome(ebxl_marsh);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_marsh); }
 			}
 			
 		    //MEADOW
@@ -192,11 +147,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_meadow = new RealisticBiomeEBXLMeadow(BiomeConfigEBXL.biomeConfigEBXLMeadow);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_meadow.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_meadow);
-    				BiomeBase.addVillageBiome(ebxl_meadow);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_meadow); }
 			}
 			
 			//MINI JUNGLE
@@ -204,11 +155,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_minijungle = new RealisticBiomeEBXLMiniJungle(BiomeConfigEBXL.biomeConfigEBXLMiniJungle);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_minijungle.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_minijungle);
-    				BiomeBase.addVillageBiome(ebxl_minijungle);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_minijungle); }
 			}
 			
 		    //MOUNTAIN DESERT
@@ -216,11 +163,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_mountaindesert = new RealisticBiomeEBXLMountainDesert(BiomeConfigEBXL.biomeConfigEBXLMountainDesert);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_mountaindesert.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_mountaindesert);
-    				BiomeBase.addVillageBiome(ebxl_mountaindesert);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_mountaindesert); }
 			}
 			
 			//MOUNTAIN RIDGE
@@ -228,11 +171,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_mountainridge = new RealisticBiomeEBXLMountainRidge(BiomeConfigEBXL.biomeConfigEBXLMountainRidge);
 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_mountainridge.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_mountainridge);
-    				BiomeBase.addVillageBiome(ebxl_mountainridge);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_mountainridge); }
 			}
 			
 		    //MOUNTAIN TAIGA
@@ -240,11 +179,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_mountaintaiga = new RealisticBiomeEBXLMountainTaiga(BiomeConfigEBXL.biomeConfigEBXLMountainTaiga);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_mountaintaiga.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_mountaintaiga);
-    				BiomeBase.addVillageBiome(ebxl_mountaintaiga);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_mountaintaiga); }
 			}
 			
 		    //PINE FOREST
@@ -252,11 +187,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_pineforest = new RealisticBiomeEBXLPineForest(BiomeConfigEBXL.biomeConfigEBXLPineForest);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_pineforest.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_pineforest);
-    				BiomeBase.addVillageBiome(ebxl_pineforest);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_pineforest); }
 			}
 			
 		    //RAINFOREST
@@ -264,11 +195,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_rainforest = new RealisticBiomeEBXLRainforest(BiomeConfigEBXL.biomeConfigEBXLRainforest);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_rainforest.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_rainforest);
-    				BiomeBase.addVillageBiome(ebxl_rainforest);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_rainforest); }
 			}
 			
 			//REDWOOD FOREST
@@ -276,11 +203,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_redwoodforest = new RealisticBiomeEBXLRedwoodForest(BiomeConfigEBXL.biomeConfigEBXLRedwoodForest);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_redwoodforest.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_redwoodforest);
-    				BiomeBase.addVillageBiome(ebxl_redwoodforest);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_redwoodforest); }
 			}
 			
 		    //REDWOOD LUSH
@@ -288,11 +211,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_redwoodlush = new RealisticBiomeEBXLRedwoodLush(BiomeConfigEBXL.biomeConfigEBXLRedwoodLush);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_redwoodlush.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_redwoodlush);
-    				BiomeBase.addVillageBiome(ebxl_redwoodlush);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_redwoodlush); }
 			}
 			
 		    //SAVANNA
@@ -300,11 +219,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_savanna = new RealisticBiomeEBXLSavanna(BiomeConfigEBXL.biomeConfigEBXLSavanna);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_savanna.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_savanna);
-    				BiomeBase.addVillageBiome(ebxl_savanna);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_savanna); }
 			}
 			
 			//SHRUBLAND
@@ -312,11 +227,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_shrubland = new RealisticBiomeEBXLShrubland(BiomeConfigEBXL.biomeConfigEBXLShrubland);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_shrubland.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_shrubland);
-    				BiomeBase.addVillageBiome(ebxl_shrubland);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_shrubland); }
 			}
 			
 			//SNOW FOREST
@@ -324,11 +235,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_snowforest = new RealisticBiomeEBXLSnowForest(BiomeConfigEBXL.biomeConfigEBXLSnowForest);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_snowforest.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_snowforest);
-    				BiomeBase.addVillageBiome(ebxl_snowforest);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_snowforest); }
 			}
 			
 		    //SNOWY RAIN FOREST
@@ -336,11 +243,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_snowyrainforest = new RealisticBiomeEBXLSnowyRainforest(BiomeConfigEBXL.biomeConfigEBXLSnowyRainforest);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_snowyrainforest.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_snowyrainforest);
-    				BiomeBase.addVillageBiome(ebxl_snowyrainforest);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_snowyrainforest); }
 			}
 			
 		    //TEMPERATE RAINFOREST
@@ -348,11 +251,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_temperaterainforest = new RealisticBiomeEBXLTemperateRainforest(BiomeConfigEBXL.biomeConfigEBXLTemperateRainforest);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_temperaterainforest.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_temperaterainforest);
-    				BiomeBase.addVillageBiome(ebxl_temperaterainforest);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_temperaterainforest); }
 			}
 			
 		    //TUNDRA
@@ -360,11 +259,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_tundra = new RealisticBiomeEBXLTundra(BiomeConfigEBXL.biomeConfigEBXLTundra);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_tundra.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_tundra);
-    				BiomeBase.addVillageBiome(ebxl_tundra);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_tundra); }
 			}
 			
 			//WASTELAND
@@ -372,11 +267,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_wasteland = new RealisticBiomeEBXLWasteland(BiomeConfigEBXL.biomeConfigEBXLWasteland);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_wasteland.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_wasteland);
-    				BiomeBase.addVillageBiome(ebxl_wasteland);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_wasteland); }
 			}
 			
 			//WOODLANDS
@@ -384,11 +275,7 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 			    
 				ebxl_woodlands = new RealisticBiomeEBXLWoodlands(BiomeConfigEBXL.biomeConfigEBXLWoodlands);
                 
-                if (ConfigEBXL.generateEBXLBiomes && ebxl_woodlands.config._boolean(BiomeConfig.enableBiomeId)) {
-                    
-    				BiomeBase.addBiome(ebxl_woodlands);
-    				BiomeBase.addVillageBiome(ebxl_woodlands);
-                }
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_woodlands); }
 			}
 		}		
 	}

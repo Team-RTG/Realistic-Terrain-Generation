@@ -74,7 +74,6 @@ public class RealisticBiomeEBColdFirForest extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBColdFirForest;
         
     }
 }

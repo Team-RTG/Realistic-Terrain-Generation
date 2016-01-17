@@ -20,6 +20,5 @@ public class RealisticBiomeBCDesertOilField extends RealisticBiomeBCBase
             new SurfaceBCDesertOilField(bcBiome.topBlock, bcBiome.fillerBlock));
         
         this.config = config;
-        this.generateVillages = ConfigBC.villageBCDesertOilField;
     }
 }

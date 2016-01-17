@@ -47,7 +47,6 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPEucalyptusForest;
 	}
 	
     @Override

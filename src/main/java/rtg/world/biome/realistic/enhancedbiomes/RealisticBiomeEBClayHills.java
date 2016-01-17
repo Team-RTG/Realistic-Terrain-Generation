@@ -95,7 +95,6 @@ public class RealisticBiomeEBClayHills extends RealisticBiomeEBBase
             surface);
         
         this.config = config;
-        this.generateVillages = ConfigEB.villageEBClayHills;
         
     }
     

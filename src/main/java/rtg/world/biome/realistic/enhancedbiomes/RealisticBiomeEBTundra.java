@@ -73,7 +73,6 @@ public class RealisticBiomeEBTundra extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBTundra;
         
     }
 }

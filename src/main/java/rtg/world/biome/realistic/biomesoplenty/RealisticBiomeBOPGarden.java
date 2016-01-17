@@ -39,6 +39,5 @@ public class RealisticBiomeBOPGarden extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPGarden;
 	}
 }

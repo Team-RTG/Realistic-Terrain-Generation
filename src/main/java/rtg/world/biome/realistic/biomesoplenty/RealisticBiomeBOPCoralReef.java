@@ -26,6 +26,5 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPCoralReef;
 	}
 }

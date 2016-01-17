@@ -19,6 +19,5 @@ public class RealisticBiomeCCRainbowForest extends RealisticBiomeCCBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigCC.villageCCRainbowForest;
 	}
 }

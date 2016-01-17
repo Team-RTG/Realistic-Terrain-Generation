@@ -27,6 +27,5 @@ public class RealisticBiomeHLMeadow extends RealisticBiomeHLBase
             new SurfaceHLMeadow(topBlock, fillerBlock));
         
         this.config = config;
-        this.generateVillages = ConfigHL.villageHLMeadow;
     }
 }

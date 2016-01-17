@@ -27,6 +27,5 @@ public class RealisticBiomeHLGlacier extends RealisticBiomeHLBase
             new SurfaceHLGlacier(topBlock, fillerBlock, false, null, 0.95f));
         
         this.config = config;
-        this.generateVillages = ConfigHL.villageHLGlacier;
     }
 }

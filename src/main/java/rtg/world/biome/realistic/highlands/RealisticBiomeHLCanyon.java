@@ -26,6 +26,5 @@ public class RealisticBiomeHLCanyon extends RealisticBiomeHLBase
             new SurfaceHLCanyon(topBlock, fillerBlock, (byte) 0, 0));
         
         this.config = config;
-        this.generateVillages = ConfigHL.villageHLCanyon;
     }
 }

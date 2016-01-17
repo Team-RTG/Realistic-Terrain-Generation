@@ -33,7 +33,6 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPMapleWoods;
 	}
 	
     @Override

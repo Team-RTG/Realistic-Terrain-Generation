@@ -27,6 +27,5 @@ public class RealisticBiomeHLShrubland extends RealisticBiomeHLBase
             new SurfaceHLShrubland(topBlock, fillerBlock));
         
         this.config = config;
-        this.generateVillages = ConfigHL.villageHLShrubland;
     }
 }

@@ -26,6 +26,5 @@ public class RealisticBiomeBOPWasteland extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPWasteland;
 	}
 }

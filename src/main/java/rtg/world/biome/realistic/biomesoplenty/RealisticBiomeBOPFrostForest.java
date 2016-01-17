@@ -47,7 +47,6 @@ public class RealisticBiomeBOPFrostForest extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPFrostForest;
 	}
 	
     @Override

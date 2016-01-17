@@ -19,6 +19,5 @@ public class RealisticBiomeATGSnowyGravelBeach extends RealisticBiomeATGBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigATG.villageATGSnowyGravelBeach;
 	}
 }

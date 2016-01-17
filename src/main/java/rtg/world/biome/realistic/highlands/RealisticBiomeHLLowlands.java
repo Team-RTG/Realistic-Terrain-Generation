@@ -27,6 +27,5 @@ public class RealisticBiomeHLLowlands extends RealisticBiomeHLBase
             new SurfaceHLLowlands(topBlock, fillerBlock));
         
         this.config = config;
-        this.generateVillages = ConfigHL.villageHLLowlands;
     }
 }

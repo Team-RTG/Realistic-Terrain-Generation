@@ -27,6 +27,5 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
             new SurfaceHLWindyIsland(topBlock, fillerBlock));
         
         this.config = config;
-        this.generateVillages = ConfigHL.villageHLWindyIsland;
     }
 }

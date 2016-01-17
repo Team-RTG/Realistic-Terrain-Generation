@@ -26,6 +26,5 @@ public class RealisticBiomeBOPCanyon extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPCanyon;
 	}
 }

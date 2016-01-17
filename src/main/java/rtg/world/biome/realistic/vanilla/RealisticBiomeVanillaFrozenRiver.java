@@ -24,7 +24,6 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase
 		);
 		
 		this.config = config;
-		this.generateVillages = false;
 		
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;

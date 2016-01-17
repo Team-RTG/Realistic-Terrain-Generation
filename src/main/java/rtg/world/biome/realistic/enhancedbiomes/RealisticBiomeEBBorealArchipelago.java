@@ -74,7 +74,6 @@ public class RealisticBiomeEBBorealArchipelago extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBBorealArchipelago;
         
     }
 }

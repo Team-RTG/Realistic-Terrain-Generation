@@ -33,7 +33,6 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPHeathland;
 	}
 	
     @Override

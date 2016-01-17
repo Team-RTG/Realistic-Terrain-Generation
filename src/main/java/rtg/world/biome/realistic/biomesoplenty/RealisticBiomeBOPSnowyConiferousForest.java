@@ -35,7 +35,6 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPSnowyConiferousForest;
 	}
 	
     @Override

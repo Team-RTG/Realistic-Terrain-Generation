@@ -73,7 +73,6 @@ public class RealisticBiomeEBXericSavanna extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBXericSavannah;
         
     }
 }

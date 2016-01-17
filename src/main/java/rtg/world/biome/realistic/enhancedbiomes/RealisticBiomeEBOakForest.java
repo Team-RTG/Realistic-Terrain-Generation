@@ -74,7 +74,6 @@ public class RealisticBiomeEBOakForest extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBOakForest;
         
     }
 }

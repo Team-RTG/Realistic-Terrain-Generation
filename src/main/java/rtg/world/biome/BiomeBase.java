@@ -95,7 +95,8 @@ public class BiomeBase extends BiomeGenBase
     
     public static void addVillageBiome(RealisticBiomeBase b)
     {
-        if (b.generateVillages) {
+        if (b.config._boolean(BiomeConfig.allowVillagesId)) {
+            
             arrVillageBiomes.add(b.baseBiome);
         }
     }
@@ -104,7 +105,9 @@ public class BiomeBase extends BiomeGenBase
 	{
 		try
 		{
-			addWeightedBiome(b);
+		    if (b.config._boolean(BiomeConfig.enableBiomeId)) {
+		        addWeightedBiome(b);
+		    }
 		}
 		catch(Error e)
 		{
@@ -146,5 +149,7 @@ public class BiomeBase extends BiomeGenBase
                 }
 			}
 		}
+		
+		addVillageBiome(b);
 	}
 }

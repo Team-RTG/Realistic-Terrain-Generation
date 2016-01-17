@@ -47,7 +47,6 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPSeasonalForest;
 	}
 	
     @Override

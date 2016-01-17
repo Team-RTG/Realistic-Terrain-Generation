@@ -19,6 +19,5 @@ public class RealisticBiomeCCEnderForest extends RealisticBiomeCCBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigCC.villageCCEnderForest;
 	}
 }

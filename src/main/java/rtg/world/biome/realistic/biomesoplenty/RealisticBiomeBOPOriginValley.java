@@ -26,6 +26,5 @@ public class RealisticBiomeBOPOriginValley extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPOriginValley;
 	}
 }

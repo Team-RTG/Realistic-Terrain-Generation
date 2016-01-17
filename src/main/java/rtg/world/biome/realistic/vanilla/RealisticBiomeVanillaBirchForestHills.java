@@ -38,7 +38,6 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigVanilla.villageVanillaBirchForestHills;
 	}
 	
     @Override

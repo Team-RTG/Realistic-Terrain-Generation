@@ -27,6 +27,5 @@ public class RealisticBiomeHLLake extends RealisticBiomeHLBase
             new SurfaceHLLake(topBlock, fillerBlock));
         
         this.config = config;
-        this.generateVillages = ConfigHL.villageHLLake;
     }
 }

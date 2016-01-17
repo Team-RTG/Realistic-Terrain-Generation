@@ -27,6 +27,5 @@ public class RealisticBiomeHLRedwoodForest extends RealisticBiomeHLBase
             new SurfaceHLRedwoodForest(topBlock, fillerBlock, false, null, 0.4f));
         
         this.config = config;
-        this.generateVillages = ConfigHL.villageHLRedwoodForest;
     }
 }

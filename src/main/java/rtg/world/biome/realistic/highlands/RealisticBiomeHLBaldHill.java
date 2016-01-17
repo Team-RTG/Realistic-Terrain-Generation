@@ -28,6 +28,5 @@ public class RealisticBiomeHLBaldHill extends RealisticBiomeHLBase
         );
         
         this.config = config;
-        this.generateVillages = ConfigHL.villageHLBaldHill;
     }
 }

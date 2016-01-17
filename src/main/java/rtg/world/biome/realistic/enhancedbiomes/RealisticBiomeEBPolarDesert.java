@@ -82,7 +82,6 @@ public class RealisticBiomeEBPolarDesert extends RealisticBiomeEBBase
         );
         
         this.config = config;
-        this.generateVillages = ConfigEB.villageEBPolarDesert;
         
     }
     

@@ -26,6 +26,5 @@ public class RealisticBiomeBOPPrairie extends RealisticBiomeBOPBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigBOP.villageBOPPrairie;
 	}
 }

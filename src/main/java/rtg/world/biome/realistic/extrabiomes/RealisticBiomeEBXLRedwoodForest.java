@@ -36,7 +36,6 @@ public class RealisticBiomeEBXLRedwoodForest extends RealisticBiomeEBXLBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEBXL.villageEBXLRedwoodForest;
 	}
 	
     @Override

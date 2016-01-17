@@ -73,7 +73,6 @@ public class RealisticBiomeEBLowHills extends RealisticBiomeEBBase
 		);
 		
 		this.config = config;
-		this.generateVillages = ConfigEB.villageEBLowHills;
         
     }
 }

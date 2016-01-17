@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.atg;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.atg.ConfigATG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.atg.SurfaceATGGravelBeach;
@@ -9,7 +10,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeATGGravelBeach extends RealisticBiomeATGBase
 {
-	public RealisticBiomeATGGravelBeach(BiomeGenBase atgBiome)
+	public RealisticBiomeATGGravelBeach(BiomeGenBase atgBiome, BiomeConfig config)
 	{
 		super(
 			atgBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
@@ -17,9 +18,6 @@ public class RealisticBiomeATGGravelBeach extends RealisticBiomeATGBase
 			new SurfaceATGGravelBeach(atgBiome.topBlock, atgBiome.fillerBlock, atgBiome.topBlock, atgBiome.fillerBlock, (byte)0, 1)
 		);
 		
-		this.setRealisticBiomeName("ATG Gravel Beach");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigATG.weightATGGravelBeach;
-		this.generateVillages = ConfigATG.villageATGGravelBeach;
+		this.config = config;
 	}
 }

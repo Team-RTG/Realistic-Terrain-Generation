@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -26,7 +27,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     public static Block topBlock = BiomeGenBase.iceMountains.topBlock;
     public static Block fillerBlock = BiomeGenBase.iceMountains.fillerBlock;
     
-    public RealisticBiomeVanillaIceMountains()
+    public RealisticBiomeVanillaIceMountains(BiomeConfig config)
     {
     
         super(
@@ -36,10 +37,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
             new SurfaceVanillaIceMountains(topBlock, fillerBlock, Blocks.snow, Blocks.snow, Blocks.packed_ice, Blocks.ice, 60f,
                 -0.14f, 14f, 0.25f));
         
-        this.setRealisticBiomeName("Vanilla Ice Mountains");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaIceMountains;
-        this.generateVillages = ConfigVanilla.villageVanillaIceMountains;
+        this.config = config;
     }
     
     @Override

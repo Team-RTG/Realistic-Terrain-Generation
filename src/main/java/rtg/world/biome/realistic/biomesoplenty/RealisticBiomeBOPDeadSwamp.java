@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPDeadSwamp;
@@ -16,7 +17,7 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPDeadSwamp()
+	public RealisticBiomeBOPDeadSwamp(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
@@ -24,9 +25,6 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase
 			new SurfaceBOPDeadSwamp(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Dead Swamp");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPDeadSwamp;
-		this.generateVillages = ConfigBOP.villageBOPDeadSwamp;
+		this.config = config;
 	}
 }

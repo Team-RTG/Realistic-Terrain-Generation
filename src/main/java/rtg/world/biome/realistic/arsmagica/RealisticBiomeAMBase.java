@@ -1,9 +1,9 @@
 package rtg.world.biome.realistic.arsmagica;
 
+import rtg.api.biome.arsmagica.config.BiomeConfigAM;
 import rtg.config.arsmagica.ConfigAM;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBeach;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 import cpw.mods.fml.common.Loader;
@@ -26,7 +26,7 @@ public class RealisticBiomeAMBase extends RealisticBiomeBase
     public static void addBiomes()
     {
     
-        if (Loader.isModLoaded("arsmagica2") && ConfigAM.generateAMBiomes)
+        if (Loader.isModLoaded("arsmagica2"))
         {
             BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
             
@@ -40,13 +40,9 @@ public class RealisticBiomeAMBase extends RealisticBiomeBase
                     
                     if (biomeName == "WitchwoodForest" && biomeClass == "am2.worldgen.BiomeWitchwoodForest")
                     {
-                        if (ConfigAM.generateAMWitchwoodForest) {
-                            
-                            amWitchwoodForest = new RealisticBiomeAMWitchwoodForest(amBiome);
-                            
-                            BiomeBase.addBiome(amWitchwoodForest);
-                            BiomeBase.addVillageBiome(amWitchwoodForest);
-                        }
+                        amWitchwoodForest = new RealisticBiomeAMWitchwoodForest(amBiome, BiomeConfigAM.biomeConfigAMWitchwoodForest);
+                        
+                        if (ConfigAM.generateAMBiomes) { BiomeBase.addBiome(amWitchwoodForest); }
                     }
                 }
             }

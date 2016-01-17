@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.chromaticraft;
 
+import rtg.api.biome.chromaticraft.config.BiomeConfigCC;
 import rtg.config.chromaticraft.ConfigCC;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -24,7 +25,7 @@ public class RealisticBiomeCCBase extends RealisticBiomeBase
 	
 	public static void addBiomes()
 	{
-		if (Loader.isModLoaded("ChromatiCraft") && ConfigCC.generateCCBiomes)
+		if (Loader.isModLoaded("ChromatiCraft"))
 		{
 			BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
 			
@@ -38,23 +39,15 @@ public class RealisticBiomeCCBase extends RealisticBiomeBase
 					
 					if (biomeName == "Ender Forest" && biomeClass == "Reika.ChromatiCraft.World.BiomeEnderForest")
 					{
-						if (ConfigCC.generateCCEnderForest) {
-						    
-						    ccEnderForest = new RealisticBiomeCCEnderForest(ccBiome);
-						    
-						    BiomeBase.addBiome(ccEnderForest);
-						    BiomeBase.addVillageBiome(ccEnderForest);
-						}
+					    ccEnderForest = new RealisticBiomeCCEnderForest(ccBiome, BiomeConfigCC.biomeConfigCCEnderForest);
+					    
+						if (ConfigCC.generateCCBiomes) { BiomeBase.addBiome(ccEnderForest); }
 					}
 					else if (biomeName == "Rainbow Forest" && biomeClass == "Reika.ChromatiCraft.World.BiomeRainbowForest")
 					{
-						if (ConfigCC.generateCCRainbowForest) {
-						    
-						    ccRainbowForest = new RealisticBiomeCCRainbowForest(ccBiome);
-						    
-						    BiomeBase.addBiome(ccRainbowForest);
-						    BiomeBase.addVillageBiome(ccRainbowForest);
-						}
+					    ccRainbowForest = new RealisticBiomeCCRainbowForest(ccBiome, BiomeConfigCC.biomeConfigCCRainbowForest);
+					    
+						if (ConfigCC.generateCCBiomes) { BiomeBase.addBiome(ccRainbowForest); }
 					}
 				}
 			}

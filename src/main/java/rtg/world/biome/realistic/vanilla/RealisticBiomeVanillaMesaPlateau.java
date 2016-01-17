@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -27,7 +28,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase
     public static Block topBlock = BiomeGenBase.mesaPlateau.topBlock;
     public static Block fillerBlock = BiomeGenBase.mesaPlateau.fillerBlock;
     
-    public RealisticBiomeVanillaMesaPlateau()
+    public RealisticBiomeVanillaMesaPlateau(BiomeConfig config)
     {
     
         super(
@@ -36,10 +37,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase
             new TerrainVanillaMesaPlateau(true, 35f, 160f, 60f, 40f, 69f),
             new SurfaceVanillaMesaPlateau(Blocks.sand, Blocks.sand, (byte) 1, 0));
         
-        this.setRealisticBiomeName("Vanilla Mesa Plateau");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaMesaBryce;
-        this.generateVillages = ConfigVanilla.villageVanillaMesaBryce;
+        this.config = config;
     }
     
     @Override

@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBPrairie;
@@ -46,7 +47,7 @@ public class RealisticBiomeEBPrairie extends RealisticBiomeEBBase
     private static Block ebCliff2Block = Blocks.cobblestone;
     private static byte ebCliff2Byte = (byte)0;
     
-	public RealisticBiomeEBPrairie(BiomeGenBase ebBiome)
+	public RealisticBiomeEBPrairie(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
@@ -71,10 +72,7 @@ public class RealisticBiomeEBPrairie extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Prairie");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEB.weightEBPrairie;
-		this.generateVillages = ConfigEB.villageEBPrairie;
+		this.config = config;
         
     }
 }

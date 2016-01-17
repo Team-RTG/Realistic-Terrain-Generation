@@ -1,12 +1,8 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import java.util.Random;
-
+import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAlpineTundra;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBAlpineTundra;
 import enhancedbiomes.api.EBAPI;
@@ -14,7 +10,6 @@ import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBAlpineTundra extends RealisticBiomeEBBase
@@ -52,7 +47,7 @@ public class RealisticBiomeEBAlpineTundra extends RealisticBiomeEBBase
     private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0);
     
-	public RealisticBiomeEBAlpineTundra(BiomeGenBase ebBiome)
+	public RealisticBiomeEBAlpineTundra(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
@@ -77,10 +72,7 @@ public class RealisticBiomeEBAlpineTundra extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Alpine Tundra");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEB.weightEBAlpineTundra;
-		this.generateVillages = ConfigEB.villageEBAlpineTundra;
+		this.config = config;
 		
         this.generatesEmeralds = true;
         this.emeraldEmeraldBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.oreEmeraldEB, Blocks.emerald_ore);

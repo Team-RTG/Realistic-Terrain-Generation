@@ -2,6 +2,8 @@ package rtg;
 
 import java.util.ArrayList;
 
+import rtg.api.event.BiomeConfigEvent;
+import rtg.config.BiomeConfigManager;
 import rtg.config.ConfigManager;
 import rtg.debug.DebugHandler;
 import rtg.event.EventManagerRTG;
@@ -59,6 +61,18 @@ public class RTG {
     {    
         instance = this;
         
+        eventMgr = new EventManagerRTG();
+        MinecraftForge.EVENT_BUS.register(eventMgr);
+        MinecraftForge.ORE_GEN_BUS.register(eventMgr);
+        MinecraftForge.TERRAIN_GEN_BUS.register(eventMgr);
+        
+        MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Pre());
+        
+        // This MUST get called before the config is initialised.
+        BiomeConfigManager.initBiomeConfigs();
+        
+        MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Post());
+        
         configPath = event.getModConfigurationDirectory() + "/RTG/";
         ConfigManager.init(configPath);
         
@@ -71,11 +85,6 @@ public class RTG {
         if (event.getSide() == Side.CLIENT) {
             MinecraftForge.EVENT_BUS.register(new DebugHandler());
         }
-        
-        eventMgr = new EventManagerRTG();
-        MinecraftForge.EVENT_BUS.register(eventMgr);
-        MinecraftForge.ORE_GEN_BUS.register(eventMgr);
-        MinecraftForge.TERRAIN_GEN_BUS.register(eventMgr);
     }
     
     @EventHandler

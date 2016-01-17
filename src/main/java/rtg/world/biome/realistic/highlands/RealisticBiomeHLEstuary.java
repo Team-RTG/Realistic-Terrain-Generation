@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLEstuary;
@@ -17,16 +18,13 @@ public class RealisticBiomeHLEstuary extends RealisticBiomeHLBase
     public static Block topBlock = hlBiome.topBlock;
     public static Block fillerBlock = hlBiome.fillerBlock;
     
-    public RealisticBiomeHLEstuary() {
+    public RealisticBiomeHLEstuary(BiomeConfig config) {
     
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
             new TerrainHLEstuary(90f, 180f, 13f, 100f, 38f, 260f, 71f),
             new SurfaceHLEstuary(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("HL Estuary");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHLEstuary;
-        this.generateVillages = ConfigHL.villageHLEstuary;
+        this.config = config;
     }
 }

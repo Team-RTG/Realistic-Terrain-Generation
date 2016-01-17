@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMapleWoods;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMapleWoods;
@@ -24,7 +24,7 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPMapleWoods()
+	public RealisticBiomeBOPMapleWoods(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -32,10 +32,7 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase
 			new SurfaceBOPMapleWoods(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Maple Woods");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPMapleWoods;
-		this.generateVillages = ConfigBOP.villageBOPMapleWoods;
+		this.config = config;
 	}
 	
     @Override

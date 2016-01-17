@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -56,7 +56,7 @@ public class RealisticBiomeEBBlossomHills extends RealisticBiomeEBBase
     private static Block ebCliff2Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.SLATE, (byte)0);
     
-	public RealisticBiomeEBBlossomHills(BiomeGenBase ebBiome)
+	public RealisticBiomeEBBlossomHills(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -81,10 +81,7 @@ public class RealisticBiomeEBBlossomHills extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Blossom Hills");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEB.weightEBBlossomHills;
-		this.generateVillages = ConfigEB.villageEBBlossomHills;
+		this.config = config;
         
     }
 	

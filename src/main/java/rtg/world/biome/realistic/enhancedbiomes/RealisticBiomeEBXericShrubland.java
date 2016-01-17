@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBXericShrubland;
@@ -46,7 +47,7 @@ public class RealisticBiomeEBXericShrubland extends RealisticBiomeEBBase
     private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
     
-	public RealisticBiomeEBXericShrubland(BiomeGenBase ebBiome)
+	public RealisticBiomeEBXericShrubland(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
@@ -71,10 +72,7 @@ public class RealisticBiomeEBXericShrubland extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Xeric Shrubland");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEB.weightEBXericShrubland;
-		this.generateVillages = ConfigEB.villageEBXericShrubland;
+		this.config = config;
         
     }
 }

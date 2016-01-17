@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLMesa;
@@ -17,7 +18,7 @@ public class RealisticBiomeHLMesa extends RealisticBiomeHLBase
     public static Block topBlock = hlBiome.topBlock;
     public static Block fillerBlock = hlBiome.fillerBlock;
     
-    public RealisticBiomeHLMesa()
+    public RealisticBiomeHLMesa(BiomeConfig config)
     {
     
         super(
@@ -25,9 +26,6 @@ public class RealisticBiomeHLMesa extends RealisticBiomeHLBase
             new TerrainHLMesa(),
             new SurfaceHLMesa(topBlock, fillerBlock, (byte) 1));
         
-        this.setRealisticBiomeName("HL Mesa");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHLMesa;
-        this.generateVillages = ConfigHL.villageHLMesa;
+        this.config = config;
     }
 }

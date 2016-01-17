@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBCreekBed;
@@ -46,7 +47,7 @@ public class RealisticBiomeEBCreekBed extends RealisticBiomeEBBase
     private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.SCHIST, (byte)0);
     
-	public RealisticBiomeEBCreekBed(BiomeGenBase ebBiome)
+	public RealisticBiomeEBCreekBed(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
@@ -71,10 +72,7 @@ public class RealisticBiomeEBCreekBed extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Creek Bed");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEB.weightEBCreekBed;
-		this.generateVillages = ConfigEB.villageEBCreekBed;
+		this.config = config;
         
     }
 }

@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -56,7 +57,7 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
     private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.SCHIST, (byte)0);
     
-	public RealisticBiomeEBMangrove(BiomeGenBase ebBiome)
+	public RealisticBiomeEBMangrove(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
@@ -81,10 +82,7 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Mangrove");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEB.weightEBMangroves;
-		this.generateVillages = ConfigEB.villageEBMangroves;
+		this.config = config;
         
     }
 	

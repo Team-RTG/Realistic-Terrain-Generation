@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaOcean;
@@ -15,7 +16,7 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase
     public static Block topBlock = BiomeGenBase.ocean.topBlock;
     public static Block fillerBlock = BiomeGenBase.ocean.fillerBlock;
     
-    public RealisticBiomeVanillaOcean()
+    public RealisticBiomeVanillaOcean(BiomeConfig config)
     {
     
         super(
@@ -24,10 +25,7 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase
             new TerrainVanillaOcean(),
             new SurfaceVanillaOcean(Blocks.sand, Blocks.sand, Blocks.gravel, 20f, 0.2f));
         
-        this.setRealisticBiomeName("Vanilla Ocean");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaOcean;
-        this.generateVillages = ConfigVanilla.villageVanillaOcean;
+        this.config = config;
         
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;

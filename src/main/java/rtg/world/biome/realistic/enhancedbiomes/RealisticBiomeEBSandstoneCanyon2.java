@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -56,7 +57,7 @@ public class RealisticBiomeEBSandstoneCanyon2 extends RealisticBiomeEBBase
     private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.sandstone);
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
     
-	public RealisticBiomeEBSandstoneCanyon2(BiomeGenBase ebBiome)
+	public RealisticBiomeEBSandstoneCanyon2(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
@@ -81,10 +82,7 @@ public class RealisticBiomeEBSandstoneCanyon2 extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Sandstone Canyon 2");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEB.weightEBSandstoneCanyons;
-		this.generateVillages = ConfigEB.villageEBSandstoneCanyons;
+		this.config = config;
         
     }
 	

@@ -2,15 +2,13 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeDesertDead;
-import rtg.world.gen.feature.tree.WorldGenTreePineBig;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
 import rtg.world.gen.feature.tree.WorldGenTreeWillow;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSwampland;
@@ -21,7 +19,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
-import net.minecraft.world.gen.feature.WorldGenSwamp;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
@@ -30,7 +27,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
     public static Block topBlock = BiomeGenBase.swampland.topBlock;
     public static Block fillerBlock = BiomeGenBase.swampland.fillerBlock;
     
-    public RealisticBiomeVanillaSwampland()
+    public RealisticBiomeVanillaSwampland(BiomeConfig config)
     {
     
         super(
@@ -39,10 +36,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
             new TerrainVanillaSwampland(),
             new SurfaceVanillaSwampland(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("Vanilla Swampland");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaSwampland;
-        this.generateVillages = ConfigVanilla.villageVanillaSwampland;
+        this.config = config;
     }
     
     @Override

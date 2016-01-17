@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPHeathland;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPHeathland;
@@ -24,7 +24,7 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPHeathland()
+	public RealisticBiomeBOPHeathland(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
@@ -32,10 +32,7 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase
 			new SurfaceBOPHeathland(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Heathland");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPHeathland;
-		this.generateVillages = ConfigBOP.villageBOPHeathland;
+		this.config = config;
 	}
 	
     @Override

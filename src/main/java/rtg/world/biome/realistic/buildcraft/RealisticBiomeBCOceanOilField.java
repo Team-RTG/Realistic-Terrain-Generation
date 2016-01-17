@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.buildcraft;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.buildcraft.ConfigBC;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.buildcraft.SurfaceBCOceanOilField;
@@ -11,7 +12,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class RealisticBiomeBCOceanOilField extends RealisticBiomeBCBase
 {
     
-    public RealisticBiomeBCOceanOilField(BiomeGenBase bcBiome)
+    public RealisticBiomeBCOceanOilField(BiomeGenBase bcBiome, BiomeConfig config)
     {
     
         super(
@@ -19,9 +20,6 @@ public class RealisticBiomeBCOceanOilField extends RealisticBiomeBCBase
             new TerrainBCOceanOilField(),
             new SurfaceBCOceanOilField(Blocks.sand, Blocks.sand, Blocks.gravel, 20f, 0.2f));
         
-        this.setRealisticBiomeName("BC Ocean Oil Field");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigBC.weightBCOceanOilField;
-        this.generateVillages = ConfigBC.villageBCOceanOilField;
+        this.config = config;
     }
 }

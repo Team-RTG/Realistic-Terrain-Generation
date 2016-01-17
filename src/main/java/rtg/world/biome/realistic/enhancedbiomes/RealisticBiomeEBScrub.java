@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -56,7 +57,7 @@ public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
     private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.cobblestone);
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
     
-	public RealisticBiomeEBScrub(BiomeGenBase ebBiome)
+	public RealisticBiomeEBScrub(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
@@ -81,10 +82,7 @@ public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Scrub");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEB.weightEBScrub;
-		this.generateVillages = ConfigEB.villageEBScrub;
+		this.config = config;
         
     }
 	

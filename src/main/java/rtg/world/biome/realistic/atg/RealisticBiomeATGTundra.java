@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.atg;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.atg.ConfigATG;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.atg.SurfaceATGTundra;
@@ -9,7 +10,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeATGTundra extends RealisticBiomeATGBase
 {	
-	public RealisticBiomeATGTundra(BiomeGenBase atgBiome)
+	public RealisticBiomeATGTundra(BiomeGenBase atgBiome, BiomeConfig config)
 	{
 		super(
 			atgBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
@@ -17,9 +18,6 @@ public class RealisticBiomeATGTundra extends RealisticBiomeATGBase
 			new SurfaceATGTundra(atgBiome.topBlock, atgBiome.fillerBlock, false, null, 0.45f)
 		);
 		
-		this.setRealisticBiomeName("ATG Tundra");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigATG.weightATGTundra;
-		this.generateVillages = ConfigATG.villageATGTundra;
+		this.config = config;
 	}
 }

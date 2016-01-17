@@ -5,17 +5,15 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeBirch;
-import rtg.world.gen.feature.tree.WorldGenTreeBirchSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForestM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestM;
@@ -37,7 +35,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
     public static Block topBlock = mutationBiome.topBlock;
     public static Block fillerBlock = mutationBiome.fillerBlock;
     
-    public RealisticBiomeVanillaBirchForestM()
+    public RealisticBiomeVanillaBirchForestM(BiomeConfig config)
     {
         
         super(
@@ -46,10 +44,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
             new TerrainVanillaBirchForestM(),
             new SurfaceVanillaBirchForestM(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f));
         
-        this.setRealisticBiomeName("Vanilla Birch Forest M");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaBirchForestM;
-        this.generateVillages = ConfigVanilla.villageVanillaBirchForestM;
+        this.config = config;
     }
     
     @Override

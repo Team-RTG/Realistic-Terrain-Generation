@@ -1,13 +1,14 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
-
+import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPTemperateRainforest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPTemperateRainforest;
 import biomesoplenty.api.content.BOPCBiomes;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBOPBase
 {	
@@ -16,7 +17,7 @@ public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPTemperateRainforest()
+	public RealisticBiomeBOPTemperateRainforest(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
@@ -24,9 +25,6 @@ public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBOPBase
 			new SurfaceBOPTemperateRainforest(topBlock, fillerBlock, false, null, 0.45f)
 		);
 		
-		this.setRealisticBiomeName("BOP Temperate Rainforest");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPTemperateRainforest;
-		this.generateVillages = ConfigBOP.villageBOPTemperateRainforest;
+		this.config = config;
 	}
 }

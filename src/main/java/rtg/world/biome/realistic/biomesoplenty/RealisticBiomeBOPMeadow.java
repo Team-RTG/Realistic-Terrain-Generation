@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMeadow;
@@ -16,7 +17,7 @@ public class RealisticBiomeBOPMeadow extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPMeadow()
+	public RealisticBiomeBOPMeadow(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -24,9 +25,6 @@ public class RealisticBiomeBOPMeadow extends RealisticBiomeBOPBase
 			new SurfaceBOPMeadow(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Meadow");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPMeadow;
-		this.generateVillages = ConfigBOP.villageBOPMeadow;
+		this.config = config;
 	}
 }

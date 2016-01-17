@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenCacti;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
@@ -22,7 +22,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenDeadBush;
 import net.minecraft.world.gen.feature.WorldGenDesertWells;
-import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -36,7 +35,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
     private static SurfaceBase surface = new SurfaceVanillaDesert(topBlock, fillerBlock);
     private static SurfaceBase riverSurface = new SurfaceRiverOasis();
     
-    public RealisticBiomeVanillaDesert()
+    public RealisticBiomeVanillaDesert(BiomeConfig config)
     {
     
         super(
@@ -45,10 +44,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
             new TerrainVanillaDesert(),
             surface);
         
-        this.setRealisticBiomeName("Vanilla Desert");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaDesert;
-        this.generateVillages = ConfigVanilla.villageVanillaDesert;
+        this.config = config;
         
         this.waterSurfaceLakeChance = 0;
     }

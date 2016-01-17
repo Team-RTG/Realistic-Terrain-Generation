@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPGlacier;
@@ -17,7 +18,7 @@ public class RealisticBiomeBOPGlacier extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPGlacier()
+	public RealisticBiomeBOPGlacier(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
@@ -26,9 +27,6 @@ public class RealisticBiomeBOPGlacier extends RealisticBiomeBOPBase
                 -0.14f, 14f, 0.25f)
 		);
 		
-		this.setRealisticBiomeName("BOP Glacier");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPGlacier;
-		this.generateVillages = ConfigBOP.villageBOPGlacier;
+		this.config = config;
 	}
 }

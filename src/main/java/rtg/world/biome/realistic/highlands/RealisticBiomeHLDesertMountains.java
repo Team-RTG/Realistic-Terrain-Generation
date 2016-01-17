@@ -1,8 +1,10 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+
 import java.util.Random;
-import net.minecraft.world.World;
+
+import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -11,6 +13,7 @@ import rtg.world.gen.surface.highlands.SurfaceHLDesertMountains;
 import rtg.world.gen.terrain.highlands.TerrainHLDesertMountains;
 
 import net.minecraft.block.Block;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeHLDesertMountains extends RealisticBiomeHLBase
@@ -20,7 +23,7 @@ public class RealisticBiomeHLDesertMountains extends RealisticBiomeHLBase
     public static Block topBlock = hlBiome.topBlock;
     public static Block fillerBlock = hlBiome.fillerBlock;
     
-    public RealisticBiomeHLDesertMountains()
+    public RealisticBiomeHLDesertMountains(BiomeConfig config)
     {
     
         super(
@@ -28,10 +31,7 @@ public class RealisticBiomeHLDesertMountains extends RealisticBiomeHLBase
             new TerrainHLDesertMountains(230f, 100f, 0f),
             new SurfaceHLDesertMountains(topBlock, fillerBlock, false, null, 0f, 1.5f, 90f, 30f, 1.5f));
         
-        this.setRealisticBiomeName("HL Desert Mountains");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHLDesertMountains;
-        this.generateVillages = ConfigHL.villageHLDesertMountains;
+        this.config = config;
     }
 
     @Override

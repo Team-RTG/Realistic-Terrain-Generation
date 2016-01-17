@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -31,7 +32,7 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase
     public static Block topBlock = mutationBiome.topBlock;
     public static Block fillerBlock = mutationBiome.fillerBlock;
     
-    public RealisticBiomeVanillaColdTaigaM()
+    public RealisticBiomeVanillaColdTaigaM(BiomeConfig config)
     {
     
         super(
@@ -40,10 +41,7 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase
             new TerrainVanillaColdTaigaM(),
             new SurfaceVanillaColdTaigaM(topBlock, fillerBlock));
         
-        this.setRealisticBiomeName("Vanilla Cold Taiga M");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaColdTaigaM;
-        this.generateVillages = ConfigVanilla.villageVanillaColdTaigaM;
+        this.config = config;
     }
     
     @Override

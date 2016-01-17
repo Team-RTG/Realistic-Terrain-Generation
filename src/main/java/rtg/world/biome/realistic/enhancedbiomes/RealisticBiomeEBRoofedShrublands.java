@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRoofedShrublands;
@@ -47,7 +48,7 @@ public class RealisticBiomeEBRoofedShrublands extends RealisticBiomeEBBase
     private static Block ebCliff2Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.SLATE, (byte)0);
     
-	public RealisticBiomeEBRoofedShrublands(BiomeGenBase ebBiome)
+	public RealisticBiomeEBRoofedShrublands(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -72,10 +73,7 @@ public class RealisticBiomeEBRoofedShrublands extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Roofed Shrublands");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEB.weightEBRoofedShrublands;
-		this.generateVillages = ConfigEB.villageEBRoofedShrublands;
+		this.config = config;
         
     }
 }

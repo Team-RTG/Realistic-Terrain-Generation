@@ -2,14 +2,12 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenCacti;
-import rtg.world.gen.feature.WorldGenFlowers;
-import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.tree.WorldGenTreeSavanna;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaBryce;
@@ -20,9 +18,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenBlockBlob;
-import net.minecraft.world.gen.feature.WorldGenCactus;
 import net.minecraft.world.gen.feature.WorldGenDeadBush;
-import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -38,7 +34,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase
     private static SurfaceBase surface = new SurfaceVanillaMesaBryce(Blocks.sand, Blocks.sand, (byte) 1, 0);
     private static SurfaceBase riverSurface = new SurfaceRiverOasis();
     
-    public RealisticBiomeVanillaMesaBryce()
+    public RealisticBiomeVanillaMesaBryce(BiomeConfig config)
     {
     
         super(
@@ -46,10 +42,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase
             BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
             new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f), surface);
         
-        this.setRealisticBiomeName("Vanilla Mesa Bryce");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigVanilla.weightVanillaMesaBryce;
-        this.generateVillages = ConfigVanilla.villageVanillaMesaBryce;
+        this.config = config;
     }
     
     @Override

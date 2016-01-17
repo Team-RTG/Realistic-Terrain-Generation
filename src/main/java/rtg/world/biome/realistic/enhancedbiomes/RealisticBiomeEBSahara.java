@@ -18,6 +18,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenDesertWells;
+import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeEBSahara extends RealisticBiomeEBBase
 {
@@ -107,7 +108,8 @@ public class RealisticBiomeEBSahara extends RealisticBiomeEBBase
             int j5 = chunkY + rand.nextInt(16) + 8;
             
             int l3 = world.getTopSolidOrLiquidBlock(j2, j5);
-            
+
+            WorldGenerator generator =
             new WorldGenRockSpire(
                 new Block[] {
                     ebDominantStoneBlock[0],
@@ -120,7 +122,8 @@ public class RealisticBiomeEBSahara extends RealisticBiomeEBBase
                     (byte)0
                 },
                 10
-            ).generate(world, rand, j2, l3, j5);
+            );
+            generator.generate(world, rand, j2, l3, j5);
         }
                 
         if (rand.nextInt(500) == 0)

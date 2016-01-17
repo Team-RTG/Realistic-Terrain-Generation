@@ -20,6 +20,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
 {
@@ -105,10 +106,11 @@ public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
             if (k1 < 110)
             {
                 if (rand.nextInt(4) != 0) {
-                    (new WorldGenSpikedBush(Blocks.log, 0, Blocks.leaves, 0, (EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt)))).generate(world, rand, i1, k1, j1);
+                    WorldGenerator spikedBush = new WorldGenSpikedBush(Blocks.log, 0, Blocks.leaves, 0, (EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt)));
+                    spikedBush.generate(world, rand, i1, k1, j1);
                 }
                 else {
-                    (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                    new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3)).generate(world, rand, i1, k1, j1);
                 }
             }
         }

@@ -75,7 +75,7 @@ public class SurfaceVanillaBeach extends SurfaceBase
             	}
             	else if(depth < 6)
             	{
-	        		if(depth == 0 && k > 61 && k < 69)
+	        		if(depth == 0 && k > 61 && k < 64)
 	        		{
 	        			//if(simplex.noise2(i / 12f, j / 12f) > -0.3f + ((k - 61f) / 15f))
                         if (false)

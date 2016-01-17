@@ -63,6 +63,7 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
     private static byte ebCliff1Byte = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
     private static Block ebCliff2Block = ebDominantCobblestoneBlock[0];
     private static byte ebCliff2Byte = ebDominantCobblestoneMeta[0];
+    private WorldGenerator blockBlob = new WorldGenBlockBlob(Blocks.cobblestone, 0);
     
     private static SurfaceBase surface = new SurfaceEBRockyDesert(
         ebTopBlock, //Block top 
@@ -117,7 +118,7 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
             
             if (k1 < 80)
             {
-                (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
+                blockBlob.generate(world, rand, i1, k1, j1);
             }
         }
         
@@ -179,7 +180,8 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
                 int j5 = chunkY + rand.nextInt(16) + 8;
        
                 int l3 = world.getTopSolidOrLiquidBlock(j2, j5);
-                
+
+                WorldGenerator rockSpire =
                 new WorldGenRockSpire(
                     new Block[] { 
                         EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone), 
@@ -192,7 +194,8 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
                         0
                     },
                     10
-                ).generate(world, rand, j2, l3, j5);
+                );
+                rockSpire.generate(world, rand, j2, l3, j5);
             }
             
             for (int k18 = 0; k18 < 5f * strength; k18++)

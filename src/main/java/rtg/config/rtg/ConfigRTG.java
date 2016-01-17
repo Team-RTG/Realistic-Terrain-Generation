@@ -78,13 +78,13 @@ public class ConfigRTG
 
 	public static int biomeSize = BiomeBase.DEFAULT_BIOME_SIZE;
 	
-    public static int minDistanceScatteredFeatures = 16;
-    public static int maxDistanceScatteredFeatures = 64;
+    public static int minDistanceScatteredFeatures = 12; // Vanilla = 8
+    public static int maxDistanceScatteredFeatures = 48; // Vanilla = 32
     
     public static boolean enableVillageModifications = enableVillageTweaks();
     public static int villageSize = 0;
-    public static int minDistanceVillages = 16;
-    public static int maxDistanceVillages = 64;
+    public static int minDistanceVillages = 12; // Vanilla = 8
+    public static int maxDistanceVillages = 48; // Vanilla = 32
     	
 	public static void init(File configFile) 
 	{
@@ -214,8 +214,8 @@ public class ConfigRTG
             
             generateScatteredFeatures = config.getBoolean("Generate Scattered Features", "Scattered Features", generateScatteredFeatures, "");
             
-            minDistanceScatteredFeatures = config.getInt("Minimum distance between scattered features", "Scattered Features", minDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts." + Configuration.NEW_LINE);
-            maxDistanceScatteredFeatures = config.getInt("Maximum distance between scattered features", "Scattered Features", maxDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts." + Configuration.NEW_LINE);
+            minDistanceScatteredFeatures = config.getInt("Minimum distance between scattered features", "Scattered Features", minDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts; 8 = Vanilla" + Configuration.NEW_LINE);
+            maxDistanceScatteredFeatures = config.getInt("Maximum distance between scattered features", "Scattered Features", maxDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts; 32 = Vanilla" + Configuration.NEW_LINE);
             
             /* ==================== Snow ==================== */
             

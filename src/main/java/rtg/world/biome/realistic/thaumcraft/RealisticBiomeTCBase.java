@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.thaumcraft;
 
+import rtg.api.biome.thaumcraft.config.BiomeConfigTC;
 import rtg.config.thaumcraft.ConfigTC;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -32,7 +33,7 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 	
 	public static void addBiomes()
 	{
-		if (Loader.isModLoaded("Thaumcraft") && ConfigTC.generateTCBiomes)
+		if (Loader.isModLoaded("Thaumcraft"))
 		{
 			BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
 			
@@ -46,33 +47,21 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 					
                     if (biomeName == "Magical Forest" && biomeClass == "thaumcraft.common.lib.world.biomes.BiomeGenMagicalForest")
                     {
-                        if (ConfigTC.generateTCMagicalForest) {
-                            
-                            tcMagicalForest = new RealisticBiomeTCMagicalForest(tcBiome);
-                            
-                            BiomeBase.addBiome(tcMagicalForest);
-                            BiomeBase.addVillageBiome(tcMagicalForest);
-                        }
+                        tcMagicalForest = new RealisticBiomeTCMagicalForest(tcBiome, BiomeConfigTC.biomeConfigTCMagicalForest);
+                        
+                        if (ConfigTC.generateTCBiomes) { BiomeBase.addBiome(tcMagicalForest); }
                     }
                     else if (biomeName == "Tainted Land" && biomeClass == "thaumcraft.common.lib.world.biomes.BiomeGenTaint")
 					{
-						if (ConfigTC.generateTCTaintedLand) {
-						    
-						    tcTaintedLand = new RealisticBiomeTCTaintedLand(tcBiome);
-						    
-						    BiomeBase.addBiome(tcTaintedLand);
-						    BiomeBase.addVillageBiome(tcTaintedLand);
-						}
+                        tcTaintedLand = new RealisticBiomeTCTaintedLand(tcBiome, BiomeConfigTC.biomeConfigTCTaintedLand);
+                        
+						if (ConfigTC.generateTCBiomes) { BiomeBase.addBiome(tcTaintedLand); }
 					}
                     else if (biomeName.equals("Eerie") && biomeClass.contains("thaumcraft.common.lib.world.biomes"))
 					{
-						if (ConfigTC.generateTCEerie) {
-
-						    tcEerie = new RealisticBiomeTCEerie(tcBiome);
-
-						    BiomeBase.addBiome(tcEerie);
-						    BiomeBase.addVillageBiome(tcEerie);
-						}
+                        tcEerie = new RealisticBiomeTCEerie(tcBiome, BiomeConfigTC.biomeConfigTCEerie);
+                        
+						if (ConfigTC.generateTCBiomes) { BiomeBase.addBiome(tcEerie); }
 					}
 
 				}

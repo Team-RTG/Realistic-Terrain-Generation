@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -20,7 +21,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 	public static Block topBlock = BiomeGenBase.coldBeach.topBlock;
 	public static Block fillerBlock = BiomeGenBase.coldBeach.fillerBlock;
 	
-	public RealisticBiomeVanillaColdBeach()
+	public RealisticBiomeVanillaColdBeach(BiomeConfig config)
 	{
 		super(
 			BiomeGenBase.coldBeach,
@@ -29,10 +30,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 			new SurfaceVanillaColdBeach(topBlock, fillerBlock, topBlock, fillerBlock, (byte)0, 1)
 		);
 		
-		this.setRealisticBiomeName("Vanilla Cold Beach");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigVanilla.weightVanillaColdBeach;
-		this.generateVillages = ConfigVanilla.villageVanillaColdBeach;
+		this.config = config;
 	}
 	
     @Override

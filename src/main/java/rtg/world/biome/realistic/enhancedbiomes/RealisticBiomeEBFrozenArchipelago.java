@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBFrozenArchipelago;
@@ -47,7 +48,7 @@ public class RealisticBiomeEBFrozenArchipelago extends RealisticBiomeEBBase
     private static Block ebCliff2Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.GABBRO, (byte)0);
     
-	public RealisticBiomeEBFrozenArchipelago(BiomeGenBase ebBiome)
+	public RealisticBiomeEBFrozenArchipelago(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
@@ -72,10 +73,7 @@ public class RealisticBiomeEBFrozenArchipelago extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Frozen Archipelago");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEB.weightEBFrozenArchipelago;
-		this.generateVillages = ConfigEB.villageEBFrozenArchipelago;
+		this.config = config;
         
     }
 }

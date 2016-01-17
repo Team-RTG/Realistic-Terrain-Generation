@@ -1,10 +1,10 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBClearing;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBClearing;
-import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
@@ -47,7 +47,7 @@ public class RealisticBiomeEBClearing extends RealisticBiomeEBBase
     private static Block ebCliff2Block = EBAPI.ebStonify(Blocks.cobblestone, Blocks.cobblestone);
     private static byte ebCliff2Byte = EBAPI.ebStonify((byte)0, (byte)0);
     
-	public RealisticBiomeEBClearing(BiomeGenBase ebBiome)
+	public RealisticBiomeEBClearing(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -72,10 +72,7 @@ public class RealisticBiomeEBClearing extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Clearing");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEB.weightEBClearing;
-		this.generateVillages = ConfigEB.villageEBClearing;
+		this.config = config;
         
     }
 }

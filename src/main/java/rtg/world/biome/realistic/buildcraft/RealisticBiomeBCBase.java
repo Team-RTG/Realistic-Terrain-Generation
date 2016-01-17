@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.buildcraft;
 
+import rtg.api.biome.buildcraft.config.BiomeConfigBC;
 import rtg.config.buildcraft.ConfigBC;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -27,7 +28,7 @@ public class RealisticBiomeBCBase extends RealisticBiomeBase
     public static void addBiomes()
     {
     
-        if (Loader.isModLoaded("BuildCraft|Core") && ConfigBC.generateBCBiomes)
+        if (Loader.isModLoaded("BuildCraft|Core"))
         {
             BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
             
@@ -41,23 +42,15 @@ public class RealisticBiomeBCBase extends RealisticBiomeBase
                     
                     if (biomeName == "Desert Oil Field" && biomeClass == "buildcraft.energy.worldgen.BiomeGenOilDesert")
                     {
-                        if (ConfigBC.generateBCDesertOilField) {
-                            
-                            bcDesertOilField = new RealisticBiomeBCDesertOilField(bcBiome);
-                            
-                            BiomeBase.addBiome(bcDesertOilField);
-                            BiomeBase.addVillageBiome(bcDesertOilField);
-                        }
+                        bcDesertOilField = new RealisticBiomeBCDesertOilField(bcBiome, BiomeConfigBC.biomeConfigBCDesertOilField);
+                        
+                        if (ConfigBC.generateBCBiomes) { BiomeBase.addBiome(bcDesertOilField); }
                     }
                     else if (biomeName == "Ocean Oil Field" && biomeClass == "buildcraft.energy.worldgen.BiomeGenOilOcean")
                     {
-                        if (ConfigBC.generateBCOceanOilField) {
-                            
-                            bcOceanOilField = new RealisticBiomeBCOceanOilField(bcBiome);
-                            
-                            BiomeBase.addBiome(bcOceanOilField);
-                            BiomeBase.addVillageBiome(bcOceanOilField);
-                        }
+                        bcOceanOilField = new RealisticBiomeBCOceanOilField(bcBiome, BiomeConfigBC.biomeConfigBCOceanOilField);
+                        
+                        if (ConfigBC.generateBCBiomes) { BiomeBase.addBiome(bcOceanOilField); }
                     }
                 }
             }

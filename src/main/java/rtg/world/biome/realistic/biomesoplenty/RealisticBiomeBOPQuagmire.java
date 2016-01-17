@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPQuagmire;
@@ -16,7 +17,7 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPQuagmire()
+	public RealisticBiomeBOPQuagmire(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -24,9 +25,6 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase
 			new SurfaceBOPQuagmire(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Quagmire");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPQuagmire;
-		this.generateVillages = ConfigBOP.villageBOPQuagmire;
+		this.config = config;
 	}
 }

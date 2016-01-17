@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPSilkglades;
@@ -16,7 +17,7 @@ public class RealisticBiomeBOPSilkglades extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPSilkglades()
+	public RealisticBiomeBOPSilkglades(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -24,9 +25,6 @@ public class RealisticBiomeBOPSilkglades extends RealisticBiomeBOPBase
 			new SurfaceBOPSilkglades(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("BOP Silkglades");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPSilkglades;
-		this.generateVillages = ConfigBOP.villageBOPSilkglades;
+		this.config = config;
 	}
 }

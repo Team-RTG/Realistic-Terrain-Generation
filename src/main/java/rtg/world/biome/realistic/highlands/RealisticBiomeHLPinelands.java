@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLPinelands;
@@ -17,7 +18,7 @@ public class RealisticBiomeHLPinelands extends RealisticBiomeHLBase
     public static Block topBlock = hlBiome.topBlock;
     public static Block fillerBlock = hlBiome.fillerBlock;
     
-    public RealisticBiomeHLPinelands()
+    public RealisticBiomeHLPinelands(BiomeConfig config)
     {
     
         super(
@@ -25,9 +26,6 @@ public class RealisticBiomeHLPinelands extends RealisticBiomeHLBase
             new TerrainHLPinelands(),
             new SurfaceHLPinelands(topBlock, fillerBlock, false, null, 1.2f));
         
-        this.setRealisticBiomeName("HL Pinelands");
-        this.biomeSize = BiomeSize.NORMAL;
-        this.biomeWeight = ConfigHL.weightHLPinelands;
-        this.generateVillages = ConfigHL.villageHLPinelands;
+        this.config = config;
     }
 }

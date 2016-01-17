@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBWoodlandField;
@@ -46,7 +47,7 @@ public class RealisticBiomeEBWoodlandField extends RealisticBiomeEBBase
     private static Block ebCliff2Block = Blocks.cobblestone;
     private static byte ebCliff2Byte = (byte)0;
     
-	public RealisticBiomeEBWoodlandField(BiomeGenBase ebBiome)
+	public RealisticBiomeEBWoodlandField(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
@@ -71,10 +72,7 @@ public class RealisticBiomeEBWoodlandField extends RealisticBiomeEBBase
             )
 		);
 		
-		this.setRealisticBiomeName("EB Woodland Field");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEB.weightEBWoodlandField;
-		this.generateVillages = ConfigEB.villageEBWoodlandField;
+		this.config = config;
         
     }
 }

@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLForestedHills;
@@ -16,7 +17,7 @@ public class RealisticBiomeEBXLForestedHills extends RealisticBiomeEBXLBase
 	public static Block topBlock = ebxlBiome.topBlock;
 	public static Block fillerBlock = ebxlBiome.fillerBlock;
 	
-	public RealisticBiomeEBXLForestedHills()
+	public RealisticBiomeEBXLForestedHills(BiomeConfig config)
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
@@ -24,9 +25,6 @@ public class RealisticBiomeEBXLForestedHills extends RealisticBiomeEBXLBase
 			new SurfaceEBXLForestedHills(topBlock, fillerBlock, false, null, 0.95f)
 		);
 		
-		this.setRealisticBiomeName("EBXL Forested Hills");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEBXL.weightEBXLForestedHills;
-		this.generateVillages = ConfigEBXL.villageEBXLForestedHills;
+		this.config = config;
 	}
 }

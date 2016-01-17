@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLTundra;
@@ -16,7 +17,7 @@ public class RealisticBiomeEBXLTundra extends RealisticBiomeEBXLBase
 	public static Block topBlock = ebxlBiome.topBlock;
 	public static Block fillerBlock = ebxlBiome.fillerBlock;
 	
-	public RealisticBiomeEBXLTundra()
+	public RealisticBiomeEBXLTundra(BiomeConfig config)
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
@@ -24,9 +25,6 @@ public class RealisticBiomeEBXLTundra extends RealisticBiomeEBXLBase
 			new SurfaceEBXLTundra(topBlock, fillerBlock)
 		);
 		
-		this.setRealisticBiomeName("EBXL Tundra");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEBXL.weightEBXLTundra;
-		this.generateVillages = ConfigEBXL.villageEBXLTundra;
+		this.config = config;
 	}
 }

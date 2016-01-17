@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import rtg.api.biome.extrabiomes.config.BiomeConfigEBXL;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -51,202 +52,230 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 	
 	public static void addBiomes()
 	{
-		if (Loader.isModLoaded("ExtrabiomesXL") && ConfigEBXL.generateEBXLBiomes)
+		if (Loader.isModLoaded("ExtrabiomesXL"))
 		{			
 		    //ALPINE
-			if(BiomeManager.alpine.isPresent() && ConfigEBXL.generateEBXLAlpine) {
-				ebxl_alpine = new RealisticBiomeEBXLAlpine();
-				BiomeBase.addBiome(ebxl_alpine);
-				BiomeBase.addVillageBiome(ebxl_alpine);
+			if(BiomeManager.alpine.isPresent()) {
+			    
+				ebxl_alpine = new RealisticBiomeEBXLAlpine(BiomeConfigEBXL.biomeConfigEBXLAlpine);
+				
+				if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_alpine); }
 			}
 			
 		    //AUTUMNWOODS
-			if(BiomeManager.autumnwoods.isPresent() && ConfigEBXL.generateEBXLAutumnWoods) {
-				ebxl_autumnwoods = new RealisticBiomeEBXLAutumnWoods();
-				BiomeBase.addBiome(ebxl_autumnwoods);
-				BiomeBase.addVillageBiome(ebxl_autumnwoods);
+			if(BiomeManager.autumnwoods.isPresent()) {
+			    
+				ebxl_autumnwoods = new RealisticBiomeEBXLAutumnWoods(BiomeConfigEBXL.biomeConfigEBXLAutumnWoods);
+
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_autumnwoods); }
 			}
 			
 			//BIRCHFOREST
-			if(BiomeManager.birchforest.isPresent() && ConfigEBXL.generateEBXLBirchForest) {
-				ebxl_birchforest = new RealisticBiomeEBXLBirchForest();
-				BiomeBase.addBiome(ebxl_birchforest);
-				BiomeBase.addVillageBiome(ebxl_birchforest);
+			if(BiomeManager.birchforest.isPresent()) {
+			    
+				ebxl_birchforest = new RealisticBiomeEBXLBirchForest(BiomeConfigEBXL.biomeConfigEBXLBirchForest);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_birchforest); }
 			}
 			
 		    //EXTREME JUNGLE
-			if(BiomeManager.extremejungle.isPresent() && ConfigEBXL.generateEBXLExtremeJungle) {
-				ebxl_extremejungle = new RealisticBiomeEBXLExtremeJungle();
-				BiomeBase.addBiome(ebxl_extremejungle);
-				BiomeBase.addVillageBiome(ebxl_extremejungle);
+			if(BiomeManager.extremejungle.isPresent()) {
+			    
+				ebxl_extremejungle = new RealisticBiomeEBXLExtremeJungle(BiomeConfigEBXL.biomeConfigEBXLExtremeJungle);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_extremejungle); }
 			}
 			
 		    //FORESTED HILLS
-			if(BiomeManager.forestedhills.isPresent() && ConfigEBXL.generateEBXLForestedHills) {
-				ebxl_forestedhills = new RealisticBiomeEBXLForestedHills();
-				BiomeBase.addBiome(ebxl_forestedhills);
-				BiomeBase.addVillageBiome(ebxl_forestedhills);
+			if(BiomeManager.forestedhills.isPresent()) {
+			    
+				ebxl_forestedhills = new RealisticBiomeEBXLForestedHills(BiomeConfigEBXL.biomeConfigEBXLForestedHills);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_forestedhills); }
 			}
 			
 			//FORESTED ISLAND
-			if(BiomeManager.forestedisland.isPresent() && ConfigEBXL.generateEBXLForestedIsland) {
-				ebxl_forestedisland = new RealisticBiomeEBXLForestedIsland();
-				BiomeBase.addBiome(ebxl_forestedisland);
-				BiomeBase.addVillageBiome(ebxl_forestedisland);
+			if(BiomeManager.forestedisland.isPresent()) {
+			    
+				ebxl_forestedisland = new RealisticBiomeEBXLForestedIsland(BiomeConfigEBXL.biomeConfigEBXLForestedIsland);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_forestedisland); }
 			}
 
 			//GLACIER
-			if(BiomeManager.glacier.isPresent() && ConfigEBXL.generateEBXLGlacier) {
-				ebxl_glacier = new RealisticBiomeEBXLGlacier();
-				BiomeBase.addBiome(ebxl_glacier);
-				BiomeBase.addVillageBiome(ebxl_glacier);
+			if(BiomeManager.glacier.isPresent()) {
+			    
+				ebxl_glacier = new RealisticBiomeEBXLGlacier(BiomeConfigEBXL.biomeConfigEBXLGlacier);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_glacier); }
 			}
 			
 			//GREENHILLS
-			if(BiomeManager.greenhills.isPresent() && ConfigEBXL.generateEBXLGreenHills) {
-				ebxl_greenhills = new RealisticBiomeEBXLGreenHills();
-				BiomeBase.addBiome(ebxl_greenhills);
-				BiomeBase.addVillageBiome(ebxl_greenhills);
+			if(BiomeManager.greenhills.isPresent()) {
+			    
+				ebxl_greenhills = new RealisticBiomeEBXLGreenHills(BiomeConfigEBXL.biomeConfigEBXLGreenHills);
+
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_greenhills); }
 			}
 			
 			//GREENSWAMP
-			if(BiomeManager.greenswamp.isPresent() && ConfigEBXL.generateEBXLGreenSwamp) {
-				ebxl_greenswamp = new RealisticBiomeEBXLGreenSwamp();
-				BiomeBase.addBiome(ebxl_greenswamp);
-				BiomeBase.addVillageBiome(ebxl_greenswamp);
+			if(BiomeManager.greenswamp.isPresent()) {
+			    
+				ebxl_greenswamp = new RealisticBiomeEBXLGreenSwamp(BiomeConfigEBXL.biomeConfigEBXLGreenSwamp);
+
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_greenswamp); }
 			}
 			
 		    //ICEWASTELAND
-			if(BiomeManager.icewasteland.isPresent() && ConfigEBXL.generateEBXLIceWasteland) {
-				ebxl_icewasteland = new RealisticBiomeEBXLIceWasteland();
-				BiomeBase.addBiome(ebxl_icewasteland);
-				BiomeBase.addVillageBiome(ebxl_icewasteland);
+			if(BiomeManager.icewasteland.isPresent()) {
+			    
+				ebxl_icewasteland = new RealisticBiomeEBXLIceWasteland(BiomeConfigEBXL.biomeConfigEBXLIceWasteland);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_icewasteland); }
 			}
 			
 		    //MARSH
-			if(BiomeManager.marsh.isPresent() && ConfigEBXL.generateEBXLMarsh) {
-				ebxl_marsh = new RealisticBiomeEBXLMarsh();
-				BiomeBase.addBiome(ebxl_marsh);
-				BiomeBase.addVillageBiome(ebxl_marsh);
+			if(BiomeManager.marsh.isPresent()) {
+			    
+				ebxl_marsh = new RealisticBiomeEBXLMarsh(BiomeConfigEBXL.biomeConfigEBXLMarsh);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_marsh); }
 			}
 			
 		    //MEADOW
-			if(BiomeManager.meadow.isPresent() && ConfigEBXL.generateEBXLMeadow) {
-				ebxl_meadow = new RealisticBiomeEBXLMeadow();
-				BiomeBase.addBiome(ebxl_meadow);
-				BiomeBase.addVillageBiome(ebxl_meadow);
+			if(BiomeManager.meadow.isPresent()) {
+			    
+				ebxl_meadow = new RealisticBiomeEBXLMeadow(BiomeConfigEBXL.biomeConfigEBXLMeadow);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_meadow); }
 			}
 			
 			//MINI JUNGLE
-			if(BiomeManager.minijungle.isPresent() && ConfigEBXL.generateEBXLMiniJungle) {
-				ebxl_minijungle = new RealisticBiomeEBXLMiniJungle();
-				BiomeBase.addBiome(ebxl_minijungle);
-				BiomeBase.addVillageBiome(ebxl_minijungle);
+			if(BiomeManager.minijungle.isPresent()) {
+			    
+				ebxl_minijungle = new RealisticBiomeEBXLMiniJungle(BiomeConfigEBXL.biomeConfigEBXLMiniJungle);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_minijungle); }
 			}
 			
 		    //MOUNTAIN DESERT
-			if(BiomeManager.mountaindesert.isPresent() && ConfigEBXL.generateEBXLMountainDesert) {
-				ebxl_mountaindesert = new RealisticBiomeEBXLMountainDesert();
-				BiomeBase.addBiome(ebxl_mountaindesert);
-				BiomeBase.addVillageBiome(ebxl_mountaindesert);
+			if(BiomeManager.mountaindesert.isPresent()) {
+			    
+				ebxl_mountaindesert = new RealisticBiomeEBXLMountainDesert(BiomeConfigEBXL.biomeConfigEBXLMountainDesert);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_mountaindesert); }
 			}
 			
 			//MOUNTAIN RIDGE
-			if(BiomeManager.mountainridge.isPresent() && ConfigEBXL.generateEBXLMountainRidge) {
-				ebxl_mountainridge = new RealisticBiomeEBXLMountainRidge();
-				BiomeBase.addBiome(ebxl_mountainridge);
-				BiomeBase.addVillageBiome(ebxl_mountainridge);
+			if(BiomeManager.mountainridge.isPresent()) {
+			    
+				ebxl_mountainridge = new RealisticBiomeEBXLMountainRidge(BiomeConfigEBXL.biomeConfigEBXLMountainRidge);
+
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_mountainridge); }
 			}
 			
 		    //MOUNTAIN TAIGA
-			if(BiomeManager.mountaintaiga.isPresent() && ConfigEBXL.generateEBXLMountainTaiga) {
-				ebxl_mountaintaiga = new RealisticBiomeEBXLMountainTaiga();
-				BiomeBase.addBiome(ebxl_mountaintaiga);
-				BiomeBase.addVillageBiome(ebxl_mountaintaiga);
+			if(BiomeManager.mountaintaiga.isPresent()) {
+			    
+				ebxl_mountaintaiga = new RealisticBiomeEBXLMountainTaiga(BiomeConfigEBXL.biomeConfigEBXLMountainTaiga);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_mountaintaiga); }
 			}
 			
 		    //PINE FOREST
-			if(BiomeManager.pineforest.isPresent() && ConfigEBXL.generateEBXLPineForest) {
-				ebxl_pineforest = new RealisticBiomeEBXLPineForest();
-				BiomeBase.addBiome(ebxl_pineforest);
-				BiomeBase.addVillageBiome(ebxl_pineforest);
+			if(BiomeManager.pineforest.isPresent()) {
+			    
+				ebxl_pineforest = new RealisticBiomeEBXLPineForest(BiomeConfigEBXL.biomeConfigEBXLPineForest);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_pineforest); }
 			}
 			
 		    //RAINFOREST
-			if(BiomeManager.rainforest.isPresent() && ConfigEBXL.generateEBXLRainforest) {
-				ebxl_rainforest = new RealisticBiomeEBXLRainforest();
-				BiomeBase.addBiome(ebxl_rainforest);
-				BiomeBase.addVillageBiome(ebxl_rainforest);
+			if(BiomeManager.rainforest.isPresent()) {
+			    
+				ebxl_rainforest = new RealisticBiomeEBXLRainforest(BiomeConfigEBXL.biomeConfigEBXLRainforest);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_rainforest); }
 			}
 			
 			//REDWOOD FOREST
-			if(BiomeManager.redwoodforest.isPresent() && ConfigEBXL.generateEBXLRedwoodForest) {
-				ebxl_redwoodforest = new RealisticBiomeEBXLRedwoodForest();
-				BiomeBase.addBiome(ebxl_redwoodforest);
-				BiomeBase.addVillageBiome(ebxl_redwoodforest);
+			if(BiomeManager.redwoodforest.isPresent()) {
+			    
+				ebxl_redwoodforest = new RealisticBiomeEBXLRedwoodForest(BiomeConfigEBXL.biomeConfigEBXLRedwoodForest);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_redwoodforest); }
 			}
 			
 		    //REDWOOD LUSH
-			if(BiomeManager.redwoodlush.isPresent() && ConfigEBXL.generateEBXLRedwoodLush) {
-				ebxl_redwoodlush = new RealisticBiomeEBXLRedwoodLush();
-				BiomeBase.addBiome(ebxl_redwoodlush);
-				BiomeBase.addVillageBiome(ebxl_redwoodlush);
+			if(BiomeManager.redwoodlush.isPresent()) {
+			    
+				ebxl_redwoodlush = new RealisticBiomeEBXLRedwoodLush(BiomeConfigEBXL.biomeConfigEBXLRedwoodLush);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_redwoodlush); }
 			}
 			
 		    //SAVANNA
-			if(BiomeManager.savanna.isPresent() && ConfigEBXL.generateEBXLSavanna) {
-				ebxl_savanna = new RealisticBiomeEBXLSavanna();
-				BiomeBase.addBiome(ebxl_savanna);
-				BiomeBase.addVillageBiome(ebxl_savanna);
+			if(BiomeManager.savanna.isPresent()) {
+			    
+				ebxl_savanna = new RealisticBiomeEBXLSavanna(BiomeConfigEBXL.biomeConfigEBXLSavanna);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_savanna); }
 			}
 			
 			//SHRUBLAND
-			if(BiomeManager.shrubland.isPresent() && ConfigEBXL.generateEBXLShrubland) {
-				ebxl_shrubland = new RealisticBiomeEBXLShrubland();
-				BiomeBase.addBiome(ebxl_shrubland);
-				BiomeBase.addVillageBiome(ebxl_shrubland);
+			if(BiomeManager.shrubland.isPresent()) {
+			    
+				ebxl_shrubland = new RealisticBiomeEBXLShrubland(BiomeConfigEBXL.biomeConfigEBXLShrubland);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_shrubland); }
 			}
 			
 			//SNOW FOREST
-			if(BiomeManager.snowforest.isPresent() && ConfigEBXL.generateEBXLSnowForest) {
-				ebxl_snowforest = new RealisticBiomeEBXLSnowForest();
-				BiomeBase.addBiome(ebxl_snowforest);
-				BiomeBase.addVillageBiome(ebxl_snowforest);
+			if(BiomeManager.snowforest.isPresent()) {
+			    
+				ebxl_snowforest = new RealisticBiomeEBXLSnowForest(BiomeConfigEBXL.biomeConfigEBXLSnowForest);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_snowforest); }
 			}
 			
 		    //SNOWY RAIN FOREST
-			if(BiomeManager.snowyrainforest.isPresent() && ConfigEBXL.generateEBXLSnowyRainforest) {
-				ebxl_snowyrainforest = new RealisticBiomeEBXLSnowyRainforest();
-				BiomeBase.addBiome(ebxl_snowyrainforest);
-				BiomeBase.addVillageBiome(ebxl_snowyrainforest);
+			if(BiomeManager.snowyrainforest.isPresent()) {
+			    
+				ebxl_snowyrainforest = new RealisticBiomeEBXLSnowyRainforest(BiomeConfigEBXL.biomeConfigEBXLSnowyRainforest);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_snowyrainforest); }
 			}
 			
 		    //TEMPERATE RAINFOREST
-			if(BiomeManager.temperaterainforest.isPresent() && ConfigEBXL.generateEBXLTemperateRainforest) {
-				ebxl_temperaterainforest = new RealisticBiomeEBXLTemperateRainforest();
-				BiomeBase.addBiome(ebxl_temperaterainforest);
-				BiomeBase.addVillageBiome(ebxl_temperaterainforest);
+			if(BiomeManager.temperaterainforest.isPresent()) {
+			    
+				ebxl_temperaterainforest = new RealisticBiomeEBXLTemperateRainforest(BiomeConfigEBXL.biomeConfigEBXLTemperateRainforest);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_temperaterainforest); }
 			}
 			
 		    //TUNDRA
-			if(BiomeManager.tundra.isPresent() && ConfigEBXL.generateEBXLTundra) {
-				ebxl_tundra = new RealisticBiomeEBXLTundra();
-				BiomeBase.addBiome(ebxl_tundra);
-				BiomeBase.addVillageBiome(ebxl_tundra);
+			if(BiomeManager.tundra.isPresent()) {
+			    
+				ebxl_tundra = new RealisticBiomeEBXLTundra(BiomeConfigEBXL.biomeConfigEBXLTundra);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_tundra); }
 			}
 			
 			//WASTELAND
-			if(BiomeManager.wasteland.isPresent() && ConfigEBXL.generateEBXLWasteland) {
-				ebxl_wasteland = new RealisticBiomeEBXLWasteland();
-				BiomeBase.addBiome(ebxl_wasteland);
-				BiomeBase.addVillageBiome(ebxl_wasteland);
+			if(BiomeManager.wasteland.isPresent()) {
+			    
+				ebxl_wasteland = new RealisticBiomeEBXLWasteland(BiomeConfigEBXL.biomeConfigEBXLWasteland);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_wasteland); }
 			}
 			
 			//WOODLANDS
-			if(BiomeManager.woodlands.isPresent() && ConfigEBXL.generateEBXLWoodlands) {
-				ebxl_woodlands = new RealisticBiomeEBXLWoodlands();
-				BiomeBase.addBiome(ebxl_woodlands);
-				BiomeBase.addVillageBiome(ebxl_woodlands);
+			if(BiomeManager.woodlands.isPresent()) {
+			    
+				ebxl_woodlands = new RealisticBiomeEBXLWoodlands(BiomeConfigEBXL.biomeConfigEBXLWoodlands);
+                
+                if (ConfigEBXL.generateEBXLBiomes) { BiomeBase.addBiome(ebxl_woodlands); }
 			}
 		}		
 	}

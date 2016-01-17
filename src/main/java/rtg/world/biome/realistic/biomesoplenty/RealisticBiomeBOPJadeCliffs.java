@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPJadeCliffs;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPJadeCliffs;
@@ -25,7 +25,7 @@ public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
 	public static Block topBlock = bopBiome.topBlock;
 	public static Block fillerBlock = bopBiome.fillerBlock;
 	
-	public RealisticBiomeBOPJadeCliffs()
+	public RealisticBiomeBOPJadeCliffs(BiomeConfig config)
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
@@ -33,10 +33,7 @@ public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
 			new SurfaceBOPJadeCliffs(topBlock, fillerBlock, false, null, 0.95f)
 		);
 		
-		this.setRealisticBiomeName("BOP Jade Cliffs");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigBOP.weightBOPJadeCliffs;
-		this.generateVillages = ConfigBOP.villageBOPJadeCliffs;
+		this.config = config;
 		this.generatesEmeralds = true;
 	}
 	

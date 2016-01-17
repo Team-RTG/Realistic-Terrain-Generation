@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAspenForest;
@@ -38,7 +39,7 @@ public class RealisticBiomeEBAspenForest extends RealisticBiomeEBBase
     public static Block ebFillBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
     public static byte ebFillByte = EBAPI.ebGrassify(EBAPI.ALFISOL, (byte)0);
     
-	public RealisticBiomeEBAspenForest(BiomeGenBase ebBiome)
+	public RealisticBiomeEBAspenForest(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
@@ -46,10 +47,7 @@ public class RealisticBiomeEBAspenForest extends RealisticBiomeEBBase
 			new SurfaceEBAspenForest(ebTopBlock, ebTopByte, ebFillBlock, ebFillByte, false, null, 0.95f)
 		);
 		
-		this.setRealisticBiomeName("EB Aspen Forest");
-		this.biomeSize = BiomeSize.NORMAL;
-		this.biomeWeight = ConfigEB.weightEBAspenForest;
-		this.generateVillages = ConfigEB.villageEBAspenForest;
+		this.config = config;
         
     }
 }

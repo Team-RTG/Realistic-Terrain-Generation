@@ -661,6 +661,7 @@ public class ChunkProviderRTG implements IChunkProvider
         		{
         			borderNoise[bn] = 1f;
         		}
+        		
         		realisticBiome = RealisticBiomeBase.getBiome(bn);
                 if (realisticBiome == null) throw new RuntimeException();
                 
@@ -671,7 +672,7 @@ public class ChunkProviderRTG implements IChunkProvider
                  * so that's what the try/catch is for. If it fails, then it falls back to RTG decoration.
                  * TODO: Is there a more efficient way to do this? - Pink
                  */
-                if (realisticBiome.config._boolean(BiomeConfig.enableBiomeId)) {
+                if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
                     
                     realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
                 }

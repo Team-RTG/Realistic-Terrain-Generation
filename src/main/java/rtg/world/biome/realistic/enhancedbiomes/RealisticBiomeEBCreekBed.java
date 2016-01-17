@@ -1,8 +1,12 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import java.util.Random;
+
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
+import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBCreekBed;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBCreekBed;
 import enhancedbiomes.api.EBAPI;
@@ -10,6 +14,7 @@ import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBCreekBed extends RealisticBiomeEBBase
@@ -74,5 +79,23 @@ public class RealisticBiomeEBCreekBed extends RealisticBiomeEBBase
 		
 		this.config = config;
         
+    }
+	
+    @Override
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
+    {
+        
+        /**
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
+         */
+        rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        
+        for (int l14 = 0; l14 < 6f * strength; l14++)
+        {
+            int l19 = chunkX + rand.nextInt(16) + 8;
+            int k22 = rand.nextInt(128);
+            int j24 = chunkY + rand.nextInt(16) + 8;
+            (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
+        }
     }
 }

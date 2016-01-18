@@ -14,9 +14,7 @@ public class ConfigRTG
 	public static Configuration config;
 	
 	public static int generateOnlyThisBiomeId = -1;
-	public static boolean useRTGBiomeGeneration = true;
 	public static boolean enableRTGBiomeDecorations = true;
-    public static boolean stripRivers = true;
 	
 	public static boolean enableUBCStoneShadowing = true;
 	public static boolean enableUBCDesertShadowing = true;
@@ -130,18 +128,6 @@ public class ConfigRTG
                 "If TRUE, uses the individual biome settings in the biome config files. If FALSE, disables all RTG decorations and uses vanilla decorations instead."
                 + Configuration.NEW_LINE
             );
-            
-            useRTGBiomeGeneration = config.getBoolean(
-                    "RTG Biome Layout",
-                    "Biomes",
-                    useRTGBiomeGeneration,
-                    "Use RTG polygonalish biome system");
-
-            stripRivers = config.getBoolean(
-                    "Strip Rivers",
-                    "Biomes",
-                    stripRivers,
-                    "Try to remove rivers from non-RTG biome systems");
             
             biomeSize = config.getInt(
                 "Size of Biomes",

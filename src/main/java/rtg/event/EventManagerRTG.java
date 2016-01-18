@@ -134,28 +134,15 @@ public class EventManagerRTG
 
     @SubscribeEvent
     public void onBiomeGenInit(WorldTypeEvent.InitBiomeGens event) {
+        
         // only handle RTG world type
         if (!event.worldType.getWorldTypeName().equalsIgnoreCase("RTG")) return;
-        @SuppressWarnings("static-access")
-        boolean replace = RTG.instance.configManager(0).rtg().useRTGBiomeGeneration;
-        if (replace) {
-            GenLayer[] rtgGeneration = new GenLayer[3];
-            GenLayer rtgBiomes = new RealisticBiomePool(event.seed);
-            rtgGeneration[0]= rtgBiomes;
-            rtgGeneration[1]= rtgBiomes;
-            rtgGeneration[2]= rtgBiomes;
-            event.newBiomeGens = rtgGeneration;
-        } else {
-            @SuppressWarnings("static-access")
-            boolean stripRivers = RTG.instance.configManager(0).rtg().stripRivers;
-            if (stripRivers) {
-                try {
-                    event.newBiomeGens = new RiverRemover().riverLess(event.originalBiomeGens);
-                } catch (ClassCastException ex) {
-                    //throw ex;
-                    // failed attempt because the GenLayers don't end with GenLayerRiverMix
-                }
-            }
-        }
+        
+        GenLayer[] rtgGeneration = new GenLayer[3];
+        GenLayer rtgBiomes = new RealisticBiomePool(event.seed);
+        rtgGeneration[0]= rtgBiomes;
+        rtgGeneration[1]= rtgBiomes;
+        rtgGeneration[2]= rtgBiomes;
+        event.newBiomeGens = rtgGeneration;
     }
 }

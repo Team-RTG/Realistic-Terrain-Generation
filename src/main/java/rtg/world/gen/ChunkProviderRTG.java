@@ -236,6 +236,7 @@ public class ChunkProviderRTG implements IChunkProvider
             // biomes are y-first and terrain x-first
             abyte1[k] = (byte)this.baseBiomesList[this.xyinverted[k]].biomeID;
         }
+        chunk.setBiomeArray(abyte1);
         chunk.generateSkylightMap();
         return chunk;
     }
@@ -626,12 +627,15 @@ public class ChunkProviderRTG implements IChunkProvider
 
         /**
          * What is this doing? And why does it need to be done here? - Pink
+         * Answer: building a frequency table of nearby biomes - Zeno. 
          */
+
+        final int adjust = 32;// seems off? but decorations aren't matching their chunks.
         for (int bx = -4; bx <= 4; bx++) {
             
         	for(int by = -4; by <= 4; by++)
         	{
-        		borderNoise[cmr.getBiomeDataAt(worldX + 24 + bx * 16, worldZ + 24 + by * 16).biomeID] += 0.01234569f;
+        		borderNoise[cmr.getBiomeDataAt(worldX + adjust + bx * 4, worldZ + adjust  + by * 4).biomeID] += 0.01234569f;
         	}
         }
 
@@ -671,7 +675,7 @@ public class ChunkProviderRTG implements IChunkProvider
                  * so that's what the try/catch is for. If it fails, then it falls back to RTG decoration.
                  * TODO: Is there a more efficient way to do this? - Pink
                  */
-                if (realisticBiome.config._boolean("enableRTGDecorationsId")) {
+                if (realisticBiome.config._boolean(BiomeConfig.enableRTGDecorationsId)) {
                     
                     realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
                 }

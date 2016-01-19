@@ -4,7 +4,6 @@ import java.io.File;
 
 import org.apache.logging.log4j.Level;
 
-import rtg.world.biome.BiomeBase;
 import cpw.mods.fml.common.FMLLog;
 
 import net.minecraftforge.common.config.Configuration;
@@ -13,7 +12,6 @@ public class ConfigRTG
 {
 	public static Configuration config;
 	
-	public static int generateOnlyThisBiomeId = -1;
 	public static boolean enableRTGBiomeDecorations = true;
 	
 	public static boolean enableUBCStoneShadowing = true;
@@ -73,8 +71,6 @@ public class ConfigRTG
     
 	public static boolean showDebugInfo = false;
 	public static boolean enableDebugging = false;
-
-	public static int biomeSize = BiomeBase.DEFAULT_BIOME_SIZE;
 	
     public static int minDistanceScatteredFeatures = 12; // Vanilla = 8
     public static int maxDistanceScatteredFeatures = 48; // Vanilla = 32
@@ -108,38 +104,12 @@ public class ConfigRTG
             
             /* ==================== Biomes ==================== */
             
-            generateOnlyThisBiomeId = config.getInt(
-                "Generate only this biome ID", 
-                "Biomes", 
-                generateOnlyThisBiomeId, 
-                -1, 255, 
-                "If you enter a biome ID here, the whole world will consist of only that biome (and rivers). Set to -1 to generate the world normally." +
-                Configuration.NEW_LINE +
-                "Vanilla biome IDs can be found here: http://goo.gl/WqlAfV" +
-                Configuration.NEW_LINE +
-                "For modded biome IDs, use NEI and go [Options] > [Tools] > [Data Dumps] > Biomes > [Dump], and then refer to the 'biome.csv' file which can be found in your '/.minecraft/dumps' folder." +
-                Configuration.NEW_LINE
-            );
-            
             enableRTGBiomeDecorations = config.getBoolean(
                 "Enable RTG Biome Decorations",
                 "Biomes",
                 enableRTGBiomeDecorations,
                 "If TRUE, uses the individual biome settings in the biome config files. If FALSE, disables all RTG decorations and uses vanilla decorations instead."
                 + Configuration.NEW_LINE
-            );
-            
-            biomeSize = config.getInt(
-                "Size of Biomes",
-                "Biomes", biomeSize,
-                BiomeBase.MIN_BIOME_SIZE,
-                BiomeBase.MAX_BIOME_SIZE,
-                "Lower values = smaller biomes; Higher values = larger biomes" +
-                Configuration.NEW_LINE +
-                "1 = Tiny biomes; 2 = Small biomes; 3 = Normal biomes; 4 = Large biomes; 5 = Huge biomes" +
-                Configuration.NEW_LINE +
-                "Values greater than 5 are not recommended. Use at your own risk." +
-                Configuration.NEW_LINE
             );
             
             /* ==================== Boulders ==================== */

@@ -1,19 +1,10 @@
 package rtg.world.biome;
 
-import java.util.ArrayList;
-
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeBase extends BiomeGenBase
 {
-    public static final int DEFAULT_BIOME_SIZE = 3;
-    public static final int MIN_BIOME_SIZE = 1;
-    public static final int MAX_BIOME_SIZE = 20;
-    
-    public static final int DEFAULT_BIOME_WEIGHT = 10;
-    public static final int MIN_BIOME_WEIGHT = 0;
-    public static final int MAX_BIOME_WEIGHT = 100;
-    
+
 	public BiomeBase(int intBiomeId) {
 		super(intBiomeId, false);
 	}
@@ -34,8 +25,6 @@ public class BiomeBase extends BiomeGenBase
 	public static float tempTemperate = 0.8f, rainTemperate = 0.4f;
 	public static float tempWet = 0.95f, rainWet = 0.9f;	
 	
-	public static ArrayList<BiomeGenBase> arrVillageBiomes;
-
 	/**
 	 * We need to set the temp/rain values 'on the fly' when we pass them as arguments to avoid
 	 * the last temp/rain values being used throughout.

@@ -1,8 +1,6 @@
 package rtg.world.biome.realistic.highlands;
 
 import rtg.api.biome.highlands.config.BiomeConfigHL;
-import rtg.config.highlands.ConfigHL;
-import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
@@ -116,53 +114,6 @@ public class RealisticBiomeHLBase extends RealisticBiomeBase
 		    hl_VolcanoIsland = new RealisticBiomeHLVolcanoIsland(BiomeConfigHL.biomeConfigHLVolcanoIsland);
 		    hl_WindyIsland = new RealisticBiomeHLWindyIsland(BiomeConfigHL.biomeConfigHLWindyIsland);
 		    hl_Shrubland = new RealisticBiomeHLShrubland(BiomeConfigHL.biomeConfigHLShrubland);
-		    
-		    if (ConfigHL.generateHLBiomes) {
-		        
-    			BiomeBase.addBiome(hl_Alps);
-    			BiomeBase.addBiome(hl_AutumnForest);
-    			BiomeBase.addBiome(hl_Badlands);
-    			BiomeBase.addBiome(hl_BaldHill);
-    			BiomeBase.addBiome(hl_BirchHills);
-    			BiomeBase.addBiome(hl_Bog);
-    			BiomeBase.addBiome(hl_Canyon);
-    			BiomeBase.addBiome(hl_Cliffs);
-    			BiomeBase.addBiome(hl_DesertIsland);
-    			BiomeBase.addBiome(hl_DesertMountains);
-    			BiomeBase.addBiome(hl_Dunes);
-    			BiomeBase.addBiome(hl_Estuary);
-    			BiomeBase.addBiome(hl_FlyingMountains);
-    			BiomeBase.addBiome(hl_ForestIsland);
-    			BiomeBase.addBiome(hl_Glacier);
-    			BiomeBase.addBiome(hl_HighlandsB);
-    			BiomeBase.addBiome(hl_JungleIsland);
-    			BiomeBase.addBiome(hl_Lake);
-    			BiomeBase.addBiome(hl_Lowlands);
-    			BiomeBase.addBiome(hl_Meadow);
-    			BiomeBase.addBiome(hl_Mesa);
-    			BiomeBase.addBiome(hl_Oasis);
-    			BiomeBase.addBiome(hl_Outback);
-    			BiomeBase.addBiome(hl_Pinelands);
-    			BiomeBase.addBiome(hl_Rainforest);
-    			BiomeBase.addBiome(hl_RedwoodForest);
-    			BiomeBase.addBiome(hl_RockIsland);
-    			BiomeBase.addBiome(hl_RockMountains);
-    			BiomeBase.addBiome(hl_Sahel);
-    			BiomeBase.addBiome(hl_Savannah);
-    			BiomeBase.addBiome(hl_Shrubland);
-    			BiomeBase.addBiome(hl_SnowIsland);
-    			BiomeBase.addBiome(hl_SnowMountains);
-    			BiomeBase.addBiome(hl_Steppe);
-    			BiomeBase.addBiome(hl_TallPineForest);
-    			BiomeBase.addBiome(hl_TropicalIslands);
-    			BiomeBase.addBiome(hl_Tropics);
-    			BiomeBase.addBiome(hl_Tundra);
-    			BiomeBase.addBiome(hl_Valley);
-    			BiomeBase.addBiome(hl_VolcanoIsland);
-    			BiomeBase.addBiome(hl_WindyIsland);
-    			BiomeBase.addBiome(hl_Woodlands);
-    			BiomeBase.addBiome(hl_WoodsMountains);
-		    }
 		}
 	}
 }

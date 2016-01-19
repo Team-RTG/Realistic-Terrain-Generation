@@ -1,8 +1,6 @@
 package rtg.world.biome.realistic.arsmagica;
 
 import rtg.api.biome.arsmagica.config.BiomeConfigAM;
-import rtg.config.arsmagica.ConfigAM;
-import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
@@ -41,8 +39,6 @@ public class RealisticBiomeAMBase extends RealisticBiomeBase
                     if (biomeName == "WitchwoodForest" && biomeClass == "am2.worldgen.BiomeWitchwoodForest")
                     {
                         amWitchwoodForest = new RealisticBiomeAMWitchwoodForest(amBiome, BiomeConfigAM.biomeConfigAMWitchwoodForest);
-                        
-                        if (ConfigAM.generateAMBiomes) { BiomeBase.addBiome(amWitchwoodForest); }
                     }
                 }
             }

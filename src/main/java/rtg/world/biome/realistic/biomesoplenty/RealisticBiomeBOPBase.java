@@ -1,8 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOP;
-import rtg.config.biomesoplenty.ConfigBOP;
-import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
@@ -231,101 +229,6 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			//Ocean Biomes
 			bopCoralReef = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPCoralReef);
 			bopKelpForest = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPKelpForest);
-			
-			if (ConfigBOP.generateBOPBiomes) {
-			    
-    			//Overworld Biomes
-    			BiomeBase.addBiome(bopAlps);
-    			BiomeBase.addBiome(bopArctic);
-    			BiomeBase.addBiome(bopBambooForest);
-    			BiomeBase.addBiome(bopBayou);
-    			BiomeBase.addBiome(bopBog);
-    			BiomeBase.addBiome(bopBorealForest);
-    			BiomeBase.addBiome(bopBrushland);
-    			BiomeBase.addBiome(bopCanyon);
-    			BiomeBase.addBiome(bopChaparral);
-    			BiomeBase.addBiome(bopCherryBlossomGrove);
-    			BiomeBase.addBiome(bopConiferousForest);
-    			BiomeBase.addBiome(bopCrag);
-    			BiomeBase.addBiome(bopDeadForest);
-    			BiomeBase.addBiome(bopDeadSwamp);
-    			BiomeBase.addBiome(bopDeciduousForest);
-    			
-                /**
-                 * Enabling either of these river biomes causes a crash on startup for some reason... disabling for now. - Pink
-                 */
-    			//BiomeBase.addBiome(bopDryRiver);
-    			//BiomeBase.addBiome(bopLushRiver);
-    			
-    			BiomeBase.addBiome(bopFen);
-    			BiomeBase.addBiome(bopFlowerField);
-    			BiomeBase.addBiome(bopFrostForest);
-    			BiomeBase.addBiome(bopFungiForest);
-    			BiomeBase.addBiome(bopGarden);
-    			BiomeBase.addBiome(bopGrassland);
-    			BiomeBase.addBiome(bopGrove);
-    			BiomeBase.addBiome(bopHeathland);
-    			BiomeBase.addBiome(bopHighland);
-    			BiomeBase.addBiome(bopJadeCliffs);
-    			BiomeBase.addBiome(bopLavenderFields);
-    			BiomeBase.addBiome(bopLushDesert);
-    			BiomeBase.addBiome(bopLushSwamp);
-    			BiomeBase.addBiome(bopMapleWoods);
-    			BiomeBase.addBiome(bopMarsh);
-    			BiomeBase.addBiome(bopMeadow);
-    			BiomeBase.addBiome(bopMoor);
-    			BiomeBase.addBiome(bopMountain);
-    			BiomeBase.addBiome(bopMysticGrove);
-    			BiomeBase.addBiome(bopOminousWoods);
-    			BiomeBase.addBiome(bopOriginValley);
-    			BiomeBase.addBiome(bopOutback);
-    			BiomeBase.addBiome(bopPrairie);
-    			BiomeBase.addBiome(bopRainforest);
-    			BiomeBase.addBiome(bopRedwoodForest);
-    			BiomeBase.addBiome(bopSacredSprings);
-    			BiomeBase.addBiome(bopSeasonalForest);
-    			BiomeBase.addBiome(bopShield);
-    			BiomeBase.addBiome(bopShrubland);
-    			BiomeBase.addBiome(bopSludgepit);
-    			BiomeBase.addBiome(bopSnowyConiferousForest);
-    			BiomeBase.addBiome(bopSteppe);
-    			BiomeBase.addBiome(bopTemperateRainforest);
-    			BiomeBase.addBiome(bopThicket);
-    			BiomeBase.addBiome(bopTropicalRainforest);
-    			BiomeBase.addBiome(bopTundra);
-    			BiomeBase.addBiome(bopWasteland);
-    			BiomeBase.addBiome(bopWetland);
-    			BiomeBase.addBiome(bopWoodland);
-    
-                if (!olderBoP) {
-                    BiomeBase.addBiome(bopDenseForest);
-                    BiomeBase.addBiome(bopEucalyptusForest);
-                    BiomeBase.addBiome(bopLandOfLakesMarsh);
-                    BiomeBase.addBiome(bopLandOfLakes);
-    			    BiomeBase.addBiome(bopSeasonalForestClearing);
-                    BiomeBase.addBiome(bopXericShrubland);
-                }
-    
-    			
-    			//Sub Biomes
-    			BiomeBase.addBiome(bopAlpsForest);
-    			BiomeBase.addBiome(bopCanyonRavine);
-    			BiomeBase.addBiome(bopGlacier);
-    			BiomeBase.addBiome(bopMangrove);
-    			BiomeBase.addBiome(bopMeadowForest);
-    			BiomeBase.addBiome(bopOasis);
-    			BiomeBase.addBiome(bopOrchard);
-    			BiomeBase.addBiome(bopQuagmire);
-    			BiomeBase.addBiome(bopScrubland);
-    			BiomeBase.addBiome(bopSilkglades);
-    			BiomeBase.addBiome(bopSpruceWoods);
-    			BiomeBase.addBiome(bopTropics);
-    			BiomeBase.addBiome(bopVolcano);
-    			
-    			//Ocean Biomes
-    			BiomeBase.addBiome(bopCoralReef);
-    			BiomeBase.addBiome(bopKelpForest);
-			}
 		}
 	}
 }

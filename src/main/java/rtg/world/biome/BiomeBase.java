@@ -2,13 +2,6 @@ package rtg.world.biome;
 
 import java.util.ArrayList;
 
-import org.apache.logging.log4j.Level;
-
-import rtg.api.biome.BiomeConfig;
-import rtg.config.rtg.ConfigRTG;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import cpw.mods.fml.common.FMLLog;
-
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeBase extends BiomeGenBase
@@ -33,11 +26,6 @@ public class BiomeBase extends BiomeGenBase
 		TEMPERATE,
 		WET
 	}
-
-	public static ArrayList<Integer> biomes_snow;
-	public static ArrayList<Integer> biomes_cold;
-	public static ArrayList<Integer> biomes_hot;
-	public static ArrayList<Integer> biomes_wet;
 	
 	public static float tempCold = 0.2f, rainCold = 0.3f;
 	public static float tempHot = 2f, rainHot = 0f;
@@ -85,71 +73,6 @@ public class BiomeBase extends BiomeGenBase
 	
     public static void init()
 	{
-		biomes_snow = new ArrayList<Integer>();
-		biomes_cold = new ArrayList<Integer>();
-		biomes_hot = new ArrayList<Integer>();
-		biomes_wet = new ArrayList<Integer>();
-		
-		arrVillageBiomes = new ArrayList<BiomeGenBase>();
-	}
-    
-    public static void addVillageBiome(RealisticBiomeBase b)
-    {
-        if (b.config._boolean(BiomeConfig.allowVillagesId)) {
-            
-            arrVillageBiomes.add(b.baseBiome);
-        }
-    }
-	
-	public static void addBiome(RealisticBiomeBase b)
-	{
-		try
-		{
-		    if (b.config._boolean(BiomeConfig.enableBiomeId)) {
-		        addWeightedBiome(b);
-		    }
-		}
-		catch(Error e)
-		{
-		    FMLLog.log(Level.ERROR, "Failed to add biome.");
-		}
-	}
 
-	public static void addWeightedBiome(RealisticBiomeBase b)
-	{
-		int weight = (int) b.config._int(BiomeConfig.weightId);
-		weight = (weight < MIN_BIOME_WEIGHT) ? MIN_BIOME_WEIGHT : ((weight > MAX_BIOME_WEIGHT) ? MAX_BIOME_WEIGHT : weight);
-		
-		/**
-		 * Since biome-specific biome sizes aren't a thing yet,
-		 * use the global biome size setting to increase the weights of the biomes.
-		 */
-		int biomeSize = ConfigRTG.biomeSize;
-		biomeSize = (biomeSize < MIN_BIOME_SIZE) ? MIN_BIOME_SIZE : (biomeSize > MAX_BIOME_SIZE ? MAX_BIOME_SIZE : biomeSize);
-		
-		weight *= biomeSize;
-		
-		if (weight > 0) {			
-			for (int i = 0; i < weight; i++) {
-				
-			    /**
-			     * Sort by temperature.
-			     */
-			    if (b.baseBiome.temperature < 0.15f) {
-			        biomes_snow.add(b.biomeID);
-			    }
-                else if (b.baseBiome.temperature <= 0.3f) {
-                    biomes_cold.add(b.biomeID);
-                }
-                else if (b.baseBiome.temperature <= 1f) {
-                    biomes_wet.add(b.biomeID);
-                }
-                else {
-                    biomes_hot.add(b.biomeID);
-                }
-			}
-		}
-		
-		addVillageBiome(b);
 	}
 }

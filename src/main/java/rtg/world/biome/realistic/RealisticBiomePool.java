@@ -3,12 +3,9 @@ package rtg.world.biome.realistic;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.apache.logging.log4j.Level;
-
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.world.biome.BiomeBase;
-import cpw.mods.fml.common.FMLLog;
 
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.layer.GenLayer;

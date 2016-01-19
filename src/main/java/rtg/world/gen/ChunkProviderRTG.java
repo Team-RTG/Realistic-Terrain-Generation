@@ -675,7 +675,11 @@ public class ChunkProviderRTG implements IChunkProvider
                  * so that's what the try/catch is for. If it fails, then it falls back to RTG decoration.
                  * TODO: Is there a more efficient way to do this? - Pink
                  */
+<<<<<<< HEAD
                 if (realisticBiome.config._boolean(BiomeConfig.enableRTGDecorationsId)) {
+=======
+                if (realisticBiome.config._boolean("enableRTGDecorationsId")) {
+>>>>>>> FETCH_HEAD
                     
                     realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
                 }

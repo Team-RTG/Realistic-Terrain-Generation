@@ -1,7 +1,10 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+<<<<<<< HEAD
 import java.util.Random;
+=======
+>>>>>>> FETCH_HEAD
 import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.world.biome.BiomeBase;
@@ -38,6 +41,7 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
             new SurfaceHLWindyIsland(topBlock, fillerBlock));
         
         this.config = config;
+<<<<<<< HEAD
     }
     
     // this is the Extreme Hills code again, with plain boulders, smaller trees, no pumpkins and no flowers
@@ -101,5 +105,7 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
             int j24 = chunkY + rand.nextInt(16) + 8;
             (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
         }
+=======
+>>>>>>> FETCH_HEAD
     }
 }

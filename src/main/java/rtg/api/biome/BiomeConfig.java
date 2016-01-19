@@ -12,12 +12,6 @@ public class BiomeConfig {
     
     public ArrayList<BiomeConfigProperty> properties;
     
-    public static final String enableBiomeId = "biomeEnabled";
-    public static final String enableBiomeName = "Biome Enabled";
-    
-    public static final String weightId = "weight";
-    public static final String weightName = "Biome Weight";
-    
     public static final String allowVillagesId = "allowVillages";
     public static final String allowVillagesName = "Allow Villages";
     
@@ -31,8 +25,6 @@ public class BiomeConfig {
         
         this.properties = new ArrayList<BiomeConfigProperty>();
 
-        this.addProperty(new BiomeConfigProperty(enableBiomeId, Type.BOOLEAN, enableBiomeName, "", true));
-        this.addProperty(new BiomeConfigProperty(weightId, Type.INTEGER, weightName, "", 10, 1, 100));
         this.addProperty(new BiomeConfigProperty(allowVillagesId, Type.BOOLEAN, allowVillagesName, "", true));
         this.addProperty(new BiomeConfigProperty(useRTGDecorationsId, Type.BOOLEAN, useRTGDecorationsName, "", true));
     }

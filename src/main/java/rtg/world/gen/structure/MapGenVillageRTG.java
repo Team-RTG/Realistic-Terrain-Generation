@@ -6,16 +6,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.world.WorldTypeRTG;
-import rtg.world.biome.BiomeBase;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
@@ -24,8 +23,6 @@ import net.minecraft.world.gen.structure.StructureVillagePieces.Road;
 
 public class MapGenVillageRTG extends MapGenVillage
 {
-
-    public static List villageSpawnBiomes = BiomeBase.arrVillageBiomes;
     
     private int terrainType = ConfigRTG.villageSize;
     private int field_82665_g;
@@ -71,13 +68,8 @@ public class MapGenVillageRTG extends MapGenVillage
     @Override
     protected boolean canSpawnStructureAtCoords(int par1, int par2)
     {
-        if (villageSpawnBiomes.size() < 1) {
-            return false;
-        }
-        
         boolean booRTGWorld = (worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG) ? true : false;
         boolean booRTGChunkManager = (worldObj.getWorldChunkManager() instanceof WorldChunkManagerRTG) ? true : false;
-        
         boolean canSpawnVillage = false;
         
         int k = par1;
@@ -109,18 +101,10 @@ public class MapGenVillageRTG extends MapGenVillage
                 int worldX = par1 * 16;
                 int worldZ = par2 * 16;
                 RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldX + 16, worldZ + 16);
-                BiomeGenBase biome = realisticBiome.baseBiome;
-                
-                
-                for (int intBiomeIndex = 0; intBiomeIndex < villageSpawnBiomes.size(); intBiomeIndex++) {
-                    
-                    if (villageSpawnBiomes.get(intBiomeIndex) == biome) {
-                        canSpawnVillage = true;
-                        break;
-                    }
+
+                if (realisticBiome.config.getPropertyById(BiomeConfig.allowVillagesId).valueBoolean) {
+                    canSpawnVillage = true;
                 }
-                
-                
             }
             else {
 

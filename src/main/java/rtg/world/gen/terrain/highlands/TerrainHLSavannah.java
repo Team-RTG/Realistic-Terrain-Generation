@@ -27,6 +27,6 @@ public class TerrainHLSavannah extends TerrainBase
 		l *= l / 25f;
 		l = l < -8f ? -8f : l;
 		
-		return 68f + h + m - l;
+		return 68f + h + m;
 	}
 }

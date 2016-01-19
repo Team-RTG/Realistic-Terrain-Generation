@@ -67,18 +67,10 @@ public class SurfaceHLWindyIsland extends SurfaceBase
                         }
             		}
             	}
-        		else if(depth > -1 && depth < 9)
-        		{
-        			blocks[(y * 16 + x) * 256 + k] = Blocks.snow;
-            		if(depth == 0 && k > 61 && k < 254)
-            		{
-            			SnowHeightCalculator.calc(x, y, k, blocks, metadata, noise);
-            		}
-        		}
             }
             else if(!water && b == Blocks.water)
             {
-    			blocks[(y * 16 + x) * 256 + k] = Blocks.ice;
+    			blocks[(y * 16 + x) * 256 + k] = Blocks.water;
             	water = true;
             }
 		}

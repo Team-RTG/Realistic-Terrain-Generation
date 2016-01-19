@@ -58,13 +58,14 @@ public class TerrainHLGlacier extends TerrainBase
 		float cm = cell.noise(x / 25D, y / 25D, 1D) * 12f;
 		cm *= m / 20f > 3.75f ? 3.75f : m / 20f;
 		m += cm;
+        m = m/2f;
 		
 		float l = simplex.noise2(x / lWidth, y / lWidth) * lHeight;
 		l *= l / 25f;
 		l = l < 8f ? 8f : l;
 		
-		h += simplex.noise2(x / 12f, y / 12f) * 3f;
-		h += simplex.noise2(x / 5f, y / 5f) * 1.5f;
+		h += simplex.noise2(x / 12f, y / 12f) * 2f;
+		h += simplex.noise2(x / 5f, y / 5f) * 1f;
 		
 		return bHeight + h + m - l;
 	}

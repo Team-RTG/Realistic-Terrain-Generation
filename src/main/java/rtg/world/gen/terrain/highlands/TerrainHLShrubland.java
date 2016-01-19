@@ -67,6 +67,6 @@ public class TerrainHLShrubland extends TerrainBase
 		h += simplex.noise2(x / 12f, y / 12f) * 3f;
 		h += simplex.noise2(x / 5f, y / 5f) * 1.5f;
 		
-		return bHeight + h + m - l;
+		return bHeight + h + m;
 	}
 }

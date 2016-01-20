@@ -2,6 +2,7 @@
 package rtg.world.biome;
 
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.util.CircularSearchCreator;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 /**
@@ -21,8 +22,10 @@ public class BiomeAnalyzer {
     // beach fixing
     float beachTop = 64.5f;
     float beachBottom = 61.5f;
+    float oceanTop = 61.5f;
     SearchStatus beach = new SearchStatus();
     SearchStatus land = new SearchStatus();
+    SearchStatus ocean = new SearchStatus();
 
     
     public BiomeAnalyzer() {
@@ -107,7 +110,7 @@ public class BiomeAnalyzer {
 
     public void repair(int [] genLayerBiomes, RealisticBiomeBase [] jitteredBiomes, float [] noise, float riverStrength) {
         // currently just stuffs the genLayer into the jitter;
-        boolean canBeRiver = riverStrength < -0.8;
+        boolean canBeRiver = riverStrength >0.05;
         for (int i = 0; i < 256; i++) {
             // save what's there since the jitter keeps changing
             savedJittered [i]= jitteredBiomes[i];
@@ -126,6 +129,7 @@ public class BiomeAnalyzer {
                     jitteredBiomes[i] =  RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]);
                 }
             }
+
         }
 
         // put beaches on shores
@@ -164,16 +168,22 @@ public class BiomeAnalyzer {
                 //we already found it
                 jitteredBiomes[i] = land.biome;
             }
-            if (beachBiome[jitteredBiomes[i].biomeID]) {
-                String summary= "";
-                for (int j = 0; j<256;j++) {
-                    if (savedJittered [j]== null) {
-                       summary += " null";
-                    } else {
-                        summary += " " + savedJittered [j].biomeID;
-                    }
-                }
-                //throw new RuntimeException(jitteredBiomes[i].biomeName+ " " + biomeID + " " + oceanBiome[biomeID]+ " " + landBiome[biomeID]+ " " + beachBiome[biomeID]+" "+summary);
+        }
+
+        // put ocean below sea level
+        ocean.absent = false;
+        ocean.notHunted = true;
+        for (int i = 0; i < 256; i++) {
+            if (ocean.absent) break; //no point
+            if (noise[i]>oceanTop) continue;// too hight
+            if (swampBiome[jitteredBiomes[i].biomeID]) continue;// swamps are acceptable
+            if (riverBiome[jitteredBiomes[i].biomeID]) continue;// rivers stay rivers
+            if (ocean.notHunted) {
+                huntForOcean(this.savedJittered);
+                if (!ocean.absent) jitteredBiomes[i] = ocean.biome;
+            } else {
+                //we already found it
+                jitteredBiomes[i] = ocean.biome;
             }
         }
     }
@@ -208,7 +218,23 @@ public class BiomeAnalyzer {
         }
     }
 
-    private void prepareSearchPattern() {
+    private void huntForOcean(RealisticBiomeBase [] biomes) {
+        ocean.notHunted = false;
+        // in case nothing found
+        ocean.absent = true;
+        RealisticBiomeBase considered;
+        for (int i = 0; i<256; i++) {
+            considered = biomes[searchPattern[i]];
+            if (oceanBiome[considered.biomeID]) {
+                ocean.absent = false;
+                ocean.biome = considered;
+                break;// we're done searching
+            }
+        }
+    }
+
+
+    /*private void prepareSearchPattern() {
         // returns a search pattern of indices into 16x16 biome arrays, stored in an array
         int [] result= new int[256];
         int index = 0;
@@ -240,6 +266,10 @@ public class BiomeAnalyzer {
             }
         }
         searchPattern = result;
+    }*/
+
+    private void prepareSearchPattern() {
+        searchPattern = new CircularSearchCreator().pattern();
     }
 
     public int[] xyinverted() {

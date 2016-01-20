@@ -63,7 +63,11 @@ public class SurfaceHLBaldHill extends SurfaceBase
                 {
                     if(depth == 0 && k > 61)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = topBlock;
+                        if (rand.nextInt(5) == 0) {
+                            blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
+                        } else {
+                            blocks[(y * 16 + x) * 256 + k] = topBlock;
+                        }
                     }
                     else if(depth < 4)
                     {

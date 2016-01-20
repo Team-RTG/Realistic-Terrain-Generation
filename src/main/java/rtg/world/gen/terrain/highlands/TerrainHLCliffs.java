@@ -52,6 +52,8 @@ public class TerrainHLCliffs extends TerrainBase
         //c = this.above(c, startCliffsAt);
 
 		float sm = simplex.noise2(x / 30f, y / 30f) * 8f + simplex.noise2(x / 8f, y / 8f);
+        //craggier
+        sm += simplex.noise2(x / 4.9f, y / 4.9f);
 		sm *= (m + 10f) / 20f > 2.5f ? 2.5f : (m + 10f) / 20f;
 		m += sm;
 

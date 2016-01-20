@@ -22,7 +22,7 @@ public class SurfaceHLWoodsMountains extends SurfaceBase
     private float sCliff = 1.5f;
     private float sHeight = 60f;
     private float sStrength = 65f;
-    private float cCliff = 1.5f;
+    private float cCliff = 2.5f;
     
     public byte topByte = 0;
     

@@ -92,6 +92,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private float[] biomesGeneratedInChunk;
     private float[] borderNoise;
     private long worldSeed;
+    private boolean doJitter;
 
     public ChunkProviderRTG(World world, long l)
     {
@@ -176,7 +177,16 @@ public class ChunkProviderRTG implements IChunkProvider
                 //fill with biomeData
         int [] biomeIndices= cmr.getBiomesGens(cx *16, cy*16,16,16);
 
-        analyzer.repair(biomeIndices, biomesForGeneration, noise,-cmr.getRiverStrength(cx * 16 + 7, cy * 16 + 7));
+
+
+
+        if (!doJitter){
+            analyzer.repair(biomeIndices, biomesForGeneration, noise,-cmr.getRiverStrength(cx * 16 + 7, cy * 16 + 7));
+        } else {
+            for (int i = 0; i < 256; i++) {
+                biomesForGeneration[i] =  RealisticBiomeBase.getBiome(biomeIndices[i]);
+            }
+        }
 
         for(k = 0; k < 256; k++)
         {
@@ -217,13 +227,14 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
         Chunk chunk = new Chunk(this.worldObj, blocks, metadata, cx, cy);
-
+        // doJitter no longer needed as the biome array gets fixed
         byte[] abyte1 = chunk.getBiomeArray();
         for (k = 0; k < abyte1.length; ++k)
         {
             // biomes are y-first and terrain x-first
             abyte1[k] = (byte)this.baseBiomesList[this.xyinverted[k]].biomeID;
         }
+        chunk.setBiomeArray(abyte1);
         chunk.generateSkylightMap();
         return chunk;
     }
@@ -397,11 +408,18 @@ public class ChunkProviderRTG implements IChunkProvider
     	boolean randBiome = true;
     	float bCount = 0f, bRand = 0f;
         randBiome = false;
-
-        //fill with biomeData
-        for (i = 0; i < 16; i++) {
-            for (j=0; j<16; j++) {
-                biomes[i*16+j] =  cmr.getBiomeDataAt(x + (((i-8) * 8)), y + (((j-8) * 8)));
+        if (doJitter) {
+            if(realisticBiomeBase != null) {
+                for(i = 0; i < 256; i++) {
+                    biomes[i] = realisticBiomeBase;
+                }
+            }
+        } else {
+            //fill with biomeData
+            for (i = 0; i < 16; i++) {
+                for (j=0; j<16; j++) {
+                    biomes[i*16+j] =  cmr.getBiomeDataAt(x + (((i-8) * 8)), y + (((j-8) * 8)));
+                }
             }
         }
 
@@ -437,6 +455,9 @@ public class ChunkProviderRTG implements IChunkProvider
 	    					bCount += smallRender[locationIndex][k];// * 3f;
     	    				if(bCount > bRand)
     	    				{
+                                if (doJitter) {
+    	    					   biomes[i * 16 + j] = RealisticBiomeBase.getBiome(k);
+                                }
     	    					bCount = 2f; //20f;
     	    				}
     	    			}
@@ -604,12 +625,15 @@ public class ChunkProviderRTG implements IChunkProvider
 
         /**
          * What is this doing? And why does it need to be done here? - Pink
+         * Answer: building a frequency table of nearby biomes - Zeno. 
          */
+
+        final int adjust = 32;// seems off? but decorations aren't matching their chunks.
         for (int bx = -4; bx <= 4; bx++) {
             
         	for(int by = -4; by <= 4; by++)
         	{
-        		borderNoise[cmr.getBiomeDataAt(worldX + 24 + bx * 16, worldZ + 24 + by * 16).biomeID] += 0.01234569f;
+        		borderNoise[cmr.getBiomeDataAt(worldX + adjust + bx * 4, worldZ + adjust  + by * 4).biomeID] += 0.01234569f;
         	}
         }
 
@@ -639,7 +663,6 @@ public class ChunkProviderRTG implements IChunkProvider
         		{
         			borderNoise[bn] = 1f;
         		}
-        		
         		realisticBiome = RealisticBiomeBase.getBiome(bn);
                 if (realisticBiome == null) throw new RuntimeException();
                 
@@ -650,7 +673,7 @@ public class ChunkProviderRTG implements IChunkProvider
                  * so that's what the try/catch is for. If it fails, then it falls back to RTG decoration.
                  * TODO: Is there a more efficient way to do this? - Pink
                  */
-                if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
+                if (realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
                     
                     realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
                 }

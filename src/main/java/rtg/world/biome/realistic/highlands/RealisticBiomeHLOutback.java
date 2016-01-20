@@ -24,7 +24,7 @@ public class RealisticBiomeHLOutback extends RealisticBiomeHLBase
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
             new TerrainHLOutback(300f),
-            new SurfaceHLOutback(topBlock, fillerBlock, (byte) 0, 1));
+            new SurfaceHLOutback(topBlock, fillerBlock, (byte) 1, 1));
         
         this.config = config;
     }

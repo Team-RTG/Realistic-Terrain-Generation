@@ -61,7 +61,14 @@ public class SurfaceHLEstuary extends SurfaceBase
             	{
 	        		if(depth == 0 && k > 61)
 	        		{
-	        			blocks[(y * 16 + x) * 256 + k] = topBlock;
+	        			if ((k>70)||((k>64)&&(rand.nextInt(6)+k>70))) {
+
+                            blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
+                            blocks[(y * 16 + x) * 256 + k+1] = Blocks.tallgrass;
+                            metadata[(y * 16 + x) * 256 + k+1] = 1;
+                        } else {
+                            blocks[(y * 16 + x) * 256 + k] = topBlock;
+                        }
 	        		}
 	        		else if(depth < 4)
 	        		{

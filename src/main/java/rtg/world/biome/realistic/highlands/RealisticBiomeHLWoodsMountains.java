@@ -24,7 +24,7 @@ public class RealisticBiomeHLWoodsMountains extends RealisticBiomeHLBase
         super(
             hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
             new TerrainHLWoodsMountains(230f, 120f, 0f),
-            new SurfaceHLWoodsMountains(topBlock, fillerBlock, false, null, 0.95f));
+            new SurfaceHLWoodsMountains(topBlock, fillerBlock, false, null, 2.0f));
         
         this.config = config;
     }

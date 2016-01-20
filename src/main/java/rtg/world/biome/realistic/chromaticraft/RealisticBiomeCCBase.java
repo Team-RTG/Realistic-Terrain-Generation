@@ -1,8 +1,6 @@
 package rtg.world.biome.realistic.chromaticraft;
 
 import rtg.api.biome.chromaticraft.config.BiomeConfigCC;
-import rtg.config.chromaticraft.ConfigCC;
-import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
@@ -40,14 +38,10 @@ public class RealisticBiomeCCBase extends RealisticBiomeBase
 					if (biomeName == "Ender Forest" && biomeClass == "Reika.ChromatiCraft.World.BiomeEnderForest")
 					{
 					    ccEnderForest = new RealisticBiomeCCEnderForest(ccBiome, BiomeConfigCC.biomeConfigCCEnderForest);
-					    
-						if (ConfigCC.generateCCBiomes) { BiomeBase.addBiome(ccEnderForest); }
 					}
 					else if (biomeName == "Rainbow Forest" && biomeClass == "Reika.ChromatiCraft.World.BiomeRainbowForest")
 					{
 					    ccRainbowForest = new RealisticBiomeCCRainbowForest(ccBiome, BiomeConfigCC.biomeConfigCCRainbowForest);
-					    
-						if (ConfigCC.generateCCBiomes) { BiomeBase.addBiome(ccRainbowForest); }
 					}
 				}
 			}

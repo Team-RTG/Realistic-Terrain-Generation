@@ -12,17 +12,11 @@ public class BiomeConfig {
     
     public ArrayList<BiomeConfigProperty> properties;
     
-    public static final String enableBiomeId = "biomeEnabled";
-    public static final String enableBiomeName = "Biome Enabled";
-    
-    public static final String weightId = "weight";
-    public static final String weightName = "Biome Weight";
-    
     public static final String allowVillagesId = "allowVillages";
     public static final String allowVillagesName = "Allow Villages";
     
-    public static final String enableRTGDecorationsId = "enableRTGDecorations";
-    public static final String enableRTGDecorationsName = "Use RTG Decorations";
+    public static final String useRTGDecorationsId = "useRTGDecorations";
+    public static final String useRTGDecorationsName = "Use RTG Decorations";
     
     public BiomeConfig()
     {
@@ -31,10 +25,8 @@ public class BiomeConfig {
         
         this.properties = new ArrayList<BiomeConfigProperty>();
 
-        this.addProperty(new BiomeConfigProperty(enableBiomeId, Type.BOOLEAN, enableBiomeName, "", true));
-        this.addProperty(new BiomeConfigProperty(weightId, Type.INTEGER, weightName, "", 10, 1, 100));
         this.addProperty(new BiomeConfigProperty(allowVillagesId, Type.BOOLEAN, allowVillagesName, "", true));
-        this.addProperty(new BiomeConfigProperty(enableRTGDecorationsId, Type.BOOLEAN, enableRTGDecorationsName, "", true));
+        this.addProperty(new BiomeConfigProperty(useRTGDecorationsId, Type.BOOLEAN, useRTGDecorationsName, "", true));
     }
     
     public void addProperty(BiomeConfigProperty property)
@@ -85,7 +77,7 @@ public class BiomeConfig {
         }
         catch (Exception e) {
             
-            throw new RuntimeException("Biome config (" + id + ") could not be found. Reason: " + e.getMessage());
+            throw new RuntimeException("Biome config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
         }
     }
     
@@ -97,7 +89,7 @@ public class BiomeConfig {
         }
         catch (Exception e) {
             
-            throw new RuntimeException("Biome config (" + id + ") could not be found. Reason: " + e.getMessage());
+            throw new RuntimeException("Biome config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
         }
     }
     
@@ -109,7 +101,7 @@ public class BiomeConfig {
         }
         catch (Exception e) {
             
-            throw new RuntimeException("Biome config (" + id + ") could not be found. Reason: " + e.getMessage());
+            throw new RuntimeException("Biome config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
         }
     }
 }

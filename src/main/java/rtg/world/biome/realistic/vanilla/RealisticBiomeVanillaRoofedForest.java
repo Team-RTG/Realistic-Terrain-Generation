@@ -6,7 +6,6 @@ import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForest;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
@@ -69,7 +68,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
                     (new WorldGenBlob(Blocks.mossy_cobblestone, 0, rand)).generate(world, rand, i1, k1, j1);
                 }
                 else {
-                    if (config._boolean("decorationCobwebsId")) {
+                    if (config._boolean(BiomeConfigVanillaRoofedForest.decorationCobwebsId)) {
                         (new WorldGenBlob(Blocks.web, 0, rand)).generate(world, rand, i1, k1, j1);
                     }
                 }

@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Level;
 import rtg.RTG;
 import rtg.config.rtg.ConfigRTG;
 import rtg.world.WorldTypeRTG;
-import rtg.world.biome.realistic.RealisticBiomePool;
 import rtg.world.gen.MapGenCavesRTG;
 import rtg.world.gen.MapGenRavineRTG;
 import rtg.world.gen.genlayer.RiverRemover;
@@ -16,7 +15,6 @@ import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 
 import net.minecraftforge.common.MinecraftForge;
@@ -134,27 +132,18 @@ public class EventManagerRTG
 
     @SubscribeEvent
     public void onBiomeGenInit(WorldTypeEvent.InitBiomeGens event) {
+        
         // only handle RTG world type
         if (!event.worldType.getWorldTypeName().equalsIgnoreCase("RTG")) return;
-        @SuppressWarnings("static-access")
-        boolean replace = RTG.instance.configManager(0).rtg().useRTGBiomeGeneration;
-        if (replace) {
-            GenLayer[] rtgGeneration = new GenLayer[3];
-            GenLayer rtgBiomes = new RealisticBiomePool(event.seed);
-            rtgGeneration[0]= rtgBiomes;
-            rtgGeneration[1]= rtgBiomes;
-            rtgGeneration[2]= rtgBiomes;
-            event.newBiomeGens = rtgGeneration;
-        } else {
-            @SuppressWarnings("static-access")
-            boolean stripRivers = RTG.instance.configManager(0).rtg().stripRivers;
-            if (stripRivers) {
-                try {
-                    event.newBiomeGens = new RiverRemover().riverLess(event.originalBiomeGens);
-                } catch (ClassCastException ex) {
-                    //throw ex;
-                    // failed attempt because the GenLayers don't end with GenLayerRiverMix
-                }
+
+        boolean stripRivers = true; // This used to be a config option. Hardcoding until we have a need for the option.
+        
+        if (stripRivers) {
+            try {
+                event.newBiomeGens = new RiverRemover().riverLess(event.originalBiomeGens);
+            } catch (ClassCastException ex) {
+                //throw ex;
+                // failed attempt because the GenLayers don't end with GenLayerRiverMix
             }
         }
     }

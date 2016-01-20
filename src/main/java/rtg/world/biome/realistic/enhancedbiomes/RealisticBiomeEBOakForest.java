@@ -52,7 +52,7 @@ public class RealisticBiomeEBOakForest extends RealisticBiomeEBBase
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
-			new TerrainEBOakForest(),
+			new TerrainEBOakForest(200f, 100f, 0f),
 			new SurfaceEBOakForest(
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

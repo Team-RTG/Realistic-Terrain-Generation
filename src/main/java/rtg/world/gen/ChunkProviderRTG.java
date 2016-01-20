@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import rtg.RTG;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CanyonColor;
@@ -104,7 +103,6 @@ public class ChunkProviderRTG implements IChunkProvider
         simplex = new OpenSimplexNoise(l);
     	cell = new CellNoise(l, (short)0);
     	cell.setUseDistance(true);
-        doJitter  = RTG.instance.configManager(worldObj.provider.dimensionId).rtg().useRTGBiomeGeneration;
 
     	mapRand = new Random(l);
     	worldSeed = l;
@@ -675,7 +673,7 @@ public class ChunkProviderRTG implements IChunkProvider
                  * so that's what the try/catch is for. If it fails, then it falls back to RTG decoration.
                  * TODO: Is there a more efficient way to do this? - Pink
                  */
-                if (realisticBiome.config._boolean("enableRTGDecorationsId")) {
+                if (realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
                     
                     realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
                 }

@@ -9,7 +9,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.vanilla.ConfigVanilla;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleM;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
@@ -233,17 +233,20 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase
             }
         }
         
-        if (TerrainGen.decorate(world, rand, chunkX, chunkY, CACTUS)) {
+        if (this.config.getPropertyById(BiomeConfigVanillaJungleM.decorationCactusId).valueBoolean) {
             
-            for (int k18 = 0; k18 < 8f * strength; k18++)
-            {
-                int k21 = chunkX + rand.nextInt(16) + 8;
-                int j23 = rand.nextInt(160);
-                int k24 = chunkY + rand.nextInt(16) + 8;
+            if (TerrainGen.decorate(world, rand, chunkX, chunkY, CACTUS)) {
                 
-                if (j23 < 120f)
+                for (int k18 = 0; k18 < 8f * strength; k18++)
                 {
-                    (new WorldGenJungleCacti(false, rand.nextInt(7), (byte)1)).generate(world, rand, k21, j23, k24);
+                    int k21 = chunkX + rand.nextInt(16) + 8;
+                    int j23 = rand.nextInt(160);
+                    int k24 = chunkY + rand.nextInt(16) + 8;
+                    
+                    if (j23 < 120f)
+                    {
+                        (new WorldGenJungleCacti(false, rand.nextInt(7), (byte)1)).generate(world, rand, k21, j23, k24);
+                    }
                 }
             }
         }

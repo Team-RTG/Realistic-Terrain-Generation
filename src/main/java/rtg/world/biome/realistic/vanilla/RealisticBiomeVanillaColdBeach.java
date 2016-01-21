@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
@@ -15,7 +14,6 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaBeach;
 
 public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 {	
@@ -27,7 +25,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 		super(
 			BiomeGenBase.coldBeach,
 			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainVanillaBeach(),
+			new TerrainVanillaColdBeach(),
 			new SurfaceVanillaColdBeach(topBlock, fillerBlock, topBlock, fillerBlock, (byte)0, 1)
 		);
 		

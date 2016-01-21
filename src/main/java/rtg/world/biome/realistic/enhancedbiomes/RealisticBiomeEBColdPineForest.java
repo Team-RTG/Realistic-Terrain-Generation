@@ -52,7 +52,7 @@ public class RealisticBiomeEBColdPineForest extends RealisticBiomeEBBase
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainEBColdPineForest(160f, 80f, 60f),
+			new TerrainEBColdPineForest(10f, 120f, 68f, 200f),
 			new SurfaceEBColdPineForest(
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

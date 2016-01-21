@@ -5,7 +5,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.vanilla.ConfigVanilla;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaBeach;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeBase;
@@ -45,18 +45,21 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
          */
         rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         
-        if (TerrainGen.decorate(world, rand, chunkX, chunkY, TREE)) {
+        if (this.config.getPropertyById(BiomeConfigVanillaBeach.decorationPalmTreesId).valueBoolean) {
             
-            if (rand.nextInt((int) (4f / strength)) == 0) {
+            if (TerrainGen.decorate(world, rand, chunkX, chunkY, TREE)) {
                 
-                int j6 = chunkX + rand.nextInt(16) + 8;
-                int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeightValue(j6, k10);
-                
-                if (z52 < 80) {
-                    WorldGenerator worldgenerator = new WorldGenTreePalm();
-                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                    worldgenerator.generate(world, rand, j6, z52, k10);
+                if (rand.nextInt((int) (4f / strength)) == 0) {
+                    
+                    int j6 = chunkX + rand.nextInt(16) + 8;
+                    int k10 = chunkY + rand.nextInt(16) + 8;
+                    int z52 = world.getHeightValue(j6, k10);
+                    
+                    if (z52 < 80) {
+                        WorldGenerator worldgenerator = new WorldGenTreePalm();
+                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+                        worldgenerator.generate(world, rand, j6, z52, k10);
+                    }
                 }
             }
         }

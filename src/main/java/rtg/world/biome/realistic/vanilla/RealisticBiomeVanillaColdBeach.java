@@ -15,6 +15,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaBeach;
 
 public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 {	
@@ -26,7 +27,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 		super(
 			BiomeGenBase.coldBeach,
 			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainVanillaColdBeach(),
+			new TerrainVanillaBeach(),
 			new SurfaceVanillaColdBeach(topBlock, fillerBlock, topBlock, fillerBlock, (byte)0, 1)
 		);
 		

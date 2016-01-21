@@ -6,6 +6,7 @@ import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 import cpw.mods.fml.common.Loader;
 
+import highlands.api.HighlandsBiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeHLBase extends RealisticBiomeBase
@@ -71,49 +72,49 @@ public class RealisticBiomeHLBase extends RealisticBiomeBase
 	{
 		if (Loader.isModLoaded("Highlands"))
 		{
-		    hl_Alps = new RealisticBiomeHLAlps(BiomeConfigHL.biomeConfigHLAlps);
-		    hl_AutumnForest = new RealisticBiomeHLAutumnForest(BiomeConfigHL.biomeConfigHLAutumnForest);
-		    hl_Badlands = new RealisticBiomeHLBadlands(BiomeConfigHL.biomeConfigHLBadlands);
-		    hl_BirchHills = new RealisticBiomeHLBirchHills(BiomeConfigHL.biomeConfigHLBirchHills);
-		    hl_Bog = new RealisticBiomeHLBog(BiomeConfigHL.biomeConfigHLBog);
-		    hl_Cliffs = new RealisticBiomeHLCliffs(BiomeConfigHL.biomeConfigHLCliffs);
-		    hl_DesertMountains = new RealisticBiomeHLDesertMountains(BiomeConfigHL.biomeConfigHLDesertMountains);
-		    hl_Dunes = new RealisticBiomeHLDunes(BiomeConfigHL.biomeConfigHLDunes);
-		    hl_Estuary = new RealisticBiomeHLEstuary(BiomeConfigHL.biomeConfigHLEstuary);
-		    hl_FlyingMountains = new RealisticBiomeHLFlyingMountains(BiomeConfigHL.biomeConfigHLFlyingMountains);
-		    hl_Glacier = new RealisticBiomeHLGlacier(BiomeConfigHL.biomeConfigHLGlacier);
-		    hl_HighlandsB = new RealisticBiomeHLHighlandsB(BiomeConfigHL.biomeConfigHLHighlandsB);
-		    hl_Lowlands = new RealisticBiomeHLLowlands(BiomeConfigHL.biomeConfigHLLowlands);
-		    hl_Meadow = new RealisticBiomeHLMeadow(BiomeConfigHL.biomeConfigHLMeadow);
-		    hl_Outback = new RealisticBiomeHLOutback(BiomeConfigHL.biomeConfigHLOutback);
-		    hl_Pinelands = new RealisticBiomeHLPinelands(BiomeConfigHL.biomeConfigHLPinelands);
-		    hl_Rainforest = new RealisticBiomeHLRainforest(BiomeConfigHL.biomeConfigHLRainforest);
-		    hl_RedwoodForest = new RealisticBiomeHLRedwoodForest(BiomeConfigHL.biomeConfigHLRedwoodForest);
-		    hl_RockMountains = new RealisticBiomeHLRockMountains(BiomeConfigHL.biomeConfigHLRockMountains);
-		    hl_Sahel = new RealisticBiomeHLSahel(BiomeConfigHL.biomeConfigHLSahel);
-		    hl_Savannah = new RealisticBiomeHLSavannah(BiomeConfigHL.biomeConfigHLSavannah);
-		    hl_SnowMountains = new RealisticBiomeHLSnowMountains(BiomeConfigHL.biomeConfigHLSnowMountains);
-		    hl_Steppe = new RealisticBiomeHLSteppe(BiomeConfigHL.biomeConfigHLSteppe);
-		    hl_TallPineForest = new RealisticBiomeHLTallPineForest(BiomeConfigHL.biomeConfigHLTallPineForest);
-		    hl_TropicalIslands = new RealisticBiomeHLTropicalIslands(BiomeConfigHL.biomeConfigHLTropicalIslands);
-		    hl_Tropics = new RealisticBiomeHLTropics(BiomeConfigHL.biomeConfigHLTropics);
-		    hl_Tundra = new RealisticBiomeHLTundra(BiomeConfigHL.biomeConfigHLTundra);
-		    hl_Woodlands = new RealisticBiomeHLWoodlands(BiomeConfigHL.biomeConfigHLWoodlands);
-		    hl_WoodsMountains = new RealisticBiomeHLWoodsMountains(BiomeConfigHL.biomeConfigHLWoodsMountains);
-		    hl_BaldHill = new RealisticBiomeHLBaldHill(BiomeConfigHL.biomeConfigHLBaldHill);
-		    hl_Canyon = new RealisticBiomeHLCanyon(BiomeConfigHL.biomeConfigHLCanyon);
-		    hl_DesertIsland = new RealisticBiomeHLDesertIsland(BiomeConfigHL.biomeConfigHLDesertIsland);
-		    hl_ForestIsland = new RealisticBiomeHLForestIsland(BiomeConfigHL.biomeConfigHLForestIsland);
-		    hl_JungleIsland = new RealisticBiomeHLJungleIsland(BiomeConfigHL.biomeConfigHLJungleIsland);
-		    hl_Lake = new RealisticBiomeHLLake(BiomeConfigHL.biomeConfigHLLake);
-		    hl_Mesa = new RealisticBiomeHLMesa(BiomeConfigHL.biomeConfigHLMesa);
-		    hl_Oasis = new RealisticBiomeHLOasis(BiomeConfigHL.biomeConfigHLOasis);
-		    hl_RockIsland = new RealisticBiomeHLRockIsland(BiomeConfigHL.biomeConfigHLRockIsland);
-		    hl_SnowIsland = new RealisticBiomeHLSnowIsland(BiomeConfigHL.biomeConfigHLSnowIsland);
-		    hl_Valley = new RealisticBiomeHLValley(BiomeConfigHL.biomeConfigHLValley);
-		    hl_VolcanoIsland = new RealisticBiomeHLVolcanoIsland(BiomeConfigHL.biomeConfigHLVolcanoIsland);
-		    hl_WindyIsland = new RealisticBiomeHLWindyIsland(BiomeConfigHL.biomeConfigHLWindyIsland);
-		    hl_Shrubland = new RealisticBiomeHLShrubland(BiomeConfigHL.biomeConfigHLShrubland);
+		    if (HighlandsBiomes.alps!=null) hl_Alps = new RealisticBiomeHLAlps(BiomeConfigHL.biomeConfigHLAlps);
+		    if (HighlandsBiomes.autumnForest!=null) hl_AutumnForest = new RealisticBiomeHLAutumnForest(BiomeConfigHL.biomeConfigHLAutumnForest);
+		    if (HighlandsBiomes.badlands!=null) hl_Badlands = new RealisticBiomeHLBadlands(BiomeConfigHL.biomeConfigHLBadlands);
+		    if (HighlandsBiomes.birchHills!=null) hl_BirchHills = new RealisticBiomeHLBirchHills(BiomeConfigHL.biomeConfigHLBirchHills);
+		    if (HighlandsBiomes.bog!=null) hl_Bog = new RealisticBiomeHLBog(BiomeConfigHL.biomeConfigHLBog);
+		    if (HighlandsBiomes.cliffs!=null) hl_Cliffs = new RealisticBiomeHLCliffs(BiomeConfigHL.biomeConfigHLCliffs);
+		    if (HighlandsBiomes.desertMountains!=null) hl_DesertMountains = new RealisticBiomeHLDesertMountains(BiomeConfigHL.biomeConfigHLDesertMountains);
+		    if (HighlandsBiomes.dunes!=null) hl_Dunes = new RealisticBiomeHLDunes(BiomeConfigHL.biomeConfigHLDunes);
+		    if (HighlandsBiomes.estuary!=null) hl_Estuary = new RealisticBiomeHLEstuary(BiomeConfigHL.biomeConfigHLEstuary);
+		    if (HighlandsBiomes.flyingMountains!=null) hl_FlyingMountains = new RealisticBiomeHLFlyingMountains(BiomeConfigHL.biomeConfigHLFlyingMountains);
+		    if (HighlandsBiomes.glacier!=null) hl_Glacier = new RealisticBiomeHLGlacier(BiomeConfigHL.biomeConfigHLGlacier);
+		    if (HighlandsBiomes.highlandsb!=null) hl_HighlandsB = new RealisticBiomeHLHighlandsB(BiomeConfigHL.biomeConfigHLHighlandsB);
+		    if (HighlandsBiomes.lowlands!=null) hl_Lowlands = new RealisticBiomeHLLowlands(BiomeConfigHL.biomeConfigHLLowlands);
+		    if (HighlandsBiomes.meadow!=null) hl_Meadow = new RealisticBiomeHLMeadow(BiomeConfigHL.biomeConfigHLMeadow);
+		    if (HighlandsBiomes.outback!=null) hl_Outback = new RealisticBiomeHLOutback(BiomeConfigHL.biomeConfigHLOutback);
+		    if (HighlandsBiomes.pinelands!=null) hl_Pinelands = new RealisticBiomeHLPinelands(BiomeConfigHL.biomeConfigHLPinelands);
+		    if (HighlandsBiomes.rainforest!=null) hl_Rainforest = new RealisticBiomeHLRainforest(BiomeConfigHL.biomeConfigHLRainforest);
+		    if (HighlandsBiomes.redwoodForest!=null) hl_RedwoodForest = new RealisticBiomeHLRedwoodForest(BiomeConfigHL.biomeConfigHLRedwoodForest);
+		    if (HighlandsBiomes.rockMountains!=null) hl_RockMountains = new RealisticBiomeHLRockMountains(BiomeConfigHL.biomeConfigHLRockMountains);
+		    if (HighlandsBiomes.sahel!=null) hl_Sahel = new RealisticBiomeHLSahel(BiomeConfigHL.biomeConfigHLSahel);
+		    if (HighlandsBiomes.savannah!=null) hl_Savannah = new RealisticBiomeHLSavannah(BiomeConfigHL.biomeConfigHLSavannah);
+		    if (HighlandsBiomes.snowMountains!=null) hl_SnowMountains = new RealisticBiomeHLSnowMountains(BiomeConfigHL.biomeConfigHLSnowMountains);
+		    if (HighlandsBiomes.steppe!=null) hl_Steppe = new RealisticBiomeHLSteppe(BiomeConfigHL.biomeConfigHLSteppe);
+		    if (HighlandsBiomes.tallPineForest!=null) hl_TallPineForest = new RealisticBiomeHLTallPineForest(BiomeConfigHL.biomeConfigHLTallPineForest);
+		    if (HighlandsBiomes.tropicalIslands!=null) hl_TropicalIslands = new RealisticBiomeHLTropicalIslands(BiomeConfigHL.biomeConfigHLTropicalIslands);
+		    if (HighlandsBiomes.tropics!=null) hl_Tropics = new RealisticBiomeHLTropics(BiomeConfigHL.biomeConfigHLTropics);
+		    if (HighlandsBiomes.tundra!=null) hl_Tundra = new RealisticBiomeHLTundra(BiomeConfigHL.biomeConfigHLTundra);
+		    if (HighlandsBiomes.woodlands!=null) hl_Woodlands = new RealisticBiomeHLWoodlands(BiomeConfigHL.biomeConfigHLWoodlands);
+		    if (HighlandsBiomes.woodsMountains!=null) hl_WoodsMountains = new RealisticBiomeHLWoodsMountains(BiomeConfigHL.biomeConfigHLWoodsMountains);
+		    if (HighlandsBiomes.baldHill!=null) hl_BaldHill = new RealisticBiomeHLBaldHill(BiomeConfigHL.biomeConfigHLBaldHill);
+		    if (HighlandsBiomes.canyon!=null) hl_Canyon = new RealisticBiomeHLCanyon(BiomeConfigHL.biomeConfigHLCanyon);
+		    if (HighlandsBiomes.desertIsland!=null) hl_DesertIsland = new RealisticBiomeHLDesertIsland(BiomeConfigHL.biomeConfigHLDesertIsland);
+		    if (HighlandsBiomes.forestIsland!=null) hl_ForestIsland = new RealisticBiomeHLForestIsland(BiomeConfigHL.biomeConfigHLForestIsland);
+		    if (HighlandsBiomes.jungleIsland!=null) hl_JungleIsland = new RealisticBiomeHLJungleIsland(BiomeConfigHL.biomeConfigHLJungleIsland);
+		    if (HighlandsBiomes.lake!=null) hl_Lake = new RealisticBiomeHLLake(BiomeConfigHL.biomeConfigHLLake);
+		    if (HighlandsBiomes.mesa!=null) hl_Mesa = new RealisticBiomeHLMesa(BiomeConfigHL.biomeConfigHLMesa);
+		    if (HighlandsBiomes.oasis!=null) hl_Oasis = new RealisticBiomeHLOasis(BiomeConfigHL.biomeConfigHLOasis);
+		    if (HighlandsBiomes.rockIsland!=null) hl_RockIsland = new RealisticBiomeHLRockIsland(BiomeConfigHL.biomeConfigHLRockIsland);
+		    if (HighlandsBiomes.snowIsland!=null) hl_SnowIsland = new RealisticBiomeHLSnowIsland(BiomeConfigHL.biomeConfigHLSnowIsland);
+		    if (HighlandsBiomes.valley!=null) hl_Valley = new RealisticBiomeHLValley(BiomeConfigHL.biomeConfigHLValley);
+		    if (HighlandsBiomes.volcanoIsland!=null) hl_VolcanoIsland = new RealisticBiomeHLVolcanoIsland(BiomeConfigHL.biomeConfigHLVolcanoIsland);
+		    if (HighlandsBiomes.windyIsland!=null) hl_WindyIsland = new RealisticBiomeHLWindyIsland(BiomeConfigHL.biomeConfigHLWindyIsland);
+		    if (HighlandsBiomes.shrubland!=null) hl_Shrubland = new RealisticBiomeHLShrubland(BiomeConfigHL.biomeConfigHLShrubland);
 		}
 	}
 }

@@ -54,6 +54,12 @@ public class BiomeAnalyzer {
             if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("ocean")) {
                 oceanBiome[index] = true;
             }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("kelp")) {
+                oceanBiome[index] = true;
+            }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("coral")) {
+                oceanBiome[index] = true;
+            }
         }
         oceanBiome[BiomeGenBase.deepOcean.biomeID]=true;// not getting set?
     }

@@ -1,100 +1,189 @@
-# Realistic Terrain Generation
+![](http://i.imgur.com/fntMwQe.png)
+
+![](http://i.imgur.com/CZtHNdd.png)
+
+![](http://i.imgur.com/FcLR7Mq.gif)
+
+![](http://i.imgur.com/YUyTPsc.png)
+
 Realistic Terrain Generation (RTG) is a mod that adds a new world type which generates realistic terrain. It doesn't add new blocks. It doesn't add new mobs. It doesn't even add new biomes. It simply generates more realistic-looking terrain for existing Overworld biomes (including those added by other mods).
 
-Minecraft Forum thread: http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2524489
+![](http://i.imgur.com/W8mSEia.png)
 
-# Credits
-This mod is a re-branded fork of the revolutionary [Realistic World Gen](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1281910-teds-world-gen-mods-realistic-world-gen-alpha-1-3) mod by Ted80. It was created as a new project because it will likely deviate from Ted80's original vision for RWG, and the author of this mod didn't want to interfere with that vision. It also uses KdotJPG's [OpenSimplex Noise](https://gist.github.com/KdotJPG/b1270127455a94ac5d19) rather than Perlin Noise to generate its terrain.
+This mod is a re-branded fork of the revolutionary [Realistic World Gen](http://goo.gl/1qWQte|_blank) mod by ted80. It was created as a new project because it was expected to deviate from ted80's original vision for RWG, and the author of this mod didn't want to interfere with that vision.
 
-# Project roadmap
-* ~~Get all vanilla biomes generating 'realistically' alongside custom biomes.~~ **[DONE]**
-* ~~Remove custom biomes completely. This mod will eventually only generate realistic terrain for vanilla biomes and biomes that have been added by other mods.~~ **[DONE]**
-* ~~Add inherent support for all popular biome-adding mods (Biomes O' Plenty, ExtraBiomesXL, Highlands, Enhanced Biomes, Thaumcraft, etc.)~~ **[DONE]**
-* ~~Improve the aesthetic of vanilla biomes~~ **[DONE]**
-* Improve the aesthetic of modded biomes
-* Resolve major issues
-* Create an API to allow other mods to customise terrain generation.
+RTG is brought to you by [Team RTG](https://goo.gl/mT0ehq|_blank) and contains a number of [contributions](https://goo.gl/QMXecT|_blank) from various members of the Minecraft modding community. It also uses KdotJPG's [OpenSimplex Noise](https://goo.gl/7MNhlE|_blank) to generate its terrain.
 
-# Downloads
-Latest beta release: [RTG-1.7.10-0.4.0.jar](http://www.curse.com/mc-mods/minecraft/237989-realistic-terrain-generation) (Beta)
+![](http://i.imgur.com/Qcyg1co.png)
 
-All downloads can also be found in the [Releases section](https://github.com/Team-RTG/Realistic-Terrain-Generation/releases) on GitHub.
+http://www.curse.com/mc-mods/minecraft/237989-realistic-terrain-generation#t1:other-downloads
 
-__(Please note that RTG is currently in beta, which means that it should primarily be used for testing purposes. Please backup your worlds before installing RTG if you plan on using it in your public or private mod pack.)__
+All downloads can also be found in the [Releases section](https://goo.gl/mR3ucQ|_blank) on GitHub.
 
-# Installation
-1. Download and install the latest **recommended** version of [Forge for 1.7.10](http://files.minecraftforge.net/).
-2. [Download this mod](http://www.curse.com/mc-mods/minecraft/237989-realistic-terrain-generation) and place it in your 'mods' folder.
-3. For singleplayer... create a new world, click the [More World Options] button, choose 'Realistic' from the [World Type] button, then click [Create New World]
-4. For servers... use **level-type=RTG** in server.properties
+**Important! If you want to use any of the biome-adding mods that RTG supports (e.g. BOP, EB, EBXL, Highlands, etc.), or if you wish to control the way vanilla biomes generate (e.g. enable/disable, change biome weight, change biome size, etc.), you will also need to install either [Climate Control](http://goo.gl/6c9Htb|_blank) or [BiomeTweaker](http://goo.gl/hy502C|_blank).**
 
-#Configuration
-Example configs:
-https://github.com/Team-RTG/Realistic-Terrain-Generation/tree/master/config/RTG
+**[i]Did you know?[/i]** Whilst not required, it is strongly recommended that you also install [FastCraft](http://goo.gl/65haJy|_blank) for increased performance.
 
-**IMPORTANT:**
-Biome enabling/disabling is handled exclusively through RTG's config files. For example, if you set `Bayou=false` in BOP's _biomegen.cfg_ file, and you set `generateBOPbayou=true` in RTG's _biomesoplenty.cfg_ file, the Bayou biome will still be enabled.
+[i](Please note that RTG is currently in beta, which means that it should primarily be used for testing purposes. If you plan to use RTG in a 'live' environment, be sure to generate a new world, and be aware that newer versions may not be backwards-compatible.)[/i]
 
-# Mod compatibility
-Because RTG generates vanilla biomes, it is compatible with most mods, including (but not limited to):
+![](http://i.imgur.com/OSPLQ3Y.png)
 
-Applied Energistics 2, AgriCraft, Ancient Trees, Animals+, Ars Magica 2, Alternate Terrain Generation (ATG), Battle Towers, Better Villages, Biomes O' Plenty, Blood Magic, Botania, BuildCraft, **Butterfly Mania**, Chocolate Quest, Deadly World, Deep Resonance, Dense Ores, DoggyStyle, Doomlike Dungeons, Draconic Evolution, Ender Zoo, Enhanced Biomes, EnviroMine, Et Futurum, Ex Nihilo, ExtraBiomesXL, Forestry, Fossils and Archeology, **Galacticraft**, Gany's Mods, GrowthCraft, Highlands, Just a Few Fish, Lycanite's Mobs, Magnanimous Tools, Magneticraft, Mariculture, Metallurgy, Millenaire, Minechem, MineFactory Reloaded, **Mo' Creatures**, Mutant Creatures, Natura, Nevermine, Oceancraft, OreSpawn, Pam's HarvestCraft, Plant Mega Pack, Primitive Mobs, Project Red, RailCraft, ReactorCraft, Recurrent Complex, Reika's Mods, RFTools, Roguelike Dungeons, Ruins, Streams, **Thaumcraft**, Thermal Expansion, **Tinkers' Construct**, Underground Biomes Constructs, Wild Caves, Witchery, WTF's Mods, **and many more!**
-
-In addition, RTG currently generates realistic versions of the biomes added by these mods:
-
-* Biomes O' Plenty (supports version 2.1.0.1387 or later)
-* ExtrabiomesXL (supports version 3.16.2 or later)
-* Enhanced Biomes (supports version 2.5 or later)
-* Highlands (supports version 2.2.3 or later)
-* Thaumcraft (supports version 4.2.3.4 or later)
-* BuildCraft (supports version 7.1.7 or later)
-* Ars Magica 2 (supports version 1.4.0.008 or later)
-* Alternate Terrain Generation (ATG) (supports version 0.11.0 or later)
-* ChromatiCraft (supports version V9b or later)
-
-Unfortunately, however, RTG is currently not compatible with the following mods:
-
-* Wildycraft - crashes on startup
-* TerraFirmaCraft - deviates too far from standard biome generation
-
-# Known Issues
-RTG's list of known issues can be found [here](https://github.com/Team-RTG/Realistic-Terrain-Generation/issues).
-
-Major issues:
-* Issue #136 - Island biomes do not generate as actual islands. (Mushroom Islands are disabled by default.)
-* Issue #327 - Edge biomes do not always generate along the edges of their related biomes.
-* Issue #275 - Volcanic biomes sometimes contain partially-generated volcanoes. (All volcanic biomes are disabled by default.)
-* Issue #282 - Hot-to-cold biome transitions are still occurring.
-* Issue #314 - ChromatiCraft biomes aren't generating when Biomes O' Plenty is also installed.
-
-# Screenshots
 http://imgur.com/a/322dY
-(Thanks to Tak and ThePlayX3 for the screenshots!)
 
-# Videos
-Video by 7ERr0r using RTG 0.0.13 (Alpha): https://www.youtube.com/watch?v=AtI1btLLk_Y
+[i](Thanks to Tak and ThePlayX3 for the screenshots from RTG 0.0.13!)[/i]
 
-# How to report an issue
-You may report issues in this thread, but please use spoiler tags or [pastebin](http://pastebin.com/) for crash reports, and - if possible - please describe what you were doing immediately before the crash. The more information you provide, the easier it will be to resolve the issue.
+![](http://i.imgur.com/OwBpdW2.png)
 
-# Mod Packs
+Mod showcase by DarkAvenger using RTG 0.5.0 (Beta):
+
+https://www.youtube.com/watch?v=EAwruMTUJhk
+
+Video by 7ERr0r using RTG 0.4.0 (Beta):
+
+https://www.youtube.com/watch?v=3LspuML_gtY
+
+![](http://i.imgur.com/bUz1Smi.png)
+
+Mod showcase by JaredAlecRealm ('The Minecraft Hippie') using RTG 0.1.0 (Beta):
+
+https://www.youtube.com/watch?v=04vYhEc4E2s
+
+The first video of a 2-part episode from iskall85's "Survival Stories 3" LP series, featuring RTG 0.0.15 (Alpha):
+
+https://www.youtube.com/watch?v=W2CdASWMhPs
+
+Mod showcase by xDq231x usting RTG 0.5.0 (Beta):
+
+https://www.youtube.com/watch?v=-a8GOvyxe9g
+
+![](http://i.imgur.com/zSEV9RQ.png)
+
+RTG currently generates realistic versions of all vanilla biomes, as well as the biomes from these mods:
+
+* [Biomes O' Plenty](http://goo.gl/brwpK7|_blank) (version 2.1.0.1387 or later)
+* [ExtraBiomesXL](http://goo.gl/Ttas3J|_blank) (version 3.16.2 or later)
+* [Enhanced Biomes](http://goo.gl/aXBoiR|_blank) (version 2.5 or later)
+* [Highlands](http://goo.gl/LwOpxj|_blank) (version 2.2.3 or later)
+* [Thaumcraft](http://goo.gl/R9k2Bm|_blank) (version 4.2.3.4 or later)
+* [BuildCraft](http://goo.gl/q9IHdu|_blank) (version 7.1.7 or later)
+* [Ars Magica 2](http://goo.gl/m9Gptp|_blank) (version 1.4.0.008 or later)
+* [Alternate Terrain Generation (ATG)](http://goo.gl/zMH6HP|_blank) (version 0.11.0 or later)
+* [ChromatiCraft](https://goo.gl/1x6Hz1|_blank) (version V9b or later)
+
+![](http://i.imgur.com/aJfcBLg.png)
+
+RTG is compatible with most mods, including (but not limited to):
+
+Applied Energistics 2, AgriCraft, Ancient Trees, Animals+, Ars Magica 2, Alternate Terrain Generation (ATG), Battle Towers, Better Villages, Biomes O' Plenty, BiomeTweaker, Blood Magic, Botania, BuildCraft, **Butterfly Mania**, Chocolate Quest, Climate Control, Deadly World, Deep Resonance, Dense Ores, DoggyStyle, Doomlike Dungeons, Draconic Evolution, Ender Zoo, Enhanced Biomes, EnviroMine, Et Futurum, Ex Nihilo, ExtraBiomesXL, Forestry, Fossils and Archeology, **Galacticraft**, Gany's Mods, GrowthCraft, Highlands, Just a Few Fish, Lycanite's Mobs, Magnanimous Tools, Magneticraft, Mariculture, Metallurgy, Millenaire, Minechem, MineFactory Reloaded, **Mo' Creatures**, Mutant Creatures, Natura, Nevermine, Oceancraft, OreSpawn, Pam's HarvestCraft, Plant Mega Pack, Primitive Mobs, Project Red, RailCraft, ReactorCraft, Recurrent Complex, Reika's Mods, RFTools, Roguelike Dungeons, Ruins, Streams, **Thaumcraft**, Thermal Expansion, **Tinkers' Construct**, Twilight Forest, Underground Biomes Constructs, Wild Caves, Witchery, WTF's Mods, **and many more!**
+
+Unfortunately, however, RTG is **[i]not[/i]** compatible with the following mods:
+
+* Wildycraft - [crashes on startup](https://goo.gl/JwZf0Y|_blank)
+* TerraFirmaCraft - [deviates too far from standard biome generation](http://goo.gl/13r4Qn|_blank)
+
+![](http://i.imgur.com/yn3bO2m.png)
+
+[header=3]REVOLUTION|2[/header]
+
+[![](http://i.imgur.com/9qzDKot.png)](https://goo.gl/JY4YqP|_blank)
+
+[REVOLUTION|2](https://goo.gl/JY4YqP|_blank) is a difficult, quest-based RotaryCraft/ChromatiCraft-themed progression pack by Haggle1996. Built around the three pillars of design, tech, and magic, version 2 surpasses its predecessor with extended game play, many new mods, and a new quest system.
+
+[header=3]Survival Stories 3[/header]
+
+[![](http://i.imgur.com/3WIMs2f.png)](http://goo.gl/koMHLS|_blank)
+
+[Survival Stories 3](http://goo.gl/koMHLS|_blank) combines exploration with the modded experience we all know and love, including some mods developed specifically for the pack. Whether you like magic mods, tech mods or just want to explore the Minecraft world, expect this to be your favorite mod pack of 2016.
+
+![](http://i.imgur.com/y6EgTdG.png)
+
+* Download and install the **RECOMMENDED** version of [Forge for 1.7.10](http://goo.gl/KHgnMZ|_blank) (the one on the right).
+* [Download this mod](http://goo.gl/WP0WmR|_blank) and place it in your 'mods' folder.
+* If you want to use any of RTG's supported biome-adding mods, you must also install either [Climate Control](http://goo.gl/6c9Htb|_blank) or [BiomeTweaker](http://goo.gl/hy502C|_blank).
+* For singleplayer... create a new world, click the [More World Options] button, choose 'Realistic' from the [World Type] button, then click [Create New World]
+* For servers... use **level-type=RTG** in [i]server.properties[/i]
+
+**[i]Did you know?[/i]** RTG is only required server-side, so if you're hosting a modded server or putting together a mod pack, your users don't even need to have RTG installed!
+
+![](http://i.imgur.com/lY2SHTZ.png)
+
+[header=4]RTG configuration[/header]
+
+When you launch Minecraft after installing RTG for the first time, a folder called [RTG](https://goo.gl/UQrlLy|_blank) gets created in your config folder. The RTG folder contains the main configuration file ([rtg.cfg](https://goo.gl/SUfDbO|_blank)) and another folder called [biomes](https://goo.gl/E50m2A|_blank) which contains separate config files for each of the biome-adding mods that RTG supports (as well as a config file for vanilla biomes).
+
+Inside RTG's config files, you'll find options for tweaking various aspects of your Minecraft world: biomes, caves, dungeons, mineshafts, strongholds, villages, and more. Each option contains a brief description about what the setting does, but if you're still not sure about a particular setting, feel free to post your questions in the thread.
+
+[header=4]Climate Control configuration[/header]
+
+When you launch Minecraft after installing Climate Control (CC) for the first time, the main configuration file (climatecontrol.cfg) gets created in your config folder, along with a folder called 'ClimateControl' which contains some additional config files. If you installed a supported biome-adding mod, there will also be a config file in the 'ClimateControl' folder that is specific to that mod.
+
+CC's default settings should be fine for most users. However, if you're not sure about a particular option, feel free to post your questions in the thread.
+
+[header=4]BiomeTweaker configuration[/header]
+
+When you launch Minecraft after installing BiomeTweaker for the first time, a folder called 'BiomeTweaker' gets created in your config folder. Inside that folder you will find the main configuration file (BiomeTweaker.cfg), an example config file (ExampleTweaks.cfg), and a folder called 'output' which contains a .json file for each registered biome.
+
+If you're comfortable using mods like MineTweaker and ModTweaker, then you'll have no problem with BiomeTweaker. However, if you're new to the art of 'tweaking', then we would recommend that you use Climate Control instead, as it's much easier to configure.
+
+To make it easier for everyone to get up and running with RTG & BiomeTweaker, we've created a set of working tweaks that you can use to get started. To use the tweaks below, just download the 'BiomeTweaker.cfg' and 'RTG.cfg' files for your relevant mod setup and move them to your BiomeTweaker folder. (Note: If you're using more than one biome-adding mod, you will need to create your own tweaks.)
+
+* RTG: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ|_blank) | [RTG.cfg](https://goo.gl/lhG6ew|_blank)
+* RTG + Biomes O' Plenty: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ|_blank) | [RTG.cfg](https://goo.gl/pJm5E3|_blank)
+* RTG + Enhanced Biomes: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ|_blank) | [RTG.cfg](https://goo.gl/fKHdF6|_blank)
+* RTG + Highlands: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ|_blank) | [RTG.cfg](https://goo.gl/0S1jzX|_blank)
+* RTG + EBXL: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ|_blank) | [RTG.cfg](https://goo.gl/R9eSQi|_blank)
+* RTG + Thaumcraft: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ|_blank) | [RTG.cfg](https://goo.gl/Lz7PX8|_blank)
+* RTG + ChromatiCraft: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ|_blank) | [RTG.cfg](https://goo.gl/szq8ZB|_blank)
+* RTG + BuildCraft: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ|_blank) | [RTG.cfg](https://goo.gl/NoKu6x|_blank)
+* RTG + Ars Magica 2: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ|_blank) | [RTG.cfg](https://goo.gl/EzsKsJ|_blank)
+* RTG + ATG: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ|_blank) | [RTG.cfg](https://goo.gl/8Ja48t|_blank)
+
+![](http://i.imgur.com/1Au3iZz.png)
+
+To see the full history of changes, please refer to the [Releases section](https://goo.gl/B4q3ZX|_blank) on GitHub.
+
+![](http://i.imgur.com/2AFhpa4.png)
+
+RTG's list of known issues can be found [here](https://goo.gl/7BGWpB|_blank).
+
+![](http://i.imgur.com/JbkjIyC.png)
+
+**When will RTG be updated for 1.8?**
+There are no plans to update to 1.8 at this time.
+
+**May I use RTG in my public/private mod pack?**
+Please see 'Mod pack policy' section below.
+
+**Does RTG add any new blocks/items to the game?**
+No.
+
+**Does RTG add any new biomes?**
+No. RTG only affects vanilla biomes and biomes that have been added by other mods.
+
+**Does RTG add any dimensions?**
+No.
+
+**Does RTG add any mobs?**
+No.
+
+**Does RTG generate realistic terrain in non-Overworld biomes (e.g. The Nether, The End, etc.)?**
+No. RTG only affects the Overworld.
+
+**How should I report issues/bugs/crashes?**
+You may report issues in this thread, but please use spoiler tags or [pastebin](http://pastebin.com/|_blank) for crash reports, and please describe what you were doing immediately before the crash. The more information you provide, the easier it will be to resolve the issue.
+
+**How do I prevent a biome from generating?**
+RTG does not provide a way for you to disable biomes. To prevent a biome from generating, you must disable it via the config files of the mod that adds it. In the case of vanilla biomes, you must use either [Climate Control](http://goo.gl/6c9Htb|_blank) or [BiomeTweaker](http://goo.gl/hy502C|_blank).
+
+![](http://i.imgur.com/mSOqNwz.png)
+
 You may use RTG in your public or private mod pack as long the following conditions are met:
 
 * You understand and accept that RTG is in beta, which means that it is currently under heavy development and could change radically from version to version, with no guarantee of backwards-compatibility.
-* You understand and accept that only the latest version of RTG will be supported at any given time. If your mod pack is using an older version and you report an issue with that version, we will only try to resolve that issue if it is still present in the latest version.
+* You understand and accept that only the latest version of RTG will be supported at any given time.
 * You must credit 'Team RTG' as the author of this mod and link back to this forum thread.
 * Your mod pack must be made available to everyone, free of charge. If your modpack is private, it must be made available free of charge to whomever is given access to it.
-* Optional - please post a link to your mod pack in this forum thread. If your mod pack is private, please PM me the link to your mod pack or a list of mods that your mod pack contains.
 
-# Development
-RTG is built on Forge 1.7.10-10.13.4.1448 and compiled with Gradle 2.0.
+![](http://i.imgur.com/CScvbCF.png)
 
-# License
-Realistic Terrain Generation
-Copyright (C) 2015 WhichOnesPink
-
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with this program. If not, see [http://www.gnu.org/licenses/](http://www.gnu.org/licenses/).
+RTG is licensed under the [GNU General Public License](https://goo.gl/2TPnEA|_blank).

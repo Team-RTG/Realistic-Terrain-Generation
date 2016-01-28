@@ -22,15 +22,15 @@ All downloads can also be found in the [Releases section](https://goo.gl/mR3ucQ|
 
 **Important! If you want to use any of the biome-adding mods that RTG supports (e.g. BOP, EB, EBXL, Highlands, etc.), or if you wish to control the way vanilla biomes generate (e.g. enable/disable, change biome weight, change biome size, etc.), you will also need to install either [Climate Control](http://goo.gl/6c9Htb|_blank) or [BiomeTweaker](http://goo.gl/hy502C|_blank).**
 
-**[i]Did you know?[/i]** Whilst not required, it is strongly recommended that you also install [FastCraft](http://goo.gl/65haJy|_blank) for increased performance.
+**Did you know?** Whilst not required, it is strongly recommended that you also install [FastCraft](http://goo.gl/65haJy|_blank) for increased performance.
 
-[i](Please note that RTG is currently in beta, which means that it should primarily be used for testing purposes. If you plan to use RTG in a 'live' environment, be sure to generate a new world, and be aware that newer versions may not be backwards-compatible.)[/i]
+(Please note that RTG is currently in beta, which means that it should primarily be used for testing purposes. If you plan to use RTG in a 'live' environment, be sure to generate a new world, and be aware that newer versions may not be backwards-compatible.)
 
 ![](http://i.imgur.com/OSPLQ3Y.png)
 
 http://imgur.com/a/322dY
 
-[i](Thanks to Tak and ThePlayX3 for the screenshots from RTG 0.0.13!)[/i]
+(Thanks to Tak and ThePlayX3 for the screenshots from RTG 0.0.13!)
 
 ![](http://i.imgur.com/OwBpdW2.png)
 
@@ -76,20 +76,20 @@ RTG is compatible with most mods, including (but not limited to):
 
 Applied Energistics 2, AgriCraft, Ancient Trees, Animals+, Ars Magica 2, Alternate Terrain Generation (ATG), Battle Towers, Better Villages, Biomes O' Plenty, BiomeTweaker, Blood Magic, Botania, BuildCraft, **Butterfly Mania**, Chocolate Quest, Climate Control, Deadly World, Deep Resonance, Dense Ores, DoggyStyle, Doomlike Dungeons, Draconic Evolution, Ender Zoo, Enhanced Biomes, EnviroMine, Et Futurum, Ex Nihilo, ExtraBiomesXL, Forestry, Fossils and Archeology, **Galacticraft**, Gany's Mods, GrowthCraft, Highlands, Just a Few Fish, Lycanite's Mobs, Magnanimous Tools, Magneticraft, Mariculture, Metallurgy, Millenaire, Minechem, MineFactory Reloaded, **Mo' Creatures**, Mutant Creatures, Natura, Nevermine, Oceancraft, OreSpawn, Pam's HarvestCraft, Plant Mega Pack, Primitive Mobs, Project Red, RailCraft, ReactorCraft, Recurrent Complex, Reika's Mods, RFTools, Roguelike Dungeons, Ruins, Streams, **Thaumcraft**, Thermal Expansion, **Tinkers' Construct**, Twilight Forest, Underground Biomes Constructs, Wild Caves, Witchery, WTF's Mods, **and many more!**
 
-Unfortunately, however, RTG is **[i]not[/i]** compatible with the following mods:
+Unfortunately, however, RTG is **not** compatible with the following mods:
 
 * Wildycraft - [crashes on startup](https://goo.gl/JwZf0Y|_blank)
 * TerraFirmaCraft - [deviates too far from standard biome generation](http://goo.gl/13r4Qn|_blank)
 
 ![](http://i.imgur.com/yn3bO2m.png)
 
-[header=3]REVOLUTION|2[/header]
+### REVOLUTION|2
 
 [![](http://i.imgur.com/9qzDKot.png)](https://goo.gl/JY4YqP|_blank)
 
 [REVOLUTION|2](https://goo.gl/JY4YqP|_blank) is a difficult, quest-based RotaryCraft/ChromatiCraft-themed progression pack by Haggle1996. Built around the three pillars of design, tech, and magic, version 2 surpasses its predecessor with extended game play, many new mods, and a new quest system.
 
-[header=3]Survival Stories 3[/header]
+### Survival Stories 3
 
 [![](http://i.imgur.com/3WIMs2f.png)](http://goo.gl/koMHLS|_blank)
 
@@ -101,25 +101,25 @@ Unfortunately, however, RTG is **[i]not[/i]** compatible with the following mods
 * [Download this mod](http://goo.gl/WP0WmR|_blank) and place it in your 'mods' folder.
 * If you want to use any of RTG's supported biome-adding mods, you must also install either [Climate Control](http://goo.gl/6c9Htb|_blank) or [BiomeTweaker](http://goo.gl/hy502C|_blank).
 * For singleplayer... create a new world, click the [More World Options] button, choose 'Realistic' from the [World Type] button, then click [Create New World]
-* For servers... use **level-type=RTG** in [i]server.properties[/i]
+* For servers... use **level-type=RTG** in server.properties
 
-**[i]Did you know?[/i]** RTG is only required server-side, so if you're hosting a modded server or putting together a mod pack, your users don't even need to have RTG installed!
+**Did you know?** RTG is only required server-side, so if you're hosting a modded server or putting together a mod pack, your users don't even need to have RTG installed!
 
 ![](http://i.imgur.com/lY2SHTZ.png)
 
-[header=4]RTG configuration[/header]
+#### RTG configuration
 
 When you launch Minecraft after installing RTG for the first time, a folder called [RTG](https://goo.gl/UQrlLy|_blank) gets created in your config folder. The RTG folder contains the main configuration file ([rtg.cfg](https://goo.gl/SUfDbO|_blank)) and another folder called [biomes](https://goo.gl/E50m2A|_blank) which contains separate config files for each of the biome-adding mods that RTG supports (as well as a config file for vanilla biomes).
 
 Inside RTG's config files, you'll find options for tweaking various aspects of your Minecraft world: biomes, caves, dungeons, mineshafts, strongholds, villages, and more. Each option contains a brief description about what the setting does, but if you're still not sure about a particular setting, feel free to post your questions in the thread.
 
-[header=4]Climate Control configuration[/header]
+#### Climate Control configuration
 
 When you launch Minecraft after installing Climate Control (CC) for the first time, the main configuration file (climatecontrol.cfg) gets created in your config folder, along with a folder called 'ClimateControl' which contains some additional config files. If you installed a supported biome-adding mod, there will also be a config file in the 'ClimateControl' folder that is specific to that mod.
 
 CC's default settings should be fine for most users. However, if you're not sure about a particular option, feel free to post your questions in the thread.
 
-[header=4]BiomeTweaker configuration[/header]
+#### BiomeTweaker configuration
 
 When you launch Minecraft after installing BiomeTweaker for the first time, a folder called 'BiomeTweaker' gets created in your config folder. Inside that folder you will find the main configuration file (BiomeTweaker.cfg), an example config file (ExampleTweaks.cfg), and a folder called 'output' which contains a .json file for each registered biome.
 

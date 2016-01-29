@@ -20,7 +20,17 @@ http://www.curse.com/mc-mods/minecraft/237989-realistic-terrain-generation#t1:ot
 
 All downloads can also be found in the [Releases section](https://goo.gl/mR3ucQ) on GitHub.
 
-**Important! If you want to use any of the biome-adding mods that RTG supports (e.g. BOP, EB, EBXL, Highlands, etc.), or if you wish to control the way vanilla biomes generate (e.g. enable/disable, change biome weight, change biome size, etc.), you will also need to install either [Climate Control](http://goo.gl/6c9Htb) or [BiomeTweaker](http://goo.gl/hy502C).**
+**Important! As of v0.5.0, you will also need to install either [Climate Control](http://goo.gl/6c9Htb) or [BiomeTweaker](http://goo.gl/hy502C) if you wish to control the way vanilla biomes generate (e.g. enable/disable, change biome weight, change biome size, etc.), or if you want to use any of the following biome-adding mods:**
+
+* Biomes O' Plenty
+* ExtraBiomesXL
+* Highlands
+* BuildCraft
+* Ars Magica 2
+* Alternate Terrain Generation (ATG)
+* ChromatiCraft
+
+_(Note: Enhanced Biomes and Thaumcraft do NOT require Climate Control or BiomeTweaker.)_
 
 **Did you know?** Whilst not required, it is strongly recommended that you also install [FastCraft](http://goo.gl/65haJy) for increased performance.
 
@@ -127,12 +137,12 @@ If you're comfortable using mods like MineTweaker and ModTweaker, then you'll ha
 
 To make it easier for everyone to get up and running with RTG & BiomeTweaker, we've created a set of working tweaks that you can use to get started. To use the tweaks below, just download the 'BiomeTweaker.cfg' and 'RTG.cfg' files for your relevant mod setup and move them to your BiomeTweaker folder. (Note: If you're using more than one biome-adding mod, you will need to create your own tweaks.)
 
-* RTG: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ) | [RTG.cfg](https://goo.gl/lhG6ew)
+* RTG (Optional): [BiomeTweaker.cfg](https://goo.gl/oDu4RQ) | [RTG.cfg](https://goo.gl/lhG6ew)
 * RTG + Biomes O' Plenty: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ) | [RTG.cfg](https://goo.gl/pJm5E3)
-* RTG + Enhanced Biomes: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ) | [RTG.cfg](https://goo.gl/fKHdF6)
+* RTG + Enhanced Biomes (Optional): [BiomeTweaker.cfg](https://goo.gl/oDu4RQ) | [RTG.cfg](https://goo.gl/fKHdF6)
 * RTG + Highlands: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ) | [RTG.cfg](https://goo.gl/0S1jzX)
 * RTG + EBXL: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ) | [RTG.cfg](https://goo.gl/R9eSQi)
-* RTG + Thaumcraft: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ) | [RTG.cfg](https://goo.gl/Lz7PX8)
+* RTG + Thaumcraft (Optional): [BiomeTweaker.cfg](https://goo.gl/oDu4RQ) | [RTG.cfg](https://goo.gl/Lz7PX8)
 * RTG + ChromatiCraft: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ) | [RTG.cfg](https://goo.gl/szq8ZB)
 * RTG + BuildCraft: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ) | [RTG.cfg](https://goo.gl/NoKu6x)
 * RTG + Ars Magica 2: [BiomeTweaker.cfg](https://goo.gl/oDu4RQ) | [RTG.cfg](https://goo.gl/EzsKsJ)

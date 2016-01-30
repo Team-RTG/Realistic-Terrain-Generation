@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.logging.log4j.Level;
+
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import cpw.mods.fml.common.FMLLog;
 
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
@@ -124,12 +127,16 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     public BiomeGenBase getBiomeGenAt(int par1, int par2)
     {
         BiomeGenBase result = this.biomeCache.getBiomeGenAt(par1, par2);
+        
         if (result == null) {
             throw new RuntimeException();
         }
+        
         if (result.biomeName == null) {
             result.biomeName = "";
+            FMLLog.log(Level.WARN, "Biome %d has no name.", result.biomeID);
         }
+        
         return result;
     }
 

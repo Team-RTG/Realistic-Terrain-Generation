@@ -81,6 +81,7 @@ public class RealisticBiomeBase extends BiomeBase {
     	if (biome.biomeID == 160 && this instanceof rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaRedwoodTaigaHills) {
 
         	arrRealisticBiomeIds[161] = this;
+        	this.biomeName = "Redwood Taiga Hills";
 
 		} else {
 

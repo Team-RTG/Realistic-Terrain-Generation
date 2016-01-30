@@ -16,6 +16,9 @@ public class RiverRemover {
 
     public GenLayer [] riverLess(GenLayer [] vanilla) {try {
             GenLayer riverMixParent = this.riverMixBiome.get((GenLayerRiverMix) vanilla[0]);
+            if (riverMixParent == null) {
+                return vanilla;
+            }
             GenLayer withoutRivers = new GenLayerNoRivers(100L, riverMixParent);
             GenLayerVoronoiZoom genlayervoronoizoom = new GenLayerVoronoiZoom(10L, withoutRivers);
             return new GenLayer[]{withoutRivers, genlayervoronoizoom, withoutRivers};

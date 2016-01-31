@@ -242,6 +242,12 @@ public class ChunkProviderRTG implements IChunkProvider
         	for (k = 0; k < abyte1.length; ++k)
         	{
         		// biomes are y-first and terrain x-first
+        		/*
+        		* This 2 line separation is needed, because otherwise, AIC's dynamic patching algorith detects vanilla pattern here and patches this part following vanilla logic.
+        		* Which causes game to crash.
+        		* I cannot do much on my part, so i have to do it here.
+        		* - Elix_x
+        		*/
         		byte b = (byte)this.baseBiomesList[this.xyinverted[k]].biomeID;
         		abyte1[k] = b;
         	}

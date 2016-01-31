@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import code.elix_x.coremods.antiidconflict.api.AICChangesWrapper;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CanyonColor;
@@ -227,14 +228,31 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
         Chunk chunk = new Chunk(this.worldObj, blocks, metadata, cx, cy);
-        // doJitter no longer needed as the biome array gets fixed
-        byte[] abyte1 = chunk.getBiomeArray();
-        for (k = 0; k < abyte1.length; ++k)
-        {
-            // biomes are y-first and terrain x-first
-            abyte1[k] = (byte)this.baseBiomesList[this.xyinverted[k]].biomeID;
+        if(AICChangesWrapper.isAICLoaded()){
+        	int[] biomes = AICChangesWrapper.getBiomeArray(chunk);
+        	for (k = 0; k < biomes.length; ++k)
+        	{
+        		// biomes are y-first and terrain x-first
+        		biomes[k] = this.baseBiomesList[this.xyinverted[k]].biomeID;
+        	}
+        	AICChangesWrapper.setBiomeArray(chunk, biomes);
+        } else {
+        	// doJitter no longer needed as the biome array gets fixed
+        	byte[] abyte1 = chunk.getBiomeArray();
+        	for (k = 0; k < abyte1.length; ++k)
+        	{
+        		// biomes are y-first and terrain x-first
+        		/*
+        		* This 2 line separation is needed, because otherwise, AIC's dynamic patching algorith detects vanilla pattern here and patches this part following vanilla logic.
+        		* Which causes game to crash.
+        		* I cannot do much on my part, so i have to do it here.
+        		* - Elix_x
+        		*/
+        		byte b = (byte)this.baseBiomesList[this.xyinverted[k]].biomeID;
+        		abyte1[k] = b;
+        	}
+        	chunk.setBiomeArray(abyte1);
         }
-        chunk.setBiomeArray(abyte1);
         chunk.generateSkylightMap();
         return chunk;
     }

@@ -19,6 +19,7 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import code.elix_x.coremods.antiidconflict.api.AICChangesWrapper;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
 
@@ -228,13 +229,23 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
         Chunk chunk = new Chunk(this.worldObj, blocks, metadata, cx, cy);
-        // doJitter no longer needed as the biome array gets fixed
-        byte[] abyte1 = chunk.getBiomeArray();
-        for (k = 0; k < abyte1.length; ++k)
-        {
-            // biomes are y-first and terrain x-first
-            abyte1[k] = (byte)this.baseBiomesList[this.xyinverted[k]].biomeID;
-        }
+        if(AICChangesWrapper.isAICLoaded()){
+        	int[] biomes = AICChangesWrapper.getBiomeArray(chunk);
+        	for (k = 0; k < biomes.length; ++k)
+        	{
+        		// biomes are z-first and terrain x-first
+        		biomes[k] = this.baseBiomesList[this.xyinverted[k]].biomeID;
+        	}
+        	AICChangesWrapper.setBiomeArray(chunk, biomes);
+        } else {
+        	// doJitter no longer needed as the biome array gets fixed
+        	byte[] abyte1 = chunk.getBiomeArray();
+        	for (k = 0; k < abyte1.length; ++k)
+        	{
+        		// biomes are z-first and terrain x-first
+        		abyte1[k] = (byte)this.baseBiomesList[this.xyinverted[k]].biomeID;
+        	}
+       }
         chunk.generateSkylightMap();
         return chunk;
     }

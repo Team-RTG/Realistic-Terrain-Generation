@@ -19,7 +19,7 @@ import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
-public class WorldChunkManagerRTG extends WorldChunkManager
+public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeProvider
 {
     /** A GenLayer containing the indices into BiomeGenBase.biomeList[] */
     private GenLayer genBiomes;

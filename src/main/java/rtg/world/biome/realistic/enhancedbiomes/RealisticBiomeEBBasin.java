@@ -51,7 +51,7 @@ public class RealisticBiomeEBBasin extends RealisticBiomeEBBase
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
-			new TerrainEBBasin(false, -15f, 0f, 0f, 0f, 63f),
+			new TerrainEBBasin(false, -15f, 0f, 0f, 0f, 68f),
 			new SurfaceEBBasin(
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

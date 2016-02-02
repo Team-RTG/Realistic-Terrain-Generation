@@ -26,6 +26,6 @@ public class TerrainBOPTropics extends TerrainBase
 			h += (simplex.noise2(x / 50f, y / 50f) + simplex.noise2(x / 15f, y / 15f)) * (4f - h);
 		}
 		
-		return 60f + h;
+		return 65f + h;
 	}
 }

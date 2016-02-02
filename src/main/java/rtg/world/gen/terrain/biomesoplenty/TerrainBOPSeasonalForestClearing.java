@@ -45,6 +45,6 @@ public class TerrainBOPSeasonalForestClearing extends TerrainBase
         float floNoise = maxHeight + h + m - l;
         floNoise = (floNoise < minHeight) ? minHeight : floNoise;
         
-        return floNoise;
+        return floNoise+4;
     }
 }

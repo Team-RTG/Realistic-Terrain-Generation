@@ -61,7 +61,7 @@ public class RealisticBiomeEBSandstoneRangesM extends RealisticBiomeEBBase
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
-			new TerrainEBSandstoneRangesM(false, 35f, 160f, 40f, 30f, 10),
+			new TerrainEBSandstoneRangesM(false, 35f, 160f, 40f, 30f, 60),
 			new SurfaceEBSandstoneRangesM(
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

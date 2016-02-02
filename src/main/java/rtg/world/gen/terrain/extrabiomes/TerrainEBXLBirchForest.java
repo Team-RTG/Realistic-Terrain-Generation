@@ -6,8 +6,8 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBXLBirchForest extends TerrainBase
 {
-    private float minHeight = 63f;
-    private float maxHeight = 80f;
+    private float minHeight = 65f;
+    private float maxHeight = 82f;
     private float hillStrength = 30f;
     
     // 63f, 80f, 30f

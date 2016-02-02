@@ -52,7 +52,7 @@ public class RealisticBiomeEBKakadu extends RealisticBiomeEBBase
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
-			new TerrainEBKakadu(30f, 480f, 8f, 100f, 68f, 60f, 67f),
+			new TerrainEBKakadu(30f, 480f, 8f, 100f, 68f, 60f, 69f),
 			new SurfaceEBKakadu(
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

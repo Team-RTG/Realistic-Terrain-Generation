@@ -52,6 +52,6 @@ public class TerrainVanillaRedwoodTaigaHills extends TerrainBase
             h += simplex.noise2(x / 8f, y / 8f) * (d / 2f);
         }
         
-        return h + 67f;// - bn;
+        return h + 68f;// - bn;
     }
 }

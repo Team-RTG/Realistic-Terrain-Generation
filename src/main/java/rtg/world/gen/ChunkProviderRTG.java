@@ -47,6 +47,7 @@ import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.world.biome.RTGBiomeProvider;
 
 /**
  * Scattered features courtesy of Ezoteric (https://github.com/Ezoteric) and Choonster (https://github.com/Choonster)
@@ -79,7 +80,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private Random rand;
     private Random mapRand;
     private World worldObj;
-    private WorldChunkManagerRTG cmr;
+    protected RTGBiomeProvider cmr;
     private OpenSimplexNoise simplex;
     private CellNoise cell;
 	private RealisticBiomeBase[] biomesForGeneration;
@@ -239,7 +240,7 @@ public class ChunkProviderRTG implements IChunkProvider
         return chunk;
     }
 
-    public void generateTerrain(WorldChunkManagerRTG cmr, int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase biomes[], float[] n)
+    public void generateTerrain(RTGBiomeProvider cmr, int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase biomes[], float[] n)
     {
     	int p, h;
     	float[] noise = getNewNoise(cmr, cx * 16, cy * 16, biomes);
@@ -275,7 +276,7 @@ public class ChunkProviderRTG implements IChunkProvider
 
     private static final int centerLocationIndex = 312;// this is x=8, y=8 with the calcs below
 
-    public float[] getNewNoise(WorldChunkManagerRTG cmr, int x, int y, RealisticBiomeBase biomes[])
+    public float[] getNewNoise(RTGBiomeProvider cmr, int x, int y, RealisticBiomeBase biomes[])
     {
     	int i, j, k, locationIndex, m, n, p;
 

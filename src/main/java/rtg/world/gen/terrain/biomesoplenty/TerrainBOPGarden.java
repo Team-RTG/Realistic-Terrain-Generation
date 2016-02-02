@@ -43,6 +43,6 @@ public class TerrainBOPGarden extends TerrainBase
         float floNoise = maxHeight + h + m - l;
         floNoise = (floNoise < minHeight) ? minHeight : floNoise;
         
-        return floNoise;
+        return floNoise+4;
     }
 }

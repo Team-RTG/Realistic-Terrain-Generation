@@ -22,7 +22,7 @@ public class TerrainEBFirForest extends TerrainBase
 
 	public TerrainEBFirForest(float mountainWidth, float mountainStrength, float depthLake)
 	{
-		this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
+		this(mountainWidth, mountainStrength, depthLake, 260f, 74f);
 	}
 	
 	public TerrainEBFirForest(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)

@@ -51,7 +51,7 @@ public class RealisticBiomeEBDesertArchipelago extends RealisticBiomeEBBase
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
-			new TerrainEBDesertArchipelago(),
+			new TerrainEBDesertArchipelago(80f, 30f, 0f),
 			new SurfaceEBDesertArchipelago(
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

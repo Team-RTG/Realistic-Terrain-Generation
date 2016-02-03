@@ -29,7 +29,7 @@ public class TerrainVanillaSavanna extends TerrainBase
         h *= h / 100f;
         h += st;
         
-        floNoise = 65f + h;
+        floNoise = 66f + h;
         
         //FMLLog.log(Level.INFO, "floNoise = %f", floNoise);
         

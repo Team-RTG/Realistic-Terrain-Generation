@@ -6,14 +6,9 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBOPCherryBlossomGrove extends TerrainBase
 {
-    private float minHeight = 63f;
-    private float maxHeight = 120f;
-    private float hillStrength = 30f;
-    
-    public TerrainBOPCherryBlossomGrove()
-    {
-    
-    }
+    private float minHeight;
+    private float maxHeight;
+    private float hillStrength;
     
     public TerrainBOPCherryBlossomGrove(float minHeight, float maxHeight, float hillStrength)
     {

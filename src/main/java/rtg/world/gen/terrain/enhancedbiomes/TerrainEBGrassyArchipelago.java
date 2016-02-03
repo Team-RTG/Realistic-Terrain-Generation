@@ -22,7 +22,7 @@ public class TerrainEBGrassyArchipelago extends TerrainBase
 
 	public TerrainEBGrassyArchipelago(float mountainWidth, float mountainStrength, float depthLake)
 	{
-		this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
+		this(mountainWidth, mountainStrength, depthLake, 260f, 56f);
 	}
 	
 	public TerrainEBGrassyArchipelago(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)

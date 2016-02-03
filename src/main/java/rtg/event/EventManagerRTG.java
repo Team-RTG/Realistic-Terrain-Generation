@@ -147,4 +147,17 @@ public class EventManagerRTG
             }
         }
     }
+    
+    @SubscribeEvent
+    public void onWorldLoad(WorldEvent.Load event) {
+        
+        if (!event.world.getWorldInfo().getTerrainType().getWorldTypeName().equalsIgnoreCase("RTG")) {
+            return;
+        }
+        
+        if (event.world.provider.dimensionId == 0) {
+            
+            FMLLog.log(Level.INFO, "World Seed: %d", event.world.getSeed());
+        }
+    }
 }

@@ -29,7 +29,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
-			new TerrainBOPEucalyptusForest(63f, 80f, 36f),
+			new TerrainBOPEucalyptusForest(58f, 80f, 36f),
 			new SurfaceBOPEucalyptusForest(
                 topBlock, //Block top 
                 (byte)0, //byte topByte

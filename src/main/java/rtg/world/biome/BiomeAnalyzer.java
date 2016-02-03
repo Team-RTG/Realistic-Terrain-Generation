@@ -110,6 +110,11 @@ public class BiomeAnalyzer {
             if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("woodland lake")) {
                 swampBiome[index] = true;
             }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("archipelago")) {
+                swampBiome[index] = true;
+            }
+            if (index==66&&swampBiome[index]==false)
+                throw new RuntimeException(BiomeGenBase.getBiome(index).biomeName.toLowerCase());
         }
     }
     private void determineLandBiomes() {

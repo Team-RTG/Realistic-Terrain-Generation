@@ -1,5 +1,9 @@
 package rtg.world.gen;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE;
@@ -24,6 +28,10 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
@@ -179,7 +187,25 @@ public class ChunkProviderRTG implements IChunkProvider
                 //fill with biomeData
         int [] biomeIndices= cmr.getBiomesGens(cx *16, cy*16,16,16);
 
+        /*if (cx*16==1872&&cy*16==7712) {
+            PrintWriter writer = null;
+            try {
+                File file = new File("forestChunk.txt");
+                writer = new PrintWriter(file);
+                for (int i = 0;i <16;i++) {
+                    String output = "";
+                    for (int j = 0;j<16;j++) {
+                        output += "" + biomesForGeneration[i*16+j].biomeID + '\t';
+                    }
+                    writer.print(output+'\r');
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ChunkProviderRTG.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                writer.close();
+            }
 
+        }*/
 
 
         if (!doJitter){
@@ -437,7 +463,7 @@ public class ChunkProviderRTG implements IChunkProvider
             //fill with biomeData
             for (i = 0; i < 16; i++) {
                 for (j=0; j<16; j++) {
-                    biomes[i*16+j] =  cmr.getBiomeDataAt(x + (((i-8) * 8)), y + (((j-8) * 8)));
+                    biomes[i*16+j] =  cmr.getBiomeDataAt(x + (((i-7) * 8+4)), y + (((j-7) * 8+4)));
                 }
             }
         }

@@ -6,14 +6,9 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBOPFrostForest extends TerrainBase
 {
-    private float minHeight = 63f;
-    private float maxHeight = 80f;
-    private float hillStrength = 30f;
-    
-    public TerrainBOPFrostForest()
-    {
-    
-    }
+    private float minHeight;
+    private float maxHeight;
+    private float hillStrength;
     
     public TerrainBOPFrostForest(float minHeight, float maxHeight, float hillStrength)
     {

@@ -12,6 +12,7 @@ import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.world.gen.terrain.enhancedbiomes.TerrainEBGrassyArchipelago;
 
 public class RealisticBiomeEBMountainousArchipelago extends RealisticBiomeEBBase
 {
@@ -52,7 +53,7 @@ public class RealisticBiomeEBMountainousArchipelago extends RealisticBiomeEBBase
 	{
 		super(
 			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainEBMountainousArchipelago(200f, 100f, 0f),
+			new TerrainEBGrassyArchipelago(80f, 50f, 0f),
 			new SurfaceEBMountainousArchipelago(
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

@@ -21,7 +21,7 @@ public class RealisticBiomeBOPGarden extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
-			new TerrainBOPGarden(63f, 68f, 22f),
+			new TerrainBOPGarden(65f, 68f, 22f),
 			new SurfaceBOPGarden(
                 topBlock, //Block top 
                 (byte)0, //byte topByte

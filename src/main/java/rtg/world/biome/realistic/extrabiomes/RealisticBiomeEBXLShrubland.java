@@ -21,7 +21,7 @@ public class RealisticBiomeEBXLShrubland extends RealisticBiomeEBXLBase
 	{
 		super(
 			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
-			new TerrainEBXLShrubland(),
+			new TerrainEBXLShrubland(58f,80f,30f),
 			new SurfaceEBXLShrubland(topBlock, fillerBlock)
 		);
 		

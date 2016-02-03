@@ -6,7 +6,7 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBOPDeadForest extends TerrainBase
 {
-    private float minHeight = 63f;
+    private float minHeight = 58f;
     private float maxHeight = 120f;
     private float hillStrength = 30f;
     

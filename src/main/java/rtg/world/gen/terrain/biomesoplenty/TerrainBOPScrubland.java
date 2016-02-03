@@ -6,16 +6,11 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBOPScrubland extends TerrainBase
 {
-    private float minHeight = 63f;
-    private float maxHeight = 80f;
-    private float hillStrength = 30f;
+    private float minHeight;
+    private float maxHeight;
+    private float hillStrength;
     
     // 63f, 80f, 30f
-    
-    public TerrainBOPScrubland()
-    {
-    
-    }
     
     public TerrainBOPScrubland(float minHeight, float maxHeight, float hillStrength)
     {

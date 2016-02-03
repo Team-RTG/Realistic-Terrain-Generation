@@ -61,9 +61,13 @@ public class ConfigRTG
     public static boolean generateScatteredFeatures = true;
     public static boolean generateDungeons = true;
     
+    public static boolean enableCaveModifications = true;
     public static boolean enableCaves = true;
     public static int caveDensity = 8;
     public static int caveFrequency = 16;
+    
+    public static boolean enableRavineModifications = true;
+    public static boolean enableRavines = false;
 	
     public static boolean enableSnowLayers = true;
     
@@ -119,6 +123,16 @@ public class ConfigRTG
             
             /* ==================== Caves ==================== */
             
+            enableCaveModifications = config.getBoolean(
+                "Enable Cave Modifications",
+                "Caves",
+                enableCaveModifications,
+                "Must be set to TRUE for the other cave settings to have any effect."
+                + Configuration.NEW_LINE +
+                "If FALSE, RTG won't interfere with cave generation at all."
+                + Configuration.NEW_LINE
+            );
+            
             enableCaves = config.getBoolean("Enable Caves", "Caves", enableCaves, "");
             caveDensity = config.getInt("Cave Density", "Caves", caveDensity, 1, 40, "This setting controls the size of caves." + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)" + Configuration.NEW_LINE);
             caveFrequency = config.getInt("Cave Frequency", "Caves", caveFrequency, 1, 40, "This setting controls the number of caves that generate." + Configuration.NEW_LINE + "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)" + Configuration.NEW_LINE);
@@ -165,6 +179,20 @@ public class ConfigRTG
             generateOreLapis = config.getBoolean("Generate Lapis Lazuli Ore", "Ore Gen", generateOreLapis, "");
             generateOreDiamond = config.getBoolean("Generate Diamond Ore", "Ore Gen", generateOreDiamond, "");
             generateOreEmerald = config.getBoolean("Generate Emerald Ore", "Ore Gen", generateOreEmerald, "");
+            
+            /* ==================== Ravines ==================== */
+            
+            enableRavineModifications = config.getBoolean(
+                "Enable Ravine Modifications",
+                "Ravines",
+                enableRavineModifications,
+                "Must be set to TRUE for the other ravine settings to have any effect."
+                + Configuration.NEW_LINE +
+                "If FALSE, RTG won't interfere with ravine generation at all."
+                + Configuration.NEW_LINE
+            );
+            
+            enableRavines = config.getBoolean("Enable Ravines", "Ravines", enableRavines, "");
             
             /* ==================== Scattered Features ==================== */
             

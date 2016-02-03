@@ -279,7 +279,11 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
 
             for (int i1 = 0; i1 < par4 * par5; ++i1)
             {
-                par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]);
+                try {
+                    par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]);
+                } catch (Exception e) {
+                    throw new RuntimeException(genBiomes.toString()+ " " + this.biomeIndexLayer.toString());
+                }
                 if (par1ArrayOfBiomeGenBase[i1] == null) {
                     throw new RuntimeException("missing biome "+aint[i1]);
                 }

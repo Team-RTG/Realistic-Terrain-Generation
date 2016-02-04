@@ -1,9 +1,5 @@
 package rtg.world.gen;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE;
@@ -22,15 +18,12 @@ import rtg.util.CanyonColor;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeAnalyzer;
+import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
@@ -44,6 +37,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.MapGenBase;
+import net.minecraft.world.gen.MapGenCaves;
+import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.feature.WorldGenLiquids;
 import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.MapGenScatteredFeature;
@@ -55,7 +50,6 @@ import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.world.biome.RTGBiomeProvider;
 
 /**
  * Scattered features courtesy of Ezoteric (https://github.com/Ezoteric) and Choonster (https://github.com/Choonster)
@@ -122,18 +116,20 @@ public class ChunkProviderRTG implements IChunkProvider
 
         mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
 
-        caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), CAVE);
+        if (ConfigRTG.enableCaveModifications) {
+            caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), CAVE);
+        }
+        else {
+            caveGenerator = TerrainGen.getModdedMapGen(new MapGenCaves(), CAVE);
+        }
         
-        /**
-         * RTG doesn't generate ravines, but it still calls getModdedMapGen()
-         * so that other mods can hook into InitMapGenEvent if they want to
-         * generate their own ravines.
-         * 
-         * Modders, if you want to generate ravines in RTG, you need to subscribe
-         * to InitMapGenEvent with a priority higher than LOW.
-         */
-        ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(), RAVINE);
-        
+        if (ConfigRTG.enableRavineModifications) {
+            ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(), RAVINE);
+        }
+        else {
+            ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavine(), RAVINE);
+        }
+
         villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), VILLAGE);
 		strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), STRONGHOLD);
 		mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(), MINESHAFT);

@@ -50,10 +50,18 @@ public class EventManagerRTG
             }
         }
         else if (event.type == InitMapGenEvent.EventType.CAVE) {
-            event.newGen = new MapGenCavesRTG();
+            
+            if (ConfigRTG.enableCaveModifications) {
+                
+                event.newGen = new MapGenCavesRTG();
+            }
         }
         else if (event.type == InitMapGenEvent.EventType.RAVINE) {
-            event.newGen = new MapGenRavineRTG();
+            
+            if (ConfigRTG.enableRavineModifications) {
+                
+                event.newGen = new MapGenRavineRTG();
+            }
         }
 		
         if (ConfigRTG.enableDebugging) {

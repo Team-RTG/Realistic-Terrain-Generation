@@ -1,7 +1,6 @@
 package code.elix_x.coremods.antiidconflict.api;
 
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.world.chunk.Chunk;
 
 /**
@@ -24,29 +23,25 @@ public class AICChangesWrapper {
 	/**
 	 * Wrapper method to get chunk biomes.
 	 * Use this instead of {@link Chunk#getBiomeArray()}.
+	 * <br>
+	 * Do not worry that this method is empty. It is modified at runtime by AIC core mod.
 	 * @param chunk {@link Chunk} to get biomes from.
 	 * @return Array of biomes in specified chunk.
 	 */
 	public static int[] getBiomeArray(Chunk chunk){
-		try {
-			return (int[]) ReflectionHelper.findMethod(Chunk.class, chunk, new String[]{"getBiomeArray", "func_76605_m"}).invoke(chunk);
-		} catch (Exception e){
-			return new int[256];
-		}
+		return new int[256];
 	}
 
 	/**
 	 * Wrapper method to set chunk biomes.
 	 * Use this instead of {@link Chunk#setBiomeArray(byte[])}.
+	 * <br>
+	 * Do not worry that this method is empty. It is modified at runtime by AIC core mod.
 	 * @param chunk {@link Chunk} to set biomes in.
 	 * @param biomes Array of biomes to set in specified chunk.
 	 */
 	public static void setBiomeArray(Chunk chunk, int[] biomes){
-		try {
-			ReflectionHelper.findMethod(Chunk.class, chunk, new String[]{"setBiomeArray", "func_76616_a"}, int[].class).invoke(chunk, biomes);
-		} catch (Exception e){
-
-		}
+		
 	}
 
 }

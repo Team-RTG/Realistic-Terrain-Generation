@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import code.elix_x.coremods.antiidconflict.api.AICChangesWrapper;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
+import rtg.util.AICWrapper;
 import rtg.util.CanyonColor;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -97,6 +97,9 @@ public class ChunkProviderRTG implements IChunkProvider
     private float[] borderNoise;
     private long worldSeed;
     private boolean doJitter = false;
+    
+    private AICWrapper aic;
+    private boolean isAICLoaded;
 
     public ChunkProviderRTG(World world, long l)
     {
@@ -160,6 +163,9 @@ public class ChunkProviderRTG implements IChunkProvider
     	testHeight = new float[256];
     	biomesGeneratedInChunk = new float[257];
     	borderNoise = new float[256];
+    	
+    	aic = new AICWrapper();
+    	isAICLoaded = aic.isAICLoaded();
     }
 
     /**
@@ -251,14 +257,9 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
         Chunk chunk = new Chunk(this.worldObj, blocks, metadata, cx, cy);
-        if(AICChangesWrapper.isAICLoaded()){
-        	int[] biomes = AICChangesWrapper.getBiomeArray(chunk);
-        	for (k = 0; k < biomes.length; ++k)
-        	{
-        		// biomes are y-first and terrain x-first
-        		biomes[k] = this.baseBiomesList[this.xyinverted[k]].biomeID;
-        	}
-        	AICChangesWrapper.setBiomeArray(chunk, biomes);
+        
+        if(isAICLoaded){
+        	aic.setBiomeArray(chunk, baseBiomesList, xyinverted);
         } else {
         	// doJitter no longer needed as the biome array gets fixed
         	byte[] abyte1 = chunk.getBiomeArray();

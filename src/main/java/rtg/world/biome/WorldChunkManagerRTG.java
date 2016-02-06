@@ -223,7 +223,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         {
         	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
         	double[] simplexResults = new double[2];
-        	OpenSimplexNoise.noise(x / 240f, y / 240f, riverOpenSimplexNoiseInstances, simplexResults);
+        	OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
             double pX = x + simplexResults[0] * 220f;
             double pY = y + simplexResults[1] * 220f;
 
@@ -231,7 +231,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
             //TODO move the initialization of the results in a way that's more efficient but still thread safe.
             double[] results = SimplexCellularNoise.initResultArray(riverCellNoiseInstances);
             SimplexCellularNoise.resetResultArray(riverCellNoiseInstances, results);
-            SimplexCellularNoise.eval(pX / 3125.0, pY / 3125.0, riverCellNoiseInstances, results);
+            SimplexCellularNoise.eval(pX / 1875.0, pY / 1875.0, riverCellNoiseInstances, results);
             float r = (float) cellBorder(results, 30.0 / 1300.0, 1.0);
             
             return (biomeHeight * (r + 1f))
@@ -247,7 +247,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
     {
     	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
     	double[] simplexResults = new double[2];
-    	OpenSimplexNoise.noise(x / 240f, y / 240f, riverOpenSimplexNoiseInstances, simplexResults);
+    	OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
         double pX = x + simplexResults[0] * 220f;
         double pY = y + simplexResults[1] * 220f;
         
@@ -255,7 +255,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         //TODO move the initialization of the results in a way that's more efficient but still thread safe.
         double[] results = SimplexCellularNoise.initResultArray(riverCellNoiseInstances);
         SimplexCellularNoise.resetResultArray(riverCellNoiseInstances, results);
-        SimplexCellularNoise.eval(pX / 3125.0, pY / 3125.0, riverCellNoiseInstances, results);
+        SimplexCellularNoise.eval(pX / 1875.0, pY / 1875.0, riverCellNoiseInstances, results);
         return (float) cellBorder(results, 30.0 / 300.0, 1.0);
     }
     	

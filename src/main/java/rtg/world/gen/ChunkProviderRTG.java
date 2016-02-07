@@ -14,6 +14,7 @@ import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
+import rtg.util.AICWrapper;
 import rtg.util.CanyonColor;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -96,6 +97,9 @@ public class ChunkProviderRTG implements IChunkProvider
     private float[] borderNoise;
     private long worldSeed;
     private boolean doJitter = false;
+    
+    private AICWrapper aic;
+    private boolean isAICLoaded;
 
     public ChunkProviderRTG(World world, long l)
     {
@@ -159,6 +163,9 @@ public class ChunkProviderRTG implements IChunkProvider
     	testHeight = new float[256];
     	biomesGeneratedInChunk = new float[257];
     	borderNoise = new float[256];
+    	
+    	aic = new AICWrapper();
+    	isAICLoaded = aic.isAICLoaded();
     }
 
     /**
@@ -250,14 +257,26 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
         Chunk chunk = new Chunk(this.worldObj, blocks, metadata, cx, cy);
-        // doJitter no longer needed as the biome array gets fixed
-        byte[] abyte1 = chunk.getBiomeArray();
-        for (k = 0; k < abyte1.length; ++k)
-        {
-            // biomes are y-first and terrain x-first
-            abyte1[k] = (byte)this.baseBiomesList[this.xyinverted[k]].biomeID;
+        
+        if(isAICLoaded){
+        	aic.setBiomeArray(chunk, baseBiomesList, xyinverted);
+        } else {
+        	// doJitter no longer needed as the biome array gets fixed
+        	byte[] abyte1 = chunk.getBiomeArray();
+        	for (k = 0; k < abyte1.length; ++k)
+        	{
+        		// biomes are y-first and terrain x-first
+        		/*
+        		* This 2 line separation is needed, because otherwise, AIC's dynamic patching algorith detects vanilla pattern here and patches this part following vanilla logic.
+        		* Which causes game to crash.
+        		* I cannot do much on my part, so i have to do it here.
+        		* - Elix_x
+        		*/
+        		byte b = (byte)this.baseBiomesList[this.xyinverted[k]].biomeID;
+        		abyte1[k] = b;
+        	}
+        	chunk.setBiomeArray(abyte1);
         }
-        chunk.setBiomeArray(abyte1);
         chunk.generateSkylightMap();
         return chunk;
     }

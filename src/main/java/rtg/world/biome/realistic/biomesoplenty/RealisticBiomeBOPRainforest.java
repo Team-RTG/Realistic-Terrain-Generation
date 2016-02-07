@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPRainforest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPRainforest;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -20,7 +19,7 @@ public class RealisticBiomeBOPRainforest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPRainforest(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPRainforest(90f, 300f),
 			new SurfaceBOPRainforest(topBlock, fillerBlock, false, null, 1.3f)
 		);

@@ -5,8 +5,6 @@ public class BiomeConfigEBXLMountainTaiga extends BiomeConfigEBXLBase
 {
     public BiomeConfigEBXLMountainTaiga()
     {
-        super();
-        
-        this.biomeSlug = "mountaintaiga";
+        super("mountaintaiga");
     }
 }

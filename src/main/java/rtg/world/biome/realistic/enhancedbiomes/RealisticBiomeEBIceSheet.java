@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBIceSheet;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBIceSheet;
 import enhancedbiomes.api.EBAPI;
@@ -50,7 +49,7 @@ public class RealisticBiomeEBIceSheet extends RealisticBiomeEBBase
 	public RealisticBiomeEBIceSheet(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
+			ebBiome, BiomeGenBase.frozenRiver,
 			new TerrainEBIceSheet(),
 			new SurfaceEBIceSheet(
                 ebTopBlock, //Block top 

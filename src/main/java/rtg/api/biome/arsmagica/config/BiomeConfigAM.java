@@ -6,7 +6,7 @@ import rtg.api.biome.BiomeConfig;
 public class BiomeConfigAM
 {
 
-    public static BiomeConfigAMWitchwoodForest biomeConfigAMWitchwoodForest;
+    public static BiomeConfig biomeConfigAMWitchwoodForest;
     
     public static BiomeConfig[] getBiomeConfigs()
     {

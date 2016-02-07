@@ -4,10 +4,9 @@ import rtg.api.biome.BiomeConfig;
 
 public class BiomeConfigBCBase extends BiomeConfig
 {
-    public BiomeConfigBCBase()
+
+    public BiomeConfigBCBase(String biomeSlug)
     {
-        super();
-        
-        this.modSlug = "buildcraft";
+        super("buildcraft", biomeSlug);
     }
 }

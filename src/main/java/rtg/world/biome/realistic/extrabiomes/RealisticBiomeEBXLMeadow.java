@@ -6,10 +6,9 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLMeadow;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLMeadow;
 import extrabiomes.api.BiomeManager;
@@ -29,7 +28,7 @@ public class RealisticBiomeEBXLMeadow extends RealisticBiomeEBXLBase
 	public RealisticBiomeEBXLMeadow(BiomeConfig config)
 	{
 		super(
-			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLMeadow(),
 			new SurfaceEBXLMeadow(topBlock, fillerBlock)
 		);
@@ -58,7 +57,7 @@ public class RealisticBiomeEBXLMeadow extends RealisticBiomeEBXLBase
             {
                 if (rand.nextInt(4) == 0) {
                     
-                    (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                    (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
                 }
             }
         }

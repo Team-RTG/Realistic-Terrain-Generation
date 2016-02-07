@@ -5,8 +5,6 @@ public class BiomeConfigHLShrubland extends BiomeConfigHLBase
 {
     public BiomeConfigHLShrubland()
     {
-        super();
-        
-        this.biomeSlug = "shrubland";
+        super("shrubland");
     }
 }

@@ -6,10 +6,9 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBScrub;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBScrub;
 import enhancedbiomes.api.EBAPI;
@@ -60,7 +59,7 @@ public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
 	public RealisticBiomeEBScrub(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBScrub(),
 			new SurfaceEBScrub(
                 ebTopBlock, //Block top 
@@ -110,7 +109,7 @@ public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
                     spikedBush.generate(world, rand, i1, k1, j1);
                 }
                 else {
-                    new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3)).generate(world, rand, i1, k1, j1);
+                    new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3)).generate(world, rand, i1, k1, j1);
                 }
             }
         }

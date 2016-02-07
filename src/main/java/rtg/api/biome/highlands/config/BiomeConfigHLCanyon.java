@@ -5,8 +5,6 @@ public class BiomeConfigHLCanyon extends BiomeConfigHLBase
 {
     public BiomeConfigHLCanyon()
     {
-        super();
-        
-        this.biomeSlug = "canyon";
+        super("canyon");
     }
 }

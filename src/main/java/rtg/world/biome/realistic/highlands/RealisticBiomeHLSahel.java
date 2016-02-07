@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.highlands;
 import highlands.api.HighlandsBiomes;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLSahel;
 import rtg.world.gen.terrain.highlands.TerrainHLSahel;
 
@@ -22,7 +21,7 @@ public class RealisticBiomeHLSahel extends RealisticBiomeHLBase
     {
     
         super(
-            hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
+            hlBiome, BiomeGenBase.river,
             new TerrainHLSahel(),
             new SurfaceHLSahel(topBlock, fillerBlock));
         

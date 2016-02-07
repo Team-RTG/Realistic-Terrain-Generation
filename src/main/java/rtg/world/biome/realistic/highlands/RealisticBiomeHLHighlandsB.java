@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.highlands;
 import highlands.api.HighlandsBiomes;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLHighlandsB;
 import rtg.world.gen.terrain.highlands.TerrainHLHighlandsB;
 
@@ -22,7 +21,7 @@ public class RealisticBiomeHLHighlandsB extends RealisticBiomeHLBase
     {
     
         super(
-            hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+            hlBiome, BiomeGenBase.river,
             new TerrainHLHighlandsB(15f, 60f, 68f, 150f),
             new SurfaceHLHighlandsB(topBlock, fillerBlock, false, null, 1f, 1.5f, 85f, 20f, 4f));
         

@@ -5,8 +5,6 @@ public class BiomeConfigVanillaStoneBeach extends BiomeConfigVanillaBase
 {
     public BiomeConfigVanillaStoneBeach()
     {
-        super();
-        
-        this.biomeSlug = "stonebeach";
+        super("stonebeach");
     }
 }

@@ -6,8 +6,6 @@ public class BiomeConfigBOPTemperateRainforest extends BiomeConfigBOPBase
 {
     public BiomeConfigBOPTemperateRainforest()
     {
-        super();
-        
-        this.biomeSlug = "temperaterainforest";
+        super("temperaterainforest");
     }
 }

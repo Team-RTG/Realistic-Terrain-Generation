@@ -2,16 +2,18 @@ package rtg.world.gen.feature.tree;
 
 import java.util.Random;
 
+import rtg.config.rtg.ConfigRTG;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeDesertDead extends WorldGenerator
+public class WorldGenTreeRTGDesertDead extends WorldGenerator
 {
 	private int type;
 	
-    public WorldGenTreeDesertDead(int t)
+    public WorldGenTreeRTGDesertDead(int t)
     {
     	type = t;
     }
@@ -19,6 +21,11 @@ public class WorldGenTreeDesertDead extends WorldGenerator
     public boolean generate(World world, Random rand, int x, int y, int z)
     {
     	Block g = world.getBlock(x, y - 1, z);
+    	
+        if (g == Blocks.sand && !ConfigRTG.allowTreesToGenerateOnSand) {
+            return false;
+        }
+    	
     	if(g != Blocks.grass && g != Blocks.dirt && g != Blocks.sand)
     	{
     		return false;

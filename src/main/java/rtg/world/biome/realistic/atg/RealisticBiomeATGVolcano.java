@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.atg.ConfigATG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenVolcano;
@@ -24,7 +23,7 @@ public class RealisticBiomeATGVolcano extends RealisticBiomeATGBase
 	public RealisticBiomeATGVolcano(BiomeGenBase atgBiome, BiomeConfig config)
 	{
 		super(
-			atgBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
+			atgBiome, BiomeGenBase.river,
 			new TerrainATGVolcano(),
 			new SurfaceATGVolcano(atgBiome.topBlock, atgBiome.fillerBlock, true, Blocks.gravel, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f)
 		);

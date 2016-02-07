@@ -5,8 +5,6 @@ public class BiomeConfigHLOasis extends BiomeConfigHLBase
 {
     public BiomeConfigHLOasis()
     {
-        super();
-        
-        this.biomeSlug = "oasis";
+        super("oasis");
     }
 }

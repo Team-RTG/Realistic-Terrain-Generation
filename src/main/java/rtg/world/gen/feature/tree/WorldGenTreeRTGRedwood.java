@@ -2,19 +2,21 @@ package rtg.world.gen.feature.tree;
 
 import java.util.Random;
 
+import rtg.config.rtg.ConfigRTG;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeRedwood extends WorldGenerator
+public class WorldGenTreeRTGRedwood extends WorldGenerator
 {
 	private int height;
 	private int leaves;
 	private int trunk;
 	private int metadata;
 	
-	public WorldGenTreeRedwood(int h, int l, int t, int m)
+	public WorldGenTreeRTGRedwood(int h, int l, int t, int m)
 	{
 		height = h;
 		leaves = l;
@@ -25,6 +27,11 @@ public class WorldGenTreeRedwood extends WorldGenerator
     public boolean generate(World world, Random rand, int x, int y, int z)
     {
     	Block g = world.getBlock(x, y - 1, z);
+    	
+        if (g == Blocks.sand && !ConfigRTG.allowTreesToGenerateOnSand) {
+            return false;
+        }
+    	
     	if(g != Blocks.grass && g != Blocks.dirt && g != Blocks.sand)
     	{
     		return false;

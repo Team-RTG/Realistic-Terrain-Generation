@@ -6,8 +6,6 @@ public class BiomeConfigBOPRainforest extends BiomeConfigBOPBase
 {
     public BiomeConfigBOPRainforest()
     {
-        super();
-        
-        this.biomeSlug = "rainforest";
+        super("rainforest");
     }
 }

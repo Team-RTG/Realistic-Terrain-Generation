@@ -3,14 +3,14 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaSwampland;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
-import rtg.world.gen.feature.tree.WorldGenTreeWillow;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGWillow;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSwampland;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaSwampland;
 
@@ -32,7 +32,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
     
         super(
             BiomeGenBase.swampland,
-            BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+            BiomeGenBase.river,
             new TerrainVanillaSwampland(),
             new SurfaceVanillaSwampland(topBlock, fillerBlock));
         
@@ -59,21 +59,24 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
                 
                 if (z52 < 110)
                 {
-                    WorldGenerator worldgenerator = new WorldGenTreeWillow();
+                    WorldGenerator worldgenerator = new WorldGenTreeRTGWillow();
                     worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                     worldgenerator.generate(world, rand, j6, z52, k10);
                 }
             }
         }
         
-        if (rand.nextInt((int) (4f / strength)) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            if (y22 < 100)
+        if (this.config.getPropertyById(BiomeConfigVanillaSwampland.decorationLogsId).valueBoolean) {
+        
+            if (rand.nextInt((int) (4f / strength)) == 0)
             {
-                (new WorldGenLog(Blocks.log2, 1, Blocks.leaves2, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                if (y22 < 100)
+                {
+                    (new WorldGenLog(Blocks.log2, 1, Blocks.leaves2, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+                }
             }
         }
         
@@ -84,7 +87,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
             int k1 = world.getHeightValue(i1, j1);
             if (k1 < 110)
             {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
             }
         }
         

@@ -3,15 +3,14 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.vanilla.ConfigVanilla;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForestM;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeMangrove;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaRoofedForestM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForestM;
 
@@ -20,7 +19,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
-import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBase
@@ -36,7 +34,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
     
         super(
             mutationBiome,
-            BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+            BiomeGenBase.river,
             new TerrainVanillaRoofedForestM(),
             new SurfaceVanillaRoofedForestM(topBlock, fillerBlock));
         
@@ -55,21 +53,19 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
         for (int b1 = 0; b1 < l * strength; b1++)
         {
-            if (rand.nextInt(1) == 0)
+
+            int j6 = chunkX + rand.nextInt(16) + 8;
+            int k10 = chunkY + rand.nextInt(16) + 8;
+            int z52 = world.getHeightValue(j6, k10);
+            
+            if (z52 < 110)
             {
-                int j6 = chunkX + rand.nextInt(16) + 8;
-                int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeightValue(j6, k10);
-                
-                if (z52 < 110)
-                {
-                    WorldGenerator worldgenerator =
-                        new WorldGenTreeMangrove(Blocks.log2, 1, Blocks.leaves2, 1, 9 + rand.nextInt(5), 3 + rand.nextInt(2), 13f, 3,
-                            0.32f,
-                            0.1f);
-                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                    worldgenerator.generate(world, rand, j6, z52, k10);
-                }
+                WorldGenerator worldgenerator =
+                    new WorldGenTreeRTGMangrove(Blocks.log2, 1, Blocks.leaves2, 1, 9 + rand.nextInt(5), 3 + rand.nextInt(2), 13f, 3,
+                        0.32f,
+                        0.1f);
+                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+                worldgenerator.generate(world, rand, j6, z52, k10);
             }
         }
         
@@ -83,25 +79,26 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
                 
                 if (z52 < 120)
                 {
-                    WorldGenerator worldgenerator =
-                        rand.nextInt(1) == 0 ? new WorldGenTreeMangrove(
-                            Blocks.log2, 1, Blocks.leaves2, 1, 9 + rand.nextInt(5), 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
-                            )
-                            : new WorldGenTrees(false);
+                    WorldGenerator worldgenerator = new WorldGenTreeRTGMangrove(
+                        Blocks.log2, 1, Blocks.leaves2, 1, 9 + rand.nextInt(5), 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
+                    );
                     worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                     worldgenerator.generate(world, rand, j6, z52, k10);
                 }
             }
         }
         
-        if (rand.nextInt((int) (12f / strength)) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            if (y22 < 100)
+        if (this.config.getPropertyById(BiomeConfigVanillaRoofedForestM.decorationLogsId).valueBoolean) {
+        
+            if (rand.nextInt((int) (12f / strength)) == 0)
             {
-                (new WorldGenLog(Blocks.log2, 1, Blocks.leaves2, -1, 9 + rand.nextInt(5))).generate(world, rand, x22, y22, z22);
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                if (y22 < 100)
+                {
+                    (new WorldGenLog(Blocks.log2, 1, Blocks.leaves2, -1, 9 + rand.nextInt(5))).generate(world, rand, x22, y22, z22);
+                }
             }
         }
         
@@ -112,7 +109,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
             int k1 = world.getHeightValue(i1, j1);
             if (k1 < 110)
             {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
             }
         }
 

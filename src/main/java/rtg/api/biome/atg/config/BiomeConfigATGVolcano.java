@@ -5,8 +5,6 @@ public class BiomeConfigATGVolcano extends BiomeConfigATGBase
 {
     public BiomeConfigATGVolcano()
     {
-        super();
-        
-        this.biomeSlug = "volcano";
+        super("volcano");
     }
 }

@@ -4,8 +4,6 @@ public class BiomeConfigEBCreekBed extends BiomeConfigEBBase
 {
     public BiomeConfigEBCreekBed()
     {
-        super();
-        
-        this.biomeSlug = "creekbed";
+        super("creekbed");
     }
 }

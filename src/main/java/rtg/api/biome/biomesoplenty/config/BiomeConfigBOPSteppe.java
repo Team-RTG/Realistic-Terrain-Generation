@@ -6,8 +6,6 @@ public class BiomeConfigBOPSteppe extends BiomeConfigBOPBase
 {
     public BiomeConfigBOPSteppe()
     {
-        super();
-        
-        this.biomeSlug = "steppe";
+        super("steppe");
     }
 }

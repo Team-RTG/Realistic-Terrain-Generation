@@ -5,8 +5,6 @@ public class BiomeConfigEBXLSavanna extends BiomeConfigEBXLBase
 {
     public BiomeConfigEBXLSavanna()
     {
-        super();
-        
-        this.biomeSlug = "savanna";
+        super("savanna");
     }
 }

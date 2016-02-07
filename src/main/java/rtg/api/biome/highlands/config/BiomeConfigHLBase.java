@@ -4,10 +4,9 @@ import rtg.api.biome.BiomeConfig;
 
 public class BiomeConfigHLBase extends BiomeConfig
 {
-    public BiomeConfigHLBase()
+
+    public BiomeConfigHLBase(String biomeSlug)
     {
-        super();
-        
-        this.modSlug = "highlands";
+        super("highlands", biomeSlug);
     }
 }

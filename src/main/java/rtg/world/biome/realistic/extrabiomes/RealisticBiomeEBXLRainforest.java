@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.extrabiomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLRainforest;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLRainforest;
 import extrabiomes.api.BiomeManager;
@@ -20,7 +19,7 @@ public class RealisticBiomeEBXLRainforest extends RealisticBiomeEBXLBase
 	public RealisticBiomeEBXLRainforest(BiomeConfig config)
 	{
 		super(
-			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLRainforest(230f, 43f, 0f),
 			new SurfaceEBXLRainforest(topBlock, fillerBlock)
 		);

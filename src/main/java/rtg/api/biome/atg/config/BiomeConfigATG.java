@@ -7,14 +7,14 @@ import rtg.api.biome.BiomeConfig;
 public class BiomeConfigATG
 {
 
-    public static BiomeConfigATGGravelBeach biomeConfigATGGravelBeach;
-    public static BiomeConfigATGRockySteppe biomeConfigATGRockySteppe;
-    public static BiomeConfigATGShrubland biomeConfigATGShrubland;
-    public static BiomeConfigATGSnowyGravelBeach biomeConfigATGSnowyGravelBeach;
-    public static BiomeConfigATGTropicalShrubland biomeConfigATGTropicalShrubland;
-    public static BiomeConfigATGTundra biomeConfigATGTundra;
-    public static BiomeConfigATGVolcano biomeConfigATGVolcano;
-    public static BiomeConfigATGWoodland biomeConfigATGWoodland;
+    public static BiomeConfig biomeConfigATGGravelBeach;
+    public static BiomeConfig biomeConfigATGRockySteppe;
+    public static BiomeConfig biomeConfigATGShrubland;
+    public static BiomeConfig biomeConfigATGSnowyGravelBeach;
+    public static BiomeConfig biomeConfigATGTropicalShrubland;
+    public static BiomeConfig biomeConfigATGTundra;
+    public static BiomeConfig biomeConfigATGVolcano;
+    public static BiomeConfig biomeConfigATGWoodland;
     
     public static BiomeConfig[] getBiomeConfigs()
     {

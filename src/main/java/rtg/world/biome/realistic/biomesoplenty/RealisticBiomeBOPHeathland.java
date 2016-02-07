@@ -3,10 +3,9 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPHeathland;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPHeathland;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPHeathland;
@@ -27,7 +26,7 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPHeathland(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPHeathland(),
 			new SurfaceBOPHeathland(topBlock, fillerBlock)
 		);
@@ -46,15 +45,18 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase
     
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
         
-        if (rand.nextInt((int) (8f / strength)) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            
-            if (y22 < 100)
+        if (this.config.getPropertyById(BiomeConfigBOPHeathland.decorationLogsId).valueBoolean) {
+        
+            if (rand.nextInt((int) (8f / strength)) == 0)
             {
-                (new WorldGenLog(Blocks.log, (byte)0, Blocks.leaves, -1, 3 + rand.nextInt(2))).generate(world, rand, x22, y22, z22);
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                
+                if (y22 < 100)
+                {
+                    (new WorldGenLog(Blocks.log, (byte)0, Blocks.leaves, -1, 3 + rand.nextInt(2))).generate(world, rand, x22, y22, z22);
+                }
             }
         }
         

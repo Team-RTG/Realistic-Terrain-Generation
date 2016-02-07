@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSahara;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSahara;
 import enhancedbiomes.api.EBAPI;
@@ -58,7 +57,7 @@ public class RealisticBiomeEBSahara extends RealisticBiomeEBBase
 	public RealisticBiomeEBSahara(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBSahara(),
 			new SurfaceEBSahara(
                 ebTopBlock, //Block top 

@@ -3,13 +3,12 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
+import rtg.api.biome.enhancedbiomes.config.BiomeConfigEBMangroves;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeShrubCustom;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrubCustom;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBMangrove;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBMangrove;
 import enhancedbiomes.api.EBAPI;
@@ -60,7 +59,7 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
 	public RealisticBiomeEBMangrove(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBMangrove(),
 			new SurfaceEBMangrove(
                 ebTopBlock, //Block top 
@@ -116,15 +115,18 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
             }
         }
         
-        if (rand.nextInt((int) (8f / strength)) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            if (y22 < 100)
+        if (this.config.getPropertyById(BiomeConfigEBMangroves.decorationLogsId).valueBoolean) {
+        
+            if (rand.nextInt((int) (8f / strength)) == 0)
             {
-                if (rand.nextInt(3) == 0) {
-                    (new WorldGenLog(EnhancedBiomesBlocks.logOak, 3, EnhancedBiomesBlocks.leavesOak, -1, 3 + rand.nextInt(3))).generate(world, rand, x22, y22, z22);
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                if (y22 < 100)
+                {
+                    if (rand.nextInt(3) == 0) {
+                        (new WorldGenLog(EnhancedBiomesBlocks.logOak, 3, EnhancedBiomesBlocks.leavesOak, -1, 3 + rand.nextInt(3))).generate(world, rand, x22, y22, z22);
+                    }
                 }
             }
         }
@@ -138,7 +140,7 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
             if (k1 < 110)
             {
                 if (rand.nextInt(4) == 0) {
-                    (new WorldGenTreeShrubCustom(rand.nextInt(4) + 1, EnhancedBiomesBlocks.logOak, (byte)3, EnhancedBiomesBlocks.leavesOak, (byte)3)).generate(world, rand, i1, k1, j1);
+                    (new WorldGenTreeRTGShrubCustom(rand.nextInt(4) + 1, EnhancedBiomesBlocks.logOak, (byte)3, EnhancedBiomesBlocks.leavesOak, (byte)3)).generate(world, rand, i1, k1, j1);
                 }
             }
         }

@@ -5,8 +5,6 @@ public class BiomeConfigEBXLExtremeJungle extends BiomeConfigEBXLBase
 {
     public BiomeConfigEBXLExtremeJungle()
     {
-        super();
-        
-        this.biomeSlug = "extremejungle";
+        super("extremejungle");
     }
 }

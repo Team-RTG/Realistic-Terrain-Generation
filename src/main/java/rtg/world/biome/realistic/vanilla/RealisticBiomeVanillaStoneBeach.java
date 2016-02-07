@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaStoneBeach;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaStoneBeach;
 
@@ -18,7 +17,7 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase
 	{
 		super(
 			BiomeGenBase.stoneBeach,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+			BiomeGenBase.river,
 			new TerrainVanillaStoneBeach(),
 			new SurfaceVanillaStoneBeach(topBlock, fillerBlock, true, Blocks.gravel, 1f, 1.5f, 85f, 20f, 4f)
 		);

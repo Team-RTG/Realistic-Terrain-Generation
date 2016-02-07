@@ -10,17 +10,17 @@ import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungle;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungle;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenJungleCacti;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeMangrove;
-import rtg.world.gen.feature.tree.WorldGenTreePalmCustom;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungle;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaJungle;
 
@@ -44,7 +44,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 	{
 		super(
 			BiomeGenBase.jungle,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+			BiomeGenBase.river,
 			new TerrainVanillaJungle(),
 			new SurfaceVanillaJungle(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.09f)
 		);
@@ -79,7 +79,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
                     WorldGenerator worldgenerator =
                         rand.nextInt(3) != 0
                         ? new WorldGenMegaJungle(false, 10 + rand.nextInt(18), 20, 3, 3)
-                        : new WorldGenTreeMangrove(Blocks.log, 3, Blocks.leaves, 3, 10 + rand.nextInt(18), 3 + rand.nextInt(2), 13f, RandomUtil.getRandomInt(rand, 4, 5),
+                        : new WorldGenTreeRTGMangrove(Blocks.log, 3, Blocks.leaves, 3, 10 + rand.nextInt(18), 3 + rand.nextInt(2), 13f, RandomUtil.getRandomInt(rand, 4, 5),
                         0.32f,
                         0.2f);
                     worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -92,7 +92,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
                     int k101 = chunkY + rand.nextInt(16) + 8;
                     int z521 = world.getHeightValue(j61, k101);
 
-                    WorldGenerator worldgenerator = new WorldGenTreePalmCustom((float)(10 + rand.nextInt(11)));
+                    WorldGenerator worldgenerator = new WorldGenTreeRTGPalmCustom((float)(10 + rand.nextInt(11)));
                     worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                     worldgenerator.generate(world, rand, j61, z521, k101);
                 }
@@ -113,12 +113,15 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
                 
             }
     
-            if (l > 0f && rand.nextInt(3) == 0)
-            {
-                int x22 = chunkX + rand.nextInt(16) + 8;
-                int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
-                (new WorldGenLog(Blocks.log, 3, Blocks.leaves, -1, 4 + rand.nextInt(5))).generate(world, rand, x22, y22, z22);
+            if (this.config.getPropertyById(BiomeConfigVanillaJungle.decorationLogsId).valueBoolean) {
+            
+                if (l > 0f && rand.nextInt(3) == 0)
+                {
+                    int x22 = chunkX + rand.nextInt(16) + 8;
+                    int z22 = chunkY + rand.nextInt(16) + 8;
+                    int y22 = world.getHeightValue(x22, z22);
+                    (new WorldGenLog(Blocks.log, 3, Blocks.leaves, -1, 4 + rand.nextInt(5))).generate(world, rand, x22, y22, z22);
+                }
             }
         }
         

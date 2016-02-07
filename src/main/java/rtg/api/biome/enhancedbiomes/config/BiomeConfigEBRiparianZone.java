@@ -4,8 +4,6 @@ public class BiomeConfigEBRiparianZone extends BiomeConfigEBBase
 {
     public BiomeConfigEBRiparianZone()
     {
-        super();
-        
-        this.biomeSlug = "riparianzone";
+        super("riparianzone");
     }
 }

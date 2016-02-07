@@ -5,8 +5,6 @@ public class BiomeConfigATGWoodland extends BiomeConfigATGBase
 {
     public BiomeConfigATGWoodland()
     {
-        super();
-        
-        this.biomeSlug = "woodland";
+        super("woodland");
     }
 }

@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.atg;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.atg.ConfigATG;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.atg.SurfaceATGGravelBeach;
 import rtg.world.gen.terrain.atg.TerrainATGGravelBeach;
 
@@ -13,7 +12,7 @@ public class RealisticBiomeATGGravelBeach extends RealisticBiomeATGBase
 	public RealisticBiomeATGGravelBeach(BiomeGenBase atgBiome, BiomeConfig config)
 	{
 		super(
-			atgBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+			atgBiome, BiomeGenBase.river,
 			new TerrainATGGravelBeach(),
 			new SurfaceATGGravelBeach(atgBiome.topBlock, atgBiome.fillerBlock, atgBiome.topBlock, atgBiome.fillerBlock, (byte)0, 1)
 		);

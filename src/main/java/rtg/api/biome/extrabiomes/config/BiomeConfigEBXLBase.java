@@ -4,10 +4,9 @@ import rtg.api.biome.BiomeConfig;
 
 public class BiomeConfigEBXLBase extends BiomeConfig
 {
-    public BiomeConfigEBXLBase()
+
+    public BiomeConfigEBXLBase(String biomeSlug)
     {
-        super();
-        
-        this.modSlug = "extrabiomes";
+        super("extrabiomes", biomeSlug);
     }
 }

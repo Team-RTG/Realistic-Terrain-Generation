@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenVolcano;
@@ -60,7 +59,7 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPVolcano(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPVolcano(),
 			surface
 		);

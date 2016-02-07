@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.thaumcraft;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.thaumcraft.ConfigTC;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.thaumcraft.SurfaceTCTaintedLand;
 import rtg.world.gen.terrain.thaumcraft.TerrainTCTaintedLand;
 
@@ -13,7 +12,7 @@ public class RealisticBiomeTCTaintedLand extends RealisticBiomeTCBase
 	public RealisticBiomeTCTaintedLand(BiomeGenBase tcBiome, BiomeConfig config)
 	{
 		super(
-			tcBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+			tcBiome, BiomeGenBase.river,
 			new TerrainTCTaintedLand(),
 			new SurfaceTCTaintedLand(tcBiome.topBlock, tcBiome.fillerBlock)
 		);

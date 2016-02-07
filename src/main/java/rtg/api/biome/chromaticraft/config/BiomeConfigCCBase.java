@@ -4,10 +4,9 @@ import rtg.api.biome.BiomeConfig;
 
 public class BiomeConfigCCBase extends BiomeConfig
 {
-    public BiomeConfigCCBase()
+
+    public BiomeConfigCCBase(String biomeSlug)
     {
-        super();
-        
-        this.modSlug = "chromaticraft";
+        super("chromaticraft", biomeSlug);
     }
 }

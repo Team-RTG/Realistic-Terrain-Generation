@@ -7,9 +7,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreePineEuro extends WorldGenerator
+public class WorldGenTreeRTGPineEuro extends WorldGenerator
 {
-	public WorldGenTreePineEuro()
+	public WorldGenTreeRTGPineEuro()
 	{
 	}
 

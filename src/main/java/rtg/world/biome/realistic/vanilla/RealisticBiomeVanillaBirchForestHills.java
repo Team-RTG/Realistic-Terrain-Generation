@@ -3,15 +3,15 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.vanilla.ConfigVanilla;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForestHills;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeBirch;
-import rtg.world.gen.feature.tree.WorldGenTreeBirchSmall;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGBirch;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGBirchSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForestHills;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestHills;
 
@@ -20,7 +20,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenForest;
-import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanillaBase
@@ -32,7 +31,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
 	{
 		super(
 			BiomeGenBase.birchForestHills,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+			BiomeGenBase.river,
 			new TerrainVanillaBirchForestHills(),
 			new SurfaceVanillaBirchForestHills(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f)
 		);
@@ -57,7 +56,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
             int k10 = chunkY + rand.nextInt(16) + 8;
             int z52 = world.getHeightValue(j6, k10);
 
-            WorldGenerator worldgenerator = new WorldGenTreeBirchSmall(4 + rand.nextInt(7), 8 + rand.nextInt(12), 2);
+            WorldGenerator worldgenerator = new WorldGenTreeRTGBirchSmall(4 + rand.nextInt(7), 8 + rand.nextInt(12), 2);
             worldgenerator.setScale(1.0D, 1.0D, 1.0D);
             worldgenerator.generate(world, rand, j6, z52, k10);
         }
@@ -71,21 +70,24 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
             if (z52 < 120)
             {
                 WorldGenerator worldgenerator =
-                    rand.nextInt(4) != 0 ? new WorldGenTreeBirch(4 + rand.nextInt(7), 8 + rand.nextInt(12))
-                        : rand.nextInt(10) != 0 ? new WorldGenTrees(false) : new WorldGenForest(false, false);
+                    rand.nextInt(4) != 0 ? new WorldGenTreeRTGBirch(4 + rand.nextInt(7), 8 + rand.nextInt(12))
+                        : rand.nextInt(10) != 0 ? new WorldGenTreeRTGTrees(false) : new WorldGenForest(false, false);
                 worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                 worldgenerator.generate(world, rand, j6, z52, k10);
             }
         }
         
-        if (rand.nextInt((int) (8f / strength)) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            if (y22 < 100)
+        if (this.config.getPropertyById(BiomeConfigVanillaBirchForestHills.decorationLogsId).valueBoolean) {
+        
+            if (rand.nextInt((int) (8f / strength)) == 0)
             {
-                (new WorldGenLog(Blocks.log, 2, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                if (y22 < 100)
+                {
+                    (new WorldGenLog(Blocks.log, 2, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+                }
             }
         }
         
@@ -96,7 +98,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
             int k1 = world.getHeightValue(i1, j1);
             if (k1 < 110)
             {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
             }
         }
         

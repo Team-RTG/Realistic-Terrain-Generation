@@ -536,7 +536,7 @@ public class BiomeConfigManager
         BiomeConfigEB.biomeConfigEBSnowyWastelands = new BiomeConfigEBSnowyWastelands();
         BiomeConfigEB.biomeConfigEBSteppe = new BiomeConfigEBSteppe();
         BiomeConfigEB.biomeConfigEBStoneCanyon = new BiomeConfigEBStoneCanyon();
-        BiomeConfigEB.biomeConfigEBStoneCanyons = new BiomeConfigEBStoneCanyon2();
+        BiomeConfigEB.biomeConfigEBStoneCanyon2 = new BiomeConfigEBStoneCanyon2();
         BiomeConfigEB.biomeConfigEBTropicalArchipelago = new BiomeConfigEBTropicalArchipelago();
         BiomeConfigEB.biomeConfigEBTundra = new BiomeConfigEBTundra();
         BiomeConfigEB.biomeConfigEBVolcano = new BiomeConfigEBVolcano();
@@ -547,7 +547,7 @@ public class BiomeConfigManager
         BiomeConfigEB.biomeConfigEBWoodlandLake = new BiomeConfigEBWoodlandLake();
         BiomeConfigEB.biomeConfigEBWoodlandLakeEdge = new BiomeConfigEBWoodlandLakeEdge();
         BiomeConfigEB.biomeConfigEBWoodlands = new BiomeConfigEBWoodlands();
-        BiomeConfigEB.biomeConfigEBXericSavannah = new BiomeConfigEBXericSavanna();
+        BiomeConfigEB.biomeConfigEBXericSavanna = new BiomeConfigEBXericSavanna();
         BiomeConfigEB.biomeConfigEBXericShrubland = new BiomeConfigEBXericShrubland();
     }
     

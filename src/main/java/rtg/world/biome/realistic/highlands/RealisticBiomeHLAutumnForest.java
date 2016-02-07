@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.highlands;
 import highlands.api.HighlandsBiomes;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLAutumnForest;
 import rtg.world.gen.terrain.highlands.TerrainHLAutumnForest;
 
@@ -20,7 +19,7 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
     public RealisticBiomeHLAutumnForest(BiomeConfig config) {
     
         super(
-            hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+            hlBiome, BiomeGenBase.river,
             new TerrainHLAutumnForest(0f, 50f, 68f, 200f),
             new SurfaceHLAutumnForest(topBlock, fillerBlock));
         

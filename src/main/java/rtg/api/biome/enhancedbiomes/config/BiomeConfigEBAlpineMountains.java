@@ -4,8 +4,6 @@ public class BiomeConfigEBAlpineMountains extends BiomeConfigEBBase
 {
     public BiomeConfigEBAlpineMountains()
     {
-        super();
-        
-        this.biomeSlug = "alpinemountains";
+        super("alpinemountains");
     }
 }

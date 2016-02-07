@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.extrabiomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLSavanna;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLSavanna;
 import extrabiomes.api.BiomeManager;
@@ -21,7 +20,7 @@ public class RealisticBiomeEBXLSavanna extends RealisticBiomeEBXLBase
 	public RealisticBiomeEBXLSavanna(BiomeConfig config)
 	{
 		super(
-			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
+			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLSavanna(),
 			new SurfaceEBXLSavanna(topBlock, fillerBlock, Blocks.sand, 13f, 0.27f)
 		);

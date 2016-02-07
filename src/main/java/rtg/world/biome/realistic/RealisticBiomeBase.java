@@ -20,7 +20,7 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
@@ -39,7 +39,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.world.biome.RTGBiomeProvider;
 
 public class RealisticBiomeBase extends BiomeBase {
     
@@ -72,7 +71,7 @@ public class RealisticBiomeBase extends BiomeBase {
     
     public RealisticBiomeBase(BiomeGenBase biome) {
     
-        this(biome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE));
+        this(biome, BiomeGenBase.river);
     }
     
     public RealisticBiomeBase(BiomeGenBase biome, BiomeGenBase river) {

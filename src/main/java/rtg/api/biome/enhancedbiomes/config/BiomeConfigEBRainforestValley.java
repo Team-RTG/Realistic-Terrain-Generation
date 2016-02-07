@@ -4,8 +4,6 @@ public class BiomeConfigEBRainforestValley extends BiomeConfigEBBase
 {
     public BiomeConfigEBRainforestValley()
     {
-        super();
-        
-        this.biomeSlug = "rainforestvalley";
+        super("rainforestvalley");
     }
 }

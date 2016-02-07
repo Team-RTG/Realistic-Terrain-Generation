@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBWoodlandHills;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBWoodlandHills;
 import enhancedbiomes.EnhancedBiomesMod;
@@ -51,7 +50,7 @@ public class RealisticBiomeEBWoodlandHills extends RealisticBiomeEBBase
 	public RealisticBiomeEBWoodlandHills(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBWoodlandHills(),
 			new SurfaceEBWoodlandHills(
                 ebTopBlock, //Block top 

@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.extrabiomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLIceWasteland;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLIceWasteland;
 import extrabiomes.api.BiomeManager;
@@ -20,7 +19,7 @@ public class RealisticBiomeEBXLIceWasteland extends RealisticBiomeEBXLBase
 	public RealisticBiomeEBXLIceWasteland(BiomeConfig config)
 	{
 		super(
-			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
+			ebxlBiome, BiomeGenBase.frozenRiver,
 			new TerrainEBXLIceWasteland(),
 			new SurfaceEBXLIceWasteland(topBlock, fillerBlock)
 		);

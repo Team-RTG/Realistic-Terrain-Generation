@@ -4,8 +4,6 @@ public class BiomeConfigEBOasis extends BiomeConfigEBBase
 {
     public BiomeConfigEBOasis()
     {
-        super();
-        
-        this.biomeSlug = "oasis";
+        super("oasis");
     }
 }

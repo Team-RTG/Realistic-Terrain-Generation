@@ -3,14 +3,14 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaIceMountains;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreePine;
-import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPine;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIceMountains;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaIceMountains;
 
@@ -32,7 +32,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     
         super(
             BiomeGenBase.iceMountains,
-            BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
+            BiomeGenBase.frozenRiver,
             new TerrainVanillaIceMountains(230f, 80f, 0f),
             new SurfaceVanillaIceMountains(topBlock, fillerBlock, Blocks.snow, Blocks.snow, Blocks.packed_ice, Blocks.ice, 60f,
                 -0.14f, 14f, 0.25f));
@@ -70,8 +70,8 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
             if (z52 < 90)
             {
                 WorldGenerator worldgenerator =
-                    rand.nextInt(8) != 0 ? new WorldGenTreePine(4, rand.nextInt(4) == 0 ? 1 : 0)
-                        : rand.nextInt(3) != 0 ? new WorldGenTreePineSmall(3 + rand.nextInt(6), 6 + rand.nextInt(8), 0)
+                    rand.nextInt(8) != 0 ? new WorldGenTreeRTGPine(4, rand.nextInt(4) == 0 ? 1 : 0)
+                        : rand.nextInt(3) != 0 ? new WorldGenTreeRTGPineSmall(3 + rand.nextInt(6), 6 + rand.nextInt(8), 0)
                             : new WorldGenIceSpike();
                 worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                 worldgenerator.generate(world, rand, j6, z52, k10);
@@ -79,21 +79,24 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
             else if (z52 < 120)
             {
                 WorldGenerator worldgenerator =
-                    rand.nextInt(4) != 0 ? new WorldGenTreePineSmall(1 + rand.nextInt(3), 3 + rand.nextInt(5), rand.nextInt(2))
+                    rand.nextInt(4) != 0 ? new WorldGenTreeRTGPineSmall(1 + rand.nextInt(3), 3 + rand.nextInt(5), rand.nextInt(2))
                     : new WorldGenIceSpike();
                 worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                 worldgenerator.generate(world, rand, j6, z52, k10);
             }
         }
         
-        if (rand.nextInt((int) (12f / strength)) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            if (y22 < 100)
+        if (this.config.getPropertyById(BiomeConfigVanillaIceMountains.decorationLogsId).valueBoolean) {
+        
+            if (rand.nextInt((int) (12f / strength)) == 0)
             {
-                (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                if (y22 < 100)
+                {
+                    (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
+                }
             }
         }
     }

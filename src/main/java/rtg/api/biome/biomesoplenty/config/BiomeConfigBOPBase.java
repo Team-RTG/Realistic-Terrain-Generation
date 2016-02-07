@@ -4,10 +4,9 @@ import rtg.api.biome.BiomeConfig;
 
 public class BiomeConfigBOPBase extends BiomeConfig
 {
-    public BiomeConfigBOPBase()
+
+    public BiomeConfigBOPBase(String biomeSlug)
     {
-        super();
-        
-        this.modSlug = "biomesoplenty";
+        super("biomesoplenty", biomeSlug);
     }
 }

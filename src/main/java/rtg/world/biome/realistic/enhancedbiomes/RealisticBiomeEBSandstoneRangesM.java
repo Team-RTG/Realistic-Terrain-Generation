@@ -3,13 +3,12 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
+import rtg.api.biome.enhancedbiomes.config.BiomeConfigEBSandstoneRangesM;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSandstoneRangesM;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSandstoneRangesM;
 import enhancedbiomes.api.EBAPI;
@@ -60,7 +59,7 @@ public class RealisticBiomeEBSandstoneRangesM extends RealisticBiomeEBBase
 	public RealisticBiomeEBSandstoneRangesM(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBSandstoneRangesM(false, 35f, 160f, 40f, 30f, 60),
 			new SurfaceEBSandstoneRangesM(
                 ebTopBlock, //Block top 
@@ -121,20 +120,23 @@ public class RealisticBiomeEBSandstoneRangesM extends RealisticBiomeEBBase
             }
         }
         
-        if (rand.nextInt((int) (8f / strength)) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            if (y22 < 100)
+        if (this.config.getPropertyById(BiomeConfigEBSandstoneRangesM.decorationLogsId).valueBoolean) {
+        
+            if (rand.nextInt((int) (8f / strength)) == 0)
             {
-                if (rand.nextInt(8) == 0) {
-                    
-                    if (rand.nextBoolean()) {
-                        (new WorldGenLog(EnhancedBiomesBlocks.logSpruce, 1, EnhancedBiomesBlocks.leavesSpruce, -1, 4 + rand.nextInt(3))).generate(world, rand, x22, y22, z22);
-                    }
-                    else {
-                        (new WorldGenLog(EnhancedBiomesBlocks.logBirch, 1, EnhancedBiomesBlocks.leavesBirch, -1, 4 + rand.nextInt(3))).generate(world, rand, x22, y22, z22);
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                if (y22 < 100)
+                {
+                    if (rand.nextInt(8) == 0) {
+                        
+                        if (rand.nextBoolean()) {
+                            (new WorldGenLog(EnhancedBiomesBlocks.logSpruce, 1, EnhancedBiomesBlocks.leavesSpruce, -1, 4 + rand.nextInt(3))).generate(world, rand, x22, y22, z22);
+                        }
+                        else {
+                            (new WorldGenLog(EnhancedBiomesBlocks.logBirch, 1, EnhancedBiomesBlocks.leavesBirch, -1, 4 + rand.nextInt(3))).generate(world, rand, x22, y22, z22);
+                        }
                     }
                 }
             }
@@ -152,7 +154,7 @@ public class RealisticBiomeEBSandstoneRangesM extends RealisticBiomeEBBase
                     TreeGen.eucalyptus_shrub(rand);
                 }
                 else {
-                    (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                    (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
                 }
             }
         }

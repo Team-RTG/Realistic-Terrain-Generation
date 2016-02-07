@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPQuagmire;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPQuagmire;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -20,7 +19,7 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPQuagmire(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPQuagmire(),
 			new SurfaceBOPQuagmire(topBlock, fillerBlock)
 		);

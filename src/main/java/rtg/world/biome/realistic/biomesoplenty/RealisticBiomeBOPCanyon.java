@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPCanyon;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPCanyon;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -20,7 +19,7 @@ public class RealisticBiomeBOPCanyon extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPCanyon(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPCanyon(true, 35f, 160f, 60f, 40f, 69f),
 			new SurfaceBOPCanyon(topBlock, fillerBlock, (byte)0, 0)
 		);

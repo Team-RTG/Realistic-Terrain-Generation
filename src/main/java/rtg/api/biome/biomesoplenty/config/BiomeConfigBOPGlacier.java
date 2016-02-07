@@ -6,8 +6,6 @@ public class BiomeConfigBOPGlacier extends BiomeConfigBOPBase
 {
     public BiomeConfigBOPGlacier()
     {
-        super();
-        
-        this.biomeSlug = "glacier";
+        super("glacier");
     }
 }

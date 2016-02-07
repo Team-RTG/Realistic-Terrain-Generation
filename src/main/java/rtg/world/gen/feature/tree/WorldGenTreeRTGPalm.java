@@ -2,12 +2,14 @@ package rtg.world.gen.feature.tree;
 
 import java.util.Random;
 
+import rtg.config.rtg.ConfigRTG;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreePalm extends WorldGenerator
+public class WorldGenTreeRTGPalm extends WorldGenerator
 {
 	private static int leavesLength = 133;
 	private static int[] leaves = new int[]{
@@ -66,7 +68,7 @@ public class WorldGenTreePalm extends WorldGenerator
 		3, -1, -2, 0
 	};
 	
-	public WorldGenTreePalm()
+	public WorldGenTreeRTGPalm()
 	{
 	}
 	
@@ -74,6 +76,7 @@ public class WorldGenTreePalm extends WorldGenerator
 	public boolean generate(World world, Random rand, int x, int y, int z) 
 	{
     	Block b = world.getBlock(x, y - 1, z);
+    	
     	if(b != Blocks.grass && b != Blocks.dirt && b != Blocks.sand)
     	{
     		return false;

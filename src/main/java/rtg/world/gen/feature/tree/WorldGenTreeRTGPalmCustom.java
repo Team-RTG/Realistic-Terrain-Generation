@@ -2,12 +2,14 @@ package rtg.world.gen.feature.tree;
 
 import java.util.Random;
 
+import rtg.config.rtg.ConfigRTG;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreePalmCustom extends WorldGenerator
+public class WorldGenTreeRTGPalmCustom extends WorldGenerator
 {
 	private static int leavesLength = 133;
 	private static int[] leaves = new int[]{
@@ -68,7 +70,7 @@ public class WorldGenTreePalmCustom extends WorldGenerator
 	
 	private float treeLength = 15f;
 	
-    public WorldGenTreePalmCustom(float pTreeLength, int pLeavesLength, int[] pLeaves, int pCocoasLength, int[] pCocoas)
+    public WorldGenTreeRTGPalmCustom(float pTreeLength, int pLeavesLength, int[] pLeaves, int pCocoasLength, int[] pCocoas)
     {
         treeLength = pTreeLength;
         leavesLength = pLeavesLength;
@@ -77,12 +79,12 @@ public class WorldGenTreePalmCustom extends WorldGenerator
         cocoas = pCocoas;
     }
     
-    public WorldGenTreePalmCustom()
+    public WorldGenTreeRTGPalmCustom()
     {
 
     }
     
-    public WorldGenTreePalmCustom(float pTreeLength)
+    public WorldGenTreeRTGPalmCustom(float pTreeLength)
     {
         treeLength = pTreeLength;
     }
@@ -91,6 +93,7 @@ public class WorldGenTreePalmCustom extends WorldGenerator
 	public boolean generate(World world, Random rand, int x, int y, int z) 
 	{
     	Block b = world.getBlock(x, y - 1, z);
+    	
     	if(b != Blocks.grass && b != Blocks.dirt && b != Blocks.sand)
     	{
     		return false;

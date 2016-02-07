@@ -7,9 +7,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeWillow extends WorldGenerator
+public class WorldGenTreeRTGWillow extends WorldGenerator
 {
-	public WorldGenTreeWillow()
+	public WorldGenTreeRTGWillow()
 	{
 	}
 

@@ -5,8 +5,6 @@ public class BiomeConfigATGRockySteppe extends BiomeConfigATGBase
 {
     public BiomeConfigATGRockySteppe()
     {
-        super();
-        
-        this.biomeSlug = "rockysteppe";
+        super("rockysteppe");
     }
 }

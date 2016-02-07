@@ -5,8 +5,6 @@ public class BiomeConfigHLSahel extends BiomeConfigHLBase
 {
     public BiomeConfigHLSahel()
     {
-        super();
-        
-        this.biomeSlug = "sahel";
+        super("sahel");
     }
 }

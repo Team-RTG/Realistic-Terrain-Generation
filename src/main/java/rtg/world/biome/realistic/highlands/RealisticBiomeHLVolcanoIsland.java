@@ -8,7 +8,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenVolcano;
@@ -57,7 +56,7 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
     {
     
         super(
-            hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
+            hlBiome, BiomeGenBase.river,
             new TerrainHLVolcanoIsland(),
             surface
         );

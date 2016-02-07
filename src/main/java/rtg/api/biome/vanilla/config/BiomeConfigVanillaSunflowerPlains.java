@@ -5,8 +5,6 @@ public class BiomeConfigVanillaSunflowerPlains extends BiomeConfigVanillaBase
 {
     public BiomeConfigVanillaSunflowerPlains()
     {
-        super();
-        
-        this.biomeSlug = "sunflowerplains";
+        super("sunflowerplains");
     }
 }

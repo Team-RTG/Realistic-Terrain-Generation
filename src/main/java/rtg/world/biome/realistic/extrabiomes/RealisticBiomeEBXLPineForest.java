@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.extrabiomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLPineForest;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLPineForest;
 import extrabiomes.api.BiomeManager;
@@ -20,7 +19,7 @@ public class RealisticBiomeEBXLPineForest extends RealisticBiomeEBXLBase
 	public RealisticBiomeEBXLPineForest(BiomeConfig config)
 	{
 		super(
-			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLPineForest(58f, 90f, 20),
 			new SurfaceEBXLPineForest(topBlock, fillerBlock, false, null, 1.2f)
 		);

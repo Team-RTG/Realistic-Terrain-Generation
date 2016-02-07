@@ -5,8 +5,6 @@ public class BiomeConfigHLBog extends BiomeConfigHLBase
 {
     public BiomeConfigHLBog()
     {
-        super();
-        
-        this.biomeSlug = "bog";
+        super("bog");
     }
 }

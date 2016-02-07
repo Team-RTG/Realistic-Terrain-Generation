@@ -3,12 +3,11 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPAlpsForest;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPAlpsForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPAlpsForest;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -28,7 +27,7 @@ public class RealisticBiomeBOPAlpsForest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPAlpsForest(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
+			bopBiome, BiomeGenBase.frozenRiver,
 			new TerrainBOPAlpsForest(),
 			new SurfaceBOPAlpsForest(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.15f)
 		);
@@ -50,12 +49,15 @@ public class RealisticBiomeBOPAlpsForest extends RealisticBiomeBOPBase
         
         float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
         
-        if (l > 0f && rand.nextInt(12) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
+        if (this.config.getPropertyById(BiomeConfigBOPAlpsForest.decorationLogsId).valueBoolean) {
+        
+            if (l > 0f && rand.nextInt(12) == 0)
+            {
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
+            }
         }
         
         for (int b = 0; b < 2f * strength; b++)
@@ -68,11 +70,11 @@ public class RealisticBiomeBOPAlpsForest extends RealisticBiomeBOPBase
                 
                 if (rand.nextInt(10) == 0)
                 {
-                    (new WorldGenTreeShrub(rand.nextInt(5) + 4, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
+                    (new WorldGenTreeRTGShrub(rand.nextInt(5) + 4, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
                 }
                 else
                 {
-                    (new WorldGenTreeShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
+                    (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
                 }
             }
         }

@@ -8,8 +8,6 @@ public class BiomeConfigCCEnderForest extends BiomeConfigCCBase
 {
     public BiomeConfigCCEnderForest()
     {
-        super();
-        
-        this.biomeSlug = "enderforest";
+        super("enderforest");
     }
 }

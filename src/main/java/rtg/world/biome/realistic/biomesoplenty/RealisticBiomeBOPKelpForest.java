@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPKelpForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPKelpForest;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -20,7 +19,7 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPKelpForest(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPKelpForest(false, -10f, 0f, 0f, 0f, 30f),
 			new SurfaceBOPKelpForest(topBlock, fillerBlock)
 		);

@@ -6,6 +6,7 @@ import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForest;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForest;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
@@ -93,14 +94,17 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             }
         }
         
-        if (rand.nextInt((int) (10f / strength)) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            if (y22 < 100)
+        if (this.config.getPropertyById(BiomeConfigVanillaRoofedForest.decorationLogsId).valueBoolean) {
+        
+            if (rand.nextInt((int) (10f / strength)) == 0)
             {
-                (new WorldGenLog(Blocks.log2, 1, Blocks.leaves2, -1, 9 + rand.nextInt(5))).generate(world, rand, x22, y22, z22);
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                if (y22 < 100)
+                {
+                    (new WorldGenLog(Blocks.log2, 1, Blocks.leaves2, -1, 9 + rand.nextInt(5))).generate(world, rand, x22, y22, z22);
+                }
             }
         }
         

@@ -3,7 +3,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMountain;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
@@ -77,13 +77,16 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
         
         float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
         
-        if (l > 0f && rand.nextInt(6) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-
-            (new WorldGenLog(BOPCBlocks.logs4, (byte)0, BOPCBlocks.colorizedLeaves1, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+        if (this.config.getPropertyById(BiomeConfigBOPMountain.decorationLogsId).valueBoolean) {
+        
+            if (l > 0f && rand.nextInt(6) == 0)
+            {
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+    
+                (new WorldGenLog(BOPCBlocks.logs4, (byte)0, BOPCBlocks.colorizedLeaves1, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+            }
         }
         
         for (int b = 0; b < 2f * strength; b++)

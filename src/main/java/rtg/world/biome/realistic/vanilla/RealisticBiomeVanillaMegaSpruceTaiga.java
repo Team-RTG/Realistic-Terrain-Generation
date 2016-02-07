@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaMegaSpruceTaiga;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -48,12 +49,15 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
         // trees
         float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
         
-        if (l > 0f && rand.nextInt(6) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
+        if (this.config.getPropertyById(BiomeConfigVanillaMegaSpruceTaiga.decorationLogsId).valueBoolean) {
+        
+            if (l > 0f && rand.nextInt(6) == 0)
+            {
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
+            }
         }
     }
 }

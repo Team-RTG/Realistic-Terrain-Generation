@@ -3,7 +3,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMysticGrove;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenLog;
@@ -46,57 +46,60 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
     
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
         
-        if (rand.nextInt(8) == 0) {
-            
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-                        
-            Block logBlock;
-            byte logByte;
-            int logLength;
-            
-            if (rand.nextInt(5) == 0) {
+        if (this.config.getPropertyById(BiomeConfigBOPMysticGrove.decorationLogsId).valueBoolean) {
+        
+            if (rand.nextInt(8) == 0) {
                 
-                logBlock = Blocks.log;
-                logByte = (byte)0;
-                logLength = 3 + rand.nextInt(4);
-            }
-            else {
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                            
+                Block logBlock;
+                byte logByte;
+                int logLength;
                 
-                if (rand.nextInt(3) == 0) {
+                if (rand.nextInt(5) == 0) {
                     
                     logBlock = Blocks.log;
                     logByte = (byte)0;
-                    logLength = 3 + rand.nextInt(2);
+                    logLength = 3 + rand.nextInt(4);
                 }
                 else {
+                    
                     if (rand.nextInt(3) == 0) {
                         
-                        logBlock = BOPCBlocks.logs4;
-                        logByte = (byte)2;
+                        logBlock = Blocks.log;
+                        logByte = (byte)0;
                         logLength = 3 + rand.nextInt(2);
                     }
                     else {
-                        if (rand.nextInt(4) == 0) {
+                        if (rand.nextInt(3) == 0) {
                             
-                            logBlock = BOPCBlocks.logs2;
-                            logByte = (byte)1;
+                            logBlock = BOPCBlocks.logs4;
+                            logByte = (byte)2;
                             logLength = 3 + rand.nextInt(2);
                         }
-                        else {                            
-                            
-                            logBlock = Blocks.log;
-                            logByte = (byte)0;
-                            logLength = 3 + rand.nextInt(3);
+                        else {
+                            if (rand.nextInt(4) == 0) {
+                                
+                                logBlock = BOPCBlocks.logs2;
+                                logByte = (byte)1;
+                                logLength = 3 + rand.nextInt(2);
+                            }
+                            else {                            
+                                
+                                logBlock = Blocks.log;
+                                logByte = (byte)0;
+                                logLength = 3 + rand.nextInt(3);
+                            }
                         }
                     }
                 }
-            }
-            
-            if (y22 < 100)
-            {
-                (new WorldGenLog(logBlock, logByte, Blocks.leaves, -1, logLength)).generate(world, rand, x22, y22, z22);
+                
+                if (y22 < 100)
+                {
+                    (new WorldGenLog(logBlock, logByte, Blocks.leaves, -1, logLength)).generate(world, rand, x22, y22, z22);
+                }
             }
         }
 

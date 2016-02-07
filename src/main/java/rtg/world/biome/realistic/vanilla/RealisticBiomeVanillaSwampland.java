@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaSwampland;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -65,14 +66,17 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
             }
         }
         
-        if (rand.nextInt((int) (4f / strength)) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            if (y22 < 100)
+        if (this.config.getPropertyById(BiomeConfigVanillaSwampland.decorationLogsId).valueBoolean) {
+        
+            if (rand.nextInt((int) (4f / strength)) == 0)
             {
-                (new WorldGenLog(Blocks.log2, 1, Blocks.leaves2, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                if (y22 < 100)
+                {
+                    (new WorldGenLog(Blocks.log2, 1, Blocks.leaves2, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+                }
             }
         }
         

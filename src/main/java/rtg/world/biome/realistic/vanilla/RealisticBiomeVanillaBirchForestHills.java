@@ -3,7 +3,7 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.vanilla.ConfigVanilla;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForestHills;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenGrass;
@@ -77,14 +77,17 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
             }
         }
         
-        if (rand.nextInt((int) (8f / strength)) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            if (y22 < 100)
+        if (this.config.getPropertyById(BiomeConfigVanillaBirchForestHills.decorationLogsId).valueBoolean) {
+        
+            if (rand.nextInt((int) (8f / strength)) == 0)
             {
-                (new WorldGenLog(Blocks.log, 2, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                if (y22 < 100)
+                {
+                    (new WorldGenLog(Blocks.log, 2, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+                }
             }
         }
         

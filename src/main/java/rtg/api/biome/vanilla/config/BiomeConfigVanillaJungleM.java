@@ -6,6 +6,9 @@ import rtg.api.biome.BiomeConfigProperty.Type;
 
 public class BiomeConfigVanillaJungleM extends BiomeConfigVanillaBase
 {
+    public static final String decorationLogsId = "decorationLogs";
+    public static final String decorationLogsName = "RTG Decoration: Logs";
+    
     public static final String decorationCactusId = "decorationCactus";
     public static final String decorationCactusName = "RTG Decoration: Cactus";
     
@@ -13,6 +16,7 @@ public class BiomeConfigVanillaJungleM extends BiomeConfigVanillaBase
     {
         super("junglem");
         
+        this.addProperty(new BiomeConfigProperty(decorationLogsId, Type.BOOLEAN, decorationLogsName, "", true));
         this.addProperty(new BiomeConfigProperty(decorationCactusId, Type.BOOLEAN, decorationCactusName, "", true));
     }
 }

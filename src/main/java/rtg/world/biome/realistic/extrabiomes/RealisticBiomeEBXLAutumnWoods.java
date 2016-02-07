@@ -3,7 +3,7 @@ package rtg.world.biome.realistic.extrabiomes;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.extrabiomes.ConfigEBXL;
+import rtg.api.biome.extrabiomes.config.BiomeConfigEBXLAutumnWoods;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenLog;
@@ -48,19 +48,22 @@ public class RealisticBiomeEBXLAutumnWoods extends RealisticBiomeEBXLBase
         
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
         
-        if (rand.nextInt(24) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            
-            if (y22 < 100)
+        if (this.config.getPropertyById(BiomeConfigEBXLAutumnWoods.decorationLogsId).valueBoolean) {
+        
+            if (rand.nextInt(24) == 0)
             {
-                if (rand.nextBoolean()) {
-                    (new WorldGenLog(logBlock, 1, Blocks.leaves, -1, 2 + rand.nextInt(2))).generate(world, rand, x22, y22, z22);
-                }
-                else {
-                    (new WorldGenLog(Blocks.log, 0, Blocks.leaves, -1, 2 + rand.nextInt(2))).generate(world, rand, x22, y22, z22);
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                
+                if (y22 < 100)
+                {
+                    if (rand.nextBoolean()) {
+                        (new WorldGenLog(logBlock, 1, Blocks.leaves, -1, 2 + rand.nextInt(2))).generate(world, rand, x22, y22, z22);
+                    }
+                    else {
+                        (new WorldGenLog(Blocks.log, 0, Blocks.leaves, -1, 2 + rand.nextInt(2))).generate(world, rand, x22, y22, z22);
+                    }
                 }
             }
         }

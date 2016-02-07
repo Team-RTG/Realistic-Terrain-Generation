@@ -3,7 +3,7 @@ package rtg.world.biome.realistic.extrabiomes;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.extrabiomes.ConfigEBXL;
+import rtg.api.biome.extrabiomes.config.BiomeConfigEBXLRedwoodLush;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenFlowers;
@@ -58,18 +58,21 @@ public class RealisticBiomeEBXLRedwoodLush extends RealisticBiomeEBXLBase
             }
         }
         
-        if (rand.nextInt((int) (8f / strength)) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            if (y22 < 100)
+        if (this.config.getPropertyById(BiomeConfigEBXLRedwoodLush.decorationLogsId).valueBoolean) {
+        
+            if (rand.nextInt((int) (8f / strength)) == 0)
             {
-                if (rand.nextBoolean()) {
-                    (new WorldGenLog(Blocks.log, 0, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
-                }
-                else {
-                    (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                if (y22 < 100)
+                {
+                    if (rand.nextBoolean()) {
+                        (new WorldGenLog(Blocks.log, 0, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+                    }
+                    else {
+                        (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
+                    }
                 }
             }
         }

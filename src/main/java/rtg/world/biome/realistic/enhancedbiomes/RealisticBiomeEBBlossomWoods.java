@@ -3,7 +3,7 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
+import rtg.api.biome.enhancedbiomes.config.BiomeConfigEBBlossomWoods;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenFlowers;
@@ -97,16 +97,19 @@ public class RealisticBiomeEBBlossomWoods extends RealisticBiomeEBBase
         
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
         
-        if (rand.nextInt((int) (6f / strength)) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
+        if (this.config.getPropertyById(BiomeConfigEBBlossomWoods.decorationLogsId).valueBoolean) {
             
-            if (y22 < 100)
+            if (rand.nextInt((int) (6f / strength)) == 0)
             {
-                if (rand.nextBoolean()) {
-                    (new WorldGenLog(EnhancedBiomesBlocks.logJungle, 2, EnhancedBiomesBlocks.leavesJungle, -1, 2 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                
+                if (y22 < 100)
+                {
+                    if (rand.nextBoolean()) {
+                        (new WorldGenLog(EnhancedBiomesBlocks.logJungle, 2, EnhancedBiomesBlocks.leavesJungle, -1, 2 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+                    }
                 }
             }
         }

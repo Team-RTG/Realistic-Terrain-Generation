@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaIceMountains;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -85,14 +86,17 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
             }
         }
         
-        if (rand.nextInt((int) (12f / strength)) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            if (y22 < 100)
+        if (this.config.getPropertyById(BiomeConfigVanillaIceMountains.decorationLogsId).valueBoolean) {
+        
+            if (rand.nextInt((int) (12f / strength)) == 0)
             {
-                (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                if (y22 < 100)
+                {
+                    (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
+                }
             }
         }
     }

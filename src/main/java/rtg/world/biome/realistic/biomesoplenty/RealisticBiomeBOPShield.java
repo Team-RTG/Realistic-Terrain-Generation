@@ -3,7 +3,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPShield;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenLog;
@@ -60,30 +60,33 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase
             }
         }
 
-        if (rand.nextInt(6) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            
-            Block log;
-            byte logMeta;
-            int intLogLength;
-            
-            if (rand.nextBoolean()) {
+        if (this.config.getPropertyById(BiomeConfigBOPShield.decorationLogsId).valueBoolean) {
+        
+            if (rand.nextInt(6) == 0)
+            {
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
                 
-                log = BOPCBlocks.logs4;
-                logMeta = (byte)0;
-                intLogLength = 3 + rand.nextInt(2);
-            }
-            else {
+                Block log;
+                byte logMeta;
+                int intLogLength;
                 
-                log = Blocks.log;
-                logMeta = (byte)1;
-                intLogLength = 3 + rand.nextInt(2);
+                if (rand.nextBoolean()) {
+                    
+                    log = BOPCBlocks.logs4;
+                    logMeta = (byte)0;
+                    intLogLength = 3 + rand.nextInt(2);
+                }
+                else {
+                    
+                    log = Blocks.log;
+                    logMeta = (byte)1;
+                    intLogLength = 3 + rand.nextInt(2);
+                }
+    
+                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, intLogLength)).generate(world, rand, x22, y22, z22);            
             }
-
-            (new WorldGenLog(log, logMeta, Blocks.leaves, -1, intLogLength)).generate(world, rand, x22, y22, z22);            
         }
     }
 }

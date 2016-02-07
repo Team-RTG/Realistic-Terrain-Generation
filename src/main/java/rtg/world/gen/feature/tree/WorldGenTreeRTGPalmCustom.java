@@ -94,10 +94,6 @@ public class WorldGenTreeRTGPalmCustom extends WorldGenerator
 	{
     	Block b = world.getBlock(x, y - 1, z);
     	
-        if (b == Blocks.sand && !ConfigRTG.allowTreesToGenerateOnSand) {
-            return false;
-        }
-    	
     	if(b != Blocks.grass && b != Blocks.dirt && b != Blocks.sand)
     	{
     		return false;

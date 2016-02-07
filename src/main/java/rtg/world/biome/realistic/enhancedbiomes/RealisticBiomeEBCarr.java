@@ -9,8 +9,9 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBCarr;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBCarr;
 import enhancedbiomes.api.EBAPI;
@@ -22,7 +23,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenForest;
-import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeEBCarr extends RealisticBiomeEBBase
@@ -129,8 +129,8 @@ public class RealisticBiomeEBCarr extends RealisticBiomeEBBase
                 if (z52 < 120)
                 {
                     WorldGenerator worldgenerator =
-                        rand.nextInt(2) == 0 ? new WorldGenTreePineSmall(4 + rand.nextInt(7), 6 + rand.nextInt(9), 0)
-                            : rand.nextInt(10) != 0 ? new WorldGenTrees(false) : new WorldGenForest(false, false);
+                        rand.nextInt(2) == 0 ? new WorldGenTreeRTGPineSmall(4 + rand.nextInt(7), 6 + rand.nextInt(9), 0)
+                            : rand.nextInt(10) != 0 ? new WorldGenTreeRTGTrees(false) : new WorldGenForest(false, false);
                     worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                     worldgenerator.generate(world, rand, j6, z52, k10);
                 }
@@ -163,7 +163,7 @@ public class RealisticBiomeEBCarr extends RealisticBiomeEBBase
             int k1 = world.getHeightValue(i1, j1);
             if (k1 < 110)
             {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
             }
         }
         

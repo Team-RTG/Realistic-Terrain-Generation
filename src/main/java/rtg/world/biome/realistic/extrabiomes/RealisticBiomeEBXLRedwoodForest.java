@@ -9,7 +9,7 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLRedwoodForest;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLRedwoodForest;
 import extrabiomes.api.BiomeManager;
@@ -84,7 +84,7 @@ public class RealisticBiomeEBXLRedwoodForest extends RealisticBiomeEBXLBase
             int k1 = world.getHeightValue(i1, j1);
             if (k1 < 110)
             {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
             }
         }
         

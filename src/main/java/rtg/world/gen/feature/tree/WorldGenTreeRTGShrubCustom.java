@@ -8,7 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeShrub extends WorldGenerator
+public class WorldGenTreeRTGShrubCustom extends WorldGenerator
 {
 	private int size;
 	private Block logBlock;
@@ -17,21 +17,21 @@ public class WorldGenTreeShrub extends WorldGenerator
 	private int leaveMeta;
 	private boolean sand;
 
-	public WorldGenTreeShrub(int s, int log, int leav)
+	public WorldGenTreeRTGShrubCustom(int s, Block log, byte logByte, Block leav, byte leavByte)
 	{
-		this(s, log, leav, false);
+		this(s, log, logByte, leav, leavByte, false);
 	}
 	
-	public WorldGenTreeShrub(int s, int log, int leav, boolean sa)
+	public WorldGenTreeRTGShrubCustom(int s, Block log, byte logByte, Block leav, byte leavByte, boolean sa)
 	{
 		size = s;
 		sand = sa;
 
-		logBlock = log < 3 ? Blocks.log : Blocks.log2;
-		logMeta = log > 2 ? log - 3 : log;
+		logBlock = log;
+		logMeta = logByte;
 		
-		leaveBlock = leav < 4 ? Blocks.leaves : Blocks.leaves2;
-		leaveMeta = leav > 3 ? leav - 4 : leav;
+		leaveBlock = leav;
+		leaveMeta = leavByte;
 	}
 	
 	@Override

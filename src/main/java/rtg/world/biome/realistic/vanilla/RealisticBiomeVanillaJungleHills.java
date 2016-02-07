@@ -19,8 +19,8 @@ import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenJungleCacti;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeMangrove;
-import rtg.world.gen.feature.tree.WorldGenTreePalmCustom;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleHills;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleHills;
 
@@ -79,7 +79,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
                     WorldGenerator worldgenerator =
                         rand.nextInt(3) != 0
                         ? new WorldGenMegaJungle(false, 10 + rand.nextInt(18), 20, 3, 3)
-                        : new WorldGenTreeMangrove(Blocks.log, 3, Blocks.leaves, 3, 10 + rand.nextInt(18), 3 + rand.nextInt(2), 13f, RandomUtil.getRandomInt(rand, 4, 5),
+                        : new WorldGenTreeRTGMangrove(Blocks.log, 3, Blocks.leaves, 3, 10 + rand.nextInt(18), 3 + rand.nextInt(2), 13f, RandomUtil.getRandomInt(rand, 4, 5),
                         0.32f,
                         0.2f);
                     worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -92,7 +92,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
                     int k101 = chunkY + rand.nextInt(16) + 8;
                     int z521 = world.getHeightValue(j61, k101);
 
-                    WorldGenerator worldgenerator = new WorldGenTreePalmCustom((float)(10 + rand.nextInt(11)));
+                    WorldGenerator worldgenerator = new WorldGenTreeRTGPalmCustom((float)(10 + rand.nextInt(11)));
                     worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                     worldgenerator.generate(world, rand, j61, z521, k101);
                 }

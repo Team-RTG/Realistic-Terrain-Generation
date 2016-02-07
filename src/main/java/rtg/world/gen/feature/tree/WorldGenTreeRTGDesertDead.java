@@ -7,11 +7,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeDesertDead extends WorldGenerator
+public class WorldGenTreeRTGDesertDead extends WorldGenerator
 {
 	private int type;
 	
-    public WorldGenTreeDesertDead(int t)
+    public WorldGenTreeRTGDesertDead(int t)
     {
     	type = t;
     }

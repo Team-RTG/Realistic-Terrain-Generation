@@ -13,8 +13,8 @@ import rtg.util.RandomUtil;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeMangrove;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaRoofedForest;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForest;
 
@@ -85,7 +85,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
                 
                 if (z52 < 120)
                 {
-                    WorldGenerator worldgenerator = new WorldGenTreeMangrove(
+                    WorldGenerator worldgenerator = new WorldGenTreeRTGMangrove(
                         Blocks.log2, 1, Blocks.leaves2, 1, 9 + rand.nextInt(5), 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
                     );
                     worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -115,7 +115,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             int k1 = world.getHeightValue(i1, j1);
             if (k1 < 110)
             {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
             }
         }
         

@@ -7,17 +7,17 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeSavanna extends WorldGenerator
+public class WorldGenTreeRTGSavanna extends WorldGenerator
 {
 	private int type;
 	private boolean sand;
 	
-    public WorldGenTreeSavanna(int t)
+    public WorldGenTreeRTGSavanna(int t)
     {
     	this(t, true);
     }
     
-    public WorldGenTreeSavanna(int t, boolean s)
+    public WorldGenTreeRTGSavanna(int t, boolean s)
     {
     	type = t;
     	sand = s;

@@ -8,7 +8,7 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBEphemeralLakeEdge;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBEphemeralLakeEdge;
 import enhancedbiomes.api.EBAPI;
@@ -140,7 +140,7 @@ public class RealisticBiomeEBEphemeralLakeEdge extends RealisticBiomeEBBase
             if (k1 < 110)
             {
                 if (rand.nextInt(4) == 0) {
-                    (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                    (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
                 }
             }
         }

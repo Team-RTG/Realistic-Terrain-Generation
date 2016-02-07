@@ -9,8 +9,8 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
-import rtg.world.gen.feature.tree.WorldGenTreeWillow;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGWillow;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSwamplandM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaSwamplandM;
 
@@ -61,7 +61,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase
                 
                 if (z52 < 110)
                 {
-                    WorldGenerator worldgenerator = new WorldGenTreeWillow();
+                    WorldGenerator worldgenerator = new WorldGenTreeRTGWillow();
                     worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                     worldgenerator.generate(world, rand, j6, z52, k10);
                 }
@@ -89,7 +89,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase
             int k1 = world.getHeightValue(i1, j1);
             if (k1 < 110)
             {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
             }
         }
         

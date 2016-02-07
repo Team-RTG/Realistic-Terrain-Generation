@@ -10,10 +10,10 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreePine;
-import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
-import rtg.world.gen.feature.tree.WorldGenTreeSpruceSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPine;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdTaigaHills;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaColdTaigaHills;
 
@@ -72,17 +72,17 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
             if (z52 < 90)
             {
                 WorldGenerator worldgenerator =
-                    rand.nextInt(10) != 0 ? new WorldGenTreePine(4, rand.nextInt(4) == 0 ? 1 : 0)
-                        : rand.nextInt(3) != 0 ? new WorldGenTreePineSmall(3 + rand.nextInt(6), 6 + rand.nextInt(8), 0)
-                            : new WorldGenTreeSpruceSmall(rand.nextInt(2) + 1);
+                    rand.nextInt(10) != 0 ? new WorldGenTreeRTGPine(4, rand.nextInt(4) == 0 ? 1 : 0)
+                        : rand.nextInt(3) != 0 ? new WorldGenTreeRTGPineSmall(3 + rand.nextInt(6), 6 + rand.nextInt(8), 0)
+                            : new WorldGenTreeRTGSpruceSmall(rand.nextInt(2) + 1);
                 worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                 worldgenerator.generate(world, rand, j6, z52, k10);
             }
             else if (z52 < 120)
             {
                 WorldGenerator worldgenerator =
-                    rand.nextInt(4) != 0 ? new WorldGenTreePineSmall(1 + rand.nextInt(3), 3 + rand.nextInt(5), rand.nextInt(2))
-                        : new WorldGenTreeSpruceSmall(rand.nextInt(2));
+                    rand.nextInt(4) != 0 ? new WorldGenTreeRTGPineSmall(1 + rand.nextInt(3), 3 + rand.nextInt(5), rand.nextInt(2))
+                        : new WorldGenTreeRTGSpruceSmall(rand.nextInt(2));
                 worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                 worldgenerator.generate(world, rand, j6, z52, k10);
             }
@@ -109,7 +109,7 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
             int k1 = world.getHeightValue(i1, j1);
             if (k1 < 110)
             {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
             }
         }
         

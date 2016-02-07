@@ -8,7 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeSprucePineBig extends WorldGenerator
+public class WorldGenTreeRTGPineBig extends WorldGenerator
 {
 	private int startHeight;
 	private int treeSize;
@@ -16,12 +16,12 @@ public class WorldGenTreeSprucePineBig extends WorldGenerator
 	private int metadataLog;
 	private int metadataLeaves;
 	
-	public WorldGenTreeSprucePineBig(int start, int s)
+	public WorldGenTreeRTGPineBig(int start, int s)
 	{
-		this(start, s, 1, 1);
+		this(start, s, 0, 0);
 	}
 	
-	public WorldGenTreeSprucePineBig(int start, int s, int log, int leaves)
+	public WorldGenTreeRTGPineBig(int start, int s, int log, int leaves)
 	{
 		startHeight = start;
 		treeSize = s;

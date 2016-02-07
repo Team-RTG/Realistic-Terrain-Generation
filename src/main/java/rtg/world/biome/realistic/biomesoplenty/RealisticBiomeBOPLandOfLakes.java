@@ -9,9 +9,9 @@ import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPLandOfLakes;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeBirch;
-import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGBirch;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPLandOfLakes;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPLandOfLakes;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -67,8 +67,8 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
                     if (z52 < 120) {
                         
                         WorldGenerator worldgenerator =
-                            rand.nextBoolean() ? new WorldGenTreeBirch(4 + rand.nextInt(7), 8 + rand.nextInt(12))
-                            : new WorldGenTreePineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
+                            rand.nextBoolean() ? new WorldGenTreeRTGBirch(4 + rand.nextInt(7), 8 + rand.nextInt(12))
+                            : new WorldGenTreeRTGPineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
                         worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                         worldgenerator.generate(world, rand, j6, z52, k10);
                     }
@@ -100,7 +100,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
                 int k1 = world.getHeightValue(i1, j1);
                 if (k1 < 110)
                 {
-                    (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                    (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
                 }
             }
         }

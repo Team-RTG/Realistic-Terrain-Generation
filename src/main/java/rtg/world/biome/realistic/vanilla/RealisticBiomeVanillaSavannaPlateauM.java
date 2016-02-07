@@ -9,7 +9,7 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenCacti;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.tree.WorldGenTreeSavanna;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSavannaPlateauM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaSavannaPlateauM;
 
@@ -83,7 +83,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
                     
                     if (z52 < 100f || (z52 < 120f && rand.nextInt(10) == 0))
                     {
-                        WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreeSavanna(1);
+                        WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreeRTGSavanna(1);
                         worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                         worldgenerator.generate(world, rand, j6, z52, k10);
                     }
@@ -148,7 +148,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
             
             if (rand.nextInt(3) == 0)
             {
-                WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreeSavanna(1);
+                WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreeRTGSavanna(1);
                 worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                 worldgenerator.generate(world, rand, j6, z52, k10);
             }

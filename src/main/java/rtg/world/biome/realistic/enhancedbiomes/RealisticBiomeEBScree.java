@@ -8,7 +8,7 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBScree;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBScree;
 import enhancedbiomes.api.EBAPI;
@@ -159,7 +159,7 @@ public class RealisticBiomeEBScree extends RealisticBiomeEBBase
                     TreeGen.eucalyptus_shrub(rand);
                 }
                 else {
-                    (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                    (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
                 }
             }
         }

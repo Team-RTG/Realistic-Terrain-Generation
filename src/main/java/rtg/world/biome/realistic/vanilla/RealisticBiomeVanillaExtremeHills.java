@@ -4,14 +4,13 @@ import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHills;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreePineEuro;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPineEuro;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHills;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHills;
 
@@ -73,8 +72,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
             int z52 = world.getHeightValue(j6, k10);
             
             if (rand.nextInt(24) == 0) {
-                // WorldGenerator worldgenerator = new WorldGenTreeSpruceSmall(1 + rand.nextInt(2));
-                WorldGenerator worldgenerator = new WorldGenTreePineEuro();
+                WorldGenerator worldgenerator = new WorldGenTreeRTGPineEuro();
                 worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                 worldgenerator.generate(world, rand, j6, z52, k10);
             }
@@ -98,11 +96,11 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
             int k1 = world.getHeightValue(i1, j1);
             if (rand.nextInt(10) == 0)
             {
-                (new WorldGenTreeShrub(rand.nextInt(5) + 4, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(5) + 4, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
             }
             else
             {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
             }
         }
         

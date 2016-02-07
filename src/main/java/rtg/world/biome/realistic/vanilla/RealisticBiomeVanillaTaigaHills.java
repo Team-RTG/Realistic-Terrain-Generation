@@ -10,9 +10,9 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
-import rtg.world.gen.feature.tree.WorldGenTreeSpruceSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaTaigaHills;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaTaigaHills;
 
@@ -72,8 +72,8 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase
             int z52 = world.getHeightValue(j6, k10);
             
             WorldGenerator worldgenerator =
-                rand.nextInt(4) == 0 ? new WorldGenTreeSpruceSmall(1 + rand.nextInt(2)) : rand.nextInt(6) == 0 ? new WorldGenTreePineSmall(
-                    1 + rand.nextInt(3), 4 + rand.nextInt(4)) : new WorldGenTreePineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
+                rand.nextInt(4) == 0 ? new WorldGenTreeRTGSpruceSmall(1 + rand.nextInt(2)) : rand.nextInt(6) == 0 ? new WorldGenTreeRTGPineSmall(
+                    1 + rand.nextInt(3), 4 + rand.nextInt(4)) : new WorldGenTreeRTGPineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
             worldgenerator.setScale(1.0D, 1.0D, 1.0D);
             worldgenerator.generate(world, rand, j6, z52, k10);
         }
@@ -96,11 +96,11 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase
             int k1 = world.getHeightValue(i1, j1);
             if (rand.nextInt(10) == 0)
             {
-                (new WorldGenTreeShrub(rand.nextInt(5) + 4, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(5) + 4, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
             }
             else
             {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
             }
         }
         

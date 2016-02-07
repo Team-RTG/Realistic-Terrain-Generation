@@ -7,7 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeMangrove extends WorldGenerator
+public class WorldGenTreeRTGJungleFat extends WorldGenerator
 {
 	private Block blockLog;
 	private int metadataLog;
@@ -23,10 +23,10 @@ public class WorldGenTreeMangrove extends WorldGenerator
 	private float verRand;
 	
 	/*
-	 * Blocks.log, 0, Blocks.leaves, 0, 9 + rand.nextInt(5), 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
+	 * Blocks.log, 0, Blocks.leaves, 0, 18 + rand.nextInt(5), 5 + rand.nextInt(2), 16f, 5, 0.32f, 0.1f
 	 */
 	
-	public WorldGenTreeMangrove(Block log, int metaLog, Block leaves, int metaLeaves, int baseHeight, int rootHeight, float branchLength, int numBranches, float verticalStart, float verticalRand)
+	public WorldGenTreeRTGJungleFat(Block log, int metaLog, Block leaves, int metaLeaves, int baseHeight, int rootHeight, float branchLength,  int numBranches, float verticalStart, float verticalRand)
 	{
 		blockLog = log;
 		metadataLog = metaLog;
@@ -48,41 +48,46 @@ public class WorldGenTreeMangrove extends WorldGenerator
     	Block b = world.getBlock(x, y - 1, z);
     	if(b != Blocks.grass && b != Blocks.dirt && b != Blocks.sand)
     	{
-    		if(!(b == Blocks.water && world.getBlock(x, y - 2, z) == Blocks.sand && world.getBlock(x, y, z) == Blocks.air))
-    		{
-    			return false;
-    		}
+    		return false;
     	}
     	
+    	float r = rand.nextFloat() * 360;
     	if(root > 0f)
     	{
-	    	for(int k = 0; k < 3; k++)
+	    	for(int k = 0; k < 5; k++)
 	    	{
-	    		generateBranch(world, rand, x, y + root, z, (120 * k) - 40 + rand.nextInt(80), 1.6f + rand.nextFloat() * 0.1f, root * 2f, 1f);
+	    		generateBranch(world, rand, (float)x + 0.5f, y + root, (float)z + 0.5f, (120 * k) - 25 + rand.nextInt(50) + r, 1.6f + rand.nextFloat() * 0.1f, root * 1.8f, 1f);
 	    	}
     	}
     	
-    	for(int i = y + root; i < y + base; i++)
+    	for(int i = y + root - 2; i < y + base + 2; i++)
     	{
     		world.setBlock(x, i, z, blockLog, metadataLog, 2);
+    		world.setBlock(x + 1, i, z + 1, blockLog, metadataLog, 2);
     	}
     	
     	float horDir, verDir;
     	int eX, eY, eZ;
     	for(int j = 0; j < branch; j++)
     	{
-    		horDir = (120 * j) - 60 + rand.nextInt(120);
+    		horDir = (80 * j) - 40 + rand.nextInt(80);
     		verDir = verStart + rand.nextFloat() * verRand;
-        	generateBranch(world, rand, x, y + base, z, horDir, verDir, length, 1f);
+        	generateBranch(world, rand, (float)x + 0.5f, y + base, (float)z + 0.5f, horDir, verDir, length, 1f);
         	
-        	eX = x + (int)(Math.cos(horDir * Math.PI / 180D) * verDir * length);
-        	eZ = z + (int)(Math.sin(horDir * Math.PI / 180D) * verDir * length);
-        	eY = y + base + (int)((1f - verDir) * length);
+        	eX = (int)(Math.cos(horDir * Math.PI / 180D) * verDir * length);
+        	eZ = (int)(Math.sin(horDir * Math.PI / 180D) * verDir * length);
+        	eY = (int)((1f - verDir) * length);
         	
-        	for(int m = 0; m < 1; m++)
+        	for(int m = 0; m < 2; m++)
         	{
-            	generateLeaves(world, rand, eX, eY, eZ, 4f, 1.2f);
+            	generateLeaves(world, rand, x + eX - 2 + rand.nextInt(5), y + base + eY + rand.nextInt(2), z + eZ - 2 + rand.nextInt(5), 4f, 1.5f);
         	}
+        	
+        	eX *= 0.8f;
+        	eY *= 0.8f;
+        	eZ *= 0.8f;
+        	
+        	generateLeaves(world, rand, x + eX, y + base + eY, z + eZ, 3f, 1.5f);
     	}
 		
 		return true;
@@ -122,26 +127,26 @@ public class WorldGenTreeMangrove extends WorldGenerator
 		}
 	}
 	
-	public void generateLeaves(World world, Random rand, int x, int y, int z, float size, float width)
+	public void generateLeaves(World world, Random rand, float x, float y, float z, float size, float width)
 	{
 		float dist;
 		int i, j, k, s = (int)(size - 1f), w = (int)((size - 1f) * width);
 		for(i = -w; i <= w; i++)
 		{
-			for(j = -s; j <= s; j++)
+			for(j = -s + 1; j <= s; j++)
 			{
 				for(k = -w; k <= w; k++)
 				{
 					dist = Math.abs((float)i / width) + (float)Math.abs(j) + Math.abs((float)k / width);
 					if(dist <= size - 0.5f || (dist <= size && rand.nextBoolean()))
 					{
-						if(dist < 0.6f)
+						if(dist < 1.3f)
 						{
-							world.setBlock(x + i, y + j, z + k, blockLog, metadataLog, 2);
+							world.setBlock((int)x + i, (int)y + j, (int)z + k, blockLog, metadataLog, 2);
 						}
-						if(world.isAirBlock(x + i, y + j, z + k))
+						if(world.isAirBlock((int)x + i, (int)y + j, (int)z + k))
 						{
-							world.setBlock(x + i, y + j, z + k, blockLeaves, metadataLeaves, 2);
+							world.setBlock((int)x + i, (int)y + j, (int)z + k, blockLeaves, metadataLeaves, 2);
 						}
 					}
 				}

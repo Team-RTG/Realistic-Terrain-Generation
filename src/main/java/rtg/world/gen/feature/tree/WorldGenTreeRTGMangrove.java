@@ -7,7 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeJungleTall extends WorldGenerator
+public class WorldGenTreeRTGMangrove extends WorldGenerator
 {
 	private Block blockLog;
 	private int metadataLog;
@@ -26,7 +26,7 @@ public class WorldGenTreeJungleTall extends WorldGenerator
 	 * Blocks.log, 0, Blocks.leaves, 0, 9 + rand.nextInt(5), 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
 	 */
 	
-	public WorldGenTreeJungleTall(Block log, int metaLog, Block leaves, int metaLeaves, int baseHeight, int rootHeight, float branchLength, int numBranches, float verticalStart, float verticalRand)
+	public WorldGenTreeRTGMangrove(Block log, int metaLog, Block leaves, int metaLeaves, int baseHeight, int rootHeight, float branchLength, int numBranches, float verticalStart, float verticalRand)
 	{
 		blockLog = log;
 		metadataLog = metaLog;
@@ -46,16 +46,19 @@ public class WorldGenTreeJungleTall extends WorldGenerator
 	public boolean generate(World world, Random rand, int x, int y, int z) 
 	{
     	Block b = world.getBlock(x, y - 1, z);
-    	if(b != Blocks.grass && b != Blocks.dirt)
+    	if(b != Blocks.grass && b != Blocks.dirt && b != Blocks.sand)
     	{
-    		return false;
+    		if(!(b == Blocks.water && world.getBlock(x, y - 2, z) == Blocks.sand && world.getBlock(x, y, z) == Blocks.air))
+    		{
+    			return false;
+    		}
     	}
     	
     	if(root > 0f)
     	{
 	    	for(int k = 0; k < 3; k++)
 	    	{
-	    		generateBranch(world, rand, x, y + root, z, (120 * k) - 40 + rand.nextInt(80), 1.6f + rand.nextFloat() * 0.1f, root * 1.7f, 1f);
+	    		generateBranch(world, rand, x, y + root, z, (120 * k) - 40 + rand.nextInt(80), 1.6f + rand.nextFloat() * 0.1f, root * 2f, 1f);
 	    	}
     	}
     	
@@ -78,7 +81,7 @@ public class WorldGenTreeJungleTall extends WorldGenerator
         	
         	for(int m = 0; m < 1; m++)
         	{
-            	generateLeaves(world, rand, eX, eY, eZ, 4f, 1.5f);
+            	generateLeaves(world, rand, eX, eY, eZ, 4f, 1.2f);
         	}
     	}
 		

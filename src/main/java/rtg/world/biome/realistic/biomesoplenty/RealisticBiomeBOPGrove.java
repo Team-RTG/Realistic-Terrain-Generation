@@ -9,7 +9,7 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeShrubCustom;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrubCustom;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPGrove;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPGrove;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -78,11 +78,11 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase
             {
                 if (rand.nextBoolean()) {
                     
-                    (new WorldGenTreeShrubCustom(rand.nextInt(4) + 1, Blocks.log, (byte)2, Blocks.leaves, (byte)2)).generate(world, rand, i1, k1, j1);
+                    (new WorldGenTreeRTGShrubCustom(rand.nextInt(4) + 1, Blocks.log, (byte)2, Blocks.leaves, (byte)2)).generate(world, rand, i1, k1, j1);
                 }
                 else {
                     
-                    (new WorldGenTreeShrubCustom(rand.nextInt(4) + 1, Blocks.log2, (byte)1, Blocks.leaves2, (byte)1)).generate(world, rand, i1, k1, j1);
+                    (new WorldGenTreeRTGShrubCustom(rand.nextInt(4) + 1, Blocks.log2, (byte)1, Blocks.leaves2, (byte)1)).generate(world, rand, i1, k1, j1);
                 }
             }
         }

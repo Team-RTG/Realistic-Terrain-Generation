@@ -8,7 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeCocoaSmall extends WorldGenerator
+public class WorldGenTreeRTGCocoaSmall extends WorldGenerator
 {
 	private static int[] cocoas = new int[]{
 		2, 0, -2, 1,
@@ -17,7 +17,7 @@ public class WorldGenTreeCocoaSmall extends WorldGenerator
 		3, -1, -2, 0
 	};
 	
-	public WorldGenTreeCocoaSmall()
+	public WorldGenTreeRTGCocoaSmall()
 	{
 		
 	}

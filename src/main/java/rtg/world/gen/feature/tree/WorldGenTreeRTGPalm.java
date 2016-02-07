@@ -7,7 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreePalmCustom extends WorldGenerator
+public class WorldGenTreeRTGPalm extends WorldGenerator
 {
 	private static int leavesLength = 133;
 	private static int[] leaves = new int[]{
@@ -66,26 +66,9 @@ public class WorldGenTreePalmCustom extends WorldGenerator
 		3, -1, -2, 0
 	};
 	
-	private float treeLength = 15f;
-	
-    public WorldGenTreePalmCustom(float pTreeLength, int pLeavesLength, int[] pLeaves, int pCocoasLength, int[] pCocoas)
-    {
-        treeLength = pTreeLength;
-        leavesLength = pLeavesLength;
-        leaves = pLeaves;
-        cocoasLength = pCocoasLength;
-        cocoas = pCocoas;
-    }
-    
-    public WorldGenTreePalmCustom()
-    {
-
-    }
-    
-    public WorldGenTreePalmCustom(float pTreeLength)
-    {
-        treeLength = pTreeLength;
-    }
+	public WorldGenTreeRTGPalm()
+	{
+	}
 	
 	@Override
 	public boolean generate(World world, Random rand, int x, int y, int z) 
@@ -97,7 +80,7 @@ public class WorldGenTreePalmCustom extends WorldGenerator
     	}
     	
     	double horDir = getRandomDir(rand);
-    	float verDir = 0.3f + rand.nextFloat() * 0.4f, length = treeLength, posX = (float)x, posY = (float)y, posZ = (float)z, c = 0f, loss = 0f;
+    	float verDir = 0.3f + rand.nextFloat() * 0.4f, length = 15f, posX = (float)x, posY = (float)y, posZ = (float)z, c = 0f, loss = 0f;
     	
 		if(verDir < 0f)
 		{

@@ -7,14 +7,14 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeRedwood extends WorldGenerator
+public class WorldGenTreeRTGRedwood extends WorldGenerator
 {
 	private int height;
 	private int leaves;
 	private int trunk;
 	private int metadata;
 	
-	public WorldGenTreeRedwood(int h, int l, int t, int m)
+	public WorldGenTreeRTGRedwood(int h, int l, int t, int m)
 	{
 		height = h;
 		leaves = l;

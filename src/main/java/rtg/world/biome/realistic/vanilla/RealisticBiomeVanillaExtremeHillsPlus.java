@@ -10,7 +10,7 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreePineEuro;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPineEuro;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHillsPlus;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHillsPlus;
 
@@ -89,7 +89,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
                     
                     if (z52 < 100f || (z52 < 120f && rand.nextInt(10) == 0))
                     {
-                        WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreePineEuro();
+                        WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreeRTGPineEuro();
                         worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                         worldgenerator.generate(world, rand, j6, z52, k10);
                     }
@@ -146,7 +146,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
                 
                 if (z52 < 100f || (z52 < 120f && rand.nextInt(10) == 0))
                 {
-                    WorldGenerator worldgenerator = rand.nextInt(14) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreePineEuro();
+                    WorldGenerator worldgenerator = rand.nextInt(14) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreeRTGPineEuro();
                     worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                     worldgenerator.generate(world, rand, j6, z52, k10);
                 }

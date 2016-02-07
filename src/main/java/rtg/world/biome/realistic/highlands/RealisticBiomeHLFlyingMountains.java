@@ -11,9 +11,10 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreePineBig;
-import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPineBig;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
 import rtg.world.gen.surface.highlands.SurfaceHLFlyingMountains;
 import rtg.world.gen.terrain.highlands.TerrainHLFlyingMountains;
 
@@ -22,7 +23,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenForest;
-import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
@@ -66,12 +66,12 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
             // trees only mid level for looks
             if (z52>80&&z52<150) {
                 if (rand.nextBoolean()) {
-                    WorldGenerator worldgenerator = new WorldGenTreePineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 1, 1);
+                    WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 1, 1);
                     worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                     worldgenerator.generate(world, rand, j6, z52, k10);
                 }
                 else {
-                    WorldGenerator worldgenerator = new WorldGenTreePineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 0, 0);
+                    WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 0, 0);
                     worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                     worldgenerator.generate(world, rand, j6, z52, k10);
                 }
@@ -87,8 +87,8 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
             if (z52>80&&z52<150)
             {
                 WorldGenerator worldgenerator =
-                    rand.nextInt(4) != 0 ? new WorldGenTreePineSmall(4 + rand.nextInt(7), 6 + rand.nextInt(9), 0)
-                        : rand.nextInt(10) != 0 ? new WorldGenTrees(false) : new WorldGenForest(false, false);
+                    rand.nextInt(4) != 0 ? new WorldGenTreeRTGPineSmall(4 + rand.nextInt(7), 6 + rand.nextInt(9), 0)
+                        : rand.nextInt(10) != 0 ? new WorldGenTreeRTGTrees(false) : new WorldGenForest(false, false);
                 worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                 worldgenerator.generate(world, rand, j6, z52, k10);
             }
@@ -120,7 +120,7 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
             int k1 = world.getHeightValue(i1, j1);
             if (k1 < 110)
             {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
             }
         }
 

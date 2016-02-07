@@ -12,8 +12,8 @@ import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeBirch;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGBirch;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForestM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestM;
 
@@ -65,7 +65,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
                 int k10 = chunkY + rand.nextInt(16) + 8;
                 int z52 = world.getHeightValue(j6, k10);
                 
-                WorldGenerator worldgenerator = new WorldGenTreeBirch(16 + rand.nextInt(8), rand.nextInt(8) + 4);
+                WorldGenerator worldgenerator = new WorldGenTreeRTGBirch(16 + rand.nextInt(8), rand.nextInt(8) + 4);
                 worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                 worldgenerator.generate(world, rand, j6, z52, k10);
             }
@@ -113,7 +113,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
                 int k1 = world.getHeightValue(i1, j1);
                 if (k1 < 110)
                 {
-                    (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                    (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
                 }
             }
         }

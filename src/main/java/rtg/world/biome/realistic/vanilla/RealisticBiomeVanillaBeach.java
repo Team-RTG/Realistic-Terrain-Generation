@@ -8,7 +8,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBeach;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.tree.WorldGenTreePalm;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPalm;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBeach;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaBeach;
 
@@ -55,7 +55,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
                     int z52 = world.getHeightValue(j6, k10);
                     
                     if (z52 < 80) {
-                        WorldGenerator worldgenerator = new WorldGenTreePalm();
+                        WorldGenerator worldgenerator = new WorldGenTreeRTGPalm();
                         worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                         worldgenerator.generate(world, rand, j6, z52, k10);
                     }

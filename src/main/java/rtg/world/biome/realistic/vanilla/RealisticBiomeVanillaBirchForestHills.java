@@ -8,9 +8,10 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeBirch;
-import rtg.world.gen.feature.tree.WorldGenTreeBirchSmall;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGBirch;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGBirchSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForestHills;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestHills;
 
@@ -19,7 +20,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenForest;
-import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanillaBase
@@ -56,7 +56,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
             int k10 = chunkY + rand.nextInt(16) + 8;
             int z52 = world.getHeightValue(j6, k10);
 
-            WorldGenerator worldgenerator = new WorldGenTreeBirchSmall(4 + rand.nextInt(7), 8 + rand.nextInt(12), 2);
+            WorldGenerator worldgenerator = new WorldGenTreeRTGBirchSmall(4 + rand.nextInt(7), 8 + rand.nextInt(12), 2);
             worldgenerator.setScale(1.0D, 1.0D, 1.0D);
             worldgenerator.generate(world, rand, j6, z52, k10);
         }
@@ -70,8 +70,8 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
             if (z52 < 120)
             {
                 WorldGenerator worldgenerator =
-                    rand.nextInt(4) != 0 ? new WorldGenTreeBirch(4 + rand.nextInt(7), 8 + rand.nextInt(12))
-                        : rand.nextInt(10) != 0 ? new WorldGenTrees(false) : new WorldGenForest(false, false);
+                    rand.nextInt(4) != 0 ? new WorldGenTreeRTGBirch(4 + rand.nextInt(7), 8 + rand.nextInt(12))
+                        : rand.nextInt(10) != 0 ? new WorldGenTreeRTGTrees(false) : new WorldGenForest(false, false);
                 worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                 worldgenerator.generate(world, rand, j6, z52, k10);
             }
@@ -98,7 +98,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
             int k1 = world.getHeightValue(i1, j1);
             if (k1 < 110)
             {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
             }
         }
         

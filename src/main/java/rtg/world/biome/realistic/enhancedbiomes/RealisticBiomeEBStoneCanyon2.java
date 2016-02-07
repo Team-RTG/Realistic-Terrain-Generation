@@ -8,7 +8,7 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBStoneCanyon2;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBStoneCanyon2;
 import enhancedbiomes.api.EBAPI;
@@ -137,7 +137,7 @@ public class RealisticBiomeEBStoneCanyon2 extends RealisticBiomeEBBase
             
             if (k1 < 110 && rand.nextInt(5) == 0)
             {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
             }
         }
         

@@ -10,7 +10,7 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeSavanna;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSavannaM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaSavannaM;
 
@@ -85,8 +85,8 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase
                 int z52 = world.getHeightValue(j6, k10);
                 
                 WorldGenerator worldgenerator =
-                    rand.nextInt(3) != 0 ? new WorldGenShrub(0, 0) : rand.nextInt(9) == 0 ? new WorldGenTreeSavanna(1)
-                        : new WorldGenTreeSavanna(2);
+                    rand.nextInt(3) != 0 ? new WorldGenShrub(0, 0) : rand.nextInt(9) == 0 ? new WorldGenTreeRTGSavanna(1)
+                        : new WorldGenTreeRTGSavanna(2);
                 worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                 worldgenerator.generate(world, rand, j6, z52, k10);
             }

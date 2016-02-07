@@ -8,7 +8,7 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeShrubCustom;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrubCustom;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBMangrove;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBMangrove;
 import enhancedbiomes.api.EBAPI;
@@ -140,7 +140,7 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
             if (k1 < 110)
             {
                 if (rand.nextInt(4) == 0) {
-                    (new WorldGenTreeShrubCustom(rand.nextInt(4) + 1, EnhancedBiomesBlocks.logOak, (byte)3, EnhancedBiomesBlocks.leavesOak, (byte)3)).generate(world, rand, i1, k1, j1);
+                    (new WorldGenTreeRTGShrubCustom(rand.nextInt(4) + 1, EnhancedBiomesBlocks.logOak, (byte)3, EnhancedBiomesBlocks.leavesOak, (byte)3)).generate(world, rand, i1, k1, j1);
                 }
             }
         }

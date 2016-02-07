@@ -5,8 +5,6 @@ public class BiomeConfigVanillaSavannaM extends BiomeConfigVanillaBase
 {
     public BiomeConfigVanillaSavannaM()
     {
-        super();
-        
-        this.biomeSlug = "savannam";
+        super("savannam");
     }
 }

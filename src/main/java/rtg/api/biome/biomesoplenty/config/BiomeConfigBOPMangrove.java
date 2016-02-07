@@ -6,8 +6,6 @@ public class BiomeConfigBOPMangrove extends BiomeConfigBOPBase
 {
     public BiomeConfigBOPMangrove()
     {
-        super();
-        
-        this.biomeSlug = "mangrove";
+        super("mangrove");
     }
 }

@@ -5,8 +5,6 @@ public class BiomeConfigHLSnowIsland extends BiomeConfigHLBase
 {
     public BiomeConfigHLSnowIsland()
     {
-        super();
-        
-        this.biomeSlug = "snowisland";
+        super("snowisland");
     }
 }

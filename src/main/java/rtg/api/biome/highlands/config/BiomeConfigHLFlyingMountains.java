@@ -5,8 +5,6 @@ public class BiomeConfigHLFlyingMountains extends BiomeConfigHLBase
 {
     public BiomeConfigHLFlyingMountains()
     {
-        super();
-        
-        this.biomeSlug = "flyingmountains";
+        super("flyingmountains");
     }
 }

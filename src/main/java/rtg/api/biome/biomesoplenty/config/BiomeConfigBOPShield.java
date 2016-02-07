@@ -6,8 +6,6 @@ public class BiomeConfigBOPShield extends BiomeConfigBOPBase
 {
     public BiomeConfigBOPShield()
     {
-        super();
-        
-        this.biomeSlug = "shield";
+        super("shield");
     }
 }

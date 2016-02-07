@@ -5,8 +5,6 @@ public class BiomeConfigHLGlacier extends BiomeConfigHLBase
 {
     public BiomeConfigHLGlacier()
     {
-        super();
-        
-        this.biomeSlug = "glacier";
+        super("glacier");
     }
 }

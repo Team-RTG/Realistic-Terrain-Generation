@@ -8,8 +8,6 @@ public class BiomeConfigCCRainbowForest extends BiomeConfigCCBase
 {
     public BiomeConfigCCRainbowForest()
     {
-        super();
-        
-        this.biomeSlug = "rainbowforest";
+        super("rainbowforest");
     }
 }

@@ -11,9 +11,7 @@ public class BiomeConfigVanillaJungleHills extends BiomeConfigVanillaBase
     
     public BiomeConfigVanillaJungleHills()
     {
-        super();
-        
-        this.biomeSlug = "junglehills";
+        super("junglehills");
         
         this.addProperty(new BiomeConfigProperty(decorationCactusId, Type.BOOLEAN, decorationCactusName, "", true));
     }

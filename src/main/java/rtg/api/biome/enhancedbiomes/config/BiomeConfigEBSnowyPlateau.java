@@ -4,8 +4,6 @@ public class BiomeConfigEBSnowyPlateau extends BiomeConfigEBBase
 {
     public BiomeConfigEBSnowyPlateau()
     {
-        super();
-        
-        this.biomeSlug = "snowyplateau";
+        super("snowyplateau");
     }
 }

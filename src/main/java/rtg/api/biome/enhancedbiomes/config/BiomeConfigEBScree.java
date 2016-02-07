@@ -4,8 +4,6 @@ public class BiomeConfigEBScree extends BiomeConfigEBBase
 {
     public BiomeConfigEBScree()
     {
-        super();
-        
-        this.biomeSlug = "scree";
+        super("scree");
     }
 }

@@ -5,8 +5,6 @@ public class BiomeConfigHLAutumnForest extends BiomeConfigHLBase
 {
     public BiomeConfigHLAutumnForest()
     {
-        super();
-        
-        this.biomeSlug = "autumnforest";
+        super("autumnforest");
     }
 }

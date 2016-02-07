@@ -6,8 +6,6 @@ public class BiomeConfigBOPOminousWoods extends BiomeConfigBOPBase
 {
     public BiomeConfigBOPOminousWoods()
     {
-        super();
-        
-        this.biomeSlug = "ominouswoods";
+        super("ominouswoods");
     }
 }

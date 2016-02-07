@@ -11,9 +11,7 @@ public class BiomeConfigVanillaJungleM extends BiomeConfigVanillaBase
     
     public BiomeConfigVanillaJungleM()
     {
-        super();
-        
-        this.biomeSlug = "junglem";
+        super("junglem");
         
         this.addProperty(new BiomeConfigProperty(decorationCactusId, Type.BOOLEAN, decorationCactusName, "", true));
     }

@@ -6,8 +6,6 @@ public class BiomeConfigBOPGarden extends BiomeConfigBOPBase
 {
     public BiomeConfigBOPGarden()
     {
-        super();
-        
-        this.biomeSlug = "garden";
+        super("garden");
     }
 }

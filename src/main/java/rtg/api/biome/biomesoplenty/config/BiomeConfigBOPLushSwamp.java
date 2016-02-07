@@ -6,8 +6,6 @@ public class BiomeConfigBOPLushSwamp extends BiomeConfigBOPBase
 {
     public BiomeConfigBOPLushSwamp()
     {
-        super();
-        
-        this.biomeSlug = "lushswamp";
+        super("lushswamp");
     }
 }

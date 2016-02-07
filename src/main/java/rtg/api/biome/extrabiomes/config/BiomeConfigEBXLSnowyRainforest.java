@@ -5,8 +5,6 @@ public class BiomeConfigEBXLSnowyRainforest extends BiomeConfigEBXLBase
 {
     public BiomeConfigEBXLSnowyRainforest()
     {
-        super();
-        
-        this.biomeSlug = "snowyrainforest";
+        super("snowyrainforest");
     }
 }

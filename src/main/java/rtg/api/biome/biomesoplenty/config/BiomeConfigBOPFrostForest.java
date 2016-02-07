@@ -6,8 +6,6 @@ public class BiomeConfigBOPFrostForest extends BiomeConfigBOPBase
 {
     public BiomeConfigBOPFrostForest()
     {
-        super();
-        
-        this.biomeSlug = "frostforest";
+        super("frostforest");
     }
 }

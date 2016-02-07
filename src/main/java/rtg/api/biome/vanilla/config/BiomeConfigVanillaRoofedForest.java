@@ -11,9 +11,7 @@ public class BiomeConfigVanillaRoofedForest extends BiomeConfigVanillaBase
     
     public BiomeConfigVanillaRoofedForest()
     {
-        super();
-        
-        this.biomeSlug = "roofedforest";
+        super("roofedforest");
         
         this.addProperty(new BiomeConfigProperty(decorationCobwebsId, Type.BOOLEAN, decorationCobwebsName, "", true));
     }

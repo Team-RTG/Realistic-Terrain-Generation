@@ -5,8 +5,6 @@ public class BiomeConfigVanillaMesaBryce extends BiomeConfigVanillaBase
 {
     public BiomeConfigVanillaMesaBryce()
     {
-        super();
-        
-        this.biomeSlug = "mesabryce";
+        super("mesabryce");
     }
 }

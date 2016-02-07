@@ -5,8 +5,6 @@ public class BiomeConfigEBXLMountainDesert extends BiomeConfigEBXLBase
 {
     public BiomeConfigEBXLMountainDesert()
     {
-        super();
-        
-        this.biomeSlug = "mountaindesert";
+        super("mountaindesert");
     }
 }

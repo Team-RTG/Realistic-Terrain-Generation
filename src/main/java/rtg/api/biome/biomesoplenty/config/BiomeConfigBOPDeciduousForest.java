@@ -6,8 +6,6 @@ public class BiomeConfigBOPDeciduousForest extends BiomeConfigBOPBase
 {
     public BiomeConfigBOPDeciduousForest()
     {
-        super();
-        
-        this.biomeSlug = "deciduousforest";
+        super("deciduousforest");
     }
 }

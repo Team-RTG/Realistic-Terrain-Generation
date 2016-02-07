@@ -4,8 +4,6 @@ public class BiomeConfigEBStoneCanyon extends BiomeConfigEBBase
 {
     public BiomeConfigEBStoneCanyon()
     {
-        super();
-        
-        this.biomeSlug = "stonecanyon";
+        super("stonecanyon");
     }
 }

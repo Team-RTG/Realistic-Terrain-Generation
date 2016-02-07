@@ -5,8 +5,6 @@ public class BiomeConfigHLEstuary extends BiomeConfigHLBase
 {
     public BiomeConfigHLEstuary()
     {
-        super();
-        
-        this.biomeSlug = "estuary";
+        super("estuary");
     }
 }

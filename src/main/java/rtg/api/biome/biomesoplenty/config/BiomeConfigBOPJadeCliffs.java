@@ -6,8 +6,6 @@ public class BiomeConfigBOPJadeCliffs extends BiomeConfigBOPBase
 {
     public BiomeConfigBOPJadeCliffs()
     {
-        super();
-        
-        this.biomeSlug = "jadecliffs";
+        super("jadecliffs");
     }
 }

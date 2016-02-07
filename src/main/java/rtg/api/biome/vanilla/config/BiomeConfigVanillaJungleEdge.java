@@ -5,8 +5,6 @@ public class BiomeConfigVanillaJungleEdge extends BiomeConfigVanillaBase
 {
     public BiomeConfigVanillaJungleEdge()
     {
-        super();
-        
-        this.biomeSlug = "jungleedge";
+        super("jungleedge");
     }
 }

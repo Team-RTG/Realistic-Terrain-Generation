@@ -6,8 +6,6 @@ public class BiomeConfigBOPMountain extends BiomeConfigBOPBase
 {
     public BiomeConfigBOPMountain()
     {
-        super();
-        
-        this.biomeSlug = "mountain";
+        super("mountain");
     }
 }

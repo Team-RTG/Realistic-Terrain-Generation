@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
@@ -29,7 +28,7 @@ public class RealisticBiomeEBXLMeadow extends RealisticBiomeEBXLBase
 	public RealisticBiomeEBXLMeadow(BiomeConfig config)
 	{
 		super(
-			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLMeadow(),
 			new SurfaceEBXLMeadow(topBlock, fillerBlock)
 		);

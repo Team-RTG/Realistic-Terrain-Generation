@@ -8,7 +8,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBeach;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.tree.WorldGenTreePalm;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBeach;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaBeach;
@@ -29,7 +28,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
     {
         super(
             BiomeGenBase.beach,
-            BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
+            BiomeGenBase.river,
             new TerrainVanillaBeach(),
             new SurfaceVanillaBeach(topBlock, fillerBlock, topBlock, fillerBlock, (byte) 0, 1));
         

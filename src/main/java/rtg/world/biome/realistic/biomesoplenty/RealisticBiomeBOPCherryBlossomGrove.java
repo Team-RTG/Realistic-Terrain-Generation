@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPCherryBlossomGrove;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPCherryBlossomGrove;
@@ -29,7 +28,7 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPCherryBlossomGrove(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPCherryBlossomGrove(58f, 76f, 20f),
 			new SurfaceBOPCherryBlossomGrove(
 			    topBlock, //Block top 

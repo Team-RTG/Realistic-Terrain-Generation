@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -59,7 +58,7 @@ public class RealisticBiomeEBBlossomHills extends RealisticBiomeEBBase
 	public RealisticBiomeEBBlossomHills(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBBlossomHills(76f, 30f),
 			new SurfaceEBBlossomHills(
                 ebTopBlock, //Block top 

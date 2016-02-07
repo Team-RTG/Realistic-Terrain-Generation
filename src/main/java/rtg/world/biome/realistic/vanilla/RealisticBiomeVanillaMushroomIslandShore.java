@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMushroomIslandShore;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMushroomIslandShore;
 
@@ -18,7 +17,7 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
 	{
 		super(
 			BiomeGenBase.mushroomIslandShore,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+			BiomeGenBase.river,
 			new TerrainVanillaMushroomIslandShore(),
 			new SurfaceVanillaMushroomIslandShore(topBlock, fillerBlock, 67, topBlock, 0f)
 		);

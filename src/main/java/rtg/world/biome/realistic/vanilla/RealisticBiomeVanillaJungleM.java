@@ -13,7 +13,6 @@ import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleM;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
@@ -47,7 +46,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase
 	{
 		super(
 		    mutationBiome,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+			BiomeGenBase.river,
 			new TerrainVanillaJungleM(),
 			new SurfaceVanillaJungleM(topBlock, fillerBlock)
 		);

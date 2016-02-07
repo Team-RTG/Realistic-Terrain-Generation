@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPOminousWoods;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPOminousWoods;
@@ -28,7 +27,7 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPOminousWoods(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPOminousWoods(65f, 80f, 48f),
 			new SurfaceBOPOminousWoods(topBlock, fillerBlock)
 		);

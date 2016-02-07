@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
@@ -29,7 +28,7 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPFlowerField(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPFlowerField(),
 			new SurfaceBOPFlowerField(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, topBlock, 0.05f)
 		);

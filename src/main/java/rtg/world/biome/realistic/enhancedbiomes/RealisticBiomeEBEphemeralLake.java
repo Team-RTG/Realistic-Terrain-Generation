@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
@@ -60,7 +59,7 @@ public class RealisticBiomeEBEphemeralLake extends RealisticBiomeEBBase
 	public RealisticBiomeEBEphemeralLake(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBEphemeralLake(),
 			new SurfaceEBEphemeralLake(
                 ebTopBlock, //Block top 

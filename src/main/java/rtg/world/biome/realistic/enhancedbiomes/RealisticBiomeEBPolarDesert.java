@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.tree.WorldGenTreeSpruceSmall;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBPolarDesert;
@@ -59,7 +58,7 @@ public class RealisticBiomeEBPolarDesert extends RealisticBiomeEBBase
     {
     
         super(
-            ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
+            ebBiome, BiomeGenBase.frozenRiver,
             new TerrainEBPolarDesert(),
             new SurfaceEBPolarDesert(
                 ebTopBlock, //Block top 

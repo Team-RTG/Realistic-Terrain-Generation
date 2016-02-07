@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSilverPineForest;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSilverPineForest;
 import enhancedbiomes.api.EBAPI;
@@ -50,7 +49,7 @@ public class RealisticBiomeEBSilverPineForest extends RealisticBiomeEBBase
 	public RealisticBiomeEBSilverPineForest(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBSilverPineForest(100f, 70f, 0f),
 			new SurfaceEBSilverPineForest(
                 ebTopBlock, //Block top 

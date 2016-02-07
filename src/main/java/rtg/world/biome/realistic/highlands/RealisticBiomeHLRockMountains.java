@@ -8,7 +8,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -37,7 +36,7 @@ public class RealisticBiomeHLRockMountains extends RealisticBiomeHLBase
     {
     
         super(
-            hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
+            hlBiome, BiomeGenBase.river,
             new TerrainHLRockMountains(230f, 100f, 0f),
             new SurfaceHLRockMountains(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f));
         

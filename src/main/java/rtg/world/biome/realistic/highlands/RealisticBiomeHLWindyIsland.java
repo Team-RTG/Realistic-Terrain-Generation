@@ -4,7 +4,6 @@ import highlands.api.HighlandsBiomes;
 import java.util.Random;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLWindyIsland;
 import rtg.world.gen.terrain.highlands.TerrainHLWindyIsland;
 
@@ -33,7 +32,7 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
     {
     
         super(
-            hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+            hlBiome, BiomeGenBase.river,
             new TerrainHLWindyIsland(),
             new SurfaceHLWindyIsland(topBlock, fillerBlock));
         

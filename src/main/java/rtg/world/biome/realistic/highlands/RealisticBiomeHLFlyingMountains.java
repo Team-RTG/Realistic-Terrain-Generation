@@ -4,7 +4,6 @@ import highlands.api.HighlandsBiomes;
 import java.util.Random;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.highlands.SurfaceHLFlyingMountains;
 import rtg.world.gen.terrain.highlands.TerrainHLFlyingMountains;
 
@@ -37,7 +36,7 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
     {
     
         super(
-            hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+            hlBiome, BiomeGenBase.river,
             new TerrainHLFlyingMountains(230f, 100f, 0f),
             //new SurfaceVanillaForest(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f));
             new SurfaceHLFlyingMountains(topBlock, fillerBlock, false, null, 0f, 2.5f, 80f, 65f, 2.5f));

@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
@@ -34,7 +33,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase
     
         super(
             mutationBiome,
-            BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+            BiomeGenBase.river,
             new TerrainVanillaSwamplandM(230f, 24f, 0f),
             new SurfaceVanillaSwamplandM(topBlock, fillerBlock));
         

@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -64,7 +63,7 @@ public class RealisticBiomeEBForestedMountains extends RealisticBiomeEBBase
 	public RealisticBiomeEBForestedMountains(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBForestedMountains(440f, 70f, 0f),
 			new SurfaceEBForestedMountains(
                 ebTopBlock, //Block top 

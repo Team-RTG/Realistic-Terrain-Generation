@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPEucalyptusForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPEucalyptusForest;
@@ -28,7 +27,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPEucalyptusForest(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPEucalyptusForest(58f, 80f, 36f),
 			new SurfaceBOPEucalyptusForest(
                 topBlock, //Block top 

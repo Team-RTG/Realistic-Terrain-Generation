@@ -5,7 +5,6 @@ import java.util.Random;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdBeach;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaColdBeach;
@@ -24,7 +23,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 	{
 		super(
 			BiomeGenBase.coldBeach,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+			BiomeGenBase.river,
 			new TerrainVanillaColdBeach(),
 			new SurfaceVanillaColdBeach(topBlock, fillerBlock, topBlock, fillerBlock, (byte)0, 1)
 		);

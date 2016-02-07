@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenCacti;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
@@ -42,7 +41,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
     
         super(
             mutationBiome,
-            BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
+            BiomeGenBase.river,
             new TerrainVanillaDesertM(70f, 180f, 7f, 100f, 38f, 160f, 68f),
             surface);
         

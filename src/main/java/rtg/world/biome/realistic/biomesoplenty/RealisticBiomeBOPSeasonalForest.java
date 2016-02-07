@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPSeasonalForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPSeasonalForest;
@@ -28,7 +27,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPSeasonalForest(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPSeasonalForest(0f, 100f, 68f, 170f),
 			new SurfaceBOPSeasonalForest(
                 topBlock, //Block top 

@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenCacti;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaPlateau;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateau;
@@ -33,7 +32,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase
     
         super(
             BiomeGenBase.mesaPlateau,
-            BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
+            BiomeGenBase.river,
             new TerrainVanillaMesaPlateau(true, 35f, 160f, 60f, 40f, 69f),
             new SurfaceVanillaMesaPlateau(Blocks.sand, Blocks.sand, (byte) 1, 0));
         

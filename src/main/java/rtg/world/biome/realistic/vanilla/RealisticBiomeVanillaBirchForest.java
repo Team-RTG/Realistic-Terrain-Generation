@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeBirch;
@@ -34,7 +33,7 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase
     
         super(
             BiomeGenBase.birchForest,
-            BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+            BiomeGenBase.river,
             new TerrainVanillaBirchForest(),
             new SurfaceVanillaBirchForest(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f));
         

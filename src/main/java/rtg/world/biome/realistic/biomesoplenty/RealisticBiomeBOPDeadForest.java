@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPDeadForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPDeadForest;
@@ -29,7 +28,7 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPDeadForest(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPDeadForest(58f, 80f, 30f),
 			new SurfaceBOPDeadForest(
                 topBlock, //Block top 

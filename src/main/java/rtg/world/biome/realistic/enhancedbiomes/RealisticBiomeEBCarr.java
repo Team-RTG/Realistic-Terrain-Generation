@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -65,7 +64,7 @@ public class RealisticBiomeEBCarr extends RealisticBiomeEBBase
     {
     
         super(
-            ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+            ebBiome, BiomeGenBase.river,
             new TerrainEBCarr(),
             new SurfaceEBCarr(
                 ebTopBlock, //Block top 

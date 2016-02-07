@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -35,7 +34,7 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanillaBase
     
         super(
             BiomeGenBase.taiga,
-            BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+            BiomeGenBase.river,
             new TerrainVanillaTaiga(),
             new SurfaceVanillaTaiga(topBlock, fillerBlock));
         

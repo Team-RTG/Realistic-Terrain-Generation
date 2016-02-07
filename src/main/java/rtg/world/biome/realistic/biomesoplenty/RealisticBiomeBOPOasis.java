@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPOasis;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPOasis;
@@ -28,7 +27,7 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPOasis(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPOasis(),
 			new SurfaceBOPOasis(
                 topBlock, //Block top 

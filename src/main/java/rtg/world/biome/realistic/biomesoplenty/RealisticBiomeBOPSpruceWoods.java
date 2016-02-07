@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPSpruceWoods;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPSpruceWoods;
@@ -28,7 +27,7 @@ public class RealisticBiomeBOPSpruceWoods extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPSpruceWoods(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPSpruceWoods(58f, 76f, 20f),
 			new SurfaceBOPSpruceWoods(
 				    topBlock, //Block top 

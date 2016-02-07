@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPConiferousForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPConiferousForest;
@@ -29,7 +28,7 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPConiferousForest(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPConiferousForest(58f, 84f, 24f),
 			new SurfaceBOPConiferousForest(
                 topBlock, //Block top 

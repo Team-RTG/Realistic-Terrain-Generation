@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreePine;
@@ -32,7 +31,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     
         super(
             BiomeGenBase.iceMountains,
-            BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
+            BiomeGenBase.frozenRiver,
             new TerrainVanillaIceMountains(230f, 80f, 0f),
             new SurfaceVanillaIceMountains(topBlock, fillerBlock, Blocks.snow, Blocks.snow, Blocks.packed_ice, Blocks.ice, 60f,
                 -0.14f, 14f, 0.25f));

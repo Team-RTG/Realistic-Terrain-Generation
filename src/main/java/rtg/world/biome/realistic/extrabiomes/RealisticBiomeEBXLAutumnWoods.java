@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLAutumnWoods;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLAutumnWoods;
@@ -29,7 +28,7 @@ public class RealisticBiomeEBXLAutumnWoods extends RealisticBiomeEBXLBase
 	public RealisticBiomeEBXLAutumnWoods(BiomeConfig config)
 	{
 		super(
-			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLAutumnWoods(),
 			new SurfaceEBXLAutumnWoods(topBlock, fillerBlock, false, null, 0f, 1.5f, 62f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f)
 		);

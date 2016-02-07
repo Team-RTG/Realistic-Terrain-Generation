@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleEdge;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleEdge;
@@ -27,7 +26,7 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase
     
         super(
             BiomeGenBase.jungleEdge,
-            BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+            BiomeGenBase.river,
             new TerrainVanillaJungleEdge(),
             new SurfaceVanillaJungleEdge(topBlock, fillerBlock));
         

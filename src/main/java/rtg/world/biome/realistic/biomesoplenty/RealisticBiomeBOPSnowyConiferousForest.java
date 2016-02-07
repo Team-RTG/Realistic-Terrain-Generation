@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPSnowyConiferousForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPSnowyConiferousForest;
@@ -29,7 +28,7 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
 	public RealisticBiomeBOPSnowyConiferousForest(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
+			bopBiome, BiomeGenBase.frozenRiver,
 			new TerrainBOPSnowyConiferousForest(65f, 70f, 25f),
 			new SurfaceBOPSnowyConiferousForest(topBlock, fillerBlock, false, null, 0.45f, 1.5f, 50f, 60f, 0.4f, 100f, 50f, 1.5f)
 		);

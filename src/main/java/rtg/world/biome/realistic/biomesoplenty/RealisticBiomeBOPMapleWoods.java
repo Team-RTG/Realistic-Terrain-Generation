@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMapleWoods;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMapleWoods;
@@ -27,7 +26,7 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPMapleWoods(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPMapleWoods(58f, 80f, 30f),
 			new SurfaceBOPMapleWoods(topBlock, fillerBlock)
 		);

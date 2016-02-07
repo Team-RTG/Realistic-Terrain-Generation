@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHillsM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHillsM;
 
@@ -24,7 +23,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
     
         super(
             mutationBiome,
-            BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+            BiomeGenBase.river,
             new TerrainVanillaExtremeHillsM(10f, 140f, 68f, 200f),
             new SurfaceVanillaExtremeHillsM(topBlock, fillerBlock, Blocks.grass, Blocks.dirt, 60f,
                 -0.14f, 14f, 0.25f));

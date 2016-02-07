@@ -9,7 +9,6 @@ import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForest;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -38,7 +37,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
     
         super(
             BiomeGenBase.roofedForest,
-            BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+            BiomeGenBase.river,
             new TerrainVanillaRoofedForest(),
             new SurfaceVanillaRoofedForest(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.08f));
         

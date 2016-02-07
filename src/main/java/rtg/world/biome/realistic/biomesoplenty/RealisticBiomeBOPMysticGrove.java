@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMysticGrove;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMysticGrove;
@@ -28,7 +27,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPMysticGrove(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPMysticGrove(),
 			new SurfaceBOPMysticGrove(topBlock, fillerBlock)
 		);

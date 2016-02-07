@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeShrub;
@@ -60,7 +59,7 @@ public class RealisticBiomeEBSandstoneCanyon extends RealisticBiomeEBBase
 	public RealisticBiomeEBSandstoneCanyon(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBSandstoneCanyon(false, 35f, 160f, 40f, 30f, 10),
 			new SurfaceEBSandstoneCanyon(
                 ebTopBlock, //Block top 

@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaPlains;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaPlains;
 
@@ -20,7 +19,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
     
         super(
             BiomeGenBase.plains,
-            BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+            BiomeGenBase.river,
             new TerrainVanillaPlains(),
             new SurfaceVanillaPlains(topBlock, fillerBlock));
         

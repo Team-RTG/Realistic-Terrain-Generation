@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenCacti;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
@@ -90,7 +89,7 @@ public class RealisticBiomeEBClayHills extends RealisticBiomeEBBase
     {
     
         super(
-            ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
+            ebBiome, BiomeGenBase.river,
             new TerrainEBClayHills(true, 35f, 160f, 60f, 40f, 69f),
             surface);
         

@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenCacti;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
@@ -35,7 +34,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
     
         super(
             BiomeGenBase.savannaPlateau,
-            BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
+            BiomeGenBase.river,
             new TerrainVanillaSavannaPlateau(true, 35f, 160f, 60f, 40f, 69f),
             new SurfaceVanillaSavannaPlateau(topBlock, fillerBlock, (byte)0, 0)
         );

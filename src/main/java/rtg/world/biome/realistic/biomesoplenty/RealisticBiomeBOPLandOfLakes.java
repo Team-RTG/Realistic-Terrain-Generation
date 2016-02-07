@@ -8,7 +8,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeBirch;
 import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
@@ -36,7 +35,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPLandOfLakes(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPLandOfLakes(58f, 76f, 36f),
 			new SurfaceBOPLandOfLakes(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.10f)
 		);

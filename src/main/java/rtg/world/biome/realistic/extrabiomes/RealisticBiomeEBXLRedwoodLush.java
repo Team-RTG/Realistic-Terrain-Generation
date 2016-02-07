@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -30,7 +29,7 @@ public class RealisticBiomeEBXLRedwoodLush extends RealisticBiomeEBXLBase
 	public RealisticBiomeEBXLRedwoodLush(BiomeConfig config)
 	{
 		super(
-			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLRedwoodLush(),
 			new SurfaceEBXLRedwoodLush(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f)
 		);

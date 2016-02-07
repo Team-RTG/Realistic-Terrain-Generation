@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -35,7 +34,7 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
     
         super(
             BiomeGenBase.coldTaigaHills,
-            BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
+            BiomeGenBase.frozenRiver,
             new TerrainVanillaColdTaigaHills(),
             new SurfaceVanillaColdTaigaHills(Blocks.grass, Blocks.dirt, true, Blocks.sand, 0.2f));
         

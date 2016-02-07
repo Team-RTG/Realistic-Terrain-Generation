@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPShield;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPShield;
@@ -29,7 +28,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPShield(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPShield(0f, 100f, 68f, 170f),
 			new SurfaceBOPShield(topBlock, fillerBlock)
 		);

@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMegaSpruceTaiga;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMegaSpruceTaiga;
@@ -28,7 +27,7 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
     
         super(
             mutationBiome,
-            BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+            BiomeGenBase.river,
             new TerrainVanillaMegaSpruceTaiga(),
             new SurfaceVanillaMegaSpruceTaiga(topBlock, fillerBlock));
         

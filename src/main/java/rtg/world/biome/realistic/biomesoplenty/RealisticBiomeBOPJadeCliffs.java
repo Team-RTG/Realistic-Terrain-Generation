@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPJadeCliffs;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPJadeCliffs;
@@ -28,7 +27,7 @@ public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPJadeCliffs(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPJadeCliffs(300f, 100f, 0f),
 			new SurfaceBOPJadeCliffs(topBlock, fillerBlock, false, null, 0.95f)
 		);

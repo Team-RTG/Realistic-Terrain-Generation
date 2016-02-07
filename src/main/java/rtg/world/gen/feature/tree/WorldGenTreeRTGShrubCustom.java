@@ -2,6 +2,8 @@ package rtg.world.gen.feature.tree;
 
 import java.util.Random;
 
+import rtg.config.rtg.ConfigRTG;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -65,6 +67,11 @@ public class WorldGenTreeRTGShrubCustom extends WorldGenerator
 	public void buildLeaves(World world, int x, int y, int z, int size)
 	{
 		Block b = world.getBlock(x, y - 2, z);
+		
+        if (b == Blocks.sand && !ConfigRTG.allowTreesToGenerateOnSand) {
+            return;
+        }
+		
 		if(b.getMaterial() == Material.grass || b.getMaterial() == Material.ground || (sand && b.getMaterial() == Material.sand))
 		{
 			if(world.getBlock(x, y - 1, z) != Blocks.water )

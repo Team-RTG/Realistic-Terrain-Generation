@@ -2,6 +2,8 @@ package rtg.world.gen.feature.tree;
 
 import java.util.Random;
 
+import rtg.config.rtg.ConfigRTG;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.init.Blocks;
@@ -92,6 +94,10 @@ public class WorldGenTreeRTGTrees extends WorldGenTrees
             {
                 Block block2 = world.getBlock(worldX, worldY - 1, worldZ);
 
+                if (block2 == Blocks.sand && !ConfigRTG.allowTreesToGenerateOnSand) {
+                    return false;
+                }
+                
                 boolean isSoil = block2.canSustainPlant(world, worldX, worldY - 1, worldZ, ForgeDirection.UP, (BlockSapling)Blocks.sapling);
                 if (isSoil && worldY < 256 - l - 1)
                 {

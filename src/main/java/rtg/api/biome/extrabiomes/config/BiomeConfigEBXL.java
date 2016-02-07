@@ -6,34 +6,34 @@ import rtg.api.biome.BiomeConfig;
 
 public class BiomeConfigEBXL
 {
-    public static BiomeConfigEBXLAlpine biomeConfigEBXLAlpine;
-    public static BiomeConfigEBXLAutumnWoods biomeConfigEBXLAutumnWoods;
-    public static BiomeConfigEBXLBirchForest biomeConfigEBXLBirchForest;
-    public static BiomeConfigEBXLExtremeJungle biomeConfigEBXLExtremeJungle;
-    public static BiomeConfigEBXLForestedHills biomeConfigEBXLForestedHills;
-    public static BiomeConfigEBXLForestedIsland biomeConfigEBXLForestedIsland;
-    public static BiomeConfigEBXLGlacier biomeConfigEBXLGlacier;
-    public static BiomeConfigEBXLGreenHills biomeConfigEBXLGreenHills;
-    public static BiomeConfigEBXLGreenSwamp biomeConfigEBXLGreenSwamp;
-    public static BiomeConfigEBXLIceWasteland biomeConfigEBXLIceWasteland;
-    public static BiomeConfigEBXLMarsh biomeConfigEBXLMarsh;
-    public static BiomeConfigEBXLMeadow biomeConfigEBXLMeadow;
-    public static BiomeConfigEBXLMiniJungle biomeConfigEBXLMiniJungle;
-    public static BiomeConfigEBXLMountainDesert biomeConfigEBXLMountainDesert;
-    public static BiomeConfigEBXLMountainRidge biomeConfigEBXLMountainRidge;
-    public static BiomeConfigEBXLMountainTaiga biomeConfigEBXLMountainTaiga;
-    public static BiomeConfigEBXLPineForest biomeConfigEBXLPineForest;
-    public static BiomeConfigEBXLRainforest biomeConfigEBXLRainforest;
-    public static BiomeConfigEBXLRedwoodForest biomeConfigEBXLRedwoodForest;
-    public static BiomeConfigEBXLRedwoodLush biomeConfigEBXLRedwoodLush;
-    public static BiomeConfigEBXLSavanna biomeConfigEBXLSavanna;
-    public static BiomeConfigEBXLShrubland biomeConfigEBXLShrubland;
-    public static BiomeConfigEBXLSnowForest biomeConfigEBXLSnowForest;
-    public static BiomeConfigEBXLSnowyRainforest biomeConfigEBXLSnowyRainforest;
-    public static BiomeConfigEBXLTemperateRainforest biomeConfigEBXLTemperateRainforest;
-    public static BiomeConfigEBXLTundra biomeConfigEBXLTundra;
-    public static BiomeConfigEBXLWasteland biomeConfigEBXLWasteland;
-    public static BiomeConfigEBXLWoodlands biomeConfigEBXLWoodlands;
+    public static BiomeConfig biomeConfigEBXLAlpine;
+    public static BiomeConfig biomeConfigEBXLAutumnWoods;
+    public static BiomeConfig biomeConfigEBXLBirchForest;
+    public static BiomeConfig biomeConfigEBXLExtremeJungle;
+    public static BiomeConfig biomeConfigEBXLForestedHills;
+    public static BiomeConfig biomeConfigEBXLForestedIsland;
+    public static BiomeConfig biomeConfigEBXLGlacier;
+    public static BiomeConfig biomeConfigEBXLGreenHills;
+    public static BiomeConfig biomeConfigEBXLGreenSwamp;
+    public static BiomeConfig biomeConfigEBXLIceWasteland;
+    public static BiomeConfig biomeConfigEBXLMarsh;
+    public static BiomeConfig biomeConfigEBXLMeadow;
+    public static BiomeConfig biomeConfigEBXLMiniJungle;
+    public static BiomeConfig biomeConfigEBXLMountainDesert;
+    public static BiomeConfig biomeConfigEBXLMountainRidge;
+    public static BiomeConfig biomeConfigEBXLMountainTaiga;
+    public static BiomeConfig biomeConfigEBXLPineForest;
+    public static BiomeConfig biomeConfigEBXLRainforest;
+    public static BiomeConfig biomeConfigEBXLRedwoodForest;
+    public static BiomeConfig biomeConfigEBXLRedwoodLush;
+    public static BiomeConfig biomeConfigEBXLSavanna;
+    public static BiomeConfig biomeConfigEBXLShrubland;
+    public static BiomeConfig biomeConfigEBXLSnowForest;
+    public static BiomeConfig biomeConfigEBXLSnowyRainforest;
+    public static BiomeConfig biomeConfigEBXLTemperateRainforest;
+    public static BiomeConfig biomeConfigEBXLTundra;
+    public static BiomeConfig biomeConfigEBXLWasteland;
+    public static BiomeConfig biomeConfigEBXLWoodlands;
     
     public static BiomeConfig[] getBiomeConfigs()
     {

@@ -4,8 +4,8 @@ import rtg.api.biome.BiomeConfig;
 
 public class BiomeConfigBC
 {
-    public static BiomeConfigBCDesertOilField biomeConfigBCDesertOilField;
-    public static BiomeConfigBCOceanOilField biomeConfigBCOceanOilField;
+    public static BiomeConfig biomeConfigBCDesertOilField;
+    public static BiomeConfig biomeConfigBCOceanOilField;
     
     public static BiomeConfig[] getBiomeConfigs()
     {

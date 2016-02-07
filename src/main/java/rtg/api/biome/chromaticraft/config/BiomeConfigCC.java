@@ -5,8 +5,8 @@ import rtg.api.biome.BiomeConfig;
 
 public class BiomeConfigCC
 {
-    public static BiomeConfigCCEnderForest biomeConfigCCEnderForest;
-    public static BiomeConfigCCRainbowForest biomeConfigCCRainbowForest;
+    public static BiomeConfig biomeConfigCCEnderForest;
+    public static BiomeConfig biomeConfigCCRainbowForest;
     
     public static BiomeConfig[] getBiomeConfigs()
     {

@@ -6,9 +6,14 @@ public class BiomeBase extends BiomeGenBase
 {
 
 	public BiomeBase(int intBiomeId) {
+	    
 		super(intBiomeId, false);
 		
-		// And I won't tell no one your name... and I won't tell 'em your name.
+		/**
+		 *  Let's make sure the biome always has a biome name, as sometimes it doesn't always get set.
+		 *  This is important because some mods depend on biomeName being set.
+		 *  See https://github.com/Team-RTG/Realistic-Terrain-Generation/issues/444 for an example.
+		 */
 		this.biomeName = getBiome(intBiomeId).biomeName;
 	}
 }

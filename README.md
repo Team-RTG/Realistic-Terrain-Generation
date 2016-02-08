@@ -1,7 +1,5 @@
 ![](http://i.imgur.com/fntMwQe.png)
 
-![](http://i.imgur.com/CZtHNdd.png)
-
 ![](http://i.imgur.com/FcLR7Mq.gif)
 
 ![](http://i.imgur.com/YUyTPsc.png)

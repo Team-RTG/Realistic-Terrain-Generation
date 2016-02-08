@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBBasin;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBBasin;
 import enhancedbiomes.api.EBAPI;
@@ -50,8 +49,8 @@ public class RealisticBiomeEBBasin extends RealisticBiomeEBBase
 	public RealisticBiomeEBBasin(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
-			new TerrainEBBasin(false, -15f, 0f, 0f, 0f, 63f),
+			ebBiome, BiomeGenBase.river,
+			new TerrainEBBasin(false, -15f, 0f, 0f, 0f, 68f),
 			new SurfaceEBBasin(
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

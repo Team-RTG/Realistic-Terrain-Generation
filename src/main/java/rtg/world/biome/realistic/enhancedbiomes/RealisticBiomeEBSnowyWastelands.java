@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSnowyWastelands;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSnowyWastelands;
 import enhancedbiomes.api.EBAPI;
@@ -55,7 +54,7 @@ public class RealisticBiomeEBSnowyWastelands extends RealisticBiomeEBBase
 	public RealisticBiomeEBSnowyWastelands(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBSnowyWastelands(),
 			new SurfaceEBSnowyWastelands(
                 ebTopBlock, //Block top 

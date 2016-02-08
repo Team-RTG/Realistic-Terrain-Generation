@@ -6,21 +6,16 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBXLSnowForest extends TerrainBase
 {
-	 private float minHeight = 63f;
-	    private float maxHeight = 110f;
-	    private float hillStrength = 25f;
+	 private float minHeight;
+	    private float maxHeight;
+	    private float hillStrength ;
 	    
 	    // 63f, 80f, 30f
-	    
-	    public TerrainEBXLSnowForest()
-	    {
-	    
-	    }
 	    
 	    public TerrainEBXLSnowForest(float minHeight, float maxHeight, float hillStrength)
 	    {
 	        this.minHeight = minHeight;
-	        this.maxHeight = (maxHeight > 80f) ? 80f : ((maxHeight < this.minHeight) ? 80f : maxHeight);
+	        this.maxHeight = maxHeight;
 	        this.hillStrength = hillStrength;
 	    }
 	    

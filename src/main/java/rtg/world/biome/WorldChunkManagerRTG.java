@@ -6,9 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.logging.log4j.Level;
+
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.SimplexCellularNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import cpw.mods.fml.common.FMLLog;
 
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
@@ -19,7 +23,7 @@ import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
-public class WorldChunkManagerRTG extends WorldChunkManager
+public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeProvider
 {
     /** A GenLayer containing the indices into BiomeGenBase.biomeList[] */
     private GenLayer genBiomes;
@@ -27,6 +31,9 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     private List biomesToSpawnIn;
     private OpenSimplexNoise simplex;
     private CellNoise cell;
+    private SimplexCellularNoise simplexCell;
+    private SimplexCellularNoise.NoiseInstance2[] riverCellNoiseInstances;
+    private OpenSimplexNoise.NoiseInstance2[] riverOpenSimplexNoiseInstances;
     private float[] borderNoise;
     private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
     private BiomeCache biomeCache;
@@ -49,6 +56,13 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         simplex = new OpenSimplexNoise(seed);
         cell = new CellNoise(seed, (short) 0);
         cell.setUseDistance(true);
+        simplexCell = new SimplexCellularNoise(seed);
+        riverCellNoiseInstances = new SimplexCellularNoise.NoiseInstance2[] {
+        		new SimplexCellularNoise.NoiseInstance2(simplexCell, 0, 1)
+        };
+        riverOpenSimplexNoiseInstances = new OpenSimplexNoise.NoiseInstance2[] {
+        		new OpenSimplexNoise.NoiseInstance2(simplex, -1, -1, -1, 0, 1)
+        };
         GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType);
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
@@ -124,12 +138,16 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     public BiomeGenBase getBiomeGenAt(int par1, int par2)
     {
         BiomeGenBase result = this.biomeCache.getBiomeGenAt(par1, par2);
+        
         if (result == null) {
             throw new RuntimeException();
         }
+        
         if (result.biomeName == null) {
             result.biomeName = "";
+            FMLLog.log(Level.WARN, "Biome %d has no name.", result.biomeID);
         }
+        
         return result;
     }
 
@@ -189,14 +207,33 @@ public class WorldChunkManagerRTG extends WorldChunkManager
         return getBiomeDataAt(x, y).rNoise(simplex, cell, x, y, 1f, river);
     }
     
+	private static double cellBorder(double[] results, double width, double depth) {
+		double c = results[1] - results[0];
+		if (c < width) {
+			return ((c / width) - 1) * depth;
+		} else {
+			return 0;
+		}
+	}
+    
     public float calculateRiver(int x, int y, float st, float biomeHeight)
     {
         
         if (st < 0f && biomeHeight > 59f)
         {
-            float pX = x + (simplex.noise1(y / 240f) * 220f);
-            float pY = y + (simplex.noise1(x / 240f) * 220f);
-            float r = cell.border(pX / 1250D, pY / 1250D, 50D / 1300D, 1f);
+        	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
+        	double[] simplexResults = new double[2];
+        	OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
+            double pX = x + simplexResults[0] * 220f;
+            double pY = y + simplexResults[1] * 220f;
+
+            //New cellular noise.
+            //TODO move the initialization of the results in a way that's more efficient but still thread safe.
+            double[] results = SimplexCellularNoise.initResultArray(riverCellNoiseInstances);
+            SimplexCellularNoise.resetResultArray(riverCellNoiseInstances, results);
+            SimplexCellularNoise.eval(pX / 1875.0, pY / 1875.0, riverCellNoiseInstances, results);
+            float r = (float) cellBorder(results, 30.0 / 1300.0, 1.0);
+            
             return (biomeHeight * (r + 1f))
                 + ((59f + simplex.noise2(x / 12f, y / 12f) * 2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (-r));
         }
@@ -205,14 +242,23 @@ public class WorldChunkManagerRTG extends WorldChunkManager
             return biomeHeight;
         }
     }
-    
+
     public float getRiverStrength(int x, int y)
     {
+    	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
+    	double[] simplexResults = new double[2];
+    	OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
+        double pX = x + simplexResults[0] * 220f;
+        double pY = y + simplexResults[1] * 220f;
         
-        return cell
-            .border((x + (simplex.noise1(y / 240f) * 220f)) / 1250D, (y + (simplex.noise1(x / 240f) * 220f)) / 1250D, 50D / 300D, 1f);
+        //New cellular noise.
+        //TODO move the initialization of the results in a way that's more efficient but still thread safe.
+        double[] results = SimplexCellularNoise.initResultArray(riverCellNoiseInstances);
+        SimplexCellularNoise.resetResultArray(riverCellNoiseInstances, results);
+        SimplexCellularNoise.eval(pX / 1875.0, pY / 1875.0, riverCellNoiseInstances, results);
+        return (float) cellBorder(results, 30.0 / 300.0, 1.0);
     }
-    
+    	
     public boolean isBorderlessAt(int x, int y)
     {
         
@@ -272,7 +318,11 @@ public class WorldChunkManagerRTG extends WorldChunkManager
 
             for (int i1 = 0; i1 < par4 * par5; ++i1)
             {
-                par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]);
+                try {
+                    par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]);
+                } catch (Exception e) {
+                    throw new RuntimeException(genBiomes.toString()+ " " + this.biomeIndexLayer.toString());
+                }
                 if (par1ArrayOfBiomeGenBase[i1] == null) {
                     throw new RuntimeException("missing biome "+aint[i1]);
                 }

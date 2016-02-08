@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaFrozenOcean;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaFrozenOcean;
 
@@ -21,7 +20,7 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase
     
         super(
             BiomeGenBase.frozenOcean,
-            BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.ICE),
+            BiomeGenBase.river,
             new TerrainVanillaFrozenOcean(),
             new SurfaceVanillaFrozenOcean(Blocks.sand, Blocks.sand, Blocks.gravel, 20f, 0.2f));
         

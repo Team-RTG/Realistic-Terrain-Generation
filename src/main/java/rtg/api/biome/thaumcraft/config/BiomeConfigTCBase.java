@@ -4,10 +4,9 @@ import rtg.api.biome.BiomeConfig;
 
 public class BiomeConfigTCBase extends BiomeConfig
 {
-    public BiomeConfigTCBase()
+
+    public BiomeConfigTCBase(String biomeSlug)
     {
-        super();
-        
-        this.modSlug = "thaumcraft";
+        super("thaumcraft", biomeSlug);
     }
 }

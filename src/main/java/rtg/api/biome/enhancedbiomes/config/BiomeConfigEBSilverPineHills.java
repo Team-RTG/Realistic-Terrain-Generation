@@ -4,8 +4,6 @@ public class BiomeConfigEBSilverPineHills extends BiomeConfigEBBase
 {
     public BiomeConfigEBSilverPineHills()
     {
-        super();
-        
-        this.biomeSlug = "silverpinehills";
+        super("silverpinehills");
     }
 }

@@ -6,14 +6,10 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBOPConiferousForest extends TerrainBase
 {
-    private float minHeight = 63f;
-    private float maxHeight = 120f;
-    private float hillStrength = 30f;
+    private float minHeight;
+    private float maxHeight;
+    private float hillStrength;
     
-    public TerrainBOPConiferousForest()
-    {
-    
-    }
     
     public TerrainBOPConiferousForest(float minHeight, float maxHeight, float hillStrength)
     {

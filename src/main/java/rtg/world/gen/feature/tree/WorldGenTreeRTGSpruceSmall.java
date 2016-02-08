@@ -7,11 +7,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeSpruceSmall extends WorldGenerator
+public class WorldGenTreeRTGSpruceSmall extends WorldGenerator
 {
 	private int treeSize;
 	
-	public WorldGenTreeSpruceSmall(int s)
+	public WorldGenTreeRTGSpruceSmall(int s)
 	{
 		treeSize = s;
 	}

@@ -5,8 +5,6 @@ public class BiomeConfigVanillaPlains extends BiomeConfigVanillaBase
 {
     public BiomeConfigVanillaPlains()
     {
-        super();
-        
-        this.biomeSlug = "plains";
+        super("plains");
     }
 }

@@ -6,8 +6,6 @@ public class BiomeConfigBOPLandOfLakesMarsh extends BiomeConfigBOPBase
 {
     public BiomeConfigBOPLandOfLakesMarsh()
     {
-        super();
-        
-        this.biomeSlug = "landoflakesmarsh";
+        super("landoflakesmarsh");
     }
 }

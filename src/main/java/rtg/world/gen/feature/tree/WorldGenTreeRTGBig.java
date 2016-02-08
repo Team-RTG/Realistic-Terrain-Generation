@@ -8,7 +8,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeBig extends WorldGenerator
+public class WorldGenTreeRTGBig extends WorldGenerator
 {
     static final byte[] otherCoordPairs = new byte[] {(byte)2, (byte)0, (byte)0, (byte)1, (byte)2, (byte)1};
     Random rand = new Random();
@@ -28,13 +28,13 @@ public class WorldGenTreeBig extends WorldGenerator
 	int size;
 	int type;
 
-    public WorldGenTreeBig(int sizeinput, int typeinput)
+    public WorldGenTreeRTGBig(int sizeinput, int typeinput)
     {
         size = sizeinput;
 		type = typeinput;
     }
     
-    public WorldGenTreeBig()
+    public WorldGenTreeRTGBig()
     {
     	this(7 + ((int) Math.floor(Math.random() * 7)), 0);
     }

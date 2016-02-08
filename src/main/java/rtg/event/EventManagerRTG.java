@@ -50,10 +50,18 @@ public class EventManagerRTG
             }
         }
         else if (event.type == InitMapGenEvent.EventType.CAVE) {
-            event.newGen = new MapGenCavesRTG();
+            
+            if (ConfigRTG.enableCaveModifications) {
+                
+                event.newGen = new MapGenCavesRTG();
+            }
         }
         else if (event.type == InitMapGenEvent.EventType.RAVINE) {
-            event.newGen = new MapGenRavineRTG();
+            
+            if (ConfigRTG.enableRavineModifications) {
+                
+                event.newGen = new MapGenRavineRTG();
+            }
         }
 		
         if (ConfigRTG.enableDebugging) {
@@ -145,6 +153,19 @@ public class EventManagerRTG
                 //throw ex;
                 // failed attempt because the GenLayers don't end with GenLayerRiverMix
             }
+        }
+    }
+    
+    @SubscribeEvent
+    public void onWorldLoad(WorldEvent.Load event) {
+        
+        if (!event.world.getWorldInfo().getTerrainType().getWorldTypeName().equalsIgnoreCase("RTG")) {
+            return;
+        }
+        
+        if (event.world.provider.dimensionId == 0) {
+            
+            FMLLog.log(Level.INFO, "World Seed: %d", event.world.getSeed());
         }
     }
 }

@@ -6,9 +6,8 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
-import rtg.world.gen.feature.tree.WorldGenTreeSpruceSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBPolarDesert;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBPolarDesert;
 import enhancedbiomes.api.EBAPI;
@@ -59,7 +58,7 @@ public class RealisticBiomeEBPolarDesert extends RealisticBiomeEBBase
     {
     
         super(
-            ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
+            ebBiome, BiomeGenBase.frozenRiver,
             new TerrainEBPolarDesert(),
             new SurfaceEBPolarDesert(
                 ebTopBlock, //Block top 
@@ -113,7 +112,7 @@ public class RealisticBiomeEBPolarDesert extends RealisticBiomeEBBase
                 int k10 = chunkY + rand.nextInt(16) + 8;
                 int z52 = world.getHeightValue(j6, k10);
                 
-                WorldGenerator worldgenerator = new WorldGenTreeSpruceSmall(rand.nextInt(2));
+                WorldGenerator worldgenerator = new WorldGenTreeRTGSpruceSmall(rand.nextInt(2));
                 worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                 worldgenerator.generate(world, rand, j6, z52, k10);
             }

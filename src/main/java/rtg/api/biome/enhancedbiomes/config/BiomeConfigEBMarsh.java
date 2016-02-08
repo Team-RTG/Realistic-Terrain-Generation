@@ -4,8 +4,6 @@ public class BiomeConfigEBMarsh extends BiomeConfigEBBase
 {
     public BiomeConfigEBMarsh()
     {
-        super();
-        
-        this.biomeSlug = "marsh";
+        super("marsh");
     }
 }

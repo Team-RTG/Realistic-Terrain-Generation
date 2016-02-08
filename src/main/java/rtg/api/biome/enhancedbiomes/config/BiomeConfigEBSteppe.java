@@ -4,8 +4,6 @@ public class BiomeConfigEBSteppe extends BiomeConfigEBBase
 {
     public BiomeConfigEBSteppe()
     {
-        super();
-        
-        this.biomeSlug = "steppe";
+        super("steppe");
     }
 }

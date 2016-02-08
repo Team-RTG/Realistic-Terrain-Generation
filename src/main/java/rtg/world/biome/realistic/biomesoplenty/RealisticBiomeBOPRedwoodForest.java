@@ -3,10 +3,9 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPRedwoodForest;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPRedwoodForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPRedwoodForest;
@@ -29,8 +28,8 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPRedwoodForest(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
-			new TerrainBOPRedwoodForest(63f, 80f, 30f),
+			bopBiome, BiomeGenBase.river,
+			new TerrainBOPRedwoodForest(58f, 80f, 30f),
 			new SurfaceBOPRedwoodForest(topBlock, fillerBlock, false, null, 0.4f)
 		);
 		
@@ -69,38 +68,41 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase
             }
         }
 
-        if (rand.nextInt(12) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            
-            Block log;
-            byte logMeta;
-            int intLogLength;
-            
-            int intLogRand = rand.nextInt(12);
-            
-            if (intLogRand < 3) {
+        if (this.config.getPropertyById(BiomeConfigBOPRedwoodForest.decorationLogsId).valueBoolean) {
+        
+            if (rand.nextInt(12) == 0)
+            {
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
                 
-                log = BOPCBlocks.logs3;
-                logMeta = (byte)0;
-                intLogLength = 3 + rand.nextInt(6);
-            }
-            else if (intLogRand < 9) {
+                Block log;
+                byte logMeta;
+                int intLogLength;
                 
-                log = BOPCBlocks.logs3;
-                logMeta = (byte)0;
-                intLogLength = 3 + rand.nextInt(8);
-            }
-            else {
+                int intLogRand = rand.nextInt(12);
                 
-                log = BOPCBlocks.logs3;
-                logMeta = (byte)0;
-                intLogLength = 3 + rand.nextInt(10);
+                if (intLogRand < 3) {
+                    
+                    log = BOPCBlocks.logs3;
+                    logMeta = (byte)0;
+                    intLogLength = 3 + rand.nextInt(6);
+                }
+                else if (intLogRand < 9) {
+                    
+                    log = BOPCBlocks.logs3;
+                    logMeta = (byte)0;
+                    intLogLength = 3 + rand.nextInt(8);
+                }
+                else {
+                    
+                    log = BOPCBlocks.logs3;
+                    logMeta = (byte)0;
+                    intLogLength = 3 + rand.nextInt(10);
+                }
+    
+                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, intLogLength)).generate(world, rand, x22, y22, z22);            
             }
-
-            (new WorldGenLog(log, logMeta, Blocks.leaves, -1, intLogLength)).generate(world, rand, x22, y22, z22);            
         }
     }
 }

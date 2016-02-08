@@ -4,11 +4,9 @@ import rtg.api.biome.BiomeConfig;
 
 public class BiomeConfigVanillaBase extends BiomeConfig
 {
-    
-    public BiomeConfigVanillaBase()
+
+    public BiomeConfigVanillaBase(String biomeSlug)
     {
-        super();
-        
-        this.modSlug = "vanilla";
+        super("vanilla", biomeSlug);
     }
 }

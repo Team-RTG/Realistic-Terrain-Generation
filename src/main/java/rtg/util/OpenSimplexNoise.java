@@ -1,28 +1,36 @@
 /**
  * Generates OpenSimplex Noise
  *
- * 2D function by Kurt Spencer (With new Dodecagonal gradient set)
- * 3D function heavily optimized variant by DigitalShadow
+ * 2D function lookup-table version by KdotJPG (With new Dodecagonal gradient set)
+ * 3D function lookup-table version by DigitalShadow (With new normalized expanded cuboctahedral gradient set)
+ * 
+ * Both implemented using permutation tables of size 1024 instead of the traditional 256.
+ * 
+ * Includes additional 2D function that supports
+ * - Simultaneous evaluation of the same point with different seeds
+ * - First derivatives
+ * - SPH2-noise (output is a 2D coordinate within a unit disc, rather than a 1D value)
  */
  
 package rtg.util;
 
 /**
- * @author Kurt Spencer
- * @version $Revision: 1.1$
+ * @author KdotJPG
+ * @version $Revision: 1.3$
  * @see https://gist.github.com/KdotJPG/b1270127455a94ac5d19
  */
 public class OpenSimplexNoise {
 
 	private static final double STRETCH_2D = -0.211324865405187;    //(1/Math.sqrt(2+1)-1)/2;
-	private static final double STRETCH_3D = -1.0 / 6.0;            //(1/Math.sqrt(3+1)-1)/3;
 	private static final double SQUISH_2D = 0.366025403784439;      //(Math.sqrt(2+1)-1)/2;
+	private static final double STRETCH_3D = -1.0 / 6.0;            //(1/Math.sqrt(3+1)-1)/3;
 	private static final double SQUISH_3D = 1.0 / 3.0;              //(Math.sqrt(3+1)-1)/3;
 	
 	private static final long DEFAULT_SEED = 0;
 	
 	private int[] perm;
 	private int[] perm2D;
+	private int[] perm2D_sph2;
 	private int[] perm3D;
 	
 	public OpenSimplexNoise() {
@@ -30,14 +38,15 @@ public class OpenSimplexNoise {
 	}
 	
 	public OpenSimplexNoise(long seed) {
-		perm = new int[256];
-		perm2D = new int[256];
-		perm3D = new int[256];
-		int[] source = new int[256];
-		for (int i = 0; i < 256; i++) {
+		perm = new int[1024];
+		perm2D = new int[1024];
+		perm2D_sph2 = new int[1024];
+		perm3D = new int[1024];
+		int[] source = new int[1024];
+		for (int i = 0; i < 1024; i++) {
 			source[i] = i;
 		}
-		for (int i = 255; i >= 0; i--) {
+		for (int i = 1023; i >= 0; i--) {
 			seed = seed * 6364136223846793005L + 1442695040888963407L;
 			int r = (int)((seed + 31) % (i + 1));
 			if (r < 0) {
@@ -45,10 +54,15 @@ public class OpenSimplexNoise {
 			}
 			perm[i] = source[r];
 			perm2D[i] = ((perm[i] % 12) * 2);
-			perm3D[i] = ((perm[i] % 24) * 3);
+			perm2D_sph2[i] = (((perm[i] / 12) % 12) * 2);
+			perm3D[i] = ((perm[i] % 48) * 3);
 			source[r] = source[i];
 		}
 	}
+	
+	/*
+	 * Aliases
+	 */
 	
 	//Alias for 1D
 	public float noise1(float x) {
@@ -66,127 +80,58 @@ public class OpenSimplexNoise {
 	}
 	
 	//Alias for 3D (again)
-	public double improvedNoise(double x, double y, double z)
-	{
+	public double improvedNoise(double x, double y, double z) {
 		return noise(x, y, z);
 	}
 	
-	//2D OpenSimplex Noise
-	public double noise(double x, double y) {
+	/*
+	 * Standard functions
+	 */
 	
-		//Place input coordinates onto grid.
-		double stretchOffset = (x + y) * STRETCH_2D;
-		double xs = x + stretchOffset;
-		double ys = y + stretchOffset;
-		
-		//Floor to get grid coordinates of rhombus (stretched square) super-cell origin.
-		int xsb = fastFloor(xs);
-		int ysb = fastFloor(ys);
-		
-		//Skew out to get actual coordinates of rhombus origin. We'll need these later.
-		double squishOffset = (xsb + ysb) * SQUISH_2D;
-		double xb = xsb + squishOffset;
-		double yb = ysb + squishOffset;
-		
-		//Compute grid coordinates relative to rhombus origin.
-		double xins = xs - xsb;
-		double yins = ys - ysb;
-		
-		//Sum those together to get a value that determines which region we're in.
-		double inSum = xins + yins;
-
-		//Positions relative to origin point.
-		double dx0 = x - xb;
-		double dy0 = y - yb;
-		
-		//We'll be defining these inside the next block and using them afterwards.
-		double dx_ext, dy_ext;
-		int xsv_ext, ysv_ext;
-		
+	//2D OpenSimplex noise (KdotJPG)
+	public double noise(double x, double y) {
 		double value = 0;
+		
+		//Get points for A2 lattice
+		double s = STRETCH_2D * (x + y);
+		double xs = x + s, ys = y + s;
+		
+		//Get base points and offsets
+		int xsb = fastFloor(xs), ysb = fastFloor(ys);
+		double xsi = xs - xsb, ysi = ys - ysb;
+		
+		//Index to point list
+		int a = (int)(ysi - xsi + 1);
+		int index =
+			(a << 2) |
+			(int)(xsi + ysi / 2.0 + a / 2.0) << 3 |
+			(int)(ysi + xsi / 2.0 + 1.0 / 2.0 - a / 2.0) << 4;
+		
+		//Get unskewed offsets.
+		double ssi = (xsi + ysi) * SQUISH_2D;
+		double xi = xsi + ssi, yi = ysi + ssi;
 
-		//Contribution (1,0)
-		double dx1 = dx0 - 1 - SQUISH_2D;
-		double dy1 = dy0 - 0 - SQUISH_2D;
-		double attn1 = 2 - dx1 * dx1 - dy1 * dy1;
-		if (attn1 > 0) {
-			attn1 *= attn1;
-			value += attn1 * attn1 * extrapolate2D(xsb + 1, ysb + 0, dx1, dy1);
-		}
+		//Point contributions
+		for (int i = 0; i < 4; i++) {
+			LatticePoint2D c = LOOKUP_2D[index + i];
 
-		//Contribution (0,1)
-		double dx2 = dx0 - 0 - SQUISH_2D;
-		double dy2 = dy0 - 1 - SQUISH_2D;
-		double attn2 = 2 - dx2 * dx2 - dy2 * dy2;
-		if (attn2 > 0) {
-			attn2 *= attn2;
-			value += attn2 * attn2 * extrapolate2D(xsb + 0, ysb + 1, dx2, dy2);
-		}
-		
-		if (inSum <= 1) { //We're inside the triangle (2-Simplex) at (0,0)
-			double zins = 1 - inSum;
-			if (zins > xins || zins > yins) { //(0,0) is one of the closest two triangular vertices
-				if (xins > yins) {
-					xsv_ext = xsb + 1;
-					ysv_ext = ysb - 1;
-					dx_ext = dx0 - 1;
-					dy_ext = dy0 + 1;
-				} else {
-					xsv_ext = xsb - 1;
-					ysv_ext = ysb + 1;
-					dx_ext = dx0 + 1;
-					dy_ext = dy0 - 1;
-				}
-			} else { //(1,0) and (0,1) are the closest two vertices.
-				xsv_ext = xsb + 1;
-				ysv_ext = ysb + 1;
-				dx_ext = dx0 - 1 - 2 * SQUISH_2D;
-				dy_ext = dy0 - 1 - 2 * SQUISH_2D;
-			}
-		} else { //We're inside the triangle (2-Simplex) at (1,1)
-			double zins = 2 - inSum;
-			if (zins < xins || zins < yins) { //(0,0) is one of the closest two triangular vertices
-				if (xins > yins) {
-					xsv_ext = xsb + 2;
-					ysv_ext = ysb + 0;
-					dx_ext = dx0 - 2 - 2 * SQUISH_2D;
-					dy_ext = dy0 + 0 - 2 * SQUISH_2D;
-				} else {
-					xsv_ext = xsb + 0;
-					ysv_ext = ysb + 2;
-					dx_ext = dx0 + 0 - 2 * SQUISH_2D;
-					dy_ext = dy0 - 2 - 2 * SQUISH_2D;
-				}
-			} else { //(1,0) and (0,1) are the closest two vertices.
-				dx_ext = dx0;
-				dy_ext = dy0;
-				xsv_ext = xsb;
-				ysv_ext = ysb;
-			}
-			xsb += 1;
-			ysb += 1;
-			dx0 = dx0 - 1 - 2 * SQUISH_2D;
-			dy0 = dy0 - 1 - 2 * SQUISH_2D;
-		}
-		
-		//Contribution (0,0) or (1,1)
-		double attn0 = 2 - dx0 * dx0 - dy0 * dy0;
-		if (attn0 > 0) {
-			attn0 *= attn0;
-			value += attn0 * attn0 * extrapolate2D(xsb, ysb, dx0, dy0);
-		}
-		
-		//Extra Vertex
-		double attn_ext = 2 - dx_ext * dx_ext - dy_ext * dy_ext;
-		if (attn_ext > 0) {
-			attn_ext *= attn_ext;
-			value += attn_ext * attn_ext * extrapolate2D(xsv_ext, ysv_ext, dx_ext, dy_ext);
+			double dx = xi + c.dx, dy = yi + c.dy;
+			double attn = 2.0 - dx * dx - dy * dy;
+			if (attn <= 0) continue;
+
+			int pxm = (xsb + c.xsv) & 1023, pym = (ysb + c.ysv) & 1023;
+			int gi = perm2D[perm[pxm] ^ pym];
+			double extrapolation = GRADIENTS_2D[gi] * dx
+					+ GRADIENTS_2D[gi + 1] * dy;
+			
+			attn *= attn;
+			value += attn * attn * extrapolation;
 		}
 		
 		return value;
 	}
 	
-	//3D OpenSimplex Noise
+	//3D OpenSimplex Noise (DigitalShadow)
 	public double noise(double x, double y, double z)
 	{
 		double stretchOffset = (x + y + z) * STRETCH_3D;
@@ -218,7 +163,7 @@ public class OpenSimplexNoise {
 		   (int)(inSum + yins) << 7 |
 		   (int)(inSum + xins) << 9;
 
-		Contribution3 c = lookup3D[hash];
+		Contribution3 c = LOOKUP_3D[hash];
 
 		double value = 0.0;
 		while (c != null)
@@ -233,8 +178,8 @@ public class OpenSimplexNoise {
 				int py = ysb + c.ysb;
 				int pz = zsb + c.zsb;
 
-				int i = perm3D[(perm[(perm[px & 0xFF] + py) & 0xFF] + pz) & 0xFF];
-				double valuePart = gradients3D[i] * dx + gradients3D[i + 1] * dy + gradients3D[i + 2] * dz;
+				int i = perm3D[(perm[(perm[px & 0x3FF] ^ py) & 0x3FF] ^ pz) & 0x3FF];
+				double valuePart = GRADIENTS_3D[i] * dx + GRADIENTS_3D[i + 1] * dy + GRADIENTS_3D[i + 2] * dz;
 
 				attn *= attn;
 				value += attn * attn * valuePart;
@@ -245,20 +190,107 @@ public class OpenSimplexNoise {
 		return value;
 	}
 	
-	private double extrapolate2D(int xsb, int ysb, double dx, double dy)
-	{
-		int index = perm2D[(perm[xsb & 0xFF] + ysb) & 0xFF];
-		return gradients2D[index] * dx + gradients2D[index + 1] * dy;
+	/*
+	 * Multi-eval
+	 */
+
+	//2D OpenSimplex noise Multi-eval (KdotJPG)
+	public static void noise(double x, double y, NoiseInstance2[] instances, double[] results) {
+		
+		//Get points for A2 lattice
+		double s = STRETCH_2D * (x + y);
+		double xs = x + s, ys = y + s;
+		
+		//Get base points and offsets
+		int xsb = fastFloor(xs), ysb = fastFloor(ys);
+		double xsi = xs - xsb, ysi = ys - ysb;
+		
+		//Index to point list
+		int a = (int)(ysi - xsi + 1);
+		int index =
+			(a << 2) |
+			(int)(xsi + ysi / 2.0 + a / 2.0) << 3 |
+			(int)(ysi + xsi / 2.0 + 1.0 / 2.0 - a / 2.0) << 4;
+		
+		//Get unskewed offsets.
+		double ssi = (xsi + ysi) * SQUISH_2D;
+		double xi = xsi + ssi, yi = ysi + ssi;
+
+		//Point contributions
+		for (int i = 0; i < 4; i++) {
+			LatticePoint2D c = LOOKUP_2D[index + i];
+
+			double dx = xi + c.dx, dy = yi + c.dy;
+			double attn = 2.0 - dx * dx - dy * dy;
+			if (attn <= 0) continue;
+			double attnSq = attn * attn;
+
+			int pxm = (xsb + c.xsv) & 1023, pym = (ysb + c.ysv) & 1023;
+			for (NoiseInstance2 instance : instances) {
+				int gi_p = instance.noise.perm[pxm] ^ pym;
+				int gi = instance.noise.perm2D[gi_p];
+				double gx = GRADIENTS_2D[gi + 0], gy = GRADIENTS_2D[gi + 1];
+				double extrapolation = gx * dx + gy * dy;
+
+				if (instance.valueIndex >= 0) {
+					results[instance.valueIndex] += attnSq * attnSq * extrapolation;
+				}
+				if ((instance.ddxIndex & instance.ddyIndex) >= 0) {
+					if (instance.ddxIndex >= 0) {
+						results[instance.ddxIndex] += (gx * attn - 8 * dx * extrapolation) * attnSq * attn;
+					}
+					if (instance.ddyIndex >= 0) {
+						results[instance.ddyIndex] += (gy * attn - 8 * dy * extrapolation) * attnSq * attn;
+					}
+				}
+				if ((instance.sph2xIndex & instance.sph2yIndex) >= 0) {
+					int gi_sph2 = instance.noise.perm2D_sph2[gi_p];
+					if (instance.sph2xIndex >= 0) {
+						results[instance.sph2xIndex] += attnSq * attnSq * extrapolation * GRADIENTS_SPH2[gi_sph2 + 0];
+					}
+					if (instance.sph2yIndex >= 0) {
+						results[instance.sph2yIndex] += attnSq * attnSq * extrapolation * GRADIENTS_SPH2[gi_sph2 + 1];
+					}
+				}
+			}
+		}
 	}
+	
+	/*
+	 * Utility
+	 */
 	
 	private static int fastFloor(double x) {
 		int xi = (int)x;
 		return x < xi ? xi - 1 : xi;
 	}
-
-	private static Contribution3[] lookup3D;
 	
+	/*
+	 * Definitions
+	 */
+
+	private static final LatticePoint2D[] LOOKUP_2D;
+	private static Contribution3[] LOOKUP_3D;
 	static {
+		
+		//2D (KdotJPG)
+		LOOKUP_2D = new LatticePoint2D[8 * 4];
+		for (int i = 0; i < 8; i++) {
+			int i1, j1, i2, j2;
+			if ((i & 1) == 0) {
+				if ((i & 2) == 0) { i1 = 0; j1 = 0; } else { i1 = 2; j1 = 0; }
+				if ((i & 4) == 0) { i2 = 1; j2 = -1; } else { i2 = 1; j2 = 1; }
+			} else {
+				if ((i & 2) == 0) { i1 = -1; j1 = 1; } else { i1 = 1; j1 = 1; }
+				if ((i & 4) == 0) { i2 = 0; j2 = 0; } else { i2 = 0; j2 = 2; }
+			}
+			LOOKUP_2D[i * 4 + 0] = new LatticePoint2D(1, 0);
+			LOOKUP_2D[i * 4 + 1] = new LatticePoint2D(0, 1);
+			LOOKUP_2D[i * 4 + 2] = new LatticePoint2D(i1, j1);
+			LOOKUP_2D[i * 4 + 3] = new LatticePoint2D(i2, j2);
+		}
+		
+		//3D (DigitalShadow)
 		int[][] base3D = new int[][] {
 			new int[] { 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1 },
 			new int[] { 2, 1, 1, 0, 2, 1, 0, 1, 2, 0, 1, 1, 3, 1, 1, 1 },
@@ -284,14 +316,14 @@ public class OpenSimplexNoise {
 			current.next.next = new Contribution3(p3D[i + 5], p3D[i + 6], p3D[i + 7], p3D[i + 8]);
 		}
 		
-		lookup3D = new Contribution3[2048];
+		LOOKUP_3D = new Contribution3[2048];
 		for (int i = 0; i < lookupPairs3D.length; i += 2) {
-			lookup3D[lookupPairs3D[i]] = contributions3D[lookupPairs3D[i + 1]];
+			LOOKUP_3D[lookupPairs3D[i]] = contributions3D[lookupPairs3D[i + 1]];
 		}
 	}
 	
 	//2D Gradients -- new scheme (Dodecagon)
-	private static double[] gradients2D = new double[] {
+	private static double[] GRADIENTS_2D = new double[] {
 	   0.114251372530929,   0.065963060686016,
 	   0.131926121372032,   0.000000000000000,
 	   0.114251372530929,  -0.065963060686016,
@@ -306,33 +338,83 @@ public class OpenSimplexNoise {
 	   0.065963060686016,   0.114251372530929,
 	};
 	
-	//3D Gradients (Stretched Rhombicuboctahedron)
-	private static double[] gradients3D = new double[] {
-		-0.106796116504854,		0.0388349514563107,		0.0388349514563107,
-		-0.0388349514563107,	0.106796116504854,		0.0388349514563107,
-		-0.0388349514563107,	0.0388349514563107,		0.106796116504854,
-		0.106796116504854,		0.0388349514563107,		0.0388349514563107,
-		0.0388349514563107,		0.106796116504854,		0.0388349514563107,
-		0.0388349514563107,		0.0388349514563107,		0.106796116504854,
-		-0.106796116504854,		-0.0388349514563107,	0.0388349514563107,
-		-0.0388349514563107,	-0.106796116504854,		0.0388349514563107,
-		-0.0388349514563107,	-0.0388349514563107,	0.106796116504854,
-		0.106796116504854,		-0.0388349514563107,	0.0388349514563107,
-		0.0388349514563107,		-0.106796116504854,		0.0388349514563107,
-		0.0388349514563107,		-0.0388349514563107,	0.106796116504854,
-		-0.106796116504854,		0.0388349514563107,		-0.0388349514563107,
-		-0.0388349514563107,	0.106796116504854,		-0.0388349514563107,
-		-0.0388349514563107,	0.0388349514563107,		-0.106796116504854,
-		0.106796116504854,		0.0388349514563107,		-0.0388349514563107,
-		0.0388349514563107,		0.106796116504854,		-0.0388349514563107,
-		0.0388349514563107,		0.0388349514563107,		-0.106796116504854,
-		-0.106796116504854,		-0.0388349514563107,	-0.0388349514563107,
-		-0.0388349514563107,	-0.106796116504854,		-0.0388349514563107,
-		-0.0388349514563107,	-0.0388349514563107,	-0.106796116504854,
-		0.106796116504854,		-0.0388349514563107,	-0.0388349514563107,
-		0.0388349514563107,		-0.106796116504854,		-0.0388349514563107,
-		0.0388349514563107,		-0.0388349514563107,	-0.106796116504854,
+	private static final double[] GRADIENTS_SPH2 = new double[] {
+		                  0,	  1.000000000000000,
+		  0.500000000000000,	  0.866025403784439,
+		  0.866025403784439,	  0.500000000000000,
+		  1.000000000000000,	                  0,
+		  0.866025403784439,	 -0.500000000000000,
+		  0.500000000000000,	 -0.866025403784439,
+		                  0,	 -1.000000000000000,
+		 -0.500000000000000,	 -0.866025403784439,
+		 -0.866025403784439,	 -0.500000000000000,
+		 -1.000000000000000,	                  0,
+		 -0.866025403784439,	  0.500000000000000,
+		 -0.500000000000000,	  0.866025403784439
 	};
+	
+	//3D Gradients -- new scheme (Normalized expanded cuboctahedron)
+	private static double[] GRADIENTS_3D = new double[] {
+		-0.009192019279820,   0.061948581592974,   0.105513124626310,
+		 0.061948581592974,  -0.009192019279820,   0.105513124626310,
+		 0.052339395980958,   0.052339395980958,   0.097858646551677,
+		 0.002784312704445,   0.002784312704445,   0.122636188189934,
+		-0.009192019279820,   0.105513124626310,   0.061948581592974,
+		 0.061948581592974,   0.105513124626310,  -0.009192019279820,
+		 0.052339395980958,   0.097858646551677,   0.052339395980958,
+		 0.002784312704445,   0.122636188189934,   0.002784312704445,
+		 0.105513124626310,  -0.009192019279820,   0.061948581592974,
+		 0.105513124626310,   0.061948581592974,  -0.009192019279820,
+		 0.097858646551677,   0.052339395980958,   0.052339395980958,
+		 0.122636188189934,   0.002784312704445,   0.002784312704445,
+		-0.067278076657600,   0.090991610281865,   0.047427067248529,
+		-0.090991610281865,   0.067278076657600,  -0.047427067248529,
+		-0.057908021389848,   0.107463104666361,  -0.012388770819128,
+		-0.107463104666361,   0.057908021389848,   0.012388770819128,
+		-0.067278076657600,   0.047427067248529,   0.090991610281865,
+		-0.090991610281865,  -0.047427067248529,   0.067278076657600,
+		-0.057908021389848,  -0.012388770819128,   0.107463104666361,
+		-0.107463104666361,   0.012388770819128,   0.057908021389848,
+		 0.047427067248529,  -0.067278076657600,   0.090991610281865,
+		-0.047427067248529,  -0.090991610281865,   0.067278076657600,
+		-0.012388770819128,  -0.057908021389848,   0.107463104666361,
+		 0.012388770819128,  -0.107463104666361,   0.057908021389848,
+		 0.067278076657600,  -0.090991610281865,  -0.047427067248529,
+		 0.090991610281865,  -0.067278076657600,   0.047427067248529,
+		 0.107463104666361,  -0.057908021389848,  -0.012388770819128,
+		 0.057908021389848,  -0.107463104666361,   0.012388770819128,
+		 0.067278076657600,  -0.047427067248529,  -0.090991610281865,
+		 0.090991610281865,   0.047427067248529,  -0.067278076657600,
+		 0.107463104666361,  -0.012388770819128,  -0.057908021389848,
+		 0.057908021389848,   0.012388770819128,  -0.107463104666361,
+		-0.047427067248529,   0.067278076657600,  -0.090991610281865,
+		 0.047427067248529,   0.090991610281865,  -0.067278076657600,
+		-0.012388770819128,   0.107463104666361,  -0.057908021389848,
+		 0.012388770819128,   0.057908021389848,  -0.107463104666361,
+		 0.009192019279820,  -0.061948581592974,  -0.105513124626310,
+		-0.061948581592974,   0.009192019279820,  -0.105513124626310,
+		-0.002784312704445,  -0.002784312704445,  -0.122636188189934,
+		-0.052339395980958,  -0.052339395980958,  -0.097858646551677,
+		 0.009192019279820,  -0.105513124626310,  -0.061948581592974,
+		-0.061948581592974,  -0.105513124626310,   0.009192019279820,
+		-0.002784312704445,  -0.122636188189934,  -0.002784312704445,
+		-0.052339395980958,  -0.097858646551677,  -0.052339395980958,
+		-0.105513124626310,   0.009192019279820,  -0.061948581592974,
+		-0.105513124626310,  -0.061948581592974,   0.009192019279820,
+		-0.122636188189934,  -0.002784312704445,  -0.002784312704445,
+		-0.097858646551677,  -0.052339395980958,  -0.052339395980958
+	};
+	
+	private static class LatticePoint2D {
+		public int xsv, ysv;
+		public double dx, dy;
+		public LatticePoint2D(int xsv, int ysv) {
+			this.xsv = xsv; this.ysv = ysv;
+			double ssv = (xsv + ysv) * SQUISH_2D;
+			this.dx = -xsv - ssv;
+			this.dy = -ysv - ssv;
+		}
+	}
 
 	private static class Contribution3 {
 		public double dx, dy, dz;
@@ -347,6 +429,29 @@ public class OpenSimplexNoise {
 			this.ysb = ysb;
 			this.zsb = zsb;
 		}
+	}
+	
+	public static class NoiseInstance2 {
+		public NoiseInstance2(OpenSimplexNoise noise, int valueIndex,
+				int ddxIndex, int ddyIndex, int sph2xIndex, int sph2yIndex) {
+			this.noise = noise;
+			this.valueIndex = valueIndex;
+			this.ddxIndex = ddxIndex;
+			this.ddyIndex = ddyIndex;
+			this.sph2xIndex = sph2xIndex;
+			this.sph2yIndex = sph2yIndex;
+		}
+		public NoiseInstance2(OpenSimplexNoise noise, int valueIndex,
+				int ddxIndex, int ddyIndex) {
+			this(noise, valueIndex, ddxIndex, ddyIndex, -1, -1);
+		}
+		public NoiseInstance2(OpenSimplexNoise noise, int valueIndex) {
+			this(noise, valueIndex, -1, -1, -1, -1);
+		}
+		public OpenSimplexNoise noise;
+		public int valueIndex;
+		public int ddxIndex, ddyIndex;
+		public int sph2xIndex, sph2yIndex;
 	}
 
 }

@@ -7,7 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeJungleSmall extends WorldGenerator
+public class WorldGenTreeRTGJungleTall extends WorldGenerator
 {
 	private Block blockLog;
 	private int metadataLog;
@@ -26,7 +26,7 @@ public class WorldGenTreeJungleSmall extends WorldGenerator
 	 * Blocks.log, 0, Blocks.leaves, 0, 9 + rand.nextInt(5), 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
 	 */
 	
-	public WorldGenTreeJungleSmall(Block log, int metaLog, Block leaves, int metaLeaves, int baseHeight, int rootHeight, float branchLength, int numBranches, float verticalStart, float verticalRand)
+	public WorldGenTreeRTGJungleTall(Block log, int metaLog, Block leaves, int metaLeaves, int baseHeight, int rootHeight, float branchLength, int numBranches, float verticalStart, float verticalRand)
 	{
 		blockLog = log;
 		metadataLog = metaLog;

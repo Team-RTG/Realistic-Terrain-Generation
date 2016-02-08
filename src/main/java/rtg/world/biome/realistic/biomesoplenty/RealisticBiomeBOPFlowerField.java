@@ -6,10 +6,9 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPFlowerField;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPFlowerField;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -29,7 +28,7 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPFlowerField(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPFlowerField(),
 			new SurfaceBOPFlowerField(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, topBlock, 0.05f)
 		);
@@ -66,7 +65,7 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase
                 int k1 = world.getHeightValue(i1, j1);
                 if (k1 < 110)
                 {
-                    (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                    (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
                 }
             }
         }

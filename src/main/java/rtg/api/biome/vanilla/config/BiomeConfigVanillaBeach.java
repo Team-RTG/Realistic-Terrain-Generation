@@ -11,9 +11,7 @@ public class BiomeConfigVanillaBeach extends BiomeConfigVanillaBase
     
     public BiomeConfigVanillaBeach()
     {
-        super();
-        
-        this.biomeSlug = "beach";
+        super("beach");
         
         this.addProperty(new BiomeConfigProperty(decorationPalmTreesId, Type.BOOLEAN, decorationPalmTreesName, "", true));
     }

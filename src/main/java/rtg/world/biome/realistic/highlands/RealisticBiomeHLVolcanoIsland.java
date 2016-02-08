@@ -8,7 +8,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.highlands.ConfigHL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenVolcano;
@@ -21,6 +20,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.world.biome.RTGBiomeProvider;
 
 public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
 {
@@ -56,7 +56,7 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
     {
     
         super(
-            hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
+            hlBiome, BiomeGenBase.river,
             new TerrainHLVolcanoIsland(),
             surface
         );
@@ -94,7 +94,7 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
     }
     
     @Override
-    public void rMapGen(Block[] blocks, byte[] metadata, World world, WorldChunkManagerRTG cmr, Random mapRand, int baseX, int baseY,
+    public void rMapGen(Block[] blocks, byte[] metadata, World world, RTGBiomeProvider cmr, Random mapRand, int baseX, int baseY,
         int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[])
     {
     

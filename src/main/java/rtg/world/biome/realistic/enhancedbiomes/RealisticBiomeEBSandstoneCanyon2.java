@@ -3,13 +3,12 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
+import rtg.api.biome.enhancedbiomes.config.BiomeConfigEBSandstoneCanyon2;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSandstoneCanyon2;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSandstoneCanyon2;
 import enhancedbiomes.api.EBAPI;
@@ -60,8 +59,8 @@ public class RealisticBiomeEBSandstoneCanyon2 extends RealisticBiomeEBBase
 	public RealisticBiomeEBSandstoneCanyon2(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
-			new TerrainEBSandstoneCanyon2(false, 35f, 120f, 30f, 20f, 10),
+			ebBiome, BiomeGenBase.river,
+			new TerrainEBSandstoneCanyon2(false, 35f, 120f, 30f, 20f, 60),
 			new SurfaceEBSandstoneCanyon2(
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
@@ -114,15 +113,18 @@ public class RealisticBiomeEBSandstoneCanyon2 extends RealisticBiomeEBBase
             }
         }
         
-        if (rand.nextInt((int) (16f / strength)) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            if (y22 < 100)
+        if (this.config.getPropertyById(BiomeConfigEBSandstoneCanyon2.decorationLogsId).valueBoolean) {
+        
+            if (rand.nextInt((int) (16f / strength)) == 0)
             {
-                if (rand.nextInt(8) == 0) {
-                    (new WorldGenLog(Blocks.log, 2, Blocks.leaves, -1, 3 + rand.nextInt(3))).generate(world, rand, x22, y22, z22);
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                if (y22 < 100)
+                {
+                    if (rand.nextInt(8) == 0) {
+                        (new WorldGenLog(Blocks.log, 2, Blocks.leaves, -1, 3 + rand.nextInt(3))).generate(world, rand, x22, y22, z22);
+                    }
                 }
             }
         }
@@ -135,7 +137,7 @@ public class RealisticBiomeEBSandstoneCanyon2 extends RealisticBiomeEBBase
             
             if (k1 < 110 && rand.nextInt(5) == 0)
             {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
             }
         }
         

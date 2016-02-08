@@ -8,16 +8,16 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaColdTaiga;
 import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreePineSmall;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
-import rtg.world.gen.feature.tree.WorldGenTreeSpruceSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdTaiga;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaColdTaiga;
 
@@ -42,7 +42,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
     
         super(
             BiomeGenBase.coldTaiga,
-            BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
+            BiomeGenBase.frozenRiver,
             new TerrainVanillaColdTaiga(),
             new SurfaceVanillaColdTaiga(topBlock, fillerBlock));
         
@@ -81,18 +81,21 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
                 int z52 = world.getHeightValue(j6, k10);
                 
                 WorldGenerator worldgenerator =
-                    rand.nextInt(4) == 0 ? new WorldGenTreeSpruceSmall(1 + rand.nextInt(2)) : rand.nextInt(6) == 0 ? new WorldGenTreePineSmall(
-                        1 + rand.nextInt(3), 4 + rand.nextInt(4)) : new WorldGenTreePineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
+                    rand.nextInt(4) == 0 ? new WorldGenTreeRTGSpruceSmall(1 + rand.nextInt(2)) : rand.nextInt(6) == 0 ? new WorldGenTreeRTGPineSmall(
+                        1 + rand.nextInt(3), 4 + rand.nextInt(4)) : new WorldGenTreeRTGPineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
                 worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                 worldgenerator.generate(world, rand, j6, z52, k10);
             }
             
-            if (l > 0f && rand.nextInt(6) == 0)
-            {
-                int x22 = chunkX + rand.nextInt(16) + 8;
-                int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
-                (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
+            if (this.config.getPropertyById(BiomeConfigVanillaColdTaiga.decorationLogsId).valueBoolean) {
+            
+                if (l > 0f && rand.nextInt(6) == 0)
+                {
+                    int x22 = chunkX + rand.nextInt(16) + 8;
+                    int z22 = chunkY + rand.nextInt(16) + 8;
+                    int y22 = world.getHeightValue(x22, z22);
+                    (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
+                }
             }
             
             for (int b = 0; b < 2f * strength; b++)
@@ -102,11 +105,11 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
                 int k1 = world.getHeightValue(i1, j1);
                 if (rand.nextInt(10) == 0)
                 {
-                    (new WorldGenTreeShrub(rand.nextInt(5) + 4, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
+                    (new WorldGenTreeRTGShrub(rand.nextInt(5) + 4, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
                 }
                 else
                 {
-                    (new WorldGenTreeShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
+                    (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
                 }
             }
         }

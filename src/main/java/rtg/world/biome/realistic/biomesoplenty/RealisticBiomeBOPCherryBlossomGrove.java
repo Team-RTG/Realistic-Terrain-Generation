@@ -3,10 +3,9 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPCherryBlossomGrove;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPCherryBlossomGrove;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPCherryBlossomGrove;
@@ -29,8 +28,8 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPCherryBlossomGrove(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
-			new TerrainBOPCherryBlossomGrove(63f, 76f, 20f),
+			bopBiome, BiomeGenBase.river,
+			new TerrainBOPCherryBlossomGrove(58f, 76f, 20f),
 			new SurfaceBOPCherryBlossomGrove(
 			    topBlock, //Block top 
                 (byte)0, //byte topByte
@@ -72,25 +71,28 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase
             }
         }
 
-        if (l > 0f && rand.nextInt(16) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            
-            Block log;
-            byte logMeta;
-            
-            if (rand.nextInt(15) != 0) {
-                log = BOPCBlocks.logs1;
-                logMeta = (byte)1;
+        if (this.config.getPropertyById(BiomeConfigBOPCherryBlossomGrove.decorationLogsId).valueBoolean) {
+        
+            if (l > 0f && rand.nextInt(16) == 0)
+            {
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                
+                Block log;
+                byte logMeta;
+                
+                if (rand.nextInt(15) != 0) {
+                    log = BOPCBlocks.logs1;
+                    logMeta = (byte)1;
+                }
+                else {
+                    log = Blocks.log;
+                    logMeta = (byte)0;
+                }
+                
+                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, 3 + rand.nextInt(3))).generate(world, rand, x22, y22, z22);            
             }
-            else {
-                log = Blocks.log;
-                logMeta = (byte)0;
-            }
-            
-            (new WorldGenLog(log, logMeta, Blocks.leaves, -1, 3 + rand.nextInt(3))).generate(world, rand, x22, y22, z22);            
         }
         
         rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);

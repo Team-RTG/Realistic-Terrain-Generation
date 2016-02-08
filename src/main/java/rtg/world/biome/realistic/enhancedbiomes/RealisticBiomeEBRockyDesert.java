@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenCacti;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
@@ -90,7 +89,7 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
 	public RealisticBiomeEBRockyDesert(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBRockyDesert(230f, 60f, 0f),
 			surface
 		);

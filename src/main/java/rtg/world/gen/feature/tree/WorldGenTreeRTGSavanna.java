@@ -2,22 +2,24 @@ package rtg.world.gen.feature.tree;
 
 import java.util.Random;
 
+import rtg.config.rtg.ConfigRTG;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeSavanna extends WorldGenerator
+public class WorldGenTreeRTGSavanna extends WorldGenerator
 {
 	private int type;
 	private boolean sand;
 	
-    public WorldGenTreeSavanna(int t)
+    public WorldGenTreeRTGSavanna(int t)
     {
     	this(t, true);
     }
     
-    public WorldGenTreeSavanna(int t, boolean s)
+    public WorldGenTreeRTGSavanna(int t, boolean s)
     {
     	type = t;
     	sand = s;
@@ -26,6 +28,11 @@ public class WorldGenTreeSavanna extends WorldGenerator
     public boolean generate(World world, Random rand, int x, int y, int z)
     {
     	Block b = world.getBlock(x, y - 1, z);
+    	
+        if (b == Blocks.sand && !ConfigRTG.allowTreesToGenerateOnSand) {
+            return false;
+        }
+    	
     	if(b != Blocks.grass && b != Blocks.dirt && ((sand && b != Blocks.sand) || !sand))
     	{
     		return false;

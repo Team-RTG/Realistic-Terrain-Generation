@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.atg.ConfigATG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenVolcano;
@@ -17,13 +16,14 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.world.biome.RTGBiomeProvider;
 
 public class RealisticBiomeATGVolcano extends RealisticBiomeATGBase
 {	
 	public RealisticBiomeATGVolcano(BiomeGenBase atgBiome, BiomeConfig config)
 	{
 		super(
-			atgBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
+			atgBiome, BiomeGenBase.river,
 			new TerrainATGVolcano(),
 			new SurfaceATGVolcano(atgBiome.topBlock, atgBiome.fillerBlock, true, Blocks.gravel, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f)
 		);
@@ -60,7 +60,7 @@ public class RealisticBiomeATGVolcano extends RealisticBiomeATGBase
     }
     
     @Override
-    public void rMapGen(Block[] blocks, byte[] metadata, World world, WorldChunkManagerRTG cmr, Random mapRand, int baseX, int baseY,
+    public void rMapGen(Block[] blocks, byte[] metadata, World world, RTGBiomeProvider cmr, Random mapRand, int baseX, int baseY,
         int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[])
     {
     

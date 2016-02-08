@@ -14,10 +14,12 @@ import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
+import rtg.util.AICWrapper;
 import rtg.util.CanyonColor;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeAnalyzer;
+import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import cpw.mods.fml.common.eventhandler.Event.Result;
@@ -36,6 +38,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.MapGenBase;
+import net.minecraft.world.gen.MapGenCaves;
+import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.feature.WorldGenLiquids;
 import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.MapGenScatteredFeature;
@@ -79,7 +83,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private Random rand;
     private Random mapRand;
     private World worldObj;
-    private WorldChunkManagerRTG cmr;
+    protected RTGBiomeProvider cmr;
     private OpenSimplexNoise simplex;
     private CellNoise cell;
 	private RealisticBiomeBase[] biomesForGeneration;
@@ -93,6 +97,9 @@ public class ChunkProviderRTG implements IChunkProvider
     private float[] borderNoise;
     private long worldSeed;
     private boolean doJitter = false;
+    
+    private AICWrapper aic;
+    private boolean isAICLoaded;
 
     public ChunkProviderRTG(World world, long l)
     {
@@ -113,18 +120,20 @@ public class ChunkProviderRTG implements IChunkProvider
 
         mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
 
-        caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), CAVE);
+        if (ConfigRTG.enableCaveModifications) {
+            caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), CAVE);
+        }
+        else {
+            caveGenerator = TerrainGen.getModdedMapGen(new MapGenCaves(), CAVE);
+        }
         
-        /**
-         * RTG doesn't generate ravines, but it still calls getModdedMapGen()
-         * so that other mods can hook into InitMapGenEvent if they want to
-         * generate their own ravines.
-         * 
-         * Modders, if you want to generate ravines in RTG, you need to subscribe
-         * to InitMapGenEvent with a priority higher than LOW.
-         */
-        ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(), RAVINE);
-        
+        if (ConfigRTG.enableRavineModifications) {
+            ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(), RAVINE);
+        }
+        else {
+            ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavine(), RAVINE);
+        }
+
         villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), VILLAGE);
 		strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), STRONGHOLD);
 		mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(), MINESHAFT);
@@ -154,6 +163,9 @@ public class ChunkProviderRTG implements IChunkProvider
     	testHeight = new float[256];
     	biomesGeneratedInChunk = new float[257];
     	borderNoise = new float[256];
+    	
+    	aic = new AICWrapper();
+    	isAICLoaded = aic.isAICLoaded();
     }
 
     /**
@@ -177,7 +189,25 @@ public class ChunkProviderRTG implements IChunkProvider
                 //fill with biomeData
         int [] biomeIndices= cmr.getBiomesGens(cx *16, cy*16,16,16);
 
+        /*if (cx*16==1872&&cy*16==7712) {
+            PrintWriter writer = null;
+            try {
+                File file = new File("forestChunk.txt");
+                writer = new PrintWriter(file);
+                for (int i = 0;i <16;i++) {
+                    String output = "";
+                    for (int j = 0;j<16;j++) {
+                        output += "" + biomesForGeneration[i*16+j].biomeID + '\t';
+                    }
+                    writer.print(output+'\r');
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ChunkProviderRTG.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                writer.close();
+            }
 
+        }*/
 
 
         if (!doJitter){
@@ -227,19 +257,31 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
         Chunk chunk = new Chunk(this.worldObj, blocks, metadata, cx, cy);
-        // doJitter no longer needed as the biome array gets fixed
-        byte[] abyte1 = chunk.getBiomeArray();
-        for (k = 0; k < abyte1.length; ++k)
-        {
-            // biomes are y-first and terrain x-first
-            abyte1[k] = (byte)this.baseBiomesList[this.xyinverted[k]].biomeID;
+        
+        if(isAICLoaded){
+        	aic.setBiomeArray(chunk, baseBiomesList, xyinverted);
+        } else {
+        	// doJitter no longer needed as the biome array gets fixed
+        	byte[] abyte1 = chunk.getBiomeArray();
+        	for (k = 0; k < abyte1.length; ++k)
+        	{
+        		// biomes are y-first and terrain x-first
+        		/*
+        		* This 2 line separation is needed, because otherwise, AIC's dynamic patching algorith detects vanilla pattern here and patches this part following vanilla logic.
+        		* Which causes game to crash.
+        		* I cannot do much on my part, so i have to do it here.
+        		* - Elix_x
+        		*/
+        		byte b = (byte)this.baseBiomesList[this.xyinverted[k]].biomeID;
+        		abyte1[k] = b;
+        	}
+        	chunk.setBiomeArray(abyte1);
         }
-        chunk.setBiomeArray(abyte1);
         chunk.generateSkylightMap();
         return chunk;
     }
 
-    public void generateTerrain(WorldChunkManagerRTG cmr, int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase biomes[], float[] n)
+    public void generateTerrain(RTGBiomeProvider cmr, int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase biomes[], float[] n)
     {
     	int p, h;
     	float[] noise = getNewNoise(cmr, cx * 16, cy * 16, biomes);
@@ -275,7 +317,7 @@ public class ChunkProviderRTG implements IChunkProvider
 
     private static final int centerLocationIndex = 312;// this is x=8, y=8 with the calcs below
 
-    public float[] getNewNoise(WorldChunkManagerRTG cmr, int x, int y, RealisticBiomeBase biomes[])
+    public float[] getNewNoise(RTGBiomeProvider cmr, int x, int y, RealisticBiomeBase biomes[])
     {
     	int i, j, k, locationIndex, m, n, p;
 
@@ -418,7 +460,7 @@ public class ChunkProviderRTG implements IChunkProvider
             //fill with biomeData
             for (i = 0; i < 16; i++) {
                 for (j=0; j<16; j++) {
-                    biomes[i*16+j] =  cmr.getBiomeDataAt(x + (((i-8) * 8)), y + (((j-8) * 8)));
+                    biomes[i*16+j] =  cmr.getBiomeDataAt(x + (((i-7) * 8+4)), y + (((j-7) * 8+4)));
                 }
             }
         }

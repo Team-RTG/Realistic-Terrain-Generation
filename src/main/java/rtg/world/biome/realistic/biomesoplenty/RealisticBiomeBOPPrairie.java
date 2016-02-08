@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.biomesoplenty.ConfigBOP;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPPrairie;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPPrairie;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -20,8 +19,8 @@ public class RealisticBiomeBOPPrairie extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPPrairie(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
-			new TerrainBOPPrairie(63f, 80f, 25f),
+			bopBiome, BiomeGenBase.river,
+			new TerrainBOPPrairie(65f, 80f, 25f),
 			new SurfaceBOPPrairie(topBlock, fillerBlock)
 		);
 		

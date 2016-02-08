@@ -30,6 +30,6 @@ public class TerrainEBScrub extends TerrainBase
         l *= l / 35f;
         l = l < -8f ? -8f : l;
         
-        return 64f + h + m - l;
+        return 68f + h + m - l;
     }
 }

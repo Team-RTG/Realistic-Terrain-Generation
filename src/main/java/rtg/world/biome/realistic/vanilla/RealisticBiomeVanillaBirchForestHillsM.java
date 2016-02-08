@@ -7,16 +7,14 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.vanilla.ConfigVanilla;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForestHillsM;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeBirch;
-import rtg.world.gen.feature.tree.WorldGenTreeBirchSmall;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGBirchSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForestHillsM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestHillsM;
 
@@ -24,7 +22,6 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenForest;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import net.minecraftforge.event.terraingen.TerrainGen;
@@ -41,7 +38,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
 	{
 		super(
 		    mutationBiome,
-			BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+			BiomeGenBase.river,
 			new TerrainVanillaBirchForestHillsM(),
 			new SurfaceVanillaBirchForestHillsM(topBlock, fillerBlock)
 		);
@@ -73,10 +70,9 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
                         
                         if (z52 < 120)
                         {
-                            WorldGenerator worldgenerator =
-                                rand.nextInt(1) == 0 ? new WorldGenTreeBirchSmall(4 + rand.nextInt(7), 8 + rand.nextInt(12), 2)
-                                : rand.nextInt(10) != 0 ? new WorldGenTreeBirch(4 + rand.nextInt(7), 8 + rand.nextInt(12))
-                                : new WorldGenForest(false, false);
+                            WorldGenerator worldgenerator = new WorldGenTreeRTGBirchSmall(
+                                4 + rand.nextInt(7), 8 + rand.nextInt(12), 2
+                            );
                             worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                             worldgenerator.generate(world, rand, j6, z52, k10);
                         }
@@ -84,14 +80,17 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
                 }
             }
             
-            if (rand.nextInt((int) (24f / strength)) == 0)
-            {
-                int x22 = chunkX + rand.nextInt(16) + 8;
-                int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
-                if (y22 < 100)
+            if (this.config.getPropertyById(BiomeConfigVanillaBirchForestHillsM.decorationLogsId).valueBoolean) {
+            
+                if (rand.nextInt((int) (24f / strength)) == 0)
                 {
-                    (new WorldGenLog(Blocks.log, 2, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+                    int x22 = chunkX + rand.nextInt(16) + 8;
+                    int z22 = chunkY + rand.nextInt(16) + 8;
+                    int y22 = world.getHeightValue(x22, z22);
+                    if (y22 < 100)
+                    {
+                        (new WorldGenLog(Blocks.log, 2, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+                    }
                 }
             }
             
@@ -102,7 +101,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
                 int k1 = world.getHeightValue(i1, j1);
                 if (k1 < 110)
                 {
-                    (new WorldGenTreeShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                    (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
                 }
             }
         }

@@ -4,8 +4,6 @@ public class BiomeConfigEBLowHills extends BiomeConfigEBBase
 {
     public BiomeConfigEBLowHills()
     {
-        super();
-        
-        this.biomeSlug = "lowhills";
+        super("lowhills");
     }
 }

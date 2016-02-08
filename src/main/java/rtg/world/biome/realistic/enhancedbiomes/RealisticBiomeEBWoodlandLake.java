@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBWoodlandLake;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBWoodlandLake;
 import enhancedbiomes.api.EBAPI;
@@ -50,7 +49,7 @@ public class RealisticBiomeEBWoodlandLake extends RealisticBiomeEBBase
 	public RealisticBiomeEBWoodlandLake(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBWoodlandLake(),
 			new SurfaceEBWoodlandLake(
                 ebTopBlock, //Block top 

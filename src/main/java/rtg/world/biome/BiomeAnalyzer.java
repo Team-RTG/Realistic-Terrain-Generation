@@ -71,10 +71,13 @@ public class BiomeAnalyzer {
             if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("swamp")) {
                 swampBiome[index] = true;
             }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("bayou")) {
+                swampBiome[index] = true;
+            }
             if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("bog")) {
                 swampBiome[index] = true;
             }
-            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("wetlands")) {
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("wetland")) {
                 swampBiome[index] = true;
             }
             if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("sludge")) {
@@ -84,6 +87,33 @@ public class BiomeAnalyzer {
                 swampBiome[index] = true;
             }
             if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("fen")) {
+                swampBiome[index] = true;
+            }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("moor")) {
+                swampBiome[index] = true;
+            }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("quagmire")) {
+                swampBiome[index] = true;
+            }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("ephemeral lake")) {
+                swampBiome[index] = true;
+            }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("rainforest valley")) {
+                swampBiome[index] = true;
+            }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("riparian zone")) {
+                swampBiome[index] = true;
+            }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("ice sheet")) {
+                swampBiome[index] = true;
+            }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("woodland lake")) {
+                swampBiome[index] = true;
+            }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("archipelago")) {
+                swampBiome[index] = true;
+            }
+            if (BiomeGenBase.getBiome(index).biomeID==BiomeGenBase.frozenRiver.biomeID) {
                 swampBiome[index] = true;
             }
         }
@@ -111,6 +141,9 @@ public class BiomeAnalyzer {
             if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("beach")) {
                 beachBiome[index] = true;
             }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("mangrove")) {
+                beachBiome[index] = true;
+            }
         }
     }
 
@@ -126,7 +159,7 @@ public class BiomeAnalyzer {
                 jitteredBiomes[i] =  RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]);
             } else {
                 // check for river
-                if (canBeRiver&&!oceanBiome[genLayerBiomes[xyinverted[i]]]) {
+                if (canBeRiver&&!oceanBiome[genLayerBiomes[xyinverted[i]]]&&!swampBiome[genLayerBiomes[xyinverted[i]]]) {
                     // make river
                     int riverBiomeID = RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]).riverBiome.biomeID;
                     jitteredBiomes[i] =  RealisticBiomeBase.getBiome(riverBiomeID);

@@ -30,6 +30,6 @@ public class TerrainEBScree extends TerrainBase
         l *= l / 25f;
         l = l < -8f ? -8f : l;
         
-        return 64f + h + m - l;
+        return 70f + h + m - l;
     }
 }

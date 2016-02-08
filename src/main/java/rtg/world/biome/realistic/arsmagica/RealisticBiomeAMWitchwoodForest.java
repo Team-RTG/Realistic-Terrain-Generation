@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.arsmagica;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.arsmagica.config.BiomeConfigAMWitchwoodForest;
 import rtg.config.arsmagica.ConfigAM;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.arsmagica.SurfaceAMWitchwoodForest;
 import rtg.world.gen.terrain.arsmagica.TerrainAMWitchwoodForest;
 
@@ -16,7 +15,7 @@ public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase
     {
     
         super(
-            amBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+            amBiome, BiomeGenBase.river,
             new TerrainAMWitchwoodForest(),
             new SurfaceAMWitchwoodForest(amBiome.topBlock, amBiome.fillerBlock));
         

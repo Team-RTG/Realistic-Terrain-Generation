@@ -5,8 +5,6 @@ public class BiomeConfigVanillaFrozenRiver extends BiomeConfigVanillaBase
 {
     public BiomeConfigVanillaFrozenRiver()
     {
-        super();
-        
-        this.biomeSlug = "frozenriver";
+        super("frozenriver");
     }
 }

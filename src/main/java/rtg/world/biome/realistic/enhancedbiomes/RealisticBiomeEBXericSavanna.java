@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBXericSavanna;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBXericSavanna;
 import enhancedbiomes.api.EBAPI;
@@ -50,7 +49,7 @@ public class RealisticBiomeEBXericSavanna extends RealisticBiomeEBBase
 	public RealisticBiomeEBXericSavanna(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.OASIS),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBXericSavanna(200f, 100f, 0f),
 			new SurfaceEBXericSavanna(
                 ebTopBlock, //Block top 

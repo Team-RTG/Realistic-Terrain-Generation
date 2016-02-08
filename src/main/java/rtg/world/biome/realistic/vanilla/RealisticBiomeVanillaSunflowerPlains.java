@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.vanilla.ConfigVanilla;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSunflowerPlains;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaSunflowerPlains;
 
@@ -21,7 +20,7 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
     {
         super(
             mutationBiome,
-            BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+            BiomeGenBase.river,
             new TerrainVanillaSunflowerPlains(),
             new SurfaceVanillaSunflowerPlains(topBlock, fillerBlock));
         

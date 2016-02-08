@@ -28,6 +28,6 @@ public class TerrainBOPGrassland extends TerrainBase
             h += simplex.noise2(x / 20f, y / 20f) + simplex.noise2(x / 5f, y / 5f);
         }
         
-        return 62f + h;
+        return 64f + h;
     }
 }

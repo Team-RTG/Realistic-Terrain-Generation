@@ -4,10 +4,9 @@ import rtg.api.biome.BiomeConfig;
 
 public class BiomeConfigATGBase extends BiomeConfig
 {
-    public BiomeConfigATGBase()
+
+    public BiomeConfigATGBase(String biomeSlug)
     {
-        super();
-        
-        this.modSlug = "atg";
+        super("atg", biomeSlug);
     }
 }

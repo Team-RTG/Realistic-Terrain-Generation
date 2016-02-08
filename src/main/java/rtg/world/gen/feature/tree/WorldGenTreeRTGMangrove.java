@@ -2,12 +2,14 @@ package rtg.world.gen.feature.tree;
 
 import java.util.Random;
 
+import rtg.config.rtg.ConfigRTG;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeMangrove extends WorldGenerator
+public class WorldGenTreeRTGMangrove extends WorldGenerator
 {
 	private Block blockLog;
 	private int metadataLog;
@@ -26,7 +28,7 @@ public class WorldGenTreeMangrove extends WorldGenerator
 	 * Blocks.log, 0, Blocks.leaves, 0, 9 + rand.nextInt(5), 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
 	 */
 	
-	public WorldGenTreeMangrove(Block log, int metaLog, Block leaves, int metaLeaves, int baseHeight, int rootHeight, float branchLength, int numBranches, float verticalStart, float verticalRand)
+	public WorldGenTreeRTGMangrove(Block log, int metaLog, Block leaves, int metaLeaves, int baseHeight, int rootHeight, float branchLength, int numBranches, float verticalStart, float verticalRand)
 	{
 		blockLog = log;
 		metadataLog = metaLog;
@@ -46,6 +48,11 @@ public class WorldGenTreeMangrove extends WorldGenerator
 	public boolean generate(World world, Random rand, int x, int y, int z) 
 	{
     	Block b = world.getBlock(x, y - 1, z);
+    	
+        if (b == Blocks.sand && !ConfigRTG.allowTreesToGenerateOnSand) {
+            return false;
+        }
+    	
     	if(b != Blocks.grass && b != Blocks.dirt && b != Blocks.sand)
     	{
     		if(!(b == Blocks.water && world.getBlock(x, y - 2, z) == Blocks.sand && world.getBlock(x, y, z) == Blocks.air))

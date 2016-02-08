@@ -11,11 +11,6 @@ public class TerrainRollingHills extends TerrainBase
     
     // 63f, 80f, 30f
     
-    public TerrainRollingHills()
-    {
-    
-    }
-    
     public TerrainRollingHills(float minHeight, float maxHeight, float hillStrength)
     {
         this.minHeight = minHeight;

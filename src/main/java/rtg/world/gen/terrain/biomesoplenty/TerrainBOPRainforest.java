@@ -53,6 +53,6 @@ public class TerrainBOPRainforest extends TerrainBase
     		h += simplex.noise2(x / 8f, y / 8f) * (d / 2f);
 		}
 		
-		return h + 56f;
+		return h + 65f;
 	}
 }

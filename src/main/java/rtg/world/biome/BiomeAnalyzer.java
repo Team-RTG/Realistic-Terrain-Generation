@@ -71,6 +71,9 @@ public class BiomeAnalyzer {
             if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("swamp")) {
                 swampBiome[index] = true;
             }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("bayou")) {
+                swampBiome[index] = true;
+            }
             if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("bog")) {
                 swampBiome[index] = true;
             }
@@ -86,6 +89,32 @@ public class BiomeAnalyzer {
             if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("fen")) {
                 swampBiome[index] = true;
             }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("moor")) {
+                swampBiome[index] = true;
+            }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("quagmire")) {
+                swampBiome[index] = true;
+            }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("ephemeral lake")) {
+                swampBiome[index] = true;
+            }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("rainforest valley")) {
+                swampBiome[index] = true;
+            }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("riparian zone")) {
+                swampBiome[index] = true;
+            }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("ice sheet")) {
+                swampBiome[index] = true;
+            }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("woodland lake")) {
+                swampBiome[index] = true;
+            }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("archipelago")) {
+                swampBiome[index] = true;
+            }
+            if (index==66&&swampBiome[index]==false)
+                throw new RuntimeException(BiomeGenBase.getBiome(index).biomeName.toLowerCase());
         }
     }
     private void determineLandBiomes() {
@@ -109,6 +138,9 @@ public class BiomeAnalyzer {
         for (int index = 0; index < 256; index++) {
             if (BiomeGenBase.getBiome(index) == null) continue;
             if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("beach")) {
+                beachBiome[index] = true;
+            }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("mangrove")) {
                 beachBiome[index] = true;
             }
         }

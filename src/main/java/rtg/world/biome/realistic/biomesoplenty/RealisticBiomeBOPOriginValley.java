@@ -21,7 +21,7 @@ public class RealisticBiomeBOPOriginValley extends RealisticBiomeBOPBase
 	{
 		super(
 			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
-			new TerrainBOPOriginValley(63f, 80f, 38f),
+			new TerrainBOPOriginValley(65f, 80f, 38f),
 			new SurfaceBOPOriginValley(topBlock, fillerBlock)
 		);
 		

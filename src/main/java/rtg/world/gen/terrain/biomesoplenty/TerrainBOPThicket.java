@@ -25,7 +25,7 @@ public class TerrainBOPThicket extends TerrainBase
         h *= h / 100f;
         h += st;
         
-        floNoise = 62f + h;
+        floNoise = 65f + h;
         
         //FMLLog.log(Level.INFO, "floNoise = %f", floNoise);
         

@@ -6,15 +6,10 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBOPOrchard extends TerrainBase
 {
-    private float minHeight = 63f;
-    private float maxHeight = 80f;
-    private float hillStrength = 30f;
-    
-    public TerrainBOPOrchard()
-    {
-    
-    }
-    
+    private float minHeight;
+    private float maxHeight;
+    private float hillStrength;
+
     public TerrainBOPOrchard(float minHeight, float maxHeight, float hillStrength)
     {
         this.minHeight = minHeight;
@@ -43,6 +38,6 @@ public class TerrainBOPOrchard extends TerrainBase
         float floNoise = maxHeight + h + m - l;
         floNoise = (floNoise < minHeight) ? minHeight : floNoise;
         
-        return floNoise;
+        return floNoise+4;
     }
 }

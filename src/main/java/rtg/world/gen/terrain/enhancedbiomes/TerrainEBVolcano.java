@@ -30,6 +30,6 @@ public class TerrainEBVolcano extends TerrainBase
         h += simplex.noise2(x / 18f, y / 18f) * 3;
         h += simplex.noise2(x / 8f, y / 8f) * 2;
         
-        return 65f + h * border;
+        return 70f + h * border;
 	}
 }

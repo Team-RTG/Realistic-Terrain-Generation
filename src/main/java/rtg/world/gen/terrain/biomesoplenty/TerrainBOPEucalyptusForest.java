@@ -6,14 +6,9 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBOPEucalyptusForest extends TerrainBase
 {
-    private float minHeight = 63f;
-    private float maxHeight = 80f;
-    private float hillStrength = 30f;
-    
-    public TerrainBOPEucalyptusForest()
-    {
-    
-    }
+    private float minHeight;
+    private float maxHeight;
+    private float hillStrength;
     
     public TerrainBOPEucalyptusForest(float minHeight, float maxHeight, float hillStrength)
     {

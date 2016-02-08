@@ -6,14 +6,9 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBOPLandOfLakes extends TerrainBase
 {
-    private float minHeight = 63f;
-    private float maxHeight = 80f;
-    private float hillStrength = 30f;
-    
-    public TerrainBOPLandOfLakes()
-    {
-    
-    }
+    private float minHeight;
+    private float maxHeight;
+    private float hillStrength;
     
     public TerrainBOPLandOfLakes(float minHeight, float maxHeight, float hillStrength)
     {

@@ -22,7 +22,7 @@ public class TerrainEBXLRainforest extends TerrainBase
 
 	public TerrainEBXLRainforest(float mountainWidth, float mountainStrength, float depthLake)
 	{
-		this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
+		this(mountainWidth, mountainStrength, depthLake, 260f, 69f);
 	}
 	
 	public TerrainEBXLRainforest(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)

@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.logging.log4j.Level;
+
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import cpw.mods.fml.common.FMLLog;
 
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
@@ -19,7 +22,7 @@ import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
-public class WorldChunkManagerRTG extends WorldChunkManager
+public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeProvider
 {
     /** A GenLayer containing the indices into BiomeGenBase.biomeList[] */
     private GenLayer genBiomes;
@@ -124,12 +127,16 @@ public class WorldChunkManagerRTG extends WorldChunkManager
     public BiomeGenBase getBiomeGenAt(int par1, int par2)
     {
         BiomeGenBase result = this.biomeCache.getBiomeGenAt(par1, par2);
+        
         if (result == null) {
             throw new RuntimeException();
         }
+        
         if (result.biomeName == null) {
             result.biomeName = "";
+            FMLLog.log(Level.WARN, "Biome %d has no name.", result.biomeID);
         }
+        
         return result;
     }
 
@@ -272,7 +279,11 @@ public class WorldChunkManagerRTG extends WorldChunkManager
 
             for (int i1 = 0; i1 < par4 * par5; ++i1)
             {
-                par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]);
+                try {
+                    par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]);
+                } catch (Exception e) {
+                    throw new RuntimeException(genBiomes.toString()+ " " + this.biomeIndexLayer.toString());
+                }
                 if (par1ArrayOfBiomeGenBase[i1] == null) {
                     throw new RuntimeException("missing biome "+aint[i1]);
                 }

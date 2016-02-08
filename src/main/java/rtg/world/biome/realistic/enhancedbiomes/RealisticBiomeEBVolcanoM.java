@@ -22,6 +22,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.world.biome.RTGBiomeProvider;
 
 public class RealisticBiomeEBVolcanoM extends RealisticBiomeEBBase
 {
@@ -118,7 +119,7 @@ public class RealisticBiomeEBVolcanoM extends RealisticBiomeEBBase
     }
     
     @Override
-    public void rMapGen(Block[] blocks, byte[] metadata, World world, WorldChunkManagerRTG cmr, Random mapRand, int baseX, int baseY,
+    public void rMapGen(Block[] blocks, byte[] metadata, World world, RTGBiomeProvider cmr, Random mapRand, int baseX, int baseY,
         int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[])
     {
     

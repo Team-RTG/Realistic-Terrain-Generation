@@ -22,8 +22,8 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
 {	
 	public static BiomeGenBase bopBiome = BOPCBiomes.snowyConiferousForest;
 	
-	public static Block topBlock = bopBiome.topBlock;
-	public static Block fillerBlock = bopBiome.fillerBlock;
+    public static Block topBlock = BOPCBlocks.newBopGrass;
+    public static Block fillerBlock = BOPCBlocks.newBopDirt;
 	
 	public RealisticBiomeBOPSnowyConiferousForest(BiomeConfig config)
 	{

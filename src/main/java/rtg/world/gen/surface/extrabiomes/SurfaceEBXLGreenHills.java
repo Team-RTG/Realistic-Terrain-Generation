@@ -22,7 +22,8 @@ public class SurfaceEBXLGreenHills extends SurfaceBase
 	private float sStrength = 65f;
 	private float cCliff = 1.5f;
 	
-	public byte topByte = 0;
+	private byte topByte = 0;
+	private byte fillerByte = 0;
 	
 	public SurfaceEBXLGreenHills(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{
@@ -96,8 +97,8 @@ public class SurfaceEBXLGreenHills extends SurfaceBase
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k); 
-        				metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
+                        blocks[(y * 16 + x) * 256 + k] = topBlock;
+                        metadata[(y * 16 + x) * 256 + k] = topByte;
             		}
             		else if(k < 63)
             		{
@@ -108,7 +109,8 @@ public class SurfaceEBXLGreenHills extends SurfaceBase
             			}
             			else if(k < 62)
             			{
-                			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            metadata[(y * 16 + x) * 256 + k] = fillerByte;
             			}
             			else
             			{
@@ -126,13 +128,21 @@ public class SurfaceEBXLGreenHills extends SurfaceBase
         		{
             		if(cliff == 1)
             		{
-                        blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
-                        metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
+                        if (rand.nextInt(3) == 0) {
+                            
+                            blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
+                        }
+                        else {
+                            
+                            blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
+                        }
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k); 
-        				metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
+                        blocks[(y * 16 + x) * 256 + k] = topBlock;
+                        metadata[(y * 16 + x) * 256 + k] = topByte;
             		}
             		else if(gravel)
             		{
@@ -141,6 +151,7 @@ public class SurfaceEBXLGreenHills extends SurfaceBase
             		else
             		{
             			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+            			metadata[(y * 16 + x) * 256 + k] = fillerByte;
             		}
         		}
             }

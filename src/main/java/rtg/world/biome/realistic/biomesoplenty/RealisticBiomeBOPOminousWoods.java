@@ -20,10 +20,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPCBiomes.ominousWoods;
-	
-	public static Block topBlock = bopBiome.topBlock;
-	public static Block fillerBlock = bopBiome.fillerBlock;
-	
+
+    public static Block topBlock = BOPCBlocks.newBopGrass;
+    public static Block fillerBlock = BOPCBlocks.newBopDirt;
+
 	public RealisticBiomeBOPOminousWoods(BiomeConfig config)
 	{
 		super(
@@ -75,7 +75,7 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase
                     intLogLength = 3 + rand.nextInt(2);
                 }
     
-                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, intLogLength)).generate(world, rand, x22, y22, z22);            
+                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, intLogLength)).generate(world, rand, x22, y22, z22);
             }
         }
     }

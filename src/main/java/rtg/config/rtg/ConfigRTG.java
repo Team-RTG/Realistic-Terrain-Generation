@@ -68,6 +68,7 @@ public class ConfigRTG
     
     public static boolean enableRavineModifications = true;
     public static boolean enableRavines = false;
+    public static int ravineFrequency = 50;
 	
     public static boolean enableSnowLayers = true;
     
@@ -195,6 +196,7 @@ public class ConfigRTG
             );
             
             enableRavines = config.getBoolean("Enable Ravines", "Ravines", enableRavines, "");
+            ravineFrequency = config.getInt("Ravine Frequency", "Ravines", ravineFrequency, 1, 100, "This setting controls the number of ravines that generate." + Configuration.NEW_LINE + "LOWER values = MORE ravines & MORE lag. (50 = vanilla ravine frequency)" + Configuration.NEW_LINE);
             
             /* ==================== Scattered Features ==================== */
             

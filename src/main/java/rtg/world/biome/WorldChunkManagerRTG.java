@@ -172,7 +172,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         }*/
 
         RealisticBiomeBase output = (RealisticBiomeBase)(this.getBiomeGenAt(par1, par2));
-        if (output== null) output = biomePatcher.getPatchedRealisticBiome("no biome "+par1 + " " + par2);
+        if (output== null) output = biomePatcher.getPatchedRealisticBiome("No biome " + par1 + " " + par2);
 
         /*if (biomeDataMap.size() > 4096) {
             biomeDataMap.clear();
@@ -318,7 +318,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
                     par1ArrayOfBiomeGenBase[i1] = biomePatcher.getPatchedRealisticBiome(genBiomes.toString()+ " " + this.biomeIndexLayer.toString());
                 }
                 if (par1ArrayOfBiomeGenBase[i1] == null) {
-                    par1ArrayOfBiomeGenBase[i1] = biomePatcher.getPatchedRealisticBiome("missing biome "+aint[i1]);
+                    par1ArrayOfBiomeGenBase[i1] = biomePatcher.getPatchedRealisticBiome("Missing biome "+aint[i1]);
                 }
             }
 

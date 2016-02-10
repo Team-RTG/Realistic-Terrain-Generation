@@ -1,9 +1,5 @@
 package rtg.world.gen;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE;
@@ -18,19 +14,17 @@ import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
+import rtg.util.AICWrapper;
 import rtg.util.CanyonColor;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.BiomeAnalyzer;
+import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
@@ -44,6 +38,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.MapGenBase;
+import net.minecraft.world.gen.MapGenCaves;
+import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.feature.WorldGenLiquids;
 import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.MapGenScatteredFeature;
@@ -55,7 +51,6 @@ import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.world.biome.RTGBiomeProvider;
 
 /**
  * Scattered features courtesy of Ezoteric (https://github.com/Ezoteric) and Choonster (https://github.com/Choonster)
@@ -102,6 +97,9 @@ public class ChunkProviderRTG implements IChunkProvider
     private float[] borderNoise;
     private long worldSeed;
     private boolean doJitter = false;
+    
+    private AICWrapper aic;
+    private boolean isAICLoaded;
 
     public ChunkProviderRTG(World world, long l)
     {
@@ -122,18 +120,20 @@ public class ChunkProviderRTG implements IChunkProvider
 
         mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
 
-        caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), CAVE);
+        if (ConfigRTG.enableCaveModifications) {
+            caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), CAVE);
+        }
+        else {
+            caveGenerator = TerrainGen.getModdedMapGen(new MapGenCaves(), CAVE);
+        }
         
-        /**
-         * RTG doesn't generate ravines, but it still calls getModdedMapGen()
-         * so that other mods can hook into InitMapGenEvent if they want to
-         * generate their own ravines.
-         * 
-         * Modders, if you want to generate ravines in RTG, you need to subscribe
-         * to InitMapGenEvent with a priority higher than LOW.
-         */
-        ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(), RAVINE);
-        
+        if (ConfigRTG.enableRavineModifications) {
+            ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(), RAVINE);
+        }
+        else {
+            ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavine(), RAVINE);
+        }
+
         villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), VILLAGE);
 		strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), STRONGHOLD);
 		mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(), MINESHAFT);
@@ -163,6 +163,9 @@ public class ChunkProviderRTG implements IChunkProvider
     	testHeight = new float[256];
     	biomesGeneratedInChunk = new float[257];
     	borderNoise = new float[256];
+    	
+    	aic = new AICWrapper();
+    	isAICLoaded = aic.isAICLoaded();
     }
 
     /**
@@ -254,14 +257,26 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
         Chunk chunk = new Chunk(this.worldObj, blocks, metadata, cx, cy);
-        // doJitter no longer needed as the biome array gets fixed
-        byte[] abyte1 = chunk.getBiomeArray();
-        for (k = 0; k < abyte1.length; ++k)
-        {
-            // biomes are y-first and terrain x-first
-            abyte1[k] = (byte)this.baseBiomesList[this.xyinverted[k]].biomeID;
+        
+        if(isAICLoaded){
+        	aic.setBiomeArray(chunk, baseBiomesList, xyinverted);
+        } else {
+        	// doJitter no longer needed as the biome array gets fixed
+        	byte[] abyte1 = chunk.getBiomeArray();
+        	for (k = 0; k < abyte1.length; ++k)
+        	{
+        		// biomes are y-first and terrain x-first
+        		/*
+        		* This 2 line separation is needed, because otherwise, AIC's dynamic patching algorith detects vanilla pattern here and patches this part following vanilla logic.
+        		* Which causes game to crash.
+        		* I cannot do much on my part, so i have to do it here.
+        		* - Elix_x
+        		*/
+        		byte b = (byte)this.baseBiomesList[this.xyinverted[k]].biomeID;
+        		abyte1[k] = b;
+        	}
+        	chunk.setBiomeArray(abyte1);
         }
-        chunk.setBiomeArray(abyte1);
         chunk.generateSkylightMap();
         return chunk;
     }

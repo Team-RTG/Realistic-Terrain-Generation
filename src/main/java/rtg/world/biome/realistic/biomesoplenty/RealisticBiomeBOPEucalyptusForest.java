@@ -3,10 +3,9 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPEucalyptusForest;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPEucalyptusForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPEucalyptusForest;
@@ -28,7 +27,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPEucalyptusForest(BiomeConfig config)
 	{
 		super(
-			bopBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+			bopBiome, BiomeGenBase.river,
 			new TerrainBOPEucalyptusForest(58f, 80f, 36f),
 			new SurfaceBOPEucalyptusForest(
                 topBlock, //Block top 
@@ -77,19 +76,22 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
             }
         }
 
-        if (l > 0f && rand.nextInt(16) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            
-            Block log;
-            byte logMeta;
-            
-            log = Blocks.log;
-            logMeta = (byte)3;
-            
-            (new WorldGenLog(log, logMeta, Blocks.leaves, -1, 10 + rand.nextInt(14))).generate(world, rand, x22, y22, z22);            
+        if (this.config.getPropertyById(BiomeConfigBOPEucalyptusForest.decorationLogsId).valueBoolean) {
+        
+            if (l > 0f && rand.nextInt(16) == 0)
+            {
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                
+                Block log;
+                byte logMeta;
+                
+                log = Blocks.log;
+                logMeta = (byte)3;
+                
+                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, 10 + rand.nextInt(14))).generate(world, rand, x22, y22, z22);            
+            }
         }
         
         rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);

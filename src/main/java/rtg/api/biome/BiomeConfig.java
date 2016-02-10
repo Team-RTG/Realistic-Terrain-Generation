@@ -17,11 +17,11 @@ public class BiomeConfig {
     
     public static final String useRTGDecorationsId = "useRTGDecorations";
     public static final String useRTGDecorationsName = "Use RTG Decorations";
-    
-    public BiomeConfig()
+
+    public BiomeConfig(String modSlug, String biomeSlug)
     {
-        this.modSlug = null;
-        this.biomeSlug = null;
+        this.modSlug = modSlug;
+        this.biomeSlug = biomeSlug;
         
         this.properties = new ArrayList<BiomeConfigProperty>();
 

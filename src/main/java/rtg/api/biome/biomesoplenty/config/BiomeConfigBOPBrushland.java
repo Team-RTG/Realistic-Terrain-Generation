@@ -6,8 +6,6 @@ public class BiomeConfigBOPBrushland extends BiomeConfigBOPBase
 {
     public BiomeConfigBOPBrushland()
     {
-        super();
-        
-        this.biomeSlug = "brushland";
+        super("brushland");
     }
 }

@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSnowyDesert;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSnowyDesert;
 import enhancedbiomes.api.EBAPI;
@@ -50,7 +49,7 @@ public class RealisticBiomeEBSnowyDesert extends RealisticBiomeEBBase
 	public RealisticBiomeEBSnowyDesert(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBSnowyDesert(),
 			new SurfaceEBSnowyDesert(
                 ebTopBlock, //Block top 

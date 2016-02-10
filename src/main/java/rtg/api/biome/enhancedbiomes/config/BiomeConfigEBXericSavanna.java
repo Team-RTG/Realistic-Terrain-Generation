@@ -4,8 +4,6 @@ public class BiomeConfigEBXericSavanna extends BiomeConfigEBBase
 {
     public BiomeConfigEBXericSavanna()
     {
-        super();
-        
-        this.biomeSlug = "xericsavanna";
+        super("xericsavanna");
     }
 }

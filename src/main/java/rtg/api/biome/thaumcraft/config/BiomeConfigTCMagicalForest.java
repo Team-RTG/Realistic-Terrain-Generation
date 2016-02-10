@@ -5,8 +5,6 @@ public class BiomeConfigTCMagicalForest extends BiomeConfigTCBase
 {
     public BiomeConfigTCMagicalForest()
     {
-        super();
-        
-        this.biomeSlug = "magicalforest";
+        super("magicalforest");
     }
 }

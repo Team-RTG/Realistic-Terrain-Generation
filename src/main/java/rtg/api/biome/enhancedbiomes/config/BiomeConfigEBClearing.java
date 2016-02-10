@@ -4,8 +4,6 @@ public class BiomeConfigEBClearing extends BiomeConfigEBBase
 {
     public BiomeConfigEBClearing()
     {
-        super();
-        
-        this.biomeSlug = "clearing";
+        super("clearing");
     }
 }

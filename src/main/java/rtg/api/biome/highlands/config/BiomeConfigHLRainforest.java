@@ -5,8 +5,6 @@ public class BiomeConfigHLRainforest extends BiomeConfigHLBase
 {
     public BiomeConfigHLRainforest()
     {
-        super();
-        
-        this.biomeSlug = "rainforest";
+        super("rainforest");
     }
 }

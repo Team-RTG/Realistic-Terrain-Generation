@@ -5,8 +5,6 @@ public class BiomeConfigEBXLRainforest extends BiomeConfigEBXLBase
 {
     public BiomeConfigEBXLRainforest()
     {
-        super();
-        
-        this.biomeSlug = "rainforest";
+        super("rainforest");
     }
 }

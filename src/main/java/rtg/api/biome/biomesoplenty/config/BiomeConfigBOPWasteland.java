@@ -6,8 +6,6 @@ public class BiomeConfigBOPWasteland extends BiomeConfigBOPBase
 {
     public BiomeConfigBOPWasteland()
     {
-        super();
-        
-        this.biomeSlug = "wasteland";
+        super("wasteland");
     }
 }

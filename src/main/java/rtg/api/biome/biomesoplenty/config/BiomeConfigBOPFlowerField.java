@@ -6,8 +6,6 @@ public class BiomeConfigBOPFlowerField extends BiomeConfigBOPBase
 {
     public BiomeConfigBOPFlowerField()
     {
-        super();
-        
-        this.biomeSlug = "flowerfield";
+        super("flowerfield");
     }
 }

@@ -5,8 +5,6 @@ public class BiomeConfigVanillaMesaPlateau extends BiomeConfigVanillaBase
 {
     public BiomeConfigVanillaMesaPlateau()
     {
-        super();
-        
-        this.biomeSlug = "mesaplateau";
+        super("mesaplateau");
     }
 }

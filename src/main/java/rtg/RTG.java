@@ -11,7 +11,6 @@ import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
-import rtg.world.biome.BiomeBase;
 import rtg.world.biome.realistic.arsmagica.RealisticBiomeAMBase;
 import rtg.world.biome.realistic.atg.RealisticBiomeATGBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
@@ -90,8 +89,7 @@ public class RTG {
     @EventHandler
     public void fmlLifeCycle(FMLPostInitializationEvent event)
     {
-        BiomeBase.init();
-        
+
         RealisticBiomeVanillaBase.addBiomes();
         
         RealisticBiomeBOPBase.addBiomes();

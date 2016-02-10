@@ -5,15 +5,14 @@ import highlands.api.HighlandsBiomes;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
+import rtg.api.biome.highlands.config.BiomeConfigHLRockMountains;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreePineEuro;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPineEuro;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.highlands.SurfaceHLRockMountains;
 import rtg.world.gen.terrain.highlands.TerrainHLRockMountains;
 
@@ -37,7 +36,7 @@ public class RealisticBiomeHLRockMountains extends RealisticBiomeHLBase
     {
     
         super(
-            hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.HOT),
+            hlBiome, BiomeGenBase.river,
             new TerrainHLRockMountains(230f, 100f, 0f),
             new SurfaceHLRockMountains(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f));
         
@@ -77,19 +76,21 @@ public class RealisticBiomeHLRockMountains extends RealisticBiomeHLBase
             int z52 = world.getHeightValue(j6, k10);
 
             if (rand.nextInt(24) == 0) {
-                // WorldGenerator worldgenerator = new WorldGenTreeSpruceSmall(1 + rand.nextInt(2));
-                WorldGenerator worldgenerator = new WorldGenTreePineEuro();
+                WorldGenerator worldgenerator = new WorldGenTreeRTGPineEuro();
                 worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                 worldgenerator.generate(world, rand, j6, z52, k10);
             }
         }
 
-        if (l > 0f && rand.nextInt(6) == 0)
-        {
-            int x22 = chunkX + rand.nextInt(16) + 8;
-            int z22 = chunkY + rand.nextInt(16) + 8;
-            int y22 = world.getHeightValue(x22, z22);
-            (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
+        if (this.config.getPropertyById(BiomeConfigHLRockMountains.decorationLogsId).valueBoolean) {
+        
+            if (l > 0f && rand.nextInt(6) == 0)
+            {
+                int x22 = chunkX + rand.nextInt(16) + 8;
+                int z22 = chunkY + rand.nextInt(16) + 8;
+                int y22 = world.getHeightValue(x22, z22);
+                (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
+            }
         }
 
         for (int b = 0; b < 2f * strength; b++)
@@ -99,11 +100,11 @@ public class RealisticBiomeHLRockMountains extends RealisticBiomeHLBase
             int k1 = world.getHeightValue(i1, j1);
             if (rand.nextInt(10) == 0)
             {
-                (new WorldGenTreeShrub(rand.nextInt(5) + 4, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(5) + 4, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
             }
             else
             {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
             }
         }
 

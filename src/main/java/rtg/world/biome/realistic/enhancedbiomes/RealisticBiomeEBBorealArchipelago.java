@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBBorealArchipelago;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBBorealArchipelago;
 import enhancedbiomes.EnhancedBiomesMod;
@@ -51,7 +50,7 @@ public class RealisticBiomeEBBorealArchipelago extends RealisticBiomeEBBase
 	public RealisticBiomeEBBorealArchipelago(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBBorealArchipelago(80f, 40f, 0f),
 			new SurfaceEBBorealArchipelago(
                 ebTopBlock, //Block top 

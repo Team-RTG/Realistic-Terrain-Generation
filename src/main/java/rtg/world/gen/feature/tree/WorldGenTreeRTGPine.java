@@ -11,12 +11,12 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class WorldGenTreePine extends WorldGenerator
+public class WorldGenTreeRTGPine extends WorldGenerator
 {
 	private int height;
 	private int metadata;
 	
-    public WorldGenTreePine(int h, int m)
+    public WorldGenTreeRTGPine(int h, int m)
     {
         super(false);
         

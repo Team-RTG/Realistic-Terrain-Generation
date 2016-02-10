@@ -1,10 +1,16 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+
 import java.util.Random;
+
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
-import rtg.world.biome.BiomeBase;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.world.gen.feature.WorldGenBlob;
+import rtg.world.gen.feature.WorldGenGrass;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.surface.highlands.SurfaceHLWindyIsland;
 import rtg.world.gen.terrain.highlands.TerrainHLWindyIsland;
 
@@ -13,13 +19,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraft.world.gen.feature.WorldGenTrees;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenBlob;
-import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.tree.WorldGenTreeShrub;
-import rtg.world.gen.feature.tree.WorldGenTreeSpruceSmall;
 
 public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
 {
@@ -33,7 +32,7 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
     {
     
         super(
-            hlBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+            hlBiome, BiomeGenBase.river,
             new TerrainHLWindyIsland(),
             new SurfaceHLWindyIsland(topBlock, fillerBlock));
         
@@ -71,8 +70,7 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
             int z52 = world.getHeightValue(j6, k10);
 
             if (rand.nextInt(24) == 0) {
-                WorldGenerator worldgenerator = new WorldGenTreeSpruceSmall(0 + rand.nextInt(1));
-                //WorldGenerator worldgenerator = new WorldGenTreePineEuro();
+                WorldGenerator worldgenerator = new WorldGenTreeRTGSpruceSmall(0 + rand.nextInt(1));
                 worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                 worldgenerator.generate(world, rand, j6, z52, k10);
             }
@@ -86,11 +84,11 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
             int k1 = world.getHeightValue(i1, j1);
             if (rand.nextInt(10) == 0)
             {
-                (new WorldGenTreeShrub(rand.nextInt(5) + 4, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(5) + 4, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
             }
             else
             {
-                (new WorldGenTreeShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
             }
         }
 

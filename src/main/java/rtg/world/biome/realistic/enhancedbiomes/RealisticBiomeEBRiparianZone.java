@@ -5,7 +5,6 @@ import java.util.Random;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRiparianZone;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBRiparianZone;
@@ -55,7 +54,7 @@ public class RealisticBiomeEBRiparianZone extends RealisticBiomeEBBase
 	public RealisticBiomeEBRiparianZone(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.WET),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBRiparianZone(),
 			new SurfaceEBRiparianZone(
                 ebTopBlock, //Block top 

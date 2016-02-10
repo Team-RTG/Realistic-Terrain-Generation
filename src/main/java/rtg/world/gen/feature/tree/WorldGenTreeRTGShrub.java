@@ -2,13 +2,15 @@ package rtg.world.gen.feature.tree;
 
 import java.util.Random;
 
+import rtg.config.rtg.ConfigRTG;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeShrub extends WorldGenerator
+public class WorldGenTreeRTGShrub extends WorldGenerator
 {
 	private int size;
 	private Block logBlock;
@@ -17,12 +19,12 @@ public class WorldGenTreeShrub extends WorldGenerator
 	private int leaveMeta;
 	private boolean sand;
 
-	public WorldGenTreeShrub(int s, int log, int leav)
+	public WorldGenTreeRTGShrub(int s, int log, int leav)
 	{
 		this(s, log, leav, false);
 	}
 	
-	public WorldGenTreeShrub(int s, int log, int leav, boolean sa)
+	public WorldGenTreeRTGShrub(int s, int log, int leav, boolean sa)
 	{
 		size = s;
 		sand = sa;
@@ -64,7 +66,13 @@ public class WorldGenTreeShrub extends WorldGenerator
 	
 	public void buildLeaves(World world, int x, int y, int z, int size)
 	{
-		Block b = world.getBlock(x, y - 2, z);
+	    Block b = world.getBlock(x, y - 2, z);
+	    Block b1 = world.getBlock(x, y - 1, z);
+		
+        if ((b == Blocks.sand || b1 == Blocks.sand) && !ConfigRTG.allowTreesToGenerateOnSand) {
+            return;
+        }
+		
 		if(b.getMaterial() == Material.grass || b.getMaterial() == Material.ground || (sand && b.getMaterial() == Material.sand))
 		{
 			if(world.getBlock(x, y - 1, z) != Blocks.water )

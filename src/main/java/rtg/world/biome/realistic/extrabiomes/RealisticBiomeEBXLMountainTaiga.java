@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.extrabiomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.extrabiomes.ConfigEBXL;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLMountainTaiga;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLMountainTaiga;
 import extrabiomes.api.BiomeManager;
@@ -20,7 +19,7 @@ public class RealisticBiomeEBXLMountainTaiga extends RealisticBiomeEBXLBase
 	public RealisticBiomeEBXLMountainTaiga(BiomeConfig config)
 	{
 		super(
-			ebxlBiome, BiomeBase.climatizedBiome(BiomeGenBase.frozenRiver, Climate.ICE),
+			ebxlBiome, BiomeGenBase.frozenRiver,
 			new TerrainEBXLMountainTaiga(),
 			new SurfaceEBXLMountainTaiga(topBlock, fillerBlock, false, null, 1.2f)
 		);

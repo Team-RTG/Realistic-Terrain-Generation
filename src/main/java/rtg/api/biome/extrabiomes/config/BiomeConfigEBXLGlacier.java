@@ -5,8 +5,6 @@ public class BiomeConfigEBXLGlacier extends BiomeConfigEBXLBase
 {
     public BiomeConfigEBXLGlacier()
     {
-        super();
-        
-        this.biomeSlug = "glacier";
+        super("glacier");
     }
 }

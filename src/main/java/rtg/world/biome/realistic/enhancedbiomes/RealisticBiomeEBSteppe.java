@@ -6,7 +6,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSteppe;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSteppe;
@@ -56,7 +55,7 @@ public class RealisticBiomeEBSteppe extends RealisticBiomeEBBase
 	public RealisticBiomeEBSteppe(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBSteppe(),
 			new SurfaceEBSteppe(
                 ebTopBlock, //Block top 

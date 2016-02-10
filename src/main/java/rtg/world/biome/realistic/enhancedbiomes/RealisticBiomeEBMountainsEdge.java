@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBMountainsEdge;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBMountainsEdge;
 import enhancedbiomes.EnhancedBiomesMod;
@@ -51,7 +50,7 @@ public class RealisticBiomeEBMountainsEdge extends RealisticBiomeEBBase
 	public RealisticBiomeEBMountainsEdge(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.COLD),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBMountainsEdge(200f, 100f, 0f),
 			new SurfaceEBMountainsEdge(
                 ebTopBlock, //Block top 

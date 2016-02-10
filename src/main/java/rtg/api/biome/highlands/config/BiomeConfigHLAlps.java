@@ -5,8 +5,6 @@ public class BiomeConfigHLAlps extends BiomeConfigHLBase
 {
     public BiomeConfigHLAlps()
     {
-        super();
-        
-        this.biomeSlug = "alps";
+        super("alps");
     }
 }

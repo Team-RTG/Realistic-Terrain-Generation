@@ -4,8 +4,6 @@ public class BiomeConfigEBMountainousArchipelago extends BiomeConfigEBBase
 {
     public BiomeConfigEBMountainousArchipelago()
     {
-        super();
-        
-        this.biomeSlug = "mountainousarchipelago";
+        super("mountainousarchipelago");
     }
 }

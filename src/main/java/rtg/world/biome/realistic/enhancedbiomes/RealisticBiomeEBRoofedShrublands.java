@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.world.biome.BiomeBase;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRoofedShrublands;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBRoofedShrublands;
 import enhancedbiomes.EnhancedBiomesMod;
@@ -51,7 +50,7 @@ public class RealisticBiomeEBRoofedShrublands extends RealisticBiomeEBBase
 	public RealisticBiomeEBRoofedShrublands(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
-			ebBiome, BiomeBase.climatizedBiome(BiomeGenBase.river, Climate.TEMPERATE),
+			ebBiome, BiomeGenBase.river,
 			new TerrainEBRoofedShrublands(),
 			new SurfaceEBRoofedShrublands(
                 ebTopBlock, //Block top 

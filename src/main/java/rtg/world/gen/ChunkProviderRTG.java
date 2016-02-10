@@ -231,7 +231,7 @@ public class ChunkProviderRTG implements IChunkProvider
             try {
                 baseBiomesList[k] = biomesForGeneration[k].baseBiome;
             } catch (Exception e) {
-                baseBiomesList[k] = biomePatcher.getPatchedBaseBiome();
+                baseBiomesList[k] = biomePatcher.getPatchedBaseBiome(""+biomesForGeneration[k].biomeID);
             }
         }
 
@@ -711,7 +711,7 @@ public class ChunkProviderRTG implements IChunkProvider
         		realisticBiome = RealisticBiomeBase.getBiome(bn);
                 if (realisticBiome == null)
                 {
-                    realisticBiome = biomePatcher.getPatchedRealisticBiome();
+                    realisticBiome = biomePatcher.getPatchedRealisticBiome("NULL biome (" + bn + ") found when generating border noise.");
                 }
                 
                 /**

@@ -1,5 +1,7 @@
 package rtg.world.biome.realistic;
 
+import rtg.config.rtg.ConfigRTG;
+
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomePatcher
@@ -11,30 +13,40 @@ public class RealisticBiomePatcher
     
     public RealisticBiomePatcher()
     {
-        this.patchBiomeId = 1;
+        this.patchBiomeId = (int)ConfigRTG.patchBiomeId;
         
         try {
             this.realisticBiome = RealisticBiomeBase.getBiome(this.patchBiomeId);
         }
         catch (Exception e) {
-            throw new RuntimeException("Realistic patch biome " + this.patchBiomeId + " not found.");
+            throw new RuntimeException("Realistic patch biome " + this.patchBiomeId + " not found. Please make sure this biome is enabled.");
         }
         
         try {
             this.baseBiome = realisticBiome.baseBiome;
         }
         catch (Exception e) {
-            throw new RuntimeException("Base patch biome " + this.patchBiomeId + " not found.");
+            throw new RuntimeException("Base patch biome " + this.patchBiomeId + " not found. Please make sure this biome is enabled.");
         }
     }
     
-    public RealisticBiomeBase getPatchedRealisticBiome()
+    public RealisticBiomeBase getPatchedRealisticBiome(String exceptionMessage)
     {
-        return this.realisticBiome;
+        if (this.patchBiomeId < 0) {
+            throw new RuntimeException(exceptionMessage);
+        }
+        else {
+            return this.realisticBiome;
+        }
     }
     
-    public BiomeGenBase getPatchedBaseBiome()
+    public BiomeGenBase getPatchedBaseBiome(String exceptionMessage)
     {
-        return this.baseBiome;
+        if (this.patchBiomeId < 0) {
+            throw new RuntimeException(exceptionMessage);
+        }
+        else {
+            return this.baseBiome;
+        }
     }
 }

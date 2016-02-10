@@ -4,6 +4,13 @@ import java.util.ArrayList;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.BiomeConfigProperty;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigAC;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACCoraliumInfestedSwamp;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklands;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsForest;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsHighland;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsMountains;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsPlains;
 import rtg.api.biome.arsmagica.config.BiomeConfigAM;
 import rtg.api.biome.arsmagica.config.BiomeConfigAMWitchwoodForest;
 import rtg.api.biome.atg.config.BiomeConfigATG;
@@ -335,6 +342,7 @@ public class BiomeConfigManager
     
     public static void initBiomeConfigs()
     {
+        initBiomeConfigsAC();
         initBiomeConfigsAM();
         initBiomeConfigsATG();
         initBiomeConfigsBOP();
@@ -345,6 +353,16 @@ public class BiomeConfigManager
         initBiomeConfigsHL();
         initBiomeConfigsTC();
         initBiomeConfigsVanilla();
+    }
+    
+    public static void initBiomeConfigsAC()
+    {
+        BiomeConfigAC.biomeConfigACCoraliumInfestedSwamp = new BiomeConfigACCoraliumInfestedSwamp();
+        BiomeConfigAC.biomeConfigACDarklands = new BiomeConfigACDarklands();
+        BiomeConfigAC.biomeConfigACDarklandsForest = new BiomeConfigACDarklandsForest();
+        BiomeConfigAC.biomeConfigACDarklandsHighland = new BiomeConfigACDarklandsHighland();
+        BiomeConfigAC.biomeConfigACDarklandsMountains = new BiomeConfigACDarklandsMountains();
+        BiomeConfigAC.biomeConfigACDarklandsPlains = new BiomeConfigACDarklandsPlains();
     }
     
     public static void initBiomeConfigsAM()

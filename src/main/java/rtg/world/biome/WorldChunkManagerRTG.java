@@ -6,13 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.apache.logging.log4j.Level;
-
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.SimplexCellularNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import cpw.mods.fml.common.FMLLog;
+import rtg.world.biome.realistic.RealisticBiomePatcher;
 
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
@@ -37,6 +35,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
     private float[] borderNoise;
     private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
     private BiomeCache biomeCache;
+    private RealisticBiomePatcher biomePatcher;
     
     protected WorldChunkManagerRTG()
     {
@@ -44,6 +43,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         this.biomeCache = new BiomeCache(this);
         this.biomesToSpawnIn = new ArrayList();
         borderNoise = new float[256];
+        biomePatcher = new RealisticBiomePatcher();
     }
     
     public WorldChunkManagerRTG(World par1World,WorldType worldType)
@@ -112,9 +112,8 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
                 f = (float) RealisticBiomeBase.getBiome(aint[i1]).getIntRainfall() / 65536.0F;
             } catch (Exception e) {
                 if (RealisticBiomeBase.getBiome(aint[i1])== null) {
-                    throw new RuntimeException("No realistic version of biome "+aint[i1]);
+                    f = (float) biomePatcher.getPatchedRealisticBiome("Problem with biome "+aint[i1]+" from "+e.getMessage()).getIntRainfall() / 65536.0F;
                 }
-                throw new RuntimeException("problem with biome "+aint[i1]+"from "+e.getMessage());
             }
             if (f > 1.0F)
             {
@@ -140,12 +139,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         BiomeGenBase result = this.biomeCache.getBiomeGenAt(par1, par2);
         
         if (result == null) {
-            throw new RuntimeException();
-        }
-        
-        if (result.biomeName == null) {
-            result.biomeName = "";
-            FMLLog.log(Level.WARN, "Biome %d has no name.", result.biomeID);
+            result = biomePatcher.getPatchedBaseBiome("Biome cache contains NULL biome at " + par1 + "," + par2);
         }
         
         return result;
@@ -178,7 +172,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         }*/
 
         RealisticBiomeBase output = (RealisticBiomeBase)(this.getBiomeGenAt(par1, par2));
-        if (output== null) throw new RuntimeException("no biome "+par1 + " " + par2);
+        if (output== null) output = biomePatcher.getPatchedRealisticBiome("No biome " + par1 + " " + par2);
 
         /*if (biomeDataMap.size() > 4096) {
             biomeDataMap.clear();
@@ -321,10 +315,10 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
                 try {
                     par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]);
                 } catch (Exception e) {
-                    throw new RuntimeException(genBiomes.toString()+ " " + this.biomeIndexLayer.toString());
+                    par1ArrayOfBiomeGenBase[i1] = biomePatcher.getPatchedRealisticBiome(genBiomes.toString()+ " " + this.biomeIndexLayer.toString());
                 }
                 if (par1ArrayOfBiomeGenBase[i1] == null) {
-                    throw new RuntimeException("missing biome "+aint[i1]);
+                    par1ArrayOfBiomeGenBase[i1] = biomePatcher.getPatchedRealisticBiome("Missing biome "+aint[i1]);
                 }
             }
 

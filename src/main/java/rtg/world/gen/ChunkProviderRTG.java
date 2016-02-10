@@ -22,6 +22,7 @@ import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.biome.realistic.RealisticBiomePatcher;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
 
@@ -97,6 +98,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private float[] borderNoise;
     private long worldSeed;
     private boolean doJitter = false;
+    private RealisticBiomePatcher biomePatcher;
     
     private AICWrapper aic;
     private boolean isAICLoaded;
@@ -163,6 +165,7 @@ public class ChunkProviderRTG implements IChunkProvider
     	testHeight = new float[256];
     	biomesGeneratedInChunk = new float[257];
     	borderNoise = new float[256];
+    	biomePatcher = new RealisticBiomePatcher();
     	
     	aic = new AICWrapper();
     	isAICLoaded = aic.isAICLoaded();
@@ -228,7 +231,7 @@ public class ChunkProviderRTG implements IChunkProvider
             try {
                 baseBiomesList[k] = biomesForGeneration[k].baseBiome;
             } catch (Exception e) {
-                throw new RuntimeException(""+biomesForGeneration[k].biomeID);
+                baseBiomesList[k] = biomePatcher.getPatchedBaseBiome(""+biomesForGeneration[k].biomeID);
             }
         }
 
@@ -706,7 +709,10 @@ public class ChunkProviderRTG implements IChunkProvider
         			borderNoise[bn] = 1f;
         		}
         		realisticBiome = RealisticBiomeBase.getBiome(bn);
-                if (realisticBiome == null) throw new RuntimeException();
+                if (realisticBiome == null)
+                {
+                    realisticBiome = biomePatcher.getPatchedRealisticBiome("NULL biome (" + bn + ") found when generating border noise.");
+                }
                 
                 /**
                  * When decorating the biome, we need to look at the biome configs to see if RTG is allowed to decorate it.

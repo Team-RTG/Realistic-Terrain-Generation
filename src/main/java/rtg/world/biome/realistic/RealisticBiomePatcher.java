@@ -36,6 +36,9 @@ public class RealisticBiomePatcher
             throw new RuntimeException(exceptionMessage);
         }
         else {
+            
+            if (this.realisticBiome == null) throw new RuntimeException("Problem patching realistic biome.");
+            
             return this.realisticBiome;
         }
     }
@@ -46,6 +49,9 @@ public class RealisticBiomePatcher
             throw new RuntimeException(exceptionMessage);
         }
         else {
+            
+            if (this.baseBiome == null) throw new RuntimeException("Problem patching base biome.");
+            
             return this.baseBiome;
         }
     }

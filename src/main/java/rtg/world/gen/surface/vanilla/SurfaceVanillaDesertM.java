@@ -2,6 +2,7 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -23,17 +24,17 @@ public class SurfaceVanillaDesertM extends SurfaceBase
 	private float sStrength = 65f;
 	private float cCliff = 1.5f;
 	
-	public SurfaceVanillaDesertM(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
+	public SurfaceVanillaDesertM(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{
-		super(top, fill);
+		super(config, top, fill);
 		beach = genBeach;
 		beachBlock = genBeachBlock;
 		min = minCliff;
 	}
 	
-	public SurfaceVanillaDesertM(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
+	public SurfaceVanillaDesertM(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
 	{
-		this(top, fill, genBeach, genBeachBlock, minCliff);
+		this(config, top, fill, genBeach, genBeachBlock, minCliff);
 		
 		sCliff = stoneCliff;
 		sHeight = stoneHeight;

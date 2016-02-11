@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
@@ -60,7 +59,7 @@ public class RealisticBiomeEBPolarDesert extends RealisticBiomeEBBase
         super(
             ebBiome, BiomeGenBase.frozenRiver,
             new TerrainEBPolarDesert(),
-            new SurfaceEBPolarDesert(
+            new SurfaceEBPolarDesert(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 

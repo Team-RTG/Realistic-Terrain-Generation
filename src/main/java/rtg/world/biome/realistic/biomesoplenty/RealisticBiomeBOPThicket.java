@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPThicket;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPThicket;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -21,7 +20,7 @@ public class RealisticBiomeBOPThicket extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPThicket(),
-			new SurfaceBOPThicket(topBlock, fillerBlock)
+			new SurfaceBOPThicket(config, topBlock, fillerBlock)
 		);
 		
 		this.config = config;

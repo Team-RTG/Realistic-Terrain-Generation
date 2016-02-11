@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
 import rtg.world.gen.surface.highlands.SurfaceHLOasis;
 import rtg.world.gen.terrain.highlands.TerrainHLOasis;
 
@@ -24,7 +23,7 @@ public class RealisticBiomeHLOasis extends RealisticBiomeHLBase
         super(
             hlBiome, BiomeGenBase.river,
             new TerrainHLOasis(),
-            new SurfaceHLOasis(Blocks.sand, fillerBlock));
+            new SurfaceHLOasis(config, Blocks.sand, fillerBlock));
         
         this.config = config;
     }

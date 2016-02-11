@@ -29,7 +29,7 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPOminousWoods(65f, 80f, 48f),
-			new SurfaceBOPOminousWoods(topBlock, fillerBlock)
+			new SurfaceBOPOminousWoods(config, topBlock, fillerBlock)
 		);
 		
 		this.config = config;

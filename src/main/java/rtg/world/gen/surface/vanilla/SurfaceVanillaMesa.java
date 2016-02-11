@@ -2,6 +2,7 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -18,10 +19,10 @@ public class SurfaceVanillaMesa extends SurfaceBase
     private int[] claycolor = new int[100];
     private byte blockByte = 0;
     
-    public SurfaceVanillaMesa(Block top, Block fill, byte b)
+    public SurfaceVanillaMesa(BiomeConfig config, Block top, Block fill, byte b)
     {
     
-        super(top, fill);
+        super(config, top, fill);
         blockByte = b;
         
         int[] c = new int[] {1, 8, 0};

@@ -2,10 +2,11 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.SnowHeightCalculator;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -13,9 +14,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceTundra extends SurfaceBase
 {
-	public SurfaceTundra(Block top, Block fill) 
+	public SurfaceTundra(BiomeConfig config, Block top, Block fill) 
 	{
-		super(top, fill);
+		super(config, top, fill);
 	}
 	
 	@Override

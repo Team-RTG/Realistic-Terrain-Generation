@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLSnowForest;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLSnowForest;
 import extrabiomes.api.BiomeManager;
@@ -21,7 +20,7 @@ public class RealisticBiomeEBXLSnowForest extends RealisticBiomeEBXLBase
 		super(
 			ebxlBiome, BiomeGenBase.frozenRiver,
 			new TerrainEBXLSnowForest(58f,110f,25f),
-			new SurfaceEBXLSnowForest(topBlock, fillerBlock)
+			new SurfaceEBXLSnowForest(config, topBlock, fillerBlock)
 		);
 		
 		ebxlBiome.setTemperatureRainfall(-2f, ebxlBiome.rainfall);

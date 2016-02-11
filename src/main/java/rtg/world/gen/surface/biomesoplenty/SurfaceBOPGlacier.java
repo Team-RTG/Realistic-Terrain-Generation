@@ -2,6 +2,7 @@ package rtg.world.gen.surface.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -23,9 +24,9 @@ public class SurfaceBOPGlacier extends SurfaceBase
 	private float smallW;
 	private float smallS;
 	
-	public SurfaceBOPGlacier(Block top, Block filler, Block mixTop, Block mixFill, Block cliff1, Block cliff2, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
+	public SurfaceBOPGlacier(BiomeConfig config, Block top, Block filler, Block mixTop, Block mixFill, Block cliff1, Block cliff2, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
 	{
-		super(top, filler);
+		super(config, top, filler);
 		
 		mixBlockTop = mixTop;
 		mixBlockFill = mixFill;

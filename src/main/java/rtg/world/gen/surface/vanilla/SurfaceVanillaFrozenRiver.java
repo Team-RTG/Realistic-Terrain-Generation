@@ -2,6 +2,7 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
@@ -13,7 +14,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceVanillaFrozenRiver extends SurfaceBase
 {
-	public SurfaceVanillaFrozenRiver() 
+	public SurfaceVanillaFrozenRiver(BiomeConfig config) 
 	{
 		super(Blocks.grass, Blocks.dirt);
 	}

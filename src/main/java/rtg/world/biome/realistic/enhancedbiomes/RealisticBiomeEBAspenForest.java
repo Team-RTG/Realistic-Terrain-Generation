@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAspenForest;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBAspenForest;
 import enhancedbiomes.api.EBAPI;
@@ -43,7 +42,7 @@ public class RealisticBiomeEBAspenForest extends RealisticBiomeEBBase
 		super(
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBAspenForest(230f, 120f, 0f),
-			new SurfaceEBAspenForest(ebTopBlock, ebTopByte, ebFillBlock, ebFillByte, false, null, 0.95f)
+			new SurfaceEBAspenForest(config, ebTopBlock, ebTopByte, ebFillBlock, ebFillByte, false, null, 0.95f)
 		);
 		
 		this.config = config;

@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
 import rtg.world.gen.surface.highlands.SurfaceHLBadlands;
 import rtg.world.gen.terrain.highlands.TerrainHLBadlands;
 
@@ -22,7 +21,7 @@ public class RealisticBiomeHLBadlands extends RealisticBiomeHLBase
         super(
             hlBiome, BiomeGenBase.river,
             new TerrainHLBadlands(),
-            new SurfaceHLBadlands(topBlock, fillerBlock));
+            new SurfaceHLBadlands(config, topBlock, fillerBlock));
         
         this.config = config;
     }

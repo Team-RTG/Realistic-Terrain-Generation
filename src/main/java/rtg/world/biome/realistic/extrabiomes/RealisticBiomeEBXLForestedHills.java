@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLForestedHills;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLForestedHills;
 import extrabiomes.api.BiomeManager;
@@ -21,7 +20,7 @@ public class RealisticBiomeEBXLForestedHills extends RealisticBiomeEBXLBase
 		super(
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLForestedHills(300f, 100f, 0f),
-			new SurfaceEBXLForestedHills(topBlock, fillerBlock, false, null, 0.95f)
+			new SurfaceEBXLForestedHills(config, topBlock, fillerBlock, false, null, 0.95f)
 		);
 		
 		this.config = config;

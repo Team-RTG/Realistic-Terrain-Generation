@@ -66,7 +66,7 @@ public class RealisticBiomeEBCarr extends RealisticBiomeEBBase
         super(
             ebBiome, BiomeGenBase.river,
             new TerrainEBCarr(),
-            new SurfaceEBCarr(
+            new SurfaceEBCarr(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 

@@ -4,7 +4,6 @@ import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaIceMountains;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
@@ -34,7 +33,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
             BiomeGenBase.iceMountains,
             BiomeGenBase.frozenRiver,
             new TerrainVanillaIceMountains(230f, 80f, 0f),
-            new SurfaceVanillaIceMountains(topBlock, fillerBlock, Blocks.snow, Blocks.snow, Blocks.packed_ice, Blocks.ice, 60f,
+            new SurfaceVanillaIceMountains(config, topBlock, fillerBlock, Blocks.snow, Blocks.snow, Blocks.packed_ice, Blocks.ice, 60f,
                 -0.14f, 14f, 0.25f));
         
         this.config = config;

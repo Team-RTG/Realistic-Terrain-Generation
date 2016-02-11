@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBTundra;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBTundra;
 import enhancedbiomes.api.EBAPI;
@@ -51,7 +50,7 @@ public class RealisticBiomeEBTundra extends RealisticBiomeEBBase
 		super(
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBTundra(),
-			new SurfaceEBTundra(
+			new SurfaceEBTundra(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 

@@ -4,7 +4,6 @@ import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaSwampland;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenGrass;
@@ -34,7 +33,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
             BiomeGenBase.swampland,
             BiomeGenBase.river,
             new TerrainVanillaSwampland(),
-            new SurfaceVanillaSwampland(topBlock, fillerBlock));
+            new SurfaceVanillaSwampland(config, topBlock, fillerBlock));
         
         this.config = config;
     }

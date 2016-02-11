@@ -2,6 +2,7 @@ package rtg.world.gen.surface.atg;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -15,9 +16,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceATGShrubland extends SurfaceBase
 {
 
-    public SurfaceATGShrubland(Block top, Block filler)
+    public SurfaceATGShrubland(BiomeConfig config, Block top, Block filler)
     {
-        super(top, filler);
+        super(config, top, filler);
     }
     
     @Override

@@ -2,15 +2,16 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceVanillaMesaBryce extends SurfaceBase
 {
@@ -18,9 +19,9 @@ public class SurfaceVanillaMesaBryce extends SurfaceBase
 	private byte blockByte = 0;
 	private int grassRaise = 0;
 	
-	public SurfaceVanillaMesaBryce(Block top, Block fill, byte b, int grassHeight)
+	public SurfaceVanillaMesaBryce(BiomeConfig config, Block top, Block fill, byte b, int grassHeight)
 	{
-		super(top, fill);
+		super(config, top, fill);
 		blockByte = b;
 		grassRaise = grassHeight;
 		

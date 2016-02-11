@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRainforest;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBRainforest;
 import enhancedbiomes.EnhancedBiomesMod;
@@ -52,7 +51,7 @@ public class RealisticBiomeEBRainforest extends RealisticBiomeEBBase
 		super(
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBRainforest(),
-			new SurfaceEBRainforest(
+			new SurfaceEBRainforest(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 

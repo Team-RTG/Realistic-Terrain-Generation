@@ -30,7 +30,7 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPFen(),
-			new SurfaceBOPFen(
+			new SurfaceBOPFen(config,
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 

@@ -2,39 +2,44 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
-import rtg.RTG;
 import rtg.util.CellNoise;
 import rtg.util.ModPresenceTester;
 import rtg.util.OpenSimplexNoise;
-import cpw.mods.fml.common.Loader;
+import rtg.util.UBColumnCache;
 import cpw.mods.fml.common.registry.GameData;
 import exterminatorJeff.undergroundBiomes.api.BlockCodes;
-import exterminatorJeff.undergroundBiomes.api.UBAPIHook;
-import exterminatorJeff.undergroundBiomes.api.UBStrataColumn;
-import exterminatorJeff.undergroundBiomes.api.UBStrataColumnProvider;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.util.UBColumnCache;
 
 public class SurfaceBase
 {
 	protected Block topBlock;
 	protected Block fillerBlock;
+	
+	protected BiomeConfig biomeConfig;
 
     private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
     // create UBColumnCache only if UB is present
     private static UBColumnCache ubColumnCache=
             undergroundBiomesMod.present()?new UBColumnCache():null;
     
-	public SurfaceBase(Block top, Block fill)
-	{
-		topBlock = top;
-		fillerBlock = fill;
-	}
+    public SurfaceBase(Block top, Block fill)
+    {
+        topBlock = top;
+        fillerBlock = fill;
+    }
+    
+    public SurfaceBase(BiomeConfig config, Block top, Block fill)
+    {
+        this(top, fill);
+        
+        biomeConfig = config;
+    }
 	
 	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{

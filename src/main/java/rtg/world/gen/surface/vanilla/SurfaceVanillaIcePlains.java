@@ -2,10 +2,12 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -16,9 +18,9 @@ public class SurfaceVanillaIcePlains extends SurfaceBase
 	private Block cliffBlock1;
 	private Block cliffBlock2;
 	
-	public SurfaceVanillaIcePlains(Block top, Block filler, Block cliff1, Block cliff2)
+	public SurfaceVanillaIcePlains(BiomeConfig config, Block top, Block filler, Block cliff1, Block cliff2)
 	{
-		super(top, filler);
+		super(config, top, filler);
 		
 		cliffBlock1 = cliff1;
 		cliffBlock2 = cliff2;

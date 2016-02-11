@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPOutback;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPOutback;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -22,7 +21,7 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPOutback(300f),
-			new SurfaceBOPOutback(
+			new SurfaceBOPOutback(config, 
                 Blocks.grass, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 

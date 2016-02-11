@@ -2,6 +2,7 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -22,11 +23,11 @@ public class SurfaceVanillaExtremeHills extends SurfaceBase
     private float smallW;
     private float smallS;
     
-    public SurfaceVanillaExtremeHills(Block top, Block filler, Block mixTop, Block mixFill, float mixWidth,
+    public SurfaceVanillaExtremeHills(BiomeConfig config, Block top, Block filler, Block mixTop, Block mixFill, float mixWidth,
         float mixHeight, float smallWidth, float smallStrength)
     {
     
-        super(top, filler);
+        super(config, top, filler);
         
         mixBlockTop = mixTop;
         mixBlockFill = mixFill;

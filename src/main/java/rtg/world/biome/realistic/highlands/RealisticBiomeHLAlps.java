@@ -1,16 +1,17 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+
 import java.util.Random;
-import net.minecraft.world.World;
+
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.highlands.SurfaceHLAlps;
 import rtg.world.gen.terrain.highlands.TerrainHLAlps;
 
 import net.minecraft.block.Block;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeHLAlps extends RealisticBiomeHLBase {
@@ -23,7 +24,7 @@ public class RealisticBiomeHLAlps extends RealisticBiomeHLBase {
     public RealisticBiomeHLAlps(BiomeConfig config) {
     
         super(hlBiome, BiomeGenBase.frozenRiver, new TerrainHLAlps(),
-            new SurfaceHLAlps(topBlock, fillerBlock, false, null, 0.45f));
+            new SurfaceHLAlps(config, topBlock, fillerBlock, false, null, 0.45f));
         
         this.config = config;
     }

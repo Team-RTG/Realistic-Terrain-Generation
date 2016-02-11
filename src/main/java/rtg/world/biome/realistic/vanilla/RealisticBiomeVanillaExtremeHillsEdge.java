@@ -35,7 +35,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
             BiomeGenBase.extremeHillsEdge,
             BiomeGenBase.river,
             new TerrainVanillaExtremeHillsEdge(10f, 120f, 68f, 200f),
-            new SurfaceVanillaExtremeHillsEdge(topBlock, fillerBlock, Blocks.grass, Blocks.dirt, 60f, -0.14f, 14f, 0.25f)
+            new SurfaceVanillaExtremeHillsEdge(config, topBlock, fillerBlock, Blocks.grass, Blocks.dirt, 60f, -0.14f, 14f, 0.25f)
         );
         
         this.config = config;

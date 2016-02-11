@@ -2,10 +2,12 @@ package rtg.world.gen.surface.thaumcraft;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -14,9 +16,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceTCMagicalForest extends SurfaceBase
 {
 
-	public SurfaceTCMagicalForest(Block top, Block filler)
+	public SurfaceTCMagicalForest(BiomeConfig config, Block top, Block filler)
 	{
-		super(top, filler);
+		super(config, top, filler);
 	}
 	
 	@Override

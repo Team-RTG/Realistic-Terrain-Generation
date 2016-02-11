@@ -2,10 +2,10 @@ package rtg.world.gen.surface.highlands;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.SnowHeightCalculator;
 import rtg.world.gen.surface.SurfaceBase;
 
 import net.minecraft.block.Block;
@@ -16,9 +16,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceHLBadlands extends SurfaceBase
 {
 
-    public SurfaceHLBadlands(Block top, Block filler)
+    public SurfaceHLBadlands(BiomeConfig config, Block top, Block filler)
     {
-        super(top, filler);
+        super(config, top, filler);
     }
     
     @Override

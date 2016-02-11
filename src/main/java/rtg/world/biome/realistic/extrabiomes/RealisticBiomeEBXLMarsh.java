@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLMarsh;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLMarsh;
 import extrabiomes.api.BiomeManager;
@@ -21,7 +20,7 @@ public class RealisticBiomeEBXLMarsh extends RealisticBiomeEBXLBase
 		super(
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLMarsh(),
-			new SurfaceEBXLMarsh(topBlock, fillerBlock)
+			new SurfaceEBXLMarsh(config, topBlock, fillerBlock)
 		);
 		
 		this.config = config;

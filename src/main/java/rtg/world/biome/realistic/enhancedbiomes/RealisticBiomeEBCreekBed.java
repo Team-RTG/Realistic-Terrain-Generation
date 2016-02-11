@@ -56,7 +56,7 @@ public class RealisticBiomeEBCreekBed extends RealisticBiomeEBBase
 		super(
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBCreekBed(),
-			new SurfaceEBCreekBed(
+			new SurfaceEBCreekBed(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 

@@ -2,10 +2,12 @@ package rtg.world.gen.surface.highlands;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -14,9 +16,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceHLBog extends SurfaceBase
 {
 
-	public SurfaceHLBog(Block top, Block filler)
+	public SurfaceHLBog(BiomeConfig config, Block top, Block filler)
 	{
-		super(top, filler);
+		super(config, top, filler);
 	}
 	
 	@Override

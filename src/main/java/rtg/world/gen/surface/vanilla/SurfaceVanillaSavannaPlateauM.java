@@ -2,6 +2,7 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -18,9 +19,9 @@ public class SurfaceVanillaSavannaPlateauM extends SurfaceBase
 	private byte blockByte = 0;
 	private int grassRaise = 0;
 	
-	public SurfaceVanillaSavannaPlateauM(Block top, Block fill, byte b, int grassHeight)
+	public SurfaceVanillaSavannaPlateauM(BiomeConfig config, Block top, Block fill, byte b, int grassHeight)
 	{
-		super(top, fill);
+		super(config, top, fill);
 		blockByte = b;
 		grassRaise = grassHeight;
 		

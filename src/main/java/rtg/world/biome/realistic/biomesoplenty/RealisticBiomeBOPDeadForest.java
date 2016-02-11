@@ -30,7 +30,7 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPDeadForest(58f, 80f, 30f),
-			new SurfaceBOPDeadForest(
+			new SurfaceBOPDeadForest(config,
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 

@@ -5,10 +5,9 @@ import highlands.api.HighlandsBiomes;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenVolcano;
 import rtg.world.gen.surface.SurfaceBase;
@@ -20,7 +19,6 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.world.biome.RTGBiomeProvider;
 
 public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
 {
@@ -34,31 +32,27 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
     private static byte bopMixTopByte = (byte)0;
     private static Block bopMixFillBlock = Blocks.dirt;
     private static byte bopMixFillByte = (byte)0;
-    
-    private static SurfaceBase surface = new SurfaceBOPVolcano(
-        bopTopBlock, //Block top 
-        bopTopByte, //byte topByte
-        bopFillBlock, //Block filler, 
-        bopFillByte, //byte fillerByte
-        bopMixTopBlock, //Block mixTop, 
-        bopMixTopByte, //byte mixTopByte, 
-        bopMixFillBlock, //Block mixFill, 
-        bopMixFillByte, //byte mixFillByte, 
-        80f, //float mixWidth, 
-        -0.15f, //float mixHeight, 
-        10f, //float smallWidth, 
-        0.5f //float smallStrength
-    );
-    
-    private static SurfaceBase riverSurface = new SurfaceRiverOasis();
-    
+
     public RealisticBiomeHLVolcanoIsland(BiomeConfig config)
     {
     
         super(
             hlBiome, BiomeGenBase.river,
             new TerrainHLVolcanoIsland(),
-            surface
+            new SurfaceBOPVolcano(config, 
+                bopTopBlock, //Block top 
+                bopTopByte, //byte topByte
+                bopFillBlock, //Block filler, 
+                bopFillByte, //byte fillerByte
+                bopMixTopBlock, //Block mixTop, 
+                bopMixTopByte, //byte mixTopByte, 
+                bopMixFillBlock, //Block mixFill, 
+                bopMixFillByte, //byte mixFillByte, 
+                80f, //float mixWidth, 
+                -0.15f, //float mixHeight, 
+                10f, //float smallWidth, 
+                0.5f //float smallStrength
+            )
         );
         
         this.config = config;
@@ -117,7 +111,9 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
     
-        surface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        this.getSurface().paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        
+        SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
         riverSurface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

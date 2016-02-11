@@ -38,7 +38,7 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaTaigaM(70f, 180f, 7f, 100f, 38f, 160f, 68f),
-            new SurfaceVanillaTaigaM(topBlock, fillerBlock));
+            new SurfaceVanillaTaigaM(config, topBlock, fillerBlock));
         
         this.config = config;
     }

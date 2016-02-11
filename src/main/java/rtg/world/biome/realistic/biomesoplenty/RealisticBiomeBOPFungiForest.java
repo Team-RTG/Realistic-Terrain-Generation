@@ -28,7 +28,7 @@ public class RealisticBiomeBOPFungiForest extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPFungiForest(),
-			new SurfaceBOPFungiForest(
+			new SurfaceBOPFungiForest(config,
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 

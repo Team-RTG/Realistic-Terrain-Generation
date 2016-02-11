@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBMeadowM;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBMeadowM;
 import enhancedbiomes.api.EBAPI;
@@ -51,7 +50,7 @@ public class RealisticBiomeEBMeadowM extends RealisticBiomeEBBase
 		super(
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBMeadowM(),
-			new SurfaceEBMeadowM(
+			new SurfaceEBMeadowM(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 

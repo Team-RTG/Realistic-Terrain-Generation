@@ -2,12 +2,11 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
-
-
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
-import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -15,9 +14,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceVanillaDesert extends SurfaceBase
 {
-	public SurfaceVanillaDesert(Block top, Block fill) 
+	public SurfaceVanillaDesert(BiomeConfig config, Block top, Block fill) 
 	{
-		super(top, fill);
+		super(config, top, fill);
 	}
 	
 	@Override

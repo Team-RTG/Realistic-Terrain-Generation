@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenFlowers;
@@ -46,35 +45,31 @@ public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
         EBAPI.ebStonify(EBAPI.CHERT, (byte)0),
         EBAPI.ebStonify(EBAPI.LIMESTONE, (byte)0)
     };
-    
-    private static SurfaceBase surface = new SurfaceEBRockyHills(
-        ebDominantStoneBlock[0],
-        ebDominantStoneMeta[0],
-        ebDominantStoneBlock[1],
-        ebDominantStoneMeta[1],
-        false,
-        null,
-        0f,
-        1.5f,
-        60f,
-        65f,
-        1.5f,
-        ebDominantCobblestoneBlock[0],
-        ebDominantCobblestoneMeta[0],
-        ebDominantCobblestoneBlock[1],
-        ebDominantCobblestoneMeta[1],
-        0.08f
-        );
-    
-    private static SurfaceBase riverSurface = new SurfaceRiverOasis();
-    
+
     public RealisticBiomeEBRockyHills(BiomeGenBase ebBiome, BiomeConfig config)
     {
     
         super(
             ebBiome, BiomeGenBase.river,
             new TerrainEBRockyHills(230f, 120f, 0f),
-            surface);
+            new SurfaceEBRockyHills(config,
+                ebDominantStoneBlock[0],
+                ebDominantStoneMeta[0],
+                ebDominantStoneBlock[1],
+                ebDominantStoneMeta[1],
+                false,
+                null,
+                0f,
+                1.5f,
+                60f,
+                65f,
+                1.5f,
+                ebDominantCobblestoneBlock[0],
+                ebDominantCobblestoneMeta[0],
+                ebDominantCobblestoneBlock[1],
+                ebDominantCobblestoneMeta[1],
+                0.08f
+                ));
         
         this.config = config;
         
@@ -158,7 +153,9 @@ public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
     
-        surface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        this.getSurface().paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        
+        SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
         riverSurface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

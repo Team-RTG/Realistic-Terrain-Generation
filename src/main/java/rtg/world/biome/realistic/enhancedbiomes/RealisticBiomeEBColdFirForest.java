@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBColdFirForest;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBColdFirForest;
 import enhancedbiomes.EnhancedBiomesMod;
@@ -52,7 +51,7 @@ public class RealisticBiomeEBColdFirForest extends RealisticBiomeEBBase
 		super(
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBColdFirForest(160f, 80f, 60f),
-			new SurfaceEBColdFirForest(
+			new SurfaceEBColdFirForest(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 

@@ -2,9 +2,7 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
-
-
-
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 
@@ -15,7 +13,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceRiverOasis extends SurfaceBase
 {
-	public SurfaceRiverOasis() 
+	public SurfaceRiverOasis(BiomeConfig config) 
 	{
 		super(Blocks.grass, Blocks.dirt);
 	}

@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLGlacier;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLGlacier;
 import extrabiomes.api.BiomeManager;
@@ -21,7 +20,7 @@ public class RealisticBiomeEBXLGlacier extends RealisticBiomeEBXLBase
 		super(
 			ebxlBiome, BiomeGenBase.frozenRiver,
 			new TerrainEBXLGlacier(90f, 180f, 13f, 100f, 38f, 260f, 71f),
-			new SurfaceEBXLGlacier(topBlock, fillerBlock, false, null, 0.95f)
+			new SurfaceEBXLGlacier(config, topBlock, fillerBlock, false, null, 0.95f)
 		);
 		
 		this.config = config;

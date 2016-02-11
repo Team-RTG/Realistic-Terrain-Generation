@@ -2,9 +2,11 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -21,9 +23,9 @@ public class SurfaceGrasslandMixBig extends SurfaceBase
 	private float smallW;
 	private float smallS;
 	
-	public SurfaceGrasslandMixBig(Block top, Block filler, Block mixTop, Block mixFill, Block cliff1, Block cliff2, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
+	public SurfaceGrasslandMixBig(BiomeConfig config, Block top, Block filler, Block mixTop, Block mixFill, Block cliff1, Block cliff2, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
 	{
-		super(top, filler);
+		super(config, top, filler);
 		
 		mixBlockTop = mixTop;
 		mixBlockFill = mixFill;

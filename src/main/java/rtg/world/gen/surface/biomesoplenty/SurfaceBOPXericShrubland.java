@@ -2,6 +2,7 @@ package rtg.world.gen.surface.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -28,11 +29,11 @@ public class SurfaceBOPXericShrubland extends SurfaceBase
     private float floSmallWidth;
     private float floSmallStrength;
     
-    public SurfaceBOPXericShrubland(Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
+    public SurfaceBOPXericShrubland(BiomeConfig config, Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
         byte mixFillerByte, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
     {
     
-        super(top, filler);
+        super(config, top, filler);
         
         blockTop = top;
         byteTop = topByte;

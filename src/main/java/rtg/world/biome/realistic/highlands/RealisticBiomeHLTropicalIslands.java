@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
 import rtg.world.gen.surface.highlands.SurfaceHLTropicalIslands;
 import rtg.world.gen.terrain.highlands.TerrainHLTropicalIslands;
 
@@ -23,7 +22,7 @@ public class RealisticBiomeHLTropicalIslands extends RealisticBiomeHLBase
         super(
             hlBiome, BiomeGenBase.river,
             new TerrainHLTropicalIslands(90f, 180f, 13f, 100f, 1f, 260f, 59f),
-            new SurfaceHLTropicalIslands(topBlock, fillerBlock));
+            new SurfaceHLTropicalIslands(config, topBlock, fillerBlock));
         
         this.config = config;
     }

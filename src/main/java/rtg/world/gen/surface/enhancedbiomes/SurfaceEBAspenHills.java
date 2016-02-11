@@ -2,6 +2,7 @@ package rtg.world.gen.surface.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -30,17 +31,17 @@ public class SurfaceEBAspenHills extends SurfaceEBBase
     private byte topByte;
     private byte fillerByte;
 	
-	public SurfaceEBAspenHills(Block top, byte topMeta, Block fill, byte fillMeta, boolean genBeach, Block genBeachBlock, float minCliff) 
+	public SurfaceEBAspenHills(BiomeConfig config, Block top, byte topMeta, Block fill, byte fillMeta, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{
-		super(top, fill);
+		super(config, top, fill);
 		beach = genBeach;
 		beachBlock = genBeachBlock;
 		min = minCliff;
 	}
 	
-	public SurfaceEBAspenHills(Block top, byte topMeta, Block fill, byte fillMeta, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float snowCliff, float snowHeight, float snowStrength, float clayCliff)
+	public SurfaceEBAspenHills(BiomeConfig config, Block top, byte topMeta, Block fill, byte fillMeta, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float snowCliff, float snowHeight, float snowStrength, float clayCliff)
 	{
-		this(top, topMeta, fill, fillMeta, genBeach, genBeachBlock, minCliff);
+		this(config, top, topMeta, fill, fillMeta, genBeach, genBeachBlock, minCliff);
 		
 		sCliff = stoneCliff;
 		sHeight = stoneHeight;

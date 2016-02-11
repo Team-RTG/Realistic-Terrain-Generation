@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRedDesert;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBRedDesert;
 import enhancedbiomes.api.EBAPI;
@@ -52,7 +51,7 @@ public class RealisticBiomeEBRedDesert extends RealisticBiomeEBBase
         super(
             ebBiome, BiomeGenBase.river,
             new TerrainEBRedDesert(),
-            new SurfaceEBRedDesert(
+            new SurfaceEBRedDesert(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 

@@ -31,7 +31,7 @@ public class RealisticBiomeEBXLRedwoodLush extends RealisticBiomeEBXLBase
 		super(
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLRedwoodLush(),
-			new SurfaceEBXLRedwoodLush(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f)
+			new SurfaceEBXLRedwoodLush(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f)
 		);
 		
 		this.config = config;

@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenGrass;
@@ -58,7 +57,7 @@ public class RealisticBiomeEBFens extends RealisticBiomeEBBase
         super(
             ebBiome, BiomeGenBase.river,
             new TerrainEBFens(),
-            new SurfaceEBFens(
+            new SurfaceEBFens(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 

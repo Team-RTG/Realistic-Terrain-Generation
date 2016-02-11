@@ -29,7 +29,7 @@ public class RealisticBiomeBOPDeciduousForest extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPDeciduousForest(),
-			new SurfaceBOPDeciduousForest(
+			new SurfaceBOPDeciduousForest(config,
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 

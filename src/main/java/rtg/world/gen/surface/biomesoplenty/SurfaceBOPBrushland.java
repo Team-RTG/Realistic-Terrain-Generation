@@ -2,10 +2,12 @@ package rtg.world.gen.surface.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -17,9 +19,9 @@ public class SurfaceBOPBrushland extends SurfaceBase
 	private float width;
 	private float height;
 	
-	public SurfaceBOPBrushland(Block top, Block filler, Block mix, float mixWidth, float mixHeight)
+	public SurfaceBOPBrushland(BiomeConfig config, Block top, Block filler, Block mix, float mixWidth, float mixHeight)
 	{
-		super(top, filler);
+		super(config, top, filler);
 		
 		mixBlock = mix;
 		

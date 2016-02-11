@@ -2,6 +2,7 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
@@ -20,10 +21,10 @@ public class SurfaceVanillaFrozenOcean extends SurfaceBase
     private float mixCheck;
     private final int sandMetadata = 0;
     
-    public SurfaceVanillaFrozenOcean(Block top, Block filler, Block mix, float mixWidth, float mixHeight)
+    public SurfaceVanillaFrozenOcean(BiomeConfig config, Block top, Block filler, Block mix, float mixWidth, float mixHeight)
     {
     
-        super(top, filler);
+        super(config, top, filler);
         
         mixBlock = mix;
         

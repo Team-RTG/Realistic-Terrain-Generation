@@ -20,7 +20,7 @@ public class RealisticBiomeEBXLExtremeJungle extends RealisticBiomeEBXLBase
 		super(
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLExtremeJungle(135f, 300f),
-			new SurfaceEBXLExtremeJungle(topBlock, fillerBlock)
+			new SurfaceEBXLExtremeJungle(config, topBlock, fillerBlock)
 		);
 		
 		this.config = config;

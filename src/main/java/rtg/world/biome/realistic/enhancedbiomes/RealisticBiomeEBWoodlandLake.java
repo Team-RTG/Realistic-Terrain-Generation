@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBWoodlandLake;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBWoodlandLake;
 import enhancedbiomes.api.EBAPI;
@@ -51,7 +50,7 @@ public class RealisticBiomeEBWoodlandLake extends RealisticBiomeEBBase
 		super(
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBWoodlandLake(),
-			new SurfaceEBWoodlandLake(
+			new SurfaceEBWoodlandLake(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 

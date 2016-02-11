@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.atg;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.atg.ConfigATG;
 import rtg.world.gen.surface.atg.SurfaceATGWoodland;
 import rtg.world.gen.terrain.atg.TerrainATGWoodland;
 
@@ -14,7 +13,7 @@ public class RealisticBiomeATGWoodland extends RealisticBiomeATGBase
 		super(
 			atgBiome, BiomeGenBase.river,
 			new TerrainATGWoodland(),
-			new SurfaceATGWoodland(atgBiome.topBlock, atgBiome.fillerBlock)
+			new SurfaceATGWoodland(config, atgBiome.topBlock, atgBiome.fillerBlock)
 		);
 		
 		this.config = config;

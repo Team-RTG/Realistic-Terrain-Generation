@@ -36,7 +36,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaRoofedForestM(),
-            new SurfaceVanillaRoofedForestM(topBlock, fillerBlock));
+            new SurfaceVanillaRoofedForestM(config, topBlock, fillerBlock));
         
         this.config = config;
     }

@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPSilkglades;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPSilkglades;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -21,7 +20,7 @@ public class RealisticBiomeBOPSilkglades extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPSilkglades(),
-			new SurfaceBOPSilkglades(topBlock, fillerBlock)
+			new SurfaceBOPSilkglades(config, topBlock, fillerBlock)
 		);
 		
 		this.config = config;

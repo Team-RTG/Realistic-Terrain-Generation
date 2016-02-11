@@ -29,7 +29,7 @@ public class RealisticBiomeBOPFrostForest extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeGenBase.frozenRiver,
 			new TerrainBOPFrostForest(58f, 69f, 28f),
-			new SurfaceBOPFrostForest(
+			new SurfaceBOPFrostForest(config,
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 

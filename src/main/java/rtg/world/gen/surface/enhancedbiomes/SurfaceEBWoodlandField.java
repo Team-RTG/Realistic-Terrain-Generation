@@ -2,11 +2,11 @@ package rtg.world.gen.surface.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import enhancedbiomes.api.EBAPI;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -32,12 +32,12 @@ public class SurfaceEBWoodlandField extends SurfaceEBBase
     private float floSmallWidth;
     private float floSmallStrength;
 
-    public SurfaceEBWoodlandField(Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
+    public SurfaceEBWoodlandField(BiomeConfig config, Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
         byte mixFillerByte, Block cliff1, byte cliff1Byte, Block cliff2, byte cliff2Byte, float mixWidth, float mixHeight,
         float smallWidth, float smallStrength)
     {
     
-        super(top, filler);
+        super(config, top, filler);
         
         blockTop = top;
         byteTop = topByte;

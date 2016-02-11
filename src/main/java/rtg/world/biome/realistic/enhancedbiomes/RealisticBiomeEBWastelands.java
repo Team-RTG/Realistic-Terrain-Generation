@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
@@ -49,7 +48,7 @@ public class RealisticBiomeEBWastelands extends RealisticBiomeEBBase
 		super(
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBWastelands(),
-			new SurfaceEBWastelands(
+			new SurfaceEBWastelands(config, 
                 Blocks.gravel, //Block top 
                 (byte)0, //byte topByte
                 cobbleBlock, //Block filler, 

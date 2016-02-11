@@ -28,7 +28,7 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPHeathland(),
-			new SurfaceBOPHeathland(topBlock, fillerBlock)
+			new SurfaceBOPHeathland(config, topBlock, fillerBlock)
 		);
 		
 		this.config = config;

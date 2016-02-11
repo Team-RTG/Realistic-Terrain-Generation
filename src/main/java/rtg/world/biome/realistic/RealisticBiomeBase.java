@@ -427,4 +427,26 @@ public class RealisticBiomeBase extends BiomeBase {
             }
         }
     }
+    
+    public TerrainBase getTerrain()
+    {
+        return this.terrain;
+    }
+    
+    public SurfaceBase getSurface()
+    {
+        if (this.surfacesLength == 0) {
+            
+            throw new RuntimeException(
+                "No realistic surfaces found for " + this.baseBiome.biomeName + " (" + this.baseBiome.biomeID + ")."
+            );
+        }
+        
+        return this.surfaces[0];
+    }
+    
+    public SurfaceBase[] getSurfaces()
+    {
+        return this.surfaces;
+    }
 }

@@ -28,7 +28,7 @@ public class RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPOrchard(58f, 67f, 25f),
-			new SurfaceBOPOrchard(topBlock, fillerBlock)
+			new SurfaceBOPOrchard(config, topBlock, fillerBlock)
 		);
 		
 		this.config = config;

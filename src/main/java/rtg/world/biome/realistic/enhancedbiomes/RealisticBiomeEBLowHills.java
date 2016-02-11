@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBLowHills;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBLowHills;
 import enhancedbiomes.api.EBAPI;
@@ -51,7 +50,7 @@ public class RealisticBiomeEBLowHills extends RealisticBiomeEBBase
 		super(
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBLowHills(),
-			new SurfaceEBLowHills(
+			new SurfaceEBLowHills(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 

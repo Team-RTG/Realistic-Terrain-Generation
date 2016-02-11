@@ -2,10 +2,12 @@ package rtg.world.gen.surface.highlands;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -17,9 +19,9 @@ public class SurfaceHLOutback extends SurfaceBase
 	private byte sandMetadata;
 	private int cliffType;
 	
-	public SurfaceHLOutback(Block top, Block filler, byte metadata, int cliff)
+	public SurfaceHLOutback(BiomeConfig config, Block top, Block filler, byte metadata, int cliff)
 	{
-		super(top, filler);
+		super(config, top, filler);
 
 		sandMetadata = metadata;
 		cliffType = cliff;

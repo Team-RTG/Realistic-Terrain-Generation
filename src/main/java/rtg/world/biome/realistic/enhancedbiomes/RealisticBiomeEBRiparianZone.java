@@ -56,7 +56,7 @@ public class RealisticBiomeEBRiparianZone extends RealisticBiomeEBBase
 		super(
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBRiparianZone(),
-			new SurfaceEBRiparianZone(
+			new SurfaceEBRiparianZone(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 

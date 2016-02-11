@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
 import rtg.world.gen.surface.highlands.SurfaceHLJungleIsland;
 import rtg.world.gen.terrain.highlands.TerrainHLJungleIsland;
 
@@ -23,7 +22,7 @@ public class RealisticBiomeHLJungleIsland extends RealisticBiomeHLBase
         super(
             hlBiome, BiomeGenBase.river,
             new TerrainHLJungleIsland(0f, 140f, 68f, 200f),
-            new SurfaceHLJungleIsland(topBlock, fillerBlock));
+            new SurfaceHLJungleIsland(config, topBlock, fillerBlock));
         
         this.config = config;
     }

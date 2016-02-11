@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
 import rtg.world.gen.surface.highlands.SurfaceHLSteppe;
 import rtg.world.gen.terrain.highlands.TerrainHLSteppe;
 
@@ -23,7 +22,7 @@ public class RealisticBiomeHLSteppe extends RealisticBiomeHLBase
         super(
             hlBiome, BiomeGenBase.river,
             new TerrainHLSteppe(70f, 180f, 13f, 100f, 38f, 260f, 71f),
-            new SurfaceHLSteppe(topBlock, fillerBlock));
+            new SurfaceHLSteppe(config, topBlock, fillerBlock));
         
         this.config = config;
     }

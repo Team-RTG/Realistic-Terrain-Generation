@@ -29,7 +29,7 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPOasis(),
-			new SurfaceBOPOasis(
+			new SurfaceBOPOasis(config, 
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 

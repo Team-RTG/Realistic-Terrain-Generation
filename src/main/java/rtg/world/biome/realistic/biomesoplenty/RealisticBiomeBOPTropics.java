@@ -29,7 +29,7 @@ public class RealisticBiomeBOPTropics extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPTropics(),
-			new SurfaceBOPTropics(
+			new SurfaceBOPTropics(config,
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 

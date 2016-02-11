@@ -61,7 +61,7 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
 		super(
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBMangrove(),
-			new SurfaceEBMangrove(
+			new SurfaceEBMangrove(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 

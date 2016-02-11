@@ -21,7 +21,7 @@ public class RealisticBiomeBOPSludgepit extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPSludgepit(),
-			new SurfaceBOPSludgepit(topBlock, fillerBlock)
+			new SurfaceBOPSludgepit(config, topBlock, fillerBlock)
 		);
 		
 		this.config = config;

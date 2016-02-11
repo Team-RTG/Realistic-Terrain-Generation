@@ -61,7 +61,7 @@ public class RealisticBiomeEBEphemeralLakeEdge extends RealisticBiomeEBBase
         super(
             ebBiome, BiomeGenBase.river,
             new TerrainEBEphemeralLakeEdge(),
-            new SurfaceEBEphemeralLakeEdge(
+            new SurfaceEBEphemeralLakeEdge(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 

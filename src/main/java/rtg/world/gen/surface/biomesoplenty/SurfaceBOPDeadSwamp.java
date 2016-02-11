@@ -2,6 +2,7 @@ package rtg.world.gen.surface.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -15,9 +16,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceBOPDeadSwamp extends SurfaceBase
 {
 
-	public SurfaceBOPDeadSwamp(Block top, Block filler)
+	public SurfaceBOPDeadSwamp(BiomeConfig config, Block top, Block filler)
 	{
-		super(top, filler);
+		super(config, top, filler);
 	}
 	
 	@Override

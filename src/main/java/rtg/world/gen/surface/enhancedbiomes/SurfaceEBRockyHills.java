@@ -2,6 +2,7 @@ package rtg.world.gen.surface.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -34,11 +35,11 @@ public class SurfaceEBRockyHills extends SurfaceEBBase
     private byte mixByte;
     private byte mix2Byte;
     
-    public SurfaceEBRockyHills(Block top, byte modTopByte, Block fill, byte modFillerByte, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
+    public SurfaceEBRockyHills(BiomeConfig config, Block top, byte modTopByte, Block fill, byte modFillerByte, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
         float stoneHeight, float stoneStrength, float clayCliff, Block mixBlock, byte modMixByte, Block modMixBlock2, byte modMix2Byte, float mixSize)
     {
     
-        super(top, fill);
+        super(config, top, fill);
         beach = genBeach;
         beachBlock = genBeachBlock;
         min = minCliff;

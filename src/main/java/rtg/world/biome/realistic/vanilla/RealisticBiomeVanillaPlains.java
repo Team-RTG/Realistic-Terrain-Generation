@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaPlains;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaPlains;
 
@@ -21,7 +20,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
             BiomeGenBase.plains,
             BiomeGenBase.river,
             new TerrainVanillaPlains(),
-            new SurfaceVanillaPlains(topBlock, fillerBlock));
+            new SurfaceVanillaPlains(config, topBlock, fillerBlock));
         
         this.config = config;
     }

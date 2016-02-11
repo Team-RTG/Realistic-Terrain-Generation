@@ -2,6 +2,7 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -29,11 +30,11 @@ public class SurfaceVanillaFlowerForest extends SurfaceBase
     
     public byte topByte = 0;
     
-    public SurfaceVanillaFlowerForest(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
+    public SurfaceVanillaFlowerForest(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
         float stoneHeight, float stoneStrength, float clayCliff, Block mixBlock, float mixSize)
     {
     
-        super(top, fill);
+        super(config, top, fill);
         beach = genBeach;
         beachBlock = genBeachBlock;
         min = minCliff;

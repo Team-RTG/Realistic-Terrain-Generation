@@ -2,13 +2,15 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.CliffCalculator;
+import rtg.util.OpenSimplexNoise;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.util.CellNoise;
-import rtg.util.CliffCalculator;
-import rtg.util.OpenSimplexNoise;
 
 public class SurfaceCanyon extends SurfaceBase
 {
@@ -16,9 +18,9 @@ public class SurfaceCanyon extends SurfaceBase
 	private byte blockByte = 0;
 	private int grassRaise = 0;
 	
-	public SurfaceCanyon(Block top, Block fill, byte b, int grassHeight)
+	public SurfaceCanyon(BiomeConfig config, Block top, Block fill, byte b, int grassHeight)
 	{
-		super(top, fill);
+		super(config, top, fill);
 		blockByte = b;
 		grassRaise = grassHeight;
 		

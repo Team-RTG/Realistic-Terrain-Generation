@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPLandOfLakesMarsh;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPLandOfLakesMarsh;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -21,7 +20,7 @@ public class RealisticBiomeBOPLandOfLakesMarsh extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPLandOfLakesMarsh(),
-			new SurfaceBOPLandOfLakesMarsh(topBlock, fillerBlock)
+			new SurfaceBOPLandOfLakesMarsh(config, topBlock, fillerBlock)
 		);
 		
 		this.config = config;

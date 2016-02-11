@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLTundra;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLTundra;
 import extrabiomes.api.BiomeManager;
@@ -21,7 +20,7 @@ public class RealisticBiomeEBXLTundra extends RealisticBiomeEBXLBase
 		super(
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLTundra(63f, 130f, 30f),
-			new SurfaceEBXLTundra(topBlock, fillerBlock)
+			new SurfaceEBXLTundra(config, topBlock, fillerBlock)
 		);
 		
 		this.config = config;

@@ -2,6 +2,7 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -15,9 +16,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceVanillaBirchForestHillsM extends SurfaceBase
 {
     
-    public SurfaceVanillaBirchForestHillsM(Block top, Block filler)
+    public SurfaceVanillaBirchForestHillsM(BiomeConfig config, Block top, Block filler)
     {
-        super(top, filler);
+        super(config, top, filler);
     }
     
     @Override

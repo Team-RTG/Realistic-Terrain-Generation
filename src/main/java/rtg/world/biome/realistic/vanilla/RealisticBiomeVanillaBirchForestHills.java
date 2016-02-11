@@ -33,7 +33,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
 			BiomeGenBase.birchForestHills,
 			BiomeGenBase.river,
 			new TerrainVanillaBirchForestHills(),
-			new SurfaceVanillaBirchForestHills(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f)
+			new SurfaceVanillaBirchForestHills(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f)
 		);
 		
 		this.config = config;

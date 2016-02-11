@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenCacti;
@@ -65,33 +64,29 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
     private static byte ebCliff2Byte = ebDominantCobblestoneMeta[0];
     private WorldGenerator blockBlob = new WorldGenBlockBlob(Blocks.cobblestone, 0);
     
-    private static SurfaceBase surface = new SurfaceEBRockyDesert(
-        ebTopBlock, //Block top 
-        ebTopByte, //byte topByte
-        ebFillBlock, //Block filler, 
-        ebFillByte, //byte fillerByte
-        ebMixTopBlock, //Block mixTop, 
-        ebMixTopByte, //byte mixTopByte, 
-        ebMixFillBlock, //Block mixFill, 
-        ebMixFillByte, //byte mixFillByte, 
-        ebCliff1Block, //Block cliff1, 
-        ebCliff1Byte, //byte cliff1Byte, 
-        ebCliff2Block, //Block cliff2, 
-        ebCliff2Byte, //byte cliff2Byte, 
-        80f, //float mixWidth, 
-        -0.15f, //float mixHeight, 
-        10f, //float smallWidth, 
-        0.5f //float smallStrength
-    );
-    
-    private static SurfaceBase riverSurface = new SurfaceRiverOasis();
-    
 	public RealisticBiomeEBRockyDesert(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBRockyDesert(230f, 60f, 0f),
-			surface
+			new SurfaceEBRockyDesert(config,
+		        ebTopBlock, //Block top 
+		        ebTopByte, //byte topByte
+		        ebFillBlock, //Block filler, 
+		        ebFillByte, //byte fillerByte
+		        ebMixTopBlock, //Block mixTop, 
+		        ebMixTopByte, //byte mixTopByte, 
+		        ebMixFillBlock, //Block mixFill, 
+		        ebMixFillByte, //byte mixFillByte, 
+		        ebCliff1Block, //Block cliff1, 
+		        ebCliff1Byte, //byte cliff1Byte, 
+		        ebCliff2Block, //Block cliff2, 
+		        ebCliff2Byte, //byte cliff2Byte, 
+		        80f, //float mixWidth, 
+		        -0.15f, //float mixHeight, 
+		        10f, //float smallWidth, 
+		        0.5f //float smallStrength
+		    )
 		);
 		
 		this.config = config;
@@ -222,7 +217,9 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
     
-        surface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        this.getSurface().paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        
+        SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
         riverSurface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

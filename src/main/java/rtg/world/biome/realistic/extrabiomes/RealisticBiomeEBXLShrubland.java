@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLShrubland;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLShrubland;
 import extrabiomes.api.BiomeManager;
@@ -21,7 +20,7 @@ public class RealisticBiomeEBXLShrubland extends RealisticBiomeEBXLBase
 		super(
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLShrubland(58f,80f,30f),
-			new SurfaceEBXLShrubland(topBlock, fillerBlock)
+			new SurfaceEBXLShrubland(config, topBlock, fillerBlock)
 		);
 		
 		this.config = config;

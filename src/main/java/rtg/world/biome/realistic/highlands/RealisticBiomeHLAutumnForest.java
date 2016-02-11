@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
 import rtg.world.gen.surface.highlands.SurfaceHLAutumnForest;
 import rtg.world.gen.terrain.highlands.TerrainHLAutumnForest;
 
@@ -21,7 +20,7 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
         super(
             hlBiome, BiomeGenBase.river,
             new TerrainHLAutumnForest(0f, 50f, 68f, 200f),
-            new SurfaceHLAutumnForest(topBlock, fillerBlock));
+            new SurfaceHLAutumnForest(config, topBlock, fillerBlock));
         
         this.config = config;
     }

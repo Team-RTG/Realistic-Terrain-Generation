@@ -2,6 +2,7 @@ package rtg.world.gen.surface.extrabiomes;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -15,10 +16,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceEBXLExtremeJungle extends SurfaceBase
 {
 
-    public SurfaceEBXLExtremeJungle(Block top, Block fill)
+    public SurfaceEBXLExtremeJungle(BiomeConfig config, Block top, Block fill)
     {
     
-        super(top, fill);
+        super(config, top, fill);
     }
     
     @Override

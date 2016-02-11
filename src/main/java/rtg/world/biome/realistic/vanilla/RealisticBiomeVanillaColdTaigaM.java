@@ -4,7 +4,6 @@ import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaColdTaigaM;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
@@ -39,7 +38,7 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase
             mutationBiome,
             BiomeGenBase.frozenRiver,
             new TerrainVanillaColdTaigaM(),
-            new SurfaceVanillaColdTaigaM(topBlock, fillerBlock));
+            new SurfaceVanillaColdTaigaM(config, topBlock, fillerBlock));
         
         this.config = config;
     }

@@ -2,6 +2,7 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -18,9 +19,9 @@ public class SurfaceRiverBOPCrag extends SurfaceBase
     private Block cliffBlock1;
     private Block cliffBlock2;
     
-	public SurfaceRiverBOPCrag(Block top, Block filler, Block cliff1, Block cliff2) 
+	public SurfaceRiverBOPCrag(BiomeConfig config, Block top, Block filler, Block cliff1, Block cliff2) 
 	{
-		super(top, filler);
+		super(config, top, filler);
 		
 		topBlock = top;
 		fillerBlock = filler;

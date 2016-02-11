@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIcePlainsSpikes;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaIcePlainsSpikes;
 
@@ -22,7 +21,7 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
 		    mutationBiome,
 			BiomeGenBase.frozenRiver,
 			new TerrainVanillaIcePlainsSpikes(),
-			new SurfaceVanillaIcePlainsSpikes(topBlock, fillerBlock, topBlock, topBlock)
+			new SurfaceVanillaIcePlainsSpikes(config, topBlock, fillerBlock, topBlock, topBlock)
 		);
 		
 		this.config = config;

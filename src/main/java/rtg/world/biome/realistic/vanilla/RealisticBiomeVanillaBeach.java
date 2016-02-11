@@ -30,7 +30,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
             BiomeGenBase.beach,
             BiomeGenBase.river,
             new TerrainVanillaBeach(),
-            new SurfaceVanillaBeach(topBlock, fillerBlock, topBlock, fillerBlock, (byte) 0, 1));
+            new SurfaceVanillaBeach(config, topBlock, fillerBlock, topBlock, fillerBlock, (byte) 0, 1));
         
         this.config = config;
     }

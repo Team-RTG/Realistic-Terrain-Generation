@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPCanyonRavine;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPCanyonRavine;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -21,7 +20,7 @@ public class RealisticBiomeBOPCanyonRavine extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPCanyonRavine(true, 35f, 160f, 60f, 40f, 69f),
-			new SurfaceBOPCanyonRavine(topBlock, fillerBlock, (byte)0, 0)
+			new SurfaceBOPCanyonRavine(config, topBlock, fillerBlock, (byte)0, 0)
 		);
 		
 		this.config = config;

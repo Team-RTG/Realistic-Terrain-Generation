@@ -65,7 +65,7 @@ public class RealisticBiomeEBForestedValley extends RealisticBiomeEBBase
 		super(
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBForestedValley(),
-			new SurfaceEBForestedValley(
+			new SurfaceEBForestedValley(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 

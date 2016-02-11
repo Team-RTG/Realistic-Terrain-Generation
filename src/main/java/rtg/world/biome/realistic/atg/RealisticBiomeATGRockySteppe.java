@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.atg;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.atg.ConfigATG;
 import rtg.world.gen.surface.atg.SurfaceATGRockySteppe;
 import rtg.world.gen.terrain.atg.TerrainATGRockySteppe;
 
@@ -14,7 +13,7 @@ public class RealisticBiomeATGRockySteppe extends RealisticBiomeATGBase
 		super(
 			atgBiome, BiomeGenBase.river,
 			new TerrainATGRockySteppe(),
-			new SurfaceATGRockySteppe(atgBiome.topBlock, atgBiome.fillerBlock)
+			new SurfaceATGRockySteppe(config, atgBiome.topBlock, atgBiome.fillerBlock)
 		);
 		
 		this.config = config;

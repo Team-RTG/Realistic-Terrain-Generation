@@ -60,7 +60,7 @@ public class RealisticBiomeEBBlossomWoods extends RealisticBiomeEBBase
 		super(
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBBlossomWoods(),
-			new SurfaceEBBlossomWoods(
+			new SurfaceEBBlossomWoods(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 

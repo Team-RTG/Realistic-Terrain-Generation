@@ -35,7 +35,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
             BiomeGenBase.extremeHills,
             BiomeGenBase.river,
             new TerrainVanillaExtremeHills(10f, 120f, 68f, 200f),
-            new SurfaceVanillaExtremeHills(topBlock, fillerBlock, Blocks.grass, Blocks.dirt, 60f, -0.14f, 14f, 0.25f)
+            new SurfaceVanillaExtremeHills(config, topBlock, fillerBlock, Blocks.grass, Blocks.dirt, 60f, -0.14f, 14f, 0.25f)
         );
         
         this.config = config;

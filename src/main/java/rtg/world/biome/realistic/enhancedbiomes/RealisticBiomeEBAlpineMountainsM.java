@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAlpineMountainsM;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBAlpineMountainsM;
 import enhancedbiomes.api.EBAPI;
@@ -43,7 +42,7 @@ public class RealisticBiomeEBAlpineMountainsM extends RealisticBiomeEBBase
 		super(
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBAlpineMountainsM(),
-			new SurfaceEBAlpineMountainsM(ebTopBlock, ebTopByte, ebFillBlock, ebFillByte, false, null, 0.45f)
+			new SurfaceEBAlpineMountainsM(config, ebTopBlock, ebTopByte, ebFillBlock, ebFillByte, false, null, 0.45f)
 		);
 		
 		this.config = config;

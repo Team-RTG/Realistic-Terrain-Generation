@@ -2,10 +2,10 @@ package rtg.world.gen.surface.highlands;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.SnowHeightCalculator;
 import rtg.world.gen.surface.SurfaceBase;
 
 import net.minecraft.block.Block;
@@ -26,17 +26,17 @@ public class SurfaceHLWoodlands extends SurfaceBase
     
     public byte topByte = 0;
     
-    public SurfaceHLWoodlands(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
+    public SurfaceHLWoodlands(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
     {
-        super(top, fill);
+        super(config, top, fill);
         beach = genBeach;
         beachBlock = genBeachBlock;
         min = minCliff;
     }
     
-    public SurfaceHLWoodlands(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
+    public SurfaceHLWoodlands(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
     {
-        this(top, fill, genBeach, genBeachBlock, minCliff);
+        this(config, top, fill, genBeach, genBeachBlock, minCliff);
         
         sCliff = stoneCliff;
         sHeight = stoneHeight;

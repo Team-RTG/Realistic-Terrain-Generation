@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPTundra;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPTundra;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -21,7 +20,7 @@ public class RealisticBiomeBOPTundra extends RealisticBiomeBOPBase
 		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPTundra(),
-			new SurfaceBOPTundra(topBlock, fillerBlock)
+			new SurfaceBOPTundra(config, topBlock, fillerBlock)
 		);
 		
 		this.config = config;

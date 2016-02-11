@@ -40,7 +40,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
 		    mutationBiome,
 			BiomeGenBase.river,
 			new TerrainVanillaBirchForestHillsM(),
-			new SurfaceVanillaBirchForestHillsM(topBlock, fillerBlock)
+			new SurfaceVanillaBirchForestHillsM(config, topBlock, fillerBlock)
 		);
 		
 		this.config = config;

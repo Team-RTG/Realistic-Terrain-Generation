@@ -2,21 +2,23 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.CliffCalculator;
+import rtg.util.OpenSimplexNoise;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.util.CellNoise;
-import rtg.util.CliffCalculator;
-import rtg.util.OpenSimplexNoise;
 
 public class SurfaceGrassCanyon extends SurfaceBase
 {
 	private byte claycolor;
 	
-	public SurfaceGrassCanyon(Block top, Block fill, byte b)
+	public SurfaceGrassCanyon(BiomeConfig config, Block top, Block fill, byte b)
 	{
-		super(top, fill);
+		super(config, top, fill);
 		claycolor = b;
 	}
 	

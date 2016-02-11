@@ -2,6 +2,7 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -19,10 +20,10 @@ public class SurfaceVanillaSavanna extends SurfaceBase
     private float width;
     private float height;
     
-    public SurfaceVanillaSavanna(Block top, Block filler, Block mix, float mixWidth, float mixHeight)
+    public SurfaceVanillaSavanna(BiomeConfig config, Block top, Block filler, Block mix, float mixWidth, float mixHeight)
     {
     
-        super(top, filler);
+        super(config, top, filler);
         
         mixBlock = mix;
         

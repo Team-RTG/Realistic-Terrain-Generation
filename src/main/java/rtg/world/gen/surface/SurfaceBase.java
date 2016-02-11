@@ -138,14 +138,4 @@ public class SurfaceBase
             return (byte)0;
         }
     }
-    
-    public Block getTopBlock()
-    {
-        return this.topBlock;
-    }
-    
-    public Block getFillerBlock()
-    {
-        return this.fillerBlock;
-    }
 }

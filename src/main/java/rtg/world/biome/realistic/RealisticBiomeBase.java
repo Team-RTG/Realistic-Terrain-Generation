@@ -23,7 +23,6 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceGeneric;
 import rtg.world.gen.terrain.TerrainBase;
 import cpw.mods.fml.common.FMLLog;
 
@@ -53,7 +52,6 @@ public class RealisticBiomeBase extends BiomeBase {
     
     public SurfaceBase[] surfaces;
     public int surfacesLength;
-    public SurfaceBase surfaceGeneric;
     
     public int waterSurfaceLakeChance; //Lower = more frequent
     public int lavaSurfaceLakeChance; //Lower = more frequent
@@ -128,8 +126,6 @@ public class RealisticBiomeBase extends BiomeBase {
     public RealisticBiomeBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
     
         this(b, riverbiome, t, new SurfaceBase[] {s});
-        
-        surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
     }
     
     public void rPopulatePreDecorate(IChunkProvider ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag)
@@ -321,17 +317,9 @@ public class RealisticBiomeBase extends BiomeBase {
     }
     
     public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
-
-        if (ConfigRTG.enableRTGBiomeSurfaces && this.config.getPropertyById(BiomeConfig.useRTGSurfacesId).valueBoolean) {
-            
-            for (int s = 0; s < surfacesLength; s++) {
-                
-                surfaces[s].paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
-            }
-        }
-        else {
-            
-            this.surfaceGeneric.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+    
+        for (int s = 0; s < surfacesLength; s++) {
+            surfaces[s].paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
         }
     }
     

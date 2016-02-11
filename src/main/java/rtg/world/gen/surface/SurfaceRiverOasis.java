@@ -15,7 +15,7 @@ public class SurfaceRiverOasis extends SurfaceBase
 {
 	public SurfaceRiverOasis(BiomeConfig config) 
 	{
-		super(Blocks.grass, Blocks.dirt);
+		super(config, Blocks.grass, Blocks.dirt);
 	}
 	
 	@Override

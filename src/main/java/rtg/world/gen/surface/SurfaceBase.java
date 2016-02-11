@@ -20,24 +20,16 @@ public class SurfaceBase
 {
 	protected Block topBlock;
 	protected Block fillerBlock;
-	
 	protected BiomeConfig biomeConfig;
 
     private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
     // create UBColumnCache only if UB is present
-    private static UBColumnCache ubColumnCache=
-            undergroundBiomesMod.present()?new UBColumnCache():null;
-    
-    public SurfaceBase(Block top, Block fill)
+    private static UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
+
+    public SurfaceBase(BiomeConfig config, Block top, Block fill)
     {
         topBlock = top;
         fillerBlock = fill;
-    }
-    
-    public SurfaceBase(BiomeConfig config, Block top, Block fill)
-    {
-        this(top, fill);
-        
         biomeConfig = config;
     }
 	
@@ -146,7 +138,4 @@ public class SurfaceBase
             return (byte)0;
         }
     }
-
-
-
 }

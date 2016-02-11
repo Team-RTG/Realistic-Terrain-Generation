@@ -16,7 +16,7 @@ public class SurfaceVanillaRiver extends SurfaceBase
 {
 	public SurfaceVanillaRiver(BiomeConfig config) 
 	{
-		super(Blocks.grass, Blocks.dirt);
+		super(config, Blocks.grass, Blocks.dirt);
 	}
 	
 	@Override

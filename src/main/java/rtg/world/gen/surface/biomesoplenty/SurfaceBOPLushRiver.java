@@ -16,7 +16,7 @@ public class SurfaceBOPLushRiver extends SurfaceBase
 {
 	public SurfaceBOPLushRiver(BiomeConfig config) 
 	{
-		super(Blocks.grass, Blocks.dirt);
+		super(config, Blocks.grass, Blocks.dirt);
 	}
 	
 	@Override

@@ -16,7 +16,7 @@ public class SurfaceBOPDryRiver extends SurfaceBase
 {
 	public SurfaceBOPDryRiver(BiomeConfig config) 
 	{
-		super(Blocks.grass, Blocks.dirt);
+		super(config, Blocks.grass, Blocks.dirt);
 	}
 	
 	@Override

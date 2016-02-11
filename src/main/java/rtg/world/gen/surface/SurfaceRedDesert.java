@@ -20,7 +20,7 @@ public class SurfaceRedDesert extends SurfaceBase
 	
 	public SurfaceRedDesert(BiomeConfig config)
 	{
-		super(Blocks.sand, Blocks.sand);
+		super(config, Blocks.sand, Blocks.sand);
 		
 		bottomBlock = Blocks.sandstone; 
 		cliffBlock1 = Blocks.stained_hardened_clay;

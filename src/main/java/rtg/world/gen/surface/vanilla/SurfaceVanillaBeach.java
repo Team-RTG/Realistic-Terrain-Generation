@@ -22,7 +22,7 @@ public class SurfaceVanillaBeach extends SurfaceBase
 	
 	public SurfaceVanillaBeach(BiomeConfig config, Block top, Block filler, Block cliff1, Block cliff2, byte metadata, int cliff)
 	{
-		super(Blocks.dirt, Blocks.dirt);
+		super(config, Blocks.dirt, Blocks.dirt);
 		
 		cliffBlock1 = Blocks.dirt;
 		cliffBlock2 = Blocks.stone;

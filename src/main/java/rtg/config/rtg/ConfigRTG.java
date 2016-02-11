@@ -13,6 +13,7 @@ public class ConfigRTG
 	public static Configuration config;
 	
 	public static boolean enableRTGBiomeDecorations = true;
+	public static boolean enableRTGBiomeSurfaces = true;
 	
 	public static boolean enableUBCStoneShadowing = true;
 	public static boolean enableUBCDesertShadowing = true;
@@ -118,6 +119,14 @@ public class ConfigRTG
                 "Biomes",
                 enableRTGBiomeDecorations,
                 "If TRUE, uses the individual biome settings in the biome config files. If FALSE, disables all RTG decorations and uses vanilla decorations instead."
+                + Configuration.NEW_LINE
+            );
+            
+            enableRTGBiomeSurfaces = config.getBoolean(
+                "Enable RTG Biome Surfaces",
+                "Biomes",
+                enableRTGBiomeSurfaces,
+                "If TRUE, uses the individual biome settings in the biome config files. If FALSE, disables all RTG surfaces and uses vanilla surfaces instead."
                 + Configuration.NEW_LINE
             );
             

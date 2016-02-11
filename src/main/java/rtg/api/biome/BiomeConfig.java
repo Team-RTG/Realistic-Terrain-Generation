@@ -17,6 +17,9 @@ public class BiomeConfig {
     
     public static final String useRTGDecorationsId = "useRTGDecorations";
     public static final String useRTGDecorationsName = "Use RTG Decorations";
+    
+    public static final String useRTGSurfacesId = "useRTGSurfaces";
+    public static final String useRTGSurfacesName = "Use RTG Surfaces";
 
     public BiomeConfig(String modSlug, String biomeSlug)
     {
@@ -27,6 +30,7 @@ public class BiomeConfig {
 
         this.addProperty(new BiomeConfigProperty(allowVillagesId, Type.BOOLEAN, allowVillagesName, "", true));
         this.addProperty(new BiomeConfigProperty(useRTGDecorationsId, Type.BOOLEAN, useRTGDecorationsName, "", true));
+        this.addProperty(new BiomeConfigProperty(useRTGSurfacesId, Type.BOOLEAN, useRTGSurfacesName, "", true));
     }
     
     public void addProperty(BiomeConfigProperty property)

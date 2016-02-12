@@ -24,8 +24,14 @@ public class BiomeConfig {
     public static final String surfaceTopBlockId = "surfaceTopBlock";
     public static final String surfaceTopBlockName = "RTG Surface: Top Block";
     
+    public static final String surfaceTopBlockMetaId = "surfaceTopBlockMeta";
+    public static final String surfaceTopBlockMetaName = "RTG Surface: Top Block Meta";
+    
     public static final String surfaceFillerBlockId = "surfaceFillerBlock";
     public static final String surfaceFillerBlockName = "RTG Surface: Filler Block";
+    
+    public static final String surfaceFillerBlockMetaId = "surfaceFillerBlockMeta";
+    public static final String surfaceFillerBlockMetaName = "RTG Surface: Filler Block Meta";
 
     public BiomeConfig(String modSlug, String biomeSlug)
     {
@@ -40,7 +46,9 @@ public class BiomeConfig {
 
         this.addProperty(new BiomeConfigProperty(useRTGSurfacesId, Type.BOOLEAN, useRTGSurfacesName, "", true));
         this.addProperty(new BiomeConfigProperty(surfaceTopBlockId, Type.STRING, surfaceTopBlockName, "", ""));
+        this.addProperty(new BiomeConfigProperty(surfaceTopBlockMetaId, Type.STRING, surfaceTopBlockMetaName, "", ""));
         this.addProperty(new BiomeConfigProperty(surfaceFillerBlockId, Type.STRING, surfaceFillerBlockName, "", ""));
+        this.addProperty(new BiomeConfigProperty(surfaceFillerBlockMetaId, Type.STRING, surfaceFillerBlockMetaName, "", ""));
     }
     
     public void addProperty(BiomeConfigProperty property)

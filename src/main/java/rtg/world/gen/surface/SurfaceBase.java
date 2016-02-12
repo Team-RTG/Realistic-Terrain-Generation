@@ -20,8 +20,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceBase
 {
-	protected Block topBlock;
-	protected Block fillerBlock;
+    protected Block topBlock;
+    protected int topBlockMeta;
+    protected Block fillerBlock;
+    protected int fillerBlockMeta;
 	protected BiomeConfig biomeConfig;
 
     private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
@@ -30,33 +32,16 @@ public class SurfaceBase
 
     public SurfaceBase(BiomeConfig config, Block top, Block fill)
     {
-        topBlock = top;
-        fillerBlock = fill;
-        biomeConfig = config;
-        
         if (config == null) throw new RuntimeException("Biome config in SurfaceBase is NULL.");
         
-        String userTopBlock = config._string(BiomeConfig.surfaceTopBlockId);
-        if (this.isValidBlockId(userTopBlock)) {
-            
-            try {
-                topBlock = GameData.getBlockRegistry().getObject(userTopBlock);
-            }
-            catch (Exception e) {
-                topBlock = top;
-            }
-        }
+        biomeConfig = config;
+
+        topBlock = top;
+        topBlockMeta = (byte)0;
+        fillerBlock = fill;
+        fillerBlockMeta = (byte)0;
         
-        String userFillerBlock = config._string(BiomeConfig.surfaceFillerBlockId);
-        if (this.isValidBlockId(userFillerBlock)) {
-            
-            try {
-                fillerBlock = GameData.getBlockRegistry().getObject(userFillerBlock);
-            }
-            catch (Exception e) {
-                fillerBlock = fill;
-            }
-        }
+        this.assignUserConfigs(config, top, fill);
     }
 	
 	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
@@ -191,6 +176,46 @@ public class SurfaceBase
         }
         else {
             return false;
+        }
+    }
+    
+    private void assignUserConfigs(BiomeConfig config, Block top, Block fill)
+    {
+        String userTopBlock = config._string(BiomeConfig.surfaceTopBlockId);
+        if (this.isValidBlockId(userTopBlock)) {
+            try {
+                topBlock = GameData.getBlockRegistry().getObject(userTopBlock);
+            }
+            catch (Exception e) {
+                topBlock = top;
+            }
+        }
+        
+        String userTopBlockMeta = config._string(BiomeConfig.surfaceTopBlockMetaId);
+        try {
+            this.topBlockMeta = Integer.valueOf(userTopBlockMeta);
+        }
+        catch (Exception e) {
+            this.topBlockMeta = (byte)0;
+        }
+        
+        String userFillerBlock = config._string(BiomeConfig.surfaceFillerBlockId);
+        if (this.isValidBlockId(userFillerBlock)) {
+            
+            try {
+                fillerBlock = GameData.getBlockRegistry().getObject(userFillerBlock);
+            }
+            catch (Exception e) {
+                fillerBlock = fill;
+            }
+        }
+        
+        String userFillerBlockMeta = config._string(BiomeConfig.surfaceFillerBlockMetaId);
+        try {
+            this.fillerBlockMeta = Integer.valueOf(userFillerBlockMeta);
+        }
+        catch (Exception e) {
+            this.fillerBlockMeta = (byte)0;
         }
     }
 }

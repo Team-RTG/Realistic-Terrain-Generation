@@ -22,7 +22,5 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase
 			new TerrainBOPMangrove(),
 			new SurfaceBOPMangrove(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

@@ -22,7 +22,5 @@ public class RealisticBiomeBOPThicket extends RealisticBiomeBOPBase
 			new TerrainBOPThicket(),
 			new SurfaceBOPThicket(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

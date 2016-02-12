@@ -22,7 +22,5 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase
 			new TerrainBOPWoodland(0f, 80f, 68f, 120f),
 			new SurfaceBOPWoodland(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

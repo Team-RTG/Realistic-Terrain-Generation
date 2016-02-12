@@ -22,7 +22,5 @@ public class RealisticBiomeBOPOriginValley extends RealisticBiomeBOPBase
 			new TerrainBOPOriginValley(65f, 80f, 38f),
 			new SurfaceBOPOriginValley(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

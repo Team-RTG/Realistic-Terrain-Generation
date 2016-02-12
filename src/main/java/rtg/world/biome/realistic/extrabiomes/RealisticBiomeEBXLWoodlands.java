@@ -22,7 +22,5 @@ public class RealisticBiomeEBXLWoodlands extends RealisticBiomeEBXLBase
 			new TerrainEBXLWoodlands(0f, 80f, 68f, 200f),
 			new SurfaceEBXLWoodlands(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

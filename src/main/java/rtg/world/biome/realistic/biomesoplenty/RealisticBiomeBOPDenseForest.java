@@ -31,8 +31,6 @@ public class RealisticBiomeBOPDenseForest extends RealisticBiomeBOPBase
 			new TerrainBOPDenseForest(),
 			new SurfaceBOPDenseForest(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

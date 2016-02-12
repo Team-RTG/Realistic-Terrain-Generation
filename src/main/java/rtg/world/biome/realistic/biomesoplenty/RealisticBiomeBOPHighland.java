@@ -22,8 +22,6 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase
 			new TerrainBOPHighland(),
 			new SurfaceBOPHighland(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 		this.generatesEmeralds = true;
 	}
 }

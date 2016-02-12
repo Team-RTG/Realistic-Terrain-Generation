@@ -22,7 +22,5 @@ public class RealisticBiomeEBXLRainforest extends RealisticBiomeEBXLBase
 			new TerrainEBXLRainforest(230f, 43f, 0f),
 			new SurfaceEBXLRainforest(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

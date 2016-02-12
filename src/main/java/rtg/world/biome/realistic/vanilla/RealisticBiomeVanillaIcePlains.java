@@ -30,8 +30,6 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
 			new TerrainVanillaIcePlains(),
 			new SurfaceVanillaIcePlains(config, topBlock, fillerBlock, topBlock, topBlock)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

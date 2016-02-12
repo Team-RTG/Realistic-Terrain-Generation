@@ -23,7 +23,5 @@ public class RealisticBiomeHLTropicalIslands extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.river,
             new TerrainHLTropicalIslands(90f, 180f, 13f, 100f, 1f, 260f, 59f),
             new SurfaceHLTropicalIslands(config, topBlock, fillerBlock));
-        
-        this.config = config;
     }
 }

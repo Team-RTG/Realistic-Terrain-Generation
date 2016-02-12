@@ -22,7 +22,5 @@ public class RealisticBiomeBOPShrubland extends RealisticBiomeBOPBase
 			new TerrainBOPShrubland(),
 			new SurfaceBOPShrubland(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

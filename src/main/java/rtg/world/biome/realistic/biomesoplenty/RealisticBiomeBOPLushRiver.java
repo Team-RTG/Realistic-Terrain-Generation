@@ -22,7 +22,5 @@ public class RealisticBiomeBOPLushRiver extends RealisticBiomeBOPBase
 			new TerrainBOPLushRiver(),
 			new SurfaceBOPLushRiver(config)
 		);
-
-		this.config = config;
 	}
 }

@@ -44,8 +44,6 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
 	}
 	
     @Override

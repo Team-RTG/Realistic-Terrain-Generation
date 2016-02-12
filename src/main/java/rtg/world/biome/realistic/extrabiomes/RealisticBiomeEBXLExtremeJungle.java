@@ -22,7 +22,5 @@ public class RealisticBiomeEBXLExtremeJungle extends RealisticBiomeEBXLBase
 			new TerrainEBXLExtremeJungle(135f, 300f),
 			new SurfaceEBXLExtremeJungle(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

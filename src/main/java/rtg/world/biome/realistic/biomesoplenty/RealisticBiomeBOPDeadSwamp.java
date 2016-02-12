@@ -23,7 +23,5 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase
 			new TerrainBOPDeadSwamp(),
 			new SurfaceBOPDeadSwamp(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

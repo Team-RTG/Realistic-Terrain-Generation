@@ -44,7 +44,5 @@ public class RealisticBiomeEBAlpineMountains extends RealisticBiomeEBBase
 			new TerrainEBAlpineMountains(),
 			new SurfaceEBAlpineMountains(config, ebTopBlock, ebFillBlock, ebFillByte, false, null, 0.45f)
 		);
-		
-		this.config = config;
 	}
 }

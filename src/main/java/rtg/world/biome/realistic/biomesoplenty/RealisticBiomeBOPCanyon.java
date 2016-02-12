@@ -22,7 +22,5 @@ public class RealisticBiomeBOPCanyon extends RealisticBiomeBOPBase
 			new TerrainBOPCanyon(true, 35f, 160f, 60f, 40f, 69f),
 			new SurfaceBOPCanyon(config, topBlock, fillerBlock, (byte)0, 0)
 		);
-		
-		this.config = config;
 	}
 }

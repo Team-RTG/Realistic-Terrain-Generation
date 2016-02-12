@@ -31,8 +31,6 @@ public class RealisticBiomeBOPSeasonalForestClearing extends RealisticBiomeBOPBa
 			new TerrainBOPSeasonalForestClearing(65f, 68f, 24f),
 			new SurfaceBOPSeasonalForestClearing(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

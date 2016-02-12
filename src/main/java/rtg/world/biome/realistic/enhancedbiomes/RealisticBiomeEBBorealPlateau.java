@@ -70,8 +70,6 @@ public class RealisticBiomeEBBorealPlateau extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
         
     }
 }

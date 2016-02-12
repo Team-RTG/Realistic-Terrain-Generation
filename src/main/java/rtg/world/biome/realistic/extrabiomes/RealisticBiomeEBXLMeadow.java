@@ -31,8 +31,6 @@ public class RealisticBiomeEBXLMeadow extends RealisticBiomeEBXLBase
 			new TerrainEBXLMeadow(),
 			new SurfaceEBXLMeadow(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

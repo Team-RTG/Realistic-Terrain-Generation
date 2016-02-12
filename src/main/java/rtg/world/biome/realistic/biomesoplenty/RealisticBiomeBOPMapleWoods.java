@@ -30,8 +30,6 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase
 			new TerrainBOPMapleWoods(58f, 80f, 30f),
 			new SurfaceBOPMapleWoods(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

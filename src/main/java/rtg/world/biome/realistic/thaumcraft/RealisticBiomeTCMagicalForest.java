@@ -15,7 +15,5 @@ public class RealisticBiomeTCMagicalForest extends RealisticBiomeTCBase
 			new TerrainTCMagicalForest(),
 			new SurfaceTCMagicalForest(config, tcBiome.topBlock, tcBiome.fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

@@ -22,7 +22,5 @@ public class RealisticBiomeEBXLShrubland extends RealisticBiomeEBXLBase
 			new TerrainEBXLShrubland(58f,80f,30f),
 			new SurfaceEBXLShrubland(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

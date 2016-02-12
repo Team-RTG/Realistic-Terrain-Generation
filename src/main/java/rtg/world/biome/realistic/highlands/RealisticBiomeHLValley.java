@@ -23,7 +23,5 @@ public class RealisticBiomeHLValley extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.river,
             new TerrainHLValley(),
             new SurfaceHLValley(config, topBlock, fillerBlock));
-        
-        this.config = config;
     }
 }

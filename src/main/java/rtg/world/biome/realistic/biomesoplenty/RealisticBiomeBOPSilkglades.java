@@ -22,7 +22,5 @@ public class RealisticBiomeBOPSilkglades extends RealisticBiomeBOPBase
 			new TerrainBOPSilkglades(),
 			new SurfaceBOPSilkglades(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

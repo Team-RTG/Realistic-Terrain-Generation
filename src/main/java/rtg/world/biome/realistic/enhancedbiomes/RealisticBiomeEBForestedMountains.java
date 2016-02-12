@@ -84,8 +84,6 @@ public class RealisticBiomeEBForestedMountains extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
         
     }
 	

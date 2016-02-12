@@ -22,7 +22,5 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase
 			new TerrainBOPBog(),
 			new SurfaceBOPBog(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

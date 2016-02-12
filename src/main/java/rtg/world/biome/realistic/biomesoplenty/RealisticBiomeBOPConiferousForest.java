@@ -45,8 +45,6 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
 	}
 	
     @Override

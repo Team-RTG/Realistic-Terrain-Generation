@@ -22,7 +22,5 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
             BiomeGenBase.river,
             new TerrainVanillaSunflowerPlains(),
             new SurfaceVanillaSunflowerPlains(config, topBlock, fillerBlock));
-        
-        this.config = config;
     }
 }

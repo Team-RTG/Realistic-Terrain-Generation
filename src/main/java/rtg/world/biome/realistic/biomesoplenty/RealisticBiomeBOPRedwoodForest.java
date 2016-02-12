@@ -32,8 +32,6 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase
 			new TerrainBOPRedwoodForest(58f, 80f, 30f),
 			new SurfaceBOPRedwoodForest(config, topBlock, fillerBlock, false, null, 0.4f)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

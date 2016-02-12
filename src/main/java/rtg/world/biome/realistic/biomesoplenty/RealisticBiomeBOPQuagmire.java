@@ -22,7 +22,5 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase
 			new TerrainBOPQuagmire(),
 			new SurfaceBOPQuagmire(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

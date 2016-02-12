@@ -22,7 +22,5 @@ public class RealisticBiomeHLDunes extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.river,
             new TerrainHLDunes(),
             new SurfaceHLDunes(config, topBlock, fillerBlock));
-        
-        this.config = config;
     }
 }

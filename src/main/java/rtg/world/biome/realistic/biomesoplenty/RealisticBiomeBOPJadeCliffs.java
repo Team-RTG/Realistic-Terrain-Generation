@@ -31,8 +31,6 @@ public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
 			new TerrainBOPJadeCliffs(300f, 100f, 0f),
 			new SurfaceBOPJadeCliffs(config, topBlock, fillerBlock, false, null, 0.95f)
 		);
-		
-		this.config = config;
 		this.generatesEmeralds = true;
 	}
 	

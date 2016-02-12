@@ -15,7 +15,5 @@ public class RealisticBiomeATGSnowyGravelBeach extends RealisticBiomeATGBase
 			new TerrainATGSnowyGravelBeach(),
 			new SurfaceATGSnowyGravelBeach(config, atgBiome.topBlock, atgBiome.fillerBlock, atgBiome.topBlock, atgBiome.fillerBlock, (byte)0, 1)
 		);
-		
-		this.config = config;
 	}
 }

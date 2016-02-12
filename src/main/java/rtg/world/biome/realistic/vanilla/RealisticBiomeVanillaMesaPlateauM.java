@@ -36,8 +36,6 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaMesaPlateauM(true, 15f, 260f, 50f, 30f, 79f),
             new SurfaceVanillaMesaPlateauM(config, Blocks.sand, Blocks.sand, (byte) 1, 0));
-        
-        this.config = config;
     }
     
     @Override

@@ -47,8 +47,6 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
 		this.generatesEmeralds = true;
 	}
 	

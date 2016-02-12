@@ -79,8 +79,6 @@ public class RealisticBiomeEBPolarDesert extends RealisticBiomeEBBase
             )
         );
         
-        this.config = config;
-        
     }
     
     @Override

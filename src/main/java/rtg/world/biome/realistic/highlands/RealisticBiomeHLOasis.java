@@ -24,7 +24,5 @@ public class RealisticBiomeHLOasis extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.river,
             new TerrainHLOasis(),
             new SurfaceHLOasis(config, Blocks.sand, fillerBlock));
-        
-        this.config = config;
     }
 }

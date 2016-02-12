@@ -22,7 +22,5 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase
 			new TerrainBOPBayou(),
 			new SurfaceBOPBayou(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

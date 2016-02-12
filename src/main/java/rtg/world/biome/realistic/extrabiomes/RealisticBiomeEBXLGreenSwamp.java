@@ -22,7 +22,5 @@ public class RealisticBiomeEBXLGreenSwamp extends RealisticBiomeEBXLBase
 			new TerrainEBXLGreenSwamp(),
 			new SurfaceEBXLGreenSwamp(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

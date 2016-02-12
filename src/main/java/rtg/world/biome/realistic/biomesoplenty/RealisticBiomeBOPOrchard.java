@@ -30,8 +30,6 @@ public class RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase
 			new TerrainBOPOrchard(58f, 67f, 25f),
 			new SurfaceBOPOrchard(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

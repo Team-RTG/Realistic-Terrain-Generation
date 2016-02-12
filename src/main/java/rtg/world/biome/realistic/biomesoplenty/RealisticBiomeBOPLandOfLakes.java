@@ -39,8 +39,6 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 			new TerrainBOPLandOfLakes(58f, 76f, 36f),
 			new SurfaceBOPLandOfLakes(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.10f)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

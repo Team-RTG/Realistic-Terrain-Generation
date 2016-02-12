@@ -22,7 +22,5 @@ public class RealisticBiomeBOPSteppe extends RealisticBiomeBOPBase
 			new TerrainBOPSteppe(65f, 68f, 30f),
 			new SurfaceBOPSteppe(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

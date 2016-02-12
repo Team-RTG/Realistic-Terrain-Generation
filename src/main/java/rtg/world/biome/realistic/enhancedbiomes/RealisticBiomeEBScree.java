@@ -81,8 +81,6 @@ public class RealisticBiomeEBScree extends RealisticBiomeEBBase
             )
 		);
 		
-		this.config = config;
-		
         this.generatesEmeralds = true;
         this.emeraldEmeraldBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.oreEmeraldEB, Blocks.emerald_ore);
         this.emeraldEmeraldMeta = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);

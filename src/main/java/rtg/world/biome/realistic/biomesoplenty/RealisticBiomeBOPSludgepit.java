@@ -23,7 +23,5 @@ public class RealisticBiomeBOPSludgepit extends RealisticBiomeBOPBase
 			new TerrainBOPSludgepit(),
 			new SurfaceBOPSludgepit(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

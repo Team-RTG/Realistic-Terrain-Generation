@@ -23,7 +23,5 @@ public class RealisticBiomeBOPBorealForest extends RealisticBiomeBOPBase
 			new TerrainBOPBorealForest(),
 			new SurfaceBOPBorealForest(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f)
 		);
-		
-		this.config = config;
 	}
 }

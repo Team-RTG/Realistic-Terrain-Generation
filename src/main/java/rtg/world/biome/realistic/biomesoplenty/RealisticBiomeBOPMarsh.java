@@ -22,7 +22,5 @@ public class RealisticBiomeBOPMarsh extends RealisticBiomeBOPBase
 			new TerrainBOPMarsh(),
 			new SurfaceBOPMarsh(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

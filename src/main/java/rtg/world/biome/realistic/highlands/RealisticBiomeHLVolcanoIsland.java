@@ -55,8 +55,6 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
             )
         );
         
-        this.config = config;
-        
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 1;
     }

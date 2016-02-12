@@ -22,7 +22,5 @@ public class RealisticBiomeBOPLandOfLakesMarsh extends RealisticBiomeBOPBase
 			new TerrainBOPLandOfLakesMarsh(),
 			new SurfaceBOPLandOfLakesMarsh(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

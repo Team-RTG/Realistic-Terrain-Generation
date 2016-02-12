@@ -15,7 +15,5 @@ public class RealisticBiomeATGTropicalShrubland extends RealisticBiomeATGBase
 			new TerrainATGTropicalShrubland(),
 			new SurfaceATGTropicalShrubland(config, atgBiome.topBlock, atgBiome.fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

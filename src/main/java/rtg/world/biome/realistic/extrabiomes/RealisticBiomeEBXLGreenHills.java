@@ -22,7 +22,5 @@ public class RealisticBiomeEBXLGreenHills extends RealisticBiomeEBXLBase
 			new TerrainEBXLGreenHills(360f, 100f, 0f),
 			new SurfaceEBXLGreenHills(config, topBlock, fillerBlock, false, null, 0.95f)
 		);
-		
-		this.config = config;
 	}
 }

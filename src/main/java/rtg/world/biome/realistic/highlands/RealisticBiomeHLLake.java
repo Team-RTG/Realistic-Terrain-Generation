@@ -23,7 +23,5 @@ public class RealisticBiomeHLLake extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.river,
             new TerrainHLLake(),
             new SurfaceHLLake(config, topBlock, fillerBlock));
-        
-        this.config = config;
     }
 }

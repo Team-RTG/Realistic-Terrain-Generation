@@ -71,8 +71,6 @@ public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
                 0.08f
                 ));
         
-        this.config = config;
-        
     }
     
     @Override

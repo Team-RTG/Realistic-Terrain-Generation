@@ -22,7 +22,5 @@ public class RealisticBiomeEBXLForestedIsland extends RealisticBiomeEBXLBase
 			new TerrainEBXLForestedIsland(31f, 280f, 1f, 100f, 1f, 260f, 59f),
 			new SurfaceEBXLForestedIsland(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

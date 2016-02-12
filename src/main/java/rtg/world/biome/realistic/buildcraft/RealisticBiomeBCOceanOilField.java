@@ -17,7 +17,5 @@ public class RealisticBiomeBCOceanOilField extends RealisticBiomeBCBase
             bcBiome, BiomeGenBase.river,
             new TerrainBCOceanOilField(),
             new SurfaceBCOceanOilField(config, Blocks.sand, Blocks.sand, Blocks.gravel, 20f, 0.2f));
-        
-        this.config = config;
     }
 }

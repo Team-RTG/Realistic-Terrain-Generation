@@ -21,7 +21,5 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaPlains(),
             new SurfaceVanillaPlains(config, topBlock, fillerBlock));
-        
-        this.config = config;
     }
 }

@@ -23,7 +23,5 @@ public class RealisticBiomeHLSnowIsland extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.frozenRiver,
             new TerrainHLSnowIsland(90f, 180f, 13f, 100f, 1f, 260f, 70f),
             new SurfaceHLSnowIsland(config, topBlock, fillerBlock));
-        
-        this.config = config;
     }
 }

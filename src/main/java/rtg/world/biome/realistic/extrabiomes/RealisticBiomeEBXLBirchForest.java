@@ -22,7 +22,5 @@ public class RealisticBiomeEBXLBirchForest extends RealisticBiomeEBXLBase
 			new TerrainEBXLBirchForest(63f, 74f, 33f),
 			new SurfaceEBXLBirchForest(config, topBlock, fillerBlock, false, null, 0.95f)
 		);
-		
-		this.config = config;
 	}
 }

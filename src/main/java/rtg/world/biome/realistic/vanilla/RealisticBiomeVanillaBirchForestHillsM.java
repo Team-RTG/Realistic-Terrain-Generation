@@ -42,8 +42,6 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
 			new TerrainVanillaBirchForestHillsM(),
 			new SurfaceVanillaBirchForestHillsM(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

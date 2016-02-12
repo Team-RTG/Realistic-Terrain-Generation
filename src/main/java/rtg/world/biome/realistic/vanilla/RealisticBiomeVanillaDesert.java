@@ -39,8 +39,6 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
             new TerrainVanillaDesert(),
             new SurfaceVanillaDesert(config, topBlock, fillerBlock));
         
-        this.config = config;
-        
         this.waterSurfaceLakeChance = 0;
     }
     

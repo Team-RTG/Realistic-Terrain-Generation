@@ -32,8 +32,6 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase
 			new TerrainBOPShield(0f, 100f, 68f, 170f),
 			new SurfaceBOPShield(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

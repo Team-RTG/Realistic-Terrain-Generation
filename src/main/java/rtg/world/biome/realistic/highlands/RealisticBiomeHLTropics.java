@@ -23,7 +23,5 @@ public class RealisticBiomeHLTropics extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.river,
             new TerrainHLTropics(),
             new SurfaceHLTropics(config, topBlock, fillerBlock));
-        
-        this.config = config;
     }
 }

@@ -22,7 +22,5 @@ public class RealisticBiomeBOPPrairie extends RealisticBiomeBOPBase
 			new TerrainBOPPrairie(65f, 80f, 25f),
 			new SurfaceBOPPrairie(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

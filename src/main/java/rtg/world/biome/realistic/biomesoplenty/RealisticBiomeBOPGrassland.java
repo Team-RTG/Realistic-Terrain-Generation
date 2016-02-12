@@ -22,7 +22,5 @@ public class RealisticBiomeBOPGrassland extends RealisticBiomeBOPBase
 			new TerrainBOPGrassland(),
 			new SurfaceBOPGrassland(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

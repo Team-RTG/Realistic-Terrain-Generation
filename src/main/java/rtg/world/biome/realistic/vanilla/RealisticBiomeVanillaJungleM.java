@@ -51,8 +51,6 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase
 			new SurfaceVanillaJungleM(config, topBlock, fillerBlock)
 		);
 		
-		this.config = config;
-		
 		this.waterSurfaceLakeChance = 3;
 	}
 	

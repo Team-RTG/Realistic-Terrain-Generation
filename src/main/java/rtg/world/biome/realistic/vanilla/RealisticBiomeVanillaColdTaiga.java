@@ -44,8 +44,6 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
             BiomeGenBase.frozenRiver,
             new TerrainVanillaColdTaiga(),
             new SurfaceVanillaColdTaiga(config, topBlock, fillerBlock));
-        
-        this.config = config;
     }
     
     @Override

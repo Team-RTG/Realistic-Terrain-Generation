@@ -16,7 +16,5 @@ public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase
             amBiome, BiomeGenBase.river,
             new TerrainAMWitchwoodForest(),
             new SurfaceAMWitchwoodForest(config, amBiome.topBlock, amBiome.fillerBlock));
-        
-        this.config = config;
     }
 }

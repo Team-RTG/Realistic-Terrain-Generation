@@ -23,7 +23,5 @@ public class RealisticBiomeHLRainforest extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.river,
             new TerrainHLRainforest(120f, 300f,8f),
             new SurfaceHLRainforest(config, topBlock, fillerBlock, false, null, 1.3f));
-        
-        this.config = config;
     }
 }

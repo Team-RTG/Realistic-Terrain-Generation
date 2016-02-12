@@ -34,8 +34,6 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaSwampland(),
             new SurfaceVanillaSwampland(config, topBlock, fillerBlock));
-        
-        this.config = config;
     }
     
     @Override

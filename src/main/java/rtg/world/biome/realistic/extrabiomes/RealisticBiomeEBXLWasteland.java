@@ -22,7 +22,5 @@ public class RealisticBiomeEBXLWasteland extends RealisticBiomeEBXLBase
 			new TerrainEBXLWasteland(),
 			new SurfaceEBXLWasteland(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

@@ -22,7 +22,5 @@ public class RealisticBiomeHLCliffs extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.river,
             new TerrainHLCliffs(75f, 70f, 0f),
             new SurfaceHLCliffs(config, topBlock, fillerBlock, false, null, 0.95f));
-        
-        this.config = config;
     }
 }

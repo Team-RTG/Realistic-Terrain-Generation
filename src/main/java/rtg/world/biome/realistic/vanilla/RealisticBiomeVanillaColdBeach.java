@@ -27,8 +27,6 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 			new TerrainVanillaColdBeach(),
 			new SurfaceVanillaColdBeach(config, topBlock, fillerBlock, topBlock, fillerBlock, (byte)0, 1)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

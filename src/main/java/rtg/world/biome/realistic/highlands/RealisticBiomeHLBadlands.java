@@ -22,7 +22,5 @@ public class RealisticBiomeHLBadlands extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.river,
             new TerrainHLBadlands(),
             new SurfaceHLBadlands(config, topBlock, fillerBlock));
-        
-        this.config = config;
     }
 }

@@ -31,8 +31,6 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase
 			new TerrainBOPOminousWoods(65f, 80f, 48f),
 			new SurfaceBOPOminousWoods(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

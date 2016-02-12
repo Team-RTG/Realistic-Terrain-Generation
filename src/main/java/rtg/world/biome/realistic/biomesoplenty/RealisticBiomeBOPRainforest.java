@@ -22,7 +22,5 @@ public class RealisticBiomeBOPRainforest extends RealisticBiomeBOPBase
 			new TerrainBOPRainforest(90f, 300f),
 			new SurfaceBOPRainforest(config, topBlock, fillerBlock, false, null, 1.3f)
 		);
-		
-		this.config = config;
 	}
 }

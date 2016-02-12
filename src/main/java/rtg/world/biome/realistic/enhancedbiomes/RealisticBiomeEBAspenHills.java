@@ -44,8 +44,6 @@ public class RealisticBiomeEBAspenHills extends RealisticBiomeEBBase
 			new TerrainEBAspenHills(230f, 120f, 0f),
 			new SurfaceEBAspenHills(config, ebTopBlock, ebTopByte, ebFillBlock, ebFillByte, false, null, 0.95f)
 		);
-		
-		this.config = config;
         
     }
 }

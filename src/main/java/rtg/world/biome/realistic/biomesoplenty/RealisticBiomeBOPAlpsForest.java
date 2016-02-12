@@ -31,8 +31,6 @@ public class RealisticBiomeBOPAlpsForest extends RealisticBiomeBOPBase
 			new TerrainBOPAlpsForest(),
 			new SurfaceBOPAlpsForest(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.15f)
 		);
-
-		this.config = config;
 		this.generatesEmeralds = true;
 	}
 	

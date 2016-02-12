@@ -31,8 +31,6 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaJungleEdgeM(),
             new SurfaceVanillaJungleEdgeM(config, topBlock, fillerBlock));
-        
-        this.config = config;
     }
     
     @Override

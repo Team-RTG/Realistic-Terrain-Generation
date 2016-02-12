@@ -26,8 +26,6 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
             new TerrainVanillaExtremeHillsM(10f, 140f, 68f, 200f),
             new SurfaceVanillaExtremeHillsM(config, topBlock, fillerBlock, Blocks.grass, Blocks.dirt, 60f,
                 -0.14f, 14f, 0.25f));
-        
-        this.config = config;
         this.generatesEmeralds = true;
     }
 }

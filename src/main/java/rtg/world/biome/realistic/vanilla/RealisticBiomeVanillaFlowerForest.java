@@ -40,8 +40,6 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaFlowerForest(),
             new SurfaceVanillaFlowerForest(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.grass, 0.05f));
-        
-        this.config = config;
     }
     
     @Override

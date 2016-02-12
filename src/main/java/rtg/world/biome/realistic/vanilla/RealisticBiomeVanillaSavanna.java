@@ -36,8 +36,6 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaSavanna(),
             new SurfaceVanillaSavanna(config, Blocks.grass, Blocks.dirt, Blocks.grass, 13f, 0.27f));
-        
-        this.config = config;
     }
     
     @Override

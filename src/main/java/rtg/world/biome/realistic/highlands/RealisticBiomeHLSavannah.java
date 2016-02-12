@@ -23,7 +23,5 @@ public class RealisticBiomeHLSavannah extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.river,
             new TerrainHLSavannah(),
             new SurfaceHLSavannah(config, topBlock, fillerBlock));
-        
-        this.config = config;
     }
 }

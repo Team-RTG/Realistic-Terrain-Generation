@@ -22,7 +22,5 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase
 			new TerrainBOPKelpForest(false, -10f, 0f, 0f, 0f, 30f),
 			new SurfaceBOPKelpForest(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

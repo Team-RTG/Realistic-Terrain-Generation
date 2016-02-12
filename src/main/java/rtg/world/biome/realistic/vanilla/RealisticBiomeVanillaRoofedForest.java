@@ -40,8 +40,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaRoofedForest(),
             new SurfaceVanillaRoofedForest(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.08f));
-        
-        this.config = config;
     }
     
     @Override

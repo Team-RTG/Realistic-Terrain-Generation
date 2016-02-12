@@ -23,7 +23,5 @@ public class RealisticBiomeHLTallPineForest extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.frozenRiver,
             new TerrainHLTallPineForest(),
             new SurfaceHLTallPineForest(config, topBlock, fillerBlock, false, null, 1.2f));
-        
-        this.config = config;
     }
 }

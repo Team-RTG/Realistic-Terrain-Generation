@@ -86,8 +86,6 @@ public class RealisticBiomeEBCarr extends RealisticBiomeEBBase
             )
         );
         
-        this.config = config;
-        
     }
     
     @Override

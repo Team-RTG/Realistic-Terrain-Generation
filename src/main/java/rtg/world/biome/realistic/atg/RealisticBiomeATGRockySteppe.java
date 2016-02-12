@@ -15,7 +15,5 @@ public class RealisticBiomeATGRockySteppe extends RealisticBiomeATGBase
 			new TerrainATGRockySteppe(),
 			new SurfaceATGRockySteppe(config, atgBiome.topBlock, atgBiome.fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

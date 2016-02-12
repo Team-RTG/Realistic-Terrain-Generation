@@ -41,8 +41,6 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaBirchForest(),
             new SurfaceVanillaBirchForest(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f));
-        
-        this.config = config;
     }
 
     @Override

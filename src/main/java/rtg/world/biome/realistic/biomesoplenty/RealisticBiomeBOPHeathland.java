@@ -30,8 +30,6 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase
 			new TerrainBOPHeathland(),
 			new SurfaceBOPHeathland(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

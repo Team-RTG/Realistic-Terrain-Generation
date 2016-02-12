@@ -22,7 +22,5 @@ public class RealisticBiomeBOPTundra extends RealisticBiomeBOPBase
 			new TerrainBOPTundra(),
 			new SurfaceBOPTundra(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

@@ -22,7 +22,5 @@ public class RealisticBiomeBOPDryRiver extends RealisticBiomeBOPBase
 			new TerrainBOPDryRiver(),
 			new SurfaceBOPDryRiver(config)
 		);
-
-		this.config = config;
 	}
 }

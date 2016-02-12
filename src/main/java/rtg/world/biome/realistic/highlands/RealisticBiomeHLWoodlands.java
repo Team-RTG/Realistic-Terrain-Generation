@@ -23,7 +23,5 @@ public class RealisticBiomeHLWoodlands extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.river,
             new TerrainHLWoodlands(230f, 40f, 0f),
             new SurfaceHLWoodlands(config, topBlock, fillerBlock, false, null, 0.95f));
-        
-        this.config = config;
     }
 }

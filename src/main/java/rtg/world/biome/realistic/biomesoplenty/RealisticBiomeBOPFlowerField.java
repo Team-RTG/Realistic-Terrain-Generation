@@ -31,8 +31,6 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase
 			new TerrainBOPFlowerField(),
 			new SurfaceBOPFlowerField(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, topBlock, 0.05f)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

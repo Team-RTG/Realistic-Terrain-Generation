@@ -71,8 +71,6 @@ public class RealisticBiomeEBSnowyPlateau extends RealisticBiomeEBBase
             )
 		);
 		
-		this.config = config;
-		
         this.generatesEmeralds = true;
         this.emeraldEmeraldBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.oreEmeraldEB, Blocks.emerald_ore);
         this.emeraldEmeraldMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);

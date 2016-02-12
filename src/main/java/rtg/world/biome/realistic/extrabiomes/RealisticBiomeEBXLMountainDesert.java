@@ -22,7 +22,5 @@ public class RealisticBiomeEBXLMountainDesert extends RealisticBiomeEBXLBase
 			new TerrainEBXLMountainDesert(230f, 100f, 0f),
 			new SurfaceEBXLMountainDesert(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f)
 		);
-		
-		this.config = config;
 	}
 }

@@ -21,7 +21,5 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase
 			new TerrainVanillaStoneBeach(),
 			new SurfaceVanillaStoneBeach(config, topBlock, fillerBlock, true, Blocks.gravel, 1f, 1.5f, 85f, 20f, 4f)
 		);
-		
-		this.config = config;
 	}	
 }

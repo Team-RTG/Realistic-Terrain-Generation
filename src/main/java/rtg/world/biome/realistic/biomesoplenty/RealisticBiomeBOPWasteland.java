@@ -22,7 +22,5 @@ public class RealisticBiomeBOPWasteland extends RealisticBiomeBOPBase
 			new TerrainBOPWasteland(),
 			new SurfaceBOPWasteland(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

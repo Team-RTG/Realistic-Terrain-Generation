@@ -22,7 +22,5 @@ public class RealisticBiomeHLSnowMountains extends RealisticBiomeHLBase
 			new TerrainHLSnowMountains(),
 			new SurfaceHLSnowMountains(config, topBlock, fillerBlock, false, null, 1.2f)
 		);
-		
-		this.config = config;
 	}
 }

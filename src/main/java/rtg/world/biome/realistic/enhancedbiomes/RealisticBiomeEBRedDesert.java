@@ -71,7 +71,5 @@ public class RealisticBiomeEBRedDesert extends RealisticBiomeEBBase
             )
         );
         
-        this.config = config;
-        
     }
 }

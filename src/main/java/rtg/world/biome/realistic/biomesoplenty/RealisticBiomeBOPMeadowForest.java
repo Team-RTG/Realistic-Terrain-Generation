@@ -22,7 +22,5 @@ public class RealisticBiomeBOPMeadowForest extends RealisticBiomeBOPBase
 			new TerrainBOPMeadowForest(),
 			new SurfaceBOPMeadowForest(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

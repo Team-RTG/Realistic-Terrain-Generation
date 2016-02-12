@@ -23,7 +23,5 @@ public class RealisticBiomeHLOutback extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.river,
             new TerrainHLOutback(300f),
             new SurfaceHLOutback(config, topBlock, fillerBlock, (byte) 1, 1));
-        
-        this.config = config;
     }
 }

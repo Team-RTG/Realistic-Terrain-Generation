@@ -38,8 +38,6 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase
             new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f),
             new SurfaceVanillaMesaBryce(config, Blocks.sand, Blocks.sand, (byte) 1, 0)
         );
-        
-        this.config = config;
     }
     
     @Override

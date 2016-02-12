@@ -77,8 +77,6 @@ public class RealisticBiomeEBFens extends RealisticBiomeEBBase
             )
         );
         
-        this.config = config;
-        
     }
     
     @Override

@@ -22,7 +22,5 @@ public class RealisticBiomeEBXLTundra extends RealisticBiomeEBXLBase
 			new TerrainEBXLTundra(63f, 130f, 30f),
 			new SurfaceEBXLTundra(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

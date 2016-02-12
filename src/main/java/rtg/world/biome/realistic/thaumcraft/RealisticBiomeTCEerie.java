@@ -16,7 +16,5 @@ public class RealisticBiomeTCEerie extends RealisticBiomeTCBase
 			new TerrainTCEerie(),
 			new SurfaceTCEerie(config, tcBiome.topBlock, tcBiome.fillerBlock)
 		);
-
-        this.config = config;
 	}
 }

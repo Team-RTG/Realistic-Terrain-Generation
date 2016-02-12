@@ -37,8 +37,6 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaTaiga(),
             new SurfaceVanillaTaiga(config, topBlock, fillerBlock));
-        
-        this.config = config;
     }
     
     @Override

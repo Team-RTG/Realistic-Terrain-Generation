@@ -16,7 +16,5 @@ public class RealisticBiomeHLBog extends RealisticBiomeHLBase
             HighlandsBiomes.bog, BiomeGenBase.river,
             new TerrainHLBog(),
             new SurfaceHLBog(config, HighlandsBiomes.bog.topBlock, HighlandsBiomes.bog.fillerBlock));
-        
-        this.config = config;
     }
 }

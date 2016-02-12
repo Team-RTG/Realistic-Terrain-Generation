@@ -22,7 +22,5 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase
 			new TerrainBOPCoralReef(false, -10f, 0f, 0f, 0f, 30f),
 			new SurfaceBOPCoralReef(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

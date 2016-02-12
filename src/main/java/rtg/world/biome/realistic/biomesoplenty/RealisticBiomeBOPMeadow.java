@@ -22,7 +22,5 @@ public class RealisticBiomeBOPMeadow extends RealisticBiomeBOPBase
 			new TerrainBOPMeadow(),
 			new SurfaceBOPMeadow(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

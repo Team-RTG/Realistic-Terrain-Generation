@@ -39,8 +39,6 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
 			new SurfaceVanillaDesertHills(config, Blocks.sand, Blocks.sandstone, false, null, 0f, 1.5f, 60f, 65f, 1.5f)
 		);
 		
-		this.config = config;
-		
         this.waterSurfaceLakeChance = 0;
 	}
 	

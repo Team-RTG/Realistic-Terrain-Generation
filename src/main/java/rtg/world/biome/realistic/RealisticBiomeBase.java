@@ -71,14 +71,16 @@ public class RealisticBiomeBase extends BiomeBase {
     public Block emeraldStoneBlock;
     public byte emeraldStoneMeta;
     
-    public RealisticBiomeBase(BiomeGenBase biome) {
+    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
     
-        this(biome, BiomeGenBase.river);
+        this(config, biome, BiomeGenBase.river);
     }
     
-    public RealisticBiomeBase(BiomeGenBase biome, BiomeGenBase river) {
+    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome, BiomeGenBase river) {
     
         super(biome.biomeID);
+        
+        this.config = config;
 
     	if (biome.biomeID == 160 && this instanceof rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaRedwoodTaigaHills) {
 
@@ -117,7 +119,7 @@ public class RealisticBiomeBase extends BiomeBase {
     
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s) {
     
-        this(b, riverbiome);
+        this(config, b, riverbiome);
         
         terrain = t;
         
@@ -128,8 +130,6 @@ public class RealisticBiomeBase extends BiomeBase {
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
         
         this(config, b, riverbiome, t, new SurfaceBase[] {s});
-        
-        this.config = config;
         
         surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
     }

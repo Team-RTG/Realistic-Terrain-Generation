@@ -34,35 +34,29 @@ public class SurfaceBase
         fillerBlock = fill;
         biomeConfig = config;
         
-//        if (config == null) {
-//            throw new RuntimeException("CONFIG IS NULL");
-//        }
-//        
-//        if (BiomeConfig.surfaceTopBlockId == null) {
-//            throw new RuntimeException("surfaceTopBlockId IS NULL");
-//        }
-//        
-//        String userTopBlock = config._string(BiomeConfig.surfaceTopBlockId);
-//        if (this.isValidBlockId(userTopBlock)) {
-//            
-//            try {
-//                topBlock = GameData.getBlockRegistry().getObject(userTopBlock);
-//            }
-//            catch (Exception e) {
-//                // Do nothing.
-//            }
-//        }
-//        
-//        String userFillerBlock = config._string(BiomeConfig.surfaceFillerBlockId);
-//        if (this.isValidBlockId(userFillerBlock)) {
-//            
-//            try {
-//                fillerBlock = GameData.getBlockRegistry().getObject(userFillerBlock);
-//            }
-//            catch (Exception e) {
-//                // Do nothing.
-//            }
-//        }
+        if (config == null) throw new RuntimeException("Biome config in SurfaceBase is NULL.");
+        
+        String userTopBlock = config._string(BiomeConfig.surfaceTopBlockId);
+        if (this.isValidBlockId(userTopBlock)) {
+            
+            try {
+                topBlock = GameData.getBlockRegistry().getObject(userTopBlock);
+            }
+            catch (Exception e) {
+                // Do nothing.
+            }
+        }
+        
+        String userFillerBlock = config._string(BiomeConfig.surfaceFillerBlockId);
+        if (this.isValidBlockId(userFillerBlock)) {
+            
+            try {
+                fillerBlock = GameData.getBlockRegistry().getObject(userFillerBlock);
+            }
+            catch (Exception e) {
+                // Do nothing.
+            }
+        }
     }
 	
 	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)

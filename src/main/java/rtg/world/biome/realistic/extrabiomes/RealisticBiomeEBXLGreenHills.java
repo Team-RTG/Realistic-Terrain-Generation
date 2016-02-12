@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLGreenHills extends RealisticBiomeEBXLBase
 	
 	public RealisticBiomeEBXLGreenHills(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLGreenHills(360f, 100f, 0f),
 			new SurfaceEBXLGreenHills(config, topBlock, fillerBlock, false, null, 0.95f)

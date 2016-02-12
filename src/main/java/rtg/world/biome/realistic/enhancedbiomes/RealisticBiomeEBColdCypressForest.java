@@ -48,7 +48,7 @@ public class RealisticBiomeEBColdCypressForest extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBColdCypressForest(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBColdCypressForest(160f, 80f, 60f),
 			new SurfaceEBColdCypressForest(config, 

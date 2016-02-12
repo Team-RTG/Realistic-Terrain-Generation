@@ -48,7 +48,7 @@ public class RealisticBiomeEBRainforest extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBRainforest(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBRainforest(),
 			new SurfaceEBRainforest(config, 

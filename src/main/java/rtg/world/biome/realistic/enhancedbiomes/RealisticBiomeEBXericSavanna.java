@@ -47,7 +47,7 @@ public class RealisticBiomeEBXericSavanna extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBXericSavanna(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBXericSavanna(200f, 100f, 0f),
 			new SurfaceEBXericSavanna(config, 

@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLForestedIsland extends RealisticBiomeEBXLBase
 	
 	public RealisticBiomeEBXLForestedIsland(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLForestedIsland(31f, 280f, 1f, 100f, 1f, 260f, 59f),
 			new SurfaceEBXLForestedIsland(config, topBlock, fillerBlock)

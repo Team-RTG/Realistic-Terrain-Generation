@@ -47,7 +47,7 @@ public class RealisticBiomeEBWoodlandLake extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBWoodlandLake(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBWoodlandLake(),
 			new SurfaceEBWoodlandLake(config, 

@@ -48,7 +48,7 @@ public class RealisticBiomeEBCypressForest extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBCypressForest(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBCypressForest(),
 			new SurfaceEBCypressForest(config, 

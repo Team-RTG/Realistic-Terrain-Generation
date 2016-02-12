@@ -19,7 +19,7 @@ public class RealisticBiomeHLPinelands extends RealisticBiomeHLBase
     public RealisticBiomeHLPinelands(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLPinelands(),
             new SurfaceHLPinelands(config, topBlock, fillerBlock, false, null, 1.2f));

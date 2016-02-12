@@ -18,7 +18,7 @@ public class RealisticBiomeBOPArctic extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPArctic(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.frozenRiver,
 			new TerrainBOPArctic(),
 			new SurfaceBOPArctic(config, 

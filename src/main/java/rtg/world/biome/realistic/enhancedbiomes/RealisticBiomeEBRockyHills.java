@@ -49,7 +49,7 @@ public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
     public RealisticBiomeEBRockyHills(BiomeGenBase ebBiome, BiomeConfig config)
     {
     
-        super(
+        super(config, 
             ebBiome, BiomeGenBase.river,
             new TerrainEBRockyHills(230f, 120f, 0f),
             new SurfaceEBRockyHills(config,

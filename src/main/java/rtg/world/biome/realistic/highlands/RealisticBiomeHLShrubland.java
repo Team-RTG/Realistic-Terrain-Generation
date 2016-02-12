@@ -19,7 +19,7 @@ public class RealisticBiomeHLShrubland extends RealisticBiomeHLBase
     public RealisticBiomeHLShrubland(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLShrubland(10f, 20f, 7f, 90f, 10f, 200f, 68f),
             new SurfaceHLShrubland(config, topBlock, fillerBlock));

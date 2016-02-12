@@ -11,7 +11,7 @@ public class RealisticBiomeTCEerie extends RealisticBiomeTCBase
 {
 	public RealisticBiomeTCEerie(BiomeGenBase tcBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			tcBiome, BiomeGenBase.river,
 			new TerrainTCEerie(),
 			new SurfaceTCEerie(config, tcBiome.topBlock, tcBiome.fillerBlock)

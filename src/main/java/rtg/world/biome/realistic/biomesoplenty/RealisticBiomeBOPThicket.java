@@ -17,7 +17,7 @@ public class RealisticBiomeBOPThicket extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPThicket(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPThicket(),
 			new SurfaceBOPThicket(config, topBlock, fillerBlock)

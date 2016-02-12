@@ -47,7 +47,7 @@ public class RealisticBiomeEBRainforestValley extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBRainforestValley(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBRainforestValley(),
 			new SurfaceEBRainforestValley(config, 

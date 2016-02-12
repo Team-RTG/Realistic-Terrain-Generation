@@ -17,7 +17,7 @@ public class RealisticBiomeBOPLushRiver extends RealisticBiomeBOPBase
 
 	public RealisticBiomeBOPLushRiver(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPLushRiver(),
 			new SurfaceBOPLushRiver(config)

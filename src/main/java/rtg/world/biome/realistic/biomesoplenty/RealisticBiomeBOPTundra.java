@@ -17,7 +17,7 @@ public class RealisticBiomeBOPTundra extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPTundra(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPTundra(),
 			new SurfaceBOPTundra(config, topBlock, fillerBlock)

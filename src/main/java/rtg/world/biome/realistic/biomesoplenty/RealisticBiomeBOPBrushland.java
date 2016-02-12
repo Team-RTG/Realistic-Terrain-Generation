@@ -18,7 +18,7 @@ public class RealisticBiomeBOPBrushland extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPBrushland(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPBrushland(),
 			new SurfaceBOPBrushland(config, topBlock, fillerBlock, Blocks.sand, 13f, 0.27f)

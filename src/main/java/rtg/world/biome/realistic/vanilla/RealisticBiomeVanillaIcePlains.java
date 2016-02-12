@@ -24,7 +24,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
 	
 	public RealisticBiomeVanillaIcePlains(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			BiomeGenBase.icePlains,
 			BiomeGenBase.frozenRiver,
 			new TerrainVanillaIcePlains(),

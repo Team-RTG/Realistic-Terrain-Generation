@@ -54,7 +54,7 @@ public class RealisticBiomeEBFens extends RealisticBiomeEBBase
     public RealisticBiomeEBFens(BiomeGenBase ebBiome, BiomeConfig config)
     {
     
-        super(
+        super(config, 
             ebBiome, BiomeGenBase.river,
             new TerrainEBFens(),
             new SurfaceEBFens(config, 

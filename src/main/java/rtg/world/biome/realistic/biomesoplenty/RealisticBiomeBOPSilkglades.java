@@ -17,7 +17,7 @@ public class RealisticBiomeBOPSilkglades extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPSilkglades(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPSilkglades(),
 			new SurfaceBOPSilkglades(config, topBlock, fillerBlock)

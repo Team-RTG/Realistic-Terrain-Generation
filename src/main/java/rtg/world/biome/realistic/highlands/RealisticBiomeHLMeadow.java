@@ -19,7 +19,7 @@ public class RealisticBiomeHLMeadow extends RealisticBiomeHLBase
     public RealisticBiomeHLMeadow(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLMeadow(90f, 180f, 13f, 100f, 38f, 260f, 71f),
             new SurfaceHLMeadow(config, topBlock, fillerBlock));

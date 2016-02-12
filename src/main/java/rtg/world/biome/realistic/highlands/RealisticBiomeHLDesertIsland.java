@@ -18,7 +18,7 @@ public class RealisticBiomeHLDesertIsland extends RealisticBiomeHLBase
     public RealisticBiomeHLDesertIsland(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLDesertIsland(90f, 180f, 13f, 100f, 38f, 260f, 71f),
             new SurfaceHLDesertIsland(config, topBlock, fillerBlock));

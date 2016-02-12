@@ -48,7 +48,7 @@ public class RealisticBiomeEBSilverPineHills extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBSilverPineHills(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBSilverPineHills(200f, 100f, 0f),
 			new SurfaceEBSilverPineHills(config, 

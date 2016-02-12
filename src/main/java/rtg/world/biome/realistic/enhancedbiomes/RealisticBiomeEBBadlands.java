@@ -47,7 +47,7 @@ public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBBadlands(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBBadlands(),
 			new SurfaceEBBadlands(config, 

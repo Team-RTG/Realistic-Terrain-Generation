@@ -17,7 +17,7 @@ public class RealisticBiomeHLSnowMountains extends RealisticBiomeHLBase
 	
 	public RealisticBiomeHLSnowMountains(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			hlBiome, BiomeGenBase.frozenRiver,
 			new TerrainHLSnowMountains(),
 			new SurfaceHLSnowMountains(config, topBlock, fillerBlock, false, null, 1.2f)

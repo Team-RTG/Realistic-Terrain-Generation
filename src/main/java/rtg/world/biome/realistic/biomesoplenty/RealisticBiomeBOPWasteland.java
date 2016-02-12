@@ -17,7 +17,7 @@ public class RealisticBiomeBOPWasteland extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPWasteland(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPWasteland(),
 			new SurfaceBOPWasteland(config, topBlock, fillerBlock)

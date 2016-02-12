@@ -14,7 +14,7 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
 	
 	public RealisticBiomeVanillaMushroomIslandShore(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			BiomeGenBase.mushroomIslandShore,
 			BiomeGenBase.river,
 			new TerrainVanillaMushroomIslandShore(),

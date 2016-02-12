@@ -18,7 +18,7 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPDeadSwamp(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPDeadSwamp(),
 			new SurfaceBOPDeadSwamp(config, topBlock, fillerBlock)

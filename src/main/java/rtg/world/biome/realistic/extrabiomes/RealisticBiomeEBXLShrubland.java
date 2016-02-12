@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLShrubland extends RealisticBiomeEBXLBase
 	
 	public RealisticBiomeEBXLShrubland(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLShrubland(58f,80f,30f),
 			new SurfaceEBXLShrubland(config, topBlock, fillerBlock)

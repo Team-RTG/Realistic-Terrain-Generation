@@ -19,7 +19,7 @@ public class RealisticBiomeHLJungleIsland extends RealisticBiomeHLBase
     public RealisticBiomeHLJungleIsland(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLJungleIsland(0f, 140f, 68f, 200f),
             new SurfaceHLJungleIsland(config, topBlock, fillerBlock));

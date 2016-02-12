@@ -32,7 +32,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPLushDesert(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPLushDesert(65f, 71f, 40f),
 			new SurfaceBOPLushDesert(config,

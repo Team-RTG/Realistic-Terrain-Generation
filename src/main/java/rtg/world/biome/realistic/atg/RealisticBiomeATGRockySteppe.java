@@ -10,7 +10,7 @@ public class RealisticBiomeATGRockySteppe extends RealisticBiomeATGBase
 {	
 	public RealisticBiomeATGRockySteppe(BiomeGenBase atgBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			atgBiome, BiomeGenBase.river,
 			new TerrainATGRockySteppe(),
 			new SurfaceATGRockySteppe(config, atgBiome.topBlock, atgBiome.fillerBlock)

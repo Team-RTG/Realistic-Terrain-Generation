@@ -25,7 +25,7 @@ public class RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPOrchard(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPOrchard(58f, 67f, 25f),
 			new SurfaceBOPOrchard(config, topBlock, fillerBlock)

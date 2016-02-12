@@ -39,7 +39,7 @@ public class RealisticBiomeEBAspenForest extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBAspenForest(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBAspenForest(230f, 120f, 0f),
 			new SurfaceEBAspenForest(config, ebTopBlock, ebTopByte, ebFillBlock, ebFillByte, false, null, 0.95f)

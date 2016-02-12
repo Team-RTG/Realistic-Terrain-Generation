@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLTundra extends RealisticBiomeEBXLBase
 	
 	public RealisticBiomeEBXLTundra(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLTundra(63f, 130f, 30f),
 			new SurfaceEBXLTundra(config, topBlock, fillerBlock)

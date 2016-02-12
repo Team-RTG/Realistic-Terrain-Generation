@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLMiniJungle extends RealisticBiomeEBXLBase
 	
 	public RealisticBiomeEBXLMiniJungle(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLMiniJungle(0f, 81f, 68f, 200f),
 			new SurfaceEBXLMiniJungle(config, topBlock, fillerBlock)

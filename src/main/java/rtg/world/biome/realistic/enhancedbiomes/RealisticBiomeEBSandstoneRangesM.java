@@ -58,7 +58,7 @@ public class RealisticBiomeEBSandstoneRangesM extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBSandstoneRangesM(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBSandstoneRangesM(false, 35f, 160f, 40f, 30f, 60),
 			new SurfaceEBSandstoneRangesM(config,

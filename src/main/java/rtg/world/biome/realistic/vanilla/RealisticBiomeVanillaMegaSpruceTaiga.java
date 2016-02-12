@@ -25,7 +25,7 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
     public RealisticBiomeVanillaMegaSpruceTaiga(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaMegaSpruceTaiga(),

@@ -17,7 +17,7 @@ public class RealisticBiomeBOPShrubland extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPShrubland(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPShrubland(),
 			new SurfaceBOPShrubland(config, topBlock, fillerBlock)

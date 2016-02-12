@@ -35,7 +35,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaDesertM(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaDesertM(70f, 180f, 7f, 100f, 38f, 160f, 68f),

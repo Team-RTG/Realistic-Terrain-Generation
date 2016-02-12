@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.arsmagica;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.arsmagica.config.BiomeConfigAM;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
@@ -12,10 +13,10 @@ public class RealisticBiomeAMBase extends RealisticBiomeBase
 {
     public static RealisticBiomeBase amWitchwoodForest;
     
-    public RealisticBiomeAMBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
+    public RealisticBiomeAMBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
     {
     
-        super(b, riverbiome, t, s);
+        super(config, b, riverbiome, t, s);
         
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;

@@ -29,7 +29,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaIceMountains(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             BiomeGenBase.iceMountains,
             BiomeGenBase.frozenRiver,
             new TerrainVanillaIceMountains(230f, 80f, 0f),

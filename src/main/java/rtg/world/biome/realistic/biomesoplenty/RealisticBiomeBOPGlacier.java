@@ -18,7 +18,7 @@ public class RealisticBiomeBOPGlacier extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPGlacier(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.frozenRiver,
 			new TerrainBOPGlacier(230f, 100f, 0f),
 			new SurfaceBOPGlacier(config, topBlock, fillerBlock, topBlock, fillerBlock, Blocks.packed_ice, Blocks.ice, 60f,

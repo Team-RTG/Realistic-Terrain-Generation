@@ -47,7 +47,7 @@ public class RealisticBiomeEBLake extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBLake(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBLake(),
 			new SurfaceEBLake(config, 

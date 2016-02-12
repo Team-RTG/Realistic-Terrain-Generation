@@ -17,7 +17,7 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPMangrove(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPMangrove(),
 			new SurfaceBOPMangrove(config, topBlock, fillerBlock)

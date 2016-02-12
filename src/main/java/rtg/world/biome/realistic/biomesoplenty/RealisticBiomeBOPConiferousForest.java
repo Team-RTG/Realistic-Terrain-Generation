@@ -27,7 +27,7 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPConiferousForest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPConiferousForest(58f, 84f, 24f),
 			new SurfaceBOPConiferousForest(config,

@@ -36,7 +36,7 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
     public RealisticBiomeHLVolcanoIsland(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLVolcanoIsland(),
             new SurfaceBOPVolcano(config, 

@@ -47,7 +47,7 @@ public class RealisticBiomeEBPrairie extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBPrairie(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBPrairie(),
 			new SurfaceEBPrairie(config, 

@@ -17,7 +17,7 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPSacredSprings(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPSacredSprings(),
 			new SurfaceBOPSacredSprings(config, topBlock, fillerBlock)

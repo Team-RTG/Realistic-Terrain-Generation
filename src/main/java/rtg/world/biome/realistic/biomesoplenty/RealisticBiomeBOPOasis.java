@@ -26,7 +26,7 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPOasis(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPOasis(),
 			new SurfaceBOPOasis(config, 

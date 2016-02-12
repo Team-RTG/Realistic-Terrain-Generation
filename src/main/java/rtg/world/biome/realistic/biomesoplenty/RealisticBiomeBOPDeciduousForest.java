@@ -26,7 +26,7 @@ public class RealisticBiomeBOPDeciduousForest extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPDeciduousForest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPDeciduousForest(),
 			new SurfaceBOPDeciduousForest(config,

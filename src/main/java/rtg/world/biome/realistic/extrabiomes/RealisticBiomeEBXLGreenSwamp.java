@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLGreenSwamp extends RealisticBiomeEBXLBase
 	
 	public RealisticBiomeEBXLGreenSwamp(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLGreenSwamp(),
 			new SurfaceEBXLGreenSwamp(config, topBlock, fillerBlock)

@@ -17,7 +17,7 @@ public class RealisticBiomeBOPMeadowForest extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPMeadowForest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPMeadowForest(),
 			new SurfaceBOPMeadowForest(config, topBlock, fillerBlock)

@@ -57,7 +57,7 @@ public class RealisticBiomeEBBlossomWoods extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBBlossomWoods(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBBlossomWoods(),
 			new SurfaceEBBlossomWoods(config,

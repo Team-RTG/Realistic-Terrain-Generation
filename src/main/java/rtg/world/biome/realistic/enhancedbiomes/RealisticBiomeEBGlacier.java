@@ -47,7 +47,7 @@ public class RealisticBiomeEBGlacier extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBGlacier(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.frozenRiver,
 			new TerrainEBGlacier(240f, 140f, 0f),
 			new SurfaceEBGlacier(config, 

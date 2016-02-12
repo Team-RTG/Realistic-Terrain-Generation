@@ -19,7 +19,7 @@ public class RealisticBiomeHLHighlandsB extends RealisticBiomeHLBase
     public RealisticBiomeHLHighlandsB(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLHighlandsB(15f, 60f, 68f, 150f),
             new SurfaceHLHighlandsB(config, topBlock, fillerBlock, false, null, 1f, 1.5f, 85f, 20f, 4f));

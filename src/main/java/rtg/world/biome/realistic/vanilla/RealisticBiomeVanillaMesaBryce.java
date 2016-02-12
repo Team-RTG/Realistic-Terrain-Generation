@@ -32,7 +32,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaMesaBryce(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f),

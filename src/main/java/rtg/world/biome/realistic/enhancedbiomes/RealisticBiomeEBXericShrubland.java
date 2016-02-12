@@ -47,7 +47,7 @@ public class RealisticBiomeEBXericShrubland extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBXericShrubland(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBXericShrubland(),
 			new SurfaceEBXericShrubland(config, 

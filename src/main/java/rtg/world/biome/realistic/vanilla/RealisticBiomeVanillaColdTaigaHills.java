@@ -32,7 +32,7 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
     public RealisticBiomeVanillaColdTaigaHills(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             BiomeGenBase.coldTaigaHills,
             BiomeGenBase.frozenRiver,
             new TerrainVanillaColdTaigaHills(),

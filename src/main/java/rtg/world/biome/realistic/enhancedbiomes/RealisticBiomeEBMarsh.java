@@ -47,7 +47,7 @@ public class RealisticBiomeEBMarsh extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBMarsh(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBMarsh(),
 			new SurfaceEBMarsh(config, 

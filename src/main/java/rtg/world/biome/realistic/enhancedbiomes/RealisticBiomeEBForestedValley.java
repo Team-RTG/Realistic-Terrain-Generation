@@ -62,7 +62,7 @@ public class RealisticBiomeEBForestedValley extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBForestedValley(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBForestedValley(),
 			new SurfaceEBForestedValley(config,

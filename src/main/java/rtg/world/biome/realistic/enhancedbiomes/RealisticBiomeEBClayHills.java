@@ -66,7 +66,7 @@ public class RealisticBiomeEBClayHills extends RealisticBiomeEBBase
     public RealisticBiomeEBClayHills(BiomeGenBase ebBiome, BiomeConfig config)
     {
     
-        super(
+        super(config, 
             ebBiome, BiomeGenBase.river,
             new TerrainEBClayHills(true, 35f, 160f, 60f, 40f, 69f),
             new SurfaceEBClayHills(config,

@@ -26,7 +26,7 @@ public class RealisticBiomeEBXLMeadow extends RealisticBiomeEBXLBase
 	
 	public RealisticBiomeEBXLMeadow(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLMeadow(),
 			new SurfaceEBXLMeadow(config, topBlock, fillerBlock)

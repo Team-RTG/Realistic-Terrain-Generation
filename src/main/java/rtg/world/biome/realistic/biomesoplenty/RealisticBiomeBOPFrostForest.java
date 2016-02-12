@@ -26,7 +26,7 @@ public class RealisticBiomeBOPFrostForest extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPFrostForest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.frozenRiver,
 			new TerrainBOPFrostForest(58f, 69f, 28f),
 			new SurfaceBOPFrostForest(config,

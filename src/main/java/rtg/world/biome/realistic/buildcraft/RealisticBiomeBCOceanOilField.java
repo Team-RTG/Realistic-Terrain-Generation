@@ -13,7 +13,7 @@ public class RealisticBiomeBCOceanOilField extends RealisticBiomeBCBase
     public RealisticBiomeBCOceanOilField(BiomeGenBase bcBiome, BiomeConfig config)
     {
     
-        super(
+        super(config, 
             bcBiome, BiomeGenBase.river,
             new TerrainBCOceanOilField(),
             new SurfaceBCOceanOilField(config, Blocks.sand, Blocks.sand, Blocks.gravel, 20f, 0.2f));

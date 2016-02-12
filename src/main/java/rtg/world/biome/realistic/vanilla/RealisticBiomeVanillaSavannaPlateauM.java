@@ -33,7 +33,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
     public RealisticBiomeVanillaSavannaPlateauM(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaSavannaPlateauM(true, 35f, 160f, 60f, 40f, 69f),

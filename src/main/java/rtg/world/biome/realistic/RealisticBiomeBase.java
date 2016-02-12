@@ -115,7 +115,7 @@ public class RealisticBiomeBase extends BiomeBase {
         return arrRealisticBiomeIds[id];
     }
     
-    public RealisticBiomeBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s) {
+    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s) {
     
         this(b, riverbiome);
         
@@ -125,9 +125,11 @@ public class RealisticBiomeBase extends BiomeBase {
         surfacesLength = s.length;
     }
     
-    public RealisticBiomeBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
-    
-        this(b, riverbiome, t, new SurfaceBase[] {s});
+    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
+        
+        this(config, b, riverbiome, t, new SurfaceBase[] {s});
+        
+        this.config = config;
         
         surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
     }

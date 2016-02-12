@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLMountainTaiga extends RealisticBiomeEBXLBase
 	
 	public RealisticBiomeEBXLMountainTaiga(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.frozenRiver,
 			new TerrainEBXLMountainTaiga(),
 			new SurfaceEBXLMountainTaiga(config, topBlock, fillerBlock, false, null, 1.2f)

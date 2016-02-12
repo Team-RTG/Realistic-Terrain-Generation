@@ -19,7 +19,7 @@ public class RealisticBiomeHLLake extends RealisticBiomeHLBase
     public RealisticBiomeHLLake(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLLake(),
             new SurfaceHLLake(config, topBlock, fillerBlock));

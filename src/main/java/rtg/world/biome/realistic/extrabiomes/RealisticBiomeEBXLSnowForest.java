@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLSnowForest extends RealisticBiomeEBXLBase
 	
 	public RealisticBiomeEBXLSnowForest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.frozenRiver,
 			new TerrainEBXLSnowForest(58f,110f,25f),
 			new SurfaceEBXLSnowForest(config, topBlock, fillerBlock)

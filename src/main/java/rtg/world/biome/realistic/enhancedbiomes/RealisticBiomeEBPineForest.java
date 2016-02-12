@@ -48,7 +48,7 @@ public class RealisticBiomeEBPineForest extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBPineForest(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBPineForest(),
 			new SurfaceEBPineForest(config, 

@@ -35,7 +35,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaRoofedForest(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             BiomeGenBase.roofedForest,
             BiomeGenBase.river,
             new TerrainVanillaRoofedForest(),

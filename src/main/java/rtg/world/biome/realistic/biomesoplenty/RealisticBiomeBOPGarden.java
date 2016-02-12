@@ -17,7 +17,7 @@ public class RealisticBiomeBOPGarden extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPGarden(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPGarden(65f, 68f, 22f),
 			new SurfaceBOPGarden(config, 

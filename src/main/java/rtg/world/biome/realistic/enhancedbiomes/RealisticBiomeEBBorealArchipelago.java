@@ -48,7 +48,7 @@ public class RealisticBiomeEBBorealArchipelago extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBBorealArchipelago(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBBorealArchipelago(80f, 40f, 0f),
 			new SurfaceEBBorealArchipelago(config, 

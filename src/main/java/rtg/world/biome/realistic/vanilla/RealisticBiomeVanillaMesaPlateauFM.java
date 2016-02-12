@@ -30,7 +30,7 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
 	
 	public RealisticBiomeVanillaMesaPlateauFM(BiomeConfig config)
 	{
-		super(
+		super(config, 
 		    mutationBiome,
 			BiomeGenBase.river,
 			new TerrainVanillaMesaPlateauFM(false, 35f, 160f, 60f, 40f, 69f),

@@ -10,7 +10,7 @@ public class RealisticBiomeATGTropicalShrubland extends RealisticBiomeATGBase
 {	
 	public RealisticBiomeATGTropicalShrubland(BiomeGenBase atgBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			atgBiome, BiomeGenBase.river,
 			new TerrainATGTropicalShrubland(),
 			new SurfaceATGTropicalShrubland(config, atgBiome.topBlock, atgBiome.fillerBlock)

@@ -58,7 +58,7 @@ public class RealisticBiomeEBSandstoneCanyon2 extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBSandstoneCanyon2(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBSandstoneCanyon2(false, 35f, 120f, 30f, 20f, 60),
 			new SurfaceEBSandstoneCanyon2(config,

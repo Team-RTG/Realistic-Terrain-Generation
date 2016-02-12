@@ -27,7 +27,7 @@ public class RealisticBiomeEBXLAutumnWoods extends RealisticBiomeEBXLBase
 	
 	public RealisticBiomeEBXLAutumnWoods(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLAutumnWoods(),
 			new SurfaceEBXLAutumnWoods(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 62f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f)

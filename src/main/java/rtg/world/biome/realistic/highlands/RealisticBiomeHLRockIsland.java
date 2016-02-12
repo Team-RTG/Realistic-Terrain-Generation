@@ -19,7 +19,7 @@ public class RealisticBiomeHLRockIsland extends RealisticBiomeHLBase
     public RealisticBiomeHLRockIsland(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLRockIsland(90f, 180f, 13f, 100f, 38f, 260f, 71f),
             new SurfaceHLRockIsland(config, topBlock, fillerBlock));

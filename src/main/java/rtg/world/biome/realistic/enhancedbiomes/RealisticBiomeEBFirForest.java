@@ -48,7 +48,7 @@ public class RealisticBiomeEBFirForest extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBFirForest(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBFirForest(160f, 80f, 60f),
 			new SurfaceEBFirForest(config, 

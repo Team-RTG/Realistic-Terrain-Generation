@@ -47,7 +47,7 @@ public class RealisticBiomeEBOasis extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBOasis(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBOasis(),
 			new SurfaceEBOasis(config, 

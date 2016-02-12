@@ -44,7 +44,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase
 	
 	public RealisticBiomeVanillaJungleM(BiomeConfig config)
 	{
-		super(
+		super(config, 
 		    mutationBiome,
 			BiomeGenBase.river,
 			new TerrainVanillaJungleM(),

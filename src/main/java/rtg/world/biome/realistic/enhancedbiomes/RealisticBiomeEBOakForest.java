@@ -48,7 +48,7 @@ public class RealisticBiomeEBOakForest extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBOakForest(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBOakForest(200f, 100f, 0f),
 			new SurfaceEBOakForest(config, 

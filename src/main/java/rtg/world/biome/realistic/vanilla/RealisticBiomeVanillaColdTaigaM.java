@@ -34,7 +34,7 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaColdTaigaM(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             mutationBiome,
             BiomeGenBase.frozenRiver,
             new TerrainVanillaColdTaigaM(),

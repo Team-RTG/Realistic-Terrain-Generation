@@ -10,7 +10,7 @@ public class RealisticBiomeCCEnderForest extends RealisticBiomeCCBase
 {	
 	public RealisticBiomeCCEnderForest(BiomeGenBase ccBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ccBiome, BiomeGenBase.river,
 			new TerrainCCEnderForest(),
 			new SurfaceCCEnderForest(config, ccBiome.topBlock, ccBiome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, ccBiome.topBlock, 0.05f)

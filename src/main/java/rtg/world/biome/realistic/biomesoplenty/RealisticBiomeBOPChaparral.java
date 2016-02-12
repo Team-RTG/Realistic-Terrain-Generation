@@ -18,7 +18,7 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPChaparral(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPChaparral(),
 			new SurfaceBOPChaparral(config, topBlock, fillerBlock, Blocks.sand, 26f, 0.35f)

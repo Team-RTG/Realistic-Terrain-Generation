@@ -10,7 +10,7 @@ public class RealisticBiomeATGGravelBeach extends RealisticBiomeATGBase
 {
 	public RealisticBiomeATGGravelBeach(BiomeGenBase atgBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			atgBiome, BiomeGenBase.river,
 			new TerrainATGGravelBeach(),
 			new SurfaceATGGravelBeach(config, atgBiome.topBlock, atgBiome.fillerBlock, atgBiome.topBlock, atgBiome.fillerBlock, (byte)0, 1)

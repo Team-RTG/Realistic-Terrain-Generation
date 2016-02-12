@@ -31,7 +31,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
     public RealisticBiomeVanillaSavannaPlateau(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             BiomeGenBase.savannaPlateau,
             BiomeGenBase.river,
             new TerrainVanillaSavannaPlateau(true, 35f, 160f, 60f, 40f, 69f),

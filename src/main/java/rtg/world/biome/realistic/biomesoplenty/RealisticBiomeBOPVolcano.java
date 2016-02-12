@@ -39,7 +39,7 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
 
 	public RealisticBiomeBOPVolcano(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPVolcano(),
 			new SurfaceBOPVolcano(config, 

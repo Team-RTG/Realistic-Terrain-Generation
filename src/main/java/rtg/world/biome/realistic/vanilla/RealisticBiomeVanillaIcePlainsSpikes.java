@@ -17,7 +17,7 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
 	
 	public RealisticBiomeVanillaIcePlainsSpikes(BiomeConfig config)
 	{
-		super(
+		super(config, 
 		    mutationBiome,
 			BiomeGenBase.frozenRiver,
 			new TerrainVanillaIcePlainsSpikes(),

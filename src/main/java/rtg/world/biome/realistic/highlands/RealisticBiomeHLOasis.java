@@ -20,7 +20,7 @@ public class RealisticBiomeHLOasis extends RealisticBiomeHLBase
     public RealisticBiomeHLOasis(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLOasis(),
             new SurfaceHLOasis(config, Blocks.sand, fillerBlock));

@@ -48,7 +48,7 @@ public class RealisticBiomeEBGrassyArchipelago extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBGrassyArchipelago(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBGrassyArchipelago(80f, 30f, 0f),
 			new SurfaceEBGrassyArchipelago(config, 

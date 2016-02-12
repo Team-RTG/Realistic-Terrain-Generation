@@ -48,7 +48,7 @@ public class RealisticBiomeEBSnowyPlateau extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBSnowyPlateau(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBSnowyPlateau(false, new float[]{2.0f, 0.5f}, 40f, 1f, 1f, 0.5f, 69f),
 			new SurfaceEBSnowyPlateau(config, 

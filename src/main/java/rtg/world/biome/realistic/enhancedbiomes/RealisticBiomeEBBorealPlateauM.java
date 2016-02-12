@@ -48,7 +48,7 @@ public class RealisticBiomeEBBorealPlateauM extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBBorealPlateauM(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBBorealPlateauM(70f, 180f, 7f, 100f, 38f, 260f, 74f),
 			new SurfaceEBBorealPlateauM(config, 

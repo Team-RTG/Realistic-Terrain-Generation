@@ -57,7 +57,7 @@ public class RealisticBiomeEBScrub extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBScrub(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBScrub(),
 			new SurfaceEBScrub(config, 

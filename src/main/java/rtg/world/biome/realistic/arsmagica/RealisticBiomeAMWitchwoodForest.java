@@ -12,7 +12,7 @@ public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase
     public RealisticBiomeAMWitchwoodForest(BiomeGenBase amBiome, BiomeConfig config)
     {
     
-        super(
+        super(config,
             amBiome, BiomeGenBase.river,
             new TerrainAMWitchwoodForest(),
             new SurfaceAMWitchwoodForest(config, amBiome.topBlock, amBiome.fillerBlock));

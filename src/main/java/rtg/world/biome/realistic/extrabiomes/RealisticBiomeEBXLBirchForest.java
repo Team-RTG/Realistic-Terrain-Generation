@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLBirchForest extends RealisticBiomeEBXLBase
 	
 	public RealisticBiomeEBXLBirchForest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLBirchForest(63f, 74f, 33f),
 			new SurfaceEBXLBirchForest(config, topBlock, fillerBlock, false, null, 0.95f)

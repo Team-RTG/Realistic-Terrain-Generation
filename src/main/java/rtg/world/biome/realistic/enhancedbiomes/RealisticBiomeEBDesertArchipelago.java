@@ -47,7 +47,7 @@ public class RealisticBiomeEBDesertArchipelago extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBDesertArchipelago(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBDesertArchipelago(80f, 30f, 0f),
 			new SurfaceEBDesertArchipelago(config, 

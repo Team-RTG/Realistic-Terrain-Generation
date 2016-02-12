@@ -58,7 +58,7 @@ public class RealisticBiomeEBScree extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBScree(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBScree(),
 			new SurfaceEBScree(config,

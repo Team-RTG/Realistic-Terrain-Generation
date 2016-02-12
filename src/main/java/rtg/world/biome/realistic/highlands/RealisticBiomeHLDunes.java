@@ -18,7 +18,7 @@ public class RealisticBiomeHLDunes extends RealisticBiomeHLBase
     public RealisticBiomeHLDunes(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLDunes(),
             new SurfaceHLDunes(config, topBlock, fillerBlock));

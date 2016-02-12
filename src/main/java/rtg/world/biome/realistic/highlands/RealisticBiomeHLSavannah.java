@@ -19,7 +19,7 @@ public class RealisticBiomeHLSavannah extends RealisticBiomeHLBase
     public RealisticBiomeHLSavannah(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLSavannah(),
             new SurfaceHLSavannah(config, topBlock, fillerBlock));

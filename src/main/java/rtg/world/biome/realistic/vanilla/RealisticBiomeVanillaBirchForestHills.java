@@ -29,7 +29,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
 	
 	public RealisticBiomeVanillaBirchForestHills(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			BiomeGenBase.birchForestHills,
 			BiomeGenBase.river,
 			new TerrainVanillaBirchForestHills(),

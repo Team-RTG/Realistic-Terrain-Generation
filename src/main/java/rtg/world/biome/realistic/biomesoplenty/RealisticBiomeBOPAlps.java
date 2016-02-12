@@ -17,7 +17,7 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPAlps(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.frozenRiver,
 			new TerrainBOPAlps(),
 			new SurfaceBOPAlps(config, topBlock, fillerBlock, false, null, 0.45f)

@@ -23,7 +23,7 @@ public class RealisticBiomeHLAlps extends RealisticBiomeHLBase {
     
     public RealisticBiomeHLAlps(BiomeConfig config) {
     
-        super(hlBiome, BiomeGenBase.frozenRiver, new TerrainHLAlps(),
+        super(config, hlBiome, BiomeGenBase.frozenRiver, new TerrainHLAlps(),
             new SurfaceHLAlps(config, topBlock, fillerBlock, false, null, 0.45f));
         
         this.config = config;

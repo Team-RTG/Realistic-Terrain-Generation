@@ -26,7 +26,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPEucalyptusForest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPEucalyptusForest(58f, 80f, 36f),
 			new SurfaceBOPEucalyptusForest(config,

@@ -47,7 +47,7 @@ public class RealisticBiomeEBLowHills extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBLowHills(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBLowHills(),
 			new SurfaceEBLowHills(config, 

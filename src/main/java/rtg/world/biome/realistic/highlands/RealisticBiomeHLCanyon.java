@@ -18,7 +18,7 @@ public class RealisticBiomeHLCanyon extends RealisticBiomeHLBase
     public RealisticBiomeHLCanyon(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLCanyon(true, 35f, 160f, 60f, 40f, 69f),
             new SurfaceHLCanyon(config, topBlock, fillerBlock, (byte) 0, 0));

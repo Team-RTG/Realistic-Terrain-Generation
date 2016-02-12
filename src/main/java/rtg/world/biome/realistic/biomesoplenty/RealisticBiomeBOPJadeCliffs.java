@@ -26,7 +26,7 @@ public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPJadeCliffs(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPJadeCliffs(300f, 100f, 0f),
 			new SurfaceBOPJadeCliffs(config, topBlock, fillerBlock, false, null, 0.95f)

@@ -17,7 +17,7 @@ public class RealisticBiomeBOPMarsh extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPMarsh(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPMarsh(),
 			new SurfaceBOPMarsh(config, topBlock, fillerBlock)

@@ -31,7 +31,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
     public RealisticBiomeVanillaExtremeHillsEdge(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             BiomeGenBase.extremeHillsEdge,
             BiomeGenBase.river,
             new TerrainVanillaExtremeHillsEdge(10f, 120f, 68f, 200f),

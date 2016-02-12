@@ -55,7 +55,7 @@ public class RealisticBiomeEBSahara extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBSahara(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBSahara(),
 			new SurfaceEBSahara(config, 

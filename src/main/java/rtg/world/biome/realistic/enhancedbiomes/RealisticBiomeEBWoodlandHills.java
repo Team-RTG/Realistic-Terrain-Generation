@@ -48,7 +48,7 @@ public class RealisticBiomeEBWoodlandHills extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBWoodlandHills(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBWoodlandHills(),
 			new SurfaceEBWoodlandHills(config, 

@@ -34,7 +34,7 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
     public RealisticBiomeVanillaRedwoodTaigaHills(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaRedwoodTaigaHills(),

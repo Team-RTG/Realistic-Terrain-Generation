@@ -19,7 +19,7 @@ public class RealisticBiomeHLTropics extends RealisticBiomeHLBase
     public RealisticBiomeHLTropics(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLTropics(),
             new SurfaceHLTropics(config, topBlock, fillerBlock));

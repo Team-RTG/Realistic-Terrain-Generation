@@ -20,7 +20,7 @@ public class RealisticBiomeHLGlacier extends RealisticBiomeHLBase
     public RealisticBiomeHLGlacier(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.frozenRiver,
             new TerrainHLGlacier(90f, 180f, 13f, 100f, 38f, 260f, 71f),
             new SurfaceHLGlacier(config, Blocks.packed_ice,Blocks.ice,  false, null, 0.95f));

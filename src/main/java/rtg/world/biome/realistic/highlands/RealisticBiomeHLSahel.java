@@ -19,7 +19,7 @@ public class RealisticBiomeHLSahel extends RealisticBiomeHLBase
     public RealisticBiomeHLSahel(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLSahel(),
             new SurfaceHLSahel(config, topBlock, fillerBlock));

@@ -26,7 +26,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
     
     public RealisticBiomeVanillaBeach(BiomeConfig config)
     {
-        super(
+        super(config, 
             BiomeGenBase.beach,
             BiomeGenBase.river,
             new TerrainVanillaBeach(),

@@ -17,7 +17,7 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPKelpForest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPKelpForest(false, -10f, 0f, 0f, 0f, 30f),
 			new SurfaceBOPKelpForest(config, topBlock, fillerBlock)

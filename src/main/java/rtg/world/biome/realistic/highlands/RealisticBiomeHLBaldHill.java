@@ -19,7 +19,7 @@ public class RealisticBiomeHLBaldHill extends RealisticBiomeHLBase
     public RealisticBiomeHLBaldHill(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLBaldHill(90f, 180f, 13f, 100f, 38f, 260f, 110f),
             new SurfaceHLBaldHill(config, Blocks.stone, Blocks.stone)

@@ -24,7 +24,7 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaJungleEdge(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             BiomeGenBase.jungleEdge,
             BiomeGenBase.river,
             new TerrainVanillaJungleEdge(),

@@ -25,7 +25,7 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPLavenderFields(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPLavenderFields(),
 			new SurfaceBOPLavenderFields(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, topBlock, 0.05f)

@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLAlpine extends RealisticBiomeEBXLBase
 	
 	public RealisticBiomeEBXLAlpine(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.frozenRiver,
 			new TerrainEBXLAlpine(),
 			new SurfaceEBXLAlpine(config, topBlock, fillerBlock, false, null, 0.45f)

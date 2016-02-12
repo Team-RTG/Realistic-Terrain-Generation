@@ -63,7 +63,7 @@ public class RealisticBiomeEBCarr extends RealisticBiomeEBBase
     public RealisticBiomeEBCarr(BiomeGenBase ebBiome, BiomeConfig config)
     {
     
-        super(
+        super(config, 
             ebBiome, BiomeGenBase.river,
             new TerrainEBCarr(),
             new SurfaceEBCarr(config,

@@ -10,7 +10,7 @@ public class RealisticBiomeATGWoodland extends RealisticBiomeATGBase
 {	
 	public RealisticBiomeATGWoodland(BiomeGenBase atgBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			atgBiome, BiomeGenBase.river,
 			new TerrainATGWoodland(),
 			new SurfaceATGWoodland(config, atgBiome.topBlock, atgBiome.fillerBlock)

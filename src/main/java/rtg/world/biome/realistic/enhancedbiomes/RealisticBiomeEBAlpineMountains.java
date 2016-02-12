@@ -39,7 +39,7 @@ public class RealisticBiomeEBAlpineMountains extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBAlpineMountains(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBAlpineMountains(),
 			new SurfaceEBAlpineMountains(config, ebTopBlock, ebFillBlock, ebFillByte, false, null, 0.45f)

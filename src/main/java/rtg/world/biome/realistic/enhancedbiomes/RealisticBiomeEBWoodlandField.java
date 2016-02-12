@@ -47,7 +47,7 @@ public class RealisticBiomeEBWoodlandField extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBWoodlandField(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBWoodlandField(),
 			new SurfaceEBWoodlandField(config, 

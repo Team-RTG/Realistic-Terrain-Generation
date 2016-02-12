@@ -19,7 +19,7 @@ public class RealisticBiomeHLTundra extends RealisticBiomeHLBase
     public RealisticBiomeHLTundra(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.frozenRiver,
             new TerrainHLTundra(),
             new SurfaceHLTundra(config, topBlock, fillerBlock));

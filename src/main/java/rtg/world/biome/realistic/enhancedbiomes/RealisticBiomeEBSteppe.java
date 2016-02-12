@@ -53,7 +53,7 @@ public class RealisticBiomeEBSteppe extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBSteppe(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBSteppe(),
 			new SurfaceEBSteppe(config, 

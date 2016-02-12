@@ -17,7 +17,7 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPQuagmire(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPQuagmire(),
 			new SurfaceBOPQuagmire(config, topBlock, fillerBlock)

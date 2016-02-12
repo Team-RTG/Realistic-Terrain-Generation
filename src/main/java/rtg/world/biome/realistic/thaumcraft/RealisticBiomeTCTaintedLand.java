@@ -10,7 +10,7 @@ public class RealisticBiomeTCTaintedLand extends RealisticBiomeTCBase
 {	
 	public RealisticBiomeTCTaintedLand(BiomeGenBase tcBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			tcBiome, BiomeGenBase.river,
 			new TerrainTCTaintedLand(),
 			new SurfaceTCTaintedLand(config, tcBiome.topBlock, tcBiome.fillerBlock)

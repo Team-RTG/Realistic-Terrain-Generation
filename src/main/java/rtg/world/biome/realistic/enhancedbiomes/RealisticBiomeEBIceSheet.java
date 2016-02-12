@@ -47,7 +47,7 @@ public class RealisticBiomeEBIceSheet extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBIceSheet(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.frozenRiver,
 			new TerrainEBIceSheet(),
 			new SurfaceEBIceSheet(config, 

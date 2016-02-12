@@ -17,7 +17,7 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPBog(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPBog(),
 			new SurfaceBOPBog(config, topBlock, fillerBlock)

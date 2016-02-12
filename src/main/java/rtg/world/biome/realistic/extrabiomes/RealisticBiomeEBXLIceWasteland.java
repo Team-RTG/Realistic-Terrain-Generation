@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLIceWasteland extends RealisticBiomeEBXLBase
 	
 	public RealisticBiomeEBXLIceWasteland(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.frozenRiver,
 			new TerrainEBXLIceWasteland(),
 			new SurfaceEBXLIceWasteland(config, topBlock, fillerBlock)

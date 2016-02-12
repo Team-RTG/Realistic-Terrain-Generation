@@ -17,7 +17,7 @@ public class RealisticBiomeBOPCanyonRavine extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPCanyonRavine(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPCanyonRavine(true, 35f, 160f, 60f, 40f, 69f),
 			new SurfaceBOPCanyonRavine(config, topBlock, fillerBlock, (byte)0, 0)

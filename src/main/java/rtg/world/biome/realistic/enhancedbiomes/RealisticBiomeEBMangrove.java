@@ -58,7 +58,7 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBMangrove(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBMangrove(),
 			new SurfaceEBMangrove(config,

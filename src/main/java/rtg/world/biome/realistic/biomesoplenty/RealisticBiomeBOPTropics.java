@@ -26,7 +26,7 @@ public class RealisticBiomeBOPTropics extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPTropics(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPTropics(),
 			new SurfaceBOPTropics(config,

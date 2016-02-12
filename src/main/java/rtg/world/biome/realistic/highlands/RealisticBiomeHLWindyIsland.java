@@ -31,7 +31,7 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
     public RealisticBiomeHLWindyIsland(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLWindyIsland(),
             new SurfaceHLWindyIsland(config, topBlock, fillerBlock));

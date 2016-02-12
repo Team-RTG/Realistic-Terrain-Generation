@@ -18,7 +18,7 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPOutback(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPOutback(300f),
 			new SurfaceBOPOutback(config, 

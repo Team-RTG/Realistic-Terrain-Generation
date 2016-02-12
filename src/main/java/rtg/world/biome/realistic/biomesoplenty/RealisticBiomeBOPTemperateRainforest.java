@@ -17,7 +17,7 @@ public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPTemperateRainforest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPTemperateRainforest(),
 			new SurfaceBOPTemperateRainforest(config, topBlock, fillerBlock, false, null, 0.45f)

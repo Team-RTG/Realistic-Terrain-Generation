@@ -17,7 +17,7 @@ public class RealisticBiomeEBXLMarsh extends RealisticBiomeEBXLBase
 	
 	public RealisticBiomeEBXLMarsh(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLMarsh(),
 			new SurfaceEBXLMarsh(config, topBlock, fillerBlock)

@@ -17,7 +17,7 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPCoralReef(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPCoralReef(false, -10f, 0f, 0f, 0f, 30f),
 			new SurfaceBOPCoralReef(config, topBlock, fillerBlock)

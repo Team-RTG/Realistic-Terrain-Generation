@@ -47,7 +47,7 @@ public class RealisticBiomeEBShield extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBShield(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBShield(),
 			new SurfaceEBShield(config, 

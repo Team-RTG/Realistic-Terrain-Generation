@@ -27,7 +27,7 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPFen(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPFen(),
 			new SurfaceBOPFen(config,

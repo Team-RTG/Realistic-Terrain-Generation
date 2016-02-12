@@ -47,7 +47,7 @@ public class RealisticBiomeEBSnowyRanges extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBSnowyRanges(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBSnowyRanges(200f, 100f, 0f),
 			new SurfaceEBSnowyRanges(config, 

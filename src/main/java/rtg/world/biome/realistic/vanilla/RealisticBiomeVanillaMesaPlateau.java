@@ -29,7 +29,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaMesaPlateau(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             BiomeGenBase.mesaPlateau,
             BiomeGenBase.river,
             new TerrainVanillaMesaPlateau(true, 35f, 160f, 60f, 40f, 69f),

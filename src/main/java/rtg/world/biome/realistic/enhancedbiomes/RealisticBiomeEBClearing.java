@@ -47,7 +47,7 @@ public class RealisticBiomeEBClearing extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBClearing(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBClearing(),
 			new SurfaceEBClearing(config, 

@@ -59,7 +59,7 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
 
     public RealisticBiomeEBVolcano(BiomeGenBase ebBiome, BiomeConfig config)
     {
-        super(
+        super(config, 
             ebBiome, BiomeGenBase.river,
             new TerrainEBVolcano(),
             new SurfaceEBVolcano(config,

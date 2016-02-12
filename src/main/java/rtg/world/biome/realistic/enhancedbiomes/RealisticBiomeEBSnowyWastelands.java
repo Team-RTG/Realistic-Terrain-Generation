@@ -52,7 +52,7 @@ public class RealisticBiomeEBSnowyWastelands extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBSnowyWastelands(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBSnowyWastelands(),
 			new SurfaceEBSnowyWastelands(config, 

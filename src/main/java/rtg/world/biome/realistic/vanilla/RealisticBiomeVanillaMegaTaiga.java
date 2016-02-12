@@ -33,7 +33,7 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaMegaTaiga(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             BiomeGenBase.megaTaiga,
             BiomeGenBase.river,
             new TerrainVanillaMegaTaiga(),

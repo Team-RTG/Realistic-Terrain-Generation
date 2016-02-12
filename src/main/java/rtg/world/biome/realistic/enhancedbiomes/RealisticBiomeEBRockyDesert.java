@@ -66,7 +66,7 @@ public class RealisticBiomeEBRockyDesert extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBRockyDesert(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBRockyDesert(230f, 60f, 0f),
 			new SurfaceEBRockyDesert(config,

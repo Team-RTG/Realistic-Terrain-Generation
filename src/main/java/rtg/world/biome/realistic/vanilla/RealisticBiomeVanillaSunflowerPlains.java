@@ -17,7 +17,7 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
     
     public RealisticBiomeVanillaSunflowerPlains(BiomeConfig config)
     {
-        super(
+        super(config, 
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaSunflowerPlains(),

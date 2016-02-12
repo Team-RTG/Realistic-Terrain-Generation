@@ -47,7 +47,7 @@ public class RealisticBiomeEBSnowyDesert extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBSnowyDesert(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBSnowyDesert(),
 			new SurfaceEBSnowyDesert(config, 

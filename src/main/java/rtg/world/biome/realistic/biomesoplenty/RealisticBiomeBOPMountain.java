@@ -29,7 +29,7 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPMountain(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPMountain(200f, 100f, 0f),
 			new SurfaceBOPMountain(config,

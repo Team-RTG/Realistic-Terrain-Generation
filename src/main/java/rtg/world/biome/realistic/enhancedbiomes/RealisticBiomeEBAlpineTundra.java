@@ -47,7 +47,7 @@ public class RealisticBiomeEBAlpineTundra extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBAlpineTundra(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBAlpineTundra(),
 			new SurfaceEBAlpineTundra(config, 

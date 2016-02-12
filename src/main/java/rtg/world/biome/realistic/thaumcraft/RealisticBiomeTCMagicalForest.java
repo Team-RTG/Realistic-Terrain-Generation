@@ -10,7 +10,7 @@ public class RealisticBiomeTCMagicalForest extends RealisticBiomeTCBase
 {	
 	public RealisticBiomeTCMagicalForest(BiomeGenBase tcBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			tcBiome, BiomeGenBase.river,
 			new TerrainTCMagicalForest(),
 			new SurfaceTCMagicalForest(config, tcBiome.topBlock, tcBiome.fillerBlock)

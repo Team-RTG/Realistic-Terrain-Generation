@@ -22,6 +22,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.BiomeEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
@@ -178,7 +180,7 @@ public class EventManagerRTG
         }
     }
     
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    @SubscribeEvent
     public void onGetVillageBlockID(BiomeEvent.GetVillageBlockID event)
     {
 
@@ -188,14 +190,45 @@ public class EventManagerRTG
                 
                 Block originalBlock = event.original;
                 
-                if (originalBlock == Blocks.cobblestone) {
+                if (originalBlock == Blocks.cobblestone || originalBlock == Blocks.planks || originalBlock == Blocks.log) {
                     
                     event.replacement = Blocks.sandstone;
+                }
+                else if (originalBlock == Blocks.oak_stairs || originalBlock == Blocks.stone_stairs) {
+                    
+                    event.replacement = Blocks.sandstone_stairs;
                 }
             }
             
             // The event has to be cancelled in order to override the original block.
             if (event.replacement != null) {
+                
+                event.setResult(Result.DENY);
+            }
+        }
+    }
+    
+    @SubscribeEvent
+    public void onGetVillageBlockMeta(BiomeEvent.GetVillageBlockMeta event)
+    {
+
+        if (this.biome != null) {
+            
+            boolean replaced = false;
+            
+            if (this.isDesertVillageBiome()) {
+                
+                Block originalBlock = event.original;
+                
+                if (originalBlock == Blocks.planks) {
+                    
+                    event.replacement = 2;
+                    replaced = true;
+                }
+            }
+            
+            // The event has to be cancelled in order to override the original block.
+            if (replaced) {
                 
                 event.setResult(Result.DENY);
             }
@@ -217,9 +250,22 @@ public class EventManagerRTG
         if (event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG && event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG) {
             
             WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) event.world.getWorldChunkManager();
-            int worldX = event.chunkX * 16;
-            int worldZ = event.chunkZ * 16;
-            this.biome = cmr.getBiomeDataAt(worldX + 16, worldZ + 16);
+            this.biome = cmr.getBiomeDataAt(event.chunkX, event.chunkZ);
         }
+    }
+    
+    private boolean isDesertVillageBiome()
+    {
+        if (
+            BiomeDictionary.isBiomeOfType(this.biome, Type.HOT)
+            &&
+            BiomeDictionary.isBiomeOfType(this.biome, Type.DRY)
+            &&
+            BiomeDictionary.isBiomeOfType(this.biome, Type.SANDY)
+        ) {
+            return true;
+        }
+        
+        return false;
     }
 }

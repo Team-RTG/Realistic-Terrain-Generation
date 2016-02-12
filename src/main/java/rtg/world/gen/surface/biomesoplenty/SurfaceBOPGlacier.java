@@ -80,6 +80,7 @@ public class SurfaceBOPGlacier extends SurfaceBase
 	        			else
 	        			{
 	        				blocks[(y * 16 + x) * 256 + k] = topBlock;
+	        			    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 	        			}
 	        		}
 	        		else if(depth < 4)
@@ -91,6 +92,7 @@ public class SurfaceBOPGlacier extends SurfaceBase
 	        			else
 	        			{
 		        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	        			    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        			}
 	        		}
             	}

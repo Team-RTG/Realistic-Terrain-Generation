@@ -113,11 +113,13 @@ public class SurfaceVanillaBirchForest extends SurfaceBase
                         if (beach)
                         {
                             blocks[(y * 16 + x) * 256 + k] = beachBlock;
+                            metadata[(y * 16 + x) * 256 + k] = (byte)0;
                             gravel = true;
                         }
                         else if (k < 62)
                         {
                             blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                         }
                         else
                         {
@@ -152,6 +154,7 @@ public class SurfaceVanillaBirchForest extends SurfaceBase
                     else if (gravel)
                     {
                         blocks[(y * 16 + x) * 256 + k] = beachBlock;
+                        metadata[(y * 16 + x) * 256 + k] = (byte)0;
                     }
                     else if (m)
                     {
@@ -161,6 +164,7 @@ public class SurfaceVanillaBirchForest extends SurfaceBase
                     else
                     {
                         blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                        metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                     }
                 }
             }

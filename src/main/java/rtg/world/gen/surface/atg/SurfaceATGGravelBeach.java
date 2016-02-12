@@ -78,6 +78,7 @@ public class SurfaceATGGravelBeach extends SurfaceBase
 	        			{
 	        				dirt = true;
 		        			blocks[(y * 16 + x) * 256 + k] = topBlock;
+	        			    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 	        			}
 	        			else
 	        			{
@@ -90,6 +91,7 @@ public class SurfaceATGGravelBeach extends SurfaceBase
 	        			if(dirt)
 	        			{
 	        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	        			    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        			}
 	        			else
 	        			{

@@ -109,10 +109,12 @@ public class SurfaceHLDesertMountains extends SurfaceBase
             			else if(k < 62)
             			{
                 			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+            			    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
             			}
             			else
             			{
                 			blocks[(y * 16 + x) * 256 + k] = topBlock;
+            			    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
             			}
             		}
             		else
@@ -121,6 +123,7 @@ public class SurfaceHLDesertMountains extends SurfaceBase
                 			   blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
                             } else {
                 			   blocks[(y * 16 + x) * 256 + k] = topBlock;
+                                metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                             }
             		}
             	}
@@ -143,6 +146,7 @@ public class SurfaceHLDesertMountains extends SurfaceBase
             		else
             		{
             			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+            		    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
             		}
         		}
             }

@@ -129,10 +129,12 @@ public class SurfaceVanillaTaigaHills extends SurfaceBase
                         else if (k < 62)
                         {
                             blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                         }
                         else
                         {
                             blocks[(y * 16 + x) * 256 + k] = topBlock;
+                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                         }
                     }
                     else

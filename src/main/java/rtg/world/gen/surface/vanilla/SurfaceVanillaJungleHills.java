@@ -117,6 +117,7 @@ public class SurfaceVanillaJungleHills extends SurfaceBase
                         else if (k < 62)
                         {
                             blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                         }
                         else
                         {
@@ -149,6 +150,7 @@ public class SurfaceVanillaJungleHills extends SurfaceBase
                     else
                     {
                         blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                        metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                     }
                 }
             }

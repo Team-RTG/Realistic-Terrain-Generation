@@ -101,15 +101,18 @@ public class SurfaceVanillaDesertHills extends SurfaceBase
             			else if(k < 62)
             			{
                 			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+            			    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
             			}
             			else
             			{
                 			blocks[(y * 16 + x) * 256 + k] = topBlock;
+            			    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
             			}
             		}
             		else
             		{
             			blocks[(y * 16 + x) * 256 + k] = topBlock;
+            		    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
             		}
             	}
             	else if(depth < 6)
@@ -131,6 +134,7 @@ public class SurfaceVanillaDesertHills extends SurfaceBase
             		else
             		{
             			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+            		    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
             		}
         		}
             }

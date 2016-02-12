@@ -58,10 +58,12 @@ public class SurfaceGrassCanyon extends SurfaceBase
 	        				if(depth == 0)
 	        				{
 		        				blocks[(y * 16 + x) * 256 + k] = topBlock;
+	        				    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 	        				}
 	        				else
 	        				{
 		        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	        				    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        				}
 	        			}
 	            	}

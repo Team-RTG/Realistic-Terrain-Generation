@@ -85,6 +85,7 @@ public class SurfaceHLOutback extends SurfaceBase
 	        			{
 	        				dirt = true;
 		        			blocks[(y * 16 + x) * 256 + k] = topBlock;
+	        			    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 	        			}
 	        			else
 	        			{
@@ -97,6 +98,7 @@ public class SurfaceHLOutback extends SurfaceBase
 	        			if(dirt)
 	        			{
 	        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	        			    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        			}
 	        			else
 	        			{

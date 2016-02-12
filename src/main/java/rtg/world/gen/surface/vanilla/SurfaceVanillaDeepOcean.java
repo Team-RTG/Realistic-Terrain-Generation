@@ -58,11 +58,13 @@ public class SurfaceVanillaDeepOcean extends SurfaceBase
                     else
                     {
                         blocks[(y * 16 + x) * 256 + k] = topBlock;
+                        metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                     }
                 }
                 else if (depth < 4 && k < 63)
                 {
                     blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                 }
             }
         }

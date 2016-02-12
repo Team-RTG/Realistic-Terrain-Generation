@@ -60,10 +60,12 @@ public class SurfaceDesert extends SurfaceBase
 	        		if(depth == 0 && k > 61)
 	        		{
 	        			blocks[(y * 16 + x) * 256 + k] = topBlock;
+	        		    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 	        		}
 	        		else if(depth < 4)
 	        		{
 	        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	        		    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        		}
 	        		else
 	        		{

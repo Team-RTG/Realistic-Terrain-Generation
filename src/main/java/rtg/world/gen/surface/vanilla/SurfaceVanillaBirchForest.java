@@ -28,9 +28,7 @@ public class SurfaceVanillaBirchForest extends SurfaceBase
     private Block mix;
     private byte mixByte;
     private float mixHeight;
-    
-    public byte topByte = 0;
-    
+        
     public SurfaceVanillaBirchForest(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
         float stoneHeight, float stoneStrength, float clayCliff, Block mixBlock, byte mixMeta, float mixSize)
     {
@@ -124,7 +122,7 @@ public class SurfaceVanillaBirchForest extends SurfaceBase
                         else
                         {
                             blocks[(y * 16 + x) * 256 + k] = topBlock;
-                            metadata[(y * 16 + x) * 256 + k] = topByte;
+                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                         }
                     }
                     else if (simplex.noise2(i / 12f, j / 12f) > mixHeight)
@@ -136,7 +134,7 @@ public class SurfaceVanillaBirchForest extends SurfaceBase
                     else
                     {
                         blocks[(y * 16 + x) * 256 + k] = topBlock;
-                        metadata[(y * 16 + x) * 256 + k] = topByte;
+                        metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                     }
                 }
                 else if (depth < 6)

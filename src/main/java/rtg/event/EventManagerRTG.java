@@ -238,14 +238,7 @@ public class EventManagerRTG
     @SubscribeEvent
     public void preBiomeDecorate(DecorateBiomeEvent.Pre event)
     {
-        /**
-         * We're only subscribed to this event so we can do village stuff,
-         * so return early if village modifications are disabled.
-         */
-        if (!ConfigRTG.enableVillageModifications) {
-            return;
-        }
-        
+
         //Are we in an RTG world? Do we have RTG's chunk manager?
         if (event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG && event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG) {
             

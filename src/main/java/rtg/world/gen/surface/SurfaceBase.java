@@ -21,9 +21,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceBase
 {
     protected Block topBlock;
-    protected int topBlockMeta;
+    protected byte topBlockMeta;
     protected Block fillerBlock;
-    protected int fillerBlockMeta;
+    protected byte fillerBlockMeta;
 	protected BiomeConfig biomeConfig;
 
     private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
@@ -193,7 +193,7 @@ public class SurfaceBase
         
         String userTopBlockMeta = config._string(BiomeConfig.surfaceTopBlockMetaId);
         try {
-            this.topBlockMeta = Integer.valueOf(userTopBlockMeta);
+            this.topBlockMeta = Byte.valueOf(userTopBlockMeta);
         }
         catch (Exception e) {
             this.topBlockMeta = (byte)0;
@@ -212,7 +212,7 @@ public class SurfaceBase
         
         String userFillerBlockMeta = config._string(BiomeConfig.surfaceFillerBlockMetaId);
         try {
-            this.fillerBlockMeta = Integer.valueOf(userFillerBlockMeta);
+            this.fillerBlockMeta = Byte.valueOf(userFillerBlockMeta);
         }
         catch (Exception e) {
             this.fillerBlockMeta = (byte)0;

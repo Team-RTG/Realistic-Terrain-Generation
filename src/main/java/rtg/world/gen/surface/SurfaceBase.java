@@ -43,7 +43,7 @@ public class SurfaceBase
                 topBlock = GameData.getBlockRegistry().getObject(userTopBlock);
             }
             catch (Exception e) {
-                // Do nothing.
+                topBlock = top;
             }
         }
         
@@ -54,7 +54,7 @@ public class SurfaceBase
                 fillerBlock = GameData.getBlockRegistry().getObject(userFillerBlock);
             }
             catch (Exception e) {
-                // Do nothing.
+                fillerBlock = fill;
             }
         }
     }

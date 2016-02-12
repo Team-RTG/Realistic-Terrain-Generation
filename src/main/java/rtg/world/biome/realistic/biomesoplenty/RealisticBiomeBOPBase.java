@@ -109,14 +109,6 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
         this.lavaSurfaceLakeChance = 0;
 	}
 	
-	public RealisticBiomeBOPBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s)
-	{
-		super(b, riverbiome, t, s);
-		
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 0;
-	}
-	
 	public static void addBiomes()
 	{
 		if (Loader.isModLoaded("BiomesOPlenty"))

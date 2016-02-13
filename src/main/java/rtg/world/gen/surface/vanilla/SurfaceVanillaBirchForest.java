@@ -3,6 +3,7 @@ package rtg.world.gen.surface.vanilla;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForest;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -25,12 +26,12 @@ public class SurfaceVanillaBirchForest extends SurfaceBase
     private float sStrength = 65f;
     private float cCliff = 1.5f;
     
-    private Block mix;
-    private byte mixByte;
+    private Block mixBlock;
+    private byte mixBlockMeta;
     private float mixHeight;
         
     public SurfaceVanillaBirchForest(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
-        float stoneHeight, float stoneStrength, float clayCliff, Block mixBlock, byte mixMeta, float mixSize)
+        float stoneHeight, float stoneStrength, float clayCliff, Block mix, byte mixByte, float mixSize)
     {
     
         super(config, top, (byte)0, fill, (byte)0);
@@ -43,8 +44,8 @@ public class SurfaceVanillaBirchForest extends SurfaceBase
         sStrength = stoneStrength;
         cCliff = clayCliff;
         
-        mix = mixBlock;
-        mixByte = mixMeta;
+        mixBlock = this.getConfigBlock(config, BiomeConfigVanillaBirchForest.surfaceMixBlockId, mix);
+        mixBlockMeta = this.getConfigBlockMeta(config, BiomeConfigVanillaBirchForest.surfaceMixBlockMetaId, mixByte);
         mixHeight = mixSize;
     }
     
@@ -129,8 +130,8 @@ public class SurfaceVanillaBirchForest extends SurfaceBase
                     }
                     else if (simplex.noise2(i / 12f, j / 12f) > mixHeight)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = mix;
-                        metadata[(y * 16 + x) * 256 + k] = mixByte;
+                        blocks[(y * 16 + x) * 256 + k] = mixBlock;
+                        metadata[(y * 16 + x) * 256 + k] = mixBlockMeta;
                         m = true;
                     }
                     else
@@ -158,8 +159,8 @@ public class SurfaceVanillaBirchForest extends SurfaceBase
                     }
                     else if (m)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = mix;
-                        metadata[(y * 16 + x) * 256 + k] = mixByte;
+                        blocks[(y * 16 + x) * 256 + k] = mixBlock;
+                        metadata[(y * 16 + x) * 256 + k] = mixBlockMeta;
                     }
                     else
                     {

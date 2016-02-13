@@ -3,6 +3,7 @@ package rtg.world.gen.surface.vanilla;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaFlowerForest;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -25,11 +26,12 @@ public class SurfaceVanillaFlowerForest extends SurfaceBase
     private float sStrength = 65f;
     private float cCliff = 1.5f;
     
-    private Block mix;
+    private Block mixBlock;
+    private byte mixBlockMeta;
     private float mixHeight;
     
     public SurfaceVanillaFlowerForest(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
-        float stoneHeight, float stoneStrength, float clayCliff, Block mixBlock, float mixSize)
+        float stoneHeight, float stoneStrength, float clayCliff, Block mix, float mixSize)
     {
     
         super(config, top, (byte)0, fill, (byte)0);
@@ -42,7 +44,8 @@ public class SurfaceVanillaFlowerForest extends SurfaceBase
         sStrength = stoneStrength;
         cCliff = clayCliff;
         
-        mix = mixBlock;
+        mixBlock = this.getConfigBlock(config, BiomeConfigVanillaFlowerForest.surfaceMixBlockId, mix);
+        mixBlockMeta = this.getConfigBlockMeta(config, BiomeConfigVanillaFlowerForest.surfaceMixBlockMetaId, (byte)0);
         mixHeight = mixSize;
     }
     
@@ -126,7 +129,8 @@ public class SurfaceVanillaFlowerForest extends SurfaceBase
                     }
                     else if (simplex.noise2(i / 12f, j / 12f) > mixHeight)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = mix;
+                        blocks[(y * 16 + x) * 256 + k] = mixBlock;
+                        metadata[(y * 16 + x) * 256 + k] = mixBlockMeta;
                         m = true;
                     }
                     else
@@ -153,7 +157,8 @@ public class SurfaceVanillaFlowerForest extends SurfaceBase
                     }
                     else if (m)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = mix;
+                        blocks[(y * 16 + x) * 256 + k] = mixBlock;
+                        metadata[(y * 16 + x) * 256 + k] = mixBlockMeta;
                     }
                     else
                     {

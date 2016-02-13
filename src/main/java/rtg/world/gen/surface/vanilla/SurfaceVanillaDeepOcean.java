@@ -3,6 +3,7 @@ package rtg.world.gen.surface.vanilla;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaDeepOcean;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
@@ -15,17 +16,19 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceVanillaDeepOcean extends SurfaceBase
 {
     
-    private Block mix1Block;
+    private Block mixBlock;
+    private byte mixBlockMeta;
     private float width;
     private float height;
     private float mixCheck;
     
-    public SurfaceVanillaDeepOcean(BiomeConfig config, Block top, Block filler, Block mix1, float mixWidth, float mixHeight)
+    public SurfaceVanillaDeepOcean(BiomeConfig config, Block top, Block filler, Block mix, float mixWidth, float mixHeight)
     {
     
         super(config, top, (byte)0, filler, (byte)0);
         
-        mix1Block = mix1;
+        mixBlock = this.getConfigBlock(config, BiomeConfigVanillaDeepOcean.surfaceMixBlockId, mix);
+        mixBlockMeta = this.getConfigBlockMeta(config, BiomeConfigVanillaDeepOcean.surfaceMixBlockMetaId, (byte)0);
         
         width = mixWidth;
         height = mixHeight;
@@ -53,7 +56,8 @@ public class SurfaceVanillaDeepOcean extends SurfaceBase
                     mixCheck = simplex.noise2(i / width, j / width);
                     
                     if (mixCheck > height) {
-                        blocks[(y * 16 + x) * 256 + k] = mix1Block;
+                        blocks[(y * 16 + x) * 256 + k] = mixBlock;
+                        metadata[(y * 16 + x) * 256 + k] = mixBlockMeta;
                     }
                     else
                     {

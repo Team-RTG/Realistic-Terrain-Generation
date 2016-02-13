@@ -3,6 +3,7 @@ package rtg.world.gen.surface.vanilla;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaOcean;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
@@ -16,6 +17,7 @@ public class SurfaceVanillaOcean extends SurfaceBase
 {
     
     private Block mixBlock;
+    private byte mixBlockMeta;
     private float width;
     private float height;
     private float mixCheck;
@@ -26,7 +28,8 @@ public class SurfaceVanillaOcean extends SurfaceBase
     
         super(config, top, (byte)0, filler, (byte)0);
         
-        mixBlock = mix;
+        mixBlock = this.getConfigBlock(config, BiomeConfigVanillaOcean.surfaceMixBlockId, mix);
+        mixBlockMeta = this.getConfigBlockMeta(config, BiomeConfigVanillaOcean.surfaceMixBlockMetaId, (byte)0);
         
         width = mixWidth;
         height = mixHeight;
@@ -55,6 +58,7 @@ public class SurfaceVanillaOcean extends SurfaceBase
                     if (mixCheck > height) // > 0.27f, i / 12f
                     {
                         blocks[(y * 16 + x) * 256 + k] = mixBlock;
+                        metadata[(y * 16 + x) * 256 + k] = mixBlockMeta;
                     }
                     else
                     {

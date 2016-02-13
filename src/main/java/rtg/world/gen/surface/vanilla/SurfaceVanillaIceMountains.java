@@ -3,6 +3,7 @@ package rtg.world.gen.surface.vanilla;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaIceMountains;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -15,8 +16,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceVanillaIceMountains extends SurfaceBase
 {
-	private Block mixBlockTop;
-	private Block mixBlockFill;
+    private Block mixBlockTop;
+    private byte mixBlockTopMeta;
+    private Block mixBlockFill;
+    private byte mixBlockFillMeta;
 	private Block cliffBlock1;
 	private Block cliffBlock2;
 	private float width;
@@ -28,8 +31,12 @@ public class SurfaceVanillaIceMountains extends SurfaceBase
 	{
 		super(config, top, (byte)0, filler, (byte)0);
 		
-		mixBlockTop = mixTop;
-		mixBlockFill = mixFill;
+        mixBlockTop = this.getConfigBlock(config, BiomeConfigVanillaIceMountains.surfaceMixBlockId, mixTop);
+        mixBlockTopMeta = this.getConfigBlockMeta(config, BiomeConfigVanillaIceMountains.surfaceMixBlockMetaId, (byte)0);
+        
+        mixBlockFill = this.getConfigBlock(config, BiomeConfigVanillaIceMountains.surfaceMixFillerBlockId, mixFill);
+        mixBlockFillMeta = this.getConfigBlockMeta(config, BiomeConfigVanillaIceMountains.surfaceMixFillerBlockMetaId, (byte)0);
+        
 		cliffBlock1 = cliff1;
 		cliffBlock2 = cliff2;
 		
@@ -75,6 +82,7 @@ public class SurfaceVanillaIceMountains extends SurfaceBase
 	        			if(simplex.noise2(i / width, j / width) + simplex.noise2(i / smallW, j / smallW) * smallS > height)
 	        			{
 	        				blocks[(y * 16 + x) * 256 + k] = mixBlockTop;
+	        				metadata[(y * 16 + x) * 256 + k] = mixBlockTopMeta;
 	        				mix = true;
 	        			}
 	        			else
@@ -88,6 +96,7 @@ public class SurfaceVanillaIceMountains extends SurfaceBase
 	        			if(mix)
 	        			{
 		        			blocks[(y * 16 + x) * 256 + k] = mixBlockFill;
+		        			metadata[(y * 16 + x) * 256 + k] = mixBlockFillMeta;
 	        			}
 	        			else
 	        			{

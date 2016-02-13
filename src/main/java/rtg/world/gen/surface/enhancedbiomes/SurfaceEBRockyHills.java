@@ -30,16 +30,14 @@ public class SurfaceEBRockyHills extends SurfaceEBBase
     
     private Block mixBlock1;
     private Block mixBlock2;
-    private byte topByte;
-    private byte fillerByte;
     private byte mixByte;
     private byte mix2Byte;
     
-    public SurfaceEBRockyHills(BiomeConfig config, Block top, byte modTopByte, Block fill, byte modFillerByte, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
+    public SurfaceEBRockyHills(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
         float stoneHeight, float stoneStrength, float clayCliff, Block mixBlock, byte modMixByte, Block modMixBlock2, byte modMix2Byte, float mixSize)
     {
     
-        super(config, top, fill);
+        super(config, top, topByte, fill, fillByte);
         beach = genBeach;
         beachBlock = genBeachBlock;
         min = minCliff;
@@ -52,9 +50,7 @@ public class SurfaceEBRockyHills extends SurfaceEBBase
         mix = mixBlock;
         mixBlock2 = modMixBlock2;
         mixHeight = mixSize;
-        
-        topByte = modTopByte;
-        fillerByte = modFillerByte;
+
         mixByte = modMixByte;
         mix2Byte = modMix2Byte;
     }
@@ -110,7 +106,7 @@ public class SurfaceEBRockyHills extends SurfaceEBBase
                     {
                         if (rand.nextInt(3) == 0) {
                             blocks[(y * 16 + x) * 256 + k] = topBlock;
-                            metadata[(y * 16 + x) * 256 + k] = topByte;
+                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                         }
                         else {
                             blocks[(y * 16 + x) * 256 + k] = mixBlock1;
@@ -132,7 +128,7 @@ public class SurfaceEBRockyHills extends SurfaceEBBase
                         else if (k < 62)
                         {
                             blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                            metadata[(y * 16 + x) * 256 + k] = fillerByte;
+                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                         }
                         else
                         {
@@ -149,7 +145,7 @@ public class SurfaceEBRockyHills extends SurfaceEBBase
                     else
                     {
                         blocks[(y * 16 + x) * 256 + k] = topBlock;
-                        metadata[(y * 16 + x) * 256 + k] = topByte;
+                        metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                     }
                 }
                 else if (depth < 6)
@@ -157,7 +153,7 @@ public class SurfaceEBRockyHills extends SurfaceEBBase
                     if (cliff == 1)
                     {
                         blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                        metadata[(y * 16 + x) * 256 + k] = fillerByte;
+                        metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                     }
                     else if (cliff == 2)
                     {
@@ -176,7 +172,7 @@ public class SurfaceEBRockyHills extends SurfaceEBBase
                     else
                     {
                         blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                        metadata[(y * 16 + x) * 256 + k] = fillerByte;
+                        metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                     }
                 }
             }

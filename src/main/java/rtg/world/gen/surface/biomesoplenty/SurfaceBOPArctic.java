@@ -15,10 +15,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceBOPArctic extends SurfaceBase
 {
-    private Block blockTop;
-    private byte byteTop;
-    private Block blockFiller;
-    private byte byteFiller;
+    
     private Block blockMixTop;
     private byte byteMixTop;
     private Block blockMixFiller;
@@ -32,12 +29,7 @@ public class SurfaceBOPArctic extends SurfaceBase
         byte mixFillerByte, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
     {
     
-        super(config, top, filler);
-        
-        blockTop = top;
-        byteTop = topByte;
-        blockFiller = filler;
-        byteFiller = fillerByte;
+        super(config, top, topByte, filler, fillerByte);
         
         blockMixTop = mixTop;
         byteMixTop = mixTopByte;
@@ -85,8 +77,8 @@ public class SurfaceBOPArctic extends SurfaceBase
                 {
                     if(grass && depth < 4)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = blockFiller;
-                        metadata[(y * 16 + x) * 256 + k] = byteFiller;
+                        blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                        metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                     }
                     else if(depth == 0)
                     {
@@ -104,8 +96,8 @@ public class SurfaceBOPArctic extends SurfaceBase
                 }
                 else if(depth > -1 && depth < 9)
                 {
-                    blocks[(y * 16 + x) * 256 + k] = blockTop;
-                    metadata[(y * 16 + x) * 256 + k] = byteTop;
+                    blocks[(y * 16 + x) * 256 + k] = topBlock;
+                    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                     
                     if(depth == 0 && k > 61 && k < 254)
                     {

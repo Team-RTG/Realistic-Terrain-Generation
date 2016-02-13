@@ -17,10 +17,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceEBSahara extends SurfaceEBBase
 {
 
-    private Block blockTop;
-    private byte byteTop;
-    private Block blockFiller;
-    private byte byteFiller;
+    
     private Block blockMixTop;
     private byte byteMixTop;
     private Block blockMixFiller;
@@ -39,12 +36,7 @@ public class SurfaceEBSahara extends SurfaceEBBase
         float smallWidth, float smallStrength)
     {
     
-        super(config, top, filler);
-        
-        blockTop = top;
-        byteTop = topByte;
-        blockFiller = filler;
-        byteFiller = fillerByte;
+        super(config, top, topByte, filler, fillerByte);
         
         blockMixTop = mixTop;
         byteMixTop = mixTopByte;
@@ -123,7 +115,7 @@ public class SurfaceEBSahara extends SurfaceEBBase
                         else
                         {
                             blocks[(y * 16 + x) * 256 + k] = topBlock;
-                            metadata[(y * 16 + x) * 256 + k] = byteTop;
+                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                         }
                     }
                     else if (depth < 4)
@@ -136,7 +128,7 @@ public class SurfaceEBSahara extends SurfaceEBBase
                         else
                         {
                             blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                            metadata[(y * 16 + x) * 256 + k] = byteFiller;
+                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                         }
                     }
                 }

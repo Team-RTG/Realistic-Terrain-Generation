@@ -22,12 +22,10 @@ public class SurfaceMountainStone extends SurfaceBase
 	private float sHeight = 60f;
 	private float sStrength = 65f;
 	private float cCliff = 1.5f;
-	
-	public byte topByte = 0;
-	
+		
 	public SurfaceMountainStone(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{
-		super(config, top, fill);
+	    super(config, top, (byte)0, fill, (byte)0);
 		beach = genBeach;
 		beachBlock = genBeachBlock;
 		min = minCliff;
@@ -115,13 +113,13 @@ public class SurfaceMountainStone extends SurfaceBase
             			else
             			{
                 			blocks[(y * 16 + x) * 256 + k] = topBlock;
-                			metadata[(y * 16 + x) * 256 + k] = topByte;
+                			metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
             			}
             		}
             		else
             		{
             			blocks[(y * 16 + x) * 256 + k] = topBlock;
-            			metadata[(y * 16 + x) * 256 + k] = topByte;
+            			metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
             		}
             	}
             	else if(depth < 6)

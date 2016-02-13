@@ -11,8 +11,12 @@ public class SurfaceEBBase extends SurfaceBase
     
     public SurfaceEBBase(BiomeConfig config, Block top, Block fill)
     {
+        this(config, top, (byte)0, fill, (byte)0);
+    }
     
-        super(config, top, fill);
+    public SurfaceEBBase(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte)
+    {
+        super(config, top, topByte, fill, fillByte);
     }
     
     public boolean shouldReplaceStone() {

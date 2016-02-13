@@ -24,12 +24,9 @@ public class SurfaceEBXLGreenHills extends SurfaceBase
 	private float sStrength = 65f;
 	private float cCliff = 1.5f;
 	
-	private byte topByte = 0;
-	private byte fillerByte = 0;
-	
 	public SurfaceEBXLGreenHills(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{
-		super(config, top, fill);
+	    super(config, top, (byte)0, fill, (byte)0);
 		beach = genBeach;
 		beachBlock = genBeachBlock;
 		min = minCliff;
@@ -100,7 +97,7 @@ public class SurfaceEBXLGreenHills extends SurfaceBase
             		else if(cliff == 2)
             		{
                         blocks[(y * 16 + x) * 256 + k] = topBlock;
-                        metadata[(y * 16 + x) * 256 + k] = topByte;
+                        metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
             		}
             		else if(k < 63)
             		{
@@ -112,18 +109,18 @@ public class SurfaceEBXLGreenHills extends SurfaceBase
             			else if(k < 62)
             			{
                             blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                            metadata[(y * 16 + x) * 256 + k] = fillerByte;
+                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
             			}
             			else
             			{
                 			blocks[(y * 16 + x) * 256 + k] = topBlock;
-                			metadata[(y * 16 + x) * 256 + k] = topByte;
+                			metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
             			}
             		}
             		else
             		{
             			blocks[(y * 16 + x) * 256 + k] = topBlock;
-            			metadata[(y * 16 + x) * 256 + k] = topByte;
+            			metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
             		}
             	}
             	else if(depth < 6)
@@ -144,7 +141,7 @@ public class SurfaceEBXLGreenHills extends SurfaceBase
             		else if(cliff == 2)
             		{
                         blocks[(y * 16 + x) * 256 + k] = topBlock;
-                        metadata[(y * 16 + x) * 256 + k] = topByte;
+                        metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
             		}
             		else if(gravel)
             		{
@@ -153,7 +150,7 @@ public class SurfaceEBXLGreenHills extends SurfaceBase
             		else
             		{
             			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-            			metadata[(y * 16 + x) * 256 + k] = fillerByte;
+            			metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
             		}
         		}
             }

@@ -1,8 +1,6 @@
 package rtg.world.gen.surface;
 
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
@@ -160,35 +158,19 @@ public class SurfaceBase
         return this.fillerBlock;
     }
     
-    private boolean isValidBlockId(String blockId)
-    {
-        // String to be scanned to find the pattern.
-        String pattern = "^(.+):(.+)$";
-
-        // Create a Pattern object
-        Pattern r = Pattern.compile(pattern);
-
-        // Now create matcher object.
-        Matcher m = r.matcher(blockId.trim());
-        
-        if (m.find( )) {
-           return true;
-        }
-        else {
-            return false;
-        }
-    }
-    
     private void assignUserConfigs(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte)
     {
         String userTopBlock = config._string(BiomeConfig.surfaceTopBlockId);
-        if (this.isValidBlockId(userTopBlock)) {
-            try {
+        try {
+            if (GameData.getBlockRegistry().containsKey(userTopBlock)) {
                 topBlock = GameData.getBlockRegistry().getObject(userTopBlock);
             }
-            catch (Exception e) {
+            else {
                 topBlock = top;
             }
+        }
+        catch (Exception e) {
+            topBlock = top;
         }
         
         String userTopBlockMeta = config._string(BiomeConfig.surfaceTopBlockMetaId);
@@ -200,14 +182,16 @@ public class SurfaceBase
         }
         
         String userFillerBlock = config._string(BiomeConfig.surfaceFillerBlockId);
-        if (this.isValidBlockId(userFillerBlock)) {
-            
-            try {
+        try {
+            if (GameData.getBlockRegistry().containsKey(userFillerBlock)) {
                 fillerBlock = GameData.getBlockRegistry().getObject(userFillerBlock);
             }
-            catch (Exception e) {
+            else {
                 fillerBlock = fill;
             }
+        }
+        catch (Exception e) {
+            fillerBlock = fill;
         }
         
         String userFillerBlockMeta = config._string(BiomeConfig.surfaceFillerBlockMetaId);
@@ -217,5 +201,40 @@ public class SurfaceBase
         catch (Exception e) {
             this.fillerBlockMeta = fillByte;
         }
+    }
+    
+    protected Block getConfigBlock(BiomeConfig config, String propertyId, Block blockDefault)
+    {
+        Block blockReturn = blockDefault;
+        String userBlockId = config._string(propertyId);
+        
+        try {
+            if (GameData.getBlockRegistry().containsKey(userBlockId)) {
+                blockReturn = GameData.getBlockRegistry().getObject(userBlockId);
+            }
+            else {
+                blockReturn = blockDefault;
+            }
+        }
+        catch (Exception e) {
+            blockReturn = blockDefault;
+        }
+
+        return blockReturn;
+    }
+    
+    protected byte getConfigBlockMeta(BiomeConfig config, String propertyId, byte metaDefault)
+    {
+        byte metaReturn = metaDefault;
+        String userMeta = config._string(propertyId);
+        
+        try {
+            metaReturn = Byte.valueOf(userMeta);
+        }
+        catch (Exception e) {
+            metaReturn = metaDefault;
+        }
+        
+        return metaReturn;
     }
 }

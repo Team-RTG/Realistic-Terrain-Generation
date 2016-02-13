@@ -32,7 +32,7 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
 			BiomeGenBase.mesaPlateau_F,
 			BiomeGenBase.river,
 			new TerrainVanillaMesaPlateauF(true, 35f, 160f, 60f, 40f, 69f),
-			new SurfaceVanillaMesaPlateauF(config, Blocks.sand, Blocks.sand, (byte) 1, 0)
+			new SurfaceVanillaMesaPlateauF(config, Blocks.sand, (byte)1, Blocks.sand, (byte)1, 0)
 		);
 	}
 	

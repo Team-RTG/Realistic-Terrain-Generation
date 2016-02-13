@@ -22,6 +22,6 @@ public class RealisticBiomeHLMesa extends RealisticBiomeHLBase
         super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLMesa(),
-            new SurfaceHLMesa(config, topBlock, fillerBlock, (byte) 1));
+            new SurfaceHLMesa(config, topBlock, (byte)1, fillerBlock, (byte)1));
     }
 }

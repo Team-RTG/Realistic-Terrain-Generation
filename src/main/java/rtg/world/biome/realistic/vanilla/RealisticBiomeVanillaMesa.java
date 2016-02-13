@@ -39,7 +39,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase
             BiomeGenBase.mesa,
             BiomeGenBase.river,
             new TerrainVanillaMesa(),
-            new SurfaceVanillaMesa(config, Blocks.sand, Blocks.sand, (byte) 1)
+            new SurfaceVanillaMesa(config, Blocks.sand, (byte)1, Blocks.sand, (byte)1)
         );
     }
     

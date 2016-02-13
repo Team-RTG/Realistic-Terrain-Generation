@@ -20,7 +20,7 @@ public class RealisticBiomeBOPCanyon extends RealisticBiomeBOPBase
 		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPCanyon(true, 35f, 160f, 60f, 40f, 69f),
-			new SurfaceBOPCanyon(config, topBlock, fillerBlock, (byte)0, 0)
+			new SurfaceBOPCanyon(config, topBlock, (byte)0, fillerBlock, (byte)0, 0)
 		);
 	}
 }

@@ -34,7 +34,7 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
 		    mutationBiome,
 			BiomeGenBase.river,
 			new TerrainVanillaMesaPlateauFM(false, 35f, 160f, 60f, 40f, 69f),
-			new SurfaceVanillaMesaPlateauFM(config, Blocks.sand, Blocks.sand, (byte) 1, 0)
+			new SurfaceVanillaMesaPlateauFM(config, Blocks.sand, (byte)1, Blocks.sand, (byte) 1, 0)
 		);
 	}
 	

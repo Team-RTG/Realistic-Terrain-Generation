@@ -18,7 +18,7 @@ public class SurfaceHLSteppe extends SurfaceBase
 	
 	public SurfaceHLSteppe(BiomeConfig config, Block top, Block filler)
 	{
-		super(config, top, filler);
+		super(config, top, (byte)0, filler, (byte)0);
 	}
 	
 	@Override

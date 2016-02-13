@@ -20,7 +20,7 @@ public class SurfaceRedDesert extends SurfaceBase
 	
 	public SurfaceRedDesert(BiomeConfig config)
 	{
-		super(config, Blocks.sand, Blocks.sand);
+		super(config, Blocks.sand, (byte)1, Blocks.sand, (byte)1);
 		
 		bottomBlock = Blocks.sandstone; 
 		cliffBlock1 = Blocks.stained_hardened_clay;
@@ -56,12 +56,12 @@ public class SurfaceRedDesert extends SurfaceBase
 	        		if(depth == 0 && k > 61)
 	        		{
 	        			blocks[(y * 16 + x) * 256 + k] = topBlock;
-	        			metadata[(y * 16 + x) * 256 + k] = (byte)1;
+	        			metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 	        		}
 	        		else if(depth < 4)
 	        		{
 	        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-	        			metadata[(y * 16 + x) * 256 + k] = (byte)1;
+	        			metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        		}
 	        		else
 	        		{

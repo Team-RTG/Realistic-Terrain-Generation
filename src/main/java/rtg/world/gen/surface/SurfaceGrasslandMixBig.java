@@ -25,7 +25,7 @@ public class SurfaceGrasslandMixBig extends SurfaceBase
 	
 	public SurfaceGrasslandMixBig(BiomeConfig config, Block top, Block filler, Block mixTop, Block mixFill, Block cliff1, Block cliff2, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
 	{
-		super(config, top, filler);
+		super(config, top, (byte)0, filler, (byte)0);
 		
 		mixBlockTop = mixTop;
 		mixBlockFill = mixFill;

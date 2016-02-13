@@ -16,10 +16,10 @@ public class SurfaceGrassCanyon extends SurfaceBase
 {
 	private byte claycolor;
 	
-	public SurfaceGrassCanyon(BiomeConfig config, Block top, Block fill, byte b)
+	public SurfaceGrassCanyon(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte, byte clayByte)
 	{
-		super(config, top, fill);
-		claycolor = b;
+	    super(config, top, topByte, fill, fillByte);
+		claycolor = clayByte;
 	}
 	
 	@Override

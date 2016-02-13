@@ -18,7 +18,7 @@ public class SurfaceHLSavannah extends SurfaceBase
 
 	public SurfaceHLSavannah(BiomeConfig config, Block top, Block filler)
 	{
-		super(config, top, filler);
+		super(config, top, (byte)0, filler, (byte)0);
 	}
 	
 	@Override

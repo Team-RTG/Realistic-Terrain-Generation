@@ -24,7 +24,7 @@ public class SurfaceVanillaOcean extends SurfaceBase
     public SurfaceVanillaOcean(BiomeConfig config, Block top, Block filler, Block mix, float mixWidth, float mixHeight)
     {
     
-        super(config, top, filler);
+        super(config, top, (byte)0, filler, (byte)0);
         
         mixBlock = mix;
         

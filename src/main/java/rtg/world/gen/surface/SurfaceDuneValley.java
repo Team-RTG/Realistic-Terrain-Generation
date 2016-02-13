@@ -19,7 +19,7 @@ public class SurfaceDuneValley extends SurfaceBase
 	
 	public SurfaceDuneValley(BiomeConfig config, Block top, Block fill, float valleySize, boolean d, boolean m) 
 	{
-		super(config, top, fill);
+	    super(config, top, (byte)0, fill, (byte)0);
 		
 		valley = valleySize;
 		dirt = d;

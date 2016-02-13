@@ -18,7 +18,7 @@ public class SurfaceBOPKelpForest extends SurfaceBase
 
 	public SurfaceBOPKelpForest(BiomeConfig config, Block top, Block filler)
 	{
-		super(config, top, filler);
+		super(config, top, (byte)0, filler, (byte)0);
 	}
 	
 	@Override

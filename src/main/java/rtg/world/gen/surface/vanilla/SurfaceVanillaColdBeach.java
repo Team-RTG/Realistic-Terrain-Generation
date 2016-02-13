@@ -24,7 +24,7 @@ public class SurfaceVanillaColdBeach extends SurfaceBase
     public SurfaceVanillaColdBeach(BiomeConfig config, Block top, Block filler, Block cliff1, Block cliff2, byte metadata, int cliff)
     {
     
-        super(config, top, filler);
+        super(config, top, (byte)0, filler, (byte)0);
         
         cliffBlock1 = cliff1;
         cliffBlock2 = cliff2;

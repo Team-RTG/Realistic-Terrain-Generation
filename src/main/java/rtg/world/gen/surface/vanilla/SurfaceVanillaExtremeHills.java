@@ -27,7 +27,7 @@ public class SurfaceVanillaExtremeHills extends SurfaceBase
         float mixHeight, float smallWidth, float smallStrength)
     {
     
-        super(config, top, filler);
+        super(config, top, (byte)0, filler, (byte)0);
         
         mixBlockTop = mixTop;
         mixBlockFill = mixFill;

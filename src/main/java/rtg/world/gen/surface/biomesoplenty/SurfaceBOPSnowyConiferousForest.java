@@ -29,7 +29,7 @@ public class SurfaceBOPSnowyConiferousForest extends SurfaceBase
 	
 	public SurfaceBOPSnowyConiferousForest(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{
-		super(config, top, fill);
+	    super(config, top, (byte)0, fill, (byte)0);
 		beach = genBeach;
 		beachBlock = genBeachBlock;
 		min = minCliff;

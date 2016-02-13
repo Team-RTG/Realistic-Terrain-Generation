@@ -29,11 +29,6 @@ public class SurfaceBase
     private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
     // create UBColumnCache only if UB is present
     private static UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
-
-    public SurfaceBase(BiomeConfig config, Block top, Block fill)
-    {
-        this(config, top, (byte)0, fill, (byte)0);
-    }
     
     public SurfaceBase(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte)
     {

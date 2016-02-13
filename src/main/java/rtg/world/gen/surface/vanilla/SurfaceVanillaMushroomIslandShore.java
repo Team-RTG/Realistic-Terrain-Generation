@@ -26,7 +26,7 @@ public class SurfaceVanillaMushroomIslandShore extends SurfaceBase
 	
 	public SurfaceVanillaMushroomIslandShore(BiomeConfig config, Block top, Block fill, int beachHeight, Block genBeachBlock, float minCliff) 
 	{
-		super(config, top, fill);
+	    super(config, top, (byte)0, fill, (byte)0);
 		beach = beachHeight;
 		beachBlock = genBeachBlock;
 		min = minCliff;

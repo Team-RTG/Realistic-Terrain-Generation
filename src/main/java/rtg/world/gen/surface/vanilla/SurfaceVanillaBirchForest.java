@@ -33,7 +33,7 @@ public class SurfaceVanillaBirchForest extends SurfaceBase
         float stoneHeight, float stoneStrength, float clayCliff, Block mixBlock, byte mixMeta, float mixSize)
     {
     
-        super(config, top, fill);
+        super(config, top, (byte)0, fill, (byte)0);
         beach = genBeach;
         beachBlock = genBeachBlock;
         min = minCliff;

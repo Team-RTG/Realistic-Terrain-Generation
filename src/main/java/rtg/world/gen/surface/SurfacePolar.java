@@ -16,7 +16,7 @@ public class SurfacePolar extends SurfaceBase
 {
 	public SurfacePolar(BiomeConfig config, Block top, Block fill) 
 	{
-		super(config, top, fill);
+	    super(config, top, (byte)0, fill, (byte)0);
 	}
 	
 	@Override

@@ -19,7 +19,7 @@ public class SurfaceMarshFix extends SurfaceBase
 	
 	public SurfaceMarshFix(BiomeConfig config, Block top, Block filler, Block cliff1, Block cliff2)
 	{
-		super(config, top, filler);
+		super(config, top, (byte)0, filler, (byte)0);
 		
 		cliffBlock1 = cliff1;
 		cliffBlock2 = cliff2;

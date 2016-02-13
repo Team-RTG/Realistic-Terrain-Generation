@@ -21,7 +21,7 @@ public class SurfaceRiverBOPCrag extends SurfaceBase
     
 	public SurfaceRiverBOPCrag(BiomeConfig config, Block top, Block filler, Block cliff1, Block cliff2) 
 	{
-		super(config, top, filler);
+		super(config, top, (byte)0, filler, (byte)0);
 		
 		topBlock = top;
 		fillerBlock = filler;

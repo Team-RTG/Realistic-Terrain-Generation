@@ -21,7 +21,7 @@ public class SurfaceHLOutback extends SurfaceBase
 	
 	public SurfaceHLOutback(BiomeConfig config, Block top, Block filler, byte metadata, int cliff)
 	{
-		super(config, top, filler);
+		super(config, top, (byte)0, filler, (byte)0);
 
 		sandMetadata = metadata;
 		cliffType = cliff;

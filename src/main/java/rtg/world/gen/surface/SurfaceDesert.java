@@ -20,7 +20,7 @@ public class SurfaceDesert extends SurfaceBase
 	
 	public SurfaceDesert(BiomeConfig config, Block top, Block filler, Block bottom, Block cliff1, Block cliff2)
 	{
-		super(config, top, filler);
+	    super(config, top, (byte)0, filler, (byte)0);
 		
 		bottomBlock = bottom; 
 		cliffBlock1 = cliff1;

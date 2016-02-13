@@ -18,7 +18,7 @@ public class SurfaceBOPSilkglades extends SurfaceBase
 
 	public SurfaceBOPSilkglades(BiomeConfig config, Block top, Block filler)
 	{
-		super(config, top, filler);
+		super(config, top, (byte)0, filler, (byte)0);
 	}
 	
 	@Override

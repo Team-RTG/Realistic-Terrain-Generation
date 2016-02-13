@@ -32,16 +32,21 @@ public class SurfaceBase
 
     public SurfaceBase(BiomeConfig config, Block top, Block fill)
     {
+        this(config, top, (byte)0, fill, (byte)0);
+    }
+    
+    public SurfaceBase(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte)
+    {
         if (config == null) throw new RuntimeException("Biome config in SurfaceBase is NULL.");
         
         biomeConfig = config;
 
         topBlock = top;
-        topBlockMeta = (byte)0;
+        topBlockMeta = topByte;
         fillerBlock = fill;
-        fillerBlockMeta = (byte)0;
+        fillerBlockMeta = fillByte;
         
-        this.assignUserConfigs(config, top, fill);
+        this.assignUserConfigs(config, top, topByte, fill, fillByte);
     }
 	
 	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
@@ -179,7 +184,7 @@ public class SurfaceBase
         }
     }
     
-    private void assignUserConfigs(BiomeConfig config, Block top, Block fill)
+    private void assignUserConfigs(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte)
     {
         String userTopBlock = config._string(BiomeConfig.surfaceTopBlockId);
         if (this.isValidBlockId(userTopBlock)) {
@@ -196,7 +201,7 @@ public class SurfaceBase
             this.topBlockMeta = Byte.valueOf(userTopBlockMeta);
         }
         catch (Exception e) {
-            this.topBlockMeta = (byte)0;
+            this.topBlockMeta = topByte;
         }
         
         String userFillerBlock = config._string(BiomeConfig.surfaceFillerBlockId);
@@ -215,7 +220,7 @@ public class SurfaceBase
             this.fillerBlockMeta = Byte.valueOf(userFillerBlockMeta);
         }
         catch (Exception e) {
-            this.fillerBlockMeta = (byte)0;
+            this.fillerBlockMeta = fillByte;
         }
     }
 }

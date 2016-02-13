@@ -101,7 +101,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private RealisticBiomePatcher biomePatcher;
     
     private AICWrapper aic;
-    private boolean isAICLoaded;
+    private boolean isAICExtendingBiomeIdsLimit;
 
     public ChunkProviderRTG(World world, long l)
     {
@@ -168,7 +168,7 @@ public class ChunkProviderRTG implements IChunkProvider
     	biomePatcher = new RealisticBiomePatcher();
     	
     	aic = new AICWrapper();
-    	isAICLoaded = aic.isAICLoaded();
+    	isAICExtendingBiomeIdsLimit = aic.isAICExtendingBiomeIdsLimit();
     }
 
     /**
@@ -261,7 +261,7 @@ public class ChunkProviderRTG implements IChunkProvider
 
         Chunk chunk = new Chunk(this.worldObj, blocks, metadata, cx, cy);
         
-        if(isAICLoaded){
+        if(isAICExtendingBiomeIdsLimit){
         	aic.setBiomeArray(chunk, baseBiomesList, xyinverted);
         } else {
         	// doJitter no longer needed as the biome array gets fixed

@@ -251,7 +251,7 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
         Chunk chunk = new Chunk(this.worldObj, blocks, metadata, cx, cy);
-        if(AICChangesWrapper.isAICLoaded()){
+        if(AICChangesWrapper.isExtendingBiomeIdsLimit()){
         	int[] biomes = AICChangesWrapper.getBiomeArray(chunk);
         	for (k = 0; k < biomes.length; ++k)
         	{

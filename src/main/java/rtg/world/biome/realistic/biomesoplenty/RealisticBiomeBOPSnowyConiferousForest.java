@@ -22,18 +22,16 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
 {	
 	public static BiomeGenBase bopBiome = BOPCBiomes.snowyConiferousForest;
 	
-	public static Block topBlock = bopBiome.topBlock;
-	public static Block fillerBlock = bopBiome.fillerBlock;
+    public static Block topBlock = BOPCBlocks.newBopGrass;
+    public static Block fillerBlock = BOPCBlocks.newBopDirt;
 	
 	public RealisticBiomeBOPSnowyConiferousForest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.frozenRiver,
 			new TerrainBOPSnowyConiferousForest(65f, 70f, 25f),
-			new SurfaceBOPSnowyConiferousForest(topBlock, fillerBlock, false, null, 0.45f, 1.5f, 50f, 60f, 0.4f, 100f, 50f, 1.5f)
+			new SurfaceBOPSnowyConiferousForest(config, topBlock, fillerBlock, false, null, 0.45f, 1.5f, 50f, 60f, 0.4f, 100f, 50f, 1.5f)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

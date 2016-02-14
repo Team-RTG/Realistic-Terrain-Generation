@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLWoodlands;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLWoodlands;
 import extrabiomes.api.BiomeManager;
@@ -18,12 +17,10 @@ public class RealisticBiomeEBXLWoodlands extends RealisticBiomeEBXLBase
 	
 	public RealisticBiomeEBXLWoodlands(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLWoodlands(0f, 80f, 68f, 200f),
-			new SurfaceEBXLWoodlands(topBlock, fillerBlock)
+			new SurfaceEBXLWoodlands(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

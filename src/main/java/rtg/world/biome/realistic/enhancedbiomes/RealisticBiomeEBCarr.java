@@ -63,10 +63,10 @@ public class RealisticBiomeEBCarr extends RealisticBiomeEBBase
     public RealisticBiomeEBCarr(BiomeGenBase ebBiome, BiomeConfig config)
     {
     
-        super(
+        super(config, 
             ebBiome, BiomeGenBase.river,
             new TerrainEBCarr(),
-            new SurfaceEBCarr(
+            new SurfaceEBCarr(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 
@@ -85,8 +85,6 @@ public class RealisticBiomeEBCarr extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
         );
-        
-        this.config = config;
         
     }
     

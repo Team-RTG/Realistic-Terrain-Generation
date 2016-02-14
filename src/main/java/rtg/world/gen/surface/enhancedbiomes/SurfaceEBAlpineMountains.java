@@ -2,6 +2,7 @@ package rtg.world.gen.surface.enhancedbiomes;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -24,21 +25,17 @@ public class SurfaceEBAlpineMountains extends SurfaceEBBase
 	private float sStrength = 65f;
 	private float cCliff = 1.5f;
 	
-	public byte topByte = 0;
-	public byte fillerByte;
-	
-	public SurfaceEBAlpineMountains(Block top, Block fill, byte fillByte, boolean genBeach, Block genBeachBlock, float minCliff) 
+	public SurfaceEBAlpineMountains(BiomeConfig config, Block top, Block fill, byte fillByte, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{
-		super(top, fill);
+		super(config, top, (byte)0, fill, fillByte);
 		beach = genBeach;
 		beachBlock = genBeachBlock;
 		min = minCliff;
-		fillerByte = fillByte;
 	}
 	
-	public SurfaceEBAlpineMountains(Block top, Block fill, byte fillByte, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
+	public SurfaceEBAlpineMountains(BiomeConfig config, Block top, Block fill, byte fillByte, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
 	{
-		this(top, fill, fillByte, genBeach, genBeachBlock, minCliff);
+		this(config, top, fill, fillByte, genBeach, genBeachBlock, minCliff);
 		
 		sCliff = stoneCliff;
 		sHeight = stoneHeight;
@@ -110,18 +107,18 @@ public class SurfaceEBAlpineMountains extends SurfaceEBBase
             			else if(k < 62)
             			{
                 			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                			metadata[(y * 16 + x) * 256 + k] = fillerByte;
+                			metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
             			}
             			else
             			{
                 			blocks[(y * 16 + x) * 256 + k] = topBlock;
-                			metadata[(y * 16 + x) * 256 + k] = topByte;
+                			metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
             			}
             		}
             		else
             		{
             			blocks[(y * 16 + x) * 256 + k] = topBlock;
-            			metadata[(y * 16 + x) * 256 + k] = topByte;
+            			metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
             		}
             	}
             	else if(depth < 6)
@@ -143,7 +140,7 @@ public class SurfaceEBAlpineMountains extends SurfaceEBBase
             		else
             		{
                         blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                        metadata[(y * 16 + x) * 256 + k] = fillerByte;
+                        metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
             		}
         		}
             }

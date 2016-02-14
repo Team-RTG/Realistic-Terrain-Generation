@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLForestedIsland;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLForestedIsland;
 import extrabiomes.api.BiomeManager;
@@ -18,12 +17,10 @@ public class RealisticBiomeEBXLForestedIsland extends RealisticBiomeEBXLBase
 	
 	public RealisticBiomeEBXLForestedIsland(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLForestedIsland(31f, 280f, 1f, 100f, 1f, 260f, 59f),
-			new SurfaceEBXLForestedIsland(topBlock, fillerBlock)
+			new SurfaceEBXLForestedIsland(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

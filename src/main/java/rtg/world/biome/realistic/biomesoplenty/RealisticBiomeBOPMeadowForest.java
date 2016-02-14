@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMeadowForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMeadowForest;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -18,12 +17,10 @@ public class RealisticBiomeBOPMeadowForest extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPMeadowForest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPMeadowForest(),
-			new SurfaceBOPMeadowForest(topBlock, fillerBlock)
+			new SurfaceBOPMeadowForest(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

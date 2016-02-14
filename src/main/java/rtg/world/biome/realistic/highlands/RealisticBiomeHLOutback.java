@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
 import rtg.world.gen.surface.highlands.SurfaceHLOutback;
 import rtg.world.gen.terrain.highlands.TerrainHLOutback;
 
@@ -20,11 +19,9 @@ public class RealisticBiomeHLOutback extends RealisticBiomeHLBase
     public RealisticBiomeHLOutback(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLOutback(300f),
-            new SurfaceHLOutback(topBlock, fillerBlock, (byte) 1, 1));
-        
-        this.config = config;
+            new SurfaceHLOutback(config, topBlock, fillerBlock, (byte) 1, 1));
     }
 }

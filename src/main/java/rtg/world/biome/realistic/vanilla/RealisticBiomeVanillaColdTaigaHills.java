@@ -4,7 +4,6 @@ import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaColdTaigaHills;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
@@ -33,13 +32,11 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
     public RealisticBiomeVanillaColdTaigaHills(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             BiomeGenBase.coldTaigaHills,
             BiomeGenBase.frozenRiver,
             new TerrainVanillaColdTaigaHills(),
-            new SurfaceVanillaColdTaigaHills(Blocks.grass, Blocks.dirt, true, Blocks.sand, 0.2f));
-        
-        this.config = config;
+            new SurfaceVanillaColdTaigaHills(config, Blocks.grass, Blocks.dirt, true, Blocks.sand, 0.2f));
     }
     
     @Override

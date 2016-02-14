@@ -2,10 +2,11 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
-
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -17,9 +18,9 @@ public class SurfaceDesert extends SurfaceBase
 	private Block cliffBlock2;
 	private Block bottomBlock;
 	
-	public SurfaceDesert(Block top, Block filler, Block bottom, Block cliff1, Block cliff2)
+	public SurfaceDesert(BiomeConfig config, Block top, Block filler, Block bottom, Block cliff1, Block cliff2)
 	{
-		super(top, filler);
+	    super(config, top, (byte)0, filler, (byte)0);
 		
 		bottomBlock = bottom; 
 		cliffBlock1 = cliff1;
@@ -59,10 +60,12 @@ public class SurfaceDesert extends SurfaceBase
 	        		if(depth == 0 && k > 61)
 	        		{
 	        			blocks[(y * 16 + x) * 256 + k] = topBlock;
+	        		    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 	        		}
 	        		else if(depth < 4)
 	        		{
 	        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	        		    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        		}
 	        		else
 	        		{

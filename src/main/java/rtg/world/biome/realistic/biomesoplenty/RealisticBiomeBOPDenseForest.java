@@ -26,13 +26,11 @@ public class RealisticBiomeBOPDenseForest extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPDenseForest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPDenseForest(),
-			new SurfaceBOPDenseForest(topBlock, fillerBlock)
+			new SurfaceBOPDenseForest(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPAlps;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPAlps;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -18,13 +17,11 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPAlps(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.frozenRiver,
 			new TerrainBOPAlps(),
-			new SurfaceBOPAlps(topBlock, fillerBlock, false, null, 0.45f)
+			new SurfaceBOPAlps(config, topBlock, fillerBlock, false, null, 0.45f)
 		);
-		
-		this.config = config;
 		this.generatesEmeralds = true;
 	}
 }

@@ -25,10 +25,10 @@ public class RealisticBiomeBOPFungiForest extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPFungiForest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPFungiForest(),
-			new SurfaceBOPFungiForest(
+			new SurfaceBOPFungiForest(config,
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 
@@ -43,8 +43,6 @@ public class RealisticBiomeBOPFungiForest extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
 	}
 	
     @Override

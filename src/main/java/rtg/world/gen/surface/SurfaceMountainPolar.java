@@ -2,8 +2,10 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -14,9 +16,9 @@ public class SurfaceMountainPolar extends SurfaceBase
 	private Block beachBlock;
 	private float min;
 	
-	public SurfaceMountainPolar(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
+	public SurfaceMountainPolar(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{
-		super(top, fill);
+	    super(config, top, (byte)0, fill, (byte)0);
 		beach = genBeach;
 		beachBlock = genBeachBlock;
 		min = minCliff;

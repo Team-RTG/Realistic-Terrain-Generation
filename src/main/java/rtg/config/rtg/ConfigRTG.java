@@ -13,6 +13,7 @@ public class ConfigRTG
 	public static Configuration config;
 	
 	public static boolean enableRTGBiomeDecorations = true;
+	public static boolean enableRTGBiomeSurfaces = true;
 	
 	public static boolean enableUBCStoneShadowing = true;
 	public static boolean enableUBCDesertShadowing = true;
@@ -68,6 +69,7 @@ public class ConfigRTG
     
     public static boolean enableRavineModifications = true;
     public static boolean enableRavines = false;
+    public static int ravineFrequency = 50;
 	
     public static boolean enableSnowLayers = true;
     
@@ -85,6 +87,8 @@ public class ConfigRTG
     public static int maxDistanceVillages = 48; // Vanilla = 32
     
     public static boolean allowTreesToGenerateOnSand = true;
+    
+    public static int patchBiomeId = 1;
     	
 	public static void init(File configFile) 
 	{
@@ -115,6 +119,30 @@ public class ConfigRTG
                 "Biomes",
                 enableRTGBiomeDecorations,
                 "If TRUE, uses the individual biome settings in the biome config files. If FALSE, disables all RTG decorations and uses vanilla decorations instead."
+                + Configuration.NEW_LINE
+            );
+            
+            enableRTGBiomeSurfaces = config.getBoolean(
+                "Enable RTG Biome Surfaces",
+                "Biomes",
+                enableRTGBiomeSurfaces,
+                "If TRUE, uses the individual biome settings in the biome config files. If FALSE, disables all RTG surfaces and uses vanilla surfaces instead."
+                + Configuration.NEW_LINE
+            );
+            
+            patchBiomeId = config.getInt(
+                "Patch Biome ID",
+                "Biomes",
+                patchBiomeId,
+                -1,
+                255,
+                "If RTG tries to generate an unsupported biome or a biome that has an ID conflict, it will generate this biome instead."
+                + Configuration.NEW_LINE +
+                "If set to -1, RTG will crash instead of generating the patch biome. You might want to do this if you're making a mod pack"
+                + Configuration.NEW_LINE +
+                "and want to make sure all biomes are generating correctly."
+                + Configuration.NEW_LINE +
+                "Default = Vanilla Plains"
                 + Configuration.NEW_LINE
             );
             
@@ -195,6 +223,7 @@ public class ConfigRTG
             );
             
             enableRavines = config.getBoolean("Enable Ravines", "Ravines", enableRavines, "");
+            ravineFrequency = config.getInt("Ravine Frequency", "Ravines", ravineFrequency, 1, 100, "This setting controls the number of ravines that generate." + Configuration.NEW_LINE + "LOWER values = MORE ravines & MORE lag. (50 = vanilla ravine frequency)" + Configuration.NEW_LINE);
             
             /* ==================== Scattered Features ==================== */
             

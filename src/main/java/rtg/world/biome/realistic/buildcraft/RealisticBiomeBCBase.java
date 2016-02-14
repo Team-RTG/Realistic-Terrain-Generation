@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.buildcraft;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.buildcraft.config.BiomeConfigBC;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
@@ -14,10 +15,10 @@ public class RealisticBiomeBCBase extends RealisticBiomeBase
     public static RealisticBiomeBase bcDesertOilField;
     public static RealisticBiomeBase bcOceanOilField;
     
-    public RealisticBiomeBCBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
+    public RealisticBiomeBCBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
     {
     
-        super(b, riverbiome, t, s);
+        super(config, b, riverbiome, t, s);
         
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;

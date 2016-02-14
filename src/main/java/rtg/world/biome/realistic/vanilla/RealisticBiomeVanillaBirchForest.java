@@ -18,7 +18,6 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForest;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForest;
 
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -29,20 +28,15 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase
 {
-    
-    public static Block topBlock = BiomeGenBase.birchForest.topBlock;
-    public static Block fillerBlock = BiomeGenBase.birchForest.fillerBlock;
-    
+
     public RealisticBiomeVanillaBirchForest(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             BiomeGenBase.birchForest,
             BiomeGenBase.river,
             new TerrainVanillaBirchForest(),
-            new SurfaceVanillaBirchForest(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f));
-        
-        this.config = config;
+            new SurfaceVanillaBirchForest(config, BiomeGenBase.birchForest.topBlock, BiomeGenBase.birchForest.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f));
     }
 
     @Override

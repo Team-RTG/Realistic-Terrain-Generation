@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
 import rtg.world.gen.surface.highlands.SurfaceHLCliffs;
 import rtg.world.gen.terrain.highlands.TerrainHLCliffs;
 
@@ -19,11 +18,9 @@ public class RealisticBiomeHLCliffs extends RealisticBiomeHLBase
     public RealisticBiomeHLCliffs(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLCliffs(75f, 70f, 0f),
-            new SurfaceHLCliffs(topBlock, fillerBlock, false, null, 0.95f));
-        
-        this.config = config;
+            new SurfaceHLCliffs(config, topBlock, fillerBlock, false, null, 0.95f));
     }
 }

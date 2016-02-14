@@ -2,6 +2,7 @@ package rtg.world.gen.surface.atg;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -19,9 +20,9 @@ public class SurfaceATGGravelBeach extends SurfaceBase
 	private byte sandMetadata;
 	private int cliffType;
 	
-	public SurfaceATGGravelBeach(Block top, Block filler, Block cliff1, Block cliff2, byte metadata, int cliff)
+	public SurfaceATGGravelBeach(BiomeConfig config, Block top, Block filler, Block cliff1, Block cliff2, byte metadata, int cliff)
 	{
-		super(top, filler);
+		super(config, top, (byte)0, filler, (byte)0);
 		
 		cliffBlock1 = cliff1;
 		cliffBlock2 = cliff2;
@@ -77,6 +78,7 @@ public class SurfaceATGGravelBeach extends SurfaceBase
 	        			{
 	        				dirt = true;
 		        			blocks[(y * 16 + x) * 256 + k] = topBlock;
+	        			    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 	        			}
 	        			else
 	        			{
@@ -89,6 +91,7 @@ public class SurfaceATGGravelBeach extends SurfaceBase
 	        			if(dirt)
 	        			{
 	        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	        			    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        			}
 	        			else
 	        			{

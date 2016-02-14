@@ -5,7 +5,6 @@ import highlands.api.HighlandsBiomes;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.highlands.SurfaceHLDesertMountains;
@@ -25,12 +24,10 @@ public class RealisticBiomeHLDesertMountains extends RealisticBiomeHLBase
     public RealisticBiomeHLDesertMountains(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLDesertMountains(230f, 100f, 0f),
-            new SurfaceHLDesertMountains(topBlock, fillerBlock, false, null, 0f, 1.5f, 90f, 30f, 1.5f));
-        
-        this.config = config;
+            new SurfaceHLDesertMountains(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 90f, 30f, 1.5f));
     }
 
     @Override

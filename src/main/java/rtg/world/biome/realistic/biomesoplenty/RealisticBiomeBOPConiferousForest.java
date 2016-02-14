@@ -22,15 +22,15 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPCBiomes.coniferousForest;
 	
-	public static Block topBlock = bopBiome.topBlock;
-	public static Block fillerBlock = bopBiome.fillerBlock;
+	public static Block topBlock = BOPCBlocks.newBopGrass;
+	public static Block fillerBlock = BOPCBlocks.newBopDirt;
 	
 	public RealisticBiomeBOPConiferousForest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPConiferousForest(58f, 84f, 24f),
-			new SurfaceBOPConiferousForest(
+			new SurfaceBOPConiferousForest(config,
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 
@@ -45,8 +45,6 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
 	}
 	
     @Override

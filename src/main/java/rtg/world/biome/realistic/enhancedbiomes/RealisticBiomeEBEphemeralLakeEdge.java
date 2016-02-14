@@ -58,10 +58,10 @@ public class RealisticBiomeEBEphemeralLakeEdge extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBEphemeralLakeEdge(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-        super(
+        super(config, 
             ebBiome, BiomeGenBase.river,
             new TerrainEBEphemeralLakeEdge(),
-            new SurfaceEBEphemeralLakeEdge(
+            new SurfaceEBEphemeralLakeEdge(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 
@@ -80,8 +80,6 @@ public class RealisticBiomeEBEphemeralLakeEdge extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
         );
-		
-		this.config = config;
         
     }
 	

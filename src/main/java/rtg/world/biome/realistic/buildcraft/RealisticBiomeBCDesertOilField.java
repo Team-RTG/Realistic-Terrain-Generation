@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.buildcraft;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.buildcraft.ConfigBC;
 import rtg.world.gen.surface.buildcraft.SurfaceBCDesertOilField;
 import rtg.world.gen.terrain.buildcraft.TerrainBCDesertOilField;
 
@@ -13,11 +12,9 @@ public class RealisticBiomeBCDesertOilField extends RealisticBiomeBCBase
     public RealisticBiomeBCDesertOilField(BiomeGenBase bcBiome, BiomeConfig config)
     {
     
-        super(
+        super(config, 
             bcBiome, BiomeGenBase.river,
             new TerrainBCDesertOilField(),
-            new SurfaceBCDesertOilField(bcBiome.topBlock, bcBiome.fillerBlock));
-        
-        this.config = config;
+            new SurfaceBCDesertOilField(config, bcBiome.topBlock, bcBiome.fillerBlock));
     }
 }

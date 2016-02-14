@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
@@ -30,20 +29,15 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
 {	
 	public static Block topBlock = BiomeGenBase.desertHills.topBlock;
 	public static Block fillerBlock = BiomeGenBase.desertHills.fillerBlock;
-	
-    private static SurfaceBase surface = new SurfaceVanillaDesertHills(Blocks.sand, Blocks.sandstone, false, null, 0f, 1.5f, 60f, 65f, 1.5f);
-    private static SurfaceBase riverSurface = new SurfaceRiverOasis();
-    
+
 	public RealisticBiomeVanillaDesertHills(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			BiomeGenBase.desertHills,
 			BiomeGenBase.river,
 			new TerrainVanillaDesertHills(600f, 50f, 0f),
-			surface
+			new SurfaceVanillaDesertHills(config, Blocks.sand, Blocks.sandstone, false, null, 0f, 1.5f, 60f, 65f, 1.5f)
 		);
-		
-		this.config = config;
 		
         this.waterSurfaceLakeChance = 0;
 	}
@@ -159,7 +153,9 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
     
     public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
-        surface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        this.getSurface().paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        
+        SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
         riverSurface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

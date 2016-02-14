@@ -10,7 +10,6 @@ import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleM;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleM;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
@@ -45,14 +44,12 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase
 	
 	public RealisticBiomeVanillaJungleM(BiomeConfig config)
 	{
-		super(
+		super(config, 
 		    mutationBiome,
 			BiomeGenBase.river,
 			new TerrainVanillaJungleM(),
-			new SurfaceVanillaJungleM(topBlock, fillerBlock)
+			new SurfaceVanillaJungleM(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 		
 		this.waterSurfaceLakeChance = 3;
 	}

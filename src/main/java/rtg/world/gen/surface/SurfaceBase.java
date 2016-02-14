@@ -2,39 +2,45 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
-import rtg.RTG;
 import rtg.util.CellNoise;
 import rtg.util.ModPresenceTester;
 import rtg.util.OpenSimplexNoise;
-import cpw.mods.fml.common.Loader;
+import rtg.util.UBColumnCache;
 import cpw.mods.fml.common.registry.GameData;
 import exterminatorJeff.undergroundBiomes.api.BlockCodes;
-import exterminatorJeff.undergroundBiomes.api.UBAPIHook;
-import exterminatorJeff.undergroundBiomes.api.UBStrataColumn;
-import exterminatorJeff.undergroundBiomes.api.UBStrataColumnProvider;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.util.UBColumnCache;
 
 public class SurfaceBase
 {
-	protected Block topBlock;
-	protected Block fillerBlock;
+    protected Block topBlock;
+    protected byte topBlockMeta;
+    protected Block fillerBlock;
+    protected byte fillerBlockMeta;
+	protected BiomeConfig biomeConfig;
 
     private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
     // create UBColumnCache only if UB is present
-    private static UBColumnCache ubColumnCache=
-            undergroundBiomesMod.present()?new UBColumnCache():null;
+    private static UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
     
-	public SurfaceBase(Block top, Block fill)
-	{
-		topBlock = top;
-		fillerBlock = fill;
-	}
+    public SurfaceBase(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte)
+    {
+        if (config == null) throw new RuntimeException("Biome config in SurfaceBase is NULL.");
+        
+        biomeConfig = config;
+
+        topBlock = top;
+        topBlockMeta = topByte;
+        fillerBlock = fill;
+        fillerBlockMeta = fillByte;
+        
+        this.assignUserConfigs(config, top, topByte, fill, fillByte);
+    }
 	
 	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
@@ -141,7 +147,94 @@ public class SurfaceBase
             return (byte)0;
         }
     }
+    
+    public Block getTopBlock()
+    {
+        return this.topBlock;
+    }
+    
+    public Block getFillerBlock()
+    {
+        return this.fillerBlock;
+    }
+    
+    private void assignUserConfigs(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte)
+    {
+        String userTopBlock = config._string(BiomeConfig.surfaceTopBlockId);
+        try {
+            if (GameData.getBlockRegistry().containsKey(userTopBlock)) {
+                topBlock = GameData.getBlockRegistry().getObject(userTopBlock);
+            }
+            else {
+                topBlock = top;
+            }
+        }
+        catch (Exception e) {
+            topBlock = top;
+        }
+        
+        String userTopBlockMeta = config._string(BiomeConfig.surfaceTopBlockMetaId);
+        try {
+            this.topBlockMeta = Byte.valueOf(userTopBlockMeta);
+        }
+        catch (Exception e) {
+            this.topBlockMeta = topByte;
+        }
+        
+        String userFillerBlock = config._string(BiomeConfig.surfaceFillerBlockId);
+        try {
+            if (GameData.getBlockRegistry().containsKey(userFillerBlock)) {
+                fillerBlock = GameData.getBlockRegistry().getObject(userFillerBlock);
+            }
+            else {
+                fillerBlock = fill;
+            }
+        }
+        catch (Exception e) {
+            fillerBlock = fill;
+        }
+        
+        String userFillerBlockMeta = config._string(BiomeConfig.surfaceFillerBlockMetaId);
+        try {
+            this.fillerBlockMeta = Byte.valueOf(userFillerBlockMeta);
+        }
+        catch (Exception e) {
+            this.fillerBlockMeta = fillByte;
+        }
+    }
+    
+    protected Block getConfigBlock(BiomeConfig config, String propertyId, Block blockDefault)
+    {
+        Block blockReturn = blockDefault;
+        String userBlockId = config._string(propertyId);
+        
+        try {
+            if (GameData.getBlockRegistry().containsKey(userBlockId)) {
+                blockReturn = GameData.getBlockRegistry().getObject(userBlockId);
+            }
+            else {
+                blockReturn = blockDefault;
+            }
+        }
+        catch (Exception e) {
+            blockReturn = blockDefault;
+        }
 
-
-
+        return blockReturn;
+    }
+    
+    protected byte getConfigBlockMeta(BiomeConfig config, String propertyId, byte metaDefault)
+    {
+        byte metaReturn = metaDefault;
+        String userMeta = config._string(propertyId);
+        
+        try {
+            metaReturn = Byte.valueOf(userMeta);
+        }
+        catch (Exception e) {
+            metaReturn = metaDefault;
+        }
+        
+        return metaReturn;
+    }
 }

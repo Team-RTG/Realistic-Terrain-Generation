@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
 import rtg.world.gen.surface.highlands.SurfaceHLDesertIsland;
 import rtg.world.gen.terrain.highlands.TerrainHLDesertIsland;
 
@@ -19,11 +18,9 @@ public class RealisticBiomeHLDesertIsland extends RealisticBiomeHLBase
     public RealisticBiomeHLDesertIsland(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLDesertIsland(90f, 180f, 13f, 100f, 38f, 260f, 71f),
-            new SurfaceHLDesertIsland(topBlock, fillerBlock));
-        
-        this.config = config;
+            new SurfaceHLDesertIsland(config, topBlock, fillerBlock));
     }
 }

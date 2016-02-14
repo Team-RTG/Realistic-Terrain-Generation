@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSunflowerPlains;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaSunflowerPlains;
 
@@ -18,12 +17,10 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
     
     public RealisticBiomeVanillaSunflowerPlains(BiomeConfig config)
     {
-        super(
+        super(config, 
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaSunflowerPlains(),
-            new SurfaceVanillaSunflowerPlains(topBlock, fillerBlock));
-        
-        this.config = config;
+            new SurfaceVanillaSunflowerPlains(config, topBlock, fillerBlock));
     }
 }

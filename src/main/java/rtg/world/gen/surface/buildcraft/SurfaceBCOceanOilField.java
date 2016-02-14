@@ -2,6 +2,7 @@ package rtg.world.gen.surface.buildcraft;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
@@ -19,10 +20,10 @@ public class SurfaceBCOceanOilField extends SurfaceBase
     private float height;
     private float mixCheck;
     
-    public SurfaceBCOceanOilField(Block top, Block filler, Block mix, float mixWidth, float mixHeight)
+    public SurfaceBCOceanOilField(BiomeConfig config, Block top, Block filler, Block mix, float mixWidth, float mixHeight)
     {
     
-        super(top, filler);
+        super(config, top, (byte)0, filler, (byte)0);
         
         mixBlock = mix;
         
@@ -57,11 +58,13 @@ public class SurfaceBCOceanOilField extends SurfaceBase
                     else
                     {
                         blocks[(y * 16 + x) * 256 + k] = topBlock;
+                        metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                     }
                 }
                 else if (depth < 4)
                 {
                     blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                 }
             }
         }

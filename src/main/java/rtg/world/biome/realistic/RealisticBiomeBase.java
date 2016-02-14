@@ -23,6 +23,7 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.gen.surface.SurfaceGeneric;
 import rtg.world.gen.terrain.TerrainBase;
 import cpw.mods.fml.common.FMLLog;
 
@@ -52,6 +53,7 @@ public class RealisticBiomeBase extends BiomeBase {
     
     public SurfaceBase[] surfaces;
     public int surfacesLength;
+    public SurfaceBase surfaceGeneric;
     
     public int waterSurfaceLakeChance; //Lower = more frequent
     public int lavaSurfaceLakeChance; //Lower = more frequent
@@ -69,14 +71,16 @@ public class RealisticBiomeBase extends BiomeBase {
     public Block emeraldStoneBlock;
     public byte emeraldStoneMeta;
     
-    public RealisticBiomeBase(BiomeGenBase biome) {
+    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
     
-        this(biome, BiomeGenBase.river);
+        this(config, biome, BiomeGenBase.river);
     }
     
-    public RealisticBiomeBase(BiomeGenBase biome, BiomeGenBase river) {
+    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome, BiomeGenBase river) {
     
         super(biome.biomeID);
+        
+        this.config = config;
 
     	if (biome.biomeID == 160 && this instanceof rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaRedwoodTaigaHills) {
 
@@ -113,9 +117,9 @@ public class RealisticBiomeBase extends BiomeBase {
         return arrRealisticBiomeIds[id];
     }
     
-    public RealisticBiomeBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s) {
+    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s) {
     
-        this(b, riverbiome);
+        this(config, b, riverbiome);
         
         terrain = t;
         
@@ -123,9 +127,11 @@ public class RealisticBiomeBase extends BiomeBase {
         surfacesLength = s.length;
     }
     
-    public RealisticBiomeBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
-    
-        this(b, riverbiome, t, new SurfaceBase[] {s});
+    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
+        
+        this(config, b, riverbiome, t, new SurfaceBase[] {s});
+        
+        surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
     }
     
     public void rPopulatePreDecorate(IChunkProvider ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag)
@@ -317,9 +323,17 @@ public class RealisticBiomeBase extends BiomeBase {
     }
     
     public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
-    
-        for (int s = 0; s < surfacesLength; s++) {
-            surfaces[s].paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+
+        if (ConfigRTG.enableRTGBiomeSurfaces && this.config.getPropertyById(BiomeConfig.useRTGSurfacesId).valueBoolean) {
+            
+            for (int s = 0; s < surfacesLength; s++) {
+                
+                surfaces[s].paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+            }
+        }
+        else {
+            
+            this.surfaceGeneric.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
         }
     }
     
@@ -426,5 +440,27 @@ public class RealisticBiomeBase extends BiomeBase {
                 }
             }
         }
+    }
+    
+    public TerrainBase getTerrain()
+    {
+        return this.terrain;
+    }
+    
+    public SurfaceBase getSurface()
+    {
+        if (this.surfacesLength == 0) {
+            
+            throw new RuntimeException(
+                "No realistic surfaces found for " + this.baseBiome.biomeName + " (" + this.baseBiome.biomeID + ")."
+            );
+        }
+        
+        return this.surfaces[0];
+    }
+    
+    public SurfaceBase[] getSurfaces()
+    {
+        return this.surfaces;
     }
 }

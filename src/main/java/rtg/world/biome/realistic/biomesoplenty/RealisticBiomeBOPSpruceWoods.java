@@ -26,10 +26,10 @@ public class RealisticBiomeBOPSpruceWoods extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPSpruceWoods(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPSpruceWoods(58f, 76f, 20f),
-			new SurfaceBOPSpruceWoods(
+			new SurfaceBOPSpruceWoods(config, 
 				    topBlock, //Block top 
 	                (byte)0, //byte topByte
 	                fillerBlock, //Block filler, 
@@ -44,8 +44,6 @@ public class RealisticBiomeBOPSpruceWoods extends RealisticBiomeBOPBase
 	                0.5f //float smallStrength
 	            )
 		);
-		
-		this.config = config;
 	}
 	
     @Override

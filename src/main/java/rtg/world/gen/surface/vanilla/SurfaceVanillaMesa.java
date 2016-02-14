@@ -2,6 +2,7 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -16,13 +17,11 @@ public class SurfaceVanillaMesa extends SurfaceBase
 {
     
     private int[] claycolor = new int[100];
-    private byte blockByte = 0;
     
-    public SurfaceVanillaMesa(Block top, Block fill, byte b)
+    public SurfaceVanillaMesa(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte)
     {
     
-        super(top, fill);
-        blockByte = b;
+        super(config, top, topByte, fill, fillByte);
         
         int[] c = new int[] {1, 8, 0};
         OpenSimplexNoise simplex = new OpenSimplexNoise(2L);
@@ -88,12 +87,12 @@ public class SurfaceVanillaMesa extends SurfaceBase
                                 if (depth == 0)
                                 {
                                     blocks[(y * 16 + x) * 256 + k] = topBlock;
-                                    metadata[(y * 16 + x) * 256 + k] = blockByte;
+                                    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                                 }
                                 else
                                 {
                                     blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                                    metadata[(y * 16 + x) * 256 + k] = blockByte;
+                                    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                                 }
                             }
                         }
@@ -116,13 +115,13 @@ public class SurfaceVanillaMesa extends SurfaceBase
                                 else
                                 {
                                     blocks[(y * 16 + x) * 256 + k] = topBlock;
-                                    metadata[(y * 16 + x) * 256 + k] = blockByte;
+                                    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                                 }
                             }
                             else
                             {
                                 blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                                metadata[(y * 16 + x) * 256 + k] = blockByte;
+                                metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                             }
                         }
                         else
@@ -130,12 +129,12 @@ public class SurfaceVanillaMesa extends SurfaceBase
                             if (depth == 0)
                             {
                                 blocks[(y * 16 + x) * 256 + k] = topBlock;
-                                metadata[(y * 16 + x) * 256 + k] = blockByte;
+                                metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                             }
                             else
                             {
                                 blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                                metadata[(y * 16 + x) * 256 + k] = blockByte;
+                                metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                             }
                         }
                     }

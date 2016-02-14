@@ -2,6 +2,7 @@ package rtg.world.gen.surface.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -27,13 +28,11 @@ public class SurfaceBOPLandOfLakes extends SurfaceBase
     private Block mix;
     private float mixHeight;
     
-    public byte topByte = 0;
-    
-    public SurfaceBOPLandOfLakes(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
+    public SurfaceBOPLandOfLakes(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
         float stoneHeight, float stoneStrength, float clayCliff, Block mixBlock, float mixSize)
     {
     
-        super(top, fill);
+        super(config, top, (byte)0, fill, (byte)0);
         beach = genBeach;
         beachBlock = genBeachBlock;
         min = minCliff;
@@ -117,11 +116,12 @@ public class SurfaceBOPLandOfLakes extends SurfaceBase
                         else if (k < 62)
                         {
                             blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                         }
                         else
                         {
                             blocks[(y * 16 + x) * 256 + k] = topBlock;
-                            metadata[(y * 16 + x) * 256 + k] = topByte;
+                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                         }
                     }
                     else if (simplex.noise2(i / 12f, j / 12f) > mixHeight)
@@ -132,7 +132,7 @@ public class SurfaceBOPLandOfLakes extends SurfaceBase
                     else
                     {
                         blocks[(y * 16 + x) * 256 + k] = topBlock;
-                        metadata[(y * 16 + x) * 256 + k] = topByte;
+                        metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                     }
                 }
                 else if (depth < 6)
@@ -158,6 +158,7 @@ public class SurfaceBOPLandOfLakes extends SurfaceBase
                     else
                     {
                         blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                        metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                     }
                 }
             }

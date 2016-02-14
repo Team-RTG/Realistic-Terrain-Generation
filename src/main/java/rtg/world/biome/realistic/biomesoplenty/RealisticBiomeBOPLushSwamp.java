@@ -26,13 +26,11 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPLushSwamp(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPLushSwamp(),
-			new SurfaceBOPLushSwamp(topBlock, fillerBlock)
+			new SurfaceBOPLushSwamp(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

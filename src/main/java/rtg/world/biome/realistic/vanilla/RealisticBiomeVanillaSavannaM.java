@@ -4,7 +4,6 @@ import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaSavannaM;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenFlowers;
@@ -34,13 +33,11 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaSavannaM(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaSavannaM(),
-            new SurfaceVanillaSavannaM(topBlock, fillerBlock));
-        
-        this.config = config;
+            new SurfaceVanillaSavannaM(config, topBlock, fillerBlock));
     }
     
     @Override

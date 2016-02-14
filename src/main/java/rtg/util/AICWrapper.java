@@ -19,9 +19,9 @@ public class AICWrapper
         
     }
     
-    public boolean isAICLoaded()
+    public boolean isAICExtendingBiomeIdsLimit()
     {
-        if (Loader.isModLoaded("AIC") && AICChangesWrapper.isAICLoaded()) {
+        if (Loader.isModLoaded("AIC") && AICChangesWrapper.isAICLoaded() && AICChangesWrapper.isExtendingBiomeIdsLimit()) {
             return true;
         }
         else {

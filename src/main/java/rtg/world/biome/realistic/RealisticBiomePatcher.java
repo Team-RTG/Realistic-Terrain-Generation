@@ -15,18 +15,21 @@ public class RealisticBiomePatcher
     {
         this.patchBiomeId = (int)ConfigRTG.patchBiomeId;
         
-        try {
-            this.realisticBiome = RealisticBiomeBase.getBiome(this.patchBiomeId);
-        }
-        catch (Exception e) {
-            throw new RuntimeException("Realistic patch biome " + this.patchBiomeId + " not found. Please make sure this biome is enabled.");
-        }
-        
-        try {
-            this.baseBiome = realisticBiome.baseBiome;
-        }
-        catch (Exception e) {
-            throw new RuntimeException("Base patch biome " + this.patchBiomeId + " not found. Please make sure this biome is enabled.");
+        if (this.patchBiomeId > -1) {
+            
+            try {
+                this.realisticBiome = RealisticBiomeBase.getBiome(this.patchBiomeId);
+            }
+            catch (Exception e) {
+                throw new RuntimeException("Realistic patch biome " + this.patchBiomeId + " not found. Please make sure this biome is enabled.");
+            }
+            
+            try {
+                this.baseBiome = realisticBiome.baseBiome;
+            }
+            catch (Exception e) {
+                throw new RuntimeException("Base patch biome " + this.patchBiomeId + " not found. Please make sure this biome is enabled.");
+            }
         }
     }
     

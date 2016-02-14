@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPGarden;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPGarden;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -18,10 +17,10 @@ public class RealisticBiomeBOPGarden extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPGarden(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPGarden(65f, 68f, 22f),
-			new SurfaceBOPGarden(
+			new SurfaceBOPGarden(config, 
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 
@@ -36,7 +35,5 @@ public class RealisticBiomeBOPGarden extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
 	}
 }

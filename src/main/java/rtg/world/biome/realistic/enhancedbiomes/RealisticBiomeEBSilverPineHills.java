@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSilverPineHills;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSilverPineHills;
 import enhancedbiomes.EnhancedBiomesMod;
@@ -49,10 +48,10 @@ public class RealisticBiomeEBSilverPineHills extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBSilverPineHills(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBSilverPineHills(200f, 100f, 0f),
-			new SurfaceEBSilverPineHills(
+			new SurfaceEBSilverPineHills(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 
@@ -71,8 +70,6 @@ public class RealisticBiomeEBSilverPineHills extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
         
     }
 }

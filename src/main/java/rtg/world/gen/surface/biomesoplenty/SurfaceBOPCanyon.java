@@ -2,6 +2,7 @@ package rtg.world.gen.surface.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -15,13 +16,11 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceBOPCanyon extends SurfaceBase
 {
 	private int[] claycolor = new int[100];
-	private byte blockByte = 0;
 	private int grassRaise = 0;
 	
-	public SurfaceBOPCanyon(Block top, Block fill, byte b, int grassHeight)
+	public SurfaceBOPCanyon(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte, int grassHeight)
 	{
-		super(top, fill);
-		blockByte = b;
+		super(config, top, topByte, fill, fillByte);
 		grassRaise = grassHeight;
 		
 		int[] c = new int[]{1, 8, 0};
@@ -79,30 +78,30 @@ public class SurfaceBOPCanyon extends SurfaceBase
 	        				if(depth == 0)
 	        				{
 		        				blocks[(y * 16 + x) * 256 + k] = topBlock;
-		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+		        				metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 	        				}
 	        				else
 	        				{
 		        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+		        				metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        				}
 	        			}
 	        			else if(k < 62)
 	        			{
                             blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                            metadata[(y * 16 + x) * 256 + k] = blockByte;
+                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        			}
 	        			else if(k < 62 + grassRaise)
 	        			{
 	        				if(depth == 0)
 	        				{
                                 blocks[(y * 16 + x) * 256 + k] = topBlock;
-                                metadata[(y * 16 + x) * 256 + k] = blockByte;
+                                metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 	        				}
 	        				else
 	        				{
 	                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-	                            metadata[(y * 16 + x) * 256 + k] = blockByte;
+	                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        				}
 	        			}
 	        			else if(k < 75 + grassRaise)
@@ -113,23 +112,23 @@ public class SurfaceBOPCanyon extends SurfaceBase
 		        				if(rand.nextInt(r + 1) == 0)
 		        				{
 	                                blocks[(y * 16 + x) * 256 + k] = topBlock;
-	                                metadata[(y * 16 + x) * 256 + k] = blockByte;
+	                                metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 		        				}
 		        				else if(rand.nextInt((int)(r / 2f) + 1) == 0)
 		        				{
 		                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-		                            metadata[(y * 16 + x) * 256 + k] = blockByte;
+		                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 		        				}
 		        				else
 		        				{
 			        				blocks[(y * 16 + x) * 256 + k] = topBlock;
-			        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+			        				metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 		        				}
 	        				}
 	        				else
 	        				{
 		        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+		        				metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        				}
 	        			}
 	        			else
@@ -137,12 +136,12 @@ public class SurfaceBOPCanyon extends SurfaceBase
 	        				if(depth == 0)
 	        				{
 		        				blocks[(y * 16 + x) * 256 + k] = topBlock;
-		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+		        				metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 	        				}
 	        				else
 	        				{
 		        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+		        				metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        				}
 	        			}
 	            	}

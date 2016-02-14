@@ -58,10 +58,10 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBMangrove(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBMangrove(),
-			new SurfaceEBMangrove(
+			new SurfaceEBMangrove(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 
@@ -80,8 +80,6 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
         
     }
 	

@@ -2,10 +2,10 @@ package rtg.world.gen.surface.highlands;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.SnowHeightCalculator;
 import rtg.world.gen.surface.SurfaceBase;
 
 import net.minecraft.block.Block;
@@ -23,20 +23,18 @@ public class SurfaceHLBirchHills extends SurfaceBase
     private float sHeight = 60f;
     private float sStrength = 65f;
     private float cCliff = 1.5f;
-    
-    public byte topByte = 0;
-    
-    public SurfaceHLBirchHills(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
+
+    public SurfaceHLBirchHills(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
     {
-        super(top, fill);
+        super(config, top, (byte)0, fill, (byte)0);
         beach = genBeach;
         beachBlock = genBeachBlock;
         min = minCliff;
     }
     
-    public SurfaceHLBirchHills(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
+    public SurfaceHLBirchHills(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
     {
-        this(top, fill, genBeach, genBeachBlock, minCliff);
+        this(config, top, fill, genBeach, genBeachBlock, minCliff);
         
         sCliff = stoneCliff;
         sHeight = stoneHeight;
@@ -111,17 +109,18 @@ public class SurfaceHLBirchHills extends SurfaceBase
                         else if(k < 62)
                         {
                             blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                         }
                         else
                         {
                             blocks[(y * 16 + x) * 256 + k] = topBlock;
-                            metadata[(y * 16 + x) * 256 + k] = topByte;
+                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                         }
                     }
                     else
                     {
                         blocks[(y * 16 + x) * 256 + k] = topBlock;
-                        metadata[(y * 16 + x) * 256 + k] = topByte;
+                        metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                     }
                 }
                 else if(depth < 6)
@@ -143,6 +142,7 @@ public class SurfaceHLBirchHills extends SurfaceBase
                     else
                     {
                         blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                        metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                     }
                 }
             }

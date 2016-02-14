@@ -6,7 +6,6 @@ import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForest;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForest;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
@@ -36,13 +35,11 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaRoofedForest(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             BiomeGenBase.roofedForest,
             BiomeGenBase.river,
             new TerrainVanillaRoofedForest(),
-            new SurfaceVanillaRoofedForest(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.08f));
-        
-        this.config = config;
+            new SurfaceVanillaRoofedForest(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.08f));
     }
     
     @Override

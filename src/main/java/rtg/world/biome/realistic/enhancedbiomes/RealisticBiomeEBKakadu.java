@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBKakadu;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBKakadu;
 import enhancedbiomes.EnhancedBiomesMod;
@@ -49,10 +48,10 @@ public class RealisticBiomeEBKakadu extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBKakadu(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBKakadu(30f, 480f, 8f, 100f, 68f, 60f, 69f),
-			new SurfaceEBKakadu(
+			new SurfaceEBKakadu(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 
@@ -71,8 +70,6 @@ public class RealisticBiomeEBKakadu extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
         
     }
 }

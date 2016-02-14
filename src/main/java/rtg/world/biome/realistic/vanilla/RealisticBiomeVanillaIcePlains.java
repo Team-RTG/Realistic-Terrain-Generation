@@ -4,7 +4,6 @@ import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaIcePlains;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
@@ -25,14 +24,12 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
 	
 	public RealisticBiomeVanillaIcePlains(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			BiomeGenBase.icePlains,
 			BiomeGenBase.frozenRiver,
 			new TerrainVanillaIcePlains(),
-			new SurfaceVanillaIcePlains(topBlock, fillerBlock, topBlock, topBlock)
+			new SurfaceVanillaIcePlains(config, topBlock, fillerBlock, topBlock, topBlock)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

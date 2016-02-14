@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBPlateau;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBPlateau;
 import enhancedbiomes.EnhancedBiomesMod;
@@ -49,10 +48,10 @@ public class RealisticBiomeEBPlateau extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBPlateau(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBPlateau(false, new float[]{2.0f, 0.5f}, 40f, 1f, 1f, 0.5f, 69f),
-			new SurfaceEBPlateau(
+			new SurfaceEBPlateau(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 
@@ -71,8 +70,6 @@ public class RealisticBiomeEBPlateau extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
         
     }
 }

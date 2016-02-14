@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.atg;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.atg.config.BiomeConfigATG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
@@ -19,9 +20,9 @@ public class RealisticBiomeATGBase extends RealisticBiomeBase
     public static RealisticBiomeBase atgVolcano;
     public static RealisticBiomeBase atgWoodland;
     
-	public RealisticBiomeATGBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
+	public RealisticBiomeATGBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
-		super(b, riverbiome, t, s);
+		super(config, b, riverbiome, t, s);
 		
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;

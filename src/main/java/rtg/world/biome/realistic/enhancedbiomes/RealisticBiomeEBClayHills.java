@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenCacti;
@@ -64,36 +63,30 @@ public class RealisticBiomeEBClayHills extends RealisticBiomeEBBase
     private static Block ebCliff2Block = Blocks.hardened_clay;
     private static byte ebCliff2Byte = (byte)0;
     
-    private static SurfaceBase surface = new SurfaceEBClayHills(
-        ebTopBlock, //Block top 
-        ebTopByte, //byte topByte
-        ebFillBlock, //Block filler, 
-        ebFillByte, //byte fillerByte
-        ebMixTopBlock, //Block mixTop, 
-        ebMixTopByte, //byte mixTopByte, 
-        ebMixFillBlock, //Block mixFill, 
-        ebMixFillByte, //byte mixFillByte, 
-        ebCliff1Block, //Block cliff1, 
-        ebCliff1Byte, //byte cliff1Byte, 
-        ebCliff2Block, //Block cliff2, 
-        ebCliff2Byte, //byte cliff2Byte, 
-        80f, //float mixWidth, 
-        -0.15f, //float mixHeight, 
-        10f, //float smallWidth, 
-        0.5f //float smallStrength
-    );
-    
-    private static SurfaceBase riverSurface = new SurfaceRiverOasis();
-    
     public RealisticBiomeEBClayHills(BiomeGenBase ebBiome, BiomeConfig config)
     {
     
-        super(
+        super(config, 
             ebBiome, BiomeGenBase.river,
             new TerrainEBClayHills(true, 35f, 160f, 60f, 40f, 69f),
-            surface);
-        
-        this.config = config;
+            new SurfaceEBClayHills(config,
+                ebTopBlock, //Block top 
+                ebTopByte, //byte topByte
+                ebFillBlock, //Block filler, 
+                ebFillByte, //byte fillerByte
+                ebMixTopBlock, //Block mixTop, 
+                ebMixTopByte, //byte mixTopByte, 
+                ebMixFillBlock, //Block mixFill, 
+                ebMixFillByte, //byte mixFillByte, 
+                ebCliff1Block, //Block cliff1, 
+                ebCliff1Byte, //byte cliff1Byte, 
+                ebCliff2Block, //Block cliff2, 
+                ebCliff2Byte, //byte cliff2Byte, 
+                80f, //float mixWidth, 
+                -0.15f, //float mixHeight, 
+                10f, //float smallWidth, 
+                0.5f //float smallStrength
+            ));
         
     }
     
@@ -226,7 +219,9 @@ public class RealisticBiomeEBClayHills extends RealisticBiomeEBBase
         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
     
-        surface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        this.getSurface().paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        
+        SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
         riverSurface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

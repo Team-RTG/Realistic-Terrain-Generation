@@ -2,6 +2,7 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -15,13 +16,11 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceVanillaSavannaPlateau extends SurfaceBase
 {
 	private int[] claycolor = new int[100];
-	private byte blockByte = 0;
 	private int grassRaise = 0;
 	
-	public SurfaceVanillaSavannaPlateau(Block top, Block fill, byte b, int grassHeight)
+	public SurfaceVanillaSavannaPlateau(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte, int grassHeight)
 	{
-		super(top, fill);
-		blockByte = b;
+		super(config, top, topByte, fill, fillByte);
 		grassRaise = grassHeight;
 		
 		int[] c = new int[]{1, 8, 0};
@@ -85,12 +84,12 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase
 		        				if(depth == 0)
 		        				{
 			        				blocks[(y * 16 + x) * 256 + k] = topBlock;
-			        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+			        				metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 		        				}
 		        				else
 		        				{
 			        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-			        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+			        				metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 		        				}
 	        				}
 	        			}
@@ -125,13 +124,13 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase
 		        				else
 		        				{
 			        				blocks[(y * 16 + x) * 256 + k] = topBlock;
-			        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+			        				metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 		        				}
 	        				}
 	        				else
 	        				{
 		        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+		        				metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        				}
 	        			}
 	        			else
@@ -139,12 +138,12 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase
 	        				if(depth == 0)
 	        				{
 		        				blocks[(y * 16 + x) * 256 + k] = topBlock;
-		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+		        				metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 	        				}
 	        				else
 	        				{
 		        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+		        				metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        				}
 	        			}
 	            	}

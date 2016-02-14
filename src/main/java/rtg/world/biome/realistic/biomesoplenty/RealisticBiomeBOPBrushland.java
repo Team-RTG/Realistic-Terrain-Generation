@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPBrushland;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPBrushland;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -19,12 +18,10 @@ public class RealisticBiomeBOPBrushland extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPBrushland(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPBrushland(),
-			new SurfaceBOPBrushland(topBlock, fillerBlock, Blocks.sand, 13f, 0.27f)
+			new SurfaceBOPBrushland(config, topBlock, fillerBlock, Blocks.sand, 13f, 0.27f)
 		);
-		
-		this.config = config;
 	}
 }

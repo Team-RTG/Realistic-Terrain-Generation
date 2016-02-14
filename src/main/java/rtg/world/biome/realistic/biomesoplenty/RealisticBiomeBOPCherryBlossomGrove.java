@@ -27,10 +27,10 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPCherryBlossomGrove(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPCherryBlossomGrove(58f, 76f, 20f),
-			new SurfaceBOPCherryBlossomGrove(
+			new SurfaceBOPCherryBlossomGrove(config,
 			    topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 
@@ -45,8 +45,6 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
 	}
 	
     @Override

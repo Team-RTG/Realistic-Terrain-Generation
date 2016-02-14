@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLTemperateRainforest;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLTemperateRainforest;
 import extrabiomes.api.BiomeManager;
@@ -19,12 +18,10 @@ public class RealisticBiomeEBXLTemperateRainforest extends RealisticBiomeEBXLBas
 	
 	public RealisticBiomeEBXLTemperateRainforest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLTemperateRainforest(300f, 70f, 0f),
-			new SurfaceEBXLTemperateRainforest(topBlock, fillerBlock, true, Blocks.sand, 0.2f)
+			new SurfaceEBXLTemperateRainforest(config, topBlock, fillerBlock, true, Blocks.sand, 0.2f)
 		);
-		
-		this.config = config;
 	}
 }

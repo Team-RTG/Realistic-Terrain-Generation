@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAlpineTundra;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBAlpineTundra;
 import enhancedbiomes.api.EBAPI;
@@ -48,10 +47,10 @@ public class RealisticBiomeEBAlpineTundra extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBAlpineTundra(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBAlpineTundra(),
-			new SurfaceEBAlpineTundra(
+			new SurfaceEBAlpineTundra(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 
@@ -70,8 +69,6 @@ public class RealisticBiomeEBAlpineTundra extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
 		
         this.generatesEmeralds = true;
         this.emeraldEmeraldBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.oreEmeraldEB, Blocks.emerald_ore);

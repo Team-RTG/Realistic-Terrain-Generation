@@ -3,11 +3,10 @@ package rtg.world.biome.realistic.enhancedbiomes;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenVolcano;
 import rtg.world.gen.surface.SurfaceBase;
@@ -22,7 +21,6 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.world.biome.RTGBiomeProvider;
 
 public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
 {
@@ -58,37 +56,31 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
     private static byte ebCliff1Byte = EBAPI.ebStonify(EBAPI.BASALT, (byte)0);
     private static Block ebCliff2Block = (EnhancedBiomesMod.useNewStone == 1) ? EnhancedBiomesBlocks.stoneCobbleEB : Blocks.cobblestone;
     private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.BASALT, (byte)0);
-    
-    private static SurfaceBase surface = new SurfaceEBVolcano(
-        ebTopBlock, //Block top 
-        ebTopByte, //byte topByte
-        ebFillBlock, //Block filler, 
-        ebFillByte, //byte fillerByte
-        ebMixTopBlock, //Block mixTop, 
-        ebMixTopByte, //byte mixTopByte, 
-        ebMixFillBlock, //Block mixFill, 
-        ebMixFillByte, //byte mixFillByte, 
-        ebCliff1Block, //Block cliff1, 
-        ebCliff1Byte, //byte cliff1Byte, 
-        ebCliff2Block, //Block cliff2, 
-        ebCliff2Byte, //byte cliff2Byte, 
-        80f, //float mixWidth, 
-        -0.15f, //float mixHeight, 
-        10f, //float smallWidth, 
-        0.5f //float smallStrength
-    );
-    
-    private static SurfaceBase riverSurface = new SurfaceRiverOasis();
-    
+
     public RealisticBiomeEBVolcano(BiomeGenBase ebBiome, BiomeConfig config)
     {
-        super(
+        super(config, 
             ebBiome, BiomeGenBase.river,
             new TerrainEBVolcano(),
-            surface
+            new SurfaceEBVolcano(config,
+                ebTopBlock, //Block top 
+                ebTopByte, //byte topByte
+                ebFillBlock, //Block filler, 
+                ebFillByte, //byte fillerByte
+                ebMixTopBlock, //Block mixTop, 
+                ebMixTopByte, //byte mixTopByte, 
+                ebMixFillBlock, //Block mixFill, 
+                ebMixFillByte, //byte mixFillByte, 
+                ebCliff1Block, //Block cliff1, 
+                ebCliff1Byte, //byte cliff1Byte, 
+                ebCliff2Block, //Block cliff2, 
+                ebCliff2Byte, //byte cliff2Byte, 
+                80f, //float mixWidth, 
+                -0.15f, //float mixHeight, 
+                10f, //float smallWidth, 
+                0.5f //float smallStrength
+            )
         );
-        
-        this.config = config;
         
         this.generatesEmeralds = true;
         this.emeraldEmeraldBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.oreEmeraldEB, Blocks.emerald_ore);
@@ -154,7 +146,9 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
     
-        surface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        this.getSurface().paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        
+        SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
         riverSurface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

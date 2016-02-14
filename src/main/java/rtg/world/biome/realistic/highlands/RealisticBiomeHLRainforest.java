@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
 import rtg.world.gen.surface.highlands.SurfaceHLRainforest;
 import rtg.world.gen.terrain.highlands.TerrainHLRainforest;
 
@@ -20,11 +19,9 @@ public class RealisticBiomeHLRainforest extends RealisticBiomeHLBase
     public RealisticBiomeHLRainforest(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLRainforest(120f, 300f,8f),
-            new SurfaceHLRainforest(topBlock, fillerBlock, false, null, 1.3f));
-        
-        this.config = config;
+            new SurfaceHLRainforest(config, topBlock, fillerBlock, false, null, 1.3f));
     }
 }

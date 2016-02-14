@@ -57,10 +57,10 @@ public class RealisticBiomeEBBlossomWoods extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBBlossomWoods(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBBlossomWoods(),
-			new SurfaceEBBlossomWoods(
+			new SurfaceEBBlossomWoods(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 
@@ -79,8 +79,6 @@ public class RealisticBiomeEBBlossomWoods extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
         
     }
 	

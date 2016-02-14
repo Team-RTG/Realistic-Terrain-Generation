@@ -32,13 +32,11 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
     public RealisticBiomeVanillaRoofedForestM(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaRoofedForestM(),
-            new SurfaceVanillaRoofedForestM(topBlock, fillerBlock));
-        
-        this.config = config;
+            new SurfaceVanillaRoofedForestM(config, topBlock, fillerBlock));
     }
     
     @Override

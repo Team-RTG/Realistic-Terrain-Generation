@@ -3,10 +3,9 @@ package rtg.world.biome.realistic.atg;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.atg.ConfigATG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenVolcano;
 import rtg.world.gen.surface.atg.SurfaceATGVolcano;
@@ -16,19 +15,16 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.world.biome.RTGBiomeProvider;
 
 public class RealisticBiomeATGVolcano extends RealisticBiomeATGBase
 {	
 	public RealisticBiomeATGVolcano(BiomeGenBase atgBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			atgBiome, BiomeGenBase.river,
 			new TerrainATGVolcano(),
-			new SurfaceATGVolcano(atgBiome.topBlock, atgBiome.fillerBlock, true, Blocks.gravel, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f)
+			new SurfaceATGVolcano(config, atgBiome.topBlock, atgBiome.fillerBlock, true, Blocks.gravel, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

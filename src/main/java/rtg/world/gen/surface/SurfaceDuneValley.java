@@ -2,11 +2,10 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
-
-
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -18,9 +17,9 @@ public class SurfaceDuneValley extends SurfaceBase
 	private boolean dirt;
 	private boolean mix;
 	
-	public SurfaceDuneValley(Block top, Block fill, float valleySize, boolean d, boolean m) 
+	public SurfaceDuneValley(BiomeConfig config, Block top, Block fill, float valleySize, boolean d, boolean m) 
 	{
-		super(top, fill);
+	    super(config, top, (byte)0, fill, (byte)0);
 		
 		valley = valleySize;
 		dirt = d;
@@ -63,6 +62,7 @@ public class SurfaceDuneValley extends SurfaceBase
         			else
         			{
     					blocks[(y * 16 + x) * 256 + k] = topBlock;
+        			    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
         			}
         		}
         		else if(depth < 6)
@@ -81,6 +81,7 @@ public class SurfaceDuneValley extends SurfaceBase
         			else
         			{
         				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+        			    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
         			}
         		}
             }

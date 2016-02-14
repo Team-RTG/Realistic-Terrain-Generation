@@ -2,9 +2,11 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -18,9 +20,9 @@ public class SurfaceGrasslandMix1 extends SurfaceBase
 	private float width;
 	private float height;
 	
-	public SurfaceGrasslandMix1(Block top, Block filler, Block mix, Block cliff1, Block cliff2, float mixWidth, float mixHeight)
+	public SurfaceGrasslandMix1(BiomeConfig config, Block top, Block filler, Block mix, Block cliff1, Block cliff2, float mixWidth, float mixHeight)
 	{
-		super(top, filler);
+		super(config, top, (byte)0, filler, (byte)0);
 		
 		mixBlock = mix;
 		cliffBlock1 = cliff1;
@@ -69,11 +71,13 @@ public class SurfaceGrasslandMix1 extends SurfaceBase
 	        			else
 	        			{
 	        				blocks[(y * 16 + x) * 256 + k] = topBlock;
+	        			    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 	        			}
 	        		}
 	        		else if(depth < 4)
 	        		{
 	        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	        		    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        		}
             	}
             }

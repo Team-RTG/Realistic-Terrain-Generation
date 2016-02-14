@@ -27,10 +27,10 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPFen(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPFen(),
-			new SurfaceBOPFen(
+			new SurfaceBOPFen(config,
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 
@@ -45,8 +45,6 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
 	}
 	
     @Override

@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPArctic;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPArctic;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -19,10 +18,10 @@ public class RealisticBiomeBOPArctic extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPArctic(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.frozenRiver,
 			new TerrainBOPArctic(),
-			new SurfaceBOPArctic(
+			new SurfaceBOPArctic(config, 
 			    Blocks.snow, //Block top 
 			    (byte)0, //byte topByte
 			    fillerBlock, //Block filler, 
@@ -37,7 +36,5 @@ public class RealisticBiomeBOPArctic extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
 	}
 }

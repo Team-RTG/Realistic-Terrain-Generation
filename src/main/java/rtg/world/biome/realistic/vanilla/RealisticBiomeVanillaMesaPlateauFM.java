@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenCacti;
@@ -31,14 +30,12 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
 	
 	public RealisticBiomeVanillaMesaPlateauFM(BiomeConfig config)
 	{
-		super(
+		super(config, 
 		    mutationBiome,
 			BiomeGenBase.river,
 			new TerrainVanillaMesaPlateauFM(false, 35f, 160f, 60f, 40f, 69f),
-			new SurfaceVanillaMesaPlateauFM(Blocks.sand, Blocks.sand, (byte) 1, 0)
+			new SurfaceVanillaMesaPlateauFM(config, Blocks.sand, (byte)1, Blocks.sand, (byte) 1, 0)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenCacti;
@@ -30,20 +29,15 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
     
     public static Block topBlock = BiomeGenBase.desert.topBlock;
     public static Block fillerBlock = BiomeGenBase.desert.fillerBlock;
-    
-    private static SurfaceBase surface = new SurfaceVanillaDesert(topBlock, fillerBlock);
-    private static SurfaceBase riverSurface = new SurfaceRiverOasis();
-    
+
     public RealisticBiomeVanillaDesert(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             BiomeGenBase.desert,
             BiomeGenBase.river,
             new TerrainVanillaDesert(),
-            surface);
-        
-        this.config = config;
+            new SurfaceVanillaDesert(config, topBlock, fillerBlock));
         
         this.waterSurfaceLakeChance = 0;
     }
@@ -155,7 +149,9 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
     
-        surface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        this.getSurface().paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        
+        SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
         riverSurface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

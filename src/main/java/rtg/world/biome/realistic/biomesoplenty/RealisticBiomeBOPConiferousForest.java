@@ -27,10 +27,10 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPConiferousForest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPConiferousForest(58f, 84f, 24f),
-			new SurfaceBOPConiferousForest(
+			new SurfaceBOPConiferousForest(config,
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 
@@ -45,8 +45,6 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
 	}
 	
     @Override

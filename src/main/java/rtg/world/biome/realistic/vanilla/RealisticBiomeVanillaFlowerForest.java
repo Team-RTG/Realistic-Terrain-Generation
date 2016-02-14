@@ -35,13 +35,11 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaFlowerForest(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaFlowerForest(),
-            new SurfaceVanillaFlowerForest(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.grass, 0.05f));
-        
-        this.config = config;
+            new SurfaceVanillaFlowerForest(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.grass, 0.05f));
     }
     
     @Override

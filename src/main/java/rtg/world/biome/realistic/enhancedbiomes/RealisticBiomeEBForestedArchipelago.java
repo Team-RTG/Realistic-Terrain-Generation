@@ -1,9 +1,8 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBForestedArchipelago;
-import rtg.world.gen.terrain.enhancedbiomes.TerrainEBForestedArchipelago;
+import rtg.world.gen.terrain.enhancedbiomes.TerrainEBGrassyArchipelago;
 import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
@@ -11,7 +10,6 @@ import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.world.gen.terrain.enhancedbiomes.TerrainEBGrassyArchipelago;
 
 public class RealisticBiomeEBForestedArchipelago extends RealisticBiomeEBBase
 {
@@ -50,10 +48,10 @@ public class RealisticBiomeEBForestedArchipelago extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBForestedArchipelago(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBGrassyArchipelago(80f, 30f, 0f),
-			new SurfaceEBForestedArchipelago(
+			new SurfaceEBForestedArchipelago(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 
@@ -72,8 +70,6 @@ public class RealisticBiomeEBForestedArchipelago extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
         
     }
 }

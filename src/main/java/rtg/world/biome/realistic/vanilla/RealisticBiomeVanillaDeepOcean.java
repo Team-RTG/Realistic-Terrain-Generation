@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDeepOcean;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaDeepOcean;
 
@@ -18,13 +17,11 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaDeepOcean(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             BiomeGenBase.deepOcean,
             BiomeGenBase.river,
             new TerrainVanillaDeepOcean(),
-            new SurfaceVanillaDeepOcean(Blocks.gravel, Blocks.gravel, Blocks.clay, 20f, 0.1f));
-        
-        this.config = config;
+            new SurfaceVanillaDeepOcean(config, Blocks.gravel, Blocks.gravel, Blocks.clay, 20f, 0.1f));
         
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;

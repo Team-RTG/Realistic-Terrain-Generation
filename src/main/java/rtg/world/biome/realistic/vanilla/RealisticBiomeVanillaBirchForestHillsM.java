@@ -36,14 +36,12 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
 	
 	public RealisticBiomeVanillaBirchForestHillsM(BiomeConfig config)
 	{
-		super(
+		super(config, 
 		    mutationBiome,
 			BiomeGenBase.river,
 			new TerrainVanillaBirchForestHillsM(),
-			new SurfaceVanillaBirchForestHillsM(topBlock, fillerBlock)
+			new SurfaceVanillaBirchForestHillsM(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

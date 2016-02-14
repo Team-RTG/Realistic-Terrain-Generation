@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBWoodlandField;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBWoodlandField;
 import enhancedbiomes.api.EBAPI;
@@ -48,10 +47,10 @@ public class RealisticBiomeEBWoodlandField extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBWoodlandField(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBWoodlandField(),
-			new SurfaceEBWoodlandField(
+			new SurfaceEBWoodlandField(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 
@@ -70,8 +69,6 @@ public class RealisticBiomeEBWoodlandField extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
         
     }
 }

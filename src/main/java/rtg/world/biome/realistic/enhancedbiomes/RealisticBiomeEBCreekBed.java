@@ -53,10 +53,10 @@ public class RealisticBiomeEBCreekBed extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBCreekBed(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBCreekBed(),
-			new SurfaceEBCreekBed(
+			new SurfaceEBCreekBed(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 
@@ -75,8 +75,6 @@ public class RealisticBiomeEBCreekBed extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
         
     }
 	

@@ -2,6 +2,7 @@ package rtg.world.gen.surface.buildcraft;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
@@ -13,9 +14,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceBCDesertOilField extends SurfaceBase
 {
-    public SurfaceBCDesertOilField(Block top, Block fill) 
+    public SurfaceBCDesertOilField(BiomeConfig config, Block top, Block fill) 
     {
-        super(top, fill);
+        super(config, top, (byte)0, fill, (byte)0);
     }
     
     @Override

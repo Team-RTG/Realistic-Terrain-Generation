@@ -1,12 +1,13 @@
 package rtg.world.biome.realistic.highlands;
 
+import highlands.api.HighlandsBiomes;
+import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.highlands.config.BiomeConfigHL;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 import cpw.mods.fml.common.Loader;
 
-import highlands.api.HighlandsBiomes;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeHLBase extends RealisticBiomeBase
@@ -60,9 +61,9 @@ public class RealisticBiomeHLBase extends RealisticBiomeBase
     //Border biomes
 	public static RealisticBiomeBase hl_Shrubland;
 	
-	public RealisticBiomeHLBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
+	public RealisticBiomeHLBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
-		super(b, riverbiome, t, s);
+		super(config, b, riverbiome, t, s);
 		
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;

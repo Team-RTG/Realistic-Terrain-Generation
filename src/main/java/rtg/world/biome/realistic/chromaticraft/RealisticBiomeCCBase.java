@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.chromaticraft;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.chromaticraft.config.BiomeConfigCC;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
@@ -13,9 +14,9 @@ public class RealisticBiomeCCBase extends RealisticBiomeBase
     public static RealisticBiomeBase ccEnderForest;
     public static RealisticBiomeBase ccRainbowForest;
     
-	public RealisticBiomeCCBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
+	public RealisticBiomeCCBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
-		super(b, riverbiome, t, s);
+		super(config, b, riverbiome, t, s);
 		
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;

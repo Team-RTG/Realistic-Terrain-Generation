@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
 import rtg.world.gen.surface.highlands.SurfaceHLPinelands;
 import rtg.world.gen.terrain.highlands.TerrainHLPinelands;
 
@@ -20,11 +19,9 @@ public class RealisticBiomeHLPinelands extends RealisticBiomeHLBase
     public RealisticBiomeHLPinelands(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLPinelands(),
-            new SurfaceHLPinelands(topBlock, fillerBlock, false, null, 1.2f));
-        
-        this.config = config;
+            new SurfaceHLPinelands(config, topBlock, fillerBlock, false, null, 1.2f));
     }
 }

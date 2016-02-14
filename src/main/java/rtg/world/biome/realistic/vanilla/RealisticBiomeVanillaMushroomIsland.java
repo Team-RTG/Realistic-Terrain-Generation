@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMushroomIsland;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMushroomIsland;
 
@@ -15,13 +14,11 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
 	
 	public RealisticBiomeVanillaMushroomIsland(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			BiomeGenBase.mushroomIsland,
 			BiomeGenBase.river,
 			new TerrainVanillaMushroomIsland(),
-			new SurfaceVanillaMushroomIsland(topBlock, fillerBlock, 67, topBlock, 0f)
+			new SurfaceVanillaMushroomIsland(config, topBlock, fillerBlock, 67, topBlock, 0f)
 		);
-		
-		this.config = config;
 	}	
 }

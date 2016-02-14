@@ -2,6 +2,7 @@ package rtg.world.gen.surface.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
@@ -13,9 +14,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceBOPDryRiver extends SurfaceBase
 {
-	public SurfaceBOPDryRiver() 
+	public SurfaceBOPDryRiver(BiomeConfig config) 
 	{
-		super(Blocks.grass, Blocks.dirt);
+		super(config, Blocks.grass, (byte)0, Blocks.dirt, (byte)0);
 	}
 	
 	@Override

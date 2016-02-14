@@ -62,10 +62,10 @@ public class RealisticBiomeEBForestedMountains extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBForestedMountains(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBForestedMountains(440f, 70f, 0f),
-			new SurfaceEBForestedMountains(
+			new SurfaceEBForestedMountains(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 
@@ -84,8 +84,6 @@ public class RealisticBiomeEBForestedMountains extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
         
     }
 	

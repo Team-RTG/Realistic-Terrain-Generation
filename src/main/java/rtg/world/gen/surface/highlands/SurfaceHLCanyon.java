@@ -2,25 +2,25 @@ package rtg.world.gen.surface.highlands;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+
 public class SurfaceHLCanyon extends SurfaceBase
 {
 	private int[] claycolor = new int[100];
-	private byte blockByte = 0;
 	private int grassRaise = 0;
 	
-	public SurfaceHLCanyon(Block top, Block fill, byte b, int grassHeight)
+	public SurfaceHLCanyon(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte, int grassHeight)
 	{
-		super(top, fill);
-		blockByte = b;
+		super(config, top, topByte, fill, fillByte);
 		grassRaise = grassHeight;
 		
 		int[] c = new int[]{1, 8, 0};
@@ -84,12 +84,12 @@ public class SurfaceHLCanyon extends SurfaceBase
 		        				if(depth == 0)
 		        				{
 			        				blocks[(y * 16 + x) * 256 + k] = topBlock;
-			        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+			        				metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 		        				}
 		        				else
 		        				{
 			        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-			        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+			        				metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 		        				}
 	        				}
 	        			}
@@ -124,13 +124,13 @@ public class SurfaceHLCanyon extends SurfaceBase
 		        				else
 		        				{
 			        				blocks[(y * 16 + x) * 256 + k] = topBlock;
-			        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+			        				metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 		        				}
 	        				}
 	        				else
 	        				{
 		        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+		        				metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        				}
 	        			}
 	        			else
@@ -138,12 +138,12 @@ public class SurfaceHLCanyon extends SurfaceBase
 	        				if(depth == 0)
 	        				{
 		        				blocks[(y * 16 + x) * 256 + k] = topBlock;
-		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+		        				metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 	        				}
 	        				else
 	        				{
 		        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
+		        				metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        				}
 	        			}
 	            	}

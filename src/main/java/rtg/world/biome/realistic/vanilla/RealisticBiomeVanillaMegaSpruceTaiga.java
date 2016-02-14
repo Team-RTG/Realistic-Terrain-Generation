@@ -4,7 +4,6 @@ import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaMegaSpruceTaiga;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenLog;
@@ -26,13 +25,11 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
     public RealisticBiomeVanillaMegaSpruceTaiga(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaMegaSpruceTaiga(),
-            new SurfaceVanillaMegaSpruceTaiga(topBlock, fillerBlock));
-        
-        this.config = config;
+            new SurfaceVanillaMegaSpruceTaiga(config, topBlock, fillerBlock));
     }
     
     @Override

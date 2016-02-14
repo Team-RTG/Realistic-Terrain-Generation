@@ -26,10 +26,10 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPSeasonalForest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPSeasonalForest(0f, 100f, 68f, 170f),
-			new SurfaceBOPSeasonalForest(
+			new SurfaceBOPSeasonalForest(config,
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 
@@ -44,8 +44,6 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
 	}
 	
     @Override

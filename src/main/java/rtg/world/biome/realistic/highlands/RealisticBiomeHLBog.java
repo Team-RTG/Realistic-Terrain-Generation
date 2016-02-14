@@ -12,11 +12,9 @@ public class RealisticBiomeHLBog extends RealisticBiomeHLBase
     
     public RealisticBiomeHLBog(BiomeConfig config)
     {
-        super(
+        super(config, 
             HighlandsBiomes.bog, BiomeGenBase.river,
             new TerrainHLBog(),
-            new SurfaceHLBog(HighlandsBiomes.bog.topBlock, HighlandsBiomes.bog.fillerBlock));
-        
-        this.config = config;
+            new SurfaceHLBog(config, HighlandsBiomes.bog.topBlock, HighlandsBiomes.bog.fillerBlock));
     }
 }

@@ -2,6 +2,8 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHillsEdge;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -16,20 +18,25 @@ public class SurfaceVanillaExtremeHillsEdge extends SurfaceBase
 {
     
     private Block mixBlockTop;
+    private byte mixBlockTopMeta;
     private Block mixBlockFill;
+    private byte mixBlockFillMeta;
     private float width;
     private float height;
     private float smallW;
     private float smallS;
     
-    public SurfaceVanillaExtremeHillsEdge(Block top, Block filler, Block mixTop, Block mixFill, float mixWidth,
+    public SurfaceVanillaExtremeHillsEdge(BiomeConfig config, Block top, Block filler, Block mixTop, Block mixFill, float mixWidth,
         float mixHeight, float smallWidth, float smallStrength)
     {
     
-        super(top, filler);
+        super(config, top, (byte)0, filler, (byte)0);
+
+        mixBlockTop = this.getConfigBlock(config, BiomeConfigVanillaExtremeHillsEdge.surfaceMixBlockId, mixTop);
+        mixBlockTopMeta = this.getConfigBlockMeta(config, BiomeConfigVanillaExtremeHillsEdge.surfaceMixBlockMetaId, (byte)0);
         
-        mixBlockTop = mixTop;
-        mixBlockFill = mixFill;
+        mixBlockFill = this.getConfigBlock(config, BiomeConfigVanillaExtremeHillsEdge.surfaceMixFillerBlockId, mixFill);
+        mixBlockFillMeta = this.getConfigBlockMeta(config, BiomeConfigVanillaExtremeHillsEdge.surfaceMixFillerBlockMetaId, (byte)0);
         
         width = mixWidth;
         height = mixHeight;
@@ -85,11 +92,13 @@ public class SurfaceVanillaExtremeHillsEdge extends SurfaceBase
                         if (simplex.noise2(i / width, j / width) + simplex.noise2(i / smallW, j / smallW) * smallS > height)
                         {
                             blocks[(y * 16 + x) * 256 + k] = mixBlockTop;
+                            metadata[(y * 16 + x) * 256 + k] = mixBlockTopMeta;
                             mix = true;
                         }
                         else
                         {
                             blocks[(y * 16 + x) * 256 + k] = topBlock;
+                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                         }
                     }
                     else if (depth < 4)
@@ -97,10 +106,12 @@ public class SurfaceVanillaExtremeHillsEdge extends SurfaceBase
                         if (mix)
                         {
                             blocks[(y * 16 + x) * 256 + k] = mixBlockFill;
+                            metadata[(y * 16 + x) * 256 + k] = mixBlockFillMeta;
                         }
                         else
                         {
                             blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                         }
                     }
                 }

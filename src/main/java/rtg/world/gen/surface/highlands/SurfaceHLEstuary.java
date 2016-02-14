@@ -2,10 +2,12 @@ package rtg.world.gen.surface.highlands;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -14,9 +16,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceHLEstuary extends SurfaceBase
 {
 
-	public SurfaceHLEstuary(Block top, Block filler)
+	public SurfaceHLEstuary(BiomeConfig config, Block top, Block filler)
 	{
-		super(top, filler);
+		super(config, top, (byte)0, filler, (byte)0);
 	}
 	
 	@Override
@@ -68,11 +70,13 @@ public class SurfaceHLEstuary extends SurfaceBase
                             metadata[(y * 16 + x) * 256 + k+1] = 1;
                         } else {
                             blocks[(y * 16 + x) * 256 + k] = topBlock;
+                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                         }
 	        		}
 	        		else if(depth < 4)
 	        		{
 	        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	        		    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        		}
             	}
             }

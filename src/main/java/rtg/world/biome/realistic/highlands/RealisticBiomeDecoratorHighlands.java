@@ -6,10 +6,6 @@ package rtg.world.biome.realistic.highlands;
  * @author Zeno410
  */
 
-import java.util.Random;
-
-import org.apache.logging.log4j.Level;
-
 //import highlands.Highlands;
 //import highlands.Logs;
 //import highlands.api.HighlandsBiomes;
@@ -17,25 +13,6 @@ import org.apache.logging.log4j.Level;
 //import highlands.worldgen.WorldGenUnderground2;
 //import highlands.worldgen.WorldGenWatermelon;
 import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenBigMushroom;
-import net.minecraft.world.gen.feature.WorldGenCactus;
-import net.minecraft.world.gen.feature.WorldGenClay;
-import net.minecraft.world.gen.feature.WorldGenDeadBush;
-import net.minecraft.world.gen.feature.WorldGenFlowers;
-import net.minecraft.world.gen.feature.WorldGenLiquids;
-import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.feature.WorldGenPumpkin;
-import net.minecraft.world.gen.feature.WorldGenReed;
-import net.minecraft.world.gen.feature.WorldGenWaterlily;
-import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraft.world.gen.feature.WorldGenSand;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
-import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class RealisticBiomeDecoratorHighlands extends BiomeDecorator
 {

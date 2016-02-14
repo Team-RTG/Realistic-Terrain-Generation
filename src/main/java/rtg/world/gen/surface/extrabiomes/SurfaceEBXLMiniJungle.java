@@ -2,10 +2,12 @@ package rtg.world.gen.surface.extrabiomes;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -14,9 +16,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceEBXLMiniJungle extends SurfaceBase
 {
 
-	public SurfaceEBXLMiniJungle(Block top, Block filler)
+	public SurfaceEBXLMiniJungle(BiomeConfig config, Block top, Block filler)
 	{
-		super(top, filler);
+		super(config, top, (byte)0, filler, (byte)0);
 	}
 	
 	@Override
@@ -62,10 +64,12 @@ public class SurfaceEBXLMiniJungle extends SurfaceBase
 	        		if(depth == 0 && k > 61)
 	        		{
 	        			blocks[(y * 16 + x) * 256 + k] = topBlock;
+	        		    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 	        		}
 	        		else if(depth < 4)
 	        		{
 	        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	        		    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        		}
             	}
             }

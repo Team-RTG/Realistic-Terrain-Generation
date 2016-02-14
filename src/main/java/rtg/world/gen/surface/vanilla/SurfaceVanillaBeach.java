@@ -2,9 +2,7 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
-
-
-
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -22,9 +20,9 @@ public class SurfaceVanillaBeach extends SurfaceBase
 	private byte sandMetadata;
 	private int cliffType;
 	
-	public SurfaceVanillaBeach(Block top, Block filler, Block cliff1, Block cliff2, byte metadata, int cliff)
+	public SurfaceVanillaBeach(BiomeConfig config, Block top, Block filler, Block cliff1, Block cliff2, byte metadata, int cliff)
 	{
-		super(Blocks.dirt, Blocks.dirt);
+		super(config, Blocks.dirt, (byte)0, Blocks.dirt, (byte)0);
 		
 		cliffBlock1 = Blocks.dirt;
 		cliffBlock2 = Blocks.stone;
@@ -82,6 +80,7 @@ public class SurfaceVanillaBeach extends SurfaceBase
 	        			{
 	        				dirt = true;
 		        			blocks[(y * 16 + x) * 256 + k] = topBlock;
+	        			    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 	        			}
 	        			else
 	        			{
@@ -94,6 +93,7 @@ public class SurfaceVanillaBeach extends SurfaceBase
 	        			if(dirt)
 	        			{
 	        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	        			    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        			}
 	        			else
 	        			{

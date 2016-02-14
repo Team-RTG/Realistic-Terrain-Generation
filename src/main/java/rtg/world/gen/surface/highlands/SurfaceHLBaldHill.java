@@ -2,10 +2,10 @@ package rtg.world.gen.surface.highlands;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.SnowHeightCalculator;
 import rtg.world.gen.surface.SurfaceBase;
 
 import net.minecraft.block.Block;
@@ -16,9 +16,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceHLBaldHill extends SurfaceBase
 {
 
-    public SurfaceHLBaldHill(Block top, Block filler)
+    public SurfaceHLBaldHill(BiomeConfig config, Block top, Block filler)
     {
-        super(top, filler);
+        super(config, top, (byte)0, filler, (byte)0);
     }
     
     @Override
@@ -67,11 +67,13 @@ public class SurfaceHLBaldHill extends SurfaceBase
                             blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
                         } else {
                             blocks[(y * 16 + x) * 256 + k] = topBlock;
+                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                         }
                     }
                     else if(depth < 4)
                     {
                         blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                        metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                     }
                 }
             }

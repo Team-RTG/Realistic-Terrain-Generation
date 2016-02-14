@@ -2,6 +2,8 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaSavanna;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -16,15 +18,17 @@ public class SurfaceVanillaSavanna extends SurfaceBase
 {
     
     private Block mixBlock;
+    private byte mixBlockMeta;
     private float width;
     private float height;
     
-    public SurfaceVanillaSavanna(Block top, Block filler, Block mix, float mixWidth, float mixHeight)
+    public SurfaceVanillaSavanna(BiomeConfig config, Block top, Block filler, Block mix, float mixWidth, float mixHeight)
     {
     
-        super(top, filler);
+        super(config, top, (byte)0, filler, (byte)0);
         
-        mixBlock = mix;
+        mixBlock = this.getConfigBlock(config, BiomeConfigVanillaSavanna.surfaceMixBlockId, mix);
+        mixBlockMeta = this.getConfigBlockMeta(config, BiomeConfigVanillaSavanna.surfaceMixBlockMetaId, (byte)0);
         
         width = mixWidth;
         height = mixHeight;
@@ -77,15 +81,18 @@ public class SurfaceVanillaSavanna extends SurfaceBase
                         if (simplex.noise2(i / width, j / width) > height) // > 0.27f, i / 12f
                         {
                             blocks[(y * 16 + x) * 256 + k] = mixBlock;
+                            metadata[(y * 16 + x) * 256 + k] = mixBlockMeta;
                         }
                         else
                         {
                             blocks[(y * 16 + x) * 256 + k] = topBlock;
+                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                         }
                     }
                     else if (depth < 4)
                     {
                         blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                        metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                     }
                 }
             }

@@ -2,6 +2,7 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -27,20 +28,20 @@ public class SurfaceVanillaMegaTaigaHills extends SurfaceBase
     private float iStrength = 50f;
     private float cCliff = 1.5f;
     
-    public SurfaceVanillaMegaTaigaHills(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff)
+    public SurfaceVanillaMegaTaigaHills(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff)
     {
     
-        super(top, fill);
+        super(config, top, (byte)0, fill, (byte)0);
         beach = genBeach;
         beachBlock = genBeachBlock;
         min = minCliff;
     }
     
-    public SurfaceVanillaMegaTaigaHills(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
+    public SurfaceVanillaMegaTaigaHills(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
         float stoneHeight, float stoneStrength, float snowCliff, float snowHeight, float snowStrength, float clayCliff)
     {
     
-        this(top, fill, genBeach, genBeachBlock, minCliff);
+        this(config, top, fill, genBeach, genBeachBlock, minCliff);
         
         sCliff = stoneCliff;
         sHeight = stoneHeight;
@@ -128,10 +129,12 @@ public class SurfaceVanillaMegaTaigaHills extends SurfaceBase
                         else if (k < 62)
                         {
                             blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                         }
                         else
                         {
                             blocks[(y * 16 + x) * 256 + k] = topBlock;
+                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                         }
                     }
                     else

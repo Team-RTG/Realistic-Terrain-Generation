@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLGreenSwamp;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLGreenSwamp;
 import extrabiomes.api.BiomeManager;
@@ -18,12 +17,10 @@ public class RealisticBiomeEBXLGreenSwamp extends RealisticBiomeEBXLBase
 	
 	public RealisticBiomeEBXLGreenSwamp(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLGreenSwamp(),
-			new SurfaceEBXLGreenSwamp(topBlock, fillerBlock)
+			new SurfaceEBXLGreenSwamp(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

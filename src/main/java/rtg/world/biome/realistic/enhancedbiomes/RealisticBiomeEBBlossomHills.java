@@ -57,10 +57,10 @@ public class RealisticBiomeEBBlossomHills extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBBlossomHills(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBBlossomHills(76f, 30f),
-			new SurfaceEBBlossomHills(
+			new SurfaceEBBlossomHills(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 
@@ -79,8 +79,6 @@ public class RealisticBiomeEBBlossomHills extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
         
     }
 	

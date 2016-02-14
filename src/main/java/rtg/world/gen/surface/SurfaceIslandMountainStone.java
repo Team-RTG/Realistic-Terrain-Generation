@@ -2,9 +2,11 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -21,17 +23,17 @@ public class SurfaceIslandMountainStone extends SurfaceBase
 	private float sStrength = 65f;
 	private float cCliff = 1.5f;
 	
-	public SurfaceIslandMountainStone(Block top, Block fill, int beachHeight, Block genBeachBlock, float minCliff) 
+	public SurfaceIslandMountainStone(BiomeConfig config, Block top, Block fill, int beachHeight, Block genBeachBlock, float minCliff) 
 	{
-		super(top, fill);
+	    super(config, top, (byte)0, fill, (byte)0);
 		beach = beachHeight;
 		beachBlock = genBeachBlock;
 		min = minCliff;
 	}
 	
-	public SurfaceIslandMountainStone(Block top, Block fill, int beachHeight, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
+	public SurfaceIslandMountainStone(BiomeConfig config, Block top, Block fill, int beachHeight, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
 	{
-		this(top, fill, beachHeight, genBeachBlock, minCliff);
+		this(config, top, fill, beachHeight, genBeachBlock, minCliff);
 		
 		sCliff = stoneCliff;
 		sHeight = stoneHeight;
@@ -101,6 +103,7 @@ public class SurfaceIslandMountainStone extends SurfaceBase
             		else
             		{
             			blocks[(y * 16 + x) * 256 + k] = topBlock;
+            		    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
             		}
             	}
             	else if(depth < 6)
@@ -122,6 +125,7 @@ public class SurfaceIslandMountainStone extends SurfaceBase
             		else
             		{
             			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+            		    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
             		}
         		}
             }

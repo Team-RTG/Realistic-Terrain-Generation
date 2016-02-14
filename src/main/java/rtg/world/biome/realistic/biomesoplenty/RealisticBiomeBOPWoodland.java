@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPWoodland;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPWoodland;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -18,12 +17,10 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPWoodland(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPWoodland(0f, 80f, 68f, 120f),
-			new SurfaceBOPWoodland(topBlock, fillerBlock)
+			new SurfaceBOPWoodland(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 }

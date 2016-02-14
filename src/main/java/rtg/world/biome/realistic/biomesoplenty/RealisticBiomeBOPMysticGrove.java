@@ -26,13 +26,11 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPMysticGrove(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPMysticGrove(),
-			new SurfaceBOPMysticGrove(topBlock, fillerBlock)
+			new SurfaceBOPMysticGrove(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAspenHills;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBAspenHills;
 import enhancedbiomes.api.EBAPI;
@@ -40,13 +39,11 @@ public class RealisticBiomeEBAspenHills extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBAspenHills(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBAspenHills(230f, 120f, 0f),
-			new SurfaceEBAspenHills(ebTopBlock, ebTopByte, ebFillBlock, ebFillByte, false, null, 0.95f)
+			new SurfaceEBAspenHills(config, ebTopBlock, ebTopByte, ebFillBlock, ebFillByte, false, null, 0.95f)
 		);
-		
-		this.config = config;
         
     }
 }

@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
 import rtg.world.gen.surface.highlands.SurfaceHLMesa;
 import rtg.world.gen.terrain.highlands.TerrainHLMesa;
 
@@ -20,11 +19,9 @@ public class RealisticBiomeHLMesa extends RealisticBiomeHLBase
     public RealisticBiomeHLMesa(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLMesa(),
-            new SurfaceHLMesa(topBlock, fillerBlock, (byte) 1));
-        
-        this.config = config;
+            new SurfaceHLMesa(config, topBlock, (byte)1, fillerBlock, (byte)1));
     }
 }

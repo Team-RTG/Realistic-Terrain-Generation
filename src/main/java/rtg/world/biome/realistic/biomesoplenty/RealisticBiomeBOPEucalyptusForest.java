@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPEucalyptusForest;
 import rtg.util.CellNoise;
@@ -21,15 +22,15 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPCBiomes.eucalyptusForest;
 	
-	public static Block topBlock = bopBiome.topBlock;
-	public static Block fillerBlock = bopBiome.fillerBlock;
+	public static Block topBlock = bopBiome.topBlock.getBlock();
+	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
 	
 	public RealisticBiomeBOPEucalyptusForest(BiomeConfig config)
 	{
-		super(config, 
+		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPEucalyptusForest(58f, 80f, 36f),
-			new SurfaceBOPEucalyptusForest(config,
+			new SurfaceBOPEucalyptusForest(
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 
@@ -44,6 +45,8 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
+		
+		this.config = config;
 	}
 	
     @Override
@@ -61,15 +64,15 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
         {
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
+            int k1 = world.getChunkFromBlockCoords(new BlockPos(i1, 1, j1)).getHeightValue(i1,j1);
             
             if (rand.nextInt(12) == 0) {
                 
                 if (rand.nextBoolean()) {
-                    (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
+                    (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
                 }
                 else {
-                    (new WorldGenBlockBlob(Blocks.mossy_cobblestone, 0)).generate(world, rand, i1, k1, j1);
+                    (new WorldGenBlockBlob(Blocks.mossy_cobblestone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
                 }
             }
         }
@@ -80,7 +83,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
+                int y22 = world.getChunkFromBlockCoords(new BlockPos(x22, 1, z22)).getHeightValue(x22,z22);
                 
                 Block log;
                 byte logMeta;
@@ -88,7 +91,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
                 log = Blocks.log;
                 logMeta = (byte)3;
                 
-                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, 10 + rand.nextInt(14))).generate(world, rand, x22, y22, z22);            
+                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, 10 + rand.nextInt(14))).generate(world, rand, new BlockPos(x22, y22, z22));
             }
         }
         

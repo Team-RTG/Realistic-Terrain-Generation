@@ -25,7 +25,7 @@ public class WorldTypeRTG extends WorldType
 	@Override
     public WorldChunkManager getChunkManager(World world)
     {
-        if (world.provider.dimensionId == 0) {
+        if (world.provider.getDimensionId() == 0) {
         return new WorldChunkManagerRTG(world,this);
         } else {
             return new WorldChunkManager(world);
@@ -35,10 +35,10 @@ public class WorldTypeRTG extends WorldType
     @Override
     public IChunkProvider getChunkGenerator(World world, String generatorOptions)
     {
-        if (world.provider.dimensionId == 0) {
+        if (world.provider.getDimensionId() == 0) {
             return new ChunkProviderRTG(world, world.getSeed());
         } else {
-            return new ChunkProviderGenerate(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled());
+            return new ChunkProviderGenerate(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), "");
         }
     }
 	

@@ -2,6 +2,7 @@ package rtg.world.gen.feature.tree;
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import rtg.config.rtg.ConfigRTG;
 
 import net.minecraft.block.Block;
@@ -37,7 +38,7 @@ public class WorldGenTreeRTGShrub extends WorldGenerator
 	}
 	
 	@Override
-	public boolean generate(World world, Random rand, int x, int y, int z) 
+	public boolean generate(World world, Random rand, BlockPos blockPos)
 	{
 		int width = size > 6 ? 6 : size;
 		int height = size > 3 ? 2 : 1;
@@ -50,24 +51,24 @@ public class WorldGenTreeRTGShrub extends WorldGenerator
 			
 			if(i == 0 && size > 4)
 			{
-				buildLeaves(world, x + rX, y, z + rZ, 3);
+				buildLeaves(world, blockPos.add(rX, 0, rZ), 3);
 			}
 			else if(i == 1 && size > 2)
 			{
-				buildLeaves(world, x + rX, y, z + rZ, 2);
+				buildLeaves(world,  blockPos.add(rX, 0, rZ), 2);
 			}
 			else
 			{
-				buildLeaves(world, x + rX, y + rY, z + rZ, 1);
+				buildLeaves(world,  blockPos.add(rX, rY, rZ), 1);
 			}
 		}
 		return true;
 	}
 	
-	public void buildLeaves(World world, int x, int y, int z, int size)
+	public void buildLeaves(World world, BlockPos blockPos, int size)
 	{
-	    Block b = world.getBlock(x, y - 2, z);
-	    Block b1 = world.getBlock(x, y - 1, z);
+	    Block b = world.getBlockState(blockPos.down(2)).getBlock();
+	    Block b1 = world.getBlockState(blockPos.down()).getBlock();
 		
         if ((b == Blocks.sand || b1 == Blocks.sand) && !ConfigRTG.allowTreesToGenerateOnSand) {
             return;
@@ -75,7 +76,7 @@ public class WorldGenTreeRTGShrub extends WorldGenerator
 		
 		if(b.getMaterial() == Material.grass || b.getMaterial() == Material.ground || (sand && b.getMaterial() == Material.sand))
 		{
-			if(world.getBlock(x, y - 1, z) != Blocks.water )
+			if(world.getBlockState(blockPos.down()).getBlock() != Blocks.water )
 			{
 				for(int i = -size; i <= size; i++)
 				{
@@ -85,22 +86,22 @@ public class WorldGenTreeRTGShrub extends WorldGenerator
 						{
 							if(Math.abs(i) + Math.abs(j) + Math.abs(k) <= size)
 							{
-								buildBlock(world, x + i, y + j, z + k, leaveBlock, leaveMeta);
+								buildBlock(world, blockPos.add(i,j,k), leaveBlock, leaveMeta);
 							}
 						}
 					}
 				}
-				world.setBlock(x, y - 1, z, logBlock, logMeta, 0);
+				world.setBlockState(blockPos.down(), logBlock.getStateFromMeta(logMeta), 0);
 			}
 		}
 	}
 	
-	public void buildBlock(World world, int x, int y, int z, Block block, int meta)
+	public void buildBlock(World world, BlockPos blockPos, Block block, int meta)
 	{
-		Block b = world.getBlock(x, y, z);
+		Block b = world.getBlockState(blockPos).getBlock();
 		if(b.getMaterial() == Material.air || b.getMaterial() == Material.vine || b.getMaterial() == Material.plants || b == Blocks.snow_layer)
 		{
-			world.setBlock(x, y, z, block, meta, 0);
+			world.setBlockState(blockPos, block.getStateFromMeta(meta), 0);
 		}
 	}
 }

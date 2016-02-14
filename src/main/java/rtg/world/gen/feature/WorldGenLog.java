@@ -5,6 +5,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -44,9 +45,9 @@ public class WorldGenLog extends WorldGenerator
         logLength = length;
     }
 
-	public boolean generate(World world, Random rand, int x, int y, int z) 
+	public boolean generate(World world, Random rand, BlockPos blockPos)
 	{
-    	Block g = world.getBlock(x, y - 1, z);
+    	Block g = world.getBlockState(blockPos.down()).getBlock();
     	if(g.getMaterial() != Material.ground && g.getMaterial() != Material.grass && g.getMaterial() != Material.sand && g.getMaterial() != Material.rock)
     	{
     		return false;
@@ -61,16 +62,17 @@ public class WorldGenLog extends WorldGenerator
 		int air = 0;
 		for(i = 0; i < logLength; i++)
 		{
-			b = world.getBlock(x - (dir == 0 ? 1 : 0), y, z - (dir == 1 ? 1 : 0));
+			b = world.getBlockState(new BlockPos(blockPos.getX() - (dir == 0 ? 1 : 0), blockPos.getY(), blockPos.getZ() - (dir == 1 ? 1 : 0))).getBlock();
 			if(b.getMaterial() != Material.air && b.getMaterial() != Material.vine && b.getMaterial() != Material.plants)
 			{
 				break;
 			}
 			
-			x -= dir == 0 ? 1 : 0;
-			z -= dir == 1 ? 1 : 0;
-			
-			if(airCheck(world, rand, x, y, z) > 0)
+			int x = dir == 0 ? 1 : 0;
+			int z = dir == 1 ? 1 : 0;
+
+			blockPos = blockPos.add(-x,0,-z);
+			if(airCheck(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ()) > 0)
 			{
 				return false;
 			}
@@ -78,27 +80,29 @@ public class WorldGenLog extends WorldGenerator
 		
 		for(i = 0; i < logLength * 2; i++)
 		{
-			b = world.getBlock(x + (dir == 0 ? 1 : 0), y, z + (dir == 1 ? 1 : 0));
+			b = world.getBlockState(new BlockPos(blockPos.getX() + (dir == 0 ? 1 : 0), blockPos.getY(), blockPos.getZ() + (dir == 1 ? 1 : 0))).getBlock();
 			if(b.getMaterial() != Material.air && b.getMaterial() != Material.vine && b.getMaterial() != Material.plants)
 			{
 				break;
 			}
 			
-			air += airCheck(world, rand, x, y, z);
+			air += airCheck(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
 			if(air > 2)
 			{
 				return false;
 			}
 
-			world.setBlock(x, y, z, logBlock, dirMeta, 0);
+			world.setBlockState(blockPos, logBlock.getStateFromMeta(dirMeta), 0);
 
 			if(leavesMeta > -1)
 			{
-				addLeaves(world, rand, dir, x, y, z);
+				addLeaves(world, rand, dir, blockPos.getX(), blockPos.getY(), blockPos.getZ());
 			}
 			
-			x += dir == 0 ? 1 : 0;
-			z += dir == 1 ? 1 : 0;
+			int x = dir == 0 ? 1 : 0;
+			int z = dir == 1 ? 1 : 0;
+
+			blockPos = blockPos.add(x,0,z);
 		}
 		
 		return true;
@@ -106,10 +110,10 @@ public class WorldGenLog extends WorldGenerator
 	
 	private int airCheck(World world, Random rand, int x, int y, int z)
 	{
-		Block b = world.getBlock(x, y - 1, z);
+		Block b = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
 		if(b.getMaterial() == Material.air || b.getMaterial() == Material.vine || b.getMaterial() == Material.water || b.getMaterial() == Material.plants)
 		{
-			b = world.getBlock(x, y - 2, z);
+			b = world.getBlockState(new BlockPos(x, y - 2, z)).getBlock();
 			if(b.getMaterial() == Material.air || b.getMaterial() == Material.vine || b.getMaterial() == Material.water || b.getMaterial() == Material.plants)
 			{
 				return 99;
@@ -125,35 +129,35 @@ public class WorldGenLog extends WorldGenerator
 		Block b;
 		if(dir == 0)
 		{
-			b = world.getBlock(x, y, z - 1);
+			b = world.getBlockState(new BlockPos(x, y, z - 1)).getBlock();
 			if((b.getMaterial() == Material.air || b.getMaterial() == Material.vine || b.getMaterial() == Material.plants) && rand.nextInt(3) == 0)
 			{
-				world.setBlock(x, y, z - 1, leavesBlock, leavesMeta, 0);
+				world.setBlockState(new BlockPos(x, y, z - 1), leavesBlock.getStateFromMeta(leavesMeta), 0);
 			}
-			b = world.getBlock(x, y, z + 1);
+			b = world.getBlockState(new BlockPos(x, y, z + 1)).getBlock();
 			if((b.getMaterial() == Material.air || b.getMaterial() == Material.vine || b.getMaterial() == Material.plants) && rand.nextInt(3) == 0)
 			{
-				world.setBlock(x, y, z + 1, leavesBlock, leavesMeta, 0);
+				world.setBlockState(new BlockPos(x, y, z + 1), leavesBlock.getStateFromMeta(leavesMeta), 0);
 			}
 		}
 		else
 		{
-			b = world.getBlock(x - 1, y, z);
+			b = world.getBlockState(new BlockPos(x - 1, y, z)).getBlock();
 			if((b.getMaterial() == Material.air || b.getMaterial() == Material.vine || b.getMaterial() == Material.plants) && rand.nextInt(3) == 0)
 			{
-				world.setBlock(x - 1, y, z, leavesBlock, leavesMeta, 0);
+				world.setBlockState(new BlockPos(x - 1, y, z), leavesBlock.getStateFromMeta(leavesMeta), 0);
 			}
-			b = world.getBlock(x + 1, y, z);
+			b = world.getBlockState(new BlockPos(x + 1, y, z)).getBlock();
 			if((b.getMaterial() == Material.air || b.getMaterial() == Material.vine || b.getMaterial() == Material.plants) && rand.nextInt(3) == 0)
 			{
-				world.setBlock(x + 1, y, z, leavesBlock, leavesMeta, 0);
+				world.setBlockState(new BlockPos(x + 1, y, z), leavesBlock.getStateFromMeta(leavesMeta), 0);
 			}
 		}
 
-		b = world.getBlock(x, y + 1, z);
+		b = world.getBlockState(new BlockPos(x, y + 1, z)).getBlock();
 		if((b.getMaterial() == Material.air || b.getMaterial() == Material.vine || b.getMaterial() == Material.plants) && rand.nextInt(3) == 0)
 		{
-			world.setBlock(x, y + 1, z, leavesBlock, leavesMeta, 0);
+			world.setBlockState(new BlockPos(x, y + 1, z), leavesBlock.getStateFromMeta(leavesMeta), 0);
 		}
 	}
 }

@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -16,17 +17,19 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 {	
-	public static Block topBlock = BiomeGenBase.coldBeach.topBlock;
-	public static Block fillerBlock = BiomeGenBase.coldBeach.fillerBlock;
+	public static Block topBlock = BiomeGenBase.coldBeach.topBlock.getBlock();
+	public static Block fillerBlock = BiomeGenBase.coldBeach.fillerBlock.getBlock();
 	
 	public RealisticBiomeVanillaColdBeach(BiomeConfig config)
 	{
-		super(config, 
+		super(
 			BiomeGenBase.coldBeach,
 			BiomeGenBase.river,
 			new TerrainVanillaColdBeach(),
-			new SurfaceVanillaColdBeach(config, topBlock, fillerBlock, topBlock, fillerBlock, (byte)0, 1)
+			new SurfaceVanillaColdBeach(topBlock, fillerBlock, topBlock, fillerBlock, (byte)0, 1)
 		);
+		
+		this.config = config;
 	}
 	
     @Override
@@ -43,10 +46,10 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
         {
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
+            int k1 = world.getChunkFromBlockCoords(new BlockPos(i1, 1, j1)).getHeightValue(i1,j1);
             
             if (k1 < 95 && rand.nextInt(16) == 0) {
-                (new WorldGenBlob(Blocks.cobblestone, 0, rand)).generate(world, rand, i1, k1, j1);
+                (new WorldGenBlob(Blocks.cobblestone, 0, rand)).generate(world, rand, new BlockPos(i1, k1, j1));
             }
         }
     }

@@ -2,8 +2,10 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaSwamplandM;
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenGrass;
@@ -25,17 +27,19 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase
     public static BiomeGenBase standardBiome = BiomeGenBase.swampland;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
     
-    public static Block topBlock = mutationBiome.topBlock;
-    public static Block fillerBlock = mutationBiome.fillerBlock;
+    public static Block topBlock = mutationBiome.topBlock.getBlock();
+    public static Block fillerBlock = mutationBiome.fillerBlock.getBlock();
     
     public RealisticBiomeVanillaSwamplandM(BiomeConfig config)
     {
     
-        super(config, 
+        super(
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaSwamplandM(230f, 24f, 0f),
-            new SurfaceVanillaSwamplandM(config, topBlock, fillerBlock));
+            new SurfaceVanillaSwamplandM(topBlock, fillerBlock));
+        
+        this.config = config;
     }
     
     @Override
@@ -54,13 +58,13 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase
             {
                 int j6 = chunkX + rand.nextInt(16) + 8;
                 int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeightValue(j6, k10);
+                int z52 = world.getChunkFromBlockCoords(new BlockPos(j6, 1, k10)).getHeightValue(j6,k10);
                 
                 if (z52 < 110)
                 {
                     WorldGenerator worldgenerator = new WorldGenTreeRTGWillow();
-                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                    worldgenerator.generate(world, rand, j6, z52, k10);
+
+                    worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
                 }
             }
         }
@@ -71,10 +75,10 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
+                int y22 = world.getChunkFromBlockCoords(new BlockPos(x22, 1, z22)).getHeightValue(x22,z22);
                 if (y22 < 100)
                 {
-                    (new WorldGenLog(Blocks.log2, 1, Blocks.leaves2, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+                    (new WorldGenLog(Blocks.log2, 1, Blocks.leaves2, -1, 3 + rand.nextInt(4))).generate(world, rand, new BlockPos(x22, y22, z22));
                 }
             }
         }
@@ -83,10 +87,10 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase
         {
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
+            int k1 = world.getChunkFromBlockCoords(new BlockPos(i1, 1, j1)).getHeightValue(i1,j1);
             if (k1 < 110)
             {
-                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, new BlockPos(i1, k1, j1));
             }
         }
         
@@ -95,7 +99,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase
             int j16 = chunkX + rand.nextInt(16) + 8;
             int j18 = rand.nextInt(100);
             int j21 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenPumpkin()).generate(world, rand, j16, j18, j21);
+            (new WorldGenPumpkin()).generate(world, rand, new BlockPos(j16, j18, j21));
         }
         
         for (int l14 = 0; l14 < 12f * strength; l14++)
@@ -103,7 +107,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase
             int l19 = chunkX + rand.nextInt(16) + 8;
             int k22 = rand.nextInt(128);
             int j24 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
+            (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, new BlockPos(l19, k22, j24));
         }
         
         rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);

@@ -6,7 +6,7 @@ import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.TerrainMath;
-import cpw.mods.fml.common.registry.GameData;
+import net.minecraftforge.fml.common.registry.GameData;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public class WorldGenVolcano 
 {
-    protected static Block volcanoBlock = GameData.getBlockRegistry().getObject(ConfigRTG.volcanoBlockId);
+    protected static Block volcanoBlock = Block.getBlockFromName(ConfigRTG.volcanoBlockId);
     protected static byte volcanoByte = (byte) ConfigRTG.volcanoBlockByte;
     protected static Block lavaBlock = ConfigRTG.enableVolcanoEruptions ? Blocks.flowing_lava : Blocks.lava;
     

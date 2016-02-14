@@ -4,6 +4,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBeach;
 import rtg.util.CellNoise;
@@ -21,16 +22,18 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
     
-    public static Block topBlock = BiomeGenBase.beach.topBlock;
-    public static Block fillerBlock = BiomeGenBase.beach.fillerBlock;
+    public static Block topBlock = BiomeGenBase.beach.topBlock.getBlock();
+    public static Block fillerBlock = BiomeGenBase.beach.fillerBlock.getBlock();
     
     public RealisticBiomeVanillaBeach(BiomeConfig config)
     {
-        super(config, 
+        super(
             BiomeGenBase.beach,
             BiomeGenBase.river,
             new TerrainVanillaBeach(),
-            new SurfaceVanillaBeach(config, topBlock, fillerBlock, topBlock, fillerBlock, (byte) 0, 1));
+            new SurfaceVanillaBeach(topBlock, fillerBlock, topBlock, fillerBlock, (byte) 0, 1));
+        
+        this.config = config;
     }
     
     @Override
@@ -44,18 +47,18 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
         
         if (this.config.getPropertyById(BiomeConfigVanillaBeach.decorationPalmTreesId).valueBoolean) {
             
-            if (TerrainGen.decorate(world, rand, chunkX, chunkY, TREE)) {
+            if (TerrainGen.decorate(world, rand, new BlockPos(chunkX * 16, 0 ,chunkY * 16), TREE)) {
                 
                 if (rand.nextInt((int) (4f / strength)) == 0) {
                     
                     int j6 = chunkX + rand.nextInt(16) + 8;
                     int k10 = chunkY + rand.nextInt(16) + 8;
-                    int z52 = world.getHeightValue(j6, k10);
+                    int z52 = world.getChunkFromBlockCoords(new BlockPos(j6, 1, k10)).getHeightValue(j6,k10);
                     
                     if (z52 < 80) {
                         WorldGenerator worldgenerator = new WorldGenTreeRTGPalm();
-                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                        worldgenerator.generate(world, rand, j6, z52, k10);
+
+                        worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
                     }
                 }
             }

@@ -5,28 +5,19 @@ import org.apache.logging.log4j.Level;
 import rtg.RTG;
 import rtg.config.rtg.ConfigRTG;
 import rtg.world.WorldTypeRTG;
-import rtg.world.biome.WorldChunkManagerRTG;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.MapGenCavesRTG;
 import rtg.world.gen.MapGenRavineRTG;
 import rtg.world.gen.genlayer.RiverRemover;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fml.common.eventhandler.Event.Result;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.terraingen.BiomeEvent;
-import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.WorldTypeEvent;
@@ -35,8 +26,6 @@ import net.minecraftforge.event.world.WorldEvent;
 public class EventManagerRTG
 {
 
-    public RealisticBiomeBase biome = null;
-    
     public EventManagerRTG()
     {
         MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
@@ -174,91 +163,9 @@ public class EventManagerRTG
             return;
         }
         
-        if (event.world.provider.dimensionId == 0) {
+        if (event.world.provider.getDimensionId() == 0) {
             
             FMLLog.log(Level.INFO, "World Seed: %d", event.world.getSeed());
         }
-    }
-    
-    @SubscribeEvent
-    public void onGetVillageBlockID(BiomeEvent.GetVillageBlockID event)
-    {
-
-        if (this.biome != null) {
-            
-            if (this.biome.biomeID == BiomeGenBase.desert.biomeID || this.biome.biomeID == BiomeGenBase.desertHills.biomeID || this.biome.biomeID == BiomeGenBase.beach.biomeID) {
-                
-                Block originalBlock = event.original;
-                
-                if (originalBlock == Blocks.cobblestone || originalBlock == Blocks.planks || originalBlock == Blocks.log) {
-                    
-                    event.replacement = Blocks.sandstone;
-                }
-                else if (originalBlock == Blocks.oak_stairs || originalBlock == Blocks.stone_stairs) {
-                    
-                    event.replacement = Blocks.sandstone_stairs;
-                }
-            }
-            
-            // The event has to be cancelled in order to override the original block.
-            if (event.replacement != null) {
-                
-                event.setResult(Result.DENY);
-            }
-        }
-    }
-    
-    @SubscribeEvent
-    public void onGetVillageBlockMeta(BiomeEvent.GetVillageBlockMeta event)
-    {
-
-        if (this.biome != null) {
-            
-            boolean replaced = false;
-            
-            if (this.isDesertVillageBiome()) {
-                
-                Block originalBlock = event.original;
-                
-                if (originalBlock == Blocks.planks) {
-                    
-                    event.replacement = 2;
-                    replaced = true;
-                }
-            }
-            
-            // The event has to be cancelled in order to override the original block.
-            if (replaced) {
-                
-                event.setResult(Result.DENY);
-            }
-        }
-    }
-    
-    @SubscribeEvent
-    public void preBiomeDecorate(DecorateBiomeEvent.Pre event)
-    {
-
-        //Are we in an RTG world? Do we have RTG's chunk manager?
-        if (event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG && event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG) {
-            
-            WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) event.world.getWorldChunkManager();
-            this.biome = cmr.getBiomeDataAt(event.chunkX, event.chunkZ);
-        }
-    }
-    
-    private boolean isDesertVillageBiome()
-    {
-        if (
-            BiomeDictionary.isBiomeOfType(this.biome, Type.HOT)
-            &&
-            BiomeDictionary.isBiomeOfType(this.biome, Type.DRY)
-            &&
-            BiomeDictionary.isBiomeOfType(this.biome, Type.SANDY)
-        ) {
-            return true;
-        }
-        
-        return false;
     }
 }

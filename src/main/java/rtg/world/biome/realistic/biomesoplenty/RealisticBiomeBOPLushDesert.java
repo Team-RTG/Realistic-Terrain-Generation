@@ -4,6 +4,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPLushDesert;
 import rtg.util.CellNoise;
@@ -27,15 +28,15 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPCBiomes.lushDesert;
 	
-	public static Block topBlock = bopBiome.topBlock;
-	public static Block fillerBlock = bopBiome.fillerBlock;
+	public static Block topBlock = bopBiome.topBlock.getBlock();
+	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
 	
 	public RealisticBiomeBOPLushDesert(BiomeConfig config)
 	{
-		super(config, 
+		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPLushDesert(65f, 71f, 40f),
-			new SurfaceBOPLushDesert(config,
+			new SurfaceBOPLushDesert(
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 
@@ -50,6 +51,8 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
+		
+		this.config = config;
 	}
 	
     @Override
@@ -69,10 +72,10 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
         {
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
+            int k1 = world.getChunkFromBlockCoords(new BlockPos(i1, 1, j1)).getHeightValue(i1,j1);
             
             if (rand.nextInt(16) == 0) {
-                (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
+                (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
             }
         }
         
@@ -82,7 +85,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
 //            {
 //                int j6 = chunkX + rand.nextInt(16) + 8;
 //                int k10 = chunkY + rand.nextInt(16) + 8;
-//                int z52 = world.getHeightValue(j6, k10);
+//                int z52 = world.getChunkFromBlockCoords(new BlockPos(j6, 1, k10)).getHeightValue(j6,k10);
 //                
 //                if (z52 < 110)
 //                {
@@ -91,18 +94,18 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
 //                            rand.nextInt(2) == 0 ? this.worldGeneratorTrees :
 //                                rand.nextInt(18) == 0 ? new WorldGenDeadTree() :
 //                                    rand.nextInt(4) == 0 ? new WorldGenCypress(Blocks.log2, Blocks.leaves2, 0, 0, false, 7, 10, 2)
-//                                        : new WorldGenShrub(0, 0);
-//                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-//                        worldgenerator.generate(world, rand, j6, z52, k10);
+//                                        : new WorldGenShrub(Blocks.log.getDefaultState(), Blocks.leaves.getDefaultState());
+//
+//                        worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
 //                    }
 //                    else {
 //                        WorldGenerator worldgenerator =
 //                            rand.nextInt(2) == 0 ? this.worldGeneratorTrees :
 //                                rand.nextInt(18) == 0 ? new WorldGenDeadTree() :
 //                                    rand.nextInt(4) == 0 ? new WorldGenCypress(Blocks.log2, Blocks.leaves2, 0, 0, false, 7, 10, 2)
-//                                        : new WorldGenShrub(0, 0);
-//                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-//                        worldgenerator.generate(world, rand, j6, z52, k10);
+//                                        : new WorldGenShrub(Blocks.log.getDefaultState(), Blocks.leaves.getDefaultState());
+//
+//                        worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
 //                    }
 //                }
 //            }
@@ -114,7 +117,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
+                int y22 = world.getChunkFromBlockCoords(new BlockPos(x22, 1, z22)).getHeightValue(x22,z22);
                 
                 Block log;
                 byte logMeta;
@@ -141,11 +144,11 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
                     intLogLength = 3 + rand.nextInt(2);
                 }
     
-                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, intLogLength)).generate(world, rand, x22, y22, z22);            
+                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, intLogLength)).generate(world, rand, new BlockPos(x22, y22, z22));
             }
         }
         
-        if (TerrainGen.decorate(world, rand, chunkX, chunkY, CACTUS)) {
+        if (TerrainGen.decorate(world, rand, new BlockPos(chunkX * 16, 0 ,chunkY * 16), CACTUS)) {
             
             for (int k18 = 0; k18 < 8f * strength; k18++)
             {
@@ -155,7 +158,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
                 
                 if (j23 < 120f)
                 {
-                    (new WorldGenJungleCacti(false, rand.nextInt(5), (byte)1)).generate(world, rand, k21, j23, k24);
+                    (new WorldGenJungleCacti(false, rand.nextInt(5), (byte)1)).generate(world, rand, new BlockPos(k21, j23, k24));
                 }
             }
         }

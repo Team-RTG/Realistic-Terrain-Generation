@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPDeadForest;
 import rtg.util.CellNoise;
@@ -22,15 +23,15 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPCBiomes.deadForest;
 	
-	public static Block topBlock = bopBiome.topBlock;
-	public static Block fillerBlock = bopBiome.fillerBlock;
+	public static Block topBlock = bopBiome.topBlock.getBlock();
+	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
 	
 	public RealisticBiomeBOPDeadForest(BiomeConfig config)
 	{
-		super(config, 
+		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPDeadForest(58f, 80f, 30f),
-			new SurfaceBOPDeadForest(config,
+			new SurfaceBOPDeadForest(
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 
@@ -45,6 +46,8 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
+		
+		this.config = config;
 	}
 	
     @Override
@@ -62,10 +65,10 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase
         {
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
+            int k1 = world.getChunkFromBlockCoords(new BlockPos(i1, 1, j1)).getHeightValue(i1,j1);
             
             if (rand.nextInt(16) == 0) {
-                (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
+                (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
             }
         }
 
@@ -75,7 +78,7 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
+                int y22 = world.getChunkFromBlockCoords(new BlockPos(x22, 1, z22)).getHeightValue(x22,z22);
                 
                 Block log;
                 byte logMeta;
@@ -89,7 +92,7 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase
                     logMeta = (byte)1;
                 }
                 
-                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, 3 + rand.nextInt(3))).generate(world, rand, x22, y22, z22);            
+                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, 3 + rand.nextInt(3))).generate(world, rand, new BlockPos(x22, y22, z22));
             }
         }
         

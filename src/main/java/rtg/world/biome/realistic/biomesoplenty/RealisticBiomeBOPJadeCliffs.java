@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPJadeCliffs;
 import rtg.util.CellNoise;
@@ -21,16 +22,18 @@ public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPCBiomes.jadeCliffs;
 	
-	public static Block topBlock = bopBiome.topBlock;
-	public static Block fillerBlock = bopBiome.fillerBlock;
+	public static Block topBlock = bopBiome.topBlock.getBlock();
+	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
 	
 	public RealisticBiomeBOPJadeCliffs(BiomeConfig config)
 	{
-		super(config, 
+		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPJadeCliffs(300f, 100f, 0f),
-			new SurfaceBOPJadeCliffs(config, topBlock, fillerBlock, false, null, 0.95f)
+			new SurfaceBOPJadeCliffs(topBlock, fillerBlock, false, null, 0.95f)
 		);
+		
+		this.config = config;
 		this.generatesEmeralds = true;
 	}
 	
@@ -51,11 +54,11 @@ public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
+                int y22 = world.getChunkFromBlockCoords(new BlockPos(x22, 1, z22)).getHeightValue(x22,z22);
                 
                 if (y22 < 100)
                 {
-                    (new WorldGenLog(BOPCBlocks.logs4, (byte)0, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+                    (new WorldGenLog(BOPCBlocks.logs4, (byte)0, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, new BlockPos(x22, y22, z22));
                 }
             }
         }

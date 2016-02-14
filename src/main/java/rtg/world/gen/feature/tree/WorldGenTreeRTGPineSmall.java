@@ -5,6 +5,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -26,9 +27,9 @@ public class WorldGenTreeRTGPineSmall extends WorldGenerator
 		metadata = m;
 	}
 
-    public boolean generate(World world, Random rand, int x, int y, int z)
+    public boolean generate(World world, Random rand, BlockPos blockPos)
     {
-    	Block g = world.getBlock(x, y - 1, z);
+    	Block g = world.getBlockState(blockPos.down()).getBlock();
     	if(g != Blocks.grass && g != Blocks.dirt)
     	{
     		return false;
@@ -37,8 +38,8 @@ public class WorldGenTreeRTGPineSmall extends WorldGenerator
     	int i;
     	for(i = 0; i < startHeight; i++)
     	{
-    		world.setBlock(x, y, z, Blocks.log, metadata, 0);
-    		y++;
+    		world.setBlockState(blockPos, Blocks.log.getStateFromMeta(metadata), 0);
+    		blockPos = blockPos.up();
     	}
 
     	int pX = 0;
@@ -68,31 +69,32 @@ public class WorldGenTreeRTGPineSmall extends WorldGenerator
     			pX = dX;
     			pZ = dZ;
 
-        		buildBranch(world, rand, x, y, z, dX, dZ, i < treeSize - 10 ? 2 : 1, i < treeSize - 6 ? 2 : 1);
+        		buildBranch(world, rand, blockPos, dX, dZ, i < treeSize - 10 ? 2 : 1, i < treeSize - 6 ? 2 : 1);
     		}
-    		world.setBlock(x, y, z, Blocks.log, metadata, 0);
+    		world.setBlockState(blockPos, Blocks.log.getStateFromMeta(metadata), 0);
 
     		if(i < treeSize - 2)
 	    	{
-	    		if(rand.nextBoolean()) { buildLeaves(world, x, y, z + 1); }
-	    		if(rand.nextBoolean()) { buildLeaves(world, x, y, z - 1); }
-	    		if(rand.nextBoolean()) { buildLeaves(world, x + 1, y, z); }
-	    		if(rand.nextBoolean()) { buildLeaves(world, x - 1, y, z); }
+				if(rand.nextBoolean()) { buildLeaves(world, blockPos.south()); }
+				if(rand.nextBoolean()) { buildLeaves(world, blockPos.north()); }
+				if(rand.nextBoolean()) { buildLeaves(world, blockPos.east()); }
+				if(rand.nextBoolean()) { buildLeaves(world, blockPos.west()); }
     		}
 
-    		y++;
+    		blockPos = blockPos.up();
     	}
 
-    	buildLeaves(world, x, y - 1, z + 1);
-    	buildLeaves(world, x, y - 1, z - 1);
-    	buildLeaves(world, x + 1, y - 1, z);
-    	buildLeaves(world, x - 1, y - 1, z);
-    	buildLeaves(world, x, y, z);
 
-    	return true;
+		buildLeaves(world, blockPos.add(0,-1,1));
+		buildLeaves(world, blockPos.add(0,-1,-1));
+		buildLeaves(world, blockPos.add(1,-1,0));
+		buildLeaves(world, blockPos.add(-1,-1,0));
+		buildLeaves(world, blockPos);
+
+		return true;
     }
 
-    public void buildBranch(World world, Random rand, int x, int y, int z, int dX, int dZ, int logLength, int leaveSize)
+    public void buildBranch(World world, Random rand, BlockPos blockPos, int dX, int dZ, int logLength, int leaveSize)
     {
     	for(int i = -1; i <= 1; i++)
     	{
@@ -102,7 +104,7 @@ public class WorldGenTreeRTGPineSmall extends WorldGenerator
     			{
     				if(Math.abs(i) + Math.abs(j) + Math.abs(k) < leaveSize + 1)
     				{
-        				buildLeaves(world, x + i+ (dX * logLength), y + k, z + j + (dZ * logLength));
+						buildLeaves(world, blockPos.add( i+ (dX * logLength), k, j + (dZ * logLength)));
     				}
     			}
     		}
@@ -110,16 +112,16 @@ public class WorldGenTreeRTGPineSmall extends WorldGenerator
 
     	for(int m = 1; m <= logLength; m++)
     	{
-        	world.setBlock(x + (dX * m), y, z + (dZ * m), Blocks.log, metadata, 0);
+			world.setBlockState(blockPos.add((dX * m), 0, (dZ * m)), Blocks.log.getStateFromMeta(metadata), 0);
     	}
     }
 
-    public void buildLeaves(World world, int x, int y, int z)
-    {
-    	Block b = world.getBlock(x, y, z);
-    	if(b.getMaterial() == Material.air)
-    	{
-    		world.setBlock(x, y, z, Blocks.leaves, metadata, 0);
-    	}
-    }
+	public void buildLeaves(World world, BlockPos blockPos)
+	{
+		Block b = world.getBlockState(blockPos).getBlock();
+		if(b.getMaterial() == Material.air)
+		{
+			world.setBlockState(blockPos, Blocks.leaves.getStateFromMeta(metadata), 0);
+		}
+	}
 }

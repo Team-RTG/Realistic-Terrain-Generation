@@ -9,10 +9,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import org.apache.logging.log4j.Level;
 
 import rtg.config.rtg.ConfigRTG;
-import cpw.mods.fml.common.FMLLog;
+import net.minecraftforge.fml.common.FMLLog;
 
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.util.MathHelper;
@@ -89,7 +90,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
     }
 
     @Override
-    public String func_143025_a()
+    public String getStructureName()
     {
         return "Temple";
     }
@@ -120,7 +121,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
 
         if (k == i1 && l == j1)
         {
-            BiomeGenBase biomegenbase = this.worldObj.getWorldChunkManager().getBiomeGenAt(k * 16 + 8, l * 16 + 8);
+            BiomeGenBase biomegenbase = this.worldObj.getChunkFromChunkCoords(k,l).getBiome(new BlockPos(k * 16 + 8, 0, l * 16 + 8), this.worldObj.getWorldChunkManager());
 
             if (biomegenbase != null) {
                 
@@ -151,13 +152,13 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
     }
 
     @Override
-    public boolean func_143030_a(int p_143030_1_, int p_143030_2_, int p_143030_3_)
+    public boolean func_175798_a(BlockPos blockPos)
     {
-        StructureStart structurestart = this.func_143028_c(p_143030_1_, p_143030_2_, p_143030_3_);
+        StructureStart structurestart = this.func_175797_c(blockPos);
 
         if (structurestart != null && structurestart instanceof MapGenScatteredFeatureRTG.Start && !structurestart.getComponents().isEmpty())
         {
-            StructureComponent structurecomponent = (StructureComponent)structurestart.getComponents().getFirst();
+            StructureComponent structurecomponent = structurestart.getComponents().getFirst();
             return structurecomponent instanceof ComponentScatteredFeaturePieces.SwampHut;
         }
         else
@@ -183,9 +184,9 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
             
             super(worldIn, random, chunkX, chunkZ);
 
-            LinkedList arrComponents = new LinkedList();
+            LinkedList<StructureComponent> arrComponents = new LinkedList<StructureComponent>();
 
-            BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(chunkX * 16 + 8, chunkZ * 16 + 8);
+            BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(new BlockPos(chunkX * 16 + 8, 0 , chunkZ * 16 + 8));
 
             if (canSpawnDesertTemple(biomegenbase)) {
                 ComponentScatteredFeaturePieces.DesertPyramid desertpyramid = new ComponentScatteredFeaturePieces.DesertPyramid(random, chunkX * 16, chunkZ * 16);

@@ -2,8 +2,7 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHillsM;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -18,25 +17,20 @@ public class SurfaceVanillaExtremeHillsM extends SurfaceBase
 {
     
     private Block mixBlockTop;
-    private byte mixBlockTopMeta;
     private Block mixBlockFill;
-    private byte mixBlockFillMeta;
     private float width;
     private float height;
     private float smallW;
     private float smallS;
     
-    public SurfaceVanillaExtremeHillsM(BiomeConfig config, Block top, Block filler, Block mixTop, Block mixFill, float mixWidth,
+    public SurfaceVanillaExtremeHillsM(Block top, Block filler, Block mixTop, Block mixFill, float mixWidth,
         float mixHeight, float smallWidth, float smallStrength)
     {
     
-        super(config, top, (byte)0, filler, (byte)0);
+        super(top, filler);
         
-        mixBlockTop = this.getConfigBlock(config, BiomeConfigVanillaExtremeHillsM.surfaceMixBlockId, mixTop);
-        mixBlockTopMeta = this.getConfigBlockMeta(config, BiomeConfigVanillaExtremeHillsM.surfaceMixBlockMetaId, (byte)0);
-        
-        mixBlockFill = this.getConfigBlock(config, BiomeConfigVanillaExtremeHillsM.surfaceMixFillerBlockId, mixFill);
-        mixBlockFillMeta = this.getConfigBlockMeta(config, BiomeConfigVanillaExtremeHillsM.surfaceMixFillerBlockMetaId, (byte)0);
+        mixBlockTop = mixTop;
+        mixBlockFill = mixFill;
         
         width = mixWidth;
         height = mixHeight;
@@ -45,8 +39,8 @@ public class SurfaceVanillaExtremeHillsM extends SurfaceBase
     }
     
     @Override
-    public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
-        OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+    public void paintTerrain(ChunkPrimer primer, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
+                             OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
     
         float c = CliffCalculator.calc(x, y, noise);
@@ -55,7 +49,7 @@ public class SurfaceVanillaExtremeHillsM extends SurfaceBase
         
         for (int k = 255; k > -1; k--)
         {
-            Block b = blocks[(y * 16 + x) * 256 + k];
+            Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
             if (b == Blocks.air)
             {
                 depth = -1;
@@ -70,18 +64,18 @@ public class SurfaceVanillaExtremeHillsM extends SurfaceBase
                     {
                         if (rand.nextInt(3) == 0) {
                             
-                            blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
+                            primer.setBlockState((y * 16 + x) * 256 + k, hcCobble(world, i, j, x, y, k).getDefaultState());
                             metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
                         }
                         else {
                             
-                            blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                            primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k).getDefaultState());
                             metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                         }
                     }
                     else if (depth < 10)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                        primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k).getDefaultState());
                         metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                     }
                 }
@@ -91,27 +85,23 @@ public class SurfaceVanillaExtremeHillsM extends SurfaceBase
                     {
                         if (simplex.noise2(i / width, j / width) + simplex.noise2(i / smallW, j / smallW) * smallS > height)
                         {
-                            blocks[(y * 16 + x) * 256 + k] = mixBlockTop;
-                            metadata[(y * 16 + x) * 256 + k] = mixBlockTopMeta;
+                            primer.setBlockState((y * 16 + x) * 256 + k, mixBlockTop.getDefaultState());
                             mix = true;
                         }
                         else
                         {
-                            blocks[(y * 16 + x) * 256 + k] = topBlock;
-                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+                            primer.setBlockState((y * 16 + x) * 256 + k, topBlock.getDefaultState());
                         }
                     }
                     else if (depth < 4)
                     {
                         if (mix)
                         {
-                            blocks[(y * 16 + x) * 256 + k] = mixBlockFill;
-                            metadata[(y * 16 + x) * 256 + k] = mixBlockFillMeta;
+                            primer.setBlockState((y * 16 + x) * 256 + k, mixBlockFill.getDefaultState());
                         }
                         else
                         {
-                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+                            primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock.getDefaultState());
                         }
                     }
                 }

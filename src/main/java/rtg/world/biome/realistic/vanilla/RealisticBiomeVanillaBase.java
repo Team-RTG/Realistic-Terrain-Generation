@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanilla;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
@@ -72,9 +71,9 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase
     public static RealisticBiomeBase vanillaTaigaHills;
     public static RealisticBiomeBase vanillaTaigaM;
 	
-	public RealisticBiomeVanillaBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
+	public RealisticBiomeVanillaBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
-		super(config, b, riverbiome, t, s);
+		super(b, riverbiome, t, s);
 		
 		this.lavaSurfaceLakeChance = 0;
 	}

@@ -2,6 +2,7 @@ package rtg.world.gen.feature.tree;
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import rtg.config.rtg.ConfigRTG;
 
 import net.minecraft.block.Block;
@@ -45,9 +46,9 @@ public class WorldGenTreeRTGMangrove extends WorldGenerator
 	}
 	
 	@Override
-	public boolean generate(World world, Random rand, int x, int y, int z) 
+	public boolean generate(World world, Random rand, BlockPos blockPos)
 	{
-    	Block b = world.getBlock(x, y - 1, z);
+    	Block b = world.getBlockState(blockPos.down()).getBlock();
     	
         if (b == Blocks.sand && !ConfigRTG.allowTreesToGenerateOnSand) {
             return false;
@@ -55,7 +56,7 @@ public class WorldGenTreeRTGMangrove extends WorldGenerator
     	
     	if(b != Blocks.grass && b != Blocks.dirt && b != Blocks.sand)
     	{
-    		if(!(b == Blocks.water && world.getBlock(x, y - 2, z) == Blocks.sand && world.getBlock(x, y, z) == Blocks.air))
+    		if(!(b == Blocks.water && world.getBlockState(blockPos.down(2)).getBlock() == Blocks.sand && world.getBlockState(blockPos).getBlock() == Blocks.air))
     		{
     			return false;
     		}
@@ -65,13 +66,13 @@ public class WorldGenTreeRTGMangrove extends WorldGenerator
     	{
 	    	for(int k = 0; k < 3; k++)
 	    	{
-	    		generateBranch(world, rand, x, y + root, z, (120 * k) - 40 + rand.nextInt(80), 1.6f + rand.nextFloat() * 0.1f, root * 2f, 1f);
+	    		generateBranch(world, rand, blockPos.add(0,root,0), (120 * k) - 40 + rand.nextInt(80), 1.6f + rand.nextFloat() * 0.1f, root * 2f, 1f);
 	    	}
     	}
     	
-    	for(int i = y + root; i < y + base; i++)
+    	for(int i = root; i < base; i++)
     	{
-    		world.setBlock(x, i, z, blockLog, metadataLog, 2);
+    		world.setBlockState(blockPos.add(0,i,0), blockLog.getStateFromMeta(metadataLog),2);
     	}
     	
     	float horDir, verDir;
@@ -80,15 +81,15 @@ public class WorldGenTreeRTGMangrove extends WorldGenerator
     	{
     		horDir = (120 * j) - 60 + rand.nextInt(120);
     		verDir = verStart + rand.nextFloat() * verRand;
-        	generateBranch(world, rand, x, y + base, z, horDir, verDir, length, 1f);
-        	
-        	eX = x + (int)(Math.cos(horDir * Math.PI / 180D) * verDir * length);
-        	eZ = z + (int)(Math.sin(horDir * Math.PI / 180D) * verDir * length);
-        	eY = y + base + (int)((1f - verDir) * length);
+        	generateBranch(world, rand, blockPos.add(0,base,0), horDir, verDir, length, 1f);
+
+			BlockPos eBlockPos = blockPos.add((int)(Math.cos(horDir * Math.PI / 180D) * verDir * length),
+					base + (int)((1f - verDir) * length),
+					(int)(Math.sin(horDir * Math.PI / 180D) * verDir * length));
         	
         	for(int m = 0; m < 1; m++)
         	{
-            	generateLeaves(world, rand, eX, eY, eZ, 4f, 1.2f);
+            	generateLeaves(world, rand, eBlockPos, 4f, 1.2f);
         	}
     	}
 		
@@ -99,7 +100,7 @@ public class WorldGenTreeRTGMangrove extends WorldGenerator
 	 * horDir = number between -180D and 180D
 	 * verDir = number between 1F (horizontal) and 0F (vertical)
 	 */
-	public void generateBranch(World world, Random rand, float x, float y, float z, double horDir, float verDir, float length, float speed)
+	public void generateBranch(World world, Random rand, BlockPos blockPos, double horDir, float verDir, float length, float speed)
 	{
 		if(verDir < 0f)
 		{
@@ -119,17 +120,15 @@ public class WorldGenTreeRTGMangrove extends WorldGenerator
 		
 		while(c < length)
 		{
-			world.setBlock((int)x, (int)y, (int)z, blockLog, metadataLog, 2);
+			world.setBlockState(blockPos, blockLog.getStateFromMeta(metadataLog), 2);
 			
-			x += velX;
-			y += velY;
-			z += velZ;
+			blockPos = blockPos.add(velX,velY,velZ);
 			
 			c += speed;
 		}
 	}
 	
-	public void generateLeaves(World world, Random rand, int x, int y, int z, float size, float width)
+	public void generateLeaves(World world, Random rand, BlockPos blockPos, float size, float width)
 	{
 		float dist;
 		int i, j, k, s = (int)(size - 1f), w = (int)((size - 1f) * width);
@@ -144,11 +143,11 @@ public class WorldGenTreeRTGMangrove extends WorldGenerator
 					{
 						if(dist < 0.6f)
 						{
-							world.setBlock(x + i, y + j, z + k, blockLog, metadataLog, 2);
+							world.setBlockState(blockPos.add(i,j,k), blockLog.getStateFromMeta(metadataLog), 2);
 						}
-						if(world.isAirBlock(x + i, y + j, z + k))
+						if(world.isAirBlock(blockPos.add(i,j,k)))
 						{
-							world.setBlock(x + i, y + j, z + k, blockLeaves, metadataLeaves, 2);
+							world.setBlockState(blockPos.add(i,j,k), blockLeaves.getStateFromMeta(metadataLeaves), 2);
 						}
 					}
 				}

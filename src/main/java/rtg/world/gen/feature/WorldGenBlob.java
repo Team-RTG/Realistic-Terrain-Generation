@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -45,7 +46,7 @@ public class WorldGenBlob extends WorldGenerator
         this.blobMeta = m;
     }
 
-    public void generate(World world, Random rand, int x, int y, int z, boolean honourConfig)
+    public void generate(World world, Random rand, BlockPos blockPos, boolean honourConfig)
     {
         if (honourConfig) {
             booShouldGenerate = true;
@@ -60,10 +61,10 @@ public class WorldGenBlob extends WorldGenerator
             }
         }
         
-        generate(world, rand, x, y, z);
+        generate(world, rand, blockPos);
     }
     
-    public boolean generate(World world, Random rand, int x, int y, int z)
+    public boolean generate(World world, Random rand, BlockPos blockPos)
     {
         if (!booShouldGenerate) {
             return false;
@@ -71,13 +72,13 @@ public class WorldGenBlob extends WorldGenerator
 
         while (true)
         {
-            if (y > 3)
+            if (blockPos.getY() > 3)
             {
                 label63:
                 {
-                    if (!world.isAirBlock(x, y - 1, z))
+                    if (!world.isAirBlock(blockPos.down()))
                     {
-                        Block block = world.getBlock(x, y - 1, z);
+                        Block block = world.getBlockState(blockPos.down()).getBlock();
 
                         if (block == Blocks.grass || block == Blocks.dirt || block == Blocks.stone || block == Blocks.gravel || block == Blocks.sand)
                         {
@@ -85,12 +86,12 @@ public class WorldGenBlob extends WorldGenerator
                         }
                     }
 
-                    --y;
+                    blockPos = blockPos.down();
                     continue;
                 }
             }
 
-            if (y <= 3)
+            if (blockPos.getY() <= 3)
             {
                 return false;
             }
@@ -104,27 +105,28 @@ public class WorldGenBlob extends WorldGenerator
                 int k1 = k2 + rand.nextInt(2);
                 float f = (float)(i1 + j1 + k1) * 0.333F + 0.5F;
 
-                for (int l1 = x - i1; l1 <= x + i1; ++l1)
+                for (int l1 = blockPos.getX() - i1; l1 <= blockPos.getX() + i1; ++l1)
                 {
-                    for (int i2 = z - k1; i2 <= z + k1; ++i2)
+                    for (int i2 = blockPos.getZ() - k1; i2 <= blockPos.getZ() + k1; ++i2)
                     {
-                        for (int j2 = y - j1; j2 <= y + j1; ++j2)
+                        for (int j2 = blockPos.getY() - j1; j2 <= blockPos.getY() + j1; ++j2)
                         {
-                            float f1 = (float)(l1 - x);
-                            float f2 = (float)(i2 - z);
-                            float f3 = (float)(j2 - y);
+                            float f1 = (float)(l1 - blockPos.getX());
+                            float f2 = (float)(i2 - blockPos.getZ());
+                            float f3 = (float)(j2 - blockPos.getY());
 
                             if (f1 * f1 + f2 * f2 + f3 * f3 <= f * f)
                             {
-                                world.setBlock(l1, j2, i2, this.blobBlock, this.blobMeta, 2);
+                                world.setBlockState(new BlockPos(l1, j2, i2), this.blobBlock.getStateFromMeta(this.blobMeta), 2);
                             }
                         }
                     }
                 }
 
-                x += -(k2 + 1) + rand.nextInt(2 + k2 * 2);
-                z += -(k2 + 1) + rand.nextInt(2 + k2 * 2);
-                y += 0 - rand.nextInt(2);
+                int x = -(k2 + 1) + rand.nextInt(2 + k2 * 2);
+                int z = -(k2 + 1) + rand.nextInt(2 + k2 * 2);
+                int y = 0 - rand.nextInt(2);
+                blockPos = blockPos.add(x,y,z);
             }
 
             return true;

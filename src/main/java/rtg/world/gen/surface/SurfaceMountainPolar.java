@@ -2,10 +2,9 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
-import rtg.api.biome.BiomeConfig;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -16,16 +15,16 @@ public class SurfaceMountainPolar extends SurfaceBase
 	private Block beachBlock;
 	private float min;
 	
-	public SurfaceMountainPolar(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
+	public SurfaceMountainPolar(Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{
-	    super(config, top, (byte)0, fill, (byte)0);
+		super(top, fill);
 		beach = genBeach;
 		beachBlock = genBeachBlock;
 		min = minCliff;
 	}
 
 	@Override
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	public void paintTerrain(ChunkPrimer primer, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		
 	}

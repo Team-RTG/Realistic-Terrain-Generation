@@ -2,8 +2,10 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHillsPlus;
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenFlowers;
@@ -26,17 +28,19 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanillaBase
 {
     
-    public static Block topBlock = BiomeGenBase.extremeHillsPlus.topBlock;
-    public static Block fillerBlock = BiomeGenBase.extremeHillsPlus.fillerBlock;
+    public static Block topBlock = BiomeGenBase.extremeHillsPlus.topBlock.getBlock();
+    public static Block fillerBlock = BiomeGenBase.extremeHillsPlus.fillerBlock.getBlock();
     
     public RealisticBiomeVanillaExtremeHillsPlus(BiomeConfig config)
     {
     
-        super(config, 
+        super(
             BiomeGenBase.extremeHillsPlus,
             BiomeGenBase.river,
             new TerrainVanillaExtremeHillsPlus(230f, 120f, 0f),
-            new SurfaceVanillaExtremeHillsPlus(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f));
+            new SurfaceVanillaExtremeHillsPlus(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f));
+        
+        this.config = config;
         this.generatesEmeralds = true;
     }
     
@@ -53,11 +57,11 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
         {
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
+            int k1 = world.getChunkFromBlockCoords(new BlockPos(i1, 1, j1)).getHeightValue(i1,j1);
             
             if (k1 < 80)
             {
-                (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
+                (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
             }
         }
         
@@ -69,8 +73,8 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
-                (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
+                int y22 = world.getChunkFromBlockCoords(new BlockPos(x22, 1, z22)).getHeightValue(x22,z22);
+                (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, new BlockPos(x22, y22, z22));
             }
         }
         
@@ -82,13 +86,13 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
                 {
                     int j6 = chunkX + rand.nextInt(16) + 8;
                     int k10 = chunkY + rand.nextInt(16) + 8;
-                    int z52 = world.getHeightValue(j6, k10);
+                    int z52 = world.getChunkFromBlockCoords(new BlockPos(j6, 1, k10)).getHeightValue(j6,k10);
                     
                     if (z52 < 100f || (z52 < 120f && rand.nextInt(10) == 0))
                     {
-                        WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreeRTGPineEuro();
-                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                        worldgenerator.generate(world, rand, j6, z52, k10);
+                        WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(Blocks.log.getDefaultState(), Blocks.leaves.getDefaultState()) : new WorldGenTreeRTGPineEuro();
+
+                        worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
                     }
                 }
             }
@@ -97,7 +101,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
             {
                 int i18 = chunkX + rand.nextInt(16) + 8;
                 int i23 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenReed()).generate(world, rand, i18, 60 + rand.nextInt(8), i23);
+                (new WorldGenReed()).generate(world, rand, new BlockPos(i18, 60 + rand.nextInt(8), i23));
             }
             
             if (rand.nextInt(28) == 0)
@@ -105,7 +109,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
                 int j16 = chunkX + rand.nextInt(16) + 8;
                 int j18 = rand.nextInt(128);
                 int j21 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenPumpkin()).generate(world, rand, j16, j18, j21);
+                (new WorldGenPumpkin()).generate(world, rand, new BlockPos(j16, j18, j21));
             }
             
             for (int f23 = 0; f23 < 3; f23++)
@@ -113,7 +117,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
                 int j15 = chunkX + rand.nextInt(16) + 8;
                 int j17 = rand.nextInt(128);
                 int j20 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenFlowers(new int[] {9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11})).generate(world, rand, j15, j17, j20);
+                (new WorldGenFlowers(new int[] {9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11})).generate(world, rand, new BlockPos(j15, j17, j20));
             }
             
             for (int l14 = 0; l14 < 15; l14++)
@@ -124,11 +128,11 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
                 
                 if (rand.nextInt(3) == 0)
                 {
-                    (new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, l19, k22, j24);
+                    (new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, new BlockPos(l19, k22, j24));
                 }
                 else
                 {
-                    (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
+                    (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, new BlockPos(l19, k22, j24));
                 }
             }
         }
@@ -139,13 +143,13 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
             {
                 int j6 = chunkX + rand.nextInt(16) + 8;
                 int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeightValue(j6, k10);
+                int z52 = world.getChunkFromBlockCoords(new BlockPos(j6, 1, k10)).getHeightValue(j6,k10);
                 
                 if (z52 < 100f || (z52 < 120f && rand.nextInt(10) == 0))
                 {
-                    WorldGenerator worldgenerator = rand.nextInt(14) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreeRTGPineEuro();
-                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                    worldgenerator.generate(world, rand, j6, z52, k10);
+                    WorldGenerator worldgenerator = rand.nextInt(14) != 0 ? new WorldGenShrub(Blocks.log.getDefaultState(), Blocks.leaves.getDefaultState()) : new WorldGenTreeRTGPineEuro();
+
+                    worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
                 }
             }
             
@@ -153,7 +157,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
             {
                 int i18 = chunkX + rand.nextInt(16) + 8;
                 int i23 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenReed()).generate(world, rand, i18, 60 + rand.nextInt(8), i23);
+                (new WorldGenReed()).generate(world, rand, new BlockPos(i18, 60 + rand.nextInt(8), i23));
             }
             
             if (rand.nextInt(28) == 0)
@@ -161,7 +165,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
                 int j16 = chunkX + rand.nextInt(16) + 8;
                 int j18 = rand.nextInt(128);
                 int j21 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenPumpkin()).generate(world, rand, j16, j18, j21);
+                (new WorldGenPumpkin()).generate(world, rand, new BlockPos(j16, j18, j21));
             }
             
             for (int f23 = 0; f23 < 3; f23++)
@@ -169,7 +173,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
                 int j15 = chunkX + rand.nextInt(16) + 8;
                 int j17 = rand.nextInt(128);
                 int j20 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenFlowers(new int[] {9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11})).generate(world, rand, j15, j17, j20);
+                (new WorldGenFlowers(new int[] {9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11})).generate(world, rand, new BlockPos(j15, j17, j20));
             }
             
             for (int l14 = 0; l14 < 15; l14++)
@@ -180,11 +184,11 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
                 
                 if (rand.nextInt(3) == 0)
                 {
-                    (new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, l19, k22, j24);
+                    (new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, new BlockPos(l19, k22, j24));
                 }
                 else
                 {
-                    (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
+                    (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, new BlockPos(l19, k22, j24));
                 }
             }
         }

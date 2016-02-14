@@ -3,7 +3,10 @@ package rtg.world.gen.feature;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -18,28 +21,28 @@ public class WorldGenGrass extends WorldGenerator
 		metadata = m;
     }
 
-    public boolean generate(World world, Random rand, int x, int y, int z)
+    public boolean generate(World world, Random rand, BlockPos blockPos)
     {
-    	while(y > 0)
+    	while(blockPos.getY() > 0)
     	{
-    		if(!world.isAirBlock(x, y, z) || world.getBlock(x, y, z).isLeaves(world, x, y, z))
+    		if(!world.isAirBlock(blockPos) || world.getBlockState(blockPos).getBlock().isLeaves(world, blockPos))
     		{
     			break;
     		}
-    		y--;
+    		blockPos = blockPos.down();
     	}
     	
     	if(block == Blocks.double_plant)
     	{
             for (int l = 0; l < 64; ++l)
             {
-                int i1 = x + rand.nextInt(8) - rand.nextInt(8);
-                int j1 = y + rand.nextInt(4) - rand.nextInt(4);
-                int k1 = z + rand.nextInt(8) - rand.nextInt(8);
+                int i1 = blockPos.getX() + rand.nextInt(8) - rand.nextInt(8);
+                int j1 = blockPos.getY() + rand.nextInt(4) - rand.nextInt(4);
+                int k1 = blockPos.getZ() + rand.nextInt(8) - rand.nextInt(8);
 
-                if (world.isAirBlock(i1, j1, k1) && j1 < 254 && Blocks.double_plant.canPlaceBlockAt(world, i1, j1, k1))
+                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && j1 < 254 && Blocks.double_plant.canPlaceBlockAt(world, new BlockPos(i1, j1, k1)))
                 {
-                    Blocks.double_plant.func_149889_c(world, i1, j1, k1, metadata, 0);
+                    Blocks.double_plant.placeAt(world, new BlockPos(i1, j1, k1), BlockDoublePlant.EnumPlantType.byMetadata(metadata), 0);
                 }
             }
     	}
@@ -47,13 +50,13 @@ public class WorldGenGrass extends WorldGenerator
     	{
             for (int l = 0; l < 64; ++l)
             {
-                int i1 = x + rand.nextInt(8) - rand.nextInt(8);
-                int j1 = y + rand.nextInt(4) - rand.nextInt(4);
-                int k1 = z + rand.nextInt(8) - rand.nextInt(8);
+                int i1 = blockPos.getX() + rand.nextInt(8) - rand.nextInt(8);
+                int j1 = blockPos.getY() + rand.nextInt(4) - rand.nextInt(4);
+                int k1 = blockPos.getZ() + rand.nextInt(8) - rand.nextInt(8);
 
-                if (world.isAirBlock(i1, j1, k1) && world.getBlock(i1, j1 - 1, k1) == Blocks.grass)
+                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && world.getBlockState(new BlockPos(i1, j1 - 1, k1)).getBlock() == Blocks.grass)
                 {
-                    world.setBlock(i1, j1, k1, block, metadata, 0);
+                    world.setBlockState(new BlockPos(i1, j1, k1), block.getStateFromMeta(metadata), 0);
                 }
             }
     	}
@@ -61,13 +64,14 @@ public class WorldGenGrass extends WorldGenerator
     	{
             for (int l = 0; l < 128; ++l)
             {
-                int i1 = x + rand.nextInt(8) - rand.nextInt(8);
-                int j1 = y + rand.nextInt(4) - rand.nextInt(4);
-                int k1 = z + rand.nextInt(8) - rand.nextInt(8);
+                int i1 = blockPos.getX() + rand.nextInt(8) - rand.nextInt(8);
+                int j1 = blockPos.getY() + rand.nextInt(4) - rand.nextInt(4);
+                int k1 = blockPos.getZ() + rand.nextInt(8) - rand.nextInt(8);
 
-                if (world.isAirBlock(i1, j1, k1) && block.canBlockStay(world, i1, j1, k1))
+                // TODO: less hacky way to test if the plant can stay.
+                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && world.getBlockState(new BlockPos(i1, j1 - 1, k1)).getBlock().canSustainPlant(world, new BlockPos(i1,j1,k1), EnumFacing.UP, Blocks.tallgrass ))
                 {
-                    world.setBlock(i1, j1, k1, block, metadata, 0);
+                    world.setBlockState(new BlockPos(i1, j1, k1), block.getStateFromMeta(metadata), 0);
                 }
             }
     	}

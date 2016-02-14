@@ -76,37 +76,33 @@ public class SurfaceBOPCanyonRavine extends SurfaceBase
 	        			}
 	        			else if(k > 74 + grassRaise)
 	        			{
-	        				if(rand.nextInt(5) == 0)
+	        				if(depth == 0)
 	        				{
-		        				blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+		        				blocks[(y * 16 + x) * 256 + k] = topBlock;
+		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
 	        				}
 	        				else
 	        				{
-		        				if(depth == 0)
-		        				{
-			        				blocks[(y * 16 + x) * 256 + k] = topBlock;
-			        				metadata[(y * 16 + x) * 256 + k] = blockByte;
-		        				}
-		        				else
-		        				{
-			        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-			        				metadata[(y * 16 + x) * 256 + k] = blockByte;
-		        				}
+		        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
 	        				}
 	        			}
 	        			else if(k < 62)
 	        			{
-	        				blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            metadata[(y * 16 + x) * 256 + k] = blockByte;
 	        			}
 	        			else if(k < 62 + grassRaise)
 	        			{
 	        				if(depth == 0)
 	        				{
-	        					blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
+                                blocks[(y * 16 + x) * 256 + k] = topBlock;
+                                metadata[(y * 16 + x) * 256 + k] = blockByte;
 	        				}
 	        				else
 	        				{
-	        					blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+	                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	                            metadata[(y * 16 + x) * 256 + k] = blockByte;
 	        				}
 	        			}
 	        			else if(k < 75 + grassRaise)
@@ -116,11 +112,13 @@ public class SurfaceBOPCanyonRavine extends SurfaceBase
 		        				int r = (int)((k - (62 + grassRaise)) / 2f);
 		        				if(rand.nextInt(r + 1) == 0)
 		        				{
-			        				blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
+	                                blocks[(y * 16 + x) * 256 + k] = topBlock;
+	                                metadata[(y * 16 + x) * 256 + k] = blockByte;
 		        				}
 		        				else if(rand.nextInt((int)(r / 2f) + 1) == 0)
 		        				{
-			        				blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+		                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+		                            metadata[(y * 16 + x) * 256 + k] = blockByte;
 		        				}
 		        				else
 		        				{

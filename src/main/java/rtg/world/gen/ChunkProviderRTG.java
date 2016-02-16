@@ -251,7 +251,19 @@ public class ChunkProviderRTG implements IChunkProvider
             }
             
             if (ConfigRTG.generateVillages) {
-                villageGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+                
+                if (ConfigRTG.villageCrashFix) {
+                    
+                    try {
+                        villageGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+                    }
+                    catch (Exception e) {
+                        // Do nothing.
+                    }
+                }
+                else {
+                    villageGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+                }
             }
             
             if (ConfigRTG.generateScatteredFeatures) {
@@ -658,7 +670,20 @@ public class ChunkProviderRTG implements IChunkProvider
             }
             
             if (ConfigRTG.generateVillages) {
-                flag = villageGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+                
+                if (ConfigRTG.villageCrashFix) {
+                    
+                    try {
+                        flag = villageGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+                    }
+                    catch (Exception e) {
+                        flag = false;
+                    }
+                }
+                else {
+                    
+                    flag = villageGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+                }
             }
             
             if (ConfigRTG.generateScatteredFeatures) {
@@ -907,7 +932,20 @@ public class ChunkProviderRTG implements IChunkProvider
             }
             
             if (ConfigRTG.generateVillages) {
-                villageGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+                
+                if (ConfigRTG.villageCrashFix) {
+                    
+                    try {
+                        villageGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+                    }
+                    catch (Exception e) {
+                        // Do nothing.
+                    }
+                    
+                }
+                else {
+                    villageGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+                }
             }
             
             if (ConfigRTG.generateScatteredFeatures) {

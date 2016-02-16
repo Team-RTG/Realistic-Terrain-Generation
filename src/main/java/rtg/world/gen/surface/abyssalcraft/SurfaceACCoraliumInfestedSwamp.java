@@ -2,6 +2,7 @@ package rtg.world.gen.surface.abyssalcraft;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -15,9 +16,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceACCoraliumInfestedSwamp extends SurfaceBase
 {
 
-	public SurfaceACCoraliumInfestedSwamp(Block top, Block filler)
+	public SurfaceACCoraliumInfestedSwamp(BiomeConfig config, Block top, Block filler)
 	{
-		super(top, filler);
+		super(config, top, (byte)0, filler, (byte)0);
 	}
 	
 	@Override
@@ -63,10 +64,12 @@ public class SurfaceACCoraliumInfestedSwamp extends SurfaceBase
 	        		if(depth == 0 && k > 61)
 	        		{
 	        			blocks[(y * 16 + x) * 256 + k] = topBlock;
+	        		    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 	        		}
 	        		else if(depth < 4)
 	        		{
 	        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	        		    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        		}
             	}
             }

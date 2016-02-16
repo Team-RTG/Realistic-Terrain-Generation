@@ -2,6 +2,7 @@ package rtg.world.gen.surface.abyssalcraft;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -15,10 +16,40 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceACDarklandsMountains extends SurfaceBase
 {
     
-    public SurfaceACDarklandsMountains(Block top, Block fill)
+    private boolean beach;
+    private Block beachBlock;
+    private float min;
+    
+    private float sCliff = 1.5f;
+    private float sHeight = 60f;
+    private float sStrength = 65f;
+    private float iCliff = 0.3f;
+    private float iHeight = 100f;
+    private float iStrength = 50f;
+    private float cCliff = 1.5f;
+    
+    public SurfaceACDarklandsMountains(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff)
     {
     
-        super(top, fill);
+        super(config, top, (byte)0, fill, (byte)0);
+        beach = genBeach;
+        beachBlock = genBeachBlock;
+        min = minCliff;
+    }
+    
+    public SurfaceACDarklandsMountains(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
+        float stoneHeight, float stoneStrength, float snowCliff, float snowHeight, float snowStrength, float clayCliff)
+    {
+    
+        this(config, top, fill, genBeach, genBeachBlock, minCliff);
+        
+        sCliff = stoneCliff;
+        sHeight = stoneHeight;
+        sStrength = stoneStrength;
+        iCliff = snowCliff;
+        iHeight = snowHeight;
+        iStrength = snowStrength;
+        cCliff = clayCliff;
     }
     
     @Override
@@ -26,7 +57,6 @@ public class SurfaceACDarklandsMountains extends SurfaceBase
         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
     
-        float p = simplex.noise2(i / 8f, j / 8f) * 0.5f;
         float c = CliffCalculator.calc(x, y, noise);
         int cliff = 0;
         boolean gravel = false;
@@ -47,18 +77,22 @@ public class SurfaceACDarklandsMountains extends SurfaceBase
                 {
                     if (k < 63)
                     {
-                        gravel = true;
+                        if (beach)
+                        {
+                            gravel = true;
+                        }
                     }
                     
-                    if (c > 0.45f && c > 1.5f - ((k - 60f) / 65f) + p)
+                    float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+                    if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p)
                     {
                         cliff = 1;
                     }
-                    if (c > 1.5f)
+                    if (c > cCliff)
                     {
                         cliff = 2;
                     }
-                    if (k > 110 + (p * 4) && c < 0.3f + ((k - 100f) / 50f) + p)
+                    if (k > 110 + (p * 4) && c < iCliff + ((k - iHeight) / iStrength) + p)
                     {
                         cliff = 3;
                     }
@@ -85,15 +119,23 @@ public class SurfaceACDarklandsMountains extends SurfaceBase
                     {
                         blocks[(y * 16 + x) * 256 + k] = Blocks.snow;
                     }
-                    else if (simplex.noise2(i / 50f, j / 50f) + p * 0.6f > 0.24f)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
-                        metadata[(y * 16 + x) * 256 + k] = 2;
-                    }
                     else if (k < 63)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = Blocks.gravel;
-                        gravel = true;
+                        if (beach)
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = beachBlock;
+                            gravel = true;
+                        }
+                        else if (k < 62)
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+                        }
+                        else
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = topBlock;
+                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+                        }
                     }
                     else
                     {

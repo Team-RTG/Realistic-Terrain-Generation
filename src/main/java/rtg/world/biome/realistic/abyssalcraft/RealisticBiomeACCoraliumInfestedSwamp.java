@@ -12,12 +12,10 @@ public class RealisticBiomeACCoraliumInfestedSwamp extends RealisticBiomeACBase
     public RealisticBiomeACCoraliumInfestedSwamp(BiomeGenBase acBiome, BiomeConfig config)
     {
     
-        super(
+        super(config, 
             acBiome,
             BiomeGenBase.river,
             new TerrainACCoraliumInfestedSwamp(),
-            new SurfaceACCoraliumInfestedSwamp(acBiome.topBlock, acBiome.fillerBlock));
-        
-        this.config = config;
+            new SurfaceACCoraliumInfestedSwamp(config, acBiome.topBlock, acBiome.fillerBlock));
     }
 }

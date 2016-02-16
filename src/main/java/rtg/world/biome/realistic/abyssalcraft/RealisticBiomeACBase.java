@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.abyssalcraft;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.abyssalcraft.config.BiomeConfigAC;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
@@ -18,9 +19,9 @@ public class RealisticBiomeACBase extends RealisticBiomeBase
     public static RealisticBiomeBase acDarklandsMountains;
     public static RealisticBiomeBase acDarklandsPlains;
 
-    public RealisticBiomeACBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
+    public RealisticBiomeACBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
     {
-        super(b, riverbiome, t, s);
+        super(config, b, riverbiome, t, s);
         
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;

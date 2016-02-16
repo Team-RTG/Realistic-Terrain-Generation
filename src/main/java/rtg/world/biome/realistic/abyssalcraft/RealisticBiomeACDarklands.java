@@ -12,12 +12,10 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase
     public RealisticBiomeACDarklands(BiomeGenBase acBiome, BiomeConfig config)
     {
     
-        super(
+        super(config, 
             acBiome,
             BiomeGenBase.river,
             new TerrainACDarklands(),
-            new SurfaceACDarklands(acBiome.topBlock, acBiome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, acBiome.fillerBlock, (byte)0, 0.15f));
-        
-        this.config = config;
+            new SurfaceACDarklands(config, acBiome.topBlock, acBiome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, acBiome.topBlock, (byte)0, 0.15f));
     }
 }

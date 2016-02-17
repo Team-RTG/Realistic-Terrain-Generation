@@ -878,25 +878,24 @@ public class ChunkProviderRTG implements IChunkProvider
      */
     public void recreateStructures(Chunk chunk, int par1, int par2)
     {
-		provideChunk(par1, par2);
-//        if (mapFeaturesEnabled) {
-//
-//            if (ConfigRTG.generateMineshafts) {
-//                mineshaftGenerator.generate(this, worldObj, par1, par2, null);
-//            }
-//
-//            if (ConfigRTG.generateStrongholds) {
-//                strongholdGenerator.generate(this, worldObj, par1, par2, null);
-//            }
-//
-//            if (ConfigRTG.generateVillages) {
-//                villageGenerator.generate(this, this.worldObj, par1, par2, null);
-//            }
-//
-//            if (ConfigRTG.generateScatteredFeatures) {
-//                scatteredFeatureGenerator.generate(this, this.worldObj, par1, par2, null);
-//            }
-//        }
+        if (mapFeaturesEnabled) {
+
+            if (ConfigRTG.generateMineshafts) {
+                mineshaftGenerator.generate(this, worldObj, par1, par2, null);
+            }
+
+            if (ConfigRTG.generateStrongholds) {
+                strongholdGenerator.generate(this, worldObj, par1, par2, null);
+            }
+
+            if (ConfigRTG.generateVillages) {
+                villageGenerator.generate(this, this.worldObj, par1, par2, null);
+            }
+
+            if (ConfigRTG.generateScatteredFeatures) {
+                scatteredFeatureGenerator.generate(this, this.worldObj, par1, par2, null);
+            }
+        }
 	}
 
     /**

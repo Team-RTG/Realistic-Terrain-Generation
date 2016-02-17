@@ -26,7 +26,7 @@ public class WorldTypeRTG extends WorldType
     public WorldChunkManager getChunkManager(World world)
     {
         if (world.provider.getDimensionId() == 0) {
-        return new WorldChunkManagerRTG(world,this);
+            return new WorldChunkManagerRTG(world,this);
         } else {
             return new WorldChunkManager(world);
         }
@@ -47,4 +47,7 @@ public class WorldTypeRTG extends WorldType
     {
         return 256F;
     }
+
+    @Override
+    public boolean isCustomizable() { return true; }
 }

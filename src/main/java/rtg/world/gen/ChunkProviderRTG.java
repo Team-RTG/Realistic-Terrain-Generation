@@ -165,7 +165,7 @@ public class ChunkProviderRTG implements IChunkProvider
     }
 
 	public Chunk provideChunk( BlockPos blockPos ) {
-		return this.provideChunk((int)(blockPos.getX() / 16), (int)(blockPos.getZ() / 16));
+		return this.provideChunk((blockPos.getX() / 16), (blockPos.getZ() / 16));
 	}
     /**
      * @see IChunkProvider
@@ -176,14 +176,13 @@ public class ChunkProviderRTG implements IChunkProvider
     public Chunk provideChunk(int cx, int cy)
     {
     	rand.setSeed((long)cx * 0x4f9939f508L + (long)cy * 0x1ef1565bd5L);
-        Block[] blocks = new Block[65536];
 		ChunkPrimer chunkPrimer = new ChunkPrimer();
         byte[] metadata = new byte[65536];
         float[] noise = new float[256];
         biomesForGeneration = new RealisticBiomeBase[256];
         int k;
 
-        generateTerrain(cmr, cx, cy, blocks, metadata, biomesForGeneration, noise);
+        generateTerrain(cmr, cx, cy, chunkPrimer, biomesForGeneration, noise);
         // that routine can change the biome array so put it back if not
 
                 //fill with biomeData
@@ -222,7 +221,7 @@ public class ChunkProviderRTG implements IChunkProvider
         {
         	if(biomesGeneratedInChunk[k] > 0f)
         	{
-        		RealisticBiomeBase.getBiome(k).generateMapGen(blocks, metadata, worldSeed, worldObj, cmr, mapRand, cx, cy, simplex, cell, noise);
+        		RealisticBiomeBase.getBiome(k).generateMapGen(chunkPrimer, metadata, worldSeed, worldObj, cmr, mapRand, cx, cy, simplex, cell, noise);
         		biomesGeneratedInChunk[k] = 0f;
         	}
             try {
@@ -278,7 +277,7 @@ public class ChunkProviderRTG implements IChunkProvider
         return chunk;
     }
 
-    public void generateTerrain(RTGBiomeProvider cmr, int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase biomes[], float[] n)
+    public void generateTerrain(RTGBiomeProvider cmr, int cx, int cy, ChunkPrimer primer, RealisticBiomeBase biomes[], float[] n)
     {
     	int p, h;
     	float[] noise = getNewNoise(cmr, cx * 16, cy * 16, biomes);
@@ -295,16 +294,16 @@ public class ChunkProviderRTG implements IChunkProvider
     				{
     					if(k < 63)
         				{
-        					blocks[p] = Blocks.water;
+        					primer.setBlockState(p, Blocks.water.getDefaultState());
         				}
         				else
         				{
-        					blocks[p] = Blocks.air;
+							primer.setBlockState(p, Blocks.air.getDefaultState());
         				}
     				}
     				else
     				{
-    					blocks[p] = Blocks.stone;
+						primer.setBlockState(p, Blocks.stone.getDefaultState());
     				}
     			}
     			n[j * 16 + i] = noise[j * 16 + i];
@@ -879,25 +878,25 @@ public class ChunkProviderRTG implements IChunkProvider
      */
     public void recreateStructures(Chunk chunk, int par1, int par2)
     {
-
-        if (mapFeaturesEnabled) {
-            
-            if (ConfigRTG.generateMineshafts) {
-                mineshaftGenerator.generate(this, worldObj, par1, par2, null);
-            }
-            
-            if (ConfigRTG.generateStrongholds) {
-                strongholdGenerator.generate(this, worldObj, par1, par2, null);
-            }
-            
-            if (ConfigRTG.generateVillages) {
-                villageGenerator.generate(this, this.worldObj, par1, par2, null);
-            }
-            
-            if (ConfigRTG.generateScatteredFeatures) {
-                scatteredFeatureGenerator.generate(this, this.worldObj, par1, par2, null);
-            }
-        }
+		provideChunk(par1, par2);
+//        if (mapFeaturesEnabled) {
+//
+//            if (ConfigRTG.generateMineshafts) {
+//                mineshaftGenerator.generate(this, worldObj, par1, par2, null);
+//            }
+//
+//            if (ConfigRTG.generateStrongholds) {
+//                strongholdGenerator.generate(this, worldObj, par1, par2, null);
+//            }
+//
+//            if (ConfigRTG.generateVillages) {
+//                villageGenerator.generate(this, this.worldObj, par1, par2, null);
+//            }
+//
+//            if (ConfigRTG.generateScatteredFeatures) {
+//                scatteredFeatureGenerator.generate(this, this.worldObj, par1, par2, null);
+//            }
+//        }
 	}
 
     /**

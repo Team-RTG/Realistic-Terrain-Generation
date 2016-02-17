@@ -99,7 +99,7 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
     }
     
     @Override
-    public void rMapGen(Block[] blocks, byte[] metadata, World world, RTGBiomeProvider cmr, Random mapRand, int baseX, int baseY,
+    public void rMapGen(ChunkPrimer primer, byte[] metadata, World world, RTGBiomeProvider cmr, Random mapRand, int baseX, int baseY,
         int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[])
     {
     
@@ -112,7 +112,7 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
                 long j1 = mapRand.nextLong() / 2L * 2L + 1L;
                 mapRand.setSeed((long) chunkX * i1 + (long) chunkY * j1 ^ world.getSeed());
                 
-                WorldGenVolcano.build(blocks, metadata, world, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
+                WorldGenVolcano.build(primer, metadata, world, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
             }
         }
     }

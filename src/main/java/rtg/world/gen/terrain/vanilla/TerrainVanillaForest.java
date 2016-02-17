@@ -9,7 +9,7 @@ public class TerrainVanillaForest extends TerrainBase
     
     public TerrainVanillaForest()
     {
-    
+        super();
     }
     
     @Override

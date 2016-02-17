@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -22,15 +23,15 @@ public class WorldGenClay extends WorldGenerator
         numberOfBlocks = amount;
     }
 
-    public boolean generate(World p_76484_1_, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_)
+    public boolean generate(World p_76484_1_, Random p_76484_2_, BlockPos blockPos)
     {
         float f = p_76484_2_.nextFloat() * (float)Math.PI;
-        double d0 = (double)((float)(p_76484_3_ + 8) + MathHelper.sin(f) * (float)this.numberOfBlocks / 8.0F);
-        double d1 = (double)((float)(p_76484_3_ + 8) - MathHelper.sin(f) * (float)this.numberOfBlocks / 8.0F);
-        double d2 = (double)((float)(p_76484_5_ + 8) + MathHelper.cos(f) * (float)this.numberOfBlocks / 8.0F);
-        double d3 = (double)((float)(p_76484_5_ + 8) - MathHelper.cos(f) * (float)this.numberOfBlocks / 8.0F);
-        double d4 = (double)(p_76484_4_ + p_76484_2_.nextInt(3) - 2);
-        double d5 = (double)(p_76484_4_ + p_76484_2_.nextInt(3) - 2);
+        double d0 = (double)((float)(blockPos.getX() + 8) + MathHelper.sin(f) * (float)this.numberOfBlocks / 8.0F);
+        double d1 = (double)((float)(blockPos.getX() + 8) - MathHelper.sin(f) * (float)this.numberOfBlocks / 8.0F);
+        double d2 = (double)((float)(blockPos.getZ() + 8) + MathHelper.cos(f) * (float)this.numberOfBlocks / 8.0F);
+        double d3 = (double)((float)(blockPos.getZ() + 8) - MathHelper.cos(f) * (float)this.numberOfBlocks / 8.0F);
+        double d4 = (double)(blockPos.getY() + p_76484_2_.nextInt(3) - 2);
+        double d5 = (double)(blockPos.getY() + p_76484_2_.nextInt(3) - 2);
         Block b;
         
         for (int l = 0; l <= this.numberOfBlocks; ++l)
@@ -63,11 +64,11 @@ public class WorldGenClay extends WorldGenerator
                             for (int i3 = k1; i3 <= j2; ++i3)
                             {
                                 double d14 = ((double)i3 + 0.5D - d8) / (d10 / 2.0D);
-                                b = p_76484_1_.getBlock(k2, l2, i3);
+                                b = p_76484_1_.getBlockState(new BlockPos(k2, l2, i3)).getBlock();
                                 
                                 if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && (b == Blocks.grass || b == Blocks.dirt || b == Blocks.sand || b == Blocks.gravel))
                                 {
-                                    p_76484_1_.setBlock(k2, l2, i3, this.field_150519_a, mineableBlockMeta, 2);
+                                    p_76484_1_.setBlockState(new BlockPos(k2, l2, i3), this.field_150519_a.getStateFromMeta(mineableBlockMeta), 2);
                                 }
                             }
                         }

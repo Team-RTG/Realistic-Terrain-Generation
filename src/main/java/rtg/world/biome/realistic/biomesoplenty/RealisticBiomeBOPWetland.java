@@ -18,10 +18,12 @@ public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPWetland(BiomeConfig config)
 	{
-		super(config, 
+		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPWetland(),
-			new SurfaceBOPWetland(config, topBlock, fillerBlock)
+			new SurfaceBOPWetland(topBlock, fillerBlock)
 		);
+		
+		this.config = config;
 	}
 }

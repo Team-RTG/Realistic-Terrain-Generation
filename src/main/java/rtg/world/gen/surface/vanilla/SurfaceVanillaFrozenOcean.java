@@ -2,8 +2,7 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaFrozenOcean;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
@@ -17,32 +16,30 @@ public class SurfaceVanillaFrozenOcean extends SurfaceBase
 {
     
     private Block mixBlock;
-    private byte mixBlockMeta;
     private float width;
     private float height;
     private float mixCheck;
     private final int sandMetadata = 0;
     
-    public SurfaceVanillaFrozenOcean(BiomeConfig config, Block top, Block filler, Block mix, float mixWidth, float mixHeight)
+    public SurfaceVanillaFrozenOcean(Block top, Block filler, Block mix, float mixWidth, float mixHeight)
     {
     
-        super(config, top, (byte)0, filler, (byte)0);
+        super(top, filler);
         
-        mixBlock = this.getConfigBlock(config, BiomeConfigVanillaFrozenOcean.surfaceMixBlockId, mix);
-        mixBlockMeta = this.getConfigBlockMeta(config, BiomeConfigVanillaFrozenOcean.surfaceMixBlockMetaId, (byte)0);
+        mixBlock = mix;
         
         width = mixWidth;
         height = mixHeight;
     }
     
     @Override
-    public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
-        OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+    public void paintTerrain(ChunkPrimer primer, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
+                             OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
     
         for (int k = 255; k > -1; k--)
         {
-            Block b = blocks[(y * 16 + x) * 256 + k];
+            Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
             if (b == Blocks.air)
             {
                 depth = -1;
@@ -57,23 +54,20 @@ public class SurfaceVanillaFrozenOcean extends SurfaceBase
                     
                     if (mixCheck > height) // > 0.27f, i / 12f
                     {
-                        blocks[(y * 16 + x) * 256 + k] = mixBlock;
-                        metadata[(y * 16 + x) * 256 + k] = mixBlockMeta;
+                        primer.setBlockState((y * 16 + x) * 256 + k, mixBlock.getDefaultState());
                     }
                     else
                     {
-                        blocks[(y * 16 + x) * 256 + k] = topBlock;
-                        metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+                        primer.setBlockState((y * 16 + x) * 256 + k, topBlock.getDefaultState());
                     }
                 }
                 else if (depth < 4 && k < 63)
                 {
-                    blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+                    primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock.getDefaultState());
                 }
 
                 else if (depth == 0 && k <69){
-                    blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
+                    primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sand.getDefaultState());
                     metadata[(y * 16 + x) * 256 + k] = sandMetadata;
 
                 }

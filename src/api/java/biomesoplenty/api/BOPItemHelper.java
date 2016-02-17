@@ -3,7 +3,7 @@ package biomesoplenty.api;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
-import cpw.mods.fml.common.registry.GameData;
+import net.minecraftforge.fml.common.registry.GameData;
 
 public class BOPItemHelper
 {
@@ -17,6 +17,6 @@ public class BOPItemHelper
     
     public static String getUniqueName(Item item)
     {
-        return GameData.getItemRegistry().getNameForObject(item);
+        return GameData.getItemRegistry().getNameForObject(item).getResourcePath();
     }
 }

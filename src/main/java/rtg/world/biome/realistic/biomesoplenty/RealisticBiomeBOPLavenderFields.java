@@ -2,7 +2,9 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import rtg.api.biome.BiomeConfig;
+import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenGrass;
@@ -20,16 +22,18 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPCBiomes.lavenderFields;
 	
-	public static Block topBlock = bopBiome.topBlock;
-	public static Block fillerBlock = bopBiome.fillerBlock;
+	public static Block topBlock = bopBiome.topBlock.getBlock();
+	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
 	
 	public RealisticBiomeBOPLavenderFields(BiomeConfig config)
 	{
-		super(config, 
+		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPLavenderFields(),
-			new SurfaceBOPLavenderFields(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, topBlock, 0.05f)
+			new SurfaceBOPLavenderFields(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, topBlock, 0.05f)
 		);
+		
+		this.config = config;
 	}
 	
     @Override
@@ -49,11 +53,11 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase
                 
                 int i1 = chunkX + rand.nextInt(16) + 8;
                 int j1 = chunkY + rand.nextInt(16) + 8;
-                int k1 = world.getHeightValue(i1, j1);
+                int k1 = world.getHeight(new BlockPos(i1,1,j1)).getY();
                 
                 if (k1 < 110)
                 {
-                    (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                    (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, new BlockPos(i1, k1, j1));
                 }
             }
         }
@@ -63,7 +67,7 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase
             int l19 = chunkX + rand.nextInt(16) + 8;
             int k22 = rand.nextInt(128);
             int j24 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
+            (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, new BlockPos(l19, k22, j24));
         }
         
         rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);

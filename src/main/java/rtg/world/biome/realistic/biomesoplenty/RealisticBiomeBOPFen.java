@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPFen;
 import rtg.util.CellNoise;
@@ -22,15 +23,15 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPCBiomes.fen;
 	
-	public static Block topBlock = bopBiome.topBlock;
-	public static Block fillerBlock = bopBiome.fillerBlock;
+	public static Block topBlock = bopBiome.topBlock.getBlock();
+	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
 	
 	public RealisticBiomeBOPFen(BiomeConfig config)
 	{
-		super(config, 
+		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPFen(),
-			new SurfaceBOPFen(config,
+			new SurfaceBOPFen(
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 
@@ -45,6 +46,8 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
+		
+		this.config = config;
 	}
 	
     @Override
@@ -62,15 +65,15 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase
         {
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
+            int k1 = world.getHeight(new BlockPos(i1,1,j1)).getY();
             
             if (rand.nextInt(12) == 0) {
                 
                 if (rand.nextBoolean()) {
-                    (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
+                    (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
                 }
                 else {
-                    (new WorldGenBlockBlob(Blocks.mossy_cobblestone, 0)).generate(world, rand, i1, k1, j1);
+                    (new WorldGenBlockBlob(Blocks.mossy_cobblestone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
                 }
             }
         }
@@ -81,7 +84,7 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
+                int y22 = world.getHeight(new BlockPos(x22,1,z22)).getY();
                 
                 Block log;
                 byte logMeta;
@@ -95,7 +98,7 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase
                     logMeta = (byte)1;
                 }
                 
-                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, 3 + rand.nextInt(3))).generate(world, rand, x22, y22, z22);            
+                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, 3 + rand.nextInt(3))).generate(world, rand, new BlockPos(x22, y22, z22));
             }
         }
         

@@ -2,14 +2,8 @@ package rtg.config;
 
 import java.io.File;
 
-import rtg.config.arsmagica.ConfigAM;
-import rtg.config.atg.ConfigATG;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.config.buildcraft.ConfigBC;
-import rtg.config.chromaticraft.ConfigCC;
-import rtg.config.enhancedbiomes.ConfigEB;
-import rtg.config.extrabiomes.ConfigEBXL;
-import rtg.config.highlands.ConfigHL;
 import rtg.config.rtg.ConfigRTG;
 import rtg.config.thaumcraft.ConfigTC;
 import rtg.config.vanilla.ConfigVanilla;
@@ -54,13 +48,7 @@ public class ConfigManager
         ConfigVanilla.init(vanillaConfigFile);
         
         ConfigBOP.init(bopConfigFile);
-        ConfigEBXL.init(ebxlConfigFile);
-        ConfigEB.init(ebConfigFile);
-        ConfigHL.init(hlConfigFile);
         ConfigTC.init(tcConfigFile);
         ConfigBC.init(bcConfigFile);
-        ConfigAM.init(amConfigFile);
-        ConfigATG.init(atgConfigFile);
-        ConfigCC.init(ccConfigFile);
     }
 }

@@ -6,10 +6,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class WorldGenTreeRTGPine extends WorldGenerator
 {
@@ -24,7 +25,7 @@ public class WorldGenTreeRTGPine extends WorldGenerator
         metadata = m;
     }
 
-    public boolean generate(World p_76484_1_, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_)
+    public boolean generate(World p_76484_1_, Random p_76484_2_, BlockPos blockPos)
     {
         int l = p_76484_2_.nextInt(height * 2) + height * 2;
         int i1 = height + p_76484_2_.nextInt(height);
@@ -32,16 +33,16 @@ public class WorldGenTreeRTGPine extends WorldGenerator
         int k1 = 2 + p_76484_2_.nextInt(2);
         boolean flag = true;
 
-        if (p_76484_4_ >= 1 && p_76484_4_ + l + 1 <= 256)
+        if (blockPos.getY() >= 1 && blockPos.getY() + l + 1 <= 256)
         {
             int i2;
             int l3;
 
-            for (int l1 = p_76484_4_; l1 <= p_76484_4_ + 1 + l && flag; ++l1)
+            for (int l1 = blockPos.getY(); l1 <= blockPos.getY() + 1 + l && flag; ++l1)
             {
                 boolean flag1 = true;
 
-                if (l1 - p_76484_4_ < i1)
+                if (l1 - blockPos.getY() < i1)
                 {
                     l3 = 0;
                 }
@@ -50,15 +51,15 @@ public class WorldGenTreeRTGPine extends WorldGenerator
                     l3 = k1;
                 }
 
-                for (i2 = p_76484_3_ - l3; i2 <= p_76484_3_ + l3 && flag; ++i2)
+                for (i2 = blockPos.getX() - l3; i2 <= blockPos.getX() + l3 && flag; ++i2)
                 {
-                    for (int j2 = p_76484_5_ - l3; j2 <= p_76484_5_ + l3 && flag; ++j2)
+                    for (int j2 = blockPos.getZ() - l3; j2 <= blockPos.getZ() + l3 && flag; ++j2)
                     {
                         if (l1 >= 0 && l1 < 256)
                         {
-                            Block block = p_76484_1_.getBlock(i2, l1, j2);
+                            Block block = p_76484_1_.getBlockState(new BlockPos(i2, l1, j2)).getBlock();
 
-                            if (!block.isAir(p_76484_1_, i2, l1, j2) && !block.isLeaves(p_76484_1_, i2, l1, j2) && block != Blocks.snow_layer)
+                            if (!block.isAir(p_76484_1_, new BlockPos(i2, l1, j2)) && !block.isLeaves(p_76484_1_, new BlockPos(i2, l1, j2)) && block != Blocks.snow_layer)
                             {
                                 flag = false;
                             }
@@ -77,12 +78,12 @@ public class WorldGenTreeRTGPine extends WorldGenerator
             }
             else
             {
-                Block block1 = p_76484_1_.getBlock(p_76484_3_, p_76484_4_ - 1, p_76484_5_);
+                Block block1 = p_76484_1_.getBlockState(new BlockPos(blockPos.getX(), blockPos.getY() - 1, blockPos.getZ())).getBlock();
 
-                boolean isSoil = block1.canSustainPlant(p_76484_1_, p_76484_3_, p_76484_4_ - 1, p_76484_5_, ForgeDirection.UP, (BlockSapling)Blocks.sapling);
-                if (isSoil && p_76484_4_ < 256 - l - 1)
+                boolean isSoil = block1.canSustainPlant(p_76484_1_, new BlockPos(blockPos.getX(), blockPos.getY() - 1, blockPos.getZ()), EnumFacing.UP, (BlockSapling)Blocks.sapling);
+                if (isSoil && blockPos.getY() < 256 - l - 1)
                 {
-                    block1.onPlantGrow(p_76484_1_, p_76484_3_, p_76484_4_ - 1, p_76484_5_, p_76484_3_, p_76484_4_, p_76484_5_);
+                    block1.onPlantGrow(p_76484_1_, new BlockPos(blockPos.getX(), blockPos.getY() - 1, blockPos.getZ()), new BlockPos(blockPos.getX(), blockPos.getY(), blockPos.getZ()));
                     l3 = p_76484_2_.nextInt(2);
                     i2 = 1;
                     byte b0 = 0;
@@ -91,19 +92,19 @@ public class WorldGenTreeRTGPine extends WorldGenerator
 
                     for (i4 = 0; i4 <= j1; ++i4)
                     {
-                        k2 = p_76484_4_ + l - i4;
+                        k2 = blockPos.getY() + l - i4;
 
-                        for (int l2 = p_76484_3_ - l3; l2 <= p_76484_3_ + l3; ++l2)
+                        for (int l2 = blockPos.getX() - l3; l2 <= blockPos.getX() + l3; ++l2)
                         {
-                            int i3 = l2 - p_76484_3_;
+                            int i3 = l2 - blockPos.getX();
 
-                            for (int j3 = p_76484_5_ - l3; j3 <= p_76484_5_ + l3; ++j3)
+                            for (int j3 = blockPos.getZ() - l3; j3 <= blockPos.getZ() + l3; ++j3)
                             {
-                                int k3 = j3 - p_76484_5_;
+                                int k3 = j3 - blockPos.getZ();
 
-                                if ((Math.abs(i3) != l3 || Math.abs(k3) != l3 || l3 <= 0) && p_76484_1_.getBlock(l2, k2, j3).canBeReplacedByLeaves(p_76484_1_, l2, k2, j3))
+                                if ((Math.abs(i3) != l3 || Math.abs(k3) != l3 || l3 <= 0) && p_76484_1_.getBlockState(new BlockPos(l2, k2, j3)).getBlock().canBeReplacedByLeaves(p_76484_1_, new BlockPos(l2, k2, j3)))
                                 {
-                                    p_76484_1_.setBlock(l2, k2, j3, Blocks.leaves, metadata, 0);
+                                    p_76484_1_.setBlockState(new BlockPos(l2, k2, j3), Blocks.leaves.getStateFromMeta(metadata),2);
                                 }
                             }
                         }
@@ -129,17 +130,17 @@ public class WorldGenTreeRTGPine extends WorldGenerator
 
                     for (k2 = 0; k2 < l - i4; ++k2)
                     {
-                        Block block2 = p_76484_1_.getBlock(p_76484_3_, p_76484_4_ + k2, p_76484_5_);
+                        Block block2 = p_76484_1_.getBlockState(new BlockPos(blockPos.getX(), blockPos.getY() + k2, blockPos.getZ())).getBlock();
 
-                        if (block2.isAir(p_76484_1_, p_76484_3_, p_76484_4_ + k2, p_76484_5_) || block2.isLeaves(p_76484_1_, p_76484_3_, p_76484_4_ + k2, p_76484_5_) || block2 == Blocks.snow_layer)
+                        if (block2.isAir(p_76484_1_, new BlockPos(blockPos.getX(), blockPos.getY() + k2, blockPos.getZ())) || block2.isLeaves(p_76484_1_, new BlockPos(blockPos.getX(), blockPos.getY() + k2, blockPos.getZ())) || block2 == Blocks.snow_layer)
                         {
-                        	p_76484_1_.setBlock(p_76484_3_, p_76484_4_ + k2, p_76484_5_, Blocks.log, 0, 0);
+                        	p_76484_1_.setBlockState(new BlockPos(blockPos.getX(), blockPos.getY() + k2, blockPos.getZ()), Blocks.log.getStateFromMeta(metadata),2);
                         }
                     }
                     
                     if(height > 4)
                     {
-                    	createTrunk(p_76484_1_, p_76484_2_, p_76484_3_, p_76484_4_, p_76484_5_);
+                    	createTrunk(p_76484_1_, p_76484_2_, blockPos.getX(), blockPos.getY(), blockPos.getZ());
                     }
 
                     return true;
@@ -166,11 +167,11 @@ public class WorldGenTreeRTGPine extends WorldGenerator
     		sh = rand.nextInt(4) + y - 2;
     		while(sh > y - 1)
     		{
-    			if(world.getBlock(x + pos[t * 2], sh, z + pos[t * 2 + 1]) == Blocks.grass)
+    			if(world.getBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1])).getBlock() == Blocks.grass)
     			{
     				break;
     			}
-    			world.setBlock(x + pos[t * 2], sh, z + pos[t * 2 + 1], Blocks.log, 12, 0);
+    			world.setBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), Blocks.log.getStateFromMeta(12),2);
     			sh--;
     		}
     	}

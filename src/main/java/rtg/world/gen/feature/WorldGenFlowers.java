@@ -3,7 +3,9 @@ package rtg.world.gen.feature;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -39,7 +41,7 @@ public class WorldGenFlowers extends WorldGenerator
     	flowers = f;
     }
     
-    public boolean generate(World world, Random rand, int x, int y, int z)
+    public boolean generate(World world, Random rand, BlockPos blockPos)
     {
     	int randomFlower = flowers[rand.nextInt(flowers.length)];
     	
@@ -47,13 +49,13 @@ public class WorldGenFlowers extends WorldGenerator
     	{
             for (int l = 0; l < 64; ++l)
             {
-                int i1 = x + rand.nextInt(8) - rand.nextInt(8);
-                int j1 = y + rand.nextInt(4) - rand.nextInt(4);
-                int k1 = z + rand.nextInt(8) - rand.nextInt(8);
+                int i1 = blockPos.getX() + rand.nextInt(8) - rand.nextInt(8);
+                int j1 = blockPos.getY() + rand.nextInt(4) - rand.nextInt(4);
+                int k1 = blockPos.getZ() + rand.nextInt(8) - rand.nextInt(8);
 
-                if (world.isAirBlock(i1, j1, k1) && (!world.provider.hasNoSky || j1 < 254) && Blocks.double_plant.canPlaceBlockAt(world, i1, j1, k1))
+                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && (!world.provider.getHasNoSky() || j1 < 254) && Blocks.double_plant.canPlaceBlockAt(world, new BlockPos(i1, j1, k1)))
                 {
-                    Blocks.double_plant.func_149889_c(world, i1, j1, k1, randomFlower - 10, 0);
+                    Blocks.double_plant.placeAt(world, new BlockPos(i1, j1, k1), BlockDoublePlant.EnumPlantType.byMetadata(randomFlower - 10), 0);
                 }
             }
     	}
@@ -61,13 +63,13 @@ public class WorldGenFlowers extends WorldGenerator
     	{
 	        for (int l = 0; l < 64; ++l)
 	        {
-	            int i1 = x + rand.nextInt(8) - rand.nextInt(8);
-	            int j1 = y + rand.nextInt(4) - rand.nextInt(4);
-	            int k1 = z + rand.nextInt(8) - rand.nextInt(8);
-	
-	            if (world.isAirBlock(i1, j1, k1) && (!world.provider.hasNoSky || j1 < 255) && Blocks.yellow_flower.canBlockStay(world, i1, j1, k1))
-	            {
-	            	world.setBlock(i1, j1, k1, Blocks.yellow_flower, 0, 0);
+	            int i1 = blockPos.getX() + rand.nextInt(8) - rand.nextInt(8);
+	            int j1 = blockPos.getY() + rand.nextInt(4) - rand.nextInt(4);
+	            int k1 = blockPos.getZ() + rand.nextInt(8) - rand.nextInt(8);
+
+				if (world.isAirBlock(new BlockPos(i1, j1, k1)) && (!world.provider.getHasNoSky() || j1 < 255) && Blocks.yellow_flower.canBlockStay(world, new BlockPos(i1, j1, k1), world.getBlockState(new BlockPos(i1, j1, k1))))
+				{
+	            	world.setBlockState(new BlockPos(i1, j1, k1), Blocks.yellow_flower.getDefaultState(), 0);
 	            }
 	        }
     	}
@@ -75,13 +77,13 @@ public class WorldGenFlowers extends WorldGenerator
     	{
 	        for (int l = 0; l < 64; ++l)
 	        {
-	            int i1 = x + rand.nextInt(8) - rand.nextInt(8);
-	            int j1 = y + rand.nextInt(4) - rand.nextInt(4);
-	            int k1 = z + rand.nextInt(8) - rand.nextInt(8);
-	
-	            if (world.isAirBlock(i1, j1, k1) && (!world.provider.hasNoSky || j1 < 255) && Blocks.red_flower.canBlockStay(world, i1, j1, k1))
+	            int i1 = blockPos.getX() + rand.nextInt(8) - rand.nextInt(8);
+	            int j1 = blockPos.getY() + rand.nextInt(4) - rand.nextInt(4);
+	            int k1 = blockPos.getZ() + rand.nextInt(8) - rand.nextInt(8);
+
+				if (world.isAirBlock(new BlockPos(i1, j1, k1)) && (!world.provider.getHasNoSky() || j1 < 255) && Blocks.red_flower.canBlockStay(world, new BlockPos(i1, j1, k1), world.getBlockState(new BlockPos(i1, j1, k1))))
 	            {
-	            	world.setBlock(i1, j1, k1, Blocks.red_flower, randomFlower, 0);
+	            	world.setBlockState(new BlockPos(i1, j1, k1), Blocks.red_flower.getStateFromMeta(randomFlower), 0);
 	            }
 	        }
     	}

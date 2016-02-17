@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIcePlainsSpikes;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaIcePlainsSpikes;
 
@@ -12,16 +13,18 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
     public static BiomeGenBase standardBiome = BiomeGenBase.icePlains;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
     
-    public static Block topBlock = mutationBiome.topBlock;
-    public static Block fillerBlock = mutationBiome.fillerBlock;
+    public static Block topBlock = mutationBiome.topBlock.getBlock();
+    public static Block fillerBlock = mutationBiome.fillerBlock.getBlock();
 	
 	public RealisticBiomeVanillaIcePlainsSpikes(BiomeConfig config)
 	{
-		super(config, 
+		super(
 		    mutationBiome,
 			BiomeGenBase.frozenRiver,
 			new TerrainVanillaIcePlainsSpikes(),
-			new SurfaceVanillaIcePlainsSpikes(config, topBlock, fillerBlock, topBlock, topBlock)
+			new SurfaceVanillaIcePlainsSpikes(topBlock, fillerBlock, topBlock, topBlock)
 		);
+		
+		this.config = config;
 	}
 }

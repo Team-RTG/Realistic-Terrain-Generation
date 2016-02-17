@@ -2,8 +2,10 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaSavannaM;
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenFlowers;
@@ -27,17 +29,19 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase
     public static BiomeGenBase standardBiome = BiomeGenBase.savanna;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
     
-    public static Block topBlock = mutationBiome.topBlock;
-    public static Block fillerBlock = mutationBiome.fillerBlock;
+    public static Block topBlock = mutationBiome.topBlock.getBlock();
+    public static Block fillerBlock = mutationBiome.fillerBlock.getBlock();
     
     public RealisticBiomeVanillaSavannaM(BiomeConfig config)
     {
     
-        super(config, 
+        super(
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaSavannaM(),
-            new SurfaceVanillaSavannaM(config, topBlock, fillerBlock));
+            new SurfaceVanillaSavannaM(topBlock, fillerBlock));
+        
+        this.config = config;
     }
     
     @Override
@@ -53,10 +57,10 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase
         {
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
+            int k1 = world.getHeight(new BlockPos(i1,1,j1)).getY();
             
             if (rand.nextInt(8) == 0) {
-                (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
+                (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
             }
         }
         
@@ -68,8 +72,8 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
-                (new WorldGenLog(Blocks.log2, 0, Blocks.leaves2, -1, 3 + rand.nextInt(3))).generate(world, rand, x22, y22, z22);
+                int y22 = world.getHeight(new BlockPos(x22,1,z22)).getY();
+                (new WorldGenLog(Blocks.log2, 0, Blocks.leaves2, -1, 3 + rand.nextInt(3))).generate(world, rand, new BlockPos(x22, y22, z22));
             }
         }
         
@@ -79,20 +83,20 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase
             {
                 int j6 = chunkX + rand.nextInt(16) + 8;
                 int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeightValue(j6, k10);
+                int z52 = world.getHeight(new BlockPos(j6,1,k10)).getY();
                 
                 WorldGenerator worldgenerator =
-                    rand.nextInt(3) != 0 ? new WorldGenShrub(0, 0) : rand.nextInt(9) == 0 ? new WorldGenTreeRTGSavanna(1)
+                    rand.nextInt(3) != 0 ? new WorldGenShrub(Blocks.log.getDefaultState(), Blocks.leaves.getDefaultState()) : rand.nextInt(9) == 0 ? new WorldGenTreeRTGSavanna(1)
                         : new WorldGenTreeRTGSavanna(2);
-                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                worldgenerator.generate(world, rand, j6, z52, k10);
+
+                worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
             }
             
             for (int f25 = 0; f25 < 2f * strength; f25++)
             {
                 int i18 = chunkX + rand.nextInt(16) + 8;
                 int i23 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenReed()).generate(world, rand, i18, 60 + rand.nextInt(8), i23);
+                (new WorldGenReed()).generate(world, rand, new BlockPos(i18, 60 + rand.nextInt(8), i23));
             }
         }
         
@@ -101,7 +105,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase
             int j15 = chunkX + rand.nextInt(16) + 8;
             int j17 = rand.nextInt(128);
             int j20 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenFlowers(new int[] {9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11})).generate(world, rand, j15, j17, j20);
+            (new WorldGenFlowers(new int[] {9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11})).generate(world, rand, new BlockPos(j15, j17, j20));
         }
         
         for (int l14 = 0; l14 < 20; l14++)
@@ -112,11 +116,11 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase
             
             if (rand.nextInt(3) == 0)
             {
-                (new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, l19, k22, j24);
+                (new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, new BlockPos(l19, k22, j24));
             }
             else
             {
-                (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
+                (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, new BlockPos(l19, k22, j24));
             }
         }
         

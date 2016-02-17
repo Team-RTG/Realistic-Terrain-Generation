@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOminousWoods;
 import rtg.util.CellNoise;
@@ -26,11 +27,13 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase
 
 	public RealisticBiomeBOPOminousWoods(BiomeConfig config)
 	{
-		super(config, 
+		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPOminousWoods(65f, 80f, 48f),
-			new SurfaceBOPOminousWoods(config, topBlock, fillerBlock)
+			new SurfaceBOPOminousWoods(topBlock, fillerBlock)
 		);
+		
+		this.config = config;
 	}
 	
     @Override
@@ -52,7 +55,7 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
+                int y22 = world.getHeight(new BlockPos(x22,1,z22)).getY();
                 
                 Block log;
                 byte logMeta;
@@ -73,7 +76,7 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase
                     intLogLength = 3 + rand.nextInt(2);
                 }
     
-                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, intLogLength)).generate(world, rand, x22, y22, z22);
+                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, intLogLength)).generate(world, rand, new BlockPos(x22, y22, z22));
             }
         }
     }

@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHillsPlusM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHillsPlusM;
 
@@ -13,17 +14,19 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
     public static BiomeGenBase standardBiome = BiomeGenBase.extremeHillsPlus;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
     
-    public static Block topBlock = mutationBiome.topBlock;
-    public static Block fillerBlock = mutationBiome.fillerBlock;
+    public static Block topBlock = mutationBiome.topBlock.getBlock();
+    public static Block fillerBlock = mutationBiome.fillerBlock.getBlock();
     
     public RealisticBiomeVanillaExtremeHillsPlusM(BiomeConfig config)
     {
     
-        super(config, 
+        super(
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaExtremeHillsPlusM(230f, 120f, 0f),
-            new SurfaceVanillaExtremeHillsPlusM(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f));
+            new SurfaceVanillaExtremeHillsPlusM(Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f));
+        
+        this.config = config;
         this.generatesEmeralds = true;
     }
 }

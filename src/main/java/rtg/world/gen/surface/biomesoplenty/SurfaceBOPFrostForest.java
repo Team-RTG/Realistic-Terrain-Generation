@@ -2,7 +2,7 @@ package rtg.world.gen.surface.biomesoplenty;
 
 import java.util.Random;
 
-import rtg.api.biome.BiomeConfig;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -16,7 +16,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceBOPFrostForest extends SurfaceBase
 {
 
-    
+    private Block blockTop;
+    private byte byteTop;
+    private Block blockFiller;
+    private byte byteFiller;
     private Block blockMixTop;
     private byte byteMixTop;
     private Block blockMixFiller;
@@ -26,11 +29,16 @@ public class SurfaceBOPFrostForest extends SurfaceBase
     private float floSmallWidth;
     private float floSmallStrength;
     
-    public SurfaceBOPFrostForest(BiomeConfig config, Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
+    public SurfaceBOPFrostForest(Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
         byte mixFillerByte, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
     {
     
-        super(config, top, topByte, filler, fillerByte);
+        super(top, filler);
+        
+        blockTop = top;
+        byteTop = topByte;
+        blockFiller = filler;
+        byteFiller = fillerByte;
         
         blockMixTop = mixTop;
         byteMixTop = mixTopByte;
@@ -44,8 +52,8 @@ public class SurfaceBOPFrostForest extends SurfaceBase
     }
     
     @Override
-    public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
-        OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+    public void paintTerrain(ChunkPrimer primer, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
+                             OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
     
         float c = CliffCalculator.calc(x, y, noise);
@@ -54,7 +62,7 @@ public class SurfaceBOPFrostForest extends SurfaceBase
         
         for (int k = 255; k > -1; k--)
         {
-            Block b = blocks[(y * 16 + x) * 256 + k];
+            Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
             if (b == Blocks.air)
             {
                 depth = -1;
@@ -69,18 +77,18 @@ public class SurfaceBOPFrostForest extends SurfaceBase
                     {
                         if (rand.nextInt(3) == 0) {
                             
-                            blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
+                            primer.setBlockState((y * 16 + x) * 256 + k, hcCobble(world, i, j, x, y, k).getDefaultState());
                             metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
                         }
                         else {
                             
-                            blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                            primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k).getDefaultState());
                             metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                         }
                     }
                     else if (depth < 10)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                        primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k).getDefaultState());
                         metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                     }
                 }
@@ -91,28 +99,28 @@ public class SurfaceBOPFrostForest extends SurfaceBase
                         if (simplex.noise2(i / floMixWidth, j / floMixWidth) + simplex.noise2(i / floSmallWidth, j / floSmallWidth)
                             * floSmallStrength > floMixHeight)
                         {
-                            blocks[(y * 16 + x) * 256 + k] = blockMixTop;
+                            primer.setBlockState((y * 16 + x) * 256 + k, blockMixTop.getDefaultState());
                             metadata[(y * 16 + x) * 256 + k] = byteMixTop;
                             
                             mix = true;
                         }
                         else
                         {
-                            blocks[(y * 16 + x) * 256 + k] = topBlock;
-                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+                            primer.setBlockState((y * 16 + x) * 256 + k, topBlock.getDefaultState());
+                            metadata[(y * 16 + x) * 256 + k] = byteTop;
                         }
                     }
                     else if (depth < 4)
                     {
                         if (mix)
                         {
-                            blocks[(y * 16 + x) * 256 + k] = blockMixFiller;
+                            primer.setBlockState((y * 16 + x) * 256 + k, blockMixFiller.getDefaultState());
                             metadata[(y * 16 + x) * 256 + k] = byteMixFiller;
                         }
                         else
                         {
-                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+                            primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock.getDefaultState());
+                            metadata[(y * 16 + x) * 256 + k] = byteFiller;
                         }
                     }
                 }

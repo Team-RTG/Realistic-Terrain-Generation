@@ -233,7 +233,7 @@ public class RealisticBiomeBase extends BiomeBase {
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
     
         if (strength > 0.3f) {
-            baseBiome.decorate(world, rand, new BlockPos(chunkX*16, 1, chunkY*16));
+            baseBiome.decorate(world, rand, new BlockPos(chunkX, 1, chunkY));
         }
         else {
             rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
@@ -258,7 +258,7 @@ public class RealisticBiomeBase extends BiomeBase {
     public void rDecorateSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
         
         if (strength > 0.3f) {
-            seedBiome.decorate(world, rand, new BlockPos(chunkX*16, 1, chunkY*16));
+            seedBiome.decorate(world, rand, new BlockPos(chunkX, 1, chunkY));
         }
         else {
             rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, seedBiome);
@@ -273,7 +273,7 @@ public class RealisticBiomeBase extends BiomeBase {
      */
     public void rOreGenSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
 
-        BlockPos chunk = new BlockPos(chunkX*16, 1, chunkY*16);
+        BlockPos chunk = new BlockPos(chunkX, 1, chunkY);
 
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(world, rand, chunk));
         //there is probably a better way to do this

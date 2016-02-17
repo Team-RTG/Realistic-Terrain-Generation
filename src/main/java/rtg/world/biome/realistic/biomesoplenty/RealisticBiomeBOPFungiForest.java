@@ -65,7 +65,7 @@ public class RealisticBiomeBOPFungiForest extends RealisticBiomeBOPBase
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getChunkFromBlockCoords(new BlockPos(x22, 1, z22)).getHeightValue(x22,z22);
+                int y22 = world.getHeight(new BlockPos(x22,1,z22)).getY();
                 
                 Block log;
                 byte logMeta;

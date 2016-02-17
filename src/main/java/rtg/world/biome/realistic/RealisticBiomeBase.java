@@ -12,9 +12,12 @@ import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.Ev
 
 import java.util.Random;
 
+import net.minecraft.block.BlockStone;
 import net.minecraft.block.state.pattern.BlockHelper;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.chunk.ChunkPrimer;
+import net.minecraft.world.gen.ChunkProviderSettings;
+import net.minecraft.world.gen.feature.WorldGenMinable;
 import org.apache.logging.log4j.Level;
 
 import rtg.api.biome.BiomeConfig;
@@ -162,7 +165,7 @@ public class RealisticBiomeBase extends BiomeBase {
                 
                 int i2 = worldX + rand.nextInt(16) + 8;
                 int i8 = worldZ + rand.nextInt(16) + 8;
-                int l4 = worldObj.getChunkFromBlockCoords(new BlockPos(i2, 1, i8)).getHeightValue(i2,i8);
+                int l4 = worldObj.getHeight(new BlockPos(i2,0,i8)).getY();
                 
                 //Surface lakes.
                 if (rand.nextInt(waterSurfaceLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterSurfaceLakeChance) == 1)) {
@@ -273,6 +276,28 @@ public class RealisticBiomeBase extends BiomeBase {
         BlockPos chunk = new BlockPos(chunkX*16, 1, chunkY*16);
 
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(world, rand, chunk));
+        //there is probably a better way to do this
+        String s = world.getWorldInfo().getGeneratorOptions();
+
+        if (s != null)
+        {
+            seedBiome.theBiomeDecorator.chunkProviderSettings = ChunkProviderSettings.Factory.jsonToFactory(s).func_177864_b();
+        }
+        else
+        {
+            seedBiome.theBiomeDecorator.chunkProviderSettings = ChunkProviderSettings.Factory.jsonToFactory("").func_177864_b();
+        }
+        seedBiome.theBiomeDecorator.dirtGen = new WorldGenMinable(Blocks.dirt.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.dirtSize);
+        seedBiome.theBiomeDecorator.gravelGen = new WorldGenMinable(Blocks.gravel.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.gravelSize);
+        seedBiome.theBiomeDecorator.graniteGen = new WorldGenMinable(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), seedBiome.theBiomeDecorator.chunkProviderSettings.graniteSize);
+        seedBiome.theBiomeDecorator.dioriteGen = new WorldGenMinable(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE), seedBiome.theBiomeDecorator.chunkProviderSettings.dioriteSize);
+        seedBiome.theBiomeDecorator.andesiteGen = new WorldGenMinable(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE), seedBiome.theBiomeDecorator.chunkProviderSettings.andesiteSize);
+        seedBiome.theBiomeDecorator.coalGen = new WorldGenMinable(Blocks.coal_ore.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.coalSize);
+        seedBiome.theBiomeDecorator.ironGen = new WorldGenMinable(Blocks.iron_ore.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.ironSize);
+        seedBiome.theBiomeDecorator.goldGen = new WorldGenMinable(Blocks.gold_ore.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.goldSize);
+        seedBiome.theBiomeDecorator.redstoneGen = new WorldGenMinable(Blocks.redstone_ore.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.redstoneSize);
+        seedBiome.theBiomeDecorator.diamondGen = new WorldGenMinable(Blocks.diamond_ore.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.diamondSize);
+        seedBiome.theBiomeDecorator.lapisGen = new WorldGenMinable(Blocks.lapis_ore.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.lapisSize);
         
         if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.dirtGen, chunk, DIRT))
         genStandardOre1(20, seedBiome.theBiomeDecorator.dirtGen, 0, 256, world, rand, chunkX, chunkY);

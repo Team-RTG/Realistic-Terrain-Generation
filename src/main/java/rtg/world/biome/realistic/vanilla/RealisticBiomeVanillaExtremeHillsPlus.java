@@ -57,7 +57,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
         {
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getChunkFromBlockCoords(new BlockPos(i1, 1, j1)).getHeightValue(i1,j1);
+            int k1 = world.getHeight(new BlockPos(i1,1,j1)).getY();
             
             if (k1 < 80)
             {
@@ -73,7 +73,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getChunkFromBlockCoords(new BlockPos(x22, 1, z22)).getHeightValue(x22,z22);
+                int y22 = world.getHeight(new BlockPos(x22,1,z22)).getY();
                 (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, new BlockPos(x22, y22, z22));
             }
         }
@@ -86,7 +86,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
                 {
                     int j6 = chunkX + rand.nextInt(16) + 8;
                     int k10 = chunkY + rand.nextInt(16) + 8;
-                    int z52 = world.getChunkFromBlockCoords(new BlockPos(j6, 1, k10)).getHeightValue(j6,k10);
+                    int z52 = world.getHeight(new BlockPos(j6,1,k10)).getY();
                     
                     if (z52 < 100f || (z52 < 120f && rand.nextInt(10) == 0))
                     {
@@ -143,7 +143,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
             {
                 int j6 = chunkX + rand.nextInt(16) + 8;
                 int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getChunkFromBlockCoords(new BlockPos(j6, 1, k10)).getHeightValue(j6,k10);
+                int z52 = world.getHeight(new BlockPos(j6,1,k10)).getY();
                 
                 if (z52 < 100f || (z52 < 120f && rand.nextInt(10) == 0))
                 {

@@ -31,7 +31,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import net.minecraftforge.common.MinecraftForge;
 
-//@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, acceptableRemoteVersions = "*")
+@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, acceptableRemoteVersions = "*")
 public class RTG {
     
     @Instance("RTG")

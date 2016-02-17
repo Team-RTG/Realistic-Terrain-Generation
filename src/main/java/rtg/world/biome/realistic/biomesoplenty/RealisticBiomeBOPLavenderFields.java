@@ -53,7 +53,7 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase
                 
                 int i1 = chunkX + rand.nextInt(16) + 8;
                 int j1 = chunkY + rand.nextInt(16) + 8;
-                int k1 = world.getChunkFromBlockCoords(new BlockPos(i1, 1, j1)).getHeightValue(i1,j1);
+                int k1 = world.getHeight(new BlockPos(i1,1,j1)).getY();
                 
                 if (k1 < 110)
                 {

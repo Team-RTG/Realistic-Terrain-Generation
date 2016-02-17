@@ -57,7 +57,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase
         {
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getChunkFromBlockCoords(new BlockPos(i1, 1, j1)).getHeightValue(i1,j1);
+            int k1 = world.getHeight(new BlockPos(i1,1,j1)).getY();
             
             if (rand.nextInt(8) == 0) {
                 (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
@@ -72,7 +72,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getChunkFromBlockCoords(new BlockPos(x22, 1, z22)).getHeightValue(x22,z22);
+                int y22 = world.getHeight(new BlockPos(x22,1,z22)).getY();
                 (new WorldGenLog(Blocks.log2, 0, Blocks.leaves2, -1, 3 + rand.nextInt(3))).generate(world, rand, new BlockPos(x22, y22, z22));
             }
         }
@@ -83,7 +83,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase
             {
                 int j6 = chunkX + rand.nextInt(16) + 8;
                 int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getChunkFromBlockCoords(new BlockPos(j6, 1, k10)).getHeightValue(j6,k10);
+                int z52 = world.getHeight(new BlockPos(j6,1,k10)).getY();
                 
                 WorldGenerator worldgenerator =
                     rand.nextInt(3) != 0 ? new WorldGenShrub(Blocks.log.getDefaultState(), Blocks.leaves.getDefaultState()) : rand.nextInt(9) == 0 ? new WorldGenTreeRTGSavanna(1)

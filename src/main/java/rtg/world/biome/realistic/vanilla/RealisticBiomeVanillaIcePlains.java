@@ -53,7 +53,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
             {
                 int i1 = chunkX + rand.nextInt(16) + 8;
                 int j1 = chunkY + rand.nextInt(16) + 8;
-                int k1 = world.getChunkFromBlockCoords(new BlockPos(i1, 1, j1)).getHeightValue(i1,j1);
+                int k1 = world.getHeight(new BlockPos(i1,1,j1)).getY();
                 
                 if (k1 < 64 && rand.nextInt(16) == 0) {
                     (new WorldGenBlob(Blocks.packed_ice, 0, rand)).generate(world, rand, new BlockPos(i1, k1, j1));
@@ -67,7 +67,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
             {
                 int j6 = chunkX + rand.nextInt(16) + 8;
                 int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getChunkFromBlockCoords(new BlockPos(j6, 1, k10)).getHeightValue(j6,k10);
+                int z52 = world.getHeight(new BlockPos(j6,1,k10)).getY();
                 
                 WorldGenerator worldgenerator = new WorldGenLog(1, rand.nextInt(6), false);
 

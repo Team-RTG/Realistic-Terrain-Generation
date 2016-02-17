@@ -73,7 +73,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
             {
                 int j6 = chunkX + rand.nextInt(16) + 8;
                 int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getChunkFromBlockCoords(new BlockPos(j6, 1, k10)).getHeightValue(j6,k10);
+                int z52 = world.getHeight(new BlockPos(j6,1,k10)).getY();
                 
                 if (z52 < 100 && rand.nextBoolean())
                 {
@@ -91,7 +91,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
                     
                     int j61 = chunkX + rand.nextInt(16) + 8;
                     int k101 = chunkY + rand.nextInt(16) + 8;
-                    int z521 = world.getChunkFromBlockCoords(new BlockPos(j61, 1, k101)).getHeightValue(j61,k101);
+                    int z521 = world.getHeight(new BlockPos(j61,1,k101)).getY();
 
                     WorldGenerator worldgenerator = new WorldGenTreeRTGPalmCustom((float)(10 + rand.nextInt(11)));
 
@@ -102,7 +102,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
                     
                     int j61 = chunkX + rand.nextInt(16) + 8;
                     int k101 = chunkY + rand.nextInt(16) + 8;
-                    int z521 = world.getChunkFromBlockCoords(new BlockPos(j61, 1, k101)).getHeightValue(j61,k101);
+                    int z521 = world.getHeight(new BlockPos(j61,1,k101)).getY();
 
                     int megaHeight = (rand.nextInt(40) == 0) ? (40 + rand.nextInt(20)) : 20 + rand.nextInt(20);
                     
@@ -120,7 +120,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
                 {
                     int x22 = chunkX + rand.nextInt(16) + 8;
                     int z22 = chunkY + rand.nextInt(16) + 8;
-                    int y22 = world.getChunkFromBlockCoords(new BlockPos(x22, 1, z22)).getHeightValue(x22,z22);
+                    int y22 = world.getHeight(new BlockPos(x22,1,z22)).getY();
                     (new WorldGenLog(Blocks.log, 3, Blocks.leaves, -1, 4 + rand.nextInt(5))).generate(world, rand, new BlockPos(x22, y22, z22));
                 }
             }
@@ -139,7 +139,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
             {
                 int j6 = chunkX + rand.nextInt(16) + 8;
                 int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getChunkFromBlockCoords(new BlockPos(j6, 1, k10)).getHeightValue(j6,k10);
+                int z52 = world.getHeight(new BlockPos(j6,1,k10)).getY();
                 
                 for (int h44 = 0; h44 < 8; h44++) {
                     
@@ -224,7 +224,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
             {
                 int j15 = chunkX + rand.nextInt(16) + 8;
                 int j20 = chunkY + rand.nextInt(16) + 8;
-                int j17 = world.getChunkFromBlockCoords(new BlockPos(j15, 1, j20)).getHeightValue(j15,j20);
+                int j17 = world.getHeight(new BlockPos(j15,1,j20)).getY();
                 
                 if (rand.nextInt(4) == 0) {
                     
@@ -255,7 +255,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
         {
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getChunkFromBlockCoords(new BlockPos(i1, 1, j1)).getHeightValue(i1,j1);
+            int k1 = world.getHeight(new BlockPos(i1,1,j1)).getY();
             
             if (k1 < 95 && rand.nextInt(16) == 0) {
                 (new WorldGenBlob(Blocks.mossy_cobblestone, 0, rand)).generate(world, rand, new BlockPos(i1, k1, j1));

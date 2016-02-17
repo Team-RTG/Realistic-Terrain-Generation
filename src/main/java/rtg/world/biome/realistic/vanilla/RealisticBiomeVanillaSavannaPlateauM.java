@@ -57,7 +57,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
         {
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getChunkFromBlockCoords(new BlockPos(i1, 1, j1)).getHeightValue(i1,j1);
+            int k1 = world.getHeight(new BlockPos(i1,1,j1)).getY();
             
             if (rand.nextInt(4) == 0 && (k1 < 80 || k1 > 110)) {
                 
@@ -80,7 +80,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
                 {
                     int j6 = chunkX + rand.nextInt(16) + 8;
                     int k10 = chunkY + rand.nextInt(16) + 8;
-                    int z52 = world.getChunkFromBlockCoords(new BlockPos(j6, 1, k10)).getHeightValue(j6,k10);
+                    int z52 = world.getHeight(new BlockPos(j6,1,k10)).getY();
                     
                     if (z52 < 100f || (z52 < 120f && rand.nextInt(10) == 0))
                     {
@@ -145,7 +145,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
         {
             int j6 = chunkX + rand.nextInt(16) + 8;
             int k10 = chunkY + rand.nextInt(16) + 8;
-            int z52 = world.getChunkFromBlockCoords(new BlockPos(j6, 1, k10)).getHeightValue(j6,k10);
+            int z52 = world.getHeight(new BlockPos(j6,1,k10)).getY();
             
             if (rand.nextInt(3) == 0)
             {

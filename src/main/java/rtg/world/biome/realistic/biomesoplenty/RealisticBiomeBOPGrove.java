@@ -55,7 +55,7 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getChunkFromBlockCoords(new BlockPos(x22, 1, z22)).getHeightValue(x22,z22);
+                int y22 = world.getHeight(new BlockPos(x22,1,z22)).getY();
                 
                 if (y22 < 100)
                 {
@@ -73,7 +73,7 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase
         {
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getChunkFromBlockCoords(new BlockPos(i1, 1, j1)).getHeightValue(i1,j1);
+            int k1 = world.getHeight(new BlockPos(i1,1,j1)).getY();
             
             if (k1 < 110)
             {

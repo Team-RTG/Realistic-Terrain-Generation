@@ -56,7 +56,7 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getChunkFromBlockCoords(new BlockPos(x22, 1, z22)).getHeightValue(x22,z22);
+                int y22 = world.getHeight(new BlockPos(x22,1,z22)).getY();
                 (new WorldGenLog(Blocks.log, 3, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, new BlockPos(x22, y22, z22));
             }
         }

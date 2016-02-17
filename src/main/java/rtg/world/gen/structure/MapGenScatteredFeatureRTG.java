@@ -121,7 +121,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
 
         if (k == i1 && l == j1)
         {
-            BiomeGenBase biomegenbase = this.worldObj.getChunkFromChunkCoords(k,l).getBiome(new BlockPos(k * 16 + 8, 0, l * 16 + 8), this.worldObj.getWorldChunkManager());
+            BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(new BlockPos(k * 16 + 8, 0, l * 16 + 8));
 
             if (biomegenbase != null) {
                 

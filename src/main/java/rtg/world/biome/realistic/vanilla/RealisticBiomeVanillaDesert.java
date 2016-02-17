@@ -67,7 +67,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
                 {
                     int j6 = chunkX + rand.nextInt(16) + 8;
                     int k10 = chunkY + rand.nextInt(16) + 8;
-                    int z52 = world.getChunkFromBlockCoords(new BlockPos(j6, 1, k10)).getHeightValue(j6,k10);
+                    int z52 = world.getHeight(new BlockPos(j6,1,k10)).getY();
                     
                     if (z52 < 100f || (z52 < 120f && rand.nextInt(10) == 0))
                     {

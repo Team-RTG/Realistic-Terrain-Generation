@@ -63,7 +63,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         {
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getChunkFromBlockCoords(new BlockPos(i1, 1, j1)).getHeightValue(i1,j1);
+            int k1 = world.getHeight(new BlockPos(i1,1,j1)).getY();
             
             if (k1 < 80 && rand.nextInt(20) == 0) {
                 if (rand.nextInt(8) != 0) {
@@ -83,7 +83,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             {
                 int j6 = chunkX + rand.nextInt(16) + 8;
                 int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getChunkFromBlockCoords(new BlockPos(j6, 1, k10)).getHeightValue(j6,k10);
+                int z52 = world.getHeight(new BlockPos(j6,1,k10)).getY();
                 
                 if (z52 < 120)
                 {
@@ -102,7 +102,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getChunkFromBlockCoords(new BlockPos(x22, 1, z22)).getHeightValue(x22,z22);
+                int y22 = world.getHeight(new BlockPos(x22,1,z22)).getY();
                 if (y22 < 100)
                 {
                     (new WorldGenLog(Blocks.log2, 1, Blocks.leaves2, -1, 9 + rand.nextInt(5))).generate(world, rand, new BlockPos(x22, y22, z22));
@@ -114,7 +114,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         {
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getChunkFromBlockCoords(new BlockPos(i1, 1, j1)).getHeightValue(i1,j1);
+            int k1 = world.getHeight(new BlockPos(i1,1,j1)).getY();
             if (k1 < 110)
             {
                 (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, new BlockPos(i1, k1, j1));
@@ -173,7 +173,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 
         int k15 = chunkX + rand.nextInt(16) + 8;
         int k20 = chunkY + rand.nextInt(16) + 8;
-        int k17 = world.getChunkFromBlockCoords(new BlockPos(k15, 1, k20)).getHeightValue(k15,k20);
+        int k17 = world.getHeight(new BlockPos(k15,1,k20)).getY();
         
         if (rand.nextBoolean())
         {

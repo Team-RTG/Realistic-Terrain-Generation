@@ -1,6 +1,10 @@
 package rtg.util;
 
-public class TerrainMath 
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
+
+public class TerrainMath
 {
 	public static double nextX(double x, double d, double s)
 	{
@@ -27,8 +31,7 @@ public class TerrainMath
 		return Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) + (z1-z2)*(z1-z2));
 	}
 
-	public static double dirToPoint2(double x1, double y1, double x2, double y2)
-	{
+	public static double dirToPoint2(double x1, double y1, double x2, double y2) {
 		return Math.atan2((y2 - y1), (x2 - x1)) * 180 / Math.PI;
 	}
 }

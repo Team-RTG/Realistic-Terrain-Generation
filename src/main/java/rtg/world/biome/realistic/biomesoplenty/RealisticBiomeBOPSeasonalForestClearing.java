@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPSeasonalForestClearing;
 import rtg.util.CellNoise;
@@ -21,16 +22,18 @@ public class RealisticBiomeBOPSeasonalForestClearing extends RealisticBiomeBOPBa
 {	
 	public static BiomeGenBase bopBiome = BOPCBiomes.seasonalForestClearing;
 	
-	public static Block topBlock = bopBiome.topBlock;
-	public static Block fillerBlock = bopBiome.fillerBlock;
+	public static Block topBlock = bopBiome.topBlock.getBlock();
+	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
 	
 	public RealisticBiomeBOPSeasonalForestClearing(BiomeConfig config)
 	{
-		super(config, 
+		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPSeasonalForestClearing(65f, 68f, 24f),
-			new SurfaceBOPSeasonalForestClearing(config, topBlock, fillerBlock)
+			new SurfaceBOPSeasonalForestClearing(topBlock, fillerBlock)
 		);
+		
+		this.config = config;
 	}
 	
     @Override
@@ -50,11 +53,11 @@ public class RealisticBiomeBOPSeasonalForestClearing extends RealisticBiomeBOPBa
         {
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
+            int k1 = world.getHeight(new BlockPos(i1,1,j1)).getY();
             
             if (rand.nextInt(48) == 0) {
                 
-                (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
+                (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
             }
         }
 
@@ -64,7 +67,7 @@ public class RealisticBiomeBOPSeasonalForestClearing extends RealisticBiomeBOPBa
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
+                int y22 = world.getHeight(new BlockPos(x22,1,z22)).getY();
                 
                 Block log;
                 byte logMeta;
@@ -91,7 +94,7 @@ public class RealisticBiomeBOPSeasonalForestClearing extends RealisticBiomeBOPBa
                     intLogLength = 2 + rand.nextInt(2);
                 }
     
-                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, intLogLength)).generate(world, rand, x22, y22, z22);            
+                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, intLogLength)).generate(world, rand, new BlockPos(x22, y22, z22));
             }
         }
     }

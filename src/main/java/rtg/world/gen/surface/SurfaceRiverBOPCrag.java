@@ -2,7 +2,7 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
-import rtg.api.biome.BiomeConfig;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -19,9 +19,9 @@ public class SurfaceRiverBOPCrag extends SurfaceBase
     private Block cliffBlock1;
     private Block cliffBlock2;
     
-	public SurfaceRiverBOPCrag(BiomeConfig config, Block top, Block filler, Block cliff1, Block cliff2) 
+	public SurfaceRiverBOPCrag(Block top, Block filler, Block cliff1, Block cliff2) 
 	{
-		super(config, top, (byte)0, filler, (byte)0);
+		super(top, filler);
 		
 		topBlock = top;
 		fillerBlock = filler;
@@ -30,14 +30,14 @@ public class SurfaceRiverBOPCrag extends SurfaceBase
 	}
 	
 	@Override
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	public void paintTerrain(ChunkPrimer primer, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
         float c = CliffCalculator.calc(x, y, noise);
         boolean cliff = c > 1.4f ? true : false;
         
         for(int k = 255; k > -1; k--)
         {
-            Block b = blocks[(y * 16 + x) * 256 + k];
+            Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
             if(b == Blocks.air)
             {
                 depth = -1;
@@ -50,32 +50,28 @@ public class SurfaceRiverBOPCrag extends SurfaceBase
                 {
                     if(depth > -1 && depth < 2)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? cliffBlock1 : cliffBlock2; 
+                        primer.setBlockState((y * 16 + x) * 256 + k, rand.nextInt(3) == 0 ? cliffBlock1.getDefaultState() : cliffBlock2.getDefaultState());
                     }
                     else if (depth < 10)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = cliffBlock1;
+                        primer.setBlockState((y * 16 + x) * 256 + k, cliffBlock1.getDefaultState());
                     }
                     else {
-                        blocks[(y * 16 + x) * 256 + k] = topBlock;
-                        metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+                        primer.setBlockState((y * 16 + x) * 256 + k, topBlock.getDefaultState());
                     }
                 }
                 else
                 {
                     if(depth == 0 && k > 61)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = topBlock;
-                        metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+                        primer.setBlockState((y * 16 + x) * 256 + k, topBlock.getDefaultState());
                     }
                     else if(depth < 4)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                        metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+                        primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock.getDefaultState());
                     }
                     else {
-                        blocks[(y * 16 + x) * 256 + k] = topBlock;
-                        metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+                        primer.setBlockState((y * 16 + x) * 256 + k, topBlock.getDefaultState());
                     }
                 }
             }

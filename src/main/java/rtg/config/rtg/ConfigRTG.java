@@ -2,9 +2,9 @@ package rtg.config.rtg;
 
 import java.io.File;
 
+import net.minecraftforge.fml.common.Loader;
 import org.apache.logging.log4j.Level;
-
-import cpw.mods.fml.common.FMLLog;
+import net.minecraftforge.fml.common.FMLLog;
 
 import net.minecraftforge.common.config.Configuration;
 
@@ -13,7 +13,6 @@ public class ConfigRTG
 	public static Configuration config;
 	
 	public static boolean enableRTGBiomeDecorations = true;
-	public static boolean enableRTGBiomeSurfaces = true;
 	
 	public static boolean enableUBCStoneShadowing = true;
 	public static boolean enableUBCDesertShadowing = true;
@@ -89,6 +88,8 @@ public class ConfigRTG
     public static boolean allowTreesToGenerateOnSand = true;
     
     public static int patchBiomeId = 1;
+    
+    public static boolean villageCrashFix = (Loader.isModLoaded("enviromine"));
     	
 	public static void init(File configFile) 
 	{
@@ -119,30 +120,6 @@ public class ConfigRTG
                 "Biomes",
                 enableRTGBiomeDecorations,
                 "If TRUE, uses the individual biome settings in the biome config files. If FALSE, disables all RTG decorations and uses vanilla decorations instead."
-                + Configuration.NEW_LINE
-            );
-            
-            enableRTGBiomeSurfaces = config.getBoolean(
-                "Enable RTG Biome Surfaces",
-                "Biomes",
-                enableRTGBiomeSurfaces,
-                "If TRUE, uses the individual biome settings in the biome config files. If FALSE, disables all RTG surfaces and uses vanilla surfaces instead."
-                + Configuration.NEW_LINE
-            );
-            
-            patchBiomeId = config.getInt(
-                "Patch Biome ID",
-                "Biomes",
-                patchBiomeId,
-                -1,
-                255,
-                "If RTG tries to generate an unsupported biome or a biome that has an ID conflict, it will generate this biome instead."
-                + Configuration.NEW_LINE +
-                "If set to -1, RTG will crash instead of generating the patch biome. You might want to do this if you're making a mod pack"
-                + Configuration.NEW_LINE +
-                "and want to make sure all biomes are generating correctly."
-                + Configuration.NEW_LINE +
-                "Default = Vanilla Plains"
                 + Configuration.NEW_LINE
             );
             
@@ -312,6 +289,16 @@ public class ConfigRTG
             villageSize = config.getInt("Size of villages", "Villages", villageSize, 0, 10, "Higher values = bigger villages; 0 = Vanilla" + Configuration.NEW_LINE);
             minDistanceVillages = config.getInt("Minimum distance between villages", "Villages", minDistanceVillages, 1, Integer.MAX_VALUE, "Higher values = villages further apart; 8 = Vanilla" + Configuration.NEW_LINE);
             maxDistanceVillages = config.getInt("Maximum distance between villages", "Villages", maxDistanceVillages, 1, Integer.MAX_VALUE, "Lower values = villages closer together; 32 = Vanilla" + Configuration.NEW_LINE);
+            
+            villageCrashFix = config.getBoolean(
+                "Village Crash Fix",
+                "Villages",
+                villageCrashFix,
+                "Set this to TRUE to if you are experiencing 'java.util.ConcurrentModificationException' crashes related to village generation."
+                + Configuration.NEW_LINE +
+                "Defaults to FALSE unless EnviroMine is installed, in which case it defaults to TRUE."
+                + Configuration.NEW_LINE
+            );
             
             /* ==================== Volcanoes ==================== */
             

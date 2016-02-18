@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPCoralReef;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPCoralReef;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -12,15 +13,17 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPCBiomes.coralReef;
 	
-	public static Block topBlock = bopBiome.topBlock;
-	public static Block fillerBlock = bopBiome.fillerBlock;
+	public static Block topBlock = bopBiome.topBlock.getBlock();
+	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
 	
 	public RealisticBiomeBOPCoralReef(BiomeConfig config)
 	{
-		super(config, 
+		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPCoralReef(false, -10f, 0f, 0f, 0f, 30f),
-			new SurfaceBOPCoralReef(config, topBlock, fillerBlock)
+			new SurfaceBOPCoralReef(topBlock, fillerBlock)
 		);
+		
+		this.config = config;
 	}
 }

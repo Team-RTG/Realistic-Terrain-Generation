@@ -5,6 +5,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -18,20 +19,20 @@ public class WorldGenJungleCane extends WorldGenerator
     }
 
 	@Override
-	public boolean generate(World world, Random rand, int x, int y, int z) 
+	public boolean generate(World world, Random rand, BlockPos blockPos)
 	{
     	Block b;
-    	while(y > 0)
+    	while(blockPos.getY() > 0)
     	{
-    		b = world.getBlock(x, y, z);
-    		if(!world.isAirBlock(x, y, z) || b.isLeaves(world, x, y, z))
+    		b = world.getBlockState(blockPos).getBlock();
+    		if(!world.isAirBlock(blockPos) || b.isLeaves(world, blockPos))
     		{
     			break;
     		}
-    		y--;
+    		blockPos = blockPos.down();
     	}
     	
-    	b = world.getBlock(x, y, z);
+    	b = world.getBlockState(blockPos).getBlock();
     	if(b != Blocks.grass && b != Blocks.dirt)
     	{
     		return false;
@@ -40,7 +41,7 @@ public class WorldGenJungleCane extends WorldGenerator
     	int j, sx, sz, ra;
     	for(j = 0; j < 4; j++)
     	{
-        	b = world.getBlock(j == 0 ? x - 1 : j == 1 ? x + 1 : x, y, j == 2 ? z - 1 : j == 3 ? z + 1 : z);
+        	b = world.getBlockState(new BlockPos(j == 0 ? blockPos.getX() - 1 : j == 1 ? blockPos.getX() + 1 : blockPos.getX(), blockPos.getY(), j == 2 ? blockPos.getZ() - 1 : j == 3 ? blockPos.getZ() + 1 : blockPos.getZ())).getBlock();
         	if(b.getMaterial() != Material.ground && b.getMaterial() != Material.grass)
         	{
         		return false;
@@ -49,19 +50,19 @@ public class WorldGenJungleCane extends WorldGenerator
     	
     	for(j = 0; j < 4; j++)
     	{
-    		sx = j == 0 ? x - 1 : j == 1 ? x + 1 : x;
-    		sz = j == 2 ? z - 1 : j == 3 ? z + 1 : z;
+    		sx = j == 0 ? blockPos.getX() - 1 : j == 1 ? blockPos.getX() + 1 : blockPos.getX();
+    		sz = j == 2 ? blockPos.getZ() - 1 : j == 3 ? blockPos.getZ() + 1 : blockPos.getZ();
     		ra = rand.nextInt(height * 2 + 1) + height;
     		
-        	b = world.getBlock(sx, y + 1, sz);
+        	b = world.getBlockState(new BlockPos(sx, blockPos.getY() + 1, sz)).getBlock();
         	if(b.getMaterial() == Material.air || b.getMaterial() == Material.vine)
         	{
         		for(int k = 0; k < ra; k++)
         		{
-                	b = world.getBlock(sx, y + 1 + k, sz);
+                	b = world.getBlockState(new BlockPos(sx, blockPos.getY() + 1 + k, sz)).getBlock();
                 	if(b.getMaterial() == Material.air || b.getMaterial() == Material.vine)
                 	{
-            			world.setBlock(sx, y + 1 + k, sz, Blocks.reeds, 0, 2);
+            			world.setBlockState(new BlockPos(sx, blockPos.getY() + 1 + k, sz), Blocks.reeds.getDefaultState(), 2);
                 	}
                 	else
                 	{
@@ -71,7 +72,7 @@ public class WorldGenJungleCane extends WorldGenerator
         	}
     	}
 
-    	world.setBlock(x, y, z, Blocks.water);
+    	world.setBlockState(new BlockPos(blockPos.getX(), blockPos.getY(), blockPos.getZ()), Blocks.water.getDefaultState());
     	
     	return true;
 	}

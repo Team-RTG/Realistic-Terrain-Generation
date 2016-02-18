@@ -4,6 +4,7 @@
 
 package rtg.world.biome;
 
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
@@ -13,9 +14,9 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
  */
 public interface RTGBiomeProvider {
     public int[] getBiomesGens(int par1, int par2, int par3, int par4);
-    public float getRiverStrength(int x, int y);
+    public float getRiverStrength(BlockPos blockPos);
     public float calculateRiver(int x, int y, float st, float biomeHeight);
-    public BiomeGenBase getBiomeGenAt(int par1, int par2);
-    public RealisticBiomeBase getBiomeDataAt(int par1, int par2);
+    public BiomeGenBase getBiomeGenAt(BlockPos blockPos);
+    public RealisticBiomeBase getBiomeDataAt(BlockPos blockPos);
     public boolean isBorderlessAt(int x, int y);
 }

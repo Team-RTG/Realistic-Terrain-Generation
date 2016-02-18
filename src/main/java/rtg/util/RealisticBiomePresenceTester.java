@@ -4,7 +4,7 @@ package rtg.util;
 import org.apache.logging.log4j.Level;
 
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import cpw.mods.fml.common.FMLLog;
+import net.minecraftforge.fml.common.FMLLog;
 
 import net.minecraft.world.biome.BiomeGenBase;
 

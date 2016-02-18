@@ -2,6 +2,9 @@ package rtg.world.gen;
 
 import java.util.Random;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.config.rtg.ConfigRTG;
 
 import net.minecraft.block.Block;
@@ -20,11 +23,11 @@ public class MapGenRavineRTG extends MapGenRavine
     private int ravineFrequency;
 
     @Override
-    protected void func_151540_a(long p_151540_1_, int p_151540_3_, int p_151540_4_, Block[] p_151540_5_, double p_151540_6_, double p_151540_8_, double p_151540_10_, float p_151540_12_, float p_151540_13_, float p_151540_14_, int p_151540_15_, int p_151540_16_, double p_151540_17_)
+    protected void func_180707_a(long p_151540_1_, int x, int z, ChunkPrimer primer, double p_151540_6_, double p_151540_8_, double p_151540_10_, float p_151540_12_, float p_151540_13_, float p_151540_14_, int p_151540_15_, int p_151540_16_, double p_151540_17_)
     {
         Random random = new Random(p_151540_1_);
-        double d4 = (double)(p_151540_3_ * 16 + 8);
-        double d5 = (double)(p_151540_4_ * 16 + 8);
+        double d4 = (double)(x * 16 + 8);
+        double d5 = (double)(z * 16 + 8);
         float f3 = 0.0F;
         float f4 = 0.0F;
 
@@ -87,12 +90,12 @@ public class MapGenRavineRTG extends MapGenRavine
 
                 if (p_151540_6_ >= d4 - 16.0D - d12 * 2.0D && p_151540_10_ >= d5 - 16.0D - d12 * 2.0D && p_151540_6_ <= d4 + 16.0D + d12 * 2.0D && p_151540_10_ <= d5 + 16.0D + d12 * 2.0D)
                 {
-                    int i4 = MathHelper.floor_double(p_151540_6_ - d12) - p_151540_3_ * 16 - 1;
-                    int l1 = MathHelper.floor_double(p_151540_6_ + d12) - p_151540_3_ * 16 + 1;
+                    int i4 = MathHelper.floor_double(p_151540_6_ - d12) - x * 16 - 1;
+                    int l1 = MathHelper.floor_double(p_151540_6_ + d12) - x * 16 + 1;
                     int j4 = MathHelper.floor_double(p_151540_8_ - d6) - 1;
                     int i2 = MathHelper.floor_double(p_151540_8_ + d6) + 1;
-                    int k4 = MathHelper.floor_double(p_151540_10_ - d12) - p_151540_4_ * 16 - 1;
-                    int j2 = MathHelper.floor_double(p_151540_10_ + d12) - p_151540_4_ * 16 + 1;
+                    int k4 = MathHelper.floor_double(p_151540_10_ - d12) - z * 16 - 1;
+                    int j2 = MathHelper.floor_double(p_151540_10_ + d12) - z * 16 + 1;
 
                     if (i4 < 0)
                     {
@@ -138,9 +141,7 @@ public class MapGenRavineRTG extends MapGenRavine
 
                                 if (i3 >= 0 && i3 < 256)
                                 {
-                                    Block block = p_151540_5_[j3];
-
-                                    if (isOceanBlock(p_151540_5_, j3, k2, i3, l2, p_151540_3_, p_151540_4_))
+                                    if (isOceanBlock(primer, k2, i3, l2, x, z))
                                     {
                                         flag2 = true;
                                     }
@@ -158,11 +159,11 @@ public class MapGenRavineRTG extends MapGenRavine
                     {
                         for (k2 = i4; k2 < l1; ++k2)
                         {
-                            double d13 = ((double)(k2 + p_151540_3_ * 16) + 0.5D - p_151540_6_) / d12;
+                            double d13 = ((double)(k2 + x * 16) + 0.5D - p_151540_6_) / d12;
 
                             for (j3 = k4; j3 < j2; ++j3)
                             {
-                                double d14 = ((double)(j3 + p_151540_4_ * 16) + 0.5D - p_151540_10_) / d12;
+                                double d14 = ((double)(j3 + z * 16) + 0.5D - p_151540_10_) / d12;
                                 int k3 = (k2 * 16 + j3) * 256 + i2;
                                 boolean flag = false;
 
@@ -174,14 +175,13 @@ public class MapGenRavineRTG extends MapGenRavine
 
                                         if ((d13 * d13 + d14 * d14) * (double)this.field_75046_d[l3] + d11 * d11 / 6.0D < 1.0D)
                                         {
-                                            Block block1 = p_151540_5_[k3];
 
-                                            if (isTopBlock(p_151540_5_, k3, k2, l3, j3, p_151540_3_, p_151540_4_))
+                                            if (isTopBlock(primer, k2, l3, j3, x, z))
                                             {
                                                 flag = true;
                                             }
 
-                                            digBlock(p_151540_5_, k3, k2, l3, j3, p_151540_3_, p_151540_4_, flag);
+                                            digBlock(primer, k2, l3, j3, x, z, flag);
                                         }
 
                                         --k3;
@@ -201,7 +201,7 @@ public class MapGenRavineRTG extends MapGenRavine
     }
 
     @Override
-    protected void func_151538_a(World p_151538_1_, int p_151538_2_, int p_151538_3_, int p_151538_4_, int p_151538_5_, Block[] p_151538_6_)
+    protected void recursiveGenerate(World p_151538_1_, int p_151538_2_, int p_151538_3_, int p_151538_4_, int p_151538_5_, ChunkPrimer primer)
     {
         enableRavines = ConfigRTG.enableRavines;
         ravineFrequency = ConfigRTG.ravineFrequency;
@@ -222,33 +222,38 @@ public class MapGenRavineRTG extends MapGenRavine
                 float f = this.rand.nextFloat() * (float)Math.PI * 2.0F;
                 float f1 = (this.rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
                 float f2 = (this.rand.nextFloat() * 2.0F + this.rand.nextFloat()) * 2.0F;
-                this.func_151540_a(this.rand.nextLong(), p_151538_4_, p_151538_5_, p_151538_6_, d0, d1, d2, f2, f, f1, 0, 0, 3.0D);
+                this.func_180707_a(this.rand.nextLong(), p_151538_4_, p_151538_5_, primer, d0, d1, d2, f2, f, f1, 0, 0, 3.0D);
             }
         }
     }
 
     @Override
-    protected boolean isOceanBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ)
+    protected boolean isOceanBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ)
     {
-        return data[index] == Blocks.water || data[index] == Blocks.flowing_water;
+        Block block = data.getBlockState(x,y,z).getBlock();
+        return block == Blocks.flowing_water || block == Blocks.water;
     }
 
     //Exception biomes to make sure we generate like vanilla
-    private boolean isExceptionBiome(BiomeGenBase biome)
-    {
-        if (biome == BiomeGenBase.mushroomIsland) return true;
-        if (biome == BiomeGenBase.beach) return true;
-        if (biome == BiomeGenBase.desert) return true;
-        return false;
+    private boolean isExceptionBiome(BiomeGenBase biome) {
+        boolean booException = false;
+
+        if (biome == BiomeGenBase.mushroomIsland) booException = true;
+        if (biome == BiomeGenBase.beach) booException = true;
+        if (biome == BiomeGenBase.desert) booException = true;
+
+        return booException;
     }
 
-    //Determine if the block at the specified location is the top block for the biome, we take into account
+
+        //Determine if the block at the specified location is the top block for the biome, we take into account
     //Vanilla bugs to make sure that we generate the map the same way vanilla does.
-    private boolean isTopBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ)
-    {
-        BiomeGenBase biome = worldObj.getBiomeGenForCoords(x + chunkX * 16, z + chunkZ * 16);
-        return (isExceptionBiome(biome) ? data[index] == Blocks.grass : data[index] == biome.topBlock);
-    }
+        private boolean isTopBlock(ChunkPrimer primer, int x, int y, int z, int chunkX, int chunkZ)
+        {
+            Block block = primer.getBlockState(x,y,z).getBlock();
+            BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
+            return (isExceptionBiome(biome) ? block == Blocks.grass : block == biome.topBlock);
+        }
 
     /**
      * Digs out the current block, default implementation removes stone, filler, and top block
@@ -257,7 +262,6 @@ public class MapGenRavineRTG extends MapGenRavine
      * tries to make the floor the biome's top block
      * 
      * @param data Block data array
-     * @param index Pre-calculated index into block data
      * @param x local X position
      * @param y local Y position
      * @param z local Z position
@@ -265,28 +269,26 @@ public class MapGenRavineRTG extends MapGenRavine
      * @param chunkZ Chunk Y position
      * @param foundTop True if we've encountered the biome's top block. Ideally if we've broken the surface.
      */
-    
-    @Override
-    protected void digBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop)
+    protected void digBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop)
     {
-        BiomeGenBase biome = worldObj.getBiomeGenForCoords(x + chunkX * 16, z + chunkZ * 16);
-        Block top    = (isExceptionBiome(biome) ? Blocks.grass : biome.topBlock);
-        Block filler = (isExceptionBiome(biome) ? Blocks.dirt  : biome.fillerBlock);
-        Block block  = data[index];
+        BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0,z + chunkZ * 16));
+        IBlockState top    = (isExceptionBiome(biome) ? Blocks.grass.getDefaultState() : biome.topBlock);
+        IBlockState filler = (isExceptionBiome(biome) ? Blocks.dirt.getDefaultState()  : biome.fillerBlock);
+        IBlockState block  = data.getBlockState(x,y,z);
 
         if (block == Blocks.stone || block == filler || block == top)
         {
             if (y < 10)
             {
-                data[index] = Blocks.flowing_lava;
+                data.setBlockState(x,y,z, Blocks.flowing_lava.getDefaultState());
             }
             else
             {
-                data[index] = null;
+                data.setBlockState(x,y,z, Blocks.air.getDefaultState());
 
-                if (foundTop && data[index - 1] == filler)
+                if (foundTop && data.getBlockState( x, y - 1,y ) == filler)
                 {
-                    data[index - 1] = top;
+                    data.setBlockState( x, y - 1, y , top);
                 }
             }
         }

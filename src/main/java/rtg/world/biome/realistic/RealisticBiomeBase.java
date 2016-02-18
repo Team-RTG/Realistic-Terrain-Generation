@@ -12,6 +12,12 @@ import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.Ev
 
 import java.util.Random;
 
+import net.minecraft.block.BlockStone;
+import net.minecraft.block.state.pattern.BlockHelper;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.chunk.ChunkPrimer;
+import net.minecraft.world.gen.ChunkProviderSettings;
+import net.minecraft.world.gen.feature.WorldGenMinable;
 import org.apache.logging.log4j.Level;
 
 import rtg.api.biome.BiomeConfig;
@@ -23,9 +29,8 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceGeneric;
 import rtg.world.gen.terrain.TerrainBase;
-import cpw.mods.fml.common.FMLLog;
+import net.minecraftforge.fml.common.FMLLog;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -53,7 +58,6 @@ public class RealisticBiomeBase extends BiomeBase {
     
     public SurfaceBase[] surfaces;
     public int surfacesLength;
-    public SurfaceBase surfaceGeneric;
     
     public int waterSurfaceLakeChance; //Lower = more frequent
     public int lavaSurfaceLakeChance; //Lower = more frequent
@@ -71,16 +75,14 @@ public class RealisticBiomeBase extends BiomeBase {
     public Block emeraldStoneBlock;
     public byte emeraldStoneMeta;
     
-    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
+    public RealisticBiomeBase(BiomeGenBase biome) {
     
-        this(config, biome, BiomeGenBase.river);
+        this(biome, BiomeGenBase.river);
     }
     
-    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome, BiomeGenBase river) {
+    public RealisticBiomeBase(BiomeGenBase biome, BiomeGenBase river) {
     
         super(biome.biomeID);
-        
-        this.config = config;
 
     	if (biome.biomeID == 160 && this instanceof rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaRedwoodTaigaHills) {
 
@@ -117,9 +119,9 @@ public class RealisticBiomeBase extends BiomeBase {
         return arrRealisticBiomeIds[id];
     }
     
-    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s) {
+    public RealisticBiomeBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s) {
     
-        this(config, b, riverbiome);
+        this(b, riverbiome);
         
         terrain = t;
         
@@ -127,11 +129,9 @@ public class RealisticBiomeBase extends BiomeBase {
         surfacesLength = s.length;
     }
     
-    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
-        
-        this(config, b, riverbiome, t, new SurfaceBase[] {s});
-        
-        surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
+    public RealisticBiomeBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
+    
+        this(b, riverbiome, t, new SurfaceBase[] {s});
     }
     
     public void rPopulatePreDecorate(IChunkProvider ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag)
@@ -153,7 +153,7 @@ public class RealisticBiomeBase extends BiomeBase {
                 
                 if (rand.nextInt(waterUndergroundLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterUndergroundLakeChance) == 1)) {
                     
-                    (new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
+                    (new WorldGenLakes(Blocks.water)).generate(worldObj, rand, new BlockPos(i2, l4, i8));
                 }
             }
         }
@@ -165,14 +165,14 @@ public class RealisticBiomeBase extends BiomeBase {
                 
                 int i2 = worldX + rand.nextInt(16) + 8;
                 int i8 = worldZ + rand.nextInt(16) + 8;
-                int l4 = worldObj.getHeightValue(i2, i8);
+                int l4 = worldObj.getHeight(new BlockPos(i2,0,i8)).getY();
                 
                 //Surface lakes.
                 if (rand.nextInt(waterSurfaceLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterSurfaceLakeChance) == 1)) {
 
                     if (l4 > 63) {
                         
-                        (new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
+                        (new WorldGenLakes(Blocks.water)).generate(worldObj, rand, new BlockPos(i2, l4, i8));
                     }
                 }
             }
@@ -191,7 +191,7 @@ public class RealisticBiomeBase extends BiomeBase {
                 
                 if (rand.nextInt(lavaUndergroundLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.lavaUndergroundLakeChance) == 1)) {
                     
-                    (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, i2, l4, i8);
+                    (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, new BlockPos(i2, l4, i8));
                 }
             }
         }
@@ -203,14 +203,14 @@ public class RealisticBiomeBase extends BiomeBase {
                 
                 int i2 = worldX + rand.nextInt(16) + 8;
                 int i8 = worldZ + rand.nextInt(16) + 8;
-                int l4 = worldObj.getHeightValue(i2, i8);
+                int l4 = worldObj.getChunkFromBlockCoords(new BlockPos(i2, 1, i8)).getHeightValue(i2,i8);
                 
                 //Surface lakes.
                 if (rand.nextInt(lavaSurfaceLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.lavaSurfaceLakeChance) == 1)) {
 
                     if (l4 > 63) {
                         
-                        (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, i2, l4, i8);
+                        (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, new BlockPos(i2, l4, i8));
                     }
                 }
             }
@@ -225,7 +225,7 @@ public class RealisticBiomeBase extends BiomeBase {
                 int k8 = rand.nextInt(128);
                 int j11 = worldZ + rand.nextInt(16) + 8;
                 
-                (new WorldGenDungeons()).generate(worldObj, rand, j5, k8, j11);
+                (new WorldGenDungeons()).generate(worldObj, rand, new BlockPos(j5, k8, j11));
             }
         }
     }
@@ -233,7 +233,7 @@ public class RealisticBiomeBase extends BiomeBase {
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
     
         if (strength > 0.3f) {
-            baseBiome.decorate(world, rand, chunkX, chunkY);
+            baseBiome.decorate(world, rand, new BlockPos(chunkX, 1, chunkY));
         }
         else {
             rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
@@ -258,7 +258,7 @@ public class RealisticBiomeBase extends BiomeBase {
     public void rDecorateSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
         
         if (strength > 0.3f) {
-            seedBiome.decorate(world, rand, chunkX, chunkY);
+            seedBiome.decorate(world, rand, new BlockPos(chunkX, 1, chunkY));
         }
         else {
             rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, seedBiome);
@@ -273,33 +273,57 @@ public class RealisticBiomeBase extends BiomeBase {
      */
     public void rOreGenSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
 
-        MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(world, rand, chunkX, chunkY));
+        BlockPos chunk = new BlockPos(chunkX, 1, chunkY);
+
+        MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(world, rand, chunk));
+        //there is probably a better way to do this
+        String s = world.getWorldInfo().getGeneratorOptions();
+
+        if (s != null)
+        {
+            seedBiome.theBiomeDecorator.chunkProviderSettings = ChunkProviderSettings.Factory.jsonToFactory(s).func_177864_b();
+        }
+        else
+        {
+            seedBiome.theBiomeDecorator.chunkProviderSettings = ChunkProviderSettings.Factory.jsonToFactory("").func_177864_b();
+        }
+        seedBiome.theBiomeDecorator.dirtGen = new WorldGenMinable(Blocks.dirt.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.dirtSize);
+        seedBiome.theBiomeDecorator.gravelGen = new WorldGenMinable(Blocks.gravel.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.gravelSize);
+        seedBiome.theBiomeDecorator.graniteGen = new WorldGenMinable(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), seedBiome.theBiomeDecorator.chunkProviderSettings.graniteSize);
+        seedBiome.theBiomeDecorator.dioriteGen = new WorldGenMinable(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE), seedBiome.theBiomeDecorator.chunkProviderSettings.dioriteSize);
+        seedBiome.theBiomeDecorator.andesiteGen = new WorldGenMinable(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE), seedBiome.theBiomeDecorator.chunkProviderSettings.andesiteSize);
+        seedBiome.theBiomeDecorator.coalGen = new WorldGenMinable(Blocks.coal_ore.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.coalSize);
+        seedBiome.theBiomeDecorator.ironGen = new WorldGenMinable(Blocks.iron_ore.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.ironSize);
+        seedBiome.theBiomeDecorator.goldGen = new WorldGenMinable(Blocks.gold_ore.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.goldSize);
+        seedBiome.theBiomeDecorator.redstoneGen = new WorldGenMinable(Blocks.redstone_ore.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.redstoneSize);
+        seedBiome.theBiomeDecorator.diamondGen = new WorldGenMinable(Blocks.diamond_ore.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.diamondSize);
+        seedBiome.theBiomeDecorator.lapisGen = new WorldGenMinable(Blocks.lapis_ore.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.lapisSize);
         
-        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.dirtGen, chunkX, chunkY, DIRT))
+        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.dirtGen, chunk, DIRT))
         genStandardOre1(20, seedBiome.theBiomeDecorator.dirtGen, 0, 256, world, rand, chunkX, chunkY);
-        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.gravelGen, chunkX, chunkY, GRAVEL))
+        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.gravelGen, chunk, GRAVEL))
         genStandardOre1(10, seedBiome.theBiomeDecorator.gravelGen, 0, 256, world, rand, chunkX, chunkY);
-        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.coalGen, chunkX, chunkY, COAL))
+        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.coalGen, chunk, COAL))
         genStandardOre1(20, seedBiome.theBiomeDecorator.coalGen, 0, 128, world, rand, chunkX, chunkY);
-        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.ironGen, chunkX, chunkY, IRON))
+        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.ironGen, chunk, IRON))
         genStandardOre1(20, seedBiome.theBiomeDecorator.ironGen, 0, 64, world, rand, chunkX, chunkY);
-        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.goldGen, chunkX, chunkY, GOLD))
+        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.goldGen, chunk, GOLD))
         genStandardOre1(2, seedBiome.theBiomeDecorator.goldGen, 0, 32, world, rand, chunkX, chunkY);
-        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.redstoneGen, chunkX, chunkY, REDSTONE))
+        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.redstoneGen, chunk, REDSTONE))
         genStandardOre1(8, seedBiome.theBiomeDecorator.redstoneGen, 0, 16, world, rand, chunkX, chunkY);
-        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.diamondGen, chunkX, chunkY, DIAMOND))
+        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.diamondGen, chunk, DIAMOND))
         genStandardOre1(1, seedBiome.theBiomeDecorator.diamondGen, 0, 16, world, rand, chunkX, chunkY);
-        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.lapisGen, chunkX, chunkY, LAPIS))
+        if (TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.lapisGen, chunk, LAPIS))
         genStandardOre2(1, seedBiome.theBiomeDecorator.lapisGen, 16, 16, world, rand, chunkX, chunkY);
         
         if (ConfigRTG.generateOreEmerald && generatesEmeralds) {
             rGenerateEmeralds(world, rand, chunkX, chunkY);
         }
         
-        MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(world, rand, chunkX, chunkY));
+        MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(world, rand, chunk));
     }
     
-    public void generateMapGen(Block[] blocks, byte[] metadata, Long seed, World world, RTGBiomeProvider cmr, Random mapRand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
+    public void generateMapGen(ChunkPrimer primer, byte[] metadata, Long seed, World world, RTGBiomeProvider cmr, Random mapRand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
     
         int k = 5;
         mapRand.setSeed(seed);
@@ -308,12 +332,12 @@ public class RealisticBiomeBase extends BiomeBase {
         for (int baseX = chunkX - k; baseX <= chunkX + k; baseX++) {
             for (int baseY = chunkY - k; baseY <= chunkY + k; baseY++) {
                 mapRand.setSeed((long) baseX * l + (long) baseY * l1 ^ seed);
-                rMapGen(blocks, metadata, world, cmr, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
+                rMapGen(primer, metadata, world, cmr, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
             }
         }
     }
     
-    public void rMapGen(Block[] blocks, byte[] metadata, World world, RTGBiomeProvider cmr, Random mapRand, int chunkX, int chunkY, int baseX, int baseY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
+    public void rMapGen(ChunkPrimer primer, byte[] metadata, World world, RTGBiomeProvider cmr, Random mapRand, int chunkX, int chunkY, int baseX, int baseY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
     
     }
     
@@ -322,18 +346,10 @@ public class RealisticBiomeBase extends BiomeBase {
         return terrain.generateNoise(simplex, cell, x, y, border, river);
     }
     
-    public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
-
-        if (ConfigRTG.enableRTGBiomeSurfaces && this.config.getPropertyById(BiomeConfig.useRTGSurfacesId).valueBoolean) {
-            
-            for (int s = 0; s < surfacesLength; s++) {
-                
-                surfaces[s].paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
-            }
-        }
-        else {
-            
-            this.surfaceGeneric.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+    public void rReplace(ChunkPrimer chunkPrimer, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+    
+        for (int s = 0; s < surfacesLength; s++) {
+            surfaces[s].paintTerrain(chunkPrimer, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
         }
     }
     
@@ -344,7 +360,7 @@ public class RealisticBiomeBase extends BiomeBase {
     
     public void rDecorateClay(World worldObj, Random rand, int chunkX, int chunkZ, float river, int worldX, int worldZ)
     {
-        if (TerrainGen.decorate(worldObj, rand, chunkX, chunkZ, CLAY)) {
+        if (TerrainGen.decorate(worldObj, rand, new BlockPos(chunkX*16, 1, chunkZ*16), CLAY)) {
             
             if (river > 0.85f) {
                 
@@ -354,7 +370,7 @@ public class RealisticBiomeBase extends BiomeBase {
                     int i9 = 53 + rand.nextInt(15);
                     int l11 = worldZ + rand.nextInt(16);
                     
-                    (new WorldGenClay(Blocks.clay, 0, clayPerVein)).generate(worldObj, rand, l5, i9, l11);
+                    (new WorldGenClay(Blocks.clay, 0, clayPerVein)).generate(worldObj, rand, new BlockPos(l5, i9, l11));
                 }
             }
         }
@@ -371,7 +387,7 @@ public class RealisticBiomeBase extends BiomeBase {
             int i1 = chunkX + rand.nextInt(16);
             int j1 = rand.nextInt(maxY - minY) + minY;
             int k1 = chunkZ + rand.nextInt(16);
-            oreGen.generate(worldObj, rand, i1, j1, k1);
+            oreGen.generate(worldObj, rand, new BlockPos(i1, j1, k1));
         }
     }
     
@@ -386,7 +402,7 @@ public class RealisticBiomeBase extends BiomeBase {
             int i1 = chunkX + rand.nextInt(16);
             int j1 = rand.nextInt(maxY) + rand.nextInt(maxY) + (minY - maxY);
             int k1 = chunkZ + rand.nextInt(16);
-            oreGen.generate(worldObj, rand, i1, j1, k1);
+            oreGen.generate(worldObj, rand, new BlockPos(i1, j1, k1));
         }
     }
 
@@ -403,9 +419,9 @@ public class RealisticBiomeBase extends BiomeBase {
             j1 = rand.nextInt(28) + 4;
             int k1 = chunkZ + rand.nextInt(16);
 
-            if (world.getBlock(i1, j1, k1).isReplaceableOreGen(world, i1, j1, k1, emeraldStoneBlock))
+            if (world.getBlockState(new BlockPos(i1, j1, k1)).getBlock().isReplaceableOreGen(world, new BlockPos(i1, j1, k1), BlockHelper.forBlock(emeraldStoneBlock)))
             {
-                world.setBlock(i1, j1, k1, emeraldEmeraldBlock, emeraldEmeraldMeta, 2);
+                world.setBlockState(new BlockPos(i1, j1, k1), emeraldEmeraldBlock.getDefaultState());
                 
                 if (ConfigRTG.enableDebugging) {
                     FMLLog.log(Level.INFO, "Emerald generated at %d, %d, %d", i1, j1, k1);
@@ -421,7 +437,7 @@ public class RealisticBiomeBase extends BiomeBase {
         boolean enableDebugging = ConfigRTG.enableDebugging;
 
         // Get the highest possible existing block location.
-        int maxY = world.getHeightValue(chunkX, chunkZ);
+        int maxY = world.getChunkFromChunkCoords(chunkX, chunkZ).getHeightValue( endX, endZ);
         
         for (int x = chunkX * 16; x < endX; ++x)
         {
@@ -429,9 +445,9 @@ public class RealisticBiomeBase extends BiomeBase {
             {
                 for (int y = 0; y < maxY; ++y)
                 {   
-                    if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, emeraldEmeraldBlock)) {
+                    if (world.getBlockState(new BlockPos(x,y,z)).getBlock().isReplaceableOreGen(world, new BlockPos(x,y,z), BlockHelper.forBlock(emeraldEmeraldBlock))) {
                         
-                        world.setBlock(x, y, z, emeraldStoneBlock, emeraldStoneMeta, 2);
+                        world.setBlockState(new BlockPos(x,y,z), emeraldStoneBlock.getDefaultState());
                         
                         if (enableDebugging) {
                             FMLLog.log(Level.INFO, "Emerald replaced at %d, %d, %d", x, y, z);
@@ -440,27 +456,5 @@ public class RealisticBiomeBase extends BiomeBase {
                 }
             }
         }
-    }
-    
-    public TerrainBase getTerrain()
-    {
-        return this.terrain;
-    }
-    
-    public SurfaceBase getSurface()
-    {
-        if (this.surfacesLength == 0) {
-            
-            throw new RuntimeException(
-                "No realistic surfaces found for " + this.baseBiome.biomeName + " (" + this.baseBiome.biomeID + ")."
-            );
-        }
-        
-        return this.surfaces[0];
-    }
-    
-    public SurfaceBase[] getSurfaces()
-    {
-        return this.surfaces;
     }
 }

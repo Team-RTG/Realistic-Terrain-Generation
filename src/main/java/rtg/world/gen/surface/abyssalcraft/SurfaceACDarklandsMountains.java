@@ -8,6 +8,8 @@ import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 
+import com.shinoow.abyssalcraft.api.block.ACBlocks;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -97,7 +99,7 @@ public class SurfaceACDarklandsMountains extends SurfaceBase
                         cliff = 3;
                     }
                     
-                    if (cliff == 1)
+                    if (cliff == 1 || cliff == 2)
                     {
                         if (rand.nextInt(3) == 0) {
                             
@@ -110,20 +112,18 @@ public class SurfaceACDarklandsMountains extends SurfaceBase
                             metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                         }
                     }
-                    else if (cliff == 2)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k);
-                        metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
-                    }
                     else if (cliff == 3)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = Blocks.snow;
+                        blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                        metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                     }
                     else if (k < 63)
                     {
                         if (beach)
                         {
                             blocks[(y * 16 + x) * 256 + k] = beachBlock;
+                            metadata[(y * 16 + x) * 256 + k] = (byte)0;
+                            
                             gravel = true;
                         }
                         else if (k < 62)
@@ -139,32 +139,39 @@ public class SurfaceACDarklandsMountains extends SurfaceBase
                     }
                     else
                     {
-                        blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
+                        blocks[(y * 16 + x) * 256 + k] = ACBlocks.darklands_grass;
+                        metadata[(y * 16 + x) * 256 + k] = (byte)0;
                     }
                 }
                 else if (depth < 6)
                 {
-                    if (cliff == 1)
+                    if (cliff == 1 || cliff == 2)
+                    {
+                        if (rand.nextInt(3) == 0) {
+                            
+                            blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
+                        }
+                        else {
+                            
+                            blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                            metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
+                        }
+                    }
+                    else if (cliff == 3)
                     {
                         blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
                         metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                     }
-                    else if (cliff == 2)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k);
-                        metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
-                    }
-                    else if (cliff == 3)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = Blocks.snow;
-                    }
                     else if (gravel)
                     {
                         blocks[(y * 16 + x) * 256 + k] = Blocks.gravel;
+                        metadata[(y * 16 + x) * 256 + k] = (byte)0;
                     }
                     else
                     {
                         blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+                        metadata[(y * 16 + x) * 256 + k] = (byte)0;
                     }
                 }
             }

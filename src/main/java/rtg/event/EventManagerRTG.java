@@ -1,10 +1,15 @@
 package rtg.event;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.event.terraingen.*;
 import org.apache.logging.log4j.Level;
 
 import rtg.RTG;
 import rtg.config.rtg.ConfigRTG;
 import rtg.world.WorldTypeRTG;
+import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.MapGenCavesRTG;
 import rtg.world.gen.MapGenRavineRTG;
 import rtg.world.gen.genlayer.RiverRemover;
@@ -15,16 +20,15 @@ import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.terraingen.InitMapGenEvent;
-import net.minecraftforge.event.terraingen.OreGenEvent;
-import net.minecraftforge.event.terraingen.WorldTypeEvent;
 import net.minecraftforge.event.world.WorldEvent;
 
 public class EventManagerRTG
 {
+    public RealisticBiomeBase biome = null;
 
     public EventManagerRTG()
     {
@@ -167,5 +171,64 @@ public class EventManagerRTG
             
             FMLLog.log(Level.INFO, "World Seed: %d", event.world.getSeed());
         }
+    }
+    
+    @SubscribeEvent
+    public void onGetVillageBlockID(BiomeEvent.GetVillageBlockID event)
+    {
+
+        if (this.biome != null) {
+            
+            if (this.isDesertVillageBiome()) {
+                
+                IBlockState originalBlock = event.original;
+                
+                if (originalBlock == Blocks.cobblestone || originalBlock == Blocks.log) {
+                    
+                    event.replacement = Blocks.sandstone.getDefaultState();
+                }
+                else if (originalBlock == Blocks.planks) {
+
+                    event.replacement = Blocks.sandstone.getStateFromMeta(2);
+                }
+                else if (originalBlock == Blocks.oak_stairs || originalBlock == Blocks.stone_stairs) {
+                    
+                    event.replacement = Blocks.sandstone.getStateFromMeta(Blocks.stone_stairs.getMetaFromState(originalBlock));
+                }
+            }
+            
+            // The event has to be cancelled in order to override the original block.
+            if (event.replacement != null) {
+                
+                event.setResult(Result.DENY);
+            }
+        }
+    }
+    
+    @SubscribeEvent
+    public void preBiomeDecorate(DecorateBiomeEvent.Pre event)
+    {
+
+        //Are we in an RTG world? Do we have RTG's chunk manager?
+        if (event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG && event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG) {
+            
+            WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) event.world.getWorldChunkManager();
+            this.biome = cmr.getBiomeDataAt(event.pos);
+        }
+    }
+    
+    private boolean isDesertVillageBiome()
+    {
+        if (
+            BiomeDictionary.isBiomeOfType(this.biome, BiomeDictionary.Type.HOT)
+            &&
+            BiomeDictionary.isBiomeOfType(this.biome, BiomeDictionary.Type.DRY)
+            &&
+            BiomeDictionary.isBiomeOfType(this.biome, BiomeDictionary.Type.SANDY)
+        ) {
+            return true;
+        }
+        
+        return false;
     }
 }

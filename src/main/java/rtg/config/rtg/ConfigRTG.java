@@ -2,8 +2,8 @@ package rtg.config.rtg;
 
 import java.io.File;
 
+import net.minecraftforge.fml.common.Loader;
 import org.apache.logging.log4j.Level;
-
 import net.minecraftforge.fml.common.FMLLog;
 
 import net.minecraftforge.common.config.Configuration;
@@ -86,6 +86,10 @@ public class ConfigRTG
     public static int maxDistanceVillages = 48; // Vanilla = 32
     
     public static boolean allowTreesToGenerateOnSand = true;
+    
+    public static int patchBiomeId = 1;
+    
+    public static boolean villageCrashFix = (Loader.isModLoaded("enviromine"));
     	
 	public static void init(File configFile) 
 	{
@@ -285,6 +289,16 @@ public class ConfigRTG
             villageSize = config.getInt("Size of villages", "Villages", villageSize, 0, 10, "Higher values = bigger villages; 0 = Vanilla" + Configuration.NEW_LINE);
             minDistanceVillages = config.getInt("Minimum distance between villages", "Villages", minDistanceVillages, 1, Integer.MAX_VALUE, "Higher values = villages further apart; 8 = Vanilla" + Configuration.NEW_LINE);
             maxDistanceVillages = config.getInt("Maximum distance between villages", "Villages", maxDistanceVillages, 1, Integer.MAX_VALUE, "Lower values = villages closer together; 32 = Vanilla" + Configuration.NEW_LINE);
+            
+            villageCrashFix = config.getBoolean(
+                "Village Crash Fix",
+                "Villages",
+                villageCrashFix,
+                "Set this to TRUE to if you are experiencing 'java.util.ConcurrentModificationException' crashes related to village generation."
+                + Configuration.NEW_LINE +
+                "Defaults to FALSE unless EnviroMine is installed, in which case it defaults to TRUE."
+                + Configuration.NEW_LINE
+            );
             
             /* ==================== Volcanoes ==================== */
             

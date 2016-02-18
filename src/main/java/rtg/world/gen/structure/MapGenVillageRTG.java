@@ -94,9 +94,9 @@ public class MapGenVillageRTG extends MapGenVillage
             if (booRTGWorld && booRTGChunkManager) {
                 
                 WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) worldObj.getWorldChunkManager();
-                int worldX = par1 * 16;
-                int worldZ = par2 * 16;
-                RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(new BlockPos(worldX + 16, 0 ,worldZ + 16));
+                int worldX = k * 16 + 8;
+                int worldZ = l * 16 + 8;
+                RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(new BlockPos(worldX, 0 ,worldZ));
 
                 if (realisticBiome.config.getPropertyById(BiomeConfig.allowVillagesId).valueBoolean) {
                     canSpawnVillage = true;

@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPOutback;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPOutback;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -13,15 +14,15 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPCBiomes.outback;
 	
-	public static Block topBlock = bopBiome.topBlock;
-	public static Block fillerBlock = bopBiome.fillerBlock;
+	public static Block topBlock = bopBiome.topBlock.getBlock();
+	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
 	
 	public RealisticBiomeBOPOutback(BiomeConfig config)
 	{
-		super(config, 
+		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPOutback(300f),
-			new SurfaceBOPOutback(config, 
+			new SurfaceBOPOutback(
                 Blocks.grass, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 
@@ -36,5 +37,7 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
+		
+		this.config = config;
 	}
 }

@@ -2,7 +2,7 @@ package rtg.world.gen.surface.biomesoplenty;
 
 import java.util.Random;
 
-import rtg.api.biome.BiomeConfig;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.SnowHeightCalculator;
@@ -15,7 +15,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceBOPArctic extends SurfaceBase
 {
-    
+    private Block blockTop;
+    private byte byteTop;
+    private Block blockFiller;
+    private byte byteFiller;
     private Block blockMixTop;
     private byte byteMixTop;
     private Block blockMixFiller;
@@ -25,11 +28,16 @@ public class SurfaceBOPArctic extends SurfaceBase
     private float floSmallWidth;
     private float floSmallStrength;
 
-    public SurfaceBOPArctic(BiomeConfig config, Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
+    public SurfaceBOPArctic(Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
         byte mixFillerByte, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
     {
     
-        super(config, top, topByte, filler, fillerByte);
+        super(top, filler);
+        
+        blockTop = top;
+        byteTop = topByte;
+        blockFiller = filler;
+        byteFiller = fillerByte;
         
         blockMixTop = mixTop;
         byteMixTop = mixTopByte;
@@ -43,8 +51,8 @@ public class SurfaceBOPArctic extends SurfaceBase
     }
     
     @Override
-    public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
-        OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+    public void paintTerrain(ChunkPrimer primer, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
+                             OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
     
         boolean water = false;
@@ -64,7 +72,7 @@ public class SurfaceBOPArctic extends SurfaceBase
         Block b;
         for(int k = 255; k > -1; k--)
         {
-            b = blocks[(y * 16 + x) * 256 + k];
+            b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
             if(b == Blocks.air)
             {
                 depth = -1;
@@ -77,37 +85,37 @@ public class SurfaceBOPArctic extends SurfaceBase
                 {
                     if(grass && depth < 4)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                        metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+                        primer.setBlockState((y * 16 + x) * 256 + k, blockFiller.getDefaultState());
+                        metadata[(y * 16 + x) * 256 + k] = byteFiller;
                     }
                     else if(depth == 0)
                     {
                         if (rand.nextInt(2) == 0) {
                             
-                            blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                            primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k).getDefaultState());
                             metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                         }
                         else {
                             
-                            blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
+                            primer.setBlockState((y * 16 + x) * 256 + k, hcCobble(world, i, j, x, y, k).getDefaultState());
                             metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
                         }
                     }
                 }
                 else if(depth > -1 && depth < 9)
                 {
-                    blocks[(y * 16 + x) * 256 + k] = topBlock;
-                    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+                    primer.setBlockState((y * 16 + x) * 256 + k, blockTop.getDefaultState());
+                    metadata[(y * 16 + x) * 256 + k] = byteTop;
                     
                     if(depth == 0 && k > 61 && k < 254)
                     {
-                        SnowHeightCalculator.calc(x, y, k, blocks, metadata, noise);
+                        SnowHeightCalculator.calc(x, y, k, primer, metadata, noise);
                     }
                 }
             }
             else if(!water && b == Blocks.water)
             {
-                blocks[(y * 16 + x) * 256 + k] = Blocks.ice;
+                primer.setBlockState((y * 16 + x) * 256 + k, Blocks.ice.getDefaultState());
                 water = true;
             }
         }

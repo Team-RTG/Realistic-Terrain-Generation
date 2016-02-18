@@ -11,29 +11,23 @@ import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
-import rtg.world.biome.realistic.arsmagica.RealisticBiomeAMBase;
-import rtg.world.biome.realistic.atg.RealisticBiomeATGBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
-import rtg.world.biome.realistic.chromaticraft.RealisticBiomeCCBase;
-import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBase;
-import rtg.world.biome.realistic.extrabiomes.RealisticBiomeEBXLBase;
-import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
-import cpw.mods.fml.common.event.FMLServerStartedEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.event.FMLServerStoppedEvent;
-import cpw.mods.fml.common.event.FMLServerStoppingEvent;
-import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 import net.minecraftforge.common.MinecraftForge;
 
@@ -92,17 +86,11 @@ public class RTG {
 
         RealisticBiomeVanillaBase.addBiomes();
         
-        RealisticBiomeBOPBase.addBiomes();
-        RealisticBiomeEBBase.addBiomes();
-        RealisticBiomeEBXLBase.addBiomes();
-        RealisticBiomeHLBase.addBiomes();
-        RealisticBiomeTCBase.addBiomes();
-        RealisticBiomeBCBase.addBiomes();
-        RealisticBiomeAMBase.addBiomes();
-        RealisticBiomeATGBase.addBiomes();
-        RealisticBiomeCCBase.addBiomes();
+        //RealisticBiomeBOPBase.addBiomes();
+        //RealisticBiomeTCBase.addBiomes();
+        //RealisticBiomeBCBase.addBiomes();
         
-        RealisticBiomePresenceTester.doBiomeCheck();
+        //RealisticBiomePresenceTester.doBiomeCheck();
     }
     
     @EventHandler

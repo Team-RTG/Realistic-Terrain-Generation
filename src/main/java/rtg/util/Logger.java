@@ -1,6 +1,6 @@
 package rtg.util;
 
-import cpw.mods.fml.common.FMLLog;
+import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 import rtg.reference.ModInfo;
 

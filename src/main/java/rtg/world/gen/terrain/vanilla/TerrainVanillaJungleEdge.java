@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Level;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
-import cpw.mods.fml.common.FMLLog;
+import net.minecraftforge.fml.common.FMLLog;
 
 public class TerrainVanillaJungleEdge extends TerrainBase
 {

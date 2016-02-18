@@ -2,6 +2,7 @@ package rtg.world.gen.feature.tree;
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import rtg.config.rtg.ConfigRTG;
 
 import net.minecraft.block.Block;
@@ -25,9 +26,9 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator
     	sand = s;
     }
 
-    public boolean generate(World world, Random rand, int x, int y, int z)
+    public boolean generate(World world, Random rand, BlockPos blockPos)
     {
-    	Block b = world.getBlock(x, y - 1, z);
+    	Block b = world.getBlockState(blockPos.down()).getBlock();
     	
         if (b == Blocks.sand && !ConfigRTG.allowTreesToGenerateOnSand) {
             return false;
@@ -45,9 +46,9 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator
 	    	
 	    	for(int i = 0; i < h; i++)
 	    	{
-	    		world.setBlock(x, y + i, z, Blocks.log2, 0, 0);
+	    		world.setBlockState(blockPos.up(), Blocks.log2.getStateFromMeta(0), 0);
 	    	}
-			genLeaves(world, rand, x, y + h, z);
+			genLeaves(world, rand, blockPos.up(h));
 			
 			int sh, eh, dir;
 			float xd, yd, c;
@@ -63,11 +64,11 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator
 				
 				while(sh < h)
 				{
-					world.setBlock(x + (int)(xd * c), y + sh, z + (int)(yd * c), Blocks.log2, 0, 0);
+					world.setBlockState(blockPos.add((int)(xd * c), sh, (int)(yd * c)), Blocks.log2.getStateFromMeta(0), 0);
 					sh++;
 					c += 0.5f;
 				}
-				genLeaves(world, rand, x + (int)(xd * c), y + sh, z + (int)(yd * c));
+				genLeaves(world, rand, blockPos.add( (int)(xd * c), sh, (int)(yd * c)));
 			}
     	}
     	else if(type == 1)
@@ -77,9 +78,9 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator
 	    	
 	    	for(int i = 0; i < h; i++)
 	    	{
-	    		world.setBlock(x, y + i, z, Blocks.log2, 0, 0);
+	    		world.setBlockState(blockPos.up(), Blocks.log2.getStateFromMeta(0), 0);
 	    	}
-			genLeaves(world, rand, x, y + h, z);
+			genLeaves(world, rand, blockPos.up(h));
 			
 			int sh, eh, dir;
 			float xd, yd, c;
@@ -95,11 +96,11 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator
 				
 				while(sh < h)
 				{
-					world.setBlock(x + (int)(xd * c), y + sh, z + (int)(yd * c), Blocks.log2, 0, 0);
+					world.setBlockState(blockPos.add((int)(xd * c), sh, (int)(yd * c)), Blocks.log2.getStateFromMeta(0), 0);
 					sh++;
 					c += 0.5f;
 				}
-				genLeaves(world, rand, x + (int)(xd * c), y + sh, z + (int)(yd * c));
+				genLeaves(world, rand, blockPos.add( (int)(xd * c), sh, (int)(yd * c)));
 			}
     	}
     	else if(type == 2)
@@ -109,9 +110,9 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator
 	    	
 	    	for(int i = 0; i < h; i++)
 	    	{
-	    		world.setBlock(x, y + i, z, Blocks.log2);
+	    		world.setBlockState(blockPos.up(), Blocks.log2.getStateFromMeta(0));
 	    	}
-			genLeaves(world, rand, x, y + h, z);
+			genLeaves(world, rand, blockPos.up(h));
 			
 			int sh, eh, dir;
 			float xd, yd, c;
@@ -127,18 +128,18 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator
 				
 				while(sh < h)
 				{
-					world.setBlock(x + (int)(xd * c), y + sh, z + (int)(yd * c), Blocks.log2);
+					world.setBlockState(blockPos.add((int)(xd * c), sh, (int)(yd * c)), Blocks.log2.getStateFromMeta(0));
 					sh++;
 					c += 0.5f;
 				}
-				genLeaves(world, rand, x + (int)(xd * c), y + sh, z + (int)(yd * c));
+				genLeaves(world, rand, blockPos.add( (int)(xd * c), sh, (int)(yd * c)));
 			}
     	}
     	
     	return true;
     }
     
-    public void genLeaves(World world, Random rand, int x, int y, int z)
+    public void genLeaves(World world, Random rand, BlockPos blockPos)
     {
     	if(type == 0)
     	{
@@ -148,9 +149,9 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator
 	    	{
 	    		for(j = -2; j <= 2; j++)
 	    		{
-	    			if(world.isAirBlock(x + i, y + 1, z + j) && Math.abs(i) + Math.abs(j) < 4)
+	    			if(world.isAirBlock(blockPos.add(i,1,j)) && Math.abs(i) + Math.abs(j) < 4)
 	    			{
-	    				world.setBlock(x + i, y + 1, z + j, Blocks.leaves2, 0, 0);
+	    				world.setBlockState(blockPos.add(i,1,j), Blocks.leaves2.getDefaultState(), 0);
 	    			}
 	    		}
 	    	}
@@ -159,14 +160,14 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator
 	    	{
 	    		for(j = -3; j <= 3; j++)
 	    		{
-	    			if(world.isAirBlock(x + i, y, z + j) && Math.abs(i) + Math.abs(j) < 5)
+	    			if(world.isAirBlock(blockPos.add(i, 0, j)) && Math.abs(i) + Math.abs(j) < 5)
 	    			{
-	    				world.setBlock(x + i, y, z + j, Blocks.leaves2, 0, 0);
+	    				world.setBlockState(blockPos.add(i, 0, j), Blocks.leaves2.getDefaultState(), 0);
 	    			}
 	    		}
 	    	}
 	    	
-	    	world.setBlock(x, y, z, Blocks.log2);
+	    	world.setBlockState(blockPos, Blocks.log2.getDefaultState());
     	}
     	else
     	{
@@ -176,9 +177,9 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator
 	    	{
 	    		for(j = -1; j <= 1; j++)
 	    		{
-	    			if(world.isAirBlock(x + i, y + 1, z + j))
+	    			if(world.isAirBlock(blockPos.add(i,1,j)))
 	    			{
-	    				world.setBlock(x + i, y + 1, z + j, Blocks.leaves2, 0, 0);
+	    				world.setBlockState(blockPos.add(i,1,j), Blocks.leaves2.getDefaultState(), 0);
 	    			}
 	    		}
 	    	}
@@ -187,14 +188,14 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator
 	    	{
 	    		for(j = -2; j <= 2; j++)
 	    		{
-	    			if(world.isAirBlock(x + i, y, z + j) && Math.abs(i) + Math.abs(j) < 4)
+	    			if(world.isAirBlock(blockPos.add(i, 0, j)) && Math.abs(i) + Math.abs(j) < 4)
 	    			{
-	    				world.setBlock(x + i, y, z + j, Blocks.leaves2, 0, 0);
+	    				world.setBlockState(blockPos.add(i, 0, j), Blocks.leaves2.getDefaultState(), 0);
 	    			}
 	    		}
 	    	}
 	    	
-	    	world.setBlock(x, y, z, Blocks.log2);
+	    	world.setBlockState(blockPos, Blocks.log2.getDefaultState());
     	}
     }
 }

@@ -2,11 +2,11 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
-import rtg.api.biome.BiomeConfig;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-
+import rtg.util.SnowHeightCalculator;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -14,13 +14,13 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceTundra extends SurfaceBase
 {
-	public SurfaceTundra(BiomeConfig config, Block top, Block fill) 
+	public SurfaceTundra(Block top, Block fill) 
 	{
-		super(config, top, (byte)0, fill, (byte)0);
+		super(top, fill);
 	}
 	
 	@Override
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	public void paintTerrain(ChunkPrimer primer, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		float p = simplex.noise2(i / 8f, j / 8f) * 0.5f;
 		float c = CliffCalculator.calc(x, y, noise);
@@ -30,7 +30,7 @@ public class SurfaceTundra extends SurfaceBase
     	Block b;
 		for(int k = 255; k > -1; k--)
 		{
-			b = blocks[(y * 16 + x) * 256 + k];
+			b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
             if(b == Blocks.air)
             {
             	depth = -1;
@@ -63,62 +63,62 @@ public class SurfaceTundra extends SurfaceBase
             		{
                         if (rand.nextInt(3) == 0) {
                             
-                            blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
+                            primer.setBlockState((y * 16 + x) * 256 + k, hcCobble(world, i, j, x, y, k).getDefaultState());
                             metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
                         }
                         else {
                             
-                            blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                            primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k).getDefaultState());
                             metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                         }
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k); 
+        				primer.setBlockState((y * 16 + x) * 256 + k, getShadowStoneBlock(world, i, j, x, y, k).getDefaultState());
         				metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
             		}
             		else if(cliff == 3)
             		{
-	        			blocks[(y * 16 + x) * 256 + k] = Blocks.snow;
+	        			primer.setBlockState((y * 16 + x) * 256 + k, Blocks.snow.getDefaultState());
             		}
             		else if(simplex.noise2(i / 50f, j / 50f) + p * 0.6f > 0.24f)
         			{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+            			primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
             			metadata[(y * 16 + x) * 256 + k] = 2;
         			}
             		else if(k < 63)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.gravel;
+            			primer.setBlockState((y * 16 + x) * 256 + k, Blocks.gravel.getDefaultState());
             			gravel = true;
             		}
             		else
             		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
+            			primer.setBlockState((y * 16 + x) * 256 + k, Blocks.grass.getDefaultState());
             		}
             	}
             	else if(depth < 6)
         		{
             		if(cliff == 1)
             		{
-                        blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                        primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k).getDefaultState());
                         metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k); 
+        				primer.setBlockState((y * 16 + x) * 256 + k, getShadowStoneBlock(world, i, j, x, y, k).getDefaultState());
         				metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
             		}
             		else if(cliff == 3)
             		{
-	        			blocks[(y * 16 + x) * 256 + k] = Blocks.snow;
+	        			primer.setBlockState((y * 16 + x) * 256 + k, Blocks.snow.getDefaultState());
             		}
             		else if(gravel)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.gravel;
+            			primer.setBlockState((y * 16 + x) * 256 + k, Blocks.gravel.getDefaultState());
             		}
             		else
             		{
-            			blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+            			primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
             		}
         		}
             }

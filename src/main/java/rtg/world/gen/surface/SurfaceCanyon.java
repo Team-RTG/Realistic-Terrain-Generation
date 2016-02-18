@@ -2,24 +2,25 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.util.CellNoise;
-import rtg.util.CliffCalculator;
-import rtg.util.OpenSimplexNoise;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
+import rtg.util.CellNoise;
+import rtg.util.CliffCalculator;
+import rtg.util.OpenSimplexNoise;
 
 public class SurfaceCanyon extends SurfaceBase
 {
 	private int[] claycolor = new int[100];
+	private byte blockByte = 0;
 	private int grassRaise = 0;
 	
-	public SurfaceCanyon(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte, int grassHeight)
+	public SurfaceCanyon(Block top, Block fill, byte b, int grassHeight)
 	{
-		super(config, top, topByte, fill, fillByte);
+		super(top, fill);
+		blockByte = b;
 		grassRaise = grassHeight;
 		
 		int[] c = new int[]{1, 8, 0};
@@ -42,14 +43,14 @@ public class SurfaceCanyon extends SurfaceBase
 	}
 	
 	@Override
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	public void paintTerrain(ChunkPrimer primer, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		float c = CliffCalculator.calc(x, y, noise);
 		boolean cliff = c > 1.3f ? true : false;
 		
 		for(int k = 255; k > -1; k--)
 		{
-			Block b = blocks[(y * 16 + x) * 256 + k];
+			Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
             if(b == Blocks.air)
             {
             	depth = -1;
@@ -62,49 +63,49 @@ public class SurfaceCanyon extends SurfaceBase
 	        	{
 	            	if(cliff)
 	            	{
-	        			blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay;
+	        			primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getDefaultState());
 	        			metadata[(y * 16 + x) * 256 + k] = getClayColorForHeight(k);
 	            	}
 	            	else
 	            	{
 	        			if(depth > 4)
 	        			{
-		        			blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay;
+		        			primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getDefaultState());
 		        			metadata[(y * 16 + x) * 256 + k] = getClayColorForHeight(k);
 	        			}
 	        			else if(k > 74 + grassRaise)
 	        			{
 	        				if(rand.nextInt(5) == 0)
 	        				{
-		        				blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+		        				primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
 	        				}
 	        				else
 	        				{
 		        				if(depth == 0)
 		        				{
-			        				blocks[(y * 16 + x) * 256 + k] = topBlock;
-			        				metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+			        				primer.setBlockState((y * 16 + x) * 256 + k, topBlock.getDefaultState());
+			        				metadata[(y * 16 + x) * 256 + k] = blockByte;
 		        				}
 		        				else
 		        				{
-			        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-			        				metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+			        				primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock.getDefaultState());
+			        				metadata[(y * 16 + x) * 256 + k] = blockByte;
 		        				}
 	        				}
 	        			}
 	        			else if(k < 62)
 	        			{
-	        				blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+	        				primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
 	        			}
 	        			else if(k < 62 + grassRaise)
 	        			{
 	        				if(depth == 0)
 	        				{
-	        					blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
+	        					primer.setBlockState((y * 16 + x) * 256 + k, Blocks.grass.getDefaultState());
 	        				}
 	        				else
 	        				{
-	        					blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+	        					primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
 	        				}
 	        			}
 	        			else if(k < 75 + grassRaise)
@@ -114,42 +115,42 @@ public class SurfaceCanyon extends SurfaceBase
 		        				int r = (int)((k - (62 + grassRaise)) / 2f);
 		        				if(rand.nextInt(r + 1) == 0)
 		        				{
-			        				blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
+			        				primer.setBlockState((y * 16 + x) * 256 + k, Blocks.grass.getDefaultState());
 		        				}
 		        				else if(rand.nextInt((int)(r / 2f) + 1) == 0)
 		        				{
-			        				blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
+			        				primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
 		        				}
 		        				else
 		        				{
-			        				blocks[(y * 16 + x) * 256 + k] = topBlock;
-			        				metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+			        				primer.setBlockState((y * 16 + x) * 256 + k, topBlock.getDefaultState());
+			        				metadata[(y * 16 + x) * 256 + k] = blockByte;
 		        				}
 	        				}
 	        				else
 	        				{
-		        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-		        				metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+		        				primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock.getDefaultState());
+		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
 	        				}
 	        			}
 	        			else
 	        			{
 	        				if(depth == 0)
 	        				{
-		        				blocks[(y * 16 + x) * 256 + k] = topBlock;
-		        				metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+		        				primer.setBlockState((y * 16 + x) * 256 + k, topBlock.getDefaultState());
+		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
 	        				}
 	        				else
 	        				{
-		        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-		        				metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+		        				primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock.getDefaultState());
+		        				metadata[(y * 16 + x) * 256 + k] = blockByte;
 	        				}
 	        			}
 	            	}
         		}
         		else if(k > 63)
         		{
-        			blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay;
+        			primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getDefaultState());
         			metadata[(y * 16 + x) * 256 + k] = getClayColorForHeight(k);
         		}
             }

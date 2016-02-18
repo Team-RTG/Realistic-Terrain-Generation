@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMysticGrove;
 import rtg.util.CellNoise;
@@ -21,16 +22,18 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPCBiomes.mysticGrove;
 	
-	public static Block topBlock = bopBiome.topBlock;
-	public static Block fillerBlock = bopBiome.fillerBlock;
+	public static Block topBlock = bopBiome.topBlock.getBlock();
+	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
 	
 	public RealisticBiomeBOPMysticGrove(BiomeConfig config)
 	{
-		super(config, 
+		super(
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPMysticGrove(),
-			new SurfaceBOPMysticGrove(config, topBlock, fillerBlock)
+			new SurfaceBOPMysticGrove(topBlock, fillerBlock)
 		);
+		
+		this.config = config;
 	}
 	
     @Override
@@ -50,7 +53,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
                 
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
+                int y22 = world.getHeight(new BlockPos(x22,1,z22)).getY();
                             
                 Block logBlock;
                 byte logByte;
@@ -96,7 +99,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
                 
                 if (y22 < 100)
                 {
-                    (new WorldGenLog(logBlock, logByte, Blocks.leaves, -1, logLength)).generate(world, rand, x22, y22, z22);
+                    (new WorldGenLog(logBlock, logByte, Blocks.leaves, -1, logLength)).generate(world, rand, new BlockPos(x22, y22, z22));
                 }
             }
         }

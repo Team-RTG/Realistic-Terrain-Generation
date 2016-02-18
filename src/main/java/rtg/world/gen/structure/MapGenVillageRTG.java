@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.StringTranslate;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.world.WorldTypeRTG;
@@ -60,12 +62,6 @@ public class MapGenVillageRTG extends MapGenVillage
     }
 
     @Override
-    public String func_143025_a()
-    {
-        return "Village";
-    }
-
-    @Override
     protected boolean canSpawnStructureAtCoords(int par1, int par2)
     {
         boolean booRTGWorld = (worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG) ? true : false;
@@ -100,7 +96,7 @@ public class MapGenVillageRTG extends MapGenVillage
                 WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) worldObj.getWorldChunkManager();
                 int worldX = k * 16 + 8;
                 int worldZ = l * 16 + 8;
-                RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldX, worldZ);
+                RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(new BlockPos(worldX, 0 ,worldZ));
 
                 if (realisticBiome.config.getPropertyById(BiomeConfig.allowVillagesId).valueBoolean) {
                     canSpawnVillage = true;
@@ -113,6 +109,11 @@ public class MapGenVillageRTG extends MapGenVillage
         }
         
         return canSpawnVillage;
+    }
+
+    @Override
+    public String getStructureName() {
+        return "Village";
     }
 
     @Override
@@ -182,16 +183,16 @@ public class MapGenVillageRTG extends MapGenVillage
     		 return this.hasMoreThanTwoComponents;
     	}
 
-    	public void func_143022_a(NBTTagCompound p_143022_1_)
+    	public void writeToNBT(NBTTagCompound nbtTagCompound)
     	{
-    		super.func_143022_a(p_143022_1_);
-    		p_143022_1_.setBoolean("Valid", this.hasMoreThanTwoComponents);
+    		super.writeToNBT(nbtTagCompound);
+    		nbtTagCompound.setBoolean("Valid", this.hasMoreThanTwoComponents);
     	}
 
-    	public void func_143017_b(NBTTagCompound p_143017_1_)
+    	public void readFromNBT(NBTTagCompound nbtTagCompound)
     	{
-    		super.func_143017_b(p_143017_1_);
-    		this.hasMoreThanTwoComponents = p_143017_1_.getBoolean("Valid");
+    		super.readFromNBT(nbtTagCompound);
+    		this.hasMoreThanTwoComponents = nbtTagCompound.getBoolean("Valid");
     	}
     }
 }

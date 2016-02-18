@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -148,7 +149,7 @@ public class WorldGenTreeRTGBig extends WorldGenerator
                 else
                 {
                     var11[var9] = var10[var9] + var13;
-                    Block var14 = worldObj.getBlock(var11[0], var11[1], var11[2]);
+                    Block var14 = worldObj.getBlockState(new BlockPos(var11[0], var11[1], var11[2])).getBlock();
 
                     if (var14 != Blocks.air && var14 != Blocks.leaves)
                     {
@@ -156,7 +157,7 @@ public class WorldGenTreeRTGBig extends WorldGenerator
                     }
                     else
                     {
-                    	worldObj.setBlock(var11[0], var11[1], var11[2], par6, 0, 0);
+                    	worldObj.setBlockState(new BlockPos(var11[0], var11[1], var11[2]), par6.getDefaultState(),2);
                         ++var13;
                     }
                 }
@@ -277,7 +278,7 @@ public class WorldGenTreeRTGBig extends WorldGenerator
                     }
                 }
 
-                worldObj.setBlock(var14[0], var14[1], var14[2], par3, 0, 0);
+                worldObj.setBlockState(new BlockPos(var14[0], var14[1], var14[2]), par3.getDefaultState(),2);
             }
         }
     }
@@ -406,7 +407,7 @@ public class WorldGenTreeRTGBig extends WorldGenerator
                 var13[var5] = par1ArrayOfInteger[var5] + var14;
                 var13[var6] = MathHelper.floor_double((double)par1ArrayOfInteger[var6] + (double)var14 * var9);
                 var13[var7] = MathHelper.floor_double((double)par1ArrayOfInteger[var7] + (double)var14 * var11);
-                Block var16 = this.worldObj.getBlock(var13[0], var13[1], var13[2]);
+                Block var16 = this.worldObj.getBlockState(new BlockPos(var13[0], var13[1], var13[2])).getBlock();
 
                 if (var16 != Blocks.air && var16 != Blocks.leaves)
                 {
@@ -426,7 +427,7 @@ public class WorldGenTreeRTGBig extends WorldGenerator
     {
         int[] var1 = new int[] {this.basePos[0], this.basePos[1], this.basePos[2]};
         int[] var2 = new int[] {this.basePos[0], this.basePos[1] + this.heightLimit - 1, this.basePos[2]};
-        Block var3 = this.worldObj.getBlock(this.basePos[0], this.basePos[1] - 1, this.basePos[2]);
+        Block var3 = this.worldObj.getBlockState(new BlockPos(this.basePos[0], this.basePos[1] - 1, this.basePos[2])).getBlock();
 
         if (var3 != Blocks.grass && var3 != Blocks.dirt)
         {
@@ -468,14 +469,14 @@ public class WorldGenTreeRTGBig extends WorldGenerator
         this.leafDensity = par5;
     }
 
-    public boolean generate(World par1World, Random par2Random, int par3, int par4, int par5)
+    public boolean generate(World par1World, Random par2Random, BlockPos blockPos)
     {
         this.worldObj = par1World;
         long var6 = par2Random.nextLong();
         this.rand.setSeed(var6);
-        this.basePos[0] = par3;
-        this.basePos[1] = par4;
-        this.basePos[2] = par5;
+        this.basePos[0] = blockPos.getX();
+        this.basePos[1] = blockPos.getY();
+        this.basePos[2] = blockPos.getZ();
 
         if (this.heightLimit == 0)
         {

@@ -2,8 +2,10 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleEdgeM;
+import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenLog;
@@ -20,17 +22,19 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase
     public static BiomeGenBase standardBiome = BiomeGenBase.jungleEdge;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
     
-    public static Block topBlock = mutationBiome.topBlock;
-    public static Block fillerBlock = mutationBiome.fillerBlock;
+    public static Block topBlock = mutationBiome.topBlock.getBlock();
+    public static Block fillerBlock = mutationBiome.fillerBlock.getBlock();
     
     public RealisticBiomeVanillaJungleEdgeM(BiomeConfig config)
     {
     
-        super(config, 
+        super(
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaJungleEdgeM(),
-            new SurfaceVanillaJungleEdgeM(config, topBlock, fillerBlock));
+            new SurfaceVanillaJungleEdgeM(topBlock, fillerBlock));
+        
+        this.config = config;
     }
     
     @Override
@@ -52,8 +56,8 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
-                (new WorldGenLog(Blocks.log, 3, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+                int y22 = world.getHeight(new BlockPos(x22,1,z22)).getY();
+                (new WorldGenLog(Blocks.log, 3, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, new BlockPos(x22, y22, z22));
             }
         }
     }

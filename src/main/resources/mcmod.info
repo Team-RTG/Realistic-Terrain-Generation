@@ -23,7 +23,8 @@
         "ExtrabiomesXL@[3.16.2,)",
         "Highlands@[2.2.3,)",
         "Railcraft@[9.7.0.0,)",
-        "Thaumcraft@[4.2.3.4,)"
+        "Thaumcraft@[4.2.3.4,)",
+        "vampirism@[0.7.8.1,)"
     ],
     "dependants": [],
     "useDependencyInformation": true

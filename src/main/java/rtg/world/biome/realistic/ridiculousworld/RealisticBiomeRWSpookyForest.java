@@ -1,20 +1,20 @@
 package rtg.world.biome.realistic.ridiculousworld;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.world.gen.surface.arsmagica.SurfaceAMWitchwoodForest;
-import rtg.world.gen.terrain.arsmagica.TerrainAMWitchwoodForest;
+import rtg.world.gen.surface.ridiculousworld.SurfaceRWSpookyForest;
+import rtg.world.gen.terrain.ridiculousworld.TerrainRWSpookyForest;
 
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeRWSpookyForest extends RealisticBiomeRWBase
 {
     
-    public RealisticBiomeRWSpookyForest(BiomeGenBase amBiome, BiomeConfig config)
+    public RealisticBiomeRWSpookyForest(BiomeGenBase rwBiome, BiomeConfig config)
     {
     
         super(config,
-            amBiome, BiomeGenBase.river,
-            new TerrainAMWitchwoodForest(),
-            new SurfaceAMWitchwoodForest(config, amBiome.topBlock, amBiome.fillerBlock));
+            rwBiome, BiomeGenBase.river,
+            new TerrainRWSpookyForest(),
+            new SurfaceRWSpookyForest(config, rwBiome.topBlock, rwBiome.fillerBlock));
     }
 }

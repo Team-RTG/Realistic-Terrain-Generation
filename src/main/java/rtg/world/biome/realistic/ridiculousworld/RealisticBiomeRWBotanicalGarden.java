@@ -13,8 +13,9 @@ public class RealisticBiomeRWBotanicalGarden extends RealisticBiomeRWBase
     {
     
         super(config,
-            rwBiome, BiomeGenBase.river,
+            rwBiome,
+            BiomeGenBase.river,
             new TerrainRWBotanicalGarden(),
-            new SurfaceRWBotanicalGarden(config, rwBiome.topBlock, rwBiome.fillerBlock));
+            new SurfaceRWBotanicalGarden(config, rwBiome.topBlock, rwBiome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, rwBiome.topBlock, 0.05f));
     }
 }

@@ -267,6 +267,8 @@ import rtg.api.biome.thaumcraft.config.BiomeConfigTC;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCEerie;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCMagicalForest;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCTaintedLand;
+import rtg.api.biome.vampirism.config.BiomeConfigVAMP;
+import rtg.api.biome.vampirism.config.BiomeConfigVAMPVampireForest;
 import rtg.api.biome.vanilla.config.BiomeConfigVanilla;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBeach;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForest;
@@ -344,6 +346,7 @@ public class BiomeConfigManager
         initBiomeConfigsEBXL();
         initBiomeConfigsHL();
         initBiomeConfigsTC();
+        initBiomeConfigsVAMP();
         initBiomeConfigsVanilla();
     }
     
@@ -635,6 +638,11 @@ public class BiomeConfigManager
         BiomeConfigTC.biomeConfigTCEerie = new BiomeConfigTCEerie();
         BiomeConfigTC.biomeConfigTCMagicalForest = new BiomeConfigTCMagicalForest();
         BiomeConfigTC.biomeConfigTCTaintedLand = new BiomeConfigTCTaintedLand();
+    }
+    
+    public static void initBiomeConfigsVAMP()
+    {
+        BiomeConfigVAMP.biomeConfigVAMPVampireForest = new BiomeConfigVAMPVampireForest();
     }
     
     public static void initBiomeConfigsVanilla()

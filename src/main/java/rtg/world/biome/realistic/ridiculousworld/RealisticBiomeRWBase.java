@@ -14,6 +14,7 @@ public class RealisticBiomeRWBase extends RealisticBiomeBase
     
     public static RealisticBiomeBase rwBotanicalGarden;
     public static RealisticBiomeBase rwMountainOfMadness;
+    public static RealisticBiomeBase rwMurica;
     public static RealisticBiomeBase rwOssuary;
     public static RealisticBiomeBase rwRockCandyMountain;
     public static RealisticBiomeBase rwShadowFen;
@@ -46,6 +47,10 @@ public class RealisticBiomeRWBase extends RealisticBiomeBase
                     if (biomeName == "Botanical Garden" && biomeClass == "fox.spiteful.ridiculous.biomes.BiomeGenBotania")
                     {
                         rwBotanicalGarden = new RealisticBiomeRWBotanicalGarden(rwBiome, BiomeConfigRW.biomeConfigRWBotanicalGarden);
+                    }
+                    else if (biomeName == "Murica" && biomeClass == "fox.spiteful.ridiculous.biomes.BiomeGenMurica")
+                    {
+                        rwMurica = new RealisticBiomeRWMurica(rwBiome, BiomeConfigRW.biomeConfigRWMurica);
                     }
                     else if (biomeName == "Mountain of Madness" && biomeClass == "fox.spiteful.ridiculous.biomes.BiomeGenMadness")
                     {

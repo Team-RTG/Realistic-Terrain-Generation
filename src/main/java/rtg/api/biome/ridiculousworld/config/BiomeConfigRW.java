@@ -7,6 +7,7 @@ public class BiomeConfigRW
 {
 
     public static BiomeConfig biomeConfigRWBotanicalGarden;
+    public static BiomeConfig biomeConfigRWMurica;
     public static BiomeConfig biomeConfigRWMountainOfMadness;
     public static BiomeConfig biomeConfigRWOssuary;
     public static BiomeConfig biomeConfigRWRockCandyMountain;
@@ -17,6 +18,7 @@ public class BiomeConfigRW
     {
         BiomeConfig[] biomeConfigs = new BiomeConfig[]{
             biomeConfigRWBotanicalGarden,
+            biomeConfigRWMurica,
             biomeConfigRWMountainOfMadness,
             biomeConfigRWOssuary,
             biomeConfigRWRockCandyMountain,

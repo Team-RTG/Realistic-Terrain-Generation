@@ -266,6 +266,7 @@ import rtg.api.biome.highlands.config.BiomeConfigHLWoodsMountains;
 import rtg.api.biome.ridiculousworld.config.BiomeConfigRW;
 import rtg.api.biome.ridiculousworld.config.BiomeConfigRWBotanicalGarden;
 import rtg.api.biome.ridiculousworld.config.BiomeConfigRWMountainOfMadness;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWMurica;
 import rtg.api.biome.ridiculousworld.config.BiomeConfigRWOssuary;
 import rtg.api.biome.ridiculousworld.config.BiomeConfigRWRockCandyMountain;
 import rtg.api.biome.ridiculousworld.config.BiomeConfigRWShadowFen;
@@ -641,6 +642,7 @@ public class BiomeConfigManager
     public static void initBiomeConfigsRW()
     {  
         BiomeConfigRW.biomeConfigRWBotanicalGarden = new BiomeConfigRWBotanicalGarden();
+        BiomeConfigRW.biomeConfigRWMurica = new BiomeConfigRWMurica();
         BiomeConfigRW.biomeConfigRWMountainOfMadness = new BiomeConfigRWMountainOfMadness();
         BiomeConfigRW.biomeConfigRWOssuary = new BiomeConfigRWOssuary();
         BiomeConfigRW.biomeConfigRWRockCandyMountain = new BiomeConfigRWRockCandyMountain();

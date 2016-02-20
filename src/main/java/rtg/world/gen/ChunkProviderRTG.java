@@ -18,10 +18,7 @@ import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.MapGenCaves;
 import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.feature.WorldGenLiquids;
-import net.minecraft.world.gen.structure.MapGenMineshaft;
-import net.minecraft.world.gen.structure.MapGenScatteredFeature;
-import net.minecraft.world.gen.structure.MapGenStronghold;
-import net.minecraft.world.gen.structure.MapGenVillage;
+import net.minecraft.world.gen.structure.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
@@ -62,6 +59,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private final MapGenMineshaft mineshaftGenerator;
     private final MapGenVillage villageGenerator;
     private final MapGenScatteredFeature scatteredFeatureGenerator;
+	private final StructureOceanMonument oceanMonumentGenerator;
     private final boolean mapFeaturesEnabled;
     private final int worldHeight;
     private final int sampleSize = 8;
@@ -134,6 +132,7 @@ public class ChunkProviderRTG implements IChunkProvider
 		strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), STRONGHOLD);
 		mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(), MINESHAFT);
 		scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(), SCATTERED_FEATURE);
+		oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(), OCEAN_MONUMENT);
 
         CanyonColor.init(l);
 
@@ -249,10 +248,14 @@ public class ChunkProviderRTG implements IChunkProvider
             if (ConfigRTG.generateVillages) {
                 villageGenerator.generate(this, this.worldObj,cx, cy, primer);
             }
-            
-            if (ConfigRTG.generateScatteredFeatures) {
-                scatteredFeatureGenerator.generate(this, this.worldObj,cx, cy, primer);
-            }
+
+			if (ConfigRTG.generateScatteredFeatures) {
+				scatteredFeatureGenerator.generate(this, this.worldObj,cx, cy, primer);
+			}
+
+			if (ConfigRTG.generateOceanMonuments) {
+				oceanMonumentGenerator.generate(this, this.worldObj,cx, cy, primer);
+			}
         }
 
         Chunk chunk = new Chunk(this.worldObj, primer, cx, cy);
@@ -805,11 +808,6 @@ public class ChunkProviderRTG implements IChunkProvider
         BlockFalling.fallInstantly = false;
     }
 
-	@Override
-	public boolean func_177460_a(IChunkProvider p_177460_1_, Chunk p_177460_2_, int p_177460_3_, int p_177460_4_) {
-		return false;
-	}
-
 	/**
      * @see IChunkProvider
      *
@@ -864,6 +862,18 @@ public class ChunkProviderRTG implements IChunkProvider
     public List getPossibleCreatures(EnumCreatureType par1EnumCreatureType, BlockPos blockPos)
     {
         BiomeGenBase var5 = this.worldObj.getBiomeGenForCoords(blockPos);
+		if (this.mapFeaturesEnabled)
+		{
+			if (par1EnumCreatureType == EnumCreatureType.MONSTER && this.scatteredFeatureGenerator.func_175798_a(blockPos))
+			{
+				return this.scatteredFeatureGenerator.getScatteredFeatureSpawnList();
+			}
+
+			if (par1EnumCreatureType == EnumCreatureType.MONSTER && ConfigRTG.generateOceanMonuments && this.oceanMonumentGenerator.func_175796_a(this.worldObj, blockPos))
+			{
+				return this.oceanMonumentGenerator.func_175799_b();
+			}
+		}
         return var5 == null ? null : var5.getSpawnableList(par1EnumCreatureType);
     }
 
@@ -879,6 +889,19 @@ public class ChunkProviderRTG implements IChunkProvider
         
         return "Stronghold".equals(par2Str) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(par1World, blockPos) : null;
     }
+
+	@Override
+	public boolean func_177460_a(IChunkProvider p_177460_1_, Chunk p_177460_2_, int p_177460_3_, int p_177460_4_)
+	{
+		boolean flag = false;
+
+		if (ConfigRTG.generateOceanMonuments && this.mapFeaturesEnabled && p_177460_2_.getInhabitedTime() < 3600L)
+		{
+			flag |= this.oceanMonumentGenerator.generateStructure(this.worldObj, this.rand, new ChunkCoordIntPair(p_177460_3_, p_177460_4_));
+		}
+
+		return flag;
+	}
 
     /**
      * @see IChunkProvider
@@ -912,6 +935,10 @@ public class ChunkProviderRTG implements IChunkProvider
             if (ConfigRTG.generateScatteredFeatures) {
                 scatteredFeatureGenerator.generate(this, this.worldObj, par1, par2, null);
             }
+
+			if (ConfigRTG.generateOceanMonuments) {
+				oceanMonumentGenerator.generate(this, this.worldObj, par1, par2, null);
+			}
         }
 	}
 

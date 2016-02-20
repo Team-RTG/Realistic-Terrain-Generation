@@ -11,6 +11,7 @@ import rtg.config.chromaticraft.ConfigCC;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.config.highlands.ConfigHL;
+import rtg.config.ridiculousworld.ConfigRW;
 import rtg.config.rtg.ConfigRTG;
 import rtg.config.thaumcraft.ConfigTC;
 import rtg.config.vanilla.ConfigVanilla;
@@ -30,6 +31,7 @@ public class ConfigManager
     public static File atgConfigFile;
     public static File ccConfigFile;
     public static File acConfigFile;
+    public static File rwConfigFile;
 
     private ConfigRTG configRTG = new ConfigRTG();
     public ConfigRTG rtg() {
@@ -51,6 +53,7 @@ public class ConfigManager
         atgConfigFile = new File(configpath + "biomes/atg.cfg");
         ccConfigFile = new File(configpath + "biomes/chromaticraft.cfg");
         acConfigFile = new File(configpath + "biomes/abyssalcraft.cfg");
+        rwConfigFile = new File(configpath + "biomes/ridiculousworld.cfg");
         
         ConfigRTG.init(rtgConfigFile);
         
@@ -66,5 +69,6 @@ public class ConfigManager
         ConfigATG.init(atgConfigFile);
         ConfigCC.init(ccConfigFile);
         ConfigAC.init(acConfigFile);
+        ConfigRW.init(rwConfigFile);
     }
 }

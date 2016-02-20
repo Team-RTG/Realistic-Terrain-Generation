@@ -270,6 +270,14 @@ import rtg.api.biome.highlands.config.BiomeConfigHLVolcanoIsland;
 import rtg.api.biome.highlands.config.BiomeConfigHLWindyIsland;
 import rtg.api.biome.highlands.config.BiomeConfigHLWoodlands;
 import rtg.api.biome.highlands.config.BiomeConfigHLWoodsMountains;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRW;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWBotanicalGarden;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWMountainOfMadness;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWMurica;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWOssuary;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWRockCandyMountain;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWShadowFen;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWSpookyForest;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTC;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCEerie;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCMagicalForest;
@@ -351,6 +359,7 @@ public class BiomeConfigManager
         initBiomeConfigsEB();
         initBiomeConfigsEBXL();
         initBiomeConfigsHL();
+        initBiomeConfigsRW();
         initBiomeConfigsTC();
         initBiomeConfigsVanilla();
     }
@@ -646,6 +655,17 @@ public class BiomeConfigManager
         BiomeConfigHL.biomeConfigHLWindyIsland = new BiomeConfigHLWindyIsland();
         BiomeConfigHL.biomeConfigHLWoodlands = new BiomeConfigHLWoodlands();
         BiomeConfigHL.biomeConfigHLWoodsMountains = new BiomeConfigHLWoodsMountains();
+    }
+    
+    public static void initBiomeConfigsRW()
+    {  
+        BiomeConfigRW.biomeConfigRWBotanicalGarden = new BiomeConfigRWBotanicalGarden();
+        BiomeConfigRW.biomeConfigRWMurica = new BiomeConfigRWMurica();
+        BiomeConfigRW.biomeConfigRWMountainOfMadness = new BiomeConfigRWMountainOfMadness();
+        BiomeConfigRW.biomeConfigRWOssuary = new BiomeConfigRWOssuary();
+        BiomeConfigRW.biomeConfigRWRockCandyMountain = new BiomeConfigRWRockCandyMountain();
+        BiomeConfigRW.biomeConfigRWShadowFen = new BiomeConfigRWShadowFen();
+        BiomeConfigRW.biomeConfigRWSpookyForest = new BiomeConfigRWSpookyForest();
     }
     
     public static void initBiomeConfigsTC()

@@ -14,7 +14,7 @@ public class RealisticBiomeRWMountainOfMadness extends RealisticBiomeRWBase
     
         super(config,
             rwBiome, BiomeGenBase.frozenRiver,
-            new TerrainRWMountainOfMadness(),
+            new TerrainRWMountainOfMadness(10f, 120f, 68f, 200f),
             new SurfaceRWMountainOfMadness(config, rwBiome.topBlock, rwBiome.fillerBlock));
     }
 }

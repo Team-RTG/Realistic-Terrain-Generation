@@ -10,7 +10,7 @@ public class TerrainHLOutback extends TerrainBase
 	
 	public TerrainHLOutback(float valleySize)
 	{
-		valley = valleySize;
+		valley = 300f;
 	}
 
 	@Override

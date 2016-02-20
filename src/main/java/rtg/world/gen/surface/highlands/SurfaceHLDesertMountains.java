@@ -1,17 +1,17 @@
 package rtg.world.gen.surface.highlands;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
 
 public class SurfaceHLDesertMountains extends SurfaceBase
 {
@@ -43,7 +43,7 @@ public class SurfaceHLDesertMountains extends SurfaceBase
 	}
 	
 	@Override
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		float c = CliffCalculator.calc(x, y, noise);
 		int cliff = 0;
@@ -52,7 +52,7 @@ public class SurfaceHLDesertMountains extends SurfaceBase
     	Block b;
 		for(int k = 255; k > -1; k--)
 		{
-			b = blocks[(y * 16 + x) * 256 + k];
+			b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
             if(b == Blocks.air)
             {
             	depth = -1;
@@ -85,45 +85,39 @@ public class SurfaceHLDesertMountains extends SurfaceBase
             		{
                         if (rand.nextInt(3) == 0) {
                             
-                            blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone;
-                            metadata[(y * 16 + x) * 256 + k] = 2;
+                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sandstone.getStateFromMeta(2));
                         }
                         else {
                             
-                            blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone;
-                            metadata[(y * 16 + x) * 256 + k] = 0;
+                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sandstone.getStateFromMeta(0));
                         }
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone;
-        				metadata[(y * 16 + x) * 256 + k] = 0;
+        				primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sandstone.getStateFromMeta(0));
             		}
             		else if(k < 63)
             		{
             			if(beach)
             			{
-	            			blocks[(y * 16 + x) * 256 + k] = beachBlock;
+	            			primer.setBlockState((y * 16 + x) * 256 + k, beachBlock.getDefaultState());
 	            			gravel = true;
             			}
             			else if(k < 62)
             			{
-                			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-            			    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+                			primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
             			}
             			else
             			{
-                			blocks[(y * 16 + x) * 256 + k] = topBlock;
-            			    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+                			primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
             			}
             		}
             		else
             		{
                             if (k<95) {
-                			   blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
+                			   primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sand.getDefaultState());
                             } else {
-                			   blocks[(y * 16 + x) * 256 + k] = topBlock;
-                                metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+                			   primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
                             }
             		}
             	}
@@ -131,22 +125,19 @@ public class SurfaceHLDesertMountains extends SurfaceBase
         		{
             		if(cliff == 1)
             		{
-                        blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
-                        metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
+                        primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k));
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = getShadowDesertBlock(world, i, j, x, y, k); 
-        				metadata[(y * 16 + x) * 256 + k] = getShadowDesertMeta(world, i, j, x, y, k);
+        				primer.setBlockState((y * 16 + x) * 256 + k, getShadowDesertBlock(world, i, j, x, y, k));
             		}
             		else if(gravel)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = beachBlock;
+            			primer.setBlockState((y * 16 + x) * 256 + k, beachBlock.getDefaultState());
             		}
             		else
             		{
-            			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-            		    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+            			primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
             		}
         		}
             }

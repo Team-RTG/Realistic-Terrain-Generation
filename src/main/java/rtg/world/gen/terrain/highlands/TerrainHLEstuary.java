@@ -30,16 +30,16 @@ public class TerrainHLEstuary extends TerrainBase
 	 */
 	public TerrainHLEstuary(float hillHeight, float hillWidth, float varHeight, float varWidth, float lakeHeight, float lakeWidth, float baseHeight)
 	{
-		hHeight = hillHeight;
-		hWidth = hillWidth;
+		hHeight = 90f;
+		hWidth = 180f;
 		
-		vHeight = varHeight;
-		vWidth = varWidth;
+		vHeight = 13f;
+		vWidth = 100f;
 		
-		lHeight = lakeHeight;
-		lWidth = lakeWidth;
+		lHeight = 38f;
+		lWidth = 260f;
 		
-		bHeight = baseHeight;
+		bHeight = 71f;
 	}
 	
 	@Override

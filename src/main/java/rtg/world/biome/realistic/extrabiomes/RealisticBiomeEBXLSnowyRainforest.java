@@ -1,19 +1,18 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import extrabiomes.api.BiomeManager;
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLSnowyRainforest;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLSnowyRainforest;
-import extrabiomes.api.BiomeManager;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLSnowyRainforest extends RealisticBiomeEBXLBase
 {	
 	public static BiomeGenBase ebxlBiome = BiomeManager.snowyrainforest.get();
 	
-	public static Block topBlock = ebxlBiome.topBlock;
-	public static Block fillerBlock = ebxlBiome.fillerBlock;
+	public static Block topBlock = ebxlBiome.topBlock.getBlock();
+	public static Block fillerBlock = ebxlBiome.fillerBlock.getBlock();
 	
 	public RealisticBiomeEBXLSnowyRainforest(BiomeConfig config)
 	{

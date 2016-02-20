@@ -22,7 +22,7 @@ public class TerrainVanillaDesertHills extends TerrainBase
 
 	public TerrainVanillaDesertHills(float mountainWidth, float mountainStrength, float depthLake)
 	{
-		this(mountainWidth, mountainStrength, depthLake, 160f, 69f);
+		this(600f, 50f, 0f, 160f, 69f);
 	}
 	
 	public TerrainVanillaDesertHills(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
@@ -30,8 +30,8 @@ public class TerrainVanillaDesertHills extends TerrainBase
 		width = mountainWidth;
 		strength = mountainStrength;
 		lakeDepth = depthLake;
-		lakeWidth = widthLake;
-		terrainHeight = height;
+		lakeWidth = 160f;
+		terrainHeight = 69f;
 	}
 	
 	@Override

@@ -1,19 +1,18 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import extrabiomes.api.BiomeManager;
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLSnowForest;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLSnowForest;
-import extrabiomes.api.BiomeManager;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLSnowForest extends RealisticBiomeEBXLBase
 {	
 	public static BiomeGenBase ebxlBiome = BiomeManager.snowforest.get();
 	
-	public static Block topBlock = ebxlBiome.topBlock;
-	public static Block fillerBlock = ebxlBiome.fillerBlock;
+	public static Block topBlock = ebxlBiome.topBlock.getBlock();
+	public static Block fillerBlock = ebxlBiome.fillerBlock.getBlock();
 	
 	public RealisticBiomeEBXLSnowForest(BiomeConfig config)
 	{

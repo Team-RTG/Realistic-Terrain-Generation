@@ -22,7 +22,7 @@ public class TerrainEBXLSnowyRainforest extends TerrainBase
 
 	public TerrainEBXLSnowyRainforest(float mountainWidth, float mountainStrength, float depthLake)
 	{
-		this(mountainWidth, mountainStrength, depthLake, 260f, 69f);
+		this(300f, 70f, 0f, 260f, 69f);
 	}
 	
 	public TerrainEBXLSnowyRainforest(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
@@ -30,8 +30,8 @@ public class TerrainEBXLSnowyRainforest extends TerrainBase
 		width = mountainWidth;
 		strength = mountainStrength;
 		lakeDepth = depthLake;
-		lakeWidth = widthLake;
-		terrainHeight = height;
+		lakeWidth = 260f;
+		terrainHeight = 69f;
 	}
 	
 	@Override

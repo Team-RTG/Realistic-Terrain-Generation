@@ -14,7 +14,7 @@ public class RealisticBiomeTCEerie extends RealisticBiomeTCBase
 		super(config, 
 			tcBiome, BiomeGenBase.river,
 			new TerrainTCEerie(),
-			new SurfaceTCEerie(config, tcBiome.topBlock, tcBiome.fillerBlock)
+			new SurfaceTCEerie(config, tcBiome.topBlock.getBlock(), tcBiome.fillerBlock.getBlock())
 		);
 	}
 }

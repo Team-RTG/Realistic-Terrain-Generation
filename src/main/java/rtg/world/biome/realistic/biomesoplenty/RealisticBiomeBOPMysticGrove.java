@@ -1,7 +1,12 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
+import biomesoplenty.api.content.BOPCBiomes;
+import biomesoplenty.api.content.BOPCBlocks;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMysticGrove;
 import rtg.util.CellNoise;
@@ -9,20 +14,15 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMysticGrove;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMysticGrove;
-import biomesoplenty.api.content.BOPCBiomes;
-import biomesoplenty.api.content.BOPCBlocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
 
 public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPCBiomes.mysticGrove;
 	
-	public static Block topBlock = bopBiome.topBlock;
-	public static Block fillerBlock = bopBiome.fillerBlock;
+	public static Block topBlock = bopBiome.topBlock.getBlock();
+	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
 	
 	public RealisticBiomeBOPMysticGrove(BiomeConfig config)
 	{
@@ -40,7 +40,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
         /**
          * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
          */
-        //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        //rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, baseBiome);
     
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
         
@@ -50,7 +50,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
                 
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
+                int y22 = world.getHeight(new BlockPos(x22, 0, z22)).getY();
                             
                 Block logBlock;
                 byte logByte;
@@ -96,7 +96,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
                 
                 if (y22 < 100)
                 {
-                    (new WorldGenLog(logBlock, logByte, Blocks.leaves, -1, logLength)).generate(world, rand, x22, y22, z22);
+                    (new WorldGenLog(logBlock, logByte, Blocks.leaves, -1, logLength)).generate(world, rand, new BlockPos(x22, y22, z22));
                 }
             }
         }

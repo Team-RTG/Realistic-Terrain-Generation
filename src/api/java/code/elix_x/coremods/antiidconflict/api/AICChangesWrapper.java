@@ -1,6 +1,6 @@
 package code.elix_x.coremods.antiidconflict.api;
 
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraft.world.chunk.Chunk;
 
 /**

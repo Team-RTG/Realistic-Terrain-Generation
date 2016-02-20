@@ -1,76 +1,65 @@
 package rtg.world.gen.feature;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenGrass extends WorldGenerator
-{
-	private Block block;
-	private int metadata;
+import java.util.Random;
 
-    public WorldGenGrass(Block b, int m)
-    {
-		block = b;
-		metadata = m;
+import static net.minecraft.init.Blocks.*;
+
+public class WorldGenGrass extends WorldGenerator {
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+    }
+    private Block block;
+    private int metadata;
+
+    public WorldGenGrass(Block b, int m) {
+        block = b;
+        metadata = m;
     }
 
-    public boolean generate(World world, Random rand, int x, int y, int z)
-    {
-    	while(y > 0)
-    	{
-    		if(!world.isAirBlock(x, y, z) || world.getBlock(x, y, z).isLeaves(world, x, y, z))
-    		{
-    			break;
-    		}
-    		y--;
-    	}
-    	
-    	if(block == Blocks.double_plant)
-    	{
-            for (int l = 0; l < 64; ++l)
-            {
+    public boolean generate(World world, Random rand, int x, int y, int z) {
+        while (y > 0) {
+            if (!world.isAirBlock(new BlockPos(x, y, z)) || world.getBlockState(new BlockPos(x, y, z)).getBlock().isLeaves(world, new BlockPos(x, y, z))) {
+                break;
+            }
+            y--;
+        }
+
+        if (block == double_plant) {
+            for (int l = 0; l < 64; ++l) {
                 int i1 = x + rand.nextInt(8) - rand.nextInt(8);
                 int j1 = y + rand.nextInt(4) - rand.nextInt(4);
                 int k1 = z + rand.nextInt(8) - rand.nextInt(8);
 
-                if (world.isAirBlock(i1, j1, k1) && j1 < 254 && Blocks.double_plant.canPlaceBlockAt(world, i1, j1, k1))
-                {
-                    Blocks.double_plant.func_149889_c(world, i1, j1, k1, metadata, 0);
+                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && j1 < 254 && double_plant.canBlockStay(world, new BlockPos(i1, j1, k1), null)) {
+                    world.setBlockState(new BlockPos(i1, j1, k1), double_plant.getStateFromMeta(metadata));
                 }
             }
-    	}
-    	else if(block == Blocks.leaves)
-    	{
-            for (int l = 0; l < 64; ++l)
-            {
+        } else if (block == leaves) {
+            for (int l = 0; l < 64; ++l) {
                 int i1 = x + rand.nextInt(8) - rand.nextInt(8);
                 int j1 = y + rand.nextInt(4) - rand.nextInt(4);
                 int k1 = z + rand.nextInt(8) - rand.nextInt(8);
 
-                if (world.isAirBlock(i1, j1, k1) && world.getBlock(i1, j1 - 1, k1) == Blocks.grass)
-                {
-                    world.setBlock(i1, j1, k1, block, metadata, 0);
+                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && world.getBlockState(new BlockPos(i1, j1 - 1, k1)).getBlock() == grass) {
+                    world.setBlockState(new BlockPos(i1, j1, k1), block.getStateFromMeta(metadata), 0);
                 }
             }
-    	}
-    	else
-    	{
-            for (int l = 0; l < 128; ++l)
-            {
+        } else {
+            for (int l = 0; l < 128; ++l) {
                 int i1 = x + rand.nextInt(8) - rand.nextInt(8);
                 int j1 = y + rand.nextInt(4) - rand.nextInt(4);
                 int k1 = z + rand.nextInt(8) - rand.nextInt(8);
 
-                if (world.isAirBlock(i1, j1, k1) && block.canBlockStay(world, i1, j1, k1))
-                {
-                    world.setBlock(i1, j1, k1, block, metadata, 0);
+                if (world.isAirBlock(new BlockPos(i1, j1, k1))) {
+                    world.setBlockState(new BlockPos(i1, j1, k1), block.getStateFromMeta(metadata), 0);
                 }
             }
-    	}
-    	return true;
+        }
+        return true;
     }
 }

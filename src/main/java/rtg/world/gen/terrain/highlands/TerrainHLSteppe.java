@@ -30,16 +30,16 @@ public class TerrainHLSteppe extends TerrainBase
 	 */
 	public TerrainHLSteppe(float hillHeight, float hillWidth, float varHeight, float varWidth, float lakeHeight, float lakeWidth, float baseHeight)
 	{
-		hHeight = hillHeight;
-		hWidth = hillWidth;
+		hHeight = 70f;
+		hWidth = 180f;
 		
-		vHeight = varHeight;
-		vWidth = varWidth;
+		vHeight = 13f;
+		vWidth = 100f;
 		
-		lHeight = lakeHeight;
-		lWidth = lakeWidth;
+		lHeight = 38f;
+		lWidth = 260f;
 		
-		bHeight = baseHeight;
+		bHeight = 71f;
 	}
 	
 	@Override

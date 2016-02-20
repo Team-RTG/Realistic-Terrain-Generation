@@ -13,10 +13,10 @@ public class TerrainHLHighlandsB extends TerrainBase
 	
 	public TerrainHLHighlandsB(float hillStart, float landHeight, float baseHeight, float hillWidth)
 	{
-		start = hillStart;
-		height = landHeight;
-		base = baseHeight;
-		width = hillWidth;
+		start = 15f;
+		height = 60f;
+		base = 68f;
+		width = 150f;
 	}
 	
 	@Override

@@ -30,16 +30,16 @@ public class TerrainEBXLForestedIsland extends TerrainBase
 	 */
 	public TerrainEBXLForestedIsland(float hillHeight, float hillWidth, float varHeight, float varWidth, float lakeHeight, float lakeWidth, float baseHeight)
 	{
-		hHeight = hillHeight;
-		hWidth = hillWidth;
+		hHeight = 31f;
+		hWidth = 280f;
 		
-		vHeight = varHeight;
-		vWidth = varWidth;
+		vHeight = 1f;
+		vWidth = 100f;
 		
-		lHeight = lakeHeight;
-		lWidth = lakeWidth;
+		lHeight = 1f;
+		lWidth = 260f;
 		
-		bHeight = baseHeight;
+		bHeight = 59f;
 	}
 	
 	@Override

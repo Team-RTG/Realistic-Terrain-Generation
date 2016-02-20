@@ -1,8 +1,6 @@
 package rtg.util;
 
-import net.minecraft.world.World;
-
-public class CanyonColor 
+public class CanyonColor
 {
 	private static byte[] claycolor = new byte[256];
 	

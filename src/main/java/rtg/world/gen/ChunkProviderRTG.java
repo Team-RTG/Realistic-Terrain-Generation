@@ -1,17 +1,33 @@
 package rtg.world.gen;
 
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.SCATTERED_FEATURE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.STRONGHOLD;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockFalling;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.IProgressUpdate;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.ChunkCoordIntPair;
+import net.minecraft.world.SpawnerAnimals;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.ChunkPrimer;
+import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.MapGenBase;
+import net.minecraft.world.gen.MapGenCaves;
+import net.minecraft.world.gen.MapGenRavine;
+import net.minecraft.world.gen.feature.WorldGenLiquids;
+import net.minecraft.world.gen.structure.MapGenMineshaft;
+import net.minecraft.world.gen.structure.MapGenScatteredFeature;
+import net.minecraft.world.gen.structure.MapGenStronghold;
+import net.minecraft.world.gen.structure.MapGenVillage;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.terraingen.ChunkProviderEvent;
+import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
+import net.minecraftforge.event.terraingen.PopulateChunkEvent;
+import net.minecraftforge.event.terraingen.TerrainGen;
+import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.AICWrapper;
@@ -23,35 +39,13 @@ import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.common.registry.GameData;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockFalling;
-import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.IProgressUpdate;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.ChunkPosition;
-import net.minecraft.world.SpawnerAnimals;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.MapGenBase;
-import net.minecraft.world.gen.MapGenCaves;
-import net.minecraft.world.gen.MapGenRavine;
-import net.minecraft.world.gen.feature.WorldGenLiquids;
-import net.minecraft.world.gen.structure.MapGenMineshaft;
-import net.minecraft.world.gen.structure.MapGenScatteredFeature;
-import net.minecraft.world.gen.structure.MapGenStronghold;
-import net.minecraft.world.gen.structure.MapGenVillage;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.terraingen.ChunkProviderEvent;
-import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
-import net.minecraftforge.event.terraingen.PopulateChunkEvent;
-import net.minecraftforge.event.terraingen.TerrainGen;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.*;
 
 /**
  * Scattered features courtesy of Ezoteric (https://github.com/Ezoteric) and Choonster (https://github.com/Choonster)
@@ -78,7 +72,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
     private int [] xyinverted = analyzer.xyinverted();
     
-    private Block bedrockBlock = GameData.getBlockRegistry().getObject(ConfigRTG.bedrockBlockId);
+    private Block bedrockBlock = Block.getBlockFromName(ConfigRTG.bedrockBlockId);
     private byte bedrockByte = (byte)ConfigRTG.bedrockBlockByte;
 
     private Random rand;
@@ -177,16 +171,18 @@ public class ChunkProviderRTG implements IChunkProvider
      * Will return back a chunk, if it doesn't exist and its not a MP client it will generates all the blocks for the
      * specified chunk from the map seed and chunk seed
      */
+	public Chunk provideChunk(BlockPos blockPos) {
+		return this.provideChunk(blockPos.getX() >> 4, blockPos.getY() >> 4);
+	}
     public Chunk provideChunk(int cx, int cy)
     {
     	rand.setSeed((long)cx * 0x4f9939f508L + (long)cy * 0x1ef1565bd5L);
-        Block[] blocks = new Block[65536];
-        byte[] metadata = new byte[65536];
+        ChunkPrimer primer = new ChunkPrimer();
         float[] noise = new float[256];
         biomesForGeneration = new RealisticBiomeBase[256];
         int k;
 
-        generateTerrain(cmr, cx, cy, blocks, metadata, biomesForGeneration, noise);
+        generateTerrain(cmr, cx, cy, primer, biomesForGeneration, noise);
         // that routine can change the biome array so put it back if not
 
                 //fill with biomeData
@@ -225,7 +221,7 @@ public class ChunkProviderRTG implements IChunkProvider
         {
         	if(biomesGeneratedInChunk[k] > 0f)
         	{
-        		RealisticBiomeBase.getBiome(k).generateMapGen(blocks, metadata, worldSeed, worldObj, cmr, mapRand, cx, cy, simplex, cell, noise);
+        		RealisticBiomeBase.getBiome(k).generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cy, simplex, cell, noise);
         		biomesGeneratedInChunk[k] = 0f;
         	}
             try {
@@ -235,31 +231,31 @@ public class ChunkProviderRTG implements IChunkProvider
             }
         }
 
-        replaceBlocksForBiome(cx, cy, blocks, metadata, biomesForGeneration, baseBiomesList, noise);
+        replaceBlocksForBiome(cx, cy, primer, biomesForGeneration, baseBiomesList, noise);
 
-        caveGenerator.func_151539_a(this, worldObj, cx, cy, blocks);
-        ravineGenerator.func_151539_a(this, worldObj, cx, cy, blocks);
+        caveGenerator.generate(this, worldObj, cx, cy, primer);
+        ravineGenerator.generate(this, worldObj, cx, cy, primer);
 
         if (mapFeaturesEnabled) {
 
             if (ConfigRTG.generateMineshafts) {
-                mineshaftGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+                mineshaftGenerator.generate(this, this.worldObj,cx, cy, primer);
             }
             
             if (ConfigRTG.generateStrongholds) {
-                strongholdGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+                strongholdGenerator.generate(this, this.worldObj,cx, cy, primer);
             }
             
             if (ConfigRTG.generateVillages) {
-                villageGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+                villageGenerator.generate(this, this.worldObj,cx, cy, primer);
             }
             
             if (ConfigRTG.generateScatteredFeatures) {
-                scatteredFeatureGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+                scatteredFeatureGenerator.generate(this, this.worldObj,cx, cy, primer);
             }
         }
 
-        Chunk chunk = new Chunk(this.worldObj, blocks, metadata, cx, cy);
+        Chunk chunk = new Chunk(this.worldObj, primer, cx, cy);
         
         if(isAICExtendingBiomeIdsLimit){
         	aic.setBiomeArray(chunk, baseBiomesList, xyinverted);
@@ -284,7 +280,7 @@ public class ChunkProviderRTG implements IChunkProvider
         return chunk;
     }
 
-    public void generateTerrain(RTGBiomeProvider cmr, int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase biomes[], float[] n)
+    public void generateTerrain(RTGBiomeProvider cmr, int cx, int cy, ChunkPrimer primer, RealisticBiomeBase biomes[], float[] n)
     {
     	int p, h;
     	float[] noise = getNewNoise(cmr, cx * 16, cy * 16, biomes);
@@ -301,16 +297,16 @@ public class ChunkProviderRTG implements IChunkProvider
     				{
     					if(k < 63)
         				{
-        					blocks[p] = Blocks.water;
+        					primer.setBlockState(p, Blocks.water.getDefaultState());
         				}
         				else
         				{
-        					blocks[p] = Blocks.air;
+        					primer.setBlockState(p, Blocks.air.getDefaultState());
         				}
     				}
     				else
     				{
-    					blocks[p] = Blocks.stone;
+    					primer.setBlockState(p, Blocks.stone.getDefaultState());
     				}
     			}
     			n[j * 16 + i] = noise[j * 16 + i];
@@ -480,7 +476,7 @@ public class ChunkProviderRTG implements IChunkProvider
     				bRand = bRand < 0f ? 0f : bRand > 0.99999f ? 0.99999f : bRand;
     			}
 
-    			locationIndex = ((int)(i + 4) * 25 + (j + 4));
+    			locationIndex = ((i + 4) * 25 + (j + 4));
 
     			testHeight[i * 16 + j] = 0f;
 
@@ -538,9 +534,9 @@ public class ChunkProviderRTG implements IChunkProvider
     	return result;
     }
 
-    public void replaceBlocksForBiome(int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase[] biomes, BiomeGenBase[] base, float[] n)
+    public void replaceBlocksForBiome(int cx, int cy, ChunkPrimer primer, RealisticBiomeBase[] biomes, BiomeGenBase[] base, float[] n)
     {
-        ChunkProviderEvent.ReplaceBiomeBlocks event = new ChunkProviderEvent.ReplaceBiomeBlocks(this, cx, cy, blocks, metadata, base, worldObj);
+        ChunkProviderEvent.ReplaceBiomeBlocks event = new ChunkProviderEvent.ReplaceBiomeBlocks(this, cx, cy, primer, worldObj);
         MinecraftForge.EVENT_BUS.post(event);
         if (event.getResult() == Result.DENY) return;
 
@@ -560,38 +556,32 @@ public class ChunkProviderRTG implements IChunkProvider
 
     			depth = -1;
 
-    			biome.rReplace(blocks, metadata, cx * 16 + j, cy * 16 + i, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
+    			biome.rReplace(primer, cx * 16 + j, cy * 16 + i, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
 
     			int rough;
-    			int flatBedrockLayers = (int) ConfigRTG.flatBedrockLayers;
+    			int flatBedrockLayers = ConfigRTG.flatBedrockLayers;
     			flatBedrockLayers = flatBedrockLayers < 0 ? 0 : (flatBedrockLayers > 5 ? 5 : flatBedrockLayers);
     			    			
     			if (flatBedrockLayers > 0) {
     			    for (int bl = 0; bl < flatBedrockLayers; bl++) {
-    			        blocks[(j * 16 + i) * 256 + bl] = bedrockBlock;
-    			        metadata[(j * 16 + i) * 256 + bl] = bedrockByte;
+    			        primer.setBlockState((j * 16 + i) * 256 + bl, bedrockBlock.getStateFromMeta(bedrockByte));
     			    }
     			}
     			else {
     			    
-    			    blocks[(j * 16 + i) * 256] = bedrockBlock;
-    			    metadata[(j * 16 + i) * 256] = bedrockByte;
+    			    primer.setBlockState((j * 16 + i) * 256, bedrockBlock.getStateFromMeta(bedrockByte));
                     
                     rough = rand.nextInt(2);
-                    blocks[(j * 16 + i) * 256 + rough] = bedrockBlock;
-                    metadata[(j * 16 + i) * 256 + rough] = bedrockByte;
+                    primer.setBlockState((j * 16 + i) * 256 + rough, bedrockBlock.getStateFromMeta(bedrockByte));
                     
                     rough = rand.nextInt(3);
-                    blocks[(j * 16 + i) * 256 + rough] = bedrockBlock;
-                    metadata[(j * 16 + i) * 256 + rough] = bedrockByte;
+                    primer.setBlockState((j * 16 + i) * 256 + rough, bedrockBlock.getStateFromMeta(bedrockByte));
                     
                     rough = rand.nextInt(4);
-                    blocks[(j * 16 + i) * 256 + rough] = bedrockBlock;
-                    metadata[(j * 16 + i) * 256 + rough] = bedrockByte;
+                    primer.setBlockState((j * 16 + i) * 256 + rough, bedrockBlock.getStateFromMeta(bedrockByte));
                     
                     rough = rand.nextInt(5);
-                    blocks[(j * 16 + i) * 256 + rough] = bedrockBlock;
-                    metadata[(j * 16 + i) * 256 + rough] = bedrockByte;
+                    primer.setBlockState((j * 16 + i) * 256 + rough, bedrockBlock.getStateFromMeta(bedrockByte));
     			}
 
     		}
@@ -650,19 +640,19 @@ public class ChunkProviderRTG implements IChunkProvider
         if (mapFeaturesEnabled) {
             
             if (ConfigRTG.generateMineshafts) {
-                mineshaftGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+                mineshaftGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
             }
             
             if (ConfigRTG.generateStrongholds) {
-                strongholdGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+                strongholdGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
             }
             
             if (ConfigRTG.generateVillages) {
-                flag = villageGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+                flag = villageGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
             }
             
             if (ConfigRTG.generateScatteredFeatures) {
-                scatteredFeatureGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+                scatteredFeatureGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
             }
         }
         
@@ -688,7 +678,7 @@ public class ChunkProviderRTG implements IChunkProvider
          * ########################################################################
          */
         
-        MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(worldObj, rand, worldX, worldZ));
+        MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(worldObj, rand, new BlockPos(worldX, 0, worldZ)));
 
         //Initialise variables.
         float river = -cmr.getRiverStrength(worldX + 16, worldZ + 16);
@@ -723,17 +713,17 @@ public class ChunkProviderRTG implements IChunkProvider
                  */
                 if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
                     
-                    realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                    realisticBiome.rDecorate(this.worldObj, this.rand, new BlockPos(worldX, 0, worldZ), simplex, cell, borderNoise[bn], river);
                 }
                 else {
                     
                     try {
                         
-                        realisticBiome.baseBiome.decorate(this.worldObj, rand, worldX, worldZ);
+                        realisticBiome.baseBiome.decorate(this.worldObj, rand, new BlockPos(worldX, 0, worldZ));
                     }
                     catch (Exception e) {
                         
-                        realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                        realisticBiome.rDecorate(this.worldObj, this.rand, new BlockPos(worldX, 0, worldZ), simplex, cell, borderNoise[bn], river);
                     }
                 }
 
@@ -749,7 +739,7 @@ public class ChunkProviderRTG implements IChunkProvider
         	}
         }
         
-        MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(worldObj, rand, worldX, worldZ));
+        MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(worldObj, rand, new BlockPos(worldX, 0, worldZ)));
 
         /**
          * ########################################################################
@@ -761,30 +751,32 @@ public class ChunkProviderRTG implements IChunkProvider
         
         //Flowing water.
         if (rand.nextInt(100) == 0) {
+			BlockPos.MutableBlockPos bp = new BlockPos.MutableBlockPos(0, 0,0);
     		for(int l18 = 0; l18 < 50; l18++)
     		{
     			int l21 = worldX + rand.nextInt(16) + 8;
     			int k23 = rand.nextInt(rand.nextInt(worldHeight - 16) + 10);
     			int l24 = worldZ + rand.nextInt(16) + 8;
                 
-    			(new WorldGenLiquids(Blocks.flowing_water)).generate(worldObj, rand, l21, k23, l24);
+    			(new WorldGenLiquids(Blocks.flowing_water)).generate(worldObj, rand, new BlockPos(bp.set(l21, k23, l24)));
     		}
         }
 
         //Flowing lava.
         if (rand.nextInt(100) == 0) {
+			BlockPos.MutableBlockPos bp = new BlockPos.MutableBlockPos(0, 0,0);
     		for(int i19 = 0; i19 < 20; i19++)
     		{
     			int i22 = worldX + rand.nextInt(16) + 8;
     			int l23 = rand.nextInt(worldHeight / 2);
     			int i25 = worldZ + rand.nextInt(16) + 8;
-    			(new WorldGenLiquids(Blocks.flowing_lava)).generate(worldObj, rand, i22, l23, i25);
+    			(new WorldGenLiquids(Blocks.flowing_lava)).generate(worldObj, rand, new BlockPos(bp.set(i22, l23, i25)));
     		}
         }
 
         if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.ANIMALS))
         {
-            SpawnerAnimals.performWorldGenSpawning(this.worldObj, worldObj.getBiomeGenForCoords(worldX + 16, worldZ + 16), worldX + 8, worldZ + 8, 16, 16, this.rand);
+            SpawnerAnimals.performWorldGenSpawning(this.worldObj, worldObj.getBiomeGenForCoords(new BlockPos(worldX + 16, 0,worldZ + 16)), worldX + 8, worldZ + 8, 16, 16, this.rand);
         }
 
         if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.ICE)) {
@@ -795,14 +787,14 @@ public class ChunkProviderRTG implements IChunkProvider
                 
                 for(l1 = 0; l1 < 16; ++l1) {
                     
-                    i2 = this.worldObj.getPrecipitationHeight(worldX + k1, worldZ + l1);
+                    i2 = this.worldObj.getPrecipitationHeight(new BlockPos(worldX + k1, 0, worldZ + l1)).getY();
 
-                    if(this.worldObj.isBlockFreezable(k1 + worldX, i2 - 1, l1 + worldZ)) {
-                        this.worldObj.setBlock(k1 + worldX, i2 - 1, l1 + worldZ, Blocks.ice, 0, 2);
+                    if(this.worldObj.canBlockFreezeNoWater(new BlockPos(k1 + worldX, i2 - 1, l1 + worldZ))) {
+                        this.worldObj.setBlockState(new BlockPos(k1 + worldX, i2 - 1, l1 + worldZ), Blocks.ice.getDefaultState(), 2);
                     }
 
-                    if (ConfigRTG.enableSnowLayers && this.worldObj.func_147478_e(k1 + worldX, i2, l1 + worldZ, true)) {
-                        this.worldObj.setBlock(k1 + worldX, i2, l1 + worldZ, Blocks.snow_layer, 0, 2);
+                    if (ConfigRTG.enableSnowLayers && this.worldObj.canSnowAt(new BlockPos(k1 + worldX, i2, l1 + worldZ), true)) {
+                        this.worldObj.setBlockState(new BlockPos(k1 + worldX, i2, l1 + worldZ), Blocks.snow_layer.getDefaultState(), 2);
                     }
                 }
             }
@@ -813,7 +805,12 @@ public class ChunkProviderRTG implements IChunkProvider
         BlockFalling.fallInstantly = false;
     }
 
-    /**
+	@Override
+	public boolean func_177460_a(IChunkProvider p_177460_1_, Chunk p_177460_2_, int p_177460_3_, int p_177460_4_) {
+		return false;
+	}
+
+	/**
      * @see IChunkProvider
      *
      * Two modes of operation: if passed true, save all Chunks in one go.  If passed false, save up to two chunks.
@@ -864,22 +861,23 @@ public class ChunkProviderRTG implements IChunkProvider
      *
      * Returns a list of creatures of the specified type that can spawn at the given location.
      */
-    public List getPossibleCreatures(EnumCreatureType par1EnumCreatureType, int par2, int par3, int par4)
+    public List getPossibleCreatures(EnumCreatureType par1EnumCreatureType, BlockPos blockPos)
     {
-        BiomeGenBase var5 = this.worldObj.getBiomeGenForCoords(par2, par4);
+        BiomeGenBase var5 = this.worldObj.getBiomeGenForCoords(blockPos);
         return var5 == null ? null : var5.getSpawnableList(par1EnumCreatureType);
     }
 
     /**
      * @see IChunkProvider
      */
-    public ChunkPosition func_147416_a(World par1World, String par2Str, int par3, int par4, int par5)
+	@Override
+    public BlockPos getStrongholdGen(World par1World, String par2Str, BlockPos blockPos)
     {
         if (!ConfigRTG.generateStrongholds) {
             return null;
         }
         
-        return "Stronghold".equals(par2Str) && this.strongholdGenerator != null ? this.strongholdGenerator.func_151545_a(par1World, par3, par4, par5) : null;
+        return "Stronghold".equals(par2Str) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(par1World, blockPos) : null;
     }
 
     /**
@@ -893,25 +891,26 @@ public class ChunkProviderRTG implements IChunkProvider
     /**
      * @see IChunkProvider
      */
-    public void recreateStructures(int par1, int par2)
+	@Override
+    public void recreateStructures(Chunk chunk,int par1, int par2)
     {
 
         if (mapFeaturesEnabled) {
             
             if (ConfigRTG.generateMineshafts) {
-                mineshaftGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
+                mineshaftGenerator.generate(this, worldObj, par1, par2, null);
             }
             
             if (ConfigRTG.generateStrongholds) {
-                strongholdGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
+                strongholdGenerator.generate(this, worldObj, par1, par2, null);
             }
             
             if (ConfigRTG.generateVillages) {
-                villageGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+                villageGenerator.generate(this, this.worldObj, par1, par2, null);
             }
             
             if (ConfigRTG.generateScatteredFeatures) {
-                scatteredFeatureGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+                scatteredFeatureGenerator.generate(this, this.worldObj, par1, par2, null);
             }
         }
 	}

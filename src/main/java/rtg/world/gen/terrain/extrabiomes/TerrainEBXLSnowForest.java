@@ -14,9 +14,9 @@ public class TerrainEBXLSnowForest extends TerrainBase
 	    
 	    public TerrainEBXLSnowForest(float minHeight, float maxHeight, float hillStrength)
 	    {
-	        this.minHeight = minHeight;
-	        this.maxHeight = maxHeight;
-	        this.hillStrength = hillStrength;
+	        this.minHeight = 58f;
+	        this.maxHeight = 110f;
+	        this.hillStrength = 25f;
 	    }
 	    
 	    @Override

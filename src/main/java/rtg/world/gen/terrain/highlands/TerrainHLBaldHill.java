@@ -30,16 +30,16 @@ public class TerrainHLBaldHill extends TerrainBase
      */
     public TerrainHLBaldHill(float hillHeight, float hillWidth, float varHeight, float varWidth, float lakeHeight, float lakeWidth, float baseHeight)
     {
-        hHeight = hillHeight;
-        hWidth = hillWidth;
+        hHeight = 90f;
+        hWidth = 180f;
         
-        vHeight = varHeight;
-        vWidth = varWidth;
+        vHeight = 13f;
+        vWidth = 100f;
         
-        lHeight = lakeHeight;
-        lWidth = lakeWidth;
+        lHeight = 38f;
+        lWidth = 260f;
         
-        bHeight = baseHeight;
+        bHeight = 110f;
     }
 
     // this is just a subbiome that sticks out of forests.

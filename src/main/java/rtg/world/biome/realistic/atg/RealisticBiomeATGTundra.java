@@ -13,7 +13,7 @@ public class RealisticBiomeATGTundra extends RealisticBiomeATGBase
 		super(config, 
 			atgBiome, BiomeGenBase.river,
 			new TerrainATGTundra(),
-			new SurfaceATGTundra(config, atgBiome.topBlock, atgBiome.fillerBlock, false, null, 0.45f)
+			new SurfaceATGTundra(config, atgBiome.topBlock.getBlock(), atgBiome.fillerBlock.getBlock(), false, null, 0.45f)
 		);
 	}
 }

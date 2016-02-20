@@ -13,10 +13,10 @@ public class TerrainVanillaExtremeHills extends TerrainBase
 	
 	public TerrainVanillaExtremeHills(float hillStart, float landHeight, float baseHeight, float hillWidth)
 	{
-		start = hillStart;
-		height = landHeight;
-		base = baseHeight;
-		width = hillWidth;
+		start = 10f;
+		height = 120f;
+		base = 68f;
+		width = 200f;
 	}
 	
 	@Override

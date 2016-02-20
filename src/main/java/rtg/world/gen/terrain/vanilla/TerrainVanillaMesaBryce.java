@@ -39,14 +39,14 @@ public class TerrainVanillaMesaBryce extends TerrainBase
 	 */
 	public TerrainVanillaMesaBryce(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight)
 	{
-		booRiver = riverGen;
+		booRiver = false;
 		height = new float[]{5.0f, 0.5f, 12.5f, 0.5f, 18.0f, 0.5f};
-		strength = heightStrength;
+		strength = 55f;
 		heightLength = height.length;
-		cWidth = canyonWidth;
-		cHeigth = canyonHeight;
-		cStrength = canyonStrength;
-		base = baseHeight;
+		cWidth = 120f;
+		cHeigth = 60f;
+		cStrength = 40f;
+		base = 69f;
 	}
 
 	@Override

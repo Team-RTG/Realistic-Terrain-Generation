@@ -9,8 +9,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBase
 {	
-	public static Block topBlock = BiomeGenBase.mushroomIsland.topBlock;
-	public static Block fillerBlock = BiomeGenBase.mushroomIsland.fillerBlock;
+	public static Block topBlock = BiomeGenBase.mushroomIsland.topBlock.getBlock();
+	public static Block fillerBlock = BiomeGenBase.mushroomIsland.fillerBlock.getBlock();
 	
 	public RealisticBiomeVanillaMushroomIsland(BiomeConfig config)
 	{

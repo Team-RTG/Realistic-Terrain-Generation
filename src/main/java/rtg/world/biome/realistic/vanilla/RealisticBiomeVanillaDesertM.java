@@ -1,7 +1,12 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
+import net.minecraft.world.gen.feature.*;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -14,23 +19,15 @@ import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesertM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaDesertM;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenDeadBush;
-import net.minecraft.world.gen.feature.WorldGenDesertWells;
-import net.minecraft.world.gen.feature.WorldGenReed;
-import net.minecraft.world.gen.feature.WorldGenShrub;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import java.util.Random;
 
 public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
 {
     public static BiomeGenBase standardBiome = BiomeGenBase.desert;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
     
-    public static Block topBlock = mutationBiome.topBlock;
-    public static Block fillerBlock = mutationBiome.fillerBlock;
+    public static Block topBlock = mutationBiome.topBlock.getBlock();
+    public static Block fillerBlock = mutationBiome.fillerBlock.getBlock();
 
     public RealisticBiomeVanillaDesertM(BiomeConfig config)
     {
@@ -51,7 +48,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
         /**
          * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
          */
-        rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, baseBiome);
  
         if (river > 0.7f)
         {
@@ -61,13 +58,12 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
                 {
                     int j6 = chunkX + rand.nextInt(16) + 8;
                     int k10 = chunkY + rand.nextInt(16) + 8;
-                    int z52 = world.getHeightValue(j6, k10);
+                    int z52 = world.getHeight(new BlockPos(j6, 0, k10)).getY();
                     
                     if (z52 < 100f || (z52 < 120f && rand.nextInt(10) == 0))
                     {
-                        WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreeRTGSavanna(1);
-                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                        worldgenerator.generate(world, rand, j6, z52, k10);
+                        WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(Blocks.log.getDefaultState(), Blocks.leaves.getDefaultState()) : new WorldGenTreeRTGSavanna(1);
+                        worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
                     }
                 }
             }
@@ -79,7 +75,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
                 int k24 = chunkY + rand.nextInt(16) + 8;
                 if (j23 < 120f)
                 {
-                    (new WorldGenCacti(false)).generate(world, rand, k21, j23, k24);
+                    (new WorldGenCacti(false)).generate(world, rand, new BlockPos(k21, j23, k24));
                 }
             }
             
@@ -87,7 +83,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
             {
                 int i18 = chunkX + rand.nextInt(16) + 8;
                 int i23 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenReed()).generate(world, rand, i18, 60 + rand.nextInt(8), i23);
+                (new WorldGenReed()).generate(world, rand, new BlockPos(i18, 60 + rand.nextInt(8), i23));
             }
             
             for (int f23 = 0; f23 < 3; f23++)
@@ -95,7 +91,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
                 int j15 = chunkX + rand.nextInt(16) + 8;
                 int j17 = rand.nextInt(128);
                 int j20 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenFlowers(new int[] {9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11})).generate(world, rand, j15, j17, j20);
+                (new WorldGenFlowers(new int[] {9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11})).generate(world, rand, new BlockPos(j15, j17, j20));
             }
             
             for (int l14 = 0; l14 < 15; l14++)
@@ -106,11 +102,11 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
                 
                 if (rand.nextInt(6) == 0)
                 {
-                    (new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, l19, k22, j24);
+                    (new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, new BlockPos(l19, k22, j24));
                 }
                 else
                 {
-                    (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
+                    (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, new BlockPos(l19, k22, j24));
                 }
             }
             
@@ -121,7 +117,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
                     int i20 = 64 + rand.nextInt(64);
                     int l22 = chunkY + rand.nextInt(16) + 8;
                     
-                    (new WorldGenDesertWells()).generate(world, rand, i17, i20, l22);
+                    (new WorldGenDesertWells()).generate(world, rand, new BlockPos(i17, i20, l22));
                 }
             }
         }
@@ -133,7 +129,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
             int k24 = chunkY + rand.nextInt(16) + 8;
             if (j23 < 120f)
             {
-                (new WorldGenCacti(false)).generate(world, rand, k21, j23, k24);
+                (new WorldGenCacti(false)).generate(world, rand, new BlockPos(k21, j23, k24));
             }
         }
         
@@ -142,18 +138,18 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
             int i17 = chunkX + rand.nextInt(16) + 8;
             int i20 = 64 + rand.nextInt(64);
             int l22 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenDeadBush(Blocks.deadbush)).generate(world, rand, i17, i20, l22);
+            (new WorldGenDeadBush()).generate(world, rand, new BlockPos(i17, i20, l22));
         }
     }
     
     @Override
-    public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
-        OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
+                         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
     
-        this.getSurface().paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        this.getSurface().paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
         
         SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
-        riverSurface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

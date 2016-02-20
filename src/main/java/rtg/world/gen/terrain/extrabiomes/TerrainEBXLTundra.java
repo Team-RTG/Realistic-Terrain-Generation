@@ -14,9 +14,9 @@ public class TerrainEBXLTundra extends TerrainBase
     
     public TerrainEBXLTundra(float minHeight, float maxHeight, float hillStrength)
     {
-        this.minHeight = minHeight;
-        this.maxHeight = maxHeight;
-        this.hillStrength = hillStrength;
+        this.minHeight = 63f;
+        this.maxHeight = 130f;
+        this.hillStrength = 30f;
     }
     
     @Override

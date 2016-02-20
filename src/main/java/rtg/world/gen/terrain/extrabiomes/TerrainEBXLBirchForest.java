@@ -19,9 +19,9 @@ public class TerrainEBXLBirchForest extends TerrainBase
     
     public TerrainEBXLBirchForest(float minHeight, float maxHeight, float hillStrength)
     {
-        this.minHeight = minHeight;
-        this.maxHeight = (maxHeight > 80f) ? 80f : ((maxHeight < this.minHeight) ? 80f : maxHeight);
-        this.hillStrength = hillStrength;
+        this.minHeight = 63f;
+        this.maxHeight = (74f > 80f) ? 80f : ((74f < this.minHeight) ? 80f : 74f);
+        this.hillStrength = 33f;
     }
     
     @Override

@@ -1,7 +1,7 @@
 package ttftcuts.atg.api.events;
 
 import net.minecraft.world.biome.BiomeGenBase;
-import cpw.mods.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.Event;
 
 public class ATGBiomeRocksEvent extends Event {
 

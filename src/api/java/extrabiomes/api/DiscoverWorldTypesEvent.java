@@ -9,7 +9,7 @@ package extrabiomes.api;
 import java.util.Collection;
 
 import net.minecraft.world.WorldType;
-import cpw.mods.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.Event;
 
 /**
  * This event fires on the ExtrabiomesXL event bus when biomes are added to WorldTypes.

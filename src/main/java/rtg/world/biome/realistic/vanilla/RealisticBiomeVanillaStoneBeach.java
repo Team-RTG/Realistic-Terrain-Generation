@@ -10,8 +10,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase
 {	
-	public static Block topBlock = BiomeGenBase.stoneBeach.topBlock;
-	public static Block fillerBlock = BiomeGenBase.stoneBeach.fillerBlock;
+	public static Block topBlock = BiomeGenBase.stoneBeach.topBlock.getBlock();
+	public static Block fillerBlock = BiomeGenBase.stoneBeach.fillerBlock.getBlock();
 	
 	public RealisticBiomeVanillaStoneBeach(BiomeConfig config)
 	{

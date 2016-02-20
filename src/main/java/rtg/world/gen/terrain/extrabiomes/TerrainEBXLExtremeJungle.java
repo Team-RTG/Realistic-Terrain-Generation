@@ -11,8 +11,8 @@ public class TerrainEBXLExtremeJungle extends TerrainBase
 	
 	public TerrainEBXLExtremeJungle(float mountainHeight, float mountainWidth)
 	{
-		heigth = mountainHeight;
-		width = mountainWidth;
+		heigth = 135f;
+		width = 300f;
 	}
 	
 	@Override

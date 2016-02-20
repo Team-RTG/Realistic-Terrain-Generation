@@ -13,7 +13,7 @@ public class RealisticBiomeATGShrubland extends RealisticBiomeATGBase
 		super(config, 
 			atgBiome, BiomeGenBase.river,
 			new TerrainATGShrubland(),
-			new SurfaceATGShrubland(config, atgBiome.topBlock, atgBiome.fillerBlock)
+			new SurfaceATGShrubland(config, atgBiome.topBlock.getBlock(), atgBiome.fillerBlock.getBlock())
 		);
 	}
 }

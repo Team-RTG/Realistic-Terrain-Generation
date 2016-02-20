@@ -14,9 +14,9 @@ public class TerrainEBXLShrubland extends TerrainBase
 	    
 	    public TerrainEBXLShrubland(float minHeight, float maxHeight, float hillStrength)
 	    {
-	        this.minHeight = minHeight;
-	        this.maxHeight = (maxHeight > 80f) ? 80f : ((maxHeight < this.minHeight) ? 80f : maxHeight);
-	        this.hillStrength = hillStrength;
+	        this.minHeight = 58f;
+	        this.maxHeight = (80f > 80f) ? 80f : ((80f < this.minHeight) ? 80f : 80f);
+	        this.hillStrength = 30f;
 	    }
 	    
 	    @Override

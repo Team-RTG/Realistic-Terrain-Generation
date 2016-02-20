@@ -13,10 +13,10 @@ public class TerrainHLJungleIsland extends TerrainBase
 	
 	public TerrainHLJungleIsland(float hillStart, float landHeight, float baseHeight, float hillWidth)
 	{
-		start = hillStart;
-		height = landHeight;
-		base = baseHeight;
-		width = hillWidth;
+		start = 0f;
+		height = 140f;
+		base = 68f;
+		width = 200f;
 	}
 	
 	@Override

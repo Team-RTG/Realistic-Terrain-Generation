@@ -30,16 +30,16 @@ public class TerrainHLShrubland extends TerrainBase
 	 */
 	public TerrainHLShrubland(float hillHeight, float hillWidth, float varHeight, float varWidth, float lakeHeight, float lakeWidth, float baseHeight)
 	{
-		hHeight = hillHeight;
-		hWidth = hillWidth;
+		hHeight = 10f;
+		hWidth = 20f;
 		
-		vHeight = varHeight;
-		vWidth = varWidth;
+		vHeight = 7f;
+		vWidth = 90f;
 		
-		lHeight = lakeHeight;
-		lWidth = lakeWidth;
+		lHeight = 10f;
+		lWidth = 200f;
 		
-		bHeight = baseHeight;
+		bHeight = 68f;
 	}
 	
 	@Override

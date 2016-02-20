@@ -13,10 +13,10 @@ public class TerrainHLAutumnForest extends TerrainBase {
     
     public TerrainHLAutumnForest(float hillStart, float landHeight, float baseHeight, float hillWidth) {
     
-        start = hillStart;
-        height = landHeight;
-        base = baseHeight;
-        width = hillWidth;
+        start = 0f;
+        height = 50f;
+        base = 68f;
+        width = 200f;
     }
     
     @Override

@@ -2,6 +2,7 @@ package rtg.config;
 
 import java.io.File;
 
+import rtg.config.abyssalcraft.ConfigAC;
 import rtg.config.arsmagica.ConfigAM;
 import rtg.config.atg.ConfigATG;
 import rtg.config.biomesoplenty.ConfigBOP;
@@ -29,6 +30,7 @@ public class ConfigManager
     public static File amConfigFile;
     public static File atgConfigFile;
     public static File ccConfigFile;
+    public static File acConfigFile;
     public static File rwConfigFile;
 
     private ConfigRTG configRTG = new ConfigRTG();
@@ -50,6 +52,7 @@ public class ConfigManager
         amConfigFile = new File(configpath + "biomes/arsmagica.cfg");
         atgConfigFile = new File(configpath + "biomes/atg.cfg");
         ccConfigFile = new File(configpath + "biomes/chromaticraft.cfg");
+        acConfigFile = new File(configpath + "biomes/abyssalcraft.cfg");
         rwConfigFile = new File(configpath + "biomes/ridiculousworld.cfg");
         
         ConfigRTG.init(rtgConfigFile);
@@ -65,6 +68,7 @@ public class ConfigManager
         ConfigAM.init(amConfigFile);
         ConfigATG.init(atgConfigFile);
         ConfigCC.init(ccConfigFile);
+        ConfigAC.init(acConfigFile);
         ConfigRW.init(rwConfigFile);
     }
 }

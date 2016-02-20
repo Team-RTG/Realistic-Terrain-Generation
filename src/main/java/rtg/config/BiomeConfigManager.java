@@ -272,6 +272,9 @@ import rtg.api.biome.highlands.config.BiomeConfigHLVolcanoIsland;
 import rtg.api.biome.highlands.config.BiomeConfigHLWindyIsland;
 import rtg.api.biome.highlands.config.BiomeConfigHLWoodlands;
 import rtg.api.biome.highlands.config.BiomeConfigHLWoodsMountains;
+import rtg.api.biome.lotsomobs.config.BiomeConfigLOM;
+import rtg.api.biome.lotsomobs.config.BiomeConfigLOMAntartica;
+import rtg.api.biome.lotsomobs.config.BiomeConfigLOMTropicalBeach;
 import rtg.api.biome.ridiculousworld.config.BiomeConfigRW;
 import rtg.api.biome.ridiculousworld.config.BiomeConfigRWBotanicalGarden;
 import rtg.api.biome.ridiculousworld.config.BiomeConfigRWMountainOfMadness;
@@ -364,6 +367,7 @@ public class BiomeConfigManager
         initBiomeConfigsHL();
         initBiomeConfigsRW();
         initBiomeConfigsTC();
+        initBiomeConfigsLOM();
         initBiomeConfigsVanilla();
     }
     
@@ -681,6 +685,12 @@ public class BiomeConfigManager
         BiomeConfigTC.biomeConfigTCEerie = new BiomeConfigTCEerie();
         BiomeConfigTC.biomeConfigTCMagicalForest = new BiomeConfigTCMagicalForest();
         BiomeConfigTC.biomeConfigTCTaintedLand = new BiomeConfigTCTaintedLand();
+    }
+    
+    public static void initBiomeConfigsLOM()
+    {
+        BiomeConfigLOM.biomeConfigLOMAntartica = new BiomeConfigLOMAntartica();
+        BiomeConfigLOM.biomeConfigLOMTropicalBeach = new BiomeConfigLOMTropicalBeach();
     }
     
     public static void initBiomeConfigsVanilla()

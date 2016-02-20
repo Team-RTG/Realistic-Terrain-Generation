@@ -13,7 +13,8 @@ public class RealisticBiomeRWOssuary extends RealisticBiomeRWBase
     {
     
         super(config,
-            rwBiome, BiomeGenBase.river,
+            rwBiome,
+            BiomeGenBase.river,
             new TerrainRWOssuary(),
             new SurfaceRWOssuary(config, rwBiome.topBlock, rwBiome.fillerBlock));
     }

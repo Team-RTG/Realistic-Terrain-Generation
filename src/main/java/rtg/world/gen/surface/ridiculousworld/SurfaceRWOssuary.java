@@ -38,7 +38,7 @@ public class SurfaceRWOssuary extends SurfaceBase
             {
             	depth++;
 
-            	if(cliff)
+            	if(cliff && k > 64)
             	{
             		if(depth > -1 && depth < 2)
             		{

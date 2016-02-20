@@ -9,8 +9,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase
 {
-	public static Block topBlock = BiomeGenBase.frozenRiver.topBlock;
-	public static Block fillerBlock = BiomeGenBase.frozenRiver.fillerBlock;
+	public static Block topBlock = BiomeGenBase.frozenRiver.topBlock.getBlock();
+	public static Block fillerBlock = BiomeGenBase.frozenRiver.fillerBlock.getBlock();
 
 	public RealisticBiomeVanillaFrozenRiver(BiomeConfig config)
 	{

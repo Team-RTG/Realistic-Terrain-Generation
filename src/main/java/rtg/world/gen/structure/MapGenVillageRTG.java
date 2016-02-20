@@ -1,17 +1,5 @@
 package rtg.world.gen.structure;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Random;
-
-import rtg.api.biome.BiomeConfig;
-import rtg.config.rtg.ConfigRTG;
-import rtg.world.WorldTypeRTG;
-import rtg.world.biome.WorldChunkManagerRTG;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -20,6 +8,17 @@ import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraft.world.gen.structure.StructureVillagePieces.Road;
+import rtg.api.biome.BiomeConfig;
+import rtg.config.rtg.ConfigRTG;
+import rtg.world.WorldTypeRTG;
+import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Random;
 
 public class MapGenVillageRTG extends MapGenVillage
 {
@@ -48,11 +47,11 @@ public class MapGenVillageRTG extends MapGenVillage
         {
             Entry entry = (Entry)iterator.next();
 
-            if (((String)entry.getKey()).equals("size"))
+            if (entry.getKey().equals("size"))
             {
                 this.terrainType = MathHelper.parseIntWithDefaultAndMax((String)entry.getValue(), this.terrainType, 0);
             }
-            else if (((String)entry.getKey()).equals("distance"))
+            else if (entry.getKey().equals("distance"))
             {
                 this.field_82665_g = MathHelper.parseIntWithDefaultAndMax((String)entry.getValue(), this.field_82665_g, this.field_82666_h + 1);
             }
@@ -60,7 +59,7 @@ public class MapGenVillageRTG extends MapGenVillage
     }
 
     @Override
-    public String func_143025_a()
+    public String getStructureName()
     {
         return "Village";
     }
@@ -182,15 +181,15 @@ public class MapGenVillageRTG extends MapGenVillage
     		 return this.hasMoreThanTwoComponents;
     	}
 
-    	public void func_143022_a(NBTTagCompound p_143022_1_)
+    	public void writeToNBT(NBTTagCompound p_143022_1_)
     	{
-    		super.func_143022_a(p_143022_1_);
+    		super.writeToNBT(p_143022_1_);
     		p_143022_1_.setBoolean("Valid", this.hasMoreThanTwoComponents);
     	}
 
-    	public void func_143017_b(NBTTagCompound p_143017_1_)
+    	public void readFromNBT(NBTTagCompound p_143017_1_)
     	{
-    		super.func_143017_b(p_143017_1_);
+    		super.readFromNBT(p_143017_1_);
     		this.hasMoreThanTwoComponents = p_143017_1_.getBoolean("Valid");
     	}
     }

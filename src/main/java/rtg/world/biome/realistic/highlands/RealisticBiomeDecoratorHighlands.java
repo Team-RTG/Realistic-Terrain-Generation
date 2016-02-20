@@ -45,7 +45,7 @@ public class RealisticBiomeDecoratorHighlands extends BiomeDecorator
 //
 //	@Override
 //	public void decorateChunk (World world, Random random, BiomeGenBase biome, int x, int z) {
-//		this.decorate(world, random, (BiomeGenBaseHighlands)biome, x, z);
+//		this.decorate(world, random, new BlockPos((BiomeGenBaseHighlands)biome, 0, x, z));
 //	}
 //
 //	private void decorate(World par1World, Random par2Random, BiomeGenBaseHighlands biome, int x, int z){
@@ -68,7 +68,7 @@ public class RealisticBiomeDecoratorHighlands extends BiomeDecorator
 //            int var2 = this.chunk_X + this.randomGenerator.nextInt(16) + 8;
 //            int var3 = this.randomGenerator.nextInt(128);
 //            int var4 = this.chunk_Z + this.randomGenerator.nextInt(16) + 8;
-//            (new WorldGenPumpkin()).generate(this.currentWorld, this.randomGenerator, var2, var3, var4);
+//            (new WorldGenPumpkin()).generate(this.currentWorld, this.randomGenerator, new BlockPos(var2, var3, var4));
 //        }
 //
 //        if (biome == HighlandsBiomes.tropics || biome == HighlandsBiomes.tropicalIslands)
@@ -76,7 +76,7 @@ public class RealisticBiomeDecoratorHighlands extends BiomeDecorator
 //            int var2 = this.chunk_X + this.randomGenerator.nextInt(16) + 8;
 //            int var3 = this.randomGenerator.nextInt(128);
 //            int var4 = this.chunk_Z + this.randomGenerator.nextInt(16) + 8;
-//            (new WorldGenWatermelon()).generate(this.currentWorld, this.randomGenerator, var2, var3, var4);
+//            (new WorldGenWatermelon()).generate(this.currentWorld, this.randomGenerator, new BlockPos(var2, var3, var4));
 //        }
 //
 //		// highlands plants generator
@@ -87,7 +87,7 @@ public class RealisticBiomeDecoratorHighlands extends BiomeDecorator
 //	            int l = this.randomGenerator.nextInt(128);
 //	            int i1 = this.chunk_Z + this.randomGenerator.nextInt(16) + 8;
 //	            WorldGenerator worldgenerator1 = biome.getRandomWorldGenForHighlandsPlants(this.randomGenerator);
-//	            worldgenerator1.generate(this.currentWorld, this.randomGenerator, k, l, i1);
+//	            worldgenerator1.generate(this.currentWorld, this.randomGenerator, new BlockPos(k, l, i1));
 //	        }
 //        }
 //
@@ -104,7 +104,7 @@ public class RealisticBiomeDecoratorHighlands extends BiomeDecorator
 //	            int var6 = x + random.nextInt(16);
 //	            int var7 = random.nextInt(maxH - minH) + minH;
 //	            int var8 = z + random.nextInt(16);
-//	            oreGen.generate(world, random, var6, var7, var8);
+//	            oreGen.generate(world, random, new BlockPos(var6, var7, var8));
 //	        }
 //		}
 //	}
@@ -115,7 +115,7 @@ public class RealisticBiomeDecoratorHighlands extends BiomeDecorator
 //            int var6 = locX + random.nextInt(16);
 //            int var7 = random.nextInt(maxH - minH) + minH;
 //            int var8 = locZ + random.nextInt(16);
-//            oreGen.generate(world, random, var6, var7, var8);
+//            oreGen.generate(world, random, new BlockPos(var6, var7, var8));
 //        }
 //    }
 }

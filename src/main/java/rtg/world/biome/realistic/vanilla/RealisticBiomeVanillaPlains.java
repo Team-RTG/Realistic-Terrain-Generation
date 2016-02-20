@@ -10,8 +10,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
 {
     
-    public static Block topBlock = BiomeGenBase.plains.topBlock;
-    public static Block fillerBlock = BiomeGenBase.plains.fillerBlock;
+    public static Block topBlock = BiomeGenBase.plains.topBlock.getBlock();
+    public static Block fillerBlock = BiomeGenBase.plains.fillerBlock.getBlock();
     
     public RealisticBiomeVanillaPlains(BiomeConfig config)
     {

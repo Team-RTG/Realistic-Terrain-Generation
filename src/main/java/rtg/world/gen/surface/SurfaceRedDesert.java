@@ -1,16 +1,16 @@
 package rtg.world.gen.surface;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
 
 public class SurfaceRedDesert extends SurfaceBase
 {
@@ -27,14 +27,14 @@ public class SurfaceRedDesert extends SurfaceBase
 	}
 	
 	@Override
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		float c = CliffCalculator.calc(x, y, noise);
 		boolean cliff = c > 1.4f ? true : false;
 
 		for(int k = 255; k > -1; k--)
 		{
-			Block b = blocks[(y * 16 + x) * 256 + k];
+			Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
             if(b == Blocks.air)
             {
             	depth = -1;
@@ -47,25 +47,22 @@ public class SurfaceRedDesert extends SurfaceBase
             	{
             		if (depth < 6)
             		{                			
-            			blocks[(y * 16 + x) * 256 + k] = cliffBlock1;
-            			metadata[(y * 16 + x) * 256 + k] = (byte)14;
+            			primer.setBlockState((y * 16 + x) * 256 + k, cliffBlock1.getStateFromMeta((byte)14));
             		}
             	}
             	else if(depth < 6)
             	{
 	        		if(depth == 0 && k > 61)
 	        		{
-	        			blocks[(y * 16 + x) * 256 + k] = topBlock;
-	        			metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+	        			primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
 	        		}
 	        		else if(depth < 4)
 	        		{
-	        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-	        			metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+	        			primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
 	        		}
 	        		else
 	        		{
-	        			blocks[(y * 16 + x) * 256 + k] = bottomBlock;
+	        			primer.setBlockState((y * 16 + x) * 256 + k, bottomBlock.getDefaultState());
 	        		}
             	}
             }

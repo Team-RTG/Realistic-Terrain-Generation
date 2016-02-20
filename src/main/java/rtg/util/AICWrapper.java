@@ -2,10 +2,9 @@
 package rtg.util;
 
 import code.elix_x.coremods.antiidconflict.api.AICChangesWrapper;
-import cpw.mods.fml.common.Loader;
-
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraftforge.fml.common.Loader;
 
 /**
  *
@@ -21,12 +20,7 @@ public class AICWrapper
     
     public boolean isAICExtendingBiomeIdsLimit()
     {
-        if (Loader.isModLoaded("AIC") && AICChangesWrapper.isAICLoaded() && AICChangesWrapper.isExtendingBiomeIdsLimit()) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return Loader.isModLoaded("AIC") && AICChangesWrapper.isAICLoaded() && AICChangesWrapper.isExtendingBiomeIdsLimit();
     }
     
     public void setBiomeArray(Chunk chunk, BiomeGenBase[] baseBiomesList, int[] xyinverted)

@@ -1,15 +1,19 @@
 package rtg.world.gen;
 
-import java.util.Random;
-
-import rtg.config.rtg.ConfigRTG;
-
+import com.google.common.base.Objects;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSand;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenCaves;
+import rtg.config.rtg.ConfigRTG;
+
+import java.util.Random;
 
 public class MapGenCavesRTG extends MapGenCaves
 {
@@ -20,13 +24,13 @@ public class MapGenCavesRTG extends MapGenCaves
     private int caveFrequency;
 
     @Override
-    protected void func_151542_a(long rtgSeed, int p_151542_3_, int p_151542_4_, Block[] p_151542_5_, double p_151542_6_, double p_151542_8_, double p_151542_10_)
+    protected void func_180703_a(long rtgSeed, int p_151542_3_, int p_151542_4_, ChunkPrimer p_151542_5_, double p_151542_6_, double p_151542_8_, double p_151542_10_)
     {
-        this.func_151541_a(rtgSeed, p_151542_3_, p_151542_4_, p_151542_5_, p_151542_6_, p_151542_8_, p_151542_10_, 1.0F + this.rand.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
+        this.func_180702_a(rtgSeed, p_151542_3_, p_151542_4_, p_151542_5_, p_151542_6_, p_151542_8_, p_151542_10_, 1.0F + this.rand.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
     }
 
     @Override
-    protected void func_151541_a(long rtgSeed, int chunkX, int chunkZ, Block[] blocks, double p_151541_6_, double p_151541_8_, double p_151541_10_, float p_151541_12_, float p_151541_13_, float p_151541_14_, int p_151541_15_, int p_151541_16_, double p_151541_17_)
+    protected void func_180702_a(long rtgSeed, int chunkX, int chunkZ, ChunkPrimer primer, double p_151541_6_, double p_151541_8_, double p_151541_10_, float p_151541_12_, float p_151541_13_, float p_151541_14_, int p_151541_15_, int p_151541_16_, double p_151541_17_)
     {
         double d4 = (double)(chunkX * 16 + 8);
         double d5 = (double)(chunkZ * 16 + 8);
@@ -78,8 +82,8 @@ public class MapGenCavesRTG extends MapGenCaves
 
             if (!flag2 && p_151541_15_ == k1 && p_151541_12_ > 1.0F && p_151541_16_ > 0)
             {
-                this.func_151541_a(random.nextLong(), chunkX, chunkZ, blocks, p_151541_6_, p_151541_8_, p_151541_10_, random.nextFloat() * 0.5F + 0.5F, p_151541_13_ - ((float)Math.PI / 2F), p_151541_14_ / 3.0F, p_151541_15_, p_151541_16_, 1.0D);
-                this.func_151541_a(random.nextLong(), chunkX, chunkZ, blocks, p_151541_6_, p_151541_8_, p_151541_10_, random.nextFloat() * 0.5F + 0.5F, p_151541_13_ + ((float)Math.PI / 2F), p_151541_14_ / 3.0F, p_151541_15_, p_151541_16_, 1.0D);
+                this.func_180702_a(random.nextLong(), chunkX, chunkZ, primer, p_151541_6_, p_151541_8_, p_151541_10_, random.nextFloat() * 0.5F + 0.5F, p_151541_13_ - ((float)Math.PI / 2F), p_151541_14_ / 3.0F, p_151541_15_, p_151541_16_, 1.0D);
+                this.func_180702_a(random.nextLong(), chunkX, chunkZ, primer, p_151541_6_, p_151541_8_, p_151541_10_, random.nextFloat() * 0.5F + 0.5F, p_151541_13_ + ((float)Math.PI / 2F), p_151541_14_ / 3.0F, p_151541_15_, p_151541_16_, 1.0D);
                 return;
             }
 
@@ -148,9 +152,7 @@ public class MapGenCavesRTG extends MapGenCaves
 
                                 if (i3 >= 0 && i3 < 256)
                                 {
-                                    Block block = blocks[j3];
-
-                                    if (isOceanBlock(blocks, j3, k2, i3, l2, chunkX, chunkZ))
+                                    if (isOceanBlock(primer, k2, i3, l2, chunkX, chunkZ))
                                     {
                                         flag3 = true;
                                     }
@@ -184,13 +186,14 @@ public class MapGenCavesRTG extends MapGenCaves
 
                                         if (d12 > -0.7D && d13 * d13 + d12 * d12 + d14 * d14 < 1.0D)
                                         {
-                                            Block block1 = blocks[k3];
+                                            IBlockState iblockstate1 = primer.getBlockState(k2, l3, j3);
+                                            IBlockState iblockstate2 = (IBlockState) Objects.firstNonNull(primer.getBlockState(k2, l3 + 1, j3), Blocks.air.getDefaultState());
 
-                                            if (isTopBlock(blocks, k3, k2, l3, j3, chunkX, chunkZ))
+                                            if (isTopBlock(primer, k2, l3, j3, chunkX, chunkZ))
                                             {
                                                 flag1 = true;
                                             }
-                                            digBlock(blocks, k3, k2, l3, j3, chunkX, chunkZ, flag1);
+                                            digBlock(primer, k2, l3, j3, chunkX, chunkZ, flag1, iblockstate1, iblockstate2);
                                         }
 
                                         --k3;
@@ -210,7 +213,7 @@ public class MapGenCavesRTG extends MapGenCaves
     }
 
     @Override
-    protected void func_151538_a(World p_151538_1_, int p_151538_2_, int p_151538_3_, int p_151538_4_, int p_151538_5_, Block[] p_151538_6_)
+    protected void recursiveGenerate(World p_151538_1_, int p_151538_2_, int p_151538_3_, int p_151538_4_, int p_151538_5_, ChunkPrimer p_151538_6_)
     {
         enableCaves = ConfigRTG.enableCaves;
         caveDensity = ConfigRTG.caveDensity;
@@ -242,7 +245,7 @@ public class MapGenCavesRTG extends MapGenCaves
 
             if (this.rand.nextInt(4) == 0)
             {
-                this.func_151542_a(this.rand.nextLong(), p_151538_4_, p_151538_5_, p_151538_6_, d0, d1, d2);
+                this.func_180703_a(this.rand.nextLong(), p_151538_4_, p_151538_5_, p_151538_6_, d0, d1, d2);
                 k1 += this.rand.nextInt(4);
             }
 
@@ -257,15 +260,15 @@ public class MapGenCavesRTG extends MapGenCaves
                     f2 *= this.rand.nextFloat() * this.rand.nextFloat() * 3.0F + 1.0F;
                 }
 
-                this.func_151541_a(this.rand.nextLong(), p_151538_4_, p_151538_5_, p_151538_6_, d0, d1, d2, f2, f, f1, 0, 0, 1.0D);
+                this.func_180702_a(this.rand.nextLong(), p_151538_4_, p_151538_5_, p_151538_6_, d0, d1, d2, f2, f, f1, 0, 0, 1.0D);
             }
         }
     }
 
     @Override
-    protected boolean isOceanBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ)
+    protected boolean isOceanBlock(ChunkPrimer primer, int x, int y, int z, int chunkX, int chunkZ)
     {
-        return data[index] == Blocks.flowing_water || data[index] == Blocks.water;
+        return primer.getBlockState(x,y,z) == Blocks.flowing_water || primer.getBlockState(x,y,z) == Blocks.water;
     }
 
     //Exception biomes to make sure we generate like vanilla
@@ -283,11 +286,10 @@ public class MapGenCavesRTG extends MapGenCaves
 
     //Determine if the block at the specified location is the top block for the biome, we take into account
     //Vanilla bugs to make sure that we generate the map the same way vanilla does.
-    
-    private boolean isTopBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ)
+    private boolean isTopBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ)
     {
-        BiomeGenBase biome = worldObj.getBiomeGenForCoords(x + chunkX * 16, z + chunkZ * 16);
-        return (isExceptionBiome(biome) ? data[index] == Blocks.grass : data[index] == biome.topBlock);
+        BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
+        return (isExceptionBiome(biome) ? data.getBlockState(x,y,z) == Blocks.grass : data.getBlockState(x,y,z) == biome.topBlock);
     }
 
     /**
@@ -297,7 +299,6 @@ public class MapGenCavesRTG extends MapGenCaves
      * tries to make the floor the biome's top block
      * 
      * @param data Block data array
-     * @param index Pre-calculated index into block data
      * @param x local X position
      * @param y local Y position
      * @param z local Z position
@@ -307,26 +308,29 @@ public class MapGenCavesRTG extends MapGenCaves
      */
     
     @Override
-    protected void digBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop)
+    protected void digBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop, IBlockState state, IBlockState up)
     {
-        BiomeGenBase biome = worldObj.getBiomeGenForCoords(x + chunkX * 16, z + chunkZ * 16);
-        Block top    = (isExceptionBiome(biome) ? Blocks.grass : biome.topBlock);
-        Block filler = (isExceptionBiome(biome) ? Blocks.dirt  : biome.fillerBlock);
-        Block block  = data[index];
+        BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
+        Block top    = isExceptionBiome(biome) ? Blocks.grass : biome.topBlock.getBlock();
+        Block filler = isExceptionBiome(biome) ? Blocks.dirt  : biome.fillerBlock.getBlock();
+        Block block  = data.getBlockState(x,y,z).getBlock();
 
         if (block == Blocks.stone || block == Blocks.cobblestone || block == filler || block == top)
         {
             if (y < 10)
             {
-                data[index] = Blocks.lava;
+                data.setBlockState(x,y,z, Blocks.lava.getDefaultState());
             }
             else
             {
-                data[index] = null;
-
-                if (foundTop && data[index - 1] == filler)
+                if (up.getBlock() == Blocks.sand)
                 {
-                    data[index - 1] = top;
+                    data.setBlockState(x, y + 1, z, up.getValue(BlockSand.VARIANT) == BlockSand.EnumType.RED_SAND ? Blocks.red_sandstone.getDefaultState() : Blocks.sandstone.getDefaultState());
+                }
+
+                else if (foundTop && data.getBlockState(x, y - 1, z).getBlock() == filler)
+                {
+                    data.setBlockState(x, y - 1, z, top.getDefaultState());
                 }
             }
         }

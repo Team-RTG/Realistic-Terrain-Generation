@@ -11,8 +11,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase
 {
     
-    public static Block topBlock = BiomeGenBase.ocean.topBlock;
-    public static Block fillerBlock = BiomeGenBase.ocean.fillerBlock;
+    public static Block topBlock = BiomeGenBase.ocean.topBlock.getBlock();
+    public static Block fillerBlock = BiomeGenBase.ocean.fillerBlock.getBlock();
     
     public RealisticBiomeVanillaOcean(BiomeConfig config)
     {

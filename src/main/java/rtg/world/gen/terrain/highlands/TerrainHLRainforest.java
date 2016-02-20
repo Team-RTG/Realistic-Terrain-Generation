@@ -15,7 +15,7 @@ public class TerrainHLRainforest extends TerrainBase
 	
 	public TerrainHLRainforest(float mountainHeight, float mountainWidth, float depthLake)
 	{
-		this(mountainWidth, mountainHeight, depthLake, 260f, 78f);
+		this(300f, 120f, 8f, 260f, 78f);
 	}
 
     public TerrainHLRainforest(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
@@ -23,8 +23,8 @@ public class TerrainHLRainforest extends TerrainBase
 		width = mountainWidth;
 		strength = mountainStrength;
 		lakeDepth = depthLake;
-		lakeWidth = widthLake;
-		terrainHeight = height;
+		lakeWidth = 260f;
+		terrainHeight = 78f;
 	}
 		@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)

@@ -19,7 +19,7 @@ public class CircularSearchCreator {
             // upper right
             for (int y = 0;y<8;y++) {
                 for (int x = 8;x<16;x++) {
-                    int index = (int)x*16+y;
+                    int index = x *16+y;
                     if (found[index]) continue;// skip to next block; this is already in the patter
                     float distance = distanceFromCenter(x,y);
                     if (distance>radius) continue;// still too far; skip
@@ -31,7 +31,7 @@ public class CircularSearchCreator {
             //lower right
             for (int x = 15;x>7;x--) {// out to in
                 for (int y = 8;y<16;y++) {
-                    int index = (int)x*16+y;
+                    int index = x *16+y;
                     if (found[index]) continue;// skip to next block; this is already in the patter
                     float distance = distanceFromCenter(x,y);
                     if (distance>radius) continue;// still too far; skip
@@ -43,7 +43,7 @@ public class CircularSearchCreator {
             //lower left
             for (int y = 15;y>7;y--) {// out to in
                 for (int x = 7;x>-1;x--) {
-                    int index = (int)x*16+y;
+                    int index = x *16+y;
                     if (found[index]) continue;// skip to next block; this is already in the patter
                     float distance = distanceFromCenter(x,y);
                     if (distance>radius) continue;// still too far; skip
@@ -55,7 +55,7 @@ public class CircularSearchCreator {
             //upper left
             for (int x = 0;x<8;x++) {// out to in
                 for (int y = 7;y>-1;y--) {
-                    int index = (int)x*16+y;
+                    int index = x *16+y;
                     if (found[index]) continue;// skip to next block; this is already in the patter
                     float distance = distanceFromCenter(x,y);
                     if (distance>radius) continue;// still too far; skip

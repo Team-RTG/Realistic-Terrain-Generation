@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2003, 2004 Jason Bevins (original libnoise code)
- * Copyright © 2010 Thomas J. Hodge (java port of libnoise)
+ * Copyright ï¿½ 2010 Thomas J. Hodge (java port of libnoise)
  * 
  * This file was part of libnoiseforjava.
  * 
@@ -335,10 +335,10 @@ public class CellNoise
 			return getDistance(xDist, yDist, zDist);
 		}
 
-		else return ((double)CellNoise.valueNoise3D (
+		else return CellNoise.valueNoise3D (
 		       (int)(Math.floor (xCandidate)),
 		       (int)(Math.floor (yCandidate)),
-		       (int)(Math.floor (zCandidate)), seed));
+		       (int)(Math.floor (zCandidate)), seed);
 		
 	}
 

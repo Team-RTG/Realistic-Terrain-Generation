@@ -1,7 +1,10 @@
 package rtg.world.biome.realistic.atg;
 
-import java.util.Random;
-
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -11,10 +14,7 @@ import rtg.world.gen.feature.WorldGenVolcano;
 import rtg.world.gen.surface.atg.SurfaceATGVolcano;
 import rtg.world.gen.terrain.atg.TerrainATGVolcano;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
 
 public class RealisticBiomeATGVolcano extends RealisticBiomeATGBase
 {	
@@ -23,7 +23,7 @@ public class RealisticBiomeATGVolcano extends RealisticBiomeATGBase
 		super(config, 
 			atgBiome, BiomeGenBase.river,
 			new TerrainATGVolcano(),
-			new SurfaceATGVolcano(config, atgBiome.topBlock, atgBiome.fillerBlock, true, Blocks.gravel, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f)
+			new SurfaceATGVolcano(config, atgBiome.topBlock.getBlock(), atgBiome.fillerBlock.getBlock(), true, Blocks.gravel, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f)
 		);
 	}
 	
@@ -34,7 +34,7 @@ public class RealisticBiomeATGVolcano extends RealisticBiomeATGBase
         /**
          * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
          */
-        //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        //rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, baseBiome);
     
         rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         
@@ -46,18 +46,18 @@ public class RealisticBiomeATGVolcano extends RealisticBiomeATGBase
             
             if (rand.nextInt(3) == 0)
             {
-                (new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, l19, k22, j24);
+                (new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, new BlockPos(l19, k22, j24));
             }
             else
             {
-                (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
+                (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, new BlockPos(l19, k22, j24));
             }
         }
     }
     
     @Override
-    public void rMapGen(Block[] blocks, byte[] metadata, World world, RTGBiomeProvider cmr, Random mapRand, int baseX, int baseY,
-        int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[])
+    public void rMapGen(ChunkPrimer primer, World world, RTGBiomeProvider cmr, Random mapRand, int baseX, int baseY,
+                        int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[])
     {
     
         if (baseX % 4 == 0 && baseY % 4 == 0 && mapRand.nextInt(6) == 0)
@@ -69,7 +69,7 @@ public class RealisticBiomeATGVolcano extends RealisticBiomeATGBase
                 long j1 = mapRand.nextLong() / 2L * 2L + 1L;
                 mapRand.setSeed((long) chunkX * i1 + (long) chunkY * j1 ^ world.getSeed());
                 
-                WorldGenVolcano.build(blocks, metadata, world, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
+                WorldGenVolcano.build(primer, world, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
             }
         }
     }

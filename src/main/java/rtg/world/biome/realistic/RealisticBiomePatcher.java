@@ -13,7 +13,7 @@ public class RealisticBiomePatcher
     
     public RealisticBiomePatcher()
     {
-        this.patchBiomeId = (int)ConfigRTG.patchBiomeId;
+        this.patchBiomeId = ConfigRTG.patchBiomeId;
         
         if (this.patchBiomeId > -1) {
             

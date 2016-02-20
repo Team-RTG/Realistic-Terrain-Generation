@@ -1,14 +1,13 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.fml.common.Loader;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.highlands.config.BiomeConfigHL;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
-import cpw.mods.fml.common.Loader;
-
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeHLBase extends RealisticBiomeBase
 {	

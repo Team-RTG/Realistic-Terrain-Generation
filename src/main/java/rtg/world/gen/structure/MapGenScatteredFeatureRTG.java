@@ -1,29 +1,21 @@
     package rtg.world.gen.structure;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Random;
+    import net.minecraft.entity.monster.EntityWitch;
+    import net.minecraft.util.BlockPos;
+    import net.minecraft.util.MathHelper;
+    import net.minecraft.world.World;
+    import net.minecraft.world.biome.BiomeGenBase;
+    import net.minecraft.world.gen.structure.ComponentScatteredFeaturePieces;
+    import net.minecraft.world.gen.structure.MapGenScatteredFeature;
+    import net.minecraft.world.gen.structure.StructureComponent;
+    import net.minecraft.world.gen.structure.StructureStart;
+    import net.minecraftforge.common.BiomeDictionary;
+    import net.minecraftforge.fml.common.FMLLog;
+    import org.apache.logging.log4j.Level;
+    import rtg.config.rtg.ConfigRTG;
 
-import org.apache.logging.log4j.Level;
-
-import rtg.config.rtg.ConfigRTG;
-import cpw.mods.fml.common.FMLLog;
-
-import net.minecraft.entity.monster.EntityWitch;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.structure.ComponentScatteredFeaturePieces;
-import net.minecraft.world.gen.structure.MapGenScatteredFeature;
-import net.minecraft.world.gen.structure.StructureComponent;
-import net.minecraft.world.gen.structure.StructureStart;
-
-import net.minecraftforge.common.BiomeDictionary;
+    import java.util.*;
+    import java.util.Map.Entry;
 
 /**
  * Author: Choonster (https://github.com/Choonster)
@@ -45,7 +37,7 @@ import net.minecraftforge.common.BiomeDictionary;
  */
 public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
 {
-    private static List biomelist = Arrays.asList(new BiomeGenBase[] {BiomeGenBase.desert, BiomeGenBase.desertHills, BiomeGenBase.jungle, BiomeGenBase.jungleHills, BiomeGenBase.swampland});
+    private static List biomelist = Arrays.asList(BiomeGenBase.desert, BiomeGenBase.desertHills, BiomeGenBase.jungle, BiomeGenBase.jungleHills, BiomeGenBase.swampland);
 
     /** contains possible spawns for scattered features */
     private List scatteredFeatureSpawnList;
@@ -81,7 +73,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
         {
             Entry entry = (Entry)iterator.next();
 
-            if (((String)entry.getKey()).equals("distance"))
+            if (entry.getKey().equals("distance"))
             {
                 this.maxDistanceBetweenScatteredFeatures = MathHelper.parseIntWithDefaultAndMax((String)entry.getValue(), this.maxDistanceBetweenScatteredFeatures, this.minDistanceBetweenScatteredFeatures + 1);
             }
@@ -89,7 +81,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
     }
 
     @Override
-    public String func_143025_a()
+    public String getStructureName()
     {
         return "Temple";
     }
@@ -120,7 +112,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
 
         if (k == i1 && l == j1)
         {
-            BiomeGenBase biomegenbase = this.worldObj.getWorldChunkManager().getBiomeGenAt(k * 16 + 8, l * 16 + 8);
+            BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(new BlockPos(k * 16 + 8, 0,l * 16 + 8));
 
             if (biomegenbase != null) {
                 
@@ -151,13 +143,12 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
     }
 
     @Override
-    public boolean func_143030_a(int p_143030_1_, int p_143030_2_, int p_143030_3_)
+    public boolean func_175795_b(BlockPos pos)
     {
-        StructureStart structurestart = this.func_143028_c(p_143030_1_, p_143030_2_, p_143030_3_);
-
+        StructureStart structurestart = this.func_175797_c(pos);
         if (structurestart != null && structurestart instanceof MapGenScatteredFeatureRTG.Start && !structurestart.getComponents().isEmpty())
         {
-            StructureComponent structurecomponent = (StructureComponent)structurestart.getComponents().getFirst();
+            StructureComponent structurecomponent = structurestart.getComponents().getFirst();
             return structurecomponent instanceof ComponentScatteredFeaturePieces.SwampHut;
         }
         else
@@ -185,7 +176,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
 
             LinkedList arrComponents = new LinkedList();
 
-            BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(chunkX * 16 + 8, chunkZ * 16 + 8);
+            BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(new BlockPos(chunkX * 16 + 8, 0,chunkZ * 16 + 8));
 
             if (canSpawnDesertTemple(biomegenbase)) {
                 ComponentScatteredFeaturePieces.DesertPyramid desertpyramid = new ComponentScatteredFeaturePieces.DesertPyramid(random, chunkX * 16, chunkZ * 16);
@@ -205,7 +196,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
             this.components.clear();
             
             if (arrComponents.size() > 0) {
-                this.components.add(arrComponents.get(random.nextInt(arrComponents.size())));
+                this.components.add((StructureComponent) arrComponents.get(random.nextInt(arrComponents.size())));
             }
             
             if (ConfigRTG.enableDebugging) {

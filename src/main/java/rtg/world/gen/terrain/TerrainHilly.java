@@ -29,8 +29,8 @@ public class TerrainHilly extends TerrainBase
 		width = mountainWidth;
 		strength = mountainStrength;
 		lakeDepth = depthLake;
-		lakeWidth = widthLake;
-		terrainHeight = height;
+		lakeWidth = 260f;
+		terrainHeight = 68f;
 	}
 	
 	@Override

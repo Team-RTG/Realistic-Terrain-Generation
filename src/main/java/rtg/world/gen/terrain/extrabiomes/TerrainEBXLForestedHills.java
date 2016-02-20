@@ -22,7 +22,7 @@ public class TerrainEBXLForestedHills extends TerrainBase
 
 	public TerrainEBXLForestedHills(float mountainWidth, float mountainStrength, float depthLake)
 	{
-		this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
+		this(300f, 100f, 0f, 260f, 68f);
 	}
 	
 	public TerrainEBXLForestedHills(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
@@ -30,8 +30,8 @@ public class TerrainEBXLForestedHills extends TerrainBase
 		width = mountainWidth;
 		strength = mountainStrength;
 		lakeDepth = depthLake;
-		lakeWidth = widthLake;
-		terrainHeight = height;
+		lakeWidth = 260f;
+		terrainHeight = 68f;
 	}
 	
 	@Override

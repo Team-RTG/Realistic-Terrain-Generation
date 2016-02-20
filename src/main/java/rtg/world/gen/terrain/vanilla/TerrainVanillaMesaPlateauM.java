@@ -39,14 +39,14 @@ public class TerrainVanillaMesaPlateauM extends TerrainBase
 	 */
 	public TerrainVanillaMesaPlateauM(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight)
 	{
-		booRiver = riverGen;
+		booRiver = true;
 		height = new float[]{5.0f, 0.5f, 12.5f, 0.5f, 18.0f, 0.5f};
-		strength = heightStrength;
+		strength = 15f;
 		heightLength = height.length;
-		cWidth = canyonWidth;
-		cHeigth = canyonHeight;
-		cStrength = canyonStrength;
-		base = baseHeight;
+		cWidth = 260f;
+		cHeigth = 50f;
+		cStrength = 30f;
+		base = 79f;
 	}
 
 	@Override

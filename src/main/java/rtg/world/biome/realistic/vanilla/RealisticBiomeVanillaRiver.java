@@ -10,8 +10,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase
 {
 	public static BiomeGenBase vanillaBiome = BiomeGenBase.river;
-	public static Block topBlock = vanillaBiome.topBlock;
-	public static Block fillerBlock = vanillaBiome.fillerBlock;
+	public static Block topBlock = vanillaBiome.topBlock.getBlock();
+	public static Block fillerBlock = vanillaBiome.fillerBlock.getBlock();
 
 	public RealisticBiomeVanillaRiver(BiomeConfig config)
 	{

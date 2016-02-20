@@ -1,16 +1,16 @@
 package rtg.world.gen.surface.vanilla;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
 
 public class SurfaceVanillaDesert extends SurfaceBase
 {
@@ -20,7 +20,7 @@ public class SurfaceVanillaDesert extends SurfaceBase
 	}
 	
 	@Override
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		boolean water = false;
 		boolean riverPaint = false;
@@ -39,7 +39,7 @@ public class SurfaceVanillaDesert extends SurfaceBase
 		Block b;
 		for(int k = 255; k > -1; k--)
 		{
-			b = blocks[(y * 16 + x) * 256 + k];
+			b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
             if(b == Blocks.air)
             {
             	depth = -1;
@@ -52,16 +52,16 @@ public class SurfaceVanillaDesert extends SurfaceBase
             	{
             		if(grass && depth < 4)
             		{
-    	        		blocks[(y * 16 + x) * 256 + k] = Blocks.grass;
+    	        		primer.setBlockState((y * 16 + x) * 256 + k, Blocks.grass.getDefaultState());
             		}
             		else if(depth == 0)
             		{
-    	        		blocks[(y * 16 + x) * 256 + k] = rand.nextInt(2) == 0 ? Blocks.sand : Blocks.sandstone;
+    	        		primer.setBlockState((y * 16 + x) * 256 + k, rand.nextInt(2) == 0 ? Blocks.sand.getDefaultState() : Blocks.sandstone.getDefaultState());
             		}
             	}
         		else if(depth > -1 && depth < 9)
         		{
-        			blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
+        			primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sand.getDefaultState());
             		if(depth == 0 && k > 61 && k < 254);
         		}
             }

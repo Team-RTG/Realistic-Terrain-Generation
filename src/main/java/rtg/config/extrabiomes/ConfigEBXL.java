@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Level;
 
 import rtg.api.biome.extrabiomes.config.BiomeConfigEBXL;
 import rtg.config.BiomeConfigManager;
-import cpw.mods.fml.common.FMLLog;
+import net.minecraftforge.fml.common.FMLLog;
 
 import net.minecraftforge.common.config.Configuration;
 

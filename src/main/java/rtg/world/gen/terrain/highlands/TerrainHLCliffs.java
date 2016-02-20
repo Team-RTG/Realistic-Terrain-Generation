@@ -23,7 +23,7 @@ public class TerrainHLCliffs extends TerrainBase
 
 	public TerrainHLCliffs(float mountainWidth, float mountainStrength, float depthLake)
 	{
-		this(mountainWidth, mountainStrength, depthLake, 260f, 78f);
+		this(75f, 70f, 0f, 260f, 78f);
 	}
 
 	public TerrainHLCliffs(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
@@ -31,8 +31,8 @@ public class TerrainHLCliffs extends TerrainBase
 		width = mountainWidth;
 		strength = mountainStrength;
 		lakeDepth = depthLake;
-		lakeWidth = widthLake;
-		terrainHeight = height;
+		lakeWidth = 260f;
+		terrainHeight = 78f;
 	}
 
 	@Override

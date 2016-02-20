@@ -1,18 +1,7 @@
 package rtg.world.biome;
 
 import gnu.trove.map.hash.TLongObjectHashMap;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.SimplexCellularNoise;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.biome.realistic.RealisticBiomePatcher;
-
-import net.minecraft.world.ChunkPosition;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeCache;
@@ -20,6 +9,15 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.util.SimplexCellularNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.biome.realistic.RealisticBiomePatcher;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeProvider
 {
@@ -51,7 +49,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
 
         this();
         long seed = par1World.getSeed();
-        if (par1World.provider.dimensionId !=0) throw new RuntimeException();
+        if (par1World.provider.getDimensionId() !=0) throw new RuntimeException();
 
         simplex = new OpenSimplexNoise(seed);
         cell = new CellNoise(seed, (short) 0);
@@ -63,7 +61,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         riverOpenSimplexNoiseInstances = new OpenSimplexNoise.NoiseInstance2[] {
         		new OpenSimplexNoise.NoiseInstance2(simplex, -1, -1, -1, 0, 1)
         };
-        GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType);
+        GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType, "");
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
         this.biomeIndexLayer = agenlayer[1];
@@ -86,12 +84,8 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
     
     public boolean diff(float sample1, float sample2, float base)
     {
-        
-        if ((sample1 < base && sample2 > base) || (sample1 > base && sample2 < base))
-        {
-            return true;
-        }
-        return false;
+
+        return (sample1 < base && sample2 > base) || (sample1 > base && sample2 < base);
     }
     
     public float[] getRainfall(float[] par1ArrayOfFloat, int par2, int par3, int par4, int par5)
@@ -136,7 +130,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
     @Override
     public BiomeGenBase getBiomeGenAt(int par1, int par2)
     {
-        BiomeGenBase result = this.biomeCache.getBiomeGenAt(par1, par2);
+        BiomeGenBase result = this.biomeCache.getBiomeCacheBlock(par1, par2).getBiomeGenAt(par1,par2);
         
         if (result == null) {
             result = biomePatcher.getPatchedBaseBiome("Biome cache contains NULL biome at " + par1 + "," + par2);
@@ -204,7 +198,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
 	private static double cellBorder(double[] results, double width, double depth) {
 		double c = results[1] - results[0];
 		if (c < width) {
-			return ((c / width) - 1) * depth;
+			return ((c / width) - 1) * 1.0;
 		} else {
 			return 0;
 		}
@@ -353,18 +347,13 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
                 }
             }
         }
-        
-        if (highestNoise - lowestNoise < 22)
-        {
-            return true;
-        }
-        
-        return false;
+
+        return highestNoise - lowestNoise < 22;
+
     }
     
-    public ChunkPosition findBiomePosition(int p_150795_1_, int p_150795_2_, int p_150795_3_, List p_150795_4_, Random p_150795_5_)
+    public BlockPos findBiomePosition(int p_150795_1_, int p_150795_2_, int p_150795_3_, List p_150795_4_, Random p_150795_5_)
     {
-        
         return null;
     }
     

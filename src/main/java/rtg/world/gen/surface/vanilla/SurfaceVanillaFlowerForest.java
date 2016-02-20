@@ -1,7 +1,11 @@
 package rtg.world.gen.surface.vanilla;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaFlowerForest;
 import rtg.util.CellNoise;
@@ -9,10 +13,7 @@ import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
 
 public class SurfaceVanillaFlowerForest extends SurfaceBase
 {
@@ -26,8 +27,7 @@ public class SurfaceVanillaFlowerForest extends SurfaceBase
     private float sStrength = 65f;
     private float cCliff = 1.5f;
     
-    private Block mixBlock;
-    private byte mixBlockMeta;
+    private IBlockState mixBlock;
     private float mixHeight;
     
     public SurfaceVanillaFlowerForest(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
@@ -44,14 +44,14 @@ public class SurfaceVanillaFlowerForest extends SurfaceBase
         sStrength = stoneStrength;
         cCliff = clayCliff;
         
-        mixBlock = this.getConfigBlock(config, BiomeConfigVanillaFlowerForest.surfaceMixBlockId, mix);
-        mixBlockMeta = this.getConfigBlockMeta(config, BiomeConfigVanillaFlowerForest.surfaceMixBlockMetaId, (byte)0);
+        mixBlock = this.getConfigBlock(config, BiomeConfigVanillaFlowerForest.surfaceMixBlockId,
+                BiomeConfigVanillaFlowerForest.surfaceMixBlockMetaId, mix.getDefaultState());
         mixHeight = mixSize;
     }
     
     @Override
-    public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
-        OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
+                             OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
     
         float c = CliffCalculator.calc(x, y, noise);
@@ -62,7 +62,7 @@ public class SurfaceVanillaFlowerForest extends SurfaceBase
         Block b;
         for (int k = 255; k > -1; k--)
         {
-            b = blocks[(y * 16 + x) * 256 + k];
+            b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
             if (b == Blocks.air)
             {
                 depth = -1;
@@ -95,75 +95,64 @@ public class SurfaceVanillaFlowerForest extends SurfaceBase
                     {
                         if (rand.nextInt(3) == 0) {
                             
-                            blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
-                            metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
+                            primer.setBlockState((y * 16 + x) * 256 + k, hcCobble(world, i, j, x, y, k));
                         }
                         else {
                             
-                            blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
-                            metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
+                            primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k));
                         }
                     }
                     else if (cliff == 2)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k);
-                        metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
+                        primer.setBlockState((y * 16 + x) * 256 + k, getShadowStoneBlock(world, i, j, x, y, k));
                     }
                     else if (k < 63)
                     {
                         if (beach)
                         {
-                            blocks[(y * 16 + x) * 256 + k] = beachBlock;
+                            primer.setBlockState((y * 16 + x) * 256 + k, beachBlock.getDefaultState());
                             gravel = true;
                         }
                         else if (k < 62)
                         {
-                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+                            primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
                         }
                         else
                         {
-                            blocks[(y * 16 + x) * 256 + k] = topBlock;
-                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+                            primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
                         }
                     }
                     else if (simplex.noise2(i / 12f, j / 12f) > mixHeight)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = mixBlock;
-                        metadata[(y * 16 + x) * 256 + k] = mixBlockMeta;
+                        primer.setBlockState((y * 16 + x) * 256 + k, mixBlock);
                         m = true;
                     }
                     else
                     {
-                        blocks[(y * 16 + x) * 256 + k] = topBlock;
-                        metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+                        primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
                     }
                 }
                 else if (depth < 6)
                 {
                     if (cliff == 1)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
-                        metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
+                        primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k));
                     }
                     else if (cliff == 2)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k);
-                        metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
+                        primer.setBlockState((y * 16 + x) * 256 + k, getShadowStoneBlock(world, i, j, x, y, k));
                     }
                     else if (gravel)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = beachBlock;
+                        primer.setBlockState((y * 16 + x) * 256 + k, beachBlock.getDefaultState());
                     }
                     else if (m)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = mixBlock;
-                        metadata[(y * 16 + x) * 256 + k] = mixBlockMeta;
+                        primer.setBlockState((y * 16 + x) * 256 + k, mixBlock);
                     }
                     else
                     {
-                        blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                        metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+                        primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
                     }
                 }
             }

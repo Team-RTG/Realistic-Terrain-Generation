@@ -3,7 +3,7 @@ package ttftcuts.atg.api.events;
 import java.util.List;
 
 import net.minecraft.world.biome.BiomeGenBase;
-import cpw.mods.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.Event;
 
 public class ATGBiomeGroupRequestEvent extends Event {
 

@@ -1,169 +1,120 @@
 package rtg.world.gen.surface;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.ModPresenceTester;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.UBColumnCache;
-import cpw.mods.fml.common.registry.GameData;
-import exterminatorJeff.undergroundBiomes.api.BlockCodes;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
 
 public class SurfaceBase
 {
-    protected Block topBlock;
-    protected byte topBlockMeta;
-    protected Block fillerBlock;
-    protected byte fillerBlockMeta;
+    protected IBlockState topBlock;
+    protected IBlockState fillerBlock;
 	protected BiomeConfig biomeConfig;
 
     private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
     // create UBColumnCache only if UB is present
     private static UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
-    
-    public SurfaceBase(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte)
+
+    public SurfaceBase(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte) {
+        this(config, top.getStateFromMeta(topByte), fill.getStateFromMeta(fillByte));
+    }
+    public SurfaceBase(BiomeConfig config, Block top, Block fill) {
+        this(config, top.getDefaultState(), fill.getDefaultState());
+    }
+    public SurfaceBase(BiomeConfig config, IBlockState top, IBlockState fill)
     {
         if (config == null) throw new RuntimeException("Biome config in SurfaceBase is NULL.");
         
         biomeConfig = config;
 
         topBlock = top;
-        topBlockMeta = topByte;
         fillerBlock = fill;
-        fillerBlockMeta = fillByte;
         
-        this.assignUserConfigs(config, top, topByte, fill, fillByte);
+        this.assignUserConfigs(config, top,fill);
     }
 	
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 	}
 	
-    protected Block getShadowStoneBlock(World world, int i, int j, int x, int y, int k)
+    protected IBlockState getShadowStoneBlock(World world, int i, int j, int x, int y, int k)
     {
         if ((undergroundBiomesMod.present()) && ConfigRTG.enableUBCStoneShadowing) {
             
-            return Blocks.stone;
+            return Blocks.stone.getDefaultState();
         }
         else {
             
-            return GameData.getBlockRegistry().getObject(ConfigRTG.shadowStoneBlockId);
-        }
-    }
-    
-    protected byte getShadowStoneMeta(World world, int i, int j, int x, int y, int k)
-    {
-        if ((undergroundBiomesMod.present()) && ConfigRTG.enableUBCStoneShadowing) {
-            
-            return (byte)0;
-        }
-        else {
-            
-            return (byte)ConfigRTG.shadowStoneBlockByte;
+            return Block.getBlockFromName(ConfigRTG.shadowStoneBlockId).getStateFromMeta(ConfigRTG.shadowStoneBlockByte);
         }
     }
 	
-    protected Block getShadowDesertBlock(World world, int i, int j, int x, int y, int k)
+    protected IBlockState getShadowDesertBlock(World world, int i, int j, int x, int y, int k)
     {
         if ((undergroundBiomesMod.present()) && ConfigRTG.enableUBCDesertShadowing) {
             
-            return Blocks.stone;
+            return Blocks.stone.getDefaultState();
         }
         else {
-            
-            return GameData.getBlockRegistry().getObject(ConfigRTG.shadowDesertBlockId);
-        }
-    }
-    
-    protected byte getShadowDesertMeta(World world, int i, int j, int x, int y, int k)
-    {
-        if ((undergroundBiomesMod.present()) && ConfigRTG.enableUBCDesertShadowing) {
-            
-            return (byte)0;
-        }
-        else {
-            
-            return (byte)ConfigRTG.shadowDesertBlockByte;
-        }
-    }
-    
-    protected Block hcStone(World world, int i, int j, int x, int y, int k)
-    {
-        int worldX = i;
-        int worldY = k;
-        int worldZ = j;
-        
-        return Blocks.stone;
-    }
-    
-    protected byte hcStoneMeta(World world, int i, int j, int x, int y, int k)
-    {
-        int worldX = i;
-        int worldY = k;
-        int worldZ = j;
-        
-        return (byte)0;
-    }
-    
-    protected Block hcCobble(World world, int i, int j, int x, int y, int k)
-    {
-        if ((undergroundBiomesMod.present())) {
-            
-            int worldX = i;
-            int worldY = k;
-            int worldZ = j;
-            
-            BlockCodes cobble = ubColumnCache.column(worldX,worldZ).cobblestone(worldY);
-            
-            return cobble.block;
-        }
-        else {
-            
-            return Blocks.cobblestone;
-        }
-    }
-    
-    protected byte hcCobbleMeta(World world, int i, int j, int x, int y, int k)
-    {
-        if ((undergroundBiomesMod.present())) {
-            
-            int worldX = i;
-            int worldY = k;
-            int worldZ = j;
 
-            BlockCodes cobble = ubColumnCache.column(worldX,worldZ).cobblestone(worldY);
-            
-            return (byte) cobble.metadata;
-        }
-        else {
-            
-            return (byte)0;
+            return Block.getBlockFromName(ConfigRTG.shadowDesertBlockId).getStateFromMeta(ConfigRTG.shadowDesertBlockByte);
         }
     }
     
-    public Block getTopBlock()
+    protected IBlockState hcStone(World world, int i, int j, int x, int y, int k)
+    {
+        int worldX = i;
+        int worldY = k;
+        int worldZ = j;
+        
+        return Blocks.stone.getDefaultState();
+    }
+    
+    protected IBlockState hcCobble(World world, int i, int j, int x, int y, int k)
+    {
+        //if ((undergroundBiomesMod.present())) {
+            
+        //    int worldX = i;
+        //    int worldY = k;
+        //    int worldZ = j;
+            
+        //    BlockCodes cobble = ubColumnCache.column(worldX,worldZ).cobblestone(worldY);
+            
+        //    return cobble.block;
+        //}
+        //else {
+            
+            return Blocks.cobblestone.getDefaultState();
+        //}
+    }
+    
+    public IBlockState getTopBlock()
     {
         return this.topBlock;
     }
     
-    public Block getFillerBlock()
+    public IBlockState getFillerBlock()
     {
         return this.fillerBlock;
     }
     
-    private void assignUserConfigs(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte)
+    private void assignUserConfigs(BiomeConfig config, IBlockState top, IBlockState fill)
     {
         String userTopBlock = config._string(BiomeConfig.surfaceTopBlockId);
+        String userTopBlockMeta = config._string(BiomeConfig.surfaceTopBlockMetaId);
         try {
-            if (GameData.getBlockRegistry().containsKey(userTopBlock)) {
-                topBlock = GameData.getBlockRegistry().getObject(userTopBlock);
+            if (Block.getBlockFromName(userTopBlock) != null) {
+                topBlock = Block.getBlockFromName(userTopBlock).getStateFromMeta(Byte.valueOf(userTopBlockMeta));
             }
             else {
                 topBlock = top;
@@ -173,18 +124,11 @@ public class SurfaceBase
             topBlock = top;
         }
         
-        String userTopBlockMeta = config._string(BiomeConfig.surfaceTopBlockMetaId);
-        try {
-            this.topBlockMeta = Byte.valueOf(userTopBlockMeta);
-        }
-        catch (Exception e) {
-            this.topBlockMeta = topByte;
-        }
-        
         String userFillerBlock = config._string(BiomeConfig.surfaceFillerBlockId);
+        String userFillerBlockMeta = config._string(BiomeConfig.surfaceFillerBlockMetaId);
         try {
-            if (GameData.getBlockRegistry().containsKey(userFillerBlock)) {
-                fillerBlock = GameData.getBlockRegistry().getObject(userFillerBlock);
+            if (Block.getBlockFromName(userFillerBlock) != null) {
+                fillerBlock = Block.getBlockFromName(userFillerBlock).getStateFromMeta(Integer.parseInt(userFillerBlockMeta));
             }
             else {
                 fillerBlock = fill;
@@ -193,24 +137,17 @@ public class SurfaceBase
         catch (Exception e) {
             fillerBlock = fill;
         }
-        
-        String userFillerBlockMeta = config._string(BiomeConfig.surfaceFillerBlockMetaId);
-        try {
-            this.fillerBlockMeta = Byte.valueOf(userFillerBlockMeta);
-        }
-        catch (Exception e) {
-            this.fillerBlockMeta = fillByte;
-        }
     }
     
-    protected Block getConfigBlock(BiomeConfig config, String propertyId, Block blockDefault)
+    protected IBlockState getConfigBlock(BiomeConfig config, String propertyId, String propertyMeta, IBlockState blockDefault)
     {
-        Block blockReturn = blockDefault;
+        IBlockState blockReturn = blockDefault;
         String userBlockId = config._string(propertyId);
+        String userBlockMeta = config._string(propertyMeta);
         
         try {
-            if (GameData.getBlockRegistry().containsKey(userBlockId)) {
-                blockReturn = GameData.getBlockRegistry().getObject(userBlockId);
+            if (Block.getBlockFromName(userBlockId) != null) {
+                fillerBlock = Block.getBlockFromName(userBlockId).getStateFromMeta(Integer.parseInt(userBlockMeta));
             }
             else {
                 blockReturn = blockDefault;
@@ -221,20 +158,5 @@ public class SurfaceBase
         }
 
         return blockReturn;
-    }
-    
-    protected byte getConfigBlockMeta(BiomeConfig config, String propertyId, byte metaDefault)
-    {
-        byte metaReturn = metaDefault;
-        String userMeta = config._string(propertyId);
-        
-        try {
-            metaReturn = Byte.valueOf(userMeta);
-        }
-        catch (Exception e) {
-            metaReturn = metaDefault;
-        }
-        
-        return metaReturn;
     }
 }

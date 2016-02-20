@@ -5,7 +5,7 @@ import rtg.api.biome.buildcraft.config.BiomeConfigBC;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 
 import net.minecraft.world.biome.BiomeGenBase;
 

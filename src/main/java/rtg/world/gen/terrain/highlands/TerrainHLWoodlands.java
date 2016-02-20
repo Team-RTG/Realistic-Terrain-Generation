@@ -22,7 +22,7 @@ public class TerrainHLWoodlands extends TerrainBase
 
     public TerrainHLWoodlands(float mountainWidth, float mountainStrength, float depthLake)
     {
-        this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
+        this(230f, 40f, 0f, 260f, 68f);
     }
     
     public TerrainHLWoodlands(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
@@ -30,8 +30,8 @@ public class TerrainHLWoodlands extends TerrainBase
         width = mountainWidth;
         strength = mountainStrength;
         lakeDepth = depthLake;
-        lakeWidth = widthLake;
-        terrainHeight = height;
+        lakeWidth = 260f;
+        terrainHeight = 68f;
     }
     
     @Override

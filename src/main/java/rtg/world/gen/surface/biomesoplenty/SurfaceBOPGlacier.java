@@ -1,17 +1,17 @@
 package rtg.world.gen.surface.biomesoplenty;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
 
 public class SurfaceBOPGlacier extends SurfaceBase
 {
@@ -40,7 +40,7 @@ public class SurfaceBOPGlacier extends SurfaceBase
 	}
 	
 	@Override
-	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		float c = CliffCalculator.calc(x, y, noise);
 		boolean cliff = c > 1.4f ? true : false;
@@ -48,7 +48,7 @@ public class SurfaceBOPGlacier extends SurfaceBase
 		
 		for(int k = 255; k > -1; k--)
 		{
-			Block b = blocks[(y * 16 + x) * 256 + k];
+			Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
             if(b == Blocks.air)
             {
             	depth = -1;
@@ -61,11 +61,11 @@ public class SurfaceBOPGlacier extends SurfaceBase
             	{
             		if(depth > -1 && depth < 2)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = rand.nextInt(3) == 0 ? cliffBlock2 : cliffBlock1; 
+            			primer.setBlockState((y * 16 + x) * 256 + k, rand.nextInt(3) == 0 ? cliffBlock2.getDefaultState() : cliffBlock1.getDefaultState());
             		}
             		else if (depth < 10)
             		{
-            			blocks[(y * 16 + x) * 256 + k] = cliffBlock1;
+            			primer.setBlockState((y * 16 + x) * 256 + k, cliffBlock1.getDefaultState());
             		}
             	}
             	else
@@ -74,25 +74,23 @@ public class SurfaceBOPGlacier extends SurfaceBase
 	        		{
 	        			if(simplex.noise2(i / width, j / width) + simplex.noise2(i / smallW, j / smallW) * smallS > height)
 	        			{
-	        				blocks[(y * 16 + x) * 256 + k] = mixBlockTop;
+	        				primer.setBlockState((y * 16 + x) * 256 + k, mixBlockTop.getDefaultState());
 	        				mix = true;
 	        			}
 	        			else
 	        			{
-	        				blocks[(y * 16 + x) * 256 + k] = topBlock;
-	        			    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+	        				primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
 	        			}
 	        		}
 	        		else if(depth < 4)
 	        		{
 	        			if(mix)
 	        			{
-		        			blocks[(y * 16 + x) * 256 + k] = mixBlockFill;
+		        			primer.setBlockState((y * 16 + x) * 256 + k, mixBlockFill.getDefaultState());
 	        			}
 	        			else
 	        			{
-		        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-	        			    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+		        			primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
 	        			}
 	        		}
             	}

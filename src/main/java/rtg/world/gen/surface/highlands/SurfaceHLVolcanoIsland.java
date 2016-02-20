@@ -1,17 +1,17 @@
 package rtg.world.gen.surface.highlands;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
 
 public class SurfaceHLVolcanoIsland extends SurfaceBase
 {
@@ -54,8 +54,8 @@ public class SurfaceHLVolcanoIsland extends SurfaceBase
     }
     
     @Override
-    public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
-        OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
+                             OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
     
         float c = CliffCalculator.calc(x, y, noise);
@@ -64,7 +64,7 @@ public class SurfaceHLVolcanoIsland extends SurfaceBase
         
         for (int k = 255; k > -1; k--)
         {
-            Block b = blocks[(y * 16 + x) * 256 + k];
+            Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
             if (b == Blocks.air)
             {
                 depth = -1;
@@ -78,19 +78,16 @@ public class SurfaceHLVolcanoIsland extends SurfaceBase
                     if (depth > -1 && depth < 2)
                     {
                         if (rand.nextInt(3) == 0) {
-                            blocks[(y * 16 + x) * 256 + k] = blockCliff2;
-                            metadata[(y * 16 + x) * 256 + k] = byteCliff2;
+                            primer.setBlockState((y * 16 + x) * 256 + k, blockCliff2.getStateFromMeta(byteCliff2));
                         }
                         else {
-                            blocks[(y * 16 + x) * 256 + k] = blockCliff1;
-                            metadata[(y * 16 + x) * 256 + k] = byteCliff1;
+                            primer.setBlockState((y * 16 + x) * 256 + k, blockCliff1.getStateFromMeta(byteCliff1));
                         }
                         
                     }
                     else if (depth < 10)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = blockCliff1;
-                        metadata[(y * 16 + x) * 256 + k] = byteCliff1;
+                        primer.setBlockState((y * 16 + x) * 256 + k, blockCliff1.getStateFromMeta(byteCliff1));
                     }
                 }
                 else
@@ -100,28 +97,24 @@ public class SurfaceHLVolcanoIsland extends SurfaceBase
                         if (simplex.noise2(i / floMixWidth, j / floMixWidth) + simplex.noise2(i / floSmallWidth, j / floSmallWidth)
                             * floSmallStrength > floMixHeight)
                         {
-                            blocks[(y * 16 + x) * 256 + k] = blockMixTop;
-                            metadata[(y * 16 + x) * 256 + k] = byteMixTop;
+                            primer.setBlockState((y * 16 + x) * 256 + k, blockMixTop.getStateFromMeta(byteMixTop));
                             
                             mix = true;
                         }
                         else
                         {
-                            blocks[(y * 16 + x) * 256 + k] = topBlock;
-                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+                            primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
                         }
                     }
                     else if (depth < 4)
                     {
                         if (mix)
                         {
-                            blocks[(y * 16 + x) * 256 + k] = blockMixFiller;
-                            metadata[(y * 16 + x) * 256 + k] = byteMixFiller;
+                            primer.setBlockState((y * 16 + x) * 256 + k, blockMixFiller.getStateFromMeta(byteMixFiller));
                         }
                         else
                         {
-                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+                            primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
                         }
                     }
                 }

@@ -12,8 +12,8 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
     public static BiomeGenBase standardBiome = BiomeGenBase.plains;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
     
-    public static Block topBlock = mutationBiome.topBlock;
-    public static Block fillerBlock = mutationBiome.fillerBlock;
+    public static Block topBlock = mutationBiome.topBlock.getBlock();
+    public static Block fillerBlock = mutationBiome.fillerBlock.getBlock();
     
     public RealisticBiomeVanillaSunflowerPlains(BiomeConfig config)
     {

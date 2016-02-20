@@ -1,18 +1,17 @@
 package rtg.debug;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import rtg.config.rtg.ConfigRTG;
 import rtg.reference.ModInfo;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
 public final class DebugHandler {
 
@@ -21,7 +20,7 @@ public final class DebugHandler {
 	@SubscribeEvent
 	public void onDrawDebugText(RenderGameOverlayEvent.Text event) {
 		
-		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+		EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
 		World world = Minecraft.getMinecraft().theWorld;
 
 		if ( world.getWorldChunkManager() instanceof WorldChunkManagerRTG ) {
@@ -40,7 +39,7 @@ public final class DebugHandler {
 //                    (int)Math.floor(posZ / 16)
 //                );
                 
-                BiomeGenBase biome = world.getBiomeGenForCoords(posX, posZ);
+                BiomeGenBase biome = world.getBiomeGenForCoords(new BlockPos(posX,0 ,posZ));
                 RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(biome.biomeID);
 				
                 details = PREFIX;

@@ -23,17 +23,17 @@ public class TerrainHLFlyingMountains extends TerrainBase
 
 	public TerrainHLFlyingMountains(float mountainWidth, float mountainStrength, float depthLake)
 	{
-		this(mountainWidth, mountainStrength, depthLake, 260f, 63f);
+		this(230f, 100f, 0f, 260f, 63f);
 	}
 	
 	public TerrainHLFlyingMountains(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
 	{
-        super(height);
+        super(63f);
 		width = mountainWidth;
 		strength = mountainStrength*1.3f;
 		lakeDepth = depthLake;
-		lakeWidth = widthLake;
-		terrainHeight = height;
+		lakeWidth = 260f;
+		terrainHeight = 63f;
 	}
 
     //reworked for the soar/plunge effect

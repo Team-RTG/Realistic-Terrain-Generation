@@ -30,16 +30,16 @@ public class TerrainHLTropicalIslands extends TerrainBase
 	 */
 	public TerrainHLTropicalIslands(float hillHeight, float hillWidth, float varHeight, float varWidth, float lakeHeight, float lakeWidth, float baseHeight)
 	{
-		hHeight = hillHeight;
-		hWidth = hillWidth;
+		hHeight = 90f;
+		hWidth = 180f;
 		
-		vHeight = varHeight;
-		vWidth = varWidth;
+		vHeight = 13f;
+		vWidth = 100f;
 		
-		lHeight = lakeHeight;
-		lWidth = lakeWidth;
+		lHeight = 1f;
+		lWidth = 260f;
 		
-		bHeight = baseHeight;
+		bHeight = 59f;
 	}
 	
 	@Override

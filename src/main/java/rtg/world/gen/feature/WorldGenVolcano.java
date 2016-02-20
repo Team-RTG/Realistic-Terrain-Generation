@@ -1,24 +1,22 @@
 package rtg.world.gen.feature;
 
-import java.util.Random;
-
-import rtg.config.rtg.ConfigRTG;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.TerrainMath;
-import cpw.mods.fml.common.registry.GameData;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.ChunkPrimer;
+import rtg.config.rtg.ConfigRTG;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+
+import java.util.Random;
 
 public class WorldGenVolcano 
 {
-    protected static Block volcanoBlock = GameData.getBlockRegistry().getObject(ConfigRTG.volcanoBlockId);
+    protected static Block volcanoBlock = Block.getBlockFromName(ConfigRTG.volcanoBlockId);
     protected static byte volcanoByte = (byte) ConfigRTG.volcanoBlockByte;
     protected static Block lavaBlock = ConfigRTG.enableVolcanoEruptions ? Blocks.flowing_lava : Blocks.lava;
     
-	public static void build(Block[] blocks, byte[] metadata, World world, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float[] noise)
+	public static void build(ChunkPrimer primer, World world, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float[] noise)
 	{	
 	    return;
 	    

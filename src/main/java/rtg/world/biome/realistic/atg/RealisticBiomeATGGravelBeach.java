@@ -13,7 +13,7 @@ public class RealisticBiomeATGGravelBeach extends RealisticBiomeATGBase
 		super(config, 
 			atgBiome, BiomeGenBase.river,
 			new TerrainATGGravelBeach(),
-			new SurfaceATGGravelBeach(config, atgBiome.topBlock, atgBiome.fillerBlock, atgBiome.topBlock, atgBiome.fillerBlock, (byte)0, 1)
+			new SurfaceATGGravelBeach(config, atgBiome.topBlock.getBlock(), atgBiome.fillerBlock.getBlock(), atgBiome.topBlock.getBlock(), atgBiome.fillerBlock.getBlock(), (byte)0, 1)
 		);
 	}
 }

@@ -15,6 +15,20 @@ public class RealisticBiomeRWShadowFen extends RealisticBiomeRWBase
         super(config,
             rwBiome, BiomeGenBase.river,
             new TerrainRWShadowFen(),
-            new SurfaceRWShadowFen(config, rwBiome.topBlock, rwBiome.fillerBlock));
+            new SurfaceRWShadowFen(config,
+                rwBiome.topBlock, //Block top 
+                (byte)0, //byte topByte
+                rwBiome.fillerBlock, //Block filler, 
+                (byte)0, //byte fillerByte
+                rwBiome.topBlock, //Block mixTop, 
+                (byte)0, //byte mixTopByte, 
+                rwBiome.fillerBlock, //Block mixFill, 
+                (byte)0, //byte mixFillByte,
+                80f, //float mixWidth, 
+                -0.15f, //float mixHeight, 
+                10f, //float smallWidth, 
+                0.5f //float smallStrength
+            )
+        );
     }
 }

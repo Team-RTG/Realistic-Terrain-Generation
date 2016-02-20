@@ -4,6 +4,13 @@ import java.util.ArrayList;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.BiomeConfigProperty;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigAC;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACCoraliumInfestedSwamp;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklands;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsForest;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsHighland;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsMountains;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsPlains;
 import rtg.api.biome.arsmagica.config.BiomeConfigAM;
 import rtg.api.biome.arsmagica.config.BiomeConfigAMWitchwoodForest;
 import rtg.api.biome.atg.config.BiomeConfigATG;
@@ -265,6 +272,14 @@ import rtg.api.biome.highlands.config.BiomeConfigHLVolcanoIsland;
 import rtg.api.biome.highlands.config.BiomeConfigHLWindyIsland;
 import rtg.api.biome.highlands.config.BiomeConfigHLWoodlands;
 import rtg.api.biome.highlands.config.BiomeConfigHLWoodsMountains;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRW;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWBotanicalGarden;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWMountainOfMadness;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWMurica;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWOssuary;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWRockCandyMountain;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWShadowFen;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWSpookyForest;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTC;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCEerie;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCMagicalForest;
@@ -337,6 +352,7 @@ public class BiomeConfigManager
     
     public static void initBiomeConfigs()
     {
+        initBiomeConfigsAC();
         initBiomeConfigsAM();
         initBiomeConfigsATG();
         initBiomeConfigsBOP();
@@ -346,8 +362,19 @@ public class BiomeConfigManager
         initBiomeConfigsEBXL();
         initBiomeConfigsGC();
         initBiomeConfigsHL();
+        initBiomeConfigsRW();
         initBiomeConfigsTC();
         initBiomeConfigsVanilla();
+    }
+    
+    public static void initBiomeConfigsAC()
+    {
+        BiomeConfigAC.biomeConfigACCoraliumInfestedSwamp = new BiomeConfigACCoraliumInfestedSwamp();
+        BiomeConfigAC.biomeConfigACDarklands = new BiomeConfigACDarklands();
+        BiomeConfigAC.biomeConfigACDarklandsForest = new BiomeConfigACDarklandsForest();
+        BiomeConfigAC.biomeConfigACDarklandsHighland = new BiomeConfigACDarklandsHighland();
+        BiomeConfigAC.biomeConfigACDarklandsMountains = new BiomeConfigACDarklandsMountains();
+        BiomeConfigAC.biomeConfigACDarklandsPlains = new BiomeConfigACDarklandsPlains();
     }
     
     public static void initBiomeConfigsAM()
@@ -636,6 +663,17 @@ public class BiomeConfigManager
         BiomeConfigHL.biomeConfigHLWindyIsland = new BiomeConfigHLWindyIsland();
         BiomeConfigHL.biomeConfigHLWoodlands = new BiomeConfigHLWoodlands();
         BiomeConfigHL.biomeConfigHLWoodsMountains = new BiomeConfigHLWoodsMountains();
+    }
+    
+    public static void initBiomeConfigsRW()
+    {  
+        BiomeConfigRW.biomeConfigRWBotanicalGarden = new BiomeConfigRWBotanicalGarden();
+        BiomeConfigRW.biomeConfigRWMurica = new BiomeConfigRWMurica();
+        BiomeConfigRW.biomeConfigRWMountainOfMadness = new BiomeConfigRWMountainOfMadness();
+        BiomeConfigRW.biomeConfigRWOssuary = new BiomeConfigRWOssuary();
+        BiomeConfigRW.biomeConfigRWRockCandyMountain = new BiomeConfigRWRockCandyMountain();
+        BiomeConfigRW.biomeConfigRWShadowFen = new BiomeConfigRWShadowFen();
+        BiomeConfigRW.biomeConfigRWSpookyForest = new BiomeConfigRWSpookyForest();
     }
     
     public static void initBiomeConfigsTC()

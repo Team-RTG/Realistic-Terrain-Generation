@@ -66,7 +66,6 @@ public class WorldGenBlob extends WorldGenerator {
         if (!booShouldGenerate) {
             return false;
         }
-
         while (true) {
             if (y > 3) {
                 label63:

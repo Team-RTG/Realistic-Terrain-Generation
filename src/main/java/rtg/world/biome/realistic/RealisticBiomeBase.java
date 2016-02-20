@@ -226,16 +226,16 @@ public class RealisticBiomeBase extends BiomeBase {
         }
     }
 
-    public void rDecorate(World world, Random rand, int x, int z, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
-        this.rDecorate(world, rand, new BlockPos(x,0,z), simplex, cell, strength, river);
-    }
     public void rDecorate(World world, Random rand, BlockPos blockPos, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
+        this.rDecorate(world, rand, blockPos.getX(), blockPos.getZ(), simplex, cell, strength, river);
+    }
+    public void rDecorate(World world, Random rand, int x, int z, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
     
         if (strength > 0.3f) {
-            baseBiome.decorate(world, rand, blockPos);
+            baseBiome.decorate(world, rand, new BlockPos(x, 0, z));
         }
         else {
-            rOreGenSeedBiome(world, rand, blockPos, simplex, cell, strength, river, baseBiome);
+            rOreGenSeedBiome(world, rand, new BlockPos(x, 0, z), simplex, cell, strength, river, baseBiome);
         }
     }
     

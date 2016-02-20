@@ -35,7 +35,7 @@ public class WorldGenGrass extends WorldGenerator {
                 int j1 = y + rand.nextInt(4) - rand.nextInt(4);
                 int k1 = z + rand.nextInt(8) - rand.nextInt(8);
 
-                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && j1 < 254 && double_plant.canBlockStay(world, new BlockPos(i1, j1, k1), null)) {
+                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && j1 < 254 && double_plant.canBlockStay(world, new BlockPos(i1, j1, k1), double_plant.getDefaultState())) {
                     world.setBlockState(new BlockPos(i1, j1, k1), double_plant.getStateFromMeta(metadata));
                 }
             }
@@ -55,7 +55,7 @@ public class WorldGenGrass extends WorldGenerator {
                 int j1 = y + rand.nextInt(4) - rand.nextInt(4);
                 int k1 = z + rand.nextInt(8) - rand.nextInt(8);
 
-                if (world.isAirBlock(new BlockPos(i1, j1, k1))) {
+                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && block.canPlaceBlockAt(world, new BlockPos(i1, j1, k1))) {
                     world.setBlockState(new BlockPos(i1, j1, k1), block.getStateFromMeta(metadata), 0);
                 }
             }

@@ -24,7 +24,7 @@ group = "org.teamrtg.rtg" // http://maven.apache.org/guides/mini/guide-naming-co
 archivesBaseName = "RTG-" + project.mcversion
 
 minecraft {
-    version = "1.8.9-11.15.1.1722"
+    version = "1.8.9-11.15.1.1756"
     runDir = "eclipse"
     mappings = "stable_20"
     replace '@VERSION@', project.version

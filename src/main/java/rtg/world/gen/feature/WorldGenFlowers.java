@@ -62,7 +62,7 @@ public class WorldGenFlowers extends WorldGenerator {
 				int k1 = z + rand.nextInt(8) - rand.nextInt(8);
 
 				if (world.isAirBlock(new BlockPos(new BlockPos(i1, j1, k1))) && (!world.provider.getHasNoSky() || j1 < 255)
-						&& yellow_flower.canBlockStay(world, new BlockPos(i1, j1, k1), null)) {
+						&& yellow_flower.canBlockStay(world, new BlockPos(i1, j1, k1), yellow_flower.getDefaultState())) {
 					world.setBlockState(new BlockPos(i1, j1, k1), yellow_flower.getDefaultState(), 0);
 				}
 			}
@@ -72,7 +72,8 @@ public class WorldGenFlowers extends WorldGenerator {
 				int j1 = y + rand.nextInt(4) - rand.nextInt(4);
 				int k1 = z + rand.nextInt(8) - rand.nextInt(8);
 
-				if (world.isAirBlock(new BlockPos(i1, j1, k1)) && (!world.provider.getHasNoSky() || j1 < 255) && red_flower.canBlockStay(world, new BlockPos(i1, j1, k1), null)) {
+				if (world.isAirBlock(new BlockPos(i1, j1, k1)) && (!world.provider.getHasNoSky() || j1 < 255) &&
+						red_flower.canPlaceBlockAt(world, new BlockPos(i1, j1, k1))) {
 					world.setBlockState(new BlockPos(i1, j1, k1), red_flower.getStateFromMeta(randomFlower), 0);
 				}
 			}

@@ -14,7 +14,21 @@ public class RealisticBiomeRWSpookyForest extends RealisticBiomeRWBase
     
         super(config,
             rwBiome, BiomeGenBase.river,
-            new TerrainRWSpookyForest(),
-            new SurfaceRWSpookyForest(config, rwBiome.topBlock, rwBiome.fillerBlock));
+            new TerrainRWSpookyForest(0f, 100f, 68f, 170f),
+            new SurfaceRWSpookyForest(config,
+                rwBiome.topBlock, //Block top 
+                (byte)0, //byte topByte
+                rwBiome.fillerBlock, //Block filler, 
+                (byte)0, //byte fillerByte
+                rwBiome.topBlock, //Block mixTop, 
+                (byte)0, //byte mixTopByte, 
+                rwBiome.fillerBlock, //Block mixFill, 
+                (byte)0, //byte mixFillByte,
+                0.5f, //float mixWidth, 
+                -0.15f, //float mixHeight, 
+                10f, //float smallWidth, 
+                0.5f //float smallStrength
+            )
+        );
     }
 }

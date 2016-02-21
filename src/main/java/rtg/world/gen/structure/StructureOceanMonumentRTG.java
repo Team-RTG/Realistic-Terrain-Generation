@@ -2,21 +2,26 @@ package rtg.world.gen.structure;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import net.minecraft.crash.CrashReport;
+import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ReportedException;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.layer.IntCache;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureOceanMonument;
 import net.minecraft.world.gen.structure.StructureOceanMonumentPieces;
 import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
+import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 
 import java.util.*;
@@ -32,7 +37,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
 
     public StructureOceanMonumentRTG() {
         this.spacing = 32;
-        this.seperation = 5;
+        this.seperation = 5 ;
     }
 
     public StructureOceanMonumentRTG(Map<String, String> p_i45608_1_) {
@@ -73,19 +78,59 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
 
         if (i == k && j == l) {
             BiomeGenBase bg = this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), (BiomeGenBase) null);
-            if (bg != RealisticBiomeVanillaBase.deepOcean || bg != RealisticBiomeVanillaBase.ocean ) {
-                return false;
-            }
 
-            boolean flag = this.worldObj.getWorldChunkManager().areBiomesViable(i * 16 + 8, j * 16 + 8, 29, biomes);
+            if (bg.biomeID == RealisticBiomeVanillaBase.deepOcean.biomeID || bg.biomeID == RealisticBiomeVanillaBase.ocean.biomeID ) {
 
-            if (flag) {
-                FMLLog.log(Level.INFO, "Ocean Monument");
-                return true;
+                boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29, biomes);
+
+                if (flag) {
+                    FMLLog.log(Level.INFO, "Ocean Monument");
+                    return true;
+                }
             }
         }
 
         return false;
+    }
+    /**
+     * checks given Chunk's Biomes against List of allowed ones
+     */
+    public boolean areBiomesViable(int p_76940_1_, int p_76940_2_, int p_76940_3_, List<BiomeGenBase> p_76940_4_)
+    {
+        IntCache.resetIntCache();
+        int i = p_76940_1_ - p_76940_3_ >> 2;
+        int j = p_76940_2_ - p_76940_3_ >> 2;
+        int k = p_76940_1_ + p_76940_3_ >> 2;
+        int l = p_76940_2_ + p_76940_3_ >> 2;
+        int i1 = k - i + 1;
+        int j1 = l - j + 1;
+        WorldChunkManagerRTG wcm = (WorldChunkManagerRTG) worldObj.getWorldChunkManager();
+        int[] aint = wcm.getBiomesGens(i,j,i1,j1);
+
+        try
+        {
+            for (int k1 = 0; k1 < i1 * j1; ++k1)
+            {
+                BiomeGenBase biomegenbase = BiomeGenBase.getBiome(aint[k1]);
+
+                if (!p_76940_4_.contains(biomegenbase))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        catch (Throwable throwable)
+        {
+            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
+            CrashReportCategory crashreportcategory = crashreport.makeCategory("Layer");
+            crashreportcategory.addCrashSection("x", Integer.valueOf(p_76940_1_));
+            crashreportcategory.addCrashSection("z", Integer.valueOf(p_76940_2_));
+            crashreportcategory.addCrashSection("radius", Integer.valueOf(p_76940_3_));
+            crashreportcategory.addCrashSection("allowed", p_76940_4_);
+            throw new ReportedException(crashreport);
+        }
     }
 
     protected StructureStart getStructureStart(int chunkX, int chunkZ) {

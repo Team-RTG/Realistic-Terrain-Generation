@@ -21,6 +21,7 @@ import net.minecraft.world.gen.structure.StructureOceanMonumentPieces;
 import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
+import rtg.config.rtg.ConfigRTG;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 
@@ -84,7 +85,8 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
                 boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29, biomes);
 
                 if (flag) {
-                    FMLLog.log(Level.INFO, "Generated Ocean Monument at %s %s", i * 16 + 8, j * 16 + 8);
+                    if (ConfigRTG.enableDebugging)
+                        FMLLog.log(Level.INFO, "Generated Ocean Monument at %s %s", i * 16 + 8, j * 16 + 8);
                     return true;
                 }
             }

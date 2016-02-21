@@ -6,30 +6,38 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainTOFUTofuPlainHills extends TerrainBase
 {
+    private float baseHeight = 76f;
+    private float hillStrength = 30f;
     
     public TerrainTOFUTofuPlainHills()
     {
     
     }
     
+    public TerrainTOFUTofuPlainHills(float bh, float hs)
+    {
+        baseHeight = bh;
+        hillStrength = hs;
+    }
+    
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
     
-        float floNoise;
-        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * 10f * river;
-        st = st < 0.2f ? 0.2f : st;
+        float h = simplex.noise2(x / 200f, y / 200f) * 4;
+        h += simplex.noise2(x / 100f, y / 100f) * 2;
         
-        float h = simplex.noise2(x / 60f, y / 60f) * st * 2f;
-        h = h > 0f ? -h : h;
-        h += st;
-        h *= h / 200f;
-        h += st;
+        float m = simplex.noise2(x / 200f, y / 200f) * hillStrength * river;
+        m *= m / ((hillStrength * 0.1f) + hillStrength);
         
-        floNoise = 63f + h;
+        float sm = simplex.noise2(x / hillStrength, y / hillStrength) * 8f;
+        sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
+        m += sm;
         
-        //FMLLog.log(Level.INFO, "floNoise = %f", floNoise);
+        float l = simplex.noise2(x / 260f, y / 260f) * 38f;
+        l *= l / 25f;
+        l = l < -8f ? -8f : l;
         
-        return floNoise;
+        return baseHeight + h + m - l;
     }
 }

@@ -1,19 +1,19 @@
 package rtg.world.biome.realistic.tofucraft;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.world.gen.surface.atg.SurfaceATGShrubland;
-import rtg.world.gen.terrain.atg.TerrainATGShrubland;
+import rtg.world.gen.surface.tofucraft.SurfaceTOFUTofuBuildings;
+import rtg.world.gen.terrain.tofucraft.TerrainTOFUTofuBuildings;
 
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeTOFUTofuBuildings extends RealisticBiomeTOFUBase
 {	
-	public RealisticBiomeTOFUTofuBuildings(BiomeGenBase atgBiome, BiomeConfig config)
+	public RealisticBiomeTOFUTofuBuildings(BiomeGenBase tofuBiome, BiomeConfig config)
 	{
 		super(config, 
-			atgBiome, BiomeGenBase.river,
-			new TerrainATGShrubland(),
-			new SurfaceATGShrubland(config, atgBiome.topBlock, atgBiome.fillerBlock)
+			tofuBiome, BiomeGenBase.river,
+			new TerrainTOFUTofuBuildings(),
+			new SurfaceTOFUTofuBuildings(config, tofuBiome.topBlock, tofuBiome.fillerBlock)
 		);
 	}
 }

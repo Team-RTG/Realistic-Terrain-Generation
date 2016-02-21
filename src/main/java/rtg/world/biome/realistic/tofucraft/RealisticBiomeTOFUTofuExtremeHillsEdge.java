@@ -8,8 +8,8 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenVolcano;
-import rtg.world.gen.surface.atg.SurfaceATGVolcano;
-import rtg.world.gen.terrain.atg.TerrainATGVolcano;
+import rtg.world.gen.surface.tofucraft.SurfaceTOFUTofuExtremeHillsEdge;
+import rtg.world.gen.terrain.tofucraft.TerrainTOFUTofuExtremeHillsEdge;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -18,12 +18,12 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeTOFUTofuExtremeHillsEdge extends RealisticBiomeTOFUBase
 {	
-	public RealisticBiomeTOFUTofuExtremeHillsEdge(BiomeGenBase atgBiome, BiomeConfig config)
+	public RealisticBiomeTOFUTofuExtremeHillsEdge(BiomeGenBase tofuBiome, BiomeConfig config)
 	{
 		super(config, 
-			atgBiome, BiomeGenBase.river,
-			new TerrainATGVolcano(),
-			new SurfaceATGVolcano(config, atgBiome.topBlock, atgBiome.fillerBlock, true, Blocks.gravel, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f)
+			tofuBiome, BiomeGenBase.river,
+			new TerrainTOFUTofuExtremeHillsEdge(10f, 120f, 68f, 200f),
+			new SurfaceTOFUTofuExtremeHillsEdge(config, tofuBiome.topBlock, tofuBiome.fillerBlock, tofuBiome.topBlock, tofuBiome.fillerBlock, 60f, -0.14f, 14f, 0.25f)
 		);
 	}
 	

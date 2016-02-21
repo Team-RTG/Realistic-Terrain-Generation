@@ -6,26 +6,30 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainTOFUTofuPlains extends TerrainBase
 {
-	public TerrainTOFUTofuPlains()
-	{
-	}
-	
-	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-	{
-		float h = simplex.noise2(x / 180f, y / 180f) * 40f * river;
-		h *= h / 35f;
-		
-		if(h < 1f)
-		{
-			h = 1f;
-		}
-		
-		if(h < 4f)
-		{
-			h += (simplex.noise2(x / 50f, y / 50f) + simplex.noise2(x / 15f, y / 15f)) * (4f - h);
-		}
-		
-		return 60f + h;
-	}
+    
+    public TerrainTOFUTofuPlains()
+    {
+    
+    }
+    
+    @Override
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
+    {
+    
+        float floNoise;
+        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * 10f * river;
+        st = st < 0.2f ? 0.2f : st;
+        
+        float h = simplex.noise2(x / 60f, y / 60f) * st * 2f;
+        h = h > 0f ? -h : h;
+        h += st;
+        h *= h / 200f;
+        h += st;
+        
+        floNoise = 66f + h;
+        
+        //FMLLog.log(Level.INFO, "floNoise = %f", floNoise);
+        
+        return floNoise;
+    }
 }

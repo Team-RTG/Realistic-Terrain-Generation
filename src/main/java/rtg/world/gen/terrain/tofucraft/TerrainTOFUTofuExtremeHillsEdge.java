@@ -6,30 +6,35 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainTOFUTofuExtremeHillsEdge extends TerrainBase
 {
-    public TerrainTOFUTofuExtremeHillsEdge()
-    {
-    }
-    
-    @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-    {
-        float st = 15f - ((cell.noise(x / 500D, y / 500D, 1D) * 42f) + (simplex.noise2(x / 30f, y / 30f) * 2f));
-        
-        st = st < 0f ? 0f : st;
-
-        float h = st;
-        h = h < 0f ? 0f : h;
-        h += (h * 0.4f) * ((h * 0.4f) * 2f);
-        
-        if(h > 10f)
-        {
-            float d2 = (h - 10f) / 1.5f > 30f ? 30f : (h - 10f) / 1.5f;
-            h += cell.noise(x / 25D, y / 25D, 1D) * d2;
-        }
-        
-        h += simplex.noise2(x / 18f, y / 18f) * 3;
-        h += simplex.noise2(x / 8f, y / 8f) * 2;
-        
-        return 65f + h * border;
-    }
+	private float start;
+	private float height;
+	private float base;
+	private float width;
+	
+	public TerrainTOFUTofuExtremeHillsEdge(float hillStart, float landHeight, float baseHeight, float hillWidth)
+	{
+		start = hillStart;
+		height = landHeight;
+		base = baseHeight;
+		width = hillWidth;
+	}
+	
+	@Override
+	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
+	{
+		float h = simplex.noise2(x / width, y / width) * height * river;
+		h = h < start ? start + ((h - start) / 4.5f) : h;
+		
+		if(h > 0f)
+		{
+			float st = h * 1.5f > 15f ? 15f : h * 1.5f;
+			h += cell.noise(x / 70D, y / 70D, 1D) * st;
+		}
+		
+		h += simplex.noise2(x / 20f, y / 20f) * 5f;
+		h += simplex.noise2(x / 12f, y / 12f) * 3f;
+		h += simplex.noise2(x / 5f, y / 5f) * 1.5f;
+		
+    	return base + h + 10f;
+	}
 }

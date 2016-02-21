@@ -16,34 +16,31 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceTOFUTofuExtremeHillsEdge extends SurfaceBase
 {
     
-    private boolean beach;
-    private Block beachBlock;
-    private float min;
+    private Block mixBlockTop;
+    private byte mixBlockTopMeta;
+    private Block mixBlockFill;
+    private byte mixBlockFillMeta;
+    private float width;
+    private float height;
+    private float smallW;
+    private float smallS;
     
-    private float sCliff = 1.5f;
-    private float sHeight = 60f;
-    private float sStrength = 65f;
-    private float cCliff = 1.5f;
-    
-    private Block mix;
-    private float mixHeight;
-    
-    public SurfaceTOFUTofuExtremeHillsEdge(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
-        float stoneHeight, float stoneStrength, float clayCliff, Block mixBlock, float mixSize)
+    public SurfaceTOFUTofuExtremeHillsEdge(BiomeConfig config, Block top, Block filler, Block mixTop, Block mixFill, float mixWidth,
+        float mixHeight, float smallWidth, float smallStrength)
     {
     
-        super(config, top, (byte)0, fill, (byte)0);
-        beach = genBeach;
-        beachBlock = genBeachBlock;
-        min = minCliff;
+        super(config, top, (byte)0, filler, (byte)0);
+
+        mixBlockTop = mixTop;
+        mixBlockTopMeta = (byte)0;
         
-        sCliff = stoneCliff;
-        sHeight = stoneHeight;
-        sStrength = stoneStrength;
-        cCliff = clayCliff;
+        mixBlockFill = mixFill;
+        mixBlockFillMeta = (byte)0;
         
-        mix = mixBlock;
-        mixHeight = mixSize;
+        width = mixWidth;
+        height = mixHeight;
+        smallW = smallWidth;
+        smallS = smallStrength;
     }
     
     @Override
@@ -52,14 +49,12 @@ public class SurfaceTOFUTofuExtremeHillsEdge extends SurfaceBase
     {
     
         float c = CliffCalculator.calc(x, y, noise);
-        int cliff = 0;
-        boolean gravel = false;
-        boolean m = false;
+        boolean cliff = c > 1.4f ? true : false;
+        boolean mix = false;
         
-        Block b;
         for (int k = 255; k > -1; k--)
         {
-            b = blocks[(y * 16 + x) * 256 + k];
+            Block b = blocks[(y * 16 + x) * 256 + k];
             if (b == Blocks.air)
             {
                 depth = -1;
@@ -68,27 +63,9 @@ public class SurfaceTOFUTofuExtremeHillsEdge extends SurfaceBase
             {
                 depth++;
                 
-                if (depth == 0)
+                if (cliff)
                 {
-                    if (k < 63)
-                    {
-                        if (beach)
-                        {
-                            gravel = true;
-                        }
-                    }
-                    
-                    float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
-                    if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p)
-                    {
-                        cliff = 1;
-                    }
-                    if (c > cCliff)
-                    {
-                        cliff = 2;
-                    }
-                    
-                    if (cliff == 1)
+                    if (depth > -1 && depth < 2)
                     {
                         if (rand.nextInt(3) == 0) {
                             
@@ -101,22 +78,21 @@ public class SurfaceTOFUTofuExtremeHillsEdge extends SurfaceBase
                             metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                         }
                     }
-                    else if (cliff == 2)
+                    else if (depth < 10)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k);
-                        metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
+                        blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+                        metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                     }
-                    else if (k < 63)
+                }
+                else
+                {
+                    if (depth == 0 && k > 61)
                     {
-                        if (beach)
+                        if (simplex.noise2(i / width, j / width) + simplex.noise2(i / smallW, j / smallW) * smallS > height)
                         {
-                            blocks[(y * 16 + x) * 256 + k] = beachBlock;
-                            gravel = true;
-                        }
-                        else if (k < 62)
-                        {
-                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+                            blocks[(y * 16 + x) * 256 + k] = mixBlockTop;
+                            metadata[(y * 16 + x) * 256 + k] = mixBlockTopMeta;
+                            mix = true;
                         }
                         else
                         {
@@ -124,41 +100,18 @@ public class SurfaceTOFUTofuExtremeHillsEdge extends SurfaceBase
                             metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                         }
                     }
-                    else if (simplex.noise2(i / 12f, j / 12f) > mixHeight)
+                    else if (depth < 4)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = mix;
-                        m = true;
-                    }
-                    else
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = topBlock;
-                        metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
-                    }
-                }
-                else if (depth < 6)
-                {
-                    if (cliff == 1)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
-                        metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
-                    }
-                    else if (cliff == 2)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k);
-                        metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
-                    }
-                    else if (gravel)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = beachBlock;
-                    }
-                    else if (m)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = mix;
-                    }
-                    else
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                        metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+                        if (mix)
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = mixBlockFill;
+                            metadata[(y * 16 + x) * 256 + k] = mixBlockFillMeta;
+                        }
+                        else
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+                        }
                     }
                 }
             }

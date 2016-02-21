@@ -15,33 +15,33 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceTOFULeekPlains extends SurfaceBase
 {
-
-    public SurfaceTOFULeekPlains(BiomeConfig config, Block top, Block filler)
-    {
-        super(config, top, (byte)0, filler, (byte)0);
-    }
     
-    @Override
-    public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
-    {
-        float c = CliffCalculator.calc(x, y, noise);
-        boolean cliff = c > 1.4f ? true : false;
-        
-        for(int k = 255; k > -1; k--)
-        {
-            Block b = blocks[(y * 16 + x) * 256 + k];
+	public SurfaceTOFULeekPlains(BiomeConfig config, Block top, Block filler)
+	{
+		super(config, top, (byte)0, filler, (byte)0);
+	}
+	
+	@Override
+	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+	{
+		float c = CliffCalculator.calc(x, y, noise);
+		boolean cliff = c > 1.4f ? true : false;
+		
+		for(int k = 255; k > -1; k--)
+		{
+			Block b = blocks[(y * 16 + x) * 256 + k];
             if(b == Blocks.air)
             {
-                depth = -1;
+            	depth = -1;
             }
             else if(b == Blocks.stone)
             {
-                depth++;
+            	depth++;
 
-                if(cliff)
-                {
-                    if(depth > -1 && depth < 2)
-                    {
+            	if(cliff)
+            	{
+            		if(depth > -1 && depth < 2)
+            		{
                         if (rand.nextInt(3) == 0) {
                             
                             blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
@@ -52,27 +52,27 @@ public class SurfaceTOFULeekPlains extends SurfaceBase
                             blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
                             metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                         }
-                    }
-                    else if (depth < 10)
-                    {
+            		}
+            		else if (depth < 10)
+            		{
                         blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
                         metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
-                    }
-                }
-                else
-                {
-                    if(depth == 0 && k > 61)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = topBlock;
-                        metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
-                    }
-                    else if(depth < 4)
-                    {
-                        blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                        metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
-                    }
-                }
+            		}
+            	}
+            	else
+            	{
+	        		if(depth == 0 && k > 61)
+	        		{
+	        			blocks[(y * 16 + x) * 256 + k] = topBlock;
+	        		    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+	        		}
+	        		else if(depth < 4)
+	        		{
+	        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	        		    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+	        		}
+            	}
             }
-        }
-    }
+		}
+	}
 }

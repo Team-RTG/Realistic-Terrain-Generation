@@ -23,12 +23,12 @@ public class TerrainTOFUTofuBuildings extends TerrainBase
         float h = simplex.noise2(x / 60f, y / 60f) * st * 2f;
         h = h > 0f ? -h : h;
         h += st;
-        h *= h / 80f;
+        h *= h / 200f;
         h += st;
         
-        floNoise = 63f + h;
+        floNoise = 66f + h;
         
-        // FMLLog.log(Level.INFO, "floNoise = %f", floNoise);
+        //FMLLog.log(Level.INFO, "floNoise = %f", floNoise);
         
         return floNoise;
     }

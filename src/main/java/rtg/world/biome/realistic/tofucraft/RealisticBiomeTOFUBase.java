@@ -20,6 +20,7 @@ public class RealisticBiomeTOFUBase extends RealisticBiomeBase
     public static RealisticBiomeBase tofuTofuForestHills;
     public static RealisticBiomeBase tofuTofuPlainHills;
     public static RealisticBiomeBase tofuTofuPlains;
+    public static RealisticBiomeBase tofuTofuRiver;
     
 	public RealisticBiomeTOFUBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
@@ -74,6 +75,10 @@ public class RealisticBiomeTOFUBase extends RealisticBiomeBase
                     else if (biomeName == "TofuPlains" && biomeClass == "tsuteto.tofu.world.biome.BiomeGenTofuPlains")
                     {
                         tofuTofuPlains = new RealisticBiomeTOFUTofuPlains(tofuBiome, BiomeConfigTOFU.biomeConfigTOFUTofuPlains);
+                    }
+                    else if (biomeName == "TofuRiver" && biomeClass == "tsuteto.tofu.world.biome.BiomeGenTofuRiver")
+                    {
+                        tofuTofuRiver = new RealisticBiomeTOFUTofuRiver(tofuBiome, BiomeConfigTOFU.biomeConfigTOFUTofuRiver);
                     }
 				}
 			}

@@ -294,6 +294,7 @@ import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuForest;
 import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuForestHills;
 import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuPlainHills;
 import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuPlains;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuRiver;
 import rtg.api.biome.vanilla.config.BiomeConfigVanilla;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBeach;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForest;
@@ -706,6 +707,7 @@ public class BiomeConfigManager
         BiomeConfigTOFU.biomeConfigTOFUTofuForestHills = new BiomeConfigTOFUTofuForestHills();
         BiomeConfigTOFU.biomeConfigTOFUTofuPlainHills = new BiomeConfigTOFUTofuPlainHills();
         BiomeConfigTOFU.biomeConfigTOFUTofuPlains = new BiomeConfigTOFUTofuPlains();
+        BiomeConfigTOFU.biomeConfigTOFUTofuRiver = new BiomeConfigTOFUTofuRiver();
     }
     
     public static void initBiomeConfigsVanilla()

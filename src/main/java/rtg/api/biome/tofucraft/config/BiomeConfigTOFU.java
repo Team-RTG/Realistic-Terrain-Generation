@@ -14,6 +14,7 @@ public class BiomeConfigTOFU
     public static BiomeConfig biomeConfigTOFUTofuForestHills;
     public static BiomeConfig biomeConfigTOFUTofuPlainHills;
     public static BiomeConfig biomeConfigTOFUTofuPlains;
+    public static BiomeConfig biomeConfigTOFUTofuRiver;
     
     public static BiomeConfig[] getBiomeConfigs()
     {
@@ -25,7 +26,8 @@ public class BiomeConfigTOFU
             biomeConfigTOFUTofuForest,
             biomeConfigTOFUTofuForestHills,
             biomeConfigTOFUTofuPlainHills,
-            biomeConfigTOFUTofuPlains
+            biomeConfigTOFUTofuPlains,
+            biomeConfigTOFUTofuRiver
         };
         
         return biomeConfigs;

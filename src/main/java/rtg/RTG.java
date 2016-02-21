@@ -23,6 +23,7 @@ import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
 import rtg.world.biome.realistic.lotsomobs.RealisticBiomeLOMBase;
 import rtg.world.biome.realistic.ridiculousworld.RealisticBiomeRWBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
+import rtg.world.biome.realistic.tofucraft.RealisticBiomeTOFUBase;
 import rtg.world.biome.realistic.vampirism.RealisticBiomeVAMPBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import cpw.mods.fml.common.Mod;
@@ -109,6 +110,7 @@ public class RTG {
         RealisticBiomeACBase.addBiomes();
         RealisticBiomeRWBase.addBiomes();
         RealisticBiomeLOMBase.addBiomes();
+        RealisticBiomeTOFUBase.addBiomes();
         
         RealisticBiomePresenceTester.doBiomeCheck();
     }

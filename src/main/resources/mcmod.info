@@ -24,8 +24,9 @@
         "Highlands@[2.2.3,)",
         "lom@[1.7.10-3.2.0,)",
         "Railcraft@[9.7.0.0,)",
-		"RidiculousWorld@[0.1,)",
+        "RidiculousWorld@[0.1,)",
         "Thaumcraft@[4.2.3.4,)",
+        "TofuCraft@2.1.6-MC1.7.10",
         "vampirism@[0.7.8.1,)"
     ],
     "dependants": [],

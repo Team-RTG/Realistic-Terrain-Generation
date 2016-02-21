@@ -285,6 +285,16 @@ import rtg.api.biome.thaumcraft.config.BiomeConfigTC;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCEerie;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCMagicalForest;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCTaintedLand;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFU;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFULeekPlains;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuBuildings;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuExtremeHills;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuExtremeHillsEdge;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuForest;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuForestHills;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuPlainHills;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuPlains;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuRiver;
 import rtg.api.biome.vanilla.config.BiomeConfigVanilla;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBeach;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForest;
@@ -365,6 +375,7 @@ public class BiomeConfigManager
         initBiomeConfigsRW();
         initBiomeConfigsTC();
         initBiomeConfigsLOM();
+        initBiomeConfigsTOFU();
         initBiomeConfigsVanilla();
     }
     
@@ -683,6 +694,20 @@ public class BiomeConfigManager
     {
         BiomeConfigLOM.biomeConfigLOMAntartica = new BiomeConfigLOMAntartica();
         BiomeConfigLOM.biomeConfigLOMTropicalBeach = new BiomeConfigLOMTropicalBeach();
+    }
+    
+    public static void initBiomeConfigsTOFU()
+    {
+
+        BiomeConfigTOFU.biomeConfigTOFULeekPlains = new BiomeConfigTOFULeekPlains();
+        BiomeConfigTOFU.biomeConfigTOFUTofuBuildings = new BiomeConfigTOFUTofuBuildings();
+        BiomeConfigTOFU.biomeConfigTOFUTofuExtremeHills = new BiomeConfigTOFUTofuExtremeHills();
+        BiomeConfigTOFU.biomeConfigTOFUTofuExtremeHillsEdge = new BiomeConfigTOFUTofuExtremeHillsEdge();
+        BiomeConfigTOFU.biomeConfigTOFUTofuForest = new BiomeConfigTOFUTofuForest();
+        BiomeConfigTOFU.biomeConfigTOFUTofuForestHills = new BiomeConfigTOFUTofuForestHills();
+        BiomeConfigTOFU.biomeConfigTOFUTofuPlainHills = new BiomeConfigTOFUTofuPlainHills();
+        BiomeConfigTOFU.biomeConfigTOFUTofuPlains = new BiomeConfigTOFUTofuPlains();
+        BiomeConfigTOFU.biomeConfigTOFUTofuRiver = new BiomeConfigTOFUTofuRiver();
     }
     
     public static void initBiomeConfigsVanilla()

@@ -25,6 +25,7 @@ import rtg.world.biome.realistic.lotsomobs.RealisticBiomeLOMBase;
 import rtg.world.biome.realistic.ridiculousworld.RealisticBiomeRWBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
 import rtg.world.biome.realistic.tofucraft.RealisticBiomeTOFUBase;
+import rtg.world.biome.realistic.vampirism.RealisticBiomeVAMPBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -107,6 +108,7 @@ public class RTG {
         RealisticBiomeATGBase.addBiomes();
         RealisticBiomeCCBase.addBiomes();
         RealisticBiomeGCBase.addBiomes();
+        RealisticBiomeVAMPBase.addBiomes();
         RealisticBiomeACBase.addBiomes();
         RealisticBiomeRWBase.addBiomes();
         RealisticBiomeLOMBase.addBiomes();

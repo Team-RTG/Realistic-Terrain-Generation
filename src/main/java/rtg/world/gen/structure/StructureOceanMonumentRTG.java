@@ -30,14 +30,14 @@ import java.util.*;
  * Created by topisani on 2/20/16.
  */
 public class StructureOceanMonumentRTG extends StructureOceanMonument {
-    private int spacing;
-    private int seperation;
+    private int field_175800_f;
+    private int field_175801_g;
     public static final List<BiomeGenBase> biomes = Arrays.<BiomeGenBase>asList(new BiomeGenBase[]{RealisticBiomeVanillaBase.ocean, RealisticBiomeVanillaBase.deepOcean, RealisticBiomeVanillaBase.river, RealisticBiomeVanillaBase.frozenOcean, RealisticBiomeVanillaBase.frozenRiver});
     private static final List<BiomeGenBase.SpawnListEntry> field_175803_h = Lists.<BiomeGenBase.SpawnListEntry>newArrayList();
 
     public StructureOceanMonumentRTG() {
-        this.spacing = 32;
-        this.seperation = 5 ;
+        this.field_175800_f = 32;
+        this.field_175801_g = 5 ;
     }
 
     public StructureOceanMonumentRTG(Map<String, String> p_i45608_1_) {
@@ -45,9 +45,9 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
 
         for (Map.Entry<String, String> entry : p_i45608_1_.entrySet()) {
             if (((String) entry.getKey()).equals("spacing")) {
-                this.spacing = MathHelper.parseIntWithDefaultAndMax((String) entry.getValue(), this.spacing, 1);
+                this.field_175800_f = MathHelper.parseIntWithDefaultAndMax((String) entry.getValue(), this.field_175800_f, 1);
             } else if (((String) entry.getKey()).equals("separation")) {
-                this.seperation = MathHelper.parseIntWithDefaultAndMax((String) entry.getValue(), this.seperation, 1);
+                this.field_175801_g = MathHelper.parseIntWithDefaultAndMax((String) entry.getValue(), this.field_175801_g, 1);
             }
         }
     }
@@ -61,20 +61,20 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         int j = chunkZ;
 
         if (chunkX < 0) {
-            chunkX -= this.spacing - 1;
+            chunkX -= this.field_175800_f - 1;
         }
 
         if (chunkZ < 0) {
-            chunkZ -= this.spacing - 1;
+            chunkZ -= this.field_175800_f - 1;
         }
 
-        int k = chunkX / this.spacing;
-        int l = chunkZ / this.spacing;
+        int k = chunkX / this.field_175800_f;
+        int l = chunkZ / this.field_175800_f;
         Random random = this.worldObj.setRandomSeed(k, l, 10387313);
-        k = k * this.spacing;
-        l = l * this.spacing;
-        k = k + (random.nextInt(this.spacing - this.seperation) + random.nextInt(this.spacing - this.seperation)) / 2;
-        l = l + (random.nextInt(this.spacing - this.seperation) + random.nextInt(this.spacing - this.seperation)) / 2;
+        k = k * this.field_175800_f;
+        l = l * this.field_175800_f;
+        k = k + (random.nextInt(this.field_175800_f - this.field_175801_g) + random.nextInt(this.field_175800_f - this.field_175801_g)) / 2;
+        l = l + (random.nextInt(this.field_175800_f - this.field_175801_g) + random.nextInt(this.field_175800_f - this.field_175801_g)) / 2;
 
         if (i == k && j == l) {
             BiomeGenBase bg = this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), (BiomeGenBase) null);
@@ -84,7 +84,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
                 boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29, biomes);
 
                 if (flag) {
-                    FMLLog.log(Level.INFO, "Ocean Monument");
+                    FMLLog.log(Level.INFO, "Generated Ocean Monument at %s %s", i * 16 + 8, j * 16 + 8);
                     return true;
                 }
             }

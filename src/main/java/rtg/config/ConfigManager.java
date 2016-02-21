@@ -15,6 +15,7 @@ import rtg.config.ridiculousworld.ConfigRW;
 import rtg.config.rtg.ConfigRTG;
 import rtg.config.thaumcraft.ConfigTC;
 import rtg.config.tofucraft.ConfigTOFU;
+import rtg.config.vampirism.ConfigVAMP;
 import rtg.config.vanilla.ConfigVanilla;
 
 public class ConfigManager
@@ -31,6 +32,7 @@ public class ConfigManager
     public static File amConfigFile;
     public static File atgConfigFile;
     public static File ccConfigFile;
+    public static File vampConfigFile;
     public static File acConfigFile;
     public static File rwConfigFile;
     public static File tofuConfigFile;
@@ -54,6 +56,7 @@ public class ConfigManager
         amConfigFile = new File(configpath + "biomes/arsmagica.cfg");
         atgConfigFile = new File(configpath + "biomes/atg.cfg");
         ccConfigFile = new File(configpath + "biomes/chromaticraft.cfg");
+        vampConfigFile = new File(configpath + "biomes/vampirism.cfg");
         acConfigFile = new File(configpath + "biomes/abyssalcraft.cfg");
         rwConfigFile = new File(configpath + "biomes/ridiculousworld.cfg");
         tofuConfigFile = new File(configpath + "biomes/tofucraft.cfg");
@@ -71,6 +74,7 @@ public class ConfigManager
         ConfigAM.init(amConfigFile);
         ConfigATG.init(atgConfigFile);
         ConfigCC.init(ccConfigFile);
+        ConfigVAMP.init(vampConfigFile);
         ConfigAC.init(acConfigFile);
         ConfigRW.init(rwConfigFile);
         ConfigTOFU.init(tofuConfigFile);

@@ -295,6 +295,8 @@ import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuForestHills;
 import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuPlainHills;
 import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuPlains;
 import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuRiver;
+import rtg.api.biome.vampirism.config.BiomeConfigVAMP;
+import rtg.api.biome.vampirism.config.BiomeConfigVAMPVampireForest;
 import rtg.api.biome.vanilla.config.BiomeConfigVanilla;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBeach;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForest;
@@ -374,6 +376,7 @@ public class BiomeConfigManager
         initBiomeConfigsHL();
         initBiomeConfigsRW();
         initBiomeConfigsTC();
+        initBiomeConfigsVAMP();
         initBiomeConfigsLOM();
         initBiomeConfigsTOFU();
         initBiomeConfigsVanilla();
@@ -694,6 +697,11 @@ public class BiomeConfigManager
     {
         BiomeConfigLOM.biomeConfigLOMAntartica = new BiomeConfigLOMAntartica();
         BiomeConfigLOM.biomeConfigLOMTropicalBeach = new BiomeConfigLOMTropicalBeach();
+    }
+
+    public static void initBiomeConfigsVAMP()
+    {
+        BiomeConfigVAMP.biomeConfigVAMPVampireForest = new BiomeConfigVAMPVampireForest();
     }
     
     public static void initBiomeConfigsTOFU()

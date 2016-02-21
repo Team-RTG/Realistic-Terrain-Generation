@@ -226,6 +226,16 @@ import rtg.api.biome.extrabiomes.config.BiomeConfigEBXLTemperateRainforest;
 import rtg.api.biome.extrabiomes.config.BiomeConfigEBXLTundra;
 import rtg.api.biome.extrabiomes.config.BiomeConfigEBXLWasteland;
 import rtg.api.biome.extrabiomes.config.BiomeConfigEBXLWoodlands;
+import rtg.api.biome.forgottennature.config.BiomeConfigFN;
+import rtg.api.biome.forgottennature.config.BiomeConfigFNCherryBlossomWoodland;
+import rtg.api.biome.forgottennature.config.BiomeConfigFNCrystalForest;
+import rtg.api.biome.forgottennature.config.BiomeConfigFNEucalyptusForest;
+import rtg.api.biome.forgottennature.config.BiomeConfigFNGreatwoodForest;
+import rtg.api.biome.forgottennature.config.BiomeConfigFNMapleForest;
+import rtg.api.biome.forgottennature.config.BiomeConfigFNRedwoodForest;
+import rtg.api.biome.forgottennature.config.BiomeConfigFNRedwoodForestHills;
+import rtg.api.biome.forgottennature.config.BiomeConfigFNTropicalForest;
+import rtg.api.biome.forgottennature.config.BiomeConfigFNTropicalForestHills;
 import rtg.api.biome.highlands.config.BiomeConfigHL;
 import rtg.api.biome.highlands.config.BiomeConfigHLAlps;
 import rtg.api.biome.highlands.config.BiomeConfigHLAutumnForest;
@@ -379,6 +389,7 @@ public class BiomeConfigManager
         initBiomeConfigsVAMP();
         initBiomeConfigsLOM();
         initBiomeConfigsTOFU();
+        initBiomeConfigsFN();
         initBiomeConfigsVanilla();
     }
     
@@ -716,6 +727,20 @@ public class BiomeConfigManager
         BiomeConfigTOFU.biomeConfigTOFUTofuPlainHills = new BiomeConfigTOFUTofuPlainHills();
         BiomeConfigTOFU.biomeConfigTOFUTofuPlains = new BiomeConfigTOFUTofuPlains();
         BiomeConfigTOFU.biomeConfigTOFUTofuRiver = new BiomeConfigTOFUTofuRiver();
+    }
+    
+    public static void initBiomeConfigsFN()
+    {
+
+        BiomeConfigFN.biomeConfigFNCherryBlossomWoodland = new BiomeConfigFNCherryBlossomWoodland();
+        BiomeConfigFN.biomeConfigFNCrystalForest = new BiomeConfigFNCrystalForest();
+        BiomeConfigFN.biomeConfigFNEucalyptusForest = new BiomeConfigFNEucalyptusForest();
+        BiomeConfigFN.biomeConfigFNGreatwoodForest = new BiomeConfigFNGreatwoodForest();
+        BiomeConfigFN.biomeConfigFNMapleForest = new BiomeConfigFNMapleForest();
+        BiomeConfigFN.biomeConfigFNRedwoodForest = new BiomeConfigFNRedwoodForest();
+        BiomeConfigFN.biomeConfigFNRedwoodForestHills = new BiomeConfigFNRedwoodForestHills();
+        BiomeConfigFN.biomeConfigFNTropicalForest = new BiomeConfigFNTropicalForest();
+        BiomeConfigFN.biomeConfigFNTropicalForestHills = new BiomeConfigFNTropicalForestHills();
     }
     
     public static void initBiomeConfigsVanilla()

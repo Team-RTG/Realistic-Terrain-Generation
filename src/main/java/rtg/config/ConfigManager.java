@@ -10,6 +10,7 @@ import rtg.config.buildcraft.ConfigBC;
 import rtg.config.chromaticraft.ConfigCC;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.config.extrabiomes.ConfigEBXL;
+import rtg.config.forgottennature.ConfigFN;
 import rtg.config.highlands.ConfigHL;
 import rtg.config.ridiculousworld.ConfigRW;
 import rtg.config.rtg.ConfigRTG;
@@ -36,6 +37,7 @@ public class ConfigManager
     public static File acConfigFile;
     public static File rwConfigFile;
     public static File tofuConfigFile;
+    public static File fnConfigFile;
 
     private ConfigRTG configRTG = new ConfigRTG();
     public ConfigRTG rtg() {
@@ -60,6 +62,7 @@ public class ConfigManager
         acConfigFile = new File(configpath + "biomes/abyssalcraft.cfg");
         rwConfigFile = new File(configpath + "biomes/ridiculousworld.cfg");
         tofuConfigFile = new File(configpath + "biomes/tofucraft.cfg");
+        fnConfigFile = new File(configpath + "biomes/forgottennature.cfg");
         
         ConfigRTG.init(rtgConfigFile);
         
@@ -78,5 +81,6 @@ public class ConfigManager
         ConfigAC.init(acConfigFile);
         ConfigRW.init(rwConfigFile);
         ConfigTOFU.init(tofuConfigFile);
+        ConfigFN.init(fnConfigFile);
     }
 }

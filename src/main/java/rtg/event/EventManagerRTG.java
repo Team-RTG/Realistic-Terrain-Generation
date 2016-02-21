@@ -23,6 +23,7 @@ import rtg.world.gen.MapGenRavineRTG;
 import rtg.world.gen.genlayer.RiverRemover;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
+import rtg.world.gen.structure.StructureOceanMonumentRTG;
 
 public class EventManagerRTG
 {
@@ -33,6 +34,7 @@ public class EventManagerRTG
     {
         MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
         MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
+        MapGenStructureIO.registerStructure(StructureOceanMonumentRTG.StartMonument.class, "rtg_MapGenOceanMonumentRTG");
     }
     
 	@SubscribeEvent(priority = EventPriority.LOW)
@@ -65,6 +67,9 @@ public class EventManagerRTG
                 
                 event.newGen = new MapGenRavineRTG();
             }
+        }
+        else if (event.type == InitMapGenEvent.EventType.OCEAN_MONUMENT) {
+                event.newGen = new StructureOceanMonumentRTG();
         }
 		
         if (ConfigRTG.enableDebugging) {

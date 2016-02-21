@@ -1,12 +1,10 @@
 package rtg.config.rtg;
 
-import java.io.File;
-
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 
-import net.minecraftforge.fml.common.FMLLog;
-
-import net.minecraftforge.common.config.Configuration;
+import java.io.File;
 
 public class ConfigRTG
 {
@@ -61,6 +59,7 @@ public class ConfigRTG
     public static boolean generateVillages = true;
     public static boolean generateScatteredFeatures = true;
     public static boolean generateDungeons = true;
+    public static boolean generateOceanMonuments = true;
     
     public static boolean enableCaveModifications = true;
     public static boolean enableCaves = true;
@@ -239,6 +238,10 @@ public class ConfigRTG
             /* ==================== Strongholds ==================== */
             
             generateStrongholds = config.getBoolean("Generate Strongholds", "Strongholds", generateStrongholds, "");
+
+            /* ==================== Ocean Monuments ==================== */
+
+            generateStrongholds = config.getBoolean("Generate Ocean Monuments", "Ocean Monuments", generateOceanMonuments, "");
             
             /* ==================== Terrain Shadowing ==================== */
             

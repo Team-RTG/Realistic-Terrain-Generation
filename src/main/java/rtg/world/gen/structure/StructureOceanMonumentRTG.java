@@ -80,7 +80,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         if (i == k && j == l) {
             BiomeGenBase bg = this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), (BiomeGenBase) null);
 
-            if (bg.biomeID == RealisticBiomeVanillaBase.deepOcean.biomeID || bg.biomeID == RealisticBiomeVanillaBase.ocean.biomeID ) {
+            if (bg.biomeID == RealisticBiomeVanillaBase.deepOcean.biomeID ) {
 
                 boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29, biomes);
 

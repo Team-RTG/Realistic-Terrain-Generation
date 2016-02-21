@@ -15,6 +15,7 @@ import rtg.config.highlands.ConfigHL;
 import rtg.config.ridiculousworld.ConfigRW;
 import rtg.config.rtg.ConfigRTG;
 import rtg.config.thaumcraft.ConfigTC;
+import rtg.config.tofucraft.ConfigTOFU;
 import rtg.config.vanilla.ConfigVanilla;
 
 public class ConfigManager
@@ -34,6 +35,7 @@ public class ConfigManager
     public static File gcConfigFile;
     public static File acConfigFile;
     public static File rwConfigFile;
+    public static File tofuConfigFile;
 
     private ConfigRTG configRTG = new ConfigRTG();
     public ConfigRTG rtg() {
@@ -57,6 +59,7 @@ public class ConfigManager
         gcConfigFile = new File(configpath + "biomes/growthcraft.cfg");
         acConfigFile = new File(configpath + "biomes/abyssalcraft.cfg");
         rwConfigFile = new File(configpath + "biomes/ridiculousworld.cfg");
+        tofuConfigFile = new File(configpath + "biomes/tofucraft.cfg");
         
         ConfigRTG.init(rtgConfigFile);
         
@@ -74,5 +77,6 @@ public class ConfigManager
         ConfigGC.init(gcConfigFile);
         ConfigAC.init(acConfigFile);
         ConfigRW.init(rwConfigFile);
+        ConfigTOFU.init(tofuConfigFile);
     }
 }

@@ -6,18 +6,38 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainGCBambooForest extends TerrainBase
 {
-	public TerrainGCBambooForest()
-	{
-	}
-	
-	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-	{
-		float h = simplex.noise2(x / 100f, y / 100f) * 8;
-		h += simplex.noise2(x / 30f, y / 30f) * 4;
-		h += simplex.noise2(x / 15f, y / 15f) * 2;
-		h += simplex.noise2(x / 7f, y / 7f);
-		
-    	return 70f + (20f * river) + h;
-	}
+    private float baseHeight = 76f;
+    private float hillStrength = 30f;
+    
+    public TerrainGCBambooForest()
+    {
+    
+    }
+    
+    public TerrainGCBambooForest(float bh, float hs)
+    {
+        baseHeight = bh;
+        hillStrength = hs;
+    }
+    
+    @Override
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
+    {
+    
+        float h = simplex.noise2(x / 200f, y / 200f) * 4;
+        h += simplex.noise2(x / 100f, y / 100f) * 2;
+        
+        float m = simplex.noise2(x / 200f, y / 200f) * hillStrength * river;
+        m *= m / ((hillStrength * 0.1f) + hillStrength);
+        
+        float sm = simplex.noise2(x / hillStrength, y / hillStrength) * 8f;
+        sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
+        m += sm;
+        
+        float l = simplex.noise2(x / 260f, y / 260f) * 38f;
+        l *= l / 25f;
+        l = l < -8f ? -8f : l;
+        
+        return baseHeight + h + m - l;
+    }
 }

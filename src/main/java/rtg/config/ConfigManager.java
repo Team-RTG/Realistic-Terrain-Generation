@@ -10,6 +10,7 @@ import rtg.config.buildcraft.ConfigBC;
 import rtg.config.chromaticraft.ConfigCC;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.config.extrabiomes.ConfigEBXL;
+import rtg.config.growthcraft.ConfigGC;
 import rtg.config.highlands.ConfigHL;
 import rtg.config.ridiculousworld.ConfigRW;
 import rtg.config.rtg.ConfigRTG;
@@ -32,6 +33,7 @@ public class ConfigManager
     public static File amConfigFile;
     public static File atgConfigFile;
     public static File ccConfigFile;
+    public static File gcConfigFile;
     public static File vampConfigFile;
     public static File acConfigFile;
     public static File rwConfigFile;
@@ -56,6 +58,7 @@ public class ConfigManager
         amConfigFile = new File(configpath + "biomes/arsmagica.cfg");
         atgConfigFile = new File(configpath + "biomes/atg.cfg");
         ccConfigFile = new File(configpath + "biomes/chromaticraft.cfg");
+        gcConfigFile = new File(configpath + "biomes/growthcraft.cfg");
         vampConfigFile = new File(configpath + "biomes/vampirism.cfg");
         acConfigFile = new File(configpath + "biomes/abyssalcraft.cfg");
         rwConfigFile = new File(configpath + "biomes/ridiculousworld.cfg");
@@ -74,6 +77,7 @@ public class ConfigManager
         ConfigAM.init(amConfigFile);
         ConfigATG.init(atgConfigFile);
         ConfigCC.init(ccConfigFile);
+        ConfigGC.init(gcConfigFile);
         ConfigVAMP.init(vampConfigFile);
         ConfigAC.init(acConfigFile);
         ConfigRW.init(rwConfigFile);

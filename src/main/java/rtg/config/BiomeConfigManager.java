@@ -226,6 +226,8 @@ import rtg.api.biome.extrabiomes.config.BiomeConfigEBXLTemperateRainforest;
 import rtg.api.biome.extrabiomes.config.BiomeConfigEBXLTundra;
 import rtg.api.biome.extrabiomes.config.BiomeConfigEBXLWasteland;
 import rtg.api.biome.extrabiomes.config.BiomeConfigEBXLWoodlands;
+import rtg.api.biome.growthcraft.config.BiomeConfigGC;
+import rtg.api.biome.growthcraft.config.BiomeConfigGCBambooForest;
 import rtg.api.biome.highlands.config.BiomeConfigHL;
 import rtg.api.biome.highlands.config.BiomeConfigHLAlps;
 import rtg.api.biome.highlands.config.BiomeConfigHLAutumnForest;
@@ -373,6 +375,7 @@ public class BiomeConfigManager
         initBiomeConfigsCC();
         initBiomeConfigsEB();
         initBiomeConfigsEBXL();
+        initBiomeConfigsGC();
         initBiomeConfigsHL();
         initBiomeConfigsRW();
         initBiomeConfigsTC();
@@ -626,6 +629,11 @@ public class BiomeConfigManager
         BiomeConfigEBXL.biomeConfigEBXLTundra = new BiomeConfigEBXLTundra();
         BiomeConfigEBXL.biomeConfigEBXLWasteland = new BiomeConfigEBXLWasteland();
         BiomeConfigEBXL.biomeConfigEBXLWoodlands = new BiomeConfigEBXLWoodlands();
+    }
+    
+    public static void initBiomeConfigsGC()
+    {
+        BiomeConfigGC.biomeConfigGCBambooForest = new BiomeConfigGCBambooForest();
     }
     
     public static void initBiomeConfigsHL()

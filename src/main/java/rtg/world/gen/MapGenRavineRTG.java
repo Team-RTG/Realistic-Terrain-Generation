@@ -267,8 +267,8 @@ public class MapGenRavineRTG extends MapGenRavine
     protected void digBlock(ChunkPrimer primer, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop)
     {
         BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
-        Block top    = isExceptionBiome(biome) ? Blocks.grass : (Block) biome.topBlock;
-        Block filler = isExceptionBiome(biome) ? Blocks.dirt  : (Block) biome.fillerBlock;
+        Block top    = isExceptionBiome(biome) ? Blocks.grass :  biome.topBlock.getBlock();
+        Block filler = isExceptionBiome(biome) ? Blocks.dirt  :  biome.fillerBlock.getBlock();
         Block block  = primer.getBlockState(x,y,z).getBlock();
 
         if (block == Blocks.stone || block == filler || block == top)

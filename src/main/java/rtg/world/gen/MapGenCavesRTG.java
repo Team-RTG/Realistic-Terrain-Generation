@@ -323,6 +323,8 @@ public class MapGenCavesRTG extends MapGenCaves
             }
             else
             {
+                data.setBlockState(x,y,z, Blocks.air.getDefaultState());
+
                 if (up.getBlock() == Blocks.sand)
                 {
                     data.setBlockState(x, y + 1, z, up.getValue(BlockSand.VARIANT) == BlockSand.EnumType.RED_SAND ? Blocks.red_sandstone.getDefaultState() : Blocks.sandstone.getDefaultState());

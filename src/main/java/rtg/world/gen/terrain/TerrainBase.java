@@ -14,7 +14,7 @@ public class TerrainBase
 
     public TerrainBase(float base) {
         this.base = base;
-        this.minOceanFloor = 10f;
+        this.minOceanFloor = 30f;
     }
 
     public static final float above(float limited, float limit) {

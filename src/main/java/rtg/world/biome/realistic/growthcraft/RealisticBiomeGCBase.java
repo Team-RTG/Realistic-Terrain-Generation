@@ -37,7 +37,7 @@ public class RealisticBiomeGCBase extends RealisticBiomeBase
                     String biomeName = b[i].biomeName;
                     String biomeClass = b[i].getBiomeClass().getName();
                     
-                    if ((biomeName == "BambooForest" || biomeName == "Bamboo Forest") && biomeClass == "growthcraft.bamboo.world.BiomeGenBamboo")
+                    if ((biomeName == "BambooForest" || biomeName == "Bamboo Forest") && biomeClass == "growthcraft.bamboo.common.world.BiomeGenBamboo")
                     {
                         gcBambooForest = new RealisticBiomeGCBambooForest(gcBiome, BiomeConfigGC.biomeConfigGCBambooForest);
                     }

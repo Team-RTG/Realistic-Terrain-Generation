@@ -2,6 +2,7 @@ package rtg.event;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -181,23 +182,26 @@ public class EventManagerRTG
     public void onGetVillageBlockID(BiomeEvent.GetVillageBlockID event)
     {
 
-        if (this.biome != null) {
+        if (event.biome != null) {
 
-            if (this.isDesertVillageBiome()) {
+            if (isDesertVillageBiome(event.biome)) {
 
                 IBlockState originalBlock = event.original;
 
-                if (originalBlock == Blocks.cobblestone || originalBlock == Blocks.log) {
+                if (originalBlock.getBlock() == Blocks.cobblestone || originalBlock.getBlock() == Blocks.log) {
 
                     event.replacement = Blocks.sandstone.getDefaultState();
                 }
-                else if (originalBlock == Blocks.planks) {
+                else if (originalBlock.getBlock() == Blocks.planks) {
 
                     event.replacement = Blocks.sandstone.getStateFromMeta(2);
                 }
-                else if (originalBlock == Blocks.oak_stairs || originalBlock == Blocks.stone_stairs) {
+                else if (originalBlock.getBlock() == Blocks.oak_stairs || originalBlock.getBlock() == Blocks.stone_stairs) {
 
-                    event.replacement = Blocks.sandstone.getStateFromMeta(Blocks.stone_stairs.getMetaFromState(originalBlock));
+                    event.replacement = Blocks.sandstone_stairs.getStateFromMeta(Blocks.stone_stairs.getMetaFromState(originalBlock));
+                }
+                else if (originalBlock.getBlock() == Blocks.gravel) {
+                    event.replacement = Blocks.sandstone.getDefaultState();
                 }
             }
 
@@ -221,13 +225,13 @@ public class EventManagerRTG
         }
     }
     
-    private boolean isDesertVillageBiome()
+    private boolean isDesertVillageBiome(BiomeGenBase biomes)
     {
-        return BiomeDictionary.isBiomeOfType(this.biome, Type.HOT)
+        return BiomeDictionary.isBiomeOfType(biome, Type.HOT)
                 &&
-                BiomeDictionary.isBiomeOfType(this.biome, Type.DRY)
+                BiomeDictionary.isBiomeOfType(biome, Type.DRY)
                 &&
-                BiomeDictionary.isBiomeOfType(this.biome, Type.SANDY);
+                BiomeDictionary.isBiomeOfType(biome, Type.SANDY);
 
     }
 }

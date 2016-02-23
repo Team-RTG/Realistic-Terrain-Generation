@@ -1,8 +1,8 @@
 package rtg.api.biome;
 
-import java.util.ArrayList;
-
 import rtg.api.biome.BiomeConfigProperty.Type;
+
+import java.util.ArrayList;
 
 
 public class BiomeConfig {

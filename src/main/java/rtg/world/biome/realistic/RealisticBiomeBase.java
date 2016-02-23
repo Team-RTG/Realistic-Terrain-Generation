@@ -76,6 +76,8 @@ public class RealisticBiomeBase extends BiomeBase {
     
         super(biome.biomeID);
         
+        if (config == null) throw new RuntimeException("Biome config cannot be NULL when instantiating a realistic biome.");
+        
         this.config = config;
 
     	if (biome.biomeID == 160 && this instanceof rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaRedwoodTaigaHills) {

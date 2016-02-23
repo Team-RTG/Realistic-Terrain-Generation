@@ -207,6 +207,8 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
             //if (BOPBiomes.silkglades.isPresent()) bopSilkglades = new RealisticBiomeBOPSilkglades(BiomeConfigBOP.biomeConfigBOPSilkglades);
             //if (BOPBiomes.spruceWoods.isPresent()) bopSpruceWoods = new RealisticBiomeBOPSpruceWoods(BiomeConfigBOP.biomeConfigBOPSpruceWoods);
             if (BOPBiomes.tropical_island.isPresent()) bopTropics = new RealisticBiomeBOPTropics(BiomeConfigBOP.biomeConfigBOPTropics);
+            
+            if (BiomeConfigBOP.biomeConfigBOPVolcano == null) throw new RuntimeException("Biome config cannot be NULL when adding BOP biomes.");
             if (BOPBiomes.volcanic_island.isPresent()) bopVolcano = new RealisticBiomeBOPVolcano(BiomeConfigBOP.biomeConfigBOPVolcano);
 			
 			//Ocean Biomes

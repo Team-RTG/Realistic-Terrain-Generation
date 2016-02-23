@@ -32,10 +32,6 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
     private static byte bopMixTopByte = (byte)0;
     private static Block bopMixFillBlock = Block.getBlockFromName("BiomesOPlenty:ashStone");
     private static byte bopMixFillByte = (byte)0;
-    private static Block bopCliff1Block = Block.getBlockFromName("BiomesOPlenty:ashStone");
-    private static byte bopCliff1Byte = (byte)0;
-    private static Block bopCliff2Block = Block.getBlockFromName("BiomesOPlenty:ash");
-    private static byte bopCliff2Byte = (byte)0;
 
 	public RealisticBiomeBOPVolcano(BiomeConfig config)
 	{

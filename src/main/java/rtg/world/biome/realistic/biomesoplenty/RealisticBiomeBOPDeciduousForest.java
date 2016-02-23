@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.content.BOPCBiomes;
+import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
@@ -18,8 +18,9 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPDeciduousForest;
 import java.util.Random;
 
 public class RealisticBiomeBOPDeciduousForest extends RealisticBiomeBOPBase
-{	
-	public static BiomeGenBase bopBiome = BOPCBiomes.deciduousForest;
+{
+    //TODO: Decidious
+	public static BiomeGenBase bopBiome = BOPBiomes.alps.get();
 	
 	public static Block topBlock = bopBiome.topBlock.getBlock();
 	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();

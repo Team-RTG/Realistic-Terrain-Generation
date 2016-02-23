@@ -1,13 +1,12 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.content.BOPCBiomes;
+import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraftforge.fml.common.registry.GameData;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -23,7 +22,7 @@ import java.util.Random;
 
 public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.volcano;
+	public static BiomeGenBase bopBiome = BOPBiomes.volcanic_island.get();
 	
     private static Block bopTopBlock = Block.getBlockFromName("BiomesOPlenty:ashStone");
     private static byte bopTopByte = (byte)0;

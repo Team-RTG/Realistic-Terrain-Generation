@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.content.BOPCBiomes;
-import biomesoplenty.api.content.BOPCBlocks;
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
@@ -24,7 +24,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.lushDesert;
+	public static BiomeGenBase bopBiome = BOPBiomes.lush_desert.get();
 	
 	public static Block topBlock = bopBiome.topBlock.getBlock();
 	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
@@ -127,7 +127,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
                 }
                 else if (intLogRand < 9) {
                     
-                    log = BOPCBlocks.logs3;
+                    log = BOPBlocks.log_3;
                     logMeta = (byte)2;
                     intLogLength = 3 + rand.nextInt(2);
                 }

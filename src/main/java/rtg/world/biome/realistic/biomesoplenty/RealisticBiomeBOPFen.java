@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.content.BOPCBiomes;
-import biomesoplenty.api.content.BOPCBlocks;
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
@@ -20,7 +20,7 @@ import java.util.Random;
 
 public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.fen;
+	public static BiomeGenBase bopBiome = BOPBiomes.fen.get();
 	
 	public static Block topBlock = bopBiome.topBlock.getBlock();
 	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
@@ -87,7 +87,7 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase
                 byte logMeta;
     
                 if (rand.nextInt(4) == 0) {
-                    log = BOPCBlocks.logs3;
+                    log = BOPBlocks.log_3;
                     logMeta = (byte)2;
                 }
                 else {

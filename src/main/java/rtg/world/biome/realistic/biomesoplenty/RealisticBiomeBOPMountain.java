@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.content.BOPCBiomes;
-import biomesoplenty.api.content.BOPCBlocks;
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
@@ -22,7 +22,7 @@ import java.util.Random;
 
 public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.mountain;
+	public static BiomeGenBase bopBiome = BOPBiomes.mountain.get();
 	
 	public static Block topBlock = bopBiome.topBlock.getBlock();
 	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
@@ -82,8 +82,8 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
                 int y22 = world.getHeight(new BlockPos(x22, 0, z22)).getY();
-    
-                (new WorldGenLog(BOPCBlocks.logs4, (byte)0, BOPCBlocks.colorizedLeaves1, -1, 3 + rand.nextInt(4))).generate(world, rand, new BlockPos(x22, y22, z22));
+                //TODO: used to be colorizedLeaves1
+                (new WorldGenLog(BOPBlocks.log_4, (byte)0, BOPBlocks.leaves_0, -1, 3 + rand.nextInt(4))).generate(world, rand, new BlockPos(x22, y22, z22));
             }
         }
         

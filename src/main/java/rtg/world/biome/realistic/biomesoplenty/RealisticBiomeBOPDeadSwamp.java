@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.content.BOPCBiomes;
-import biomesoplenty.api.content.BOPCBlocks;
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
@@ -10,10 +10,10 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPDeadSwamp;
 
 public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.deadSwamp;
+	public static BiomeGenBase bopBiome = BOPBiomes.dead_swamp.get();
 	
-    public static Block topBlock = BOPCBlocks.newBopGrass;
-    public static Block fillerBlock = BOPCBlocks.newBopDirt;
+    public static Block topBlock = BOPBlocks.grass;
+    public static Block fillerBlock = BOPBlocks.dirt;
 	
 	public RealisticBiomeBOPDeadSwamp(BiomeConfig config)
 	{

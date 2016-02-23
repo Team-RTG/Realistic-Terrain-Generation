@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.content.BOPCBiomes;
-import biomesoplenty.api.content.BOPCBlocks;
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
@@ -19,7 +19,7 @@ import java.util.Random;
 
 public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.jadeCliffs;
+	public static BiomeGenBase bopBiome = BOPBiomes.overgrown_cliffs.get();
 	
 	public static Block topBlock = bopBiome.topBlock.getBlock();
 	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
@@ -55,7 +55,7 @@ public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
                 
                 if (y22 < 100)
                 {
-                    (new WorldGenLog(BOPCBlocks.logs4, (byte)0, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, new BlockPos(x22, y22, z22));
+                    (new WorldGenLog(BOPBlocks.log_4, (byte)0, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, new BlockPos(x22, y22, z22));
                 }
             }
         }

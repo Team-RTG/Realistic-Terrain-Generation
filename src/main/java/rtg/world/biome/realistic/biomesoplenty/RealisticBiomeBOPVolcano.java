@@ -24,13 +24,13 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPBiomes.volcanic_island.get();
 	
-    private static Block bopTopBlock = Block.getBlockFromName("BiomesOPlenty:ashStone");
+    private static Block bopTopBlock = getTopBlock();
     private static byte bopTopByte = (byte)0;
-    private static Block bopFillBlock = Block.getBlockFromName("BiomesOPlenty:ashStone");
+    private static Block bopFillBlock = getFillBlock();
     private static byte bopFillByte = (byte)0;
-    private static Block bopMixTopBlock = Block.getBlockFromName("BiomesOPlenty:ash");
+    private static Block bopMixTopBlock = getMixTopBlock();
     private static byte bopMixTopByte = (byte)0;
-    private static Block bopMixFillBlock = Block.getBlockFromName("BiomesOPlenty:ashStone");
+    private static Block bopMixFillBlock = getMixFillBlock();
     private static byte bopMixFillByte = (byte)0;
 
 	public RealisticBiomeBOPVolcano(BiomeConfig config)
@@ -112,5 +112,37 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
         
         SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
         riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+    }
+    
+    private static Block getTopBlock()
+    {
+    	//Block topBlock = Block.getBlockFromName("BiomesOPlenty:ashStone");
+    	Block topBlock = Blocks.stone; // @TODO
+    	if (topBlock == null) throw new RuntimeException("BOP Volcano's topBlock is NULL!");
+    	return topBlock;
+    }
+    
+    private static Block getFillBlock()
+    {
+    	//Block fillBlock = Block.getBlockFromName("BiomesOPlenty:ashStone");
+    	Block fillBlock = Blocks.stone; // @TODO
+    	if (fillBlock == null) throw new RuntimeException("BOP Volcano's fillBlock is NULL!");
+    	return fillBlock;
+    }
+    
+    private static Block getMixTopBlock()
+    {
+    	//Block mixTopBlock = Block.getBlockFromName("BiomesOPlenty:ash");
+    	Block mixTopBlock = Blocks.stone; // @TODO
+    	if (mixTopBlock == null) throw new RuntimeException("BOP Volcano's mixTopBlock is NULL!");
+    	return mixTopBlock;
+    }
+    
+    private static Block getMixFillBlock()
+    {
+    	//Block mixFillBlock = Block.getBlockFromName("BiomesOPlenty:ashStone");
+    	Block mixFillBlock = Blocks.stone; // @TODO
+    	if (mixFillBlock == null) throw new RuntimeException("BOP Volcano's mixFillBlock is NULL!");
+    	return mixFillBlock;
     }
 }

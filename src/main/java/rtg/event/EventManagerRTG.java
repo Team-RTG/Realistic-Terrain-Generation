@@ -1,7 +1,5 @@
 package rtg.event;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.BiomeDictionary;
@@ -183,27 +181,9 @@ public class EventManagerRTG
     {
 
         if (event.biome != null) {
+            RealisticBiomeBase biomeReal = (RealisticBiomeBase) event.biome;
 
-            if (isDesertVillageBiome(event.biome)) {
-
-                IBlockState originalBlock = event.original;
-
-                if (originalBlock.getBlock() == Blocks.cobblestone || originalBlock.getBlock() == Blocks.log) {
-
-                    event.replacement = Blocks.sandstone.getDefaultState();
-                }
-                else if (originalBlock.getBlock() == Blocks.planks) {
-
-                    event.replacement = Blocks.sandstone.getStateFromMeta(2);
-                }
-                else if (originalBlock.getBlock() == Blocks.oak_stairs || originalBlock.getBlock() == Blocks.stone_stairs) {
-
-                    event.replacement = Blocks.sandstone_stairs.getStateFromMeta(Blocks.stone_stairs.getMetaFromState(originalBlock));
-                }
-                else if (originalBlock.getBlock() == Blocks.gravel) {
-                    event.replacement = Blocks.sandstone.getDefaultState();
-                }
-            }
+            event.replacement = biomeReal.config.villageMaterial.replace(event.original);
 
             // The event has to be cancelled in order to override the original block.
             if (event.replacement != null) {

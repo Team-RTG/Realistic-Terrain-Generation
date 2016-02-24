@@ -9,7 +9,7 @@ import net.minecraft.block.state.IBlockState;
 public class VillageMaterialSwap {
 
     private Block defaultBlock;
-    private IBlockState replacementBlock;
+    private IBlockState replacementBlock = null;
     private boolean preserveMeta;
 
     /**

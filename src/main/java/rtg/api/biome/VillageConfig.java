@@ -199,8 +199,7 @@ public class VillageConfig {
             blockProp = _string(blockId);
         } catch (RuntimeException e) {
             Logger.error(e.getMessage());
-            swap.clearReplacement();
-            Logger.warn("Villageconfig: %s for biome %s from %s is invalid. Not replacing.", blockId, biomeSlug, modSlug);
+            Logger.warn("Villageconfig: %s for biome %s from %s is invalid. Using default.", blockId, biomeSlug, modSlug);
             return;
         }
         try {
@@ -210,7 +209,6 @@ public class VillageConfig {
             metaProp = 0;
         }
         if (blockProp.isEmpty()) {
-            swap.clearReplacement();
             return;
         }
         if (metaProp == -1) {
@@ -219,8 +217,7 @@ public class VillageConfig {
         }
         Block replacement = Block.getBlockFromName(blockProp);
         if (replacement == null ) {
-            Logger.warn("Villageconfig: %s for biome %s from %s is invalid. Not replacing.", blockId, biomeSlug, modSlug);
-            swap.clearReplacement();
+            Logger.warn("Villageconfig: %s for biome %s from %s is invalid. Using default.", blockId, biomeSlug, modSlug);
             return;
         }
         swap.setReplacement(replacement.getStateFromMeta(metaProp));

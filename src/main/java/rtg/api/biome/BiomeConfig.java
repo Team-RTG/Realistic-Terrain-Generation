@@ -42,7 +42,7 @@ public class BiomeConfig {
         this.biomeSlug = biomeSlug;
 
         this.villageConfig = new VillageConfig(modSlug, biomeSlug);
-
+        this.setVillageMaterial(new VillageMaterial(VillageMaterial.Preset.BASE));
         this.properties = new ArrayList<BiomeConfigProperty>();
 
         this.addProperty(new BiomeConfigProperty(allowVillagesId, Type.BOOLEAN, allowVillagesName, "", true));
@@ -130,5 +130,9 @@ public class BiomeConfig {
             
             throw new RuntimeException("Biome config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
         }
+    }
+
+    public void setVillageMaterial(VillageMaterial material) {
+        this.villageMaterial = this.villageConfig.getMaterial(material);
     }
 }

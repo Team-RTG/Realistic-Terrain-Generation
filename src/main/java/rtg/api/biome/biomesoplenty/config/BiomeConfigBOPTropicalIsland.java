@@ -12,7 +12,7 @@ public class BiomeConfigBOPTropicalIsland extends BiomeConfigBOPBase
     
     public BiomeConfigBOPTropicalIsland()
     {
-        super("tropics");
+        super("tropicalisland");
         
         this.addProperty(new BiomeConfigProperty(decorationLogsId, Type.BOOLEAN, decorationLogsName, "", true));
     }

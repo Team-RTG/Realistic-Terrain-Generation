@@ -49,6 +49,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 	public static RealisticBiomeBase bopOasis;
 	public static RealisticBiomeBase bopOminousWoods;
 	public static RealisticBiomeBase bopOrchard;
+	public static RealisticBiomeBase bopOriginIsland;
 	public static RealisticBiomeBase bopOutback;
 	public static RealisticBiomeBase bopOvergrownCliffs;
 	public static RealisticBiomeBase bopPrairie;
@@ -120,6 +121,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			if (BOPBiomes.oasis.isPresent()) bopOasis = new RealisticBiomeBOPOasis(BiomeConfigBOP.biomeConfigBOPOasis);
 			if (BOPBiomes.ominous_woods.isPresent()) bopOminousWoods = new RealisticBiomeBOPOminousWoods(BiomeConfigBOP.biomeConfigBOPOminousWoods);
 			if (BOPBiomes.orchard.isPresent()) bopOrchard = new RealisticBiomeBOPOrchard(BiomeConfigBOP.biomeConfigBOPOrchard);
+			if (BOPBiomes.origin_island.isPresent()) bopOriginIsland = new RealisticBiomeBOPOriginIsland(BiomeConfigBOP.biomeConfigBOPOriginIsland);
 			if (BOPBiomes.outback.isPresent()) bopOutback = new RealisticBiomeBOPOutback(BiomeConfigBOP.biomeConfigBOPOutback);
 			if (BOPBiomes.overgrown_cliffs.isPresent()) bopOvergrownCliffs = new RealisticBiomeBOPOvergrownCliffs(BiomeConfigBOP.biomeConfigBOPOvergrownCliffs);
 			if (BOPBiomes.prairie.isPresent()) bopPrairie = new RealisticBiomeBOPPrairie(BiomeConfigBOP.biomeConfigBOPPrairie);

@@ -51,6 +51,7 @@ import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMysticGrove;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOasis;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOminousWoods;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOrchard;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOriginIsland;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOutback;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOvergrownCliffs;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPPrairie;
@@ -381,6 +382,7 @@ public class BiomeConfigManager
     	BiomeConfigBOP.biomeConfigBOPOasis = new BiomeConfigBOPOasis();
     	BiomeConfigBOP.biomeConfigBOPOminousWoods = new BiomeConfigBOPOminousWoods();
     	BiomeConfigBOP.biomeConfigBOPOrchard = new BiomeConfigBOPOrchard();
+    	BiomeConfigBOP.biomeConfigBOPOriginIsland = new BiomeConfigBOPOriginIsland();
     	BiomeConfigBOP.biomeConfigBOPOutback = new BiomeConfigBOPOutback();
     	BiomeConfigBOP.biomeConfigBOPOvergrownCliffs = new BiomeConfigBOPOvergrownCliffs();
     	BiomeConfigBOP.biomeConfigBOPPrairie = new BiomeConfigBOPPrairie();

@@ -1,11 +1,12 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPBayou;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPBayou;
+import biomesoplenty.api.biome.BOPBiomes;
+
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase
 {	

@@ -14,9 +14,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class SurfaceBOPFen extends SurfaceBase
+public class SurfaceBOPVolcanicIsland extends SurfaceBase
 {
-
     
     private Block blockMixTop;
     private byte byteMixTop;
@@ -27,7 +26,7 @@ public class SurfaceBOPFen extends SurfaceBase
     private float floSmallWidth;
     private float floSmallStrength;
     
-    public SurfaceBOPFen(BiomeConfig config, Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
+    public SurfaceBOPVolcanicIsland(BiomeConfig config, Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
         byte mixFillerByte, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
     {
     

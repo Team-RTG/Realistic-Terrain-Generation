@@ -6,9 +6,9 @@ import org.apache.logging.log4j.Level;
 
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOP;
 import rtg.config.BiomeConfigManager;
-import net.minecraftforge.fml.common.FMLLog;
 
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.FMLLog;
 
 public class ConfigBOP 
 {

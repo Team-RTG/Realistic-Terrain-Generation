@@ -1,12 +1,13 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPGlacier;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPGlacier;
+import biomesoplenty.api.biome.BOPBiomes;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPGlacier extends RealisticBiomeBOPBase
 {	

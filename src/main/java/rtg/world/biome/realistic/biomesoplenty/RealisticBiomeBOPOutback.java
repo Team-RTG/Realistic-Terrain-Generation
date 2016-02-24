@@ -1,12 +1,13 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPOutback;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPOutback;
+import biomesoplenty.api.biome.BOPBiomes;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
 {	

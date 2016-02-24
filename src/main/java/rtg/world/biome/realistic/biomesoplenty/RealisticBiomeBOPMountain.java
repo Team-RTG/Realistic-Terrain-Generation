@@ -1,12 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
-import biomesoplenty.api.block.BOPBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMountain;
 import rtg.util.CellNoise;
@@ -17,8 +12,14 @@ import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMountain;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMountain;
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.block.BOPBlocks;
 
-import java.util.Random;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
 {	

@@ -22,6 +22,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 	public static RealisticBiomeBase bopBrushland;
 	public static RealisticBiomeBase bopChaparral;
 	public static RealisticBiomeBase bopCherryBlossomGrove;
+	public static RealisticBiomeBase bopColdDesert;
 	public static RealisticBiomeBase bopConiferousForest;
 	public static RealisticBiomeBase bopCoralReef;
 	public static RealisticBiomeBase bopCrag;
@@ -97,6 +98,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			if (BOPBiomes.brushland.isPresent()) bopBrushland = new RealisticBiomeBOPBrushland(BiomeConfigBOP.biomeConfigBOPBrushland);
 			if (BOPBiomes.chaparral.isPresent()) bopChaparral = new RealisticBiomeBOPChaparral(BiomeConfigBOP.biomeConfigBOPChaparral);
 			if (BOPBiomes.cherry_blossom_grove.isPresent()) bopCherryBlossomGrove = new RealisticBiomeBOPCherryBlossomGrove(BiomeConfigBOP.biomeConfigBOPCherryBlossomGrove);
+			if (BOPBiomes.cold_desert.isPresent()) bopColdDesert = new RealisticBiomeBOPColdDesert(BiomeConfigBOP.biomeConfigBOPColdDesert);
 			if (BOPBiomes.coniferous_forest.isPresent()) bopConiferousForest = new RealisticBiomeBOPConiferousForest(BiomeConfigBOP.biomeConfigBOPConiferousForest);
 			if (BOPBiomes.coral_reef.isPresent()) bopCoralReef = new RealisticBiomeBOPCoralReef(BiomeConfigBOP.biomeConfigBOPCoralReef);
 			if (BOPBiomes.crag.isPresent()) bopCrag = new RealisticBiomeBOPCrag(BiomeConfigBOP.biomeConfigBOPCrag);

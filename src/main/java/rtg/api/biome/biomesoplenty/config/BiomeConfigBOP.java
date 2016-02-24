@@ -12,6 +12,7 @@ public class BiomeConfigBOP
 	public static BiomeConfig biomeConfigBOPBrushland;
 	public static BiomeConfig biomeConfigBOPChaparral;
 	public static BiomeConfig biomeConfigBOPCherryBlossomGrove;
+	public static BiomeConfig biomeConfigBOPColdDesert;
 	public static BiomeConfig biomeConfigBOPConiferousForest;
 	public static BiomeConfig biomeConfigBOPCoralReef;
 	public static BiomeConfig biomeConfigBOPCrag;
@@ -77,6 +78,7 @@ public class BiomeConfigBOP
     		biomeConfigBOPBrushland,
     		biomeConfigBOPChaparral,
     		biomeConfigBOPCherryBlossomGrove,
+    		biomeConfigBOPColdDesert,
     		biomeConfigBOPConiferousForest,
     		biomeConfigBOPCoralReef,
     		biomeConfigBOPCrag,

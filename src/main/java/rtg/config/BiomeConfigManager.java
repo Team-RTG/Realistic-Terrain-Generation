@@ -24,6 +24,7 @@ import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPBorealForest;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPBrushland;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPChaparral;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPCherryBlossomGrove;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPColdDesert;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPConiferousForest;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPCoralReef;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPCrag;
@@ -358,6 +359,7 @@ public class BiomeConfigManager
     	BiomeConfigBOP.biomeConfigBOPBrushland = new BiomeConfigBOPBrushland();
     	BiomeConfigBOP.biomeConfigBOPChaparral = new BiomeConfigBOPChaparral();
     	BiomeConfigBOP.biomeConfigBOPCherryBlossomGrove = new BiomeConfigBOPCherryBlossomGrove();
+    	BiomeConfigBOP.biomeConfigBOPColdDesert = new BiomeConfigBOPColdDesert();
     	BiomeConfigBOP.biomeConfigBOPConiferousForest = new BiomeConfigBOPConiferousForest();
     	BiomeConfigBOP.biomeConfigBOPCoralReef = new BiomeConfigBOPCoralReef();
     	BiomeConfigBOP.biomeConfigBOPCrag = new BiomeConfigBOPCrag();

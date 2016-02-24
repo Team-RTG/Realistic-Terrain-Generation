@@ -67,15 +67,26 @@ public class WorldGenTreeRTGShrubCustom extends WorldGenerator
 	public void buildLeaves(World world, int x, int y, int z, int size)
 	{
 		Block b = world.getBlock(x, y - 2, z);
-		
-        if (b == Blocks.sand && !ConfigRTG.allowTreesToGenerateOnSand) {
+		Block b1 = world.getBlock(x, y - 1, z);
+
+        if ((b == Blocks.sand || b1 == Blocks.sand) && !ConfigRTG.allowTreesToGenerateOnSand) {
             return;
         }
 		
 		if(b.getMaterial() == Material.grass || b.getMaterial() == Material.ground || (sand && b.getMaterial() == Material.sand))
 		{
-			if(world.getBlock(x, y - 1, z) != Blocks.water )
+			if (b1 != Blocks.water)
 			{
+			    if (!ConfigRTG.allowShrubsToGenerateBelowSurface) {
+			        
+                    if (b1.getMaterial() != Material.air &&
+                        b1.getMaterial() != Material.vine &&
+                        b1.getMaterial() != Material.plants &&
+                        b1 != Blocks.snow_layer) {
+                        return;
+                    }
+			    }
+			    
 				for(int i = -size; i <= size; i++)
 				{
 					for(int j = -1; j <= 1; j++)

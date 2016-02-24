@@ -47,6 +47,7 @@ import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMarsh;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMeadow;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMoor;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMountain;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMountainFoothills;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMysticGrove;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOasis;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOminousWoods;
@@ -378,6 +379,7 @@ public class BiomeConfigManager
     	BiomeConfigBOP.biomeConfigBOPMeadow = new BiomeConfigBOPMeadow();
     	BiomeConfigBOP.biomeConfigBOPMoor = new BiomeConfigBOPMoor();
     	BiomeConfigBOP.biomeConfigBOPMountain = new BiomeConfigBOPMountain();
+    	BiomeConfigBOP.biomeConfigBOPMountainFoothills = new BiomeConfigBOPMountainFoothills();
     	BiomeConfigBOP.biomeConfigBOPMysticGrove = new BiomeConfigBOPMysticGrove();
     	BiomeConfigBOP.biomeConfigBOPOasis = new BiomeConfigBOPOasis();
     	BiomeConfigBOP.biomeConfigBOPOminousWoods = new BiomeConfigBOPOminousWoods();

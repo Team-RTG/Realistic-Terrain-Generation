@@ -45,6 +45,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 	public static RealisticBiomeBase bopMeadow;
 	public static RealisticBiomeBase bopMoor;
 	public static RealisticBiomeBase bopMountain;
+	public static RealisticBiomeBase bopMountainFoothills;
 	public static RealisticBiomeBase bopMysticGrove;
 	public static RealisticBiomeBase bopOasis;
 	public static RealisticBiomeBase bopOminousWoods;
@@ -117,6 +118,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			if (BOPBiomes.meadow.isPresent()) bopMeadow = new RealisticBiomeBOPMeadow(BiomeConfigBOP.biomeConfigBOPMeadow);
 			if (BOPBiomes.moor.isPresent()) bopMoor = new RealisticBiomeBOPMoor(BiomeConfigBOP.biomeConfigBOPMoor);
 			if (BOPBiomes.mountain.isPresent()) bopMountain = new RealisticBiomeBOPMountain(BiomeConfigBOP.biomeConfigBOPMountain);
+			if (BOPBiomes.mountain_foothills.isPresent()) bopMountainFoothills = new RealisticBiomeBOPMountainFoothills(BiomeConfigBOP.biomeConfigBOPMountainFoothills);
 			if (BOPBiomes.mystic_grove.isPresent()) bopMysticGrove = new RealisticBiomeBOPMysticGrove(BiomeConfigBOP.biomeConfigBOPMysticGrove);
 			if (BOPBiomes.oasis.isPresent()) bopOasis = new RealisticBiomeBOPOasis(BiomeConfigBOP.biomeConfigBOPOasis);
 			if (BOPBiomes.ominous_woods.isPresent()) bopOminousWoods = new RealisticBiomeBOPOminousWoods(BiomeConfigBOP.biomeConfigBOPOminousWoods);

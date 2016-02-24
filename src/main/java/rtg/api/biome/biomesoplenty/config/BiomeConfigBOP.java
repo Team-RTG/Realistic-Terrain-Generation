@@ -35,6 +35,7 @@ public class BiomeConfigBOP
 	public static BiomeConfig biomeConfigBOPMeadow;
 	public static BiomeConfig biomeConfigBOPMoor;
 	public static BiomeConfig biomeConfigBOPMountain;
+	public static BiomeConfig biomeConfigBOPMountainFoothills;
 	public static BiomeConfig biomeConfigBOPMysticGrove;
 	public static BiomeConfig biomeConfigBOPOasis;
 	public static BiomeConfig biomeConfigBOPOminousWoods;
@@ -97,6 +98,7 @@ public class BiomeConfigBOP
     		biomeConfigBOPMeadow,
     		biomeConfigBOPMoor,
     		biomeConfigBOPMountain,
+    		biomeConfigBOPMountainFoothills,
     		biomeConfigBOPMysticGrove,
     		biomeConfigBOPOasis,
     		biomeConfigBOPOminousWoods,

@@ -9,15 +9,15 @@ import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase
-{	
-	public static BiomeGenBase bopBiome = BOPBiomes.alps.get();
-	
+{
+	public static BiomeGenBase bopBiome = BOPBiomes.gravel_beach.get();
+
 	public static Block topBlock = bopBiome.topBlock.getBlock();
 	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
-	
+
 	public RealisticBiomeBOPGravelBeach(BiomeConfig config)
 	{
-		super(config, 
+		super(config,
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPGravelBeach(),
 			new SurfaceBOPGravelBeach(

@@ -25,6 +25,7 @@ import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
+import rtg.util.VillageMaterial;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.gen.feature.WorldGenClay;
@@ -44,6 +45,7 @@ public class RealisticBiomeBase extends BiomeBase {
     public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;
     public BiomeConfig config;
+    public VillageMaterial villageMaterial;
     
     public TerrainBase terrain;
     

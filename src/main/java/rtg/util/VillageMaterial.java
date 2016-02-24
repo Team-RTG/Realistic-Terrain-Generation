@@ -1,24 +1,25 @@
 package rtg.util;
 
 import net.minecraft.block.*;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 /**
- * Created by topisani on 2/23/16.
+ * Holds all village blocks that should be replaced for the biome it belongs to
  */
 public class VillageMaterial {
 
-    public final VillageMaterialReplacement path = new VillageMaterialReplacement(Blocks.gravel);
-    public final VillageMaterialReplacement foundation = new VillageMaterialReplacement(Blocks.cobblestone);
-    public final VillageMaterialReplacement wall = new VillageMaterialReplacement(Blocks.planks);
-    public final VillageMaterialReplacement corner = new VillageMaterialReplacement(Blocks.log);
-    public final VillageMaterialReplacement roof = new VillageMaterialReplacement(Blocks.oak_stairs);
-    public final VillageMaterialReplacement stairs = new VillageMaterialReplacement(Blocks.stone_stairs);
-    public final VillageMaterialReplacement blacksmith_roof = new VillageMaterialReplacement(Blocks.stone_slab);
-    public final VillageMaterialReplacement fence = new VillageMaterialReplacement(Blocks.oak_fence);
-    public final VillageMaterialReplacement door = new VillageMaterialReplacement(Blocks.oak_door);
+    public final VillageMaterialSwap path = new VillageMaterialSwap(Blocks.gravel);
+    public final VillageMaterialSwap foundation = new VillageMaterialSwap(Blocks.cobblestone);
+    public final VillageMaterialSwap wall = new VillageMaterialSwap(Blocks.planks);
+    public final VillageMaterialSwap corner = new VillageMaterialSwap(Blocks.log);
+    public final VillageMaterialSwap roof = new VillageMaterialSwap(Blocks.oak_stairs);
+    public final VillageMaterialSwap stairs = new VillageMaterialSwap(Blocks.stone_stairs);
+    public final VillageMaterialSwap blacksmith_roof = new VillageMaterialSwap(Blocks.stone_slab);
+    public final VillageMaterialSwap fence = new VillageMaterialSwap(Blocks.oak_fence);
+    public final VillageMaterialSwap door = new VillageMaterialSwap(Blocks.oak_door);
 
     public enum Preset {
-        PLAINS,
+        BASE,
         DESERT,
         SAVANNA,
         FOREST,
@@ -47,5 +48,24 @@ public class VillageMaterial {
                 door.setReplacement(Blocks.acacia_door);
         }
 
+    }
+
+    /**
+     * Gets the replacement for a BlockState.
+     * @param originalBlock BlockState to replace
+     * @return replacement BlockState.
+     */
+    public IBlockState replace(IBlockState originalBlock) {
+        Block oldBlock = originalBlock.getBlock();
+        if (oldBlock == path.getDefault()) return path.replace(originalBlock);
+        if (oldBlock == foundation.getDefault()) return foundation.replace(originalBlock);
+        if (oldBlock == wall.getDefault()) return wall.replace(originalBlock);
+        if (oldBlock == corner.getDefault()) return corner.replace(originalBlock);
+        if (oldBlock == roof.getDefault()) return roof.replace(originalBlock);
+        if (oldBlock == stairs.getDefault()) return stairs.replace(originalBlock);
+        if (oldBlock == blacksmith_roof.getDefault()) return blacksmith_roof.replace(originalBlock);
+        if (oldBlock == door.getDefault()) return door.replace(originalBlock);
+        if (oldBlock == fence.getDefault()) return fence.replace(originalBlock);
+        return null;
     }
 }

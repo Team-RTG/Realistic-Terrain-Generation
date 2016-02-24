@@ -393,7 +393,6 @@ public class BiomeConfigManager
         BiomeConfigVanilla.biomeConfigVanillaMesaPlateauFM = new BiomeConfigVanillaMesaPlateauFM();
         BiomeConfigVanilla.biomeConfigVanillaMesaPlateauM = new BiomeConfigVanillaMesaPlateauM();
     }
-    
     public static void setBiomeConfigsFromUserConfigs(BiomeConfig[] biomeConfigs, Configuration config)
     {
         
@@ -441,6 +440,61 @@ public class BiomeConfigManager
                             prop.description
                         );
                         
+                        break;
+                    default:
+                        throw new RuntimeException("BiomeConfigProperty type not supported.");
+                }
+            }
+        }
+    }
+
+    public static void setVillageConfigsFromUserConfigs(BiomeConfig[] biomeConfigs, Configuration config)
+    {
+
+        for (int i = 0; i < biomeConfigs.length; i++) {
+
+            String categoryName = "biome." + biomeConfigs[i].modSlug + "." + biomeConfigs[i].biomeSlug;
+            ArrayList<BiomeConfigProperty> properties = biomeConfigs[i].villageConfig.getProperties();
+
+            for (int j = 0; j < properties.size(); j++) {
+
+                BiomeConfigProperty prop = properties.get(j);
+
+                switch (prop.type) {
+
+                    case INTEGER:
+
+                        prop.valueInt = config.getInt(
+                                prop.name,
+                                categoryName,
+                                prop.valueInt,
+                                prop.minValue,
+                                prop.maxValue,
+                                prop.description
+                        );
+
+                        break;
+
+                    case BOOLEAN:
+
+                        prop.valueBoolean = config.getBoolean(
+                                prop.name,
+                                categoryName,
+                                prop.valueBoolean,
+                                prop.description
+                        );
+
+                        break;
+
+                    case STRING:
+
+                        prop.valueString = config.getString(
+                                prop.name,
+                                categoryName,
+                                prop.valueString,
+                                prop.description
+                        );
+
                         break;
                     default:
                         throw new RuntimeException("BiomeConfigProperty type not supported.");

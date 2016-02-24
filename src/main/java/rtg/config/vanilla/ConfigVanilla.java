@@ -42,7 +42,7 @@ public class ConfigVanilla
 		{
 			villageConfig.load();
 
-			BiomeConfigManager.setBiomeConfigsFromUserConfigs(BiomeConfigVanilla.getBiomeConfigs(), villageConfig);
+			BiomeConfigManager.setVillageConfigsFromUserConfigs(BiomeConfigVanilla.getBiomeConfigs(), villageConfig);
 		}
 		catch (Exception e)
 		{

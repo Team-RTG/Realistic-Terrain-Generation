@@ -1,5 +1,10 @@
 package rtg.api.biome;
 
+import net.minecraft.block.Block;
+import rtg.util.Logger;
+import rtg.util.VillageMaterial;
+import rtg.util.VillageMaterialSwap;
+
 import java.util.ArrayList;
 
 /**
@@ -30,11 +35,11 @@ public class VillageConfig {
     public static final String stairMetaId = "stairMeta";
     public static final String stairMetaName = "Stairs Meta (Cobblestone Stairs)";
 
-    public static final String floorBlockId = "floorBlock";
-    public static final String floorBlockName = "Floor block (Cobblestone)";
+    public static final String foundationBlockId = "foundationBlock";
+    public static final String foundationBlockName = "Foundation block (Cobblestone)";
 
-    public static final String floorMetaId = "floorMeta";
-    public static final String floorMetaName = "Floor Meta (Cobblestone)";
+    public static final String foundationMetaId = "foundationMeta";
+    public static final String foundationMetaName = "Foundation Meta (Cobblestone)";
 
     public static final String wallBlockId = "wallBlock";
     public static final String wallBlockName = "Wall Block (Planks)";
@@ -60,6 +65,12 @@ public class VillageConfig {
     public static final String blacksmithRoofMetaId = "blacksmithRoofMeta";
     public static final String blacksmithRoofMetaName = "Blacksmith Roof Meta (Stone Slabs)";
 
+    public static final String doorBlockId = "doorBlock";
+    public static final String doorBlockName = "Door Block (Oak door)";
+
+    public static final String doorMetaId = "doorMeta";
+    public static final String doorMetaName = "Door Meta (Oak door)";
+
     public VillageConfig(String modSlug, String biomeSlug)
     {
         this.modSlug = modSlug;
@@ -68,21 +79,23 @@ public class VillageConfig {
         this.properties = new ArrayList<BiomeConfigProperty>();
 
         this.addProperty(new BiomeConfigProperty(pathBlockId, BiomeConfigProperty.Type.STRING, pathBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(pathMetaId, BiomeConfigProperty.Type.STRING, pathMetaName, "", ""));
+        this.addProperty(new BiomeConfigProperty(pathMetaId, BiomeConfigProperty.Type.INTEGER, pathMetaName, "", -1, -1, 16));
         this.addProperty(new BiomeConfigProperty(roofBlockId, BiomeConfigProperty.Type.STRING, roofBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(roofMetaId, BiomeConfigProperty.Type.STRING, roofMetaName, "", ""));
+        this.addProperty(new BiomeConfigProperty(roofMetaId, BiomeConfigProperty.Type.INTEGER, roofMetaName, "",  -1, -1, 16));
         this.addProperty(new BiomeConfigProperty(stairBlockId, BiomeConfigProperty.Type.STRING, stairBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(stairMetaId, BiomeConfigProperty.Type.STRING, stairMetaName, "", ""));
-        this.addProperty(new BiomeConfigProperty(floorBlockId, BiomeConfigProperty.Type.STRING, floorBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(floorMetaId, BiomeConfigProperty.Type.STRING, floorMetaName, "", ""));
+        this.addProperty(new BiomeConfigProperty(stairMetaId, BiomeConfigProperty.Type.INTEGER, stairMetaName, "", -1, -1, 16));
+        this.addProperty(new BiomeConfigProperty(foundationBlockId, BiomeConfigProperty.Type.STRING, foundationBlockName, "", ""));
+        this.addProperty(new BiomeConfigProperty(foundationMetaId, BiomeConfigProperty.Type.INTEGER, foundationMetaName, "", -1, -1, 16));
         this.addProperty(new BiomeConfigProperty(wallBlockId, BiomeConfigProperty.Type.STRING, wallBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(wallMetaId, BiomeConfigProperty.Type.STRING, wallMetaName, "", ""));
+        this.addProperty(new BiomeConfigProperty(wallMetaId, BiomeConfigProperty.Type.INTEGER, wallMetaName, "", -1, -1, 16));
         this.addProperty(new BiomeConfigProperty(cornerBlockId, BiomeConfigProperty.Type.STRING, cornerBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(cornerMetaId, BiomeConfigProperty.Type.STRING, cornerMetaName, "", ""));
+        this.addProperty(new BiomeConfigProperty(cornerMetaId, BiomeConfigProperty.Type.INTEGER, cornerMetaName, "", -1, -1, 16));
         this.addProperty(new BiomeConfigProperty(fenceBlockId, BiomeConfigProperty.Type.STRING, fenceBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(fenceMetaId, BiomeConfigProperty.Type.STRING, fenceMetaName, "", ""));
+        this.addProperty(new BiomeConfigProperty(fenceMetaId, BiomeConfigProperty.Type.INTEGER, fenceMetaName, "", -1, -1, 16));
         this.addProperty(new BiomeConfigProperty(blacksmithRoofBlockId, BiomeConfigProperty.Type.STRING, blacksmithRoofBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(blacksmithRoofMetaId, BiomeConfigProperty.Type.STRING, blacksmithRoofMetaName, "", ""));
+        this.addProperty(new BiomeConfigProperty(blacksmithRoofMetaId, BiomeConfigProperty.Type.INTEGER, blacksmithRoofMetaName, "",  -1, -1, 16));
+        this.addProperty(new BiomeConfigProperty(doorBlockId, BiomeConfigProperty.Type.STRING, doorBlockName, "", ""));
+        this.addProperty(new BiomeConfigProperty(doorMetaId, BiomeConfigProperty.Type.INTEGER, doorMetaName, "",  -1, -1, 16));
     }
 
     public void addProperty(BiomeConfigProperty property)
@@ -133,7 +146,7 @@ public class VillageConfig {
         }
         catch (Exception e) {
 
-            throw new RuntimeException("Biome config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
+            throw new RuntimeException("Village config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
         }
     }
 
@@ -145,7 +158,7 @@ public class VillageConfig {
         }
         catch (Exception e) {
 
-            throw new RuntimeException("Biome config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
+            throw new RuntimeException("Village config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
         }
     }
 
@@ -157,7 +170,59 @@ public class VillageConfig {
         }
         catch (Exception e) {
 
-            throw new RuntimeException("Biome config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
+            throw new RuntimeException("Village config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
         }
+    }
+
+    /**
+     * Updates the given VillageMaterial with the user configs
+     * @param material will be changed
+     * @return the same material as was input, to allow method chaining.
+     */
+    public VillageMaterial getMaterial(VillageMaterial material) {
+        propertiesToSwap(material.path, pathBlockId, pathMetaId);
+        propertiesToSwap(material.blacksmith_roof, blacksmithRoofBlockId, blacksmithRoofMetaId);
+        propertiesToSwap(material.corner, cornerBlockId, cornerMetaId);
+        propertiesToSwap(material.door, doorBlockId, doorMetaId);
+        propertiesToSwap(material.fence, doorBlockId, doorMetaId);
+        propertiesToSwap(material.foundation, foundationBlockId, foundationMetaId);
+        propertiesToSwap(material.roof, roofBlockId, roofMetaId);
+        propertiesToSwap(material.stairs, stairBlockId, stairMetaId);
+        propertiesToSwap(material.wall, wallBlockId, wallMetaId);
+        return material;
+    }
+
+    private void propertiesToSwap(VillageMaterialSwap swap, String blockId, String metaId) {
+        String blockProp = "";
+        int metaProp;
+        try {
+            blockProp = _string(blockId);
+        } catch (RuntimeException e) {
+            Logger.error(e.getMessage());
+            swap.clearReplacement();
+            Logger.warn("Villageconfig: %s for biome %s from %s is invalid. Not replacing.", blockId, biomeSlug, modSlug);
+            return;
+        }
+        try {
+            metaProp = _int(metaId);
+        } catch (RuntimeException e) {
+            Logger.error(e.getMessage());
+            metaProp = 0;
+        }
+        if (blockProp.isEmpty()) {
+            swap.clearReplacement();
+            return;
+        }
+        if (metaProp == -1) {
+            swap.setPreserveMeta(true);
+            metaProp = 0;
+        }
+        Block replacement = Block.getBlockFromName(blockProp);
+        if (replacement == null ) {
+            Logger.warn("Villageconfig: %s for biome %s from %s is invalid. Not replacing.", blockId, biomeSlug, modSlug);
+            swap.clearReplacement();
+            return;
+        }
+        swap.setReplacement(replacement.getStateFromMeta(metaProp));
     }
 }

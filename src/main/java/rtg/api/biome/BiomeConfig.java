@@ -1,6 +1,7 @@
 package rtg.api.biome;
 
 import rtg.api.biome.BiomeConfigProperty.Type;
+import rtg.util.VillageMaterial;
 
 import java.util.ArrayList;
 
@@ -9,7 +10,9 @@ public class BiomeConfig {
 
     public String modSlug;
     public String biomeSlug;
-    
+
+    public VillageConfig villageConfig;
+    public VillageMaterial villageMaterial;
     public ArrayList<BiomeConfigProperty> properties;
     
     public static final String allowVillagesId = "allowVillages";
@@ -37,7 +40,9 @@ public class BiomeConfig {
     {
         this.modSlug = modSlug;
         this.biomeSlug = biomeSlug;
-        
+
+        this.villageConfig = new VillageConfig(modSlug, biomeSlug);
+
         this.properties = new ArrayList<BiomeConfigProperty>();
 
         this.addProperty(new BiomeConfigProperty(allowVillagesId, Type.BOOLEAN, allowVillagesName, "", true));

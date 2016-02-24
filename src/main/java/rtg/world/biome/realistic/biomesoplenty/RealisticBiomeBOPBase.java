@@ -32,6 +32,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 	public static RealisticBiomeBase bopFlowerField;
 	public static RealisticBiomeBase bopGlacier;
 	public static RealisticBiomeBase bopGrassland;
+	public static RealisticBiomeBase bopGravelBeach;
 	public static RealisticBiomeBase bopGrove;
 	public static RealisticBiomeBase bopHeathland;
 	public static RealisticBiomeBase bopHighland;
@@ -105,6 +106,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			if (BOPBiomes.flower_field.isPresent()) bopFlowerField = new RealisticBiomeBOPFlowerField(BiomeConfigBOP.biomeConfigBOPFlowerField);
 			if (BOPBiomes.glacier.isPresent()) bopGlacier = new RealisticBiomeBOPGlacier(BiomeConfigBOP.biomeConfigBOPGlacier);
 			if (BOPBiomes.grassland.isPresent()) bopGrassland = new RealisticBiomeBOPGrassland(BiomeConfigBOP.biomeConfigBOPGrassland);
+			if (BOPBiomes.gravel_beach.isPresent()) bopGravelBeach = new RealisticBiomeBOPGravelBeach(BiomeConfigBOP.biomeConfigBOPGravelBeach);
 			if (BOPBiomes.grove.isPresent()) bopGrove = new RealisticBiomeBOPGrove(BiomeConfigBOP.biomeConfigBOPGrove);
 			if (BOPBiomes.heathland.isPresent()) bopHeathland = new RealisticBiomeBOPHeathland(BiomeConfigBOP.biomeConfigBOPHeathland);
 			if (BOPBiomes.highland.isPresent()) bopHighland = new RealisticBiomeBOPHighland(BiomeConfigBOP.biomeConfigBOPHighland);

@@ -52,6 +52,7 @@ import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOasis;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOminousWoods;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOrchard;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOutback;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOvergrownCliffs;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPPrairie;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPQuagmire;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPRainforest;
@@ -381,6 +382,7 @@ public class BiomeConfigManager
     	BiomeConfigBOP.biomeConfigBOPOminousWoods = new BiomeConfigBOPOminousWoods();
     	BiomeConfigBOP.biomeConfigBOPOrchard = new BiomeConfigBOPOrchard();
     	BiomeConfigBOP.biomeConfigBOPOutback = new BiomeConfigBOPOutback();
+    	BiomeConfigBOP.biomeConfigBOPOvergrownCliffs = new BiomeConfigBOPOvergrownCliffs();
     	BiomeConfigBOP.biomeConfigBOPPrairie = new BiomeConfigBOPPrairie();
     	BiomeConfigBOP.biomeConfigBOPQuagmire = new BiomeConfigBOPQuagmire();
     	BiomeConfigBOP.biomeConfigBOPRainforest = new BiomeConfigBOPRainforest();

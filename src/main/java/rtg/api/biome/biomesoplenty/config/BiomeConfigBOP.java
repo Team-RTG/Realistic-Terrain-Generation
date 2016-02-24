@@ -40,6 +40,7 @@ public class BiomeConfigBOP
 	public static BiomeConfig biomeConfigBOPOminousWoods;
 	public static BiomeConfig biomeConfigBOPOrchard;
 	public static BiomeConfig biomeConfigBOPOutback;
+	public static BiomeConfig biomeConfigBOPOvergrownCliffs;
 	public static BiomeConfig biomeConfigBOPPrairie;
 	public static BiomeConfig biomeConfigBOPQuagmire;
 	public static BiomeConfig biomeConfigBOPRainforest;
@@ -100,6 +101,7 @@ public class BiomeConfigBOP
     		biomeConfigBOPOminousWoods,
     		biomeConfigBOPOrchard,
     		biomeConfigBOPOutback,
+    		biomeConfigBOPOvergrownCliffs,
     		biomeConfigBOPPrairie,
     		biomeConfigBOPQuagmire,
     		biomeConfigBOPRainforest,

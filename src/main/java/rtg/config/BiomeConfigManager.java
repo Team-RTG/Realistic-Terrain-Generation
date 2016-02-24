@@ -32,6 +32,7 @@ import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPDeadSwamp;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPEucalyptusForest;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPFen;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPFlowerField;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPFlowerIsland;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPGlacier;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPGrassland;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPGravelBeach;
@@ -365,6 +366,7 @@ public class BiomeConfigManager
     	BiomeConfigBOP.biomeConfigBOPEucalyptusForest = new BiomeConfigBOPEucalyptusForest();
     	BiomeConfigBOP.biomeConfigBOPFen = new BiomeConfigBOPFen();
     	BiomeConfigBOP.biomeConfigBOPFlowerField = new BiomeConfigBOPFlowerField();
+    	BiomeConfigBOP.biomeConfigBOPFlowerIsland = new BiomeConfigBOPFlowerIsland();
     	BiomeConfigBOP.biomeConfigBOPGlacier = new BiomeConfigBOPGlacier();
     	BiomeConfigBOP.biomeConfigBOPGrassland = new BiomeConfigBOPGrassland();
     	BiomeConfigBOP.biomeConfigBOPGravelBeach = new BiomeConfigBOPGravelBeach();

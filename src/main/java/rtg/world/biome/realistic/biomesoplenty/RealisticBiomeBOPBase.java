@@ -30,6 +30,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 	public static RealisticBiomeBase bopEucalyptusForest;
 	public static RealisticBiomeBase bopFen;
 	public static RealisticBiomeBase bopFlowerField;
+	public static RealisticBiomeBase bopFlowerIsland;
 	public static RealisticBiomeBase bopGlacier;
 	public static RealisticBiomeBase bopGrassland;
 	public static RealisticBiomeBase bopGravelBeach;
@@ -104,6 +105,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			if (BOPBiomes.eucalyptus_forest.isPresent()) bopEucalyptusForest = new RealisticBiomeBOPEucalyptusForest(BiomeConfigBOP.biomeConfigBOPEucalyptusForest);
 			if (BOPBiomes.fen.isPresent()) bopFen = new RealisticBiomeBOPFen(BiomeConfigBOP.biomeConfigBOPFen);
 			if (BOPBiomes.flower_field.isPresent()) bopFlowerField = new RealisticBiomeBOPFlowerField(BiomeConfigBOP.biomeConfigBOPFlowerField);
+			if (BOPBiomes.flower_island.isPresent()) bopFlowerIsland = new RealisticBiomeBOPFlowerIsland(BiomeConfigBOP.biomeConfigBOPFlowerIsland);
 			if (BOPBiomes.glacier.isPresent()) bopGlacier = new RealisticBiomeBOPGlacier(BiomeConfigBOP.biomeConfigBOPGlacier);
 			if (BOPBiomes.grassland.isPresent()) bopGrassland = new RealisticBiomeBOPGrassland(BiomeConfigBOP.biomeConfigBOPGrassland);
 			if (BOPBiomes.gravel_beach.isPresent()) bopGravelBeach = new RealisticBiomeBOPGravelBeach(BiomeConfigBOP.biomeConfigBOPGravelBeach);

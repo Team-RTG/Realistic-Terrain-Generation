@@ -20,6 +20,7 @@ public class BiomeConfigBOP
 	public static BiomeConfig biomeConfigBOPEucalyptusForest;
 	public static BiomeConfig biomeConfigBOPFen;
 	public static BiomeConfig biomeConfigBOPFlowerField;
+	public static BiomeConfig biomeConfigBOPFlowerIsland;
 	public static BiomeConfig biomeConfigBOPGlacier;
 	public static BiomeConfig biomeConfigBOPGrassland;
 	public static BiomeConfig biomeConfigBOPGravelBeach;
@@ -84,6 +85,7 @@ public class BiomeConfigBOP
     		biomeConfigBOPEucalyptusForest,
     		biomeConfigBOPFen,
     		biomeConfigBOPFlowerField,
+    		biomeConfigBOPFlowerIsland,
     		biomeConfigBOPGlacier,
     		biomeConfigBOPGrassland,
     		biomeConfigBOPGravelBeach,

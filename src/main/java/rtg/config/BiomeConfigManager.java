@@ -63,6 +63,7 @@ import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPShrubland;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPSnowyConiferousForest;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPSteppe;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPTemperateRainforest;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPTropicalIsland;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPTropicalRainforest;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPTundra;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPVolcanicIsland;
@@ -390,6 +391,7 @@ public class BiomeConfigManager
     	BiomeConfigBOP.biomeConfigBOPSnowyConiferousForest = new BiomeConfigBOPSnowyConiferousForest();
     	BiomeConfigBOP.biomeConfigBOPSteppe = new BiomeConfigBOPSteppe();
     	BiomeConfigBOP.biomeConfigBOPTemperateRainforest = new BiomeConfigBOPTemperateRainforest();
+    	BiomeConfigBOP.biomeConfigBOPTropicalIsland = new BiomeConfigBOPTropicalIsland();
     	BiomeConfigBOP.biomeConfigBOPTropicalRainforest = new BiomeConfigBOPTropicalRainforest();
     	BiomeConfigBOP.biomeConfigBOPTundra = new BiomeConfigBOPTundra();
     	BiomeConfigBOP.biomeConfigBOPVolcanicIsland = new BiomeConfigBOPVolcanicIsland();

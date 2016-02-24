@@ -62,6 +62,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 	public static RealisticBiomeBase bopSteppe;
 	public static RealisticBiomeBase bopTemperateRainforest;
 	public static RealisticBiomeBase bopTropicalRainforest;
+	public static RealisticBiomeBase bopTropicalIsland;
 	public static RealisticBiomeBase bopTundra;
 	public static RealisticBiomeBase bopVolcanicIsland;
 	public static RealisticBiomeBase bopWasteland;
@@ -129,6 +130,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
 			if (BOPBiomes.snowy_coniferous_forest.isPresent()) bopSnowyConiferousForest = new RealisticBiomeBOPSnowyConiferousForest(BiomeConfigBOP.biomeConfigBOPSnowyConiferousForest);
 			if (BOPBiomes.steppe.isPresent()) bopSteppe = new RealisticBiomeBOPSteppe(BiomeConfigBOP.biomeConfigBOPSteppe);
 			if (BOPBiomes.temperate_rainforest.isPresent()) bopTemperateRainforest = new RealisticBiomeBOPTemperateRainforest(BiomeConfigBOP.biomeConfigBOPTemperateRainforest);
+			if (BOPBiomes.tropical_island.isPresent()) bopTropicalIsland = new RealisticBiomeBOPTropicalIsland(BiomeConfigBOP.biomeConfigBOPTropicalIsland);
 			if (BOPBiomes.tropical_rainforest.isPresent()) bopTropicalRainforest = new RealisticBiomeBOPTropicalRainforest(BiomeConfigBOP.biomeConfigBOPTropicalRainforest);
 			if (BOPBiomes.tundra.isPresent()) bopTundra = new RealisticBiomeBOPTundra(BiomeConfigBOP.biomeConfigBOPTundra);
 			if (BOPBiomes.volcanic_island.isPresent()) bopVolcanicIsland = new RealisticBiomeBOPVolcanicIsland(BiomeConfigBOP.biomeConfigBOPVolcanicIsland);

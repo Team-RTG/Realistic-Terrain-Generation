@@ -49,6 +49,7 @@ public class BiomeConfigBOP
 	public static BiomeConfig biomeConfigBOPShield;
 	public static BiomeConfig biomeConfigBOPShrubland;
 	public static BiomeConfig biomeConfigBOPSnowyConiferousForest;
+	public static BiomeConfig biomeConfigBOPSnowyForest;
 	public static BiomeConfig biomeConfigBOPSteppe;
 	public static BiomeConfig biomeConfigBOPTemperateRainforest;
 	public static BiomeConfig biomeConfigBOPTropicalIsland;
@@ -108,6 +109,7 @@ public class BiomeConfigBOP
     		biomeConfigBOPShield,
     		biomeConfigBOPShrubland,
     		biomeConfigBOPSnowyConiferousForest,
+    		biomeConfigBOPSnowyForest,
     		biomeConfigBOPSteppe,
     		biomeConfigBOPTemperateRainforest,
     		biomeConfigBOPTropicalIsland,

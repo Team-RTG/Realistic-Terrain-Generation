@@ -65,6 +65,9 @@ public class OpenSimplexNoise extends SimplexOctave {
 		return octaves[0].noise(x, y,z);
     }
 
+    public SimplexOctave octave(int index) {
+        return octaves[index];
+    }
 	public SimplexOctave mountain() {return octaves[0];}
 
 }

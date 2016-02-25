@@ -40,12 +40,16 @@ public class VillageMaterial {
                 roof.setReplacement(Blocks.sandstone_stairs);
                 stairs.setReplacement(Blocks.sandstone_stairs);
                 blacksmith_roof.setReplacement(Blocks.stone_slab.getStateFromMeta(BlockStoneSlab.EnumType.SAND.getMetadata()));
+                break;
             case SAVANNA:
                 wall.setReplacement(Blocks.planks.getStateFromMeta(BlockPlanks.EnumType.ACACIA.getMetadata()));
                 corner.setReplacement(Blocks.log2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.ACACIA));
-                stairs.setReplacement(Blocks.acacia_stairs);
+                roof.setReplacement(Blocks.acacia_stairs);
                 fence.setReplacement(Blocks.acacia_fence);
                 door.setReplacement(Blocks.acacia_door);
+                break;
+            case FOREST:
+
         }
 
     }

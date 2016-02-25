@@ -42,7 +42,7 @@ public class BiomeConfig {
         this.biomeSlug = biomeSlug;
 
         this.villageConfig = new VillageConfig(modSlug, biomeSlug);
-        this.setVillageMaterial(new VillageMaterial(VillageMaterial.Preset.BASE));
+        this.setVillageMaterial(VillageMaterial.Preset.BASE);
         this.properties = new ArrayList<BiomeConfigProperty>();
 
         this.addProperty(new BiomeConfigProperty(allowVillagesId, Type.BOOLEAN, allowVillagesName, "", true));
@@ -134,5 +134,9 @@ public class BiomeConfig {
 
     public void setVillageMaterial(VillageMaterial material) {
         this.villageMaterial = this.villageConfig.getMaterial(material);
+    }
+
+    public void setVillageMaterial(VillageMaterial.Preset preset) {
+        setVillageMaterial(new VillageMaterial(preset));
     }
 }

@@ -10,6 +10,7 @@ import net.minecraft.world.gen.feature.*;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.WorldGenCacti;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
@@ -37,7 +38,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaDesertM(70f, 180f, 7f, 100f, 38f, 160f, 68f),
             new SurfaceVanillaDesertM(config, Blocks.sand, Blocks.sandstone, false, null, 0f, 1.5f, 60f, 65f, 1.5f));
-        
+        config.setVillageMaterial(VillageMaterial.Preset.DESERT);
         this.waterSurfaceLakeChance = 0;
     }
     

@@ -1,9 +1,6 @@
 package rtg.event;
 
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.*;
 import net.minecraftforge.event.world.WorldEvent;
@@ -179,17 +176,22 @@ public class EventManagerRTG
     @SubscribeEvent
     public void onGetVillageBlockID(BiomeEvent.GetVillageBlockID event)
     {
+        RealisticBiomeBase biomeReal;
+        if (event.biome instanceof RealisticBiomeBase) {
+            biomeReal = (RealisticBiomeBase) event.biome;
+        }
+        else if (event.biome == null && this.biome != null) {
+            biomeReal = this.biome;
+        }
+        else {
+            return;
+        }
+        event.replacement = biomeReal.config.villageMaterial.replace(event.original);
 
-        if (event.biome != null) {
-            RealisticBiomeBase biomeReal = (RealisticBiomeBase) event.biome;
+        // The event has to be cancelled in order to override the original block.
+        if (event.replacement != null) {
 
-            event.replacement = biomeReal.config.villageMaterial.replace(event.original);
-
-            // The event has to be cancelled in order to override the original block.
-            if (event.replacement != null) {
-
-                event.setResult(Result.DENY);
-            }
+            event.setResult(Result.DENY);
         }
     }
     
@@ -203,15 +205,5 @@ public class EventManagerRTG
             WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) event.world.getWorldChunkManager();
             this.biome = cmr.getBiomeDataAt(event.pos.getX(), event.pos.getZ());
         }
-    }
-    
-    private boolean isDesertVillageBiome(BiomeGenBase biomes)
-    {
-        return BiomeDictionary.isBiomeOfType(biome, Type.HOT)
-                &&
-                BiomeDictionary.isBiomeOfType(biome, Type.DRY)
-                &&
-                BiomeDictionary.isBiomeOfType(biome, Type.SANDY);
-
     }
 }

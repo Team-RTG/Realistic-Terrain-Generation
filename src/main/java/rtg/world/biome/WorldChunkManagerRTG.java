@@ -20,6 +20,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
+import rtg.util.SimplexOctave;
 
 public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeProvider
 {
@@ -31,7 +32,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
     private CellNoise cell;
     private SimplexCellularNoise simplexCell;
     private SimplexCellularNoise.NoiseInstance2[] riverCellNoiseInstances;
-    private OpenSimplexNoise.NoiseInstance2[] riverOpenSimplexNoiseInstances;
+    private SimplexOctave.NoiseInstance2[] riverOpenSimplexNoiseInstances;
     private float[] borderNoise;
     private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
     private BiomeCache biomeCache;

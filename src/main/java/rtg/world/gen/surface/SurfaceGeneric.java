@@ -38,7 +38,7 @@ public class SurfaceGeneric extends SurfaceBase
         		if (depth == 0 && k > 61)
         		{
         			blocks[(y * 16 + x) * 256 + k] = topBlock;
-        		    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+        		    metadata[(y * 16 + x) * 256 + k] = this.topBlockMeta;
         		}
         		else if (depth < 4)
         		{

@@ -10,6 +10,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBeach;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalm;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBeach;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaBeach;
@@ -30,6 +31,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
             BiomeGenBase.river,
             new TerrainVanillaBeach(),
             new SurfaceVanillaBeach(config, topBlock, fillerBlock, topBlock, fillerBlock, (byte) 0, 1));
+        config.setVillageMaterial(VillageMaterial.Preset.SAND);
     }
     
     @Override

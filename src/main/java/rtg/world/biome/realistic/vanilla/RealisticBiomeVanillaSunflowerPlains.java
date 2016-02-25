@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.VillageMaterial;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSunflowerPlains;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaSunflowerPlains;
 
@@ -22,5 +23,6 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
             BiomeGenBase.river,
             new TerrainVanillaSunflowerPlains(),
             new SurfaceVanillaSunflowerPlains(config, topBlock, fillerBlock));
+        config.setVillageMaterial(VillageMaterial.Preset.BASE);
     }
 }

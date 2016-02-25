@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.VillageMaterial;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHillsPlusM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHillsPlusM;
 
@@ -25,5 +26,6 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
             new TerrainVanillaExtremeHillsPlusM(230f, 120f, 0f),
             new SurfaceVanillaExtremeHillsPlusM(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f));
         this.generatesEmeralds = true;
+        config.setVillageMaterial(VillageMaterial.Preset.SPRUCE);
     }
 }

@@ -11,6 +11,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForestHills;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGBirch;
@@ -35,6 +36,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
 			new TerrainVanillaBirchForestHills(),
 			new SurfaceVanillaBirchForestHills(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f)
 		);
+        config.setVillageMaterial(VillageMaterial.Preset.BIRCH);
 	}
 	
     @Override

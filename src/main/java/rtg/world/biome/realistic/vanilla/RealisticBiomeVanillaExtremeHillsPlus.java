@@ -10,6 +10,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHillsPlus;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -34,6 +35,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
             new TerrainVanillaExtremeHillsPlus(230f, 120f, 0f),
             new SurfaceVanillaExtremeHillsPlus(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f));
         this.generatesEmeralds = true;
+        config.setVillageMaterial(VillageMaterial.Preset.SPRUCE);
     }
     
     @Override

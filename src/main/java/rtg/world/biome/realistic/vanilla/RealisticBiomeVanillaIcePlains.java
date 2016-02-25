@@ -10,6 +10,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaIcePlains;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIcePlains;
@@ -30,6 +31,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
 			new TerrainVanillaIcePlains(),
 			new SurfaceVanillaIcePlains(config, topBlock, fillerBlock, topBlock, topBlock)
 		);
+        config.setVillageMaterial(VillageMaterial.Preset.ICE);
 	}
 	
     @Override

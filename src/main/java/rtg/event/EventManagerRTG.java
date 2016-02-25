@@ -1,10 +1,6 @@
 package rtg.event;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.*;
 import net.minecraftforge.event.world.WorldEvent;
@@ -180,32 +176,21 @@ public class EventManagerRTG
     @SubscribeEvent
     public void onGetVillageBlockID(BiomeEvent.GetVillageBlockID event)
     {
+        RealisticBiomeBase biomeReal;
+        if (event.biome instanceof RealisticBiomeBase) {
+            biomeReal = (RealisticBiomeBase) event.biome;
+        }
+        else if (event.biome == null && this.biome != null) {
+            biomeReal = this.biome;
+        }
+        else {
+            return;
+        }
+        event.replacement = biomeReal.config.villageMaterial.replace(event.original);
 
-        if (this.biome != null) {
-
-            if (this.isDesertVillageBiome()) {
-
-                IBlockState originalBlock = event.original;
-
-                if (originalBlock == Blocks.cobblestone || originalBlock == Blocks.log) {
-
-                    event.replacement = Blocks.sandstone.getDefaultState();
-                }
-                else if (originalBlock == Blocks.planks) {
-
-                    event.replacement = Blocks.sandstone.getStateFromMeta(2);
-                }
-                else if (originalBlock == Blocks.oak_stairs || originalBlock == Blocks.stone_stairs) {
-
-                    event.replacement = Blocks.sandstone.getStateFromMeta(Blocks.stone_stairs.getMetaFromState(originalBlock));
-                }
-            }
-
-            // The event has to be cancelled in order to override the original block.
-            if (event.replacement != null) {
-
-                event.setResult(Result.DENY);
-            }
+        // The event has to be cancelled in order to override the original block.
+        if (event.replacement != null) {
+            event.setResult(Result.DENY);
         }
     }
     
@@ -219,15 +204,5 @@ public class EventManagerRTG
             WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) event.world.getWorldChunkManager();
             this.biome = cmr.getBiomeDataAt(event.pos.getX(), event.pos.getZ());
         }
-    }
-    
-    private boolean isDesertVillageBiome()
-    {
-        return BiomeDictionary.isBiomeOfType(this.biome, Type.HOT)
-                &&
-                BiomeDictionary.isBiomeOfType(this.biome, Type.DRY)
-                &&
-                BiomeDictionary.isBiomeOfType(this.biome, Type.SANDY);
-
     }
 }

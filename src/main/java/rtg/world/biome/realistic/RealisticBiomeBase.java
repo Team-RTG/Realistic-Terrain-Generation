@@ -428,9 +428,9 @@ public class RealisticBiomeBase extends BiomeBase {
             {
                 world.setBlockState(mbp, emeraldEmeraldBlock.getStateFromMeta(emeraldEmeraldMeta), 2);
                 
-                if (ConfigRTG.enableDebugging) {
-                    FMLLog.log(Level.INFO, "Emerald generated at %d, %d, %d", mbp.getX(), mbp.getY(), mbp.getZ());
-                }
+                //if (ConfigRTG.enableDebugging) {
+                //    FMLLog.log(Level.INFO, "Emerald generated at %d, %d, %d", mbp.getX(), mbp.getY(), mbp.getZ());
+                //}
             }
         }
     }

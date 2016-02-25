@@ -15,6 +15,7 @@ import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleM;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
+import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.*;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
@@ -41,7 +42,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase
 			new TerrainVanillaJungleM(),
 			new SurfaceVanillaJungleM(config, topBlock, fillerBlock)
 		);
-		
+        config.setVillageMaterial(VillageMaterial.Preset.STONE_BRICK);
 		this.waterSurfaceLakeChance = 3;
 	}
 	

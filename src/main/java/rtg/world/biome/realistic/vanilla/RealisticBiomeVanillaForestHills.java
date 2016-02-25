@@ -11,6 +11,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaForestHills;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -37,6 +38,7 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaForestHills(),
             new SurfaceVanillaForestHills(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f));
+        config.setVillageMaterial(VillageMaterial.Preset.BASE);
     }
     
     @Override

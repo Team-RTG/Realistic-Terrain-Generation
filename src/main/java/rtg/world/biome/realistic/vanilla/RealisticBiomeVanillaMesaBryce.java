@@ -10,6 +10,7 @@ import net.minecraft.world.gen.feature.*;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.WorldGenCacti;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
@@ -35,6 +36,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase
             new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f),
             new SurfaceVanillaMesaBryce(config, Blocks.sand, (byte)1, Blocks.sand, (byte)1, 0)
         );
+        config.setVillageMaterial(VillageMaterial.Preset.RED_SAND);
     }
     
     @Override

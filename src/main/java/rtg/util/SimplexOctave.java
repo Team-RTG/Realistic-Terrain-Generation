@@ -3,15 +3,15 @@
  *
  * 2D function lookup-table version by KdotJPG (With new Dodecagonal gradient set)
  * 3D function lookup-table version by DigitalShadow (With new normalized expanded cuboctahedral gradient set)
- * 
+ *
  * Both implemented using permutation tables of size 1024 instead of the traditional 256.
- * 
+ *
  * Includes additional 2D function that supports
  * - Simultaneous evaluation of the same point with different seeds
  * - First derivatives
  * - SPH2-noise (output is a 2D coordinate within a unit disc, rather than a 1D value)
  */
- 
+
 package rtg.util;
 
 /**
@@ -19,25 +19,25 @@ package rtg.util;
  * @version $Revision: 1.3$
  * @see https://gist.github.com/KdotJPG/b1270127455a94ac5d19
  */
-public class OpenSimplexNoise {
+public class SimplexOctave {
 
 	private static final double STRETCH_2D = -0.211324865405187;    //(1/Math.sqrt(2+1)-1)/2;
 	private static final double SQUISH_2D = 0.366025403784439;      //(Math.sqrt(2+1)-1)/2;
 	private static final double STRETCH_3D = -1.0 / 6.0;            //(1/Math.sqrt(3+1)-1)/3;
 	private static final double SQUISH_3D = 1.0 / 3.0;              //(Math.sqrt(3+1)-1)/3;
-	
+
 	private static final long DEFAULT_SEED = 0;
-	
+
 	private int[] perm;
 	private int[] perm2D;
 	private int[] perm2D_sph2;
 	private int[] perm3D;
-	
-	public OpenSimplexNoise() {
+
+	public SimplexOctave() {
 		this(DEFAULT_SEED);
 	}
-	
-	public OpenSimplexNoise(long seed) {
+
+	public SimplexOctave(long seed) {
 		perm = new int[1024];
 		perm2D = new int[1024];
 		perm2D_sph2 = new int[1024];
@@ -59,54 +59,54 @@ public class OpenSimplexNoise {
 			source[r] = source[i];
 		}
 	}
-	
+
 	/*
 	 * Aliases
 	 */
-	
+
 	//Alias for 1D
 	public float noise1(float x) {
 		return (float)noise(x, 0.5);
 	}
-	
+
 	//Alias for 2D
 	public float noise2(float x, float y) {
 		return (float)noise(x, y);
 	}
-	
+
 	//Alias for 3D
 	public float noise3(float x, float y, float z) {
 		return (float)noise(x, y, z);
 	}
-	
+
 	//Alias for 3D (again)
 	public double improvedNoise(double x, double y, double z) {
 		return noise(x, y, z);
 	}
-	
+
 	/*
 	 * Standard functions
 	 */
-	
+
 	//2D OpenSimplex noise (KdotJPG)
 	public double noise(double x, double y) {
 		double value = 0;
-		
+
 		//Get points for A2 lattice
 		double s = STRETCH_2D * (x + y);
 		double xs = x + s, ys = y + s;
-		
+
 		//Get base points and offsets
 		int xsb = fastFloor(xs), ysb = fastFloor(ys);
 		double xsi = xs - xsb, ysi = ys - ysb;
-		
+
 		//Index to point list
 		int a = (int)(ysi - xsi + 1);
 		int index =
 			(a << 2) |
 			(int)(xsi + ysi / 2.0 + a / 2.0) << 3 |
 			(int)(ysi + xsi / 2.0 + 1.0 / 2.0 - a / 2.0) << 4;
-		
+
 		//Get unskewed offsets.
 		double ssi = (xsi + ysi) * SQUISH_2D;
 		double xi = xsi + ssi, yi = ysi + ssi;
@@ -123,14 +123,14 @@ public class OpenSimplexNoise {
 			int gi = perm2D[perm[pxm] ^ pym];
 			double extrapolation = GRADIENTS_2D[gi] * dx
 					+ GRADIENTS_2D[gi + 1] * dy;
-			
+
 			attn *= attn;
 			value += attn * attn * extrapolation;
 		}
-		
+
 		return value;
 	}
-	
+
 	//3D OpenSimplex Noise (DigitalShadow)
 	public double noise(double x, double y, double z)
 	{
@@ -189,29 +189,29 @@ public class OpenSimplexNoise {
 		}
 		return value;
 	}
-	
+
 	/*
 	 * Multi-eval
 	 */
 
 	//2D OpenSimplex noise Multi-eval (KdotJPG)
 	public static void noise(double x, double y, NoiseInstance2[] instances, double[] results) {
-		
+
 		//Get points for A2 lattice
 		double s = STRETCH_2D * (x + y);
 		double xs = x + s, ys = y + s;
-		
+
 		//Get base points and offsets
 		int xsb = fastFloor(xs), ysb = fastFloor(ys);
 		double xsi = xs - xsb, ysi = ys - ysb;
-		
+
 		//Index to point list
 		int a = (int)(ysi - xsi + 1);
 		int index =
 			(a << 2) |
 			(int)(xsi + ysi / 2.0 + a / 2.0) << 3 |
 			(int)(ysi + xsi / 2.0 + 1.0 / 2.0 - a / 2.0) << 4;
-		
+
 		//Get unskewed offsets.
 		double ssi = (xsi + ysi) * SQUISH_2D;
 		double xi = xsi + ssi, yi = ysi + ssi;
@@ -255,16 +255,16 @@ public class OpenSimplexNoise {
 			}
 		}
 	}
-	
+
 	/*
 	 * Utility
 	 */
-	
+
 	private static int fastFloor(double x) {
 		int xi = (int)x;
 		return x < xi ? xi - 1 : xi;
 	}
-	
+
 	/*
 	 * Definitions
 	 */
@@ -272,7 +272,7 @@ public class OpenSimplexNoise {
 	private static final LatticePoint2D[] LOOKUP_2D;
 	private static Contribution3[] LOOKUP_3D;
 	static {
-		
+
 		//2D (KdotJPG)
 		LOOKUP_2D = new LatticePoint2D[8 * 4];
 		for (int i = 0; i < 8; i++) {
@@ -289,7 +289,7 @@ public class OpenSimplexNoise {
 			LOOKUP_2D[i * 4 + 2] = new LatticePoint2D(i1, j1);
 			LOOKUP_2D[i * 4 + 3] = new LatticePoint2D(i2, j2);
 		}
-		
+
 		//3D (DigitalShadow)
 		int[][] base3D = new int[][] {
 			new int[] { 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1 },
@@ -315,13 +315,13 @@ public class OpenSimplexNoise {
 			current.next = new Contribution3(p3D[i + 1], p3D[i + 2], p3D[i + 3], p3D[i + 4]);
 			current.next.next = new Contribution3(p3D[i + 5], p3D[i + 6], p3D[i + 7], p3D[i + 8]);
 		}
-		
+
 		LOOKUP_3D = new Contribution3[2048];
 		for (int i = 0; i < lookupPairs3D.length; i += 2) {
 			LOOKUP_3D[lookupPairs3D[i]] = contributions3D[lookupPairs3D[i + 1]];
 		}
 	}
-	
+
 	//2D Gradients -- new scheme (Dodecagon)
 	private static double[] GRADIENTS_2D = new double[] {
 	   0.114251372530929,   0.065963060686016,
@@ -337,7 +337,7 @@ public class OpenSimplexNoise {
 	  -0.000000000000000,   0.131926121372032,
 	   0.065963060686016,   0.114251372530929,
 	};
-	
+
 	private static final double[] GRADIENTS_SPH2 = new double[] {
 		                  0,	  1.000000000000000,
 		  0.500000000000000,	  0.866025403784439,
@@ -352,7 +352,7 @@ public class OpenSimplexNoise {
 		 -0.866025403784439,	  0.500000000000000,
 		 -0.500000000000000,	  0.866025403784439
 	};
-	
+
 	//3D Gradients -- new scheme (Normalized expanded cuboctahedron)
 	private static double[] GRADIENTS_3D = new double[] {
 		-0.009192019279820,   0.061948581592974,   0.105513124626310,
@@ -404,7 +404,7 @@ public class OpenSimplexNoise {
 		-0.122636188189934,  -0.002784312704445,  -0.002784312704445,
 		-0.097858646551677,  -0.052339395980958,  -0.052339395980958
 	};
-	
+
 	private static class LatticePoint2D {
 		public int xsv, ysv;
 		public double dx, dy;
@@ -430,9 +430,9 @@ public class OpenSimplexNoise {
 			this.zsb = zsb;
 		}
 	}
-	
+
 	public static class NoiseInstance2 {
-		public NoiseInstance2(OpenSimplexNoise noise, int valueIndex,
+		public NoiseInstance2(SimplexOctave noise, int valueIndex,
 				int ddxIndex, int ddyIndex, int sph2xIndex, int sph2yIndex) {
 			this.noise = noise;
 			this.valueIndex = valueIndex;
@@ -441,14 +441,14 @@ public class OpenSimplexNoise {
 			this.sph2xIndex = sph2xIndex;
 			this.sph2yIndex = sph2yIndex;
 		}
-		public NoiseInstance2(OpenSimplexNoise noise, int valueIndex,
+		public NoiseInstance2(SimplexOctave noise, int valueIndex,
 				int ddxIndex, int ddyIndex) {
 			this(noise, valueIndex, ddxIndex, ddyIndex, -1, -1);
 		}
-		public NoiseInstance2(OpenSimplexNoise noise, int valueIndex) {
+		public NoiseInstance2(SimplexOctave noise, int valueIndex) {
 			this(noise, valueIndex, -1, -1, -1, -1);
 		}
-		public OpenSimplexNoise noise;
+		public SimplexOctave noise;
 		public int valueIndex;
 		public int ddxIndex, ddyIndex;
 		public int sph2xIndex, sph2yIndex;

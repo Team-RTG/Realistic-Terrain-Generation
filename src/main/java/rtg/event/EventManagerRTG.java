@@ -19,7 +19,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 
 import net.minecraftforge.common.BiomeDictionary;
@@ -186,7 +185,7 @@ public class EventManagerRTG
 
         if (this.biome != null) {
             
-            if (this.biome.biomeID == BiomeGenBase.desert.biomeID || this.biome.biomeID == BiomeGenBase.desertHills.biomeID || this.biome.biomeID == BiomeGenBase.beach.biomeID) {
+            if (this.isDesertVillageBiome()) {
                 
                 Block originalBlock = event.original;
                 

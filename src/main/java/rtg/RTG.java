@@ -11,6 +11,7 @@ import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
+import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
 import rtg.world.biome.realistic.arsmagica.RealisticBiomeAMBase;
 import rtg.world.biome.realistic.atg.RealisticBiomeATGBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
@@ -18,8 +19,13 @@ import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
 import rtg.world.biome.realistic.chromaticraft.RealisticBiomeCCBase;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBase;
 import rtg.world.biome.realistic.extrabiomes.RealisticBiomeEBXLBase;
+import rtg.world.biome.realistic.growthcraft.RealisticBiomeGCBase;
 import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
+import rtg.world.biome.realistic.lotsomobs.RealisticBiomeLOMBase;
+import rtg.world.biome.realistic.ridiculousworld.RealisticBiomeRWBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
+import rtg.world.biome.realistic.tofucraft.RealisticBiomeTOFUBase;
+import rtg.world.biome.realistic.vampirism.RealisticBiomeVAMPBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -101,6 +107,12 @@ public class RTG {
         RealisticBiomeAMBase.addBiomes();
         RealisticBiomeATGBase.addBiomes();
         RealisticBiomeCCBase.addBiomes();
+        RealisticBiomeGCBase.addBiomes();
+        RealisticBiomeVAMPBase.addBiomes();
+        RealisticBiomeACBase.addBiomes();
+        RealisticBiomeRWBase.addBiomes();
+        RealisticBiomeLOMBase.addBiomes();
+        RealisticBiomeTOFUBase.addBiomes();
         
         RealisticBiomePresenceTester.doBiomeCheck();
     }

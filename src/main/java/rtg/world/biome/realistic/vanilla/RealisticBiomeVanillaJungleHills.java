@@ -15,6 +15,7 @@ import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleHills;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
+import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.*;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
@@ -39,7 +40,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaJungleHills(),
             new SurfaceVanillaJungleHills(config, Blocks.grass, Blocks.dirt, false, null, 1f, 1.5f, 60f, 65f, 1.5f));
-        
+        config.setVillageMaterial(VillageMaterial.Preset.STONE_BRICK);
         this.waterSurfaceLakeChance = 3;
     }
     

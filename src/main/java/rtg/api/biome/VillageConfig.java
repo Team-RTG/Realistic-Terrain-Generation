@@ -79,23 +79,23 @@ public class VillageConfig {
         this.properties = new ArrayList<BiomeConfigProperty>();
 
         this.addProperty(new BiomeConfigProperty(pathBlockId, BiomeConfigProperty.Type.STRING, pathBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(pathMetaId, BiomeConfigProperty.Type.INTEGER, pathMetaName, "", ""));
+        this.addProperty(new BiomeConfigProperty(pathMetaId, BiomeConfigProperty.Type.STRING, pathMetaName, "",""));
         this.addProperty(new BiomeConfigProperty(roofBlockId, BiomeConfigProperty.Type.STRING, roofBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(roofMetaId, BiomeConfigProperty.Type.INTEGER, roofMetaName, "",  ""));
+        this.addProperty(new BiomeConfigProperty(roofMetaId, BiomeConfigProperty.Type.STRING, roofMetaName, "",  ""));
         this.addProperty(new BiomeConfigProperty(stairBlockId, BiomeConfigProperty.Type.STRING, stairBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(stairMetaId, BiomeConfigProperty.Type.INTEGER, stairMetaName, "", ""));
+        this.addProperty(new BiomeConfigProperty(stairMetaId, BiomeConfigProperty.Type.STRING, stairMetaName, "",""));
         this.addProperty(new BiomeConfigProperty(foundationBlockId, BiomeConfigProperty.Type.STRING, foundationBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(foundationMetaId, BiomeConfigProperty.Type.INTEGER, foundationMetaName, "", ""));
+        this.addProperty(new BiomeConfigProperty(foundationMetaId, BiomeConfigProperty.Type.STRING, foundationMetaName, "", ""));
         this.addProperty(new BiomeConfigProperty(wallBlockId, BiomeConfigProperty.Type.STRING, wallBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(wallMetaId, BiomeConfigProperty.Type.INTEGER, wallMetaName, "", ""));
+        this.addProperty(new BiomeConfigProperty(wallMetaId, BiomeConfigProperty.Type.STRING, wallMetaName, "", ""));
         this.addProperty(new BiomeConfigProperty(cornerBlockId, BiomeConfigProperty.Type.STRING, cornerBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(cornerMetaId, BiomeConfigProperty.Type.INTEGER, cornerMetaName, "", ""));
+        this.addProperty(new BiomeConfigProperty(cornerMetaId, BiomeConfigProperty.Type.STRING, cornerMetaName, "", ""));
         this.addProperty(new BiomeConfigProperty(fenceBlockId, BiomeConfigProperty.Type.STRING, fenceBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(fenceMetaId, BiomeConfigProperty.Type.INTEGER, fenceMetaName, "", ""));
+        this.addProperty(new BiomeConfigProperty(fenceMetaId, BiomeConfigProperty.Type.STRING, fenceMetaName, "", ""));
         this.addProperty(new BiomeConfigProperty(blacksmithRoofBlockId, BiomeConfigProperty.Type.STRING, blacksmithRoofBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(blacksmithRoofMetaId, BiomeConfigProperty.Type.INTEGER, blacksmithRoofMetaName, "",  ""));
+        this.addProperty(new BiomeConfigProperty(blacksmithRoofMetaId, BiomeConfigProperty.Type.STRING, blacksmithRoofMetaName, "",  ""));
         this.addProperty(new BiomeConfigProperty(doorBlockId, BiomeConfigProperty.Type.STRING, doorBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(doorMetaId, BiomeConfigProperty.Type.INTEGER, doorMetaName, "",  ""));
+        this.addProperty(new BiomeConfigProperty(doorMetaId, BiomeConfigProperty.Type.STRING, doorMetaName, "", ""));
     }
 
     public void addProperty(BiomeConfigProperty property)
@@ -154,7 +154,7 @@ public class VillageConfig {
     {
         try {
 
-            return getPropertyById(id).valueInt;
+            return Integer.valueOf(getPropertyById(id).valueString);
         }
         catch (Exception e) {
 
@@ -193,7 +193,7 @@ public class VillageConfig {
     }
 
     private void propertiesToSwap(VillageMaterialSwap swap, String blockId, String metaId) {
-        String blockProp = "";
+        String blockProp;
         int metaProp;
         try {
             blockProp = _string(blockId);

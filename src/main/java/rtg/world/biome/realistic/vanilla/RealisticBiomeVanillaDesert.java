@@ -36,7 +36,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaDesert(),
             new SurfaceVanillaDesert(config, topBlock, fillerBlock));
-        config.setVillageMaterial(VillageMaterial.Preset.DESERT);
+        config.setVillageMaterial(VillageMaterial.Preset.SAND);
         this.waterSurfaceLakeChance = 0;
     }
     

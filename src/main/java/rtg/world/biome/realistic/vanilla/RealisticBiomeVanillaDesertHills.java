@@ -36,7 +36,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
 			new TerrainVanillaDesertHills(600f, 50f, 0f),
 			new SurfaceVanillaDesertHills(config, Blocks.sand, Blocks.sandstone, false, null, 0f, 1.5f, 60f, 65f, 1.5f)
 		);
-		config.setVillageMaterial(VillageMaterial.Preset.DESERT);
+		config.setVillageMaterial(VillageMaterial.Preset.SAND);
         this.waterSurfaceLakeChance = 0;
 	}
 	

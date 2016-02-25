@@ -20,19 +20,21 @@ public class VillageMaterial {
 
     public enum Preset {
         BASE,
-        DESERT,
-        SAVANNA,
-        FOREST,
-        SWAMP,
+        SAND,
+        ACACIA,
+        SPRUCE,
+        DARK_OAK,
+        BIRCH,
         ICE,
         JUNGLE,
+        STONE_BRICK,
         RED_SAND
     }
 
     public VillageMaterial(Preset preset) {
 
         switch ( preset ) {
-            case DESERT:
+            case SAND:
                 path.setReplacement(Blocks.sandstone.getDefaultState());
                 foundation.setReplacement(Blocks.sandstone.getDefaultState());
                 wall.setReplacement(Blocks.sandstone.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()));
@@ -41,15 +43,72 @@ public class VillageMaterial {
                 stairs.setReplacement(Blocks.sandstone_stairs);
                 blacksmith_roof.setReplacement(Blocks.stone_slab.getStateFromMeta(BlockStoneSlab.EnumType.SAND.getMetadata()));
                 break;
-            case SAVANNA:
+            case ACACIA:
                 wall.setReplacement(Blocks.planks.getStateFromMeta(BlockPlanks.EnumType.ACACIA.getMetadata()));
                 corner.setReplacement(Blocks.log2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.ACACIA));
                 roof.setReplacement(Blocks.acacia_stairs);
                 fence.setReplacement(Blocks.acacia_fence);
                 door.setReplacement(Blocks.acacia_door);
                 break;
-            case FOREST:
-
+            case SPRUCE:
+                wall.setReplacement(Blocks.planks.getStateFromMeta(BlockPlanks.EnumType.SPRUCE.getMetadata()));
+                corner.setReplacement(Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE));
+                roof.setReplacement(Blocks.spruce_stairs);
+                fence.setReplacement(Blocks.spruce_fence);
+                door.setReplacement(Blocks.spruce_door);
+                break;
+            case DARK_OAK:
+                wall.setReplacement(Blocks.planks.getStateFromMeta(BlockPlanks.EnumType.DARK_OAK.getMetadata()));
+                corner.setReplacement(Blocks.log2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.DARK_OAK));
+                roof.setReplacement(Blocks.dark_oak_stairs);
+                fence.setReplacement(Blocks.dark_oak_fence);
+                door.setReplacement(Blocks.dark_oak_door);
+                break;
+            case BIRCH:
+                wall.setReplacement(Blocks.planks.getStateFromMeta(BlockPlanks.EnumType.BIRCH.getMetadata()));
+                corner.setReplacement(Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH));
+                roof.setReplacement(Blocks.birch_stairs);
+                fence.setReplacement(Blocks.birch_fence);
+                door.setReplacement(Blocks.birch_door);
+                break;
+            case ICE:
+                path.setReplacement(Blocks.packed_ice.getDefaultState());
+                wall.setReplacement(Blocks.packed_ice.getDefaultState());
+                foundation.setReplacement(Blocks.snow.getDefaultState());
+                corner.setReplacement(Blocks.snow.getDefaultState());
+                roof.setReplacement(Blocks.snow.getDefaultState());
+                stairs.setReplacement(Blocks.snow_layer.getDefaultState().withProperty(BlockSnow.LAYERS, 4));
+                blacksmith_roof.setReplacement(Blocks.snow_layer.getDefaultState().withProperty(BlockSnow.LAYERS, 4));
+                fence.setReplacement(Blocks.birch_fence);
+                door.setReplacement(Blocks.spruce_door);
+                break;
+            case JUNGLE:
+                wall.setReplacement(Blocks.planks.getStateFromMeta(BlockPlanks.EnumType.JUNGLE.getMetadata()));
+                corner.setReplacement(Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.JUNGLE));
+                roof.setReplacement(Blocks.jungle_stairs);
+                fence.setReplacement(Blocks.jungle_fence);
+                door.setReplacement(Blocks.jungle_door);
+                break;
+            case STONE_BRICK:
+                wall.setReplacement(Blocks.stonebrick.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.DEFAULT));
+                foundation.setReplacement(Blocks.stonebrick.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.MOSSY));
+                corner.setReplacement(Blocks.stonebrick.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.CHISELED));
+                roof.setReplacement(Blocks.stone_brick_stairs);
+                stairs.setReplacement(Blocks.stone_brick_stairs);
+                blacksmith_roof.setReplacement(Blocks.stone_slab.getDefaultState().withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.BRICK));
+                fence.setReplacement(Blocks.cobblestone_wall);
+                door.setReplacement(Blocks.spruce_door);
+                break;
+            case RED_SAND:
+                path.setReplacement(Blocks.red_sandstone.getDefaultState());
+                foundation.setReplacement(Blocks.red_sandstone.getDefaultState());
+                wall.setReplacement(Blocks.red_sandstone.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()));
+                corner.setReplacement(Blocks.red_sandstone.getDefaultState());
+                roof.setReplacement(Blocks.red_sandstone_stairs);
+                stairs.setReplacement(Blocks.red_sandstone_stairs);
+                blacksmith_roof.setReplacement(Blocks.stone_slab2.getDefaultState().withProperty(BlockStoneSlabNew.VARIANT, BlockStoneSlabNew.EnumType.RED_SANDSTONE));
+                door.setReplacement(Blocks.acacia_door);
+                break;
         }
 
     }

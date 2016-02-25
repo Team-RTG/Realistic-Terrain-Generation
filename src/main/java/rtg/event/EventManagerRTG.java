@@ -190,7 +190,6 @@ public class EventManagerRTG
 
         // The event has to be cancelled in order to override the original block.
         if (event.replacement != null) {
-
             event.setResult(Result.DENY);
         }
     }

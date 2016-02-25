@@ -38,7 +38,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaDesertM(70f, 180f, 7f, 100f, 38f, 160f, 68f),
             new SurfaceVanillaDesertM(config, Blocks.sand, Blocks.sandstone, false, null, 0f, 1.5f, 60f, 65f, 1.5f));
-        config.setVillageMaterial(VillageMaterial.Preset.DESERT);
+        config.setVillageMaterial(VillageMaterial.Preset.SAND);
         this.waterSurfaceLakeChance = 0;
     }
     

@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBColdCypressForest;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBColdCypressForest;
 import enhancedbiomes.EnhancedBiomesMod;
@@ -49,10 +48,10 @@ public class RealisticBiomeEBColdCypressForest extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBColdCypressForest(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBColdCypressForest(160f, 80f, 60f),
-			new SurfaceEBColdCypressForest(
+			new SurfaceEBColdCypressForest(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 
@@ -71,8 +70,6 @@ public class RealisticBiomeEBColdCypressForest extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
         
     }
 }

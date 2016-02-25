@@ -25,13 +25,11 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPHeathland(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPHeathland(),
-			new SurfaceBOPHeathland(topBlock, fillerBlock)
+			new SurfaceBOPHeathland(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

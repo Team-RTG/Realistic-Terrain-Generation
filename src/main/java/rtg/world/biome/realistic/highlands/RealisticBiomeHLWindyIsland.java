@@ -31,12 +31,10 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
     public RealisticBiomeHLWindyIsland(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLWindyIsland(),
-            new SurfaceHLWindyIsland(topBlock, fillerBlock));
-        
-        this.config = config;
+            new SurfaceHLWindyIsland(config, topBlock, fillerBlock));
     }
     
     // this is the Extreme Hills code again, with plain boulders, smaller trees, no pumpkins and no flowers

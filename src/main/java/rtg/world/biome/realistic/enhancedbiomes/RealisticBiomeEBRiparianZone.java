@@ -53,10 +53,10 @@ public class RealisticBiomeEBRiparianZone extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBRiparianZone(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBRiparianZone(),
-			new SurfaceEBRiparianZone(
+			new SurfaceEBRiparianZone(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 
@@ -75,8 +75,6 @@ public class RealisticBiomeEBRiparianZone extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
         
     }
 	

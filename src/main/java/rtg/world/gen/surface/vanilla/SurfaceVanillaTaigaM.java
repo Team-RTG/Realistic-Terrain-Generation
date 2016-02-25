@@ -2,6 +2,7 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -15,10 +16,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceVanillaTaigaM extends SurfaceBase
 {
     
-    public SurfaceVanillaTaigaM(Block top, Block fill)
+    public SurfaceVanillaTaigaM(BiomeConfig config, Block top, Block fill)
     {
     
-        super(top, fill);
+        super(config, top, (byte)0, fill, (byte)0);
     }
     
     @Override

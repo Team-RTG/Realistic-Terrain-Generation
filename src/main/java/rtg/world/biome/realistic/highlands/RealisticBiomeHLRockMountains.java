@@ -35,12 +35,10 @@ public class RealisticBiomeHLRockMountains extends RealisticBiomeHLBase
     public RealisticBiomeHLRockMountains(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLRockMountains(230f, 100f, 0f),
-            new SurfaceHLRockMountains(topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f));
-        
-        this.config = config;
+            new SurfaceHLRockMountains(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f));
         this.generatesEmeralds = true;
     }
 

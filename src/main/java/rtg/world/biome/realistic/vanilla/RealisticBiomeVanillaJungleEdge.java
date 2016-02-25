@@ -4,7 +4,6 @@ import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleEdge;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenLog;
@@ -25,13 +24,11 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaJungleEdge(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             BiomeGenBase.jungleEdge,
             BiomeGenBase.river,
             new TerrainVanillaJungleEdge(),
-            new SurfaceVanillaJungleEdge(topBlock, fillerBlock));
-        
-        this.config = config;
+            new SurfaceVanillaJungleEdge(config, topBlock, fillerBlock));
     }
     
     @Override

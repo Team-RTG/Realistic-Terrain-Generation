@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
 import rtg.world.gen.surface.highlands.SurfaceHLGlacier;
 import rtg.world.gen.terrain.highlands.TerrainHLGlacier;
 
@@ -21,11 +20,9 @@ public class RealisticBiomeHLGlacier extends RealisticBiomeHLBase
     public RealisticBiomeHLGlacier(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.frozenRiver,
             new TerrainHLGlacier(90f, 180f, 13f, 100f, 38f, 260f, 71f),
-            new SurfaceHLGlacier(Blocks.packed_ice,Blocks.ice,  false, null, 0.95f));
-        
-        this.config = config;
+            new SurfaceHLGlacier(config, Blocks.packed_ice,Blocks.ice,  false, null, 0.95f));
     }
 }

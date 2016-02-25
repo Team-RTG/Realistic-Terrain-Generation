@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
 import rtg.world.gen.surface.highlands.SurfaceHLSnowIsland;
 import rtg.world.gen.terrain.highlands.TerrainHLSnowIsland;
 
@@ -20,11 +19,9 @@ public class RealisticBiomeHLSnowIsland extends RealisticBiomeHLBase
     public RealisticBiomeHLSnowIsland(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.frozenRiver,
             new TerrainHLSnowIsland(90f, 180f, 13f, 100f, 1f, 260f, 70f),
-            new SurfaceHLSnowIsland(topBlock, fillerBlock));
-        
-        this.config = config;
+            new SurfaceHLSnowIsland(config, topBlock, fillerBlock));
     }
 }

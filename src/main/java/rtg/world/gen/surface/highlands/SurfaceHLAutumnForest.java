@@ -2,6 +2,7 @@ package rtg.world.gen.surface.highlands;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -15,9 +16,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceHLAutumnForest extends SurfaceBase
 {
     
-    public SurfaceHLAutumnForest(Block top, Block filler) {
+    public SurfaceHLAutumnForest(BiomeConfig config, Block top, Block filler) {
         
-        super(top, filler);
+        super(config, top, (byte)0, filler, (byte)0);
     }
     
     @Override
@@ -53,8 +54,10 @@ public class SurfaceHLAutumnForest extends SurfaceBase
                 } else {
                     if (depth == 0 && k > 61) {
                         blocks[(y * 16 + x) * 256 + k] = topBlock;
+                        metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                     } else if (depth < 4) {
                         blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+                        metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                     }
                 }
             }

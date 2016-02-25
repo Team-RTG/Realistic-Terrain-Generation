@@ -2,10 +2,12 @@ package rtg.world.gen.surface.extrabiomes;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.SnowHeightCalculator;
 import rtg.world.gen.surface.SurfaceBase;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -13,9 +15,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceEBXLIceWasteland extends SurfaceBase
 {
-	public SurfaceEBXLIceWasteland(Block top, Block fill) 
+	public SurfaceEBXLIceWasteland(BiomeConfig config, Block top, Block fill) 
 	{
-		super(top, fill);
+	    super(config, top, (byte)0, fill, (byte)0);
 	}
 	
 	@Override

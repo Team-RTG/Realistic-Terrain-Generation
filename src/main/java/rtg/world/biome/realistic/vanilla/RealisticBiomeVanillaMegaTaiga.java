@@ -4,7 +4,6 @@ import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaMegaTaiga;
-import rtg.config.vanilla.ConfigVanilla;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
@@ -34,13 +33,11 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaMegaTaiga(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             BiomeGenBase.megaTaiga,
             BiomeGenBase.river,
             new TerrainVanillaMegaTaiga(),
-            new SurfaceVanillaMegaTaiga(topBlock, fillerBlock));
-        
-        this.config = config;
+            new SurfaceVanillaMegaTaiga(config, topBlock, fillerBlock));
     }
     
     @Override

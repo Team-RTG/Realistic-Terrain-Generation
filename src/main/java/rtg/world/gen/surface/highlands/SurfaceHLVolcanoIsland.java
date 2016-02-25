@@ -2,6 +2,7 @@ package rtg.world.gen.surface.highlands;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -14,10 +15,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceHLVolcanoIsland extends SurfaceBase
 {
-    private Block blockTop;
-    private byte byteTop;
-    private Block blockFiller;
-    private byte byteFiller;
+
     private Block blockMixTop;
     private byte byteMixTop;
     private Block blockMixFiller;
@@ -31,17 +29,12 @@ public class SurfaceHLVolcanoIsland extends SurfaceBase
     private float floSmallWidth;
     private float floSmallStrength;
     
-    public SurfaceHLVolcanoIsland(Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
+    public SurfaceHLVolcanoIsland(BiomeConfig config, Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
         byte mixFillerByte, Block cliff1, byte cliff1Byte, Block cliff2, byte cliff2Byte, float mixWidth, float mixHeight,
         float smallWidth, float smallStrength)
     {
     
-        super(top, filler);
-        
-        blockTop = top;
-        byteTop = topByte;
-        blockFiller = filler;
-        byteFiller = fillerByte;
+        super(config, top, topByte, filler, fillerByte);
         
         blockMixTop = mixTop;
         byteMixTop = mixTopByte;
@@ -115,7 +108,7 @@ public class SurfaceHLVolcanoIsland extends SurfaceBase
                         else
                         {
                             blocks[(y * 16 + x) * 256 + k] = topBlock;
-                            metadata[(y * 16 + x) * 256 + k] = byteTop;
+                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                         }
                     }
                     else if (depth < 4)
@@ -128,7 +121,7 @@ public class SurfaceHLVolcanoIsland extends SurfaceBase
                         else
                         {
                             blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                            metadata[(y * 16 + x) * 256 + k] = byteFiller;
+                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
                         }
                     }
                 }

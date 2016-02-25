@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.extrabiomes.config.BiomeConfigEBXL;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
@@ -40,9 +41,9 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 	public static RealisticBiomeBase ebxl_wasteland;
 	public static RealisticBiomeBase ebxl_woodlands;
 	
-	public RealisticBiomeEBXLBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
+	public RealisticBiomeEBXLBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
-		super(b, riverbiome, t, s);
+		super(config, b, riverbiome, t, s);
 		
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;

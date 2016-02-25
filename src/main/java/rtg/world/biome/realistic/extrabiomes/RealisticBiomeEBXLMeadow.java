@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.extrabiomes;
 import java.util.Random;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenFlowers;
@@ -27,13 +26,11 @@ public class RealisticBiomeEBXLMeadow extends RealisticBiomeEBXLBase
 	
 	public RealisticBiomeEBXLMeadow(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLMeadow(),
-			new SurfaceEBXLMeadow(topBlock, fillerBlock)
+			new SurfaceEBXLMeadow(config, topBlock, fillerBlock)
 		);
-		
-		this.config = config;
 	}
 	
     @Override

@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
 import rtg.api.biome.BiomeConfig;
-import rtg.config.highlands.ConfigHL;
 import rtg.world.gen.surface.highlands.SurfaceHLTropics;
 import rtg.world.gen.terrain.highlands.TerrainHLTropics;
 
@@ -20,11 +19,9 @@ public class RealisticBiomeHLTropics extends RealisticBiomeHLBase
     public RealisticBiomeHLTropics(BiomeConfig config)
     {
     
-        super(
+        super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLTropics(),
-            new SurfaceHLTropics(topBlock, fillerBlock));
-        
-        this.config = config;
+            new SurfaceHLTropics(config, topBlock, fillerBlock));
     }
 }

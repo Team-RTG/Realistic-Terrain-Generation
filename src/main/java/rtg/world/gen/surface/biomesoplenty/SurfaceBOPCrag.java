@@ -2,6 +2,7 @@ package rtg.world.gen.surface.biomesoplenty;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -15,20 +16,20 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceBOPCrag extends SurfaceBase
 {
 	private Block cliffBlock1;
-	
-	public SurfaceBOPCrag(Block top, Block filler, Block cliff1)
+
+	public SurfaceBOPCrag(BiomeConfig config, Block top, Block filler, Block cliff1)
 	{
-		super(top, filler);
-		
+		super(config, top, (byte)0, filler, (byte)0);
+
 		cliffBlock1 = cliff1;
 	}
-	
+
 	@Override
 	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		float c = CliffCalculator.calc(x, y, noise);
 		boolean cliff = c > 1.4f ? true : false;
-		
+
 		for(int k = 255; k > -1; k--)
 		{
 			Block b = blocks[(y * 16 + x) * 256 + k];
@@ -41,18 +42,17 @@ public class SurfaceBOPCrag extends SurfaceBase
             	depth++;
 
             	if (k > 50) {
-            	    
+
                 	if(cliff)
                 	{
                 		if(depth > -1 && depth < 2)
                 		{
                             if (rand.nextInt(3) == 0) {
-                                
+
                                 blocks[(y * 16 + x) * 256 + k] = cliffBlock1;
-                                metadata[(y * 16 + x) * 256 + k] = (byte)0;
                             }
                             else {
-                                
+
                                 blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
                                 metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
                             }
@@ -63,6 +63,7 @@ public class SurfaceBOPCrag extends SurfaceBase
                 		}
                 		else {
                 		    blocks[(y * 16 + x) * 256 + k] = topBlock;
+                		    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
                 		}
                 	}
                 	else
@@ -70,13 +71,16 @@ public class SurfaceBOPCrag extends SurfaceBase
     	        		if(depth == 0 && k > 61)
     	        		{
     	        			blocks[(y * 16 + x) * 256 + k] = topBlock;
+    	        		    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
     	        		}
     	        		else if(depth < 4)
     	        		{
     	        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+    	        		    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
     	        		}
     	        		else {
     	        		    blocks[(y * 16 + x) * 256 + k] = topBlock;
+    	        		    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
     	        		}
                 	}
             	}

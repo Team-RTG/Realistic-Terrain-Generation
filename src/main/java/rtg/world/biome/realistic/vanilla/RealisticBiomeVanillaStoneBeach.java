@@ -15,13 +15,11 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase
 	
 	public RealisticBiomeVanillaStoneBeach(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			BiomeGenBase.stoneBeach,
 			BiomeGenBase.river,
 			new TerrainVanillaStoneBeach(),
-			new SurfaceVanillaStoneBeach(topBlock, fillerBlock, true, Blocks.gravel, 1f, 1.5f, 85f, 20f, 4f)
+			new SurfaceVanillaStoneBeach(config, topBlock, fillerBlock, true, Blocks.gravel, 1f, 1.5f, 85f, 20f, 4f)
 		);
-		
-		this.config = config;
 	}	
 }

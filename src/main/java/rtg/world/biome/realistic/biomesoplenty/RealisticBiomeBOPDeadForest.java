@@ -27,10 +27,10 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPDeadForest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPDeadForest(58f, 80f, 30f),
-			new SurfaceBOPDeadForest(
+			new SurfaceBOPDeadForest(config,
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 
@@ -45,8 +45,6 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
 	}
 	
     @Override

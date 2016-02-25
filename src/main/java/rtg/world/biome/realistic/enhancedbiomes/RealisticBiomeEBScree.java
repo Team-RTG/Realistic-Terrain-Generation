@@ -58,10 +58,10 @@ public class RealisticBiomeEBScree extends RealisticBiomeEBBase
     
 	public RealisticBiomeEBScree(BiomeGenBase ebBiome, BiomeConfig config)
 	{
-		super(
+		super(config, 
 			ebBiome, BiomeGenBase.river,
 			new TerrainEBScree(),
-			new SurfaceEBScree(
+			new SurfaceEBScree(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
                 ebFillBlock, //Block filler, 
@@ -80,8 +80,6 @@ public class RealisticBiomeEBScree extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
 		
         this.generatesEmeralds = true;
         this.emeraldEmeraldBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.oreEmeraldEB, Blocks.emerald_ore);

@@ -26,10 +26,10 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
 	
 	public RealisticBiomeBOPEucalyptusForest(BiomeConfig config)
 	{
-		super(
+		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPEucalyptusForest(58f, 80f, 36f),
-			new SurfaceBOPEucalyptusForest(
+			new SurfaceBOPEucalyptusForest(config,
                 topBlock, //Block top 
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 
@@ -44,8 +44,6 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
-		
-		this.config = config;
 	}
 	
     @Override

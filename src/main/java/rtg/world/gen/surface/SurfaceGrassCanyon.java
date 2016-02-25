@@ -2,22 +2,24 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
+import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.CliffCalculator;
+import rtg.util.OpenSimplexNoise;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.util.CellNoise;
-import rtg.util.CliffCalculator;
-import rtg.util.OpenSimplexNoise;
 
 public class SurfaceGrassCanyon extends SurfaceBase
 {
 	private byte claycolor;
 	
-	public SurfaceGrassCanyon(Block top, Block fill, byte b)
+	public SurfaceGrassCanyon(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte, byte clayByte)
 	{
-		super(top, fill);
-		claycolor = b;
+	    super(config, top, topByte, fill, fillByte);
+		claycolor = clayByte;
 	}
 	
 	@Override
@@ -56,10 +58,12 @@ public class SurfaceGrassCanyon extends SurfaceBase
 	        				if(depth == 0)
 	        				{
 		        				blocks[(y * 16 + x) * 256 + k] = topBlock;
+	        				    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
 	        				}
 	        				else
 	        				{
 		        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	        				    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
 	        				}
 	        			}
 	            	}

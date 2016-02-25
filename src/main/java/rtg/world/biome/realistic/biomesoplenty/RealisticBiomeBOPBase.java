@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOP;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
@@ -101,17 +102,9 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase
     public static boolean olderBoP = false;
     
 
-	public RealisticBiomeBOPBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
+	public RealisticBiomeBOPBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
-		super(b, riverbiome, t, s);
-		
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 0;
-	}
-	
-	public RealisticBiomeBOPBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s)
-	{
-		super(b, riverbiome, t, s);
+		super(config, b, riverbiome, t, s);
 		
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;

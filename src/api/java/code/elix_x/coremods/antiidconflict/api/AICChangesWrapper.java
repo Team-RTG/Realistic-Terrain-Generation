@@ -13,11 +13,26 @@ import net.minecraft.world.chunk.Chunk;
 public class AICChangesWrapper {
 
 	/**
+	 * Field populated at runtime by AIC, that is switched to true if biome ids limit is extended.
+	 */
+	private static boolean extendingBiomeIdsLimit = false;
+
+	/**
 	 * Simple method to check if AIC is loaded.
 	 * @return if AIC is loaded or not.
 	 */
 	public static boolean isAICLoaded(){
 		return Loader.isModLoaded("AIC");
+	}
+
+	/**
+	 * Returns whether or not AIC is currently extending biome ids limit.
+	 * <br>
+	 * Note: this will also return false, if AIC is not loaded. So to make compatibility on biome part with AIC, you can use this method without additionally calling {@link #isAICLoaded()}.
+	 * @return if biome ids limit is being extended past 256.
+	 */
+	public static boolean isExtendingBiomeIdsLimit(){
+		return extendingBiomeIdsLimit;
 	}
 
 	/**
@@ -41,7 +56,7 @@ public class AICChangesWrapper {
 	 * @param biomes Array of biomes to set in specified chunk.
 	 */
 	public static void setBiomeArray(Chunk chunk, int[] biomes){
-		
+
 	}
 
 }

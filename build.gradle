@@ -23,6 +23,9 @@ version = "0.0.1"
 group = "org.teamrtg.rtg" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "RTG-" + project.mcversion
 
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
 minecraft {
     version = "1.8.9-11.15.1.1756"
     runDir = "eclipse"

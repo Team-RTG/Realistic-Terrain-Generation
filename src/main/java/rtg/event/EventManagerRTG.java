@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.apache.logging.log4j.Level;
+uimport org.apache.logging.log4j.Level;
 import rtg.RTG;
 import rtg.config.rtg.ConfigRTG;
 import rtg.world.WorldTypeRTG;
@@ -67,7 +67,7 @@ public class EventManagerRTG
         else if (event.type == InitMapGenEvent.EventType.OCEAN_MONUMENT) {
                 event.newGen = new StructureOceanMonumentRTG();
         }
-		
+
         if (ConfigRTG.enableDebugging) {
             FMLLog.log(Level.INFO, "event newGen = %s", event.newGen.toString());
         }

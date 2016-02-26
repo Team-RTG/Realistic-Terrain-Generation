@@ -66,15 +66,38 @@ public class WorldGenTreeRTGShrubCustom extends WorldGenerator {
 		Block b = world.getBlockState(new BlockPos(x, y - 2, z)).getBlock();
 
 		if (b == Blocks.sand && !allowTreesToGenerateOnSand) {
+
+	public void buildLeaves(World world, int x, int y, int z, int size)
+	{
+		Block b = world.getBlock(x, y - 2, z);
+		Block b1 = world.getBlock(x, y - 1, z);
+
+        if ((b == Blocks.sand || b1 == Blocks.sand) && !ConfigRTG.allowTreesToGenerateOnSand) {
             return;
         }
+		
+		if(b.getMaterial() == Material.grass || b.getMaterial() == Material.ground || (sand && b.getMaterial() == Material.sand))
+		{
+			if (b1 != Blocks.water)
+			{
+			    if (!ConfigRTG.allowShrubsToGenerateBelowSurface) {
 
-		if (b.getMaterial() == grass || b.getMaterial() == ground || (sand && b.getMaterial() == Material.sand)) {
-			if (world.getBlockState(new BlockPos(x, y - 1, z)).getBlock() != water) {
-				for (int i = -size; i <= size; i++) {
-					for (int j = -1; j <= 1; j++) {
-						for (int k = -size; k <= size; k++) {
-							if (abs(i) + abs(j) + abs(k) <= size) {
+                    if (b1.getMaterial() != Material.air &&
+                        b1.getMaterial() != Material.vine &&
+                        b1.getMaterial() != Material.plants &&
+                        b1 != Blocks.snow_layer) {
+                        return;
+                    }
+			    }
+
+				for(int i = -size; i <= size; i++)
+				{
+					for(int j = -1; j <= 1; j++)
+					{
+						for(int k = -size; k <= size; k++)
+						{
+							if(Math.abs(i) + Math.abs(j) + Math.abs(k) <= size)
+							{
 								buildBlock(world, x + i, y + j, z + k, leaveBlock, leaveMeta);
 							}
 						}

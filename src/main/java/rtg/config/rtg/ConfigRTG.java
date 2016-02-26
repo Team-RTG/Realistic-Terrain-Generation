@@ -10,50 +10,61 @@ public class ConfigRTG
 {
 	public static Configuration config;
 	
-	public static boolean enableRTGBiomeDecorations = true;
-	public static boolean enableRTGBiomeSurfaces = true;
+    /* ==================== Bedrock ==================== */
 	
-	public static boolean enableUBCStoneShadowing = true;
-	public static boolean enableUBCDesertShadowing = true;
-	
-    public static String shadowStoneBlockId = "minecraft:stained_hardened_clay";
-    public static int shadowStoneBlockByte = 9;
-    
-    public static String shadowDesertBlockId = "minecraft:stained_hardened_clay";
-    public static int shadowDesertBlockByte = 8;
-    
+    public static int flatBedrockLayers = 0;
     public static String bedrockBlockId = "minecraft:bedrock";
     public static int bedrockBlockByte = 0;
     
-    public static int duneHeight = 4;
+    /* ==================== Biomes ==================== */
+
+	public static boolean enableRTGBiomeDecorations = true;
+	public static boolean enableRTGBiomeSurfaces = true;
+    public static int patchBiomeId = 1;
     
-    public static String volcanoBlockId = "minecraft:obsidian";
-    public static int volcanoBlockByte = 0;
-    public static boolean enableVolcanoEruptions = true;
-    
-    public static boolean generateOreCoal = true;
-    public static boolean generateOreIron = true;
-    public static boolean generateOreGold = true;
-    public static boolean generateOreRedstone = true;
-    public static boolean generateOreLapis = true;
-    public static boolean generateOreDiamond = true;
-    public static boolean generateOreEmerald = true;
-	
+    /* ==================== Boulders ==================== */
+
     public static boolean enableCobblestoneBoulders = true;
     public static int cobblestoneBoulderChance = 1;
     
+    /* ==================== Caves ==================== */
+
+    public static boolean enableCaveModifications = true;
+    public static boolean enableCaves = true;
+    public static int caveDensity = 8;
+    public static int caveFrequency = 16;
+
+    /* ==================== Dunes ==================== */
+
+    public static int duneHeight = 4;
+
+    /* ==================== Debugging ==================== */
+
+    public static boolean showDebugInfo = false;
+    public static boolean enableDebugging = false;
+
+    /* ==================== Dungeons ==================== */
+
+    public static boolean generateDungeons = true;
+
+    /* ==================== Lakes (Surface) ==================== */
+
     public static boolean enableWaterSurfaceLakes = true;
     public static int waterSurfaceLakeChance = 10;
-    
-    public static boolean enableWaterUndergroundLakes = true;
-    public static int waterUndergroundLakeChance = 10;
-    
+
     public static boolean enableLavaSurfaceLakes = true;
     public static int lavaSurfaceLakeChance = 10;
     
+    /* ==================== Lakes (Underground) ==================== */
+
+    public static boolean enableWaterUndergroundLakes = true;
+    public static int waterUndergroundLakeChance = 10;
+
     public static boolean enableLavaUndergroundLakes = true;
     public static int lavaUndergroundLakeChance = 10;
     
+    /* ==================== Mineshafts ==================== */
+
     public static boolean generateMineshafts = true;
     public static boolean generateStrongholds = true;
     public static boolean generateVillages = true;
@@ -61,35 +72,71 @@ public class ConfigRTG
     public static boolean generateDungeons = true;
     public static boolean generateOceanMonuments = true;
     
-    public static boolean enableCaveModifications = true;
-    public static boolean enableCaves = true;
-    public static int caveDensity = 8;
-    public static int caveFrequency = 16;
+    /* ==================== Ore Gen ==================== */
+
+    public static boolean generateOreCoal = true;
+    public static boolean generateOreIron = true;
+    public static boolean generateOreGold = true;
+    public static boolean generateOreRedstone = true;
+    public static boolean generateOreLapis = true;
+    public static boolean generateOreDiamond = true;
+    public static boolean generateOreEmerald = true;
+
+    /* ==================== Ravines ==================== */
     
     public static boolean enableRavineModifications = true;
     public static boolean enableRavines = false;
     public static int ravineFrequency = 50;
-	
-    public static boolean enableSnowLayers = true;
+
+    /* ==================== Scattered Features ==================== */
     
-    public static int flatBedrockLayers = 0;
-    
-	public static boolean showDebugInfo = false;
-	public static boolean enableDebugging = false;
-	
+    public static boolean generateScatteredFeatures = true;
     public static int minDistanceScatteredFeatures = 12; // Vanilla = 8
     public static int maxDistanceScatteredFeatures = 48; // Vanilla = 32
     
+    /* ==================== Snow ==================== */
+
+    public static boolean enableSnowLayers = true;
+
+    /* ==================== Strongholds ==================== */
+
+    public static boolean generateStrongholds = true;
+
+    /* ==================== Terrain Shadowing ==================== */
+
+    public static String shadowStoneBlockId = "minecraft:stained_hardened_clay";
+    public static int shadowStoneBlockByte = 9;
+
+    public static String shadowDesertBlockId = "minecraft:stained_hardened_clay";
+    public static int shadowDesertBlockByte = 8;
+
+	public static boolean enableUBCStoneShadowing = true;
+	public static boolean enableUBCDesertShadowing = true;
+
+    /* ==================== Trees ==================== */
+
+	public static boolean allowTreesToGenerateOnSand = true;
+	public static boolean allowShrubsToGenerateBelowSurface = true;
+
+    /* ==================== Villages ==================== */
+
+    public static boolean generateVillages = true;
+
     public static boolean enableVillageModifications = enableVillageTweaks();
     public static int villageSize = 0;
     public static int minDistanceVillages = 12; // Vanilla = 8
     public static int maxDistanceVillages = 48; // Vanilla = 32
+
+    public static boolean villageCrashFix = (Loader.isModLoaded("enviromine")) ? true : false;
     
-    public static boolean allowTreesToGenerateOnSand = true;
-    
-    public static int patchBiomeId = 1;
-    	
-	public static void init(File configFile) 
+    /* ==================== Volcanoes ==================== */
+
+    public static String volcanoBlockId = "minecraft:obsidian";
+    public static int volcanoBlockByte = 0;
+    public static boolean enableVolcanoEruptions = true;
+
+
+	public static void init(File configFile)
 	{
 		config = new Configuration(configFile);
 		
@@ -241,8 +288,8 @@ public class ConfigRTG
 
             /* ==================== Ocean Monuments ==================== */
 
-            generateStrongholds = config.getBoolean("Generate Ocean Monuments", "Ocean Monuments", generateOceanMonuments, "");
-            
+            generateOceanMonuments = config.getBoolean("Generate Ocean Monuments", "Ocean Monuments", generateOceanMonuments, "");
+
             /* ==================== Terrain Shadowing ==================== */
             
             shadowStoneBlockId = config.getString(
@@ -299,6 +346,14 @@ public class ConfigRTG
                 + Configuration.NEW_LINE
             );
             
+            allowShrubsToGenerateBelowSurface = config.getBoolean(
+                "Allow Shrubs to Generate Below Surface",
+                "Trees",
+                allowShrubsToGenerateBelowSurface,
+                "Set this to FALSE to prevent shrub trunks from generating below the surface."
+                + Configuration.NEW_LINE
+            );
+
             /* ==================== Villages ==================== */
             
             enableVillageModifications = config.getBoolean(
@@ -316,6 +371,16 @@ public class ConfigRTG
             minDistanceVillages = config.getInt("Minimum distance between villages", "Villages", minDistanceVillages, 1, Integer.MAX_VALUE, "Higher values = villages further apart; 8 = Vanilla" + Configuration.NEW_LINE);
             maxDistanceVillages = config.getInt("Maximum distance between villages", "Villages", maxDistanceVillages, 1, Integer.MAX_VALUE, "Lower values = villages closer together; 32 = Vanilla" + Configuration.NEW_LINE);
             
+            villageCrashFix = config.getBoolean(
+                "Village Crash Fix",
+                "Villages",
+                villageCrashFix,
+                "Set this to TRUE to if you are experiencing 'java.util.ConcurrentModificationException' crashes related to village generation."
+                + Configuration.NEW_LINE +
+                "Defaults to FALSE unless EnviroMine is installed, in which case it defaults to TRUE."
+                + Configuration.NEW_LINE
+            );
+
             /* ==================== Volcanoes ==================== */
             
             volcanoBlockId = config.getString(

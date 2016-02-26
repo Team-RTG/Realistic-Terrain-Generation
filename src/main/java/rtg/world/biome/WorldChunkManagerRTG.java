@@ -198,7 +198,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
 	private static double cellBorder(double[] results, double width, double depth) {
 		double c = results[1] - results[0];
 		if (c < width) {
-			return ((c / width) - 1) * 1.0;
+			return ((c / width) - 1) * depth;
 		} else {
 			return 0;
 		}
@@ -352,9 +352,33 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
 
     }
     
+    @Override
     public BlockPos findBiomePosition(int p_150795_1_, int p_150795_2_, int p_150795_3_, List p_150795_4_, Random p_150795_5_)
     {
-        return null;
+        IntCache.resetIntCache();
+        int l = p_150795_1_ - p_150795_3_ >> 2;
+        int i1 = p_150795_2_ - p_150795_3_ >> 2;
+        int j1 = p_150795_1_ + p_150795_3_ >> 2;
+        int k1 = p_150795_2_ + p_150795_3_ >> 2;
+        int l1 = j1 - l + 1;
+        int i2 = k1 - i1 + 1;
+        int[] aint = this.genBiomes.getInts(l, i1, l1, i2);
+        ChunkPosition chunkposition = null;
+        int j2 = 0;
+
+        for (int k2 = 0; k2 < l1 * i2; ++k2)
+        {
+            int l2 = l + k2 % l1 << 2;
+            int i3 = i1 + k2 / l1 << 2;
+            BiomeGenBase biomegenbase = BiomeGenBase.getBiome(aint[k2]);
+
+            if (p_150795_4_.contains(biomegenbase) && (chunkposition == null || p_150795_5_.nextInt(j2 + 1) == 0))
+            {
+                chunkposition = new ChunkPosition(l2, 0, i3);
+                ++j2;
+            }
+        }
+
+        return chunkposition;
     }
-    
 }

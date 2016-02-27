@@ -206,9 +206,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
                 this.components.add(arrComponents.get(random.nextInt(arrComponents.size())));
             }
             
-            if (ConfigRTG.enableDebugging) {
-                Logger.debug("Scattered feature candidate at %d, %d", chunkX * 16, chunkZ * 16);
-            }
+            Logger.debug("Scattered feature candidate at %d, %d", chunkX * 16, chunkZ * 16);
             
             this.updateBoundingBox();
         }

@@ -9,10 +9,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import org.apache.logging.log4j.Level;
-
 import rtg.config.rtg.ConfigRTG;
-import cpw.mods.fml.common.FMLLog;
+import rtg.util.Logger;
 
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.util.MathHelper;
@@ -209,7 +207,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
             }
             
             if (ConfigRTG.enableDebugging) {
-                FMLLog.log(Level.INFO, "Scattered feature candidate at %d, %d", chunkX * 16, chunkZ * 16);
+                Logger.debug("Scattered feature candidate at %d, %d", chunkX * 16, chunkZ * 16);
             }
             
             this.updateBoundingBox();

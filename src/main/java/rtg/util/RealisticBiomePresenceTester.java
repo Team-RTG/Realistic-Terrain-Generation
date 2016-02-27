@@ -1,10 +1,7 @@
 
 package rtg.util;
 
-import org.apache.logging.log4j.Level;
-
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import cpw.mods.fml.common.FMLLog;
 
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -41,7 +38,7 @@ public class RealisticBiomePresenceTester {
                             String rBiomeName = rBiome.config.biomeSlug;
                         }
                         catch (Exception e) {
-                            FMLLog.log(Level.WARN, "WARNING! RTG could not find a realistic version of %s (%d) from %s", biomeName, biomeId, biomeClass);
+                            Logger.warn("WARNING! RTG could not find a realistic version of %s (%d) from %s", biomeName, biomeId, biomeClass);
                         }
                         
                         break;

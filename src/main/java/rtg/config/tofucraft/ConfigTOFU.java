@@ -2,11 +2,9 @@ package rtg.config.tofucraft;
 
 import java.io.File;
 
-import org.apache.logging.log4j.Level;
-
 import rtg.api.biome.tofucraft.config.BiomeConfigTOFU;
 import rtg.config.BiomeConfigManager;
-import cpw.mods.fml.common.FMLLog;
+import rtg.util.Logger;
 
 import net.minecraftforge.common.config.Configuration;
 
@@ -26,7 +24,7 @@ public class ConfigTOFU
 		}
 		catch (Exception e)
 		{
-			FMLLog.log(Level.ERROR, e, "RTG has had a problem loading TOFU configuration.");	
+		    Logger.error("RTG has had a problem loading TOFU configuration.");	
 		}
 		finally 
 		{

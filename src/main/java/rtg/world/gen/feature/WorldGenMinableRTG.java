@@ -2,10 +2,6 @@ package rtg.world.gen.feature;
 
 import java.util.Random;
 
-import org.apache.logging.log4j.Level;
-
-import cpw.mods.fml.common.FMLLog;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
@@ -93,7 +89,7 @@ public class WorldGenMinableRTG extends WorldGenerator
             }
         }
 
-        FMLLog.log(Level.INFO, "%d blocks of %s placed.", intBlocksPlaced, this.field_150519_a.getUnlocalizedName());
+        //Logger.debug("%d blocks of %s placed.", intBlocksPlaced, this.field_150519_a.getUnlocalizedName());
         
         return true;
     }

@@ -12,8 +12,6 @@ import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.Ev
 
 import java.util.Random;
 
-import org.apache.logging.log4j.Level;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
@@ -25,7 +23,6 @@ import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGeneric;
 import rtg.world.gen.terrain.TerrainBase;
-import cpw.mods.fml.common.FMLLog;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -406,10 +403,6 @@ public class RealisticBiomeBase extends BiomeBase {
             if (world.getBlock(i1, j1, k1).isReplaceableOreGen(world, i1, j1, k1, emeraldStoneBlock))
             {
                 world.setBlock(i1, j1, k1, emeraldEmeraldBlock, emeraldEmeraldMeta, 2);
-                
-                if (ConfigRTG.enableDebugging) {
-                    FMLLog.log(Level.INFO, "Emerald generated at %d, %d, %d", i1, j1, k1);
-                }
             }
         }
     }
@@ -432,10 +425,6 @@ public class RealisticBiomeBase extends BiomeBase {
                     if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, emeraldEmeraldBlock)) {
                         
                         world.setBlock(x, y, z, emeraldStoneBlock, emeraldStoneMeta, 2);
-                        
-                        if (enableDebugging) {
-                            FMLLog.log(Level.INFO, "Emerald replaced at %d, %d, %d", x, y, z);
-                        }
                     }
                 }
             }

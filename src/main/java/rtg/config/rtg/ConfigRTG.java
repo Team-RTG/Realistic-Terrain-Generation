@@ -2,9 +2,7 @@ package rtg.config.rtg;
 
 import java.io.File;
 
-import org.apache.logging.log4j.Level;
-
-import cpw.mods.fml.common.FMLLog;
+import rtg.util.Logger;
 import cpw.mods.fml.common.Loader;
 
 import net.minecraftforge.common.config.Configuration;
@@ -412,7 +410,7 @@ public class ConfigRTG
 		}
 		catch (Exception e) 
 		{
-			FMLLog.log(Level.ERROR, e, "RTG has had a problem loading RTG configuration.");	
+		    Logger.error("RTG has had a problem loading RTG configuration.");	
 		}
 		finally 
 		{

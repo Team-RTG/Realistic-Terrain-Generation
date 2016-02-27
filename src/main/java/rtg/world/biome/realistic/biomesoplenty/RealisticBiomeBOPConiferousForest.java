@@ -1,8 +1,9 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.content.BOPCBiomes;
-import biomesoplenty.api.content.BOPCBlocks;
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -20,10 +21,10 @@ import java.util.Random;
 
 public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.coniferousForest;
+	public static BiomeGenBase bopBiome = BOPBiomes.coniferous_forest.get();
 	
-	public static Block topBlock = BOPCBlocks.newBopGrass;
-	public static Block fillerBlock = BOPCBlocks.newBopDirt;
+	public static IBlockState topBlock = BOPBlocks.grass.getDefaultState();
+	public static IBlockState fillerBlock = BOPBlocks.dirt.getDefaultState();
 	
 	public RealisticBiomeBOPConiferousForest(BiomeConfig config)
 	{
@@ -31,14 +32,10 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPConiferousForest(58f, 84f, 24f),
 			new SurfaceBOPConiferousForest(config,
-                topBlock, //Block top 
-                (byte)0, //byte topByte
-                fillerBlock, //Block filler, 
-                (byte)0, //byte fillerByte
-                topBlock, //Block mixTop, 
-                (byte)0, //byte mixTopByte, 
-                fillerBlock, //Block mixFill, 
-                (byte)0, //byte mixFillByte,
+                topBlock, //Block top
+                fillerBlock, //Block filler,
+                topBlock, //IBlockState mixTop,
+                fillerBlock, //IBlockState mixFill,
                 80f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 
@@ -80,7 +77,7 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase
                 Block log;
                 byte logMeta;
     
-                log = BOPCBlocks.logs1;
+                log = BOPBlocks.log_1;
                 logMeta = (byte)3;
                 
                 (new WorldGenLog(log, logMeta, Blocks.leaves, -1, 3 + rand.nextInt(3))).generate(world, rand, new BlockPos(x22, y22, z22));

@@ -1,6 +1,7 @@
 package rtg.world.gen.surface.biomesoplenty;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -17,25 +18,21 @@ public class SurfaceBOPOutback extends SurfaceBase
 {
 
     
-    private Block blockMixTop;
-    private byte byteMixTop;
-    private Block blockMixFiller;
-    private byte byteMixFiller;
+    private IBlockState blockMixTop;
+    private IBlockState blockMixFiller;
     private float floMixWidth;
     private float floMixHeight;
     private float floSmallWidth;
     private float floSmallStrength;
     
-    public SurfaceBOPOutback(BiomeConfig config, Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
-        byte mixFillerByte, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
+    public SurfaceBOPOutback(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFiller,
+         float mixWidth, float mixHeight, float smallWidth, float smallStrength)
     {
     
-        super(config, top, topByte, filler, fillerByte);
+        super(config, top, filler);
         
         blockMixTop = mixTop;
-        byteMixTop = mixTopByte;
         blockMixFiller = mixFiller;
-        byteMixFiller = mixFillerByte;
         
         floMixWidth = mixWidth;
         floMixHeight = mixHeight;
@@ -88,7 +85,7 @@ public class SurfaceBOPOutback extends SurfaceBase
                         if (simplex.noise2(i / floMixWidth, j / floMixWidth) + simplex.noise2(i / floSmallWidth, j / floSmallWidth)
                             * floSmallStrength > floMixHeight)
                         {
-                            primer.setBlockState((y * 16 + x) * 256 + k, blockMixTop.getStateFromMeta(byteMixTop));
+                            primer.setBlockState((y * 16 + x) * 256 + k, blockMixTop);
                             
                             mix = true;
                         }
@@ -101,7 +98,7 @@ public class SurfaceBOPOutback extends SurfaceBase
                     {
                         if (mix)
                         {
-                            primer.setBlockState((y * 16 + x) * 256 + k, blockMixFiller.getStateFromMeta(byteMixFiller));
+                            primer.setBlockState((y * 16 + x) * 256 + k, blockMixFiller);
                         }
                         else
                         {

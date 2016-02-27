@@ -13,6 +13,8 @@ import rtg.util.ModPresenceTester;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.UBColumnCache;
 
+import com.shinoow.abyssalcraft.api.block.ACBlocks;
+
 import java.util.Random;
 
 public class SurfaceBase
@@ -21,7 +23,9 @@ public class SurfaceBase
     protected IBlockState fillerBlock;
 	protected BiomeConfig biomeConfig;
 
-    private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
+	private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
+	private final static ModPresenceTester abyssalCraftMod = new ModPresenceTester("abyssalcraft");
+
     // create UBColumnCache only if UB is present
     private static UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
 
@@ -73,29 +77,24 @@ public class SurfaceBase
     
     protected IBlockState hcStone(World world, int i, int j, int x, int y, int k)
     {
-        int worldX = i;
-        int worldY = k;
-        int worldZ = j;
-        
-        return Blocks.stone.getDefaultState();
+        if (abyssalCraftMod.present()) {
+            return ACBlocks.darkstone.getDefaultState();
+        }
+        else {
+
+            return Blocks.stone.getDefaultState();
+        }
     }
-    
-    protected IBlockState hcCobble(World world, int i, int j, int x, int y, int k)
+
+    protected IBlockState hcCobble(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY)
     {
-        //if ((undergroundBiomesMod.present())) {
-            
-        //    int worldX = i;
-        //    int worldY = k;
-        //    int worldZ = j;
-            
-        //    BlockCodes cobble = ubColumnCache.column(worldX,worldZ).cobblestone(worldY);
-            
-        //    return cobble.block;
-        //}
-        //else {
-            
+        if (abyssalCraftMod.present()) {
+
+            return ACBlocks.darkstone_cobblestone.getDefaultState();
+        }
+        else {
             return Blocks.cobblestone.getDefaultState();
-        //}
+        }
     }
     
     public IBlockState getTopBlock()
@@ -123,7 +122,7 @@ public class SurfaceBase
         catch (Exception e) {
             topBlock = top;
         }
-        
+
         String userFillerBlock = config._string(BiomeConfig.surfaceFillerBlockId);
         String userFillerBlockMeta = config._string(BiomeConfig.surfaceFillerBlockMetaId);
         try {
@@ -144,7 +143,7 @@ public class SurfaceBase
         IBlockState blockReturn = blockDefault;
         String userBlockId = config._string(propertyId);
         String userBlockMeta = config._string(propertyMeta);
-        
+
         try {
             if (Block.getBlockFromName(userBlockId) != null) {
                 fillerBlock = Block.getBlockFromName(userBlockId).getStateFromMeta(Integer.parseInt(userBlockMeta));

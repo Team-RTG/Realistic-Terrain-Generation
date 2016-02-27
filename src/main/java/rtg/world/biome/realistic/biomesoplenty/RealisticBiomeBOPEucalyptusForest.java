@@ -1,7 +1,8 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.content.BOPCBiomes;
+import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -19,10 +20,10 @@ import java.util.Random;
 
 public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.eucalyptusForest;
+	public static BiomeGenBase bopBiome = BOPBiomes.eucalyptus_forest.get();
 	
-	public static Block topBlock = bopBiome.topBlock.getBlock();
-	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
+	public static IBlockState topBlock = bopBiome.topBlock;
+	public static IBlockState fillerBlock = bopBiome.fillerBlock;
 	
 	public RealisticBiomeBOPEucalyptusForest(BiomeConfig config)
 	{
@@ -30,14 +31,10 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPEucalyptusForest(58f, 80f, 36f),
 			new SurfaceBOPEucalyptusForest(config,
-                topBlock, //Block top 
-                (byte)0, //byte topByte
-                fillerBlock, //Block filler, 
-                (byte)0, //byte fillerByte
-                topBlock, //Block mixTop, 
-                (byte)0, //byte mixTopByte, 
-                fillerBlock, //Block mixFill, 
-                (byte)0, //byte mixFillByte,
+                topBlock, //Block top
+                fillerBlock, //Block filler,
+                topBlock, //IBlockState mixTop,
+                fillerBlock, //IBlockState mixFill,
                 80f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 

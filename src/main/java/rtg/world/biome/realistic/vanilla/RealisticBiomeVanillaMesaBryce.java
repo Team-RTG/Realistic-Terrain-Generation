@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -24,8 +24,8 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase
     public static BiomeGenBase standardBiome = BiomeGenBase.mesa;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
     
-    public static Block topBlock = mutationBiome.topBlock.getBlock();
-    public static Block fillerBlock = mutationBiome.fillerBlock.getBlock();
+    public static  IBlockState topBlock = mutationBiome.topBlock;
+    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
     public RealisticBiomeVanillaMesaBryce(BiomeConfig config)
     {
@@ -34,7 +34,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f),
-            new SurfaceVanillaMesaBryce(config, Blocks.sand, (byte)1, Blocks.sand, (byte)1, 0)
+            new SurfaceVanillaMesaBryce(config, Blocks.sand.getDefaultState(), Blocks.sand.getDefaultState(), 0)
         );
         config.setVillageMaterial(VillageMaterial.Preset.RED_SAND);
     }

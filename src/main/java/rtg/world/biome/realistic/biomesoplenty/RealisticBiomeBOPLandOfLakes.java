@@ -1,7 +1,8 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.content.BOPCBiomes;
+import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -26,17 +27,17 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.landOfLakes;
+	public static BiomeGenBase bopBiome = BOPBiomes.land_of_lakes.get();
 	
-	public static Block topBlock = bopBiome.topBlock.getBlock();
-	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
+	public static IBlockState topBlock = bopBiome.topBlock;
+	public static IBlockState fillerBlock = bopBiome.fillerBlock;
 	
 	public RealisticBiomeBOPLandOfLakes(BiomeConfig config)
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPLandOfLakes(58f, 76f, 36f),
-			new SurfaceBOPLandOfLakes(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.10f)
+			new SurfaceBOPLandOfLakes(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone.getDefaultState(), 0.10f)
 		);
 	}
 	

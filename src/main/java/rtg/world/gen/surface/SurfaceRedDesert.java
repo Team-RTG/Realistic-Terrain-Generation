@@ -1,6 +1,7 @@
 package rtg.world.gen.surface;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -14,16 +15,16 @@ import java.util.Random;
 
 public class SurfaceRedDesert extends SurfaceBase
 {
-	private Block cliffBlock1;
-	private Block cliffBlock2;
-	private Block bottomBlock;
+	private IBlockState cliffBlock1;
+	private IBlockState cliffBlock2;
+	private IBlockState bottomBlock;
 	
 	public SurfaceRedDesert(BiomeConfig config)
 	{
-		super(config, Blocks.sand, (byte)1, Blocks.sand, (byte)1);
+		super(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1));
 		
-		bottomBlock = Blocks.sandstone; 
-		cliffBlock1 = Blocks.stained_hardened_clay;
+		bottomBlock = Blocks.sandstone.getDefaultState();
+		cliffBlock1 = Blocks.stained_hardened_clay.getDefaultState();
 	}
 	
 	@Override
@@ -47,7 +48,7 @@ public class SurfaceRedDesert extends SurfaceBase
             	{
             		if (depth < 6)
             		{                			
-            			primer.setBlockState((y * 16 + x) * 256 + k, cliffBlock1.getStateFromMeta((byte)14));
+            			primer.setBlockState((y * 16 + x) * 256 + k, cliffBlock1.getBlock().getStateFromMeta((byte)14));
             		}
             	}
             	else if(depth < 6)
@@ -62,7 +63,7 @@ public class SurfaceRedDesert extends SurfaceBase
 	        		}
 	        		else
 	        		{
-	        			primer.setBlockState((y * 16 + x) * 256 + k, bottomBlock.getDefaultState());
+	        			primer.setBlockState((y * 16 + x) * 256 + k, bottomBlock.getBlock().getDefaultState());
 	        		}
             	}
             }

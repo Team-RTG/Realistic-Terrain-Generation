@@ -1,6 +1,7 @@
 package rtg.world.gen.surface;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -15,7 +16,7 @@ import java.util.Random;
 public class SurfaceDesertMountain extends SurfaceBase
 {
 	private boolean beach;
-	private Block beachBlock;
+	private IBlockState beachBlock;
 	private float min;
 	
 	private float sCliff = 1.5f;
@@ -23,15 +24,15 @@ public class SurfaceDesertMountain extends SurfaceBase
 	private float sStrength = 65f;
 	private float cCliff = 1.5f;
 	
-	public SurfaceDesertMountain(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
+	public SurfaceDesertMountain(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff)
 	{
-	    super(config, top, (byte)0, fill, (byte)0);
+	    super(config, top, fill);
 		beach = genBeach;
 		beachBlock = genBeachBlock;
 		min = minCliff;
 	}
 	
-	public SurfaceDesertMountain(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
+	public SurfaceDesertMountain(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
 	{
 		this(config, top, fill, genBeach, genBeachBlock, minCliff);
 		
@@ -99,7 +100,7 @@ public class SurfaceDesertMountain extends SurfaceBase
             		{
             			if(beach)
             			{
-	            			primer.setBlockState((y * 16 + x) * 256 + k, beachBlock.getDefaultState());
+	            			primer.setBlockState((y * 16 + x) * 256 + k, beachBlock);
 	            			gravel = true;
             			}
             			else if(k < 62)
@@ -128,7 +129,7 @@ public class SurfaceDesertMountain extends SurfaceBase
             		}
             		else if(gravel)
             		{
-            			primer.setBlockState((y * 16 + x) * 256 + k, beachBlock.getDefaultState());
+            			primer.setBlockState((y * 16 + x) * 256 + k, beachBlock);
             		}
             		else
             		{

@@ -1,6 +1,7 @@
 package rtg.world.gen.surface.vanilla;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -16,7 +17,7 @@ import java.util.Random;
 public class SurfaceVanillaMushroomIsland extends SurfaceBase
 {
 	private int beach;
-	private Block beachBlock;
+	private IBlockState beachBlock;
 	private float min;
 	
 	private float sCliff = 1.5f;
@@ -24,15 +25,15 @@ public class SurfaceVanillaMushroomIsland extends SurfaceBase
 	private float sStrength = 65f;
 	private float cCliff = 1.5f;
 	
-	public SurfaceVanillaMushroomIsland(BiomeConfig config, Block top, Block fill, int beachHeight, Block genBeachBlock, float minCliff) 
+	public SurfaceVanillaMushroomIsland(BiomeConfig config, IBlockState top, IBlockState fill, int beachHeight, IBlockState genBeachBlock, float minCliff)
 	{
-	    super(config, top, (byte)0, fill, (byte)0);
+	    super(config, top, fill);
 		beach = beachHeight;
 		beachBlock = genBeachBlock;
 		min = minCliff;
 	}
 	
-	public SurfaceVanillaMushroomIsland(BiomeConfig config, Block top, Block fill, int beachHeight, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
+	public SurfaceVanillaMushroomIsland(BiomeConfig config, IBlockState top, IBlockState fill, int beachHeight, IBlockState genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
 	{
 		this(config, top, fill, beachHeight, genBeachBlock, minCliff);
 		
@@ -95,7 +96,7 @@ public class SurfaceVanillaMushroomIsland extends SurfaceBase
             		}
             		else if(k < beach)
             		{
-            			primer.setBlockState((y * 16 + x) * 256 + k, beachBlock.getDefaultState());
+            			primer.setBlockState((y * 16 + x) * 256 + k, beachBlock);
             			gravel = true;
             		}
             		else
@@ -115,7 +116,7 @@ public class SurfaceVanillaMushroomIsland extends SurfaceBase
             		}
             		else if(gravel)
             		{
-            			primer.setBlockState((y * 16 + x) * 256 + k, beachBlock.getDefaultState());
+            			primer.setBlockState((y * 16 + x) * 256 + k, beachBlock);
             		}
             		else
             		{

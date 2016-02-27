@@ -25,19 +25,19 @@ public class SurfaceVanillaExtremeHillsM extends SurfaceBase
     private float smallW;
     private float smallS;
     
-    public SurfaceVanillaExtremeHillsM(BiomeConfig config, Block top, Block filler, Block mixTop, Block mixFill, float mixWidth,
+    public SurfaceVanillaExtremeHillsM(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFill, float mixWidth,
         float mixHeight, float smallWidth, float smallStrength)
     {
     
-        super(config, top, (byte)0, filler, (byte)0);
+        super(config, top, filler);
         
         mixBlockTop = this.getConfigBlock(config, BiomeConfigVanillaExtremeHillsM.surfaceMixBlockId,
                 BiomeConfigVanillaExtremeHillsM.surfaceMixBlockMetaId,
-                mixTop.getDefaultState());
+                mixTop);
         
         mixBlockFill = this.getConfigBlock(config, BiomeConfigVanillaExtremeHillsM.surfaceMixFillerBlockId,
                 BiomeConfigVanillaExtremeHillsM.surfaceMixFillerBlockMetaId,
-                mixFill.getDefaultState());
+                mixFill);
         
         width = mixWidth;
         height = mixHeight;

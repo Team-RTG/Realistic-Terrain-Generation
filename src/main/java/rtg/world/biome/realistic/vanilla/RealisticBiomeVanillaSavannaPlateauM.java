@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -24,8 +24,8 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
     public static BiomeGenBase standardBiome = BiomeGenBase.savannaPlateau;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
     
-    public static Block topBlock = mutationBiome.topBlock.getBlock();
-    public static Block fillerBlock = mutationBiome.fillerBlock.getBlock();
+    public static  IBlockState topBlock = mutationBiome.topBlock;
+    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
     
     public RealisticBiomeVanillaSavannaPlateauM(BiomeConfig config)
     {
@@ -34,7 +34,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaSavannaPlateauM(true, 35f, 160f, 60f, 40f, 69f),
-            new SurfaceVanillaSavannaPlateauM(config, topBlock, (byte)0, fillerBlock, (byte)0, 0));
+            new SurfaceVanillaSavannaPlateauM(config, topBlock, fillerBlock, 0));
         config.setVillageMaterial(VillageMaterial.Preset.ACACIA);
     }
     

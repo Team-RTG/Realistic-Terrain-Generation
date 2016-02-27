@@ -1,6 +1,7 @@
 package rtg.world.gen.surface.biomesoplenty;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -15,11 +16,11 @@ import java.util.Random;
 
 public class SurfaceBOPCrag extends SurfaceBase
 {
-	private Block cliffBlock1;
+	private IBlockState cliffBlock1;
 
-	public SurfaceBOPCrag(BiomeConfig config, Block top, Block filler, Block cliff1)
+	public SurfaceBOPCrag(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState cliff1)
 	{
-		super(config, top, (byte)0, filler, (byte)0);
+		super(config, top, filler);
 
 		cliffBlock1 = cliff1;
 	}
@@ -49,7 +50,7 @@ public class SurfaceBOPCrag extends SurfaceBase
                 		{
                             if (rand.nextInt(3) == 0) {
 
-                                primer.setBlockState((y * 16 + x) * 256 + k, cliffBlock1.getDefaultState());
+                                primer.setBlockState((y * 16 + x) * 256 + k, cliffBlock1);
                             }
                             else {
 
@@ -58,7 +59,7 @@ public class SurfaceBOPCrag extends SurfaceBase
                 		}
                 		else if (depth < 10)
                 		{
-                			primer.setBlockState((y * 16 + x) * 256 + k, cliffBlock1.getDefaultState());
+                			primer.setBlockState((y * 16 + x) * 256 + k, cliffBlock1);
                 		}
                 		else {
                 		    primer.setBlockState((y * 16 + x) * 256 + k, topBlock);

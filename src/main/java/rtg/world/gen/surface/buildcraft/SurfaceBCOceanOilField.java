@@ -1,6 +1,7 @@
 package rtg.world.gen.surface.buildcraft;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -15,15 +16,15 @@ import java.util.Random;
 public class SurfaceBCOceanOilField extends SurfaceBase
 {
     
-    private Block mixBlock;
+    private IBlockState mixBlock;
     private float width;
     private float height;
     private float mixCheck;
     
-    public SurfaceBCOceanOilField(BiomeConfig config, Block top, Block filler, Block mix, float mixWidth, float mixHeight)
+    public SurfaceBCOceanOilField(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mix, float mixWidth, float mixHeight)
     {
     
-        super(config, top, (byte)0, filler, (byte)0);
+        super(config, top, filler);
         
         mixBlock = mix;
         
@@ -53,7 +54,7 @@ public class SurfaceBCOceanOilField extends SurfaceBase
                     
                     if (mixCheck > height) // > 0.27f, i / 12f
                     {
-                        primer.setBlockState((y * 16 + x) * 256 + k, mixBlock.getDefaultState());
+                        primer.setBlockState((y * 16 + x) * 256 + k, mixBlock);
                     }
                     else
                     {

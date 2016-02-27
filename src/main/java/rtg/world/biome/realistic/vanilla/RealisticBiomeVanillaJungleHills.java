@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -29,8 +29,8 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
 {
     
-    public static Block topBlock = BiomeGenBase.jungleHills.topBlock.getBlock();
-    public static Block fillerBlock = BiomeGenBase.jungleHills.fillerBlock.getBlock();
+    public static  IBlockState topBlock = BiomeGenBase.jungleHills.topBlock;
+    public static IBlockState fillerBlock = BiomeGenBase.jungleHills.fillerBlock;
     
     public RealisticBiomeVanillaJungleHills(BiomeConfig config)
     {
@@ -39,7 +39,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
             BiomeGenBase.jungleHills,
             BiomeGenBase.river,
             new TerrainVanillaJungleHills(),
-            new SurfaceVanillaJungleHills(config, Blocks.grass, Blocks.dirt, false, null, 1f, 1.5f, 60f, 65f, 1.5f));
+            new SurfaceVanillaJungleHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 1f, 1.5f, 60f, 65f, 1.5f));
         config.setVillageMaterial(VillageMaterial.Preset.STONE_BRICK);
         this.waterSurfaceLakeChance = 3;
     }

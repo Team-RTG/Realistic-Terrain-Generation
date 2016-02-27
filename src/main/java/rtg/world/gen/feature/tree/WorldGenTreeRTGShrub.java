@@ -6,11 +6,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.config.rtg.ConfigRTG;
 
 import java.util.Random;
 
-import static java.lang.Math.abs;
-import static net.minecraft.block.material.Material.*;
+import static net.minecraft.block.material.Material.plants;
 import static net.minecraft.block.material.Material.vine;
 import static net.minecraft.init.Blocks.*;
 import static rtg.config.rtg.ConfigRTG.allowTreesToGenerateOnSand;
@@ -69,13 +69,29 @@ public class WorldGenTreeRTGShrub extends WorldGenerator {
 		if ((b == Blocks.sand || b1 == Blocks.sand) && !allowTreesToGenerateOnSand) {
             return;
         }
+		
+		if(b.getMaterial() == Material.grass || b.getMaterial() == Material.ground || (sand && b.getMaterial() == Material.sand))
+		{
+			if (b1 != Blocks.water )
+			{
+                if (!ConfigRTG.allowShrubsToGenerateBelowSurface) {
 
-		if (b.getMaterial() == Material.grass || b.getMaterial() == ground || (sand && b.getMaterial() == Material.sand)) {
-			if (world.getBlockState(new BlockPos(x, y - 1, z)).getBlock() != Blocks.water) {
-				for (int i = -size; i <= size; i++) {
-					for (int j = -1; j <= 1; j++) {
-						for (int k = -size; k <= size; k++) {
-							if (abs(i) + abs(j) + abs(k) <= size) {
+                    if (b1.getMaterial() != Material.air &&
+                        b1.getMaterial() != Material.vine &&
+                        b1.getMaterial() != Material.plants &&
+                        b1 != Blocks.snow_layer) {
+                        return;
+                    }
+                }
+
+				for(int i = -size; i <= size; i++)
+				{
+					for(int j = -1; j <= 1; j++)
+					{
+						for(int k = -size; k <= size; k++)
+						{
+							if(Math.abs(i) + Math.abs(j) + Math.abs(k) <= size)
+							{
 								buildBlock(world, x + i, y + j, z + k, leaveBlock, leaveMeta);
 							}
 						}

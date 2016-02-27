@@ -36,8 +36,8 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase
             BiomeGenBase.birchForest,
             BiomeGenBase.river,
             new TerrainVanillaBirchForest(),
-            new SurfaceVanillaBirchForest(config, BiomeGenBase.birchForest.topBlock.getBlock(),
-                    BiomeGenBase.birchForest.fillerBlock.getBlock(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f));
+            new SurfaceVanillaBirchForest(config, BiomeGenBase.birchForest.topBlock,
+                    BiomeGenBase.birchForest.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.15f));
         config.setVillageMaterial(VillageMaterial.Preset.BIRCH);
     }
 

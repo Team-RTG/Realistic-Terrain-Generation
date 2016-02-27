@@ -67,7 +67,7 @@ public class EventManagerRTG
         else if (event.type == InitMapGenEvent.EventType.OCEAN_MONUMENT) {
                 event.newGen = new StructureOceanMonumentRTG();
         }
-		
+
         if (ConfigRTG.enableDebugging) {
             FMLLog.log(Level.INFO, "event newGen = %s", event.newGen.toString());
         }

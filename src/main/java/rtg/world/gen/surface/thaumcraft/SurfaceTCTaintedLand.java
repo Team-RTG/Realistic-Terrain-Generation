@@ -1,6 +1,7 @@
 package rtg.world.gen.surface.thaumcraft;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -16,9 +17,9 @@ import java.util.Random;
 public class SurfaceTCTaintedLand extends SurfaceBase
 {
 
-	public SurfaceTCTaintedLand(BiomeConfig config, Block top, Block filler)
+	public SurfaceTCTaintedLand(BiomeConfig config, IBlockState top, IBlockState filler)
 	{
-		super(config, top, (byte)0, filler, (byte)0);
+		super(config, top, filler);
 	}
 	
 	@Override

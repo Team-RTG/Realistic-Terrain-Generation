@@ -6,14 +6,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.config.rtg.ConfigRTG;
 
 import java.util.Random;
 
-import static java.lang.Math.abs;
 import static net.minecraft.block.material.Material.*;
 import static net.minecraft.init.Blocks.snow_layer;
-import static net.minecraft.init.Blocks.water;
-import static rtg.config.rtg.ConfigRTG.allowTreesToGenerateOnSand;
 
 public class WorldGenTreeRTGShrubCustom extends WorldGenerator {
     public boolean generate(World world, Random rand, BlockPos blockPos) {
@@ -61,20 +59,37 @@ public class WorldGenTreeRTGShrubCustom extends WorldGenerator {
 		}
 		return true;
 	}
-
-	public void buildLeaves(World world, int x, int y, int z, int size) {
+	public void buildLeaves(World world, int x, int y, int z, int size)
+	{
 		Block b = world.getBlockState(new BlockPos(x, y - 2, z)).getBlock();
+		Block b1 = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
 
-		if (b == Blocks.sand && !allowTreesToGenerateOnSand) {
+        if ((b == Blocks.sand || b1 == Blocks.sand) && !ConfigRTG.allowTreesToGenerateOnSand) {
             return;
         }
+		
+		if(b.getMaterial() == Material.grass || b.getMaterial() == Material.ground || (sand && b.getMaterial() == Material.sand))
+		{
+			if (b1 != Blocks.water)
+			{
+			    if (!ConfigRTG.allowShrubsToGenerateBelowSurface) {
 
-		if (b.getMaterial() == grass || b.getMaterial() == ground || (sand && b.getMaterial() == Material.sand)) {
-			if (world.getBlockState(new BlockPos(x, y - 1, z)).getBlock() != water) {
-				for (int i = -size; i <= size; i++) {
-					for (int j = -1; j <= 1; j++) {
-						for (int k = -size; k <= size; k++) {
-							if (abs(i) + abs(j) + abs(k) <= size) {
+                    if (b1.getMaterial() != Material.air &&
+                        b1.getMaterial() != Material.vine &&
+                        b1.getMaterial() != Material.plants &&
+                        b1 != Blocks.snow_layer) {
+                        return;
+                    }
+			    }
+
+				for(int i = -size; i <= size; i++)
+				{
+					for(int j = -1; j <= 1; j++)
+					{
+						for(int k = -size; k <= size; k++)
+						{
+							if(Math.abs(i) + Math.abs(j) + Math.abs(k) <= size)
+							{
 								buildBlock(world, x + i, y + j, z + k, leaveBlock, leaveMeta);
 							}
 						}

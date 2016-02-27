@@ -25,18 +25,19 @@ public class SurfaceVanillaExtremeHillsEdge extends SurfaceBase
     private float smallW;
     private float smallS;
     
-    public SurfaceVanillaExtremeHillsEdge(BiomeConfig config, Block top, Block filler, Block mixTop, Block mixFill, float mixWidth,
+    public SurfaceVanillaExtremeHillsEdge(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFill, float mixWidth,
         float mixHeight, float smallWidth, float smallStrength)
     {
     
-        super(config, top, (byte)0, filler, (byte)0);
+        super(config, top, filler);
 
         mixBlockTop = this.getConfigBlock(config, BiomeConfigVanillaExtremeHillsEdge.surfaceMixBlockId,
                 BiomeConfigVanillaExtremeHillsEdge.surfaceMixBlockMetaId,
-                mixTop.getDefaultState());
+                mixTop);
         
         mixBlockFill = this.getConfigBlock(config, BiomeConfigVanillaExtremeHillsEdge.surfaceMixFillerBlockId,
-                BiomeConfigVanillaExtremeHillsEdge.surfaceMixFillerBlockMetaId, mixFill.getDefaultState());
+                BiomeConfigVanillaExtremeHillsEdge.surfaceMixFillerBlockMetaId, mixFill
+        );
         
         width = mixWidth;
         height = mixHeight;

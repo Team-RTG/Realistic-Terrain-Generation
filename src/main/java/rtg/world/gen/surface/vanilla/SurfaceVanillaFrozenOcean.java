@@ -23,13 +23,13 @@ public class SurfaceVanillaFrozenOcean extends SurfaceBase
     private float mixCheck;
     private final int sandMetadata = 0;
     
-    public SurfaceVanillaFrozenOcean(BiomeConfig config, Block top, Block filler, Block mix, float mixWidth, float mixHeight)
+    public SurfaceVanillaFrozenOcean(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mix, float mixWidth, float mixHeight)
     {
     
-        super(config, top, (byte)0, filler, (byte)0);
+        super(config, top, filler);
         
         mixBlock = this.getConfigBlock(config, BiomeConfigVanillaFrozenOcean.surfaceMixBlockId, BiomeConfigVanillaFrozenOcean.surfaceMixBlockMetaId,
-                mix.getDefaultState());
+                mix);
 
         width = mixWidth;
         height = mixHeight;

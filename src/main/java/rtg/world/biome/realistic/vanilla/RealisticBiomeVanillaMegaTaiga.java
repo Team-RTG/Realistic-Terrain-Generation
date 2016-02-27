@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -28,8 +28,8 @@ import java.util.Random;
 public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase
 {
     
-    public static Block topBlock = BiomeGenBase.megaTaiga.topBlock.getBlock();
-    public static Block fillerBlock = BiomeGenBase.megaTaiga.fillerBlock.getBlock();
+    public static  IBlockState topBlock = BiomeGenBase.megaTaiga.topBlock;
+    public static IBlockState fillerBlock = BiomeGenBase.megaTaiga.fillerBlock;
     
     public RealisticBiomeVanillaMegaTaiga(BiomeConfig config)
     {

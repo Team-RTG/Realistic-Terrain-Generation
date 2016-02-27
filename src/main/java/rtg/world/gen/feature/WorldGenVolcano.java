@@ -44,25 +44,25 @@ public class WorldGenVolcano
 //						{
 //							if(blocks[cta(x, y, z)] != Blocks.air)
 //							{
-//								blocks[cta(x, y, z)] = Blocks.air;
+//								primer.setBlockState(cta(x, y, z),Blocks.air.getDefaultState());
 //							}
 //						}
 //						else if(y > obsidian && y < 156 + height)
 //						{
-//						    blocks[cta(x, y, z)] = volcanoBlock;
+//						    primer.setBlockState(cta(x, y, z),volcanoBlock.getDefaultState());
 //						    metadata[cta(x, y, z)] = volcanoByte;
 //							
 //							
 //						}
 //						else if(y < 166)
 //						{
-//							blocks[cta(x, y, z)] = lavaBlock;
+//							primer.setBlockState(cta(x, y, z),lavaBlock.getDefaultState());
 //						}
 //						else if(y < obsidian + 1)
 //						{
 //							if(blocks[cta(x, y, z)] == Blocks.air)
 //							{
-//							    blocks[cta(x, y, z)] = Blocks.stone;
+//							    primer.setBlockState(cta(x, y, z),Blocks.stone.getDefaultState());
 //							    metadata[cta(x, y, z)] = (byte)0;
 //							}
 //							else
@@ -84,7 +84,7 @@ public class WorldGenVolcano
 //					{
 //						if(y <= height)
 //						{
-//							b = blocks[cta(x, y, z)];
+//							b = primer.getBlockState(cta(x, y, z),).getBlock();
 //							meta = metadata[cta(x, y, z)];
 //							
 //							if(b == Blocks.air)
@@ -105,7 +105,7 @@ public class WorldGenVolcano
 //								break;
 //							}
 //							
-//							blocks[cta(x, y, z)] = b;
+//							primer.setBlockState(cta(x, y, z),b.getDefaultState());
 //							metadata[cta(x, y, z)] = meta;
 //						}
 //					}

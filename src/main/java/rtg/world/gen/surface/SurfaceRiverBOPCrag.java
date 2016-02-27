@@ -1,6 +1,7 @@
 package rtg.world.gen.surface;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -14,14 +15,14 @@ import java.util.Random;
 
 public class SurfaceRiverBOPCrag extends SurfaceBase
 {
-    private Block topBlock;
-    private Block fillerBlock;
-    private Block cliffBlock1;
-    private Block cliffBlock2;
+    private IBlockState topBlock;
+    private IBlockState fillerBlock;
+    private IBlockState cliffBlock1;
+    private IBlockState cliffBlock2;
     
-	public SurfaceRiverBOPCrag(BiomeConfig config, Block top, Block filler, Block cliff1, Block cliff2) 
+	public SurfaceRiverBOPCrag(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState cliff1, IBlockState cliff2)
 	{
-		super(config, top, (byte)0, filler, (byte)0);
+		super(config, top, filler);
 		
 		topBlock = top;
 		fillerBlock = filler;
@@ -50,28 +51,28 @@ public class SurfaceRiverBOPCrag extends SurfaceBase
                 {
                     if(depth > -1 && depth < 2)
                     {
-                        primer.setBlockState((y * 16 + x) * 256 + k, rand.nextInt(3) == 0 ? cliffBlock1.getDefaultState() : cliffBlock2.getDefaultState());
+                        primer.setBlockState((y * 16 + x) * 256 + k, rand.nextInt(3) == 0 ? cliffBlock1 : cliffBlock2);
                     }
                     else if (depth < 10)
                     {
-                        primer.setBlockState((y * 16 + x) * 256 + k, cliffBlock1.getDefaultState());
+                        primer.setBlockState((y * 16 + x) * 256 + k, cliffBlock1);
                     }
                     else {
-                        primer.setBlockState((y * 16 + x) * 256 + k, topBlock.getDefaultState());
+                        primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
                     }
                 }
                 else
                 {
                     if(depth == 0 && k > 61)
                     {
-                        primer.setBlockState((y * 16 + x) * 256 + k, topBlock.getDefaultState());
+                        primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
                     }
                     else if(depth < 4)
                     {
-                        primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock.getDefaultState());
+                        primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
                     }
                     else {
-                        primer.setBlockState((y * 16 + x) * 256 + k, topBlock.getDefaultState());
+                        primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
                     }
                 }
             }

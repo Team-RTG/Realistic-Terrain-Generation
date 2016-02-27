@@ -1,18 +1,17 @@
 package rtg.world.biome.realistic.vanilla;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.VillageMaterial;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaPlains;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaPlains;
 
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
-
 public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
 {
     
-    public static Block topBlock = BiomeGenBase.plains.topBlock.getBlock();
-    public static Block fillerBlock = BiomeGenBase.plains.fillerBlock.getBlock();
+    public static IBlockState topBlock = BiomeGenBase.plains.topBlock;
+    public static IBlockState fillerBlock = BiomeGenBase.plains.fillerBlock;
     
     public RealisticBiomeVanillaPlains(BiomeConfig config)
     {

@@ -18,7 +18,7 @@ public class SurfaceMesa extends SurfaceBase
 	
 	public SurfaceMesa(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte)
 	{
-		super(config, top, topByte, fill, fillByte);
+		super(config, top, fill);
 		
 		int[] c = new int[]{1, 8, 0};
 		OpenSimplexNoise simplex = new OpenSimplexNoise(2L);

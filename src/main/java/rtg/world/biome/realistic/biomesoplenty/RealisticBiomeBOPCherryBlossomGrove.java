@@ -1,8 +1,9 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.content.BOPCBiomes;
-import biomesoplenty.api.content.BOPCBlocks;
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -20,10 +21,10 @@ import java.util.Random;
 
 public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.cherryBlossomGrove;
+	public static BiomeGenBase bopBiome = BOPBiomes.cherry_blossom_grove.get();
 	
-	public static Block topBlock = bopBiome.topBlock.getBlock();
-	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
+	public static IBlockState topBlock = bopBiome.topBlock;
+	public static IBlockState fillerBlock = bopBiome.fillerBlock;
 	
 	public RealisticBiomeBOPCherryBlossomGrove(BiomeConfig config)
 	{
@@ -31,14 +32,10 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPCherryBlossomGrove(58f, 76f, 20f),
 			new SurfaceBOPCherryBlossomGrove(config,
-			    topBlock, //Block top 
-                (byte)0, //byte topByte
-                fillerBlock, //Block filler, 
-                (byte)0, //byte fillerByte
-                topBlock, //Block mixTop, 
-                (byte)0, //byte mixTopByte, 
-                fillerBlock, //Block mixFill, 
-                (byte)0, //byte mixFillByte,
+			    topBlock, //Block top
+                fillerBlock, //Block filler,
+                topBlock, //IBlockState mixTop,
+                fillerBlock, //IBlockState mixFill,
                 80f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 
@@ -81,7 +78,7 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase
                 byte logMeta;
                 
                 if (rand.nextInt(15) != 0) {
-                    log = BOPCBlocks.logs1;
+                    log = BOPBlocks.log_1;
                     logMeta = (byte)1;
                 }
                 else {

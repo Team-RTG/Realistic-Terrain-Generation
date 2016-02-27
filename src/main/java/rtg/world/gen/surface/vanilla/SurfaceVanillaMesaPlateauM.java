@@ -1,6 +1,7 @@
 package rtg.world.gen.surface.vanilla;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -18,9 +19,9 @@ public class SurfaceVanillaMesaPlateauM extends SurfaceBase
 	private int[] claycolor = new int[100];
 	private int grassRaise = 0;
 	
-	public SurfaceVanillaMesaPlateauM(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte, int grassHeight)
+	public SurfaceVanillaMesaPlateauM(BiomeConfig config, IBlockState top, IBlockState fill, int grassHeight)
 	{
-		super(config, top, topByte, fill, fillByte);
+		super(config, top, fill);
 		grassRaise = grassHeight;
 		
 		int[] c = new int[]{1, 8, 0};

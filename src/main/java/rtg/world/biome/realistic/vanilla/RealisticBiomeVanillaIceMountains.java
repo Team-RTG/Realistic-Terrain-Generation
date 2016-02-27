@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -24,8 +24,8 @@ import java.util.Random;
 public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
 {
     
-    public static Block topBlock = BiomeGenBase.iceMountains.topBlock.getBlock();
-    public static Block fillerBlock = BiomeGenBase.iceMountains.fillerBlock.getBlock();
+    public static  IBlockState topBlock = BiomeGenBase.iceMountains.topBlock;
+    public static IBlockState fillerBlock = BiomeGenBase.iceMountains.fillerBlock;
     
     public RealisticBiomeVanillaIceMountains(BiomeConfig config)
     {
@@ -34,7 +34,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
             BiomeGenBase.iceMountains,
             BiomeGenBase.frozenRiver,
             new TerrainVanillaIceMountains(230f, 80f, 0f),
-            new SurfaceVanillaIceMountains(config, topBlock, fillerBlock, Blocks.snow, Blocks.snow, Blocks.packed_ice, Blocks.ice, 60f,
+            new SurfaceVanillaIceMountains(config, topBlock, fillerBlock, Blocks.snow.getDefaultState(), Blocks.snow.getDefaultState(), Blocks.packed_ice.getDefaultState(), Blocks.ice.getDefaultState(), 60f,
                 -0.14f, 14f, 0.25f));
         config.setVillageMaterial(VillageMaterial.Preset.ICE);
     }

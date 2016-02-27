@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.content.BOPCBiomes;
-import net.minecraft.block.Block;
+import biomesoplenty.api.biome.BOPBiomes;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
@@ -10,17 +10,17 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPChaparral;
 
 public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.chaparral;
+	public static BiomeGenBase bopBiome = BOPBiomes.chaparral.get();
 	
-	public static Block topBlock = bopBiome.topBlock.getBlock();
-	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
+	public static IBlockState topBlock = bopBiome.topBlock;
+	public static IBlockState fillerBlock = bopBiome.fillerBlock;
 	
 	public RealisticBiomeBOPChaparral(BiomeConfig config)
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPChaparral(),
-			new SurfaceBOPChaparral(config, topBlock, fillerBlock, Blocks.sand, 26f, 0.35f)
+			new SurfaceBOPChaparral(config, topBlock, fillerBlock, Blocks.sand.getDefaultState(), 26f, 0.35f)
 		);
 	}
 }

@@ -76,6 +76,8 @@ public class RealisticBiomeBase extends BiomeBase {
     
         super(biome.biomeID);
         
+        if (config == null) throw new RuntimeException("Biome config cannot be NULL when instantiating a realistic biome.");
+        
         this.config = config;
 
     	if (biome.biomeID == 160 && this instanceof rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaRedwoodTaigaHills) {
@@ -127,7 +129,7 @@ public class RealisticBiomeBase extends BiomeBase {
         
         this(config, b, riverbiome, t, new SurfaceBase[] {s});
         
-        surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock().getBlock(), s.getFillerBlock().getBlock());
+        surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
     }
     
     public void rPopulatePreDecorate(IChunkProvider ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag)

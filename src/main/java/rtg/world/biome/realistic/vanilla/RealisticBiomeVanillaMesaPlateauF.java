@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -19,8 +19,8 @@ import java.util.Random;
 public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
 {	
     
-    public static Block topBlock = BiomeGenBase.mesaPlateau_F.topBlock.getBlock();
-	public static Block fillerBlock = BiomeGenBase.mesaPlateau_F.fillerBlock.getBlock();
+    public static  IBlockState topBlock = BiomeGenBase.mesaPlateau_F.topBlock;
+	public static IBlockState fillerBlock = BiomeGenBase.mesaPlateau_F.fillerBlock;
 	
 	public RealisticBiomeVanillaMesaPlateauF(BiomeConfig config)
 	{
@@ -28,7 +28,7 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
 			BiomeGenBase.mesaPlateau_F,
 			BiomeGenBase.river,
 			new TerrainVanillaMesaPlateauF(true, 35f, 160f, 60f, 40f, 69f),
-			new SurfaceVanillaMesaPlateauF(config, Blocks.sand, (byte)1, Blocks.sand, (byte)1, 0)
+			new SurfaceVanillaMesaPlateauF(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1), 0)
 		);
         config.setVillageMaterial(VillageMaterial.Preset.RED_SAND);
 	}

@@ -27,7 +27,7 @@ public class ConfigBOP
 		}
 		catch (Exception e)
 		{
-			FMLLog.log(Level.ERROR, e, "RTG has had a problem loading BOP configuration.");	
+		    Logger.error("RTG has had a problem loading BOP configuration.");
 		}
 		finally 
 		{

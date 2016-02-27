@@ -28,8 +28,6 @@ public class TerrainFNTropicalForest extends TerrainBase
         
         floNoise = 68f + h;
         
-        // FMLLog.log(Level.INFO, "floNoise = %f", floNoise);
-        
         return floNoise;
     }
 }

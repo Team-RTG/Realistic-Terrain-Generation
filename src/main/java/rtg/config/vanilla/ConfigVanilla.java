@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 import rtg.api.biome.vanilla.config.BiomeConfigVanilla;
 import rtg.config.BiomeConfigManager;
+import rtg.util.Logger;
 
 import java.io.File;
 
@@ -25,7 +26,7 @@ public class ConfigVanilla
 		}
 		catch (Exception e) 
 		{
-			FMLLog.log(Level.ERROR, e, "RTG has had a problem loading Vanilla Biome configuration.");
+		    Logger.error("RTG has had a problem loading Vanilla configuration.");
 		}
 		finally 
 		{

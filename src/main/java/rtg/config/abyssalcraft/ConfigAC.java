@@ -1,6 +1,9 @@
 package rtg.config.abyssalcraft;
 
-import net.minecraftforge.common.config.Configuration;
+import java.io.File;
+
+import org.apache.logging.log4j.Level;
+
 import rtg.api.biome.abyssalcraft.config.BiomeConfigAC;
 import rtg.api.biome.vanilla.config.BiomeConfigVanilla;
 import rtg.config.BiomeConfigManager;
@@ -13,7 +16,7 @@ public class ConfigAC
     
     public static Configuration config;
     public static Configuration villageConfig;
-    
+
     public static void init(File configFile)
     {
     
@@ -27,7 +30,7 @@ public class ConfigAC
             
         } catch (Exception e)
         {
-            Logger.error("RTG has had a problem loading AC configuration. %s", e);
+            Logger.error("RTG has had a problem loading AC configuration.");
         } finally
         {
             if (config.hasChanged())

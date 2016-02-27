@@ -25,7 +25,7 @@ public class ConfigTC
 		}
 		catch (Exception e)
 		{
-			Logger.error("RTG has had a problem loading Thaumcraft configuration. %s", e);
+		    Logger.error("RTG has had a problem loading Thaumcraft configuration.");
 		}
 		finally 
 		{

@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 import rtg.api.biome.forgottennature.config.BiomeConfigFN;
 import rtg.config.BiomeConfigManager;
+import rtg.util.Logger;
 
 import java.io.File;
 
@@ -26,7 +27,7 @@ public class ConfigFN
             
         } catch (Exception e)
         {
-            FMLLog.log(Level.ERROR, e, "RTG has had a problem loading FN configuration.");
+            Logger.error("RTG has had a problem loading FN configuration.");
         } finally
         {
             if (config.hasChanged())

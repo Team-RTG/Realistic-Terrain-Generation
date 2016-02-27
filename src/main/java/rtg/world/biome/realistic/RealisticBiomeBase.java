@@ -77,7 +77,7 @@ public class RealisticBiomeBase extends BiomeBase {
         super(biome.biomeID);
         
         if (config == null) throw new RuntimeException("Biome config cannot be NULL when instantiating a realistic biome.");
-        
+
         this.config = config;
 
     	if (biome.biomeID == 160 && this instanceof rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaRedwoodTaigaHills) {
@@ -427,10 +427,6 @@ public class RealisticBiomeBase extends BiomeBase {
             if (world.getBlockState(mbp).getBlock().isReplaceableOreGen(world, mbp, BlockHelper.forBlock(emeraldStoneBlock)))
             {
                 world.setBlockState(mbp, emeraldEmeraldBlock.getStateFromMeta(emeraldEmeraldMeta), 2);
-                
-                //if (ConfigRTG.enableDebugging) {
-                //    FMLLog.log(Level.INFO, "Emerald generated at %d, %d, %d", mbp.getX(), mbp.getY(), mbp.getZ());
-                //}
             }
         }
     }
@@ -453,10 +449,6 @@ public class RealisticBiomeBase extends BiomeBase {
                     if (world.getBlockState(mbp.set(x,y,z)).getBlock().isReplaceableOreGen(world, mbp, BlockHelper.forBlock(emeraldEmeraldBlock))) {
                         
                         world.setBlockState(mbp, emeraldStoneBlock.getStateFromMeta(emeraldStoneMeta), 2);
-                        
-                        if (enableDebugging) {
-                            FMLLog.log(Level.INFO, "Emerald replaced at %d, %d, %d", x, y, z);
-                        }
                     }
                 }
             }

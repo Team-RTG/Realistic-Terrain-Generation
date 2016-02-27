@@ -1,11 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.content.BOPCBiomes;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPGrove;
 import rtg.util.CellNoise;
@@ -16,12 +12,17 @@ import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrubCustom;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPGrove;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPGrove;
+import biomesoplenty.api.biome.BOPBiomes;
 
-import java.util.Random;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.grove;
+	public static BiomeGenBase bopBiome = BOPBiomes.grove.get();
 	
 	public static Block topBlock = bopBiome.topBlock.getBlock();
 	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();

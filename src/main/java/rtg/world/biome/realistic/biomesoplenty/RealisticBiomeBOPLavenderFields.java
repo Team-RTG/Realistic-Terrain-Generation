@@ -1,11 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.content.BOPCBiomes;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -13,12 +9,17 @@ import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPLavenderFields;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPLavenderFields;
+import biomesoplenty.api.biome.BOPBiomes;
 
-import java.util.Random;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.lavenderFields;
+	public static BiomeGenBase bopBiome = BOPBiomes.lavender_fields.get();
 	
 	public static Block topBlock = bopBiome.topBlock.getBlock();
 	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();

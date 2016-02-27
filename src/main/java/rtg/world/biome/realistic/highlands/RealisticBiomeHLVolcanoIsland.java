@@ -1,12 +1,9 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.chunk.ChunkPrimer;
+
+import java.util.Random;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -15,10 +12,15 @@ import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenVolcano;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
-import rtg.world.gen.surface.biomesoplenty.SurfaceBOPVolcano;
+import rtg.world.gen.surface.highlands.SurfaceHLVolcanoIsland;
 import rtg.world.gen.terrain.highlands.TerrainHLVolcanoIsland;
 
-import java.util.Random;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
 
 public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
 {
@@ -39,7 +41,7 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
         super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLVolcanoIsland(),
-            new SurfaceBOPVolcano(config, 
+            new SurfaceHLVolcanoIsland(config, 
                 bopTopBlock, //Block top 
                 bopTopByte, //byte topByte
                 bopFillBlock, //Block filler, 

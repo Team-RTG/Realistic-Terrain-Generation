@@ -1,12 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.content.BOPCBiomes;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenBlockBlob;
+import java.util.Random;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPEucalyptusForest;
 import rtg.util.CellNoise;
@@ -14,12 +9,18 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPEucalyptusForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPEucalyptusForest;
+import biomesoplenty.api.biome.BOPBiomes;
 
-import java.util.Random;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 
 public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.eucalyptusForest;
+	public static BiomeGenBase bopBiome = BOPBiomes.eucalyptus_forest.get();
 	
 	public static Block topBlock = bopBiome.topBlock.getBlock();
 	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();

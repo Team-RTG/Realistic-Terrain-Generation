@@ -1,12 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.content.BOPCBiomes;
-import biomesoplenty.api.content.BOPCBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOasis;
 import rtg.util.CellNoise;
@@ -14,12 +9,18 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPOasis;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPOasis;
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.block.BOPBlocks;
 
-import java.util.Random;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.oasis;
+	public static BiomeGenBase bopBiome = BOPBiomes.oasis.get();
 	
 	public static Block topBlock = bopBiome.topBlock.getBlock();
 	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
@@ -71,7 +72,7 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase
                 byte logMeta;
                 int intLogLength;
     
-                log = BOPCBlocks.logs2;
+                log = BOPBlocks.log_2;
                 logMeta = (byte)3;
                 intLogLength = 3 + rand.nextInt(3);
     

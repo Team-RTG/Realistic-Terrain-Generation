@@ -1,12 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.content.BOPCBiomes;
-import biomesoplenty.api.content.BOPCBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMountain;
 import rtg.util.CellNoise;
@@ -17,12 +12,18 @@ import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMountain;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMountain;
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.block.BOPBlocks;
 
-import java.util.Random;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.mountain;
+	public static BiomeGenBase bopBiome = BOPBiomes.mountain.get();
 	
 	public static Block topBlock = bopBiome.topBlock.getBlock();
 	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
@@ -82,8 +83,8 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
                 int y22 = world.getHeight(new BlockPos(x22, 0, z22)).getY();
-    
-                (new WorldGenLog(BOPCBlocks.logs4, (byte)0, BOPCBlocks.colorizedLeaves1, -1, 3 + rand.nextInt(4))).generate(world, rand, new BlockPos(x22, y22, z22));
+                //TODO: used to be colorizedLeaves1
+                (new WorldGenLog(BOPBlocks.log_4, (byte)0, BOPBlocks.leaves_0, -1, 3 + rand.nextInt(4))).generate(world, rand, new BlockPos(x22, y22, z22));
             }
         }
         

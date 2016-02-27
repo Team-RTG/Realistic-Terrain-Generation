@@ -1,12 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.content.BOPCBiomes;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenBlockBlob;
+import java.util.Random;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPSeasonalForest;
 import rtg.util.CellNoise;
@@ -14,12 +9,18 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPSeasonalForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPSeasonalForest;
+import biomesoplenty.api.biome.BOPBiomes;
 
-import java.util.Random;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 
 public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.seasonalForest;
+	public static BiomeGenBase bopBiome = BOPBiomes.seasonal_forest.get();
 	
 	public static Block topBlock = bopBiome.topBlock.getBlock();
 	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();

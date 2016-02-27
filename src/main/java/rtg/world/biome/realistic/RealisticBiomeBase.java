@@ -435,7 +435,6 @@ public class RealisticBiomeBase extends BiomeBase {
     {
         int endX = (chunkX * 16) + 16;
         int endZ = (chunkZ * 16) + 16;
-        boolean enableDebugging = ConfigRTG.enableDebugging;
 
         // Get the highest possible existing block location.
         int maxY = world.getHeight(new BlockPos(chunkX, 0, chunkZ)).getY();

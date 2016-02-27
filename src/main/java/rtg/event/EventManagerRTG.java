@@ -37,8 +37,8 @@ public class EventManagerRTG
 	@SubscribeEvent(priority = EventPriority.LOW)
 	public void eventListenerRTG(InitMapGenEvent event) {
 	    
-            Logger.debug("event type = %s", event.type.toString());
-            Logger.debug("event originalGen = %s", event.originalGen.toString());
+        Logger.debug("event type = %s", event.type.toString());
+        Logger.debug("event originalGen = %s", event.originalGen.toString());
 	    
 		if (event.type == InitMapGenEvent.EventType.SCATTERED_FEATURE) {
 			event.newGen = new MapGenScatteredFeatureRTG();
@@ -66,11 +66,7 @@ public class EventManagerRTG
         else if (event.type == InitMapGenEvent.EventType.OCEAN_MONUMENT) {
                 event.newGen = new StructureOceanMonumentRTG();
         }
-
-        if (ConfigRTG.enableDebugging) {
-            Logger.debug("event newGen = %s", event.newGen.toString());
-        }
-
+        Logger.debug("event newGen = %s", event.newGen.toString());
 	}
 	
     @SubscribeEvent

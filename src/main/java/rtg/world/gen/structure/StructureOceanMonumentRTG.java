@@ -22,6 +22,7 @@ import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 import rtg.config.rtg.ConfigRTG;
+import rtg.util.Logger;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 
@@ -106,7 +107,13 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         int l = p_76940_2_ + p_76940_3_ >> 2;
         int i1 = k - i + 1;
         int j1 = l - j + 1;
-        WorldChunkManagerRTG wcm = (WorldChunkManagerRTG) worldObj.getWorldChunkManager();
+        WorldChunkManagerRTG wcm;
+        try {
+            wcm = (WorldChunkManagerRTG) worldObj.getWorldChunkManager();
+        } catch(ClassCastException e) {
+            Logger.info("This is not an RTG world, y u want 2 generate rtg Ocean Monuments?");
+            return false;
+        }
         int[] aint = wcm.getBiomesGens(i,j,i1,j1);
 
         try

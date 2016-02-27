@@ -35,8 +35,7 @@ public class EventManagerRTG
     
 	@SubscribeEvent(priority = EventPriority.LOW)
 	public void eventListenerRTG(InitMapGenEvent event) {
-	    
-	    if (ConfigRTG.enableDebugging) {
+        if (ConfigRTG.enableDebugging) {
 	        FMLLog.log(Level.INFO, "event type = %s", event.type.toString());
 	        FMLLog.log(Level.INFO, "event originalGen = %s", event.originalGen.toString());
 	    }

@@ -10,9 +10,8 @@
     import net.minecraft.world.gen.structure.StructureComponent;
     import net.minecraft.world.gen.structure.StructureStart;
     import net.minecraftforge.common.BiomeDictionary;
-    import net.minecraftforge.fml.common.FMLLog;
-    import org.apache.logging.log4j.Level;
     import rtg.config.rtg.ConfigRTG;
+    import rtg.util.Logger;
 
     import java.util.*;
     import java.util.Map.Entry;

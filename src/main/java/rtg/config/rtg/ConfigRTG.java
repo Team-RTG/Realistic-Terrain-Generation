@@ -1,9 +1,8 @@
 package rtg.config.rtg;
 
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Loader;
-import org.apache.logging.log4j.Level;
+import rtg.util.Logger;
 
 import java.io.File;
 

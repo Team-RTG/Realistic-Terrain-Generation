@@ -1,12 +1,11 @@
 package rtg.config.enhancedbiomes;
 
-import java.io.File;
-
+import net.minecraftforge.common.config.Configuration;
 import rtg.api.biome.enhancedbiomes.config.BiomeConfigEB;
 import rtg.config.BiomeConfigManager;
-import net.minecraftforge.fml.common.FMLLog;
+import rtg.util.Logger;
 
-import net.minecraftforge.common.config.Configuration;
+import java.io.File;
 
 public class ConfigEB 
 {

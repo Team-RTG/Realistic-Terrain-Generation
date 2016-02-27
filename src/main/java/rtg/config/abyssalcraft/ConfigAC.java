@@ -1,9 +1,6 @@
 package rtg.config.abyssalcraft;
 
-import java.io.File;
-
-import org.apache.logging.log4j.Level;
-
+import net.minecraftforge.common.config.Configuration;
 import rtg.api.biome.abyssalcraft.config.BiomeConfigAC;
 import rtg.api.biome.vanilla.config.BiomeConfigVanilla;
 import rtg.config.BiomeConfigManager;

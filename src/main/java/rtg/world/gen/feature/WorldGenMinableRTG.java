@@ -1,5 +1,7 @@
 package rtg.world.gen.feature;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.pattern.BlockHelper;
 import net.minecraft.util.BlockPos;
@@ -89,9 +91,6 @@ public class WorldGenMinableRTG extends WorldGenerator {
                 }
             }
         }
-
-        log(INFO, "%d blocks of %s placed.", intBlocksPlaced, this.field_150519_a.getUnlocalizedName());
-
         return true;
     }
 }

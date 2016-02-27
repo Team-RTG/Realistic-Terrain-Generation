@@ -2,11 +2,9 @@ package rtg.config.vampirism;
 
 import java.io.File;
 
-import org.apache.logging.log4j.Level;
-
 import rtg.api.biome.vampirism.config.BiomeConfigVAMP;
 import rtg.config.BiomeConfigManager;
-import net.minecraftforge.fml.common.FMLLog;
+import rtg.util.Logger;
 
 import net.minecraftforge.common.config.Configuration;
 
@@ -28,7 +26,7 @@ public class ConfigVAMP
             
         } catch (Exception e)
         {
-            FMLLog.log(Level.ERROR, e, "RTG has had a problem loading VAMP configuration.");
+            Logger.error("RTG has had a problem loading VAMP configuration.");
         } finally
         {
             if (config.hasChanged())

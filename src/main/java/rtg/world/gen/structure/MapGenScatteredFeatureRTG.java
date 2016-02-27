@@ -10,9 +10,8 @@
     import net.minecraft.world.gen.structure.StructureComponent;
     import net.minecraft.world.gen.structure.StructureStart;
     import net.minecraftforge.common.BiomeDictionary;
-    import net.minecraftforge.fml.common.FMLLog;
-    import org.apache.logging.log4j.Level;
     import rtg.config.rtg.ConfigRTG;
+    import rtg.util.Logger;
 
     import java.util.*;
     import java.util.Map.Entry;
@@ -199,9 +198,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
                 this.components.add((StructureComponent) arrComponents.get(random.nextInt(arrComponents.size())));
             }
             
-            if (ConfigRTG.enableDebugging) {
-                FMLLog.log(Level.INFO, "Scattered feature candidate at %d, %d", chunkX * 16, chunkZ * 16);
-            }
+            Logger.debug("Scattered feature candidate at %d, %d", chunkX * 16, chunkZ * 16);
             
             this.updateBoundingBox();
         }

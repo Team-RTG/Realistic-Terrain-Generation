@@ -1,14 +1,11 @@
 package rtg.config.enhancedbiomes;
 
-import java.io.File;
-
-import org.apache.logging.log4j.Level;
-
+import net.minecraftforge.common.config.Configuration;
 import rtg.api.biome.enhancedbiomes.config.BiomeConfigEB;
 import rtg.config.BiomeConfigManager;
-import net.minecraftforge.fml.common.FMLLog;
+import rtg.util.Logger;
 
-import net.minecraftforge.common.config.Configuration;
+import java.io.File;
 
 public class ConfigEB 
 {
@@ -26,7 +23,7 @@ public class ConfigEB
 		}
 		catch (Exception e)
 		{
-			FMLLog.log(Level.ERROR, e, "RTG has had a problem loading EB configuration.");	
+		    Logger.error("RTG has had a problem loading EB configuration.");
 		}
 		finally 
 		{

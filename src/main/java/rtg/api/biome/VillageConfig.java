@@ -153,8 +153,9 @@ public class VillageConfig {
     public int _int(String id)
     {
         try {
-
-            return Integer.valueOf(getPropertyById(id).valueString);
+            String s = getPropertyById(id).valueString;
+            if (!s.isEmpty()) return Integer.valueOf(getPropertyById(id).valueString);
+            return 0;
         }
         catch (Exception e) {
 

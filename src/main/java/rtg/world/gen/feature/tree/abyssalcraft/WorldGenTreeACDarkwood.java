@@ -1,13 +1,13 @@
 package rtg.world.gen.feature.tree.abyssalcraft;
 
-import java.util.Random;
-
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+
+import java.util.Random;
 
 public class WorldGenTreeACDarkwood extends WorldGenerator
 {
@@ -30,16 +30,16 @@ public class WorldGenTreeACDarkwood extends WorldGenerator
 		metadataLeaves = leaves;
 	}
 	
-    public boolean generate(World world, Random rand, int x, int y, int z)
+    public boolean generate(World world, Random rand, BlockPos blockPos)
     {
-    	int startY = y;
+    	int startY = blockPos.getY();
     	
-    	Block g = world.getBlock(x, y - 1, z);
+    	Block g = world.getBlockState(blockPos.down()).getBlock();
     	if(g != ACBlocks.darklands_grass)
     	{
     		return false;
     	}
-    	
+    	int x = blockPos.getX(), y = blockPos.getY(), z = blockPos.getZ();
     	buildTrunk(world, rand, x + 1, y, z);
     	buildTrunk(world, rand, x - 1, y, z);
     	buildTrunk(world, rand, x, y, z + 1);
@@ -48,7 +48,7 @@ public class WorldGenTreeACDarkwood extends WorldGenerator
     	int i;
     	for(i = 0; i < startHeight; i++)
     	{
-    		world.setBlock(x, y, z, ACBlocks.darklands_oak_wood, metadataLog, 0);
+    		world.setBlockState(blockPos, ACBlocks.darklands_oak_wood.getStateFromMeta(metadataLog), 0);
     		if(i > 5 && rand.nextInt(7) == 0)
     		{
     			int dX = -1 + rand.nextInt(3);
@@ -99,7 +99,7 @@ public class WorldGenTreeACDarkwood extends WorldGenerator
         			i < treeSize - 5 ? 2 : 1
         		);
     		}
-    		world.setBlock(x, y, z, ACBlocks.darklands_oak_wood, metadataLog, 0);
+    		world.setBlockState(new BlockPos(x, y, z), ACBlocks.darklands_oak_wood.getStateFromMeta(metadataLog), 0);
     		
     		if(i < treeSize - 2)
 	    	{
@@ -144,16 +144,16 @@ public class WorldGenTreeACDarkwood extends WorldGenerator
     	
     	for(int m = 1; m <= logLength; m++)
     	{
-        	world.setBlock(x + (dX * m), y, z + (dZ * m), ACBlocks.darklands_oak_wood, metadataLog, 0);
+        	world.setBlockState(new BlockPos(x + (dX * m), y, z + (dZ * m)), ACBlocks.darklands_oak_wood.getStateFromMeta(metadataLog), 0);
     	}
     }
     
     public void buildLeaves(World world, int x, int y, int z)
     {
-    	Block b = world.getBlock(x, y, z);
+    	Block b = world.getBlockState(new BlockPos(x, y, z)).getBlock();
     	if(b.getMaterial() == Material.air)
     	{
-    		world.setBlock(x, y, z, ACBlocks.darklands_oak_leaves, metadataLeaves, 0);
+    		world.setBlockState(new BlockPos(x, y, z), ACBlocks.darklands_oak_leaves.getStateFromMeta(metadataLeaves), 0);
     	}
     }
     
@@ -163,7 +163,7 @@ public class WorldGenTreeACDarkwood extends WorldGenerator
     	h = h + rand.nextInt(h * 2);
     	for(int i = -1; i < h; i++)
     	{
-    		world.setBlock(x, y + i, z, ACBlocks.darklands_oak_wood, metadataLog, 0);
+    		world.setBlockState(new BlockPos(x, y + i, z), ACBlocks.darklands_oak_wood.getStateFromMeta(metadataLog), 0);
     	}
     }
 }

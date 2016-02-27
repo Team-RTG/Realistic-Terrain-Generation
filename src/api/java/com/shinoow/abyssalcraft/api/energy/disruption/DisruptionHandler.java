@@ -14,15 +14,15 @@ package com.shinoow.abyssalcraft.api.energy.disruption;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.logging.log4j.Level;
-
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLLog;
+
+import org.apache.logging.log4j.Level;
 
 import com.google.common.collect.Lists;
 import com.shinoow.abyssalcraft.api.energy.EnergyEnum.DeityType;
-
-import cpw.mods.fml.common.FMLLog;
 
 /**
  * Handler for disruptions (when something bad happens during Potential Energy manipulation)
@@ -83,7 +83,7 @@ public class DisruptionHandler {
 	 * 
 	 * @since 1.5
 	 */
-	public void generateDisruption(DeityType deity, World world, int x, int y, int z, List<EntityPlayer> players){
+	public void generateDisruption(DeityType deity, World world, BlockPos pos, List<EntityPlayer> players){
 		List<DisruptionEntry> dis = Lists.newArrayList();
 
 		if(deity == null){
@@ -95,6 +95,6 @@ public class DisruptionHandler {
 				if(entry.getDeity() == deity || entry.getDeity() == null)
 					dis.add(entry);
 
-		dis.get(world.rand.nextInt(dis.size())).disrupt(world, x, y, z, players);
+		dis.get(world.rand.nextInt(dis.size())).disrupt(world, pos, players);
 	}
 }

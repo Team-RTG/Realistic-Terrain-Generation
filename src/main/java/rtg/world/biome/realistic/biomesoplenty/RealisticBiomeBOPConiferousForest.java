@@ -1,7 +1,14 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.block.BOPBlocks;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPConiferousForest;
 import rtg.util.CellNoise;
@@ -9,22 +16,15 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPConiferousForest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPConiferousForest;
-import biomesoplenty.api.biome.BOPBiomes;
-import biomesoplenty.api.block.BOPBlocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenBlockBlob;
+import java.util.Random;
 
 public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPBiomes.coniferous_forest.get();
 	
-	public static Block topBlock = BOPBlocks.grass;
-	public static Block fillerBlock = BOPBlocks.dirt;
+	public static IBlockState topBlock = BOPBlocks.grass.getDefaultState();
+	public static IBlockState fillerBlock = BOPBlocks.dirt.getDefaultState();
 	
 	public RealisticBiomeBOPConiferousForest(BiomeConfig config)
 	{
@@ -32,14 +32,10 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPConiferousForest(58f, 84f, 24f),
 			new SurfaceBOPConiferousForest(config,
-                topBlock, //Block top 
-                (byte)0, //byte topByte
-                fillerBlock, //Block filler, 
-                (byte)0, //byte fillerByte
-                topBlock, //Block mixTop, 
-                (byte)0, //byte mixTopByte, 
-                fillerBlock, //Block mixFill, 
-                (byte)0, //byte mixFillByte,
+                topBlock, //Block top
+                fillerBlock, //Block filler,
+                topBlock, //IBlockState mixTop,
+                fillerBlock, //IBlockState mixFill,
                 80f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 

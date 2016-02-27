@@ -1,7 +1,11 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
+import biomesoplenty.api.biome.BOPBiomes;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -9,20 +13,15 @@ import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPLavenderFields;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPLavenderFields;
-import biomesoplenty.api.biome.BOPBiomes;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
 
 public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPBiomes.lavender_fields.get();
 	
-	public static Block topBlock = bopBiome.topBlock.getBlock();
-	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
+	public static IBlockState topBlock = bopBiome.topBlock;
+	public static IBlockState fillerBlock = bopBiome.fillerBlock;
 	
 	public RealisticBiomeBOPLavenderFields(BiomeConfig config)
 	{

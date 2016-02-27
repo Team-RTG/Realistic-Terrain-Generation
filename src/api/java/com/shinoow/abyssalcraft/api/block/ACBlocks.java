@@ -12,7 +12,7 @@
 package com.shinoow.abyssalcraft.api.block;
 
 import net.minecraft.block.Block;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Contains all blocks added in AbyssalCraft
@@ -46,7 +46,7 @@ public class ACBlocks {
 	public static Block block_of_abyssalnite = getBlock("abyblock");
 	public static Block coralium_infused_stone = getBlock("coraliumstone");
 	public static Block odb_core = getBlock("odbcore");
-	public static Block wooden_crate = getBlock("Crate");
+	public static Block wooden_crate = getBlock("crate");
 	public static Block abyssal_gateway = getBlock("portal");
 	public static Block darkstone_slab = getBlock("darkstoneslab1");
 	public static Block darkstone_doubleslab = getBlock("darkstoneslab2");

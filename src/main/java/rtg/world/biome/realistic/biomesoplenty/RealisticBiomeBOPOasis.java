@@ -1,7 +1,13 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.block.BOPBlocks;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOasis;
 import rtg.util.CellNoise;
@@ -9,21 +15,15 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPOasis;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPOasis;
-import biomesoplenty.api.biome.BOPBiomes;
-import biomesoplenty.api.block.BOPBlocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
 
 public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPBiomes.oasis.get();
 	
-	public static Block topBlock = bopBiome.topBlock.getBlock();
-	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
+	public static IBlockState topBlock = bopBiome.topBlock;
+	public static IBlockState fillerBlock = bopBiome.fillerBlock;
 	
 	public RealisticBiomeBOPOasis(BiomeConfig config)
 	{
@@ -31,14 +31,10 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPOasis(),
 			new SurfaceBOPOasis(config, 
-                topBlock, //Block top 
-                (byte)0, //byte topByte
-                fillerBlock, //Block filler, 
-                (byte)0, //byte fillerByte
-                Blocks.sand, //Block mixTop, 
-                (byte)0, //byte mixTopByte, 
-                Blocks.sandstone, //Block mixFill, 
-                (byte)0, //byte mixFillByte,
+                topBlock, //Block top
+                fillerBlock, //Block filler,
+                Blocks.sand.getDefaultState(), //IBlockState mixTop,
+                Blocks.sandstone.getDefaultState(), //IBlockState mixFill,
                 40f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 

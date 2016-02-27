@@ -1,3 +1,3 @@
-@API(apiVersion=AbyssalCraftAPI.API_VERSION,owner="abyssalcraft",provides="AbyssalCraftAPI")
+@API(apiVersion=AbyssalCraftAPI.API_VERSION,owner="abyssalcraft",provides="AbyssalCraftAPI|Core")
 package com.shinoow.abyssalcraft.api;
-import cpw.mods.fml.common.API;
+import net.minecraftforge.fml.common.API;

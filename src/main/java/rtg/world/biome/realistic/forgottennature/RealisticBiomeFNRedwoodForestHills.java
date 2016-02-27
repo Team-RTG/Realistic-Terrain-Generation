@@ -16,6 +16,6 @@ public class RealisticBiomeFNRedwoodForestHills extends RealisticBiomeFNBase
         super(config,
             fnBiome, BiomeGenBase.river,
             new TerrainFNRedwoodForestHills(),
-            new SurfaceFNRedwoodForestHills(config, fnBiome.topBlock, fnBiome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f));
+            new SurfaceFNRedwoodForestHills(config, fnBiome.topBlock, fnBiome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.15f));
     }
 }

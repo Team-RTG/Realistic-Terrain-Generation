@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -30,8 +30,8 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
 {
     
-    public static Block topBlock = BiomeGenBase.coldTaiga.topBlock.getBlock();
-    public static Block fillerBlock = BiomeGenBase.coldTaiga.fillerBlock.getBlock();
+    public static  IBlockState topBlock = BiomeGenBase.coldTaiga.topBlock;
+    public static IBlockState fillerBlock = BiomeGenBase.coldTaiga.fillerBlock;
     
     public RealisticBiomeVanillaColdTaiga(BiomeConfig config)
     {

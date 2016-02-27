@@ -28,12 +28,12 @@ public class ItemEngraving extends Item {
 
 	/**
 	 * The "fuel" in Coin Engraving. Use this class if you want to make your own engravings.
-	 * @param par1 The unlocalized name, will be prefixed by "engraving."
+	 * @param par1 The unlocalized name, will be prefixed by "engraving_"
 	 * @param par2 The item damage, used as a durability check
 	 */
 	public ItemEngraving(String par1, int par2){
 		super();
-		setUnlocalizedName("engraving." + par1);
+		setUnlocalizedName("engraving_" + par1);
 		setMaxDamage(par2);
 	}
 

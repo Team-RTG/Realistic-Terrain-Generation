@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 /**
@@ -79,17 +80,17 @@ public class NecronomiconCreationRitual extends NecronomiconRitual {
 	}
 
 	@Override
-	public boolean canCompleteRitual(World world, int x, int y, int z, EntityPlayer player) {
+	public boolean canCompleteRitual(World world, BlockPos pos, EntityPlayer player) {
 
 		return true;
 	}
 
 	@Override
-	protected void completeRitualServer(World world, int x, int y, int z, EntityPlayer player){
+	protected void completeRitualServer(World world, BlockPos pos, EntityPlayer player){
 
-		world.addWeatherEffect(new EntityLightningBolt(world, x, y + 1, z));
+		world.addWeatherEffect(new EntityLightningBolt(world, pos.getX(), pos.getY() + 1, pos.getZ()));
 
-		TileEntity altar = world.getTileEntity(x, y, z);
+		TileEntity altar = world.getTileEntity(pos);
 
 		NBTTagCompound compound = new NBTTagCompound();
 		NBTTagCompound newItem = new NBTTagCompound();
@@ -104,9 +105,9 @@ public class NecronomiconCreationRitual extends NecronomiconRitual {
 	}
 
 	@Override
-	protected void completeRitualClient(World world, int x, int y, int z, EntityPlayer player){
+	protected void completeRitualClient(World world, BlockPos pos, EntityPlayer player){
 
-		TileEntity altar = world.getTileEntity(x, y, z);
+		TileEntity altar = world.getTileEntity(pos);
 
 		NBTTagCompound compound = new NBTTagCompound();
 		NBTTagCompound newItem = new NBTTagCompound();

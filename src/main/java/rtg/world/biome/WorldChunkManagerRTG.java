@@ -12,6 +12,7 @@ import net.minecraft.world.gen.layer.IntCache;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.SimplexCellularNoise;
+import rtg.util.SimplexOctave;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 
@@ -62,8 +63,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         		new OpenSimplexNoise.NoiseInstance2(simplex, -1, -1, -1, 0, 1)
         };
         GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType, "");
-        agen                strongholdGenerator.generate(this, worldObj, par1, par2, null);
-layer = getModdedBiomeGenerators(worldType, seed, agenlayer);
+        agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
         this.biomeIndexLayer = agenlayer[1];
     }
@@ -150,7 +150,7 @@ layer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         }
         else
         {
-            result = this.biomeCache.getBiomeGenAt(par1, par2);
+            result = this.biomeCache.getBiomeCacheBlock(par1, par2).getBiomeGenAt(par1, par2);
 
             if (result == null) {
                 result = biomePatcher.getPatchedBaseBiome("Biome cache contains NULL biome at " + par1 + "," + par2);
@@ -402,7 +402,7 @@ layer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         int l1 = j1 - l + 1;
         int i2 = k1 - i1 + 1;
         int[] aint = this.genBiomes.getInts(l, i1, l1, i2);
-        ChunkPosition chunkposition = null;
+        BlockPos blockPos = null;
         int j2 = 0;
 
         for (int k2 = 0; k2 < l1 * i2; ++k2)
@@ -411,13 +411,13 @@ layer = getModdedBiomeGenerators(worldType, seed, agenlayer);
             int i3 = i1 + k2 / l1 << 2;
             BiomeGenBase biomegenbase = BiomeGenBase.getBiome(aint[k2]);
 
-            if (p_150795_4_.contains(biomegenbase) && (chunkposition == null || p_150795_5_.nextInt(j2 + 1) == 0))
+            if (p_150795_4_.contains(biomegenbase) && (blockPos == null || p_150795_5_.nextInt(j2 + 1) == 0))
             {
-                chunkposition = new ChunkPosition(l2, 0, i3);
+                blockPos = new BlockPos(l2, 0, i3);
                 ++j2;
             }
         }
 
-        return chunkposition;
+        return blockPos;
     }
 }

@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -26,8 +26,8 @@ import java.util.Random;
 public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanillaBase
 {
     
-    public static Block topBlock = BiomeGenBase.extremeHillsEdge.topBlock.getBlock();
-    public static Block fillerBlock = BiomeGenBase.extremeHillsEdge.fillerBlock.getBlock();
+    public static  IBlockState topBlock = BiomeGenBase.extremeHillsEdge.topBlock;
+    public static IBlockState fillerBlock = BiomeGenBase.extremeHillsEdge.fillerBlock;
     
     public RealisticBiomeVanillaExtremeHillsEdge(BiomeConfig config)
     {
@@ -36,7 +36,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
             BiomeGenBase.extremeHillsEdge,
             BiomeGenBase.river,
             new TerrainVanillaExtremeHillsEdge(10f, 120f, 68f, 200f),
-            new SurfaceVanillaExtremeHillsEdge(config, topBlock, fillerBlock, Blocks.grass, Blocks.dirt, 60f, -0.14f, 14f, 0.25f)
+            new SurfaceVanillaExtremeHillsEdge(config, topBlock, fillerBlock, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), 60f, -0.14f, 14f, 0.25f)
         );
         config.setVillageMaterial(VillageMaterial.Preset.SPRUCE);
         this.generatesEmeralds = true;

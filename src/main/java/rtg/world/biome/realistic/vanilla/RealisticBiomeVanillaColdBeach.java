@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -17,8 +17,8 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 {	
-	public static Block topBlock = BiomeGenBase.coldBeach.topBlock.getBlock();
-	public static Block fillerBlock = BiomeGenBase.coldBeach.fillerBlock.getBlock();
+	public static IBlockState topBlock = BiomeGenBase.coldBeach.topBlock;
+	public static IBlockState fillerBlock = BiomeGenBase.coldBeach.fillerBlock;
 	
 	public RealisticBiomeVanillaColdBeach(BiomeConfig config)
 	{
@@ -26,7 +26,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 			BiomeGenBase.coldBeach,
 			BiomeGenBase.river,
 			new TerrainVanillaColdBeach(),
-			new SurfaceVanillaColdBeach(config, topBlock, fillerBlock, topBlock, fillerBlock, (byte)0, 1)
+			new SurfaceVanillaColdBeach(config, topBlock, fillerBlock, topBlock, fillerBlock, (byte) 0, 1)
 		);
         config.setVillageMaterial(VillageMaterial.Preset.ICE);
 	}

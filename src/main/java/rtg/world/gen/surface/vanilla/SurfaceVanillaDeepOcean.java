@@ -22,13 +22,13 @@ public class SurfaceVanillaDeepOcean extends SurfaceBase
     private float height;
     private float mixCheck;
     
-    public SurfaceVanillaDeepOcean(BiomeConfig config, Block top, Block filler, Block mix, float mixWidth, float mixHeight)
+    public SurfaceVanillaDeepOcean(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mix, float mixWidth, float mixHeight)
     {
     
-        super(config, top, (byte)0, filler, (byte)0);
+        super(config, top, filler);
         
         mixBlock = this.getConfigBlock(config, BiomeConfigVanillaDeepOcean.surfaceMixBlockId,
-                BiomeConfigVanillaDeepOcean.surfaceMixBlockMetaId, mix.getDefaultState());
+                BiomeConfigVanillaDeepOcean.surfaceMixBlockMetaId, mix);
         
         width = mixWidth;
         height = mixHeight;

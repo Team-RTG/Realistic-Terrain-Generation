@@ -17,20 +17,9 @@ import rtg.reference.ModInfo;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
-import rtg.world.biome.realistic.arsmagica.RealisticBiomeAMBase;
-import rtg.world.biome.realistic.atg.RealisticBiomeATGBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
-import rtg.world.biome.realistic.chromaticraft.RealisticBiomeCCBase;
-import rtg.world.biome.realistic.extrabiomes.RealisticBiomeEBXLBase;
-import rtg.world.biome.realistic.forgottennature.RealisticBiomeFNBase;
-import rtg.world.biome.realistic.growthcraft.RealisticBiomeGCBase;
-import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
-import rtg.world.biome.realistic.lotsomobs.RealisticBiomeLOMBase;
-import rtg.world.biome.realistic.ridiculousworld.RealisticBiomeRWBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
-import rtg.world.biome.realistic.tofucraft.RealisticBiomeTOFUBase;
-import rtg.world.biome.realistic.vampirism.RealisticBiomeVAMPBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 
 import java.util.ArrayList;
@@ -91,21 +80,21 @@ public class RTG {
         RealisticBiomeVanillaBase.addBiomes();
         
         RealisticBiomeBOPBase.addBiomes();
-        RealisticBiomeEBXLBase.addBiomes();
-        RealisticBiomeHLBase.addBiomes();
+        //RealisticBiomeEBXLBase.addBiomes();
+        //RealisticBiomeHLBase.addBiomes();
         RealisticBiomeTCBase.addBiomes();
         RealisticBiomeBCBase.addBiomes();
-        RealisticBiomeAMBase.addBiomes();
-        RealisticBiomeATGBase.addBiomes();
-        RealisticBiomeCCBase.addBiomes();
-        RealisticBiomeGCBase.addBiomes();
-        RealisticBiomeVAMPBase.addBiomes();
+//        RealisticBiomeAMBase.addBiomes();
+//        RealisticBiomeATGBase.addBiomes();
+//        RealisticBiomeCCBase.addBiomes();
+//        RealisticBiomeGCBase.addBiomes();
+//        RealisticBiomeVAMPBase.addBiomes();
         RealisticBiomeACBase.addBiomes();
-        RealisticBiomeRWBase.addBiomes();
-        RealisticBiomeLOMBase.addBiomes();
-        RealisticBiomeTOFUBase.addBiomes();
-        RealisticBiomeFNBase.addBiomes();
-        
+//        RealisticBiomeRWBase.addBiomes();
+//        RealisticBiomeLOMBase.addBiomes();
+//        RealisticBiomeTOFUBase.addBiomes();
+//        RealisticBiomeFNBase.addBiomes();
+
         RealisticBiomePresenceTester.doBiomeCheck();
     }
     

@@ -1,16 +1,15 @@
 package rtg.world.biome.realistic.vanilla;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaFrozenRiver;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaFrozenRiver;
 
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
-
 public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase
 {
-	public static Block topBlock = BiomeGenBase.frozenRiver.topBlock.getBlock();
-	public static Block fillerBlock = BiomeGenBase.frozenRiver.fillerBlock.getBlock();
+	public static  IBlockState topBlock = BiomeGenBase.frozenRiver.topBlock;
+	public static IBlockState fillerBlock = BiomeGenBase.frozenRiver.fillerBlock;
 
 	public RealisticBiomeVanillaFrozenRiver(BiomeConfig config)
 	{

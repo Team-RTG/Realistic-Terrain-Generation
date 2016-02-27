@@ -38,14 +38,12 @@ public class TransmutatorRecipes {
 	private TransmutatorRecipes()
 	{
 		transmute(Items.diamond, new ItemStack(Items.coal, 64), 0.2F);
-		transmute(Items.water_bucket, new ItemStack(Blocks.water, 1), 0.0F);
-		transmute(Items.lava_bucket, new ItemStack(Blocks.lava, 1), 0.0F);
+		transmute(Items.water_bucket, new ItemStack(Blocks.ice, 8), 0.0F);
 		transmute(Blocks.wool, new ItemStack(Items.string, 4), 0.0F);
 		transmute(Blocks.gravel, new ItemStack(Items.flint, 2), 0.0F);
 		transmute(Blocks.quartz_block, new ItemStack(Items.quartz, 4), 0.0F);
 		transmute(Blocks.nether_brick, new ItemStack(Items.netherbrick, 4), 0.0F);
 		transmute(Items.netherbrick, new ItemStack(Blocks.netherrack), 0.0F);
-		transmute(Blocks.water, new ItemStack(Blocks.ice, 8), 0.0F);
 		transmute(Items.wheat, new ItemStack(Items.wheat_seeds), 0.0F);
 		transmute(Items.wheat_seeds, new ItemStack(Items.wheat), 0.0F);
 	}

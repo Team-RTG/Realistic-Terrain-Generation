@@ -1,24 +1,24 @@
 package rtg.world.gen.surface.biomesoplenty;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.chunk.ChunkPrimer;
+import java.util.Random;
 
 public class SurfaceBOPGrove extends SurfaceBase
 {
     
     private boolean beach;
-    private Block beachBlock;
+    private IBlockState beachBlock;
     private float min;
     
     private float sCliff = 1.5f;
@@ -26,16 +26,16 @@ public class SurfaceBOPGrove extends SurfaceBase
     private float sStrength = 65f;
     private float cCliff = 1.5f;
     
-    private Block mix;
+    private IBlockState mix;
     private float mixHeight;
 
     public byte mixByte = (byte)0;
     
-    public SurfaceBOPGrove(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
-        float stoneHeight, float stoneStrength, float clayCliff, Block mixBlock, byte mixMeta, float mixSize)
+    public SurfaceBOPGrove(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff,
+        float stoneHeight, float stoneStrength, float clayCliff, IBlockState mixBlock, float mixSize)
     {
     
-        super(config, top, (byte)0, fill, (byte)0);
+        super(config, top, fill);
         beach = genBeach;
         beachBlock = genBeachBlock;
         min = minCliff;
@@ -46,7 +46,6 @@ public class SurfaceBOPGrove extends SurfaceBase
         cCliff = clayCliff;
         
         mix = mixBlock;
-        mixByte = mixMeta;
         mixHeight = mixSize;
     }
     
@@ -111,7 +110,7 @@ public class SurfaceBOPGrove extends SurfaceBase
                     {
                         if (beach)
                         {
-                            primer.setBlockState((y * 16 + x) * 256 + k, beachBlock.getDefaultState());
+                            primer.setBlockState((y * 16 + x) * 256 + k, beachBlock);
                             gravel = true;
                         }
                         else if (k < 62)
@@ -125,7 +124,7 @@ public class SurfaceBOPGrove extends SurfaceBase
                     }
                     else if (simplex.noise2(i / 12f, j / 12f) > mixHeight)
                     {
-                        primer.setBlockState((y * 16 + x) * 256 + k, mix.getStateFromMeta(mixByte));
+                        primer.setBlockState((y * 16 + x) * 256 + k, mix);
                         m = true;
                     }
                     else
@@ -145,11 +144,11 @@ public class SurfaceBOPGrove extends SurfaceBase
                     }
                     else if (gravel)
                     {
-                        primer.setBlockState((y * 16 + x) * 256 + k, beachBlock.getDefaultState());
+                        primer.setBlockState((y * 16 + x) * 256 + k, beachBlock);
                     }
                     else if (m)
                     {
-                        primer.setBlockState((y * 16 + x) * 256 + k, mix.getStateFromMeta(mixByte));
+                        primer.setBlockState((y * 16 + x) * 256 + k, mix);
                     }
                     else
                     {

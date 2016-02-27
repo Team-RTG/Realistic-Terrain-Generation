@@ -18,6 +18,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 import com.shinoow.abyssalcraft.api.energy.EnergyEnum.DeityType;
@@ -44,7 +45,7 @@ public class DisruptionSpawn extends DisruptionEntry {
 	}
 
 	@Override
-	public void disrupt(World world, int x, int y, int z, List<EntityPlayer> players) {
+	public void disrupt(World world, BlockPos pos, List<EntityPlayer> players) {
 
 		if(!world.isRemote){
 			EntityLivingBase entityliving = null;
@@ -56,8 +57,8 @@ public class DisruptionSpawn extends DisruptionEntry {
 				e.printStackTrace();
 			}
 			if(entityliving != null){
-				entityliving.setLocationAndAngles(x, y + 1, z, entityliving.rotationYaw, entityliving.rotationPitch);
-				((EntityLiving) entityliving).onSpawnWithEgg((IEntityLivingData)null);
+				entityliving.setLocationAndAngles(pos.getX(), pos.getY() + 1, pos.getZ(), entityliving.rotationYaw, entityliving.rotationPitch);
+				((EntityLiving) entityliving).onInitialSpawn(world.getDifficultyForLocation(pos.up()), (IEntityLivingData)null);
 				world.spawnEntityInWorld(entityliving);
 			}
 		}

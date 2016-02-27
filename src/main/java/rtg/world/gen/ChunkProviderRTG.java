@@ -27,7 +27,6 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
-import rtg.util.AICWrapper;
 import rtg.util.CanyonColor;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -92,7 +91,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private boolean doJitter = false;
     private RealisticBiomePatcher biomePatcher;
     
-    private AICWrapper aic;
+    //private AICWrapper aic;
     private boolean isAICExtendingBiomeIdsLimit;
 
     public ChunkProviderRTG(World world, long l)
@@ -160,8 +159,8 @@ public class ChunkProviderRTG implements IChunkProvider
     	borderNoise = new float[256];
     	biomePatcher = new RealisticBiomePatcher();
     	
-    	aic = new AICWrapper();
-    	isAICExtendingBiomeIdsLimit = aic.isAICExtendingBiomeIdsLimit();
+    	//aic = new AICWrapper();
+    	//isAICExtendingBiomeIdsLimit = aic.isAICExtendingBiomeIdsLimit();
     }
 
     /**
@@ -181,7 +180,7 @@ public class ChunkProviderRTG implements IChunkProvider
         biomesForGeneration = new RealisticBiomeBase[256];
         int k;
 
-        generateTerrain(cmr, cx, cy, blocks, metadata, biomesForGeneration, noise);
+        generateTerrain(cmr, cx, cy, primer, biomesForGeneration, noise);
         // that routine can change the biome array so put it back if not
 
                 //fill with biomeData
@@ -227,7 +226,7 @@ public class ChunkProviderRTG implements IChunkProvider
             {
                 if(biomesGeneratedInChunk[k] > 0f)
                 {
-                    RealisticBiomeBase.getBiome(k).generateMapGen(blocks, metadata, worldSeed, worldObj, cmr, mapRand, cx, cy, simplex, cell, noise);
+                    RealisticBiomeBase.getBiome(k).generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cy, simplex, cell, noise);
                     biomesGeneratedInChunk[k] = 0f;
                 }
                 try {
@@ -281,7 +280,7 @@ public class ChunkProviderRTG implements IChunkProvider
         Chunk chunk = new Chunk(this.worldObj, primer, cx, cy);
         
         if(isAICExtendingBiomeIdsLimit){
-        	aic.setBiomeArray(chunk, baseBiomesList, xyinverted);
+        	//aic.setBiomeArray(chunk, baseBiomesList, xyinverted);
         } else {
         	// doJitter no longer needed as the biome array gets fixed
         	byte[] abyte1 = chunk.getBiomeArray();

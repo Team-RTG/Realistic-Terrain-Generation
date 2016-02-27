@@ -1,6 +1,7 @@
 package rtg.world.gen.surface;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -16,9 +17,9 @@ public class SurfaceGrassCanyon extends SurfaceBase
 {
 	private byte claycolor;
 	
-	public SurfaceGrassCanyon(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte, byte clayByte)
+	public SurfaceGrassCanyon(BiomeConfig config, IBlockState top, IBlockState fill, byte clayByte)
 	{
-	    super(config, top, topByte, fill, fillByte);
+	    super(config, top, fill);
 		claycolor = clayByte;
 	}
 	

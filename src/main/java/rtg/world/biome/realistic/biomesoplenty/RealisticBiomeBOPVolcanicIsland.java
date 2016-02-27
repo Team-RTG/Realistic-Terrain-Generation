@@ -1,7 +1,12 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
+import biomesoplenty.api.biome.BOPBiomes;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -12,27 +17,17 @@ import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPVolcanicIsland;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPVolcanicIsland;
-import biomesoplenty.api.biome.BOPBiomes;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.chunk.ChunkPrimer;
+import java.util.Random;
 
 public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPBiomes.volcanic_island.get();
 	
-    private static Block bopTopBlock = getTopBlock();
-    private static byte bopTopByte = (byte)0;
-    private static Block bopFillBlock = getFillBlock();
-    private static byte bopFillByte = (byte)0;
-    private static Block bopMixTopBlock = getMixTopBlock();
-    private static byte bopMixTopByte = (byte)0;
-    private static Block bopMixFillBlock = getMixFillBlock();
-    private static byte bopMixFillByte = (byte)0;
+    private static IBlockState bopTopBlock = getTopBlock();
+    private static IBlockState bopFillBlock = getFillBlock();
+    private static IBlockState bopMixTopBlock = getMixTopBlock();
+    private static IBlockState bopMixFillBlock = getMixFillBlock();
 
 	public RealisticBiomeBOPVolcanicIsland(BiomeConfig config)
 	{
@@ -40,14 +35,10 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPVolcanicIsland(),
 			new SurfaceBOPVolcanicIsland(config, 
-		        bopTopBlock, //Block top 
-		        bopTopByte, //byte topByte
-		        bopFillBlock, //Block filler, 
-		        bopFillByte, //byte fillerByte
-		        bopMixTopBlock, //Block mixTop, 
-		        bopMixTopByte, //byte mixTopByte, 
-		        bopMixFillBlock, //Block mixFill, 
-		        bopMixFillByte, //byte mixFillByte,
+		        bopTopBlock, //Block top
+		        bopFillBlock, //Block filler,
+		        bopMixTopBlock, //IBlockState mixTop,
+		        bopMixFillBlock, //IBlockState mixFill,
 		        80f, //float mixWidth, 
 		        -0.15f, //float mixHeight, 
 		        10f, //float smallWidth, 
@@ -115,34 +106,34 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase
         riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
     
-    private static Block getTopBlock()
+    private static IBlockState getTopBlock()
     {
-    	//Block topBlock = Block.getBlockFromName("BiomesOPlenty:ashStone");
-    	Block topBlock = Blocks.stone; // @TODO
+    	//IBlockState topBlock = IBlockState.getBlockFromName("BiomesOPlenty:ashStone");
+    	IBlockState topBlock = Blocks.stone.getDefaultState(); // @TODO
     	if (topBlock == null) throw new RuntimeException("BOP Volcano's topBlock is NULL!");
     	return topBlock;
     }
     
-    private static Block getFillBlock()
+    private static IBlockState getFillBlock()
     {
-    	//Block fillBlock = Block.getBlockFromName("BiomesOPlenty:ashStone");
-    	Block fillBlock = Blocks.stone; // @TODO
+    	//IBlockState fillBlock = IBlockState.getBlockFromName("BiomesOPlenty:ashStone");
+    	IBlockState fillBlock = Blocks.stone.getDefaultState(); // @TODO
     	if (fillBlock == null) throw new RuntimeException("BOP Volcano's fillBlock is NULL!");
     	return fillBlock;
     }
     
-    private static Block getMixTopBlock()
+    private static IBlockState getMixTopBlock()
     {
-    	//Block mixTopBlock = Block.getBlockFromName("BiomesOPlenty:ash");
-    	Block mixTopBlock = Blocks.stone; // @TODO
+    	//IBlockState mixTopBlock = Block.getBlockFromName("BiomesOPlenty:ash");
+    	IBlockState mixTopBlock = Blocks.stone.getDefaultState(); // @TODO
     	if (mixTopBlock == null) throw new RuntimeException("BOP Volcano's mixTopBlock is NULL!");
     	return mixTopBlock;
     }
     
-    private static Block getMixFillBlock()
+    private static IBlockState getMixFillBlock()
     {
-    	//Block mixFillBlock = Block.getBlockFromName("BiomesOPlenty:ashStone");
-    	Block mixFillBlock = Blocks.stone; // @TODO
+    	//IBlockState mixFillBlock = Block.getBlockFromName("BiomesOPlenty:ashStone");
+    	IBlockState mixFillBlock = Blocks.stone.getDefaultState(); // @TODO
     	if (mixFillBlock == null) throw new RuntimeException("BOP Volcano's mixFillBlock is NULL!");
     	return mixFillBlock;
     }

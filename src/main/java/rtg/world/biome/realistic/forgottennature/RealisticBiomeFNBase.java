@@ -1,13 +1,12 @@
 package rtg.world.biome.realistic.forgottennature;
 
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.fml.common.Loader;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.forgottennature.config.BiomeConfigFN;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
-import cpw.mods.fml.common.Loader;
-
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeFNBase extends RealisticBiomeBase
 {

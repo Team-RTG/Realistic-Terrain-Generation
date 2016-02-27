@@ -1,6 +1,7 @@
 package rtg.world.gen.surface;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -17,9 +18,9 @@ public class SurfaceDuneValley extends SurfaceBase
 	private boolean dirt;
 	private boolean mix;
 	
-	public SurfaceDuneValley(BiomeConfig config, Block top, Block fill, float valleySize, boolean d, boolean m) 
+	public SurfaceDuneValley(BiomeConfig config, IBlockState top, IBlockState fill, float valleySize, boolean d, boolean m)
 	{
-	    super(config, top, (byte)0, fill, (byte)0);
+	    super(config, top, fill);
 		
 		valley = valleySize;
 		dirt = d;

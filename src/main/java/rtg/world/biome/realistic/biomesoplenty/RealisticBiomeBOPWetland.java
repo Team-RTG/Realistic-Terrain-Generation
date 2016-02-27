@@ -1,20 +1,19 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.block.BOPBlocks;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPWetland;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPWetland;
-import biomesoplenty.api.biome.BOPBiomes;
-import biomesoplenty.api.block.BOPBlocks;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPBiomes.wetland.get();
 	
-    public static Block topBlock = BOPBlocks.grass;
-    public static Block fillerBlock = BOPBlocks.dirt;
+    public static IBlockState topBlock = BOPBlocks.grass.getDefaultState();
+    public static IBlockState fillerBlock = BOPBlocks.dirt.getDefaultState();
 	
 	public RealisticBiomeBOPWetland(BiomeConfig config)
 	{

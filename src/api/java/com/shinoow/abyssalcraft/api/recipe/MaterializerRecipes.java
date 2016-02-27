@@ -51,10 +51,10 @@ public class MaterializerRecipes {
 
 		ItemStack[] inventory = null;
 
-		if(stack.stackTagCompound == null)
-			stack.stackTagCompound = new NBTTagCompound();
-		if(stack.stackTagCompound.hasKey("ItemInventory")){
-			NBTTagList items = stack.stackTagCompound.getTagList("ItemInventory", 10);
+		if(stack.getTagCompound() == null)
+			stack.setTagCompound(new NBTTagCompound());
+		if(stack.getTagCompound().hasKey("ItemInventory")){
+			NBTTagList items = stack.getTagCompound().getTagList("ItemInventory", 10);
 
 			inventory = new ItemStack[items.tagCount()];
 			for (int i = 0; i < items.tagCount(); ++i)

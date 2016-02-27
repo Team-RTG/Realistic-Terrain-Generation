@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -25,8 +25,8 @@ import java.util.Random;
 public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
 {
     
-    public static Block topBlock = BiomeGenBase.desert.topBlock.getBlock();
-    public static Block fillerBlock = BiomeGenBase.desert.fillerBlock.getBlock();
+    public static  IBlockState topBlock = BiomeGenBase.desert.topBlock;
+    public static IBlockState fillerBlock = BiomeGenBase.desert.fillerBlock;
 
     public RealisticBiomeVanillaDesert(BiomeConfig config)
     {

@@ -15,9 +15,6 @@ import rtg.util.UBColumnCache;
 
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
-import cpw.mods.fml.common.registry.GameData;
-import exterminatorJeff.undergroundBiomes.api.BlockCodes;
-
 import java.util.Random;
 
 public class SurfaceBase
@@ -80,13 +77,7 @@ public class SurfaceBase
     
     protected IBlockState hcStone(World world, int i, int j, int x, int y, int k)
     {
-        int worldX = i;
-        int worldY = k;
-        int worldZ = j;
-
-        return Blocks.stone.getDefaultState();
         if (abyssalCraftMod.present()) {
-
             return ACBlocks.darkstone.getDefaultState();
         }
         else {
@@ -95,24 +86,14 @@ public class SurfaceBase
         }
     }
 
-    protected Block hcCobble(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY)
+    protected IBlockState hcCobble(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY)
     {
         if (abyssalCraftMod.present()) {
 
             return ACBlocks.darkstone_cobblestone.getDefaultState();
         }
         else {
-
-            if ((undergroundBiomesMod.present())) {
-
-                BlockCodes cobble = ubColumnCache.column(worldX,worldZ).cobblestone(worldY);
-
-                return cobble.block.getDefaultState();
-            }
-            else {
-
-                return Blocks.cobblestone.getDefaultState();
-            }
+            return Blocks.cobblestone.getDefaultState();
         }
     }
     

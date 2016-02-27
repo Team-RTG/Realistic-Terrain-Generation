@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -29,8 +29,8 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
     public static BiomeGenBase standardBiome = BiomeGenBase.megaTaigaHills;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
     
-    public static Block topBlock = mutationBiome.topBlock.getBlock();
-    public static Block fillerBlock = mutationBiome.fillerBlock.getBlock();
+    public static  IBlockState topBlock = mutationBiome.topBlock;
+    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
     
     public RealisticBiomeVanillaRedwoodTaigaHills(BiomeConfig config)
     {
@@ -39,7 +39,7 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaRedwoodTaigaHills(),
-            new SurfaceVanillaRedwoodTaigaHills(config, Blocks.grass, Blocks.dirt, true, Blocks.sand, 0.2f));
+            new SurfaceVanillaRedwoodTaigaHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), true, Blocks.sand.getDefaultState(), 0.2f));
         config.setVillageMaterial(VillageMaterial.Preset.SPRUCE);
     }
     

@@ -12,6 +12,7 @@
 package com.shinoow.abyssalcraft.api.ritual;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -161,7 +162,7 @@ public abstract class NecronomiconRitual {
 	 * @param player Player performing the ritual
 	 * @return True if all conditions are met, otherwise false
 	 */
-	public abstract boolean canCompleteRitual(World world, int x, int y, int z, EntityPlayer player);
+	public abstract boolean canCompleteRitual(World world, BlockPos pos, EntityPlayer player);
 
 	/**
 	 * Called when a ritual is completed
@@ -171,9 +172,9 @@ public abstract class NecronomiconRitual {
 	 * @param z Z coordinate
 	 * @param player Player who performed the ritual
 	 */
-	public void completeRitual(World world, int x, int y, int z, EntityPlayer player){
-		if(!world.isRemote) completeRitualServer(world, x, y, z, player);
-		if(world.isRemote) completeRitualClient(world, x, y, z, player);
+	public void completeRitual(World world, BlockPos pos, EntityPlayer player){
+		if(!world.isRemote) completeRitualServer(world, pos, player);
+		if(world.isRemote) completeRitualClient(world, pos, player);
 	}
 
 	/**
@@ -184,7 +185,7 @@ public abstract class NecronomiconRitual {
 	 * @param z Z coordinate
 	 * @param player Player who performed the ritual
 	 */
-	protected abstract void completeRitualClient(World world, int x, int y, int z, EntityPlayer player);
+	protected abstract void completeRitualClient(World world, BlockPos pos, EntityPlayer player);
 
 	/**
 	 * Override this to do something server-side when the ritual is completed
@@ -194,5 +195,5 @@ public abstract class NecronomiconRitual {
 	 * @param z Z coordinate
 	 * @param player Player who performed the ritual
 	 */
-	protected abstract void completeRitualServer(World world, int x, int y, int z, EntityPlayer player);
+	protected abstract void completeRitualServer(World world, BlockPos pos, EntityPlayer player);
 }

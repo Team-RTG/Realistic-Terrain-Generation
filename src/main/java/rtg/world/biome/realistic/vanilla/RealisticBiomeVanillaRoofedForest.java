@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -29,8 +29,8 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 {
     
-    public static Block topBlock = BiomeGenBase.roofedForest.topBlock.getBlock();
-    public static Block fillerBlock = BiomeGenBase.roofedForest.fillerBlock.getBlock();
+    public static  IBlockState topBlock = BiomeGenBase.roofedForest.topBlock;
+    public static IBlockState fillerBlock = BiomeGenBase.roofedForest.fillerBlock;
     
     public RealisticBiomeVanillaRoofedForest(BiomeConfig config)
     {
@@ -39,7 +39,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             BiomeGenBase.roofedForest,
             BiomeGenBase.river,
             new TerrainVanillaRoofedForest(),
-            new SurfaceVanillaRoofedForest(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.08f));
+            new SurfaceVanillaRoofedForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getDefaultState(), 0.08f));
         config.setVillageMaterial(VillageMaterial.Preset.DARK_OAK);
     }
     

@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -27,8 +27,8 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
     public static BiomeGenBase standardBiome = BiomeGenBase.desert;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
     
-    public static Block topBlock = mutationBiome.topBlock.getBlock();
-    public static Block fillerBlock = mutationBiome.fillerBlock.getBlock();
+    public static IBlockState topBlock = mutationBiome.topBlock;
+    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
     public RealisticBiomeVanillaDesertM(BiomeConfig config)
     {
@@ -37,7 +37,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaDesertM(70f, 180f, 7f, 100f, 38f, 160f, 68f),
-            new SurfaceVanillaDesertM(config, Blocks.sand, Blocks.sandstone, false, null, 0f, 1.5f, 60f, 65f, 1.5f));
+            new SurfaceVanillaDesertM(config, Blocks.sand.getDefaultState(), Blocks.sandstone.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f));
         config.setVillageMaterial(VillageMaterial.Preset.SAND);
         this.waterSurfaceLakeChance = 0;
     }

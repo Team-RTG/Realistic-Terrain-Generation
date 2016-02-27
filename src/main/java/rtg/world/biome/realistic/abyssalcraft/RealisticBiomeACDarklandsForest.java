@@ -1,7 +1,11 @@
 package rtg.world.biome.realistic.abyssalcraft;
 
-import java.util.Random;
-
+import com.shinoow.abyssalcraft.api.block.ACBlocks;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsForest;
 import rtg.util.CellNoise;
@@ -13,12 +17,7 @@ import rtg.world.gen.feature.tree.abyssalcraft.WorldGenTreeACDarkwood;
 import rtg.world.gen.surface.abyssalcraft.SurfaceACDarklandsForest;
 import rtg.world.gen.terrain.abyssalcraft.TerrainACDarklandsForest;
 
-import com.shinoow.abyssalcraft.api.block.ACBlocks;
-
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import java.util.Random;
 
 public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase
 {
@@ -30,7 +29,7 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase
             acBiome,
             BiomeGenBase.river,
             new TerrainACDarklandsForest(),
-            new SurfaceACDarklandsForest(config, acBiome.topBlock, acBiome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, acBiome.topBlock, (byte)0, 0.10f));
+            new SurfaceACDarklandsForest(config, acBiome.topBlock, acBiome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, acBiome.topBlock, 0.10f));
     }
     
     @Override
@@ -51,11 +50,10 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase
                 
                 int j6 = chunkX + rand.nextInt(16) + 8;
                 int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeightValue(j6, k10);
+                int z52 = world.getHeight(new BlockPos(j6, 0, k10)).getY();
                 
                 WorldGenerator worldgenerator = new WorldGenTreeACDarkwood(6 + rand.nextInt(6), 10 + rand.nextInt(10), 0, 0);
-                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                worldgenerator.generate(world, rand, j6, z52, k10);
+                worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
             }
         }
         
@@ -65,7 +63,7 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
+                int y22 = world.getHeight(new BlockPos(x22,0, z22)).getY();
                 
                 if (y22 < 100)
                 {
@@ -78,7 +76,7 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase
         {
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
+            int k1 = world.getHeight(new BlockPos(i1, 0,j1)).getY();
             
             if (k1 < 110 && rand.nextInt(3) != 0)
             {

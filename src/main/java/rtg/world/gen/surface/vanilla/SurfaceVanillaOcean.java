@@ -18,18 +18,17 @@ public class SurfaceVanillaOcean extends SurfaceBase
 {
     
     private IBlockState mixBlock;
-    private byte mixBlockMeta;
     private float width;
     private float height;
     private float mixCheck;
     private final int sandMetadata = 0;
     
-    public SurfaceVanillaOcean(BiomeConfig config, Block top, Block filler, Block mix, float mixWidth, float mixHeight)
+    public SurfaceVanillaOcean(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mix, float mixWidth, float mixHeight)
     {
     
-        super(config, top, (byte)0, filler, (byte)0);
+        super(config, top, filler);
         
-        mixBlock = this.getConfigBlock(config, BiomeConfigVanillaOcean.surfaceMixBlockId, BiomeConfigVanillaOcean.surfaceMixBlockMetaId, mix.getDefaultState());
+        mixBlock = this.getConfigBlock(config, BiomeConfigVanillaOcean.surfaceMixBlockId, BiomeConfigVanillaOcean.surfaceMixBlockMetaId, mix);
         
         width = mixWidth;
         height = mixHeight;

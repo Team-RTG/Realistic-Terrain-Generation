@@ -17,6 +17,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
@@ -79,13 +80,13 @@ public class NecronomiconSummonRitual extends NecronomiconRitual {
 	}
 
 	@Override
-	public boolean canCompleteRitual(World world, int x, int y, int z, EntityPlayer player) {
+	public boolean canCompleteRitual(World world, BlockPos pos, EntityPlayer player) {
 
 		return true;
 	}
 
 	@Override
-	protected void completeRitualServer(World world, int x, int y, int z, EntityPlayer player){
+	protected void completeRitualServer(World world, BlockPos pos, EntityPlayer player){
 
 		EntityLivingBase entityliving = null;
 		try {
@@ -96,14 +97,14 @@ public class NecronomiconSummonRitual extends NecronomiconRitual {
 			e.printStackTrace();
 		}
 		if(entityliving != null){
-			entityliving.setLocationAndAngles(x, y + 1, z, entityliving.rotationYaw, entityliving.rotationPitch);
-			((EntityLiving) entityliving).onSpawnWithEgg((IEntityLivingData)null);
+			entityliving.setLocationAndAngles(pos.getX(), pos.getY() + 1, pos.getZ(), entityliving.rotationYaw, entityliving.rotationPitch);
+			((EntityLiving) entityliving).onInitialSpawn(world.getDifficultyForLocation(pos.up()), (IEntityLivingData)null);
 			world.spawnEntityInWorld(entityliving);
 		}
 	}
 
 	@Override
-	protected void completeRitualClient(World world, int x, int y, int z, EntityPlayer player){
+	protected void completeRitualClient(World world, BlockPos pos, EntityPlayer player){
 		EntityLivingBase entityliving = null;
 		try {
 			entityliving = entity.getConstructor(World.class).newInstance(world);

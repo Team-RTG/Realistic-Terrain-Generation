@@ -19,14 +19,13 @@ import java.util.Map;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.oredict.OreDictionary;
 
 import org.apache.logging.log4j.Level;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-
-import cpw.mods.fml.common.FMLLog;
 
 /**
  * Registry class for Necronomicon Rituals

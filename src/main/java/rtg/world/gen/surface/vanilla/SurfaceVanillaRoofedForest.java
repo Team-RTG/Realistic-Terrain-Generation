@@ -19,7 +19,7 @@ public class SurfaceVanillaRoofedForest extends SurfaceBase
 {
     
     private boolean beach;
-    private Block beachBlock;
+    private IBlockState beachBlock;
     private float min;
     
     private float sCliff = 1.5f;
@@ -30,11 +30,11 @@ public class SurfaceVanillaRoofedForest extends SurfaceBase
     private IBlockState mixBlock;
     private float mixHeight;
     
-    public SurfaceVanillaRoofedForest(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff,
-        float stoneHeight, float stoneStrength, float clayCliff, Block mix, byte mixByte, float mixSize)
+    public SurfaceVanillaRoofedForest(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff,
+        float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixSize)
     {
     
-        super(config, top, (byte)0, fill, (byte)0);
+        super(config, top, fill);
         beach = genBeach;
         beachBlock = genBeachBlock;
         min = minCliff;
@@ -45,7 +45,7 @@ public class SurfaceVanillaRoofedForest extends SurfaceBase
         cCliff = clayCliff;
         
         mixBlock = this.getConfigBlock(config, BiomeConfigVanillaRoofedForest.surfaceMixBlockId, BiomeConfigVanillaRoofedForest.surfaceMixBlockMetaId,
-                mix.getDefaultState());
+                mix);
         mixHeight = mixSize;
     }
     
@@ -112,7 +112,7 @@ public class SurfaceVanillaRoofedForest extends SurfaceBase
                     {
                         if (beach)
                         {
-                            primer.setBlockState((y * 16 + x) * 256 + k, beachBlock.getDefaultState());
+                            primer.setBlockState((y * 16 + x) * 256 + k, beachBlock);
                             gravel = true;
                         }
                         else if (k < 62)
@@ -146,7 +146,7 @@ public class SurfaceVanillaRoofedForest extends SurfaceBase
                     }
                     else if (gravel)
                     {
-                        primer.setBlockState((y * 16 + x) * 256 + k, beachBlock.getDefaultState());
+                        primer.setBlockState((y * 16 + x) * 256 + k, beachBlock);
                     }
                     else if (m)
                     {

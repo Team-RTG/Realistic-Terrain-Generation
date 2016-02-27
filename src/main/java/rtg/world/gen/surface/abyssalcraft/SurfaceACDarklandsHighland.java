@@ -1,7 +1,11 @@
 package rtg.world.gen.surface.abyssalcraft;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHills;
 import rtg.util.CellNoise;
@@ -9,34 +13,29 @@ import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
 
 public class SurfaceACDarklandsHighland extends SurfaceBase
 {
     
-    private Block mixBlockTop;
+    private IBlockState mixBlockTop;
     private byte mixBlockTopMeta;
-    private Block mixBlockFill;
+    private IBlockState mixBlockFill;
     private byte mixBlockFillMeta;
     private float width;
     private float height;
     private float smallW;
     private float smallS;
     
-    public SurfaceACDarklandsHighland(BiomeConfig config, Block top, Block filler, Block mixTop, Block mixFill, float mixWidth,
+    public SurfaceACDarklandsHighland(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFill, float mixWidth,
         float mixHeight, float smallWidth, float smallStrength)
     {
     
-        super(config, top, (byte)0, filler, (byte)0);
+        super(config, top, filler);
 
-        mixBlockTop = this.getConfigBlock(config, BiomeConfigVanillaExtremeHills.surfaceMixBlockId, mixTop);
-        mixBlockTopMeta = this.getConfigBlockMeta(config, BiomeConfigVanillaExtremeHills.surfaceMixBlockMetaId, (byte)0);
+        mixBlockTop = this.getConfigBlock(config, BiomeConfigVanillaExtremeHills.surfaceMixBlockId, BiomeConfigVanillaExtremeHills.surfaceMixBlockMetaId, mixTop);
         
-        mixBlockFill = this.getConfigBlock(config, BiomeConfigVanillaExtremeHills.surfaceMixFillerBlockId, mixFill);
-        mixBlockFillMeta = this.getConfigBlockMeta(config, BiomeConfigVanillaExtremeHills.surfaceMixFillerBlockMetaId, (byte)0);
+        mixBlockFill = this.getConfigBlock(config, BiomeConfigVanillaExtremeHills.surfaceMixFillerBlockId, BiomeConfigVanillaExtremeHills.surfaceMixFillerBlockMetaId, mixFill);
         
         width = mixWidth;
         height = mixHeight;
@@ -45,8 +44,8 @@ public class SurfaceACDarklandsHighland extends SurfaceBase
     }
     
     @Override
-    public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
-        OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
+                             OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
     
         float c = CliffCalculator.calc(x, y, noise);
@@ -55,7 +54,7 @@ public class SurfaceACDarklandsHighland extends SurfaceBase
         
         for (int k = 255; k > -1; k--)
         {
-            Block b = blocks[(y * 16 + x) * 256 + k];
+            Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
             if (b == Blocks.air)
             {
                 depth = -1;
@@ -70,19 +69,16 @@ public class SurfaceACDarklandsHighland extends SurfaceBase
                     {
                         if (rand.nextInt(3) == 0) {
                             
-                            blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
-                            metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
+                            primer.setBlockState((y * 16 + x) * 256 + k,hcCobble(world, i, j, x, y, k));
                         }
                         else {
                             
-                            blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
-                            metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
+                            primer.setBlockState((y * 16 + x) * 256 + k,hcStone(world, i, j, x, y, k));
                         }
                     }
                     else if (depth < 10)
                     {
-                        blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
-                        metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
+                        primer.setBlockState((y * 16 + x) * 256 + k,hcStone(world, i, j, x, y, k));
                     }
                 }
                 else
@@ -91,27 +87,23 @@ public class SurfaceACDarklandsHighland extends SurfaceBase
                     {
                         if (simplex.noise2(i / width, j / width) + simplex.noise2(i / smallW, j / smallW) * smallS > height)
                         {
-                            blocks[(y * 16 + x) * 256 + k] = mixBlockTop;
-                            metadata[(y * 16 + x) * 256 + k] = mixBlockTopMeta;
+                            primer.setBlockState((y * 16 + x) * 256 + k,mixBlockTop);
                             mix = true;
                         }
                         else
                         {
-                            blocks[(y * 16 + x) * 256 + k] = topBlock;
-                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+                            primer.setBlockState((y * 16 + x) * 256 + k,topBlock);
                         }
                     }
                     else if (depth < 4)
                     {
                         if (mix)
                         {
-                            blocks[(y * 16 + x) * 256 + k] = mixBlockFill;
-                            metadata[(y * 16 + x) * 256 + k] = mixBlockFillMeta;
+                            primer.setBlockState((y * 16 + x) * 256 + k,mixBlockFill);
                         }
                         else
                         {
-                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+                            primer.setBlockState((y * 16 + x) * 256 + k,fillerBlock);
                         }
                     }
                 }

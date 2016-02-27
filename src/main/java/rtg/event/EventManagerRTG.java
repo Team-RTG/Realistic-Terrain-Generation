@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-uimport org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Level;
 import rtg.RTG;
 import rtg.config.rtg.ConfigRTG;
 import rtg.world.WorldTypeRTG;

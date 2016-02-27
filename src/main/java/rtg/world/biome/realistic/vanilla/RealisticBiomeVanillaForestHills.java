@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -27,8 +27,8 @@ import java.util.Random;
 public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase
 {
     
-    public static Block topBlock = BiomeGenBase.forestHills.topBlock.getBlock();
-    public static Block fillerBlock = BiomeGenBase.forestHills.fillerBlock.getBlock();
+    public static  IBlockState topBlock = BiomeGenBase.forestHills.topBlock;
+    public static IBlockState fillerBlock = BiomeGenBase.forestHills.fillerBlock;
     
     public RealisticBiomeVanillaForestHills(BiomeConfig config)
     {
@@ -37,7 +37,7 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase
             BiomeGenBase.forestHills,
             BiomeGenBase.river,
             new TerrainVanillaForestHills(),
-            new SurfaceVanillaForestHills(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f));
+            new SurfaceVanillaForestHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.15f));
         config.setVillageMaterial(VillageMaterial.Preset.BASE);
     }
     

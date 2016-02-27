@@ -15,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 /**
@@ -72,9 +73,9 @@ public class NecronomiconInfusionRitual extends NecronomiconCreationRitual {
 	}
 
 	@Override
-	public boolean canCompleteRitual(World world, int x, int y, int z, EntityPlayer player) {
+	public boolean canCompleteRitual(World world, BlockPos pos, EntityPlayer player) {
 
-		TileEntity altar = world.getTileEntity(x, y, z);
+		TileEntity altar = world.getTileEntity(pos);
 
 		NBTTagCompound compound = new NBTTagCompound();
 		altar.writeToNBT(compound);
@@ -84,12 +85,12 @@ public class NecronomiconInfusionRitual extends NecronomiconCreationRitual {
 	}
 
 	@Override
-	protected void completeRitualServer(World world, int x, int y, int z, EntityPlayer player){
-		if(canCompleteRitual(world, x, y, z, player)) super.completeRitualServer(world, x, y, z, player);
+	protected void completeRitualServer(World world, BlockPos pos, EntityPlayer player){
+		if(canCompleteRitual(world, pos, player)) super.completeRitualServer(world, pos, player);
 	}
 
 	@Override
-	protected void completeRitualClient(World world, int x, int y, int z, EntityPlayer player){
-		if(canCompleteRitual(world, x, y, z, player)) super.completeRitualClient(world, x, y, z, player);
+	protected void completeRitualClient(World world, BlockPos pos, EntityPlayer player){
+		if(canCompleteRitual(world, pos, player)) super.completeRitualClient(world, pos, player);
 	}
 }

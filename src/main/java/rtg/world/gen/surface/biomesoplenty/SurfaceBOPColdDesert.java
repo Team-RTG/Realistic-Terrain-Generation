@@ -1,6 +1,7 @@
 package rtg.world.gen.surface.biomesoplenty;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -16,25 +17,21 @@ import java.util.Random;
 public class SurfaceBOPColdDesert extends SurfaceBase
 {
     
-    private Block blockMixTop;
-    private byte byteMixTop;
-    private Block blockMixFiller;
-    private byte byteMixFiller;
+    private IBlockState blockMixTop;
+    private IBlockState blockMixFiller;
     private float floMixWidth;
     private float floMixHeight;
     private float floSmallWidth;
     private float floSmallStrength;
 
-    public SurfaceBOPColdDesert(BiomeConfig config, Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
-        byte mixFillerByte, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
+    public SurfaceBOPColdDesert(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFiller,
+         float mixWidth, float mixHeight, float smallWidth, float smallStrength)
     {
     
-        super(config, top, topByte, filler, fillerByte);
+        super(config, top, filler);
         
         blockMixTop = mixTop;
-        byteMixTop = mixTopByte;
         blockMixFiller = mixFiller;
-        byteMixFiller = mixFillerByte;
         
         floMixWidth = mixWidth;
         floMixHeight = mixHeight;

@@ -19,6 +19,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 import com.shinoow.abyssalcraft.api.energy.EnergyEnum.DeityType;
@@ -49,15 +50,16 @@ public class DisruptionSwarm extends DisruptionEntry {
 	}
 
 	@Override
-	public void disrupt(World world, int x, int y, int z, List<EntityPlayer> players) {
+	public void disrupt(World world, BlockPos pos, List<EntityPlayer> players) {
 
 		if(!world.isRemote)
 			for(Class<? extends EntityLivingBase> clazz : entities)
 				for(int i = 0; i < 4; i++)
 					try {
 						EntityLivingBase entity = clazz.getConstructor(World.class).newInstance(world);
-						entity.setLocationAndAngles(x + randomNum(world.rand), y + 1, z + randomNum(world.rand), entity.rotationYaw, entity.rotationPitch);
-						((EntityLiving) entity).onSpawnWithEgg((IEntityLivingData)null);
+						BlockPos pos1 = new BlockPos(pos.getX() + randomNum(world.rand), pos.getY() + 1, pos.getZ() + randomNum(world.rand));
+						entity.setLocationAndAngles(pos1.getX(), pos1.getY(), pos1.getZ(), entity.rotationYaw, entity.rotationPitch);
+						((EntityLiving) entity).onInitialSpawn(world.getDifficultyForLocation(pos1), (IEntityLivingData)null);
 						world.spawnEntityInWorld(entity);
 					} catch (InstantiationException | IllegalAccessException
 							| IllegalArgumentException

@@ -19,24 +19,24 @@ public class SurfaceVanillaIceMountains extends SurfaceBase
 {
     private IBlockState mixBlockTop;
     private IBlockState mixBlockFill;
-	private Block cliffBlock1;
-	private Block cliffBlock2;
+	private IBlockState cliffBlock1;
+	private IBlockState cliffBlock2;
 	private float width;
 	private float height;
 	private float smallW;
 	private float smallS;
 	
-	public SurfaceVanillaIceMountains(BiomeConfig config, Block top, Block filler, Block mixTop, Block mixFill, Block cliff1, Block cliff2, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
+	public SurfaceVanillaIceMountains(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFill, IBlockState cliff1, IBlockState cliff2, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
 	{
-		super(config, top, (byte)0, filler, (byte)0);
+		super(config, top, filler);
 		
         mixBlockTop = this.getConfigBlock(config, BiomeConfigVanillaIceMountains.surfaceMixBlockId,
 				BiomeConfigVanillaIceMountains.surfaceMixBlockMetaId,
-				mixTop.getDefaultState());
+				mixTop);
         
         mixBlockFill = this.getConfigBlock(config, BiomeConfigVanillaIceMountains.surfaceMixFillerBlockId,
 				BiomeConfigVanillaIceMountains.surfaceMixFillerBlockMetaId,
-				mixFill.getDefaultState());
+				mixFill);
         
 		cliffBlock1 = cliff1;
 		cliffBlock2 = cliff2;
@@ -69,11 +69,11 @@ public class SurfaceVanillaIceMountains extends SurfaceBase
             	{
             		if(depth > -1 && depth < 2)
             		{
-            			primer.setBlockState((y * 16 + x) * 256 + k, rand.nextInt(3) == 0 ? cliffBlock2.getDefaultState() : cliffBlock1.getDefaultState());
+            			primer.setBlockState((y * 16 + x) * 256 + k, rand.nextInt(3) == 0 ? cliffBlock2 : cliffBlock1);
             		}
             		else if (depth < 10)
             		{
-            			primer.setBlockState((y * 16 + x) * 256 + k, cliffBlock1.getDefaultState());
+            			primer.setBlockState((y * 16 + x) * 256 + k, cliffBlock1);
             		}
             	}
             	else

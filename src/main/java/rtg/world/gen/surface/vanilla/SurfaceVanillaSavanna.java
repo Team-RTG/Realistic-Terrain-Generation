@@ -22,12 +22,12 @@ public class SurfaceVanillaSavanna extends SurfaceBase
     private float width;
     private float height;
     
-    public SurfaceVanillaSavanna(BiomeConfig config, Block top, Block filler, Block mix, float mixWidth, float mixHeight)
+    public SurfaceVanillaSavanna(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mix, float mixWidth, float mixHeight)
     {
     
-        super(config, top, (byte)0, filler, (byte)0);
+        super(config, top, filler);
         
-        mixBlock = this.getConfigBlock(config, BiomeConfigVanillaSavanna.surfaceMixBlockId, BiomeConfigVanillaSavanna.surfaceMixBlockMetaId, mix.getDefaultState());
+        mixBlock = this.getConfigBlock(config, BiomeConfigVanillaSavanna.surfaceMixBlockId, BiomeConfigVanillaSavanna.surfaceMixBlockMetaId, mix);
         
         width = mixWidth;
         height = mixHeight;

@@ -20,6 +20,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 import com.shinoow.abyssalcraft.api.AbyssalCraftAPI.ACPotions;
@@ -102,15 +103,15 @@ public class NecronomiconPotionAoERitual extends NecronomiconRitual {
 	}
 
 	@Override
-	public boolean canCompleteRitual(World world, int x, int y, int z, EntityPlayer player) {
+	public boolean canCompleteRitual(World world, BlockPos pos, EntityPlayer player) {
 
 		return true;
 	}
 
 	@Override
-	protected void completeRitualServer(World world, int x, int y, int z, EntityPlayer player){
+	protected void completeRitualServer(World world, BlockPos pos, EntityPlayer player){
 
-		List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(player, world.getBlock(x, y, z).getCollisionBoundingBoxFromPool(world, x, y, z).expand(16, 3, 16));
+		List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(player, world.getBlockState(pos).getBlock().getCollisionBoundingBox(world, pos, world.getBlockState(pos)).expand(16, 3, 16));
 
 		if(!entities.isEmpty())
 			for(Entity entity : entities)
@@ -120,5 +121,5 @@ public class NecronomiconPotionAoERitual extends NecronomiconRitual {
 	}
 
 	@Override
-	protected void completeRitualClient(World world, int x, int y, int z, EntityPlayer player){}
+	protected void completeRitualClient(World world, BlockPos pos, EntityPlayer player){}
 }

@@ -2,6 +2,7 @@ package rtg.config.rtg;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fml.common.Loader;
 import org.apache.logging.log4j.Level;
 
 import java.io.File;
@@ -67,11 +68,6 @@ public class ConfigRTG
     /* ==================== Mineshafts ==================== */
 
     public static boolean generateMineshafts = true;
-    public static boolean generateStrongholds = true;
-    public static boolean generateVillages = true;
-    public static boolean generateScatteredFeatures = true;
-    public static boolean generateDungeons = true;
-    public static boolean generateOceanMonuments = true;
     
     /* ==================== Ore Gen ==================== */
 
@@ -94,6 +90,7 @@ public class ConfigRTG
     public static boolean generateScatteredFeatures = true;
     public static int minDistanceScatteredFeatures = 12; // Vanilla = 8
     public static int maxDistanceScatteredFeatures = 48; // Vanilla = 32
+    public static boolean generateOceanMonuments = true;
     
     /* ==================== Snow ==================== */
 
@@ -128,7 +125,7 @@ public class ConfigRTG
     public static int minDistanceVillages = 12; // Vanilla = 8
     public static int maxDistanceVillages = 48; // Vanilla = 32
 
-    public static boolean villageCrashFix = (Loader.isModLoaded("enviromine")) ? true : false;
+    public static boolean villageCrashFix = (Loader.isModLoaded("enviromine"));
     
     /* ==================== Volcanoes ==================== */
 

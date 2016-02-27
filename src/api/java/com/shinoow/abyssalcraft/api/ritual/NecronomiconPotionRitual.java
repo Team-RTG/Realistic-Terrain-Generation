@@ -16,6 +16,7 @@ import java.util.Random;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 /**
@@ -102,18 +103,18 @@ public class NecronomiconPotionRitual extends NecronomiconRitual {
 	}
 
 	@Override
-	public boolean canCompleteRitual(World world, int x, int y, int z, EntityPlayer player) {
+	public boolean canCompleteRitual(World world, BlockPos pos, EntityPlayer player) {
 
 		return true;
 	}
 
 	@Override
-	protected void completeRitualServer(World world, int x, int y, int z, EntityPlayer player){
+	protected void completeRitualServer(World world, BlockPos pos, EntityPlayer player){
 
 		player.addPotionEffect(new PotionEffect(getPotionEffect().id, 2400));
 		player.addPotionEffect(new PotionEffect(getBadEffect(world.rand), 600));
 	}
 
 	@Override
-	protected void completeRitualClient(World world, int x, int y, int z, EntityPlayer player){}
+	protected void completeRitualClient(World world, BlockPos pos, EntityPlayer player){}
 }

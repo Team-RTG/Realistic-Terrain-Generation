@@ -1,7 +1,11 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
+import biomesoplenty.api.biome.BOPBiomes;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPGrove;
 import rtg.util.CellNoise;
@@ -12,27 +16,22 @@ import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrubCustom;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPGrove;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPGrove;
-import biomesoplenty.api.biome.BOPBiomes;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import java.util.Random;
 
 public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPBiomes.grove.get();
 	
-	public static Block topBlock = bopBiome.topBlock.getBlock();
-	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
+	public static IBlockState topBlock = bopBiome.topBlock;
+	public static IBlockState fillerBlock = bopBiome.fillerBlock;
 	
 	public RealisticBiomeBOPGrove(BiomeConfig config)
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPGrove(),
-			new SurfaceBOPGrove(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f)
+			new SurfaceBOPGrove(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.15f)
 		);
 	}
 	

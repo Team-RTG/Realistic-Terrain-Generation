@@ -1,6 +1,7 @@
 package rtg.world.gen.surface.vanilla;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -14,9 +15,9 @@ import java.util.Random;
 
 public class SurfaceVanillaDesert extends SurfaceBase
 {
-	public SurfaceVanillaDesert(BiomeConfig config, Block top, Block fill) 
+	public SurfaceVanillaDesert(BiomeConfig config, IBlockState top, IBlockState fill)
 	{
-	    super(config, top, (byte)0, fill, (byte)0);
+	    super(config, top, fill);
 	}
 	
 	@Override

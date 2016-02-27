@@ -13,13 +13,13 @@ package com.shinoow.abyssalcraft.api.event;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.fml.common.eventhandler.Cancelable;
 
 import com.shinoow.abyssalcraft.api.ritual.NecronomiconRitual;
-
-import cpw.mods.fml.common.eventhandler.Cancelable;
 
 /**
  * A class containing events used by AbyssalCraft.<br>
@@ -157,32 +157,28 @@ public class ACEvents {
 	public static class RitualEvent extends PlayerEvent {
 		public final NecronomiconRitual ritual;
 		public final World world;
-		public final int x;
-		public final int y;
-		public final int z;
+		public final BlockPos pos;
 
-		public RitualEvent(EntityPlayer player, NecronomiconRitual ritual, World world, int x, int y, int z){
+		public RitualEvent(EntityPlayer player, NecronomiconRitual ritual, World world, BlockPos pos){
 			super(player);
 			this.ritual = ritual;
 			this.world = world;
-			this.x = x;
-			this.y = y;
-			this.z = z;
+			this.pos = pos;
 		}
 
 		@Cancelable
 		public static class Pre extends RitualEvent {
 
-			public Pre(EntityPlayer player, NecronomiconRitual ritual, World world, int x, int y, int z) {
-				super(player, ritual, world, x, y, z);
+			public Pre(EntityPlayer player, NecronomiconRitual ritual, World world, BlockPos pos) {
+				super(player, ritual, world, pos);
 			}
 		}
 
 		@Cancelable
 		public static class Post extends RitualEvent {
 
-			public Post(EntityPlayer player, NecronomiconRitual ritual, World world, int x, int y, int z) {
-				super(player, ritual, world, x, y, z);
+			public Post(EntityPlayer player, NecronomiconRitual ritual, World world, BlockPos pos) {
+				super(player, ritual, world, pos);
 			}
 		}
 	}

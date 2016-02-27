@@ -1,16 +1,15 @@
 package rtg.world.biome.realistic.vanilla;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMushroomIsland;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMushroomIsland;
 
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
-
 public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBase
 {	
-	public static Block topBlock = BiomeGenBase.mushroomIsland.topBlock.getBlock();
-	public static Block fillerBlock = BiomeGenBase.mushroomIsland.fillerBlock.getBlock();
+	public static  IBlockState topBlock = BiomeGenBase.mushroomIsland.topBlock;
+	public static IBlockState fillerBlock = BiomeGenBase.mushroomIsland.fillerBlock;
 	
 	public RealisticBiomeVanillaMushroomIsland(BiomeConfig config)
 	{

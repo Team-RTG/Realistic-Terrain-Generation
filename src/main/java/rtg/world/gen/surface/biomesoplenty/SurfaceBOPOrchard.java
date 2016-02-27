@@ -1,25 +1,25 @@
 package rtg.world.gen.surface.biomesoplenty;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.chunk.ChunkPrimer;
+import java.util.Random;
 
 public class SurfaceBOPOrchard extends SurfaceBase
 {
 
-	public SurfaceBOPOrchard(BiomeConfig config, Block top, Block filler)
+	public SurfaceBOPOrchard(BiomeConfig config, IBlockState top, IBlockState filler)
 	{
-		super(config, top, (byte)0, filler, (byte)0);
+		super(config, top, filler);
 	}
 	
 	@Override

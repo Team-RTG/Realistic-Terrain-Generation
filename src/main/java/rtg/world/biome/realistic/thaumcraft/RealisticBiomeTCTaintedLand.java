@@ -13,7 +13,7 @@ public class RealisticBiomeTCTaintedLand extends RealisticBiomeTCBase
 		super(config, 
 			tcBiome, BiomeGenBase.river,
 			new TerrainTCTaintedLand(),
-			new SurfaceTCTaintedLand(config, tcBiome.topBlock.getBlock(), tcBiome.fillerBlock.getBlock())
+			new SurfaceTCTaintedLand(config, tcBiome.topBlock, tcBiome.fillerBlock)
 		);
 	}
 }

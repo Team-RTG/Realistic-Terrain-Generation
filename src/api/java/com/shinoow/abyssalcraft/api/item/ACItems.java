@@ -12,7 +12,7 @@
 package com.shinoow.abyssalcraft.api.item;
 
 import net.minecraft.item.Item;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Contains all items added in AbyssalCraft
@@ -22,13 +22,13 @@ import cpw.mods.fml.common.registry.GameRegistry;
  */
 public class ACItems {
 
-	public static Item oblivion_catalyst = getItem("OC");
-	public static Item gateway_key = getItem("portalplacer");
+	public static Item oblivion_catalyst = getItem("oc");
+	public static Item gateway_key = getItem("gatewaykey");
 	public static Item staff_of_the_gatekeeper = getItem("staff");
 	public static Item liquid_coralium_bucket = getItem("cbucket");
 	public static Item powerstone_tracker = getItem("psdlfinder");
 	public static Item eye_of_the_abyss = getItem("eoa");
-	public static Item dreaded_gateway_key = getItem("portalplacerdl");
+	public static Item dreaded_gateway_key = getItem("gatewaykeydl");
 	public static Item dreaded_shard_of_abyssalnite = getItem("dreadshard");
 	public static Item dreaded_chunk_of_abyssalnite = getItem("dreadchunk");
 	public static Item chunk_of_abyssalnite = getItem("abychunk");
@@ -46,7 +46,7 @@ public class ACItems {
 	public static Item chunk_of_coralium = getItem("cchunk");
 	public static Item refined_coralium_ingot = getItem("cingot");
 	public static Item coralium_plate = getItem("platec");
-	public static Item transmutation_gem = getItem("corb");
+	public static Item transmutation_gem = getItem("transmutationgem");
 	public static Item coralium_plagued_flesh = getItem("corflesh");
 	public static Item coralium_plagued_flesh_on_a_bone = getItem("corbone");
 	public static Item darkstone_pickaxe = getItem("dpick");
@@ -64,26 +64,26 @@ public class ACItems {
 	public static Item refined_coralium_shovel = getItem("corshovel");
 	public static Item refined_coralium_sword = getItem("corsword");
 	public static Item refined_coralium_hoe = getItem("corhoe");
-	public static Item abyssalnite_boots = getItem("aboots");
 	public static Item abyssalnite_helmet = getItem("ahelmet");
 	public static Item abyssalnite_chestplate = getItem("aplate");
 	public static Item abyssalnite_leggings = getItem("alegs");
-	public static Item dreaded_abyssalnite_boots = getItem("dboots");
+	public static Item abyssalnite_boots = getItem("aboots");
 	public static Item dreaded_abyssalnite_helmet = getItem("dhelmet");
 	public static Item dreaded_abyssalnite_chestplate = getItem("dplate");
 	public static Item dreaded_abyssalnite_leggings = getItem("dlegs");
-	public static Item refined_coralium_boots = getItem("corboots");
+	public static Item dreaded_abyssalnite_boots = getItem("dboots");
 	public static Item refined_coralium_helmet = getItem("corhelmet");
 	public static Item refined_coralium_chestplate = getItem("corplate");
 	public static Item refined_coralium_leggings = getItem("corlegs");
-	public static Item plated_coralium_boots = getItem("corbootsp");
+	public static Item refined_coralium_boots = getItem("corboots");
 	public static Item plated_coralium_helmet = getItem("corhelmetp");
 	public static Item plated_coralium_chestplate = getItem("corplatep");
 	public static Item plated_coralium_leggings = getItem("corlegsp");
-	public static Item depths_boots = getItem("depthsboots");
+	public static Item plated_coralium_boots = getItem("corbootsp");
 	public static Item depths_helmet = getItem("depthshelmet");
 	public static Item depths_chestplate = getItem("depthsplate");
 	public static Item depths_leggings = getItem("depthslegs");
+	public static Item depths_boots = getItem("depthsboots");
 	public static Item cobblestone_upgrade_kit = getItem("cobbleu");
 	public static Item iron_upgrade_kit = getItem("ironu");
 	public static Item gold_upgrade_kit = getItem("goldu");
@@ -110,10 +110,10 @@ public class ACItems {
 	public static Item cudgel = getItem("cudgel");
 	public static Item dreadium_ingot = getItem("dreadiumingot");
 	public static Item dread_fragment = getItem("dreadfragment");
-	public static Item dreadium_boots = getItem("dreadiumboots");
 	public static Item dreadium_helmet = getItem("dreadiumhelmet");
 	public static Item dreadium_chestplate = getItem("dreadiumplate");
 	public static Item dreadium_leggings = getItem("dreadiumlegs");
+	public static Item dreadium_boots = getItem("dreadiumboots");
 	public static Item dreadium_pickaxe = getItem("dreadiumpickaxe");
 	public static Item dreadium_axe = getItem("dreadiumaxe");
 	public static Item dreadium_shovel = getItem("dreadiumshovel");
@@ -139,11 +139,11 @@ public class ACItems {
 	public static Item dreadium_katana_hilt = getItem("dreadhilt");
 	public static Item dreadium_katana = getItem("dreadkatana");
 	public static Item dread_plagued_gateway_key = getItem("dreadkey");
-	public static Item rlyehian_gateway_key = getItem("portalplacerjzh");
-	public static Item dreadium_samurai_boots = getItem("dreadiumsamuraiboots");
+	public static Item rlyehian_gateway_key = getItem("gatewaykeyjzh");
 	public static Item dreadium_samurai_helmet = getItem("dreadiumsamuraihelmet");
 	public static Item dreadium_samurai_chestplate = getItem("dreadiumsamuraiplate");
 	public static Item dreadium_samurai_leggings = getItem("dreadiumsamurailegs");
+	public static Item dreadium_samurai_boots = getItem("dreadiumsamuraiboots");
 	public static Item tin_ingot = getItem("tiningot");
 	public static Item copper_ingot = getItem("copperingot");
 	public static Item anti_beef = getItem("antibeef");
@@ -156,10 +156,10 @@ public class ACItems {
 	public static Item ethaxium_brick = getItem("ethbrick");
 	public static Item ethaxium_ingot = getItem("ethaxiumingot");
 	public static Item life_crystal = getItem("lifecrystal");
-	public static Item ethaxium_boots = getItem("ethaxiumboots");
 	public static Item ethaxium_helmet = getItem("ethaxiumhelmet");
 	public static Item ethaxium_chestplate = getItem("ethaxiumplate");
 	public static Item ethaxium_leggings = getItem("ethaxiumlegs");
+	public static Item ethaxium_boots = getItem("ethaxiumboots");
 	public static Item ethaxium_pickaxe = getItem("ethaxiumpickaxe");
 	public static Item ethaxium_axe = getItem("ethaxiumaxe");
 	public static Item ethaxium_shovel = getItem("ethaxiumshovel");

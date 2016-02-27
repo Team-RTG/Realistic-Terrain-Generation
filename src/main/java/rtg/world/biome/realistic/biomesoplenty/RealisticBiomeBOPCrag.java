@@ -1,19 +1,18 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import biomesoplenty.api.biome.BOPBiomes;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPCrag;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPCrag;
-import biomesoplenty.api.biome.BOPBiomes;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase
 {	
 	public static BiomeGenBase bopBiome = BOPBiomes.crag.get();
 	
-	public static Block topBlock = bopBiome.topBlock.getBlock();
-	public static Block fillerBlock = bopBiome.fillerBlock.getBlock();
+	public static IBlockState topBlock = bopBiome.topBlock;
+	public static IBlockState fillerBlock = bopBiome.fillerBlock;
 		
 	public RealisticBiomeBOPCrag(BiomeConfig config)
 	{

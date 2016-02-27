@@ -51,6 +51,7 @@ public class BiomeConfigManager
         initBiomeConfigsVAMP();
         initBiomeConfigsLOM();
         initBiomeConfigsTOFU();
+        initBiomeConfigsFN();
         initBiomeConfigsVanilla();
     }
     
@@ -378,6 +379,20 @@ public class BiomeConfigManager
         BiomeConfigTOFU.biomeConfigTOFUTofuPlainHills = new BiomeConfigTOFUTofuPlainHills();
         BiomeConfigTOFU.biomeConfigTOFUTofuPlains = new BiomeConfigTOFUTofuPlains();
         BiomeConfigTOFU.biomeConfigTOFUTofuRiver = new BiomeConfigTOFUTofuRiver();
+    }
+
+    public static void initBiomeConfigsFN()
+    {
+
+        BiomeConfigFN.biomeConfigFNCherryBlossomWoodland = new BiomeConfigFNCherryBlossomWoodland();
+        BiomeConfigFN.biomeConfigFNCrystalForest = new BiomeConfigFNCrystalForest();
+        BiomeConfigFN.biomeConfigFNEucalyptusForest = new BiomeConfigFNEucalyptusForest();
+        BiomeConfigFN.biomeConfigFNGreatwoodForest = new BiomeConfigFNGreatwoodForest();
+        BiomeConfigFN.biomeConfigFNMapleForest = new BiomeConfigFNMapleForest();
+        BiomeConfigFN.biomeConfigFNRedwoodForest = new BiomeConfigFNRedwoodForest();
+        BiomeConfigFN.biomeConfigFNRedwoodForestHills = new BiomeConfigFNRedwoodForestHills();
+        BiomeConfigFN.biomeConfigFNTropicalForest = new BiomeConfigFNTropicalForest();
+        BiomeConfigFN.biomeConfigFNTropicalForestHills = new BiomeConfigFNTropicalForestHills();
     }
 
     public static void initBiomeConfigsVanilla()

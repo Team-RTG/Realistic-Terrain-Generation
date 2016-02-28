@@ -14,6 +14,7 @@
     "parent": "",
     "requiredMods": [ "Forge@[10.13.4.1448,)" ],
     "dependencies": [
+        "abyssalcraft@[1.8.9.6,)",
         "arsmagica2@[1.4.0.008,)",
         "ATG@[0.10.0,)",
         "BiomesOPlenty@[2.1.0,)",

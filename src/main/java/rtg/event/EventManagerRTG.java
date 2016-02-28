@@ -1,9 +1,8 @@
 package rtg.event;
 
-import org.apache.logging.log4j.Level;
-
 import rtg.RTG;
 import rtg.config.rtg.ConfigRTG;
+import rtg.util.Logger;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -12,14 +11,12 @@ import rtg.world.gen.MapGenRavineRTG;
 import rtg.world.gen.genlayer.RiverRemover;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
-import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 
 import net.minecraftforge.common.BiomeDictionary;
@@ -46,10 +43,8 @@ public class EventManagerRTG
 	@SubscribeEvent(priority = EventPriority.LOW)
 	public void eventListenerRTG(InitMapGenEvent event) {
 	    
-	    if (ConfigRTG.enableDebugging) {
-	        FMLLog.log(Level.INFO, "event type = %s", event.type.toString());
-	        FMLLog.log(Level.INFO, "event originalGen = %s", event.originalGen.toString());
-	    }
+        Logger.debug("event type = %s", event.type.toString());
+        Logger.debug("event originalGen = %s", event.originalGen.toString());
 	    
 		if (event.type == InitMapGenEvent.EventType.SCATTERED_FEATURE) {
 			event.newGen = new MapGenScatteredFeatureRTG();
@@ -75,9 +70,7 @@ public class EventManagerRTG
             }
         }
 		
-        if (ConfigRTG.enableDebugging) {
-            FMLLog.log(Level.INFO, "event newGen = %s", event.newGen.toString());
-        }
+        Logger.debug("event newGen = %s", event.newGen.toString());
 	}
 	
     @SubscribeEvent
@@ -176,7 +169,7 @@ public class EventManagerRTG
         
         if (event.world.provider.dimensionId == 0) {
             
-            FMLLog.log(Level.INFO, "World Seed: %d", event.world.getSeed());
+            Logger.info("World Seed: %d", event.world.getSeed());
         }
     }
     
@@ -186,7 +179,7 @@ public class EventManagerRTG
 
         if (this.biome != null) {
             
-            if (this.biome.biomeID == BiomeGenBase.desert.biomeID || this.biome.biomeID == BiomeGenBase.desertHills.biomeID || this.biome.biomeID == BiomeGenBase.beach.biomeID) {
+            if (this.isDesertVillageBiome()) {
                 
                 Block originalBlock = event.original;
                 

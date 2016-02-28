@@ -52,6 +52,8 @@ import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.util.VoronoiCellNoise;
+import rtg.util.VoronoiCellOctave;
 
 /**
  * Scattered features courtesy of Ezoteric (https://github.com/Ezoteric) and Choonster (https://github.com/Choonster)
@@ -110,8 +112,7 @@ public class ChunkProviderRTG implements IChunkProvider
         worldHeight = worldObj.provider.getActualHeight();
         rand = new Random(l);
         simplex = new OpenSimplexNoise(l);
-    	cell = new CellNoise(l, (short)0);
-    	cell.setUseDistance(true);
+        cell = new VoronoiCellNoise(l);
 
     	mapRand = new Random(l);
     	worldSeed = l;
@@ -223,15 +224,23 @@ public class ChunkProviderRTG implements IChunkProvider
 
         for(k = 0; k < 256; k++)
         {
-        	if(biomesGeneratedInChunk[k] > 0f)
-        	{
-        		RealisticBiomeBase.getBiome(k).generateMapGen(blocks, metadata, worldSeed, worldObj, cmr, mapRand, cx, cy, simplex, cell, noise);
-        		biomesGeneratedInChunk[k] = 0f;
-        	}
-            try {
-                baseBiomesList[k] = biomesForGeneration[k].baseBiome;
-            } catch (Exception e) {
-                baseBiomesList[k] = biomePatcher.getPatchedBaseBiome(""+biomesForGeneration[k].biomeID);
+            // Is this a single biome world?
+            if (biomePatcher.isSingleBiomeWorld())
+            {
+                baseBiomesList[k] = biomePatcher.getSingleBaseBiome();
+            }
+            else
+            {
+                if(biomesGeneratedInChunk[k] > 0f)
+                {
+                    RealisticBiomeBase.getBiome(k).generateMapGen(blocks, metadata, worldSeed, worldObj, cmr, mapRand, cx, cy, simplex, cell, noise);
+                    biomesGeneratedInChunk[k] = 0f;
+                }
+                try {
+                    baseBiomesList[k] = biomesForGeneration[k].baseBiome;
+                } catch (Exception e) {
+                    baseBiomesList[k] = biomePatcher.getPatchedBaseBiome(""+biomesForGeneration[k].biomeID);
+                }
             }
         }
 
@@ -251,7 +260,19 @@ public class ChunkProviderRTG implements IChunkProvider
             }
             
             if (ConfigRTG.generateVillages) {
-                villageGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+                
+                if (ConfigRTG.villageCrashFix) {
+                    
+                    try {
+                        villageGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+                    }
+                    catch (Exception e) {
+                        // Do nothing.
+                    }
+                }
+                else {
+                    villageGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+                }
             }
             
             if (ConfigRTG.generateScatteredFeatures) {
@@ -658,7 +679,20 @@ public class ChunkProviderRTG implements IChunkProvider
             }
             
             if (ConfigRTG.generateVillages) {
-                flag = villageGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+                
+                if (ConfigRTG.villageCrashFix) {
+                    
+                    try {
+                        flag = villageGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+                    }
+                    catch (Exception e) {
+                        flag = false;
+                    }
+                }
+                else {
+                    
+                    flag = villageGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+                }
             }
             
             if (ConfigRTG.generateScatteredFeatures) {
@@ -708,10 +742,21 @@ public class ChunkProviderRTG implements IChunkProvider
         		{
         			borderNoise[bn] = 1f;
         		}
-        		realisticBiome = RealisticBiomeBase.getBiome(bn);
-                if (realisticBiome == null)
+
+                // Is this a single biome world?
+                if (biomePatcher.isSingleBiomeWorld())
                 {
-                    realisticBiome = biomePatcher.getPatchedRealisticBiome("NULL biome (" + bn + ") found when generating border noise.");
+                    realisticBiome = biomePatcher.getSingleRealisticBiome();
+                }
+                else
+                {
+                    realisticBiome = RealisticBiomeBase.getBiome(bn);
+                    
+                    // Do we need to patch the biome?
+                    if (realisticBiome == null)
+                    {
+                        realisticBiome = biomePatcher.getPatchedRealisticBiome("NULL biome (" + bn + ") found when generating border noise.");
+                    }
                 }
                 
                 /**
@@ -907,7 +952,20 @@ public class ChunkProviderRTG implements IChunkProvider
             }
             
             if (ConfigRTG.generateVillages) {
-                villageGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+                
+                if (ConfigRTG.villageCrashFix) {
+                    
+                    try {
+                        villageGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+                    }
+                    catch (Exception e) {
+                        // Do nothing.
+                    }
+                    
+                }
+                else {
+                    villageGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+                }
             }
             
             if (ConfigRTG.generateScatteredFeatures) {

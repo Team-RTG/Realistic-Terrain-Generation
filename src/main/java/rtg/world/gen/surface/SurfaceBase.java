@@ -8,6 +8,9 @@ import rtg.util.CellNoise;
 import rtg.util.ModPresenceTester;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.UBColumnCache;
+
+import com.shinoow.abyssalcraft.api.block.ACBlocks;
+
 import cpw.mods.fml.common.registry.GameData;
 import exterminatorJeff.undergroundBiomes.api.BlockCodes;
 
@@ -19,12 +22,14 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceBase
 {
     protected Block topBlock;
-    protected byte topBlockMeta;
+    public byte topBlockMeta;
     protected Block fillerBlock;
-    protected byte fillerBlockMeta;
+    public byte fillerBlockMeta;
 	protected BiomeConfig biomeConfig;
 
-    private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
+	private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
+	private final static ModPresenceTester abyssalCraftMod = new ModPresenceTester("abyssalcraft");
+	
     // create UBColumnCache only if UB is present
     private static UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
     
@@ -94,49 +99,47 @@ public class SurfaceBase
         }
     }
     
-    protected Block hcStone(World world, int i, int j, int x, int y, int k)
+    protected Block hcStone(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY)
     {
-        int worldX = i;
-        int worldY = k;
-        int worldZ = j;
-        
-        return Blocks.stone;
-    }
-    
-    protected byte hcStoneMeta(World world, int i, int j, int x, int y, int k)
-    {
-        int worldX = i;
-        int worldY = k;
-        int worldZ = j;
-        
-        return (byte)0;
-    }
-    
-    protected Block hcCobble(World world, int i, int j, int x, int y, int k)
-    {
-        if ((undergroundBiomesMod.present())) {
+        if (abyssalCraftMod.present()) {
             
-            int worldX = i;
-            int worldY = k;
-            int worldZ = j;
-            
-            BlockCodes cobble = ubColumnCache.column(worldX,worldZ).cobblestone(worldY);
-            
-            return cobble.block;
+            return ACBlocks.darkstone;
         }
         else {
             
-            return Blocks.cobblestone;
+            return Blocks.stone;
         }
     }
     
-    protected byte hcCobbleMeta(World world, int i, int j, int x, int y, int k)
+    protected byte hcStoneMeta(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY)
+    {
+        return (byte)0;
+    }
+    
+    protected Block hcCobble(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY)
+    {
+        if (abyssalCraftMod.present()) {
+            
+            return ACBlocks.darkstone_cobblestone;
+        }
+        else {
+            
+            if ((undergroundBiomesMod.present())) {
+                
+                BlockCodes cobble = ubColumnCache.column(worldX,worldZ).cobblestone(worldY);
+                
+                return cobble.block;
+            }
+            else {
+                
+                return Blocks.cobblestone;
+            }
+        }
+    }
+    
+    protected byte hcCobbleMeta(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY)
     {
         if ((undergroundBiomesMod.present())) {
-            
-            int worldX = i;
-            int worldY = k;
-            int worldZ = j;
 
             BlockCodes cobble = ubColumnCache.column(worldX,worldZ).cobblestone(worldY);
             

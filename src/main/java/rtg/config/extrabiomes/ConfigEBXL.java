@@ -2,11 +2,9 @@ package rtg.config.extrabiomes;
 
 import java.io.File;
 
-import org.apache.logging.log4j.Level;
-
 import rtg.api.biome.extrabiomes.config.BiomeConfigEBXL;
 import rtg.config.BiomeConfigManager;
-import cpw.mods.fml.common.FMLLog;
+import rtg.util.Logger;
 
 import net.minecraftforge.common.config.Configuration;
 
@@ -26,7 +24,7 @@ public class ConfigEBXL
 		}
 		catch (Exception e)
 		{
-			FMLLog.log(Level.ERROR, e, "RTG has had a problem loading EBXL configuration.");	
+		    Logger.error("RTG has had a problem loading EBXL configuration.");	
 		}
 		finally 
 		{

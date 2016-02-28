@@ -57,8 +57,6 @@ public class TerrainHLMeadow extends TerrainBase
 
         floNoise = 64f + h;
 
-        // FMLLog.log(Level.INFO, "floNoise = %f", floNoise);
-
         return floNoise;
     }
 	

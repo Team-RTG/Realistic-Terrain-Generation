@@ -4,6 +4,13 @@ import java.util.ArrayList;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.BiomeConfigProperty;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigAC;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACCoraliumInfestedSwamp;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklands;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsForest;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsHighland;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsMountains;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsPlains;
 import rtg.api.biome.arsmagica.config.BiomeConfigAM;
 import rtg.api.biome.arsmagica.config.BiomeConfigAMWitchwoodForest;
 import rtg.api.biome.atg.config.BiomeConfigATG;
@@ -219,6 +226,18 @@ import rtg.api.biome.extrabiomes.config.BiomeConfigEBXLTemperateRainforest;
 import rtg.api.biome.extrabiomes.config.BiomeConfigEBXLTundra;
 import rtg.api.biome.extrabiomes.config.BiomeConfigEBXLWasteland;
 import rtg.api.biome.extrabiomes.config.BiomeConfigEBXLWoodlands;
+import rtg.api.biome.forgottennature.config.BiomeConfigFN;
+import rtg.api.biome.forgottennature.config.BiomeConfigFNCherryBlossomWoodland;
+import rtg.api.biome.forgottennature.config.BiomeConfigFNCrystalForest;
+import rtg.api.biome.forgottennature.config.BiomeConfigFNEucalyptusForest;
+import rtg.api.biome.forgottennature.config.BiomeConfigFNGreatwoodForest;
+import rtg.api.biome.forgottennature.config.BiomeConfigFNMapleForest;
+import rtg.api.biome.forgottennature.config.BiomeConfigFNRedwoodForest;
+import rtg.api.biome.forgottennature.config.BiomeConfigFNRedwoodForestHills;
+import rtg.api.biome.forgottennature.config.BiomeConfigFNTropicalForest;
+import rtg.api.biome.forgottennature.config.BiomeConfigFNTropicalForestHills;
+import rtg.api.biome.growthcraft.config.BiomeConfigGC;
+import rtg.api.biome.growthcraft.config.BiomeConfigGCBambooForest;
 import rtg.api.biome.highlands.config.BiomeConfigHL;
 import rtg.api.biome.highlands.config.BiomeConfigHLAlps;
 import rtg.api.biome.highlands.config.BiomeConfigHLAutumnForest;
@@ -263,10 +282,33 @@ import rtg.api.biome.highlands.config.BiomeConfigHLVolcanoIsland;
 import rtg.api.biome.highlands.config.BiomeConfigHLWindyIsland;
 import rtg.api.biome.highlands.config.BiomeConfigHLWoodlands;
 import rtg.api.biome.highlands.config.BiomeConfigHLWoodsMountains;
+import rtg.api.biome.lotsomobs.config.BiomeConfigLOM;
+import rtg.api.biome.lotsomobs.config.BiomeConfigLOMAntartica;
+import rtg.api.biome.lotsomobs.config.BiomeConfigLOMTropicalBeach;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRW;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWBotanicalGarden;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWMountainOfMadness;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWMurica;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWOssuary;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWRockCandyMountain;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWShadowFen;
+import rtg.api.biome.ridiculousworld.config.BiomeConfigRWSpookyForest;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTC;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCEerie;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCMagicalForest;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCTaintedLand;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFU;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFULeekPlains;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuBuildings;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuExtremeHills;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuExtremeHillsEdge;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuForest;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuForestHills;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuPlainHills;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuPlains;
+import rtg.api.biome.tofucraft.config.BiomeConfigTOFUTofuRiver;
+import rtg.api.biome.vampirism.config.BiomeConfigVAMP;
+import rtg.api.biome.vampirism.config.BiomeConfigVAMPVampireForest;
 import rtg.api.biome.vanilla.config.BiomeConfigVanilla;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBeach;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForest;
@@ -335,6 +377,7 @@ public class BiomeConfigManager
     
     public static void initBiomeConfigs()
     {
+        initBiomeConfigsAC();
         initBiomeConfigsAM();
         initBiomeConfigsATG();
         initBiomeConfigsBOP();
@@ -342,9 +385,25 @@ public class BiomeConfigManager
         initBiomeConfigsCC();
         initBiomeConfigsEB();
         initBiomeConfigsEBXL();
+        initBiomeConfigsGC();
         initBiomeConfigsHL();
+        initBiomeConfigsRW();
         initBiomeConfigsTC();
+        initBiomeConfigsVAMP();
+        initBiomeConfigsLOM();
+        initBiomeConfigsTOFU();
+        initBiomeConfigsFN();
         initBiomeConfigsVanilla();
+    }
+    
+    public static void initBiomeConfigsAC()
+    {
+        BiomeConfigAC.biomeConfigACCoraliumInfestedSwamp = new BiomeConfigACCoraliumInfestedSwamp();
+        BiomeConfigAC.biomeConfigACDarklands = new BiomeConfigACDarklands();
+        BiomeConfigAC.biomeConfigACDarklandsForest = new BiomeConfigACDarklandsForest();
+        BiomeConfigAC.biomeConfigACDarklandsHighland = new BiomeConfigACDarklandsHighland();
+        BiomeConfigAC.biomeConfigACDarklandsMountains = new BiomeConfigACDarklandsMountains();
+        BiomeConfigAC.biomeConfigACDarklandsPlains = new BiomeConfigACDarklandsPlains();
     }
     
     public static void initBiomeConfigsAM()
@@ -583,6 +642,11 @@ public class BiomeConfigManager
         BiomeConfigEBXL.biomeConfigEBXLWoodlands = new BiomeConfigEBXLWoodlands();
     }
     
+    public static void initBiomeConfigsGC()
+    {
+        BiomeConfigGC.biomeConfigGCBambooForest = new BiomeConfigGCBambooForest();
+    }
+    
     public static void initBiomeConfigsHL()
     {
         BiomeConfigHL.biomeConfigHLAlps = new BiomeConfigHLAlps();
@@ -630,11 +694,61 @@ public class BiomeConfigManager
         BiomeConfigHL.biomeConfigHLWoodsMountains = new BiomeConfigHLWoodsMountains();
     }
     
+    public static void initBiomeConfigsRW()
+    {  
+        BiomeConfigRW.biomeConfigRWBotanicalGarden = new BiomeConfigRWBotanicalGarden();
+        BiomeConfigRW.biomeConfigRWMurica = new BiomeConfigRWMurica();
+        BiomeConfigRW.biomeConfigRWMountainOfMadness = new BiomeConfigRWMountainOfMadness();
+        BiomeConfigRW.biomeConfigRWOssuary = new BiomeConfigRWOssuary();
+        BiomeConfigRW.biomeConfigRWRockCandyMountain = new BiomeConfigRWRockCandyMountain();
+        BiomeConfigRW.biomeConfigRWShadowFen = new BiomeConfigRWShadowFen();
+        BiomeConfigRW.biomeConfigRWSpookyForest = new BiomeConfigRWSpookyForest();
+    }
+    
     public static void initBiomeConfigsTC()
     {
         BiomeConfigTC.biomeConfigTCEerie = new BiomeConfigTCEerie();
         BiomeConfigTC.biomeConfigTCMagicalForest = new BiomeConfigTCMagicalForest();
         BiomeConfigTC.biomeConfigTCTaintedLand = new BiomeConfigTCTaintedLand();
+    }
+    
+    public static void initBiomeConfigsLOM()
+    {
+        BiomeConfigLOM.biomeConfigLOMAntartica = new BiomeConfigLOMAntartica();
+        BiomeConfigLOM.biomeConfigLOMTropicalBeach = new BiomeConfigLOMTropicalBeach();
+    }
+
+    public static void initBiomeConfigsVAMP()
+    {
+        BiomeConfigVAMP.biomeConfigVAMPVampireForest = new BiomeConfigVAMPVampireForest();
+    }
+    
+    public static void initBiomeConfigsTOFU()
+    {
+
+        BiomeConfigTOFU.biomeConfigTOFULeekPlains = new BiomeConfigTOFULeekPlains();
+        BiomeConfigTOFU.biomeConfigTOFUTofuBuildings = new BiomeConfigTOFUTofuBuildings();
+        BiomeConfigTOFU.biomeConfigTOFUTofuExtremeHills = new BiomeConfigTOFUTofuExtremeHills();
+        BiomeConfigTOFU.biomeConfigTOFUTofuExtremeHillsEdge = new BiomeConfigTOFUTofuExtremeHillsEdge();
+        BiomeConfigTOFU.biomeConfigTOFUTofuForest = new BiomeConfigTOFUTofuForest();
+        BiomeConfigTOFU.biomeConfigTOFUTofuForestHills = new BiomeConfigTOFUTofuForestHills();
+        BiomeConfigTOFU.biomeConfigTOFUTofuPlainHills = new BiomeConfigTOFUTofuPlainHills();
+        BiomeConfigTOFU.biomeConfigTOFUTofuPlains = new BiomeConfigTOFUTofuPlains();
+        BiomeConfigTOFU.biomeConfigTOFUTofuRiver = new BiomeConfigTOFUTofuRiver();
+    }
+    
+    public static void initBiomeConfigsFN()
+    {
+
+        BiomeConfigFN.biomeConfigFNCherryBlossomWoodland = new BiomeConfigFNCherryBlossomWoodland();
+        BiomeConfigFN.biomeConfigFNCrystalForest = new BiomeConfigFNCrystalForest();
+        BiomeConfigFN.biomeConfigFNEucalyptusForest = new BiomeConfigFNEucalyptusForest();
+        BiomeConfigFN.biomeConfigFNGreatwoodForest = new BiomeConfigFNGreatwoodForest();
+        BiomeConfigFN.biomeConfigFNMapleForest = new BiomeConfigFNMapleForest();
+        BiomeConfigFN.biomeConfigFNRedwoodForest = new BiomeConfigFNRedwoodForest();
+        BiomeConfigFN.biomeConfigFNRedwoodForestHills = new BiomeConfigFNRedwoodForestHills();
+        BiomeConfigFN.biomeConfigFNTropicalForest = new BiomeConfigFNTropicalForest();
+        BiomeConfigFN.biomeConfigFNTropicalForestHills = new BiomeConfigFNTropicalForestHills();
     }
     
     public static void initBiomeConfigsVanilla()

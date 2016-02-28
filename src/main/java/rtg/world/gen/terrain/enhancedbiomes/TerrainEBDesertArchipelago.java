@@ -1,6 +1,5 @@
 package rtg.world.gen.terrain.enhancedbiomes;
 
-import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;

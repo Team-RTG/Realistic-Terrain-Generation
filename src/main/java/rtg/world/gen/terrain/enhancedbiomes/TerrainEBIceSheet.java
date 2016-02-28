@@ -27,8 +27,6 @@ public class TerrainEBIceSheet extends TerrainBase
         floNoise = 63f + h;
         floNoise = (floNoise < 62) ? 62 : ((floNoise > 64 ? 64 : floNoise));
         
-        //FMLLog.log(Level.INFO, "floNoise = %f", floNoise);
-        
         return floNoise;
     }
 }

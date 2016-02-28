@@ -1,5 +1,9 @@
 package rtg.util;
-public interface CellNoise {
+
+/**
+ *
+ * @author Zeno410
+ */
+public interface CellOctave {
     public float noise(double x, double z,double depth) ;
-    public CellOctave octave(int index);
 }

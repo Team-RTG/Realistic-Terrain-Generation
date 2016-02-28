@@ -42,6 +42,8 @@ import java.util.Map;
 import java.util.Random;
 
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.*;
+import rtg.util.VoronoiCellNoise;
+import rtg.util.VoronoiCellOctave;
 
 /**
  * Scattered features courtesy of Ezoteric (https://github.com/Ezoteric) and Choonster (https://github.com/Choonster)
@@ -101,8 +103,7 @@ public class ChunkProviderRTG implements IChunkProvider
         worldHeight = worldObj.provider.getActualHeight();
         rand = new Random(l);
         simplex = new OpenSimplexNoise(l);
-    	cell = new CellNoise(l, (short)0);
-    	cell.setUseDistance(true);
+        cell = new VoronoiCellNoise(l);
 
     	mapRand = new Random(l);
     	worldSeed = l;

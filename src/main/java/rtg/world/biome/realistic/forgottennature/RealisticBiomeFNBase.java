@@ -4,6 +4,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.fml.common.Loader;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.forgottennature.config.BiomeConfigFN;
+import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
@@ -41,6 +42,11 @@ public class RealisticBiomeFNBase extends RealisticBiomeBase
             {
                 if (b[i] != null)
                 {
+                    if (b[i].biomeName == null) {
+                        Logger.warn("Biome ID %d has no name.", b[i].biomeID);
+                        continue;
+                    }
+                    
                     BiomeGenBase fnBiome = b[i];
                     String biomeName = b[i].biomeName;
                     String biomeClass = b[i].getBiomeClass().getName();

@@ -1,6 +1,6 @@
 /**
  * A shell to contain multiple instances of OpenSimplexNoise and masquerade as the first instance
- * Names are current odd for compatibility - this should eventually be called "suite" and
+ * Names are currently odd for compatibility - this should eventually be called "suite" and
  * SimplexOctave should be OpenSimplexNoise
  */
  
@@ -69,5 +69,7 @@ public class OpenSimplexNoise extends SimplexOctave {
         return octaves[index];
     }
 	public SimplexOctave mountain() {return octaves[0];}
+
+    public SimplexOctave riverJitter() {return octaves[1];}
 
 }

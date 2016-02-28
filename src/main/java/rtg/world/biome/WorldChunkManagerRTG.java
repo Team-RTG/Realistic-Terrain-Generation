@@ -34,8 +34,6 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
     private OpenSimplexNoise simplex;
     private CellNoise cell;
     private SimplexCellularNoise simplexCell;
-    private SimplexCellularOctave riverCellNoiseInstances;
-    private SimplexOctave.NoiseInstance2[] riverOpenSimplexNoiseInstances;
     private float[] borderNoise;
     private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
     private BiomeCache biomeCache;
@@ -58,14 +56,8 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         if (par1World.provider.dimensionId !=0) throw new RuntimeException();
 
         simplex = new OpenSimplexNoise(seed);
-        //cell = new VoronoiCellNoise(seed);
         cell = new VoronoiCellNoise(seed);
-        //cell.setUseDistance(true);
         simplexCell = new SimplexCellularNoise(seed);
-        //riverCellNoiseInstances = new SimplexCellularOctave(seed);
-        riverOpenSimplexNoiseInstances = new OpenSimplexNoise.NoiseInstance2[] {
-        		new OpenSimplexNoise.NoiseInstance2(simplex, -1, -1, -1, 0, 1)
-        };
         GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType);
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed

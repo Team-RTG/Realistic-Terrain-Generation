@@ -1,6 +1,5 @@
 package rtg.util;
 
-import net.minecraft.world.World;
 
 public class CanyonColor 
 {

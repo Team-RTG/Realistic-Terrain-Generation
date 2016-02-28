@@ -2,9 +2,7 @@ package rtg.config.rtg;
 
 import java.io.File;
 
-import org.apache.logging.log4j.Level;
-
-import cpw.mods.fml.common.FMLLog;
+import rtg.util.Logger;
 import cpw.mods.fml.common.Loader;
 
 import net.minecraftforge.common.config.Configuration;
@@ -23,7 +21,8 @@ public class ConfigRTG
 
 	public static boolean enableRTGBiomeDecorations = true;
 	public static boolean enableRTGBiomeSurfaces = true;
-    public static int patchBiomeId = 1;
+	public static int patchBiomeId = 1;
+	public static int singleBiomeId = -1;
     
     /* ==================== Boulders ==================== */
     
@@ -106,7 +105,7 @@ public class ConfigRTG
     public static int shadowStoneBlockByte = 9;
     
     public static String shadowDesertBlockId = "minecraft:stained_hardened_clay";
-    public static int shadowDesertBlockByte = 8;
+    public static int shadowDesertBlockByte = 0;
 
 	public static boolean enableUBCStoneShadowing = true;
 	public static boolean enableUBCDesertShadowing = true;
@@ -188,6 +187,19 @@ public class ConfigRTG
                 + Configuration.NEW_LINE +
                 "Default = Vanilla Plains"
                 + Configuration.NEW_LINE
+            );
+            
+            singleBiomeId = config.getInt(
+                "Generate only this biome ID", 
+                "Biomes", 
+                singleBiomeId, 
+                -1, 255, 
+                "If you enter a biome ID here, the whole world will consist of only that biome (and rivers). Set to -1 to generate the world normally." +
+                Configuration.NEW_LINE +
+                "Vanilla biome IDs can be found here: http://goo.gl/WqlAfV" +
+                Configuration.NEW_LINE +
+                "For modded biome IDs, use NEI and go [Options] > [Tools] > [Data Dumps] > Biomes > [Dump], and then refer to the 'biome.csv' file which can be found in your '/.minecraft/dumps' folder." +
+                Configuration.NEW_LINE
             );
             
             /* ==================== Boulders ==================== */
@@ -304,7 +316,7 @@ public class ConfigRTG
                 Configuration.NEW_LINE
             );
             
-            shadowDesertBlockByte = config.getInt("Desert shadow block meta value", "Terrain shadowing", shadowDesertBlockByte, 0, 15, "The meta value of the shadow block for desert cliffs. Defaults to " + shadowDesertBlockByte +  " (light gray)." + Configuration.NEW_LINE);
+            shadowDesertBlockByte = config.getInt("Desert shadow block meta value", "Terrain shadowing", shadowDesertBlockByte, 0, 15, "The meta value of the shadow block for desert cliffs. Defaults to " + shadowDesertBlockByte +  " (white)." + Configuration.NEW_LINE);
             
             enableUBCStoneShadowing = config.getBoolean(
                 "UBC Mode (Stone)",
@@ -398,7 +410,7 @@ public class ConfigRTG
 		}
 		catch (Exception e) 
 		{
-			FMLLog.log(Level.ERROR, e, "RTG has had a problem loading RTG configuration.");	
+		    Logger.error("RTG has had a problem loading RTG configuration.");	
 		}
 		finally 
 		{

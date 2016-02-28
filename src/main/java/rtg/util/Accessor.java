@@ -1,7 +1,7 @@
 package rtg.util;
 
 
-import java.lang.reflect.*;
+import java.lang.reflect.Field;
 /**
  *
  * @author Zeno410

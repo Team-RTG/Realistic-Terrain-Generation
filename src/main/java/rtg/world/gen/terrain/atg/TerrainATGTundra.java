@@ -26,8 +26,6 @@ public class TerrainATGTundra extends TerrainBase
         
         floNoise = 63f + h;
         
-        //FMLLog.log(Level.INFO, "floNoise = %f", floNoise);
-        
         return floNoise;
     }
 }

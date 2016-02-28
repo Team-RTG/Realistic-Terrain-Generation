@@ -1,11 +1,8 @@
 package rtg.world.gen.terrain.vanilla;
 
-import org.apache.logging.log4j.Level;
-
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
-import cpw.mods.fml.common.FMLLog;
 
 public class TerrainVanillaSavanna extends TerrainBase
 {
@@ -30,8 +27,6 @@ public class TerrainVanillaSavanna extends TerrainBase
         h += st;
         
         floNoise = 66f + h;
-        
-        //FMLLog.log(Level.INFO, "floNoise = %f", floNoise);
         
         return floNoise;
     }

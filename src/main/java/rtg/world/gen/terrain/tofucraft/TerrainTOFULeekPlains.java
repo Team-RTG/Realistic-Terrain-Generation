@@ -28,8 +28,6 @@ public class TerrainTOFULeekPlains extends TerrainBase
         
         floNoise = 66f + h;
         
-        //FMLLog.log(Level.INFO, "floNoise = %f", floNoise);
-        
         return floNoise;
     }
 }

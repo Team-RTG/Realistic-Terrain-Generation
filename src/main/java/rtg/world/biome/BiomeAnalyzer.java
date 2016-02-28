@@ -42,6 +42,7 @@ public class BiomeAnalyzer {
         riverBiome = new boolean[256];
         for (int index = 0; index < 256; index++) {
             if (BiomeGenBase.getBiome(index) == null) continue;
+            if (BiomeGenBase.getBiome(index).biomeName == null) continue;
             if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("river")) {
                 riverBiome[index] = true;
             }
@@ -52,6 +53,7 @@ public class BiomeAnalyzer {
         oceanBiome = new boolean[256];
         for (int index = 0; index < 256; index++) {
             if (BiomeGenBase.getBiome(index) == null) continue;
+            if (BiomeGenBase.getBiome(index).biomeName == null) continue;
             if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("ocean")) {
                 oceanBiome[index] = true;
             }
@@ -69,6 +71,7 @@ public class BiomeAnalyzer {
         swampBiome = new boolean[256];
         for (int index = 0; index < 256; index++) {
             if (BiomeGenBase.getBiome(index) == null) continue;
+            if (BiomeGenBase.getBiome(index).biomeName == null) continue;
             if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("swamp")) {
                 swampBiome[index] = true;
             }
@@ -125,6 +128,7 @@ public class BiomeAnalyzer {
             if (!oceanBiome[index]) {
                 if (!riverBiome[index]) {
                      if (BiomeGenBase.getBiome(index) == null) continue;
+                     if (BiomeGenBase.getBiome(index).biomeName == null) continue;
                      if (beachBiome[index]) continue;
                      if (!BiomeGenBase.getBiome(index).biomeName.toLowerCase().equals("lake")) {
                          landBiome[index] = true;
@@ -139,6 +143,7 @@ public class BiomeAnalyzer {
         beachBiome = new boolean[256];
         for (int index = 0; index < 256; index++) {
             if (BiomeGenBase.getBiome(index) == null) continue;
+            if (BiomeGenBase.getBiome(index).biomeName == null) continue;
             if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("beach")) {
                 beachBiome[index] = true;
             }

@@ -20,7 +20,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
+import rtg.util.SimplexCellularOctave;
 import rtg.util.SimplexOctave;
+import rtg.util.VoronoiCellNoise;
+import rtg.util.VoronoiCellOctave;
 
 public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeProvider
 {
@@ -31,7 +34,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
     private OpenSimplexNoise simplex;
     private CellNoise cell;
     private SimplexCellularNoise simplexCell;
-    private SimplexCellularNoise.NoiseInstance2[] riverCellNoiseInstances;
+    private SimplexCellularOctave riverCellNoiseInstances;
     private SimplexOctave.NoiseInstance2[] riverOpenSimplexNoiseInstances;
     private float[] borderNoise;
     private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
@@ -55,12 +58,11 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         if (par1World.provider.dimensionId !=0) throw new RuntimeException();
 
         simplex = new OpenSimplexNoise(seed);
-        cell = new CellNoise(seed, (short) 0);
-        cell.setUseDistance(true);
+        //cell = new VoronoiCellNoise(seed);
+        cell = new VoronoiCellNoise(seed);
+        //cell.setUseDistance(true);
         simplexCell = new SimplexCellularNoise(seed);
-        riverCellNoiseInstances = new SimplexCellularNoise.NoiseInstance2[] {
-        		new SimplexCellularNoise.NoiseInstance2(simplexCell, 0, 1)
-        };
+        //riverCellNoiseInstances = new SimplexCellularOctave(seed);
         riverOpenSimplexNoiseInstances = new OpenSimplexNoise.NoiseInstance2[] {
         		new OpenSimplexNoise.NoiseInstance2(simplex, -1, -1, -1, 0, 1)
         };
@@ -217,16 +219,18 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         if (st < 0f && biomeHeight > 59f)
         {
         	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
-        	double[] simplexResults = new double[2];
-        	OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
+            SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+            simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
+            double pX = x + jitter.deltax() * 220f;
+            double pY = y + jitter.deltay() * 220f;
+            /*double[] simplexResults = new double[2];
+    	    OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
             double pX = x + simplexResults[0] * 220f;
-            double pY = y + simplexResults[1] * 220f;
+            double pY = y + simplexResults[1] * 220f;*/
 
             //New cellular noise.
             //TODO move the initialization of the results in a way that's more efficient but still thread safe.
-            double[] results = SimplexCellularNoise.initResultArray(riverCellNoiseInstances);
-            SimplexCellularNoise.resetResultArray(riverCellNoiseInstances, results);
-            SimplexCellularNoise.eval(pX / 1875.0, pY / 1875.0, riverCellNoiseInstances, results);
+            double[] results =simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
             float r = (float) cellBorder(results, 30.0 / 1300.0, 1.0);
             
             return (biomeHeight * (r + 1f))
@@ -241,16 +245,18 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
     public float getRiverStrength(int x, int y)
     {
     	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
-    	double[] simplexResults = new double[2];
-    	OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
-        double pX = x + simplexResults[0] * 220f;
-        double pY = y + simplexResults[1] * 220f;
+            SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+            simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
+            double pX = x + jitter.deltax() * 220f;
+            double pY = y + jitter.deltay() * 220f;
+            /*double[] simplexResults = new double[2];
+    	    OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
+            double pX = x + simplexResults[0] * 220f;
+            double pY = y + simplexResults[1] * 220f;*/
         
         //New cellular noise.
         //TODO move the initialization of the results in a way that's more efficient but still thread safe.
-        double[] results = SimplexCellularNoise.initResultArray(riverCellNoiseInstances);
-        SimplexCellularNoise.resetResultArray(riverCellNoiseInstances, results);
-        SimplexCellularNoise.eval(pX / 1875.0, pY / 1875.0, riverCellNoiseInstances, results);
+        double[] results = simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
         return (float) cellBorder(results, 30.0 / 300.0, 1.0);
     }
     	

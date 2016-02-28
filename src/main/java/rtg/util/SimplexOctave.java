@@ -256,6 +256,153 @@ public class SimplexOctave {
 		}
 	}
 
+    public void evaluateNoise(double x, double y, DataStore data) {
+
+		//Get points for A2 lattice
+		double s = STRETCH_2D * (x + y);
+		double xs = x + s, ys = y + s;
+
+		//Get base points and offsets
+		int xsb = fastFloor(xs), ysb = fastFloor(ys);
+		double xsi = xs - xsb, ysi = ys - ysb;
+
+		//Index to point list
+		int a = (int)(ysi - xsi + 1);
+		int index =
+			(a << 2) |
+			(int)(xsi + ysi / 2.0 + a / 2.0) << 3 |
+			(int)(ysi + xsi / 2.0 + 1.0 / 2.0 - a / 2.0) << 4;
+
+		//Get unskewed offsets.
+		double ssi = (xsi + ysi) * SQUISH_2D;
+		double xi = xsi + ssi, yi = ysi + ssi;
+
+        // clear data
+        data.clear();
+		//Point contributions
+		for (int i = 0; i < 4; i++) {
+			LatticePoint2D c = LOOKUP_2D[index + i];
+
+			double dx = xi + c.dx, dy = yi + c.dy;
+			double attn = 2.0 - dx * dx - dy * dy;
+			if (attn <= 0) continue;
+
+			int pxm = (xsb + c.xsv) & 1023, pym = (ysb + c.ysv) & 1023;
+            int gi_p = perm[pxm] ^ pym;
+            int gi = perm2D[gi_p];
+            double gx = GRADIENTS_2D[gi + 0], gy = GRADIENTS_2D[gi + 1];
+            double extrapolation = gx * dx + gy * dy;
+            int gi_sph2 = perm2D_sph2[gi_p];
+            data.request().record(attn, extrapolation, gx, gy,gi_sph2,dx, dy);
+		}
+	}
+
+    /* Data Request scheme
+     * Outside methods have the ability to create DataStore objects.
+     * They can know the type of data in them
+     * SimplexOctave objects can set the data in a DataStore
+     *
+     */
+
+    private interface DataRequest {
+        abstract void record(double attn,double extrapolation,double gx, double gy, int gi_sph2,double dx, double dy);
+    }
+
+    abstract public static class DataStore {
+        // methods not public to indicate outside classes should not use
+        // can't make private, which would be ideal, becuase of java rules
+        abstract DataRequest request();
+        abstract void clear();
+    }
+    
+    public static class Disk extends DataStore {
+        private final DataRequest request;
+        private double deltax;
+        private double deltay;
+
+        public Disk() {
+            super();
+            request = new Request();
+        }
+
+        @Override
+        void clear() {
+            deltax = 0;
+            deltay = 0;
+        }
+
+        public final double deltax (){return deltax;}
+        public final double deltay (){return deltay;}
+
+        DataRequest request() {return request;}
+
+        private class Request implements DataRequest {
+            public final void record(double attn, double extrapolation, double gx, double gy, int gi_sph2,double dx, double dy) {
+                double attnSq = attn*attn;
+                deltax += attnSq * attnSq * extrapolation * GRADIENTS_SPH2[gi_sph2 + 0];
+                deltay += attnSq * attnSq * extrapolation * GRADIENTS_SPH2[gi_sph2 + 1];
+
+            }
+        }
+    }
+
+    public static class Jitter2D extends DataStore {
+        private final DataRequest request;
+        private double deltax;
+        private double deltay;
+
+        public Jitter2D() {
+            super();
+            request = new Request();
+        }
+
+        @Override
+        void clear() {
+            deltax = 0;
+            deltay = 0;
+        }
+
+        public final double deltax (){return deltax;}
+        public final double deltay (){return deltay;}
+
+        DataRequest request() {return request;}
+
+        private class Request implements DataRequest {
+            public final void record(double attn, double extrapolation, double gx, double gy, int gi_sph2,double dx, double dy) {
+                double attnSq = attn*attn;
+                deltax += (gx * attn - 8 * dx * extrapolation) * attnSq * attn;
+                deltay += (gy * attn - 8 * dy * extrapolation) * attnSq * attn;
+            }
+        }
+    }
+
+    public static class Scalar extends DataStore {
+        private final DataRequest request;
+        private double value;
+
+        public Scalar() {
+            super();
+            request = new Request();
+        }
+
+        @Override
+        void clear() {
+            value = 0;
+        }
+
+        public final double value (){return value;}
+
+        DataRequest request() {return request;}
+
+        private class Request implements DataRequest {
+            public final void record(double attn, double extrapolation, double gx, double gy, int gi_sph2,double dx, double dy) {
+                double attnSq = attn*attn;
+                value += attnSq * attnSq * extrapolation;
+            }
+        }
+    }
+
+
 	/*
 	 * Utility
 	 */

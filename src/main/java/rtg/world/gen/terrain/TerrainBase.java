@@ -7,6 +7,8 @@ public class TerrainBase
 {
     protected float base; // added as most terrains have this;
     protected final float minOceanFloor; // The lowest Y coord an ocean floor is allowed to be.
+    protected final float groundNoiseAmplitudeHills;
+    protected final float groundVariation;
     
 	public TerrainBase(){
         this(68f);// default to marginally above sea level;
@@ -15,6 +17,8 @@ public class TerrainBase
     public TerrainBase(float base) {
         this.base = base;
         this.minOceanFloor = 30f;
+        this.groundVariation = 2f;
+        this.groundNoiseAmplitudeHills = 6f;
     }
 
     public static final float above(float limited, float limit) {

@@ -21,21 +21,11 @@ public class TerrainBOPLandOfLakes extends TerrainBase
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
     
-        float h = simplex.noise2(x / 200f, y / 200f) * 4;
-        h += simplex.noise2(x / 100f, y / 100f) * 2;
+        float h = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
         
-        float m = simplex.noise2(x / 200f, y / 200f) * hillStrength * river;
-        m *= m / ((hillStrength * 0.1f) + hillStrength);
+        float m = hills(x, y, hillStrength, simplex, river);
         
-        float sm = simplex.noise2(x / hillStrength, y / hillStrength) * 8f;
-        sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
-        m += sm;
-        
-        float l = simplex.noise2(x / 260f, y / 260f) * 38f;
-        l *= l / 25f;
-        l = l < -8f ? -8f : l;
-        
-        float floNoise = maxHeight + h + m - l;
+        float floNoise = maxHeight + h + m;
         floNoise = (floNoise < minHeight) ? minHeight : floNoise;
         
         return floNoise;

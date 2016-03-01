@@ -24,13 +24,9 @@ public class TerrainVanillaForestHills extends TerrainBase
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
 
-        float h = groundNoise(x, y, 6f, simplex);
+        float h = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
 
         float m = hills(x, y, hillStrength, simplex, river);
-        
-        float l = simplex.noise2(x / 260f, y / 260f) * 38f;
-        l *= l / 25f;
-        l = l < -8f ? -8f : l;
         
         return baseHeight + h + m;
     }

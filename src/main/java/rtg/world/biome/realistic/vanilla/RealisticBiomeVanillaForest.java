@@ -37,7 +37,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
             BiomeGenBase.forest,
             BiomeGenBase.river,
             new TerrainVanillaForest(),
-            new SurfaceVanillaForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getDefaultState(), 0.10f));
+            new SurfaceVanillaForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.10f));
         config.setVillageMaterial(VillageMaterial.Preset.SPRUCE);
     }
     

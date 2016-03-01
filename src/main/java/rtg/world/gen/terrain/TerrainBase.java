@@ -44,4 +44,22 @@ public class TerrainBase
 	{
 		return 70f;
 	}
+
+    public static float hills(int x, int y, float hillStrength, OpenSimplexNoise simplex, float river) {
+
+        float m = simplex.noise2(x / 200f, y / 200f) * hillStrength * river;
+        m *= m / ((hillStrength * 0.1f) + hillStrength);
+
+        float sm = simplex.noise2(x / hillStrength, y / hillStrength) * 8f;
+        sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
+        m += sm;
+
+        return m;
+    }
+
+    public static float groundNoise(int x, int y, float amplitude, OpenSimplexNoise simplex) {
+        float h = simplex.noise2(x / 49f, y / 49f) * amplitude;
+        h += simplex.noise2(x / 23f, y / 23f) * amplitude/2;
+        return h;
+    }
 }

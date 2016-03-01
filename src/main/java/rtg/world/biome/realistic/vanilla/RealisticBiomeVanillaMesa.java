@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
+import net.minecraft.block.BlockSand;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
@@ -10,7 +11,6 @@ import net.minecraft.world.gen.feature.*;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.WorldGenCacti;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
@@ -19,6 +19,7 @@ import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesa;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMesa;
+import rtg.util.VillageMaterial;
 
 import java.util.Random;
 
@@ -35,7 +36,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase
             BiomeGenBase.mesa,
             BiomeGenBase.river,
             new TerrainVanillaMesa(),
-            new SurfaceVanillaMesa(config, Blocks.sand, (byte)1, Blocks.sand, (byte)1)
+            new SurfaceVanillaMesa(config, Blocks.sand.getStateFromMeta(BlockSand.EnumType.RED_SAND.getMetadata()), Blocks.sand.getStateFromMeta(BlockSand.EnumType.RED_SAND.getMetadata()))
         );
         config.setVillageMaterial(VillageMaterial.Preset.RED_SAND);
     }

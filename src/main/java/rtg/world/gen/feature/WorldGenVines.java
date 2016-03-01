@@ -23,10 +23,10 @@ public class WorldGenVines extends WorldGenerator
                     if (Blocks.vine.canPlaceBlockOnSide(worldIn, position, enumfacing))
                     {
                         IBlockState iblockstate = Blocks.vine.getDefaultState()
-                                .withProperty(BlockVine.NORTH, enumfacing != EnumFacing.NORTH)
-                                .withProperty(BlockVine.EAST, enumfacing != EnumFacing.EAST)
-                                .withProperty(BlockVine.SOUTH, enumfacing != EnumFacing.SOUTH)
-                                .withProperty(BlockVine.WEST, enumfacing != EnumFacing.WEST);
+                                .withProperty(BlockVine.NORTH, enumfacing == EnumFacing.SOUTH)
+                                .withProperty(BlockVine.EAST, enumfacing == EnumFacing.WEST)
+                                .withProperty(BlockVine.SOUTH, enumfacing == EnumFacing.NORTH)
+                                .withProperty(BlockVine.WEST, enumfacing == EnumFacing.EAST);
                         worldIn.setBlockState(position, iblockstate, 2);
                         break;
                     }

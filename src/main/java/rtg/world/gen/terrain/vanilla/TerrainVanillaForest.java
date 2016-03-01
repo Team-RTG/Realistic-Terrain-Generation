@@ -15,11 +15,11 @@ public class TerrainVanillaForest extends TerrainBase
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        float h = groundNoise(x, y, groundVariation, simplex);
+        groundNoise = groundNoise(x, y, groundVariation, simplex);
 
         float m = hills(x, y, hillStrength, simplex, river);
         
-        float floNoise = 68f + h + m;
+        float floNoise = 68f + groundNoise + m;
         
         return floNoise;
     }

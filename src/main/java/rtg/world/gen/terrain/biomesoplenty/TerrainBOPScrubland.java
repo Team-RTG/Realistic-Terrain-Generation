@@ -23,11 +23,11 @@ public class TerrainBOPScrubland extends TerrainBase
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
     
-        float h = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
+        groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
         
         float m = hills(x, y, hillStrength, simplex, river);
         
-        float floNoise = maxHeight + h + m;
+        float floNoise = maxHeight + groundNoise + m;
         floNoise = (floNoise < minHeight) ? minHeight : floNoise;
         
         return floNoise+3;

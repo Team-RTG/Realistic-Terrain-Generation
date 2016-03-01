@@ -31,7 +31,7 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaMesaPlateauM(true, 15f, 260f, 50f, 30f, 79f),
-            new SurfaceVanillaMesaPlateauM(config, Blocks.sand.getDefaultState(), Blocks.sand.getDefaultState(), 0));
+            new SurfaceVanillaMesaPlateauM(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1), 0));
         config.setVillageMaterial(VillageMaterial.Preset.RED_SAND);
     }
     

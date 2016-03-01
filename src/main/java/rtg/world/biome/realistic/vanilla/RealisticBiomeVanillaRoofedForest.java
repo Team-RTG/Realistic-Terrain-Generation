@@ -39,7 +39,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             BiomeGenBase.roofedForest,
             BiomeGenBase.river,
             new TerrainVanillaRoofedForest(),
-            new SurfaceVanillaRoofedForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getDefaultState(), 0.08f));
+            new SurfaceVanillaRoofedForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.08f));
         config.setVillageMaterial(VillageMaterial.Preset.DARK_OAK);
     }
     

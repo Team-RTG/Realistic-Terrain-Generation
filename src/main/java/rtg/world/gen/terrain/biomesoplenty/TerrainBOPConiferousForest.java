@@ -14,7 +14,7 @@ public class TerrainBOPConiferousForest extends TerrainBase
     public TerrainBOPConiferousForest(float minHeight, float maxHeight, float hillStrength)
     {
         this.minHeight = minHeight;
-        this.maxHeight = maxHeight;
+        this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
         this.hillStrength = hillStrength;
     }
     
@@ -27,7 +27,6 @@ public class TerrainBOPConiferousForest extends TerrainBase
         float m = hills(x, y, hillStrength, simplex, river);
         
         float floNoise = maxHeight + groundNoise + m;
-        floNoise = (floNoise < minHeight) ? minHeight : floNoise;
         
         return floNoise;
     }

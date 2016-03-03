@@ -10,6 +10,7 @@ public class TerrainBase
     protected final float groundNoiseAmplitudeHills;
     protected float groundNoise;
     protected final float groundVariation;
+    protected final float rollingHillsMaxHeight;
     
 	public TerrainBase(){
         this(68f);// default to marginally above sea level;
@@ -21,6 +22,7 @@ public class TerrainBase
         this.groundVariation = 2f;
         this.groundNoise = this.base;
         this.groundNoiseAmplitudeHills = 6f;
+        this.rollingHillsMaxHeight = 80f;
     }
 
     public static final float above(float limited, float limit) {

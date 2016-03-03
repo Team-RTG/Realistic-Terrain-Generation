@@ -13,7 +13,7 @@ public class TerrainBOPCherryBlossomGrove extends TerrainBase
     public TerrainBOPCherryBlossomGrove(float minHeight, float maxHeight, float hillStrength)
     {
         this.minHeight = minHeight;
-        this.maxHeight = maxHeight;
+        this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
         this.hillStrength = hillStrength;
     }
     
@@ -26,7 +26,6 @@ public class TerrainBOPCherryBlossomGrove extends TerrainBase
         float m = hills(x, y, hillStrength, simplex, river);
         
         float floNoise = maxHeight + groundNoise + m;
-        floNoise = (floNoise < minHeight) ? minHeight : floNoise;
         
         return floNoise;
     }

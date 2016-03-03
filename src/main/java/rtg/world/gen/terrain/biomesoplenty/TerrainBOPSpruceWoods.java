@@ -15,7 +15,7 @@ public class TerrainBOPSpruceWoods extends TerrainBase
     public TerrainBOPSpruceWoods(float minHeight, float maxHeight, float hillStrength)
     {
         this.minHeight = minHeight;
-        this.maxHeight = (maxHeight > 80f) ? 80f : ((maxHeight < this.minHeight) ? 80f : maxHeight);
+        this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
         this.hillStrength = hillStrength;
     }
     
@@ -28,7 +28,6 @@ public class TerrainBOPSpruceWoods extends TerrainBase
         float m = hills(x, y, hillStrength, simplex, river);
         
         float floNoise = maxHeight + groundNoise + m;
-        floNoise = (floNoise < minHeight) ? minHeight : floNoise;
         
         return floNoise;
     }

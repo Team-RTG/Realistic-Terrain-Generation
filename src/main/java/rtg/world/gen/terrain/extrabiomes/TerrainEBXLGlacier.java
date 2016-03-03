@@ -45,27 +45,6 @@ public class TerrainEBXLGlacier extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-		float h = simplex.noise2(x / vWidth, y / vWidth) * vHeight * river;
-		h += simplex.noise2(x / 20f, y / 20f) * 2;
-		
-		float m = simplex.noise2(x / hWidth, y / hWidth) * hHeight * river;
-		m *= m / 40f;
-		
-		float sm = simplex.noise2(x / 30f, y / 30f) * 8f;
-		sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
-		m += sm;
-		
-		float cm = cell.noise(x / 25D, y / 25D, 1D) * 12f;
-		cm *= m / 20f > 3.75f ? 3.75f : m / 20f;
-		m += cm;
-		
-		float l = simplex.noise2(x / lWidth, y / lWidth) * lHeight;
-		l *= l / 25f;
-		l = l < 8f ? 8f : l;
-		
-		h += simplex.noise2(x / 12f, y / 12f) * 3f;
-		h += simplex.noise2(x / 5f, y / 5f) * 1.5f;
-		
-		return bHeight + h + m - l;
+        return terrainGrasslandHills(x, y, simplex, cell, river, vWidth, vHeight, hWidth, hHeight, lWidth, lHeight, bHeight);
 	}
 }

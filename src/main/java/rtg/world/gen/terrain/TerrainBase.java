@@ -134,6 +134,39 @@ public class TerrainBase
         return getTerrainBase() + b;
     }
     
+    public static float terrainDunes(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river)
+    {
+        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (ConfigRTG.duneHeight + 23f);
+        st = st < 0.2f ? 0.2f : st;
+        
+        float h = simplex.noise2(x / 60f, y / 60f) * st * 2f;
+        h = h > 0f ? -h : h;
+        h += st;
+        h *= h / 50f;
+        h += st;
+        
+        if(h < 10f)
+        {
+            float d = (h - 10f) / 2f;
+            d = d > 4f ? 4f : d;
+            h += cell.noise(x / 25D, y / 25D, 1D) * d;
+            h += simplex.noise2(x / 30f, y / 30f) * d;
+            h += simplex.noise2(x / 14f, y / 14f) * d * 0.5f;
+        }
+        
+        return 70f + (h * river);
+    }
+    
+    public static float terrainFlatLakes(int x, int y, OpenSimplexNoise simplex, float river)
+    {
+        float h = simplex.noise2(x / 300f, y / 300f) * 40f * river;
+        h = h > 3f ? 3f : h; 
+        h += simplex.noise2(x / 50f, y / 50f) * (12f - h) * 0.4f;
+        h += simplex.noise2(x / 15f, y / 15f) * (12f - h) * 0.15f;
+        
+        return 62f + h;
+    }
+    
     public static float terrainPolar(int x, int y, OpenSimplexNoise simplex, float river)
     {
         float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (ConfigRTG.duneHeight + 23f) * river;
@@ -146,15 +179,5 @@ public class TerrainBase
         h += st;
         
         return 70f + h;
-    }
-    
-    public static float terrainFlatLakes(int x, int y, OpenSimplexNoise simplex, float river)
-    {
-        float h = simplex.noise2(x / 300f, y / 300f) * 40f * river;
-        h = h > 3f ? 3f : h; 
-        h += simplex.noise2(x / 50f, y / 50f) * (12f - h) * 0.4f;
-        h += simplex.noise2(x / 15f, y / 15f) * (12f - h) * 0.15f;
-        
-        return 62f + h;
     }
 }

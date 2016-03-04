@@ -294,6 +294,23 @@ public class TerrainBase
         return terrainHeight + h + m - l;
     }
     
+    public static float terrainMarsh(int x, int y, OpenSimplexNoise simplex)
+    {
+        float h = simplex.noise2(x / 130f, y / 130f) * 30f;
+        
+        h += simplex.noise2(x / 12f, y / 12f) * 2f;
+        h += simplex.noise2(x / 18f, y / 18f) * 4f;
+        
+        h = h < 4f ? 0f : h - 4f;
+        
+        if(h == 0f)
+        {
+            h += simplex.noise2(x / 20f, y / 20f) + simplex.noise2(x / 5f, y / 5f);
+        }
+        
+        return 62f + h;
+    }
+    
     public static float terrainPolar(int x, int y, OpenSimplexNoise simplex, float river)
     {
         float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (ConfigRTG.duneHeight + 23f) * river;

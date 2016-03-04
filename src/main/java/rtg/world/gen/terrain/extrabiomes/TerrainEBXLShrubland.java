@@ -22,13 +22,6 @@ public class TerrainEBXLShrubland extends TerrainBase
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-    
-        groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
-        
-        float m = hills(x, y, hillStrength, simplex, river);
-        
-        float floNoise = maxHeight + groundNoise + m;
-        
-        return floNoise;
+        return terrainRollingHills(x, y, simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 0f);
     }
 }

@@ -546,6 +546,17 @@ public class TerrainBase
         return 70f + h;
     }
     
+    public static float terrainRollingHills(int x, int y, OpenSimplexNoise simplex, float river, float hillStrength, float maxHeight, float groundNoise, float groundNoiseAmplitudeHills, float lift)
+    {
+        groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
+        
+        float m = hills(x, y, hillStrength, simplex, river);
+        
+        float floNoise = maxHeight + groundNoise + m;
+        
+        return floNoise + lift;
+    }
+    
     public static float terrainSwampMountain(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river, float width, float heigth)
     {
         float h = simplex.noise2(x / width, y / width) * heigth * river;

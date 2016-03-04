@@ -11,7 +11,7 @@ public class TerrainEBDesertArchipelago extends TerrainBase
 	private float lakeDepth;
 	private float lakeWidth;
 	private float terrainHeight;
-    
+
 	public TerrainEBDesertArchipelago(float mountainWidth, float mountainStrength, float depthLake)
 	{
 		this(mountainWidth, mountainStrength, depthLake, 260f, 56f);

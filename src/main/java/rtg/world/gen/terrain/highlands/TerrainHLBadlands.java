@@ -9,7 +9,7 @@ public class TerrainHLBadlands extends TerrainBase
     public TerrainHLBadlands()
     {
     }
-    
+
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {

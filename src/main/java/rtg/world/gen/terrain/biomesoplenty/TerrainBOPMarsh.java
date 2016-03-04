@@ -9,7 +9,7 @@ public class TerrainBOPMarsh extends TerrainBase
 	public TerrainBOPMarsh()
 	{
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{

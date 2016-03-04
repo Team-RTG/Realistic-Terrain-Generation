@@ -9,7 +9,7 @@ public class TerrainEBOasis extends TerrainBase
 	public TerrainEBOasis()
 	{
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{

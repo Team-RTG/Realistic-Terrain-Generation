@@ -9,7 +9,7 @@ public class TerrainATGGravelBeach extends TerrainBase
 	public TerrainATGGravelBeach()
 	{
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{

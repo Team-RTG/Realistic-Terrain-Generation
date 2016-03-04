@@ -9,7 +9,7 @@ public class TerrainBOPWetland extends TerrainBase
 	public TerrainBOPWetland()
 	{
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{

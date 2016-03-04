@@ -8,13 +8,13 @@ public class TerrainEBXLExtremeJungle extends TerrainBase
 {
 	private float heigth;
 	private float width;
-	
+
 	public TerrainEBXLExtremeJungle(float mountainHeight, float mountainWidth)
 	{
 		heigth = mountainHeight;
 		width = mountainWidth;
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{

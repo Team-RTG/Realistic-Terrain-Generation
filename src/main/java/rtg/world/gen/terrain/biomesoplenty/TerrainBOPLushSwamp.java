@@ -9,7 +9,7 @@ public class TerrainBOPLushSwamp extends TerrainBase
 	public TerrainBOPLushSwamp()
 	{
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{

@@ -9,19 +9,19 @@ public class TerrainBOPDeadForest extends TerrainBase
     private float minHeight = 58f;
     private float maxHeight = 120f;
     private float hillStrength = 30f;
-    
+
     public TerrainBOPDeadForest()
     {
-    
+
     }
-    
+
     public TerrainBOPDeadForest(float minHeight, float maxHeight, float hillStrength)
     {
         this.minHeight = minHeight;
         this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
         this.hillStrength = hillStrength;
     }
-    
+
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {

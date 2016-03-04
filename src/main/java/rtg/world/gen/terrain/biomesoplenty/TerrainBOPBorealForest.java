@@ -8,26 +8,26 @@ public class TerrainBOPBorealForest extends TerrainBase
 {
     private float baseHeight = 76f;
     private float hillStrength = 30f;
-    
+
     public TerrainBOPBorealForest()
     {
-    
+
     }
-    
+
     public TerrainBOPBorealForest(float bh, float hs)
     {
         baseHeight = bh;
         hillStrength = hs;
     }
-    
+
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-    
+
         groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
-        
+
         float m = hills(x, y, hillStrength, simplex, river);
-        
+
         return baseHeight + groundNoise + m;
     }
 }

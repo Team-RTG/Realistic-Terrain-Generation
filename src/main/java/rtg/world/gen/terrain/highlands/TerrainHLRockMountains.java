@@ -11,12 +11,12 @@ public class TerrainHLRockMountains extends TerrainBase
 	private float lakeDepth;
 	private float lakeWidth;
 	private float terrainHeight;
-	
+
 	/*
 	 * width = 230f
 	 * strength = 120f
 	 * lake = 50f;
-	 * 
+	 *
 	 * 230f, 120f, 50f
 	 */
 
@@ -24,7 +24,7 @@ public class TerrainHLRockMountains extends TerrainBase
 	{
 		this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
 	}
-	
+
 	public TerrainHLRockMountains(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
 	{
 		width = mountainWidth;
@@ -37,7 +37,7 @@ public class TerrainHLRockMountains extends TerrainBase
         terrainHeight = 30;
         width = 120;
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
@@ -64,7 +64,7 @@ public class TerrainHLRockMountains extends TerrainBase
 
 
         return terrainHeight + h + m;
-        
+
         //return terrainHilly(x, y, simplex, cell, river, strength, width, lakeWidth, lakeDepth, terrainHeight);
 
 	}

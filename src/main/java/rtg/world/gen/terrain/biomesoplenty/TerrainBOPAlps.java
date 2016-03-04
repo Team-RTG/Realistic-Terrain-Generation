@@ -9,7 +9,7 @@ public class TerrainBOPAlps extends TerrainBase
 	public TerrainBOPAlps()
 	{
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{

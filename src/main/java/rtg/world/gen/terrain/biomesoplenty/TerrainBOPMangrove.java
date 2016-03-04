@@ -9,7 +9,7 @@ public class TerrainBOPMangrove extends TerrainBase
 	public TerrainBOPMangrove()
 	{
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{

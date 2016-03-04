@@ -8,18 +8,18 @@ public class TerrainVanillaForestHills extends TerrainBase
 {
     private float baseHeight = 76f;
     private float hillStrength = 30f;
-    
+
     public TerrainVanillaForestHills()
     {
-    
+
     }
-    
+
     public TerrainVanillaForestHills(float bh, float hs)
     {
         baseHeight = bh;
         hillStrength = hs;
     }
-    
+
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
@@ -27,7 +27,7 @@ public class TerrainVanillaForestHills extends TerrainBase
         groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
 
         float m = hills(x, y, hillStrength, simplex, river);
-        
+
         return baseHeight + groundNoise + m;
     }
 }

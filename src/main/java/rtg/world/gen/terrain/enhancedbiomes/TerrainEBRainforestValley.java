@@ -9,7 +9,7 @@ public class TerrainEBRainforestValley extends TerrainBase
 	public TerrainEBRainforestValley()
 	{
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{

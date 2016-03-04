@@ -9,7 +9,7 @@ public class TerrainEBSahara extends TerrainBase
 	public TerrainEBSahara()
 	{
 	}
-	
+
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {

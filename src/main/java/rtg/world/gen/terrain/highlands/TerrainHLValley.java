@@ -9,7 +9,7 @@ public class TerrainHLValley extends TerrainBase
 	public TerrainHLValley()
 	{
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{

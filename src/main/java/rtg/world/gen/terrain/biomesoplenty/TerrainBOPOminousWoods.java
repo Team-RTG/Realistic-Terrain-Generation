@@ -9,14 +9,14 @@ public class TerrainBOPOminousWoods extends TerrainBase
     private float minHeight;
     private float maxHeight;
     private float hillStrength;
-    
+
     public TerrainBOPOminousWoods(float minHeight, float maxHeight, float hillStrength)
     {
         this.minHeight = minHeight;
         this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
         this.hillStrength = hillStrength;
     }
-    
+
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {

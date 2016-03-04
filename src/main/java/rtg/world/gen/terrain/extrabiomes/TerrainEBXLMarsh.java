@@ -9,7 +9,7 @@ public class TerrainEBXLMarsh extends TerrainBase
 	public TerrainEBXLMarsh()
 	{
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{

@@ -10,7 +10,7 @@ public class TerrainEBXLMiniJungle extends TerrainBase
 	private float height;
 	private float base;
 	private float width;
-	
+
 	public TerrainEBXLMiniJungle(float hillStart, float landHeight, float baseHeight, float hillWidth)
 	{
 		start = hillStart;
@@ -18,7 +18,7 @@ public class TerrainEBXLMiniJungle extends TerrainBase
 		base = baseHeight;
 		width = hillWidth;
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{

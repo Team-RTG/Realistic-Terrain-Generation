@@ -12,7 +12,7 @@ public class TerrainHLRainforest extends TerrainBase
 	private float lakeWidth;
 	private float terrainHeight;
     private static float startCliffsAt = 40f;
-	
+
 	public TerrainHLRainforest(float mountainHeight, float mountainWidth, float depthLake)
 	{
 		this(mountainWidth, mountainHeight, depthLake, 260f, 78f);

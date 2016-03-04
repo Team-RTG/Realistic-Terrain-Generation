@@ -8,7 +8,7 @@ public class TerrainMountain extends TerrainBase
 	public TerrainMountain()
 	{
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
@@ -28,11 +28,11 @@ public class TerrainMountain extends TerrainBase
                 h += cell.noise(x / 25D, y / 25D, 1D) * d2;
             }
         }
-        
+
         h += simplex.noise2(x / 28f, y / 28f) * 4;
         h += simplex.noise2(x / 18f, y / 18f) * 2;
         h += simplex.noise2(x / 8f, y / 8f) * 2;
-        
+
         return h + 67f;
 	}
 }

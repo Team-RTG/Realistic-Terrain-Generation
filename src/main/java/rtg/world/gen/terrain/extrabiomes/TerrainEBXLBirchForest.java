@@ -9,21 +9,21 @@ public class TerrainEBXLBirchForest extends TerrainBase
     private float minHeight = 65f;
     private float maxHeight = 82f;
     private float hillStrength = 30f;
-    
+
     // 63f, 80f, 30f
-    
+
     public TerrainEBXLBirchForest()
     {
-    
+
     }
-    
+
     public TerrainEBXLBirchForest(float minHeight, float maxHeight, float hillStrength)
     {
         this.minHeight = minHeight;
         this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
         this.hillStrength = hillStrength;
     }
-    
+
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {

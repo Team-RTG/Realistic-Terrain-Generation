@@ -7,7 +7,7 @@ import rtg.world.gen.terrain.TerrainBase;
 public class TerrainHLOutback extends TerrainBase
 {
 	private float valley;
-	
+
 	public TerrainHLOutback(float valleySize)
 	{
 		valley = valleySize;

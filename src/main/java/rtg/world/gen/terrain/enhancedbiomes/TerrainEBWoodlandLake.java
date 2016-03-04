@@ -8,7 +8,7 @@ public class TerrainEBWoodlandLake extends TerrainBase
 {
 	public TerrainEBWoodlandLake()
 	{
-		
+
 	}
 
 	@Override

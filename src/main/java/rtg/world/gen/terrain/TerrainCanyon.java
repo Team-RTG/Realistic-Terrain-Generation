@@ -13,28 +13,28 @@ public class TerrainCanyon extends TerrainBase
 	private float cHeigth;
 	private float cStrength;
 	private float base;
-	
+
 	/*
 	 * Example parameters:
-	 * 
+	 *
 	 * allowed to generate rivers?
 	 * riverGen = true
-	 * 
+	 *
 	 * canyon jump heights
 	 * heightArray = new float[]{2.0f, 0.5f, 6.5f, 0.5f, 14.0f, 0.5f, 19.0f, 0.5f}
-	 * 
+	 *
 	 * strength of canyon jump heights
 	 * heightStrength = 35f
-	 * 
+	 *
 	 * canyon width (cliff to cliff)
 	 * canyonWidth = 160f
-	 * 
+	 *
 	 * canyon heigth (total heigth)
 	 * canyonHeight = 60f
-	 * 
+	 *
 	 * canyon strength
 	 * canyonStrength = 40f
-	 * 
+	 *
 	 */
 	public TerrainCanyon(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight)
 	{
@@ -58,7 +58,7 @@ public class TerrainCanyon extends TerrainBase
         float r = simplex.noise2(x / 100f, y / 100f) * 50f;
         r = r < -7.4f ? -7.4f : r > 7.4f ? 7.4f : r;
         float b = (17f + r) * river;
-        
+
         float hn = simplex.noise2(x / 12f, y / 12f) * 0.5f;
         float sb = 0f;
         if(b > 0f)
@@ -71,7 +71,7 @@ public class TerrainCanyon extends TerrainBase
 
         float cTotal = 0f;
         float cTemp = 0f;
-        
+
         for(int i = 0; i < heightLength; i += 2)
         {
             cTemp = 0;
@@ -82,8 +82,8 @@ public class TerrainCanyon extends TerrainBase
             }
             cTotal += cTemp;
         }
-        
-        
+
+
         float bn = 0f;
         if(booRiver)
         {
@@ -100,9 +100,9 @@ public class TerrainCanyon extends TerrainBase
         {
             bn = (simplex.noise2(x / 7f, y / 7f) * 1.3f + simplex.noise2(x / 15f, y / 15f) * 2f) * (5f - b) * 0.2f;
         }
-        
+
         b += cTotal - bn;
-        
+
         return base + b;
 	}
 }

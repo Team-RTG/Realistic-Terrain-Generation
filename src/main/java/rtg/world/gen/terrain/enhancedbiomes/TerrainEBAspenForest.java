@@ -11,12 +11,12 @@ public class TerrainEBAspenForest extends TerrainBase
 	private float lakeDepth;
 	private float lakeWidth;
 	private float terrainHeight;
-	
+
 	/*
 	 * width = 230f
 	 * strength = 120f
 	 * lake = 50f;
-	 * 
+	 *
 	 * 230f, 120f, 50f
 	 */
 
@@ -24,7 +24,7 @@ public class TerrainEBAspenForest extends TerrainBase
 	{
 		this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
 	}
-	
+
 	public TerrainEBAspenForest(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
 	{
 		width = mountainWidth;
@@ -33,7 +33,7 @@ public class TerrainEBAspenForest extends TerrainBase
 		lakeWidth = widthLake;
 		terrainHeight = height;
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{

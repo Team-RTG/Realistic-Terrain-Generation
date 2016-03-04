@@ -9,7 +9,7 @@ public class TerrainEBXLIceWasteland extends TerrainBase
 	public TerrainEBXLIceWasteland()
 	{
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{

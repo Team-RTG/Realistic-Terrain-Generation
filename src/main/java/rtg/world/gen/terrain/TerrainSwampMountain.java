@@ -7,13 +7,13 @@ public class TerrainSwampMountain extends TerrainBase
 {
 	private float heigth;
 	private float width;
-	
+
 	public TerrainSwampMountain(float mountainHeight, float mountainWidth)
 	{
 		heigth = mountainHeight;
 		width = mountainWidth;
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
@@ -25,12 +25,12 @@ public class TerrainSwampMountain extends TerrainBase
         {
             h += simplex.noise2(x / 25f, y / 25f) * (14f - h) * 0.8f;
         }
-        
+
         if(h < 6)
         {
             h = 6f - ((6f - h) * 0.07f) + simplex.noise2(x / 20f, y / 20f) + simplex.noise2(x / 5f, y / 5f);
         }
-        
+
         if(h > 10f)
         {
             float d = (h - 10f) / 2f > 8f ? 8f : (h - 10f) / 2f;
@@ -51,7 +51,7 @@ public class TerrainSwampMountain extends TerrainBase
             h += simplex.noise2(x / 18f, y / 18f) * (d / 2f);
             h += simplex.noise2(x / 8f, y / 8f) * (d / 2f);
         }
-        
+
         return h + 56f;
 	}
 }

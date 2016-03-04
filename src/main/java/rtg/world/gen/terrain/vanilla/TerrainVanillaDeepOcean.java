@@ -6,10 +6,10 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainVanillaDeepOcean extends TerrainBase
 {
-    
+
     public TerrainVanillaDeepOcean()
     {
-        
+
     }
 
     @Override

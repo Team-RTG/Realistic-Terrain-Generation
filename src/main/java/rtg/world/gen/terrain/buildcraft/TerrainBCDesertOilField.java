@@ -6,12 +6,12 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBCDesertOilField extends TerrainBase
 {
-    
+
     public TerrainBCDesertOilField()
     {
-    
+
     }
-    
+
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {

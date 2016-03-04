@@ -11,12 +11,12 @@ public class TerrainHLDesertMountains extends TerrainBase
 	private float lakeDepth;
 	private float lakeWidth;
 	private float terrainHeight;
-	
+
 	/*
 	 * width = 230f
 	 * strength = 120f
 	 * lake = 50f;
-	 * 
+	 *
 	 * 230f, 120f, 50f
 	 */
 
@@ -24,7 +24,7 @@ public class TerrainHLDesertMountains extends TerrainBase
 	{
 		this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
 	}
-	
+
 	public TerrainHLDesertMountains(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
 	{
 		width = mountainWidth;

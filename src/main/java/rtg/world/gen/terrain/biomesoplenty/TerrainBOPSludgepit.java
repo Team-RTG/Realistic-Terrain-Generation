@@ -9,7 +9,7 @@ public class TerrainBOPSludgepit extends TerrainBase
 	public TerrainBOPSludgepit()
 	{
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{

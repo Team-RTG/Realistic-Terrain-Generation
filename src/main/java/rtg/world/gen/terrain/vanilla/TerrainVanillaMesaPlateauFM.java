@@ -14,28 +14,28 @@ public class TerrainVanillaMesaPlateauFM extends TerrainBase
 	private float cHeigth;
 	private float cStrength;
 	private float base;
-	
+
 	/*
 	 * Example parameters:
-	 * 
+	 *
 	 * allowed to generate rivers?
 	 * riverGen = true
-	 * 
+	 *
 	 * canyon jump heights
 	 * heightArray = new float[]{2.0f, 0.5f, 6.5f, 0.5f, 14.0f, 0.5f, 19.0f, 0.5f}
-	 * 
+	 *
 	 * strength of canyon jump heights
 	 * heightStrength = 35f
-	 * 
+	 *
 	 * canyon width (cliff to cliff)
 	 * canyonWidth = 160f
-	 * 
+	 *
 	 * canyon heigth (total heigth)
 	 * canyonHeight = 60f
-	 * 
+	 *
 	 * canyon strength
 	 * canyonStrength = 40f
-	 * 
+	 *
 	 */
 	public TerrainVanillaMesaPlateauFM(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight)
 	{

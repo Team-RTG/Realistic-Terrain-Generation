@@ -11,7 +11,7 @@ public class TerrainEBBorealArchipelago extends TerrainBase
 	private float lakeDepth;
 	private float lakeWidth;
 	private float terrainHeight;
-	
+
     public TerrainEBBorealArchipelago(float mountainWidth, float mountainStrength, float depthLake)
 	{
 		this(mountainWidth, mountainStrength, depthLake, 260f, 56f);
@@ -25,7 +25,7 @@ public class TerrainEBBorealArchipelago extends TerrainBase
 		lakeWidth = widthLake;
 		terrainHeight = height;
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{

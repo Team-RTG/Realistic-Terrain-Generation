@@ -268,7 +268,7 @@ public class TerrainBase
         return getTerrainBase() + h;
     }
     
-    public static float terrainHilly(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river, float strength, float width, float lakeWidth, float lakeDepth, float terrainHeight)
+    public static float terrainLonelyMountain(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river, float strength, float width, float lakeWidth, float lakeDepth, float terrainHeight)
     {
         float h = simplex.noise2(x / 20f, y / 20f) * 2;
         h += simplex.noise2(x / 7f, y / 7f) * 0.8f;

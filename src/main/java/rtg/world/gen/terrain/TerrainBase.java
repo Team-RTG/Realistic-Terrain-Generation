@@ -8,6 +8,7 @@ public class TerrainBase
 {
     protected float base; // added as most terrains have this;
     protected final float minOceanFloor; // The lowest Y coord an ocean floor is allowed to be.
+    public static final float minimumOceanFloor = 30f; // The lowest Y coord an ocean floor is allowed to be.
     protected final float groundNoiseAmplitudeHills;
     protected float groundNoise;
     protected final float groundVariation;
@@ -19,7 +20,7 @@ public class TerrainBase
 
     public TerrainBase(float base) {
         this.base = base;
-        this.minOceanFloor = 30f;
+        this.minOceanFloor = minimumOceanFloor;
         this.groundVariation = 2f;
         this.groundNoise = this.base;
         this.groundNoiseAmplitudeHills = 6f;
@@ -456,6 +457,19 @@ public class TerrainBase
         h += simplex.noise2(x / 8f, y / 8f) * 2;
                 
         return 45f + h + (b * 2);
+    }
+    
+    public static float terrainOcean(int x, int y, OpenSimplexNoise simplex, float river, float averageFloor)
+    {
+        float h = simplex.noise2(x / 300f, y / 300f) * 40f * river;
+        h = h > 3f ? 3f : h;
+        h += simplex.noise2(x / 50f, y / 50f) * (12f - h) * 0.4f;
+        h += simplex.noise2(x / 15f, y / 15f) * (12f - h) * 0.15f;
+
+        float floNoise = averageFloor + h;
+        floNoise = floNoise < minimumOceanFloor ? minimumOceanFloor : floNoise;
+
+        return floNoise;
     }
     
     public static float terrainPolar(int x, int y, OpenSimplexNoise simplex, float river)

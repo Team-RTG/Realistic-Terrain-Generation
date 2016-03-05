@@ -1,20 +1,22 @@
 package rtg.event;
 
+import net.minecraft.block.BlockSandStone;
+import net.minecraft.block.BlockStairs;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.*;
 import net.minecraftforge.event.world.WorldEvent;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.apache.logging.log4j.Level;
 import rtg.RTG;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.Logger;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import rtg.world.gen.MapGenCavesRTG;
 import rtg.world.gen.MapGenRavineRTG;
 import rtg.world.gen.genlayer.RiverRemover;
@@ -30,7 +32,7 @@ public class EventManagerRTG
     public EventManagerRTG()
     {
         MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
-        MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
+        if (ConfigRTG.enableVillageModifications) MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
         MapGenStructureIO.registerStructure(StructureOceanMonumentRTG.StartMonument.class, "rtg_MapGenOceanMonumentRTG");
     }
     
@@ -173,6 +175,9 @@ public class EventManagerRTG
     public void onGetVillageBlockID(BiomeEvent.GetVillageBlockID event)
     {
         RealisticBiomeBase biomeReal;
+        if (!ConfigRTG.enableVillageModifications) {
+            return;
+        }
         if (event.biome instanceof RealisticBiomeBase) {
             biomeReal = (RealisticBiomeBase) event.biome;
         }
@@ -182,14 +187,47 @@ public class EventManagerRTG
         else {
             return;
         }
-        event.replacement = biomeReal.config.villageMaterial.replace(event.original);
+        if (biomeReal.biomeID == RealisticBiomeVanillaBase.vanillaDesert.biomeID ||
+                biomeReal.biomeID == RealisticBiomeVanillaBase.vanillaDesertHills.biomeID ||
+                biomeReal.biomeID == RealisticBiomeVanillaBase.vanillaDesertM.biomeID
+                )
+        {
+            if (event.original.getBlock() == Blocks.log || event.original.getBlock() == Blocks.log2)
+            {
+                event.replacement = Blocks.sandstone.getDefaultState();
+            }
 
+            if (event.original.getBlock() == Blocks.cobblestone)
+            {
+                event.replacement = Blocks.sandstone.getStateFromMeta(BlockSandStone.EnumType.DEFAULT.getMetadata());
+            }
+
+            if (event.original.getBlock() == Blocks.planks)
+            {
+                event.replacement = Blocks.sandstone.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata());
+            }
+
+            if (event.original.getBlock() == Blocks.oak_stairs)
+            {
+                event.replacement = Blocks.sandstone_stairs.getDefaultState().withProperty(BlockStairs.FACING, event.original.getValue(BlockStairs.FACING));
+            }
+
+            if (event.original.getBlock() == Blocks.stone_stairs)
+            {
+                event.replacement = Blocks.sandstone_stairs.getDefaultState().withProperty(BlockStairs.FACING, event.original.getValue(BlockStairs.FACING));
+            }
+
+            if (event.original.getBlock() == Blocks.gravel)
+            {
+                event.replacement = Blocks.sandstone.getDefaultState();
+            }
+        }
         // The event has to be cancelled in order to override the original block.
         if (event.replacement != null) {
             event.setResult(Result.DENY);
         }
     }
-    
+
     @SubscribeEvent
     public void preBiomeDecorate(DecorateBiomeEvent.Pre event)
     {

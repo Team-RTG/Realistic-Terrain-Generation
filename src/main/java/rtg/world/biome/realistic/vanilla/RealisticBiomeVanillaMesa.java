@@ -19,7 +19,6 @@ import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesa;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMesa;
-import rtg.util.VillageMaterial;
 
 import java.util.Random;
 
@@ -38,7 +37,6 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase
             new TerrainVanillaMesa(),
             new SurfaceVanillaMesa(config, Blocks.sand.getStateFromMeta(BlockSand.EnumType.RED_SAND.getMetadata()), Blocks.sand.getStateFromMeta(BlockSand.EnumType.RED_SAND.getMetadata()))
         );
-        config.setVillageMaterial(VillageMaterial.Preset.RED_SAND);
     }
     
     @Override

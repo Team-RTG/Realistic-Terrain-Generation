@@ -428,9 +428,8 @@ public class ConfigRTG
 	private static boolean enableVillageTweaks()
 	{
 	    boolean enableVillageModifications = true;
-	    
-	    //if (Loader.isModLoaded("GalacticraftMars")) { enableVillageModifications = false; }
-	    //if (Loader.isModLoaded("GalaxySpace")) { enableVillageModifications = false; }
+
+	    if (Loader.isModLoaded("RSG")) { enableVillageModifications = false; }
 	    
 	    return enableVillageModifications;
 	}

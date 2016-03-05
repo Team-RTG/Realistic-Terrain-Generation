@@ -12,7 +12,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaMegaTaiga;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -39,7 +38,6 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaMegaTaiga(),
             new SurfaceVanillaMegaTaiga(config, topBlock, fillerBlock));
-        config.setVillageMaterial(VillageMaterial.Preset.SPRUCE);
     }
     
     @Override

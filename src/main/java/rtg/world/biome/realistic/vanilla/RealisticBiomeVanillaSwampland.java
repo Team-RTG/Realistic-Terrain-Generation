@@ -11,7 +11,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaSwampland;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
@@ -35,7 +34,6 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaSwampland(),
             new SurfaceVanillaSwampland(config, topBlock, fillerBlock));
-        config.setVillageMaterial(VillageMaterial.Preset.DARK_OAK);
     }
     
     @Override

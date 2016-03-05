@@ -6,7 +6,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
-import rtg.world.gen.feature.WorldGenVines;
 import net.minecraft.world.gen.feature.WorldGenWaterlily;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
@@ -15,7 +14,6 @@ import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleHills;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
-import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.*;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
@@ -40,7 +38,6 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaJungleHills(),
             new SurfaceVanillaJungleHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 1f, 1.5f, 60f, 65f, 1.5f));
-        config.setVillageMaterial(VillageMaterial.Preset.STONE_BRICK);
         this.waterSurfaceLakeChance = 3;
     }
     

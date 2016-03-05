@@ -12,7 +12,6 @@ import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForestM;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
-import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGBirch;
@@ -42,7 +41,6 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaBirchForestM(),
             new SurfaceVanillaBirchForestM(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getDefaultState(), 0.15f));
-        config.setVillageMaterial(VillageMaterial.Preset.BIRCH);
     }
     
     @Override

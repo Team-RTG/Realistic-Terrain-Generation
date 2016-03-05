@@ -8,7 +8,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaMegaSpruceTaiga;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMegaSpruceTaiga;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMegaSpruceTaiga;
@@ -31,7 +30,6 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
             BiomeGenBase.river,
             new TerrainVanillaMegaSpruceTaiga(),
             new SurfaceVanillaMegaSpruceTaiga(config, topBlock, fillerBlock));
-        config.setVillageMaterial(VillageMaterial.Preset.SPRUCE);
     }
     
     @Override

@@ -12,7 +12,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaMegaTaigaHills;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -38,7 +37,6 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
             BiomeGenBase.river,
             new TerrainVanillaMegaTaigaHills(),
             new SurfaceVanillaMegaTaigaHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), true, Blocks.sand.getDefaultState(), 0.2f));
-        config.setVillageMaterial(VillageMaterial.Preset.SPRUCE);
     }
     
     @Override

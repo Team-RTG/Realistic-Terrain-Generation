@@ -10,7 +10,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaIcePlains;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIcePlains;
@@ -20,8 +19,8 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
 {	
-	public static IBlockState topBlock = BiomeGenBase.icePlains.topBlock;
-	public static  IBlockState fillerBlock = BiomeGenBase.icePlains.fillerBlock;
+	public static IBlockState topBlock = Blocks.snow.getDefaultState();
+	public static  IBlockState fillerBlock = Blocks.snow.getDefaultState();
 	
 	public RealisticBiomeVanillaIcePlains(BiomeConfig config)
 	{
@@ -31,7 +30,6 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
 			new TerrainVanillaIcePlains(),
 			new SurfaceVanillaIcePlains(config, topBlock, fillerBlock, topBlock, topBlock)
 		);
-        config.setVillageMaterial(VillageMaterial.Preset.ICE);
 	}
 	
     @Override

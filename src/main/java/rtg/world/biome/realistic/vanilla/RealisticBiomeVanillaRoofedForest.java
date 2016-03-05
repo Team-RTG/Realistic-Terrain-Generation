@@ -13,7 +13,6 @@ import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForest;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
-import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -40,7 +39,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaRoofedForest(),
             new SurfaceVanillaRoofedForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.08f));
-        config.setVillageMaterial(VillageMaterial.Preset.DARK_OAK);
     }
     
     @Override

@@ -10,6 +10,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.SnowHeightCalculator;
 import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
@@ -55,17 +56,13 @@ public class SurfaceVanillaIcePlains extends SurfaceBase
             			primer.setBlockState((y * 16 + x) * 256 + k, cliffBlock1);
             		}
             	}
-            	else
-            	{
-	        		if(depth == 0 && k > 61)
-	        		{
-	        			primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
-	        		}
-	        		else if(depth < 4)
-	        		{
-	        			primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
-	        		}
-            	}
+				else if(depth > -1 && depth < 9) {
+					primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
+
+					if (depth == 0 && k > 61 && k < 254) {
+						SnowHeightCalculator.calc(x, y, k, primer, noise);
+					}
+				}
             }
 		}
 	}

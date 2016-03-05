@@ -22,7 +22,6 @@ import java.util.Random;
 
 public class MapGenVillageRTG extends MapGenVillage
 {
-    
     private int terrainType = ConfigRTG.villageSize;
     private int field_82665_g;
     private int field_82666_h;

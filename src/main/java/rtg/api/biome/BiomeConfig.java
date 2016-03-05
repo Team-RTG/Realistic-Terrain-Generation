@@ -1,7 +1,6 @@
 package rtg.api.biome;
 
 import rtg.api.biome.BiomeConfigProperty.Type;
-import rtg.util.VillageMaterial;
 
 import java.util.ArrayList;
 
@@ -11,8 +10,6 @@ public class BiomeConfig {
     public String modSlug;
     public String biomeSlug;
 
-    public VillageConfig villageConfig;
-    public VillageMaterial villageMaterial;
     public ArrayList<BiomeConfigProperty> properties;
     
     public static final String allowVillagesId = "allowVillages";
@@ -41,8 +38,6 @@ public class BiomeConfig {
         this.modSlug = modSlug;
         this.biomeSlug = biomeSlug;
 
-        this.villageConfig = new VillageConfig(modSlug, biomeSlug);
-        this.setVillageMaterial(VillageMaterial.Preset.BASE);
         this.properties = new ArrayList<BiomeConfigProperty>();
 
         this.addProperty(new BiomeConfigProperty(allowVillagesId, Type.BOOLEAN, allowVillagesName, "", true));
@@ -130,13 +125,5 @@ public class BiomeConfig {
             
             throw new RuntimeException("Biome config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
         }
-    }
-
-    public void setVillageMaterial(VillageMaterial material) {
-        this.villageMaterial = this.villageConfig.getMaterial(material);
-    }
-
-    public void setVillageMaterial(VillageMaterial.Preset preset) {
-        setVillageMaterial(new VillageMaterial(preset));
     }
 }

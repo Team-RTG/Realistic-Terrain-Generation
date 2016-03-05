@@ -8,7 +8,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdBeach;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaColdBeach;
@@ -28,7 +27,6 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 			new TerrainVanillaColdBeach(),
 			new SurfaceVanillaColdBeach(config, topBlock, fillerBlock, topBlock, fillerBlock, (byte) 0, 1)
 		);
-        config.setVillageMaterial(VillageMaterial.Preset.ICE);
 	}
 	
     @Override

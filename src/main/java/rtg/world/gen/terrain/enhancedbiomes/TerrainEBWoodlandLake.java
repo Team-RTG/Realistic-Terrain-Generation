@@ -14,6 +14,6 @@ public class TerrainEBWoodlandLake extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainFlatLakes(x, y, simplex, river);
+        return terrainFlatLakes(x, y, simplex, river, 3f, 62f);
 	}
 }

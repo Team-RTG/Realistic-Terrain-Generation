@@ -1,5 +1,6 @@
 package rtg.world.gen.surface;
 
+import com.shinoow.abyssalcraft.api.block.ACBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -12,8 +13,6 @@ import rtg.util.CellNoise;
 import rtg.util.ModPresenceTester;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.UBColumnCache;
-
-import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
 import java.util.Random;
 
@@ -46,8 +45,8 @@ public class SurfaceBase
         
         this.assignUserConfigs(config, top,fill);
     }
-	
-	public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 	}
 	

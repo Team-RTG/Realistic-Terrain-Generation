@@ -22,6 +22,6 @@ public class TerrainHLHighlandsB extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainHighland(x, y, simplex, cell, river, start, width, height);
+        return terrainHighland(x, y, simplex, cell, river, start, width, height, 0f);
 	}
 }

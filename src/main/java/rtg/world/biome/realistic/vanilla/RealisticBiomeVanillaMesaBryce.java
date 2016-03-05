@@ -33,7 +33,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f),
-            new SurfaceVanillaMesaBryce(config, Blocks.sand.getDefaultState(), Blocks.sand.getDefaultState(), 0)
+            new SurfaceVanillaMesaBryce(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1), 0)
         );
     }
     

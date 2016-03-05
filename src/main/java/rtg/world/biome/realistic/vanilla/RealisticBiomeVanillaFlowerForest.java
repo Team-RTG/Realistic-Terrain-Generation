@@ -11,7 +11,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaFlowerForest;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -41,7 +40,6 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaFlowerForest(),
             new SurfaceVanillaFlowerForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.grass.getDefaultState(), 0.05f));
-        config.setVillageMaterial(VillageMaterial.Preset.BASE);
     }
     
     @Override

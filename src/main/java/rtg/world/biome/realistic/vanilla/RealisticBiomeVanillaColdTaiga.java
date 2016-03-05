@@ -13,7 +13,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaColdTaiga;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -41,7 +40,6 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
             BiomeGenBase.frozenRiver,
             new TerrainVanillaColdTaiga(),
             new SurfaceVanillaColdTaiga(config, topBlock, fillerBlock));
-        config.setVillageMaterial(VillageMaterial.Preset.SPRUCE);
     }
     
     @Override

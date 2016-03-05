@@ -9,7 +9,6 @@ import net.minecraft.world.gen.feature.*;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.VillageMaterial;
 import rtg.world.gen.feature.WorldGenCacti;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaPlateauF;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateauF;
@@ -30,7 +29,6 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
 			new TerrainVanillaMesaPlateauF(true, 35f, 160f, 60f, 40f, 69f),
 			new SurfaceVanillaMesaPlateauF(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1), 0)
 		);
-        config.setVillageMaterial(VillageMaterial.Preset.RED_SAND);
 	}
 	
     @Override

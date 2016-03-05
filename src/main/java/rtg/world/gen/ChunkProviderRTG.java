@@ -30,6 +30,7 @@ import rtg.config.rtg.ConfigRTG;
 import rtg.util.CanyonColor;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.VoronoiCellNoise;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.WorldChunkManagerRTG;
@@ -42,8 +43,6 @@ import java.util.Map;
 import java.util.Random;
 
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.*;
-import rtg.util.VoronoiCellNoise;
-import rtg.util.VoronoiCellOctave;
 
 /**
  * Scattered features courtesy of Ezoteric (https://github.com/Ezoteric) and Choonster (https://github.com/Choonster)
@@ -128,7 +127,7 @@ public class ChunkProviderRTG implements IChunkProvider
             ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavine(), RAVINE);
         }
 
-        villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), VILLAGE);
+		villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), VILLAGE);
 		strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), STRONGHOLD);
 		mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(), MINESHAFT);
 		scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(), SCATTERED_FEATURE);
@@ -186,27 +185,6 @@ public class ChunkProviderRTG implements IChunkProvider
 
                 //fill with biomeData
         int [] biomeIndices= cmr.getBiomesGens(cx *16, cy*16,16,16);
-
-        /*if (cx*16==1872&&cy*16==7712) {
-            PrintWriter writer = null;
-            try {
-                File file = new File("forestChunk.txt");
-                writer = new PrintWriter(file);
-                for (int i = 0;i <16;i++) {
-                    String output = "";
-                    for (int j = 0;j<16;j++) {
-                        output += "" + biomesForGeneration[i*16+j].biomeID + '\t';
-                    }
-                    writer.print(output+'\r');
-                }
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(ChunkProviderRTG.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                writer.close();
-            }
-
-        }*/
-
 
         if (!doJitter){
             analyzer.repair(biomeIndices, biomesForGeneration, noise,-cmr.getRiverStrength(cx * 16 + 7, cy * 16 + 7));
@@ -671,7 +649,6 @@ public class ChunkProviderRTG implements IChunkProvider
             }
             
             if (ConfigRTG.generateVillages) {
-                flag = villageGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
 
                 if (ConfigRTG.villageCrashFix) {
 

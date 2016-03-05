@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
-import rtg.util.VillageMaterial;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIcePlainsSpikes;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaIcePlainsSpikes;
 
@@ -23,6 +22,5 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
 			new TerrainVanillaIcePlainsSpikes(),
 			new SurfaceVanillaIcePlainsSpikes(config, topBlock, fillerBlock, topBlock, topBlock)
 		);
-		config.setVillageMaterial(VillageMaterial.Preset.ICE);
 	}
 }

@@ -13,6 +13,6 @@ public class TerrainEBOasis extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainMarsh(x, y, simplex);
+        return terrainMarsh(x, y, simplex, 62f);
 	}
 }

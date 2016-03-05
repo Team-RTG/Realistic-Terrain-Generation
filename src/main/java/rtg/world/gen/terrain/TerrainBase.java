@@ -313,7 +313,7 @@ public class TerrainBase
         return terrainHeight + h + m - l;
     }
 
-    public static float terrainMarsh(int x, int y, OpenSimplexNoise simplex)
+    public static float terrainMarsh(int x, int y, OpenSimplexNoise simplex, float baseHeight)
     {
         float h = simplex.noise2(x / 130f, y / 130f) * 30f;
 
@@ -327,7 +327,7 @@ public class TerrainBase
             h += simplex.noise2(x / 20f, y / 20f) + simplex.noise2(x / 5f, y / 5f);
         }
 
-        return 62f + h;
+        return baseHeight + h;
     }
 
     public static float terrainMesa(int x, int y, OpenSimplexNoise simplex, float river, float border)

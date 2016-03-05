@@ -200,23 +200,23 @@ public class TerrainBase
         return 62f + h;
     }
 
-    public static float terrainGrasslandFlats(int x, int y, OpenSimplexNoise simplex, float river)
+    public static float terrainGrasslandFlats(int x, int y, OpenSimplexNoise simplex, float river, float mPitch, float lPitch, float baseHeight)
     {
         float h = simplex.noise2(x / 100f, y / 100f) * 7;
         h += simplex.noise2(x / 20f, y / 20f) * 2;
 
         float m = simplex.noise2(x / 180f, y / 180f) * 70f * river;
-        m *= m / 40f;
+        m *= m / mPitch;
 
         float sm = simplex.noise2(x / 30f, y / 30f) * 8f;
         sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
         m += sm;
 
         float l = simplex.noise2(x / 260f, y / 260f) * 38f;
-        l *= l / 25f;
+        l *= l / lPitch;
         l = l < -8f ? -8f : l;
 
-        return 68f + h + m - l;
+        return baseHeight + h + m - l;
     }
 
     public static float terrainGrasslandHills(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river, float vWidth, float vHeight, float hWidth, float hHeight, float lWidth, float lHeight, float bHeight)

@@ -78,6 +78,24 @@ public class TerrainBase
         return 68f;
     }
 
+    public static float terrainBeach(int x, int y, OpenSimplexNoise simplex, float river, float pitch1, float pitch2, float baseHeight)
+    {
+        float h = simplex.noise2(x / pitch1, y / pitch1) * 40f * river;
+        h *= h / pitch2;
+
+        if(h < 1f)
+        {
+            h = 1f;
+        }
+
+        if(h < 4f)
+        {
+            h += (simplex.noise2(x / 50f, y / 50f) + simplex.noise2(x / 15f, y / 15f)) * (4f - h);
+        }
+
+        return baseHeight + h;
+    }
+
     public static float terrainCanyon(int x, int y, OpenSimplexNoise simplex, float river, float[] height, float border, float strength, int heightLength, boolean booRiver)
     {
         //float b = simplex.noise2(x / cWidth, y / cWidth) * cHeigth * river;
@@ -595,23 +613,5 @@ public class TerrainBase
         }
 
         return h + 56f;
-    }
-
-    public static float terrainSwampRiver(int x, int y, OpenSimplexNoise simplex, float river)
-    {
-        float h = simplex.noise2(x / 180f, y / 180f) * 40f * river;
-        h *= h / 35f;
-
-        if(h < 1f)
-        {
-            h = 1f;
-        }
-
-        if(h < 4f)
-        {
-            h += (simplex.noise2(x / 50f, y / 50f) + simplex.noise2(x / 15f, y / 15f)) * (4f - h);
-        }
-
-        return 60f + h;
     }
 }

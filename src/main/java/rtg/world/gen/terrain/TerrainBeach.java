@@ -1,13 +1,13 @@
-package rtg.world.gen.terrain.biomesoplenty;
+package rtg.world.gen.terrain;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainBOPBayou extends TerrainBase
+public class TerrainBeach extends TerrainBase
 {
-	public TerrainBOPBayou()
+	public TerrainBeach()
 	{
+	    
 	}
 
 	@Override

@@ -199,6 +199,16 @@ public class TerrainBase
 
         return baseHeight + h;
     }
+    
+    public static float terrainForest(int x, int y, OpenSimplexNoise simplex, float river, float baseHeight)
+    {
+        float h = simplex.noise2(x / 100f, y / 100f) * 8;
+        h += simplex.noise2(x / 30f, y / 30f) * 4;
+        h += simplex.noise2(x / 15f, y / 15f) * 2;
+        h += simplex.noise2(x / 7f, y / 7f);
+
+        return baseHeight + (20f * river) + h;
+    }
 
     public static float terrainGrasslandFlats(int x, int y, OpenSimplexNoise simplex, float river, float mPitch, float lPitch, float baseHeight)
     {

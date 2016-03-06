@@ -6,37 +6,22 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainVanillaDesertHills extends TerrainBase
 {
+	private float start;
+	private float height;
+	private float base;
 	private float width;
-	private float strength;
-	private float lakeDepth;
-	private float lakeWidth;
-	private float terrainHeight;
 
-	/*
-	 * width = 230f
-	 * strength = 120f
-	 * lake = 50f;
-	 *
-	 * 230f, 120f, 50f
-	 */
-
-	public TerrainVanillaDesertHills(float mountainWidth, float mountainStrength, float depthLake)
+	public TerrainVanillaDesertHills(float hillStart, float landHeight, float baseHeight, float hillWidth)
 	{
-		this(mountainWidth, mountainStrength, depthLake, 160f, 69f);
-	}
-
-	public TerrainVanillaDesertHills(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
-	{
-		width = mountainWidth;
-		strength = mountainStrength;
-		lakeDepth = depthLake;
-		lakeWidth = widthLake;
-		terrainHeight = height;
+		start = hillStart;
+		height = landHeight;
+		base = baseHeight;
+		width = hillWidth;
 	}
 
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainLonelyMountain(x, y, simplex, cell, river, strength, width, lakeWidth, lakeDepth, terrainHeight);
+        return terrainHighland(x, y, simplex, cell, river, start, width, height, 10f);
 	}
 }

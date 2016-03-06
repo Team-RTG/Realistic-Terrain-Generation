@@ -15,6 +15,6 @@ public class TerrainVanillaSavanna extends TerrainBase
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return terrainPlains(x, y, simplex, river, 100f, 66f);
+        return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 100f, 66f);
     }
 }

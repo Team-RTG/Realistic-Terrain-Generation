@@ -18,6 +18,6 @@ public class TerrainEBXLExtremeJungle extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainSwampMountain(x, y, simplex, cell, river, width, heigth);
+        return terrainSwampMountain(x, y, simplex, cell, river, width, heigth, 150f, 32f, 56f);
 	}
 }

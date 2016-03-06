@@ -602,11 +602,11 @@ public class TerrainBase
         return floNoise + lift;
     }
 
-    public static float terrainSwampMountain(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river, float width, float heigth)
+    public static float terrainSwampMountain(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river, float width, float heigth, float hMax, float hDivisor, float baseHeight)
     {
         float h = simplex.noise2(x / width, y / width) * heigth * river;
-        h *= h / 32f;
-        h = h > 150f ? 150f : h;
+        h *= h / hDivisor;
+        h = h > hMax ? hMax : h;
 
         if(h < 14f)
         {
@@ -639,7 +639,7 @@ public class TerrainBase
             h += simplex.noise2(x / 8f, y / 8f) * (d / 2f);
         }
 
-        return h + 56f;
+        return h + baseHeight;
     }
     
     public static float terrainVolcano(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float border, float baseHeight)

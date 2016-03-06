@@ -16,6 +16,6 @@ public class TerrainHLOutback extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainDuneValley(x, y, simplex, cell, river, valley);
+        return terrainDuneValley(x, y, simplex, cell, river, valley, 65f, 70f);
 	}
 }

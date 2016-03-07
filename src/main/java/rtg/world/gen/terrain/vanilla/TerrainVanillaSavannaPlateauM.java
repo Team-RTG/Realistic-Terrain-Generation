@@ -64,6 +64,7 @@ public class TerrainVanillaSavannaPlateauM extends TerrainBase
 		b *= river;
 
 		float sn = simplex.noise2(x / 50f, y / 50f) * 0.5f + 0.5f;
+		sn += simplex.noise2(x / 12.5f, y / 12.5f) * 0.07 + 0.07f;
 		float n;
 		for (int i = 0; i < heightLength; i += 2) {
 			n = (sn - height[i + 1]) / smooth;

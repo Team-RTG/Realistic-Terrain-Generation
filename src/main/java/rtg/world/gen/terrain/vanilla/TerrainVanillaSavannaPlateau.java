@@ -44,7 +44,7 @@ public class TerrainVanillaSavannaPlateau extends TerrainBase
 		/**    Values come in pairs per layer. First is how high to step up.
 		 * 	Second is a value between 0 and 1, signifying when to step up.
 		 */
-		height = new float[]{10.0f, 0.5f, 6f, 0.7f};
+		height = new float[]{12.0f, 0.5f, 8f, 0.7f};
 		strength = 20f;
 		smooth = 0.1f;
 		heightLength = height.length;
@@ -75,25 +75,6 @@ public class TerrainVanillaSavannaPlateau extends TerrainBase
 			}
 		}
 		b += simplex.noise2(x / 12, y / 12) * sn;
-
-//		float bn = 0f;
-//		if(booRiver)
-//		{
-//			if(b < 5f)
-//			{
-//				bn = 5f - b;
-//				for(int i = 0; i < 3; i++)
-//				{
-//					bn *= bn / 4.5f;
-//				}
-//			}
-//		}
-//		else if(b < 5f)
-//		{
-//			bn = (simplex.noise2(x / 7f, y / 7f) * 1.3f + simplex.noise2(x / 15f, y / 15f) * 2f) * (5f - b) * 0.2f;
-//		}
-
-		// b += cTotal - bn;
 
 		return base + b;
 	}

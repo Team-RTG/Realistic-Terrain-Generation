@@ -64,14 +64,14 @@ public class SurfaceVanillaSavannaPlateauM extends SurfaceBase
 	        	{
 	            	if(cliff)
 	            	{
-	        			primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getStateFromMeta(getClayColorForHeight(k)));
-	            	}
+						primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getStateFromMeta(getClayColorForHeight(k + Math.round(simplex.noise2(x / 50f, y / 50f) * 1.5f))));
+					}
 	            	else
 	            	{
 	        			if(depth > 4)
 	        			{
-		        			primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getStateFromMeta(getClayColorForHeight(k)));
-	        			}
+							primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getStateFromMeta(getClayColorForHeight(k + Math.round(simplex.noise2(x / 50f, y / 50f) * 1.5f))));
+						}
 	        			else if(k > 74 + grassRaise)
 	        			{
 	        				if(rand.nextInt(5) == 0)

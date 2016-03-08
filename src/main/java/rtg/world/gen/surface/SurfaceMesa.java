@@ -60,14 +60,14 @@ public class SurfaceMesa extends SurfaceBase
 	        	{
 	            	if(cliff)
 	            	{
-	        			primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getStateFromMeta(getClayColorForHeight(k)));
-	            	}
+						primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getStateFromMeta(getClayColorForHeight(k + Math.round(simplex.noise2(x / 100f, y / 100f) * 2f))));
+					}
 	            	else
 	            	{
 	        			if(depth > 4)
 	        			{
-		        			primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getStateFromMeta(getClayColorForHeight(k)));
-	        			}
+							primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getStateFromMeta(getClayColorForHeight(k + Math.round(simplex.noise2(x / 100f, y / 100f) * 2f))));
+						}
 	        			else if(k > 77)
 	        			{
 	        				if(rand.nextInt(5) == 0)
@@ -127,8 +127,8 @@ public class SurfaceMesa extends SurfaceBase
         		}
         		else if(k > 63)
         		{
-        			primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getStateFromMeta(getClayColorForHeight(k)));
-        		}
+					primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getStateFromMeta(getClayColorForHeight(k + Math.round(simplex.noise2(x / 100f, y / 100f) * 2f))));
+				}
             }
 		}
 	}

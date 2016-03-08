@@ -12,12 +12,12 @@ public class TerrainHLFlyingMountains extends TerrainBase
 	private float lakeWidth;
 	private float terrainHeight;
     private OpenSimplexNoise ruggedness = new OpenSimplexNoise(2L);
-	
+
 	/*
 	 * width = 230f
 	 * strength = 120f
 	 * lake = 50f;
-	 * 
+	 *
 	 * 230f, 120f, 50f
 	 */
 
@@ -25,7 +25,7 @@ public class TerrainHLFlyingMountains extends TerrainBase
 	{
 		this(mountainWidth, mountainStrength, depthLake, 260f, 63f);
 	}
-	
+
 	public TerrainHLFlyingMountains(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
 	{
         super(height);

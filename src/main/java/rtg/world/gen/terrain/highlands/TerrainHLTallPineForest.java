@@ -14,7 +14,7 @@ public class TerrainHLTallPineForest extends TerrainBase
 	public TerrainHLTallPineForest()
 	{
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
@@ -39,10 +39,10 @@ public class TerrainHLTallPineForest extends TerrainBase
 				h += cell.noise(x / 25D, y / 25D, 1D) * d2;
 			}
 		}
-		
+
 		h += simplex.noise2(x / 18f, y / 18f) * 3;
 		h += simplex.noise2(x / 8f, y / 8f) * 2;
-				
+
 		return 45f + h + (b * 2) + hill;
 	}
 }

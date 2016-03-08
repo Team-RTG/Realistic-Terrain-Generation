@@ -38,8 +38,8 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
         super(config, 
             mutationBiome,
             BiomeGenBase.river,
-            new TerrainVanillaDesertM(70f, 180f, 7f, 100f, 38f, 160f, 68f),
-            new SurfaceVanillaDesertM(config, Blocks.sand, Blocks.sandstone, false, null, 0f, 1.5f, 60f, 65f, 1.5f));
+            new TerrainVanillaDesertM(10f, 140f, 68f, 200f),
+            new SurfaceVanillaDesertM(config, Blocks.sand, (byte)0, Blocks.sandstone, (byte)0, 0));
         
         this.waterSurfaceLakeChance = 0;
     }

@@ -169,7 +169,7 @@ public class BiomeAnalyzer {
                 continue;
             } // implied else;
             // this code from Climate Control and is still crude
-            float height = BiomeGenBase.getBiome(index).rootHeight + BiomeGenBase.getBiome(index).heightVariation*2;
+            float height = BiomeGenBase.getBiome(index).minHeight + BiomeGenBase.getBiome(index).maxHeight*2;
             if ((height>(1.0f+0.5))) {
                 preferredBeach[index] = BiomeGenBase.stoneBeach.biomeID;
             } else {

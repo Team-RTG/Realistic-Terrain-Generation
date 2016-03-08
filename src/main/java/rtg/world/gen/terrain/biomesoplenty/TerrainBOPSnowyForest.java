@@ -4,7 +4,7 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainBOPFrostForest extends TerrainBase
+public class TerrainBOPSnowyForest extends TerrainBase
 {
     private float minHeight;
     private float maxHeight;

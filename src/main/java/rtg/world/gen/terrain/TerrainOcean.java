@@ -20,7 +20,7 @@ public class TerrainOcean extends TerrainBase
         h += simplex.noise2(x / 15f, y / 15f) * (12f - h) * 0.15f;
 
         float floNoise = 50f + h;
-        floNoise = floNoise < this.minOceanFloor ? this.minOceanFloor : floNoise;
+        floNoise = floNoise < minimumOceanFloor ? minimumOceanFloor : floNoise;
 
         return floNoise;
     }

@@ -89,7 +89,6 @@ public class ChunkProviderRTG implements IChunkProvider
     private float[] biomesGeneratedInChunk;
     private float[] borderNoise;
     private long worldSeed;
-    private boolean doJitter = false;
     private RealisticBiomePatcher biomePatcher;
     
     //private AICWrapper aic;
@@ -186,13 +185,28 @@ public class ChunkProviderRTG implements IChunkProvider
                 //fill with biomeData
         int [] biomeIndices= cmr.getBiomesGens(cx *16, cy*16,16,16);
 
-        if (!doJitter){
-            analyzer.repair(biomeIndices, biomesForGeneration, noise,-cmr.getRiverStrength(cx * 16 + 7, cy * 16 + 7));
-        } else {
-            for (int i = 0; i < 256; i++) {
-                biomesForGeneration[i] =  RealisticBiomeBase.getBiome(biomeIndices[i]);
+        /*if (cx*16==1872&&cy*16==7712) {
+            PrintWriter writer = null;
+            try {
+                File file = new File("forestChunk.txt");
+                writer = new PrintWriter(file);
+                for (int i = 0;i <16;i++) {
+                    String output = "";
+                    for (int j = 0;j<16;j++) {
+                        output += "" + biomesForGeneration[i*16+j].biomeID + '\t';
+                    }
+                    writer.print(output+'\r');
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ChunkProviderRTG.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                writer.close();
             }
-        }
+
+        }*/
+
+            analyzer.newRepair(biomeIndices, biomesForGeneration, this.biomeData, this.sampleSize, noise,-cmr.getRiverStrength(cx * 16 + 7, cy * 16 + 7));
+
 
         for(k = 0; k < 256; k++)
         {
@@ -236,7 +250,7 @@ public class ChunkProviderRTG implements IChunkProvider
                 if (ConfigRTG.villageCrashFix) {
 
                     try {
-                        villageGenerator.generate(this, this.worldObj, cx, cy, primer);
+						villageGenerator.generate(this, this.worldObj, cx, cy, primer);
                     }
                     catch (Exception e) {
                         // Do nothing.
@@ -325,7 +339,7 @@ public class ChunkProviderRTG implements IChunkProvider
     	{
     		for(j = -sampleSize; j < sampleSize + 5; j++)
     		{
-    			biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = cmr.getBiomeDataAt(x + ((i * 8) - 8), y + ((j * 8) - 8)).biomeID;
+    			biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = cmr.getBiomeDataAt(x + ((i * 8)-8), y + ((j * 8)-8)).biomeID;
     		}
     	}
 
@@ -450,20 +464,14 @@ public class ChunkProviderRTG implements IChunkProvider
     	boolean randBiome = true;
     	float bCount = 0f, bRand = 0f;
         randBiome = false;
-        if (doJitter) {
-            if(realisticBiomeBase != null) {
-                for(i = 0; i < 256; i++) {
-                    biomes[i] = realisticBiomeBase;
-                }
-            }
-        } else {
+
             //fill with biomeData
             for (i = 0; i < 16; i++) {
                 for (j=0; j<16; j++) {
                     biomes[i*16+j] =  cmr.getBiomeDataAt(x + (((i-7) * 8+4)), y + (((j-7) * 8+4)));
                 }
             }
-        }
+
 
     	float river;
     	for(i = 0; i < 16; i++)
@@ -497,9 +505,6 @@ public class ChunkProviderRTG implements IChunkProvider
 	    					bCount += smallRender[locationIndex][k];// * 3f;
     	    				if(bCount > bRand)
     	    				{
-                                if (doJitter) {
-    	    					   biomes[i * 16 + j] = RealisticBiomeBase.getBiome(k);
-                                }
     	    					bCount = 2f; //20f;
     	    				}
     	    			}

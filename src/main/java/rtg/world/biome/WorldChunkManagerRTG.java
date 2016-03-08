@@ -20,10 +20,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
-import rtg.util.SimplexCellularOctave;
 import rtg.util.SimplexOctave;
-import rtg.util.VoronoiCellNoise;
-import rtg.util.VoronoiCellOctave;
 
 public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeProvider
 {
@@ -56,7 +53,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         if (par1World.provider.dimensionId !=0) throw new RuntimeException();
 
         simplex = new OpenSimplexNoise(seed);
-        cell = new VoronoiCellNoise(seed);
+        cell = new SimplexCellularNoise(seed);
         simplexCell = new SimplexCellularNoise(seed);
         GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType);
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
@@ -220,35 +217,6 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
 			return 0;
 		}
 	}
-    
-    public float calculateRiver(int x, int y, float st, float biomeHeight)
-    {
-        
-        if (st < 0f && biomeHeight > 59f)
-        {
-        	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
-            SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-            simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
-            double pX = x + jitter.deltax() * 220f;
-            double pY = y + jitter.deltay() * 220f;
-            /*double[] simplexResults = new double[2];
-    	    OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
-            double pX = x + simplexResults[0] * 220f;
-            double pY = y + simplexResults[1] * 220f;*/
-
-            //New cellular noise.
-            //TODO move the initialization of the results in a way that's more efficient but still thread safe.
-            double[] results =simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
-            float r = (float) cellBorder(results, 30.0 / 1300.0, 1.0);
-            
-            return (biomeHeight * (r + 1f))
-                + ((59f + simplex.noise2(x / 12f, y / 12f) * 2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (-r));
-        }
-        else
-        {
-            return biomeHeight;
-        }
-    }
 
     public float getRiverStrength(int x, int y)
     {

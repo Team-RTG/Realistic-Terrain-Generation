@@ -37,6 +37,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.util.SimplexOctave;
 
 public class RealisticBiomeBase extends BiomeBase {
     
@@ -316,9 +317,43 @@ public class RealisticBiomeBase extends BiomeBase {
     
     public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
     
-        return terrain.generateNoise(simplex, cell, x, y, border, river);
+        float terrainNoise = terrain.generateNoise(simplex, cell, x, y, border, river);
+        return this.erodedNoise(simplex, cell, x, y, river-1f, terrainNoise);
     }
-    
+
+    public float erodedNoise(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float river, float biomeHeight)
+    {
+
+        if (river < 0f && biomeHeight > 59f)
+        {
+        	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
+            SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+            simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
+            double pX = x + jitter.deltax() * 220f;
+            double pY = y + jitter.deltay() * 220f;
+
+            //New cellular noise.
+            //TODO move the initialization of the results in a way that's more efficient but still thread safe.
+            double[] results =simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
+            float r = (float) cellBorder(results, 30.0 / 1300.0, 1.0);
+
+            return (biomeHeight * (r + 1f))
+                + ((59f + simplex.noise2(x / 12f, y / 12f) * 2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (-r));
+        }
+        else
+        {
+            return biomeHeight;
+        }
+    }
+
+    private static double cellBorder(double[] results, double width, double depth) {
+		double c = results[1] - results[0];
+		if (c < width) {
+			return ((c / width) - 1) * depth;
+		} else {
+			return 0;
+		}
+	}
     public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
         if (ConfigRTG.enableRTGBiomeSurfaces && this.config.getPropertyById(BiomeConfig.useRTGSurfacesId).valueBoolean) {

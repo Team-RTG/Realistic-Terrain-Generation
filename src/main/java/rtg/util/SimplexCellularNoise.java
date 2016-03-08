@@ -23,7 +23,7 @@ package rtg.util;
  * Version 02/05/2015
  */
 
-public class SimplexCellularNoise {
+public class SimplexCellularNoise implements CellNoise {
 
     private SimplexCellularOctave [] octaves = new SimplexCellularOctave [5];
     public final int OCTAVE_COUNT = 5;
@@ -39,4 +39,9 @@ public class SimplexCellularNoise {
     }
 
     public SimplexCellularOctave river() {return octave(0);}
+
+    public float noise(double x, double z, double depth) {
+        return river().noise(x, z, depth);
+    }
+
 }

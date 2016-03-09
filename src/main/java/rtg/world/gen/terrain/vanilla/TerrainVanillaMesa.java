@@ -39,13 +39,6 @@ public class TerrainVanillaMesa extends TerrainBase
             c1 *= 3;
         }
         
-        float c2 = 0f;
-        if (b > 5.5f && border > 0.95f + hn * 0.09f)
-        {
-            c2 = b > 6f ? 0.5f : b - 5.5f;
-            c2 *= 35;
-        }
-        
         float bn = 0f;
         if (b < 7f)
         {
@@ -56,8 +49,8 @@ public class TerrainVanillaMesa extends TerrainBase
         
         float w = simplex.noise2(x / 80f, y / 80f) * 25f;
         w *= w / 25f;
-        
-        b += c1 + c2 + bn - w;
+
+        b += c1 + bn - w;
         
         return 74f + b;
     }

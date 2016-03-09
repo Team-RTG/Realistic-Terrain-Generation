@@ -7,6 +7,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
+import rtg.util.CanyonColour;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -16,38 +17,19 @@ import java.util.Random;
 
 public class SurfaceVanillaSavannaPlateau extends SurfaceBase
 {
-	private int[] claycolor = new int[100];
 	private int grassRaise = 0;
 	
 	public SurfaceVanillaSavannaPlateau(BiomeConfig config, IBlockState top, IBlockState fill, int grassHeight)
 	{
 		super(config, top, fill);
 		grassRaise = grassHeight;
-		
-		int[] c = new int[]{1, 8, 0};
-		OpenSimplexNoise simplex = new OpenSimplexNoise(2L);
-		
-		float n;
-		for(int i = 0; i < 100; i++)
-		{
-			n = simplex.noise1(i / 3f) * 3f + simplex.noise1(i / 1f) * 0.3f + 1.5f;
-			n = n >= 3f ? 2.9f : n < 0f ? 0f : n;
-			claycolor[i] = c[(int)n];
-		}
-	}
-	
-	public byte getClayColorForHeight(int k)
-	{
-		k -= 60;
-		k = k < 0 ? 0 : k > 99 ? 99 : k;
-		return (claycolor[k] == 0) ? (byte)12 : ((claycolor[k] == 1) ? (byte)0 : (byte)claycolor[k]);
 	}
 	
 	@Override
 	public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		float c = CliffCalculator.calc(x, y, noise);
-		boolean cliff = c > 1.3f ? true : false;
+		boolean cliff = c > 1.3f;
 		
 		for(int k = 255; k > -1; k--)
 		{
@@ -64,13 +46,13 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase
 	        	{
 	            	if(cliff)
 	            	{
-						primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getStateFromMeta(getClayColorForHeight(k + Math.round(simplex.noise2(x / 100f, y / 100f) * 2f))));
+						primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.SAVANNA.getForHeight(x, k, y));
 					}
 	            	else
 	            	{
 	        			if(depth > 4)
 	        			{
-							primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getStateFromMeta(getClayColorForHeight(k + Math.round(simplex.noise2(x / 100f, y / 100f) * 2f))));
+							primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.SAVANNA.getForHeight(x, k, y));
 						}
 	        			else if(k > 74 + grassRaise)
 	        			{
@@ -143,8 +125,8 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase
         		}
         		else if(k > 63)
         		{
-        			primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getStateFromMeta(getClayColorForHeight(k)));
-        		}
+					primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.SAVANNA.getForHeight(x, k, y));
+				}
             }
 		}
 	}

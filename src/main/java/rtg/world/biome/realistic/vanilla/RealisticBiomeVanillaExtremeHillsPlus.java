@@ -38,6 +38,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
             new TerrainVanillaExtremeHillsPlus(230f, 120f, 0f),
             new SurfaceVanillaExtremeHillsPlus(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f));
         this.generatesEmeralds = true;
+        this.noLakes=true;
     }
     
     @Override

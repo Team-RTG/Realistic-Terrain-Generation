@@ -6,6 +6,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
+import rtg.util.CanyonColour;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -60,13 +61,13 @@ public class SurfaceMesa extends SurfaceBase
 	        	{
 	            	if(cliff)
 	            	{
-						primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getStateFromMeta(getClayColorForHeight(k + Math.round(simplex.noise2(x / 100f, y / 100f) * 2f))));
+						primer.setBlockState((y * 16 + x) * 256 + k,CanyonColour.MESA.getForHeight(x, k, y));
 					}
 	            	else
 	            	{
 	        			if(depth > 4)
 	        			{
-							primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getStateFromMeta(getClayColorForHeight(k + Math.round(simplex.noise2(x / 100f, y / 100f) * 2f))));
+							primer.setBlockState((y * 16 + x) * 256 + k,CanyonColour.MESA.getForHeight(x, k, y));
 						}
 	        			else if(k > 77)
 	        			{
@@ -127,7 +128,7 @@ public class SurfaceMesa extends SurfaceBase
         		}
         		else if(k > 63)
         		{
-					primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stained_hardened_clay.getStateFromMeta(getClayColorForHeight(k + Math.round(simplex.noise2(x / 100f, y / 100f) * 2f))));
+					primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.MESA.getForHeight(x, k, y));
 				}
             }
 		}

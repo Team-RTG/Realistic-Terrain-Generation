@@ -27,7 +27,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
-import rtg.util.CanyonColor;
+import rtg.util.CanyonColour;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.VoronoiCellNoise;
@@ -132,7 +132,7 @@ public class ChunkProviderRTG implements IChunkProvider
 		scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(), SCATTERED_FEATURE);
 		oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(), OCEAN_MONUMENT);
 
-        CanyonColor.init(l);
+        CanyonColour.init(l);
 
         sampleArraySize = sampleSize * 2 + 5;
 

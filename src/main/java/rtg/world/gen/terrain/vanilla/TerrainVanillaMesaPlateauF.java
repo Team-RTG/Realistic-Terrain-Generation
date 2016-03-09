@@ -38,7 +38,7 @@ public class TerrainVanillaMesaPlateauF extends TerrainBase
 		/**    Values come in pairs per layer. First is how high to step up.
 		 * 	Second is a value between 0 and 1, signifying when to step up.
 		 */
-		height = new float[]{12.0f, 0.4f, 12f, 0.5f, 8f, 0.7f};
+		height = new float[]{24.0f, 0.4f, 8f, 0.7f};
 		smooth = 0.1f;
 		heightLength = height.length;
 		base = 69f;
@@ -52,7 +52,7 @@ public class TerrainVanillaMesaPlateauF extends TerrainBase
 		float b = simplex.noise2(x / 40f, y / 40f) * 1.5f;
 		b *= river;
 
-		float sn = simplex.noise2(x / 50f, y / 50f) * 0.5f + 0.5f;
+		float sn = simplex.noise2(x / 100f, y / 100f) * 0.5f + 0.5f;
 		sn += simplex.noise2(x / 8f, y / 8f) * 0.1 + 0.1f;
 		float n;
 		for (int i = 0; i < heightLength; i += 2) {
@@ -60,12 +60,8 @@ public class TerrainVanillaMesaPlateauF extends TerrainBase
 			n = (n < 0) ? 0 : (n > 1) ? 1 : n;
 			if (n > height[i + 1]) {
 				b += (height[i] * (n - 0.5f) / 0.5f);
-				b += simplex.noise2(x / 20f, y / 20f) * 4f * n;
-				b += simplex.noise2(x / 12f, y / 12f) * 3f * n;
-				b += simplex.noise2(x / 5f, y / 5f) * 1.5f * n;
 			}
 		}
-		b += simplex.noise2(x / 12, y / 12) * sn;
 
 		return base + b;
 	}

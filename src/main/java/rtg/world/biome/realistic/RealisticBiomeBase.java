@@ -37,6 +37,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.util.SimplexOctave;
 
 public class RealisticBiomeBase extends BiomeBase {
     
@@ -315,10 +316,82 @@ public class RealisticBiomeBase extends BiomeBase {
     }
     
     public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-    
-        return terrain.generateNoise(simplex, cell, x, y, border, river);
+        // we now have both lakes and rivers lowering land
+
+        double lakeStrength = lakePressure(simplex,cell,x,y);
+        double lakeFlattening = this.lakeFlattening(lakeStrength, lakeWaterLevel, lakeDepressionLevel);
+        if (lakeFlattening < river) river = (float)lakeFlattening;
+
+        float terrainNoise = terrain.generateNoise(simplex, cell, x, y, border, river);
+        return this.erodedNoise(simplex, cell, x, y, river-1f, terrainNoise,lakeFlattening-1.0);
     }
-    
+
+    public float erodedNoise(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float river, float biomeHeight, double lakeFlattening)
+    {
+
+        if (river < 0f && biomeHeight > 57f)
+        {
+        	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
+            SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+            simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
+            double pX = x + jitter.deltax() * 220f;
+            double pY = y + jitter.deltay() * 220f;
+
+            //New cellular noise.
+            //TODO move the initialization of the results in a way that's more efficient but still thread safe.
+            double[] results =simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
+            float r = (float) cellBorder(results, 30.0 / 1300.0, 1.0);
+            if (lakeFlattening < r) r = (float) lakeFlattening;
+
+            return (biomeHeight * (r + 1f))
+                + ((57f + simplex.noise2(x / 12f, y / 12f) * 2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (-r));
+        }
+        else
+        {
+            return biomeHeight;
+        }
+    }
+
+
+    private static double cellBorder(double[] results, double width, double depth) {
+		double c = results[1] - results[0];
+		if (c < width) {
+			return ((c / width) - 1) * depth;
+		} else {
+			return 0;
+		}
+	}
+
+    // lake calculations
+
+    private float lakeInterval = 1470.0f;
+    private double lakeWaterLevel = 0.04;// the lakeStrenght below which things should be below ater
+    private double lakeDepressionLevel = 0.15;// the lakeStrength below which land should start to be lowered
+    public boolean noLakes = false;
+
+    public double lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y) {
+        if (noLakes) return 1.0;
+        SimplexOctave.Jitter2D jitter = new SimplexOctave.Jitter2D();
+        simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
+        double pX = x + jitter.deltax() * 110f;
+        double pY = y + jitter.deltay() * 110f;
+        simplex.mountain().evaluateNoise(x / 80.0, y / 80.0, jitter);
+        pX += jitter.deltax() * 30f;
+        pY += jitter.deltay() * 30f;
+        simplex.mountain().evaluateNoise(x / 30.0, y / 30.0, jitter);
+        pX += jitter.deltax() * 10f;
+        pY += jitter.deltay() * 10f;
+        double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
+        return results;
+    }
+
+    public double lakeFlattening(double pressure, double bottomLevel, double topLevel) {
+        // this number indicates a multiplier to height
+        if (pressure > topLevel) return 1;
+        if (pressure<bottomLevel) return 0;
+        return Math.pow((pressure-bottomLevel)/(topLevel-bottomLevel),0.333);
+    }
+
     public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
         if (ConfigRTG.enableRTGBiomeSurfaces && this.config.getPropertyById(BiomeConfig.useRTGSurfacesId).valueBoolean) {

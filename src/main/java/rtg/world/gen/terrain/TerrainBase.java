@@ -288,6 +288,7 @@ public class TerrainBase
         {
             float st = h * 1.5f > 15f ? 15f : h * 1.5f;
             h += cell.noise(x / 70D, y / 70D, 1D) * st;
+            h = h*river;
         }
 
         h += simplex.noise2(x / 20f, y / 20f) * 5f;
@@ -587,7 +588,7 @@ public class TerrainBase
         h += st;
         h *= h / 50f;
         h += st;
-
+        if (river<1) return 62f+(8f*river)+h;
         return 70f + h;
     }
 

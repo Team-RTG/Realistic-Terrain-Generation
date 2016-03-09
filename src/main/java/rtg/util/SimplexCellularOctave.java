@@ -23,7 +23,7 @@ package rtg.util;
  * Version 02/05/2015
  */
 
-public class SimplexCellularOctave {
+public class SimplexCellularOctave implements CellOctave {
 
 	private short[] perm;
 	private short[] perm2D;

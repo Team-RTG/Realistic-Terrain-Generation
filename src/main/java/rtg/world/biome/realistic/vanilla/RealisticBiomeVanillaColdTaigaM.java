@@ -39,6 +39,7 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase
             BiomeGenBase.frozenRiver,
             new TerrainVanillaColdTaigaM(),
             new SurfaceVanillaColdTaigaM(config, topBlock, fillerBlock));
+        this.noLakes=true;
     }
     
     @Override

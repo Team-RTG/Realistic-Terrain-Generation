@@ -42,6 +42,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
             new SurfaceVanillaDesertM(config, Blocks.sand, (byte)0, Blocks.sandstone, (byte)0, 0));
         
         this.waterSurfaceLakeChance = 0;
+        this.noLakes=true;
     }
     
     @Override

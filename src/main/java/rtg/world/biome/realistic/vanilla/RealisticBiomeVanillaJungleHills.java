@@ -50,6 +50,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
             new SurfaceVanillaJungleHills(config, Blocks.grass, Blocks.dirt, false, null, 1f, 1.5f, 60f, 65f, 1.5f));
         
         this.waterSurfaceLakeChance = 3;
+        this.noLakes=true;
     }
     
     @Override

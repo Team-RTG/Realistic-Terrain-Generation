@@ -19,4 +19,4 @@ deploy:
   acl: public_read
   region: ap-southeast-2
   on:
-    repo: Team-RTG/Realistic-Terrain-Generation-1.8.9
+    repo: Team-RTG/1.8.9-Realistic-Terrain-Generation

@@ -78,6 +78,11 @@ public class TerrainBase
         return 68f;
     }
 
+    public static float getTerrainBase(float river)
+    {
+        return 62f+6f*river;
+    }
+
     public static float terrainBeach(int x, int y, OpenSimplexNoise simplex, float river, float pitch1, float pitch2, float baseHeight)
     {
         float h = simplex.noise2(x / pitch1, y / pitch1) * 40f * river;
@@ -295,7 +300,7 @@ public class TerrainBase
         h += simplex.noise2(x / 12f, y / 12f) * 3f;
         h += simplex.noise2(x / 5f, y / 5f) * 1.5f;
 
-        return getTerrainBase() + h + baseAdjust;
+        return getTerrainBase(river) + h + baseAdjust*river;
     }
 
     public static float terrainLonelyMountain(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river, float strength, float width, float lakeWidth, float lakeDepth, float terrainHeight)

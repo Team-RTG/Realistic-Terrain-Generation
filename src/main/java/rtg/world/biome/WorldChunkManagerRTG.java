@@ -78,31 +78,25 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         return (sample1 < base && sample2 > base) || (sample1 > base && sample2 < base);
     }
     
-    public float[] getRainfall(float[] par1ArrayOfFloat, int par2, int par3, int par4, int par5)
+    public float[] getRainfall(float[] par1ArrayOfFloat, int x, int z, int width, int length)
     {
         IntCache.resetIntCache();
 
-        if (par1ArrayOfFloat == null || par1ArrayOfFloat.length < par4 * par5)
+        if (par1ArrayOfFloat == null || par1ArrayOfFloat.length < width * length)
         {
-            par1ArrayOfFloat = new float[par4 * par5];
+            par1ArrayOfFloat = new float[width * length];
         }
 
-        int[] aint = this.biomeIndexLayer.getInts(par2, par3, par4, par5);
+        int[] aint = this.biomeIndexLayer.getInts(x, z, width, length);
 
-        for (int i1 = 0; i1 < par4 * par5; ++i1)
+        for (int i1 = 0; i1 < width * length; ++i1)
         {
             float f = 0;
-            // Is this a single biome world?
-            if (biomePatcher.isSingleBiomeWorld())
-            {
-                f = (float) biomePatcher.getSingleRealisticBiome().getIntRainfall() / 65536.0F;
-            } else {
-                try {
-                    f = (float) RealisticBiomeBase.getBiome(aint[i1]).getIntRainfall() / 65536.0F;
-                } catch (Exception e) {
-                    if (RealisticBiomeBase.getBiome(aint[i1])== null) {
-                        f = (float) biomePatcher.getPatchedRealisticBiome("Problem with biome "+aint[i1]+" from "+e.getMessage()).getIntRainfall() / 65536.0F;
-                    }
+            try {
+                f = (float) RealisticBiomeBase.getBiome(aint[i1]).getIntRainfall() / 65536.0F;
+            } catch (Exception e) {
+                if (RealisticBiomeBase.getBiome(aint[i1])== null) {
+                    f = (float) biomePatcher.getPatchedRealisticBiome("Problem with biome "+aint[i1]+" from "+e.getMessage()).getIntRainfall() / 65536.0F;
                 }
             }
 

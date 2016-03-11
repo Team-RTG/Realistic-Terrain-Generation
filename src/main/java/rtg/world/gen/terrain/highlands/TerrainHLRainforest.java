@@ -8,8 +8,6 @@ public class TerrainHLRainforest extends TerrainBase
 {
 	private float width;
 	private float strength;
-	private float lakeDepth;
-	private float lakeWidth;
 	private float terrainHeight;
     private static float startCliffsAt = 40f;
 
@@ -22,8 +20,6 @@ public class TerrainHLRainforest extends TerrainBase
 	{
 		width = mountainWidth;
 		strength = mountainStrength;
-		lakeDepth = depthLake;
-		lakeWidth = widthLake;
 		terrainHeight = height;
 	}
 		@Override
@@ -49,11 +45,9 @@ public class TerrainHLRainforest extends TerrainBase
 		m += c;
         m = above(m, startCliffsAt);
 
-		float l = simplex.noise2(x / lakeWidth, y / lakeWidth) * lakeDepth;
-		l *= l / 25f;
-		l = l < -8f ? -8f : l;
-
-		return terrainHeight + h + m - l;
+		float result = terrainHeight + h + m;
+        if (river<1) return 62f+(result-62f)*river;
+        return result;
 	}
 
 	/*@Override

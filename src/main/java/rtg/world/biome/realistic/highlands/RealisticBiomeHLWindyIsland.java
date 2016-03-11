@@ -36,7 +36,13 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
             new TerrainHLWindyIsland(),
             new SurfaceHLWindyIsland(config, topBlock, fillerBlock));
     }
-    
+
+    @Override
+    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        // no rivers or lakes
+        return terrain.generateNoise(simplex, cell, x, y, border, river);
+    }
+
     // this is the Extreme Hills code again, with plain boulders, smaller trees, no pumpkins and no flowers
         @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)

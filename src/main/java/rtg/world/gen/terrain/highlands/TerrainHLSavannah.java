@@ -13,7 +13,9 @@ public class TerrainHLSavannah extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-		float h = simplex.noise2(x / 100f, y / 100f) * 7;
+
+        return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 66f);
+		/*float h = simplex.noise2(x / 100f, y / 100f) * 7;
 		h += simplex.noise2(x / 20f, y / 20f) * 2;
 
 		float m = simplex.noise2(x / 180f, y / 180f) * 70f * river;
@@ -23,10 +25,6 @@ public class TerrainHLSavannah extends TerrainBase
 		sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
 		m += sm;
 
-		float l = simplex.noise2(x / 260f, y / 260f) * 38f;
-		l *= l / 25f;
-		l = l < -8f ? -8f : l;
-
-		return 68f + h + m;
+		return 68f + h + m;(*/
 	}
 }

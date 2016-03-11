@@ -26,7 +26,10 @@ public class RealisticBiomeHLAlps extends RealisticBiomeHLBase {
         super(config, hlBiome, BiomeGenBase.frozenRiver, new TerrainHLAlps(),
             new SurfaceHLAlps(config, topBlock, fillerBlock, false, null, 0.45f));
     }
-
+    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        // no rivers or lakes
+        return terrain.generateNoise(simplex, cell, x, y, border, river);
+    }
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
         super.rDecorate(world, rand, chunkX, chunkY, simplex, cell, strength, river);

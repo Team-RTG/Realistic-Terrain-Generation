@@ -23,5 +23,6 @@ public class RealisticBiomeHLMesa extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.river,
             new TerrainHLMesa(),
             new SurfaceHLMesa(config, topBlock, (byte)1, fillerBlock, (byte)1));
+        noLakes = true;
     }
 }

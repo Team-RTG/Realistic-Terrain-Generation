@@ -189,9 +189,13 @@ public class TerrainBase
         float r = cell.noise(x / 50D, y / 50D, 1D) * h * 2;
         h += r;
 
+        h = h*river;
         h += simplex.noise2(x / 40f, y / 40f) * 8;
         h += simplex.noise2(x / 14f, y / 14f) * 2;
 
+        if (river <1) {
+            return (62f+(baseHeight-62f)*river) +h;
+        }
         return baseHeight + h;
     }
 

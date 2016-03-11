@@ -8,21 +8,6 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungle;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.RandomUtil;
-import rtg.world.gen.feature.WorldGenBlob;
-import rtg.world.gen.feature.WorldGenFlowers;
-import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.WorldGenJungleCacti;
-import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaJungle;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaJungle;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -31,8 +16,20 @@ import net.minecraft.world.gen.feature.WorldGenMegaJungle;
 import net.minecraft.world.gen.feature.WorldGenVines;
 import net.minecraft.world.gen.feature.WorldGenWaterlily;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungle;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.util.RandomUtil;
+import rtg.world.gen.feature.WorldGenFlowers;
+import rtg.world.gen.feature.WorldGenGrass;
+import rtg.world.gen.feature.WorldGenJungleCacti;
+import rtg.world.gen.feature.WorldGenLog;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaJungle;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaJungle;
 
 public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 {	
@@ -49,6 +46,21 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		);
 		
 		this.waterSurfaceLakeChance = 3;
+		
+		this.decoBoulder.allowed = true;
+		this.decoBoulder.boulder = Blocks.mossy_cobblestone;
+		this.decoBoulder.chance = 16;
+		this.decoBoulder.maxY = 95;
+		this.decoBoulder.strengthFactor = 2f;
+		
+		this.decos.add(
+			//this.decoLog,
+			//this.decoTree,
+			//this.decoSeedBiomeDecorate,
+			//this.decoLilypad,
+			//this.decoGrass,
+			this.decoBoulder
+		);
 	}
 	
     
@@ -248,17 +260,6 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
                         (new WorldGenJungleCacti(false, rand.nextInt(7), (byte)1)).generate(world, rand, k21, j23, k24);
                     }
                 }
-            }
-        }
-        
-        for (int l1 = 0; l1 < 2f * strength; ++l1)
-        {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
-            
-            if (k1 < 95 && rand.nextInt(16) == 0) {
-                (new WorldGenBlob(Blocks.mossy_cobblestone, 0, rand)).generate(world, rand, i1, k1, j1);
             }
         }
     }

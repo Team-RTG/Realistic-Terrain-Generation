@@ -10,19 +10,8 @@ import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.Ev
 import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.LAPIS;
 import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.REDSTONE;
 
+import java.util.ArrayList;
 import java.util.Random;
-
-import rtg.api.biome.BiomeConfig;
-import rtg.config.rtg.ConfigRTG;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.RandomUtil;
-import rtg.world.biome.BiomeBase;
-import rtg.world.biome.RTGBiomeProvider;
-import rtg.world.gen.feature.WorldGenClay;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceGeneric;
-import rtg.world.gen.terrain.TerrainBase;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -32,12 +21,23 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.api.biome.BiomeConfig;
+import rtg.config.rtg.ConfigRTG;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.util.RandomUtil;
 import rtg.util.SimplexOctave;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.RTGBiomeProvider;
+import rtg.world.gen.feature.WorldGenBlob;
+import rtg.world.gen.feature.WorldGenClay;
+import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.gen.surface.SurfaceGeneric;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBase extends BiomeBase {
     
@@ -68,6 +68,9 @@ public class RealisticBiomeBase extends BiomeBase {
     public byte emeraldEmeraldMeta;
     public Block emeraldStoneBlock;
     public byte emeraldStoneMeta;
+    
+    public ArrayList<Deco> decos;
+    public DecoBoulder decoBoulder;
     
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
     
@@ -108,6 +111,9 @@ public class RealisticBiomeBase extends BiomeBase {
         emeraldEmeraldMeta = (byte)0;
         emeraldStoneBlock = Blocks.stone;
         emeraldStoneMeta = (byte)0;
+        
+        decos = new ArrayList<Deco>();
+        decoBoulder = new DecoBoulder();
     }
     
     public static RealisticBiomeBase getBiome(int id) {
@@ -523,5 +529,49 @@ public class RealisticBiomeBase extends BiomeBase {
     public SurfaceBase[] getSurfaces()
     {
         return this.surfaces;
+    }
+    
+    public class Deco
+    {
+    	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
+    	{
+    		
+    	}
+    }
+    
+    public class DecoBoulder extends Deco
+    {
+    	public boolean allowed;
+    	public Block boulder;
+    	public float strengthFactor;
+    	public int maxY;
+    	public int chance;
+    	
+    	public DecoBoulder()
+    	{
+    		this.allowed = false;
+    		this.boulder = Blocks.cobblestone;
+    		this.chance = 10;
+    		this.maxY = 90;
+    		this.strengthFactor = 2f;
+    	}
+    	
+    	@Override
+    	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
+    	{
+    		if (this.allowed) {
+    			
+	            for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1)
+	            {
+	                int i1 = chunkX + rand.nextInt(16) + 8;
+	                int j1 = chunkY + rand.nextInt(16) + 8;
+	                int k1 = world.getHeightValue(i1, j1);
+	                
+	                if (k1 < this.maxY && rand.nextInt(this.chance) == 0) {
+	                    (new WorldGenBlob(boulder, 0, rand)).generate(world, rand, i1, k1, j1);
+	                }
+	            }
+    		}
+    	}
     }
 }

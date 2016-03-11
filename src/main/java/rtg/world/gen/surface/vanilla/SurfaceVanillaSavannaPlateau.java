@@ -46,13 +46,13 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase
 	        	{
 	            	if(cliff)
 	            	{
-						primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.SAVANNA.getForHeight(x, k, y));
+						primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.SAVANNA.getForHeight(i, k,j));
 					}
 	            	else
 	            	{
 	        			if(depth > 4)
 	        			{
-							primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.SAVANNA.getForHeight(x, k, y));
+							primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.SAVANNA.getForHeight(i, k,j));
 						}
 	        			else if(k > 74 + grassRaise)
 	        			{
@@ -125,7 +125,7 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase
         		}
         		else if(k > 63)
         		{
-					primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.SAVANNA.getForHeight(x, k, y));
+					primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.SAVANNA.getForHeight(i, k,j));
 				}
             }
 		}

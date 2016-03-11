@@ -8,8 +8,7 @@ public class TerrainVanillaMesaPlateauF extends TerrainBase
 {
 	private float[] height;
 	private int heightLength;
-	private float smooth;
-	private float base;
+	private float strength;
 
 	/*
 	 * Example parameters:
@@ -39,7 +38,7 @@ public class TerrainVanillaMesaPlateauF extends TerrainBase
 		 * 	Second is a value between 0 and 1, signifying when to step up.
 		 */
 		height = new float[]{24.0f, 0.4f, 8f, 0.7f};
-		smooth = 0.1f;
+		strength = 50f;
 		heightLength = height.length;
 		base = 69f;
 	}
@@ -47,22 +46,6 @@ public class TerrainVanillaMesaPlateauF extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-		river *= 0.5f;
-		river = river > 1f ? 1f : river;
-		float b = simplex.noise2(x / 40f, y / 40f) * 1.5f;
-		b *= river;
-
-		float sn = simplex.noise2(x / 100f, y / 100f) * 0.5f + 0.5f;
-		sn += simplex.noise2(x / 8f, y / 8f) * 0.1 + 0.1f;
-		float n;
-		for (int i = 0; i < heightLength; i += 2) {
-			n = (sn - height[i + 1]) / smooth;
-			n = (n < 0) ? 0 : (n > 1) ? 1 : n;
-			if (n > height[i + 1]) {
-				b += (height[i] * (n - 0.5f) / 0.5f);
-			}
-		}
-
-		return base + b;
+		return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 100f, false);
 	}
 }

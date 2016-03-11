@@ -8,6 +8,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaSavanna;
+import rtg.util.CanyonColour;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -39,7 +40,7 @@ public class SurfaceVanillaSavanna extends SurfaceBase
     {
     
         float c = CliffCalculator.calc(x, y, noise);
-        boolean cliff = c > 1.4f ? true : false;
+        boolean cliff = c > 1.4f;
         
         for (int k = 255; k > -1; k--)
         {
@@ -56,18 +57,11 @@ public class SurfaceVanillaSavanna extends SurfaceBase
                 {
                     if (depth > -1 && depth < 2)
                     {
-                        if (rand.nextInt(3) == 0) {
-                            
-                            primer.setBlockState((y * 16 + x) * 256 + k, hcCobble(world, i, j, x, y, k));
-                        }
-                        else {
-                            
-                            primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k));
-                        }
+                        primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.SAVANNA.getForHeight(i, k,j));
                     }
                     else if (depth < 10)
                     {
-                        primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k));
+                        primer.setBlockState((y * 16 + x) * 256 + k, hcCobble(world, i, j, x, y, k));
                     }
                 }
                 else

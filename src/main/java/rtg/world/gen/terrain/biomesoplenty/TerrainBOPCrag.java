@@ -52,6 +52,6 @@ public class TerrainBOPCrag extends TerrainBase
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return terrainCanyon(x, y, simplex, river, height, border, strength, heightLength, booRiver);
+        return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 50f, false);
     }
 }

@@ -28,6 +28,7 @@ public enum CanyonColour {
 			int j;
 			for (int i = 0; i < 256; i++) {
 				j = i + (int) (simplex.noise1(i / 3) * 2);
+				j = (j < 0)? 0 : (j > 255)? 255 : j;
 				byte b = colour.bytes[j % colour.bytes.length];
 				c[i] = (b == -1)? Blocks.hardened_clay.getDefaultState() : Blocks.stained_hardened_clay.getStateFromMeta(b);
 			}
@@ -36,7 +37,7 @@ public enum CanyonColour {
 	}
 
 	public IBlockState getForHeight(int x, int y, int z) {
-		y = y + (int) (simplex.noise2(x / 100, z / 100) * 2f);
+		y = y + (int) (simplex.noise2(x / 80, z / 80) * 5f);
 		y = (y < 0)? 0 : (y > 255)? 255 : y;
 		return colours.get(this)[y];
 	}

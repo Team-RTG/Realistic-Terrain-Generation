@@ -27,6 +27,7 @@ minecraft {
     version = "1.8.9-11.15.1.1764"
     runDir = "run"
     mappings = "stable_20"
+    replace '@VERSION@', project.version
 }
 
 dependencies {

@@ -96,60 +96,45 @@ public class TerrainBase
         return baseHeight + h;
     }
 
-    public static float terrainCanyon(int x, int y, OpenSimplexNoise simplex, float river, float[] height, float border, float strength, int heightLength, boolean booRiver)
+    public static float terrainPlateau(int x, int y, OpenSimplexNoise simplex, float river, float[] height, float border, float strength, int heightLength, float selectorWaveLength, boolean isM)
     {
-        //float b = simplex.noise2(x / cWidth, y / cWidth) * cHeigth * river;
-        //b *= b / cStrength;
-        river *= 1.3f;
         river = river > 1f ? 1f : river;
-        float r = simplex.noise2(x / 100f, y / 100f) * 50f;
-        r = r < -7.4f ? -7.4f : r > 7.4f ? 7.4f : r;
-        float b = (17f + r) * river;
+        float b = simplex.noise2(x / 40f, y / 40f) * 1.5f;
 
-        float hn = simplex.noise2(x / 12f, y / 12f) * 0.5f;
-        float sb = 0f;
-        if(b > 0f)
-        {
-            sb = b;
-            sb = sb < 0f ? 0f : sb > 7f ? 7f : sb;
-            sb = hn * sb;
-        }
-        b += sb;
-
-        float cTotal = 0f;
-        float cTemp = 0f;
-
-        for(int i = 0; i < heightLength; i += 2)
-        {
-            cTemp = 0;
-            if(b > height[i] && border > 0.6f + (height[i] * 0.015f) + hn * 0.2f)
-            {
-                cTemp = b > height[i] + height[i + 1] ? height[i + 1] : b - height[i];
-                cTemp *= strength;
-            }
-            cTotal += cTemp;
-        }
-
-
-        float bn = 0f;
-        if(booRiver)
-        {
-            if(b < 5f)
-            {
-                bn = 5f - b;
-                for(int i = 0; i < 3; i++)
-                {
-                    bn *= bn / 4.5f;
+        float sn = simplex.noise2(x / selectorWaveLength, y / selectorWaveLength) * 0.5f + 0.5f;
+        sn *= river;
+        sn += simplex.noise2(x / 12f, y / 12f) * 0.07f + 0.07f;
+        float n;
+        for (int i = 0; i < heightLength; i += 2) {
+            n = (sn - height[i + 1]) / (1 - height[i + 1]);
+            n = n * strength;
+            n = (n < 0) ? 0 : (n > 1) ? 1 : n;
+            if (sn > height[i + 1]) {
+                b += (height[i] * n);
+                b += simplex.noise2(x / 20f, y / 20f) * 3f * n;
+                if (isM) {
+                    b += simplex.noise2(x / 12f, y / 12f) * 2f * n;
+                    b += simplex.noise2(x / 5f, y / 5f) * 1f * n;
                 }
             }
         }
-        else if(b < 5f)
-        {
-            bn = (simplex.noise2(x / 7f, y / 7f) * 1.3f + simplex.noise2(x / 15f, y / 15f) * 2f) * (5f - b) * 0.2f;
-        }
+        if (isM) b += simplex.noise2(x / 12, y / 12) * sn;
 
-        b += cTotal - bn;
+        return getTerrainBase() + b;
+    }
 
+    public static float terrainBryce(int x, int y, OpenSimplexNoise simplex, float river, float height, float border)
+    {
+        float b = 0;
+        float n;
+        float sn = simplex.noise2(x / 2f, y / 2f) * 0.5f + 0.5f;
+        sn += simplex.noise2(x, y) * 0.2 + 0.2;
+        sn += simplex.noise2(x / 4f, y / 4f) * 4f + 4f;
+        sn += simplex.noise2(x / 8f, y / 8f) * 2f + 2f;
+        n = height/ sn * 2;
+        n += simplex.noise2(x / 64f, y / 64f) * 4f;
+        n = (sn < 6) ? n : 0f;
+        b += n;
         return getTerrainBase() + b;
     }
 

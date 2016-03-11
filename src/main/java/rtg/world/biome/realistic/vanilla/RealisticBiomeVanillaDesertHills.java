@@ -32,7 +32,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
         super(config,
                 BiomeGenBase.desertHills,
                 BiomeGenBase.river,
-                new TerrainVanillaDesertHills(600f, 50f, 0f, 50f),
+                new TerrainVanillaDesertHills(10f, 120f, 68f, 200f),
                 new SurfaceVanillaDesertHills(config, Blocks.sand.getDefaultState(), Blocks.sandstone.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f)
         );
         this.waterSurfaceLakeChance = 0;

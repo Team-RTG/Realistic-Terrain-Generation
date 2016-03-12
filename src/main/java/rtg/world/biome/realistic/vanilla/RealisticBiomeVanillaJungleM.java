@@ -14,7 +14,7 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.world.gen.feature.WorldGenBlob;
-import rtg.world.gen.feature.WorldGenFlowers;
+import rtg.world.gen.feature.WorldGenFlowersRTG;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenJungleCacti;
 import rtg.world.gen.feature.WorldGenLog;
@@ -229,7 +229,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase
                 
                 if (rand.nextInt(4) == 0) {
                     
-                    (new WorldGenFlowers(new int[] {5})).generate(world, rand, j15, j17, j20);
+                    (new WorldGenFlowersRTG(new int[] {5})).generate(world, rand, j15, j17, j20);
                 }
             }
         }

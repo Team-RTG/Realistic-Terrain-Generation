@@ -5,7 +5,7 @@ import java.util.Random;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenFlowers;
+import rtg.world.gen.feature.WorldGenFlowersRTG;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.growthcraft.SurfaceGCBambooForest;
@@ -76,7 +76,7 @@ public class RealisticBiomeGCBambooForest extends RealisticBiomeGCBase
             
             if (rand.nextInt(4) != 0) {
                 
-                (new WorldGenFlowers(new int[] {6, 8})).generate(world, rand, j15, j17, j20);
+                (new WorldGenFlowersRTG(new int[] {6, 8})).generate(world, rand, j15, j17, j20);
             }
         }
         

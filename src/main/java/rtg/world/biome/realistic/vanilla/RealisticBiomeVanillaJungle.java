@@ -21,7 +21,7 @@ import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungle;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
-import rtg.world.gen.feature.WorldGenFlowers;
+import rtg.world.gen.feature.WorldGenFlowersRTG;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
@@ -241,7 +241,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
                 
                 if (rand.nextInt(4) == 0) {
                     
-                    (new WorldGenFlowers(new int[] {5})).generate(world, rand, j15, j17, j20);
+                    (new WorldGenFlowersRTG(new int[] {5})).generate(world, rand, j15, j17, j20);
                 }
             }
         }

@@ -6,7 +6,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaFlowerForest;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenFlowers;
+import rtg.world.gen.feature.WorldGenFlowersRTG;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineBig;
@@ -57,7 +57,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
             int j20 = chunkY + rand.nextInt(16) + 8;
             int j17 = world.getHeightValue(j15, j20);
             
-            (new WorldGenFlowers(new int[] {0, 2, 3, 4, 5, 6, 7, 8, 9, 11, 14, 15})).generate(world, rand, j15, j17, j20);
+            (new WorldGenFlowersRTG(new int[] {0, 2, 3, 4, 5, 6, 7, 8, 9, 11, 14, 15})).generate(world, rand, j15, j17, j20);
         }
 
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;

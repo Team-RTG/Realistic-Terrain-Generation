@@ -43,6 +43,10 @@ public class TerrainHLTallPineForest extends TerrainBase
 		h += simplex.noise2(x / 18f, y / 18f) * 3;
 		h += simplex.noise2(x / 8f, y / 8f) * 2;
 
-		return 45f + h + (b * 2) + hill;
+		if (river<1)  {
+            float result = 45f + h + (b * 2) + hill;
+            return 62f+(result-62f)*river;
+        }
+        return 45f + h + (b * 2) + hill;
 	}
 }

@@ -24,5 +24,6 @@ public class RealisticBiomeHLBaldHill extends RealisticBiomeHLBase
             new TerrainHLBaldHill(90f, 180f, 13f, 100f, 38f, 260f, 110f),
             new SurfaceHLBaldHill(config, Blocks.stone, Blocks.stone)
         );
+        noLakes = true;
     }
 }

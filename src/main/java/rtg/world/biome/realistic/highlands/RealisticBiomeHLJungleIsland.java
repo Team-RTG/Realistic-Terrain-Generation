@@ -7,6 +7,8 @@ import rtg.world.gen.terrain.highlands.TerrainHLJungleIsland;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 
 public class RealisticBiomeHLJungleIsland extends RealisticBiomeHLBase
 {
@@ -24,4 +26,11 @@ public class RealisticBiomeHLJungleIsland extends RealisticBiomeHLBase
             new TerrainHLJungleIsland(0f, 140f, 68f, 200f),
             new SurfaceHLJungleIsland(config, topBlock, fillerBlock));
     }
+
+    @Override
+    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        // no rivers or lakes
+        return terrain.generateNoise(simplex, cell, x, y, border, river);
+    }
+
 }

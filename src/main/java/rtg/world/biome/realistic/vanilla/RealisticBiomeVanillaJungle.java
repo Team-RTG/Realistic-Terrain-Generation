@@ -44,21 +44,23 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		);
 		
 		this.waterSurfaceLakeChance = 3;
+
+		if (this.config.getPropertyById(BiomeConfigVanillaJungle.decorationCactusId).valueBoolean) {
+			
+			this.decoCactiJungle.allowed = false;
+			this.decoCactiJungle.strengthFactor = 8f;
+			this.decoCactiJungle.maxY = 120;
+			this.decoCactiJungle.sandOnly = false;
+			this.decoCactiJungle.extraHeight = 7;
+			this.decoCactiJungle.sandMeta = (byte)1;
+			this.decos.add(this.decoCactiJungle);
+		}
 		
 		this.decoBoulder.allowed = true;
 		this.decoBoulder.boulder = Blocks.mossy_cobblestone;
 		this.decoBoulder.chance = 16;
 		this.decoBoulder.maxY = 95;
 		this.decoBoulder.strengthFactor = 2f;
-		
-		this.decoCactiJungle.allowed = false;
-		this.decoCactiJungle.strengthFactor = 8f;
-		this.decoCactiJungle.maxY = 120;
-		this.decoCactiJungle.sandOnly = false;
-		this.decoCactiJungle.extraHeight = 7;
-		this.decoCactiJungle.sandMeta = (byte)1;
-
-		this.decos.add(this.decoCactiJungle);
 		this.decos.add(this.decoBoulder);
 	}
 	

@@ -6,7 +6,6 @@ import java.util.Random;
 
 import net.minecraft.world.World;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungle;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -36,24 +35,21 @@ public class DecoCactiJungle extends DecoBase
 	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
 	{
 		if (this.allowed) {
-			
-	        if (biome.config.getPropertyById(BiomeConfigVanillaJungle.decorationCactusId).valueBoolean) {
 
-	            if (TerrainGen.decorate(world, rand, chunkX, chunkY, CACTUS)) {
-	                
-	                for (int k18 = 0; k18 < this.strengthFactor * strength; k18++)
-	                {
-	                    int k21 = chunkX + rand.nextInt(16) + 8;
-	                    int j23 = rand.nextInt(160);
-	                    int k24 = chunkY + rand.nextInt(16) + 8;
-	                    
-	                    if (j23 < this.maxY)
-	                    {
-	                        (new WorldGenJungleCacti(this.sandOnly, rand.nextInt(this.extraHeight), this.sandMeta)).generate(world, rand, k21, j23, k24);
-	                    }
-	                }
-	            }
-	        }
+            if (TerrainGen.decorate(world, rand, chunkX, chunkY, CACTUS)) {
+                
+                for (int k18 = 0; k18 < this.strengthFactor * strength; k18++)
+                {
+                    int k21 = chunkX + rand.nextInt(16) + 8;
+                    int j23 = rand.nextInt(160);
+                    int k24 = chunkY + rand.nextInt(16) + 8;
+                    
+                    if (j23 < this.maxY)
+                    {
+                        (new WorldGenJungleCacti(this.sandOnly, rand.nextInt(this.extraHeight), this.sandMeta)).generate(world, rand, k21, j23, k24);
+                    }
+                }
+            }
 		}
 	}
 }

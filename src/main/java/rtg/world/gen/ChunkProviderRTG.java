@@ -749,8 +749,12 @@ public class ChunkProviderRTG implements IChunkProvider
                  */
                 if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
 
-                	realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
-                    realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                	if (realisticBiome.decos.size() > 0) {
+                		realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                	}
+                	else {
+                		realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                	}
                 }
                 else {
                     
@@ -760,8 +764,12 @@ public class ChunkProviderRTG implements IChunkProvider
                     }
                     catch (Exception e) {
 
-                    	realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
-                        realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                    	if (realisticBiome.decos.size() > 0) {
+                    		realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                    	}
+                    	else {
+                    		realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                    	}
                     }
                 }
 

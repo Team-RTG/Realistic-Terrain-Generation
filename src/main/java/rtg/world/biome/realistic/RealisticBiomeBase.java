@@ -41,6 +41,7 @@ import rtg.world.biome.deco.DecoFlowersRTG;
 import rtg.world.biome.deco.DecoJungleCacti;
 import rtg.world.biome.deco.DecoJungleGrassVines;
 import rtg.world.biome.deco.DecoJungleLilypadVines;
+import rtg.world.biome.deco.DecoTree;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGeneric;
@@ -84,6 +85,7 @@ public class RealisticBiomeBase extends BiomeBase {
     public DecoJungleLilypadVines decoJungleLilypadVines;
     public DecoBaseBiomeDecorations decoBaseBiomeDecorations;
     public DecoFallenTree decoFallenTree;
+    public DecoTree decoTree;
     
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
     
@@ -126,13 +128,6 @@ public class RealisticBiomeBase extends BiomeBase {
         emeraldStoneMeta = (byte)0;
         
         decos = new ArrayList<DecoBase>();
-        decoBoulder = new DecoBoulder();
-        decoJungleCacti = new DecoJungleCacti();
-        decoJungleLilypadVines = new DecoJungleLilypadVines();
-        decoJungleGrassVines = new DecoJungleGrassVines();
-        decoFlowersRTG = new DecoFlowersRTG();
-        decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoFallenTree = new DecoFallenTree();
     }
     
     public static RealisticBiomeBase getBiome(int id) {

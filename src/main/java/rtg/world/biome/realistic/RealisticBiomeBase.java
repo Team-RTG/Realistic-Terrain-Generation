@@ -34,6 +34,7 @@ import rtg.util.SimplexOctave;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.deco.DecoBase;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoFlowersRTG;
 import rtg.world.biome.deco.DecoJungleCacti;
@@ -80,6 +81,7 @@ public class RealisticBiomeBase extends BiomeBase {
     public DecoFlowersRTG decoFlowersRTG;
     public DecoJungleGrassVines decoJungleGrassVines;
     public DecoJungleLilypadVines decoJungleLilypadVines;
+    public DecoBaseBiomeDecorations decoBaseBiomeDecorations;
     
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
     
@@ -127,6 +129,7 @@ public class RealisticBiomeBase extends BiomeBase {
         decoJungleLilypadVines = new DecoJungleLilypadVines();
         decoJungleGrassVines = new DecoJungleGrassVines();
         decoFlowersRTG = new DecoFlowersRTG();
+        decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
     }
     
     public static RealisticBiomeBase getBiome(int id) {

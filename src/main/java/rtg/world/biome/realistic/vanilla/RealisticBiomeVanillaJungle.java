@@ -38,6 +38,10 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		
 		this.waterSurfaceLakeChance = 3;
         
+		this.decoBaseBiomeDecorations.allowed = true;
+		this.decoBaseBiomeDecorations.notEqualsZeroChance = 6;
+		this.decoBaseBiomeDecorations.loops = 1;
+		
 		this.decoJungleLilypadVines.allowed = true;
 		
 		this.decoJungleGrassVines.allowed = true;
@@ -61,6 +65,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		this.decoBoulder.maxY = 95;
 		this.decoBoulder.strengthFactor = 2f;
 
+		this.decos.add(this.decoBaseBiomeDecorations);
 		this.decos.add(this.decoJungleLilypadVines);
 		this.decos.add(this.decoJungleGrassVines);
 		this.decos.add(this.decoFlowersRTG);
@@ -141,13 +146,6 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
                     (new WorldGenLog(Blocks.log, 3, Blocks.leaves, -1, 4 + rand.nextInt(5))).generate(world, rand, x22, y22, z22);
                 }
             }
-        }
-        
-        if (rand.nextInt(6) != 0) {
-            rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-        }
-        else {
-            rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         }
     }
 }

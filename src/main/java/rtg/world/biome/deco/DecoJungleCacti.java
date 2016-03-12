@@ -11,19 +11,19 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenJungleCacti;
 
-public class DecoCactiJungle extends DecoBase
+public class DecoJungleCacti extends DecoBase
 {
     
-	public boolean allowed;
 	public float strengthFactor;
 	public int maxY;
 	public boolean sandOnly;
 	public int extraHeight;
 	public byte sandMeta;
 	
-	public DecoCactiJungle()
+	public DecoJungleCacti()
 	{
-		this.allowed = false;
+		super();
+		
 		this.strengthFactor = 8f;
 		this.maxY = 120;
 		this.sandOnly = false;

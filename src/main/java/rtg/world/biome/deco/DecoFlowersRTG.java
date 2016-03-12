@@ -14,7 +14,6 @@ import rtg.world.gen.feature.WorldGenFlowersRTG;
 public class DecoFlowersRTG extends DecoBase
 {
     
-	public boolean allowed;
 	public int[] flowers;
 	public float strengthFactor;
 	public int maxY;
@@ -22,7 +21,8 @@ public class DecoFlowersRTG extends DecoBase
 	
 	public DecoFlowersRTG()
 	{
-		this.allowed = false;
+		super();
+		
 		this.flowers = new int[] {0, 9}; // Only roses and dandelions by default.
 		this.chance = 1;
 		this.maxY = 120;

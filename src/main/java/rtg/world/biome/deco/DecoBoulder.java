@@ -13,7 +13,6 @@ import rtg.world.gen.feature.WorldGenBlob;
 public class DecoBoulder extends DecoBase
 {
     
-	public boolean allowed;
 	public Block boulder;
 	public float strengthFactor;
 	public int maxY;
@@ -21,7 +20,8 @@ public class DecoBoulder extends DecoBase
 	
 	public DecoBoulder()
 	{
-		this.allowed = false;
+		super();
+		
 		this.boulder = Blocks.cobblestone;
 		this.chance = 10;
 		this.maxY = 90;

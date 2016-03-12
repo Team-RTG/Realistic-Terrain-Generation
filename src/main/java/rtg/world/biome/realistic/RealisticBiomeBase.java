@@ -36,6 +36,7 @@ import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoCactiJungle;
+import rtg.world.biome.deco.DecoFlowersRTG;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGeneric;
@@ -74,6 +75,7 @@ public class RealisticBiomeBase extends BiomeBase {
     public ArrayList<DecoBase> decos;
     public DecoBoulder decoBoulder;
     public DecoCactiJungle decoCactiJungle;
+    public DecoFlowersRTG decoFlowersRTG;
     
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
     
@@ -118,6 +120,7 @@ public class RealisticBiomeBase extends BiomeBase {
         decos = new ArrayList<DecoBase>();
         decoBoulder = new DecoBoulder();
         decoCactiJungle = new DecoCactiJungle();
+        decoFlowersRTG = new DecoFlowersRTG();
     }
     
     public static RealisticBiomeBase getBiome(int id) {

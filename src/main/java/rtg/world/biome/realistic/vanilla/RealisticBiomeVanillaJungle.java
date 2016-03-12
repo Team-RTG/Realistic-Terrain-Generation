@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.FLOWERS;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LILYPAD;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
@@ -21,7 +20,6 @@ import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungle;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
-import rtg.world.gen.feature.WorldGenFlowersRTG;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
@@ -44,23 +42,32 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		);
 		
 		this.waterSurfaceLakeChance = 3;
-
-		if (this.config.getPropertyById(BiomeConfigVanillaJungle.decorationCactusId).valueBoolean) {
-			
-			this.decoCactiJungle.allowed = false;
-			this.decoCactiJungle.strengthFactor = 8f;
-			this.decoCactiJungle.maxY = 120;
-			this.decoCactiJungle.sandOnly = false;
-			this.decoCactiJungle.extraHeight = 7;
-			this.decoCactiJungle.sandMeta = (byte)1;
-			this.decos.add(this.decoCactiJungle);
-		}
+        
+        this.decoFlowersRTG.allowed = true;
+        this.decoFlowersRTG.flowers = new int[]{5};
+        this.decoFlowersRTG.chance = 4;
+        this.decoFlowersRTG.maxY = 120;
+        this.decoFlowersRTG.strengthFactor = 2f;
+        
+		this.decoCactiJungle.allowed = false;
+		this.decoCactiJungle.strengthFactor = 8f;
+		this.decoCactiJungle.maxY = 120;
+		this.decoCactiJungle.sandOnly = false;
+		this.decoCactiJungle.extraHeight = 7;
+		this.decoCactiJungle.sandMeta = (byte)1;
 		
 		this.decoBoulder.allowed = true;
 		this.decoBoulder.boulder = Blocks.mossy_cobblestone;
 		this.decoBoulder.chance = 16;
 		this.decoBoulder.maxY = 95;
 		this.decoBoulder.strengthFactor = 2f;
+
+		this.decos.add(this.decoFlowersRTG);
+		
+		if (this.config.getPropertyById(BiomeConfigVanillaJungle.decorationCactusId).valueBoolean) {
+			this.decos.add(this.decoCactiJungle);
+		}
+		
 		this.decos.add(this.decoBoulder);
 	}
 	
@@ -227,21 +234,6 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
                         worldgenerator4.setScale(1.0D, 1.0D, 1.0D);
                         worldgenerator4.generate(world, rand, l19, k22, j24);
                     }
-                }
-            }
-        }
-        
-        if (TerrainGen.decorate(world, rand, chunkX, chunkY, FLOWERS)) {
-            
-            for (int f23 = 0; f23 < 2f * strength; f23++)
-            {
-                int j15 = chunkX + rand.nextInt(16) + 8;
-                int j20 = chunkY + rand.nextInt(16) + 8;
-                int j17 = world.getHeightValue(j15, j20);
-                
-                if (rand.nextInt(4) == 0) {
-                    
-                    (new WorldGenFlowersRTG(new int[] {5})).generate(world, rand, j15, j17, j20);
                 }
             }
         }

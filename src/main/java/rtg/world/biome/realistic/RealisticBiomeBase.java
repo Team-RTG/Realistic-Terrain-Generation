@@ -36,6 +36,7 @@ import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFlowersRTG;
 import rtg.world.biome.deco.DecoJungleCacti;
 import rtg.world.biome.deco.DecoJungleGrassVines;
@@ -82,6 +83,7 @@ public class RealisticBiomeBase extends BiomeBase {
     public DecoJungleGrassVines decoJungleGrassVines;
     public DecoJungleLilypadVines decoJungleLilypadVines;
     public DecoBaseBiomeDecorations decoBaseBiomeDecorations;
+    public DecoFallenTree decoFallenTree;
     
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
     
@@ -130,6 +132,7 @@ public class RealisticBiomeBase extends BiomeBase {
         decoJungleGrassVines = new DecoJungleGrassVines();
         decoFlowersRTG = new DecoFlowersRTG();
         decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoFallenTree = new DecoFallenTree();
     }
     
     public static RealisticBiomeBase getBiome(int id) {

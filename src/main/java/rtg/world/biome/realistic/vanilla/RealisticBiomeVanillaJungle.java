@@ -16,7 +16,8 @@ import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungle;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
-import rtg.world.gen.feature.WorldGenLog;
+import rtg.world.biome.deco.DecoFallenTree.LogCondition;
+import rtg.world.biome.deco.DecoFallenTree.LogDistribution;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungle;
@@ -38,6 +39,24 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		
 		this.waterSurfaceLakeChance = 3;
         
+		
+		
+
+		
+		this.decoFallenTree.allowed = true;
+		this.decoFallenTree.loops = 1;
+		this.decoFallenTree.logDistribution = LogDistribution.MERCURY;
+		this.decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		this.decoFallenTree.logConditionNoise = 0f;
+		this.decoFallenTree.logConditionChance = 3;
+		this.decoFallenTree.maxY = 120;
+		this.decoFallenTree.logBlock = Blocks.log;
+		this.decoFallenTree.logMeta = (byte)3;
+		this.decoFallenTree.leavesBlock = Blocks.leaves;
+		this.decoFallenTree.leavesMeta = (byte)-1;
+		this.decoFallenTree.minSize = 4;
+		this.decoFallenTree.maxSize = 9;
+		
 		this.decoBaseBiomeDecorations.allowed = true;
 		this.decoBaseBiomeDecorations.notEqualsZeroChance = 6;
 		this.decoBaseBiomeDecorations.loops = 1;
@@ -65,6 +84,10 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		this.decoBoulder.maxY = 95;
 		this.decoBoulder.strengthFactor = 2f;
 
+        if (this.config.getPropertyById(BiomeConfigVanillaJungle.decorationLogsId).valueBoolean) {
+            this.decos.add(this.decoFallenTree);
+        }
+        
 		this.decos.add(this.decoBaseBiomeDecorations);
 		this.decos.add(this.decoJungleLilypadVines);
 		this.decos.add(this.decoJungleGrassVines);
@@ -131,19 +154,6 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
                     WorldGenerator worldgenerator = new WorldGenMegaJungle(false, megaHeight, 0, 3, 3);
                     worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                     worldgenerator.generate(world, rand, j61, z521, k101);
-                }
-                
-                
-            }
-    
-            if (this.config.getPropertyById(BiomeConfigVanillaJungle.decorationLogsId).valueBoolean) {
-            
-                if (l > 0f && rand.nextInt(3) == 0)
-                {
-                    int x22 = chunkX + rand.nextInt(16) + 8;
-                    int z22 = chunkY + rand.nextInt(16) + 8;
-                    int y22 = world.getHeightValue(x22, z22);
-                    (new WorldGenLog(Blocks.log, 3, Blocks.leaves, -1, 4 + rand.nextInt(5))).generate(world, rand, x22, y22, z22);
                 }
             }
         }

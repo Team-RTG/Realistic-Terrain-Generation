@@ -33,7 +33,9 @@ import rtg.util.RandomUtil;
 import rtg.util.SimplexOctave;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
-import rtg.world.gen.feature.WorldGenBlob;
+import rtg.world.biome.deco.DecoBase;
+import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoCactiJungle;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGeneric;
@@ -69,8 +71,9 @@ public class RealisticBiomeBase extends BiomeBase {
     public Block emeraldStoneBlock;
     public byte emeraldStoneMeta;
     
-    public ArrayList<Deco> decos;
+    public ArrayList<DecoBase> decos;
     public DecoBoulder decoBoulder;
+    public DecoCactiJungle decoCactiJungle;
     
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
     
@@ -112,8 +115,9 @@ public class RealisticBiomeBase extends BiomeBase {
         emeraldStoneBlock = Blocks.stone;
         emeraldStoneMeta = (byte)0;
         
-        decos = new ArrayList<Deco>();
+        decos = new ArrayList<DecoBase>();
         decoBoulder = new DecoBoulder();
+        decoCactiJungle = new DecoCactiJungle();
     }
     
     public static RealisticBiomeBase getBiome(int id) {
@@ -531,47 +535,10 @@ public class RealisticBiomeBase extends BiomeBase {
         return this.surfaces;
     }
     
-    public class Deco
+    public void decorateInAnOrderlyFashion(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
     {
-    	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    	{
-    		
-    	}
-    }
-    
-    public class DecoBoulder extends Deco
-    {
-    	public boolean allowed;
-    	public Block boulder;
-    	public float strengthFactor;
-    	public int maxY;
-    	public int chance;
-    	
-    	public DecoBoulder()
-    	{
-    		this.allowed = false;
-    		this.boulder = Blocks.cobblestone;
-    		this.chance = 10;
-    		this.maxY = 90;
-    		this.strengthFactor = 2f;
-    	}
-    	
-    	@Override
-    	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    	{
-    		if (this.allowed) {
-    			
-	            for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1)
-	            {
-	                int i1 = chunkX + rand.nextInt(16) + 8;
-	                int j1 = chunkY + rand.nextInt(16) + 8;
-	                int k1 = world.getHeightValue(i1, j1);
-	                
-	                if (k1 < this.maxY && rand.nextInt(this.chance) == 0) {
-	                    (new WorldGenBlob(boulder, 0, rand)).generate(world, rand, i1, k1, j1);
-	                }
-	            }
-    		}
+    	for (int i = 0; i < this.decos.size(); i++) {
+    		this.decos.get(i).generate(this, world, rand, chunkX, chunkY, simplex, cell, strength, river);
     	}
     }
 }

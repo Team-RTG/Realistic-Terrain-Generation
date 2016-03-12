@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CACTUS;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.FLOWERS;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LILYPAD;
@@ -24,7 +23,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.world.gen.feature.WorldGenFlowers;
 import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.WorldGenJungleCacti;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
@@ -53,14 +51,15 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		this.decoBoulder.maxY = 95;
 		this.decoBoulder.strengthFactor = 2f;
 		
-		this.decos.add(
-			//this.decoLog,
-			//this.decoTree,
-			//this.decoSeedBiomeDecorate,
-			//this.decoLilypad,
-			//this.decoGrass,
-			this.decoBoulder
-		);
+		this.decoCactiJungle.allowed = false;
+		this.decoCactiJungle.strengthFactor = 8f;
+		this.decoCactiJungle.maxY = 120;
+		this.decoCactiJungle.sandOnly = false;
+		this.decoCactiJungle.extraHeight = 7;
+		this.decoCactiJungle.sandMeta = (byte)1;
+
+		this.decos.add(this.decoCactiJungle);
+		this.decos.add(this.decoBoulder);
 	}
 	
     
@@ -241,24 +240,6 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
                 if (rand.nextInt(4) == 0) {
                     
                     (new WorldGenFlowers(new int[] {5})).generate(world, rand, j15, j17, j20);
-                }
-            }
-        }
-        
-        if (this.config.getPropertyById(BiomeConfigVanillaJungle.decorationCactusId).valueBoolean) {
-
-            if (TerrainGen.decorate(world, rand, chunkX, chunkY, CACTUS)) {
-                
-                for (int k18 = 0; k18 < 8f * strength; k18++)
-                {
-                    int k21 = chunkX + rand.nextInt(16) + 8;
-                    int j23 = rand.nextInt(160);
-                    int k24 = chunkY + rand.nextInt(16) + 8;
-                    
-                    if (j23 < 120f)
-                    {
-                        (new WorldGenJungleCacti(false, rand.nextInt(7), (byte)1)).generate(world, rand, k21, j23, k24);
-                    }
                 }
             }
         }

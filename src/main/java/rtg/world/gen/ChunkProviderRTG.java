@@ -748,13 +748,9 @@ public class ChunkProviderRTG implements IChunkProvider
                  * TODO: Is there a more efficient way to do this? - Pink
                  */
                 if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
-                    
-                	
-                	decorateInAnOrderlyFashion(realisticBiome, this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
-                    
-                    realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
-                    
 
+                	realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                    realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
                 }
                 else {
                     
@@ -763,13 +759,9 @@ public class ChunkProviderRTG implements IChunkProvider
                         realisticBiome.baseBiome.decorate(this.worldObj, rand, worldX, worldZ);
                     }
                     catch (Exception e) {
-                        
-                    	
-                    	decorateInAnOrderlyFashion(realisticBiome, this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
-                        
-                        realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
-                        
 
+                    	realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                        realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
                     }
                 }
 
@@ -972,11 +964,4 @@ public class ChunkProviderRTG implements IChunkProvider
      * Currently unimplemented.
      */
     public void saveExtraData() {}
-    
-    private void decorateInAnOrderlyFashion(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
-    	for (int i = 0; i < biome.decos.size(); i++) {
-    		biome.decos.get(i).generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river);
-    	}
-    }
 }

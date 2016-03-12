@@ -23,10 +23,14 @@ public class DecoFlowersRTG extends DecoBase
 	{
 		super();
 		
+		/**
+		 * Default values.
+		 * These can be overridden when configuring the Deco object in the realistic biome.
+		 */
 		this.flowers = new int[] {0, 9}; // Only roses and dandelions by default.
-		this.chance = 1;
-		this.maxY = 120;
-		this.strengthFactor = 2f;
+		this.chance = 1; // 100% chance of generating by default.
+		this.maxY = 255; // No height limit by default.
+		this.strengthFactor = 2f; // Not sure why it was done like this, but... the higher the value, the more flowers there will be.
 	}
 	
 	@Override

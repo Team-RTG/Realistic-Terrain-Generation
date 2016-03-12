@@ -35,8 +35,10 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBoulder;
-import rtg.world.biome.deco.DecoCactiJungle;
 import rtg.world.biome.deco.DecoFlowersRTG;
+import rtg.world.biome.deco.DecoJungleCacti;
+import rtg.world.biome.deco.DecoJungleGrassVines;
+import rtg.world.biome.deco.DecoJungleLilypadVines;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGeneric;
@@ -74,8 +76,10 @@ public class RealisticBiomeBase extends BiomeBase {
     
     public ArrayList<DecoBase> decos;
     public DecoBoulder decoBoulder;
-    public DecoCactiJungle decoCactiJungle;
+    public DecoJungleCacti decoJungleCacti;
     public DecoFlowersRTG decoFlowersRTG;
+    public DecoJungleGrassVines decoJungleGrassVines;
+    public DecoJungleLilypadVines decoJungleLilypadVines;
     
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
     
@@ -119,7 +123,9 @@ public class RealisticBiomeBase extends BiomeBase {
         
         decos = new ArrayList<DecoBase>();
         decoBoulder = new DecoBoulder();
-        decoCactiJungle = new DecoCactiJungle();
+        decoJungleCacti = new DecoJungleCacti();
+        decoJungleLilypadVines = new DecoJungleLilypadVines();
+        decoJungleGrassVines = new DecoJungleGrassVines();
         decoFlowersRTG = new DecoFlowersRTG();
     }
     

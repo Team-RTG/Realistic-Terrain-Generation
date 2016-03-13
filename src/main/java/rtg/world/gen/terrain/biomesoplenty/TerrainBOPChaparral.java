@@ -6,8 +6,11 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBOPChaparral extends TerrainBase
 {
-    private float baseHeight = 86f;
-    private float hillStrength = 40f;
+    private float baseHeight = 76f;
+    private float peakyHillWavelength = 40f;
+    private float peakyHillStrength = 10f;
+    private float smoothHillWavelength = 20f;
+    private float smoothHillStrength = 5f;
 
     public TerrainBOPChaparral()
     {
@@ -17,7 +20,7 @@ public class TerrainBOPChaparral extends TerrainBase
     public TerrainBOPChaparral(float bh, float hs)
     {
         baseHeight = bh;
-        hillStrength = hs;
+        peakyHillStrength = hs;
     }
 
     @Override
@@ -26,8 +29,10 @@ public class TerrainBOPChaparral extends TerrainBase
 
         groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
 
-        float m = hills(x, y, hillStrength, simplex, river);
+        //float m = hills(x, y, peakyHillStrength, simplex, river);
 
-        return baseHeight + groundNoise + m;
+        float h = this.terrainGrasslandHills(x, y, simplex, cell, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
+
+        return groundNoise+ h;
     }
 }

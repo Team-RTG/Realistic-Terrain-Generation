@@ -318,6 +318,9 @@ public class RealisticBiomeBase extends BiomeBase {
     public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
         // we now have both lakes and rivers lowering land
 
+        if (noWaterFeatures) {
+            return terrain.generateNoise(simplex, cell, x, y, border, 1f);
+        }
         double lakeStrength = lakePressure(simplex,cell,x,y);
         double lakeFlattening = this.lakeFlattening(lakeStrength, lakeWaterLevel, lakeDepressionLevel);
         if (lakeFlattening < river) river = (float)lakeFlattening;
@@ -329,7 +332,7 @@ public class RealisticBiomeBase extends BiomeBase {
     public float erodedNoise(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float river, float biomeHeight, double lakeFlattening)
     {
 
-        if (river < 0f && biomeHeight > 57f)
+        if ((river < 0f && biomeHeight > 57f))
         {
         	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
             SimplexOctave.Disk jitter = new SimplexOctave.Disk();
@@ -368,10 +371,11 @@ public class RealisticBiomeBase extends BiomeBase {
     private double lakeWaterLevel = 0.04;// the lakeStrenght below which things should be below ater
     private double lakeDepressionLevel = 0.15;// the lakeStrength below which land should start to be lowered
     public boolean noLakes = false;
+    public boolean noWaterFeatures = false;
 
     public double lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y) {
         if (noLakes) return 1.0;
-        SimplexOctave.Jitter2D jitter = new SimplexOctave.Jitter2D();
+        SimplexOctave.Derivative jitter = new SimplexOctave.Derivative();
         simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
         double pX = x + jitter.deltax() * 110f;
         double pY = y + jitter.deltay() * 110f;

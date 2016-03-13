@@ -54,5 +54,8 @@ public class DecoBaseBiomeDecorations extends DecoBase
 				}
 			}
 		}
+		else {
+			biome.rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
+		}
 	}
 }

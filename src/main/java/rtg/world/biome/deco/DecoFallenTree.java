@@ -82,14 +82,14 @@ public class DecoFallenTree extends DecoBase
 	public enum LogDistribution
 	{
 	    MERCURY (100f, 5f, 0.8f),
-	    VENUS   (0f, 0f, 0f),
-	    EARTH   (0f, 0f, 0f),
-	    MARS    (0f, 0f, 0f),
-	    JUPITER (0f, 0f, 0f),
-	    SATURN  (0f, 0f, 0f),
-	    URANUS  (0f, 0f, 0f),
-	    NEPTUNE (0f, 0f, 0f),
-	    PLUTO	(0f, 0f, 0f);
+	    VENUS   (0f, 0f, 0f), // Unused placeholder
+	    EARTH   (0f, 0f, 0f), // Unused placeholder
+	    MARS    (0f, 0f, 0f), // Unused placeholder
+	    JUPITER (0f, 0f, 0f), // Unused placeholder
+	    SATURN  (0f, 0f, 0f), // Unused placeholder
+	    URANUS  (0f, 0f, 0f), // Unused placeholder
+	    NEPTUNE (0f, 0f, 0f), // Unused placeholder
+	    PLUTO	(0f, 0f, 0f); // Unused placeholder
 
 	    private final float noiseDivisor;
 	    private final float noiseFactor;
@@ -100,13 +100,15 @@ public class DecoFallenTree extends DecoBase
 	        this.noiseFactor = noiseFactor;
 	        this.noiseAddend = noiseAddend;
 	    }
-	    private float noiseDivisor() { return noiseDivisor; }
-	    private float noiseFactor() { return noiseFactor; }
-	    private float noiseAddend() { return noiseAddend; }
+	    float noiseDivisor() { return noiseDivisor; }
+	    float noiseFactor() { return noiseFactor; }
+	    float noiseAddend() { return noiseAddend; }
 	}
 	
 	public enum LogCondition
 	{
+		ALWAYS_GENERATE,
+		RANDOM_CHANCE,
 		NOISE_GREATER_AND_RANDOM_CHANCE;
 	}
 	
@@ -114,6 +116,14 @@ public class DecoFallenTree extends DecoBase
 	{
 		switch (this.logCondition)
 		{
+			case ALWAYS_GENERATE:
+				
+				return true;
+				
+			case RANDOM_CHANCE:
+				
+				return (rand.nextInt(this.logConditionChance) == 0);
+			
 			case NOISE_GREATER_AND_RANDOM_CHANCE:
 				
 				return (noise > this.logConditionNoise && rand.nextInt(this.logConditionChance) == 0);

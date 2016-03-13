@@ -40,9 +40,9 @@ public class DecoGrass extends DecoBase
 	            for (int i = 0; i < this.strengthFactor * strength; i++)
 	            {
 	                int intX = chunkX + rand.nextInt(16) + 8;
+	                int intY = rand.nextInt(this.maxY);
 	                int intZ = chunkY + rand.nextInt(16) + 8;
-	                int intY = world.getHeightValue(intX, intZ);
-	                
+
 	                if (intY <= this.maxY) {
 	                	(new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, intX, intY, intZ);
 	                }

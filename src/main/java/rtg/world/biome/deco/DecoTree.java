@@ -7,6 +7,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenForest;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
@@ -16,11 +17,16 @@ import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPineBig;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
 
 public class DecoTree extends DecoBase
 {
     
 	public int loops;
+	public float strengthFactorForLoops; // If set, this overrides and dynamically calculates 'loops' based on the strength parameter.
+	public boolean strengthNoiseFactorForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * strength)
 	public TreeType treeType;
 	public TreeDistribution treeDistribution;
 	public TreeCondition treeCondition;
@@ -39,6 +45,8 @@ public class DecoTree extends DecoBase
 		super();
 		
 		this.loops = 1;
+		this.strengthFactorForLoops = 0;
+		this.strengthNoiseFactorForLoops = false;
 		this.treeType = TreeType.MEGA_JUNGLE_MANGROVE;
 		this.treeDistribution = TreeDistribution.MERCURY;
 		this.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
@@ -66,13 +74,16 @@ public class DecoTree extends DecoBase
                 int intZ = chunkY + rand.nextInt(16) + 8;
                 int intY = world.getHeightValue(intX, intZ);
                 
-	            for (int i = 0; i < this.loops; i++)
+                int loopCount = this.loops;
+                loopCount = (this.strengthFactorForLoops > 0f) ? (int)(this.strengthFactorForLoops * strength) : loopCount;
+                loopCount = (this.strengthNoiseFactorForLoops) ? (int)(noise * strength) : loopCount;
+	            for (int i = 0; i < loopCount; i++)
 	            {
 	            	switch (this.treeType)
 	            	{
 		            	case MEGA_JUNGLE:
 		            		
-		            		if (intY <= this.maxY && isValidLogCondition(noise, rand)) {
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
 
 		                    	if (this.maxSize > this.minSize) {
 			                        WorldGenerator worldgenerator = new WorldGenMegaJungle(false, this.minSize + rand.nextInt(this.maxSize - this.minSize), 0, 3, 3);
@@ -90,7 +101,7 @@ public class DecoTree extends DecoBase
 		            		
 		            	case MEGA_JUNGLE_MANGROVE:
 		            		
-		            		if (intY <= this.maxY && isValidLogCondition(noise, rand)) {
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
 
 			                    WorldGenerator worldgenerator =
 			                        rand.nextInt(3) != 0
@@ -106,7 +117,7 @@ public class DecoTree extends DecoBase
 		            		
 		            	case PALM_CUSTOM:
 		            		
-		            		if (intY <= this.maxY && isValidLogCondition(noise, rand)) {
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
 
 		                    	if (this.maxSize > this.minSize) {
 			                        WorldGenerator worldgenerator = new WorldGenTreeRTGPalmCustom((float)(this.minSize + rand.nextInt(this.maxSize - this.minSize)));
@@ -118,6 +129,40 @@ public class DecoTree extends DecoBase
 			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 			                        worldgenerator.generate(world, rand, intX, intY, intZ);
 		                    	}
+		            		}
+		            		
+		            		break;
+		            		
+		            	case SMALL_PINES_TREES_FORESTS:
+		            		
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+
+		                        WorldGenerator worldgenerator =
+		                        rand.nextInt(4) != 0
+		                        	? new WorldGenTreeRTGPineSmall(4 + rand.nextInt(7), 6 + rand.nextInt(9), 0)
+		                        	: rand.nextInt(10) != 0
+		                        		? new WorldGenTreeRTGTrees(false)
+		                        		: new WorldGenForest(false, false);
+		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                        worldgenerator.generate(world, rand, intX, intY, intZ);
+		            		}
+		            		
+		            		break;
+		            		
+		            	case BIG_PINES:
+		            		
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+
+	                            if (rand.nextBoolean()) {
+	                                WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 1, 1);
+			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+			                        worldgenerator.generate(world, rand, intX, intY, intZ);
+	                            }
+	                            else {
+	                                WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 0, 0);
+			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+			                        worldgenerator.generate(world, rand, intX, intY, intZ);
+	                            }
 		            		}
 		            		
 		            		break;
@@ -158,18 +203,21 @@ public class DecoTree extends DecoBase
 	
 	public enum TreeType
 	{
+		BIG_PINES,
 		MEGA_JUNGLE,
 		MEGA_JUNGLE_MANGROVE,
-		PALM_CUSTOM;
+		PALM_CUSTOM,
+		SMALL_PINES_TREES_FORESTS;
 	}
 	
 	public enum TreeCondition
 	{
+		ALWAYS_GENERATE,
 		NOISE_GREATER_AND_RANDOM_CHANCE,
 		RANDOM_CHANCE;
 	}
 	
-	public boolean isValidLogCondition(float noise, Random rand)
+	public boolean isValidTreeCondition(float noise, Random rand)
 	{
 		switch (this.treeCondition)
 		{
@@ -180,6 +228,10 @@ public class DecoTree extends DecoBase
 			case RANDOM_CHANCE:
 				
 				return rand.nextInt(this.treeConditionChance) == 0;
+				
+			case ALWAYS_GENERATE:
+				
+				return true;
 				
 			default:
 				

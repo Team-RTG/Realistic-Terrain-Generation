@@ -43,7 +43,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		 */
 
 		DecoTree megaJungleMangrove = new DecoTree();
-		megaJungleMangrove.loops = 1;
+		megaJungleMangrove.loops = 3;
 		megaJungleMangrove.treeType = TreeType.MEGA_JUNGLE_MANGROVE;
 		megaJungleMangrove.treeCondition = TreeCondition.RANDOM_CHANCE;
 		megaJungleMangrove.treeConditionChance = 2;
@@ -61,7 +61,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		this.decos.add(palmCustom);
 		
 		DecoTree megaJungle = new DecoTree();
-		megaJungle.loops = 1;
+		megaJungle.loops = 3;
 		megaJungle.treeType = TreeType.MEGA_JUNGLE;
 		megaJungle.treeCondition = TreeCondition.RANDOM_CHANCE;
 		megaJungle.treeConditionChance = 3;

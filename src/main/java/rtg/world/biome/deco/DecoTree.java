@@ -132,8 +132,8 @@ public class DecoTree extends DecoBase
 	
 	public enum TreeDistribution
 	{
-	    MERCURY (100f, 5f, 0.8f),
-	    VENUS   (0f, 0f, 0f),
+	    MERCURY (100f, 5f, 0.8f),	// float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 5f + 0.8f;
+	    VENUS   (80f, 60f, -15f),	// float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
 	    EARTH   (0f, 0f, 0f),
 	    MARS    (0f, 0f, 0f),
 	    JUPITER (0f, 0f, 0f),

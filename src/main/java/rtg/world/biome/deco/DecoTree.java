@@ -69,16 +69,16 @@ public class DecoTree extends DecoBase
 			if (TerrainGen.decorate(world, rand, chunkX, chunkY, TREE)) {
 				
 				float noise = simplex.noise2(chunkX / this.treeDistribution.noiseDivisor(), chunkY / this.treeDistribution.noiseDivisor()) * this.treeDistribution.noiseFactor() + this.treeDistribution.noiseAddend();
-				
-                int intX = chunkX + rand.nextInt(16) + 8;
-                int intZ = chunkY + rand.nextInt(16) + 8;
-                int intY = world.getHeightValue(intX, intZ);
-                
+
                 int loopCount = this.loops;
                 loopCount = (this.strengthFactorForLoops > 0f) ? (int)(this.strengthFactorForLoops * strength) : loopCount;
                 loopCount = (this.strengthNoiseFactorForLoops) ? (int)(noise * strength) : loopCount;
 	            for (int i = 0; i < loopCount; i++)
 	            {
+	                int intX = chunkX + rand.nextInt(16) + 8;
+	                int intZ = chunkY + rand.nextInt(16) + 8;
+	                int intY = world.getHeightValue(intX, intZ);
+	                
 	            	switch (this.treeType)
 	            	{
 		            	case MEGA_JUNGLE:

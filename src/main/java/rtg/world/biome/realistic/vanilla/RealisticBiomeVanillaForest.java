@@ -42,7 +42,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
         
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		decoBaseBiomeDecorations.allowed = false;
-		this.decos.add(decoBaseBiomeDecorations);
+		this.addDeco(decoBaseBiomeDecorations);
 		
 		DecoTree bigPines = new DecoTree();
 		bigPines.strengthNoiseFactorForLoops = true;
@@ -50,14 +50,14 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
 		bigPines.treeDistribution = TreeDistribution.VENUS;
 		bigPines.treeCondition = TreeCondition.ALWAYS_GENERATE;
 		bigPines.maxY = 140;
-		this.decos.add(bigPines);
+		this.addDeco(bigPines);
 		
 		DecoTree smallPinesTreesForest = new DecoTree();
 		smallPinesTreesForest.strengthFactorForLoops = 3f;
 		smallPinesTreesForest.treeType = TreeType.SMALL_PINES_TREES_FORESTS;
 		smallPinesTreesForest.treeCondition = TreeCondition.ALWAYS_GENERATE;
 		smallPinesTreesForest.maxY = 120;
-		this.decos.add(smallPinesTreesForest);
+		this.addDeco(smallPinesTreesForest);
 		
         if (this.config.getPropertyById(BiomeConfigVanillaForest.decorationLogsId).valueBoolean) {
 
@@ -77,23 +77,23 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
 			decoFallenTree5050.leavesMeta2 = (byte)-1;
 			decoFallenTree5050.minSize2 = 3;
 			decoFallenTree5050.maxSize2 = 6;
-			this.decos.add(decoFallenTree5050);
+			this.addDeco(decoFallenTree5050);
         }
         
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 110;
         decoShrub.strengthFactor = 3f;
-		this.decos.add(decoShrub);
+		this.addDeco(decoShrub);
         
 		DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
 		decoFlowersRTG.flowers = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
 		decoFlowersRTG.maxY = 128;
 		decoFlowersRTG.strengthFactor = 8f;
-        this.decos.add(decoFlowersRTG);
+        this.addDeco(decoFlowersRTG);
         
 		DecoGrass decoGrass = new DecoGrass();
 		decoGrass.maxY = 128;
 		decoGrass.strengthFactor = 12f;
-        this.decos.add(decoGrass);
+        this.addDeco(decoGrass);
     }
 }

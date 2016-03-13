@@ -11,6 +11,7 @@ import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoFallenTree.LogDistribution;
 import rtg.world.biome.deco.DecoFlowersRTG;
+import rtg.world.biome.deco.DecoGrass;
 import rtg.world.biome.deco.DecoJungleCacti;
 import rtg.world.biome.deco.DecoJungleGrassVines;
 import rtg.world.biome.deco.DecoJungleLilypadVines;
@@ -48,7 +49,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		megaJungleMangrove.treeCondition = TreeCondition.RANDOM_CHANCE;
 		megaJungleMangrove.treeConditionChance = 2;
 		megaJungleMangrove.maxY = 160;
-		this.decos.add(megaJungleMangrove);
+		this.addDeco(megaJungleMangrove);
 		
 		DecoTree palmCustom = new DecoTree();
 		palmCustom.loops = 1;
@@ -58,7 +59,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		palmCustom.maxY = 160;
 		palmCustom.minSize = 10;
 		palmCustom.maxSize = 20;
-		this.decos.add(palmCustom);
+		this.addDeco(palmCustom);
 		
 		DecoTree megaJungle = new DecoTree();
 		megaJungle.loops = 3;
@@ -68,7 +69,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		megaJungle.maxY = 160;
 		megaJungle.minSize = 20;
 		megaJungle.maxSize = 40;
-		this.decos.add(megaJungle);
+		this.addDeco(megaJungle);
 		
 		if (this.config.getPropertyById(BiomeConfigVanillaJungle.decorationLogsId).valueBoolean)
 		{
@@ -85,26 +86,26 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 			decoFallenTree.leavesMeta = (byte)-1;
 			decoFallenTree.minSize = 4;
 			decoFallenTree.maxSize = 9;
-			this.decos.add(decoFallenTree);
+			this.addDeco(decoFallenTree);
 		}
 		
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		decoBaseBiomeDecorations.notEqualsZeroChance = 6;
 		decoBaseBiomeDecorations.loops = 1;
-		this.decos.add(decoBaseBiomeDecorations);
+		this.addDeco(decoBaseBiomeDecorations);
 		
 		DecoJungleLilypadVines decoJungleLilypadVines = new DecoJungleLilypadVines();
-		this.decos.add(decoJungleLilypadVines);
+		this.addDeco(decoJungleLilypadVines);
 		
 		DecoJungleGrassVines decoJungleGrassVines = new DecoJungleGrassVines();
-		this.decos.add(decoJungleLilypadVines);
+		this.addDeco(decoJungleLilypadVines);
 		
 		DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
         decoFlowersRTG.flowers = new int[]{5};
         decoFlowersRTG.chance = 4;
         decoFlowersRTG.maxY = 120;
         decoFlowersRTG.strengthFactor = 2f;
-        this.decos.add(decoFlowersRTG);
+        this.addDeco(decoFlowersRTG);
         
         if (this.config.getPropertyById(BiomeConfigVanillaJungle.decorationCactusId).valueBoolean)
         {
@@ -114,7 +115,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 			decoJungleCacti.sandOnly = false;
 			decoJungleCacti.extraHeight = 7;
 			decoJungleCacti.sandMeta = (byte)1;
-			this.decos.add(decoJungleCacti);
+			this.addDeco(decoJungleCacti);
         }
 		
 		DecoBoulder decoBoulder = new DecoBoulder();
@@ -122,6 +123,11 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		decoBoulder.chance = 16;
 		decoBoulder.maxY = 95;
 		decoBoulder.strengthFactor = 2f;
-		this.decos.add(decoBoulder);
+		this.addDeco(decoBoulder);
+		
+		DecoGrass decoGrass = new DecoGrass();
+		decoGrass.maxY = 128;
+		decoGrass.strengthFactor = 12f;
+        this.addDeco(decoGrass);
 	}
 }

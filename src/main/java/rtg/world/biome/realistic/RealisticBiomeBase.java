@@ -34,6 +34,7 @@ import rtg.util.SimplexOctave;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.deco.DecoBase;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGeneric;
@@ -112,6 +113,18 @@ public class RealisticBiomeBase extends BiomeBase {
         emeraldStoneMeta = (byte)0;
         
         decos = new ArrayList<DecoBase>();
+        
+        /**
+         * By default, it is assumed that all realistic biomes will be decorated manually and not by the biome.
+         * This includes ore generation since it's part of the decoration process.
+         * We're adding this deco here in order to avoid having to explicitly add it
+         * in every singe realistic biome.
+         * If it does get added manually to let the base biome handle some or all of the decoration process,
+         * this deco will get replaced with the new one.
+         */
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		decoBaseBiomeDecorations.allowed = false;
+		this.decos.add(decoBaseBiomeDecorations);
     }
     
     public static RealisticBiomeBase getBiome(int id) {
@@ -538,5 +551,22 @@ public class RealisticBiomeBase extends BiomeBase {
     	for (int i = 0; i < this.decos.size(); i++) {
     		this.decos.get(i).generate(this, world, rand, chunkX, chunkY, simplex, cell, strength, river);
     	}
+    }
+    
+    public void addDeco(DecoBase deco)
+    {
+    	if (deco instanceof DecoBaseBiomeDecorations) {
+    		
+        	for (int i = 0; i < this.decos.size(); i++) {
+        		
+        		if (this.decos.get(i) instanceof DecoBaseBiomeDecorations) {
+        			
+        			this.decos.remove(i);
+        			break;
+        		}
+        	}
+    	}
+    	
+    	this.decos.add(deco);
     }
 }

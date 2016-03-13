@@ -44,9 +44,9 @@ public class DecoFlowersRTG extends DecoBase
 	            {
 	                int j15 = chunkX + rand.nextInt(16) + 8;
 	                int j20 = chunkY + rand.nextInt(16) + 8;
-	                int j17 = world.getHeightValue(j15, j20);
+	                int j17 = rand.nextInt(this.maxY);
 	                
-	                if (rand.nextInt(this.chance) == 0 && j17 <= this.maxY) {
+	                if (rand.nextInt(this.chance) == 0) {
 	                    
 	                    (new WorldGenFlowersRTG(this.flowers)).generate(world, rand, j15, j17, j20);
 	                }

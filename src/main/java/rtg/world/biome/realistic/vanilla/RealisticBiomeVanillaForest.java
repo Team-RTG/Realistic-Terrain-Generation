@@ -1,25 +1,20 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenForest;
-import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaForest;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoFallenTree5050;
 import rtg.world.biome.deco.DecoFlowersRTG;
 import rtg.world.biome.deco.DecoGrass;
 import rtg.world.biome.deco.DecoShrub;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPineBig;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
+import rtg.world.biome.deco.DecoTree;
+import rtg.world.biome.deco.DecoTree.TreeCondition;
+import rtg.world.biome.deco.DecoTree.TreeDistribution;
+import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaForest;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaForest;
 
@@ -45,8 +40,27 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
 		 * ##################################################
 		 */
         
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		decoBaseBiomeDecorations.allowed = false;
+		this.decos.add(decoBaseBiomeDecorations);
+		
+		DecoTree bigPines = new DecoTree();
+		bigPines.strengthNoiseFactorForLoops = true;
+		bigPines.treeType = TreeType.BIG_PINES;
+		bigPines.treeDistribution = TreeDistribution.VENUS;
+		bigPines.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		bigPines.maxY = 140;
+		this.decos.add(bigPines);
+		
+		DecoTree smallPinesTreesForest = new DecoTree();
+		smallPinesTreesForest.strengthFactorForLoops = 3f;
+		smallPinesTreesForest.treeType = TreeType.SMALL_PINES_TREES_FORESTS;
+		smallPinesTreesForest.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		smallPinesTreesForest.maxY = 120;
+		this.decos.add(smallPinesTreesForest);
+		
         if (this.config.getPropertyById(BiomeConfigVanillaForest.decorationLogsId).valueBoolean) {
-            
+
             DecoFallenTree5050 decoFallenTree5050 = new DecoFallenTree5050();
 			decoFallenTree5050.logCondition = LogCondition.RANDOM_CHANCE;
 			decoFallenTree5050.logConditionChance = 8; 
@@ -81,53 +95,5 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
 		decoGrass.maxY = 128;
 		decoGrass.strengthFactor = 12f;
         this.decos.add(decoGrass);
-    }
-    
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
-        
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-    
-        float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
-        
-        for (int b1 = 0; b1 < l * strength; b1++)
-        {
-            int j6 = chunkX + rand.nextInt(16) + 8;
-            int k10 = chunkY + rand.nextInt(16) + 8;
-            int z52 = world.getHeightValue(j6, k10);
-            
-            if (rand.nextBoolean()) {
-                WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 1, 1);
-                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                worldgenerator.generate(world, rand, j6, z52, k10);
-            }
-            else {
-                WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 0, 0);
-                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                worldgenerator.generate(world, rand, j6, z52, k10);
-            }
-        }
-        
-        for (int b2 = 0; b2 < 3f * strength; b2++)
-        {
-            int j6 = chunkX + rand.nextInt(16) + 8;
-            int k10 = chunkY + rand.nextInt(16) + 8;
-            int z52 = world.getHeightValue(j6, k10);
-            
-            if (z52 < 120)
-            {
-                WorldGenerator worldgenerator =
-                    rand.nextInt(4) != 0 ? new WorldGenTreeRTGPineSmall(4 + rand.nextInt(7), 6 + rand.nextInt(9), 0)
-                        : rand.nextInt(10) != 0 ? new WorldGenTreeRTGTrees(false) : new WorldGenForest(false, false);
-                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                worldgenerator.generate(world, rand, j6, z52, k10);
-            }
-        }
-        
-
     }
 }

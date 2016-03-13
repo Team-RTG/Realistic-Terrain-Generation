@@ -22,7 +22,7 @@ public class TerrainBOPMountain extends TerrainBase
 
 	public TerrainBOPMountain(float mountainWidth, float mountainStrength, float depthLake)
 	{
-		this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
+		this(mountainWidth, mountainStrength, depthLake, 260f, 85f);
 	}
 
 	public TerrainBOPMountain(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)

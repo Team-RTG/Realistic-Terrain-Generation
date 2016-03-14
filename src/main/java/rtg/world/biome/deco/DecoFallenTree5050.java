@@ -13,6 +13,13 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 
+/**
+ * This class extends DecoFallenTree, so it also contains its parent's settings as well as its own.
+ * It was created to allow for situations where two type of logs need to be generated.
+ * 
+ * @author WhichOnesPink
+ *
+ */
 public class DecoFallenTree5050 extends DecoFallenTree
 {
 
@@ -27,6 +34,10 @@ public class DecoFallenTree5050 extends DecoFallenTree
 	{
 		super();
 
+		/**
+		 * Default values.
+		 * These can be overridden when configuring the Deco object in the realistic biome.
+		 */
 		this.logBlock2 = Blocks.log;
 		this.logMeta2 = (byte)1;
 		this.leavesBlock2 = Blocks.leaves;

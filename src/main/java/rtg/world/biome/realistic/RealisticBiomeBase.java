@@ -71,6 +71,7 @@ public class RealisticBiomeBase extends BiomeBase {
     public byte emeraldStoneMeta;
     
     public ArrayList<DecoBase> decos;
+    public boolean useNewDecorationSystem = false;
     
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
     
@@ -568,5 +569,6 @@ public class RealisticBiomeBase extends BiomeBase {
     	}
     	
     	this.decos.add(deco);
+    	this.useNewDecorationSystem = true;
     }
 }

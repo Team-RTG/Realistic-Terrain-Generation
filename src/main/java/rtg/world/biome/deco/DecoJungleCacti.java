@@ -11,6 +11,11 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenJungleCacti;
 
+/**
+ * 
+ * @author WhichOnesPink
+ *
+ */
 public class DecoJungleCacti extends DecoBase
 {
     
@@ -24,8 +29,12 @@ public class DecoJungleCacti extends DecoBase
 	{
 		super();
 		
+		/**
+		 * Default values.
+		 * These can be overridden when configuring the Deco object in the realistic biome.
+		 */
 		this.strengthFactor = 8f;
-		this.maxY = 120;
+		this.maxY = 255; // No height limit by default.
 		this.sandOnly = false;
 		this.extraHeight = 7;
 		this.sandMeta = (byte)1;

@@ -13,32 +13,41 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 
+/**
+ * 
+ * @author WhichOnesPink
+ *
+ */
 public class DecoFallenTree extends DecoBase
 {
     
 	public int loops;
-	public LogDistribution logDistribution;
-	public LogCondition logCondition;
-	public float logConditionNoise;
-	public int logConditionChance;
-	public int maxY;
+	public LogDistribution logDistribution; // Enum for the various noise calculations.
+	public LogCondition logCondition; // Enum for the various conditions/chances for log gen.
+	public float logConditionNoise; // Only applies to a noise-related LogCondition.
+	public int logConditionChance; // Only applies to a chance-related LogCondition.
+	public int maxY; // Height restriction.
 	public Block logBlock;
 	public byte logMeta;
 	public Block leavesBlock;
 	public byte leavesMeta;
-	public int minSize;
-	public int maxSize;
+	public int minSize; // Min log height (only used with certain log presets)
+	public int maxSize; // Max log height (only used with certain log presets)
 	
 	public DecoFallenTree()
 	{
 		super();
 		
+		/**
+		 * Default values.
+		 * These can be overridden when configuring the Deco object in the realistic biome.
+		 */
 		this.loops = 1;
 		this.logDistribution = LogDistribution.MERCURY;
 		this.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		this.logConditionNoise = 0f;
 		this.logConditionChance = 1;
-		this.maxY = 120;
+		this.maxY = 255; // No height limit by default.
 		this.logBlock = Blocks.log;
 		this.logMeta = (byte)0;
 		this.leavesBlock = Blocks.leaves;
@@ -81,15 +90,20 @@ public class DecoFallenTree extends DecoBase
 	
 	public enum LogDistribution
 	{
-	    MERCURY (100f, 5f, 0.8f),
-	    VENUS   (0f, 0f, 0f), // Unused placeholder
-	    EARTH   (0f, 0f, 0f), // Unused placeholder
-	    MARS    (0f, 0f, 0f), // Unused placeholder
-	    JUPITER (0f, 0f, 0f), // Unused placeholder
-	    SATURN  (0f, 0f, 0f), // Unused placeholder
-	    URANUS  (0f, 0f, 0f), // Unused placeholder
-	    NEPTUNE (0f, 0f, 0f), // Unused placeholder
-	    PLUTO	(0f, 0f, 0f); // Unused placeholder
+		/**
+		 * Why planets? Because that's what the enum tutorial used.
+		 * If we need more planets, we can always seek inspiration from Star Wars.
+		 * Feel free to refactor to something more semantic.
+		 */
+	    MERCURY (100f, 5f, 0.8f),	// float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 5f + 0.8f;
+	    VENUS   (0f, 0f, 0f), 		// Unused placeholder
+	    EARTH   (0f, 0f, 0f), 		// Unused placeholder
+	    MARS    (0f, 0f, 0f), 		// Unused placeholder
+	    JUPITER (0f, 0f, 0f), 		// Unused placeholder
+	    SATURN  (0f, 0f, 0f), 		// Unused placeholder
+	    URANUS  (0f, 0f, 0f), 		// Unused placeholder
+	    NEPTUNE (0f, 0f, 0f), 		// Unused placeholder
+	    PLUTO	(0f, 0f, 0f); 		// Unused placeholder
 
 	    private final float noiseDivisor;
 	    private final float noiseFactor;

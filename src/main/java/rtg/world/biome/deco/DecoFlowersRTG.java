@@ -11,13 +11,18 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenFlowersRTG;
 
+/**
+ * 
+ * @author WhichOnesPink
+ *
+ */
 public class DecoFlowersRTG extends DecoBase
 {
     
-	public int[] flowers;
-	public float strengthFactor;
-	public int maxY;
-	public int chance;
+	public int[] flowers; // Integer array of flower IDs.
+	public float strengthFactor; // Higher = more flowers.
+	public int maxY; // Height restriction.
+	public int chance; // Higher = more rare.
 	
 	public DecoFlowersRTG()
 	{
@@ -30,7 +35,7 @@ public class DecoFlowersRTG extends DecoBase
 		this.flowers = new int[] {0, 9}; // Only roses and dandelions by default.
 		this.chance = 1; // 100% chance of generating by default.
 		this.maxY = 255; // No height limit by default.
-		this.strengthFactor = 2f; // Not sure why it was done like this, but... the higher the value, the more flowers there will be.
+		this.strengthFactor = 2f; // Not sure why it was done like this, but... the higher the value, the more there will be.
 	}
 	
 	@Override

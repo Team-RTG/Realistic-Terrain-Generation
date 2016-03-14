@@ -39,7 +39,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
 		 * # DECORATIONS (ORDER MATTERS)
 		 * ##################################################
 		 */
-        
+
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		decoBaseBiomeDecorations.allowed = false;
 		this.addDeco(decoBaseBiomeDecorations);

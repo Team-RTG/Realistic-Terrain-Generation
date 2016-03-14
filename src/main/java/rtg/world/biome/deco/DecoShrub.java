@@ -11,14 +11,19 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 
+/**
+ * 
+ * @author WhichOnesPink
+ *
+ */
 public class DecoShrub extends DecoBase
 {
     
-	public int size;
-	public int log;
-	public int leaves;
-	public float strengthFactor;
-	public int maxY;
+	public int size; // Higher = bigger shrubs.
+	public int log; // Yes, this is an integer, not a block. Voooodooooo.
+	public int leaves; // Yes, this is an integer, not a block. Voooodooooo.
+	public float strengthFactor; // Higher = more/bigger shrubs.
+	public int maxY; // Height restriction.
 	
 	public DecoShrub()
 	{
@@ -31,8 +36,8 @@ public class DecoShrub extends DecoBase
 		this.size = -1; // Voodoo by default. (See WorldGenTreeRTGShrub if you dare.)
 		this.log = -1; // Voodoo by default. (See WorldGenTreeRTGShrub if you dare.)
 		this.leaves = -1; // Voodoo by default. (See WorldGenTreeRTGShrub if you dare.)
-		this.maxY = 255; // No height limit by default.
 		this.strengthFactor = 3f; // Not sure why it was done like this, but... the higher the value, the more there will be.
+		this.maxY = 255; // No height limit by default.
 	}
 	
 	@Override

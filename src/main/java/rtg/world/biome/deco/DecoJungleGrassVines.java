@@ -15,6 +15,11 @@ import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 
+/**
+ * 
+ * @author WhichOnesPink
+ *
+ */
 public class DecoJungleGrassVines extends DecoBase
 {
 
@@ -23,6 +28,9 @@ public class DecoJungleGrassVines extends DecoBase
 		super();
 	}
 	
+	/**
+	 * No config options for this one yet. Just ripped it directly from the old code.
+	 */
 	@Override
 	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
 	{

@@ -119,7 +119,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
         }
 		
 		DecoBoulder decoBoulder = new DecoBoulder();
-		decoBoulder.boulder = Blocks.mossy_cobblestone;
+		decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
 		decoBoulder.chance = 16;
 		decoBoulder.maxY = 95;
 		decoBoulder.strengthFactor = 2f;

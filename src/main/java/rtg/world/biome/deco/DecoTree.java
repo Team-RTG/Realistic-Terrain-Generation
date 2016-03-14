@@ -21,29 +21,38 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGPineBig;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
 
+/**
+ * 
+ * @author WhichOnesPink
+ *
+ */
 public class DecoTree extends DecoBase
 {
     
 	public int loops;
 	public float strengthFactorForLoops; // If set, this overrides and dynamically calculates 'loops' based on the strength parameter.
 	public boolean strengthNoiseFactorForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * strength)
-	public TreeType treeType;
-	public TreeDistribution treeDistribution;
-	public TreeCondition treeCondition;
-	public float treeConditionNoise;
-	public int treeConditionChance;
-	public int maxY;
+	public TreeType treeType; // Enum for the various tree presets.
+	public TreeDistribution treeDistribution; // Enum for the various noise calculations.
+	public TreeCondition treeCondition; // Enum for the various conditions/chances for tree gen.
+	public float treeConditionNoise; // Only applies to a noise-related TreeCondition.
+	public int treeConditionChance; // Only applies to a chance-related TreeCondition.
+	public int maxY; // Height restriction.
 	public Block logBlock;
 	public byte logMeta;
 	public Block leavesBlock;
 	public byte leavesMeta;
-	public int minSize;
-	public int maxSize;
+	public int minSize; // Min tree height (only used with certain tree presets)
+	public int maxSize; // Max tree height (only used with certain tree presets)
 	
 	public DecoTree()
 	{
 		super();
 		
+		/**
+		 * Default values.
+		 * These can be overridden when configuring the Deco object in the realistic biome.
+		 */
 		this.loops = 1;
 		this.strengthFactorForLoops = 0;
 		this.strengthNoiseFactorForLoops = false;
@@ -52,7 +61,7 @@ public class DecoTree extends DecoBase
 		this.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		this.treeConditionNoise = 0f;
 		this.treeConditionChance = 1;
-		this.maxY = 120;
+		this.maxY = 255; // No height limit by default.
 		this.logBlock = Blocks.log;
 		this.logMeta = (byte)0;
 		this.leavesBlock = Blocks.leaves;
@@ -177,6 +186,11 @@ public class DecoTree extends DecoBase
 	
 	public enum TreeDistribution
 	{
+		/**
+		 * Why planets? Because that's what the enum tutorial used.
+		 * If we need more planets, we can always seek inspiration from Star Wars.
+		 * Feel free to refactor to something more semantic.
+		 */
 	    MERCURY (100f, 5f, 0.8f),	// float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 5f + 0.8f;
 	    VENUS   (80f, 60f, -15f),	// float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
 	    EARTH   (0f, 0f, 0f),

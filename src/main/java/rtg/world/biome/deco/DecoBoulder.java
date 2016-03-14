@@ -10,22 +10,31 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 
+/**
+ * 
+ * @author WhichOnesPink
+ *
+ */
 public class DecoBoulder extends DecoBase
 {
     
-	public Block boulder;
-	public float strengthFactor;
-	public int maxY;
-	public int chance;
+	public Block boulderBlock; // This can be any block.
+	public float strengthFactor; // Higher = more/bigger boulders.
+	public int maxY; // Height restriction.
+	public int chance; // Higher = more rare.
 	
 	public DecoBoulder()
 	{
 		super();
 		
-		this.boulder = Blocks.cobblestone;
-		this.chance = 10;
-		this.maxY = 90;
+		/**
+		 * Default values.
+		 * These can be overridden when configuring the Deco object in the realistic biome.
+		 */
+		this.boulderBlock = Blocks.cobblestone;
 		this.strengthFactor = 2f;
+		this.maxY = 255; // No height limit by default.
+		this.chance = 10;
 	}
 	
 	@Override
@@ -40,7 +49,7 @@ public class DecoBoulder extends DecoBase
                 int k1 = world.getHeightValue(i1, j1);
                 
                 if (k1 < this.maxY && rand.nextInt(this.chance) == 0) {
-                    (new WorldGenBlob(boulder, 0, rand)).generate(world, rand, i1, k1, j1);
+                    (new WorldGenBlob(boulderBlock, 0, rand)).generate(world, rand, i1, k1, j1);
                 }
             }
 		}

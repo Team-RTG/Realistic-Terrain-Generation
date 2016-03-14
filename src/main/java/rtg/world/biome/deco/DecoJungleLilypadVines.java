@@ -13,6 +13,11 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
+/**
+ * 
+ * @author WhichOnesPink
+ *
+ */
 public class DecoJungleLilypadVines extends DecoBase
 {
 
@@ -21,6 +26,9 @@ public class DecoJungleLilypadVines extends DecoBase
 		super();
 	}
 	
+	/**
+	 * No config options for this one yet. Just ripped it directly from the old code.
+	 */
 	@Override
 	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
 	{

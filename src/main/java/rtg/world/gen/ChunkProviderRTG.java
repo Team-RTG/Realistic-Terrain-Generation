@@ -749,7 +749,7 @@ public class ChunkProviderRTG implements IChunkProvider
                  */
                 if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
 
-                	if (realisticBiome.decos.size() > 0) {
+                	if (realisticBiome.useNewDecorationSystem) {
                 		realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
                 	}
                 	else {
@@ -764,7 +764,7 @@ public class ChunkProviderRTG implements IChunkProvider
                     }
                     catch (Exception e) {
 
-                    	if (realisticBiome.decos.size() > 0) {
+                    	if (realisticBiome.useNewDecorationSystem) {
                     		realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
                     	}
                     	else {

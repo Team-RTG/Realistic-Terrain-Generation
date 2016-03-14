@@ -7,20 +7,46 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
+/**
+ * This deco replaces the cumbersome rDecorateSeedBiome & rOreGenSeedBiome logic.
+ * Instead of having to remember when to use (and not use) rDecorateSeedBiome/rOreGenSeedBiome,
+ * now all you have to do is add this configured deco to the biome wherever you want the base biome
+ * to decorate itself. You no longer need to worry about ore gen because that gets handled automatically.
+ * 
+ * @author WhichOnesPink
+ *
+ */
 public class DecoBaseBiomeDecorations extends DecoBase
 {
 	
+	/**
+	 * This optional setting is useful when you want the base biome to decorate a majority of the biome's chunks.
+	 * Only used if greater than 0
+	 */
 	public int equalsZeroChance;
+	
+	/**
+	 * This optional setting is useful when you want the base biome to decorate a minority of the biome's chunks.
+	 * Only used if greater than 0
+	 */
 	public int notEqualsZeroChance;
+	
+	/**
+	 * How many times per chunk do we want the base biome to decorate itself? (Usually only once)
+	 */
 	public int loops;
 	
 	public DecoBaseBiomeDecorations()
 	{
 		super();
 		
-		this.equalsZeroChance = 0;
-		this.notEqualsZeroChance = 0;
-		this.loops = 1;
+		/**
+		 * Default values.
+		 * These can be overridden when configuring the Deco object in the realistic biome.
+		 */
+		this.equalsZeroChance = 0; // Only used if greater than 0
+		this.notEqualsZeroChance = 0; // Only used if greater than 0
+		this.loops = 1; // You almost always want to loop only once.
 	}
 	
 	@Override

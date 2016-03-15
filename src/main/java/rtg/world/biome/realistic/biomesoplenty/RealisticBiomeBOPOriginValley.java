@@ -19,7 +19,7 @@ public class RealisticBiomeBOPOriginValley extends RealisticBiomeBOPBase
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
-			new TerrainBOPOriginValley(65f, 80f, 38f),
+			new TerrainBOPOriginValley(65f, 80f, 30f),
 			new SurfaceBOPOriginValley(config, topBlock, fillerBlock)
 		);
 	}

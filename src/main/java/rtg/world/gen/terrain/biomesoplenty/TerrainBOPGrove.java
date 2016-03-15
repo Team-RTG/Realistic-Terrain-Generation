@@ -21,8 +21,6 @@ public class TerrainBOPGrove extends TerrainBase
     {
         // no ground noise
 
-        //float m = hills(x, y, peakyHillStrength, simplex, river);
-
         float h = this.terrainGrasslandHills(x, y, simplex, cell, river,  smoothHillWavelength, smoothHillStrength, peakyHillWavelength, peakyHillStrength,baseHeight);
 
         return h;

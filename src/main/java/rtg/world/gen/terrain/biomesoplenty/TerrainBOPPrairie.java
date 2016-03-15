@@ -22,6 +22,6 @@ public class TerrainBOPPrairie extends TerrainBase
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return terrainRollingHills(x, y, simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 0f);
+        return this.terrainPlains(x, y, simplex, river, 200f, 1f, 30f, 1f,  maxHeight);
     }
 }

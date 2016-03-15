@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
@@ -33,28 +34,36 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase
 		 * ##################################################
 		 */
 
-		// Flowers are the most aesthetically important feature of this biome, so let's add those first.
-		DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-		decoFlowersRTG.flowers = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 15}; //Only colourful flowers.
-		decoFlowersRTG.strengthFactor = 16f; // Lots and lots of flowers!
-		decoFlowersRTG.heightType = HeightType.GET_HEIGHT_VALUE; // We're only bothered about surface flowers here.
-        this.addDeco(decoFlowersRTG);
-        
-        // Next, let's get a few shrubs in to break it up a bit.
+        // First, let's get a few shrubs in to break things up a bit.
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 110;
-        decoShrub.strengthFactor = 3f;
-        decoShrub.chance = 12;
+        decoShrub.strengthFactor = 4f;
+        decoShrub.chance = 3;
 		this.addDeco(decoShrub);
+		
+		// Flowers are the most aesthetically important feature of this biome, so let's add those next.
+		DecoFlowersRTG decoFlowers1 = new DecoFlowersRTG();
+		decoFlowers1.flowers = new int[] {0, 1, 2, 3, 8, 9}; //Only colourful 1-block-tall flowers. No tulips as BOP has those covered.
+		decoFlowers1.strengthFactor = 12f; // Lots and lots of flowers!
+		decoFlowers1.heightType = HeightType.GET_HEIGHT_VALUE; // We're only bothered about surface flowers here.
+        this.addDeco(decoFlowers1);
         
-		// Fill in some blank spaces with grass.
+		DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
+		decoFlowers2.flowers = new int[] {10, 11, 14, 15}; //Only 2-block-tall flowers.
+		decoFlowers2.strengthFactor = 2f; // Not as many of these.
+		decoFlowers2.chance = 3;
+		decoFlowers2.heightType = HeightType.GET_HEIGHT_VALUE; // We're only bothered about surface flowers here.
+        this.addDeco(decoFlowers2);
+
+        // Not much free space left, so let's give some space to the base biome.
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		decoBaseBiomeDecorations.notEqualsZeroChance = 4;
+		this.addDeco(decoBaseBiomeDecorations);
+		
+		// Grass filler.
 		DecoGrass decoGrass = new DecoGrass();
 		decoGrass.maxY = 128;
-		decoGrass.strengthFactor = 6f;
+		decoGrass.strengthFactor = 24f;
         this.addDeco(decoGrass);
-        
-        // Not much free space left, so let's give whatever's left to the base biome.
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

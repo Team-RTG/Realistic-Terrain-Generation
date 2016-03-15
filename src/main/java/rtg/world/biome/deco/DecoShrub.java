@@ -24,6 +24,7 @@ public class DecoShrub extends DecoBase
 	public int leaves; // Yes, this is an integer, not a block. Voooodooooo.
 	public float strengthFactor; // Higher = more/bigger shrubs.
 	public int maxY; // Height restriction.
+	public int chance; // Higher = more rare.
 	
 	public DecoShrub()
 	{
@@ -38,6 +39,7 @@ public class DecoShrub extends DecoBase
 		this.leaves = -1; // Voodoo by default. (See WorldGenTreeRTGShrub if you dare.)
 		this.strengthFactor = 3f; // Not sure why it was done like this, but... the higher the value, the more there will be.
 		this.maxY = 255; // No height limit by default.
+		this.chance = 1; // 100% chance of generating by default.
 	}
 	
 	@Override
@@ -58,7 +60,7 @@ public class DecoShrub extends DecoBase
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 	                int intY = world.getHeightValue(intX, intZ);
 	                
-	                if (intY <= this.maxY) {
+	                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
 	                	(new WorldGenTreeRTGShrub(this.size, this.log, this.leaves)).generate(world, rand, intX, intY, intZ);
 	                }
 	            }

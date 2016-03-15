@@ -13,6 +13,6 @@ public class TerrainBOPSacredSprings extends TerrainBase
 	@Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return terrainVolcano(x, y, simplex, cell, border, 55f);
+        return terrainPlains(x, y, simplex, river, 50f, 4f, 30f, 2f, base);
     }
 }

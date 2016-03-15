@@ -28,6 +28,6 @@ public class TerrainBOPDeciduousForest extends TerrainBase
 
         float m = hills(x, y, hillStrength, simplex, river);
 
-        return baseHeight + groundNoise + m;
+        return riverized(baseHeight + groundNoise,river) + m;
     }
 }

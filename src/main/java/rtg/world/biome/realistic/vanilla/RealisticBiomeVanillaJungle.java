@@ -43,6 +43,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		 * ##################################################
 		 */
 
+		// Blend of the WorldGenMegaJungle collection and some tall RTG Mangrove trees.
 		DecoTree megaJungleMangrove = new DecoTree();
 		megaJungleMangrove.loops = 3;
 		megaJungleMangrove.treeType = TreeType.MEGA_JUNGLE_MANGROVE;
@@ -51,6 +52,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		megaJungleMangrove.maxY = 160;
 		this.addDeco(megaJungleMangrove);
 		
+		// Add some palm trees for variety.
 		DecoTree palmCustom = new DecoTree();
 		palmCustom.loops = 1;
 		palmCustom.treeType = TreeType.PALM_CUSTOM;
@@ -61,6 +63,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		palmCustom.maxSize = 20;
 		this.addDeco(palmCustom);
 		
+		// Another pass of the WorldGenMegaJungle collection for extra jungleness.
 		DecoTree megaJungle = new DecoTree();
 		megaJungle.loops = 3;
 		megaJungle.treeType = TreeType.MEGA_JUNGLE;
@@ -71,6 +74,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		megaJungle.maxSize = 40;
 		this.addDeco(megaJungle);
 		
+		// Jungle logs.
 		if (this.config.getPropertyById(BiomeConfigVanillaJungle.decorationLogsId).valueBoolean)
 		{
 			DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -89,24 +93,29 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 			this.addDeco(decoFallenTree);
 		}
 		
+		// At this point, let's hand over some of the decoration to the base biome, but only about 85% of the time.
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		decoBaseBiomeDecorations.notEqualsZeroChance = 6;
 		decoBaseBiomeDecorations.loops = 1;
 		this.addDeco(decoBaseBiomeDecorations);
 		
+		// A combo-deal of lilypads and vines. (This could probably be pulled out into individual decos.)
 		DecoJungleLilypadVines decoJungleLilypadVines = new DecoJungleLilypadVines();
 		this.addDeco(decoJungleLilypadVines);
 		
+		// A combo-deal of grass and vines. (This could probably be pulled out into individual decos.)
 		DecoJungleGrassVines decoJungleGrassVines = new DecoJungleGrassVines();
 		this.addDeco(decoJungleLilypadVines);
 		
+		// Flowers.
 		DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-        decoFlowersRTG.flowers = new int[]{5};
+        decoFlowersRTG.flowers = new int[]{5}; // Only orange tulips fit in with the colour scheme.
         decoFlowersRTG.chance = 4;
         decoFlowersRTG.maxY = 120;
         decoFlowersRTG.strengthFactor = 2f;
         this.addDeco(decoFlowersRTG);
         
+        // Tall cacti on red sand - matches the colour scheme nicely.
         if (this.config.getPropertyById(BiomeConfigVanillaJungle.decorationCactusId).valueBoolean)
         {
 	        DecoJungleCacti decoJungleCacti = new DecoJungleCacti();
@@ -118,6 +127,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 			this.addDeco(decoJungleCacti);
         }
 		
+        // Mossy boulders for the green.
 		DecoBoulder decoBoulder = new DecoBoulder();
 		decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
 		decoBoulder.chance = 16;
@@ -125,6 +135,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		decoBoulder.strengthFactor = 2f;
 		this.addDeco(decoBoulder);
 		
+		// Grass filler.
 		DecoGrass decoGrass = new DecoGrass();
 		decoGrass.maxY = 128;
 		decoGrass.strengthFactor = 12f;

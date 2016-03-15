@@ -39,11 +39,8 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
 		 * # DECORATIONS (ORDER MATTERS)
 		 * ##################################################
 		 */
-
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		decoBaseBiomeDecorations.allowed = false;
-		this.addDeco(decoBaseBiomeDecorations);
 		
+        // Trees first.
 		DecoTree bigPines = new DecoTree();
 		bigPines.strengthNoiseFactorForLoops = true;
 		bigPines.treeType = TreeType.BIG_PINES;
@@ -52,6 +49,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
 		bigPines.maxY = 140;
 		this.addDeco(bigPines);
 		
+		// More trees.
 		DecoTree smallPinesTreesForest = new DecoTree();
 		smallPinesTreesForest.strengthFactorForLoops = 3f;
 		smallPinesTreesForest.treeType = TreeType.SMALL_PINES_TREES_FORESTS;
@@ -59,6 +57,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
 		smallPinesTreesForest.maxY = 120;
 		this.addDeco(smallPinesTreesForest);
 		
+		// Add some fallen trees of the oak and spruce variety (50/50 distribution).
         if (this.config.getPropertyById(BiomeConfigVanillaForest.decorationLogsId).valueBoolean) {
 
             DecoFallenTree5050 decoFallenTree5050 = new DecoFallenTree5050();
@@ -80,17 +79,20 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
 			this.addDeco(decoFallenTree5050);
         }
         
+        // Shrubs to fill in the blanks.
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 110;
         decoShrub.strengthFactor = 3f;
 		this.addDeco(decoShrub);
         
+		// Only 1-block tall flowers so we can see the trees better.
 		DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
 		decoFlowersRTG.flowers = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
 		decoFlowersRTG.maxY = 128;
 		decoFlowersRTG.strengthFactor = 8f;
         this.addDeco(decoFlowersRTG);
         
+        // Grass filler.
 		DecoGrass decoGrass = new DecoGrass();
 		decoGrass.maxY = 128;
 		decoGrass.strengthFactor = 12f;

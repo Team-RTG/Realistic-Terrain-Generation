@@ -22,8 +22,32 @@ public class DecoFlowersRTG extends DecoBase
 	public int[] flowers; // Integer array of flower IDs.
 	public float strengthFactor; // Higher = more flowers.
 	public int maxY; // Height restriction.
+	public HeightType heightType; // How we determine the Y coord.
 	public int chance; // Higher = more rare.
 	
+    /**
+     *  FLOWER LIST: 
+	 *
+		0	Rose - 
+		1	Blue Orchid - 
+		2	Allium - 
+		3	Azure Bluet - 
+		4	Red Tulip - 
+		5	Orange Tulip - 
+		6	White Tulip - 
+		7	Pink Tulip - 
+		8	Oxeye Daisy - 
+		
+		9	yellow Flower - 
+		
+		10	Sunflower - 
+		11	Lilac - 
+		12	Double Tallgrass - 
+		13	Large Fern - 
+		14	Rose Bush - 
+		15	Peony
+     * 
+     */
 	public DecoFlowersRTG()
 	{
 		super();
@@ -35,6 +59,7 @@ public class DecoFlowersRTG extends DecoBase
 		this.flowers = new int[] {0, 9}; // Only roses and dandelions by default.
 		this.chance = 1; // 100% chance of generating by default.
 		this.maxY = 255; // No height limit by default.
+		this.heightType = HeightType.NEXT_INT;
 		this.strengthFactor = 2f; // Not sure why it was done like this, but... the higher the value, the more there will be.
 	}
 	
@@ -45,18 +70,40 @@ public class DecoFlowersRTG extends DecoBase
 			
 	        if (TerrainGen.decorate(world, rand, chunkX, chunkY, FLOWERS)) {
 	            
-	            for (int f23 = 0; f23 < this.strengthFactor * strength; f23++)
+	            for (int i = 0; i < this.strengthFactor * strength; i++)
 	            {
-	                int j15 = chunkX + rand.nextInt(16) + 8;
-	                int j20 = chunkY + rand.nextInt(16) + 8;
-	                int j17 = rand.nextInt(this.maxY);
+	                int intX = chunkX + rand.nextInt(16) + 8;
+	                int intZ = chunkY + rand.nextInt(16) + 8;
+	                
+	                int intY;
+	                switch (this.heightType)
+	                {
+		                case NEXT_INT:
+		                	intY = rand.nextInt(this.maxY);
+		                	break;
+		                	
+		                case GET_HEIGHT_VALUE:
+		                	intY = world.getHeightValue(intX, intZ);
+		                	break;
+	                	
+	                	default:
+	                		intY = rand.nextInt(this.maxY);
+	                		break;
+	                		
+	                }
 	                
 	                if (rand.nextInt(this.chance) == 0) {
 	                    
-	                    (new WorldGenFlowersRTG(this.flowers)).generate(world, rand, j15, j17, j20);
+	                    (new WorldGenFlowersRTG(this.flowers)).generate(world, rand, intX, intY, intZ);
 	                }
 	            }
 	        }
 		}
+	}
+	
+	public enum HeightType
+	{
+		NEXT_INT,
+		GET_HEIGHT_VALUE;
 	}
 }

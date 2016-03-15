@@ -21,10 +21,8 @@ public class TerrainBOPEucalyptusForest extends TerrainBase
     {
         groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
 
-        //float m = hills(x, y, peakyHillStrength, simplex, river);
-
         float h = terrainGrasslandHills(x, y, simplex, cell, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
 
-        return riverized(baseHeight+groundNoise,river) + h;
+        return riverized(groundNoise,river) + h;
     }
 }

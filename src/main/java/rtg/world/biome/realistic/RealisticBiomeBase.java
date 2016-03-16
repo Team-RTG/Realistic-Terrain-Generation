@@ -10,19 +10,8 @@ import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.Ev
 import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.LAPIS;
 import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.REDSTONE;
 
+import java.util.ArrayList;
 import java.util.Random;
-
-import rtg.api.biome.BiomeConfig;
-import rtg.config.rtg.ConfigRTG;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.RandomUtil;
-import rtg.world.biome.BiomeBase;
-import rtg.world.biome.RTGBiomeProvider;
-import rtg.world.gen.feature.WorldGenClay;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceGeneric;
-import rtg.world.gen.terrain.TerrainBase;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -32,12 +21,24 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.api.biome.BiomeConfig;
+import rtg.config.rtg.ConfigRTG;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.util.RandomUtil;
 import rtg.util.SimplexOctave;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.RTGBiomeProvider;
+import rtg.world.biome.deco.DecoBase;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.gen.feature.WorldGenClay;
+import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.gen.surface.SurfaceGeneric;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBase extends BiomeBase {
     
@@ -68,6 +69,9 @@ public class RealisticBiomeBase extends BiomeBase {
     public byte emeraldEmeraldMeta;
     public Block emeraldStoneBlock;
     public byte emeraldStoneMeta;
+    
+    public ArrayList<DecoBase> decos;
+    public boolean useNewDecorationSystem = false;
     
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
     
@@ -108,6 +112,20 @@ public class RealisticBiomeBase extends BiomeBase {
         emeraldEmeraldMeta = (byte)0;
         emeraldStoneBlock = Blocks.stone;
         emeraldStoneMeta = (byte)0;
+        
+        decos = new ArrayList<DecoBase>();
+        
+        /**
+         * By default, it is assumed that all realistic biomes will be decorated manually and not by the biome.
+         * This includes ore generation since it's part of the decoration process.
+         * We're adding this deco here in order to avoid having to explicitly add it
+         * in every singe realistic biome.
+         * If it does get added manually to let the base biome handle some or all of the decoration process,
+         * this deco will get replaced with the new one.
+         */
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		decoBaseBiomeDecorations.allowed = false;
+		this.decos.add(decoBaseBiomeDecorations);
     }
     
     public static RealisticBiomeBase getBiome(int id) {
@@ -527,5 +545,50 @@ public class RealisticBiomeBase extends BiomeBase {
     public SurfaceBase[] getSurfaces()
     {
         return this.surfaces;
+    }
+    
+    public void decorateInAnOrderlyFashion(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
+    {
+    	for (int i = 0; i < this.decos.size(); i++) {
+    		this.decos.get(i).generate(this, world, rand, chunkX, chunkY, simplex, cell, strength, river);
+    	}
+    }
+    
+    /**
+     * Adds a deco object to the list of biome decos.
+     * The 'allowed' parameter allows us to pass biome config booleans dynamically when configuring the decos in the biome.
+     * 
+     * @param deco
+     * @param allowed
+     */
+    public void addDeco(DecoBase deco, boolean allowed)
+    {
+    	if (allowed) {
+    		
+	    	if (deco instanceof DecoBaseBiomeDecorations) {
+	    		
+	        	for (int i = 0; i < this.decos.size(); i++) {
+	        		
+	        		if (this.decos.get(i) instanceof DecoBaseBiomeDecorations) {
+	        			
+	        			this.decos.remove(i);
+	        			break;
+	        		}
+	        	}
+	    	}
+	    	
+	    	this.decos.add(deco);
+	    	this.useNewDecorationSystem = true;
+    	}
+    }
+    
+    /**
+     * Convenience method for addDeco() where 'allowed' is assumed to be true.
+     * 
+     * @param deco
+     */
+    public void addDeco(DecoBase deco)
+    {
+    	this.addDeco(deco, true);
     }
 }

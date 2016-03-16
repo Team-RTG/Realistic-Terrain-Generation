@@ -16,12 +16,9 @@ gradlew-setupDecompWorkspace.bat
 gradlew-clean.bat
 gradlew-eclipse.bat
 gradlew-build.bat
-libs/BiomesOPlenty-1.7.10-2.1.0.1462-deobf.jar
-libs/CodeChickenCore-1.7.10-1.0.7.46-dev.jar
-libs/NotEnoughItems-1.7.10-1.0.5.111-dev.jar
-libs/extrabiomesxl_1.7.10-3.16.3-dev.jar
-libs/BiomesOPlenty-1.7.10-2.1.0.1465-deobf.jar
-libs/extrabiomesxl_1.7.10-3.16.3-deobf.jar
+libs/*.jar
 
 forge-1.7.10-10.13.4.1558-1.7.10-changelog.txt
 gradlew-jar.bat
+gradlew-cleanCache.bat
+gradlew-setupDecompWorkspace-refresh-deps.bat

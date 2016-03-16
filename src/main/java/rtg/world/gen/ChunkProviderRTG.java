@@ -12,20 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.config.rtg.ConfigRTG;
-import rtg.util.AICWrapper;
-import rtg.util.CanyonColor;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.BiomeAnalyzer;
-import rtg.world.biome.RTGBiomeProvider;
-import rtg.world.biome.WorldChunkManagerRTG;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.biome.realistic.RealisticBiomePatcher;
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.common.registry.GameData;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
@@ -46,15 +32,25 @@ import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.MapGenStronghold;
 import net.minecraft.world.gen.structure.MapGenVillage;
-
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.api.biome.BiomeConfig;
+import rtg.config.rtg.ConfigRTG;
+import rtg.util.AICWrapper;
+import rtg.util.CanyonColor;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.util.SimplexCellularNoise;
-import rtg.util.VoronoiCellNoise;
-import rtg.util.VoronoiCellOctave;
+import rtg.world.biome.BiomeAnalyzer;
+import rtg.world.biome.RTGBiomeProvider;
+import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.biome.realistic.RealisticBiomePatcher;
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.registry.GameData;
 
 /**
  * Scattered features courtesy of Ezoteric (https://github.com/Ezoteric) and Choonster (https://github.com/Choonster)
@@ -752,8 +748,13 @@ public class ChunkProviderRTG implements IChunkProvider
                  * TODO: Is there a more efficient way to do this? - Pink
                  */
                 if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
-                    
-                    realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+
+                	if (realisticBiome.useNewDecorationSystem) {
+                		realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                	}
+                	else {
+                		realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                	}
                 }
                 else {
                     
@@ -762,8 +763,13 @@ public class ChunkProviderRTG implements IChunkProvider
                         realisticBiome.baseBiome.decorate(this.worldObj, rand, worldX, worldZ);
                     }
                     catch (Exception e) {
-                        
-                        realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+
+                    	if (realisticBiome.useNewDecorationSystem) {
+                    		realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                    	}
+                    	else {
+                    		realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                    	}
                     }
                 }
 

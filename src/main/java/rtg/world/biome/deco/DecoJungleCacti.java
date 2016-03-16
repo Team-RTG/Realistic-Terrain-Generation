@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.deco.DecoBase.DecoType;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenJungleCacti;
 
@@ -38,6 +39,8 @@ public class DecoJungleCacti extends DecoBase
 		this.sandOnly = false;
 		this.extraHeight = 7;
 		this.sandMeta = (byte)1;
+		
+		this.addDecoTypes(DecoType.CACTUS);
 	}
 	
 	@Override

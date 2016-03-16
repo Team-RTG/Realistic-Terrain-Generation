@@ -11,6 +11,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.deco.DecoBase.DecoType;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 /**
@@ -24,6 +25,8 @@ public class DecoJungleLilypadVines extends DecoBase
 	public DecoJungleLilypadVines()
 	{
 		super();
+		
+		this.addDecoTypes(DecoType.LILYPAD, DecoType.VINE);
 	}
 	
 	/**

@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.deco.DecoBase.DecoType;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 
@@ -33,6 +34,8 @@ public class DecoGrass extends DecoBase
 		 */
 		this.maxY = 255; // No height limit by default.
 		this.strengthFactor = 2f; // Not sure why it was done like this, but... the higher the value, the more there will be.
+		
+		this.addDecoTypes(DecoType.GRASS);
 	}
 	
 	@Override

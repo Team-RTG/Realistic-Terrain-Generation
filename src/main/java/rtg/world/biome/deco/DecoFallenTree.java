@@ -54,6 +54,8 @@ public class DecoFallenTree extends DecoBase
 		this.leavesMeta = (byte)-1;
 		this.minSize = 2;
 		this.maxSize = 4;
+		
+		this.addDecoTypes(DecoType.FALLEN_TREE);
 	}
 	
 	@Override

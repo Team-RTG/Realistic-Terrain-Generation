@@ -47,6 +47,8 @@ public class DecoBaseBiomeDecorations extends DecoBase
 		this.equalsZeroChance = 0; // Only used if greater than 0
 		this.notEqualsZeroChance = 0; // Only used if greater than 0
 		this.loops = 1; // You almost always want to loop only once.
+		
+		this.addDecoTypes(DecoType.BASE_BIOME_DECORATION);
 	}
 	
 	@Override

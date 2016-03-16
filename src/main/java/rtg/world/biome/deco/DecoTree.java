@@ -68,6 +68,8 @@ public class DecoTree extends DecoBase
 		this.leavesMeta = (byte)-1;
 		this.minSize = 2;
 		this.maxSize = 4;
+		
+		this.addDecoTypes(DecoType.TREE);
 	}
 	
 	@Override

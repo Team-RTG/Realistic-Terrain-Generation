@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.deco.DecoBase.DecoType;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 
@@ -40,6 +41,8 @@ public class DecoShrub extends DecoBase
 		this.strengthFactor = 3f; // Not sure why it was done like this, but... the higher the value, the more there will be.
 		this.maxY = 255; // No height limit by default.
 		this.chance = 1; // 100% chance of generating by default.
+		
+		this.addDecoTypes(DecoType.SHRUB);
 	}
 	
 	@Override

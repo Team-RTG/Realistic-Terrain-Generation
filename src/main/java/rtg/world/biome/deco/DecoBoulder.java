@@ -35,6 +35,8 @@ public class DecoBoulder extends DecoBase
 		this.strengthFactor = 2f;
 		this.maxY = 255; // No height limit by default.
 		this.chance = 10;
+		
+		this.addDecoTypes(DecoType.BOULDER);
 	}
 	
 	@Override

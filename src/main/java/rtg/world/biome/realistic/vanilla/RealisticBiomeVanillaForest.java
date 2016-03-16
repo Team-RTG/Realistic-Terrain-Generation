@@ -5,9 +5,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaForest;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
-import rtg.world.biome.deco.DecoFallenTree5050;
 import rtg.world.biome.deco.DecoFlowersRTG;
 import rtg.world.biome.deco.DecoGrass;
 import rtg.world.biome.deco.DecoShrub;
@@ -15,6 +14,7 @@ import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeDistribution;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaForest;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaForest;
 
@@ -60,23 +60,30 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
 		// Add some fallen trees of the oak and spruce variety (50/50 distribution).
         if (this.config.getPropertyById(BiomeConfigVanillaForest.decorationLogsId).valueBoolean) {
 
-            DecoFallenTree5050 decoFallenTree5050 = new DecoFallenTree5050();
-			decoFallenTree5050.logCondition = LogCondition.RANDOM_CHANCE;
-			decoFallenTree5050.logConditionChance = 8; 
-			decoFallenTree5050.maxY = 100;
-			decoFallenTree5050.logBlock = Blocks.log;
-			decoFallenTree5050.logMeta = (byte)0;
-			decoFallenTree5050.leavesBlock = Blocks.leaves;
-			decoFallenTree5050.leavesMeta = (byte)-1;
-			decoFallenTree5050.minSize = 3;
-			decoFallenTree5050.maxSize = 6;
-			decoFallenTree5050.logBlock2 = Blocks.log;
-			decoFallenTree5050.logMeta2 = (byte)1;
-			decoFallenTree5050.leavesBlock2 = Blocks.leaves;
-			decoFallenTree5050.leavesMeta2 = (byte)-1;
-			decoFallenTree5050.minSize2 = 3;
-			decoFallenTree5050.maxSize2 = 6;
-			this.addDeco(decoFallenTree5050);
+            DecoFallenTree decoFallenOak = new DecoFallenTree();
+            decoFallenOak.logCondition = LogCondition.RANDOM_CHANCE;
+            decoFallenOak.logConditionChance = 8;
+            decoFallenOak.maxY = 100;
+            decoFallenOak.logBlock = Blocks.log;
+            decoFallenOak.logMeta = (byte)0;
+            decoFallenOak.leavesBlock = Blocks.leaves;
+            decoFallenOak.leavesMeta = (byte)-1;
+            decoFallenOak.minSize = 3;
+            decoFallenOak.maxSize = 6;
+			
+            DecoFallenTree decoFallenSpruce = new DecoFallenTree();
+            decoFallenSpruce.logCondition = LogCondition.RANDOM_CHANCE;
+            decoFallenSpruce.logConditionChance = 8;
+            decoFallenSpruce.maxY = 100;
+            decoFallenSpruce.logBlock = Blocks.log;
+            decoFallenSpruce.logMeta = (byte)1;
+            decoFallenSpruce.leavesBlock = Blocks.leaves;
+            decoFallenSpruce.leavesMeta = (byte)-1;
+            decoFallenSpruce.minSize = 3;
+            decoFallenSpruce.maxSize = 6;
+            
+            DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenOak, decoFallenSpruce);
+			this.addDeco(decoFallenTree);
         }
         
         // Shrubs to fill in the blanks.

@@ -1,5 +1,6 @@
 package rtg.world.biome.deco;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import net.minecraft.world.World;
@@ -24,9 +25,12 @@ public class DecoBase
 	 */
 	public boolean allowed;
 	
+	public ArrayList<DecoType> decoTypes;
+	
 	public DecoBase()
 	{
 		this.allowed = true;
+		this.decoTypes = new ArrayList<DecoType>();
 	}
 	
 	/**
@@ -47,5 +51,37 @@ public class DecoBase
 	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
 	{
 		
+    }
+	
+	/**
+	 * Enum to classify the various decos.
+	 * 
+	 * @author WhichOnesPink
+	 *
+	 */
+	public enum DecoType
+	{
+		BASE_BIOME_DECORATION,
+		BOULDER,
+		CACTUS,
+		FALLEN_TREE,
+		FLOWER,
+		GRASS,
+		LILYPAD,
+		SHRUB,
+		TREE,
+		VINE
+	}
+	
+	/**
+	 * Adds one or more deco types.
+	 * 
+	 * @param decos
+	 */
+    public void addDecoTypes(DecoType... decos)
+    {
+    	for (int i = 0; i < decos.length; i++) {
+    		this.decoTypes.add(decos[i]);
+    	}
     }
 }

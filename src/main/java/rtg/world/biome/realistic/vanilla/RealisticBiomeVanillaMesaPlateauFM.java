@@ -31,6 +31,7 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
 			new TerrainVanillaMesaPlateauFM(false, 35f, 160f, 60f, 40f, 69f),
 			new SurfaceVanillaMesaPlateauFM(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1), 0)
 		);
+        this.noLakes=true;
 	}
 	
     @Override

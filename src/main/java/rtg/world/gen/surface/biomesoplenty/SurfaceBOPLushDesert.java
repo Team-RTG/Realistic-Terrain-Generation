@@ -46,7 +46,7 @@ public class SurfaceBOPLushDesert extends SurfaceBase
     {
     
         float c = CliffCalculator.calc(x, y, noise);
-        boolean cliff = c > 1.4f ? true : false;
+        boolean cliff = c > 3.4f ? true : false;
         boolean mix = false;
         
         for (int k = 255; k > -1; k--)

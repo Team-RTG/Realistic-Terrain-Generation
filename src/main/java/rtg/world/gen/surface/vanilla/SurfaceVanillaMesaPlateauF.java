@@ -56,21 +56,35 @@ public class SurfaceVanillaMesaPlateauF extends SurfaceBase
 						}
 	        			else if(k > 74 + grassRaise)
 	        			{
-	        				if(rand.nextInt(5) == 0)
-	        				{
-		        				primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
-	        				}
-	        				else
-	        				{
-		        				if(depth == 0)
-		        				{
-			        				primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
-		        				}
-		        				else
-		        				{
-			        				primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
-		        				}
-	        				}
+							float sn = simplex.noise2(i/24f, j/24f);
+							sn += simplex.noise2(i/12, j/12) * 0.1;
+							if (sn > 0) {
+								if(rand.nextInt(4) == 0)
+								{
+									primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getStateFromMeta(1));
+								}
+								else
+								{
+									primer.setBlockState((y * 16 + x) * 256 + k, Blocks.grass.getDefaultState());
+								}
+							}
+							else {
+								if(rand.nextInt(5) == 0)
+								{
+									primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
+								}
+								else
+								{
+									if(depth == 0)
+									{
+										primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
+									}
+									else
+									{
+										primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
+									}
+								}
+							}
 	        			}
 	        			else if(k < 62)
 	        			{
@@ -92,30 +106,17 @@ public class SurfaceVanillaMesaPlateauF extends SurfaceBase
 	        				if(depth == 0)
 	        				{
 								int r = (int)((k - (62 + grassRaise)) / 2f);
-								float sn = simplex.noise2(x/24f, y/24f);
-								if (sn > 0) {
-									if(rand.nextInt((r + 1)) == 0)
-									{
-										primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getStateFromMeta(1));
-									}
-									else
-									{
-										primer.setBlockState((y * 16 + x) * 256 + k, Blocks.grass.getDefaultState());
-									}
+								if(rand.nextInt(r + 1) == 0)
+								{
+									primer.setBlockState((y * 16 + x) * 256 + k, Blocks.grass.getDefaultState());
 								}
-								else {
-									if(rand.nextInt(r + 1) == 0)
-									{
-										primer.setBlockState((y * 16 + x) * 256 + k, Blocks.grass.getDefaultState());
-									}
-									else if(rand.nextInt((int)(r / 2f) + 1) == 0)
-									{
-										primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getStateFromMeta(1));
-									}
-									else
-									{
-										primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
-									}
+								else if(rand.nextInt((int)(r / 2f) + 1) == 0)
+								{
+									primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getStateFromMeta(1));
+								}
+								else
+								{
+									primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
 								}
 	        				}
 	        				else

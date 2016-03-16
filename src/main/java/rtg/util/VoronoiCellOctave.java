@@ -33,7 +33,7 @@ import java.util.Random;
  *
  * by mncat77 and jtjj222. <----------
  */
-public class VoronoiCellOctave implements CellOctave
+public class VoronoiCellOctave 
 {
 	private static final double SQRT_2 = 1.4142135623730950488;
 	private static final double SQRT_3 = 1.7320508075688772935;

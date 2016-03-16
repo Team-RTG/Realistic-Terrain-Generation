@@ -25,7 +25,7 @@ public class TerrainRollingHills extends TerrainBase
 
         float m = hills(x, y, hillStrength, simplex, river);
 
-        float floNoise = maxHeight + groundNoise + m;
+        float floNoise = riverized(minHeight + groundNoise,river) + m;
 
         return floNoise + 0f;
     }

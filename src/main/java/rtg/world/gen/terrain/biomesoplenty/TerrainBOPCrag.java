@@ -2,6 +2,7 @@ package rtg.world.gen.terrain.biomesoplenty;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.SimplexOctave;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBOPCrag extends TerrainBase
@@ -15,6 +16,10 @@ public class TerrainBOPCrag extends TerrainBase
     private float cStrength;
     private float base;
 
+    private float pointHeightVariation = 20f;
+    private float pointHeightWavelength = 400f;// deep variation
+    private float pointHeight = 50;
+    private float pointWavelength = 20;
     /*
      * Example parameters:
      *
@@ -52,6 +57,22 @@ public class TerrainBOPCrag extends TerrainBase
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 50f, false);
+
+        // need a little jitter to the points
+        SimplexOctave.Derivative jitter = new SimplexOctave.Derivative();
+        simplex.riverJitter().evaluateNoise(x / 20.0, y / 20.0, jitter);
+        double pX = x + jitter.deltax() * 1f;
+        double pY = y + jitter.deltay() * 1f;
+
+        // restrict the points to in the biome.
+        double multiplier = (border-0.5)*10.0;
+        if (multiplier <0) multiplier = 0;
+        if (multiplier >1) multiplier = 1;
+        double [] points = cell.octave(1).eval((float)pX/pointWavelength, (float)pY/pointWavelength);
+        float p = (float)((points[1]-points[0])*(pointHeight +
+                pointHeightVariation*simplex.noise((float)x/pointHeightWavelength, (float)y/pointHeightWavelength)));
+
+        return riverized(base,river) + p;
+        //return terrainCanyon(x, y, simplex, river, height, border, strength, heightLength, booRiver);
     }
 }

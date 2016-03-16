@@ -1,9 +1,5 @@
 package rtg.world.biome.realistic;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CLAY;
-
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.state.pattern.BlockHelper;
@@ -25,12 +21,17 @@ import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
+import rtg.util.SimplexOctave;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGeneric;
 import rtg.world.gen.terrain.TerrainBase;
+
+import java.util.Random;
+
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CLAY;
 
 public class RealisticBiomeBase extends BiomeBase {
     
@@ -270,9 +271,9 @@ public class RealisticBiomeBase extends BiomeBase {
     public void rOreGenSeedBiome(World world, Random rand, BlockPos blockPos, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
 
     	if (seedBiome.theBiomeDecorator.chunkProviderSettings == null) {
-    		
+
 	        String s = world.getWorldInfo().getGeneratorOptions();
-	
+
 	        if (s != null)
 	        {
 	        	seedBiome.theBiomeDecorator.chunkProviderSettings = ChunkProviderSettings.Factory.jsonToFactory(s).func_177864_b();
@@ -282,7 +283,7 @@ public class RealisticBiomeBase extends BiomeBase {
 	        	seedBiome.theBiomeDecorator.chunkProviderSettings = ChunkProviderSettings.Factory.jsonToFactory("").func_177864_b();
 	        }
     	}
-    	
+
     	seedBiome.theBiomeDecorator.dirtGen = new WorldGenMinable(Blocks.dirt.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.dirtSize);
     	seedBiome.theBiomeDecorator.gravelGen = new WorldGenMinable(Blocks.gravel.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.gravelSize);
     	seedBiome.theBiomeDecorator.graniteGen = new WorldGenMinable(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), seedBiome.theBiomeDecorator.chunkProviderSettings.graniteSize);
@@ -294,9 +295,9 @@ public class RealisticBiomeBase extends BiomeBase {
     	seedBiome.theBiomeDecorator.redstoneGen = new WorldGenMinable(Blocks.redstone_ore.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.redstoneSize);
     	seedBiome.theBiomeDecorator.diamondGen = new WorldGenMinable(Blocks.diamond_ore.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.diamondSize);
     	seedBiome.theBiomeDecorator.lapisGen = new WorldGenMinable(Blocks.lapis_ore.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.lapisSize);
-    	
+
         net.minecraftforge.common.MinecraftForge.ORE_GEN_BUS.post(new net.minecraftforge.event.terraingen.OreGenEvent.Pre(world, rand, blockPos));
-        if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.dirtGen, blockPos, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIRT))        	
+        if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.dirtGen, blockPos, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIRT))
         genStandardOre1(world, rand, blockPos, seedBiome.theBiomeDecorator.chunkProviderSettings.dirtCount, seedBiome.theBiomeDecorator.dirtGen, seedBiome.theBiomeDecorator.chunkProviderSettings.dirtMinHeight, seedBiome.theBiomeDecorator.chunkProviderSettings.dirtMaxHeight);
         if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(world, rand, seedBiome.theBiomeDecorator.gravelGen, blockPos, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.GRAVEL))
         genStandardOre1(world, rand, blockPos, seedBiome.theBiomeDecorator.chunkProviderSettings.gravelCount, seedBiome.theBiomeDecorator.gravelGen, seedBiome.theBiomeDecorator.chunkProviderSettings.gravelMinHeight, seedBiome.theBiomeDecorator.chunkProviderSettings.gravelMaxHeight);
@@ -346,10 +347,86 @@ public class RealisticBiomeBase extends BiomeBase {
     }
     
     public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-    
-        return terrain.generateNoise(simplex, cell, x, y, border, river);
+        // we now have both lakes and rivers lowering land
+
+        if (noWaterFeatures) {
+            return terrain.generateNoise(simplex, cell, x, y, border, 1f);
+        }
+        double lakeStrength = lakePressure(simplex,cell,x,y);
+        double lakeFlattening = this.lakeFlattening(lakeStrength, lakeWaterLevel, lakeDepressionLevel);
+        if (lakeFlattening < river) river = (float)lakeFlattening;
+
+        float terrainNoise = terrain.generateNoise(simplex, cell, x, y, border, river);
+        return this.erodedNoise(simplex, cell, x, y, river-1f, terrainNoise,lakeFlattening-1.0);
     }
-    
+
+    public float erodedNoise(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float river, float biomeHeight, double lakeFlattening)
+    {
+
+        if ((river < 0f && biomeHeight > 57f))
+        {
+        	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
+            SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+            simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
+            double pX = x + jitter.deltax() * 220f;
+            double pY = y + jitter.deltay() * 220f;
+
+            //New cellular noise.
+            //TODO move the initialization of the results in a way that's more efficient but still thread safe.
+            double[] results =simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
+            float r = (float) cellBorder(results, 30.0 / 1300.0, 1.0);
+            if (lakeFlattening < r) r = (float) lakeFlattening;
+
+            return (biomeHeight * (r + 1f))
+                + ((57f + simplex.noise2(x / 12f, y / 12f) * 2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (-r));
+        }
+        else
+        {
+            return biomeHeight;
+        }
+    }
+
+
+    private static double cellBorder(double[] results, double width, double depth) {
+		double c = results[1] - results[0];
+		if (c < width) {
+			return ((c / width) - 1) * depth;
+		} else {
+			return 0;
+		}
+	}
+
+    // lake calculations
+
+    private float lakeInterval = 1470.0f;
+    private double lakeWaterLevel = 0.04;// the lakeStrenght below which things should be below ater
+    private double lakeDepressionLevel = 0.15;// the lakeStrength below which land should start to be lowered
+    public boolean noLakes = false;
+    public boolean noWaterFeatures = false;
+
+    public double lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y) {
+        if (noLakes) return 1.0;
+        SimplexOctave.Derivative jitter = new SimplexOctave.Derivative();
+        simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
+        double pX = x + jitter.deltax() * 110f;
+        double pY = y + jitter.deltay() * 110f;
+        simplex.mountain().evaluateNoise(x / 80.0, y / 80.0, jitter);
+        pX += jitter.deltax() * 30f;
+        pY += jitter.deltay() * 30f;
+        simplex.mountain().evaluateNoise(x / 30.0, y / 30.0, jitter);
+        pX += jitter.deltax() * 10f;
+        pY += jitter.deltay() * 10f;
+        double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
+        return results;
+    }
+
+    public double lakeFlattening(double pressure, double bottomLevel, double topLevel) {
+        // this number indicates a multiplier to height
+        if (pressure > topLevel) return 1;
+        if (pressure<bottomLevel) return 0;
+        return Math.pow((pressure-bottomLevel)/(topLevel-bottomLevel),0.333);
+    }
+
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
         if (ConfigRTG.enableRTGBiomeSurfaces && this.config.getPropertyById(BiomeConfig.useRTGSurfacesId).valueBoolean) {

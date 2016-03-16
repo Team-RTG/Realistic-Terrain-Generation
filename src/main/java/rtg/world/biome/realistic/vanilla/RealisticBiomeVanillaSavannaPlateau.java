@@ -33,6 +33,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
             new TerrainVanillaSavannaPlateau(true, 35f, 160f, 60f, 40f, 69f),
             new SurfaceVanillaSavannaPlateau(config, topBlock, fillerBlock, 0)
         );
+        this.noLakes=true;
     }
     
     @Override

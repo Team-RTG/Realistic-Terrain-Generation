@@ -37,6 +37,7 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaForestHills(),
             new SurfaceVanillaForestHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.15f));
+        this.noLakes=true;
     }
     
     @Override

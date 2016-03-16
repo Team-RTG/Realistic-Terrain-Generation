@@ -22,5 +22,6 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
 			new TerrainVanillaIcePlainsSpikes(),
 			new SurfaceVanillaIcePlainsSpikes(config, topBlock, fillerBlock, topBlock, topBlock)
 		);
+        this.noLakes=true;
 	}
 }

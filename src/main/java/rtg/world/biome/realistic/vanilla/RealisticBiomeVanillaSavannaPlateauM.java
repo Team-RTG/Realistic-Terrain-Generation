@@ -34,6 +34,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
             BiomeGenBase.river,
             new TerrainVanillaSavannaPlateauM(true, 35f, 160f, 60f, 40f, 69f),
             new SurfaceVanillaSavannaPlateauM(config, topBlock, fillerBlock, 0));
+        this.noLakes=true;
     }
     
     @Override

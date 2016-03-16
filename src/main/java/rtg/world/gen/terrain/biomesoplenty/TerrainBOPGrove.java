@@ -6,7 +6,11 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBOPGrove extends TerrainBase
 {
-
+    private float baseHeight = 64f;
+    private float peakyHillWavelength = 40f;
+    private float peakyHillStrength = 7f;
+    private float smoothHillWavelength = 20f;
+    private float smoothHillStrength = 15f;
     public TerrainBOPGrove()
     {
 
@@ -15,6 +19,10 @@ public class TerrainBOPGrove extends TerrainBase
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
+        // no ground noise
+
+        float h = this.terrainGrasslandHills(x, y, simplex, cell, river,  smoothHillWavelength, smoothHillStrength, peakyHillWavelength, peakyHillStrength,baseHeight);
+
+        return h;
     }
 }

@@ -6,20 +6,23 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBOPEucalyptusForest extends TerrainBase
 {
-    private float minHeight;
-    private float maxHeight;
-    private float hillStrength;
-
-    public TerrainBOPEucalyptusForest(float minHeight, float maxHeight, float hillStrength)
+    private float baseHeight = 76f;
+    private float peakyHillWavelength = 40f;
+    private float peakyHillStrength = 20f;
+    private float smoothHillWavelength = 20f;
+    private float smoothHillStrength = 10f;
+    public TerrainBOPEucalyptusForest()
     {
-        this.minHeight = minHeight;
-        this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
-        this.hillStrength = hillStrength;
+
     }
 
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return terrainRollingHills(x, y, simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 0f);
+        groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
+
+        float h = terrainGrasslandHills(x, y, simplex, cell, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
+
+        return riverized(groundNoise,river) + h;
     }
 }

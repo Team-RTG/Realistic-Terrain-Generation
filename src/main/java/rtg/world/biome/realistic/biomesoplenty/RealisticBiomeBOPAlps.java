@@ -22,5 +22,6 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase
 			new SurfaceBOPAlps(config, topBlock, fillerBlock, false, null, 0.45f)
 		);
 		this.generatesEmeralds = true;
+        this.noLakes = true;
 	}
 }

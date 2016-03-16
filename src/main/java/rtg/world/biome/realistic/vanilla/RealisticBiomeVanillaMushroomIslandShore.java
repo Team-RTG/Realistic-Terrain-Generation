@@ -19,5 +19,6 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
 			new TerrainVanillaMushroomIslandShore(),
 			new SurfaceVanillaMushroomIslandShore(config, topBlock, fillerBlock, 67, topBlock, 0f)
 		);
+        this.noLakes=true;
 	}	
 }

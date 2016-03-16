@@ -75,23 +75,20 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		this.addDeco(megaJungle);
 		
 		// Jungle logs.
-		if (this.config.getPropertyById(BiomeConfigVanillaJungle.decorationLogsId).valueBoolean)
-		{
-			DecoFallenTree decoFallenTree = new DecoFallenTree();
-			decoFallenTree.loops = 1;
-			decoFallenTree.logDistribution = LogDistribution.MERCURY;
-			decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-			decoFallenTree.logConditionNoise = 0f;
-			decoFallenTree.logConditionChance = 3;
-			decoFallenTree.maxY = 120;
-			decoFallenTree.logBlock = Blocks.log;
-			decoFallenTree.logMeta = (byte)3;
-			decoFallenTree.leavesBlock = Blocks.leaves;
-			decoFallenTree.leavesMeta = (byte)-1;
-			decoFallenTree.minSize = 4;
-			decoFallenTree.maxSize = 9;
-			this.addDeco(decoFallenTree);
-		}
+		DecoFallenTree decoFallenTree = new DecoFallenTree();
+		decoFallenTree.loops = 1;
+		decoFallenTree.logDistribution = LogDistribution.MERCURY;
+		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		decoFallenTree.logConditionNoise = 0f;
+		decoFallenTree.logConditionChance = 3;
+		decoFallenTree.maxY = 120;
+		decoFallenTree.logBlock = Blocks.log;
+		decoFallenTree.logMeta = (byte)3;
+		decoFallenTree.leavesBlock = Blocks.leaves;
+		decoFallenTree.leavesMeta = (byte)-1;
+		decoFallenTree.minSize = 4;
+		decoFallenTree.maxSize = 9;
+		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaJungle.decorationLogsId));
 		
 		// At this point, let's hand over some of the decoration to the base biome, but only about 85% of the time.
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
@@ -116,16 +113,13 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
         this.addDeco(decoFlowersRTG);
         
         // Tall cacti on red sand - matches the colour scheme nicely.
-        if (this.config.getPropertyById(BiomeConfigVanillaJungle.decorationCactusId).valueBoolean)
-        {
-	        DecoJungleCacti decoJungleCacti = new DecoJungleCacti();
-			decoJungleCacti.strengthFactor = 8f;
-			decoJungleCacti.maxY = 120;
-			decoJungleCacti.sandOnly = false;
-			decoJungleCacti.extraHeight = 7;
-			decoJungleCacti.sandMeta = (byte)1;
-			this.addDeco(decoJungleCacti);
-        }
+        DecoJungleCacti decoJungleCacti = new DecoJungleCacti();
+		decoJungleCacti.strengthFactor = 8f;
+		decoJungleCacti.maxY = 120;
+		decoJungleCacti.sandOnly = false;
+		decoJungleCacti.extraHeight = 7;
+		decoJungleCacti.sandMeta = (byte)1;
+		this.addDeco(decoJungleCacti, this.config._boolean(BiomeConfigVanillaJungle.decorationCactusId));
 		
         // Mossy boulders for the green.
 		DecoBoulder decoBoulder = new DecoBoulder();

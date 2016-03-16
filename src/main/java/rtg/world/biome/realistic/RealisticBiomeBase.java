@@ -554,21 +554,41 @@ public class RealisticBiomeBase extends BiomeBase {
     	}
     }
     
+    /**
+     * Adds a deco object to the list of biome decos.
+     * The 'allowed' parameter allows us to pass biome config booleans dynamically when configuring the decos in the biome.
+     * 
+     * @param deco
+     * @param allowed
+     */
+    public void addDeco(DecoBase deco, boolean allowed)
+    {
+    	if (allowed) {
+    		
+	    	if (deco instanceof DecoBaseBiomeDecorations) {
+	    		
+	        	for (int i = 0; i < this.decos.size(); i++) {
+	        		
+	        		if (this.decos.get(i) instanceof DecoBaseBiomeDecorations) {
+	        			
+	        			this.decos.remove(i);
+	        			break;
+	        		}
+	        	}
+	    	}
+	    	
+	    	this.decos.add(deco);
+	    	this.useNewDecorationSystem = true;
+    	}
+    }
+    
+    /**
+     * Convenience method for addDeco() where 'allowed' is assumed to be true.
+     * 
+     * @param deco
+     */
     public void addDeco(DecoBase deco)
     {
-    	if (deco instanceof DecoBaseBiomeDecorations) {
-    		
-        	for (int i = 0; i < this.decos.size(); i++) {
-        		
-        		if (this.decos.get(i) instanceof DecoBaseBiomeDecorations) {
-        			
-        			this.decos.remove(i);
-        			break;
-        		}
-        	}
-    	}
-    	
-    	this.decos.add(deco);
-    	this.useNewDecorationSystem = true;
+    	this.addDeco(deco, true);
     }
 }

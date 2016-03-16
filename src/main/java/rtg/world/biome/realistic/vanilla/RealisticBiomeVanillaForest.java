@@ -58,33 +58,30 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
 		this.addDeco(smallPinesTreesForest);
 		
 		// Add some fallen trees of the oak and spruce variety (50/50 distribution).
-        if (this.config.getPropertyById(BiomeConfigVanillaForest.decorationLogsId).valueBoolean) {
-
-            DecoFallenTree decoFallenOak = new DecoFallenTree();
-            decoFallenOak.logCondition = LogCondition.RANDOM_CHANCE;
-            decoFallenOak.logConditionChance = 8;
-            decoFallenOak.maxY = 100;
-            decoFallenOak.logBlock = Blocks.log;
-            decoFallenOak.logMeta = (byte)0;
-            decoFallenOak.leavesBlock = Blocks.leaves;
-            decoFallenOak.leavesMeta = (byte)-1;
-            decoFallenOak.minSize = 3;
-            decoFallenOak.maxSize = 6;
-			
-            DecoFallenTree decoFallenSpruce = new DecoFallenTree();
-            decoFallenSpruce.logCondition = LogCondition.RANDOM_CHANCE;
-            decoFallenSpruce.logConditionChance = 8;
-            decoFallenSpruce.maxY = 100;
-            decoFallenSpruce.logBlock = Blocks.log;
-            decoFallenSpruce.logMeta = (byte)1;
-            decoFallenSpruce.leavesBlock = Blocks.leaves;
-            decoFallenSpruce.leavesMeta = (byte)-1;
-            decoFallenSpruce.minSize = 3;
-            decoFallenSpruce.maxSize = 6;
-            
-            DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenOak, decoFallenSpruce);
-			this.addDeco(decoFallenTree);
-        }
+        DecoFallenTree decoFallenOak = new DecoFallenTree();
+        decoFallenOak.logCondition = LogCondition.RANDOM_CHANCE;
+        decoFallenOak.logConditionChance = 8;
+        decoFallenOak.maxY = 100;
+        decoFallenOak.logBlock = Blocks.log;
+        decoFallenOak.logMeta = (byte)0;
+        decoFallenOak.leavesBlock = Blocks.leaves;
+        decoFallenOak.leavesMeta = (byte)-1;
+        decoFallenOak.minSize = 3;
+        decoFallenOak.maxSize = 6;
+		
+        DecoFallenTree decoFallenSpruce = new DecoFallenTree();
+        decoFallenSpruce.logCondition = LogCondition.RANDOM_CHANCE;
+        decoFallenSpruce.logConditionChance = 8;
+        decoFallenSpruce.maxY = 100;
+        decoFallenSpruce.logBlock = Blocks.log;
+        decoFallenSpruce.logMeta = (byte)1;
+        decoFallenSpruce.leavesBlock = Blocks.leaves;
+        decoFallenSpruce.leavesMeta = (byte)-1;
+        decoFallenSpruce.minSize = 3;
+        decoFallenSpruce.maxSize = 6;
+        
+        DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenOak, decoFallenSpruce);
+		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaForest.decorationLogsId));
         
         // Shrubs to fill in the blanks.
         DecoShrub decoShrub = new DecoShrub();

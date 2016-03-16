@@ -16,6 +16,7 @@ import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPalm;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineBig;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
@@ -178,6 +179,17 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
+		            	case VANILLA_BEACH_PALM:
+		            		
+	                        if (intY <= this.maxY && (rand.nextInt((int) (4f / strength)) == 0)) {
+	                        	
+	                            WorldGenerator worldgenerator = new WorldGenTreeRTGPalm();
+	                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+	                            worldgenerator.generate(world, rand, intX, intY, intZ);
+	                        }
+		            		
+		            		break;
+		            		
 		            	default:
 		            		break;
 	            	}
@@ -215,7 +227,8 @@ public class DecoTree extends DecoBase
 		MEGA_JUNGLE,
 		MEGA_JUNGLE_MANGROVE,
 		PALM_CUSTOM,
-		SMALL_PINES_TREES_FORESTS;
+		SMALL_PINES_TREES_FORESTS,
+		VANILLA_BEACH_PALM;
 	}
 	
 	public enum TreeCondition

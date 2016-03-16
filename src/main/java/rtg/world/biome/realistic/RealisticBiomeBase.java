@@ -1,9 +1,5 @@
 package rtg.world.biome.realistic;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CLAY;
-
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.state.pattern.BlockHelper;
@@ -25,12 +21,17 @@ import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
+import rtg.util.SimplexOctave;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGeneric;
 import rtg.world.gen.terrain.TerrainBase;
+
+import java.util.Random;
+
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CLAY;
 
 public class RealisticBiomeBase extends BiomeBase {
     

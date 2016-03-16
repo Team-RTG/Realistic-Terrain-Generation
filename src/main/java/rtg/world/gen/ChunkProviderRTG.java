@@ -30,7 +30,7 @@ import rtg.config.rtg.ConfigRTG;
 import rtg.util.CanyonColour;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.VoronoiCellNoise;
+import rtg.util.SimplexCellularNoise;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.WorldChunkManagerRTG;

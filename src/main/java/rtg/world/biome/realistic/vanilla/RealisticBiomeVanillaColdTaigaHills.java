@@ -36,7 +36,7 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
             BiomeGenBase.coldTaigaHills,
             BiomeGenBase.frozenRiver,
             new TerrainVanillaColdTaigaHills(),
-            new SurfaceVanillaColdTaigaHills(config, Blocks.grass, Blocks.dirt, true, Blocks.sand, 0.2f));
+            new SurfaceVanillaColdTaigaHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), true, Blocks.sand.getDefaultState(), 0.2f));
         this.noLakes=true;
     }
     

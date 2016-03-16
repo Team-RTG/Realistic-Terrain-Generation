@@ -9,7 +9,7 @@ import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 /**
- * This deco helper takes
+ * This deco helper takes two deco objects and generates one of them at random.
  * 
  * @author WhichOnesPink
  *

@@ -33,7 +33,7 @@ public class DecoTree extends DecoBase
 	public float strengthFactorForLoops; // If set, this overrides and dynamically calculates 'loops' based on the strength parameter.
 	public boolean strengthNoiseFactorForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * strength)
 	public TreeType treeType; // Enum for the various tree presets.
-	public TreeDistribution treeDistribution; // Enum for the various noise calculations.
+	public DecoTree.Distribution distribution; // Parameter object for noise calculations.
 	public TreeCondition treeCondition; // Enum for the various conditions/chances for tree gen.
 	public float treeConditionNoise; // Only applies to a noise-related TreeCondition.
 	public int treeConditionChance; // Only applies to a chance-related TreeCondition.
@@ -57,7 +57,7 @@ public class DecoTree extends DecoBase
 		this.strengthFactorForLoops = 0;
 		this.strengthNoiseFactorForLoops = false;
 		this.treeType = TreeType.MEGA_JUNGLE_MANGROVE;
-		this.treeDistribution = TreeDistribution.MERCURY;
+		this.distribution = new DecoTree.Distribution(100f, 5f, 0.8f);
 		this.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		this.treeConditionNoise = 0f;
 		this.treeConditionChance = 1;
@@ -77,7 +77,7 @@ public class DecoTree extends DecoBase
 			
 			if (TerrainGen.decorate(world, rand, chunkX, chunkY, TREE)) {
 				
-				float noise = simplex.noise2(chunkX / this.treeDistribution.noiseDivisor(), chunkY / this.treeDistribution.noiseDivisor()) * this.treeDistribution.noiseFactor() + this.treeDistribution.noiseAddend();
+				float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkY / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
 
                 int loopCount = this.loops;
                 loopCount = (this.strengthFactorForLoops > 0f) ? (int)(this.strengthFactorForLoops * strength) : loopCount;
@@ -184,35 +184,27 @@ public class DecoTree extends DecoBase
 		}
 	}
 	
-	public enum TreeDistribution
+	/**
+	 * Parameter object for noise calculations.
+	 * 
+	 * simplex.noise2(chunkX / noiseDivisor, chunkY / noiseDivisor) * noiseFactor + noiseAddend;
+	 * 
+	 * @author WhichOnesPink
+	 * @author Zeno410
+	 *
+	 */
+	public static class Distribution
 	{
-		/**
-		 * Why planets? Because that's what the enum tutorial used.
-		 * If we need more planets, we can always seek inspiration from Star Wars.
-		 * Feel free to refactor to something more semantic.
-		 */
-	    MERCURY (100f, 5f, 0.8f),	// float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 5f + 0.8f;
-	    VENUS   (80f, 60f, -15f),	// float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
-	    EARTH   (0f, 0f, 0f),
-	    MARS    (0f, 0f, 0f),
-	    JUPITER (0f, 0f, 0f),
-	    SATURN  (0f, 0f, 0f),
-	    URANUS  (0f, 0f, 0f),
-	    NEPTUNE (0f, 0f, 0f),
-	    PLUTO	(0f, 0f, 0f);
-
-	    private final float noiseDivisor;
-	    private final float noiseFactor;
-	    private final float noiseAddend;
-
-	    TreeDistribution(float noiseDivisor, float noiseFactor, float noiseAddend) {
-	        this.noiseDivisor = noiseDivisor;
-	        this.noiseFactor = noiseFactor;
-	        this.noiseAddend = noiseAddend;
+	    public float noiseDivisor;
+	    public float noiseFactor;
+	    public float noiseAddend;
+	    
+	    public Distribution(float noiseDivisor, float noiseFactor, float noiseAddend)
+	    {
+	    	this.noiseDivisor = noiseDivisor;
+	    	this.noiseFactor = noiseFactor;
+	    	this.noiseAddend = noiseAddend;
 	    }
-	    private float noiseDivisor() { return noiseDivisor; }
-	    private float noiseFactor() { return noiseFactor; }
-	    private float noiseAddend() { return noiseAddend; }
 	}
 	
 	public enum TreeType

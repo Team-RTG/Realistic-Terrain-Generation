@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;

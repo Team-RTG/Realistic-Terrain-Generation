@@ -12,7 +12,6 @@ import rtg.world.biome.deco.DecoGrass;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
-import rtg.world.biome.deco.DecoTree.TreeDistribution;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaForest;
@@ -44,7 +43,9 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
 		DecoTree bigPines = new DecoTree();
 		bigPines.strengthNoiseFactorForLoops = true;
 		bigPines.treeType = TreeType.BIG_PINES;
-		bigPines.treeDistribution = TreeDistribution.VENUS;
+		bigPines.distribution.noiseDivisor = 80f;
+		bigPines.distribution.noiseFactor = 60f;
+		bigPines.distribution.noiseAddend = -15f;
 		bigPines.treeCondition = TreeCondition.ALWAYS_GENERATE;
 		bigPines.maxY = 140;
 		this.addDeco(bigPines);

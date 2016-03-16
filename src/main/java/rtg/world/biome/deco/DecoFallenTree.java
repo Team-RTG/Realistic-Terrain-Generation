@@ -22,7 +22,7 @@ public class DecoFallenTree extends DecoBase
 {
     
 	public int loops;
-	public LogDistribution logDistribution; // Enum for the various noise calculations.
+	public DecoFallenTree.Distribution distribution; // Parameter object for noise calculations.
 	public LogCondition logCondition; // Enum for the various conditions/chances for log gen.
 	public float logConditionNoise; // Only applies to a noise-related LogCondition.
 	public int logConditionChance; // Only applies to a chance-related LogCondition.
@@ -43,7 +43,7 @@ public class DecoFallenTree extends DecoBase
 		 * These can be overridden when configuring the Deco object in the realistic biome.
 		 */
 		this.loops = 1;
-		this.logDistribution = LogDistribution.MERCURY;
+		this.distribution = new DecoFallenTree.Distribution(100f, 5f, 0.8f);
 		this.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		this.logConditionNoise = 0f;
 		this.logConditionChance = 1;
@@ -63,7 +63,7 @@ public class DecoFallenTree extends DecoBase
 			
 			if (TerrainGen.decorate(world, rand, chunkX, chunkY, TREE)) {
 				
-				float noise = simplex.noise2(chunkX / this.logDistribution.noiseDivisor(), chunkY / this.logDistribution.noiseDivisor()) * this.logDistribution.noiseFactor() + this.logDistribution.noiseAddend();
+				float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkY / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
 				
 	            for (int i = 0; i < this.loops; i++)
 	            {
@@ -88,35 +88,27 @@ public class DecoFallenTree extends DecoBase
 		}
 	}
 	
-	public enum LogDistribution
+	/**
+	 * Parameter object for noise calculations.
+	 * 
+	 * simplex.noise2(chunkX / noiseDivisor, chunkY / noiseDivisor) * noiseFactor + noiseAddend;
+	 * 
+	 * @author WhichOnesPink
+	 * @author Zeno410
+	 *
+	 */
+	public static class Distribution
 	{
-		/**
-		 * Why planets? Because that's what the enum tutorial used.
-		 * If we need more planets, we can always seek inspiration from Star Wars.
-		 * Feel free to refactor to something more semantic.
-		 */
-	    MERCURY (100f, 5f, 0.8f),	// float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 5f + 0.8f;
-	    VENUS   (0f, 0f, 0f), 		// Unused placeholder
-	    EARTH   (0f, 0f, 0f), 		// Unused placeholder
-	    MARS    (0f, 0f, 0f), 		// Unused placeholder
-	    JUPITER (0f, 0f, 0f), 		// Unused placeholder
-	    SATURN  (0f, 0f, 0f), 		// Unused placeholder
-	    URANUS  (0f, 0f, 0f), 		// Unused placeholder
-	    NEPTUNE (0f, 0f, 0f), 		// Unused placeholder
-	    PLUTO	(0f, 0f, 0f); 		// Unused placeholder
-
-	    private final float noiseDivisor;
-	    private final float noiseFactor;
-	    private final float noiseAddend;
-
-	    LogDistribution(float noiseDivisor, float noiseFactor, float noiseAddend) {
-	        this.noiseDivisor = noiseDivisor;
-	        this.noiseFactor = noiseFactor;
-	        this.noiseAddend = noiseAddend;
+	    public float noiseDivisor;
+	    public float noiseFactor;
+	    public float noiseAddend;
+	    
+	    public Distribution(float noiseDivisor, float noiseFactor, float noiseAddend)
+	    {
+	    	this.noiseDivisor = noiseDivisor;
+	    	this.noiseFactor = noiseFactor;
+	    	this.noiseAddend = noiseAddend;
 	    }
-	    float noiseDivisor() { return noiseDivisor; }
-	    float noiseFactor() { return noiseFactor; }
-	    float noiseAddend() { return noiseAddend; }
 	}
 	
 	public enum LogCondition

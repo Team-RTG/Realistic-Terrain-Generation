@@ -9,7 +9,6 @@ import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
-import rtg.world.biome.deco.DecoFallenTree.LogDistribution;
 import rtg.world.biome.deco.DecoFlowersRTG;
 import rtg.world.biome.deco.DecoGrass;
 import rtg.world.biome.deco.DecoJungleCacti;
@@ -77,7 +76,9 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		// Jungle logs.
 		DecoFallenTree decoFallenTree = new DecoFallenTree();
 		decoFallenTree.loops = 1;
-		decoFallenTree.logDistribution = LogDistribution.MERCURY;
+		decoFallenTree.distribution.noiseDivisor = 100f;
+		decoFallenTree.distribution.noiseFactor = 5f;
+		decoFallenTree.distribution.noiseAddend = 0.8f;
 		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		decoFallenTree.logConditionNoise = 0f;
 		decoFallenTree.logConditionChance = 3;

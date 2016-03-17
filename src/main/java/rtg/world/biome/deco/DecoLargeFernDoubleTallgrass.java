@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 
@@ -17,13 +18,13 @@ import rtg.world.gen.feature.WorldGenGrass;
  * @author WhichOnesPink
  *
  */
-public class DecoGrass extends DecoBase
+public class DecoLargeFernDoubleTallgrass extends DecoBase
 {
     
 	public float strengthFactor;
 	public int maxY;
 	
-	public DecoGrass()
+	public DecoLargeFernDoubleTallgrass()
 	{
 		super();
 		
@@ -34,7 +35,7 @@ public class DecoGrass extends DecoBase
 		this.maxY = 255; // No height limit by default.
 		this.strengthFactor = 2f; // Not sure why it was done like this, but... the higher the value, the more there will be.
 		
-		this.addDecoTypes(DecoType.GRASS);
+		this.addDecoTypes(DecoType.GRASS_DOUBLE, DecoType.FERN_DOUBLE);
 	}
 	
 	@Override
@@ -51,7 +52,7 @@ public class DecoGrass extends DecoBase
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 
 	                if (intY <= this.maxY) {
-	                	(new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, intX, intY, intZ);
+	                	(new WorldGenGrass(Blocks.double_plant, RandomUtil.getRandomInt(rand, 2, 3))).generate(world, rand, intX, intY, intZ);
 	                }
 	            }
 	        }

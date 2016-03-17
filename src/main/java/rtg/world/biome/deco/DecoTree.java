@@ -15,7 +15,10 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGBirch;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGBirchSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPalm;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineBig;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
@@ -160,6 +163,22 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
+		            	case BIRCH_TREES_FOREST:
+		            		
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+
+		                        WorldGenerator worldgenerator =
+			                        rand.nextInt(4) != 0
+			                        ? new WorldGenTreeRTGBirch(4 + rand.nextInt(7), 8 + rand.nextInt(12))
+			                        : rand.nextInt(10) != 0
+			                        	? new WorldGenTreeRTGTrees(false)
+			                        	: new WorldGenForest(false, false);
+		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                        worldgenerator.generate(world, rand, intX, intY, intZ);
+		            		}
+		            		
+		            		break;
+		            		
 		            	case BIG_PINES:
 		            		
 		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
@@ -175,6 +194,39 @@ public class DecoTree extends DecoBase
 			                        worldgenerator.generate(world, rand, intX, intY, intZ);
 	                            }
 		            		}
+		            		
+		            		break;
+		            		
+		            	case VANILLA_BEACH_PALM:
+		            		
+	                        if (intY <= this.maxY && (rand.nextInt((int) (4f / strength)) == 0)) {
+	                        	
+	                            WorldGenerator worldgenerator = new WorldGenTreeRTGPalm();
+	                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+	                            worldgenerator.generate(world, rand, intX, intY, intZ);
+	                        }
+		            		
+		            		break;
+		            		
+		            	case SMALL_BIRCH:
+		            		
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+	                        	
+	                            WorldGenerator worldgenerator = new WorldGenTreeRTGBirchSmall(4 + rand.nextInt(7), 8 + rand.nextInt(12), 2);
+	                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+	                            worldgenerator.generate(world, rand, intX, intY, intZ);
+	                        }
+		            		
+		            		break;
+		            		
+		            	case SUPER_TALL_BIRCH:
+		            		
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+	                        	
+		                        WorldGenerator worldgenerator = new WorldGenTreeRTGBirch(16 + rand.nextInt(8), rand.nextInt(8) + 4);
+		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                        worldgenerator.generate(world, rand, intX, intY, intZ);
+	                        }
 		            		
 		            		break;
 		            		
@@ -212,10 +264,14 @@ public class DecoTree extends DecoBase
 	public enum TreeType
 	{
 		BIG_PINES,
+		BIRCH_TREES_FOREST,
 		MEGA_JUNGLE,
 		MEGA_JUNGLE_MANGROVE,
 		PALM_CUSTOM,
-		SMALL_PINES_TREES_FORESTS;
+		SMALL_BIRCH,
+		SMALL_PINES_TREES_FORESTS,
+		SUPER_TALL_BIRCH,
+		VANILLA_BEACH_PALM;
 	}
 	
 	public enum TreeCondition

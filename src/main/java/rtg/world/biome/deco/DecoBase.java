@@ -71,6 +71,7 @@ public class DecoBase
 		GRASS,
 		GRASS_DOUBLE,
 		LILYPAD,
+		PUMPKIN,
 		SHRUB,
 		TREE,
 		VINE

@@ -29,6 +29,12 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase
             new SurfaceVanillaBirchForest(config, BiomeGenBase.birchForest.topBlock, BiomeGenBase.birchForest.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f)
         );
         
+		/**
+		 * ##################################################
+		 * # DECORATIONS (ORDER MATTERS)
+		 * ##################################################
+		 */
+        
 		DecoTree smallBirch = new DecoTree();
 		smallBirch.strengthNoiseFactorForLoops = true;
 		smallBirch.treeType = TreeType.SMALL_BIRCH;
@@ -36,14 +42,14 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase
 		smallBirch.distribution.noiseFactor = 60f;
 		smallBirch.distribution.noiseAddend = -15f;
 		smallBirch.treeCondition = TreeCondition.ALWAYS_GENERATE;
-		smallBirch.maxY = 140;
+		smallBirch.maxY = 120;
 		this.addDeco(smallBirch);
         
 		DecoTree birchTreesForest = new DecoTree();
 		birchTreesForest.strengthFactorForLoops = 3f;
 		birchTreesForest.treeType = TreeType.BIRCH_TREES_FOREST;
 		birchTreesForest.treeCondition = TreeCondition.ALWAYS_GENERATE;
-		birchTreesForest.maxY = 120;
+		birchTreesForest.maxY = 100;
 		this.addDeco(birchTreesForest);
         
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -59,7 +65,7 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase
 		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaBirchForest.decorationLogsId));
         
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.maxY = 110;
+        decoShrub.maxY = 120;
         decoShrub.strengthFactor = 3f;
 		this.addDeco(decoShrub);
 

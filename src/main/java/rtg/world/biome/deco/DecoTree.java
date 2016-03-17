@@ -22,6 +22,7 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGPalm;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineBig;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
 
 /**
@@ -35,6 +36,7 @@ public class DecoTree extends DecoBase
 	public int loops;
 	public float strengthFactorForLoops; // If set, this overrides and dynamically calculates 'loops' based on the strength parameter.
 	public boolean strengthNoiseFactorForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * strength)
+	public boolean strengthNoiseFactorXForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * X * strength)
 	public TreeType treeType; // Enum for the various tree presets.
 	public DecoTree.Distribution distribution; // Parameter object for noise calculations.
 	public TreeCondition treeCondition; // Enum for the various conditions/chances for tree gen.
@@ -57,8 +59,9 @@ public class DecoTree extends DecoBase
 		 * These can be overridden when configuring the Deco object in the realistic biome.
 		 */
 		this.loops = 1;
-		this.strengthFactorForLoops = 0;
+		this.strengthFactorForLoops = 0f;
 		this.strengthNoiseFactorForLoops = false;
+		this.strengthNoiseFactorXForLoops = false;
 		this.treeType = TreeType.MEGA_JUNGLE_MANGROVE;
 		this.distribution = new DecoTree.Distribution(100f, 5f, 0.8f);
 		this.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
@@ -87,6 +90,7 @@ public class DecoTree extends DecoBase
                 int loopCount = this.loops;
                 loopCount = (this.strengthFactorForLoops > 0f) ? (int)(this.strengthFactorForLoops * strength) : loopCount;
                 loopCount = (this.strengthNoiseFactorForLoops) ? (int)(noise * strength) : loopCount;
+                loopCount = (this.strengthNoiseFactorXForLoops) ? (int)(noise * this.strengthFactorForLoops * strength) : loopCount;
 	            for (int i = 0; i < loopCount; i++)
 	            {
 	                int intX = chunkX + rand.nextInt(16) + 8;
@@ -208,6 +212,19 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
+		            	case VANILLA_COLD_TAIGA:
+		            		
+	                        if (intY <= this.maxY && (rand.nextInt((int) (4f / strength)) == 0)) {
+	                        	
+	                            WorldGenerator worldgenerator =
+	                                    rand.nextInt(4) == 0 ? new WorldGenTreeRTGSpruceSmall(1 + rand.nextInt(2)) : rand.nextInt(6) == 0 ? new WorldGenTreeRTGPineSmall(
+	                                        1 + rand.nextInt(3), 4 + rand.nextInt(4)) : new WorldGenTreeRTGPineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
+	                                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+	                                worldgenerator.generate(world, rand, intX, intY, intZ);
+	                        }
+		            		
+		            		break;
+		            		
 		            	case SMALL_BIRCH:
 		            		
 		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
@@ -271,7 +288,8 @@ public class DecoTree extends DecoBase
 		SMALL_BIRCH,
 		SMALL_PINES_TREES_FORESTS,
 		SUPER_TALL_BIRCH,
-		VANILLA_BEACH_PALM;
+		VANILLA_BEACH_PALM,
+		VANILLA_COLD_TAIGA;
 	}
 	
 	public enum TreeCondition

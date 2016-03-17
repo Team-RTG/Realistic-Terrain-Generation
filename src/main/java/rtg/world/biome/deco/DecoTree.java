@@ -219,6 +219,17 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
+		            	case SUPER_TALL_BIRCH:
+		            		
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+	                        	
+		                        WorldGenerator worldgenerator = new WorldGenTreeRTGBirch(16 + rand.nextInt(8), rand.nextInt(8) + 4);
+		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                        worldgenerator.generate(world, rand, intX, intY, intZ);
+	                        }
+		            		
+		            		break;
+		            		
 		            	default:
 		            		break;
 	            	}
@@ -259,6 +270,7 @@ public class DecoTree extends DecoBase
 		PALM_CUSTOM,
 		SMALL_BIRCH,
 		SMALL_PINES_TREES_FORESTS,
+		SUPER_TALL_BIRCH,
 		VANILLA_BEACH_PALM;
 	}
 	

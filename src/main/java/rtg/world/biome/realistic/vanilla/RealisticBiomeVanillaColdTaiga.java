@@ -66,7 +66,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
 		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		decoFallenTree.logConditionNoise = 0f;
 		decoFallenTree.logConditionChance = 6;
-		decoFallenTree.maxY = 120;
+		decoFallenTree.maxY = 100;
 		decoFallenTree.logBlock = Blocks.log;
 		decoFallenTree.logMeta = (byte)1;
 		decoFallenTree.leavesBlock = Blocks.leaves;

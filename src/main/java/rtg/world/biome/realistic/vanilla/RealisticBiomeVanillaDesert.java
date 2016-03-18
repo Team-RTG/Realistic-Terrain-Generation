@@ -39,12 +39,13 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
         
         this.waterSurfaceLakeChance = 0;
         this.noLakes=true;
-    }
-    
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
-
+        
+		/**
+		 * ##################################################
+		 * # DECORATIONS (ORDER MATTERS)
+		 * ##################################################
+		 */
+        
 		DecoTree riverTrees = new DecoTree();
 		riverTrees.checkRiver = true;
 		riverTrees.minRiver = 0.86f;

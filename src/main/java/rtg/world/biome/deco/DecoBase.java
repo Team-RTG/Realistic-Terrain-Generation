@@ -64,6 +64,7 @@ public class DecoBase
 		BASE_BIOME_DECORATION,
 		BOULDER,
 		CACTUS,
+		DEAD_BUSH,
 		FALLEN_TREE,
 		FERN,
 		FERN_DOUBLE,

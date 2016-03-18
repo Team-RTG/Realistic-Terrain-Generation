@@ -24,6 +24,7 @@ public class DecoFlowersRTG extends DecoBase
 	public int maxY; // Height restriction.
 	public HeightType heightType; // How we determine the Y coord.
 	public int chance; // Higher = more rare.
+	public int loops;
 	
     /**
      *  FLOWER LIST: 
@@ -60,7 +61,8 @@ public class DecoFlowersRTG extends DecoBase
 		this.chance = 1; // 100% chance of generating by default.
 		this.maxY = 255; // No height limit by default.
 		this.heightType = HeightType.NEXT_INT;
-		this.strengthFactor = 2f; // Not sure why it was done like this, but... the higher the value, the more there will be.
+		this.strengthFactor = 0f; // Not sure why it was done like this, but... the higher the value, the more there will be.
+		this.loops = 1;
 		
 		this.addDecoTypes(DecoType.FLOWER);
 	}
@@ -72,7 +74,8 @@ public class DecoFlowersRTG extends DecoBase
 			
 	        if (TerrainGen.decorate(world, rand, chunkX, chunkY, FLOWERS)) {
 	            
-	            for (int i = 0; i < this.strengthFactor * strength; i++)
+	        	this.loops = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : this.loops;
+	            for (int i = 0; i < this.loops; i++)
 	            {
 	                int intX = chunkX + rand.nextInt(16) + 8;
 	                int intZ = chunkY + rand.nextInt(16) + 8;

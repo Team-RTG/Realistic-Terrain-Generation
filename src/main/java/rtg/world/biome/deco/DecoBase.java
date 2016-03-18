@@ -74,6 +74,7 @@ public class DecoBase
 		LILYPAD,
 		MUSHROOM,
 		PUMPKIN,
+		REED,
 		SHRUB,
 		TREE,
 		VINE

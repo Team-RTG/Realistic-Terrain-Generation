@@ -9,6 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenForest;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
+import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
@@ -22,6 +23,7 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGPalm;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineBig;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
 
@@ -99,6 +101,52 @@ public class DecoTree extends DecoBase
 	                
 	            	switch (this.treeType)
 	            	{
+	            	
+		            	case BIG_PINES:
+		            		
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+	
+	                            if (rand.nextBoolean()) {
+	                                WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 1, 1);
+			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+			                        worldgenerator.generate(world, rand, intX, intY, intZ);
+	                            }
+	                            else {
+	                                WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 0, 0);
+			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+			                        worldgenerator.generate(world, rand, intX, intY, intZ);
+	                            }
+		            		}
+		            		
+		            		break;
+		            		
+		            	case BIRCH_TREES_FOREST:
+		            		
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+	
+		                        WorldGenerator worldgenerator =
+			                        rand.nextInt(4) != 0
+			                        ? new WorldGenTreeRTGBirch(4 + rand.nextInt(7), 8 + rand.nextInt(12))
+			                        : rand.nextInt(10) != 0
+			                        	? new WorldGenTreeRTGTrees(false)
+			                        	: new WorldGenForest(false, false);
+		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                        worldgenerator.generate(world, rand, intX, intY, intZ);
+		            		}
+		            		
+		            		break;
+		            		
+		            	case DESERT_RIVER:
+		            		
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+	                        	
+		                        WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreeRTGSavanna(1);
+		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                        worldgenerator.generate(world, rand, intX, intY, intZ);
+	                        }
+		            		
+		            		break;
+	            		
 		            	case MEGA_JUNGLE:
 		            		
 		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
@@ -151,6 +199,17 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
+		            	case SMALL_BIRCH:
+		            		
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+	                        	
+	                            WorldGenerator worldgenerator = new WorldGenTreeRTGBirchSmall(4 + rand.nextInt(7), 8 + rand.nextInt(12), 2);
+	                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+	                            worldgenerator.generate(world, rand, intX, intY, intZ);
+	                        }
+		            		
+		            		break;
+		            		
 		            	case SMALL_PINES_TREES_FORESTS:
 		            		
 		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
@@ -167,40 +226,17 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
-		            	case BIRCH_TREES_FOREST:
+		            	case SUPER_TALL_BIRCH:
 		            		
 		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
-
-		                        WorldGenerator worldgenerator =
-			                        rand.nextInt(4) != 0
-			                        ? new WorldGenTreeRTGBirch(4 + rand.nextInt(7), 8 + rand.nextInt(12))
-			                        : rand.nextInt(10) != 0
-			                        	? new WorldGenTreeRTGTrees(false)
-			                        	: new WorldGenForest(false, false);
+	                        	
+		                        WorldGenerator worldgenerator = new WorldGenTreeRTGBirch(16 + rand.nextInt(8), rand.nextInt(8) + 4);
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 		                        worldgenerator.generate(world, rand, intX, intY, intZ);
-		            		}
+	                        }
 		            		
 		            		break;
-		            		
-		            	case BIG_PINES:
-		            		
-		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
 
-	                            if (rand.nextBoolean()) {
-	                                WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 1, 1);
-			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                        worldgenerator.generate(world, rand, intX, intY, intZ);
-	                            }
-	                            else {
-	                                WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 0, 0);
-			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                        worldgenerator.generate(world, rand, intX, intY, intZ);
-	                            }
-		            		}
-		            		
-		            		break;
-		            		
 		            	case VANILLA_BEACH_PALM:
 		            		
 	                        if (intY <= this.maxY && (rand.nextInt((int) (4f / strength)) == 0)) {
@@ -224,29 +260,7 @@ public class DecoTree extends DecoBase
 	                        }
 		            		
 		            		break;
-		            		
-		            	case SMALL_BIRCH:
-		            		
-		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
-	                        	
-	                            WorldGenerator worldgenerator = new WorldGenTreeRTGBirchSmall(4 + rand.nextInt(7), 8 + rand.nextInt(12), 2);
-	                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-	                            worldgenerator.generate(world, rand, intX, intY, intZ);
-	                        }
-		            		
-		            		break;
-		            		
-		            	case SUPER_TALL_BIRCH:
-		            		
-		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
-	                        	
-		                        WorldGenerator worldgenerator = new WorldGenTreeRTGBirch(16 + rand.nextInt(8), rand.nextInt(8) + 4);
-		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                        worldgenerator.generate(world, rand, intX, intY, intZ);
-	                        }
-		            		
-		            		break;
-		            		
+
 		            	default:
 		            		break;
 	            	}
@@ -282,6 +296,7 @@ public class DecoTree extends DecoBase
 	{
 		BIG_PINES,
 		BIRCH_TREES_FOREST,
+		DESERT_RIVER,
 		MEGA_JUNGLE,
 		MEGA_JUNGLE_MANGROVE,
 		PALM_CUSTOM,

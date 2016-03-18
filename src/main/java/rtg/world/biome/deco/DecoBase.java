@@ -39,6 +39,33 @@ public class DecoBase
 	}
 	
 	/**
+	 * Performs pre-generation checks to determine if the deco is allowed to generate.
+	 * The parameters are virtually the same as the ones passed to the legacy rDecorate() method.
+	 * This method should NOT be overridden in the individual deco objects.
+	 * 
+	 * @param biome
+	 * @param world
+	 * @param rand
+	 * @param chunkX
+	 * @param chunkY
+	 * @param simplex
+	 * @param cell
+	 * @param strength
+	 * @param river
+	 */
+	public boolean preGenerate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
+	{
+		if (this.checkRiver) {
+			
+			if (river > this.maxRiver || river < this.minRiver) {
+				return false;
+			}
+		}
+		
+		return true;
+    }
+	
+	/**
 	 * Generates the decoration.
 	 * The parameters are virtually the same as the ones passed to the legacy rDecorate() method.
 	 * This method should be overridden in the individual deco objects.

@@ -70,6 +70,7 @@ public class DecoBase
 		BOULDER,
 		CACTUS,
 		DEAD_BUSH,
+		DESERT_WELL,
 		FALLEN_TREE,
 		FERN,
 		FERN_DOUBLE,

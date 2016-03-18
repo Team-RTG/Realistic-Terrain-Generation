@@ -24,13 +24,18 @@ public class DecoBase
 	 * set to false when we need to generate ores in biomes that don't let the base biome handle decoration at all.
 	 */
 	public boolean allowed;
-	
 	public ArrayList<DecoType> decoTypes;
+	public boolean checkRiver;
+	public float minRiver; // Minimum river value required to generate.
+	public float maxRiver; // Maximum river value required to generate.
 	
 	public DecoBase()
 	{
 		this.allowed = true;
 		this.decoTypes = new ArrayList<DecoType>();
+		this.checkRiver = false;
+		this.minRiver = -2f;
+		this.maxRiver = 2f;
 	}
 	
 	/**

@@ -9,7 +9,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 
@@ -21,9 +20,15 @@ import rtg.world.gen.feature.WorldGenGrass;
 public class DecoLargeFernDoubleTallgrass extends DecoBase
 {
     
+	private final int GRASS_META = 2;
+	private final int FERN_META = 3;
+	
 	public float strengthFactor;
 	public int maxY;
-	
+	public int loops;
+	public int grassChance;
+	public int fernChance;
+
 	public DecoLargeFernDoubleTallgrass()
 	{
 		super();
@@ -33,7 +38,10 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase
 		 * These can be overridden when configuring the Deco object in the realistic biome.
 		 */
 		this.maxY = 255; // No height limit by default.
-		this.strengthFactor = 2f; // Not sure why it was done like this, but... the higher the value, the more there will be.
+		this.strengthFactor = 0f; // Not sure why it was done like this, but... the higher the value, the more there will be.
+		this.loops = 1;
+		this.grassChance = 0; // 50% chance for both grass & ferns by default.
+		this.fernChance = 0; // 50% chance for both grass & ferns by default. (If set, overrides grass chance.)
 		
 		this.addDecoTypes(DecoType.GRASS_DOUBLE, DecoType.FERN_DOUBLE);
 	}
@@ -45,14 +53,48 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase
 			
 			if (TerrainGen.decorate(world, rand, chunkX, chunkY, GRASS)) {
 	            
-	            for (int i = 0; i < this.strengthFactor * strength; i++)
+				this.loops = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : this.loops;
+	            for (int i = 0; i < this.loops; i++)
 	            {
 	                int intX = chunkX + rand.nextInt(16) + 8;
 	                int intY = rand.nextInt(this.maxY);
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 
 	                if (intY <= this.maxY) {
-	                	(new WorldGenGrass(Blocks.double_plant, RandomUtil.getRandomInt(rand, 2, 3))).generate(world, rand, intX, intY, intZ);
+	                	
+	                	if (this.fernChance > 0) {
+	                		
+		                	if (rand.nextInt(this.fernChance) == 0) {
+		                		
+		                		(new WorldGenGrass(Blocks.double_plant, FERN_META)).generate(world, rand, intX, intY, intZ);
+		                	}
+		                	else {
+		                		
+		                		(new WorldGenGrass(Blocks.double_plant, GRASS_META)).generate(world, rand, intX, intY, intZ);
+		                	}
+	                	}
+	                	else if (this.grassChance > 0) {
+	                		
+		                	if (rand.nextInt(this.grassChance) == 0) {
+		                		
+		                		(new WorldGenGrass(Blocks.double_plant, GRASS_META)).generate(world, rand, intX, intY, intZ);
+		                	}
+		                	else {
+		                		
+		                		(new WorldGenGrass(Blocks.double_plant, FERN_META)).generate(world, rand, intX, intY, intZ);
+		                	}
+	                	}
+	                	else {
+	                		
+		                	if (rand.nextBoolean()) {
+		                		
+		                		(new WorldGenGrass(Blocks.double_plant, GRASS_META)).generate(world, rand, intX, intY, intZ);
+		                	}
+		                	else {
+		                		
+		                		(new WorldGenGrass(Blocks.double_plant, FERN_META)).generate(world, rand, intX, intY, intZ);
+		                	}
+	                	}
 	                }
 	            }
 	        }

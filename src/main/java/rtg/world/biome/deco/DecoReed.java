@@ -1,30 +1,29 @@
 package rtg.world.biome.deco;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.REED;
 
 import java.util.Random;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenGrass;
 
 /**
  * 
  * @author WhichOnesPink
  *
  */
-public class DecoGrass extends DecoBase
+public class DecoReed extends DecoBase
 {
     
 	public float strengthFactor;
 	public int maxY;
 	public int loops;
 	
-	public DecoGrass()
+	public DecoReed()
 	{
 		super();
 		
@@ -36,7 +35,7 @@ public class DecoGrass extends DecoBase
 		this.strengthFactor = 0f; // Not sure why it was done like this, but... the higher the value, the more there will be.
 		this.loops = 1;
 		
-		this.addDecoTypes(DecoType.GRASS);
+		this.addDecoTypes(DecoType.REED);
 	}
 	
 	@Override
@@ -44,7 +43,7 @@ public class DecoGrass extends DecoBase
 	{
 		if (this.allowed) {
 			
-			if (TerrainGen.decorate(world, rand, chunkX, chunkY, GRASS)) {
+			if (TerrainGen.decorate(world, rand, chunkX, chunkY, REED)) {
 	            
 				this.loops = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : this.loops;
 	            for (int i = 0; i < this.loops; i++)
@@ -54,7 +53,7 @@ public class DecoGrass extends DecoBase
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 
 	                if (intY <= this.maxY) {
-	                	(new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, intX, intY, intZ);
+	                	(new WorldGenReed()).generate(world, rand, intX, intY, intZ);
 	                }
 	            }
 	        }

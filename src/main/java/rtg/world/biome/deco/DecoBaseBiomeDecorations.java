@@ -36,6 +36,11 @@ public class DecoBaseBiomeDecorations extends DecoBase
 	 */
 	public int loops;
 	
+	/**
+	 * Height restriction.
+	 */
+	public int maxY;
+	
 	public DecoBaseBiomeDecorations()
 	{
 		super();
@@ -47,6 +52,7 @@ public class DecoBaseBiomeDecorations extends DecoBase
 		this.equalsZeroChance = 0; // Only used if greater than 0
 		this.notEqualsZeroChance = 0; // Only used if greater than 0
 		this.loops = 1; // You almost always want to loop only once.
+		this.maxY = 255; // No height limit by default.
 		
 		this.addDecoTypes(DecoType.BASE_BIOME_DECORATION);
 	}
@@ -55,31 +61,41 @@ public class DecoBaseBiomeDecorations extends DecoBase
 	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
 	{
 		if (this.allowed) {
-			
+            
 			for (int i = 0; i < loops; i++) {
 				
-				if (this.equalsZeroChance > 0) {
-					
-			        if (rand.nextInt(this.equalsZeroChance) == 0) {
-			        	biome.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
-			        }
-			        else {
-			        	biome.rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
-			        }
-				}
-				else if (this.notEqualsZeroChance > 0) {
-					
-			        if (rand.nextInt(this.notEqualsZeroChance) != 0) {
-			        	biome.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
-			        }
-			        else {
-			        	biome.rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
-			        }
-				}
-				else {
-					
-					biome.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
-				}
+	            int intX = chunkX + rand.nextInt(16) + 8;
+	            int intZ = chunkY + rand.nextInt(16) + 8;
+	            int intY = world.getHeightValue(intX, intZ);
+	            
+	            if (intY <= this.maxY) {
+	            	
+					if (this.equalsZeroChance > 0) {
+						
+				        if (rand.nextInt(this.equalsZeroChance) == 0) {
+				        	biome.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
+				        }
+				        else {
+				        	biome.rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
+				        }
+					}
+					else if (this.notEqualsZeroChance > 0) {
+						
+				        if (rand.nextInt(this.notEqualsZeroChance) != 0) {
+				        	biome.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
+				        }
+				        else {
+				        	biome.rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
+				        }
+					}
+					else {
+						
+						biome.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
+					}
+	            }
+	            else {
+	            	biome.rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
+	            }
 			}
 		}
 		else {

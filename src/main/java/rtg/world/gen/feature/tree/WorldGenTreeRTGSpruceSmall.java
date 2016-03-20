@@ -1,7 +1,7 @@
 package rtg.world.gen.feature.tree;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -14,6 +14,7 @@ public class WorldGenTreeRTGSpruceSmall extends WorldGenerator {
     public boolean generate(World world, Random rand, BlockPos blockPos) {
         return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
+
     private int treeSize;
 
     public WorldGenTreeRTGSpruceSmall(int s) {

@@ -9,9 +9,8 @@ import rtg.config.vanilla.ConfigVanilla;
 
 import java.io.File;
 
-public class ConfigManager
-{
-    
+public class ConfigManager {
+
     public static File rtgConfigFile;
     public static File vanillaConfigFile;
     public static File bopConfigFile;
@@ -31,13 +30,13 @@ public class ConfigManager
     //public static File fnConfigFile;
 
     private ConfigRTG configRTG = new ConfigRTG();
+
     public ConfigRTG rtg() {
         return configRTG;
     }
-    
-    public static void init(String configpath)
-    {
-    
+
+    public static void init(String configpath) {
+
         rtgConfigFile = new File(configpath + "rtg.cfg");
         vanillaConfigFile = new File(configpath + "biomes/vanilla.cfg");
         bopConfigFile = new File(configpath + "biomes/biomesoplenty.cfg");
@@ -55,7 +54,7 @@ public class ConfigManager
         //rwConfigFile = new File(configpath + "biomes/ridiculousworld.cfg");
         //tofuConfigFile = new File(configpath + "biomes/tofucraft.cfg");
         //fnConfigFile = new File(configpath + "biomes/forgottennature.cfg");
-        
+
         ConfigRTG.init(rtgConfigFile);
 
         ConfigVanilla.init(vanillaConfigFile);

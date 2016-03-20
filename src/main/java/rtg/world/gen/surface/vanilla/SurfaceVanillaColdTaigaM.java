@@ -14,58 +14,41 @@ import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
 
-public class SurfaceVanillaColdTaigaM extends SurfaceBase
-{
+public class SurfaceVanillaColdTaigaM extends SurfaceBase {
 
-    public SurfaceVanillaColdTaigaM(BiomeConfig config, IBlockState top, IBlockState filler)
-    {
+    public SurfaceVanillaColdTaigaM(BiomeConfig config, IBlockState top, IBlockState filler) {
         super(config, top, filler);
     }
-    
+
     @Override
-    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
-    {
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
         float c = CliffCalculator.calc(x, y, noise);
         boolean cliff = c > 1.4f ? true : false;
-        
-        for(int k = 255; k > -1; k--)
-        {
-            Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
-            if(b == Blocks.air)
-            {
+
+        for (int k = 255; k > -1; k--) {
+            Block b = primer.getBlockState(x, 256 + k, y).getBlock();
+            if (b == Blocks.air) {
                 depth = -1;
-            }
-            else if(b == Blocks.stone)
-            {
+            } else if (b == Blocks.stone) {
                 depth++;
 
-                if(cliff)
-                {
-                    if(depth > -1 && depth < 2)
-                    {
+                if (cliff) {
+                    if (depth > -1 && depth < 2) {
                         if (rand.nextInt(3) == 0) {
-                            
-                            primer.setBlockState((y * 16 + x) * 256 + k, hcCobble(world, i, j, x, y, k));
+
+                            primer.setBlockState(x, 256 + k, y, hcCobble(world, i, j, x, y, k));
+                        } else {
+
+                            primer.setBlockState(x, 256 + k, y, hcStone(world, i, j, x, y, k));
                         }
-                        else {
-                            
-                            primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k));
-                        }
+                    } else if (depth < 10) {
+                        primer.setBlockState(x, 256 + k, y, hcStone(world, i, j, x, y, k));
                     }
-                    else if (depth < 10)
-                    {
-                        primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k));
-                    }
-                }
-                else
-                {
-                    if(depth == 0 && k > 61)
-                    {
-                        primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
-                    }
-                    else if(depth < 4)
-                    {
-                        primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
+                } else {
+                    if (depth == 0 && k > 61) {
+                        primer.setBlockState(x, 256 + k, y, topBlock);
+                    } else if (depth < 4) {
+                        primer.setBlockState(x, 256 + k, y, fillerBlock);
                     }
                 }
             }

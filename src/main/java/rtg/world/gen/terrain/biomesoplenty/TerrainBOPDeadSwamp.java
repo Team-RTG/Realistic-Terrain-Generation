@@ -7,24 +7,22 @@ import rtg.world.gen.terrain.HeightVariation;
 import rtg.world.gen.terrain.JitterEffect;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainBOPDeadSwamp extends TerrainBase
-{
+public class TerrainBOPDeadSwamp extends TerrainBase {
 
     private HeightEffect height;
-    public TerrainBOPDeadSwamp()
-    {
+
+    public TerrainBOPDeadSwamp() {
         HeightVariation waterLand = new HeightVariation();
         waterLand.height = 2f;
         waterLand.wavelength = 40f;
-        waterLand.octave =0;
+        waterLand.octave = 0;
 
-        height = new JitterEffect(5f,10f,waterLand);
+        height = new JitterEffect(5f, 10f, waterLand);
 
     }
 
     @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-    {
-        return 62f+ height.added(simplex, cell,x, y);
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        return 62f + height.added(simplex, cell, x, y);
     }
 }

@@ -1,7 +1,7 @@
 package rtg.world.gen.feature;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -9,7 +9,7 @@ import java.util.Random;
 
 import static java.lang.Math.PI;
 import static net.minecraft.init.Blocks.*;
-import static net.minecraft.util.MathHelper.*;
+import static net.minecraft.util.math.MathHelper.*;
 
 public class WorldGenClay extends WorldGenerator {
     public boolean generate(World world, Random rand, BlockPos blockPos) {

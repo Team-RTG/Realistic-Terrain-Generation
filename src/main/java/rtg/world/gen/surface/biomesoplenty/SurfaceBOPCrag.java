@@ -14,73 +14,54 @@ import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
 
-public class SurfaceBOPCrag extends SurfaceBase
-{
-	private IBlockState cliffBlock1;
+public class SurfaceBOPCrag extends SurfaceBase {
+    private IBlockState cliffBlock1;
 
-	public SurfaceBOPCrag(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState cliff1)
-	{
-		super(config, top, filler);
+    public SurfaceBOPCrag(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState cliff1) {
+        super(config, top, filler);
 
-		cliffBlock1 = cliff1;
-	}
+        cliffBlock1 = cliff1;
+    }
 
-	@Override
-	public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
-	{
-		float c = CliffCalculator.calc(x, y, noise);
-		boolean cliff = c > 1.4f ? true : false;
+    @Override
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+        float c = CliffCalculator.calc(x, y, noise);
+        boolean cliff = c > 1.4f ? true : false;
 
-		for(int k = 255; k > -1; k--)
-		{
-			Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
-            if(b == Blocks.air)
-            {
-            	depth = -1;
-            }
-            else if(b == Blocks.stone)
-            {
-            	depth++;
+        for (int k = 255; k > -1; k--) {
+            Block b = primer.getBlockState(x, 256 + k, y).getBlock();
+            if (b == Blocks.air) {
+                depth = -1;
+            } else if (b == Blocks.stone) {
+                depth++;
 
-            	if (k > 50) {
+                if (k > 50) {
 
-                	if(cliff)
-                	{
-                		if(depth > -1 && depth < 2)
-                		{
+                    if (cliff) {
+                        if (depth > -1 && depth < 2) {
                             if (rand.nextInt(3) == 0) {
 
-                                primer.setBlockState((y * 16 + x) * 256 + k, cliffBlock1);
-                            }
-                            else {
+                                primer.setBlockState(x, 256 + k, y, cliffBlock1);
+                            } else {
 
-                                primer.setBlockState((y * 16 + x) * 256 + k, hcCobble(world, i, j, x, y, k));
+                                primer.setBlockState(x, 256 + k, y, hcCobble(world, i, j, x, y, k));
                             }
-                		}
-                		else if (depth < 10)
-                		{
-                			primer.setBlockState((y * 16 + x) * 256 + k, cliffBlock1);
-                		}
-                		else {
-                		    primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
-                		}
-                	}
-                	else
-                	{
-    	        		if(depth == 0 && k > 61)
-    	        		{
-    	        			primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
-    	        		}
-    	        		else if(depth < 4)
-    	        		{
-    	        			primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
-    	        		}
-    	        		else {
-    	        		    primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
-    	        		}
-                	}
-            	}
+                        } else if (depth < 10) {
+                            primer.setBlockState(x, 256 + k, y, cliffBlock1);
+                        } else {
+                            primer.setBlockState(x, 256 + k, y, topBlock);
+                        }
+                    } else {
+                        if (depth == 0 && k > 61) {
+                            primer.setBlockState(x, 256 + k, y, topBlock);
+                        } else if (depth < 4) {
+                            primer.setBlockState(x, 256 + k, y, fillerBlock);
+                        } else {
+                            primer.setBlockState(x, 256 + k, y, topBlock);
+                        }
+                    }
+                }
             }
-		}
-	}
+        }
+    }
 }

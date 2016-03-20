@@ -7,31 +7,23 @@ import rtg.util.Logger;
 
 import java.io.File;
 
-public class ConfigTC 
-{
-	public static Configuration config;
-	public static Configuration villageConfig;
+public class ConfigTC {
+    public static Configuration config;
+    public static Configuration villageConfig;
 
-	public static void init(File configFile) 
-	{
-		config = new Configuration(configFile);
-	
-		try 
-		{
-			config.load();
+    public static void init(File configFile) {
+        config = new Configuration(configFile);
+
+        try {
+            config.load();
 
             BiomeConfigManager.setBiomeConfigsFromUserConfigs(BiomeConfigTC.getBiomeConfigs(), config);
-		}
-		catch (Exception e)
-		{
-		    Logger.error("RTG has had a problem loading Thaumcraft configuration.");
-		}
-		finally 
-		{
-			if (config.hasChanged())
-			{
-				config.save();
-			}
-		}
-	}
+        } catch (Exception e) {
+            Logger.error("RTG has had a problem loading Thaumcraft configuration.");
+        } finally {
+            if (config.hasChanged()) {
+                config.save();
+            }
+        }
+    }
 }

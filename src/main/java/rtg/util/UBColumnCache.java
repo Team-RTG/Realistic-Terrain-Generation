@@ -1,11 +1,9 @@
-
 package rtg.util;
 
 /**
- *
  * @author Zeno410
  */
-    public class UBColumnCache {
+public class UBColumnCache {
 //        private UBStrataColumn column;
 //        private int cachedX = Integer.MIN_VALUE;
 //        private int cachedY = Integer.MIN_VALUE;
@@ -34,4 +32,4 @@ package rtg.util;
 //                }
 //            };
 //        }
-    }
+}

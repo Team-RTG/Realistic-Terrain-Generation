@@ -16,70 +16,52 @@ import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
 
-public class SurfaceVanillaSavanna extends SurfaceBase
-{
-    
+public class SurfaceVanillaSavanna extends SurfaceBase {
+
     private IBlockState mixBlock;
     private float width;
     private float height;
-    
-    public SurfaceVanillaSavanna(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mix, float mixWidth, float mixHeight)
-    {
-    
+
+    public SurfaceVanillaSavanna(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mix, float mixWidth, float mixHeight) {
+
         super(config, top, filler);
-        
+
         mixBlock = this.getConfigBlock(config, BiomeConfigVanillaSavanna.surfaceMixBlockId, BiomeConfigVanillaSavanna.surfaceMixBlockMetaId, mix);
-        
+
         width = mixWidth;
         height = mixHeight;
     }
-    
+
     @Override
     public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
-                             OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
-    {
-    
+                             OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+
         float c = CliffCalculator.calc(x, y, noise);
         boolean cliff = c > 1.4f;
-        
-        for (int k = 255; k > -1; k--)
-        {
-            Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
-            if (b == Blocks.air)
-            {
+
+        for (int k = 255; k > -1; k--) {
+            Block b = primer.getBlockState(x, 256 + k, y).getBlock();
+            if (b == Blocks.air) {
                 depth = -1;
-            }
-            else if (b == Blocks.stone)
-            {
+            } else if (b == Blocks.stone) {
                 depth++;
-                
-                if (cliff)
-                {
-                    if (depth > -1 && depth < 2)
-                    {
-                        primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.SAVANNA.getForHeight(i, k,j));
+
+                if (cliff) {
+                    if (depth > -1 && depth < 2) {
+                        primer.setBlockState(x, 256 + k, y, CanyonColour.SAVANNA.getForHeight(i, k, j));
+                    } else if (depth < 10) {
+                        primer.setBlockState(x, 256 + k, y, hcCobble(world, i, j, x, y, k));
                     }
-                    else if (depth < 10)
-                    {
-                        primer.setBlockState((y * 16 + x) * 256 + k, hcCobble(world, i, j, x, y, k));
-                    }
-                }
-                else
-                {
-                    if (depth == 0 && k > 61)
-                    {
+                } else {
+                    if (depth == 0 && k > 61) {
                         if (simplex.noise2(i / width, j / width) > height) // > 0.27f, i / 12f
                         {
-                            primer.setBlockState((y * 16 + x) * 256 + k, mixBlock);
+                            primer.setBlockState(x, 256 + k, y, mixBlock);
+                        } else {
+                            primer.setBlockState(x, 256 + k, y, topBlock);
                         }
-                        else
-                        {
-                            primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
-                        }
-                    }
-                    else if (depth < 4)
-                    {
-                        primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
+                    } else if (depth < 4) {
+                        primer.setBlockState(x, 256 + k, y, fillerBlock);
                     }
                 }
             }

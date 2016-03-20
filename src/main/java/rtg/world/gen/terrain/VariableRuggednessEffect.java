@@ -1,11 +1,12 @@
-
 package rtg.world.gen.terrain;
+
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 
 /**
  * This provides a standard "ruggedness switch" between a rugged terrain and a smooth one
  * it has its wavelength standardized to provide cooperation between adjacent terrains
+ *
  * @author Zeno410
  */
 public class VariableRuggednessEffect extends HeightEffect {
@@ -15,13 +16,13 @@ public class VariableRuggednessEffect extends HeightEffect {
     private final HeightEffect ruggedTerrain;
     private final float startTransition;
     private final float transitionWidth;
-    private int octave=1;// this is the standard "ruggedness octave"
-    private float wavelength ;// standard ruggedness wavelength
-    
+    private int octave = 1;// this is the standard "ruggedness octave"
+    private float wavelength;// standard ruggedness wavelength
+
     public static float STANDARD_RUGGEDNESS_WAVELENGTH = 200f;
 
     public VariableRuggednessEffect(HeightEffect smoothTerrain, HeightEffect ruggedTerrain,
-            float startTransition, float transitionWidth, float wavelength) {
+                                    float startTransition, float transitionWidth, float wavelength) {
         this.smoothTerrain = smoothTerrain;
         this.ruggedTerrain = ruggedTerrain;
         this.startTransition = startTransition;
@@ -30,19 +31,19 @@ public class VariableRuggednessEffect extends HeightEffect {
     }
 
     public VariableRuggednessEffect(HeightEffect smoothTerrain, HeightEffect ruggedTerrain,
-        float startTransition, float transitionWidth) {
-        this(smoothTerrain,ruggedTerrain,startTransition,transitionWidth,STANDARD_RUGGEDNESS_WAVELENGTH);
+                                    float startTransition, float transitionWidth) {
+        this(smoothTerrain, ruggedTerrain, startTransition, transitionWidth, STANDARD_RUGGEDNESS_WAVELENGTH);
 
     }
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell,int x, int y) {
-        float choice = simplex.octave(octave).noise2((float)x/wavelength, (float)y/wavelength);
-        if (choice<= startTransition) return smoothTerrain.added(simplex, cell,x, y);
-        if (choice>= startTransition + transitionWidth) return ruggedTerrain.added(simplex, cell, x, y);
+    public final float added(OpenSimplexNoise simplex, CellNoise cell, int x, int y) {
+        float choice = simplex.octave(octave).noise2((float) x / wavelength, (float) y / wavelength);
+        if (choice <= startTransition) return smoothTerrain.added(simplex, cell, x, y);
+        if (choice >= startTransition + transitionWidth) return ruggedTerrain.added(simplex, cell, x, y);
         // otherwise in the transition zone;
         float smooth = smoothTerrain.added(simplex, cell, x, y);
         float rugged = ruggedTerrain.added(simplex, cell, x, y);
-        return ((choice - startTransition)*rugged + (startTransition + transitionWidth - choice)*smooth)/
+        return ((choice - startTransition) * rugged + (startTransition + transitionWidth - choice) * smooth) /
                 transitionWidth;
     }
 

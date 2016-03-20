@@ -3,8 +3,7 @@ package rtg.api.biome.tofucraft.config;
 import rtg.api.biome.BiomeConfig;
 
 
-public class BiomeConfigTOFU
-{
+public class BiomeConfigTOFU {
 
     public static BiomeConfig biomeConfigTOFULeekPlains;
     public static BiomeConfig biomeConfigTOFUTofuBuildings;
@@ -15,21 +14,20 @@ public class BiomeConfigTOFU
     public static BiomeConfig biomeConfigTOFUTofuPlainHills;
     public static BiomeConfig biomeConfigTOFUTofuPlains;
     public static BiomeConfig biomeConfigTOFUTofuRiver;
-    
-    public static BiomeConfig[] getBiomeConfigs()
-    {
+
+    public static BiomeConfig[] getBiomeConfigs() {
         BiomeConfig[] biomeConfigs = new BiomeConfig[]{
-            biomeConfigTOFULeekPlains,
-            biomeConfigTOFUTofuBuildings,
-            biomeConfigTOFUTofuExtremeHills,
-            biomeConfigTOFUTofuExtremeHillsEdge,
-            biomeConfigTOFUTofuForest,
-            biomeConfigTOFUTofuForestHills,
-            biomeConfigTOFUTofuPlainHills,
-            biomeConfigTOFUTofuPlains,
-            biomeConfigTOFUTofuRiver
+                biomeConfigTOFULeekPlains,
+                biomeConfigTOFUTofuBuildings,
+                biomeConfigTOFUTofuExtremeHills,
+                biomeConfigTOFUTofuExtremeHillsEdge,
+                biomeConfigTOFUTofuForest,
+                biomeConfigTOFUTofuForestHills,
+                biomeConfigTOFUTofuPlainHills,
+                biomeConfigTOFUTofuPlains,
+                biomeConfigTOFUTofuRiver
         };
-        
+
         return biomeConfigs;
     }
 }

@@ -2,25 +2,27 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHills;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.deco.DecoBase;
+import rtg.world.biome.deco.DecoGrass;
+import rtg.world.biome.deco.DecoMushrooms;
+import rtg.world.biome.deco.DecoPumpkin;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
 import rtg.world.gen.feature.WorldGenBlob;
-import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineEuro;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHills;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHills;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenFlowers;
-import net.minecraft.world.gen.feature.WorldGenPumpkin;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
 {
@@ -103,36 +105,34 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
             }
         }
         
-        if (rand.nextInt((int) (3f / strength)) == 0)
-        {
-            int k15 = chunkX + rand.nextInt(16) + 8;
-            int k17 = rand.nextInt(64) + 64;
-            int k20 = chunkY + rand.nextInt(16) + 8;
-            
-            if (rand.nextBoolean())
-            {
-                (new WorldGenFlowers(Blocks.brown_mushroom)).generate(world, rand, k15, k17, k20);
-            }
-            else
-            {
-                (new WorldGenFlowers(Blocks.red_mushroom)).generate(world, rand, k15, k17, k20);
-            }
-        }
+        DecoShrub decoShrub1 = new DecoShrub();
+        decoShrub1.maxY = 100;
+        decoShrub1.strengthFactor = 2f;
+		
+        DecoShrub decoShrub2 = new DecoShrub();
+        decoShrub2.maxY = 100;
+        decoShrub2.strengthFactor = 2f;
         
-        if (rand.nextInt((int) (20f / strength)) == 0)
-        {
-            int j16 = chunkX + rand.nextInt(16) + 8;
-            int j18 = rand.nextInt(128);
-            int j21 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenPumpkin()).generate(world, rand, j16, j18, j21);
-        }
+        DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
+        decoHelperRandomSplit.decos = new DecoBase[]{decoShrub1, decoShrub2};
+        decoHelperRandomSplit.chances = new int[]{10, 1};
+        this.addDeco(decoHelperRandomSplit);
         
-        for (int l14 = 0; l14 < 10f * strength; l14++)
-        {
-            int l19 = chunkX + rand.nextInt(16) + 8;
-            int k22 = rand.nextInt(128);
-            int j24 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
-        }
+        DecoMushrooms decoMushrooms = new DecoMushrooms();
+        decoMushrooms.maxY = 90;
+        decoMushrooms.randomType = rtg.world.biome.deco.DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH;
+        decoMushrooms.randomFloat = 3f;
+        this.addDeco(decoMushrooms);
+        
+		DecoPumpkin decoPumpkin = new DecoPumpkin();
+		decoPumpkin.maxY = 90;
+		decoPumpkin.randomType = rtg.world.biome.deco.DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH;
+		decoPumpkin.randomFloat = 20f;
+        this.addDeco(decoPumpkin);
+        
+		DecoGrass decoGrass = new DecoGrass();
+		decoGrass.maxY = 128;
+		decoGrass.strengthFactor = 10f;
+        this.addDeco(decoGrass);
     }
 }

@@ -349,7 +349,7 @@ public class TerrainBase
 
     public static float terrainMarsh(int x, int y, OpenSimplexNoise simplex, float baseHeight)
     {
-        float h = simplex.noise2(x / 130f, y / 130f) * 30f;
+        float h = simplex.noise2(x / 130f, y / 130f) * 20f;
 
         h += simplex.noise2(x / 12f, y / 12f) * 2f;
         h += simplex.noise2(x / 18f, y / 18f) * 4f;

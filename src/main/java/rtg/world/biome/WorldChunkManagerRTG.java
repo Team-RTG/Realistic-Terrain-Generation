@@ -246,7 +246,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         //New cellular noise.
         //TODO move the initialization of the results in a way that's more efficient but still thread safe.
         double[] results = simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
-        return (float) cellBorder(results, 30.0 / 900.0, 1.0);
+        return (float) cellBorder(results, 30.0 / 450.0, 1.0);
     }
     	
     public boolean isBorderlessAt(int x, int y)

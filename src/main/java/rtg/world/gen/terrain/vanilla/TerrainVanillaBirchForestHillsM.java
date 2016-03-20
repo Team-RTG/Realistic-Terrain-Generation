@@ -6,6 +6,7 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainVanillaBirchForestHillsM extends TerrainBase
 {
+    private float hillStrength = 65f;
     public TerrainVanillaBirchForestHillsM()
     {
     }
@@ -13,6 +14,6 @@ public class TerrainVanillaBirchForestHillsM extends TerrainBase
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 80f, 68f);
+        return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, 10f);
     }
 }

@@ -3,17 +3,15 @@ package rtg.api.biome.arsmagica.config;
 import rtg.api.biome.BiomeConfig;
 
 
-public class BiomeConfigAM
-{
+public class BiomeConfigAM {
 
     public static BiomeConfig biomeConfigAMWitchwoodForest;
-    
-    public static BiomeConfig[] getBiomeConfigs()
-    {
+
+    public static BiomeConfig[] getBiomeConfigs() {
         BiomeConfig[] biomeConfigs = new BiomeConfig[]{
-            biomeConfigAMWitchwoodForest
+                biomeConfigAMWitchwoodForest
         };
-        
+
         return biomeConfigs;
     }
 }

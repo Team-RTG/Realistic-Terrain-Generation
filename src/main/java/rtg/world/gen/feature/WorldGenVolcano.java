@@ -10,16 +10,14 @@ import rtg.util.OpenSimplexNoise;
 
 import java.util.Random;
 
-public class WorldGenVolcano 
-{
+public class WorldGenVolcano {
     protected static Block volcanoBlock = Block.getBlockFromName(ConfigRTG.volcanoBlockId);
     protected static byte volcanoByte = (byte) ConfigRTG.volcanoBlockByte;
     protected static Block lavaBlock = ConfigRTG.enableVolcanoEruptions ? Blocks.flowing_lava : Blocks.lava;
-    
-	public static void build(ChunkPrimer primer, World world, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float[] noise)
-	{	
-	    return;
-	    
+
+    public static void build(ChunkPrimer primer, World world, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float[] noise) {
+        return;
+
 //		int i, j;
 //		float distance, height, obsidian;
 //		Block b;
@@ -112,10 +110,9 @@ public class WorldGenVolcano
 //				}
 //			}
 //		}
-	}
-	
-    public static int cta(int x, int y, int z)
-    {
-    	return (x * 16 + z) * 256 + y;
+    }
+
+    public static int cta(int x, int y, int z) {
+        return (x * 16 + z) * 256 + y;
     }
 }

@@ -1,12 +1,11 @@
 package rtg.world;
 
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProviderSurface;
 
-public class WorldProviderSurfaceRTG extends WorldProviderSurface
-{
+public class WorldProviderSurfaceRTG extends WorldProviderSurface {
     @Override
-    public String getDimensionName()
-    {
-        return "Overworld";
+    public DimensionType getDimensionType() {
+        return DimensionType.OVERWORLD;
     }
 }

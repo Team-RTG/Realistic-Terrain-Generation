@@ -1,7 +1,7 @@
 package rtg.world.gen.feature.tree;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -114,7 +114,7 @@ public class WorldGenTreeRTGPineSmall extends WorldGenerator {
 
     public void buildLeaves(World world, int x, int y, int z) {
         Block b = world.getBlockState(new BlockPos(x, y, z)).getBlock();
-        if (b.getMaterial() == air) {
+        if (b.getMaterial(b.getDefaultState()) == air) {
             world.setBlockState(new BlockPos(x, y, z), leaves.getStateFromMeta(metadata), 0);
         }
     }

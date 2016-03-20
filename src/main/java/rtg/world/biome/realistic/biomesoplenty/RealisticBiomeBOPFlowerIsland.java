@@ -3,8 +3,9 @@ package rtg.world.biome.realistic.biomesoplenty;
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenBlockBlob;
@@ -18,25 +19,22 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPFlowerIsland;
 
 import java.util.Random;
 
-public class RealisticBiomeBOPFlowerIsland extends RealisticBiomeBOPBase
-{
-	public static BiomeGenBase bopBiome = BOPBiomes.flower_island.get();
+public class RealisticBiomeBOPFlowerIsland extends RealisticBiomeBOPBase {
+    public static BiomeGenBase bopBiome = BOPBiomes.flower_island.get();
 
-	public static IBlockState topBlock = bopBiome.topBlock;
-	public static IBlockState fillerBlock = bopBiome.fillerBlock;
+    public static IBlockState topBlock = bopBiome.topBlock;
+    public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-	public RealisticBiomeBOPFlowerIsland(BiomeConfig config)
-	{
-		super(config,
-			bopBiome, BiomeGenBase.river,
-			new TerrainBOPFlowerIsland(65f, 68f, 24f),
-			new SurfaceBOPFlowerIsland(config, topBlock, fillerBlock)
-		);
-	}
+    public RealisticBiomeBOPFlowerIsland(BiomeConfig config) {
+        super(config,
+                bopBiome, Biomes.river,
+                new TerrainBOPFlowerIsland(65f, 68f, 24f),
+                new SurfaceBOPFlowerIsland(config, topBlock, fillerBlock)
+        );
+    }
 
     @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         /**
          * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
@@ -47,8 +45,7 @@ public class RealisticBiomeBOPFlowerIsland extends RealisticBiomeBOPBase
 
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
 
-        for (int i23 = 0; i23 < 1; i23++)
-        {
+        for (int i23 = 0; i23 < 1; i23++) {
             int i1 = chunkX + rand.nextInt(16) + 8;
             int j1 = chunkY + rand.nextInt(16) + 8;
             int k1 = world.getHeight(new BlockPos(i1, 0, j1)).getY();
@@ -61,8 +58,7 @@ public class RealisticBiomeBOPFlowerIsland extends RealisticBiomeBOPBase
 
         if (this.config.getPropertyById(BiomeConfigBOPFlowerIsland.decorationLogsId).valueBoolean) {
 
-            if (rand.nextInt(24) == 0)
-            {
+            if (rand.nextInt(24) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
                 int y22 = world.getHeight(new BlockPos(x22, 0, z22)).getY();
@@ -76,19 +72,17 @@ public class RealisticBiomeBOPFlowerIsland extends RealisticBiomeBOPBase
                 if (intLogRand < 3) {
 
                     log = Blocks.log2;
-                    logMeta = (byte)1;
+                    logMeta = (byte) 1;
                     intLogLength = 2 + rand.nextInt(2);
-                }
-                else if (intLogRand < 9) {
+                } else if (intLogRand < 9) {
 
                     log = Blocks.log;
-                    logMeta = (byte)0;
+                    logMeta = (byte) 0;
                     intLogLength = 2 + rand.nextInt(2);
-                }
-                else {
+                } else {
 
                     log = Blocks.log;
-                    logMeta = (byte)2;
+                    logMeta = (byte) 2;
                     intLogLength = 2 + rand.nextInt(2);
                 }
 

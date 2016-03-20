@@ -3,9 +3,7 @@ package rtg.api.biome.extrabiomes.config;
 import rtg.api.biome.BiomeConfig;
 
 
-
-public class BiomeConfigEBXL
-{
+public class BiomeConfigEBXL {
     public static BiomeConfig biomeConfigEBXLAlpine;
     public static BiomeConfig biomeConfigEBXLAutumnWoods;
     public static BiomeConfig biomeConfigEBXLBirchForest;
@@ -34,40 +32,39 @@ public class BiomeConfigEBXL
     public static BiomeConfig biomeConfigEBXLTundra;
     public static BiomeConfig biomeConfigEBXLWasteland;
     public static BiomeConfig biomeConfigEBXLWoodlands;
-    
-    public static BiomeConfig[] getBiomeConfigs()
-    {
+
+    public static BiomeConfig[] getBiomeConfigs() {
         BiomeConfig[] biomeConfigs = new BiomeConfig[]{
-            biomeConfigEBXLAlpine,
-            biomeConfigEBXLAutumnWoods,
-            biomeConfigEBXLBirchForest,
-            biomeConfigEBXLExtremeJungle,
-            biomeConfigEBXLForestedHills,
-            biomeConfigEBXLForestedIsland,
-            biomeConfigEBXLGlacier,
-            biomeConfigEBXLGreenHills,
-            biomeConfigEBXLGreenSwamp,
-            biomeConfigEBXLIceWasteland,
-            biomeConfigEBXLMarsh,
-            biomeConfigEBXLMeadow,
-            biomeConfigEBXLMiniJungle,
-            biomeConfigEBXLMountainDesert,
-            biomeConfigEBXLMountainRidge,
-            biomeConfigEBXLMountainTaiga,
-            biomeConfigEBXLPineForest,
-            biomeConfigEBXLRainforest,
-            biomeConfigEBXLRedwoodForest,
-            biomeConfigEBXLRedwoodLush,
-            biomeConfigEBXLSavanna,
-            biomeConfigEBXLShrubland,
-            biomeConfigEBXLSnowForest,
-            biomeConfigEBXLSnowyRainforest,
-            biomeConfigEBXLTemperateRainforest,
-            biomeConfigEBXLTundra,
-            biomeConfigEBXLWasteland,
-            biomeConfigEBXLWoodlands
+                biomeConfigEBXLAlpine,
+                biomeConfigEBXLAutumnWoods,
+                biomeConfigEBXLBirchForest,
+                biomeConfigEBXLExtremeJungle,
+                biomeConfigEBXLForestedHills,
+                biomeConfigEBXLForestedIsland,
+                biomeConfigEBXLGlacier,
+                biomeConfigEBXLGreenHills,
+                biomeConfigEBXLGreenSwamp,
+                biomeConfigEBXLIceWasteland,
+                biomeConfigEBXLMarsh,
+                biomeConfigEBXLMeadow,
+                biomeConfigEBXLMiniJungle,
+                biomeConfigEBXLMountainDesert,
+                biomeConfigEBXLMountainRidge,
+                biomeConfigEBXLMountainTaiga,
+                biomeConfigEBXLPineForest,
+                biomeConfigEBXLRainforest,
+                biomeConfigEBXLRedwoodForest,
+                biomeConfigEBXLRedwoodLush,
+                biomeConfigEBXLSavanna,
+                biomeConfigEBXLShrubland,
+                biomeConfigEBXLSnowForest,
+                biomeConfigEBXLSnowyRainforest,
+                biomeConfigEBXLTemperateRainforest,
+                biomeConfigEBXLTundra,
+                biomeConfigEBXLWasteland,
+                biomeConfigEBXLWoodlands
         };
-        
+
         return biomeConfigs;
     }
 }

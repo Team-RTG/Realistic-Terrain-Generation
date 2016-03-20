@@ -7,28 +7,22 @@ import rtg.util.Logger;
 
 import java.io.File;
 
-public class ConfigAC
-{
+public class ConfigAC {
     public static Configuration config;
 
-    public static void init(File configFile)
-    {
-    
+    public static void init(File configFile) {
+
         config = new Configuration(configFile);
-        
-        try
-        {
+
+        try {
             config.load();
-            
+
             BiomeConfigManager.setBiomeConfigsFromUserConfigs(BiomeConfigAC.getBiomeConfigs(), config);
-            
-        } catch (Exception e)
-        {
+
+        } catch (Exception e) {
             Logger.error("RTG has had a problem loading AC configuration.");
-        } finally
-        {
-            if (config.hasChanged())
-            {
+        } finally {
+            if (config.hasChanged()) {
                 config.save();
             }
         }

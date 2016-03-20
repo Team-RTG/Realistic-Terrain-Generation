@@ -1,9 +1,7 @@
 package rtg.api.biome.enhancedbiomes.config;
 
-public class BiomeConfigEBColdCypressForest extends BiomeConfigEBBase
-{
-    public BiomeConfigEBColdCypressForest()
-    {
+public class BiomeConfigEBColdCypressForest extends BiomeConfigEBBase {
+    public BiomeConfigEBColdCypressForest() {
         super("coldcypressforest");
     }
 }

@@ -1,10 +1,8 @@
-
 package rtg.util;
 
 import net.minecraftforge.fml.common.Loader;
 
 /**
- *
  * @author Zeno410
  */
 public class ModPresenceTester {

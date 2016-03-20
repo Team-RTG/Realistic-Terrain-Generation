@@ -11,14 +11,16 @@ import rtg.util.OpenSimplexNoise;
 public class VariableRuggednessEffect extends HeightEffect {
     // not going to bother to set up a creator shell to make sure everything is set
     // set defaults to absurd values to crash if they're not set
-    private final HeightEffect smoothTerrain;
-    private final HeightEffect ruggedTerrain;
-    private final float startTransition;
-    private final float transitionWidth;
-    private int octave=1;// this is the standard "ruggedness octave"
-    private float wavelength ;// standard ruggedness wavelength
+    public HeightEffect smoothTerrain;
+    public HeightEffect ruggedTerrain;
+    public float startTransition = Integer.MAX_VALUE;
+    public float transitionWidth = 0;
+    public int octave=1;// this is the standard "ruggedness octave"
+    public float wavelength ;// standard ruggedness wavelength
     
     public static float STANDARD_RUGGEDNESS_WAVELENGTH = 200f;
+
+    public VariableRuggednessEffect() {}
 
     public VariableRuggednessEffect(HeightEffect smoothTerrain, HeightEffect ruggedTerrain,
             float startTransition, float transitionWidth, float wavelength) {

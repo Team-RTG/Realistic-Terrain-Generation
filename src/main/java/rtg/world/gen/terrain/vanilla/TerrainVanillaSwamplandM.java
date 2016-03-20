@@ -22,7 +22,7 @@ public class TerrainVanillaSwamplandM extends TerrainBase
     public TerrainVanillaSwamplandM(float mountainWidth, float mountainStrength, float depthLake)
     {
 
-        this(mountainWidth, mountainStrength, depthLake, 280f, 62f);
+        this(mountainWidth, mountainStrength, depthLake, 280f, 58f);
     }
 
     public TerrainVanillaSwamplandM(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)

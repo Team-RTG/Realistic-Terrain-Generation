@@ -343,9 +343,10 @@ public class RealisticBiomeBase extends BiomeBase {
         //if (1>0) return 62f+lakeStrength*20;
         double lakeFlattening = this.lakeFlattening(lakeStrength, lakeWaterLevel, lakeDepressionLevel);
         if (lakeFlattening < river) river = (float)lakeFlattening;
-        float riverFlattening = river*1.25f-0.25f;
+        float riverFlattening = river*1.33f-0.33f;
         if (riverFlattening <0) riverFlattening = 0;
         float terrainNoise = terrain.generateNoise(simplex, cell, x, y, border, riverFlattening);
+        //if (river<1.0) terrainNoise = 64f;
         return this.erodedNoise(simplex, cell, x, y, river, border, terrainNoise,lakeFlattening);
     }
 

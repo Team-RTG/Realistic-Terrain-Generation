@@ -6,7 +6,9 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBOPSilkglades extends TerrainBase
 {
-
+    private float minHeight;
+    private float maxHeight = 76;
+    private float hillStrength = 36;
 	public TerrainBOPSilkglades()
 	{
 
@@ -15,6 +17,6 @@ public class TerrainBOPSilkglades extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainMarsh(x, y, simplex, 67f);
+        return terrainRollingHills(x, y, simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 0f);
 	}
 }

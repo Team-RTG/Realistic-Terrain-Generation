@@ -23,5 +23,6 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase
 			new SurfaceBOPHighland(config, topBlock, fillerBlock)
 		);
 		this.generatesEmeralds = true;
+        noWaterFeatures = true;
 	}
 }

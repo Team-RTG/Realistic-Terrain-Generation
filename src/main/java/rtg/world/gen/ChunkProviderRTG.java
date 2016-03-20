@@ -163,7 +163,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         ChunkPrimer primer = new ChunkPrimer();
         float[] noise = new float[256];
         biomesForGeneration = new RealisticBiomeBase[256];
-        //this.biomesForGeneration = ( (BiomeProviderRTG) this.worldObj.getBiomeProvider()).getRealisticBiomesForGeneration(this.biomesForGeneration, cx * 4 - 2, cy * 4 - 2, 10, 10);
+        this.biomesForGeneration = ( (BiomeProviderRTG) this.worldObj.getBiomeProvider()).getRealisticBiomesForGeneration(this.biomesForGeneration, cx * 4 - 2, cy * 4 - 2, 10, 10);
 
         int k;
 
@@ -249,11 +249,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
         }
         chunk.generateSkylightMap();
         return chunk;
-    }
-
-    @Override
-    public void populate(int x, int z) {
-
     }
 
     @Override
@@ -466,7 +461,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         float river;
         for (i = 0; i < 16; i++) {
             for (j = 0; j < 16; j++) {
-                RealisticBiomeBase biome = biomes[j * 16 + i];
+                RealisticBiomeBase biome = biomes[i * 16 + j];
 
                 river = -bprv.getRiverStrength(cx * 16 + j, cy * 16 + i);
                 if (river > 0.05f && river + (simplex.noise2((cx * 16 + j) / 10f, (cy * 16 + i) / 10f) * 0.15f) > 0.8f) {
@@ -475,7 +470,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
                 depth = -1;
 
-                biome.rReplace(primer, cx * 16 + j, cy * 16 + i, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
+                biome.rReplace(primer, cx * 16 + i, cy * 16 + j, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
 
                 int rough;
                 int flatBedrockLayers = ConfigRTG.flatBedrockLayers;
@@ -536,7 +531,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
      * <p/>
      * Populates chunk with ores etc etc
      */
-    public void populate(IChunkGenerator ichunkprovider, int chunkX, int chunkZ) {
+    public void populate(int chunkX, int chunkZ) {
         BlockFalling.fallInstantly = true;
 
         int worldX = chunkX * 16;
@@ -549,7 +544,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         boolean flag = false;
         boolean gen = false;
 
-        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag));
+        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(this, worldObj, rand, chunkX, chunkZ, flag));
 
         if (mapFeaturesEnabled) {
 
@@ -581,7 +576,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
             }
         }
 
-        biome.rPopulatePreDecorate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag);
+        biome.rPopulatePreDecorate(this, worldObj, rand, chunkX, chunkZ, flag);
 
         /**
          * What is this doing? And why does it need to be done here? - Pink
@@ -664,7 +659,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
          * ########################################################################
          */
 
-        biome.rPopulatePostDecorate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag);
+        biome.rPopulatePostDecorate(this, worldObj, rand, chunkX, chunkZ, flag);
 
         //Flowing water.
         if (rand.nextInt(100) == 0) {
@@ -714,7 +709,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
             }
         }
 
-        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag));
+        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(this, worldObj, rand, chunkX, chunkZ, flag));
 
         BlockFalling.fallInstantly = false;
     }

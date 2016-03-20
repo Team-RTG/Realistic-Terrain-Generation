@@ -555,11 +555,6 @@ public class ChunkProviderRTG implements IChunkProvider
     			RealisticBiomeBase biome = biomes[j * 16 + i];
 
     			river = -cmr.getRiverStrength(cx * 16 + j, cy * 16 + i);
-    			if(river > 0.05f && river + (simplex.noise2((cx * 16 + j) / 10f, (cy * 16 + i) / 10f) * 0.15f) > 0.8f)
-    			{
-    				//base[j * 16 + i] = biome.riverBiome;
-    			}
-
     			depth = -1;
 
     			biome.rReplace(blocks, metadata, cx * 16 + j, cy * 16 + i, i, j, depth, worldObj, rand, simplex, cell, n, river, base);

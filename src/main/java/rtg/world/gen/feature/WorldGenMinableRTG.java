@@ -1,10 +1,8 @@
 package rtg.world.gen.feature;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
-import net.minecraft.block.state.pattern.BlockHelper;
-import net.minecraft.util.BlockPos;
+import net.minecraft.block.state.pattern.BlockMatcher;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -12,9 +10,7 @@ import java.util.Random;
 
 import static java.lang.Math.PI;
 import static net.minecraft.init.Blocks.stone;
-import static net.minecraft.util.MathHelper.*;
-import static net.minecraftforge.fml.common.FMLLog.log;
-import static org.apache.logging.log4j.Level.INFO;
+import static net.minecraft.util.math.MathHelper.*;
 
 public class WorldGenMinableRTG extends WorldGenerator {
     public boolean generate(World world, Random rand, BlockPos blockPos) {
@@ -81,7 +77,7 @@ public class WorldGenMinableRTG extends WorldGenerator {
                             for (int i3 = k1; i3 <= j2; ++i3) {
                                 double d14 = ((double) i3 + 0.5D - d8) / (d10 / 2.0D);
 
-                                if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && p_76484_1_.getBlockState(new BlockPos(k2, l2, i3)).getBlock().isReplaceableOreGen(p_76484_1_, new BlockPos(k2, l2, i3), BlockHelper.forBlock(field_150518_c))) {
+                                if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && p_76484_1_.getBlockState(new BlockPos(k2, l2, i3)).getBlock().isReplaceableOreGen(p_76484_1_.getBlockState(new BlockPos(k2, l2, i3)), p_76484_1_, new BlockPos(k2, l2, i3), BlockMatcher.forBlock(field_150518_c))) {
                                     p_76484_1_.setBlockState(new BlockPos(k2, l2, i3), this.field_150519_a.getStateFromMeta(mineableBlockMeta), 2);
                                     intBlocksPlaced++;
                                 }

@@ -109,8 +109,8 @@ public class Dumper {
                         buffer.append("=");
 
                         if (ctx.ignoreList.get(":" + fName) == null &&
-                            ctx.ignoreList.get(fSimpleName + ":" + fName) == null &&
-                            ctx.ignoreList.get(fSimpleName + ":") == null) {
+                                ctx.ignoreList.get(fSimpleName + ":" + fName) == null &&
+                                ctx.ignoreList.get(fSimpleName + ":") == null) {
 
                             try {
                                 Object value = fields[i].get(o);
@@ -119,16 +119,14 @@ public class Dumper {
                                 buffer.append(e.getMessage());
                             }
                             buffer.append("\n");
-                        }
-                        else {
+                        } else {
                             buffer.append("<Ignored>");
                             buffer.append("\n");
                         }
                     }
                     oClass = oClass.getSuperclass();
                     oSimpleName = oClass.getSimpleName();
-                }
-                else {
+                } else {
                     oClass = null;
                     oSimpleName = "";
                 }
@@ -145,17 +143,17 @@ public class Dumper {
             return "<null>";
         }
         if (value.getClass().isPrimitive() ||
-            value.getClass() == java.lang.Short.class ||
-            value.getClass() == java.lang.Long.class ||
-            value.getClass() == java.lang.String.class ||
-            value.getClass() == java.lang.Integer.class ||
-            value.getClass() == java.lang.Float.class ||
-            value.getClass() == java.lang.Byte.class ||
-            value.getClass() == java.lang.Character.class ||
-            value.getClass() == java.lang.Double.class ||
-            value.getClass() == java.lang.Boolean.class ||
-            value.getClass() == java.util.Date.class ||
-            value.getClass().isEnum()) {
+                value.getClass() == java.lang.Short.class ||
+                value.getClass() == java.lang.Long.class ||
+                value.getClass() == java.lang.String.class ||
+                value.getClass() == java.lang.Integer.class ||
+                value.getClass() == java.lang.Float.class ||
+                value.getClass() == java.lang.Byte.class ||
+                value.getClass() == java.lang.Character.class ||
+                value.getClass() == java.lang.Double.class ||
+                value.getClass() == java.lang.Boolean.class ||
+                value.getClass() == java.util.Date.class ||
+                value.getClass().isEnum()) {
 
             return value.toString();
 
@@ -166,12 +164,10 @@ public class Dumper {
                 ctx.visited.put(value, ctx.callCount);
                 if (ctx.maxDepth == 0 || ctx.callCount < ctx.maxDepth) {
                     return dump(value, ctx);
-                }
-                else {
+                } else {
                     return "<Reached max recursion depth>";
                 }
-            }
-            else {
+            } else {
                 return "<Previously visited - see hashCode " + value.hashCode() + ">";
             }
         }
@@ -180,7 +176,7 @@ public class Dumper {
 
     private static String getSimpleNameWithoutArrayQualifier(Class clazz) {
         String simpleName = clazz.getSimpleName();
-        int indexOfBracket = simpleName.indexOf('['); 
+        int indexOfBracket = simpleName.indexOf('[');
         if (indexOfBracket != -1)
             return simpleName.substring(0, indexOfBracket);
         return simpleName;

@@ -2,7 +2,7 @@ package rtg.world.gen.feature.tree;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -42,7 +42,7 @@ class WorldGenTreeRTGCocoaSmall extends WorldGenerator {
             return false;
         }
 
-        Material m = world.getBlockState(new BlockPos(x, y, z)).getBlock().getMaterial();
+        Material m = world.getBlockState(new BlockPos(x, y, z)).getBlock().getMaterial(world.getBlockState(new BlockPos(x, y, z)));
         if (m != air && m != vine) {
             return false;
         }
@@ -77,7 +77,7 @@ class WorldGenTreeRTGCocoaSmall extends WorldGenerator {
     }
 
     private void buildBlock(World w, int x, int y, int z, Block b, int m, int u) {
-        Material ma = w.getBlockState(new BlockPos(x, y, z)).getBlock().getMaterial();
+        Material ma = w.getBlockState(new BlockPos(x, y, z)).getBlock().getMaterial(w.getBlockState(new BlockPos(x, y, z)));
 
         if (ma == air || ma == vine) {
             w.setBlockState(new BlockPos(x, y, z), b.getStateFromMeta(m), 0);

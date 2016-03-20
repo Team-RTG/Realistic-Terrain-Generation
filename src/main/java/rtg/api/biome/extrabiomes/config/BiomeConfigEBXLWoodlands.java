@@ -1,10 +1,8 @@
 package rtg.api.biome.extrabiomes.config;
 
 
-public class BiomeConfigEBXLWoodlands extends BiomeConfigEBXLBase
-{
-    public BiomeConfigEBXLWoodlands()
-    {
+public class BiomeConfigEBXLWoodlands extends BiomeConfigEBXLBase {
+    public BiomeConfigEBXLWoodlands() {
         super("woodlands");
     }
 }

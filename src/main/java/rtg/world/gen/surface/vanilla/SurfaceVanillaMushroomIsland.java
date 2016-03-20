@@ -48,7 +48,7 @@ public class SurfaceVanillaMushroomIsland extends SurfaceBase {
 
         Block b;
         for (int k = 255; k > -1; k--) {
-            b = primer.getBlockState(x, 256 + k, y).getBlock();
+            b = primer.getBlockState(x, k, y).getBlock();
             if (b == Blocks.air) {
                 depth = -1;
             } else if (b == Blocks.stone) {
@@ -70,28 +70,28 @@ public class SurfaceVanillaMushroomIsland extends SurfaceBase {
                     if (cliff == 1) {
                         if (rand.nextInt(3) == 0) {
 
-                            primer.setBlockState(x, 256 + k, y, hcCobble(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
                         } else {
 
-                            primer.setBlockState(x, 256 + k, y, hcStone(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
                         }
                     } else if (cliff == 2) {
-                        primer.setBlockState(x, 256 + k, y, getShadowStoneBlock(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
                     } else if (k < beach) {
-                        primer.setBlockState(x, 256 + k, y, beachBlock);
+                        primer.setBlockState(x, k, y, beachBlock);
                         gravel = true;
                     } else {
-                        primer.setBlockState(x, 256 + k, y, topBlock);
+                        primer.setBlockState(x, k, y, topBlock);
                     }
                 } else if (depth < 6) {
                     if (cliff == 1) {
-                        primer.setBlockState(x, 256 + k, y, hcStone(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
                     } else if (cliff == 2) {
-                        primer.setBlockState(x, 256 + k, y, getShadowStoneBlock(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
                     } else if (gravel) {
-                        primer.setBlockState(x, 256 + k, y, beachBlock);
+                        primer.setBlockState(x, k, y, beachBlock);
                     } else {
-                        primer.setBlockState(x, 256 + k, y, fillerBlock);
+                        primer.setBlockState(x, k, y, fillerBlock);
                     }
                 }
             }

@@ -33,7 +33,7 @@ public class RealisticBiomeFNBase extends RealisticBiomeBase {
     public static void addBiomes() {
 
         if (Loader.isModLoaded("ForgottenNature")) {
-            BiomeGenBase[] b = (BiomeGenBase[]) BiomeUtils.getRegisteredBiomes().toArray();
+            BiomeGenBase[] b = BiomeUtils.getRegisteredBiomes().toArray(new BiomeGenBase[BiomeUtils.getRegisteredBiomes().size()]);
 
             for (int i = 0; i < 256; i++) {
                 if (b[i] != null) {

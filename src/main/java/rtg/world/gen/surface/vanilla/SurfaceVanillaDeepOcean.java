@@ -38,7 +38,7 @@ public class SurfaceVanillaDeepOcean extends SurfaceBase {
 
 
         for (int k = 255; k > -1; k--) {
-            Block b = primer.getBlockState(x, 256 + k, y).getBlock();
+            Block b = primer.getBlockState(x, k, y).getBlock();
             if (b == Blocks.air) {
                 depth = -1;
             } else if (b == Blocks.stone) {
@@ -48,12 +48,12 @@ public class SurfaceVanillaDeepOcean extends SurfaceBase {
                     mixCheck = simplex.noise2(i / width, j / width);
 
                     if (mixCheck > height) {
-                        primer.setBlockState(x, 256 + k, y, mixBlock);
+                        primer.setBlockState(x, k, y, mixBlock);
                     } else {
-                        primer.setBlockState(x, 256 + k, y, topBlock);
+                        primer.setBlockState(x, k, y, topBlock);
                     }
                 } else if (depth < 4 && k < 63) {
-                    primer.setBlockState(x, 256 + k, y, fillerBlock);
+                    primer.setBlockState(x, k, y, fillerBlock);
                 }
             }
         }

@@ -33,7 +33,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 public class RealisticBiomeBase extends BiomeBase {
 
-    private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[BiomeUtils.getRegisteredBiomes().size()];
+    private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[256];
 
     public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;

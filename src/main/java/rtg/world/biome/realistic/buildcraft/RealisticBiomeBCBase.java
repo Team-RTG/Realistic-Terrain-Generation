@@ -26,7 +26,7 @@ public class RealisticBiomeBCBase extends RealisticBiomeBase {
     public static void addBiomes() {
 
         if (Loader.isModLoaded("BuildCraft|Core")) {
-            BiomeGenBase[] b = (BiomeGenBase[]) BiomeUtils.getRegisteredBiomes().toArray();
+            BiomeGenBase[] b = BiomeUtils.getRegisteredBiomes().toArray(new BiomeGenBase[BiomeUtils.getRegisteredBiomes().size()]);
 
             for (int i = 0; i < 256; i++) {
                 if (b[i] != null) {

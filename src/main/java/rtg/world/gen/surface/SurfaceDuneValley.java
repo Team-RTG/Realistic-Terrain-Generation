@@ -34,7 +34,7 @@ public class SurfaceDuneValley extends SurfaceBase {
 
         Block b;
         for (int k = 255; k > -1; k--) {
-            b = primer.getBlockState(x, 256 + k, y).getBlock();
+            b = primer.getBlockState(x, k, y).getBlock();
             if (b == Blocks.air) {
                 depth = -1;
             } else if (b == Blocks.stone) {
@@ -42,23 +42,23 @@ public class SurfaceDuneValley extends SurfaceBase {
 
                 if (depth == 0) {
                     if (k > 90f + simplex.noise2(i / 24f, j / 24f) * 10f - h || (m < -0.28f && mix)) {
-                        primer.setBlockState(x, 256 + k, y, Blocks.sand.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.sand.getDefaultState());
                         //base[x * 16 + y] = RealisticBiomeVanillaBase.vanillaDesert;
                         sand = true;
                     } else if (dirt && m < 0.22f || k < 62) {
-                        primer.setBlockState(x, 256 + k, y, Blocks.dirt.getStateFromMeta(1));
+                        primer.setBlockState(x, k, y, Blocks.dirt.getStateFromMeta(1));
                     } else {
-                        primer.setBlockState(x, 256 + k, y, topBlock);
+                        primer.setBlockState(x, k, y, topBlock);
                     }
                 } else if (depth < 6) {
                     if (sand) {
                         if (depth < 4) {
-                            primer.setBlockState(x, 256 + k, y, Blocks.sand.getDefaultState());
+                            primer.setBlockState(x, k, y, Blocks.sand.getDefaultState());
                         } else {
-                            primer.setBlockState(x, 256 + k, y, Blocks.sandstone.getDefaultState());
+                            primer.setBlockState(x, k, y, Blocks.sandstone.getDefaultState());
                         }
                     } else {
-                        primer.setBlockState(x, 256 + k, y, fillerBlock);
+                        primer.setBlockState(x, k, y, fillerBlock);
                     }
                 }
             }

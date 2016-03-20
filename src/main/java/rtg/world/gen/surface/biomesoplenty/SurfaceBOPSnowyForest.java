@@ -47,7 +47,7 @@ public class SurfaceBOPSnowyForest extends SurfaceBase {
         boolean mix = false;
 
         for (int k = 255; k > -1; k--) {
-            Block b = primer.getBlockState(x, 256 + k, y).getBlock();
+            Block b = primer.getBlockState(x, k, y).getBlock();
             if (b == Blocks.air) {
                 depth = -1;
             } else if (b == Blocks.stone) {
@@ -57,29 +57,29 @@ public class SurfaceBOPSnowyForest extends SurfaceBase {
                     if (depth > -1 && depth < 2) {
                         if (rand.nextInt(3) == 0) {
 
-                            primer.setBlockState(x, 256 + k, y, hcCobble(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
                         } else {
 
-                            primer.setBlockState(x, 256 + k, y, hcStone(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
                         }
                     } else if (depth < 10) {
-                        primer.setBlockState(x, 256 + k, y, hcStone(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
                     }
                 } else {
                     if (depth == 0 && k > 61) {
                         if (simplex.noise2(i / floMixWidth, j / floMixWidth) + simplex.noise2(i / floSmallWidth, j / floSmallWidth)
                                 * floSmallStrength > floMixHeight) {
-                            primer.setBlockState(x, 256 + k, y, blockMixTop);
+                            primer.setBlockState(x, k, y, blockMixTop);
 
                             mix = true;
                         } else {
-                            primer.setBlockState(x, 256 + k, y, topBlock);
+                            primer.setBlockState(x, k, y, topBlock);
                         }
                     } else if (depth < 4) {
                         if (mix) {
-                            primer.setBlockState(x, 256 + k, y, blockMixFiller);
+                            primer.setBlockState(x, k, y, blockMixFiller);
                         } else {
-                            primer.setBlockState(x, 256 + k, y, fillerBlock);
+                            primer.setBlockState(x, k, y, fillerBlock);
                         }
                     }
                 }

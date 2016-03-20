@@ -31,7 +31,7 @@ public class SurfaceRedDesert extends SurfaceBase {
         boolean cliff = c > 1.4f ? true : false;
 
         for (int k = 255; k > -1; k--) {
-            Block b = primer.getBlockState(x, 256 + k, y).getBlock();
+            Block b = primer.getBlockState(x, k, y).getBlock();
             if (b == Blocks.air) {
                 depth = -1;
             } else if (b == Blocks.stone) {
@@ -39,15 +39,15 @@ public class SurfaceRedDesert extends SurfaceBase {
 
                 if (cliff) {
                     if (depth < 6) {
-                        primer.setBlockState(x, 256 + k, y, cliffBlock1.getBlock().getStateFromMeta((byte) 14));
+                        primer.setBlockState(x, k, y, cliffBlock1.getBlock().getStateFromMeta((byte) 14));
                     }
                 } else if (depth < 6) {
                     if (depth == 0 && k > 61) {
-                        primer.setBlockState(x, 256 + k, y, topBlock);
+                        primer.setBlockState(x, k, y, topBlock);
                     } else if (depth < 4) {
-                        primer.setBlockState(x, 256 + k, y, fillerBlock);
+                        primer.setBlockState(x, k, y, fillerBlock);
                     } else {
-                        primer.setBlockState(x, 256 + k, y, bottomBlock.getBlock().getDefaultState());
+                        primer.setBlockState(x, k, y, bottomBlock.getBlock().getDefaultState());
                     }
                 }
             }

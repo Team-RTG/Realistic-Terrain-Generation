@@ -293,12 +293,12 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 for (int k = 0; k < 256; k++) {
                     if (k > h) {
                         if (k < 63) {
-                            primer.setBlockState(j, 256 + k, i, Blocks.water.getDefaultState());
+                            primer.setBlockState(j, k, i, Blocks.water.getDefaultState());
                         } else {
-                            primer.setBlockState(j, 256 + k, i, Blocks.air.getDefaultState());
+                            primer.setBlockState(j, k, i, Blocks.air.getDefaultState());
                         }
                     } else {
-                        primer.setBlockState(j, 256 + k, i, Blocks.stone.getDefaultState());
+                        primer.setBlockState(j, k, i, Blocks.stone.getDefaultState());
                     }
                 }
                 n[j * 16 + i] = noise[j * 16 + i];
@@ -505,23 +505,23 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
                 if (flatBedrockLayers > 0) {
                     for (int bl = 0; bl < flatBedrockLayers; bl++) {
-                        primer.setBlockState(j, 256 + bl, i, bedrockBlock.getStateFromMeta(bedrockByte));
+                        primer.setBlockState(j, bl, i, bedrockBlock.getStateFromMeta(bedrockByte));
                     }
                 } else {
 
                     primer.setBlockState(j, 0, i, bedrockBlock.getStateFromMeta(bedrockByte));
 
                     rough = rand.nextInt(2);
-                    primer.setBlockState(j, 256 + rough, i, bedrockBlock.getStateFromMeta(bedrockByte));
+                    primer.setBlockState(j, rough, i, bedrockBlock.getStateFromMeta(bedrockByte));
 
                     rough = rand.nextInt(3);
-                    primer.setBlockState(j, 256 + rough, i, bedrockBlock.getStateFromMeta(bedrockByte));
+                    primer.setBlockState(j, rough, i, bedrockBlock.getStateFromMeta(bedrockByte));
 
                     rough = rand.nextInt(4);
-                    primer.setBlockState(j, 256 + rough, i, bedrockBlock.getStateFromMeta(bedrockByte));
+                    primer.setBlockState(j, rough, i, bedrockBlock.getStateFromMeta(bedrockByte));
 
                     rough = rand.nextInt(5);
-                    primer.setBlockState(j, 256 + rough, i, bedrockBlock.getStateFromMeta(bedrockByte));
+                    primer.setBlockState(j, rough, i, bedrockBlock.getStateFromMeta(bedrockByte));
                 }
 
             }

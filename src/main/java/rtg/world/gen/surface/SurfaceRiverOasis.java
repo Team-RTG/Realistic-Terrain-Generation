@@ -21,16 +21,16 @@ public class SurfaceRiverOasis extends SurfaceBase {
         if (river > 0.05f && river + (simplex.noise2(i / 10f, j / 10f) * 0.15f) > 0.8f) {
             Block b;
             for (int k = 255; k > -1; k--) {
-                b = primer.getBlockState(x, 256 + k, y).getBlock();
+                b = primer.getBlockState(x, k, y).getBlock();
                 if (b == Blocks.air) {
                     depth = -1;
                 } else if (b != Blocks.water) {
                     depth++;
 
                     if (depth == 0 && k > 61) {
-                        primer.setBlockState(x, 256 + k, y, Blocks.grass.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.grass.getDefaultState());
                     } else if (depth < 4) {
-                        primer.setBlockState(x, 256 + k, y, Blocks.dirt.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.dirt.getDefaultState());
                     } else if (depth > 4) {
                         return;
                     }

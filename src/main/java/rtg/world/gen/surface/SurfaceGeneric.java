@@ -22,7 +22,7 @@ public class SurfaceGeneric extends SurfaceBase {
     public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
         for (int k = 255; k > -1; k--) {
-            Block b = primer.getBlockState(x, 256 + k, y).getBlock();
+            Block b = primer.getBlockState(x, k, y).getBlock();
 
             if (b == Blocks.air) {
                 depth = -1;
@@ -30,9 +30,9 @@ public class SurfaceGeneric extends SurfaceBase {
                 depth++;
 
                 if (depth == 0 && k > 61) {
-                    primer.setBlockState(x, 256 + k, y, topBlock);
+                    primer.setBlockState(x, k, y, topBlock);
                 } else if (depth < 4) {
-                    primer.setBlockState(x, 256 + k, y, fillerBlock);
+                    primer.setBlockState(x, k, y, fillerBlock);
                 }
             }
         }

@@ -10,9 +10,9 @@ import net.minecraft.world.gen.structure.ComponentScatteredFeaturePieces;
 import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
-import net.minecraftforge.common.BiomeDictionary;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.Logger;
+import rtg.world.biome.realistic.vanilla.*;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -197,7 +197,9 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
     private static boolean canSpawnDesertTemple(BiomeGenBase b) {
         boolean canSpawn = false;
 
-        if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.DRY) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SANDY)) {
+        //TODO: This may be a forge bug, but that doesnt work.
+        //if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.DRY) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SANDY)) {
+        if(b instanceof RealisticBiomeVanillaDesert || b instanceof RealisticBiomeVanillaDesertHills || b instanceof RealisticBiomeVanillaDesertM) {
             canSpawn = true;
         }
 
@@ -207,7 +209,9 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
     private static boolean canSpawnJungleTemple(BiomeGenBase b) {
         boolean canSpawn = false;
 
-        if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.JUNGLE)) {
+        //TODO: This may be a forge bug, but that doesnt work.
+        //if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.JUNGLE)) {
+        if (b instanceof RealisticBiomeVanillaJungle || b instanceof RealisticBiomeVanillaJungleEdge || b instanceof RealisticBiomeVanillaJungleEdgeM || b instanceof RealisticBiomeVanillaJungleHills || b instanceof RealisticBiomeVanillaJungleM) {
             canSpawn = true;
         }
 
@@ -217,7 +221,9 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
     private static boolean canSpawnWitchHut(BiomeGenBase b) {
         boolean canSpawn = false;
 
-        if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SWAMP)) {
+        //TODO: This may be a forge bug, but that doesnt work.
+        //if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SWAMP)) {
+        if ( b instanceof RealisticBiomeVanillaSwampland || b instanceof RealisticBiomeVanillaSwamplandM) {
             canSpawn = true;
         }
 

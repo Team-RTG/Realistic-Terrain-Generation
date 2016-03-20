@@ -11,9 +11,9 @@ import static net.minecraft.world.biome.BiomeGenBase.getIdForBiome;
 public class RealisticBiomePresenceTester {
 
     public static void doBiomeCheck() {
-        BiomeGenBase[] b = (BiomeGenBase[]) BiomeUtils.getRegisteredBiomes().toArray();
+        BiomeGenBase[] b = BiomeUtils.getRegisteredBiomes().toArray(new BiomeGenBase[BiomeUtils.getRegisteredBiomes().size()]);
 
-        for (int i = 0; i < 256; i++) {
+        for (int i = 0; i < b.length; i++) {
             if (b[i] != null) {
                 BiomeGenBase biome = b[i];
                 int biomeId = getIdForBiome(b[i]);

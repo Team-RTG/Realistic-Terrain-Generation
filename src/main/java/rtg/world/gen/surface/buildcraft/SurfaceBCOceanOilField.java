@@ -35,7 +35,7 @@ public class SurfaceBCOceanOilField extends SurfaceBase {
                              OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
         for (int k = 255; k > -1; k--) {
-            Block b = primer.getBlockState(x, 256 + k, y).getBlock();
+            Block b = primer.getBlockState(x, k, y).getBlock();
             if (b == Blocks.air) {
                 depth = -1;
             } else if (b == Blocks.stone) {
@@ -46,12 +46,12 @@ public class SurfaceBCOceanOilField extends SurfaceBase {
 
                     if (mixCheck > height) // > 0.27f, i / 12f
                     {
-                        primer.setBlockState(x, 256 + k, y, mixBlock);
+                        primer.setBlockState(x, k, y, mixBlock);
                     } else {
-                        primer.setBlockState(x, 256 + k, y, topBlock);
+                        primer.setBlockState(x, k, y, topBlock);
                     }
                 } else if (depth < 4) {
-                    primer.setBlockState(x, 256 + k, y, fillerBlock);
+                    primer.setBlockState(x, k, y, fillerBlock);
                 }
             }
         }

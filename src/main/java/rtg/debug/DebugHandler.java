@@ -40,7 +40,7 @@ public final class DebugHandler {
 //                );
 
                 BiomeGenBase biome = world.getBiomeGenForCoords(new BlockPos(posX, 0, posZ));
-                RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(BiomeGenBase.getIdForBiome(biome));
+                RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(RealisticBiomeBase.getIdForBiome(biome));
 
                 details = PREFIX;
                 details += "River Strength: " + chunkManager.getRiverStrength(posX, posZ);

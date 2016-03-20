@@ -181,9 +181,9 @@ public class EventManagerRTG {
         } else {
             return;
         }
-        if (BiomeGenBase.getIdForBiome(biomeReal) == BiomeGenBase.getIdForBiome(vanillaDesert) ||
-                BiomeGenBase.getIdForBiome(biomeReal) == BiomeGenBase.getIdForBiome(vanillaDesertHills) ||
-                BiomeGenBase.getIdForBiome(biomeReal) == BiomeGenBase.getIdForBiome(vanillaDesertM)) {
+        if (RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(vanillaDesert) ||
+                RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(vanillaDesertHills) ||
+                RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(vanillaDesertM)) {
             if (event.original.getBlock() == Blocks.log || event.original.getBlock() == Blocks.log2) {
                 event.replacement = Blocks.sandstone.getDefaultState();
             }

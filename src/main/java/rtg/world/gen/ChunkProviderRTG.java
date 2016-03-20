@@ -163,6 +163,8 @@ public class ChunkProviderRTG implements IChunkGenerator {
         ChunkPrimer primer = new ChunkPrimer();
         float[] noise = new float[256];
         biomesForGeneration = new RealisticBiomeBase[256];
+        //this.biomesForGeneration = ( (BiomeProviderRTG) this.worldObj.getBiomeProvider()).getRealisticBiomesForGeneration(this.biomesForGeneration, cx * 4 - 2, cy * 4 - 2, 10, 10);
+
         int k;
 
         generateTerrain(bprv, cx, cy, primer, biomesForGeneration, noise);
@@ -171,43 +173,19 @@ public class ChunkProviderRTG implements IChunkGenerator {
         //fill with biomeData
         int[] biomeIndices = bprv.getBiomesGens(cx * 16, cy * 16, 16, 16);
 
-        /*if (cx*16==1872&&cy*16==7712) {
-            PrintWriter writer = null;
-            try {
-                File file = new File("forestChunk.txt");
-                writer = new PrintWriter(file);
-                for (int i = 0;i <16;i++) {
-                    String output = "";
-                    for (int j = 0;j<16;j++) {
-                        output += "" + biomesForGeneration[i*16+j].biomeID + '\t';
-                    }
-                    writer.print(output+'\r');
-                }
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(ChunkProviderRTG.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                writer.close();
-            }
-
-        }*/
 
         analyzer.newRepair(biomeIndices, biomesForGeneration, this.biomeData, this.sampleSize, noise, -bprv.getRiverStrength(cx * 16 + 7, cy * 16 + 7));
 
 
         for (k = 0; k < 256; k++) {
-            // Is this a single biome world?
-            if (biomePatcher.isSingleBiomeWorld()) {
-                baseBiomesList[k] = biomePatcher.getSingleBaseBiome();
-            } else {
-                if (biomesGeneratedInChunk[k] > 0f) {
-                    RealisticBiomeBase.getBiome(k).generateMapGen(primer, worldSeed, worldObj, bprv, mapRand, cx, cy, simplex, cell, noise);
-                    biomesGeneratedInChunk[k] = 0f;
-                }
-                try {
-                    baseBiomesList[k] = biomesForGeneration[k].baseBiome;
-                } catch (Exception e) {
-                    baseBiomesList[k] = biomePatcher.getPatchedBaseBiome("" + BiomeGenBase.getIdForBiome(biomesForGeneration[k]));
-                }
+            if (biomesGeneratedInChunk[k] > 0f) {
+                RealisticBiomeBase.getBiome(k).generateMapGen(primer, worldSeed, worldObj, bprv, mapRand, cx, cy, simplex, cell, noise);
+                biomesGeneratedInChunk[k] = 0f;
+            }
+            try {
+                baseBiomesList[k] = biomesForGeneration[k].baseBiome;
+            } catch (Exception e) {
+                baseBiomesList[k] = biomePatcher.getPatchedBaseBiome("" + RealisticBiomeBase.getIdForBiome(biomesForGeneration[k]));
             }
         }
 
@@ -264,7 +242,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         		* I cannot do much on my part, so i have to do it here.
         		* - Elix_x
         		*/
-                byte b = (byte) BiomeGenBase.getIdForBiome(this.baseBiomesList[this.xyinverted[k]]);
+                byte b = (byte) RealisticBiomeBase.getIdForBiome(this.baseBiomesList[this.xyinverted[k]]);
                 abyte1[k] = b;
             }
             chunk.setBiomeArray(abyte1);
@@ -313,7 +291,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
         for (i = -sampleSize; i < sampleSize + 5; i++) {
             for (j = -sampleSize; j < sampleSize + 5; j++) {
-                biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = BiomeGenBase.getIdForBiome(cmr.getBiomeDataAt(x + ((i * 8) - 8), y + ((j * 8) - 8)));
+                biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = RealisticBiomeBase.getIdForBiome(cmr.getBiomeGenAt(x + ((i * 8) - 8), y + ((j * 8) - 8)));
             }
         }
 
@@ -614,7 +592,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         for (int bx = -4; bx <= 4; bx++) {
 
             for (int by = -4; by <= 4; by++) {
-                borderNoise[BiomeGenBase.getIdForBiome(bprv.getBiomeDataAt(worldX + adjust + bx * 4, worldZ + adjust + by * 4))] += 0.01234569f;
+                borderNoise[RealisticBiomeBase.getIdForBiome(bprv.getBiomeGenAt(worldX + adjust + bx * 4, worldZ + adjust + by * 4))] += 0.01234569f;
             }
         }
 
@@ -641,17 +619,11 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 if (borderNoise[bn] >= 1f) {
                     borderNoise[bn] = 1f;
                 }
+                realisticBiome = RealisticBiomeBase.getBiome(bn);
 
-                // Is this a single biome world?
-                if (biomePatcher.isSingleBiomeWorld()) {
-                    realisticBiome = biomePatcher.getSingleRealisticBiome();
-                } else {
-                    realisticBiome = RealisticBiomeBase.getBiome(bn);
-
-                    // Do we need to patch the biome?
-                    if (realisticBiome == null) {
-                        realisticBiome = biomePatcher.getPatchedRealisticBiome("NULL biome (" + bn + ") found when generating border noise.");
-                    }
+                // Do we need to patch the biome?
+                if (realisticBiome == null) {
+                    realisticBiome = biomePatcher.getPatchedRealisticBiome("NULL biome (" + bn + ") found when generating border noise.");
                 }
 
                 /**

@@ -68,13 +68,13 @@ public class RealisticBiomeBase extends BiomeBase {
 
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome, BiomeGenBase river) {
 
-        super(BiomeGenBase.getIdForBiome(biome));
+        super(RealisticBiomeBase.getIdForBiome(biome));
 
         if (config == null)
             throw new RuntimeException("Biome config cannot be NULL when instantiating a realistic biome.");
 
         this.config = config;
-        arrRealisticBiomeIds[BiomeGenBase.getIdForBiome(biome)] = this;
+        arrRealisticBiomeIds[RealisticBiomeBase.getIdForBiome(biome)] = this;
 
         baseBiome = biome;
         riverBiome = river;
@@ -530,5 +530,11 @@ public class RealisticBiomeBase extends BiomeBase {
 
     public SurfaceBase[] getSurfaces() {
         return this.surfaces;
+    }
+
+    public static int getIdForBiome(BiomeGenBase biome) {
+        if (biome instanceof RealisticBiomeBase)
+            return BiomeGenBase.getIdForBiome(((RealisticBiomeBase) biome).baseBiome);
+        return BiomeGenBase.getIdForBiome(biome);
     }
 }

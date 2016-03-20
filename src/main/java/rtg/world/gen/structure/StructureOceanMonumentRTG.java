@@ -24,6 +24,7 @@ import org.apache.logging.log4j.Level;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.Logger;
 import rtg.world.biome.BiomeProviderRTG;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 
 import java.util.*;
@@ -81,7 +82,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         if (i == k && j == l) {
             BiomeGenBase bg = this.worldObj.getBiomeProvider().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), null);
 
-            if (BiomeGenBase.getIdForBiome(bg) == BiomeGenBase.getIdForBiome(RealisticBiomeVanillaBase.vanillaDeepOcean)) {
+            if (RealisticBiomeBase.getIdForBiome(bg) == RealisticBiomeBase.getIdForBiome(RealisticBiomeVanillaBase.vanillaDeepOcean)) {
 
                 boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29, biomes);
 

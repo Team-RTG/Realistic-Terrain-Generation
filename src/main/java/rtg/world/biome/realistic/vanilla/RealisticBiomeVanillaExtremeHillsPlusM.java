@@ -5,12 +5,13 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHillsPlusM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHillsPlusM;
 
 public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.extremeHillsPlus;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeGenBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;

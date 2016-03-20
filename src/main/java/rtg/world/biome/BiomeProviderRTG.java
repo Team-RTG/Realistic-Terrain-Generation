@@ -53,7 +53,7 @@ public class BiomeProviderRTG extends BiomeProvider {
         simplex = new OpenSimplexNoise(seed);
         cell = new SimplexCellularNoise(seed);
         simplexCell = new SimplexCellularNoise(seed);
-        GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType, "");
+        GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType, par1World.getWorldInfo().getGeneratorOptions());
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
         this.biomeIndexLayer = agenlayer[1];
@@ -65,7 +65,7 @@ public class BiomeProviderRTG extends BiomeProvider {
 
         for (int i = 0; i < par3; i++) {
             for (int j = 0; j < par4; j++) {
-                d[j * par3 + i] = BiomeGenBase.getIdForBiome(getBiomeGenAt(par1 + i, par2 + j));
+                d[j * par3 + i] = RealisticBiomeBase.getIdForBiome(getBiomeGenAt(par1 + i, par2 + j));
             }
         }
         return d;
@@ -117,55 +117,50 @@ public class BiomeProviderRTG extends BiomeProvider {
 
     public BiomeGenBase getBiomeGenAt(int par1, int par2) {
         BiomeGenBase result;
-        // Is this a single biome world?
-        if (biomePatcher.isSingleBiomeWorld()) {
-            result = biomePatcher.getSingleBaseBiome();
-        } else {
-            result = this.biomeCache.getBiomeCacheBlock(par1, par2).getBiomeGenAt(par1, par2);
+        result = this.biomeCache.getBiomeCacheBlock(par1, par2).getBiomeGenAt(par1, par2);
 
-            if (result == null) {
-                result = biomePatcher.getPatchedBaseBiome("Biome cache contains NULL biome at " + par1 + "," + par2);
-            }
+        if (result == null) {
+            result = biomePatcher.getPatchedBaseBiome("Biome cache contains NULL biome at " + par1 + "," + par2);
         }
         return result;
     }
 
-    public BiomeGenBase[] getBiomesForGeneration(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5) {
+    public BiomeGenBase[] getBiomesForGeneration(BiomeGenBase[] biomes, int x, int z, int width, int height) {
         IntCache.resetIntCache();
 
-        if (par1ArrayOfBiomeGenBase == null || par1ArrayOfBiomeGenBase.length < par4 * par5) {
-            par1ArrayOfBiomeGenBase = new BiomeGenBase[par4 * par5];
+        if (biomes == null || biomes.length < width * height) {
+            biomes = new BiomeGenBase[width * height];
         }
 
-        int[] aint = this.genBiomes.getInts(par2, par3, par4, par5);
+        int[] aint = this.genBiomes.getInts(x, z, width, height);
 
-        for (int i1 = 0; i1 < par4 * par5; ++i1) {
-            par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]);
+        for (int i1 = 0; i1 < width * height; ++i1) {
+            biomes[i1] = RealisticBiomeBase.getBiome(aint[i1]);
         }
 
-        return par1ArrayOfBiomeGenBase;
+        return biomes;
+    }
+
+    public RealisticBiomeBase[] getRealisticBiomesForGeneration(RealisticBiomeBase[] biomes, int x, int z, int width, int height) {
+        IntCache.resetIntCache();
+
+        if (biomes == null || biomes.length < width * height) {
+            biomes = new RealisticBiomeBase[width * height];
+        }
+
+        int[] aint = this.genBiomes.getInts(x, z, width, height);
+
+        for (int i1 = 0; i1 < width * height; ++i1) {
+            biomes[i1] = RealisticBiomeBase.getBiome(aint[i1]);
+        }
+
+        return biomes;
     }
 
     public RealisticBiomeBase getBiomeDataAt(int par1, int par2) {
-        /*long coords = ChunkCoordIntPair.chunkXZ2Int(par1, par2);
-        if (biomeDataMap.containsKey(coords)) {
-            return biomeDataMap.get(coords);
-        }*/
         RealisticBiomeBase output;
-
-        // Is this a single biome world?
-        if (biomePatcher.isSingleBiomeWorld()) {
-            output = biomePatcher.getSingleRealisticBiome();
-        } else {
-            output = (RealisticBiomeBase) (this.getBiomeGenAt(par1, par2));
-            if (output == null) output = biomePatcher.getPatchedRealisticBiome("No biome " + par1 + " " + par2);
-        }
-        /*if (biomeDataMap.size() > 4096) {
-            biomeDataMap.clear();
-        }
-
-        biomeDataMap.put(coords, output);*/
-
+        output = (RealisticBiomeBase) (this.getBiomeGenAt(par1, par2));
+        if (output == null) output = biomePatcher.getPatchedRealisticBiome("No biome " + par1 + " " + par2);
         return output;
     }
 
@@ -216,7 +211,7 @@ public class BiomeProviderRTG extends BiomeProvider {
 
         for (bx = -2; bx <= 2; bx++) {
             for (by = -2; by <= 2; by++) {
-                borderNoise[BiomeGenBase.getIdForBiome(getBiomeDataAt(x + bx * 16, y + by * 16))] += 0.04f;
+                borderNoise[RealisticBiomeBase.getIdForBiome(getBiomeDataAt(x + bx * 16, y + by * 16))] += 0.04f;
             }
         }
 
@@ -241,37 +236,32 @@ public class BiomeProviderRTG extends BiomeProvider {
         return par1;
     }
 
-    public BiomeGenBase[] getBiomeGenAt(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5, boolean par6) {
+    public BiomeGenBase[] getBiomeGenAt(BiomeGenBase[] listToReuse, int x, int z, int width, int length, boolean cacheFlag) {
         IntCache.resetIntCache();
 
-        if (par1ArrayOfBiomeGenBase == null || par1ArrayOfBiomeGenBase.length < par4 * par5) {
-            par1ArrayOfBiomeGenBase = new BiomeGenBase[par4 * par5];
+        if (listToReuse == null || listToReuse.length < width * length) {
+            listToReuse = new BiomeGenBase[width * length];
         }
 
-        if (par6 && par4 == 16 && par5 == 16 && (par2 & 15) == 0 && (par3 & 15) == 0) {
-            BiomeGenBase[] abiomegenbase1 = this.biomeCache.getCachedBiomes(par2, par3);
-            System.arraycopy(abiomegenbase1, 0, par1ArrayOfBiomeGenBase, 0, par4 * par5);
-            return par1ArrayOfBiomeGenBase;
+        if (cacheFlag && width == 16 && length == 16 && (x & 15) == 0 && (z & 15) == 0) {
+            BiomeGenBase[] abiomegenbase1 = this.biomeCache.getCachedBiomes(x, z);
+            System.arraycopy(abiomegenbase1, 0, listToReuse, 0, width * length);
+            return listToReuse;
         } else {
-            int[] aint = this.biomeIndexLayer.getInts(par2, par3, par4, par5);
+            int[] aint = this.biomeIndexLayer.getInts(x, z, width, length);
 
-            for (int i1 = 0; i1 < par4 * par5; ++i1) {
-                // Is this a single biome world?
-                if (biomePatcher.isSingleBiomeWorld()) {
-                    par1ArrayOfBiomeGenBase[i1] = biomePatcher.getSingleRealisticBiome();
-                } else {
-                    try {
-                        par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]);
-                    } catch (Exception e) {
-                        par1ArrayOfBiomeGenBase[i1] = biomePatcher.getPatchedRealisticBiome(genBiomes.toString() + " " + this.biomeIndexLayer.toString());
-                    }
-                    if (par1ArrayOfBiomeGenBase[i1] == null) {
-                        par1ArrayOfBiomeGenBase[i1] = biomePatcher.getPatchedRealisticBiome("Missing biome " + aint[i1]);
-                    }
+            for (int i1 = 0; i1 < width * length; ++i1) {
+                try {
+                    listToReuse[i1] = RealisticBiomeBase.getBiome(aint[i1]);
+                } catch (Exception e) {
+                    listToReuse[i1] = biomePatcher.getPatchedRealisticBiome(genBiomes.toString() + " " + this.biomeIndexLayer.toString());
+                }
+                if (listToReuse[i1] == null) {
+                    listToReuse[i1] = biomePatcher.getPatchedRealisticBiome("Missing biome " + aint[i1]);
                 }
             }
 
-            return par1ArrayOfBiomeGenBase;
+            return listToReuse;
         }
     }
 

@@ -13,6 +13,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaTaigaM;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -26,7 +27,7 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.taiga;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeGenBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;

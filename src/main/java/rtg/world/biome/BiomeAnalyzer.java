@@ -46,8 +46,8 @@ public class BiomeAnalyzer {
     }
 
     private void determineRiverBiomes() {
-        riverBiome = new boolean[BiomeUtils.getRegisteredBiomes().size()];
-        for (int index = 0; index < BiomeUtils.getRegisteredBiomes().size(); index++) {
+        riverBiome = new boolean[BiomeUtils.biomeIds()];
+        for (int index = 0; index < BiomeUtils.biomeIds(); index++) {
             if (BiomeGenBase.getBiome(index) == null) continue;
             if (BiomeGenBase.getBiome(index).getBiomeName() == null) continue;
             if (BiomeGenBase.getBiome(index).getBiomeName().toLowerCase().contains("river")) {
@@ -57,8 +57,8 @@ public class BiomeAnalyzer {
     }
 
     private void determineOceanBiomes() {
-        oceanBiome = new boolean[BiomeUtils.getRegisteredBiomes().size()];
-        for (int index = 0; index < BiomeUtils.getRegisteredBiomes().size(); index++) {
+        oceanBiome = new boolean[BiomeUtils.biomeIds()];
+        for (int index = 0; index < BiomeUtils.biomeIds(); index++) {
             if (BiomeGenBase.getBiome(index) == null) continue;
             if (BiomeGenBase.getBiome(index).getBiomeName() == null) continue;
             if (BiomeGenBase.getBiome(index).getBiomeName().toLowerCase().contains("ocean")) {
@@ -71,12 +71,12 @@ public class BiomeAnalyzer {
                 oceanBiome[index] = true;
             }
         }
-        oceanBiome[BiomeGenBase.getIdForBiome(Biomes.deepOcean)] = true;// not getting set?
+        oceanBiome[RealisticBiomeBase.getIdForBiome(Biomes.deepOcean)] = true;// not getting set?
     }
 
     private void determineSwampBiomes() {
-        swampBiome = new boolean[BiomeUtils.getRegisteredBiomes().size()];
-        for (int index = 0; index < BiomeUtils.getRegisteredBiomes().size(); index++) {
+        swampBiome = new boolean[BiomeUtils.biomeIds()];
+        for (int index = 0; index < BiomeUtils.biomeIds(); index++) {
             if (BiomeGenBase.getBiome(index) == null) continue;
             if (BiomeGenBase.getBiome(index).getBiomeName() == null) continue;
             if (BiomeGenBase.getBiome(index).getBiomeName().toLowerCase().contains("swamp")) {
@@ -124,15 +124,15 @@ public class BiomeAnalyzer {
             if (BiomeGenBase.getBiome(index).getBiomeName().toLowerCase().contains("archipelago")) {
                 swampBiome[index] = true;
             }
-            if (BiomeGenBase.getIdForBiome(getBiome(index)) == BiomeGenBase.getIdForBiome(Biomes.frozenRiver)) {
+            if (RealisticBiomeBase.getIdForBiome(getBiome(index)) == RealisticBiomeBase.getIdForBiome(Biomes.frozenRiver)) {
                 swampBiome[index] = true;
             }
         }
     }
 
     private void determineLandBiomes() {
-        landBiome = new boolean[BiomeUtils.getRegisteredBiomes().size()];
-        for (int index = 0; index < BiomeUtils.getRegisteredBiomes().size(); index++) {
+        landBiome = new boolean[BiomeUtils.biomeIds()];
+        for (int index = 0; index < BiomeUtils.biomeIds(); index++) {
             if (!oceanBiome[index]) {
                 if (!riverBiome[index]) {
                     if (BiomeGenBase.getBiome(index) == null) continue;
@@ -148,8 +148,8 @@ public class BiomeAnalyzer {
     }
 
     private void determineBeachBiomes() {
-        beachBiome = new boolean[BiomeUtils.getRegisteredBiomes().size()];
-        for (int index = 0; index < BiomeUtils.getRegisteredBiomes().size(); index++) {
+        beachBiome = new boolean[BiomeUtils.biomeIds()];
+        for (int index = 0; index < BiomeUtils.biomeIds(); index++) {
             if (BiomeGenBase.getBiome(index) == null) continue;
             if (BiomeGenBase.getBiome(index).getBiomeName() == null) continue;
             if (BiomeGenBase.getBiome(index).getBiomeName().toLowerCase().contains("beach")) {
@@ -162,20 +162,20 @@ public class BiomeAnalyzer {
     }
 
     private void determinePreferredBeaches() {
-        preferredBeach = new int[BiomeUtils.getRegisteredBiomes().size()];
-        for (int index = 0; index < BiomeUtils.getRegisteredBiomes().size(); index++) {
+        preferredBeach = new int[BiomeUtils.biomeIds()];
+        for (int index = 0; index < BiomeUtils.biomeIds(); index++) {
             if (BiomeGenBase.getBiome(index) == null) continue;
             if (BiomeGenBase.getBiome(index).getBiomeName() == null) continue;
             if (BiomeGenBase.getBiome(index).getTemperature() <= 0.05f) {
-                preferredBeach[index] = BiomeGenBase.getIdForBiome(Biomes.coldBeach);
+                preferredBeach[index] = RealisticBiomeBase.getIdForBiome(Biomes.coldBeach);
                 continue;
             } // implied else;
             // this code from Climate Control and is still crude
             float height = BiomeGenBase.getBiome(index).getBaseHeight() + BiomeGenBase.getBiome(index).getHeightVariation() * 2;
             if ((height > (1.0f + 0.5))) {
-                preferredBeach[index] = BiomeGenBase.getIdForBiome(Biomes.stoneBeach);
+                preferredBeach[index] = RealisticBiomeBase.getIdForBiome(Biomes.stoneBeach);
             } else {
-                preferredBeach[index] = BiomeGenBase.getIdForBiome(Biomes.beach);
+                preferredBeach[index] = RealisticBiomeBase.getIdForBiome(Biomes.beach);
             }
 
         }
@@ -197,7 +197,7 @@ public class BiomeAnalyzer {
                 // check for river
                 if (canBeRiver && !oceanBiome[genLayerBiomes[xyinverted[i]]] && !swampBiome[genLayerBiomes[xyinverted[i]]]) {
                     // make river
-                    int riverBiomeID = BiomeGenBase.getIdForBiome(RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]).riverBiome);
+                    int riverBiomeID = RealisticBiomeBase.getIdForBiome(RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]).riverBiome);
                     jitteredBiomes[i] = RealisticBiomeBase.getBiome(riverBiomeID);
                 } else {
                     // replace
@@ -213,7 +213,7 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             if (beach.absent) break; //no point
             if (noise[i] < beachBottom || noise[i] > beachTop) continue;// this block isn't beach level
-            if (swampBiome[BiomeGenBase.getIdForBiome(jitteredBiomes[i])])
+            if (swampBiome[RealisticBiomeBase.getIdForBiome(jitteredBiomes[i])])
                 continue;// swamps are acceptable at beach level
             if (beach.notHunted) {
                 huntForBeaches(this.savedJittered);
@@ -230,9 +230,9 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             if (land.absent) break; //no point
             if (noise[i] < beachTop) continue;// this block isn't above beach level
-            int biomeID = BiomeGenBase.getIdForBiome(jitteredBiomes[i]);
+            int biomeID = RealisticBiomeBase.getIdForBiome(jitteredBiomes[i]);
             if (landBiome[biomeID]) continue;// already land
-            if (swampBiome[BiomeGenBase.getIdForBiome(jitteredBiomes[i])]) continue;// swamps are acceptable above water
+            if (swampBiome[RealisticBiomeBase.getIdForBiome(jitteredBiomes[i])]) continue;// swamps are acceptable above water
             if (land.notHunted) {
                 huntForLand(this.savedJittered);
                 if (!land.absent) {
@@ -252,9 +252,9 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             if (ocean.absent) break; //no point
             if (noise[i] > oceanTop) continue;// too hight
-            if (oceanBiome[BiomeGenBase.getIdForBiome(jitteredBiomes[i])]) continue;// obviously ocean is OK
-            if (swampBiome[BiomeGenBase.getIdForBiome(jitteredBiomes[i])]) continue;// swamps are acceptable
-            if (riverBiome[BiomeGenBase.getIdForBiome(jitteredBiomes[i])]) continue;// rivers stay rivers
+            if (oceanBiome[RealisticBiomeBase.getIdForBiome(jitteredBiomes[i])]) continue;// obviously ocean is OK
+            if (swampBiome[RealisticBiomeBase.getIdForBiome(jitteredBiomes[i])]) continue;// swamps are acceptable
+            if (riverBiome[RealisticBiomeBase.getIdForBiome(jitteredBiomes[i])]) continue;// rivers stay rivers
             if (ocean.notHunted) {
                 huntForOcean(this.savedJittered);
                 if (!ocean.absent) jitteredBiomes[i] = ocean.biome;
@@ -272,7 +272,7 @@ public class BiomeAnalyzer {
         RealisticBiomeBase considered;
         for (int i = 0; i < 256; i++) {
             considered = biomes[searchPattern[i]];
-            if (beachBiome[BiomeGenBase.getIdForBiome(considered)]) {
+            if (beachBiome[RealisticBiomeBase.getIdForBiome(considered)]) {
                 beach.absent = false;
                 beach.biome = considered;
                 break;// we're done searching
@@ -287,7 +287,7 @@ public class BiomeAnalyzer {
         RealisticBiomeBase considered;
         for (int i = 0; i < 256; i++) {
             considered = biomes[searchPattern[i]];
-            if (landBiome[BiomeGenBase.getIdForBiome(considered)]) {
+            if (landBiome[RealisticBiomeBase.getIdForBiome(considered)]) {
                 land.absent = false;
                 land.biome = considered;
                 break;// we're done searching
@@ -302,7 +302,7 @@ public class BiomeAnalyzer {
         RealisticBiomeBase considered;
         for (int i = 0; i < 256; i++) {
             considered = biomes[searchPattern[i]];
-            if (oceanBiome[BiomeGenBase.getIdForBiome(considered)]) {
+            if (oceanBiome[RealisticBiomeBase.getIdForBiome(considered)]) {
                 ocean.absent = false;
                 ocean.biome = considered;
                 break;// we're done searching
@@ -331,7 +331,7 @@ public class BiomeAnalyzer {
                 // check for river
                 if (canBeRiver && !oceanBiome[genLayerBiomes[xyinverted[i]]] && !swampBiome[genLayerBiomes[xyinverted[i]]]) {
                     // make river
-                    int riverBiomeID = BiomeGenBase.getIdForBiome(RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]).riverBiome);
+                    int riverBiomeID = RealisticBiomeBase.getIdForBiome(RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]).riverBiome);
                     jitteredBiomes[i] = RealisticBiomeBase.getBiome(riverBiomeID);
                 } else {
                     // replace
@@ -347,7 +347,7 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             if (beachSearch.absent) break; //no point
             if (noise[i] < beachBottom || noise[i] > beachTop) continue;// this block isn't beach level
-            if (swampBiome[BiomeGenBase.getIdForBiome(jitteredBiomes[i])])
+            if (swampBiome[RealisticBiomeBase.getIdForBiome(jitteredBiomes[i])])
                 continue;// swamps are acceptable at beach level
             if (beachSearch.notHunted) {
                 beachSearch.hunt(biomeNeighborhood);
@@ -369,9 +369,9 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             if (landSearch.absent) break; //no point
             if (noise[i] < beachTop) continue;// this block isn't above beach level
-            int biomeID = BiomeGenBase.getIdForBiome(jitteredBiomes[i]);
+            int biomeID = RealisticBiomeBase.getIdForBiome(jitteredBiomes[i]);
             if (landBiome[biomeID]) continue;// already land
-            if (swampBiome[BiomeGenBase.getIdForBiome(jitteredBiomes[i])]) continue;// swamps are acceptable above water
+            if (swampBiome[RealisticBiomeBase.getIdForBiome(jitteredBiomes[i])]) continue;// swamps are acceptable above water
             if (landSearch.notHunted) {
                 landSearch.hunt(biomeNeighborhood);
             }
@@ -388,9 +388,9 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             if (oceanSearch.absent) break; //no point
             if (noise[i] > oceanTop) continue;// too hight
-            if (oceanBiome[BiomeGenBase.getIdForBiome(jitteredBiomes[i])]) continue;// obviously ocean is OK
-            if (swampBiome[BiomeGenBase.getIdForBiome(jitteredBiomes[i])]) continue;// swamps are acceptable
-            if (riverBiome[BiomeGenBase.getIdForBiome(jitteredBiomes[i])]) continue;// rivers stay rivers
+            if (oceanBiome[RealisticBiomeBase.getIdForBiome(jitteredBiomes[i])]) continue;// obviously ocean is OK
+            if (swampBiome[RealisticBiomeBase.getIdForBiome(jitteredBiomes[i])]) continue;// swamps are acceptable
+            if (riverBiome[RealisticBiomeBase.getIdForBiome(jitteredBiomes[i])]) continue;// rivers stay rivers
             if (oceanSearch.notHunted) {
                 oceanSearch.hunt(biomeNeighborhood);
             }

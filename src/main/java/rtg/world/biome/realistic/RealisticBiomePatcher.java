@@ -32,12 +32,6 @@ public class RealisticBiomePatcher {
         }
 
         this.singleBiomeId = ConfigRTG.singleBiomeId;
-
-        if (this.isSingleBiomeWorld()) {
-
-            this.singleRealisticBiome = RealisticBiomeBase.getBiome(this.singleBiomeId);
-            this.singleBaseBiome = singleRealisticBiome.baseBiome;
-        }
     }
 
     public RealisticBiomeBase getPatchedRealisticBiome(String exceptionMessage) {

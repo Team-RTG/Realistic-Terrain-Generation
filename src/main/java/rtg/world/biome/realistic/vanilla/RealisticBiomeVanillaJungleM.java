@@ -15,6 +15,7 @@ import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleM;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.*;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
@@ -27,7 +28,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.jungle;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeGenBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;

@@ -1,6 +1,6 @@
 package rtg.util;
 
-import net.minecraft.world.biome.BiomeGenBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import static net.minecraft.init.Biomes.*;
 
@@ -14,11 +14,11 @@ public class BiomeSet {
 
     public class Water {
         public Water() {
-            biomes[BiomeGenBase.getIdForBiome(deepOcean)] = true;
-            biomes[BiomeGenBase.getIdForBiome(frozenOcean)] = true;
-            biomes[BiomeGenBase.getIdForBiome(frozenRiver)] = true;
-            biomes[BiomeGenBase.getIdForBiome(ocean)] = true;
-            biomes[BiomeGenBase.getIdForBiome(river)] = true;
+            biomes[RealisticBiomeBase.getIdForBiome(deepOcean)] = true;
+            biomes[RealisticBiomeBase.getIdForBiome(frozenOcean)] = true;
+            biomes[RealisticBiomeBase.getIdForBiome(frozenRiver)] = true;
+            biomes[RealisticBiomeBase.getIdForBiome(ocean)] = true;
+            biomes[RealisticBiomeBase.getIdForBiome(river)] = true;
         }
     }
 

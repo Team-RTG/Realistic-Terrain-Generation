@@ -10,6 +10,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleEdgeM;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleEdgeM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleEdgeM;
@@ -18,7 +19,7 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.jungleEdge;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeGenBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;

@@ -12,6 +12,10 @@ public class BiomeUtils {
         return Lists.newArrayList(BiomeGenBase.biomeRegistry.iterator());
     }
 
+    public static int biomeIds() {
+        return 256;
+    }
+
     public static ResourceLocation getLocForBiome(BiomeGenBase biome) {
         return BiomeGenBase.biomeRegistry.getNameForObject(biome);
     }

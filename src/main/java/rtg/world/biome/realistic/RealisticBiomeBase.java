@@ -387,7 +387,7 @@ public class RealisticBiomeBase extends BiomeBase {
 
     private float lakeInterval = 1470.0f;
     private double lakeWaterLevel = 0.0;// the lakeStrenght below which things should be below ater
-    private double lakeDepressionLevel = 0.13;// the lakeStrength below which land should start to be lowered
+    private double lakeDepressionLevel = 0.27;// the lakeStrength below which land should start to be lowered
     public boolean noLakes = false;
     public boolean noWaterFeatures = false;
 

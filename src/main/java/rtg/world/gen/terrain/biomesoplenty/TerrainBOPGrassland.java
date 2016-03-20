@@ -15,6 +15,6 @@ public class TerrainBOPGrassland extends TerrainBase
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return terrainMarsh(x, y, simplex, 64f);
+        return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 66f);
     }
 }

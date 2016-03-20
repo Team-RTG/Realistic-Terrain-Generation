@@ -9,6 +9,7 @@ public class TerrainBOPMoor extends TerrainBase
     private float minHeight;
     private float maxHeight;
     private float hillStrength;
+    private float lift;
 
     // 63f, 80f, 30f
 
@@ -17,11 +18,12 @@ public class TerrainBOPMoor extends TerrainBase
         this.minHeight = minHeight;
         this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
         this.hillStrength = hillStrength;
+        lift = minHeight-62f;
     }
 
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return terrainRollingHills(x, y, simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 0f);
+        return terrainRollingHills(x, y, simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills,lift);
     }
 }

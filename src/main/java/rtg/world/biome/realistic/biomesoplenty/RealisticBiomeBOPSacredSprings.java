@@ -19,8 +19,9 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
-			new TerrainBOPSacredSprings(),
+			new TerrainBOPSacredSprings(150f, 60f, 68f),
 			new SurfaceBOPSacredSprings(config, topBlock, fillerBlock)
 		);
+        noWaterFeatures = true;
 	}
 }

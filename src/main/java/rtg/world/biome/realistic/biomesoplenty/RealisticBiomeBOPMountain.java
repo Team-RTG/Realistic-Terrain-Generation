@@ -31,7 +31,7 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
-			new TerrainBOPMountain(180f, 100f, 0f),
+			new TerrainBOPMountain(120f, 150f),
 			new SurfaceBOPMountain(config,
                 topBlock, //Block top 
                 (byte)0, //byte topByte
@@ -48,6 +48,8 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
             )
 		);
 		this.generatesEmeralds = true;
+        this.noLakes = true;
+        this.noWaterFeatures= true;
 	}
 	
     @Override

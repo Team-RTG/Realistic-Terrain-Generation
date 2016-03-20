@@ -339,33 +339,42 @@ public class RealisticBiomeBase extends BiomeBase {
         if (noWaterFeatures) {
             return terrain.generateNoise(simplex, cell, x, y, border, 1f);
         }
-        double lakeStrength = lakePressure(simplex,cell,x,y);
+        float lakeStrength = lakePressure(simplex,cell,x,y,border);
+        //if (1>0) return 62f+lakeStrength*20;
         double lakeFlattening = this.lakeFlattening(lakeStrength, lakeWaterLevel, lakeDepressionLevel);
         if (lakeFlattening < river) river = (float)lakeFlattening;
-
-        float terrainNoise = terrain.generateNoise(simplex, cell, x, y, border, river);
-        return this.erodedNoise(simplex, cell, x, y, river-1f, terrainNoise,lakeFlattening-1.0);
+        float riverFlattening = river*1.25f-0.25f;
+        if (riverFlattening <0) riverFlattening = 0;
+        float terrainNoise = terrain.generateNoise(simplex, cell, x, y, border, riverFlattening);
+        return this.erodedNoise(simplex, cell, x, y, river, border, terrainNoise,lakeFlattening);
     }
 
-    public float erodedNoise(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float river, float biomeHeight, double lakeFlattening)
+    private static float actualRiverProportion = 300f/1300f;
+    public float erodedNoise(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float river, float border, float biomeHeight, double lakeFlattening)
     {
 
-        if ((river < 0f && biomeHeight > 57f))
+        float r = 1f;
+        // check if rivers need lowering
+        if (river < actualRiverProportion) {
+            r = river/actualRiverProportion;
+        }
+        //if (1>0) return 62f+r*10f;
+        if ((r < 1f && biomeHeight > 57f))
         {
         	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
-            SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-            simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
-            double pX = x + jitter.deltax() * 220f;
-            double pY = y + jitter.deltay() * 220f;
+            //SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+            //simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
+            //double pX = x + jitter.deltax() * 220f;
+            //double pY = y + jitter.deltay() * 220f;
 
             //New cellular noise.
             //TODO move the initialization of the results in a way that's more efficient but still thread safe.
-            double[] results =simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
-            float r = (float) cellBorder(results, 30.0 / 1300.0, 1.0);
-            if (lakeFlattening < r) r = (float) lakeFlattening;
+            //double[] results =simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
+            //float r =
+            //float r = (float) cellBorder(results, 30.0 / 1300.0, 1.0);
 
-            return (biomeHeight * (r + 1f))
-                + ((57f + simplex.noise2(x / 12f, y / 12f) * 2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (-r));
+            return (biomeHeight * (r))
+                + ((57f + simplex.noise2(x / 12f, y / 12f) * 2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (1f-r));
         }
         else
         {
@@ -373,26 +382,16 @@ public class RealisticBiomeBase extends BiomeBase {
         }
     }
 
-
-    private static double cellBorder(double[] results, double width, double depth) {
-		double c = results[1] - results[0];
-		if (c < width) {
-			return ((c / width) - 1) * depth;
-		} else {
-			return 0;
-		}
-	}
-
     // lake calculations
 
     private float lakeInterval = 1470.0f;
-    private double lakeWaterLevel = 0.04;// the lakeStrenght below which things should be below ater
-    private double lakeDepressionLevel = 0.15;// the lakeStrength below which land should start to be lowered
+    private double lakeWaterLevel = 0.0;// the lakeStrenght below which things should be below ater
+    private double lakeDepressionLevel = 0.13;// the lakeStrength below which land should start to be lowered
     public boolean noLakes = false;
     public boolean noWaterFeatures = false;
 
-    public double lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y) {
-        if (noLakes) return 1.0;
+    public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
+        if (noLakes) return 1f;
         SimplexOctave.Derivative jitter = new SimplexOctave.Derivative();
         simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
         double pX = x + jitter.deltax() * 110f;
@@ -403,7 +402,12 @@ public class RealisticBiomeBase extends BiomeBase {
         simplex.mountain().evaluateNoise(x / 30.0, y / 30.0, jitter);
         pX += jitter.deltax() * 10f;
         pY += jitter.deltay() * 10f;
-        double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
+        //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
+        double [] lakeResults = simplexCell.river().eval((float)x/ lakeInterval, (float)y/ lakeInterval);
+        float results = 1f-(float)((lakeResults[1]-lakeResults[0])/lakeResults[1]);
+        if (results >1.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
+        if (results<-.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
+        //return simplexCell.river().noise((float)x/ lakeInterval, (float)y/ lakeInterval,1.0);
         return results;
     }
 
@@ -411,7 +415,7 @@ public class RealisticBiomeBase extends BiomeBase {
         // this number indicates a multiplier to height
         if (pressure > topLevel) return 1;
         if (pressure<bottomLevel) return 0;
-        return Math.pow((pressure-bottomLevel)/(topLevel-bottomLevel),0.333);
+        return (pressure-bottomLevel)/(topLevel-bottomLevel);
     }
 
     public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {

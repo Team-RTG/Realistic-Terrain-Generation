@@ -123,6 +123,9 @@ public class BiomeAnalyzer {
             if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().contains("archipelago")) {
                 swampBiome[index] = true;
             }
+            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().equals("sheild")) {
+                swampBiome[index] = true;
+            }
             if (BiomeGenBase.getBiome(index).biomeID==BiomeGenBase.frozenRiver.biomeID) {
                 swampBiome[index] = true;
             }

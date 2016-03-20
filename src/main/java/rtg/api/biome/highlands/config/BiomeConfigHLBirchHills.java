@@ -1,10 +1,8 @@
 package rtg.api.biome.highlands.config;
 
 
-public class BiomeConfigHLBirchHills extends BiomeConfigHLBase
-{
-    public BiomeConfigHLBirchHills()
-    {
+public class BiomeConfigHLBirchHills extends BiomeConfigHLBase {
+    public BiomeConfigHLBirchHills() {
         super("birchhills");
     }
 }

@@ -2,8 +2,7 @@ package rtg.api.biome.vanilla.config;
 
 import rtg.api.biome.BiomeConfig;
 
-public class BiomeConfigVanilla
-{
+public class BiomeConfigVanilla {
     public static BiomeConfig biomeConfigVanillaBeach;
     public static BiomeConfig biomeConfigVanillaBirchForest;
     public static BiomeConfig biomeConfigVanillaBirchForestHills;
@@ -63,71 +62,70 @@ public class BiomeConfigVanilla
     public static BiomeConfig biomeConfigVanillaMesaBryce;
     public static BiomeConfig biomeConfigVanillaMesaPlateauFM;
     public static BiomeConfig biomeConfigVanillaMesaPlateauM;
-    
-    public static BiomeConfig[] getBiomeConfigs()
-    {
+
+    public static BiomeConfig[] getBiomeConfigs() {
         BiomeConfig[] biomeConfigs = new BiomeConfig[]{
-            biomeConfigVanillaBeach,
-            biomeConfigVanillaBirchForest,
-            biomeConfigVanillaBirchForestHills,
-            biomeConfigVanillaBirchForestHillsM,
-            biomeConfigVanillaBirchForestM,
-            biomeConfigVanillaColdBeach,
-            biomeConfigVanillaColdTaiga,
-            biomeConfigVanillaColdTaigaHills,
-            biomeConfigVanillaColdTaigaM,
-            biomeConfigVanillaDeepOcean,
-            biomeConfigVanillaDesert,
-            biomeConfigVanillaDesertHills,
-            biomeConfigVanillaDesertM,
-            biomeConfigVanillaExtremeHills,
-            biomeConfigVanillaExtremeHillsEdge,
-            biomeConfigVanillaExtremeHillsM,
-            biomeConfigVanillaExtremeHillsPlus,
-            biomeConfigVanillaExtremeHillsPlusM,
-            biomeConfigVanillaFlowerForest,
-            biomeConfigVanillaForest,
-            biomeConfigVanillaForestHills,
-            biomeConfigVanillaFrozenOcean,
-            biomeConfigVanillaFrozenRiver,
-            biomeConfigVanillaIceMountains,
-            biomeConfigVanillaIcePlains,
-            biomeConfigVanillaIcePlainsSpikes,
-            biomeConfigVanillaJungle,
-            biomeConfigVanillaJungleEdge,
-            biomeConfigVanillaJungleEdgeM,
-            biomeConfigVanillaJungleHills,
-            biomeConfigVanillaJungleM,
-            biomeConfigVanillaMegaSpruceTaiga,
-            biomeConfigVanillaMegaTaiga,
-            biomeConfigVanillaMegaTaigaHills,
-            biomeConfigVanillaMesa,
-            biomeConfigVanillaMesaBryce,
-            biomeConfigVanillaMesaPlateau,
-            biomeConfigVanillaMesaPlateauF,
-            biomeConfigVanillaMesaPlateauFM,
-            biomeConfigVanillaMesaPlateauM,
-            biomeConfigVanillaMushroomIsland,
-            biomeConfigVanillaMushroomIslandShore,
-            biomeConfigVanillaOcean,
-            biomeConfigVanillaPlains,
-            biomeConfigVanillaRedwoodTaigaHills,
-            biomeConfigVanillaRiver,
-            biomeConfigVanillaRoofedForest,
-            biomeConfigVanillaRoofedForestM,
-            biomeConfigVanillaSavanna,
-            biomeConfigVanillaSavannaM,
-            biomeConfigVanillaSavannaPlateau,
-            biomeConfigVanillaSavannaPlateauM,
-            biomeConfigVanillaStoneBeach,
-            biomeConfigVanillaSunflowerPlains,
-            biomeConfigVanillaSwampland,
-            biomeConfigVanillaSwamplandM,
-            biomeConfigVanillaTaiga,
-            biomeConfigVanillaTaigaHills,
-            biomeConfigVanillaTaigaM
+                biomeConfigVanillaBeach,
+                biomeConfigVanillaBirchForest,
+                biomeConfigVanillaBirchForestHills,
+                biomeConfigVanillaBirchForestHillsM,
+                biomeConfigVanillaBirchForestM,
+                biomeConfigVanillaColdBeach,
+                biomeConfigVanillaColdTaiga,
+                biomeConfigVanillaColdTaigaHills,
+                biomeConfigVanillaColdTaigaM,
+                biomeConfigVanillaDeepOcean,
+                biomeConfigVanillaDesert,
+                biomeConfigVanillaDesertHills,
+                biomeConfigVanillaDesertM,
+                biomeConfigVanillaExtremeHills,
+                biomeConfigVanillaExtremeHillsEdge,
+                biomeConfigVanillaExtremeHillsM,
+                biomeConfigVanillaExtremeHillsPlus,
+                biomeConfigVanillaExtremeHillsPlusM,
+                biomeConfigVanillaFlowerForest,
+                biomeConfigVanillaForest,
+                biomeConfigVanillaForestHills,
+                biomeConfigVanillaFrozenOcean,
+                biomeConfigVanillaFrozenRiver,
+                biomeConfigVanillaIceMountains,
+                biomeConfigVanillaIcePlains,
+                biomeConfigVanillaIcePlainsSpikes,
+                biomeConfigVanillaJungle,
+                biomeConfigVanillaJungleEdge,
+                biomeConfigVanillaJungleEdgeM,
+                biomeConfigVanillaJungleHills,
+                biomeConfigVanillaJungleM,
+                biomeConfigVanillaMegaSpruceTaiga,
+                biomeConfigVanillaMegaTaiga,
+                biomeConfigVanillaMegaTaigaHills,
+                biomeConfigVanillaMesa,
+                biomeConfigVanillaMesaBryce,
+                biomeConfigVanillaMesaPlateau,
+                biomeConfigVanillaMesaPlateauF,
+                biomeConfigVanillaMesaPlateauFM,
+                biomeConfigVanillaMesaPlateauM,
+                biomeConfigVanillaMushroomIsland,
+                biomeConfigVanillaMushroomIslandShore,
+                biomeConfigVanillaOcean,
+                biomeConfigVanillaPlains,
+                biomeConfigVanillaRedwoodTaigaHills,
+                biomeConfigVanillaRiver,
+                biomeConfigVanillaRoofedForest,
+                biomeConfigVanillaRoofedForestM,
+                biomeConfigVanillaSavanna,
+                biomeConfigVanillaSavannaM,
+                biomeConfigVanillaSavannaPlateau,
+                biomeConfigVanillaSavannaPlateauM,
+                biomeConfigVanillaStoneBeach,
+                biomeConfigVanillaSunflowerPlains,
+                biomeConfigVanillaSwampland,
+                biomeConfigVanillaSwamplandM,
+                biomeConfigVanillaTaiga,
+                biomeConfigVanillaTaigaHills,
+                biomeConfigVanillaTaigaM
         };
-        
+
         return biomeConfigs;
     }
 }

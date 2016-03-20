@@ -20,3 +20,4 @@ deploy:
   region: ap-southeast-2
   on:
     repo: Team-RTG/1.8.9-Realistic-Terrain-Generation
+    all_branches: true

@@ -1,7 +1,7 @@
 package rtg.world.gen.feature.tree;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -11,7 +11,7 @@ import static java.lang.Math.*;
 import static java.lang.System.arraycopy;
 import static net.minecraft.init.Blocks.*;
 import static net.minecraft.init.Blocks.log;
-import static net.minecraft.util.MathHelper.floor_double;
+import static net.minecraft.util.math.MathHelper.floor_double;
 
 public class WorldGenTreeRTGBig extends WorldGenerator {
     public boolean generate(World world, Random rand, BlockPos blockPos) {

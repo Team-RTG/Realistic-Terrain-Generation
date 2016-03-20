@@ -1,10 +1,8 @@
 package rtg.api.biome.extrabiomes.config;
 
 
-public class BiomeConfigEBXLWasteland extends BiomeConfigEBXLBase
-{
-    public BiomeConfigEBXLWasteland()
-    {
+public class BiomeConfigEBXLWasteland extends BiomeConfigEBXLBase {
+    public BiomeConfigEBXLWasteland() {
         super("wasteland");
     }
 }

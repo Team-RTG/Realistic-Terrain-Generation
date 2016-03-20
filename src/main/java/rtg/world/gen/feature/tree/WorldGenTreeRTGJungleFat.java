@@ -1,7 +1,7 @@
 package rtg.world.gen.feature.tree;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -132,8 +132,7 @@ public class WorldGenTreeRTGJungleFat extends WorldGenerator {
                         if (dist < 1.3f) {
                             world.setBlockState(new BlockPos((int) x + i, (int) y + j, (int) z + k), blockLog.getStateFromMeta(metadataLog), 2);
                         }
-                        if (world.isAirBlock(new BlockPos((int) x + i, (int) y + j, (int)z + k)))
-                        {
+                        if (world.isAirBlock(new BlockPos((int) x + i, (int) y + j, (int) z + k))) {
                             world.setBlockState(new BlockPos((int) x + i, (int) y + j, (int) z + k), blockLeaves.getStateFromMeta(metadataLeaves), 2);
                         }
                     }

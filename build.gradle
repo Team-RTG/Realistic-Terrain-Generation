@@ -18,15 +18,15 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 version = (System.getenv("TRAVIS") ? "DEV-" + System.getenv('TRAVIS_BUILD_NUMBER') : "1.8.9-0.0.5")
 group= "org.teamrtg.rtg" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "RTG"
-def versionName = "1.8.9-" + project.version
+def versionName = "1.9-" + project.version
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 minecraft {
-    version = "1.8.9-11.15.1.1764"
+    version = "1.9-12.16.0.1770-1.9"
     runDir = "run"
-    mappings = "stable_20"
+    mappings = "snapshot_nodoc_20160318"
     replace '@VERSION@', project.version
 }
 

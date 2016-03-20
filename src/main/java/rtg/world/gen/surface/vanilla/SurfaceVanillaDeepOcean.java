@@ -14,58 +14,46 @@ import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
 
-public class SurfaceVanillaDeepOcean extends SurfaceBase
-{
-    
+public class SurfaceVanillaDeepOcean extends SurfaceBase {
+
     private IBlockState mixBlock;
     private float width;
     private float height;
     private float mixCheck;
-    
-    public SurfaceVanillaDeepOcean(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mix, float mixWidth, float mixHeight)
-    {
-    
+
+    public SurfaceVanillaDeepOcean(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mix, float mixWidth, float mixHeight) {
+
         super(config, top, filler);
-        
+
         mixBlock = this.getConfigBlock(config, BiomeConfigVanillaDeepOcean.surfaceMixBlockId,
                 BiomeConfigVanillaDeepOcean.surfaceMixBlockMetaId, mix);
-        
+
         width = mixWidth;
         height = mixHeight;
     }
-    
+
     @Override
     public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
-                             OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
-    {
-    
-        
-        for (int k = 255; k > -1; k--)
-        {
-            Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
-            if (b == Blocks.air)
-            {
+                             OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+
+
+        for (int k = 255; k > -1; k--) {
+            Block b = primer.getBlockState(x, k, y).getBlock();
+            if (b == Blocks.air) {
                 depth = -1;
-            }
-            else if (b == Blocks.stone)
-            {
+            } else if (b == Blocks.stone) {
                 depth++;
-                
-                if (depth == 0 && k > 0 && k < 63)
-                {
+
+                if (depth == 0 && k > 0 && k < 63) {
                     mixCheck = simplex.noise2(i / width, j / width);
-                    
+
                     if (mixCheck > height) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, mixBlock);
+                        primer.setBlockState(x, k, y, mixBlock);
+                    } else {
+                        primer.setBlockState(x, k, y, topBlock);
                     }
-                    else
-                    {
-                        primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
-                    }
-                }
-                else if (depth < 4 && k < 63)
-                {
-                    primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
+                } else if (depth < 4 && k < 63) {
+                    primer.setBlockState(x, k, y, fillerBlock);
                 }
             }
         }

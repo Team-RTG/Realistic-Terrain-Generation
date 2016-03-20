@@ -15,132 +15,85 @@ import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
 
-public class SurfaceVanillaMesaPlateauF extends SurfaceBase
-{
-	private int grassRaise = 0;
-	
-	public SurfaceVanillaMesaPlateauF(BiomeConfig config, IBlockState top, IBlockState fill, int grassHeight)
-	{
-		super(config, top, fill);
-		grassRaise = grassHeight;
-	}
-	
-	@Override
-	public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
-	{
-		float c = CliffCalculator.calc(x, y, noise);
-		boolean cliff = c > 1.3f;
-		
-		for(int k = 255; k > -1; k--)
-		{
-			Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
-            if(b == Blocks.air)
-            {
-            	depth = -1;
-            }
-            else if(b == Blocks.stone)
-            {
-            	depth++;
+public class SurfaceVanillaMesaPlateauF extends SurfaceBase {
+    private int grassRaise = 0;
 
-        		if(depth > -1 && depth < 12)
-	        	{
-	            	if(cliff)
-	            	{
-						primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.MESA.getForHeight(i, k,j));
-					}
-	            	else
-	            	{
-	        			if(depth > 4)
-	        			{
-							primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.MESA.getForHeight(i, k,j));
-						}
-	        			else if(k > 74 + grassRaise)
-	        			{
-	        				if(rand.nextInt(5) == 0)
-	        				{
-		        				primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
-	        				}
-	        				else
-	        				{
-		        				if(depth == 0)
-		        				{
-			        				primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
-		        				}
-		        				else
-		        				{
-			        				primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
-		        				}
-	        				}
-	        			}
-	        			else if(k < 62)
-	        			{
-	        				primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
-	        			}
-	        			else if(k < 62 + grassRaise)
-	        			{
-	        				if(depth == 0)
-	        				{
-	        					primer.setBlockState((y * 16 + x) * 256 + k, Blocks.grass.getDefaultState());
-	        				}
-	        				else
-	        				{
-	        					primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getStateFromMeta(1));
-	        				}
-	        			}
-	        			else if(k < 75 + grassRaise)
-	        			{
-	        				if(depth == 0)
-	        				{
-								int r = (int)((k - (62 + grassRaise)) / 2f);
-								float sn = simplex.noise2(x/24f, y/24f);
-								if (sn > 0) {
-									if(rand.nextInt((r + 1)) == 0)
-									{
-										primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getStateFromMeta(1));
-									}
-									else
-									{
-										primer.setBlockState((y * 16 + x) * 256 + k, Blocks.grass.getDefaultState());
-									}
-								}
-								else {
-									if(rand.nextInt(r + 1) == 0)
-									{
-										primer.setBlockState((y * 16 + x) * 256 + k, Blocks.grass.getDefaultState());
-									}
-									else if(rand.nextInt((int)(r / 2f) + 1) == 0)
-									{
-										primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getStateFromMeta(1));
-									}
-									else
-									{
-										primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
-									}
-								}
-	        				}
-	        				else
-	        				{
-		        				primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
-	        				}
-	        			}
-	        			else
-	        			{
-	        				if(depth == 0)
-	        				{
-		        				primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
-	        				}
-	        				else
-	        				{
-		        				primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
-	        				}
-	        			}
-	            	}
-        		}
-        		else if(k > 63)
-        		{
-					primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.MESA.getForHeight(i, k,j));
-				}
+    public SurfaceVanillaMesaPlateauF(BiomeConfig config, IBlockState top, IBlockState fill, int grassHeight) {
+        super(config, top, fill);
+        grassRaise = grassHeight;
+    }
+
+    @Override
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+        float c = CliffCalculator.calc(x, y, noise);
+        boolean cliff = c > 1.3f;
+
+        for (int k = 255; k > -1; k--) {
+            Block b = primer.getBlockState(x, k, y).getBlock();
+            if (b == Blocks.air) {
+                depth = -1;
+            } else if (b == Blocks.stone) {
+                depth++;
+
+                if (depth > -1 && depth < 12) {
+                    if (cliff) {
+                        primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                    } else {
+                        if (depth > 4) {
+                            primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                        } else if (k > 74 + grassRaise) {
+                            float sn = simplex.noise2(i / 24f, j / 24f);
+                            sn += simplex.noise2(i / 12, j / 12) * 0.1;
+                            if (sn > 0) {
+                                if (rand.nextInt(4) == 0) {
+                                    primer.setBlockState(x, k, y, Blocks.dirt.getStateFromMeta(1));
+                                } else {
+                                    primer.setBlockState(x, k, y, Blocks.grass.getDefaultState());
+                                }
+                            } else {
+                                if (rand.nextInt(5) == 0) {
+                                    primer.setBlockState(x, k, y, Blocks.dirt.getDefaultState());
+                                } else {
+                                    if (depth == 0) {
+                                        primer.setBlockState(x, k, y, topBlock);
+                                    } else {
+                                        primer.setBlockState(x, k, y, fillerBlock);
+                                    }
+                                }
+                            }
+                        } else if (k < 62) {
+                            primer.setBlockState(x, k, y, Blocks.dirt.getDefaultState());
+                        } else if (k < 62 + grassRaise) {
+                            if (depth == 0) {
+                                primer.setBlockState(x, k, y, Blocks.grass.getDefaultState());
+                            } else {
+                                primer.setBlockState(x, k, y, Blocks.dirt.getStateFromMeta(1));
+                            }
+                        } else if (k < 75 + grassRaise) {
+                            if (depth == 0) {
+                                int r = (int) ((k - (62 + grassRaise)) / 2f);
+                                if (rand.nextInt(r + 1) == 0) {
+                                    primer.setBlockState(x, k, y, Blocks.grass.getDefaultState());
+                                } else if (rand.nextInt((int) (r / 2f) + 1) == 0) {
+                                    primer.setBlockState(x, k, y, Blocks.dirt.getStateFromMeta(1));
+                                } else {
+                                    primer.setBlockState(x, k, y, topBlock);
+                                }
+                            } else {
+                                primer.setBlockState(x, k, y, fillerBlock);
+                            }
+                        } else {
+                            if (depth == 0) {
+                                primer.setBlockState(x, k, y, topBlock);
+                            } else {
+                                primer.setBlockState(x, k, y, fillerBlock);
+                            }
+                        }
+                    }
+                } else if (k > 63) {
+                    primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                }
             }
-		}
-	}
+        }
+    }
 }

@@ -2,8 +2,7 @@ package rtg.world.gen.feature.tree;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -11,6 +10,7 @@ import java.util.Random;
 
 import static java.lang.Math.abs;
 import static net.minecraft.init.Blocks.*;
+import static net.minecraft.util.EnumFacing.UP;
 
 public class WorldGenTreeRTGPine extends WorldGenerator {
     public boolean generate(World world, Random rand, BlockPos blockPos) {
@@ -53,7 +53,7 @@ public class WorldGenTreeRTGPine extends WorldGenerator {
                         if (l1 >= 0 && l1 < 256) {
                             Block block = p_76484_1_.getBlockState(new BlockPos(i2, l1, j2)).getBlock();
 
-                            if (!block.isAir(p_76484_1_, new BlockPos(i2, l1, j2)) && !block.isLeaves(p_76484_1_, new BlockPos(i2, l1, j2)) && block != snow_layer) {
+                            if (!block.isAir(p_76484_1_.getBlockState(new BlockPos(i2, l1, j2)), p_76484_1_, new BlockPos(i2, l1, j2)) && !block.isLeaves(p_76484_1_.getBlockState(new BlockPos(i2, l1, j2)), p_76484_1_, new BlockPos(i2, l1, j2)) && block != snow_layer) {
                                 flag = false;
                             }
                         } else {
@@ -68,9 +68,9 @@ public class WorldGenTreeRTGPine extends WorldGenerator {
             } else {
                 Block block1 = p_76484_1_.getBlockState(new BlockPos(p_76484_3_, p_76484_4_ - 1, p_76484_5_)).getBlock();
 
-                boolean isSoil = block1.canSustainPlant(p_76484_1_, new BlockPos(p_76484_3_, p_76484_4_ - 1, p_76484_5_), EnumFacing.UP, (BlockSapling) sapling);
+                boolean isSoil = block1.canSustainPlant(p_76484_1_.getBlockState(new BlockPos(p_76484_3_, p_76484_4_ - 1, p_76484_5_)), p_76484_1_, new BlockPos(p_76484_3_, p_76484_4_ - 1, p_76484_5_), UP, (BlockSapling) sapling);
                 if (isSoil && p_76484_4_ < 256 - l - 1) {
-                    block1.onPlantGrow(p_76484_1_, new BlockPos(p_76484_3_, p_76484_4_ - 1, p_76484_5_), new BlockPos(p_76484_3_, p_76484_4_, p_76484_5_));
+                    block1.onPlantGrow(p_76484_1_.getBlockState(new BlockPos(p_76484_3_, p_76484_4_ - 1, p_76484_5_)), p_76484_1_, new BlockPos(p_76484_3_, p_76484_4_ - 1, p_76484_5_), new BlockPos(p_76484_3_, p_76484_4_, p_76484_5_));
                     l3 = p_76484_2_.nextInt(2);
                     i2 = 1;
                     byte b0 = 0;
@@ -86,7 +86,7 @@ public class WorldGenTreeRTGPine extends WorldGenerator {
                             for (int j3 = p_76484_5_ - l3; j3 <= p_76484_5_ + l3; ++j3) {
                                 int k3 = j3 - p_76484_5_;
 
-                                if ((abs(i3) != l3 || abs(k3) != l3 || l3 <= 0) && p_76484_1_.getBlockState(new BlockPos(l2, k2, j3)).getBlock().canBeReplacedByLeaves(p_76484_1_, new BlockPos(l2, k2, j3))) {
+                                if ((abs(i3) != l3 || abs(k3) != l3 || l3 <= 0) && p_76484_1_.getBlockState(new BlockPos(l2, k2, j3)).getBlock().canBeReplacedByLeaves(p_76484_1_.getBlockState(new BlockPos(l2, k2, j3)), p_76484_1_, new BlockPos(l2, k2, j3))) {
                                     p_76484_1_.setBlockState(new BlockPos(l2, k2, j3), leaves.getStateFromMeta(metadata), 0);
                                 }
                             }
@@ -110,7 +110,7 @@ public class WorldGenTreeRTGPine extends WorldGenerator {
                     for (k2 = 0; k2 < l - i4; ++k2) {
                         Block block2 = p_76484_1_.getBlockState(new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_)).getBlock();
 
-                        if (block2.isAir(p_76484_1_, new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_)) || block2.isLeaves(p_76484_1_, new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_)) || block2 == snow_layer) {
+                        if (block2.isAir(p_76484_1_.getBlockState(new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_)), p_76484_1_, new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_)) || block2.isLeaves(p_76484_1_.getBlockState(new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_)), p_76484_1_, new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_)) || block2 == snow_layer) {
                             p_76484_1_.setBlockState(new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_), log.getDefaultState(), 0);
                         }
                     }

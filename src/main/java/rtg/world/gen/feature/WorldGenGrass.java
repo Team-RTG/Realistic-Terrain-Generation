@@ -1,7 +1,7 @@
 package rtg.world.gen.feature;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -13,6 +13,7 @@ public class WorldGenGrass extends WorldGenerator {
     public boolean generate(World world, Random rand, BlockPos blockPos) {
         return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
+
     private Block block;
     private int metadata;
 
@@ -23,7 +24,7 @@ public class WorldGenGrass extends WorldGenerator {
 
     public boolean generate(World world, Random rand, int x, int y, int z) {
         while (y > 0) {
-            if (!world.isAirBlock(new BlockPos(x, y, z)) || world.getBlockState(new BlockPos(x, y, z)).getBlock().isLeaves(world, new BlockPos(x, y, z))) {
+            if (!world.isAirBlock(new BlockPos(x, y, z)) || world.getBlockState(new BlockPos(x, y, z)).getBlock().isLeaves(world.getBlockState(new BlockPos(x, y, z)), world, new BlockPos(x, y, z))) {
                 break;
             }
             y--;

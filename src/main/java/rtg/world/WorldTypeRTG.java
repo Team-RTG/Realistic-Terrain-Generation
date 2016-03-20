@@ -1,48 +1,42 @@
 package rtg.world;
 
-import rtg.world.biome.WorldChunkManagerRTG;
-import rtg.world.gen.ChunkProviderRTG;
-
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
-import net.minecraft.world.biome.WorldChunkManager;
-import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.ChunkProviderGenerate;
+import net.minecraft.world.biome.BiomeProvider;
+import net.minecraft.world.chunk.IChunkGenerator;
+import net.minecraft.world.gen.ChunkProviderOverworld;
+import rtg.world.biome.BiomeProviderRTG;
+import rtg.world.gen.ChunkProviderRTG;
 
-public class WorldTypeRTG extends WorldType
-{
+public class WorldTypeRTG extends WorldType {
 
-	public WorldTypeRTG(String name)
-	{
-		super("RTG");
-				
+    public WorldTypeRTG(String name) {
+        super("RTG");
+
 //        DimensionManager.unregisterProviderType(0);
 //        DimensionManager.registerProviderType(0, WorldProviderSurfaceRTG.class, true);
-	}
-	
-	@Override
-    public WorldChunkManager getChunkManager(World world)
-    {
-        if (world.provider.getDimensionId() == 0) {
-        return new WorldChunkManagerRTG(world,this);
+    }
+
+    @Override
+    public BiomeProvider getBiomeProvider(World world) {
+        if (world.provider.getDimension() == 0) {
+            return new BiomeProviderRTG(world, this);
         } else {
-            return new WorldChunkManager(world);
+            return new BiomeProvider(world.getWorldInfo());
         }
     }
 
     @Override
-    public IChunkProvider getChunkGenerator(World world, String generatorOptions)
-    {
-        if (world.provider.getDimensionId() == 0) {
+    public IChunkGenerator getChunkGenerator(World world, String generatorOptions) {
+        if (world.provider.getDimension() == 0) {
             return new ChunkProviderRTG(world, world.getSeed());
         } else {
-            return new ChunkProviderGenerate(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
+            return new ChunkProviderOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
         }
     }
-	
+
     @Override
-    public float getCloudHeight()
-    {
+    public float getCloudHeight() {
         return 256F;
     }
 }

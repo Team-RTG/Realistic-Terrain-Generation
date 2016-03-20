@@ -2,7 +2,7 @@ package rtg.world.gen.feature;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -30,7 +30,7 @@ class WorldGenWildWheat extends WorldGenerator {
         Block b;
         while (y > 0) {
             b = world.getBlockState(new BlockPos(x, y, z)).getBlock();
-            if (!world.isAirBlock(new BlockPos(x, y, z)) || b.isLeaves(world, new BlockPos(x, y, z))) {
+            if (!world.isAirBlock(new BlockPos(x, y, z)) || b.isLeaves(world.getBlockState(new BlockPos(x, y, z)), world, new BlockPos(x, y, z))) {
                 break;
             }
             y--;
@@ -43,7 +43,7 @@ class WorldGenWildWheat extends WorldGenerator {
 
         for (int j = 0; j < 4; j++) {
             b = world.getBlockState(new BlockPos(j == 0 ? x - 1 : j == 1 ? x + 1 : x, y, j == 2 ? z - 1 : j == 3 ? z + 1 : z)).getBlock();
-            if (b.getMaterial() != ground && b.getMaterial() != Material.grass) {
+            if (b.getMaterial(b.getDefaultState()) != ground && b.getMaterial(b.getDefaultState()) != Material.grass) {
                 return false;
             }
         }

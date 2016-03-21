@@ -14,17 +14,9 @@
     "parent": "",
     "requiredMods": [ "Forge@[11.14.3.1468,)" ],
     "dependencies": [
-        "BiomesOPlenty@[3.0.0.1924,)",
+        "BiomesOPlenty@[3.0.0.1924,)"
     ],
     "dependants": [],
     "useDependencyInformation": true
 }
 ]
-
-
-
-
-
-
-
-

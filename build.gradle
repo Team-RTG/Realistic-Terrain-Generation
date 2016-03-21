@@ -1,4 +1,3 @@
-// For those who want the bleeding edge
 buildscript {
     repositories {
         jcenter()
@@ -11,44 +10,54 @@ buildscript {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
     }
 }
-
 apply plugin: 'net.minecraftforge.gradle.forge'
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
-version = (System.getenv("TRAVIS") ? "DEV-" + System.getenv('TRAVIS_BUILD_NUMBER') : "1.8.9-0.0.6")
-group= "org.teamrtg.rtg" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "RTG"
-def versionName = "1.8.9-" + project.version
+ext.ref = parseprops(file('build.properties'))
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+group = ref.package_base + '.' + ref.mod_id
+archivesBaseName = ref.mod_id
+version = (System.getenv("TRAVIS") ? "1.8.9-DEV-" + System.getenv('TRAVIS_BUILD_NUMBER') : ref.mc_version + '-' + ref.mod_version)
+def versionName = (System.getenv("TRAVIS") ? "1.8.9-" + ref.mod_version + "-DEV-" +  System.getenv('TRAVIS_BUILD_NUMBER') : version)
 
 minecraft {
-    version = "1.8.9-11.15.1.1764"
-    runDir = "run"
-    mappings = "stable_20"
-    replace '@VERSION@', project.version
+    version = ref.mcf_version
+    runDir = ref.run_dir
+    mappings = ref.mappings
+    replace '@MOD_NAME@', ref.mod_name
+    replace '@MOD_ID@', ref.mod_id
+    replace '@MOD_VERSION@', versionName
+    replace '@MCF_VERSION@', ref.mcf_version
+    replaceIn 'ModInfo.java'
 }
 
-dependencies {
-}
+dependencies {}
 
-processResources
-{
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    // replace stuff in mcmod.info, nothing else
+processResources {
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-        
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+		expand ([
+			'modid':ref.mod_id,
+			'name':ref.mod_name,
+			'description':ref.mod_desc,
+			'version':ref.mod_version,
+			'mcversion':ref.mc_version,
+			'url':ref.mod_url,
+			'authorList':ref.mod_author,
+			'credits':ref.mod_creds,
+			'logoFile':ref.mod_logo,
+			'dependencies':ref.mod_deps
+		])
+	}
+	from(sourceSets.main.resources.srcDirs) {exclude 'mcmod.info'}
+}
+
+def parseprops(File cfg) {
+    cfg.withReader {
+        def prop = new Properties()
+        prop.load(it)
+        return (new ConfigSlurper().parse(prop))
     }
 }

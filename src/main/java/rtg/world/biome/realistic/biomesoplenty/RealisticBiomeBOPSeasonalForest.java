@@ -28,7 +28,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
-			new TerrainBOPSeasonalForest(0f, 100f, 68f, 170f),
+			new TerrainBOPSeasonalForest(0f, 80f, 68f, 170f),
 			new SurfaceBOPSeasonalForest(config,
                 topBlock, //Block top 
                 (byte)0, //byte topByte

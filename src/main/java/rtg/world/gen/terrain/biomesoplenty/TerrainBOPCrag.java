@@ -2,6 +2,7 @@ package rtg.world.gen.terrain.biomesoplenty;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.SimplexOctave;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBOPCrag extends TerrainBase
@@ -14,28 +15,32 @@ public class TerrainBOPCrag extends TerrainBase
     private float cHeigth;
     private float cStrength;
     private float base;
-    
+
+    private float pointHeightVariation = 20f;
+    private float pointHeightWavelength = 400f;// deep variation
+    private float pointHeight = 50;
+    private float pointWavelength = 20;
     /*
      * Example parameters:
-     * 
+     *
      * allowed to generate rivers?
      * riverGen = true
-     * 
+     *
      * canyon jump heights
      * heightArray = new float[]{2.0f, 0.5f, 6.5f, 0.5f, 14.0f, 0.5f, 19.0f, 0.5f}
-     * 
+     *
      * strength of canyon jump heights
      * heightStrength = 35f
-     * 
+     *
      * canyon width (cliff to cliff)
      * canyonWidth = 160f
-     * 
+     *
      * canyon heigth (total heigth)
      * canyonHeight = 60f
-     * 
+     *
      * canyon strength
      * canyonStrength = 40f
-     * 
+     *
      */
     public TerrainBOPCrag(boolean riverGen, float[] heightArryay, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight)
     {
@@ -52,58 +57,22 @@ public class TerrainBOPCrag extends TerrainBase
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        //float b = simplex.noise2(x / cWidth, y / cWidth) * cHeigth * river;
-        //b *= b / cStrength;
-        river *= 1.3f;
-        river = river > 1f ? 1f : river;
-        float r = simplex.noise2(x / 100f, y / 100f) * 50f;
-        r = r < -7.4f ? -7.4f : r > 7.4f ? 7.4f : r;
-        float b = (17f + r) * river;
-        
-        float hn = simplex.noise2(x / 12f, y / 12f) * 0.5f;
-        float sb = 0f;
-        if(b > 0f)
-        {
-            sb = b;
-            sb = sb < 0f ? 0f : sb > 7f ? 7f : sb;
-            sb = hn * sb;
-        }
-        b += sb;
 
-        float cTotal = 0f;
-        float cTemp = 0f;
-        
-        for(int i = 0; i < heightLength; i += 2)
-        {
-            cTemp = 0;
-            if(b > height[i] && border > 0.6f + (height[i] * 0.015f) + hn * 0.2f)
-            {
-                cTemp = b > height[i] + height[i + 1] ? height[i + 1] : b - height[i];
-                cTemp *= strength;
-            }
-            cTotal += cTemp;
-        }
-        
-        
-        float bn = 0f;
-        if(booRiver)
-        {
-            if(b < 5f)
-            {
-                bn = 5f - b;
-                for(int i = 0; i < 3; i++)
-                {
-                    bn *= bn / 4.5f;
-                }
-            }
-        }
-        else if(b < 5f)
-        {
-            bn = (simplex.noise2(x / 7f, y / 7f) * 1.3f + simplex.noise2(x / 15f, y / 15f) * 2f) * (5f - b) * 0.2f;
-        }
-        
-        b += cTotal - bn;
-        
-        return base + b;
+        // need a little jitter to the points
+        SimplexOctave.Derivative jitter = new SimplexOctave.Derivative();
+        simplex.riverJitter().evaluateNoise(x / 20.0, y / 20.0, jitter);
+        double pX = x + jitter.deltax() * 1f;
+        double pY = y + jitter.deltay() * 1f;
+
+        // restrict the points to in the biome.
+        double multiplier = (border-0.5)*10.0;
+        if (multiplier <0) multiplier = 0;
+        if (multiplier >1) multiplier = 1;
+        double [] points = cell.octave(1).eval((float)pX/pointWavelength, (float)pY/pointWavelength);
+        float p = (float)((points[1]-points[0])*(pointHeight +
+                pointHeightVariation*simplex.noise((float)x/pointHeightWavelength, (float)y/pointHeightWavelength)));
+
+        return riverized(base,river) + p;
+        //return terrainCanyon(x, y, simplex, river, height, border, strength, heightLength, booRiver);
     }
 }

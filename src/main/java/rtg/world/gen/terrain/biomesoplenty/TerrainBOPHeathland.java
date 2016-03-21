@@ -1,38 +1,30 @@
 package rtg.world.gen.terrain.biomesoplenty;
 
-import org.apache.logging.log4j.Level;
-
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.gen.terrain.HillockEffect;
 import rtg.world.gen.terrain.TerrainBase;
-import cpw.mods.fml.common.FMLLog;
 
 public class TerrainBOPHeathland extends TerrainBase
 {
-    
+    private float baseHeight = 68f;
+    private HillockEffect hills;
+
     public TerrainBOPHeathland()
     {
-    
+        hills = new HillockEffect();
+        hills.height = 30;
+        hills.minimumSimplex = 0.3f;
+        hills.octave = 0;
+        hills.wavelength = 50f;
+
     }
-    
+
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-    
-        float floNoise;
-        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * 10f * river;
-        st = st < 0.2f ? 0.2f : st;
-        
-        float h = simplex.noise2(x / 60f, y / 60f) * st * 2f;
-        h = h > 0f ? -h : h;
-        h += st;
-        h *= h / 200f;
-        h += st;
-        
-        floNoise = 65f + h;
-        
-        //FMLLog.log(Level.INFO, "floNoise = %f", floNoise);
-        
-        return floNoise;
+        float added = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
+        added += hills.added(simplex, cell,x, y);
+        return riverized(baseHeight + added,river);
     }
 }

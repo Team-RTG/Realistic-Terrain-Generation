@@ -7,7 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenFlowers extends WorldGenerator
+public class WorldGenFlowersRTG extends WorldGenerator
 {
     private int[] flowers;
 
@@ -34,7 +34,7 @@ public class WorldGenFlowers extends WorldGenerator
 		15	Peony
      * 
      */
-    public WorldGenFlowers(int[] f)
+    public WorldGenFlowersRTG(int[] f)
     {
     	flowers = f;
     }

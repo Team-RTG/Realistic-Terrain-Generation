@@ -2,11 +2,9 @@ package rtg.config.growthcraft;
 
 import java.io.File;
 
-import org.apache.logging.log4j.Level;
-
 import rtg.api.biome.growthcraft.config.BiomeConfigGC;
 import rtg.config.BiomeConfigManager;
-import cpw.mods.fml.common.FMLLog;
+import rtg.util.Logger;
 
 import net.minecraftforge.common.config.Configuration;
 
@@ -28,7 +26,7 @@ public class ConfigGC
             
         } catch (Exception e)
         {
-            FMLLog.log(Level.ERROR, e, "RTG has had a problem loading GC configuration.");
+            Logger.error("RTG has had a problem loading GC configuration.");
         } finally
         {
             if (config.hasChanged())

@@ -22,9 +22,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class SurfaceBase
 {
     protected Block topBlock;
-    protected byte topBlockMeta;
+    public byte topBlockMeta;
     protected Block fillerBlock;
-    protected byte fillerBlockMeta;
+    public byte fillerBlockMeta;
 	protected BiomeConfig biomeConfig;
 
 	private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");

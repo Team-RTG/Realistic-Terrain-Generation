@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.thaumcraft;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTC;
+import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
@@ -40,10 +41,15 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase
 			{
 				if(b[i] != null)
 				{
+                    if (b[i].biomeName == null) {
+                        Logger.warn("Biome ID %d has no name.", b[i].biomeID);
+                        continue;
+                    }
+                    
 					BiomeGenBase tcBiome = b[i];
 					String biomeName = tcBiome.biomeName;
 					String biomeClass = tcBiome.getBiomeClass().getName();
-					
+
                     if (biomeName == "Magical Forest" && biomeClass == "thaumcraft.common.lib.world.biomes.BiomeGenMagicalForest")
                     {
                         tcMagicalForest = new RealisticBiomeTCMagicalForest(tcBiome, BiomeConfigTC.biomeConfigTCMagicalForest);

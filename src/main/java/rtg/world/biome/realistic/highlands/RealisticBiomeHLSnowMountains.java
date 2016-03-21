@@ -7,6 +7,8 @@ import rtg.world.gen.terrain.highlands.TerrainHLSnowMountains;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 
 public class RealisticBiomeHLSnowMountains extends RealisticBiomeHLBase
 {	
@@ -23,4 +25,11 @@ public class RealisticBiomeHLSnowMountains extends RealisticBiomeHLBase
 			new SurfaceHLSnowMountains(config, topBlock, fillerBlock, false, null, 1.2f)
 		);
 	}
+
+    @Override
+    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        // no rivers or lakes
+        return terrain.generateNoise(simplex, cell, x, y, border, river);
+    }
+
 }

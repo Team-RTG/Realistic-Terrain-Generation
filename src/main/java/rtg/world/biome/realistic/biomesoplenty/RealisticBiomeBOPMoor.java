@@ -20,7 +20,7 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
-			new TerrainBOPMoor(63f, 69f, 32f),
+			new TerrainBOPMoor(73f, 79f, 32f),
 			new SurfaceBOPMoor(config, topBlock, fillerBlock)
 		);
 	}

@@ -2,11 +2,9 @@ package rtg.config.chromaticraft;
 
 import java.io.File;
 
-import org.apache.logging.log4j.Level;
-
 import rtg.api.biome.chromaticraft.config.BiomeConfigCC;
 import rtg.config.BiomeConfigManager;
-import cpw.mods.fml.common.FMLLog;
+import rtg.util.Logger;
 
 import net.minecraftforge.common.config.Configuration;
 
@@ -26,7 +24,7 @@ public class ConfigCC
 		}
 		catch (Exception e)
 		{
-			FMLLog.log(Level.ERROR, e, "RTG has had a problem loading ChromatiCraft configuration.");	
+		    Logger.error("RTG has had a problem loading ChromatiCraft configuration.");	
 		}
 		finally 
 		{

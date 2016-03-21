@@ -28,7 +28,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
-			new TerrainBOPEucalyptusForest(58f, 80f, 36f),
+			new TerrainBOPEucalyptusForest(),//(58f, 80f, 36f),
 			new SurfaceBOPEucalyptusForest(config,
                 topBlock, //Block top 
                 (byte)0, //byte topByte

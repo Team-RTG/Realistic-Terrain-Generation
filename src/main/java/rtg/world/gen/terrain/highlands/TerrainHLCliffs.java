@@ -60,10 +60,11 @@ public class TerrainHLCliffs extends TerrainBase
 		m += c;
         m = above(m, startCliffsAt);
 
-		float l = simplex.noise2(x / lakeWidth, y / lakeWidth) * lakeDepth;
-		l *= l / 25f;
-		l = l < -8f ? -8f : l;
+        // we're going to have the rivers "pierce" the cliffs so river noise won't affect the cliff parts
+        if (m> 0) return terrainHeight+h+m;
 
-		return terrainHeight + h + m - l;
+		float result = terrainHeight + h;
+        if (river<1) return 62f+(result-62f)*river;
+        return result;
 	}
 }

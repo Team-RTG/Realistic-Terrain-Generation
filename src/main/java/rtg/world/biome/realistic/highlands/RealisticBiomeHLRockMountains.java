@@ -41,6 +41,12 @@ public class RealisticBiomeHLRockMountains extends RealisticBiomeHLBase
             new SurfaceHLRockMountains(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f));
         this.generatesEmeralds = true;
     }
+    
+    @Override
+    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        // no rivers or lakes
+        return terrain.generateNoise(simplex, cell, x, y, border, river);
+    }
 
 
     // copied from Realistic Extreme hills. Does not call vanilla decorate so no Higland inverted rock parabolas.

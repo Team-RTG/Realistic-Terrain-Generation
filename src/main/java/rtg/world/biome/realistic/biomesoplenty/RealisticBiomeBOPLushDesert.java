@@ -34,7 +34,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
-			new TerrainBOPLushDesert(65f, 71f, 40f),
+			new TerrainBOPLushDesert(65f, 40f, 10f),
 			new SurfaceBOPLushDesert(config,
                 topBlock, //Block top 
                 (byte)0, //byte topByte
@@ -45,7 +45,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
                 fillerBlock, //Block mixFill, 
                 (byte)0, //byte mixFillByte,
                 40f, //float mixWidth, 
-                -0.15f, //float mixHeight, 
+                -0.15f, //float mixHeight,
                 10f, //float smallWidth, 
                 0.5f //float smallStrength
             )

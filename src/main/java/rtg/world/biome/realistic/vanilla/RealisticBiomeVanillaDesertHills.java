@@ -7,7 +7,7 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenCacti;
-import rtg.world.gen.feature.WorldGenFlowers;
+import rtg.world.gen.feature.WorldGenFlowersRTG;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
 import rtg.world.gen.surface.SurfaceBase;
@@ -35,11 +35,12 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
 		super(config, 
 			BiomeGenBase.desertHills,
 			BiomeGenBase.river,
-			new TerrainVanillaDesertHills(600f, 50f, 0f),
+			new TerrainVanillaDesertHills(10f, 120f, 68f, 200f),
 			new SurfaceVanillaDesertHills(config, Blocks.sand, Blocks.sandstone, false, null, 0f, 1.5f, 60f, 65f, 1.5f)
 		);
 		
         this.waterSurfaceLakeChance = 0;
+        this.noLakes=true;
 	}
 	
     @Override
@@ -111,7 +112,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
                 int j15 = chunkX + rand.nextInt(16) + 8;
                 int j17 = rand.nextInt(128);
                 int j20 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenFlowers(new int[]{9,9,9,9,3,3,3,3,3,2,2,2,11,11,11})).generate(world, rand, j15, j17, j20);
+                (new WorldGenFlowersRTG(new int[]{9,9,9,9,3,3,3,3,3,2,2,2,11,11,11})).generate(world, rand, j15, j17, j20);
             }
             
             for(int l14 = 0; l14 < 15; l14++)

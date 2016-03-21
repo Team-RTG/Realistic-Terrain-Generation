@@ -36,5 +36,6 @@ public class RealisticBiomeBOPArctic extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
+        noWaterFeatures = true;
 	}
 }

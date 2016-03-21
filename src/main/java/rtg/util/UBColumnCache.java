@@ -1,8 +1,8 @@
 
 package rtg.util;
 
-import exterminatorJeff.undergroundBiomes.api.UBAPIHook;
 import rtg.RTG;
+import exterminatorJeff.undergroundBiomes.api.UBAPIHook;
 import exterminatorJeff.undergroundBiomes.api.UBStrataColumn;
 
 /**

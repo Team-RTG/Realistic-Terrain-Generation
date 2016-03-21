@@ -20,7 +20,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'forge'
 
-version = "0.8.0"
+version = (System.getenv("TRAVIS") ? "DEV-" + System.getenv('TRAVIS_BUILD_NUMBER') : '0.8.0')
 group = "org.teamrtg.rtg" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "RTG-" + project.mcversion
 

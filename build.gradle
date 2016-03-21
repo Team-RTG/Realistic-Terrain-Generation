@@ -19,7 +19,8 @@ ext.ref = parseprops(file('build.properties'))
 
 group = ref.package_base + '.' + ref.mod_id
 archivesBaseName = ref.mod_id
-version = (System.getenv("TRAVIS") ? "-1.9-DEV-" + System.getenv('TRAVIS_BUILD_NUMBER') : ref.mc_version + '-' + ref.mod_version)
+version = (System.getenv("TRAVIS") ? "1.9-DEV-" + System.getenv('TRAVIS_BUILD_NUMBER') : ref.mc_version + '-' + ref.mod_version)
+versionName = (System.getenv("TRAVIS") ? "1.9-" + ref.mod_version + "-DEV-" +  System.getenv('TRAVIS_BUILD_NUMBER') : version)
 
 minecraft {
     version = ref.mcf_version + '-1.9' //the '-1.9' will probably be dropped in the future once Forge 1.9 is stable, or atleast this seems to be the trend.
@@ -27,7 +28,7 @@ minecraft {
     mappings = ref.mappings
     replace '@MOD_NAME@', ref.mod_name
     replace '@MOD_ID@', ref.mod_id
-    replace '@MOD_VERSION@', project.version
+    replace '@MOD_VERSION@', versionName
     replace '@MCF_VERSION@', ref.mcf_version
     replaceIn 'ModInfo.java'
 }

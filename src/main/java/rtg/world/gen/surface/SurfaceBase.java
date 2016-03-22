@@ -8,10 +8,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
-import rtg.util.CellNoise;
+import rtg.util.noise.CellNoise;
 import rtg.util.ModPresenceTester;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.UBColumnCache;
+import rtg.util.noise.OpenSimplexNoise;
 
 import java.util.Random;
 
@@ -22,9 +21,6 @@ public class SurfaceBase {
 
     private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
     private final static ModPresenceTester abyssalCraftMod = new ModPresenceTester("abyssalcraft");
-
-    // create UBColumnCache only if UB is present
-    private static UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
 
     public SurfaceBase(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte) {
         this(config, top.getStateFromMeta(topByte), fill.getStateFromMeta(fillByte));

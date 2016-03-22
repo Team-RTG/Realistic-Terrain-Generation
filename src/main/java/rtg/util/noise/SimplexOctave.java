@@ -12,7 +12,7 @@
  * - SPH2-noise (output is a 2D coordinate within a unit disc, rather than a 1D value)
  */
 
-package rtg.util;
+package rtg.util.noise;
 
 /**
  * @author KdotJPG

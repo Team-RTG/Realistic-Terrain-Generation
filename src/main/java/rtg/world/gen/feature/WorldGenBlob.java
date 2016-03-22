@@ -10,7 +10,7 @@ import java.util.Random;
 import static net.minecraft.init.Blocks.*;
 import static rtg.config.rtg.ConfigRTG.cobblestoneBoulderChance;
 import static rtg.config.rtg.ConfigRTG.enableCobblestoneBoulders;
-import static rtg.util.RandomUtil.getRandomInt;
+import static rtg.util.math.RandomUtil.getRandomInt;
 
 public class WorldGenBlob extends WorldGenerator {
     public boolean generate(World world, Random rand, BlockPos blockPos) {

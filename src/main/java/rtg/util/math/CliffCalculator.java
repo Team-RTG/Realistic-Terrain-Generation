@@ -1,4 +1,4 @@
-package rtg.util;
+package rtg.util.math;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package rtg.util;
+package rtg.util.noise;
 
 public interface CellNoise {
     float noise(double x, double z, double depth);

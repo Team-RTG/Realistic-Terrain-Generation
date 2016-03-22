@@ -41,13 +41,13 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.relauncher.Side;
-
 import net.minecraftforge.common.MinecraftForge;
+import static rtg.reference.ModInfo.*;
 
-@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, acceptableRemoteVersions = "*")
+@Mod(modid = MOD_ID, name = MOD_NAME, version = MOD_VERSION, dependencies = "required-after:Forge@[" + FORGE_DEP + ",)", acceptableRemoteVersions = "*")
 public class RTG {
-    
-    @Instance("RTG")
+
+    @Instance(MOD_ID)
     public static RTG instance;
     public static String configPath;
     public static WorldTypeRTG worldtype;

@@ -1,4 +1,6 @@
 /.gradle
+/run
+/out
 /.settings
 /build
 /eclipse
@@ -17,8 +19,10 @@ gradlew-clean.bat
 gradlew-eclipse.bat
 gradlew-build.bat
 libs/*.jar
-
 forge-1.7.10-10.13.4.1558-1.7.10-changelog.txt
 gradlew-jar.bat
 gradlew-cleanCache.bat
 gradlew-setupDecompWorkspace-refresh-deps.bat
+*.iml
+*.ipr
+*.iws

@@ -1,1 +1,1 @@
-include 'version'
+rootProject.name = 'RTG'

@@ -1,9 +1,5 @@
 package enhancedbiomes.helpers;
 
-import java.io.File;
-
-import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.common.config.Configuration;
 
 public class VolcanoHelper 
 {
@@ -23,4 +19,9 @@ public class VolcanoHelper
 		config.save();
 		configFile.
 	}*/
+	
+	public VolcanoHelper()
+	{
+		
+	}
 }

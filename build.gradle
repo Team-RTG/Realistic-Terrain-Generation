@@ -7,7 +7,6 @@ buildscript {
     dependencies {classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'}
 }
 apply plugin: 'forge'
-
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 

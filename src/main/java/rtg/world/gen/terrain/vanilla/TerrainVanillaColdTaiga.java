@@ -14,6 +14,6 @@ public class TerrainVanillaColdTaiga extends TerrainBase
 
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return terrainFlatLakes(x, y, simplex, river, 3f, 66f);
+        return terrainFlatLakes(x, y, simplex, river, 13f, 66f);
     }
 }

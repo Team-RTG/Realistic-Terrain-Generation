@@ -13,6 +13,6 @@ public class TerrainVanillaRoofedForestM extends TerrainBase
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 80f, 68f);
+        return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 50f, 68f);
     }
 }

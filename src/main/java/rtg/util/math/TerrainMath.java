@@ -1,4 +1,4 @@
-package rtg.util;
+package rtg.util.math;
 
 public class TerrainMath {
     public static double nextX(double x, double d, double s) {

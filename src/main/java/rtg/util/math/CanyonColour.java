@@ -1,7 +1,8 @@
-package rtg.util;
+package rtg.util.math;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import rtg.util.noise.OpenSimplexNoise;
 
 import java.util.HashMap;
 import java.util.Map;

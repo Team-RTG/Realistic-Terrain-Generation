@@ -1,4 +1,4 @@
-package rtg.util;
+package rtg.util.math;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.world.chunk.ChunkPrimer;

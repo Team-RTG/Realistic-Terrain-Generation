@@ -13,14 +13,15 @@ import rtg.config.ConfigManager;
 import rtg.debug.DebugHandler;
 import rtg.event.EventManagerRTG;
 import rtg.proxy.CommonProxy;
-import rtg.reference.ModInfo;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
+
 import java.util.ArrayList;
+
 import static rtg.reference.ModInfo.*;
 
 @Mod(modid = MOD_ID, name = MOD_NAME, version = MOD_VERSION, dependencies = "required-after:Forge@[" + FORGE_DEP + ",)", acceptableRemoteVersions = "*")

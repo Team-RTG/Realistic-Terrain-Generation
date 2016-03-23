@@ -9,10 +9,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.SimplexCellularNoise;
-import rtg.util.SimplexOctave;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
+import rtg.util.noise.SimplexCellularNoise;
+import rtg.util.noise.SimplexOctave;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 

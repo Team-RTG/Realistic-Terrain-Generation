@@ -229,12 +229,19 @@ public class TerrainBase
 
     public static float terrainFlatLakes(int x, int y, OpenSimplexNoise simplex, float river, float hMax, float baseHeight)
     {
-        float h = simplex.noise2(x / 300f, y / 300f) * 40f * river;
+        /*float h = simplex.noise2(x / 300f, y / 300f) * 40f * river;
         h = h > hMax ? hMax : h;
         h += simplex.noise2(x / 50f, y / 50f) * (12f - h) * 0.4f;
-        h += simplex.noise2(x / 15f, y / 15f) * (12f - h) * 0.15f;
+        h += simplex.noise2(x / 15f, y / 15f) * (12f - h) * 0.15f;*/
 
-        return baseHeight + h;
+        float ruggedNoise = simplex.octave(1).noise2(x/VariableRuggednessEffect.STANDARD_RUGGEDNESS_WAVELENGTH
+                , y/VariableRuggednessEffect.STANDARD_RUGGEDNESS_WAVELENGTH);
+
+        ruggedNoise = blendedHillHeight(ruggedNoise);
+        float h = groundNoise(x,y,2f*(ruggedNoise+1f),simplex);// ground noise
+        float hillNoise = (float)simplex.noise(x/60f, y/60f);
+        hillNoise*=hillNoise * hMax * ruggedNoise;
+        return riverized(baseHeight + h,river);
     }
     
     public static float terrainForest(int x, int y, OpenSimplexNoise simplex, float river, float baseHeight)

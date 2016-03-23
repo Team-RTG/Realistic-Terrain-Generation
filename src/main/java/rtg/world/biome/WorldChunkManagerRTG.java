@@ -213,16 +213,16 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
     private static int references = 0;
 	private static double cellBorder(double[] results, double width, double depth) {
 		double c = (results[1] - results[0]);
-        //int slot = (int)Math.floor(c*100.0);
-        //incidences[slot] += 1;
-        //references ++;
+        /*int slot = (int)Math.floor(c*100.0);
+        incidences[slot] += 1;
+        references ++;
         if (references>40000) {
             String result = "";
             for (int i = 0; i< 100; i ++) {
                 result += " " + incidences[i];
             }
             throw new RuntimeException(result);
-        }
+        }*/
 		if (c < width) {
 			return ((c / width) - 1f) * depth;
 		} else {
@@ -246,7 +246,10 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         //New cellular noise.
         //TODO move the initialization of the results in a way that's more efficient but still thread safe.
         double[] results = simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
-        return (float) cellBorder(results, 30.0 / 450.0, 1.0);
+        if (x==-200&&y == -750) {
+            //throw new RuntimeException(""+ results[1]+ " " +results[0]);
+        }
+        return (float) cellBorder(results, 30.0 / 600.0, 1.0);
     }
     	
     public boolean isBorderlessAt(int x, int y)

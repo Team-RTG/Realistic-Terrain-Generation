@@ -332,48 +332,93 @@ public class RealisticBiomeBase extends BiomeBase {
     public void rMapGen(Block[] blocks, byte[] metadata, World world, RTGBiomeProvider cmr, Random mapRand, int chunkX, int chunkY, int baseX, int baseY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
     
     }
+
+    private float getRiverStrength(OpenSimplexNoise simplex, CellNoise cell, int x, int y)
+    {
+        // copied from WorldChunkManager for debugging purposes
+            SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+            simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
+            double pX = x + jitter.deltax() * 220f;
+            double pY = y + jitter.deltay() * 220f;
+
+        double[] results = cell.river().eval(pX / 1875.0, pY / 1875.0);
+        return (float) cellBorder(results, 30.0 / 450.0, 1.0);
+    }
+
+    private static double cellBorder(double[] results, double width, double depth) {
+		double c = (results[1] - results[0]);
+        //int slot = (int)Math.floor(c*100.0);
+        //incidences[slot] += 1;
+        //references ++;
+        if (references>40000) {
+            String result = "";
+            for (int i = 0; i< 100; i ++) {
+                result += " " + incidences[i];
+            }
+            throw new RuntimeException(result);
+        }
+		if (c < width) {
+			return ((c / width) - 1f) * depth;
+		} else {
+
+			return 0;
+		}
+	}
     
+    private static int [] incidences = new int[200];
+    private static int references = 0;
     public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
         // we now have both lakes and rivers lowering land
-
+        /*for (int testX =0 ;testX<100; testX++) {
+            for (int testZ =0 ;testZ<100; testZ++) {
+                int slot = (int)Math.floor(
+                        getRiverStrength(simplex,cell,4000+testX*10,4000+testZ*10)*100.0+100.0);
+                incidences[slot] += 1;
+                references ++;
+            }           
+        }
+        if (references>1000) {
+            String result = "";
+            for (int i = 0; i< 200; i ++) {
+                result += " " + incidences[i];
+            }
+            throw new RuntimeException(result);
+        }*/
         if (noWaterFeatures) {
-            return terrain.generateNoise(simplex, cell, x, y, border, 1f);
+            border = border*2;
+            if (border >1f) border = 1;
+            river = 1f - border*(1f-river);
+            return terrain.generateNoise(simplex, cell, x, y, border, river);
         }
         float lakeStrength = lakePressure(simplex,cell,x,y,border);
-        //if (1>0) return 62f+lakeStrength*20;
         double lakeFlattening = this.lakeFlattening(lakeStrength, lakeWaterLevel, lakeDepressionLevel);
-        if (lakeFlattening < river) river = (float)lakeFlattening;
-        float riverFlattening = river*1.33f-0.33f;
+        // we add some flattening to the rivers but not to the lakes. This gives the rivers flatter
+        // banks and the lakes steeper ones, which seems to be better aesthetically
+        float riverFlattening = river*1.25f-0.25f;
         if (riverFlattening <0) riverFlattening = 0;
-        float terrainNoise = terrain.generateNoise(simplex, cell, x, y, border, riverFlattening);
-        //if (river<1.0) terrainNoise = 64f;
+        if (lakeFlattening < river) river = (float)lakeFlattening;
+        float terrainNoise = terrain.generateNoise(simplex, cell, x, y, border, river);
         return this.erodedNoise(simplex, cell, x, y, river, border, terrainNoise,lakeFlattening);
     }
 
-    private static float actualRiverProportion = 300f/1300f;
+    private static float actualRiverProportion = 300f/1600f;
     public float erodedNoise(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float river, float border, float biomeHeight, double lakeFlattening)
     {
 
         float r = 1f;
+
+        // put a flat spot in the middle of the river
+        float riverFlattening = river*1.25f-0.25f;
+        if (riverFlattening <0) riverFlattening = 0;
+
         // check if rivers need lowering
-        if (river < actualRiverProportion) {
-            r = river/actualRiverProportion;
+        if (riverFlattening < actualRiverProportion) {
+            r = riverFlattening/actualRiverProportion;
         }
+
         //if (1>0) return 62f+r*10f;
         if ((r < 1f && biomeHeight > 57f))
         {
-        	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
-            //SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-            //simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
-            //double pX = x + jitter.deltax() * 220f;
-            //double pY = y + jitter.deltay() * 220f;
-
-            //New cellular noise.
-            //TODO move the initialization of the results in a way that's more efficient but still thread safe.
-            //double[] results =simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
-            //float r =
-            //float r = (float) cellBorder(results, 30.0 / 1300.0, 1.0);
-
             return (biomeHeight * (r))
                 + ((57f + simplex.noise2(x / 12f, y / 12f) * 2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (1f-r));
         }
@@ -387,24 +432,24 @@ public class RealisticBiomeBase extends BiomeBase {
 
     private float lakeInterval = 1470.0f;
     private double lakeWaterLevel = 0.0;// the lakeStrenght below which things should be below ater
-    private double lakeDepressionLevel = 0.27;// the lakeStrength below which land should start to be lowered
+    private double lakeDepressionLevel = 0.16;// the lakeStrength below which land should start to be lowered
     public boolean noLakes = false;
     public boolean noWaterFeatures = false;
 
     public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
         if (noLakes) return 1f;
-        SimplexOctave.Derivative jitter = new SimplexOctave.Derivative();
+        SimplexOctave.Disk jitter = new SimplexOctave.Disk();
         simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
-        double pX = x + jitter.deltax() * 110f;
-        double pY = y + jitter.deltay() * 110f;
+        double pX = x + jitter.deltax() * 90f;
+        double pY = y + jitter.deltay() * 90f;
         simplex.mountain().evaluateNoise(x / 80.0, y / 80.0, jitter);
-        pX += jitter.deltax() * 30f;
-        pY += jitter.deltay() * 30f;
+        pX += jitter.deltax() * 25f;
+        pY += jitter.deltay() * 25f;
         simplex.mountain().evaluateNoise(x / 30.0, y / 30.0, jitter);
-        pX += jitter.deltax() * 10f;
-        pY += jitter.deltay() * 10f;
+        pX += jitter.deltax() * 7f;
+        pY += jitter.deltay() * 7f;
         //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
-        double [] lakeResults = simplexCell.river().eval((float)x/ lakeInterval, (float)y/ lakeInterval);
+        double [] lakeResults = simplexCell.river().eval((float)pX/ lakeInterval, (float)pY/ lakeInterval);
         float results = 1f-(float)((lakeResults[1]-lakeResults[0])/lakeResults[1]);
         if (results >1.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
         if (results<-.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);

@@ -6,8 +6,6 @@
 
 package rtg.util.noise;
 
-import rtg.util.noise.SimplexOctave;
-
 /**
  * @author Zeno410
  * @version $Revision: 1.3$
@@ -51,7 +49,7 @@ public class OpenSimplexNoise extends SimplexOctave {
     public double improvedNoise(double x, double y, double z) {
         return octaves[0].noise(x, y, z);
     }
-	
+
 	/*
 	 * Standard functions
 	 */

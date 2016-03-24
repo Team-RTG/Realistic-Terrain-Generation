@@ -17,8 +17,8 @@ public class TerrainVanillaForest extends TerrainBase {
 
         float m = hills(x, y, hillStrength, simplex, river);
 
-        float floNoise = 68f + groundNoise + m;
+        float floNoise = 65f + groundNoise + m;
 
-        return floNoise;
+        return riverized(floNoise,river);
     }
 }

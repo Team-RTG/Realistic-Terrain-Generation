@@ -14,6 +14,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPShield;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.util.noise.SimplexOctave;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPShield;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPShield;
@@ -82,5 +83,25 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
                 (new WorldGenLog(log, logMeta, Blocks.leaves, -1, intLogLength)).generate(world, rand, new BlockPos(x22, y22, z22));
             }
         }
+    }
+    private float lakeInterval = 80;
+
+    public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
+        float baseLakes = super.lakePressure(simplex, simplexCell, x, y, border);
+        SimplexOctave.Derivative jitter = new SimplexOctave.Derivative();
+        simplex.riverJitter().evaluateNoise(x / 30.0, y / 30.0, jitter);
+        double pX = x + jitter.deltax() * 15f;
+        double pY = y + jitter.deltay() * 15f;
+        simplex.mountain().evaluateNoise(x / 10.0, y / 10.0, jitter);
+        pX += jitter.deltax() * 4f;
+        pY += jitter.deltay() * 4f;
+        //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
+        double [] lakeResults = simplexCell.river().eval((float)x/ lakeInterval, (float)y/ lakeInterval);
+        float results = 1f-(float)((lakeResults[1]-lakeResults[0])/lakeResults[1]);
+        if (results >1.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
+        if (results<-.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
+        //float result = simplexCell.river().noise((float)x/ lakeInterval, (float)y/ lakeInterval,1.0);
+        return Math.min(baseLakes, results);
+        //return results;
     }
 }

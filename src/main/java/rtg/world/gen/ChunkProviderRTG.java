@@ -136,7 +136,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         parabolicField = new float[parabolicArraySize * parabolicArraySize];
         for (int j = -parabolicSize; j <= parabolicSize; ++j) {
             for (int k = -parabolicSize; k <= parabolicSize; ++k) {
-                float f = 0.445f / MathHelper.sqrt_float((float) (j^2 + k^2) + 0.3F);
+                float f = 0.445f / MathHelper.sqrt_float((float) ((j * 1) * (j * 1) + (k * 1) * (k * 1)) + 0.3F);
                 parabolicField[j + parabolicSize + (k + parabolicSize) * parabolicArraySize] = f;
                 parabolicFieldTotal += f;
             }
@@ -162,7 +162,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         ChunkPrimer primer = new ChunkPrimer();
         float[] noise = new float[256];
         biomesForGeneration = new RealisticBiomeBase[256];
-        this.biomesForGeneration = ( (BiomeProviderRTG) this.worldObj.getBiomeProvider()).getRealisticBiomesForGeneration(this.biomesForGeneration, cx * 4 - 2, cy * 4 - 2, 10, 10);
+        //this.biomesForGeneration = ( (BiomeProviderRTG) this.worldObj.getBiomeProvider()).getRealisticBiomesForGeneration(this.biomesForGeneration, cx * 4 - 2, cy * 4 - 2, 10, 10);
 
         int k;
 
@@ -297,15 +297,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
                         hugeRender[(i * 2 + 2) * 9 + (j * 2 + 2)][biomeData[(i + k + sampleSize + 1) * sampleArraySize + (j + locationIndex + sampleSize + 1)]] += parabolicField[k + parabolicSize + (locationIndex + parabolicSize) * parabolicArraySize] / parabolicFieldTotal;
                     }
                 }
-
-            }
-        }
-
-        //MAIN BIOME CHECK
-        RealisticBiomeBase realisticBiomeBase = null;
-        for (i = 0; i < 256; i++) {
-            if (hugeRender[4 * 9 + 4][i] > 0.95f) {
-                realisticBiomeBase = RealisticBiomeBase.getBiome(i);
             }
         }
 
@@ -463,10 +454,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 RealisticBiomeBase biome = biomes[i * 16 + j];
 
                 river = -bprv.getRiverStrength(cx * 16 + j, cy * 16 + i);
-                if (river > 0.05f && river + (simplex.noise2((cx * 16 + j) / 10f, (cy * 16 + i) / 10f) * 0.15f) > 0.8f) {
-                    //base[j * 16 + i] = biome.riverBiome;
-                }
-
                 depth = -1;
 
                 biome.rReplace(primer, cx * 16 + i, cy * 16 + j, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
@@ -613,15 +600,27 @@ public class ChunkProviderRTG implements IChunkGenerator {
                  */
                 if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
 
-                    realisticBiome.rDecorate(this.worldObj, this.rand, new BlockPos(worldX, 0, worldZ), simplex, cell, borderNoise[bn], river);
-                } else {
-
+                	if (realisticBiome.useNewDecorationSystem) {
+                		realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                	}
+                	else {
+                		realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                	}
+                }
+                else {
+                    
                     try {
+                        
+                        realisticBiome.baseBiome.decorate(this.worldObj, rand, new BlockPos(worldX, 1, worldZ));
+                    }
+                    catch (Exception e) {
 
-                        realisticBiome.baseBiome.decorate(this.worldObj, rand, new BlockPos(worldX, 0, worldZ));
-                    } catch (Exception e) {
-
-                        realisticBiome.rDecorate(this.worldObj, this.rand, new BlockPos(worldX, 0, worldZ), simplex, cell, borderNoise[bn], river);
+                    	if (realisticBiome.useNewDecorationSystem) {
+                    		realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                    	}
+                    	else {
+                    		realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                    	}
                     }
                 }
 

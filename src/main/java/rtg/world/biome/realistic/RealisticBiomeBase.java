@@ -617,13 +617,13 @@ public class RealisticBiomeBase extends BiomeBase {
 
     public void decorateInAnOrderlyFashion(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
     {
-    	for (int i = 0; i < this.decos.size(); i++) {
+        for (DecoBase deco : this.decos) {
 
-    		if (this.decos.get(i).preGenerate(this, world, rand, chunkX, chunkY, simplex, cell, strength, river)) {
+            if (deco.preGenerate(this, world, rand, chunkX, chunkY, simplex, cell, strength, river)) {
 
-    			this.decos.get(i).generate(this, world, rand, chunkX, chunkY, simplex, cell, strength, river);
-    		}
-    	}
+                deco.generate(this, world, rand, chunkX, chunkY, simplex, cell, strength, river);
+            }
+        }
     }
 
     /**

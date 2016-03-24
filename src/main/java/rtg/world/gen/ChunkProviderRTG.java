@@ -136,7 +136,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         parabolicField = new float[parabolicArraySize * parabolicArraySize];
         for (int j = -parabolicSize; j <= parabolicSize; ++j) {
             for (int k = -parabolicSize; k <= parabolicSize; ++k) {
-                float f = 0.445f / MathHelper.sqrt_float((float) (j^2 + k^2) + 0.3F);
+                float f = 0.445f / MathHelper.sqrt_float((float) ((j * 1) * (j * 1) + (k * 1) * (k * 1)) + 0.3F);
                 parabolicField[j + parabolicSize + (k + parabolicSize) * parabolicArraySize] = f;
                 parabolicFieldTotal += f;
             }
@@ -162,7 +162,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         ChunkPrimer primer = new ChunkPrimer();
         float[] noise = new float[256];
         biomesForGeneration = new RealisticBiomeBase[256];
-        this.biomesForGeneration = ( (BiomeProviderRTG) this.worldObj.getBiomeProvider()).getRealisticBiomesForGeneration(this.biomesForGeneration, cx * 4 - 2, cy * 4 - 2, 10, 10);
+        //this.biomesForGeneration = ( (BiomeProviderRTG) this.worldObj.getBiomeProvider()).getRealisticBiomesForGeneration(this.biomesForGeneration, cx * 4 - 2, cy * 4 - 2, 10, 10);
 
         int k;
 
@@ -297,15 +297,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
                         hugeRender[(i * 2 + 2) * 9 + (j * 2 + 2)][biomeData[(i + k + sampleSize + 1) * sampleArraySize + (j + locationIndex + sampleSize + 1)]] += parabolicField[k + parabolicSize + (locationIndex + parabolicSize) * parabolicArraySize] / parabolicFieldTotal;
                     }
                 }
-
-            }
-        }
-
-        //MAIN BIOME CHECK
-        RealisticBiomeBase realisticBiomeBase = null;
-        for (i = 0; i < 256; i++) {
-            if (hugeRender[4 * 9 + 4][i] > 0.95f) {
-                realisticBiomeBase = RealisticBiomeBase.getBiome(i);
             }
         }
 

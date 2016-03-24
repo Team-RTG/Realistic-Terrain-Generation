@@ -1,20 +1,12 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungle;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.biome.deco.DecoBoulder;
-import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
-import rtg.world.biome.deco.DecoFlowersRTG;
-import rtg.world.biome.deco.DecoGrass;
-import rtg.world.biome.deco.DecoJungleCacti;
-import rtg.world.biome.deco.DecoJungleGrassVines;
-import rtg.world.biome.deco.DecoJungleLilypadVines;
-import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungle;
@@ -22,16 +14,16 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaJungle;
 
 public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 {	
-	public static Block topBlock = BiomeGenBase.jungle.topBlock;
-	public static Block fillerBlock = BiomeGenBase.jungle.fillerBlock;
+	public static IBlockState topBlock = Biomes.jungle.topBlock;
+	public static IBlockState fillerBlock = Biomes.jungle.fillerBlock;
 	
 	public RealisticBiomeVanillaJungle(BiomeConfig config)
 	{
 		super(config, 
-			BiomeGenBase.jungle,
-			BiomeGenBase.river,
+			Biomes.jungle,
+			Biomes.river,
 			new TerrainVanillaJungle(),
-			new SurfaceVanillaJungle(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.09f)
+			new SurfaceVanillaJungle(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.09f)
 		);
 		
 		this.waterSurfaceLakeChance = 3;

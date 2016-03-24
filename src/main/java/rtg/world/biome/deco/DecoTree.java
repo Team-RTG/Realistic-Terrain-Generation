@@ -1,31 +1,23 @@
 package rtg.world.biome.deco;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenMegaJungle;
+import net.minecraft.world.gen.feature.WorldGenShrub;
+import net.minecraft.world.gen.feature.WorldGenTrees;
+import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.util.math.RandomUtil;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.feature.tree.*;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenForest;
-import net.minecraft.world.gen.feature.WorldGenMegaJungle;
-import net.minecraft.world.gen.feature.WorldGenShrub;
-import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.RandomUtil;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGBirch;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGBirchSmall;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPalm;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPineBig;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 
 /**
  * 
@@ -85,7 +77,7 @@ public class DecoTree extends DecoBase
 	{
 		if (this.allowed) {
 			
-			if (TerrainGen.decorate(world, rand, chunkX, chunkY, TREE)) {
+			if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 1, chunkY), TREE)) {
 				
 				float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkY / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
 
@@ -97,7 +89,7 @@ public class DecoTree extends DecoBase
 	            {
 	                int intX = chunkX + rand.nextInt(16) + 8;
 	                int intZ = chunkY + rand.nextInt(16) + 8;
-	                int intY = world.getHeightValue(intX, intZ);
+	                int intY = world.getHeight(new BlockPos(intX, 1, intZ)).getY();
 	                
 	            	switch (this.treeType)
 	            	{
@@ -108,13 +100,11 @@ public class DecoTree extends DecoBase
 	
 	                            if (rand.nextBoolean()) {
 	                                WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 1, 1);
-			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                        worldgenerator.generate(world, rand, intX, intY, intZ);
+			                        worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
 	                            }
 	                            else {
 	                                WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 0, 0);
-			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                        worldgenerator.generate(world, rand, intX, intY, intZ);
+			                        worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
 	                            }
 		            		}
 		            		
@@ -129,9 +119,8 @@ public class DecoTree extends DecoBase
 			                        ? new WorldGenTreeRTGBirch(4 + rand.nextInt(7), 8 + rand.nextInt(12))
 			                        : rand.nextInt(10) != 0
 			                        	? new WorldGenTreeRTGTrees(false)
-			                        	: new WorldGenForest(false, false);
-		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                        worldgenerator.generate(world, rand, intX, intY, intZ);
+			                        	: new WorldGenTrees(false);
+		                        worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
 		            		}
 		            		
 		            		break;
@@ -140,9 +129,8 @@ public class DecoTree extends DecoBase
 		            		
 		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
 	                        	
-		                        WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreeRTGSavanna(1);
-		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                        worldgenerator.generate(world, rand, intX, intY, intZ);
+		                        WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(Blocks.log.getStateFromMeta(0), Blocks.leaves.getStateFromMeta(0)) : new WorldGenTreeRTGSavanna(1);
+		                        worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
 	                        }
 		            		
 		            		break;
@@ -152,14 +140,12 @@ public class DecoTree extends DecoBase
 		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
 
 		                    	if (this.maxSize > this.minSize) {
-			                        WorldGenerator worldgenerator = new WorldGenMegaJungle(false, this.minSize + rand.nextInt(this.maxSize - this.minSize), 0, 3, 3);
-			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                        worldgenerator.generate(world, rand, intX, intY, intZ);
+			                        WorldGenerator worldgenerator = new WorldGenMegaJungle(false, this.minSize + rand.nextInt(this.maxSize - this.minSize), 0, Blocks.log.getStateFromMeta(3), Blocks.leaves.getStateFromMeta(3));
+			                        worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
 		                    	}
 		                    	else if (this.maxSize == this.minSize) {
-			                        WorldGenerator worldgenerator = new WorldGenMegaJungle(false, this.minSize, 0, 3, 3);
-			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                        worldgenerator.generate(world, rand, intX, intY, intZ);
+			                        WorldGenerator worldgenerator = new WorldGenMegaJungle(false, this.minSize, 0, Blocks.log.getStateFromMeta(3), Blocks.leaves.getStateFromMeta(3));
+			                        worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
 		                    	}
 		            		}
 		            		
@@ -171,12 +157,11 @@ public class DecoTree extends DecoBase
 
 			                    WorldGenerator worldgenerator =
 			                        rand.nextInt(3) != 0
-			                        ? new WorldGenMegaJungle(false, 10 + rand.nextInt(18), 20, 3, 3)
+			                        ? new WorldGenMegaJungle(false, 10 + rand.nextInt(18), 20, Blocks.log.getStateFromMeta(3), Blocks.leaves.getStateFromMeta(3))
 			                        : new WorldGenTreeRTGMangrove(Blocks.log, 3, Blocks.leaves, 3, 10 + rand.nextInt(18), 3 + rand.nextInt(2), 13f, RandomUtil.getRandomInt(rand, 4, 5),
 			                        0.32f,
 			                        0.2f);
-			                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                    worldgenerator.generate(world, rand, intX, intY, intZ);
+			                    worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
 		            		}
 		            		
 		            		break;
@@ -187,13 +172,11 @@ public class DecoTree extends DecoBase
 
 		                    	if (this.maxSize > this.minSize) {
 			                        WorldGenerator worldgenerator = new WorldGenTreeRTGPalmCustom((float)(this.minSize + rand.nextInt(this.maxSize - this.minSize)));
-			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                        worldgenerator.generate(world, rand, intX, intY, intZ);
+			                        worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
 		                    	}
 		                    	else if (this.maxSize == this.minSize) {
 			                        WorldGenerator worldgenerator = new WorldGenTreeRTGPalmCustom((float)(this.minSize));
-			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                        worldgenerator.generate(world, rand, intX, intY, intZ);
+			                        worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
 		                    	}
 		            		}
 		            		
@@ -204,8 +187,7 @@ public class DecoTree extends DecoBase
 		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
 	                        	
 	                            WorldGenerator worldgenerator = new WorldGenTreeRTGBirchSmall(4 + rand.nextInt(7), 8 + rand.nextInt(12), 2);
-	                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-	                            worldgenerator.generate(world, rand, intX, intY, intZ);
+	                            worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
 	                        }
 		            		
 		            		break;
@@ -219,9 +201,8 @@ public class DecoTree extends DecoBase
 		                        	? new WorldGenTreeRTGPineSmall(4 + rand.nextInt(7), 6 + rand.nextInt(9), 0)
 		                        	: rand.nextInt(10) != 0
 		                        		? new WorldGenTreeRTGTrees(false)
-		                        		: new WorldGenForest(false, false);
-		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                        worldgenerator.generate(world, rand, intX, intY, intZ);
+		                        		: new WorldGenTrees(false);
+		                        worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
 		            		}
 		            		
 		            		break;
@@ -231,8 +212,7 @@ public class DecoTree extends DecoBase
 		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
 	                        	
 		                        WorldGenerator worldgenerator = new WorldGenTreeRTGBirch(16 + rand.nextInt(8), rand.nextInt(8) + 4);
-		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                        worldgenerator.generate(world, rand, intX, intY, intZ);
+		                        worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
 	                        }
 		            		
 		            		break;
@@ -242,8 +222,7 @@ public class DecoTree extends DecoBase
 	                        if (intY <= this.maxY && (rand.nextInt((int) (4f / strength)) == 0)) {
 	                        	
 	                            WorldGenerator worldgenerator = new WorldGenTreeRTGPalm();
-	                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-	                            worldgenerator.generate(world, rand, intX, intY, intZ);
+	                            worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
 	                        }
 		            		
 		            		break;
@@ -255,8 +234,8 @@ public class DecoTree extends DecoBase
 	                            WorldGenerator worldgenerator =
 	                                    rand.nextInt(4) == 0 ? new WorldGenTreeRTGSpruceSmall(1 + rand.nextInt(2)) : rand.nextInt(6) == 0 ? new WorldGenTreeRTGPineSmall(
 	                                        1 + rand.nextInt(3), 4 + rand.nextInt(4)) : new WorldGenTreeRTGPineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
-	                                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-	                                worldgenerator.generate(world, rand, intX, intY, intZ);
+
+	                                worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
 	                        }
 		            		
 		            		break;

@@ -1,17 +1,12 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForestHills;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
-import rtg.world.biome.deco.DecoFlowersRTG;
-import rtg.world.biome.deco.DecoGrass;
-import rtg.world.biome.deco.DecoShrub;
-import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForestHills;
@@ -19,16 +14,16 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestHills;
 
 public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanillaBase
 {	
-	public static Block topBlock = BiomeGenBase.birchForestHills.topBlock;
-    public static Block fillerBlock = BiomeGenBase.birchForestHills.fillerBlock;
+	public static IBlockState topBlock = Biomes.birchForestHills.topBlock;
+    public static IBlockState fillerBlock = Biomes.birchForestHills.fillerBlock;
 	
 	public RealisticBiomeVanillaBirchForestHills(BiomeConfig config)
 	{
 		super(config, 
-			BiomeGenBase.birchForestHills,
-			BiomeGenBase.river,
+			Biomes.birchForestHills,
+			Biomes.river,
 			new TerrainVanillaBirchForestHills(),
-			new SurfaceVanillaBirchForestHills(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f)
+			new SurfaceVanillaBirchForestHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.10f)
 		);
         this.noLakes=true;
         

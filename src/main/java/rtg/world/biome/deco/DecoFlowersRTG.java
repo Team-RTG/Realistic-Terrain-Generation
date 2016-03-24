@@ -1,15 +1,16 @@
 package rtg.world.biome.deco;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.FLOWERS;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.feature.WorldGenFlowersRTG;
 
 import java.util.Random;
 
-import net.minecraft.world.World;
-import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenFlowersRTG;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.FLOWERS;
 
 /**
  * 
@@ -72,7 +73,7 @@ public class DecoFlowersRTG extends DecoBase
 	{
 		if (this.allowed) {
 			
-	        if (TerrainGen.decorate(world, rand, chunkX, chunkY, FLOWERS)) {
+	        if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), FLOWERS)) {
 	            
 	        	this.loops = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : this.loops;
 	            for (int i = 0; i < this.loops; i++)
@@ -88,7 +89,7 @@ public class DecoFlowersRTG extends DecoBase
 		                	break;
 		                	
 		                case GET_HEIGHT_VALUE:
-		                	intY = world.getHeightValue(intX, intZ);
+		                	intY = world.getHeight(new BlockPos(intX, 1, intZ)).getY();
 		                	break;
 	                	
 	                	default:
@@ -99,7 +100,7 @@ public class DecoFlowersRTG extends DecoBase
 	                
 	                if (rand.nextInt(this.chance) == 0) {
 	                    
-	                    (new WorldGenFlowersRTG(this.flowers)).generate(world, rand, intX, intY, intZ);
+	                    (new WorldGenFlowersRTG(this.flowers)).generate(world, rand, new BlockPos(intX, intY, intZ));
 	                }
 	            }
 	        }

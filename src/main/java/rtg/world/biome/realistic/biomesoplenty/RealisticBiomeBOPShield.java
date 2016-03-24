@@ -14,6 +14,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPShield;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.util.noise.SimplexOctave;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPShield;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPShield;

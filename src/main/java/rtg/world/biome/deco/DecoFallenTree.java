@@ -1,17 +1,18 @@
 package rtg.world.biome.deco;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.feature.WorldGenLog;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenLog;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 
 /**
  * 
@@ -63,7 +64,7 @@ public class DecoFallenTree extends DecoBase
 	{
 		if (this.allowed) {
 			
-			if (TerrainGen.decorate(world, rand, chunkX, chunkY, TREE)) {
+			if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), TREE)) {
 				
 				float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkY / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
 				
@@ -73,15 +74,15 @@ public class DecoFallenTree extends DecoBase
 	                {
 	                    int x22 = chunkX + rand.nextInt(16) + 8;
 	                    int z22 = chunkY + rand.nextInt(16) + 8;
-	                    int y22 = world.getHeightValue(x22, z22);
+	                    int y22 = world.getHeight(new BlockPos(x22, 1, z22)).getY();
 	                    
 	                    if (y22 <= this.maxY) {
 	                    	
 	                    	if (this.maxSize > this.minSize) {
-	                    		(new WorldGenLog(this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta, this.minSize + rand.nextInt(this.maxSize - this.minSize))).generate(world, rand, x22, y22, z22);
+	                    		(new WorldGenLog(this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta, this.minSize + rand.nextInt(this.maxSize - this.minSize))).generate(world, rand, new BlockPos(x22, y22, z22));
 	                    	}
 	                    	else if (this.maxSize == this.minSize) {
-	                    		(new WorldGenLog(this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta, this.minSize)).generate(world, rand, x22, y22, z22);
+	                    		(new WorldGenLog(this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta, this.minSize)).generate(world, rand, new BlockPos(x22, y22, z22));
 	                    	}
 	                    }
 	                }

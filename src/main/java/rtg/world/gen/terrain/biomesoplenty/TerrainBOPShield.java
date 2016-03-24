@@ -1,7 +1,7 @@
 package rtg.world.gen.terrain.biomesoplenty;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
 // this biome also changes the lake generation in RealisticBiomeBase
 public class TerrainBOPShield extends TerrainBase

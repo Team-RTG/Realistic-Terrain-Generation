@@ -23,7 +23,7 @@ import java.util.Random;
 
 public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.mountain;
+	public static BiomeGenBase bopBiome = BOPBiomes.mountain.get();
 	
 	public static IBlockState topBlock = bopBiome.topBlock;
 	public static IBlockState fillerBlock = bopBiome.fillerBlock;
@@ -31,17 +31,13 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPMountain(BiomeConfig config)
 	{
 		super(config, 
-			bopBiome, BiomeGenBase.river,
+			bopBiome, Biomes.river,
 			new TerrainBOPMountain(120f, 150f),
 			new SurfaceBOPMountain(config,
                 topBlock, //Block top
-                (byte)0, //byte topByte
                 fillerBlock, //Block filler,
-                (byte)0, //byte fillerByte
                 topBlock, //Block mixTop,
-                (byte)0, //byte mixTopByte,
                 fillerBlock, //Block mixFill,
-                (byte)0, //byte mixFillByte,
                 80f, //float mixWidth,
                 -0.15f, //float mixHeight,
                 10f, //float smallWidth,

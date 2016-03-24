@@ -1,38 +1,33 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaColdTaigaM;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.biome.deco.DecoBoulder;
-import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
-import rtg.world.biome.deco.DecoGrass;
-import rtg.world.biome.deco.DecoMushrooms;
-import rtg.world.biome.deco.DecoPumpkin;
-import rtg.world.biome.deco.DecoShrub;
-import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdTaigaM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaColdTaigaM;
 
 public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase
 {
-    public static BiomeGenBase standardBiome = BiomeGenBase.coldTaiga;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
+    public static BiomeGenBase standardBiome = Biomes.coldTaiga;
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
     
-    public static Block topBlock = mutationBiome.topBlock;
-    public static Block fillerBlock = mutationBiome.fillerBlock;
+    public static IBlockState topBlock = mutationBiome.topBlock;
+    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
     
     public RealisticBiomeVanillaColdTaigaM(BiomeConfig config)
     {
     
         super(config, 
             mutationBiome,
-            BiomeGenBase.frozenRiver,
+            Biomes.frozenRiver,
             new TerrainVanillaColdTaigaM(),
             new SurfaceVanillaColdTaigaM(config, topBlock, fillerBlock)
         );

@@ -1,19 +1,12 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaColdTaiga;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.biome.deco.DecoBoulder;
-import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
-import rtg.world.biome.deco.DecoGrass;
-import rtg.world.biome.deco.DecoMushrooms;
-import rtg.world.biome.deco.DecoPumpkin;
-import rtg.world.biome.deco.DecoShrub;
-import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdTaiga;
@@ -22,15 +15,15 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaColdTaiga;
 public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
 {
     
-    public static Block topBlock = BiomeGenBase.coldTaiga.topBlock;
-    public static Block fillerBlock = BiomeGenBase.coldTaiga.fillerBlock;
+    public static IBlockState topBlock = Biomes.coldTaiga.topBlock;
+    public static IBlockState fillerBlock = Biomes.coldTaiga.fillerBlock;
     
     public RealisticBiomeVanillaColdTaiga(BiomeConfig config)
     {
     
         super(config, 
-            BiomeGenBase.coldTaiga,
-            BiomeGenBase.frozenRiver,
+            Biomes.coldTaiga,
+            Biomes.frozenRiver,
             new TerrainVanillaColdTaiga(),
             new SurfaceVanillaColdTaiga(config, topBlock, fillerBlock)
         );

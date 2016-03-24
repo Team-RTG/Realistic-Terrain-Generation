@@ -1,20 +1,14 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.deco.DecoCactus;
-import rtg.world.biome.deco.DecoDeadBush;
-import rtg.world.biome.deco.DecoDesertWell;
-import rtg.world.biome.deco.DecoFlowersRTG;
-import rtg.world.biome.deco.DecoLargeFernDoubleTallgrass;
-import rtg.world.biome.deco.DecoReed;
-import rtg.world.biome.deco.DecoTree;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.gen.surface.SurfaceBase;
@@ -22,18 +16,20 @@ import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesert;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaDesert;
 
+import java.util.Random;
+
 public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
 {
     
-    public static Block topBlock = BiomeGenBase.desert.topBlock;
-    public static Block fillerBlock = BiomeGenBase.desert.fillerBlock;
+    public static IBlockState topBlock = Biomes.desert.topBlock;
+    public static IBlockState fillerBlock = Biomes.desert.fillerBlock;
 
     public RealisticBiomeVanillaDesert(BiomeConfig config)
     {
     
         super(config, 
-            BiomeGenBase.desert,
-            BiomeGenBase.river,
+            Biomes.desert,
+            Biomes.river,
             new TerrainVanillaDesert(),
             new SurfaceVanillaDesert(config, topBlock, fillerBlock));
         
@@ -103,13 +99,13 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
     }
     
     @Override
-    public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
-        OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
+                         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
     
-        this.getSurface().paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        this.getSurface().paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
         
         SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
-        riverSurface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

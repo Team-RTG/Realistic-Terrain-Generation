@@ -124,7 +124,7 @@ public class BiomeAnalyzer {
             if (BiomeGenBase.getBiome(index).getBiomeName().toLowerCase().contains("archipelago")) {
                 swampBiome[index] = true;
             }
-            if (BiomeGenBase.getBiome(index).biomeName.toLowerCase().equals("shield")) {
+            if (BiomeGenBase.getBiome(index).getBiomeName().toLowerCase().equals("shield")) {
                 swampBiome[index] = true;
             }
             if (RealisticBiomeBase.getIdForBiome(getBiome(index)) == RealisticBiomeBase.getIdForBiome(Biomes.frozenRiver)) {

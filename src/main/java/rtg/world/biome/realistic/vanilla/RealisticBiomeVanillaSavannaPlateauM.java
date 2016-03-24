@@ -102,7 +102,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
                 int j15 = chunkX + rand.nextInt(16) + 8;
                 int j17 = rand.nextInt(128);
                 int j20 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenFlowersRTG(new int[] {9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11})).generate(world, rand, j15, j17, j20);
+                (new WorldGenFlowersRTG(new int[] {9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11})).generate(world, rand, new BlockPos(j15, j17, j20));
             }
 
             for (int l14 = 0; l14 < 15; l14++) {
@@ -140,7 +140,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
                 int j15 = chunkX + rand.nextInt(16) + 8;
                 int j17 = rand.nextInt(128);
                 int j20 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenFlowersRTG(new int[] {9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11})).generate(world, rand, j15, j17, j20);
+                (new WorldGenFlowersRTG(new int[] {9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11})).generate(world, rand, new BlockPos(j15, j17, j20));
             }
 
             for (int l14 = 0; l14 < 15; l14++) {

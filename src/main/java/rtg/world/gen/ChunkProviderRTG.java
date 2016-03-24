@@ -620,7 +620,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
                     
                     try {
                         
-                        realisticBiome.baseBiome.decorate(this.worldObj, rand, worldX, worldZ);
+                        realisticBiome.baseBiome.decorate(this.worldObj, rand, new BlockPos(worldX, 1, worldZ));
                     }
                     catch (Exception e) {
 

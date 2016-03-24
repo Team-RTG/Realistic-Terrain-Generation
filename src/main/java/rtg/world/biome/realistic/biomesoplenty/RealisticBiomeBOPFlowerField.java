@@ -1,6 +1,8 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
+import biomesoplenty.api.biome.BOPBiomes;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
@@ -10,19 +12,18 @@ import rtg.world.biome.deco.DecoGrass;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPFlowerField;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPFlowerField;
-import biomesoplenty.api.content.BOPCBiomes;
 
 public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase
 {	
-	public static BiomeGenBase bopBiome = BOPCBiomes.flowerField;
+	public static BiomeGenBase bopBiome = BOPBiomes.flower_field.get();
 	
-	public static Block topBlock = bopBiome.topBlock;
-	public static Block fillerBlock = bopBiome.fillerBlock;
+	public static IBlockState topBlock = bopBiome.topBlock;
+	public static IBlockState fillerBlock = bopBiome.fillerBlock;
 	
 	public RealisticBiomeBOPFlowerField(BiomeConfig config)
 	{
 		super(config, 
-			bopBiome, BiomeGenBase.river,
+			bopBiome, Biomes.river,
 			new TerrainBOPFlowerField(),
 			new SurfaceBOPFlowerField(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, topBlock, 0.05f)
 		);

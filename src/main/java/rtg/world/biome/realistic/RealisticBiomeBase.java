@@ -25,11 +25,14 @@ import rtg.util.noise.OpenSimplexNoise;
 import rtg.util.noise.SimplexOctave;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.BiomeProviderRTG;
+import rtg.world.biome.deco.DecoBase;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGeneric;
 import rtg.world.gen.terrain.TerrainBase;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CLAY;

@@ -1,12 +1,12 @@
 package rtg.world.biome.deco;
 
+import net.minecraft.world.World;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+
 import java.util.ArrayList;
 import java.util.Random;
-
-import net.minecraft.world.World;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 /**
  * Documentation for the new biome system can be found here:

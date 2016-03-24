@@ -1,15 +1,16 @@
 package rtg.world.biome.deco;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.PUMPKIN;
-
-import java.util.Random;
-
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
+import java.util.Random;
+
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.PUMPKIN;
 
 /**
  * 
@@ -56,7 +57,7 @@ public class DecoPumpkin extends DecoBase
 	{
 		if (this.allowed) {
 			
-			if (TerrainGen.decorate(world, rand, chunkX, chunkY, PUMPKIN)) {
+			if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), PUMPKIN)) {
 	            
 				// Let's figure out what the rand.nextInt() argument should be.
 				switch (this.randomType)
@@ -86,7 +87,7 @@ public class DecoPumpkin extends DecoBase
 		                int intZ = chunkY + rand.nextInt(16) + 8;
 	
 		                if (intY <= this.maxY) {
-		                	(new WorldGenPumpkin()).generate(world, rand, intX, intY, intZ);
+		                	(new WorldGenPumpkin()).generate(world, rand, new BlockPos(intX, intY, intZ));
 		                }
 	            	}
 	            }

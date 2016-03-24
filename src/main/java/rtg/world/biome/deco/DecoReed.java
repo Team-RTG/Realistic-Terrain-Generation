@@ -1,15 +1,16 @@
 package rtg.world.biome.deco;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.REED;
-
-import java.util.Random;
-
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
+import java.util.Random;
+
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.REED;
 
 /**
  * 
@@ -43,7 +44,7 @@ public class DecoReed extends DecoBase
 	{
 		if (this.allowed) {
 			
-			if (TerrainGen.decorate(world, rand, chunkX, chunkY, REED)) {
+			if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), REED)) {
 	            
 				this.loops = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : this.loops;
 	            for (int i = 0; i < this.loops; i++)
@@ -53,7 +54,7 @@ public class DecoReed extends DecoBase
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 
 	                if (intY <= this.maxY) {
-	                	(new WorldGenReed()).generate(world, rand, intX, intY, intZ);
+	                	(new WorldGenReed()).generate(world, rand, new BlockPos(intX, intY, intZ));
 	                }
 	            }
 	        }

@@ -1,14 +1,8 @@
 package rtg.world.gen.terrain.biomesoplenty;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.terrain.BumpyHillsEffect;
-import rtg.world.gen.terrain.GroundEffect;
-import rtg.world.gen.terrain.HeightEffect;
-import rtg.world.gen.terrain.JitterEffect;
-import rtg.world.gen.terrain.RaiseEffect;
-import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.VariableRuggednessEffect;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.gen.terrain.*;
 
 public class TerrainBOPBambooForest extends TerrainBase
 {

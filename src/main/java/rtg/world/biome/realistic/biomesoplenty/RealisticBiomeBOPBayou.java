@@ -5,12 +5,15 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
+import rtg.util.noise.SimplexOctave;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPBayou;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPBayou;
 
 public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase
 {
-	public static BiomeGenBase bopBiome = BOPCBiomes.bayou;
+	public static BiomeGenBase bopBiome = BOPBiomes.bayou.get();
 
 	public static IBlockState topBlock = bopBiome.topBlock;
 	public static IBlockState fillerBlock = bopBiome.fillerBlock;
@@ -18,15 +21,15 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase
 	public RealisticBiomeBOPBayou(BiomeConfig config)
 	{
 		super(config,
-			bopBiome, BiomeGenBase.river,
+			bopBiome, Biomes.river,
 			new TerrainBOPBayou(),
 			new SurfaceBOPBayou(config, topBlock, fillerBlock)
 		);
         // turn off those dang ponds
-        /*BiomeGenBayou bayou = (BiomeGenBayou)BOPCBiomes.bayou;
-        BiomeDecorator decor = BOPCBiomes.bayou.theBiomeDecorator;
+        /*BiomeGenBayou bayou = (BiomeGenBayou)BOPBiomes.bayou.get();
+        BiomeDecorator decor = BOPBiomes.bayou.theBiomeDecorator;
         if (1>0) throw new RuntimeException(""+bayou.toString()+ " " + decor.toString());
-        BOPBiomeDecorator decorator = (BOPBiomeDecorator)BOPCBiomes.bayou.theBiomeDecorator;
+        BOPBiomeDecorator decorator = (BOPBiomeDecorator)BOPBiomes.bayou.theBiomeDecorator;
         decorator.generateLakes = false;
         ArrayList<String> names = decorator.bopFeatures.getFeatureNames();
         String result = "";

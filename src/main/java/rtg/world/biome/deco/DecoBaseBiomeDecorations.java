@@ -1,11 +1,12 @@
 package rtg.world.biome.deco;
 
-import java.util.Random;
-
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
+import java.util.Random;
 
 /**
  * This deco replaces the cumbersome rDecorateSeedBiome & rOreGenSeedBiome logic.
@@ -66,7 +67,7 @@ public class DecoBaseBiomeDecorations extends DecoBase
 				
 	            int intX = chunkX + rand.nextInt(16) + 8;
 	            int intZ = chunkY + rand.nextInt(16) + 8;
-	            int intY = world.getHeightValue(intX, intZ);
+	            int intY = world.getHeight(new BlockPos(intX, 1, intZ)).getY();
 	            
 	            if (intY <= this.maxY) {
 	            	
@@ -76,7 +77,7 @@ public class DecoBaseBiomeDecorations extends DecoBase
 				        	biome.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
 				        }
 				        else {
-				        	biome.rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
+				        	biome.rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biome.baseBiome);
 				        }
 					}
 					else if (this.notEqualsZeroChance > 0) {
@@ -85,7 +86,7 @@ public class DecoBaseBiomeDecorations extends DecoBase
 				        	biome.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
 				        }
 				        else {
-				        	biome.rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
+				        	biome.rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biome.baseBiome);
 				        }
 					}
 					else {
@@ -94,12 +95,12 @@ public class DecoBaseBiomeDecorations extends DecoBase
 					}
 	            }
 	            else {
-	            	biome.rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
+	            	biome.rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biome.baseBiome);
 	            }
 			}
 		}
 		else {
-			biome.rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
+			biome.rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biome.baseBiome);
 		}
 	}
 }

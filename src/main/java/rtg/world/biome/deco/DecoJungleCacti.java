@@ -1,15 +1,16 @@
 package rtg.world.biome.deco;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CACTUS;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.feature.WorldGenJungleCacti;
 
 import java.util.Random;
 
-import net.minecraft.world.World;
-import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenJungleCacti;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CACTUS;
 
 /**
  * 
@@ -47,7 +48,7 @@ public class DecoJungleCacti extends DecoBase
 	{
 		if (this.allowed) {
 
-            if (TerrainGen.decorate(world, rand, chunkX, chunkY, CACTUS)) {
+            if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), CACTUS)) {
                 
                 for (int i = 0; i < this.strengthFactor * strength; i++)
                 {
@@ -57,7 +58,7 @@ public class DecoJungleCacti extends DecoBase
                     
                     if (intY < this.maxY)
                     {
-                        (new WorldGenJungleCacti(this.sandOnly, rand.nextInt(this.extraHeight), this.sandMeta)).generate(world, rand, intX, intY, intZ);
+                        (new WorldGenJungleCacti(this.sandOnly, rand.nextInt(this.extraHeight), this.sandMeta)).generate(world, rand, new BlockPos(intX, intY, intZ));
                     }
                 }
             }

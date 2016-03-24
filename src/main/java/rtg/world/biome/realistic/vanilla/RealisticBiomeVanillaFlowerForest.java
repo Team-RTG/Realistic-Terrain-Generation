@@ -1,11 +1,18 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.feature.WorldGenTrees;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaFlowerForest;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenFlowersRTG;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
@@ -16,30 +23,25 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaFlowerForest;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaFlowerForest;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenForest;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import java.util.Random;
 
 public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 {
     
-    public static BiomeGenBase standardBiome = BiomeGenBase.forest;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
+    public static BiomeGenBase standardBiome = Biomes.forest;
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
     
-    public static Block topBlock = mutationBiome.topBlock;
-    public static Block fillerBlock = mutationBiome.fillerBlock;
+    public static IBlockState topBlock = mutationBiome.topBlock;
+    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
     
     public RealisticBiomeVanillaFlowerForest(BiomeConfig config)
     {
     
         super(config, 
             mutationBiome,
-            BiomeGenBase.river,
+            Biomes.river,
             new TerrainVanillaFlowerForest(),
-            new SurfaceVanillaFlowerForest(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.grass, 0.05f));
+            new SurfaceVanillaFlowerForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.grass.getDefaultState(), 0.05f));
     }
     
     @Override
@@ -49,15 +51,15 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         /**
          * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
          */
-        //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        //rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, baseBiome);
     
         for (int f23 = 0; f23 < 16f * strength; f23++)
         {
             int j15 = chunkX + rand.nextInt(16) + 8;
             int j20 = chunkY + rand.nextInt(16) + 8;
-            int j17 = world.getHeightValue(j15, j20);
+            int j17 = world.getHeight(new BlockPos(j15, 1, j20)).getY();
             
-            (new WorldGenFlowersRTG(new int[] {0, 2, 3, 4, 5, 6, 7, 8, 9, 11, 14, 15})).generate(world, rand, j15, j17, j20);
+            (new WorldGenFlowersRTG(new int[] {0, 2, 3, 4, 5, 6, 7, 8, 9, 11, 14, 15})).generate(world, rand, new BlockPos(j15, j17, j20));
         }
 
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
@@ -68,19 +70,17 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
             {
                 int j6 = chunkX + rand.nextInt(16) + 8;
                 int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeightValue(j6, k10);
+                int z52 = world.getHeight(new BlockPos(j6, 1, k10)).getY();
                 
                 if (z52 < 110)
                 {
                     if (rand.nextBoolean()) {
                         WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 1, 1);
-                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                        worldgenerator.generate(world, rand, j6, z52, k10);
+                        worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
                     }
                     else {
                         WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 0, 0);
-                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                        worldgenerator.generate(world, rand, j6, z52, k10);
+                        worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
                     }
                 }
             }
@@ -94,15 +94,14 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
                     
                     int j6 = chunkX + rand.nextInt(16) + 8;
                     int k10 = chunkY + rand.nextInt(16) + 8;
-                    int z52 = world.getHeightValue(j6, k10);
+                    int z52 = world.getHeight(new BlockPos(j6, 1, k10)).getY();
                     
                     if (z52 < 120)
                     {
                         WorldGenerator worldgenerator =
                             rand.nextInt(2) == 0 ? new WorldGenTreeRTGPineSmall(4 + rand.nextInt(7), 6 + rand.nextInt(9), 0)
-                                : rand.nextInt(10) != 0 ? new WorldGenTreeRTGTrees(false) : new WorldGenForest(false, false);
-                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                        worldgenerator.generate(world, rand, j6, z52, k10);
+                                : rand.nextInt(10) != 0 ? new WorldGenTreeRTGTrees(false) : new WorldGenTrees(false);
+                        worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
                     }
                 }
             }
@@ -114,15 +113,15 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
             {
                 int x22 = chunkX + rand.nextInt(16) + 8;
                 int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
+                int y22 = world.getHeight(new BlockPos(x22, 1, z22)).getY();
                 
                 if (y22 < 100)
                 {
                     if (rand.nextBoolean()) {
-                        (new WorldGenLog(Blocks.log, 0, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
+                        (new WorldGenLog(Blocks.log, 0, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, new BlockPos(x22, y22, z22));
                     }
                     else {
-                        (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
+                        (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, new BlockPos(x22, y22, z22));
                     }
                 }
             }
@@ -134,10 +133,10 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
                 
                 int i1 = chunkX + rand.nextInt(16) + 8;
                 int j1 = chunkY + rand.nextInt(16) + 8;
-                int k1 = world.getHeightValue(i1, j1);
+                int k1 = world.getHeight(new BlockPos(i1, 1, j1)).getY();
                 if (k1 < 110)
                 {
-                    (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
+                    (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, new BlockPos(i1, k1, j1));
                 }
             }
         }
@@ -147,7 +146,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
             int l19 = chunkX + rand.nextInt(16) + 8;
             int k22 = rand.nextInt(128);
             int j24 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
+            (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, new BlockPos(l19, k22, j24));
         }
         
         rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);

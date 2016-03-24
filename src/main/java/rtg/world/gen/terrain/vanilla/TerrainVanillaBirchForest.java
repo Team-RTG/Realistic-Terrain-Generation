@@ -1,8 +1,8 @@
 package rtg.world.gen.terrain.vanilla;
 
-import rtg.world.gen.terrain.GroundEffect;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.gen.terrain.GroundEffect;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainVanillaBirchForest extends TerrainBase {

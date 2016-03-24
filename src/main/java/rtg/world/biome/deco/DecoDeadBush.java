@@ -1,16 +1,16 @@
 package rtg.world.biome.deco;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.DEAD_BUSH;
-
-import java.util.Random;
-
-import net.minecraft.init.Blocks;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenDeadBush;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
+import java.util.Random;
+
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.DEAD_BUSH;
 
 /**
  * 
@@ -42,7 +42,7 @@ public class DecoDeadBush extends DecoBase
 	{
 		if (this.allowed) {
 			
-			if (TerrainGen.decorate(world, rand, chunkX, chunkY, DEAD_BUSH)) {
+			if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), DEAD_BUSH)) {
 	            
 	            for (int i = 0; i < this.strengthFactor * strength; i++)
 	            {
@@ -51,7 +51,7 @@ public class DecoDeadBush extends DecoBase
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 
 	                if (intY <= this.maxY) {
-	                	(new WorldGenDeadBush(Blocks.deadbush)).generate(world, rand, intX, intY, intZ);
+	                	(new WorldGenDeadBush()).generate(world, rand, new BlockPos(intX, intY, intZ));
 	                }
 	            }
 	        }

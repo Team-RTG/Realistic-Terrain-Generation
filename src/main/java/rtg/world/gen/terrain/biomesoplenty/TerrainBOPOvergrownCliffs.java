@@ -1,10 +1,10 @@
-package rtg.world.gen.terrain.highlands;
+package rtg.world.gen.terrain.biomesoplenty;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainHLWoodlands extends TerrainBase
+public class TerrainBOPOvergrownCliffs extends TerrainBase
 {
     private float width;
     private float strength;
@@ -20,12 +20,12 @@ public class TerrainHLWoodlands extends TerrainBase
      * 230f, 120f, 50f
      */
 
-    public TerrainHLWoodlands(float mountainWidth, float mountainStrength, float depthLake)
+    public TerrainBOPOvergrownCliffs(float mountainWidth, float mountainStrength, float depthLake)
     {
         this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
     }
 
-    public TerrainHLWoodlands(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
+    public TerrainBOPOvergrownCliffs(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
     {
         width = mountainWidth;
         strength = mountainStrength;

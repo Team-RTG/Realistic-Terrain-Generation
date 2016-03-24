@@ -21,30 +21,38 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMountain;
 
 import java.util.Random;
 
-public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase {
-    public static BiomeGenBase bopBiome = BOPBiomes.mountain.get();
-
-    public static IBlockState topBlock = bopBiome.topBlock;
-    public static IBlockState fillerBlock = bopBiome.fillerBlock;
-
-    public RealisticBiomeBOPMountain(BiomeConfig config) {
-        super(config,
-                bopBiome, Biomes.river,
-                new TerrainBOPMountain(180f, 100f, 0f),
-                new SurfaceBOPMountain(config,
-                        topBlock, //Block top
-                        fillerBlock, //Block filler,
-                        topBlock, //IBlockState mixTop,
-                        fillerBlock, //IBlockState mixFill,
-                        80f, //float mixWidth,
-                        -0.15f, //float mixHeight,
-                        10f, //float smallWidth,
-                        0.5f //float smallStrength
-                )
-        );
-        this.generatesEmeralds = true;
-    }
-
+public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
+{	
+	public static BiomeGenBase bopBiome = BOPCBiomes.mountain;
+	
+	public static IBlockState topBlock = bopBiome.topBlock;
+	public static IBlockState fillerBlock = bopBiome.fillerBlock;
+	
+	public RealisticBiomeBOPMountain(BiomeConfig config)
+	{
+		super(config, 
+			bopBiome, BiomeGenBase.river,
+			new TerrainBOPMountain(120f, 150f),
+			new SurfaceBOPMountain(config,
+                topBlock, //Block top
+                (byte)0, //byte topByte
+                fillerBlock, //Block filler,
+                (byte)0, //byte fillerByte
+                topBlock, //Block mixTop,
+                (byte)0, //byte mixTopByte,
+                fillerBlock, //Block mixFill,
+                (byte)0, //byte mixFillByte,
+                80f, //float mixWidth,
+                -0.15f, //float mixHeight,
+                10f, //float smallWidth,
+                0.5f //float smallStrength
+            )
+		);
+		this.generatesEmeralds = true;
+        this.noLakes = true;
+        this.noWaterFeatures= true;
+	}
+	
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 

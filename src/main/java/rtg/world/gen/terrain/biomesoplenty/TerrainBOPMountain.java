@@ -1,38 +1,45 @@
 package rtg.world.gen.terrain.biomesoplenty;
 
-import rtg.util.noise.CellNoise;
-import rtg.util.noise.OpenSimplexNoise;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.world.gen.terrain.HeightEffect;
+import rtg.world.gen.terrain.JitterEffect;
+import rtg.world.gen.terrain.MountainsWithPassesEffect;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainBOPMountain extends TerrainBase {
-    private float width;
-    private float strength;
-    private float lakeDepth;
-    private float lakeWidth;
-    private float terrainHeight;
+public class TerrainBOPMountain extends TerrainBase
+{
+	private float width;
+	private float strength;
+	private float terrainHeight;
+    private float spikeWidth = 30;
+    private float spikeHeight = 40;
+    private HeightEffect heightEffect;
 
-	/*
-     * width = 230f
-	 * strength = 120f
-	 * lake = 50f;
-	 *
-	 * 230f, 120f, 50f
-	 */
+	public TerrainBOPMountain(float mountainWidth, float mountainStrength)
+	{
+		this(mountainWidth, mountainStrength, 90f);
+	}
 
-    public TerrainBOPMountain(float mountainWidth, float mountainStrength, float depthLake) {
-        this(mountainWidth, mountainStrength, depthLake, 260f, 85f);
-    }
+	public TerrainBOPMountain(float mountainWidth, float mountainStrength, float height)
+	{
+		width = mountainWidth;
+		strength = mountainStrength;
+		terrainHeight = height;
+        MountainsWithPassesEffect mountainEffect = new MountainsWithPassesEffect();
+        mountainEffect.mountainHeight = strength;
+        mountainEffect.mountainWavelength = width;
+        mountainEffect.spikeHeight = this.spikeHeight;
+        mountainEffect.spikeWavelength = this.spikeWidth;
 
-    public TerrainBOPMountain(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height) {
-        width = mountainWidth;
-        strength = mountainStrength;
-        lakeDepth = depthLake;
-        lakeWidth = widthLake;
-        terrainHeight = height;
-    }
+        heightEffect = new JitterEffect(7f,10f, mountainEffect);
+        heightEffect = new JitterEffect(3f,6f,heightEffect);
 
-    @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-        return terrainLonelyMountain(x, y, simplex, cell, river, strength, width, lakeWidth, lakeDepth, terrainHeight);
+	}
+
+	@Override
+	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
+	{
+        return riverized(heightEffect.added(simplex, cell, x, y)+terrainHeight,river);
     }
 }

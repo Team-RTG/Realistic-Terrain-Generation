@@ -19,15 +19,13 @@ import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureOceanMonument;
 import net.minecraft.world.gen.structure.StructureOceanMonumentPieces;
 import net.minecraft.world.gen.structure.StructureStart;
-import net.minecraftforge.fml.common.FMLLog;
-import org.apache.logging.log4j.Level;
-import rtg.config.rtg.ConfigRTG;
 import rtg.util.Logger;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 
 import java.util.*;
+
+import static rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase.*;
 
 /**
  * Created by topisani on 2/20/16.
@@ -35,7 +33,7 @@ import java.util.*;
 public class StructureOceanMonumentRTG extends StructureOceanMonument {
     private int field_175800_f;
     private int field_175801_g;
-    public static final List<BiomeGenBase> biomes = Arrays.asList((BiomeGenBase) RealisticBiomeVanillaBase.vanillaOcean, (BiomeGenBase) RealisticBiomeVanillaBase.vanillaDeepOcean, (BiomeGenBase) RealisticBiomeVanillaBase.vanillaRiver, (BiomeGenBase) RealisticBiomeVanillaBase.vanillaFrozenOcean, (BiomeGenBase) RealisticBiomeVanillaBase.vanillaFrozenRiver);
+    public static final List<Integer> biomes = Arrays.asList(vanillaOcean.getId(), vanillaDeepOcean.getId(), vanillaRiver.getId(), vanillaFrozenOcean.getId(), vanillaFrozenRiver.getId());
     private static final List<BiomeGenBase.SpawnListEntry> field_175803_h = Lists.newArrayList();
 
     public StructureOceanMonumentRTG() {
@@ -82,13 +80,12 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         if (i == k && j == l) {
             BiomeGenBase bg = this.worldObj.getBiomeProvider().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), null);
 
-            if (RealisticBiomeBase.getIdForBiome(bg) == RealisticBiomeBase.getIdForBiome(RealisticBiomeVanillaBase.vanillaDeepOcean)) {
+            if (RealisticBiomeBase.getIdForBiome(bg) == RealisticBiomeBase.getIdForBiome(vanillaDeepOcean)) {
 
                 boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29, biomes);
 
                 if (flag) {
-                    if (ConfigRTG.enableDebugging)
-                        FMLLog.log(Level.INFO, "Generated Ocean Monument at %s %s", i * 16 + 8, j * 16 + 8);
+                    Logger.debug("Generated Ocean Monument at %s %s", i * 16 + 8, j * 16 + 8);
                     return true;
                 }
             }
@@ -100,7 +97,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
     /**
      * checks given Chunk's Biomes against List of allowed ones
      */
-    public boolean areBiomesViable(int p_76940_1_, int p_76940_2_, int p_76940_3_, List<BiomeGenBase> p_76940_4_) {
+    public boolean areBiomesViable(int p_76940_1_, int p_76940_2_, int p_76940_3_, List<Integer> p_76940_4_) {
         IntCache.resetIntCache();
         int i = p_76940_1_ - p_76940_3_ >> 2;
         int j = p_76940_2_ - p_76940_3_ >> 2;
@@ -112,16 +109,15 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         try {
             wcm = (BiomeProviderRTG) worldObj.getBiomeProvider();
         } catch (ClassCastException e) {
-            Logger.info("This is not an RTG world, y u want 2 generate rtg Ocean Monuments?");
+            Logger.warn("This is not an RTG world, y u want 2 generate rtg Ocean Monuments?");
             return false;
         }
         int[] aint = wcm.getBiomesGens(i, j, i1, j1);
 
         try {
             for (int k1 = 0; k1 < i1 * j1; ++k1) {
-                BiomeGenBase biomegenbase = BiomeGenBase.getBiome(aint[k1]);
-
-                if (!p_76940_4_.contains(biomegenbase)) {
+                int biomeID = aint[k1];
+                if (!p_76940_4_.contains(biomeID)) {
                     return false;
                 }
             }

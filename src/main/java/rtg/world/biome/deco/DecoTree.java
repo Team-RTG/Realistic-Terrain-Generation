@@ -242,7 +242,7 @@ public class DecoTree extends DecoBase
                         case VANILLA_OAK:
 
                             if (intY <= this.maxY && intY >= this.minY && (rand.nextInt((int) (4f / strength)) == 0)) {
-                                WorldGenerator worldgenerator = new WorldGenTrees(false);
+                                WorldGenerator worldgenerator = new WorldGenTreeRTGTrees(false);
                                 worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
                             }
 

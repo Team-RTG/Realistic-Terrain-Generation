@@ -60,7 +60,7 @@ public class DecoCactus extends DecoBase
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 
 	                if (intY <= this.maxY) {
-	                	(new WorldGenCacti(this.sandOnly)).generate(world, rand, new BlockPos(intX, intY, intZ));
+	                	(new WorldGenCacti(this.sandOnly, 0, soil)).generate(world, rand, new BlockPos(intX, intY, intZ));
 	                }
 	            }
 	        }

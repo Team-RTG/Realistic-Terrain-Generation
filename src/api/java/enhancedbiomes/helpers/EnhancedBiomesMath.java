@@ -2,11 +2,13 @@ package enhancedbiomes.helpers;
 
 import java.util.ArrayList;
 
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.structure.MapGenVillage;
-
 public class EnhancedBiomesMath 
 {
+	public EnhancedBiomesMath()
+	{
+		
+	}
+	
 	public static double average(double ... inputs)
 	{
 		ArrayList<Double> avg = new ArrayList<Double>();

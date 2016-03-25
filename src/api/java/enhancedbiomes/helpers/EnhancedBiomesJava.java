@@ -1,12 +1,13 @@
 package enhancedbiomes.helpers;
 
-import java.util.ArrayList;
-
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.structure.MapGenVillage;
 
 public class EnhancedBiomesJava 
 {
+	public EnhancedBiomesJava()
+	{
+		
+	}
+	
 	public static void nullCheck(Object... inputs) {
 		int x = 0;
 		for(Object input : inputs) {

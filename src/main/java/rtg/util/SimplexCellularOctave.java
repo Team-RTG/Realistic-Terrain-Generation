@@ -52,8 +52,28 @@ public class SimplexCellularOctave implements CellOctave {
 	 */
 
 	//2D Simplex-Cellular noise (Multi-eval)
+    private double[] extantX = new double[9];
+    private double[] extantY = new double[9];
+    private int extant = 0;
+
+    private boolean tooClose(double thisX, double thisY) {
+
+            boolean tooClose = false;
+            for (int j = 0; j < extant; j++) {
+                double fromX = thisX - extantX[j];
+                double fromY = thisY - extantY[j];
+                if (fromX*fromX+fromY*fromY<.002) {
+                    return true;
+                }
+            }
+            // not tooClose; add
+            extantX[extant] = thisX;
+            extantY[extant++] = thisY;
+            return false;
+    }
 	public double [] eval(double x, double y) {
 
+        extant = 0;// clear the point record
         double [] results = new double[2];
         results[0] = Double.POSITIVE_INFINITY;
         results[1] = Double.POSITIVE_INFINITY;
@@ -80,10 +100,11 @@ public class SimplexCellularOctave implements CellOctave {
 		//Point contributions
 		for (int i = 0; i < 9; i++) {
         LatticePoint2D c = LOOKUP_2D[index + i];
-
         int pxm = (xsb + c.xsv) & 1023, pym = (ysb + c.ysv) & 1023;
             int ji = perm2D[perm[pxm] ^ pym];
             double jx = JITTER_2D[ji + 0], jy = JITTER_2D[ji + 1];
+            // suppress points to close to existing ones
+            if (tooClose(jx -c.dx,jy - c.dy)) continue;
             double djx = jx - (c.dx + xi),
                     djy = jy - (c.dy + yi);
             double distance = Math.sqrt(djx * djx + djy * djy);
@@ -102,6 +123,24 @@ public class SimplexCellularOctave implements CellOctave {
                 }
             }
 		}
+        if (x == -261.0/187.5) {
+            if (y== -168.0/187.5) {
+                String error = ""+results[0]+ " " + results[1] + " " + index;
+                for (int i = 0; i < 9; i++) {
+                    LatticePoint2D c = LOOKUP_2D[index + i];
+
+                    //if (index == 99&&i==4) continue;
+                    int pxm = (xsb + c.xsv) & 1023, pym = (ysb + c.ysv) & 1023;
+                    int ji = perm2D[perm[pxm] ^ pym];
+                    double jx = JITTER_2D[ji + 0], jy = JITTER_2D[ji + 1];
+                    double djx = jx - (c.dx + xi),
+                            djy = jy - (c.dy + yi);
+                    double distance = Math.sqrt(djx * djx + djy * djy);
+                    error = error + " "+(jx-c.dx)+ " "+(jy-c.dy);
+                }
+                //throw new RuntimeException(error);
+            }
+        }
         return results;
 	}
 

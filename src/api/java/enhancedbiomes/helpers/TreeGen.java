@@ -1,15 +1,36 @@
 package enhancedbiomes.helpers;
 
-import static enhancedbiomes.blocks.EnhancedBiomesBlocks.*;
+import static enhancedbiomes.blocks.EnhancedBiomesBlocks.leavesBirch;
+import static enhancedbiomes.blocks.EnhancedBiomesBlocks.leavesJungle;
+import static enhancedbiomes.blocks.EnhancedBiomesBlocks.leavesOak;
+import static enhancedbiomes.blocks.EnhancedBiomesBlocks.leavesSpruce;
+import static enhancedbiomes.blocks.EnhancedBiomesBlocks.logBirch;
+import static enhancedbiomes.blocks.EnhancedBiomesBlocks.logJungle;
+import static enhancedbiomes.blocks.EnhancedBiomesBlocks.logOak;
+import static enhancedbiomes.blocks.EnhancedBiomesBlocks.logSpruce;
 
 import java.util.Random;
 
-import enhancedbiomes.world.gen.*;
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.gen.feature.WorldGenForest;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
+import net.minecraft.world.gen.feature.WorldGenForest;
 import net.minecraft.world.gen.feature.WorldGenSwamp;
+import enhancedbiomes.world.gen.WorldGenAcacia;
+import enhancedbiomes.world.gen.WorldGenAlder;
+import enhancedbiomes.world.gen.WorldGenAspen;
+import enhancedbiomes.world.gen.WorldGenBaobab;
+import enhancedbiomes.world.gen.WorldGenCypress;
+import enhancedbiomes.world.gen.WorldGenEucalyptus;
+import enhancedbiomes.world.gen.WorldGenFir;
+import enhancedbiomes.world.gen.WorldGenKapok;
+import enhancedbiomes.world.gen.WorldGenMangrove;
+import enhancedbiomes.world.gen.WorldGenOak;
+import enhancedbiomes.world.gen.WorldGenPine;
+import enhancedbiomes.world.gen.WorldGenPoplar;
+import enhancedbiomes.world.gen.WorldGenShrineTree;
+import enhancedbiomes.world.gen.WorldGenSilverPine;
+import enhancedbiomes.world.gen.WorldGenTallShrub;
+import enhancedbiomes.world.gen.WorldGenTreesEnhancedBiomes;
 
 public class TreeGen 
 {
@@ -48,4 +69,9 @@ public class TreeGen
 
 	public static WorldGenAbstractTree birch(){return new WorldGenForest(false, false);}
 	public static WorldGenAbstractTree swamp(){return new WorldGenSwamp();}
+	
+	public TreeGen()
+	{
+		
+	}
 }

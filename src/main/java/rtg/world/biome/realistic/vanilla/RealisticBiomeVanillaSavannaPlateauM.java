@@ -2,16 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenCacti;
-import rtg.world.gen.feature.WorldGenFlowersRTG;
-import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaSavannaPlateauM;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaSavannaPlateauM;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -21,6 +11,15 @@ import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.world.gen.feature.WorldGenCacti;
+import rtg.world.gen.feature.WorldGenFlowersRTG;
+import rtg.world.gen.feature.WorldGenGrass;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaSavannaPlateauM;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaSavannaPlateauM;
 
 public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaBase
 {
@@ -58,14 +57,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
             
             if (rand.nextInt(4) == 0 && (k1 < 80 || k1 > 110)) {
                 
-                if (rand.nextBoolean()) {
-                    
-                    (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
-                }
-                else {
-                    
-                    (new WorldGenBlockBlob(Blocks.mossy_cobblestone, 0)).generate(world, rand, i1, k1, j1);
-                }
+                (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
             }
         }
         

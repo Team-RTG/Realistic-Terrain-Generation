@@ -6,15 +6,15 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainVanillaMesa extends TerrainBase
 {
-
+    
     public TerrainVanillaMesa()
     {
-
+    
     }
-
+    
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return terrainMesa(x, y, simplex, river, border);
+        return terrainPolar(x, y, simplex, river);
     }
 }

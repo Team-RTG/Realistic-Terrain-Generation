@@ -1,0 +1,36 @@
+addons:
+# language
+language: java
+
+# version numbers
+jdk:
+    - oraclejdk8
+ 
+# Use JDK 8u45. The above line just causes the use of a minor version of Java 8.
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+
+install: "./gradlew setupCIWorkspace"
+script: "./gradlew jar"
+before_cache:
+- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+cache:
+  directories:
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+deploy:
+  provider: s3
+  access_key_id: AKIAIZ4H7ETBDX4MY3TA
+  secret_access_key:
+    secure: K4VAM1AVBUhDh0jt1ww2BtAAy0EPIOEzykl142WK7+OxXeYsDIR2tFTC+kiJFTs6G6DYXmYQJdN8qU3vecmGIxTWd28m8xLwPSJcfhd8INzaZm7Fq+br0xFbAPd0KBfQhKKpxHUsD/BEy07/wyAWrHZ8K/GCI4b6xSC0nxVL2hBvBSobTrvCjUgOZR9iQo6KnIc/N8qxq69TUOEPEV10bYl4LWCJKJsZDQj/Wl+P5fk5Blaqor7x0AxVjPkSY6w37sEzbvUHC1HUCMfNfWRMggPXg0FoRV8JGgH1iqmuDe9CPFcqwBAiJNJEqi5CkwGXLesiiPfxkh6Z8t+z5KwO05Dm1adkKiNbnE0NKIBK64oTMcIeVEkdVTNFpAQtJuYJqNOt7QacRbzE7FX2piPJFw8mZJPFYigsfPeh134XIFAMPJ/QA6evRNagOmsinMTN7CACSg+sILlvlJVqIDpHR3S68+xSRyseIgEi34CB+595Fdj/W8g802mzIjXrs2fJApIEKDonLnFtzrCM/mSuNNOjA1XVc6s1dFV2QLxgL9uhWr400+2dLEMrkSFv/M/fgv6ZV0qB2o7a3Rr1oDLvPMiqQfDTSYW8x66ijtFFz2ZzAR7foNX+fgyFKl9JZV2UIfQBturu4R0vohb6pQaoroFOiouDYu3cthobc5njzq8=
+  bucket: travis.teamrtg.org
+  local-dir: build/libs/
+  upload-dir: RTG-1.7
+  skip_cleanup: true
+  acl: public_read
+  region: ap-southeast-2
+  on:
+    repo: Team-RTG/Realistic-Terrain-Generation
+    all_branches: true

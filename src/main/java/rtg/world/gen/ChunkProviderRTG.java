@@ -40,7 +40,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.AICWrapper;
-import rtg.util.CanyonColor;
+import rtg.util.CanyonColour;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.SimplexCellularNoise;
@@ -138,7 +138,7 @@ public class ChunkProviderRTG implements IChunkProvider
 		mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(), MINESHAFT);
 		scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(), SCATTERED_FEATURE);
 
-        CanyonColor.init(l);
+		CanyonColour.init(l);
 
         sampleArraySize = sampleSize * 2 + 5;
 

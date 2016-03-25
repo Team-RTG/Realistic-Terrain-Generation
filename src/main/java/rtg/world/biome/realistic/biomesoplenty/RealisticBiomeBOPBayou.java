@@ -1,19 +1,14 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.world.gen.surface.biomesoplenty.SurfaceBOPBayou;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPBayou;
-import biomesoplenty.api.content.BOPCBiomes;
-import biomesoplenty.api.biome.BOPBiomeDecorator;
-import biomesoplenty.common.biome.overworld.BiomeGenBayou;
-
-import java.util.ArrayList;
 import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.SimplexOctave;
+import rtg.world.gen.surface.biomesoplenty.SurfaceBOPBayou;
+import rtg.world.gen.terrain.biomesoplenty.TerrainBOPBayou;
+import biomesoplenty.api.content.BOPCBiomes;
 
 public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase
 {	

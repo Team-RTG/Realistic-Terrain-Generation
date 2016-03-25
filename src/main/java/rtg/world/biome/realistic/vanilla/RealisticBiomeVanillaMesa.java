@@ -55,7 +55,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase
             int k1 = world.getHeight(new BlockPos(i1, 1, j1)).getY();
             if (k1 < 83)
             {
-                (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
+                (new WorldGenBlockBlob(Blocks.red_sandstone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
             }
         }
         

@@ -124,26 +124,36 @@ public class TerrainBase {
 
     public static float terrainPlateau(int x, int y, OpenSimplexNoise simplex, float river, float[] height, float border, float strength, int heightLength, float selectorWaveLength, boolean isM) {
         river = river > 1f ? 1f : river;
+        float border2 = border * 4;
+        border2 = border2 > 1f ? 1f : border2;
         float b = simplex.noise2(x / 40f, y / 40f) * 1.5f;
 
         float sn = simplex.noise2(x / selectorWaveLength, y / selectorWaveLength) * 0.5f + 0.5f;
+        sn *= border2;
         sn *= river;
-        sn += simplex.noise2(x / 12f, y / 12f) * 0.07f + 0.07f;
-        float n;
+        sn += simplex.noise2(x / 4f, y / 4f) * 0.01f + 0.01f;
+        sn += simplex.noise2(x / 2f, y / 2f) * 0.01f + 0.01f;
+        float n, hn;
         for (int i = 0; i < heightLength; i += 2) {
             n = (sn - height[i + 1]) / (1 - height[i + 1]);
             n = n * strength;
-            n = (n < 0) ? 0 : (n > 1) ? 1 : n;
+            n = (n < 0f) ? 0f : (n > 1f) ? 1f : n;
+            hn = height[i] * 0.3f * ((sn * 3f) - 0.8f);
+            hn = (hn < 0)? 0f : hn;
             if (sn > height[i + 1]) {
                 b += (height[i] * n);
-                b += simplex.noise2(x / 20f, y / 20f) * 3f * n;
                 if (isM) {
+                    b += simplex.noise2(x / 20f, y / 20f) * 3f * n;
                     b += simplex.noise2(x / 12f, y / 12f) * 2f * n;
                     b += simplex.noise2(x / 5f, y / 5f) * 1f * n;
                 }
+            } else if (i == 0) {
+                b += hn;
             }
         }
         if (isM) b += simplex.noise2(x / 12, y / 12) * sn;
+        //Counteracts smoothing
+        b /= border;
 
         return getTerrainBase() + b;
     }

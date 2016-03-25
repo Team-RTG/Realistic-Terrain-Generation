@@ -50,11 +50,11 @@ public class SurfaceVanillaMesa extends SurfaceBase {
                                     primer.setBlockState(x, k, y, fillerBlock);
                                 }
                             }
-                        } else if (k < 69) {
+                        } else if (k < 62) {
                             primer.setBlockState(x, k, y, Blocks.dirt.getDefaultState());
                         } else if (k < 78) {
                             if (depth == 0) {
-                                if (k < 72 && rand.nextInt(k - 69 + 1) == 0) {
+                                if (k < 72 && rand.nextInt(k - 62 + 1) == 0) {
                                     primer.setBlockState(x, k, y, Blocks.dirt.getDefaultState());
                                 } else if (rand.nextInt(5) == 0) {
                                     primer.setBlockState(x, k, y, Blocks.dirt.getDefaultState());

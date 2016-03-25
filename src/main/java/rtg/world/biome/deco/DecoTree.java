@@ -22,6 +22,7 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalm;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineBig;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGPineEuro;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
@@ -199,6 +200,17 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
+		            	case PINE_EURO:
+		            		
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+
+		                        WorldGenerator worldgenerator = new WorldGenTreeRTGPineEuro();
+		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                        worldgenerator.generate(world, rand, intX, intY, intZ);
+		            		}
+		            		
+		            		break;
+		            		
 		            	case SMALL_BIRCH:
 		            		
 		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
@@ -300,6 +312,7 @@ public class DecoTree extends DecoBase
 		MEGA_JUNGLE,
 		MEGA_JUNGLE_MANGROVE,
 		PALM_CUSTOM,
+		PINE_EURO,
 		SMALL_BIRCH,
 		SMALL_PINES_TREES_FORESTS,
 		SUPER_TALL_BIRCH,

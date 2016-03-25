@@ -615,6 +615,10 @@ public class RealisticBiomeBase extends BiomeBase {
         return BiomeGenBase.getIdForBiome(biome);
     }
 
+    public int getId() {
+        return RealisticBiomeBase.getIdForBiome(this);
+    }
+
     public void decorateInAnOrderlyFashion(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
     {
         for (DecoBase deco : this.decos) {

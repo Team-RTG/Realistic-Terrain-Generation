@@ -43,7 +43,7 @@ public class TerrainVanillaSavannaPlateau extends TerrainBase {
          * 	Second is a value between 0 and 1, signifying when to step up.
          */
         height = new float[]{12.0f, 0.5f, 8f, 0.7f};
-        strength = 40f;
+        strength = 10f;
         heightLength = height.length;
     }
 

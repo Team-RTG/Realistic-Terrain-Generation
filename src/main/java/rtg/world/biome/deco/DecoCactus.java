@@ -1,5 +1,7 @@
 package rtg.world.biome.deco;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.terraingen.TerrainGen;
@@ -23,6 +25,10 @@ public class DecoCactus extends DecoBase
 	public float strengthFactor;
 	public int maxY;
 	public boolean sandOnly;
+    /**
+     * Block to place under cactus. Sand, Red sand and coarse dirt are possibilities.
+     */
+    public IBlockState soil;
 	
 	public DecoCactus()
 	{
@@ -35,6 +41,7 @@ public class DecoCactus extends DecoBase
 		this.maxY = 255; // No height limit by default.
 		this.strengthFactor = 2f; // The higher the value, the more there will be.
 		this.sandOnly = false;
+        this.soil = Blocks.sand.getDefaultState();
 		
 		this.addDecoTypes(DecoType.CACTUS);
 	}
@@ -53,7 +60,7 @@ public class DecoCactus extends DecoBase
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 
 	                if (intY <= this.maxY) {
-	                	(new WorldGenCacti(this.sandOnly)).generate(world, rand, new BlockPos(intX, intY, intZ));
+	                	(new WorldGenCacti(this.sandOnly, 0, soil)).generate(world, rand, new BlockPos(intX, intY, intZ));
 	                }
 	            }
 	        }

@@ -42,7 +42,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
             int j1 = chunkY + rand.nextInt(16) + 8;
             int k1 = world.getHeight(new BlockPos(i1, 0, j1)).getY();
             if (k1 < 70) {
-                (new WorldGenBlockBlob(Blocks.mossy_cobblestone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
+                (new WorldGenBlockBlob(Blocks.red_sandstone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
             }
         }
 

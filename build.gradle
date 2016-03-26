@@ -48,6 +48,7 @@ processResources {
 			'authorList':ref.mod_author,
 			'credits':ref.mod_creds,
 			'logoFile':ref.mod_logo,
+			'requiredMods':ref.mod_reqs,
 			'dependencies':ref.mod_deps
 		])
 	}

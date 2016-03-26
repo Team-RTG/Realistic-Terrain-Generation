@@ -4,15 +4,16 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 public class SnowHeightCalculator {
-    public static void calc(int x, int y, int k, ChunkPrimer primer, float[] noise) {
-        if (k < 254) {
-            byte h = (byte) ((noise[y * 16 + x] - ((int) noise[y * 16 + x])) * 8);
+    //TODO: This is just wrong, but thats how its done in 1.7, so why change it?
+    public static void calc(int x, int z, int y, ChunkPrimer primer, float[] noise) {
+        if (y < 254) {
+            byte h = (byte) ((noise[x * 16 + z] - ((int) noise[x * 16 + z])) * 8);
 
             if (h > 7) {
-                primer.setBlockState(x, k, y + 2, Blocks.snow_layer.getDefaultState());
-                primer.setBlockState(x, k, y + 1, Blocks.snow_layer.getStateFromMeta(7));
+                primer.setBlockState(x, y + 2, z, Blocks.snow_layer.getDefaultState());
+                primer.setBlockState(x, y + 1, z, Blocks.snow_layer.getStateFromMeta(7));
             } else {
-                primer.setBlockState(x, k, y + 1, Blocks.snow_layer.getStateFromMeta(h));
+                primer.setBlockState(x, y + 1, z, Blocks.snow_layer.getStateFromMeta(h));
             }
         }
     }

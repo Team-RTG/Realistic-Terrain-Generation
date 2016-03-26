@@ -1,7 +1,7 @@
 package rtg.world.gen.terrain;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 
 /**
  * This creates an effect of scattered hills with irregular surfaces

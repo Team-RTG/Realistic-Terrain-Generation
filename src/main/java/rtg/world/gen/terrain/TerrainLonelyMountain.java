@@ -1,7 +1,7 @@
 package rtg.world.gen.terrain;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 
 public class TerrainLonelyMountain extends TerrainBase {
     private float width;
@@ -30,8 +30,9 @@ public class TerrainLonelyMountain extends TerrainBase {
         terrainHeight = height;
     }
 
-    @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-        return terrainLonelyMountain(x, y, simplex, cell, river, strength, width, lakeWidth, lakeDepth, terrainHeight);
-    }
+	@Override
+	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
+	{
+        return terrainLonelyMountain(x, y, simplex, cell, river, strength, width, terrainHeight);
+	}
 }

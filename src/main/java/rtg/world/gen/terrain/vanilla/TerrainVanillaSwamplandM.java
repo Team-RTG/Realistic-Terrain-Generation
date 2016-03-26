@@ -1,10 +1,11 @@
 package rtg.world.gen.terrain.vanilla;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainVanillaSwamplandM extends TerrainBase {
+public class TerrainVanillaSwamplandM extends TerrainBase
+{
 
     private float width;
     private float strength;
@@ -18,12 +19,14 @@ public class TerrainVanillaSwamplandM extends TerrainBase {
      * 230f, 120f, 50f
      */
 
-    public TerrainVanillaSwamplandM(float mountainWidth, float mountainStrength, float depthLake) {
+    public TerrainVanillaSwamplandM(float mountainWidth, float mountainStrength, float depthLake)
+    {
 
-        this(mountainWidth, mountainStrength, depthLake, 280f, 62f);
+        this(mountainWidth, mountainStrength, depthLake, 280f, 58f);
     }
 
-    public TerrainVanillaSwamplandM(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height) {
+    public TerrainVanillaSwamplandM(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
+    {
 
         width = mountainWidth;
         strength = mountainStrength;
@@ -33,7 +36,8 @@ public class TerrainVanillaSwamplandM extends TerrainBase {
     }
 
     @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-        return terrainLonelyMountain(x, y, simplex, cell, river, strength, width, lakeWidth, lakeDepth, terrainHeight);
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
+    {
+        return terrainLonelyMountain(x, y, simplex, cell, river, strength, width, terrainHeight);
     }
 }

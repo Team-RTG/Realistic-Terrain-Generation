@@ -7,8 +7,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.*;
 import rtg.api.biome.BiomeConfig;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenCacti;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaPlateau;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateau;
@@ -42,7 +42,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
             int j1 = chunkY + rand.nextInt(16) + 8;
             int k1 = world.getHeight(new BlockPos(i1, 0, j1)).getY();
             if (k1 < 70) {
-                (new WorldGenBlockBlob(Blocks.mossy_cobblestone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
+                (new WorldGenBlockBlob(Blocks.red_sandstone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
             }
         }
 

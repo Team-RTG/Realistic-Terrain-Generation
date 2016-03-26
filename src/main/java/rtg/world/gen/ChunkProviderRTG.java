@@ -4,7 +4,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
@@ -28,10 +27,11 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
-import rtg.util.CanyonColour;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.SimplexCellularNoise;
+import rtg.util.math.CanyonColour;
+import rtg.util.math.MathUtils;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
+import rtg.util.noise.SimplexCellularNoise;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -67,7 +67,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
     private final int parabolicArraySize;
     private final float[] parabolicField;
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
-    private int[] xyinverted = analyzer.xyinverted();
 
     private Block bedrockBlock = Block.getBlockFromName(ConfigRTG.bedrockBlockId);
     private byte bedrockByte = (byte) ConfigRTG.bedrockBlockByte;
@@ -163,7 +162,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         ChunkPrimer primer = new ChunkPrimer();
         float[] noise = new float[256];
         biomesForGeneration = new RealisticBiomeBase[256];
-        this.biomesForGeneration = ( (BiomeProviderRTG) this.worldObj.getBiomeProvider()).getRealisticBiomesForGeneration(this.biomesForGeneration, cx * 4 - 2, cy * 4 - 2, 10, 10);
+        //this.biomesForGeneration = ( (BiomeProviderRTG) this.worldObj.getBiomeProvider()).getRealisticBiomesForGeneration(this.biomesForGeneration, cx * 4 - 2, cy * 4 - 2, 10, 10);
 
         int k;
 
@@ -230,7 +229,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         Chunk chunk = new Chunk(this.worldObj, primer, cx, cy);
 
         if (isAICExtendingBiomeIdsLimit) {
-            //aic.setBiomeArray(chunk, baseBiomesList, xyinverted);
+            //aic.setBiomeArray(chunk, baseBiomesList, XYinverted);
         } else {
             // doJitter no longer needed as the biome array gets fixed
             byte[] abyte1 = chunk.getBiomeArray();
@@ -242,7 +241,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         		* I cannot do much on my part, so i have to do it here.
         		* - Elix_x
         		*/
-                byte b = (byte) RealisticBiomeBase.getIdForBiome(this.baseBiomesList[this.xyinverted[k]]);
+                byte b = (byte) RealisticBiomeBase.getIdForBiome(this.baseBiomesList[MathUtils.XY_INVERTED[k]]);
                 abyte1[k] = b;
             }
             chunk.setBiomeArray(abyte1);
@@ -298,15 +297,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
                         hugeRender[(i * 2 + 2) * 9 + (j * 2 + 2)][biomeData[(i + k + sampleSize + 1) * sampleArraySize + (j + locationIndex + sampleSize + 1)]] += parabolicField[k + parabolicSize + (locationIndex + parabolicSize) * parabolicArraySize] / parabolicFieldTotal;
                     }
                 }
-
-            }
-        }
-
-        //MAIN BIOME CHECK
-        RealisticBiomeBase realisticBiomeBase = null;
-        for (i = 0; i < 256; i++) {
-            if (hugeRender[4 * 9 + 4][i] > 0.95f) {
-                realisticBiomeBase = RealisticBiomeBase.getBiome(i);
             }
         }
 
@@ -464,10 +454,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 RealisticBiomeBase biome = biomes[i * 16 + j];
 
                 river = -bprv.getRiverStrength(cx * 16 + j, cy * 16 + i);
-                if (river > 0.05f && river + (simplex.noise2((cx * 16 + j) / 10f, (cy * 16 + i) / 10f) * 0.15f) > 0.8f) {
-                    //base[j * 16 + i] = biome.riverBiome;
-                }
-
                 depth = -1;
 
                 biome.rReplace(primer, cx * 16 + i, cy * 16 + j, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
@@ -508,22 +494,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
      */
     public Chunk loadChunk(int par1, int par2) {
         return provideChunk(par1, par2);
-    }
-
-    private double[] func_4061_a(double ad[], int i, int j, int k, int l, int i1, int j1) {
-        return null;
-    }
-
-    /**
-     * @see IChunkProvider
-     * <p/>
-     * Checks to see if a chunk exists at x, y
-     */
-    public boolean chunkExists(int par1, int par2) {
-        /**
-         * TODO: Write custom logic to determine whether chunk exists, instead of assuming it does.
-         */
-        return true;
     }
 
     /**
@@ -630,15 +600,27 @@ public class ChunkProviderRTG implements IChunkGenerator {
                  */
                 if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
 
-                    realisticBiome.rDecorate(this.worldObj, this.rand, new BlockPos(worldX, 0, worldZ), simplex, cell, borderNoise[bn], river);
-                } else {
-
+                	if (realisticBiome.useNewDecorationSystem) {
+                		realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                	}
+                	else {
+                		realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                	}
+                }
+                else {
+                    
                     try {
+                        
+                        realisticBiome.baseBiome.decorate(this.worldObj, rand, new BlockPos(worldX, 1, worldZ));
+                    }
+                    catch (Exception e) {
 
-                        realisticBiome.baseBiome.decorate(this.worldObj, rand, new BlockPos(worldX, 0, worldZ));
-                    } catch (Exception e) {
-
-                        realisticBiome.rDecorate(this.worldObj, this.rand, new BlockPos(worldX, 0, worldZ), simplex, cell, borderNoise[bn], river);
+                    	if (realisticBiome.useNewDecorationSystem) {
+                    		realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                    	}
+                    	else {
+                    		realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                    	}
                     }
                 }
 
@@ -717,47 +699,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
     /**
      * @see IChunkProvider
      * <p/>
-     * Two modes of operation: if passed true, save all Chunks in one go.  If passed false, save up to two chunks.
-     * Return true if all chunks have been saved.
-     */
-    public boolean saveChunks(boolean par1, IProgressUpdate par2IProgressUpdate) {
-        return true;
-    }
-
-    /**
-     * @see IChunkProvider
-     * <p/>
-     * Unloads chunks that are marked to be unloaded. This is not guaranteed to unload every such chunk.
-     */
-    public boolean unloadQueuedChunks() {
-        return false;
-    }
-
-    public boolean unload100OldestChunks() {
-        return false;
-    }
-
-    /**
-     * @see IChunkProvider
-     * <p/>
-     * Returns if the IChunkProvider supports saving.
-     */
-    public boolean canSave() {
-        return true;
-    }
-
-    /**
-     * IChunkProvider
-     * <p/>
-     * Converts the instance data to a readable string.
-     */
-    public String makeString() {
-        return "ChunkProviderRTG";
-    }
-
-    /**
-     * @see IChunkProvider
-     * <p/>
      * Returns a list of creatures of the specified type that can spawn at the given location.
      */
     public List getPossibleCreatures(EnumCreatureType par1EnumCreatureType, BlockPos blockPos) {
@@ -784,13 +725,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
         }
 
         return "Stronghold".equals(par2Str) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(par1World, blockPos) : null;
-    }
-
-    /**
-     * @see IChunkProvider
-     */
-    public int getLoadedChunkCount() {
-        return 0;
     }
 
     /**
@@ -832,14 +766,5 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 oceanMonumentGenerator.generate(this.worldObj, x, y, null);
             }
         }
-    }
-
-    /**
-     * @see IChunkProvider
-     * <p/>
-     * Save extra data not associated with any Chunk.  Not saved during autosave, only during world unload.
-     * Currently unimplemented.
-     */
-    public void saveExtraData() {
     }
 }

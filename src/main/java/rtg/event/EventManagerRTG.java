@@ -3,7 +3,6 @@ package rtg.event;
 import net.minecraft.block.BlockSandStone;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.*;

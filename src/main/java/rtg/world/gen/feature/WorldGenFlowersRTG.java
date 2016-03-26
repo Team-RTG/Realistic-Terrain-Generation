@@ -9,7 +9,7 @@ import java.util.Random;
 
 import static net.minecraft.init.Blocks.*;
 
-public class WorldGenFlowers extends WorldGenerator {
+public class WorldGenFlowersRTG extends WorldGenerator {
     public boolean generate(World world, Random rand, BlockPos blockPos) {
         return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
@@ -38,8 +38,9 @@ public class WorldGenFlowers extends WorldGenerator {
      * 14	Rose Bush -
      * 15	Peony
      */
-    public WorldGenFlowers(int[] f) {
-        flowers = f;
+    public WorldGenFlowersRTG(int[] f)
+    {
+    	flowers = f;
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

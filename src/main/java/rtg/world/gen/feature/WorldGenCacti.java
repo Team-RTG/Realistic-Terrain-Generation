@@ -1,6 +1,7 @@
 package rtg.world.gen.feature;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -17,14 +18,20 @@ public class WorldGenCacti extends WorldGenerator {
 
     private boolean sand;
     private int eHeight;
+    private IBlockState soil;
 
     public WorldGenCacti(boolean sandOnly) {
         this(sandOnly, 0);
     }
 
     public WorldGenCacti(boolean sandOnly, int extraHeight) {
+        this(sandOnly, extraHeight, Blocks.sand.getDefaultState());
+    }
+
+    public WorldGenCacti(boolean sandOnly, int extraHeight, IBlockState soil) {
         sand = sandOnly;
         eHeight = 0;
+        this.soil = soil;
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

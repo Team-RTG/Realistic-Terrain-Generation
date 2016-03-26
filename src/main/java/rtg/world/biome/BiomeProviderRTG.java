@@ -9,10 +9,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.SimplexCellularNoise;
-import rtg.util.SimplexOctave;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
+import rtg.util.noise.SimplexCellularNoise;
+import rtg.util.noise.SimplexOctave;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 
@@ -179,30 +179,47 @@ public class BiomeProviderRTG extends BiomeProvider {
         return getBiomeDataAt(x, y).rNoise(simplex, cell, x, y, 1f, river);
     }
 
+    private static int [] incidences = new int[100];
+    private static int references = 0;
     private static double cellBorder(double[] results, double width, double depth) {
-        double c = results[1] - results[0];
+        double c = (results[1] - results[0]);
+        /*int slot = (int)Math.floor(c*100.0);
+        incidences[slot] += 1;
+        references ++;
+        if (references>40000) {
+            String result = "";
+            for (int i = 0; i< 100; i ++) {
+                result += " " + incidences[i];
+            }
+            throw new RuntimeException(result);
+        }*/
         if (c < width) {
-            return ((c / width) - 1) * depth;
+            return ((c / width) - 1f) * depth;
         } else {
+
             return 0;
         }
     }
 
-    public float getRiverStrength(int x, int y) {
+    public float getRiverStrength(int x, int y)
+    {
         //New river curve function. No longer creates worldwide curve correlations along cardinal axes.
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();
         simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
         double pX = x + jitter.deltax() * 220f;
         double pY = y + jitter.deltay() * 220f;
             /*double[] simplexResults = new double[2];
-            OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
+    	    OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
             double pX = x + simplexResults[0] * 220f;
             double pY = y + simplexResults[1] * 220f;*/
 
         //New cellular noise.
         //TODO move the initialization of the results in a way that's more efficient but still thread safe.
         double[] results = simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
-        return (float) cellBorder(results, 30.0 / 300.0, 1.0);
+        if (x==-200&&y == -750) {
+            //throw new RuntimeException(""+ results[1]+ " " +results[0]);
+        }
+        return (float) cellBorder(results, 30.0 / 600.0, 1.0);
     }
 
     public boolean isBorderlessAt(int x, int y) {

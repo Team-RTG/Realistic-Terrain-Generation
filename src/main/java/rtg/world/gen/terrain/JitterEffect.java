@@ -1,8 +1,8 @@
 package rtg.world.gen.terrain;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.SimplexOctave;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
+import rtg.util.noise.SimplexOctave;
 
 /**
  * This class returns a height effect with a jitter on the position.
@@ -11,11 +11,13 @@ import rtg.util.SimplexOctave;
  */
 public class JitterEffect extends HeightEffect {
 
-    private final float amplitude;
-    private final float wavelength;
-    private final HeightEffect jittered;
-    private SimplexOctave.Derivative jitter = new SimplexOctave.Derivative();
+    public float amplitude = Integer.MAX_VALUE;
+    public float wavelength = 0;
+    public HeightEffect jittered;
+    private SimplexOctave.Disk jitter = new SimplexOctave.Disk();
     private boolean running = false;// this is to check for re-entrancy because this isn't re-entrant
+
+    public JitterEffect() {}
 
     public JitterEffect(float amplitude, float wavelength, HeightEffect toJitter) {
         this.amplitude = amplitude;

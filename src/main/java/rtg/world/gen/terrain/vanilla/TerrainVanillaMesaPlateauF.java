@@ -1,7 +1,7 @@
 package rtg.world.gen.terrain.vanilla;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainVanillaMesaPlateauF extends TerrainBase {
@@ -35,8 +35,8 @@ public class TerrainVanillaMesaPlateauF extends TerrainBase {
         /**    Values come in pairs per layer. First is how high to step up.
          * 	Second is a value between 0 and 1, signifying when to step up.
          */
-        height = new float[]{24.0f, 0.4f, 8f, 0.7f};
-        strength = 50f;
+        height = new float[]{24.0f, 0.4f};
+        strength = 10f;
         heightLength = height.length;
         base = 69f;
     }

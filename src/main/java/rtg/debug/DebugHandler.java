@@ -30,7 +30,7 @@ public final class DebugHandler {
                 BiomeProviderRTG chunkManager = (BiomeProviderRTG) world.getBiomeProvider();
                 String details = "";
 
-                event.left.add(null);
+                event.getLeft().add(null);
                 int posX = (int) player.posX;
                 int posZ = (int) player.posZ;
 
@@ -44,11 +44,11 @@ public final class DebugHandler {
 
                 details = PREFIX;
                 details += "River Strength: " + chunkManager.getRiverStrength(posX, posZ);
-                event.left.add(details);
+                event.getLeft().add(details);
 
                 details = PREFIX;
                 details += "Temperature/Rainfall: " + biome.getTemperature() + "/" + biome.getRainfall();
-                event.left.add(details);
+                event.getLeft().add(details);
 
                 //details = PREFIX;
                 //details += "Noise (X/Z): " + chunkManager.getNoiseAt(posX, posZ);
@@ -57,7 +57,7 @@ public final class DebugHandler {
                 if (ConfigRTG.enableDebugging) {
                     details = PREFIX;
                     details += "WARNING!!! Debugging mode is ENABLED!";
-                    event.left.add(details);
+                    event.getLeft().add(details);
                 }
             }
         }

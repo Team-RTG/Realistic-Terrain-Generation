@@ -39,38 +39,38 @@ public class EventManagerRTG {
     @SubscribeEvent(priority = EventPriority.LOW)
     public void eventListenerRTG(InitMapGenEvent event) {
 
-        Logger.debug("event type = %s", event.type.toString());
-        Logger.debug("event originalGen = %s", event.originalGen.toString());
+        Logger.debug("event type = %s", event.getType().toString());
+        Logger.debug("event originalGen = %s", event.getOriginalGen().toString());
 
-        if (event.type == InitMapGenEvent.EventType.SCATTERED_FEATURE) {
-            event.newGen = new MapGenScatteredFeatureRTG();
-        } else if (event.type == InitMapGenEvent.EventType.VILLAGE) {
+        if (event.getType() == InitMapGenEvent.EventType.SCATTERED_FEATURE) {
+            event.setNewGen(new MapGenScatteredFeatureRTG());
+        } else if (event.getType() == InitMapGenEvent.EventType.VILLAGE) {
 
             if (ConfigRTG.enableVillageModifications) {
-                event.newGen = new MapGenVillageRTG();
+                event.setNewGen(new MapGenVillageRTG());
             }
-        } else if (event.type == InitMapGenEvent.EventType.CAVE) {
+        } else if (event.getType() == InitMapGenEvent.EventType.CAVE) {
 
             if (ConfigRTG.enableCaveModifications) {
 
-                event.newGen = new MapGenCavesRTG();
+                event.setNewGen(new MapGenCavesRTG());
             }
-        } else if (event.type == InitMapGenEvent.EventType.RAVINE) {
+        } else if (event.getType() == InitMapGenEvent.EventType.RAVINE) {
 
             if (ConfigRTG.enableRavineModifications) {
 
-                event.newGen = new MapGenRavineRTG();
+                event.setNewGen(new MapGenRavineRTG());
             }
-        } else if (event.type == InitMapGenEvent.EventType.OCEAN_MONUMENT) {
-            event.newGen = new StructureOceanMonumentRTG();
+        } else if (event.getType() == InitMapGenEvent.EventType.OCEAN_MONUMENT) {
+            event.setNewGen(new StructureOceanMonumentRTG());
         }
-        Logger.debug("event newGen = %s", event.newGen.toString());
+        Logger.debug("event newGen = %s", event.getNewGen().toString());
     }
 
     @SubscribeEvent
     public void eventListenerRTG(WorldEvent.Load event) {
 
-        if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
+        if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
 
             MinecraftForge.TERRAIN_GEN_BUS.unregister(RTG.eventMgr);
             MinecraftForge.ORE_GEN_BUS.unregister(RTG.eventMgr);
@@ -81,7 +81,7 @@ public class EventManagerRTG {
     @SubscribeEvent
     public void onGenerateMinable(OreGenEvent.GenerateMinable event) {
 
-        switch (event.type) {
+        switch (event.getType()) {
 
             case COAL:
 
@@ -140,13 +140,13 @@ public class EventManagerRTG {
     public void onBiomeGenInit(WorldTypeEvent.InitBiomeGens event) {
 
         // only handle RTG world type
-        if (!event.worldType.getWorldTypeName().equalsIgnoreCase("RTG")) return;
+        if (!event.getWorldType().getWorldTypeName().equalsIgnoreCase("RTG")) return;
 
         boolean stripRivers = true; // This used to be a config option. Hardcoding until we have a need for the option.
 
         if (stripRivers) {
             try {
-                event.newBiomeGens = new RiverRemover().riverLess(event.originalBiomeGens);
+                event.setNewBiomeGens(new RiverRemover().riverLess(event.getOriginalBiomeGens()));
             } catch (ClassCastException ex) {
                 //throw ex;
                 // failed attempt because the GenLayers don't end with GenLayerRiverMix
@@ -157,13 +157,13 @@ public class EventManagerRTG {
     @SubscribeEvent
     public void onWorldLoad(WorldEvent.Load event) {
 
-        if (!event.world.getWorldInfo().getTerrainType().getWorldTypeName().equalsIgnoreCase("RTG")) {
+        if (!event.getWorld().getWorldInfo().getTerrainType().getWorldTypeName().equalsIgnoreCase("RTG")) {
             return;
         }
 
-        if (event.world.provider.getDimension() == 0) {
+        if (event.getWorld().provider.getDimension() == 0) {
 
-            Logger.info("World Seed: %d", event.world.getSeed());
+            Logger.info("World Seed: %d", event.getWorld().getSeed());
         }
     }
 
@@ -173,9 +173,9 @@ public class EventManagerRTG {
         if (!ConfigRTG.enableVillageModifications) {
             return;
         }
-        if (event.biome instanceof RealisticBiomeBase) {
-            biomeReal = (RealisticBiomeBase) event.biome;
-        } else if (event.biome == null && this.biome != null) {
+        if (event.getBiome() instanceof RealisticBiomeBase) {
+            biomeReal = (RealisticBiomeBase)event.getBiome();
+        } else if (event.getBiome() == null && this.biome != null) {
             biomeReal = this.biome;
         } else {
             return;
@@ -183,32 +183,32 @@ public class EventManagerRTG {
         if (RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(vanillaDesert) ||
                 RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(vanillaDesertHills) ||
                 RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(vanillaDesertM)) {
-            if (event.original.getBlock() == Blocks.log || event.original.getBlock() == Blocks.log2) {
-                event.replacement = Blocks.sandstone.getDefaultState();
+            if (event.getOriginal().getBlock() == Blocks.log || event.getOriginal().getBlock() == Blocks.log2) {
+                event.setReplacement(Blocks.sandstone.getDefaultState());
             }
 
-            if (event.original.getBlock() == Blocks.cobblestone) {
-                event.replacement = Blocks.sandstone.getStateFromMeta(BlockSandStone.EnumType.DEFAULT.getMetadata());
+            if (event.getOriginal().getBlock() == Blocks.cobblestone) {
+                event.setReplacement(Blocks.sandstone.getStateFromMeta(BlockSandStone.EnumType.DEFAULT.getMetadata()));
             }
 
-            if (event.original.getBlock() == Blocks.planks) {
-                event.replacement = Blocks.sandstone.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata());
+            if (event.getOriginal().getBlock() == Blocks.planks) {
+                event.setReplacement(Blocks.sandstone.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()));
             }
 
-            if (event.original.getBlock() == Blocks.oak_stairs) {
-                event.replacement = Blocks.sandstone_stairs.getDefaultState().withProperty(BlockStairs.FACING, event.original.getValue(BlockStairs.FACING));
+            if (event.getOriginal().getBlock() == Blocks.oak_stairs) {
+                event.setReplacement(Blocks.sandstone_stairs.getDefaultState().withProperty(BlockStairs.FACING, event.getOriginal().getValue(BlockStairs.FACING)));
             }
 
-            if (event.original.getBlock() == Blocks.stone_stairs) {
-                event.replacement = Blocks.sandstone_stairs.getDefaultState().withProperty(BlockStairs.FACING, event.original.getValue(BlockStairs.FACING));
+            if (event.getOriginal().getBlock() == Blocks.stone_stairs) {
+                event.setReplacement(Blocks.sandstone_stairs.getDefaultState().withProperty(BlockStairs.FACING, event.getOriginal().getValue(BlockStairs.FACING)));
             }
 
-            if (event.original.getBlock() == Blocks.gravel) {
-                event.replacement = Blocks.sandstone.getDefaultState();
+            if (event.getOriginal().getBlock() == Blocks.gravel) {
+                event.setReplacement(Blocks.sandstone.getDefaultState());
             }
         }
         // The event has to be cancelled in order to override the original block.
-        if (event.replacement != null) {
+        if (event.getReplacement() != null) {
             event.setResult(Result.DENY);
         }
     }
@@ -217,10 +217,10 @@ public class EventManagerRTG {
     public void preBiomeDecorate(DecorateBiomeEvent.Pre event) {
 
         //Are we in an RTG world? Do we have RTG's chunk manager?
-        if (event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG && event.world.getBiomeProvider() instanceof BiomeProviderRTG) {
+        if (event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG && event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG) {
 
-            BiomeProviderRTG cmr = (BiomeProviderRTG) event.world.getBiomeProvider();
-            this.biome = cmr.getBiomeDataAt(event.pos.getX(), event.pos.getZ());
+            BiomeProviderRTG cmr = (BiomeProviderRTG) event.getWorld().getBiomeProvider();
+            this.biome = cmr.getBiomeDataAt(event.getPos().getX(), event.getPos().getZ());
         }
     }
 }

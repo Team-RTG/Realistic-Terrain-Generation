@@ -21,22 +21,16 @@ gradlew-build.bat
 libs/*.jar
 forge-1.7.10-10.13.4.1558-1.7.10-changelog.txt
 *.launch
-/*.iml
-/*.ipr
-/*.iws
 /gradlew-idea.bat
 /gradlew-jar.bat
 /logs
-/run
 gradlew-cleanCache.bat
 gradlew-setupDecompWorkspace-refresh-deps.bat
-
 gradlew-jar.bat
-gradlew-cleanCache.bat
-gradlew-setupDecompWorkspace-refresh-deps.bat
 *.iml
 *.ipr
 *.iws
 Paulscode IBXM Library License.txt
 Paulscode SoundSystem CodecIBXM License.txt
 forge-1.9-12.16.0.1805-1.9-changelog.txt
+.idea

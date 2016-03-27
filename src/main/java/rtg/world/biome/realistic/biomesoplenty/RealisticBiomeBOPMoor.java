@@ -23,5 +23,6 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase
 			new TerrainBOPMoor(73f, 79f, 32f),
 			new SurfaceBOPMoor(config, topBlock, fillerBlock)
 		);
+        this.noWaterFeatures = true;
 	}
 }

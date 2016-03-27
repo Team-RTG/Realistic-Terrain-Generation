@@ -387,7 +387,7 @@ public class RealisticBiomeBase extends BiomeBase {
         if (noWaterFeatures) {
             border = border*2;
             if (border >1f) border = 1;
-            river = 1f - border*(1f-river);
+            river = 1f - (1f-border)*(1f-river);
             return terrain.generateNoise(simplex, cell, x, y, border, river);
         }
         float lakeStrength = lakePressure(simplex,cell,x,y,border);
@@ -397,7 +397,7 @@ public class RealisticBiomeBase extends BiomeBase {
         float riverFlattening = river*1.25f-0.25f;
         if (riverFlattening <0) riverFlattening = 0;
         if (lakeFlattening < river) river = (float)lakeFlattening;
-        float terrainNoise = terrain.generateNoise(simplex, cell, x, y, border, river);
+        float terrainNoise = terrain.generateNoise(simplex, cell, x, y, border, riverFlattening);
         return this.erodedNoise(simplex, cell, x, y, river, border, terrainNoise,lakeFlattening);
     }
 
@@ -408,7 +408,7 @@ public class RealisticBiomeBase extends BiomeBase {
         float r = 1f;
 
         // put a flat spot in the middle of the river
-        float riverFlattening = river*1.25f-0.25f;
+        float riverFlattening = river; // moved the flattening to terrain stage
         if (riverFlattening <0) riverFlattening = 0;
 
         // check if rivers need lowering

@@ -51,6 +51,7 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
+import rtg.util.PlaneLocation;
 
 /**
  * Scattered features courtesy of Ezoteric (https://github.com/Ezoteric) and Choonster (https://github.com/Choonster)
@@ -97,6 +98,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private float[] borderNoise;
     private long worldSeed;
     private RealisticBiomePatcher biomePatcher;
+    private HashMap<PlaneLocation,Chunk> inGeneration = new HashMap<PlaneLocation,Chunk>();
     
     private AICWrapper aic;
     private boolean isAICExtendingBiomeIdsLimit;
@@ -234,7 +236,11 @@ public class ChunkProviderRTG implements IChunkProvider
             }
         }
 
+
+
         replaceBlocksForBiome(cx, cy, blocks, metadata, biomesForGeneration, baseBiomesList, noise);
+        
+
 
         caveGenerator.func_151539_a(this, worldObj, cx, cy, blocks);
         ravineGenerator.func_151539_a(this, worldObj, cx, cy, blocks);
@@ -269,8 +275,11 @@ public class ChunkProviderRTG implements IChunkProvider
                 scatteredFeatureGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
             }
         }
-
+            // store in the in process pile
         Chunk chunk = new Chunk(this.worldObj, blocks, metadata, cx, cy);
+        PlaneLocation chunkLocation = new PlaneLocation.Invariant(cx,cy);
+        if (inGeneration.containsKey(chunkLocation)) throw new RuntimeException();
+        //inGeneration.put(chunkLocation, chunk);
         
         if(isAICExtendingBiomeIdsLimit){
         	aic.setBiomeArray(chunk, baseBiomesList, xyinverted);
@@ -292,6 +301,8 @@ public class ChunkProviderRTG implements IChunkProvider
         	chunk.setBiomeArray(abyte1);
         }
         chunk.generateSkylightMap();
+        // remove from in process pile
+        //inGeneration.remove(chunkLocation);
         return chunk;
     }
 

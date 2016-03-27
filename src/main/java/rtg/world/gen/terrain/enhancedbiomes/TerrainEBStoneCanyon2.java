@@ -10,9 +10,6 @@ public class TerrainEBStoneCanyon2 extends TerrainBase
 	private float[] height;
 	private int heightLength;
 	private float strength;
-	private float cWidth;
-	private float cHeigth;
-	private float cStrength;
 	private float base;
 
 	/*
@@ -37,15 +34,12 @@ public class TerrainEBStoneCanyon2 extends TerrainBase
 	 * canyonStrength = 40f
 	 *
 	 */
-	public TerrainEBStoneCanyon2(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight)
+	public TerrainEBStoneCanyon2(boolean riverGen, float heightStrength, float baseHeight)
 	{
 		booRiver = riverGen;
 		height = new float[]{5.0f, 0.5f, 12.5f, 0.5f, 18.0f, 0.5f};
 		strength = heightStrength;
 		heightLength = height.length;
-		cWidth = canyonWidth;
-		cHeigth = canyonHeight;
-		cStrength = canyonStrength;
 		base = baseHeight;
 	}
 

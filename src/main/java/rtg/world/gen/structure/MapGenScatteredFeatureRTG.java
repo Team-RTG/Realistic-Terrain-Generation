@@ -35,7 +35,7 @@ import java.util.Map.Entry;
  * https://github.com/Team-RTG/Realistic-Terrain-Generation/issues/249
  */
 public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
-    private static List biomelist = Arrays.asList(Biomes.desert, Biomes.desertHills, Biomes.jungle, Biomes.jungleHills, Biomes.swampland);
+    private static List biomelist = Arrays.asList(Biomes.desert, Biomes.desertHills, Biomes.jungle, Biomes.jungleHills, Biomes.swampland, Biomes.coldTaiga, Biomes.icePlains);
 
     /**
      * contains possible spawns for scattered features
@@ -125,6 +125,11 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
                 if (canSpawnWitchHut(biomegenbase)) {
                     return true;
                 }
+
+                //Igloo.
+                if (canSpawnIgloo(biomegenbase)) {
+                    return true;
+                }
             }
         }
 
@@ -182,6 +187,11 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
                 arrComponents.add(swamphut);
             }
 
+            if (canSpawnIgloo(biomegenbase)) {
+                ComponentScatteredFeaturePieces.Igloo igloo = new ComponentScatteredFeaturePieces.Igloo(random, chunkX * 16, chunkZ * 16);
+                arrComponents.add(igloo);
+            }
+
             this.components.clear();
 
             if (arrComponents.size() > 0) {
@@ -224,6 +234,18 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
         //TODO: This may be a forge bug, but that doesnt work.
         //if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SWAMP)) {
         if ( b instanceof RealisticBiomeVanillaSwampland || b instanceof RealisticBiomeVanillaSwamplandM) {
+            canSpawn = true;
+        }
+
+        return canSpawn;
+    }
+
+    private static boolean canSpawnIgloo(BiomeGenBase b) {
+        boolean canSpawn = false;
+
+        //TODO: This may be a forge bug, but that doesnt work.
+        //if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SNOWY) && !BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.MOUNTAIN)) {
+        if ( b instanceof RealisticBiomeVanillaIcePlains || b instanceof RealisticBiomeVanillaColdTaiga) {
             canSpawn = true;
         }
 

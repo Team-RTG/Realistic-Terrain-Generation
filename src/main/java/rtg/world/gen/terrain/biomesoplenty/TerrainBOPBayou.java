@@ -13,6 +13,6 @@ public class TerrainBOPBayou extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainPlains(x, y, simplex, river, 80f, 10f, 40f, 20f, 64f);
+        return terrainPlains(x, y, simplex, river, 80f, 1f, 40f, 20f, 62f);
 	}
 }

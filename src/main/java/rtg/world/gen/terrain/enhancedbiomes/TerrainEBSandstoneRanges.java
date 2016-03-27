@@ -2,53 +2,57 @@ package rtg.world.gen.terrain.enhancedbiomes;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.HeightEffect;
+import rtg.world.gen.terrain.HeightVariation;
+import rtg.world.gen.terrain.JitterEffect;
+import rtg.world.gen.terrain.MountainsWithPassesEffect;
+import rtg.world.gen.terrain.ScatteredMountainsEffect;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBSandstoneRanges extends TerrainBase
 {
+	private float width;
+	private float strength;
+	private float terrainHeight;
+    private float spikeWidth = 15;
+    private float spikeHeight = 30;
+    private HeightEffect heightEffect;
 
-    private boolean booRiver;
-    private float[] height;
-    private int heightLength;
-    private float strength;
-    private float cWidth;
-    private float cHeigth;
-    private float cStrength;
-    private float base;
+	public TerrainEBSandstoneRanges(float mountainWidth, float mountainStrength)
+	{
+		this(mountainWidth, mountainStrength, 80f);
+	}
 
-    /*
-     * Example parameters:
-     *
-     * allowed to generate rivers? riverGen = true
-     *
-     * canyon jump heights heightArray = new float[]{2.0f, 0.5f, 6.5f, 0.5f, 14.0f, 0.5f, 19.0f,
-     * 0.5f}
-     *
-     * strength of canyon jump heights heightStrength = 35f
-     *
-     * canyon width (cliff to cliff) canyonWidth = 160f
-     *
-     * canyon heigth (total heigth) canyonHeight = 60f
-     *
-     * canyon strength canyonStrength = 40f
-     */
-    public TerrainEBSandstoneRanges(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength,
-        float baseHeight)
-    {
+	public TerrainEBSandstoneRanges(float mountainWidth, float mountainStrength, float height)
+	{
+		width = mountainWidth;
+		strength = mountainStrength;
+		terrainHeight = height;
+        ScatteredMountainsEffect mountainEffect = new ScatteredMountainsEffect();
+        mountainEffect.mountainHeight = strength;
+        mountainEffect.mountainWavelength = width;
+        mountainEffect.spikeHeight = this.spikeHeight;
+        mountainEffect.spikeWavelength = this.spikeWidth;
 
-        booRiver = riverGen;
-        height = new float[] {5.0f, 0.5f, 12.5f, 0.5f, 18.0f, 0.5f};
-        strength = heightStrength;
-        heightLength = height.length;
-        cWidth = canyonWidth;
-        cHeigth = canyonHeight;
-        cStrength = canyonStrength;
-        base = baseHeight;
-    }
+        heightEffect = new JitterEffect(5f,10f, mountainEffect);
+        heightEffect = new JitterEffect(2f,6f,heightEffect);
 
-    @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-    {
-        return terrainCanyon(x, y, simplex, river, height, border, strength, heightLength, booRiver);
+        HeightVariation hilliness = new HeightVariation();
+        hilliness.octave = 2;
+        hilliness.wavelength = 40;
+        hilliness.height = 6;
+
+        heightEffect = heightEffect.plus(hilliness);
+
+        GroundEffect ground = new GroundEffect(3f);
+
+        heightEffect = heightEffect.plus(ground);
+	}
+
+	@Override
+	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
+	{
+        return riverized(heightEffect.added(simplex, cell, x, y)+terrainHeight,river);
     }
 }

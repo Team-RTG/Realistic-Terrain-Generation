@@ -1,6 +1,10 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import java.util.Random;
+import net.minecraft.world.World;
 import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBBadlands;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBBadlands;
 import enhancedbiomes.api.EBAPI;
@@ -71,4 +75,11 @@ public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
 		);
         
     }
+
+    // kill the decorated rockpiles by skipping decoration
+    @Override
+    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
+        rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+    }
+
 }

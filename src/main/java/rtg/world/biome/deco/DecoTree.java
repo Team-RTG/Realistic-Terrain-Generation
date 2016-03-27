@@ -25,6 +25,7 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGPineBig;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineEuro;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGSprucePineBig;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
 
@@ -182,6 +183,22 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
+		            	case MEGA_TAIGA:
+		            		
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+
+		                        WorldGenerator worldgenerator =
+		                            rand.nextInt(4) == 0
+		                            ? new WorldGenTreeRTGSpruceSmall(1 + rand.nextInt(2))
+		                        	: rand.nextInt(6) == 0
+		                        	    ? new WorldGenTreeRTGPineSmall(1 + rand.nextInt(3), 4 + rand.nextInt(4))
+		                                : new WorldGenTreeRTGSprucePineBig(4 + rand.nextInt(6), 12 + rand.nextInt(10));
+		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+			                    worldgenerator.generate(world, rand, intX, intY, intZ);
+		            		}
+		            		
+		            		break;
+		            		
 		            	case PALM_CUSTOM:
 		            		
 		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
@@ -311,6 +328,7 @@ public class DecoTree extends DecoBase
 		DESERT_RIVER,
 		MEGA_JUNGLE,
 		MEGA_JUNGLE_MANGROVE,
+		MEGA_TAIGA,
 		PALM_CUSTOM,
 		PINE_EURO,
 		SMALL_BIRCH,

@@ -10,6 +10,5 @@
   "credits": "${credits}",
   "logoFile": "${logoFile}",
   "screenshots": [],
-  "requiredMods": [${requiredMods}],
   "dependencies": [${dependencies}]
 }]

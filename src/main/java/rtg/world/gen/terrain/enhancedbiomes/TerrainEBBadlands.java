@@ -35,9 +35,9 @@ public class TerrainEBBadlands extends TerrainBase
         hillock.wavelength = 10;
         
         JitterEffect jitteredRockPile = new JitterEffect();
-        jitteredHillock.amplitude =3;
-        jitteredHillock.wavelength = 5;
-        jitteredHillock.jittered = rockPile;
+        jitteredRockPile.amplitude =3;
+        jitteredRockPile.wavelength = 5;
+        jitteredRockPile.jittered = rockPile;
         
         // and a little variation
         height = jitteredHillock.plus(jitteredRockPile).plus(new GroundEffect(6f));

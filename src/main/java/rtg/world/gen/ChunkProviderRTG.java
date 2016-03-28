@@ -544,6 +544,10 @@ public class ChunkProviderRTG implements IChunkGenerator {
             if (ConfigRTG.generateScatteredFeatures) {
                 scatteredFeatureGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
             }
+
+            if (ConfigRTG.generateOceanMonuments) {
+                oceanMonumentGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
+            }
         }
 
         biome.rPopulatePreDecorate(this, worldObj, rand, chunkX, chunkZ, flag);

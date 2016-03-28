@@ -193,8 +193,8 @@ public class DecoTree extends DecoBase
 		                        	: rand.nextInt(6) == 0
 		                        	    ? new WorldGenTreeRTGPineSmall(1 + rand.nextInt(3), 4 + rand.nextInt(4))
 		                                : new WorldGenTreeRTGSprucePineBig(4 + rand.nextInt(6), 12 + rand.nextInt(10));
-		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                    worldgenerator.generate(world, rand, intX, intY, intZ);
+					            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+						        worldgenerator.generate(world, rand, intX, intY, intZ);
 		            		}
 		            		
 		            		break;
@@ -263,6 +263,22 @@ public class DecoTree extends DecoBase
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 		                        worldgenerator.generate(world, rand, intX, intY, intZ);
 	                        }
+		            		
+		            		break;
+		            		
+		            	case TAIGA:
+		            		
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+
+		                        WorldGenerator worldgenerator =
+			                        rand.nextInt(4) == 0
+			                        ? new WorldGenTreeRTGSpruceSmall(1 + rand.nextInt(2))
+			                        : rand.nextInt(6) == 0
+			                            ? new WorldGenTreeRTGPineSmall(1 + rand.nextInt(3), 4 + rand.nextInt(4))
+			                            : new WorldGenTreeRTGPineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
+			                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+				                worldgenerator.generate(world, rand, intX, intY, intZ);
+		            		}
 		            		
 		            		break;
 
@@ -334,6 +350,7 @@ public class DecoTree extends DecoBase
 		SMALL_BIRCH,
 		SMALL_PINES_TREES_FORESTS,
 		SUPER_TALL_BIRCH,
+		TAIGA,
 		VANILLA_BEACH_PALM,
 		VANILLA_COLD_TAIGA;
 	}

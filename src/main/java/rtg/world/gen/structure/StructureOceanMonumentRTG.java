@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.monster.EntityGuardian;
+import net.minecraft.init.Biomes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
@@ -33,22 +34,31 @@ import static rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase.*;
 public class StructureOceanMonumentRTG extends StructureOceanMonument {
     private int field_175800_f;
     private int field_175801_g;
-    public static final List<Integer> biomes = Arrays.asList(vanillaOcean.getId(), vanillaDeepOcean.getId(), vanillaRiver.getId(), vanillaFrozenOcean.getId(), vanillaFrozenRiver.getId());
-    private static final List<BiomeGenBase.SpawnListEntry> field_175803_h = Lists.newArrayList();
+    public static final List<BiomeGenBase> field_175802_d;
+    public static final List<BiomeGenBase> field_186134_b;
+    private static final List<BiomeGenBase.SpawnListEntry> field_175803_h;
 
     public StructureOceanMonumentRTG() {
         this.field_175800_f = 32;
         this.field_175801_g = 5;
     }
 
+    static {
+        field_175802_d = Arrays.asList(Biomes.ocean, Biomes.deepOcean, Biomes.river, Biomes.frozenOcean, Biomes.frozenRiver);
+        field_186134_b = Arrays.asList(Biomes.deepOcean);
+        field_175803_h = Lists.newArrayList();
+        field_175803_h.add(new SpawnListEntry(EntityGuardian.class, 1, 2, 4));
+    }
+
     public StructureOceanMonumentRTG(Map<String, String> p_i45608_1_) {
         this();
 
-        for (Map.Entry<String, String> entry : p_i45608_1_.entrySet()) {
-            if (entry.getKey().equals("spacing")) {
-                this.field_175800_f = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), this.field_175800_f, 1);
-            } else if (entry.getKey().equals("separation")) {
-                this.field_175801_g = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), this.field_175801_g, 1);
+        for (Object o : p_i45608_1_.entrySet()) {
+            Map.Entry entry = (Map.Entry) o;
+            if (((String) entry.getKey()).equals("spacing")) {
+                this.field_175800_f = MathHelper.parseIntWithDefaultAndMax((String) entry.getValue(), this.field_175800_f, 1);
+            } else if (((String) entry.getKey()).equals("separation")) {
+                this.field_175801_g = MathHelper.parseIntWithDefaultAndMax((String) entry.getValue(), this.field_175801_g, 1);
             }
         }
     }
@@ -82,7 +92,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
 
             if (RealisticBiomeBase.getIdForBiome(bg) == RealisticBiomeBase.getIdForBiome(vanillaDeepOcean)) {
 
-                boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29, biomes);
+                boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29);
 
                 if (flag) {
                     Logger.debug("Generated Ocean Monument at %s %s", i * 16 + 8, j * 16 + 8);
@@ -97,7 +107,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
     /**
      * checks given Chunk's Biomes against List of allowed ones
      */
-    public boolean areBiomesViable(int p_76940_1_, int p_76940_2_, int p_76940_3_, List<Integer> p_76940_4_) {
+    public boolean areBiomesViable(int p_76940_1_, int p_76940_2_, int p_76940_3_) {
         IntCache.resetIntCache();
         int i = p_76940_1_ - p_76940_3_ >> 2;
         int j = p_76940_2_ - p_76940_3_ >> 2;
@@ -117,9 +127,11 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         try {
             for (int k1 = 0; k1 < i1 * j1; ++k1) {
                 int biomeID = aint[k1];
-                if (!p_76940_4_.contains(biomeID)) {
-                    return false;
+                boolean flag = false;
+                for (BiomeGenBase biome : field_175802_d) {
+                    flag = (flag) || BiomeGenBase.getIdForBiome(biome) == biomeID;
                 }
+                if (!flag) return false;
             }
 
             return true;
@@ -129,7 +141,6 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
             crashreportcategory.addCrashSection("x", Integer.valueOf(p_76940_1_));
             crashreportcategory.addCrashSection("z", Integer.valueOf(p_76940_2_));
             crashreportcategory.addCrashSection("radius", Integer.valueOf(p_76940_3_));
-            crashreportcategory.addCrashSection("allowed", p_76940_4_);
             throw new ReportedException(crashreport);
         }
     }
@@ -138,46 +149,39 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         return new StructureOceanMonument.StartMonument(this.worldObj, this.rand, chunkX, chunkZ);
     }
 
-    public List<BiomeGenBase.SpawnListEntry> func_175799_b() {
+    public List<SpawnListEntry> getScatteredFeatureSpawnList() {
         return field_175803_h;
     }
 
-    static {
-        field_175803_h.add(new BiomeGenBase.SpawnListEntry(EntityGuardian.class, 1, 2, 4));
-    }
-
     public static class StartMonument extends StructureStart {
-        private Set<ChunkCoordIntPair> field_175791_c = Sets.newHashSet();
+        private Set<ChunkCoordIntPair> processed = Sets.newHashSet();
         private boolean field_175790_d;
 
         public StartMonument() {
         }
 
-        public StartMonument(World worldIn, Random p_i45607_2_, int p_i45607_3_, int p_i45607_4_) {
-            super(p_i45607_3_, p_i45607_4_);
-            this.func_175789_b(worldIn, p_i45607_2_, p_i45607_3_, p_i45607_4_);
+        public StartMonument(World worldIn, Random random, int chunkX, int chunkZ) {
+            super(chunkX, chunkZ);
+            this.func_175789_b(worldIn, random, chunkX, chunkZ);
         }
 
-        private void func_175789_b(World worldIn, Random p_175789_2_, int p_175789_3_, int p_175789_4_) {
-            p_175789_2_.setSeed(worldIn.getSeed());
-            long i = p_175789_2_.nextLong();
-            long j = p_175789_2_.nextLong();
-            long k = (long) p_175789_3_ * i;
-            long l = (long) p_175789_4_ * j;
-            p_175789_2_.setSeed(k ^ l ^ worldIn.getSeed());
-            int i1 = p_175789_3_ * 16 + 8 - 29;
-            int j1 = p_175789_4_ * 16 + 8 - 29;
-            EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.random(p_175789_2_);
-            this.components.add(new StructureOceanMonumentPieces.MonumentBuilding(p_175789_2_, i1, j1, enumfacing));
+        private void func_175789_b(World worldIn, Random random, int chunkX, int chunkZ) {
+            random.setSeed(worldIn.getSeed());
+            long i = random.nextLong();
+            long j = random.nextLong();
+            long k = (long)chunkX * i;
+            long l = (long)chunkZ * j;
+            random.setSeed(k ^ l ^ worldIn.getSeed());
+            int i1 = chunkX * 16 + 8 - 29;
+            int j1 = chunkZ * 16 + 8 - 29;
+            EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.random(random);
+            this.components.add(new StructureOceanMonumentPieces.MonumentBuilding(random, i1, j1, enumfacing));
             this.updateBoundingBox();
             this.field_175790_d = true;
         }
 
-        /**
-         * Keeps iterating Structure Pieces and spawning them until the checks tell it to stop
-         */
         public void generateStructure(World worldIn, Random rand, StructureBoundingBox structurebb) {
-            if (!this.field_175790_d) {
+            if(!this.field_175790_d) {
                 this.components.clear();
                 this.func_175789_b(worldIn, rand, this.getChunkPosX(), this.getChunkPosZ());
             }
@@ -186,19 +190,21 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         }
 
         public boolean func_175788_a(ChunkCoordIntPair pair) {
-            return this.field_175791_c.contains(pair) ? false : super.func_175788_a(pair);
+            return this.processed.contains(pair)?false:super.func_175788_a(pair);
         }
 
         public void func_175787_b(ChunkCoordIntPair pair) {
             super.func_175787_b(pair);
-            this.field_175791_c.add(pair);
+            this.processed.add(pair);
         }
 
         public void writeToNBT(NBTTagCompound tagCompound) {
             super.writeToNBT(tagCompound);
             NBTTagList nbttaglist = new NBTTagList();
+            Iterator var3 = this.processed.iterator();
 
-            for (ChunkCoordIntPair chunkcoordintpair : this.field_175791_c) {
+            while(var3.hasNext()) {
+                ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair)var3.next();
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
                 nbttagcompound.setInteger("X", chunkcoordintpair.chunkXPos);
                 nbttagcompound.setInteger("Z", chunkcoordintpair.chunkZPos);
@@ -210,15 +216,15 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
 
         public void readFromNBT(NBTTagCompound tagCompound) {
             super.readFromNBT(tagCompound);
-
-            if (tagCompound.hasKey("Processed", 9)) {
+            if(tagCompound.hasKey("Processed", 9)) {
                 NBTTagList nbttaglist = tagCompound.getTagList("Processed", 10);
 
-                for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+                for(int i = 0; i < nbttaglist.tagCount(); ++i) {
                     NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
-                    this.field_175791_c.add(new ChunkCoordIntPair(nbttagcompound.getInteger("X"), nbttagcompound.getInteger("Z")));
+                    this.processed.add(new ChunkCoordIntPair(nbttagcompound.getInteger("X"), nbttagcompound.getInteger("Z")));
                 }
             }
+
         }
     }
 }

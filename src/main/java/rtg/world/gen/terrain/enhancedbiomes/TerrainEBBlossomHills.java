@@ -7,12 +7,7 @@ import rtg.world.gen.terrain.TerrainBase;
 public class TerrainEBBlossomHills extends TerrainBase
 {
     private float baseHeight = 76f;
-    private float hillStrength = 30f;
-
-    public TerrainEBBlossomHills()
-    {
-
-    }
+    private float hillStrength = 45f;
 
     public TerrainEBBlossomHills(float bh, float hs)
     {
@@ -23,11 +18,7 @@ public class TerrainEBBlossomHills extends TerrainBase
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
+        return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, baseHeight-62f);
 
-        groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
-
-        float m = hills(x, y, hillStrength, simplex, river);
-
-        return baseHeight + groundNoise + m;
     }
 }

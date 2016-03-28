@@ -16,8 +16,8 @@ public enum CanyonColour {
 	MESA_WHITE(new byte[]{-1, -1, 0, 1, 0, 0, 0, 14, 0, 8, 0, 1, 8, 0, -1, 0, 14, 0, 0, 14, 0, 0, 8}),
 	SAVANNA(new byte[]{0, 0, 0, 0, 8, 8, 12, 12, 8, 0, 8, 12, 12, 8, 12, 8, 0, 0, 8, 12, 12,});
 
-	private static Map<CanyonColour, Block[]> colourBlocks = new HashMap<>();
-	private static Map<CanyonColour, byte[]> colourMetas = new HashMap<>();
+	private static Map<CanyonColour, Block[]> colourBlocks = new HashMap<CanyonColour, Block[]>();
+	private static Map<CanyonColour, byte[]> colourMetas = new HashMap<CanyonColour, byte[]>();
 	private static OpenSimplexNoise simplex;
 	private byte[] bytes;
 

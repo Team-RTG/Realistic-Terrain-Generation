@@ -60,7 +60,7 @@ public class RealisticBiomeEBSandstoneRanges extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBSandstoneRanges(false, 35f, 160f, 30f, 30f, 60),
+			new TerrainEBSandstoneRanges(120f, 10f),
 			new SurfaceEBSandstoneRanges(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
@@ -80,6 +80,7 @@ public class RealisticBiomeEBSandstoneRanges extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
+        this.noWaterFeatures = true;
         
     }
 	

@@ -148,9 +148,9 @@ public class TerrainBase
     {
         //float b = simplex.noise2(x / cWidth, y / cWidth) * cHeigth * river;
         //b *= b / cStrength;
-        river *= 1.3f;
-        river = river > 1f ? 1f : river;
-        float r = simplex.noise2(x / 100f, y / 100f) * 50f;
+        //river *= 1.3f;
+        //river = river > 1f ? 1f : river;
+        float r = simplex.noise2(x / 100f, y / 100f) * 50f*river;
         r = r < -7.4f ? -7.4f : r > 7.4f ? 7.4f : r;
         float b = (17f + r) * river;
 
@@ -160,7 +160,7 @@ public class TerrainBase
         {
             sb = b;
             sb = sb < 0f ? 0f : sb > 7f ? 7f : sb;
-            sb = hn * sb;
+            sb = hn * sb * river;
         }
         b += sb;
 
@@ -198,7 +198,7 @@ public class TerrainBase
 
         b += cTotal - bn;
 
-        return getTerrainBase() + b;
+        return getTerrainBase(river) + b;
     }
 
     public static float terrainDunes(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river)
@@ -343,6 +343,10 @@ public class TerrainBase
         h += simplex.noise2(x / 20f, y / 20f) * 5f;
         h += simplex.noise2(x / 12f, y / 12f) * 3f;
         h += simplex.noise2(x / 5f, y / 5f) * 1.5f;
+
+        if (h<0) h = h/2f;
+
+        if (h<-3) h = (h+3f)/2f+3f;
 
         return getTerrainBase(river) + h + baseAdjust*river;
     }
@@ -576,7 +580,7 @@ public class TerrainBase
 
         b += cTotal - bn;
 
-        float floNoise = getTerrainBase() + b;
+        float floNoise = 30f + b;
         floNoise = floNoise < minimumOceanFloor ? minimumOceanFloor : floNoise;
 
         return floNoise;

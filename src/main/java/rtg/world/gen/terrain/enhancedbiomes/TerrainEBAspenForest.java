@@ -6,11 +6,7 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBAspenForest extends TerrainBase
 {
-	private float width;
-	private float strength;
-	private float lakeDepth;
-	private float lakeWidth;
-	private float terrainHeight;
+    private float hillStrength = 10f;
 
 	/*
 	 * width = 230f
@@ -20,23 +16,20 @@ public class TerrainEBAspenForest extends TerrainBase
 	 * 230f, 120f, 50f
 	 */
 
-	public TerrainEBAspenForest(float mountainWidth, float mountainStrength, float depthLake)
+	public TerrainEBAspenForest(float hillStrength)
 	{
-		this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
-	}
-
-	public TerrainEBAspenForest(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
-	{
-		width = mountainWidth;
-		strength = mountainStrength;
-		lakeDepth = depthLake;
-		lakeWidth = widthLake;
-		terrainHeight = height;
+		this.hillStrength = hillStrength;
 	}
 
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainLonelyMountain(x, y, simplex, cell, river, strength, width, terrainHeight);
-	}
+        groundNoise = groundNoise(x, y, groundVariation, simplex);
+
+        float m = hills(x, y, hillStrength, simplex, river);
+
+        float floNoise = 65f + groundNoise + m;
+
+        return riverized(floNoise,river);
+    }
 }

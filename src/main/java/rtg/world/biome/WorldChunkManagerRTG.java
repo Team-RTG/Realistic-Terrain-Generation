@@ -106,6 +106,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
                 f = (float) biomePatcher.getSingleRealisticBiome().getIntRainfall() / 65536.0F;
             } else {
                 try {
+                    if (aint[i1]>255) throw new RuntimeException(biomeIndexLayer.toString());
                     f = (float) RealisticBiomeBase.getBiome(aint[i1]).getIntRainfall() / 65536.0F;
                 } catch (Exception e) {
                     if (RealisticBiomeBase.getBiome(aint[i1])== null) {

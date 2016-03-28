@@ -28,6 +28,7 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSprucePineBig;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGWillow;
 
 /**
  * 
@@ -305,6 +306,17 @@ public class DecoTree extends DecoBase
 	                        }
 		            		
 		            		break;
+		            		
+		            	case WILLOW:
+		            		
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+	                        	
+		            			WorldGenerator worldgenerator = new WorldGenTreeRTGWillow();
+	                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+	                            worldgenerator.generate(world, rand, intX, intY, intZ);
+	                        }
+		            		
+		            		break;
 
 		            	default:
 		            		break;
@@ -352,7 +364,8 @@ public class DecoTree extends DecoBase
 		SUPER_TALL_BIRCH,
 		TAIGA,
 		VANILLA_BEACH_PALM,
-		VANILLA_COLD_TAIGA;
+		VANILLA_COLD_TAIGA,
+		WILLOW;
 	}
 	
 	public enum TreeCondition

@@ -5,10 +5,9 @@ Before submitting a Pull Request, we kindly ask you to follow these few simple g
 
 Braces:
 ----
-*All* braces (yes *all*) go on the next line (this is still up for debate, throw in your votes!)
+No newlines in front of opening braces
 ``` java
-public static void sendCoffeeToPink(WhichOnesPink pink)
-{
+public static void sendCoffeeToPink(WhichOnesPink pink) {
     pink.send(new Coffee());
 }
 ```
@@ -27,10 +26,10 @@ Other spacing rules are:
  - required in between parameters `(a, b)`,   
  - required in between opperators and opperants (`a + b`, `a == b`)
  - required in front of parentesis in `if`, `for` and `catch` statements
+ - required in front of opening braces for statements and methods
  - not permitted between variable and `!` or `++`/`--`
 ``` java
-public static void sendCoffeeToPink(WhichOnesPink pink, Coffee coffee)
-{
+public static void sendCoffeeToPink(WhichOnesPink pink, Coffee coffee) {
     pink.send(coffee);
     pink.setCoffees(pink.getCoffees() + 1);
     if (!pink.wantsCoffee()) {

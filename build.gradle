@@ -15,6 +15,12 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+dependencies {
+    //TODO: srs, please work your gradle magic, i dont know exactly how you want to do this.
+    //TODO: Either a bop-version in build.properties, or maybe an array of dependencies is better.
+    compile 'com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.9-4.0.0.1973:deobf'
+}
+
 ext.ref = parseprops(file('build.properties'))
 
 group = ref.package_base + '.' + ref.mod_id
@@ -61,4 +67,8 @@ def parseprops(File cfg) {
         prop.load(it)
         return (new ConfigSlurper().parse(prop))
     }
+}
+
+runClient {
+    jvmArgs "-Xmx4G", "-Xms4G"
 }

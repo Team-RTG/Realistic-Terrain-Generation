@@ -1,20 +1,29 @@
 /*******************************************************************************
  * Copyright 2015-2016, the Biomes O' Plenty Team
- * <p/>
+ * 
  * This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License.
- * <p/>
+ * 
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  ******************************************************************************/
 
 package biomesoplenty.api.biome;
 
+import java.util.List;
+
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
+
+import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class BOPBiomes {
+public class BOPBiomes
+{
     public static final IBiomeRegistry REG_INSTANCE = createRegistry();
-
+    
+    /**A list of world types where BoP biome decoration does not occur**/
+    public static List<WorldType> excludedDecoratedWorldTypes = Lists.newArrayList();
+    
     // normal biomes which have weights
     public static Optional<BiomeGenBase> alps = Optional.absent();
     public static Optional<BiomeGenBase> bamboo_forest = Optional.absent();
@@ -32,9 +41,9 @@ public class BOPBiomes {
     public static Optional<BiomeGenBase> eucalyptus_forest = Optional.absent();
     public static Optional<BiomeGenBase> fen = Optional.absent();
     public static Optional<BiomeGenBase> flower_field = Optional.absent();
-    public static Optional<BiomeGenBase> grassland = Optional.absent();
+    public static Optional<BiomeGenBase> grassland = Optional.absent();    
     public static Optional<BiomeGenBase> grove = Optional.absent();
-    public static Optional<BiomeGenBase> heathland = Optional.absent();
+    public static Optional<BiomeGenBase> heathland = Optional.absent();    
     public static Optional<BiomeGenBase> highland = Optional.absent();
     public static Optional<BiomeGenBase> land_of_lakes = Optional.absent();
     public static Optional<BiomeGenBase> lavender_fields = Optional.absent();
@@ -68,13 +77,14 @@ public class BOPBiomes {
     public static Optional<BiomeGenBase> wetland = Optional.absent();
     public static Optional<BiomeGenBase> woodland = Optional.absent();
     public static Optional<BiomeGenBase> xeric_shrubland = Optional.absent();
-
+    
     // edge-biomes, sub-biomes and mutated-biomes
     public static Optional<BiomeGenBase> mountain_foothills = Optional.absent();
     public static Optional<BiomeGenBase> glacier = Optional.absent();
     public static Optional<BiomeGenBase> oasis = Optional.absent();
     public static Optional<BiomeGenBase> coral_reef = Optional.absent();
     public static Optional<BiomeGenBase> kelp_forest = Optional.absent();
+    public static Optional<BiomeGenBase> mangrove = Optional.absent();
     public static Optional<BiomeGenBase> origin_island = Optional.absent();
     public static Optional<BiomeGenBase> tropical_island = Optional.absent();
     public static Optional<BiomeGenBase> volcanic_island = Optional.absent();
@@ -110,24 +120,27 @@ public class BOPBiomes {
     public static IExtendedBiome cold_taiga_hills_extension;
     public static IExtendedBiome mega_taiga_extension;
     public static IExtendedBiome mega_taiga_hills_extension;
-
-    private static IBiomeRegistry createRegistry() {
+    
+    private static IBiomeRegistry createRegistry()
+    {
         IBiomeRegistry instance = null;
-
-        try {
-            instance = (IBiomeRegistry) Class.forName("biomesoplenty.common.init.ModBiomes").newInstance();
-        } catch (Exception e) {
+        
+        try 
+        {
+            instance = (IBiomeRegistry)Class.forName("biomesoplenty.common.init.ModBiomes").newInstance();
+        } 
+        catch (Exception e) 
+        {
             e.printStackTrace();
         }
-
+        
         return instance;
     }
-
-    public interface IBiomeRegistry {
-        IExtendedBiome registerBiome(IExtendedBiome biome, String idName);
-
-        IExtendedBiome getExtendedBiome(BiomeGenBase biome);
-
-        ImmutableSet<BiomeGenBase> getPresentBiomes();
+    
+    public static interface IBiomeRegistry
+    {
+        public IExtendedBiome registerBiome(IExtendedBiome biome, String idName);
+        public IExtendedBiome getExtendedBiome(BiomeGenBase biome);
+        public ImmutableSet<BiomeGenBase> getPresentBiomes();
     }
 }

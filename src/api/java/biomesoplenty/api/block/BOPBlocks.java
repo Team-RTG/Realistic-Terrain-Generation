@@ -1,17 +1,30 @@
 /*******************************************************************************
  * Copyright 2014-2016, the Biomes O' Plenty Team
- * <p/>
+ * 
  * This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License.
- * <p/>
+ * 
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  ******************************************************************************/
 
 package biomesoplenty.api.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ColorizerFoliage;
+import net.minecraft.world.ColorizerGrass;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BOPBlocks {
+public class BOPBlocks
+{
     public static Block bamboo_thatching;
     public static Block ash_block;
     public static Block bamboo;
@@ -24,7 +37,7 @@ public class BOPBlocks {
     public static Block mushroom;
     public static Block stone;
     public static Block biome_block;
-
+    
     public static Block flower_0;
     public static Block flower_1;
     public static Block log_0;
@@ -112,7 +125,7 @@ public class BOPBlocks {
     public static Block mahogany_door;
     public static Block ebony_door;
     public static Block eucalyptus_door;
-
+    
     public static Block mud;
     public static Block sand;
     public static Block turnip_block;
@@ -130,20 +143,20 @@ public class BOPBlocks {
     public static Block crystal;
     public static Block other_slab;
     public static Block double_other_slab;
-
+    
     public static Block mud_brick_stairs;
-
+    
     public static Block flower_vine;
     public static Block ivy;
     public static Block tree_moss;
-
+    
     public static Block plant_0;
     public static Block plant_1;
     public static Block double_plant;
-
+    
     public static Block honey_block;
     public static Block terrarium;
-
+    
     public static Block honey;
     public static Fluid honey_fluid;
     public static Block blood;
@@ -152,4 +165,38 @@ public class BOPBlocks {
     public static Fluid poison_fluid;
     public static Block hot_spring_water;
     public static Fluid hot_spring_water_fluid;
+    
+    @SideOnly(Side.CLIENT)
+    public static class Coloring
+    {
+        public static final IBlockColor FOLIAGE_COLORING = new IBlockColor()
+        {
+            @Override
+            public int colorMultiplier(IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex)
+            {
+                return world != null && pos != null ? BiomeColorHelper.getFoliageColorAtPos(world, pos) : ColorizerFoliage.getFoliageColorBasic();
+            }
+        };
+
+        public static final IBlockColor GRASS_COLORING = new IBlockColor()
+        {
+            @Override
+        	@SideOnly(Side.CLIENT)
+            public int colorMultiplier(IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex)
+            {
+                return world != null && pos != null ? BiomeColorHelper.getGrassColorAtPos(world, pos) : ColorizerGrass.getGrassColor(0.5D, 1.0D);
+            }
+        };
+        
+        public static final IItemColor BLOCK_ITEM_COLORING = new IItemColor()
+        {
+            @Override
+            public int getColorFromItemstack(ItemStack stack, int tintIndex) 
+            {
+                IBlockState state = ((ItemBlock)stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
+                IBlockColor blockColor = ((IBOPBlock)state.getBlock()).getBlockColor();
+                return blockColor == null ? 0xFFFFFF : blockColor.colorMultiplier(state, null, null, tintIndex);
+            }
+        };
+    }
 }

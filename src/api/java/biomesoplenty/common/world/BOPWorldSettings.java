@@ -1,12 +1,247 @@
 /*******************************************************************************
  * Copyright 2014-2016, the Biomes O' Plenty Team
- * <p/>
+ * 
  * This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License.
- * <p/>
+ * 
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  ******************************************************************************/
 
 package biomesoplenty.common.world;
 
-public class BOPWorldSettings {
+import biomesoplenty.common.util.config.BOPConfig;
+import biomesoplenty.core.BiomesOPlenty;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+
+import java.io.File;
+
+public class BOPWorldSettings
+{
+    
+    public static Gson serializer = new GsonBuilder().create();
+    
+    public static enum LandMassScheme
+    {
+        VANILLA,
+        CONTINENTS,
+        ARCHIPELAGO;
+    }
+    
+    public static enum TemperatureVariationScheme
+    {
+        LATITUDE,
+        SMALL_ZONES,
+        MEDIUM_ZONES,
+        LARGE_ZONES,
+        RANDOM;
+    }
+    
+    public static enum RainfallVariationScheme
+    {
+        SMALL_ZONES,
+        MEDIUM_ZONES,
+        LARGE_ZONES,
+        RANDOM;
+    }
+    
+    public static enum BiomeSize
+    {
+        TINY (2),
+        SMALL (3),
+        MEDIUM (4),
+        LARGE (5),
+        HUGE (6);
+        
+        private final int value;
+        BiomeSize(int value)
+        {
+            this.value = value;
+        }
+        public int getValue()
+        {
+            return this.value;
+        }
+    }
+    
+    // BOP World properties
+    
+    public LandMassScheme landScheme = LandMassScheme.VANILLA;
+    public TemperatureVariationScheme tempScheme = TemperatureVariationScheme.MEDIUM_ZONES;
+    public RainfallVariationScheme rainScheme = RainfallVariationScheme.MEDIUM_ZONES;
+    public BiomeSize biomeSize = BiomeSize.MEDIUM;
+    public float amplitude = 1.0F;
+    public boolean generateBopGems = true;
+    public boolean generateBopSoils = true;
+    public boolean generateBopTrees = true;
+    public boolean generateBopGrasses = true;
+    public boolean generateBopFoliage = true;
+    public boolean generateBopFlowers = true;
+    public boolean generateBopPlants = true;
+    public boolean generateBopWaterPlants = true;
+    public boolean generateBopMushrooms = true;
+    public boolean generateRockFormations = true;
+    public boolean generatePoisonIvy = true;
+    public boolean generateFlax = true;
+    public boolean generateBerryBushes = true;
+    public boolean generateThorns = true;
+    public boolean generateQuicksand = true;
+    public boolean generateLiquidPoison = true;
+    public boolean generateHotSprings = true;
+    public boolean generateNetherHives = true;
+    public boolean generateNetherPlants = true;
+    public boolean generateEndFeatures = true;
+    
+    
+    // Vanilla properties - not configurable (yet) but included for consistency with vanilla ChunkProviderSettings
+    
+    public int seaLevel;
+    public boolean useCaves;
+    public boolean useDungeons;
+    public int dungeonChance;
+    public boolean useStrongholds;
+    public boolean useVillages;
+    public boolean useMineShafts;
+    public boolean useTemples;
+    public boolean useMonuments;
+    public boolean useRavines;
+    public boolean useWaterLakes;
+    public int waterLakeChance;
+    public boolean useLavaLakes;
+    public int lavaLakeChance;
+    public boolean useLavaOceans;
+
+    
+    public BOPWorldSettings()
+    {
+        this.setDefault();
+    }
+    
+    public BOPWorldSettings(String jsonString)
+    {
+        this.setDefault();
+        this.fromJson(jsonString);
+    }
+    
+    public String toJson()
+    {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("landScheme", this.landScheme.name().toLowerCase());
+        obj.addProperty("tempScheme", this.tempScheme.name().toLowerCase());
+        obj.addProperty("rainScheme", this.rainScheme.name().toLowerCase());
+        obj.addProperty("biomeSize", this.biomeSize.name().toLowerCase());
+        obj.addProperty("amplitude", this.amplitude);
+        obj.addProperty("generateBopOre", this.generateBopGems);
+        obj.addProperty("generateBopSoils", this.generateBopSoils);
+        obj.addProperty("generateBopTrees", this.generateBopTrees);
+        obj.addProperty("generateBopGrasses", this.generateBopGrasses);
+        obj.addProperty("generateBopFoliage", this.generateBopFoliage);
+        obj.addProperty("generateBopFlowers", this.generateBopFlowers);
+        obj.addProperty("generateBopPlants", this.generateBopPlants);
+        obj.addProperty("generateBopWaterPlants", this.generateBopWaterPlants);
+        obj.addProperty("generateBopMushrooms", this.generateBopMushrooms);
+        obj.addProperty("generateRockFormations", this.generateRockFormations);
+        obj.addProperty("generatePoisonIvy", this.generatePoisonIvy);
+        obj.addProperty("generateFlax", this.generateFlax);
+        obj.addProperty("generateBerryBushes", this.generateBerryBushes);
+        obj.addProperty("generateThorns", this.generateThorns);
+        obj.addProperty("generateQuicksand", this.generateQuicksand);
+        obj.addProperty("generateLiquidPoison", this.generateLiquidPoison);
+        obj.addProperty("generateHotSprings", this.generateHotSprings);
+        obj.addProperty("generateNetherHives", this.generateNetherHives);
+        obj.addProperty("generateNetherPlants", this.generateNetherPlants);
+        obj.addProperty("generateEndFeatures", this.generateEndFeatures);
+        
+        return serializer.toJson(obj);
+    }
+    
+    public void fromJson(String jsonString)
+    {
+        this.fromConfigObj(new BOPConfig.ConfigObj(jsonString));
+    }
+    
+    public void fromConfigObj(BOPConfig.IConfigObj worldConfig)
+    {
+        this.landScheme = worldConfig.getEnum("landScheme", this.landScheme, LandMassScheme.class);
+        this.tempScheme = worldConfig.getEnum("tempScheme", this.tempScheme, TemperatureVariationScheme.class);
+        this.rainScheme = worldConfig.getEnum("rainScheme", this.rainScheme, RainfallVariationScheme.class);
+        this.biomeSize = worldConfig.getEnum("biomeSize", this.biomeSize, BiomeSize.class);
+        this.amplitude = worldConfig.getFloat("amplitude", this.amplitude);
+        this.generateBopGems = worldConfig.getBool("generateBopOre", this.generateBopGems);
+        this.generateBopSoils = worldConfig.getBool("generateBopSoils", this.generateBopSoils);
+        this.generateBopTrees = worldConfig.getBool("generateBopTrees", this.generateBopTrees);
+        this.generateBopGrasses = worldConfig.getBool("generateBopGrasses", this.generateBopGrasses);
+        this.generateBopFoliage = worldConfig.getBool("generateBopFoliage", this.generateBopFoliage);
+        this.generateBopFlowers = worldConfig.getBool("generateBopFlowers", this.generateBopFlowers);
+        this.generateBopPlants = worldConfig.getBool("generateBopPlants", this.generateBopPlants);
+        this.generateBopWaterPlants = worldConfig.getBool("generateBopWaterPlants", this.generateBopWaterPlants);
+        this.generateBopMushrooms = worldConfig.getBool("generateBopMushrooms", this.generateBopMushrooms);
+        this.generateRockFormations = worldConfig.getBool("generateRockFormations", this.generateRockFormations);
+        this.generatePoisonIvy = worldConfig.getBool("generatePoisonIvy", this.generatePoisonIvy);
+        this.generateFlax = worldConfig.getBool("generateFlax", this.generateFlax);
+        this.generateBerryBushes = worldConfig.getBool("generateBerryBushes", this.generateBerryBushes);
+        this.generateThorns = worldConfig.getBool("generateThorns", this.generateThorns);
+        this.generateQuicksand = worldConfig.getBool("generateQuicksand", this.generateQuicksand);
+        this.generateLiquidPoison = worldConfig.getBool("generateLiquidPoison", this.generateLiquidPoison);
+        this.generateHotSprings = worldConfig.getBool("generateHotSprings", this.generateHotSprings);
+        this.generateNetherHives = worldConfig.getBool("generateNetherHives", this.generateNetherHives);
+        this.generateNetherPlants = worldConfig.getBool("generateNetherPlants", this.generateNetherPlants);
+        this.generateEndFeatures = worldConfig.getBool("generateEndFeatures", this.generateEndFeatures);
+    }
+    
+    public void setDefault()
+    {
+        
+        // BOP default values
+        this.landScheme = LandMassScheme.VANILLA;
+        this.tempScheme = TemperatureVariationScheme.MEDIUM_ZONES;
+        this.rainScheme = RainfallVariationScheme.MEDIUM_ZONES;
+        this.biomeSize = BiomeSize.MEDIUM;
+        this.amplitude = 1.0F;
+        this.generateBopGems = true;  
+        this.generateBopSoils = true;  
+        this.generateBopTrees = true;  
+        this.generateBopGrasses = true;  
+        this.generateBopFoliage = true; 
+        this.generateBopFlowers = true;  
+        this.generateBopPlants = true; 
+        this.generateBopWaterPlants = true; 
+        this.generateBopMushrooms = true; 
+        this.generateRockFormations = true; 
+        this.generatePoisonIvy = true;  
+        this.generateFlax = true;  
+        this.generateBerryBushes = true;  
+        this.generateThorns = true;  
+        this.generateQuicksand = true; 
+        this.generateLiquidPoison = true; 
+        this.generateHotSprings = true;
+        this.generateNetherHives = true;
+        this.generateNetherPlants = true;
+        this.generateEndFeatures = true;
+        
+        // Vanilla default values
+        this.seaLevel = 63;
+        this.useCaves = true;
+        this.useDungeons = true;
+        this.dungeonChance = 8;
+        this.useStrongholds = true;
+        this.useVillages = true;
+        this.useMineShafts = true;
+        this.useTemples = true;
+        this.useMonuments = true;
+        this.useRavines = true;
+        this.useWaterLakes = true;
+        this.waterLakeChance = 4;
+        this.useLavaLakes = true;
+        this.lavaLakeChance = 80;
+        this.useLavaOceans = false;
+        
+        
+        // Allow defaults to be overridden from file
+        BOPConfig.IConfigObj worldConfig = new BOPConfig.ConfigFileObj(new File(BiomesOPlenty.configDirectory, "world.json"));
+        this.fromConfigObj(worldConfig);
+        
+    }
+    
+    
 }

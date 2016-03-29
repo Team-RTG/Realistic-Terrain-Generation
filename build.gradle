@@ -62,3 +62,7 @@ def parseprops(File cfg) {
         return (new ConfigSlurper().parse(prop))
     }
 }
+
+runClient {
+    jvmArgs "-Xmx4G", "-Xms4G"
+}

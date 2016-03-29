@@ -1,22 +1,16 @@
-package rtg.world.gen.genlayer;
+package rtg.util.genlayers;
 
 import biomesoplenty.common.world.BOPWorldSettings;
 import biomesoplenty.common.world.BiomeProviderBOP;
 import biomesoplenty.common.world.layer.*;
-import net.minecraft.world.WorldType;
 import net.minecraft.world.gen.layer.*;
-import rtg.config.rtg.ConfigRTG;
-import rtg.util.ModPresenceTester;
 
-public class GenLayersRTG {
+/**
+ * Created by topisani on 3/29/16.
+ */
+public class BOPGenLayers {
 
-    public static GenLayer[] initializeAllBiomeGenerators(long seed, WorldType worldType, String worldConfig) {
-        if (new ModPresenceTester("BiomesOPlenty").present() && ConfigRTG.useBOPLayouts) return setupBOPGenLayers(seed);
-        else return GenLayer.initializeAllBiomeGenerators(seed, worldType, worldConfig);
-    }
-
-
-    private static GenLayer[]  setupBOPGenLayers(long worldSeed)
+    public static GenLayer[]  setupBOPGenLayers(long worldSeed)
     {
         BOPWorldSettings settings = new BOPWorldSettings();
 

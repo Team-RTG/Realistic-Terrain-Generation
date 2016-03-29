@@ -1,39 +1,147 @@
 package rtg.config;
 
+import java.util.ArrayList;
+
 import net.minecraftforge.common.config.Configuration;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.BiomeConfigProperty;
-import rtg.api.biome.abyssalcraft.config.*;
-import rtg.api.biome.arsmagica.config.BiomeConfigAM;
-import rtg.api.biome.arsmagica.config.BiomeConfigAMWitchwoodForest;
-import rtg.api.biome.atg.config.*;
-import rtg.api.biome.biomesoplenty.config.*;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigAC;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACCoraliumInfestedSwamp;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklands;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsForest;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsHighland;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsMountains;
+import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsPlains;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOP;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPAlps;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPBambooForest;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPBayou;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPBog;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPBorealForest;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPBrushland;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPChaparral;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPCherryBlossomGrove;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPColdDesert;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPConiferousForest;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPCoralReef;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPCrag;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPDeadForest;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPDeadSwamp;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPEucalyptusForest;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPFen;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPFlowerField;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPFlowerIsland;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPGlacier;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPGrassland;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPGravelBeach;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPGrove;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPHeathland;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPHighland;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPKelpForest;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPLandOfLakes;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPLavenderFields;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPLushDesert;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPLushSwamp;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMapleWoods;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMarsh;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMeadow;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMoor;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMountain;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMountainFoothills;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMysticGrove;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOasis;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOminousWoods;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOrchard;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOriginIsland;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOutback;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOvergrownCliffs;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPPrairie;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPQuagmire;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPRainforest;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPRedwoodForest;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPSacredSprings;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPSeasonalForest;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPShield;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPShrubland;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPSnowyConiferousForest;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPSnowyForest;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPSteppe;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPTemperateRainforest;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPTropicalIsland;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPTropicalRainforest;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPTundra;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPVolcanicIsland;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPWasteland;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPWetland;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPWoodland;
+import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPXericShrubland;
 import rtg.api.biome.buildcraft.config.BiomeConfigBC;
 import rtg.api.biome.buildcraft.config.BiomeConfigBCDesertOilField;
 import rtg.api.biome.buildcraft.config.BiomeConfigBCOceanOilField;
-import rtg.api.biome.chromaticraft.config.BiomeConfigCC;
-import rtg.api.biome.chromaticraft.config.BiomeConfigCCEnderForest;
-import rtg.api.biome.chromaticraft.config.BiomeConfigCCRainbowForest;
-import rtg.api.biome.enhancedbiomes.config.*;
-import rtg.api.biome.extrabiomes.config.*;
-import rtg.api.biome.forgottennature.config.*;
-import rtg.api.biome.growthcraft.config.BiomeConfigGC;
-import rtg.api.biome.growthcraft.config.BiomeConfigGCBambooForest;
-import rtg.api.biome.highlands.config.*;
-import rtg.api.biome.lotsomobs.config.BiomeConfigLOM;
-import rtg.api.biome.lotsomobs.config.BiomeConfigLOMAntartica;
-import rtg.api.biome.lotsomobs.config.BiomeConfigLOMTropicalBeach;
-import rtg.api.biome.ridiculousworld.config.*;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTC;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCEerie;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCMagicalForest;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCTaintedLand;
-import rtg.api.biome.tofucraft.config.*;
-import rtg.api.biome.vampirism.config.BiomeConfigVAMP;
-import rtg.api.biome.vampirism.config.BiomeConfigVAMPVampireForest;
-import rtg.api.biome.vanilla.config.*;
-
-import java.util.ArrayList;
+import rtg.api.biome.vanilla.config.BiomeConfigVanilla;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaBeach;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForest;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForestHills;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForestHillsM;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForestM;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaColdBeach;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaColdTaiga;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaColdTaigaHills;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaColdTaigaM;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaDeepOcean;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaDesert;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaDesertHills;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaDesertM;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHills;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHillsEdge;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHillsM;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHillsPlus;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHillsPlusM;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaFlowerForest;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaForest;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaForestHills;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaFrozenOcean;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaFrozenRiver;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaIceMountains;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaIcePlains;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaIcePlainsSpikes;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungle;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleEdge;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleEdgeM;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleHills;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleM;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaMegaSpruceTaiga;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaMegaTaiga;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaMegaTaigaHills;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaMesa;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaMesaBryce;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaMesaPlateau;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaMesaPlateauF;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaMesaPlateauFM;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaMesaPlateauM;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaMushroomIsland;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaMushroomIslandShore;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaOcean;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaPlains;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaRedwoodTaigaHills;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaRiver;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForest;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForestM;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaSavanna;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaSavannaM;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaSavannaPlateau;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaSavannaPlateauM;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaStoneBeach;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaSunflowerPlains;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaSwampland;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaSwamplandM;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaTaiga;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaTaigaHills;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaTaigaM;
 
 public class BiomeConfigManager
 {
@@ -41,21 +149,9 @@ public class BiomeConfigManager
     public static void initBiomeConfigs()
     {
         initBiomeConfigsAC();
-        initBiomeConfigsAM();
-        initBiomeConfigsATG();
         initBiomeConfigsBOP();
         initBiomeConfigsBC();
-        initBiomeConfigsCC();
-        initBiomeConfigsEB();
-        initBiomeConfigsEBXL();
-        initBiomeConfigsGC();
-        initBiomeConfigsHL();
-        initBiomeConfigsRW();
         initBiomeConfigsTC();
-        initBiomeConfigsVAMP();
-        initBiomeConfigsLOM();
-        initBiomeConfigsTOFU();
-        initBiomeConfigsFN();
         initBiomeConfigsVanilla();
     }
     
@@ -67,23 +163,6 @@ public class BiomeConfigManager
         BiomeConfigAC.biomeConfigACDarklandsHighland = new BiomeConfigACDarklandsHighland();
         BiomeConfigAC.biomeConfigACDarklandsMountains = new BiomeConfigACDarklandsMountains();
         BiomeConfigAC.biomeConfigACDarklandsPlains = new BiomeConfigACDarklandsPlains();
-    }
-
-    public static void initBiomeConfigsAM()
-    {
-        BiomeConfigAM.biomeConfigAMWitchwoodForest = new BiomeConfigAMWitchwoodForest();
-    }
-    
-    public static void initBiomeConfigsATG()
-    {
-        BiomeConfigATG.biomeConfigATGGravelBeach = new BiomeConfigATGGravelBeach();
-        BiomeConfigATG.biomeConfigATGRockySteppe = new BiomeConfigATGRockySteppe();
-        BiomeConfigATG.biomeConfigATGShrubland = new BiomeConfigATGShrubland();
-        BiomeConfigATG.biomeConfigATGSnowyGravelBeach = new BiomeConfigATGSnowyGravelBeach();
-        BiomeConfigATG.biomeConfigATGTropicalShrubland = new BiomeConfigATGTropicalShrubland();
-        BiomeConfigATG.biomeConfigATGTundra = new BiomeConfigATGTundra();
-        BiomeConfigATG.biomeConfigATGVolcano = new BiomeConfigATGVolcano();
-        BiomeConfigATG.biomeConfigATGWoodland = new BiomeConfigATGWoodland();
     }
     
     public static void initBiomeConfigsBOP()
@@ -157,246 +236,12 @@ public class BiomeConfigManager
         BiomeConfigBC.biomeConfigBCDesertOilField = new BiomeConfigBCDesertOilField();
         BiomeConfigBC.biomeConfigBCOceanOilField = new BiomeConfigBCOceanOilField();
     }
-    
-    public static void initBiomeConfigsCC()
-    {
-        BiomeConfigCC.biomeConfigCCEnderForest = new BiomeConfigCCEnderForest();
-        BiomeConfigCC.biomeConfigCCRainbowForest = new BiomeConfigCCRainbowForest();
-    }
-    
-    public static void initBiomeConfigsEB()
-    {
-        BiomeConfigEB.biomeConfigEBAlpineMountains = new BiomeConfigEBAlpineMountains();
-        BiomeConfigEB.biomeConfigEBAlpineMountainsEdge = new BiomeConfigEBAlpineMountainsEdge();
-        BiomeConfigEB.biomeConfigEBAlpineMountainsM = new BiomeConfigEBAlpineMountainsM();
-        BiomeConfigEB.biomeConfigEBAlpineTundra = new BiomeConfigEBAlpineTundra();
-        BiomeConfigEB.biomeConfigEBAspenForest = new BiomeConfigEBAspenForest();
-        BiomeConfigEB.biomeConfigEBAspenHills = new BiomeConfigEBAspenHills();
-        BiomeConfigEB.biomeConfigEBBadlands = new BiomeConfigEBBadlands();
-        BiomeConfigEB.biomeConfigEBBasin = new BiomeConfigEBBasin();
-        BiomeConfigEB.biomeConfigEBBlossomHills = new BiomeConfigEBBlossomHills();
-        BiomeConfigEB.biomeConfigEBBlossomWoods = new BiomeConfigEBBlossomWoods();
-        BiomeConfigEB.biomeConfigEBBorealArchipelago = new BiomeConfigEBBorealArchipelago();
-        BiomeConfigEB.biomeConfigEBBorealForest = new BiomeConfigEBBorealForest();
-        BiomeConfigEB.biomeConfigEBBorealPlateau = new BiomeConfigEBBorealPlateau();
-        BiomeConfigEB.biomeConfigEBBorealPlateauM = new BiomeConfigEBBorealPlateauM();
-        BiomeConfigEB.biomeConfigEBCarr = new BiomeConfigEBCarr();
-        BiomeConfigEB.biomeConfigEBClayHills = new BiomeConfigEBClayHills();
-        BiomeConfigEB.biomeConfigEBClearing = new BiomeConfigEBClearing();
-        BiomeConfigEB.biomeConfigEBColdBorealForest = new BiomeConfigEBColdBorealForest();
-        BiomeConfigEB.biomeConfigEBColdCypressForest = new BiomeConfigEBColdCypressForest();
-        BiomeConfigEB.biomeConfigEBColdFirForest = new BiomeConfigEBColdFirForest();
-        BiomeConfigEB.biomeConfigEBColdPineForest = new BiomeConfigEBColdPineForest();
-        BiomeConfigEB.biomeConfigEBCreekBed = new BiomeConfigEBCreekBed();
-        BiomeConfigEB.biomeConfigEBCypressForest = new BiomeConfigEBCypressForest();
-        BiomeConfigEB.biomeConfigEBDesertArchipelago = new BiomeConfigEBDesertArchipelago();
-        BiomeConfigEB.biomeConfigEBEphemeralLake = new BiomeConfigEBEphemeralLake();
-        BiomeConfigEB.biomeConfigEBEphemeralLakeEdge = new BiomeConfigEBEphemeralLakeEdge();
-        BiomeConfigEB.biomeConfigEBFens = new BiomeConfigEBFens();
-        BiomeConfigEB.biomeConfigEBFirForest = new BiomeConfigEBFirForest();
-        BiomeConfigEB.biomeConfigEBFloweryArchipelago = new BiomeConfigEBFloweryArchipelago();
-        BiomeConfigEB.biomeConfigEBForestedArchipelago = new BiomeConfigEBForestedArchipelago();
-        BiomeConfigEB.biomeConfigEBForestedMountains = new BiomeConfigEBForestedMountains();
-        BiomeConfigEB.biomeConfigEBForestedValley = new BiomeConfigEBForestedValley();
-        BiomeConfigEB.biomeConfigEBFrozenArchipelago = new BiomeConfigEBFrozenArchipelago();
-        BiomeConfigEB.biomeConfigEBGlacier = new BiomeConfigEBGlacier();
-        BiomeConfigEB.biomeConfigEBGrassyArchipelago = new BiomeConfigEBGrassyArchipelago();
-        BiomeConfigEB.biomeConfigEBIceSheet = new BiomeConfigEBIceSheet();
-        BiomeConfigEB.biomeConfigEBKakadu = new BiomeConfigEBKakadu();
-        BiomeConfigEB.biomeConfigEBLake = new BiomeConfigEBLake();
-        BiomeConfigEB.biomeConfigEBLowHills = new BiomeConfigEBLowHills();
-        BiomeConfigEB.biomeConfigEBMangroves = new BiomeConfigEBMangroves();
-        BiomeConfigEB.biomeConfigEBMarsh = new BiomeConfigEBMarsh();
-        BiomeConfigEB.biomeConfigEBMeadow = new BiomeConfigEBMeadow();
-        BiomeConfigEB.biomeConfigEBMeadowM = new BiomeConfigEBMeadowM();
-        BiomeConfigEB.biomeConfigEBMountainousArchipelago = new BiomeConfigEBMountainousArchipelago();
-        BiomeConfigEB.biomeConfigEBMountains = new BiomeConfigEBMountains();
-        BiomeConfigEB.biomeConfigEBMountainsEdge = new BiomeConfigEBMountainsEdge();
-        BiomeConfigEB.biomeConfigEBOakForest = new BiomeConfigEBOakForest();
-        BiomeConfigEB.biomeConfigEBOasis = new BiomeConfigEBOasis();
-        BiomeConfigEB.biomeConfigEBPineForest = new BiomeConfigEBPineForest();
-        BiomeConfigEB.biomeConfigEBPineForestArchipelago = new BiomeConfigEBPineForestArchipelago();
-        BiomeConfigEB.biomeConfigEBPlateau = new BiomeConfigEBPlateau();
-        BiomeConfigEB.biomeConfigEBPolarDesert = new BiomeConfigEBPolarDesert();
-        BiomeConfigEB.biomeConfigEBPrairie = new BiomeConfigEBPrairie();
-        BiomeConfigEB.biomeConfigEBRainforest = new BiomeConfigEBRainforest();
-        BiomeConfigEB.biomeConfigEBRainforestValley = new BiomeConfigEBRainforestValley();
-        BiomeConfigEB.biomeConfigEBRedDesert = new BiomeConfigEBRedDesert();
-        BiomeConfigEB.biomeConfigEBRiparianZone = new BiomeConfigEBRiparianZone();
-        BiomeConfigEB.biomeConfigEBRockyDesert = new BiomeConfigEBRockyDesert();
-        BiomeConfigEB.biomeConfigEBRockyHills = new BiomeConfigEBRockyHills();
-        BiomeConfigEB.biomeConfigEBRoofedShrublands = new BiomeConfigEBRoofedShrublands();
-        BiomeConfigEB.biomeConfigEBSahara = new BiomeConfigEBSahara();
-        BiomeConfigEB.biomeConfigEBSandstoneCanyon = new BiomeConfigEBSandstoneCanyon();
-        BiomeConfigEB.biomeConfigEBSandstoneCanyon2 = new BiomeConfigEBSandstoneCanyon2();
-        BiomeConfigEB.biomeConfigEBSandstoneRanges = new BiomeConfigEBSandstoneRanges();
-        BiomeConfigEB.biomeConfigEBSandstoneRangesM = new BiomeConfigEBSandstoneRangesM();
-        BiomeConfigEB.biomeConfigEBScree = new BiomeConfigEBScree();
-        BiomeConfigEB.biomeConfigEBScrub = new BiomeConfigEBScrub();
-        BiomeConfigEB.biomeConfigEBShield = new BiomeConfigEBShield();
-        BiomeConfigEB.biomeConfigEBShrublands = new BiomeConfigEBShrublands();
-        BiomeConfigEB.biomeConfigEBSilverPineForest = new BiomeConfigEBSilverPineForest();
-        BiomeConfigEB.biomeConfigEBSilverPineHills = new BiomeConfigEBSilverPineHills();
-        BiomeConfigEB.biomeConfigEBSnowyDesert = new BiomeConfigEBSnowyDesert();
-        BiomeConfigEB.biomeConfigEBSnowyPlateau = new BiomeConfigEBSnowyPlateau();
-        BiomeConfigEB.biomeConfigEBSnowyRanges = new BiomeConfigEBSnowyRanges();
-        BiomeConfigEB.biomeConfigEBSnowyWastelands = new BiomeConfigEBSnowyWastelands();
-        BiomeConfigEB.biomeConfigEBSteppe = new BiomeConfigEBSteppe();
-        BiomeConfigEB.biomeConfigEBStoneCanyon = new BiomeConfigEBStoneCanyon();
-        BiomeConfigEB.biomeConfigEBStoneCanyon2 = new BiomeConfigEBStoneCanyon2();
-        BiomeConfigEB.biomeConfigEBTropicalArchipelago = new BiomeConfigEBTropicalArchipelago();
-        BiomeConfigEB.biomeConfigEBTundra = new BiomeConfigEBTundra();
-        BiomeConfigEB.biomeConfigEBVolcano = new BiomeConfigEBVolcano();
-        BiomeConfigEB.biomeConfigEBVolcanoM = new BiomeConfigEBVolcanoM();
-        BiomeConfigEB.biomeConfigEBWastelands = new BiomeConfigEBWastelands();
-        BiomeConfigEB.biomeConfigEBWoodlandField = new BiomeConfigEBWoodlandField();
-        BiomeConfigEB.biomeConfigEBWoodlandHills = new BiomeConfigEBWoodlandHills();
-        BiomeConfigEB.biomeConfigEBWoodlandLake = new BiomeConfigEBWoodlandLake();
-        BiomeConfigEB.biomeConfigEBWoodlandLakeEdge = new BiomeConfigEBWoodlandLakeEdge();
-        BiomeConfigEB.biomeConfigEBWoodlands = new BiomeConfigEBWoodlands();
-        BiomeConfigEB.biomeConfigEBXericSavanna = new BiomeConfigEBXericSavanna();
-        BiomeConfigEB.biomeConfigEBXericShrubland = new BiomeConfigEBXericShrubland();
-    }
-    
-    public static void initBiomeConfigsEBXL()
-    {
-        BiomeConfigEBXL.biomeConfigEBXLAlpine = new BiomeConfigEBXLAlpine();
-        BiomeConfigEBXL.biomeConfigEBXLAutumnWoods = new BiomeConfigEBXLAutumnWoods();
-        BiomeConfigEBXL.biomeConfigEBXLBirchForest = new BiomeConfigEBXLBirchForest();
-        BiomeConfigEBXL.biomeConfigEBXLExtremeJungle = new BiomeConfigEBXLExtremeJungle();
-        BiomeConfigEBXL.biomeConfigEBXLForestedHills = new BiomeConfigEBXLForestedHills();
-        BiomeConfigEBXL.biomeConfigEBXLForestedIsland = new BiomeConfigEBXLForestedIsland();
-        BiomeConfigEBXL.biomeConfigEBXLGlacier = new BiomeConfigEBXLGlacier();
-        BiomeConfigEBXL.biomeConfigEBXLGreenHills = new BiomeConfigEBXLGreenHills();
-        BiomeConfigEBXL.biomeConfigEBXLGreenSwamp = new BiomeConfigEBXLGreenSwamp();
-        BiomeConfigEBXL.biomeConfigEBXLIceWasteland = new BiomeConfigEBXLIceWasteland();
-        BiomeConfigEBXL.biomeConfigEBXLMarsh = new BiomeConfigEBXLMarsh();
-        BiomeConfigEBXL.biomeConfigEBXLMeadow = new BiomeConfigEBXLMeadow();
-        BiomeConfigEBXL.biomeConfigEBXLMiniJungle = new BiomeConfigEBXLMiniJungle();
-        BiomeConfigEBXL.biomeConfigEBXLMountainDesert = new BiomeConfigEBXLMountainDesert();
-        BiomeConfigEBXL.biomeConfigEBXLMountainRidge = new BiomeConfigEBXLMountainRidge();
-        BiomeConfigEBXL.biomeConfigEBXLMountainTaiga = new BiomeConfigEBXLMountainTaiga();
-        BiomeConfigEBXL.biomeConfigEBXLPineForest = new BiomeConfigEBXLPineForest();
-        BiomeConfigEBXL.biomeConfigEBXLRainforest = new BiomeConfigEBXLRainforest();
-        BiomeConfigEBXL.biomeConfigEBXLRedwoodForest = new BiomeConfigEBXLRedwoodForest();
-        BiomeConfigEBXL.biomeConfigEBXLRedwoodLush = new BiomeConfigEBXLRedwoodLush();
-        BiomeConfigEBXL.biomeConfigEBXLSavanna = new BiomeConfigEBXLSavanna();
-        BiomeConfigEBXL.biomeConfigEBXLShrubland = new BiomeConfigEBXLShrubland();
-        BiomeConfigEBXL.biomeConfigEBXLSnowForest = new BiomeConfigEBXLSnowForest();
-        BiomeConfigEBXL.biomeConfigEBXLSnowyRainforest = new BiomeConfigEBXLSnowyRainforest();
-        BiomeConfigEBXL.biomeConfigEBXLTemperateRainforest = new BiomeConfigEBXLTemperateRainforest();
-        BiomeConfigEBXL.biomeConfigEBXLTundra = new BiomeConfigEBXLTundra();
-        BiomeConfigEBXL.biomeConfigEBXLWasteland = new BiomeConfigEBXLWasteland();
-        BiomeConfigEBXL.biomeConfigEBXLWoodlands = new BiomeConfigEBXLWoodlands();
-    }
-    
-    public static void initBiomeConfigsGC()
-    {
-        BiomeConfigGC.biomeConfigGCBambooForest = new BiomeConfigGCBambooForest();
-    }
-
-    public static void initBiomeConfigsHL()
-    {
-        BiomeConfigHL.biomeConfigHLAlps = new BiomeConfigHLAlps();
-        BiomeConfigHL.biomeConfigHLAutumnForest = new BiomeConfigHLAutumnForest();
-        BiomeConfigHL.biomeConfigHLBadlands = new BiomeConfigHLBadlands();
-        BiomeConfigHL.biomeConfigHLBaldHill = new BiomeConfigHLBaldHill();
-        BiomeConfigHL.biomeConfigHLBirchHills = new BiomeConfigHLBirchHills();
-        BiomeConfigHL.biomeConfigHLBog = new BiomeConfigHLBog();
-        BiomeConfigHL.biomeConfigHLCanyon = new BiomeConfigHLCanyon();
-        BiomeConfigHL.biomeConfigHLCliffs = new BiomeConfigHLCliffs();
-        BiomeConfigHL.biomeConfigHLDesertIsland = new BiomeConfigHLDesertIsland();
-        BiomeConfigHL.biomeConfigHLDesertMountains = new BiomeConfigHLDesertMountains();
-        BiomeConfigHL.biomeConfigHLDunes = new BiomeConfigHLDunes();
-        BiomeConfigHL.biomeConfigHLEstuary = new BiomeConfigHLEstuary();
-        BiomeConfigHL.biomeConfigHLFlyingMountains = new BiomeConfigHLFlyingMountains();
-        BiomeConfigHL.biomeConfigHLForestIsland = new BiomeConfigHLForestIsland();
-        BiomeConfigHL.biomeConfigHLGlacier = new BiomeConfigHLGlacier();
-        BiomeConfigHL.biomeConfigHLHighlandsB = new BiomeConfigHLHighlandsB();
-        BiomeConfigHL.biomeConfigHLJungleIsland = new BiomeConfigHLJungleIsland();
-        BiomeConfigHL.biomeConfigHLLake = new BiomeConfigHLLake();
-        BiomeConfigHL.biomeConfigHLLowlands = new BiomeConfigHLLowlands();
-        BiomeConfigHL.biomeConfigHLMeadow = new BiomeConfigHLMeadow();
-        BiomeConfigHL.biomeConfigHLMesa = new BiomeConfigHLMesa();
-        BiomeConfigHL.biomeConfigHLOasis = new BiomeConfigHLOasis();
-        BiomeConfigHL.biomeConfigHLOutback = new BiomeConfigHLOutback();
-        BiomeConfigHL.biomeConfigHLPinelands = new BiomeConfigHLPinelands();
-        BiomeConfigHL.biomeConfigHLRainforest = new BiomeConfigHLRainforest();
-        BiomeConfigHL.biomeConfigHLRedwoodForest = new BiomeConfigHLRedwoodForest();
-        BiomeConfigHL.biomeConfigHLRockIsland = new BiomeConfigHLRockIsland();
-        BiomeConfigHL.biomeConfigHLRockMountains = new BiomeConfigHLRockMountains();
-        BiomeConfigHL.biomeConfigHLSahel = new BiomeConfigHLSahel();
-        BiomeConfigHL.biomeConfigHLSavannah = new BiomeConfigHLSavannah();
-        BiomeConfigHL.biomeConfigHLShrubland = new BiomeConfigHLShrubland();
-        BiomeConfigHL.biomeConfigHLSnowIsland = new BiomeConfigHLSnowIsland();
-        BiomeConfigHL.biomeConfigHLSnowMountains = new BiomeConfigHLSnowMountains();
-        BiomeConfigHL.biomeConfigHLSteppe = new BiomeConfigHLSteppe();
-        BiomeConfigHL.biomeConfigHLTallPineForest = new BiomeConfigHLTallPineForest();
-        BiomeConfigHL.biomeConfigHLTropicalIslands = new BiomeConfigHLTropicalIslands();
-        BiomeConfigHL.biomeConfigHLTropics = new BiomeConfigHLTropics();
-        BiomeConfigHL.biomeConfigHLTundra = new BiomeConfigHLTundra();
-        BiomeConfigHL.biomeConfigHLValley = new BiomeConfigHLValley();
-        BiomeConfigHL.biomeConfigHLVolcanoIsland = new BiomeConfigHLVolcanoIsland();
-        BiomeConfigHL.biomeConfigHLWindyIsland = new BiomeConfigHLWindyIsland();
-        BiomeConfigHL.biomeConfigHLWoodlands = new BiomeConfigHLWoodlands();
-        BiomeConfigHL.biomeConfigHLWoodsMountains = new BiomeConfigHLWoodsMountains();
-    }
-    
-    public static void initBiomeConfigsRW()
-    {
-        BiomeConfigRW.biomeConfigRWBotanicalGarden = new BiomeConfigRWBotanicalGarden();
-        BiomeConfigRW.biomeConfigRWMurica = new BiomeConfigRWMurica();
-        BiomeConfigRW.biomeConfigRWMountainOfMadness = new BiomeConfigRWMountainOfMadness();
-        BiomeConfigRW.biomeConfigRWOssuary = new BiomeConfigRWOssuary();
-        BiomeConfigRW.biomeConfigRWRockCandyMountain = new BiomeConfigRWRockCandyMountain();
-        BiomeConfigRW.biomeConfigRWShadowFen = new BiomeConfigRWShadowFen();
-        BiomeConfigRW.biomeConfigRWSpookyForest = new BiomeConfigRWSpookyForest();
-    }
 
     public static void initBiomeConfigsTC()
     {
         BiomeConfigTC.biomeConfigTCEerie = new BiomeConfigTCEerie();
         BiomeConfigTC.biomeConfigTCMagicalForest = new BiomeConfigTCMagicalForest();
         BiomeConfigTC.biomeConfigTCTaintedLand = new BiomeConfigTCTaintedLand();
-    }
-    
-    public static void initBiomeConfigsLOM()
-    {
-        BiomeConfigLOM.biomeConfigLOMAntartica = new BiomeConfigLOMAntartica();
-        BiomeConfigLOM.biomeConfigLOMTropicalBeach = new BiomeConfigLOMTropicalBeach();
-    }
-
-    public static void initBiomeConfigsVAMP()
-    {
-        BiomeConfigVAMP.biomeConfigVAMPVampireForest = new BiomeConfigVAMPVampireForest();
-    }
-
-    public static void initBiomeConfigsTOFU()
-    {
-
-        BiomeConfigTOFU.biomeConfigTOFULeekPlains = new BiomeConfigTOFULeekPlains();
-        BiomeConfigTOFU.biomeConfigTOFUTofuBuildings = new BiomeConfigTOFUTofuBuildings();
-        BiomeConfigTOFU.biomeConfigTOFUTofuExtremeHills = new BiomeConfigTOFUTofuExtremeHills();
-        BiomeConfigTOFU.biomeConfigTOFUTofuExtremeHillsEdge = new BiomeConfigTOFUTofuExtremeHillsEdge();
-        BiomeConfigTOFU.biomeConfigTOFUTofuForest = new BiomeConfigTOFUTofuForest();
-        BiomeConfigTOFU.biomeConfigTOFUTofuForestHills = new BiomeConfigTOFUTofuForestHills();
-        BiomeConfigTOFU.biomeConfigTOFUTofuPlainHills = new BiomeConfigTOFUTofuPlainHills();
-        BiomeConfigTOFU.biomeConfigTOFUTofuPlains = new BiomeConfigTOFUTofuPlains();
-        BiomeConfigTOFU.biomeConfigTOFUTofuRiver = new BiomeConfigTOFUTofuRiver();
-    }
-
-    public static void initBiomeConfigsFN()
-    {
-
-        BiomeConfigFN.biomeConfigFNCherryBlossomWoodland = new BiomeConfigFNCherryBlossomWoodland();
-        BiomeConfigFN.biomeConfigFNCrystalForest = new BiomeConfigFNCrystalForest();
-        BiomeConfigFN.biomeConfigFNEucalyptusForest = new BiomeConfigFNEucalyptusForest();
-        BiomeConfigFN.biomeConfigFNGreatwoodForest = new BiomeConfigFNGreatwoodForest();
-        BiomeConfigFN.biomeConfigFNMapleForest = new BiomeConfigFNMapleForest();
-        BiomeConfigFN.biomeConfigFNRedwoodForest = new BiomeConfigFNRedwoodForest();
-        BiomeConfigFN.biomeConfigFNRedwoodForestHills = new BiomeConfigFNRedwoodForestHills();
-        BiomeConfigFN.biomeConfigFNTropicalForest = new BiomeConfigFNTropicalForest();
-        BiomeConfigFN.biomeConfigFNTropicalForestHills = new BiomeConfigFNTropicalForestHills();
     }
 
     public static void initBiomeConfigsVanilla()

@@ -5,7 +5,7 @@ Before submitting a Pull Request, we kindly ask you to follow these few simple g
 
 Braces:
 ----
-*All* braces (yes *all*) go on the next line 
+*All* braces (yes *all*) go on the next line (this is still up for debate, throw in your votes!)
 ``` java
 public static void sendCoffeeToPink(WhichOnesPink pink)
 {
@@ -20,6 +20,8 @@ Just to be clear. This is java, not php. Please dont put spaces after, before or
 pink.give(new Coffee(coffees[]));
 ```
 That is the *only* correct way to do that line!
+
+Also, indents are 4 spaces, not tabs! (throwinyavotes!)
 
 Other spacing rules are: 
  - required in between parameters `(a, b)`,   
@@ -36,3 +38,25 @@ public static void sendCoffeeToPink(WhichOnesPink pink, Coffee coffee)
     }
 }
 ```
+
+Switch statements
+----
+ - `case` statements are indented and on new lines
+ - `case` statements always end with `break;`
+ - always ends with `default;`, even if unused
+``` java
+switch (drink) {
+    case COFFEE:
+        drink.giveTo(pink);
+        break;
+    case TEA:
+        system.crash("Are you trying to poison me?");
+        break;
+    default:
+        break;
+}
+```
+
+Other Characters
+----
+ - Strings are with double quotes (`"`), unless `'` is needed for escaping reasons.

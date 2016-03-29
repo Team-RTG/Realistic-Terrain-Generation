@@ -77,6 +77,7 @@ public class RTG {
 
         RealisticBiomeVanillaBase.addBiomes();
 
+        RealisticBiomeACBase.addBiomes();
         RealisticBiomeBOPBase.addBiomes();
         //RealisticBiomeEBXLBase.addBiomes();
         //RealisticBiomeHLBase.addBiomes();
@@ -87,8 +88,7 @@ public class RTG {
 //        RealisticBiomeCCBase.addBiomes();
 //        RealisticBiomeGCBase.addBiomes();
 //        RealisticBiomeVAMPBase.addBiomes();
-//        RealisticBiomeACBase.addBiomes();
-//        RealisticBiomeRWBase.addBiomes();
+//        RealisticBiomeARWBase.addBiomes();
 //        RealisticBiomeLOMBase.addBiomes();
 //        RealisticBiomeTOFUBase.addBiomes();
 //        RealisticBiomeFNBase.addBiomes();

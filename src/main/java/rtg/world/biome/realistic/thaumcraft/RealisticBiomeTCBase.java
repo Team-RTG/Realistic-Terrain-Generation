@@ -31,7 +31,7 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase {
 
     public static void addBiomes() {
         if (Loader.isModLoaded("Thaumcraft")) {
-            BiomeGenBase[] b = BiomeUtils.getRegisteredBiomes().toArray(new BiomeGenBase[BiomeUtils.getRegisteredBiomes().size()]);
+            BiomeGenBase[] b = BiomeUtils.getRegisteredBiomes();
 
             for (int i = 0; i < 256; i++) {
                 if (b[i] != null) {

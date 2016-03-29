@@ -1,15 +1,21 @@
 package rtg.util;
 
-import com.google.common.collect.Lists;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.BiomeGenBase;
 
-import java.util.List;
+import static net.minecraft.world.biome.BiomeGenBase.biomeRegistry;
+import static net.minecraft.world.biome.BiomeGenBase.getIdForBiome;
 
 public class BiomeUtils {
 
-    public static List<BiomeGenBase> getRegisteredBiomes() {
-        return Lists.newArrayList(BiomeGenBase.biomeRegistry.iterator());
+    private static BiomeGenBase[] registeredBiomes = new BiomeGenBase[256];
+    static {
+        for (BiomeGenBase b : BiomeGenBase.biomeRegistry) {
+            registeredBiomes[getIdForBiome(b)] = b;
+        }
+    }
+    public static BiomeGenBase[] getRegisteredBiomes() {
+        return registeredBiomes;
     }
 
     public static int biomeIds() {
@@ -17,10 +23,10 @@ public class BiomeUtils {
     }
 
     public static ResourceLocation getLocForBiome(BiomeGenBase biome) {
-        return BiomeGenBase.biomeRegistry.getNameForObject(biome);
+        return biomeRegistry.getNameForObject(biome);
     }
 
     public static BiomeGenBase getBiomeForLoc(ResourceLocation location) {
-        return BiomeGenBase.biomeRegistry.getObject(location);
+        return biomeRegistry.getObject(location);
     }
 }

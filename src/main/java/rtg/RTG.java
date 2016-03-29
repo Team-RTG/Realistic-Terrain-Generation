@@ -15,6 +15,7 @@ import rtg.event.EventManagerRTG;
 import rtg.proxy.CommonProxy;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
+import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
@@ -76,6 +77,7 @@ public class RTG {
 
         RealisticBiomeVanillaBase.addBiomes();
 
+        RealisticBiomeACBase.addBiomes();
         RealisticBiomeBOPBase.addBiomes();
         //RealisticBiomeEBXLBase.addBiomes();
         //RealisticBiomeHLBase.addBiomes();
@@ -86,8 +88,7 @@ public class RTG {
 //        RealisticBiomeCCBase.addBiomes();
 //        RealisticBiomeGCBase.addBiomes();
 //        RealisticBiomeVAMPBase.addBiomes();
-//        RealisticBiomeACBase.addBiomes();
-//        RealisticBiomeRWBase.addBiomes();
+//        RealisticBiomeARWBase.addBiomes();
 //        RealisticBiomeLOMBase.addBiomes();
 //        RealisticBiomeTOFUBase.addBiomes();
 //        RealisticBiomeFNBase.addBiomes();

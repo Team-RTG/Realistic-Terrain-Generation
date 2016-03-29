@@ -7,8 +7,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
-import rtg.util.noise.CellNoise;
 import rtg.util.math.CliffCalculator;
+import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 
@@ -16,19 +16,16 @@ import java.util.Random;
 
 public class SurfaceBOPGrove extends SurfaceBase {
 
+    public byte mixByte = (byte) 0;
     private boolean beach;
     private IBlockState beachBlock;
     private float min;
-
     private float sCliff = 1.5f;
     private float sHeight = 60f;
     private float sStrength = 65f;
     private float cCliff = 1.5f;
-
     private IBlockState mix;
     private float mixHeight;
-
-    public byte mixByte = (byte) 0;
 
     public SurfaceBOPGrove(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff,
                            float stoneHeight, float stoneStrength, float clayCliff, IBlockState mixBlock, float mixSize) {

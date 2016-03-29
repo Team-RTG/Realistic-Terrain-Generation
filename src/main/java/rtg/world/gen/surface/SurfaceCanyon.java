@@ -8,8 +8,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.math.CanyonColour;
-import rtg.util.noise.CellNoise;
 import rtg.util.math.CliffCalculator;
+import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 
 import java.util.Random;

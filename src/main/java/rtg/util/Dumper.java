@@ -11,14 +11,6 @@ public class Dumper {
         return instance;
     }
 
-    class DumpContext {
-        int maxDepth = 0;
-        int maxArrayElements = 0;
-        int callCount = 0;
-        HashMap<String, String> ignoreList = new HashMap<String, String>();
-        HashMap<Object, Integer> visited = new HashMap<Object, Integer>();
-    }
-
     public static String dump(Object o) {
         return dump(o, 0, 0, null);
     }
@@ -173,12 +165,19 @@ public class Dumper {
         }
     }
 
-
     private static String getSimpleNameWithoutArrayQualifier(Class clazz) {
         String simpleName = clazz.getSimpleName();
         int indexOfBracket = simpleName.indexOf('[');
         if (indexOfBracket != -1)
             return simpleName.substring(0, indexOfBracket);
         return simpleName;
+    }
+
+    class DumpContext {
+        int maxDepth = 0;
+        int maxArrayElements = 0;
+        int callCount = 0;
+        HashMap<String, String> ignoreList = new HashMap<String, String>();
+        HashMap<Object, Integer> visited = new HashMap<Object, Integer>();
     }
 }

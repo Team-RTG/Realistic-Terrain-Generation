@@ -23,7 +23,7 @@ public class RealisticBiomeTCBase extends RealisticBiomeBase {
     }
 
 	/*
-	THAUMCRAFT BIOMES
+    THAUMCRAFT BIOMES
 	
 	118: "Tainted Land"
 	119: "Magical Forest"

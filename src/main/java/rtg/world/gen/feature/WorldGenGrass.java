@@ -10,16 +10,15 @@ import java.util.Random;
 import static net.minecraft.init.Blocks.*;
 
 public class WorldGenGrass extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
     private Block block;
     private int metadata;
-
     public WorldGenGrass(Block b, int m) {
         block = b;
         metadata = m;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

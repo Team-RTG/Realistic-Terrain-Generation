@@ -96,7 +96,7 @@ public class BiomeConfigEB {
     public static BiomeConfig biomeConfigEBXericShrubland;
 
     public static BiomeConfig[] getBiomeConfigs() {
-        BiomeConfig[] biomeConfigs = new BiomeConfig[]{
+        BiomeConfig[] biomeConfigs = new BiomeConfig[] {
                 biomeConfigEBAlpineMountains,
                 biomeConfigEBAlpineMountainsEdge,
                 biomeConfigEBAlpineMountainsM,

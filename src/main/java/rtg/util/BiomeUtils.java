@@ -9,11 +9,13 @@ import static net.minecraft.world.biome.BiomeGenBase.getIdForBiome;
 public class BiomeUtils {
 
     private static BiomeGenBase[] registeredBiomes = new BiomeGenBase[256];
+
     static {
         for (BiomeGenBase b : BiomeGenBase.biomeRegistry) {
             registeredBiomes[getIdForBiome(b)] = b;
         }
     }
+
     public static BiomeGenBase[] getRegisteredBiomes() {
         return registeredBiomes;
     }

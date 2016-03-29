@@ -13,19 +13,17 @@ import static net.minecraft.init.Blocks.*;
 import static net.minecraft.util.EnumFacing.UP;
 
 public class WorldGenTreeRTGPine extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
-
     private int height;
     private int metadata;
-
     public WorldGenTreeRTGPine(int h, int m) {
         super(false);
 
         height = 4;
         metadata = m;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World p_76484_1_, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_) {
@@ -130,7 +128,7 @@ public class WorldGenTreeRTGPine extends WorldGenerator {
     }
 
     private void createTrunk(World world, Random rand, int x, int y, int z) {
-        int[] pos = new int[]{0, 0, 1, 0, 0, 1, -1, 0, 0, -1};
+        int[] pos = new int[] {0, 0, 1, 0, 0, 1, -1, 0, 0, -1};
         int sh;
         Block b;
         for (int t = 0; t < 5; t++) {

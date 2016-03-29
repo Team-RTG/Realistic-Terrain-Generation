@@ -8,7 +8,7 @@ public class BiomeConfigGC {
     public static BiomeConfig biomeConfigGCBambooForest;
 
     public static BiomeConfig[] getBiomeConfigs() {
-        BiomeConfig[] biomeConfigs = new BiomeConfig[]{
+        BiomeConfig[] biomeConfigs = new BiomeConfig[] {
                 biomeConfigGCBambooForest
         };
 

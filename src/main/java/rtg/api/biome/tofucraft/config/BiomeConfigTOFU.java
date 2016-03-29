@@ -16,7 +16,7 @@ public class BiomeConfigTOFU {
     public static BiomeConfig biomeConfigTOFUTofuRiver;
 
     public static BiomeConfig[] getBiomeConfigs() {
-        BiomeConfig[] biomeConfigs = new BiomeConfig[]{
+        BiomeConfig[] biomeConfigs = new BiomeConfig[] {
                 biomeConfigTOFULeekPlains,
                 biomeConfigTOFUTofuBuildings,
                 biomeConfigTOFUTofuExtremeHills,

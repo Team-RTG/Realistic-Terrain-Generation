@@ -14,17 +14,12 @@ import static net.minecraft.block.material.Material.*;
 import static net.minecraft.init.Blocks.snow_layer;
 
 public class WorldGenTreeRTGShrubCustom extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
     private int size;
     private Block logBlock;
     private int logMeta;
     private Block leaveBlock;
     private int leaveMeta;
     private boolean sand;
-
     public WorldGenTreeRTGShrubCustom(int s, Block log, byte logByte, Block leav, byte leavByte) {
         this(s, log, logByte, leav, leavByte, false);
     }
@@ -38,6 +33,10 @@ public class WorldGenTreeRTGShrubCustom extends WorldGenerator {
 
         leaveBlock = leav;
         leaveMeta = leavByte;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

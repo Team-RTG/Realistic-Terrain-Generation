@@ -37,7 +37,7 @@ public class TerrainOceanCanyon extends TerrainBase {
      */
     public TerrainOceanCanyon(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight) {
         booRiver = riverGen;
-        height = new float[]{5.0f, 0.5f, 12.5f, 0.5f, 18.0f, 0.5f};
+        height = new float[] {5.0f, 0.5f, 12.5f, 0.5f, 18.0f, 0.5f};
         strength = heightStrength;
         heightLength = height.length;
         cWidth = canyonWidth;

@@ -4,16 +4,13 @@ import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainVanillaColdTaiga extends TerrainBase
-{
+public class TerrainVanillaColdTaiga extends TerrainBase {
 
-    public TerrainVanillaColdTaiga()
-    {
+    public TerrainVanillaColdTaiga() {
 
     }
 
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-    {
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
         return terrainFlatLakes(x, y, simplex, river, 13f, 66f);
     }
 }

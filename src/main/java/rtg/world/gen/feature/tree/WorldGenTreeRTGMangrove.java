@@ -12,10 +12,6 @@ import static net.minecraft.init.Blocks.*;
 import static rtg.config.rtg.ConfigRTG.allowTreesToGenerateOnSand;
 
 public class WorldGenTreeRTGMangrove extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
     private Block blockLog;
     private int metadataLog;
     private Block blockLeaves;
@@ -26,7 +22,6 @@ public class WorldGenTreeRTGMangrove extends WorldGenerator {
     private int branch;
     private float verStart;
     private float verRand;
-
     public WorldGenTreeRTGMangrove(Block log, int metaLog, Block leaves, int metaLeaves, int baseHeight, int rootHeight, float branchLength, int numBranches, float verticalStart, float verticalRand) {
         blockLog = log;
         metadataLog = metaLog;
@@ -40,6 +35,10 @@ public class WorldGenTreeRTGMangrove extends WorldGenerator {
         branch = numBranches;
         verStart = 0.32f;
         verRand = verticalRand;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

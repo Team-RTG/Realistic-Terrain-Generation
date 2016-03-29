@@ -26,6 +26,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
 
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
+    private float lakeInterval = 80;
 
     public RealisticBiomeBOPShield(BiomeConfig config) {
         super(config,
@@ -84,9 +85,8 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
             }
         }
     }
-    private float lakeInterval = 80;
 
-    public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
+    public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell, int x, int y, float border) {
         float baseLakes = super.lakePressure(simplex, simplexCell, x, y, border);
         SimplexOctave.Derivative jitter = new SimplexOctave.Derivative();
         simplex.riverJitter().evaluateNoise(x / 30.0, y / 30.0, jitter);
@@ -96,10 +96,10 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
         pX += jitter.deltax() * 4f;
         pY += jitter.deltay() * 4f;
         //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
-        double [] lakeResults = simplexCell.river().eval((float)x/ lakeInterval, (float)y/ lakeInterval);
-        float results = 1f-(float)((lakeResults[1]-lakeResults[0])/lakeResults[1]);
-        if (results >1.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
-        if (results<-.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
+        double[] lakeResults = simplexCell.river().eval((float) x / lakeInterval, (float) y / lakeInterval);
+        float results = 1f - (float) ((lakeResults[1] - lakeResults[0]) / lakeResults[1]);
+        if (results > 1.01) throw new RuntimeException("" + lakeResults[0] + " , " + lakeResults[1]);
+        if (results < -.01) throw new RuntimeException("" + lakeResults[0] + " , " + lakeResults[1]);
         //float result = simplexCell.river().noise((float)x/ lakeInterval, (float)y/ lakeInterval,1.0);
         return Math.min(baseLakes, results);
         //return results;

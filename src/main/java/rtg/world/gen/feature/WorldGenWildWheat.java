@@ -12,18 +12,18 @@ import static net.minecraft.block.material.Material.ground;
 import static net.minecraft.init.Blocks.*;
 
 class WorldGenWildWheat extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
-
     private Block farmtype;
+
 
     /**
      * 0 = potatoes, 1 = carrots, 2 = wheat
      */
     public WorldGenWildWheat(int type) {
         farmtype = type == 0 ? potatoes : type == 1 ? carrots : wheat;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

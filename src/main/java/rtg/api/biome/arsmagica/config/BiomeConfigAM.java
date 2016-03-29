@@ -8,7 +8,7 @@ public class BiomeConfigAM {
     public static BiomeConfig biomeConfigAMWitchwoodForest;
 
     public static BiomeConfig[] getBiomeConfigs() {
-        BiomeConfig[] biomeConfigs = new BiomeConfig[]{
+        BiomeConfig[] biomeConfigs = new BiomeConfig[] {
                 biomeConfigAMWitchwoodForest
         };
 

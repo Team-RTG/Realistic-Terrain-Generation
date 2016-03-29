@@ -137,7 +137,7 @@ public class ConfigRTG {
 
         try {
             config.load();
-			
+
 			/* ==================== Bedrock ==================== */
 
             flatBedrockLayers = config.getInt("Number of flat bedrock layers", "Bedrock", flatBedrockLayers, 0, 5, "0 = Normal bedrock (rough pattern); 1-5 = Number of flat bedrock layers to generate" + Configuration.NEW_LINE);

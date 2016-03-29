@@ -37,7 +37,7 @@ public class TerrainVanillaMesaPlateauM extends TerrainBase {
          * Values come in pairs per layer. First is how high to step up.
          * 	Second is a value between 0 and 1, signifying when to step up.
          */
-        height = new float[]{18.5f, 0.4f};
+        height = new float[] {18.5f, 0.4f};
         strength = 20f;
         heightLength = height.length;
         base = 69f;

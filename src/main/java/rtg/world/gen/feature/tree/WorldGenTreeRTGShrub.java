@@ -16,17 +16,12 @@ import static net.minecraft.init.Blocks.*;
 import static rtg.config.rtg.ConfigRTG.allowTreesToGenerateOnSand;
 
 public class WorldGenTreeRTGShrub extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
     private int size;
     private Block logBlock;
     private int logMeta;
     private Block leaveBlock;
     private int leaveMeta;
     private boolean sand;
-
     public WorldGenTreeRTGShrub(int s, int log, int leav) {
         this(s, log, leav, false);
     }
@@ -40,6 +35,10 @@ public class WorldGenTreeRTGShrub extends WorldGenerator {
 
         leaveBlock = leav < 4 ? Blocks.leaves : leaves2;
         leaveMeta = leav > 3 ? leav - 4 : leav;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

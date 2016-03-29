@@ -13,20 +13,19 @@ import static net.minecraft.init.Blocks.*;
 import static rtg.config.rtg.ConfigRTG.allowTreesToGenerateOnSand;
 
 public class WorldGenTreeRTGRedwood extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
     private int height;
     private int leaves;
     private int trunk;
     private int metadata;
-
     public WorldGenTreeRTGRedwood(int h, int l, int t, int m) {
         height = h;
         leaves = l;
         trunk = t;
         metadata = m;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {
@@ -88,7 +87,7 @@ public class WorldGenTreeRTGRedwood extends WorldGenerator {
     }
 
     private void createTrunk(World world, Random rand, int x, int y, int z) {
-        int[] pos = new int[]{0, 0, 1, 0, 0, 1, -1, 0, 0, -1, 1, 1, 1, -1, -1, 1, -1, -1};
+        int[] pos = new int[] {0, 0, 1, 0, 0, 1, -1, 0, 0, -1, 1, 1, 1, -1, -1, 1, -1, -1};
         int sh;
         Block b;
         for (int t = 0; t < 9; t++) {

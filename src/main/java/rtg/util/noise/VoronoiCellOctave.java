@@ -49,32 +49,6 @@ public class VoronoiCellOctave {
         this.useDistance = useDistance;
     }
 
-    private double distance(double xDist, double zDist) {
-        return Math.sqrt(xDist * xDist + zDist * zDist);
-    }
-
-    private double getDistance2D(double xDist, double zDist) {
-        switch (distanceMethod) {
-            case 0:
-                return Math.sqrt(xDist * xDist + zDist * zDist) / SQRT_2;
-            case 1:
-                return xDist + zDist;
-            default:
-                return Double.NaN;
-        }
-    }
-
-    private double getDistance(double xDist, double yDist, double zDist) {
-        switch (distanceMethod) {
-            case 0:
-                return Math.sqrt(xDist * xDist + yDist * yDist + zDist * zDist) / SQRT_3; //Approximation (for speed) of elucidean (regular) distance
-            case 1:
-                return xDist + yDist + zDist;
-            default:
-                return Double.NaN;
-        }
-    }
-
     public boolean isUseDistance() {
         return useDistance;
     }
@@ -87,12 +61,12 @@ public class VoronoiCellOctave {
         return distanceMethod;
     }
 
-    public long getSeed() {
-        return seed;
-    }
-
     public void setDistanceMethod(short distanceMethod) {
         this.distanceMethod = distanceMethod;
+    }
+
+    public long getSeed() {
+        return seed;
     }
 
     public void setSeed(long seed) {
@@ -135,6 +109,28 @@ public class VoronoiCellOctave {
         } else return ((float) valueNoise2D(
                 (int) (Math.floor(xCandidate)),
                 (int) (Math.floor(zCandidate)), seed));
+    }
+
+    /**
+     * To avoid having to store the feature points, we use a hash function
+     * of the coordinates and the seed instead. Those big scary numbers are
+     * arbitrary primes.
+     */
+    public static double valueNoise2D(int x, int z, long seed) {
+        long n = (1619 * x + 6971 * z + 1013 * seed) & 0x7fffffff;
+        n = (n >> 13) ^ n;
+        return 1.0 - ((double) ((n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff) / 1073741824.0);
+    }
+
+    private double getDistance2D(double xDist, double zDist) {
+        switch (distanceMethod) {
+            case 0:
+                return Math.sqrt(xDist * xDist + zDist * zDist) / SQRT_2;
+            case 1:
+                return xDist + zDist;
+            default:
+                return Double.NaN;
+        }
     }
 
     public float border2(double x, double z, double width, float depth) {
@@ -189,6 +185,10 @@ public class VoronoiCellOctave {
         } else {
             return 0f;
         }
+    }
+
+    private double distance(double xDist, double zDist) {
+        return Math.sqrt(xDist * xDist + zDist * zDist);
     }
 
     public float border(double x, double z, double width, float depth) {
@@ -301,20 +301,20 @@ public class VoronoiCellOctave {
 
     }
 
-    /**
-     * To avoid having to store the feature points, we use a hash function
-     * of the coordinates and the seed instead. Those big scary numbers are
-     * arbitrary primes.
-     */
-    public static double valueNoise2D(int x, int z, long seed) {
-        long n = (1619 * x + 6971 * z + 1013 * seed) & 0x7fffffff;
-        n = (n >> 13) ^ n;
-        return 1.0 - ((double) ((n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff) / 1073741824.0);
-    }
-
     public static double valueNoise3D(int x, int y, int z, long seed) {
         long n = (1619 * x + 31337 * y + 6971 * z + 1013 * seed) & 0x7fffffff;
         n = (n >> 13) ^ n;
         return 1.0 - ((double) ((n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff) / 1073741824.0);
+    }
+
+    private double getDistance(double xDist, double yDist, double zDist) {
+        switch (distanceMethod) {
+            case 0:
+                return Math.sqrt(xDist * xDist + yDist * yDist + zDist * zDist) / SQRT_3; //Approximation (for speed) of elucidean (regular) distance
+            case 1:
+                return xDist + yDist + zDist;
+            default:
+                return Double.NaN;
+        }
     }
 }

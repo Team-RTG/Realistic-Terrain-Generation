@@ -11,14 +11,14 @@ import static java.lang.Math.abs;
 import static net.minecraft.init.Blocks.*;
 
 public class WorldGenTreeRTGSpruceSmall extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
     private int treeSize;
 
     public WorldGenTreeRTGSpruceSmall(int s) {
         treeSize = s;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

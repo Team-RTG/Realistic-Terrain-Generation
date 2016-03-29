@@ -12,20 +12,18 @@ import static net.minecraft.init.Blocks.*;
 import static net.minecraft.util.math.MathHelper.*;
 
 public class WorldGenClay extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
-
+    private static final String __OBFID = "CL_00000426";
     private Block field_150519_a;
     private int numberOfBlocks;
-    private static final String __OBFID = "CL_00000426";
     private int mineableBlockMeta;
-
     public WorldGenClay(Block block, int metadata, int amount) {
         field_150519_a = clay;
         mineableBlockMeta = 0;
         numberOfBlocks = amount;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World p_76484_1_, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_) {

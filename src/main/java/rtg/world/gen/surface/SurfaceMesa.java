@@ -7,8 +7,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.math.CanyonColour;
-import rtg.util.noise.CellNoise;
 import rtg.util.math.CliffCalculator;
+import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 
 import java.util.Random;
@@ -19,7 +19,7 @@ public class SurfaceMesa extends SurfaceBase {
     public SurfaceMesa(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte) {
         super(config, top, fill);
 
-        int[] c = new int[]{1, 8, 0};
+        int[] c = new int[] {1, 8, 0};
         OpenSimplexNoise simplex = new OpenSimplexNoise(2L);
 
         float n;

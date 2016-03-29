@@ -7,31 +7,23 @@ import java.util.ArrayList;
 
 public class BiomeConfig {
 
-    public String modSlug;
-    public String biomeSlug;
-
-    public ArrayList<BiomeConfigProperty> properties;
-
     public static final String allowVillagesId = "allowVillages";
     public static final String allowVillagesName = "Allow Villages";
-
     public static final String useRTGDecorationsId = "useRTGDecorations";
     public static final String useRTGDecorationsName = "Use RTG Decorations";
-
     public static final String useRTGSurfacesId = "useRTGSurfaces";
     public static final String useRTGSurfacesName = "Use RTG Surfaces";
-
     public static final String surfaceTopBlockId = "surfaceTopBlock";
     public static final String surfaceTopBlockName = "RTG Surface: Top Block";
-
     public static final String surfaceTopBlockMetaId = "surfaceTopBlockMeta";
     public static final String surfaceTopBlockMetaName = "RTG Surface: Top Block Meta";
-
     public static final String surfaceFillerBlockId = "surfaceFillerBlock";
     public static final String surfaceFillerBlockName = "RTG Surface: Filler Block";
-
     public static final String surfaceFillerBlockMetaId = "surfaceFillerBlockMeta";
     public static final String surfaceFillerBlockMetaName = "RTG Surface: Filler Block Meta";
+    public String modSlug;
+    public String biomeSlug;
+    public ArrayList<BiomeConfigProperty> properties;
 
     public BiomeConfig(String modSlug, String biomeSlug) {
         this.modSlug = modSlug;
@@ -76,16 +68,6 @@ public class BiomeConfig {
         return this.properties;
     }
 
-    public BiomeConfigProperty getPropertyById(String id) {
-        for (int i = 0; i < this.properties.size(); i++) {
-
-            if (this.properties.get(i).id.contentEquals(id)) {
-                return this.properties.get(i);
-            }
-        }
-        return null;
-    }
-
     public boolean _boolean(String id) {
         try {
 
@@ -94,6 +76,16 @@ public class BiomeConfig {
 
             throw new RuntimeException("Biome config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
         }
+    }
+
+    public BiomeConfigProperty getPropertyById(String id) {
+        for (int i = 0; i < this.properties.size(); i++) {
+
+            if (this.properties.get(i).id.contentEquals(id)) {
+                return this.properties.get(i);
+            }
+        }
+        return null;
     }
 
     public int _int(String id) {

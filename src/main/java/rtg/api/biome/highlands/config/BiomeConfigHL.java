@@ -48,7 +48,7 @@ public class BiomeConfigHL {
     public static BiomeConfig biomeConfigHLWoodsMountains;
 
     public static BiomeConfig[] getBiomeConfigs() {
-        BiomeConfig[] biomeConfigs = new BiomeConfig[]{
+        BiomeConfig[] biomeConfigs = new BiomeConfig[] {
                 biomeConfigHLAlps,
                 biomeConfigHLAutumnForest,
                 biomeConfigHLBadlands,

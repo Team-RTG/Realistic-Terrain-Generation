@@ -13,15 +13,15 @@ import static rtg.config.rtg.ConfigRTG.enableCobblestoneBoulders;
 import static rtg.util.math.RandomUtil.getRandomInt;
 
 public class WorldGenBlob extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
+    private static final String __OBFID = "CL_00000402";
     private Block blobBlock;
     private byte blobMeta;
     private int blobSize;
     private boolean booShouldGenerate;
-    private static final String __OBFID = "CL_00000402";
+    public WorldGenBlob(Block b, byte m, int s, Random rand) {
+        this(b, s, rand);
+        this.blobMeta = m;
+    }
 
     public WorldGenBlob(Block b, int s, Random rand) {
         super(false);
@@ -41,25 +41,21 @@ public class WorldGenBlob extends WorldGenerator {
         }
     }
 
-    public WorldGenBlob(Block b, byte m, int s, Random rand) {
-        this(b, s, rand);
-        this.blobMeta = m;
+    public static boolean shouldGenerateCobblestoneBoulder(Random rand) {
+        int chance = cobblestoneBoulderChance;
+        chance = (chance < 1) ? 1 : ((chance > 100) ? 100 : chance);
+
+        int random = getRandomInt(rand, 1, chance);
+
+        boolean booGenerate = (random == 1) ? true : false;
+
+        //Logger.info("Random = %d; Generate? = %b", random, booGenerate);
+
+        return booGenerate;
     }
 
-    public void generate(World world, Random rand, int x, int y, int z, boolean honourConfig) {
-        if (honourConfig) {
-            booShouldGenerate = true;
-
-            if (!enableCobblestoneBoulders) {
-                booShouldGenerate = false;
-            } else {
-                if (!shouldGenerateCobblestoneBoulder(rand)) {
-                    booShouldGenerate = false;
-                }
-            }
-        }
-
-        generate(world, rand, x, y, z);
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {
@@ -118,16 +114,19 @@ public class WorldGenBlob extends WorldGenerator {
         }
     }
 
-    public static boolean shouldGenerateCobblestoneBoulder(Random rand) {
-        int chance = cobblestoneBoulderChance;
-        chance = (chance < 1) ? 1 : ((chance > 100) ? 100 : chance);
+    public void generate(World world, Random rand, int x, int y, int z, boolean honourConfig) {
+        if (honourConfig) {
+            booShouldGenerate = true;
 
-        int random = getRandomInt(rand, 1, chance);
+            if (!enableCobblestoneBoulders) {
+                booShouldGenerate = false;
+            } else {
+                if (!shouldGenerateCobblestoneBoulder(rand)) {
+                    booShouldGenerate = false;
+                }
+            }
+        }
 
-        boolean booGenerate = (random == 1) ? true : false;
-
-        //Logger.info("Random = %d; Generate? = %b", random, booGenerate);
-
-        return booGenerate;
+        generate(world, rand, x, y, z);
     }
 }

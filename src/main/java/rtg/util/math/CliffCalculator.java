@@ -20,6 +20,13 @@ public class CliffCalculator {
         return cliff;
     }
 
+    private static float test(float cliff, float value) {
+        if (value > cliff) {
+            return value;
+        }
+        return cliff;
+    }
+
     public static float calcNoise(int x, int y, float[] noise, Random rand, float randomNoise) {
         float cliff = 0f;
         if (x > 0) {
@@ -35,12 +42,5 @@ public class CliffCalculator {
             cliff = test(cliff, Math.abs(noise[y * 16 + x] - noise[(y + 1) * 16 + x]));
         }
         return cliff - randomNoise + rand.nextFloat() * randomNoise * 2;
-    }
-
-    private static float test(float cliff, float value) {
-        if (value > cliff) {
-            return value;
-        }
-        return cliff;
     }
 }

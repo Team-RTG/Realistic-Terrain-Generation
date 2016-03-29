@@ -19,6 +19,6 @@ public class TerrainVanillaForest extends TerrainBase {
 
         float floNoise = 65f + groundNoise + m;
 
-        return riverized(floNoise,river);
+        return riverized(floNoise, river);
     }
 }

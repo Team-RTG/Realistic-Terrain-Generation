@@ -12,15 +12,15 @@ import static net.minecraft.init.Blocks.*;
 import static rtg.config.rtg.ConfigRTG.allowTreesToGenerateOnSand;
 
 class WorldGenTreeRTGDesertDead extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
-
     private int type;
+
 
     public WorldGenTreeRTGDesertDead(int t) {
         type = t;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

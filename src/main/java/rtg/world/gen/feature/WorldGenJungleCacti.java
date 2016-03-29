@@ -11,15 +11,9 @@ import java.util.Random;
 import static net.minecraft.init.Blocks.*;
 
 public class WorldGenJungleCacti extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
-
     private boolean sand;
     private byte sandByte;
     private int eHeight;
-
     public WorldGenJungleCacti(boolean sandOnly) {
         this(sandOnly, 0, (byte) 1);
     }
@@ -28,6 +22,10 @@ public class WorldGenJungleCacti extends WorldGenerator {
         sand = sandOnly;
         eHeight = extraHeight;
         sandByte = sandMeta;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

@@ -20,7 +20,7 @@ public class ConfigRTG {
     public static boolean enableRTGBiomeDecorations = true;
     public static boolean enableRTGBiomeSurfaces = true;
     public static int patchBiomeId = 1;
-    public static boolean useBOPLayouts = true;
+    public static int singleBiomeId = -1;
     
     /* ==================== Boulders ==================== */
 
@@ -186,13 +186,16 @@ public class ConfigRTG {
                             + Configuration.NEW_LINE
             );
 
-            useBOPLayouts = config.getBoolean(
-                    "Use BiomesOPlenty Biome layouts",
+            singleBiomeId = config.getInt(
+                    "Generate only this biome ID",
                     "Biomes",
-                    useBOPLayouts,
-                    "If set to false, this will use vanilla biome layouts, even if BOP is installed. That means no BOP biomes!" +
+                    singleBiomeId,
+                    -1, 255,
+                    "If you enter a biome ID here, the whole world will consist of only that biome (and rivers). Set to -1 to generate the world normally." +
                             Configuration.NEW_LINE +
-                            "If BOP isnt installed, this option does nothing" +
+                            "Vanilla biome IDs can be found here: http://goo.gl/WqlAfV" +
+                            Configuration.NEW_LINE +
+                            "For modded biome IDs, use NEI and go [Options] > [Tools] > [Data Dumps] > Biomes > [Dump], and then refer to the 'biome.csv' file which can be found in your '/.minecraft/dumps' folder." +
                             Configuration.NEW_LINE
             );
             

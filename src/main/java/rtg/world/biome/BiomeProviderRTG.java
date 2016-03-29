@@ -15,7 +15,6 @@ import rtg.util.noise.SimplexCellularNoise;
 import rtg.util.noise.SimplexOctave;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
-import rtg.world.gen.genlayer.GenLayersRTG;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +53,7 @@ public class BiomeProviderRTG extends BiomeProvider {
         simplex = new OpenSimplexNoise(seed);
         cell = new SimplexCellularNoise(seed);
         simplexCell = new SimplexCellularNoise(seed);
-        GenLayer[] agenlayer = GenLayersRTG.initializeAllBiomeGenerators(seed, worldType, par1World.getWorldInfo().getGeneratorOptions());
+        GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType, par1World.getWorldInfo().getGeneratorOptions());
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
         this.biomeIndexLayer = agenlayer[1];
@@ -180,9 +179,8 @@ public class BiomeProviderRTG extends BiomeProvider {
         return getBiomeDataAt(x, y).rNoise(simplex, cell, x, y, 1f, river);
     }
 
-    private static int[] incidences = new int[100];
+    private static int [] incidences = new int[100];
     private static int references = 0;
-
     private static double cellBorder(double[] results, double width, double depth) {
         double c = (results[1] - results[0]);
         /*int slot = (int)Math.floor(c*100.0);
@@ -203,7 +201,8 @@ public class BiomeProviderRTG extends BiomeProvider {
         }
     }
 
-    public float getRiverStrength(int x, int y) {
+    public float getRiverStrength(int x, int y)
+    {
         //New river curve function. No longer creates worldwide curve correlations along cardinal axes.
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();
         simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
@@ -217,7 +216,7 @@ public class BiomeProviderRTG extends BiomeProvider {
         //New cellular noise.
         //TODO move the initialization of the results in a way that's more efficient but still thread safe.
         double[] results = simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
-        if (x == -200 && y == -750) {
+        if (x==-200&&y == -750) {
             //throw new RuntimeException(""+ results[1]+ " " +results[0]);
         }
         return (float) cellBorder(results, 30.0 / 600.0, 1.0);

@@ -1,0 +1,384 @@
+tile.logOakEB.greatOak.name=Great Oak Wood
+tile.logOakEB.savannah.name=Thorntree Wood
+tile.logOakEB.poplar.name=Poplar Wood
+tile.logOakEB.mangrove.name=Mangrove Wood
+
+tile.logSpruceEB.fir.name=Fir Wood
+tile.logSpruceEB.cypress.name=Cypress Wood
+tile.logSpruceEB.pine.name=Pine Wood
+tile.logSpruceEB.silverPine.name=Silver Pine Wood
+
+tile.logBirchEB.alder.name=Alder Wood
+tile.logBirchEB.eucalyptus.name=Eucalyptus Wood
+tile.logBirchEB.aspen.name=Aspen Wood
+tile.logBirchEB.birchEB.name=BirchEB Wood
+
+tile.logJungleEB.baobab.name=Baobab Wood
+tile.logJungleEB.dead.name=Dead Wood
+tile.logJungleEB.cherry.name=Cherry Wood
+tile.logJungleEB.kapok.name=Kapok Wood
+
+
+tile.leavesOakEB_0.name=Great Oak Leaves
+tile.leavesOakEB_1.name=Thorntree Leaves
+tile.leavesOakEB_2.name=Poplar Leaves
+tile.leavesOakEB_3.name=Mangrove Leaves
+
+tile.leavesSpruceEB_0.name=Fir Leaves
+tile.leavesSpruceEB_1.name=Cypress Leaves
+tile.leavesSpruceEB_2.name=Pine Leaves
+tile.leavesSpruceEB_3.name=Silver Pine Leaves
+
+tile.leavesBirchEB_0.name=Alder Leaves
+tile.leavesBirchEB_1.name=Eucalyptus Leaves
+tile.leavesBirchEB_2.name=Aspen Leaves
+tile.leavesBirchEB_3.name=BirchEB Leaves
+
+tile.leavesJungleEB_0.name=Baobab Leaves
+tile.leavesJungleEB_1.name=Cherry Leaves
+tile.leavesJungleEB_2.name=Cherry Leaves
+tile.leavesJungleEB_3.name=Kapok Leaves
+
+
+tile.planksEB_0.name=Great Oak Wood Planks
+tile.planksEB_1.name=Thorntree Wood Planks
+tile.planksEB_2.name=Poplar Wood Planks
+tile.planksEB_3.name=Mangrove Wood Planks
+
+tile.planksEB_4.name=Fir Wood Planks
+tile.planksEB_5.name=Cypress Wood Planks
+tile.planksEB_6.name=Pine Wood Planks
+tile.planksEB_7.name=Silver Pine Wood Planks
+
+tile.planksEB_8.name=Alder Wood Planks
+tile.planksEB_9.name=Eucalyptus Wood Planks
+tile.planksEB_10.name=Aspen Wood Planks
+tile.planksEB_11.name=BirchEB Wood Planks
+
+tile.planksEB_12.name=Baobab Wood Planks
+tile.planksEB_13.name=Dead Wood Planks
+tile.planksEB_14.name=Cherry Wood Planks
+tile.planksEB_15.name=Kapok Wood Planks
+
+
+tile.stairsWoodEB0.name=Great Oak Wood Stairs
+tile.stairsWoodEB1.name=Thorntree Wood Stairs
+tile.stairsWoodEB2.name=Poplar Wood Stairs
+tile.stairsWoodEB3.name=Mangrove Wood Stairs
+
+tile.stairsWoodEB4.name=Fir Wood Stairs
+tile.stairsWoodEB5.name=Cypress Wood Stairs
+tile.stairsWoodEB6.name=Pine Wood Stairs
+tile.stairsWoodEB7.name=Silver Pine Wood Stairs
+
+tile.stairsWoodEB8.name=Alder Wood Stairs
+tile.stairsWoodEB9.name=Eucalyptus Wood Stairs
+tile.stairsWoodEB10.name=Aspen Wood Stairs
+tile.stairsWoodEB11.name=BirchEB Wood Stairs
+
+tile.stairsWoodEB12.name=Baobab Wood Stairs
+tile.stairsWoodEB13.name=Dead Wood Stairs
+tile.stairsWoodEB14.name=Cherry Wood Stairs
+tile.stairsWoodEB15.name=Kapok Wood Stairs
+
+
+tile.slab1EB_0.name=Great Oak Wood Slab
+tile.slab1EB_1.name=Thorntree Wood Slab
+tile.slab1EB_2.name=Poplar Wood Slab
+tile.slab1EB_3.name=Mangrove Wood Slab
+
+tile.slab1EB_4.name=Fir Wood Slab
+tile.slab1EB_5.name=Cypress Wood Slab
+tile.slab1EB_6.name=Pine Wood Slab
+tile.slab1EB_7.name=Silver Pine Wood Slab
+
+tile.slab2EB_0.name=Alder Wood Slab
+tile.slab2EB_1.name=Eucalyptus Wood Slab
+tile.slab2EB_2.name=Aspen Wood Slab
+tile.slab2EB_3.name=BirchEB Wood Slab
+
+tile.slab2EB_4.name=Baobab Wood Slab
+tile.slab2EB_5.name=Dead Wood Slab
+tile.slab2EB_6.name=Cherry Wood Slab
+tile.slab2EB_7.name=Kapok Wood Slab
+
+
+tile.saplingEB_0.name=Great Oak Sapling
+tile.saplingEB_1.name=Thorntree Sapling
+tile.saplingEB_2.name=Poplar Sapling
+tile.saplingEB_3.name=Mangrove Sapling
+
+tile.saplingEB_4.name=Fir Sapling
+tile.saplingEB_5.name=Cypress Sapling
+tile.saplingEB_6.name=Pine Sapling
+tile.saplingEB_7.name=Silver Pine Sapling
+
+tile.saplingEB_8.name=Alder Sapling
+tile.saplingEB_9.name=Eucalyptus Sapling
+tile.saplingEB_10.name=Aspen Sapling
+tile.saplingEB_11.name=BirchEB Sapling
+
+tile.saplingEB_12.name=Baobab Sapling
+tile.saplingEB_13.name=Dead Sapling
+tile.saplingEB_14.name=Cherry Sapling
+tile.saplingEB_15.name=Kapok Sapling
+
+
+tile.stoneEB_0.name=Basalt
+tile.stoneEB_1.name=Shale
+tile.stoneEB_2.name=Hardened Sandstone
+tile.stoneEB_3.name=Limestone
+tile.stoneEB_4.name=Slate
+tile.stoneEB_5.name=Rhyolite
+tile.stoneEB_6.name=Chalk
+tile.stoneEB_7.name=Marble
+tile.stoneEB_8.name=Dolomite
+tile.stoneEB_9.name=Schist
+tile.stoneEB_10.name=Chert
+tile.stoneEB_11.name=Gabbro
+tile.stoneEB_12.name=Dacite
+
+
+tile.stoneBrickEB_0.name=Basalt Bricks
+tile.stoneBrickEB_1.name=Shale Bricks
+tile.stoneBrickEB_2.name=Hardened Sandstone Bricks
+tile.stoneBrickEB_3.name=Limestone Bricks
+tile.stoneBrickEB_4.name=Slate Bricks
+tile.stoneBrickEB_5.name=Rhyolite Bricks
+tile.stoneBrickEB_6.name=Chalk Bricks
+tile.stoneBrickEB_7.name=Marble Bricks
+tile.stoneBrickEB_8.name=Dolomite Bricks
+tile.stoneBrickEB_9.name=Schist Bricks
+tile.stoneBrickEB_10.name=Chert Bricks
+tile.stoneBrickEB_11.name=Gabbro Bricks
+tile.stoneBrickEB_12.name=Dacite Bricks
+
+
+tile.stoneCobbleEB_0.name=Cobbled Basalt
+tile.stoneCobbleEB_1.name=Cobbled Shale
+tile.stoneCobbleEB_2.name=Cobbled Sandstone
+tile.stoneCobbleEB_3.name=Cobbled Limestone
+tile.stoneCobbleEB_4.name=Cobbled Slate
+tile.stoneCobbleEB_5.name=Cobbled Rhyolite
+tile.stoneCobbleEB_6.name=Cobbled Chalk
+tile.stoneCobbleEB_7.name=Cobbled Marble
+tile.stoneCobbleEB_8.name=Cobbled Dolomite
+tile.stoneCobbleEB_9.name=Cobbled Schist
+tile.stoneCobbleEB_10.name=Cobbled Chert
+tile.stoneCobbleEB_11.name=Cobbled Gabbro
+tile.stoneCobbleEB_12.name=Cobbled Dacite
+
+
+tile.oreGoldEB_0.name=Gold Ore
+tile.oreGoldEB_1.name=Gold Ore
+tile.oreGoldEB_2.name=Gold Ore
+tile.oreGoldEB_3.name=Gold Ore
+tile.oreGoldEB_4.name=Gold Ore
+tile.oreGoldEB_5.name=Gold Ore
+tile.oreGoldEB_6.name=Gold Ore
+tile.oreGoldEB_7.name=Gold Ore
+tile.oreGoldEB_8.name=Gold Ore
+tile.oreGoldEB_9.name=Gold Ore
+tile.oreGoldEB_10.name=Gold Ore
+tile.oreGoldEB_11.name=Gold Ore
+tile.oreGoldEB_12.name=Gold Ore
+
+
+tile.oreIronEB_0.name=Iron Ore
+tile.oreIronEB_1.name=Iron Ore
+tile.oreIronEB_2.name=Iron Ore
+tile.oreIronEB_3.name=Iron Ore
+tile.oreIronEB_4.name=Iron Ore
+tile.oreIronEB_5.name=Iron Ore
+tile.oreIronEB_6.name=Iron Ore
+tile.oreIronEB_7.name=Iron Ore
+tile.oreIronEB_8.name=Iron Ore
+tile.oreIronEB_9.name=Iron Ore
+tile.oreIronEB_10.name=Iron Ore
+tile.oreIronEB_11.name=Iron Ore
+tile.oreIronEB_12.name=Iron Ore
+
+
+tile.oreCoalEB_0.name=Coal Ore
+tile.oreCoalEB_1.name=Coal Ore
+tile.oreCoalEB_2.name=Coal Ore
+tile.oreCoalEB_3.name=Coal Ore
+tile.oreCoalEB_4.name=Coal Ore
+tile.oreCoalEB_5.name=Coal Ore
+tile.oreCoalEB_6.name=Coal Ore
+tile.oreCoalEB_7.name=Coal Ore
+tile.oreCoalEB_8.name=Coal Ore
+tile.oreCoalEB_9.name=Coal Ore
+tile.oreCoalEB_10.name=Coal Ore
+tile.oreCoalEB_11.name=Coal Ore
+tile.oreCoalEB_12.name=Coal Ore
+
+
+tile.oreLapisEB_0.name=Lapis Lazuli Ore
+tile.oreLapisEB_1.name=Lapis Lazuli Ore
+tile.oreLapisEB_2.name=Lapis Lazuli Ore
+tile.oreLapisEB_3.name=Lapis Lazuli Ore
+tile.oreLapisEB_4.name=Lapis Lazuli Ore
+tile.oreLapisEB_5.name=Lapis Lazuli Ore
+tile.oreLapisEB_6.name=Lapis Lazuli Ore
+tile.oreLapisEB_7.name=Lapis Lazuli Ore
+tile.oreLapisEB_8.name=Lapis Lazuli Ore
+tile.oreLapisEB_9.name=Lapis Lazuli Ore
+tile.oreLapisEB_10.name=Lapis Lazuli Ore
+tile.oreLapisEB_11.name=Lapis Lazuli Ore
+tile.oreLapisEB_12.name=Lapis Lazuli Ore
+
+
+tile.oreRedstoneEB_0.name=Redstone Ore
+tile.oreRedstoneEB_1.name=Redstone Ore
+tile.oreRedstoneEB_2.name=Redstone Ore
+tile.oreRedstoneEB_3.name=Redstone Ore
+tile.oreRedstoneEB_4.name=Redstone Ore
+tile.oreRedstoneEB_5.name=Redstone Ore
+tile.oreRedstoneEB_6.name=Redstone Ore
+tile.oreRedstoneEB_7.name=Redstone Ore
+tile.oreRedstoneEB_8.name=Redstone Ore
+tile.oreRedstoneEB_9.name=Redstone Ore
+tile.oreRedstoneEB_10.name=Redstone Ore
+tile.oreRedstoneEB_11.name=Redstone Ore
+tile.oreRedstoneEB_12.name=Redstone Ore
+
+
+tile.oreDiamondEB_0.name=Diamond Ore
+tile.oreDiamondEB_1.name=Diamond Ore
+tile.oreDiamondEB_2.name=Diamond Ore
+tile.oreDiamondEB_3.name=Diamond Ore
+tile.oreDiamondEB_4.name=Diamond Ore
+tile.oreDiamondEB_5.name=Diamond Ore
+tile.oreDiamondEB_6.name=Diamond Ore
+tile.oreDiamondEB_7.name=Diamond Ore
+tile.oreDiamondEB_8.name=Diamond Ore
+tile.oreDiamondEB_9.name=Diamond Ore
+tile.oreDiamondEB_10.name=Diamond Ore
+tile.oreDiamondEB_11.name=Diamond Ore
+tile.oreDiamondEB_12.name=Diamond Ore
+
+
+tile.oreEmeraldEB_0.name=Emerald Ore
+tile.oreEmeraldEB_1.name=Emerald Ore
+tile.oreEmeraldEB_2.name=Emerald Ore
+tile.oreEmeraldEB_3.name=Emerald Ore
+tile.oreEmeraldEB_4.name=Emerald Ore
+tile.oreEmeraldEB_5.name=Emerald Ore
+tile.oreEmeraldEB_6.name=Emerald Ore
+tile.oreEmeraldEB_7.name=Emerald Ore
+tile.oreEmeraldEB_8.name=Emerald Ore
+tile.oreEmeraldEB_9.name=Emerald Ore
+tile.oreEmeraldEB_10.name=Emerald Ore
+tile.oreEmeraldEB_11.name=Emerald Ore
+tile.oreEmeraldEB_12.name=Emerald Ore
+
+
+tile.slabSEB_0.name=Basalt Slab
+tile.slabSEB_1.name=Shale Slab
+tile.slabSEB_2.name=Hardened Sandstone Slab
+tile.slabSEB_3.name=Limestone Slab
+tile.slabSEB_4.name=Slate Slab
+tile.slabSEB_5.name=Rhyolite Slab
+tile.slabSEB2_0.name=Chalk Slab
+tile.slabSEB2_1.name=Marble Slab
+tile.slabSEB2_2.name=Dolomite Slab
+tile.slabSEB2_3.name=Schist Slab
+tile.slabSEB2_4.name=Chert Slab
+tile.slabSEB2_5.name=Gabbro Slab
+tile.slabSEB2_6.name=Dacite Slab
+
+
+tile.slabSEBB_0.name=Basalt Bricks Slab
+tile.slabSEBB_1.name=Shale Bricks Slab
+tile.slabSEBB_2.name=Hardened Sandstone Bricks Slab
+tile.slabSEBB_3.name=Limestone Bricks Slab
+tile.slabSEBB_4.name=Slate Bricks Slab
+tile.slabSEBB_5.name=Rhyolite Bricks Slab
+tile.slabSEBB2_0.name=Chalk Bricks Slab
+tile.slabSEBB2_1.name=Marble Bricks Slab
+tile.slabSEBB2_2.name=Dolomite Bricks Slab
+tile.slabSEBB2_3.name=Schist Bricks Slab
+tile.slabSEBB2_4.name=Chert Bricks Slab
+tile.slabSEBB2_5.name=Gabbro Bricks Slab
+tile.slabSEBB2_6.name=Dacite Bricks Slab
+
+
+tile.slabSCEB_0.name=Cobbled Basalt Slab
+tile.slabSCEB_1.name=Cobbled Shale Slab
+tile.slabSCEB_2.name=Cobbled Sandstone Slab
+tile.slabSCEB_3.name=Cobbled Limestone Slab
+tile.slabSCEB_4.name=Cobbled Slate Slab
+tile.slabSCEB_5.name=Cobbled Rhyolite Slab
+tile.slabSCEB2_0.name=Cobbled Chalk Slab
+tile.slabSCEB2_1.name=Cobbled Marble Slab
+tile.slabSCEB2_2.name=Cobbled Dolomite Slab
+tile.slabSCEB2_3.name=Cobbled Schist Slab
+tile.slabSCEB2_4.name=Cobbled Chert Slab
+tile.slabSCEB2_5.name=Cobbled Gabbro Slab
+tile.slabSCEB2_6.name=Cobbled Dacite Slab
+
+
+tile.stairsSEBB0.name=Basalt Brick Stairs
+tile.stairsSEBB1.name=Shale Brick Stairs
+tile.stairsSEBB2.name=Hardened Sandstone Brick Stairs
+tile.stairsSEBB3.name=Limestone Brick Stairs
+tile.stairsSEBB4.name=Slate Brick Stairs
+tile.stairsSEBB5.name=Rhyolite Brick Stairs
+tile.stairsSEBB6.name=Cobbled Chalk Stairs
+tile.stairsSEBB7.name=Cobbled Marble Stairs
+tile.stairsSEBB8.name=Cobbled Dolomite Stairs
+tile.stairsSEBB9.name=Cobbled Schist Stairs
+tile.stairsSEBB10.name=Cobbled Chert Stairs
+tile.stairsSEBB11.name=Cobbled Gabbro Stairs
+tile.stairsSEBB12.name=Cobbled Dacite Stairs
+
+
+tile.stairsSCEB0.name=Cobbled Basalt Stairs
+tile.stairsSCEB1.name=Cobbled Shale Stairs
+tile.stairsSCEB2.name=Cobbled Sandstone Stairs
+tile.stairsSCEB3.name=Cobbled Limestone Stairs
+tile.stairsSCEB4.name=Cobbled Slate Stairs
+tile.stairsSCEB5.name=Cobbled Rhyolite Stairs
+tile.stairsSCEB6.name=Cobbled Chalk Stairs
+tile.stairsSCEB7.name=Cobbled Marble Stairs
+tile.stairsSCEB8.name=Cobbled Dolomite Stairs
+tile.stairsSCEB9.name=Cobbled Schist Stairs
+tile.stairsSCEB10.name=Cobbled Chert Stairs
+tile.stairsSCEB11.name=Cobbled Gabbro Stairs
+tile.stairsSCEB12.name=Cobbled Dacite Stairs
+
+
+tile.dirtEB_0.name=Alfisol
+tile.dirtEB_1.name=Andisol
+tile.dirtEB_3.name=Gelisol
+tile.dirtEB_4.name=Histosol
+tile.dirtEB_5.name=Inceptisol
+tile.dirtEB_6.name=Mollisol
+tile.dirtEB_7.name=Oxisol
+
+
+tile.grassEB_0.name=Alfisol Grass Block
+tile.grassEB_1.name=Andisol Grass Block
+tile.grassEB_3.name=Gelisol Grass Block
+tile.grassEB_4.name=Histosol Grass Block
+tile.grassEB_5.name=Inceptisol Grass Block
+tile.grassEB_6.name=Mollisol Grass Block
+tile.grassEB_7.name=Oxisol Grass Block
+
+
+tile.shoji.name=Shoji
+tile.shojiLamp.name=Andon
+
+
+tile.saguaroSapling.name=Saguaro
+item.saguaroFruit.name=Saguaro Fruit
+
+
+tile.util.name=DO NOT USE THIS BLOCK. TELL SMEZ1234 THAT HE STUFFED UP.
+
+
+itemGroup.enhancedBiomesOrganic=Enhanced Biomes - Organic
+itemGroup.enhancedBiomesMineral=Enhanced Biomes - Mineral
+generator.typeEB=Enhanced Biomes
+generator.typeOneBiome=Single Biome

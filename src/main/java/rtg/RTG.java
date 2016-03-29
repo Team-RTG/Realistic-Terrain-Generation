@@ -21,13 +21,13 @@ import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
-
 import java.util.ArrayList;
+import static rtg.reference.ModInfo.*;
 
-@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, acceptableRemoteVersions = "*")
+@Mod(modid = MOD_ID, name = MOD_NAME, version = MOD_VERSION, dependencies = "required-after:Forge@[" + FORGE_DEP + ",)", acceptableRemoteVersions = "*")
 public class RTG {
-    
-    @Instance("RTG")
+
+    @Instance(MOD_ID)
     public static RTG instance;
     public static String configPath;
     public static WorldTypeRTG worldtype;

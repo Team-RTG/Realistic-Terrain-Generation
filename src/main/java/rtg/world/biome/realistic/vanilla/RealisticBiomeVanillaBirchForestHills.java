@@ -35,6 +35,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
 			new TerrainVanillaBirchForestHills(),
 			new SurfaceVanillaBirchForestHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.10f)
 		);
+        this.noLakes=true;
 	}
 	
     @Override

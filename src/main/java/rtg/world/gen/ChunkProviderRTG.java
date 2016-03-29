@@ -30,7 +30,7 @@ import rtg.config.rtg.ConfigRTG;
 import rtg.util.CanyonColour;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.VoronoiCellNoise;
+import rtg.util.SimplexCellularNoise;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.WorldChunkManagerRTG;
@@ -101,7 +101,7 @@ public class ChunkProviderRTG implements IChunkProvider
         worldHeight = worldObj.provider.getActualHeight();
         rand = new Random(l);
         simplex = new OpenSimplexNoise(l);
-        cell = new VoronoiCellNoise(l);
+        cell = new SimplexCellularNoise(l);
 
     	mapRand = new Random(l);
     	worldSeed = l;
@@ -154,7 +154,7 @@ public class ChunkProviderRTG implements IChunkProvider
     	hugeRender = new float[81][256];
     	smallRender = new float[625][256];
     	testHeight = new float[256];
-    	biomesGeneratedInChunk = new float[257];
+    	biomesGeneratedInChunk = new float[256];
     	borderNoise = new float[256];
     	biomePatcher = new RealisticBiomePatcher();
     	
@@ -493,7 +493,7 @@ public class ChunkProviderRTG implements IChunkProvider
 
     			if(locationIndex == centerLocationIndex)
     			{
-	    			biomesGeneratedInChunk[256] = river;
+	    			//biomesGeneratedInChunk[256] = river;
     			}
 
     			for(k = 0; k < 256; k++)
@@ -514,7 +514,7 @@ public class ChunkProviderRTG implements IChunkProvider
     	    				biomesGeneratedInChunk[k] = smallRender[centerLocationIndex][k];
     	    			}
 
-    					testHeight[i * 16 + j] += cmr.calculateRiver(x + i, y + j, river, RealisticBiomeBase.getBiome(k).rNoise(simplex, cell, x + i, y + j, smallRender[locationIndex][k], river + 1f)) * smallRender[locationIndex][k];
+    					testHeight[i * 16 + j] += RealisticBiomeBase.getBiome(k).rNoise(simplex, cell, x + i, y + j, smallRender[locationIndex][k], river + 1f) * smallRender[locationIndex][k];
     				}
     			}
     		}
@@ -672,6 +672,10 @@ public class ChunkProviderRTG implements IChunkProvider
             
             if (ConfigRTG.generateScatteredFeatures) {
                 scatteredFeatureGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
+            }
+
+            if (ConfigRTG.generateOceanMonuments) {
+                oceanMonumentGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
             }
         }
         

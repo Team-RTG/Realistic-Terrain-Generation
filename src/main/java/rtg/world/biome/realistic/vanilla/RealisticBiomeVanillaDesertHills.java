@@ -36,8 +36,9 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
                 new SurfaceVanillaDesertHills(config, Blocks.sand.getDefaultState(), Blocks.sandstone.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f)
         );
         this.waterSurfaceLakeChance = 0;
-    }
-
+        this.noLakes=true;
+	}
+	
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
     {

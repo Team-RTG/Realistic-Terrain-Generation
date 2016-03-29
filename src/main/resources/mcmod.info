@@ -1,30 +1,14 @@
-[
-{
-    "modid": "RTG",
-    "name": "Realistic Terrain Generation",
-    "description": "Adds a new world type which generates realistic terrain for Overworld biomes.",
-    "version": "${version}",
-    "mcversion": "${mcversion}",
-    "url": "https://github.com/Team-RTG/1.8.9-Realistic-Terrain-Generation",
-    "updateUrl": "",
-    "authorList": [ "WhichOnesPink" ],
-    "credits": "Forked from the RWG mod by Ted80. OpenSimplex Noise by KdotJPEG",
-    "logoFile": "assets/RTG/logo.png",
-    "screenshots": [],
-    "parent": "",
-    "requiredMods": [ "Forge@[11.14.3.1468,)" ],
-    "dependencies": [
-        "BiomesOPlenty@[3.0.0.1924,)",
-    ],
-    "dependants": [],
-    "useDependencyInformation": true
-}
-]
-
-
-
-
-
-
-
-
+[{
+  "modid": "${modid}",
+  "name": "${name}",
+  "description": "${description}",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "${url}",
+  "updateUrl": "",
+  "authorList": [${authorList}],
+  "credits": "${credits}",
+  "logoFile": "${logoFile}",
+  "screenshots": [],
+  "dependencies": [${dependencies}]
+}]

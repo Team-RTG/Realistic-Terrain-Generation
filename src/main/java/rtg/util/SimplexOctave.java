@@ -346,12 +346,12 @@ public class SimplexOctave {
         }
     }
 
-    public static class Jitter2D extends DataStore {
+    public static class Derivative extends DataStore {
         private final DataRequest request;
         private double deltax;
         private double deltay;
 
-        public Jitter2D() {
+        public Derivative() {
             super();
             request = new Request();
         }

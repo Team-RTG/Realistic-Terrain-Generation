@@ -38,6 +38,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase
             BiomeGenBase.river,
             new TerrainVanillaSavannaM(),
             new SurfaceVanillaSavannaM(config, topBlock, fillerBlock));
+        this.noLakes=true;
     }
     
     @Override

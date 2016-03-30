@@ -30,9 +30,9 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
     public static IBlockState topBlock = Biomes.jungleHills.topBlock;
     public static IBlockState fillerBlock = Biomes.jungleHills.fillerBlock;
 
-    public RealisticBiomeVanillaJungleHills(BiomeConfig config) {
+    public RealisticBiomeVanillaJungleHills() {
 
-        super(config,
+        super(
                 Biomes.jungleHills,
                 Biomes.river,
                 new TerrainVanillaJungleHills(),

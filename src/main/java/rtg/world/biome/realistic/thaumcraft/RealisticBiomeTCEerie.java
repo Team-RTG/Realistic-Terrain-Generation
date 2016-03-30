@@ -8,7 +8,7 @@ import rtg.world.gen.terrain.thaumcraft.TerrainTCEerie;
 
 public class RealisticBiomeTCEerie extends RealisticBiomeTCBase {
     public RealisticBiomeTCEerie(BiomeGenBase tcBiome, BiomeConfig config) {
-        super(config,
+        super(
                 tcBiome, Biomes.river,
                 new TerrainTCEerie(),
                 new SurfaceTCEerie(config, tcBiome.topBlock, tcBiome.fillerBlock)

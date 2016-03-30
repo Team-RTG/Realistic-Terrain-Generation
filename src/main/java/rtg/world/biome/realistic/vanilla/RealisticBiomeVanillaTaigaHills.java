@@ -28,9 +28,9 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = Biomes.taigaHills.topBlock;
     public static IBlockState fillerBlock = Biomes.taigaHills.fillerBlock;
 
-    public RealisticBiomeVanillaTaigaHills(BiomeConfig config) {
+    public RealisticBiomeVanillaTaigaHills() {
 
-        super(config,
+        super(
                 Biomes.taigaHills,
                 Biomes.river,
                 new TerrainVanillaTaigaHills(),

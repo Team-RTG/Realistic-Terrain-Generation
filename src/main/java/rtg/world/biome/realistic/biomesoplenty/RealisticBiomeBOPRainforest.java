@@ -14,8 +14,8 @@ public class RealisticBiomeBOPRainforest extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPRainforest(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPRainforest() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPRainforest(90f, 300f),
                 new SurfaceBOPRainforest(config, topBlock, fillerBlock, false, null, 1.3f)

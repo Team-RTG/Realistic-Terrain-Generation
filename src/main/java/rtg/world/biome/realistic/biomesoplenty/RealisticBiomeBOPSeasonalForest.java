@@ -25,8 +25,8 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPSeasonalForest(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPSeasonalForest() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPSeasonalForest(0f, 80f, 68f, 170f),
                 new SurfaceBOPSeasonalForest(config,

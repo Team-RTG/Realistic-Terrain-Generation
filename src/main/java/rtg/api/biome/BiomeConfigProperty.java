@@ -39,7 +39,7 @@ public enum BiomeConfigProperty implements ConfigProperty.IPropertyEnum {
         return this.type;
     }
 
-    public ConfigProperty getProperty() {
+    public ConfigProperty get() {
         return prop;
     }
 }

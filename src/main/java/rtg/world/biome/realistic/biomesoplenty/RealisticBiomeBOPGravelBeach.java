@@ -14,8 +14,8 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPGravelBeach(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPGravelBeach() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPGravelBeach(),
                 new SurfaceBOPGravelBeach(

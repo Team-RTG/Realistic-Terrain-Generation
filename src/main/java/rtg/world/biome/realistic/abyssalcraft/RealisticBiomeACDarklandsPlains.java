@@ -10,7 +10,7 @@ public class RealisticBiomeACDarklandsPlains extends RealisticBiomeACBase {
 
     public RealisticBiomeACDarklandsPlains(BiomeGenBase acBiome, BiomeConfig config) {
 
-        super(config,
+        super(
                 acBiome, Biomes.river,
                 new TerrainACDarklandsPlains(),
                 new SurfaceACDarklandsPlains(config, acBiome.topBlock, acBiome.fillerBlock));

@@ -24,9 +24,9 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
     public static IBlockState topBlock = Biomes.extremeHillsPlus.topBlock;
     public static IBlockState fillerBlock = Biomes.extremeHillsPlus.fillerBlock;
 
-    public RealisticBiomeVanillaExtremeHillsPlus(BiomeConfig config) {
+    public RealisticBiomeVanillaExtremeHillsPlus() {
 
-        super(config,
+        super(
                 Biomes.extremeHillsPlus,
                 Biomes.river,
                 new TerrainVanillaExtremeHillsPlus(150f, 120f, 90f),

@@ -30,9 +30,9 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
     public static IBlockState topBlock = Biomes.roofedForest.topBlock;
     public static IBlockState fillerBlock = Biomes.roofedForest.fillerBlock;
 
-    public RealisticBiomeVanillaRoofedForest(BiomeConfig config) {
+    public RealisticBiomeVanillaRoofedForest() {
 
-        super(config,
+        super(
                 Biomes.roofedForest,
                 Biomes.river,
                 new TerrainVanillaRoofedForest(),

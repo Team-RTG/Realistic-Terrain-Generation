@@ -21,8 +21,8 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = Blocks.snow.getDefaultState();
     public static IBlockState fillerBlock = Blocks.snow.getDefaultState();
 
-    public RealisticBiomeVanillaIcePlains(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeVanillaIcePlains() {
+        super(
                 Biomes.icePlains,
                 Biomes.frozenRiver,
                 new TerrainVanillaIcePlains(),

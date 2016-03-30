@@ -14,8 +14,8 @@ public class RealisticBiomeBOPPrairie extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPPrairie(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPPrairie() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPPrairie(65f, 80f, 25f),
                 new SurfaceBOPPrairie(config, topBlock, fillerBlock)

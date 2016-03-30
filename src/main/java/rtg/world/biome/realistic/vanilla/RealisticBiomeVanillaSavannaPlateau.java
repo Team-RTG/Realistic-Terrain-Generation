@@ -23,9 +23,9 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
     public static IBlockState topBlock = Biomes.savannaPlateau.topBlock;
     public static IBlockState fillerBlock = Biomes.savannaPlateau.fillerBlock;
 
-    public RealisticBiomeVanillaSavannaPlateau(BiomeConfig config) {
+    public RealisticBiomeVanillaSavannaPlateau() {
 
-        super(config,
+        super(
                 Biomes.savannaPlateau,
                 Biomes.river,
                 new TerrainVanillaSavannaPlateau(true, 35f, 160f, 60f, 40f, 69f),

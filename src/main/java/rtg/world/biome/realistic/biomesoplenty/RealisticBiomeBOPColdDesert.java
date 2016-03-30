@@ -15,8 +15,8 @@ public class RealisticBiomeBOPColdDesert extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPColdDesert(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPColdDesert() {
+        super(
                 bopBiome, Biomes.frozenRiver,
                 new TerrainBOPColdDesert(),
                 new SurfaceBOPColdDesert(config,

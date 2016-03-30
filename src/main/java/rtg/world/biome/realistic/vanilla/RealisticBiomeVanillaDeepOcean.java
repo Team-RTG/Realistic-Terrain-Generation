@@ -12,9 +12,9 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = Biomes.deepOcean.topBlock;
     public static IBlockState fillerBlock = Biomes.deepOcean.fillerBlock;
 
-    public RealisticBiomeVanillaDeepOcean(BiomeConfig config) {
+    public RealisticBiomeVanillaDeepOcean() {
 
-        super(config,
+        super(
                 Biomes.deepOcean,
                 Biomes.river,
                 new TerrainVanillaDeepOcean(),

@@ -15,8 +15,8 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaSunflowerPlains(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeVanillaSunflowerPlains() {
+        super(
                 mutationBiome,
                 Biomes.river,
                 new TerrainVanillaSunflowerPlains(),

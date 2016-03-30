@@ -15,8 +15,8 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPChaparral(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPChaparral() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPChaparral(),
                 new SurfaceBOPChaparral(config, topBlock, fillerBlock, Blocks.sand.getDefaultState(), 26f, 0.35f)

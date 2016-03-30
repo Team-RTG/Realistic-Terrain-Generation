@@ -13,6 +13,7 @@ import rtg.api.biome.thaumcraft.config.BiomeConfigTCEerie;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCMagicalForest;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCTaintedLand;
 import rtg.api.biome.vanilla.config.*;
+import rtg.util.SupportedMod;
 
 import java.util.ArrayList;
 
@@ -173,8 +174,8 @@ public class BiomeConfigManager {
         BiomeConfigVanilla.biomeConfigVanillaMesaPlateauM = new BiomeConfigVanillaMesaPlateauM();
     }
 
-    public static void setBiomeConfigsFromUserConfigs(BiomeConfig[] biomeConfigs, Configuration config) {
-
+    public static void setBiomeConfigsFromUserConfigs(ISupportedMod mod, Configuration config) {
+        BiomeConfig[] biomeConfigs = mod.config.biomeConfigMap.values().toArray(new BiomeConfig[mod.config.biomeConfigMap.values().size()]);
         for (int i = 0; i < biomeConfigs.length; i++) {
 
             String categoryName = "biome." + biomeConfigs[i].modSlug + "." + biomeConfigs[i].biomeSlug;

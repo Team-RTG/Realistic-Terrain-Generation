@@ -21,8 +21,8 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaBirchForestHillsM(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeVanillaBirchForestHillsM() {
+        super(
                 mutationBiome,
                 Biomes.river,
                 new TerrainVanillaBirchForestHillsM(),

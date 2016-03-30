@@ -14,8 +14,8 @@ public class RealisticBiomeBOPXericShrubland extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPXericShrubland(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPXericShrubland() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPXericShrubland(),
                 new SurfaceBOPXericShrubland(config,

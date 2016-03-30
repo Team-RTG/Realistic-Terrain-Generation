@@ -14,8 +14,8 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPAlps(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPAlps() {
+        super(
                 bopBiome, Biomes.frozenRiver,
                 new TerrainBOPAlps(),
                 new SurfaceBOPAlps(config, topBlock, fillerBlock, false, null, 0.45f)

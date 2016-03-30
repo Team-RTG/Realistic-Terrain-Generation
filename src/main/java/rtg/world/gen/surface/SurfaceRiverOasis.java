@@ -12,7 +12,7 @@ import rtg.util.noise.OpenSimplexNoise;
 import java.util.Random;
 
 public class SurfaceRiverOasis extends SurfaceBase {
-    public SurfaceRiverOasis(BiomeConfig config) {
+    public SurfaceRiverOasis() {
         super(config, Blocks.grass, (byte) 0, Blocks.dirt, (byte) 0);
     }
 

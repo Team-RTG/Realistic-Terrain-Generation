@@ -14,8 +14,8 @@ public class RealisticBiomeBOPTundra extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPTundra(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPTundra() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPTundra(),
                 new SurfaceBOPTundra(config, topBlock, fillerBlock)

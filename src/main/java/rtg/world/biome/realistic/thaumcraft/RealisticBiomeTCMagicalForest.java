@@ -8,7 +8,7 @@ import rtg.world.gen.terrain.thaumcraft.TerrainTCMagicalForest;
 
 public class RealisticBiomeTCMagicalForest extends RealisticBiomeTCBase {
     public RealisticBiomeTCMagicalForest(BiomeGenBase tcBiome, BiomeConfig config) {
-        super(config,
+        super(
                 tcBiome, Biomes.river,
                 new TerrainTCMagicalForest(),
                 new SurfaceTCMagicalForest(config, tcBiome.topBlock, tcBiome.fillerBlock)

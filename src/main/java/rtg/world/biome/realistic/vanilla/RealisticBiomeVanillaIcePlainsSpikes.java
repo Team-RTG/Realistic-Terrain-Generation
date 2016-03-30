@@ -15,8 +15,8 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaIcePlainsSpikes(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeVanillaIcePlainsSpikes() {
+        super(
                 mutationBiome,
                 Biomes.frozenRiver,
                 new TerrainVanillaIcePlainsSpikes(),

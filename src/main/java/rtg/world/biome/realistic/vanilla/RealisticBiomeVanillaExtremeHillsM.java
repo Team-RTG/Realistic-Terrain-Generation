@@ -17,10 +17,9 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaExtremeHillsM(BiomeConfig config) {
+    public RealisticBiomeVanillaExtremeHillsM() {
 
-        super(config,
-                mutationBiome,
+        super( mutationBiome,
                 Biomes.river,
                 new TerrainVanillaExtremeHillsM(10f, 140f, 68f, 200f),
                 new SurfaceVanillaExtremeHillsM(config, topBlock, fillerBlock, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), 60f,

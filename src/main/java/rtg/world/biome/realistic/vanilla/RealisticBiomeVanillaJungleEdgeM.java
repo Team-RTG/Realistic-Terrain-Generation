@@ -24,9 +24,9 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaJungleEdgeM(BiomeConfig config) {
+    public RealisticBiomeVanillaJungleEdgeM() {
 
-        super(config,
+        super(
                 mutationBiome,
                 Biomes.river,
                 new TerrainVanillaJungleEdgeM(),

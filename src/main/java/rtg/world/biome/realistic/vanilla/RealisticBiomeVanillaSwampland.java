@@ -25,9 +25,9 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = Biomes.swampland.topBlock;
     public static IBlockState fillerBlock = Biomes.swampland.fillerBlock;
 
-    public RealisticBiomeVanillaSwampland(BiomeConfig config) {
+    public RealisticBiomeVanillaSwampland() {
 
-        super(config,
+        super(
                 Biomes.swampland,
                 Biomes.river,
                 new TerrainVanillaSwampland(),

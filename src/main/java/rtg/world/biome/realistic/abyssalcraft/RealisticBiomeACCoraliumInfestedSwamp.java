@@ -10,7 +10,7 @@ public class RealisticBiomeACCoraliumInfestedSwamp extends RealisticBiomeACBase 
 
     public RealisticBiomeACCoraliumInfestedSwamp(BiomeGenBase acBiome, BiomeConfig config) {
 
-        super(config,
+        super(
                 acBiome,
                 Biomes.river,
                 new TerrainACCoraliumInfestedSwamp(),

@@ -14,8 +14,8 @@ public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPTropicalRainforest(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPTropicalRainforest() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPTropicalRainforest(0f, 140f, 68f, 200f),
                 new SurfaceBOPTropicalRainforest(config, topBlock, fillerBlock)

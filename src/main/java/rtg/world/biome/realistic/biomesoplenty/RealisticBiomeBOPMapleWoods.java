@@ -23,8 +23,8 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPMapleWoods(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPMapleWoods() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPMapleWoods(58f, 80f, 30f),
                 new SurfaceBOPMapleWoods(config, topBlock, fillerBlock)

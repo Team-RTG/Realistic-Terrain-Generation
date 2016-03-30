@@ -32,8 +32,8 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPLandOfLakes(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPLandOfLakes() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPLandOfLakes(58f, 76f, 36f),
                 new SurfaceBOPLandOfLakes(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone.getDefaultState(), 0.10f)

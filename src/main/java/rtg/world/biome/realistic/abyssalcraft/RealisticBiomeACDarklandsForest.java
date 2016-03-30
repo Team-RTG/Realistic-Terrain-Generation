@@ -24,7 +24,7 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
 
     public RealisticBiomeACDarklandsForest(BiomeGenBase acBiome, BiomeConfig config) {
 
-        super(config,
+        super(
                 acBiome,
                 Biomes.river,
                 new TerrainACDarklandsForest(),

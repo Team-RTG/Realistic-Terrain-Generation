@@ -15,8 +15,8 @@ public class RealisticBiomeBOPBorealForest extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPBorealForest(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPBorealForest() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPBorealForest(),
                 new SurfaceBOPBorealForest(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.15f)

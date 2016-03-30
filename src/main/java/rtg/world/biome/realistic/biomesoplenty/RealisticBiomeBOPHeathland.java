@@ -23,8 +23,8 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPHeathland(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPHeathland() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPHeathland(),
                 new SurfaceBOPHeathland(config, topBlock, fillerBlock)

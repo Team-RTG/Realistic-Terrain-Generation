@@ -25,8 +25,8 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = BOPBlocks.grass.getDefaultState();
     public static IBlockState fillerBlock = BOPBlocks.dirt.getDefaultState();
 
-    public RealisticBiomeBOPOminousWoods(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPOminousWoods() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPOminousWoods(65f, 80f, 48f),
                 new SurfaceBOPOminousWoods(config, topBlock, fillerBlock)

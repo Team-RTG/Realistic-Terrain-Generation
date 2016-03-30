@@ -28,8 +28,8 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
     private float lakeInterval = 80;
 
-    public RealisticBiomeBOPShield(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPShield() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPShield(0f, 100f, 68f, 170f),
                 new SurfaceBOPShield(config, topBlock, fillerBlock)

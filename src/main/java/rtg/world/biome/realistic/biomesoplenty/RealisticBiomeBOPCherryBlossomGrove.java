@@ -26,8 +26,8 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPCherryBlossomGrove(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPCherryBlossomGrove() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPCherryBlossomGrove(58f, 76f, 20f),
                 new SurfaceBOPCherryBlossomGrove(config,

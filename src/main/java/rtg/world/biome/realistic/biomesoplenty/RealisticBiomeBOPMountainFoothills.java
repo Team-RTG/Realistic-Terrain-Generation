@@ -26,8 +26,8 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPMountainFoothills(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPMountainFoothills() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPMountainFoothills(),
                 new SurfaceBOPMountainFoothills(config,

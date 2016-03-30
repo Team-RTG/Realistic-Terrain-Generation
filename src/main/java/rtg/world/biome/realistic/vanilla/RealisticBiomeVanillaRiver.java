@@ -12,8 +12,8 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = vanillaBiome.topBlock;
     public static IBlockState fillerBlock = vanillaBiome.fillerBlock;
 
-    public RealisticBiomeVanillaRiver(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeVanillaRiver() {
+        super(
                 vanillaBiome,
                 Biomes.river,
                 new TerrainVanillaRiver(),

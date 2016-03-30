@@ -21,9 +21,9 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaColdTaigaM(BiomeConfig config) {
+    public RealisticBiomeVanillaColdTaigaM() {
 
-        super(config,
+        super(
                 mutationBiome,
                 Biomes.frozenRiver,
                 new TerrainVanillaColdTaigaM(),

@@ -15,8 +15,8 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = BOPBlocks.grass.getDefaultState();
     public static IBlockState fillerBlock = BOPBlocks.dirt.getDefaultState();
 
-    public RealisticBiomeBOPMoor(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPMoor() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPMoor(73f, 79f, 32f),
                 new SurfaceBOPMoor(config, topBlock, fillerBlock)

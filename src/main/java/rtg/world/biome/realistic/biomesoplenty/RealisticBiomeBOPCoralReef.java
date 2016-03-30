@@ -14,8 +14,8 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPCoralReef(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPCoralReef() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPCoralReef(false, -10f, 0f, 0f, 0f, 30f),
                 new SurfaceBOPCoralReef(config, topBlock, fillerBlock)

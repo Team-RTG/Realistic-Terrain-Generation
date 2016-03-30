@@ -15,8 +15,8 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPOutback(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPOutback() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPOutback(65f, 50f, 10f),
                 new SurfaceBOPOutback(config,

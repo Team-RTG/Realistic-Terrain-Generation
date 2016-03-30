@@ -32,9 +32,9 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaRedwoodTaigaHills(BiomeConfig config) {
+    public RealisticBiomeVanillaRedwoodTaigaHills() {
 
-        super(config,
+        super(
                 mutationBiome,
                 Biomes.river,
                 new TerrainVanillaRedwoodTaigaHills(),

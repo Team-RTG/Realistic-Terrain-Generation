@@ -19,8 +19,8 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
     private double lakeWaterLevel = 0.04;// the lakeStrenght below which things should be below ater
     private double lakeDepressionLevel = 0.3;// the lakeStrength below which land should start to be lowered
 
-    public RealisticBiomeBOPBayou(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPBayou() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPBayou(),
                 new SurfaceBOPBayou(config, topBlock, fillerBlock)

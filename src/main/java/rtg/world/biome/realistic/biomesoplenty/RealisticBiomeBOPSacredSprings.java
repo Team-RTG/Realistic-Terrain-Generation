@@ -14,8 +14,8 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPSacredSprings(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPSacredSprings() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPSacredSprings(150f, 60f, 68f),
                 new SurfaceBOPSacredSprings(config, topBlock, fillerBlock)

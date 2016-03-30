@@ -30,9 +30,9 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaDesertM(BiomeConfig config) {
+    public RealisticBiomeVanillaDesertM() {
 
-        super(config,
+        super(
                 mutationBiome,
                 Biomes.river,
                 new TerrainVanillaDesertM(10f, 140f, 68f, 200f),

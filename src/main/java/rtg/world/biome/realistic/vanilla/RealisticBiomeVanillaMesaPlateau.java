@@ -20,9 +20,9 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
     public static IBlockState topBlock = Biomes.mesaPlateau.topBlock;
     public static IBlockState fillerBlock = Biomes.mesaPlateau.fillerBlock;
 
-    public RealisticBiomeVanillaMesaPlateau(BiomeConfig config) {
+    public RealisticBiomeVanillaMesaPlateau() {
 
-        super(config,
+        super(
                 Biomes.mesaPlateau,
                 Biomes.river,
                 new TerrainVanillaMesaPlateau(true, 35f, 160f, 60f, 40f, 69f),

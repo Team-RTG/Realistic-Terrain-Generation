@@ -15,8 +15,8 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = BOPBlocks.grass.getDefaultState();
     public static IBlockState fillerBlock = BOPBlocks.dirt.getDefaultState();
 
-    public RealisticBiomeBOPDeadSwamp(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPDeadSwamp() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPDeadSwamp(),
                 new SurfaceBOPDeadSwamp(config, topBlock, fillerBlock)

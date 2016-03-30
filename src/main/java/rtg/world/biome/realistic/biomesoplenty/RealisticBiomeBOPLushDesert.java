@@ -30,8 +30,8 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPLushDesert(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPLushDesert() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPLushDesert(65f, 40f, 10f),
                 new SurfaceBOPLushDesert(config,

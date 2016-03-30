@@ -25,8 +25,8 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPEucalyptusForest(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPEucalyptusForest() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPEucalyptusForest(),//(58f, 80f, 36f),
                 new SurfaceBOPEucalyptusForest(config,

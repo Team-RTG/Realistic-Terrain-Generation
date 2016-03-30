@@ -14,8 +14,8 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPQuagmire(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPQuagmire() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPQuagmire(),
                 new SurfaceBOPQuagmire(config, topBlock, fillerBlock)

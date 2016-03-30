@@ -27,9 +27,9 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = Biomes.mesa.topBlock;
     public static IBlockState fillerBlock = Biomes.mesa.fillerBlock;
 
-    public RealisticBiomeVanillaMesa(BiomeConfig config) {
+    public RealisticBiomeVanillaMesa() {
 
-        super(config,
+        super(
                 Biomes.mesa,
                 Biomes.river,
                 new TerrainVanillaMesa(),

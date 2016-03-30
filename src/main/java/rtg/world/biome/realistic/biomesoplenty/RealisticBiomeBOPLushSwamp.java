@@ -25,8 +25,8 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPLushSwamp(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPLushSwamp() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPLushSwamp(),
                 new SurfaceBOPLushSwamp(config, topBlock, fillerBlock)

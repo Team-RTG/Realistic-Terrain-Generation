@@ -13,9 +13,9 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForest;
 
 public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaBirchForest(BiomeConfig config) {
+    public RealisticBiomeVanillaBirchForest() {
 
-        super(config,
+        super(
                 Biomes.birchForest,
                 Biomes.river,
                 new TerrainVanillaBirchForest(),

@@ -18,7 +18,7 @@ public class SurfaceRedDesert extends SurfaceBase {
     private IBlockState cliffBlock2;
     private IBlockState bottomBlock;
 
-    public SurfaceRedDesert(BiomeConfig config) {
+    public SurfaceRedDesert() {
         super(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1));
 
         bottomBlock = Blocks.sandstone.getDefaultState();

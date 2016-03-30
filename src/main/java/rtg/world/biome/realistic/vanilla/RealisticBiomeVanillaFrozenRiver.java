@@ -10,8 +10,8 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase 
     public static IBlockState topBlock = Biomes.frozenRiver.topBlock;
     public static IBlockState fillerBlock = Biomes.frozenRiver.fillerBlock;
 
-    public RealisticBiomeVanillaFrozenRiver(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeVanillaFrozenRiver() {
+        super(
                 Biomes.frozenRiver,
                 Biomes.frozenRiver,
                 new TerrainVanillaFrozenRiver(),

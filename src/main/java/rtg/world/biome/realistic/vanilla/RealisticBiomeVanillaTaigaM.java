@@ -32,9 +32,9 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaTaigaM(BiomeConfig config) {
+    public RealisticBiomeVanillaTaigaM() {
 
-        super(config,
+        super(
                 mutationBiome,
                 Biomes.river,
                 new TerrainVanillaTaigaM(70f, 180f, 7f, 100f, 38f, 160f, 68f),

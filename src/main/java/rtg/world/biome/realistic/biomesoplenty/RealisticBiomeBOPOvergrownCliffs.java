@@ -24,8 +24,8 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPOvergrownCliffs(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPOvergrownCliffs() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPOvergrownCliffs(300f, 100f, 0f),
                 new SurfaceBOPOvergrownCliffs(config, topBlock, fillerBlock, false, null, 0.95f)

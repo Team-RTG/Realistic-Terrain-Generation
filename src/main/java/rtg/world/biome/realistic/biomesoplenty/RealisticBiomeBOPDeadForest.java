@@ -26,8 +26,8 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPDeadForest(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPDeadForest() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPDeadForest(58f, 80f, 30f),
                 new SurfaceBOPDeadForest(config,

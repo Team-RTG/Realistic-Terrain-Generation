@@ -15,8 +15,8 @@ public class RealisticBiomeBOPBrushland extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPBrushland(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPBrushland() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPBrushland(),
                 new SurfaceBOPBrushland(config, topBlock, fillerBlock, Blocks.sand.getDefaultState(), 13f, 0.27f)

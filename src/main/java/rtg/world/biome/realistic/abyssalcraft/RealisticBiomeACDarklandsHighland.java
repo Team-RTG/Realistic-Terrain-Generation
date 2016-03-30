@@ -10,7 +10,7 @@ public class RealisticBiomeACDarklandsHighland extends RealisticBiomeACBase {
 
     public RealisticBiomeACDarklandsHighland(BiomeGenBase acBiome, BiomeConfig config) {
 
-        super(config,
+        super(
                 acBiome,
                 Biomes.river,
                 new TerrainACDarklandsHighland(10f, 120f, 68f, 200f),

@@ -8,7 +8,7 @@ import rtg.world.gen.terrain.thaumcraft.TerrainTCTaintedLand;
 
 public class RealisticBiomeTCTaintedLand extends RealisticBiomeTCBase {
     public RealisticBiomeTCTaintedLand(BiomeGenBase tcBiome, BiomeConfig config) {
-        super(config,
+        super(
                 tcBiome, Biomes.river,
                 new TerrainTCTaintedLand(),
                 new SurfaceTCTaintedLand(config, tcBiome.topBlock, tcBiome.fillerBlock)

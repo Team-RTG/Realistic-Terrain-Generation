@@ -31,9 +31,9 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaSavannaM(BiomeConfig config) {
+    public RealisticBiomeVanillaSavannaM() {
 
-        super(config,
+        super(
                 mutationBiome,
                 Biomes.river,
                 new TerrainVanillaSavannaM(),

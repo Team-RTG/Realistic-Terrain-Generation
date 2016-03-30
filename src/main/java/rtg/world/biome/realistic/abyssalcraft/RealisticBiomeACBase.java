@@ -20,7 +20,7 @@ public class RealisticBiomeACBase extends RealisticBiomeBase {
     public static RealisticBiomeBase acDarklandsPlains;
 
     public RealisticBiomeACBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
-        super(config, b, riverbiome, t, s);
+        super(b, riverbiome, t, s);
 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;

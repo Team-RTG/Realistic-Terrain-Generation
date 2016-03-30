@@ -14,8 +14,8 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPWoodland(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPWoodland() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPWoodland(0f, 65f, 72f, 120f),
                 new SurfaceBOPWoodland(config, topBlock, fillerBlock)

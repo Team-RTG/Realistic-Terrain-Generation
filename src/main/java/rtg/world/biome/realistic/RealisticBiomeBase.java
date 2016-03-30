@@ -3,7 +3,6 @@ package rtg.world.biome.realistic;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.state.pattern.BlockMatcher;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -18,6 +17,9 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.BiomeConfigProperty;
+import rtg.api.biome.ConfigProperty;
+import rtg.api.biome.ISupportedMod;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.math.RandomUtil;
 import rtg.util.noise.CellNoise;
@@ -35,7 +37,9 @@ import rtg.world.gen.terrain.TerrainBase;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static net.minecraft.init.Biomes.river;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CLAY;
+import static rtg.api.biome.BiomeConfigProperty.*;
 
 public class RealisticBiomeBase extends BiomeBase {
 
@@ -46,6 +50,7 @@ public class RealisticBiomeBase extends BiomeBase {
     public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;
     public BiomeConfig config;
+    public final ISupportedMod mod;
     public TerrainBase terrain;
     public SurfaceBase[] surfaces;
     public int surfacesLength;
@@ -69,19 +74,17 @@ public class RealisticBiomeBase extends BiomeBase {
     private double lakeWaterLevel = 0.0;// the lakeStrenght below which things should be below ater
     private double lakeDepressionLevel = 0.16;// the lakeStrength below which land should start to be lowered
 
-    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
+    public RealisticBiomeBase(ISupportedMod mod, BiomeGenBase biome) {
 
-        this(config, biome, Biomes.river);
+        this(mod, biome, river);
     }
 
-    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome, BiomeGenBase river) {
+    public RealisticBiomeBase(ISupportedMod mod, BiomeGenBase biome, BiomeGenBase river) {
 
         super(RealisticBiomeBase.getIdForBiome(biome));
 
-        if (config == null)
-            throw new RuntimeException("Biome config cannot be NULL when instantiating a realistic biome.");
+        this.mod = mod;
 
-        this.config = config;
         arrRealisticBiomeIds[RealisticBiomeBase.getIdForBiome(biome)] = this;
 
         baseBiome = biome;
@@ -116,24 +119,21 @@ public class RealisticBiomeBase extends BiomeBase {
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.allowed = false;
         this.decos.add(decoBaseBiomeDecorations);
+
+        this.config = mod.getConfig().setBiomeConfig(this.getClass(), initProperties());
+
     }
 
-    public static int getIdForBiome(BiomeGenBase biome) {
-        if (biome instanceof RealisticBiomeBase)
-            return BiomeGenBase.getIdForBiome(((RealisticBiomeBase) biome).baseBiome);
-        return BiomeGenBase.getIdForBiome(biome);
-    }
+    public RealisticBiomeBase(ISupportedMod mod, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
 
-    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
-
-        this(config, b, riverbiome, t, new SurfaceBase[] {s});
+        this(mod, b, riverbiome, t, new SurfaceBase[] {s});
 
         surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
     }
 
-    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s) {
+    public RealisticBiomeBase(ISupportedMod mod, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s) {
 
-        this(config, b, riverbiome);
+        this(mod, b, riverbiome);
 
         terrain = t;
 
@@ -144,6 +144,12 @@ public class RealisticBiomeBase extends BiomeBase {
     public static RealisticBiomeBase getBiome(int id) {
 
         return arrRealisticBiomeIds[id];
+    }
+
+    public static int getIdForBiome(BiomeGenBase biome) {
+        if (biome instanceof RealisticBiomeBase)
+            return BiomeGenBase.getIdForBiome(((RealisticBiomeBase) biome).baseBiome);
+        return BiomeGenBase.getIdForBiome(biome);
     }
 
     public void rPopulatePreDecorate(IChunkGenerator ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag) {
@@ -547,7 +553,7 @@ public class RealisticBiomeBase extends BiomeBase {
 
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
-        if (ConfigRTG.enableRTGBiomeSurfaces && this.config.getPropertyById(BiomeConfig.useRTGSurfacesId).valueBoolean) {
+        if (ConfigRTG.enableRTGBiomeSurfaces && this.config._boolean(BiomeConfigProperty.USE_RTG_SURFACES)) {
 
             for (int s = 0; s < surfacesLength; s++) {
 
@@ -648,5 +654,21 @@ public class RealisticBiomeBase extends BiomeBase {
             this.decos.add(deco);
             this.useNewDecorationSystem = true;
         }
+    }
+
+    /**
+     * This is how you choose which properties the biome uses.
+     * Should be overridden if a biome uses anything other than these defaults
+     * Is called from the constructor
+     * @return An array of ConfigProperties with defaults
+     */
+    public ConfigProperty[] initProperties() {
+        return new ConfigProperty[] {
+                ALLOW_VILLAGES.prop.setDefault(this.generateVillages),
+                USE_RTG_SURFACES.prop.setDefault(true), //TODO: is this used?
+                USE_RTG_DECORATIONS.prop.setDefault(true), //TODO: how about this?
+                SURFACE_TOP_BLOCK.prop.setDefault(this.topBlock),
+                SURFACE_FILLER_BLOCK.prop.setDefault(this.fillerBlock)
+        };
     }
 }

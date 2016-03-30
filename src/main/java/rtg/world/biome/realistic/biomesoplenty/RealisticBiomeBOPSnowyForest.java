@@ -25,8 +25,8 @@ public class RealisticBiomeBOPSnowyForest extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPSnowyForest(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPSnowyForest() {
+        super(
                 bopBiome, Biomes.frozenRiver,
                 new TerrainBOPSnowyForest(58f, 69f, 28f),
                 new SurfaceBOPSnowyForest(config,

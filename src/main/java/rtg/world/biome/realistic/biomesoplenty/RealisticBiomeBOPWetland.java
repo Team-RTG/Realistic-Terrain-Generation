@@ -15,8 +15,8 @@ public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = BOPBlocks.grass.getDefaultState();
     public static IBlockState fillerBlock = BOPBlocks.dirt.getDefaultState();
 
-    public RealisticBiomeBOPWetland(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPWetland() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPWetland(),
                 new SurfaceBOPWetland(config, topBlock, fillerBlock)

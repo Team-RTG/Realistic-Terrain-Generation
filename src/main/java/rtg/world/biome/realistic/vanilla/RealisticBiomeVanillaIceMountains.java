@@ -25,9 +25,9 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     public static IBlockState topBlock = Biomes.iceMountains.topBlock;
     public static IBlockState fillerBlock = Biomes.iceMountains.fillerBlock;
 
-    public RealisticBiomeVanillaIceMountains(BiomeConfig config) {
+    public RealisticBiomeVanillaIceMountains() {
 
-        super(config,
+        super(
                 Biomes.iceMountains,
                 Biomes.frozenRiver,
                 new TerrainVanillaIceMountains(230f, 80f, 0f),

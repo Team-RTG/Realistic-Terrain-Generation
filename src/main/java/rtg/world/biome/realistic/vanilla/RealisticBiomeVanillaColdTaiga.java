@@ -17,9 +17,9 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = Biomes.coldTaiga.topBlock;
     public static IBlockState fillerBlock = Biomes.coldTaiga.fillerBlock;
 
-    public RealisticBiomeVanillaColdTaiga(BiomeConfig config) {
+    public RealisticBiomeVanillaColdTaiga() {
 
-        super(config,
+        super(
                 Biomes.coldTaiga,
                 Biomes.frozenRiver,
                 new TerrainVanillaColdTaiga(),

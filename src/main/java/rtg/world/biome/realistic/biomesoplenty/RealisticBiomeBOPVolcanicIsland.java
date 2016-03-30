@@ -29,8 +29,8 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
     private static IBlockState bopMixTopBlock = getMixTopBlock();
     private static IBlockState bopMixFillBlock = getMixFillBlock();
 
-    public RealisticBiomeBOPVolcanicIsland(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPVolcanicIsland() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPVolcanicIsland(),
                 new SurfaceBOPVolcanicIsland(config,

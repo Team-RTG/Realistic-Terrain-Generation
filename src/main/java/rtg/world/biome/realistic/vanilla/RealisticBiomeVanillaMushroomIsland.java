@@ -10,8 +10,8 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
     public static IBlockState topBlock = Biomes.mushroomIsland.topBlock;
     public static IBlockState fillerBlock = Biomes.mushroomIsland.fillerBlock;
 
-    public RealisticBiomeVanillaMushroomIsland(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeVanillaMushroomIsland() {
+        super(
                 Biomes.mushroomIsland,
                 Biomes.river,
                 new TerrainVanillaMushroomIsland(),

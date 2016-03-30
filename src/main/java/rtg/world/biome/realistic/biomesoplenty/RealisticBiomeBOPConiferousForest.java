@@ -26,8 +26,8 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = BOPBlocks.grass.getDefaultState();
     public static IBlockState fillerBlock = BOPBlocks.dirt.getDefaultState();
 
-    public RealisticBiomeBOPConiferousForest(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPConiferousForest() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPConiferousForest(58f, 84f, 24f),
                 new SurfaceBOPConiferousForest(config,

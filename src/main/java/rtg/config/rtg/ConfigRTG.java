@@ -3,6 +3,7 @@ package rtg.config.rtg;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 import rtg.config.ModConfig;
+import rtg.util.SupportedMod;
 
 public class ConfigRTG extends ModConfig {
 
@@ -130,7 +131,7 @@ public class ConfigRTG extends ModConfig {
 
 
     public ConfigRTG() {
-        super("RTG", false);
+        super(SupportedMod.RTG, false);
     }
 
     @Override

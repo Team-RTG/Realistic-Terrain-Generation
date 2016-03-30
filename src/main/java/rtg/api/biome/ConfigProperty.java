@@ -65,7 +65,7 @@ public class ConfigProperty {
             BLOCK
         }
         Type getType();
-        ConfigProperty getProperty();
+        ConfigProperty get();
         String name();
     }
 }

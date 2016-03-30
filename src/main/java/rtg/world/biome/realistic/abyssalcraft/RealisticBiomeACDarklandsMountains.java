@@ -10,7 +10,7 @@ public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase {
 
     public RealisticBiomeACDarklandsMountains(BiomeGenBase acBiome, BiomeConfig config) {
 
-        super(config,
+        super(
                 acBiome,
                 Biomes.river,
                 new TerrainACDarklandsMountains(),

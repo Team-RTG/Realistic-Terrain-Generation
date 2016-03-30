@@ -10,7 +10,7 @@ public class RealisticBiomeBCDesertOilField extends RealisticBiomeBCBase {
 
     public RealisticBiomeBCDesertOilField(BiomeGenBase bcBiome, BiomeConfig config) {
 
-        super(config,
+        super(
                 bcBiome, Biomes.river,
                 new TerrainBCDesertOilField(),
                 new SurfaceBCDesertOilField(config, bcBiome.topBlock, bcBiome.fillerBlock));

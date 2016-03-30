@@ -23,8 +23,8 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPLavenderFields(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPLavenderFields() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPLavenderFields(),
                 new SurfaceBOPLavenderFields(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, topBlock, 0.05f)

@@ -27,9 +27,9 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaMesaBryce(BiomeConfig config) {
+    public RealisticBiomeVanillaMesaBryce() {
 
-        super(config,
+        super(
                 mutationBiome,
                 Biomes.river,
                 new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f),

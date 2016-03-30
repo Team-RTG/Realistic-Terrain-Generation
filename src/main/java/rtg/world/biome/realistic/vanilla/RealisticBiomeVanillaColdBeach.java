@@ -12,8 +12,8 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = Biomes.coldBeach.topBlock;
     public static IBlockState fillerBlock = Biomes.coldBeach.fillerBlock;
 
-    public RealisticBiomeVanillaColdBeach(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeVanillaColdBeach() {
+        super(
                 Biomes.coldBeach,
                 Biomes.river,
                 new TerrainVanillaColdBeach(),

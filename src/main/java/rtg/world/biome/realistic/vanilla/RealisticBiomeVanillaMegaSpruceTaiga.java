@@ -23,9 +23,9 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaMegaSpruceTaiga(BiomeConfig config) {
+    public RealisticBiomeVanillaMegaSpruceTaiga() {
 
-        super(config,
+        super(
                 mutationBiome,
                 Biomes.river,
                 new TerrainVanillaMegaSpruceTaiga(),

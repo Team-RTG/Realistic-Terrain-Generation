@@ -13,7 +13,7 @@ import rtg.world.gen.surface.SurfaceBase;
 import java.util.Random;
 
 public class SurfaceVanillaRiver extends SurfaceBase {
-    public SurfaceVanillaRiver(BiomeConfig config) {
+    public SurfaceVanillaRiver() {
         super(config, Blocks.grass, (byte) 0, Blocks.dirt, (byte) 0);
     }
 

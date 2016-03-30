@@ -11,7 +11,7 @@ public class RealisticBiomeFNTropicalForestHills extends RealisticBiomeFNBase {
 
     public RealisticBiomeFNTropicalForestHills(BiomeGenBase fnBiome, BiomeConfig config) {
 
-        super(config,
+        super(
                 fnBiome, Biomes.river,
                 new TerrainFNTropicalForestHills(),
                 new SurfaceFNTropicalForestHills(config, fnBiome.topBlock, fnBiome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.15f)

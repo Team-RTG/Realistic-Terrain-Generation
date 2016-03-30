@@ -29,9 +29,9 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = Biomes.megaTaiga.topBlock;
     public static IBlockState fillerBlock = Biomes.megaTaiga.fillerBlock;
 
-    public RealisticBiomeVanillaMegaTaiga(BiomeConfig config) {
+    public RealisticBiomeVanillaMegaTaiga() {
 
-        super(config,
+        super(
                 Biomes.megaTaiga,
                 Biomes.river,
                 new TerrainVanillaMegaTaiga(),

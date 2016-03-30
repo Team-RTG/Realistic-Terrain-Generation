@@ -14,8 +14,8 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPHighland(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPHighland() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPHighland(),
                 new SurfaceBOPHighland(config, topBlock, fillerBlock)

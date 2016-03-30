@@ -24,8 +24,8 @@ public class RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPOrchard(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPOrchard() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPOrchard(58f, 67f, 25f),
                 new SurfaceBOPOrchard(config, topBlock, fillerBlock)

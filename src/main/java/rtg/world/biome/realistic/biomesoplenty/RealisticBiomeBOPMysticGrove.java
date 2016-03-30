@@ -25,8 +25,8 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase {
     public static IBlockState topBlock = bopBiome.topBlock;
     public static IBlockState fillerBlock = bopBiome.fillerBlock;
 
-    public RealisticBiomeBOPMysticGrove(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeBOPMysticGrove() {
+        super(
                 bopBiome, Biomes.river,
                 new TerrainBOPMysticGrove(),
                 new SurfaceBOPMysticGrove(config, topBlock, fillerBlock)

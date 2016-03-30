@@ -17,7 +17,7 @@ public class Config {
 
     public void addProperties(ConfigProperty.IPropertyEnum[] props) {
         for (ConfigProperty.IPropertyEnum prop : props) {
-            this.addProperty(prop.getProperty());
+            this.addProperty(prop.get());
         }
     }
 

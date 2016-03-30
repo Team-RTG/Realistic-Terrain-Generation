@@ -11,7 +11,7 @@ public class RealisticBiomeBCOceanOilField extends RealisticBiomeBCBase {
 
     public RealisticBiomeBCOceanOilField(BiomeGenBase bcBiome, BiomeConfig config) {
 
-        super(config,
+        super(
                 bcBiome, Biomes.river,
                 new TerrainBCOceanOilField(),
                 new SurfaceBCOceanOilField(config, Blocks.sand.getDefaultState(), Blocks.sand.getDefaultState(), Blocks.gravel.getDefaultState(), 20f, 0.2f));

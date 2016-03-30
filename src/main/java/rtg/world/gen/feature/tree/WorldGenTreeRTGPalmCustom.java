@@ -13,13 +13,8 @@ import static net.minecraft.init.Blocks.*;
 import static net.minecraft.init.Blocks.log;
 
 public class WorldGenTreeRTGPalmCustom extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
-
     private static int leavesLength = 133;
-    private static int[] leaves = new int[]{
+    private static int[] leaves = new int[] {
             1, 0, 0,
             2, 0, 0,
             3, -1, 0,
@@ -67,14 +62,13 @@ public class WorldGenTreeRTGPalmCustom extends WorldGenerator {
             3, 2, 3
     };
     private static int cocoasLength = 16;
-    private static int[] cocoas = new int[]{
+    private static int[] cocoas = new int[] {
             2, 0, -2, 1,
             1, 1, -2, 0,
             0, 0, -2, -1,
             3, -1, -2, 0
     };
     private float treeLength = 15f;
-
     public WorldGenTreeRTGPalmCustom(float pTreeLength, int pLeavesLength, int[] pLeaves, int pCocoasLength, int[] pCocoas) {
         treeLength = pTreeLength;
         leavesLength = pLeavesLength;
@@ -89,6 +83,10 @@ public class WorldGenTreeRTGPalmCustom extends WorldGenerator {
 
     public WorldGenTreeRTGPalmCustom(float pTreeLength) {
         treeLength = pTreeLength;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

@@ -14,6 +14,7 @@ import static net.minecraft.init.Blocks.sapling;
 import static net.minecraft.util.EnumFacing.UP;
 
 public class WorldGenTreeRTGTrees extends WorldGenTrees {
+    private static final String __OBFID = "CL_00000438";
     /**
      * The minimum height of a generated tree.
      */
@@ -30,7 +31,6 @@ public class WorldGenTreeRTGTrees extends WorldGenTrees {
      * The metadata value of the leaves to use in tree generation.
      */
     private final int metaLeaves;
-    private static final String __OBFID = "CL_00000438";
 
     public WorldGenTreeRTGTrees(boolean doBlockNotify) {
         this(false, 4, 0, 0, false);

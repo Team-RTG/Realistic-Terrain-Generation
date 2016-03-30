@@ -7,11 +7,21 @@ import java.lang.reflect.Field;
  * @author Zeno410
  */
 public class Accessor<ObjectType, FieldType> {
-    private Field field;
     private final String fieldName;
+    private Field field;
 
     public Accessor(String _fieldName) {
         fieldName = _fieldName;
+    }
+
+    public FieldType get(ObjectType object) {
+        try {
+            return (FieldType) (field(object).get(object));
+        } catch (IllegalArgumentException ex) {
+            throw new RuntimeException(ex);
+        } catch (IllegalAccessException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     private Field field(ObjectType example) {
@@ -41,16 +51,6 @@ public class Accessor<ObjectType, FieldType> {
             classObject = classObject.getSuperclass();
         } while (classObject != Object.class);
         throw new RuntimeException(fieldName + " not found in class " + classObject.getName());
-    }
-
-    public FieldType get(ObjectType object) {
-        try {
-            return (FieldType) (field(object).get(object));
-        } catch (IllegalArgumentException ex) {
-            throw new RuntimeException(ex);
-        } catch (IllegalAccessException ex) {
-            throw new RuntimeException(ex);
-        }
     }
 
     public void setField(ObjectType object, FieldType fieldValue) {

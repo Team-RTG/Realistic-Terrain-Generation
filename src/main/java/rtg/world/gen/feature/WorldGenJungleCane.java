@@ -15,15 +15,15 @@ import static net.minecraft.init.Blocks.reeds;
 import static net.minecraft.init.Blocks.water;
 
 class WorldGenJungleCane extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
-
     private int height;
+
 
     public WorldGenJungleCane(int h) {
         height = h;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

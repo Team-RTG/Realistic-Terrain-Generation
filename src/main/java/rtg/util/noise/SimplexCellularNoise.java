@@ -25,13 +25,17 @@ package rtg.util.noise;
 
 public class SimplexCellularNoise implements CellNoise {
 
-    private SimplexCellularOctave[] octaves = new SimplexCellularOctave[5];
     public final int OCTAVE_COUNT = 5;
+    private SimplexCellularOctave[] octaves = new SimplexCellularOctave[5];
 
     public SimplexCellularNoise(long seed) {
         for (int i = 0; i < 5; i++) {
             octaves[i] = new SimplexCellularOctave(seed + i);
         }
+    }
+
+    public float noise(double x, double z, double depth) {
+        return river().noise(x, z, depth);
     }
 
     public SimplexCellularOctave octave(int index) {
@@ -40,10 +44,6 @@ public class SimplexCellularNoise implements CellNoise {
 
     public SimplexCellularOctave river() {
         return octave(0);
-    }
-
-    public float noise(double x, double z, double depth) {
-        return river().noise(x, z, depth);
     }
 
 }

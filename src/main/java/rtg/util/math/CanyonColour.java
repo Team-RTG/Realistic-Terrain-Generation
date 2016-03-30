@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum CanyonColour {
-    MESA(new byte[]{-1, -1, -1, 1, 1, 1, 0, -1, -1, 6, 1, 1, 8, 0, -1, -1, 14, -1, -1, 6, 1, 1, 4}),
-    MESA_WHITE(new byte[]{-1, -1, 0, 1, 0, 0, 0, 14, 0, 8, 0, 1, 8, 0, -1, 0, 14, 0, 0, 14, 0, 0, 8}),
-    SAVANNA(new byte[]{0, 0, 0, 0, 8, 8, 12, 12, 8, 0, 8, 12, 12, 8, 12, 8, 0, 0, 8, 12, 12,});
+    MESA(new byte[] {-1, -1, -1, 1, 1, 1, 0, -1, -1, 6, 1, 1, 8, 0, -1, -1, 14, -1, -1, 6, 1, 1, 4}),
+    MESA_WHITE(new byte[] {-1, -1, 0, 1, 0, 0, 0, 14, 0, 8, 0, 1, 8, 0, -1, 0, 14, 0, 0, 14, 0, 0, 8}),
+    SAVANNA(new byte[] {0, 0, 0, 0, 8, 8, 12, 12, 8, 0, 8, 12, 12, 8, 12, 8, 0, 0, 8, 12, 12,});
 
     // If you remove that U, i will locate and dismember you.
     private static Map<CanyonColour, IBlockState[]> colours = new HashMap<>();

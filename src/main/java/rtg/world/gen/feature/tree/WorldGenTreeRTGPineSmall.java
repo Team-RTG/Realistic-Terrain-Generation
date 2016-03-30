@@ -12,15 +12,9 @@ import static net.minecraft.block.material.Material.air;
 import static net.minecraft.init.Blocks.*;
 
 public class WorldGenTreeRTGPineSmall extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
-
     private int startHeight;
     private int treeSize;
     private int metadata;
-
     public WorldGenTreeRTGPineSmall(int start, int s) {
         this(start, s, 1);
     }
@@ -29,6 +23,10 @@ public class WorldGenTreeRTGPineSmall extends WorldGenerator {
         startHeight = start;
         treeSize = s;
         metadata = m;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

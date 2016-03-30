@@ -14,10 +14,10 @@ public class BiomeConfigProperty {
     public boolean valueBoolean;
     public String valueString;
 
-    public enum Type {
-        INTEGER,
-        BOOLEAN,
-        STRING
+    public BiomeConfigProperty(String id, Type type, String name, String description, boolean defaultValue) {
+        this(id, type, name, description);
+
+        this.valueBoolean = defaultValue;
     }
 
     public BiomeConfigProperty(String id, Type type, String name, String description) {
@@ -25,12 +25,6 @@ public class BiomeConfigProperty {
         this.type = type;
         this.name = name;
         this.description = description;
-    }
-
-    public BiomeConfigProperty(String id, Type type, String name, String description, boolean defaultValue) {
-        this(id, type, name, description);
-
-        this.valueBoolean = defaultValue;
     }
 
     public BiomeConfigProperty(String id, Type type, String name, String description, String defaultValue) {
@@ -45,5 +39,11 @@ public class BiomeConfigProperty {
         this.valueInt = defaultValue;
         this.minValue = minValue;
         this.maxValue = maxValue;
+    }
+
+    public enum Type {
+        INTEGER,
+        BOOLEAN,
+        STRING
     }
 }

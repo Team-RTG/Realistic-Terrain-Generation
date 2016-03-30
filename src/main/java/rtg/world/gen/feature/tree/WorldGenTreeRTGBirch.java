@@ -12,17 +12,15 @@ import static net.minecraft.block.material.Material.air;
 import static net.minecraft.init.Blocks.*;
 
 public class WorldGenTreeRTGBirch extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
-
     private int startHeight;
     private int treeSize;
-
     public WorldGenTreeRTGBirch(int start, int s) {
         startHeight = start;
         treeSize = s;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

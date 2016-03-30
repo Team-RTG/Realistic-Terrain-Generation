@@ -15,20 +15,20 @@ import static net.minecraft.init.Blocks.*;
 import static rtg.config.rtg.ConfigRTG.allowTreesToGenerateOnSand;
 
 class WorldGenTreeRTGCocoaSmall extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
-
-    private static int[] cocoas = new int[]{
+    private static int[] cocoas = new int[] {
             2, 0, -2, 1,
             1, 1, -2, 0,
             0, 0, -2, -1,
             3, -1, -2, 0
     };
 
+
     public WorldGenTreeRTGCocoaSmall() {
 
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

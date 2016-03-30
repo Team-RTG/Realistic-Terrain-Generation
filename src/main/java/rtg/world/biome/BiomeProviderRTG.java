@@ -9,13 +9,13 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
+import rtg.util.genlayers.GenLayerUtils;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.util.noise.SimplexCellularNoise;
 import rtg.util.noise.SimplexOctave;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
-import rtg.util.genlayers.GenLayerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +23,8 @@ import java.util.Random;
 
 
 public class BiomeProviderRTG extends BiomeProvider {
+    private static int[] incidences = new int[100];
+    private static int references = 0;
     /**
      * A GenLayer containing the indices into Biomes.biomeList[]
      */
@@ -36,14 +38,6 @@ public class BiomeProviderRTG extends BiomeProvider {
     private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
     private BiomeCache biomeCache;
     private RealisticBiomePatcher biomePatcher;
-
-    protected BiomeProviderRTG() {
-
-        this.biomeCache = new BiomeCache(this);
-        this.biomesToSpawnIn = new ArrayList();
-        borderNoise = new float[256];
-        biomePatcher = new RealisticBiomePatcher();
-    }
 
     public BiomeProviderRTG(World par1World, WorldType worldType) {
 
@@ -60,6 +54,14 @@ public class BiomeProviderRTG extends BiomeProvider {
         this.biomeIndexLayer = agenlayer[1];
     }
 
+    protected BiomeProviderRTG() {
+
+        this.biomeCache = new BiomeCache(this);
+        this.biomesToSpawnIn = new ArrayList();
+        borderNoise = new float[256];
+        biomePatcher = new RealisticBiomePatcher();
+    }
+
     public int[] getBiomesGens(int par1, int par2, int par3, int par4) {
 
         int[] d = new int[par3 * par4];
@@ -70,6 +72,16 @@ public class BiomeProviderRTG extends BiomeProvider {
             }
         }
         return d;
+    }
+
+    public BiomeGenBase getBiomeGenAt(int par1, int par2) {
+        BiomeGenBase result;
+        result = this.biomeCache.getBiomeCacheBlock(par1, par2).getBiomeGenAt(par1, par2);
+
+        if (result == null) {
+            result = biomePatcher.getPatchedBaseBiome("Biome cache contains NULL biome at " + par1 + "," + par2);
+        }
+        return result;
     }
 
     public boolean diff(float sample1, float sample2, float base) {
@@ -110,38 +122,6 @@ public class BiomeProviderRTG extends BiomeProvider {
 
     }
 
-    @Override
-    public BiomeGenBase[] loadBlockGeneratorData(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5) {
-
-        return this.getBiomeGenAt(par1ArrayOfBiomeGenBase, par2, par3, par4, par5, true);
-    }
-
-    public BiomeGenBase getBiomeGenAt(int par1, int par2) {
-        BiomeGenBase result;
-        result = this.biomeCache.getBiomeCacheBlock(par1, par2).getBiomeGenAt(par1, par2);
-
-        if (result == null) {
-            result = biomePatcher.getPatchedBaseBiome("Biome cache contains NULL biome at " + par1 + "," + par2);
-        }
-        return result;
-    }
-
-    public BiomeGenBase[] getBiomesForGeneration(BiomeGenBase[] biomes, int x, int z, int width, int height) {
-        IntCache.resetIntCache();
-
-        if (biomes == null || biomes.length < width * height) {
-            biomes = new BiomeGenBase[width * height];
-        }
-
-        int[] aint = this.genBiomes.getInts(x, z, width, height);
-
-        for (int i1 = 0; i1 < width * height; ++i1) {
-            biomes[i1] = RealisticBiomeBase.getBiome(aint[i1]);
-        }
-
-        return biomes;
-    }
-
     public RealisticBiomeBase[] getRealisticBiomesForGeneration(RealisticBiomeBase[] biomes, int x, int z, int width, int height) {
         IntCache.resetIntCache();
 
@@ -156,71 +136,6 @@ public class BiomeProviderRTG extends BiomeProvider {
         }
 
         return biomes;
-    }
-
-    public RealisticBiomeBase getBiomeDataAt(int par1, int par2) {
-        RealisticBiomeBase output;
-        output = (RealisticBiomeBase) (this.getBiomeGenAt(par1, par2));
-        if (output == null) output = biomePatcher.getPatchedRealisticBiome("No biome " + par1 + " " + par2);
-        return output;
-    }
-
-    @Override
-    public void cleanupCache() {
-        this.biomeCache.cleanupCache();
-    }
-
-    public float getNoiseAt(int x, int y) {
-
-        float river = getRiverStrength(x, y) + 1f;
-        if (river < 0.5f) {
-            return 59f;
-        }
-
-        return getBiomeDataAt(x, y).rNoise(simplex, cell, x, y, 1f, river);
-    }
-
-    private static int[] incidences = new int[100];
-    private static int references = 0;
-
-    private static double cellBorder(double[] results, double width, double depth) {
-        double c = (results[1] - results[0]);
-        /*int slot = (int)Math.floor(c*100.0);
-        incidences[slot] += 1;
-        references ++;
-        if (references>40000) {
-            String result = "";
-            for (int i = 0; i< 100; i ++) {
-                result += " " + incidences[i];
-            }
-            throw new RuntimeException(result);
-        }*/
-        if (c < width) {
-            return ((c / width) - 1f) * depth;
-        } else {
-
-            return 0;
-        }
-    }
-
-    public float getRiverStrength(int x, int y) {
-        //New river curve function. No longer creates worldwide curve correlations along cardinal axes.
-        SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-        simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
-        double pX = x + jitter.deltax() * 220f;
-        double pY = y + jitter.deltay() * 220f;
-            /*double[] simplexResults = new double[2];
-    	    OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
-            double pX = x + simplexResults[0] * 220f;
-            double pY = y + simplexResults[1] * 220f;*/
-
-        //New cellular noise.
-        //TODO move the initialization of the results in a way that's more efficient but still thread safe.
-        double[] results = simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
-        if (x == -200 && y == -750) {
-            //throw new RuntimeException(""+ results[1]+ " " +results[0]);
-        }
-        return (float) cellBorder(results, 30.0 / 600.0, 1.0);
     }
 
     public boolean isBorderlessAt(int x, int y) {
@@ -244,6 +159,13 @@ public class BiomeProviderRTG extends BiomeProvider {
         return by == 1 ? true : false;
     }
 
+    public RealisticBiomeBase getBiomeDataAt(int par1, int par2) {
+        RealisticBiomeBase output;
+        output = (RealisticBiomeBase) (this.getBiomeGenAt(par1, par2));
+        if (output == null) output = biomePatcher.getPatchedRealisticBiome("No biome " + par1 + " " + par2);
+        return output;
+    }
+
     public List getBiomesToSpawnIn() {
 
         return this.biomesToSpawnIn;
@@ -252,6 +174,28 @@ public class BiomeProviderRTG extends BiomeProvider {
     public float getTemperatureAtHeight(float par1, int par2) {
 
         return par1;
+    }
+
+    public BiomeGenBase[] getBiomesForGeneration(BiomeGenBase[] biomes, int x, int z, int width, int height) {
+        IntCache.resetIntCache();
+
+        if (biomes == null || biomes.length < width * height) {
+            biomes = new BiomeGenBase[width * height];
+        }
+
+        int[] aint = this.genBiomes.getInts(x, z, width, height);
+
+        for (int i1 = 0; i1 < width * height; ++i1) {
+            biomes[i1] = RealisticBiomeBase.getBiome(aint[i1]);
+        }
+
+        return biomes;
+    }
+
+    @Override
+    public BiomeGenBase[] loadBlockGeneratorData(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5) {
+
+        return this.getBiomeGenAt(par1ArrayOfBiomeGenBase, par2, par3, par4, par5, true);
     }
 
     public BiomeGenBase[] getBiomeGenAt(BiomeGenBase[] listToReuse, int x, int z, int width, int length, boolean cacheFlag) {
@@ -310,6 +254,56 @@ public class BiomeProviderRTG extends BiomeProvider {
 
     }
 
+    public float getNoiseAt(int x, int y) {
+
+        float river = getRiverStrength(x, y) + 1f;
+        if (river < 0.5f) {
+            return 59f;
+        }
+
+        return getBiomeDataAt(x, y).rNoise(simplex, cell, x, y, 1f, river);
+    }
+
+    public float getRiverStrength(int x, int y) {
+        //New river curve function. No longer creates worldwide curve correlations along cardinal axes.
+        SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+        simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
+        double pX = x + jitter.deltax() * 220f;
+        double pY = y + jitter.deltay() * 220f;
+            /*double[] simplexResults = new double[2];
+            OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
+            double pX = x + simplexResults[0] * 220f;
+            double pY = y + simplexResults[1] * 220f;*/
+
+        //New cellular noise.
+        //TODO move the initialization of the results in a way that's more efficient but still thread safe.
+        double[] results = simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
+        if (x == -200 && y == -750) {
+            //throw new RuntimeException(""+ results[1]+ " " +results[0]);
+        }
+        return (float) cellBorder(results, 30.0 / 600.0, 1.0);
+    }
+
+    private static double cellBorder(double[] results, double width, double depth) {
+        double c = (results[1] - results[0]);
+        /*int slot = (int)Math.floor(c*100.0);
+        incidences[slot] += 1;
+        references ++;
+        if (references>40000) {
+            String result = "";
+            for (int i = 0; i< 100; i ++) {
+                result += " " + incidences[i];
+            }
+            throw new RuntimeException(result);
+        }*/
+        if (c < width) {
+            return ((c / width) - 1f) * depth;
+        } else {
+
+            return 0;
+        }
+    }
+
     @Override
     public BlockPos findBiomePosition(int p_150795_1_, int p_150795_2_, int p_150795_3_, List p_150795_4_, Random p_150795_5_) {
         IntCache.resetIntCache();
@@ -335,5 +329,10 @@ public class BiomeProviderRTG extends BiomeProvider {
         }
 
         return blockPos;
+    }
+
+    @Override
+    public void cleanupCache() {
+        this.biomeCache.cleanupCache();
     }
 }

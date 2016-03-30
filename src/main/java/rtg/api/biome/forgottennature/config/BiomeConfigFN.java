@@ -16,7 +16,7 @@ public class BiomeConfigFN {
     public static BiomeConfig biomeConfigFNTropicalForestHills;
 
     public static BiomeConfig[] getBiomeConfigs() {
-        BiomeConfig[] biomeConfigs = new BiomeConfig[]{
+        BiomeConfig[] biomeConfigs = new BiomeConfig[] {
                 biomeConfigFNCherryBlossomWoodland,
                 biomeConfigFNCrystalForest,
                 biomeConfigFNEucalyptusForest,

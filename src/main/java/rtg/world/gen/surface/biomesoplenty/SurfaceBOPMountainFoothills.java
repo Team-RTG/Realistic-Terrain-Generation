@@ -7,8 +7,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
-import rtg.util.noise.CellNoise;
 import rtg.util.math.CliffCalculator;
+import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 
@@ -43,7 +43,7 @@ public class SurfaceBOPMountainFoothills extends SurfaceBase {
                              OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
         float c = CliffCalculator.calc(x, y, noise);
-        boolean cliff = c > 1.4f ? true : false;
+        boolean cliff = c > 1.4f;
         boolean mix = false;
 
         for (int k = 255; k > -1; k--) {

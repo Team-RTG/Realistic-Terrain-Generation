@@ -12,11 +12,6 @@ import static net.minecraft.init.Blocks.dirt;
 import static net.minecraft.init.Blocks.grass;
 
 public class WorldGenTreeRTGJungleSmall extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
-
     private Block blockLog;
     private int metadataLog;
     private Block blockLeaves;
@@ -27,7 +22,6 @@ public class WorldGenTreeRTGJungleSmall extends WorldGenerator {
     private int branch;
     private float verStart;
     private float verRand;
-
     public WorldGenTreeRTGJungleSmall(Block log, int metaLog, Block leaves, int metaLeaves, int baseHeight, int rootHeight, float branchLength, int numBranches, float verticalStart, float verticalRand) {
         blockLog = log;
         metadataLog = metaLog;
@@ -41,6 +35,10 @@ public class WorldGenTreeRTGJungleSmall extends WorldGenerator {
         branch = numBranches;
         verStart = verticalStart;
         verRand = verticalRand;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

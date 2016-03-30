@@ -234,23 +234,6 @@ public class MapGenCavesRTG extends MapGenCaves {
 
     //Exception biomes to make sure we generate like vanilla
 
-    private boolean isExceptionBiome(BiomeGenBase biome) {
-        boolean booException = false;
-
-        if (biome == Biomes.mushroomIsland) booException = true;
-        if (biome == Biomes.beach) booException = true;
-        if (biome == Biomes.desert) booException = true;
-
-        return booException;
-    }
-
-    //Determine if the block at the specified location is the top block for the biome, we take into account
-    //Vanilla bugs to make sure that we generate the map the same way vanilla does.
-    private boolean isTopBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ) {
-        BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
-        return (isExceptionBiome(biome) ? data.getBlockState(x, y, z) == Blocks.grass : data.getBlockState(x, y, z) == biome.topBlock);
-    }
-
     /**
      * Digs out the current block, default implementation removes stone, filler, and top block
      * Sets the block to lava if y is less then 10, and air other wise.
@@ -286,5 +269,22 @@ public class MapGenCavesRTG extends MapGenCaves {
                 }
             }
         }
+    }
+
+    private boolean isExceptionBiome(BiomeGenBase biome) {
+        boolean booException = false;
+
+        if (biome == Biomes.mushroomIsland) booException = true;
+        if (biome == Biomes.beach) booException = true;
+        if (biome == Biomes.desert) booException = true;
+
+        return booException;
+    }
+
+    //Determine if the block at the specified location is the top block for the biome, we take into account
+    //Vanilla bugs to make sure that we generate the map the same way vanilla does.
+    private boolean isTopBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ) {
+        BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
+        return (isExceptionBiome(biome) ? data.getBlockState(x, y, z) == Blocks.grass : data.getBlockState(x, y, z) == biome.topBlock);
     }
 }

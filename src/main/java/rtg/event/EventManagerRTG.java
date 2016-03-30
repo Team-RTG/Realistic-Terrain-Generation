@@ -174,7 +174,7 @@ public class EventManagerRTG {
             return;
         }
         if (event.getBiome() instanceof RealisticBiomeBase) {
-            biomeReal = (RealisticBiomeBase)event.getBiome();
+            biomeReal = (RealisticBiomeBase) event.getBiome();
         } else if (event.getBiome() == null && this.biome != null) {
             biomeReal = this.biome;
         } else {

@@ -12,7 +12,7 @@ public class BiomeConfigAC {
     public static BiomeConfig biomeConfigACDarklandsPlains;
 
     public static BiomeConfig[] getBiomeConfigs() {
-        BiomeConfig[] biomeConfigs = new BiomeConfig[]{
+        BiomeConfig[] biomeConfigs = new BiomeConfig[] {
                 biomeConfigACCoraliumInfestedSwamp,
                 biomeConfigACDarklands,
                 biomeConfigACDarklandsForest,

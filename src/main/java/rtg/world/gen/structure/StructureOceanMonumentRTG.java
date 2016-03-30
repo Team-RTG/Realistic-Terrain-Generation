@@ -26,22 +26,16 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import java.util.*;
 
-import static rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase.*;
+import static rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase.SpawnListEntry;
+import static rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase.vanillaDeepOcean;
 
 /**
  * Created by topisani on 2/20/16.
  */
 public class StructureOceanMonumentRTG extends StructureOceanMonument {
-    private int field_175800_f;
-    private int field_175801_g;
     public static final List<BiomeGenBase> field_175802_d;
     public static final List<BiomeGenBase> field_186134_b;
     private static final List<BiomeGenBase.SpawnListEntry> field_175803_h;
-
-    public StructureOceanMonumentRTG() {
-        this.field_175800_f = 32;
-        this.field_175801_g = 5;
-    }
 
     static {
         field_175802_d = Arrays.asList(Biomes.ocean, Biomes.deepOcean, Biomes.river, Biomes.frozenOcean, Biomes.frozenRiver);
@@ -49,6 +43,9 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         field_175803_h = Lists.newArrayList();
         field_175803_h.add(new SpawnListEntry(EntityGuardian.class, 1, 2, 4));
     }
+
+    private int field_175800_f;
+    private int field_175801_g;
 
     public StructureOceanMonumentRTG(Map<String, String> p_i45608_1_) {
         this();
@@ -61,6 +58,11 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
                 this.field_175801_g = MathHelper.parseIntWithDefaultAndMax((String) entry.getValue(), this.field_175801_g, 1);
             }
         }
+    }
+
+    public StructureOceanMonumentRTG() {
+        this.field_175800_f = 32;
+        this.field_175801_g = 5;
     }
 
     public String getStructureName() {
@@ -169,8 +171,8 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
             random.setSeed(worldIn.getSeed());
             long i = random.nextLong();
             long j = random.nextLong();
-            long k = (long)chunkX * i;
-            long l = (long)chunkZ * j;
+            long k = (long) chunkX * i;
+            long l = (long) chunkZ * j;
             random.setSeed(k ^ l ^ worldIn.getSeed());
             int i1 = chunkX * 16 + 8 - 29;
             int j1 = chunkZ * 16 + 8 - 29;
@@ -181,7 +183,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         }
 
         public void generateStructure(World worldIn, Random rand, StructureBoundingBox structurebb) {
-            if(!this.field_175790_d) {
+            if (!this.field_175790_d) {
                 this.components.clear();
                 this.func_175789_b(worldIn, rand, this.getChunkPosX(), this.getChunkPosZ());
             }
@@ -189,22 +191,13 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
             super.generateStructure(worldIn, rand, structurebb);
         }
 
-        public boolean func_175788_a(ChunkCoordIntPair pair) {
-            return this.processed.contains(pair)?false:super.func_175788_a(pair);
-        }
-
-        public void func_175787_b(ChunkCoordIntPair pair) {
-            super.func_175787_b(pair);
-            this.processed.add(pair);
-        }
-
         public void writeToNBT(NBTTagCompound tagCompound) {
             super.writeToNBT(tagCompound);
             NBTTagList nbttaglist = new NBTTagList();
             Iterator var3 = this.processed.iterator();
 
-            while(var3.hasNext()) {
-                ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair)var3.next();
+            while (var3.hasNext()) {
+                ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) var3.next();
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
                 nbttagcompound.setInteger("X", chunkcoordintpair.chunkXPos);
                 nbttagcompound.setInteger("Z", chunkcoordintpair.chunkZPos);
@@ -216,15 +209,24 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
 
         public void readFromNBT(NBTTagCompound tagCompound) {
             super.readFromNBT(tagCompound);
-            if(tagCompound.hasKey("Processed", 9)) {
+            if (tagCompound.hasKey("Processed", 9)) {
                 NBTTagList nbttaglist = tagCompound.getTagList("Processed", 10);
 
-                for(int i = 0; i < nbttaglist.tagCount(); ++i) {
+                for (int i = 0; i < nbttaglist.tagCount(); ++i) {
                     NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
                     this.processed.add(new ChunkCoordIntPair(nbttagcompound.getInteger("X"), nbttagcompound.getInteger("Z")));
                 }
             }
 
+        }
+
+        public boolean func_175788_a(ChunkCoordIntPair pair) {
+            return this.processed.contains(pair) ? false : super.func_175788_a(pair);
+        }
+
+        public void func_175787_b(ChunkCoordIntPair pair) {
+            super.func_175787_b(pair);
+            this.processed.add(pair);
         }
     }
 }

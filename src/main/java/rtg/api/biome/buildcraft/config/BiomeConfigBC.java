@@ -7,7 +7,7 @@ public class BiomeConfigBC {
     public static BiomeConfig biomeConfigBCOceanOilField;
 
     public static BiomeConfig[] getBiomeConfigs() {
-        BiomeConfig[] biomeConfigs = new BiomeConfig[]{
+        BiomeConfig[] biomeConfigs = new BiomeConfig[] {
                 biomeConfigBCDesertOilField,
                 biomeConfigBCOceanOilField
         };

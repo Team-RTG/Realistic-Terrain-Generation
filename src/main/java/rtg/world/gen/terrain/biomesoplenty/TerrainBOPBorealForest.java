@@ -13,18 +13,18 @@ public class TerrainBOPBorealForest extends TerrainBase {
     private float hillBumpyness = 10f;
     private float hillBumpynessWidth = 20f;
 
+    public TerrainBOPBorealForest(float bh, float hs) {
+        this();
+        baseHeight = bh;
+        hillStrength = hs;
+    }
+
     public TerrainBOPBorealForest() {
         hillEffect = new BumpyHillsEffect();
         hillEffect.hillHeight = hillStrength;
         hillEffect.hillWavelength = hillWidth;
         hillEffect.spikeHeight = hillBumpyness;
         hillEffect.spikeWavelength = this.hillBumpynessWidth;
-    }
-
-    public TerrainBOPBorealForest(float bh, float hs) {
-        this();
-        baseHeight = bh;
-        hillStrength = hs;
     }
 
     @Override

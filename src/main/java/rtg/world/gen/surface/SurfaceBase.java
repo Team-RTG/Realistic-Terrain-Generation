@@ -8,26 +8,21 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
-import rtg.util.noise.CellNoise;
 import rtg.util.ModPresenceTester;
+import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 
 import java.util.Random;
 
 public class SurfaceBase {
+    private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
+    private final static ModPresenceTester abyssalCraftMod = new ModPresenceTester("abyssalcraft");
     protected IBlockState topBlock;
     protected IBlockState fillerBlock;
     protected BiomeConfig biomeConfig;
 
-    private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
-    private final static ModPresenceTester abyssalCraftMod = new ModPresenceTester("abyssalcraft");
-
     public SurfaceBase(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte) {
         this(config, top.getStateFromMeta(topByte), fill.getStateFromMeta(fillByte));
-    }
-
-    public SurfaceBase(BiomeConfig config, Block top, Block fill) {
-        this(config, top.getDefaultState(), fill.getDefaultState());
     }
 
     public SurfaceBase(BiomeConfig config, IBlockState top, IBlockState fill) {
@@ -39,6 +34,36 @@ public class SurfaceBase {
         fillerBlock = fill;
 
         this.assignUserConfigs(config, top, fill);
+    }
+
+    private void assignUserConfigs(BiomeConfig config, IBlockState top, IBlockState fill) {
+        String userTopBlock = config._string(BiomeConfig.surfaceTopBlockId);
+        String userTopBlockMeta = config._string(BiomeConfig.surfaceTopBlockMetaId);
+        try {
+            if (Block.getBlockFromName(userTopBlock) != null) {
+                topBlock = Block.getBlockFromName(userTopBlock).getStateFromMeta(Byte.valueOf(userTopBlockMeta));
+            } else {
+                topBlock = top;
+            }
+        } catch (Exception e) {
+            topBlock = top;
+        }
+
+        String userFillerBlock = config._string(BiomeConfig.surfaceFillerBlockId);
+        String userFillerBlockMeta = config._string(BiomeConfig.surfaceFillerBlockMetaId);
+        try {
+            if (Block.getBlockFromName(userFillerBlock) != null) {
+                fillerBlock = Block.getBlockFromName(userFillerBlock).getStateFromMeta(Integer.parseInt(userFillerBlockMeta));
+            } else {
+                fillerBlock = fill;
+            }
+        } catch (Exception e) {
+            fillerBlock = fill;
+        }
+    }
+
+    public SurfaceBase(BiomeConfig config, Block top, Block fill) {
+        this(config, top.getDefaultState(), fill.getDefaultState());
     }
 
     public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
@@ -69,7 +94,7 @@ public class SurfaceBase {
 //            return ACBlocks.darkstone.getDefaultState();
 //        } else {
 
-            return Blocks.stone.getDefaultState();
+        return Blocks.stone.getDefaultState();
 //        }
     }
 
@@ -78,7 +103,7 @@ public class SurfaceBase {
 //
 //            return ACBlocks.darkstone_cobblestone.getDefaultState();
 //        } else {
-            return Blocks.cobblestone.getDefaultState();
+        return Blocks.cobblestone.getDefaultState();
 //        }
     }
 
@@ -88,32 +113,6 @@ public class SurfaceBase {
 
     public IBlockState getFillerBlock() {
         return this.fillerBlock;
-    }
-
-    private void assignUserConfigs(BiomeConfig config, IBlockState top, IBlockState fill) {
-        String userTopBlock = config._string(BiomeConfig.surfaceTopBlockId);
-        String userTopBlockMeta = config._string(BiomeConfig.surfaceTopBlockMetaId);
-        try {
-            if (Block.getBlockFromName(userTopBlock) != null) {
-                topBlock = Block.getBlockFromName(userTopBlock).getStateFromMeta(Byte.valueOf(userTopBlockMeta));
-            } else {
-                topBlock = top;
-            }
-        } catch (Exception e) {
-            topBlock = top;
-        }
-
-        String userFillerBlock = config._string(BiomeConfig.surfaceFillerBlockId);
-        String userFillerBlockMeta = config._string(BiomeConfig.surfaceFillerBlockMetaId);
-        try {
-            if (Block.getBlockFromName(userFillerBlock) != null) {
-                fillerBlock = Block.getBlockFromName(userFillerBlock).getStateFromMeta(Integer.parseInt(userFillerBlockMeta));
-            } else {
-                fillerBlock = fill;
-            }
-        } catch (Exception e) {
-            fillerBlock = fill;
-        }
     }
 
     protected IBlockState getConfigBlock(BiomeConfig config, String propertyId, String propertyMeta, IBlockState blockDefault) {

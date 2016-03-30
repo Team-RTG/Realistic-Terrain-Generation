@@ -15,7 +15,7 @@ public class BiomeConfigATG {
     public static BiomeConfig biomeConfigATGWoodland;
 
     public static BiomeConfig[] getBiomeConfigs() {
-        BiomeConfig[] biomeConfigs = new BiomeConfig[]{
+        BiomeConfig[] biomeConfigs = new BiomeConfig[] {
                 biomeConfigATGGravelBeach,
                 biomeConfigATGRockySteppe,
                 biomeConfigATGShrubland,

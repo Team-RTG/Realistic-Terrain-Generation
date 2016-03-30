@@ -8,7 +8,7 @@ public class BiomeConfigVAMP {
     public static BiomeConfig biomeConfigVAMPVampireForest;
 
     public static BiomeConfig[] getBiomeConfigs() {
-        BiomeConfig[] biomeConfigs = new BiomeConfig[]{
+        BiomeConfig[] biomeConfigs = new BiomeConfig[] {
                 biomeConfigVAMPVampireForest
         };
 

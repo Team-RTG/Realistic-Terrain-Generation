@@ -40,35 +40,34 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 public class RealisticBiomeBase extends BiomeBase {
 
     private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[256];
-
+    private static int[] incidences = new int[200];
+    private static int references = 0;
+    private static float actualRiverProportion = 300f / 1600f;
     public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;
     public BiomeConfig config;
-
     public TerrainBase terrain;
-
     public SurfaceBase[] surfaces;
     public int surfacesLength;
     public SurfaceBase surfaceGeneric;
-
     public int waterSurfaceLakeChance; //Lower = more frequent
     public int lavaSurfaceLakeChance; //Lower = more frequent
-
     public int waterUndergroundLakeChance; //Lower = more frequent
     public int lavaUndergroundLakeChance; //Lower = more frequent
-
     public int clayPerVein;
-
     public boolean generateVillages;
-
     public boolean generatesEmeralds;
     public Block emeraldEmeraldBlock;
     public byte emeraldEmeraldMeta;
     public Block emeraldStoneBlock;
     public byte emeraldStoneMeta;
-
     public ArrayList<DecoBase> decos;
     public boolean useNewDecorationSystem = false;
+    public boolean noLakes = false;
+    public boolean noWaterFeatures = false;
+    private float lakeInterval = 1470.0f;
+    private double lakeWaterLevel = 0.0;// the lakeStrenght below which things should be below ater
+    private double lakeDepressionLevel = 0.16;// the lakeStrength below which land should start to be lowered
 
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
 
@@ -102,7 +101,7 @@ public class RealisticBiomeBase extends BiomeBase {
         emeraldEmeraldBlock = Blocks.emerald_ore;
         emeraldEmeraldMeta = (byte) 0;
         emeraldStoneBlock = Blocks.stone;
-        emeraldStoneMeta = (byte)0;
+        emeraldStoneMeta = (byte) 0;
 
         decos = new ArrayList<DecoBase>();
 
@@ -114,14 +113,22 @@ public class RealisticBiomeBase extends BiomeBase {
          * If it does get added manually to let the base biome handle some or all of the decoration process,
          * this deco will get replaced with the new one.
          */
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		decoBaseBiomeDecorations.allowed = false;
-		this.decos.add(decoBaseBiomeDecorations);
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.allowed = false;
+        this.decos.add(decoBaseBiomeDecorations);
     }
 
-    public static RealisticBiomeBase getBiome(int id) {
+    public static int getIdForBiome(BiomeGenBase biome) {
+        if (biome instanceof RealisticBiomeBase)
+            return BiomeGenBase.getIdForBiome(((RealisticBiomeBase) biome).baseBiome);
+        return BiomeGenBase.getIdForBiome(biome);
+    }
 
-        return arrRealisticBiomeIds[id];
+    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
+
+        this(config, b, riverbiome, t, new SurfaceBase[] {s});
+
+        surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
     }
 
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s) {
@@ -134,11 +141,9 @@ public class RealisticBiomeBase extends BiomeBase {
         surfacesLength = s.length;
     }
 
-    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
+    public static RealisticBiomeBase getBiome(int id) {
 
-        this(config, b, riverbiome, t, new SurfaceBase[]{s});
-
-        surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
+        return arrRealisticBiomeIds[id];
     }
 
     public void rPopulatePreDecorate(IChunkGenerator ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag) {
@@ -248,29 +253,6 @@ public class RealisticBiomeBase extends BiomeBase {
         }
     }
 
-    public void rPopulatePostDecorate(IChunkGenerator ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag) {
-        /**
-         * Has emerald gen been disabled in the configs?
-         * If so, check to see if this biome generated emeralds & remove them if necessary.
-         */
-        if (!ConfigRTG.generateOreEmerald && generatesEmeralds) {
-            rRemoveEmeralds(worldObj, rand, chunkX, chunkZ);
-        }
-    }
-
-    /**
-     * When manually decorating biomes by overriding rDecorate(), sometimes you want the biome
-     * to partially decorate itself. That's what this method does... it calls the biome's decorate() method.
-     */
-    public void rDecorateSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
-
-        if (strength > 0.3f) {
-            seedBiome.decorate(world, rand, new BlockPos(chunkX, 0, chunkY));
-        } else {
-            rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, seedBiome);
-        }
-    }
-
     /**
      * This method should be called if both of the following conditions are true:
      * <p/>
@@ -334,6 +316,102 @@ public class RealisticBiomeBase extends BiomeBase {
         net.minecraftforge.common.MinecraftForge.ORE_GEN_BUS.post(new net.minecraftforge.event.terraingen.OreGenEvent.Post(world, rand, blockPos));
     }
 
+    /**
+     * Standard ore generation helper. Generates most ores.
+     *
+     * @see net.minecraft.world.biome.BiomeDecorator
+     */
+    protected void genStandardOre1(World worldObj, Random rand, BlockPos blockPos, int blockCount, WorldGenerator generator, int minHeight, int maxHeight) {
+        if (maxHeight < minHeight) {
+            int i = minHeight;
+            minHeight = maxHeight;
+            maxHeight = i;
+        } else if (maxHeight == minHeight) {
+            if (minHeight < 255) {
+                ++maxHeight;
+            } else {
+                --minHeight;
+            }
+        }
+
+        for (int j = 0; j < blockCount; ++j) {
+            BlockPos blockpos = blockPos.add(rand.nextInt(16), rand.nextInt(maxHeight - minHeight) + minHeight, rand.nextInt(16));
+            generator.generate(worldObj, rand, blockpos);
+        }
+    }
+
+    /**
+     * Standard ore generation helper. Generates Lapis Lazuli.
+     *
+     * @see net.minecraft.world.biome.BiomeDecorator
+     */
+    protected void genStandardOre2(World worldObj, Random rand, BlockPos blockPos, int blockCount, WorldGenerator generator, int centerHeight, int spread) {
+        for (int i = 0; i < blockCount; ++i) {
+            BlockPos blockpos = blockPos.add(rand.nextInt(16), rand.nextInt(spread) + rand.nextInt(spread) + centerHeight - spread, rand.nextInt(16));
+            generator.generate(worldObj, rand, blockpos);
+        }
+    }
+
+    // lake calculations
+
+    public void rGenerateEmeralds(World world, Random rand, BlockPos blockPos) {
+        int k = 3 + rand.nextInt(6);
+        BlockPos.MutableBlockPos mbp = new BlockPos.MutableBlockPos();
+
+        for (int l = 0; l < k; ++l) {
+            mbp.set(blockPos.getX() + rand.nextInt(16),
+                    rand.nextInt(28) + 4,
+                    blockPos.getZ() + rand.nextInt(16));
+
+            //TODO: How to get that last argument???
+            if (world.getBlockState(mbp).getBlock().isReplaceableOreGen(world.getBlockState(mbp), world, mbp, BlockMatcher.forBlock(emeraldStoneBlock))) {
+                world.setBlockState(mbp, emeraldEmeraldBlock.getStateFromMeta(emeraldEmeraldMeta), 2);
+            }
+        }
+    }
+
+    public void rPopulatePostDecorate(IChunkGenerator ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag) {
+        /**
+         * Has emerald gen been disabled in the configs?
+         * If so, check to see if this biome generated emeralds & remove them if necessary.
+         */
+        if (!ConfigRTG.generateOreEmerald && generatesEmeralds) {
+            rRemoveEmeralds(worldObj, rand, chunkX, chunkZ);
+        }
+    }
+
+    public void rRemoveEmeralds(World world, Random rand, int chunkX, int chunkZ) {
+        int endX = (chunkX * 16) + 16;
+        int endZ = (chunkZ * 16) + 16;
+
+        // Get the highest possible existing block location.
+        int maxY = world.getHeight(new BlockPos(chunkX, 0, chunkZ)).getY();
+        BlockPos.MutableBlockPos mbp = new BlockPos.MutableBlockPos();
+        for (int x = chunkX * 16; x < endX; ++x) {
+            for (int z = chunkZ * 16; z < endZ; ++z) {
+                for (int y = 0; y < maxY; ++y) {
+                    if (world.getBlockState(mbp.set(x, y, z)).getBlock().isReplaceableOreGen(world.getBlockState(mbp), world, mbp, BlockMatcher.forBlock(emeraldEmeraldBlock))) {
+
+                        world.setBlockState(mbp, emeraldStoneBlock.getStateFromMeta(emeraldStoneMeta), 2);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * When manually decorating biomes by overriding rDecorate(), sometimes you want the biome
+     * to partially decorate itself. That's what this method does... it calls the biome's decorate() method.
+     */
+    public void rDecorateSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
+
+        if (strength > 0.3f) {
+            seedBiome.decorate(world, rand, new BlockPos(chunkX, 0, chunkY));
+        } else {
+            rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, seedBiome);
+        }
+    }
+
     public void generateMapGen(ChunkPrimer primer, Long seed, World world, BiomeProviderRTG cmr, Random mapRand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
 
         int k = 5;
@@ -352,40 +430,37 @@ public class RealisticBiomeBase extends BiomeBase {
 
     }
 
-    private float getRiverStrength(OpenSimplexNoise simplex, CellNoise cell, int x, int y)
-    {
+    private float getRiverStrength(OpenSimplexNoise simplex, CellNoise cell, int x, int y) {
         // copied from WorldChunkManager for debugging purposes
-            SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-            simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
-            double pX = x + jitter.deltax() * 220f;
-            double pY = y + jitter.deltay() * 220f;
+        SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+        simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
+        double pX = x + jitter.deltax() * 220f;
+        double pY = y + jitter.deltay() * 220f;
 
         double[] results = cell.river().eval(pX / 1875.0, pY / 1875.0);
         return (float) cellBorder(results, 30.0 / 450.0, 1.0);
     }
 
     private static double cellBorder(double[] results, double width, double depth) {
-		double c = (results[1] - results[0]);
+        double c = (results[1] - results[0]);
         //int slot = (int)Math.floor(c*100.0);
         //incidences[slot] += 1;
         //references ++;
-        if (references>40000) {
+        if (references > 40000) {
             String result = "";
-            for (int i = 0; i< 100; i ++) {
+            for (int i = 0; i < 100; i++) {
                 result += " " + incidences[i];
             }
             throw new RuntimeException(result);
         }
-		if (c < width) {
-			return ((c / width) - 1f) * depth;
-		} else {
+        if (c < width) {
+            return ((c / width) - 1f) * depth;
+        } else {
 
-			return 0;
-		}
-	}
+            return 0;
+        }
+    }
 
-    private static int [] incidences = new int[200];
-    private static int references = 0;
     public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
         // we now have both lakes and rivers lowering land
         /*for (int testX =0 ;testX<100; testX++) {
@@ -404,58 +479,23 @@ public class RealisticBiomeBase extends BiomeBase {
             throw new RuntimeException(result);
         }*/
         if (noWaterFeatures) {
-            border = border*2;
-            if (border >1f) border = 1;
-            river = 1f - border*(1f-river);
+            border = border * 2;
+            if (border > 1f) border = 1;
+            river = 1f - border * (1f - river);
             return terrain.generateNoise(simplex, cell, x, y, border, river);
         }
-        float lakeStrength = lakePressure(simplex,cell,x,y,border);
+        float lakeStrength = lakePressure(simplex, cell, x, y, border);
         double lakeFlattening = this.lakeFlattening(lakeStrength, lakeWaterLevel, lakeDepressionLevel);
         // we add some flattening to the rivers but not to the lakes. This gives the rivers flatter
         // banks and the lakes steeper ones, which seems to be better aesthetically
-        float riverFlattening = river*1.25f-0.25f;
-        if (riverFlattening <0) riverFlattening = 0;
-        if (lakeFlattening < river) river = (float)lakeFlattening;
+        float riverFlattening = river * 1.25f - 0.25f;
+        if (riverFlattening < 0) riverFlattening = 0;
+        if (lakeFlattening < river) river = (float) lakeFlattening;
         float terrainNoise = terrain.generateNoise(simplex, cell, x, y, border, river);
-        return this.erodedNoise(simplex, cell, x, y, river, border, terrainNoise,lakeFlattening);
+        return this.erodedNoise(simplex, cell, x, y, river, border, terrainNoise, lakeFlattening);
     }
 
-    private static float actualRiverProportion = 300f/1600f;
-    public float erodedNoise(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float river, float border, float biomeHeight, double lakeFlattening)
-    {
-
-        float r = 1f;
-
-        // put a flat spot in the middle of the river
-        float riverFlattening = river*1.25f-0.25f;
-        if (riverFlattening <0) riverFlattening = 0;
-
-        // check if rivers need lowering
-        if (riverFlattening < actualRiverProportion) {
-            r = riverFlattening/actualRiverProportion;
-        }
-
-        //if (1>0) return 62f+r*10f;
-        if ((r < 1f && biomeHeight > 57f))
-        {
-            return (biomeHeight * (r))
-                + ((57f + simplex.noise2(x / 12f, y / 12f) * 2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (1f-r));
-        }
-        else
-        {
-            return biomeHeight;
-        }
-    }
-
-    // lake calculations
-
-    private float lakeInterval = 1470.0f;
-    private double lakeWaterLevel = 0.0;// the lakeStrenght below which things should be below ater
-    private double lakeDepressionLevel = 0.16;// the lakeStrength below which land should start to be lowered
-    public boolean noLakes = false;
-    public boolean noWaterFeatures = false;
-
-    public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
+    public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell, int x, int y, float border) {
         if (noLakes) return 1f;
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();
         simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
@@ -468,10 +508,10 @@ public class RealisticBiomeBase extends BiomeBase {
         pX += jitter.deltax() * 7f;
         pY += jitter.deltay() * 7f;
         //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
-        double [] lakeResults = simplexCell.river().eval((float)pX/ lakeInterval, (float)pY/ lakeInterval);
-        float results = 1f-(float)((lakeResults[1]-lakeResults[0])/lakeResults[1]);
-        if (results >1.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
-        if (results<-.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
+        double[] lakeResults = simplexCell.river().eval((float) pX / lakeInterval, (float) pY / lakeInterval);
+        float results = 1f - (float) ((lakeResults[1] - lakeResults[0]) / lakeResults[1]);
+        if (results > 1.01) throw new RuntimeException("" + lakeResults[0] + " , " + lakeResults[1]);
+        if (results < -.01) throw new RuntimeException("" + lakeResults[0] + " , " + lakeResults[1]);
         //return simplexCell.river().noise((float)x/ lakeInterval, (float)y/ lakeInterval,1.0);
         return results;
     }
@@ -479,8 +519,30 @@ public class RealisticBiomeBase extends BiomeBase {
     public double lakeFlattening(double pressure, double bottomLevel, double topLevel) {
         // this number indicates a multiplier to height
         if (pressure > topLevel) return 1;
-        if (pressure<bottomLevel) return 0;
-        return (pressure-bottomLevel)/(topLevel-bottomLevel);
+        if (pressure < bottomLevel) return 0;
+        return (pressure - bottomLevel) / (topLevel - bottomLevel);
+    }
+
+    public float erodedNoise(OpenSimplexNoise simplex, CellNoise simplexCell, int x, int y, float river, float border, float biomeHeight, double lakeFlattening) {
+
+        float r = 1f;
+
+        // put a flat spot in the middle of the river
+        float riverFlattening = river * 1.25f - 0.25f;
+        if (riverFlattening < 0) riverFlattening = 0;
+
+        // check if rivers need lowering
+        if (riverFlattening < actualRiverProportion) {
+            r = riverFlattening / actualRiverProportion;
+        }
+
+        //if (1>0) return 62f+r*10f;
+        if ((r < 1f && biomeHeight > 57f)) {
+            return (biomeHeight * (r))
+                    + ((57f + simplex.noise2(x / 12f, y / 12f) * 2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (1f - r));
+        } else {
+            return biomeHeight;
+        }
     }
 
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
@@ -519,77 +581,6 @@ public class RealisticBiomeBase extends BiomeBase {
         }
     }
 
-    /**
-     * Standard ore generation helper. Generates most ores.
-     *
-     * @see net.minecraft.world.biome.BiomeDecorator
-     */
-    protected void genStandardOre1(World worldObj, Random rand, BlockPos blockPos, int blockCount, WorldGenerator generator, int minHeight, int maxHeight) {
-        if (maxHeight < minHeight) {
-            int i = minHeight;
-            minHeight = maxHeight;
-            maxHeight = i;
-        } else if (maxHeight == minHeight) {
-            if (minHeight < 255) {
-                ++maxHeight;
-            } else {
-                --minHeight;
-            }
-        }
-
-        for (int j = 0; j < blockCount; ++j) {
-            BlockPos blockpos = blockPos.add(rand.nextInt(16), rand.nextInt(maxHeight - minHeight) + minHeight, rand.nextInt(16));
-            generator.generate(worldObj, rand, blockpos);
-        }
-    }
-
-    /**
-     * Standard ore generation helper. Generates Lapis Lazuli.
-     *
-     * @see net.minecraft.world.biome.BiomeDecorator
-     */
-    protected void genStandardOre2(World worldObj, Random rand, BlockPos blockPos, int blockCount, WorldGenerator generator, int centerHeight, int spread) {
-        for (int i = 0; i < blockCount; ++i) {
-            BlockPos blockpos = blockPos.add(rand.nextInt(16), rand.nextInt(spread) + rand.nextInt(spread) + centerHeight - spread, rand.nextInt(16));
-            generator.generate(worldObj, rand, blockpos);
-        }
-    }
-
-    public void rGenerateEmeralds(World world, Random rand, BlockPos blockPos) {
-        int k = 3 + rand.nextInt(6);
-        BlockPos.MutableBlockPos mbp = new BlockPos.MutableBlockPos();
-
-        for (int l = 0; l < k; ++l) {
-            mbp.set(blockPos.getX() + rand.nextInt(16),
-                    rand.nextInt(28) + 4,
-                    blockPos.getZ() + rand.nextInt(16));
-
-            //TODO: How to get that last argument???
-            if (world.getBlockState(mbp).getBlock().isReplaceableOreGen(world.getBlockState(mbp), world, mbp, BlockMatcher.forBlock(emeraldStoneBlock))) {
-                world.setBlockState(mbp, emeraldEmeraldBlock.getStateFromMeta(emeraldEmeraldMeta), 2);
-            }
-        }
-    }
-
-    public void rRemoveEmeralds(World world, Random rand, int chunkX, int chunkZ) {
-        int endX = (chunkX * 16) + 16;
-        int endZ = (chunkZ * 16) + 16;
-
-        // Get the highest possible existing block location.
-        int maxY = world.getHeight(new BlockPos(chunkX, 0, chunkZ)).getY();
-        BlockPos.MutableBlockPos mbp = new BlockPos.MutableBlockPos();
-        for (int x = chunkX * 16; x < endX; ++x) {
-            for (int z = chunkZ * 16; z < endZ; ++z) {
-                for (int y = 0; y < maxY; ++y) {
-                    if (world.getBlockState(mbp.set(x, y, z)).getBlock().isReplaceableOreGen(world.getBlockState(mbp), world, mbp, BlockMatcher.forBlock(emeraldEmeraldBlock))) {
-
-                        world.setBlockState(mbp, emeraldStoneBlock.getStateFromMeta(emeraldStoneMeta), 2);
-                    }
-                }
-            }
-        }
-    }
-
     public TerrainBase getTerrain() {
         return this.terrain;
     }
@@ -609,18 +600,11 @@ public class RealisticBiomeBase extends BiomeBase {
         return this.surfaces;
     }
 
-    public static int getIdForBiome(BiomeGenBase biome) {
-        if (biome instanceof RealisticBiomeBase)
-            return BiomeGenBase.getIdForBiome(((RealisticBiomeBase) biome).baseBiome);
-        return BiomeGenBase.getIdForBiome(biome);
-    }
-
     public int getId() {
         return RealisticBiomeBase.getIdForBiome(this);
     }
 
-    public void decorateInAnOrderlyFashion(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
+    public void decorateInAnOrderlyFashion(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
         for (DecoBase deco : this.decos) {
 
             if (deco.preGenerate(this, world, rand, chunkX, chunkY, simplex, cell, strength, river)) {
@@ -631,40 +615,38 @@ public class RealisticBiomeBase extends BiomeBase {
     }
 
     /**
+     * Convenience method for addDeco() where 'allowed' is assumed to be true.
+     *
+     * @param deco
+     */
+    public void addDeco(DecoBase deco) {
+        this.addDeco(deco, true);
+    }
+
+    /**
      * Adds a deco object to the list of biome decos.
      * The 'allowed' parameter allows us to pass biome config booleans dynamically when configuring the decos in the biome.
      *
      * @param deco
      * @param allowed
      */
-    public void addDeco(DecoBase deco, boolean allowed)
-    {
-    	if (allowed) {
+    public void addDeco(DecoBase deco, boolean allowed) {
+        if (allowed) {
 
-	    	if (deco instanceof DecoBaseBiomeDecorations) {
+            if (deco instanceof DecoBaseBiomeDecorations) {
 
-	        	for (int i = 0; i < this.decos.size(); i++) {
+                for (int i = 0; i < this.decos.size(); i++) {
 
-	        		if (this.decos.get(i) instanceof DecoBaseBiomeDecorations) {
+                    if (this.decos.get(i) instanceof DecoBaseBiomeDecorations) {
 
-	        			this.decos.remove(i);
-	        			break;
-	        		}
-	        	}
-	    	}
+                        this.decos.remove(i);
+                        break;
+                    }
+                }
+            }
 
-	    	this.decos.add(deco);
-	    	this.useNewDecorationSystem = true;
-    	}
-    }
-
-    /**
-     * Convenience method for addDeco() where 'allowed' is assumed to be true.
-     *
-     * @param deco
-     */
-    public void addDeco(DecoBase deco)
-    {
-    	this.addDeco(deco, true);
+            this.decos.add(deco);
+            this.useNewDecorationSystem = true;
+        }
     }
 }

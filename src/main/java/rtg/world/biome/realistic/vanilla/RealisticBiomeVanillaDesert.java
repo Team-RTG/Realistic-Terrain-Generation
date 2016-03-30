@@ -12,7 +12,7 @@ import rtg.world.biome.deco.DecoCactus;
 import rtg.world.biome.deco.DecoDeadBush;
 import rtg.world.biome.deco.DecoDesertWell;
 import rtg.world.biome.deco.DecoFlowersRTG;
-import rtg.world.biome.deco.DecoLargeFernDoubleTallgrass;
+import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
 import rtg.world.biome.deco.DecoReed;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
@@ -78,13 +78,13 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
 		decoFlowersRTG.loops = 3;
         this.addDeco(decoFlowersRTG);
         
-        DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
-        decoDoublePlants.checkRiver = true;
-        decoDoublePlants.minRiver = 0.7f;
-        decoDoublePlants.maxY = 128;
-        decoDoublePlants.loops = 15;
-        decoDoublePlants.fernChance = 6;
-        this.addDeco(decoDoublePlants);
+        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
+        decoGrassDoubleTallgrass.checkRiver = true;
+        decoGrassDoubleTallgrass.minRiver = 0.7f;
+        decoGrassDoubleTallgrass.maxY = 128;
+        decoGrassDoubleTallgrass.loops = 15;
+        decoGrassDoubleTallgrass.doubleGrassChance = 3;
+        this.addDeco(decoGrassDoubleTallgrass);
         
         DecoDesertWell decoDesertWell = new DecoDesertWell();
         decoDesertWell.maxY = 80;

@@ -110,8 +110,8 @@ public class RealisticBiomeBase extends BiomeBase {
          * This includes ore generation since it's part of the decoration process.
          * We're adding this deco here in order to avoid having to explicitly add it
          * in every singe realistic biome.
-         * If it does get added manually to let the base biome handle some or all of the decoration process,
-         * this deco will get replaced with the new one.
+         * If it does getProp added manually to let the base biome handle some or all of the decoration process,
+         * this deco will getProp replaced with the new one.
          */
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.allowed = false;
@@ -363,7 +363,7 @@ public class RealisticBiomeBase extends BiomeBase {
                     rand.nextInt(28) + 4,
                     blockPos.getZ() + rand.nextInt(16));
 
-            //TODO: How to get that last argument???
+            //TODO: How to getProp that last argument???
             if (world.getBlockState(mbp).getBlock().isReplaceableOreGen(world.getBlockState(mbp), world, mbp, BlockMatcher.forBlock(emeraldStoneBlock))) {
                 world.setBlockState(mbp, emeraldEmeraldBlock.getStateFromMeta(emeraldEmeraldMeta), 2);
             }

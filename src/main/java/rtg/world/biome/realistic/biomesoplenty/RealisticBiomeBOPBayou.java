@@ -26,7 +26,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
                 new SurfaceBOPBayou(config, topBlock, fillerBlock)
         );
         // turn off those dang ponds
-        /*BiomeGenBayou bayou = (BiomeGenBayou)BOPBiomes.bayou.get();
+        /*BiomeGenBayou bayou = (BiomeGenBayou)BOPBiomes.bayou.getProp();
         BiomeDecorator decor = BOPBiomes.bayou.theBiomeDecorator;
         if (1>0) throw new RuntimeException(""+bayou.toString()+ " " + decor.toString());
         BOPBiomeDecorator decorator = (BOPBiomeDecorator)BOPBiomes.bayou.theBiomeDecorator;

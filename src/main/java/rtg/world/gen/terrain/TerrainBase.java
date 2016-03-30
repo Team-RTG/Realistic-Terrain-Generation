@@ -196,7 +196,7 @@ public class TerrainBase {
         result = (float) Math.pow(result, .33333333333333);
         result = result / 0.46631f;// this is the different between the values for -1 and 1,
         //so normalizing to a distance of 1
-        result = result - 4.62021f;// subtracting the result for input -1 so we actually get 0 to 1
+        result = result - 4.62021f;// subtracting the result for input -1 so we actually getProp 0 to 1
         return result;
     }
 

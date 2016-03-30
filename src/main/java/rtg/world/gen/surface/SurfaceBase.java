@@ -8,7 +8,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.BiomeConfigProperty;
-import rtg.api.biome.BiomeConfigProperty.BiomeProperty;
+import rtg.api.biome.ConfigProperty;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.ModPresenceTester;
 import rtg.util.noise.CellNoise;
@@ -39,14 +39,14 @@ public class SurfaceBase {
     }
 
     private void assignUserConfigs(BiomeConfig config, IBlockState top, IBlockState fill) {
-        IBlockState userTopBlock = config._block(BiomeProperty.SURFACE_TOP_BLOCK);
+        IBlockState userTopBlock = config._block(BiomeConfigProperty.SURFACE_TOP_BLOCK);
         try {
             topBlock = userTopBlock;
         } catch (Exception e) {
             topBlock = top;
         }
 
-        IBlockState userFillerBlock = config._block(BiomeProperty.SURFACE_FILLER_BLOCK);
+        IBlockState userFillerBlock = config._block(BiomeConfigProperty.SURFACE_FILLER_BLOCK);
         try {
             fillerBlock = userFillerBlock;
         } catch (Exception e) {
@@ -107,7 +107,7 @@ public class SurfaceBase {
         return this.fillerBlock;
     }
 
-    protected IBlockState getConfigBlock(BiomeConfig config, BiomeConfigProperty.IBiomePropertyEnum id, IBlockState blockDefault) {
+    protected IBlockState getConfigBlock(BiomeConfig config, ConfigProperty.IPropertyEnum id, IBlockState blockDefault) {
         IBlockState blockReturn;
 
         try {

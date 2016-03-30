@@ -55,7 +55,7 @@ public class RTG {
 
         MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Pre());
 
-        // This MUST get called before the config is initialised.
+        // This MUST getProp called before the config is initialised.
         BiomeConfigManager.initBiomeConfigs();
 
         MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Post());

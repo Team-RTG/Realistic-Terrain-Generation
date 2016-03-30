@@ -32,7 +32,7 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
          * ##################################################
          */
 
-        // First, let's get a few shrubs in to break things up a bit.
+        // First, let's getProp a few shrubs in to break things up a bit.
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 110;
         decoShrub.strengthFactor = 4f;

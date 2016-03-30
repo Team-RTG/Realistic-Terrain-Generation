@@ -1,7 +1,7 @@
 package rtg.config;
 
 import net.minecraftforge.common.config.Configuration;
-import rtg.api.biome.tofucraft.config.BiomeConfigTOFU;
+import rtg.api.biome.BiomeConfig;
 import rtg.util.Logger;
 
 import java.io.File;
@@ -25,7 +25,7 @@ public class ModConfig {
 
             this.setDefaults();
 
-            if (hasBiomeConfigs) BiomeConfigManager.setBiomeConfigsFromUserConfigs(BiomeConfigTOFU.getBiomeConfigs(), config);
+            if (hasBiomeConfigs) BiomeConfigManager.setBiomeConfigsFromUserConfigs(BiomeConfig.getBiomeConfigs(), config);
         } catch (Exception e) {
             Logger.error("RTG has had a problem loading " + name + " configuration.");
         } finally {

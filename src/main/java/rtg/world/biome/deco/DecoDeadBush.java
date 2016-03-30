@@ -22,6 +22,7 @@ public class DecoDeadBush extends DecoBase
     
 	public float strengthFactor;
 	public int maxY;
+	public int chance;
 	
 	public DecoDeadBush()
 	{
@@ -33,6 +34,7 @@ public class DecoDeadBush extends DecoBase
 		 */
 		this.maxY = 255; // No height limit by default.
 		this.strengthFactor = 2f; // The higher the value, the more there will be.
+		this.chance = 1;
 		
 		this.addDecoTypes(DecoType.DEAD_BUSH);
 	}
@@ -50,7 +52,7 @@ public class DecoDeadBush extends DecoBase
 	                int intY = rand.nextInt(this.maxY);
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 
-	                if (intY <= this.maxY) {
+	                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
 	                	(new WorldGenDeadBush(Blocks.deadbush)).generate(world, rand, intX, intY, intZ);
 	                }
 	            }

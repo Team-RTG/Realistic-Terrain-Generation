@@ -47,7 +47,8 @@ public class DecoTree extends DecoBase
 	public TreeCondition treeCondition; // Enum for the various conditions/chances for tree gen.
 	public float treeConditionNoise; // Only applies to a noise-related TreeCondition.
 	public int treeConditionChance; // Only applies to a chance-related TreeCondition.
-	public int maxY; // Height restriction.
+	public int minY; // Lower height restriction.
+	public int maxY; // Upper height restriction.
 	public Block logBlock;
 	public byte logMeta;
 	public Block leavesBlock;
@@ -72,7 +73,8 @@ public class DecoTree extends DecoBase
 		this.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		this.treeConditionNoise = 0f;
 		this.treeConditionChance = 1;
-		this.maxY = 255; // No height limit by default.
+		this.minY = 1; // No lower height limit by default.
+		this.maxY = 255; // No upper height limit by default.
 		this.logBlock = Blocks.log;
 		this.logMeta = (byte)0;
 		this.leavesBlock = Blocks.leaves;
@@ -107,7 +109,7 @@ public class DecoTree extends DecoBase
 	            	
 		            	case BIG_PINES:
 		            		
-		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 	
 	                            if (rand.nextBoolean()) {
 	                                WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 1, 1);
@@ -141,7 +143,7 @@ public class DecoTree extends DecoBase
 		            		
 		            	case DESERT_RIVER:
 		            		
-		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 	                        	
 		                        WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreeRTGSavanna(1);
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -152,7 +154,7 @@ public class DecoTree extends DecoBase
 	            		
 		            	case MEGA_JUNGLE:
 		            		
-		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 
 		                    	if (this.maxSize > this.minSize) {
 			                        WorldGenerator worldgenerator = new WorldGenMegaJungle(false, this.minSize + rand.nextInt(this.maxSize - this.minSize), 0, 3, 3);
@@ -168,9 +170,31 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
+		            	case MANGROVE:
+		            		
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+
+		                    	if (this.maxSize > this.minSize) {
+		                            WorldGenerator worldgenerator = new WorldGenTreeRTGMangrove(
+		                                    Blocks.log2, 1, Blocks.leaves2, 1, this.minSize + rand.nextInt(this.maxSize - this.minSize), 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
+		                                );
+		                                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                                worldgenerator.generate(world, rand, intX, intY, intZ);
+		                    	}
+		                    	else if (this.maxSize == this.minSize) {
+		                            WorldGenerator worldgenerator = new WorldGenTreeRTGMangrove(
+		                                    Blocks.log2, 1, Blocks.leaves2, 1, this.minSize, 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
+		                                );
+		                                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                                worldgenerator.generate(world, rand, intX, intY, intZ);
+		                    	}
+		            		}
+		            		
+		            		break;
+		            		
 		            	case MEGA_JUNGLE_MANGROVE:
 		            		
-		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 
 			                    WorldGenerator worldgenerator =
 			                        rand.nextInt(3) != 0
@@ -186,7 +210,7 @@ public class DecoTree extends DecoBase
 		            		
 		            	case MEGA_TAIGA:
 		            		
-		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 
 		                        WorldGenerator worldgenerator =
 		                            rand.nextInt(4) == 0
@@ -202,7 +226,7 @@ public class DecoTree extends DecoBase
 		            		
 		            	case PALM_CUSTOM:
 		            		
-		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 
 		                    	if (this.maxSize > this.minSize) {
 			                        WorldGenerator worldgenerator = new WorldGenTreeRTGPalmCustom((float)(this.minSize + rand.nextInt(this.maxSize - this.minSize)));
@@ -220,7 +244,7 @@ public class DecoTree extends DecoBase
 		            		
 		            	case PINE_EURO:
 		            		
-		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 
 		                        WorldGenerator worldgenerator = new WorldGenTreeRTGPineEuro();
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -231,7 +255,7 @@ public class DecoTree extends DecoBase
 		            		
 		            	case SMALL_BIRCH:
 		            		
-		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 	                        	
 	                            WorldGenerator worldgenerator = new WorldGenTreeRTGBirchSmall(4 + rand.nextInt(7), 8 + rand.nextInt(12), 2);
 	                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -242,7 +266,7 @@ public class DecoTree extends DecoBase
 		            		
 		            	case SAVANNA:
 		            		
-		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 	                        	
 		                        if (rand.nextInt(9) == 0) {
 		                            WorldGenerator worldgenerator = new WorldGenShrub(0, 0);
@@ -267,7 +291,7 @@ public class DecoTree extends DecoBase
 		            		
 		            	case SAVANNA_RIVER:
 		            		
-		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 	                        	
 		                        WorldGenerator worldgenerator =
 		                                rand.nextInt(3) != 0 ? new WorldGenShrub(0, 0) : rand.nextInt(9) == 0 ? new WorldGenTreeRTGSavanna(1)
@@ -280,7 +304,7 @@ public class DecoTree extends DecoBase
 		            		
 		            	case SMALL_PINES_TREES_FORESTS:
 		            		
-		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 
 		                        WorldGenerator worldgenerator =
 		                        rand.nextInt(4) != 0
@@ -296,7 +320,7 @@ public class DecoTree extends DecoBase
 		            		
 		            	case SUPER_TALL_BIRCH:
 		            		
-		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 	                        	
 		                        WorldGenerator worldgenerator = new WorldGenTreeRTGBirch(16 + rand.nextInt(8), rand.nextInt(8) + 4);
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -307,7 +331,7 @@ public class DecoTree extends DecoBase
 		            		
 		            	case TAIGA:
 		            		
-		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 
 		                        WorldGenerator worldgenerator =
 			                        rand.nextInt(4) == 0
@@ -323,7 +347,7 @@ public class DecoTree extends DecoBase
 
 		            	case VANILLA_BEACH_PALM:
 		            		
-	                        if (intY <= this.maxY && (rand.nextInt((int) (4f / strength)) == 0)) {
+	                        if (intY <= this.maxY && intY >= this.minY && (rand.nextInt((int) (4f / strength)) == 0)) {
 	                        	
 	                            WorldGenerator worldgenerator = new WorldGenTreeRTGPalm();
 	                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -334,7 +358,7 @@ public class DecoTree extends DecoBase
 		            		
 		            	case VANILLA_COLD_TAIGA:
 		            		
-	                        if (intY <= this.maxY && (rand.nextInt((int) (4f / strength)) == 0)) {
+	                        if (intY <= this.maxY && intY >= this.minY && (rand.nextInt((int) (4f / strength)) == 0)) {
 	                        	
 	                            WorldGenerator worldgenerator =
 	                                    rand.nextInt(4) == 0 ? new WorldGenTreeRTGSpruceSmall(1 + rand.nextInt(2)) : rand.nextInt(6) == 0 ? new WorldGenTreeRTGPineSmall(
@@ -347,7 +371,7 @@ public class DecoTree extends DecoBase
 		            		
 		            	case WILLOW:
 		            		
-		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 	                        	
 		            			WorldGenerator worldgenerator = new WorldGenTreeRTGWillow();
 	                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -392,6 +416,7 @@ public class DecoTree extends DecoBase
 		BIG_PINES,
 		BIRCH_TREES_FOREST,
 		DESERT_RIVER,
+		MANGROVE,
 		MEGA_JUNGLE,
 		MEGA_JUNGLE_MANGROVE,
 		MEGA_TAIGA,

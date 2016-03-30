@@ -18,7 +18,8 @@ import rtg.world.gen.feature.WorldGenCacti;
  */
 public class DecoCactus extends DecoBase
 {
-    
+	public int loops;
+	public int chance;
 	public float strengthFactor;
 	public int maxY;
 	public boolean sandOnly;
@@ -31,8 +32,10 @@ public class DecoCactus extends DecoBase
 		 * Default values.
 		 * These can be overridden when configuring the Deco object in the realistic biome.
 		 */
+		this.loops = 1;
+		this.chance = 1;
 		this.maxY = 255; // No height limit by default.
-		this.strengthFactor = 2f; // The higher the value, the more there will be.
+		this.strengthFactor = 0f; // The higher the value, the more there will be.
 		this.sandOnly = false;
 		
 		this.addDecoTypes(DecoType.CACTUS);
@@ -45,13 +48,15 @@ public class DecoCactus extends DecoBase
 			
 			if (TerrainGen.decorate(world, rand, chunkX, chunkY, CACTUS)) {
 	            
-	            for (int i = 0; i < this.strengthFactor * strength; i++)
+                int loopCount = this.loops;
+                loopCount = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : loopCount;
+	            for (int i = 0; i < loopCount; i++)
 	            {
 	                int intX = chunkX + rand.nextInt(16) + 8;
 	                int intY = rand.nextInt(this.maxY);
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 
-	                if (intY <= this.maxY) {
+	                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
 	                	(new WorldGenCacti(this.sandOnly)).generate(world, rand, intX, intY, intZ);
 	                }
 	            }

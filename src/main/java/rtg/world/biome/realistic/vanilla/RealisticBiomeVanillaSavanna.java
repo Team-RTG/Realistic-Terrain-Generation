@@ -97,7 +97,7 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase
 		decoBoulder.boulderBlock = Blocks.cobblestone;
 		decoBoulder.chance = 24;
 		decoBoulder.maxY = 95;
-		this.addDeco(decoBoulder);      
+		this.addDeco(decoBoulder);
         
 		DecoDoubleGrass decoDoubleGrass = new DecoDoubleGrass();
 		decoDoubleGrass.maxY = 128;

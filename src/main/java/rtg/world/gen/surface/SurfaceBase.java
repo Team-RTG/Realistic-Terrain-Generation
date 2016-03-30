@@ -7,6 +7,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.BiomeConfigProperty;
+import rtg.api.biome.BiomeConfigProperty.BiomeProperty;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.ModPresenceTester;
 import rtg.util.noise.CellNoise;
@@ -37,26 +39,16 @@ public class SurfaceBase {
     }
 
     private void assignUserConfigs(BiomeConfig config, IBlockState top, IBlockState fill) {
-        String userTopBlock = config._string(BiomeConfig.surfaceTopBlockId);
-        String userTopBlockMeta = config._string(BiomeConfig.surfaceTopBlockMetaId);
+        IBlockState userTopBlock = config._block(BiomeProperty.SURFACE_TOP_BLOCK);
         try {
-            if (Block.getBlockFromName(userTopBlock) != null) {
-                topBlock = Block.getBlockFromName(userTopBlock).getStateFromMeta(Byte.valueOf(userTopBlockMeta));
-            } else {
-                topBlock = top;
-            }
+            topBlock = userTopBlock;
         } catch (Exception e) {
             topBlock = top;
         }
 
-        String userFillerBlock = config._string(BiomeConfig.surfaceFillerBlockId);
-        String userFillerBlockMeta = config._string(BiomeConfig.surfaceFillerBlockMetaId);
+        IBlockState userFillerBlock = config._block(BiomeProperty.SURFACE_FILLER_BLOCK);
         try {
-            if (Block.getBlockFromName(userFillerBlock) != null) {
-                fillerBlock = Block.getBlockFromName(userFillerBlock).getStateFromMeta(Integer.parseInt(userFillerBlockMeta));
-            } else {
-                fillerBlock = fill;
-            }
+            fillerBlock = userFillerBlock;
         } catch (Exception e) {
             fillerBlock = fill;
         }
@@ -115,17 +107,11 @@ public class SurfaceBase {
         return this.fillerBlock;
     }
 
-    protected IBlockState getConfigBlock(BiomeConfig config, String propertyId, String propertyMeta, IBlockState blockDefault) {
-        IBlockState blockReturn = blockDefault;
-        String userBlockId = config._string(propertyId);
-        String userBlockMeta = config._string(propertyMeta);
+    protected IBlockState getConfigBlock(BiomeConfig config, BiomeConfigProperty.IBiomePropertyEnum id, IBlockState blockDefault) {
+        IBlockState blockReturn;
 
         try {
-            if (Block.getBlockFromName(userBlockId) != null) {
-                fillerBlock = Block.getBlockFromName(userBlockId).getStateFromMeta(Integer.parseInt(userBlockMeta));
-            } else {
-                blockReturn = blockDefault;
-            }
+            blockReturn = config._block(id);
         } catch (Exception e) {
             blockReturn = blockDefault;
         }

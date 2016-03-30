@@ -1,26 +1,14 @@
 package rtg.api.biome;
 
-import rtg.api.biome.BiomeConfigProperty.Type;
+import net.minecraft.block.state.IBlockState;
 
 import java.util.ArrayList;
+
+import static rtg.api.biome.BiomeConfigProperty.BiomeProperty.*;
 
 
 public class BiomeConfig {
 
-    public static final String allowVillagesId = "allowVillages";
-    public static final String allowVillagesName = "Allow Villages";
-    public static final String useRTGDecorationsId = "useRTGDecorations";
-    public static final String useRTGDecorationsName = "Use RTG Decorations";
-    public static final String useRTGSurfacesId = "useRTGSurfaces";
-    public static final String useRTGSurfacesName = "Use RTG Surfaces";
-    public static final String surfaceTopBlockId = "surfaceTopBlock";
-    public static final String surfaceTopBlockName = "RTG Surface: Top Block";
-    public static final String surfaceTopBlockMetaId = "surfaceTopBlockMeta";
-    public static final String surfaceTopBlockMetaName = "RTG Surface: Top Block Meta";
-    public static final String surfaceFillerBlockId = "surfaceFillerBlock";
-    public static final String surfaceFillerBlockName = "RTG Surface: Filler Block";
-    public static final String surfaceFillerBlockMetaId = "surfaceFillerBlockMeta";
-    public static final String surfaceFillerBlockMetaName = "RTG Surface: Filler Block Meta";
     public String modSlug;
     public String biomeSlug;
     public ArrayList<BiomeConfigProperty> properties;
@@ -31,15 +19,11 @@ public class BiomeConfig {
 
         this.properties = new ArrayList<BiomeConfigProperty>();
 
-        this.addProperty(new BiomeConfigProperty(allowVillagesId, Type.BOOLEAN, allowVillagesName, "", true));
-
-        this.addProperty(new BiomeConfigProperty(useRTGDecorationsId, Type.BOOLEAN, useRTGDecorationsName, "", true));
-
-        this.addProperty(new BiomeConfigProperty(useRTGSurfacesId, Type.BOOLEAN, useRTGSurfacesName, "", true));
-        this.addProperty(new BiomeConfigProperty(surfaceTopBlockId, Type.STRING, surfaceTopBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(surfaceTopBlockMetaId, Type.STRING, surfaceTopBlockMetaName, "", ""));
-        this.addProperty(new BiomeConfigProperty(surfaceFillerBlockId, Type.STRING, surfaceFillerBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(surfaceFillerBlockMetaId, Type.STRING, surfaceFillerBlockMetaName, "", ""));
+        this.addProperty(ALLOW_VILLAGES.prop);
+        this.addProperty(USE_RTG_DECORATIONS.prop);
+        this.addProperty(USE_RTG_SURFACES.prop);
+        this.addProperty(SURFACE_TOP_BLOCK.prop);
+        this.addProperty(SURFACE_FILLER_BLOCK.prop);
     }
 
     public void addProperty(BiomeConfigProperty property) {
@@ -68,7 +52,7 @@ public class BiomeConfig {
         return this.properties;
     }
 
-    public boolean _boolean(String id) {
+    public boolean _boolean(BiomeConfigProperty.IBiomePropertyEnum id) {
         try {
 
             return getPropertyById(id).valueBoolean;
@@ -78,17 +62,17 @@ public class BiomeConfig {
         }
     }
 
-    public BiomeConfigProperty getPropertyById(String id) {
+    public BiomeConfigProperty getPropertyById(BiomeConfigProperty.IBiomePropertyEnum id) {
         for (int i = 0; i < this.properties.size(); i++) {
 
-            if (this.properties.get(i).id.contentEquals(id)) {
+            if (this.properties.get(i).id.contentEquals(id.name())) {
                 return this.properties.get(i);
             }
         }
         return null;
     }
 
-    public int _int(String id) {
+    public int _int(BiomeConfigProperty.IBiomePropertyEnum id) {
         try {
 
             return getPropertyById(id).valueInt;
@@ -98,10 +82,20 @@ public class BiomeConfig {
         }
     }
 
-    public String _string(String id) {
+    public String _string(BiomeConfigProperty.IBiomePropertyEnum id) {
         try {
 
             return getPropertyById(id).valueString;
+        } catch (Exception e) {
+
+            throw new RuntimeException("Biome config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
+        }
+    }
+
+    public IBlockState _block(BiomeConfigProperty.IBiomePropertyEnum id) {
+        try {
+
+            return getPropertyById(id).valueBlock;
         } catch (Exception e) {
 
             throw new RuntimeException("Biome config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());

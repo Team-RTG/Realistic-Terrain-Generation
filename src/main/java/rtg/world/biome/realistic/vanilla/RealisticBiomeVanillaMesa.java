@@ -2,18 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenCacti;
-import rtg.world.gen.feature.WorldGenFlowersRTG;
-import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceRiverOasis;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaMesa;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaMesa;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -25,6 +13,17 @@ import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.world.gen.feature.WorldGenCacti;
+import rtg.world.gen.feature.WorldGenFlowersRTG;
+import rtg.world.gen.feature.WorldGenGrass;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
+import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.gen.surface.SurfaceRiverOasis;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaMesa;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaMesa;
 
 public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase
 {

@@ -2,15 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenCacti;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceRiverOasis;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaBryce;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaBryce;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -20,6 +11,14 @@ import net.minecraft.world.gen.feature.WorldGenDeadBush;
 import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.world.gen.feature.WorldGenCacti;
+import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.gen.surface.SurfaceRiverOasis;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaBryce;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaBryce;
 
 public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase
 {
@@ -31,15 +30,15 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase
 
     public RealisticBiomeVanillaMesaBryce(BiomeConfig config)
     {
-    
-        super(config, 
-            mutationBiome,
-            BiomeGenBase.river,
-            new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f),
-            new SurfaceVanillaMesaBryce(config, Blocks.sand, (byte)1, Blocks.sand, (byte)1, 0)
+
+        super(config,
+                mutationBiome,
+                BiomeGenBase.river,
+                new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f),
+                new SurfaceVanillaMesaBryce(config, Blocks.sand, (byte)1, Blocks.sand, (byte)1, 0)
         );
     }
-    
+
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
     {

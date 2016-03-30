@@ -2,13 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenCacti;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaPlateau;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateau;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -19,6 +12,12 @@ import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.world.gen.feature.WorldGenCacti;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaPlateau;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateau;
 
 public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase
 {
@@ -28,15 +27,15 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase
     
     public RealisticBiomeVanillaMesaPlateau(BiomeConfig config)
     {
-    
-        super(config, 
-            BiomeGenBase.mesaPlateau,
-            BiomeGenBase.river,
-            new TerrainVanillaMesaPlateau(true, 35f, 160f, 60f, 40f, 69f),
-            new SurfaceVanillaMesaPlateau(config, Blocks.sand, (byte)1, Blocks.sand, (byte)1, 0));
-        this.noLakes=true;
+
+        super(config,
+                BiomeGenBase.mesaPlateau,
+                BiomeGenBase.river,
+                new TerrainVanillaMesaPlateau(true, 35f, 160f, 60f, 40f, 69f),
+                new SurfaceVanillaMesaPlateau(config, Blocks.sand, (byte)1, Blocks.sand, (byte)1, 0));
+        this.noLakes = true;
     }
-    
+
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
     {

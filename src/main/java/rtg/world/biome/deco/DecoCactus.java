@@ -4,6 +4,8 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
@@ -23,6 +25,8 @@ public class DecoCactus extends DecoBase
 	public float strengthFactor;
 	public int maxY;
 	public boolean sandOnly;
+    public Block soilBlock;
+    public byte soilMeta;
 	
 	public DecoCactus()
 	{
@@ -37,6 +41,8 @@ public class DecoCactus extends DecoBase
 		this.maxY = 255; // No height limit by default.
 		this.strengthFactor = 0f; // The higher the value, the more there will be.
 		this.sandOnly = false;
+        this.soilBlock = Blocks.sand;
+        this.soilMeta = (byte)0;
 		
 		this.addDecoTypes(DecoType.CACTUS);
 	}
@@ -57,7 +63,7 @@ public class DecoCactus extends DecoBase
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 
 	                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-	                	(new WorldGenCacti(this.sandOnly)).generate(world, rand, intX, intY, intZ);
+	                	(new WorldGenCacti(this.sandOnly, 0, this.soilBlock, this.soilMeta)).generate(world, rand, intX, intY, intZ);
 	                }
 	            }
 	        }

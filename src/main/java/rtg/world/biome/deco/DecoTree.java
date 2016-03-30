@@ -127,7 +127,7 @@ public class DecoTree extends DecoBase
 		            		
 		            	case BIRCH_TREES_FOREST:
 		            		
-		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 	
 		                        WorldGenerator worldgenerator =
 			                        rand.nextInt(4) != 0
@@ -369,6 +369,16 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
+                        case VANILLA_OAK:
+
+                            if (intY <= this.maxY && intY >= this.minY && (rand.nextInt((int) (4f / strength)) == 0)) {
+                                WorldGenerator worldgenerator = new WorldGenTreeRTGTrees(false);
+                                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+                                worldgenerator.generate(world, rand, intX, intY, intZ);
+                            }
+
+                            break;
+		            		
 		            	case WILLOW:
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
@@ -430,6 +440,7 @@ public class DecoTree extends DecoBase
 		TAIGA,
 		VANILLA_BEACH_PALM,
 		VANILLA_COLD_TAIGA,
+		VANILLA_OAK,
 		WILLOW;
 	}
 	

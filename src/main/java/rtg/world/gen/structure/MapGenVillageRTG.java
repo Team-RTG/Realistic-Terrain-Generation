@@ -117,7 +117,7 @@ public class MapGenVillageRTG extends MapGenVillage {
         public Start(World p_i2092_1_, Random p_i2092_2_, int p_i2092_3_, int p_i2092_4_, int p_i2092_5_) {
             super(p_i2092_3_, p_i2092_4_);
             List list = StructureVillagePieces.getStructureVillageWeightedPieceList(p_i2092_2_, p_i2092_5_);
-            StructureVillagePieces.Start start = new StructureVillagePieces.Start(p_i2092_1_.getBiomeProvider(), 0, p_i2092_2_, (p_i2092_3_ << 4) + 2, (p_i2092_4_ << 4) + 2, list, p_i2092_5_);
+            StructureVillagePieces.Start start = new StructureVillagePieces.Start(p_i2092_1_.getBiomeProvider(), 0, p_i2092_2_, (p_i2092_3_ * 16) + 2, (p_i2092_4_ * 16) + 2, list, p_i2092_5_);
             this.components.add(start);
             start.buildComponent(start, this.components, p_i2092_2_);
             List list1 = start.field_74930_j;

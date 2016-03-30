@@ -240,6 +240,44 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
+		            	case SAVANNA:
+		            		
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+	                        	
+		                        if (rand.nextInt(9) == 0) {
+		                            WorldGenerator worldgenerator = new WorldGenShrub(0, 0);
+		                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                            worldgenerator.generate(world, rand, intX, intY, intZ);
+		                        }
+		                        
+		                        if (rand.nextInt(9) == 0) {
+		                            WorldGenerator worldgenerator = new WorldGenTreeRTGSavanna(1);
+		                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                            worldgenerator.generate(world, rand, intX, intY, intZ);
+		                        }
+		                        
+		                        if (rand.nextInt(9) == 0) {
+		                            WorldGenerator worldgenerator = new WorldGenTreeRTGSavanna(2);
+		                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                            worldgenerator.generate(world, rand, intX, intY, intZ);
+		                        }
+	                        }
+		            		
+		            		break;
+		            		
+		            	case SAVANNA_RIVER:
+		            		
+		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
+	                        	
+		                        WorldGenerator worldgenerator =
+		                                rand.nextInt(3) != 0 ? new WorldGenShrub(0, 0) : rand.nextInt(9) == 0 ? new WorldGenTreeRTGSavanna(1)
+		                                    : new WorldGenTreeRTGSavanna(2);
+		                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                            worldgenerator.generate(world, rand, intX, intY, intZ);
+	                        }
+		            		
+		            		break;
+		            		
 		            	case SMALL_PINES_TREES_FORESTS:
 		            		
 		            		if (intY <= this.maxY && isValidTreeCondition(noise, rand)) {
@@ -359,6 +397,8 @@ public class DecoTree extends DecoBase
 		MEGA_TAIGA,
 		PALM_CUSTOM,
 		PINE_EURO,
+		SAVANNA,
+		SAVANNA_RIVER,
 		SMALL_BIRCH,
 		SMALL_PINES_TREES_FORESTS,
 		SUPER_TALL_BIRCH,

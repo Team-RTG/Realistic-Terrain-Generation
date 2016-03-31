@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.config.vanilla.config.BiomeConfigVanillaForest;
+import rtg.api.config.BiomeConfigProperty;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
@@ -26,7 +26,7 @@ public class SurfaceACDarklandsForest extends SurfaceBase {
     private float sStrength = 65f;
     private float cCliff = 1.5f;
 
-    private IBlockState mixBlock;
+    public IBlockState mixBlock;
     private byte mixBlockMeta;
     private float mixHeight;
 
@@ -43,7 +43,7 @@ public class SurfaceACDarklandsForest extends SurfaceBase {
         sStrength = stoneStrength;
         cCliff = clayCliff;
 
-        mixBlock = this.getConfigBlock(config, BiomeConfigVanillaForest.surfaceMixBlockId, BiomeConfigVanillaForest.surfaceMixBlockMetaId, mix);
+        mixBlock = this.getConfigBlock(BiomeConfigProperty.SURFACE_TOP_MIX_BLOCK, mix);
         mixHeight = mixSize;
     }
 

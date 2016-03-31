@@ -237,7 +237,7 @@ public class MapGenCavesRTG extends MapGenCaves {
     /**
      * Digs out the current block, default implementation removes stone, filler, and top block
      * Sets the block to lava if y is less then 10, and air other wise.
-     * If setting to air, it also checks to see if we've broken the surface and if so
+     * If setting to air, it also checks to see if we've broken the paintTerrain and if so
      * tries to make the floor the biome's top block
      *
      * @param data     Block data array
@@ -246,7 +246,7 @@ public class MapGenCavesRTG extends MapGenCaves {
      * @param z        local Z position
      * @param chunkX   Chunk X position
      * @param chunkZ   Chunk Y position
-     * @param foundTop True if we've encountered the biome's top block. Ideally if we've broken the surface.
+     * @param foundTop True if we've encountered the biome's top block. Ideally if we've broken the paintTerrain.
      */
 
     @Override

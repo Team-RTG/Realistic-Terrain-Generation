@@ -235,7 +235,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         // doJitter no longer needed as the biome array gets fixed
         byte[] abyte1 = chunk.getBiomeArray();
         for (k = 0; k < abyte1.length; ++k) {
-            // biomes are y-first and terrain x-first
+            // biomes are y-first and generateNoise x-first
             /*
             * This 2 line separation is needed, because otherwise, AIC's dynamic patching algorith detects vanilla pattern here and patches this part following vanilla logic.
             * Which causes game to crash.

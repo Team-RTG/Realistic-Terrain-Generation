@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class SurfaceBCOceanOilField extends SurfaceBase {
 
-    private IBlockState mixBlock;
+    public IBlockState mixBlock;
     private float width;
     private float height;
     private float mixCheck;

@@ -14,8 +14,8 @@ import rtg.util.noise.OpenSimplexNoise;
 import java.util.Random;
 
 public class SurfaceGrasslandMixBig extends SurfaceBase {
-    private IBlockState mixBlockTop;
-    private IBlockState mixBlockFill;
+    public IBlockState mixBlockTop;
+    public IBlockState mixBlockFill;
     private IBlockState cliffBlock1;
     private IBlockState cliffBlock2;
     private float width;

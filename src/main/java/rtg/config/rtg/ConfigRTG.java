@@ -131,7 +131,7 @@ public class ConfigRTG extends ModConfig {
 
 
     public ConfigRTG() {
-        super(SupportedMod.RTG, false);
+        super(SupportedMod.RTG);
     }
 
     @Override
@@ -299,7 +299,7 @@ public class ConfigRTG extends ModConfig {
                 "Stone shadow block ID",
                 "Terrain shadowing",
                 shadowStoneBlockId,
-                "The block to use for stone terrain shadowing, typically seen on the cliffs of stone mountains. Defaults to stained hardened clay." +
+                "The block to use for stone generateNoise shadowing, typically seen on the cliffs of stone mountains. Defaults to stained hardened clay." +
                         Configuration.NEW_LINE
         );
 
@@ -309,7 +309,7 @@ public class ConfigRTG extends ModConfig {
                 "Desert shadow block ID",
                 "Terrain shadowing",
                 shadowDesertBlockId,
-                "The block to use for desert terrain shadowing, typically seen on the cliffs of desert mountains. Defaults to stained hardened clay." +
+                "The block to use for desert generateNoise shadowing, typically seen on the cliffs of desert mountains. Defaults to stained hardened clay." +
                         Configuration.NEW_LINE
         );
 
@@ -353,7 +353,7 @@ public class ConfigRTG extends ModConfig {
                 "Allow Shrubs to Generate Below Surface",
                 "Trees",
                 allowShrubsToGenerateBelowSurface,
-                "Set this to FALSE to prevent shrub trunks from generating below the surface."
+                "Set this to FALSE to prevent shrub trunks from generating below the paintTerrain."
                         + Configuration.NEW_LINE
         );
 

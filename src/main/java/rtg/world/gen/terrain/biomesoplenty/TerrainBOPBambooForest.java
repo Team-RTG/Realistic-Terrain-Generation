@@ -6,7 +6,7 @@ import rtg.world.gen.terrain.*;
 
 public class TerrainBOPBambooForest extends TerrainBase {
 
-    /* Basic idea: High hilly terrain mixed with ground-noisy flats
+    /* Basic idea: High hilly generateNoise mixed with ground-noisy flats
      * using a transition that also generates the hills
      */
 

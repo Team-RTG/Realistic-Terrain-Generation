@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.config.vanilla.config.BiomeConfigVanillaExtremeHillsM;
+import rtg.api.config.BiomeConfigProperty;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
@@ -17,8 +17,8 @@ import java.util.Random;
 
 public class SurfaceVanillaExtremeHillsM extends SurfaceBase {
 
-    private IBlockState mixBlockTop;
-    private IBlockState mixBlockFill;
+    public IBlockState mixBlockTop;
+    public IBlockState mixBlockFill;
     private float width;
     private float height;
     private float smallW;
@@ -29,13 +29,9 @@ public class SurfaceVanillaExtremeHillsM extends SurfaceBase {
 
         super(config, top, filler);
 
-        mixBlockTop = this.getConfigBlock(config, BiomeConfigVanillaExtremeHillsM.surfaceMixBlockId,
-                BiomeConfigVanillaExtremeHillsM.surfaceMixBlockMetaId,
-                mixTop);
+        mixBlockTop = this.getConfigBlock(BiomeConfigProperty.SURFACE_TOP_MIX_BLOCK, mixTop);
 
-        mixBlockFill = this.getConfigBlock(config, BiomeConfigVanillaExtremeHillsM.surfaceMixFillerBlockId,
-                BiomeConfigVanillaExtremeHillsM.surfaceMixFillerBlockMetaId,
-                mixFill);
+        mixBlockFill = this.getConfigBlock(BiomeConfigProperty.SURFACE_FILLER_MIX_BLOCK, mixFill);
 
         width = mixWidth;
         height = mixHeight;

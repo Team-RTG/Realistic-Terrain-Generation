@@ -6,6 +6,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
+import rtg.api.config.BiomeConfig;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
@@ -17,7 +18,7 @@ public class SurfaceRedDesert extends SurfaceBase {
     private IBlockState cliffBlock2;
     private IBlockState bottomBlock;
 
-    public SurfaceRedDesert() {
+    public SurfaceRedDesert(BiomeConfig config) {
         super(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1));
 
         bottomBlock = Blocks.sandstone.getDefaultState();

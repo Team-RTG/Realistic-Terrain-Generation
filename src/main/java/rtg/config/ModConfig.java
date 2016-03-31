@@ -42,7 +42,9 @@ public class ModConfig {
     public BiomeConfig setBiomeConfig(Class<? extends RealisticBiomeBase> biome, ConfigProperty[] props) {
         String s = biome.getSimpleName();
         s = s.substring(s.indexOf("RealisticBiome") + 1);
-        return this.biomeConfigMap.put(biome, new BiomeConfig(mod.getModId(), s, props));
+        BiomeConfig config = new BiomeConfig(mod.getModId(), s, props);
+        this.biomeConfigMap.put(biome, config );
+        return config;
     }
 
     public BiomeConfig getBiomeConfig(Class<? extends RealisticBiomeBase> biome) {

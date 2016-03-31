@@ -52,8 +52,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     public BiomeConfig config;
     public final ISupportedMod mod;
     public TerrainBase terrain;
-    public SurfaceBase[] surfaces;
-    public int surfacesLength;
+    public SurfaceBase surface;
     public SurfaceBase surfaceGeneric;
     public int waterSurfaceLakeChance; //Lower = more frequent
     public int lavaSurfaceLakeChance; //Lower = more frequent
@@ -121,12 +120,8 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         this.decos.add(decoBaseBiomeDecorations);
 
         this.config = mod.getConfig().setBiomeConfig(this.getClass(), initProperties());
-        this.surfaces = new SurfaceBase[] {initSurface()};
-        this.surfacesLength = this.surfaces.length;
-
-        if (this.surfacesLength == 1) {
-            surfaceGeneric = new SurfaceGeneric(config, surfaces[0].getTopBlock(), surfaces[0].getFillerBlock());
-        }
+        this.surface = initSurface();
+        surfaceGeneric = new SurfaceGeneric(config, surface.getTopBlock(), surface.getFillerBlock());
         this.terrain = initTerrain();
     }
 
@@ -538,10 +533,8 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
         if (ConfigRTG.enableRTGBiomeSurfaces && this.config._boolean(BiomeConfigProperty.USE_RTG_SURFACES)) {
 
-            for (int s = 0; s < surfacesLength; s++) {
+            surface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
 
-                surfaces[s].paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
-            }
         } else {
 
             this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
@@ -575,14 +568,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     }
 
     public SurfaceBase getSurface() {
-        if (this.surfacesLength == 0) {
-
-            throw new RuntimeException(
-                    "No realistic surfaces found for " + this.baseBiome.getBiomeName() + " (" + getIdForBiome(this.baseBiome) + ")."
-            );
-        }
-
-        return this.surfaces[0];
+        return this.surface;
     }
 
     public int getId() {
@@ -641,6 +627,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
      * Is called from the constructor
      * @return An array of ConfigProperties with defaults
      */
+    @Deprecated
     public ConfigProperty[] initProperties() {
         return new ConfigProperty[] {
                 ALLOW_VILLAGES.prop.setDefault(this.generateVillages),

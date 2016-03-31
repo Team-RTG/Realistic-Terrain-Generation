@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.config.vanilla.config.BiomeConfigVanillaFrozenOcean;
+import rtg.api.config.BiomeConfigProperty;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
@@ -17,7 +17,7 @@ import java.util.Random;
 public class SurfaceVanillaFrozenOcean extends SurfaceBase {
 
     private final int sandMetadata = 0;
-    private IBlockState mixBlock;
+    public IBlockState mixBlock;
     private float width;
     private float height;
     private float mixCheck;
@@ -26,8 +26,7 @@ public class SurfaceVanillaFrozenOcean extends SurfaceBase {
 
         super(config, top, filler);
 
-        mixBlock = this.getConfigBlock(config, BiomeConfigVanillaFrozenOcean.surfaceMixBlockId, BiomeConfigVanillaFrozenOcean.surfaceMixBlockMetaId,
-                mix);
+        mixBlock = this.getConfigBlock(BiomeConfigProperty.SURFACE_TOP_MIX_BLOCK, mix);
 
         width = mixWidth;
         height = mixHeight;

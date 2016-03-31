@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.config.vanilla.config.BiomeConfigVanillaIceMountains;
+import rtg.api.config.BiomeConfigProperty;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
@@ -16,8 +16,8 @@ import rtg.world.gen.surface.SurfaceBase;
 import java.util.Random;
 
 public class SurfaceVanillaIceMountains extends SurfaceBase {
-    private IBlockState mixBlockTop;
-    private IBlockState mixBlockFill;
+    public IBlockState mixBlockTop;
+    public IBlockState mixBlockFill;
     private IBlockState cliffBlock1;
     private IBlockState cliffBlock2;
     private float width;
@@ -28,13 +28,9 @@ public class SurfaceVanillaIceMountains extends SurfaceBase {
     public SurfaceVanillaIceMountains(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFill, IBlockState cliff1, IBlockState cliff2, float mixWidth, float mixHeight, float smallWidth, float smallStrength) {
         super(config, top, filler);
 
-        mixBlockTop = this.getConfigBlock(config, BiomeConfigVanillaIceMountains.surfaceMixBlockId,
-                BiomeConfigVanillaIceMountains.surfaceMixBlockMetaId,
-                mixTop);
+        mixBlockTop = this.getConfigBlock(BiomeConfigProperty.SURFACE_TOP_MIX_BLOCK, mixTop);
 
-        mixBlockFill = this.getConfigBlock(config, BiomeConfigVanillaIceMountains.surfaceMixFillerBlockId,
-                BiomeConfigVanillaIceMountains.surfaceMixFillerBlockMetaId,
-                mixFill);
+        mixBlockFill = this.getConfigBlock(BiomeConfigProperty.SURFACE_FILLER_MIX_BLOCK, mixFill);
 
         cliffBlock1 = cliff1;
         cliffBlock2 = cliff2;

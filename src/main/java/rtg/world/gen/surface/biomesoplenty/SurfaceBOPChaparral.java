@@ -15,7 +15,7 @@ import rtg.world.gen.surface.SurfaceBase;
 import java.util.Random;
 
 public class SurfaceBOPChaparral extends SurfaceBase {
-    private IBlockState mixBlock;
+    public IBlockState mixBlock;
     private float width;
     private float height;
 

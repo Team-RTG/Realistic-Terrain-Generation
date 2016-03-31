@@ -25,7 +25,7 @@ public class SurfaceFNMapleForest extends SurfaceBase {
     private float sStrength = 65f;
     private float cCliff = 1.5f;
 
-    private IBlockState mixBlock;
+    public IBlockState mixBlock;
     private byte mixBlockMeta;
     private float mixHeight;
 

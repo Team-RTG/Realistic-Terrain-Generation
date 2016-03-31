@@ -12,11 +12,8 @@ import rtg.debug.DebugHandler;
 import rtg.event.EventManagerRTG;
 import rtg.proxy.CommonProxy;
 import rtg.util.RealisticBiomePresenceTester;
+import rtg.util.SupportedMod;
 import rtg.world.WorldTypeRTG;
-import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
-import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
-import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
-import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 
 import java.util.ArrayList;
@@ -35,12 +32,7 @@ public class RTG {
     @SidedProxy(serverSide = PROXY_COMMON, clientSide = PROXY_CLIENT)
     public static CommonProxy proxy;
 
-    private ConfigManager configManager = new ConfigManager();
     private ArrayList<Runnable> serverCloseActions = new ArrayList<Runnable>();
-
-    public ConfigManager configManager(int dimension) {
-        return configManager;
-    }
 
     @EventHandler
     public void fmlLifeCycleEvent(FMLPreInitializationEvent event) {
@@ -53,13 +45,13 @@ public class RTG {
 
         MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Pre());
 
-        // This MUST getProp called before the config is initialised.
-        BiomeConfigManager.initBiomeConfigs();
+        // This MUST get called before the config is initialised.
 
         MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Post());
 
         configPath = event.getModConfigurationDirectory() + "/RTG/";
-        ConfigManager.init(configPath);
+
+        SupportedMod.initAll();
 
         worldtype = new WorldTypeRTG("RTG");
     }
@@ -76,12 +68,12 @@ public class RTG {
 
         RealisticBiomeVanillaBase.addBiomes();
 
-        RealisticBiomeACBase.addBiomes();
-        RealisticBiomeBOPBase.addBiomes();
+        //RealisticBiomeACBase.addBiomes();
+        //RealisticBiomeBOPBase.addBiomes();
         //RealisticBiomeEBXLBase.addBiomes();
         //RealisticBiomeHLBase.addBiomes();
-        RealisticBiomeTCBase.addBiomes();
-        RealisticBiomeBCBase.addBiomes();
+        //RealisticBiomeTCBase.addBiomes();
+        //RealisticBiomeBCBase.addBiomes();
 //        RealisticBiomeAMBase.addBiomes();
 //        RealisticBiomeATGBase.addBiomes();
 //        RealisticBiomeCCBase.addBiomes();

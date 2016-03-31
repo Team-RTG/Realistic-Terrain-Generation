@@ -8,6 +8,7 @@ import rtg.config.rtg.ConfigRTG;
  * Holds all the mods that RTG implements explicit support for
  * Provides access to modId, presence and configuration
  * Allways pass and store as ISupportedMod
+ *
  * @author topisani
  */
 public enum SupportedMod implements ISupportedMod {
@@ -18,11 +19,12 @@ public enum SupportedMod implements ISupportedMod {
         }
     },
     RTG("RTG") {
-        private final ConfigRTG config = new ConfigRTG();
+        private ConfigRTG config;
 
         @Override
-        public boolean isPresent() {
-            return true;
+        public void init() {
+            this.present = true;
+            config = new ConfigRTG();
         }
 
         @Override
@@ -35,9 +37,10 @@ public enum SupportedMod implements ISupportedMod {
     BUILDCRAFT("Buildcraft"),
     ABYSSALCRAFT("abyssalcraft");
 
-    private final boolean present;
-    private final String modId;
-    private final ModConfig config;
+    protected boolean present;
+    protected final String modId;
+    protected boolean hasConfig;
+    protected ModConfig config;
 
     SupportedMod(String modId) {
         this(modId, true);
@@ -45,8 +48,13 @@ public enum SupportedMod implements ISupportedMod {
 
     SupportedMod(String modId, boolean hasConfig) {
         this.modId = modId;
+        this.hasConfig = hasConfig;
+    }
+
+    @Override
+    public void init() {
         present = new ModPresenceTester(modId).present();
-        this.config = hasConfig ? new ModConfig(this) : null;
+        this.config = this.hasConfig ? new ModConfig(this) : null;
     }
 
     @Override
@@ -62,5 +70,11 @@ public enum SupportedMod implements ISupportedMod {
     @Override
     public String getModId() {
         return modId;
+    }
+
+    public static void initAll() {
+        for (SupportedMod mod : SupportedMod.values()) {
+            mod.init();
+        }
     }
 }

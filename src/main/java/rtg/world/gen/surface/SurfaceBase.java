@@ -37,7 +37,8 @@ public class SurfaceBase {
     }
 
     private void assignUserConfigs(IBlockState top, IBlockState fill) {
-        IBlockState userTopBlock = biomeConfig._block(BiomeConfigProperty.SURFACE_TOP_BLOCK);
+        IBlockState userTopBlock = biomeConfig
+                ._block(BiomeConfigProperty.SURFACE_TOP_BLOCK);
         try {
             topBlock = userTopBlock;
         } catch (Exception e) {
@@ -59,7 +60,7 @@ public class SurfaceBase {
     public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
     }
 
-    protected IBlockState getShadowStoneBlock(World world, int i, int j, int x, int y, int k) {
+    public static IBlockState getShadowStoneBlock(World world, int i, int j, int x, int y, int k) {
         //if ((SupportedMod.UBC.present()) && ConfigRTG.enableUBCStoneShadowing) {
 
         //    return Blocks.stone.getDefaultState();
@@ -69,7 +70,7 @@ public class SurfaceBase {
         //}
     }
 
-    protected IBlockState getShadowDesertBlock(World world, int i, int j, int x, int y, int k) {
+    public static IBlockState getShadowDesertBlock(World world, int i, int j, int x, int y, int k) {
         //if ((undergroundBiomesMod.present()) && ConfigRTG.enableUBCDesertShadowing) {
 
         //    return Blocks.stone.getDefaultState();
@@ -79,7 +80,7 @@ public class SurfaceBase {
         //}
     }
 
-    protected IBlockState hcStone(World world, int i, int j, int x, int y, int k) {
+    public static IBlockState hcStone(World world, int i, int j, int x, int y, int k) {
         if (SupportedMod.ABYSSALCRAFT.isPresent()) {
             return ACBlocks.darkstone.getDefaultState();
         } else {
@@ -88,7 +89,7 @@ public class SurfaceBase {
         }
     }
 
-    protected IBlockState hcCobble(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
+    public static IBlockState hcCobble(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
         if (SupportedMod.ABYSSALCRAFT.isPresent()) {
 
             return ACBlocks.darkstone_cobblestone.getDefaultState();

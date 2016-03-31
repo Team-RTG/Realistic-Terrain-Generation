@@ -54,6 +54,5 @@ public class TerrainVanillaExtremeHillsPlus extends TerrainBase
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
         return riverized(heightEffect.added(simplex, cell, x, y)+terrainHeight,river);
-        //return terrainLonelyMountain(x, y, simplex, cell, river, strength, width, terrainHeight);
     }
 }

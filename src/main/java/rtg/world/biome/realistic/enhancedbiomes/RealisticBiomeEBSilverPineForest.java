@@ -49,7 +49,7 @@ public class RealisticBiomeEBSilverPineForest extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBSilverPineForest(100f, 70f, 0f),
+			new TerrainEBSilverPineForest(),
 			new SurfaceEBSilverPineForest(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

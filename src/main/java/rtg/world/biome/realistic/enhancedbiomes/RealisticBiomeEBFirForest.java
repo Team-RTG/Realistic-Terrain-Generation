@@ -50,7 +50,7 @@ public class RealisticBiomeEBFirForest extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBFirForest(160f, 80f, 60f),
+			new TerrainEBFirForest(),
 			new SurfaceEBFirForest(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

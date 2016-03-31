@@ -51,7 +51,7 @@ public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
     
         super(config, 
             ebBiome, BiomeGenBase.river,
-            new TerrainEBRockyHills(230f, 120f, 0f),
+            new TerrainEBRockyHills(100f, 30f),
             new SurfaceEBRockyHills(config,
                 ebDominantStoneBlock[0],
                 ebDominantStoneMeta[0],

@@ -79,6 +79,7 @@ public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
     // kill the decorated rockpiles by skipping decoration
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
+        //super.rDecorate(world, rand, chunkX, chunkY, simplex, cell, strength, river);
         rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
     }
 

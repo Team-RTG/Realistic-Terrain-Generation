@@ -19,6 +19,7 @@ public class VariableRuggednessEffect extends HeightEffect {
     public float wavelength ;// standard ruggedness wavelength
     
     public static float STANDARD_RUGGEDNESS_WAVELENGTH = 200f;
+    public static int STANDARD_RUGGEDNESS_OCTAVE = 1;
 
     public VariableRuggednessEffect() {}
 

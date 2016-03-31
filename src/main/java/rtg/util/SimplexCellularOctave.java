@@ -55,6 +55,7 @@ public class SimplexCellularOctave implements CellOctave {
     private double[] extantX = new double[9];
     private double[] extantY = new double[9];
     private int extant = 0;
+    private int[] pointIndex = new int[2];
 
     private boolean tooClose(double thisX, double thisY) {
 
@@ -71,12 +72,32 @@ public class SimplexCellularOctave implements CellOctave {
             extantY[extant++] = thisY;
             return false;
     }
+    
+    private int pointTooClose(double thisX, double thisY) {        
+        // returns the index for the point too close
+        boolean tooClose = false;
+            for (int j = 0; j < extant; j++) {
+                double fromX = thisX - extantX[j];
+                double fromY = thisY - extantY[j];
+                if (fromX*fromX+fromY*fromY<.002) {
+                    return j;
+                }
+            }
+            // not tooClose; add
+            extantX[extant] = thisX;
+            extantY[extant++] = thisY;
+            return -1;
+    }
+
 	public double [] eval(double x, double y) {
 
         extant = 0;// clear the point record
         double [] results = new double[2];
         results[0] = Double.POSITIVE_INFINITY;
         results[1] = Double.POSITIVE_INFINITY;
+        // set the found points to not found
+        pointIndex[0] = -2;
+        pointIndex[1] = -2;
 
 		//Get points for A2* lattice
 		double s = 0.366025403784439 * (x + y);
@@ -104,43 +125,53 @@ public class SimplexCellularOctave implements CellOctave {
             int ji = perm2D[perm[pxm] ^ pym];
             double jx = JITTER_2D[ji + 0], jy = JITTER_2D[ji + 1];
             // suppress points to close to existing ones
-            if (tooClose(jx -c.dx,jy - c.dy)) continue;
+            //if (tooClose(jx -c.dx,jy - c.dy)) continue;
             double djx = jx - (c.dx + xi),
                     djy = jy - (c.dy + yi);
             double distance = Math.sqrt(djx * djx + djy * djy);
 
-            if (f2Index >= 0) {
-                if (distance < results[f2Index]) {
-                    results[f2Index] = distance;
+            int closeTo = pointTooClose(jx -c.dx,jy - c.dy);
+            if (closeTo != i) {
+                // just replace existing points if appropriate
+                if (pointIndex[f1Index] == i) {
                     if (distance < results[f1Index]) {
-                        results[f2Index] = results[f1Index];
                         results[f1Index] = distance;
+                        pointIndex[f1Index] = i;
                     }
                 }
+                if (pointIndex[f2Index] == i) {
+                    if (distance < results[f1Index]) {
+                        // complicated; the old point was #2 and the new is #1
+                        results[f2Index] = results[f1Index];
+                        pointIndex[f2Index] = pointIndex[f1Index];
+                        results[f1Index] = distance;
+                        pointIndex[f1Index] = i;
+                    }
+                    else if (distance < results[f2Index]) {
+                        results[f2Index] = distance;
+                        pointIndex[f2Index] = i;
+                    }
+                }
+            }
+
+            if (f2Index >= 0) {
+                if (distance < results[f2Index]) {
+                        results[f2Index] = distance;
+                        pointIndex[f2Index]=i;
+                        if (distance < results[f1Index]) {
+                            results[f2Index] = results[f1Index];
+                            pointIndex[f2Index] = pointIndex[f1Index];
+                            results[f1Index] = distance;
+                            pointIndex[f1Index]=i;
+                        }
+                    }
             } else if (f1Index >= 0) {
                 if (distance < results[f1Index]) {
                     results[f1Index] = distance;
+                    pointIndex[f1Index] = i;
                 }
             }
 		}
-        if (x == -261.0/187.5) {
-            if (y== -168.0/187.5) {
-                String error = ""+results[0]+ " " + results[1] + " " + index;
-                for (int i = 0; i < 9; i++) {
-                    LatticePoint2D c = LOOKUP_2D[index + i];
-
-                    //if (index == 99&&i==4) continue;
-                    int pxm = (xsb + c.xsv) & 1023, pym = (ysb + c.ysv) & 1023;
-                    int ji = perm2D[perm[pxm] ^ pym];
-                    double jx = JITTER_2D[ji + 0], jy = JITTER_2D[ji + 1];
-                    double djx = jx - (c.dx + xi),
-                            djy = jy - (c.dy + yi);
-                    double distance = Math.sqrt(djx * djx + djy * djy);
-                    error = error + " "+(jx-c.dx)+ " "+(jy-c.dy);
-                }
-                //throw new RuntimeException(error);
-            }
-        }
         return results;
 	}
 

@@ -47,6 +47,19 @@ public class TerrainBase
         return blendedHillHeight(adjusted);
     }
 
+    public static final float borderAdjusted(float effect, float border, float allAbove, float noneBelow) {
+        // this routine adjusts an effect to ignore the border variable above allAbove
+        // and interpolated down to 0 at noneBelow
+        if (border> 1f) throw new RuntimeException();
+        if (border <0) throw new RuntimeException();
+        if (border < noneBelow) return 0;
+        if (border >= 1f) return effect;
+        // adjust effect for border
+        float adjusted = effect/border;
+        if (border > allAbove) return adjusted;
+        // return interpolated value
+        return adjusted*(border - noneBelow)/(allAbove - noneBelow);
+    }
     public static final float above(float limited, float limit) {
         if (limited>limit) {
             return limited-limit;
@@ -346,9 +359,9 @@ public class TerrainBase
 
         if (h<0) h = h/2f;
 
-        if (h<-3) h = (h+3f)/2f+3f;
+        if (h<-3) h = (h+3f)/2f-3f;
 
-        return getTerrainBase(river) + h + baseAdjust*river;
+        return getTerrainBase(river) + (h + baseAdjust)*river;
     }
 
     public static float terrainLonelyMountain(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river, float strength, float width, float terrainHeight)
@@ -370,7 +383,7 @@ public class TerrainBase
 
         m += c;
 
-        return riverized(terrainHeight,river) + h + m;
+        return riverized(terrainHeight+ h + m,river) ;
     }
 
     public static float terrainMarsh(int x, int y, OpenSimplexNoise simplex, float baseHeight)
@@ -388,7 +401,7 @@ public class TerrainBase
             h*=2f;
         }
 
-        return 61.5f + h;
+        return baseHeight + h;
     }
 
     public static float terrainMesa(int x, int y, OpenSimplexNoise simplex, float river, float border)

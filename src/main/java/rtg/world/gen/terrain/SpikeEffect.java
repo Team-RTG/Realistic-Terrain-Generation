@@ -8,7 +8,7 @@ import rtg.util.OpenSimplexNoise;
  *
  * @author Zeno410
  */
-public class HillockEffect extends HeightEffect {
+public class SpikeEffect extends HeightEffect {
     // not going to bother to set up a creator shell to make sure everything is set
     // set defaults to absurd values to crash if they're not set
     // a trio of parameters frequently used together
@@ -20,11 +20,9 @@ public class HillockEffect extends HeightEffect {
 
     public final float added(OpenSimplexNoise simplex, CellNoise cell,int x, int y) {
         float noise= simplex.octave(octave).noise2((float)x/wavelength, (float)y/wavelength);
-        if (noise < minimumSimplex) {
-            noise = 0;
-        } else {
-            noise = (noise-minimumSimplex)/(1f -minimumSimplex);
-        }
+        if (noise < minimumSimplex) noise = minimumSimplex;
+        noise = 1f-(1f-noise)/(1f-minimumSimplex);
+        noise *=noise;
         return noise*height;
     }
 }

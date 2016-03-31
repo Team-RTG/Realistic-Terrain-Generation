@@ -6,6 +6,7 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBEphemeralLakeEdge extends TerrainBase
 {
+    private TerrainEBEphemeralLake parentBiome = new TerrainEBEphemeralLake();
 
     public TerrainEBEphemeralLakeEdge()
     {
@@ -14,6 +15,6 @@ public class TerrainEBEphemeralLakeEdge extends TerrainBase
 
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return terrainFlatLakes(x, y, simplex, river, 2f, 61f);
+        return parentBiome.generateNoise(simplex, cell, x, y, border, river);
     }
 }

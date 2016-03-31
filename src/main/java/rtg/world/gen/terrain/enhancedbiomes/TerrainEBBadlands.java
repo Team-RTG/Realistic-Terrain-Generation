@@ -18,7 +18,7 @@ public class TerrainEBBadlands extends TerrainBase
         // big hills
         HillockEffect hillock = new HillockEffect();
         hillock.height = 20;
-        hillock.minimumSimplex = 0.4f;
+        hillock.minimumSimplex = 0.1f;
         hillock.octave = 2;
         hillock.wavelength = 30;
         
@@ -29,10 +29,10 @@ public class TerrainEBBadlands extends TerrainBase
         
         // little rockpiles
         HillockEffect rockPile = new HillockEffect();
-        hillock.height = 5;
-        hillock.minimumSimplex = 0.5f;
-        hillock.octave = 3;
-        hillock.wavelength = 10;
+        rockPile.height = 5;
+        rockPile.minimumSimplex = 0.1f;
+        rockPile.octave = 3;
+        rockPile.wavelength = 10;
         
         JitterEffect jitteredRockPile = new JitterEffect();
         jitteredRockPile.amplitude =3;
@@ -41,11 +41,13 @@ public class TerrainEBBadlands extends TerrainBase
         
         // and a little variation
         height = jitteredHillock.plus(jitteredRockPile).plus(new GroundEffect(6f));
+        //height = new GroundEffect(6f);
+
     }
 
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return riverized(height.added(simplex, cell, x, y),river);
+        return riverized(height.added(simplex, cell, x, y)+baseHeight,river);
     }
 }

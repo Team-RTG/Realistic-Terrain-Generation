@@ -238,10 +238,12 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         }
     }
 
+    @Deprecated
     public void rDecorate(World world, Random rand, BlockPos blockPos, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
         this.rDecorate(world, rand, blockPos.getX(), blockPos.getZ(), simplex, cell, strength, river);
     }
 
+    @Deprecated
     public void rDecorate(World world, Random rand, int x, int z, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         if (strength > 0.3f) {

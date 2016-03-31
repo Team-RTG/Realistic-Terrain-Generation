@@ -106,7 +106,7 @@ public class SurfaceBase {
         return this.fillerBlock;
     }
 
-    protected IBlockState getConfigBlock(ConfigProperty.IPropertyEnum id, IBlockState blockDefault) {
+    protected IBlockState getConfigBlock(ConfigProperty.IPropertyID id, IBlockState blockDefault) {
         IBlockState blockReturn;
 
         try {

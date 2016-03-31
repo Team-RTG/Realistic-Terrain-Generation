@@ -1,17 +1,14 @@
 package rtg.api.config;
 
-import java.util.ArrayList;
-
-public class BiomeConfig extends Config{
+public class BiomeConfig extends Config {
 
     public String modSlug;
     public String biomeSlug;
 
     public BiomeConfig(String modSlug, String biomeSlug) {
+        super();
         this.modSlug = modSlug;
         this.biomeSlug = biomeSlug;
-
-        this.properties = new ArrayList<>();
     }
 
     public BiomeConfig(String modSlug, String biomeSlug, ConfigProperty[] props) {

@@ -3,10 +3,10 @@ package rtg.api.config;
 
 import org.apache.commons.lang3.StringUtils;
 
-import static rtg.api.config.ConfigProperty.IPropertyEnum.Type.BLOCK;
-import static rtg.api.config.ConfigProperty.IPropertyEnum.Type.BOOLEAN;
+import static rtg.api.config.ConfigProperty.IPropertyID.Type.BLOCK;
+import static rtg.api.config.ConfigProperty.IPropertyID.Type.BOOLEAN;
 
-public enum BiomeConfigProperty implements ConfigProperty.IPropertyEnum {
+public enum BiomeConfigProperty implements ConfigProperty.IPropertyID {
 
     ALLOW_VILLAGES(BOOLEAN),
     USE_RTG_DECORATIONS(BOOLEAN),

@@ -16,10 +16,10 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.BiomeConfigProperty;
-import rtg.api.biome.ConfigProperty;
-import rtg.api.biome.ISupportedMod;
+import rtg.api.config.BiomeConfig;
+import rtg.api.config.BiomeConfigProperty;
+import rtg.api.config.ConfigProperty;
+import rtg.api.config.ISupportedMod;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.math.RandomUtil;
 import rtg.util.noise.CellNoise;
@@ -39,9 +39,9 @@ import java.util.Random;
 
 import static net.minecraft.init.Biomes.river;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CLAY;
-import static rtg.api.biome.BiomeConfigProperty.*;
+import static rtg.api.config.BiomeConfigProperty.*;
 
-public class RealisticBiomeBase extends BiomeBase {
+public abstract class RealisticBiomeBase extends BiomeBase {
 
     private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[256];
     private static int[] incidences = new int[200];
@@ -121,25 +121,17 @@ public class RealisticBiomeBase extends BiomeBase {
         this.decos.add(decoBaseBiomeDecorations);
 
         this.config = mod.getConfig().setBiomeConfig(this.getClass(), initProperties());
+        this.surfaces = new SurfaceBase[] {initSurface()};
+        this.surfacesLength = this.surfaces.length;
 
+        if (this.surfacesLength == 1) {
+            surfaceGeneric = new SurfaceGeneric(config, surfaces[0].getTopBlock(), surfaces[0].getFillerBlock());
+        }
+        this.terrain = initTerrain();
     }
 
-    public RealisticBiomeBase(ISupportedMod mod, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
-
-        this(mod, b, riverbiome, t, new SurfaceBase[] {s});
-
-        surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
-    }
-
-    public RealisticBiomeBase(ISupportedMod mod, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s) {
-
-        this(mod, b, riverbiome);
-
-        terrain = t;
-
-        surfaces = s;
-        surfacesLength = s.length;
-    }
+    protected abstract SurfaceBase initSurface();
+    protected abstract TerrainBase initTerrain();
 
     public static RealisticBiomeBase getBiome(int id) {
 

@@ -25,7 +25,7 @@ import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
-import rtg.api.biome.BiomeConfig;
+import rtg.api.config.BiomeConfigProperty;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.math.CanyonColour;
 import rtg.util.math.MathUtils;
@@ -587,7 +587,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
                  * so that's what the try/catch is for. If it fails, then it falls back to RTG decoration.
                  * TODO: Is there a more efficient way to do this? - Pink
                  */
-                if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
+                if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfigProperty.USE_RTG_DECORATIONS)) {
 
                     if (realisticBiome.useNewDecorationSystem) {
                         realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);

@@ -1,8 +1,10 @@
 package rtg.util;
 
-import rtg.api.config.ISupportedMod;
-import rtg.config.ModConfig;
-import rtg.config.rtg.ConfigRTG;
+import rtg.api.config.Config;
+import rtg.api.util.ISupportedMod;
+import rtg.api.util.ModPresenceTester;
+import rtg.config.ConfigRTG;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 
 /**
  * Holds all the mods that RTG implements explicit support for
@@ -16,6 +18,11 @@ public enum SupportedMod implements ISupportedMod {
         @Override
         public boolean isPresent() {
             return true;
+        }
+
+        @Override
+        public void addBiomes() {
+            RealisticBiomeVanillaBase.addBiomes();
         }
     },
     RTG("RTG") {
@@ -40,7 +47,7 @@ public enum SupportedMod implements ISupportedMod {
     protected boolean present;
     protected final String modId;
     protected boolean hasConfig;
-    protected ModConfig config;
+    protected Config.ModConfig config;
 
     SupportedMod(String modId) {
         this(modId, true);
@@ -54,7 +61,7 @@ public enum SupportedMod implements ISupportedMod {
     @Override
     public void init() {
         present = new ModPresenceTester(modId).present();
-        this.config = this.hasConfig ? new ModConfig(this) : null;
+        this.config = this.hasConfig ? new Config.ModConfig(this) : null;
     }
 
     @Override
@@ -63,7 +70,7 @@ public enum SupportedMod implements ISupportedMod {
     }
 
     @Override
-    public ModConfig getConfig() {
+    public Config.ModConfig getConfig() {
         return config;
     }
 
@@ -72,9 +79,18 @@ public enum SupportedMod implements ISupportedMod {
         return modId;
     }
 
-    public static void initAll() {
-        for (SupportedMod mod : SupportedMod.values()) {
+    @Override
+    public void addBiomes() {}
+
+    public static void initAll(ISupportedMod[] mods) {
+        for (ISupportedMod mod : mods) {
             mod.init();
+        }
+    }
+
+    public static void addAllBiomes(ISupportedMod[] mods) {
+        for (ISupportedMod mod : mods) {
+            mod.addBiomes();
         }
     }
 }

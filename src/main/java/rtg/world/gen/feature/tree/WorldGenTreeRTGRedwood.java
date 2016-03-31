@@ -10,7 +10,7 @@ import java.util.Random;
 
 import static java.lang.Math.abs;
 import static net.minecraft.init.Blocks.*;
-import static rtg.config.rtg.ConfigRTG.allowTreesToGenerateOnSand;
+import static rtg.config.ConfigRTG.allowTreesToGenerateOnSand;
 
 public class WorldGenTreeRTGRedwood extends WorldGenerator {
     private int height;

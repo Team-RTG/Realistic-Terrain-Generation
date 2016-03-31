@@ -10,8 +10,8 @@ import net.minecraft.world.gen.structure.ComponentScatteredFeaturePieces;
 import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
-import rtg.config.rtg.ConfigRTG;
-import rtg.util.Logger;
+import rtg.config.ConfigRTG;
+import rtg.api.util.debug.Logger;
 import rtg.world.biome.realistic.vanilla.*;
 
 import java.util.*;

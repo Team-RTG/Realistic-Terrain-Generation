@@ -1,6 +1,4 @@
-package rtg.api.util;
-
-import rtg.util.Logger;
+package rtg.api.util.debug;
 
 /**
  * @author topisani

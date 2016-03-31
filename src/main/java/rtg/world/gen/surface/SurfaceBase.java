@@ -10,7 +10,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.config.BiomeConfigProperty;
 import rtg.api.config.ConfigProperty;
-import rtg.config.rtg.ConfigRTG;
+import rtg.config.ConfigRTG;
 import rtg.util.SupportedMod;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;

@@ -20,7 +20,7 @@ import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureOceanMonument;
 import net.minecraft.world.gen.structure.StructureOceanMonumentPieces;
 import net.minecraft.world.gen.structure.StructureStart;
-import rtg.util.Logger;
+import rtg.api.util.debug.Logger;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 

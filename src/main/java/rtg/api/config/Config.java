@@ -1,13 +1,21 @@
 package rtg.api.config;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraftforge.common.config.Configuration;
+import rtg.api.util.ISupportedMod;
+import rtg.api.util.debug.Logger;
+import rtg.util.SupportedMod;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * An object that holds config properties
  * Does not provide a way to store those properties in a file
- * @see rtg.config.ModConfig for that functionality.
+ * @see ModConfig for that functionality.
  * @author topisani
  */
 public class Config {
@@ -140,5 +148,47 @@ public class Config {
         } catch (Exception e) {
             return this.addProperty(id.get().setDefault(defaultBlock)).valueBlock;
         }
+    }
+
+    public static class ModConfig {
+        public final Configuration config;
+        public final ISupportedMod mod;
+        private Map<Class<? extends RealisticBiomeBase>, BiomeConfig> biomeConfigMap = new HashMap<>();
+
+        public ModConfig(SupportedMod mod) {
+            this.config = new Configuration(new File("biomes/" + mod.getModId() + ".cfg"));
+            this.mod = mod;
+
+            try {
+                config.load();
+
+                this.setDefaults();
+
+            } catch (Exception e) {
+                Logger.error("RTG has had a problem loading " + mod.getModId() + " configuration.");
+            } finally {
+                if (config.hasChanged()) {
+                    config.save();
+                }
+            }
+        }
+
+        public BiomeConfig setBiomeConfig(Class<? extends RealisticBiomeBase> biome, BiomeConfig config) {
+            return this.biomeConfigMap.put(biome, config);
+        }
+
+        public BiomeConfig setBiomeConfig(Class<? extends RealisticBiomeBase> biome, ConfigProperty[] props) {
+            String s = biome.getSimpleName();
+            s = s.substring(s.indexOf("RealisticBiome") + 1);
+            BiomeConfig config = new BiomeConfig(mod.getModId(), s, props);
+            this.biomeConfigMap.put(biome, config );
+            return config;
+        }
+
+        public BiomeConfig getBiomeConfig(Class<? extends RealisticBiomeBase> biome) {
+            return this.biomeConfigMap.get(biome);
+        }
+
+        public void setDefaults() {}
     }
 }

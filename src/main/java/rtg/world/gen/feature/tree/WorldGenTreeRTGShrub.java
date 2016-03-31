@@ -6,14 +6,14 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.config.rtg.ConfigRTG;
+import rtg.config.ConfigRTG;
 
 import java.util.Random;
 
 import static net.minecraft.block.material.Material.plants;
 import static net.minecraft.block.material.Material.vine;
 import static net.minecraft.init.Blocks.*;
-import static rtg.config.rtg.ConfigRTG.allowTreesToGenerateOnSand;
+import static rtg.config.ConfigRTG.allowTreesToGenerateOnSand;
 
 public class WorldGenTreeRTGShrub extends WorldGenerator {
     private int size;

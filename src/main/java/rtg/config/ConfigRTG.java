@@ -1,11 +1,11 @@
-package rtg.config.rtg;
+package rtg.config;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
-import rtg.config.ModConfig;
+import rtg.api.config.Config;
 import rtg.util.SupportedMod;
 
-public class ConfigRTG extends ModConfig {
+public class ConfigRTG extends Config.ModConfig {
 
     /* ==================== Bedrock ==================== */
 
@@ -378,7 +378,7 @@ public class ConfigRTG extends ModConfig {
                 "Village Crash Fix",
                 "Villages",
                 villageCrashFix,
-                "Set this to TRUE to if you are experiencing 'java.util.ConcurrentModificationException' crashes related to village generation."
+                "Set this to TRUE to if you are experiencing 'java.BlockStringUtil.ConcurrentModificationException' crashes related to village generation."
                         + Configuration.NEW_LINE +
                         "Defaults to FALSE unless EnviroMine is installed, in which case it defaults to TRUE."
                         + Configuration.NEW_LINE

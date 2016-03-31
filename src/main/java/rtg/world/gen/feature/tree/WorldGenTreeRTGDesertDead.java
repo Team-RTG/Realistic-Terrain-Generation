@@ -9,7 +9,7 @@ import java.util.Random;
 
 import static java.lang.Math.*;
 import static net.minecraft.init.Blocks.*;
-import static rtg.config.rtg.ConfigRTG.allowTreesToGenerateOnSand;
+import static rtg.config.ConfigRTG.allowTreesToGenerateOnSand;
 
 class WorldGenTreeRTGDesertDead extends WorldGenerator {
     private int type;

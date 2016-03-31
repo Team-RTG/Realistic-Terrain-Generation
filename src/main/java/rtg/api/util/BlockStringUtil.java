@@ -2,7 +2,8 @@ package rtg.api.util;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import rtg.api.util.RTGException.Type;
+import rtg.api.util.debug.RTGException;
+import rtg.api.util.debug.RTGException.Type;
 
 import java.util.ArrayList;
 import java.util.List;

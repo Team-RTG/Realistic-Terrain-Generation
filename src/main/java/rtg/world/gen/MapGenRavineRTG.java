@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenRavine;
-import rtg.config.rtg.ConfigRTG;
+import rtg.config.ConfigRTG;
 
 import java.util.Random;
 

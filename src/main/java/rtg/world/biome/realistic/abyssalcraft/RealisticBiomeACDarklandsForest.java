@@ -7,8 +7,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsForest;
+import rtg.api.config.BiomeConfig;
+import rtg.api.config.abyssalcraft.config.BiomeConfigACDarklandsForest;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenGrass;
@@ -35,7 +35,7 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
+         * Using rDecorateSeedBiome() to partially decorate the config? If so, then comment out this method.
          */
         //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
 

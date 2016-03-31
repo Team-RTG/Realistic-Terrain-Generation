@@ -2,7 +2,7 @@ package rtg.world.biome.realistic.thaumcraft;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.api.biome.BiomeConfig;
+import rtg.api.config.BiomeConfig;
 import rtg.world.gen.surface.thaumcraft.SurfaceTCTaintedLand;
 import rtg.world.gen.terrain.thaumcraft.TerrainTCTaintedLand;
 

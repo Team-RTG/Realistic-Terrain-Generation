@@ -7,14 +7,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.BiomeConfigProperty;
-import rtg.api.biome.ConfigProperty;
+import rtg.api.config.BiomeConfig;
+import rtg.api.config.BiomeConfigProperty;
+import rtg.api.config.ConfigProperty;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.SupportedMod;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import java.util.Random;
 
@@ -22,16 +21,14 @@ public class SurfaceBase {
     protected IBlockState topBlock;
     protected IBlockState fillerBlock;
     protected BiomeConfig biomeConfig;
-    protected RealisticBiomeBase biome;
 
-    public SurfaceBase(RealisticBiomeBase biome, Block top, byte topByte, Block fill, byte fillByte) {
-        this(biome, top.getStateFromMeta(topByte), fill.getStateFromMeta(fillByte));
+    public SurfaceBase(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte) {
+        this(config, top.getStateFromMeta(topByte), fill.getStateFromMeta(fillByte));
     }
 
-    public SurfaceBase(RealisticBiomeBase biome, IBlockState top, IBlockState fill) {
+    public SurfaceBase(BiomeConfig config, IBlockState top, IBlockState fill) {
 
-        this.biome = biome;
-        this.biomeConfig = biome.config;
+        this.biomeConfig = config;
 
         topBlock = top;
         fillerBlock = fill;
@@ -55,8 +52,8 @@ public class SurfaceBase {
         }
     }
 
-    public SurfaceBase(RealisticBiomeBase biome, Block top, Block fill) {
-        this(biome, top.getDefaultState(), fill.getDefaultState());
+    public SurfaceBase(BiomeConfig config, Block top, Block fill) {
+        this(config, top.getDefaultState(), fill.getDefaultState());
     }
 
     public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {

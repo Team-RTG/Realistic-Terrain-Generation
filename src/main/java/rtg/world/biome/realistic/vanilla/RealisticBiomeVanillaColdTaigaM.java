@@ -4,15 +4,17 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaColdTaigaM;
+import rtg.api.config.vanilla.config.BiomeConfigVanillaColdTaigaM;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdTaigaM;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaColdTaigaM;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.coldTaiga;
@@ -25,9 +27,7 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
 
         super(
                 mutationBiome,
-                Biomes.frozenRiver,
-                new TerrainVanillaColdTaigaM(),
-                new SurfaceVanillaColdTaigaM(config, topBlock, fillerBlock)
+                Biomes.frozenRiver
         );
         this.noLakes = true;
 
@@ -96,5 +96,20 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaColdTaigaM(config, topBlock, fillerBlock);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 80f, 68f);
+            }
+        };
     }
 }

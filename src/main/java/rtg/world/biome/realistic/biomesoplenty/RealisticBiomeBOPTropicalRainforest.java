@@ -4,7 +4,6 @@ import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.api.biome.BiomeConfig;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPTropicalRainforest;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPTropicalRainforest;
 

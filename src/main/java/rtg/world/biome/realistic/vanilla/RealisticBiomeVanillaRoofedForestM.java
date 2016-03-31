@@ -8,8 +8,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForestM;
+import rtg.api.config.vanilla.config.BiomeConfigVanillaRoofedForestM;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -44,7 +43,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
+         * Using rDecorateSeedBiome() to partially decorate the config? If so, then comment out this method.
          */
         //rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, baseBiome);
 

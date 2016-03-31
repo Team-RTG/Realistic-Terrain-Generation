@@ -2,8 +2,8 @@ package rtg.world.biome.realistic.thaumcraft;
 
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.fml.common.Loader;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.thaumcraft.config.BiomeConfigTC;
+import rtg.api.config.BiomeConfig;
+import rtg.api.config.thaumcraft.config.BiomeConfigTC;
 import rtg.util.BiomeUtils;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;

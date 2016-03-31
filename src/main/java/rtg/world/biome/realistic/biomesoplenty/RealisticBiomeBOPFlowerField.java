@@ -4,7 +4,6 @@ import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFlowersRTG;
 import rtg.world.biome.deco.DecoFlowersRTG.HeightType;
@@ -39,7 +38,7 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
         decoShrub.chance = 3;
         this.addDeco(decoShrub);
 
-        // Flowers are the most aesthetically important feature of this biome, so let's add those next.
+        // Flowers are the most aesthetically important feature of this config, so let's add those next.
         DecoFlowersRTG decoFlowers1 = new DecoFlowersRTG();
         decoFlowers1.flowers = new int[] {0, 1, 2, 3, 8, 9}; //Only colourful 1-block-tall flowers. No tulips as BOP has those covered.
         decoFlowers1.strengthFactor = 12f; // Lots and lots of flowers!
@@ -53,7 +52,7 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
         decoFlowers2.heightType = HeightType.GET_HEIGHT_VALUE; // We're only bothered about surface flowers here.
         this.addDeco(decoFlowers2);
 
-        // Not much free space left, so let's give some space to the base biome.
+        // Not much free space left, so let's give some space to the base config.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.notEqualsZeroChance = 4;
         this.addDeco(decoBaseBiomeDecorations);

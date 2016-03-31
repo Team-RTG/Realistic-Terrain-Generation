@@ -9,8 +9,7 @@ import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaSavanna;
+import rtg.api.config.vanilla.config.BiomeConfigVanillaSavanna;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenFlowersRTG;
@@ -40,7 +39,7 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
+         * Using rDecorateSeedBiome() to partially decorate the config? If so, then comment out this method.
          */
         rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, baseBiome);
 

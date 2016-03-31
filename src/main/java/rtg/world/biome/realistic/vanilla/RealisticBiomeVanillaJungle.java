@@ -3,8 +3,7 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungle;
+import rtg.api.config.vanilla.config.BiomeConfigVanillaJungle;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
@@ -81,7 +80,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         decoFallenTree.maxSize = 9;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaJungle.decorationLogsId));
 
-        // At this point, let's hand over some of the decoration to the base biome, but only about 85% of the time.
+        // At this point, let's hand over some of the decoration to the base config, but only about 85% of the time.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.notEqualsZeroChance = 6;
         decoBaseBiomeDecorations.loops = 1;

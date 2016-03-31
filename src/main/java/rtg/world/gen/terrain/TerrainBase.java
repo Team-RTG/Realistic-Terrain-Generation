@@ -4,7 +4,7 @@ import rtg.config.rtg.ConfigRTG;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 
-public class TerrainBase {
+public abstract class TerrainBase {
     public static final float minimumOceanFloor = 30f; // The lowest Y coord an ocean floor is allowed to be.
     protected final float minOceanFloor; // The lowest Y coord an ocean floor is allowed to be.
     protected final float groundNoiseAmplitudeHills;
@@ -628,7 +628,5 @@ public class TerrainBase {
         return baseHeight + h * border;
     }
 
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-        return 70f;
-    }
+    public abstract float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river);
 }

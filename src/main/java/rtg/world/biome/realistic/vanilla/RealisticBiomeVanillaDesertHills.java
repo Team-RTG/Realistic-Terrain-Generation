@@ -8,7 +8,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.*;
-import rtg.api.biome.BiomeConfig;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
@@ -19,7 +18,7 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesertHills;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaDesertHills;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -30,19 +29,32 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaDesertHills() {
         super(
                 Biomes.desertHills,
-                Biomes.river,
-                new TerrainVanillaDesertHills(10f, 120f, 68f, 200f),
-                new SurfaceVanillaDesertHills(config, Blocks.sand.getDefaultState(), Blocks.sandstone.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f)
+                Biomes.river
         );
         this.waterSurfaceLakeChance = 0;
         this.noLakes = true;
     }
 
     @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaDesertHills(config, Blocks.sand.getDefaultState(), Blocks.sandstone.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 120f, 10f);
+            }
+        };
+    }
+
+    @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
+         * Using rDecorateSeedBiome() to partially decorate the config? If so, then comment out this method.
          */
         rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, baseBiome);
         if (rand.nextInt((int) (2f / strength)) == 0) {

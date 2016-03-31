@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
-import rtg.api.biome.BiomeConfig;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaPlains;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaPlains;
 

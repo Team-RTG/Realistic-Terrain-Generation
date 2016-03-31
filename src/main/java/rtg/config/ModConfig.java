@@ -1,9 +1,9 @@
 package rtg.config;
 
 import net.minecraftforge.common.config.Configuration;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.ConfigProperty;
-import rtg.api.biome.ISupportedMod;
+import rtg.api.config.BiomeConfig;
+import rtg.api.config.ConfigProperty;
+import rtg.api.config.ISupportedMod;
 import rtg.util.Logger;
 import rtg.util.SupportedMod;
 import rtg.world.biome.realistic.RealisticBiomeBase;

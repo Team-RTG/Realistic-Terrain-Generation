@@ -7,8 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenIceSpike;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaIceMountains;
+import rtg.api.config.vanilla.config.BiomeConfigVanillaIceMountains;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
@@ -40,7 +39,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
+         * Using rDecorateSeedBiome() to partially decorate the config? If so, then comment out this method.
          */
         rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, baseBiome);
 

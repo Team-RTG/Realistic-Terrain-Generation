@@ -8,8 +8,6 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.relauncher.Side;
 import rtg.api.event.BiomeConfigEvent;
-import rtg.config.BiomeConfigManager;
-import rtg.config.ConfigManager;
 import rtg.debug.DebugHandler;
 import rtg.event.EventManagerRTG;
 import rtg.proxy.CommonProxy;

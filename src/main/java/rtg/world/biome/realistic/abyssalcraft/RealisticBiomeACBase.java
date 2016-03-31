@@ -2,8 +2,8 @@ package rtg.world.biome.realistic.abyssalcraft;
 
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.fml.common.Loader;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.abyssalcraft.config.BiomeConfigAC;
+import rtg.api.config.BiomeConfig;
+import rtg.api.config.abyssalcraft.config.BiomeConfigAC;
 import rtg.util.BiomeUtils;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -41,17 +41,17 @@ public class RealisticBiomeACBase extends RealisticBiomeBase {
                     String biomeName = b[i].getBiomeName();
                     String biomeClass = b[i].getBiomeClass().getName();
 
-                    if (biomeName == "Coralium Infested Swamp" && biomeClass == "com.shinoow.abyssalcraft.common.world.biome.BiomeGenCorSwamp") {
+                    if (biomeName == "Coralium Infested Swamp" && biomeClass == "com.shinoow.abyssalcraft.common.world.config.BiomeGenCorSwamp") {
                         acCoraliumInfestedSwamp = new RealisticBiomeACCoraliumInfestedSwamp(acBiome, BiomeConfigAC.biomeConfigACCoraliumInfestedSwamp);
-                    } else if (biomeName == "Darklands" && biomeClass == "com.shinoow.abyssalcraft.common.world.biome.BiomeGenDarklands") {
+                    } else if (biomeName == "Darklands" && biomeClass == "com.shinoow.abyssalcraft.common.world.config.BiomeGenDarklands") {
                         acDarklands = new RealisticBiomeACDarklands(acBiome, BiomeConfigAC.biomeConfigACDarklands);
-                    } else if (biomeName == "Darklands Forest" && biomeClass == "com.shinoow.abyssalcraft.common.world.biome.BiomeGenDarklandsForest") {
+                    } else if (biomeName == "Darklands Forest" && biomeClass == "com.shinoow.abyssalcraft.common.world.config.BiomeGenDarklandsForest") {
                         acDarklandsForest = new RealisticBiomeACDarklandsForest(acBiome, BiomeConfigAC.biomeConfigACDarklandsForest);
-                    } else if (biomeName == "Darklands Highland" && biomeClass == "com.shinoow.abyssalcraft.common.world.biome.BiomeGenDarklandsHills") {
+                    } else if (biomeName == "Darklands Highland" && biomeClass == "com.shinoow.abyssalcraft.common.world.config.BiomeGenDarklandsHills") {
                         acDarklandsHighland = new RealisticBiomeACDarklandsHighland(acBiome, BiomeConfigAC.biomeConfigACDarklandsHighland);
-                    } else if (biomeName == "Darklands Mountains" && biomeClass == "com.shinoow.abyssalcraft.common.world.biome.BiomeGenDarklandsMountains") {
+                    } else if (biomeName == "Darklands Mountains" && biomeClass == "com.shinoow.abyssalcraft.common.world.config.BiomeGenDarklandsMountains") {
                         acDarklandsMountains = new RealisticBiomeACDarklandsMountains(acBiome, BiomeConfigAC.biomeConfigACDarklandsMountains);
-                    } else if (biomeName == "Darklands Plains" && biomeClass == "com.shinoow.abyssalcraft.common.world.biome.BiomeGenDarklandsPlains") {
+                    } else if (biomeName == "Darklands Plains" && biomeClass == "com.shinoow.abyssalcraft.common.world.config.BiomeGenDarklandsPlains") {
                         acDarklandsPlains = new RealisticBiomeACDarklandsPlains(acBiome, BiomeConfigAC.biomeConfigACDarklandsPlains);
                     }
                 }

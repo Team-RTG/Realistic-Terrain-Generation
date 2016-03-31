@@ -3,7 +3,7 @@ package rtg.world.biome.realistic.forgottennature;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.api.biome.BiomeConfig;
+import rtg.api.config.BiomeConfig;
 import rtg.world.gen.surface.forgottennature.SurfaceFNEucalyptusForest;
 import rtg.world.gen.terrain.forgottennature.TerrainFNEucalyptusForest;
 

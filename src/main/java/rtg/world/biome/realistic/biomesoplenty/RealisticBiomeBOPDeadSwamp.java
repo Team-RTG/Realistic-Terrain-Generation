@@ -5,7 +5,6 @@ import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.api.biome.BiomeConfig;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPDeadSwamp;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPDeadSwamp;
 

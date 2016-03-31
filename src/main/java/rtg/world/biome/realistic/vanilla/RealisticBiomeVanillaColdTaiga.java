@@ -3,14 +3,16 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaColdTaiga;
+import rtg.api.config.vanilla.config.BiomeConfigVanillaColdTaiga;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdTaiga;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaColdTaiga;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
 
@@ -21,9 +23,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
 
         super(
                 Biomes.coldTaiga,
-                Biomes.frozenRiver,
-                new TerrainVanillaColdTaiga(),
-                new SurfaceVanillaColdTaiga(config, topBlock, fillerBlock)
+                Biomes.frozenRiver
         );
 
         /**
@@ -91,5 +91,20 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaColdTaiga(config, topBlock, fillerBlock);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainFlatLakes(x, y, simplex, river, 13f, 66f);
+            }
+        };
     }
 }

@@ -23,7 +23,7 @@ import java.util.Map.Entry;
  * Modified by: WhichOnesPink (https://github.com/whichonespink44)
  * <p/>
  * Allows scattered features (jungle/desert temples, witch huts) to spawn in modded biomes, equivalent to the vanilla biomes,
- * i.e. any biome registered as JUNGLE, SANDY or SWAMP
+ * i.e. any config registered as JUNGLE, SANDY or SWAMP
  * http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/modification-development/2471489-jungle-and-desert-temple-spawn-biome
  * <p/>
  * This class was modified by WhichOnesPink on 2015-11-05 to allow the spawning of scattered features ONLY

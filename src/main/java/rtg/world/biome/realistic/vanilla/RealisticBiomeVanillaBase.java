@@ -1,13 +1,10 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.api.biome.vanilla.config.BiomeConfigVanilla;
 import rtg.util.SupportedMod;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
 
-public class RealisticBiomeVanillaBase extends RealisticBiomeBase {
+public abstract class RealisticBiomeVanillaBase extends RealisticBiomeBase {
     public static final int MUTATION_ADDEND = 128;
 
     public static RealisticBiomeBase vanillaBeach;
@@ -70,8 +67,8 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase {
     public static RealisticBiomeBase vanillaTaigaHills;
     public static RealisticBiomeBase vanillaTaigaM;
 
-    public RealisticBiomeVanillaBase(BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
-        super(SupportedMod.VANILLA, b, riverbiome, t, s);
+    public RealisticBiomeVanillaBase(BiomeGenBase b, BiomeGenBase riverbiome) {
+        super(SupportedMod.VANILLA, b, riverbiome);
 
         this.lavaSurfaceLakeChance = 0;
     }

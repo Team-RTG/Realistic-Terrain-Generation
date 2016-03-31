@@ -9,7 +9,7 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBOPBog extends TerrainBase
 {
-    private final float bottom = 60f;
+    private final float bottom = 58f;
     private final HeightVariation bottomVariation;
     private final HillockEffect smallHills;
     private final HillockEffect mediumHills;
@@ -40,6 +40,6 @@ public class TerrainBOPBog extends TerrainBase
 	{
         float increment = bottomVariation.added(simplex,cell, x, y) + smallHills.added(simplex, cell,x, y) ;
         increment += mediumHills.added(simplex, cell,x, y);
-        return bottom + increment;
+        return riverized(bottom + increment,river);
 	}
 }

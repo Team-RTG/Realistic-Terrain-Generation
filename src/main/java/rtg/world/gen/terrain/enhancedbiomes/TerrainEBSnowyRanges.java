@@ -2,41 +2,51 @@ package rtg.world.gen.terrain.enhancedbiomes;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.HeightEffect;
+import rtg.world.gen.terrain.HeightVariation;
+import rtg.world.gen.terrain.JitterEffect;
+import rtg.world.gen.terrain.ScatteredMountainsEffect;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBSnowyRanges extends TerrainBase
 {
 	private float width;
 	private float strength;
-	private float lakeDepth;
-	private float lakeWidth;
 	private float terrainHeight;
+    private float spikeWidth = 15;
+    private float spikeHeight = 30;
+    private HeightEffect heightEffect;
 
-	/*
-	 * width = 230f
-	 * strength = 120f
-	 * lake = 50f;
-	 *
-	 * 230f, 120f, 50f
-	 */
-
-	public TerrainEBSnowyRanges(float mountainWidth, float mountainStrength, float depthLake)
-	{
-		this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
-	}
-
-	public TerrainEBSnowyRanges(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
+	public TerrainEBSnowyRanges(float mountainWidth, float mountainStrength, float height)
 	{
 		width = mountainWidth;
 		strength = mountainStrength;
-		lakeDepth = depthLake;
-		lakeWidth = widthLake;
 		terrainHeight = height;
+        ScatteredMountainsEffect mountainEffect = new ScatteredMountainsEffect();
+        mountainEffect.mountainHeight = strength;
+        mountainEffect.mountainWavelength = width;
+        mountainEffect.spikeHeight = this.spikeHeight;
+        mountainEffect.spikeWavelength = this.spikeWidth;
+
+        heightEffect = new JitterEffect(5f,10f, mountainEffect);
+        heightEffect = new JitterEffect(2f,6f,heightEffect);
+
+        HeightVariation hilliness = new HeightVariation();
+        hilliness.octave = 2;
+        hilliness.wavelength = 40;
+        hilliness.height = 6;
+
+        heightEffect = heightEffect.plus(hilliness);
+
+        GroundEffect ground = new GroundEffect(3f);
+
+        heightEffect = heightEffect.plus(ground);
 	}
 
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainLonelyMountain(x, y, simplex, cell, river, strength, width, terrainHeight);
-	}
+        return riverized(heightEffect.added(simplex, cell, x, y)+terrainHeight,river);
+    }
 }

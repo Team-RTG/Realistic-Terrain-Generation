@@ -23,6 +23,6 @@ public class TerrainBOPEucalyptusForest extends TerrainBase
 
         float h = terrainGrasslandHills(x, y, simplex, cell, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
 
-        return riverized(groundNoise,river) + h;
+        return riverized(groundNoise+h,river) ;
     }
 }

@@ -9,8 +9,6 @@ public class TerrainEBForestedMountains extends TerrainBase
 
     private float width;
     private float strength;
-    private float lakeDepth;
-    private float lakeWidth;
     private float terrainHeight;
 
     /*
@@ -19,19 +17,17 @@ public class TerrainEBForestedMountains extends TerrainBase
      * 230f, 120f, 50f
      */
 
-    public TerrainEBForestedMountains(float mountainWidth, float mountainStrength, float depthLake)
+    public TerrainEBForestedMountains(float mountainWidth, float mountainStrength)
     {
 
-        this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
+        this(mountainWidth, mountainStrength,68f);
     }
 
-    public TerrainEBForestedMountains(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
+    public TerrainEBForestedMountains(float mountainWidth, float mountainStrength, float height)
     {
 
         width = mountainWidth;
         strength = mountainStrength;
-        lakeDepth = depthLake;
-        lakeWidth = widthLake;
         terrainHeight = height;
     }
 

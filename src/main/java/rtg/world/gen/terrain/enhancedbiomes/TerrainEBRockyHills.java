@@ -9,8 +9,6 @@ public class TerrainEBRockyHills extends TerrainBase
 
     private float width;
     private float strength;
-    private float lakeDepth;
-    private float lakeWidth;
     private float terrainHeight;
 
     /*
@@ -19,19 +17,17 @@ public class TerrainEBRockyHills extends TerrainBase
      * 230f, 120f, 50f
      */
 
-    public TerrainEBRockyHills(float mountainWidth, float mountainStrength, float depthLake)
+    public TerrainEBRockyHills(float mountainWidth, float mountainStrength)
     {
 
-        this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
+        this(mountainWidth, mountainStrength, 68f);
     }
 
-    public TerrainEBRockyHills(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
+    public TerrainEBRockyHills(float mountainWidth, float mountainStrength, float height)
     {
 
         width = mountainWidth;
         strength = mountainStrength;
-        lakeDepth = depthLake;
-        lakeWidth = widthLake;
         terrainHeight = height;
     }
 

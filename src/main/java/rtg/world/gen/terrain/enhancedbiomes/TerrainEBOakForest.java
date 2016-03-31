@@ -2,41 +2,58 @@ package rtg.world.gen.terrain.enhancedbiomes;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.HeightEffect;
+import rtg.world.gen.terrain.HeightVariation;
+import rtg.world.gen.terrain.JitterEffect;
+import rtg.world.gen.terrain.RaiseEffect;
 import rtg.world.gen.terrain.TerrainBase;
+import rtg.world.gen.terrain.VariableRuggednessEffect;
 
 public class TerrainEBOakForest extends TerrainBase
 {
-	private float width;
-	private float strength;
-	private float lakeDepth;
-	private float lakeWidth;
-	private float terrainHeight;
+    private float minHeight;
+    private float mesaWavelength;
+    private float hillStrength;
+    private float topBumpinessHeight=3;
+    private float topBumpinessWavelength = 15;
+    private HeightEffect height;
+    private HeightEffect groundEffect;
 
-	/*
-	 * width = 230f
-	 * strength = 120f
-	 * lake = 50f;
-	 *
-	 * 230f, 120f, 50f
-	 */
+    private float jitterAmplitude = 2f;
+    private float jitterWavelength = 15f;
+	public TerrainEBOakForest()
+    {
+        this.minHeight = 65f;
+        this.mesaWavelength = 54f;
+        this.hillStrength = 10f;
 
-	public TerrainEBOakForest(float mountainWidth, float mountainStrength, float depthLake)
-	{
-		this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
-	}
+        groundEffect = new GroundEffect(3f);
 
-	public TerrainEBOakForest(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
-	{
-		width = mountainWidth;
-		strength = mountainStrength;
-		lakeDepth = depthLake;
-		lakeWidth = widthLake;
-		terrainHeight = height;
-	}
+        // this is variation in what's added to the top. Set to vary with the "standard" ruggedness
+        HeightVariation topVariation = new HeightVariation();
+        topVariation.height = hillStrength;
+        topVariation.octave = 1;
+        topVariation.wavelength = VariableRuggednessEffect.STANDARD_RUGGEDNESS_WAVELENGTH;
 
-	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-	{
-        return terrainLonelyMountain(x, y, simplex, cell, river, strength, width, terrainHeight);
-	}
+
+        // create some bumpiness to disguise the cliff heights
+        HeightVariation topBumpiness = new HeightVariation();
+        topBumpiness.height = topBumpinessHeight;
+        topBumpiness.wavelength = topBumpinessWavelength;
+        topBumpiness.octave = 3;
+
+        // now make the top only show up on mesa
+        height = new VariableRuggednessEffect(new RaiseEffect(0f),topVariation.plus(topBumpiness).plus(new RaiseEffect(hillStrength))
+                ,0.2f,0.2f,mesaWavelength);
+
+        height = new JitterEffect(jitterAmplitude,jitterWavelength,height);
+
+    }
+
+    @Override
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
+    {
+        return riverized(minHeight+groundEffect.added(simplex, cell,x, y),river)+height.added(simplex,cell, x, y);
+    }
 }

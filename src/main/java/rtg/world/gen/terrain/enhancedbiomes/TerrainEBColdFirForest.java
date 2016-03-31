@@ -2,15 +2,15 @@ package rtg.world.gen.terrain.enhancedbiomes;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.HeightEffect;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBColdFirForest extends TerrainBase
 {
-	private float width;
-	private float strength;
-	private float lakeDepth;
-	private float lakeWidth;
-	private float terrainHeight;
+	private float groundNoiseAmplitude = 6f;
+    private float baseHeight = 66f;
+    private HeightEffect height;
 
 	/*
 	 * width = 230f
@@ -20,23 +20,15 @@ public class TerrainEBColdFirForest extends TerrainBase
 	 * 230f, 120f, 50f
 	 */
 
-	public TerrainEBColdFirForest(float mountainWidth, float mountainStrength, float depthLake)
+	public TerrainEBColdFirForest()
 	{
-		this(mountainWidth, mountainStrength, depthLake, 260f, 74f);
+		height  = new GroundEffect(groundNoiseAmplitude);
 	}
 
-	public TerrainEBColdFirForest(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
-	{
-		width = mountainWidth;
-		strength = mountainStrength;
-		lakeDepth = depthLake;
-		lakeWidth = widthLake;
-		terrainHeight = height;
-	}
 
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainLonelyMountain(x, y, simplex, cell, river, strength, width, terrainHeight);
+        return riverized(height.added(simplex, cell, x, y)+baseHeight,river);
 	}
 }

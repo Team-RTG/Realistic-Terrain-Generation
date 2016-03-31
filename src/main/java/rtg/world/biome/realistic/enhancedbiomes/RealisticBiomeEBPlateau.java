@@ -50,7 +50,7 @@ public class RealisticBiomeEBPlateau extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBPlateau(false, new float[]{2.0f, 0.5f}, 40f, 1f, 1f, 0.5f, 69f),
+			new TerrainEBPlateau(21f,68f),
 			new SurfaceEBPlateau(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

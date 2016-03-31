@@ -7,13 +7,13 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBOPHeathland extends TerrainBase
 {
-    private float baseHeight = 68f;
+    private float baseHeight = 66f;
     private HillockEffect hills;
 
     public TerrainBOPHeathland()
     {
         hills = new HillockEffect();
-        hills.height = 30;
+        hills.height = 25;
         hills.minimumSimplex = 0.3f;
         hills.octave = 0;
         hills.wavelength = 50f;

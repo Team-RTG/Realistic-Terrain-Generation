@@ -20,7 +20,11 @@ public class HillockEffect extends HeightEffect {
 
     public final float added(OpenSimplexNoise simplex, CellNoise cell,int x, int y) {
         float noise= simplex.octave(octave).noise2((float)x/wavelength, (float)y/wavelength);
-        if (noise < minimumSimplex) noise = minimumSimplex;
+        if (noise < minimumSimplex) {
+            noise = 0;
+        } else {
+            noise = (noise-minimumSimplex)/(1f -minimumSimplex);
+        }
         return noise*height;
     }
 }

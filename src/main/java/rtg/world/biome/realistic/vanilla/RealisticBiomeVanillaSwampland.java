@@ -7,15 +7,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.config.vanilla.config.BiomeConfigVanillaSwampland;
+import rtg.api.config.BiomeConfigProperty;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGWillow;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSwampland;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaSwampland;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -28,16 +29,30 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
 
         super(
                 Biomes.swampland,
-                Biomes.river,
-                new TerrainVanillaSwampland(),
-                new SurfaceVanillaSwampland(config, topBlock, fillerBlock));
+                Biomes.river
+        );
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaSwampland(config, topBlock, fillerBlock);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainMarsh(x, y, simplex, 62f);
+            }
+        };
     }
 
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         /**
-         * Using rDecorateSeedBiome() to partially decorate the config? If so, then comment out this method.
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
          */
         //rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, baseBiome);
 
@@ -55,7 +70,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
             }
         }
 
-        if (this.config.getPropertyById(BiomeConfigVanillaSwampland.decorationLogsId).valueBoolean) {
+        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
 
             if (rand.nextInt((int) (4f / strength)) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

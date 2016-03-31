@@ -3,13 +3,16 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import rtg.api.config.vanilla.config.BiomeConfigVanillaJungle;
+import rtg.api.config.BiomeConfigProperty;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungle;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaJungle;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = Biomes.jungle.topBlock;
@@ -18,9 +21,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaJungle() {
         super(
                 Biomes.jungle,
-                Biomes.river,
-                new TerrainVanillaJungle(),
-                new SurfaceVanillaJungle(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.09f)
+                Biomes.river
         );
 
         this.waterSurfaceLakeChance = 3;
@@ -78,7 +79,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 4;
         decoFallenTree.maxSize = 9;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaJungle.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigProperty.DECORATION_LOG));
 
         // At this point, let's hand over some of the decoration to the base config, but only about 85% of the time.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
@@ -109,7 +110,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         decoJungleCacti.sandOnly = false;
         decoJungleCacti.extraHeight = 7;
         decoJungleCacti.sandMeta = (byte) 1;
-        this.addDeco(decoJungleCacti, this.config._boolean(BiomeConfigVanillaJungle.decorationCactusId));
+        this.addDeco(decoJungleCacti, this.config._boolean(BiomeConfigProperty.DECORATION_CACTI));
 
         // Mossy boulders for the green.
         DecoBoulder decoBoulder = new DecoBoulder();
@@ -124,5 +125,20 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 12f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaJungle(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.09f);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainFlatLakes(x, y, simplex, river, 3f, 66f);
+            }
+        };
     }
 }

@@ -12,8 +12,9 @@ import rtg.world.gen.feature.WorldGenCacti;
 import rtg.world.gen.feature.WorldGenFlowersRTG;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSavannaPlateau;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaSavannaPlateau;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -26,18 +27,35 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
 
         super(
                 Biomes.savannaPlateau,
-                Biomes.river,
-                new TerrainVanillaSavannaPlateau(true, 35f, 160f, 60f, 40f, 69f),
-                new SurfaceVanillaSavannaPlateau(config, topBlock, fillerBlock, 0)
+                Biomes.river
         );
         this.noLakes = true;
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaSavannaPlateau(config, topBlock, fillerBlock, 0);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            private float[] height = new float[] {12.0f, 0.5f, 8f, 0.7f};
+            private int heightLength = height.length;
+            private float strength = 10f;
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 50f, true);
+            }
+        };
     }
 
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         /**
-         * Using rDecorateSeedBiome() to partially decorate the config? If so, then comment out this method.
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
          */
         rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, baseBiome);
 

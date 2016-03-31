@@ -6,7 +6,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.config.BiomeConfig;
-import rtg.api.config.abyssalcraft.config.BiomeConfigACDarklands;
+import rtg.api.config.BiomeConfigProperty;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenLog;
@@ -15,6 +15,8 @@ import rtg.world.gen.surface.abyssalcraft.SurfaceACDarklands;
 import rtg.world.gen.terrain.abyssalcraft.TerrainACDarklands;
 
 import java.util.Random;
+
+import static rtg.api.config.BiomeConfigProperty.*;
 
 public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
 
@@ -30,13 +32,13 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         /**
-         * Using rDecorateSeedBiome() to partially decorate the config? If so, then comment out this method.
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
          */
         //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
 
         float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
 
-        if (this.config.getPropertyById(BiomeConfigACDarklands.decorationLogsId).valueBoolean) {
+        if (this.config._boolean(DECORATION_LOG)) {
 
             if (rand.nextInt((int) (10f / strength)) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

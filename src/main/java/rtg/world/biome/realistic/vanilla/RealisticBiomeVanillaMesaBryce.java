@@ -15,7 +15,7 @@ import rtg.world.gen.feature.WorldGenCacti;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaBryce;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaBryce;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -30,17 +30,30 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
         super(
                 mutationBiome,
-                Biomes.river,
-                new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f),
-                new SurfaceVanillaMesaBryce(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1), 0)
+                Biomes.river
         );
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaMesaBryce(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1), 0);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainBryce(x, y, simplex, river, 20f, border);
+            }
+        };
     }
 
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         /**
-         * Using rDecorateSeedBiome() to partially decorate the config? If so, then comment out this method.
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
          */
         rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, baseBiome);
         for (int l = 0; l < 1; ++l) {

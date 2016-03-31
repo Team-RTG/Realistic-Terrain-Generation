@@ -11,8 +11,6 @@ public class TerrainVanillaExtremeHillsPlus extends TerrainBase {
 
     private float width;
     private float strength;
-    private float lakeDepth;
-    private float lakeWidth;
     private float terrainHeight;
     private float spikeWidth = 30;
     private float spikeHeight = 40;
@@ -23,10 +21,10 @@ public class TerrainVanillaExtremeHillsPlus extends TerrainBase {
      * 230f, 120f, 50f
      */
 
-    public TerrainVanillaExtremeHillsPlus(float mountainWidth, float mountainStrength, float height) {
-        width = mountainWidth;
-        strength = mountainStrength;
-        terrainHeight = height;
+    public TerrainVanillaExtremeHillsPlus() {
+        width = 150f;
+        strength = 120f;
+        terrainHeight = 90f;
         MountainsWithPassesEffect mountainEffect = new MountainsWithPassesEffect();
         mountainEffect.mountainHeight = strength;
         mountainEffect.mountainWavelength = width;
@@ -38,18 +36,8 @@ public class TerrainVanillaExtremeHillsPlus extends TerrainBase {
         //this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
     }
 
-    public TerrainVanillaExtremeHillsPlus(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height) {
-
-        width = mountainWidth;
-        strength = mountainStrength;
-        lakeDepth = depthLake;
-        lakeWidth = widthLake;
-        terrainHeight = height;
-    }
-
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
         return riverized(heightEffect.added(simplex, cell, x, y) + terrainHeight, river);
-        //return terrainLonelyMountain(x, y, simplex, cell, river, strength, width, terrainHeight);
     }
 }

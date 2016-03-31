@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.config.vanilla.config.BiomeConfigVanillaFlowerForest;
+import rtg.api.config.BiomeConfigProperty;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -19,8 +19,9 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGPineBig;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaFlowerForest;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaFlowerForest;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -36,16 +37,30 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 
         super(
                 mutationBiome,
-                Biomes.river,
-                new TerrainVanillaFlowerForest(),
-                new SurfaceVanillaFlowerForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.grass.getDefaultState(), 0.05f));
+                Biomes.river
+        );
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaFlowerForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.grass.getDefaultState(), 0.05f);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
+            }
+        };
     }
 
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         /**
-         * Using rDecorateSeedBiome() to partially decorate the config? If so, then comment out this method.
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
          */
         //rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, baseBiome);
 
@@ -95,7 +110,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
             }
         }
 
-        if (this.config.getPropertyById(BiomeConfigVanillaFlowerForest.decorationLogsId).valueBoolean) {
+        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
 
             if (rand.nextInt((int) (12f / strength)) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

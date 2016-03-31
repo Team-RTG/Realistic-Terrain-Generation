@@ -114,7 +114,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
          * We're adding this deco here in order to avoid having to explicitly add it
          * in every singe realistic biome.
          * If it does getProp added manually to let the base biome handle some or all of the decoration process,
-         * this deco will getProp replaced with the new one.
+         * this deco will get replaced with the new one.
          */
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.allowed = false;
@@ -363,7 +363,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
                     rand.nextInt(28) + 4,
                     blockPos.getZ() + rand.nextInt(16));
 
-            //TODO: How to getProp that last argument???
+            //TODO: How to get that last argument???
             if (world.getBlockState(mbp).getBlock().isReplaceableOreGen(world.getBlockState(mbp), world, mbp, BlockMatcher.forBlock(emeraldStoneBlock))) {
                 world.setBlockState(mbp, emeraldEmeraldBlock.getStateFromMeta(emeraldEmeraldMeta), 2);
             }
@@ -428,17 +428,6 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
     public void rMapGen(ChunkPrimer primer, World world, BiomeProviderRTG cmr, Random mapRand, int chunkX, int chunkY, int baseX, int baseY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
 
-    }
-
-    private float getRiverStrength(OpenSimplexNoise simplex, CellNoise cell, int x, int y) {
-        // copied from WorldChunkManager for debugging purposes
-        SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-        simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
-        double pX = x + jitter.deltax() * 220f;
-        double pY = y + jitter.deltay() * 220f;
-
-        double[] results = cell.river().eval(pX / 1875.0, pY / 1875.0);
-        return (float) cellBorder(results, 30.0 / 450.0, 1.0);
     }
 
     private static double cellBorder(double[] results, double width, double depth) {
@@ -594,10 +583,6 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         }
 
         return this.surfaces[0];
-    }
-
-    public SurfaceBase[] getSurfaces() {
-        return this.surfaces;
     }
 
     public int getId() {

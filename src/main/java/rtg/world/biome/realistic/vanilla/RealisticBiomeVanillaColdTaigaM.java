@@ -4,7 +4,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.api.config.vanilla.config.BiomeConfigVanillaColdTaigaM;
+import rtg.api.config.BiomeConfigProperty;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
@@ -69,7 +69,7 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaColdTaigaM.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigProperty.DECORATION_LOG));
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 100;

@@ -3,14 +3,17 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import rtg.api.config.vanilla.config.BiomeConfigVanillaForest;
+import rtg.api.config.BiomeConfigProperty;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelper5050;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaForest;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaForest;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
 
@@ -21,9 +24,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
 
         super(
                 Biomes.forest,
-                Biomes.river,
-                new TerrainVanillaForest(),
-                new SurfaceVanillaForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.10f)
+                Biomes.river
         );
 
         /**
@@ -75,7 +76,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
         decoFallenSpruce.maxSize = 6;
 
         DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenOak, decoFallenSpruce);
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaForest.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigProperty.DECORATION_LOG));
 
         // Shrubs to fill in the blanks.
         DecoShrub decoShrub = new DecoShrub();
@@ -95,5 +96,24 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 12f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.10f);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                groundNoise = groundNoise(x, y, groundVariation, simplex);
+                float m = hills(x, y, 10f, simplex, river);
+                float floNoise = 65f + groundNoise + m;
+
+                return riverized(floNoise, river);
+            }
+        };
     }
 }

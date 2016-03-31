@@ -46,7 +46,7 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         /**
-         * Using rDecorateSeedBiome() to partially decorate the config? If so, then comment out this method.
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
          */
         //rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, baseBiome);
 
@@ -67,7 +67,7 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
             }
         }
 
-        if (this.config.getPropertyById(BiomeConfigBOPFen.decorationLogsId).valueBoolean) {
+        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
 
             if (l > 0f && rand.nextInt(16) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

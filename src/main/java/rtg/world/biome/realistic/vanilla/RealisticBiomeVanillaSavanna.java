@@ -9,15 +9,17 @@ import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.config.vanilla.config.BiomeConfigVanillaSavanna;
+import rtg.api.config.BiomeConfigProperty;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenFlowersRTG;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSavanna;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaSavanna;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -30,16 +32,32 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
 
         super(
                 Biomes.savanna,
-                Biomes.river,
-                new TerrainVanillaSavanna(),
-                new SurfaceVanillaSavanna(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), Blocks.grass.getDefaultState(), 13f, 0.27f));
+                Biomes.river
+        );
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaSavanna(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), Blocks.grass.getDefaultState(), 13f, 0.27f);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            private final GroundEffect groundEffect = new GroundEffect(4f);
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
+            }
+        };
     }
 
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         /**
-         * Using rDecorateSeedBiome() to partially decorate the config? If so, then comment out this method.
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
          */
         rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, baseBiome);
 
@@ -55,7 +73,7 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
 
         float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
 
-        if (this.config.getPropertyById(BiomeConfigVanillaSavanna.decorationLogsId).valueBoolean) {
+        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
 
             if (l > 0f && rand.nextInt(12) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

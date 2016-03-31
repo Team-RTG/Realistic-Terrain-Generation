@@ -10,7 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.config.vanilla.config.BiomeConfigVanillaSavannaM;
+import rtg.api.config.BiomeConfigProperty;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -18,8 +18,9 @@ import rtg.world.gen.feature.WorldGenFlowersRTG;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSavannaM;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaSavannaM;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -34,17 +35,31 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
 
         super(
                 mutationBiome,
-                Biomes.river,
-                new TerrainVanillaSavannaM(),
-                new SurfaceVanillaSavannaM(config, topBlock, fillerBlock));
+                Biomes.river
+        );
         this.noLakes = true;
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaSavannaM(config, topBlock, fillerBlock);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 90f, 67f);
+            }
+        };
     }
 
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         /**
-         * Using rDecorateSeedBiome() to partially decorate the config? If so, then comment out this method.
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
          */
         //rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, baseBiome);
 
@@ -60,7 +75,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
 
         float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
 
-        if (this.config.getPropertyById(BiomeConfigVanillaSavannaM.decorationLogsId).valueBoolean) {
+        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
 
             if (l > 0f && rand.nextInt(12) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

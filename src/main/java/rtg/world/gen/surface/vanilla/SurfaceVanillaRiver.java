@@ -5,6 +5,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
+import rtg.api.config.BiomeConfig;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
@@ -12,8 +13,8 @@ import rtg.world.gen.surface.SurfaceBase;
 import java.util.Random;
 
 public class SurfaceVanillaRiver extends SurfaceBase {
-    public SurfaceVanillaRiver() {
-        super(config, Blocks.grass, (byte) 0, Blocks.dirt, (byte) 0);
+    public SurfaceVanillaRiver(BiomeConfig config) {
+        super(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState());
     }
 
     @Override

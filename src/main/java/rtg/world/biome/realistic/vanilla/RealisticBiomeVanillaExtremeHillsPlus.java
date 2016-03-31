@@ -6,15 +6,19 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.*;
-import rtg.api.config.vanilla.config.BiomeConfigVanillaExtremeHillsPlus;
+import rtg.api.config.BiomeConfigProperty;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenFlowersRTG;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineEuro;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHillsPlus;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHillsPlus;
+import rtg.world.gen.terrain.HeightEffect;
+import rtg.world.gen.terrain.JitterEffect;
+import rtg.world.gen.terrain.MountainsWithPassesEffect;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -27,19 +31,54 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
 
         super(
                 Biomes.extremeHillsPlus,
-                Biomes.river,
-                new TerrainVanillaExtremeHillsPlus(150f, 120f, 90f),
-                new SurfaceVanillaExtremeHillsPlus(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel.getStateFromMeta(2), 0.08f));
+                Biomes.river
+        );
         this.generatesEmeralds = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
     }
 
     @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaExtremeHillsPlus(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel.getStateFromMeta(2), 0.08f);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            private float width;
+            private float strength;
+            private float terrainHeight;
+            private float spikeWidth = 30;
+            private float spikeHeight = 40;
+            private HeightEffect heightEffect;
+
+            {
+                width = 150f;
+                strength = 120f;
+                terrainHeight = 90f;
+                MountainsWithPassesEffect mountainEffect = new MountainsWithPassesEffect();
+                mountainEffect.mountainHeight = strength;
+                mountainEffect.mountainWavelength = width;
+                mountainEffect.spikeHeight = this.spikeHeight;
+                mountainEffect.spikeWavelength = this.spikeWidth;
+
+                heightEffect = new JitterEffect(7f, 10f, mountainEffect);
+                heightEffect = new JitterEffect(3f, 6f, heightEffect);
+            }
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return riverized(heightEffect.added(simplex, cell, x, y) + terrainHeight, river);
+            }
+        };
+    }
+
+    @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         /**
-         * Using rDecorateSeedBiome() to partially decorate the config? If so, then comment out this method.
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
          */
         rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, baseBiome);
 
@@ -55,7 +94,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
 
         float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
 
-        if (this.config.getPropertyById(BiomeConfigVanillaExtremeHillsPlus.decorationLogsId).valueBoolean) {
+        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
 
             if (l > 0f && rand.nextInt(6) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

@@ -17,7 +17,8 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesa;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaMesa;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -30,17 +31,32 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
 
         super(
                 Biomes.mesa,
-                Biomes.river,
-                new TerrainVanillaMesa(),
-                new SurfaceVanillaMesa(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1))
+                Biomes.river
         );
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaMesa(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1));
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            private GroundEffect groundEffect = new GroundEffect(4f);
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return riverized(68f + groundEffect.added(simplex, cell, x, y), river);
+            }
+        };
     }
 
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         /**
-         * Using rDecorateSeedBiome() to partially decorate the config? If so, then comment out this method.
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
          */
         rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, baseBiome);
 

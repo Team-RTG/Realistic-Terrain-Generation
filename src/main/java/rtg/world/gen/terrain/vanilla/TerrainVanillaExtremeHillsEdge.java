@@ -19,6 +19,6 @@ public class TerrainVanillaExtremeHillsEdge extends TerrainBase {
 
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-        return terrainHighland(x, y, simplex, cell, river, start, width, height, 10f);
+        return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 120f, 10f);
     }
 }

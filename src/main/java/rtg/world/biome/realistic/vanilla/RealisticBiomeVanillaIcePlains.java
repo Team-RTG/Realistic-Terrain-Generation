@@ -6,13 +6,14 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.config.vanilla.config.BiomeConfigVanillaIcePlains;
+import rtg.api.config.BiomeConfigProperty;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenLog;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIcePlains;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaIcePlains;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -23,17 +24,36 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaIcePlains() {
         super(
                 Biomes.icePlains,
-                Biomes.frozenRiver,
-                new TerrainVanillaIcePlains(),
-                new SurfaceVanillaIcePlains(config, topBlock, fillerBlock, topBlock, topBlock)
+                Biomes.frozenRiver
         );
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaIcePlains(config, topBlock, fillerBlock, topBlock, topBlock);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                float base = 62;
+                float b = simplex.noise2(x / 24f, y / 24f) * 0.25f;
+                b *= river;
+                float n = simplex.noise2(x / 16f, y / 16f) * 10f - 9f;
+                n = (n < 0) ? 0f : n;
+                b += n;
+                return base + b;
+            }
+        };
     }
 
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         /**
-         * Using rDecorateSeedBiome() to partially decorate the config? If so, then comment out this method.
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
          */
         //rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, baseBiome);
 
@@ -51,7 +71,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
             }
         }
 
-        if (this.config.getPropertyById(BiomeConfigVanillaIcePlains.decorationLogsId).valueBoolean) {
+        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
 
             if (rand.nextInt((int) (24f / strength)) == 0) {
                 int j6 = chunkX + rand.nextInt(16) + 8;

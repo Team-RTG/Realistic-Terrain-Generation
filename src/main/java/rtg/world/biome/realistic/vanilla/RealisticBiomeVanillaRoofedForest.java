@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenBush;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.api.config.vanilla.config.BiomeConfigVanillaRoofedForest;
+import rtg.api.config.BiomeConfigProperty;
 import rtg.util.math.RandomUtil;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
@@ -17,8 +17,10 @@ import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaRoofedForest;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForest;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -33,16 +35,32 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 
         super(
                 Biomes.roofedForest,
-                Biomes.river,
-                new TerrainVanillaRoofedForest(),
-                new SurfaceVanillaRoofedForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.08f));
+                Biomes.river
+        );
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaRoofedForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.08f);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            private final GroundEffect groundEffect = new GroundEffect(4f);
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
+            }
+        };
     }
 
     @Override
     public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         /**
-         * Using rDecorateSeedBiome() to partially decorate the config? If so, then comment out this method.
+         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
          */
         //rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, baseBiome);
 
@@ -58,7 +76,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
                 if (rand.nextInt(8) != 0) {
                     (new WorldGenBlob(Blocks.mossy_cobblestone, 0, rand)).generate(world, rand, new BlockPos(i1, k1, j1));
                 } else {
-                    if (config._boolean(BiomeConfigVanillaRoofedForest.decorationCobwebsId)) {
+                    if (config._boolean(BiomeConfigProperty.DECORATION_COBWEB)) {
                         (new WorldGenBlob(Blocks.web, 0, rand)).generate(world, rand, new BlockPos(i1, k1, j1));
                     }
                 }
@@ -80,7 +98,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             }
         }
 
-        if (this.config.getPropertyById(BiomeConfigVanillaRoofedForest.decorationLogsId).valueBoolean) {
+        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
 
             if (rand.nextInt((int) (10f / strength)) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

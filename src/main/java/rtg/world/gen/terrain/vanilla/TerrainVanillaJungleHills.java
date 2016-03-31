@@ -20,6 +20,6 @@ public class TerrainVanillaJungleHills extends TerrainBase {
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
 
-        return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, 10f);
+        return terrainHighland(x, y, simplex, cell, river, 10f, 68f, 55f, 10f);
     }
 }

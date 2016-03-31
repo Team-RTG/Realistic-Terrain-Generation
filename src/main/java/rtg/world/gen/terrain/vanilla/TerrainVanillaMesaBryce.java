@@ -43,6 +43,6 @@ public class TerrainVanillaMesaBryce extends TerrainBase {
 
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-        return terrainBryce(x, y, simplex, river, height, border);
+        return terrainBryce(x, y, simplex, river, 20f, border);
     }
 }

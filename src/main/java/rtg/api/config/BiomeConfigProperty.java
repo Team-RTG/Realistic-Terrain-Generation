@@ -21,7 +21,7 @@ public enum BiomeConfigProperty implements ConfigProperty.IPropertyEnum {
     DECORATION_BOULDER(BOOLEAN),
     DECORATION_DEAD_BUSH(BOOLEAN),
     DECORATION_FLOWERS(BOOLEAN),
-    DECORATION_GRASS(BOOLEAN),
+    DECORATION_COBWEB(BOOLEAN),
     DECORATION_TREE_PALM(BOOLEAN);
 
     public final String localized;

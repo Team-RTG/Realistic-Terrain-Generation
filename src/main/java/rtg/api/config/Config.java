@@ -24,7 +24,7 @@ public class Config {
         }
     }
 
-    public void addProperty(ConfigProperty property) {
+    public ConfigProperty addProperty(ConfigProperty property) {
         for (int i = 0; i < this.properties.size(); i++) {
 
             if (this.properties.get(i).id.contentEquals(property.id)) {
@@ -34,6 +34,7 @@ public class Config {
         }
 
         this.properties.add(property);
+        return property;
     }
 
     public void removeProperty(String id) {
@@ -50,14 +51,6 @@ public class Config {
         return this.properties;
     }
 
-    public boolean _boolean(ConfigProperty.IPropertyEnum id) {
-        try {
-            return getPropertyById(id).valueBoolean;
-        } catch (Exception e) {
-            throw new RuntimeException("Config property " + id.name() + " could not be found. Reason: " + e.getMessage());
-        }
-    }
-
     public ConfigProperty getPropertyById(ConfigProperty.IPropertyEnum id) {
         for (int i = 0; i < this.properties.size(); i++) {
 
@@ -66,6 +59,14 @@ public class Config {
             }
         }
         return null;
+    }
+
+    public boolean _boolean(ConfigProperty.IPropertyEnum id) {
+        try {
+            return getPropertyById(id).valueBoolean;
+        } catch (Exception e) {
+            throw new RuntimeException("Config property " + id.name() + " could not be found. Reason: " + e.getMessage());
+        }
     }
 
     public int _int(ConfigProperty.IPropertyEnum id) {
@@ -90,11 +91,54 @@ public class Config {
 
     public IBlockState _block(ConfigProperty.IPropertyEnum id) {
         try {
-
             return getPropertyById(id).valueBlock;
         } catch (Exception e) {
 
             throw new RuntimeException("Config property " + id.name() + " could not be found. Reason: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Will get a property, and if it doesn't exist add it with a default value
+     */
+    public boolean get(ConfigProperty.IPropertyEnum id, boolean defaultBoolean) {
+        try {
+            return this.getPropertyById(id).valueBoolean;
+        } catch (Exception e) {
+            return this.addProperty(id.get().setDefault(defaultBoolean)).valueBoolean;
+        }
+    }
+
+    /**
+     * Will get a property, and if it doesn't exist add it with a default value
+     */
+    public int get(ConfigProperty.IPropertyEnum id, int defaultInt) {
+        try {
+            return this.getPropertyById(id).valueInt;
+        } catch (Exception e) {
+            return this.addProperty(id.get().setDefault(defaultInt)).valueInt;
+        }
+    }
+
+    /**
+     * Will get a property, and if it doesn't exist add it with a default value
+     */
+    public String get(ConfigProperty.IPropertyEnum id, String defaultString) {
+        try {
+            return this.getPropertyById(id).valueString;
+        } catch (Exception e) {
+            return this.addProperty(id.get().setDefault(defaultString)).valueString;
+        }
+    }
+
+    /**
+     * Will get a property, and if it doesn't exist add it with a default value
+     */
+    public IBlockState get(ConfigProperty.IPropertyEnum id, IBlockState defaultBlock) {
+        try {
+            return this.getPropertyById(id).valueBlock;
+        } catch (Exception e) {
+            return this.addProperty(id.get().setDefault(defaultBlock)).valueBlock;
         }
     }
 }

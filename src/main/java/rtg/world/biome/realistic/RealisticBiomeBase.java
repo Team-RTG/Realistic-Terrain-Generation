@@ -39,7 +39,6 @@ import java.util.Random;
 
 import static net.minecraft.init.Biomes.river;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CLAY;
-import static rtg.api.config.BiomeConfigProperty.*;
 
 public abstract class RealisticBiomeBase extends BiomeBase {
 
@@ -86,6 +85,8 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
         arrRealisticBiomeIds[RealisticBiomeBase.getIdForBiome(biome)] = this;
 
+        this.config = mod.getConfig().setBiomeConfig(this.getClass(), initProperties());
+
         baseBiome = biome;
         riverBiome = river;
 
@@ -97,7 +98,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
         clayPerVein = 20;
 
-        generateVillages = true;
+        generateVillages = config.get(BiomeConfigProperty.ALLOW_VILLAGES, true);
 
         generatesEmeralds = false;
         emeraldEmeraldBlock = Blocks.emerald_ore;
@@ -629,12 +630,6 @@ public abstract class RealisticBiomeBase extends BiomeBase {
      */
     @Deprecated
     public ConfigProperty[] initProperties() {
-        return new ConfigProperty[] {
-                ALLOW_VILLAGES.prop.setDefault(this.generateVillages),
-                USE_RTG_SURFACES.prop.setDefault(true), //TODO: is this used?
-                USE_RTG_DECORATIONS.prop.setDefault(true), //TODO: how about this?
-                SURFACE_TOP_BLOCK.prop.setDefault(this.topBlock),
-                SURFACE_FILLER_BLOCK.prop.setDefault(this.fillerBlock)
-        };
+        return new ConfigProperty[0];
     }
 }

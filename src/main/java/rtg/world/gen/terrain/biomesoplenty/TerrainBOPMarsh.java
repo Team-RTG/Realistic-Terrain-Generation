@@ -27,6 +27,5 @@ public class TerrainBOPMarsh extends TerrainBase
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
         return baseHeight + variation.added(simplex, cell,x, y)+ smallVariation.added(simplex, cell,x, y);
-        //return terrainMarsh(x, y, simplex, 62f);
 	}
 }

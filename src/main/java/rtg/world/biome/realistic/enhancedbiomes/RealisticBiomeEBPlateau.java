@@ -70,6 +70,6 @@ public class RealisticBiomeEBPlateau extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-        
+        noWaterFeatures= true;
     }
 }

@@ -17,7 +17,7 @@ public class AdjustableSpikeEffect extends HeightEffect {
     public float minimumSimplex = Integer.MAX_VALUE;// normal range is -1 to 1;
                                 //usually numbers above 0 are often preferred to avoid dead basins
     public int octave;
-    public float power = Integer.MAX_VALUE;// usually a range of 1 to 2
+    public float power = 1.6f;// usually a range of 1 to 2
 
     public final float added(OpenSimplexNoise simplex, CellNoise cell,int x, int y) {
         float noise= simplex.octave(octave).noise2((float)x/wavelength, (float)y/wavelength);

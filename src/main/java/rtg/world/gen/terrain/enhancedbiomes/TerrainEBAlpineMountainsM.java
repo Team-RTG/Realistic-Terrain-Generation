@@ -6,6 +6,7 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBAlpineMountainsM extends TerrainBase
 {
+    TerrainBase parent = new TerrainEBAlpineMountains();
 	public TerrainEBAlpineMountainsM()
 	{
 	}
@@ -13,6 +14,6 @@ public class TerrainEBAlpineMountainsM extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainMountainRiver(x, y, simplex, cell, river, 300f, 67f);
+        return parent.generateNoise(simplex, cell, x, y, border, river);
 	}
 }

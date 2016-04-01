@@ -14,9 +14,10 @@ public class TerrainEBFens extends TerrainBase
     private HeightEffect height;
     public TerrainEBFens()
     {
+        base = 61.5f;
         HeightVariation waterLand = new HeightVariation();
-        waterLand.height = 4f;
-        waterLand.wavelength = VariableRuggednessEffect.STANDARD_RUGGEDNESS_WAVELENGTH;
+        waterLand.height = 3f;
+        waterLand.wavelength = 60f;
         waterLand.octave =VariableRuggednessEffect.STANDARD_RUGGEDNESS_OCTAVE;
 
         height = new JitterEffect(30f,50f,waterLand);
@@ -26,6 +27,6 @@ public class TerrainEBFens extends TerrainBase
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return riverized(63.5f+ height.added(simplex, cell,x, y),river);
+        return riverized(base+ height.added(simplex, cell,x, y),river);
     }
 }

@@ -2,8 +2,10 @@ package rtg.world.gen.terrain.enhancedbiomes;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.gen.terrain.AdjustableSpikeEffect;
 import rtg.world.gen.terrain.GroundEffect;
 import rtg.world.gen.terrain.HeightEffect;
+import rtg.world.gen.terrain.JitterEffect;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBFirForest extends TerrainBase
@@ -15,6 +17,17 @@ public class TerrainEBFirForest extends TerrainBase
 	public TerrainEBFirForest()
 	{
 		height  = new GroundEffect(groundNoiseAmplitude);
+
+                AdjustableSpikeEffect outcrops = new AdjustableSpikeEffect();
+        outcrops.height = 30;
+        outcrops.minimumSimplex = 0.6f; // rarish
+        outcrops.wavelength = 200;
+        outcrops.octave = 2;
+        outcrops.power = 1.6f;
+
+        JitterEffect jitteredOutcrops = new JitterEffect(15,30,outcrops);
+
+        height = height.plus(jitteredOutcrops);
 	}
 
 

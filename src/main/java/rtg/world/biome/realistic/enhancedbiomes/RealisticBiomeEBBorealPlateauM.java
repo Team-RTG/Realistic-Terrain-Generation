@@ -50,7 +50,7 @@ public class RealisticBiomeEBBorealPlateauM extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBBorealPlateauM(70f, 180f, 7f, 100f, 38f, 260f, 74f),
+			new TerrainEBBorealPlateauM(30f),
 			new SurfaceEBBorealPlateauM(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
@@ -70,6 +70,6 @@ public class RealisticBiomeEBBorealPlateauM extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-        
+        noWaterFeatures= true;
     }
 }

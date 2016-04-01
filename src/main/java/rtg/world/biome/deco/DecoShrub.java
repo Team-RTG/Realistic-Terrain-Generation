@@ -25,6 +25,7 @@ public class DecoShrub extends DecoBase
 	public float strengthFactor; // Higher = more/bigger shrubs.
 	public int maxY; // Height restriction.
 	public int chance; // Higher = more rare.
+	public int loops;
 	
 	public DecoShrub()
 	{
@@ -40,6 +41,7 @@ public class DecoShrub extends DecoBase
 		this.strengthFactor = 3f; // Not sure why it was done like this, but... the higher the value, the more there will be.
 		this.maxY = 255; // No height limit by default.
 		this.chance = 1; // 100% chance of generating by default.
+		this.loops = 1;
 		
 		this.addDecoTypes(DecoType.SHRUB);
 	}
@@ -56,7 +58,9 @@ public class DecoShrub extends DecoBase
 				this.log = (this.log == -1) ? 0 : this.log;
 				this.leaves = (this.leaves == -1) ? rand.nextInt(3) : this.leaves;
 				
-	            for (int i = 0; i < this.strengthFactor * strength; i++)
+				int loopCount = this.loops;
+				loopCount = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : loopCount;
+	            for (int i = 0; i < loopCount; i++)
 	            {
 	                int intX = chunkX + rand.nextInt(16) + 8;
 	                int intZ = chunkY + rand.nextInt(16) + 8;

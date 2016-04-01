@@ -1,26 +1,21 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaSavanna;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenFlowersRTG;
-import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaSavanna;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaSavanna;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenBlockBlob;
-import net.minecraft.world.gen.feature.WorldGenReed;
-import net.minecraft.world.gen.feature.WorldGenShrub;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaSavanna;
+import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoDoubleGrass;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.DecoFallenTree.LogCondition;
+import rtg.world.biome.deco.DecoGrass;
+import rtg.world.biome.deco.DecoReed;
+import rtg.world.biome.deco.DecoTree;
+import rtg.world.biome.deco.DecoTree.TreeCondition;
+import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaSavanna;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaSavanna;
 
 public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase
 {
@@ -35,130 +30,82 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase
             BiomeGenBase.savanna,
             BiomeGenBase.river,
             new TerrainVanillaSavanna(),
-            new SurfaceVanillaSavanna(config, Blocks.grass, Blocks.dirt, Blocks.grass, 13f, 0.27f));
-    }
-    
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
+            new SurfaceVanillaSavanna(config, topBlock, fillerBlock, topBlock, 13f, 0.27f)
+        );
         
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+		/**
+		 * ##################################################
+		 * # DECORATIONS (ORDER MATTERS)
+		 * ##################################################
+		 */
 
-        for (int i23 = 0; i23 < 1; i23++)
-        {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
-            
-            if (rand.nextInt(8) == 0) {
-                (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
-            }
-        }
+		DecoFallenTree decoFallenTree = new DecoFallenTree();
+		decoFallenTree.loops = 1;
+		decoFallenTree.distribution.noiseDivisor = 100f;
+		decoFallenTree.distribution.noiseFactor = 6f;
+		decoFallenTree.distribution.noiseAddend = 0.8f;
+		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		decoFallenTree.logConditionNoise = 0f;
+		decoFallenTree.logConditionChance = 24;
+		decoFallenTree.maxY = 120;
+		decoFallenTree.logBlock = Blocks.log2;
+		decoFallenTree.logMeta = (byte)0;
+		decoFallenTree.leavesBlock = Blocks.leaves2;
+		decoFallenTree.leavesMeta = (byte)-1;
+		decoFallenTree.minSize = 3;
+		decoFallenTree.maxSize = 6;
+		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaSavanna.decorationLogsId));
         
-        float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
+		DecoTree riverTrees = new DecoTree();
+		riverTrees.checkRiver = true;
+		riverTrees.minRiver = 0.8f;
+		riverTrees.strengthNoiseFactorForLoops = false;
+		riverTrees.strengthFactorForLoops = 15f;
+		riverTrees.treeType = TreeType.SAVANNA_RIVER;
+		riverTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		riverTrees.maxY = 100;
+		this.addDeco(riverTrees);
         
-        if (this.config.getPropertyById(BiomeConfigVanillaSavanna.decorationLogsId).valueBoolean) {
+        DecoReed decoReed = new DecoReed();
+        decoReed.checkRiver = true;
+        decoReed.minRiver = 0.8f;
+		decoReed.maxY = 68;
+		decoReed.strengthFactor = 2f;
+        this.addDeco(decoReed);
         
-            if (l > 0f && rand.nextInt(12) == 0)
-            {
-                int x22 = chunkX + rand.nextInt(16) + 8;
-                int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
-                (new WorldGenLog(Blocks.log2, 0, Blocks.leaves2, -1, 3 + rand.nextInt(3))).generate(world, rand, x22, y22, z22);
-            }
-        }
+		DecoTree savannaTrees = new DecoTree();
+		savannaTrees.strengthFactorForLoops = 3f;
+		savannaTrees.treeType = TreeType.SAVANNA;
+		savannaTrees.distribution.noiseDivisor = 180f;
+		savannaTrees.distribution.noiseFactor = 1f;
+		savannaTrees.distribution.noiseAddend = 0f;
+		savannaTrees.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		savannaTrees.treeConditionNoise = 0.20f;
+		savannaTrees.maxY = 100;
+		this.addDeco(savannaTrees);
         
-        if (river > 0.8f)
-        {
-            for (int b33 = 0; b33 < 15f * strength; b33++)
-            {
-                int j6 = chunkX + rand.nextInt(16) + 8;
-                int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeightValue(j6, k10);
-                
-                WorldGenerator worldgenerator =
-                    rand.nextInt(3) != 0 ? new WorldGenShrub(0, 0) : rand.nextInt(9) == 0 ? new WorldGenTreeRTGSavanna(1)
-                        : new WorldGenTreeRTGSavanna(2);
-                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                worldgenerator.generate(world, rand, j6, z52, k10);
-            }
-            
-            for (int f25 = 0; f25 < 2f * strength; f25++)
-            {
-                int i18 = chunkX + rand.nextInt(16) + 8;
-                int i23 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenReed()).generate(world, rand, i18, 60 + rand.nextInt(8), i23);
-            }
-        }
-        else if (simplex.noise2(chunkX / 180f, chunkY / 180f) > 0.20f)
-        {
-            for (int b33 = 0; b33 < 7f * strength; b33++)
-            {
-                int j6 = chunkX + rand.nextInt(16) + 8;
-                int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeightValue(j6, k10);
-                
-                if (rand.nextInt(9) == 0) {
-                    WorldGenerator worldgenerator = new WorldGenShrub(0, 0);
-                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                    worldgenerator.generate(world, rand, j6, z52, k10);
-                }
-                
-                if (rand.nextInt(9) == 0) {
-                    WorldGenerator worldgenerator = new WorldGenTreeRTGSavanna(1);
-                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                    worldgenerator.generate(world, rand, j6, z52, k10);
-                }
-                
-                if (rand.nextInt(9) == 0) {
-                    WorldGenerator worldgenerator = new WorldGenTreeRTGSavanna(2);
-                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                    worldgenerator.generate(world, rand, j6, z52, k10);
-                }
-            }
-        }
-        else
-        {
-            int a = 3 - (int) (simplex.noise2(chunkX / 100f, chunkY / 100f) * 7);
-            if (a < 1 || rand.nextInt(a) == 0)
-            {
-                int j6 = chunkX + rand.nextInt(16) + 8;
-                int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeightValue(j6, k10);
-                
-                WorldGenerator worldgenerator =
-                    rand.nextInt(3) == 0 ? new WorldGenShrub(0, 0) : rand.nextInt(5) == 0 ? new WorldGenTreeRTGSavanna(0)
-                        : new WorldGenTreeRTGSavanna(1);
-                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                worldgenerator.generate(world, rand, j6, z52, k10);
-            }
-        }
+		DecoTree savannaTrees2 = new DecoTree();
+		savannaTrees2.strengthFactorForLoops = 2f;
+		savannaTrees2.treeType = TreeType.SAVANNA;
+		savannaTrees2.treeCondition = TreeCondition.RANDOM_CHANCE;
+		savannaTrees2.treeConditionChance = 3;
+		savannaTrees2.maxY = 100;
+		this.addDeco(savannaTrees2);
+		
+		DecoBoulder decoBoulder = new DecoBoulder();
+		decoBoulder.boulderBlock = Blocks.cobblestone;
+		decoBoulder.chance = 24;
+		decoBoulder.maxY = 95;
+		this.addDeco(decoBoulder);
         
-        for (int f23 = 0; f23 < 3; f23++)
-        {
-            int j15 = chunkX + rand.nextInt(16) + 8;
-            int j17 = rand.nextInt(128);
-            int j20 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenFlowersRTG(new int[] {9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11})).generate(world, rand, j15, j17, j20);
-        }
+		DecoDoubleGrass decoDoubleGrass = new DecoDoubleGrass();
+		decoDoubleGrass.maxY = 128;
+		decoDoubleGrass.strengthFactor = 3f;
+        this.addDeco(decoDoubleGrass);
         
-        for (int l14 = 0; l14 < 20; l14++)
-        {
-            int l19 = chunkX + rand.nextInt(16) + 8;
-            int k22 = rand.nextInt(128);
-            int j24 = chunkY + rand.nextInt(16) + 8;
-            
-            if (rand.nextInt(3) == 0)
-            {
-                (new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, l19, k22, j24);
-            }
-            else
-            {
-                (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
-            }
-        }
+		DecoGrass decoGrass = new DecoGrass();
+		decoGrass.maxY = 128;
+		decoGrass.strengthFactor = 10f;
+        this.addDeco(decoGrass);
     }
 }

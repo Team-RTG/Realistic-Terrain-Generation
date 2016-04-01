@@ -1,34 +1,30 @@
 package rtg.world.biome.deco;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CACTUS;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenCacti;
+import rtg.world.gen.feature.WorldGenGrass;
 
 /**
  * 
  * @author WhichOnesPink
  *
  */
-public class DecoCactus extends DecoBase
+public class DecoDoubleGrass extends DecoBase
 {
-	public int loops;
-	public int chance;
+    
 	public float strengthFactor;
 	public int maxY;
-	public boolean sandOnly;
-    public Block soilBlock;
-    public byte soilMeta;
+	public int loops;
 	
-	public DecoCactus()
+	public DecoDoubleGrass()
 	{
 		super();
 		
@@ -36,15 +32,11 @@ public class DecoCactus extends DecoBase
 		 * Default values.
 		 * These can be overridden when configuring the Deco object in the realistic biome.
 		 */
-		this.loops = 1;
-		this.chance = 1;
 		this.maxY = 255; // No height limit by default.
 		this.strengthFactor = 0f; // The higher the value, the more there will be.
-		this.sandOnly = false;
-        this.soilBlock = Blocks.sand;
-        this.soilMeta = (byte)0;
+		this.loops = 1;
 		
-		this.addDecoTypes(DecoType.CACTUS);
+		this.addDecoTypes(DecoType.GRASS_DOUBLE);
 	}
 	
 	@Override
@@ -52,18 +44,17 @@ public class DecoCactus extends DecoBase
 	{
 		if (this.allowed) {
 			
-			if (TerrainGen.decorate(world, rand, chunkX, chunkY, CACTUS)) {
+			if (TerrainGen.decorate(world, rand, chunkX, chunkY, GRASS)) {
 	            
-                int loopCount = this.loops;
-                loopCount = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : loopCount;
-	            for (int i = 0; i < loopCount; i++)
+				this.loops = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : this.loops;
+	            for (int i = 0; i < this.loops; i++)
 	            {
 	                int intX = chunkX + rand.nextInt(16) + 8;
 	                int intY = rand.nextInt(this.maxY);
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 
-	                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-	                	(new WorldGenCacti(this.sandOnly, 0, this.soilBlock, this.soilMeta)).generate(world, rand, intX, intY, intZ);
+	                if (intY <= this.maxY) {
+	                	(new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, intX, intY, intZ);
 	                }
 	            }
 	        }

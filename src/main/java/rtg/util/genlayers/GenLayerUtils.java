@@ -2,8 +2,8 @@ package rtg.util.genlayers;
 
 import net.minecraft.world.WorldType;
 import net.minecraft.world.gen.layer.GenLayer;
-import rtg.config.rtg.ConfigRTG;
-import rtg.util.ModPresenceTester;
+import rtg.config.ConfigRTG;
+import rtg.api.util.ModPresenceTester;
 
 public class GenLayerUtils {
 

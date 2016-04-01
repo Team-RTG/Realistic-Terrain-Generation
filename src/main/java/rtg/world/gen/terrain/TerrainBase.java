@@ -1,10 +1,10 @@
 package rtg.world.gen.terrain;
 
-import rtg.config.rtg.ConfigRTG;
+import rtg.config.ConfigRTG;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 
-public class TerrainBase {
+public abstract class TerrainBase {
     public static final float minimumOceanFloor = 30f; // The lowest Y coord an ocean floor is allowed to be.
     protected final float minOceanFloor; // The lowest Y coord an ocean floor is allowed to be.
     protected final float groundNoiseAmplitudeHills;
@@ -196,7 +196,7 @@ public class TerrainBase {
         result = (float) Math.pow(result, .33333333333333);
         result = result / 0.46631f;// this is the different between the values for -1 and 1,
         //so normalizing to a distance of 1
-        result = result - 4.62021f;// subtracting the result for input -1 so we actually get 0 to 1
+        result = result - 4.62021f;// subtracting the result for input -1 so we actually getProp 0 to 1
         return result;
     }
 
@@ -628,7 +628,5 @@ public class TerrainBase {
         return baseHeight + h * border;
     }
 
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-        return 70f;
-    }
+    public abstract float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river);
 }

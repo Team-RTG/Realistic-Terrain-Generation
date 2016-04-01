@@ -6,8 +6,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForestHills;
+import rtg.api.config.BiomeConfig;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
@@ -26,7 +25,7 @@ public class SurfaceVanillaBirchForestHills extends SurfaceBase {
     private float sStrength = 65f;
     private float cCliff = 1.5f;
 
-    private IBlockState mixBlock;
+    public IBlockState mixBlock;
     private float mixHeight;
 
     public SurfaceVanillaBirchForestHills(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff,
@@ -42,9 +41,7 @@ public class SurfaceVanillaBirchForestHills extends SurfaceBase {
         sStrength = stoneStrength;
         cCliff = clayCliff;
 
-        mixBlock = this.getConfigBlock(config, BiomeConfigVanillaBirchForestHills.surfaceMixBlockId,
-                BiomeConfigVanillaBirchForestHills.surfaceMixBlockMetaId,
-                mix);
+        mixBlock = this.getConfigBlock(BiomeConfigProperty.SURFACE_TOP_MIX_BLOCK, mix);
         mixHeight = mixSize;
     }
 

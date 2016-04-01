@@ -3,10 +3,13 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.api.biome.BiomeConfig;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSunflowerPlains;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaSunflowerPlains;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.plains;
@@ -15,11 +18,26 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaSunflowerPlains(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeVanillaSunflowerPlains() {
+        super(
                 mutationBiome,
-                Biomes.river,
-                new TerrainVanillaSunflowerPlains(),
-                new SurfaceVanillaSunflowerPlains(config, topBlock, fillerBlock));
+                Biomes.river
+        );
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaSunflowerPlains(config, topBlock, fillerBlock);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            private final GroundEffect groundEffect = new GroundEffect(4f);
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
+            }
+        };
     }
 }

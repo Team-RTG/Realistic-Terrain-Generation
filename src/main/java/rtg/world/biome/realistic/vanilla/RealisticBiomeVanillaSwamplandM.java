@@ -8,8 +8,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaSwamplandM;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -17,8 +15,9 @@ import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGWillow;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSwamplandM;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaSwamplandM;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -29,13 +28,27 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaSwamplandM(BiomeConfig config) {
+    public RealisticBiomeVanillaSwamplandM() {
 
-        super(config,
+        super(
                 mutationBiome,
-                Biomes.river,
-                new TerrainVanillaSwamplandM(50f, 15f, 0f),
-                new SurfaceVanillaSwamplandM(config, topBlock, fillerBlock));
+                Biomes.river
+        );
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaSwamplandM(config, topBlock, fillerBlock);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainLonelyMountain(x, y, simplex, cell, river, 15f, 50f, 58f);
+            }
+        };
     }
 
     @Override
@@ -60,7 +73,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
             }
         }
 
-        if (this.config.getPropertyById(BiomeConfigVanillaSwamplandM.decorationLogsId).valueBoolean) {
+        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
 
             if (rand.nextInt((int) (4f / strength)) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

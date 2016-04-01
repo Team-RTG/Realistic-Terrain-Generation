@@ -6,8 +6,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaSavanna;
+import rtg.api.config.BiomeConfig;
 import rtg.util.math.CanyonColour;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
@@ -18,7 +17,7 @@ import java.util.Random;
 
 public class SurfaceVanillaSavanna extends SurfaceBase {
 
-    private IBlockState mixBlock;
+    public IBlockState mixBlock;
     private float width;
     private float height;
 
@@ -26,7 +25,7 @@ public class SurfaceVanillaSavanna extends SurfaceBase {
 
         super(config, top, filler);
 
-        mixBlock = this.getConfigBlock(config, BiomeConfigVanillaSavanna.surfaceMixBlockId, BiomeConfigVanillaSavanna.surfaceMixBlockMetaId, mix);
+        mixBlock = this.getConfigBlock(BiomeConfigProperty.SURFACE_TOP_MIX_BLOCK, mix);
 
         width = mixWidth;
         height = mixHeight;

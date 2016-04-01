@@ -6,14 +6,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleEdgeM;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleEdgeM;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleEdgeM;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -24,13 +23,27 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaJungleEdgeM(BiomeConfig config) {
+    public RealisticBiomeVanillaJungleEdgeM() {
 
-        super(config,
+        super(
                 mutationBiome,
-                Biomes.river,
-                new TerrainVanillaJungleEdgeM(),
-                new SurfaceVanillaJungleEdgeM(config, topBlock, fillerBlock));
+                Biomes.river
+        );
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaJungleEdgeM(config, topBlock, fillerBlock);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 80f, 68f);
+            }
+        };
     }
 
     @Override
@@ -45,7 +58,7 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
 
         float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
 
-        if (this.config.getPropertyById(BiomeConfigVanillaJungleEdgeM.decorationLogsId).valueBoolean) {
+        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
 
             if (l > 0f && rand.nextInt(6) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

@@ -1,6 +1,6 @@
 package rtg.world.gen.terrain;
 
-import rtg.config.rtg.ConfigRTG;
+import rtg.config.ConfigRTG;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 

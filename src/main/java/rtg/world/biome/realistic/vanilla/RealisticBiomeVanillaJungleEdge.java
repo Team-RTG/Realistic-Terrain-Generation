@@ -5,13 +5,13 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleEdge;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenLog;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleEdge;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleEdge;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -20,13 +20,30 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = Biomes.jungleEdge.topBlock;
     public static IBlockState fillerBlock = Biomes.jungleEdge.fillerBlock;
 
-    public RealisticBiomeVanillaJungleEdge(BiomeConfig config) {
+    public RealisticBiomeVanillaJungleEdge() {
 
-        super(config,
+        super(
                 Biomes.jungleEdge,
-                Biomes.river,
-                new TerrainVanillaJungleEdge(),
-                new SurfaceVanillaJungleEdge(config, topBlock, fillerBlock));
+                Biomes.river
+        );
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaJungleEdge(config, topBlock, fillerBlock);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+
+            private GroundEffect groundEffect = new GroundEffect(4f);
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
+            }
+        };
     }
 
     @Override
@@ -41,7 +58,7 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
 
         float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
 
-        if (this.config.getPropertyById(BiomeConfigVanillaJungleEdge.decorationLogsId).valueBoolean) {
+        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
 
             if (l > 0f && rand.nextInt(6) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

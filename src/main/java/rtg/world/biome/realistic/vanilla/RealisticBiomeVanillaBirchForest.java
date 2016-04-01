@@ -2,24 +2,26 @@ package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForest;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForest;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForest;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.TerrainBase;
+
+import static rtg.api.config.BiomeConfigProperty.DECORATION_LOG;
 
 public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaBirchForest(BiomeConfig config) {
+    public RealisticBiomeVanillaBirchForest() {
 
-        super(config,
+        super(
                 Biomes.birchForest,
-                Biomes.river,
-                new TerrainVanillaBirchForest(),
-                new SurfaceVanillaBirchForest(config, Biomes.birchForest.topBlock, Biomes.birchForest.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.15f)
+                Biomes.river
         );
 
         /**
@@ -55,7 +57,7 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaBirchForest.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(DECORATION_LOG));
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 120;
@@ -76,5 +78,21 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 20f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaBirchForest(config, Biomes.birchForest.topBlock, Biomes.birchForest.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.15f);
+    }
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            private GroundEffect groundEffect = new GroundEffect(4f);
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
+            }
+        };
     }
 }

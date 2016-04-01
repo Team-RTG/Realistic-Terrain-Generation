@@ -6,15 +6,15 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.*;
-import rtg.api.biome.BiomeConfig;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenCacti;
 import rtg.world.gen.feature.WorldGenFlowersRTG;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSavannaPlateau;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaSavannaPlateau;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -23,15 +23,32 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
     public static IBlockState topBlock = Biomes.savannaPlateau.topBlock;
     public static IBlockState fillerBlock = Biomes.savannaPlateau.fillerBlock;
 
-    public RealisticBiomeVanillaSavannaPlateau(BiomeConfig config) {
+    public RealisticBiomeVanillaSavannaPlateau() {
 
-        super(config,
+        super(
                 Biomes.savannaPlateau,
-                Biomes.river,
-                new TerrainVanillaSavannaPlateau(true, 35f, 160f, 60f, 40f, 69f),
-                new SurfaceVanillaSavannaPlateau(config, topBlock, fillerBlock, 0)
+                Biomes.river
         );
         this.noLakes = true;
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaSavannaPlateau(config, topBlock, fillerBlock, 0);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            private float[] height = new float[] {12.0f, 0.5f, 8f, 0.7f};
+            private int heightLength = height.length;
+            private float strength = 10f;
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 50f, true);
+            }
+        };
     }
 
     @Override

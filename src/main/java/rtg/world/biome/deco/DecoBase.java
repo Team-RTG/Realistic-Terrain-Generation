@@ -17,7 +17,7 @@ import java.util.Random;
 public class DecoBase {
 
     /**
-     * If false, the deco won't get generated during chunk decoration.
+     * If false, the deco won't getProp generated during chunk decoration.
      * Currently, the only deco that uses allow=false is the DecoBaseBiomeDecorations deco, and it only gets
      * set to false when we need to generate ores in biomes that don't let the base biome handle decoration at all.
      */

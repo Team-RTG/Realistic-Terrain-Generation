@@ -4,15 +4,16 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForestHillsM;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForestHillsM;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestHillsM;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.birchForestHills;
@@ -21,12 +22,10 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaBirchForestHillsM(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeVanillaBirchForestHillsM() {
+        super(
                 mutationBiome,
-                Biomes.river,
-                new TerrainVanillaBirchForestHillsM(),
-                new SurfaceVanillaBirchForestHillsM(config, topBlock, fillerBlock)
+                Biomes.river
         );
         this.noLakes = true;
 
@@ -63,7 +62,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaBirchForestHillsM.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigProperty.DECORATION_LOG));
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 120;
@@ -84,5 +83,20 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 20f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaBirchForestHillsM(config, topBlock, fillerBlock);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainHighland(x, y, simplex, cell, river, 10f, 68f, 65f, 10f);
+            }
+        };
     }
 }

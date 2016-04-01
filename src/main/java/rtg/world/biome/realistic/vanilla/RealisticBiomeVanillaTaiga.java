@@ -8,8 +8,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenBush;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaTaiga;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
@@ -18,8 +16,9 @@ import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaTaiga;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaTaiga;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -28,13 +27,27 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = Biomes.taiga.topBlock;
     public static IBlockState fillerBlock = Biomes.taiga.fillerBlock;
 
-    public RealisticBiomeVanillaTaiga(BiomeConfig config) {
+    public RealisticBiomeVanillaTaiga() {
 
-        super(config,
+        super(
                 Biomes.taiga,
-                Biomes.river,
-                new TerrainVanillaTaiga(),
-                new SurfaceVanillaTaiga(config, topBlock, fillerBlock));
+                Biomes.river
+        );
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaTaiga(config, topBlock, fillerBlock);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainFlatLakes(x, y, simplex, river, 8f, 68f);
+            }
+        };
     }
 
     @Override
@@ -69,7 +82,7 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanillaBase {
             worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
         }
 
-        if (this.config.getPropertyById(BiomeConfigVanillaTaiga.decorationLogsId).valueBoolean) {
+        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
 
             if (l > 0f && rand.nextInt(6) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

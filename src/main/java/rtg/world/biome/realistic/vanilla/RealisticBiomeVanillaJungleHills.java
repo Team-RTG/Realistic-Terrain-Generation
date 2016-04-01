@@ -10,16 +10,15 @@ import net.minecraft.world.gen.feature.WorldGenVines;
 import net.minecraft.world.gen.feature.WorldGenWaterlily;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleHills;
 import rtg.util.math.RandomUtil;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.*;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleHills;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleHills;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -30,16 +29,29 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
     public static IBlockState topBlock = Biomes.jungleHills.topBlock;
     public static IBlockState fillerBlock = Biomes.jungleHills.fillerBlock;
 
-    public RealisticBiomeVanillaJungleHills(BiomeConfig config) {
+    public RealisticBiomeVanillaJungleHills() {
 
-        super(config,
+        super(
                 Biomes.jungleHills,
-                Biomes.river,
-                new TerrainVanillaJungleHills(),
-                new SurfaceVanillaJungleHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 1f, 1.5f, 60f, 65f, 1.5f));
-
+                Biomes.river
+        );
         this.waterSurfaceLakeChance = 3;
         this.noLakes = true;
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaJungleHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 1f, 1.5f, 60f, 65f, 1.5f);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainHighland(x, y, simplex, cell, river, 10f, 68f, 55f, 10f);
+            }
+        };
     }
 
     @Override
@@ -94,7 +106,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
 
             }
 
-            if (this.config.getPropertyById(BiomeConfigVanillaJungleHills.decorationLogsId).valueBoolean) {
+            if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
 
                 if (l > 0f && rand.nextInt(3) == 0) {
                     int x22 = chunkX + rand.nextInt(16) + 8;
@@ -204,7 +216,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
             }
         }
 
-        if (this.config.getPropertyById(BiomeConfigVanillaJungleHills.decorationCactusId).valueBoolean) {
+        if (this.config._boolean(BiomeConfigProperty.DECORATION_CACTI)) {
 
             if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), CACTUS)) {
 

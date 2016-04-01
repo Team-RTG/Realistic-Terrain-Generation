@@ -12,7 +12,7 @@ import static java.lang.Math.abs;
 import static net.minecraft.block.material.Material.air;
 import static net.minecraft.block.material.Material.vine;
 import static net.minecraft.init.Blocks.*;
-import static rtg.config.rtg.ConfigRTG.allowTreesToGenerateOnSand;
+import static rtg.config.ConfigRTG.allowTreesToGenerateOnSand;
 
 class WorldGenTreeRTGCocoaSmall extends WorldGenerator {
     private static int[] cocoas = new int[] {

@@ -5,7 +5,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.biome.BiomeConfig;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
@@ -14,7 +13,7 @@ import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesert;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaDesert;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -23,16 +22,30 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = Biomes.desert.topBlock;
     public static IBlockState fillerBlock = Biomes.desert.fillerBlock;
 
-    public RealisticBiomeVanillaDesert(BiomeConfig config) {
+    public RealisticBiomeVanillaDesert() {
 
-        super(config,
+        super(
                 Biomes.desert,
-                Biomes.river,
-                new TerrainVanillaDesert(),
-                new SurfaceVanillaDesert(config, topBlock, fillerBlock));
+                Biomes.river
+        );
 
         this.waterSurfaceLakeChance = 0;
         this.noLakes = true;
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaDesert(config, topBlock, fillerBlock);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainPolar(x, y, simplex, river);
+            }
+        };
     }
 
     @Override

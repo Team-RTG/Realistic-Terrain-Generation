@@ -3,7 +3,6 @@ package rtg.world.biome.realistic;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.state.pattern.BlockMatcher;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -17,8 +16,10 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.api.biome.BiomeConfig;
-import rtg.config.rtg.ConfigRTG;
+import rtg.api.config.BiomeConfig;
+import rtg.api.config.ConfigProperty;
+import rtg.api.util.ISupportedMod;
+import rtg.config.ConfigRTG;
 import rtg.util.math.RandomUtil;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
@@ -35,9 +36,10 @@ import rtg.world.gen.terrain.TerrainBase;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static net.minecraft.init.Biomes.river;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CLAY;
 
-public class RealisticBiomeBase extends BiomeBase {
+public abstract class RealisticBiomeBase extends BiomeBase {
 
     private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[256];
     private static int[] incidences = new int[200];
@@ -46,9 +48,9 @@ public class RealisticBiomeBase extends BiomeBase {
     public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;
     public BiomeConfig config;
+    public final ISupportedMod mod;
     public TerrainBase terrain;
-    public SurfaceBase[] surfaces;
-    public int surfacesLength;
+    public SurfaceBase surface;
     public SurfaceBase surfaceGeneric;
     public int waterSurfaceLakeChance; //Lower = more frequent
     public int lavaSurfaceLakeChance; //Lower = more frequent
@@ -69,20 +71,20 @@ public class RealisticBiomeBase extends BiomeBase {
     private double lakeWaterLevel = 0.0;// the lakeStrenght below which things should be below ater
     private double lakeDepressionLevel = 0.16;// the lakeStrength below which land should start to be lowered
 
-    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
+    public RealisticBiomeBase(ISupportedMod mod, BiomeGenBase biome) {
 
-        this(config, biome, Biomes.river);
+        this(mod, biome, river);
     }
 
-    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome, BiomeGenBase river) {
+    public RealisticBiomeBase(ISupportedMod mod, BiomeGenBase biome, BiomeGenBase river) {
 
         super(RealisticBiomeBase.getIdForBiome(biome));
 
-        if (config == null)
-            throw new RuntimeException("Biome config cannot be NULL when instantiating a realistic biome.");
+        this.mod = mod;
 
-        this.config = config;
         arrRealisticBiomeIds[RealisticBiomeBase.getIdForBiome(biome)] = this;
+
+        this.config = mod.getConfig().setBiomeConfig(this.getClass(), initProperties());
 
         baseBiome = biome;
         riverBiome = river;
@@ -95,7 +97,7 @@ public class RealisticBiomeBase extends BiomeBase {
 
         clayPerVein = 20;
 
-        generateVillages = true;
+        generateVillages = config.get(BiomeConfigProperty.ALLOW_VILLAGES, true);
 
         generatesEmeralds = false;
         emeraldEmeraldBlock = Blocks.emerald_ore;
@@ -110,40 +112,31 @@ public class RealisticBiomeBase extends BiomeBase {
          * This includes ore generation since it's part of the decoration process.
          * We're adding this deco here in order to avoid having to explicitly add it
          * in every singe realistic biome.
-         * If it does get added manually to let the base biome handle some or all of the decoration process,
+         * If it does getProp added manually to let the base biome handle some or all of the decoration process,
          * this deco will get replaced with the new one.
          */
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.allowed = false;
         this.decos.add(decoBaseBiomeDecorations);
+
+        this.config = mod.getConfig().setBiomeConfig(this.getClass(), initProperties());
+        this.surface = initSurface();
+        surfaceGeneric = new SurfaceGeneric(config, surface.getTopBlock(), surface.getFillerBlock());
+        this.terrain = initTerrain();
+    }
+
+    protected abstract SurfaceBase initSurface();
+    protected abstract TerrainBase initTerrain();
+
+    public static RealisticBiomeBase getBiome(int id) {
+
+        return arrRealisticBiomeIds[id];
     }
 
     public static int getIdForBiome(BiomeGenBase biome) {
         if (biome instanceof RealisticBiomeBase)
             return BiomeGenBase.getIdForBiome(((RealisticBiomeBase) biome).baseBiome);
         return BiomeGenBase.getIdForBiome(biome);
-    }
-
-    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
-
-        this(config, b, riverbiome, t, new SurfaceBase[] {s});
-
-        surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
-    }
-
-    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s) {
-
-        this(config, b, riverbiome);
-
-        terrain = t;
-
-        surfaces = s;
-        surfacesLength = s.length;
-    }
-
-    public static RealisticBiomeBase getBiome(int id) {
-
-        return arrRealisticBiomeIds[id];
     }
 
     public void rPopulatePreDecorate(IChunkGenerator ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag) {
@@ -240,10 +233,12 @@ public class RealisticBiomeBase extends BiomeBase {
         }
     }
 
+    @Deprecated
     public void rDecorate(World world, Random rand, BlockPos blockPos, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
         this.rDecorate(world, rand, blockPos.getX(), blockPos.getZ(), simplex, cell, strength, river);
     }
 
+    @Deprecated
     public void rDecorate(World world, Random rand, int x, int z, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         if (strength > 0.3f) {
@@ -430,17 +425,6 @@ public class RealisticBiomeBase extends BiomeBase {
 
     }
 
-    private float getRiverStrength(OpenSimplexNoise simplex, CellNoise cell, int x, int y) {
-        // copied from WorldChunkManager for debugging purposes
-        SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-        simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
-        double pX = x + jitter.deltax() * 220f;
-        double pY = y + jitter.deltay() * 220f;
-
-        double[] results = cell.river().eval(pX / 1875.0, pY / 1875.0);
-        return (float) cellBorder(results, 30.0 / 450.0, 1.0);
-    }
-
     private static double cellBorder(double[] results, double width, double depth) {
         double c = (results[1] - results[0]);
         //int slot = (int)Math.floor(c*100.0);
@@ -547,12 +531,10 @@ public class RealisticBiomeBase extends BiomeBase {
 
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
-        if (ConfigRTG.enableRTGBiomeSurfaces && this.config.getPropertyById(BiomeConfig.useRTGSurfacesId).valueBoolean) {
+        if (ConfigRTG.ENABLE_RTG_BIOME_DECORATIONS._bool() && this.config._boolean(BiomeConfigProperty.USE_RTG_SURFACES)) {
 
-            for (int s = 0; s < surfacesLength; s++) {
+            surface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
 
-                surfaces[s].paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
-            }
         } else {
 
             this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
@@ -586,18 +568,7 @@ public class RealisticBiomeBase extends BiomeBase {
     }
 
     public SurfaceBase getSurface() {
-        if (this.surfacesLength == 0) {
-
-            throw new RuntimeException(
-                    "No realistic surfaces found for " + this.baseBiome.getBiomeName() + " (" + getIdForBiome(this.baseBiome) + ")."
-            );
-        }
-
-        return this.surfaces[0];
-    }
-
-    public SurfaceBase[] getSurfaces() {
-        return this.surfaces;
+        return this.surface;
     }
 
     public int getId() {
@@ -648,5 +619,15 @@ public class RealisticBiomeBase extends BiomeBase {
             this.decos.add(deco);
             this.useNewDecorationSystem = true;
         }
+    }
+
+    /**
+     * This is how you choose which properties the biome uses.
+     * Should be overridden if a biome uses anything other than these defaults
+     * Is called from the constructor
+     * @return An array of ConfigProperties with defaults
+     */
+    public ConfigProperty[] initProperties() {
+        return new ConfigProperty[0];
     }
 }

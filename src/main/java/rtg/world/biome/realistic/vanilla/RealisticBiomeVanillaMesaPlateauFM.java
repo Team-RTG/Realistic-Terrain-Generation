@@ -4,11 +4,13 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.api.biome.BiomeConfig;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaPlateauFM;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateauFM;
+import rtg.world.gen.terrain.TerrainBase;
 
 import static rtg.world.biome.deco.DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 import static rtg.world.biome.deco.DecoTree.TreeType.VANILLA_OAK;
@@ -20,12 +22,10 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaMesaPlateauFM(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeVanillaMesaPlateauFM() {
+        super(
                 mutationBiome,
-                Biomes.river,
-                new TerrainVanillaMesaPlateauFM(false, 35f, 160f, 60f, 40f, 69f),
-                new SurfaceVanillaMesaPlateauFM(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1), 0)
+                Biomes.river
         );
         this.noLakes = true;
 
@@ -58,5 +58,28 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
         decoTree.treeConditionNoise = 0f;
         decoTree.minY = 74;
         addDeco(decoTree);
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaMesaPlateauFM(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1), 0);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            /**
+             * Values come in pairs per layer. First is how high to step up.
+             * 	Second is a value between 0 and 1, signifying when to step up.
+             */
+            private final float[] height = new float[] {18.5f, 0.4f};
+            private final float strength = 20f;
+            private final int heightLength = height.length;
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 100f, false);
+            }
+        };
     }
 }

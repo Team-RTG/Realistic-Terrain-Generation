@@ -3,27 +3,26 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaColdTaigaHills;
+import rtg.util.noise.CellNoise;
+import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdTaigaHills;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaColdTaigaHills;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBase {
 
     public static IBlockState topBlock = Biomes.coldTaigaHills.topBlock;
     public static IBlockState fillerBlock = Biomes.coldTaigaHills.fillerBlock;
 
-    public RealisticBiomeVanillaColdTaigaHills(BiomeConfig config) {
+    public RealisticBiomeVanillaColdTaigaHills() {
 
-        super(config,
+        super(
                 Biomes.coldTaigaHills,
-                Biomes.frozenRiver,
-                new TerrainVanillaColdTaigaHills(),
-                new SurfaceVanillaColdTaigaHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), true, Blocks.sand.getDefaultState(), 0.2f)
+                Biomes.frozenRiver
         );
         this.noLakes = true;
 
@@ -65,7 +64,7 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaColdTaigaHills.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigProperty.DECORATION_LOG));
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 100;
@@ -87,5 +86,20 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaColdTaigaHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), true, Blocks.sand.getDefaultState(), 0.2f);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainHighland(x, y, simplex, cell, river, 10f, 68f, 45f, 10f);
+            }
+        };
     }
 }

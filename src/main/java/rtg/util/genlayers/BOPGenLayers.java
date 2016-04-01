@@ -6,7 +6,8 @@ import biomesoplenty.common.world.layer.*;
 import net.minecraft.world.gen.layer.*;
 
 /**
- * Created by topisani on 3/29/16.
+ * All of this is BOP code, i just had to remove the need for a BOPWorldType and such
+ * @author topisani
  */
 public class BOPGenLayers {
 

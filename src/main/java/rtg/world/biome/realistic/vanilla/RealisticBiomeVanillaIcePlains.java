@@ -6,14 +6,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaIcePlains;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenLog;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIcePlains;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaIcePlains;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -21,13 +20,32 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = Blocks.snow.getDefaultState();
     public static IBlockState fillerBlock = Blocks.snow.getDefaultState();
 
-    public RealisticBiomeVanillaIcePlains(BiomeConfig config) {
-        super(config,
+    public RealisticBiomeVanillaIcePlains() {
+        super(
                 Biomes.icePlains,
-                Biomes.frozenRiver,
-                new TerrainVanillaIcePlains(),
-                new SurfaceVanillaIcePlains(config, topBlock, fillerBlock, topBlock, topBlock)
+                Biomes.frozenRiver
         );
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaIcePlains(config, topBlock, fillerBlock, topBlock, topBlock);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                float base = 62;
+                float b = simplex.noise2(x / 24f, y / 24f) * 0.25f;
+                b *= river;
+                float n = simplex.noise2(x / 16f, y / 16f) * 10f - 9f;
+                n = (n < 0) ? 0f : n;
+                b += n;
+                return base + b;
+            }
+        };
     }
 
     @Override
@@ -52,7 +70,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
             }
         }
 
-        if (this.config.getPropertyById(BiomeConfigVanillaIcePlains.decorationLogsId).valueBoolean) {
+        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
 
             if (rand.nextInt((int) (24f / strength)) == 0) {
                 int j6 = chunkX + rand.nextInt(16) + 8;

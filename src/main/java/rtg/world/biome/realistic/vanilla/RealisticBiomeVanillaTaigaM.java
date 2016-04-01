@@ -9,8 +9,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenBush;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaTaigaM;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -20,8 +18,9 @@ import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaTaigaM;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaTaigaM;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -32,14 +31,28 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaTaigaM(BiomeConfig config) {
+    public RealisticBiomeVanillaTaigaM() {
 
-        super(config,
+        super(
                 mutationBiome,
-                Biomes.river,
-                new TerrainVanillaTaigaM(70f, 180f, 7f, 100f, 38f, 160f, 68f),
-                new SurfaceVanillaTaigaM(config, topBlock, fillerBlock));
+                Biomes.river
+        );
         this.noLakes = true;
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaTaigaM(config, topBlock, fillerBlock);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainGrasslandHills(x, y, simplex, cell, river, 100f, 7f, 180f, 70f, 68f);
+            }
+        };
     }
 
     @Override
@@ -74,7 +87,7 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
             worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
         }
 
-        if (this.config.getPropertyById(BiomeConfigVanillaTaigaM.decorationLogsId).valueBoolean) {
+        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
 
             if (l > 0f && rand.nextInt(6) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

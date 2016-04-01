@@ -8,7 +8,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.*;
-import rtg.api.biome.BiomeConfig;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -19,7 +18,7 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesertM;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaDesertM;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -30,16 +29,30 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
-    public RealisticBiomeVanillaDesertM(BiomeConfig config) {
+    public RealisticBiomeVanillaDesertM() {
 
-        super(config,
+        super(
                 mutationBiome,
-                Biomes.river,
-                new TerrainVanillaDesertM(10f, 140f, 68f, 200f),
-                new SurfaceVanillaDesertM(config, Blocks.sand.getDefaultState(), Blocks.sandstone.getDefaultState(), true, Blocks.sand.getDefaultState(), 0f));
+                Biomes.river
+        );
 
         this.waterSurfaceLakeChance = 0;
         this.noLakes = true;
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaDesertM(config, Blocks.sand.getDefaultState(), Blocks.sandstone.getDefaultState(), true, Blocks.sand.getDefaultState(), 0f);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 140f, 10f);
+            }
+        };
     }
 
     @Override

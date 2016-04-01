@@ -6,12 +6,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.*;
-import rtg.api.biome.BiomeConfig;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenCacti;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaPlateau;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateau;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -20,14 +20,32 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
     public static IBlockState topBlock = Biomes.mesaPlateau.topBlock;
     public static IBlockState fillerBlock = Biomes.mesaPlateau.fillerBlock;
 
-    public RealisticBiomeVanillaMesaPlateau(BiomeConfig config) {
+    public RealisticBiomeVanillaMesaPlateau() {
 
-        super(config,
+        super(
                 Biomes.mesaPlateau,
-                Biomes.river,
-                new TerrainVanillaMesaPlateau(true, 35f, 160f, 60f, 40f, 69f),
-                new SurfaceVanillaMesaPlateau(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1), 0));
+                Biomes.river
+        );
         this.noLakes = true;
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaMesaPlateau(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1), 0);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            private final float[] height = new float[] {32.0f, 0.4f};
+            private final int heightLength = height.length;
+            private final float strength = 10f;
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 100f, false);
+            }
+        };
     }
 
     @Override

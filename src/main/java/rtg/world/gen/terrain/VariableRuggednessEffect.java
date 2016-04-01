@@ -4,7 +4,7 @@ import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 
 /**
- * This provides a standard "ruggedness switch" between a rugged terrain and a smooth one
+ * This provides a standard "ruggedness switch" between a rugged generateNoise and a smooth one
  * it has its wavelength standardized to provide cooperation between adjacent terrains
  *
  * @author Zeno410

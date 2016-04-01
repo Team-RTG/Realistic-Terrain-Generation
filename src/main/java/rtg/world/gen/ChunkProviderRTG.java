@@ -25,8 +25,7 @@ import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
-import rtg.api.biome.BiomeConfig;
-import rtg.config.rtg.ConfigRTG;
+import rtg.config.ConfigRTG;
 import rtg.util.math.CanyonColour;
 import rtg.util.math.MathUtils;
 import rtg.util.noise.CellNoise;
@@ -235,7 +234,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         // doJitter no longer needed as the biome array gets fixed
         byte[] abyte1 = chunk.getBiomeArray();
         for (k = 0; k < abyte1.length; ++k) {
-            // biomes are y-first and terrain x-first
+            // biomes are y-first and generateNoise x-first
             /*
             * This 2 line separation is needed, because otherwise, AIC's dynamic patching algorith detects vanilla pattern here and patches this part following vanilla logic.
             * Which causes game to crash.
@@ -587,7 +586,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
                  * so that's what the try/catch is for. If it fails, then it falls back to RTG decoration.
                  * TODO: Is there a more efficient way to do this? - Pink
                  */
-                if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
+                if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfigProperty.USE_RTG_DECORATIONS)) {
 
                     if (realisticBiome.useNewDecorationSystem) {
                         realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);

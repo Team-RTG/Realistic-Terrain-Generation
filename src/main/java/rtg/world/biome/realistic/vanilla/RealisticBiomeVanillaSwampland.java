@@ -7,16 +7,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaSwampland;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGWillow;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSwampland;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaSwampland;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -25,13 +24,27 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = Biomes.swampland.topBlock;
     public static IBlockState fillerBlock = Biomes.swampland.fillerBlock;
 
-    public RealisticBiomeVanillaSwampland(BiomeConfig config) {
+    public RealisticBiomeVanillaSwampland() {
 
-        super(config,
+        super(
                 Biomes.swampland,
-                Biomes.river,
-                new TerrainVanillaSwampland(),
-                new SurfaceVanillaSwampland(config, topBlock, fillerBlock));
+                Biomes.river
+        );
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaSwampland(config, topBlock, fillerBlock);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainMarsh(x, y, simplex, 62f);
+            }
+        };
     }
 
     @Override
@@ -56,7 +69,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
             }
         }
 
-        if (this.config.getPropertyById(BiomeConfigVanillaSwampland.decorationLogsId).valueBoolean) {
+        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
 
             if (rand.nextInt((int) (4f / strength)) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

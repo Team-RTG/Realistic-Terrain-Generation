@@ -7,16 +7,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenIceSpike;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaIceMountains;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPine;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIceMountains;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaIceMountains;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -25,15 +24,29 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     public static IBlockState topBlock = Biomes.iceMountains.topBlock;
     public static IBlockState fillerBlock = Biomes.iceMountains.fillerBlock;
 
-    public RealisticBiomeVanillaIceMountains(BiomeConfig config) {
+    public RealisticBiomeVanillaIceMountains() {
 
-        super(config,
+        super(
                 Biomes.iceMountains,
-                Biomes.frozenRiver,
-                new TerrainVanillaIceMountains(230f, 80f, 0f),
-                new SurfaceVanillaIceMountains(config, topBlock, fillerBlock, Blocks.snow.getDefaultState(), Blocks.snow.getDefaultState(), Blocks.packed_ice.getDefaultState(), Blocks.ice.getDefaultState(), 60f,
-                        -0.14f, 14f, 0.25f));
+                Biomes.frozenRiver
+        );
         this.noLakes = true;
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaIceMountains(config, topBlock, fillerBlock, Blocks.snow.getDefaultState(), Blocks.snow.getDefaultState(), Blocks.packed_ice.getDefaultState(), Blocks.ice.getDefaultState(), 60f,
+                -0.14f, 14f, 0.25f);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainLonelyMountain(x, y, simplex, cell, river, 80f, 230f, 68f);
+            }
+        };
     }
 
     @Override
@@ -74,7 +87,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
             }
         }
 
-        if (this.config.getPropertyById(BiomeConfigVanillaIceMountains.decorationLogsId).valueBoolean) {
+        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
 
             if (rand.nextInt((int) (12f / strength)) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

@@ -8,8 +8,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenBush;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHills;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
@@ -17,27 +15,43 @@ import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenLog;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineEuro;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHills;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHills;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
+
+import static rtg.api.config.BiomeConfigProperty.DECORATION_LOG;
 
 public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase {
 
     public static IBlockState topBlock = Biomes.extremeHills.topBlock;
     public static IBlockState fillerBlock = Biomes.extremeHills.fillerBlock;
 
-    public RealisticBiomeVanillaExtremeHills(BiomeConfig config) {
+    public RealisticBiomeVanillaExtremeHills() {
 
-        super(config,
+        super(
                 Biomes.extremeHills,
-                Biomes.river,
-                new TerrainVanillaExtremeHills(10f, 120f, 10f, 200f),
-                new SurfaceVanillaExtremeHills(config, topBlock, fillerBlock, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), 60f, -0.14f, 14f, 0.25f)
+                Biomes.river
         );
         this.generatesEmeralds = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaExtremeHills(config, topBlock, fillerBlock, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 120, 10f);
+            }
+        };
     }
 
     @Override
@@ -72,7 +86,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
             }
         }
 
-        if (this.config.getPropertyById(BiomeConfigVanillaExtremeHills.decorationLogsId).valueBoolean) {
+        if (this.config._boolean(DECORATION_LOG)) {
 
             if (l > 0f && rand.nextInt(6) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

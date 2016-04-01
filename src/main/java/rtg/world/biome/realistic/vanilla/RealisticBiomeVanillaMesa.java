@@ -8,7 +8,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.*;
-import rtg.api.biome.BiomeConfig;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenCacti;
@@ -18,7 +17,8 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesa;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaMesa;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
@@ -27,14 +27,29 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     public static IBlockState topBlock = Biomes.mesa.topBlock;
     public static IBlockState fillerBlock = Biomes.mesa.fillerBlock;
 
-    public RealisticBiomeVanillaMesa(BiomeConfig config) {
+    public RealisticBiomeVanillaMesa() {
 
-        super(config,
+        super(
                 Biomes.mesa,
-                Biomes.river,
-                new TerrainVanillaMesa(),
-                new SurfaceVanillaMesa(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1))
+                Biomes.river
         );
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaMesa(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1));
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            private GroundEffect groundEffect = new GroundEffect(4f);
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return riverized(68f + groundEffect.added(simplex, cell, x, y), river);
+            }
+        };
     }
 
     @Override

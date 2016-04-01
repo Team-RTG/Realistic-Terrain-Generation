@@ -120,6 +120,7 @@ public class TerrainBase
     }
     
     public static float riverized(float height, float river) {
+        if (height < 63f) return height;
         return 63f+(height-63f)*river;
     }
 
@@ -294,7 +295,7 @@ public class TerrainBase
         sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
         m += sm;
 
-        return baseHeight + h + m;
+        return riverized(baseHeight + h + m,river);
     }
 
     public static float terrainGrasslandHills(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river, float vWidth, float vHeight, float hWidth, float hHeight, float bHeight)
@@ -338,7 +339,7 @@ public class TerrainBase
 
         m += c;
 
-        return baseHeight + h + m;
+        return riverized(baseHeight + h + m,river);
     }
 
     public static float terrainHighland(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river, float start, float width, float height, float baseAdjust)
@@ -731,7 +732,7 @@ public class TerrainBase
             h += simplex.noise2(x / 8f, y / 8f) * (d / 2f);
         }
 
-        return h + baseHeight;
+        return riverized(h + baseHeight,river);
     }
     
     public static float terrainVolcano(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float border, float baseHeight)

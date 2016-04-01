@@ -108,7 +108,7 @@ public class ConfigProperty {
         return defaultInt;
     }
 
-    public boolean _defaultBoolean() {
+    public boolean _defaultBool() {
         return defaultBoolean;
     }
 
@@ -202,6 +202,66 @@ public class ConfigProperty {
                     "Tried to read property " + prop.getName() + " with value " + prop.getString() + " of type " + prop.getType().name() +
                             " into property " + id + " of type " + type.name(),
                     "ConfigProperty.fromForgeProp()");
+        }
+    }
+
+    public static class PropertyBool extends ConfigProperty{
+
+        public PropertyBool(String id, String section) {
+            super(id, section, Type.BOOLEAN);
+        }
+
+        public boolean get() {
+            return _bool();
+        }
+
+        public boolean getDefault() {
+            return _defaultBool();
+        }
+    }
+
+    public static class PropertyInt extends ConfigProperty{
+
+        public PropertyInt(String id, String section) {
+            super(id, section, Type.INTEGER);
+        }
+
+        public int get() {
+            return _int();
+        }
+
+        public int getDefault() {
+            return _defaultInt();
+        }
+    }
+
+    public static class PropertyString extends ConfigProperty{
+
+        public PropertyString(String id, String section) {
+            super(id, section, Type.STRING);
+        }
+
+        public String get() {
+            return _string();
+        }
+
+        public String getDefault() {
+            return _defaultString();
+        }
+    }
+
+    public static class PropertyBlock extends ConfigProperty{
+
+        public PropertyBlock(String id, String section) {
+            super(id, section, Type.BLOCK);
+        }
+
+        public IBlockState get() {
+            return _block();
+        }
+
+        public IBlockState getDefault() {
+            return _defaultBlock();
         }
     }
 }

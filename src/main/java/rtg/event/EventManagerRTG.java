@@ -170,7 +170,7 @@ public class EventManagerRTG {
     @SubscribeEvent
     public void onGetVillageBlockID(BiomeEvent.GetVillageBlockID event) {
         RealisticBiomeBase biomeReal;
-        if (!ConfigRTG.enableVillageModifications) {
+        if (!ConfigRTG.ENABLE_VILLAGE_MODIFICATIONS._bool()) {
             return;
         }
         if (event.getBiome() instanceof RealisticBiomeBase) {

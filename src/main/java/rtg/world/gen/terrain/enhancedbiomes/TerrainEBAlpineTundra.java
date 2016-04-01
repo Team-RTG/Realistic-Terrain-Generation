@@ -6,13 +6,22 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBAlpineTundra extends TerrainBase
 {
-	public TerrainEBAlpineTundra()
+	private float start;
+	private float height;
+	private float base;
+	private float width;
+
+	public TerrainEBAlpineTundra(float hillStart, float landHeight, float baseHeight, float hillWidth)
 	{
+		start = hillStart;
+		height = landHeight;
+		base = baseHeight;
+		width = hillWidth;
 	}
 
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 100f, 66f);
+        return terrainHighland(x, y, simplex, cell, river, start, width, height, base);
 	}
 }

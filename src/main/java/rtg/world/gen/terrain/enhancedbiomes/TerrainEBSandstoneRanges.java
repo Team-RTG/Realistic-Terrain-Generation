@@ -15,8 +15,8 @@ public class TerrainEBSandstoneRanges extends TerrainBase
 	private float width;
 	private float strength;
 	private float terrainHeight;
-    private float spikeWidth = 15;
-    private float spikeHeight = 30;
+    private float spikeWidth = 25;
+    private float spikeHeight = 50;
     private HeightEffect heightEffect;
 
 	public TerrainEBSandstoneRanges(float mountainWidth, float mountainStrength)

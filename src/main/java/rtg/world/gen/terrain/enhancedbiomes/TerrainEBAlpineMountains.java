@@ -11,11 +11,11 @@ import rtg.world.gen.terrain.TerrainBase;
 public class TerrainEBAlpineMountains extends TerrainBase
 {
     private HeightEffect height;
-    private float baseHeight = 90;
+    private float baseHeight = 95;
 	public TerrainEBAlpineMountains()
 	{
         LonelyMountainEffect mountain = new LonelyMountainEffect();
-        mountain.mountainHeight = 50;
+        mountain.mountainHeight = 60;
         mountain.mountainWavelength = 70;
         mountain.spikeHeight = 15;
         mountain.spikeWavelength = 30;

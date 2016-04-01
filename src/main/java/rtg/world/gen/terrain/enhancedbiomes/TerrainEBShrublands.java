@@ -11,14 +11,14 @@ import rtg.world.gen.terrain.TerrainBase;
 public class TerrainEBShrublands extends TerrainBase
 {
     private HeightEffect height;
-    private float hillHeight = 6f;
-    private float hillWavelength = 40;
+    private float hillHeight = 9f;
+    private float hillWavelength = 30;
 	public TerrainEBShrublands()
 	{
         base = 68f;
         HillockEffect smallHills = new HillockEffect();
         smallHills.height = hillHeight;
-        smallHills.minimumSimplex = 0.4f;
+        smallHills.minimumSimplex = 0.3f;
         smallHills.wavelength =hillWavelength;
 
         JitterEffect jittered = new JitterEffect();

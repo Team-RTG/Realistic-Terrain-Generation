@@ -8,7 +8,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.config.BiomeConfigProperty;
 import rtg.api.config.ConfigProperty;
 import rtg.config.ConfigRTG;
 import rtg.util.SupportedMod;
@@ -62,22 +61,16 @@ public class SurfaceBase {
 
     public static IBlockState getShadowStoneBlock(World world, int i, int j, int x, int y, int k) {
         //if ((SupportedMod.UBC.present()) && ConfigRTG.enableUBCStoneShadowing) {
-
         //    return Blocks.stone.getDefaultState();
-        //} else {
-
-            return Block.getBlockFromName(ConfigRTG.shadowStoneBlockId).getStateFromMeta(ConfigRTG.shadowStoneBlockByte);
-        //}
+        // }
+        return Block.getBlockFromName(ConfigRTG.shadowStoneBlockId).getStateFromMeta(ConfigRTG.shadowStoneBlockByte);
     }
 
     public static IBlockState getShadowDesertBlock(World world, int i, int j, int x, int y, int k) {
         //if ((undergroundBiomesMod.present()) && ConfigRTG.enableUBCDesertShadowing) {
-
         //    return Blocks.stone.getDefaultState();
-        //} else {
-
-            return Block.getBlockFromName(ConfigRTG.shadowDesertBlockId).getStateFromMeta(ConfigRTG.shadowDesertBlockByte);
         //}
+        return Block.getBlockFromName(ConfigRTG.shadowDesertBlockId).getStateFromMeta(ConfigRTG.shadowDesertBlockByte);
     }
 
     public static IBlockState hcStone(World world, int i, int j, int x, int y, int k) {
@@ -104,17 +97,5 @@ public class SurfaceBase {
 
     public IBlockState getFillerBlock() {
         return this.fillerBlock;
-    }
-
-    protected IBlockState getConfigBlock(ConfigProperty.IPropertyID id, IBlockState blockDefault) {
-        IBlockState blockReturn;
-
-        try {
-            blockReturn = biomeConfig._block(id);
-        } catch (Exception e) {
-            blockReturn = blockDefault;
-        }
-
-        return blockReturn;
     }
 }

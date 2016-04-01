@@ -25,7 +25,6 @@ import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
-import rtg.api.config.BiomeConfigProperty;
 import rtg.config.ConfigRTG;
 import rtg.util.math.CanyonColour;
 import rtg.util.math.MathUtils;

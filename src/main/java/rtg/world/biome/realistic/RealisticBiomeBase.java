@@ -17,7 +17,6 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.api.config.BiomeConfig;
-import rtg.api.config.BiomeConfigProperty;
 import rtg.api.config.ConfigProperty;
 import rtg.api.util.ISupportedMod;
 import rtg.config.ConfigRTG;
@@ -532,7 +531,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
-        if (ConfigRTG.enableRTGBiomeSurfaces && this.config._boolean(BiomeConfigProperty.USE_RTG_SURFACES)) {
+        if (ConfigRTG.ENABLE_RTG_BIOME_DECORATIONS._bool() && this.config._boolean(BiomeConfigProperty.USE_RTG_SURFACES)) {
 
             surface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
 

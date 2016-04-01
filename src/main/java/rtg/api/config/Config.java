@@ -18,18 +18,18 @@ public class Config {
     public ArrayList<ConfigProperty> properties;
 
     public Config() {
-        this.properties = getProperties();
+        this.properties = getProperties(this);
     }
 
-    protected ArrayList<ConfigProperty> getProperties() {
-        Field[] declaredFields = this.getClass().getDeclaredFields();
+    protected ArrayList<ConfigProperty> getProperties(Object holder) {
+        Field[] declaredFields = holder.getClass().getDeclaredFields();
         ArrayList<ConfigProperty> properties = new ArrayList<>();
         for (Field field : declaredFields) {
             if (Modifier.isPublic(field.getModifiers()) &&
                     Modifier.isStatic(field.getModifiers()) &&
                     Modifier.isFinal(field.getModifiers()) &&
                     field.getType() == ConfigProperty.class) {
-                RTGException.ignore(() -> properties.add((ConfigProperty) field.get(this)));
+                RTGException.ignore(() -> properties.add((ConfigProperty) field.get(holder)));
             }
         }
         return properties;

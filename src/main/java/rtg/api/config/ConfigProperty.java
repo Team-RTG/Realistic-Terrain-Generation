@@ -124,7 +124,7 @@ public class ConfigProperty {
         return valueInt;
     }
 
-    public boolean _boolean() {
+    public boolean _bool() {
         return valueBoolean;
     }
 

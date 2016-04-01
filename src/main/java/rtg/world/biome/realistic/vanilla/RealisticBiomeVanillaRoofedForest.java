@@ -8,7 +8,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenBush;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.api.config.BiomeConfigProperty;
 import rtg.util.math.RandomUtil;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;

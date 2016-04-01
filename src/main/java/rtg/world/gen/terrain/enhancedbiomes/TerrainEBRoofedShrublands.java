@@ -6,6 +6,7 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBRoofedShrublands extends TerrainBase
 {
+    private TerrainBase parent = new TerrainEBShrublands();
 	public TerrainEBRoofedShrublands()
 	{
 	}
@@ -13,6 +14,6 @@ public class TerrainEBRoofedShrublands extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainGrasslandFlats(x, y, simplex, river, 40f, 25f, 68f);
+        return parent.generateNoise(simplex, cell, x, y, border, river);
 	}
 }

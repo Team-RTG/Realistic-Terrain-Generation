@@ -13,13 +13,13 @@ public class TerrainEBScrub extends TerrainBase
     private HeightEffect height;
     public TerrainEBScrub()
     {
-        base = 66f;
+        base = 65f;
         HillockEffect hills = new HillockEffect();
-        hills.height = 5;
-        hills.minimumSimplex = 0.4f;
-        hills.wavelength = 30;
+        hills.height = 10;
+        hills.minimumSimplex = 0.3f;
+        hills.wavelength = 40;
 
-        height = hills.plus(new GroundEffect(1.5f));
+        height = hills.plus(new GroundEffect(2f));
 
     }
 

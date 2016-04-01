@@ -11,38 +11,39 @@ import rtg.api.util.debug.RTGException;
  */
 public class ConfigProperty {
 
-    public IPropertyID propertyEnum;
-    public String name;
+    public enum Type {
+        INTEGER,
+        BOOLEAN,
+        STRING,
+        BLOCK
+    }
+
     public String id;
-    public String description;
-    public IPropertyID.Type type;
+    public String section;
+    public String comment;
+    public Type type;
 
-    public int minValue;
-    public int maxValue;
+    protected int minValue;
+    protected int maxValue;
 
-    public int defaultInt;
-    public boolean defaultBoolean = true;
-    public String defaultString = "";
-    public IBlockState defaultBlock;
+    protected int defaultInt;
+    protected boolean defaultBoolean = true;
+    protected String defaultString = "";
+    protected IBlockState defaultBlock;
 
-    public int valueInt;
-    public boolean valueBoolean = true;
-    public String valueString = "";
-    public IBlockState valueBlock;
+    protected int valueInt;
+    protected boolean valueBoolean = true;
+    protected String valueString = "";
+    protected IBlockState valueBlock;
 
-    public ConfigProperty(IPropertyID propertyEnum, String name, String description) {
-        this.propertyEnum = propertyEnum;
-        this.name = name;
-        this.id = propertyEnum.name();
-        this.type = propertyEnum.getType();
-        this.description = description;
+    public ConfigProperty(String id, String section, Type type) {
+        this.id = id;
+        this.section = section;
+        this.type = type;
     }
 
-    public ConfigProperty setMin(int minValue) {
+    public ConfigProperty setIntRange(int minValue, int maxValue) {
         this.minValue = minValue;
-        return this;
-    }
-    public ConfigProperty setMax(int maxValue) {
         this.maxValue = maxValue;
         return this;
     }
@@ -87,6 +88,67 @@ public class ConfigProperty {
         return this;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public int getMinValue() {
+        return minValue;
+    }
+
+    public int getMaxValue() {
+        return maxValue;
+    }
+
+    public int _defaultInt() {
+        return defaultInt;
+    }
+
+    public boolean _defaultBoolean() {
+        return defaultBoolean;
+    }
+
+    public String _defaultString() {
+        return defaultString;
+    }
+
+    public IBlockState _defaultBlock() {
+        return defaultBlock;
+    }
+
+    public int _int() {
+        return valueInt;
+    }
+
+    public boolean _boolean() {
+        return valueBoolean;
+    }
+
+    public String _string() {
+        return valueString;
+    }
+
+    public IBlockState _block() {
+        return valueBlock;
+    }
+
+    public String getID() {
+        return this.id;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public ConfigProperty setComment(String comment) {
+        this.comment = comment;
+        return this;
+    }
+
     /**
      * Needed for writing to config files
      * @throws RTGException
@@ -95,16 +157,16 @@ public class ConfigProperty {
         Property prop;
         switch (type) {
             case INTEGER:
-                prop = new Property(this.name, String.valueOf(this.valueInt), Property.Type.INTEGER).setDefaultValue(this.defaultInt);
+                prop = new Property(id, String.valueOf(this.valueInt), Property.Type.INTEGER).setDefaultValue(this.defaultInt);
                 break;
             case BOOLEAN:
-                prop = new Property(name, String.valueOf(valueBoolean), Property.Type.BOOLEAN).setDefaultValue(defaultBoolean);
+                prop = new Property(id, String.valueOf(valueBoolean), Property.Type.BOOLEAN).setDefaultValue(defaultBoolean);
                 break;
             case STRING:
-                prop = new Property(name, valueString, Property.Type.STRING).setDefaultValue(defaultString);
+                prop = new Property(id, valueString, Property.Type.STRING).setDefaultValue(defaultString);
                 break;
             case BLOCK:
-                prop = new Property(name, BlockStringUtil.stateToString(valueBlock), Property.Type.STRING).setDefaultValue(BlockStringUtil.stateToString(defaultBlock));
+                prop = new Property(id, BlockStringUtil.stateToString(valueBlock), Property.Type.STRING).setDefaultValue(BlockStringUtil.stateToString(defaultBlock));
                 break;
             default:
                 throw new RTGException(RTGException.Type.CONFIG_SYNTAX, "Somehow RTG doesnt support this config type: " + type.name(), "ConfigProperty.toForgeProp()");
@@ -115,47 +177,31 @@ public class ConfigProperty {
 
     /**
      * Needed for writing to config files
-     * @param id An instance of IPropertyID created from prop.getName()
      * @param prop The property to read
      * @throws RTGException of type CONFIG_SYNTAX if failed.
+     * @return this
      */
-    public static ConfigProperty fromForgeProp(IPropertyID id, Property prop) throws RTGException {
-        ConfigProperty cprop = new ConfigProperty(id, prop.getName(), prop.getComment());
+    public ConfigProperty readForgeProperty(Property prop) throws RTGException {
         try {
-            switch (id.getType()) {
+            switch (type) {
                 case INTEGER:
-                    cprop.set(prop.getInt());
+                    this.set(prop.getInt());
                     break;
                 case BOOLEAN:
-                    cprop.set(prop.getBoolean());
+                    this.set(prop.getBoolean());
                     break;
                 case STRING:
-                    cprop.set(prop.getString());
+                    this.set(prop.getString());
                     break;
                 case BLOCK:
-                    cprop.set(BlockStringUtil.stringToState(prop.getString()));
+                    this.set(BlockStringUtil.stringToState(prop.getString()));
             }
-            return cprop;
+            return this;
         } catch (Exception e) {
             throw new RTGException(RTGException.Type.CONFIG_SYNTAX,
                     "Tried to read property " + prop.getName() + " with value " + prop.getString() + " of type " + prop.getType().name() +
-                            " into property " + id.name() + " of type " + id.getType().name(),
+                            " into property " + id + " of type " + type.name(),
                     "ConfigProperty.fromForgeProp()");
         }
-    }
-    /**
-     * This interface is intended for use with Enums, but could be used as a class too
-     * This serves as an identifier for properties
-     */
-    public interface IPropertyID {
-        enum Type {
-            INTEGER,
-            BOOLEAN,
-            STRING,
-            BLOCK
-        }
-        Type getType();
-        ConfigProperty get();
-        String name();
     }
 }

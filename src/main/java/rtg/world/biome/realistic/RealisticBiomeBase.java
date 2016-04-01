@@ -628,7 +628,6 @@ public abstract class RealisticBiomeBase extends BiomeBase {
      * Is called from the constructor
      * @return An array of ConfigProperties with defaults
      */
-    @Deprecated
     public ConfigProperty[] initProperties() {
         return new ConfigProperty[0];
     }

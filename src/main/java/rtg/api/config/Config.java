@@ -1,7 +1,10 @@
 package rtg.api.config;
 
 import net.minecraft.block.state.IBlockState;
+import rtg.api.util.debug.RTGException;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 /**
@@ -15,130 +18,67 @@ public class Config {
     public ArrayList<ConfigProperty> properties;
 
     public Config() {
-        this.properties = new ArrayList<>();
+        this.properties = getProperties();
     }
 
-    public void addProperties(ConfigProperty.IPropertyID[] props) {
-        for (ConfigProperty.IPropertyID prop : props) {
-            this.addProperty(prop.get());
-        }
-    }
-
-    public ConfigProperty addProperty(ConfigProperty property) {
-        for (int i = 0; i < this.properties.size(); i++) {
-
-            if (this.properties.get(i).id.contentEquals(property.id)) {
-                removeProperty(property.id);
-                break;
+    protected ArrayList<ConfigProperty> getProperties() {
+        Field[] declaredFields = this.getClass().getDeclaredFields();
+        ArrayList<ConfigProperty> properties = new ArrayList<>();
+        for (Field field : declaredFields) {
+            if (Modifier.isPublic(field.getModifiers()) &&
+                    Modifier.isStatic(field.getModifiers()) &&
+                    Modifier.isFinal(field.getModifiers()) &&
+                    field.getType() == ConfigProperty.class) {
+                RTGException.ignore(() -> properties.add((ConfigProperty) field.get(this)));
             }
         }
-
-        this.properties.add(property);
-        return property;
+        return properties;
     }
-
-    public void removeProperty(String id) {
+    public ConfigProperty getProp(String id) {
         for (int i = 0; i < this.properties.size(); i++) {
 
-            if (this.properties.get(i).id.contentEquals(id)) {
-                this.properties.remove(i);
-                return;
-            }
-        }
-    }
-
-    public ArrayList<ConfigProperty> getProperties() {
-        return this.properties;
-    }
-
-    public ConfigProperty getPropertyById(ConfigProperty.IPropertyID id) {
-        for (int i = 0; i < this.properties.size(); i++) {
-
-            if (this.properties.get(i).id.contentEquals(id.name())) {
+            if (this.properties.get(i).getID().contentEquals(id)) {
                 return this.properties.get(i);
             }
         }
         return null;
     }
 
-    public boolean _boolean(ConfigProperty.IPropertyID id) {
+    public boolean _boolean(String id) {
         try {
-            return getPropertyById(id).valueBoolean;
+            return getProp(id).valueBoolean;
         } catch (Exception e) {
-            throw new RuntimeException("Config property " + id.name() + " could not be found. Reason: " + e.getMessage());
+            throw new RuntimeException("Config property " + id + " could not be found. Reason: " + e.getMessage());
         }
     }
 
-    public int _int(ConfigProperty.IPropertyID id) {
+    public int _int(String id) {
         try {
 
-            return getPropertyById(id).valueInt;
+            return getProp(id).valueInt;
         } catch (Exception e) {
 
-            throw new RuntimeException("Config property " + id.name() + " could not be found. Reason: " + e.getMessage());
+            throw new RuntimeException("Config property " + id + " could not be found. Reason: " + e.getMessage());
         }
     }
 
-    public String _string(ConfigProperty.IPropertyID id) {
+    public String _string(String id) {
         try {
 
-            return getPropertyById(id).valueString;
+            return getProp(id).valueString;
         } catch (Exception e) {
 
-            throw new RuntimeException("Config property " + id.name() + " could not be found. Reason: " + e.getMessage());
+            throw new RuntimeException("Config property " + id + " could not be found. Reason: " + e.getMessage());
         }
     }
 
-    public IBlockState _block(ConfigProperty.IPropertyID id) {
+    public IBlockState _block(String id) {
         try {
-            return getPropertyById(id).valueBlock;
+            return getProp(id).valueBlock;
         } catch (Exception e) {
 
-            throw new RuntimeException("Config property " + id.name() + " could not be found. Reason: " + e.getMessage());
+            throw new RuntimeException("Config property " + id + " could not be found. Reason: " + e.getMessage());
         }
     }
 
-    /**
-     * Will get a property, and if it doesn't exist add it with a default value
-     */
-    public boolean get(ConfigProperty.IPropertyID id, boolean defaultBoolean) {
-        try {
-            return this.getPropertyById(id).valueBoolean;
-        } catch (Exception e) {
-            return this.addProperty(id.get().setDefault(defaultBoolean)).valueBoolean;
-        }
-    }
-
-    /**
-     * Will get a property, and if it doesn't exist add it with a default value
-     */
-    public int get(ConfigProperty.IPropertyID id, int defaultInt) {
-        try {
-            return this.getPropertyById(id).valueInt;
-        } catch (Exception e) {
-            return this.addProperty(id.get().setDefault(defaultInt)).valueInt;
-        }
-    }
-
-    /**
-     * Will get a property, and if it doesn't exist add it with a default value
-     */
-    public String get(ConfigProperty.IPropertyID id, String defaultString) {
-        try {
-            return this.getPropertyById(id).valueString;
-        } catch (Exception e) {
-            return this.addProperty(id.get().setDefault(defaultString)).valueString;
-        }
-    }
-
-    /**
-     * Will get a property, and if it doesn't exist add it with a default value
-     */
-    public IBlockState get(ConfigProperty.IPropertyID id, IBlockState defaultBlock) {
-        try {
-            return this.getPropertyById(id).valueBlock;
-        } catch (Exception e) {
-            return this.addProperty(id.get().setDefault(defaultBlock)).valueBlock;
-        }
-    }
 }

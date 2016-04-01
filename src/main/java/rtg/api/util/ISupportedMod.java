@@ -1,6 +1,6 @@
 package rtg.api.util;
 
-import rtg.api.config.Config;
+import rtg.api.config.ModConfig;
 
 /**
  * The way RTG interacts with a supported mod, be it added by itself or RTG
@@ -30,5 +30,5 @@ public interface ISupportedMod {
      * Can return null if this mod doesn't need an RTG config.
      * That is probably mostly useful for first party implementations
      */
-    Config.ModConfig getConfig();
+    ModConfig getConfig();
 }

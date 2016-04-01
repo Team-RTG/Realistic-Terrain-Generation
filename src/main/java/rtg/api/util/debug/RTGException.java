@@ -43,4 +43,28 @@ public class RTGException extends Exception {
     public String getMessage() {
         return this.message;
     }
+
+    /**
+     * Allows for using lambda voodoo to ignore exceptions.
+     * Not sure if this is fun or stupid, it was mainly a way for me to learn lambdas.
+     * <br>
+     * <b>Example:</b>
+     * <br>
+     * {@code
+     *  ExceptionUtils.ignore(() -> pink.forceToDrinkTea())
+     * }
+     * <br>
+     * This will ignore the {@code PinkTooStrongException} thrown by
+     * {@code forceToDrinkTea()}, and just proceed as if nothing happened.
+     */
+    public static void ignore(RunnableExc r) {
+        try {
+            r.run();
+        } catch (Exception ignored) {}
+    }
+
+    @FunctionalInterface
+    public interface RunnableExc {
+        void run() throws Exception;
+    }
 }

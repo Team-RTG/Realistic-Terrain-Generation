@@ -17,25 +17,25 @@ import java.util.Map;
  * @author topisani
  */
 public class ModConfig extends Config{
-    private final Configuration forgeConfig;
+    protected final Configuration config;
     public final ISupportedMod mod;
     private Map<Class<? extends RealisticBiomeBase>, BiomeConfig> biomeConfigMap = new HashMap<>();
 
     public ModConfig(SupportedMod mod) {
         super();
-        this.forgeConfig = new Configuration(new File(RTG.configPath + "/biomes/" + mod.getModId() + ".cfg"));
+        this.config = new Configuration(new File(RTG.configPath + "/biomes/" + mod.getModId() + ".cfg"));
         this.mod = mod;
 
         try {
-            forgeConfig.load();
+            config.load();
 
-            this.setDefaults();
+            this.initDefaults();
 
         } catch (Exception e) {
             Logger.error("RTG has had a problem loading " + mod.getModId() + " configuration.");
         } finally {
-            if (forgeConfig.hasChanged()) {
-                forgeConfig.save();
+            if (config.hasChanged()) {
+                config.save();
             }
         }
     }
@@ -56,5 +56,5 @@ public class ModConfig extends Config{
         return this.biomeConfigMap.get(biome);
     }
 
-    public void setDefaults() {}
+    public void initDefaults() {}
 }

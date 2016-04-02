@@ -8,7 +8,7 @@ import rtg.api.util.ModPresenceTester;
 public class GenLayerUtils {
 
     public static GenLayer[] initializeAllBiomeGenerators(long seed, WorldType worldType, String worldConfig) {
-        if (new ModPresenceTester("BiomesOPlenty").present() && ConfigRTG.useBOPLayouts)
+        if (new ModPresenceTester("BiomesOPlenty").present() && ConfigRTG.USE_BOP_LAYOUT.get())
             return BOPGenLayers.setupBOPGenLayers(seed);
         else return GenLayer.initializeAllBiomeGenerators(seed, worldType, worldConfig);
     }

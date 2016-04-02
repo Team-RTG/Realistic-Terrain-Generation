@@ -9,7 +9,7 @@ import java.util.Random;
 
 import static java.lang.Math.*;
 import static net.minecraft.init.Blocks.*;
-import static rtg.config.ConfigRTG.allowTreesToGenerateOnSand;
+
 
 public class WorldGenTreeRTGMangrove extends WorldGenerator {
     private Block blockLog;
@@ -44,7 +44,7 @@ public class WorldGenTreeRTGMangrove extends WorldGenerator {
     public boolean generate(World world, Random rand, int x, int y, int z) {
         Block b = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
 
-        if (b == sand && !allowTreesToGenerateOnSand) {
+        if (b == sand && !ConfigRTG.ALLOW_TREES_ON_SAND.get()) {
             return false;
         }
 

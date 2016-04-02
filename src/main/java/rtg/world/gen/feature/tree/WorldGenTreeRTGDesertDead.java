@@ -4,12 +4,12 @@ import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.config.ConfigRTG;
 
 import java.util.Random;
 
 import static java.lang.Math.*;
 import static net.minecraft.init.Blocks.*;
-import static rtg.config.ConfigRTG.allowTreesToGenerateOnSand;
 
 class WorldGenTreeRTGDesertDead extends WorldGenerator {
     private int type;
@@ -26,7 +26,7 @@ class WorldGenTreeRTGDesertDead extends WorldGenerator {
     public boolean generate(World world, Random rand, int x, int y, int z) {
         Block g = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
 
-        if (g == sand && !allowTreesToGenerateOnSand) {
+        if (g == sand && !ConfigRTG.ALLOW_TREES_ON_SAND.get()) {
             return false;
         }
 

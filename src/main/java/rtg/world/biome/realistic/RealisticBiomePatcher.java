@@ -10,7 +10,7 @@ public class RealisticBiomePatcher {
     private BiomeGenBase baseBiome;
 
     public RealisticBiomePatcher() {
-        this.patchBiomeId = ConfigRTG.patchBiomeId;
+        this.patchBiomeId = ConfigRTG.PATCH_BIOME_ID.get();
 
         if (this.patchBiomeId > -1) {
 

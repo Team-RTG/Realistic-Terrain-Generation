@@ -1,5 +1,7 @@
 package rtg.world.gen.surface;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -12,7 +14,7 @@ import rtg.util.ModPresenceTester;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 
-import java.util.Random;
+import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
 public class SurfaceBase {
     private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
@@ -90,21 +92,23 @@ public class SurfaceBase {
     }
 
     protected IBlockState hcStone(World world, int i, int j, int x, int y, int k) {
-//        if (abyssalCraftMod.present()) {
-//            return ACBlocks.darkstone.getDefaultState();
-//        } else {
-
-        return Blocks.stone.getDefaultState();
-//        }
+    	
+        if (abyssalCraftMod.present()) {
+            return ACBlocks.darkstone.getDefaultState();
+        }
+        else {
+        	return Blocks.stone.getDefaultState();
+        }
     }
 
     protected IBlockState hcCobble(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
-//        if (abyssalCraftMod.present()) {
-//
-//            return ACBlocks.darkstone_cobblestone.getDefaultState();
-//        } else {
-        return Blocks.cobblestone.getDefaultState();
-//        }
+    	
+        if (abyssalCraftMod.present()) {
+            return ACBlocks.darkstone_cobblestone.getDefaultState();
+        }
+        else {
+        	return Blocks.cobblestone.getDefaultState();
+        }
     }
 
     public IBlockState getTopBlock() {

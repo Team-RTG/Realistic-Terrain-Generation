@@ -1,5 +1,7 @@
 package rtg.world.gen.surface.abyssalcraft;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -10,11 +12,8 @@ import rtg.api.biome.BiomeConfig;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
-import rtg.world.gen.surface.SurfaceBase;
 
-import java.util.Random;
-
-public class SurfaceACDarklandsPlains extends SurfaceBase {
+public class SurfaceACDarklandsPlains extends SurfaceACBase {
 
     public SurfaceACDarklandsPlains(BiomeConfig config, IBlockState top, IBlockState filler) {
         super(config, top, filler);

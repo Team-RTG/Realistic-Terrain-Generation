@@ -1,5 +1,7 @@
 package rtg.world.gen.surface.abyssalcraft;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -10,17 +12,13 @@ import rtg.api.biome.BiomeConfig;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
-import rtg.world.gen.surface.SurfaceBase;
-
-import java.util.Random;
 
 
-public class SurfaceACCoraliumInfestedSwamp extends SurfaceBase {
+public class SurfaceACCoraliumInfestedSwamp extends SurfaceACBase {
 
     public SurfaceACCoraliumInfestedSwamp(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff) {
         super(config, top, fill);
     }
-
 
     @Override
     public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {

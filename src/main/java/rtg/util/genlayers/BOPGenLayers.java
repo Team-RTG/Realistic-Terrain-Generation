@@ -10,7 +10,8 @@ import net.minecraft.world.gen.layer.*;
  */
 public class BOPGenLayers {
 
-    public static GenLayer[] setupBOPGenLayers(long worldSeed) {
+    public static GenLayer[]  setupBOPGenLayers(long worldSeed)
+    {
         BOPWorldSettings settings = new BOPWorldSettings();
 
         int biomeSize = settings.biomeSize.getValue();
@@ -35,8 +36,9 @@ public class BOPGenLayers {
 
         // do a bit more zooming, depending on biomeSize
         //mainBranch = new GenLayerRareBiome(1001L, mainBranch); - sunflower plains I think
-        for (int i = 0; i < biomeSize; ++i) {
-            mainBranch = new GenLayerZoom((long) (1000 + i), mainBranch);
+        for (int i = 0; i < biomeSize; ++i)
+        {
+            mainBranch = new GenLayerZoom((long)(1000 + i), mainBranch);
             if (i == 0) {mainBranch = new GenLayerRaggedEdges(3L, mainBranch);}
             if (i == 1 || biomeSize == 1) {mainBranch = new GenLayerShoreBOP(1000L, mainBranch);}
         }
@@ -60,7 +62,8 @@ public class BOPGenLayers {
 
     }
 
-    private static GenLayer allocateBOPBiomes(BOPWorldSettings settings, GenLayer mainBranch, GenLayer subBiomesInit, GenLayer climateLayer) {
+    private static GenLayer allocateBOPBiomes(BOPWorldSettings settings, GenLayer mainBranch, GenLayer subBiomesInit, GenLayer climateLayer)
+    {
         // allocate the basic biomes
         GenLayer biomesLayer = new GenLayerBiomeBOP(200L, mainBranch, climateLayer, settings);
 

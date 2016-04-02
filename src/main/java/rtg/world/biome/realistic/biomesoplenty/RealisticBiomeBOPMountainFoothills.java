@@ -33,7 +33,7 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBOPBase {
                 new SurfaceBOPMountainFoothills(config,
                         topBlock, //Block top
                         fillerBlock, //Block filler,
-                        Blocks.dirt.getDefaultState(), //IBlockState mixTop,
+                        topBlock, //IBlockState mixTop,
                         fillerBlock, //IBlockState mixFill,
                         80f, //float mixWidth,
                         -0.15f, //float mixHeight,

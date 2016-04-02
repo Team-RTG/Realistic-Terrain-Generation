@@ -54,6 +54,6 @@ public class TerrainEBKakadu extends TerrainBase
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return riverized(minHeight+groundEffect.added(simplex, cell,x, y),river)+height.added(simplex,cell, x, y);
+        return riverized(minHeight+groundEffect.added(simplex, cell,x, y)+height.added(simplex,cell, x, y),river);
     }
 }

@@ -70,7 +70,7 @@ public class RealisticBiomeEBMountains extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
+		noWaterFeatures = true;
         this.generatesEmeralds = true;
         this.emeraldEmeraldBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.oreEmeraldEB, Blocks.emerald_ore);
         this.emeraldEmeraldMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);

@@ -7,14 +7,19 @@ import rtg.world.gen.terrain.TerrainBase;
 public class TerrainEBMeadowM extends TerrainBase
 {
 
-    public TerrainEBMeadowM()
-    {
+    private float baseHeight = 70f;
+    private float hillStrength = 25f;
 
+    public TerrainEBMeadowM(float bh, float hs)
+    {
+        baseHeight = bh;
+        hillStrength = hs;
     }
 
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return terrainPlains(x, y, simplex, river, 160f, 20f, 60f, 180f, 63f);
+        return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, baseHeight-62f);
+
     }
 }

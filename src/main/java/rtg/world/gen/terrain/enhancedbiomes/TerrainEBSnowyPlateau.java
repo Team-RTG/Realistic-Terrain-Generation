@@ -20,10 +20,8 @@ public class TerrainEBSnowyPlateau extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return riverized(
-                borderAdjusted(plateauHeight, border, 0.7f, 0.5f)
+        return borderAdjusted(plateauHeight, border, .6f, 0.4f)
                 + this.groundNoise(x, y, 2f, simplex)
-                + base
-                ,river);
+                + base;
 	}
 }

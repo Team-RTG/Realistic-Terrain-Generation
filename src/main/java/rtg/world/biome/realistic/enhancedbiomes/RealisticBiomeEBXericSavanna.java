@@ -49,7 +49,7 @@ public class RealisticBiomeEBXericSavanna extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBXericSavanna(200f, 100f, 0f),
+			new TerrainEBXericSavanna(),
 			new SurfaceEBXericSavanna(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

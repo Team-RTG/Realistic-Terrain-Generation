@@ -6,22 +6,11 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBColdPineForest extends TerrainBase
 {
-	private float start;
-	private float height;
-	private float base;
-	private float width;
-
-	public TerrainEBColdPineForest(float hillStart, float landHeight, float baseHeight, float hillWidth)
-	{
-		start = hillStart;
-		height = landHeight;
-		base = baseHeight;
-		width = hillWidth;
-	}
+	private TerrainBase parent = new TerrainEBPineForest();
 
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainHighland(x, y, simplex, cell, river, start, width, height, 10f);
+        return parent.generateNoise(simplex, cell, x, y, border, river);
 	}
 }

@@ -20,11 +20,11 @@ public class TerrainEBBorealPlateauM extends TerrainBase
 	{
         float nonPlateauHeight = baseHeight.generateNoise(simplex, cell, x, y, border, river);
         // low off plateau
-        if (border < .60) return nonPlateauHeight;
+        if (border < .4) return nonPlateauHeight;
         float added = addedHeight/border;
         // high on plateau
-        if (border >= .70 ) return nonPlateauHeight + added;
+        if (border >= .6 ) return nonPlateauHeight + added;
         // interpolate;
-        return nonPlateauHeight + added*(border -0.6f)/(.1f);
+        return nonPlateauHeight + added*(border -0.4f)/(.2f);
 	}
 }

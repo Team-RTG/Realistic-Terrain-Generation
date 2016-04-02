@@ -385,9 +385,9 @@ public class RealisticBiomeBase extends BiomeBase {
             throw new RuntimeException(result);
         }*/
         if (noWaterFeatures) {
-            border = border*2;
-            if (border >1f) border = 1;
-            river = 1f - (1f-border)*(1f-river);
+            float borderForRiver = border*2;
+            if (borderForRiver >1f) borderForRiver = 1;
+            river = 1f - (1f-borderForRiver)*(1f-river);
             return terrain.generateNoise(simplex, cell, x, y, border, river);
         }
         float lakeStrength = lakePressure(simplex,cell,x,y,border);

@@ -48,11 +48,11 @@ import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.*;
  * Scattered features courtesy of Ezoteric (https://github.com/Ezoteric) and Choonster (https://github.com/Choonster)
  */
 public class ChunkProviderRTG implements IChunkGenerator {
+    private static final int centerLocationIndex = 312;// this is x=8, y=8 with the calcs below
     /**
      * Declare variables.
      */
 
-    private static final int centerLocationIndex = 312;// this is x=8, y=8 with the calcs below
     private final MapGenBase caveGenerator;
     private final MapGenBase ravineGenerator;
     private final MapGenStronghold strongholdGenerator;
@@ -87,6 +87,8 @@ public class ChunkProviderRTG implements IChunkGenerator {
     private float[] borderNoise;
     private long worldSeed;
     private RealisticBiomePatcher biomePatcher;
+    //private AICWrapper aic;
+    private boolean isAICExtendingBiomeIdsLimit;
 
 
     public ChunkProviderRTG(World world, long l) {
@@ -133,7 +135,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         parabolicField = new float[parabolicArraySize * parabolicArraySize];
         for (int j = -parabolicSize; j <= parabolicSize; ++j) {
             for (int k = -parabolicSize; k <= parabolicSize; ++k) {
-                float f = 0.445f / MathHelper.sqrt_float((float) (j * j + k * k) + 0.3F);
+                float f = 0.445f / MathHelper.sqrt_float((float) ((j * 1) * (j * 1) + (k * 1) * (k * 1)) + 0.3F);
                 parabolicField[j + parabolicSize + (k + parabolicSize) * parabolicArraySize] = f;
                 parabolicFieldTotal += f;
             }
@@ -232,20 +234,25 @@ public class ChunkProviderRTG implements IChunkGenerator {
         }
 
         Chunk chunk = new Chunk(this.worldObj, primer, cx, cy);
-        // doJitter no longer needed as the biome array gets fixed
-        byte[] abyte1 = chunk.getBiomeArray();
-        for (k = 0; k < abyte1.length; ++k) {
-            // biomes are y-first and terrain x-first
-            /*
-            * This 2 line separation is needed, because otherwise, AIC's dynamic patching algorith detects vanilla pattern here and patches this part following vanilla logic.
-            * Which causes game to crash.
-            * I cannot do much on my part, so i have to do it here.
-            * - Elix_x
-            */
-            byte b = (byte) RealisticBiomeBase.getIdForBiome(this.baseBiomesList[MathUtils.XY_INVERTED[k]]);
-            abyte1[k] = b;
+
+        if (isAICExtendingBiomeIdsLimit) {
+            //aic.setBiomeArray(chunk, baseBiomesList, XYinverted);
+        } else {
+            // doJitter no longer needed as the biome array gets fixed
+            byte[] abyte1 = chunk.getBiomeArray();
+            for (k = 0; k < abyte1.length; ++k) {
+                // biomes are y-first and terrain x-first
+                /*
+                * This 2 line separation is needed, because otherwise, AIC's dynamic patching algorith detects vanilla pattern here and patches this part following vanilla logic.
+        		* Which causes game to crash.
+        		* I cannot do much on my part, so i have to do it here.
+        		* - Elix_x
+        		*/
+                byte b = (byte) RealisticBiomeBase.getIdForBiome(this.baseBiomesList[MathUtils.XY_INVERTED[k]]);
+                abyte1[k] = b;
+            }
+            chunk.setBiomeArray(abyte1);
         }
-        chunk.setBiomeArray(abyte1);
         chunk.generateSkylightMap();
         return chunk;
     }
@@ -496,19 +503,18 @@ public class ChunkProviderRTG implements IChunkGenerator {
         long j1 = this.rand.nextLong() / 2L * 2L + 1L;
         this.rand.setSeed((long) chunkX * i1 + (long) chunkZ * j1 ^ this.worldObj.getSeed());
         boolean flag = false;
-        ChunkCoordIntPair chunkCoords = new ChunkCoordIntPair(chunkX, chunkZ);
-        BlockPos worldCoords = new BlockPos(worldX, 0, worldZ);
+        boolean gen = false;
 
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(this, worldObj, rand, chunkX, chunkZ, flag));
 
         if (mapFeaturesEnabled) {
 
             if (ConfigRTG.generateMineshafts) {
-                mineshaftGenerator.generateStructure(worldObj, rand, chunkCoords);
+                mineshaftGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
             }
 
             if (ConfigRTG.generateStrongholds) {
-                strongholdGenerator.generateStructure(worldObj, rand, chunkCoords);
+                strongholdGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
             }
 
             if (ConfigRTG.generateVillages) {
@@ -516,22 +522,22 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 if (ConfigRTG.villageCrashFix) {
 
                     try {
-                        flag = villageGenerator.generateStructure(worldObj, rand, chunkCoords);
+                        flag = villageGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
                     } catch (Exception e) {
                         flag = false;
                     }
                 } else {
 
-                    flag = villageGenerator.generateStructure(worldObj, rand, chunkCoords);
+                    flag = villageGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
                 }
             }
 
             if (ConfigRTG.generateScatteredFeatures) {
-                scatteredFeatureGenerator.generateStructure(worldObj, rand, chunkCoords);
+                scatteredFeatureGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
             }
 
             if (ConfigRTG.generateOceanMonuments) {
-                oceanMonumentGenerator.generateStructure(worldObj, rand, chunkCoords);
+                oceanMonumentGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
             }
         }
 
@@ -556,7 +562,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
          * ########################################################################
          */
 
-        MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(worldObj, rand, worldCoords));
+        MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(worldObj, rand, new BlockPos(worldX, 0, worldZ)));
 
         //Initialise variables.
         float river = -bprv.getRiverStrength(worldX + 16, worldZ + 16);
@@ -598,7 +604,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
                     try {
 
-                        realisticBiome.baseBiome.decorate(this.worldObj, rand, worldCoords);
+                        realisticBiome.baseBiome.decorate(this.worldObj, rand, new BlockPos(worldX, 1, worldZ));
                     } catch (Exception e) {
 
                         if (realisticBiome.useNewDecorationSystem) {
@@ -618,7 +624,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
             }
         }
 
-        MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(worldObj, rand, worldCoords));
+        MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(worldObj, rand, new BlockPos(worldX, 0, worldZ)));
 
         /**
          * ########################################################################
@@ -628,31 +634,31 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
         biome.rPopulatePostDecorate(this, worldObj, rand, chunkX, chunkZ, flag);
 
-        BlockPos.MutableBlockPos bp = new BlockPos.MutableBlockPos(0, 0, 0);
-
         //Flowing water.
         if (rand.nextInt(100) == 0) {
+            BlockPos.MutableBlockPos bp = new BlockPos.MutableBlockPos(0, 0, 0);
             for (int l18 = 0; l18 < 50; l18++) {
                 int l21 = worldX + rand.nextInt(16) + 8;
                 int k23 = rand.nextInt(rand.nextInt(worldHeight - 16) + 10);
                 int l24 = worldZ + rand.nextInt(16) + 8;
 
-                (new WorldGenLiquids(Blocks.flowing_water)).generate(worldObj, rand, bp.set(l21, k23, l24));
+                (new WorldGenLiquids(Blocks.flowing_water)).generate(worldObj, rand, new BlockPos(bp.set(l21, k23, l24)));
             }
         }
 
         //Flowing lava.
         if (rand.nextInt(100) == 0) {
+            BlockPos.MutableBlockPos bp = new BlockPos.MutableBlockPos(0, 0, 0);
             for (int i19 = 0; i19 < 20; i19++) {
                 int i22 = worldX + rand.nextInt(16) + 8;
                 int l23 = rand.nextInt(worldHeight / 2);
                 int i25 = worldZ + rand.nextInt(16) + 8;
-                (new WorldGenLiquids(Blocks.flowing_lava)).generate(worldObj, rand, bp.set(i22, l23, i25));
+                (new WorldGenLiquids(Blocks.flowing_lava)).generate(worldObj, rand, new BlockPos(bp.set(i22, l23, i25)));
             }
         }
 
         if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.ANIMALS)) {
-            WorldEntitySpawner.performWorldGenSpawning(this.worldObj, worldObj.getBiomeGenForCoords(bp.set(worldX + 16, 0, worldZ + 16)), worldX + 8, worldZ + 8, 16, 16, this.rand);
+            WorldEntitySpawner.performWorldGenSpawning(this.worldObj, worldObj.getBiomeGenForCoords(new BlockPos(worldX + 16, 0, worldZ + 16)), worldX + 8, worldZ + 8, 16, 16, this.rand);
         }
 
         if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.ICE)) {
@@ -663,14 +669,14 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
                 for (l1 = 0; l1 < 16; ++l1) {
 
-                    i2 = this.worldObj.getPrecipitationHeight(bp.set(worldX + k1, 0, worldZ + l1)).getY();
+                    i2 = this.worldObj.getPrecipitationHeight(new BlockPos(worldX + k1, 0, worldZ + l1)).getY();
 
-                    if (this.worldObj.canBlockFreezeNoWater(bp.set(k1 + worldX, i2 - 1, l1 + worldZ))) {
-                        this.worldObj.setBlockState(bp.set(k1 + worldX, i2 - 1, l1 + worldZ), Blocks.ice.getDefaultState(), 2);
+                    if (this.worldObj.canBlockFreezeNoWater(new BlockPos(k1 + worldX, i2 - 1, l1 + worldZ))) {
+                        this.worldObj.setBlockState(new BlockPos(k1 + worldX, i2 - 1, l1 + worldZ), Blocks.ice.getDefaultState(), 2);
                     }
 
-                    if (ConfigRTG.enableSnowLayers && this.worldObj.canSnowAt(bp.set(k1 + worldX, i2, l1 + worldZ), true)) {
-                        this.worldObj.setBlockState(bp.set(k1 + worldX, i2, l1 + worldZ), Blocks.snow_layer.getDefaultState(), 2);
+                    if (ConfigRTG.enableSnowLayers && this.worldObj.canSnowAt(new BlockPos(k1 + worldX, i2, l1 + worldZ), true)) {
+                        this.worldObj.setBlockState(new BlockPos(k1 + worldX, i2, l1 + worldZ), Blocks.snow_layer.getDefaultState(), 2);
                     }
                 }
             }

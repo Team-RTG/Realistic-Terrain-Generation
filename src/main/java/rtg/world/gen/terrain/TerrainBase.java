@@ -50,8 +50,6 @@ public class TerrainBase
     public static final float borderAdjusted(float effect, float border, float allAbove, float noneBelow) {
         // this routine adjusts an effect to ignore the border variable above allAbove
         // and interpolated down to 0 at noneBelow
-        if (border> 1f) throw new RuntimeException();
-        if (border <0) throw new RuntimeException();
         if (border < noneBelow) return 0;
         if (border >= 1f) return effect;
         // adjust effect for border
@@ -280,7 +278,7 @@ public class TerrainBase
         h += simplex.noise2(x / 15f, y / 15f) * 2;
         h += simplex.noise2(x / 7f, y / 7f);
 
-        return baseHeight + (20f * river) + h;
+        return riverized(baseHeight + 20f + h,river);
     }
 
     public static float terrainGrasslandFlats(int x, int y, OpenSimplexNoise simplex, float river, float mPitch, float lPitch, float baseHeight)

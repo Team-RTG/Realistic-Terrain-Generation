@@ -245,7 +245,7 @@ public class SimplexOctave {
         int index =
                 (a << 2) |
                         (int) (xsi + ysi / 2.0 + a / 2.0) << 3 |
-                        (int) (ysi + xsi / 2.0 + 1.0 / 2.0 - a / 2.0) * 16;
+                        (int) (ysi + xsi / 2.0 + 1.0 / 2.0 - a / 2.0) << 4;
 
         //Get unskewed offsets.
         double ssi = (xsi + ysi) * SQUISH_2D;
@@ -320,7 +320,7 @@ public class SimplexOctave {
         int index =
                 (a << 2) |
                         (int) (xsi + ysi / 2.0 + a / 2.0) << 3 |
-                        (int) (ysi + xsi / 2.0 + 1.0 / 2.0 - a / 2.0) * 16;
+                        (int) (ysi + xsi / 2.0 + 1.0 / 2.0 - a / 2.0) << 4;
 
         //Get unskewed offsets.
         double ssi = (xsi + ysi) * SQUISH_2D;
@@ -446,7 +446,7 @@ public class SimplexOctave {
         int index =
                 (a << 2) |
                         (int) (xsi + ysi / 2.0 + a / 2.0) << 3 |
-                        (int) (ysi + xsi / 2.0 + 1.0 / 2.0 - a / 2.0) * 16;
+                        (int) (ysi + xsi / 2.0 + 1.0 / 2.0 - a / 2.0) << 4;
 
         //Get unskewed offsets.
         double ssi = (xsi + ysi) * SQUISH_2D;

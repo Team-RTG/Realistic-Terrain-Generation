@@ -17,6 +17,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.api.config.BiomeConfig;
+import rtg.api.config.BiomeConfigHelper;
 import rtg.api.config.ConfigProperty;
 import rtg.api.util.ISupportedMod;
 import rtg.config.ConfigRTG;
@@ -41,6 +42,11 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 public abstract class RealisticBiomeBase extends BiomeBase {
 
+    public final ConfigProperty.PropertyBool ALLOW_VILLAGES;
+    public final ConfigProperty.PropertyBool USE_RTG_SURFACES;
+    public final ConfigProperty.PropertyBool USE_RTG_DECORATIONS;
+    public final ConfigProperty.PropertyBlock TOP_BLOCK;
+    public final ConfigProperty.PropertyBlock FILL_BLOCK;
     private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[256];
     private static int[] incidences = new int[200];
     private static int references = 0;
@@ -83,7 +89,15 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
         arrRealisticBiomeIds[RealisticBiomeBase.getIdForBiome(biome)] = this;
 
-        this.config = mod.getConfig().setBiomeConfig(this.getClass(), initProperties());
+        this.config = new BiomeConfig(mod.getModId(), this.getBiomeName());
+
+        ALLOW_VILLAGES = config.addBool(BiomeConfigHelper.ALLOW_VILLAGES);
+        USE_RTG_SURFACES = config.addBool(BiomeConfigHelper.USE_RTG_SURFACES);
+        USE_RTG_DECORATIONS = config.addBool(BiomeConfigHelper.USE_RTG_DECORATIONS);
+        TOP_BLOCK = config.addBlock(BiomeConfigHelper.TOP_BLOCK);
+        FILL_BLOCK = config.addBlock(BiomeConfigHelper.FILL_BLOCK);
+
+        initProperties();
 
         baseBiome = biome;
         riverBiome = river;
@@ -117,14 +131,27 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.allowed = false;
         this.decos.add(decoBaseBiomeDecorations);
-
-        this.config = mod.getConfig().setBiomeConfig(this.getClass(), initProperties());
         this.surface = initSurface();
         surfaceGeneric = new SurfaceGeneric(config, surface.getTopBlock(), surface.getFillerBlock());
         this.terrain = initTerrain();
     }
 
+    public static int getIdForBiome(BiomeGenBase biome) {
+        if (biome instanceof RealisticBiomeBase)
+            return BiomeGenBase.getIdForBiome(((RealisticBiomeBase) biome).baseBiome);
+        return BiomeGenBase.getIdForBiome(biome);
+    }
+
+    /**
+     * This should set the defaults for all properties
+     */
+    protected void initProperties() {
+        TOP_BLOCK.setDefault(baseBiome.topBlock);
+        FILL_BLOCK.setDefault(baseBiome.fillerBlock);
+    }
+
     protected abstract SurfaceBase initSurface();
+
     protected abstract TerrainBase initTerrain();
 
     public static RealisticBiomeBase getBiome(int id) {
@@ -132,10 +159,24 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         return arrRealisticBiomeIds[id];
     }
 
-    public static int getIdForBiome(BiomeGenBase biome) {
-        if (biome instanceof RealisticBiomeBase)
-            return BiomeGenBase.getIdForBiome(((RealisticBiomeBase) biome).baseBiome);
-        return BiomeGenBase.getIdForBiome(biome);
+    private static double cellBorder(double[] results, double width, double depth) {
+        double c = (results[1] - results[0]);
+        //int slot = (int)Math.floor(c*100.0);
+        //incidences[slot] += 1;
+        //references ++;
+        if (references > 40000) {
+            String result = "";
+            for (int i = 0; i < 100; i++) {
+                result += " " + incidences[i];
+            }
+            throw new RuntimeException(result);
+        }
+        if (c < width) {
+            return ((c / width) - 1f) * depth;
+        } else {
+
+            return 0;
+        }
     }
 
     public void rPopulatePreDecorate(IChunkGenerator ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag) {
@@ -310,6 +351,8 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         net.minecraftforge.common.MinecraftForge.ORE_GEN_BUS.post(new net.minecraftforge.event.terraingen.OreGenEvent.Post(world, rand, blockPos));
     }
 
+    // lake calculations
+
     /**
      * Standard ore generation helper. Generates most ores.
      *
@@ -345,8 +388,6 @@ public abstract class RealisticBiomeBase extends BiomeBase {
             generator.generate(worldObj, rand, blockpos);
         }
     }
-
-    // lake calculations
 
     public void rGenerateEmeralds(World world, Random rand, BlockPos blockPos) {
         int k = 3 + rand.nextInt(6);
@@ -422,26 +463,6 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
     public void rMapGen(ChunkPrimer primer, World world, BiomeProviderRTG cmr, Random mapRand, int chunkX, int chunkY, int baseX, int baseY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
 
-    }
-
-    private static double cellBorder(double[] results, double width, double depth) {
-        double c = (results[1] - results[0]);
-        //int slot = (int)Math.floor(c*100.0);
-        //incidences[slot] += 1;
-        //references ++;
-        if (references > 40000) {
-            String result = "";
-            for (int i = 0; i < 100; i++) {
-                result += " " + incidences[i];
-            }
-            throw new RuntimeException(result);
-        }
-        if (c < width) {
-            return ((c / width) - 1f) * depth;
-        } else {
-
-            return 0;
-        }
     }
 
     public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
@@ -618,15 +639,5 @@ public abstract class RealisticBiomeBase extends BiomeBase {
             this.decos.add(deco);
             this.useNewDecorationSystem = true;
         }
-    }
-
-    /**
-     * This is how you choose which properties the biome uses.
-     * Should be overridden if a biome uses anything other than these defaults
-     * Is called from the constructor
-     * @return An array of ConfigProperties with defaults
-     */
-    public ConfigProperty[] initProperties() {
-        return new ConfigProperty[0];
     }
 }

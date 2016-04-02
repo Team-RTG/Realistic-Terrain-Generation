@@ -72,7 +72,6 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     private double lakeDepressionLevel = 0.16;// the lakeStrength below which land should start to be lowered
 
     public RealisticBiomeBase(ISupportedMod mod, BiomeGenBase biome) {
-
         this(mod, biome, river);
     }
 

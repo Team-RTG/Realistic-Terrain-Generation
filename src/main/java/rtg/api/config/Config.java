@@ -18,7 +18,7 @@ public class Config {
     public ArrayList<ConfigProperty> properties;
 
     public Config() {
-        this.properties = getProperties(this);
+        this.properties = new ArrayList<>();
     }
 
     protected ArrayList<ConfigProperty> getProperties(Object holder) {

@@ -47,7 +47,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     private static float actualRiverProportion = 300f / 1600f;
     public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;
-    public BiomeConfig config;
+    public final BiomeConfig config;
     public final ISupportedMod mod;
     public TerrainBase terrain;
     public SurfaceBase surface;

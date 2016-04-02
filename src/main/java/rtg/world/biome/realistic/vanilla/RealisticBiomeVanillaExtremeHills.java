@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenBush;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.api.config.ConfigProperty;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.feature.WorldGenBlob;
@@ -21,12 +22,9 @@ import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
-import static rtg.api.config.BiomeConfigProperty.DECORATION_LOG;
-
 public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.extremeHills.topBlock;
-    public static IBlockState fillerBlock = Biomes.extremeHills.fillerBlock;
+    public final ConfigProperty.PropertyBlock TOP_BLOCK =
 
     public RealisticBiomeVanillaExtremeHills() {
 

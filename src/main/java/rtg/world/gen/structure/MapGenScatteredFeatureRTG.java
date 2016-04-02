@@ -66,8 +66,8 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
     }
 
     public MapGenScatteredFeatureRTG() {
-        int minDistance = ConfigRTG.minDistanceScatteredFeatures;
-        int maxDistance = ConfigRTG.maxDistanceScatteredFeatures;
+        int minDistance = ConfigRTG.MIN_DISTANCE_SCATTERED_FEATURES.get();
+        int maxDistance = ConfigRTG.MAX_DISTANCE_SCATTERED_FEATURES.get();
 
         if (minDistance > maxDistance) {
             minDistance = 8;

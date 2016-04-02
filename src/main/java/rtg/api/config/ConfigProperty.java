@@ -104,35 +104,35 @@ public class ConfigProperty {
         return maxValue;
     }
 
-    public int _defaultInt() {
+    protected int _defaultInt() {
         return defaultInt;
     }
 
-    public boolean _defaultBool() {
+    protected boolean _defaultBool() {
         return defaultBoolean;
     }
 
-    public String _defaultString() {
+    protected String _defaultString() {
         return defaultString;
     }
 
-    public IBlockState _defaultBlock() {
+    protected IBlockState _defaultBlock() {
         return defaultBlock;
     }
 
-    public int _int() {
+    protected int _int() {
         return valueInt;
     }
 
-    public boolean _bool() {
+    protected boolean _bool() {
         return valueBoolean;
     }
 
-    public String _string() {
+    protected String _string() {
         return valueString;
     }
 
-    public IBlockState _block() {
+    protected IBlockState _block() {
         return valueBlock;
     }
 

@@ -13,14 +13,8 @@ import static net.minecraft.init.Blocks.*;
 import static rtg.config.rtg.ConfigRTG.allowTreesToGenerateOnSand;
 
 public class WorldGenTreeRTGSavanna extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
-
     private int type;
     private boolean sand;
-
     public WorldGenTreeRTGSavanna(int t) {
         this(t, true);
     }
@@ -28,6 +22,10 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator {
     public WorldGenTreeRTGSavanna(int t, boolean s) {
         type = t;
         sand = true;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

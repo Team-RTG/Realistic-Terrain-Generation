@@ -14,9 +14,8 @@ import rtg.config.rtg.ConfigRTG;
 import java.util.Random;
 
 public class MapGenRavineRTG extends MapGenRavine {
-    private float[] field_75046_d = new float[1024];
     private static final String __OBFID = "CL_00000390";
-
+    private float[] field_75046_d = new float[1024];
     private boolean enableRavines;
     private int ravineFrequency;
 

@@ -34,7 +34,7 @@ public class BiomeConfigEBXL {
     public static BiomeConfig biomeConfigEBXLWoodlands;
 
     public static BiomeConfig[] getBiomeConfigs() {
-        BiomeConfig[] biomeConfigs = new BiomeConfig[]{
+        BiomeConfig[] biomeConfigs = new BiomeConfig[] {
                 biomeConfigEBXLAlpine,
                 biomeConfigEBXLAutumnWoods,
                 biomeConfigEBXLBirchForest,

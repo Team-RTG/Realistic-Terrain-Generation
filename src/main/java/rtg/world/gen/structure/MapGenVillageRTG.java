@@ -25,16 +25,6 @@ public class MapGenVillageRTG extends MapGenVillage {
     private int field_82665_g;
     private int field_82666_h;
 
-    public MapGenVillageRTG() {
-        int minDistanceVillages = ConfigRTG.minDistanceVillages;
-        int maxDistanceVillages = ConfigRTG.maxDistanceVillages;
-
-        minDistanceVillages = (minDistanceVillages > maxDistanceVillages) ? maxDistanceVillages : minDistanceVillages;
-
-        this.field_82665_g = maxDistanceVillages;
-        this.field_82666_h = minDistanceVillages;
-    }
-
     public MapGenVillageRTG(Map par1Map) {
         this();
         Iterator iterator = par1Map.entrySet().iterator();
@@ -48,6 +38,16 @@ public class MapGenVillageRTG extends MapGenVillage {
                 this.field_82665_g = MathHelper.parseIntWithDefaultAndMax((String) entry.getValue(), this.field_82665_g, this.field_82666_h + 1);
             }
         }
+    }
+
+    public MapGenVillageRTG() {
+        int minDistanceVillages = ConfigRTG.minDistanceVillages;
+        int maxDistanceVillages = ConfigRTG.maxDistanceVillages;
+
+        minDistanceVillages = (minDistanceVillages > maxDistanceVillages) ? maxDistanceVillages : minDistanceVillages;
+
+        this.field_82665_g = maxDistanceVillages;
+        this.field_82666_h = minDistanceVillages;
     }
 
     @Override
@@ -153,13 +153,6 @@ public class MapGenVillageRTG extends MapGenVillage {
             this.hasMoreThanTwoComponents = l > 2;
         }
 
-        /**
-         * currently only defined for Villages, returns true if Village has more than 2 non-road components
-         */
-        public boolean isSizeableStructure() {
-            return this.hasMoreThanTwoComponents;
-        }
-
         public void writeToNBT(NBTTagCompound p_143022_1_) {
             super.writeToNBT(p_143022_1_);
             p_143022_1_.setBoolean("Valid", this.hasMoreThanTwoComponents);
@@ -168,6 +161,13 @@ public class MapGenVillageRTG extends MapGenVillage {
         public void readFromNBT(NBTTagCompound p_143017_1_) {
             super.readFromNBT(p_143017_1_);
             this.hasMoreThanTwoComponents = p_143017_1_.getBoolean("Valid");
+        }
+
+        /**
+         * currently only defined for Villages, returns true if Village has more than 2 non-road components
+         */
+        public boolean isSizeableStructure() {
+            return this.hasMoreThanTwoComponents;
         }
     }
 }

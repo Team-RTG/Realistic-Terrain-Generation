@@ -13,11 +13,6 @@ import static net.minecraft.init.Blocks.stone;
 import static net.minecraft.util.math.MathHelper.*;
 
 public class WorldGenMinableRTG extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
-
     private Block field_150519_a;
     /**
      * The number of blocks to generate.
@@ -25,7 +20,6 @@ public class WorldGenMinableRTG extends WorldGenerator {
     private int numberOfBlocks;
     private Block field_150518_c;
     private int mineableBlockMeta;
-
     public WorldGenMinableRTG(Block p_i45459_1_, int p_i45459_2_) {
         this(p_i45459_1_, p_i45459_2_, stone);
     }
@@ -39,6 +33,10 @@ public class WorldGenMinableRTG extends WorldGenerator {
     public WorldGenMinableRTG(Block block, int meta, int number, Block target) {
         this(block, number, target);
         this.mineableBlockMeta = meta;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World p_76484_1_, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_) {

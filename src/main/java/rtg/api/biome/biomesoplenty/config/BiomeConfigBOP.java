@@ -67,7 +67,7 @@ public class BiomeConfigBOP {
     public static BiomeConfig biomeConfigBOPXericShrubland;
 
     public static BiomeConfig[] getBiomeConfigs() {
-        BiomeConfig[] biomeConfigs = new BiomeConfig[]{
+        BiomeConfig[] biomeConfigs = new BiomeConfig[] {
                 biomeConfigBOPAlps,
                 biomeConfigBOPBambooForest,
                 biomeConfigBOPBayou,

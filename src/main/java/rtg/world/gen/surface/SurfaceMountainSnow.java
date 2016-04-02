@@ -7,8 +7,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
-import rtg.util.noise.CellNoise;
 import rtg.util.math.CliffCalculator;
+import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 
 import java.util.Random;
@@ -26,13 +26,6 @@ public class SurfaceMountainSnow extends SurfaceBase {
     private float iStrength = 50f;
     private float cCliff = 1.5f;
 
-    public SurfaceMountainSnow(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff) {
-        super(config, top, fill);
-        beach = genBeach;
-        beachBlock = genBeachBlock;
-        min = minCliff;
-    }
-
     public SurfaceMountainSnow(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float snowCliff, float snowHeight, float snowStrength, float clayCliff) {
         this(config, top, fill, genBeach, genBeachBlock, minCliff);
 
@@ -43,6 +36,13 @@ public class SurfaceMountainSnow extends SurfaceBase {
         iHeight = snowHeight;
         iStrength = snowStrength;
         cCliff = clayCliff;
+    }
+
+    public SurfaceMountainSnow(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff) {
+        super(config, top, fill);
+        beach = genBeach;
+        beachBlock = genBeachBlock;
+        min = minCliff;
     }
 
     @Override

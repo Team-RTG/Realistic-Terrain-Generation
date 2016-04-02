@@ -52,6 +52,19 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
      */
     private int minDistanceBetweenScatteredFeatures;
 
+    public MapGenScatteredFeatureRTG(Map p_i2061_1_) {
+        this();
+        Iterator iterator = p_i2061_1_.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Entry entry = (Entry) iterator.next();
+
+            if (entry.getKey().equals("distance")) {
+                this.maxDistanceBetweenScatteredFeatures = MathHelper.parseIntWithDefaultAndMax((String) entry.getValue(), this.maxDistanceBetweenScatteredFeatures, this.minDistanceBetweenScatteredFeatures + 1);
+            }
+        }
+    }
+
     public MapGenScatteredFeatureRTG() {
         int minDistance = ConfigRTG.minDistanceScatteredFeatures;
         int maxDistance = ConfigRTG.maxDistanceScatteredFeatures;
@@ -65,19 +78,6 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
         this.maxDistanceBetweenScatteredFeatures = maxDistance;
         this.minDistanceBetweenScatteredFeatures = minDistance;
         this.scatteredFeatureSpawnList.add(new BiomeGenBase.SpawnListEntry(EntityWitch.class, 1, 1, 1));
-    }
-
-    public MapGenScatteredFeatureRTG(Map p_i2061_1_) {
-        this();
-        Iterator iterator = p_i2061_1_.entrySet().iterator();
-
-        while (iterator.hasNext()) {
-            Entry entry = (Entry) iterator.next();
-
-            if (entry.getKey().equals("distance")) {
-                this.maxDistanceBetweenScatteredFeatures = MathHelper.parseIntWithDefaultAndMax((String) entry.getValue(), this.maxDistanceBetweenScatteredFeatures, this.minDistanceBetweenScatteredFeatures + 1);
-            }
-        }
     }
 
     @Override
@@ -141,6 +141,62 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
         return new MapGenScatteredFeatureRTG.Start(this.worldObj, this.rand, p_75049_1_, p_75049_2_);
     }
 
+    /**
+     * returns possible spawns for scattered features
+     */
+    @Override
+    public List getScatteredFeatureSpawnList() {
+        return this.scatteredFeatureSpawnList;
+    }
+
+    private static boolean canSpawnDesertTemple(BiomeGenBase b) {
+        boolean canSpawn = false;
+
+        //TODO: This may be a forge bug, but that doesnt work.
+        //if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.DRY) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SANDY)) {
+        if (b instanceof RealisticBiomeVanillaDesert || b instanceof RealisticBiomeVanillaDesertHills || b instanceof RealisticBiomeVanillaDesertM) {
+            canSpawn = true;
+        }
+
+        return canSpawn;
+    }
+
+    private static boolean canSpawnJungleTemple(BiomeGenBase b) {
+        boolean canSpawn = false;
+
+        //TODO: This may be a forge bug, but that doesnt work.
+        //if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.JUNGLE)) {
+        if (b instanceof RealisticBiomeVanillaJungle || b instanceof RealisticBiomeVanillaJungleEdge || b instanceof RealisticBiomeVanillaJungleEdgeM || b instanceof RealisticBiomeVanillaJungleHills || b instanceof RealisticBiomeVanillaJungleM) {
+            canSpawn = true;
+        }
+
+        return canSpawn;
+    }
+
+    private static boolean canSpawnWitchHut(BiomeGenBase b) {
+        boolean canSpawn = false;
+
+        //TODO: This may be a forge bug, but that doesnt work.
+        //if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SWAMP)) {
+        if (b instanceof RealisticBiomeVanillaSwampland || b instanceof RealisticBiomeVanillaSwamplandM) {
+            canSpawn = true;
+        }
+
+        return canSpawn;
+    }
+
+    private static boolean canSpawnIgloo(BiomeGenBase b) {
+        boolean canSpawn = false;
+
+        //TODO: This may be a forge bug, but that doesnt work.
+        //if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SNOWY) && !BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.MOUNTAIN)) {
+        if (b instanceof RealisticBiomeVanillaIcePlains || b instanceof RealisticBiomeVanillaColdTaiga) {
+            canSpawn = true;
+        }
+
+        return canSpawn;
+    }
+
     @Override
     public boolean func_175795_b(BlockPos pos) {
         StructureStart structurestart = this.func_175797_c(pos);
@@ -150,14 +206,6 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
         } else {
             return false;
         }
-    }
-
-    /**
-     * returns possible spawns for scattered features
-     */
-    @Override
-    public List getScatteredFeatureSpawnList() {
-        return this.scatteredFeatureSpawnList;
     }
 
     public static class Start extends MapGenScatteredFeature.Start {
@@ -202,53 +250,5 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
 
             this.updateBoundingBox();
         }
-    }
-
-    private static boolean canSpawnDesertTemple(BiomeGenBase b) {
-        boolean canSpawn = false;
-
-        //TODO: This may be a forge bug, but that doesnt work.
-        //if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.DRY) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SANDY)) {
-        if(b instanceof RealisticBiomeVanillaDesert || b instanceof RealisticBiomeVanillaDesertHills || b instanceof RealisticBiomeVanillaDesertM) {
-            canSpawn = true;
-        }
-
-        return canSpawn;
-    }
-
-    private static boolean canSpawnJungleTemple(BiomeGenBase b) {
-        boolean canSpawn = false;
-
-        //TODO: This may be a forge bug, but that doesnt work.
-        //if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.JUNGLE)) {
-        if (b instanceof RealisticBiomeVanillaJungle || b instanceof RealisticBiomeVanillaJungleEdge || b instanceof RealisticBiomeVanillaJungleEdgeM || b instanceof RealisticBiomeVanillaJungleHills || b instanceof RealisticBiomeVanillaJungleM) {
-            canSpawn = true;
-        }
-
-        return canSpawn;
-    }
-
-    private static boolean canSpawnWitchHut(BiomeGenBase b) {
-        boolean canSpawn = false;
-
-        //TODO: This may be a forge bug, but that doesnt work.
-        //if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SWAMP)) {
-        if ( b instanceof RealisticBiomeVanillaSwampland || b instanceof RealisticBiomeVanillaSwamplandM) {
-            canSpawn = true;
-        }
-
-        return canSpawn;
-    }
-
-    private static boolean canSpawnIgloo(BiomeGenBase b) {
-        boolean canSpawn = false;
-
-        //TODO: This may be a forge bug, but that doesnt work.
-        //if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SNOWY) && !BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.MOUNTAIN)) {
-        if ( b instanceof RealisticBiomeVanillaIcePlains || b instanceof RealisticBiomeVanillaColdTaiga) {
-            canSpawn = true;
-        }
-
-        return canSpawn;
     }
 }

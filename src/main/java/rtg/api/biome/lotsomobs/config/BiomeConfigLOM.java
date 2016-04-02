@@ -9,7 +9,7 @@ public class BiomeConfigLOM {
     public static BiomeConfig biomeConfigLOMTropicalBeach;
 
     public static BiomeConfig[] getBiomeConfigs() {
-        BiomeConfig[] biomeConfigs = new BiomeConfig[]{
+        BiomeConfig[] biomeConfigs = new BiomeConfig[] {
                 biomeConfigLOMAntartica,
                 biomeConfigLOMTropicalBeach
         };

@@ -13,11 +13,11 @@ import static net.minecraft.init.Blocks.*;
 import static net.minecraft.init.Blocks.log;
 
 public class WorldGenTreeRTGWillow extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+    public WorldGenTreeRTGWillow() {
     }
 
-    public WorldGenTreeRTGWillow() {
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {
@@ -99,18 +99,8 @@ public class WorldGenTreeRTGWillow extends WorldGenerator {
         }
     }
 
-    private void createVine(World world, Random rand, int x, int y, int z) {
-        int r = rand.nextInt(3) + 5;
-        for (int i = -1; i > -r; i--) {
-            if (!world.isAirBlock(new BlockPos(x, y + i, z))) {
-                break;
-            }
-            world.setBlockState(new BlockPos(x, y + i, z), leaves.getStateFromMeta(6), 0);
-        }
-    }
-
     private void createTrunk(World world, Random rand, int x, int y, int z) {
-        int[] pos = new int[]{0, 0, 1, 0, 0, 1, -1, 0, 0, -1};
+        int[] pos = new int[] {0, 0, 1, 0, 0, 1, -1, 0, 0, -1};
         int sh;
         for (int t = 0; t < 5; t++) {
             sh = rand.nextInt(3) + y;
@@ -118,6 +108,16 @@ public class WorldGenTreeRTGWillow extends WorldGenerator {
                 world.setBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), log.getStateFromMeta(12), 0);
                 sh--;
             }
+        }
+    }
+
+    private void createVine(World world, Random rand, int x, int y, int z) {
+        int r = rand.nextInt(3) + 5;
+        for (int i = -1; i > -r; i--) {
+            if (!world.isAirBlock(new BlockPos(x, y + i, z))) {
+                break;
+            }
+            world.setBlockState(new BlockPos(x, y + i, z), leaves.getStateFromMeta(6), 0);
         }
     }
 }

@@ -7,39 +7,35 @@ import rtg.world.gen.terrain.JitterEffect;
 import rtg.world.gen.terrain.MountainsWithPassesEffect;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainBOPMountain extends TerrainBase
-{
-	private float width;
-	private float strength;
-	private float terrainHeight;
+public class TerrainBOPMountain extends TerrainBase {
+    private float width;
+    private float strength;
+    private float terrainHeight;
     private float spikeWidth = 30;
     private float spikeHeight = 40;
     private HeightEffect heightEffect;
 
-	public TerrainBOPMountain(float mountainWidth, float mountainStrength)
-	{
-		this(mountainWidth, mountainStrength, 90f);
-	}
+    public TerrainBOPMountain(float mountainWidth, float mountainStrength) {
+        this(mountainWidth, mountainStrength, 90f);
+    }
 
-	public TerrainBOPMountain(float mountainWidth, float mountainStrength, float height)
-	{
-		width = mountainWidth;
-		strength = mountainStrength;
-		terrainHeight = height;
+    public TerrainBOPMountain(float mountainWidth, float mountainStrength, float height) {
+        width = mountainWidth;
+        strength = mountainStrength;
+        terrainHeight = height;
         MountainsWithPassesEffect mountainEffect = new MountainsWithPassesEffect();
         mountainEffect.mountainHeight = strength;
         mountainEffect.mountainWavelength = width;
         mountainEffect.spikeHeight = this.spikeHeight;
         mountainEffect.spikeWavelength = this.spikeWidth;
 
-        heightEffect = new JitterEffect(7f,10f, mountainEffect);
-        heightEffect = new JitterEffect(3f,6f,heightEffect);
+        heightEffect = new JitterEffect(7f, 10f, mountainEffect);
+        heightEffect = new JitterEffect(3f, 6f, heightEffect);
 
-	}
+    }
 
-	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-	{
-        return riverized(heightEffect.added(simplex, cell, x, y)+terrainHeight,river);
+    @Override
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        return riverized(heightEffect.added(simplex, cell, x, y) + terrainHeight, river);
     }
 }

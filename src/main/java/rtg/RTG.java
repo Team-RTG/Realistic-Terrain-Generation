@@ -15,6 +15,7 @@ import rtg.event.EventManagerRTG;
 import rtg.proxy.CommonProxy;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
+import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 
 import static rtg.reference.ModInfo.*;
 
-@Mod(modid = MOD_ID, name = MOD_NAME, version = MOD_VERSION, dependencies = "required-after:Forge@[" + FORGE_DEP + ",)", acceptableRemoteVersions = "*")
+@Mod(modid = MOD_ID, name = MOD_NAME, version = MOD_VERSION, dependencies = "required-after:Forge@[" + FORGE_DEP + ",)" + MOD_DEPS, acceptableRemoteVersions = "*")
 public class RTG {
 
     @Instance(MOD_ID)
@@ -37,6 +38,7 @@ public class RTG {
     public static CommonProxy proxy;
 
     private ConfigManager configManager = new ConfigManager();
+    private ArrayList<Runnable> serverCloseActions = new ArrayList<Runnable>();
 
     public ConfigManager configManager(int dimension) {
         return configManager;
@@ -76,6 +78,7 @@ public class RTG {
 
         RealisticBiomeVanillaBase.addBiomes();
 
+        RealisticBiomeACBase.addBiomes();
         RealisticBiomeBOPBase.addBiomes();
         //RealisticBiomeEBXLBase.addBiomes();
         //RealisticBiomeHLBase.addBiomes();
@@ -86,8 +89,7 @@ public class RTG {
 //        RealisticBiomeCCBase.addBiomes();
 //        RealisticBiomeGCBase.addBiomes();
 //        RealisticBiomeVAMPBase.addBiomes();
-//        RealisticBiomeACBase.addBiomes();
-//        RealisticBiomeRWBase.addBiomes();
+//        RealisticBiomeARWBase.addBiomes();
 //        RealisticBiomeLOMBase.addBiomes();
 //        RealisticBiomeTOFUBase.addBiomes();
 //        RealisticBiomeFNBase.addBiomes();
@@ -118,8 +120,6 @@ public class RTG {
     public void runOnServerClose(Runnable action) {
         serverCloseActions.add(action);
     }
-
-    private ArrayList<Runnable> serverCloseActions = new ArrayList<Runnable>();
 
     @EventHandler
     public void fmlLifeCycle(FMLServerStoppedEvent event) {

@@ -346,13 +346,13 @@ public class BiomeConfigManager {
         BiomeConfigTC.biomeConfigTCTaintedLand = new BiomeConfigTCTaintedLand();
     }
 
+    public static void initBiomeConfigsVAMP() {
+        BiomeConfigVAMP.biomeConfigVAMPVampireForest = new BiomeConfigVAMPVampireForest();
+    }
+
     public static void initBiomeConfigsLOM() {
         BiomeConfigLOM.biomeConfigLOMAntartica = new BiomeConfigLOMAntartica();
         BiomeConfigLOM.biomeConfigLOMTropicalBeach = new BiomeConfigLOMTropicalBeach();
-    }
-
-    public static void initBiomeConfigsVAMP() {
-        BiomeConfigVAMP.biomeConfigVAMPVampireForest = new BiomeConfigVAMPVampireForest();
     }
 
     public static void initBiomeConfigsTOFU() {

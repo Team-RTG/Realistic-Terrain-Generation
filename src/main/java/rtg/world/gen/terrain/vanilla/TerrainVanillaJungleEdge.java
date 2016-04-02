@@ -5,19 +5,17 @@ import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.terrain.GroundEffect;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainVanillaJungleEdge extends TerrainBase
-{
+public class TerrainVanillaJungleEdge extends TerrainBase {
 
-    public TerrainVanillaJungleEdge()
-    {
+    private GroundEffect groundEffect = new GroundEffect(4f);
+
+    public TerrainVanillaJungleEdge() {
 
     }
 
     @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-    {
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
 
-        return riverized(65f + groundEffect.added(simplex, cell, x, y),river);
+        return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
     }
-    private GroundEffect groundEffect = new GroundEffect(4f);
 }

@@ -13,16 +13,10 @@ import static net.minecraft.block.material.Material.air;
 import static net.minecraft.init.Blocks.*;
 
 public class WorldGenTreeRTGPineBig extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
-
     private int startHeight;
     private int treeSize;
     private int metadataLog;
     private int metadataLeaves;
-
     public WorldGenTreeRTGPineBig(int start, int s) {
         this(start, s, 0, 0);
     }
@@ -32,6 +26,10 @@ public class WorldGenTreeRTGPineBig extends WorldGenerator {
         treeSize = s;
         metadataLog = log;
         metadataLeaves = leaves;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {
@@ -122,6 +120,14 @@ public class WorldGenTreeRTGPineBig extends WorldGenerator {
         return true;
     }
 
+    public void buildTrunk(World world, Random rand, int x, int y, int z) {
+        int h = (int) ceil(startHeight / 4f);
+        h = h + rand.nextInt(h * 2);
+        for (int i = -1; i < h; i++) {
+            world.setBlockState(new BlockPos(x, y + i, z), log.getStateFromMeta(metadataLog + 12), 0);
+        }
+    }
+
     public void buildBranch(World world, Random rand, int x, int y, int z, int dX, int dZ, int logLength, int leaveSize) {
         if (logLength == 3 && abs(dX) + abs(dZ) == 2) {
             logLength--;
@@ -146,14 +152,6 @@ public class WorldGenTreeRTGPineBig extends WorldGenerator {
         Block b = world.getBlockState(new BlockPos(x, y, z)).getBlock();
         if (b.getMaterial(b.getDefaultState()) == air) {
             world.setBlockState(new BlockPos(x, y, z), leaves.getStateFromMeta(metadataLeaves), 0);
-        }
-    }
-
-    public void buildTrunk(World world, Random rand, int x, int y, int z) {
-        int h = (int) ceil(startHeight / 4f);
-        h = h + rand.nextInt(h * 2);
-        for (int i = -1; i < h; i++) {
-            world.setBlockState(new BlockPos(x, y + i, z), log.getStateFromMeta(metadataLog + 12), 0);
         }
     }
 }

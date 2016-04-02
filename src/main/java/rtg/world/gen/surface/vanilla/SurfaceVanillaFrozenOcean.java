@@ -16,11 +16,11 @@ import java.util.Random;
 
 public class SurfaceVanillaFrozenOcean extends SurfaceBase {
 
+    private final int sandMetadata = 0;
     private IBlockState mixBlock;
     private float width;
     private float height;
     private float mixCheck;
-    private final int sandMetadata = 0;
 
     public SurfaceVanillaFrozenOcean(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mix, float mixWidth, float mixHeight) {
 

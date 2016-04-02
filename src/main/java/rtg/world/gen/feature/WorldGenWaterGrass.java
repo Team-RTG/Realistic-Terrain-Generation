@@ -11,14 +11,9 @@ import java.util.Random;
 import static net.minecraft.init.Blocks.*;
 
 public class WorldGenWaterGrass extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
     private Block block;
     private int metadata;
     private int minHeight;
-
     public WorldGenWaterGrass(Block b, int m) {
         this(b, m, 10);
     }
@@ -27,6 +22,10 @@ public class WorldGenWaterGrass extends WorldGenerator {
         block = b;
         metadata = m;
         minHeight = 10;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

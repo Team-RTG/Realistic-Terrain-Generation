@@ -31,10 +31,6 @@ public class ConfigManager {
 
     private ConfigRTG configRTG = new ConfigRTG();
 
-    public ConfigRTG rtg() {
-        return configRTG;
-    }
-
     public static void init(String configpath) {
 
         rtgConfigFile = new File(configpath + "rtg.cfg");
@@ -74,5 +70,9 @@ public class ConfigManager {
         //ConfigRW.init(rwConfigFile);
         //ConfigTOFU.init(tofuConfigFile);
         //ConfigFN.init(fnConfigFile);
+    }
+
+    public ConfigRTG rtg() {
+        return configRTG;
     }
 }

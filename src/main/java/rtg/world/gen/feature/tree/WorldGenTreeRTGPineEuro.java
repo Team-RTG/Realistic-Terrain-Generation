@@ -12,11 +12,11 @@ import static net.minecraft.init.Blocks.*;
 import static net.minecraft.init.Blocks.log;
 
 public class WorldGenTreeRTGPineEuro extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+    public WorldGenTreeRTGPineEuro() {
     }
 
-    public WorldGenTreeRTGPineEuro() {
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {
@@ -72,7 +72,7 @@ public class WorldGenTreeRTGPineEuro extends WorldGenerator {
     }
 
     private void createTrunk(World world, Random rand, int x, int y, int z) {
-        int[] pos = new int[]{0, 0, 1, 0, 0, 1, -1, 0, 0, -1};
+        int[] pos = new int[] {0, 0, 1, 0, 0, 1, -1, 0, 0, -1};
         int sh;
         for (int t = 0; t < 5; t++) {
             sh = rand.nextInt(3) + y;

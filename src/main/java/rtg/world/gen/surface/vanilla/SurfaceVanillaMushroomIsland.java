@@ -7,8 +7,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
-import rtg.util.noise.CellNoise;
 import rtg.util.math.CliffCalculator;
+import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 
@@ -24,13 +24,6 @@ public class SurfaceVanillaMushroomIsland extends SurfaceBase {
     private float sStrength = 65f;
     private float cCliff = 1.5f;
 
-    public SurfaceVanillaMushroomIsland(BiomeConfig config, IBlockState top, IBlockState fill, int beachHeight, IBlockState genBeachBlock, float minCliff) {
-        super(config, top, fill);
-        beach = beachHeight;
-        beachBlock = genBeachBlock;
-        min = minCliff;
-    }
-
     public SurfaceVanillaMushroomIsland(BiomeConfig config, IBlockState top, IBlockState fill, int beachHeight, IBlockState genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff) {
         this(config, top, fill, beachHeight, genBeachBlock, minCliff);
 
@@ -38,6 +31,13 @@ public class SurfaceVanillaMushroomIsland extends SurfaceBase {
         sHeight = stoneHeight;
         sStrength = stoneStrength;
         cCliff = clayCliff;
+    }
+
+    public SurfaceVanillaMushroomIsland(BiomeConfig config, IBlockState top, IBlockState fill, int beachHeight, IBlockState genBeachBlock, float minCliff) {
+        super(config, top, fill);
+        beach = beachHeight;
+        beachBlock = genBeachBlock;
+        min = minCliff;
     }
 
     @Override

@@ -64,7 +64,7 @@ public class BiomeConfigVanilla {
     public static BiomeConfig biomeConfigVanillaMesaPlateauM;
 
     public static BiomeConfig[] getBiomeConfigs() {
-        BiomeConfig[] biomeConfigs = new BiomeConfig[]{
+        BiomeConfig[] biomeConfigs = new BiomeConfig[] {
                 biomeConfigVanillaBeach,
                 biomeConfigVanillaBirchForest,
                 biomeConfigVanillaBirchForestHills,

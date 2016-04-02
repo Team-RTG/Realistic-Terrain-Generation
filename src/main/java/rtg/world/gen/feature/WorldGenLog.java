@@ -13,17 +13,11 @@ import static net.minecraft.block.material.Material.*;
 import static net.minecraft.init.Blocks.log2;
 
 public class WorldGenLog extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-
-
     private int logMeta;
     private int leavesMeta;
     private Block logBlock;
     private Block leavesBlock;
     private int logLength;
-
     public WorldGenLog(int meta, int length, boolean leaves) {
         logBlock = meta > 4 ? log2 : Blocks.log;
         leavesBlock = meta > 4 ? Blocks.leaves2 : Blocks.leaves;
@@ -46,6 +40,10 @@ public class WorldGenLog extends WorldGenerator {
         logMeta = metaLog;
         leavesMeta = metaLeaves;
         logLength = length;
+    }
+
+    public boolean generate(World world, Random rand, BlockPos blockPos) {
+        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {

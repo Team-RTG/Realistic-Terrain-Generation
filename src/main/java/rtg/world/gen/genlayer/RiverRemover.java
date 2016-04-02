@@ -20,7 +20,7 @@ public class RiverRemover {
             }
             GenLayer withoutRivers = new GenLayerNoRivers(100L, riverMixParent);
             GenLayerVoronoiZoom genlayervoronoizoom = new GenLayerVoronoiZoom(10L, withoutRivers);
-            return new GenLayer[]{withoutRivers, genlayervoronoizoom, withoutRivers};
+            return new GenLayer[] {withoutRivers, genlayervoronoizoom, withoutRivers};
         } catch (Exception e) {
             return vanilla;
         }

@@ -14,7 +14,7 @@ public class BiomeConfigRW {
     public static BiomeConfig biomeConfigRWSpookyForest;
 
     public static BiomeConfig[] getBiomeConfigs() {
-        BiomeConfig[] biomeConfigs = new BiomeConfig[]{
+        BiomeConfig[] biomeConfigs = new BiomeConfig[] {
                 biomeConfigRWBotanicalGarden,
                 biomeConfigRWMurica,
                 biomeConfigRWMountainOfMadness,

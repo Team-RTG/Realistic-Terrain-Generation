@@ -14,9 +14,8 @@ import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForestHills;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanillaBase {
-    public static IBlockState topBlock = Biomes.birchForestHills.topBlock;
-    public static IBlockState fillerBlock = Biomes.birchForestHills.fillerBlock;
 
+    public final IBlockState mixBlock = Blocks.dirt.getStateFromMeta(2);
     public RealisticBiomeVanillaBirchForestHills() {
         super(
                 Biomes.birchForestHills,
@@ -57,7 +56,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigProperty.DECORATION_LOG));
+        this.addDeco(decoFallenTree);
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 120;

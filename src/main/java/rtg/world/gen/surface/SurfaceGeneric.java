@@ -1,21 +1,20 @@
 package rtg.world.gen.surface;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import java.util.Random;
 
 public class SurfaceGeneric extends SurfaceBase {
 
-    public SurfaceGeneric(BiomeConfig config, IBlockState top, IBlockState filler) {
-        super(config, top, filler);
+    public SurfaceGeneric(RealisticBiomeBase biome) {
+        super(biome);
     }
 
     @Override
@@ -30,9 +29,9 @@ public class SurfaceGeneric extends SurfaceBase {
                 depth++;
 
                 if (depth == 0 && k > 61) {
-                    primer.setBlockState(x, k, y, topBlock);
+                    primer.setBlockState(x, k, y, biome.FILL_BLOCK.get());
                 } else if (depth < 4) {
-                    primer.setBlockState(x, k, y, fillerBlock);
+                    primer.setBlockState(x, k, y, biome.TOP_BLOCK.get());
                 }
             }
         }

@@ -8,12 +8,11 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.relauncher.Side;
 import rtg.api.event.RTGEvent;
-import rtg.api.util.ISupportedMod;
 import rtg.debug.DebugHandler;
 import rtg.event.EventManagerRTG;
 import rtg.proxy.CommonProxy;
 import rtg.api.util.RealisticBiomePresenceTester;
-import rtg.util.SupportedMod;
+import rtg.api.util.SupportedMod;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 

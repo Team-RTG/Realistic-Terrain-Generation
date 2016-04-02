@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -8,6 +7,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenBush;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.api.config.BiomeConfigHelper;
 import rtg.api.config.ConfigProperty;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
@@ -24,17 +24,15 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase {
 
-    public final ConfigProperty.PropertyBlock TOP_BLOCK =
+    public final ConfigProperty.PropertyBool DECORATION_LOG;
 
     public RealisticBiomeVanillaExtremeHills() {
 
-        super(
-                Biomes.extremeHills,
-                Biomes.river
-        );
+        super(Biomes.extremeHills, Biomes.river);
         this.generatesEmeralds = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
+        this.DECORATION_LOG = config.addBool(BiomeConfigHelper.DECORATION_LOG).setDefault(true);
     }
 
     @Override
@@ -84,7 +82,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
             }
         }
 
-        if (this.config._boolean(DECORATION_LOG)) {
+        if (DECORATION_LOG.get()) {
 
             if (l > 0f && rand.nextInt(6) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

@@ -42,48 +42,48 @@ public class ConfigProperty {
         this.type = type;
     }
 
-    public ConfigProperty setIntRange(int minValue, int maxValue) {
+    protected ConfigProperty setIntRange(int minValue, int maxValue) {
         this.minValue = minValue;
         this.maxValue = maxValue;
         return this;
     }
 
-    public ConfigProperty set(int valueInt) {
+    protected ConfigProperty set(int valueInt) {
         this.valueInt = valueInt;
         return this;
     }
 
-    public ConfigProperty set(boolean valueBoolean) {
+    protected ConfigProperty set(boolean valueBoolean) {
         this.valueBoolean = valueBoolean;
         return this;
     }
 
-    public ConfigProperty set(String valueString) {
+    protected ConfigProperty set(String valueString) {
         this.valueString = valueString;
         return this;
     }
 
-    public ConfigProperty set(IBlockState valueBlock) {
+    protected ConfigProperty set(IBlockState valueBlock) {
         this.valueBlock = valueBlock;
         return this;
     }
 
-    public ConfigProperty setDefault(int defaultInt) {
+    protected ConfigProperty setDefault(int defaultInt) {
         this.defaultInt = defaultInt;
         return this;
     }
 
-    public ConfigProperty setDefault(boolean defaultBoolean) {
+    protected ConfigProperty setDefault(boolean defaultBoolean) {
         this.defaultBoolean = defaultBoolean;
         return this;
     }
 
-    public ConfigProperty setDefault(String defaultString) {
+    protected ConfigProperty setDefault(String defaultString) {
         this.defaultString = defaultString;
         return this;
     }
 
-    public ConfigProperty setDefault(IBlockState defaultBlock) {
+    protected ConfigProperty setDefault(IBlockState defaultBlock) {
         this.defaultBlock = defaultBlock;
         return this;
     }
@@ -218,6 +218,16 @@ public class ConfigProperty {
         public boolean getDefault() {
             return _defaultBool();
         }
+
+        public ConfigProperty.PropertyBool set(boolean value) {
+            super.set(value);
+            return this;
+        }
+
+        public ConfigProperty.PropertyBool setDefault(boolean defaultValue) {
+            super.setDefault(defaultValue);
+            return this;
+        }
     }
 
     public static class PropertyInt extends ConfigProperty{
@@ -232,6 +242,21 @@ public class ConfigProperty {
 
         public int getDefault() {
             return _defaultInt();
+        }
+
+        public ConfigProperty.PropertyInt set(int value) {
+            super.set(value);
+            return this;
+        }
+
+        public ConfigProperty.PropertyInt setDefault(int defaultValue) {
+            super.setDefault(defaultValue);
+            return this;
+        }
+
+        public ConfigProperty.PropertyInt setRange(int minValue, int maxValue) {
+            super.setIntRange(minValue, maxValue);
+            return this;
         }
     }
 
@@ -248,6 +273,16 @@ public class ConfigProperty {
         public String getDefault() {
             return _defaultString();
         }
+
+        public ConfigProperty.PropertyString set(String value) {
+            super.set(value);
+            return this;
+        }
+
+        public ConfigProperty.PropertyString setDefault(String defaultValue) {
+            super.setDefault(defaultValue);
+            return this;
+        }
     }
 
     public static class PropertyBlock extends ConfigProperty{
@@ -262,6 +297,16 @@ public class ConfigProperty {
 
         public IBlockState getDefault() {
             return _defaultBlock();
+        }
+
+        public ConfigProperty.PropertyBlock set(IBlockState value) {
+            super.set(value);
+            return this;
+        }
+
+        public ConfigProperty.PropertyBlock setDefault(IBlockState defaultValue) {
+            super.setDefault(defaultValue);
+            return this;
         }
     }
 }

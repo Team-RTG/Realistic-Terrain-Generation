@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.util.SupportedMod;
+import rtg.util.mods.Mods;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public abstract class RealisticBiomeVanillaBase extends RealisticBiomeBase {
@@ -68,7 +68,7 @@ public abstract class RealisticBiomeVanillaBase extends RealisticBiomeBase {
     public static RealisticBiomeBase vanillaTaigaM;
 
     public RealisticBiomeVanillaBase(BiomeGenBase b, BiomeGenBase riverbiome) {
-        super(SupportedMod.VANILLA, b, riverbiome);
+        super(Mods.VANILLA, b, riverbiome);
 
         this.lavaSurfaceLakeChance = 0;
     }

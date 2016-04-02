@@ -2,7 +2,7 @@ package rtg.config;
 
 import rtg.api.config.ConfigProperty;
 import rtg.api.config.ModConfig;
-import rtg.util.SupportedMod;
+import rtg.util.mods.Mods;
 
 public class ConfigRTG extends ModConfig {
     public final ConfigProperty.PropertyInt FLAT_BEDROCK_LAYERS = addInt("Number of flat bedrock layers", "bedrock");
@@ -22,13 +22,13 @@ public class ConfigRTG extends ModConfig {
     public final ConfigProperty.PropertyBool DEBUG_LOGGING = addBool("DEBUG_LOGGING", "debug");
     public final ConfigProperty.PropertyBool GENERATE_DUNGEONS = addBool("GENERATE_DUNGEONS", "dungeons");
     public final ConfigProperty.PropertyBool ENABLE_SURFACE_WATER_LAKES = addBool("ENABLE_SURFACE_WATER_LAKES", "surface lakes");
-    public final ConfigProperty.PropertyBool SURFACE_WATER_LAKE_CHANCE = addBool("SURFACE_WATER_LAKE_CHANCE", "surface lakes");
+    public final ConfigProperty.PropertyInt SURFACE_WATER_LAKE_CHANCE = addInt("SURFACE_WATER_LAKE_CHANCE", "surface lakes");
     public final ConfigProperty.PropertyBool ENABLE_SURFACE_LAVA_LAKES = addBool("ENABLE_SURFACE_LAVA_LAKES", "surface lakes");
-    public final ConfigProperty.PropertyBool SURFACE_LAVA_LAKE_CHANCE = addBool("SURFACE_LAVA_LAKE_CHANCE", "surface lakes");
+    public final ConfigProperty.PropertyInt SURFACE_LAVA_LAKE_CHANCE = addInt("SURFACE_LAVA_LAKE_CHANCE", "surface lakes");
     public final ConfigProperty.PropertyBool ENABLE_UNDERGROUND_WATER_LAKES = addBool("ENABLE_UNDERGROUND_WATER_LAKES", "underground lakes");
-    public final ConfigProperty.PropertyBool UNDERGROUND_WATER_LAKE_CHANCE = addBool("UNDERGROUND_WATER_LAKE_CHANCE", "underground lakes");
+    public final ConfigProperty.PropertyInt UNDERGROUND_WATER_LAKE_CHANCE = addInt("UNDERGROUND_WATER_LAKE_CHANCE", "underground lakes");
     public final ConfigProperty.PropertyBool ENABLE_UNDERGROUND_LAVA_LAKES = addBool("ENABLE_UNDERGROUND_LAVA_LAKES", "underground lakes");
-    public final ConfigProperty.PropertyBool UNDERGROUND_LAVA_LAKE_CHANCE = addBool("UNDERGROUND_LAVA_LAKE_CHANCE", "underground lakes");
+    public final ConfigProperty.PropertyInt UNDERGROUND_LAVA_LAKE_CHANCE = addInt("UNDERGROUND_LAVA_LAKE_CHANCE", "underground lakes");
     public final ConfigProperty.PropertyBool GENERATE_MINESHAFTS = addBool("GENERATE_MINESHAFTS", "mineshafts");
     public final ConfigProperty.PropertyBool GENERATE_ORE_COAL = addBool("GENERATE_ORE_COAL", "ores");
     public final ConfigProperty.PropertyBool GENERATE_ORE_IRON = addBool("GENERATE_ORE_IRON", "ores");
@@ -58,7 +58,7 @@ public class ConfigRTG extends ModConfig {
     public final ConfigProperty.PropertyBool ALLOW_SHRUBS_UNDERGROUND = addBool("ALLOW_SHRUBS_UNDERGROUND", "trees");
 
     public ConfigRTG() {
-        super(SupportedMod.RTG);
+        super(Mods.RTG);
     }
 
     @Override

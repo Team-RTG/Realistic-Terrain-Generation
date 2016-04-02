@@ -11,8 +11,8 @@ import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import rtg.RTG;
-import rtg.config.ConfigRTG;
 import rtg.api.util.debug.Logger;
+import rtg.util.mods.Mods;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -31,7 +31,7 @@ public class EventManagerRTG {
 
     public EventManagerRTG() {
         MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
-        if (ConfigRTG.enableVillageModifications)
+        if (Mods.RTG.config.ENABLE_VILLAGE_MODIFICATIONS.get())
             MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
         MapGenStructureIO.registerStructure(StructureOceanMonumentRTG.StartMonument.class, "rtg_MapGenOceanMonumentRTG");
     }
@@ -46,18 +46,18 @@ public class EventManagerRTG {
             event.setNewGen(new MapGenScatteredFeatureRTG());
         } else if (event.getType() == InitMapGenEvent.EventType.VILLAGE) {
 
-            if (ConfigRTG.enableVillageModifications) {
+            if (Mods.RTG.config.ENABLE_VILLAGE_MODIFICATIONS.get()) {
                 event.setNewGen(new MapGenVillageRTG());
             }
         } else if (event.getType() == InitMapGenEvent.EventType.CAVE) {
 
-            if (ConfigRTG.enableCaveModifications) {
+            if (Mods.RTG.config.ENABLE_CAVE_MODIFICATIONS.get()) {
 
                 event.setNewGen(new MapGenCavesRTG());
             }
         } else if (event.getType() == InitMapGenEvent.EventType.RAVINE) {
 
-            if (ConfigRTG.enableRavineModifications) {
+            if (Mods.RTG.config.ENABLE_RAVINE_MODIFICATIONS.get()) {
 
                 event.setNewGen(new MapGenRavineRTG());
             }
@@ -85,7 +85,7 @@ public class EventManagerRTG {
 
             case COAL:
 
-                if (!ConfigRTG.generateOreCoal) {
+                if (!Mods.RTG.config.GENERATE_ORE_COAL.get()) {
                     event.setResult(Result.DENY);
                 }
 
@@ -93,7 +93,7 @@ public class EventManagerRTG {
 
             case IRON:
 
-                if (!ConfigRTG.generateOreIron) {
+                if (!Mods.RTG.config.GENERATE_ORE_IRON.get()) {
                     event.setResult(Result.DENY);
                 }
 
@@ -101,7 +101,7 @@ public class EventManagerRTG {
 
             case GOLD:
 
-                if (!ConfigRTG.generateOreGold) {
+                if (!Mods.RTG.config.GENERATE_ORE_GOLD.get()) {
                     event.setResult(Result.DENY);
                 }
 
@@ -109,7 +109,7 @@ public class EventManagerRTG {
 
             case DIAMOND:
 
-                if (!ConfigRTG.generateOreDiamond) {
+                if (!Mods.RTG.config.GENERATE_ORE_DIAMOND.get()) {
                     event.setResult(Result.DENY);
                 }
 
@@ -117,7 +117,7 @@ public class EventManagerRTG {
 
             case REDSTONE:
 
-                if (!ConfigRTG.generateOreRedstone) {
+                if (!Mods.RTG.config.GENERATE_ORE_REDSTONE.get()) {
                     event.setResult(Result.DENY);
                 }
 
@@ -125,7 +125,7 @@ public class EventManagerRTG {
 
             case LAPIS:
 
-                if (!ConfigRTG.generateOreLapis) {
+                if (!Mods.RTG.config.GENERATE_ORE_LAPIS.get()) {
                     event.setResult(Result.DENY);
                 }
 
@@ -170,7 +170,7 @@ public class EventManagerRTG {
     @SubscribeEvent
     public void onGetVillageBlockID(BiomeEvent.GetVillageBlockID event) {
         RealisticBiomeBase biomeReal;
-        if (!ConfigRTG.ENABLE_VILLAGE_MODIFICATIONS._bool()) {
+        if (!Mods.RTG.config.ENABLE_VILLAGE_MODIFICATIONS.get()) {
             return;
         }
         if (event.getBiome() instanceof RealisticBiomeBase) {

@@ -26,6 +26,7 @@ public class DecoBase {
     public boolean checkRiver;
     public float minRiver; // Minimum river value required to generate.
     public float maxRiver; // Maximum river value required to generate.
+    private static String name;
 
     public DecoBase() {
         this.allowed = true;
@@ -33,6 +34,16 @@ public class DecoBase {
         this.checkRiver = false;
         this.minRiver = -2f;
         this.maxRiver = 2f;
+        //TODO: add name to all decos so this can go
+        this.name = getClass().getSimpleName();
+    }
+
+    /**
+     * Name is a unique identified used for things like configs
+     * @return
+     */
+    public static String getName() {
+        return name;
     }
 
     /**

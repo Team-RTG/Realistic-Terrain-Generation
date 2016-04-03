@@ -1,18 +1,18 @@
 package rtg.world.biome.deco;
 
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LILYPAD;
+
+import java.util.Random;
+
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenVines;
 import net.minecraft.world.gen.feature.WorldGenWaterlily;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-
-import java.util.Random;
-
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LILYPAD;
+import rtg.world.gen.feature.WorldGenVinesRTG;
 
 /**
  * @author WhichOnesPink
@@ -49,7 +49,7 @@ public class DecoJungleLilypadVines extends DecoBase {
                     }
 
                     for (int h44 = 0; h44 < 100; h44++) {
-                        WorldGenerator worldgenerator4 = new WorldGenVines();
+                        WorldGenerator worldgenerator4 = new WorldGenVinesRTG();
                         worldgenerator4.generate(world, rand, new BlockPos(j6, z52, k10));
                     }
                 }

@@ -1,5 +1,7 @@
 package rtg.world.gen.feature;
 
+import java.util.Random;
+
 import net.minecraft.block.BlockVine;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -8,14 +10,18 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import java.util.Random;
-
-public class WorldGenVines extends WorldGenerator {
-    public boolean generate(World worldIn, Random rand, BlockPos position) {
-        for (; position.getY() < 128; position = position.up()) {
-            if (worldIn.isAirBlock(position)) {
-                for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL.facings()) {
-                    if (Blocks.vine.canPlaceBlockOnSide(worldIn, position, enumfacing)) {
+public class WorldGenVinesRTG extends WorldGenerator
+{
+    public boolean generate(World worldIn, Random rand, BlockPos position)
+    {
+        for (; position.getY() < 128; position = position.up())
+        {
+            if (worldIn.isAirBlock(position))
+            {
+                for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL.facings())
+                {
+                    if (Blocks.vine.canPlaceBlockOnSide(worldIn, position, enumfacing))
+                    {
                         IBlockState iblockstate = Blocks.vine.getDefaultState()
                                 .withProperty(BlockVine.NORTH, enumfacing == EnumFacing.SOUTH)
                                 .withProperty(BlockVine.EAST, enumfacing == EnumFacing.WEST)
@@ -25,7 +31,9 @@ public class WorldGenVines extends WorldGenerator {
                         break;
                     }
                 }
-            } else {
+            }
+            else
+            {
                 position = position.add(rand.nextInt(4) - rand.nextInt(4), 0, rand.nextInt(4) - rand.nextInt(4));
             }
         }

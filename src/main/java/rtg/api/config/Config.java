@@ -1,5 +1,7 @@
 package rtg.api.config;
 
+import net.minecraftforge.common.config.Configuration;
+
 import java.util.ArrayList;
 
 /**
@@ -10,63 +12,78 @@ import java.util.ArrayList;
  */
 public class Config {
 
-    public ArrayList<ConfigProperty> properties;
+    public static final String NEW_LINE =Configuration.NEW_LINE;
+
+    private ArrayList<ConfigProperty> properties;
 
     public Config() {
         this.properties = new ArrayList<>();
     }
 
     public ConfigProperty getProp(String id) {
-        for (int i = 0; i < this.properties.size(); i++) {
-
-            if (this.properties.get(i).getID().contentEquals(id)) {
-                return this.properties.get(i);
+        for (ConfigProperty property : this.properties) {
+            if (property.getID().contentEquals(id)) {
+                return property;
             }
         }
         return null;
     }
 
+    private void addProperty(ConfigProperty property) {
+        for (ConfigProperty property1 : this.properties) {
+            if ((property1.getID().equalsIgnoreCase(property.getID())) && (property1.getSection().equalsIgnoreCase(property.getSection()))) {
+                return;
+            }
+        }
+        this.addProperty(property);
+    }
+
     public ConfigProperty.PropertyBool addBool(ConfigProperty.PropertyBool property) {
-        this.properties.add(property);
+        this.addProperty(property);
         return property;
     }
 
     public ConfigProperty.PropertyInt addInt(ConfigProperty.PropertyInt property) {
-        this.properties.add(property);
+        this.addProperty(property);
         return property;
     }
 
     public ConfigProperty.PropertyString addString(ConfigProperty.PropertyString property) {
-        this.properties.add(property);
+        this.addProperty(property);
         return property;
     }
 
     public ConfigProperty.PropertyBlock addBlock(ConfigProperty.PropertyBlock property) {
-        this.properties.add(property);
+        this.addProperty(property);
         return property;
     }
 
     public ConfigProperty.PropertyBool addBool(String id, String section) {
         ConfigProperty.PropertyBool property = new ConfigProperty.PropertyBool(id, section);
-        this.properties.add(property);
+        this.addProperty(property);
         return property;
     }
 
     public ConfigProperty.PropertyInt addInt(String id, String section) {
         ConfigProperty.PropertyInt property = new ConfigProperty.PropertyInt(id, section);
-        this.properties.add(property);
+        this.addProperty(property);
         return property;
     }
 
     public ConfigProperty.PropertyString addString(String id, String section) {
         ConfigProperty.PropertyString property = new ConfigProperty.PropertyString(id, section);
-        this.properties.add(property);
+        this.addProperty(property);
         return property;
     }
 
     public ConfigProperty.PropertyBlock addBlock(String id, String section) {
         ConfigProperty.PropertyBlock property = new ConfigProperty.PropertyBlock(id, section);
-        this.properties.add(property);
+        this.addProperty(property);
+        return property;
+    }
+    public ConfigProperty.PropertyStrings addStrings(String id, String section) {
+        ConfigProperty.PropertyStrings property = new ConfigProperty.PropertyStrings(id, section);
+        this.addProperty(property);
         return property;
     }
 

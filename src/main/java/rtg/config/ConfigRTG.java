@@ -1,5 +1,6 @@
 package rtg.config;
 
+import net.minecraft.init.Blocks;
 import rtg.api.config.ConfigProperty;
 import rtg.api.config.ModConfig;
 import rtg.util.mods.Mods;
@@ -7,55 +8,55 @@ import rtg.util.mods.Mods;
 public class ConfigRTG extends ModConfig {
     public final ConfigProperty.PropertyInt FLAT_BEDROCK_LAYERS = addInt("Number of flat bedrock layers", "bedrock");
     public final ConfigProperty.PropertyBlock BEDROCK_BLOCK = addBlock("BEDROCK_BLOCK", "bedrock");
-    public final ConfigProperty.PropertyBool ENABLE_RTG_BIOME_DECORATIONS = addBool("ENABLE_RTG_BIOME_DECORATIONS", "biomes");
-    public final ConfigProperty.PropertyBool ENABLE_RTG_SURFACES = addBool("ENABLE_RTG_SURFACES", "biomes");
-    public final ConfigProperty.PropertyInt PATCH_BIOME_ID = addInt("PATCH_BIOME_ID", "biomes");
-    public final ConfigProperty.PropertyBool USE_BOP_LAYOUT = addBool("USE_BOP_LAYOUT", "biomes");
-    public final ConfigProperty.PropertyBool ENABLE_COUBLESTONE_BOULDERS = addBool("ENABLE_COUBLESTONE_BOULDERS", "boulders");
-    public final ConfigProperty.PropertyInt COBBLESTONE_BOULDER_CHANCE = addInt("COBBLESTONE_BOULDER_CHANCE", "boulders");
-    public final ConfigProperty.PropertyBool ENABLE_CAVE_MODIFICATIONS = addBool("ENABLE_CAVE_MODIFICATIONS", "caves");
-    public final ConfigProperty.PropertyBool ENABLE_CAVES = addBool("ENABLE_CAVES", "caves");
-    public final ConfigProperty.PropertyInt CAVE_DENSITY = addInt("CAVE_DENSITY", "caves");
-    public final ConfigProperty.PropertyInt CAVE_FREQUENCY = addInt("CAVE_FREQUENCY", "caves");
-    public final ConfigProperty.PropertyInt DUNE_HEIGHT = addInt("DUNE_HEIGHT", "dunes");
-    public final ConfigProperty.PropertyBool SHOW_DEBUG_INFO = addBool("SHOW_DEBUG_INFO", "debug");
-    public final ConfigProperty.PropertyBool DEBUG_LOGGING = addBool("DEBUG_LOGGING", "debug");
-    public final ConfigProperty.PropertyBool GENERATE_DUNGEONS = addBool("GENERATE_DUNGEONS", "dungeons");
-    public final ConfigProperty.PropertyBool ENABLE_SURFACE_WATER_LAKES = addBool("ENABLE_SURFACE_WATER_LAKES", "surface lakes");
-    public final ConfigProperty.PropertyInt SURFACE_WATER_LAKE_CHANCE = addInt("SURFACE_WATER_LAKE_CHANCE", "surface lakes");
-    public final ConfigProperty.PropertyBool ENABLE_SURFACE_LAVA_LAKES = addBool("ENABLE_SURFACE_LAVA_LAKES", "surface lakes");
-    public final ConfigProperty.PropertyInt SURFACE_LAVA_LAKE_CHANCE = addInt("SURFACE_LAVA_LAKE_CHANCE", "surface lakes");
-    public final ConfigProperty.PropertyBool ENABLE_UNDERGROUND_WATER_LAKES = addBool("ENABLE_UNDERGROUND_WATER_LAKES", "underground lakes");
-    public final ConfigProperty.PropertyInt UNDERGROUND_WATER_LAKE_CHANCE = addInt("UNDERGROUND_WATER_LAKE_CHANCE", "underground lakes");
-    public final ConfigProperty.PropertyBool ENABLE_UNDERGROUND_LAVA_LAKES = addBool("ENABLE_UNDERGROUND_LAVA_LAKES", "underground lakes");
-    public final ConfigProperty.PropertyInt UNDERGROUND_LAVA_LAKE_CHANCE = addInt("UNDERGROUND_LAVA_LAKE_CHANCE", "underground lakes");
-    public final ConfigProperty.PropertyBool GENERATE_MINESHAFTS = addBool("GENERATE_MINESHAFTS", "mineshafts");
-    public final ConfigProperty.PropertyBool GENERATE_ORE_COAL = addBool("GENERATE_ORE_COAL", "ores");
-    public final ConfigProperty.PropertyBool GENERATE_ORE_IRON = addBool("GENERATE_ORE_IRON", "ores");
-    public final ConfigProperty.PropertyBool GENERATE_ORE_GOLD = addBool("GENERATE_ORE_GOLD", "ores");
-    public final ConfigProperty.PropertyBool GENERATE_ORE_REDSTONE = addBool("GENERATE_ORE_REDSTONE", "ores");
-    public final ConfigProperty.PropertyBool GENERATE_ORE_LAPIS = addBool("GENERATE_ORE_LAPIS", "ores");
-    public final ConfigProperty.PropertyBool GENERATE_ORE_DIAMOND = addBool("GENERATE_ORE_DIAMOND", "ores");
-    public final ConfigProperty.PropertyBool GENERATE_ORE_EMERALD = addBool("GENERATE_ORE_EMERALD", "ores");
-    public final ConfigProperty.PropertyBool ENABLE_RAVINE_MODIFICATIONS = addBool("ENABLE_RAVINE_MODIFICATIONS", "ravines");
-    public final ConfigProperty.PropertyBool ENABLE_RAVINES = addBool("ENABLE_RAVINES", "ravines");
-    public final ConfigProperty.PropertyInt RAVINE_FREQUENCY = addInt("RAVINE_FREQUENCY", "ravines");
-    public final ConfigProperty.PropertyBool GENERATE_SCATTERED_FEATURES = addBool("GENERATE_SCATTERED_FEATURES", "scattered features");
-    public final ConfigProperty.PropertyInt MIN_DISTANCE_SCATTERED_FEATURES = addInt("MIN_DISTANCE_SCATTERED_FEATURES", "scattered features");
-    public final ConfigProperty.PropertyInt MAX_DISTANCE_SCATTERED_FEATURES = addInt("MAX_DISTANCE_SCATTERED_FEATURES", "scattered features");
-    public final ConfigProperty.PropertyBool GENERATE_OCEAN_MONUMENTS = addBool("GENERATE_OCEAN_MONUMENTS", "ocean monuments");
-    public final ConfigProperty.PropertyBool GENERATE_STRONGHOLDS = addBool("GENERATE_STRONGHOLDS", "strongholds");
-    public final ConfigProperty.PropertyBool GENERATE_VILLAGES = addBool("GENERATE_VILLAGES", "villages");
-    public final ConfigProperty.PropertyBool ENABLE_VILLAGE_MODIFICATIONS = addBool("ENABLE_VILLAGE_MODIFICATIONS", "villages");
-    public final ConfigProperty.PropertyInt VILLAGE_SIZE = addInt("VILLAGE_SIZE", "villages");
-    public final ConfigProperty.PropertyInt MIN_DISTANCE_VILLAGES = addInt("MIN_DISTANCE_VILLAGES", "villages");
-    public final ConfigProperty.PropertyInt MAX_DISTANCE_VILLAGES = addInt("MAX_DISTANCE_VILLAGES", "villages");
-    public final ConfigProperty.PropertyBool VILLAGE_CRASH_FIX = addBool("VILLAGE_CRASH_FIX", "villages");
-    public final ConfigProperty.PropertyBool ENABLE_SNOW_LAYERS = addBool("ENABLE_SNOW_LAYERS", "snow");
-    public final ConfigProperty.PropertyBlock SHADOW_STONE_BLOCK = addBlock("SHADOW_STONE_BLOCK", "terrain shadowing");
-    public final ConfigProperty.PropertyBlock SHADOW_DESERT_BLOCK = addBlock("SHADOW_DESERT_BLOCK", "terrain shadowing");
-    public final ConfigProperty.PropertyBool ALLOW_TREES_ON_SAND = addBool("ALLOW_TREES_ON_SAND", "trees");
-    public final ConfigProperty.PropertyBool ALLOW_SHRUBS_UNDERGROUND = addBool("ALLOW_SHRUBS_UNDERGROUND", "trees");
+    public final ConfigProperty.PropertyBool ENABLE_RTG_BIOME_DECORATIONS = addBool("Enable RTG Biome Decorations", "biomes");
+    public final ConfigProperty.PropertyBool ENABLE_RTG_SURFACES = addBool("Enable RTG Biome Surfaces", "biomes");
+    public final ConfigProperty.PropertyInt PATCH_BIOME_ID = addInt("Patch Biome ID", "biomes");
+    public final ConfigProperty.PropertyBool USE_BOP_LAYOUT = addBool("Use BOP biome layout if avaliable", "biomes");
+    public final ConfigProperty.PropertyBool ENABLE_COUBLESTONE_BOULDERS = addBool("Enable Cobblestone Boulders", "boulders");
+    public final ConfigProperty.PropertyInt COBBLESTONE_BOULDER_CHANCE = addInt("1/x chance that Cobblestone Boulders will generate if given the opportunity to do so during world gen", "boulders");
+    public final ConfigProperty.PropertyBool ENABLE_CAVE_MODIFICATIONS = addBool("Enable Cave Modifications", "caves");
+    public final ConfigProperty.PropertyBool ENABLE_CAVES = addBool("Enable Caves", "caves");
+    public final ConfigProperty.PropertyInt CAVE_DENSITY = addInt("Cave Density", "caves");
+    public final ConfigProperty.PropertyInt CAVE_FREQUENCY = addInt("Cave Frequency", "caves");
+    public final ConfigProperty.PropertyInt DUNE_HEIGHT = addInt("Height of Dunes", "dunes");
+    public final ConfigProperty.PropertyBool SHOW_DEBUG_INFO = addBool("Show Debug Info in F3 Screen", "debug");
+    public final ConfigProperty.PropertyBool DEBUG_LOGGING = addBool("Enable Debug logging", "debug");
+    public final ConfigProperty.PropertyBool GENERATE_DUNGEONS = addBool("Generate Dungeons", "dungeons");
+    public final ConfigProperty.PropertyBool ENABLE_SURFACE_WATER_LAKES = addBool("Enable Water Surface Lakes", "surface lakes");
+    public final ConfigProperty.PropertyInt SURFACE_WATER_LAKE_CHANCE = addInt("1/x chance that Water Surface Lakes will generate if given the opportunity to do so during world gen", "surface lakes");
+    public final ConfigProperty.PropertyBool ENABLE_SURFACE_LAVA_LAKES = addBool("Enable Lava Surface Lakes", "surface lakes");
+    public final ConfigProperty.PropertyInt SURFACE_LAVA_LAKE_CHANCE = addInt("1/x chance that Lava Surface Lakes will generate if given the opportunity to do so during world gen", "surface lakes");
+    public final ConfigProperty.PropertyBool ENABLE_UNDERGROUND_WATER_LAKES = addBool("Enable Water Underground Lakes", "underground lakes");
+    public final ConfigProperty.PropertyInt UNDERGROUND_WATER_LAKE_CHANCE = addInt("1/x chance that Water Underground Lakes will generate if given the opportunity to do so during world gen", "underground lakes");
+    public final ConfigProperty.PropertyBool ENABLE_UNDERGROUND_LAVA_LAKES = addBool("Enable Lava Underground Lakes", "underground lakes");
+    public final ConfigProperty.PropertyInt UNDERGROUND_LAVA_LAKE_CHANCE = addInt("1/x chance that Lava Underground Lakes will generate if given the opportunity to do so during world gen", "underground lakes");
+    public final ConfigProperty.PropertyBool GENERATE_MINESHAFTS = addBool("Generate Mineshafts", "mineshafts");
+    public final ConfigProperty.PropertyBool GENERATE_ORE_COAL = addBool("Generate Coal Ore", "ores");
+    public final ConfigProperty.PropertyBool GENERATE_ORE_IRON = addBool("Generate Iron Ore", "ores");
+    public final ConfigProperty.PropertyBool GENERATE_ORE_GOLD = addBool("Generate Gold Ore", "ores");
+    public final ConfigProperty.PropertyBool GENERATE_ORE_REDSTONE = addBool("Generate Redstone Ore", "ores");
+    public final ConfigProperty.PropertyBool GENERATE_ORE_LAPIS = addBool("Generate Lapis Lazuli Ore", "ores");
+    public final ConfigProperty.PropertyBool GENERATE_ORE_DIAMOND = addBool("Generate Diamond Ore", "ores");
+    public final ConfigProperty.PropertyBool GENERATE_ORE_EMERALD = addBool("Generate Emerald Ore", "ores");
+    public final ConfigProperty.PropertyBool ENABLE_RAVINE_MODIFICATIONS = addBool("Enable Ravine Modifications", "ravines");
+    public final ConfigProperty.PropertyBool ENABLE_RAVINES = addBool("Enable Ravines", "ravines");
+    public final ConfigProperty.PropertyInt RAVINE_FREQUENCY = addInt("Ravine Frequency", "ravines");
+    public final ConfigProperty.PropertyBool GENERATE_SCATTERED_FEATURES = addBool("Generate Scattered Features", "scattered features");
+    public final ConfigProperty.PropertyInt MIN_DISTANCE_SCATTERED_FEATURES = addInt("Minimum distance between scattered features", "scattered features");
+    public final ConfigProperty.PropertyInt MAX_DISTANCE_SCATTERED_FEATURES = addInt("Maximum distance between scattered features", "scattered features");
+    public final ConfigProperty.PropertyBool GENERATE_OCEAN_MONUMENTS = addBool("Generate Ocean Monuments", "ocean monuments");
+    public final ConfigProperty.PropertyBool GENERATE_STRONGHOLDS = addBool("Generate Strongholds", "strongholds");
+    public final ConfigProperty.PropertyBool GENERATE_VILLAGES = addBool("Generate Villages", "villages");
+    public final ConfigProperty.PropertyBool ENABLE_VILLAGE_MODIFICATIONS = addBool("Enable village modifications", "villages");
+    public final ConfigProperty.PropertyInt VILLAGE_SIZE = addInt("Size of villages", "villages");
+    public final ConfigProperty.PropertyInt MIN_DISTANCE_VILLAGES = addInt("Minimum distance between villages", "villages");
+    public final ConfigProperty.PropertyInt MAX_DISTANCE_VILLAGES = addInt("Maximum distance between villages", "villages");
+    public final ConfigProperty.PropertyBool VILLAGE_CRASH_FIX = addBool("Village Crash Fix", "villages");
+    public final ConfigProperty.PropertyBool ENABLE_SNOW_LAYERS = addBool("Enable Snow Layers", "snow");
+    public final ConfigProperty.PropertyBlock SHADOW_STONE_BLOCK = addBlock("Stone shadow block", "terrain shadowing");
+    public final ConfigProperty.PropertyBlock SHADOW_DESERT_BLOCK = addBlock("Desert shadow block", "terrain shadowing");
+    public final ConfigProperty.PropertyBool ALLOW_TREES_ON_SAND = addBool("Allow Trees to Generate on Sand", "trees");
+    public final ConfigProperty.PropertyBool ALLOW_SHRUBS_UNDERGROUND = addBool("Allow Shrubs to Generate Below Surface", "trees");
 
     public ConfigRTG() {
         super(Mods.RTG);
@@ -63,7 +64,32 @@ public class ConfigRTG extends ModConfig {
 
     @Override
     public void initDefaults() {
-        FLAT_BEDROCK_LAYERS.setDefault(0);
-        FLAT_BEDROCK_LAYERS.setComment("0 = Normal bedrock (rough pattern); 1-5 = Number of flat bedrock layers to generate");
+        FLAT_BEDROCK_LAYERS.setDefault(0).setComment("0 = Normal bedrock (rough pattern); 1-5 = Number of flat bedrock layers to generate");
+        BEDROCK_BLOCK.setDefault(Blocks.bedrock.getDefaultState()).setComment("The block to use for the bottom of the Overworld");
+        ENABLE_RTG_BIOME_DECORATIONS.setDefault(true).setComment("If TRUE, uses the individual biome settings in the biome config files. If FALSE, disables all RTG decorations and uses vanilla decorations instead.");
+        ENABLE_RTG_SURFACES.setDefault(true).setComment("If TRUE, uses the individual biome settings in the biome config files. If FALSE, disables all RTG surfaces and uses vanilla surfaces instead.");
+        PATCH_BIOME_ID.setDefault(-1).setRange(-1, 255).setComment("If RTG tries to generate an unsupported biome or a biome that has an ID conflict, it will generate this biome instead." +
+                "If set to -1, RTG will crash instead of generating the patch biome. You might want to do this if you're making a mod pack" +
+                "and want to make sure all biomes are generating correctly.");
+        USE_BOP_LAYOUT.setDefault(true).setComment("If FALSE, RTG will use vanilla biome layout, even if BOP is installed. This means no BOP biomes.");
+        ENABLE_COUBLESTONE_BOULDERS.setDefault(true);
+        COBBLESTONE_BOULDER_CHANCE.setDefault(1).setComment("1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
+        ENABLE_CAVE_MODIFICATIONS.setDefault(true).setComment("Must be set to TRUE for the other cave settings to have any effect." +
+                "If FALSE, RTG won't interfere with cave generation at all.");
+        ENABLE_CAVES.setDefault(true);
+        CAVE_DENSITY.setDefault(8).setRange(1, 40).setComment("This setting controls the size of caves." + NEW_LINE +
+                "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)");
+        CAVE_FREQUENCY.setDefault(16).setRange(1, 40).setComment("This setting controls the number of caves that generate." + NEW_LINE +
+                "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)");
+        DUNE_HEIGHT.setDefault(4).setRange(1, 12).setComment("This setting controls the height of both sand dunes and snow dunes.");
+        SHOW_DEBUG_INFO.setDefault(false);
+        DEBUG_LOGGING.setDefault(false).setComment("WARNING: This should only be enabled if you know what you're doing.");
+        GENERATE_DUNGEONS.setDefault(true);
+        ENABLE_SURFACE_WATER_LAKES.setDefault(true);
+        SURFACE_WATER_LAKE_CHANCE.setDefault(10).setRange(1, 100).setComment("1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
+        ENABLE_SURFACE_LAVA_LAKES.setDefault(true);
+        SURFACE_LAVA_LAKE_CHANCE.setDefault(10).setRange(1, 100).setComment("1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
+        ENABLE_UNDERGROUND_WATER_LAKES.setDefault(true);
+        UNDERGROUND_WATER_LAKE_CHANCE.setDefault(10).setRange(1, 100).setComment("1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
     }
 }

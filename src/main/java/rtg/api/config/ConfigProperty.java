@@ -184,6 +184,8 @@ public abstract class ConfigProperty<T> {
 
     public static class PropertyString extends ConfigProperty<String> {
 
+        private String[] options = new String[0];
+
         public PropertyString(String id, String section) {
             super(id, section);
         }
@@ -210,6 +212,7 @@ public abstract class ConfigProperty<T> {
          */
         public Property toForgeProp() throws RTGException {
             Property prop = new Property(id, value, Property.Type.STRING).setDefaultValue(defaultVal);
+            if(options.length > 0) prop.setValidValues(options);
             prop.set(value);
             return prop;
         }
@@ -231,6 +234,14 @@ public abstract class ConfigProperty<T> {
                                 " into property " + id + " of type STRING",
                         "ConfigProperty.fromForgeProp()");
             }
+        }
+
+        public String[] getOptions() {
+            return options;
+        }
+
+        public void setOptions(String[] options) {
+            this.options = options;
         }
     }
 

@@ -15,6 +15,9 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
                 Biomes.river
         );
         this.noLakes = true;
+
+        initProperties();
+        initDecos();
     }
 
     @Override
@@ -30,5 +33,17 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
                 return terrainMarsh(x, y, simplex, 62f);
             }
         };
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+
     }
 }

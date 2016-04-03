@@ -1,19 +1,21 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
+import static rtg.world.biome.deco.DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import static rtg.world.biome.deco.DecoTree.TreeType.VANILLA_OAK;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
-import rtg.world.biome.deco.*;
+import rtg.world.biome.deco.DecoCactus;
+import rtg.world.biome.deco.DecoDeadBush;
+import rtg.world.biome.deco.DecoReed;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaPlateauFM;
 import rtg.world.gen.terrain.TerrainBase;
-
-import static rtg.world.biome.deco.DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-import static rtg.world.biome.deco.DecoTree.TreeType.VANILLA_OAK;
 
 public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.mesaPlateau_F;
@@ -26,6 +28,42 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
         );
         this.noLakes = true;
 
+        initProperties();
+        initDecos();
+    }
+
+    @Override
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaMesaPlateauFM(this, 0);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            /**
+             * Values come in pairs per layer. First is how high to step up.
+             * 	Second is a value between 0 and 1, signifying when to step up.
+             */
+            private final float[] height = new float[] {18.5f, 0.4f};
+            private final float strength = 20f;
+            private final int heightLength = height.length;
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 100f, false);
+            }
+        };
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.chance = 10;
         addDeco(decoShrub);
@@ -55,28 +93,5 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
         decoTree.treeConditionNoise = 0f;
         decoTree.minY = 74;
         addDeco(decoTree);
-    }
-
-    @Override
-        protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMesaPlateauFM(this, 0);
-    }
-
-    @Override
-    protected TerrainBase initTerrain() {
-        return new TerrainBase() {
-            /**
-             * Values come in pairs per layer. First is how high to step up.
-             * 	Second is a value between 0 and 1, signifying when to step up.
-             */
-            private final float[] height = new float[] {18.5f, 0.4f};
-            private final float strength = 20f;
-            private final int heightLength = height.length;
-
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 100f, false);
-            }
-        };
     }
 }

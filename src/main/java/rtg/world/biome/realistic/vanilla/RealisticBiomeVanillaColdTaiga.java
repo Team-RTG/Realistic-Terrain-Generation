@@ -21,12 +21,34 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
                 Biomes.frozenRiver
         );
 
-        /**
-         * ##################################################
-         * # DECORATIONS (ORDER MATTERS)
-         * ##################################################
-         */
+        initProperties();
+        initDecos();
+    }
 
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaColdTaiga(this);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainFlatLakes(x, y, simplex, river, 13f, 66f);
+            }
+        };
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
         decoBoulder.chance = 16;
@@ -54,9 +76,9 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
         decoFallenTree.logConditionChance = 6;
         decoFallenTree.maxY = 100;
         decoFallenTree.logBlock = Blocks.log;
-        decoFallenTree.logMeta = (byte) 1;
+        decoFallenTree.logMeta = (byte)1;
         decoFallenTree.leavesBlock = Blocks.leaves;
-        decoFallenTree.leavesMeta = (byte) -1;
+        decoFallenTree.leavesMeta = (byte)-1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree);
@@ -86,20 +108,5 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
-    }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaColdTaiga(this);
-    }
-
-    @Override
-    protected TerrainBase initTerrain() {
-        return new TerrainBase() {
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainFlatLakes(x, y, simplex, river, 13f, 66f);
-            }
-        };
     }
 }

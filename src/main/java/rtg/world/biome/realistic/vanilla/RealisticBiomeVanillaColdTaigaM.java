@@ -26,12 +26,34 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
         );
         this.noLakes = true;
 
-        /**
-         * ##################################################
-         * # DECORATIONS (ORDER MATTERS)
-         * ##################################################
-         */
+        initProperties();
+        initDecos();
+    }
 
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaColdTaigaM(this);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 80f, 68f);
+            }
+        };
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
         decoBoulder.chance = 16;
@@ -59,12 +81,12 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
         decoFallenTree.logConditionChance = 6;
         decoFallenTree.maxY = 100;
         decoFallenTree.logBlock = Blocks.log;
-        decoFallenTree.logMeta = (byte) 1;
+        decoFallenTree.logMeta = (byte)1;
         decoFallenTree.leavesBlock = Blocks.leaves;
-        decoFallenTree.leavesMeta = (byte) -1;
+        decoFallenTree.leavesMeta = (byte)-1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config.DECORATION_LOG.get());
+        this.addDeco(decoFallenTree);
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 100;
@@ -91,20 +113,5 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
-    }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaColdTaigaM(this);
-    }
-
-    @Override
-    protected TerrainBase initTerrain() {
-        return new TerrainBase() {
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 80f, 68f);
-            }
-        };
     }
 }

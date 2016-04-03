@@ -20,6 +20,9 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;
+
+        initProperties();
+        initDecos();
     }
 
     @Override
@@ -35,5 +38,17 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
                 return terrainFlatLakes(x, y, simplex, river, 3f, 60f);
             }
         };
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+
     }
 }

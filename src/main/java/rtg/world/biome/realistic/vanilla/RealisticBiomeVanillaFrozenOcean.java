@@ -19,6 +19,9 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;
         this.noLakes = true;
+
+        initProperties();
+        initDecos();
     }
 
     @Override
@@ -34,5 +37,17 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
                 return terrainOcean(x, y, simplex, river, 50f);
             }
         };
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+
     }
 }

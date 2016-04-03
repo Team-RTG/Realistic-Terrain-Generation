@@ -2,26 +2,23 @@ package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenMegaJungle;
-import net.minecraft.world.gen.feature.WorldGenVines;
-import net.minecraft.world.gen.feature.WorldGenWaterlily;
-import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.util.math.RandomUtil;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
-import rtg.world.gen.feature.*;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.DecoFallenTree.LogCondition;
+import rtg.world.biome.deco.DecoFlowersRTG;
+import rtg.world.biome.deco.DecoGrass;
+import rtg.world.biome.deco.DecoJungleCacti;
+import rtg.world.biome.deco.DecoJungleGrassVines;
+import rtg.world.biome.deco.DecoJungleLilypadVines;
+import rtg.world.biome.deco.DecoTree;
+import rtg.world.biome.deco.DecoTree.TreeCondition;
+import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleHills;
 import rtg.world.gen.terrain.TerrainBase;
-
-import java.util.Random;
-
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.*;
 
 public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase {
 
@@ -33,6 +30,9 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
         );
         this.waterSurfaceLakeChance = 3;
         this.noLakes = true;
+
+        initProperties();
+        initDecos();
     }
 
     @Override
@@ -51,188 +51,106 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
     }
 
     @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
+    protected void initProperties()
+    {
 
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        //rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, baseBiome);
+    }
 
-        float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 5f + 0.8f;
-
-        if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), TREE)) {
-
-            for (int b33 = 0; b33 < 5; b33++) {
-                int j6 = chunkX + rand.nextInt(16) + 8;
-                int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeight(new BlockPos(j6, 1, k10)).getY();
-
-                if (z52 < 100 && rand.nextBoolean()) {
-                    WorldGenerator worldgenerator =
-                            rand.nextInt(3) != 0
-                                    ? new WorldGenMegaJungle(false, 10 + rand.nextInt(18), 20, Blocks.log.getStateFromMeta(3), Blocks.leaves.getStateFromMeta(3))
-                                    : new WorldGenTreeRTGMangrove(Blocks.log, 3, Blocks.leaves, 3, 10 + rand.nextInt(18), 3 + rand.nextInt(2), 13f, RandomUtil.getRandomInt(rand, 4, 5),
-                                    0.32f,
-                                    0.2f);
-                    worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
-                }
-
-                if (rand.nextInt(3) == 0) {
-
-                    int j61 = chunkX + rand.nextInt(16) + 8;
-                    int k101 = chunkY + rand.nextInt(16) + 8;
-                    int z521 = world.getHeight(new BlockPos(j61, 1, k101)).getY();
-
-                    WorldGenerator worldgenerator = new WorldGenTreeRTGPalmCustom((float) (10 + rand.nextInt(11)));
-                    worldgenerator.generate(world, rand, new BlockPos(j61, z521, k101));
-                }
-
-                if (rand.nextInt(3) == 0) {
-
-                    int j61 = chunkX + rand.nextInt(16) + 8;
-                    int k101 = chunkY + rand.nextInt(16) + 8;
-                    int z521 = world.getHeight(new BlockPos(j61, 1, k101)).getY();
-
-                    int megaHeight = (rand.nextInt(40) == 0) ? (40 + rand.nextInt(20)) : 20 + rand.nextInt(20);
-
-                    WorldGenerator worldgenerator = new WorldGenMegaJungle(false, megaHeight, 0, Blocks.log.getStateFromMeta(3), Blocks.leaves.getStateFromMeta(3));
-                    worldgenerator.generate(world, rand, new BlockPos(j61, z521, k101));
-                }
-
-
-            }
-
-            if (this.config.DECORATION_LOG.get()) {
-
-                if (l > 0f && rand.nextInt(3) == 0) {
-                    int x22 = chunkX + rand.nextInt(16) + 8;
-                    int z22 = chunkY + rand.nextInt(16) + 8;
-                    int y22 = world.getHeight(new BlockPos(x22, 1, z22)).getY();
-                    (new WorldGenLog(Blocks.log, 3, Blocks.leaves, -1, 4 + rand.nextInt(5))).generate(world, rand, new BlockPos(x22, y22, z22));
-                }
-            }
-        }
-
-        if (rand.nextInt(6) != 0) {
-            rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-        } else {
-            rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, baseBiome);
-        }
-
-        if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), LILYPAD)) {
-
-            for (int b33 = 0; b33 < 5; b33++) {
-                int j6 = chunkX + rand.nextInt(16) + 8;
-                int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeight(new BlockPos(j6, 1, k10)).getY();
-
-                for (int h44 = 0; h44 < 8; h44++) {
-
-                    if (z52 > 64) {
-
-                        WorldGenerator worldgenerator2 = new WorldGenWaterlily();
-                        worldgenerator2.generate(world, rand, new BlockPos(j6, z52, k10));
-                    }
-                }
-
-                for (int h44 = 0; h44 < 100; h44++) {
-                    WorldGenerator worldgenerator4 = new WorldGenVines();
-                    worldgenerator4.generate(world, rand, new BlockPos(j6, z52, k10));
-                }
-            }
-        }
-
-        if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), GRASS)) {
-
-            for (int l14 = 0; l14 < 16f * strength; l14++) {
-                int l19 = chunkX + rand.nextInt(16) + 8;
-                int k22 = rand.nextInt(128);
-                int j24 = chunkY + rand.nextInt(16) + 8;
-                int grassMeta;
-
-                if (rand.nextInt(8) == 0) {
-                    grassMeta = 0;
-                } else {
-                    grassMeta = RandomUtil.getRandomInt(rand, 1, 2);
-                }
-
-                (new WorldGenGrass(Blocks.tallgrass, grassMeta)).generate(world, rand, new BlockPos(l19, k22, j24));
-
-                for (int h44 = 0; h44 < 4 && k22 > 63; h44++) {
-                    WorldGenerator worldgenerator4 = new WorldGenVines();
-                    worldgenerator4.generate(world, rand, new BlockPos(l19, k22, j24));
-                }
-            }
-
-            for (int l14 = 0; l14 < 12f * strength; l14++) {
-                int l19 = chunkX + rand.nextInt(16) + 8;
-                int k22 = rand.nextInt(128);
-                int j24 = chunkY + rand.nextInt(16) + 8;
-
-                if (rand.nextInt(5) == 0) {
-                    (new WorldGenGrass(Blocks.double_plant, RandomUtil.getRandomInt(rand, 2, 3))).generate(world, rand, new BlockPos(l19, k22, j24));
-                }
-            }
-
-            for (int l14 = 0; l14 < 16f * strength; l14++) {
-                int l19 = chunkX + rand.nextInt(16) + 8;
-                int k22 = rand.nextInt(128);
-                int j24 = chunkY + rand.nextInt(16) + 8;
-                int grassMeta;
-
-                if (rand.nextInt(8) == 0) {
-                    grassMeta = 0;
-                } else {
-                    grassMeta = RandomUtil.getRandomInt(rand, 1, 2);
-                }
-
-                (new WorldGenGrass(Blocks.tallgrass, grassMeta)).generate(world, rand, new BlockPos(l19, k22, j24));
-
-                if (k22 > 63) {
-
-                    for (int h44 = 0; h44 < 8; h44++) {
-                        WorldGenerator worldgenerator4 = new WorldGenVines();
-                        worldgenerator4.generate(world, rand, new BlockPos(l19, k22, j24));
-                    }
-                }
-            }
-        }
-
-        if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), FLOWERS)) {
-
-            for (int f23 = 0; f23 < 2f * strength; f23++) {
-                int j15 = chunkX + rand.nextInt(16) + 8;
-                int j20 = chunkY + rand.nextInt(16) + 8;
-                int j17 = world.getHeight(new BlockPos(j15, 1, j20)).getY();
-
-                if (rand.nextInt(4) == 0) {
-
-                    (new WorldGenFlowersRTG(new int[] {5})).generate(world, rand, new BlockPos(j15, j17, j20));
-                }
-            }
-        }
-
-        if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), CACTUS)) {
-
-            for (int k18 = 0; k18 < 8f * strength; k18++) {
-                int k21 = chunkX + rand.nextInt(16) + 8;
-                int j23 = rand.nextInt(160);
-                int k24 = chunkY + rand.nextInt(16) + 8;
-
-                if (j23 < 120f) {
-                    (new WorldGenJungleCacti(false, rand.nextInt(7), (byte) 1)).generate(world, rand, new BlockPos(k21, j23, k24));
-                }
-            }
-        }
-
-        for (int l1 = 0; l1 < 2f * strength; ++l1) {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeight(new BlockPos(i1, 1, j1)).getY();
-
-            if (k1 < 95 && rand.nextInt(16) == 0) {
-                (new WorldGenBlob(Blocks.mossy_cobblestone, 0, rand)).generate(world, rand, new BlockPos(i1, k1, j1));
-            }
-        }
+    @Override
+    protected void initDecos()
+    {
+		// Blend of the WorldGenMegaJungle collection and some tall RTG Mangrove trees.
+		DecoTree megaJungleMangrove = new DecoTree();
+		megaJungleMangrove.loops = 3;
+		megaJungleMangrove.treeType = TreeType.MEGA_JUNGLE_MANGROVE;
+		megaJungleMangrove.treeCondition = TreeCondition.RANDOM_CHANCE;
+		megaJungleMangrove.treeConditionChance = 2;
+		megaJungleMangrove.maxY = 160;
+		this.addDeco(megaJungleMangrove);
+		
+		// Add some palm trees for variety.
+		DecoTree palmCustom = new DecoTree();
+		palmCustom.loops = 1;
+		palmCustom.treeType = TreeType.PALM_CUSTOM;
+		palmCustom.treeCondition = TreeCondition.RANDOM_CHANCE;
+		palmCustom.treeConditionChance = 3;
+		palmCustom.maxY = 160;
+		palmCustom.minSize = 10;
+		palmCustom.maxSize = 20;
+		this.addDeco(palmCustom);
+		
+		// Another pass of the WorldGenMegaJungle collection for extra jungleness.
+		DecoTree megaJungle = new DecoTree();
+		megaJungle.loops = 3;
+		megaJungle.treeType = TreeType.MEGA_JUNGLE;
+		megaJungle.treeCondition = TreeCondition.RANDOM_CHANCE;
+		megaJungle.treeConditionChance = 3;
+		megaJungle.maxY = 160;
+		megaJungle.minSize = 20;
+		megaJungle.maxSize = 40;
+		this.addDeco(megaJungle);
+		
+		// Jungle logs.
+		DecoFallenTree decoFallenTree = new DecoFallenTree();
+		decoFallenTree.loops = 1;
+		decoFallenTree.distribution.noiseDivisor = 100f;
+		decoFallenTree.distribution.noiseFactor = 5f;
+		decoFallenTree.distribution.noiseAddend = 0.8f;
+		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		decoFallenTree.logConditionNoise = 0f;
+		decoFallenTree.logConditionChance = 3;
+		decoFallenTree.maxY = 120;
+		decoFallenTree.logBlock = Blocks.log;
+		decoFallenTree.logMeta = (byte)3;
+		decoFallenTree.leavesBlock = Blocks.leaves;
+		decoFallenTree.leavesMeta = (byte)-1;
+		decoFallenTree.minSize = 4;
+		decoFallenTree.maxSize = 9;
+		this.addDeco(decoFallenTree);
+		
+		// At this point, let's hand over some of the decoration to the base biome, but only about 85% of the time.
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		decoBaseBiomeDecorations.notEqualsZeroChance = 6;
+		decoBaseBiomeDecorations.loops = 1;
+		this.addDeco(decoBaseBiomeDecorations);
+		
+		// A combo-deal of lilypads and vines. (This could probably be pulled out into individual decos.)
+		DecoJungleLilypadVines decoJungleLilypadVines = new DecoJungleLilypadVines();
+		this.addDeco(decoJungleLilypadVines);
+		
+		// A combo-deal of grass and vines. (This could probably be pulled out into individual decos.)
+		DecoJungleGrassVines decoJungleGrassVines = new DecoJungleGrassVines();
+		this.addDeco(decoJungleLilypadVines);
+		
+		// Flowers.
+		DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
+        decoFlowersRTG.flowers = new int[]{5}; // Only orange tulips fit in with the colour scheme.
+        decoFlowersRTG.chance = 4;
+        decoFlowersRTG.maxY = 120;
+        decoFlowersRTG.strengthFactor = 2f;
+        this.addDeco(decoFlowersRTG);
+        
+        // Tall cacti on red sand - matches the colour scheme nicely.
+        DecoJungleCacti decoJungleCacti = new DecoJungleCacti();
+		decoJungleCacti.strengthFactor = 8f;
+		decoJungleCacti.maxY = 120;
+		decoJungleCacti.sandOnly = false;
+		decoJungleCacti.extraHeight = 7;
+		decoJungleCacti.sandMeta = (byte)1;
+		this.addDeco(decoJungleCacti);
+		
+        // Mossy boulders for the green.
+		DecoBoulder decoBoulder = new DecoBoulder();
+		decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
+		decoBoulder.chance = 16;
+		decoBoulder.maxY = 95;
+		decoBoulder.strengthFactor = 2f;
+		this.addDeco(decoBoulder);
+		
+		// Grass filler.
+		DecoGrass decoGrass = new DecoGrass();
+		decoGrass.maxY = 128;
+		decoGrass.strengthFactor = 12f;
+        this.addDeco(decoGrass);
     }
 }

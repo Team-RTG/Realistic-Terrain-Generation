@@ -28,12 +28,34 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         );
         this.noLakes = true;
 
-        /**
-         * ##################################################
-         * # DECORATIONS (ORDER MATTERS)
-         * ##################################################
-         */
+        initProperties();
+        initDecos();
+    }
 
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaBirchForestM(this);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
+            }
+        };
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
         DecoTree superTallBirch = new DecoTree();
         superTallBirch.strengthFactorForLoops = 16f;
         superTallBirch.strengthNoiseFactorForLoops = true;
@@ -60,9 +82,9 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         decoFallenTree.logConditionChance = 20;
         decoFallenTree.maxY = 100;
         decoFallenTree.logBlock = Blocks.log;
-        decoFallenTree.logMeta = (byte) 2;
+        decoFallenTree.logMeta = (byte)2;
         decoFallenTree.leavesBlock = Blocks.leaves;
-        decoFallenTree.leavesMeta = (byte) -1;
+        decoFallenTree.leavesMeta = (byte)-1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree);
@@ -71,20 +93,5 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         decoShrub.maxY = 110;
         decoShrub.strengthFactor = 2f;
         this.addDeco(decoShrub);
-    }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaBirchForestM(this);
-    }
-
-    @Override
-    protected TerrainBase initTerrain() {
-        return new TerrainBase() {
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
-            }
-        };
     }
 }

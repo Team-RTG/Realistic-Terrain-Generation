@@ -271,7 +271,7 @@ public abstract class ConfigProperty<T> {
          * @throws RTGException
          */
         public Property toForgeProp() throws RTGException {
-            Property prop = new Property(id, BlockStringUtil.stateToString(value)   , Property.Type.STRING).setDefaultValue(BlockStringUtil.stateToString(defaultVal));
+            Property prop = new Property(id, BlockStringUtil.stateToString(value),Property.Type.STRING).setDefaultValue(BlockStringUtil.stateToString(defaultVal));
             prop.set(BlockStringUtil.stateToString(value));
             return prop;
         }

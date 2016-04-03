@@ -116,7 +116,7 @@ public abstract class ConfigProperty<T> {
             } catch (Exception e) {
                 throw new RTGException(RTGException.Type.CONFIG_SYNTAX,
                         "Tried to read property " + prop.getName() + " with value " + prop.getString() + " of type " + prop.getType().name() +
-                                " into property " + id + " of type boolean",
+                                " into property " + id + " of type BOOLEAN",
                         "ConfigProperty.fromForgeProp()");
             }
         }
@@ -176,7 +176,7 @@ public abstract class ConfigProperty<T> {
             } catch (Exception e) {
                 throw new RTGException(RTGException.Type.CONFIG_SYNTAX,
                         "Tried to read property " + prop.getName() + " with value " + prop.getString() + " of type " + prop.getType().name() +
-                                " into property " + id + " of type integer",
+                                " into property " + id + " of type INTEGER",
                         "ConfigProperty.fromForgeProp()");
             }
         }
@@ -228,7 +228,7 @@ public abstract class ConfigProperty<T> {
             } catch (Exception e) {
                 throw new RTGException(RTGException.Type.CONFIG_SYNTAX,
                         "Tried to read property " + prop.getName() + " with value " + prop.getString() + " of type " + prop.getType().name() +
-                                " into property " + id + " of type string",
+                                " into property " + id + " of type STRING",
                         "ConfigProperty.fromForgeProp()");
             }
         }
@@ -279,7 +279,58 @@ public abstract class ConfigProperty<T> {
             } catch (Exception e) {
                 throw new RTGException(RTGException.Type.CONFIG_SYNTAX,
                         "Tried to read property " + prop.getName() + " with value " + prop.getString() + " of type " + prop.getType().name() +
-                                " into property " + id + " of type block",
+                                " into property " + id + " of type BLOCK",
+                        "ConfigProperty.fromForgeProp()");
+            }
+        }
+    }
+
+    public static class PropertyStrings extends ConfigProperty<String[]> {
+
+        public PropertyStrings(String id, String section) {
+            super(id, section);
+        }
+
+        public ConfigProperty.PropertyStrings set(String[] value) {
+            super.set(value);
+            return this;
+        }
+
+        public ConfigProperty.PropertyStrings setDefault(String[] defaultValue) {
+            super.setDefault(defaultValue);
+            return this;
+        }
+
+        public ConfigProperty.PropertyStrings setComment(String comment) {
+            super.setComment(comment);
+            return this;
+        }
+        /**
+         * Needed for writing to config files
+         *
+         * @throws RTGException
+         */
+        public Property toForgeProp() throws RTGException {
+            Property prop = new Property(id, value, Property.Type.STRING).setDefaultValues(defaultVal);
+            prop.set(value);
+            return prop;
+        }
+
+        /**
+         * Needed for writing to config files
+         *
+         * @param prop The property to read
+         * @return this
+         * @throws RTGException of type CONFIG_SYNTAX if failed.
+         */
+        public ConfigProperty readForgeProperty(Property prop) throws RTGException {
+            try {
+                this.set(prop.getStringList());
+                return this;
+            } catch (Exception e) {
+                throw new RTGException(RTGException.Type.CONFIG_SYNTAX,
+                        "Tried to read property " + prop.getName() + " with value " + prop.getString() + " of type " + prop.getType().name() +
+                                " into property " + id + " of type STRINGS",
                         "ConfigProperty.fromForgeProp()");
             }
         }

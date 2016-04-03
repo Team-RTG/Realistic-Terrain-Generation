@@ -38,7 +38,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSavannaM(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get());
+        return new SurfaceVanillaSavannaM(this);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
 
         float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
 
-        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
+        if (this.config.DECORATION_LOG.get()) {
 
             if (l > 0f && rand.nextInt(12) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

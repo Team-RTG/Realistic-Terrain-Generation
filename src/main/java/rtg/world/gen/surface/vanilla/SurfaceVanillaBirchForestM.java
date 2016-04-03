@@ -17,7 +17,6 @@ import java.util.Random;
 public class SurfaceVanillaBirchForestM extends SurfaceBase {
 
     private boolean beach;
-    private IBlockState beachBlock;
     private float min;
 
     private float sCliff = 1.5f;
@@ -25,22 +24,19 @@ public class SurfaceVanillaBirchForestM extends SurfaceBase {
     private float sStrength = 65f;
     private float cCliff = 1.5f;
 
-
     private float mixHeight;
 
-    public SurfaceVanillaBirchForestM(RealisticBiomeBase biome, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff,
-                                      float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixSize) {
+    public SurfaceVanillaBirchForestM(RealisticBiomeBase biome) {
 
         super(biome);
-        beach = genBeach;
-        beachBlock = genBeachBlock;
-        min = minCliff;
+        beach = false;
+        min = 0f;
 
-        sCliff = stoneCliff;
-        sHeight = stoneHeight;
-        sStrength = stoneStrength;
-        cCliff = clayCliff;
-        mixHeight = mixSize;
+        sCliff = 1.5f;
+        sHeight = 60f;
+        sStrength = 65f;
+        cCliff = 1.5f;
+        mixHeight = 0.15f;
     }
 
     @Override
@@ -87,7 +83,7 @@ public class SurfaceVanillaBirchForestM extends SurfaceBase {
                         primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (k < 63) {
                         if (beach) {
-                            primer.setBlockState(x, k, y, beachBlock);
+                            primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
                             gravel = true;
                         } else if (k < 62) {
                             primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
@@ -106,7 +102,7 @@ public class SurfaceVanillaBirchForestM extends SurfaceBase {
                     } else if (cliff == 2) {
                         primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (gravel) {
-                        primer.setBlockState(x, k, y, beachBlock);
+                        primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
                     } else if (m) {
                         primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get());
                     } else {

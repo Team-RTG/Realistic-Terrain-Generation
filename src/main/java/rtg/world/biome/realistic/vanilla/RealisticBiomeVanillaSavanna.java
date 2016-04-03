@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -33,8 +32,8 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSavanna(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), Blocks.grass.getDefaultState(), 13f, 0.27f);
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaSavanna(this, 13f, 0.27f);
     }
 
     @Override
@@ -69,7 +68,7 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
 
         float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
 
-        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
+        if (this.config.DECORATION_LOG.get()) {
 
             if (l > 0f && rand.nextInt(12) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

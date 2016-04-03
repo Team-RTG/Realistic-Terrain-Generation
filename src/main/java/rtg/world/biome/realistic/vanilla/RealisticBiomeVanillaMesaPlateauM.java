@@ -31,8 +31,8 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMesaPlateauM(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1), 0);
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaMesaPlateauM(this, 0);
     }
 
     @Override

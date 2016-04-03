@@ -1,7 +1,7 @@
 package rtg.world.gen;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -25,9 +25,9 @@ import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
-import rtg.config.ConfigRTG;
 import rtg.util.math.CanyonColour;
 import rtg.util.math.MathUtils;
+import rtg.util.mods.Mods;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.util.noise.SimplexCellularNoise;
@@ -68,8 +68,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
     private final float[] parabolicField;
     protected BiomeProviderRTG bprv;
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
-    private Block bedrockBlock = Block.getBlockFromName(ConfigRTG.bedrockBlockId);
-    private byte bedrockByte = (byte) ConfigRTG.bedrockBlockByte;
+    private IBlockState bedrockBlock = Mods.RTG.config.BEDROCK_BLOCK.get();
     private Random rand;
     private Random mapRand;
     private World worldObj;
@@ -105,13 +104,13 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
         mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
 
-        if (ConfigRTG.enableCaveModifications) {
+        if (Mods.RTG.config.ENABLE_CAVE_MODIFICATIONS.get()) {
             caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), CAVE);
         } else {
             caveGenerator = TerrainGen.getModdedMapGen(new MapGenCaves(), CAVE);
         }
 
-        if (ConfigRTG.enableRavineModifications) {
+        if (Mods.RTG.config.ENABLE_RAVINE_MODIFICATIONS.get()) {
             ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(), RAVINE);
         } else {
             ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavine(), RAVINE);
@@ -199,17 +198,17 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
         if (mapFeaturesEnabled) {
 
-            if (ConfigRTG.generateMineshafts) {
+            if (Mods.RTG.config.GENERATE_MINESHAFTS.get()) {
                 mineshaftGenerator.generate(this.worldObj, cx, cy, primer);
             }
 
-            if (ConfigRTG.generateStrongholds) {
+            if (Mods.RTG.config.GENERATE_STRONGHOLDS.get()) {
                 strongholdGenerator.generate(this.worldObj, cx, cy, primer);
             }
 
-            if (ConfigRTG.generateVillages) {
+            if (Mods.RTG.config.GENERATE_VILLAGES.get()) {
 
-                if (ConfigRTG.villageCrashFix) {
+                if (Mods.RTG.config.VILLAGE_CRASH_FIX.get()) {
 
                     try {
                         villageGenerator.generate(this.worldObj, cx, cy, primer);
@@ -221,11 +220,11 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 }
             }
 
-            if (ConfigRTG.generateScatteredFeatures) {
+            if (Mods.RTG.config.GENERATE_SCATTERED_FEATURES.get()) {
                 scatteredFeatureGenerator.generate(this.worldObj, cx, cy, primer);
             }
 
-            if (ConfigRTG.generateOceanMonuments) {
+            if (Mods.RTG.config.GENERATE_OCEAN_MONUMENTS.get()) {
                 oceanMonumentGenerator.generate(this.worldObj, cx, cy, primer);
             }
         }
@@ -289,28 +288,28 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 biome.rReplace(primer, cx * 16 + i, cy * 16 + j, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
 
                 int rough;
-                int flatBedrockLayers = ConfigRTG.flatBedrockLayers;
+                int flatBedrockLayers = Mods.RTG.config.FLAT_BEDROCK_LAYERS.get();
                 flatBedrockLayers = flatBedrockLayers < 0 ? 0 : (flatBedrockLayers > 5 ? 5 : flatBedrockLayers);
 
                 if (flatBedrockLayers > 0) {
                     for (int bl = 0; bl < flatBedrockLayers; bl++) {
-                        primer.setBlockState(j, bl, i, bedrockBlock.getStateFromMeta(bedrockByte));
+                        primer.setBlockState(j, bl, i, bedrockBlock);
                     }
                 } else {
 
-                    primer.setBlockState(j, 0, i, bedrockBlock.getStateFromMeta(bedrockByte));
+                    primer.setBlockState(j, 0, i, bedrockBlock);
 
                     rough = rand.nextInt(2);
-                    primer.setBlockState(j, rough, i, bedrockBlock.getStateFromMeta(bedrockByte));
+                    primer.setBlockState(j, rough, i, bedrockBlock);
 
                     rough = rand.nextInt(3);
-                    primer.setBlockState(j, rough, i, bedrockBlock.getStateFromMeta(bedrockByte));
+                    primer.setBlockState(j, rough, i, bedrockBlock);
 
                     rough = rand.nextInt(4);
-                    primer.setBlockState(j, rough, i, bedrockBlock.getStateFromMeta(bedrockByte));
+                    primer.setBlockState(j, rough, i, bedrockBlock);
 
                     rough = rand.nextInt(5);
-                    primer.setBlockState(j, rough, i, bedrockBlock.getStateFromMeta(bedrockByte));
+                    primer.setBlockState(j, rough, i, bedrockBlock);
                 }
 
             }
@@ -502,17 +501,17 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
         if (mapFeaturesEnabled) {
 
-            if (ConfigRTG.generateMineshafts) {
+            if (Mods.RTG.config.GENERATE_MINESHAFTS.get()) {
                 mineshaftGenerator.generateStructure(worldObj, rand, chunkCoords);
             }
 
-            if (ConfigRTG.generateStrongholds) {
+            if (Mods.RTG.config.GENERATE_STRONGHOLDS.get()) {
                 strongholdGenerator.generateStructure(worldObj, rand, chunkCoords);
             }
 
-            if (ConfigRTG.generateVillages) {
+            if (Mods.RTG.config.GENERATE_VILLAGES.get()) {
 
-                if (ConfigRTG.villageCrashFix) {
+                if (Mods.RTG.config.VILLAGE_CRASH_FIX.get()) {
 
                     try {
                         flag = villageGenerator.generateStructure(worldObj, rand, chunkCoords);
@@ -525,11 +524,11 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 }
             }
 
-            if (ConfigRTG.generateScatteredFeatures) {
+            if (Mods.RTG.config.GENERATE_SCATTERED_FEATURES.get()) {
                 scatteredFeatureGenerator.generateStructure(worldObj, rand, chunkCoords);
             }
 
-            if (ConfigRTG.generateOceanMonuments) {
+            if (Mods.RTG.config.GENERATE_OCEAN_MONUMENTS.get()) {
                 oceanMonumentGenerator.generateStructure(worldObj, rand, chunkCoords);
             }
         }
@@ -586,7 +585,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
                  * so that's what the try/catch is for. If it fails, then it falls back to RTG decoration.
                  * TODO: Is there a more efficient way to do this? - Pink
                  */
-                if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfigProperty.USE_RTG_DECORATIONS)) {
+                if (Mods.RTG.config.ENABLE_RTG_BIOME_DECORATIONS.get() && realisticBiome.config.USE_RTG_DECORATIONS.get()) {
 
                     if (realisticBiome.useNewDecorationSystem) {
                         realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
@@ -668,7 +667,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
                         this.worldObj.setBlockState(bp.set(k1 + worldX, i2 - 1, l1 + worldZ), Blocks.ice.getDefaultState(), 2);
                     }
 
-                    if (ConfigRTG.enableSnowLayers && this.worldObj.canSnowAt(bp.set(k1 + worldX, i2, l1 + worldZ), true)) {
+                    if (Mods.RTG.config.ENABLE_SNOW_LAYERS.get() && this.worldObj.canSnowAt(bp.set(k1 + worldX, i2, l1 + worldZ), true)) {
                         this.worldObj.setBlockState(bp.set(k1 + worldX, i2, l1 + worldZ), Blocks.snow_layer.getDefaultState(), 2);
                     }
                 }
@@ -697,7 +696,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 return this.scatteredFeatureGenerator.getScatteredFeatureSpawnList();
             }
 
-            if (par1EnumCreatureType == EnumCreatureType.MONSTER && ConfigRTG.generateOceanMonuments && this.oceanMonumentGenerator.isPositionInStructure(this.worldObj, blockPos)) {
+            if (par1EnumCreatureType == EnumCreatureType.MONSTER && Mods.RTG.config.GENERATE_OCEAN_MONUMENTS.get() && this.oceanMonumentGenerator.isPositionInStructure(this.worldObj, blockPos)) {
                 return this.oceanMonumentGenerator.getScatteredFeatureSpawnList();
             }
         }
@@ -709,7 +708,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
      */
     @Override
     public BlockPos getStrongholdGen(World par1World, String par2Str, BlockPos blockPos) {
-        if (!ConfigRTG.generateStrongholds) {
+        if (!Mods.RTG.config.GENERATE_STRONGHOLDS.get()) {
             return null;
         }
 
@@ -724,17 +723,17 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
         if (mapFeaturesEnabled) {
 
-            if (ConfigRTG.generateMineshafts) {
+            if (Mods.RTG.config.GENERATE_MINESHAFTS.get()) {
                 mineshaftGenerator.generate(worldObj, x, y, null);
             }
 
-            if (ConfigRTG.generateStrongholds) {
+            if (Mods.RTG.config.GENERATE_STRONGHOLDS.get()) {
                 strongholdGenerator.generate(worldObj, x, y, null);
             }
 
-            if (ConfigRTG.generateVillages) {
+            if (Mods.RTG.config.GENERATE_VILLAGES.get()) {
 
-                if (ConfigRTG.villageCrashFix) {
+                if (Mods.RTG.config.VILLAGE_CRASH_FIX.get()) {
 
                     try {
                         villageGenerator.generate(this.worldObj, x, y, null);
@@ -747,11 +746,11 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 }
             }
 
-            if (ConfigRTG.generateScatteredFeatures) {
+            if (Mods.RTG.config.GENERATE_SCATTERED_FEATURES.get()) {
                 scatteredFeatureGenerator.generate(this.worldObj, x, y, null);
             }
 
-            if (ConfigRTG.generateOceanMonuments) {
+            if (Mods.RTG.config.GENERATE_OCEAN_MONUMENTS.get()) {
                 oceanMonumentGenerator.generate(this.worldObj, x, y, null);
             }
         }

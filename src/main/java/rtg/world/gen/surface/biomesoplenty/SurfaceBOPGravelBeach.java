@@ -1,15 +1,14 @@
 package rtg.world.gen.surface.biomesoplenty;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
@@ -20,11 +19,11 @@ public class SurfaceBOPGravelBeach extends SurfaceBase {
     private byte sandMetadata;
     private int cliffType;
 
-    public SurfaceBOPGravelBeach(RealisticBiomeBase biome, IBlockState cliff1, IBlockState cliff2, byte metadata, int cliff) {
+    public SurfaceBOPGravelBeach(RealisticBiomeBase biome, byte metadata, int cliff) {
         super(biome);
 
-        cliffBlock1 = cliff1;
-        cliffBlock2 = cliff2;
+
+
         sandMetadata = metadata;
         cliffType = cliff;
     }
@@ -45,13 +44,13 @@ public class SurfaceBOPGravelBeach extends SurfaceBase {
                 if (cliff) {
                     if (cliffType == 1) {
                         if (depth < 6) {
-                            primer.setBlockState(x, k, y, cliffBlock1.getBlock().getStateFromMeta(14));
+                            primer.setBlockState(x, k, y, biome.config.CLIFF_BLOCK_1.get().getBlock().getStateFromMeta(14));
                         }
                     } else {
                         if (depth > -1 && depth < 2) {
-                            primer.setBlockState(x, k, y, rand.nextInt(3) == 0 ? cliffBlock2 : cliffBlock1);
+                            primer.setBlockState(x, k, y, rand.nextInt(3) == 0 ? biome.config.CLIFF_BLOCK_2.get() : biome.config.CLIFF_BLOCK_1.get());
                         } else if (depth < 10) {
-                            primer.setBlockState(x, k, y, cliffBlock1);
+                            primer.setBlockState(x, k, y, biome.config.CLIFF_BLOCK_1.get());
                         }
                     }
                 } else if (depth < 6) {

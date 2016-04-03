@@ -37,7 +37,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaRoofedForestM(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get());
+        return new SurfaceVanillaRoofedForestM(this);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
             }
         }
 
-        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
+        if (this.config.DECORATION_LOG.get()) {
 
             if (rand.nextInt((int) (12f / strength)) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

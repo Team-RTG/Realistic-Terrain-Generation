@@ -1,15 +1,14 @@
 package rtg.world.gen.surface.biomesoplenty;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
@@ -17,7 +16,6 @@ import java.util.Random;
 public class SurfaceBOPLandOfLakes extends SurfaceBase {
 
     private boolean beach;
-    private IBlockState beachBlock;
     private float min;
 
     private float sCliff = 1.5f;
@@ -25,15 +23,15 @@ public class SurfaceBOPLandOfLakes extends SurfaceBase {
     private float sStrength = 65f;
     private float cCliff = 1.5f;
 
-    private IBlockState mix;
+
     private float mixHeight;
 
-    public SurfaceBOPLandOfLakes(RealisticBiomeBase biome, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff,
-                                 float stoneHeight, float stoneStrength, float clayCliff, IBlockState biome.config.MIX_BLOCK.get(), float mixSize) {
+    public SurfaceBOPLandOfLakes(RealisticBiomeBase biome, boolean genBeach, float minCliff, float stoneCliff,
+                                 float stoneHeight, float stoneStrength, float clayCliff, float mixSize) {
 
         super(biome);
         beach = genBeach;
-        beachBlock = genBeachBlock;
+
         min = minCliff;
 
         sCliff = stoneCliff;
@@ -41,7 +39,7 @@ public class SurfaceBOPLandOfLakes extends SurfaceBase {
         sStrength = stoneStrength;
         cCliff = clayCliff;
 
-        mix = biome.config.MIX_BLOCK.get();
+
         mixHeight = mixSize;
     }
 
@@ -89,7 +87,7 @@ public class SurfaceBOPLandOfLakes extends SurfaceBase {
                         primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (k < 63) {
                         if (beach) {
-                            primer.setBlockState(x, k, y, beachBlock);
+                            primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
                             gravel = true;
                         } else if (k < 62) {
                             primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
@@ -97,7 +95,7 @@ public class SurfaceBOPLandOfLakes extends SurfaceBase {
                             primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                         }
                     } else if (simplex.noise2(i / 12f, j / 12f) > mixHeight) {
-                        primer.setBlockState(x, k, y, mix);
+                        primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get());
                         m = true;
                     } else {
                         primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
@@ -108,9 +106,9 @@ public class SurfaceBOPLandOfLakes extends SurfaceBase {
                     } else if (cliff == 2) {
                         primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (gravel) {
-                        primer.setBlockState(x, k, y, beachBlock);
+                        primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
                     } else if (m) {
-                        primer.setBlockState(x, k, y, mix);
+                        primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get());
                     } else {
                         primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                     }

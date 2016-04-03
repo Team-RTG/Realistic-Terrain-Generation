@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import rtg.util.noise.CellNoise;
@@ -35,7 +34,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaColdBeach(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get(), biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get(), (byte) 0, 1);
+        return new SurfaceVanillaColdBeach(this);
     }
 
     @Override

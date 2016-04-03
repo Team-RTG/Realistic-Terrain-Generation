@@ -10,8 +10,8 @@ import net.minecraft.world.gen.structure.ComponentScatteredFeaturePieces;
 import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
-import rtg.config.ConfigRTG;
 import rtg.api.util.debug.Logger;
+import rtg.util.mods.Mods;
 import rtg.world.biome.realistic.vanilla.*;
 
 import java.util.*;
@@ -66,8 +66,8 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
     }
 
     public MapGenScatteredFeatureRTG() {
-        int minDistance = ConfigRTG.MIN_DISTANCE_SCATTERED_FEATURES.get();
-        int maxDistance = ConfigRTG.MAX_DISTANCE_SCATTERED_FEATURES.get();
+        int minDistance = Mods.RTG.config.MIN_DISTANCE_SCATTERED_FEATURES.get();
+        int maxDistance = Mods.RTG.config.MAX_DISTANCE_SCATTERED_FEATURES.get();
 
         if (minDistance > maxDistance) {
             minDistance = 8;

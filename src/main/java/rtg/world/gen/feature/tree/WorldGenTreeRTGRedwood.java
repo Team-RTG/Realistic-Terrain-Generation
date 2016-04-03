@@ -5,6 +5,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.util.mods.Mods;
 
 import java.util.Random;
 
@@ -31,7 +32,7 @@ public class WorldGenTreeRTGRedwood extends WorldGenerator {
     public boolean generate(World world, Random rand, int x, int y, int z) {
         Block g = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
 
-        if (g == sand && !ConfigRTG.ALLOW_TREES_ON_SAND.get()) {
+        if (g == sand && !Mods.RTG.config.ALLOW_TREES_ON_SAND.get()) {
             return false;
         }
 

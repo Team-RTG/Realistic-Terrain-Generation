@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
@@ -22,7 +21,7 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase 
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaFrozenRiver(config);
+        return new SurfaceVanillaFrozenRiver(this);
     }
 
     @Override

@@ -5,15 +5,15 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import java.util.Random;
 
 public class SurfaceRiverOasis extends SurfaceBase {
-    public SurfaceRiverOasis(BiomeConfig config) {
-        super(config, Blocks.grass, (byte) 0, Blocks.dirt, (byte) 0);
+    public SurfaceRiverOasis(RealisticBiomeBase biome) {
+        super(biome);
     }
 
     @Override

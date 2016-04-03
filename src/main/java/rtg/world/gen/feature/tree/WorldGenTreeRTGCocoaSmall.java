@@ -5,7 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.config.ConfigRTG;
+import rtg.util.mods.Mods;
 
 import java.util.Random;
 
@@ -35,7 +35,7 @@ class WorldGenTreeRTGCocoaSmall extends WorldGenerator {
     public boolean generate(World world, Random rand, int x, int y, int z) {
         Block b = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
 
-        if (b == sand && !ConfigRTG.ALLOW_TREES_ON_SAND.get()) {
+        if (b == sand && !Mods.RTG.config.ALLOW_TREES_ON_SAND.get()) {
             return false;
         }
 

@@ -1,8 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
-import net.minecraft.init.Blocks;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
@@ -25,7 +23,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaDeepOcean(config, Blocks.gravel.getDefaultState(), Blocks.gravel.getDefaultState(), Blocks.clay.getDefaultState(), 20f, 0.1f);
+        return new SurfaceVanillaDeepOcean(this);
     }
 
     @Override

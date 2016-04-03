@@ -1,40 +1,28 @@
 package rtg.world.gen.surface.vanilla;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
 
 public class SurfaceVanillaExtremeHills extends SurfaceBase {
 
-    public IBlockState biome.config.MIX_BLOCK.get()Top;
-    public IBlockState biome.config.MIX_BLOCK.get()Fill;
-    private float width;
-    private float height;
-    private float smallW;
-    private float smallS;
+    private float width = 60f;
+    private float height = -0.14f;
+    private float smallW = 14f;
+    private float smallS = 0.25f;
 
-    public SurfaceVanillaExtremeHills(RealisticBiomeBase biome, IBlockState mixTop, IBlockState mixFill, float mixWidth,
-                                      float mixHeight, float smallWidth, float smallStrength) {
+    public SurfaceVanillaExtremeHills(RealisticBiomeBase biome) {
 
         super(biome);
-
-        biome.config.MIX_BLOCK.get()Top = this.getConfigBlock(BiomeConfigProperty.SURFACE_TOP_MIX_BLOCK, mixTop);
-        biome.config.MIX_BLOCK.get()Fill = this.getConfigBlock(BiomeConfigProperty.SURFACE_FILLER_MIX_BLOCK, mixFill);
-
-        width = mixWidth;
-        height = mixHeight;
-        smallW = smallWidth;
-        smallS = smallStrength;
     }
 
     @Override
@@ -67,14 +55,14 @@ public class SurfaceVanillaExtremeHills extends SurfaceBase {
                 } else {
                     if (depth == 0 && k > 61) {
                         if (simplex.noise2(i / width, j / width) + simplex.noise2(i / smallW, j / smallW) * smallS > height) {
-                            primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get()Top);
+                            primer.setBlockState(x, k, y, biome.config.MIX_BLOCK_TOP.get());
                             mix = true;
                         } else {
                             primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                         }
                     } else if (depth < 4) {
                         if (mix) {
-                            primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get()Fill);
+                            primer.setBlockState(x, k, y, biome.config.MIX_BLOCK_FILL.get());
                         } else {
                             primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                         }

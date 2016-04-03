@@ -24,7 +24,7 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSunflowerPlains(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get());
+        return new SurfaceVanillaSunflowerPlains(this);
     }
 
     @Override

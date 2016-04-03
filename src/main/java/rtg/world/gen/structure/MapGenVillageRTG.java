@@ -8,7 +8,7 @@ import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraft.world.gen.structure.StructureVillagePieces.Road;
-import rtg.config.ConfigRTG;
+import rtg.util.mods.Mods;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -20,7 +20,7 @@ import java.util.Map.Entry;
 import java.util.Random;
 
 public class MapGenVillageRTG extends MapGenVillage {
-    private int terrainType = ConfigRTG.villageSize;
+    private int terrainType = Mods.RTG.config.VILLAGE_SIZE.get();
     private int field_82665_g;
     private int field_82666_h;
 
@@ -40,8 +40,8 @@ public class MapGenVillageRTG extends MapGenVillage {
     }
 
     public MapGenVillageRTG() {
-        int minDistanceVillages = ConfigRTG.minDistanceVillages;
-        int maxDistanceVillages = ConfigRTG.maxDistanceVillages;
+        int minDistanceVillages = Mods.RTG.config.MIN_DISTANCE_VILLAGES.get();
+        int maxDistanceVillages = Mods.RTG.config.MAX_DISTANCE_VILLAGES.get();
 
         minDistanceVillages = (minDistanceVillages > maxDistanceVillages) ? maxDistanceVillages : minDistanceVillages;
 
@@ -56,8 +56,8 @@ public class MapGenVillageRTG extends MapGenVillage {
 
     @Override
     protected boolean canSpawnStructureAtCoords(int par1, int par2) {
-        boolean booRTGWorld = (worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG) ? true : false;
-        boolean booRTGChunkManager = (worldObj.getBiomeProvider() instanceof BiomeProviderRTG) ? true : false;
+        boolean booRTGWorld = (worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG);
+        boolean booRTGChunkManager = (worldObj.getBiomeProvider() instanceof BiomeProviderRTG);
         boolean canSpawnVillage = false;
 
         int k = par1;
@@ -87,7 +87,7 @@ public class MapGenVillageRTG extends MapGenVillage {
                 int worldZ = l * 16 + 8;
                 RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldX, worldZ);
 
-                if (realisticBiome.config._boolean(BiomeConfigProperty.ALLOW_VILLAGES)) {
+                if (realisticBiome.config.ALLOW_VILLAGES.get()) {
                     canSpawnVillage = true;
                 }
             } else {

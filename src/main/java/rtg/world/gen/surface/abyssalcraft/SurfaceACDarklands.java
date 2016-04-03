@@ -1,15 +1,14 @@
 package rtg.world.gen.surface.abyssalcraft;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
@@ -17,7 +16,6 @@ import java.util.Random;
 public class SurfaceACDarklands extends SurfaceBase {
 
     private boolean beach;
-    private IBlockState beachBlock;
     private float min;
 
     private float sCliff = 1.5f;
@@ -25,24 +23,20 @@ public class SurfaceACDarklands extends SurfaceBase {
     private float sStrength = 65f;
     private float cCliff = 1.5f;
 
-
-    private byte biome.config.MIX_BLOCK.get()Meta;
     private float mixHeight;
 
-    public SurfaceACDarklands(RealisticBiomeBase biome, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff,
-                              float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, byte mixByte, float mixSize) {
+    public SurfaceACDarklands(RealisticBiomeBase biome, boolean genBeach, float minCliff, float stoneCliff,
+                              float stoneHeight, float stoneStrength, float clayCliff, byte mixByte, float mixSize) {
 
         super(biome);
         beach = genBeach;
-        beachBlock = genBeachBlock;
+
         min = minCliff;
 
         sCliff = stoneCliff;
         sHeight = stoneHeight;
         sStrength = stoneStrength;
         cCliff = clayCliff;
-
-        biome.config.MIX_BLOCK.get() = this.getConfigBlock(BiomeConfigProperty.SURFACE_TOP_MIX_BLOCK, mix);
         mixHeight = mixSize;
     }
 
@@ -89,7 +83,7 @@ public class SurfaceACDarklands extends SurfaceBase {
                         primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (k < 63) {
                         if (beach) {
-                            primer.setBlockState(x, k, y, beachBlock);
+                            primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
                             gravel = true;
                         } else if (k < 62) {
                             primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
@@ -108,7 +102,7 @@ public class SurfaceACDarklands extends SurfaceBase {
                     } else if (cliff == 2) {
                         primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (gravel) {
-                        primer.setBlockState(x, k, y, beachBlock);
+                        primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
                     } else if (m) {
                         primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get());
                     } else {

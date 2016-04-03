@@ -34,8 +34,8 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSavannaPlateauM(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get(), 0);
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaSavannaPlateauM(this, 0);
     }
 
     @Override

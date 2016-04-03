@@ -1,7 +1,6 @@
 package rtg.world.gen.surface.vanilla;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -17,7 +16,6 @@ import java.util.Random;
 public class SurfaceVanillaBirchForest extends SurfaceBase {
 
     private boolean beach;
-    private IBlockState beachBlock;
     private float min;
 
     private float sCliff = 1.5f;
@@ -30,7 +28,6 @@ public class SurfaceVanillaBirchForest extends SurfaceBase {
 
         super(biome);
         beach = false;
-        beachBlock = null;
         min = 0f;
 
         sCliff = 1.5f;
@@ -85,7 +82,7 @@ public class SurfaceVanillaBirchForest extends SurfaceBase {
                         primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (k < 63) {
                         if (beach) {
-                            primer.setBlockState(x, k, y, beachBlock);
+                            primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
                             gravel = true;
                         } else if (k < 62) {
                             primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
@@ -104,7 +101,7 @@ public class SurfaceVanillaBirchForest extends SurfaceBase {
                     } else if (cliff == 2) {
                         primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (gravel) {
-                        primer.setBlockState(x, k, y, beachBlock);
+                        primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
                     } else if (m) {
                         primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get());
                     } else {

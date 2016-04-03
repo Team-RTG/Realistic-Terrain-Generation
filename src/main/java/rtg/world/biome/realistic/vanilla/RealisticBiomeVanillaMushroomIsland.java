@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
@@ -19,8 +18,8 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMushroomIsland(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get(), 67, biome.config.TOP_BLOCK.get(), 0f);
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaMushroomIsland(this, 67, 0f);
     }
 
     @Override

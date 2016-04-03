@@ -36,7 +36,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaExtremeHillsPlus(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel.getStateFromMeta(2), 0.08f);
+        return new SurfaceVanillaExtremeHillsPlus(this, false, 0f, 1.5f, 60f, 65f, 1.5f, 0.08f);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
 
         float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
 
-        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
+        if (this.config.DECORATION_LOG.get()) {
 
             if (l > 0f && rand.nextInt(6) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

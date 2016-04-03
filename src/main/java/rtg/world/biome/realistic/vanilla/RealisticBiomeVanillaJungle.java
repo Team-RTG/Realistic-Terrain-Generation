@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import rtg.util.noise.CellNoise;
@@ -76,7 +75,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 4;
         decoFallenTree.maxSize = 9;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigProperty.DECORATION_LOG));
+        this.addDeco(decoFallenTree, this.config.DECORATION_LOG.get());
 
         // At this point, let's hand over some of the decoration to the base config, but only about 85% of the time.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
@@ -107,7 +106,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         decoJungleCacti.sandOnly = false;
         decoJungleCacti.extraHeight = 7;
         decoJungleCacti.sandMeta = (byte) 1;
-        this.addDeco(decoJungleCacti, this.config._boolean(BiomeConfigProperty.DECORATION_CACTI));
+        this.addDeco(decoJungleCacti);
 
         // Mossy boulders for the green.
         DecoBoulder decoBoulder = new DecoBoulder();
@@ -125,8 +124,8 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaJungle(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.09f);
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaJungle(this, false, 0f, 1.5f, 60f, 65f, 1.5f, 0.09f);
     }
 
     @Override

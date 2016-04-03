@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -14,8 +13,6 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForestM;
 import rtg.world.gen.terrain.TerrainBase;
-
-import static rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaIcePlains.biome;
 
 public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase {
 
@@ -78,7 +75,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaBirchForestM(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.15f);
+        return new SurfaceVanillaBirchForestM(this);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -33,8 +32,8 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMesa(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1));
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaMesa(this);
     }
 
     @Override
@@ -155,7 +154,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
 
         this.getSurface().paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
 
-        SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
+        SurfaceBase riverSurface = new SurfaceRiverOasis(this);
         riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

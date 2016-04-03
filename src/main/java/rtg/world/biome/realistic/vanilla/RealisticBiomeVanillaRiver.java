@@ -24,7 +24,7 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaRiver(config);
+        return new SurfaceVanillaRiver(this);
     }
 
     @Override

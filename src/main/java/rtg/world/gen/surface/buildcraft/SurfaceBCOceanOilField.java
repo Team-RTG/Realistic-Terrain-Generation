@@ -1,14 +1,13 @@
 package rtg.world.gen.surface.buildcraft;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
@@ -20,11 +19,10 @@ public class SurfaceBCOceanOilField extends SurfaceBase {
     private float height;
     private float mixCheck;
 
-    public SurfaceBCOceanOilField(RealisticBiomeBase biome, IBlockState mix, float mixWidth, float mixHeight) {
+    public SurfaceBCOceanOilField(RealisticBiomeBase biome, float mixWidth, float mixHeight) {
 
         super(biome);
 
-        biome.config.MIX_BLOCK.get() = mix;
 
         width = mixWidth;
         height = mixHeight;

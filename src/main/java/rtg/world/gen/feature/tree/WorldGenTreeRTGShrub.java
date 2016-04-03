@@ -6,7 +6,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.config.ConfigRTG;
+import rtg.util.mods.Mods;
 
 import java.util.Random;
 
@@ -65,13 +65,13 @@ public class WorldGenTreeRTGShrub extends WorldGenerator {
         Block b = world.getBlockState(new BlockPos(x, y - 2, z)).getBlock();
         Block b1 = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
 
-        if ((b == Blocks.sand || b1 == Blocks.sand) && !ConfigRTG.ALLOW_TREES_ON_SAND.get()) {
+        if ((b == Blocks.sand || b1 == Blocks.sand) && !Mods.RTG.config.ALLOW_TREES_ON_SAND.get()) {
             return;
         }
 
         if (b.getMaterial(b.getDefaultState()) == Material.grass || b.getMaterial(b.getDefaultState()) == Material.ground || (sand && b.getMaterial(b.getDefaultState()) == Material.sand)) {
             if (b1 != Blocks.water) {
-                if (!ConfigRTG.ALLOW_SHRUBS_UNDERGROUND.get()) {
+                if (!Mods.RTG.config.ALLOW_SHRUBS_UNDERGROUND.get()) {
 
                     if (b1.getMaterial(b1.getDefaultState()) != Material.air &&
                             b1.getMaterial(b1.getDefaultState()) != Material.vine &&

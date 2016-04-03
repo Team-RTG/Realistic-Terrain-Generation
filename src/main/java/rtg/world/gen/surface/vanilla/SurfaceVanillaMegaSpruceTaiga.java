@@ -1,22 +1,21 @@
 package rtg.world.gen.surface.vanilla;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
 
 public class SurfaceVanillaMegaSpruceTaiga extends SurfaceBase {
 
-    public SurfaceVanillaMegaSpruceTaiga(BiomeConfig config, IBlockState top, IBlockState fill) {
+    public SurfaceVanillaMegaSpruceTaiga(RealisticBiomeBase biome) {
 
         super(biome);
     }

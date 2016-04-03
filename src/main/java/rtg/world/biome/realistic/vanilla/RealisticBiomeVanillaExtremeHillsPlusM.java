@@ -1,8 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
@@ -28,7 +26,7 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaExtremeHillsPlusM(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel.getStateFromMeta(2), 0.08f);
+        return new SurfaceVanillaExtremeHillsPlusM(this, false, 0f, 1.5f, 60f, 65f, 1.5f, 0.08f);
     }
 
     @Override

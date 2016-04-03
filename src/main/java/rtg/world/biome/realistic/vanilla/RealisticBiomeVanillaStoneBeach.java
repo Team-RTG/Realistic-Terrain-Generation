@@ -1,8 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
-import net.minecraft.init.Blocks;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
@@ -19,8 +17,8 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaStoneBeach(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get(), true, Blocks.gravel.getDefaultState(), 1f, 1.5f, 85f, 20f, 4f);
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaStoneBeach(this, true, 1f, 1.5f, 85f, 20f, 4f);
     }
 
     @Override

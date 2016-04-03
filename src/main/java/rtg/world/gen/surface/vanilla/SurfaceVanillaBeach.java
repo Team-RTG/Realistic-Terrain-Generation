@@ -18,8 +18,6 @@ public class SurfaceVanillaBeach extends SurfaceBase {
     public SurfaceVanillaBeach(RealisticBiomeVanillaBeach biome) {
         super(biome);
     }
-
-    @SuppressWarnings("unused")
     @Override
     public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
         float c = CliffCalculator.calc(x, y, noise);
@@ -40,10 +38,10 @@ public class SurfaceVanillaBeach extends SurfaceBase {
                 } else if (depth < 6) {
                     if (depth == 0 && k > 61 && k < 64) {
                         //if(simplex.noise2(i / 12f, j / 12f) > -0.3f + ((k - 61f) / 15f))
-                        primer.setBlockState(x, k, y, biome.TOP_BLOCK.get());
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     } else if (depth < 4) {
                         if (k > 61 && k < 69) {
-                            primer.setBlockState(x, k, y, biome.TOP_BLOCK.get());
+                            primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                         }
                     } else {
                         if (k > 56 && k < 68) { // one lower for under sand and 4 deeper

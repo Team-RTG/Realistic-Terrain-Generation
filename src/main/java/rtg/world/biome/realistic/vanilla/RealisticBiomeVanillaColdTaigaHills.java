@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import rtg.util.noise.CellNoise;
@@ -61,7 +60,7 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigProperty.DECORATION_LOG));
+        this.addDeco(decoFallenTree);
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 100;
@@ -87,7 +86,7 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaColdTaigaHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), true, Blocks.sand.getDefaultState(), 0.2f);
+        return new SurfaceVanillaColdTaigaHills(this);
     }
 
     @Override

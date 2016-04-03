@@ -45,9 +45,9 @@ public class SurfaceVanillaBirchForestHillsM extends SurfaceBase {
                     }
                 } else {
                     if (depth == 0 && k > 61) {
-                        primer.setBlockState(x, k, y, biome.biome.config.TOP_BLOCK.get());
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     } else if (depth < 4) {
-                        primer.setBlockState(x, k, y, biome.biome.config.FILL_BLOCK.get());
+                        primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                     }
                 }
             }

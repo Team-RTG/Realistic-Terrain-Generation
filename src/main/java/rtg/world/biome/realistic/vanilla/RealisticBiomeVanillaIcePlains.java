@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -17,8 +16,6 @@ import rtg.world.gen.terrain.TerrainBase;
 import java.util.Random;
 
 public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
-    public static IBlockState biome.config.TOP_BLOCK.get() = Blocks.snow.getDefaultState();
-    public static IBlockState biome.config.FILL_BLOCK.get() = Blocks.snow.getDefaultState();
 
     public RealisticBiomeVanillaIcePlains() {
         super(
@@ -29,7 +26,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaIcePlains(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get(), biome.config.TOP_BLOCK.get(), biome.config.TOP_BLOCK.get());
+        return new SurfaceVanillaIcePlains(this);
     }
 
     @Override
@@ -70,7 +67,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
             }
         }
 
-        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
+        if (this.config.DECORATION_LOG.get()) {
 
             if (rand.nextInt((int) (24f / strength)) == 0) {
                 int j6 = chunkX + rand.nextInt(16) + 8;

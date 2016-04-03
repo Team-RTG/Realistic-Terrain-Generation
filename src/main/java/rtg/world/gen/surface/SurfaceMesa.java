@@ -5,18 +5,18 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.math.CanyonColour;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import java.util.Random;
 
 public class SurfaceMesa extends SurfaceBase {
     private int[] claycolor = new int[100];
 
-    public SurfaceMesa(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte) {
+    public SurfaceMesa(RealisticBiomeBase biome) {
         super(biome);
 
         int[] c = new int[] {1, 8, 0};

@@ -1,7 +1,6 @@
 package rtg.world.gen.surface;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -14,29 +13,16 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import java.util.Random;
 
 public class SurfaceDesertMountain extends SurfaceBase {
-    private boolean beach;
-    private IBlockState beachBlock;
-    private float min;
+    private boolean beach = false;
+    private float min = 1f;
 
     private float sCliff = 1.5f;
     private float sHeight = 60f;
     private float sStrength = 65f;
     private float cCliff = 1.5f;
 
-    public SurfaceDesertMountain(RealisticBiomeBase biome, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff) {
-        this(biome, genBeach, genBeachBlock, minCliff);
-
-        sCliff = stoneCliff;
-        sHeight = stoneHeight;
-        sStrength = stoneStrength;
-        cCliff = clayCliff;
-    }
-
-    public SurfaceDesertMountain(RealisticBiomeBase biome, boolean genBeach, IBlockState genBeachBlock, float minCliff) {
+    public SurfaceDesertMountain(RealisticBiomeBase biome) {
         super(biome);
-        beach = genBeach;
-        beachBlock = genBeachBlock;
-        min = minCliff;
     }
 
     @Override
@@ -80,7 +66,7 @@ public class SurfaceDesertMountain extends SurfaceBase {
                         primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (k < 63) {
                         if (beach) {
-                            primer.setBlockState(x, k, y, beachBlock);
+                            primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
                             gravel = true;
                         } else if (k < 62) {
                             primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
@@ -96,7 +82,7 @@ public class SurfaceDesertMountain extends SurfaceBase {
                     } else if (cliff == 2) {
                         primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (gravel) {
-                        primer.setBlockState(x, k, y, beachBlock);
+                        primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
                     } else {
                         primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                     }

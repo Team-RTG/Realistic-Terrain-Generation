@@ -35,7 +35,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSwamplandM(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get());
+        return new SurfaceVanillaSwamplandM(this);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
             }
         }
 
-        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
+        if (this.config.DECORATION_LOG.get()) {
 
             if (rand.nextInt((int) (4f / strength)) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

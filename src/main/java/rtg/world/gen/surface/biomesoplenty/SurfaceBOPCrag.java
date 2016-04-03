@@ -6,10 +6,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
@@ -20,7 +20,7 @@ public class SurfaceBOPCrag extends SurfaceBase {
     public SurfaceBOPCrag(RealisticBiomeBase biome, IBlockState cliff1) {
         super(biome);
 
-        cliffBlock1 = cliff1;
+
     }
 
     @Override
@@ -41,13 +41,13 @@ public class SurfaceBOPCrag extends SurfaceBase {
                         if (depth > -1 && depth < 2) {
                             if (rand.nextInt(3) == 0) {
 
-                                primer.setBlockState(x, k, y, cliffBlock1);
+                                primer.setBlockState(x, k, y, biome.config.CLIFF_BLOCK_1.get());
                             } else {
 
                                 primer.setBlockState(x, k, y, hcCobble());
                             }
                         } else if (depth < 10) {
-                            primer.setBlockState(x, k, y, cliffBlock1);
+                            primer.setBlockState(x, k, y, biome.config.CLIFF_BLOCK_1.get());
                         } else {
                             primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                         }

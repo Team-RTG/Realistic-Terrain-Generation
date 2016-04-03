@@ -17,7 +17,6 @@ import java.util.Random;
 public class SurfaceVanillaBirchForestHills extends SurfaceBase {
 
     private boolean beach;
-    private IBlockState beachBlock;
     private float min;
 
     private float sCliff = 1.5f;
@@ -28,12 +27,12 @@ public class SurfaceVanillaBirchForestHills extends SurfaceBase {
 
     private float mixHeight;
 
-    public SurfaceVanillaBirchForestHills(RealisticBiomeBase biome, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff,
-                                          float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixSize) {
+    public SurfaceVanillaBirchForestHills(RealisticBiomeBase biome, boolean genBeach, float minCliff, float stoneCliff,
+                                          float stoneHeight, float stoneStrength, float clayCliff, float mixSize) {
 
         super(biome);
         beach = genBeach;
-        beachBlock = genBeachBlock;
+
         min = minCliff;
 
         sCliff = stoneCliff;
@@ -88,7 +87,7 @@ public class SurfaceVanillaBirchForestHills extends SurfaceBase {
                         primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (k < 63) {
                         if (beach) {
-                            primer.setBlockState(x, k, y, beachBlock);
+                            primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
                             gravel = true;
                         } else if (k < 62) {
                             primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
@@ -107,7 +106,7 @@ public class SurfaceVanillaBirchForestHills extends SurfaceBase {
                     } else if (cliff == 2) {
                         primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (gravel) {
-                        primer.setBlockState(x, k, y, beachBlock);
+                        primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
                     } else if (m) {
                         primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get());
                     } else {

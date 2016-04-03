@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.util.noise.CellNoise;
@@ -23,8 +22,8 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaIcePlainsSpikes(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get(), biome.config.TOP_BLOCK.get(), biome.config.TOP_BLOCK.get());
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaIcePlainsSpikes(this);
     }
 
     @Override

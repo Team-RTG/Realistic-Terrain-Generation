@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic;
 
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.config.ConfigRTG;
+import rtg.util.mods.Mods;
 
 public class RealisticBiomePatcher {
 
@@ -10,7 +10,7 @@ public class RealisticBiomePatcher {
     private BiomeGenBase baseBiome;
 
     public RealisticBiomePatcher() {
-        this.patchBiomeId = ConfigRTG.PATCH_BIOME_ID.get();
+        this.patchBiomeId = Mods.RTG.config.PATCH_BIOME_ID.get();
 
         if (this.patchBiomeId > -1) {
 

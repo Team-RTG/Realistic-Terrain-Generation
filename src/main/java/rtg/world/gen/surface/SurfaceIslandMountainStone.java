@@ -1,21 +1,19 @@
 package rtg.world.gen.surface;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import java.util.Random;
 
 public class SurfaceIslandMountainStone extends SurfaceBase {
     private int beach;
-    private IBlockState beachBlock;
     private float min;
 
     private float sCliff = 1.5f;
@@ -23,8 +21,8 @@ public class SurfaceIslandMountainStone extends SurfaceBase {
     private float sStrength = 65f;
     private float cCliff = 1.5f;
 
-    public SurfaceIslandMountainStone(RealisticBiomeBase biome, int beachHeight, IBlockState genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff) {
-        this(config, top, fill, beachHeight, genBeachBlock, minCliff);
+    public SurfaceIslandMountainStone(RealisticBiomeBase biome, int beachHeight, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff) {
+        this(biome, beachHeight, minCliff);
 
         sCliff = stoneCliff;
         sHeight = stoneHeight;
@@ -32,10 +30,9 @@ public class SurfaceIslandMountainStone extends SurfaceBase {
         cCliff = clayCliff;
     }
 
-    public SurfaceIslandMountainStone(RealisticBiomeBase biome, int beachHeight, IBlockState genBeachBlock, float minCliff) {
+    public SurfaceIslandMountainStone(RealisticBiomeBase biome, int beachHeight, float minCliff) {
         super(biome);
         beach = beachHeight;
-        beachBlock = genBeachBlock;
         min = minCliff;
     }
 
@@ -77,7 +74,7 @@ public class SurfaceIslandMountainStone extends SurfaceBase {
                     } else if (cliff == 2) {
                         primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (k < beach) {
-                        primer.setBlockState(x, k, y, beachBlock);
+                        primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
                         gravel = true;
                     } else {
                         primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
@@ -88,7 +85,7 @@ public class SurfaceIslandMountainStone extends SurfaceBase {
                     } else if (cliff == 2) {
                         primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (gravel) {
-                        primer.setBlockState(x, k, y, beachBlock);
+                        primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
                     } else {
                         primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                     }

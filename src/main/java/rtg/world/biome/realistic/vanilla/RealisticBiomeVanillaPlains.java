@@ -21,7 +21,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaPlains(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get());
+        return new SurfaceVanillaPlains(this);
     }
 
     @Override

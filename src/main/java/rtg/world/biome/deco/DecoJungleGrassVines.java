@@ -1,9 +1,12 @@
 package rtg.world.biome.deco;
 
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
+
+import java.util.Random;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenVines;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.math.RandomUtil;
@@ -11,10 +14,7 @@ import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
-
-import java.util.Random;
-
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
+import rtg.world.gen.feature.WorldGenVinesRTG;
 
 /**
  * @author WhichOnesPink
@@ -51,7 +51,7 @@ public class DecoJungleGrassVines extends DecoBase {
                     (new WorldGenGrass(Blocks.tallgrass, grassMeta)).generate(world, rand, new BlockPos(l19, k22, j24));
 
                     for (int h44 = 0; h44 < 4 && k22 > 63; h44++) {
-                        WorldGenerator worldgenerator4 = new WorldGenVines();
+                        WorldGenerator worldgenerator4 = new WorldGenVinesRTG();
                         worldgenerator4.generate(world, rand, new BlockPos(l19, k22, j24));
                     }
                 }
@@ -83,7 +83,7 @@ public class DecoJungleGrassVines extends DecoBase {
                     if (k22 > 63) {
 
                         for (int h44 = 0; h44 < 8; h44++) {
-                            WorldGenerator worldgenerator4 = new WorldGenVines();
+                            WorldGenerator worldgenerator4 = new WorldGenVinesRTG();
                             worldgenerator4.generate(world, rand, new BlockPos(l19, k22, j24));
                         }
                     }

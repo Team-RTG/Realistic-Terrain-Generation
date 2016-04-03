@@ -51,13 +51,13 @@ public class RTGException extends Exception {
      * <b>Example:</b>
      * <br>
      * {@code
-     *  ExceptionUtils.ignore(() -> pink.forceToDrinkTea())
+     *  ExceptionUtils.ignoreAny(() -> pink.forceToDrinkTea())
      * }
      * <br>
      * This will ignore the {@code PinkTooStrongException} thrown by
      * {@code forceToDrinkTea()}, and just proceed as if nothing happened.
      */
-    public static void ignore(RunnableExc r) {
+    public static void ignoreAny(RunnableExc r) {
         try {
             r.run();
         } catch (Exception ignored) {}

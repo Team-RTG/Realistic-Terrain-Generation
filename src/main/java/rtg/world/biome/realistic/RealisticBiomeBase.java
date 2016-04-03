@@ -17,7 +17,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.SupportedMod;
+import rtg.api.mods.SupportedMod;
 import rtg.util.math.RandomUtil;
 import rtg.util.mods.Mods;
 import rtg.util.noise.CellNoise;

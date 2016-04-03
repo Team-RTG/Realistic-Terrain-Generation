@@ -1,7 +1,7 @@
 package rtg.util.mods;
 
 import rtg.api.util.ModPresenceTester;
-import rtg.api.util.SupportedMod;
+import rtg.api.mods.SupportedMod;
 import rtg.config.ConfigRTG;
 
 /**

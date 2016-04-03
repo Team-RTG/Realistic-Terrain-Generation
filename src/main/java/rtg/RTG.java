@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import rtg.api.event.RTGEvent;
 import rtg.api.util.RealisticBiomePresenceTester;
-import rtg.api.util.SupportedMod;
+import rtg.api.mods.SupportedMod;
 import rtg.debug.DebugHandler;
 import rtg.event.EventManagerRTG;
 import rtg.proxy.CommonProxy;

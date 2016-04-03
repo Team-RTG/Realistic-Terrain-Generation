@@ -26,7 +26,7 @@ public abstract class ConfigProperty<T> {
     }
 
     public T get() {
-        return this.value;
+        return (this.value == null) ? this.defaultVal: this.value;
     }
 
     public T getDefault() {
@@ -42,6 +42,9 @@ public abstract class ConfigProperty<T> {
         return this.id;
     }
 
+    public String getSection() {
+        return this.section;
+    }
     public String getComment() {
         return comment;
     }

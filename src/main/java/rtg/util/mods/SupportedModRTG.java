@@ -9,10 +9,11 @@ import rtg.config.ConfigRTG;
  */
 public class SupportedModRTG extends SupportedMod {
 
-    public final ConfigRTG config = new ConfigRTG();
+    public final ConfigRTG config;
 
     public SupportedModRTG() {
         super("RTG", true);
+        config = new ConfigRTG();
     }
 
     /**

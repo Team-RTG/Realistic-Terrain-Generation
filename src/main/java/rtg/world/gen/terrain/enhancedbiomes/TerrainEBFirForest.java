@@ -19,7 +19,7 @@ public class TerrainEBFirForest extends TerrainBase
 		height  = new GroundEffect(groundNoiseAmplitude);
 
                 AdjustableSpikeEffect outcrops = new AdjustableSpikeEffect();
-        outcrops.height = 30;
+        outcrops.height = 40;
         outcrops.minimumSimplex = 0.6f; // rarish
         outcrops.wavelength = 200;
         outcrops.octave = 2;

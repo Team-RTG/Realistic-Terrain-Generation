@@ -49,7 +49,7 @@ public class RealisticBiomeEBMeadowM extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBMeadowM(),
+			new TerrainEBMeadowM(70,25),
 			new SurfaceEBMeadowM(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

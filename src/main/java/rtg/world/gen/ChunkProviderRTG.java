@@ -502,11 +502,6 @@ public class ChunkProviderRTG implements IChunkProvider
 
     			river = cmr.getRiverStrength(x + i, y + j);
 
-    			if(locationIndex == centerLocationIndex)
-    			{
-	    			//biomesGeneratedInChunk[256] = river;
-    			}
-
     			for(k = 0; k < 256; k++)
     			{
     				if(smallRender[locationIndex][k] > 0f)

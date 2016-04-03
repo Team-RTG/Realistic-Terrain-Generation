@@ -15,8 +15,8 @@ public class TerrainEBSandstoneRanges extends TerrainBase
 	private float width;
 	private float strength;
 	private float terrainHeight;
-    private float spikeWidth = 25;
-    private float spikeHeight = 50;
+    private float spikeWidth = 20;
+    private float spikeHeight = 60;
     private HeightEffect heightEffect;
 
 	public TerrainEBSandstoneRanges(float mountainWidth, float mountainStrength)
@@ -29,7 +29,7 @@ public class TerrainEBSandstoneRanges extends TerrainBase
 		width = mountainWidth;
 		strength = mountainStrength;
 		terrainHeight = height;
-        ScatteredMountainsEffect mountainEffect = new ScatteredMountainsEffect();
+        MountainsWithPassesEffect mountainEffect = new MountainsWithPassesEffect();
         mountainEffect.mountainHeight = strength;
         mountainEffect.mountainWavelength = width;
         mountainEffect.spikeHeight = this.spikeHeight;

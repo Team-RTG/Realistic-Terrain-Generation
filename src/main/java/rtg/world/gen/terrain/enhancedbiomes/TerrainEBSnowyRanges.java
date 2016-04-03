@@ -6,6 +6,7 @@ import rtg.world.gen.terrain.GroundEffect;
 import rtg.world.gen.terrain.HeightEffect;
 import rtg.world.gen.terrain.HeightVariation;
 import rtg.world.gen.terrain.JitterEffect;
+import rtg.world.gen.terrain.MountainsWithPassesEffect;
 import rtg.world.gen.terrain.ScatteredMountainsEffect;
 import rtg.world.gen.terrain.TerrainBase;
 
@@ -14,8 +15,8 @@ public class TerrainEBSnowyRanges extends TerrainBase
 	private float width;
 	private float strength;
 	private float terrainHeight;
-    private float spikeWidth = 15;
-    private float spikeHeight = 30;
+    private float spikeWidth = 25;
+    private float spikeHeight = 75;
     private HeightEffect heightEffect;
 
 	public TerrainEBSnowyRanges(float mountainWidth, float mountainStrength, float height)
@@ -23,7 +24,7 @@ public class TerrainEBSnowyRanges extends TerrainBase
 		width = mountainWidth;
 		strength = mountainStrength;
 		terrainHeight = height;
-        ScatteredMountainsEffect mountainEffect = new ScatteredMountainsEffect();
+        MountainsWithPassesEffect mountainEffect = new MountainsWithPassesEffect();
         mountainEffect.mountainHeight = strength;
         mountainEffect.mountainWavelength = width;
         mountainEffect.spikeHeight = this.spikeHeight;

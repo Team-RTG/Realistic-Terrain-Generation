@@ -2,41 +2,36 @@ package rtg.world.gen.terrain.enhancedbiomes;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.HeightEffect;
+import rtg.world.gen.terrain.HillockEffect;
+import rtg.world.gen.terrain.JitterEffect;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBXericSavanna extends TerrainBase
 {
-	private float width;
-	private float strength;
-	private float lakeDepth;
-	private float lakeWidth;
-	private float terrainHeight;
-
-	/*
-	 * width = 230f
-	 * strength = 120f
-	 * lake = 50f;
-	 *
-	 * 230f, 120f, 50f
-	 */
-
-	public TerrainEBXericSavanna(float mountainWidth, float mountainStrength, float depthLake)
+    private HeightEffect height;
+    private float hillHeight = 6f;
+    private float hillWavelength = 40;
+	public TerrainEBXericSavanna()
 	{
-		this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
-	}
+        base = 68f;
+        HillockEffect smallHills = new HillockEffect();
+        smallHills.height = hillHeight;
+        smallHills.minimumSimplex = 0.3f;
+        smallHills.wavelength =hillWavelength;
 
-	public TerrainEBXericSavanna(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
-	{
-		width = mountainWidth;
-		strength = mountainStrength;
-		lakeDepth = depthLake;
-		lakeWidth = widthLake;
-		terrainHeight = height;
+        JitterEffect jittered = new JitterEffect();
+        jittered.amplitude = 2f;
+        jittered.wavelength = 25f;
+        jittered.jittered = smallHills;;
+
+        height  = jittered.plus(new GroundEffect(2f));
 	}
 
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainLonelyMountain(x, y, simplex, cell, river, strength, width, terrainHeight);
+        return riverized(height.added(simplex, cell, x, y) + base, river);
 	}
 }

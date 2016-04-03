@@ -50,7 +50,7 @@ public class RealisticBiomeEBOakForest extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBOakForest(200f, 100f, 0f),
+			new TerrainEBOakForest(),
 			new SurfaceEBOakForest(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

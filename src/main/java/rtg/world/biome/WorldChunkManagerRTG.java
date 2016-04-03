@@ -20,10 +20,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
-import rtg.util.SimplexCellularOctave;
 import rtg.util.SimplexOctave;
-import rtg.util.VoronoiCellNoise;
-import rtg.util.VoronoiCellOctave;
 
 public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeProvider
 {
@@ -56,7 +53,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         if (par1World.provider.dimensionId !=0) throw new RuntimeException();
 
         simplex = new OpenSimplexNoise(seed);
-        cell = new VoronoiCellNoise(seed);
+        cell = new SimplexCellularNoise(seed);
         simplexCell = new SimplexCellularNoise(seed);
         GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType);
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
@@ -108,11 +105,14 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
             {
                 f = (float) biomePatcher.getSingleRealisticBiome().getIntRainfall() / 65536.0F;
             } else {
+                int biome = aint[i1];
                 try {
-                    f = (float) RealisticBiomeBase.getBiome(aint[i1]).getIntRainfall() / 65536.0F;
+                    if (biome>255) throw new RuntimeException(biomeIndexLayer.toString());
+                    f = (float) RealisticBiomeBase.getBiome(biome).getIntRainfall() / 65536.0F;
                 } catch (Exception e) {
-                    if (RealisticBiomeBase.getBiome(aint[i1])== null) {
-                        f = (float) biomePatcher.getPatchedRealisticBiome("Problem with biome "+aint[i1]+" from "+e.getMessage()).getIntRainfall() / 65536.0F;
+                    if (biome>255) throw new RuntimeException(biomeIndexLayer.toString());
+                    if (RealisticBiomeBase.getBiome(biome)== null) {
+                        f = (float) biomePatcher.getPatchedRealisticBiome("Problem with biome "+biome+" from "+e.getMessage()).getIntRainfall() / 65536.0F;
                     }
                 }
             }
@@ -211,52 +211,40 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         
         return getBiomeDataAt(x, y).rNoise(simplex, cell, x, y, 1f, river);
     }
-    
+
+    private static int [] incidences = new int[100];
+    private static int references = 0;
 	private static double cellBorder(double[] results, double width, double depth) {
-		double c = results[1] - results[0];
+		double c = (results[1] - results[0]);
+        /*int slot = (int)Math.floor(c*100.0);
+        incidences[slot] += 1;
+        references ++;
+        if (references>40000) {
+            String result = "";
+            for (int i = 0; i< 100; i ++) {
+                result += " " + incidences[i];
+            }
+            throw new RuntimeException(result);
+        }*/
 		if (c < width) {
-			return ((c / width) - 1) * depth;
+			return ((c / width) - 1f) * depth;
 		} else {
+
 			return 0;
 		}
 	}
-    
-    public float calculateRiver(int x, int y, float st, float biomeHeight)
-    {
-        
-        if (st < 0f && biomeHeight > 59f)
-        {
-        	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
-            SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-            simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
-            double pX = x + jitter.deltax() * 220f;
-            double pY = y + jitter.deltay() * 220f;
-            /*double[] simplexResults = new double[2];
-    	    OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
-            double pX = x + simplexResults[0] * 220f;
-            double pY = y + simplexResults[1] * 220f;*/
-
-            //New cellular noise.
-            //TODO move the initialization of the results in a way that's more efficient but still thread safe.
-            double[] results =simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
-            float r = (float) cellBorder(results, 30.0 / 1300.0, 1.0);
-            
-            return (biomeHeight * (r + 1f))
-                + ((59f + simplex.noise2(x / 12f, y / 12f) * 2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (-r));
-        }
-        else
-        {
-            return biomeHeight;
-        }
-    }
 
     public float getRiverStrength(int x, int y)
     {
     	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
             SimplexOctave.Disk jitter = new SimplexOctave.Disk();
             simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
-            double pX = x + jitter.deltax() * 220f;
-            double pY = y + jitter.deltay() * 220f;
+            double pX = x + jitter.deltax() * 140f;
+            double pY = y + jitter.deltay() * 140f;
+
+            simplex.riverJitter().evaluateNoise(x / 80.0, y / 80.0, jitter);
+            pX += jitter.deltax() * 35f;
+            pY += jitter.deltay() * 35f;
             /*double[] simplexResults = new double[2];
     	    OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
             double pX = x + simplexResults[0] * 220f;
@@ -265,7 +253,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         //New cellular noise.
         //TODO move the initialization of the results in a way that's more efficient but still thread safe.
         double[] results = simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
-        return (float) cellBorder(results, 30.0 / 300.0, 1.0);
+        return (float) cellBorder(results, 30.0 / 450.0, 1.0);
     }
     	
     public boolean isBorderlessAt(int x, int y)

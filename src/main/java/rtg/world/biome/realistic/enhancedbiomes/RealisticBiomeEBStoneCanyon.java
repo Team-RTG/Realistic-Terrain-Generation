@@ -29,8 +29,8 @@ public class RealisticBiomeEBStoneCanyon extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantStoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0),
-        EBAPI.ebStonify(EBAPI.MARBLE, (byte)0)
+        EBAPI.ebStonify(EBAPI.BASALT, (byte)0),
+        EBAPI.ebStonify(EBAPI.GABBRO, (byte)0)
     };
     
     public static Block[] ebDominantCobblestoneBlock = new Block[]{
@@ -39,28 +39,28 @@ public class RealisticBiomeEBStoneCanyon extends RealisticBiomeEBBase
     };
     
     public static byte[] ebDominantCobblestoneMeta = new byte[]{
-        EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0),
-        EBAPI.ebStonify(EBAPI.MARBLE, (byte)0)
+        EBAPI.ebStonify(EBAPI.BASALT, (byte)0),
+        EBAPI.ebStonify(EBAPI.GABBRO, (byte)0)
     };
     
-    private static Block ebTopBlock = Blocks.sand;
-    private static byte ebTopByte = (byte)0;
-    private static Block ebFillBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.sandstone);
-    private static byte ebFillByte = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
-    private static Block ebMixTopBlock = EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt);
-    private static byte ebMixTopByte = EBAPI.ebGrassify(EBAPI.OXISOL, (byte)0);
-    private static Block ebMixFillBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.sandstone);
-    private static byte ebMixFillByte = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
-    private static Block ebCliff1Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.sandstone);
-    private static byte ebCliff1Byte = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
-    private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.sandstone);
-    private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
+    private static Block ebTopBlock =EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+    private static byte ebTopByte = EBAPI.ebStonify(EBAPI.GABBRO, (byte)0);
+    private static Block ebFillBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+    private static byte ebFillByte = EBAPI.ebStonify(EBAPI.BASALT, (byte)0);
+    private static Block ebMixTopBlock = EBAPI.ebGrassify(Blocks.dirt, Blocks.dirt);
+    private static byte ebMixTopByte = EBAPI.ebGrassify(EBAPI.ALFISOL, (byte)0);
+    private static Block ebMixFillBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+    private static byte ebMixFillByte = EBAPI.ebStonify(EBAPI.GABBRO, (byte)0);
+    private static Block ebCliff1Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+    private static byte ebCliff1Byte = EBAPI.ebStonify(EBAPI.BASALT, (byte)0);
+    private static Block ebCliff2Block = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneCobbleEB, Blocks.stone);
+    private static byte ebCliff2Byte = EBAPI.ebStonify(EBAPI.BASALT, (byte)0);
     
 	public RealisticBiomeEBStoneCanyon(BiomeGenBase ebBiome, BiomeConfig config)
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBStoneCanyon(false, 35f, 160f, 40f, 30f, 60),
+			new TerrainEBStoneCanyon(false, 35f, 60),
 			new SurfaceEBStoneCanyon(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

@@ -20,7 +20,7 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
-			new TerrainBOPOutback(300f),
+			new TerrainBOPOutback(65f,50f,10f),
 			new SurfaceBOPOutback(config, 
                 Blocks.grass, //Block top 
                 (byte)0, //byte topByte
@@ -31,7 +31,7 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
                 fillerBlock, //Block mixFill, 
                 (byte)0, //byte mixFillByte,
                 40f, //float mixWidth, 
-                -0.15f, //float mixHeight, 
+                -0.15f, //float mixHeight,
                 10f, //float smallWidth, 
                 0.5f //float smallStrength
             )

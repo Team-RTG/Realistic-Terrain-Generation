@@ -7,6 +7,8 @@ import rtg.world.gen.terrain.highlands.TerrainHLDunes;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 
 public class RealisticBiomeHLDunes extends RealisticBiomeHLBase
 {
@@ -22,5 +24,7 @@ public class RealisticBiomeHLDunes extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.river,
             new TerrainHLDunes(),
             new SurfaceHLDunes(config, topBlock, fillerBlock));
+        noLakes = true;
     }
+
 }

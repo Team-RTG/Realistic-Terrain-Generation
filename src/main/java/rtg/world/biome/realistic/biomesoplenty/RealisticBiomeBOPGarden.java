@@ -19,7 +19,7 @@ public class RealisticBiomeBOPGarden extends RealisticBiomeBOPBase
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
-			new TerrainBOPGarden(65f, 68f, 22f),
+			new TerrainBOPGarden(65f, 68f, 10f),
 			new SurfaceBOPGarden(config, 
                 topBlock, //Block top 
                 (byte)0, //byte topByte

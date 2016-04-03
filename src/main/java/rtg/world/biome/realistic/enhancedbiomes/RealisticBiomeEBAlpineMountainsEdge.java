@@ -41,7 +41,7 @@ public class RealisticBiomeEBAlpineMountainsEdge extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBAlpineMountainsEdge(300f, 80f, 30f),
+			new TerrainEBAlpineMountainsEdge(),
 			new SurfaceEBAlpineMountainsEdge(config, ebTopBlock, ebFillBlock, false, null, 0.45f)
 		);
         

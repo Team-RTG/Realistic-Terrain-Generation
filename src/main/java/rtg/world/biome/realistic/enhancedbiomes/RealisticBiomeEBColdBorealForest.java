@@ -50,7 +50,7 @@ public class RealisticBiomeEBColdBorealForest extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBColdBorealForest(160f, 80f, 60f),
+			new TerrainEBColdBorealForest(),
 			new SurfaceEBColdBorealForest(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

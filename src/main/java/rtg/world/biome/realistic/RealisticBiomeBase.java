@@ -10,19 +10,8 @@ import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.Ev
 import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.LAPIS;
 import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.REDSTONE;
 
+import java.util.ArrayList;
 import java.util.Random;
-
-import rtg.api.biome.BiomeConfig;
-import rtg.config.rtg.ConfigRTG;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.RandomUtil;
-import rtg.world.biome.BiomeBase;
-import rtg.world.biome.RTGBiomeProvider;
-import rtg.world.gen.feature.WorldGenClay;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceGeneric;
-import rtg.world.gen.terrain.TerrainBase;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -32,11 +21,24 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.api.biome.BiomeConfig;
+import rtg.config.rtg.ConfigRTG;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.util.RandomUtil;
+import rtg.util.SimplexOctave;
+import rtg.world.biome.BiomeBase;
+import rtg.world.biome.RTGBiomeProvider;
+import rtg.world.biome.deco.DecoBase;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.gen.feature.WorldGenClay;
+import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.gen.surface.SurfaceGeneric;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBase extends BiomeBase {
     
@@ -67,6 +69,9 @@ public class RealisticBiomeBase extends BiomeBase {
     public byte emeraldEmeraldMeta;
     public Block emeraldStoneBlock;
     public byte emeraldStoneMeta;
+    
+    public ArrayList<DecoBase> decos;
+    public boolean useNewDecorationSystem = false;
     
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
     
@@ -107,6 +112,20 @@ public class RealisticBiomeBase extends BiomeBase {
         emeraldEmeraldMeta = (byte)0;
         emeraldStoneBlock = Blocks.stone;
         emeraldStoneMeta = (byte)0;
+        
+        decos = new ArrayList<DecoBase>();
+        
+        /**
+         * By default, it is assumed that all realistic biomes will be decorated manually and not by the biome.
+         * This includes ore generation since it's part of the decoration process.
+         * We're adding this deco here in order to avoid having to explicitly add it
+         * in every singe realistic biome.
+         * If it does get added manually to let the base biome handle some or all of the decoration process,
+         * this deco will get replaced with the new one.
+         */
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		decoBaseBiomeDecorations.allowed = false;
+		this.decos.add(decoBaseBiomeDecorations);
     }
     
     public static RealisticBiomeBase getBiome(int id) {
@@ -313,12 +332,138 @@ public class RealisticBiomeBase extends BiomeBase {
     public void rMapGen(Block[] blocks, byte[] metadata, World world, RTGBiomeProvider cmr, Random mapRand, int chunkX, int chunkY, int baseX, int baseY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
     
     }
-    
-    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-    
-        return terrain.generateNoise(simplex, cell, x, y, border, river);
+
+    private float getRiverStrength(OpenSimplexNoise simplex, CellNoise cell, int x, int y)
+    {
+        // copied from WorldChunkManager for debugging purposes
+            SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+            simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
+            double pX = x + jitter.deltax() * 220f;
+            double pY = y + jitter.deltay() * 220f;
+
+        double[] results = cell.river().eval(pX / 1875.0, pY / 1875.0);
+        return (float) cellBorder(results, 30.0 / 450.0, 1.0);
     }
+
+    private static double cellBorder(double[] results, double width, double depth) {
+		double c = (results[1] - results[0]);
+        //int slot = (int)Math.floor(c*100.0);
+        //incidences[slot] += 1;
+        //references ++;
+        if (references>40000) {
+            String result = "";
+            for (int i = 0; i< 100; i ++) {
+                result += " " + incidences[i];
+            }
+            throw new RuntimeException(result);
+        }
+		if (c < width) {
+			return ((c / width) - 1f) * depth;
+		} else {
+
+			return 0;
+		}
+	}
     
+    private static int [] incidences = new int[200];
+    private static int references = 0;
+    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        // we now have both lakes and rivers lowering land
+        /*for (int testX =0 ;testX<100; testX++) {
+            for (int testZ =0 ;testZ<100; testZ++) {
+                int slot = (int)Math.floor(
+                        getRiverStrength(simplex,cell,4000+testX*10,4000+testZ*10)*100.0+100.0);
+                incidences[slot] += 1;
+                references ++;
+            }           
+        }
+        if (references>1000) {
+            String result = "";
+            for (int i = 0; i< 200; i ++) {
+                result += " " + incidences[i];
+            }
+            throw new RuntimeException(result);
+        }*/
+        if (noWaterFeatures) {
+            float borderForRiver = border*2;
+            if (borderForRiver >1f) borderForRiver = 1;
+            river = 1f - (1f-borderForRiver)*(1f-river);
+            return terrain.generateNoise(simplex, cell, x, y, border, river);
+        }
+        float lakeStrength = lakePressure(simplex,cell,x,y,border);
+        double lakeFlattening = this.lakeFlattening(lakeStrength, lakeWaterLevel, lakeDepressionLevel);
+        // we add some flattening to the rivers but not to the lakes. This gives the rivers flatter
+        // banks and the lakes steeper ones, which seems to be better aesthetically
+        float riverFlattening = river*1.25f-0.25f;
+        if (riverFlattening <0) riverFlattening = 0;
+        if (lakeFlattening < river) river = (float)lakeFlattening;
+        float terrainNoise = terrain.generateNoise(simplex, cell, x, y, border, riverFlattening);
+        return this.erodedNoise(simplex, cell, x, y, river, border, terrainNoise,lakeFlattening);
+    }
+
+    private static float actualRiverProportion = 300f/1600f;
+    public float erodedNoise(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float river, float border, float biomeHeight, double lakeFlattening)
+    {
+
+        float r = 1f;
+
+        // put a flat spot in the middle of the river
+        float riverFlattening = river; // moved the flattening to terrain stage
+        if (riverFlattening <0) riverFlattening = 0;
+
+        // check if rivers need lowering
+        if (riverFlattening < actualRiverProportion) {
+            r = riverFlattening/actualRiverProportion;
+        }
+
+        //if (1>0) return 62f+r*10f;
+        if ((r < 1f && biomeHeight > 57f))
+        {
+            return (biomeHeight * (r))
+                + ((57f + simplex.noise2(x / 12f, y / 12f) * 2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (1f-r));
+        }
+        else
+        {
+            return biomeHeight;
+        }
+    }
+
+    // lake calculations
+
+    private float lakeInterval = 1470.0f;
+    private double lakeWaterLevel = 0.0;// the lakeStrenght below which things should be below ater
+    private double lakeDepressionLevel = 0.16;// the lakeStrength below which land should start to be lowered
+    public boolean noLakes = false;
+    public boolean noWaterFeatures = false;
+
+    public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
+        if (noLakes) return 1f;
+        SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+        simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
+        double pX = x + jitter.deltax() * 90f;
+        double pY = y + jitter.deltay() * 90f;
+        simplex.mountain().evaluateNoise(x / 80.0, y / 80.0, jitter);
+        pX += jitter.deltax() * 25f;
+        pY += jitter.deltay() * 25f;
+        simplex.mountain().evaluateNoise(x / 30.0, y / 30.0, jitter);
+        pX += jitter.deltax() * 7f;
+        pY += jitter.deltay() * 7f;
+        //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
+        double [] lakeResults = simplexCell.river().eval((float)pX/ lakeInterval, (float)pY/ lakeInterval);
+        float results = 1f-(float)((lakeResults[1]-lakeResults[0])/lakeResults[1]);
+        if (results >1.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
+        if (results<-.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
+        //return simplexCell.river().noise((float)x/ lakeInterval, (float)y/ lakeInterval,1.0);
+        return results;
+    }
+
+    public double lakeFlattening(double pressure, double bottomLevel, double topLevel) {
+        // this number indicates a multiplier to height
+        if (pressure > topLevel) return 1;
+        if (pressure<bottomLevel) return 0;
+        return (pressure-bottomLevel)/(topLevel-bottomLevel);
+    }
+
     public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
         if (ConfigRTG.enableRTGBiomeSurfaces && this.config.getPropertyById(BiomeConfig.useRTGSurfacesId).valueBoolean) {
@@ -450,5 +595,54 @@ public class RealisticBiomeBase extends BiomeBase {
     public SurfaceBase[] getSurfaces()
     {
         return this.surfaces;
+    }
+    
+    public void decorateInAnOrderlyFashion(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
+    {
+    	for (int i = 0; i < this.decos.size(); i++) {
+    		
+    		if (this.decos.get(i).preGenerate(this, world, rand, chunkX, chunkY, simplex, cell, strength, river)) {
+    			
+    			this.decos.get(i).generate(this, world, rand, chunkX, chunkY, simplex, cell, strength, river);
+    		}
+    	}
+    }
+    
+    /**
+     * Adds a deco object to the list of biome decos.
+     * The 'allowed' parameter allows us to pass biome config booleans dynamically when configuring the decos in the biome.
+     * 
+     * @param deco
+     * @param allowed
+     */
+    public void addDeco(DecoBase deco, boolean allowed)
+    {
+    	if (allowed) {
+    		
+	    	if (deco instanceof DecoBaseBiomeDecorations) {
+	    		
+	        	for (int i = 0; i < this.decos.size(); i++) {
+	        		
+	        		if (this.decos.get(i) instanceof DecoBaseBiomeDecorations) {
+	        			
+	        			this.decos.remove(i);
+	        			break;
+	        		}
+	        	}
+	    	}
+	    	
+	    	this.decos.add(deco);
+	    	this.useNewDecorationSystem = true;
+    	}
+    }
+    
+    /**
+     * Convenience method for addDeco() where 'allowed' is assumed to be true.
+     * 
+     * @param deco
+     */
+    public void addDeco(DecoBase deco)
+    {
+    	this.addDeco(deco, true);
     }
 }

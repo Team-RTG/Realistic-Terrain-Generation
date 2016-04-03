@@ -49,7 +49,7 @@ public class RealisticBiomeEBSnowyRanges extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBSnowyRanges(200f, 100f, 0f),
+			new TerrainEBSnowyRanges(100f, 25f, 68f),
 			new SurfaceEBSnowyRanges(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
@@ -69,7 +69,8 @@ public class RealisticBiomeEBSnowyRanges extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
+
+        noWaterFeatures= true;
         this.generatesEmeralds = true;
         this.emeraldEmeraldBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.oreEmeraldEB, Blocks.emerald_ore);
         this.emeraldEmeraldMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);

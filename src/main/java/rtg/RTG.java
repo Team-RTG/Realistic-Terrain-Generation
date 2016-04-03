@@ -41,12 +41,14 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.relauncher.Side;
-
 import net.minecraftforge.common.MinecraftForge;
+import static rtg.reference.ModInfo.*;
 
-@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, acceptableRemoteVersions = "*")
+
+//@Mod(modid = "RTG", name = "Realistic Terrain Generation", version = "0.8.0", dependencies = "required-after:Forge@[" + FORGE_DEP + ",)", acceptableRemoteVersions = "*")
+@Mod(modid = MOD_ID, name = MOD_NAME, version = MOD_VERSION, dependencies = "required-after:Forge@[" + FORGE_DEP + ",)", acceptableRemoteVersions = "*")
 public class RTG {
-    
+
     @Instance("RTG")
     public static RTG instance;
     public static String configPath;

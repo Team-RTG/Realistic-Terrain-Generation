@@ -11,16 +11,24 @@ public class WorldGenCacti extends WorldGenerator
 {
 	private boolean sand;
 	private int eHeight;
+	private Block soilBlock;
+	private byte soilMeta;
 	
 	public WorldGenCacti(boolean sandOnly)
 	{
 		this(sandOnly, 0);
 	}
 	
-	public WorldGenCacti(boolean sandOnly, int extraHeight)
+    public WorldGenCacti(boolean sandOnly, int extraHeight) {
+    	this(sandOnly, extraHeight, Blocks.sand, (byte)0);
+    }
+	
+	public WorldGenCacti(boolean sandOnly, int extraHeight, Block soilBlock, byte soilMeta)
 	{
 		sand = sandOnly;
 		eHeight = extraHeight;
+		this.soilBlock = soilBlock;
+		this.soilMeta = soilMeta;
 	}
 
     public boolean generate(World world, Random rand, int x, int y, int z)

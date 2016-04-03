@@ -1,46 +1,14 @@
-[
-{
-    "modid": "RTG",
-    "name": "Realistic Terrain Generation",
-    "description": "Adds a new world type which generates realistic terrain for Overworld biomes.",
-    "version": "${version}",
-    "mcversion": "${mcversion}",
-    "url": "https://github.com/Team-RTG/Realistic-Terrain-Generation",
-    "updateUrl": "",
-    "authorList": [ "WhichOnesPink" ],
-    "credits": "Forked from the RWG mod by ted80. OpenSimplex Noise by KdotJPG",
-    "logoFile": "assets/RTG/logo.png",
-    "screenshots": [],
-    "parent": "",
-    "requiredMods": [ "Forge@[10.13.4.1448,)" ],
-    "dependencies": [
-        "abyssalcraft@[1.8.9.6,)",
-        "arsmagica2@[1.4.0.008,)",
-        "ATG@[0.10.0,)",
-        "BiomesOPlenty@[2.1.0,)",
-        "BuildCraft|Core@[7.1.7,)",
-        "enhancedbiomes@2.5 for MC 1.7.10",
-        "enviromine@[1.3.119,)",
-        "ExtrabiomesXL@[3.16.2,)",
-        "ForgottenNature@[1.6.11,)",
-        "Growthcraft|Bamboo@[1.7.10-2.5.0,)",
-        "Highlands@[2.2.3,)",
-        "lom@[1.7.10-3.2.0,)",
-        "Railcraft@[9.7.0.0,)",
-        "RidiculousWorld@[0.1,)",
-        "Thaumcraft@[4.2.3.4,)",
-        "TofuCraft@2.1.6-MC1.7.10",
-        "vampirism@[0.7.8.5,)"
-    ],
-    "dependants": [],
-    "useDependencyInformation": true
-}
-]
-
-
-
-
-
-
-
-
+[{
+  "modid": "${modid}",
+  "name": "${name}",
+  "description": "${description}",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "${url}",
+  "updateUrl": "",
+  "authorList": [${authorList}],
+  "credits": "${credits}",
+  "logoFile": "${logoFile}",
+  "screenshots": [],
+  "dependencies": [${dependencies}]
+}]

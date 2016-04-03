@@ -1,6 +1,6 @@
 package rtg.util.mods;
 
-import rtg.api.util.SupportedMod;
+import rtg.api.mods.SupportedMod;
 
 /**
  * @author topisani

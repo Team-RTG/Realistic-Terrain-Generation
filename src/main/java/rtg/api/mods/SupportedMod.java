@@ -1,4 +1,4 @@
-package rtg.api.util;
+package rtg.api.mods;
 
 import rtg.api.config.ModConfig;
 

@@ -3,7 +3,7 @@ package rtg.api.config;
 import net.minecraftforge.common.config.Configuration;
 import rtg.RTG;
 import rtg.api.util.debug.Logger;
-import rtg.api.util.SupportedMod;
+import rtg.api.mods.SupportedMod;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import java.io.File;
@@ -37,6 +37,10 @@ public class ModConfig extends Config{
                 config.save();
             }
         }
+    }
+
+    public void loadConfigs() {
+
     }
 
     public void initDefaults() {}

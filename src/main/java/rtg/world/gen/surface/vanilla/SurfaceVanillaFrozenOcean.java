@@ -16,16 +16,16 @@ import java.util.Random;
 public class SurfaceVanillaFrozenOcean extends SurfaceBase {
 
     private final int sandMetadata = 0;
-    public IBlockState mixBlock;
+
     private float width;
     private float height;
     private float mixCheck;
 
-    public SurfaceVanillaFrozenOcean(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mix, float mixWidth, float mixHeight) {
+    public SurfaceVanillaFrozenOcean(RealisticBiomeBase biome, IBlockState mix, float mixWidth, float mixHeight) {
 
-        super(config, top, filler);
+        super(biome);
 
-        mixBlock = this.getConfigBlock(BiomeConfigProperty.SURFACE_TOP_MIX_BLOCK, mix);
+        biome.config.MIX_BLOCK.get() = this.getConfigBlock(BiomeConfigProperty.SURFACE_TOP_MIX_BLOCK, mix);
 
         width = mixWidth;
         height = mixHeight;
@@ -47,12 +47,12 @@ public class SurfaceVanillaFrozenOcean extends SurfaceBase {
 
                     if (mixCheck > height) // > 0.27f, i / 12f
                     {
-                        primer.setBlockState(x, k, y, mixBlock);
+                        primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get());
                     } else {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     }
                 } else if (depth < 4 && k < 63) {
-                    primer.setBlockState(x, k, y, fillerBlock);
+                    primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                 } else if (depth == 0 && k < 69) {
                     primer.setBlockState(x, k, y, Blocks.sand.getStateFromMeta(sandMetadata));
 

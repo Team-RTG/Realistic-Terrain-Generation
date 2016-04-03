@@ -28,10 +28,10 @@ public class SurfaceBOPFlowerField extends SurfaceBase {
     private IBlockState mix;
     private float mixHeight;
 
-    public SurfaceBOPFlowerField(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff,
-                                 float stoneHeight, float stoneStrength, float clayCliff, IBlockState mixBlock, float mixSize) {
+    public SurfaceBOPFlowerField(RealisticBiomeBase biome, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff,
+                                 float stoneHeight, float stoneStrength, float clayCliff, IBlockState biome.config.MIX_BLOCK.get(), float mixSize) {
 
-        super(config, top, fill);
+        super(biome);
         beach = genBeach;
         beachBlock = genBeachBlock;
         min = minCliff;
@@ -41,7 +41,7 @@ public class SurfaceBOPFlowerField extends SurfaceBase {
         sStrength = stoneStrength;
         cCliff = clayCliff;
 
-        mix = mixBlock;
+        mix = biome.config.MIX_BLOCK.get();
         mixHeight = mixSize;
     }
 
@@ -80,39 +80,39 @@ public class SurfaceBOPFlowerField extends SurfaceBase {
                     if (cliff == 1) {
                         if (rand.nextInt(3) == 0) {
 
-                            primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcCobble());
                         } else {
 
-                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcStone());
                         }
                     } else if (cliff == 2) {
-                        primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (k < 63) {
                         if (beach) {
                             primer.setBlockState(x, k, y, beachBlock);
                             gravel = true;
                         } else if (k < 62) {
-                            primer.setBlockState(x, k, y, fillerBlock);
+                            primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                         } else {
-                            primer.setBlockState(x, k, y, topBlock);
+                            primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                         }
                     } else if (simplex.noise2(i / 12f, j / 12f) > mixHeight) {
                         primer.setBlockState(x, k, y, mix);
                         m = true;
                     } else {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     }
                 } else if (depth < 6) {
                     if (cliff == 1) {
-                        primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, hcStone());
                     } else if (cliff == 2) {
-                        primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (gravel) {
                         primer.setBlockState(x, k, y, beachBlock);
                     } else if (m) {
                         primer.setBlockState(x, k, y, mix);
                     } else {
-                        primer.setBlockState(x, k, y, fillerBlock);
+                        primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                     }
                 }
             }

@@ -17,15 +17,15 @@ import java.util.Random;
 
 public class SurfaceVanillaSavanna extends SurfaceBase {
 
-    public IBlockState mixBlock;
+
     private float width;
     private float height;
 
-    public SurfaceVanillaSavanna(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mix, float mixWidth, float mixHeight) {
+    public SurfaceVanillaSavanna(RealisticBiomeBase biome, IBlockState mix, float mixWidth, float mixHeight) {
 
-        super(config, top, filler);
+        super(biome);
 
-        mixBlock = this.getConfigBlock(BiomeConfigProperty.SURFACE_TOP_MIX_BLOCK, mix);
+        biome.config.MIX_BLOCK.get() = this.getConfigBlock(BiomeConfigProperty.SURFACE_TOP_MIX_BLOCK, mix);
 
         width = mixWidth;
         height = mixHeight;
@@ -51,12 +51,12 @@ public class SurfaceVanillaSavanna extends SurfaceBase {
                     if (depth == 0 && k > 61) {
                         if (simplex.noise2(i / width, j / width) > height) // > 0.27f, i / 12f
                         {
-                            primer.setBlockState(x, k, y, mixBlock);
+                            primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get());
                         } else {
-                            primer.setBlockState(x, k, y, topBlock);
+                            primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                         }
                     } else if (depth < 4) {
-                        primer.setBlockState(x, k, y, fillerBlock);
+                        primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                     }
                 }
             }

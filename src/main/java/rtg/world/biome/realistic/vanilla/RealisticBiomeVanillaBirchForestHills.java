@@ -15,13 +15,18 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanillaBase {
 
-    public final IBlockState mixBlock = Blocks.dirt.getStateFromMeta(2);
+    public final IBlockState biome.config.MIX_BLOCK.get() = Blocks.dirt.getStateFromMeta(2);
     public RealisticBiomeVanillaBirchForestHills() {
         super(
                 Biomes.birchForestHills,
                 Biomes.river
         );
         this.noLakes = true;
+
+        config.TOP_BLOCK.setDefault(Blocks.sand.getDefaultState());
+        config.FILL_BLOCK.setDefault(Blocks.sand.getDefaultState());
+        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.dirt.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.stone.getDefaultState());
 
         /**
          * ##################################################

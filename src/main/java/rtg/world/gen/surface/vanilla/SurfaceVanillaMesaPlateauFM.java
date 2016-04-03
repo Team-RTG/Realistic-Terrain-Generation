@@ -18,8 +18,8 @@ import java.util.Random;
 public class SurfaceVanillaMesaPlateauFM extends SurfaceBase {
     private int grassRaise = 0;
 
-    public SurfaceVanillaMesaPlateauFM(BiomeConfig config, IBlockState top, IBlockState fill, int grassHeight) {
-        super(config, top, fill);
+    public SurfaceVanillaMesaPlateauFM(RealisticBiomeBase biome, int grassHeight) {
+        super(biome);
         grassRaise = grassHeight;
     }
 
@@ -57,10 +57,10 @@ public class SurfaceVanillaMesaPlateauFM extends SurfaceBase {
                                 } else if (rand.nextInt((int) (r / 2f) + 1) == 0) {
                                     primer.setBlockState(x, k, y, Blocks.dirt.getStateFromMeta(1));
                                 } else {
-                                    primer.setBlockState(x, k, y, topBlock);
+                                    primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                                 }
                             } else {
-                                primer.setBlockState(x, k, y, fillerBlock);
+                                primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                             }
                         }
                     }

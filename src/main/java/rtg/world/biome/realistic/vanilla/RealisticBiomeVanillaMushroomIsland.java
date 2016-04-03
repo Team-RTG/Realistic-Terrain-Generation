@@ -9,8 +9,6 @@ import rtg.world.gen.surface.vanilla.SurfaceVanillaMushroomIsland;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBase {
-    public static IBlockState topBlock = Biomes.mushroomIsland.topBlock;
-    public static IBlockState fillerBlock = Biomes.mushroomIsland.fillerBlock;
 
     public RealisticBiomeVanillaMushroomIsland() {
         super(
@@ -22,7 +20,7 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMushroomIsland(config, topBlock, fillerBlock, 67, topBlock, 0f);
+        return new SurfaceVanillaMushroomIsland(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get(), 67, biome.config.TOP_BLOCK.get(), 0f);
     }
 
     @Override

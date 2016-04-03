@@ -20,9 +20,6 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.savannaPlateau.topBlock;
-    public static IBlockState fillerBlock = Biomes.savannaPlateau.fillerBlock;
-
     public RealisticBiomeVanillaSavannaPlateau() {
 
         super(
@@ -34,7 +31,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSavannaPlateau(config, topBlock, fillerBlock, 0);
+        return new SurfaceVanillaSavannaPlateau(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get(), 0);
     }
 
     @Override

@@ -23,9 +23,6 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.extremeHillsPlus.topBlock;
-    public static IBlockState fillerBlock = Biomes.extremeHillsPlus.fillerBlock;
-
     public RealisticBiomeVanillaExtremeHillsPlus() {
 
         super(

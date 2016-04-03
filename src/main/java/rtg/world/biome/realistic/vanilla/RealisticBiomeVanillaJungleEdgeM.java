@@ -20,9 +20,6 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
     public static BiomeGenBase standardBiome = Biomes.jungleEdge;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
-    public static IBlockState topBlock = mutationBiome.topBlock;
-    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
-
     public RealisticBiomeVanillaJungleEdgeM() {
 
         super(
@@ -33,7 +30,7 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaJungleEdgeM(config, topBlock, fillerBlock);
+        return new SurfaceVanillaJungleEdgeM(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get());
     }
 
     @Override

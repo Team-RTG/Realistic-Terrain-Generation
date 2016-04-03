@@ -14,6 +14,7 @@ public class BiomeConfig extends Config {
     public final ConfigProperty.PropertyBlock CLIFF_BLOCK_1 = new ConfigProperty.PropertyBlock("Cliff block 1", "");
     public final ConfigProperty.PropertyBlock CLIFF_BLOCK_2 = new ConfigProperty.PropertyBlock("Cliff block 2", "");
     public final ConfigProperty.PropertyBlock MIX_BLOCK = new ConfigProperty.PropertyBlock("Mix block", "");
+    public final ConfigProperty.PropertyBlock BEACH_BLOCK = new ConfigProperty.PropertyBlock("Beach block", "");
 
     private void setDefaults() {
         ALLOW_VILLAGES.setComment("").setDefault(true);

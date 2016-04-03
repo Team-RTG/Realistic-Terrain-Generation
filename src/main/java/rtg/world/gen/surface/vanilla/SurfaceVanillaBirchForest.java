@@ -9,7 +9,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
-import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBirchForest;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
@@ -24,25 +24,21 @@ public class SurfaceVanillaBirchForest extends SurfaceBase {
     private float sHeight = 60f;
     private float sStrength = 65f;
     private float cCliff = 1.5f;
-
-    private IBlockState mixBlock;
     private float mixHeight;
 
-    public SurfaceVanillaBirchForest(RealisticBiomeVanillaBirchForest biome, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff,
-                                     float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixSize) {
+    public SurfaceVanillaBirchForest(RealisticBiomeBase biome) {
 
         super(biome);
         beach = false;
         beachBlock = null;
-        min = minCliff;
+        min = 0f;
 
-        sCliff = stoneCliff;
-        sHeight = stoneHeight;
-        sStrength = stoneStrength;
-        cCliff = clayCliff;
+        sCliff = 1.5f;
+        sHeight = 60f;
+        sStrength = 65f;
+        cCliff = 1.5f;
 
-        mixBlock = biome.mixBlock;
-        mixHeight = mixSize;
+        mixHeight = 0.15f;
     }
 
     @Override
@@ -92,15 +88,15 @@ public class SurfaceVanillaBirchForest extends SurfaceBase {
                             primer.setBlockState(x, k, y, beachBlock);
                             gravel = true;
                         } else if (k < 62) {
-                            primer.setBlockState(x, k, y, biome.fillerBlock);
+                            primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                         } else {
-                            primer.setBlockState(x, k, y, biome.topBlock);
+                            primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                         }
                     } else if (simplex.noise2(i / 12f, j / 12f) > mixHeight) {
-                        primer.setBlockState(x, k, y, mixBlock);
+                        primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get());
                         m = true;
                     } else {
-                        primer.setBlockState(x, k, y, biome.topBlock);
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     }
                 } else if (depth < 6) {
                     if (cliff == 1) {
@@ -110,9 +106,9 @@ public class SurfaceVanillaBirchForest extends SurfaceBase {
                     } else if (gravel) {
                         primer.setBlockState(x, k, y, beachBlock);
                     } else if (m) {
-                        primer.setBlockState(x, k, y, mixBlock);
+                        primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get());
                     } else {
-                        primer.setBlockState(x, k, y, biome.fillerBlock);
+                        primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                     }
                 }
             }

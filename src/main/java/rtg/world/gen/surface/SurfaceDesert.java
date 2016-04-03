@@ -6,20 +6,17 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import java.util.Random;
 
 public class SurfaceDesert extends SurfaceBase {
-    private IBlockState cliffBlock1;
-    private IBlockState cliffBlock2;
-    private IBlockState bottomBlock;
 
-    public SurfaceDesert(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState bottom, IBlockState cliff1, IBlockState cliff2) {
-        super(config, top, filler);
+    public SurfaceDesert(RealisticBiomeBase biome, IBlockState bottom, IBlockState cliff1, IBlockState cliff2) {
+        super(biome);
 
         bottomBlock = bottom;
         cliffBlock1 = cliff1;
@@ -46,9 +43,9 @@ public class SurfaceDesert extends SurfaceBase {
                     }
                 } else if (depth < 6) {
                     if (depth == 0 && k > 61) {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     } else if (depth < 4) {
-                        primer.setBlockState(x, k, y, fillerBlock);
+                        primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                     } else {
                         primer.setBlockState(x, k, y, bottomBlock);
                     }

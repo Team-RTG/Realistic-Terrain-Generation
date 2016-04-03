@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class SurfaceBCDesertOilField extends SurfaceBase {
     public SurfaceBCDesertOilField(BiomeConfig config, IBlockState top, IBlockState fill) {
-        super(config, top, fill);
+        super(biome);
     }
 
     @Override

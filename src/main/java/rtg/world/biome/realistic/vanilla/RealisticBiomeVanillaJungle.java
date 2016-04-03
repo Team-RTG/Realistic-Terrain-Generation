@@ -14,8 +14,6 @@ import rtg.world.gen.surface.vanilla.SurfaceVanillaJungle;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
-    public static IBlockState topBlock = Biomes.jungle.topBlock;
-    public static IBlockState fillerBlock = Biomes.jungle.fillerBlock;
 
     public RealisticBiomeVanillaJungle() {
         super(

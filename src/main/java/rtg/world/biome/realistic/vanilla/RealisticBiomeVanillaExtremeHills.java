@@ -37,7 +37,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaExtremeHills(config, topBlock, fillerBlock, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
+        return new SurfaceVanillaExtremeHills(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get(), Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
     }
 
     @Override

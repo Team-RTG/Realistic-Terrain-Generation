@@ -21,9 +21,6 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.swampland.topBlock;
-    public static IBlockState fillerBlock = Biomes.swampland.fillerBlock;
-
     public RealisticBiomeVanillaSwampland() {
 
         super(
@@ -34,7 +31,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSwampland(config, topBlock, fillerBlock);
+        return new SurfaceVanillaSwampland(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get());
     }
 
     @Override

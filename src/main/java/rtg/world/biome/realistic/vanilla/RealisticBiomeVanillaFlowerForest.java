@@ -29,9 +29,6 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
     public static BiomeGenBase standardBiome = Biomes.forest;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
-    public static IBlockState topBlock = mutationBiome.topBlock;
-    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
-
     public RealisticBiomeVanillaFlowerForest() {
 
         super(

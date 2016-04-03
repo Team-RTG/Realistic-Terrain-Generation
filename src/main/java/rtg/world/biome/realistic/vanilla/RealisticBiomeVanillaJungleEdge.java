@@ -17,9 +17,6 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.jungleEdge.topBlock;
-    public static IBlockState fillerBlock = Biomes.jungleEdge.fillerBlock;
-
     public RealisticBiomeVanillaJungleEdge() {
 
         super(
@@ -30,7 +27,7 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaJungleEdge(config, topBlock, fillerBlock);
+        return new SurfaceVanillaJungleEdge(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get());
     }
 
     @Override

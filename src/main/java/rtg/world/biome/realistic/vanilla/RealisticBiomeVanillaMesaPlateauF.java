@@ -15,9 +15,6 @@ import static rtg.world.biome.deco.DecoTree.TreeType.VANILLA_OAK;
 
 public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.mesaPlateau_F.topBlock;
-    public static IBlockState fillerBlock = Biomes.mesaPlateau_F.fillerBlock;
-
     public RealisticBiomeVanillaMesaPlateauF() {
         super(
                 Biomes.mesaPlateau_F,

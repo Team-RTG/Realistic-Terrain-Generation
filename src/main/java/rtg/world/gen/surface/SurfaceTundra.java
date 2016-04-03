@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class SurfaceTundra extends SurfaceBase {
     public SurfaceTundra(BiomeConfig config, IBlockState top, IBlockState fill) {
-        super(config, top, fill);
+        super(biome);
     }
 
     @Override
@@ -51,13 +51,13 @@ public class SurfaceTundra extends SurfaceBase {
                     if (cliff == 1) {
                         if (rand.nextInt(3) == 0) {
 
-                            primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcCobble());
                         } else {
 
-                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcStone());
                         }
                     } else if (cliff == 2) {
-                        primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (cliff == 3) {
                         primer.setBlockState(x, k, y, Blocks.snow.getDefaultState());
                     } else if (simplex.noise2(i / 50f, j / 50f) + p * 0.6f > 0.24f) {
@@ -70,9 +70,9 @@ public class SurfaceTundra extends SurfaceBase {
                     }
                 } else if (depth < 6) {
                     if (cliff == 1) {
-                        primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, hcStone());
                     } else if (cliff == 2) {
-                        primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (cliff == 3) {
                         primer.setBlockState(x, k, y, Blocks.snow.getDefaultState());
                     } else if (gravel) {

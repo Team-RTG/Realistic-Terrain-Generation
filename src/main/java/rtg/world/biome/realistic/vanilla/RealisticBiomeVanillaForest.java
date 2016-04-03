@@ -16,9 +16,6 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.forest.topBlock;
-    public static IBlockState fillerBlock = Biomes.forest.fillerBlock;
-
     public RealisticBiomeVanillaForest() {
 
         super(

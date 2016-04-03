@@ -17,8 +17,8 @@ import rtg.world.gen.terrain.TerrainBase;
 import java.util.Random;
 
 public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
-    public static IBlockState topBlock = Blocks.snow.getDefaultState();
-    public static IBlockState fillerBlock = Blocks.snow.getDefaultState();
+    public static IBlockState biome.config.TOP_BLOCK.get() = Blocks.snow.getDefaultState();
+    public static IBlockState biome.config.FILL_BLOCK.get() = Blocks.snow.getDefaultState();
 
     public RealisticBiomeVanillaIcePlains() {
         super(
@@ -29,7 +29,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaIcePlains(config, topBlock, fillerBlock, topBlock, topBlock);
+        return new SurfaceVanillaIcePlains(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get(), biome.config.TOP_BLOCK.get(), biome.config.TOP_BLOCK.get());
     }
 
     @Override

@@ -16,8 +16,8 @@ import java.util.Random;
 public class SurfaceGrassCanyon extends SurfaceBase {
     private byte claycolor;
 
-    public SurfaceGrassCanyon(BiomeConfig config, IBlockState top, IBlockState fill, byte clayByte) {
-        super(config, top, fill);
+    public SurfaceGrassCanyon(RealisticBiomeBase biome, byte clayByte) {
+        super(biome);
         claycolor = clayByte;
     }
 
@@ -41,9 +41,9 @@ public class SurfaceGrassCanyon extends SurfaceBase {
                             primer.setBlockState(x, k, y, Blocks.stained_hardened_clay.getStateFromMeta(claycolor));
                         } else {
                             if (depth == 0) {
-                                primer.setBlockState(x, k, y, topBlock);
+                                primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                             } else {
-                                primer.setBlockState(x, k, y, fillerBlock);
+                                primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                             }
                         }
                     }

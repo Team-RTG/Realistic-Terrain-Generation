@@ -18,8 +18,8 @@ import java.util.Random;
 public class SurfaceVanillaMesaPlateau extends SurfaceBase {
     private int grassRaise = 0;
 
-    public SurfaceVanillaMesaPlateau(BiomeConfig config, IBlockState top, IBlockState fill, int grassHeight) {
-        super(config, top, fill);
+    public SurfaceVanillaMesaPlateau(RealisticBiomeBase biome, int grassHeight) {
+        super(biome);
         grassRaise = grassHeight;
     }
 

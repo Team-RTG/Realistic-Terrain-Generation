@@ -88,8 +88,8 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         config.addBool(config.ALLOW_VILLAGES);
         config.addBool(config.USE_RTG_SURFACES);
         config.addBool(config.USE_RTG_DECORATIONS);
-        config.addBlock(config.TOP_BLOCK).setDefault(baseBiome.topBlock);
-        config.addBlock(config.FILL_BLOCK).setDefault(baseBiome.fillerBlock);
+        config.addBlock(config.TOP_BLOCK).setDefault(baseBiome.biome.config.TOP_BLOCK.get());
+        config.addBlock(config.FILL_BLOCK).setDefault(baseBiome.biome.config.FILL_BLOCK.get());
 
         initProperties();
 

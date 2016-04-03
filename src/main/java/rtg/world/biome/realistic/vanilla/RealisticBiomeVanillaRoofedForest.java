@@ -27,9 +27,6 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.roofedForest.topBlock;
-    public static IBlockState fillerBlock = Biomes.roofedForest.fillerBlock;
-
     public RealisticBiomeVanillaRoofedForest() {
 
         super(

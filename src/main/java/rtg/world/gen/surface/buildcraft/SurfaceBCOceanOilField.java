@@ -15,16 +15,16 @@ import java.util.Random;
 
 public class SurfaceBCOceanOilField extends SurfaceBase {
 
-    public IBlockState mixBlock;
+
     private float width;
     private float height;
     private float mixCheck;
 
-    public SurfaceBCOceanOilField(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mix, float mixWidth, float mixHeight) {
+    public SurfaceBCOceanOilField(RealisticBiomeBase biome, IBlockState mix, float mixWidth, float mixHeight) {
 
-        super(config, top, filler);
+        super(biome);
 
-        mixBlock = mix;
+        biome.config.MIX_BLOCK.get() = mix;
 
         width = mixWidth;
         height = mixHeight;
@@ -46,12 +46,12 @@ public class SurfaceBCOceanOilField extends SurfaceBase {
 
                     if (mixCheck > height) // > 0.27f, i / 12f
                     {
-                        primer.setBlockState(x, k, y, mixBlock);
+                        primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get());
                     } else {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     }
                 } else if (depth < 4) {
-                    primer.setBlockState(x, k, y, fillerBlock);
+                    primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                 }
             }
         }

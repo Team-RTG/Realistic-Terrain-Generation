@@ -23,9 +23,6 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.extremeHillsEdge.topBlock;
-    public static IBlockState fillerBlock = Biomes.extremeHillsEdge.fillerBlock;
-
     public RealisticBiomeVanillaExtremeHillsEdge() {
 
         super(
@@ -39,7 +36,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaExtremeHillsEdge(config, topBlock, fillerBlock, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
+        return new SurfaceVanillaExtremeHillsEdge(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get(), Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
     }
 
     @Override

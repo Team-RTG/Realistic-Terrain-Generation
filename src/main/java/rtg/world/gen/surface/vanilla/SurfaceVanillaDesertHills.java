@@ -24,7 +24,7 @@ public class SurfaceVanillaDesertHills extends SurfaceBase {
     private float sStrength = 65f;
     private float cCliff = 1.5f;
 
-    public SurfaceVanillaDesertHills(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff) {
+    public SurfaceVanillaDesertHills(RealisticBiomeBase biome, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff) {
         this(config, top, fill, genBeach, genBeachBlock, minCliff);
 
         sCliff = stoneCliff;
@@ -33,8 +33,8 @@ public class SurfaceVanillaDesertHills extends SurfaceBase {
         cCliff = clayCliff;
     }
 
-    public SurfaceVanillaDesertHills(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff) {
-        super(config, top, fill);
+    public SurfaceVanillaDesertHills(RealisticBiomeBase biome, boolean genBeach, IBlockState genBeachBlock, float minCliff) {
+        super(biome);
         beach = genBeach;
         beachBlock = genBeachBlock;
         min = minCliff;
@@ -78,12 +78,12 @@ public class SurfaceVanillaDesertHills extends SurfaceBase {
                             primer.setBlockState(x, k, y, beachBlock);
                             gravel = true;
                         } else if (k < 62) {
-                            primer.setBlockState(x, k, y, fillerBlock);
+                            primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                         } else {
-                            primer.setBlockState(x, k, y, topBlock);
+                            primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                         }
                     } else {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     }
                 } else if (depth < 6) {
                     if (cliff == 1) {
@@ -93,7 +93,7 @@ public class SurfaceVanillaDesertHills extends SurfaceBase {
                     } else if (gravel) {
                         primer.setBlockState(x, k, y, beachBlock);
                     } else {
-                        primer.setBlockState(x, k, y, fillerBlock);
+                        primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                     }
                 }
             }

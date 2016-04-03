@@ -15,9 +15,6 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.coldTaigaHills.topBlock;
-    public static IBlockState fillerBlock = Biomes.coldTaigaHills.fillerBlock;
-
     public RealisticBiomeVanillaColdTaigaHills() {
 
         super(

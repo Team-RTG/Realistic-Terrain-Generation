@@ -21,9 +21,6 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.iceMountains.topBlock;
-    public static IBlockState fillerBlock = Biomes.iceMountains.fillerBlock;
-
     public RealisticBiomeVanillaIceMountains() {
 
         super(
@@ -35,7 +32,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaIceMountains(config, topBlock, fillerBlock, Blocks.snow.getDefaultState(), Blocks.snow.getDefaultState(), Blocks.packed_ice.getDefaultState(), Blocks.ice.getDefaultState(), 60f,
+        return new SurfaceVanillaIceMountains(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get(), Blocks.snow.getDefaultState(), Blocks.snow.getDefaultState(), Blocks.packed_ice.getDefaultState(), Blocks.ice.getDefaultState(), 60f,
                 -0.14f, 14f, 0.25f);
     }
 

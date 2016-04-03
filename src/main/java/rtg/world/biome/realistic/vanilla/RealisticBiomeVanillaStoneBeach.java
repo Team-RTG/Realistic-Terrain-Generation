@@ -10,8 +10,6 @@ import rtg.world.gen.surface.vanilla.SurfaceVanillaStoneBeach;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
-    public static IBlockState topBlock = Biomes.stoneBeach.topBlock;
-    public static IBlockState fillerBlock = Biomes.stoneBeach.fillerBlock;
 
     public RealisticBiomeVanillaStoneBeach() {
         super(
@@ -22,7 +20,7 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaStoneBeach(config, topBlock, fillerBlock, true, Blocks.gravel.getDefaultState(), 1f, 1.5f, 85f, 20f, 4f);
+        return new SurfaceVanillaStoneBeach(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get(), true, Blocks.gravel.getDefaultState(), 1f, 1.5f, 85f, 20f, 4f);
     }
 
     @Override

@@ -15,11 +15,11 @@ import rtg.world.gen.surface.SurfaceBase;
 import java.util.Random;
 
 public class SurfaceVanillaIcePlainsSpikes extends SurfaceBase {
-    private IBlockState cliffBlock1;
-    private IBlockState cliffBlock2;
 
-    public SurfaceVanillaIcePlainsSpikes(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState cliff1, IBlockState cliff2) {
-        super(config, top, filler);
+
+
+    public SurfaceVanillaIcePlainsSpikes(RealisticBiomeBase biome, IBlockState cliff1, IBlockState cliff2) {
+        super(biome);
 
         cliffBlock1 = cliff1;
         cliffBlock2 = cliff2;
@@ -45,9 +45,9 @@ public class SurfaceVanillaIcePlainsSpikes extends SurfaceBase {
                     }
                 } else {
                     if (depth == 0 && k > 61) {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     } else if (depth < 4) {
-                        primer.setBlockState(x, k, y, fillerBlock);
+                        primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                     }
                 }
             }

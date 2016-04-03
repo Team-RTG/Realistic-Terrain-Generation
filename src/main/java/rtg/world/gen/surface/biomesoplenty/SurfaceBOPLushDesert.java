@@ -24,10 +24,10 @@ public class SurfaceBOPLushDesert extends SurfaceBase {
     private float floSmallWidth;
     private float floSmallStrength;
 
-    public SurfaceBOPLushDesert(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFiller,
+    public SurfaceBOPLushDesert(RealisticBiomeBase biome, IBlockState mixTop, IBlockState mixFiller,
                                 float mixWidth, float mixHeight, float smallWidth, float smallStrength) {
 
-        super(config, top, filler);
+        super(biome);
 
         blockMixTop = mixTop;
         blockMixFiller = mixFiller;
@@ -57,13 +57,13 @@ public class SurfaceBOPLushDesert extends SurfaceBase {
                     if (depth > -1 && depth < 2) {
                         if (rand.nextInt(3) == 0) {
 
-                            primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcCobble());
                         } else {
 
-                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcStone());
                         }
                     } else if (depth < 10) {
-                        primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, hcStone());
                     }
                 } else {
                     if (depth == 0 && k > 61) {
@@ -73,13 +73,13 @@ public class SurfaceBOPLushDesert extends SurfaceBase {
 
                             mix = true;
                         } else {
-                            primer.setBlockState(x, k, y, topBlock);
+                            primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                         }
                     } else if (depth < 4) {
                         if (mix) {
                             primer.setBlockState(x, k, y, blockMixFiller);
                         } else {
-                            primer.setBlockState(x, k, y, fillerBlock);
+                            primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                         }
                     }
                 }

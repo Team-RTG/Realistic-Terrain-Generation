@@ -14,9 +14,6 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
     public static BiomeGenBase standardBiome = Biomes.icePlains;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
-    public static IBlockState topBlock = mutationBiome.topBlock;
-    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
-
     public RealisticBiomeVanillaIcePlainsSpikes() {
         super(
                 mutationBiome,
@@ -27,7 +24,7 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaIcePlainsSpikes(config, topBlock, fillerBlock, topBlock, topBlock);
+        return new SurfaceVanillaIcePlainsSpikes(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get(), biome.config.TOP_BLOCK.get(), biome.config.TOP_BLOCK.get());
     }
 
     @Override

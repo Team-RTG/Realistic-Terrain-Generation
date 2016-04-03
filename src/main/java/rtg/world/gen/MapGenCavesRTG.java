@@ -159,7 +159,7 @@ public class MapGenCavesRTG extends MapGenCaves {
                                             IBlockState iblockstate1 = primer.getBlockState(k2, l3, j3);
                                             IBlockState iblockstate2 = Objects.firstNonNull(primer.getBlockState(k2, l3 + 1, j3), Blocks.air.getDefaultState());
 
-                                            if (isTopBlock(primer, k2, l3, j3, chunkX, chunkZ)) {
+                                            if (isbiome.config.TOP_BLOCK.get()(primer, k2, l3, j3, chunkX, chunkZ)) {
                                                 flag1 = true;
                                             }
                                             digBlock(primer, k2, l3, j3, chunkX, chunkZ, flag1, iblockstate1, iblockstate2);
@@ -252,8 +252,8 @@ public class MapGenCavesRTG extends MapGenCaves {
     @Override
     protected void digBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop, IBlockState state, IBlockState up) {
         BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
-        Block top = isExceptionBiome(biome) ? Blocks.grass : biome.topBlock.getBlock();
-        Block filler = isExceptionBiome(biome) ? Blocks.dirt : biome.fillerBlock.getBlock();
+        Block top = isExceptionBiome(biome) ? Blocks.grass : biome.biome.config.TOP_BLOCK.get().getBlock();
+        Block filler = isExceptionBiome(biome) ? Blocks.dirt : biome.biome.config.FILL_BLOCK.get().getBlock();
         Block block = data.getBlockState(x, y, z).getBlock();
 
         if (block == Blocks.stone || block == Blocks.cobblestone || block == filler || block == top) {
@@ -283,8 +283,8 @@ public class MapGenCavesRTG extends MapGenCaves {
 
     //Determine if the block at the specified location is the top block for the biome, we take into account
     //Vanilla bugs to make sure that we generate the map the same way vanilla does.
-    private boolean isTopBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ) {
+    private boolean isbiome.config.TOP_BLOCK.get()(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ) {
         BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
-        return (isExceptionBiome(biome) ? data.getBlockState(x, y, z) == Blocks.grass : data.getBlockState(x, y, z) == biome.topBlock);
+        return (isExceptionBiome(biome) ? data.getBlockState(x, y, z) == Blocks.grass : data.getBlockState(x, y, z) == biome.biome.config.TOP_BLOCK.get());
     }
 }

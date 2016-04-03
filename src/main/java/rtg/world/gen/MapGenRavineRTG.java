@@ -147,7 +147,7 @@ public class MapGenRavineRTG extends MapGenRavine {
 
                                         if ((d13 * d13 + d14 * d14) * (double) this.field_75046_d[l3] + d11 * d11 / 6.0D < 1.0D) {
 
-                                            if (isTopBlock(primer, k2, l3, j3, p_151540_3_, p_151540_4_)) {
+                                            if (isbiome.config.TOP_BLOCK.get()(primer, k2, l3, j3, p_151540_3_, p_151540_4_)) {
                                                 flag = true;
                                             }
 
@@ -207,9 +207,9 @@ public class MapGenRavineRTG extends MapGenRavine {
 
     //Determine if the block at the specified location is the top block for the biome, we take into account
     //Vanilla bugs to make sure that we generate the map the same way vanilla does.
-    private boolean isTopBlock(ChunkPrimer primer, int x, int y, int z, int chunkX, int chunkZ) {
+    private boolean isbiome.config.TOP_BLOCK.get()(ChunkPrimer primer, int x, int y, int z, int chunkX, int chunkZ) {
         BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
-        return (isExceptionBiome(biome) ? primer.getBlockState(x, y, z) == Blocks.grass : primer.getBlockState(x, y, z) == biome.topBlock);
+        return (isExceptionBiome(biome) ? primer.getBlockState(x, y, z) == Blocks.grass : primer.getBlockState(x, y, z) == biome.biome.config.TOP_BLOCK.get());
     }
 
     /**
@@ -230,8 +230,8 @@ public class MapGenRavineRTG extends MapGenRavine {
     @Override
     protected void digBlock(ChunkPrimer primer, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop) {
         BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
-        Block top = isExceptionBiome(biome) ? Blocks.grass : biome.topBlock.getBlock();
-        Block filler = isExceptionBiome(biome) ? Blocks.dirt : biome.fillerBlock.getBlock();
+        Block top = isExceptionBiome(biome) ? Blocks.grass : biome.biome.config.TOP_BLOCK.get().getBlock();
+        Block filler = isExceptionBiome(biome) ? Blocks.dirt : biome.biome.config.FILL_BLOCK.get().getBlock();
         Block block = primer.getBlockState(x, y, z).getBlock();
 
         if (block == Blocks.stone || block == filler || block == top) {

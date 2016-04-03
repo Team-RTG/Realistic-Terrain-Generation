@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import rtg.util.noise.CellNoise;
@@ -16,14 +15,16 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase {
 
-    public final IBlockState mixBlock = Blocks.dirt.getStateFromMeta(2);
-
     public RealisticBiomeVanillaBirchForest() {
 
         super(
                 Biomes.birchForest,
                 Biomes.river
         );
+
+        config.TOP_BLOCK.setDefault(Blocks.sand.getDefaultState());
+        config.FILL_BLOCK.setDefault(Blocks.sand.getDefaultState());
+        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.dirt.getStateFromMeta(2));
 
         /**
          * ##################################################
@@ -83,7 +84,7 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaBirchForest(this, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.15f);
+        return new SurfaceVanillaBirchForest(this);
     }
     @Override
     protected TerrainBase initTerrain() {

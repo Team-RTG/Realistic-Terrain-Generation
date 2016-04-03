@@ -15,9 +15,6 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
     public static BiomeGenBase standardBiome = Biomes.plains;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
-    public static IBlockState topBlock = mutationBiome.topBlock;
-    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
-
     public RealisticBiomeVanillaSunflowerPlains() {
         super(
                 mutationBiome,
@@ -27,7 +24,7 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSunflowerPlains(config, topBlock, fillerBlock);
+        return new SurfaceVanillaSunflowerPlains(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get());
     }
 
     @Override

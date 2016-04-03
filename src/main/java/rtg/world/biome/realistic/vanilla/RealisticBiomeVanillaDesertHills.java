@@ -23,8 +23,6 @@ import rtg.world.gen.terrain.TerrainBase;
 import java.util.Random;
 
 public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase {
-    public static IBlockState topBlock = Biomes.desertHills.topBlock;
-    public static IBlockState fillerBlock = Biomes.desertHills.fillerBlock;
 
     public RealisticBiomeVanillaDesertHills() {
         super(

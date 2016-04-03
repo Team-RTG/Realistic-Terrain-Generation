@@ -14,9 +14,9 @@ import rtg.util.noise.OpenSimplexNoise;
 import java.util.Random;
 
 public class SurfaceRedDesert extends SurfaceBase {
-    private IBlockState cliffBlock1;
-    private IBlockState cliffBlock2;
-    private IBlockState bottomBlock;
+
+
+
 
     public SurfaceRedDesert(BiomeConfig config) {
         super(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1));
@@ -43,9 +43,9 @@ public class SurfaceRedDesert extends SurfaceBase {
                     }
                 } else if (depth < 6) {
                     if (depth == 0 && k > 61) {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     } else if (depth < 4) {
-                        primer.setBlockState(x, k, y, fillerBlock);
+                        primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                     } else {
                         primer.setBlockState(x, k, y, bottomBlock.getBlock().getDefaultState());
                     }

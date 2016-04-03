@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class SurfaceVanillaDesert extends SurfaceBase {
     public SurfaceVanillaDesert(BiomeConfig config, IBlockState top, IBlockState fill) {
-        super(config, top, fill);
+        super(biome);
     }
 
     @Override

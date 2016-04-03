@@ -9,8 +9,6 @@ import rtg.world.gen.surface.vanilla.SurfaceVanillaFrozenRiver;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase {
-    public static IBlockState topBlock = Biomes.frozenRiver.topBlock;
-    public static IBlockState fillerBlock = Biomes.frozenRiver.fillerBlock;
 
     public RealisticBiomeVanillaFrozenRiver() {
         super(

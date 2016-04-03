@@ -8,8 +8,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import rtg.config.ConfigRTG;
 import rtg.reference.ModInfo;
+import rtg.util.mods.Mods;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
@@ -25,7 +25,7 @@ public final class DebugHandler {
 
         if (world.getBiomeProvider() instanceof BiomeProviderRTG) {
 
-            if (ConfigRTG.showDebugInfo && Minecraft.getMinecraft().gameSettings.showDebugInfo) {
+            if (Mods.RTG.config.SHOW_DEBUG_INFO.get() && Minecraft.getMinecraft().gameSettings.showDebugInfo) {
 
                 BiomeProviderRTG chunkManager = (BiomeProviderRTG) world.getBiomeProvider();
                 String details = "";
@@ -54,7 +54,7 @@ public final class DebugHandler {
                 //details += "Noise (X/Z): " + chunkManager.getNoiseAt(posX, posZ);
                 //event.left.add(details);
 
-                if (ConfigRTG.enableDebugging) {
+                if (Mods.RTG.config.DEBUG_LOGGING.get()) {
                     details = PREFIX;
                     details += "WARNING!!! Debugging mode is ENABLED!";
                     event.getLeft().add(details);

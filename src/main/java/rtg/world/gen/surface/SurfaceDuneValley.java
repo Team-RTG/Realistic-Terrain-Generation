@@ -17,8 +17,8 @@ public class SurfaceDuneValley extends SurfaceBase {
     private boolean dirt;
     private boolean mix;
 
-    public SurfaceDuneValley(BiomeConfig config, IBlockState top, IBlockState fill, float valleySize, boolean d, boolean m) {
-        super(config, top, fill);
+    public SurfaceDuneValley(RealisticBiomeBase biome, float valleySize, boolean d, boolean m) {
+        super(biome);
 
         valley = valleySize;
         dirt = d;
@@ -48,7 +48,7 @@ public class SurfaceDuneValley extends SurfaceBase {
                     } else if (dirt && m < 0.22f || k < 62) {
                         primer.setBlockState(x, k, y, Blocks.dirt.getStateFromMeta(1));
                     } else {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     }
                 } else if (depth < 6) {
                     if (sand) {
@@ -58,7 +58,7 @@ public class SurfaceDuneValley extends SurfaceBase {
                             primer.setBlockState(x, k, y, Blocks.sandstone.getDefaultState());
                         }
                     } else {
-                        primer.setBlockState(x, k, y, fillerBlock);
+                        primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                     }
                 }
             }

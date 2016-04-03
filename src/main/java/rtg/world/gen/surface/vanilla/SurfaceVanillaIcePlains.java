@@ -16,11 +16,11 @@ import rtg.world.gen.surface.SurfaceBase;
 import java.util.Random;
 
 public class SurfaceVanillaIcePlains extends SurfaceBase {
-    private IBlockState cliffBlock1;
-    private IBlockState cliffBlock2;
 
-    public SurfaceVanillaIcePlains(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState cliff1, IBlockState cliff2) {
-        super(config, top, filler);
+
+
+    public SurfaceVanillaIcePlains(RealisticBiomeBase biome, IBlockState cliff1, IBlockState cliff2) {
+        super(biome);
 
         cliffBlock1 = cliff1;
         cliffBlock2 = cliff2;
@@ -45,7 +45,7 @@ public class SurfaceVanillaIcePlains extends SurfaceBase {
                         primer.setBlockState(x, k, y, cliffBlock1);
                     }
                 } else if (depth > -1 && depth < 9) {
-                    primer.setBlockState(x, k, y, topBlock);
+                    primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
 
                     if (depth == 0 && k > 61 && k < 254) {
                         SnowHeightCalculator.calc(x, y, k, primer, noise);

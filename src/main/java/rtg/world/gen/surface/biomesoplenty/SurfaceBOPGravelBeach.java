@@ -15,13 +15,13 @@ import rtg.world.gen.surface.SurfaceBase;
 import java.util.Random;
 
 public class SurfaceBOPGravelBeach extends SurfaceBase {
-    private IBlockState cliffBlock1;
-    private IBlockState cliffBlock2;
+
+
     private byte sandMetadata;
     private int cliffType;
 
-    public SurfaceBOPGravelBeach(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState cliff1, IBlockState cliff2, byte metadata, int cliff) {
-        super(config, top, filler);
+    public SurfaceBOPGravelBeach(RealisticBiomeBase biome, IBlockState cliff1, IBlockState cliff2, byte metadata, int cliff) {
+        super(biome);
 
         cliffBlock1 = cliff1;
         cliffBlock2 = cliff2;
@@ -58,13 +58,13 @@ public class SurfaceBOPGravelBeach extends SurfaceBase {
                     if (depth == 0 && k > 61) {
                         if (simplex.noise2(i / 12f, j / 12f) > -0.3f + ((k - 61f) / 15f)) {
                             dirt = true;
-                            primer.setBlockState(x, k, y, topBlock);
+                            primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                         } else {
                             primer.setBlockState(x, k, y, Blocks.sand.getStateFromMeta(sandMetadata));
                         }
                     } else if (depth < 4) {
                         if (dirt) {
-                            primer.setBlockState(x, k, y, fillerBlock);
+                            primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                         } else {
                             primer.setBlockState(x, k, y, Blocks.sand.getStateFromMeta(sandMetadata));
                         }

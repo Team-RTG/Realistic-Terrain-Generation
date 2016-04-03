@@ -15,20 +15,20 @@ import rtg.world.gen.surface.SurfaceBase;
 import java.util.Random;
 
 public class SurfaceBOPGlacier extends SurfaceBase {
-    public IBlockState mixBlockTop;
-    public IBlockState mixBlockFill;
-    private IBlockState cliffBlock1;
-    private IBlockState cliffBlock2;
+    public IBlockState biome.config.MIX_BLOCK.get()Top;
+    public IBlockState biome.config.MIX_BLOCK.get()Fill;
+
+
     private float width;
     private float height;
     private float smallW;
     private float smallS;
 
-    public SurfaceBOPGlacier(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFill, IBlockState cliff1, IBlockState cliff2, float mixWidth, float mixHeight, float smallWidth, float smallStrength) {
-        super(config, top, filler);
+    public SurfaceBOPGlacier(RealisticBiomeBase biome, IBlockState mixTop, IBlockState mixFill, IBlockState cliff1, IBlockState cliff2, float mixWidth, float mixHeight, float smallWidth, float smallStrength) {
+        super(biome);
 
-        mixBlockTop = mixTop;
-        mixBlockFill = mixFill;
+        biome.config.MIX_BLOCK.get()Top = mixTop;
+        biome.config.MIX_BLOCK.get()Fill = mixFill;
         cliffBlock1 = cliff1;
         cliffBlock2 = cliff2;
 
@@ -60,16 +60,16 @@ public class SurfaceBOPGlacier extends SurfaceBase {
                 } else {
                     if (depth == 0 && k > 61) {
                         if (simplex.noise2(i / width, j / width) + simplex.noise2(i / smallW, j / smallW) * smallS > height) {
-                            primer.setBlockState(x, k, y, mixBlockTop);
+                            primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get()Top);
                             mix = true;
                         } else {
-                            primer.setBlockState(x, k, y, topBlock);
+                            primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                         }
                     } else if (depth < 4) {
                         if (mix) {
-                            primer.setBlockState(x, k, y, mixBlockFill);
+                            primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get()Fill);
                         } else {
-                            primer.setBlockState(x, k, y, fillerBlock);
+                            primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                         }
                     }
                 }

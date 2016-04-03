@@ -15,8 +15,8 @@ public class SurfaceMountainPolar extends SurfaceBase {
     private IBlockState beachBlock;
     private float min;
 
-    public SurfaceMountainPolar(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff) {
-        super(config, top, fill);
+    public SurfaceMountainPolar(RealisticBiomeBase biome, boolean genBeach, IBlockState genBeachBlock, float minCliff) {
+        super(biome);
         beach = genBeach;
         beachBlock = genBeachBlock;
         min = minCliff;

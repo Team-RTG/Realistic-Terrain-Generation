@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class SurfacePolar extends SurfaceBase {
     public SurfacePolar(BiomeConfig config, IBlockState top, IBlockState fill) {
-        super(config, top, fill);
+        super(biome);
     }
 
     @Override
@@ -46,10 +46,10 @@ public class SurfacePolar extends SurfaceBase {
                     } else if (depth == 0) {
                         if (rand.nextInt(2) == 0) {
 
-                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcStone());
                         } else {
 
-                            primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcCobble());
                         }
                     }
                 } else if (depth > -1 && depth < 9) {

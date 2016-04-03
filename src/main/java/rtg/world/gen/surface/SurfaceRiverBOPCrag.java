@@ -14,16 +14,16 @@ import rtg.util.noise.OpenSimplexNoise;
 import java.util.Random;
 
 public class SurfaceRiverBOPCrag extends SurfaceBase {
-    private IBlockState topBlock;
-    private IBlockState fillerBlock;
-    private IBlockState cliffBlock1;
-    private IBlockState cliffBlock2;
+    private IBlockState biome.config.TOP_BLOCK.get();
+    private IBlockState biome.config.FILL_BLOCK.get();
 
-    public SurfaceRiverBOPCrag(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState cliff1, IBlockState cliff2) {
-        super(config, top, filler);
 
-        topBlock = top;
-        fillerBlock = filler;
+
+    public SurfaceRiverBOPCrag(RealisticBiomeBase biome, IBlockState cliff1, IBlockState cliff2) {
+        super(biome);
+
+        biome.config.TOP_BLOCK.get() = top;
+        biome.config.FILL_BLOCK.get() = filler;
         cliffBlock1 = cliff1;
         cliffBlock2 = cliff2;
     }
@@ -46,15 +46,15 @@ public class SurfaceRiverBOPCrag extends SurfaceBase {
                     } else if (depth < 10) {
                         primer.setBlockState(x, k, y, cliffBlock1);
                     } else {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     }
                 } else {
                     if (depth == 0 && k > 61) {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     } else if (depth < 4) {
-                        primer.setBlockState(x, k, y, fillerBlock);
+                        primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                     } else {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     }
                 }
             }

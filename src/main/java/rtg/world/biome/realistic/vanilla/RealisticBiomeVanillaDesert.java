@@ -19,9 +19,6 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.desert.topBlock;
-    public static IBlockState fillerBlock = Biomes.desert.fillerBlock;
-
     public RealisticBiomeVanillaDesert() {
 
         super(
@@ -35,7 +32,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaDesert(config, topBlock, fillerBlock);
+        return new SurfaceVanillaDesert(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get());
     }
 
     @Override

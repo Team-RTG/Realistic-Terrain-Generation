@@ -11,8 +11,6 @@ import rtg.world.gen.surface.vanilla.SurfaceVanillaColdBeach;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
-    public static IBlockState topBlock = Biomes.coldBeach.topBlock;
-    public static IBlockState fillerBlock = Biomes.coldBeach.fillerBlock;
 
     public RealisticBiomeVanillaColdBeach() {
         super(
@@ -37,7 +35,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaColdBeach(config, topBlock, fillerBlock, topBlock, fillerBlock, (byte) 0, 1);
+        return new SurfaceVanillaColdBeach(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get(), biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get(), (byte) 0, 1);
     }
 
     @Override

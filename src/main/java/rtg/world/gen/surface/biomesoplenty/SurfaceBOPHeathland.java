@@ -16,8 +16,8 @@ import java.util.Random;
 
 public class SurfaceBOPHeathland extends SurfaceBase {
 
-    public SurfaceBOPHeathland(BiomeConfig config, IBlockState top, IBlockState filler) {
-        super(config, top, filler);
+    public SurfaceBOPHeathland((RealisticBiomeBase biome,) {
+        super(biome);
     }
 
     @Override
@@ -36,19 +36,19 @@ public class SurfaceBOPHeathland extends SurfaceBase {
                     if (depth > -1 && depth < 2) {
                         if (rand.nextInt(3) == 0) {
 
-                            primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcCobble());
                         } else {
 
-                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcStone());
                         }
                     } else if (depth < 10) {
-                        primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, hcStone());
                     }
                 } else {
                     if (depth == 0 && k > 61) {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     } else if (depth < 4) {
-                        primer.setBlockState(x, k, y, fillerBlock);
+                        primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                     }
                 }
             }

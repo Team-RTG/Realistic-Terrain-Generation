@@ -15,9 +15,6 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.coldTaiga.topBlock;
-    public static IBlockState fillerBlock = Biomes.coldTaiga.fillerBlock;
-
     public RealisticBiomeVanillaColdTaiga() {
 
         super(
@@ -94,7 +91,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaColdTaiga(config, topBlock, fillerBlock);
+        return new SurfaceVanillaColdTaiga(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get());
     }
 
     @Override

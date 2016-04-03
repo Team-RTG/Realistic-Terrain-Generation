@@ -25,9 +25,6 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.megaTaiga.topBlock;
-    public static IBlockState fillerBlock = Biomes.megaTaiga.fillerBlock;
-
     public RealisticBiomeVanillaMegaTaiga() {
 
         super(
@@ -38,7 +35,7 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMegaTaiga(config, topBlock, fillerBlock);
+        return new SurfaceVanillaMegaTaiga(config, biome.config.TOP_BLOCK.get(), biome.config.FILL_BLOCK.get());
     }
 
     @Override

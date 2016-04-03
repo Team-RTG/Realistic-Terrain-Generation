@@ -26,3 +26,4 @@ gradlew-setupDecompWorkspace-refresh-deps.bat
 *.iml
 *.ipr
 *.iws
+/gradlew-idea.bat

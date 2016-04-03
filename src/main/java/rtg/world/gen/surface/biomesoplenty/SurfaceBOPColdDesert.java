@@ -1,35 +1,30 @@
 package rtg.world.gen.surface.biomesoplenty;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.math.SnowHeightCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
 
 public class SurfaceBOPColdDesert extends SurfaceBase {
 
-    private IBlockState blockMixTop;
-    private IBlockState blockMixFiller;
     private float floMixWidth;
     private float floMixHeight;
     private float floSmallWidth;
     private float floSmallStrength;
 
-    public SurfaceBOPColdDesert(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFiller,
+    public SurfaceBOPColdDesert(RealisticBiomeBase biome,
                                 float mixWidth, float mixHeight, float smallWidth, float smallStrength) {
 
-        super(config, top, filler);
+        super(biome);
 
-        blockMixTop = mixTop;
-        blockMixFiller = mixFiller;
 
         floMixWidth = mixWidth;
         floMixHeight = mixHeight;
@@ -63,18 +58,18 @@ public class SurfaceBOPColdDesert extends SurfaceBase {
 
                 if (riverPaint) {
                     if (grass && depth < 4) {
-                        primer.setBlockState(x, k, y, fillerBlock);
+                        primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                     } else if (depth == 0) {
                         if (rand.nextInt(2) == 0) {
 
-                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcStone());
                         } else {
 
-                            primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcCobble());
                         }
                     }
                 } else if (depth > -1 && depth < 9) {
-                    primer.setBlockState(x, k, y, topBlock);
+                    primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
 
                     if (depth == 0 && k > 61 && k < 254) {
                         SnowHeightCalculator.calc(x, y, k, primer, noise);

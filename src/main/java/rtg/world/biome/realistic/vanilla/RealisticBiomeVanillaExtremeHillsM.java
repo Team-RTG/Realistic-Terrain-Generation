@@ -1,8 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
@@ -16,9 +14,6 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
     public static BiomeGenBase standardBiome = Biomes.extremeHills;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
-    public static IBlockState topBlock = mutationBiome.topBlock;
-    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
-
     public RealisticBiomeVanillaExtremeHillsM() {
 
         super(
@@ -29,8 +24,8 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaExtremeHillsM(config, topBlock, fillerBlock, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaExtremeHillsM(this, 60f, -0.14f, 14f, 0.25f);
     }
 
     @Override

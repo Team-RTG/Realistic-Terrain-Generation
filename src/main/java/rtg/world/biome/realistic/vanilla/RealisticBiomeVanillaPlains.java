@@ -11,9 +11,6 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.plains.topBlock;
-    public static IBlockState fillerBlock = Biomes.plains.fillerBlock;
-
     public RealisticBiomeVanillaPlains() {
 
         super(
@@ -24,7 +21,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaPlains(config, topBlock, fillerBlock);
+        return new SurfaceVanillaPlains(this);
     }
 
     @Override

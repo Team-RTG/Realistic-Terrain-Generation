@@ -13,8 +13,6 @@ import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForest;
 import rtg.world.gen.terrain.GroundEffect;
 import rtg.world.gen.terrain.TerrainBase;
 
-import static rtg.api.config.BiomeConfigProperty.DECORATION_LOG;
-
 public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase {
 
     public RealisticBiomeVanillaBirchForest() {
@@ -23,6 +21,10 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
                 Biomes.birchForest,
                 Biomes.river
         );
+
+        config.TOP_BLOCK.setDefault(Blocks.sand.getDefaultState());
+        config.FILL_BLOCK.setDefault(Blocks.sand.getDefaultState());
+        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.dirt.getStateFromMeta(2));
 
         /**
          * ##################################################
@@ -57,7 +59,7 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(DECORATION_LOG));
+        this.addDeco(decoFallenTree);
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 120;
@@ -82,7 +84,7 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaBirchForest(config, Biomes.birchForest.topBlock, Biomes.birchForest.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.15f);
+        return new SurfaceVanillaBirchForest(this);
     }
     @Override
     protected TerrainBase initTerrain() {

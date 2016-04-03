@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -29,9 +28,6 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
     public static BiomeGenBase standardBiome = Biomes.forest;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
-    public static IBlockState topBlock = mutationBiome.topBlock;
-    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
-
     public RealisticBiomeVanillaFlowerForest() {
 
         super(
@@ -41,8 +37,8 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaFlowerForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.grass.getDefaultState(), 0.05f);
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaFlowerForest(this, false, 0f, 1.5f, 60f, 65f, 1.5f, 0.05f);
     }
 
     @Override
@@ -109,7 +105,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
             }
         }
 
-        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
+        if (this.config.DECORATION_LOG.get()) {
 
             if (rand.nextInt((int) (12f / strength)) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

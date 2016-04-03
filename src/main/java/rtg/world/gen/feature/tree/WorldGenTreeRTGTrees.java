@@ -6,7 +6,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenTrees;
-import rtg.config.ConfigRTG;
+import rtg.util.mods.Mods;
 
 import java.util.Random;
 
@@ -84,7 +84,7 @@ public class WorldGenTreeRTGTrees extends WorldGenTrees {
             } else {
                 Block block2 = world.getBlockState(new BlockPos(worldX, worldY - 1, worldZ)).getBlock();
 
-                if (block2 == Blocks.sand && !ConfigRTG.allowTreesToGenerateOnSand) {
+                if (block2 == Blocks.sand && !Mods.RTG.config.ALLOW_TREES_ON_SAND.get()) {
                     return false;
                 }
 

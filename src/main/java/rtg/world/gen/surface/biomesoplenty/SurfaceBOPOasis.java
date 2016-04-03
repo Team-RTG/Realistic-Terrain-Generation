@@ -1,15 +1,14 @@
 package rtg.world.gen.surface.biomesoplenty;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
@@ -17,20 +16,16 @@ import java.util.Random;
 public class SurfaceBOPOasis extends SurfaceBase {
 
 
-    private IBlockState blockMixTop;
-    private IBlockState blockMixFiller;
     private float floMixWidth;
     private float floMixHeight;
     private float floSmallWidth;
     private float floSmallStrength;
 
-    public SurfaceBOPOasis(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFiller,
+    public SurfaceBOPOasis(RealisticBiomeBase biome,
                            float mixWidth, float mixHeight, float smallWidth, float smallStrength) {
 
-        super(config, top, filler);
+        super(biome);
 
-        blockMixTop = mixTop;
-        blockMixFiller = mixFiller;
 
         floMixWidth = mixWidth;
         floMixHeight = mixHeight;
@@ -57,29 +52,29 @@ public class SurfaceBOPOasis extends SurfaceBase {
                     if (depth > -1 && depth < 2) {
                         if (rand.nextInt(3) == 0) {
 
-                            primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcCobble());
                         } else {
 
-                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcStone());
                         }
                     } else if (depth < 10) {
-                        primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, hcStone());
                     }
                 } else {
                     if (depth == 0 && k > 61) {
                         if (simplex.noise2(i / floMixWidth, j / floMixWidth) + simplex.noise2(i / floSmallWidth, j / floSmallWidth)
                                 * floSmallStrength > floMixHeight) {
-                            primer.setBlockState(x, k, y, blockMixTop);
+                            primer.setBlockState(x, k, y, biome.config.MIX_BLOCK_TOP.get());
 
                             mix = true;
                         } else {
-                            primer.setBlockState(x, k, y, topBlock);
+                            primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                         }
                     } else if (depth < 4) {
                         if (mix) {
-                            primer.setBlockState(x, k, y, blockMixFiller);
+                            primer.setBlockState(x, k, y, biome.config.MIX_BLOCK_FILL.get());
                         } else {
-                            primer.setBlockState(x, k, y, fillerBlock);
+                            primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                         }
                     }
                 }

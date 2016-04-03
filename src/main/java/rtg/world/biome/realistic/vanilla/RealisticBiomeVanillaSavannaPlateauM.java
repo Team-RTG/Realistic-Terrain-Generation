@@ -24,9 +24,6 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
     public static BiomeGenBase standardBiome = Biomes.savannaPlateau;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
-    public static IBlockState topBlock = mutationBiome.topBlock;
-    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
-
     public RealisticBiomeVanillaSavannaPlateauM() {
 
         super(
@@ -37,8 +34,8 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSavannaPlateauM(config, topBlock, fillerBlock, 0);
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaSavannaPlateauM(this, 0);
     }
 
     @Override

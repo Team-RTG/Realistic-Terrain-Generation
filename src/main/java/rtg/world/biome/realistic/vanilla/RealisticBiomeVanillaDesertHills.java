@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -23,8 +22,6 @@ import rtg.world.gen.terrain.TerrainBase;
 import java.util.Random;
 
 public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase {
-    public static IBlockState topBlock = Biomes.desertHills.topBlock;
-    public static IBlockState fillerBlock = Biomes.desertHills.fillerBlock;
 
     public RealisticBiomeVanillaDesertHills() {
         super(
@@ -37,7 +34,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaDesertHills(config, Blocks.sand.getDefaultState(), Blocks.sandstone.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f);
+        return new SurfaceVanillaDesertHills(this);
     }
 
     @Override
@@ -143,7 +140,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
         this.getSurface().paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
 
-        SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
+        SurfaceBase riverSurface = new SurfaceRiverOasis(this);
         riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

@@ -20,9 +20,6 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
     public static BiomeGenBase standardBiome = Biomes.jungleEdge;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
-    public static IBlockState topBlock = mutationBiome.topBlock;
-    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
-
     public RealisticBiomeVanillaJungleEdgeM() {
 
         super(
@@ -33,7 +30,7 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaJungleEdgeM(config, topBlock, fillerBlock);
+        return new SurfaceVanillaJungleEdgeM(this);
     }
 
     @Override
@@ -58,7 +55,7 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
 
         float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
 
-        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
+        if (this.config.DECORATION_LOG.get()) {
 
             if (l > 0f && rand.nextInt(6) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

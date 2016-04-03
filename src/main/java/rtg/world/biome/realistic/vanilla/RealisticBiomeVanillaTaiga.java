@@ -24,9 +24,6 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.taiga.topBlock;
-    public static IBlockState fillerBlock = Biomes.taiga.fillerBlock;
-
     public RealisticBiomeVanillaTaiga() {
 
         super(
@@ -37,7 +34,7 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaTaiga(config, topBlock, fillerBlock);
+        return new SurfaceVanillaTaiga(this);
     }
 
     @Override
@@ -82,7 +79,7 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanillaBase {
             worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
         }
 
-        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
+        if (this.config.DECORATION_LOG.get()) {
 
             if (l > 0f && rand.nextInt(6) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -21,19 +20,12 @@ import rtg.world.gen.terrain.TerrainBase;
 
 import java.util.Random;
 
-import static rtg.api.config.BiomeConfigProperty.DECORATION_LOG;
 
 public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.extremeHills.topBlock;
-    public static IBlockState fillerBlock = Biomes.extremeHills.fillerBlock;
-
     public RealisticBiomeVanillaExtremeHills() {
 
-        super(
-                Biomes.extremeHills,
-                Biomes.river
-        );
+        super(Biomes.extremeHills, Biomes.river);
         this.generatesEmeralds = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
@@ -41,7 +33,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaExtremeHills(config, topBlock, fillerBlock, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
+        return new SurfaceVanillaExtremeHills(this);
     }
 
     @Override
@@ -86,14 +78,11 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
             }
         }
 
-        if (this.config._boolean(DECORATION_LOG)) {
-
-            if (l > 0f && rand.nextInt(6) == 0) {
-                int x22 = chunkX + rand.nextInt(16) + 8;
-                int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeight(new BlockPos(x22, 1, z22)).getY();
-                (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, new BlockPos(x22, y22, z22));
-            }
+        if (l > 0f && rand.nextInt(6) == 0) {
+            int x22 = chunkX + rand.nextInt(16) + 8;
+            int z22 = chunkY + rand.nextInt(16) + 8;
+            int y22 = world.getHeight(new BlockPos(x22, 1, z22)).getY();
+            (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, new BlockPos(x22, y22, z22));
         }
 
         for (int b = 0; b < 2f * strength; b++) {

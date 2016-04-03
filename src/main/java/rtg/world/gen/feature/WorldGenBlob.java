@@ -4,12 +4,11 @@ import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.util.mods.Mods;
 
 import java.util.Random;
 
 import static net.minecraft.init.Blocks.*;
-import static rtg.config.ConfigRTG.cobblestoneBoulderChance;
-import static rtg.config.ConfigRTG.enableCobblestoneBoulders;
 import static rtg.util.math.RandomUtil.getRandomInt;
 
 public class WorldGenBlob extends WorldGenerator {
@@ -31,7 +30,7 @@ public class WorldGenBlob extends WorldGenerator {
         booShouldGenerate = true;
 
         if (blobBlock == mossy_cobblestone || blobBlock == cobblestone) {
-            if (!enableCobblestoneBoulders) {
+            if (!Mods.RTG.config.ENABLE_COUBLESTONE_BOULDERS.get()) {
                 booShouldGenerate = false;
             } else {
                 if (!shouldGenerateCobblestoneBoulder(rand)) {
@@ -42,12 +41,12 @@ public class WorldGenBlob extends WorldGenerator {
     }
 
     public static boolean shouldGenerateCobblestoneBoulder(Random rand) {
-        int chance = cobblestoneBoulderChance;
+        int chance = Mods.RTG.config.COBBLESTONE_BOULDER_CHANCE.get();
         chance = (chance < 1) ? 1 : ((chance > 100) ? 100 : chance);
 
         int random = getRandomInt(rand, 1, chance);
 
-        boolean booGenerate = (random == 1) ? true : false;
+        boolean booGenerate = (random == 1);
 
         //Logger.info("Random = %d; Generate? = %b", random, booGenerate);
 
@@ -118,7 +117,7 @@ public class WorldGenBlob extends WorldGenerator {
         if (honourConfig) {
             booShouldGenerate = true;
 
-            if (!enableCobblestoneBoulders) {
+            if (!Mods.RTG.config.ENABLE_COUBLESTONE_BOULDERS.get()) {
                 booShouldGenerate = false;
             } else {
                 if (!shouldGenerateCobblestoneBoulder(rand)) {

@@ -1,30 +1,28 @@
 package rtg.world.gen.surface.buildcraft;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
 
 public class SurfaceBCOceanOilField extends SurfaceBase {
 
-    public IBlockState mixBlock;
+
     private float width;
     private float height;
     private float mixCheck;
 
-    public SurfaceBCOceanOilField(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mix, float mixWidth, float mixHeight) {
+    public SurfaceBCOceanOilField(RealisticBiomeBase biome, float mixWidth, float mixHeight) {
 
-        super(config, top, filler);
+        super(biome);
 
-        mixBlock = mix;
 
         width = mixWidth;
         height = mixHeight;
@@ -46,12 +44,12 @@ public class SurfaceBCOceanOilField extends SurfaceBase {
 
                     if (mixCheck > height) // > 0.27f, i / 12f
                     {
-                        primer.setBlockState(x, k, y, mixBlock);
+                        primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get());
                     } else {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     }
                 } else if (depth < 4) {
-                    primer.setBlockState(x, k, y, fillerBlock);
+                    primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                 }
             }
         }

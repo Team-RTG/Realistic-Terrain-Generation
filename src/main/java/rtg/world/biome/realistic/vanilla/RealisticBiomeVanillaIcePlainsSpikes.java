@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.util.noise.CellNoise;
@@ -14,9 +13,6 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
     public static BiomeGenBase standardBiome = Biomes.icePlains;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
-    public static IBlockState topBlock = mutationBiome.topBlock;
-    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
-
     public RealisticBiomeVanillaIcePlainsSpikes() {
         super(
                 mutationBiome,
@@ -26,8 +22,8 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaIcePlainsSpikes(config, topBlock, fillerBlock, topBlock, topBlock);
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaIcePlainsSpikes(this);
     }
 
     @Override

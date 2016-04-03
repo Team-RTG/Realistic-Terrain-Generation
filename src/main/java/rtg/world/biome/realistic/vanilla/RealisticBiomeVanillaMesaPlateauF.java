@@ -15,9 +15,6 @@ import static rtg.world.biome.deco.DecoTree.TreeType.VANILLA_OAK;
 
 public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.mesaPlateau_F.topBlock;
-    public static IBlockState fillerBlock = Biomes.mesaPlateau_F.fillerBlock;
-
     public RealisticBiomeVanillaMesaPlateauF() {
         super(
                 Biomes.mesaPlateau_F,
@@ -57,8 +54,8 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMesaPlateauF(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1), 0);
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaMesaPlateauF(this, 0);
     }
 
     @Override

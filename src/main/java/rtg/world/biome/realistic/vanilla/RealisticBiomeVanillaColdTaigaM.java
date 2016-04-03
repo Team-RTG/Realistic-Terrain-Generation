@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -18,9 +17,6 @@ import rtg.world.gen.terrain.TerrainBase;
 public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.coldTaiga;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
-
-    public static IBlockState topBlock = mutationBiome.topBlock;
-    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
 
     public RealisticBiomeVanillaColdTaigaM() {
 
@@ -68,7 +64,7 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigProperty.DECORATION_LOG));
+        this.addDeco(decoFallenTree, this.config.DECORATION_LOG.get());
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 100;
@@ -99,7 +95,7 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaColdTaigaM(config, topBlock, fillerBlock);
+        return new SurfaceVanillaColdTaigaM(this);
     }
 
     @Override

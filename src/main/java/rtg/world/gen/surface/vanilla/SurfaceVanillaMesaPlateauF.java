@@ -1,16 +1,15 @@
 package rtg.world.gen.surface.vanilla;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.math.CanyonColour;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
@@ -18,8 +17,8 @@ import java.util.Random;
 public class SurfaceVanillaMesaPlateauF extends SurfaceBase {
     private int grassRaise = 0;
 
-    public SurfaceVanillaMesaPlateauF(BiomeConfig config, IBlockState top, IBlockState fill, int grassHeight) {
-        super(config, top, fill);
+    public SurfaceVanillaMesaPlateauF(RealisticBiomeBase biome, int grassHeight) {
+        super(biome);
         grassRaise = grassHeight;
     }
 
@@ -57,10 +56,10 @@ public class SurfaceVanillaMesaPlateauF extends SurfaceBase {
                                 } else if (rand.nextInt((int) (r / 2f) + 1) == 0) {
                                     primer.setBlockState(x, k, y, Blocks.dirt.getStateFromMeta(1));
                                 } else {
-                                    primer.setBlockState(x, k, y, topBlock);
+                                    primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                                 }
                             } else {
-                                primer.setBlockState(x, k, y, fillerBlock);
+                                primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                             }
                         }
                     }

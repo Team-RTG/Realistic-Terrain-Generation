@@ -21,9 +21,6 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.swampland.topBlock;
-    public static IBlockState fillerBlock = Biomes.swampland.fillerBlock;
-
     public RealisticBiomeVanillaSwampland() {
 
         super(
@@ -34,7 +31,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSwampland(config, topBlock, fillerBlock);
+        return new SurfaceVanillaSwampland(this);
     }
 
     @Override
@@ -69,7 +66,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
             }
         }
 
-        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
+        if (this.config.DECORATION_LOG.get()) {
 
             if (rand.nextInt((int) (4f / strength)) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

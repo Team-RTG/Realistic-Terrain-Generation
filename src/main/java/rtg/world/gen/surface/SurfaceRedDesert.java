@@ -1,28 +1,24 @@
 package rtg.world.gen.surface;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import java.util.Random;
 
 public class SurfaceRedDesert extends SurfaceBase {
-    private IBlockState cliffBlock1;
-    private IBlockState cliffBlock2;
-    private IBlockState bottomBlock;
 
-    public SurfaceRedDesert(BiomeConfig config) {
-        super(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1));
 
-        bottomBlock = Blocks.sandstone.getDefaultState();
-        cliffBlock1 = Blocks.stained_hardened_clay.getDefaultState();
+
+
+    public SurfaceRedDesert(RealisticBiomeBase biome) {
+        super(biome);
     }
 
     @Override
@@ -39,15 +35,15 @@ public class SurfaceRedDesert extends SurfaceBase {
 
                 if (cliff) {
                     if (depth < 6) {
-                        primer.setBlockState(x, k, y, cliffBlock1.getBlock().getStateFromMeta((byte) 14));
+                        primer.setBlockState(x, k, y, biome.config.CLIFF_BLOCK_1.get().getBlock().getStateFromMeta((byte) 14));
                     }
                 } else if (depth < 6) {
                     if (depth == 0 && k > 61) {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     } else if (depth < 4) {
-                        primer.setBlockState(x, k, y, fillerBlock);
+                        primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                     } else {
-                        primer.setBlockState(x, k, y, bottomBlock.getBlock().getDefaultState());
+                        primer.setBlockState(x, k, y, biome.config.BOTTOM_BLOCK.get().getBlock().getDefaultState());
                     }
                 }
             }

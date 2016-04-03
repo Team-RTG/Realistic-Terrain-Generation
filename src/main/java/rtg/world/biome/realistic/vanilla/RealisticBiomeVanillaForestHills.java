@@ -24,9 +24,6 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.forestHills.topBlock;
-    public static IBlockState fillerBlock = Biomes.forestHills.fillerBlock;
-
     public RealisticBiomeVanillaForestHills() {
 
         super(
@@ -37,8 +34,8 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase 
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaForestHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.15f);
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaForestHills(this, false, 0f, 1.5f, 60f, 65f, 1.5f, 0.15f);
     }
 
     @Override
@@ -88,7 +85,7 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase 
             }
         }
 
-        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
+        if (this.config.DECORATION_LOG.get()) {
 
             if (rand.nextInt((int) (8f / strength)) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

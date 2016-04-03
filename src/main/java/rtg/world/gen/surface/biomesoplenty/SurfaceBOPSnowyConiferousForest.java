@@ -1,22 +1,20 @@
 package rtg.world.gen.surface.biomesoplenty;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
 
 public class SurfaceBOPSnowyConiferousForest extends SurfaceBase {
     private boolean beach;
-    private IBlockState beachBlock;
     private float min;
 
     private float sCliff = 1.5f;
@@ -27,8 +25,8 @@ public class SurfaceBOPSnowyConiferousForest extends SurfaceBase {
     private float iStrength = 50f;
     private float cCliff = 1.5f;
 
-    public SurfaceBOPSnowyConiferousForest(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float snowCliff, float snowHeight, float snowStrength, float clayCliff) {
-        this(config, top, fill, genBeach, genBeachBlock, minCliff);
+    public SurfaceBOPSnowyConiferousForest(RealisticBiomeBase biome, boolean genBeach, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float snowCliff, float snowHeight, float snowStrength, float clayCliff) {
+        this(biome, genBeach, minCliff);
 
         sCliff = stoneCliff;
         sHeight = stoneHeight;
@@ -39,10 +37,10 @@ public class SurfaceBOPSnowyConiferousForest extends SurfaceBase {
         cCliff = clayCliff;
     }
 
-    public SurfaceBOPSnowyConiferousForest(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff) {
-        super(config, top, fill);
+    public SurfaceBOPSnowyConiferousForest(RealisticBiomeBase biome, boolean genBeach, float minCliff) {
+        super(biome);
         beach = genBeach;
-        beachBlock = genBeachBlock;
+
         min = minCliff;
     }
 
@@ -81,32 +79,32 @@ public class SurfaceBOPSnowyConiferousForest extends SurfaceBase {
                     if (cliff == 1) {
                         if (rand.nextInt(3) == 0) {
 
-                            primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcCobble());
                         } else {
 
-                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcStone());
                         }
                     } else if (cliff == 2) {
-                        primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (cliff == 3) {
                         primer.setBlockState(x, k, y, Blocks.snow.getDefaultState());
                     } else if (k < 63) {
                         if (beach) {
-                            primer.setBlockState(x, k, y, beachBlock);
+                            primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
                             gravel = true;
                         } else if (k < 62) {
-                            primer.setBlockState(x, k, y, fillerBlock);
+                            primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                         } else {
-                            primer.setBlockState(x, k, y, topBlock);
+                            primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                         }
                     } else {
                         primer.setBlockState(x, k, y, Blocks.grass.getDefaultState());
                     }
                 } else if (depth < 6) {
                     if (cliff == 1) {
-                        primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, hcStone());
                     } else if (cliff == 2) {
-                        primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, getShadowStoneBlock());
                     } else if (cliff == 3) {
                         primer.setBlockState(x, k, y, Blocks.snow.getDefaultState());
                     } else if (gravel) {

@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenCaves;
-import rtg.config.ConfigRTG;
+import rtg.util.mods.Mods;
 
 import java.util.Random;
 
@@ -182,9 +182,9 @@ public class MapGenCavesRTG extends MapGenCaves {
 
     @Override
     protected void recursiveGenerate(World p_151538_1_, int p_151538_2_, int p_151538_3_, int p_151538_4_, int p_151538_5_, ChunkPrimer p_151538_6_) {
-        enableCaves = ConfigRTG.enableCaves;
-        caveDensity = ConfigRTG.caveDensity;
-        caveFrequency = ConfigRTG.caveFrequency;
+        enableCaves = Mods.RTG.config.ENABLE_CAVES.get();
+        caveDensity = Mods.RTG.config.CAVE_DENSITY.get();
+        caveFrequency = Mods.RTG.config.CAVE_FREQUENCY.get();
 
         if (!enableCaves) {
             return;

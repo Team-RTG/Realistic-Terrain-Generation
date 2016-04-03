@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
@@ -9,8 +8,6 @@ import rtg.world.gen.surface.vanilla.SurfaceVanillaFrozenRiver;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase {
-    public static IBlockState topBlock = Biomes.frozenRiver.topBlock;
-    public static IBlockState fillerBlock = Biomes.frozenRiver.fillerBlock;
 
     public RealisticBiomeVanillaFrozenRiver() {
         super(
@@ -24,7 +21,7 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase 
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaFrozenRiver(config);
+        return new SurfaceVanillaFrozenRiver(this);
     }
 
     @Override

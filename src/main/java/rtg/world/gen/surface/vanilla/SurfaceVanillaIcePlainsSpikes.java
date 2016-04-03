@@ -1,28 +1,24 @@
 package rtg.world.gen.surface.vanilla;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
 
 public class SurfaceVanillaIcePlainsSpikes extends SurfaceBase {
-    private IBlockState cliffBlock1;
-    private IBlockState cliffBlock2;
 
-    public SurfaceVanillaIcePlainsSpikes(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState cliff1, IBlockState cliff2) {
-        super(config, top, filler);
 
-        cliffBlock1 = cliff1;
-        cliffBlock2 = cliff2;
+
+    public SurfaceVanillaIcePlainsSpikes(RealisticBiomeBase biome) {
+        super(biome);
     }
 
     @Override
@@ -39,15 +35,15 @@ public class SurfaceVanillaIcePlainsSpikes extends SurfaceBase {
 
                 if (cliff) {
                     if (depth > -1 && depth < 2) {
-                        primer.setBlockState(x, k, y, rand.nextInt(3) == 0 ? cliffBlock2 : cliffBlock1);
+                        primer.setBlockState(x, k, y, rand.nextInt(3) == 0 ? biome.config.CLIFF_BLOCK_2.get() : biome.config.CLIFF_BLOCK_1.get());
                     } else if (depth < 10) {
-                        primer.setBlockState(x, k, y, cliffBlock1);
+                        primer.setBlockState(x, k, y, biome.config.CLIFF_BLOCK_1.get());
                     }
                 } else {
                     if (depth == 0 && k > 61) {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     } else if (depth < 4) {
-                        primer.setBlockState(x, k, y, fillerBlock);
+                        primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                     }
                 }
             }

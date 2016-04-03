@@ -1,14 +1,13 @@
 package rtg.world.gen.surface;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import java.util.Random;
 
@@ -17,8 +16,8 @@ public class SurfaceDuneValley extends SurfaceBase {
     private boolean dirt;
     private boolean mix;
 
-    public SurfaceDuneValley(BiomeConfig config, IBlockState top, IBlockState fill, float valleySize, boolean d, boolean m) {
-        super(config, top, fill);
+    public SurfaceDuneValley(RealisticBiomeBase biome, float valleySize, boolean d, boolean m) {
+        super(biome);
 
         valley = valleySize;
         dirt = d;
@@ -48,7 +47,7 @@ public class SurfaceDuneValley extends SurfaceBase {
                     } else if (dirt && m < 0.22f || k < 62) {
                         primer.setBlockState(x, k, y, Blocks.dirt.getStateFromMeta(1));
                     } else {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     }
                 } else if (depth < 6) {
                     if (sand) {
@@ -58,7 +57,7 @@ public class SurfaceDuneValley extends SurfaceBase {
                             primer.setBlockState(x, k, y, Blocks.sandstone.getDefaultState());
                         }
                     } else {
-                        primer.setBlockState(x, k, y, fillerBlock);
+                        primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                     }
                 }
             }

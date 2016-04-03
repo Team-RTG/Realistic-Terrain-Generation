@@ -4,12 +4,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.crash.CrashReport;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
-import rtg.config.ConfigRTG;
+import rtg.util.mods.Mods;
 
 public class Logger {
 
     public static void debug(String format, Object... data) {
-        if (ConfigRTG.enableDebugging) FMLLog.log(Level.INFO, "[RTG-DEBUG] " + format, data);
+        if (Mods.RTG.config.DEBUG_LOGGING.get()) FMLLog.log(Level.INFO, "[RTG-DEBUG] " + format, data);
     }
 
     public static void info(String format, Object... data) {

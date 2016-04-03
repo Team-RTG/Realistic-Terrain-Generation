@@ -1,16 +1,15 @@
 package rtg.world.gen.surface.vanilla;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.math.CanyonColour;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
@@ -18,8 +17,8 @@ import java.util.Random;
 public class SurfaceVanillaMesaPlateau extends SurfaceBase {
     private int grassRaise = 0;
 
-    public SurfaceVanillaMesaPlateau(BiomeConfig config, IBlockState top, IBlockState fill, int grassHeight) {
-        super(config, top, fill);
+    public SurfaceVanillaMesaPlateau(RealisticBiomeBase biome, int grassHeight) {
+        super(biome);
         grassRaise = grassHeight;
     }
 

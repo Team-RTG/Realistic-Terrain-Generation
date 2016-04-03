@@ -1,21 +1,20 @@
 package rtg.world.gen.surface;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.math.SnowHeightCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import java.util.Random;
 
 public class SurfacePolar extends SurfaceBase {
-    public SurfacePolar(BiomeConfig config, IBlockState top, IBlockState fill) {
-        super(config, top, fill);
+    public SurfacePolar(RealisticBiomeBase biome) {
+        super(biome);
     }
 
     @Override
@@ -46,10 +45,10 @@ public class SurfacePolar extends SurfaceBase {
                     } else if (depth == 0) {
                         if (rand.nextInt(2) == 0) {
 
-                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcStone());
                         } else {
 
-                            primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcCobble());
                         }
                     }
                 } else if (depth > -1 && depth < 9) {

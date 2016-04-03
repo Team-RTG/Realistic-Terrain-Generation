@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -27,9 +26,6 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.roofedForest.topBlock;
-    public static IBlockState fillerBlock = Biomes.roofedForest.fillerBlock;
-
     public RealisticBiomeVanillaRoofedForest() {
 
         super(
@@ -40,7 +36,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaRoofedForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.08f);
+        return new SurfaceVanillaRoofedForest(this, false, 0f, 1.5f, 60f, 65f, 1.5f, 0.08f);
     }
 
     @Override
@@ -75,9 +71,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
                 if (rand.nextInt(8) != 0) {
                     (new WorldGenBlob(Blocks.mossy_cobblestone, 0, rand)).generate(world, rand, new BlockPos(i1, k1, j1));
                 } else {
-                    if (config._boolean(BiomeConfigProperty.DECORATION_COBWEB)) {
-                        (new WorldGenBlob(Blocks.web, 0, rand)).generate(world, rand, new BlockPos(i1, k1, j1));
-                    }
+                    (new WorldGenBlob(Blocks.web, 0, rand)).generate(world, rand, new BlockPos(i1, k1, j1));
                 }
             }
         }
@@ -97,7 +91,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             }
         }
 
-        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
+        if (this.config.DECORATION_LOG.get()) {
 
             if (rand.nextInt((int) (10f / strength)) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

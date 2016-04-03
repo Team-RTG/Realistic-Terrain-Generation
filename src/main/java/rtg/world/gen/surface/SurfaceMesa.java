@@ -5,19 +5,19 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.math.CanyonColour;
 import rtg.util.math.CliffCalculator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import java.util.Random;
 
 public class SurfaceMesa extends SurfaceBase {
     private int[] claycolor = new int[100];
 
-    public SurfaceMesa(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte) {
-        super(config, top, fill);
+    public SurfaceMesa(RealisticBiomeBase biome) {
+        super(biome);
 
         int[] c = new int[] {1, 8, 0};
         OpenSimplexNoise simplex = new OpenSimplexNoise(2L);
@@ -59,9 +59,9 @@ public class SurfaceMesa extends SurfaceBase {
                                 primer.setBlockState(x, k, y, Blocks.dirt.getDefaultState());
                             } else {
                                 if (depth == 0) {
-                                    primer.setBlockState(x, k, y, topBlock);
+                                    primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                                 } else {
-                                    primer.setBlockState(x, k, y, fillerBlock);
+                                    primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                                 }
                             }
                         } else if (k < 69) {
@@ -73,16 +73,16 @@ public class SurfaceMesa extends SurfaceBase {
                                 } else if (rand.nextInt(5) == 0) {
                                     primer.setBlockState(x, k, y, Blocks.dirt.getDefaultState());
                                 } else {
-                                    primer.setBlockState(x, k, y, topBlock);
+                                    primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                                 }
                             } else {
-                                primer.setBlockState(x, k, y, fillerBlock);
+                                primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                             }
                         } else {
                             if (depth == 0) {
-                                primer.setBlockState(x, k, y, topBlock);
+                                primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                             } else {
-                                primer.setBlockState(x, k, y, fillerBlock);
+                                primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                             }
                         }
                     }

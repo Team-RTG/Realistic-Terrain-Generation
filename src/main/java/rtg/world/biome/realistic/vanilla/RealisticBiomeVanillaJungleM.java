@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -30,9 +29,6 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.jungle;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
-    public static IBlockState topBlock = mutationBiome.topBlock;
-    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
-
     public RealisticBiomeVanillaJungleM() {
         super(
                 mutationBiome,
@@ -45,7 +41,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaJungleM(config, topBlock, fillerBlock);
+        return new SurfaceVanillaJungleM(this);
     }
 
     @Override
@@ -108,7 +104,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
 
             }
 
-            if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
+            if (this.config.DECORATION_LOG.get()) {
 
                 if (l > 0f && rand.nextInt(3) == 0) {
                     int x22 = chunkX + rand.nextInt(16) + 8;
@@ -218,18 +214,15 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
             }
         }
 
-        if (this.config._boolean(BiomeConfigProperty.DECORATION_CACTI)) {
+        if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), CACTUS)) {
 
-            if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), CACTUS)) {
+            for (int k18 = 0; k18 < 8f * strength; k18++) {
+                int k21 = chunkX + rand.nextInt(16) + 8;
+                int j23 = rand.nextInt(160);
+                int k24 = chunkY + rand.nextInt(16) + 8;
 
-                for (int k18 = 0; k18 < 8f * strength; k18++) {
-                    int k21 = chunkX + rand.nextInt(16) + 8;
-                    int j23 = rand.nextInt(160);
-                    int k24 = chunkY + rand.nextInt(16) + 8;
-
-                    if (j23 < 120f) {
-                        (new WorldGenJungleCacti(false, rand.nextInt(7), (byte) 1)).generate(world, rand, new BlockPos(k21, j23, k24));
-                    }
+                if (j23 < 120f) {
+                    (new WorldGenJungleCacti(false, rand.nextInt(7), (byte) 1)).generate(world, rand, new BlockPos(k21, j23, k24));
                 }
             }
         }

@@ -17,9 +17,6 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.jungleEdge.topBlock;
-    public static IBlockState fillerBlock = Biomes.jungleEdge.fillerBlock;
-
     public RealisticBiomeVanillaJungleEdge() {
 
         super(
@@ -30,7 +27,7 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaJungleEdge(config, topBlock, fillerBlock);
+        return new SurfaceVanillaJungleEdge(this);
     }
 
     @Override
@@ -58,7 +55,7 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
 
         float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
 
-        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
+        if (this.config.DECORATION_LOG.get()) {
 
             if (l > 0f && rand.nextInt(6) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

@@ -17,9 +17,6 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.mesaPlateau.topBlock;
-    public static IBlockState fillerBlock = Biomes.mesaPlateau.fillerBlock;
-
     public RealisticBiomeVanillaMesaPlateau() {
 
         super(
@@ -30,8 +27,8 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMesaPlateau(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1), 0);
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaMesaPlateau(this, 0);
     }
 
     @Override

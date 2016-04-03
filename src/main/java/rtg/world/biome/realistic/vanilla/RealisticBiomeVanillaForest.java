@@ -16,9 +16,6 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.forest.topBlock;
-    public static IBlockState fillerBlock = Biomes.forest.fillerBlock;
-
     public RealisticBiomeVanillaForest() {
 
         super(
@@ -75,7 +72,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
         decoFallenSpruce.maxSize = 6;
 
         DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenOak, decoFallenSpruce);
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigProperty.DECORATION_LOG));
+        this.addDeco(decoFallenTree, this.config.DECORATION_LOG.get());
 
         // Shrubs to fill in the blanks.
         DecoShrub decoShrub = new DecoShrub();
@@ -98,8 +95,8 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.10f);
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaForest(this, false, 0f, 1.5f, 60f, 65f, 1.5f, 0.10f);
     }
 
     @Override

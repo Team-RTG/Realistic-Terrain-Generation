@@ -17,10 +17,9 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.api.config.BiomeConfig;
-import rtg.api.config.ConfigProperty;
-import rtg.api.util.ISupportedMod;
-import rtg.config.ConfigRTG;
+import rtg.api.util.SupportedMod;
 import rtg.util.math.RandomUtil;
+import rtg.util.mods.Mods;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.util.noise.SimplexOctave;
@@ -47,8 +46,8 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     private static float actualRiverProportion = 300f / 1600f;
     public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;
-    public BiomeConfig config;
-    public final ISupportedMod mod;
+    public final SupportedMod mod;
+    public final BiomeConfig config = new BiomeConfig(getMod().getModID(), this.getBiomeName());
     public TerrainBase terrain;
     public SurfaceBase surface;
     public SurfaceBase surfaceGeneric;
@@ -71,12 +70,11 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     private double lakeWaterLevel = 0.0;// the lakeStrenght below which things should be below ater
     private double lakeDepressionLevel = 0.16;// the lakeStrength below which land should start to be lowered
 
-    public RealisticBiomeBase(ISupportedMod mod, BiomeGenBase biome) {
-
+    public RealisticBiomeBase(SupportedMod mod, BiomeGenBase biome) {
         this(mod, biome, river);
     }
 
-    public RealisticBiomeBase(ISupportedMod mod, BiomeGenBase biome, BiomeGenBase river) {
+    public RealisticBiomeBase(SupportedMod mod, BiomeGenBase biome, BiomeGenBase river) {
 
         super(RealisticBiomeBase.getIdForBiome(biome));
 
@@ -84,10 +82,16 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
         arrRealisticBiomeIds[RealisticBiomeBase.getIdForBiome(biome)] = this;
 
-        this.config = mod.getConfig().setBiomeConfig(this.getClass(), initProperties());
-
         baseBiome = biome;
         riverBiome = river;
+
+        config.addBool(config.ALLOW_VILLAGES);
+        config.addBool(config.USE_RTG_SURFACES);
+        config.addBool(config.USE_RTG_DECORATIONS);
+        config.addBlock(config.TOP_BLOCK).setDefault(baseBiome.topBlock);
+        config.addBlock(config.FILL_BLOCK).setDefault(baseBiome.fillerBlock);
+
+        initProperties();
 
         waterSurfaceLakeChance = 10;
         lavaSurfaceLakeChance = 0; // Disabled.
@@ -97,7 +101,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
         clayPerVein = 20;
 
-        generateVillages = config.get(BiomeConfigProperty.ALLOW_VILLAGES, true);
+        generateVillages = config.ALLOW_VILLAGES.get();
 
         generatesEmeralds = false;
         emeraldEmeraldBlock = Blocks.emerald_ore;
@@ -105,7 +109,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         emeraldStoneBlock = Blocks.stone;
         emeraldStoneMeta = (byte) 0;
 
-        decos = new ArrayList<DecoBase>();
+        decos = new ArrayList<>();
 
         /**
          * By default, it is assumed that all realistic biomes will be decorated manually and not by the biome.
@@ -118,14 +122,25 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.allowed = false;
         this.decos.add(decoBaseBiomeDecorations);
-
-        this.config = mod.getConfig().setBiomeConfig(this.getClass(), initProperties());
         this.surface = initSurface();
-        surfaceGeneric = new SurfaceGeneric(config, surface.getTopBlock(), surface.getFillerBlock());
+        surfaceGeneric = new SurfaceGeneric(this);
         this.terrain = initTerrain();
     }
 
+    public static int getIdForBiome(BiomeGenBase biome) {
+        if (biome instanceof RealisticBiomeBase)
+            return BiomeGenBase.getIdForBiome(((RealisticBiomeBase) biome).baseBiome);
+        return BiomeGenBase.getIdForBiome(biome);
+    }
+
+    /**
+     * This should set the defaults for all properties
+     */
+    protected void initProperties() {
+    }
+
     protected abstract SurfaceBase initSurface();
+
     protected abstract TerrainBase initTerrain();
 
     public static RealisticBiomeBase getBiome(int id) {
@@ -133,10 +148,24 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         return arrRealisticBiomeIds[id];
     }
 
-    public static int getIdForBiome(BiomeGenBase biome) {
-        if (biome instanceof RealisticBiomeBase)
-            return BiomeGenBase.getIdForBiome(((RealisticBiomeBase) biome).baseBiome);
-        return BiomeGenBase.getIdForBiome(biome);
+    private static double cellBorder(double[] results, double width, double depth) {
+        double c = (results[1] - results[0]);
+        //int slot = (int)Math.floor(c*100.0);
+        //incidences[slot] += 1;
+        //references ++;
+        if (references > 40000) {
+            String result = "";
+            for (int i = 0; i < 100; i++) {
+                result += " " + incidences[i];
+            }
+            throw new RuntimeException(result);
+        }
+        if (c < width) {
+            return ((c / width) - 1f) * depth;
+        } else {
+
+            return 0;
+        }
     }
 
     public void rPopulatePreDecorate(IChunkGenerator ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag) {
@@ -147,7 +176,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.LAKE);
 
         // Underground water lakes.
-        if (ConfigRTG.enableWaterUndergroundLakes) {
+        if (Mods.RTG.config.ENABLE_UNDERGROUND_WATER_LAKES.get()) {
 
             if (gen && (waterUndergroundLakeChance > 0)) {
 
@@ -155,7 +184,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
                 int l4 = RandomUtil.getRandomInt(rand, 1, 50);
                 int i8 = worldZ + rand.nextInt(16) + 8;
 
-                if (rand.nextInt(waterUndergroundLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterUndergroundLakeChance) == 1)) {
+                if (rand.nextInt(waterUndergroundLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, Mods.RTG.config.UNDERGROUND_WATER_LAKE_CHANCE.get()) == 1)) {
 
                     (new WorldGenLakes(Blocks.water)).generate(worldObj, rand, new BlockPos(new BlockPos(i2, l4, i8)));
                 }
@@ -163,7 +192,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         }
 
         // Surface water lakes.
-        if (ConfigRTG.enableWaterSurfaceLakes) {
+        if (Mods.RTG.config.ENABLE_SURFACE_WATER_LAKES.get()) {
 
             if (gen && (waterSurfaceLakeChance > 0)) {
 
@@ -172,7 +201,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
                 int l4 = worldObj.getHeight(new BlockPos(i2, 0, i8)).getY();
 
                 //Surface lakes.
-                if (rand.nextInt(waterSurfaceLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterSurfaceLakeChance) == 1)) {
+                if (rand.nextInt(waterSurfaceLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, Mods.RTG.config.SURFACE_WATER_LAKE_CHANCE.get()) == 1)) {
 
                     if (l4 > 63) {
 
@@ -185,7 +214,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.LAVA);
 
         // Underground lava lakes.
-        if (ConfigRTG.enableLavaUndergroundLakes) {
+        if (Mods.RTG.config.ENABLE_UNDERGROUND_LAVA_LAKES.get()) {
 
             if (gen && (lavaUndergroundLakeChance > 0)) {
 
@@ -193,7 +222,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
                 int l4 = RandomUtil.getRandomInt(rand, 1, 50);
                 int i8 = worldZ + rand.nextInt(16) + 8;
 
-                if (rand.nextInt(lavaUndergroundLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.lavaUndergroundLakeChance) == 1)) {
+                if (rand.nextInt(lavaUndergroundLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, Mods.RTG.config.UNDERGROUND_LAVA_LAKE_CHANCE.get()) == 1)) {
 
                     (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, new BlockPos(i2, l4, i8));
                 }
@@ -201,7 +230,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         }
 
         // Surface lava lakes.
-        if (ConfigRTG.enableLavaSurfaceLakes) {
+        if (Mods.RTG.config.ENABLE_SURFACE_LAVA_LAKES.get()) {
 
             if (gen && (lavaSurfaceLakeChance > 0)) {
 
@@ -210,7 +239,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
                 int l4 = worldObj.getHeight(new BlockPos(i2, 0, i8)).getY();
 
                 //Surface lakes.
-                if (rand.nextInt(lavaSurfaceLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.lavaSurfaceLakeChance) == 1)) {
+                if (rand.nextInt(lavaSurfaceLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, Mods.RTG.config.SURFACE_LAVA_LAKE_CHANCE.get()) == 1)) {
 
                     if (l4 > 63) {
 
@@ -220,7 +249,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
             }
         }
 
-        if (ConfigRTG.generateDungeons) {
+        if (Mods.RTG.config.GENERATE_DUNGEONS.get()) {
 
             gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.DUNGEON);
             for (int k1 = 0; k1 < 8 && gen; k1++) {
@@ -304,12 +333,14 @@ public abstract class RealisticBiomeBase extends BiomeBase {
             genStandardOre2(world, rand, blockPos, seedBiome.theBiomeDecorator.chunkProviderSettings.lapisCount, seedBiome.theBiomeDecorator.lapisGen, seedBiome.theBiomeDecorator.chunkProviderSettings.lapisCenterHeight, seedBiome.theBiomeDecorator.chunkProviderSettings.lapisSpread);
 
         // Emeralds.
-        if (ConfigRTG.generateOreEmerald && generatesEmeralds) {
+        if (Mods.RTG.config.GENERATE_ORE_EMERALD.get() && generatesEmeralds) {
             rGenerateEmeralds(world, rand, blockPos);
         }
 
         net.minecraftforge.common.MinecraftForge.ORE_GEN_BUS.post(new net.minecraftforge.event.terraingen.OreGenEvent.Post(world, rand, blockPos));
     }
+
+    // lake calculations
 
     /**
      * Standard ore generation helper. Generates most ores.
@@ -347,8 +378,6 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         }
     }
 
-    // lake calculations
-
     public void rGenerateEmeralds(World world, Random rand, BlockPos blockPos) {
         int k = 3 + rand.nextInt(6);
         BlockPos.MutableBlockPos mbp = new BlockPos.MutableBlockPos();
@@ -370,7 +399,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
          * Has emerald gen been disabled in the configs?
          * If so, check to see if this biome generated emeralds & remove them if necessary.
          */
-        if (!ConfigRTG.generateOreEmerald && generatesEmeralds) {
+        if (!Mods.RTG.config.GENERATE_ORE_EMERALD.get() && generatesEmeralds) {
             rRemoveEmeralds(worldObj, rand, chunkX, chunkZ);
         }
     }
@@ -423,26 +452,6 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
     public void rMapGen(ChunkPrimer primer, World world, BiomeProviderRTG cmr, Random mapRand, int chunkX, int chunkY, int baseX, int baseY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
 
-    }
-
-    private static double cellBorder(double[] results, double width, double depth) {
-        double c = (results[1] - results[0]);
-        //int slot = (int)Math.floor(c*100.0);
-        //incidences[slot] += 1;
-        //references ++;
-        if (references > 40000) {
-            String result = "";
-            for (int i = 0; i < 100; i++) {
-                result += " " + incidences[i];
-            }
-            throw new RuntimeException(result);
-        }
-        if (c < width) {
-            return ((c / width) - 1f) * depth;
-        } else {
-
-            return 0;
-        }
     }
 
     public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
@@ -531,7 +540,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
-        if (ConfigRTG.ENABLE_RTG_BIOME_DECORATIONS._bool() && this.config._boolean(BiomeConfigProperty.USE_RTG_SURFACES)) {
+        if (Mods.RTG.config.ENABLE_RTG_BIOME_DECORATIONS.get() && config.USE_RTG_SURFACES.get()) {
 
             surface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
 
@@ -621,13 +630,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         }
     }
 
-    /**
-     * This is how you choose which properties the biome uses.
-     * Should be overridden if a biome uses anything other than these defaults
-     * Is called from the constructor
-     * @return An array of ConfigProperties with defaults
-     */
-    public ConfigProperty[] initProperties() {
-        return new ConfigProperty[0];
+    public SupportedMod getMod() {
+        return mod;
     }
 }

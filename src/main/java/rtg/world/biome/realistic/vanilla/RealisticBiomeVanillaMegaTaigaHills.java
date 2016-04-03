@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -24,9 +23,6 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.megaTaigaHills.topBlock;
-    public static IBlockState fillerBlock = Biomes.megaTaigaHills.fillerBlock;
-
     public RealisticBiomeVanillaMegaTaigaHills() {
 
         super(
@@ -37,8 +33,8 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMegaTaigaHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), true, Blocks.sand.getDefaultState(), 0.2f);
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaMegaTaigaHills(this, true, 0.2f);
     }
 
     @Override
@@ -83,7 +79,7 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
             worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
         }
 
-        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
+        if (this.config.DECORATION_LOG.get()) {
 
             if (l > 0f && rand.nextInt(6) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

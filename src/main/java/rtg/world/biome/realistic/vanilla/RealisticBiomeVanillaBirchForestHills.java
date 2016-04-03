@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import rtg.util.noise.CellNoise;
@@ -14,8 +13,6 @@ import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForestHills;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanillaBase {
-    public static IBlockState topBlock = Biomes.birchForestHills.topBlock;
-    public static IBlockState fillerBlock = Biomes.birchForestHills.fillerBlock;
 
     public RealisticBiomeVanillaBirchForestHills() {
         super(
@@ -23,6 +20,11 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
                 Biomes.river
         );
         this.noLakes = true;
+
+        config.TOP_BLOCK.setDefault(Blocks.sand.getDefaultState());
+        config.FILL_BLOCK.setDefault(Blocks.sand.getDefaultState());
+        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.dirt.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.stone.getDefaultState());
 
         /**
          * ##################################################
@@ -57,7 +59,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigProperty.DECORATION_LOG));
+        this.addDeco(decoFallenTree);
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 120;
@@ -82,7 +84,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaBirchForestHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.10f);
+        return new SurfaceVanillaBirchForestHills(this, false, 0f, 1.5f, 60f, 65f, 1.5f,  0.10f);
     }
 
     @Override

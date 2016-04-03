@@ -1,24 +1,22 @@
 package rtg.world.gen.surface;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import java.util.Random;
 
 public class SurfaceMountainPolar extends SurfaceBase {
     private boolean beach;
-    private IBlockState beachBlock;
     private float min;
 
-    public SurfaceMountainPolar(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff) {
-        super(config, top, fill);
+    public SurfaceMountainPolar(RealisticBiomeBase biome, boolean genBeach, float minCliff) {
+        super(biome);
         beach = genBeach;
-        beachBlock = genBeachBlock;
+
         min = minCliff;
     }
 

@@ -1,33 +1,30 @@
 package rtg.world.gen.surface.vanilla;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 
 import java.util.Random;
 
 public class SurfaceVanillaDeepOcean extends SurfaceBase {
 
-    public IBlockState mixBlock;
+
     private float width;
     private float height;
     private float mixCheck;
 
-    public SurfaceVanillaDeepOcean(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mix, float mixWidth, float mixHeight) {
+    public SurfaceVanillaDeepOcean(RealisticBiomeBase biome) {
 
-        super(config, top, filler);
+        super(biome);
 
-        mixBlock = this.getConfigBlock(BiomeConfigProperty.SURFACE_TOP_MIX_BLOCK, mix);
-
-        width = mixWidth;
-        height = mixHeight;
+        width = 20f;
+        height = 0.1f;
     }
 
     @Override
@@ -46,12 +43,12 @@ public class SurfaceVanillaDeepOcean extends SurfaceBase {
                     mixCheck = simplex.noise2(i / width, j / width);
 
                     if (mixCheck > height) {
-                        primer.setBlockState(x, k, y, mixBlock);
+                        primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get());
                     } else {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     }
                 } else if (depth < 4 && k < 63) {
-                    primer.setBlockState(x, k, y, fillerBlock);
+                    primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                 }
             }
         }

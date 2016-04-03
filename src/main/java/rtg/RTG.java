@@ -5,15 +5,17 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import rtg.api.event.RTGEvent;
-import rtg.api.util.ISupportedMod;
+import rtg.api.util.RealisticBiomePresenceTester;
+import rtg.api.util.SupportedMod;
 import rtg.debug.DebugHandler;
 import rtg.event.EventManagerRTG;
 import rtg.proxy.CommonProxy;
-import rtg.api.util.RealisticBiomePresenceTester;
-import rtg.util.SupportedMod;
+import rtg.util.mods.Mods;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 
@@ -29,7 +31,7 @@ public class RTG {
     public static String configPath;
     public static WorldTypeRTG worldtype;
     public static EventManagerRTG eventMgr;
-    public static ISupportedMod[] supportedMods;
+    public static SupportedMod[] supportedMods;
 
     @SidedProxy(serverSide = PROXY_COMMON, clientSide = PROXY_CLIENT)
     public static CommonProxy proxy;
@@ -53,7 +55,7 @@ public class RTG {
 
         configPath = event.getModConfigurationDirectory() + "/RTG/";
 
-        SupportedMod.initAll(supportedMods);
+        Mods.initAll(supportedMods);
 
         worldtype = new WorldTypeRTG("RTG");
     }

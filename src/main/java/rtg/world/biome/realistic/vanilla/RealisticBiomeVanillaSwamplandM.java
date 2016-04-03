@@ -25,9 +25,6 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.swampland;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
-    public static IBlockState topBlock = mutationBiome.topBlock;
-    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
-
     public RealisticBiomeVanillaSwamplandM() {
 
         super(
@@ -38,7 +35,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSwamplandM(config, topBlock, fillerBlock);
+        return new SurfaceVanillaSwamplandM(this);
     }
 
     @Override
@@ -73,7 +70,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
             }
         }
 
-        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
+        if (this.config.DECORATION_LOG.get()) {
 
             if (rand.nextInt((int) (4f / strength)) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

@@ -26,9 +26,6 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
     public static BiomeGenBase standardBiome = Biomes.roofedForest;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
-    public static IBlockState topBlock = mutationBiome.topBlock;
-    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
-
     public RealisticBiomeVanillaRoofedForestM() {
 
         super(
@@ -40,7 +37,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaRoofedForestM(config, topBlock, fillerBlock);
+        return new SurfaceVanillaRoofedForestM(this);
     }
 
     @Override
@@ -92,7 +89,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
             }
         }
 
-        if (this.config._boolean(BiomeConfigProperty.DECORATION_LOG)) {
+        if (this.config.DECORATION_LOG.get()) {
 
             if (rand.nextInt((int) (12f / strength)) == 0) {
                 int x22 = chunkX + rand.nextInt(16) + 8;

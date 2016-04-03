@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
+import net.minecraft.init.Blocks;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoTree;
@@ -12,14 +12,16 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.beach.topBlock;
-    public static IBlockState fillerBlock = Biomes.beach.fillerBlock;
-
     public RealisticBiomeVanillaBeach() {
         super(
                 Biomes.beach,
                 Biomes.river
         );
+
+        config.TOP_BLOCK.setDefault(Blocks.sand.getDefaultState());
+        config.FILL_BLOCK.setDefault(Blocks.sand.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.dirt.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.stone.getDefaultState());
 
         /**
          * ##################################################
@@ -32,12 +34,12 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
         palmTrees.loops = 1;
         palmTrees.treeType = TreeType.VANILLA_BEACH_PALM;
         palmTrees.maxY = 80;
-        this.addDeco(palmTrees, this.config._boolean(BiomeConfigProperty.DECORATION_TREE_PALM));
+        this.addDeco(palmTrees);
     }
 
     @Override
     protected SurfaceBase initSurface() {
-        return new SurfaceVanillaBeach(config, topBlock, fillerBlock, topBlock, fillerBlock, (byte) 0, 1);
+        return new SurfaceVanillaBeach(this);
     }
 
     @Override

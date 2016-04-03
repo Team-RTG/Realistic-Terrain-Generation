@@ -14,17 +14,19 @@ import java.util.Random;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
 
 /**
+ * 
  * @author WhichOnesPink
+ *
  */
-public class DecoGrass extends DecoBase {
+public class DecoDoubleGrass extends DecoBase
+{
     
 	public float strengthFactor;
 	public int maxY;
 	public int loops;
-	public int chance;
-	public int meta;
 	
-    public DecoGrass() {
+	public DecoDoubleGrass()
+	{
 		super();
 		
 		/**
@@ -32,28 +34,28 @@ public class DecoGrass extends DecoBase {
 		 * These can be overridden when configuring the Deco object in the realistic biome.
 		 */
 		this.maxY = 255; // No height limit by default.
-		this.strengthFactor = 0f; // Not sure why it was done like this, but... the higher the value, the more there will be.
+		this.strengthFactor = 0f; // The higher the value, the more there will be.
 		this.loops = 1;
-		this.chance = 1;
-		this.meta = 1;
 		
-		this.addDecoTypes(DecoType.GRASS);
+		this.addDecoTypes(DecoType.GRASS_DOUBLE);
 	}
 	
 	@Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
+	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
+
 		if (this.allowed) {
-			
-            if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), GRASS)) {
+
+			if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), GRASS)) {
 	            
-                this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
-                for (int i = 0; i < this.loops; i++) {
+				this.loops = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : this.loops;
+	            for (int i = 0; i < this.loops; i++)
+	            {
 	                int intX = chunkX + rand.nextInt(16) + 8;
 	                int intY = rand.nextInt(this.maxY);
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 
-	                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-                        (new WorldGenGrass(Blocks.tallgrass, this.meta)).generate(world, rand, new BlockPos(intX, intY, intZ));
+	                if (intY <= this.maxY) {
+	                	(new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, intX, intY, intZ);
 	                }
 	            }
 	        }

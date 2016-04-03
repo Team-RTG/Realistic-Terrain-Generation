@@ -7,50 +7,13 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBOPCrag extends TerrainBase
 {
-    private boolean booRiver;
-    private float[] height;
-    private int heightLength;
-    private float strength;
-    private float cWidth;
-    private float cHeigth;
-    private float cStrength;
-    private float base;
-
     private float pointHeightVariation = 20f;
     private float pointHeightWavelength = 400f;// deep variation
     private float pointHeight = 50;
-    private float pointWavelength = 20;
-    /*
-     * Example parameters:
-     *
-     * allowed to generate rivers?
-     * riverGen = true
-     *
-     * canyon jump heights
-     * heightArray = new float[]{2.0f, 0.5f, 6.5f, 0.5f, 14.0f, 0.5f, 19.0f, 0.5f}
-     *
-     * strength of canyon jump heights
-     * heightStrength = 35f
-     *
-     * canyon width (cliff to cliff)
-     * canyonWidth = 160f
-     *
-     * canyon heigth (total heigth)
-     * canyonHeight = 60f
-     *
-     * canyon strength
-     * canyonStrength = 40f
-     *
-     */
-    public TerrainBOPCrag(boolean riverGen, float[] heightArryay, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight)
+    private float pointWavelength = 50;
+
+    public TerrainBOPCrag( float baseHeight)
     {
-        booRiver = riverGen;
-        height = heightArryay;
-        strength = heightStrength;
-        heightLength = height.length;
-        cWidth = canyonWidth;
-        cHeigth = canyonHeight;
-        cStrength = canyonStrength;
         base = baseHeight;
     }
 
@@ -69,10 +32,24 @@ public class TerrainBOPCrag extends TerrainBase
         if (multiplier <0) multiplier = 0;
         if (multiplier >1) multiplier = 1;
         double [] points = cell.octave(1).eval((float)pX/pointWavelength, (float)pY/pointWavelength);
-        float p = (float)((points[1]-points[0])*(pointHeight +
-                pointHeightVariation*simplex.noise((float)x/pointHeightWavelength, (float)y/pointHeightWavelength)));
+        float raise = (float)((points[1]-points[0])/points[1]);
+        raise = raise * 3f;
+        if (raise>1) raise = 1;
+        float topHeight = (float)(pointHeight +
+                pointHeightVariation*simplex.noise((float)x/pointHeightWavelength, (float)y/pointHeightWavelength));
 
-        return riverized(base,river) + p;
+        float p = raise*topHeight;
+        if (border >= 1f) return base+p;
+        if (border > 0.65) {
+            // we need to adjust for the border adjustments to the height to make the base work
+            // it actaully doesn't always help
+            float missingBase = (1f-border) *(base-70f);  // shortfall at the top
+            float pStretch = (topHeight+missingBase)/topHeight;
+            p = p*pStretch;
+            p = borderAdjusted(p, border, 0.75f, 0.65f);
+            return base + p;
+        }
+        return base;
         //return terrainCanyon(x, y, simplex, river, height, border, strength, heightLength, booRiver);
     }
 }

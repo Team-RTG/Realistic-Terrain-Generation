@@ -35,4 +35,16 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
             }
         };
     }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+
+    }
 }

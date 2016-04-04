@@ -37,4 +37,16 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
             }
         };
     }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+
+    }
 }

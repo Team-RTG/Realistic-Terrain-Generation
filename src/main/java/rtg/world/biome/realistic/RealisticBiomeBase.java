@@ -47,7 +47,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;
     public final SupportedMod mod;
-    public final BiomeConfig config = new BiomeConfig(getMod().getModID(), this.getBiomeName());
+    public final BiomeConfig config;
     public TerrainBase terrain;
     public SurfaceBase surface;
     public SurfaceBase surfaceGeneric;
@@ -85,11 +85,9 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         baseBiome = biome;
         riverBiome = river;
 
-        config.addBool(config.ALLOW_VILLAGES);
-        config.addBool(config.USE_RTG_SURFACES);
-        config.addBool(config.USE_RTG_DECORATIONS);
-        config.addBlock(config.TOP_BLOCK).setDefault(baseBiome.topBlock);
-        config.addBlock(config.FILL_BLOCK).setDefault(baseBiome.fillerBlock);
+        config = new BiomeConfig(getMod().getModID(), this.getBiomeName());
+        config.TOP_BLOCK.setDefault(biome.topBlock);
+        config.FILL_BLOCK.setDefault(biome.fillerBlock);
 
         initProperties();
 
@@ -125,6 +123,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         this.surface = initSurface();
         surfaceGeneric = new SurfaceGeneric(this);
         this.terrain = initTerrain();
+        initDecos();
     }
 
     public static int getIdForBiome(BiomeGenBase biome) {
@@ -137,6 +136,11 @@ public abstract class RealisticBiomeBase extends BiomeBase {
      * This should set the defaults for all properties
      */
     protected void initProperties() {
+    }
+
+    protected void initDecos()
+    {
+
     }
 
     protected abstract SurfaceBase initSurface();
@@ -580,7 +584,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         return this.surface;
     }
 
-    public int getId() {
+    public int getID() {
         return RealisticBiomeBase.getIdForBiome(this);
     }
 

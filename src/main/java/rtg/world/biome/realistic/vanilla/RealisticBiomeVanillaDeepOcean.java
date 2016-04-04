@@ -35,4 +35,16 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
             }
         };
     }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+
+    }
 }

@@ -12,6 +12,7 @@ import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
 import rtg.api.util.debug.Logger;
 import rtg.util.mods.Mods;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.vanilla.*;
 
 import java.util.*;
@@ -35,6 +36,14 @@ import java.util.Map.Entry;
  * https://github.com/Team-RTG/Realistic-Terrain-Generation/issues/249
  */
 public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
+
+    public enum Type {
+        DESERT_TEMPLE,
+        JUNGLE_TEMPLE,
+        WITCH_HUT,
+        IGLOO,
+        NONE
+    }
     private static List biomelist = Arrays.asList(Biomes.desert, Biomes.desertHills, Biomes.jungle, Biomes.jungleHills, Biomes.swampland, Biomes.coldTaiga, Biomes.icePlains);
 
     /**
@@ -110,26 +119,8 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
             BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(new BlockPos(k * 16 + 8, 0, l * 16 + 8));
 
             if (biomegenbase != null) {
-
-                //Desert temple.
-                if (canSpawnDesertTemple(biomegenbase)) {
-                    return true;
-                }
-
-                //Jungle temple.
-                if (canSpawnJungleTemple(biomegenbase)) {
-                    return true;
-                }
-
-                //Witch hut.
-                if (canSpawnWitchHut(biomegenbase)) {
-                    return true;
-                }
-
-                //Igloo.
-                if (canSpawnIgloo(biomegenbase)) {
-                    return true;
-                }
+                RealisticBiomeBase rBiome = RealisticBiomeBase.getBiome(BiomeGenBase.getIdForBiome(biomegenbase));
+                if (rBiome.config.SCATTERED_FEATURE.get() != Type.NONE.name());
             }
         }
 
@@ -220,26 +211,29 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
 
             BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8));
 
-            if (canSpawnDesertTemple(biomegenbase)) {
-                ComponentScatteredFeaturePieces.DesertPyramid desertpyramid = new ComponentScatteredFeaturePieces.DesertPyramid(random, chunkX * 16, chunkZ * 16);
-                arrComponents.add(desertpyramid);
+            if (biomegenbase != null) {
+                RealisticBiomeBase rBiome = RealisticBiomeBase.getBiome(BiomeGenBase.getIdForBiome(biomegenbase));
+                switch(Type.valueOf(rBiome.config.SCATTERED_FEATURE.get())) {
+                    case DESERT_TEMPLE:
+                        ComponentScatteredFeaturePieces.DesertPyramid desertpyramid = new ComponentScatteredFeaturePieces.DesertPyramid(random, chunkX * 16, chunkZ * 16);
+                        arrComponents.add(desertpyramid);
+                        break;
+                    case JUNGLE_TEMPLE:
+                        ComponentScatteredFeaturePieces.JunglePyramid junglepyramid = new ComponentScatteredFeaturePieces.JunglePyramid(random, chunkX * 16, chunkZ * 16);
+                        arrComponents.add(junglepyramid);
+                        break;
+                    case WITCH_HUT:
+                        ComponentScatteredFeaturePieces.SwampHut swamphut = new ComponentScatteredFeaturePieces.SwampHut(random, chunkX * 16, chunkZ * 16);
+                        arrComponents.add(swamphut);
+                        break;
+                    case IGLOO:
+                        ComponentScatteredFeaturePieces.Igloo igloo = new ComponentScatteredFeaturePieces.Igloo(random, chunkX * 16, chunkZ * 16);
+                        arrComponents.add(igloo);
+                        break;
+                    default:
+                        break;
+                }
             }
-
-            if (canSpawnJungleTemple(biomegenbase)) {
-                ComponentScatteredFeaturePieces.JunglePyramid junglepyramid = new ComponentScatteredFeaturePieces.JunglePyramid(random, chunkX * 16, chunkZ * 16);
-                arrComponents.add(junglepyramid);
-            }
-
-            if (canSpawnWitchHut(biomegenbase)) {
-                ComponentScatteredFeaturePieces.SwampHut swamphut = new ComponentScatteredFeaturePieces.SwampHut(random, chunkX * 16, chunkZ * 16);
-                arrComponents.add(swamphut);
-            }
-
-            if (canSpawnIgloo(biomegenbase)) {
-                ComponentScatteredFeaturePieces.Igloo igloo = new ComponentScatteredFeaturePieces.Igloo(random, chunkX * 16, chunkZ * 16);
-                arrComponents.add(igloo);
-            }
-
             this.components.clear();
 
             if (arrComponents.size() > 0) {

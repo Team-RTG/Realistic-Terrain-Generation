@@ -7,6 +7,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
+import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesert;
@@ -25,7 +26,15 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
         this.waterSurfaceLakeChance = 0;
         this.noLakes = true;
+    }
 
+    @Override
+    protected void initProperties() {
+        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.DESERT_TEMPLE.name());
+    }
+
+    @Override
+    protected void initDecos() {
         DecoTree riverTrees = new DecoTree();
         riverTrees.checkRiver = true;
         riverTrees.minRiver = 0.86f;
@@ -58,13 +67,13 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
         decoFlowersRTG.loops = 3;
         this.addDeco(decoFlowersRTG);
 
-        DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
-        decoDoublePlants.checkRiver = true;
-        decoDoublePlants.minRiver = 0.7f;
-        decoDoublePlants.maxY = 128;
-        decoDoublePlants.loops = 15;
-        decoDoublePlants.fernChance = 6;
-        this.addDeco(decoDoublePlants);
+        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
+        decoGrassDoubleTallgrass.checkRiver = true;
+        decoGrassDoubleTallgrass.minRiver = 0.7f;
+        decoGrassDoubleTallgrass.maxY = 128;
+        decoGrassDoubleTallgrass.loops = 15;
+        decoGrassDoubleTallgrass.doubleGrassChance = 3;
+        this.addDeco(decoGrassDoubleTallgrass);
 
         DecoDesertWell decoDesertWell = new DecoDesertWell();
         decoDesertWell.maxY = 80;

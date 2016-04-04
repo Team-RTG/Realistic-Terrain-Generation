@@ -35,4 +35,16 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
             }
         };
     }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+
+    }
 }

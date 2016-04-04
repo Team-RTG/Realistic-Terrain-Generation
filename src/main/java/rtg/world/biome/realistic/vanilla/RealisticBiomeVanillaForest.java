@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import rtg.util.noise.CellNoise;
@@ -22,13 +21,36 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
                 Biomes.forest,
                 Biomes.river
         );
+    }
 
-        /**
-         * ##################################################
-         * # DECORATIONS (ORDER MATTERS)
-         * ##################################################
-         */
+    @Override
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaForest(this, false, 0f, 1.5f, 60f, 65f, 1.5f, 0.10f);
+    }
 
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                groundNoise = groundNoise(x, y, groundVariation, simplex);
+                float m = hills(x, y, 10f, simplex, river);
+                float floNoise = 65f + groundNoise + m;
+
+                return riverized(floNoise, river);
+            }
+        };
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
         // Trees first.
         DecoTree bigPines = new DecoTree();
         bigPines.strengthNoiseFactorForLoops = true;
@@ -54,9 +76,9 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
         decoFallenOak.logConditionChance = 8;
         decoFallenOak.maxY = 100;
         decoFallenOak.logBlock = Blocks.log;
-        decoFallenOak.logMeta = (byte) 0;
+        decoFallenOak.logMeta = (byte)0;
         decoFallenOak.leavesBlock = Blocks.leaves;
-        decoFallenOak.leavesMeta = (byte) -1;
+        decoFallenOak.leavesMeta = (byte)-1;
         decoFallenOak.minSize = 3;
         decoFallenOak.maxSize = 6;
 
@@ -65,14 +87,14 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
         decoFallenSpruce.logConditionChance = 8;
         decoFallenSpruce.maxY = 100;
         decoFallenSpruce.logBlock = Blocks.log;
-        decoFallenSpruce.logMeta = (byte) 1;
+        decoFallenSpruce.logMeta = (byte)1;
         decoFallenSpruce.leavesBlock = Blocks.leaves;
-        decoFallenSpruce.leavesMeta = (byte) -1;
+        decoFallenSpruce.leavesMeta = (byte)-1;
         decoFallenSpruce.minSize = 3;
         decoFallenSpruce.maxSize = 6;
 
         DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenOak, decoFallenSpruce);
-        this.addDeco(decoFallenTree, this.config.DECORATION_LOG.get());
+        this.addDeco(decoFallenTree);
 
         // Shrubs to fill in the blanks.
         DecoShrub decoShrub = new DecoShrub();
@@ -92,24 +114,5 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 12f;
         this.addDeco(decoGrass);
-    }
-
-    @Override
-        protected SurfaceBase initSurface() {
-        return new SurfaceVanillaForest(this, false, 0f, 1.5f, 60f, 65f, 1.5f, 0.10f);
-    }
-
-    @Override
-    protected TerrainBase initTerrain() {
-        return new TerrainBase() {
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                groundNoise = groundNoise(x, y, groundVariation, simplex);
-                float m = hills(x, y, 10f, simplex, river);
-                float floNoise = 65f + groundNoise + m;
-
-                return riverized(floNoise, river);
-            }
-        };
     }
 }

@@ -30,4 +30,16 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
             }
         };
     }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+
+    }
 }

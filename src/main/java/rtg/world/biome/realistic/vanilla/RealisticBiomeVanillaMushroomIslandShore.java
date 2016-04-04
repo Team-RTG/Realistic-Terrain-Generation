@@ -31,4 +31,16 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
             }
         };
     }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+
+    }
 }

@@ -2,18 +2,16 @@ package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenBlob;
-import rtg.world.gen.feature.WorldGenLog;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.DecoFallenTree.LogCondition;
+import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIcePlains;
 import rtg.world.gen.terrain.TerrainBase;
-
-import java.util.Random;
 
 public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 
@@ -46,37 +44,35 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
+    protected void initProperties() {
+        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.IGLOO.name());
+    }
 
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        //rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, baseBiome);
+    @Override
+    protected void initDecos()
+    {
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
 
-        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.checkRiver = true;
+        decoBoulder.minRiver = 0.87f;
+        decoBoulder.boulderBlock = Blocks.cobblestone;
+        decoBoulder.chance = 16;
+        decoBoulder.maxY = 95;
+        decoBoulder.strengthFactor = 5f;
+        this.addDeco(decoBoulder);
 
-        if (river > 0.86f) {
-            for (int j = 0; j < 5f * strength; j++) {
-                int i1 = chunkX + rand.nextInt(16) + 8;
-                int j1 = chunkY + rand.nextInt(16) + 8;
-                int k1 = world.getHeight(new BlockPos(i1, 0, j1)).getY();
-
-                if (k1 < 64 && rand.nextInt(16) == 0) {
-                    (new WorldGenBlob(Blocks.packed_ice, 0, rand)).generate(world, rand, new BlockPos(i1, k1, j1));
-                }
-            }
-        }
-
-        if (this.config.DECORATION_LOG.get()) {
-
-            if (rand.nextInt((int) (24f / strength)) == 0) {
-                int j6 = chunkX + rand.nextInt(16) + 8;
-                int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeight(new BlockPos(j6, 0, k10)).getY();
-
-                WorldGenerator worldgenerator = new WorldGenLog(1, rand.nextInt(6), false);
-                worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
-            }
-        }
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        decoFallenTree.logConditionChance = 24;
+        decoFallenTree.maxY = 90;
+        decoFallenTree.logBlock = Blocks.log;
+        decoFallenTree.logMeta = (byte)1;
+        decoFallenTree.leavesBlock = Blocks.leaves;
+        decoFallenTree.leavesMeta = (byte)-1;
+        decoFallenTree.minSize = 1;
+        decoFallenTree.maxSize = 5;
+        this.addDeco(decoFallenTree);
     }
 }

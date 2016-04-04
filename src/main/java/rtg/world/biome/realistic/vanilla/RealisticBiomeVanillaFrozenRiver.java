@@ -33,4 +33,16 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase 
             }
         };
     }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+
+    }
 }

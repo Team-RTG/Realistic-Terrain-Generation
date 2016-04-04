@@ -1,22 +1,28 @@
 package rtg.world.biome.realistic.vanilla;
 
+import java.util.Random;
+
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.*;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
+import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoCactus;
+import rtg.world.biome.deco.DecoDeadBush;
+import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
+import rtg.world.biome.deco.DecoReed;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.DecoTree;
+import rtg.world.biome.deco.DecoTree.TreeCondition;
+import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenCacti;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaBryce;
 import rtg.world.gen.terrain.TerrainBase;
-
-import java.util.Random;
 
 public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.mesa;
@@ -46,65 +52,6 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
-
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, baseBiome);
-        for (int l = 0; l < 1; ++l) {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeight(new BlockPos(i1, 0, j1)).getY();
-            if (k1 < 70) {
-                (new WorldGenBlockBlob(Blocks.red_sandstone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
-            }
-        }
-
-        if (river > 0.8f) {
-            for (int b1 = 0; b1 < 10; b1++) {
-                int j6 = chunkX + rand.nextInt(16) + 8;
-                int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeight(new BlockPos(j6, 0, k10)).getY();
-
-                WorldGenerator worldgenerator;
-                worldgenerator = new WorldGenShrub(Blocks.log.getDefaultState(), Blocks.leaves.getDefaultState());
-                worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
-            }
-        } else {
-            for (int b1 = 0; b1 < 5; b1++) {
-                int j6 = chunkX + rand.nextInt(16) + 8;
-                int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeight(new BlockPos(j6, 0, k10)).getY();
-
-                WorldGenerator worldgenerator;
-                worldgenerator = new WorldGenShrub(Blocks.log.getDefaultState(), Blocks.leaves.getDefaultState());
-                worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
-            }
-
-            if (rand.nextInt(3) == 0) {
-                int i18 = chunkX + rand.nextInt(16) + 8;
-                int i23 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenReed()).generate(world, rand, new BlockPos(i18, 60 + rand.nextInt(8), i23));
-            }
-
-            for (int i15 = 0; i15 < 5; i15++) {
-                int i17 = chunkX + rand.nextInt(16) + 8;
-                int i20 = rand.nextInt(160);
-                int l22 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenDeadBush()).generate(world, rand, new BlockPos(i17, i20, l22));
-            }
-
-            for (int k18 = 0; k18 < 25; k18++) {
-                int k21 = chunkX + rand.nextInt(16) + 8;
-                int j23 = rand.nextInt(160);
-                int k24 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenCacti(true)).generate(world, rand, new BlockPos(k21, j23, k24));
-            }
-        }
-    }
-
-    @Override
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
                          OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
@@ -112,5 +59,68 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
         SurfaceBase riverSurface = new SurfaceRiverOasis(this);
         riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+		DecoBoulder decoBoulder = new DecoBoulder();
+		decoBoulder.boulderBlock = Blocks.cobblestone;
+		decoBoulder.maxY = 83;
+		this.addDeco(decoBoulder);
+        
+		DecoTree riverTrees = new DecoTree();
+		riverTrees.checkRiver = true;
+		riverTrees.minRiver = 0.86f;
+		riverTrees.strengthNoiseFactorForLoops = false;
+		riverTrees.strengthFactorForLoops = 10f;
+		riverTrees.treeType = TreeType.SAVANNA_RIVER;
+		riverTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		riverTrees.maxY = 100;
+		this.addDeco(riverTrees);
+		
+		DecoCactus decoRiverCactus = new DecoCactus();
+		decoRiverCactus.checkRiver = true;
+		decoRiverCactus.minRiver = 0.7f;
+		decoRiverCactus.maxY = 80;
+		decoRiverCactus.strengthFactor = 12f;
+        this.addDeco(decoRiverCactus);
+        
+        DecoReed decoReed = new DecoReed();
+        decoReed.checkRiver = true;
+        decoReed.minRiver = 0.7f;
+		decoReed.maxY = 68;
+		decoReed.strengthFactor = 2f;
+        this.addDeco(decoReed);
+        
+        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
+        decoGrassDoubleTallgrass.checkRiver = true;
+        decoGrassDoubleTallgrass.minRiver = 0.7f;
+        decoGrassDoubleTallgrass.maxY = 128;
+        decoGrassDoubleTallgrass.loops = 15;
+        decoGrassDoubleTallgrass.doubleGrassChance = 3;
+        this.addDeco(decoGrassDoubleTallgrass);
+
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.loops = 3;
+        decoShrub.maxY = 90;
+        addDeco(decoShrub);
+        
+        DecoDeadBush decoDeadBush = new DecoDeadBush();
+		decoDeadBush.maxY = 100;
+		decoDeadBush.loops = 3;
+        this.addDeco(decoDeadBush);
+        
+        DecoCactus decoCactus = new DecoCactus();
+        decoCactus.soil = Blocks.sand.getStateFromMeta(1);
+        decoCactus.loops = 18;
+        decoCactus.maxY = 100;
+        this.addDeco(decoCactus);
     }
 }

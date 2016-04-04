@@ -17,19 +17,6 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
                 Biomes.river
 
         );
-
-        /**
-         * ##################################################
-         * # DECORATIONS (ORDER MATTERS)
-         * ##################################################
-         */
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.cobblestone;
-        decoBoulder.chance = 16;
-        decoBoulder.maxY = 95;
-        decoBoulder.strengthFactor = 3f;
-        this.addDeco(decoBoulder);
     }
 
     @Override
@@ -45,5 +32,22 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
                 return terrainBeach(x, y, simplex, river, 180f, 35f, 63f);
             }
         };
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.boulderBlock = Blocks.cobblestone;
+        decoBoulder.chance = 16;
+        decoBoulder.maxY = 95;
+        decoBoulder.strengthFactor = 3f;
+        this.addDeco(decoBoulder);
     }
 }

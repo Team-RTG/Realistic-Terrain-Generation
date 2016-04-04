@@ -45,53 +45,14 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     }
 
     @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
+    protected void initProperties()
+    {
 
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, baseBiome);
+    }
 
-        for (int l = 0; l < 6f * strength; ++l) {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeight(new BlockPos(i1, 0, j1)).getY();
+    @Override
+    protected void initDecos()
+    {
 
-            if (k1 < 95 && rand.nextInt(16) == 0) {
-                (new WorldGenBlob(Blocks.cobblestone, 0, rand)).generate(world, rand, new BlockPos(i1, k1, j1));
-            }
-        }
-
-        float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 12f + 4f;
-        for (int b1 = 0; b1 < l * strength; b1++) {
-            int j6 = chunkX + rand.nextInt(16) + 8;
-            int k10 = chunkY + rand.nextInt(16) + 8;
-            int z52 = world.getHeight(new BlockPos(j6, 0, k10)).getY();
-
-            if (z52 < 90) {
-                WorldGenerator worldgenerator =
-                        rand.nextInt(8) != 0 ? new WorldGenTreeRTGPine(4, rand.nextInt(4) == 0 ? 1 : 0)
-                                : rand.nextInt(3) != 0 ? new WorldGenTreeRTGPineSmall(3 + rand.nextInt(6), 6 + rand.nextInt(8), 0)
-                                : new WorldGenIceSpike();
-                worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
-            } else if (z52 < 120) {
-                WorldGenerator worldgenerator =
-                        rand.nextInt(4) != 0 ? new WorldGenTreeRTGPineSmall(1 + rand.nextInt(3), 3 + rand.nextInt(5), rand.nextInt(2))
-                                : new WorldGenIceSpike();
-                worldgenerator.generate(world, rand, new BlockPos(j6, z52, k10));
-            }
-        }
-
-        if (this.config.DECORATION_LOG.get()) {
-
-            if (rand.nextInt((int) (12f / strength)) == 0) {
-                int x22 = chunkX + rand.nextInt(16) + 8;
-                int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeight(new BlockPos(x22, 0, z22)).getY();
-                if (y22 < 100) {
-                    (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, new BlockPos(x22, y22, z22));
-                }
-            }
-        }
     }
 }

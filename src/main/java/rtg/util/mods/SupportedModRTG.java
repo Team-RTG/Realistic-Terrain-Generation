@@ -9,19 +9,12 @@ import rtg.config.ConfigRTG;
  */
 public class SupportedModRTG extends SupportedMod {
 
-    public final ConfigRTG config;
+    public ConfigRTG config;
 
     public SupportedModRTG() {
         super("RTG", true);
         config = new ConfigRTG();
-    }
-
-    /**
-     * Instantiates all realistic versions of biomes for this mod.
-     */
-    @Override
-    public void addBiomes() {
-
+        config.initDefaults();
     }
 
     /**
@@ -32,11 +25,6 @@ public class SupportedModRTG extends SupportedMod {
      */
     @Override
     public boolean isPresent() {
-        return false;
-    }
-
-    @Override
-    public String getModID() {
-        return null;
+        return true;
     }
 }

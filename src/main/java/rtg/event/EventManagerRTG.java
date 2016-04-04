@@ -23,8 +23,6 @@ import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
 import rtg.world.gen.structure.StructureOceanMonumentRTG;
 
-import static rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase.*;
-
 public class EventManagerRTG {
 
     public RealisticBiomeBase biome = null;
@@ -180,9 +178,9 @@ public class EventManagerRTG {
         } else {
             return;
         }
-        if (RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(vanillaDesert) ||
-                RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(vanillaDesertHills) ||
-                RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(vanillaDesertM)) {
+        if (RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(Mods.VANILLA.biomes.desert) ||
+                RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(Mods.VANILLA.biomes.desertHills) ||
+                RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(Mods.VANILLA.biomes.desert)) {
             if (event.getOriginal().getBlock() == Blocks.log || event.getOriginal().getBlock() == Blocks.log2) {
                 event.setReplacement(Blocks.sandstone.getDefaultState());
             }

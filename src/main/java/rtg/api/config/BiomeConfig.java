@@ -30,13 +30,21 @@ public class BiomeConfig extends Config {
     }
 
     private void setDefaults() {
-        ALLOW_VILLAGES.setDefault(true).setComment("");
-        USE_RTG_SURFACES.setDefault(true).setComment("Set to false to do something that i, topisani, dont understand.").setDefault(true);
-        USE_RTG_DECORATIONS.setComment("If false RTG will not try to decorate this biome, but instead let it handle that itself.").setDefault(true);
-        TOP_BLOCK.setComment("The top surface block used in this biome (Grass in plains).");
-        FILL_BLOCK.setComment("The block that fills between the surface block and the stone underneath (Dirt in plains).");
+        ALLOW_VILLAGES.setDefault(true).setComment("").setSection(biomeSlug);
+        USE_RTG_SURFACES.setDefault(true).setComment("Set to false to do something that i, topisani, dont understand.").setDefault(true).setSection(biomeSlug);
+        USE_RTG_DECORATIONS.setComment("If false RTG will not try to decorate this biome, but instead let it handle that itself.").setDefault(true).setSection(biomeSlug);
+        TOP_BLOCK.setComment("The top surface block used in this biome (Grass in plains).").setSection(biomeSlug);
+        FILL_BLOCK.setComment("The block that fills between the surface block and the stone underneath (Dirt in plains).").setSection(biomeSlug);
         SCATTERED_FEATURE.setOptions(EnumUtils.names(Type.class)).setDefault(Type.NONE.name())
-                .setComment("What scattered feature does this biome allow?");
+                .setComment("What scattered feature does this biome allow?").setSection(biomeSlug);
+
+        CLIFF_BLOCK_1.setSection(biomeSlug);
+        CLIFF_BLOCK_2.setSection(biomeSlug);
+        MIX_BLOCK.setSection(biomeSlug);
+        MIX_BLOCK_TOP.setSection(biomeSlug);
+        MIX_BLOCK_FILL.setSection(biomeSlug);
+        BEACH_BLOCK.setSection(biomeSlug);
+        BOTTOM_BLOCK.setSection(biomeSlug);
     }
 
     @Override

@@ -10,6 +10,7 @@ import rtg.util.OpenSimplexNoise;
  */
 public class BlendedHillEffect extends HeightEffect {
     // similar to HillockEffect except that the transition is smooth
+    // and it can pass through a subordinate effect after multiply by the BlendedHill noise
 
     // not going to bother to set up a creator shell to make sure everything is set
     // set defaults to absurd values to crash if they're not set
@@ -19,11 +20,13 @@ public class BlendedHillEffect extends HeightEffect {
     public float hillBottomSimplexValue = Integer.MAX_VALUE;// normal range is -1 to 1;
                                 //usually numbers above 0 are often preferred to avoid dead basins
     public int octave;
+    public HeightEffect subordinate;
 
     public final float added(OpenSimplexNoise simplex, CellNoise cell,int x, int y) {
         float noise= simplex.octave(octave).noise2((float)x/wavelength, (float)y/wavelength);
         noise = TerrainBase.blendedHillHeight(noise, hillBottomSimplexValue);
-        return noise*height;
+        if (subordinate == null) return noise*height;
+        return noise*(height+subordinate.added(simplex, cell, x, y));
     }
 
 }

@@ -26,3 +26,5 @@ gradlew-setupDecompWorkspace-refresh-deps.bat
 *.iml
 *.ipr
 *.iws
+
+src/main/java/rtg/world/gen/terrain/FunctionalTerrainBase.java

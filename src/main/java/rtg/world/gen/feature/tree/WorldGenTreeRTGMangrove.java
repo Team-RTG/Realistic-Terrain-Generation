@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.util.mods.Mods;
+import rtg.api.mods.Mods;
 
 import java.util.Random;
 

@@ -3,7 +3,7 @@ package rtg.util.genlayers;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.gen.layer.GenLayer;
 import rtg.api.util.ModPresenceTester;
-import rtg.util.mods.Mods;
+import rtg.api.mods.Mods;
 
 public class GenLayerUtils {
 

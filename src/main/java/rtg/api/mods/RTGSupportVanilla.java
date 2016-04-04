@@ -1,22 +1,23 @@
-package rtg.util.mods;
+package rtg.api.mods;
 
 import rtg.api.config.ModConfig;
-import rtg.api.mods.SupportedMod;
 import rtg.api.util.ModPresenceTester;
 import rtg.world.biome.realistic.vanilla.RealisticVanillaBiomes;
 
 /**
- * @author tobia
+ * @author topisani
  */
-public class SupportedModVanilla extends SupportedMod {
+public class RTGSupportVanilla extends RTGSupport {
 
     public final ModConfig config;
     public final RealisticVanillaBiomes biomes;
 
-    public SupportedModVanilla() {
-        super("Vanilla", true);
+    public RTGSupportVanilla() {
+        super("Vanilla", true, true);
         config = new ModConfig("Vanilla");
         biomes = new RealisticVanillaBiomes();
+        super.biomes = biomes;
+        super.config = config;
     }
 
     /**
@@ -31,7 +32,7 @@ public class SupportedModVanilla extends SupportedMod {
     }
 
     @Override
-    public String getModID() {
+    public String getID() {
         return null;
     }
 }

@@ -7,6 +7,8 @@ import rtg.api.util.BlockStringUtil;
 import rtg.api.util.debug.Logger;
 import rtg.api.util.debug.RTGException;
 
+import static rtg.api.config.Config.NEW_LINE;
+
 /**
  * Wrapper for all different kinds of config properties
  * @author topisani
@@ -48,7 +50,7 @@ public abstract class ConfigProperty<T> {
     }
 
     public String getComment() {
-        return comment;
+        return comment + NEW_LINE + "[Default: " + this.getDefault().toString() + "]";
     }
 
     public ConfigProperty<T> setComment(String comment) {
@@ -63,15 +65,10 @@ public abstract class ConfigProperty<T> {
 
     /**
      * Needed for writing to config files
-     * @throws RTGException
-     */
-    public abstract Property toForgeProp() throws RTGException;
-
-    /**
-     * Needed for writing to config files
      * @param config The configuration to read from
      */
     public abstract void syncForgeProperty(Configuration config);
+
     protected ConfigProperty<T> set(T value) {
         this.value = value;
         return this;
@@ -105,23 +102,13 @@ public abstract class ConfigProperty<T> {
 
         /**
          * Needed for writing to config files
-         * @throws RTGException
-         */
-        public Property toForgeProp() throws RTGException {
-            Property prop = new Property(id, String.valueOf(value), Property.Type.BOOLEAN).setDefaultValue(defaultVal);
-            prop.set(value);
-            return prop;
-        }
-
-        /**
-         * Needed for writing to config files
          * @param config The configuration to read from
          */
         public void syncForgeProperty(Configuration config) {
             Property prop = config.get(this.section, this.id, this.defaultVal);
             this.value = prop.getBoolean();
             prop.set(value);
-            prop.setComment(this.comment);
+            prop.setComment(this.getComment());
         }
     }
 
@@ -150,6 +137,11 @@ public abstract class ConfigProperty<T> {
             return this;
         }
 
+        public String getComment() {
+            String range = (minValue < maxValue) ? "[Range: " + minValue + " ~ " + maxValue + "]" : "";
+            String def = "[Default: " + this.getDefault().toString() + "]";
+            return comment + NEW_LINE + def + " " + range;
+        }
 
         public ConfigProperty.PropertyInt setComment(String comment) {
             super.setComment(comment);
@@ -163,23 +155,13 @@ public abstract class ConfigProperty<T> {
 
         /**
          * Needed for writing to config files
-         * @throws RTGException
-         */
-        public Property toForgeProp() throws RTGException {
-            Property prop = new Property(id, String.valueOf(value), Property.Type.INTEGER).setDefaultValue(defaultVal).setMinValue(minValue).setMaxValue(maxValue);
-            prop.set(value);
-            return prop;
-        }
-
-        /**
-         * Needed for writing to config files
          * @param config The configuration to read from
          */
         public void syncForgeProperty(Configuration config) {
             Property prop = config.get(this.section, this.id, this.defaultVal);
             this.value = prop.getInt();
             prop.set(value);
-            prop.setComment(this.comment);
+            prop.setComment(this.getComment());
         }
     }
 
@@ -210,6 +192,11 @@ public abstract class ConfigProperty<T> {
             return this;
         }
 
+        public String getComment() {
+            String options = (getOptions().length > 0) ? "[Options: " + String.join(", ", (CharSequence[]) getOptions()) + "]" : "";
+            String def = "[Default: " + this.getDefault() + "]";
+            return comment + NEW_LINE + def + " " + options;
+        }
 
         public ConfigProperty.PropertyString setComment(String comment) {
             super.setComment(comment);
@@ -223,17 +210,6 @@ public abstract class ConfigProperty<T> {
 
         /**
          * Needed for writing to config files
-         * @throws RTGException
-         */
-        public Property toForgeProp() throws RTGException {
-            Property prop = new Property(id, value, Property.Type.STRING).setDefaultValue(defaultVal);
-            if (options.length > 0) prop.setValidValues(options);
-            prop.set(value);
-            return prop;
-        }
-
-        /**
-         * Needed for writing to config files
          * @param config The configuration to read from
          */
         public void syncForgeProperty(Configuration config) {
@@ -241,7 +217,7 @@ public abstract class ConfigProperty<T> {
             this.value = prop.getString();
             prop.set(value);
             prop.setValidValues(options);
-            prop.setComment(this.comment);
+            prop.setComment(this.getComment());
         }
     }
 
@@ -261,6 +237,12 @@ public abstract class ConfigProperty<T> {
             return this;
         }
 
+        public String getComment() {
+            String syntax = "SYNTAX: 'mod:block', 'mod:block:meta' or 'mod:block[property=value,property2=value2]'";
+            String def = "[Default: " + BlockStringUtil.stateToString(this.getDefault()) + "]";
+            return comment + NEW_LINE + def + NEW_LINE + syntax;
+        }
+
         public ConfigProperty.PropertyBlock setComment(String comment) {
             super.setComment(comment);
             return this;
@@ -273,23 +255,13 @@ public abstract class ConfigProperty<T> {
 
         /**
          * Needed for writing to config files
-         * @throws RTGException
-         */
-        public Property toForgeProp() throws RTGException {
-            Property prop = new Property(id, BlockStringUtil.stateToString(value), Property.Type.STRING).setDefaultValue(BlockStringUtil.stateToString(defaultVal));
-            prop.set(BlockStringUtil.stateToString(value));
-            return prop;
-        }
-
-        /**
-         * Needed for writing to config files
          * @param config The configuration to read from
          */
         public void syncForgeProperty(Configuration config) {
             Property prop = config.get(this.section, this.id, BlockStringUtil.stateToString(defaultVal));
             RTGException.error(() -> this.value = BlockStringUtil.stringToState(prop.getString()));
             prop.set(BlockStringUtil.stateToString(value));
-            prop.setComment(this.comment);
+            prop.setComment(this.getComment());
         }
     }
 
@@ -320,6 +292,12 @@ public abstract class ConfigProperty<T> {
             return this;
         }
 
+        public String getComment() {
+            String options = (getOptions().length > 0) ? "[Options: " + String.join(", ", (CharSequence[]) getOptions()) + "]" : "";
+            String def = "[Default: " + String.join(", ", (CharSequence[]) getDefault()) + "]";
+            return comment + NEW_LINE + def + " " + options;
+        }
+
         public ConfigProperty.PropertyStrings setComment(String comment) {
             super.setComment(comment);
             return this;
@@ -332,17 +310,6 @@ public abstract class ConfigProperty<T> {
 
         /**
          * Needed for writing to config files
-         * @throws RTGException
-         */
-        public Property toForgeProp() throws RTGException {
-            Property prop = new Property(id, value, Property.Type.STRING).setDefaultValues(defaultVal);
-            prop.set(value);
-            prop.setValidValues(options);
-            return prop;
-        }
-
-        /**
-         * Needed for writing to config files
          * @param config The configuration to read from
          */
         public void syncForgeProperty(Configuration config) {
@@ -350,7 +317,7 @@ public abstract class ConfigProperty<T> {
             this.value = prop.getStringList();
             prop.set(value);
             prop.setValidValues(options);
-            prop.setComment(this.comment);
+            prop.setComment(this.getComment());
         }
     }
 }

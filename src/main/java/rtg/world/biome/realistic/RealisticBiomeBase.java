@@ -18,9 +18,9 @@ import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import org.apache.commons.lang3.ArrayUtils;
 import rtg.api.config.BiomeConfig;
-import rtg.api.mods.SupportedMod;
+import rtg.api.mods.RTGSupport;
 import rtg.util.math.RandomUtil;
-import rtg.util.mods.Mods;
+import rtg.api.mods.Mods;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.util.noise.SimplexOctave;
@@ -47,7 +47,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     private static float actualRiverProportion = 300f / 1600f;
     public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;
-    public final SupportedMod mod;
+    public final RTGSupport mod;
     public final BiomeConfig config;
     public TerrainBase terrain;
     public SurfaceBase surface;
@@ -71,11 +71,11 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     private double lakeWaterLevel = 0.0;// the lakeStrenght below which things should be below ater
     private double lakeDepressionLevel = 0.16;// the lakeStrength below which land should start to be lowered
 
-    public RealisticBiomeBase(SupportedMod mod, BiomeGenBase biome) {
+    public RealisticBiomeBase(RTGSupport mod, BiomeGenBase biome) {
         this(mod, biome, river);
     }
 
-    public RealisticBiomeBase(SupportedMod mod, BiomeGenBase biome, BiomeGenBase river) {
+    public RealisticBiomeBase(RTGSupport mod, BiomeGenBase biome, BiomeGenBase river) {
 
         super(RealisticBiomeBase.getIdForBiome(biome));
 
@@ -86,7 +86,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         baseBiome = biome;
         riverBiome = river;
 
-        config = new BiomeConfig(getMod().getModID(), this.getBiomeName());
+        config = new BiomeConfig(getMod().getID(), this.getBiomeName());
         config.TOP_BLOCK.setDefault(biome.topBlock);
         config.FILL_BLOCK.setDefault(biome.fillerBlock);
 
@@ -637,7 +637,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         }
     }
 
-    public SupportedMod getMod() {
+    public RTGSupport getMod() {
         return mod;
     }
 }

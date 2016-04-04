@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.util.mods.Mods;
+import rtg.api.mods.Mods;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public abstract class RealisticBiomeVanillaBase extends RealisticBiomeBase {

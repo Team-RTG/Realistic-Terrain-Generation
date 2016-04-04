@@ -1,20 +1,20 @@
-package rtg.util.mods;
+package rtg.api.mods;
 
 import rtg.api.util.ModPresenceTester;
-import rtg.api.mods.SupportedMod;
 import rtg.config.ConfigRTG;
 
 /**
  * @author topisani
  */
-public class SupportedModRTG extends SupportedMod {
+public class RTGSupportRTG extends RTGSupport {
 
     public ConfigRTG config;
 
-    public SupportedModRTG() {
-        super("RTG", true);
+    public RTGSupportRTG() {
+        super("RTG", true, false);
         config = new ConfigRTG();
         config.initDefaults();
+        super.config = config;
     }
 
     /**

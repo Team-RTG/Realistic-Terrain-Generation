@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic;
 
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.util.mods.Mods;
+import rtg.api.mods.Mods;
 
 public class RealisticBiomePatcher {
 

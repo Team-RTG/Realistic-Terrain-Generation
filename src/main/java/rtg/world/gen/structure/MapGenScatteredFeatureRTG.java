@@ -11,7 +11,7 @@ import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
 import rtg.api.util.debug.Logger;
-import rtg.util.mods.Mods;
+import rtg.api.mods.Mods;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.vanilla.*;
 

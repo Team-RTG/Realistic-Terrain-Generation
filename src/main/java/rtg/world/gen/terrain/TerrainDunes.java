@@ -1,6 +1,6 @@
 package rtg.world.gen.terrain;
 
-import rtg.util.mods.Mods;
+import rtg.api.mods.Mods;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 

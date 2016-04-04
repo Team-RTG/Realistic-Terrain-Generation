@@ -3,11 +3,11 @@ package rtg.api.config;
 import net.minecraft.block.state.IBlockState;
 import net.minecraftforge.common.config.Property;
 import rtg.api.util.BlockStringUtil;
+import rtg.api.util.debug.Logger;
 import rtg.api.util.debug.RTGException;
 
 /**
  * Wrapper for all different kinds of config properties
- *
  * @author topisani
  */
 public abstract class ConfigProperty<T> {
@@ -26,6 +26,7 @@ public abstract class ConfigProperty<T> {
     }
 
     public T get() {
+        if (defaultVal == null) Logger.error("No default value set for option '" + getID() + "' in section '" + getSection() + "'. That's not good");
         return (this.value == null) ? this.defaultVal : this.value;
     }
 
@@ -57,14 +58,12 @@ public abstract class ConfigProperty<T> {
 
     /**
      * Needed for writing to config files
-     *
      * @throws RTGException
      */
     public abstract Property toForgeProp() throws RTGException;
 
     /**
      * Needed for writing to config files
-     *
      * @param prop The property to read
      * @return this
      * @throws RTGException of type CONFIG_SYNTAX if failed.
@@ -99,7 +98,6 @@ public abstract class ConfigProperty<T> {
 
         /**
          * Needed for writing to config files
-         *
          * @throws RTGException
          */
         public Property toForgeProp() throws RTGException {
@@ -110,7 +108,6 @@ public abstract class ConfigProperty<T> {
 
         /**
          * Needed for writing to config files
-         *
          * @param prop The property to read
          * @return this
          * @throws RTGException of type CONFIG_SYNTAX if failed.
@@ -146,11 +143,12 @@ public abstract class ConfigProperty<T> {
             this.minValue = minValue;
             this.maxValue = maxValue;
             return this;
-        }        public ConfigProperty.PropertyInt set(int value) {
+        }
+
+        public ConfigProperty.PropertyInt set(int value) {
             super.set(value);
             return this;
         }
-
 
 
         public ConfigProperty.PropertyInt setComment(String comment) {
@@ -160,7 +158,6 @@ public abstract class ConfigProperty<T> {
 
         /**
          * Needed for writing to config files
-         *
          * @throws RTGException
          */
         public Property toForgeProp() throws RTGException {
@@ -171,7 +168,6 @@ public abstract class ConfigProperty<T> {
 
         /**
          * Needed for writing to config files
-         *
          * @param prop The property to read
          * @return this
          * @throws RTGException of type CONFIG_SYNTAX if failed.
@@ -200,9 +196,6 @@ public abstract class ConfigProperty<T> {
         public ConfigProperty.PropertyString setDefault(String defaultValue) {
             super.setDefault(defaultValue);
             return this;
-        }        public ConfigProperty.PropertyString set(String value) {
-            super.set(value);
-            return this;
         }
 
         public String[] getOptions() {
@@ -212,14 +205,21 @@ public abstract class ConfigProperty<T> {
         public ConfigProperty.PropertyString setOptions(String[] options) {
             this.options = options;
             return this;
-        }        public ConfigProperty.PropertyString setComment(String comment) {
+        }
+
+        public ConfigProperty.PropertyString set(String value) {
+            super.set(value);
+            return this;
+        }
+
+
+        public ConfigProperty.PropertyString setComment(String comment) {
             super.setComment(comment);
             return this;
         }
 
         /**
          * Needed for writing to config files
-         *
          * @throws RTGException
          */
         public Property toForgeProp() throws RTGException {
@@ -231,7 +231,6 @@ public abstract class ConfigProperty<T> {
 
         /**
          * Needed for writing to config files
-         *
          * @param prop The property to read
          * @return this
          * @throws RTGException of type CONFIG_SYNTAX if failed.
@@ -247,8 +246,6 @@ public abstract class ConfigProperty<T> {
                         "ConfigProperty.fromForgeProp()");
             }
         }
-
-
 
 
     }
@@ -276,7 +273,6 @@ public abstract class ConfigProperty<T> {
 
         /**
          * Needed for writing to config files
-         *
          * @throws RTGException
          */
         public Property toForgeProp() throws RTGException {
@@ -287,7 +283,6 @@ public abstract class ConfigProperty<T> {
 
         /**
          * Needed for writing to config files
-         *
          * @param prop The property to read
          * @return this
          * @throws RTGException of type CONFIG_SYNTAX if failed.
@@ -328,7 +323,6 @@ public abstract class ConfigProperty<T> {
 
         /**
          * Needed for writing to config files
-         *
          * @throws RTGException
          */
         public Property toForgeProp() throws RTGException {
@@ -339,7 +333,6 @@ public abstract class ConfigProperty<T> {
 
         /**
          * Needed for writing to config files
-         *
          * @param prop The property to read
          * @return this
          * @throws RTGException of type CONFIG_SYNTAX if failed.

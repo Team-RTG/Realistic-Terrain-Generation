@@ -20,8 +20,6 @@ public class SupportedMod {
         modID = id;
     }
 
-    public void addBiomes() {}
-
     public boolean isPresent() {
         return present;
     }

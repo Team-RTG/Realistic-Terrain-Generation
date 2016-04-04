@@ -36,7 +36,7 @@ public class Config {
                 return;
             }
         }
-        this.addProperty(property);
+        this.properties.add(property);
     }
 
     public ConfigProperty.PropertyBool addBool(ConfigProperty.PropertyBool property) {

@@ -14,17 +14,9 @@ public class SupportedModVanilla extends SupportedMod {
     public final RealisticVanillaBiomes biomes;
 
     public SupportedModVanilla() {
-        super("RTG", true);
-        config = new ModConfig(this);
+        super("Vanilla", true);
+        config = new ModConfig("Vanilla");
         biomes = new RealisticVanillaBiomes();
-    }
-
-    /**
-     * Instantiates all realistic versions of biomes for this mod.
-     */
-    @Override
-    public void addBiomes() {
-
     }
 
     /**

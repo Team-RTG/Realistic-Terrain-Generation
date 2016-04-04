@@ -21,7 +21,7 @@ public class DecoFallenTree extends DecoBase {
 
     public int loops;
     public DecoFallenTree.Distribution distribution; // Parameter object for noise calculations.
-    public LogCondition logCondition; // Enum for the various conditions/chances for log gen.
+    public LogCondition logCondition; // Enum for the various conditions/chances for error gen.
     public float logConditionNoise; // Only applies to a noise-related LogCondition.
     public int logConditionChance; // Only applies to a chance-related LogCondition.
     public int maxY; // Height restriction.
@@ -29,8 +29,8 @@ public class DecoFallenTree extends DecoBase {
     public byte logMeta;
     public Block leavesBlock;
     public byte leavesMeta;
-    public int minSize; // Min log height (only used with certain log presets)
-    public int maxSize; // Max log height (only used with certain log presets)
+    public int minSize; // Min error height (only used with certain error presets)
+    public int maxSize; // Max error height (only used with certain error presets)
 
     public DecoFallenTree() {
         super();

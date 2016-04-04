@@ -40,7 +40,14 @@ public class RTGException extends Exception {
         } catch (Exception ignored) {}
     }
 
-    public void log() {
+    public void warn() {
+        String s = "RTG experienced a %s error.";
+        if (!this.message.isEmpty()) s += " Reason: " + identifier;
+        if (!this.identifier.isEmpty()) s += "Crash identifier: " + identifier;
+        Logger.warn(s, type.name().replaceAll("_", " ").toLowerCase());
+    }
+
+    public void error() {
         String s = "RTG experienced a %s error.";
         if (!this.message.isEmpty()) s += " Reason: " + identifier;
         if (!this.identifier.isEmpty()) s += "Crash identifier: " + identifier;
@@ -66,5 +73,34 @@ public class RTGException extends Exception {
     @FunctionalInterface
     public interface RunnableExc {
         void run() throws Exception;
+    }
+
+    public static void warn(RunnableRTGExc r) {
+        try {
+            r.run();
+        } catch (RTGException e) {
+            e.warn();
+        }
+    }
+
+    public static void error(RunnableRTGExc r) {
+        try {
+            r.run();
+        } catch (RTGException e) {
+            e.error();
+        }
+    }
+
+    public static void crash(RunnableRTGExc r) {
+        try {
+            r.run();
+        } catch (RTGException e) {
+            e.crash();
+        }
+    }
+
+    @FunctionalInterface
+    public interface RunnableRTGExc {
+        void run() throws RTGException;
     }
 }

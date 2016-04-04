@@ -47,7 +47,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;
     public final SupportedMod mod;
-    public final BiomeConfig config = new BiomeConfig(getMod().getModID(), this.getBiomeName());
+    public final BiomeConfig config;
     public TerrainBase terrain;
     public SurfaceBase surface;
     public SurfaceBase surfaceGeneric;
@@ -85,6 +85,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         baseBiome = biome;
         riverBiome = river;
 
+        config = new BiomeConfig(getMod().getModID(), this.getBiomeName());
         config.TOP_BLOCK.setDefault(biome.topBlock);
         config.FILL_BLOCK.setDefault(biome.fillerBlock);
 

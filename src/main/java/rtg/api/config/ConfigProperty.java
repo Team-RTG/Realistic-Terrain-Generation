@@ -1,6 +1,7 @@
 package rtg.api.config;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import rtg.api.util.BlockStringUtil;
 import rtg.api.util.debug.Logger;
@@ -68,12 +69,9 @@ public abstract class ConfigProperty<T> {
 
     /**
      * Needed for writing to config files
-     * @param prop The property to read
-     * @return this
-     * @throws RTGException of type CONFIG_SYNTAX if failed.
+     * @param config The configuration to read from
      */
-    public abstract ConfigProperty readForgeProperty(Property prop) throws RTGException;
-
+    public abstract void syncForgeProperty(Configuration config);
     protected ConfigProperty<T> set(T value) {
         this.value = value;
         return this;
@@ -117,20 +115,13 @@ public abstract class ConfigProperty<T> {
 
         /**
          * Needed for writing to config files
-         * @param prop The property to read
-         * @return this
-         * @throws RTGException of type CONFIG_SYNTAX if failed.
+         * @param config The configuration to read from
          */
-        public ConfigProperty readForgeProperty(Property prop) throws RTGException {
-            try {
-                this.set(prop.getBoolean());
-                return this;
-            } catch (Exception e) {
-                throw new RTGException(RTGException.Type.CONFIG_SYNTAX,
-                        "Tried to read property " + prop.getName() + " with value " + prop.getString() + " of type " + prop.getType().name() +
-                                " into property " + id + " of type BOOLEAN",
-                        "ConfigProperty.fromForgeProp()");
-            }
+        public void syncForgeProperty(Configuration config) {
+            Property prop = config.get(this.section, this.id, this.defaultVal);
+            this.value = prop.getBoolean();
+            prop.set(value);
+            prop.setComment(this.comment);
         }
     }
 
@@ -182,20 +173,13 @@ public abstract class ConfigProperty<T> {
 
         /**
          * Needed for writing to config files
-         * @param prop The property to read
-         * @return this
-         * @throws RTGException of type CONFIG_SYNTAX if failed.
+         * @param config The configuration to read from
          */
-        public ConfigProperty readForgeProperty(Property prop) throws RTGException {
-            try {
-                this.set(prop.getInt());
-                return this;
-            } catch (Exception e) {
-                throw new RTGException(RTGException.Type.CONFIG_SYNTAX,
-                        "Tried to read property " + prop.getName() + " with value " + prop.getString() + " of type " + prop.getType().name() +
-                                " into property " + id + " of type INTEGER",
-                        "ConfigProperty.fromForgeProp()");
-            }
+        public void syncForgeProperty(Configuration config) {
+            Property prop = config.get(this.section, this.id, this.defaultVal);
+            this.value = prop.getInt();
+            prop.set(value);
+            prop.setComment(this.comment);
         }
     }
 
@@ -250,23 +234,15 @@ public abstract class ConfigProperty<T> {
 
         /**
          * Needed for writing to config files
-         * @param prop The property to read
-         * @return this
-         * @throws RTGException of type CONFIG_SYNTAX if failed.
+         * @param config The configuration to read from
          */
-        public ConfigProperty readForgeProperty(Property prop) throws RTGException {
-            try {
-                this.set(prop.getString());
-                return this;
-            } catch (Exception e) {
-                throw new RTGException(RTGException.Type.CONFIG_SYNTAX,
-                        "Tried to read property " + prop.getName() + " with value " + prop.getString() + " of type " + prop.getType().name() +
-                                " into property " + id + " of type STRING",
-                        "ConfigProperty.fromForgeProp()");
-            }
+        public void syncForgeProperty(Configuration config) {
+            Property prop = config.get(this.section, this.id, this.defaultVal);
+            this.value = prop.getString();
+            prop.set(value);
+            prop.setValidValues(options);
+            prop.setComment(this.comment);
         }
-
-
     }
 
     public static class PropertyBlock extends ConfigProperty<IBlockState> {
@@ -307,24 +283,19 @@ public abstract class ConfigProperty<T> {
 
         /**
          * Needed for writing to config files
-         * @param prop The property to read
-         * @return this
-         * @throws RTGException of type CONFIG_SYNTAX if failed.
+         * @param config The configuration to read from
          */
-        public ConfigProperty readForgeProperty(Property prop) throws RTGException {
-            try {
-                this.set(BlockStringUtil.stringToState(prop.getString()));
-                return this;
-            } catch (Exception e) {
-                throw new RTGException(RTGException.Type.CONFIG_SYNTAX,
-                        "Tried to read property " + prop.getName() + " with value " + prop.getString() + " of type " + prop.getType().name() +
-                                " into property " + id + " of type BLOCK",
-                        "ConfigProperty.fromForgeProp()");
-            }
+        public void syncForgeProperty(Configuration config) {
+            Property prop = config.get(this.section, this.id, BlockStringUtil.stateToString(defaultVal));
+            RTGException.error(() -> this.value = BlockStringUtil.stringToState(prop.getString()));
+            prop.set(BlockStringUtil.stateToString(value));
+            prop.setComment(this.comment);
         }
     }
 
     public static class PropertyStrings extends ConfigProperty<String[]> {
+
+        private String[] options = new String[0];
 
         public PropertyStrings(String id, String section) {
             super(id, section);
@@ -332,6 +303,15 @@ public abstract class ConfigProperty<T> {
 
         public ConfigProperty.PropertyStrings set(String[] value) {
             super.set(value);
+            return this;
+        }
+
+        public String[] getOptions() {
+            return options;
+        }
+
+        public ConfigProperty.PropertyStrings setOptions(String[] options) {
+            this.options = options;
             return this;
         }
 
@@ -357,25 +337,20 @@ public abstract class ConfigProperty<T> {
         public Property toForgeProp() throws RTGException {
             Property prop = new Property(id, value, Property.Type.STRING).setDefaultValues(defaultVal);
             prop.set(value);
+            prop.setValidValues(options);
             return prop;
         }
 
         /**
          * Needed for writing to config files
-         * @param prop The property to read
-         * @return this
-         * @throws RTGException of type CONFIG_SYNTAX if failed.
+         * @param config The configuration to read from
          */
-        public ConfigProperty readForgeProperty(Property prop) throws RTGException {
-            try {
-                this.set(prop.getStringList());
-                return this;
-            } catch (Exception e) {
-                throw new RTGException(RTGException.Type.CONFIG_SYNTAX,
-                        "Tried to read property " + prop.getName() + " with value " + prop.getString() + " of type " + prop.getType().name() +
-                                " into property " + id + " of type STRINGS",
-                        "ConfigProperty.fromForgeProp()");
-            }
+        public void syncForgeProperty(Configuration config) {
+            Property prop = config.get(this.section, this.id, this.defaultVal);
+            this.value = prop.getStringList();
+            prop.set(value);
+            prop.setValidValues(options);
+            prop.setComment(this.comment);
         }
     }
 }

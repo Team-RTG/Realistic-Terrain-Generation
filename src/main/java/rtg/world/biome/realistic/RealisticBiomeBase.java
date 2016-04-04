@@ -16,6 +16,7 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import org.apache.commons.lang3.ArrayUtils;
 import rtg.api.config.BiomeConfig;
 import rtg.api.mods.SupportedMod;
 import rtg.util.math.RandomUtil;
@@ -631,6 +632,8 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
             this.decos.add(deco);
             this.useNewDecorationSystem = true;
+            this.config.DECORATIONS.setOptions(ArrayUtils.add(this.config.DECORATIONS.getOptions(), deco.getName()));
+            this.config.DECORATIONS.setDefault(ArrayUtils.add(this.config.DECORATIONS.getDefault(), deco.getName()));
         }
     }
 

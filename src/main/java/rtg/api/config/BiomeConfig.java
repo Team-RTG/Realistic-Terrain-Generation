@@ -11,6 +11,7 @@ public class BiomeConfig extends Config {
     public final ConfigProperty.PropertyBlock TOP_BLOCK = this.addBlock("Top block", "");
     public final ConfigProperty.PropertyBlock FILL_BLOCK = this.addBlock("Fill block", "");
     public final ConfigProperty.PropertyString SCATTERED_FEATURE = this.addString("Scattered feature", "");
+    public final ConfigProperty.PropertyStrings DECORATIONS = this.addStrings("Decorations", "");
 
     public final ConfigProperty.PropertyBlock CLIFF_BLOCK_1 = new ConfigProperty.PropertyBlock("Cliff block 1", "");
     public final ConfigProperty.PropertyBlock CLIFF_BLOCK_2 = new ConfigProperty.PropertyBlock("Cliff block 2", "");
@@ -36,6 +37,8 @@ public class BiomeConfig extends Config {
         TOP_BLOCK.setComment("The top surface block used in this biome (Grass in plains).").setSection(biomeSlug);
         FILL_BLOCK.setComment("The block that fills between the surface block and the stone underneath (Dirt in plains).").setSection(biomeSlug);
         SCATTERED_FEATURE.setOptions(EnumUtils.names(Type.class)).setDefault(Type.NONE.name())
+                .setComment("What scattered feature does this biome allow?").setSection(biomeSlug);
+        DECORATIONS.setDefault(new String[0])
                 .setComment("What scattered feature does this biome allow?").setSection(biomeSlug);
 
         CLIFF_BLOCK_1.setSection(biomeSlug);

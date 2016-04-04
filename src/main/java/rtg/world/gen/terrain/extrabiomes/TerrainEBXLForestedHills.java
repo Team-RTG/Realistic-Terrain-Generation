@@ -10,7 +10,6 @@ public class TerrainEBXLForestedHills extends TerrainBase
 	private float strength;
 	private float lakeDepth;
 	private float lakeWidth;
-	private float terrainHeight;
 
 	/*
 	 * width = 230f
@@ -31,12 +30,12 @@ public class TerrainEBXLForestedHills extends TerrainBase
 		strength = mountainStrength;
 		lakeDepth = depthLake;
 		lakeWidth = widthLake;
-		terrainHeight = height;
+		base = height;
 	}
 
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainLonelyMountain(x, y, simplex, cell, river, strength, width, terrainHeight);
+        return terrainLonelyMountain(x, y, simplex, cell, river, strength, width, base);
 	}
 }

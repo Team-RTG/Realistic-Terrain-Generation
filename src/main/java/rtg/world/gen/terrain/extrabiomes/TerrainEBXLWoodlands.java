@@ -1,27 +1,23 @@
 package rtg.world.gen.terrain.extrabiomes;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.world.gen.terrain.BlendedHillEffect;
+import rtg.world.gen.terrain.FunctionalTerrainBase;
+import rtg.world.gen.terrain.GroundEffect;
 
-public class TerrainEBXLWoodlands extends TerrainBase
-{
-	private float start;
-	private float height;
-	private float base;
-	private float width;
 
-	public TerrainEBXLWoodlands(float hillStart, float landHeight, float baseHeight, float hillWidth)
+public class TerrainEBXLWoodlands extends FunctionalTerrainBase{
+
+	public TerrainEBXLWoodlands()
 	{
-		start = hillStart;
-		height = landHeight;
-		base = baseHeight;
-		width = hillWidth;
+        base = 66;
+
+        BlendedHillEffect bumps = new BlendedHillEffect();
+        bumps.height = 8;
+        bumps.wavelength = 70;
+        bumps.hillBottomSimplexValue = 0.5f; // not too common
+
+        height = bumps.plus(new GroundEffect(2));
 	}
 
-	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-	{
-        return terrainHighland(x, y, simplex, cell, river, start, width, height, 0f);
-	}
+
 }

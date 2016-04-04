@@ -19,7 +19,7 @@ public class RealisticBiomeEBXLMountainRidge extends RealisticBiomeEBXLBase
 	{
 		super(config, 
 			ebxlBiome, BiomeGenBase.river,
-			new TerrainEBXLMountainRidge(230f, 110f, 0f),
+			new TerrainEBXLMountainRidge(230f, 60f, 90f),
 			new SurfaceEBXLMountainRidge(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f)
 		);
 		this.generatesEmeralds = true;

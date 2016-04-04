@@ -55,7 +55,6 @@ public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 		{			
 		    //ALPINE
 			if(BiomeManager.alpine.isPresent()) {
-			    
 				ebxl_alpine = new RealisticBiomeEBXLAlpine(BiomeConfigEBXL.biomeConfigEBXLAlpine);
 			}
 			

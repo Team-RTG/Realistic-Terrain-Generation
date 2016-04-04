@@ -22,5 +22,6 @@ public class RealisticBiomeEBXLAlpine extends RealisticBiomeEBXLBase
 			new TerrainEBXLAlpine(),
 			new SurfaceEBXLAlpine(config, topBlock, fillerBlock, false, null, 0.45f)
 		);
+        noWaterFeatures = true;
 	}
 }

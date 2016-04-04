@@ -14,6 +14,9 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
                 Biomes.stoneBeach,
                 Biomes.river
         );
+
+        initProperties();
+        initDecos();
     }
 
     @Override
@@ -29,5 +32,17 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
                 return terrainBeach(x, y, simplex, river, 180f, 35f, 63f);
             }
         };
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+
     }
 }

@@ -10,7 +10,8 @@ import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBeach;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase
+{
 
     public RealisticBiomeVanillaBeach() {
         super(
@@ -18,23 +19,8 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
                 Biomes.river
         );
 
-        config.TOP_BLOCK.setDefault(Blocks.sand.getDefaultState());
-        config.FILL_BLOCK.setDefault(Blocks.sand.getDefaultState());
-        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.dirt.getDefaultState());
-        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.stone.getDefaultState());
-
-        /**
-         * ##################################################
-         * # DECORATIONS (ORDER MATTERS)
-         * ##################################################
-         */
-
-        // Scattered palm trees.
-        DecoTree palmTrees = new DecoTree();
-        palmTrees.loops = 1;
-        palmTrees.treeType = TreeType.VANILLA_BEACH_PALM;
-        palmTrees.maxY = 80;
-        this.addDeco(palmTrees);
+        initProperties();
+        initDecos();
     }
 
     @Override
@@ -50,5 +36,23 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
                 return terrainBeach(x, y, simplex, river, 180f, 35f, 63f);
             }
         };
+    }
+
+    @Override
+    protected void initProperties()
+    {
+        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.dirt.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.stone.getDefaultState());
+    }
+
+    @Override
+    protected void initDecos()
+    {
+        // Scattered palm trees.
+        DecoTree palmTrees = new DecoTree();
+        palmTrees.loops = 1;
+        palmTrees.treeType = TreeType.VANILLA_BEACH_PALM;
+        palmTrees.maxY = 80;
+        this.addDeco(palmTrees);
     }
 }

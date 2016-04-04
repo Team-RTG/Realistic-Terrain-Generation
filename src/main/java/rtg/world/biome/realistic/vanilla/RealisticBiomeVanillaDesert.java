@@ -26,6 +26,44 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
         this.waterSurfaceLakeChance = 0;
         this.noLakes = true;
 
+        initProperties();
+        initDecos();
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaDesert(this);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainPolar(x, y, simplex, river);
+            }
+        };
+    }
+
+    @Override
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
+                         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+
+        this.getSurface().paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+
+        SurfaceBase riverSurface = new SurfaceRiverOasis(this);
+        riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
         DecoTree riverTrees = new DecoTree();
         riverTrees.checkRiver = true;
         riverTrees.minRiver = 0.86f;
@@ -58,13 +96,13 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
         decoFlowersRTG.loops = 3;
         this.addDeco(decoFlowersRTG);
 
-        DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
-        decoDoublePlants.checkRiver = true;
-        decoDoublePlants.minRiver = 0.7f;
-        decoDoublePlants.maxY = 128;
-        decoDoublePlants.loops = 15;
-        decoDoublePlants.fernChance = 6;
-        this.addDeco(decoDoublePlants);
+        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
+        decoGrassDoubleTallgrass.checkRiver = true;
+        decoGrassDoubleTallgrass.minRiver = 0.7f;
+        decoGrassDoubleTallgrass.maxY = 128;
+        decoGrassDoubleTallgrass.loops = 15;
+        decoGrassDoubleTallgrass.doubleGrassChance = 3;
+        this.addDeco(decoGrassDoubleTallgrass);
 
         DecoDesertWell decoDesertWell = new DecoDesertWell();
         decoDesertWell.maxY = 80;
@@ -81,30 +119,5 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
         decoDeadBush.maxY = 128;
         decoDeadBush.strengthFactor = 1f;
         this.addDeco(decoDeadBush);
-    }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaDesert(this);
-    }
-
-    @Override
-    protected TerrainBase initTerrain() {
-        return new TerrainBase() {
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainPolar(x, y, simplex, river);
-            }
-        };
-    }
-
-    @Override
-    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
-                         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
-
-        this.getSurface().paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
-
-        SurfaceBase riverSurface = new SurfaceRiverOasis(this);
-        riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

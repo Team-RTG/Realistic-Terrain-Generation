@@ -15,6 +15,9 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
                 Biomes.river
         );
         this.noLakes = true;
+
+        initProperties();
+        initDecos();
     }
 
     @Override
@@ -30,5 +33,17 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
                 return terrainGrasslandFlats(x, y, simplex, river, 40f, 25f, 68f);
             }
         };
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+
     }
 }

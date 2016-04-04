@@ -19,6 +19,9 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
                 Biomes.frozenRiver
         );
         this.noLakes = true;
+
+        initProperties();
+        initDecos();
     }
 
     @Override
@@ -34,5 +37,17 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
                 return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 65f);
             }
         };
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+
     }
 }

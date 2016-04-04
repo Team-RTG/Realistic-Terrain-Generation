@@ -22,6 +22,9 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
         this.generatesEmeralds = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
+
+        initProperties();
+        initDecos();
     }
 
     @Override
@@ -37,5 +40,17 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
                 return terrainLonelyMountain(x, y, simplex, cell, river, 120f, 230f, 68f);
             }
         };
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+
     }
 }

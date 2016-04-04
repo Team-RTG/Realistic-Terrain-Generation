@@ -21,6 +21,9 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
                 Biomes.river
         );
         this.generatesEmeralds = true;
+
+        initProperties();
+        initDecos();
     }
 
     @Override
@@ -36,5 +39,17 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
                 return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 140f, 10f);
             }
         };
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+
     }
 }

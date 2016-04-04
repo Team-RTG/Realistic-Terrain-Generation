@@ -22,16 +22,39 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
                 Biomes.river
         );
 
+        initProperties();
+        initDecos();
+
         config.TOP_BLOCK.setDefault(Blocks.sand.getDefaultState());
         config.FILL_BLOCK.setDefault(Blocks.sand.getDefaultState());
         config.addBlock(config.MIX_BLOCK).setDefault(Blocks.dirt.getStateFromMeta(2));
+    }
 
-        /**
-         * ##################################################
-         * # DECORATIONS (ORDER MATTERS)
-         * ##################################################
-         */
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaBirchForest(this);
+    }
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            private GroundEffect groundEffect = new GroundEffect(4f);
 
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
+            }
+        };
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
         DecoTree smallBirch = new DecoTree();
         smallBirch.strengthNoiseFactorForLoops = true;
         smallBirch.treeType = TreeType.SMALL_BIRCH;
@@ -54,9 +77,9 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
         decoFallenTree.logConditionChance = 8;
         decoFallenTree.maxY = 100;
         decoFallenTree.logBlock = Blocks.log;
-        decoFallenTree.logMeta = (byte) 2;
+        decoFallenTree.logMeta = (byte)2;
         decoFallenTree.leavesBlock = Blocks.leaves;
-        decoFallenTree.leavesMeta = (byte) -1;
+        decoFallenTree.leavesMeta = (byte)-1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree);
@@ -80,21 +103,5 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 20f;
         this.addDeco(decoGrass);
-    }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaBirchForest(this);
-    }
-    @Override
-    protected TerrainBase initTerrain() {
-        return new TerrainBase() {
-            private GroundEffect groundEffect = new GroundEffect(4f);
-
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
-            }
-        };
     }
 }

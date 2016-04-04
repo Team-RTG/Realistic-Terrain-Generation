@@ -17,6 +17,9 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
                 Biomes.plains,
                 Biomes.river
         );
+
+        initProperties();
+        initDecos();
     }
 
     @Override
@@ -34,5 +37,17 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
                 return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
             }
         };
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+
     }
 }

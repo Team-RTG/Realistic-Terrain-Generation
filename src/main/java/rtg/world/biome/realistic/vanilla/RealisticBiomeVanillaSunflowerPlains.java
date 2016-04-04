@@ -20,6 +20,9 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
                 mutationBiome,
                 Biomes.river
         );
+
+        initProperties();
+        initDecos();
     }
 
     @Override
@@ -36,5 +39,17 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
                 return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
             }
         };
+    }
+
+    @Override
+    protected void initProperties()
+    {
+
+    }
+
+    @Override
+    protected void initDecos()
+    {
+
     }
 }

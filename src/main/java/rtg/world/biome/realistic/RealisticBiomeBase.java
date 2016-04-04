@@ -139,6 +139,11 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     protected void initProperties() {
     }
 
+    protected void initDecos()
+    {
+
+    }
+
     protected abstract SurfaceBase initSurface();
 
     protected abstract TerrainBase initTerrain();

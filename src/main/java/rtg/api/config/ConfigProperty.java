@@ -101,7 +101,7 @@ public abstract class ConfigProperty<T> {
         }
 
         public ConfigProperty.PropertyBool setSection(String section) {
-            this.setSection(section);
+            super.setSection(section);
             return this;
         }
 
@@ -166,7 +166,7 @@ public abstract class ConfigProperty<T> {
         }
 
         public ConfigProperty.PropertyInt setSection(String section) {
-            this.setSection(section);
+            super.setSection(section);
             return this;
         }
 
@@ -233,7 +233,7 @@ public abstract class ConfigProperty<T> {
         }
 
         public ConfigProperty.PropertyString setSection(String section) {
-            this.setSection(section);
+            super.setSection(section);
             return this;
         }
 
@@ -291,7 +291,7 @@ public abstract class ConfigProperty<T> {
         }
 
         public ConfigProperty.PropertyBlock setSection(String section) {
-            this.setSection(section);
+            super.setSection(section);
             return this;
         }
 
@@ -346,7 +346,7 @@ public abstract class ConfigProperty<T> {
         }
 
         public ConfigProperty.PropertyStrings setSection(String section) {
-            this.setSection(section);
+            super.setSection(section);
             return this;
         }
 

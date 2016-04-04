@@ -51,7 +51,8 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
     @Override
     protected void initProperties()
     {
-
+        this.config.MIX_BLOCK.setDefault(Blocks.dirt.getStateFromMeta(2));
+        this.config.BEACH_BLOCK.setDefault(Blocks.sand.getDefaultState());
     }
 
     @Override

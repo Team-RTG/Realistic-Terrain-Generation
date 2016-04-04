@@ -34,9 +34,6 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
                 mutationBiome,
                 Biomes.river
         );
-
-        initProperties();
-        initDecos();
     }
 
     @Override

@@ -8,7 +8,7 @@ public class RTGEvent extends Event {
         super();
     }
 
-    public static class BiomeConfigEvent extends RTGEvent{
+    public static class BiomeConfigEvent extends RTGEvent {
 
         public static class Pre extends BiomeConfigEvent {
             public Pre() {

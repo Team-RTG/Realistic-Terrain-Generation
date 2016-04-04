@@ -21,9 +21,6 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
                 Biomes.frozenRiver
         );
         this.noLakes = true;
-
-        initProperties();
-        initDecos();
     }
 
     @Override

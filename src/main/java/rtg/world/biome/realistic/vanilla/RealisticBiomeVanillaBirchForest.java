@@ -22,9 +22,6 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
                 Biomes.river
         );
 
-        initProperties();
-        initDecos();
-
         config.TOP_BLOCK.setDefault(Blocks.sand.getDefaultState());
         config.FILL_BLOCK.setDefault(Blocks.sand.getDefaultState());
         config.addBlock(config.MIX_BLOCK).setDefault(Blocks.dirt.getStateFromMeta(2));

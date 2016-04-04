@@ -17,9 +17,6 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
                 Biomes.plains,
                 Biomes.river
         );
-
-        initProperties();
-        initDecos();
     }
 
     @Override

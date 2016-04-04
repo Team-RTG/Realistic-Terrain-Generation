@@ -23,9 +23,6 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
                 mutationBiome,
                 Biomes.river
         );
-
-        initProperties();
-        initDecos();
     }
 
     @Override

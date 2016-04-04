@@ -26,9 +26,6 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
                 Biomes.savanna,
                 Biomes.river
         );
-
-        initProperties();
-        initDecos();
     }
 
     @Override

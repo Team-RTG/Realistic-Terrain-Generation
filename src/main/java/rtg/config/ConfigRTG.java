@@ -1,9 +1,10 @@
 package rtg.config;
 
+import net.minecraft.block.BlockColored;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import rtg.api.config.ConfigProperty;
 import rtg.api.config.ModConfig;
-import rtg.util.mods.Mods;
 
 public class ConfigRTG extends ModConfig {
     public final ConfigProperty.PropertyInt FLAT_BEDROCK_LAYERS = addInt("Number of flat bedrock layers", "bedrock");
@@ -59,7 +60,7 @@ public class ConfigRTG extends ModConfig {
     public final ConfigProperty.PropertyBool ALLOW_SHRUBS_UNDERGROUND = addBool("Allow Shrubs to Generate Below Surface", "trees");
 
     public ConfigRTG() {
-        super(Mods.RTG);
+        super("RTG");
     }
 
     @Override
@@ -71,7 +72,7 @@ public class ConfigRTG extends ModConfig {
         PATCH_BIOME_ID.setDefault(-1).setRange(-1, 255).setComment("If RTG tries to generate an unsupported biome or a biome that has an ID conflict, it will generate this biome instead." +
                 "If set to -1, RTG will crash instead of generating the patch biome. You might want to do this if you're making a mod pack" +
                 "and want to make sure all biomes are generating correctly.");
-        USE_BOP_LAYOUT.setDefault(true).setComment("If FALSE, RTG will use vanilla biome layout, even if BOP is installed. This means no BOP biomes.");
+        USE_BOP_LAYOUT.setDefault(false).setComment("If FALSE, RTG will use vanilla biome layout, even if BOP is installed. This means no BOP biomes.");
         ENABLE_COUBLESTONE_BOULDERS.setDefault(true);
         COBBLESTONE_BOULDER_CHANCE.setDefault(1).setComment("1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
         ENABLE_CAVE_MODIFICATIONS.setDefault(true).setComment("Must be set to TRUE for the other cave settings to have any effect." +
@@ -91,5 +92,34 @@ public class ConfigRTG extends ModConfig {
         SURFACE_LAVA_LAKE_CHANCE.setDefault(10).setRange(1, 100).setComment("1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
         ENABLE_UNDERGROUND_WATER_LAKES.setDefault(true);
         UNDERGROUND_WATER_LAKE_CHANCE.setDefault(10).setRange(1, 100).setComment("1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
+        ENABLE_UNDERGROUND_LAVA_LAKES.setDefault(true);
+        UNDERGROUND_LAVA_LAKE_CHANCE.setDefault(10);
+        GENERATE_MINESHAFTS.setDefault(true);
+        GENERATE_ORE_COAL.setDefault(true);
+        GENERATE_ORE_IRON.setDefault(true);
+        GENERATE_ORE_GOLD.setDefault(true);
+        GENERATE_ORE_REDSTONE.setDefault(true);
+        GENERATE_ORE_LAPIS.setDefault(true);
+        GENERATE_ORE_DIAMOND.setDefault(true);
+        GENERATE_ORE_EMERALD.setDefault(true);
+        ENABLE_RAVINE_MODIFICATIONS.setDefault(true);
+        ENABLE_RAVINES.setDefault(false);
+        RAVINE_FREQUENCY.setDefault(2);
+        GENERATE_SCATTERED_FEATURES.setDefault(true);
+        MIN_DISTANCE_SCATTERED_FEATURES.setDefault(12);
+        MAX_DISTANCE_SCATTERED_FEATURES.setDefault(48);
+        GENERATE_OCEAN_MONUMENTS.setDefault(true);
+        GENERATE_STRONGHOLDS.setDefault(true);
+        GENERATE_VILLAGES.setDefault(true);
+        ENABLE_VILLAGE_MODIFICATIONS.setDefault(true);
+        VILLAGE_SIZE.setDefault(3);
+        MIN_DISTANCE_VILLAGES.setDefault(12);
+        MAX_DISTANCE_VILLAGES.setDefault(48);
+        VILLAGE_CRASH_FIX.setDefault(true);
+        ENABLE_SNOW_LAYERS.setDefault(true);
+        SHADOW_STONE_BLOCK.setDefault(Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.CYAN));
+        SHADOW_DESERT_BLOCK.setDefault(Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.WHITE));
+        ALLOW_TREES_ON_SAND.setDefault(true);
+        ALLOW_SHRUBS_UNDERGROUND.setDefault(true);
     }
 }

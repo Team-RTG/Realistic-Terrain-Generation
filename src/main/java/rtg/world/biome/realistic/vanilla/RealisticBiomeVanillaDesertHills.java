@@ -7,6 +7,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
+import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesertHills;
@@ -23,9 +24,6 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
         );
         this.waterSurfaceLakeChance = 0;
         this.noLakes = true;
-
-        initProperties();
-        initDecos();
     }
 
     @Override
@@ -51,9 +49,8 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
     }
 
     @Override
-    protected void initProperties()
-    {
-
+    protected void initProperties() {
+        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.DESERT_TEMPLE.name());
     }
 
     @Override

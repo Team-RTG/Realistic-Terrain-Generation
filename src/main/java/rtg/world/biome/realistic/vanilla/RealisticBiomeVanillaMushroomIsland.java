@@ -15,9 +15,6 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
                 Biomes.river
         );
         this.noLakes = true;
-
-        initProperties();
-        initDecos();
     }
 
     @Override

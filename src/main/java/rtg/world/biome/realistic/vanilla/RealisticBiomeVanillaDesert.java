@@ -7,6 +7,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
+import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesert;
@@ -25,45 +26,15 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
         this.waterSurfaceLakeChance = 0;
         this.noLakes = true;
-
-        initProperties();
-        initDecos();
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaDesert(this);
+    protected void initProperties() {
+        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.DESERT_TEMPLE.name());
     }
 
     @Override
-    protected TerrainBase initTerrain() {
-        return new TerrainBase() {
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainPolar(x, y, simplex, river);
-            }
-        };
-    }
-
-    @Override
-    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
-                         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
-
-        this.getSurface().paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
-
-        SurfaceBase riverSurface = new SurfaceRiverOasis(this);
-        riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
-    }
-
-    @Override
-    protected void initProperties()
-    {
-
-    }
-
-    @Override
-    protected void initDecos()
-    {
+    protected void initDecos() {
         DecoTree riverTrees = new DecoTree();
         riverTrees.checkRiver = true;
         riverTrees.minRiver = 0.86f;
@@ -119,5 +90,30 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
         decoDeadBush.maxY = 128;
         decoDeadBush.strengthFactor = 1f;
         this.addDeco(decoDeadBush);
+    }
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaDesert(this);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainPolar(x, y, simplex, river);
+            }
+        };
+    }
+
+    @Override
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
+                         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+
+        this.getSurface().paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+
+        SurfaceBase riverSurface = new SurfaceRiverOasis(this);
+        riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

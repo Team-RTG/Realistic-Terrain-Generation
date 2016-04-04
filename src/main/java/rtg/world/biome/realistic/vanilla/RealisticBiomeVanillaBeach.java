@@ -18,9 +18,6 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase
                 Biomes.beach,
                 Biomes.river
         );
-
-        initProperties();
-        initDecos();
     }
 
     @Override

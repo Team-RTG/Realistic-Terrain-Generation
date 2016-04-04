@@ -32,9 +32,6 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
                 Biomes.river
         );
         this.noLakes = true;
-
-        initProperties();
-        initDecos();
     }
 
     @Override

@@ -27,9 +27,6 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
                 Biomes.frozenRiver
         );
         this.noLakes = true;
-
-        initProperties();
-        initDecos();
     }
 
     @Override

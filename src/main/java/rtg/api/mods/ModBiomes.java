@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 /**
  * Holds all of a mods biomes as public final fields
+ *
  * @author topisani
  */
 public abstract class ModBiomes {

@@ -20,9 +20,6 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
                 mutationBiome,
                 Biomes.river
         );
-
-        initProperties();
-        initDecos();
     }
 
     @Override

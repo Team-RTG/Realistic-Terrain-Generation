@@ -4,8 +4,13 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
-import rtg.world.biome.deco.*;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
+import rtg.world.biome.deco.DecoFlowersRTG;
+import rtg.world.biome.deco.DecoGrass;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.gen.surface.SurfaceBase;
@@ -21,16 +26,8 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
                 Biomes.birchForest,
                 Biomes.river
         );
-
-        config.TOP_BLOCK.setDefault(Blocks.sand.getDefaultState());
-        config.FILL_BLOCK.setDefault(Blocks.sand.getDefaultState());
-        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.dirt.getStateFromMeta(2));
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaBirchForest(this);
-    }
     @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
@@ -42,11 +39,10 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
             }
         };
     }
-
+    
     @Override
-    protected void initProperties()
-    {
-
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaBirchForest(this);
     }
 
     @Override
@@ -100,5 +96,12 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 20f;
         this.addDeco(decoGrass);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+		config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.sand.getDefaultState());
+        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.dirt.getStateFromMeta(2));
     }
 }

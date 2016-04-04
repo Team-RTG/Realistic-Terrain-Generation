@@ -35,12 +35,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
                 Biomes.river
         );
     }
-
-    @Override
-        protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMesaBryce(this, 0);
-    }
-
+    
     @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
@@ -52,6 +47,11 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     }
 
     @Override
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaMesaBryce(this, 0);
+    }
+
+    @Override
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
                          OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
@@ -59,12 +59,6 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
         SurfaceBase riverSurface = new SurfaceRiverOasis(this);
         riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
-    }
-
-    @Override
-    protected void initProperties()
-    {
-
     }
 
     @Override
@@ -122,5 +116,11 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
         decoCactus.loops = 18;
         decoCactus.maxY = 100;
         this.addDeco(decoCactus);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+
     }
 }

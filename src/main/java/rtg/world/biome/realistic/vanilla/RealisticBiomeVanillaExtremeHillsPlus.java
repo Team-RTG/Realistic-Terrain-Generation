@@ -4,7 +4,13 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
-import rtg.world.biome.deco.*;
+import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.DecoFlowersRTG;
+import rtg.world.biome.deco.DecoLargeFernDoubleTallgrass;
+import rtg.world.biome.deco.DecoPumpkin;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.DecoTree;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHillsPlus;
 import rtg.world.gen.terrain.HeightEffect;
@@ -23,11 +29,6 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
         this.generatesEmeralds = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
-    }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaExtremeHillsPlus(this, false, 0f, 1.5f, 60f, 65f, 1.5f, 0.08f);
     }
 
     @Override
@@ -60,11 +61,10 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
             }
         };
     }
-
+    
     @Override
-    protected void initProperties()
-    {
-
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaExtremeHillsPlus(this, false, 0f, 1.5f, 60f, 65f, 1.5f, 0.08f);
     }
 
     @Override
@@ -127,5 +127,12 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
         decoDoublePlants.fernChance = 3;
         decoDoublePlants.loops = 15;
         this.addDeco(decoDoublePlants);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+    	config.addBlock(config.MIX_BLOCK).setDefault(Blocks.gravel.getDefaultState());
+    	config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.gravel.getDefaultState());
     }
 }

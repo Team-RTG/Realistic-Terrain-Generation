@@ -21,11 +21,6 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaBeach(this);
-    }
-
-    @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
@@ -34,12 +29,10 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase
             }
         };
     }
-
+    
     @Override
-    protected void initProperties()
-    {
-        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.dirt.getDefaultState());
-        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.stone.getDefaultState());
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaBeach(this);
     }
 
     @Override
@@ -51,5 +44,12 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase
         palmTrees.treeType = TreeType.VANILLA_BEACH_PALM;
         palmTrees.maxY = 80;
         this.addDeco(palmTrees);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.sand.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.sand.getDefaultState());
     }
 }

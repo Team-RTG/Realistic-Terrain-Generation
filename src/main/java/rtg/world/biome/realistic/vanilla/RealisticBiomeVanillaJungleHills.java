@@ -32,12 +32,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
         this.waterSurfaceLakeChance = 3;
         this.noLakes = true;
     }
-
-    @Override
-        protected SurfaceBase initSurface() {
-        return new SurfaceVanillaJungleHills(this, false, 1f, 1.5f, 60f, 65f, 1.5f);
-    }
-
+    
     @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
@@ -49,8 +44,8 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
     }
 
     @Override
-    protected void initProperties() {
-        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.JUNGLE_TEMPLE.name());
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaJungleHills(this, false, 1f, 1.5f, 60f, 65f, 1.5f);
     }
 
     @Override
@@ -149,5 +144,11 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
 		decoGrass.maxY = 128;
 		decoGrass.strengthFactor = 12f;
         this.addDeco(decoGrass);
+    }
+    
+    @Override
+    protected void initProperties() {
+    	config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.sand.getDefaultState());
+        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.JUNGLE_TEMPLE.name());
     }
 }

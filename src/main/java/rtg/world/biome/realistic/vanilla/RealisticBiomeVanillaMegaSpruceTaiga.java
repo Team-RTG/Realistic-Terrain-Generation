@@ -25,12 +25,7 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
         );
         this.noLakes = true;
     }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMegaSpruceTaiga(this);
-    }
-
+    
     @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
@@ -42,9 +37,8 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
     }
 
     @Override
-    protected void initProperties()
-    {
-
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaMegaSpruceTaiga(this);
     }
 
     @Override
@@ -69,5 +63,11 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
 		decoFallenTree.minSize = 3;
 		decoFallenTree.maxSize = 6;
 		this.addDeco(decoFallenTree);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+
     }
 }

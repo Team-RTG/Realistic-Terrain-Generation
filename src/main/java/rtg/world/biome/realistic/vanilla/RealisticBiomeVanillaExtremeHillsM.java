@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.init.Biomes;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
@@ -24,11 +25,6 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
     }
 
     @Override
-        protected SurfaceBase initSurface() {
-        return new SurfaceVanillaExtremeHillsM(this, 60f, -0.14f, 14f, 0.25f);
-    }
-
-    @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
@@ -37,16 +33,22 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
             }
         };
     }
-
+    
     @Override
-    protected void initProperties()
+    protected SurfaceBase initSurface() {
+    	return new SurfaceVanillaExtremeHillsM(this, 60f, -0.14f, 14f, 0.25f);
+    }
+    
+    @Override
+    protected void initDecos()
     {
 
     }
 
     @Override
-    protected void initDecos()
+    protected void initProperties()
     {
-
+    	config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.grass.getDefaultState());
+    	config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.dirt.getDefaultState());
     }
 }

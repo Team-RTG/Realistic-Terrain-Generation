@@ -4,8 +4,13 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
-import rtg.world.biome.deco.*;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
+import rtg.world.biome.deco.DecoFlowersRTG;
+import rtg.world.biome.deco.DecoGrass;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.gen.surface.SurfaceBase;
@@ -20,16 +25,6 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
                 Biomes.river
         );
         this.noLakes = true;
-
-        config.TOP_BLOCK.setDefault(Blocks.sand.getDefaultState());
-        config.FILL_BLOCK.setDefault(Blocks.sand.getDefaultState());
-        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.dirt.getDefaultState());
-        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.stone.getDefaultState());
-    }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaBirchForestHills(this, false, 0f, 1.5f, 60f, 65f, 1.5f,  0.10f);
     }
 
     @Override
@@ -41,11 +36,10 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
             }
         };
     }
-
+    
     @Override
-    protected void initProperties()
-    {
-
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaBirchForestHills(this, false, 0f, 1.5f, 60f, 65f, 1.5f,  0.10f);
     }
 
     @Override
@@ -99,5 +93,12 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 20f;
         this.addDeco(decoGrass);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+		config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.sand.getDefaultState());
+		config.addBlock(config.MIX_BLOCK).setDefault(Blocks.dirt.getStateFromMeta(2));
     }
 }

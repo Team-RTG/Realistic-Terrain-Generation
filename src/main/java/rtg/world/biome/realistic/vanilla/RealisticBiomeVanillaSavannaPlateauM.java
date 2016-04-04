@@ -32,12 +32,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
         );
         this.noLakes = true;
     }
-
-    @Override
-        protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSavannaPlateauM(this, 0);
-    }
-
+    
     @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
@@ -53,9 +48,8 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
     }
 
     @Override
-    protected void initProperties()
-    {
-
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaSavannaPlateauM(this, 0);
     }
 
     @Override
@@ -136,5 +130,11 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
 		decoGrass.maxY = 128;
 		decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+
     }
 }

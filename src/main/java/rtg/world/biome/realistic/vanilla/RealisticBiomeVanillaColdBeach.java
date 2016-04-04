@@ -20,11 +20,6 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaColdBeach(this);
-    }
-
-    @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
@@ -33,11 +28,10 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
             }
         };
     }
-
+    
     @Override
-    protected void initProperties()
-    {
-
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaColdBeach(this);
     }
 
     @Override
@@ -49,5 +43,12 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
         decoBoulder.maxY = 95;
         decoBoulder.strengthFactor = 3f;
         this.addDeco(decoBoulder);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.sand.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.sand.getDefaultState());
     }
 }

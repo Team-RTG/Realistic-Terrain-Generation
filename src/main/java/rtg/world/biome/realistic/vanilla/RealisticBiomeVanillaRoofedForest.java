@@ -32,11 +32,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaRoofedForest(this, false, 0f, 1.5f, 60f, 65f, 1.5f, 0.08f);
-    }
-
-    @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             private final GroundEffect groundEffect = new GroundEffect(4f);
@@ -47,12 +42,10 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             }
         };
     }
-
+    
     @Override
-    protected void initProperties()
-    {
-        this.config.MIX_BLOCK.setDefault(Blocks.dirt.getStateFromMeta(2));
-        this.config.BEACH_BLOCK.setDefault(Blocks.sand.getDefaultState());
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaRoofedForest(this, false, 0f, 1.5f, 60f, 65f, 1.5f, 0.08f);
     }
 
     @Override
@@ -134,5 +127,12 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         decoMushrooms.maxY = 90;
         decoMushrooms.randomType = rtg.world.biome.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE;
         this.addDeco(decoMushrooms);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.dirt.getStateFromMeta(2));
+    	config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.sand.getDefaultState());
     }
 }

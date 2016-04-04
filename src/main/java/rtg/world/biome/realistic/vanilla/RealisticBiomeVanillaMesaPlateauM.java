@@ -29,12 +29,7 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
         );
         this.noLakes = true;
     }
-
-    @Override
-        protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMesaPlateauM(this, 0);
-    }
-
+    
     @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
@@ -51,9 +46,8 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
     }
 
     @Override
-    protected void initProperties()
-    {
-
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaMesaPlateauM(this, 0);
     }
 
     @Override
@@ -88,5 +82,11 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
         decoTree.treeConditionNoise = 0f;
         decoTree.minY = 74;
         addDeco(decoTree);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+
     }
 }

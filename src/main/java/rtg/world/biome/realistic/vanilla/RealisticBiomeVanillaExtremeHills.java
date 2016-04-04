@@ -4,7 +4,13 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
-import rtg.world.biome.deco.*;
+import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.DecoGrass;
+import rtg.world.biome.deco.DecoMushrooms;
+import rtg.world.biome.deco.DecoPumpkin;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.DecoTree;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHills;
 import rtg.world.gen.terrain.TerrainBase;
@@ -21,13 +27,23 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
     }
 
     @Override
-    protected void initProperties() {
-        this.config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.grass.getDefaultState());
-        this.config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.dirt.getDefaultState());
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 120, 10f);
+            }
+        };
+    }
+    
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaExtremeHills(this);
     }
 
     @Override
-    protected void initDecos() {
+    protected void initDecos()
+    {
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
         decoBoulder.chance = 16;
@@ -56,9 +72,9 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
         decoFallenTree.logConditionChance = 6;
         decoFallenTree.maxY = 100;
         decoFallenTree.logBlock = Blocks.log;
-        decoFallenTree.logMeta = (byte) 1;
+        decoFallenTree.logMeta = (byte)1;
         decoFallenTree.leavesBlock = Blocks.leaves;
-        decoFallenTree.leavesMeta = (byte) -1;
+        decoFallenTree.leavesMeta = (byte)-1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree);
@@ -85,19 +101,11 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
         decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
     }
-
+    
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaExtremeHills(this);
-    }
-
-    @Override
-    protected TerrainBase initTerrain() {
-        return new TerrainBase() {
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 120, 10f);
-            }
-        };
+    protected void initProperties()
+    {
+    	config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.grass.getDefaultState());
+    	config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.dirt.getDefaultState());  	
     }
 }

@@ -31,12 +31,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
                 Biomes.river
         );
     }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSwamplandM(this);
-    }
-
+    
     @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
@@ -48,8 +43,8 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected void initProperties() {
-        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.WITCH_HUT.name());
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaSwamplandM(this);
     }
 
     @Override
@@ -101,5 +96,10 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
 		decoGrass.maxY = 128;
 		decoGrass.strengthFactor = 12f;
         this.addDeco(decoGrass);
+    }
+    
+    @Override
+    protected void initProperties() {
+        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.WITCH_HUT.name());
     }
 }

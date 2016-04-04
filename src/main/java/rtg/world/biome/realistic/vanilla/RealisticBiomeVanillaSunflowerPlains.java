@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.util.noise.CellNoise;
@@ -23,11 +22,6 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSunflowerPlains(this);
-    }
-
-    @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             private final GroundEffect groundEffect = new GroundEffect(4f);
@@ -37,15 +31,20 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
             }
         };
     }
-
+    
     @Override
-    protected void initProperties()
-    {
-
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaSunflowerPlains(this);
     }
 
     @Override
     protected void initDecos()
+    {
+
+    }
+    
+    @Override
+    protected void initProperties()
     {
 
     }

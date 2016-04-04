@@ -29,7 +29,7 @@ public class Config {
         return null;
     }
 
-    private void addProperty(ConfigProperty property) {
+    protected void addProperty(ConfigProperty property) {
         for (ConfigProperty property1 : this.properties) {
             if ((property1.getID().equalsIgnoreCase(property.getID())) && (property1.getSection().equalsIgnoreCase(property.getSection()))) {
                 return;

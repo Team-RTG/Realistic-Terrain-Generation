@@ -1,5 +1,8 @@
 package rtg.api.config;
 
+import rtg.util.EnumUtils;
+import rtg.world.gen.structure.MapGenScatteredFeatureRTG.Type;
+
 public class BiomeConfig extends Config {
 
     public final ConfigProperty.PropertyBool ALLOW_VILLAGES = new ConfigProperty.PropertyBool("Allow Villages", "");
@@ -19,12 +22,16 @@ public class BiomeConfig extends Config {
     public final ConfigProperty.PropertyBlock BEACH_BLOCK = new ConfigProperty.PropertyBlock("Beach block", "");
     public final ConfigProperty.PropertyBlock BOTTOM_BLOCK = new ConfigProperty.PropertyBlock("Bottom block", "");
 
+    public final ConfigProperty.PropertyString SCATTERED_FEATURE = new ConfigProperty.PropertyString("Scattered feature", "");
+
     private void setDefaults() {
         ALLOW_VILLAGES.setComment("").setDefault(true);
         USE_RTG_SURFACES.setComment("Set to false to do something that i, topisani, dont understand.").setDefault(true);
         USE_RTG_DECORATIONS.setComment("If false RTG will not try to decorate this biome, but instead let it handle that itself.").setDefault(true);
         TOP_BLOCK.setComment("The top surface block used in this biome (Grass in plains).");
         FILL_BLOCK.setComment("The block that fills between the surface block and the stone underneath (Dirt in plains).");
+        SCATTERED_FEATURE.setOptions(EnumUtils.names(Type.class)).setDefault(Type.NONE.name())
+                .setComment("What scattered feature does this biome allow?");
     }
 
     public String modSlug;
@@ -39,25 +46,25 @@ public class BiomeConfig extends Config {
 
     public ConfigProperty.PropertyBool addBool(String id) {
         ConfigProperty.PropertyBool property = new ConfigProperty.PropertyBool(id, "");
-        this.properties.add(property);
+        addProperty(property);
         return property;
     }
 
     public ConfigProperty.PropertyInt addInt(String id) {
         ConfigProperty.PropertyInt property = new ConfigProperty.PropertyInt(id, "");
-        this.properties.add(property);
+        addProperty(property);
         return property;
     }
 
     public ConfigProperty.PropertyString addString(String id) {
         ConfigProperty.PropertyString property = new ConfigProperty.PropertyString(id, "");
-        this.properties.add(property);
+        addProperty(property);
         return property;
     }
 
     public ConfigProperty.PropertyBlock addBlock(String id) {
         ConfigProperty.PropertyBlock property = new ConfigProperty.PropertyBlock(id, "");
-        this.properties.add(property);
+        addProperty(property);
         return property;
     }
 

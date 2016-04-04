@@ -243,8 +243,9 @@ public abstract class ConfigProperty<T> {
             return options;
         }
 
-        public void setOptions(String[] options) {
+        public ConfigProperty.PropertyString setOptions(String[] options) {
             this.options = options;
+            return this;
         }
     }
 

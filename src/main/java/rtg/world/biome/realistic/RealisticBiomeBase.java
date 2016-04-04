@@ -585,7 +585,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         return this.surface;
     }
 
-    public int getId() {
+    public int getID() {
         return RealisticBiomeBase.getIdForBiome(this);
     }
 

@@ -16,6 +16,7 @@ import rtg.world.biome.deco.DecoJungleLilypadVines;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleHills;
 import rtg.world.gen.terrain.TerrainBase;
@@ -51,9 +52,8 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
     }
 
     @Override
-    protected void initProperties()
-    {
-
+    protected void initProperties() {
+        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.JUNGLE_TEMPLE.name());
     }
 
     @Override

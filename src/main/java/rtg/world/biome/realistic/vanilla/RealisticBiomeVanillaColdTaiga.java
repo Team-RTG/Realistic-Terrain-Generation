@@ -8,6 +8,7 @@ import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdTaiga;
 import rtg.world.gen.terrain.TerrainBase;
@@ -41,9 +42,8 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected void initProperties()
-    {
-
+    protected void initProperties() {
+        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.IGLOO.name());
     }
 
     @Override

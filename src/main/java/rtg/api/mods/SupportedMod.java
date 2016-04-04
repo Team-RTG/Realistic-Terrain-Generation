@@ -3,9 +3,7 @@ package rtg.api.mods;
 import rtg.api.config.ModConfig;
 
 /**
- * Holds all the mods that RTG implements explicit support for
- * Provides access to modId, presence and configuration
- *
+ * Holds all properties that RTG would need to access for a supported mod.
  * @author topisani
  */
 public class SupportedMod {
@@ -14,6 +12,7 @@ public class SupportedMod {
     protected boolean present;
     private final boolean hasConfig;
     public ModConfig config;
+    public ModBiomes biomes;
 
     public SupportedMod(String id, boolean hasConfig) {
         this.hasConfig = hasConfig;

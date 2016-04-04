@@ -21,16 +21,16 @@ import net.minecraft.world.gen.structure.StructureOceanMonument;
 import net.minecraft.world.gen.structure.StructureOceanMonumentPieces;
 import net.minecraft.world.gen.structure.StructureStart;
 import rtg.api.util.debug.Logger;
+import rtg.util.mods.Mods;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import java.util.*;
 
 import static rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase.SpawnListEntry;
-import static rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase.vanillaDeepOcean;
 
 /**
- * Created by topisani on 2/20/16.
+ * @author topisani
  */
 public class StructureOceanMonumentRTG extends StructureOceanMonument {
     public static final List<BiomeGenBase> field_175802_d;
@@ -92,7 +92,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         if (i == k && j == l) {
             BiomeGenBase bg = this.worldObj.getBiomeProvider().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), null);
 
-            if (RealisticBiomeBase.getIdForBiome(bg) == RealisticBiomeBase.getIdForBiome(vanillaDeepOcean)) {
+            if (RealisticBiomeBase.getIdForBiome(bg) == Mods.VANILLA.biomes.deepOcean.getID()) {
 
                 boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29);
 

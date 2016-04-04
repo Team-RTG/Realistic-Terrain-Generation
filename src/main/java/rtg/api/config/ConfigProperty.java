@@ -12,7 +12,6 @@ import rtg.api.util.debug.RTGException;
  */
 public abstract class ConfigProperty<T> {
 
-
     protected String id;
     protected String section;
     protected String comment;
@@ -56,6 +55,11 @@ public abstract class ConfigProperty<T> {
         return this;
     }
 
+    public ConfigProperty<T> setSection(String section) {
+        this.section = section;
+        return this;
+    }
+
     /**
      * Needed for writing to config files
      * @throws RTGException
@@ -93,6 +97,11 @@ public abstract class ConfigProperty<T> {
 
         public ConfigProperty.PropertyBool setComment(String comment) {
             super.setComment(comment);
+            return this;
+        }
+
+        public ConfigProperty.PropertyBool setSection(String section) {
+            this.setSection(section);
             return this;
         }
 
@@ -153,6 +162,11 @@ public abstract class ConfigProperty<T> {
 
         public ConfigProperty.PropertyInt setComment(String comment) {
             super.setComment(comment);
+            return this;
+        }
+
+        public ConfigProperty.PropertyInt setSection(String section) {
+            this.setSection(section);
             return this;
         }
 
@@ -218,6 +232,11 @@ public abstract class ConfigProperty<T> {
             return this;
         }
 
+        public ConfigProperty.PropertyString setSection(String section) {
+            this.setSection(section);
+            return this;
+        }
+
         /**
          * Needed for writing to config files
          * @throws RTGException
@@ -271,6 +290,11 @@ public abstract class ConfigProperty<T> {
             return this;
         }
 
+        public ConfigProperty.PropertyBlock setSection(String section) {
+            this.setSection(section);
+            return this;
+        }
+
         /**
          * Needed for writing to config files
          * @throws RTGException
@@ -318,6 +342,11 @@ public abstract class ConfigProperty<T> {
 
         public ConfigProperty.PropertyStrings setComment(String comment) {
             super.setComment(comment);
+            return this;
+        }
+
+        public ConfigProperty.PropertyStrings setSection(String section) {
+            this.setSection(section);
             return this;
         }
 

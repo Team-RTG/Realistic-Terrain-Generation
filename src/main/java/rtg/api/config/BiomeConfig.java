@@ -39,26 +39,31 @@ public class BiomeConfig extends Config {
                 .setComment("What scattered feature does this biome allow?");
     }
 
+    @Override
+    public void addProperty(ConfigProperty property) {
+        super.addProperty(property.setSection(biomeSlug));
+    }
+
     public ConfigProperty.PropertyBool addBool(String id) {
-        ConfigProperty.PropertyBool property = new ConfigProperty.PropertyBool(id, "");
+        ConfigProperty.PropertyBool property = new ConfigProperty.PropertyBool(id, biomeSlug);
         addProperty(property);
         return property;
     }
 
     public ConfigProperty.PropertyInt addInt(String id) {
-        ConfigProperty.PropertyInt property = new ConfigProperty.PropertyInt(id, "");
+        ConfigProperty.PropertyInt property = new ConfigProperty.PropertyInt(id, biomeSlug);
         addProperty(property);
         return property;
     }
 
     public ConfigProperty.PropertyString addString(String id) {
-        ConfigProperty.PropertyString property = new ConfigProperty.PropertyString(id, "");
+        ConfigProperty.PropertyString property = new ConfigProperty.PropertyString(id, biomeSlug);
         addProperty(property);
         return property;
     }
 
     public ConfigProperty.PropertyBlock addBlock(String id) {
-        ConfigProperty.PropertyBlock property = new ConfigProperty.PropertyBlock(id, "");
+        ConfigProperty.PropertyBlock property = new ConfigProperty.PropertyBlock(id, biomeSlug);
         addProperty(property);
         return property;
     }

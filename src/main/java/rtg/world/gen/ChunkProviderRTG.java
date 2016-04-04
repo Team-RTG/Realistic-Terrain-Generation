@@ -52,6 +52,7 @@ import rtg.world.biome.realistic.RealisticBiomePatcher;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
 import rtg.util.PlaneLocation;
+import rtg.util.TimeTracker;
 
 /**
  * Scattered features courtesy of Ezoteric (https://github.com/Ezoteric) and Choonster (https://github.com/Choonster)
@@ -99,6 +100,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private long worldSeed;
     private RealisticBiomePatcher biomePatcher;
     private HashMap<PlaneLocation,Chunk> inGeneration = new HashMap<PlaneLocation,Chunk>();
+    private static String rtgTerrain = "RTG Terrain";
     
     private AICWrapper aic;
     private boolean isAICExtendingBiomeIdsLimit;
@@ -178,6 +180,8 @@ public class ChunkProviderRTG implements IChunkProvider
      */
     public Chunk provideChunk(int cx, int cy)
     {
+        //TimeTracker.manager.start(rtgTerrain);
+        //TimeTracker.manager.start("RTG chunk");
     	rand.setSeed((long)cx * 0x4f9939f508L + (long)cy * 0x1ef1565bd5L);
         Block[] blocks = new Block[65536];
         byte[] metadata = new byte[65536];
@@ -303,6 +307,7 @@ public class ChunkProviderRTG implements IChunkProvider
         chunk.generateSkylightMap();
         // remove from in process pile
         //inGeneration.remove(chunkLocation);
+        //TimeTracker.manager.stop(rtgTerrain);
         return chunk;
     }
 
@@ -628,7 +633,6 @@ public class ChunkProviderRTG implements IChunkProvider
          */
         return true;
     }
-
     /**
      * @see IChunkProvider
      *
@@ -636,6 +640,8 @@ public class ChunkProviderRTG implements IChunkProvider
      */
     public void populate(IChunkProvider ichunkprovider, int chunkX, int chunkZ)
     {
+        //TimeTracker.manager.start("RTG populate");
+        //TimeTracker.manager.start("Features");
         BlockFalling.fallInstantly = true;
 
 		int worldX = chunkX * 16;
@@ -697,13 +703,14 @@ public class ChunkProviderRTG implements IChunkProvider
         		borderNoise[cmr.getBiomeDataAt(worldX + adjust + bx * 4, worldZ + adjust  + by * 4).biomeID] += 0.01234569f;
         	}
         }
-
+        //TimeTracker.manager.stop("Features");
         /**
          * ########################################################################
          * # START DECORATE BIOME
          * ########################################################################
          */
-        
+
+        //TimeTracker.manager.start("Decorations");
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(worldObj, rand, worldX, worldZ));
 
         //Initialise variables.
@@ -847,7 +854,10 @@ public class ChunkProviderRTG implements IChunkProvider
 
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag));
 
+        //TimeTracker.manager.stop("Decorations");
         BlockFalling.fallInstantly = false;
+        //TimeTracker.manager.stop("RTG populate");
+        //TimeTracker.manager.stop("RTG chunk");
     }
 
     /**

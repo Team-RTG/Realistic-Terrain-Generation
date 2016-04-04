@@ -39,6 +39,13 @@ public class Config {
         this.properties.add(property);
     }
 
+    public void syncConfiguration(Configuration config) {
+        for (ConfigProperty property : this.properties ){
+            property.syncForgeProperty(config);
+        }
+        config.save();
+    }
+
     public ConfigProperty.PropertyBool addBool(ConfigProperty.PropertyBool property) {
         this.addProperty(property);
         return property;

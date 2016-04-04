@@ -1,6 +1,7 @@
 package rtg;
 
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -17,7 +18,9 @@ import rtg.event.EventManagerRTG;
 import rtg.proxy.CommonProxy;
 import rtg.util.mods.Mods;
 import rtg.world.WorldTypeRTG;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import static rtg.reference.ModInfo.*;
@@ -69,6 +72,10 @@ public class RTG {
     public void postInit(FMLPostInitializationEvent event) {
 
         Mods.VANILLA.biomes.initBiomes();
+        Mods.RTG.config.syncConfiguration(new Configuration(new File(configPath + "rtg.cfg")));
+        for (RealisticBiomeBase biome : Mods.VANILLA.biomes.getBiomes()) {
+            biome.config.syncConfiguration(new Configuration(new File(configPath + "biomes/vanilla.cfg")));
+        }
 
         RealisticBiomePresenceTester.doBiomeCheck();
     }

@@ -85,11 +85,8 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         baseBiome = biome;
         riverBiome = river;
 
-        config.addBool(config.ALLOW_VILLAGES);
-        config.addBool(config.USE_RTG_SURFACES);
-        config.addBool(config.USE_RTG_DECORATIONS);
-        config.addBlock(config.TOP_BLOCK).setDefault(baseBiome.topBlock);
-        config.addBlock(config.FILL_BLOCK).setDefault(baseBiome.fillerBlock);
+        config.TOP_BLOCK.setDefault(biome.topBlock);
+        config.FILL_BLOCK.setDefault(biome.fillerBlock);
 
         initProperties();
 

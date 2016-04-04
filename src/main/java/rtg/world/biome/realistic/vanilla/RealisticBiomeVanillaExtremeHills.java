@@ -4,7 +4,13 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
-import rtg.world.biome.deco.*;
+import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.DecoGrass;
+import rtg.world.biome.deco.DecoMushrooms;
+import rtg.world.biome.deco.DecoPumpkin;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.DecoTree;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHills;
 import rtg.world.gen.terrain.TerrainBase;
@@ -21,11 +27,6 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaExtremeHills(this);
-    }
-
-    @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
@@ -34,11 +35,10 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
             }
         };
     }
-
+    
     @Override
-    protected void initProperties()
-    {
-
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaExtremeHills(this);
     }
 
     @Override
@@ -100,5 +100,12 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+    	config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.grass.getDefaultState());
+    	config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.dirt.getDefaultState());
     }
 }

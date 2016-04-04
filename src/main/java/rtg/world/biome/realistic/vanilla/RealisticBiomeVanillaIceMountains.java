@@ -2,21 +2,11 @@ package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenIceSpike;
-import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenBlob;
-import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPine;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIceMountains;
 import rtg.world.gen.terrain.TerrainBase;
-
-import java.util.Random;
 
 public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase {
 
@@ -30,11 +20,6 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaIceMountains(this, 60f, -0.14f, 14f, 0.25f);
-    }
-
-    @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
@@ -43,16 +28,24 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
             }
         };
     }
-
+    
     @Override
-    protected void initProperties()
-    {
-
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaIceMountains(this, 60f, -0.14f, 14f, 0.25f);
     }
 
     @Override
     protected void initDecos()
     {
 
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+    	config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.snow.getDefaultState());
+    	config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.snow.getDefaultState());
+    	config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.packed_ice.getDefaultState());
+    	config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.ice.getDefaultState());
     }
 }

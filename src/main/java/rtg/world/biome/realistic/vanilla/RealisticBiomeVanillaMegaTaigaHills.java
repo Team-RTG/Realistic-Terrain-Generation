@@ -29,12 +29,7 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
         );
         this.noLakes = true;
     }
-
-    @Override
-        protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMegaTaigaHills(this, true, 0.2f);
-    }
-
+    
     @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
@@ -46,9 +41,8 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
     }
 
     @Override
-    protected void initProperties()
-    {
-
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaMegaTaigaHills(this, true, 0.2f);
     }
 
     @Override
@@ -114,5 +108,11 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
 		decoGrass.maxY = 128;
 		decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+    	config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.sand.getDefaultState());
     }
 }

@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.init.Biomes;
+import net.minecraft.init.Blocks;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
@@ -22,11 +23,6 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaDeepOcean(this);
-    }
-
-    @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
@@ -35,16 +31,21 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
             }
         };
     }
-
+    
     @Override
-    protected void initProperties()
-    {
-
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaDeepOcean(this);
     }
 
     @Override
     protected void initDecos()
     {
 
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+		config.addBlock(config.MIX_BLOCK).setDefault(Blocks.clay.getDefaultState());
     }
 }

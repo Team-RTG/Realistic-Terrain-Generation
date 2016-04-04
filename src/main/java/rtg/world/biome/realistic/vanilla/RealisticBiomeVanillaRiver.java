@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.util.noise.CellNoise;
@@ -21,12 +20,7 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;
     }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaRiver(this);
-    }
-
+    
     @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
@@ -38,13 +32,18 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected void initProperties()
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaRiver(this);
+    }
+
+    @Override
+    protected void initDecos()
     {
 
     }
 
     @Override
-    protected void initDecos()
+    protected void initProperties()
     {
 
     }

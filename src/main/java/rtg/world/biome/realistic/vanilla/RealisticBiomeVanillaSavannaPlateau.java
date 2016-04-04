@@ -30,11 +30,6 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
     }
 
     @Override
-        protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSavannaPlateau(this, 0);
-    }
-
-    @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             private float[] height = new float[] {12.0f, 0.5f, 8f, 0.7f};
@@ -47,11 +42,10 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
             }
         };
     }
-
+    
     @Override
-    protected void initProperties()
-    {
-
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaSavannaPlateau(this, 0);
     }
 
     @Override
@@ -132,5 +126,11 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
 		decoGrass.maxY = 128;
 		decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+
     }
 }

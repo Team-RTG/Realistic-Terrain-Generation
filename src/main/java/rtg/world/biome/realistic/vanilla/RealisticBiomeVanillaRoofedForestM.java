@@ -36,11 +36,6 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaRoofedForestM(this);
-    }
-
-    @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
@@ -49,11 +44,10 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
             }
         };
     }
-
+    
     @Override
-    protected void initProperties()
-    {
-
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaRoofedForestM(this);
     }
 
     @Override
@@ -128,5 +122,11 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         decoMushrooms.maxY = 90;
         decoMushrooms.randomType = rtg.world.biome.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE;
         this.addDeco(decoMushrooms);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+
     }
 }

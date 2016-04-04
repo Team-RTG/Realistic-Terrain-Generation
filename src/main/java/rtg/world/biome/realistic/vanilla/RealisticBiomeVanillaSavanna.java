@@ -29,11 +29,6 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
     }
 
     @Override
-        protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSavanna(this, 13f, 0.27f);
-    }
-
-    @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             private final GroundEffect groundEffect = new GroundEffect(4f);
@@ -44,11 +39,10 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
             }
         };
     }
-
+    
     @Override
-    protected void initProperties()
-    {
-
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaSavanna(this, 13f, 0.27f);
     }
 
     @Override
@@ -122,5 +116,11 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
 		decoGrass.maxY = 128;
 		decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.grass.getDefaultState());
     }
 }

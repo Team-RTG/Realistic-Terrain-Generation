@@ -28,12 +28,7 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanillaBase {
                 Biomes.river
         );
     }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaTaiga(this);
-    }
-
+    
     @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
@@ -45,9 +40,8 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected void initProperties()
-    {
-
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaTaiga(this);
     }
 
     @Override
@@ -113,5 +107,11 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanillaBase {
 		decoGrass.maxY = 128;
 		decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+
     }
 }

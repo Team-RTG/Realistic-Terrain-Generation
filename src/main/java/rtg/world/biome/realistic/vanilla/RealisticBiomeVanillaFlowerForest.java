@@ -5,7 +5,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
-import rtg.world.biome.deco.*;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.DecoFlowersRTG;
+import rtg.world.biome.deco.DecoGrass;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
@@ -26,11 +31,6 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
     }
 
     @Override
-        protected SurfaceBase initSurface() {
-        return new SurfaceVanillaFlowerForest(this, false, 0f, 1.5f, 60f, 65f, 1.5f, 0.05f);
-    }
-
-    @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
@@ -39,11 +39,10 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
             }
         };
     }
-
+    
     @Override
-    protected void initProperties()
-    {
-
+    protected SurfaceBase initSurface() {
+    	return new SurfaceVanillaFlowerForest(this, false, 0f, 1.5f, 60f, 65f, 1.5f, 0.05f);
     }
 
     @Override
@@ -123,5 +122,12 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 24f;
         this.addDeco(decoGrass);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+    	config.addBlock(config.MIX_BLOCK).setDefault(Blocks.grass.getDefaultState());
+    	config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.sand.getDefaultState());
     }
 }

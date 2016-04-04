@@ -25,12 +25,7 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
                 Biomes.river
         );
     }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaJungleEdgeM(this);
-    }
-
+    
     @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
@@ -42,8 +37,8 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
     }
 
     @Override
-    protected void initProperties() {
-        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.JUNGLE_TEMPLE.name());
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaJungleEdgeM(this);
     }
 
     @Override
@@ -68,5 +63,10 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
 		decoFallenTree.minSize = 3;
 		decoFallenTree.maxSize = 6;
 		this.addDeco(decoFallenTree);
+    }
+    
+    @Override
+    protected void initProperties() {
+        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.JUNGLE_TEMPLE.name());
     }
 }

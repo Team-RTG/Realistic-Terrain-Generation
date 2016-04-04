@@ -1,19 +1,26 @@
 package rtg.world.biome.realistic.vanilla;
 
+import java.util.Random;
+
 import net.minecraft.init.Biomes;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
-import rtg.world.biome.deco.*;
+import rtg.world.biome.deco.DecoCactus;
+import rtg.world.biome.deco.DecoDeadBush;
+import rtg.world.biome.deco.DecoDesertWell;
+import rtg.world.biome.deco.DecoFlowersRTG;
+import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
+import rtg.world.biome.deco.DecoReed;
+import rtg.world.biome.deco.DecoTree;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesertHills;
 import rtg.world.gen.terrain.TerrainBase;
-
-import java.util.Random;
 
 public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase {
 
@@ -25,12 +32,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
         this.waterSurfaceLakeChance = 0;
         this.noLakes = true;
     }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaDesertHills(this);
-    }
-
+    
     @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
@@ -39,6 +41,11 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
                 return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 120f, 10f);
             }
         };
+    }    
+
+    @Override
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaDesertHills(this);
     }
 
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
@@ -46,11 +53,6 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
 
         SurfaceBase riverSurface = new SurfaceRiverOasis(this);
         riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
-    }
-
-    @Override
-    protected void initProperties() {
-        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.DESERT_TEMPLE.name());
     }
 
     @Override
@@ -111,5 +113,12 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
         decoDeadBush.maxY = 128;
         decoDeadBush.strengthFactor = 1f;
         this.addDeco(decoDeadBush);
+    }
+    
+    @Override
+    protected void initProperties() {
+    	
+    	config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.sand.getDefaultState());
+        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.DESERT_TEMPLE.name());
     }
 }

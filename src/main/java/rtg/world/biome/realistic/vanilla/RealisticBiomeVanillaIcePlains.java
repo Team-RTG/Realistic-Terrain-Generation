@@ -21,12 +21,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
                 Biomes.frozenRiver
         );
     }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaIcePlains(this);
-    }
-
+    
     @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
@@ -44,8 +39,8 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected void initProperties() {
-        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.IGLOO.name());
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaIcePlains(this);
     }
 
     @Override
@@ -74,5 +69,12 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
         decoFallenTree.minSize = 1;
         decoFallenTree.maxSize = 5;
         this.addDeco(decoFallenTree);
+    }
+    
+    @Override
+    protected void initProperties() {
+    	config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.grass.getDefaultState());
+    	config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.dirt.getDefaultState());
+        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.IGLOO.name());
     }
 }

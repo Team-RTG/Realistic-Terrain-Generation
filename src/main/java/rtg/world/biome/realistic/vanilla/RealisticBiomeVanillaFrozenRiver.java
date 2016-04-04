@@ -18,12 +18,7 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;
     }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaFrozenRiver(this);
-    }
-
+    
     @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
@@ -35,13 +30,18 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase 
     }
 
     @Override
-    protected void initProperties()
-    {
-
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaFrozenRiver(this);
     }
 
     @Override
     protected void initDecos()
+    {
+
+    }
+    
+    @Override
+    protected void initProperties()
     {
 
     }

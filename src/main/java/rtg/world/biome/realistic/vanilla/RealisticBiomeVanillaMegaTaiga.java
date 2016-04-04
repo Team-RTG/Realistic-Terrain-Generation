@@ -30,11 +30,6 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMegaTaiga(this);
-    }
-
-    @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
@@ -43,11 +38,10 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
             }
         };
     }
-
+    
     @Override
-    protected void initProperties()
-    {
-
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaMegaTaiga(this);
     }
 
     @Override
@@ -113,5 +107,11 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
 		decoGrass.maxY = 128;
 		decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+
     }
 }

@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.init.Biomes;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
@@ -20,12 +21,7 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
         );
         this.noLakes = true;
     }
-
-    @Override
-        protected SurfaceBase initSurface() {
-        return new SurfaceVanillaIcePlainsSpikes(this);
-    }
-
+    
     @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
@@ -37,14 +33,20 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
     }
 
     @Override
-    protected void initProperties()
-    {
-
+        protected SurfaceBase initSurface() {
+        return new SurfaceVanillaIcePlainsSpikes(this);
     }
 
     @Override
     protected void initDecos()
     {
 
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+    	config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.packed_ice.getDefaultState());
+    	config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.ice.getDefaultState());
     }
 }

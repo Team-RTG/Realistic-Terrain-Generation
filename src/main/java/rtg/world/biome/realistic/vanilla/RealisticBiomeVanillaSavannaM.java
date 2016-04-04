@@ -31,12 +31,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
         );
         this.noLakes = true;
     }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSavannaM(this);
-    }
-
+    
     @Override
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
@@ -48,9 +43,8 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected void initProperties()
-    {
-
+    protected SurfaceBase initSurface() {
+        return new SurfaceVanillaSavannaM(this);
     }
 
     @Override
@@ -124,5 +118,11 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
 		decoGrass.maxY = 128;
 		decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
+    }
+    
+    @Override
+    protected void initProperties()
+    {
+
     }
 }

@@ -24,9 +24,6 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
                 mutationBiome,
                 Biomes.river
         );
-
-        initProperties();
-        initDecos();
     }
 
     @Override

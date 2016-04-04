@@ -32,9 +32,6 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
                 Biomes.mesa,
                 Biomes.river
         );
-
-        initProperties();
-        initDecos();
     }
 
     @Override

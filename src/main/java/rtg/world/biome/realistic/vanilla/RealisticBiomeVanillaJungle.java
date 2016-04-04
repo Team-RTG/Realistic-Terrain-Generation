@@ -30,9 +30,6 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         );
 
         this.waterSurfaceLakeChance = 3;
-
-        initProperties();
-        initDecos();
     }
 
     @Override

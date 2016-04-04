@@ -20,9 +20,6 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
                 Biomes.icePlains,
                 Biomes.frozenRiver
         );
-
-        initProperties();
-        initDecos();
     }
 
     @Override

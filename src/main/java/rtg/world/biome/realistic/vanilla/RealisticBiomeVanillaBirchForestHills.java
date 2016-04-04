@@ -21,9 +21,6 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
         );
         this.noLakes = true;
 
-        initProperties();
-        initDecos();
-
         config.TOP_BLOCK.setDefault(Blocks.sand.getDefaultState());
         config.FILL_BLOCK.setDefault(Blocks.sand.getDefaultState());
         config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.dirt.getDefaultState());

@@ -29,9 +29,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
                 Biomes.roofedForest,
                 Biomes.river
         );
-
-        initProperties();
-        initDecos();
     }
 
     @Override

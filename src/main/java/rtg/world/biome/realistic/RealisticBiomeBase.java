@@ -125,6 +125,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         this.surface = initSurface();
         surfaceGeneric = new SurfaceGeneric(this);
         this.terrain = initTerrain();
+        initDecos();
     }
 
     public static int getIdForBiome(BiomeGenBase biome) {

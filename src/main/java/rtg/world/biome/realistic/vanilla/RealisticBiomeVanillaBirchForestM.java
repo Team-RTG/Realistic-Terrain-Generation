@@ -27,9 +27,6 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
 
         );
         this.noLakes = true;
-
-        initProperties();
-        initDecos();
     }
 
     @Override

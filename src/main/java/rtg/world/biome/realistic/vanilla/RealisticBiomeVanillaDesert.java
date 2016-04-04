@@ -26,9 +26,6 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
         this.waterSurfaceLakeChance = 0;
         this.noLakes = true;
-
-        initProperties();
-        initDecos();
     }
 
     @Override

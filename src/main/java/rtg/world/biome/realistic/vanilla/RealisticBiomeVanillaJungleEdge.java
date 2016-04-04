@@ -21,9 +21,6 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
                 Biomes.jungleEdge,
                 Biomes.river
         );
-
-        initProperties();
-        initDecos();
     }
 
     @Override

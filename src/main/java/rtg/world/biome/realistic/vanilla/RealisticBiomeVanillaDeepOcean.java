@@ -19,9 +19,6 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;
         this.noLakes = true;
-
-        initProperties();
-        initDecos();
     }
 
     @Override

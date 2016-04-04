@@ -7,12 +7,13 @@ import java.util.ArrayList;
 /**
  * An object that holds config properties
  * Does not provide a way to store those properties in a file
- * @see ModConfig for that functionality.
+ *
  * @author topisani
+ * @see ModConfig for that functionality.
  */
 public class Config {
 
-    public static final String NEW_LINE =Configuration.NEW_LINE;
+    public static final String NEW_LINE = Configuration.NEW_LINE;
 
     private ArrayList<ConfigProperty> properties;
 
@@ -81,6 +82,7 @@ public class Config {
         this.addProperty(property);
         return property;
     }
+
     public ConfigProperty.PropertyStrings addStrings(String id, String section) {
         ConfigProperty.PropertyStrings property = new ConfigProperty.PropertyStrings(id, section);
         this.addProperty(property);

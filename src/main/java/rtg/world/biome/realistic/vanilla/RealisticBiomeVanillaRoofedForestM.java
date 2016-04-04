@@ -33,9 +33,6 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
                 Biomes.river
         );
         this.noLakes = true;
-
-        initProperties();
-        initDecos();
     }
 
     @Override

@@ -26,9 +26,6 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
                 Biomes.swampland,
                 Biomes.river
         );
-
-        initProperties();
-        initDecos();
     }
 
     @Override

@@ -10,11 +10,6 @@ public class RTGException extends Exception {
     private String message = "";
     private String identifier = "";
 
-    public enum Type {
-        CONFIG_SYNTAX,
-        STUPID_DEVELOPER
-    }
-
     public RTGException(Type type, String message) {
         this.message = message;
         this.type = type;
@@ -24,6 +19,25 @@ public class RTGException extends Exception {
         this.message = message;
         this.type = type;
         this.identifier = identifier;
+    }
+
+    /**
+     * Allows for using lambda voodoo to ignore exceptions.
+     * Not sure if this is fun or stupid, it was mainly a way for me to learn lambdas.
+     * <br>
+     * <b>Example:</b>
+     * <br>
+     * {@code
+     * ExceptionUtils.ignoreAny(() -> pink.forceToDrinkTea())
+     * }
+     * <br>
+     * This will ignore the {@code PinkTooStrongException} thrown by
+     * {@code forceToDrinkTea()}, and just proceed as if nothing happened.
+     */
+    public static void ignoreAny(RunnableExc r) {
+        try {
+            r.run();
+        } catch (Exception ignored) {}
     }
 
     public void log() {
@@ -44,23 +58,9 @@ public class RTGException extends Exception {
         return this.message;
     }
 
-    /**
-     * Allows for using lambda voodoo to ignore exceptions.
-     * Not sure if this is fun or stupid, it was mainly a way for me to learn lambdas.
-     * <br>
-     * <b>Example:</b>
-     * <br>
-     * {@code
-     *  ExceptionUtils.ignoreAny(() -> pink.forceToDrinkTea())
-     * }
-     * <br>
-     * This will ignore the {@code PinkTooStrongException} thrown by
-     * {@code forceToDrinkTea()}, and just proceed as if nothing happened.
-     */
-    public static void ignoreAny(RunnableExc r) {
-        try {
-            r.run();
-        } catch (Exception ignored) {}
+    public enum Type {
+        CONFIG_SYNTAX,
+        STUPID_DEVELOPER
     }
 
     @FunctionalInterface

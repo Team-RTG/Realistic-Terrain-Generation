@@ -19,9 +19,6 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
                 Biomes.frozenRiver
         );
         this.noLakes = true;
-
-        initProperties();
-        initDecos();
     }
 
     @Override

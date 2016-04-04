@@ -4,15 +4,16 @@ import rtg.api.config.ModConfig;
 
 /**
  * Holds all properties that RTG would need to access for a supported mod.
+ *
  * @author topisani
  */
 public class SupportedMod {
 
     private final String modID;
-    protected boolean present;
     private final boolean hasConfig;
     public ModConfig config;
     public ModBiomes biomes;
+    protected boolean present;
 
     public SupportedMod(String id, boolean hasConfig) {
         this.hasConfig = hasConfig;

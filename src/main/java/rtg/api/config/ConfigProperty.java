@@ -26,7 +26,7 @@ public abstract class ConfigProperty<T> {
     }
 
     public T get() {
-        return (this.value == null) ? this.defaultVal: this.value;
+        return (this.value == null) ? this.defaultVal : this.value;
     }
 
     public T getDefault() {
@@ -45,6 +45,7 @@ public abstract class ConfigProperty<T> {
     public String getSection() {
         return this.section;
     }
+
     public String getComment() {
         return comment;
     }
@@ -85,6 +86,7 @@ public abstract class ConfigProperty<T> {
             super.setDefault(defaultValue);
             return this;
         }
+
         public ConfigProperty.PropertyBool set(boolean value) {
             super.set(value);
             return this;
@@ -105,6 +107,7 @@ public abstract class ConfigProperty<T> {
             prop.set(value);
             return prop;
         }
+
         /**
          * Needed for writing to config files
          *
@@ -138,16 +141,17 @@ public abstract class ConfigProperty<T> {
             super.setDefault(defaultValue);
             return this;
         }
-        public ConfigProperty.PropertyInt set(int value) {
-            super.set(value);
-            return this;
-        }
 
         public ConfigProperty.PropertyInt setRange(int minValue, int maxValue) {
             this.minValue = minValue;
             this.maxValue = maxValue;
             return this;
+        }        public ConfigProperty.PropertyInt set(int value) {
+            super.set(value);
+            return this;
         }
+
+
 
         public ConfigProperty.PropertyInt setComment(String comment) {
             super.setComment(comment);
@@ -193,17 +197,22 @@ public abstract class ConfigProperty<T> {
             super(id, section);
         }
 
-        public ConfigProperty.PropertyString set(String value) {
+        public ConfigProperty.PropertyString setDefault(String defaultValue) {
+            super.setDefault(defaultValue);
+            return this;
+        }        public ConfigProperty.PropertyString set(String value) {
             super.set(value);
             return this;
         }
 
-        public ConfigProperty.PropertyString setDefault(String defaultValue) {
-            super.setDefault(defaultValue);
-            return this;
+        public String[] getOptions() {
+            return options;
         }
 
-        public ConfigProperty.PropertyString setComment(String comment) {
+        public ConfigProperty.PropertyString setOptions(String[] options) {
+            this.options = options;
+            return this;
+        }        public ConfigProperty.PropertyString setComment(String comment) {
             super.setComment(comment);
             return this;
         }
@@ -215,7 +224,7 @@ public abstract class ConfigProperty<T> {
          */
         public Property toForgeProp() throws RTGException {
             Property prop = new Property(id, value, Property.Type.STRING).setDefaultValue(defaultVal);
-            if(options.length > 0) prop.setValidValues(options);
+            if (options.length > 0) prop.setValidValues(options);
             prop.set(value);
             return prop;
         }
@@ -239,14 +248,9 @@ public abstract class ConfigProperty<T> {
             }
         }
 
-        public String[] getOptions() {
-            return options;
-        }
 
-        public ConfigProperty.PropertyString setOptions(String[] options) {
-            this.options = options;
-            return this;
-        }
+
+
     }
 
     public static class PropertyBlock extends ConfigProperty<IBlockState> {
@@ -269,13 +273,14 @@ public abstract class ConfigProperty<T> {
             super.setComment(comment);
             return this;
         }
+
         /**
          * Needed for writing to config files
          *
          * @throws RTGException
          */
         public Property toForgeProp() throws RTGException {
-            Property prop = new Property(id, BlockStringUtil.stateToString(value),Property.Type.STRING).setDefaultValue(BlockStringUtil.stateToString(defaultVal));
+            Property prop = new Property(id, BlockStringUtil.stateToString(value), Property.Type.STRING).setDefaultValue(BlockStringUtil.stateToString(defaultVal));
             prop.set(BlockStringUtil.stateToString(value));
             return prop;
         }
@@ -320,6 +325,7 @@ public abstract class ConfigProperty<T> {
             super.setComment(comment);
             return this;
         }
+
         /**
          * Needed for writing to config files
          *

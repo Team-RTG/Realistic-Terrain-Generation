@@ -2,8 +2,8 @@ package rtg.api.config;
 
 import net.minecraftforge.common.config.Configuration;
 import rtg.RTG;
-import rtg.api.util.debug.Logger;
 import rtg.api.mods.SupportedMod;
+import rtg.api.util.debug.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import java.io.File;
@@ -13,11 +13,12 @@ import java.util.Map;
 /**
  * A configuration file for a mod
  * Holds a main Config object and all biome configs
+ *
  * @author topisani
  */
-public class ModConfig extends Config{
-    protected final Configuration config;
+public class ModConfig extends Config {
     public final SupportedMod mod;
+    protected final Configuration config;
     private Map<Class<? extends RealisticBiomeBase>, BiomeConfig> biomeConfigMap = new HashMap<>();
 
     public ModConfig(SupportedMod mod) {
@@ -39,9 +40,9 @@ public class ModConfig extends Config{
         }
     }
 
+    public void initDefaults() {}
+
     public void loadConfigs() {
 
     }
-
-    public void initDefaults() {}
 }

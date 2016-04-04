@@ -32,9 +32,6 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
                 Biomes.river
         );
         this.noLakes = true;
-
-        initProperties();
-        initDecos();
     }
 
     @Override

@@ -20,9 +20,6 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
         this.generatesEmeralds = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
-
-        initProperties();
-        initDecos();
     }
 
     @Override

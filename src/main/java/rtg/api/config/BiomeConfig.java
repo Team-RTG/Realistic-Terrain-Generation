@@ -23,6 +23,14 @@ public class BiomeConfig extends Config {
     public final ConfigProperty.PropertyBlock BOTTOM_BLOCK = new ConfigProperty.PropertyBlock("Bottom block", "");
 
     public final ConfigProperty.PropertyString SCATTERED_FEATURE = new ConfigProperty.PropertyString("Scattered feature", "");
+    public String modSlug;
+    public String biomeSlug;
+    public BiomeConfig(String modSlug, String biomeSlug) {
+        super();
+        this.modSlug = modSlug;
+        this.biomeSlug = biomeSlug;
+        setDefaults();
+    }
 
     private void setDefaults() {
         ALLOW_VILLAGES.setComment("").setDefault(true);
@@ -32,16 +40,6 @@ public class BiomeConfig extends Config {
         FILL_BLOCK.setComment("The block that fills between the surface block and the stone underneath (Dirt in plains).");
         SCATTERED_FEATURE.setOptions(EnumUtils.names(Type.class)).setDefault(Type.NONE.name())
                 .setComment("What scattered feature does this biome allow?");
-    }
-
-    public String modSlug;
-    public String biomeSlug;
-
-    public BiomeConfig(String modSlug, String biomeSlug) {
-        super();
-        this.modSlug = modSlug;
-        this.biomeSlug = biomeSlug;
-        setDefaults();
     }
 
     public ConfigProperty.PropertyBool addBool(String id) {

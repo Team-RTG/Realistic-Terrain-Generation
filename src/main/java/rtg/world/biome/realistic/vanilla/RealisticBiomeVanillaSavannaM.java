@@ -30,9 +30,6 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
                 Biomes.river
         );
         this.noLakes = true;
-
-        initProperties();
-        initDecos();
     }
 
     @Override

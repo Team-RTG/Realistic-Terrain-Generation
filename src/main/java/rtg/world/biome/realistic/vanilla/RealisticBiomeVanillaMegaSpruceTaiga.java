@@ -24,9 +24,6 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
                 Biomes.river
         );
         this.noLakes = true;
-
-        initProperties();
-        initDecos();
     }
 
     @Override

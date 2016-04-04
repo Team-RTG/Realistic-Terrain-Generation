@@ -30,9 +30,6 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
                 mutationBiome,
                 Biomes.river
         );
-
-        initProperties();
-        initDecos();
     }
 
     @Override

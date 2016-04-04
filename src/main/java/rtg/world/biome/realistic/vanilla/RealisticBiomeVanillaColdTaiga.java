@@ -21,9 +21,6 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
                 Biomes.coldTaiga,
                 Biomes.frozenRiver
         );
-
-        initProperties();
-        initDecos();
     }
 
     @Override

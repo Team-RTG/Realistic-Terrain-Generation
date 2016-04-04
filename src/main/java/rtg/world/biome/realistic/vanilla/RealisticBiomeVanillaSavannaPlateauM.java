@@ -31,9 +31,6 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
                 Biomes.river
         );
         this.noLakes = true;
-
-        initProperties();
-        initDecos();
     }
 
     @Override

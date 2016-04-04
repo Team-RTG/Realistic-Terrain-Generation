@@ -21,9 +21,6 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
                 Biomes.river
         );
         this.generatesEmeralds = true;
-
-        initProperties();
-        initDecos();
     }
 
     @Override

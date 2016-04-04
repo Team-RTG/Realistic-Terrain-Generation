@@ -466,16 +466,17 @@ public class RealisticBiomeBase extends BiomeBase {
 
     public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
+        float riverRegion = this.noWaterFeatures ? 0: river;
         if (ConfigRTG.enableRTGBiomeSurfaces && this.config.getPropertyById(BiomeConfig.useRTGSurfacesId).valueBoolean) {
             
             for (int s = 0; s < surfacesLength; s++) {
                 
-                surfaces[s].paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+                surfaces[s].paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
             }
         }
         else {
             
-            this.surfaceGeneric.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+            this.surfaceGeneric.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
         }
     }
     

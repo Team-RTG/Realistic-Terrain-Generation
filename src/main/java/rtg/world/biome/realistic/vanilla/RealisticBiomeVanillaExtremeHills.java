@@ -106,6 +106,6 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
     protected void initProperties()
     {
     	config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.grass.getDefaultState());
-    	config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.dirt.getDefaultState());
+    	config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.dirt.getDefaultState());  	
     }
 }

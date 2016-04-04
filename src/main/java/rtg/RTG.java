@@ -1,7 +1,6 @@
 package rtg;
 
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -10,17 +9,13 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import rtg.api.event.RTGEvent;
-import rtg.api.mods.SupportedMod;
+import rtg.api.mods.Mods;
 import rtg.api.util.RealisticBiomePresenceTester;
 import rtg.debug.DebugHandler;
 import rtg.event.EventManagerRTG;
 import rtg.proxy.CommonProxy;
-import rtg.util.mods.Mods;
 import rtg.world.WorldTypeRTG;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import static rtg.reference.ModInfo.*;
@@ -33,7 +28,6 @@ public class RTG {
     public static String configPath;
     public static WorldTypeRTG worldtype;
     public static EventManagerRTG eventMgr;
-    public static SupportedMod[] supportedMods;
 
     @SidedProxy(serverSide = PROXY_COMMON, clientSide = PROXY_CLIENT)
     public static CommonProxy proxy;
@@ -45,18 +39,13 @@ public class RTG {
         instance = this;
 
         configPath = event.getModConfigurationDirectory() + "/RTG/";
-        Mods.initAll(supportedMods);
+        Mods.initAllBiomes();
+        Mods.syncAllConfigs();
 
         eventMgr = new EventManagerRTG();
         MinecraftForge.EVENT_BUS.register(eventMgr);
         MinecraftForge.ORE_GEN_BUS.register(eventMgr);
         MinecraftForge.TERRAIN_GEN_BUS.register(eventMgr);
-
-        MinecraftForge.EVENT_BUS.post(new RTGEvent.BiomeConfigEvent.Pre());
-
-        // This MUST get called before the config is initialised.
-
-        MinecraftForge.EVENT_BUS.post(new RTGEvent.BiomeConfigEvent.Post());
 
         worldtype = new WorldTypeRTG("RTG");
     }
@@ -70,13 +59,6 @@ public class RTG {
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-
-        Mods.VANILLA.biomes.initBiomes();
-        Mods.RTG.config.syncConfiguration(new Configuration(new File(configPath + "rtg.cfg")));
-        for (RealisticBiomeBase biome : Mods.VANILLA.biomes.getBiomes()) {
-            biome.config.syncConfiguration(new Configuration(new File(configPath + "biomes/vanilla.cfg")));
-        }
-
         RealisticBiomePresenceTester.doBiomeCheck();
     }
 }

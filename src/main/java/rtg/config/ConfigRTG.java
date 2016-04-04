@@ -67,9 +67,9 @@ public class ConfigRTG extends ModConfig {
     public void initDefaults() {
         FLAT_BEDROCK_LAYERS.setDefault(0).setComment("0 = Normal bedrock (rough pattern); 1-5 = Number of flat bedrock layers to generate");
         BEDROCK_BLOCK.setDefault(Blocks.bedrock.getDefaultState()).setComment("The block to use for the bottom of the Overworld");
-        ENABLE_RTG_BIOME_DECORATIONS.setDefault(true).setComment("If TRUE, uses the individual biome settings in the biome config files. If FALSE, disables all RTG decorations and uses vanilla decorations instead.");
-        ENABLE_RTG_SURFACES.setDefault(true).setComment("If TRUE, uses the individual biome settings in the biome config files. If FALSE, disables all RTG surfaces and uses vanilla surfaces instead.");
-        PATCH_BIOME_ID.setDefault(-1).setRange(-1, 255).setComment("If RTG tries to generate an unsupported biome or a biome that has an ID conflict, it will generate this biome instead." +
+        ENABLE_RTG_BIOME_DECORATIONS.setDefault(true).setComment("If TRUE, uses the individual biome settings in the biome forgeConfig files. If FALSE, disables all RTG decorations and uses vanilla decorations instead.");
+        ENABLE_RTG_SURFACES.setDefault(true).setComment("If TRUE, uses the individual biome settings in the biome forgeConfig files. If FALSE, disables all RTG surfaces and uses vanilla surfaces instead.");
+        PATCH_BIOME_ID.setDefault(1).setRange(-1, 255).setComment("If RTG tries to generate an unsupported biome or a biome that has an ID conflict, it will generate this biome instead." +
                 "If set to -1, RTG will crash instead of generating the patch biome. You might want to do this if you're making a mod pack" +
                 "and want to make sure all biomes are generating correctly.");
         USE_BOP_LAYOUT.setDefault(false).setComment("If FALSE, RTG will use vanilla biome layout, even if BOP is installed. This means no BOP biomes.");

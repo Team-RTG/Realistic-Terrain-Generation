@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import rtg.RTG;
 import rtg.api.util.debug.Logger;
-import rtg.util.mods.Mods;
+import rtg.api.mods.Mods;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -160,8 +160,8 @@ public class EventManagerRTG {
         }
 
         if (event.getWorld().provider.getDimension() == 0) {
-
             Logger.info("World Seed: %d", event.getWorld().getSeed());
+            Mods.syncAllConfigs();
         }
     }
 

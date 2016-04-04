@@ -27,7 +27,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import rtg.util.math.CanyonColour;
 import rtg.util.math.MathUtils;
-import rtg.util.mods.Mods;
+import rtg.api.mods.Mods;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.util.noise.SimplexCellularNoise;

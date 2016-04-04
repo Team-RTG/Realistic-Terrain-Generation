@@ -9,11 +9,11 @@ import java.util.ArrayList;
  *
  * @author topisani
  */
-public abstract class ModBiomes {
+public class ModBiomes {
 
     private ArrayList<RealisticBiomeBase> biomes = new ArrayList<>();
 
-    public abstract void initBiomes();
+    public void initBiomes() {}
 
     protected RealisticBiomeBase addBiome(RealisticBiomeBase biome) {
         biomes.add(biome);

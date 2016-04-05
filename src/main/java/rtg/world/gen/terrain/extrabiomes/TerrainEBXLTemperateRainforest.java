@@ -1,42 +1,33 @@
 package rtg.world.gen.terrain.extrabiomes;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.world.gen.terrain.FunctionalTerrainBase;
+import rtg.world.gen.terrain.JitterEffect;
+import rtg.world.gen.terrain.MountainsWithPassesEffect;
 
-public class TerrainEBXLTemperateRainforest extends TerrainBase
-{
+public class TerrainEBXLTemperateRainforest extends FunctionalTerrainBase {
 	private float width;
 	private float strength;
-	private float lakeDepth;
-	private float lakeWidth;
-	private float terrainHeight;
+	private float spikeWidth = 50;
+    private float spikeHeight = 40;
 
-	/*
-	 * width = 230f
-	 * strength = 120f
-	 * lake = 50f;
-	 *
-	 * 230f, 120f, 50f
-	 */
-
-	public TerrainEBXLTemperateRainforest(float mountainWidth, float mountainStrength, float depthLake)
+	public TerrainEBXLTemperateRainforest(float mountainWidth, float mountainStrength)
 	{
-		this(mountainWidth, mountainStrength, depthLake, 260f, 69f);
+		this(mountainWidth, mountainStrength, 90f);
 	}
 
-	public TerrainEBXLTemperateRainforest(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
+	public TerrainEBXLTemperateRainforest(float mountainWidth, float mountainStrength, float height)
 	{
 		width = mountainWidth;
 		strength = mountainStrength;
-		lakeDepth = depthLake;
-		lakeWidth = widthLake;
-		terrainHeight = height;
-	}
+		base = height;
+        MountainsWithPassesEffect mountainEffect = new MountainsWithPassesEffect();
+        mountainEffect.mountainHeight = strength;
+        mountainEffect.mountainWavelength = width;
+        mountainEffect.spikeHeight = this.spikeHeight;
+        mountainEffect.spikeWavelength = this.spikeWidth;
 
-	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-	{
-        return terrainLonelyMountain(x, y, simplex, cell, river, strength, width, terrainHeight);
+        super.height = new JitterEffect(5f,10f, mountainEffect);
+        super.height = new JitterEffect(2f,6f,super.height);
+
 	}
 }

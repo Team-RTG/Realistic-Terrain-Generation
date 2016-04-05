@@ -19,7 +19,7 @@ public class RealisticBiomeEBXLTundra extends RealisticBiomeEBXLBase
 	{
 		super(config, 
 			ebxlBiome, BiomeGenBase.river,
-			new TerrainEBXLTundra(63f, 130f, 30f),
+			new TerrainEBXLTundra(),
 			new SurfaceEBXLTundra(config, topBlock, fillerBlock)
 		);
 	}

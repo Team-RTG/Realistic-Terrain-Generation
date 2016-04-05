@@ -31,7 +31,7 @@ public class RealisticBiomeEBXLRedwoodForest extends RealisticBiomeEBXLBase
 		super(config, 
 			ebxlBiome, BiomeGenBase.river,
 			new TerrainEBXLRedwoodForest(),
-			new SurfaceEBXLRedwoodForest(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f)
+			new SurfaceEBXLRedwoodForest(config, topBlock, fillerBlock, false, null, 3f, 4.5f, 60f, 65f, 4.5f, Blocks.dirt, (byte)2, 0.10f)
 		);
 	}
 	

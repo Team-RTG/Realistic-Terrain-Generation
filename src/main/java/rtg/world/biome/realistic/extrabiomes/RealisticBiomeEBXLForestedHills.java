@@ -19,8 +19,8 @@ public class RealisticBiomeEBXLForestedHills extends RealisticBiomeEBXLBase
 	{
 		super(config, 
 			ebxlBiome, BiomeGenBase.river,
-			new TerrainEBXLForestedHills(300f, 100f, 0f),
-			new SurfaceEBXLForestedHills(config, topBlock, fillerBlock, false, null, 0.95f)
+			new TerrainEBXLForestedHills(240f, 100f, 0f),
+			new SurfaceEBXLForestedHills(config, topBlock, fillerBlock, false, null,3f)
 		);
 	}
 }

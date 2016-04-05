@@ -19,7 +19,7 @@ public class RealisticBiomeEBXLPineForest extends RealisticBiomeEBXLBase
 	{
 		super(config, 
 			ebxlBiome, BiomeGenBase.river,
-			new TerrainEBXLPineForest(58f, 90f, 20),
+			new TerrainEBXLPineForest(68f, 85f, 15),
 			new SurfaceEBXLPineForest(config, topBlock, fillerBlock, false, null, 1.2f)
 		);
 	}

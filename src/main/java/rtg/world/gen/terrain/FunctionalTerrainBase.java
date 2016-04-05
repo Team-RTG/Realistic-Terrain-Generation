@@ -15,7 +15,7 @@ public class FunctionalTerrainBase extends TerrainBase {
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return riverized(height.added(simplex, cell, x, y)+base,river);
+        return riverized(height.added(simplex, cell, x, y) + base, river);
     }
 
 }

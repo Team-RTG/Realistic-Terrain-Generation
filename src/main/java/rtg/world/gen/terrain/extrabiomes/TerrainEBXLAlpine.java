@@ -1,18 +1,23 @@
 package rtg.world.gen.terrain.extrabiomes;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainEBXLAlpine extends TerrainBase
+import rtg.world.gen.terrain.FunctionalTerrainBase;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.JitterEffect;
+import rtg.world.gen.terrain.LonelyMountainEffect;
+
+public class TerrainEBXLAlpine extends FunctionalTerrainBase
 {
 	public TerrainEBXLAlpine()
 	{
-	}
+        LonelyMountainEffect mountain = new LonelyMountainEffect();
+        mountain.mountainHeight = 50;
+        mountain.mountainWavelength = 60;
+        mountain.spikeHeight = 10;
+        mountain.spikeWavelength = 20;
 
-	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-	{
-        return terrainMountainRiver(x, y, simplex, cell, river, 300f, 67f);
+        JitterEffect jitteredMountain = new JitterEffect(6f,9f,mountain);
+        height = jitteredMountain.plus(new GroundEffect(4f));
+        base = 85;
 	}
 }

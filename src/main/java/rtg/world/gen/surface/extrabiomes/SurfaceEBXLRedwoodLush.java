@@ -20,10 +20,10 @@ public class SurfaceEBXLRedwoodLush extends SurfaceBase
     private Block beachBlock;
     private float min;
     
-    private float sCliff = 1.5f;
+    private float sCliff = 4.5f;
     private float sHeight = 60f;
     private float sStrength = 65f;
-    private float cCliff = 1.5f;
+    private float cCliff = 4.5f;
     
     private Block mix;
     private byte mixByte;

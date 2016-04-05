@@ -22,6 +22,8 @@ public class DecoDeadBush extends DecoBase
     
 	public float strengthFactor;
 	public int maxY;
+	public int chance;
+	public int loops;
 	
 	public DecoDeadBush()
 	{
@@ -32,7 +34,9 @@ public class DecoDeadBush extends DecoBase
 		 * These can be overridden when configuring the Deco object in the realistic biome.
 		 */
 		this.maxY = 255; // No height limit by default.
-		this.strengthFactor = 2f; // The higher the value, the more there will be.
+		this.strengthFactor = 0f; // The higher the value, the more there will be.
+		this.chance = 1;
+		this.loops = 1;
 		
 		this.addDecoTypes(DecoType.DEAD_BUSH);
 	}
@@ -44,13 +48,15 @@ public class DecoDeadBush extends DecoBase
 			
 			if (TerrainGen.decorate(world, rand, chunkX, chunkY, DEAD_BUSH)) {
 	            
-	            for (int i = 0; i < this.strengthFactor * strength; i++)
+				int loopCount = this.loops;
+				loopCount = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : loopCount;
+	            for (int i = 0; i < loopCount; i++)
 	            {
 	                int intX = chunkX + rand.nextInt(16) + 8;
 	                int intY = rand.nextInt(this.maxY);
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 
-	                if (intY <= this.maxY) {
+	                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
 	                	(new WorldGenDeadBush(Blocks.deadbush)).generate(world, rand, intX, intY, intZ);
 	                }
 	            }

@@ -1,11 +1,10 @@
 package rtg.world.biome.realistic.vanilla;
 
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaPlains;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaPlains;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
 {

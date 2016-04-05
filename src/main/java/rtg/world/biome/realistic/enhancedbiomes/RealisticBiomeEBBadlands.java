@@ -1,18 +1,16 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import java.util.Random;
-import net.minecraft.world.World;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.feature.WorldGenMinable;
 import rtg.api.biome.BiomeConfig;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.deco.DecoGrass;
+import rtg.world.biome.deco.DecoShrub;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBBadlands;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBBadlands;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
 {
@@ -73,7 +71,23 @@ public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-        this.useNewDecorationSystem = true;
+        
+		// Prevent dirt and gravel from messing up the surface.
+        this.baseBiome.theBiomeDecorator.dirtGen = new WorldGenMinable(Blocks.dirt, 0);
+        this.baseBiome.theBiomeDecorator.gravelGen = new WorldGenMinable(Blocks.gravel, 0);
+        
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.maxY = 74;
+        decoShrub.chance = 4;
+        decoShrub.strengthFactor = 4f;
+        decoShrub.log = 0;
+        decoShrub.leaves = 0;
+        this.addDeco(decoShrub);
+        
+		DecoGrass decoGrass = new DecoGrass();
+		decoGrass.maxY = 128;
+		decoGrass.strengthFactor = 5f;
+        this.addDeco(decoGrass);
     }
 
 }

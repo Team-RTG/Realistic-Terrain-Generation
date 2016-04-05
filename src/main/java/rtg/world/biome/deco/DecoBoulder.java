@@ -20,7 +20,8 @@ public class DecoBoulder extends DecoBase
     
 	public Block boulderBlock; // This can be any block.
 	public float strengthFactor; // Higher = more/bigger boulders.
-	public int maxY; // Height restriction.
+	public int minY; // Lower height restriction.
+	public int maxY; // Upper height restriction.
 	public int chance; // Higher = more rare.
 	
 	public DecoBoulder()
@@ -33,7 +34,8 @@ public class DecoBoulder extends DecoBase
 		 */
 		this.boulderBlock = Blocks.cobblestone;
 		this.strengthFactor = 2f;
-		this.maxY = 255; // No height limit by default.
+		this.minY = 1; // No lower height limit by default.
+		this.maxY = 255; // No upper height limit by default.
 		this.chance = 10;
 		
 		this.addDecoTypes(DecoType.BOULDER);
@@ -50,7 +52,7 @@ public class DecoBoulder extends DecoBase
                 int j1 = chunkY + rand.nextInt(16) + 8;
                 int k1 = world.getHeightValue(i1, j1);
                 
-                if (k1 < this.maxY && rand.nextInt(this.chance) == 0) {
+                if (k1 >= this.minY && k1 <= this.maxY && rand.nextInt(this.chance) == 0) {
                     (new WorldGenBlob(boulderBlock, 0, rand)).generate(world, rand, i1, k1, j1);
                 }
             }

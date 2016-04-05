@@ -1,15 +1,14 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBMountainsEdge;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBMountainsEdge;
 import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBMountainsEdge extends RealisticBiomeEBBase
 {

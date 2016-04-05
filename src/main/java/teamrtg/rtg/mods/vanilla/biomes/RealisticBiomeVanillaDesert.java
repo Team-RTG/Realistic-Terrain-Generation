@@ -45,10 +45,10 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     public void paintSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
                              OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
-        this.getSurface().paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        this.getSurface().paintSurface(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
 
         SurfaceBase riverSurface = new SurfaceRiverOasis(this);
-        riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        riverSurface.paintSurface(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 
     @Override

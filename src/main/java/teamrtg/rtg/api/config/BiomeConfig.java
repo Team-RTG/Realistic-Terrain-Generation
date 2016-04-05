@@ -44,9 +44,9 @@ public class BiomeConfig extends Config {
                 .setComment("What scattered feature does this biome allow?").setSection(biomeSlug);
         DECORATIONS.setDefault(new String[0])
                 .setComment("What scattered feature does this biome allow?").setSection(biomeSlug);
-        SURFACE_LAVA_LAKE_CHANCE.setDefault(0);
-        SURFACE_WATER_LAKE_CHANCE.setDefault(1);
-        GENERATE_EMERALDS.setDefault(false);
+        SURFACE_LAVA_LAKE_CHANCE.setDefault(0).setSection(biomeSlug);
+        SURFACE_WATER_LAKE_CHANCE.setDefault(1).setSection(biomeSlug);
+        GENERATE_EMERALDS.setDefault(false).setSection(biomeSlug);
 
         CLIFF_BLOCK_1.setSection(biomeSlug);
         CLIFF_BLOCK_2.setSection(biomeSlug);

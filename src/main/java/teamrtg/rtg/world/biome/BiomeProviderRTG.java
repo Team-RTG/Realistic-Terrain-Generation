@@ -15,6 +15,7 @@ import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.util.noise.SimplexCellularNoise;
 import teamrtg.rtg.util.noise.SimplexOctave;
+import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -260,7 +261,7 @@ public class BiomeProviderRTG extends BiomeProvider {
             return 59f;
         }
 
-        return getBiomeDataAt(x, y).rNoise(simplex, cell, x, y, 1f, river);
+        return RealisticBiomeGenerator.forBiome(getBiomeDataAt(x, y)).rNoise(simplex, cell, x, y, 1f, river);
     }
 
     public float getRiverStrength(int x, int y) {

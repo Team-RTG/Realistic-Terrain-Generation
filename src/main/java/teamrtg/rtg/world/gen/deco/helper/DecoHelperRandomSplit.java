@@ -1,12 +1,12 @@
 package teamrtg.rtg.world.gen.deco.helper;
 
-import java.util.Random;
-
 import net.minecraft.world.World;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
 import teamrtg.rtg.world.gen.deco.DecoBase;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
+
+import java.util.Random;
 
 /**
  * This deco helper takes an array of deco objects and an array of chances and generates one accordingly.
@@ -25,7 +25,7 @@ public class DecoHelperRandomSplit extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
+    public void generate(RealisticBiomeGenerator biomeGenerator, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
         if (this.allowed) {
 
             if (this.decos.length < 1 || this.chances.length < 1 || this.decos.length != this.chances.length) {
@@ -36,7 +36,7 @@ public class DecoHelperRandomSplit extends DecoBase {
 
                 if (rand.nextInt(this.chances[i]) == 0) {
 
-                    this.decos[i].generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river);
+                    this.decos[i].generate(biomeGenerator, world, rand, chunkX, chunkY, simplex, cell, strength, river);
                 }
             }
         }

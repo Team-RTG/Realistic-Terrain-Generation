@@ -1,6 +1,7 @@
 package teamrtg.rtg.api.mods;
 
 import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class ModBiomes {
 
     protected RealisticBiomeBase addBiome(RealisticBiomeBase biome) {
         biomes.add(biome);
+        new RealisticBiomeGenerator(biome);
         return biome;
     }
 

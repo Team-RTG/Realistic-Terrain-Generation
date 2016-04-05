@@ -70,7 +70,6 @@ public class RealisticVanillaBiomes extends ModBiomes {
 
     @Override
     public void initBiomes() {
-
         addBiome(beach = new RealisticBiomeVanillaBeach());
         addBiome(birchForest = new RealisticBiomeVanillaBirchForest());
         addBiome(birchForestHills = new RealisticBiomeVanillaBirchForestHills());

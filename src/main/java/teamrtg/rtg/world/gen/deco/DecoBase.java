@@ -1,9 +1,10 @@
 package teamrtg.rtg.world.gen.deco;
 
 import net.minecraft.world.World;
+import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -13,10 +14,10 @@ import java.util.Random;
  * https://teamrtg.gitbooks.io/rtg-code-documentation/content/biome_decoration.html
  * @author WhichOnesPink
  */
-public class DecoBase {
+public abstract class DecoBase {
 
     /**
-     * If false, the deco won't getProp generated during chunk decoration.
+     * If false, the deco won't get generated during chunk decoration.
      * Currently, the only deco that uses allow=false is the DecoBaseBiomeDecorations deco, and it only gets
      * set to false when we need to generate ores in biomes that don't let the base biome handle decoration at all.
      */
@@ -59,7 +60,7 @@ public class DecoBase {
      * @param strength
      * @param river
      */
-    public boolean preGenerate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
+    public final boolean preGenerate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
         if (this.checkRiver) {
 
             if (river > this.maxRiver || river < this.minRiver) {
@@ -84,9 +85,7 @@ public class DecoBase {
      * @param strength
      * @param river
      */
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
-
-    }
+    public abstract void generate(RealisticBiomeGenerator biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river);
 
     /**
      * Adds one or more deco types.

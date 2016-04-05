@@ -455,7 +455,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
                             biomesGeneratedInChunk[k] = smallRender[centerLocationIndex][k];
                         }
 
-                        testHeight[i * 16 + j] += RealisticBiomeBase.getBiome(k).rNoise(simplex, cell, x + i, y + j, smallRender[locationIndex][k], river + 1f) * smallRender[locationIndex][k];
+                        testHeight[i * 16 + j] += RealisticBiomeGenerator.forBiome(k).rNoise(simplex, cell, x + i, y + j, smallRender[locationIndex][k], river + 1f) * smallRender[locationIndex][k];
                     }
                 }
             }
@@ -532,7 +532,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
             }
         }
 
-        biome.populatePreDecorate(this, worldObj, rand, chunkX, chunkZ, flag);
+        RealisticBiomeGenerator.forBiome(biome.baseBiome).populatePreDecorate(this, worldObj, rand, chunkX, chunkZ, flag);
 
         /**
          * What is this doing? And why does it need to be done here? - Pink
@@ -558,9 +558,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
         //Initialise variables.
         float river = -bprv.getRiverStrength(worldX + 16, worldZ + 16);
 
-        //Clay.
-        biome.rDecorateClay(worldObj, rand, chunkX, chunkZ, river, worldX, worldZ);
-
         //Border noise. (Does this have to be done here? - Pink)
         RealisticBiomeBase realisticBiome;
         float snow = 0f;
@@ -585,12 +582,12 @@ public class ChunkProviderRTG implements IChunkGenerator {
                  * TODO: Is there a more efficient way to do this? - Pink
                  */
                 if (Mods.RTG.config.ENABLE_RTG_BIOME_DECORATIONS.get() && realisticBiome.config.USE_RTG_DECORATIONS.get()) {
-                    realisticBiome.decorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                    RealisticBiomeGenerator.forBiome(realisticBiome).decorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
                 } else {
                     try {
                         realisticBiome.baseBiome.decorate(this.worldObj, rand, worldCoords);
                     } catch (Exception e) {
-                        realisticBiome.decorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                        RealisticBiomeGenerator.forBiome(realisticBiome).decorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
                     }
                 }
 

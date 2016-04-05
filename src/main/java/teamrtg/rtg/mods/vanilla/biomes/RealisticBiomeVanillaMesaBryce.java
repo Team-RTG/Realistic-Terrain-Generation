@@ -1,28 +1,22 @@
 package teamrtg.rtg.mods.vanilla.biomes;
 
-import java.util.Random;
-
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
+import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaMesaBryce;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.gen.deco.DecoBoulder;
-import teamrtg.rtg.world.gen.deco.DecoCactus;
-import teamrtg.rtg.world.gen.deco.DecoDeadBush;
-import teamrtg.rtg.world.gen.deco.DecoGrassDoubleTallgrass;
-import teamrtg.rtg.world.gen.deco.DecoReed;
-import teamrtg.rtg.world.gen.deco.DecoShrub;
-import teamrtg.rtg.world.gen.deco.DecoTree;
-import teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition;
-import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.world.biome.surface.SurfaceBase;
 import teamrtg.rtg.world.biome.surface.SurfaceRiverOasis;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaMesaBryce;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.deco.*;
+import teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition;
+import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
+
+import java.util.Random;
 
 public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.mesa;
@@ -55,10 +49,10 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     public void paintSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
                              OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
-        this.getSurface().paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        this.getSurface().paintSurface(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
 
         SurfaceBase riverSurface = new SurfaceRiverOasis(this);
-        riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        riverSurface.paintSurface(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 
     @Override

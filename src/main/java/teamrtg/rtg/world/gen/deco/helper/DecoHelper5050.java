@@ -3,8 +3,8 @@ package teamrtg.rtg.world.gen.deco.helper;
 import net.minecraft.world.World;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
 import teamrtg.rtg.world.gen.deco.DecoBase;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
 
 import java.util.Random;
 
@@ -29,13 +29,13 @@ public class DecoHelper5050 extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
+    public void generate(RealisticBiomeGenerator biomeGenerator, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
         if (this.allowed) {
 
             if (rand.nextBoolean()) {
-                this.deco1.generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river);
+                this.deco1.generate(biomeGenerator, world, rand, chunkX, chunkY, simplex, cell, strength, river);
             } else {
-                this.deco2.generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river);
+                this.deco2.generate(biomeGenerator, world, rand, chunkX, chunkY, simplex, cell, strength, river);
             }
         }
     }

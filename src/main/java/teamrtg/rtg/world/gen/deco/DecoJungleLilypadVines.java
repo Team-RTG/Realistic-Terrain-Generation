@@ -8,7 +8,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
 
 import java.util.Random;
 
@@ -29,7 +29,7 @@ public class DecoJungleLilypadVines extends DecoBase {
      * No config options for this one yet. Just ripped it directly from the old code.
      */
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
+    public void generate(RealisticBiomeGenerator biomeGenerator, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
         if (this.allowed) {
 
             if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), LILYPAD)) {

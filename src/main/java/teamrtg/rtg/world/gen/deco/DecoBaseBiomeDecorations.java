@@ -4,7 +4,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
 
 import java.util.Random;
 
@@ -55,7 +55,7 @@ public class DecoBaseBiomeDecorations extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
+    public void generate(RealisticBiomeGenerator biomeGenerator, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
         if (this.allowed) {
 
             for (int i = 0; i < loops; i++) {
@@ -69,27 +69,27 @@ public class DecoBaseBiomeDecorations extends DecoBase {
                     if (this.equalsZeroChance > 0) {
 
                         if (rand.nextInt(this.equalsZeroChance) == 0) {
-                            biome.decorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
+                            biomeGenerator.decorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biomeGenerator.biome.baseBiome);
                         } else {
-                            biome.rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biome.baseBiome);
+                            biomeGenerator.rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biomeGenerator.biome.baseBiome);
                         }
                     } else if (this.notEqualsZeroChance > 0) {
 
                         if (rand.nextInt(this.notEqualsZeroChance) != 0) {
-                            biome.decorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
+                            biomeGenerator.decorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biomeGenerator.biome.baseBiome);
                         } else {
-                            biome.rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biome.baseBiome);
+                            biomeGenerator.rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biomeGenerator.biome.baseBiome);
                         }
                     } else {
 
-                        biome.decorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
+                        biomeGenerator.decorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biomeGenerator.biome.baseBiome);
                     }
                 } else {
-                    biome.rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biome.baseBiome);
+                    biomeGenerator.rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biomeGenerator.biome.baseBiome);
                 }
             }
         } else {
-            biome.rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biome.baseBiome);
+            biomeGenerator.rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biomeGenerator.biome.baseBiome);
         }
     }
 }

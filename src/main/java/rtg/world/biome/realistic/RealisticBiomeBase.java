@@ -24,7 +24,6 @@ import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
 import rtg.util.noise.SimplexOctave;
 import rtg.world.biome.BiomeBase;
-import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.feature.WorldGenClay;
@@ -120,7 +119,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         return arrRealisticBiomeIds[id];
     }
 
-    public void rPopulatePreDecorate(IChunkGenerator iChunkGenerator, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag) {
+    public void populatePreDecorate(IChunkGenerator iChunkGenerator, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag) {
         int worldX = chunkX * 16;
         int worldZ = chunkZ * 16;
         boolean gen = true;
@@ -218,7 +217,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
      * This method should be called if both of the following conditions are true:
      * <p/>
      * 1) You are manually decorating a biome by overrding rDecorate().
-     * 2) You are NOT calling rDecorateSeedBiome() within rDecorate().
+     * 2) You are NOT calling decorateSeedBiome() within rDecorate().
      */
     public void rOreGenSeedBiome(World world, Random rand, BlockPos blockPos, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
 
@@ -331,64 +330,17 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         }
     }
 
-    public void rPopulatePostDecorate(IChunkGenerator ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag) {
-        /**
-         * Has emerald gen been disabled in the configs?
-         * If so, check to see if this biome generated emeralds & remove them if necessary.
-         */
-        if (!Mods.RTG.config.GENERATE_ORE_EMERALD.get() && this.config.GENERATE_EMERALDS.get()) {
-            rRemoveEmeralds(worldObj, rand, chunkX, chunkZ);
-        }
-    }
-
-    public void rRemoveEmeralds(World world, Random rand, int chunkX, int chunkZ) {
-        int endX = (chunkX * 16) + 16;
-        int endZ = (chunkZ * 16) + 16;
-
-        // Get the highest possible existing block location.
-        int maxY = world.getHeight(new BlockPos(chunkX, 0, chunkZ)).getY();
-        BlockPos.MutableBlockPos mbp = new BlockPos.MutableBlockPos();
-        for (int x = chunkX * 16; x < endX; ++x) {
-            for (int z = chunkZ * 16; z < endZ; ++z) {
-                for (int y = 0; y < maxY; ++y) {
-                    if (world.getBlockState(mbp.set(x, y, z)).getBlock().isReplaceableOreGen(world.getBlockState(mbp), world, mbp, BlockMatcher.forBlock(Blocks.emerald_ore))) {
-
-                        world.setBlockState(mbp, Blocks.stone.getDefaultState(), 2);
-                    }
-                }
-            }
-        }
-    }
-
     /**
      * When manually decorating biomes by overriding rDecorate(), sometimes you want the biome
      * to partially decorate itself. That's what this method does... it calls the biome's decorate() method.
      */
-    public void rDecorateSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
+    public void decorateSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
 
         if (strength > 0.3f) {
             seedBiome.decorate(world, rand, new BlockPos(chunkX, 0, chunkY));
         } else {
             rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, seedBiome);
         }
-    }
-    @Deprecated
-    public void generateMapGen(ChunkPrimer primer, Long seed, World world, BiomeProviderRTG cmr, Random mapRand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
-
-        int k = 5;
-        mapRand.setSeed(seed);
-        long l = (mapRand.nextLong() / 2L) * 2L + 1L;
-        long l1 = (mapRand.nextLong() / 2L) * 2L + 1L;
-        for (int baseX = chunkX - k; baseX <= chunkX + k; baseX++) {
-            for (int baseY = chunkY - k; baseY <= chunkY + k; baseY++) {
-                mapRand.setSeed((long) baseX * l + (long) baseY * l1 ^ seed);
-                rMapGen(primer, world, cmr, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
-            }
-        }
-    }
-    @Deprecated
-    public void rMapGen(ChunkPrimer primer, World world, BiomeProviderRTG cmr, Random mapRand, int chunkX, int chunkY, int baseX, int baseY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
-
     }
 
     public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
@@ -459,14 +411,10 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         }
     }
 
-    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
-
+    public void paintSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
         if (Mods.RTG.config.ENABLE_RTG_BIOME_DECORATIONS.get() && config.USE_RTG_SURFACES.get()) {
-
             surface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
-
         } else {
-
             this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
         }
     }

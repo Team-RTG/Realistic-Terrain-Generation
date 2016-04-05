@@ -41,7 +41,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
         return new SurfaceVanillaDesertHills(this);
     }
 
-    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+    public void paintSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
         this.getSurface().paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
 
         SurfaceBase riverSurface = new SurfaceRiverOasis(this);

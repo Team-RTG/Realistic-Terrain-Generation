@@ -181,7 +181,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
         for (k = 0; k < 256; k++) {
             if (biomesGeneratedInChunk[k] > 0f) {
-                RealisticBiomeBase.getBiome(k).generateMapGen(primer, worldSeed, worldObj, bprv, mapRand, cx, cy, simplex, cell, noise);
                 biomesGeneratedInChunk[k] = 0f;
             }
             try {
@@ -285,7 +284,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 river = -bprv.getRiverStrength(cx * 16 + j, cy * 16 + i);
                 depth = -1;
 
-                biome.rReplace(primer, cx * 16 + i, cy * 16 + j, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
+                biome.paintSurface(primer, cx * 16 + i, cy * 16 + j, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
 
                 int rough;
                 int flatBedrockLayers = Mods.RTG.config.FLAT_BEDROCK_LAYERS.get();
@@ -533,7 +532,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
             }
         }
 
-        biome.rPopulatePreDecorate(this, worldObj, rand, chunkX, chunkZ, flag);
+        biome.populatePreDecorate(this, worldObj, rand, chunkX, chunkZ, flag);
 
         /**
          * What is this doing? And why does it need to be done here? - Pink
@@ -610,9 +609,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
          * ########################################################################
          * # END DECORATE BIOME
          * ########################################################################
-         */
-
-        biome.rPopulatePostDecorate(this, worldObj, rand, chunkX, chunkZ, flag);
+        */
 
         BlockPos.MutableBlockPos bp = new BlockPos.MutableBlockPos(0, 0, 0);
 

@@ -28,8 +28,6 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
                 Biomes.jungle,
                 Biomes.river
         );
-
-        this.waterSurfaceLakeChance = 3;
     }
     
     @Override
@@ -150,5 +148,6 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         config.addBlock(config.MIX_BLOCK).setDefault(Blocks.dirt.getStateFromMeta(2));
     	config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.sand.getDefaultState());
         this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.JUNGLE_TEMPLE.name());
+        this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(3);
     }
 }

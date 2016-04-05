@@ -29,7 +29,6 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
                 Biomes.jungleHills,
                 Biomes.river
         );
-        this.waterSurfaceLakeChance = 3;
         this.noLakes = true;
     }
     
@@ -150,5 +149,6 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
     protected void initProperties() {
     	config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.sand.getDefaultState());
         this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.JUNGLE_TEMPLE.name());
+        this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(3);
     }
 }

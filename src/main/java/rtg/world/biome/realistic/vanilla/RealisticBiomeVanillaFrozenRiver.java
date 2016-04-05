@@ -14,9 +14,6 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase 
                 Biomes.frozenRiver,
                 Biomes.frozenRiver
         );
-
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 0;
     }
     
     @Override
@@ -41,8 +38,8 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase 
     }
     
     @Override
-    protected void initProperties()
-    {
-
+    protected void initProperties() {
+        this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(0);
+        this.config.SURFACE_LAVA_LAKE_CHANCE.setDefault(0);
     }
 }

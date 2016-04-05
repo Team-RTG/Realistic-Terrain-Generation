@@ -16,9 +16,6 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
                 Biomes.deepOcean,
                 Biomes.river
         );
-
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 0;
         this.noLakes = true;
     }
 
@@ -44,8 +41,9 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
     }
     
     @Override
-    protected void initProperties()
-    {
+    protected void initProperties() {
 		config.addBlock(config.MIX_BLOCK).setDefault(Blocks.clay.getDefaultState());
+        this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(0);
+        this.config.SURFACE_LAVA_LAKE_CHANCE.setDefault(0);
     }
 }

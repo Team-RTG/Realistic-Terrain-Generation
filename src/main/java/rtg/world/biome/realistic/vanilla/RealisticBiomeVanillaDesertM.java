@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -9,19 +7,15 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
-import rtg.world.biome.deco.DecoCactus;
-import rtg.world.biome.deco.DecoDeadBush;
-import rtg.world.biome.deco.DecoDesertWell;
-import rtg.world.biome.deco.DecoFlowersRTG;
-import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
-import rtg.world.biome.deco.DecoReed;
-import rtg.world.biome.deco.DecoTree;
+import rtg.world.biome.deco.*;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesertM;
 import rtg.world.gen.terrain.TerrainBase;
+
+import java.util.Random;
 
 public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.desert;
@@ -33,8 +27,6 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
                 mutationBiome,
                 Biomes.river
         );
-
-        this.waterSurfaceLakeChance = 0;
         this.noLakes = true;
     }
 
@@ -126,5 +118,6 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     protected void initProperties() {
     	config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.sand.getDefaultState());    	
         this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.DESERT_TEMPLE.name());
+        this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(0);
     }
 }

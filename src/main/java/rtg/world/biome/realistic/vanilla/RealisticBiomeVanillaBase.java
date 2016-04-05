@@ -9,7 +9,6 @@ public abstract class RealisticBiomeVanillaBase extends RealisticBiomeBase {
 
     public RealisticBiomeVanillaBase(BiomeGenBase b, BiomeGenBase riverbiome) {
         super(Mods.VANILLA, b, riverbiome);
-
-        this.lavaSurfaceLakeChance = 0;
+        config.SURFACE_LAVA_LAKE_CHANCE.setDefault(0);
     }
 }

@@ -586,24 +586,12 @@ public class ChunkProviderRTG implements IChunkGenerator {
                  * TODO: Is there a more efficient way to do this? - Pink
                  */
                 if (Mods.RTG.config.ENABLE_RTG_BIOME_DECORATIONS.get() && realisticBiome.config.USE_RTG_DECORATIONS.get()) {
-
-                    if (realisticBiome.useNewDecorationSystem) {
-                        realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
-                    } else {
-                        realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
-                    }
+                    realisticBiome.decorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
                 } else {
-
                     try {
-
                         realisticBiome.baseBiome.decorate(this.worldObj, rand, worldCoords);
                     } catch (Exception e) {
-
-                        if (realisticBiome.useNewDecorationSystem) {
-                            realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
-                        } else {
-                            realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
-                        }
+                        realisticBiome.decorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
                     }
                 }
 

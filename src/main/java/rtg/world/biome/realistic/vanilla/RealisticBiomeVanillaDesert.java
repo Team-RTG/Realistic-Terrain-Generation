@@ -1,25 +1,19 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.init.Biomes;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.util.noise.CellNoise;
 import rtg.util.noise.OpenSimplexNoise;
-import rtg.world.biome.deco.DecoCactus;
-import rtg.world.biome.deco.DecoDeadBush;
-import rtg.world.biome.deco.DecoDesertWell;
-import rtg.world.biome.deco.DecoFlowersRTG;
-import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
-import rtg.world.biome.deco.DecoReed;
-import rtg.world.biome.deco.DecoTree;
+import rtg.world.biome.deco.*;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesert;
 import rtg.world.gen.terrain.TerrainBase;
+
+import java.util.Random;
 
 public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
@@ -29,8 +23,6 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
                 Biomes.desert,
                 Biomes.river
         );
-
-        this.waterSurfaceLakeChance = 0;
         this.noLakes = true;
     }
 
@@ -121,5 +113,6 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     @Override
     protected void initProperties() {
         this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.DESERT_TEMPLE.name());
+        this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(0);
     }
 }

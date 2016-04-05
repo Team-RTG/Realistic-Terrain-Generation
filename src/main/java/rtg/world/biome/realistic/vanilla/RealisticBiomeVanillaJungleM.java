@@ -32,8 +32,6 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
                 mutationBiome,
                 Biomes.river
         );
-
-        this.waterSurfaceLakeChance = 3;
         this.noLakes = true;
     }
     
@@ -153,5 +151,6 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
     @Override
     protected void initProperties() {
         this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.JUNGLE_TEMPLE.name());
+        this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(3);
     }
 }

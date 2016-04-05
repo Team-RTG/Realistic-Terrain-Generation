@@ -16,9 +16,6 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
                 Biomes.frozenOcean,
                 Biomes.river
         );
-
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 0;
         this.noLakes = true;
     }
 
@@ -47,5 +44,7 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
     protected void initProperties()
     {
 		config.addBlock(config.MIX_BLOCK).setDefault(Blocks.gravel.getDefaultState());
+        this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(0);
+        this.config.SURFACE_LAVA_LAKE_CHANCE.setDefault(0);
     }
 }

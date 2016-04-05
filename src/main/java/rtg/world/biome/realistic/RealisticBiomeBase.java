@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.init.Blocks;
@@ -42,8 +41,6 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 public abstract class RealisticBiomeBase extends BiomeBase {
 
     private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[256];
-    private static int[] incidences = new int[200];
-    private static int references = 0;
     private static float actualRiverProportion = 300f / 1600f;
     public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;
@@ -53,12 +50,6 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     public SurfaceBase surface;
     public SurfaceBase surfaceGeneric;
     public int clayPerVein;
-    public boolean generateVillages;
-    public boolean generatesEmeralds;
-    public Block emeraldEmeraldBlock;
-    public byte emeraldEmeraldMeta;
-    public Block emeraldStoneBlock;
-    public byte emeraldStoneMeta;
     public ArrayList<DecoBase> decos;
     public boolean noLakes = false;
     public boolean noWaterFeatures = false;
@@ -88,14 +79,6 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         initProperties();
 
         clayPerVein = 20;
-
-        generateVillages = config.ALLOW_VILLAGES.get();
-
-        generatesEmeralds = false;
-        emeraldEmeraldBlock = Blocks.emerald_ore;
-        emeraldEmeraldMeta = (byte) 0;
-        emeraldStoneBlock = Blocks.stone;
-        emeraldStoneMeta = (byte) 0;
 
         decos = new ArrayList<>();
 
@@ -287,7 +270,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
             genStandardOre2(world, rand, blockPos, seedBiome.theBiomeDecorator.chunkProviderSettings.lapisCount, seedBiome.theBiomeDecorator.lapisGen, seedBiome.theBiomeDecorator.chunkProviderSettings.lapisCenterHeight, seedBiome.theBiomeDecorator.chunkProviderSettings.lapisSpread);
 
         // Emeralds.
-        if (Mods.RTG.config.GENERATE_ORE_EMERALD.get() && generatesEmeralds) {
+        if (Mods.RTG.config.GENERATE_ORE_EMERALD.get() && this.config.GENERATE_EMERALDS.get()) {
             rGenerateEmeralds(world, rand, blockPos);
         }
 
@@ -342,8 +325,8 @@ public abstract class RealisticBiomeBase extends BiomeBase {
                     blockPos.getZ() + rand.nextInt(16));
 
             //TODO: How to get that last argument???
-            if (world.getBlockState(mbp).getBlock().isReplaceableOreGen(world.getBlockState(mbp), world, mbp, BlockMatcher.forBlock(emeraldStoneBlock))) {
-                world.setBlockState(mbp, emeraldEmeraldBlock.getStateFromMeta(emeraldEmeraldMeta), 2);
+            if (world.getBlockState(mbp).getBlock().isReplaceableOreGen(world.getBlockState(mbp), world, mbp, BlockMatcher.forBlock(Blocks.stone))) {
+                world.setBlockState(mbp, Blocks.emerald_ore.getDefaultState(), 2);
             }
         }
     }
@@ -353,7 +336,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
          * Has emerald gen been disabled in the configs?
          * If so, check to see if this biome generated emeralds & remove them if necessary.
          */
-        if (!Mods.RTG.config.GENERATE_ORE_EMERALD.get() && generatesEmeralds) {
+        if (!Mods.RTG.config.GENERATE_ORE_EMERALD.get() && this.config.GENERATE_EMERALDS.get()) {
             rRemoveEmeralds(worldObj, rand, chunkX, chunkZ);
         }
     }
@@ -368,9 +351,9 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         for (int x = chunkX * 16; x < endX; ++x) {
             for (int z = chunkZ * 16; z < endZ; ++z) {
                 for (int y = 0; y < maxY; ++y) {
-                    if (world.getBlockState(mbp.set(x, y, z)).getBlock().isReplaceableOreGen(world.getBlockState(mbp), world, mbp, BlockMatcher.forBlock(emeraldEmeraldBlock))) {
+                    if (world.getBlockState(mbp.set(x, y, z)).getBlock().isReplaceableOreGen(world.getBlockState(mbp), world, mbp, BlockMatcher.forBlock(Blocks.emerald_ore))) {
 
-                        world.setBlockState(mbp, emeraldStoneBlock.getStateFromMeta(emeraldStoneMeta), 2);
+                        world.setBlockState(mbp, Blocks.stone.getDefaultState(), 2);
                     }
                 }
             }

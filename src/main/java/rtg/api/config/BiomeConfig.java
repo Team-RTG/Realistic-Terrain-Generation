@@ -14,6 +14,7 @@ public class BiomeConfig extends Config {
     public final ConfigProperty.PropertyStrings DECORATIONS = this.addStrings("Decorations", "");
     public final ConfigProperty.PropertyInt SURFACE_WATER_LAKE_CHANCE = this.addInt("Surface water lake chance", "");
     public final ConfigProperty.PropertyInt SURFACE_LAVA_LAKE_CHANCE = this.addInt("Surface lava lake chance", "");
+    public final ConfigProperty.PropertyBool GENERATE_EMERALDS = this.addBool("Generate Emeralds", "");
 
     public final ConfigProperty.PropertyBlock CLIFF_BLOCK_1 = new ConfigProperty.PropertyBlock("Cliff block 1", "");
     public final ConfigProperty.PropertyBlock CLIFF_BLOCK_2 = new ConfigProperty.PropertyBlock("Cliff block 2", "");
@@ -44,6 +45,7 @@ public class BiomeConfig extends Config {
                 .setComment("What scattered feature does this biome allow?").setSection(biomeSlug);
         SURFACE_LAVA_LAKE_CHANCE.setDefault(0);
         SURFACE_WATER_LAKE_CHANCE.setDefault(1);
+        GENERATE_EMERALDS.setDefault(false);
 
         CLIFF_BLOCK_1.setSection(biomeSlug);
         CLIFF_BLOCK_2.setSection(biomeSlug);

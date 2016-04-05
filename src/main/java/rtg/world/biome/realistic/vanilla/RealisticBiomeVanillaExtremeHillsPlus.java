@@ -26,7 +26,6 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
                 Biomes.extremeHillsPlus,
                 Biomes.river
         );
-        this.generatesEmeralds = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
     }
@@ -134,5 +133,6 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
     {
     	config.addBlock(config.MIX_BLOCK).setDefault(Blocks.gravel.getDefaultState());
     	config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.gravel.getDefaultState());
+        config.GENERATE_EMERALDS.setDefault(true);
     }
 }

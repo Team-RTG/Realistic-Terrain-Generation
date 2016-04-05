@@ -21,7 +21,6 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaExtremeHills() {
 
         super(Biomes.extremeHills, Biomes.river);
-        this.generatesEmeralds = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
     }
@@ -106,6 +105,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
     protected void initProperties()
     {
     	config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.grass.getDefaultState());
-    	config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.dirt.getDefaultState());  	
+    	config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.dirt.getDefaultState());
+        config.GENERATE_EMERALDS.setDefault(true);
     }
 }

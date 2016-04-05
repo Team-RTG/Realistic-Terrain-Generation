@@ -23,7 +23,6 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
                 Biomes.extremeHillsEdge,
                 Biomes.river
         );
-        this.generatesEmeralds = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
     }
@@ -109,5 +108,6 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
     {
     	config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.grass.getDefaultState());
     	config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.dirt.getDefaultState());
+        config.GENERATE_EMERALDS.setDefault(true);
     }
 }

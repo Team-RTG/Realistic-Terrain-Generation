@@ -21,7 +21,6 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
                 mutationBiome,
                 Biomes.river
         );
-        this.generatesEmeralds = true;
     }
 
     @Override
@@ -50,5 +49,6 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
     {
     	config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.grass.getDefaultState());
     	config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.dirt.getDefaultState());
+        config.GENERATE_EMERALDS.setDefault(true);
     }
 }

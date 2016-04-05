@@ -1,27 +1,29 @@
 package rtg.world.gen.terrain.extrabiomes;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.world.gen.terrain.BlendedHillEffect;
+import rtg.world.gen.terrain.FunctionalTerrainBase;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.PlateauEffect;
 
-public class TerrainEBXLMiniJungle extends TerrainBase
+
+public class TerrainEBXLMiniJungle extends FunctionalTerrainBase
 {
-	private float start;
-	private float height;
-	private float base;
-	private float width;
+    public TerrainEBXLMiniJungle()
+    {
+        base = 68;
 
-	public TerrainEBXLMiniJungle(float hillStart, float landHeight, float baseHeight, float hillWidth)
-	{
-		start = hillStart;
-		height = landHeight;
-		base = baseHeight;
-		width = hillWidth;
-	}
+        BlendedHillEffect bumps = new BlendedHillEffect();
+        bumps.height = 8;
+        bumps.wavelength = 30;
+        bumps.hillBottomSimplexValue = 0.4f; // not too common
 
-	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-	{
-        return terrainHighland(x, y, simplex, cell, river, start, width, height, 0f);
-	}
+        PlateauEffect bumpHeight = new PlateauEffect();
+        bumpHeight.height = 0;// only a multiplier
+        bumpHeight.topSimplexValue = 0.5f;
+        bumpHeight.bottomSimplexValue = 0.1f;
+        bumpHeight.wavelength = 80;
+        bumpHeight.subordinate = bumps;
+
+        height = bumpHeight.plus(new GroundEffect(2f));
+    }
 }

@@ -19,7 +19,7 @@ public class RealisticBiomeEBXLWoodlands extends RealisticBiomeEBXLBase
 	{
 		super(config, 
 			ebxlBiome, BiomeGenBase.river,
-			new TerrainEBXLWoodlands(0f, 80f, 68f, 200f),
+			new TerrainEBXLWoodlands(),
 			new SurfaceEBXLWoodlands(config, topBlock, fillerBlock)
 		);
 	}

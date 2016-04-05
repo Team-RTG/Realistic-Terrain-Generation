@@ -1,50 +1,36 @@
 package rtg.world.gen.terrain.extrabiomes;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.world.gen.terrain.FunctionalTerrainBase;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.HillsEverywhereEffect;
+import rtg.world.gen.terrain.JitterEffect;
 
-public class TerrainEBXLForestedIsland extends TerrainBase
+
+public class TerrainEBXLForestedIsland extends FunctionalTerrainBase
 {
-	private float hHeight;
-	private float hWidth;
-	private float vHeight;
-	private float vWidth;
-	private float lHeight;
-	private float lWidth;
-	private float bHeight;
 
-	/*
-	 * hillHeight = 70f
-	 * hillWidth = 180f
-	 *
-	 * varHeight = 7f
-	 * varWidth = 100f
-	 *
-	 * lakeHeigth = 38f
-	 * lakeWidth = 260f
-	 *
-	 * baseHeight = 68f
-	 *
-	 * 70f, 180f, 7f, 100f, 38f, 260f, 68f
-	 */
-	public TerrainEBXLForestedIsland(float hillHeight, float hillWidth, float varHeight, float varWidth, float lakeHeight, float lakeWidth, float baseHeight)
+	public TerrainEBXLForestedIsland()
 	{
-		hHeight = hillHeight;
-		hWidth = hillWidth;
+        base = 66;
 
-		vHeight = varHeight;
-		vWidth = varWidth;
+        HillsEverywhereEffect smallHills = new HillsEverywhereEffect();
+        smallHills.height = 4;
+        smallHills.hillBottomSimplexValue = .2f;
+        smallHills.wavelength = 8;
 
-		lHeight = lakeHeight;
-		lWidth = lakeWidth;
+        HillsEverywhereEffect largerHills = new HillsEverywhereEffect();
+        largerHills.height = 8;
+        largerHills.octave =1;
+        largerHills.wavelength = 20;
+        largerHills.modified = smallHills;
 
-		bHeight = baseHeight;
+        JitterEffect disguising = new JitterEffect();
+        disguising.amplitude = 3;
+        disguising.wavelength = 10;
+        disguising.jittered = largerHills;
+
+        height = disguising.plus(new GroundEffect(4));
+
 	}
 
-	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-	{
-        return terrainGrasslandHills(x, y, simplex, cell, river, vWidth, vHeight, hWidth, hHeight, bHeight);
-	}
 }

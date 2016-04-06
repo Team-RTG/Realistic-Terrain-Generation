@@ -37,7 +37,6 @@ public class BiomeProviderRTG extends BiomeProvider {
     private float[] borderNoise;
     private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
     private BiomeCache biomeCache;
-    private RealisticBiomePatcher biomePatcher;
 
     public BiomeProviderRTG(World par1World, WorldType worldType) {
 
@@ -59,7 +58,6 @@ public class BiomeProviderRTG extends BiomeProvider {
         this.biomeCache = new BiomeCache(this);
         this.biomesToSpawnIn = new ArrayList();
         borderNoise = new float[256];
-        biomePatcher = new RealisticBiomePatcher();
     }
 
     public int[] getBiomesGens(int par1, int par2, int par3, int par4) {
@@ -79,7 +77,7 @@ public class BiomeProviderRTG extends BiomeProvider {
         result = this.biomeCache.getBiomeCacheBlock(par1, par2).getBiomeGenAt(par1, par2);
 
         if (result == null) {
-            result = biomePatcher.getPatchedBaseBiome("Biome cache contains NULL biome at " + par1 + "," + par2);
+            result = RealisticBiomeFaker.getFakeBiome(BiomeGenBase.getIdForBiome(result));
         }
         return result;
     }
@@ -104,7 +102,7 @@ public class BiomeProviderRTG extends BiomeProvider {
                 f = RealisticBiomeBase.getBiome(aint[i1]).getRainfall() / 65536.0F;
             } catch (Exception e) {
                 if (RealisticBiomeBase.getBiome(aint[i1]) == null) {
-                    f = biomePatcher.getPatchedRealisticBiome("Problem with biome " + aint[i1] + " from " + e.getMessage()).getRainfall() / 65536.0F;
+                    f = RealisticBiomeFaker.getFakeBiome(aint[i1]).getRainfall() / 65536.0F;
                 }
             }
 
@@ -162,7 +160,7 @@ public class BiomeProviderRTG extends BiomeProvider {
     public RealisticBiomeBase getBiomeDataAt(int par1, int par2) {
         RealisticBiomeBase output;
         output = (RealisticBiomeBase) (this.getBiomeGenAt(par1, par2));
-        if (output == null) output = biomePatcher.getPatchedRealisticBiome("No biome " + par1 + " " + par2);
+        ;
         return output;
     }
 
@@ -216,10 +214,10 @@ public class BiomeProviderRTG extends BiomeProvider {
                 try {
                     listToReuse[i1] = RealisticBiomeBase.getBiome(aint[i1]);
                 } catch (Exception e) {
-                    listToReuse[i1] = biomePatcher.getPatchedRealisticBiome(genBiomes.toString() + " " + this.biomeIndexLayer.toString());
+                    listToReuse[i1] = RealisticBiomeFaker.getFakeBiome(aint[i1]);
                 }
                 if (listToReuse[i1] == null) {
-                    listToReuse[i1] = biomePatcher.getPatchedRealisticBiome("Missing biome " + aint[i1]);
+                    listToReuse[i1] = RealisticBiomeFaker.getFakeBiome(aint[i1]);
                 }
             }
 

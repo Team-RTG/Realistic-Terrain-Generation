@@ -25,16 +25,16 @@ import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
+import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.util.math.CanyonColour;
 import teamrtg.rtg.util.math.MathUtils;
-import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.util.noise.SimplexCellularNoise;
 import teamrtg.rtg.world.biome.BiomeAnalyzer;
 import teamrtg.rtg.world.biome.BiomeProviderRTG;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
-import teamrtg.rtg.world.biome.RealisticBiomePatcher;
+import teamrtg.rtg.world.biome.RealisticBiomeFaker;
 
 import java.util.HashMap;
 import java.util.List;
@@ -66,6 +66,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
     private final int parabolicSize;
     private final int parabolicArraySize;
     private final float[] parabolicField;
+    private final RealisticBiomeFaker biomeFaker;
     protected BiomeProviderRTG bprv;
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
     private IBlockState bedrockBlock = Mods.RTG.config.BEDROCK_BLOCK.get();
@@ -84,7 +85,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
     private float[] biomesGeneratedInChunk;
     private float[] borderNoise;
     private long worldSeed;
-    private RealisticBiomePatcher biomePatcher;
 
 
     public ChunkProviderRTG(World world, long l) {
@@ -103,6 +103,8 @@ public class ChunkProviderRTG implements IChunkGenerator {
         m.put("distance", "24");
 
         mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
+
+        biomeFaker = new RealisticBiomeFaker(world);
 
         if (Mods.RTG.config.ENABLE_CAVE_MODIFICATIONS.get()) {
             caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), CAVE);
@@ -144,7 +146,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
         testHeight = new float[256];
         biomesGeneratedInChunk = new float[256];
         borderNoise = new float[256];
-        biomePatcher = new RealisticBiomePatcher();
 
         //aic = new AICWrapper();
         //isAICExtendingBiomeIdsLimit = aic.isAICExtendingBiomeIdsLimit();
@@ -186,7 +187,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
             try {
                 baseBiomesList[k] = biomesForGeneration[k].baseBiome;
             } catch (Exception e) {
-                baseBiomesList[k] = biomePatcher.getPatchedBaseBiome("" + RealisticBiomeBase.getIdForBiome(biomesForGeneration[k]));
+                baseBiomesList[k] = RealisticBiomeFaker.getFakeBiome(RealisticBiomeBase.getIdForBiome(biomesForGeneration[k]));
             }
         }
 
@@ -249,7 +250,8 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
     public void generateTerrain(BiomeProviderRTG cmr, int cx, int cy, ChunkPrimer primer, RealisticBiomeBase biomes[], float[] n) {
         int p, h;
-        float[] noise = getNewNoise(cmr, cx * 16, cy * 16, biomes);
+        biomeFaker.convertBiomes(cx, cy, primer);
+        float[] noise = getNewNoise(cmr, cx * 16, cy * 16, biomes, primer);
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 16; j++) {
                 h = (int) noise[j * 16 + i];
@@ -270,52 +272,54 @@ public class ChunkProviderRTG implements IChunkGenerator {
         }
     }
 
-    public void replaceBlocksForBiome(int cx, int cy, ChunkPrimer primer, RealisticBiomeBase[] biomes, BiomeGenBase[] base, float[] n) {
-        ChunkGeneratorEvent.ReplaceBiomeBlocks event = new ChunkGeneratorEvent.ReplaceBiomeBlocks(this, cx, cy, primer, worldObj);
+    public void replaceBlocksForBiome(int cx, int cz, ChunkPrimer primer, RealisticBiomeBase[] biomes, BiomeGenBase[] base, float[] n) {
+        ChunkGeneratorEvent.ReplaceBiomeBlocks event = new ChunkGeneratorEvent.ReplaceBiomeBlocks(this, cx, cz, primer, worldObj);
         MinecraftForge.EVENT_BUS.post(event);
         if (event.getResult() == Result.DENY) return;
-
+        biomeFaker.generateSurfaces(cx, cz, primer, base);
         int i, j, depth;
         float river;
         for (i = 0; i < 16; i++) {
             for (j = 0; j < 16; j++) {
                 RealisticBiomeBase biome = biomes[i * 16 + j];
 
-                river = -bprv.getRiverStrength(cx * 16 + j, cy * 16 + i);
-                depth = -1;
+                if (!biomeFaker.isFakeBiome(biome.getID())) {
 
-                biome.paintSurface(primer, cx * 16 + i, cy * 16 + j, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
+                    river = -bprv.getRiverStrength(cx * 16 + j, cz * 16 + i);
+                    depth = -1;
 
-                int rough;
-                int flatBedrockLayers = Mods.RTG.config.FLAT_BEDROCK_LAYERS.get();
-                flatBedrockLayers = flatBedrockLayers < 0 ? 0 : (flatBedrockLayers > 5 ? 5 : flatBedrockLayers);
+                    biome.paintSurface(primer, cx * 16 + i, cz * 16 + j, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
 
-                if (flatBedrockLayers > 0) {
-                    for (int bl = 0; bl < flatBedrockLayers; bl++) {
-                        primer.setBlockState(j, bl, i, bedrockBlock);
+                    int rough;
+                    int flatBedrockLayers = Mods.RTG.config.FLAT_BEDROCK_LAYERS.get();
+                    flatBedrockLayers = flatBedrockLayers < 0 ? 0 : (flatBedrockLayers > 5 ? 5 : flatBedrockLayers);
+
+                    if (flatBedrockLayers > 0) {
+                        for (int bl = 0; bl < flatBedrockLayers; bl++) {
+                            primer.setBlockState(j, bl, i, bedrockBlock);
+                        }
+                    } else {
+
+                        primer.setBlockState(j, 0, i, bedrockBlock);
+
+                        rough = rand.nextInt(2);
+                        primer.setBlockState(j, rough, i, bedrockBlock);
+
+                        rough = rand.nextInt(3);
+                        primer.setBlockState(j, rough, i, bedrockBlock);
+
+                        rough = rand.nextInt(4);
+                        primer.setBlockState(j, rough, i, bedrockBlock);
+
+                        rough = rand.nextInt(5);
+                        primer.setBlockState(j, rough, i, bedrockBlock);
                     }
-                } else {
-
-                    primer.setBlockState(j, 0, i, bedrockBlock);
-
-                    rough = rand.nextInt(2);
-                    primer.setBlockState(j, rough, i, bedrockBlock);
-
-                    rough = rand.nextInt(3);
-                    primer.setBlockState(j, rough, i, bedrockBlock);
-
-                    rough = rand.nextInt(4);
-                    primer.setBlockState(j, rough, i, bedrockBlock);
-
-                    rough = rand.nextInt(5);
-                    primer.setBlockState(j, rough, i, bedrockBlock);
                 }
-
             }
         }
     }
 
-    public float[] getNewNoise(BiomeProviderRTG cmr, int x, int y, RealisticBiomeBase biomes[]) {
+    public float[] getNewNoise(BiomeProviderRTG cmr, int x, int y, RealisticBiomeBase biomes[], ChunkPrimer primer) {
         int i, j, k, locationIndex, m, n, p;
 
         for (i = -sampleSize; i < sampleSize + 5; i++) {
@@ -454,8 +458,13 @@ public class ChunkProviderRTG implements IChunkGenerator {
                         if (locationIndex == centerLocationIndex) {
                             biomesGeneratedInChunk[k] = smallRender[centerLocationIndex][k];
                         }
-
-                        testHeight[i * 16 + j] += RealisticBiomeGenerator.forBiome(k).rNoise(simplex, cell, x + i, y + j, smallRender[locationIndex][k], river + 1f) * smallRender[locationIndex][k];
+                        float height;
+                        if (!biomeFaker.isFakeBiome(k)) {
+                            height = RealisticBiomeGenerator.forBiome(k).rNoise(simplex, cell, x + i, y + j, smallRender[locationIndex][k], river + 1f);
+                        } else {
+                            height = biomeFaker.getHeightAt(i, j, primer);
+                        }
+                        testHeight[i * 16 + j] += height * smallRender[locationIndex][k];
                     }
                 }
             }
@@ -571,7 +580,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
                 // Do we need to patch the biome?
                 if (realisticBiome == null) {
-                    realisticBiome = biomePatcher.getPatchedRealisticBiome("NULL biome (" + bn + ") found when generating border noise.");
+                    realisticBiome = RealisticBiomeFaker.getFakeBiome(bn);
                 }
 
                 /**

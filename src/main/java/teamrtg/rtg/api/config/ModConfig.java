@@ -1,0 +1,39 @@
+package teamrtg.rtg.api.config;
+
+import net.minecraftforge.common.config.Configuration;
+import teamrtg.rtg.api.util.debug.Logger;
+
+import java.io.File;
+
+import static teamrtg.rtg.core.RTG.configPath;
+
+/**
+ * A configuration file for a mod
+ * Holds a main Config object and all biome configs
+ * @author topisani
+ */
+public class ModConfig extends Config {
+    public final String modID;
+    public final Configuration forgeConfig;
+
+    public ModConfig(String modID) {
+        super();
+        this.modID = modID;
+        this.forgeConfig = new Configuration(
+                new File(configPath + "/biomes/" +
+                        modID + ".cfg"));
+
+        try {
+            forgeConfig.load();
+
+        } catch (Exception e) {
+            Logger.error("RTG has had a problem loading " + modID + " configuration.");
+        } finally {
+            if (forgeConfig.hasChanged()) {
+                forgeConfig.save();
+            }
+        }
+    }
+
+    public void initDefaults() {}
+}

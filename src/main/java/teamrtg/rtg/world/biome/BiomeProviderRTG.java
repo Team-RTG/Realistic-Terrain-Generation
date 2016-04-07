@@ -75,7 +75,7 @@ public class BiomeProviderRTG extends BiomeProvider {
 
         for (int i = 0; i < par3; i++) {
             for (int j = 0; j < par4; j++) {
-                d[j * par3 + i] = RealisticBiomeBase.getIdForBiome(getBiomeGenAt(par1 + i, par2 + j));
+                d[i * par3 + j] = RealisticBiomeBase.getIdForBiome(getBiomeGenAt(par1 + i, par2 + j));
             }
         }
         return d;

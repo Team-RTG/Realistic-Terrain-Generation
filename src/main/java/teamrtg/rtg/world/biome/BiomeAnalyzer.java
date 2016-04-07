@@ -27,7 +27,6 @@ public class BiomeAnalyzer {
     private boolean[] landBiome;
     private int[] preferredBeach;
     private int[] searchPattern;
-    private RealisticBiomeBase[] savedJittered = new RealisticBiomeBase[256];
     private int sampleSize = 8;
     private int sampleArraySize = sampleSize * 2 + 5;
     private SmoothingSearchStatus beachSearch;
@@ -205,27 +204,21 @@ public class BiomeAnalyzer {
             throw new RuntimeException("mismatch between chunk and analyzer neighborhood sizes");
         // currently just stuffs the genLayer into the jitter;
         boolean canBeRiver = riverStrength > 0.05;
-        for (int i = 0; i < 16; i++) {
-            for (int j = 0; j < 16; j++) {
-                // save what's there since the jitter keeps changing
-                savedJittered[i * 16 + j] = jitteredBiomes[i * 16 + j];
-                //if (savedJittered[i]== null) throw new RuntimeException();
-                if (noise[i * 16 + j] > 61.5) {
-                    // replace
-                    jitteredBiomes[i * 16 + j] = RealisticBiomeBase.getBiome(genLayerBiomes[i * 16 + j]);
+        for (int i = 0; i < 256; i++) {
+            if (noise[i] > 61.5) {
+                // replace
+                jitteredBiomes[i] = RealisticBiomeBase.getBiome(genLayerBiomes[i]);
+            } else {
+                // check for river
+                if (canBeRiver && !oceanBiome[genLayerBiomes[i]] && !swampBiome[genLayerBiomes[i]]) {
+                    // make river
+                    int riverBiomeID = RealisticBiomeBase.getIdForBiome(RealisticBiomeBase.getBiome(genLayerBiomes[i]).riverBiome);
+                    jitteredBiomes[i] = RealisticBiomeBase.getBiome(riverBiomeID);
                 } else {
-                    // check for river
-                    if (canBeRiver && !oceanBiome[genLayerBiomes[i * 16 + j]] && !swampBiome[genLayerBiomes[i * 16 + j]]) {
-                        // make river
-                        int riverBiomeID = RealisticBiomeBase.getIdForBiome(RealisticBiomeBase.getBiome(genLayerBiomes[i * 16 + j]).riverBiome);
-                        jitteredBiomes[i * 16 + j] = RealisticBiomeBase.getBiome(riverBiomeID);
-                    } else {
-                        // replace
-                        jitteredBiomes[i * 16 + j] = RealisticBiomeBase.getBiome(genLayerBiomes[i * 16 + j]);
-                    }
+                    // replace
+                    jitteredBiomes[i] = RealisticBiomeBase.getBiome(genLayerBiomes[i]);
                 }
             }
-
         }
 
         // put beaches on shores

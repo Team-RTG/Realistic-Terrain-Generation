@@ -194,7 +194,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
             inverseBaseBiomes[i] = baseBiomesList[MathUtils.XY_INVERTED[i]];
         }
 
-        biomesForGeneration = inverseBiomesForGeneration;
+        //biomesForGeneration = inverseBiomesForGeneration;
         baseBiomesList = inverseBaseBiomes;
 
         replaceBlocksForBiome(cx, cy, primer, biomesForGeneration, baseBiomesList, noise);
@@ -281,14 +281,28 @@ public class ChunkProviderRTG implements IChunkGenerator {
         ChunkGeneratorEvent.ReplaceBiomeBlocks event = new ChunkGeneratorEvent.ReplaceBiomeBlocks(this, cx, cz, primer, worldObj);
         MinecraftForge.EVENT_BUS.post(event);
         if (event.getResult() == Result.DENY) return;
-        int i, j, depth;
+        int i, j, h, depth;
         float river;
-        biomeFaker.generateSurfaces(cx, cz, primer, base);
+        biomeFaker.fakeSurface(cx, cz, primer, base);
         for (i = 0; i < 16; i++) {
             for (j = 0; j < 16; j++) {
                 RealisticBiomeBase biome = biomes[i * 16 + j];
 
                 if (!biomeFaker.isFakeBiome(biome.getID())) {
+
+                    h = (int) n[i * 16 + j];
+
+                    for (int k = 0; k < 256; k++) {
+                        if (k > h) {
+                            if (k < 63) {
+                                primer.setBlockState(i, k, j, Blocks.water.getDefaultState());
+                            } else {
+                                primer.setBlockState(i, k, j, Blocks.air.getDefaultState());
+                            }
+                        } else {
+                            primer.setBlockState(i, k, j, Blocks.stone.getDefaultState());
+                        }
+                    }
 
                     river = -bprv.getRiverStrength(cx * 16 + i, cz * 16 + j);
                     depth = -1;

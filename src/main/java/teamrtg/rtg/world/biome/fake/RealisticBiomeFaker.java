@@ -22,7 +22,6 @@ public class RealisticBiomeFaker {
     public static boolean[] fakeBiomes = new boolean[256];
     private LimitedMap<PlaneLocation.Invariant, int[]> chunkHeights = new LimitedMap<>(64); //Keep the heights for the last 64 chunks around for a bit. We might need them
 
-
     public RealisticBiomeFaker(World world) {
         fakeProvider = new ChunkProviderOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), world.getWorldInfo().getGeneratorOptions());
     }
@@ -64,7 +63,7 @@ public class RealisticBiomeFaker {
         return heights;
     }
 
-    public void generateSurfaces(int cx, int cz, ChunkPrimer primer, BiomeGenBase[] biomes) {
+    public void fakeSurface(int cx, int cz, ChunkPrimer primer, BiomeGenBase[] biomes) {
         fakeProvider.replaceBiomeBlocks(cx, cz, primer, biomes);
     }
 

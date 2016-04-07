@@ -254,12 +254,12 @@ public class RealisticBiomeGenerator {
         }
     }
 
-    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river, ChunkProviderRTG chunkProvider) {
         if (this.biome.noWaterFeatures) {
             border = border * 2;
             if (border > 1f) border = 1;
             river = 1f - border * (1f - river);
-            return this.biome.getTerrain().generateNoise(simplex, cell, x, y, border, river);
+            return this.biome.getTerrain().generateNoise(simplex, cell, x, y, border, river, chunkProvider);
         }
         float lakeStrength = lakePressure(simplex, cell, x, y, border);
         double lakeFlattening = this.lakeFlattening(lakeStrength, this.biome.lakeWaterLevel, this.biome.lakeDepressionLevel);
@@ -268,11 +268,11 @@ public class RealisticBiomeGenerator {
         float riverFlattening = river * 1.25f - 0.25f;
         if (riverFlattening < 0) riverFlattening = 0;
         if (lakeFlattening < river) river = (float) lakeFlattening;
-        float terrainNoise = this.biome.getTerrain().generateNoise(simplex, cell, x, y, border, river);
+        float terrainNoise = this.biome.getTerrain().generateNoise(simplex, cell, x, y, border, river, chunkProvider);
         return this.erodedNoise(simplex, cell, x, y, river, border, terrainNoise, lakeFlattening);
     }
 
-    private float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell, int x, int y, float border) {
+    public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell, int x, int y, float border) {
         if (this.biome.noLakes) return 1f;
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();
         simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
@@ -293,7 +293,7 @@ public class RealisticBiomeGenerator {
         return results;
     }
 
-    private double lakeFlattening(double pressure, double bottomLevel, double topLevel) {
+    public double lakeFlattening(double pressure, double bottomLevel, double topLevel) {
         // this number indicates a multiplier to height
         if (pressure > topLevel) return 1;
         if (pressure < bottomLevel) return 0;

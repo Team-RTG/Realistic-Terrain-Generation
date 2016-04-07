@@ -15,6 +15,7 @@ import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.util.noise.SimplexCellularNoise;
 import teamrtg.rtg.util.noise.SimplexOctave;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
 
 import java.util.ArrayList;
@@ -36,13 +37,21 @@ public class BiomeProviderRTG extends BiomeProvider {
     private SimplexCellularNoise simplexCell;
     private float[] borderNoise;
     private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
+    private ChunkProviderRTG chunkProvider;
     private BiomeCache biomeCache;
 
     public BiomeProviderRTG(World par1World, WorldType worldType) {
 
         this();
         long seed = par1World.getSeed();
-        if (par1World.provider.getDimension() != 0) throw new RuntimeException();
+        try {
+            this.chunkProvider = (ChunkProviderRTG) par1World.getChunkProvider();
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+        if (par1World.provider.getDimension() != 0) {
+            throw new RuntimeException();
+        }
 
         simplex = new OpenSimplexNoise(seed);
         cell = new SimplexCellularNoise(seed);
@@ -75,10 +84,6 @@ public class BiomeProviderRTG extends BiomeProvider {
     public BiomeGenBase getBiomeGenAt(int par1, int par2) {
         BiomeGenBase result;
         result = this.biomeCache.getBiomeCacheBlock(par1, par2).getBiomeGenAt(par1, par2);
-
-        if (result == null) {
-            result = RealisticBiomeFaker.getFakeBiome(BiomeGenBase.getIdForBiome(result));
-        }
         return result;
     }
 
@@ -98,13 +103,7 @@ public class BiomeProviderRTG extends BiomeProvider {
 
         for (int i1 = 0; i1 < width * length; ++i1) {
             float f = 0;
-            try {
-                f = RealisticBiomeBase.getBiome(aint[i1]).getRainfall() / 65536.0F;
-            } catch (Exception e) {
-                if (RealisticBiomeBase.getBiome(aint[i1]) == null) {
-                    f = RealisticBiomeFaker.getFakeBiome(aint[i1]).getRainfall() / 65536.0F;
-                }
-            }
+            f = RealisticBiomeBase.getBiome(aint[i1]).getRainfall() / 65536.0F;
 
             if (f > 1.0F) {
                 f = 1.0F;
@@ -211,14 +210,7 @@ public class BiomeProviderRTG extends BiomeProvider {
             int[] aint = this.biomeIndexLayer.getInts(x, z, width, length);
 
             for (int i1 = 0; i1 < width * length; ++i1) {
-                try {
-                    listToReuse[i1] = RealisticBiomeBase.getBiome(aint[i1]);
-                } catch (Exception e) {
-                    listToReuse[i1] = RealisticBiomeFaker.getFakeBiome(aint[i1]);
-                }
-                if (listToReuse[i1] == null) {
-                    listToReuse[i1] = RealisticBiomeFaker.getFakeBiome(aint[i1]);
-                }
+                listToReuse[i1] = RealisticBiomeBase.getBiome(aint[i1]);
             }
 
             return listToReuse;
@@ -259,7 +251,7 @@ public class BiomeProviderRTG extends BiomeProvider {
             return 59f;
         }
 
-        return RealisticBiomeGenerator.forBiome(getBiomeDataAt(x, y)).rNoise(simplex, cell, x, y, 1f, river);
+        return RealisticBiomeGenerator.forBiome(getBiomeDataAt(x, y)).rNoise(simplex, cell, x, y, 1f, river, chunkProvider);
     }
 
     public float getRiverStrength(int x, int y) {

@@ -1,9 +1,9 @@
 package teamrtg.rtg.api.util;
 
 import net.minecraft.world.biome.BiomeGenBase;
+import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.api.util.debug.Logger;
 import teamrtg.rtg.util.BiomeUtils;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
 
 import static net.minecraft.world.biome.BiomeGenBase.getIdForBiome;
 
@@ -35,7 +35,7 @@ public class RealisticBiomePresenceTester {
                             RealisticBiomeBase rBiome = RealisticBiomeBase.getBiome(biomeId);
                             String rBiomeName = rBiome.config.biomeSlug;
                         } catch (Exception e) {
-                            Logger.warn("WARNING! RTG could not find a realistic version of %s (%d) from %s", biomeName, biomeId, biomeClass);
+                            Logger.info("RTG could not find a realistic version of %s (%d) from %s", biomeName, biomeId, biomeClass);
                         }
 
                         break;

@@ -35,8 +35,7 @@ public class RealisticBiomePatcher {
         } else {
 
             if (this.realisticBiome == null) throw new RuntimeException("Problem patching realistic biome.");
-
-            return RealisticBiomeFaker.getFakeBiome(patchBiomeId);
+            return null;
         }
     }
 

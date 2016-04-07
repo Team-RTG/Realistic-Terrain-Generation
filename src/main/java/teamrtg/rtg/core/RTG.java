@@ -14,6 +14,7 @@ import teamrtg.rtg.api.util.RealisticBiomePresenceTester;
 import teamrtg.rtg.client.DebugHandler;
 import teamrtg.rtg.event.EventManagerRTG;
 import teamrtg.rtg.world.WorldTypeRTG;
+import teamrtg.rtg.world.biome.fake.RealisticBiomeFaker;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ public class RTG {
     public static String configPath;
     public static WorldTypeRTG worldtype;
     public static EventManagerRTG eventMgr;
+    public static RealisticBiomeFaker biomeFaker;
 
     @SidedProxy(serverSide = ModInfo.PROXY_COMMON, clientSide = ModInfo.PROXY_CLIENT)
     public static CommonProxy proxy;
@@ -37,6 +39,7 @@ public class RTG {
 
         configPath = event.getModConfigurationDirectory() + "/RTG/";
         Mods.initAllBiomes();
+        RealisticBiomeFaker.initFakeBiomes();
         Mods.syncAllConfigs();
 
         eventMgr = new EventManagerRTG();

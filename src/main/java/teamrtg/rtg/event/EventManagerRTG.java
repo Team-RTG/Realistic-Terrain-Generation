@@ -77,64 +77,6 @@ public class EventManagerRTG {
     }
 
     @SubscribeEvent
-    public void onGenerateMinable(OreGenEvent.GenerateMinable event) {
-
-        switch (event.getType()) {
-
-            case COAL:
-
-                if (!Mods.RTG.config.GENERATE_ORE_COAL.get()) {
-                    event.setResult(Result.DENY);
-                }
-
-                break;
-
-            case IRON:
-
-                if (!Mods.RTG.config.GENERATE_ORE_IRON.get()) {
-                    event.setResult(Result.DENY);
-                }
-
-                break;
-
-            case GOLD:
-
-                if (!Mods.RTG.config.GENERATE_ORE_GOLD.get()) {
-                    event.setResult(Result.DENY);
-                }
-
-                break;
-
-            case DIAMOND:
-
-                if (!Mods.RTG.config.GENERATE_ORE_DIAMOND.get()) {
-                    event.setResult(Result.DENY);
-                }
-
-                break;
-
-            case REDSTONE:
-
-                if (!Mods.RTG.config.GENERATE_ORE_REDSTONE.get()) {
-                    event.setResult(Result.DENY);
-                }
-
-                break;
-
-            case LAPIS:
-
-                if (!Mods.RTG.config.GENERATE_ORE_LAPIS.get()) {
-                    event.setResult(Result.DENY);
-                }
-
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    @SubscribeEvent
     public void onBiomeGenInit(WorldTypeEvent.InitBiomeGens event) {
 
         // only handle RTG world type
@@ -161,6 +103,7 @@ public class EventManagerRTG {
 
         if (event.getWorld().provider.getDimension() == 0) {
             Logger.info("World Seed: %d", event.getWorld().getSeed());
+            Logger.info("Reloading configs");
             Mods.syncAllConfigs();
         }
     }

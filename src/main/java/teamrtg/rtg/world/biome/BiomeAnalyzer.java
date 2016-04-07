@@ -5,7 +5,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.util.BiomeUtils;
 import teamrtg.rtg.util.math.CircularSearchCreator;
-import teamrtg.rtg.util.math.MathUtils;
 
 import static net.minecraft.world.biome.BiomeGenBase.getBiome;
 
@@ -28,7 +27,6 @@ public class BiomeAnalyzer {
     private boolean[] landBiome;
     private int[] preferredBeach;
     private int[] searchPattern;
-    private RealisticBiomeBase[] savedJittered = new RealisticBiomeBase[256];
     private int sampleSize = 8;
     private int sampleArraySize = sampleSize * 2 + 5;
     private SmoothingSearchStatus beachSearch;
@@ -201,181 +199,50 @@ public class BiomeAnalyzer {
         oceanSearch = new SmoothingSearchStatus(this.oceanBiome);
     }
 
-    public void repair(int[] genLayerBiomes, RealisticBiomeBase[] jitteredBiomes, int[] biomeNeighborhood, int neighborhoodSize, float[] noise, float riverStrength) {
-        if (neighborhoodSize != sampleSize)
-            throw new RuntimeException("mismatch between chunk and analyzer neighborhood sizes");
-        // currently just stuffs the genLayer into the jitter;
-        boolean canBeRiver = riverStrength > 0.05;
-        for (int i = 0; i < 256; i++) {
-            // save what's there since the jitter keeps changing
-            savedJittered[i] = jitteredBiomes[i];
-            //if (savedJittered[i]== null) throw new RuntimeException();
-            if (noise[i] > 61.5) {
-                // replace
-                jitteredBiomes[i] = RealisticBiomeBase.getBiome(genLayerBiomes[MathUtils.XY_INVERTED[i]]);
-            } else {
-                // check for river
-                if (canBeRiver && !oceanBiome[genLayerBiomes[MathUtils.XY_INVERTED[i]]] && !swampBiome[genLayerBiomes[MathUtils.XY_INVERTED[i]]]) {
-                    // make river
-                    int riverBiomeID = RealisticBiomeBase.getIdForBiome(RealisticBiomeBase.getBiome(genLayerBiomes[MathUtils.XY_INVERTED[i]]).riverBiome);
-                    jitteredBiomes[i] = RealisticBiomeBase.getBiome(riverBiomeID);
-                } else {
-                    // replace
-                    jitteredBiomes[i] = RealisticBiomeBase.getBiome(genLayerBiomes[MathUtils.XY_INVERTED[i]]);
-                }
-            }
-
-        }
-
-        // put beaches on shores
-        beach.absent = false;
-        beach.notHunted = true;
-        for (int i = 0; i < 256; i++) {
-            if (beach.absent) break; //no point
-            if (noise[i] < beachBottom || noise[i] > beachTop) continue;// this block isn't beach level
-            if (swampBiome[RealisticBiomeBase.getIdForBiome(jitteredBiomes[i])])
-                continue;// swamps are acceptable at beach level
-            if (beach.notHunted) {
-                huntForBeaches(this.savedJittered);
-                if (!beach.absent) jitteredBiomes[i] = beach.biome;
-            } else {
-                //we already found it
-                jitteredBiomes[i] = beach.biome;
-            }
-        }
-
-        // put land higher up;
-        land.absent = false;
-        land.notHunted = true;
-        for (int i = 0; i < 256; i++) {
-            if (land.absent) break; //no point
-            if (noise[i] < beachTop) continue;// this block isn't above beach level
-            int biomeID = RealisticBiomeBase.getIdForBiome(jitteredBiomes[i]);
-            if (landBiome[biomeID]) continue;// already land
-            if (swampBiome[RealisticBiomeBase.getIdForBiome(jitteredBiomes[i])])
-                continue;// swamps are acceptable above water
-            if (land.notHunted) {
-                huntForLand(this.savedJittered);
-                if (!land.absent) {
-                    jitteredBiomes[i] = land.biome;
-                    //if (beachBiome[land.biome.biomeID]) throw new RuntimeException();
-                    //if (oceanBiome[land.biome.biomeID]) throw new RuntimeException();
-                }
-            } else {
-                //we already found it
-                jitteredBiomes[i] = land.biome;
-            }
-        }
-
-        // put ocean below sea level
-        ocean.absent = false;
-        ocean.notHunted = true;
-        for (int i = 0; i < 256; i++) {
-            if (ocean.absent) break; //no point
-            if (noise[i] > oceanTop) continue;// too hight
-            if (oceanBiome[RealisticBiomeBase.getIdForBiome(jitteredBiomes[i])]) continue;// obviously ocean is OK
-            if (swampBiome[RealisticBiomeBase.getIdForBiome(jitteredBiomes[i])]) continue;// swamps are acceptable
-            if (riverBiome[RealisticBiomeBase.getIdForBiome(jitteredBiomes[i])]) continue;// rivers stay rivers
-            if (ocean.notHunted) {
-                huntForOcean(this.savedJittered);
-                if (!ocean.absent) jitteredBiomes[i] = ocean.biome;
-            } else {
-                //we already found it
-                jitteredBiomes[i] = ocean.biome;
-            }
-        }
-    }
-
-    private void huntForBeaches(RealisticBiomeBase[] biomes) {
-        beach.notHunted = false;
-        // in case nothing found
-        beach.absent = true;
-        RealisticBiomeBase considered;
-        for (int i = 0; i < 256; i++) {
-            considered = biomes[searchPattern[i]];
-            if (beachBiome[RealisticBiomeBase.getIdForBiome(considered)]) {
-                beach.absent = false;
-                beach.biome = considered;
-                break;// we're done searching
-            }
-        }
-    }
-
-    private void huntForLand(RealisticBiomeBase[] biomes) {
-        land.notHunted = false;
-        // in case nothing found
-        land.absent = true;
-        RealisticBiomeBase considered;
-        for (int i = 0; i < 256; i++) {
-            considered = biomes[searchPattern[i]];
-            if (landBiome[RealisticBiomeBase.getIdForBiome(considered)]) {
-                land.absent = false;
-                land.biome = considered;
-                break;// we're done searching
-            }
-        }
-    }
-
-    private void huntForOcean(RealisticBiomeBase[] biomes) {
-        ocean.notHunted = false;
-        // in case nothing found
-        ocean.absent = true;
-        RealisticBiomeBase considered;
-        for (int i = 0; i < 256; i++) {
-            considered = biomes[searchPattern[i]];
-            if (oceanBiome[RealisticBiomeBase.getIdForBiome(considered)]) {
-                ocean.absent = false;
-                ocean.biome = considered;
-                break;// we're done searching
-            }
-        }
-    }
-
     public void newRepair(int[] genLayerBiomes, RealisticBiomeBase[] jitteredBiomes, int[] biomeNeighborhood, int neighborhoodSize, float[] noise, float riverStrength) {
         if (neighborhoodSize != sampleSize)
             throw new RuntimeException("mismatch between chunk and analyzer neighborhood sizes");
         // currently just stuffs the genLayer into the jitter;
         boolean canBeRiver = riverStrength > 0.05;
         for (int i = 0; i < 256; i++) {
-            // save what's there since the jitter keeps changing
-            savedJittered[i] = jitteredBiomes[i];
-            //if (savedJittered[i]== null) throw new RuntimeException();
             if (noise[i] > 61.5) {
                 // replace
-                jitteredBiomes[i] = RealisticBiomeBase.getBiome(genLayerBiomes[MathUtils.XY_INVERTED[i]]);
+                jitteredBiomes[i] = RealisticBiomeBase.getBiome(genLayerBiomes[i]);
             } else {
                 // check for river
-                if (canBeRiver && !oceanBiome[genLayerBiomes[MathUtils.XY_INVERTED[i]]] && !swampBiome[genLayerBiomes[MathUtils.XY_INVERTED[i]]]) {
+                if (canBeRiver && !oceanBiome[genLayerBiomes[i]] && !swampBiome[genLayerBiomes[i]]) {
                     // make river
-                    int riverBiomeID = RealisticBiomeBase.getIdForBiome(RealisticBiomeBase.getBiome(genLayerBiomes[MathUtils.XY_INVERTED[i]]).riverBiome);
+                    int riverBiomeID = RealisticBiomeBase.getIdForBiome(RealisticBiomeBase.getBiome(genLayerBiomes[i]).riverBiome);
                     jitteredBiomes[i] = RealisticBiomeBase.getBiome(riverBiomeID);
                 } else {
                     // replace
-                    jitteredBiomes[i] = RealisticBiomeBase.getBiome(genLayerBiomes[MathUtils.XY_INVERTED[i]]);
+                    jitteredBiomes[i] = RealisticBiomeBase.getBiome(genLayerBiomes[i]);
                 }
             }
-
         }
 
         // put beaches on shores
         beachSearch.notHunted = true;
         beachSearch.absent = false;
-        for (int i = 0; i < 256; i++) {
-            if (beachSearch.absent) break; //no point
-            if (noise[i] < beachBottom || noise[i] > beachTop) continue;// this block isn't beach level
-            if (swampBiome[RealisticBiomeBase.getIdForBiome(jitteredBiomes[i])])
-                continue;// swamps are acceptable at beach level
-            if (beachSearch.notHunted) {
-                beachSearch.hunt(biomeNeighborhood);
-                landSearch.hunt(biomeNeighborhood);
-            }
-            int foundBiome = beachSearch.biomes[i];
-            if (foundBiome != NO_BIOME) {
-                int nearestLandBiome = landSearch.biomes[i];
-                if (nearestLandBiome > -1) {
-                    foundBiome = preferredBeach[nearestLandBiome];
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 16; j++) {
+                if (beachSearch.absent) break; //no point
+                if (noise[i * 16 + j] < beachBottom || noise[i * 16 + j] > beachTop)
+                    continue;// this block isn't beach level
+                if (swampBiome[RealisticBiomeBase.getIdForBiome(jitteredBiomes[i * 16 + j])])
+                    continue;// swamps are acceptable at beach level
+                if (beachSearch.notHunted) {
+                    beachSearch.hunt(biomeNeighborhood);
+                    landSearch.hunt(biomeNeighborhood);
                 }
-                jitteredBiomes[i] = RealisticBiomeBase.getBiome(foundBiome);
+                int foundBiome = beachSearch.biomes[i * 16 + j];
+                if (foundBiome != NO_BIOME) {
+                    int nearestLandBiome = landSearch.biomes[i * 16 + j];
+                    if (nearestLandBiome > -1) {
+                        foundBiome = preferredBeach[nearestLandBiome];
+                    }
+                    jitteredBiomes[i * 16 + j] = RealisticBiomeBase.getBiome(foundBiome);
+                }
             }
         }
 

@@ -69,7 +69,7 @@ public class DecoFallenTree extends DecoBase
 				
 	            for (int i = 0; i < this.loops; i++)
 	            {
-	                if (isValidLogCondition(noise, rand))
+	                if (isValidLogCondition(noise, strength, rand))
 	                {
 	                    int x22 = chunkX + rand.nextInt(16) + 8;
 	                    int z22 = chunkY + rand.nextInt(16) + 8;
@@ -117,10 +117,11 @@ public class DecoFallenTree extends DecoBase
 	{
 		ALWAYS_GENERATE,
 		RANDOM_CHANCE,
-		NOISE_GREATER_AND_RANDOM_CHANCE;
+		NOISE_GREATER_AND_RANDOM_CHANCE,
+		X_DIVIDED_BY_STRENGTH;
 	}
 	
-	public boolean isValidLogCondition(float noise, Random rand)
+	public boolean isValidLogCondition(float noise, float strength, Random rand)
 	{
 		switch (this.logCondition)
 		{
@@ -136,8 +137,11 @@ public class DecoFallenTree extends DecoBase
 				
 				return (noise > this.logConditionNoise && rand.nextInt(this.logConditionChance) == 0);
 				
-			default:
+			case X_DIVIDED_BY_STRENGTH:
 				
+				return (rand.nextInt((int) (this.logConditionNoise / strength)) == 0);				
+				
+			default:
 				return false;
 		}
 	}

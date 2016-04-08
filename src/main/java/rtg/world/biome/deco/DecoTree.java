@@ -152,6 +152,24 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 	            		
+		            	case HL_WINDY_ISLAND:
+		            		
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+
+		                    	if (this.maxSize > this.minSize) {
+	                                WorldGenerator worldgenerator = new WorldGenTreeRTGSpruceSmall(this.minSize + rand.nextInt(this.maxSize - this.minSize));
+	                                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+	                                worldgenerator.generate(world, rand, intX, intY, intZ);
+		                    	}
+		                    	else if (this.maxSize == this.minSize) {
+	                                WorldGenerator worldgenerator = new WorldGenTreeRTGSpruceSmall(this.minSize);
+	                                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+	                                worldgenerator.generate(world, rand, intX, intY, intZ);
+		                    	}
+		            		}
+		            		
+		            		break;
+		            		
 		            	case MEGA_JUNGLE:
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
@@ -426,6 +444,7 @@ public class DecoTree extends DecoBase
 		BIG_PINES,
 		BIRCH_TREES_FOREST,
 		DESERT_RIVER,
+		HL_WINDY_ISLAND,
 		MANGROVE,
 		MEGA_JUNGLE,
 		MEGA_JUNGLE_MANGROVE,

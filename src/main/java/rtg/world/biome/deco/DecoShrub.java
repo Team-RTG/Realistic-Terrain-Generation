@@ -25,6 +25,7 @@ public class DecoShrub extends DecoBase
 	public float strengthFactor; // Higher = more/bigger shrubs.
 	public int maxY; // Height restriction.
 	public int chance; // Higher = more rare.
+	public int notEqualsZerochance;
 	public int loops;
 	
 	public DecoShrub()
@@ -41,6 +42,7 @@ public class DecoShrub extends DecoBase
 		this.strengthFactor = 3f; // Not sure why it was done like this, but... the higher the value, the more there will be.
 		this.maxY = 255; // No height limit by default.
 		this.chance = 1; // 100% chance of generating by default.
+		this.notEqualsZerochance = 1;
 		this.loops = 1;
 		
 		this.addDecoTypes(DecoType.SHRUB);
@@ -66,8 +68,17 @@ public class DecoShrub extends DecoBase
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 	                int intY = world.getHeightValue(intX, intZ);
 	                
-	                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-	                	(new WorldGenTreeRTGShrub(this.size, this.log, this.leaves)).generate(world, rand, intX, intY, intZ);
+	                if (this.notEqualsZerochance > 1) {
+	                	
+		                if (intY <= this.maxY && rand.nextInt(this.notEqualsZerochance) != 0) {
+		                	(new WorldGenTreeRTGShrub(this.size, this.log, this.leaves)).generate(world, rand, intX, intY, intZ);
+		                }
+	                }
+	                else {
+	                	
+		                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
+		                	(new WorldGenTreeRTGShrub(this.size, this.log, this.leaves)).generate(world, rand, intX, intY, intZ);
+		                }
 	                }
 	            }
 	        }

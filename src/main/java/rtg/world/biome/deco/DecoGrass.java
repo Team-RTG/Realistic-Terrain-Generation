@@ -24,6 +24,7 @@ public class DecoGrass extends DecoBase
 	public int maxY;
 	public int loops;
 	public int chance;
+	public int notEqualsZerochance;
 	public int meta;
 	
 	public DecoGrass()
@@ -38,6 +39,7 @@ public class DecoGrass extends DecoBase
 		this.strengthFactor = 0f; // Not sure why it was done like this, but... the higher the value, the more there will be.
 		this.loops = 1;
 		this.chance = 1;
+		this.notEqualsZerochance = 1;
 		this.meta = 1;
 		
 		this.addDecoTypes(DecoType.GRASS);
@@ -57,8 +59,17 @@ public class DecoGrass extends DecoBase
 	                int intY = rand.nextInt(this.maxY);
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 
-	                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-	                	(new WorldGenGrass(Blocks.tallgrass, this.meta)).generate(world, rand, intX, intY, intZ);
+	                if (this.notEqualsZerochance > 1) {
+	                	
+		                if (intY <= this.maxY && rand.nextInt(this.notEqualsZerochance) != 0) {
+		                	(new WorldGenGrass(Blocks.tallgrass, this.meta)).generate(world, rand, intX, intY, intZ);
+		                }
+	                }
+	                else {
+	                	
+		                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
+		                	(new WorldGenGrass(Blocks.tallgrass, this.meta)).generate(world, rand, intX, intY, intZ);
+		                }
 	                }
 	            }
 	        }

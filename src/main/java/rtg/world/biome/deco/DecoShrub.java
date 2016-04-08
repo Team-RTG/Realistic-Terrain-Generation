@@ -23,10 +23,13 @@ public class DecoShrub extends DecoBase
 	public int log; // Yes, this is an integer, not a block. Voooodooooo.
 	public int leaves; // Yes, this is an integer, not a block. Voooodooooo.
 	public float strengthFactor; // Higher = more/bigger shrubs.
+	public int minY; // Height restriction.
 	public int maxY; // Height restriction.
 	public int chance; // Higher = more rare.
 	public int notEqualsZerochance;
 	public int loops;
+	public int minSize;
+	public int maxSize;
 	
 	public DecoShrub()
 	{
@@ -40,10 +43,13 @@ public class DecoShrub extends DecoBase
 		this.log = -1; // Voodoo by default. (See WorldGenTreeRTGShrub if you dare.)
 		this.leaves = -1; // Voodoo by default. (See WorldGenTreeRTGShrub if you dare.)
 		this.strengthFactor = 3f; // Not sure why it was done like this, but... the higher the value, the more there will be.
+		this.minY = 1; // No height limit by default.
 		this.maxY = 255; // No height limit by default.
 		this.chance = 1; // 100% chance of generating by default.
 		this.notEqualsZerochance = 1;
 		this.loops = 1;
+		this.minSize = 0;
+		this.maxSize = 0;
 		
 		this.addDecoTypes(DecoType.SHRUB);
 	}
@@ -57,6 +63,11 @@ public class DecoShrub extends DecoBase
 	            
 				// Voodoo unless explicitly configured.
 				this.size = (this.size == -1) ? rand.nextInt(4) + 1 : this.size;
+				
+				if (this.minSize > 0 && this.maxSize > 0 && this.maxSize >= this.minSize) {
+					this.size = this.minSize + rand.nextInt(this.maxSize - this.minSize);
+				}
+				
 				this.log = (this.log == -1) ? 0 : this.log;
 				this.leaves = (this.leaves == -1) ? rand.nextInt(3) : this.leaves;
 				
@@ -70,13 +81,13 @@ public class DecoShrub extends DecoBase
 	                
 	                if (this.notEqualsZerochance > 1) {
 	                	
-		                if (intY <= this.maxY && rand.nextInt(this.notEqualsZerochance) != 0) {
+		                if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.notEqualsZerochance) != 0) {
 		                	(new WorldGenTreeRTGShrub(this.size, this.log, this.leaves)).generate(world, rand, intX, intY, intZ);
 		                }
 	                }
 	                else {
 	                	
-		                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
+		                if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.chance) == 0) {
 		                	(new WorldGenTreeRTGShrub(this.size, this.log, this.leaves)).generate(world, rand, intX, intY, intZ);
 		                }
 	                }

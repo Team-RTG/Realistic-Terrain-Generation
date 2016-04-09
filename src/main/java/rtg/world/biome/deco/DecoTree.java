@@ -141,6 +141,19 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
+		            	case BOP_LAND_OF_LAKES:
+		            		
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+
+		                        WorldGenerator worldgenerator =
+		                                rand.nextBoolean() ? new WorldGenTreeRTGBirch(4 + rand.nextInt(7), 8 + rand.nextInt(12))
+		                                : new WorldGenTreeRTGPineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
+		                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                            worldgenerator.generate(world, rand, intX, intY, intZ);
+		            		}
+		            		
+		            		break;
+		            		
 		            	case DESERT_RIVER:
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
@@ -443,6 +456,7 @@ public class DecoTree extends DecoBase
 	{
 		BIG_PINES,
 		BIRCH_TREES_FOREST,
+		BOP_LAND_OF_LAKES,
 		DESERT_RIVER,
 		HL_WINDY_ISLAND,
 		MANGROVE,

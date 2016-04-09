@@ -50,10 +50,10 @@ public class SurfaceMesa extends SurfaceBase {
 
                 if (depth > -1 && depth < 12) {
                     if (cliff) {
-                        primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                        primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                     } else {
                         if (depth > 4) {
-                            primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                            primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                         } else if (k > 77) {
                             if (rand.nextInt(5) == 0) {
                                 primer.setBlockState(x, k, y, Blocks.dirt.getDefaultState());
@@ -87,7 +87,7 @@ public class SurfaceMesa extends SurfaceBase {
                         }
                     }
                 } else if (k > 63) {
-                    primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                    primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                 }
             }
         }

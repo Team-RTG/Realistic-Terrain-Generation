@@ -36,51 +36,51 @@ public class SurfaceVanillaMesaPlateau extends SurfaceBase {
 
                 if (depth > -1 && depth < 12) {
                     if (cliff) {
-                        primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                        primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                     } else {
                         if (depth > 4) {
-                            primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                            primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                         } else if (k > 74 + grassRaise) {
                             if (rand.nextInt(5) == 0) {
-                                primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                                primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                             } else {
                                 if (depth == 0) {
-                                    primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                                    primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                                 } else {
-                                    primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                                    primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                                 }
                             }
                         } else if (k < 62) {
-                            primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                            primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                         } else if (k < 62 + grassRaise) {
                             if (depth == 0) {
-                                primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                                primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                             } else {
-                                primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                                primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                             }
                         } else if (k < 75 + grassRaise) {
                             if (depth == 0) {
                                 int r = (int) ((k - (62 + grassRaise)) / 2f);
                                 if (rand.nextInt(r + 1) == 0) {
-                                    primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                                    primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                                 } else if (rand.nextInt((int) (r / 2f) + 1) == 0) {
-                                    primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                                    primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                                 } else {
-                                    primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                                    primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                                 }
                             } else {
-                                primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                                primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                             }
                         } else {
                             if (depth == 0) {
-                                primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                                primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                             } else {
-                                primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                                primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                             }
                         }
                     }
                 } else if (k > 63) {
-                    primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                    primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                 }
             }
         }

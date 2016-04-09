@@ -18,7 +18,7 @@ public class SurfacePolar extends SurfaceBase {
     }
 
     @Override
-    public void paintSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+    public void paintSurface(ChunkPrimer primer, int i, int j, int x, int z, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
         boolean water = false;
         boolean riverPaint = false;
         boolean grass = false;
@@ -32,8 +32,8 @@ public class SurfacePolar extends SurfaceBase {
         }
 
         Block b;
-        for (int k = 255; k > -1; k--) {
-            b = primer.getBlockState(x, k, y).getBlock();
+        for (int y = 255; y > -1; y--) {
+            b = primer.getBlockState(x, y, z).getBlock();
             if (b == Blocks.air) {
                 depth = -1;
             } else if (b == Blocks.stone) {
@@ -41,24 +41,24 @@ public class SurfacePolar extends SurfaceBase {
 
                 if (riverPaint) {
                     if (grass && depth < 4) {
-                        primer.setBlockState(x, k, y, Blocks.dirt.getDefaultState());
+                        primer.setBlockState(x, y, z, Blocks.dirt.getDefaultState());
                     } else if (depth == 0) {
                         if (rand.nextInt(2) == 0) {
 
-                            primer.setBlockState(x, k, y, hcStone());
+                            primer.setBlockState(x, y, z, hcStone());
                         } else {
 
-                            primer.setBlockState(x, k, y, hcCobble());
+                            primer.setBlockState(x, y, z, hcCobble());
                         }
                     }
                 } else if (depth > -1 && depth < 9) {
-                    primer.setBlockState(x, k, y, Blocks.snow.getDefaultState());
-                    if (depth == 0 && k > 61 && k < 254) {
-                        SnowHeightCalculator.calc(x, y, k, primer, noise);
+                    primer.setBlockState(x, y, z, Blocks.snow.getDefaultState());
+                    if (depth == 0 && y > 61 && y < 254) {
+                        SnowHeightCalculator.calc(x, y, z, primer, noise);
                     }
                 }
             } else if (!water && b == Blocks.water) {
-                primer.setBlockState(x, k, y, Blocks.ice.getDefaultState());
+                primer.setBlockState(x, y, z, Blocks.ice.getDefaultState());
                 water = true;
             }
         }

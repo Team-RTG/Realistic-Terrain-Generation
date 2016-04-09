@@ -43,7 +43,7 @@ public class SurfaceVanillaSavanna extends SurfaceBase {
                 depth++;
 
                 if (cliff) {
-                    primer.setBlockState(x, k, y, CanyonColour.SAVANNA.getForHeight(i, k, j));
+                    primer.setBlockState(x, k, y, CanyonColour.SAVANNA.getAt(i, k, j));
                 } else {
                     if (depth == 0 && k > 61) {
                         if (simplex.noise2(i / width, j / width) > height) // > 0.27f, i / 12f

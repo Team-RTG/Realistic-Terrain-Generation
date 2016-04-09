@@ -36,10 +36,10 @@ public class SurfaceVanillaMesaPlateauFM extends SurfaceBase {
 
                 if (depth > -1 && depth < 12) {
                     if (cliff) {
-                        primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                        primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                     } else {
                         if (depth > 4) {
-                            primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                            primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                         } else if (k < 62) {
                             primer.setBlockState(x, k, y, Blocks.dirt.getDefaultState());
                         } else if (k < 62 + grassRaise) {
@@ -64,7 +64,7 @@ public class SurfaceVanillaMesaPlateauFM extends SurfaceBase {
                         }
                     }
                 } else if (k > 63) {
-                    primer.setBlockState(x, k, y, CanyonColour.MESA.getForHeight(i, k, j));
+                    primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                 }
             }
         }

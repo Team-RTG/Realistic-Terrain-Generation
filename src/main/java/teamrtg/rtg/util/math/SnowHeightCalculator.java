@@ -4,8 +4,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 public class SnowHeightCalculator {
-    //TODO: This is just wrong, but thats how its done in 1.7, so why change it?
-    public static void calc(int x, int z, int y, ChunkPrimer primer, float[] noise) {
+    public static void calc(int x, int y, int z, ChunkPrimer primer, float[] noise) {
         if (y < 254) {
             byte h = (byte) ((noise[x * 16 + z] - ((int) noise[x * 16 + z])) * 8);
 

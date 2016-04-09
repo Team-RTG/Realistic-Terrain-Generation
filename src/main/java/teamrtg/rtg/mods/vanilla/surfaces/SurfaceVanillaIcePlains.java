@@ -5,11 +5,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
+import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.util.math.CliffCalculator;
-import teamrtg.rtg.util.math.SnowHeightCalculator;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.world.biome.surface.SurfaceBase;
 
 import java.util.Random;
@@ -40,10 +39,6 @@ public class SurfaceVanillaIcePlains extends SurfaceBase {
                     }
                 } else if (depth > -1 && depth < 9) {
                     primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
-
-                    if (depth == 0 && k > 61 && k < 254) {
-                        SnowHeightCalculator.calc(x, y, k, primer, noise);
-                    }
                 }
             }
         }

@@ -2,7 +2,7 @@
 
 
 # Screenshots
-![](http://i.imgur.com/FcLR7Mq.gif)
+![](http://i.imgur.com/Aem87JR.gif)
 
 # Overview
 

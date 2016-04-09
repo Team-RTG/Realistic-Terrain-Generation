@@ -1,34 +1,31 @@
-/.gradle
-/run
-/out
-/.settings
-/build
-/eclipse
-/.classpath
-/.project
-/CREDITS-fml.txt
-/forge-1.7.10-10.13.4.1448-1.7.10-changelog.txt
-/LICENSE-fml.txt
-/MinecraftForge-Credits.txt
-/MinecraftForge-License.txt
-/README-fml.txt
-/bin
-/README.txt
+# eclipse
+*.launch
+.settings
+.metadata
+.classpath
+.project
+bin
+eclipse
+
+# idea
+*.ipr
+*.iws
+*.iml
+.idea
+out
+
+# gradle
+build
+.gradle
+run
+
+# other (srsly, do you need this stuff here? Add it to your IDE's ignore list! :)
 gradlew-setupDecompWorkspace.bat
 gradlew-clean.bat
 gradlew-eclipse.bat
 gradlew-build.bat
 libs/*.jar
-forge-1.7.10-10.13.4.1558-1.7.10-changelog.txt
 gradlew-jar.bat
 gradlew-cleanCache.bat
 gradlew-setupDecompWorkspace-refresh-deps.bat
-*.iml
-*.ipr
-*.iws
-<<<<<<< HEAD
-
-src/main/java/rtg/world/gen/terrain/FunctionalTerrainBase.java
-=======
-/gradlew-idea.bat
->>>>>>> pr/23
+gradlew-idea.bat

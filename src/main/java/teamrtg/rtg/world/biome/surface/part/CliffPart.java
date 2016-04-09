@@ -12,12 +12,13 @@ public class CliffPart extends SurfacePartBase {
 
     public final float minCliff;
 
-    public CliffPart(float minCliff) {
+    public CliffPart(RealisticBiomeBase biome, float minCliff) {
+        super(biome);
         this.minCliff = minCliff;
     }
 
     @Override
-    public boolean applies(RealisticBiomeBase biome, int x, int y, int z, int depth, float[] noise) {
+    public boolean applies(int x, int y, int z, int depth, float[] noise) {
         return CliffCalculator.calc(globalToLocal(x), globalToLocal(z), noise) > this.minCliff;
     }
 }

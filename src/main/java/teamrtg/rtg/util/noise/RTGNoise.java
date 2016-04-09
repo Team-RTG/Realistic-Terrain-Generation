@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class RTGNoise {
 
     private final OpenSimplexNoise simplex;
+    public static final RTGNoise EMPTY = new RTGNoise(0);
 
     private ArrayList<Octave> octaves;
     private float min;

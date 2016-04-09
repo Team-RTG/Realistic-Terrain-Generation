@@ -8,8 +8,12 @@ import teamrtg.rtg.api.biome.RealisticBiomeBase;
  */
 public class GenericPart extends SurfacePartBase {
 
+    public GenericPart(RealisticBiomeBase biome) {
+        super(biome);
+    }
+
     @Override
-    public boolean paintSurface(ChunkPrimer primer, RealisticBiomeBase biome, int x, int y, int z, int depth, float[] noise) {
+    public boolean paintSurface(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise) {
         if (depth == 0 && y > 61) {
             primer.setBlockState(x, y, y, biome.config.FILL_BLOCK.get());
         } else if (depth < 4) {

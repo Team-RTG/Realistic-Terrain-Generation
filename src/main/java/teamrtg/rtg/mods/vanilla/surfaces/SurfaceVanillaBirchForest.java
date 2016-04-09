@@ -39,17 +39,17 @@ public class SurfaceVanillaBirchForest extends SurfaceBase {
     }
 
     @Override
-    public void paintSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
+    public void paintSurface(ChunkPrimer primer, int i, int j, int x, int z, int depth, World world, Random rand,
                              OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
-        float c = CliffCalculator.calc(x, y, noise);
+        float c = CliffCalculator.calc(x, z, noise);
         int cliff = 0;
         boolean gravel = false;
         boolean m = false;
 
         Block b;
         for (int k = 255; k > -1; k--) {
-            b = primer.getBlockState(x, k, y).getBlock();
+            b = primer.getBlockState(x, k, z).getBlock();
             if (b == Blocks.air) {
                 depth = -1;
             } else if (b == Blocks.stone) {
@@ -73,39 +73,39 @@ public class SurfaceVanillaBirchForest extends SurfaceBase {
                     if (cliff == 1) {
                         if (rand.nextInt(3) == 0) {
 
-                            primer.setBlockState(x, k, y, hcCobble());
+                            primer.setBlockState(x, k, z, hcCobble());
                         } else {
 
-                            primer.setBlockState(x, k, y, hcStone());
+                            primer.setBlockState(x, k, z, hcStone());
                         }
                     } else if (cliff == 2) {
-                        primer.setBlockState(x, k, y, getShadowStoneBlock());
+                        primer.setBlockState(x, k, z, getShadowStoneBlock());
                     } else if (k < 63) {
                         if (beach) {
-                            primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
+                            primer.setBlockState(x, k, z, biome.config.BEACH_BLOCK.get());
                             gravel = true;
                         } else if (k < 62) {
-                            primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
+                            primer.setBlockState(x, k, z, biome.config.FILL_BLOCK.get());
                         } else {
-                            primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
+                            primer.setBlockState(x, k, z, biome.config.TOP_BLOCK.get());
                         }
                     } else if (simplex.noise2(i / 12f, j / 12f) > mixHeight) {
-                        primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get());
+                        primer.setBlockState(x, k, z, biome.config.MIX_BLOCK.get());
                         m = true;
                     } else {
-                        primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
+                        primer.setBlockState(x, k, z, biome.config.TOP_BLOCK.get());
                     }
                 } else if (depth < 6) {
                     if (cliff == 1) {
-                        primer.setBlockState(x, k, y, hcStone());
+                        primer.setBlockState(x, k, z, hcStone());
                     } else if (cliff == 2) {
-                        primer.setBlockState(x, k, y, getShadowStoneBlock());
+                        primer.setBlockState(x, k, z, getShadowStoneBlock());
                     } else if (gravel) {
-                        primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
+                        primer.setBlockState(x, k, z, biome.config.BEACH_BLOCK.get());
                     } else if (m) {
-                        primer.setBlockState(x, k, y, biome.config.MIX_BLOCK.get());
+                        primer.setBlockState(x, k, z, biome.config.MIX_BLOCK.get());
                     } else {
-                        primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
+                        primer.setBlockState(x, k, z, biome.config.FILL_BLOCK.get());
                     }
                 }
             }

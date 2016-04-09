@@ -4,21 +4,20 @@ import highlands.api.HighlandsBiomes;
 
 import java.util.Random;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.RTGBiomeProvider;
-import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.WorldGenVolcano;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceRiverOasis;
-import rtg.world.gen.surface.biomesoplenty.SurfaceBOPVolcano;
-import rtg.world.gen.terrain.highlands.TerrainHLVolcanoIsland;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.RTGBiomeProvider;
+import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
+import rtg.world.gen.feature.WorldGenVolcano;
+import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.gen.surface.SurfaceRiverOasis;
+import rtg.world.gen.surface.highlands.SurfaceHLVolcanoIsland;
+import rtg.world.gen.terrain.highlands.TerrainHLVolcanoIsland;
 
 public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
 {
@@ -39,7 +38,7 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
         super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLVolcanoIsland(),
-            new SurfaceBOPVolcano(config, 
+            new SurfaceHLVolcanoIsland(config, 
                 bopTopBlock, //Block top 
                 bopTopByte, //byte topByte
                 bopFillBlock, //Block filler, 
@@ -57,37 +56,17 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
         
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 1;
+
+        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
+        decoGrassDoubleTallgrass.doubleGrassChance = 3;
+        decoGrassDoubleTallgrass.loops = 15;
+        decoGrassDoubleTallgrass.maxY = 128;
+        this.addDeco(decoGrassDoubleTallgrass);
     }
     @Override
     public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
         // no rivers or lakes
         return terrain.generateNoise(simplex, cell, x, y, border, river);
-    }
-
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
-        
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-    
-        for (int l14 = 0; l14 < 15; l14++)
-        {
-            int l19 = chunkX + rand.nextInt(16) + 8;
-            int k22 = rand.nextInt(128);
-            int j24 = chunkY + rand.nextInt(16) + 8;
-            
-            if (rand.nextInt(3) == 0)
-            {
-                (new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, l19, k22, j24);
-            }
-            else
-            {
-                (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
-            }
-        }
     }
     
     @Override

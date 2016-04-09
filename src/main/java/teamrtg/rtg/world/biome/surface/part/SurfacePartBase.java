@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author topisani
  */
 public abstract class SurfacePartBase {
-    public ArrayList<SurfacePartBase> subparts;
+    protected ArrayList<SurfacePartBase> subparts;
     protected final RealisticBiomeBase biome;
 
     public SurfacePartBase(RealisticBiomeBase biome) {
@@ -28,12 +28,12 @@ public abstract class SurfacePartBase {
      * @param noise
      * @return
      */
-    public final boolean paintWithSubparts(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise) {
-        if (this.applies(x, y, z, depth, noise)) {
+    public final boolean paintWithSubparts(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise, float river) {
+        if (this.applies(x, y, z, depth, noise, river)) {
             for (SurfacePartBase part : subparts) {
-                if (part.paintWithSubparts(primer, x, y, z, depth, noise)) return true;
+                if (part.paintWithSubparts(primer, x, y, z, depth, noise, river)) return true;
             }
-            return this.paintSurface(primer, x, y, z, depth, noise);
+            return this.paintSurface(primer, x, y, z, depth, noise, river);
         }
         return false;
     }
@@ -44,7 +44,7 @@ public abstract class SurfacePartBase {
      * @return true if this surface part has placed a block and every other part should be skipped for these coordinates
      * returns false by default, assuming this hasnt changed the block.
      */
-    public boolean paintSurface(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise) {
+    protected boolean paintSurface(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise, float river) {
         return false;
     }
 
@@ -52,7 +52,12 @@ public abstract class SurfacePartBase {
      * Does this surface part and its subparts even apply to these coordinates?
      * Defaults to true
      */
-    public boolean applies(int x, int y, int z, int depth, float[] noise) {
+    public boolean applies(int x, int y, int z, int depth, float[] noise, float river) {
         return true;
+    }
+
+    public SurfacePartBase addSubPart(SurfacePartBase part) {
+        this.subparts.add(part);
+        return this;
     }
 }

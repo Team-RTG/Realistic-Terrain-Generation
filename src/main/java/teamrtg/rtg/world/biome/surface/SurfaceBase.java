@@ -20,6 +20,9 @@ public class SurfaceBase {
         this.biome = biome;
     }
 
+    public void paintSurface(ChunkPrimer primer, int i, int j, int x, int z, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, float border, BiomeGenBase[] base) {
+    }
+
     public void paintSurface(ChunkPrimer primer, int i, int j, int x, int z, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
     }
 

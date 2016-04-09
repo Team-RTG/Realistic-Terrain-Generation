@@ -19,7 +19,7 @@ public class CanyonColourPart extends SurfacePartBase {
     }
 
     @Override
-    public boolean paintSurface(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise) {
+    public boolean paintSurface(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise, float river) {
         primer.setBlockState(globalToLocal(x), y, globalToLocal(z), colour.getAt(x, y, z));
         return true;
     }

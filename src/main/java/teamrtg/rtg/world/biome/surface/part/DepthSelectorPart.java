@@ -32,7 +32,7 @@ public class DepthSelectorPart extends SurfacePartBase {
     }
 
     @Override
-    public boolean applies(int x, int y, int z, int depth, float[] noise) {
+    public boolean applies(int x, int y, int z, int depth, float[] noise, float river) {
         return depth >= (min + minNoise.getAt(x, y, z)) && depth <= (max + maxNoise.getAt(x, y, z));
     }
 }

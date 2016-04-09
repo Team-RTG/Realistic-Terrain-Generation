@@ -29,7 +29,7 @@ public class HeightSelectorPart extends SurfacePartBase {
     }
 
     @Override
-    public boolean applies(int x, int y, int z, int depth, float[] noise) {
+    public boolean applies(int x, int y, int z, int depth, float[] noise, float river) {
         return y >= (min + minNoise.getAt(x, y, z)) && y <= (max + maxNoise.getAt(x, y, z));
     }
 }

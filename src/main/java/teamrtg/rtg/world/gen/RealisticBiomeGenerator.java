@@ -1,5 +1,6 @@
 package teamrtg.rtg.world.gen;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -322,11 +323,22 @@ public class RealisticBiomeGenerator {
         }
     }
 
-    public void paintSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+    public void paintSurface(ChunkPrimer primer, int i, int j, int x, int z, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
         if (Mods.RTG.config.ENABLE_RTG_BIOME_DECORATIONS.get() && this.biome.config.USE_RTG_SURFACES.get()) {
-            this.biome.paintSurface(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+            if (this.biome.useNewSurfaceSystem) {
+                for (int y = 255; y > -1; y--) {
+                    Block b = primer.getBlockState(x, y, z).getBlock();
+                    if (b == Blocks.air) {
+                        depth = -1;
+                    } else if (b == Blocks.stone) {
+                        depth++;
+                        this.biome.surfacePart.paintWithSubparts(primer, i, y, j, depth, noise, river);
+                    }
+                }
+            }
+            this.biome.paintSurface(primer, i, j, x, z, depth, world, rand, simplex, cell, noise, river, base);
         } else {
-            this.surfaceGeneric.paintSurface(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+            this.surfaceGeneric.paintSurface(primer, i, j, x, z, depth, world, rand, simplex, cell, noise, river, base);
         }
     }
 

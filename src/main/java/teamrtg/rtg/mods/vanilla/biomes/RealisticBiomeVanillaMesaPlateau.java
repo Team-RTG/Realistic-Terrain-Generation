@@ -2,18 +2,14 @@ package teamrtg.rtg.mods.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.util.math.CanyonColour;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.gen.deco.DecoCactus;
-import teamrtg.rtg.world.gen.deco.DecoDeadBush;
-import teamrtg.rtg.world.gen.deco.DecoReed;
-import teamrtg.rtg.world.gen.deco.DecoShrub;
-import teamrtg.rtg.world.gen.deco.DecoTree;
+import teamrtg.rtg.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.deco.*;
 import teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaMesaPlateau;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase {
 
@@ -41,8 +37,8 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMesaPlateau(this, 0);
+    protected void initNewSurfaces() {
+        this.surfacePart.addSubPart(new BlockPart(this, CanyonColour.MESA));
     }
 
     @Override

@@ -18,7 +18,7 @@ public class CliffPart extends SurfacePartBase {
     }
 
     @Override
-    public boolean applies(int x, int y, int z, int depth, float[] noise) {
+    public boolean applies(int x, int y, int z, int depth, float[] noise, float river) {
         return CliffCalculator.calc(globalToLocal(x), globalToLocal(z), noise) > this.minCliff;
     }
 }

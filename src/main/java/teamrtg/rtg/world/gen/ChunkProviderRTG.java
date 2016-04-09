@@ -307,7 +307,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
                     river = -bprv.getRiverStrength(cx * 16 + i, cz * 16 + j);
                     depth = -1;
 
-                    biome.paintSurface(primer, cx * 16 + i, cz * 16 + j, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
+                    RealisticBiomeGenerator.forBiome(biome).paintSurface(primer, cx * 16 + i, cz * 16 + j, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
 
                     int rough;
                     int flatBedrockLayers = Mods.RTG.config.FLAT_BEDROCK_LAYERS.get();

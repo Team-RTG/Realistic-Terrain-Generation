@@ -7,8 +7,7 @@ import rtg.world.gen.surface.biomesoplenty.SurfaceBOPVolcano;
 public class SurfaceHLVolcanoIsland extends SurfaceBOPVolcano
 {
     public SurfaceHLVolcanoIsland(BiomeConfig config, Block top, byte topByte, Block filler, byte fillerByte, Block mixTop, byte mixTopByte, Block mixFiller,
-        byte mixFillerByte, Block cliff1, byte cliff1Byte, Block cliff2, byte cliff2Byte, float mixWidth, float mixHeight,
-        float smallWidth, float smallStrength)
+            byte mixFillerByte, float mixWidth, float mixHeight, float smallWidth, float smallStrength)
     {
     
         super(config, top, topByte, filler, fillerByte, mixTop, mixTopByte, mixFiller, mixFillerByte, mixWidth, mixHeight, smallWidth, smallStrength);

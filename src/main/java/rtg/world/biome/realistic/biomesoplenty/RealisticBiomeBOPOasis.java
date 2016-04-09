@@ -1,21 +1,17 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOasis;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenLog;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPOasis;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPOasis;
 import biomesoplenty.api.content.BOPCBiomes;
 import biomesoplenty.api.content.BOPCBlocks;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase
 {	
@@ -44,39 +40,23 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
+        
+		DecoFallenTree decoFallenTree = new DecoFallenTree();
+		decoFallenTree.distribution.noiseDivisor = 80f;
+		decoFallenTree.distribution.noiseFactor = 60f;
+		decoFallenTree.distribution.noiseAddend = -15f;
+		decoFallenTree.logCondition = LogCondition.RANDOM_CHANCE;
+		decoFallenTree.logConditionChance = 16;
+		decoFallenTree.maxY = 100;
+		decoFallenTree.logBlock = BOPCBlocks.logs2;
+		decoFallenTree.logMeta = (byte)3;
+		decoFallenTree.leavesBlock = Blocks.leaves;
+		decoFallenTree.leavesMeta = (byte)-1;
+		decoFallenTree.minSize = 3;
+		decoFallenTree.maxSize = 5;
+		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPOasis.decorationLogsId));
 	}
-	
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
-        
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-    
-        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-        
-        float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
-
-        if (this.config.getPropertyById(BiomeConfigBOPOasis.decorationLogsId).valueBoolean) {
-        
-            if (rand.nextInt(16) == 0)
-            {
-                int x22 = chunkX + rand.nextInt(16) + 8;
-                int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
-                
-                Block log;
-                byte logMeta;
-                int intLogLength;
-    
-                log = BOPCBlocks.logs2;
-                logMeta = (byte)3;
-                intLogLength = 3 + rand.nextInt(3);
-    
-                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, intLogLength)).generate(world, rand, x22, y22, z22);            
-            }
-        }
-    }
 }

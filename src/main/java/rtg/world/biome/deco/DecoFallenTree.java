@@ -33,6 +33,9 @@ public class DecoFallenTree extends DecoBase
 	public byte leavesMeta;
 	public int minSize; // Min log height (only used with certain log presets)
 	public int maxSize; // Max log height (only used with certain log presets)
+	public Block[] randomLogBlocks;
+	public byte[] randomLogMetas;
+	protected boolean useRandomLogs;
 	
 	public DecoFallenTree()
 	{
@@ -54,6 +57,9 @@ public class DecoFallenTree extends DecoBase
 		this.leavesMeta = (byte)-1;
 		this.minSize = 2;
 		this.maxSize = 4;
+		this.randomLogBlocks = new Block[]{};
+		this.randomLogMetas = new byte[]{};
+		this.useRandomLogs = (this.randomLogBlocks.length > 0 && this.randomLogBlocks.length == this.randomLogMetas.length);
 		
 		this.addDecoTypes(DecoType.FALLEN_TREE);
 	}
@@ -66,7 +72,7 @@ public class DecoFallenTree extends DecoBase
 			if (TerrainGen.decorate(world, rand, chunkX, chunkY, TREE)) {
 				
 				float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkY / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
-				
+
 	            for (int i = 0; i < this.loops; i++)
 	            {
 	                if (isValidLogCondition(noise, strength, rand))
@@ -77,6 +83,13 @@ public class DecoFallenTree extends DecoBase
 	                    
 	                    if (y22 <= this.maxY) {
 	                    	
+	        				//Do we want to choose a random log?
+	        				if (this.useRandomLogs) {
+	        					
+	        					this.logBlock = this.randomLogBlocks[rand.nextInt(this.randomLogBlocks.length)];
+	        					this.logMeta = this.randomLogMetas[rand.nextInt(this.randomLogMetas.length)];
+	        				}
+	        				
 	                    	if (this.maxSize > this.minSize) {
 	                    		(new WorldGenLog(this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta, this.minSize + rand.nextInt(this.maxSize - this.minSize))).generate(world, rand, x22, y22, z22);
 	                    	}

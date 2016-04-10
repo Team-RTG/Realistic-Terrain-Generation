@@ -91,7 +91,7 @@ public class TerrainBase
         float m = simplex.noise2(x / 150f, y / 150f) ;
         m = blendedHillHeight(m,0.2f) ;
 
-        float sm = simplex.noise2(x / 55, y / 55);// there are artifacts if this is close to a multiple of 16
+        float sm = simplex.octave(2).noise2(x / 55, y / 55);// there are artifacts if this is close to a multiple of 16
         sm = blendedHillHeight(sm,0.2f);
         //sm = sm*0.8f;
         sm *=sm*m;

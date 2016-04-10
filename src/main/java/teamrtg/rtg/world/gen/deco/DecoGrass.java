@@ -53,7 +53,7 @@ public class DecoGrass extends DecoBase {
                     int intZ = chunkY + rand.nextInt(16) + 8;
 
                     if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-                        (new WorldGenGrass(Blocks.tallgrass, this.meta)).generate(world, rand, new BlockPos(intX, intY, intZ));
+                        (new WorldGenGrass(Blocks.TALLGRASS, this.meta)).generate(world, rand, new BlockPos(intX, intY, intZ));
                     }
                 }
             }

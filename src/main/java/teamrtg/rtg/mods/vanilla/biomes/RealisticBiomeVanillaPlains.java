@@ -13,8 +13,8 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaPlains() {
 
         super(
-                Biomes.plains,
-                Biomes.river
+                Biomes.PLAINS,
+                Biomes.RIVER
         );
     }
 

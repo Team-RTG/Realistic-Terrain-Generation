@@ -19,14 +19,14 @@ import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
 import java.util.Random;
 
 public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
-    public static BiomeGenBase standardBiome = Biomes.mesa;
+    public static BiomeGenBase standardBiome = Biomes.MESA;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaMesaBryce() {
 
         super(
                 mutationBiome,
-                Biomes.river
+                Biomes.RIVER
         );
     }
 
@@ -58,7 +58,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     @Override
     protected void initDecos() {
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.cobblestone;
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE;
         decoBoulder.maxY = 83;
         this.addDeco(decoBoulder);
 
@@ -105,7 +105,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
         this.addDeco(decoDeadBush);
 
         DecoCactus decoCactus = new DecoCactus();
-        decoCactus.soil = Blocks.sand.getStateFromMeta(1);
+        decoCactus.soil = Blocks.SAND.getStateFromMeta(1);
         decoCactus.loops = 18;
         decoCactus.maxY = 100;
         this.addDeco(decoCactus);

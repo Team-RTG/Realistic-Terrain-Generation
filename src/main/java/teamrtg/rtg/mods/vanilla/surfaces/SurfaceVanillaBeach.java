@@ -27,9 +27,9 @@ public class SurfaceVanillaBeach extends SurfaceBase {
 
         for (int k = 255; k > -1; k--) {
             Block b = primer.getBlockState(x, k, y).getBlock();
-            if (b == Blocks.air) {
+            if (b == Blocks.AIR) {
                 depth = -1;
-            } else if (b == Blocks.stone) {
+            } else if (b == Blocks.STONE) {
                 depth++;
 
                 if (cliff) {
@@ -46,9 +46,9 @@ public class SurfaceVanillaBeach extends SurfaceBase {
                         }
                     } else {
                         if (k > 56 && k < 68) { // one lower for under sand and 4 deeper
-                            primer.setBlockState(x, k, y, Blocks.sandstone.getDefaultState());
+                            primer.setBlockState(x, k, y, Blocks.SANDSTONE.getDefaultState());
                         } else {
-                            primer.setBlockState(x, k, y, Blocks.stone.getDefaultState());
+                            primer.setBlockState(x, k, y, Blocks.STONE.getDefaultState());
                         }
                     }
                 }

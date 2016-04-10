@@ -20,14 +20,14 @@ import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaSavannaM;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
-    public static BiomeGenBase standardBiome = Biomes.savanna;
+    public static BiomeGenBase standardBiome = Biomes.SAVANNA;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaSavannaM() {
 
         super(
                 mutationBiome,
-                Biomes.river
+                Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -58,9 +58,9 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 24;
         decoFallenTree.maxY = 120;
-        decoFallenTree.logBlock = Blocks.log2;
+        decoFallenTree.logBlock = Blocks.LOG2;
         decoFallenTree.logMeta = (byte) 0;
-        decoFallenTree.leavesBlock = Blocks.leaves2;
+        decoFallenTree.leavesBlock = Blocks.LEAVES2;
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
@@ -103,7 +103,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
         this.addDeco(savannaTrees2);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.cobblestone;
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE;
         decoBoulder.chance = 24;
         decoBoulder.maxY = 95;
         this.addDeco(decoBoulder);

@@ -11,7 +11,8 @@ public class GenLayerNoRivers extends GenLayerRiverMix {
 
     public GenLayerNoRivers(long par1, GenLayer par3GenLayer) {
         super(par1, par3GenLayer, par3GenLayer);
-        super.parent = par3GenLayer;
+// This is now set private, and there is no access to it. Is it important?
+//        super.parent = par3GenLayer;
     }
 
     @Override

@@ -34,19 +34,19 @@ public class SurfaceVanillaDesert extends SurfaceBase {
         Block b;
         for (int k = 255; k > -1; k--) {
             b = primer.getBlockState(x, k, y).getBlock();
-            if (b == Blocks.air) {
+            if (b == Blocks.AIR) {
                 depth = -1;
-            } else if (b == Blocks.stone) {
+            } else if (b == Blocks.STONE) {
                 depth++;
 
                 if (riverPaint) {
                     if (grass && depth < 4) {
-                        primer.setBlockState(x, k, y, Blocks.grass.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.GRASS.getDefaultState());
                     } else if (depth == 0) {
-                        primer.setBlockState(x, k, y, rand.nextInt(2) == 0 ? Blocks.sand.getDefaultState() : Blocks.sandstone.getDefaultState());
+                        primer.setBlockState(x, k, y, rand.nextInt(2) == 0 ? Blocks.SAND.getDefaultState() : Blocks.SANDSTONE.getDefaultState());
                     }
                 } else if (depth > -1 && depth < 9) {
-                    primer.setBlockState(x, k, y, Blocks.sand.getDefaultState());
+                    primer.setBlockState(x, k, y, Blocks.SAND.getDefaultState());
                     if (depth == 0 && k > 61 && k < 254) ;
                 }
             }

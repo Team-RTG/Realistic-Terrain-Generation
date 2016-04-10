@@ -70,7 +70,7 @@ public class BiomeAnalyzer {
                 oceanBiome[index] = true;
             }
         }
-        oceanBiome[RealisticBiomeBase.getIdForBiome(Biomes.deepOcean)] = true;// not getting set?
+        oceanBiome[RealisticBiomeBase.getIdForBiome(Biomes.DEEP_OCEAN)] = true;// not getting set?
     }
 
     private void determineSwampBiomes() {
@@ -126,7 +126,7 @@ public class BiomeAnalyzer {
             if (BiomeGenBase.getBiome(index).getBiomeName().toLowerCase().equals("shield")) {
                 swampBiome[index] = true;
             }
-            if (RealisticBiomeBase.getIdForBiome(getBiome(index)) == RealisticBiomeBase.getIdForBiome(Biomes.frozenRiver)) {
+            if (RealisticBiomeBase.getIdForBiome(getBiome(index)) == RealisticBiomeBase.getIdForBiome(Biomes.FROZEN_RIVER)) {
                 swampBiome[index] = true;
             }
         }
@@ -169,15 +169,15 @@ public class BiomeAnalyzer {
             if (BiomeGenBase.getBiome(index) == null) continue;
             if (BiomeGenBase.getBiome(index).getBiomeName() == null) continue;
             if (BiomeGenBase.getBiome(index).getTemperature() <= 0.05f) {
-                preferredBeach[index] = RealisticBiomeBase.getIdForBiome(Biomes.coldBeach);
+                preferredBeach[index] = RealisticBiomeBase.getIdForBiome(Biomes.COLD_BEACH);
                 continue;
             } // implied else;
             // this code from Climate Control and is still crude
             float height = BiomeGenBase.getBiome(index).getBaseHeight() + BiomeGenBase.getBiome(index).getHeightVariation() * 2;
             if ((height > (1.0f + 0.5))) {
-                preferredBeach[index] = RealisticBiomeBase.getIdForBiome(Biomes.stoneBeach);
+                preferredBeach[index] = RealisticBiomeBase.getIdForBiome(Biomes.STONE_BEACH);
             } else {
-                preferredBeach[index] = RealisticBiomeBase.getIdForBiome(Biomes.beach);
+                preferredBeach[index] = RealisticBiomeBase.getIdForBiome(Biomes.BEACH);
             }
 
         }

@@ -20,11 +20,11 @@ public class WorldGenTreeACDarkwood extends WorldGenerator {
         this(start, s, 0, 0);
     }
 
-    public WorldGenTreeACDarkwood(int start, int s, int log, int leaves) {
+    public WorldGenTreeACDarkwood(int start, int s, int LOG, int LEAVES) {
         startHeight = start;
         treeSize = s;
-        metadataLog = log;
-        metadataLeaves = leaves;
+        metadataLog = LOG;
+        metadataLeaves = LEAVES;
     }
 
     public boolean generate(World world, Random rand, BlockPos pos) {
@@ -144,7 +144,7 @@ public class WorldGenTreeACDarkwood extends WorldGenerator {
 
 // I think I broke this -srs_bsns
         Block b = world.getBlockState(new BlockPos(x, y, z)).getBlock();
-        if (b.getMaterial(b.getDefaultState()) == Material.air) {
+        if (b.getMaterial(b.getDefaultState()) == Material.AIR) {
             world.setBlockState(new BlockPos(x, y, z), ACBlocks.darklands_oak_leaves.getDefaultState(), metadataLeaves);
         }
     }

@@ -59,28 +59,28 @@ public class DecoGrassDoubleTallgrass extends DecoBase {
 
                             if (rand.nextInt(this.doubleGrassChance) == 0) {
 
-                                (new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, intX, intY, intZ);
+                                (new WorldGenGrass(Blocks.DOUBLE_PLANT, 2)).generate(world, rand, intX, intY, intZ);
                             } else {
 
-                                (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, intX, intY, intZ);
+                                (new WorldGenGrass(Blocks.TALLGRASS, 1)).generate(world, rand, intX, intY, intZ);
                             }
                         } else if (this.grassChance > 0) {
 
                             if (rand.nextInt(this.grassChance) == 0) {
 
-                                (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, intX, intY, intZ);
+                                (new WorldGenGrass(Blocks.TALLGRASS, 1)).generate(world, rand, intX, intY, intZ);
                             } else {
 
-                                (new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, intX, intY, intZ);
+                                (new WorldGenGrass(Blocks.DOUBLE_PLANT, 2)).generate(world, rand, intX, intY, intZ);
                             }
                         } else {
 
                             if (rand.nextBoolean()) {
 
-                                (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, intX, intY, intZ);
+                                (new WorldGenGrass(Blocks.TALLGRASS, 1)).generate(world, rand, intX, intY, intZ);
                             } else {
 
-                                (new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, intX, intY, intZ);
+                                (new WorldGenGrass(Blocks.DOUBLE_PLANT, 2)).generate(world, rand, intX, intY, intZ);
                             }
                         }
                     }

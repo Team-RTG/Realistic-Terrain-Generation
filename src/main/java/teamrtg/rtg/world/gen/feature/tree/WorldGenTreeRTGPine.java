@@ -52,7 +52,7 @@ public class WorldGenTreeRTGPine extends WorldGenerator {
                         if (l1 >= 0 && l1 < 256) {
                             Block block = p_76484_1_.getBlockState(new BlockPos(i2, l1, j2)).getBlock();
 
-                            if (!block.isAir(p_76484_1_.getBlockState(new BlockPos(i2, l1, j2)), p_76484_1_, new BlockPos(i2, l1, j2)) && !block.isLeaves(p_76484_1_.getBlockState(new BlockPos(i2, l1, j2)), p_76484_1_, new BlockPos(i2, l1, j2)) && block != snow_layer) {
+                            if (!block.isAir(p_76484_1_.getBlockState(new BlockPos(i2, l1, j2)), p_76484_1_, new BlockPos(i2, l1, j2)) && !block.isLeaves(p_76484_1_.getBlockState(new BlockPos(i2, l1, j2)), p_76484_1_, new BlockPos(i2, l1, j2)) && block != SNOW_LAYER) {
                                 flag = false;
                             }
                         } else {
@@ -67,7 +67,7 @@ public class WorldGenTreeRTGPine extends WorldGenerator {
             } else {
                 Block block1 = p_76484_1_.getBlockState(new BlockPos(p_76484_3_, p_76484_4_ - 1, p_76484_5_)).getBlock();
 
-                boolean isSoil = block1.canSustainPlant(p_76484_1_.getBlockState(new BlockPos(p_76484_3_, p_76484_4_ - 1, p_76484_5_)), p_76484_1_, new BlockPos(p_76484_3_, p_76484_4_ - 1, p_76484_5_), UP, (BlockSapling) sapling);
+                boolean isSoil = block1.canSustainPlant(p_76484_1_.getBlockState(new BlockPos(p_76484_3_, p_76484_4_ - 1, p_76484_5_)), p_76484_1_, new BlockPos(p_76484_3_, p_76484_4_ - 1, p_76484_5_), UP, (BlockSapling) SAPLING);
                 if (isSoil && p_76484_4_ < 256 - l - 1) {
                     block1.onPlantGrow(p_76484_1_.getBlockState(new BlockPos(p_76484_3_, p_76484_4_ - 1, p_76484_5_)), p_76484_1_, new BlockPos(p_76484_3_, p_76484_4_ - 1, p_76484_5_), new BlockPos(p_76484_3_, p_76484_4_, p_76484_5_));
                     l3 = p_76484_2_.nextInt(2);
@@ -86,7 +86,7 @@ public class WorldGenTreeRTGPine extends WorldGenerator {
                                 int k3 = j3 - p_76484_5_;
 
                                 if ((abs(i3) != l3 || abs(k3) != l3 || l3 <= 0) && p_76484_1_.getBlockState(new BlockPos(l2, k2, j3)).getBlock().canBeReplacedByLeaves(p_76484_1_.getBlockState(new BlockPos(l2, k2, j3)), p_76484_1_, new BlockPos(l2, k2, j3))) {
-                                    p_76484_1_.setBlockState(new BlockPos(l2, k2, j3), leaves.getStateFromMeta(metadata), 0);
+                                    p_76484_1_.setBlockState(new BlockPos(l2, k2, j3), LEAVES.getStateFromMeta(metadata), 0);
                                 }
                             }
                         }
@@ -109,8 +109,8 @@ public class WorldGenTreeRTGPine extends WorldGenerator {
                     for (k2 = 0; k2 < l - i4; ++k2) {
                         Block block2 = p_76484_1_.getBlockState(new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_)).getBlock();
 
-                        if (block2.isAir(p_76484_1_.getBlockState(new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_)), p_76484_1_, new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_)) || block2.isLeaves(p_76484_1_.getBlockState(new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_)), p_76484_1_, new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_)) || block2 == snow_layer) {
-                            p_76484_1_.setBlockState(new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_), log.getDefaultState(), 0);
+                        if (block2.isAir(p_76484_1_.getBlockState(new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_)), p_76484_1_, new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_)) || block2.isLeaves(p_76484_1_.getBlockState(new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_)), p_76484_1_, new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_)) || block2 == SNOW_LAYER) {
+                            p_76484_1_.setBlockState(new BlockPos(p_76484_3_, p_76484_4_ + k2, p_76484_5_), LOG.getDefaultState(), 0);
                         }
                     }
 
@@ -135,10 +135,10 @@ public class WorldGenTreeRTGPine extends WorldGenerator {
         for (int t = 0; t < 5; t++) {
             sh = rand.nextInt(4) + y - 2;
             while (sh > y - 1) {
-                if (world.getBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1])).getBlock() == grass) {
+                if (world.getBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1])).getBlock() == GRASS) {
                     break;
                 }
-                world.setBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), log.getStateFromMeta(12), 0);
+                world.setBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), LOG.getStateFromMeta(12), 0);
                 sh--;
             }
         }

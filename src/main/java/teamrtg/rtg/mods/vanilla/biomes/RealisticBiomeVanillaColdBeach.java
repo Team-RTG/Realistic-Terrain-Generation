@@ -13,8 +13,8 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
 
     public RealisticBiomeVanillaColdBeach() {
         super(
-                Biomes.coldBeach,
-                Biomes.river
+                Biomes.COLD_BEACH,
+                Biomes.RIVER
 
         );
     }
@@ -37,7 +37,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
     @Override
     protected void initDecos() {
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.cobblestone;
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE;
         decoBoulder.chance = 16;
         decoBoulder.maxY = 95;
         decoBoulder.strengthFactor = 3f;
@@ -46,7 +46,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.sand.getDefaultState());
-        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.sand.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.SAND.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.SAND.getDefaultState());
     }
 }

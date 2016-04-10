@@ -20,8 +20,8 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaMesaPlateau() {
 
         super(
-                Biomes.mesaPlateau,
-                Biomes.river
+                Biomes.MESA_CLEAR_ROCK,
+                Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -53,7 +53,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
 
         DecoCactus decoCactus = new DecoCactus();
         decoCactus.strengthFactor = 25f;
-        decoCactus.soil = Blocks.sand.getStateFromMeta(1);
+        decoCactus.soil = Blocks.SAND.getStateFromMeta(1);
         decoCactus.sandOnly = false;
         decoCactus.maxRiver = 0.8f;
         addDeco(decoCactus);

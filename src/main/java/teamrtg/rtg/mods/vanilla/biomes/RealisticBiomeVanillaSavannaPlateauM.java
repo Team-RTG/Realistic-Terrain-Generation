@@ -21,14 +21,14 @@ import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaSavannaPlateauM;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaBase {
-    public static BiomeGenBase standardBiome = Biomes.savannaPlateau;
+    public static BiomeGenBase standardBiome = Biomes.SAVANNA_PLATEAU;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaSavannaPlateauM() {
 
         super(
                 mutationBiome,
-                Biomes.river
+                Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -55,13 +55,13 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
     @Override
     protected void initDecos() {
         DecoBoulder decoBoulder1 = new DecoBoulder();
-        decoBoulder1.boulderBlock = Blocks.cobblestone;
+        decoBoulder1.boulderBlock = Blocks.COBBLESTONE;
         decoBoulder1.maxY = 80;
         decoBoulder1.chance = 24;
         this.addDeco(decoBoulder1);
 
         DecoBoulder decoBoulder2 = new DecoBoulder();
-        decoBoulder2.boulderBlock = Blocks.cobblestone;
+        decoBoulder2.boulderBlock = Blocks.COBBLESTONE;
         decoBoulder1.minY = 110;
         decoBoulder2.chance = 24;
         this.addDeco(decoBoulder2);

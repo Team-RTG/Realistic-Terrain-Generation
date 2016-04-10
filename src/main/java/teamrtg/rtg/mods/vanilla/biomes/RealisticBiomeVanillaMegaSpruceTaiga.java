@@ -14,14 +14,14 @@ import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaMegaSpruceTaiga;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaBase {
-    public static BiomeGenBase standardBiome = Biomes.megaTaiga;
+    public static BiomeGenBase standardBiome = Biomes.REDWOOD_TAIGA;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaMegaSpruceTaiga() {
 
         super(
                 mutationBiome,
-                Biomes.river
+                Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -55,9 +55,9 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 6;
         decoFallenTree.maxY = 110;
-        decoFallenTree.logBlock = Blocks.log;
+        decoFallenTree.logBlock = Blocks.LOG;
         decoFallenTree.logMeta = (byte) 1;
-        decoFallenTree.leavesBlock = Blocks.leaves;
+        decoFallenTree.leavesBlock = Blocks.LEAVES;
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;

@@ -21,8 +21,8 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
     public RealisticBiomeVanillaSavannaPlateau() {
 
         super(
-                Biomes.savannaPlateau,
-                Biomes.river
+                Biomes.SAVANNA_PLATEAU,
+                Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -49,13 +49,13 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
     @Override
     protected void initDecos() {
         DecoBoulder decoBoulder1 = new DecoBoulder();
-        decoBoulder1.boulderBlock = Blocks.cobblestone;
+        decoBoulder1.boulderBlock = Blocks.COBBLESTONE;
         decoBoulder1.maxY = 80;
         decoBoulder1.chance = 24;
         this.addDeco(decoBoulder1);
 
         DecoBoulder decoBoulder2 = new DecoBoulder();
-        decoBoulder2.boulderBlock = Blocks.cobblestone;
+        decoBoulder2.boulderBlock = Blocks.COBBLESTONE;
         decoBoulder1.minY = 110;
         decoBoulder2.chance = 24;
         this.addDeco(decoBoulder2);

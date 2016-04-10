@@ -30,13 +30,13 @@ public class SurfaceDesertOasis extends SurfaceBase {
     public void paintSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
         float c = CliffCalculator.calc(x, y, noise);
         boolean cliff = c > 1.3f;
-        boolean dirt = false;
+        boolean DIRT = false;
 
         for (int k = 255; k > -1; k--) {
             Block b = primer.getBlockState(x, k, y).getBlock();
-            if (b == Blocks.air) {
+            if (b == Blocks.AIR) {
                 depth = -1;
-            } else if (b == Blocks.stone) {
+            } else if (b == Blocks.STONE) {
                 depth++;
 
                 if (cliff) {
@@ -54,19 +54,19 @@ public class SurfaceDesertOasis extends SurfaceBase {
                 } else if (depth < 6) {
                     if (depth == 0 && k > 61) {
                         if (simplex.noise2(i / 12f, j / 12f) > -0.3f + ((k - 61f) / 15f)) {
-                            dirt = true;
+                            DIRT = true;
                             primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                         } else {
-                            primer.setBlockState(x, k, y, Blocks.sand.getStateFromMeta(sandMetadata));
+                            primer.setBlockState(x, k, y, Blocks.SAND.getStateFromMeta(sandMetadata));
                         }
                     } else if (depth < 4) {
-                        if (dirt) {
+                        if (DIRT) {
                             primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                         } else {
-                            primer.setBlockState(x, k, y, Blocks.sand.getStateFromMeta(sandMetadata));
+                            primer.setBlockState(x, k, y, Blocks.SAND.getStateFromMeta(sandMetadata));
                         }
-                    } else if (!dirt) {
-                        primer.setBlockState(x, k, y, Blocks.sandstone.getDefaultState());
+                    } else if (!DIRT) {
+                        primer.setBlockState(x, k, y, Blocks.SANDSTONE.getDefaultState());
                     }
                 }
             }

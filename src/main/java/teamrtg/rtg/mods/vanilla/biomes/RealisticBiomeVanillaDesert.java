@@ -20,8 +20,8 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaDesert() {
 
         super(
-                Biomes.desert,
-                Biomes.river
+                Biomes.DESERT,
+                Biomes.RIVER
         );
         this.noLakes = true;
     }

@@ -9,12 +9,12 @@ import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaRiver;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
-    public static BiomeGenBase vanillaBiome = Biomes.river;
+    public static BiomeGenBase vanillaBiome = Biomes.RIVER;
 
     public RealisticBiomeVanillaRiver() {
         super(
                 vanillaBiome,
-                Biomes.river
+                Biomes.RIVER
         );
     }
 

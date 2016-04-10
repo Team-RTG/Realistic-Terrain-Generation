@@ -34,7 +34,7 @@ public class RealisticBiomeFaker {
             for (int z = 0; z < 16; z++) {
                 for (int y = 255; y >= 0; --y) {
                     IBlockState iblockstate = primer.getBlockState(x, y, z);
-                    if (iblockstate != null && iblockstate != Blocks.air.getDefaultState()) {
+                    if (iblockstate != null && iblockstate != Blocks.AIR.getDefaultState()) {
                         heights[x * 16 + z] = y;
                         break;
                     }

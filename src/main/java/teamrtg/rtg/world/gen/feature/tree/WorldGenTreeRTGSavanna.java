@@ -15,7 +15,7 @@ import static net.minecraft.init.Blocks.*;
 
 public class WorldGenTreeRTGSavanna extends WorldGenerator {
     private int type;
-    private boolean sand;
+    private boolean SAND;
 
     public WorldGenTreeRTGSavanna(int t) {
         this(t, true);
@@ -23,7 +23,7 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator {
 
     public WorldGenTreeRTGSavanna(int t, boolean s) {
         type = t;
-        sand = true;
+        SAND = true;
     }
 
     public boolean generate(World world, Random rand, BlockPos blockPos) {
@@ -33,11 +33,11 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator {
     public boolean generate(World world, Random rand, int x, int y, int z) {
         Block b = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
 
-        if (b == Blocks.sand && !Mods.RTG.config.ALLOW_TREES_ON_SAND.get()) {
+        if (b == Blocks.SAND && !Mods.RTG.config.ALLOW_TREES_ON_SAND.get()) {
             return false;
         }
 
-        if (b != grass && b != dirt && ((sand && b != Blocks.sand) || !sand)) {
+        if (b != GRASS && b != DIRT && ((SAND && b != Blocks.SAND) || !SAND)) {
             return false;
         }
 
@@ -46,7 +46,7 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator {
             int bh = h - 6;
 
             for (int i = 0; i < h; i++) {
-                world.setBlockState(new BlockPos(x, y + i, z), log2.getDefaultState(), 0);
+                world.setBlockState(new BlockPos(x, y + i, z), LOG2.getDefaultState(), 0);
             }
             genLeaves(world, rand, x, y + h, z);
 
@@ -62,7 +62,7 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator {
                 c = 1;
 
                 while (sh < h) {
-                    world.setBlockState(new BlockPos(x + (int) (xd * c), y + sh, z + (int) (yd * c)), log2.getDefaultState(), 0);
+                    world.setBlockState(new BlockPos(x + (int) (xd * c), y + sh, z + (int) (yd * c)), LOG2.getDefaultState(), 0);
                     sh++;
                     c += 0.5f;
                 }
@@ -73,7 +73,7 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator {
             int bh = h - 3;
 
             for (int i = 0; i < h; i++) {
-                world.setBlockState(new BlockPos(x, y + i, z), log2.getDefaultState(), 0);
+                world.setBlockState(new BlockPos(x, y + i, z), LOG2.getDefaultState(), 0);
             }
             genLeaves(world, rand, x, y + h, z);
 
@@ -89,7 +89,7 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator {
                 c = 1;
 
                 while (sh < h) {
-                    world.setBlockState(new BlockPos(x + (int) (xd * c), y + sh, z + (int) (yd * c)), log2.getDefaultState(), 0);
+                    world.setBlockState(new BlockPos(x + (int) (xd * c), y + sh, z + (int) (yd * c)), LOG2.getDefaultState(), 0);
                     sh++;
                     c += 0.5f;
                 }
@@ -100,7 +100,7 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator {
             int bh = h - 3;
 
             for (int i = 0; i < h; i++) {
-                world.setBlockState(new BlockPos(x, y + i, z), log2.getDefaultState());
+                world.setBlockState(new BlockPos(x, y + i, z), LOG2.getDefaultState());
             }
             genLeaves(world, rand, x, y + h, z);
 
@@ -116,7 +116,7 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator {
                 c = 1;
 
                 while (sh < h) {
-                    world.setBlockState(new BlockPos(x + (int) (xd * c), y + sh, z + (int) (yd * c)), log2.getDefaultState());
+                    world.setBlockState(new BlockPos(x + (int) (xd * c), y + sh, z + (int) (yd * c)), LOG2.getDefaultState());
                     sh++;
                     c += 0.5f;
                 }
@@ -134,7 +134,7 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator {
             for (i = -2; i <= 2; i++) {
                 for (j = -2; j <= 2; j++) {
                     if (world.isAirBlock(new BlockPos(x + i, y + 1, z + j)) && abs(i) + abs(j) < 4) {
-                        world.setBlockState(new BlockPos(x + i, y + 1, z + j), leaves2.getDefaultState(), 0);
+                        world.setBlockState(new BlockPos(x + i, y + 1, z + j), LEAVES2.getDefaultState(), 0);
                     }
                 }
             }
@@ -142,19 +142,19 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator {
             for (i = -3; i <= 3; i++) {
                 for (j = -3; j <= 3; j++) {
                     if (world.isAirBlock(new BlockPos(x + i, y, z + j)) && abs(i) + abs(j) < 5) {
-                        world.setBlockState(new BlockPos(x + i, y, z + j), leaves2.getDefaultState(), 0);
+                        world.setBlockState(new BlockPos(x + i, y, z + j), LEAVES2.getDefaultState(), 0);
                     }
                 }
             }
 
-            world.setBlockState(new BlockPos(x, y, z), log2.getDefaultState());
+            world.setBlockState(new BlockPos(x, y, z), LOG2.getDefaultState());
         } else {
             int i;
             int j;
             for (i = -1; i <= 1; i++) {
                 for (j = -1; j <= 1; j++) {
                     if (world.isAirBlock(new BlockPos(x + i, y + 1, z + j))) {
-                        world.setBlockState(new BlockPos(x + i, y + 1, z + j), leaves2.getDefaultState(), 0);
+                        world.setBlockState(new BlockPos(x + i, y + 1, z + j), LEAVES2.getDefaultState(), 0);
                     }
                 }
             }
@@ -162,12 +162,12 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator {
             for (i = -2; i <= 2; i++) {
                 for (j = -2; j <= 2; j++) {
                     if (world.isAirBlock(new BlockPos(x + i, y, z + j)) && abs(i) + abs(j) < 4) {
-                        world.setBlockState(new BlockPos(x + i, y, z + j), leaves2.getDefaultState(), 0);
+                        world.setBlockState(new BlockPos(x + i, y, z + j), LEAVES2.getDefaultState(), 0);
                     }
                 }
             }
 
-            world.setBlockState(new BlockPos(x, y, z), log2.getDefaultState());
+            world.setBlockState(new BlockPos(x, y, z), LOG2.getDefaultState());
         }
     }
 }

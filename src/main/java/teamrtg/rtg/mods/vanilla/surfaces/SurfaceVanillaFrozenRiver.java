@@ -23,15 +23,15 @@ public class SurfaceVanillaFrozenRiver extends SurfaceBase {
             Block b;
             for (int k = 255; k > -1; k--) {
                 b = primer.getBlockState(x, k, y).getBlock();
-                if (b == Blocks.air) {
+                if (b == Blocks.AIR) {
                     depth = -1;
-                } else if (b != Blocks.water) {
+                } else if (b != Blocks.WATER) {
                     depth++;
 
                     if (depth == 0 && k > 61) {
-                        primer.setBlockState(x, k, y, Blocks.grass.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.GRASS.getDefaultState());
                     } else if (depth < 4) {
-                        primer.setBlockState(x, k, y, Blocks.dirt.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState());
                     } else if (depth > 4) {
                         return;
                     }

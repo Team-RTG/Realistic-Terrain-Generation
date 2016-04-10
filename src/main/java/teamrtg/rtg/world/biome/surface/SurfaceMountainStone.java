@@ -41,20 +41,20 @@ public class SurfaceMountainStone extends SurfaceBase {
     public void paintSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
         float c = CliffCalculator.calc(x, y, noise);
         int cliff = 0;
-        boolean gravel = false;
+        boolean GRAVEL = false;
 
         Block b;
         for (int k = 255; k > -1; k--) {
             b = primer.getBlockState(x, k, y).getBlock();
-            if (b == Blocks.air) {
+            if (b == Blocks.AIR) {
                 depth = -1;
-            } else if (b == Blocks.stone) {
+            } else if (b == Blocks.STONE) {
                 depth++;
 
                 if (depth == 0) {
                     if (k < 63) {
                         if (beach) {
-                            gravel = true;
+                            GRAVEL = true;
                         }
                     }
 
@@ -79,7 +79,7 @@ public class SurfaceMountainStone extends SurfaceBase {
                     } else if (k < 63) {
                         if (beach) {
                             primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
-                            gravel = true;
+                            GRAVEL = true;
                         } else if (k < 62) {
                             primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                         } else {
@@ -93,7 +93,7 @@ public class SurfaceMountainStone extends SurfaceBase {
                         primer.setBlockState(x, k, y, hcStone());
                     } else if (cliff == 2) {
                         primer.setBlockState(x, k, y, getShadowStoneBlock());
-                    } else if (gravel) {
+                    } else if (GRAVEL) {
                         primer.setBlockState(x, k, y, biome.config.BEACH_BLOCK.get());
                     } else {
                         primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());

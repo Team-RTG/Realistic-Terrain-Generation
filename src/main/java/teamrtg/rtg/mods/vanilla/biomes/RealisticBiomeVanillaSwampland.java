@@ -23,8 +23,8 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaSwampland() {
 
         super(
-                Biomes.swampland,
-                Biomes.river
+                Biomes.SWAMPLAND,
+                Biomes.RIVER
         );
     }
 
@@ -70,9 +70,9 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 6;
         decoFallenTree.maxY = 100;
-        decoFallenTree.logBlock = Blocks.log2;
+        decoFallenTree.logBlock = Blocks.LOG2;
         decoFallenTree.logMeta = (byte) 1;
-        decoFallenTree.leavesBlock = Blocks.leaves2;
+        decoFallenTree.leavesBlock = Blocks.LEAVES2;
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;

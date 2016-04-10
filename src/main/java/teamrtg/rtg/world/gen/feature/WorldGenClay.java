@@ -18,7 +18,7 @@ public class WorldGenClay extends WorldGenerator {
     private int mineableBlockMeta;
 
     public WorldGenClay(Block block, int metadata, int amount) {
-        field_150519_a = clay;
+        field_150519_a = CLAY;
         mineableBlockMeta = 0;
         numberOfBlocks = amount;
     }
@@ -63,7 +63,7 @@ public class WorldGenClay extends WorldGenerator {
                                 double d14 = ((double) i3 + 0.5D - d8) / (d10 / 2.0D);
                                 b = p_76484_1_.getBlockState(new BlockPos(k2, l2, i3)).getBlock();
 
-                                if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && (b == grass || b == dirt || b == sand || b == gravel)) {
+                                if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && (b == GRASS || b == DIRT || b == SAND || b == GRAVEL)) {
                                     p_76484_1_.setBlockState(new BlockPos(k2, l2, i3), this.field_150519_a.getStateFromMeta(mineableBlockMeta), 2);
                                 }
                             }

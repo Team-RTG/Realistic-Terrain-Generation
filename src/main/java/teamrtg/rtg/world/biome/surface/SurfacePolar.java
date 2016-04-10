@@ -19,29 +19,29 @@ public class SurfacePolar extends SurfaceBase {
 
     @Override
     public void paintSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
-        boolean water = false;
+        boolean WATER = false;
         boolean riverPaint = false;
-        boolean grass = false;
+        boolean GRASS = false;
 
         if (river > 0.05f && river + (simplex.noise2(i / 10f, j / 10f) * 0.1f) > 0.86f) {
             riverPaint = true;
 
             if (simplex.noise2(i / 12f, j / 12f) > 0.25f) {
-                grass = true;
+                GRASS = true;
             }
         }
 
         Block b;
         for (int k = 255; k > -1; k--) {
             b = primer.getBlockState(x, k, y).getBlock();
-            if (b == Blocks.air) {
+            if (b == Blocks.AIR) {
                 depth = -1;
-            } else if (b == Blocks.stone) {
+            } else if (b == Blocks.STONE) {
                 depth++;
 
                 if (riverPaint) {
-                    if (grass && depth < 4) {
-                        primer.setBlockState(x, k, y, Blocks.dirt.getDefaultState());
+                    if (GRASS && depth < 4) {
+                        primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState());
                     } else if (depth == 0) {
                         if (rand.nextInt(2) == 0) {
 
@@ -52,14 +52,14 @@ public class SurfacePolar extends SurfaceBase {
                         }
                     }
                 } else if (depth > -1 && depth < 9) {
-                    primer.setBlockState(x, k, y, Blocks.snow.getDefaultState());
+                    primer.setBlockState(x, k, y, Blocks.SNOW.getDefaultState());
                     if (depth == 0 && k > 61 && k < 254) {
                         SnowHeightCalculator.calc(x, y, k, primer, noise);
                     }
                 }
-            } else if (!water && b == Blocks.water) {
-                primer.setBlockState(x, k, y, Blocks.ice.getDefaultState());
-                water = true;
+            } else if (!WATER && b == Blocks.WATER) {
+                primer.setBlockState(x, k, y, Blocks.ICE.getDefaultState());
+                WATER = true;
             }
         }
     }

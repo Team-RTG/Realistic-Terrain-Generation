@@ -31,7 +31,7 @@ public class WorldGenBlob extends WorldGenerator {
         this.blobSize = s;
         booShouldGenerate = true;
 
-        if (blobBlock == mossy_cobblestone || blobBlock == cobblestone) {
+        if (blobBlock == MOSSY_COBBLESTONE || blobBlock == COBBLESTONE) {
             if (!Mods.RTG.config.ENABLE_COUBLESTONE_BOULDERS.get()) {
                 booShouldGenerate = false;
             } else {
@@ -70,7 +70,7 @@ public class WorldGenBlob extends WorldGenerator {
                     if (!world.isAirBlock(new BlockPos(x, y - 1, z))) {
                         Block block = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
 
-                        if (block == grass || block == dirt || block == stone || block == gravel || block == sand) {
+                        if (block == GRASS || block == DIRT || block == STONE || block == GRAVEL || block == SAND) {
                             break label63;
                         }
                     }

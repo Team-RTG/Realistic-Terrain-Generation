@@ -25,8 +25,8 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaColdTaiga() {
 
         super(
-                Biomes.coldTaiga,
-                Biomes.frozenRiver
+                Biomes.COLD_TAIGA,
+                Biomes.FROZEN_RIVER
         );
     }
 
@@ -48,7 +48,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
     @Override
     protected void initDecos() {
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
+        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE;
         decoBoulder.chance = 16;
         decoBoulder.maxY = 95;
         decoBoulder.strengthFactor = 3f;
@@ -73,9 +73,9 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 6;
         decoFallenTree.maxY = 100;
-        decoFallenTree.logBlock = Blocks.log;
+        decoFallenTree.logBlock = Blocks.LOG;
         decoFallenTree.logMeta = (byte) 1;
-        decoFallenTree.leavesBlock = Blocks.leaves;
+        decoFallenTree.leavesBlock = Blocks.LEAVES;
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;

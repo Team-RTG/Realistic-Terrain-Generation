@@ -42,7 +42,7 @@ public class WorldGenWaterGrass extends WorldGenerator {
         }
 
         Block b;
-        if (block == double_plant) {
+        if (block == DOUBLE_PLANT) {
             int i1, j1, k1;
             for (int l = 0; l < 32; ++l) {
                 i1 = x + rand.nextInt(8) - rand.nextInt(8);
@@ -50,26 +50,26 @@ public class WorldGenWaterGrass extends WorldGenerator {
                 k1 = z + rand.nextInt(8) - rand.nextInt(8);
 
                 b = world.getBlockState(new BlockPos(i1, j1 - 1, k1)).getBlock();
-                if (((b == water && world.getBlockState(new BlockPos(i1, j1 - 2, k1)).getBlock() == sand) || b == sand) && world.getBlockState(new BlockPos(i1, j1, k1)).getBlock() == air) {
-                    world.setBlockState(new BlockPos(i1, j1 - 1, k1), grass.getDefaultState(), 0);
+                if (((b == WATER && world.getBlockState(new BlockPos(i1, j1 - 2, k1)).getBlock() == SAND) || b == SAND) && world.getBlockState(new BlockPos(i1, j1, k1)).getBlock() == AIR) {
+                    world.setBlockState(new BlockPos(i1, j1 - 1, k1), GRASS.getDefaultState(), 0);
                 }
 
-                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && j1 < 254 && double_plant.canPlaceBlockAt(world, new BlockPos(i1, j1, k1))) {
-                    world.setBlockState(new BlockPos(i1, j1, k1), Blocks.double_plant.getStateFromMeta(metadata));
+                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && j1 < 254 && DOUBLE_PLANT.canPlaceBlockAt(world, new BlockPos(i1, j1, k1))) {
+                    world.setBlockState(new BlockPos(i1, j1, k1), Blocks.DOUBLE_PLANT.getStateFromMeta(metadata));
                 }
             }
-        } else if (block == leaves) {
+        } else if (block == LEAVES) {
             for (int l = 0; l < 64; ++l) {
                 int i1 = x + rand.nextInt(8) - rand.nextInt(8);
                 int j1 = y + rand.nextInt(4) - rand.nextInt(4);
                 int k1 = z + rand.nextInt(8) - rand.nextInt(8);
 
                 b = world.getBlockState(new BlockPos(i1, j1 - 1, k1)).getBlock();
-                if (((b == water && world.getBlockState(new BlockPos(i1, j1 - 2, k1)).getBlock() == sand) || b == sand) && world.getBlockState(new BlockPos(i1, j1, k1)).getBlock() == air) {
-                    world.setBlockState(new BlockPos(i1, j1 - 1, k1), grass.getDefaultState(), 0);
+                if (((b == WATER && world.getBlockState(new BlockPos(i1, j1 - 2, k1)).getBlock() == SAND) || b == SAND) && world.getBlockState(new BlockPos(i1, j1, k1)).getBlock() == AIR) {
+                    world.setBlockState(new BlockPos(i1, j1 - 1, k1), GRASS.getDefaultState(), 0);
                 }
 
-                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && world.getBlockState(new BlockPos(i1, j1 - 1, k1)).getBlock() == grass) {
+                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && world.getBlockState(new BlockPos(i1, j1 - 1, k1)).getBlock() == GRASS) {
                     world.setBlockState(new BlockPos(i1, j1, k1), block.getStateFromMeta(metadata), 0);
                 }
             }
@@ -80,8 +80,8 @@ public class WorldGenWaterGrass extends WorldGenerator {
                 int k1 = z + rand.nextInt(8) - rand.nextInt(8);
 
                 b = world.getBlockState(new BlockPos(i1, j1 - 1, k1)).getBlock();
-                if (((b == water && world.getBlockState(new BlockPos(i1, j1 - 2, k1)).getBlock() == sand) || b == sand) && world.getBlockState(new BlockPos(i1, j1, k1)).getBlock() == air) {
-                    world.setBlockState(new BlockPos(i1, j1 - 1, k1), grass.getDefaultState(), 0);
+                if (((b == WATER && world.getBlockState(new BlockPos(i1, j1 - 2, k1)).getBlock() == SAND) || b == SAND) && world.getBlockState(new BlockPos(i1, j1, k1)).getBlock() == AIR) {
+                    world.setBlockState(new BlockPos(i1, j1 - 1, k1), GRASS.getDefaultState(), 0);
                 }
 
                 if (world.isAirBlock(new BlockPos(i1, j1, k1))

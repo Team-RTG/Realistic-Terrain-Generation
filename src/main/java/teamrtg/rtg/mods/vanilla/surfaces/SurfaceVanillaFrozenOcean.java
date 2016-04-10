@@ -34,9 +34,9 @@ public class SurfaceVanillaFrozenOcean extends SurfaceBase {
 
         for (int k = 255; k > -1; k--) {
             Block b = primer.getBlockState(x, k, y).getBlock();
-            if (b == Blocks.air) {
+            if (b == Blocks.AIR) {
                 depth = -1;
-            } else if (b == Blocks.stone) {
+            } else if (b == Blocks.STONE) {
                 depth++;
 
                 if (depth == 0 && k > 0 && k < 63) {
@@ -51,7 +51,7 @@ public class SurfaceVanillaFrozenOcean extends SurfaceBase {
                 } else if (depth < 4 && k < 63) {
                     primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());
                 } else if (depth == 0 && k < 69) {
-                    primer.setBlockState(x, k, y, Blocks.sand.getStateFromMeta(sandMetadata));
+                    primer.setBlockState(x, k, y, Blocks.SAND.getStateFromMeta(sandMetadata));
 
                 }
             }

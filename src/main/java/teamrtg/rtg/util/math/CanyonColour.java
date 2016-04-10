@@ -15,7 +15,7 @@ public enum CanyonColour {
     // If you remove that U, i will locate and dismember you.
     private static Map<CanyonColour, IBlockState[]> colours = new HashMap<>();
     private static OpenSimplexNoise simplex;
-    private byte[] bytes;
+    public byte[] bytes;
 
     CanyonColour(byte[] bytes) {
         this.bytes = bytes;
@@ -29,7 +29,7 @@ public enum CanyonColour {
             int j;
             for (int i = 0; i < 256; i++) {
                 byte b = colour.bytes[i % colour.bytes.length];
-                c[i] = (b == -1) ? Blocks.hardened_clay.getDefaultState() : Blocks.stained_hardened_clay.getStateFromMeta(b);
+                c[i] = (b == -1) ? Blocks.HARDENED_CLAY.getDefaultState() : Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(b);
             }
             colours.put(colour, c);
         }

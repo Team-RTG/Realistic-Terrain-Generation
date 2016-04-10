@@ -45,9 +45,9 @@ public class DecoFallenTree extends DecoBase {
         this.logConditionNoise = 0f;
         this.logConditionChance = 1;
         this.maxY = 255; // No height limit by default.
-        this.logBlock = Blocks.log;
+        this.logBlock = Blocks.LOG;
         this.logMeta = (byte) 0;
-        this.leavesBlock = Blocks.leaves;
+        this.leavesBlock = Blocks.LEAVES;
         this.leavesMeta = (byte) -1;
         this.minSize = 2;
         this.maxSize = 4;

@@ -18,14 +18,14 @@ import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import java.util.Random;
 
 public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
-    public static BiomeGenBase standardBiome = Biomes.desert;
+    public static BiomeGenBase standardBiome = Biomes.DESERT;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaDesertM() {
 
         super(
                 mutationBiome,
-                Biomes.river
+                Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -116,7 +116,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.sand.getDefaultState());
+        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
         this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.DESERT_TEMPLE.name());
         this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(0);
     }

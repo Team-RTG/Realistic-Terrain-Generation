@@ -124,28 +124,28 @@ public class EventManagerRTG {
         if (RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(Mods.VANILLA.biomes.desert) ||
                 RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(Mods.VANILLA.biomes.desertHills) ||
                 RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(Mods.VANILLA.biomes.desert)) {
-            if (event.getOriginal().getBlock() == Blocks.log || event.getOriginal().getBlock() == Blocks.log2) {
-                event.setReplacement(Blocks.sandstone.getDefaultState());
+            if (event.getOriginal().getBlock() == Blocks.LOG || event.getOriginal().getBlock() == Blocks.LOG2) {
+                event.setReplacement(Blocks.SANDSTONE.getDefaultState());
             }
 
-            if (event.getOriginal().getBlock() == Blocks.cobblestone) {
-                event.setReplacement(Blocks.sandstone.getStateFromMeta(BlockSandStone.EnumType.DEFAULT.getMetadata()));
+            if (event.getOriginal().getBlock() == Blocks.COBBLESTONE) {
+                event.setReplacement(Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.DEFAULT.getMetadata()));
             }
 
-            if (event.getOriginal().getBlock() == Blocks.planks) {
-                event.setReplacement(Blocks.sandstone.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()));
+            if (event.getOriginal().getBlock() == Blocks.PLANKS) {
+                event.setReplacement(Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()));
             }
 
-            if (event.getOriginal().getBlock() == Blocks.oak_stairs) {
-                event.setReplacement(Blocks.sandstone_stairs.getDefaultState().withProperty(BlockStairs.FACING, event.getOriginal().getValue(BlockStairs.FACING)));
+            if (event.getOriginal().getBlock() == Blocks.OAK_STAIRS) {
+                event.setReplacement(Blocks.SANDSTONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, event.getOriginal().getValue(BlockStairs.FACING)));
             }
 
-            if (event.getOriginal().getBlock() == Blocks.stone_stairs) {
-                event.setReplacement(Blocks.sandstone_stairs.getDefaultState().withProperty(BlockStairs.FACING, event.getOriginal().getValue(BlockStairs.FACING)));
+            if (event.getOriginal().getBlock() == Blocks.STONE_STAIRS) {
+                event.setReplacement(Blocks.SANDSTONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, event.getOriginal().getValue(BlockStairs.FACING)));
             }
 
-            if (event.getOriginal().getBlock() == Blocks.gravel) {
-                event.setReplacement(Blocks.sandstone.getDefaultState());
+            if (event.getOriginal().getBlock() == Blocks.GRAVEL) {
+                event.setReplacement(Blocks.SANDSTONE.getDefaultState());
             }
         }
         // The event has to be cancelled in order to override the original block.

@@ -11,17 +11,17 @@ public class GenLayerNoRivers extends GenLayerRiverMix {
 
     public GenLayerNoRivers(long par1, GenLayer par3GenLayer) {
         super(par1, par3GenLayer, par3GenLayer);
-// This is now set private, and there is no access to it. Is it important?
-//        super.parent = par3GenLayer;
+        super.parent = par3GenLayer;
     }
 
     @Override
-    public void initWorldGenSeed(long arg0) {
-        parent.initWorldGenSeed(arg0);
+    public void initWorldGenSeed(long seed) {
+        parent.initWorldGenSeed(seed);
     }
 
-    public int[] getInts(int x, int z, int xSize, int zSize) {
-        return parent.getInts(x, z, xSize, zSize);
+    @Override
+    public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
+        return parent.getInts(areaX, areaY, areaWidth, areaHeight);
     }
 
 }

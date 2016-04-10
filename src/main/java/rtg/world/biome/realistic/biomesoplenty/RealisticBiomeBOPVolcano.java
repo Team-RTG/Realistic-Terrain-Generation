@@ -2,11 +2,14 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import net.minecraft.block.Block;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.RTGBiomeProvider;
-import rtg.world.gen.feature.WorldGenGrass;
+import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
 import rtg.world.gen.feature.WorldGenVolcano;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
@@ -14,11 +17,6 @@ import rtg.world.gen.surface.biomesoplenty.SurfaceBOPVolcano;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPVolcano;
 import biomesoplenty.api.content.BOPCBiomes;
 import cpw.mods.fml.common.registry.GameData;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
 {	
@@ -60,33 +58,13 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
 		
 		this.waterSurfaceLakeChance = 0;
 		this.lavaSurfaceLakeChance = 1;
-	}
-	
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
         
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-    
-        for (int l14 = 0; l14 < 15; l14++)
-        {
-            int l19 = chunkX + rand.nextInt(16) + 8;
-            int k22 = rand.nextInt(128);
-            int j24 = chunkY + rand.nextInt(16) + 8;
-            
-            if (rand.nextInt(3) == 0)
-            {
-                (new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, l19, k22, j24);
-            }
-            else
-            {
-                (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
-            }
-        }
-    }
+        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
+        decoGrassDoubleTallgrass.doubleGrassChance = 3;
+        decoGrassDoubleTallgrass.loops = 15;
+        decoGrassDoubleTallgrass.maxY = 128;
+        this.addDeco(decoGrassDoubleTallgrass);
+	}
     
     @Override
     public void rMapGen(Block[] blocks, byte[] metadata, World world, RTGBiomeProvider cmr, Random mapRand, int baseX, int baseY,

@@ -108,6 +108,7 @@ public class DecoBase
 		MUSHROOM,
 		PUMPKIN,
 		REED,
+		ROCK_SPIRE,
 		SHRUB,
 		TREE,
 		VINE

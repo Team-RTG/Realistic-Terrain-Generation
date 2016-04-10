@@ -1,20 +1,14 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenGrass;
+import rtg.world.biome.deco.DecoGrass;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSteppe;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSteppe;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBSteppe extends RealisticBiomeEBBase
 {
@@ -76,43 +70,12 @@ public class RealisticBiomeEBSteppe extends RealisticBiomeEBBase
             )
 		);
         
-    }
-	
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
-        
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-            
-        for (int l14 = 0; l14 < 24; l14++)
-        {
-            if (rand.nextInt(12) == 0) {
-                int l19 = chunkX + rand.nextInt(16) + 8;
-                int k22 = rand.nextInt(128);
-                int j24 = chunkY + rand.nextInt(16) + 8;
-                
-                int plantType = rand.nextInt(4);
-                
-                switch (plantType) {
-                    case 0:
-                        (new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, l19, k22, j24);
-                        break;
-                    case 1:
-                        (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
-                        break;
-                    case 2:
-                        (new WorldGenGrass(Blocks.double_plant, 3)).generate(world, rand, l19, k22, j24);
-                        break;
-                    case 3:
-                        (new WorldGenGrass(Blocks.tallgrass, 2)).generate(world, rand, l19, k22, j24);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+		DecoGrass decoGrass = new DecoGrass();
+		decoGrass.maxY = 128;
+		decoGrass.loops = 24;
+		decoGrass.chance = 12;
+		decoGrass.randomGrassBlocks = new Block[]{Blocks.double_plant, Blocks.tallgrass, Blocks.double_plant, Blocks.tallgrass};
+		decoGrass.randomGrassMetas = new byte[]{2, 1, 3, 2};
+        this.addDeco(decoGrass);
     }
 }

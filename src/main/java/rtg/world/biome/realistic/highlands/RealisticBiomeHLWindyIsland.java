@@ -1,24 +1,20 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
-
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenBlob;
-import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
+import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoGrass;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.DecoTree;
+import rtg.world.biome.deco.DecoTree.TreeCondition;
+import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.gen.surface.highlands.SurfaceHLWindyIsland;
 import rtg.world.gen.terrain.highlands.TerrainHLWindyIsland;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
 {
@@ -34,74 +30,47 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
         super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLWindyIsland(),
-            new SurfaceHLWindyIsland(config, topBlock, fillerBlock));
+            new SurfaceHLWindyIsland(config, topBlock, fillerBlock)
+        );
+        
+        // These are Extreme Hills decorations, with plain boulders, smaller trees, no pumpkins and no flowers.
+        
+		DecoBoulder decoBoulder = new DecoBoulder();
+		decoBoulder.boulderBlock = Blocks.cobblestone;
+		decoBoulder.chance = 16;
+		decoBoulder.maxY = 95;
+		decoBoulder.strengthFactor = 3f;
+		this.addDeco(decoBoulder);
+        
+		DecoTree smallSpruce = new DecoTree();
+		smallSpruce.strengthNoiseFactorForLoops = true;
+		smallSpruce.strengthFactorForLoops = 4f;
+		smallSpruce.treeType = TreeType.HL_WINDY_ISLAND;
+		smallSpruce.distribution.noiseDivisor = 100f;
+		smallSpruce.distribution.noiseFactor = 6f;
+		smallSpruce.distribution.noiseAddend = 0.8f;
+		smallSpruce.treeCondition = TreeCondition.RANDOM_CHANCE;
+		smallSpruce.treeConditionChance = 24;
+		smallSpruce.maxY = 110;
+		smallSpruce.minSize = 0;
+		smallSpruce.maxSize = 1;
+		this.addDeco(smallSpruce);
+        
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.maxY = 110;
+        decoShrub.chance = 10;
+        decoShrub.strengthFactor = 2f;
+		this.addDeco(decoShrub);
+        
+		DecoGrass decoGrass = new DecoGrass();
+		decoGrass.maxY = 128;
+		decoGrass.strengthFactor = 10f;
+        this.addDeco(decoGrass);
     }
 
     @Override
     public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
         // no rivers or lakes
         return terrain.generateNoise(simplex, cell, x, y, border, river);
-    }
-
-    // this is the Extreme Hills code again, with plain boulders, smaller trees, no pumpkins and no flowers
-        @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
-
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-
-        // boulders
-        for (int l = 0; l < 3f * strength; ++l)
-        {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
-
-            if (k1 < 95 && rand.nextInt(16) == 0) {
-                (new WorldGenBlob(Blocks.cobblestone, 0, rand)).generate(world, rand, i1, k1, j1);
-            }
-        }
-
-        // trees
-        float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
-        for (int b1 = 0; b1 < l * 4f * strength; b1++)
-        {
-            int j6 = chunkX + rand.nextInt(16) + 8;
-            int k10 = chunkY + rand.nextInt(16) + 8;
-            int z52 = world.getHeightValue(j6, k10);
-
-            if (rand.nextInt(24) == 0) {
-                WorldGenerator worldgenerator = new WorldGenTreeRTGSpruceSmall(0 + rand.nextInt(1));
-                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                worldgenerator.generate(world, rand, j6, z52, k10);
-            }
-        }
-
-
-        for (int b = 0; b < 2f * strength; b++)
-        {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
-            if (rand.nextInt(10) == 0)
-            {
-                (new WorldGenTreeRTGShrub(rand.nextInt(5) + 4, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
-            }
-            else
-            {
-                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
-            }
-        }
-
-        for (int l14 = 0; l14 < 10f * strength; l14++)
-        {
-            int l19 = chunkX + rand.nextInt(16) + 8;
-            int k22 = rand.nextInt(128);
-            int j24 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
-        }
     }
 }

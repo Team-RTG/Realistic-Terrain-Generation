@@ -1,24 +1,20 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMountain;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenBlob;
-import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.DecoFallenTree.LogCondition;
+import rtg.world.biome.deco.DecoGrass;
+import rtg.world.biome.deco.DecoShrub;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMountain;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMountain;
 import biomesoplenty.api.content.BOPCBiomes;
 import biomesoplenty.api.content.BOPCBlocks;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
 {	
@@ -50,64 +46,42 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
 		this.generatesEmeralds = true;
         this.noLakes = true;
         this.noWaterFeatures= true;
-	}
-	
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
         
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-        
-        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-        
-        // boulders
-        for (int l = 0; l < 3f * strength; ++l)
-        {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
-            
-            if (k1 < 95 && rand.nextInt(16) == 0) {
-                (new WorldGenBlob(Blocks.cobblestone, 0, rand)).generate(world, rand, i1, k1, j1);
-            }
-        }
-        
-        float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
-        
-        if (this.config.getPropertyById(BiomeConfigBOPMountain.decorationLogsId).valueBoolean) {
-        
-            if (l > 0f && rand.nextInt(6) == 0)
-            {
-                int x22 = chunkX + rand.nextInt(16) + 8;
-                int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
-    
-                (new WorldGenLog(BOPCBlocks.logs4, (byte)0, BOPCBlocks.colorizedLeaves1, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
-            }
-        }
-        
-        for (int b = 0; b < 2f * strength; b++)
-        {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
-            
-            if (rand.nextInt(10) == 0)
-            {
-                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
-            }
-        }
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 
-        for (int l14 = 0; l14 < 3f * strength; l14++)
-        {
-            int l19 = chunkX + rand.nextInt(16) + 8;
-            int k22 = rand.nextInt(128);
-            int j24 = chunkY + rand.nextInt(16) + 8;
-            
-            (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
-        }
-    }
+		DecoBoulder decoBoulder = new DecoBoulder();
+		decoBoulder.boulderBlock = Blocks.cobblestone;
+		decoBoulder.maxY = 90;
+		decoBoulder.chance = 16;
+		decoBoulder.strengthFactor = 3f;
+		this.addDeco(decoBoulder);
+        
+		DecoFallenTree decoFallenTree = new DecoFallenTree();
+		decoFallenTree.distribution.noiseDivisor = 100f;
+		decoFallenTree.distribution.noiseFactor = 6f;
+		decoFallenTree.distribution.noiseAddend = 0.8f;
+		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		decoFallenTree.logConditionNoise = 0f;
+		decoFallenTree.logConditionChance = 6;
+		decoFallenTree.maxY = 100;
+		decoFallenTree.logBlock = BOPCBlocks.logs4;
+		decoFallenTree.logMeta = (byte)0;
+		decoFallenTree.leavesBlock = Blocks.leaves;
+		decoFallenTree.leavesMeta = (byte)-1;
+		decoFallenTree.minSize = 3;
+		decoFallenTree.maxSize = 6;
+		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPMountain.decorationLogsId));
+        
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.maxY = 110;
+        decoShrub.strengthFactor = 2f;
+        decoShrub.chance = 10;
+		this.addDeco(decoShrub);
+
+		DecoGrass decoGrass = new DecoGrass();
+		decoGrass.maxY = 128;
+		decoGrass.strengthFactor = 3f;
+        this.addDeco(decoGrass);
+	}
 }

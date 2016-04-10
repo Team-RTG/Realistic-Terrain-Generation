@@ -91,7 +91,7 @@ public class TerrainBase
         float m = simplex.noise2(x / 150f, y / 150f) ;
         m = blendedHillHeight(m,0.2f) ;
 
-        float sm = simplex.noise2(x / 55, y / 55);// there are artifacts if this is close to a multiple of 16
+        float sm = simplex.octave(2).noise2(x / 55, y / 55);// there are artifacts if this is close to a multiple of 16
         sm = blendedHillHeight(sm,0.2f);
         //sm = sm*0.8f;
         sm *=sm*m;
@@ -308,13 +308,6 @@ public class TerrainBase
         h *= vHeight * river;
         m *= hHeight * river;
 
-        /*float sm = simplex.noise2(x / 30f, y / 30f) * 8f;
-        sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
-        m += sm;
-
-        float cm = cell.noise(x / 25D, y / 25D, 1D) * 12f;
-        cm *= m / 20f > 3.75f ? 3.75f : m / 20f;
-        m += cm;*/
         h += TerrainBase.groundNoise(x, y, 4f, simplex);
 
         return riverized(bHeight,river) + h + m;
@@ -329,7 +322,7 @@ public class TerrainBase
         m *= m / 35f;
         m = m > 70f ? 70f + (m - 70f) / 2.5f : m;
 
-        float c = cell.noise(x / 30f, y / 30f, 1D) * (m * 0.30f);
+        float c = (float)simplex.octave(4).noise(x / 30f, y / 30f, 1D) * (m * 0.30f);
 
         float sm = simplex.noise2(x / 30f, y / 30f) * 8f + simplex.noise2(x / 8f, y / 8f);
         sm *= m / 20f > 2.5f ? 2.5f : m / 20f;
@@ -348,7 +341,7 @@ public class TerrainBase
         if (h > 0f)
         {
             float st = h * 1.5f > 15f ? 15f : h * 1.5f;
-            h += cell.noise(x / 70D, y / 70D, 1D) * st;
+            h += simplex.octave(4).noise(x / 70D, y / 70D, 1D) * st;
             h = h*river;
         }
 
@@ -374,7 +367,7 @@ public class TerrainBase
 
         float st = m * 0.7f;
         st = st > 20f ? 20f : st;
-        float c = (float)cell.noise(x / 30f, y / 30f, 1D) * (5f + st);
+        float c = (float)simplex.octave(4).noise(x / 30f, y / 30f, 1D) * (5f + st);
 
         float sm = simplex.noise2(x / 30f, y / 30f) * 8f + simplex.noise2(x / 8f, y / 8f);
         sm *= (m + 10f) / 20f > 2.5f ? 2.5f : (m + 10f) / 20f;
@@ -484,7 +477,7 @@ public class TerrainBase
             if(h > 35f)
             {
                 float d2 = (h - 35f) / 1.5f > 30f ? 30f : (h - 35f) / 1.5f;
-                h += cell.noise(x / 25D, y / 25D, 1D) * d2;
+                h += simplex.octave(4).noise(x / 25D, y / 25D, 1D) * d2;
             }
         }
 
@@ -502,7 +495,7 @@ public class TerrainBase
     public static float terrainMountainSpikes(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river)
     {
         float b = (12f + (simplex.noise2(x / 300f, y / 300f) * 6f));
-        float h = cell.noise(x / 200D, y / 200D, 1D) * b * river;
+        float h = (float)simplex.octave(4).noise(x / 200D, y / 200D, 1D) * b * river;
         h *= h * 1.5f;
         h = h > 155f ? 155f : h;
 
@@ -515,7 +508,7 @@ public class TerrainBase
             if(h > 35f)
             {
                 float d2 = (h - 35f) / 1.5f > 30f ? 30f : (h - 35f) / 1.5f;
-                h += cell.noise(x / 25D, y / 25D, 1D) * d2;
+                h += simplex.octave(4).noise(x / 25D, y / 25D, 1D) * d2;
             }
         }
 
@@ -727,7 +720,7 @@ public class TerrainBase
             if(h > 35f)
             {
                 float d2 = (h - 35f) / 1.5f > 30f ? 30f : (h - 35f) / 1.5f;
-                h += cell.noise(x / 25D, y / 25D, 1D) * d2;
+                h += simplex.octave(4).noise(x / 25D, y / 25D, 1D) * d2;
             }
         }
 

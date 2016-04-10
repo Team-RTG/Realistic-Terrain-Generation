@@ -126,6 +126,17 @@ public class RealisticBiomeBase extends BiomeBase {
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		decoBaseBiomeDecorations.allowed = false;
 		this.decos.add(decoBaseBiomeDecorations);
+
+        // set the water feature constants with the config changes
+        lakeInterval *= ConfigRTG.lakeFrequencyMultiplier;
+        this.lakeWaterLevel *= ConfigRTG.lakeSizeMultiplier();
+        this.lakeShoreLevel *= ConfigRTG.lakeSizeMultiplier();
+        this.lakeDepressionLevel *= ConfigRTG.lakeSizeMultiplier();
+
+        this.largeBendSize *= ConfigRTG.lakeFrequencyMultiplier;
+        this.mediumBendSize *= ConfigRTG.lakeFrequencyMultiplier;
+        this.smallBendSize *= ConfigRTG.lakeFrequencyMultiplier;
+        
     }
     
     public static RealisticBiomeBase getBiome(int id) {
@@ -391,13 +402,27 @@ public class RealisticBiomeBase extends BiomeBase {
             return terrain.generateNoise(simplex, cell, x, y, border, river);
         }
         float lakeStrength = lakePressure(simplex,cell,x,y,border);
-        double lakeFlattening = this.lakeFlattening(lakeStrength, lakeWaterLevel, lakeDepressionLevel);
-        // we add some flattening to the rivers but not to the lakes. This gives the rivers flatter
-        // banks and the lakes steeper ones, which seems to be better aesthetically
+        float lakeFlattening = (float)lakeFlattening(lakeStrength, lakeShoreLevel, lakeDepressionLevel);
+        // we add some flattening to the rivers. The lakes are pre-flattened.
         float riverFlattening = river*1.25f-0.25f;
         if (riverFlattening <0) riverFlattening = 0;
-        if (lakeFlattening < river) river = (float)lakeFlattening;
+        if ((river<1)&&(lakeFlattening<1)) {
+            riverFlattening = (float)((1f-riverFlattening)/riverFlattening+(1f-lakeFlattening)/lakeFlattening);
+            riverFlattening = (1f/(riverFlattening+1f));
+        } else {
+            if (lakeFlattening < riverFlattening) riverFlattening = (float)lakeFlattening;
+        }
+        // the lakes have to have a little less flattening to avoid the rocky edges
+        lakeFlattening = lakeFlattening(lakeStrength, lakeWaterLevel, lakeDepressionLevel);
+        if ((river<1)&&(lakeFlattening<1)) {
+            river = (float)((1f-river)/river+(1f-lakeFlattening)/lakeFlattening);
+            river = (1f/(river+1f));
+        } else {
+            if (lakeFlattening < river) river = (float)lakeFlattening;
+        }
+        // flatten terrain to set up for the water features
         float terrainNoise = terrain.generateNoise(simplex, cell, x, y, border, riverFlattening);
+        // place water features
         return this.erodedNoise(simplex, cell, x, y, river, border, terrainNoise,lakeFlattening);
     }
 
@@ -430,24 +455,28 @@ public class RealisticBiomeBase extends BiomeBase {
 
     // lake calculations
 
-    private float lakeInterval = 1470.0f;
-    private double lakeWaterLevel = 0.0;// the lakeStrenght below which things should be below ater
-    private double lakeDepressionLevel = 0.16;// the lakeStrength below which land should start to be lowered
+    private float lakeInterval = 989.0f;
+    private float lakeShoreLevel = 0.15f;
+    private float lakeWaterLevel = 0.11f;// the lakeStrength below which things should be below water
+    private float lakeDepressionLevel = 0.30f;// the lakeStrength below which land should start to be lowered
     public boolean noLakes = false;
     public boolean noWaterFeatures = false;
 
+    private float largeBendSize = 150;
+    private float mediumBendSize = 50;
+    private float smallBendSize = 20;
     public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
-        if (noLakes) return 1f;
+        //if (noLakes) return 1f;
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();
         simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
-        double pX = x + jitter.deltax() * 90f;
-        double pY = y + jitter.deltay() * 90f;
+        double pX = x + jitter.deltax() * largeBendSize;
+        double pY = y + jitter.deltay() * largeBendSize;
         simplex.mountain().evaluateNoise(x / 80.0, y / 80.0, jitter);
-        pX += jitter.deltax() * 25f;
-        pY += jitter.deltay() * 25f;
+        pX += jitter.deltax() * mediumBendSize;
+        pY += jitter.deltay() * mediumBendSize;
         simplex.mountain().evaluateNoise(x / 30.0, y / 30.0, jitter);
-        pX += jitter.deltax() * 7f;
-        pY += jitter.deltay() * 7f;
+        pX += jitter.deltax() * smallBendSize;
+        pY += jitter.deltay() * smallBendSize;
         //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
         double [] lakeResults = simplexCell.river().eval((float)pX/ lakeInterval, (float)pY/ lakeInterval);
         float results = 1f-(float)((lakeResults[1]-lakeResults[0])/lakeResults[1]);
@@ -457,11 +486,11 @@ public class RealisticBiomeBase extends BiomeBase {
         return results;
     }
 
-    public double lakeFlattening(double pressure, double bottomLevel, double topLevel) {
+    public float lakeFlattening(float pressure, float bottomLevel, float topLevel) {
         // this number indicates a multiplier to height
         if (pressure > topLevel) return 1;
         if (pressure<bottomLevel) return 0;
-        return (pressure-bottomLevel)/(topLevel-bottomLevel);
+        return (float)Math.pow((pressure-bottomLevel)/(topLevel-bottomLevel),1.0);
     }
 
     public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {

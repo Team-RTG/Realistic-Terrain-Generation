@@ -20,6 +20,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
+import rtg.config.rtg.ConfigRTG;
 import rtg.util.SimplexOctave;
 
 public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeProvider
@@ -43,6 +44,10 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         this.biomesToSpawnIn = new ArrayList();
         borderNoise = new float[256];
         biomePatcher = new RealisticBiomePatcher();
+        this.riverSeparation /= ConfigRTG.riverFrequencyMultiplier;
+        this.riverValleyLevel *= ConfigRTG.riverSizeMultiplier();
+        this.largeBendSize *= ConfigRTG.riverBendinessMultiplier;
+        this.smallBendSize *= ConfigRTG.riverBendinessMultiplier;
     }
     
     public WorldChunkManagerRTG(World par1World,WorldType worldType)
@@ -234,17 +239,21 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
 		}
 	}
 
+    private double riverValleyLevel = 30.0 / 450.0;
+    private double riverSeparation = 1875;
+    private float largeBendSize = 140;
+    private float smallBendSize = 35;
     public float getRiverStrength(int x, int y)
     {
     	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
             SimplexOctave.Disk jitter = new SimplexOctave.Disk();
             simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
-            double pX = x + jitter.deltax() * 140f;
-            double pY = y + jitter.deltay() * 140f;
+            double pX = x + jitter.deltax() * largeBendSize;
+            double pY = y + jitter.deltay() * largeBendSize;
 
             simplex.riverJitter().evaluateNoise(x / 80.0, y / 80.0, jitter);
-            pX += jitter.deltax() * 35f;
-            pY += jitter.deltay() * 35f;
+            pX += jitter.deltax() * smallBendSize;
+            pY += jitter.deltay() * smallBendSize;
             /*double[] simplexResults = new double[2];
     	    OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
             double pX = x + simplexResults[0] * 220f;
@@ -252,8 +261,8 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         
         //New cellular noise.
         //TODO move the initialization of the results in a way that's more efficient but still thread safe.
-        double[] results = simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
-        return (float) cellBorder(results, 30.0 / 450.0, 1.0);
+        double[] results = simplexCell.river().eval(pX / riverSeparation, pY / riverSeparation);
+        return (float) cellBorder(results, riverValleyLevel, 1.0);
     }
     	
     public boolean isBorderlessAt(int x, int y)

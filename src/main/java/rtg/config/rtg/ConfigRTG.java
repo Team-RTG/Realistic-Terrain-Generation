@@ -132,6 +132,25 @@ public class ConfigRTG
     public static int volcanoBlockByte = 0;
     public static boolean enableVolcanoEruptions = true;
 
+    /* =================== Water System ===================== */
+    private static float riverSizeMultiplier = 1f; // this is private because we want a transformed version
+    public static float riverFrequencyMultiplier = 1f;
+    public static float riverSizeMultiplier() {
+        // with the river system changing frequency also shinks size and that will
+        // confuse the heck out of users.
+        return riverSizeMultiplier*riverFrequencyMultiplier;
+    }
+    public static float riverBendinessMultiplier = 1f;
+    private static float lakeSizeMultiplier = 1f; // same deal with lakes
+    public static float lakeFrequencyMultiplier = 1f;
+    public static float lakeSizeMultiplier() {
+        // with the river system changing frequency also shinks size and that will
+        // confuse the heck out of users.
+        return lakeSizeMultiplier*lakeFrequencyMultiplier;
+    }
+    public static float lakeShoreBendinessMultiplier = 1f;
+    private static String riversAndLakes = "Rivers and Scenic Lakes";
+
     
 	public static void init(File configFile)
 	{
@@ -406,6 +425,39 @@ public class ConfigRTG
                 "Set this to FALSE to prevent lava from flowing down the sides of volcanoes."
                 + Configuration.NEW_LINE
             );
+
+            /* ====================== Water System ===================== */
+            riverSizeMultiplier = config.getFloat(
+                    "River Width Multipler",
+                    riversAndLakes,
+                    1, 0, 10,
+                    "Defaults to 1 (standard width)" + Configuration.NEW_LINE);
+            riverFrequencyMultiplier = config.getFloat(
+                    "River Frequency Multiplier",
+                    riversAndLakes,
+                    1, 0, 10,
+                    "Multiplier to river widths. Defaults to 1" + Configuration.NEW_LINE);
+            riverBendinessMultiplier = config.getFloat(
+                    "Multiplier to River Bending",
+                    riversAndLakes,
+                    1, 0, 2,
+                    "Higher numbers make rivers bend more. Defaults to 1" + Configuration.NEW_LINE);
+            lakeSizeMultiplier = config.getFloat(
+                    "Lake Size Multipler",
+                    riversAndLakes,
+                    1, 0, 10,
+                    "Defaults to 1 (standard size)" + Configuration.NEW_LINE);
+            lakeFrequencyMultiplier = config.getFloat(
+                    "Lake Frequency Multipler",
+                    riversAndLakes,
+                    1, 0, 10,
+                    "Defaults to 1 (standard frequency)" + Configuration.NEW_LINE);
+            lakeShoreBendinessMultiplier = config.getFloat(
+                    "Lake Shore Irregularity",
+                    riversAndLakes,
+                    1, 0, 2,
+                    "Makes scenic lake shores bend and curve more. Defaults to 1" + Configuration.NEW_LINE);
+
             
 		}
 		catch (Exception e) 

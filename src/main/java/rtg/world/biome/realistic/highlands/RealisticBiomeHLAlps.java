@@ -1,18 +1,13 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
-
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.highlands.SurfaceHLAlps;
 import rtg.world.gen.terrain.highlands.TerrainHLAlps;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeHLAlps extends RealisticBiomeHLBase {
     
@@ -30,9 +25,4 @@ public class RealisticBiomeHLAlps extends RealisticBiomeHLBase {
         // no rivers or lakes
         return terrain.generateNoise(simplex, cell, x, y, border, river);
     }
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
-        super.rDecorate(world, rand, chunkX, chunkY, simplex, cell, strength, river);
-    }
-
 }

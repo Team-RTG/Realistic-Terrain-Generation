@@ -1,22 +1,15 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.deco.DecoDesertWell;
+import rtg.world.biome.deco.DecoEBRockSpire;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSahara;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSahara;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
-import enhancedbiomes.world.gen.WorldGenRockSpire;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenDesertWells;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeEBSahara extends RealisticBiomeEBBase
 {
@@ -78,56 +71,15 @@ public class RealisticBiomeEBSahara extends RealisticBiomeEBBase
             )
 		);
         
-    }
-	
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
+        DecoEBRockSpire decoEBRockSpire = new DecoEBRockSpire();
+        decoEBRockSpire.materials = new Block[]{ebDominantStoneBlock[0], ebDominantCobblestoneBlock[0], Blocks.sandstone};
+        decoEBRockSpire.meta = new byte[]{ebDominantStoneMeta[0], ebDominantCobblestoneMeta[0], (byte)0};
+        decoEBRockSpire.height = 10;
+        decoEBRockSpire.chance = 3;
+        this.addDeco(decoEBRockSpire);
         
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-    
-//        for (int x = 0; x < 16; x++)
-//        {
-//            int var5 = chunkX + x;
-//            int var6 = chunkY + var5 / 3 % 16;
-//            
-//            new WorldGenDunes(this.baseBiome, Blocks.sand).generate(world, rand, var5, world.getTopSolidOrLiquidBlock(var5, var6), var6);
-//        }
-                
-                
-        if (rand.nextInt(3) == 0)
-        {
-            int j2 = chunkX + rand.nextInt(16) + 8;
-            int j5 = chunkY + rand.nextInt(16) + 8;
-            
-            int l3 = world.getTopSolidOrLiquidBlock(j2, j5);
-
-            WorldGenerator generator =
-            new WorldGenRockSpire(
-                new Block[] {
-                    ebDominantStoneBlock[0],
-                    ebDominantCobblestoneBlock[0],
-                    Blocks.sandstone
-                },
-                new byte[] {
-                    ebDominantStoneMeta[0],
-                    ebDominantCobblestoneMeta[0],
-                    (byte)0
-                },
-                10
-            );
-            generator.generate(world, rand, j2, l3, j5);
-        }
-                
-        if (rand.nextInt(500) == 0)
-        {
-            int var5 = chunkX + rand.nextInt(16) + 8;
-            int var6 = chunkY + rand.nextInt(16) + 8;
-            WorldGenDesertWells var7 = new WorldGenDesertWells();
-            var7.generate(world, rand, var5, world.getHeightValue(var5, var6) + 1, var6);
-        }
+        DecoDesertWell decoDesertWell = new DecoDesertWell();
+        decoDesertWell.chance = 500;
+        this.addDeco(decoDesertWell);
     }
 }

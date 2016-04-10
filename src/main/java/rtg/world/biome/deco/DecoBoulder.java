@@ -19,6 +19,7 @@ public class DecoBoulder extends DecoBase
 {
     
 	public Block boulderBlock; // This can be any block.
+	public byte boulderMeta;
 	public float strengthFactor; // Higher = more/bigger boulders.
 	public int minY; // Lower height restriction.
 	public int maxY; // Upper height restriction.
@@ -33,6 +34,7 @@ public class DecoBoulder extends DecoBase
 		 * These can be overridden when configuring the Deco object in the realistic biome.
 		 */
 		this.boulderBlock = Blocks.cobblestone;
+		this.boulderMeta = (byte)0;
 		this.strengthFactor = 2f;
 		this.minY = 1; // No lower height limit by default.
 		this.maxY = 255; // No upper height limit by default.
@@ -53,7 +55,7 @@ public class DecoBoulder extends DecoBase
                 int k1 = world.getHeightValue(i1, j1);
                 
                 if (k1 >= this.minY && k1 <= this.maxY && rand.nextInt(this.chance) == 0) {
-                    (new WorldGenBlob(boulderBlock, 0, rand)).generate(world, rand, i1, k1, j1);
+                    (new WorldGenBlob(boulderBlock, this.boulderMeta, 0, rand)).generate(world, rand, i1, k1, j1);
                 }
             }
 		}

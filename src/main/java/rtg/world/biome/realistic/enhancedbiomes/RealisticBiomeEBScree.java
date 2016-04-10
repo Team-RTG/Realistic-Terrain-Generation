@@ -1,25 +1,22 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.enhancedbiomes.config.BiomeConfigEBScree;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
+import rtg.world.biome.deco.DecoEBTree;
+import rtg.world.biome.deco.DecoEBTree.TreeType;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.DecoFallenTree.LogCondition;
+import rtg.world.biome.deco.DecoGrass;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.DecoTree.TreeCondition;
+import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBScree;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBScree;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
-import enhancedbiomes.helpers.TreeGen;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class RealisticBiomeEBScree extends RealisticBiomeEBBase
 {
@@ -86,88 +83,81 @@ public class RealisticBiomeEBScree extends RealisticBiomeEBBase
         this.emeraldEmeraldMeta = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
         this.emeraldStoneBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
         this.emeraldStoneMeta = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, (byte)0);
-    }
-	
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
         
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        DecoEBTree ebTreesCypress = new DecoEBTree();
+		ebTreesCypress.strengthFactorForLoops = 3f;
+		ebTreesCypress.treeType = TreeType.CYPRESS;
+		ebTreesCypress.distribution.noiseDivisor = 80f;
+		ebTreesCypress.distribution.noiseFactor = 60f;
+		ebTreesCypress.distribution.noiseAddend = -15f;
+		ebTreesCypress.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		ebTreesCypress.treeConditionNoise = 5f;
+		ebTreesCypress.treeConditionChance = 2;
+		ebTreesCypress.maxY = 120;
+		
+        DecoEBTree ebTreesEucalyptus = new DecoEBTree();
+		ebTreesEucalyptus.strengthFactorForLoops = 3f;
+		ebTreesEucalyptus.treeType = TreeType.EUCALYPTUS;
+		ebTreesEucalyptus.distribution.noiseDivisor = 80f;
+		ebTreesEucalyptus.distribution.noiseFactor = 60f;
+		ebTreesEucalyptus.distribution.noiseAddend = -15f;
+		ebTreesEucalyptus.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		ebTreesEucalyptus.treeConditionNoise = 5f;
+		ebTreesEucalyptus.treeConditionChance = 2;
+		ebTreesEucalyptus.maxY = 120;
+		
+        DecoHelper5050 decoHelper5050_1 = new DecoHelper5050(ebTreesCypress, ebTreesEucalyptus);
+		this.addDeco(decoHelper5050_1);
         
-        float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
+        DecoFallenTree decoFallenTree1 = new DecoFallenTree();
+        decoFallenTree1.logCondition = LogCondition.X_DIVIDED_BY_STRENGTH;
+        decoFallenTree1.logConditionNoise = 8f;
+        decoFallenTree1.logConditionChance = 8;
+        decoFallenTree1.maxY = 100;
+        decoFallenTree1.logBlock = EnhancedBiomesBlocks.logSpruce;
+        decoFallenTree1.logMeta = (byte)1;
+        decoFallenTree1.leavesBlock = EnhancedBiomesBlocks.leavesSpruce;
+        decoFallenTree1.leavesMeta = (byte)-1;
+        decoFallenTree1.minSize = 4;
+        decoFallenTree1.maxSize = 6;
+
+        DecoFallenTree decoFallenTree2 = new DecoFallenTree();
+        decoFallenTree2.logCondition = LogCondition.X_DIVIDED_BY_STRENGTH;
+        decoFallenTree2.logConditionNoise = 8f;
+        decoFallenTree2.logConditionChance = 8;
+        decoFallenTree2.maxY = 100;
+        decoFallenTree2.logBlock = EnhancedBiomesBlocks.logBirch;
+        decoFallenTree2.logMeta = (byte)1;
+        decoFallenTree2.leavesBlock = EnhancedBiomesBlocks.leavesBirch;
+        decoFallenTree2.leavesMeta = (byte)-1;
+        decoFallenTree2.minSize = 4;
+        decoFallenTree2.maxSize = 6;
         
-        if (l > 5f)
-        {
-            for (int b2 = 0; b2 < 3f * strength; b2++)
-            {
-                int j6 = chunkX + rand.nextInt(16) + 8;
-                int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeightValue(j6, k10);
-                
-                if (z52 < 120 && rand.nextInt(2) == 0)
-                {
-                    if (rand.nextBoolean()) {
-                        WorldGenerator worldgenerator = TreeGen.cypress(rand);
-                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                        worldgenerator.generate(world, rand, j6, z52, k10);
-                    }
-                    else {
-                        WorldGenerator worldgenerator = TreeGen.eucalyptus(rand);
-                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                        worldgenerator.generate(world, rand, j6, z52, k10);
-                    }
-                }
-            }
-        }
+        DecoHelper5050 decoHelper5050 = new DecoHelper5050(decoFallenTree1, decoFallenTree2);
+		this.addDeco(decoHelper5050, this.config._boolean(BiomeConfigEBScree.decorationLogsId));        
         
-        if (this.config.getPropertyById(BiomeConfigEBScree.decorationLogsId).valueBoolean) {
+        DecoEBTree ebShrub = new DecoEBTree();
+		ebShrub.treeType = TreeType.EUCALYPTUS_SHRUB;
+		ebShrub.strengthFactorForLoops = 2f;
+		ebShrub.distribution.noiseDivisor = 80f;
+		ebShrub.distribution.noiseFactor = 60f;
+		ebShrub.distribution.noiseAddend = -15f;
+		ebShrub.treeCondition = TreeCondition.RANDOM_CHANCE;
+		ebShrub.treeConditionChance = 2;
+		ebShrub.maxY = 110;       
         
-            if (rand.nextInt((int) (8f / strength)) == 0)
-            {
-                int x22 = chunkX + rand.nextInt(16) + 8;
-                int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
-                if (y22 < 100)
-                {
-                    if (rand.nextInt(8) == 0) {
-                        
-                        if (rand.nextBoolean()) {
-                            (new WorldGenLog(EnhancedBiomesBlocks.logSpruce, 1, EnhancedBiomesBlocks.leavesSpruce, -1, 4 + rand.nextInt(3))).generate(world, rand, x22, y22, z22);
-                        }
-                        else {
-                            (new WorldGenLog(EnhancedBiomesBlocks.logBirch, 1, EnhancedBiomesBlocks.leavesBirch, -1, 4 + rand.nextInt(3))).generate(world, rand, x22, y22, z22);
-                        }
-                    }
-                }
-            }
-        }
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.maxY = 110;
+        decoShrub.chance = 2;
+        decoShrub.strengthFactor = 2f;
         
-        for (int f24 = 0; f24 < 2f * strength; f24++)
-        {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
-            
-            if (k1 < 110 && rand.nextInt(2) == 0)
-            {
-                if (rand.nextBoolean()) {
-                    TreeGen.eucalyptus_shrub(rand);
-                }
-                else {
-                    (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
-                }
-            }
-        }
+        DecoHelper5050 decoHelper5050_2 = new DecoHelper5050(ebShrub, decoShrub);
+		this.addDeco(decoHelper5050_2);        
         
-        for (int l14 = 0; l14 < 12f * strength; l14++)
-        {
-            int l19 = chunkX + rand.nextInt(16) + 8;
-            int k22 = rand.nextInt(128);
-            int j24 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
-        }
+		DecoGrass decoGrass = new DecoGrass();
+		decoGrass.maxY = 128;
+		decoGrass.chance = 1;
+		decoGrass.strengthFactor = 12f;
+        this.addDeco(decoGrass);
     }
 }

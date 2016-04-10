@@ -8,7 +8,6 @@ public class TerrainVanillaExtremeHills extends TerrainBase
 {
 	private float start;
 	private float height;
-	private float base;
 	private float width;
 
 	public TerrainVanillaExtremeHills(float hillStart, float landHeight, float baseHeight, float hillWidth)

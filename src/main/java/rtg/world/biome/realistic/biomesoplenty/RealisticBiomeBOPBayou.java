@@ -67,10 +67,10 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase
     private double lakeDepressionLevel = 0.3;// the lakeStrength below which land should start to be lowered
 
     @Override
-    public double lakeFlattening(double pressure, double bottomLevel, double topLevel) {
+    public float lakeFlattening(float pressure, float bottomLevel, float topLevel) {
         // this number indicates a multiplier to height
         if (pressure > lakeDepressionLevel) return 1;
         if (pressure<lakeWaterLevel) return 0;
-        return (pressure-lakeWaterLevel)/(lakeDepressionLevel-lakeWaterLevel);
+        return (float)((pressure-lakeWaterLevel)/(lakeDepressionLevel-lakeWaterLevel));
     }
 }

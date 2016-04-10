@@ -4,6 +4,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraftforge.event.terraingen.TerrainGen;
@@ -25,7 +26,11 @@ public class DecoGrass extends DecoBase
 	public int loops;
 	public int chance;
 	public int notEqualsZerochance;
+	public Block block;
 	public int meta;
+	public Block[] randomGrassBlocks;
+	public byte[] randomGrassMetas;
+	protected boolean useRandomGrass;
 	
 	public DecoGrass()
 	{
@@ -40,7 +45,11 @@ public class DecoGrass extends DecoBase
 		this.loops = 1;
 		this.chance = 1;
 		this.notEqualsZerochance = 1;
+		this.block = Blocks.tallgrass;
 		this.meta = 1;
+		this.randomGrassBlocks = new Block[]{};
+		this.randomGrassMetas = new byte[]{};
+		this.useRandomGrass = (this.randomGrassBlocks.length > 0 && this.randomGrassBlocks.length == this.randomGrassMetas.length);
 		
 		this.addDecoTypes(DecoType.GRASS);
 	}
@@ -59,16 +68,23 @@ public class DecoGrass extends DecoBase
 	                int intY = rand.nextInt(this.maxY);
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 
+    				//Do we want to choose a random grass?
+    				if (this.useRandomGrass) {
+    					
+    					this.block = this.randomGrassBlocks[rand.nextInt(this.randomGrassBlocks.length)];
+    					this.meta = this.randomGrassMetas[rand.nextInt(this.randomGrassMetas.length)];
+    				}
+    				
 	                if (this.notEqualsZerochance > 1) {
 	                	
 		                if (intY <= this.maxY && rand.nextInt(this.notEqualsZerochance) != 0) {
-		                	(new WorldGenGrass(Blocks.tallgrass, this.meta)).generate(world, rand, intX, intY, intZ);
+		                	(new WorldGenGrass(this.block, this.meta)).generate(world, rand, intX, intY, intZ);
 		                }
 	                }
 	                else {
 	                	
 		                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-		                	(new WorldGenGrass(Blocks.tallgrass, this.meta)).generate(world, rand, intX, intY, intZ);
+		                	(new WorldGenGrass(this.block, this.meta)).generate(world, rand, intX, intY, intZ);
 		                }
 	                }
 	            }

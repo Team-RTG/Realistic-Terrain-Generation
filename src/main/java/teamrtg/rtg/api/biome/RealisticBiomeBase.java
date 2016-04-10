@@ -10,7 +10,7 @@ import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.SurfaceBase;
 import teamrtg.rtg.world.biome.surface.SurfaceGeneric;
-import teamrtg.rtg.world.biome.surface.part.SurfacePartBase;
+import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
 import teamrtg.rtg.world.gen.deco.DecoBase;
@@ -33,7 +33,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     public SurfaceBase surface;
 
     public boolean useNewSurfaceSystem;
-    public SurfacePartBase surfacePart;
+    public SurfacePart surfacePart;
     public int clayPerVein;
     public ArrayList<DecoBase> decos;
     public boolean noLakes = false;

@@ -1,20 +1,16 @@
 package teamrtg.rtg.mods.vanilla.biomes;
 
-import static teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-import static teamrtg.rtg.world.gen.deco.DecoTree.TreeType.VANILLA_OAK;
-
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.util.math.CanyonColour;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.gen.deco.DecoCactus;
-import teamrtg.rtg.world.gen.deco.DecoDeadBush;
-import teamrtg.rtg.world.gen.deco.DecoReed;
-import teamrtg.rtg.world.gen.deco.DecoShrub;
-import teamrtg.rtg.world.gen.deco.DecoTree;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaMesaPlateauF;
+import teamrtg.rtg.world.biome.surface.part.*;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.deco.*;
+
+import static teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import static teamrtg.rtg.world.gen.deco.DecoTree.TreeType.VANILLA_OAK;
 
 public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase {
 
@@ -27,30 +23,8 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
     }
 
     @Override
-    protected TerrainBase initTerrain() {
-        return new TerrainBase() {
-            private final float[] height = new float[] {24.0f, 0.4f};
-            private final int heightLength = height.length;
-            private final float strength = 10f;
+    protected void initProperties() {
 
-            {
-                /**
-                 * Values come in pairs per layer. First is how high to step up.
-                 * 	Second is a value between 0 and 1, signifying when to step up.
-                 */
-                base = 69f;
-            }
-
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 100f, false);
-            }
-        };
-    }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMesaPlateauF(this, 0);
     }
 
     @Override
@@ -87,7 +61,49 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
     }
 
     @Override
-    protected void initProperties() {
+    protected void initNewSurfaces() {
+        this.surfacePart.addSubPart(new DepthSelector(this, 0, 11)
+                .addSubPart(new CliffSelector(this, 1.3f)
+                        .addSubPart(new BlockPart(this, CanyonColour.MESA)))
+                .addSubPart(new DepthSelector(this, 4, 256)
+                        .addSubPart(new BlockPart(this, CanyonColour.MESA)))
+                .addSubPart(new HeightSelector(this, 0, 62)
+                        .addSubPart(new DepthSelector(this, 0, 0)
+                                .addSubPart(new BlockPart(this, Blocks.grass.getDefaultState())))
+                        .addSubPart(new BlockPart(this, Blocks.dirt.getDefaultState())))
+                .addSubPart(new DepthSelector(this, 0, 0)
+                        .addSubPart(new RandomPart(this, 444L, 5)
+                                .addSubPart(new BlockPart(this, Blocks.grass.getDefaultState())))
+                        .addSubPart(new RandomPart(this, 444L, 3)
+                                .addSubPart(new BlockPart(this, Blocks.dirt.getStateFromMeta(1))))
+                        .addSubPart(new BlockPart(this, this.config.TOP_BLOCK.get())))
+                .addSubPart(new BlockPart(this, this.config.FILL_BLOCK.get()))
+        );
+        this.surfacePart.addSubPart(
+                new HeightSelector(this, 64, 256)
+                        .addSubPart(new BlockPart(this, CanyonColour.MESA))
+        );
+    }
 
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            private final float[] height = new float[] {24.0f, 0.4f};
+            private final int heightLength = height.length;
+            private final float strength = 10f;
+
+            {
+                /**
+                 * Values come in pairs per layer. First is how high to step up.
+                 * 	Second is a value between 0 and 1, signifying when to step up.
+                 */
+                base = 69f;
+            }
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 100f, false);
+            }
+        };
     }
 }

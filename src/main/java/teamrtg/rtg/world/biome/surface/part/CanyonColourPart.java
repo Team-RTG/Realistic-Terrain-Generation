@@ -9,7 +9,7 @@ import static teamrtg.rtg.util.math.MathUtils.globalToLocal;
 /**
  * @author topisani
  */
-public class CanyonColourPart extends SurfacePartBase {
+public class CanyonColourPart extends SurfacePart {
 
     public final CanyonColour colour;
 
@@ -19,8 +19,7 @@ public class CanyonColourPart extends SurfacePartBase {
     }
 
     @Override
-    public boolean paintSurface(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise, float river) {
+    public void paintSurface(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise, float river) {
         primer.setBlockState(globalToLocal(x), y, globalToLocal(z), colour.getAt(x, y, z));
-        return true;
     }
 }

@@ -8,11 +8,11 @@ import static teamrtg.rtg.util.math.MathUtils.globalToLocal;
 /**
  * @author topisani
  */
-public class CliffPart extends SurfacePartBase {
+public class CliffSelector extends SurfacePart {
 
     public final float minCliff;
 
-    public CliffPart(RealisticBiomeBase biome, float minCliff) {
+    public CliffSelector(RealisticBiomeBase biome, float minCliff) {
         super(biome);
         this.minCliff = minCliff;
     }

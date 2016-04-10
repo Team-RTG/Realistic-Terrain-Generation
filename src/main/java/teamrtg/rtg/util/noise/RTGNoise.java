@@ -10,6 +10,7 @@ public class RTGNoise {
 
     private final OpenSimplexNoise simplex;
     public static final RTGNoise EMPTY = new RTGNoise(0);
+    public static final RTGNoise EMPTY_TRUE = new RTGNoise(0).setRange(0f, 0f, RangeType.BOOL);
 
     private ArrayList<Octave> octaves;
     private float min;
@@ -53,6 +54,10 @@ public class RTGNoise {
                 break;
         }
         return result;
+    }
+
+    public boolean getBoolAt(float x, float y, float z) {
+        return getAt(x, y, z) == 1f;
     }
 
     public RTGNoise setRange(float min, float max, RangeType rangeType) {

@@ -6,24 +6,24 @@ import teamrtg.rtg.util.noise.RTGNoise;
 /**
  * @author topisani
  */
-public class HeightSelectorPart extends SurfacePartBase {
+public class HeightSelector extends SurfacePart {
     private final int min;
     private final int max;
     private RTGNoise minNoise = RTGNoise.EMPTY;
     private RTGNoise maxNoise = RTGNoise.EMPTY;
 
-    public HeightSelectorPart(RealisticBiomeBase biome, int min, int max) {
+    public HeightSelector(RealisticBiomeBase biome, int min, int max) {
         super(biome);
         this.min = min;
         this.max = max;
     }
 
-    public HeightSelectorPart setMinNoise(RTGNoise minNoise) {
+    public HeightSelector setMinNoise(RTGNoise minNoise) {
         this.minNoise = minNoise;
         return this;
     }
 
-    public HeightSelectorPart setMaxNoise(RTGNoise maxNoise) {
+    public HeightSelector setMaxNoise(RTGNoise maxNoise) {
         this.maxNoise = maxNoise;
         return this;
     }

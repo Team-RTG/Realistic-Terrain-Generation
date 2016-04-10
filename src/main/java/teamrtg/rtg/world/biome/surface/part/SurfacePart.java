@@ -8,11 +8,11 @@ import java.util.ArrayList;
 /**
  * @author topisani
  */
-public abstract class SurfacePartBase {
-    protected ArrayList<SurfacePartBase> subparts;
+public abstract class SurfacePart {
+    protected ArrayList<SurfacePart> subparts;
     protected final RealisticBiomeBase biome;
 
-    public SurfacePartBase(RealisticBiomeBase biome) {
+    public SurfacePart(RealisticBiomeBase biome) {
         subparts = new ArrayList<>();
         this.biome = biome;
     }
@@ -30,10 +30,11 @@ public abstract class SurfacePartBase {
      */
     public final boolean paintWithSubparts(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise, float river) {
         if (this.applies(x, y, z, depth, noise, river)) {
-            for (SurfacePartBase part : subparts) {
+            for (SurfacePart part : subparts) {
                 if (part.paintWithSubparts(primer, x, y, z, depth, noise, river)) return true;
             }
-            return this.paintSurface(primer, x, y, z, depth, noise, river);
+            this.paintSurface(primer, x, y, z, depth, noise, river);
+            return true;
         }
         return false;
     }
@@ -41,12 +42,8 @@ public abstract class SurfacePartBase {
     /**
      * Places the actual blocks at the coordinates.
      * will only be called if none of the subparts returned true for this function.
-     * @return true if this surface part has placed a block and every other part should be skipped for these coordinates
-     * returns false by default, assuming this hasnt changed the block.
      */
-    protected boolean paintSurface(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise, float river) {
-        return false;
-    }
+    protected void paintSurface(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise, float river) {}
 
     /**
      * Does this surface part and its subparts even apply to these coordinates?
@@ -56,7 +53,7 @@ public abstract class SurfacePartBase {
         return true;
     }
 
-    public SurfacePartBase addSubPart(SurfacePartBase part) {
+    public SurfacePart addSubPart(SurfacePart part) {
         this.subparts.add(part);
         return this;
     }

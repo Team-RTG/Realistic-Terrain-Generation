@@ -207,7 +207,7 @@ public class DecoTree extends DecoBase
 
 		                    	if (this.maxSize > this.minSize) {
 		                            WorldGenerator worldgenerator = new WorldGenTreeRTGMangrove(
-		                                    Blocks.log2, 1, Blocks.leaves2, 1, this.minSize + rand.nextInt(this.maxSize - this.minSize), 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
+		                                    Blocks.log2, 1, Blocks.leaves2, 1, 7 + rand.nextInt(6), 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
 		                                );
 		                                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 		                                worldgenerator.generate(world, rand, intX, intY, intZ);

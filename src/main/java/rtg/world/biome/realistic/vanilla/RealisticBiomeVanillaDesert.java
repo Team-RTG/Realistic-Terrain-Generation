@@ -93,8 +93,8 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase
         this.addDeco(decoDesertWell);
 
 		DecoCactus decoCactus = new DecoCactus();
-		decoCactus.maxY = 120;
-		decoCactus.strengthFactor = 5f;
+		decoCactus.maxY = 90;
+		decoCactus.strengthFactor = 4f;
         this.addDeco(decoCactus);
         
         DecoDeadBush decoDeadBush = new DecoDeadBush();

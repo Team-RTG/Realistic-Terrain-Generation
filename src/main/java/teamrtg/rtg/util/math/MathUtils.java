@@ -17,11 +17,11 @@ public class MathUtils {
         XY_INVERTED = result;
     }
 
-    public static int globalToLocal(int x) {
+    public static final int globalToLocal(int x) {
         return ((x % 16) + 16) % 16;
     }
 
-    public static int globalToChunk(int x) {
+    public static final int globalToChunk(int x) {
         return (int) Math.floor((double) x / 16d);
     }
 }

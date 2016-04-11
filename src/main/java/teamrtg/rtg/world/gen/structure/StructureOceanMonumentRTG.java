@@ -92,7 +92,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         if (i == k && j == l) {
             BiomeGenBase bg = this.worldObj.getBiomeProvider().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), null);
 
-            if (RealisticBiomeBase.getIdForBiome(bg) == Mods.VANILLA.biomes.deepOcean.getID()) {
+            if (RealisticBiomeBase.getIdForBiome(bg) == Mods.VANILLA.biomes.DEEP_OCEAN.getID()) {
 
                 boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29);
 

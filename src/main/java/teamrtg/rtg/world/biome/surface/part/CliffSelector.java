@@ -1,6 +1,5 @@
 package teamrtg.rtg.world.biome.surface.part;
 
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.util.math.CliffCalculator;
 
 import static teamrtg.rtg.util.math.MathUtils.globalToLocal;
@@ -12,8 +11,7 @@ public class CliffSelector extends SurfacePart {
 
     public final float minCliff;
 
-    public CliffSelector(RealisticBiomeBase biome, float minCliff) {
-        super(biome);
+    public CliffSelector(float minCliff) {
         this.minCliff = minCliff;
     }
 

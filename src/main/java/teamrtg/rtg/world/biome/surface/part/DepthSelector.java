@@ -1,6 +1,5 @@
 package teamrtg.rtg.world.biome.surface.part;
 
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.util.noise.RTGNoise;
 
 /**
@@ -15,8 +14,7 @@ public class DepthSelector extends SurfacePart {
     private RTGNoise minNoise = RTGNoise.EMPTY;
     private RTGNoise maxNoise = RTGNoise.EMPTY;
 
-    public DepthSelector(RealisticBiomeBase biome, int min, int max) {
-        super(biome);
+    public DepthSelector(int min, int max) {
         this.min = min;
         this.max = max;
     }

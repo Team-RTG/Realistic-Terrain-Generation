@@ -10,6 +10,7 @@ import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.SurfaceBase;
 import teamrtg.rtg.world.biome.surface.SurfaceGeneric;
+import teamrtg.rtg.world.biome.surface.part.GenericPart;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
@@ -98,6 +99,8 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     @Deprecated
     protected SurfaceBase initSurface() {
         this.useNewSurfaceSystem = true;
+        this.surfacePart = new GenericPart(this, fill);
+        initNewSurfaces();
         return new SurfaceGeneric(this);
     }
 

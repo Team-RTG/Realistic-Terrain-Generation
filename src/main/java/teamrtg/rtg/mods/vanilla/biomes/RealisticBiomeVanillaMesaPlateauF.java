@@ -9,6 +9,8 @@ import teamrtg.rtg.world.biome.surface.part.*;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.deco.*;
 
+import java.util.Random;
+
 import static teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 import static teamrtg.rtg.world.gen.deco.DecoTree.TreeType.VANILLA_OAK;
 
@@ -62,26 +64,26 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
 
     @Override
     protected void initNewSurfaces() {
-        this.surfacePart.addSubPart(new DepthSelector(this, 0, 11)
-                .addSubPart(new CliffSelector(this, 1.3f)
-                        .addSubPart(new BlockPart(this, CanyonColour.MESA)))
-                .addSubPart(new DepthSelector(this, 4, 256)
-                        .addSubPart(new BlockPart(this, CanyonColour.MESA)))
-                .addSubPart(new HeightSelector(this, 0, 62)
-                        .addSubPart(new DepthSelector(this, 0, 0)
-                                .addSubPart(new BlockPart(this, Blocks.grass.getDefaultState())))
-                        .addSubPart(new BlockPart(this, Blocks.dirt.getDefaultState())))
-                .addSubPart(new DepthSelector(this, 0, 0)
-                        .addSubPart(new RandomPart(this, 444L, 5)
-                                .addSubPart(new BlockPart(this, Blocks.grass.getDefaultState())))
-                        .addSubPart(new RandomPart(this, 444L, 3)
-                                .addSubPart(new BlockPart(this, Blocks.dirt.getStateFromMeta(1))))
-                        .addSubPart(new BlockPart(this, this.config.TOP_BLOCK.get())))
-                .addSubPart(new BlockPart(this, this.config.FILL_BLOCK.get()))
+        this.surfacePart.add(new DepthSelector(0, 11)
+                .add(new CliffSelector(1.3f)
+                        .add(new BlockPart(CanyonColour.MESA)))
+                .add(new DepthSelector(4, 256)
+                        .add(new BlockPart(CanyonColour.MESA)))
+                .add(new HeightSelector(0, 62)
+                        .add(new DepthSelector(0, 0)
+                                .add(new BlockPart(Blocks.GRASS.getDefaultState())))
+                        .add(new BlockPart(Blocks.DIRT.getDefaultState())))
+                .add(new DepthSelector(0, 0)
+                        .add(new RandomPart(new Random(3), 5)
+                                .add(new BlockPart(Blocks.GRASS.getDefaultState())))
+                        .add(new RandomPart(new Random(3), 3)
+                                .add(new BlockPart(Blocks.DIRT.getStateFromMeta(1))))
+                        .add(new BlockPart(this.config.TOP_BLOCK.get())))
+                .add(new BlockPart(this.config.FILL_BLOCK.get()))
         );
-        this.surfacePart.addSubPart(
-                new HeightSelector(this, 64, 256)
-                        .addSubPart(new BlockPart(this, CanyonColour.MESA))
+        this.surfacePart.add(
+                new HeightSelector(64, 256)
+                        .add(new BlockPart(CanyonColour.MESA))
         );
     }
 

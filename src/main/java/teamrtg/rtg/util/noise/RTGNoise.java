@@ -12,7 +12,7 @@ public class RTGNoise {
     public static final RTGNoise EMPTY = new RTGNoise(0);
     public static final RTGNoise EMPTY_TRUE = new RTGNoise(0).setRange(0f, 0f, RangeType.BOOL);
 
-    private ArrayList<Octave> octaves;
+    private ArrayList<Octave> octaves = new ArrayList<>();
     private float min;
     private float max;
     private RangeType rangeType = RangeType.NONE;

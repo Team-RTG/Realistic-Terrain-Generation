@@ -1,7 +1,5 @@
 package teamrtg.rtg.world.biome.surface.part;
 
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
-
 import java.util.Random;
 
 /**
@@ -12,10 +10,9 @@ public class RandomPart extends SurfacePart {
     private final Random rand;
     private final int chance;
 
-    public RandomPart(RealisticBiomeBase biome, long seed, int chance) {
-        super(biome);
+    public RandomPart(Random rand, int chance) {
         this.chance = chance;
-        this.rand = new Random(seed);
+        this.rand = rand;
     }
 
     @Override

@@ -38,7 +38,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
 
     @Override
     protected void initNewSurfaces() {
-        this.surfacePart.addSubPart(new BlockPart(this, CanyonColour.MESA));
+        this.surfacePart.add(new BlockPart(this, CanyonColour.MESA));
     }
 
     @Override

@@ -1,7 +1,6 @@
 package teamrtg.rtg.world.biome.surface.part;
 
 import net.minecraft.world.chunk.ChunkPrimer;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
 
 import java.util.ArrayList;
 
@@ -10,11 +9,9 @@ import java.util.ArrayList;
  */
 public abstract class SurfacePart {
     protected ArrayList<SurfacePart> subparts;
-    protected final RealisticBiomeBase biome;
 
-    public SurfacePart(RealisticBiomeBase biome) {
+    public SurfacePart() {
         subparts = new ArrayList<>();
-        this.biome = biome;
     }
 
     /**
@@ -33,8 +30,7 @@ public abstract class SurfacePart {
             for (SurfacePart part : subparts) {
                 if (part.paintWithSubparts(primer, x, y, z, depth, noise, river)) return true;
             }
-            this.paintSurface(primer, x, y, z, depth, noise, river);
-            return true;
+            return this.paintSurface(primer, x, y, z, depth, noise, river);
         }
         return false;
     }
@@ -43,7 +39,9 @@ public abstract class SurfacePart {
      * Places the actual blocks at the coordinates.
      * will only be called if none of the subparts returned true for this function.
      */
-    protected void paintSurface(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise, float river) {}
+    protected boolean paintSurface(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise, float river) {
+        return false;
+    }
 
     /**
      * Does this surface part and its subparts even apply to these coordinates?
@@ -53,7 +51,7 @@ public abstract class SurfacePart {
         return true;
     }
 
-    public SurfacePart addSubPart(SurfacePart part) {
+    public SurfacePart add(SurfacePart part) {
         this.subparts.add(part);
         return this;
     }

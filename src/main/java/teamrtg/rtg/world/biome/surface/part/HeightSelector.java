@@ -1,6 +1,5 @@
 package teamrtg.rtg.world.biome.surface.part;
 
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.util.noise.RTGNoise;
 
 /**
@@ -12,8 +11,7 @@ public class HeightSelector extends SurfacePart {
     private RTGNoise minNoise = RTGNoise.EMPTY;
     private RTGNoise maxNoise = RTGNoise.EMPTY;
 
-    public HeightSelector(RealisticBiomeBase biome, int min, int max) {
-        super(biome);
+    public HeightSelector(int min, int max) {
         this.min = min;
         this.max = max;
     }

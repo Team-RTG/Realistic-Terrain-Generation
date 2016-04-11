@@ -121,9 +121,9 @@ public class EventManagerRTG {
         } else {
             return;
         }
-        if (RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(Mods.VANILLA.biomes.desert) ||
-                RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(Mods.VANILLA.biomes.desertHills) ||
-                RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(Mods.VANILLA.biomes.desert)) {
+        if (RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(Mods.VANILLA.biomes.DESERT) ||
+                RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(Mods.VANILLA.biomes.DESERT_HILLS) ||
+                RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(Mods.VANILLA.biomes.DESERT)) {
             if (event.getOriginal().getBlock() == Blocks.LOG || event.getOriginal().getBlock() == Blocks.LOG2) {
                 event.setReplacement(Blocks.SANDSTONE.getDefaultState());
             }

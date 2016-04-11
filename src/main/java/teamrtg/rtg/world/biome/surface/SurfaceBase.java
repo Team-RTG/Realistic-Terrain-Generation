@@ -36,7 +36,7 @@ public class SurfaceBase {
             return ACBlocks.darkstone.getDefaultState();
         } else {
 
-            return Blocks.stone.getDefaultState();
+            return Blocks.STONE.getDefaultState();
         }
     }
 
@@ -45,7 +45,7 @@ public class SurfaceBase {
 
             return ACBlocks.darkstone_cobblestone.getDefaultState();
         } else {
-            return Blocks.cobblestone.getDefaultState();
+            return Blocks.COBBLESTONE.getDefaultState();
         }
     }
 }

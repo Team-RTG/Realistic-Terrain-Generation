@@ -24,13 +24,13 @@ import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaJungleM;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
-    public static BiomeGenBase standardBiome = Biomes.jungle;
+    public static BiomeGenBase standardBiome = Biomes.JUNGLE;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaJungleM() {
         super(
                 mutationBiome,
-                Biomes.river
+                Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -93,9 +93,9 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 3;
         decoFallenTree.maxY = 120;
-        decoFallenTree.logBlock = Blocks.log;
+        decoFallenTree.logBlock = Blocks.LOG;
         decoFallenTree.logMeta = (byte) 3;
-        decoFallenTree.leavesBlock = Blocks.leaves;
+        decoFallenTree.leavesBlock = Blocks.LEAVES;
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 4;
         decoFallenTree.maxSize = 9;
@@ -134,7 +134,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
 
         // Mossy boulders for the green.
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
+        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE;
         decoBoulder.chance = 16;
         decoBoulder.maxY = 95;
         decoBoulder.strengthFactor = 2f;

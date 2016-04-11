@@ -10,8 +10,8 @@ import teamrtg.rtg.api.mods.Mods;
 
 import java.util.Random;
 
-import static net.minecraft.block.material.Material.plants;
-import static net.minecraft.block.material.Material.vine;
+import static net.minecraft.block.material.Material.PLANTS;
+import static net.minecraft.block.material.Material.VINE;
 import static net.minecraft.init.Blocks.*;
 
 
@@ -21,20 +21,20 @@ public class WorldGenTreeRTGShrub extends WorldGenerator {
     private int logMeta;
     private Block leaveBlock;
     private int leaveMeta;
-    private boolean sand;
+    private boolean SAND;
 
-    public WorldGenTreeRTGShrub(int s, int log, int leav) {
-        this(s, log, leav, false);
+    public WorldGenTreeRTGShrub(int s, int LOG, int leav) {
+        this(s, LOG, leav, false);
     }
 
-    public WorldGenTreeRTGShrub(int s, int log, int leav, boolean sa) {
+    public WorldGenTreeRTGShrub(int s, int LOG, int leav, boolean sa) {
         size = s;
-        sand = false;
+        SAND = false;
 
-        logBlock = log < 3 ? Blocks.log : log2;
-        logMeta = log > 2 ? log - 3 : log;
+        logBlock = LOG < 3 ? Blocks.LOG : LOG2;
+        logMeta = LOG > 2 ? LOG - 3 : LOG;
 
-        leaveBlock = leav < 4 ? Blocks.leaves : leaves2;
+        leaveBlock = leav < 4 ? Blocks.LEAVES : LEAVES2;
         leaveMeta = leav > 3 ? leav - 4 : leav;
     }
 
@@ -66,18 +66,18 @@ public class WorldGenTreeRTGShrub extends WorldGenerator {
         Block b = world.getBlockState(new BlockPos(x, y - 2, z)).getBlock();
         Block b1 = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
 
-        if ((b == Blocks.sand || b1 == Blocks.sand) && !Mods.RTG.config.ALLOW_TREES_ON_SAND.get()) {
+        if ((b == Blocks.SAND || b1 == Blocks.SAND) && !Mods.RTG.config.ALLOW_TREES_ON_SAND.get()) {
             return;
         }
 
-        if (b.getMaterial(b.getDefaultState()) == Material.grass || b.getMaterial(b.getDefaultState()) == Material.ground || (sand && b.getMaterial(b.getDefaultState()) == Material.sand)) {
-            if (b1 != Blocks.water) {
+        if (b.getMaterial(b.getDefaultState()) == Material.GRASS || b.getMaterial(b.getDefaultState()) == Material.GROUND || (SAND && b.getMaterial(b.getDefaultState()) == Material.SAND)) {
+            if (b1 != Blocks.WATER) {
                 if (!Mods.RTG.config.ALLOW_SHRUBS_UNDERGROUND.get()) {
 
-                    if (b1.getMaterial(b1.getDefaultState()) != Material.air &&
-                            b1.getMaterial(b1.getDefaultState()) != Material.vine &&
-                            b1.getMaterial(b1.getDefaultState()) != Material.plants &&
-                            b1 != Blocks.snow_layer) {
+                    if (b1.getMaterial(b1.getDefaultState()) != Material.AIR &&
+                            b1.getMaterial(b1.getDefaultState()) != Material.VINE &&
+                            b1.getMaterial(b1.getDefaultState()) != Material.PLANTS &&
+                            b1 != Blocks.SNOW_LAYER) {
                         return;
                     }
                 }
@@ -98,7 +98,7 @@ public class WorldGenTreeRTGShrub extends WorldGenerator {
 
     public void buildBlock(World world, int x, int y, int z, Block block, int meta) {
         Block b = world.getBlockState(new BlockPos(x, y, z)).getBlock();
-        if (b.getMaterial(b.getDefaultState()) == Material.air || b.getMaterial(b.getDefaultState()) == vine || b.getMaterial(b.getDefaultState()) == plants || b == snow_layer) {
+        if (b.getMaterial(b.getDefaultState()) == Material.AIR || b.getMaterial(b.getDefaultState()) == VINE || b.getMaterial(b.getDefaultState()) == PLANTS || b == SNOW_LAYER) {
             world.setBlockState(new BlockPos(x, y, z), block.getStateFromMeta(meta), 0);
         }
     }

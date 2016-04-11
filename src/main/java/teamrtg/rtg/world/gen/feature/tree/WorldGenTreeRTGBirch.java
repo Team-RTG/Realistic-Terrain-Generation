@@ -8,7 +8,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import java.util.Random;
 
 import static java.lang.Math.abs;
-import static net.minecraft.block.material.Material.air;
+import static net.minecraft.block.material.Material.AIR;
 import static net.minecraft.init.Blocks.*;
 
 public class WorldGenTreeRTGBirch extends WorldGenerator {
@@ -26,13 +26,13 @@ public class WorldGenTreeRTGBirch extends WorldGenerator {
 
     public boolean generate(World world, Random rand, int x, int y, int z) {
         Block g = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
-        if (g != grass && g != dirt) {
+        if (g != GRASS && g != DIRT) {
             return false;
         }
 
         int i;
         for (i = 0; i < startHeight; i++) {
-            world.setBlockState(new BlockPos(x, y, z), log.getStateFromMeta(2), 0);
+            world.setBlockState(new BlockPos(x, y, z), LOG.getStateFromMeta(2), 0);
             y++;
         }
 
@@ -60,7 +60,7 @@ public class WorldGenTreeRTGBirch extends WorldGenerator {
 
                 buildBranch(world, rand, x, y, z, dX, dZ, 1, i < treeSize - 2 ? 2 : 1); //i < treeSize - 4 ? 2 : 1
             }
-            world.setBlockState(new BlockPos(x, y, z), log.getStateFromMeta(2), 0);
+            world.setBlockState(new BlockPos(x, y, z), LOG.getStateFromMeta(2), 0);
 
             if (i < treeSize - 2) {
                 if (rand.nextBoolean()) {
@@ -101,14 +101,14 @@ public class WorldGenTreeRTGBirch extends WorldGenerator {
         }
 
         for (int m = 1; m <= 1; m++) {
-            world.setBlockState(new BlockPos(x + (dX * m), y, z + (dZ * m)), log.getStateFromMeta(2), 0);
+            world.setBlockState(new BlockPos(x + (dX * m), y, z + (dZ * m)), LOG.getStateFromMeta(2), 0);
         }
     }
 
     public void buildLeaves(World world, int x, int y, int z) {
         Block b = world.getBlockState(new BlockPos(x, y, z)).getBlock();
-        if (b.getMaterial(b.getDefaultState()) == air) {
-            world.setBlockState(new BlockPos(x, y, z), leaves.getStateFromMeta(2), 0);
+        if (b.getMaterial(b.getDefaultState()) == AIR) {
+            world.setBlockState(new BlockPos(x, y, z), LEAVES.getStateFromMeta(2), 0);
         }
     }
 }

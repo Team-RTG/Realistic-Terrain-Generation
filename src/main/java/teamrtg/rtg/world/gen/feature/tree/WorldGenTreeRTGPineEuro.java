@@ -9,7 +9,7 @@ import java.util.Random;
 
 import static java.lang.Math.*;
 import static net.minecraft.init.Blocks.*;
-import static net.minecraft.init.Blocks.log;
+import static net.minecraft.init.Blocks.LOG;
 
 public class WorldGenTreeRTGPineEuro extends WorldGenerator {
     public WorldGenTreeRTGPineEuro() {
@@ -21,7 +21,7 @@ public class WorldGenTreeRTGPineEuro extends WorldGenerator {
 
     public boolean generate(World world, Random rand, int x, int y, int z) {
         Block g = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
-        if (g != grass && g != dirt) {
+        if (g != GRASS && g != DIRT) {
             return false;
         }
 
@@ -30,7 +30,7 @@ public class WorldGenTreeRTGPineEuro extends WorldGenerator {
         float branchIncrease = 0.25f;
 
         for (int i = 0; i <= height; i++) {
-            world.setBlockState(new BlockPos(x, y + i, z), log.getDefaultState(), 0);
+            world.setBlockState(new BlockPos(x, y + i, z), LOG.getDefaultState(), 0);
         }
         createRandomLeaves(world, rand, x, y + height, z, 2);
         createTrunk(world, rand, x, y, z);
@@ -45,7 +45,7 @@ public class WorldGenTreeRTGPineEuro extends WorldGenerator {
             yd = (float) sin(dir * PI / 180f);
 
             for (b = 0; b <= bl; b++) {
-                world.setBlockState(new BlockPos(x + (int) (b * xd), y + j, z + (int) (b * yd)), log.getStateFromMeta(12), 0);
+                world.setBlockState(new BlockPos(x + (int) (b * xd), y + j, z + (int) (b * yd)), LOG.getStateFromMeta(12), 0);
             }
             createRandomLeaves(world, rand, x, y + j, z, 2);
             createRandomLeaves(world, rand, x + (int) (b * xd), y + j, z + (int) (b * yd), 2);
@@ -63,7 +63,7 @@ public class WorldGenTreeRTGPineEuro extends WorldGenerator {
                     l = i * i + j * j + k * k;
                     if (l <= t) {
                         if (world.isAirBlock(new BlockPos(x + i, y + j, z + k)) && (l < t / 2 || rand.nextBoolean())) {
-                            world.setBlockState(new BlockPos(x + i, y + j, z + k), leaves.getStateFromMeta(4), 0);
+                            world.setBlockState(new BlockPos(x + i, y + j, z + k), LEAVES.getStateFromMeta(4), 0);
                         }
                     }
                 }
@@ -77,10 +77,10 @@ public class WorldGenTreeRTGPineEuro extends WorldGenerator {
         for (int t = 0; t < 5; t++) {
             sh = rand.nextInt(3) + y;
             while (sh > y - 3) {
-                if (world.getBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1])).getBlock() == dirt) {
+                if (world.getBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1])).getBlock() == DIRT) {
                     break;
                 }
-                world.setBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), log.getStateFromMeta(12), 0);
+                world.setBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), LOG.getStateFromMeta(12), 0);
                 sh--;
             }
         }

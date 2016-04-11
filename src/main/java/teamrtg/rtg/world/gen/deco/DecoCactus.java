@@ -41,7 +41,7 @@ public class DecoCactus extends DecoBase {
         this.maxY = 255; // No height limit by default.
         this.strengthFactor = 0f; // The higher the value, the more there will be.
         this.sandOnly = false;
-        this.soil = Blocks.sand.getDefaultState();
+        this.soil = Blocks.SAND.getDefaultState();
 
         this.addDecoTypes(DecoType.CACTUS);
     }

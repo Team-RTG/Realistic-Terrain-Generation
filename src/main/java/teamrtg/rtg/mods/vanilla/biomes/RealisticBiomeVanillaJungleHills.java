@@ -26,8 +26,8 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaJungleHills() {
 
         super(
-                Biomes.jungleHills,
-                Biomes.river
+                Biomes.JUNGLE_HILLS,
+                Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -90,9 +90,9 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 3;
         decoFallenTree.maxY = 120;
-        decoFallenTree.logBlock = Blocks.log;
+        decoFallenTree.logBlock = Blocks.LOG;
         decoFallenTree.logMeta = (byte) 3;
-        decoFallenTree.leavesBlock = Blocks.leaves;
+        decoFallenTree.leavesBlock = Blocks.LEAVES;
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 4;
         decoFallenTree.maxSize = 9;
@@ -131,7 +131,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
 
         // Mossy boulders for the green.
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
+        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE;
         decoBoulder.chance = 16;
         decoBoulder.maxY = 95;
         decoBoulder.strengthFactor = 2f;
@@ -146,7 +146,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.sand.getDefaultState());
+        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
         this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.JUNGLE_TEMPLE.name());
         this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(3);
     }

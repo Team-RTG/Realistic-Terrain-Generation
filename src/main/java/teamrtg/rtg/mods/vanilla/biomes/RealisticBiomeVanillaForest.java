@@ -22,8 +22,8 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaForest() {
 
         super(
-                Biomes.forest,
-                Biomes.river
+                Biomes.FOREST,
+                Biomes.RIVER
         );
     }
 
@@ -72,9 +72,9 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
         decoFallenOak.logCondition = LogCondition.RANDOM_CHANCE;
         decoFallenOak.logConditionChance = 8;
         decoFallenOak.maxY = 100;
-        decoFallenOak.logBlock = Blocks.log;
+        decoFallenOak.logBlock = Blocks.LOG;
         decoFallenOak.logMeta = (byte) 0;
-        decoFallenOak.leavesBlock = Blocks.leaves;
+        decoFallenOak.leavesBlock = Blocks.LEAVES;
         decoFallenOak.leavesMeta = (byte) -1;
         decoFallenOak.minSize = 3;
         decoFallenOak.maxSize = 6;
@@ -83,9 +83,9 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
         decoFallenSpruce.logCondition = LogCondition.RANDOM_CHANCE;
         decoFallenSpruce.logConditionChance = 8;
         decoFallenSpruce.maxY = 100;
-        decoFallenSpruce.logBlock = Blocks.log;
+        decoFallenSpruce.logBlock = Blocks.LOG;
         decoFallenSpruce.logMeta = (byte) 1;
-        decoFallenSpruce.leavesBlock = Blocks.leaves;
+        decoFallenSpruce.leavesBlock = Blocks.LEAVES;
         decoFallenSpruce.leavesMeta = (byte) -1;
         decoFallenSpruce.minSize = 3;
         decoFallenSpruce.maxSize = 6;
@@ -115,7 +115,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.dirt.getStateFromMeta(2));
-        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.sand.getDefaultState());
+        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.DIRT.getStateFromMeta(2));
+        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
     }
 }

@@ -21,8 +21,8 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
 
     public RealisticBiomeVanillaBirchForestHills() {
         super(
-                Biomes.birchForestHills,
-                Biomes.river
+                Biomes.BIRCH_FOREST_HILLS,
+                Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -65,9 +65,9 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
         decoFallenTree.logCondition = LogCondition.RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 8;
         decoFallenTree.maxY = 100;
-        decoFallenTree.logBlock = Blocks.log;
+        decoFallenTree.logBlock = Blocks.LOG;
         decoFallenTree.logMeta = (byte) 2;
-        decoFallenTree.leavesBlock = Blocks.leaves;
+        decoFallenTree.leavesBlock = Blocks.LEAVES;
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
@@ -96,7 +96,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.sand.getDefaultState());
-        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.dirt.getStateFromMeta(2));
+        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
+        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.DIRT.getStateFromMeta(2));
     }
 }

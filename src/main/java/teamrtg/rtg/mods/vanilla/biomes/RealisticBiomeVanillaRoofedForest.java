@@ -26,8 +26,8 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaRoofedForest() {
 
         super(
-                Biomes.roofedForest,
-                Biomes.river
+                Biomes.ROOFED_FOREST,
+                Biomes.RIVER
         );
     }
 
@@ -51,14 +51,14 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
     @Override
     protected void initDecos() {
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
+        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE;
         decoBoulder.chance = 20;
         decoBoulder.maxY = 80;
         decoBoulder.strengthFactor = 2f;
         this.addDeco(decoBoulder);
 
         DecoBoulder decoCobwebBoulder = new DecoBoulder();
-        decoCobwebBoulder.boulderBlock = Blocks.web;
+        decoCobwebBoulder.boulderBlock = Blocks.WEB;
         decoCobwebBoulder.chance = 32;
         decoCobwebBoulder.maxY = 80;
         decoCobwebBoulder.strengthFactor = 2f;
@@ -81,9 +81,9 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         decoFallenTree.logConditionChance = 1;
         decoFallenTree.loops = 4;
         decoFallenTree.maxY = 100;
-        decoFallenTree.logBlock = Blocks.log2;
+        decoFallenTree.logBlock = Blocks.LOG2;
         decoFallenTree.logMeta = (byte) 1;
-        decoFallenTree.leavesBlock = Blocks.leaves2;
+        decoFallenTree.leavesBlock = Blocks.LEAVES2;
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 4;
         decoFallenTree.maxSize = 9;
@@ -130,7 +130,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.dirt.getStateFromMeta(2));
-        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.sand.getDefaultState());
+        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.DIRT.getStateFromMeta(2));
+        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
     }
 }

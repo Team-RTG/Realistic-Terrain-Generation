@@ -11,8 +11,8 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase 
 
     public RealisticBiomeVanillaFrozenRiver() {
         super(
-                Biomes.frozenRiver,
-                Biomes.frozenRiver
+                Biomes.FROZEN_RIVER,
+                Biomes.FROZEN_RIVER
         );
     }
 

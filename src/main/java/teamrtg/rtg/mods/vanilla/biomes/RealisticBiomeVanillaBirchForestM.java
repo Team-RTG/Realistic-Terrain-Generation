@@ -20,14 +20,14 @@ import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase {
 
-    public static BiomeGenBase standardBiome = Biomes.birchForest;
+    public static BiomeGenBase standardBiome = Biomes.BIRCH_FOREST;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaBirchForestM() {
 
         super(
                 mutationBiome,
-                Biomes.river
+                Biomes.RIVER
 
         );
         this.noLakes = true;
@@ -75,9 +75,9 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         decoFallenTree.logCondition = LogCondition.RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 20;
         decoFallenTree.maxY = 100;
-        decoFallenTree.logBlock = Blocks.log;
+        decoFallenTree.logBlock = Blocks.LOG;
         decoFallenTree.logMeta = (byte) 2;
-        decoFallenTree.leavesBlock = Blocks.leaves;
+        decoFallenTree.leavesBlock = Blocks.LEAVES;
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;

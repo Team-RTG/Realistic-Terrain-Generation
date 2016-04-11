@@ -11,13 +11,13 @@ import teamrtg.rtg.world.biome.terrain.GroundEffect;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaBase {
-    public static BiomeGenBase standardBiome = Biomes.plains;
+    public static BiomeGenBase standardBiome = Biomes.PLAINS;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaSunflowerPlains() {
         super(
                 mutationBiome,
-                Biomes.river
+                Biomes.RIVER
         );
     }
 

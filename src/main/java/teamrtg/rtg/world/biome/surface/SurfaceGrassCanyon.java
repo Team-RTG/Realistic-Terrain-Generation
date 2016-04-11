@@ -27,17 +27,17 @@ public class SurfaceGrassCanyon extends SurfaceBase {
 
         for (int k = 255; k > -1; k--) {
             Block b = primer.getBlockState(x, k, y).getBlock();
-            if (b == Blocks.air) {
+            if (b == Blocks.AIR) {
                 depth = -1;
-            } else if (b == Blocks.stone) {
+            } else if (b == Blocks.STONE) {
                 depth++;
 
                 if (depth > -1 && depth < 12) {
                     if (cliff) {
-                        primer.setBlockState(x, k, y, Blocks.stained_hardened_clay.getStateFromMeta(claycolor));
+                        primer.setBlockState(x, k, y, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(claycolor));
                     } else {
                         if (depth > 4) {
-                            primer.setBlockState(x, k, y, Blocks.stained_hardened_clay.getStateFromMeta(claycolor));
+                            primer.setBlockState(x, k, y, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(claycolor));
                         } else {
                             if (depth == 0) {
                                 primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
@@ -47,7 +47,7 @@ public class SurfaceGrassCanyon extends SurfaceBase {
                         }
                     }
                 } else if (k > 63) {
-                    primer.setBlockState(x, k, y, Blocks.stained_hardened_clay.getStateFromMeta(claycolor));
+                    primer.setBlockState(x, k, y, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(claycolor));
                 }
             }
         }

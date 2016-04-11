@@ -35,9 +35,9 @@ public class SurfaceVanillaDesertM extends SurfaceBase {
         Block b;
         for (int k = 255; k > -1; k--) {
             b = primer.getBlockState(x, k, y).getBlock();
-            if (b == Blocks.air) {
+            if (b == Blocks.AIR) {
                 depth = -1;
-            } else if (b == Blocks.stone) {
+            } else if (b == Blocks.STONE) {
                 depth++;
 
                 if (depth == 0) {
@@ -56,7 +56,7 @@ public class SurfaceVanillaDesertM extends SurfaceBase {
                     }
 
                     if (cliff == 1) {
-                        primer.setBlockState(x, k, y, rand.nextInt(3) == 0 ? Blocks.sandstone.getDefaultState() : Blocks.sand.getDefaultState());
+                        primer.setBlockState(x, k, y, rand.nextInt(3) == 0 ? Blocks.SANDSTONE.getDefaultState() : Blocks.SAND.getDefaultState());
                     } else if (cliff == 2) {
                         primer.setBlockState(x, k, y, getShadowDesertBlock());
                     } else if (k < 63) {
@@ -73,7 +73,7 @@ public class SurfaceVanillaDesertM extends SurfaceBase {
                     }
                 } else if (depth < 6) {
                     if (cliff == 1) {
-                        primer.setBlockState(x, k, y, Blocks.sand.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.SAND.getDefaultState());
                     } else if (cliff == 2) {
                         primer.setBlockState(x, k, y, getShadowDesertBlock());
                     } else if (gravel) {

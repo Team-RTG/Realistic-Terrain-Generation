@@ -10,11 +10,11 @@ import java.util.Random;
 
 import static java.lang.Math.*;
 import static net.minecraft.init.Blocks.*;
-import static net.minecraft.init.Blocks.log;
+import static net.minecraft.init.Blocks.LOG;
 
 public class WorldGenTreeRTGPalmCustom extends WorldGenerator {
     private static int leavesLength = 133;
-    private static int[] leaves = new int[] {
+    private static int[] LEAVES = new int[] {
             1, 0, 0,
             2, 0, 0,
             3, -1, 0,
@@ -73,7 +73,7 @@ public class WorldGenTreeRTGPalmCustom extends WorldGenerator {
     public WorldGenTreeRTGPalmCustom(float pTreeLength, int pLeavesLength, int[] pLeaves, int pCocoasLength, int[] pCocoas) {
         treeLength = pTreeLength;
         leavesLength = pLeavesLength;
-        leaves = pLeaves;
+        LEAVES = pLeaves;
         cocoasLength = pCocoasLength;
         cocoas = pCocoas;
     }
@@ -93,7 +93,7 @@ public class WorldGenTreeRTGPalmCustom extends WorldGenerator {
     public boolean generate(World world, Random rand, int x, int y, int z) {
         Block b = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
 
-        if (b != grass && b != dirt && b != sand) {
+        if (b != GRASS && b != DIRT && b != SAND) {
             return false;
         }
 
@@ -114,7 +114,7 @@ public class WorldGenTreeRTGPalmCustom extends WorldGenerator {
         float velZ = (float) sin(horDir * PI / 180D) * verDir;
 
         while (c < length) {
-            world.setBlockState(new BlockPos((int) posX, (int) posY, (int) posZ), log.getStateFromMeta(15), 2);
+            world.setBlockState(new BlockPos((int) posX, (int) posY, (int) posZ), LOG.getStateFromMeta(15), 2);
 
             if (c < length - 3) {
                 loss = abs(velX) + abs(velZ);
@@ -134,12 +134,12 @@ public class WorldGenTreeRTGPalmCustom extends WorldGenerator {
         z = (int) posZ;
 
         for (int j = 0; j < leavesLength; j += 3) {
-            world.setBlockState(new BlockPos(x + leaves[j], y + leaves[j + 1], z + leaves[j + 2]), Blocks.leaves.getStateFromMeta(3), 2);
+            world.setBlockState(new BlockPos(x + LEAVES[j], y + LEAVES[j + 1], z + LEAVES[j + 2]), Blocks.LEAVES.getStateFromMeta(3), 2);
         }
 
         for (int k = 0; k < cocoasLength; k += 4) {
             if (rand.nextInt(20) == 0) {
-                world.setBlockState(new BlockPos(x + cocoas[k + 1], y + cocoas[k + 2], z + cocoas[k + 3]), cocoa.getStateFromMeta(cocoas[k + 0] + 8), 2);
+                world.setBlockState(new BlockPos(x + cocoas[k + 1], y + cocoas[k + 2], z + cocoas[k + 3]), COCOA.getStateFromMeta(cocoas[k + 0] + 8), 2);
             }
         }
 

@@ -23,8 +23,8 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaMesa() {
 
         super(
-                Biomes.mesa,
-                Biomes.river
+                Biomes.MESA,
+                Biomes.RIVER
         );
     }
 
@@ -58,7 +58,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     @Override
     protected void initDecos() {
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.cobblestone;
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE;
         decoBoulder.maxY = 83;
         this.addDeco(decoBoulder);
 
@@ -105,7 +105,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
         this.addDeco(decoDeadBush);
 
         DecoCactus decoCactus = new DecoCactus();
-        decoCactus.soil = Blocks.sand.getStateFromMeta(1);
+        decoCactus.soil = Blocks.SAND.getStateFromMeta(1);
         decoCactus.loops = 18;
         decoCactus.maxY = 100;
         this.addDeco(decoCactus);

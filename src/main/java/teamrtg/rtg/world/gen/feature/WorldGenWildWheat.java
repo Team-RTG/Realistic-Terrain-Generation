@@ -8,7 +8,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 import java.util.Random;
 
-import static net.minecraft.block.material.Material.ground;
+import static net.minecraft.block.material.Material.GROUND;
 import static net.minecraft.init.Blocks.*;
 
 class WorldGenWildWheat extends WorldGenerator {
@@ -19,7 +19,7 @@ class WorldGenWildWheat extends WorldGenerator {
      * 0 = potatoes, 1 = carrots, 2 = wheat
      */
     public WorldGenWildWheat(int type) {
-        farmtype = type == 0 ? potatoes : type == 1 ? carrots : wheat;
+        farmtype = type == 0 ? POTATOES : type == 1 ? CARROTS : WHEAT;
     }
 
     public boolean generate(World world, Random rand, BlockPos blockPos) {
@@ -37,13 +37,13 @@ class WorldGenWildWheat extends WorldGenerator {
         }
 
         b = world.getBlockState(new BlockPos(x, y, z)).getBlock();
-        if (b != grass && b != dirt) {
+        if (b != GRASS && b != DIRT) {
             return false;
         }
 
         for (int j = 0; j < 4; j++) {
             b = world.getBlockState(new BlockPos(j == 0 ? x - 1 : j == 1 ? x + 1 : x, y, j == 2 ? z - 1 : j == 3 ? z + 1 : z)).getBlock();
-            if (b.getMaterial(b.getDefaultState()) != ground && b.getMaterial(b.getDefaultState()) != Material.grass) {
+            if (b.getMaterial(b.getDefaultState()) != GROUND && b.getMaterial(b.getDefaultState()) != Material.GRASS) {
                 return false;
             }
         }
@@ -55,13 +55,13 @@ class WorldGenWildWheat extends WorldGenerator {
             rz = rand.nextInt(5) - 2;
             b = world.getBlockState(new BlockPos(x + rx, y + ry, z + rz)).getBlock();
 
-            if ((b == grass || b == dirt) && world.isAirBlock(new BlockPos(x + rx, y + ry + 1, z + rz))) {
-                world.setBlockState(new BlockPos(x + rx, y + ry, z + rz), farmland.getStateFromMeta(rand.nextInt(4) + 4), 0);
+            if ((b == GRASS || b == DIRT) && world.isAirBlock(new BlockPos(x + rx, y + ry + 1, z + rz))) {
+                world.setBlockState(new BlockPos(x + rx, y + ry, z + rz), FARMLAND.getStateFromMeta(rand.nextInt(4) + 4), 0);
                 world.setBlockState(new BlockPos(x + rx, y + ry + 1, z + rz), farmtype.getStateFromMeta(rand.nextInt(4) + 4), 0);
             }
         }
 
-        world.setBlockState(new BlockPos(x, y, z), water.getDefaultState());
+        world.setBlockState(new BlockPos(x, y, z), WATER.getDefaultState());
         return true;
     }
 }

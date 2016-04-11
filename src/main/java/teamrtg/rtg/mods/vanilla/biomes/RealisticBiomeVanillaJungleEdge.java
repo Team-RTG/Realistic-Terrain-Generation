@@ -18,8 +18,8 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaJungleEdge() {
 
         super(
-                Biomes.jungleEdge,
-                Biomes.river
+                Biomes.JUNGLE_EDGE,
+                Biomes.RIVER
         );
     }
 
@@ -55,9 +55,9 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 6;
         decoFallenTree.maxY = 110;
-        decoFallenTree.logBlock = Blocks.log;
+        decoFallenTree.logBlock = Blocks.LOG;
         decoFallenTree.logMeta = (byte) 3;
-        decoFallenTree.leavesBlock = Blocks.leaves;
+        decoFallenTree.leavesBlock = Blocks.LEAVES;
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;

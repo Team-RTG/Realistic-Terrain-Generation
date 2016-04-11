@@ -9,7 +9,7 @@ import java.util.Random;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.ceil;
-import static net.minecraft.block.material.Material.air;
+import static net.minecraft.block.material.Material.AIR;
 import static net.minecraft.init.Blocks.*;
 
 public class WorldGenTreeRTGSprucePineBig extends WorldGenerator {
@@ -22,7 +22,7 @@ public class WorldGenTreeRTGSprucePineBig extends WorldGenerator {
         this(start, s, 1, 1);
     }
 
-    public WorldGenTreeRTGSprucePineBig(int start, int s, int log, int leaves) {
+    public WorldGenTreeRTGSprucePineBig(int start, int s, int LOG, int LEAVES) {
         startHeight = start;
         treeSize = s;
         metadataLog = 1;
@@ -37,7 +37,7 @@ public class WorldGenTreeRTGSprucePineBig extends WorldGenerator {
         int startY = y;
 
         Block g = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
-        if (g != grass && g != dirt) {
+        if (g != GRASS && g != DIRT) {
             return false;
         }
 
@@ -48,7 +48,7 @@ public class WorldGenTreeRTGSprucePineBig extends WorldGenerator {
 
         int i;
         for (i = 0; i < startHeight; i++) {
-            world.setBlockState(new BlockPos(x, y, z), log.getStateFromMeta(metadataLog), 0);
+            world.setBlockState(new BlockPos(x, y, z), LOG.getStateFromMeta(metadataLog), 0);
             if (i > 5 && rand.nextInt(7) == 0) {
                 int dX = -1 + rand.nextInt(3);
                 int dZ = -1 + rand.nextInt(3);
@@ -92,7 +92,7 @@ public class WorldGenTreeRTGSprucePineBig extends WorldGenerator {
                         i < treeSize - 5 ? 2 : 1
                 );
             }
-            world.setBlockState(new BlockPos(x, y, z), log.getStateFromMeta(metadataLog), 0);
+            world.setBlockState(new BlockPos(x, y, z), LOG.getStateFromMeta(metadataLog), 0);
 
             if (i < treeSize - 2) {
                 if (rand.nextBoolean()) {
@@ -125,7 +125,7 @@ public class WorldGenTreeRTGSprucePineBig extends WorldGenerator {
         int h = (int) ceil(startHeight / 4f);
         h = h + rand.nextInt(h * 2);
         for (int i = -1; i < h; i++) {
-            world.setBlockState(new BlockPos(x, y + i, z), log.getStateFromMeta(metadataLog + 12), 0);
+            world.setBlockState(new BlockPos(x, y + i, z), LOG.getStateFromMeta(metadataLog + 12), 0);
         }
     }
 
@@ -145,14 +145,14 @@ public class WorldGenTreeRTGSprucePineBig extends WorldGenerator {
         }
 
         for (int m = 1; m <= logLength; m++) {
-            world.setBlockState(new BlockPos(x + (dX * m), y, z + (dZ * m)), log.getStateFromMeta(metadataLog), 0);
+            world.setBlockState(new BlockPos(x + (dX * m), y, z + (dZ * m)), LOG.getStateFromMeta(metadataLog), 0);
         }
     }
 
     public void buildLeaves(World world, int x, int y, int z) {
         Block b = world.getBlockState(new BlockPos(x, y, z)).getBlock();
-        if (b.getMaterial(b.getDefaultState()) == air) {
-            world.setBlockState(new BlockPos(x, y, z), leaves.getStateFromMeta(metadataLeaves), 0);
+        if (b.getMaterial(b.getDefaultState()) == AIR) {
+            world.setBlockState(new BlockPos(x, y, z), LEAVES.getStateFromMeta(metadataLeaves), 0);
         }
     }
 }

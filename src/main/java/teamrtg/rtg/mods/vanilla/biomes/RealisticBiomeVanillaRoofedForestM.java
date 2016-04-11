@@ -20,14 +20,14 @@ import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaRoofedForestM;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBase {
-    public static BiomeGenBase standardBiome = Biomes.roofedForest;
+    public static BiomeGenBase standardBiome = Biomes.ROOFED_FOREST;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaRoofedForestM() {
 
         super(
                 mutationBiome,
-                Biomes.river
+                Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -50,7 +50,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
     @Override
     protected void initDecos() {
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
+        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE;
         decoBoulder.chance = 20;
         decoBoulder.maxY = 80;
         decoBoulder.strengthFactor = 2f;
@@ -73,9 +73,9 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         decoFallenTree.logConditionChance = 1;
         decoFallenTree.loops = 4;
         decoFallenTree.maxY = 100;
-        decoFallenTree.logBlock = Blocks.log2;
+        decoFallenTree.logBlock = Blocks.LOG2;
         decoFallenTree.logMeta = (byte) 1;
-        decoFallenTree.leavesBlock = Blocks.leaves2;
+        decoFallenTree.leavesBlock = Blocks.LEAVES2;
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 4;
         decoFallenTree.maxSize = 9;

@@ -13,14 +13,14 @@ import java.util.Random;
 
 public class SurfaceDuneValley extends SurfaceBase {
     private float valley;
-    private boolean dirt;
+    private boolean DIRT;
     private boolean mix;
 
     public SurfaceDuneValley(RealisticBiomeBase biome, float valleySize, boolean d, boolean m) {
         super(biome);
 
         valley = valleySize;
-        dirt = d;
+        DIRT = d;
         mix = m;
     }
 
@@ -34,27 +34,27 @@ public class SurfaceDuneValley extends SurfaceBase {
         Block b;
         for (int k = 255; k > -1; k--) {
             b = primer.getBlockState(x, k, y).getBlock();
-            if (b == Blocks.air) {
+            if (b == Blocks.AIR) {
                 depth = -1;
-            } else if (b == Blocks.stone) {
+            } else if (b == Blocks.STONE) {
                 depth++;
 
                 if (depth == 0) {
                     if (k > 90f + simplex.noise2(i / 24f, j / 24f) * 10f - h || (m < -0.28f && mix)) {
-                        primer.setBlockState(x, k, y, Blocks.sand.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.SAND.getDefaultState());
                         //base[x * 16 + y] = RealisticBiomeVanillaBase.vanillaDesert;
                         sand = true;
-                    } else if (dirt && m < 0.22f || k < 62) {
-                        primer.setBlockState(x, k, y, Blocks.dirt.getStateFromMeta(1));
+                    } else if (DIRT && m < 0.22f || k < 62) {
+                        primer.setBlockState(x, k, y, Blocks.DIRT.getStateFromMeta(1));
                     } else {
                         primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                     }
                 } else if (depth < 6) {
                     if (sand) {
                         if (depth < 4) {
-                            primer.setBlockState(x, k, y, Blocks.sand.getDefaultState());
+                            primer.setBlockState(x, k, y, Blocks.SAND.getDefaultState());
                         } else {
-                            primer.setBlockState(x, k, y, Blocks.sandstone.getDefaultState());
+                            primer.setBlockState(x, k, y, Blocks.SANDSTONE.getDefaultState());
                         }
                     } else {
                         primer.setBlockState(x, k, y, biome.config.FILL_BLOCK.get());

@@ -45,7 +45,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
         NONE
     }
 
-    private static List biomelist = Arrays.asList(Biomes.desert, Biomes.desertHills, Biomes.jungle, Biomes.jungleHills, Biomes.swampland, Biomes.coldTaiga, Biomes.icePlains);
+    private static List biomelist = Arrays.asList(Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.JUNGLE, Biomes.JUNGLE_HILLS, Biomes.SWAMPLAND, Biomes.COLD_TAIGA, Biomes.ICE_PLAINS);
 
     /**
      * contains possible spawns for scattered features

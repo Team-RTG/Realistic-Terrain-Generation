@@ -20,8 +20,8 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
 
     public RealisticBiomeVanillaDesertHills() {
         super(
-                Biomes.desertHills,
-                Biomes.river
+                Biomes.DESERT_HILLS,
+                Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -109,7 +109,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.sand.getDefaultState());
+        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
         this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.DESERT_TEMPLE.name());
         this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(0);
     }

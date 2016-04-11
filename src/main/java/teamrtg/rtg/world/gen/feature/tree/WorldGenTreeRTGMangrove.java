@@ -24,10 +24,10 @@ public class WorldGenTreeRTGMangrove extends WorldGenerator {
     private float verStart;
     private float verRand;
 
-    public WorldGenTreeRTGMangrove(Block log, int metaLog, Block leaves, int metaLeaves, int baseHeight, int rootHeight, float branchLength, int numBranches, float verticalStart, float verticalRand) {
-        blockLog = log;
+    public WorldGenTreeRTGMangrove(Block LOG, int metaLog, Block LEAVES, int metaLeaves, int baseHeight, int rootHeight, float branchLength, int numBranches, float verticalStart, float verticalRand) {
+        blockLog = LOG;
         metadataLog = metaLog;
-        blockLeaves = leaves;
+        blockLeaves = LEAVES;
         metadataLeaves = metaLeaves;
 
         base = baseHeight;
@@ -46,12 +46,12 @@ public class WorldGenTreeRTGMangrove extends WorldGenerator {
     public boolean generate(World world, Random rand, int x, int y, int z) {
         Block b = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
 
-        if (b == sand && !Mods.RTG.config.ALLOW_TREES_ON_SAND.get()) {
+        if (b == SAND && !Mods.RTG.config.ALLOW_TREES_ON_SAND.get()) {
             return false;
         }
 
-        if (b != grass && b != dirt && b != sand) {
-            if (!(b == water && world.getBlockState(new BlockPos(x, y - 2, z)).getBlock() == sand && world.getBlockState(new BlockPos(x, y, z)).getBlock() == air)) {
+        if (b != GRASS && b != DIRT && b != SAND) {
+            if (!(b == WATER && world.getBlockState(new BlockPos(x, y - 2, z)).getBlock() == SAND && world.getBlockState(new BlockPos(x, y, z)).getBlock() == AIR)) {
                 return false;
             }
         }

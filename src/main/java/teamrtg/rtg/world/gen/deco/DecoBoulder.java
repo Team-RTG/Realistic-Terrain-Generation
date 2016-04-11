@@ -29,7 +29,7 @@ public class DecoBoulder extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.boulderBlock = Blocks.cobblestone;
+        this.boulderBlock = Blocks.COBBLESTONE;
         this.strengthFactor = 2f;
         this.minY = 1; // No lower height limit by default.
         this.maxY = 255; // No upper height limit by default.

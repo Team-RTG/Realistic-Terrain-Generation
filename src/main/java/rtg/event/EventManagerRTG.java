@@ -18,6 +18,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
+import net.minecraft.world.biome.BiomeGenBase;
 
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -177,25 +178,23 @@ public class EventManagerRTG
     public void onGetVillageBlockID(BiomeEvent.GetVillageBlockID event)
     {
 
-        if (this.biome != null) {
-            
-            if (this.isDesertVillageBiome()) {
-                
-                Block originalBlock = event.original;
-                
-                if (originalBlock == Blocks.cobblestone || originalBlock == Blocks.planks || originalBlock == Blocks.log) {
-                    
-                    event.replacement = Blocks.sandstone;
-                }
-                else if (originalBlock == Blocks.oak_stairs || originalBlock == Blocks.stone_stairs) {
-                    
-                    event.replacement = Blocks.sandstone_stairs;
-                }
+        // Use event.biome, if that's null, fall back to our own copy
+        if (this.isDesertVillageBiome((event.biome == null) ? this.biome : event.biome)) {
+
+            Block originalBlock = event.original;
+
+            if (originalBlock == Blocks.cobblestone || originalBlock == Blocks.planks || originalBlock == Blocks.log
+                    || originalBlock == Blocks.log2 || originalBlock == Blocks.gravel) {
+
+                event.replacement = Blocks.sandstone;
+            } else if (originalBlock == Blocks.oak_stairs || originalBlock == Blocks.stone_stairs) {
+
+                event.replacement = Blocks.sandstone_stairs;
             }
-            
+
             // The event has to be cancelled in order to override the original block.
             if (event.replacement != null) {
-                
+
                 event.setResult(Result.DENY);
             }
         }
@@ -204,27 +203,30 @@ public class EventManagerRTG
     @SubscribeEvent
     public void onGetVillageBlockMeta(BiomeEvent.GetVillageBlockMeta event)
     {
+        boolean replaced = false;
 
-        if (this.biome != null) {
-            
-            boolean replaced = false;
-            
-            if (this.isDesertVillageBiome()) {
-                
-                Block originalBlock = event.original;
-                
-                if (originalBlock == Blocks.planks) {
-                    
-                    event.replacement = 2;
-                    replaced = true;
-                }
+        // Use event.biome, if that's null, fall back to our own copy
+        if (this.isDesertVillageBiome((event.biome == null) ? this.biome : event.biome)) {
+
+            Block originalBlock = event.original;
+
+            if (originalBlock == Blocks.log || originalBlock == Blocks.log2 || originalBlock == Blocks.cobblestone) {
+
+                event.replacement = 0;
+                replaced = true;
             }
-            
-            // The event has to be cancelled in order to override the original block.
-            if (replaced) {
-                
-                event.setResult(Result.DENY);
+
+            if (originalBlock == Blocks.planks) {
+
+                event.replacement = 2;
+                replaced = true;
             }
+        }
+
+        // The event has to be cancelled in order to override the original block.
+        if (replaced) {
+
+            event.setResult(Result.DENY);
         }
     }
     
@@ -240,14 +242,14 @@ public class EventManagerRTG
         }
     }
     
-    private boolean isDesertVillageBiome()
+    private boolean isDesertVillageBiome(BiomeGenBase biome)
     {
         if (
-            BiomeDictionary.isBiomeOfType(this.biome, Type.HOT)
+            BiomeDictionary.isBiomeOfType(biome, Type.HOT)
             &&
-            BiomeDictionary.isBiomeOfType(this.biome, Type.DRY)
+            BiomeDictionary.isBiomeOfType(biome, Type.DRY)
             &&
-            BiomeDictionary.isBiomeOfType(this.biome, Type.SANDY)
+            BiomeDictionary.isBiomeOfType(biome, Type.SANDY)
         ) {
             return true;
         }

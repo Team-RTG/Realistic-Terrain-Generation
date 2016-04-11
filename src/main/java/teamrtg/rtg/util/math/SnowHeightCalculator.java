@@ -9,10 +9,10 @@ public class SnowHeightCalculator {
             byte h = (byte) ((noise[x * 16 + z] - ((int) noise[x * 16 + z])) * 8);
 
             if (h > 7) {
-                primer.setBlockState(x, y + 2, z, Blocks.snow_layer.getDefaultState());
-                primer.setBlockState(x, y + 1, z, Blocks.snow_layer.getStateFromMeta(7));
+                primer.setBlockState(x, y + 2, z, Blocks.SNOW_LAYER.getDefaultState());
+                primer.setBlockState(x, y + 1, z, Blocks.SNOW_LAYER.getStateFromMeta(7));
             } else {
-                primer.setBlockState(x, y + 1, z, Blocks.snow_layer.getStateFromMeta(h));
+                primer.setBlockState(x, y + 1, z, Blocks.SNOW_LAYER.getStateFromMeta(h));
             }
         }
     }

@@ -60,7 +60,7 @@ public class ConfigRTG extends ModConfig {
     @Override
     public void initDefaults() {
         FLAT_BEDROCK_LAYERS.setDefault(0).setComment("0 = Normal bedrock (rough pattern); 1-5 = Number of flat bedrock layers to generate");
-        BEDROCK_BLOCK.setDefault(Blocks.bedrock.getDefaultState()).setComment("The block to use for the bottom of the Overworld");
+        BEDROCK_BLOCK.setDefault(Blocks.BEDROCK.getDefaultState()).setComment("The block to use for the bottom of the Overworld");
         ENABLE_RTG_BIOME_DECORATIONS.setDefault(true).setComment("If TRUE, uses the individual biome settings in the biome forgeConfig files. If FALSE, disables all RTG decorations and uses biomes decorations instead.");
         ENABLE_RTG_SURFACES.setDefault(true).setComment("If TRUE, uses the individual biome settings in the biome forgeConfig files. If FALSE, disables all RTG surfaces and uses biomes surfaces instead.");
         PATCH_BIOME_ID.setDefault(1).setRange(-1, 255).setComment("If RTG tries to generate an unsupported biome or a biome that has an ID conflict, it will generate this biome instead." +
@@ -105,8 +105,8 @@ public class ConfigRTG extends ModConfig {
         MAX_DISTANCE_VILLAGES.setDefault(48);
         VILLAGE_CRASH_FIX.setDefault(true);
         ENABLE_SNOW_LAYERS.setDefault(true);
-        SHADOW_STONE_BLOCK.setDefault(Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.CYAN));
-        SHADOW_DESERT_BLOCK.setDefault(Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.WHITE));
+        SHADOW_STONE_BLOCK.setDefault(Blocks.STAINED_HARDENED_CLAY.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.CYAN));
+        SHADOW_DESERT_BLOCK.setDefault(Blocks.STAINED_HARDENED_CLAY.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.WHITE));
         ALLOW_TREES_ON_SAND.setDefault(true);
         ALLOW_SHRUBS_UNDERGROUND.setDefault(true);
     }

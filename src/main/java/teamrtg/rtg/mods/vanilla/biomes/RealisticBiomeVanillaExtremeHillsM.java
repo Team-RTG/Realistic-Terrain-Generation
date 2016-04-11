@@ -12,14 +12,14 @@ import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBase {
 
-    public static BiomeGenBase standardBiome = Biomes.extremeHills;
+    public static BiomeGenBase standardBiome = Biomes.EXTREME_HILLS;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaExtremeHillsM() {
 
         super(
                 mutationBiome,
-                Biomes.river
+                Biomes.RIVER
         );
     }
 
@@ -45,8 +45,8 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.grass.getDefaultState());
-        config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.dirt.getDefaultState());
+        config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.GRASS.getDefaultState());
+        config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.DIRT.getDefaultState());
         config.GENERATE_EMERALDS.setDefault(true);
     }
 }

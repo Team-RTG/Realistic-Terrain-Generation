@@ -10,7 +10,7 @@ import java.util.Random;
 import static java.lang.Math.*;
 import static java.lang.System.arraycopy;
 import static net.minecraft.init.Blocks.*;
-import static net.minecraft.init.Blocks.log;
+import static net.minecraft.init.Blocks.LOG;
 import static net.minecraft.util.math.MathHelper.floor_double;
 
 public class WorldGenTreeRTGBig extends WorldGenerator {
@@ -77,7 +77,7 @@ public class WorldGenTreeRTGBig extends WorldGenerator {
         int[] var2 = new int[] {this.basePos[0], this.basePos[1] + this.heightLimit - 1, this.basePos[2]};
         Block var3 = this.worldObj.getBlockState(new BlockPos(this.basePos[0], this.basePos[1] - 1, this.basePos[2])).getBlock();
 
-        if (var3 != grass && var3 != dirt) {
+        if (var3 != GRASS && var3 != DIRT) {
             return false;
         } else {
             int var4 = this.checkBlockLine(var1, var2);
@@ -188,18 +188,18 @@ public class WorldGenTreeRTGBig extends WorldGenerator {
         int var4 = this.basePos[2];
         int[] var5 = new int[] {var1, var2, var4};
         int[] var6 = new int[] {var1, var3, var4};
-        this.placeBlockLine(var5, var6, log);
+        this.placeBlockLine(var5, var6, LOG);
 
         if (this.trunkSize == 2) {
             ++var5[0];
             ++var6[0];
-            this.placeBlockLine(var5, var6, log);
+            this.placeBlockLine(var5, var6, LOG);
             ++var5[2];
             ++var6[2];
-            this.placeBlockLine(var5, var6, log);
+            this.placeBlockLine(var5, var6, LOG);
             var5[0] += -1;
             var6[0] += -1;
-            this.placeBlockLine(var5, var6, log);
+            this.placeBlockLine(var5, var6, LOG);
         }
     }
 
@@ -217,14 +217,14 @@ public class WorldGenTreeRTGBig extends WorldGenerator {
             int var6 = var3[1] - this.basePos[1];
 
             if (this.leafNodeNeedsBase(var6)) {
-                this.placeBlockLine(var3, var5, log);
+                this.placeBlockLine(var3, var5, LOG);
             }
         }
     }
 
     /**
      * Checks a line of blocks in the world from the first coordinate to triplet to the second, returning the distance
-     * (in blocks) before a non-air, non-leaf block is encountered and/or the end is encountered.
+     * (in blocks) before a non-AIR, non-leaf block is encountered and/or the end is encountered.
      */
     int checkBlockLine(int[] par1ArrayOfInteger, int[] par2ArrayOfInteger) {
         int[] var3 = new int[] {0, 0, 0};
@@ -264,7 +264,7 @@ public class WorldGenTreeRTGBig extends WorldGenerator {
                 var13[var7] = floor_double((double) par1ArrayOfInteger[var7] + (double) var14 * var11);
                 Block var16 = this.worldObj.getBlockState(new BlockPos(var13[0], var13[1], var13[2])).getBlock();
 
-                if (var16 != air && var16 != leaves) {
+                if (var16 != AIR && var16 != LEAVES) {
                     break;
                 }
             }
@@ -298,14 +298,14 @@ public class WorldGenTreeRTGBig extends WorldGenerator {
     }
 
     /**
-     * Generates the leaves surrounding an individual entry in the leafNodes list.
+     * Generates the LEAVES surrounding an individual entry in the leafNodes list.
      */
     void generateLeafNode(int par1, int par2, int par3) {
         int var4 = par2;
 
         for (int var5 = par2 + this.leafDistanceLimit; var4 < var5; ++var4) { ///bwg4 made by ted80
             float var6 = this.leafSize(var4 - par2);
-            this.genTreeLayer(par1, var4, par3, var6, (byte) 1, leaves);
+            this.genTreeLayer(par1, var4, par3, var6, (byte) 1, LEAVES);
         }
     }
 
@@ -358,7 +358,7 @@ public class WorldGenTreeRTGBig extends WorldGenerator {
                     }
                 }
 
-                worldObj.setBlockState(new BlockPos(var14[0], var14[1], var14[2]), log.getDefaultState(), 0);
+                worldObj.setBlockState(new BlockPos(var14[0], var14[1], var14[2]), LOG.getDefaultState(), 0);
             }
         }
     }
@@ -396,10 +396,10 @@ public class WorldGenTreeRTGBig extends WorldGenerator {
                     var11[var9] = var10[var9] + var13;
                     Block var14 = worldObj.getBlockState(new BlockPos(var11[0], var11[1], var11[2])).getBlock();
 
-                    if (var14 != air && var14 != leaves) {
+                    if (var14 != AIR && var14 != LEAVES) {
                         ++var13;
                     } else {
-                        worldObj.setBlockState(new BlockPos(var11[0], var11[1], var11[2]), leaves.getDefaultState(), 0);
+                        worldObj.setBlockState(new BlockPos(var11[0], var11[1], var11[2]), LEAVES.getDefaultState(), 0);
                         ++var13;
                     }
                 }

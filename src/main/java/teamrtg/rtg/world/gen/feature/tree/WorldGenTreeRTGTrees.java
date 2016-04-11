@@ -10,7 +10,7 @@ import teamrtg.rtg.api.mods.Mods;
 
 import java.util.Random;
 
-import static net.minecraft.init.Blocks.sapling;
+import static net.minecraft.init.Blocks.SAPLING;
 import static net.minecraft.util.EnumFacing.UP;
 
 public class WorldGenTreeRTGTrees extends WorldGenTrees {
@@ -28,7 +28,7 @@ public class WorldGenTreeRTGTrees extends WorldGenTrees {
      */
     private final int metaWood;
     /**
-     * The metadata value of the leaves to use in tree generation.
+     * The metadata value of the LEAVES to use in tree generation.
      */
     private final int metaLeaves;
 
@@ -84,11 +84,11 @@ public class WorldGenTreeRTGTrees extends WorldGenTrees {
             } else {
                 Block block2 = world.getBlockState(new BlockPos(worldX, worldY - 1, worldZ)).getBlock();
 
-                if (block2 == Blocks.sand && !Mods.RTG.config.ALLOW_TREES_ON_SAND.get()) {
+                if (block2 == Blocks.SAND && !Mods.RTG.config.ALLOW_TREES_ON_SAND.get()) {
                     return false;
                 }
 
-                boolean isSoil = block2.canSustainPlant(world.getBlockState(new BlockPos(worldX, worldY - 1, worldZ)), world, new BlockPos(worldX, worldY - 1, worldZ), UP, (BlockSapling) sapling);
+                boolean isSoil = block2.canSustainPlant(world.getBlockState(new BlockPos(worldX, worldY - 1, worldZ)), world, new BlockPos(worldX, worldY - 1, worldZ), UP, (BlockSapling) SAPLING);
                 if (isSoil && worldY < 256 - l - 1) {
                     block2.onPlantGrow(world.getBlockState(new BlockPos(worldX, worldY - 1, worldZ)), world, new BlockPos(worldX, worldY - 1, worldZ), new BlockPos(worldX, worldY, worldZ));
                     b0 = 3;
@@ -112,7 +112,7 @@ public class WorldGenTreeRTGTrees extends WorldGenTrees {
                                     Block block1 = world.getBlockState(new BlockPos(i2, k1, k2)).getBlock();
 
                                     if (block1.isAir(world.getBlockState(new BlockPos(i2, k1, k2)), world, new BlockPos(i2, k1, k2)) || block1.isLeaves(world.getBlockState(new BlockPos(i2, k1, k2)), world, new BlockPos(i2, k1, k2))) {
-                                        this.setBlockAndNotifyAdequately(world, new BlockPos(i2, k1, k2), Blocks.leaves.getStateFromMeta(this.metaLeaves));
+                                        this.setBlockAndNotifyAdequately(world, new BlockPos(i2, k1, k2), Blocks.LEAVES.getStateFromMeta(this.metaLeaves));
                                     }
                                 }
                             }
@@ -123,23 +123,23 @@ public class WorldGenTreeRTGTrees extends WorldGenTrees {
                         block = world.getBlockState(new BlockPos(worldX, worldY + k1, worldZ)).getBlock();
 
                         if (block.isAir(world.getBlockState(new BlockPos(worldX, worldY + k1, worldZ)), world, new BlockPos(worldX, worldY + k1, worldZ)) || block.isLeaves(world.getBlockState(new BlockPos(worldX, worldY + k1, worldZ)), world, new BlockPos(worldX, worldY + k1, worldZ))) {
-                            this.setBlockAndNotifyAdequately(world, new BlockPos(worldX, worldY + k1, worldZ), Blocks.log.getStateFromMeta(this.metaWood));
+                            this.setBlockAndNotifyAdequately(world, new BlockPos(worldX, worldY + k1, worldZ), Blocks.LOG.getStateFromMeta(this.metaWood));
 
                             if (this.vinesGrow && k1 > 0) {
                                 if (rand.nextInt(3) > 0 && world.isAirBlock(new BlockPos(worldX - 1, worldY + k1, worldZ))) {
-                                    this.setBlockAndNotifyAdequately(world, new BlockPos(worldX - 1, worldY + k1, worldZ), Blocks.vine.getStateFromMeta(8));
+                                    this.setBlockAndNotifyAdequately(world, new BlockPos(worldX - 1, worldY + k1, worldZ), Blocks.VINE.getStateFromMeta(8));
                                 }
 
                                 if (rand.nextInt(3) > 0 && world.isAirBlock(new BlockPos(worldX + 1, worldY + k1, worldZ))) {
-                                    this.setBlockAndNotifyAdequately(world, new BlockPos(worldX + 1, worldY + k1, worldZ), Blocks.vine.getStateFromMeta(2));
+                                    this.setBlockAndNotifyAdequately(world, new BlockPos(worldX + 1, worldY + k1, worldZ), Blocks.VINE.getStateFromMeta(2));
                                 }
 
                                 if (rand.nextInt(3) > 0 && world.isAirBlock(new BlockPos(worldX, worldY + k1, worldZ - 1))) {
-                                    this.setBlockAndNotifyAdequately(world, new BlockPos(worldX, worldY + k1, worldZ - 1), Blocks.vine.getStateFromMeta(1));
+                                    this.setBlockAndNotifyAdequately(world, new BlockPos(worldX, worldY + k1, worldZ - 1), Blocks.VINE.getStateFromMeta(1));
                                 }
 
                                 if (rand.nextInt(3) > 0 && world.isAirBlock(new BlockPos(worldX, worldY + k1, worldZ + 1))) {
-                                    this.setBlockAndNotifyAdequately(world, new BlockPos(worldX, worldY + k1, worldZ + 1), Blocks.vine.getStateFromMeta(4));
+                                    this.setBlockAndNotifyAdequately(world, new BlockPos(worldX, worldY + k1, worldZ + 1), Blocks.VINE.getStateFromMeta(4));
                                 }
                             }
                         }
@@ -197,10 +197,10 @@ public class WorldGenTreeRTGTrees extends WorldGenTrees {
     }
 
     /**
-     * Grows vines downward from the given block for a given length. Args: World, x, starty, z, vine-length
+     * Grows vines downward from the given block for a given length. Args: World, x, starty, z, VINE-length
      */
     private void growVines(World world, int worldX, int worldY, int worldZ, int vineLength) {
-        this.setBlockAndNotifyAdequately(world, new BlockPos(worldX, worldY, worldZ), Blocks.vine.getStateFromMeta(vineLength));
+        this.setBlockAndNotifyAdequately(world, new BlockPos(worldX, worldY, worldZ), Blocks.VINE.getStateFromMeta(vineLength));
         int i1 = 4;
 
         while (true) {
@@ -210,7 +210,7 @@ public class WorldGenTreeRTGTrees extends WorldGenTrees {
                 return;
             }
 
-            this.setBlockAndNotifyAdequately(world, new BlockPos(worldX, worldY, worldZ), Blocks.vine.getStateFromMeta(vineLength));
+            this.setBlockAndNotifyAdequately(world, new BlockPos(worldX, worldY, worldZ), Blocks.VINE.getStateFromMeta(vineLength));
             --i1;
         }
     }

@@ -14,8 +14,8 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
 
     public RealisticBiomeVanillaBeach() {
         super(
-                Biomes.beach,
-                Biomes.river
+                Biomes.BEACH,
+                Biomes.RIVER
         );
     }
 
@@ -46,7 +46,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.sand.getDefaultState());
-        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.sand.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.SAND.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.SAND.getDefaultState());
     }
 }

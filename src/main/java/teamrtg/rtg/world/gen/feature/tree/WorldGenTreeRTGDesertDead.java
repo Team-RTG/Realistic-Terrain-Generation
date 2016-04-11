@@ -26,11 +26,11 @@ class WorldGenTreeRTGDesertDead extends WorldGenerator {
     public boolean generate(World world, Random rand, int x, int y, int z) {
         Block g = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
 
-        if (g == sand && !Mods.RTG.config.ALLOW_TREES_ON_SAND.get()) {
+        if (g == SAND && !Mods.RTG.config.ALLOW_TREES_ON_SAND.get()) {
             return false;
         }
 
-        if (g != grass && g != dirt && g != sand) {
+        if (g != GRASS && g != DIRT && g != SAND) {
             return false;
         }
 
@@ -38,7 +38,7 @@ class WorldGenTreeRTGDesertDead extends WorldGenerator {
             int i, h = 8;
 
             for (i = 0; i < h; i++) {
-                world.setBlockState(new BlockPos(x, y + i, z), log2.getDefaultState(), 0);
+                world.setBlockState(new BlockPos(x, y + i, z), LOG2.getDefaultState(), 0);
             }
 
             int branches = 2 + rand.nextInt(3);
@@ -52,22 +52,22 @@ class WorldGenTreeRTGDesertDead extends WorldGenerator {
                 c = 1f;
 
                 while (c < l) {
-                    world.setBlockState(new BlockPos(x + (int) (xd * c), y + h + (int) c, z + (int) (zd * c)), log2.getStateFromMeta(12), 0);
+                    world.setBlockState(new BlockPos(x + (int) (xd * c), y + h + (int) c, z + (int) (zd * c)), LOG2.getStateFromMeta(12), 0);
                     c += 1f;
                 }
             }
         } else {
             int h = rand.nextInt(3) + 2;
             for (int i = 0; i < h; i++) {
-                world.setBlockState(new BlockPos(x, y + i, z), log2.getDefaultState(), 0);
+                world.setBlockState(new BlockPos(x, y + i, z), LOG2.getDefaultState(), 0);
             }
 
             h--;
-            world.setBlockState(new BlockPos(x + 1, y + h, z), leaves2.getDefaultState(), 0);
-            world.setBlockState(new BlockPos(x - 1, y + h, z), leaves2.getDefaultState(), 0);
-            world.setBlockState(new BlockPos(x, y + h, z + 1), leaves2.getDefaultState(), 0);
-            world.setBlockState(new BlockPos(x, y + h, z - 1), leaves2.getDefaultState(), 0);
-            world.setBlockState(new BlockPos(x, y + h + 1, z), leaves2.getDefaultState(), 0);
+            world.setBlockState(new BlockPos(x + 1, y + h, z), LEAVES2.getDefaultState(), 0);
+            world.setBlockState(new BlockPos(x - 1, y + h, z), LEAVES2.getDefaultState(), 0);
+            world.setBlockState(new BlockPos(x, y + h, z + 1), LEAVES2.getDefaultState(), 0);
+            world.setBlockState(new BlockPos(x, y + h, z - 1), LEAVES2.getDefaultState(), 0);
+            world.setBlockState(new BlockPos(x, y + h + 1, z), LEAVES2.getDefaultState(), 0);
         }
 
         return true;

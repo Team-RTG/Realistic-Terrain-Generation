@@ -11,14 +11,14 @@ import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaExtremeHillsPlusM;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanillaBase {
-    public static BiomeGenBase standardBiome = Biomes.extremeHillsPlus;
+    public static BiomeGenBase standardBiome = Biomes.EXTREME_HILLS_WITH_TREES;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaExtremeHillsPlusM() {
 
         super(
                 mutationBiome,
-                Biomes.river
+                Biomes.RIVER
         );
         this.noLakes = true;
         this.noWaterFeatures = true;
@@ -46,8 +46,8 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.gravel.getDefaultState());
-        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.gravel.getDefaultState());
+        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.GRAVEL.getDefaultState());
+        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.GRAVEL.getDefaultState());
         config.GENERATE_EMERALDS.setDefault(true);
     }
 }

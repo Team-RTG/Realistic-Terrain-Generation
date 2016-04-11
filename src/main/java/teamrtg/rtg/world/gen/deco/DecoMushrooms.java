@@ -76,9 +76,9 @@ public class DecoMushrooms extends DecoBase {
                         if (intY <= this.maxY) {
 
                             if (rand.nextBoolean()) {
-                                (new WorldGenBush(Blocks.brown_mushroom)).generate(world, rand, new BlockPos(intX, intY, intZ));
+                                (new WorldGenBush(Blocks.BROWN_MUSHROOM)).generate(world, rand, new BlockPos(intX, intY, intZ));
                             } else {
-                                (new WorldGenBush(Blocks.red_mushroom)).generate(world, rand, new BlockPos(intX, intY, intZ));
+                                (new WorldGenBush(Blocks.RED_MUSHROOM)).generate(world, rand, new BlockPos(intX, intY, intZ));
                             }
                         }
                     }

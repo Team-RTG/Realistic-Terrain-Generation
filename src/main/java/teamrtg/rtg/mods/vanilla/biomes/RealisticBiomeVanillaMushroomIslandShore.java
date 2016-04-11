@@ -12,8 +12,8 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
 
     public RealisticBiomeVanillaMushroomIslandShore() {
         super(
-                Biomes.mushroomIslandShore,
-                Biomes.river
+                Biomes.MUSHROOM_ISLAND_SHORE,
+                Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -40,6 +40,6 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.mycelium.getDefaultState());
+        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.MYCELIUM.getDefaultState());
     }
 }

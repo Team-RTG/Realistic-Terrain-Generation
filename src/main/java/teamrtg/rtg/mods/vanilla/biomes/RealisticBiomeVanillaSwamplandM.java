@@ -21,14 +21,14 @@ import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaSwamplandM;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
-    public static BiomeGenBase standardBiome = Biomes.swampland;
+    public static BiomeGenBase standardBiome = Biomes.SWAMPLAND;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaSwamplandM() {
 
         super(
                 mutationBiome,
-                Biomes.river
+                Biomes.RIVER
         );
     }
 
@@ -74,9 +74,9 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 6;
         decoFallenTree.maxY = 100;
-        decoFallenTree.logBlock = Blocks.log2;
+        decoFallenTree.logBlock = Blocks.LOG2;
         decoFallenTree.logMeta = (byte) 1;
-        decoFallenTree.leavesBlock = Blocks.leaves2;
+        decoFallenTree.leavesBlock = Blocks.LEAVES2;
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;

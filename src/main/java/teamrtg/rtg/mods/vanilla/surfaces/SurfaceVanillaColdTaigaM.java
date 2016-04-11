@@ -26,9 +26,9 @@ public class SurfaceVanillaColdTaigaM extends SurfaceBase {
 
         for (int k = 255; k > -1; k--) {
             Block b = primer.getBlockState(x, k, y).getBlock();
-            if (b == Blocks.air) {
+            if (b == Blocks.AIR) {
                 depth = -1;
-            } else if (b == Blocks.stone) {
+            } else if (b == Blocks.STONE) {
                 depth++;
 
                 if (cliff) {

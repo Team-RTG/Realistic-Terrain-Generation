@@ -8,7 +8,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import java.util.Random;
 
 import static java.lang.Math.abs;
-import static net.minecraft.block.material.Material.air;
+import static net.minecraft.block.material.Material.AIR;
 import static net.minecraft.init.Blocks.*;
 import static net.minecraft.util.math.MathHelper.abs_int;
 import static net.minecraft.util.math.MathHelper.ceiling_float_int;
@@ -25,7 +25,7 @@ public class WorldGenIceSpike extends WorldGenerator {
         }
 
         Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
-        if (block != snow && block != snow_layer) {
+        if (block != SNOW && block != SNOW_LAYER) {
             return false;
         } else {
             y += rand.nextInt(4);
@@ -53,15 +53,15 @@ public class WorldGenIceSpike extends WorldGenerator {
                         if ((l1 == 0 && i2 == 0 || f1 * f1 + f2 * f2 <= f * f) && (l1 != -k1 && l1 != k1 && i2 != -k1 && i2 != k1 || rand.nextFloat() <= 0.75F)) {
                             block = world.getBlockState(new BlockPos(x + l1, y + j1, z + i2)).getBlock();
 
-                            if (block.getMaterial(block.getDefaultState()) == air || block == dirt || block == snow || block == ice) {
-                                this.setBlockAndNotifyAdequately(world, new BlockPos(x + l1, y + j1, z + i2), packed_ice.getDefaultState());
+                            if (block.getMaterial(block.getDefaultState()) == AIR || block == DIRT || block == SNOW || block == ICE) {
+                                this.setBlockAndNotifyAdequately(world, new BlockPos(x + l1, y + j1, z + i2), PACKED_ICE.getDefaultState());
                             }
 
                             if (j1 != 0 && k1 > 1) {
                                 block = world.getBlockState(new BlockPos(x + l1, y - j1, z + i2)).getBlock();
 
-                                if (block.getMaterial(block.getDefaultState()) == air || block == dirt || block == snow || block == ice) {
-                                    this.setBlockAndNotifyAdequately(world, new BlockPos(x + l1, y - j1, z + i2), packed_ice.getDefaultState());
+                                if (block.getMaterial(block.getDefaultState()) == AIR || block == DIRT || block == SNOW || block == ICE) {
+                                    this.setBlockAndNotifyAdequately(world, new BlockPos(x + l1, y - j1, z + i2), PACKED_ICE.getDefaultState());
                                 }
                             }
                         }
@@ -92,8 +92,8 @@ public class WorldGenIceSpike extends WorldGenerator {
                         if (l1 > 50) {
                             block = world.getBlockState(new BlockPos(x + j2, l1, z + k1)).getBlock();
 
-                            if (block.getMaterial(block.getDefaultState()) == air || block == dirt || block == snow || block == ice || block == packed_ice) {
-                                this.setBlockAndNotifyAdequately(world, new BlockPos(x + j2, l1, z + k1), packed_ice.getDefaultState());
+                            if (block.getMaterial(block.getDefaultState()) == AIR || block == DIRT || block == SNOW || block == ICE || block == PACKED_ICE) {
+                                this.setBlockAndNotifyAdequately(world, new BlockPos(x + j2, l1, z + k1), PACKED_ICE.getDefaultState());
                                 --l1;
                                 --k2;
 

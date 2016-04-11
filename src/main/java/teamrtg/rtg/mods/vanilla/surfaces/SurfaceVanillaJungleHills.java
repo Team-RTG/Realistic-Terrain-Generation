@@ -52,9 +52,9 @@ public class SurfaceVanillaJungleHills extends SurfaceBase {
         Block b;
         for (int k = 255; k > -1; k--) {
             b = primer.getBlockState(x, k, y).getBlock();
-            if (b == Blocks.air) {
+            if (b == Blocks.AIR) {
                 depth = -1;
-            } else if (b == Blocks.stone) {
+            } else if (b == Blocks.STONE) {
                 depth++;
 
                 if (depth == 0) {

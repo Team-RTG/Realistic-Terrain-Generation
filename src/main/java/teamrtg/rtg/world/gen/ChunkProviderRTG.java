@@ -264,12 +264,12 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 for (int k = 0; k < 256; k++) {
                     if (k > h) {
                         if (k < 63) {
-                            primer.setBlockState(i, k, j, Blocks.water.getDefaultState());
+                            primer.setBlockState(i, k, j, Blocks.WATER.getDefaultState());
                         } else {
-                            primer.setBlockState(i, k, j, Blocks.air.getDefaultState());
+                            primer.setBlockState(i, k, j, Blocks.AIR.getDefaultState());
                         }
                     } else {
-                        primer.setBlockState(i, k, j, Blocks.stone.getDefaultState());
+                        primer.setBlockState(i, k, j, Blocks.STONE.getDefaultState());
                     }
                 }
                 n[i * 16 + j] = noise[i * 16 + j];
@@ -295,12 +295,12 @@ public class ChunkProviderRTG implements IChunkGenerator {
                     for (int k = 0; k < 256; k++) {
                         if (k > h) {
                             if (k < 63) {
-                                primer.setBlockState(i, k, j, Blocks.water.getDefaultState());
+                                primer.setBlockState(i, k, j, Blocks.WATER.getDefaultState());
                             } else {
-                                primer.setBlockState(i, k, j, Blocks.air.getDefaultState());
+                                primer.setBlockState(i, k, j, Blocks.AIR.getDefaultState());
                             }
                         } else {
-                            primer.setBlockState(i, k, j, Blocks.stone.getDefaultState());
+                            primer.setBlockState(i, k, j, Blocks.STONE.getDefaultState());
                         }
                     }
 
@@ -627,14 +627,14 @@ public class ChunkProviderRTG implements IChunkGenerator {
          * ########################################################################
          */
 
-        //Flowing water.
+        //Flowing WATER.
         if (rand.nextInt(100) == 0) {
             for (int l18 = 0; l18 < 50; l18++) {
                 int l21 = worldX + rand.nextInt(16) + 8;
                 int k23 = rand.nextInt(rand.nextInt(worldHeight - 16) + 10);
                 int l24 = worldZ + rand.nextInt(16) + 8;
 
-                (new WorldGenLiquids(Blocks.flowing_water)).generate(worldObj, rand, new BlockPos(l21, k23, l24));
+                (new WorldGenLiquids(Blocks.FLOWING_WATER)).generate(worldObj, rand, new BlockPos(l21, k23, l24));
             }
         }
 
@@ -644,7 +644,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 int i22 = worldX + rand.nextInt(16) + 8;
                 int l23 = rand.nextInt(worldHeight / 2);
                 int i25 = worldZ + rand.nextInt(16) + 8;
-                (new WorldGenLiquids(Blocks.flowing_lava)).generate(worldObj, rand, new BlockPos(i22, l23, i25));
+                (new WorldGenLiquids(Blocks.FLOWING_LAVA)).generate(worldObj, rand, new BlockPos(i22, l23, i25));
             }
         }
 
@@ -663,11 +663,11 @@ public class ChunkProviderRTG implements IChunkGenerator {
                     i2 = this.worldObj.getPrecipitationHeight(bp.set(worldX + k1, 0, worldZ + l1)).getY();
 
                     if (this.worldObj.canBlockFreezeNoWater(bp.set(k1 + worldX, i2 - 1, l1 + worldZ))) {
-                        this.worldObj.setBlockState(bp.set(k1 + worldX, i2 - 1, l1 + worldZ), Blocks.ice.getDefaultState(), 2);
+                        this.worldObj.setBlockState(bp.set(k1 + worldX, i2 - 1, l1 + worldZ), Blocks.ICE.getDefaultState(), 2);
                     }
 
                     if (Mods.RTG.config.ENABLE_SNOW_LAYERS.get() && this.worldObj.canSnowAt(bp.set(k1 + worldX, i2, l1 + worldZ), true)) {
-                        this.worldObj.setBlockState(bp.set(k1 + worldX, i2, l1 + worldZ), Blocks.snow_layer.getDefaultState(), 2);
+                        this.worldObj.setBlockState(bp.set(k1 + worldX, i2, l1 + worldZ), Blocks.SNOW_LAYER.getDefaultState(), 2);
                     }
                 }
             }

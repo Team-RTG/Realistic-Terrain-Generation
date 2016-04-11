@@ -38,8 +38,8 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
     private static final List<BiomeGenBase.SpawnListEntry> field_175803_h;
 
     static {
-        field_175802_d = Arrays.asList(Biomes.ocean, Biomes.deepOcean, Biomes.river, Biomes.frozenOcean, Biomes.frozenRiver);
-        field_186134_b = Arrays.asList(Biomes.deepOcean);
+        field_175802_d = Arrays.asList(Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.RIVER, Biomes.FROZEN_OCEAN, Biomes.FROZEN_RIVER);
+        field_186134_b = Arrays.asList(Biomes.DEEP_OCEAN);
         field_175803_h = Lists.newArrayList();
         field_175803_h.add(new SpawnListEntry(EntityGuardian.class, 1, 2, 4));
     }

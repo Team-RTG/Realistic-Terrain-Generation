@@ -10,8 +10,8 @@ import teamrtg.rtg.api.mods.Mods;
 import java.util.Random;
 
 import static java.lang.Math.abs;
-import static net.minecraft.block.material.Material.air;
-import static net.minecraft.block.material.Material.vine;
+import static net.minecraft.block.material.Material.AIR;
+import static net.minecraft.block.material.Material.VINE;
 import static net.minecraft.init.Blocks.*;
 
 
@@ -35,42 +35,42 @@ class WorldGenTreeRTGCocoaSmall extends WorldGenerator {
     public boolean generate(World world, Random rand, int x, int y, int z) {
         Block b = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
 
-        if (b == sand && !Mods.RTG.config.ALLOW_TREES_ON_SAND.get()) {
+        if (b == SAND && !Mods.RTG.config.ALLOW_TREES_ON_SAND.get()) {
             return false;
         }
 
-        if (b != grass && b != dirt && b != sand) {
+        if (b != GRASS && b != DIRT && b != SAND) {
             return false;
         }
 
         Material m = world.getBlockState(new BlockPos(x, y, z)).getBlock().getMaterial(world.getBlockState(new BlockPos(x, y, z)));
-        if (m != air && m != vine) {
+        if (m != AIR && m != VINE) {
             return false;
         }
 
         int h = y + 2 + rand.nextInt(3);
         for (; y < h; y++) {
-            world.setBlockState(new BlockPos(x, y, z), log.getStateFromMeta(3), 0);
+            world.setBlockState(new BlockPos(x, y, z), LOG.getStateFromMeta(3), 0);
         }
 
         for (int i = -2; i <= 2; i++) {
             for (int j = -2; j <= 2; j++) {
                 if (abs(i) + abs(j) < 3) {
-                    buildBlock(world, x + i, y - 1, z + j, leaves, 3, 0);
+                    buildBlock(world, x + i, y - 1, z + j, LEAVES, 3, 0);
                 }
             }
         }
 
-        world.setBlockState(new BlockPos(x, y - 1, z), log.getStateFromMeta(3), 0);
-        buildBlock(world, x + 1, y, z, leaves, 3, 0);
-        buildBlock(world, x - 1, y, z, leaves, 3, 0);
-        buildBlock(world, x, y, z, leaves, 3, 0);
-        buildBlock(world, x, y, z + 1, leaves, 3, 0);
-        buildBlock(world, x, y, z - 1, leaves, 3, 0);
+        world.setBlockState(new BlockPos(x, y - 1, z), LOG.getStateFromMeta(3), 0);
+        buildBlock(world, x + 1, y, z, LEAVES, 3, 0);
+        buildBlock(world, x - 1, y, z, LEAVES, 3, 0);
+        buildBlock(world, x, y, z, LEAVES, 3, 0);
+        buildBlock(world, x, y, z + 1, LEAVES, 3, 0);
+        buildBlock(world, x, y, z - 1, LEAVES, 3, 0);
 
         for (int k = 0; k < 16; k += 4) {
             if (rand.nextInt(20) == 0) {
-                buildBlock(world, x + cocoas[k + 1], y + cocoas[k + 2], z + cocoas[k + 3], cocoa, cocoas[k + 0] + 8, 0);
+                buildBlock(world, x + cocoas[k + 1], y + cocoas[k + 2], z + cocoas[k + 3], COCOA, cocoas[k + 0] + 8, 0);
             }
         }
 
@@ -80,7 +80,7 @@ class WorldGenTreeRTGCocoaSmall extends WorldGenerator {
     private void buildBlock(World w, int x, int y, int z, Block b, int m, int u) {
         Material ma = w.getBlockState(new BlockPos(x, y, z)).getBlock().getMaterial(w.getBlockState(new BlockPos(x, y, z)));
 
-        if (ma == air || ma == vine) {
+        if (ma == AIR || ma == VINE) {
             w.setBlockState(new BlockPos(x, y, z), b.getStateFromMeta(m), 0);
         }
     }

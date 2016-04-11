@@ -11,7 +11,7 @@ import java.util.Random;
 import static net.minecraft.init.Blocks.*;
 
 public class WorldGenJungleCacti extends WorldGenerator {
-    private boolean sand;
+    private boolean SAND;
     private byte sandByte;
     private int eHeight;
 
@@ -20,7 +20,7 @@ public class WorldGenJungleCacti extends WorldGenerator {
     }
 
     public WorldGenJungleCacti(boolean sandOnly, int extraHeight, byte sandMeta) {
-        sand = sandOnly;
+        SAND = sandOnly;
         eHeight = extraHeight;
         sandByte = sandMeta;
     }
@@ -38,15 +38,15 @@ public class WorldGenJungleCacti extends WorldGenerator {
 
             if (world.isAirBlock(new BlockPos(i1, j1, k1))) {
                 b = world.getBlockState(new BlockPos(i1, j1 - 1, k1)).getBlock();
-                if (b == Blocks.sand || (!sand && (b == grass || b == dirt))) {
+                if (b == Blocks.SAND || (!SAND && (b == GRASS || b == DIRT))) {
                     int l1 = 1 + rand.nextInt(rand.nextInt(3) + 1);
-                    if (b == grass || b == dirt) {
-                        world.setBlockState(new BlockPos(i1, j1 - 1, k1), Blocks.sand.getStateFromMeta(sandByte), 2);
+                    if (b == GRASS || b == DIRT) {
+                        world.setBlockState(new BlockPos(i1, j1 - 1, k1), Blocks.SAND.getStateFromMeta(sandByte), 2);
                     }
 
                     for (int i2 = 0; i2 < l1 + eHeight; ++i2) {
-                        if (cactus.canBlockStay(world, new BlockPos(i1, j1 + i2, k1))) {
-                            world.setBlockState(new BlockPos(i1, j1 + i2, k1), cactus.getDefaultState(), 2);
+                        if (CACTUS.canBlockStay(world, new BlockPos(i1, j1 + i2, k1))) {
+                            world.setBlockState(new BlockPos(i1, j1 + i2, k1), CACTUS.getDefaultState(), 2);
                         }
                     }
                 }

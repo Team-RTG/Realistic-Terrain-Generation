@@ -19,7 +19,7 @@ import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static net.minecraft.init.Biomes.river;
+import static net.minecraft.init.Biomes.RIVER;
 
 public abstract class RealisticBiomeBase extends BiomeBase {
 
@@ -44,7 +44,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     public final double lakeDepressionLevel = 0.16;// the lakeStrength below which land should start to be lowered
 
     public RealisticBiomeBase(RTGSupport mod, BiomeGenBase biome) {
-        this(mod, biome, river);
+        this(mod, biome, RIVER);
     }
 
     public RealisticBiomeBase(RTGSupport mod, BiomeGenBase biome, BiomeGenBase river) {

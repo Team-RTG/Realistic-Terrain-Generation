@@ -61,28 +61,28 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
 
                             if (rand.nextInt(this.fernChance) == 0) {
 
-                                (new WorldGenGrass(Blocks.double_plant, FERN_META)).generate(world, rand, new BlockPos(intX, intY, intZ));
+                                (new WorldGenGrass(Blocks.DOUBLE_PLANT, FERN_META)).generate(world, rand, new BlockPos(intX, intY, intZ));
                             } else {
 
-                                (new WorldGenGrass(Blocks.double_plant, GRASS_META)).generate(world, rand, new BlockPos(intX, intY, intZ));
+                                (new WorldGenGrass(Blocks.DOUBLE_PLANT, GRASS_META)).generate(world, rand, new BlockPos(intX, intY, intZ));
                             }
                         } else if (this.grassChance > 0) {
 
                             if (rand.nextInt(this.grassChance) == 0) {
 
-                                (new WorldGenGrass(Blocks.double_plant, GRASS_META)).generate(world, rand, new BlockPos(intX, intY, intZ));
+                                (new WorldGenGrass(Blocks.DOUBLE_PLANT, GRASS_META)).generate(world, rand, new BlockPos(intX, intY, intZ));
                             } else {
 
-                                (new WorldGenGrass(Blocks.double_plant, FERN_META)).generate(world, rand, new BlockPos(intX, intY, intZ));
+                                (new WorldGenGrass(Blocks.DOUBLE_PLANT, FERN_META)).generate(world, rand, new BlockPos(intX, intY, intZ));
                             }
                         } else {
 
                             if (rand.nextBoolean()) {
 
-                                (new WorldGenGrass(Blocks.double_plant, GRASS_META)).generate(world, rand, new BlockPos(intX, intY, intZ));
+                                (new WorldGenGrass(Blocks.DOUBLE_PLANT, GRASS_META)).generate(world, rand, new BlockPos(intX, intY, intZ));
                             } else {
 
-                                (new WorldGenGrass(Blocks.double_plant, FERN_META)).generate(world, rand, new BlockPos(intX, intY, intZ));
+                                (new WorldGenGrass(Blocks.DOUBLE_PLANT, FERN_META)).generate(world, rand, new BlockPos(intX, intY, intZ));
                             }
                         }
                     }

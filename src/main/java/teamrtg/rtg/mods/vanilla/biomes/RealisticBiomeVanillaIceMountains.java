@@ -13,8 +13,8 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaIceMountains() {
 
         super(
-                Biomes.iceMountains,
-                Biomes.frozenRiver
+                Biomes.ICE_MOUNTAINS,
+                Biomes.FROZEN_RIVER
         );
         this.noLakes = true;
     }
@@ -41,9 +41,9 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.snow.getDefaultState());
-        config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.snow.getDefaultState());
-        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.packed_ice.getDefaultState());
-        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.ice.getDefaultState());
+        config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.SNOW.getDefaultState());
+        config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.SNOW.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.PACKED_ICE.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.ICE.getDefaultState());
     }
 }

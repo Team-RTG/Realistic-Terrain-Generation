@@ -92,7 +92,7 @@ public class MapGenVillageRTG extends MapGenVillage {
                 }
             } else {
 
-                canSpawnVillage = this.worldObj.getBiomeProvider().areBiomesViable(k * 16 + 8, l * 16 + 8, 0, villageSpawnBiomes);
+                canSpawnVillage = this.worldObj.getBiomeProvider().areBiomesViable(k * 16 + 8, l * 16 + 8, 0, VILLAGE_SPAWN_BIOMES);
             }
         }
 

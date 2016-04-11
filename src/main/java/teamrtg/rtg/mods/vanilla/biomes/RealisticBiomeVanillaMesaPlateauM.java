@@ -16,14 +16,14 @@ import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaMesaPlateauM;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase {
-    public static BiomeGenBase standardBiome = Biomes.mesaPlateau;
+    public static BiomeGenBase standardBiome = Biomes.MESA_CLEAR_ROCK;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaMesaPlateauM() {
 
         super(
                 mutationBiome,
-                Biomes.river
+                Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -56,7 +56,7 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
 
         DecoCactus decoCactus = new DecoCactus();
         decoCactus.strengthFactor = 25f;
-        decoCactus.soil = Blocks.sand.getStateFromMeta(1);
+        decoCactus.soil = Blocks.SAND.getStateFromMeta(1);
         decoCactus.sandOnly = false;
         decoCactus.maxRiver = 0.8f;
         addDeco(decoCactus);

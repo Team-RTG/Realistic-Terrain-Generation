@@ -8,8 +8,8 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import java.util.Random;
 
 import static java.lang.Math.*;
-import static net.minecraft.init.Blocks.dirt;
-import static net.minecraft.init.Blocks.grass;
+import static net.minecraft.init.Blocks.DIRT;
+import static net.minecraft.init.Blocks.GRASS;
 
 public class WorldGenTreeRTGJungleSmall extends WorldGenerator {
     private Block blockLog;
@@ -23,10 +23,10 @@ public class WorldGenTreeRTGJungleSmall extends WorldGenerator {
     private float verStart;
     private float verRand;
 
-    public WorldGenTreeRTGJungleSmall(Block log, int metaLog, Block leaves, int metaLeaves, int baseHeight, int rootHeight, float branchLength, int numBranches, float verticalStart, float verticalRand) {
-        blockLog = log;
+    public WorldGenTreeRTGJungleSmall(Block LOG, int metaLog, Block LEAVES, int metaLeaves, int baseHeight, int rootHeight, float branchLength, int numBranches, float verticalStart, float verticalRand) {
+        blockLog = LOG;
         metadataLog = metaLog;
-        blockLeaves = leaves;
+        blockLeaves = LEAVES;
         metadataLeaves = metaLeaves;
 
         base = baseHeight;
@@ -44,7 +44,7 @@ public class WorldGenTreeRTGJungleSmall extends WorldGenerator {
 
     public boolean generate(World world, Random rand, int x, int y, int z) {
         Block b = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
-        if (b != grass && b != dirt) {
+        if (b != GRASS && b != DIRT) {
             return false;
         }
 

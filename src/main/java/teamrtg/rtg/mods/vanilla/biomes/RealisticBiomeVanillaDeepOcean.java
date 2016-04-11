@@ -13,8 +13,8 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaDeepOcean() {
 
         super(
-                Biomes.deepOcean,
-                Biomes.river
+                Biomes.DEEP_OCEAN,
+                Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -41,7 +41,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.clay.getDefaultState());
+        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.CLAY.getDefaultState());
         this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(0);
         this.config.SURFACE_LAVA_LAKE_CHANCE.setDefault(0);
     }

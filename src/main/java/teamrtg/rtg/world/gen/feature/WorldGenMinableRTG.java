@@ -9,7 +9,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import java.util.Random;
 
 import static java.lang.Math.PI;
-import static net.minecraft.init.Blocks.stone;
+import static net.minecraft.init.Blocks.STONE;
 import static net.minecraft.util.math.MathHelper.*;
 
 public class WorldGenMinableRTG extends WorldGenerator {
@@ -22,7 +22,7 @@ public class WorldGenMinableRTG extends WorldGenerator {
     private int mineableBlockMeta;
 
     public WorldGenMinableRTG(Block p_i45459_1_, int p_i45459_2_) {
-        this(p_i45459_1_, p_i45459_2_, stone);
+        this(p_i45459_1_, p_i45459_2_, STONE);
     }
 
     public WorldGenMinableRTG(Block p_i45460_1_, int p_i45460_2_, Block p_i45460_3_) {

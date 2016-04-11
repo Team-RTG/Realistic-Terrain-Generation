@@ -17,8 +17,8 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 
     public RealisticBiomeVanillaIcePlains() {
         super(
-                Biomes.icePlains,
-                Biomes.frozenRiver
+                Biomes.ICE_PLAINS,
+                Biomes.FROZEN_RIVER
         );
     }
 
@@ -51,7 +51,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.checkRiver = true;
         decoBoulder.minRiver = 0.87f;
-        decoBoulder.boulderBlock = Blocks.cobblestone;
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE;
         decoBoulder.chance = 16;
         decoBoulder.maxY = 95;
         decoBoulder.strengthFactor = 5f;
@@ -61,9 +61,9 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
         decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 24;
         decoFallenTree.maxY = 90;
-        decoFallenTree.logBlock = Blocks.log;
+        decoFallenTree.logBlock = Blocks.LOG;
         decoFallenTree.logMeta = (byte) 1;
-        decoFallenTree.leavesBlock = Blocks.leaves;
+        decoFallenTree.leavesBlock = Blocks.LEAVES;
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 1;
         decoFallenTree.maxSize = 5;
@@ -72,8 +72,8 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.grass.getDefaultState());
-        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.dirt.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.GRASS.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.DIRT.getDefaultState());
         this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.IGLOO.name());
     }
 }

@@ -43,9 +43,9 @@ public class SurfaceMesa extends SurfaceBase {
 
         for (int k = 255; k > -1; k--) {
             Block b = primer.getBlockState(x, k, y).getBlock();
-            if (b == Blocks.air) {
+            if (b == Blocks.AIR) {
                 depth = -1;
-            } else if (b == Blocks.stone) {
+            } else if (b == Blocks.STONE) {
                 depth++;
 
                 if (depth > -1 && depth < 12) {
@@ -56,7 +56,7 @@ public class SurfaceMesa extends SurfaceBase {
                             primer.setBlockState(x, k, y, CanyonColour.MESA.getAt(i, k, j));
                         } else if (k > 77) {
                             if (rand.nextInt(5) == 0) {
-                                primer.setBlockState(x, k, y, Blocks.dirt.getDefaultState());
+                                primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState());
                             } else {
                                 if (depth == 0) {
                                     primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
@@ -65,13 +65,13 @@ public class SurfaceMesa extends SurfaceBase {
                                 }
                             }
                         } else if (k < 69) {
-                            primer.setBlockState(x, k, y, Blocks.dirt.getDefaultState());
+                            primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState());
                         } else if (k < 78) {
                             if (depth == 0) {
                                 if (k < 72 && rand.nextInt(k - 69 + 1) == 0) {
-                                    primer.setBlockState(x, k, y, Blocks.dirt.getDefaultState());
+                                    primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState());
                                 } else if (rand.nextInt(5) == 0) {
-                                    primer.setBlockState(x, k, y, Blocks.dirt.getDefaultState());
+                                    primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState());
                                 } else {
                                     primer.setBlockState(x, k, y, biome.config.TOP_BLOCK.get());
                                 }

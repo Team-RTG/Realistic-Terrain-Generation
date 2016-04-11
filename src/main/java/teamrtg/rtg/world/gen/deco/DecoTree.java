@@ -60,9 +60,9 @@ public class DecoTree extends DecoBase {
         this.treeConditionChance = 1;
         this.minY = 1; // No lower height limit by default.
         this.maxY = 255; // No upper height limit by default.
-        this.logBlock = Blocks.log;
+        this.logBlock = Blocks.LOG;
         this.logMeta = (byte) 0;
-        this.leavesBlock = Blocks.leaves;
+        this.leavesBlock = Blocks.LEAVES;
         this.leavesMeta = (byte) -1;
         this.minSize = 2;
         this.maxSize = 4;
@@ -123,7 +123,7 @@ public class DecoTree extends DecoBase {
 
                             if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 
-                                WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(Blocks.log.getStateFromMeta(0), Blocks.leaves.getStateFromMeta(0)) : new WorldGenTreeRTGSavanna(1);
+                                WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(Blocks.LOG.getStateFromMeta(0), Blocks.LEAVES.getStateFromMeta(0)) : new WorldGenTreeRTGSavanna(1);
                                 worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
                             }
 
@@ -134,10 +134,10 @@ public class DecoTree extends DecoBase {
                             if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 
                                 if (this.maxSize > this.minSize) {
-                                    WorldGenerator worldgenerator = new WorldGenMegaJungle(false, this.minSize + rand.nextInt(this.maxSize - this.minSize), 0, Blocks.log.getStateFromMeta(3), Blocks.leaves.getStateFromMeta(3));
+                                    WorldGenerator worldgenerator = new WorldGenMegaJungle(false, this.minSize + rand.nextInt(this.maxSize - this.minSize), 0, Blocks.LOG.getStateFromMeta(3), Blocks.LEAVES.getStateFromMeta(3));
                                     worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
                                 } else if (this.maxSize == this.minSize) {
-                                    WorldGenerator worldgenerator = new WorldGenMegaJungle(false, this.minSize, 0, Blocks.log.getStateFromMeta(3), Blocks.leaves.getStateFromMeta(3));
+                                    WorldGenerator worldgenerator = new WorldGenMegaJungle(false, this.minSize, 0, Blocks.LOG.getStateFromMeta(3), Blocks.LEAVES.getStateFromMeta(3));
                                     worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
                                 }
                             }
@@ -150,12 +150,12 @@ public class DecoTree extends DecoBase {
 
                                 if (this.maxSize > this.minSize) {
                                     WorldGenerator worldgenerator = new WorldGenTreeRTGMangrove(
-                                            Blocks.log2, 1, Blocks.leaves2, 1, this.minSize + rand.nextInt(this.maxSize - this.minSize), 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
+                                            Blocks.LOG2, 1, Blocks.LEAVES2, 1, this.minSize + rand.nextInt(this.maxSize - this.minSize), 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
                                     );
                                     worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
                                 } else if (this.maxSize == this.minSize) {
                                     WorldGenerator worldgenerator = new WorldGenTreeRTGMangrove(
-                                            Blocks.log2, 1, Blocks.leaves2, 1, this.minSize, 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
+                                            Blocks.LOG2, 1, Blocks.LEAVES2, 1, this.minSize, 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
                                     );
                                     worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
                                 }
@@ -169,8 +169,8 @@ public class DecoTree extends DecoBase {
 
                                 WorldGenerator worldgenerator =
                                         rand.nextInt(3) != 0
-                                                ? new WorldGenMegaJungle(false, 10 + rand.nextInt(18), 20, Blocks.log.getStateFromMeta(3), Blocks.leaves.getStateFromMeta(3))
-                                                : new WorldGenTreeRTGMangrove(Blocks.log, 3, Blocks.leaves, 3, 10 + rand.nextInt(18), 3 + rand.nextInt(2), 13f, RandomUtil.getRandomInt(rand, 4, 5),
+                                                ? new WorldGenMegaJungle(false, 10 + rand.nextInt(18), 20, Blocks.LOG.getStateFromMeta(3), Blocks.LEAVES.getStateFromMeta(3))
+                                                : new WorldGenTreeRTGMangrove(Blocks.LOG, 3, Blocks.LEAVES, 3, 10 + rand.nextInt(18), 3 + rand.nextInt(2), 13f, RandomUtil.getRandomInt(rand, 4, 5),
                                                 0.32f,
                                                 0.2f);
                                 worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
@@ -233,7 +233,7 @@ public class DecoTree extends DecoBase {
                             if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 
                                 if (rand.nextInt(9) == 0) {
-                                    WorldGenerator worldgenerator = new WorldGenShrub(Blocks.log.getStateFromMeta(0), Blocks.leaves.getStateFromMeta(0));
+                                    WorldGenerator worldgenerator = new WorldGenShrub(Blocks.LOG.getStateFromMeta(0), Blocks.LEAVES.getStateFromMeta(0));
                                     worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
                                 }
 
@@ -255,7 +255,7 @@ public class DecoTree extends DecoBase {
                             if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 
                                 WorldGenerator worldgenerator =
-                                        rand.nextInt(3) != 0 ? new WorldGenShrub(Blocks.log.getStateFromMeta(0), Blocks.leaves.getStateFromMeta(0)) : rand.nextInt(9) == 0 ? new WorldGenTreeRTGSavanna(1)
+                                        rand.nextInt(3) != 0 ? new WorldGenShrub(Blocks.LOG.getStateFromMeta(0), Blocks.LEAVES.getStateFromMeta(0)) : rand.nextInt(9) == 0 ? new WorldGenTreeRTGSavanna(1)
                                                 : new WorldGenTreeRTGSavanna(2);
                                 worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
                             }

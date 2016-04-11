@@ -48,7 +48,7 @@ public class DecoJungleGrassVines extends DecoBase {
                         grassMeta = RandomUtil.getRandomInt(rand, 1, 2);
                     }
 
-                    (new WorldGenGrass(Blocks.tallgrass, grassMeta)).generate(world, rand, new BlockPos(l19, k22, j24));
+                    (new WorldGenGrass(Blocks.TALLGRASS, grassMeta)).generate(world, rand, new BlockPos(l19, k22, j24));
 
                     for (int h44 = 0; h44 < 4 && k22 > 63; h44++) {
                         WorldGenerator worldgenerator4 = new WorldGenVines();
@@ -62,7 +62,7 @@ public class DecoJungleGrassVines extends DecoBase {
                     int j24 = chunkY + rand.nextInt(16) + 8;
 
                     if (rand.nextInt(5) == 0) {
-                        (new WorldGenGrass(Blocks.double_plant, RandomUtil.getRandomInt(rand, 2, 3))).generate(world, rand, new BlockPos(l19, k22, j24));
+                        (new WorldGenGrass(Blocks.DOUBLE_PLANT, RandomUtil.getRandomInt(rand, 2, 3))).generate(world, rand, new BlockPos(l19, k22, j24));
                     }
                 }
 
@@ -78,7 +78,7 @@ public class DecoJungleGrassVines extends DecoBase {
                         grassMeta = RandomUtil.getRandomInt(rand, 1, 2);
                     }
 
-                    (new WorldGenGrass(Blocks.tallgrass, grassMeta)).generate(world, rand, new BlockPos(l19, k22, j24));
+                    (new WorldGenGrass(Blocks.TALLGRASS, grassMeta)).generate(world, rand, new BlockPos(l19, k22, j24));
 
                     if (k22 > 63) {
 

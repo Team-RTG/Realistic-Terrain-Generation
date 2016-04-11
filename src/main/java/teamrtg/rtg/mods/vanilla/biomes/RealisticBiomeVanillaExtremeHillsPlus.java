@@ -23,8 +23,8 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
     public RealisticBiomeVanillaExtremeHillsPlus() {
 
         super(
-                Biomes.extremeHillsPlus,
-                Biomes.river
+                Biomes.EXTREME_HILLS_WITH_TREES,
+                Biomes.RIVER
         );
         this.noLakes = true;
         this.noWaterFeatures = true;
@@ -93,16 +93,16 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 6;
         decoFallenTree.maxY = 100;
-        decoFallenTree.logBlock = Blocks.log;
+        decoFallenTree.logBlock = Blocks.LOG;
         decoFallenTree.logMeta = (byte) 1;
-        decoFallenTree.leavesBlock = Blocks.leaves;
+        decoFallenTree.leavesBlock = Blocks.LEAVES;
         decoFallenTree.leavesMeta = (byte) -1;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
+        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE;
         decoBoulder.chance = 16;
         decoBoulder.maxY = 95;
         decoBoulder.strengthFactor = 3f;
@@ -129,8 +129,8 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.gravel.getDefaultState());
-        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.gravel.getDefaultState());
+        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.GRAVEL.getDefaultState());
+        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.GRAVEL.getDefaultState());
         config.GENERATE_EMERALDS.setDefault(true);
     }
 }

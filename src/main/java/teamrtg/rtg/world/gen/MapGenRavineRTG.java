@@ -195,27 +195,27 @@ public class MapGenRavineRTG extends MapGenRavine {
 
     @Override
     protected boolean isOceanBlock(ChunkPrimer primer, int x, int y, int z, int chunkX, int chunkZ) {
-        return primer.getBlockState(x, y, z) == Blocks.water || primer.getBlockState(x, y, z) == Blocks.flowing_water;
+        return primer.getBlockState(x, y, z) == Blocks.WATER || primer.getBlockState(x, y, z) == Blocks.FLOWING_WATER;
     }
 
     //Exception biomes to make sure we generate like biomes
     private boolean isExceptionBiome(BiomeGenBase biome) {
-        if (biome == Biomes.mushroomIsland) return true;
-        if (biome == Biomes.beach) return true;
-        return biome == Biomes.desert;
+        if (biome == Biomes.MUSHROOM_ISLAND) return true;
+        if (biome == Biomes.BEACH) return true;
+        return biome == Biomes.DESERT;
     }
 
     //Determine if the block at the specified location is the top block for the biome, we take into account
     //Vanilla bugs to make sure that we generate the map the same way biomes does.
     private boolean istopBlock(ChunkPrimer primer, int x, int y, int z, int chunkX, int chunkZ) {
         BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
-        return (isExceptionBiome(biome) ? primer.getBlockState(x, y, z) == Blocks.grass : primer.getBlockState(x, y, z) == biome.topBlock);
+        return (isExceptionBiome(biome) ? primer.getBlockState(x, y, z) == Blocks.GRASS : primer.getBlockState(x, y, z) == biome.topBlock);
     }
 
     /**
-     * Digs out the current block, default implementation removes stone, filler, and top block
-     * Sets the block to lava if y is less then 10, and air other wise.
-     * If setting to air, it also checks to see if we've broken the paintSurface and if so
+     * Digs out the current block, default implementation removes STONE, filler, and top block
+     * Sets the block to lava if y is less then 10, and AIR other wise.
+     * If setting to AIR, it also checks to see if we've broken the paintSurface and if so
      * tries to make the floor the biome's top block
      * @param primer   Block data array
      * @param x        local X position
@@ -229,15 +229,15 @@ public class MapGenRavineRTG extends MapGenRavine {
     @Override
     protected void digBlock(ChunkPrimer primer, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop) {
         BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
-        Block top = isExceptionBiome(biome) ? Blocks.grass : biome.topBlock.getBlock();
-        Block filler = isExceptionBiome(biome) ? Blocks.dirt : biome.topBlock.getBlock();
+        Block top = isExceptionBiome(biome) ? Blocks.GRASS : biome.topBlock.getBlock();
+        Block filler = isExceptionBiome(biome) ? Blocks.DIRT : biome.topBlock.getBlock();
         Block block = primer.getBlockState(x, y, z).getBlock();
 
-        if (block == Blocks.stone || block == filler || block == top) {
+        if (block == Blocks.STONE || block == filler || block == top) {
             if (y < 10) {
-                primer.setBlockState(x, y, z, Blocks.lava.getDefaultState());
+                primer.setBlockState(x, y, z, Blocks.LAVA.getDefaultState());
             } else {
-                primer.setBlockState(x, y, z, Blocks.air.getDefaultState());
+                primer.setBlockState(x, y, z, Blocks.AIR.getDefaultState());
 
                 if (foundTop && primer.getBlockState(x, y - 1, z).getBlock() == filler) {
                     primer.setBlockState(x, y - 1, z, top.getDefaultState());

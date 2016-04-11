@@ -46,7 +46,7 @@ public class DecoClay extends DecoBase {
                     int i9 = 53 + rand.nextInt(15);
                     int l11 = chunkY * 16 + rand.nextInt(16);
 
-                    (new WorldGenClay(Blocks.clay, 0, clayPerVein)).generate(world, rand, new BlockPos(l5, i9, l11));
+                    (new WorldGenClay(Blocks.CLAY, 0, clayPerVein)).generate(world, rand, new BlockPos(l5, i9, l11));
                 }
             }
         }

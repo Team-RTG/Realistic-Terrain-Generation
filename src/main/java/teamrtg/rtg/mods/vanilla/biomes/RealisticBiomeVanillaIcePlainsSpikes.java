@@ -11,13 +11,13 @@ import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaIcePlainsSpikes;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaBase {
-    public static BiomeGenBase standardBiome = Biomes.icePlains;
+    public static BiomeGenBase standardBiome = Biomes.ICE_PLAINS;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaIcePlainsSpikes() {
         super(
                 mutationBiome,
-                Biomes.frozenRiver
+                Biomes.FROZEN_RIVER
         );
         this.noLakes = true;
     }
@@ -44,7 +44,7 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.packed_ice.getDefaultState());
-        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.ice.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.PACKED_ICE.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.ICE.getDefaultState());
     }
 }

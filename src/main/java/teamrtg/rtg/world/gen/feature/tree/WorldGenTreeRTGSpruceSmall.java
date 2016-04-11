@@ -23,7 +23,7 @@ public class WorldGenTreeRTGSpruceSmall extends WorldGenerator {
 
     public boolean generate(World world, Random rand, int x, int y, int z) {
         Block g = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
-        if (g != grass && g != dirt) {
+        if (g != GRASS && g != DIRT) {
             return false;
         }
 
@@ -43,7 +43,7 @@ public class WorldGenTreeRTGSpruceSmall extends WorldGenerator {
 
         int i, j, k;
         for (i = 0; i < start; i++) {
-            world.setBlockState(new BlockPos(x, y, z), log.getDefaultState(), 0);
+            world.setBlockState(new BlockPos(x, y, z), LOG.getDefaultState(), 0);
             y++;
         }
 
@@ -51,11 +51,11 @@ public class WorldGenTreeRTGSpruceSmall extends WorldGenerator {
             for (j = -2; j <= 2; j++) {
                 for (k = -2; k <= 2; k++) {
                     if (abs(j) + abs(k) != 4 && ((j > -2 && k > -2 && j < 2 && k < 2) || rand.nextInt(4) != 0)) {
-                        world.setBlockState(new BlockPos(x + j, y, z + k), leaves.getStateFromMeta(leavesMeta), 0);
+                        world.setBlockState(new BlockPos(x + j, y, z + k), LEAVES.getStateFromMeta(leavesMeta), 0);
                     }
                 }
             }
-            world.setBlockState(new BlockPos(x, y, z), log.getDefaultState(), 0);
+            world.setBlockState(new BlockPos(x, y, z), LOG.getDefaultState(), 0);
             y++;
         }
 
@@ -63,34 +63,34 @@ public class WorldGenTreeRTGSpruceSmall extends WorldGenerator {
             for (j = -1; j <= 1; j++) {
                 for (k = -1; k <= 1; k++) {
                     if (abs(j) + abs(k) < 2 || (rand.nextInt(4) != 0)) {
-                        world.setBlockState(new BlockPos(x + j, y, z + k), leaves.getStateFromMeta(leavesMeta), 0);
+                        world.setBlockState(new BlockPos(x + j, y, z + k), LEAVES.getStateFromMeta(leavesMeta), 0);
                     }
                 }
             }
 
             if (i == 0) {
-                world.setBlockState(new BlockPos(x + 1, y, z), leaves.getStateFromMeta(leavesMeta), 0);
-                world.setBlockState(new BlockPos(x - 1, y, z), leaves.getStateFromMeta(leavesMeta), 0);
-                world.setBlockState(new BlockPos(x, y, z + 1), leaves.getStateFromMeta(leavesMeta), 0);
-                world.setBlockState(new BlockPos(x, y, z - 1), leaves.getStateFromMeta(leavesMeta), 0);
-                world.setBlockState(new BlockPos(x + 2, y, z), leaves.getStateFromMeta(leavesMeta), 0);
-                world.setBlockState(new BlockPos(x - 2, y, z), leaves.getStateFromMeta(leavesMeta), 0);
-                world.setBlockState(new BlockPos(x, y, z + 2), leaves.getStateFromMeta(leavesMeta), 0);
-                world.setBlockState(new BlockPos(x, y, z - 2), leaves.getStateFromMeta(leavesMeta), 0);
+                world.setBlockState(new BlockPos(x + 1, y, z), LEAVES.getStateFromMeta(leavesMeta), 0);
+                world.setBlockState(new BlockPos(x - 1, y, z), LEAVES.getStateFromMeta(leavesMeta), 0);
+                world.setBlockState(new BlockPos(x, y, z + 1), LEAVES.getStateFromMeta(leavesMeta), 0);
+                world.setBlockState(new BlockPos(x, y, z - 1), LEAVES.getStateFromMeta(leavesMeta), 0);
+                world.setBlockState(new BlockPos(x + 2, y, z), LEAVES.getStateFromMeta(leavesMeta), 0);
+                world.setBlockState(new BlockPos(x - 2, y, z), LEAVES.getStateFromMeta(leavesMeta), 0);
+                world.setBlockState(new BlockPos(x, y, z + 2), LEAVES.getStateFromMeta(leavesMeta), 0);
+                world.setBlockState(new BlockPos(x, y, z - 2), LEAVES.getStateFromMeta(leavesMeta), 0);
             }
 
-            world.setBlockState(new BlockPos(x, y, z), log.getDefaultState(), 0);
+            world.setBlockState(new BlockPos(x, y, z), LOG.getDefaultState(), 0);
             y++;
         }
 
-        world.setBlockState(new BlockPos(x, y, z), log.getDefaultState(), 0);
-        world.setBlockState(new BlockPos(x + 1, y, z), leaves.getStateFromMeta(leavesMeta), 0);
-        world.setBlockState(new BlockPos(x - 1, y, z), leaves.getStateFromMeta(leavesMeta), 0);
-        world.setBlockState(new BlockPos(x, y, z + 1), leaves.getStateFromMeta(leavesMeta), 0);
-        world.setBlockState(new BlockPos(x, y, z - 1), leaves.getStateFromMeta(leavesMeta), 0);
+        world.setBlockState(new BlockPos(x, y, z), LOG.getDefaultState(), 0);
+        world.setBlockState(new BlockPos(x + 1, y, z), LEAVES.getStateFromMeta(leavesMeta), 0);
+        world.setBlockState(new BlockPos(x - 1, y, z), LEAVES.getStateFromMeta(leavesMeta), 0);
+        world.setBlockState(new BlockPos(x, y, z + 1), LEAVES.getStateFromMeta(leavesMeta), 0);
+        world.setBlockState(new BlockPos(x, y, z - 1), LEAVES.getStateFromMeta(leavesMeta), 0);
 
-        world.setBlockState(new BlockPos(x, y + 1, z), leaves.getStateFromMeta(leavesMeta), 0);
-        world.setBlockState(new BlockPos(x, y + 2, z), leaves.getStateFromMeta(leavesMeta), 0);
+        world.setBlockState(new BlockPos(x, y + 1, z), LEAVES.getStateFromMeta(leavesMeta), 0);
+        world.setBlockState(new BlockPos(x, y + 2, z), LEAVES.getStateFromMeta(leavesMeta), 0);
         return true;
     }
 }

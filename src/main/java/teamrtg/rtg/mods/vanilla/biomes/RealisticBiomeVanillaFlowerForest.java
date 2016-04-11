@@ -19,14 +19,14 @@ import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase {
 
-    public static BiomeGenBase standardBiome = Biomes.forest;
+    public static BiomeGenBase standardBiome = Biomes.FOREST;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaFlowerForest() {
 
         super(
                 mutationBiome,
-                Biomes.river
+                Biomes.RIVER
         );
     }
 
@@ -97,9 +97,9 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         decoFallenOak.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
         decoFallenOak.logConditionChance = 8;
         decoFallenOak.maxY = 100;
-        decoFallenOak.logBlock = Blocks.log;
+        decoFallenOak.logBlock = Blocks.LOG;
         decoFallenOak.logMeta = (byte) 0;
-        decoFallenOak.leavesBlock = Blocks.leaves;
+        decoFallenOak.leavesBlock = Blocks.LEAVES;
         decoFallenOak.leavesMeta = (byte) -1;
         decoFallenOak.minSize = 3;
         decoFallenOak.maxSize = 6;
@@ -107,9 +107,9 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         decoFallenSpruce.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
         decoFallenSpruce.logConditionChance = 8;
         decoFallenSpruce.maxY = 100;
-        decoFallenSpruce.logBlock = Blocks.log;
+        decoFallenSpruce.logBlock = Blocks.LOG;
         decoFallenSpruce.logMeta = (byte) 1;
-        decoFallenSpruce.leavesBlock = Blocks.leaves;
+        decoFallenSpruce.leavesBlock = Blocks.LEAVES;
         decoFallenSpruce.leavesMeta = (byte) -1;
         decoFallenSpruce.minSize = 3;
         decoFallenSpruce.maxSize = 6;
@@ -125,7 +125,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.grass.getDefaultState());
-        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.sand.getDefaultState());
+        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.GRASS.getDefaultState());
+        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
     }
 }

@@ -22,6 +22,7 @@ public class DecoGrass extends DecoBase
 {
     
 	public float strengthFactor;
+	public int minY;
 	public int maxY;
 	public int loops;
 	public int chance;
@@ -40,6 +41,7 @@ public class DecoGrass extends DecoBase
 		 * Default values.
 		 * These can be overridden when configuring the Deco object in the realistic biome.
 		 */
+		this.minY = 1; // No height limit by default.
 		this.maxY = 255; // No height limit by default.
 		this.strengthFactor = 0f; // Not sure why it was done like this, but... the higher the value, the more there will be.
 		this.loops = 1;
@@ -65,7 +67,7 @@ public class DecoGrass extends DecoBase
 	            for (int i = 0; i < this.loops; i++)
 	            {
 	                int intX = chunkX + rand.nextInt(16) + 8;
-	                int intY = rand.nextInt(this.maxY);
+	                int intY = this.minY + (rand.nextInt(this.maxY - this.minY) + 1);
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 
     				//Do we want to choose a random grass?
@@ -77,13 +79,13 @@ public class DecoGrass extends DecoBase
     				
 	                if (this.notEqualsZerochance > 1) {
 	                	
-		                if (intY <= this.maxY && rand.nextInt(this.notEqualsZerochance) != 0) {
+		                if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.notEqualsZerochance) != 0) {
 		                	(new WorldGenGrass(this.block, this.meta)).generate(world, rand, intX, intY, intZ);
 		                }
 	                }
 	                else {
 	                	
-		                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
+		                if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.chance) == 0) {
 		                	(new WorldGenGrass(this.block, this.meta)).generate(world, rand, intX, intY, intZ);
 		                }
 	                }

@@ -12,6 +12,7 @@ import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.SurfaceBase;
 import teamrtg.rtg.world.biome.surface.SurfaceRiverOasis;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
 import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 
@@ -21,11 +22,12 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.DESERT;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
-    public RealisticBiomeVanillaDesertM() {
+    public RealisticBiomeVanillaDesertM(ChunkProviderRTG chunkProvider) {
 
         super(
                 mutationBiome,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
         this.noLakes = true;
     }

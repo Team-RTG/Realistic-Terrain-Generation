@@ -56,11 +56,6 @@ public class SurfaceVanillaBirchForest extends SurfaceBase {
                 depth++;
 
                 if (depth == 0) {
-                    if (k < 63) {
-                        if (beach) {
-                            gravel = true;
-                        }
-                    }
 
                     float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
                     if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {

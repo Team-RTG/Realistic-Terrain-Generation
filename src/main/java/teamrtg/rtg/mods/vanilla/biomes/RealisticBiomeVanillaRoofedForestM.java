@@ -3,31 +3,25 @@ package teamrtg.rtg.mods.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaRoofedForestM;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.world.gen.deco.DecoBoulder;
-import teamrtg.rtg.world.gen.deco.DecoDeadBush;
-import teamrtg.rtg.world.gen.deco.DecoFallenTree;
-import teamrtg.rtg.world.gen.deco.DecoGrass;
-import teamrtg.rtg.world.gen.deco.DecoGrassDoubleTallgrass;
-import teamrtg.rtg.world.gen.deco.DecoMushrooms;
-import teamrtg.rtg.world.gen.deco.DecoShrub;
-import teamrtg.rtg.world.gen.deco.DecoTree;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaRoofedForestM;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
+import teamrtg.rtg.world.gen.deco.*;
 
 public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.ROOFED_FOREST;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
-    public RealisticBiomeVanillaRoofedForestM() {
+    public RealisticBiomeVanillaRoofedForestM(ChunkProviderRTG chunkProvider) {
 
         super(
                 mutationBiome,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
         this.noLakes = true;
     }

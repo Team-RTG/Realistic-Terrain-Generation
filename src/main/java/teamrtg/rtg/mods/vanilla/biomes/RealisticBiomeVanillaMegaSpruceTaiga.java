@@ -5,6 +5,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 import teamrtg.rtg.world.gen.deco.DecoFallenTree;
 import teamrtg.rtg.world.gen.deco.DecoFallenTree.LogCondition;
@@ -17,11 +18,12 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
     public static BiomeGenBase standardBiome = Biomes.REDWOOD_TAIGA;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
-    public RealisticBiomeVanillaMegaSpruceTaiga() {
+    public RealisticBiomeVanillaMegaSpruceTaiga(ChunkProviderRTG chunkProvider) {
 
         super(
                 mutationBiome,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
         this.noLakes = true;
     }

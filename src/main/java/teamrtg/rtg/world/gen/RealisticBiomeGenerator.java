@@ -328,9 +328,9 @@ public class RealisticBiomeGenerator {
             if (this.biome.useNewSurfaceSystem) {
                 for (int y = 255; y > -1; y--) {
                     Block b = primer.getBlockState(x, y, z).getBlock();
-                    if (b == Blocks.air) {
+                    if (b == Blocks.AIR) {
                         depth = -1;
-                    } else if (b == Blocks.stone) {
+                    } else if (b == Blocks.STONE) {
                         depth++;
                         this.biome.surfacePart.paintWithSubparts(primer, i, y, j, depth, noise, river);
                     }

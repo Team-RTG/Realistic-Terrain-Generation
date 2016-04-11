@@ -7,17 +7,19 @@ import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.part.BlockPart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
 import teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
 
 public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaMesaPlateau() {
+    public RealisticBiomeVanillaMesaPlateau(ChunkProviderRTG chunkProvider) {
 
         super(
                 Biomes.MESA_CLEAR_ROCK,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
         this.noLakes = true;
     }
@@ -38,7 +40,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
 
     @Override
     protected void initNewSurfaces() {
-        this.surfacePart.add(new BlockPart(this, CanyonColour.MESA));
+        this.surfacePart.add(new BlockPart(CanyonColour.MESA));
     }
 
     @Override

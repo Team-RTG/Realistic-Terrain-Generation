@@ -10,6 +10,7 @@ import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.SurfaceBase;
 import teamrtg.rtg.world.biome.surface.SurfaceRiverOasis;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
 import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 
@@ -17,11 +18,12 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaDesert() {
+    public RealisticBiomeVanillaDesert(ChunkProviderRTG chunkProvider) {
 
         super(
                 Biomes.DESERT,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
         this.noLakes = true;
     }

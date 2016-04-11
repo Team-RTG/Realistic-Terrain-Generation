@@ -12,6 +12,7 @@ import teamrtg.rtg.world.biome.surface.SurfaceBase;
 import teamrtg.rtg.world.biome.surface.SurfaceRiverOasis;
 import teamrtg.rtg.world.biome.terrain.GroundEffect;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
 import teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
@@ -20,11 +21,12 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaMesa() {
+    public RealisticBiomeVanillaMesa(ChunkProviderRTG chunkProvider) {
 
         super(
                 Biomes.MESA,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
     }
 

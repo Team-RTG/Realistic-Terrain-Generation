@@ -2,29 +2,26 @@ package teamrtg.rtg.mods.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaSavanna;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.gen.deco.DecoBoulder;
-import teamrtg.rtg.world.gen.deco.DecoDoubleGrass;
-import teamrtg.rtg.world.gen.deco.DecoFallenTree;
-import teamrtg.rtg.world.gen.deco.DecoFallenTree.LogCondition;
-import teamrtg.rtg.world.gen.deco.DecoGrass;
-import teamrtg.rtg.world.gen.deco.DecoReed;
-import teamrtg.rtg.world.gen.deco.DecoTree;
-import teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition;
-import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
 import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaSavanna;
 import teamrtg.rtg.world.biome.terrain.GroundEffect;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
+import teamrtg.rtg.world.gen.deco.*;
+import teamrtg.rtg.world.gen.deco.DecoFallenTree.LogCondition;
+import teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition;
+import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
 
 public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaSavanna() {
+    public RealisticBiomeVanillaSavanna(ChunkProviderRTG chunkProvider) {
 
         super(
                 Biomes.SAVANNA,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
     }
 

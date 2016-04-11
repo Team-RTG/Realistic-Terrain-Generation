@@ -2,25 +2,23 @@ package teamrtg.rtg.mods.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaForestHills;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.gen.deco.DecoFallenTree;
-import teamrtg.rtg.world.gen.deco.DecoFlowersRTG;
-import teamrtg.rtg.world.gen.deco.DecoGrass;
-import teamrtg.rtg.world.gen.deco.DecoShrub;
-import teamrtg.rtg.world.gen.deco.DecoTree;
-import teamrtg.rtg.world.gen.deco.helper.DecoHelper5050;
 import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaForestHills;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
+import teamrtg.rtg.world.gen.deco.*;
+import teamrtg.rtg.world.gen.deco.helper.DecoHelper5050;
 
 public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaForestHills() {
+    public RealisticBiomeVanillaForestHills(ChunkProviderRTG chunkProvider) {
 
         super(
                 Biomes.FOREST_HILLS,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
         this.noLakes = true;
     }

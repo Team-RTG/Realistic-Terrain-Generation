@@ -2,18 +2,20 @@ package teamrtg.rtg.mods.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaStoneBeach;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaStoneBeach;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaStoneBeach() {
+    public RealisticBiomeVanillaStoneBeach(ChunkProviderRTG chunkProvider) {
         super(
                 Biomes.STONE_BEACH,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
     }
 

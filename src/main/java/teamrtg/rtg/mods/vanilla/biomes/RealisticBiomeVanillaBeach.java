@@ -4,18 +4,23 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.util.noise.RTGNoise;
+import teamrtg.rtg.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.world.biome.surface.part.DepthSelector;
+import teamrtg.rtg.world.biome.surface.part.HeightSelector;
+import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.DecoTree;
 import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaBeach;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaBeach() {
+    public RealisticBiomeVanillaBeach(ChunkProviderRTG chunkProvider) {
         super(
                 Biomes.BEACH,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
     }
 
@@ -30,8 +35,21 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaBeach(this);
+    protected void initNewSurfaces() {
+        surfacePart.add(new DepthSelector(0, 6)
+                .add(new CliffSelector(1.3f)
+                        .add(new BlockPart(config.CLIFF_BLOCK_1.get())))
+                .add(new DepthSelector(0, 0)
+                        .add(new HeightSelector(61, 64)
+                                .add(new BlockPart(config.TOP_BLOCK.get()))))
+                .add(new DepthSelector(0, 4)
+                        .add(new HeightSelector(61, 69)
+                                .add(new BlockPart(config.TOP_BLOCK.get()))))
+
+                .add(new HeightSelector(56, 68)
+                        .setMaxNoise(new RTGNoise(444L).addOctave2D(2f, 3f, 0f))
+                        .add(new BlockPart(config.FILL_BLOCK.get())))
+        );
     }
 
     @Override
@@ -47,6 +65,6 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
     @Override
     protected void initProperties() {
         config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.SAND.getDefaultState());
-        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.SAND.getDefaultState());
+        config.FILL_BLOCK.setDefault(Blocks.SANDSTONE.getDefaultState());
     }
 }

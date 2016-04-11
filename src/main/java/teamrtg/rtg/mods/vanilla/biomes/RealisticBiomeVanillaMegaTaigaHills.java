@@ -2,30 +2,25 @@ package teamrtg.rtg.mods.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaMegaTaigaHills;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.world.gen.deco.DecoBoulder;
-import teamrtg.rtg.world.gen.deco.DecoFallenTree;
+import teamrtg.rtg.world.biome.surface.SurfaceBase;
+import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
+import teamrtg.rtg.world.gen.deco.*;
 import teamrtg.rtg.world.gen.deco.DecoFallenTree.LogCondition;
-import teamrtg.rtg.world.gen.deco.DecoGrass;
-import teamrtg.rtg.world.gen.deco.DecoMushrooms;
-import teamrtg.rtg.world.gen.deco.DecoPumpkin;
-import teamrtg.rtg.world.gen.deco.DecoShrub;
-import teamrtg.rtg.world.gen.deco.DecoTree;
 import teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaMegaTaigaHills;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaMegaTaigaHills() {
+    public RealisticBiomeVanillaMegaTaigaHills(ChunkProviderRTG chunkProvider) {
 
         super(
                 Biomes.REDWOOD_TAIGA_HILLS,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
         this.noLakes = true;
     }

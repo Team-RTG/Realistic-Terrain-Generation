@@ -1,6 +1,7 @@
 package teamrtg.rtg.api.mods;
 
 import teamrtg.rtg.mods.vanilla.RTGSupportVanilla;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,10 @@ public class Mods {
         registerMod(ABYSSALCRAFT);
     }
 
-    public static void initAllBiomes() {
-        mods.forEach(RTGSupport::initBiomes);
+    public static void initAllBiomes(ChunkProviderRTG chunkProvider) {
+        for (RTGSupport mod : mods) {
+            mod.initBiomes(chunkProvider);
+        }
     }
 
     public static void syncAllConfigs() {

@@ -7,13 +7,15 @@ import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.SurfaceBase;
 import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaMushroomIsland;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaMushroomIsland() {
+    public RealisticBiomeVanillaMushroomIsland(ChunkProviderRTG chunkProvider) {
         super(
                 Biomes.MUSHROOM_ISLAND,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
         this.noLakes = true;
     }

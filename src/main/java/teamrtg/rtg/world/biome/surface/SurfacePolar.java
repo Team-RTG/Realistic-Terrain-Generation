@@ -40,7 +40,7 @@ public class SurfacePolar extends SurfaceBase {
                 depth++;
 
                 if (riverPaint) {
-                    if (GRASS && depth < 4) {
+                    if (grass && depth < 4) {
                         primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState());
                     } else if (depth == 0) {
                         if (rand.nextInt(2) == 0) {
@@ -57,9 +57,9 @@ public class SurfacePolar extends SurfaceBase {
                         SnowHeightCalculator.calc(x, y, k, primer, noise);
                     }
                 }
-            } else if (!WATER && b == Blocks.WATER) {
+            } else if (!water && b == Blocks.WATER) {
                 primer.setBlockState(x, k, y, Blocks.ICE.getDefaultState());
-                WATER = true;
+                water = true;
             }
         }
     }

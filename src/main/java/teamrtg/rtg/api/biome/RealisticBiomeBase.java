@@ -13,6 +13,7 @@ import teamrtg.rtg.world.biome.surface.SurfaceGeneric;
 import teamrtg.rtg.world.biome.surface.part.GenericPart;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
 import teamrtg.rtg.world.gen.deco.DecoBase;
 import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
@@ -30,6 +31,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     public final BiomeGenBase riverBiome;
     public final RTGSupport mod;
     public final BiomeConfig config;
+    public final ChunkProviderRTG chunkProvider;
     public TerrainBase terrain;
     public SurfaceBase surface;
 
@@ -44,15 +46,16 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     public final double lakeWaterLevel = 0.0;// the lakeStrenght below which things should be below ater
     public final double lakeDepressionLevel = 0.16;// the lakeStrength below which land should start to be lowered
 
-    public RealisticBiomeBase(RTGSupport mod, BiomeGenBase biome) {
-        this(mod, biome, RIVER);
+    public RealisticBiomeBase(RTGSupport mod, BiomeGenBase biome, ChunkProviderRTG chunkProvider) {
+        this(mod, biome, RIVER, chunkProvider);
     }
 
-    public RealisticBiomeBase(RTGSupport mod, BiomeGenBase biome, BiomeGenBase river) {
+    public RealisticBiomeBase(RTGSupport mod, BiomeGenBase biome, BiomeGenBase river, ChunkProviderRTG chunkProvider) {
 
         super(RealisticBiomeBase.getIdForBiome(biome));
 
         this.mod = mod;
+        this.chunkProvider = chunkProvider;
 
         baseBiome = biome;
         riverBiome = river;
@@ -99,7 +102,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     @Deprecated
     protected SurfaceBase initSurface() {
         this.useNewSurfaceSystem = true;
-        this.surfacePart = new GenericPart(this, fill);
+        this.surfacePart = new GenericPart(config.TOP_BLOCK.get(), config.FILL_BLOCK.get());
         initNewSurfaces();
         return new SurfaceGeneric(this);
     }

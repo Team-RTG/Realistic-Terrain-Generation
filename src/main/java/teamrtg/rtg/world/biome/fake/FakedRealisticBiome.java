@@ -15,8 +15,8 @@ import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
  */
 public class FakedRealisticBiome extends RealisticBiomeBase {
 
-    public FakedRealisticBiome(RTGSupport mod, BiomeGenBase biome) {
-        super(mod, biome);
+    public FakedRealisticBiome(RTGSupport mod, BiomeGenBase biome, ChunkProviderRTG chunkProvider) {
+        super(mod, biome, chunkProvider);
     }
 
     @Override

@@ -2,19 +2,21 @@ package teamrtg.rtg.mods.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaDeepOcean;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaDeepOcean;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaDeepOcean() {
+    public RealisticBiomeVanillaDeepOcean(ChunkProviderRTG chunkProvider) {
 
         super(
                 Biomes.DEEP_OCEAN,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
         this.noLakes = true;
     }

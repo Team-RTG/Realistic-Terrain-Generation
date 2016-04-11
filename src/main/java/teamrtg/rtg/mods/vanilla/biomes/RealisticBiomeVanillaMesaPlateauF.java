@@ -7,6 +7,7 @@ import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.part.*;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
 
 import java.util.Random;
@@ -16,10 +17,11 @@ import static teamrtg.rtg.world.gen.deco.DecoTree.TreeType.VANILLA_OAK;
 
 public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaMesaPlateauF() {
+    public RealisticBiomeVanillaMesaPlateauF(ChunkProviderRTG chunkProvider) {
         super(
                 Biomes.MESA_ROCK,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
         this.noLakes = true;
     }

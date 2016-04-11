@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * An object that holds multiple octaves of OpenSimplex noise, and can get the result at any point.
  * @author topisani
  */
-public class RTGNoise {
+public class RTGNoise implements IFloatAt {
 
     private final OpenSimplexNoise simplex;
     public static final RTGNoise EMPTY = new RTGNoise(0);
@@ -72,7 +72,22 @@ public class RTGNoise {
         return this;
     }
 
-    public abstract class Octave {
+    public RTGNoise addOctave1D(float divisor, float factor, float addend) {
+        this.octaves.add(new Octave1D(divisor, factor, addend));
+        return this;
+    }
+
+    public RTGNoise addOctave2D(float divisor, float factor, float addend) {
+        this.octaves.add(new Octave2D(divisor, factor, addend));
+        return this;
+    }
+
+    public RTGNoise addOctave3D(float divisorXZ, float divisorY, float factor, float addend) {
+        this.octaves.add(new Octave3D(divisorXZ, divisorY, factor, addend));
+        return this;
+    }
+
+    public abstract static class Octave {
         protected float divisorXZ;
         protected float divisorY;
         protected float factor;

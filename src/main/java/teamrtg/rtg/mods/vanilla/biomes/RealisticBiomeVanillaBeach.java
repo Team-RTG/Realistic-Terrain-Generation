@@ -18,38 +18,16 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
 
     public RealisticBiomeVanillaBeach(ChunkProviderRTG chunkProvider) {
         super(
-                Biomes.BEACH,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.BEACH,
+            Biomes.RIVER,
+            chunkProvider
         );
     }
 
     @Override
-    protected TerrainBase initTerrain() {
-        return new TerrainBase() {
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainBeach(x, y, simplex, river, 180f, 35f, 63f);
-            }
-        };
-    }
-
-    @Override
-    protected void initNewSurfaces() {
-        surfacePart.add(new DepthSelector(0, 6)
-                .add(new CliffSelector(1.3f)
-                        .add(new BlockPart(config.CLIFF_BLOCK_1.get())))
-                .add(new DepthSelector(0, 0)
-                        .add(new HeightSelector(61, 64)
-                                .add(new BlockPart(config.TOP_BLOCK.get()))))
-                .add(new DepthSelector(0, 4)
-                        .add(new HeightSelector(61, 69)
-                                .add(new BlockPart(config.TOP_BLOCK.get()))))
-
-                .add(new HeightSelector(56, 68)
-                        .setMaxNoise(new RTGNoise(444L).addOctave2D(2f, 3f, 0f))
-                        .add(new BlockPart(config.FILL_BLOCK.get())))
-        );
+    protected void initProperties() {
+        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.SAND.getDefaultState());
+        config.FILL_BLOCK.setDefault(Blocks.SANDSTONE.getDefaultState());
     }
 
     @Override
@@ -63,8 +41,30 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected void initProperties() {
-        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.SAND.getDefaultState());
-        config.FILL_BLOCK.setDefault(Blocks.SANDSTONE.getDefaultState());
+    protected void initNewSurfaces() {
+        surfacePart.add(new DepthSelector(0, 6)
+            .add(new CliffSelector(1.3f)
+                .add(new BlockPart(config.CLIFF_BLOCK_1.get())))
+            .add(new DepthSelector(0, 0)
+                .add(new HeightSelector(61, 64)
+                    .add(new BlockPart(config.TOP_BLOCK.get()))))
+            .add(new DepthSelector(0, 4)
+                .add(new HeightSelector(61, 69)
+                    .add(new BlockPart(config.TOP_BLOCK.get()))))
+
+            .add(new HeightSelector(56, 68)
+                .setMaxNoise(new RTGNoise(444L).addOctave2D(2f, 3f, 0f))
+                .add(new BlockPart(config.FILL_BLOCK.get())))
+        );
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainBeach(x, y, simplex, river, 180f, 35f, 63f);
+            }
+        };
     }
 }

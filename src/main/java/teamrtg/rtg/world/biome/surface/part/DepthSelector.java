@@ -31,6 +31,6 @@ public class DepthSelector extends SurfacePart {
 
     @Override
     public boolean applies(int x, int y, int z, int depth, float[] noise, float river) {
-        return depth >= (min + minNoise.getAt(x, y, z)) && depth <= (max + maxNoise.getAt(x, y, z));
+        return depth >= (min + minNoise.getFloatAt(x, y, z)) && depth <= (max + maxNoise.getFloatAt(x, y, z));
     }
 }

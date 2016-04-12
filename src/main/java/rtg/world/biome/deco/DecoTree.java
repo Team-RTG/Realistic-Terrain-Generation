@@ -25,6 +25,7 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGPineBig;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineEuro;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
+import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceCustom;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSprucePineBig;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
@@ -360,21 +361,46 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
-		            	case TAIGA:
+		            	case TAIGA_PINE_TALL:
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 
-		                        WorldGenerator worldgenerator =
-			                        rand.nextInt(4) == 0
-			                        ? new WorldGenTreeRTGSpruceSmall(1 + rand.nextInt(2))
-			                        : rand.nextInt(6) == 0
-			                            ? new WorldGenTreeRTGPineSmall(1 + rand.nextInt(3), 4 + rand.nextInt(4))
-			                            : new WorldGenTreeRTGPineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
+		                        WorldGenerator worldgenerator = new WorldGenTreeRTGPineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
 			                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 				                worldgenerator.generate(world, rand, intX, intY, intZ);
 		            		}
 		            		
 		            		break;
+		            		
+		            	case TAIGA_SPRUCE_SMALL:
+		            		
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+
+		            			int spruceTrunkSize = rand.nextInt(2) + 1;
+		            			int spruceLeavesSize = rand.nextInt(2) + 1;
+		            			byte spruceLeavesMeta = (rand.nextInt(4) != 0) ? (byte)1 : (byte)0;
+		            			
+		                        WorldGenerator worldgenerator = new WorldGenTreeRTGSpruceCustom(Blocks.log, (byte)1, Blocks.leaves, spruceLeavesMeta, spruceTrunkSize, spruceLeavesSize, spruceLeavesSize);
+			                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+				                worldgenerator.generate(world, rand, intX, intY, intZ);
+		            		}
+		            		
+		            		break;
+		            		
+		            	case TAIGA_SPRUCE_TALL:
+		            		
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+
+		            			int spruceTrunkSize = rand.nextInt(5) + 3;
+		            			int spruceLeavesSize = rand.nextInt(6) + 5 + (int)Math.floor(spruceTrunkSize / 3);
+		            			byte spruceLeavesMeta = (rand.nextInt(4) != 0) ? (byte)1 : (byte)0;
+		            			
+		                        WorldGenerator worldgenerator = new WorldGenTreeRTGSpruceCustom(Blocks.log, (byte)1, Blocks.leaves, spruceLeavesMeta, spruceTrunkSize, spruceLeavesSize, spruceLeavesSize);
+			                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+				                worldgenerator.generate(world, rand, intX, intY, intZ);
+		            		}
+		            		
+		            		break;		            		
 
 		            	case VANILLA_BEACH_PALM:
 		            		
@@ -470,7 +496,9 @@ public class DecoTree extends DecoBase
 		SMALL_BIRCH,
 		SMALL_PINES_TREES_FORESTS,
 		SUPER_TALL_BIRCH,
-		TAIGA,
+		TAIGA_PINE_TALL,
+		TAIGA_SPRUCE_SMALL,
+		TAIGA_SPRUCE_TALL,
 		VANILLA_BEACH_PALM,
 		VANILLA_COLD_TAIGA,
 		VANILLA_OAK,

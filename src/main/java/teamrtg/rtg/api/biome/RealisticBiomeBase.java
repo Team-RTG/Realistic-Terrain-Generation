@@ -32,6 +32,8 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     public final RTGSupport mod;
     public final BiomeConfig config;
     public final ChunkProviderRTG chunkProvider;
+    public final OpenSimplexNoise simplex;
+    public final Random rand;
     public TerrainBase terrain;
     public SurfaceBase surface;
 
@@ -56,6 +58,8 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
         this.mod = mod;
         this.chunkProvider = chunkProvider;
+        this.rand = chunkProvider.rand;
+        this.simplex = chunkProvider.simplex;
 
         baseBiome = biome;
         riverBiome = river;

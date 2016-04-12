@@ -3,7 +3,7 @@ package teamrtg.rtg.world.gen.deco;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenVines;
+import teamrtg.rtg.world.gen.feature.WorldGenVinesRTG;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import teamrtg.rtg.util.math.RandomUtil;
@@ -51,7 +51,7 @@ public class DecoJungleGrassVines extends DecoBase {
                     (new WorldGenGrass(Blocks.TALLGRASS, grassMeta)).generate(world, rand, new BlockPos(l19, k22, j24));
 
                     for (int h44 = 0; h44 < 4 && k22 > 63; h44++) {
-                        WorldGenerator worldgenerator4 = new WorldGenVines();
+                        WorldGenerator worldgenerator4 = new WorldGenVinesRTG();
                         worldgenerator4.generate(world, rand, new BlockPos(l19, k22, j24));
                     }
                 }
@@ -83,7 +83,7 @@ public class DecoJungleGrassVines extends DecoBase {
                     if (k22 > 63) {
 
                         for (int h44 = 0; h44 < 8; h44++) {
-                            WorldGenerator worldgenerator4 = new WorldGenVines();
+                            WorldGenerator worldgenerator4 = new WorldGenVinesRTG();
                             worldgenerator4.generate(world, rand, new BlockPos(l19, k22, j24));
                         }
                     }

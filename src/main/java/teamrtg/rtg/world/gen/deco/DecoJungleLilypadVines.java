@@ -2,13 +2,13 @@ package teamrtg.rtg.world.gen.deco;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenVines;
 import net.minecraft.world.gen.feature.WorldGenWaterlily;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
+import teamrtg.rtg.world.gen.feature.WorldGenVinesRTG;
 
 import java.util.Random;
 
@@ -49,7 +49,7 @@ public class DecoJungleLilypadVines extends DecoBase {
                     }
 
                     for (int h44 = 0; h44 < 100; h44++) {
-                        WorldGenerator worldgenerator4 = new WorldGenVines();
+                        WorldGenerator worldgenerator4 = new WorldGenVinesRTG();
                         worldgenerator4.generate(world, rand, new BlockPos(j6, z52, k10));
                     }
                 }

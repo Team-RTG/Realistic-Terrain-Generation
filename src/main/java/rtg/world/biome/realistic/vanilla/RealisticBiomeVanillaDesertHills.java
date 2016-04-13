@@ -50,7 +50,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
 		riverTrees.checkRiver = true;
 		riverTrees.minRiver = 0.86f;
 		riverTrees.strengthNoiseFactorForLoops = false;
-		riverTrees.strengthFactorForLoops = 10f;
+		riverTrees.strengthFactorForLoops = 20f;
 		riverTrees.treeType = TreeType.DESERT_RIVER;
 		riverTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
 		riverTrees.maxY = 100;
@@ -99,7 +99,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
         
         DecoDeadBush decoDeadBush = new DecoDeadBush();
 		decoDeadBush.maxY = 128;
-		decoDeadBush.strengthFactor = 1f;
+		decoDeadBush.strengthFactor = 4f;
         this.addDeco(decoDeadBush);
 	}
     

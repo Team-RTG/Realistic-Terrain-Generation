@@ -5,11 +5,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaDesertHills;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.SurfaceBase;
 import teamrtg.rtg.world.biome.surface.SurfaceRiverOasis;
+import teamrtg.rtg.world.biome.surface.part.*;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
@@ -39,8 +39,21 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaDesertHills(this);
+    protected void initNewSurfaces() {
+        surfacePart.add(new CliffSelector(1.5f)
+            .add(new DepthSelector(0, 6)
+                .add(new BlockPart(SurfaceBase.getShadowStoneBlock()))));
+        surfacePart.add(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + chunkProvider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
+            .add(new DepthSelector(0, 0)
+                .add(PARTS.STONE_OR_COBBLE))
+            .add(new DepthSelector(0, 6)
+                .add(PARTS.STONE)));
+        surfacePart.add(new DepthSelector(0, 0)
+            .add(new HeightSelector(0, 62)
+                .add(new BlockPart(config.FILL_BLOCK.get())))
+            .add(new Selector((x, y, z) -> chunkProvider.simplex.noise2(x / 12f, z / 12f) > 0.15f)
+                .add(new BlockPart(config.MIX_BLOCK_TOP.get())))
+        );
     }
 
     public void paintSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {

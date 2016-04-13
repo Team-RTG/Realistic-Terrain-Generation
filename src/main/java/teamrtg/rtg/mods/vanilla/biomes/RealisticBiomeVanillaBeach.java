@@ -4,7 +4,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.util.noise.RTGNoise;
 import teamrtg.rtg.world.biome.surface.part.BlockPart;
 import teamrtg.rtg.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.world.biome.surface.part.DepthSelector;
@@ -51,10 +50,9 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
             .add(new DepthSelector(0, 4)
                 .add(new HeightSelector(61, 69)
                     .add(new BlockPart(config.TOP_BLOCK.get()))))
-
-            .add(new HeightSelector(56, 68)
-                .setMaxNoise(new RTGNoise(444L).addOctave2D(2f, 3f, 0f))
-                .add(new BlockPart(config.FILL_BLOCK.get())))
+            .add(new HeightSelector(56, 68).setMaxNoise(PARTS.DEPTH_NOISE)
+                .add(PARTS.FILL_BLOCK))
+            .add(PARTS.GENERIC_SURFACE)
         );
     }
 

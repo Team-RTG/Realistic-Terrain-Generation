@@ -46,9 +46,8 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
                 .add(new HeightSelector(0, 69)
                     .add(new BlockPart(Blocks.SAND.getDefaultState()))))
             .add(new Selector((x, y, z) -> simplex.noise2(x / 12f, z / 12f) <= -0.3f + ((y - 61f) / 15f))
-                .add(new BlockPart(Blocks.SANDSTONE.getDefaultState())))
-
-        );
+                .add(new BlockPart(Blocks.SANDSTONE.getDefaultState()))));
+        surfacePart.add(PARTS.GENERIC_SURFACE);
     }
 
     @Override

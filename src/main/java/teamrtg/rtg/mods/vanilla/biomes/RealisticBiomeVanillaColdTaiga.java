@@ -105,9 +105,8 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
                 return (n > 0.45f) ? n : 0.45f;
             })
                 .add(new DepthSelector(0, 0)
-                    .add(new RandomSelector(rand, 3)
-                        .add(new BlockPart(SurfaceBase.hcCobble()))))
-                .add(new BlockPart(SurfaceBase.hcStone())))
+                    .add(PARTS.STONE_OR_COBBLE))
+                .add(PARTS.STONE))
 
             .add(new CliffSelector(1.5f)
                 .add(new BlockPart(SurfaceBase.getShadowStoneBlock())))

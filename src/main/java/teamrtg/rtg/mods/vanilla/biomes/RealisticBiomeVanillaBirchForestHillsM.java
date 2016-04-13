@@ -92,7 +92,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
                 .add(new DepthSelector(0, 1)
                     .add(new RandomSelector(chunkProvider.rand, 3)
                         .add(new BlockPart(SurfaceBase.hcCobble()))))
-                .add(new BlockPart(SurfaceBase.hcStone()))));
+                .add(PARTS.STONE)));
     }
 
     @Override

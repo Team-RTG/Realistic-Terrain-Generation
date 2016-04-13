@@ -49,7 +49,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         surfacePart.add(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + chunkProvider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
             .add(new DepthSelector(0, 0)
                 .add(new BlockPart(SurfaceBase.hcCobble())
-                    .add(new RandomPart(chunkProvider.rand, 3)
+                    .add(new RandomSelector(chunkProvider.rand, 3)
                         .add(new BlockPart(SurfaceBase.hcStone())))))
             .add(new DepthSelector(0, 6)
                 .add(new BlockPart(SurfaceBase.hcStone()))));

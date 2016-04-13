@@ -5,12 +5,12 @@ import java.util.Random;
 /**
  * @author topisani
  */
-public class RandomPart extends SurfacePart {
+public class RandomSelector extends SurfacePart {
 
     private final Random rand;
     private final int chance;
 
-    public RandomPart(Random rand, int chance) {
+    public RandomSelector(Random rand, int chance) {
         this.chance = chance;
         this.rand = rand;
     }

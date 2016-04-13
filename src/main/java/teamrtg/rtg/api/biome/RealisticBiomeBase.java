@@ -11,6 +11,7 @@ import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.SurfaceBase;
 import teamrtg.rtg.world.biome.surface.SurfaceGeneric;
 import teamrtg.rtg.world.biome.surface.part.GenericPart;
+import teamrtg.rtg.world.biome.surface.part.PresetParts;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
@@ -34,6 +35,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     public final ChunkProviderRTG chunkProvider;
     public final OpenSimplexNoise simplex;
     public final Random rand;
+    public final PresetParts PARTS;
     public TerrainBase terrain;
     public SurfaceBase surface;
 
@@ -69,6 +71,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         config.FILL_BLOCK.setDefault(biome.fillerBlock);
 
         initProperties();
+        this.PARTS = new PresetParts(this);
 
         clayPerVein = 20;
 

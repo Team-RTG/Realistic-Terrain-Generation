@@ -2,10 +2,12 @@ package teamrtg.rtg.mods.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaDeepOcean;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
+import teamrtg.rtg.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.world.biome.surface.part.DepthSelector;
+import teamrtg.rtg.world.biome.surface.part.HeightSelector;
+import teamrtg.rtg.world.biome.surface.part.Selector;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
@@ -32,8 +34,12 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaDeepOcean(this);
+    protected void initNewSurfaces() {
+        surfacePart.add(new DepthSelector(0, 0)
+            .add(new HeightSelector(0, 63)
+                .add(new Selector((x, y, z) -> simplex.noise2(x / 20f, z / 20f) > 0.1f)
+                    .add(new BlockPart(config.MIX_BLOCK_TOP.get())))));
+        surfacePart.add(PARTS.GENERIC_SURFACE);
     }
 
     @Override

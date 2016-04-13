@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * @author topisani
  */
-public abstract class SurfacePart {
+public class SurfacePart {
     protected ArrayList<SurfacePart> subparts;
 
     public SurfacePart() {

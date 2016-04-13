@@ -35,6 +35,7 @@ import teamrtg.rtg.util.noise.SimplexCellularNoise;
 import teamrtg.rtg.world.biome.BiomeAnalyzer;
 import teamrtg.rtg.world.biome.BiomeProviderRTG;
 import teamrtg.rtg.world.biome.fake.RealisticBiomeFaker;
+import teamrtg.rtg.world.biome.surface.part.PresetParts;
 
 import java.util.HashMap;
 import java.util.List;
@@ -74,6 +75,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
     public final Random mapRand;
     public final World world;
     public final OpenSimplexNoise simplex;
+    public final PresetParts PARTS;
     public final CellNoise cell;
     private RealisticBiomeBase[] biomesForGeneration;
     private BiomeGenBase[] baseBiomesList;
@@ -94,6 +96,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         rand = new Random(l);
         simplex = new OpenSimplexNoise(l);
         cell = new SimplexCellularNoise(l);
+        PARTS = new PresetParts(this);
 
         mapRand = new Random(l);
         worldSeed = l;

@@ -4,10 +4,10 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import teamrtg.rtg.api.biome.RealisticBiomeBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaColdTaigaM;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
+import teamrtg.rtg.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.world.biome.surface.part.DepthSelector;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
@@ -40,8 +40,13 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaColdTaigaM(this);
+    protected void initNewSurfaces() {
+        surfacePart.add(new DepthSelector(0, 10)
+            .add(new CliffSelector(1.4f)
+                .add(new DepthSelector(0, 1)
+                    .add(PARTS.STONE_OR_COBBLE))
+                .add(PARTS.STONE))
+            .add(PARTS.GENERIC_SURFACE));
     }
 
     @Override

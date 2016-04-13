@@ -10,8 +10,6 @@ public class TerrainHLGlacier extends TerrainBase
 	private float hWidth;
 	private float vHeight;
 	private float vWidth;
-	private float lHeight;
-	private float lWidth;
 	private float bHeight;
 
 	/*
@@ -28,16 +26,13 @@ public class TerrainHLGlacier extends TerrainBase
 	 *
 	 * 70f, 180f, 7f, 100f, 38f, 260f, 68f
 	 */
-	public TerrainHLGlacier(float hillHeight, float hillWidth, float varHeight, float varWidth, float lakeHeight, float lakeWidth, float baseHeight)
+	public TerrainHLGlacier(float hillHeight, float hillWidth, float varHeight, float varWidth,  float baseHeight)
 	{
 		hHeight = hillHeight;
 		hWidth = hillWidth;
 
 		vHeight = varHeight;
 		vWidth = varWidth;
-
-		lHeight = lakeHeight;
-		lWidth = lakeWidth;
 
 		bHeight = baseHeight;
 	}
@@ -60,13 +55,9 @@ public class TerrainHLGlacier extends TerrainBase
 		m += cm;
         m = m/2f;
 
-		float l = simplex.noise2(x / lWidth, y / lWidth) * lHeight;
-		l *= l / 25f;
-		l = l < 8f ? 8f : l;
-
 		h += simplex.noise2(x / 12f, y / 12f) * 2f;
 		h += simplex.noise2(x / 5f, y / 5f) * 1f;
 
-		return bHeight + h + m - l;
+		return bHeight + h + m ;
 	}
 }

@@ -34,10 +34,11 @@ public class RealisticBiomeHLRockMountains extends RealisticBiomeHLBase
     
         super(config, 
             hlBiome, BiomeGenBase.river,
-            new TerrainHLRockMountains(230f, 100f, 0f),
+            new TerrainHLRockMountains(230f, 100f, 68f),
             new SurfaceHLRockMountains(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f)
         );
         this.generatesEmeralds = true;
+        noWaterFeatures = true;
         
         // copied from Realistic Extreme hills. Does not call vanilla decorate so no Higland inverted rock parabolas.
         

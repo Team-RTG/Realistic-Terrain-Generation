@@ -2,6 +2,7 @@ package rtg.world.gen.terrain.highlands;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.SimplexOctave;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainHLRainforest extends TerrainBase
@@ -10,6 +11,9 @@ public class TerrainHLRainforest extends TerrainBase
 	private float strength;
 	private float terrainHeight;
     private static float startCliffsAt = 40f;
+    private int wavelength = 20;
+    private SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+    private double amplitude = 5;
 
 	public TerrainHLRainforest(float mountainHeight, float mountainWidth, float depthLake)
 	{
@@ -25,6 +29,14 @@ public class TerrainHLRainforest extends TerrainBase
 		@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
+
+        simplex.riverJitter().evaluateNoise((float)x / wavelength, (float)y / wavelength, jitter);
+        int pX = (int)Math.round(x + jitter.deltax() * amplitude);
+        int pY = (int)Math.round(y + jitter.deltay() * amplitude);
+
+        x = pX;
+        y = pY;
+        
 		float h = simplex.noise2(x / 20f, y / 20f) * 2;
 		h += simplex.noise2(x / 7f, y / 7f) * 0.8f;
 
@@ -34,11 +46,11 @@ public class TerrainHLRainforest extends TerrainBase
 
 		float st = m * 0.7f;
 		st = st > 20f ? 20f : st;
-		float c = cell.noise(x / 30f, y / 30f, 1D) * (5f + st);
+		float c = (float)simplex.noise(x / 30f, y / 30f, 1D) * (3f + st);
 
         //c = this.above(c, startCliffsAt);
 
-		float sm = simplex.noise2(x / 30f, y / 30f) * 8f + simplex.noise2(x / 8f, y / 8f);
+		float sm = simplex.noise2(x / 15f, y / 15f) * 4f + simplex.noise2(x / 8f, y / 8f) * 2f;
 		sm *= (m + 10f) / 20f > 2.5f ? 2.5f : (m + 10f) / 20f;
 		m += sm;
 

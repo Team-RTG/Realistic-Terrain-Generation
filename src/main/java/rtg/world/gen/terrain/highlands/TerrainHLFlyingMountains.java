@@ -2,38 +2,26 @@ package rtg.world.gen.terrain.highlands;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.SimplexOctave;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainHLFlyingMountains extends TerrainBase
 {
 	private float width;
 	private float strength;
-	private float lakeDepth;
-	private float lakeWidth;
 	private float terrainHeight;
     private float cragWidth;
 
-	/*
-	 * width = 230f
-	 * strength = 120f
-	 * lake = 50f;
-	 *
-	 * 230f, 120f, 50f
-	 */
+    private int wavelength = 20;
+    private SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+    private double amplitude = 5;
 
-	public TerrainHLFlyingMountains(float mountainWidth, float mountainStrength, float depthLake, float cragWidth)
-	{
-		this(mountainWidth, mountainStrength, depthLake, 260f, 63f,cragWidth);
 
-	}
-
-	public TerrainHLFlyingMountains(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height, float cragWidth)
+	public TerrainHLFlyingMountains(float mountainWidth, float mountainStrength,  float height, float cragWidth)
 	{
         super(height);
 		width = mountainWidth;
 		strength = mountainStrength*1.3f;
-		lakeDepth = depthLake;
-		lakeWidth = widthLake;
 		terrainHeight = height;
         this.cragWidth = cragWidth;
 	}
@@ -41,17 +29,35 @@ public class TerrainHLFlyingMountains extends TerrainBase
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        float firstJump = 0.2f;
-        float secondJump = 0.4f;
-        float firstScatter = 0.2f;
-        float secondScatter = 0.35f;
+
+        simplex.riverJitter().evaluateNoise((float)x / wavelength, (float)y / wavelength, jitter);
+        int pX = (int)Math.round(x + jitter.deltax() * amplitude);
+        int pY = (int)Math.round(y + jitter.deltay() * amplitude);
+
+        x = pX;
+        y = pY;
+
+        float firstJump = 0.3f;
+        float secondJump = 0.5f;
+        float firstScatter = 0.3f;
+        float secondScatter = 0.45f;
         float adjust =0;
         float firstLevel = simplex.noise2(x / width, y / width)*5+10+simplex.noise2(x / 20f, y / 20f);
         firstLevel *= river;
-        float secondLevel = simplex.octave(1).noise2(x / width, y / width)*15+50
-                +simplex.noise2(x / 20f, y / 20f)*3f;
-        float thirdLevel = simplex.octave(2).noise2(x / width, y / width)*25+80
-                +simplex.noise2(x / 20f, y / 20f)*5f;
+
+        float secondAdded = simplex.octave(1).noise2(x / width, y / width)*10+40
+                +simplex.noise2(x / 20f, y / 20f)*2f;
+        float secondLevel = firstLevel + borderAdjusted(secondAdded, border, .65f, .6f);
+        /*float secondLevel = simplex.octave(1).noise2(x / width, y / width)*15+50
+                +simplex.noise2(x / 20f, y / 20f)*3f;*/
+
+        float thirdAdded = simplex.octave(2).noise2(x / width, y / width)*15+30
+                +simplex.noise2(x / 20f, y / 20f)*2f;
+        /*float thirdLevel = simplex.octave(2).noise2(x / width, y / width)*25+80
+                +simplex.noise2(x / 20f, y / 20f)*5f;*/
+
+        float thirdLevel = secondLevel + borderAdjusted(thirdAdded, border, .75f, .7f);
+        
         float scatter = Math.abs((float)simplex.octave(1).noise(x/cragWidth, y/cragWidth,1f));
         if (river < firstJump||scatter<firstScatter) {
             adjust = firstLevel;

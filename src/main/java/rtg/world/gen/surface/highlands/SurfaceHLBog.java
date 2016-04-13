@@ -26,7 +26,7 @@ public class SurfaceHLBog extends SurfaceBase
 	{
 		float c = CliffCalculator.calc(x, y, noise);
 		boolean cliff = c > 1.4f ? true : false;
-		
+
 		for(int k = 255; k > -1; k--)
 		{
 			Block b = blocks[(y * 16 + x) * 256 + k];
@@ -38,17 +38,17 @@ public class SurfaceHLBog extends SurfaceBase
             {
             	depth++;
 
-            	if(cliff)
+            	if(cliff && k > 64)
             	{
             		if(depth > -1 && depth < 2)
             		{
                         if (rand.nextInt(3) == 0) {
-                            
+
                             blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
                             metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
                         }
                         else {
-                            
+
                             blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
                             metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
                         }

@@ -10,34 +10,16 @@ public class TerrainHLSteppe extends TerrainBase
 	private float hWidth;
 	private float vHeight;
 	private float vWidth;
-	private float lHeight;
-	private float lWidth;
 	private float bHeight;
 	public static float mountainStart = 30;
-	/*
-	 * hillHeight = 70f
-	 * hillWidth = 180f
-	 *
-	 * varHeight = 7f
-	 * varWidth = 100f
-	 *
-	 * lakeHeigth = 38f
-	 * lakeWidth = 260f
-	 *
-	 * baseHeight = 68f
-	 *
-	 * 70f, 180f, 7f, 100f, 38f, 260f, 68f
-	 */
-	public TerrainHLSteppe(float hillHeight, float hillWidth, float varHeight, float varWidth, float lakeHeight, float lakeWidth, float baseHeight)
+
+	public TerrainHLSteppe(float hillHeight, float hillWidth, float varHeight, float varWidth, float baseHeight)
 	{
 		hHeight = hillHeight;
 		hWidth = hillWidth;
 
 		vHeight = varHeight;
 		vWidth = varWidth;
-
-		lHeight = lakeHeight;
-		lWidth = lakeWidth;
 
 		bHeight = baseHeight;
 	}
@@ -73,6 +55,6 @@ public class TerrainHLSteppe extends TerrainBase
 		h += simplex.noise2(x / 100f, y / 100f) * 2f;
 
         // no lakes
-		return bHeight + h + m;
+		return riverized(bHeight + h + m,river);
 	}
 }

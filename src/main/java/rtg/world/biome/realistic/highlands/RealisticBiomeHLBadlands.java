@@ -7,6 +7,8 @@ import rtg.world.gen.terrain.highlands.TerrainHLBadlands;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 
 public class RealisticBiomeHLBadlands extends RealisticBiomeHLBase
 {
@@ -20,7 +22,9 @@ public class RealisticBiomeHLBadlands extends RealisticBiomeHLBase
     
         super(config, 
             hlBiome, BiomeGenBase.river,
-            new TerrainHLBadlands(),
+            new TerrainHLBadlands(40f, 140f, 13f, 70f, 76f),
             new SurfaceHLBadlands(config, topBlock, fillerBlock));
+        this.noLakes = true;
     }
+    
 }

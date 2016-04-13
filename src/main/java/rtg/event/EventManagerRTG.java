@@ -244,6 +244,7 @@ public class EventManagerRTG
     
     private boolean isDesertVillageBiome(BiomeGenBase biome)
     {
+        if(biome == null) return false;
         if (
             BiomeDictionary.isBiomeOfType(biome, Type.HOT)
             &&
@@ -253,7 +254,7 @@ public class EventManagerRTG
         ) {
             return true;
         }
-        
+
         return false;
     }
 }

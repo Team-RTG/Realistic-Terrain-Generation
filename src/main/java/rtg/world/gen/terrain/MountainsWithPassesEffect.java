@@ -23,14 +23,14 @@ public class MountainsWithPassesEffect extends HeightEffect {
     public int hillOctave = 0;//
     public int spikeOctave = 2;//
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell,int x, int y) {
-        float noise= simplex.octave(hillOctave).noise2((float)x/mountainWavelength, (float)y/mountainWavelength);
+    public final float added(OpenSimplexNoise simplex, CellNoise cell,float x, float y) {
+        float noise= simplex.octave(hillOctave).noise2(x/mountainWavelength, y/mountainWavelength);
         noise = Math.abs(noise);
-        noise = TerrainBase.blendedHillHeight(noise,0f);
+        noise = TerrainBase.blendedHillHeight(noise,0.1f);
         noise = 1f-(1f-noise)/(1f-adjustedBottom);
-        float spikeNoise = simplex.octave(spikeOctave).noise2((float)x/spikeWavelength, (float)y/spikeWavelength);
+        float spikeNoise = simplex.octave(spikeOctave).noise2(x/spikeWavelength, y/spikeWavelength);
         spikeNoise = Math.abs(noise);
-        spikeNoise = TerrainBase.blendedHillHeight(noise, 0f);
+        spikeNoise = TerrainBase.blendedHillHeight(noise, 0.1f);
         spikeNoise *= spikeNoise;
         spikeNoise = TerrainBase.blendedHillHeight(spikeNoise*noise);
         return noise*mountainHeight+spikeNoise*spikeHeight;

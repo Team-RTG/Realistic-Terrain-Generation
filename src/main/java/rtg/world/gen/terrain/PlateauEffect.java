@@ -23,8 +23,8 @@ public class PlateauEffect extends HeightEffect {
     public int octave;
     public HeightEffect subordinate;
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell,int x, int y) {
-        float noise= simplex.octave(octave).noise2((float)x/wavelength, (float)y/wavelength);
+    public final float added(OpenSimplexNoise simplex, CellNoise cell,float x, float y) {
+        float noise= simplex.octave(octave).noise2(x/wavelength, y/wavelength);
         if (noise>topSimplexValue) {
             noise = 1f;
         } else if (noise<bottomSimplexValue) {

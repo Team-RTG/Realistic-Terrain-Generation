@@ -82,10 +82,10 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase
     public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
         float baseLakes = super.lakePressure(simplex, simplexCell, x, y, border);
         SimplexOctave.Derivative jitter = new SimplexOctave.Derivative();
-        simplex.riverJitter().evaluateNoise(x / 30.0, y / 30.0, jitter);
+        simplex.riverJitter().evaluateNoise((float)x / 30.0, (float)y / 30.0, jitter);
         double pX = x + jitter.deltax() * 15f;
         double pY = y + jitter.deltay() * 15f;
-        simplex.mountain().evaluateNoise(x / 10.0, y / 10.0, jitter);
+        simplex.mountain().evaluateNoise((float)x / 10.0, (float)y / 10.0, jitter);
         pX += jitter.deltax() * 4f;
         pY += jitter.deltay() * 4f;
         //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);

@@ -32,7 +32,7 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
     
         super(config, 
             hlBiome, BiomeGenBase.river,
-            new TerrainHLFlyingMountains(350f, 100f, 0f,50f),
+            new TerrainHLFlyingMountains(350f, 100f, 63f,70f),
             //new SurfaceVanillaForest(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f));
             new SurfaceHLFlyingMountains(config, topBlock, fillerBlock, false, null, 0f, 2.5f, 80f, 65f, 2.5f)
         );

@@ -2,35 +2,24 @@ package rtg.world.gen.terrain.highlands;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.SimplexOctave;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainHLRockMountains extends TerrainBase
 {
 	private float width;
 	private float strength;
-	private float lakeDepth;
-	private float lakeWidth;
 	private float terrainHeight;
 
-	/*
-	 * width = 230f
-	 * strength = 120f
-	 * lake = 50f;
-	 *
-	 * 230f, 120f, 50f
-	 */
 
-	public TerrainHLRockMountains(float mountainWidth, float mountainStrength, float depthLake)
-	{
-		this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
-	}
+    private int wavelength = 39;
+    private SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+    private double amplitude = 12;
 
-	public TerrainHLRockMountains(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
+	public TerrainHLRockMountains(float mountainWidth, float mountainStrength,  float height)
 	{
 		width = mountainWidth;
 		strength = mountainStrength;
-		lakeDepth = depthLake;
-		lakeWidth = widthLake;
 		terrainHeight = height;
 
         // experimentation
@@ -41,19 +30,23 @@ public class TerrainHLRockMountains extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        float h = simplex.noise2(x / 20f, y / 20f);
+        simplex.riverJitter().evaluateNoise((float)x / wavelength, (float)y / wavelength, jitter);
+        float pX = (float)((float)x + jitter.deltax() * amplitude);
+        float pY = (float)((float)y + jitter.deltay() * amplitude);
+
+        float h = simplex.noise2(pX / 19f, pY / 19f);
         h = h*h*2f;
-        float h2 = simplex.noise2(x / 14f, y / 14f);
+        float h2 = simplex.noise2(pX / 13f, pY / 13f);
         h2 = h2 * h2 * 1.3f;
         h = Math.max(h, h2);
 		h += h2;
-        float h3 = simplex.noise2(x/50f,y/50f);
+        float h3 = simplex.noise2( pX / 53f, pY /53f);
         h3= h3*h3*5f;
         h+= h3;
 
-        float m = unsignedPower(simplex.noise2(x / width, y / width),1.4f) * strength * river;
+        float m = unsignedPower(simplex.noise2(pX / width, pY / width),1.4f) * strength * river;
         // invert y and x for complexity
-        float m2 = unsignedPower(simplex.noise2(y / (width*1.5f), x / (width*1.5f)),1.4f) * strength * river;
+        float m2 = unsignedPower(simplex.noise2(pY / (width*1.5f), pX / (width*1.5f)),1.4f) * strength * river;
 
         m = Math.max(m, m2);
 
@@ -65,7 +58,6 @@ public class TerrainHLRockMountains extends TerrainBase
 
         return terrainHeight + h + m;
 
-        //return terrainHilly(x, y, simplex, cell, river, strength, width, lakeWidth, lakeDepth, terrainHeight);
 
 	}
 }

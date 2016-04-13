@@ -12,7 +12,7 @@ import rtg.util.OpenSimplexNoise;
  * @author Zeno410
  */
 public abstract class HeightEffect {
-    public abstract float added(OpenSimplexNoise simplex, CellNoise cell, int x, int y);
+    public abstract float added(OpenSimplexNoise simplex, CellNoise cell, float x, float y);
     
     public HeightEffect plus(HeightEffect added) {
         return new SummedHeightEffects(this,added);
@@ -27,7 +27,7 @@ public abstract class HeightEffect {
         }
 
         @Override
-        public float added(OpenSimplexNoise simplex, CellNoise cell,int x, int y) {
+        public float added(OpenSimplexNoise simplex, CellNoise cell,float x, float y) {
             return one.added(simplex, cell,x, y)+two.added(simplex, cell,x, y);
         }
     }

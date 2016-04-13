@@ -101,6 +101,13 @@ public class TerrainBase
     }
 
     public static float groundNoise(int x, int y, float amplitude, OpenSimplexNoise simplex) {
+        float h = blendedHillHeight(simplex.noise2((float)x / 49f, (float)y / 49f),0.2f) * amplitude;
+        h += blendedHillHeight(simplex.octave(1).noise2((float)x / 23f, (float)y / 23f),0.2f) * amplitude/2f;
+        h += blendedHillHeight(simplex.octave(2).noise2((float)x / 11f, (float)y / 11f),0.2f) * amplitude/4f;
+        return h;
+    }
+
+    public static float groundNoise(float x, float y, float amplitude, OpenSimplexNoise simplex) {
         float h = blendedHillHeight(simplex.noise2(x / 49f, y / 49f),0.2f) * amplitude;
         h += blendedHillHeight(simplex.octave(1).noise2(x / 23f, y / 23f),0.2f) * amplitude/2f;
         h += blendedHillHeight(simplex.octave(2).noise2(x / 11f, y / 11f),0.2f) * amplitude/4f;
@@ -241,7 +248,7 @@ public class TerrainBase
         float h = (simplex.noise2(x / valley, y / valley) + 0.25f) * hFactor * river;
         h = h < 1f ? 1f : h;
 
-        float r = cell.noise(x / 50D, y / 50D, 1D) * h * 2;
+        float r = (float)simplex.noise(x / 50D, y / 50D, 1D) * h * 2;
         h += r;
 
         h = h*river;

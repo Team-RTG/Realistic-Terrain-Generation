@@ -2,6 +2,7 @@ package rtg.world.gen.terrain.highlands;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.SimplexOctave;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainHLCliffs extends TerrainBase
@@ -45,15 +46,22 @@ public class TerrainHLCliffs extends TerrainBase
 		m *= m / 35f;
 		m = m > 70f ? 70f + (m - 70f) / 2.5f : m;
 
+
+            SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+            simplex.riverJitter().evaluateNoise((float)x / 15.0, (float)y / 15.0, jitter);
+            float pX = x + (float)jitter.deltax() * 5f;
+            float pY = y + (float)jitter.deltay() * 5f;
+
+
 		float st = m * 0.7f;
 		st = st > 20f ? 20f : st;
-		float c = cell.noise(x / 30f, y / 30f, 1D) * (5f + st);
+		float c = cell.noise(pX / 30f, pY / 30f, 1D) * (5f + st);
 
         //c = this.above(c, startCliffsAt);
 
-		float sm = simplex.noise2(x / 30f, y / 30f) * 8f + simplex.noise2(x / 8f, y / 8f);
+		float sm = simplex.noise2(pX / 30f, pY / 30f) * 8f + simplex.noise2(pX / 8f, pY / 8f);
         //craggier
-        sm += simplex.noise2(x / 4.9f, y / 4.9f);
+        sm += simplex.noise2(pX/ 4.9f, pY / 4.9f);
 		sm *= (m + 10f) / 20f > 2.5f ? 2.5f : (m + 10f) / 20f;
 		m += sm;
 

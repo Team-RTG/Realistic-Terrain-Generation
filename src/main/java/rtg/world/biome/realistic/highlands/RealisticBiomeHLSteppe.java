@@ -21,7 +21,7 @@ public class RealisticBiomeHLSteppe extends RealisticBiomeHLBase
     
         super(config, 
             hlBiome, BiomeGenBase.river,
-            new TerrainHLSteppe(70f, 180f, 13f, 100f, 38f, 260f, 71f),
+            new TerrainHLSteppe(70f, 180f, 13f, 100f, 71f),
             new SurfaceHLSteppe(config, topBlock, fillerBlock));
     }
 }

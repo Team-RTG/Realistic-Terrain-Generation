@@ -19,8 +19,8 @@ public class SurfaceHLGlacier extends SurfaceBase
 	private Block beachBlock;
 	private float min;
 	
-	private float sCliff = 1.5f;
-	private float sHeight = 60f;
+	private float sCliff = 2.5f;
+	private float sHeight = 30f;
 	private float sStrength = 65f;
 	private float cCliff = 1.5f;
 
@@ -72,15 +72,16 @@ public class SurfaceHLGlacier extends SurfaceBase
             		}
 
 					float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+
         			if(c > min && c > sCliff - ((k - sHeight) / sStrength) + p)
         			{
         				cliff = 1;
         			}
+
             		if(c > cCliff)
         			{
         				cliff = 2;
         			}
-            		
             		if(cliff == 1)
             		{
                         if (rand.nextInt(3) == 0) {
@@ -96,8 +97,10 @@ public class SurfaceHLGlacier extends SurfaceBase
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k); 
-        				metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
+        				blocks[(y * 16 + x) * 256 + k] = Blocks.packed_ice;
+        				metadata[(y * 16 + x) * 256 + k] = this.fillerBlockMeta;
+        				//blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k);
+        				//metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
             		}
             		else if(k < 63)
             		{

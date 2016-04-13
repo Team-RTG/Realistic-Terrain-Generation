@@ -37,7 +37,7 @@ public class TerrainBOPChaparral extends TerrainBase
 
         //float m = hills(x, y, peakyHillStrength, simplex, river);
 
-        simplex.riverJitter().evaluateNoise(x / wavelength, y / wavelength, jitter);
+        simplex.riverJitter().evaluateNoise((float)x / wavelength, (float)y / wavelength, jitter);
         int pX = (int)Math.round(x + jitter.deltax() * amplitude);
         int pY = (int)Math.round(y + jitter.deltay() * amplitude);
         float h = this.terrainGrasslandHills(pX, pY, simplex, cell, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);

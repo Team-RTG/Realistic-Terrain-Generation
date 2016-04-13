@@ -25,6 +25,7 @@ public class RealisticBiomeHLDesertMountains extends RealisticBiomeHLBase
             new TerrainHLDesertMountains(230f, 100f, 0f),
             new SurfaceHLDesertMountains(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 90f, 30f, 1.5f)
         );
+        noWaterFeatures = true;
         
         // nothing to suppress the highlands inverted sandstone parabolas
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

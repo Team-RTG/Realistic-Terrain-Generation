@@ -18,8 +18,8 @@ public class HillockEffect extends HeightEffect {
                                 //usually numbers above 0 are often preferred to avoid dead basins
     public int octave;
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell,int x, int y) {
-        float noise= simplex.octave(octave).noise2((float)x/wavelength, (float)y/wavelength);
+    public final float added(OpenSimplexNoise simplex, CellNoise cell,float x, float y) {
+        float noise= simplex.octave(octave).noise2(x/wavelength, y/wavelength);
         if (noise < minimumSimplex) {
             noise = 0;
         } else {

@@ -23,7 +23,7 @@ public class TerrainBOPCrag extends TerrainBase
 
         // need a little jitter to the points
         SimplexOctave.Derivative jitter = new SimplexOctave.Derivative();
-        simplex.riverJitter().evaluateNoise(x / 20.0, y / 20.0, jitter);
+        simplex.riverJitter().evaluateNoise((float)x / 20.0, (float)y / 20.0, jitter);
         double pX = x + jitter.deltax() * 1f;
         double pY = y + jitter.deltay() * 1f;
 

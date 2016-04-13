@@ -44,7 +44,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase
     {
     	//this code is borrowed from WorldChunkManagerRTG with vars changes
             SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-            simplex.riverJitter().evaluateNoise(x / 40.0, y / 40.0, jitter);
+            simplex.riverJitter().evaluateNoise((float)x / 40.0, (float)y / 40.0, jitter);
             double pX = x + jitter.deltax() * 35f;
             double pY = y + jitter.deltay() * 35f;
             /*double[] simplexResults = new double[2];
@@ -58,7 +58,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase
         if (border<.5) border = .5f;
         float result = (float)((results[1]-results[0]));
         if (result >1.01) throw new RuntimeException("" + results[0]+ " , "+results[1]);
-        if (result<-.01) throw new RuntimeException("" + results[0]+ " , "+results[1]);;
+        if (result<-.01) throw new RuntimeException("" + results[0]+ " , "+results[1]);
         return result;
 
     }

@@ -14,7 +14,7 @@ public class RaiseEffect extends HeightEffect {
 
     public RaiseEffect(float height) {this.height = height;}
 
-    public final float added(OpenSimplexNoise simplex,CellNoise cell, int x, int y) {
+    public final float added(OpenSimplexNoise simplex,CellNoise cell, float x, float y) {
         return height;
     }
 }

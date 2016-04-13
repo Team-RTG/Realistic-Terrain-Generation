@@ -38,7 +38,7 @@ public class VariableRuggednessEffect extends HeightEffect {
 
     }
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell,int x, int y) {
+    public final float added(OpenSimplexNoise simplex, CellNoise cell,float x, float y) {
         float choice = simplex.octave(octave).noise2((float)x/wavelength, (float)y/wavelength);
         if (choice<= startTransition) return smoothTerrain.added(simplex, cell,x, y);
         if (choice>= startTransition + transitionWidth) return ruggedTerrain.added(simplex, cell, x, y);

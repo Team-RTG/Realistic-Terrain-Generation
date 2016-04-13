@@ -1,6 +1,6 @@
 package teamrtg.rtg.world.biome.surface.part;
 
-import teamrtg.rtg.util.noise.RTGNoise;
+import teamrtg.rtg.util.noise.IFloatAt;
 
 /**
  * Applies if depth is inside the given range
@@ -11,20 +11,20 @@ public class DepthSelector extends SurfacePart {
 
     private final int min;
     private final int max;
-    private RTGNoise minNoise = RTGNoise.EMPTY;
-    private RTGNoise maxNoise = RTGNoise.EMPTY;
+    private IFloatAt minNoise = IFloatAt.ZERO;
+    private IFloatAt maxNoise = IFloatAt.ZERO;
 
     public DepthSelector(int min, int max) {
         this.min = min;
         this.max = max;
     }
 
-    public DepthSelector setMinNoise(RTGNoise minNoise) {
+    public DepthSelector setMinNoise(IFloatAt minNoise) {
         this.minNoise = minNoise;
         return this;
     }
 
-    public DepthSelector setMaxNoise(RTGNoise maxNoise) {
+    public DepthSelector setMaxNoise(IFloatAt maxNoise) {
         this.maxNoise = maxNoise;
         return this;
     }

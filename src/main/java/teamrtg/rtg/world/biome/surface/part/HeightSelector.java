@@ -1,6 +1,6 @@
 package teamrtg.rtg.world.biome.surface.part;
 
-import teamrtg.rtg.util.noise.RTGNoise;
+import teamrtg.rtg.util.noise.IFloatAt;
 
 /**
  * @author topisani
@@ -8,20 +8,20 @@ import teamrtg.rtg.util.noise.RTGNoise;
 public class HeightSelector extends SurfacePart {
     private final int min;
     private final int max;
-    private RTGNoise minNoise = RTGNoise.EMPTY;
-    private RTGNoise maxNoise = RTGNoise.EMPTY;
+    private IFloatAt minNoise = IFloatAt.ZERO;
+    private IFloatAt maxNoise = IFloatAt.ZERO;
 
     public HeightSelector(int min, int max) {
         this.min = min;
         this.max = max;
     }
 
-    public HeightSelector setMinNoise(RTGNoise minNoise) {
+    public HeightSelector setMinNoise(IFloatAt minNoise) {
         this.minNoise = minNoise;
         return this;
     }
 
-    public HeightSelector setMaxNoise(RTGNoise maxNoise) {
+    public HeightSelector setMaxNoise(IFloatAt maxNoise) {
         this.maxNoise = maxNoise;
         return this;
     }

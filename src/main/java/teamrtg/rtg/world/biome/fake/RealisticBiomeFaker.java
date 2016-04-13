@@ -6,7 +6,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.ChunkProviderOverworld;
 import teamrtg.rtg.api.mods.Mods;
-import teamrtg.rtg.util.BiomeUtils;
+import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.util.LimitedMap;
 import teamrtg.rtg.util.PlaneLocation;
 import teamrtg.rtg.util.math.MathUtils;

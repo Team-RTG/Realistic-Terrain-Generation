@@ -1,78 +1,62 @@
 package teamrtg.rtg.api.biome;
 
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.chunk.ChunkPrimer;
 import org.apache.commons.lang3.ArrayUtils;
 import teamrtg.rtg.api.config.BiomeConfig;
 import teamrtg.rtg.api.mods.RTGSupport;
-import teamrtg.rtg.api.util.BiomeUtils;
-import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.world.biome.surface.SurfaceGeneric;
 import teamrtg.rtg.world.biome.surface.part.GenericPart;
-import teamrtg.rtg.world.biome.surface.part.PresetParts;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
-import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
 import teamrtg.rtg.world.gen.deco.DecoBase;
 import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import static net.minecraft.init.Biomes.RIVER;
+/**
+ * @author topisani
+ */
+public abstract class TerrainFeature implements IGenArea {
 
-public abstract class RealisticBiomeBase extends BiomeBase {
-
-    public final BiomeGenBase baseBiome;
-    public final BiomeGenBase riverBiome;
     public final RTGSupport mod;
     public final BiomeConfig config;
     public final ChunkProviderRTG chunkProvider;
     public final OpenSimplexNoise simplex;
     public final Random rand;
-    public final PresetParts PARTS;
+    //public final PresetParts PARTS;
     public TerrainBase terrain;
-    public SurfaceBase surface;
+    public SurfacePart surface;
+    public final String name;
 
-    public boolean useNewSurfaceSystem;
-    public SurfacePart surfacePart;
     public ArrayList<DecoBase> decos;
-    public boolean noLakes = false;
-    public boolean noWaterFeatures = false;
 
-    public final float lakeInterval = 1470.0f;
-    public final double lakeWaterLevel = 0.0;// the lakeStrenght below which things should be below ater
-    public final double lakeDepressionLevel = 0.16;// the lakeStrength below which land should start to be lowered
-
-    public RealisticBiomeBase(RTGSupport mod, BiomeGenBase biome, ChunkProviderRTG chunkProvider) {
-        this(mod, biome, RIVER, chunkProvider);
-    }
-
-    public RealisticBiomeBase(RTGSupport mod, BiomeGenBase biome, BiomeGenBase river, ChunkProviderRTG chunkProvider) {
-
-        super(BiomeUtils.getIdForBiome(biome));
+    public TerrainFeature(RTGSupport mod, String name, ChunkProviderRTG chunkProvider) {
 
         this.mod = mod;
         this.chunkProvider = chunkProvider;
+        this.name = name;
         this.rand = chunkProvider.rand;
         this.simplex = chunkProvider.simplex;
 
-        baseBiome = biome;
-        riverBiome = river;
+        config = new BiomeConfig(getMod().getID(), name);
 
-        config = new BiomeConfig(getMod().getID(), this.getBiomeName());
-        config.TOP_BLOCK.setDefault(biome.topBlock);
-        config.FILL_BLOCK.setDefault(biome.fillerBlock);
+        initConfig();
+        //this.PARTS = new PresetParts(this);
 
-        initProperties();
-        this.PARTS = new PresetParts(this);
+        this.surface = initSurface();
+        this.decos = initDecos();
+        this.terrain = initTerrain();
+        initDecos();
+    }
 
-        decos = new ArrayList<>();
+    /**
+     * This should set the defaults for all properties
+     */
+    public void initConfig() {}
 
+    public ArrayList<DecoBase> initDecos() {
+        ArrayList<DecoBase> decos = new ArrayList<>();
         /**
          * By default, it is assumed that all realistic biomes will be decorated manually and not by the biome.
          * This includes ore generation since it's part of the decoration process.
@@ -83,45 +67,24 @@ public abstract class RealisticBiomeBase extends BiomeBase {
          */
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.allowed = false;
-        this.decos.add(decoBaseBiomeDecorations);
-        this.surface = initSurface();
-        this.terrain = initTerrain();
-        initDecos();
+        decos.add(decoBaseBiomeDecorations);
+        return decos;
     }
 
-    /**
-     * This should set the defaults for all properties
-     */
-    protected void initProperties() {}
+    ;
 
-    protected void initDecos() {}
-
-    @Deprecated
-    protected SurfaceBase initSurface() {
-        this.useNewSurfaceSystem = true;
-        this.surfacePart = new GenericPart(config.TOP_BLOCK.get(), config.FILL_BLOCK.get());
-        initNewSurfaces();
-        return new SurfaceGeneric(this);
+    public SurfacePart initSurface() {
+        return new GenericPart(config.TOP_BLOCK.get(), config.FILL_BLOCK.get());
     }
 
-    protected void initNewSurfaces() {}
-
-    protected abstract TerrainBase initTerrain();
-
-    public static RealisticBiomeBase getBiome(int id) {
-        return RealisticBiomeGenerator.getBiome(id);
-    }
+    public abstract TerrainBase initTerrain();
 
     public TerrainBase getTerrain() {
         return this.terrain;
     }
 
-    public SurfaceBase getSurface() {
+    public SurfacePart getSurface() {
         return this.surface;
-    }
-
-    public int getID() {
-        return BiomeUtils.getIdForBiome(this);
     }
 
     /**
@@ -161,9 +124,5 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
     public RTGSupport getMod() {
         return mod;
-    }
-
-    public void paintSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
-        this.surface.paintSurface(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

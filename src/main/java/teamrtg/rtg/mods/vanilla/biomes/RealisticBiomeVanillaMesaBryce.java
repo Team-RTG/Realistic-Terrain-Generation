@@ -5,7 +5,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaMesaBryce;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
@@ -21,7 +21,7 @@ import java.util.Random;
 
 public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.MESA;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaMesaBryce(ChunkProviderRTG chunkProvider) {
 

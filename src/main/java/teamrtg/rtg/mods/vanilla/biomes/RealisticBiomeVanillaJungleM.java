@@ -3,7 +3,7 @@ package teamrtg.rtg.mods.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaJungleM;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
@@ -18,7 +18,7 @@ import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 
 public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.JUNGLE;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaJungleM(ChunkProviderRTG chunkProvider) {
         super(

@@ -17,6 +17,7 @@ import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.api.mods.Mods;
+import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.util.math.RandomUtil;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
@@ -38,7 +39,7 @@ public class RealisticBiomeGenerator {
 
     public RealisticBiomeGenerator(RealisticBiomeBase biome) {
         this.biome = biome;
-        biomeGenerators[RealisticBiomeBase.getIdForBiome(biome)] = this;
+        biomeGenerators[BiomeUtils.getIdForBiome(biome)] = this;
         surfaceGeneric = new SurfaceGeneric(this.biome);
     }
 
@@ -47,7 +48,7 @@ public class RealisticBiomeGenerator {
     }
 
     public static RealisticBiomeGenerator forBiome(BiomeGenBase biome) {
-        return biomeGenerators[RealisticBiomeBase.getIdForBiome(biome)];
+        return biomeGenerators[BiomeUtils.getIdForBiome(biome)];
     }
 
     public static RealisticBiomeGenerator forBiome(int id) {

@@ -1,10 +1,10 @@
-package teamrtg.rtg.util;
+package teamrtg.rtg.api.util;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.BiomeGenBase;
+import teamrtg.rtg.api.biome.RealisticBiomeBase;
 
 import static net.minecraft.world.biome.BiomeGenBase.REGISTRY;
-import static net.minecraft.world.biome.BiomeGenBase.getIdForBiome;
 
 public class BiomeUtils {
 
@@ -30,5 +30,11 @@ public class BiomeUtils {
 
     public static BiomeGenBase getBiomeForLoc(ResourceLocation location) {
         return REGISTRY.getObject(location);
+    }
+
+    public static int getIdForBiome(BiomeGenBase biome) {
+        if (biome instanceof RealisticBiomeBase)
+            return BiomeGenBase.getIdForBiome(((RealisticBiomeBase) biome).baseBiome);
+        return BiomeGenBase.getIdForBiome(biome);
     }
 }

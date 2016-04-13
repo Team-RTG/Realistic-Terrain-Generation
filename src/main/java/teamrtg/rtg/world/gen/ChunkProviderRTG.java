@@ -27,6 +27,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.api.mods.Mods;
+import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.util.math.CanyonColour;
 import teamrtg.rtg.util.math.MathUtils;
 import teamrtg.rtg.util.noise.CellNoise;
@@ -35,7 +36,6 @@ import teamrtg.rtg.util.noise.SimplexCellularNoise;
 import teamrtg.rtg.world.biome.BiomeAnalyzer;
 import teamrtg.rtg.world.biome.BiomeProviderRTG;
 import teamrtg.rtg.world.biome.fake.RealisticBiomeFaker;
-import teamrtg.rtg.world.biome.surface.part.PresetParts;
 
 import java.util.HashMap;
 import java.util.List;
@@ -75,7 +75,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
     public final Random mapRand;
     public final World world;
     public final OpenSimplexNoise simplex;
-    public final PresetParts PARTS;
     public final CellNoise cell;
     private RealisticBiomeBase[] biomesForGeneration;
     private BiomeGenBase[] baseBiomesList;
@@ -96,7 +95,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
         rand = new Random(l);
         simplex = new OpenSimplexNoise(l);
         cell = new SimplexCellularNoise(l);
-        PARTS = new PresetParts(this);
 
         mapRand = new Random(l);
         worldSeed = l;
@@ -251,7 +249,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
             * I cannot do much on my part, so i have to do it here.
             * - Elix_x
             */
-            byte b = (byte) RealisticBiomeBase.getIdForBiome(this.baseBiomesList[k]);
+            byte b = (byte) BiomeUtils.getIdForBiome(this.baseBiomesList[k]);
             abyte1[k] = b;
         }
         chunk.setBiomeArray(abyte1);
@@ -348,7 +346,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
         for (i = -sampleSize; i < sampleSize + 5; i++) {
             for (j = -sampleSize; j < sampleSize + 5; j++) {
-                biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = RealisticBiomeBase.getIdForBiome(cmr.getBiomeGenAt(x + ((i * 8) - 8), y + ((j * 8) - 8)));
+                biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = BiomeUtils.getIdForBiome(cmr.getBiomeGenAt(x + ((i * 8) - 8), y + ((j * 8) - 8)));
             }
         }
 
@@ -572,7 +570,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         for (int bx = -4; bx <= 4; bx++) {
 
             for (int by = -4; by <= 4; by++) {
-                borderNoise[RealisticBiomeBase.getIdForBiome(bprv.getBiomeGenAt(worldX + adjust + bx * 4, worldZ + adjust + by * 4))] += 0.01234569f;
+                borderNoise[BiomeUtils.getIdForBiome(bprv.getBiomeGenAt(worldX + adjust + bx * 4, worldZ + adjust + by * 4))] += 0.01234569f;
             }
         }
 

@@ -2,7 +2,7 @@ package teamrtg.rtg.mods.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.BiomeGenBase;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaSunflowerPlains;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
@@ -13,7 +13,7 @@ import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.PLAINS;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaSunflowerPlains(ChunkProviderRTG chunkProvider) {
         super(

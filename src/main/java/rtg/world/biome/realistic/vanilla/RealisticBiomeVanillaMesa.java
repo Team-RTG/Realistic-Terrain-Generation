@@ -48,7 +48,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase
 		riverTrees.checkRiver = true;
 		riverTrees.minRiver = 0.86f;
 		riverTrees.strengthNoiseFactorForLoops = false;
-		riverTrees.strengthFactorForLoops = 10f;
+		riverTrees.strengthFactorForLoops = 30f;
 		riverTrees.treeType = TreeType.SAVANNA_RIVER;
 		riverTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
 		riverTrees.maxY = 100;

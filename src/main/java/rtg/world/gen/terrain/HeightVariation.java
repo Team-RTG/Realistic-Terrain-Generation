@@ -15,8 +15,8 @@ public class HeightVariation extends HeightEffect {
     public float wavelength = 0;
     public int octave=-1;
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell,int x, int y) {
-        return simplex.octave(octave).noise2((float)x/wavelength, (float)y/wavelength)*height;
+    public final float added(OpenSimplexNoise simplex, CellNoise cell,float x, float y) {
+        return simplex.octave(octave).noise2(x/wavelength, y/wavelength)*height;
     }
 
 }

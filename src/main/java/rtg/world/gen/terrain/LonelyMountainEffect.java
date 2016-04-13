@@ -23,8 +23,8 @@ public class LonelyMountainEffect extends HeightEffect {
     public int hillOctave = 0;//
     public int spikeOctave = 2;//
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell,int x, int y) {
-        float noise= simplex.octave(hillOctave).noise2((float)x/mountainWavelength, (float)y/mountainWavelength);
+    public final float added(OpenSimplexNoise simplex, CellNoise cell,float x, float y) {
+        float noise= simplex.octave(hillOctave).noise2(x/mountainWavelength, y/mountainWavelength);
         noise = Math.abs(noise);
         noise = TerrainBase.blendedHillHeight(noise,0f);
         //transform to be more mountainous

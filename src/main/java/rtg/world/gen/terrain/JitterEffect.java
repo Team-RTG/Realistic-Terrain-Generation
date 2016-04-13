@@ -27,10 +27,10 @@ public class JitterEffect extends HeightEffect {
     }
     
     @Override
-    public float added(OpenSimplexNoise simplex, CellNoise cell, int x, int y) {
+    public float added(OpenSimplexNoise simplex, CellNoise cell, float x, float y) {
         if (running) throw new RuntimeException();
         running = true;
-        simplex.riverJitter().evaluateNoise(x / wavelength, y / wavelength, jitter);
+        simplex.riverJitter().evaluateNoise((float)x / wavelength, (float)y / wavelength, jitter);
         int pX = (int)Math.round(x + jitter.deltax() * amplitude);
         int pY = (int)Math.round(y + jitter.deltay() * amplitude);
         running = false;

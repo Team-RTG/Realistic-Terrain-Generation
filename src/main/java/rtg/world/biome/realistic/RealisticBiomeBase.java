@@ -466,15 +466,15 @@ public class RealisticBiomeBase extends BiomeBase {
     private float mediumBendSize = 50;
     private float smallBendSize = 20;
     public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
-        //if (noLakes) return 1f;
+        if (noLakes) return 1f;
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-        simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
+        simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
         double pX = x + jitter.deltax() * largeBendSize;
         double pY = y + jitter.deltay() * largeBendSize;
-        simplex.mountain().evaluateNoise(x / 80.0, y / 80.0, jitter);
+        simplex.mountain().evaluateNoise((float)x / 80.0, (float)y / 80.0, jitter);
         pX += jitter.deltax() * mediumBendSize;
         pY += jitter.deltay() * mediumBendSize;
-        simplex.mountain().evaluateNoise(x / 30.0, y / 30.0, jitter);
+        simplex.mountain().evaluateNoise((float)x / 30.0, (float)y / 30.0, jitter);
         pX += jitter.deltax() * smallBendSize;
         pY += jitter.deltay() * smallBendSize;
         //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);

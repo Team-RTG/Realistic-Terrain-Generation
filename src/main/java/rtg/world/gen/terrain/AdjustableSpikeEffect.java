@@ -19,7 +19,7 @@ public class AdjustableSpikeEffect extends HeightEffect {
     public int octave;
     public float power = 1.6f;// usually a range of 1 to 2
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell,int x, int y) {
+    public final float added(OpenSimplexNoise simplex, CellNoise cell,float x, float y) {
         float noise= simplex.octave(octave).noise2((float)x/wavelength, (float)y/wavelength);
         if (noise < minimumSimplex) noise = minimumSimplex;
         noise = 1f-(1f-noise)/(1f-minimumSimplex);

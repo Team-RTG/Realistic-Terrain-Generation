@@ -22,8 +22,8 @@ public class BlendedHillEffect extends HeightEffect {
     public int octave;
     public HeightEffect subordinate;
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell,int x, int y) {
-        float noise= simplex.octave(octave).noise2((float)x/wavelength, (float)y/wavelength);
+    public final float added(OpenSimplexNoise simplex, CellNoise cell,float x, float y) {
+        float noise= simplex.octave(octave).noise2(x/wavelength, y/wavelength);
         noise = TerrainBase.blendedHillHeight(noise, hillBottomSimplexValue);
         if (subordinate == null) return noise*height;
         return noise*(height+subordinate.added(simplex, cell, x, y));

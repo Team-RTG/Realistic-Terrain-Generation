@@ -15,7 +15,7 @@ public class GroundEffect extends HeightEffect {
     public GroundEffect (float amplitude) {
         this.amplitude = amplitude;
     }
-    public final float added(OpenSimplexNoise simplex, CellNoise cell,int x, int y) {
+    public final float added(OpenSimplexNoise simplex, CellNoise cell,float x, float y) {
         return TerrainBase.groundNoise(x, y, amplitude, simplex);
     }
 

@@ -22,10 +22,10 @@ public class BumpyHillsEffect extends HeightEffect {
     public int hillOctave = 0;//
     public int spikeOctave = 2;//
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell,int x, int y) {
-        float noise= simplex.octave(hillOctave).noise2((float)x/hillWavelength, (float)y/hillWavelength);
+    public final float added(OpenSimplexNoise simplex, CellNoise cell,float x, float y) {
+        float noise= simplex.octave(hillOctave).noise2(x/hillWavelength, y/hillWavelength);
         noise = TerrainBase.blendedHillHeight(noise);
-        float spikeNoise = simplex.octave(spikeOctave).noise2((float)x/spikeWavelength, (float)y/spikeWavelength);
+        float spikeNoise = simplex.octave(spikeOctave).noise2(x/spikeWavelength, y/spikeWavelength);
         spikeNoise = TerrainBase.blendedHillHeight(spikeNoise*noise);
         return noise*hillHeight+spikeNoise*spikeHeight;
     }

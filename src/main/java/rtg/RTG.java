@@ -1,7 +1,12 @@
 package rtg;
 
-import java.util.ArrayList;
-
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.*;
+import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.common.MinecraftForge;
 import rtg.api.event.BiomeConfigEvent;
 import rtg.config.BiomeConfigManager;
 import rtg.config.ConfigManager;
@@ -28,28 +33,13 @@ import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
 import rtg.world.biome.realistic.tofucraft.RealisticBiomeTOFUBase;
 import rtg.world.biome.realistic.vampirism.RealisticBiomeVAMPBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
-import cpw.mods.fml.common.event.FMLServerStartedEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.event.FMLServerStoppedEvent;
-import cpw.mods.fml.common.event.FMLServerStoppingEvent;
-import cpw.mods.fml.relauncher.Side;
-import net.minecraftforge.common.MinecraftForge;
-import static rtg.reference.ModInfo.*;
 
+import java.util.ArrayList;
 
-//@Mod(modid = "RTG", name = "Realistic Terrain Generation", version = "0.8.0", dependencies = "required-after:Forge@[" + FORGE_DEP + ",)", acceptableRemoteVersions = "*")
-@Mod(modid = MOD_ID, name = MOD_NAME, version = MOD_VERSION, dependencies = "required-after:Forge@[" + FORGE_DEP + ",)", acceptableRemoteVersions = "*")
+@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = "required-after:Forge@[" + ModInfo.FORGE_DEP + ",)", acceptableRemoteVersions = "*")
 public class RTG {
 
-    @Instance("RTG")
+    @Instance(ModInfo.MOD_ID)
     public static RTG instance;
     public static String configPath;
     public static WorldTypeRTG worldtype;
@@ -84,7 +74,7 @@ public class RTG {
         configPath = event.getModConfigurationDirectory() + "/RTG/";
         ConfigManager.init(configPath);
         
-        worldtype = new WorldTypeRTG("RTG");
+        worldtype = new WorldTypeRTG(ModInfo.MOD_ID);
     }
     
     @EventHandler
@@ -121,29 +111,20 @@ public class RTG {
         RealisticBiomePresenceTester.doBiomeCheck();
     }
     
+/* FIXME: Why are we subscribing to events we don't do anything with? -srs_bsns
     @EventHandler
-    public void fmlLifeCycle(FMLServerAboutToStartEvent event)
-    {
-
-    }
+    public void fmlLifeCycle(FMLServerAboutToStartEvent event) {}
     
     @EventHandler
-    public void fmlLifeCycle(FMLServerStartingEvent event)
-    {
-
-    }
+    public void fmlLifeCycle(FMLServerStartingEvent event) {}
     
     @EventHandler
-    public void fmlLifeCycle(FMLServerStartedEvent event)
-    {
-
-    }
+    public void fmlLifeCycle(FMLServerStartedEvent event) {}
 
     @EventHandler
-    public void fmlLifeCycle(FMLServerStoppingEvent event)
-    {
+    public void fmlLifeCycle(FMLServerStoppingEvent event) {}
+*/
 
-    }
 
     public void runOnServerClose(Runnable action) {
         serverCloseActions.add(action);

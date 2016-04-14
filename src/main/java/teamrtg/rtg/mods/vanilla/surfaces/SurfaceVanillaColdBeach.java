@@ -28,7 +28,7 @@ public class SurfaceVanillaColdBeach extends SurfaceBase {
                              OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
         float c = CliffCalculator.calc(x, y, noise);
-        boolean cliff = c > 1.3f;
+        boolean cliff = c > 1.3f ? true : false;
         boolean dirt = false;
 
         for (int k = 255; k > -1; k--) {

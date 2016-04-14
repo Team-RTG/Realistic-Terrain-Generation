@@ -15,6 +15,12 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+dependencies {
+    //TODO: srs, please work your gradle magic, i dont know exactly how you want to do this.
+    //TODO: Either a bop-version in build.properties, or maybe an array of dependencies is better.
+    compile 'com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.9-4.0.0.1973:deobf'
+}
+
 ext.ref = parseprops(file('build.properties'))
 
 group = ref.package_base + '.' + ref.mod_id
@@ -36,9 +42,8 @@ minecraft {
 }
 
 dependencies {
-    //TODO: srs, please work your gradle magic, i dont know exactly how you want to do this.
-    //TODO: Either a bop-version in build.properties, or maybe an array of dependencies is better.
-    compile 'com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.9-4.0.1.2006:deobf'
+    //TODO: Add more deps in the future and get third-party code out of our source tree.
+    compile 'com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.9-4.0.2.2010:deobf'
 }
 
 processResources {

@@ -6,6 +6,7 @@ import teamrtg.rtg.util.math.CanyonColour;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
@@ -39,8 +40,8 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
     }
 
     @Override
-    protected void initNewSurfaces() {
-        this.surfacePart.add(new BlockPart(CanyonColour.MESA));
+    protected SurfacePart initSurface() {
+        return new BlockPart(CanyonColour.MESA);
     }
 
     @Override

@@ -36,10 +36,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     public final Random rand;
     public final PresetParts PARTS;
     public TerrainBase terrain;
-    public SurfaceBase surface;
-
-    public boolean useNewSurfaceSystem;
-    public SurfacePart surfacePart;
+    public SurfacePart surface;
     public ArrayList<DecoBase> decos;
     public boolean noLakes = false;
     public boolean noWaterFeatures = false;
@@ -96,15 +93,11 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
     protected void initDecos() {}
 
-    @Deprecated
-    protected SurfaceBase initSurface() {
-        this.useNewSurfaceSystem = true;
-        this.surfacePart = new GenericPart(config.TOP_BLOCK.get(), config.FILL_BLOCK.get());
-        initNewSurfaces();
-        return new SurfaceGeneric(this);
+    protected SurfacePart initSurface() {
+        return new GenericPart(config.TOP_BLOCK.get(), config.FILL_BLOCK.get());
     }
 
-    protected void initNewSurfaces() {}
+    protected SurfacePart initSurface() {}
 
     protected abstract TerrainBase initTerrain();
 
@@ -116,7 +109,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         return this.terrain;
     }
 
-    public SurfaceBase getSurface() {
+    public SurfacePart getSurface() {
         return this.surface;
     }
 

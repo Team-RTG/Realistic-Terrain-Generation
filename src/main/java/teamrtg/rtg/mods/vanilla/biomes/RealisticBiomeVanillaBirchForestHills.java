@@ -83,21 +83,24 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
     }
 
     @Override
-    protected void initNewSurfaces() {
-        surfacePart.add(new CliffSelector(1.5f)
+    protected SurfacePart initSurface() {
+        SurfacePart surface = new SurfacePart();
+        surface.add(new CliffSelector(1.5f)
             .add(new DepthSelector(0, 6)
                 .add(new BlockPart(SurfaceBase.getShadowStoneBlock()))));
-        surfacePart.add(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + chunkProvider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
+        surface.add(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + chunkProvider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
             .add(new DepthSelector(0, 0)
                 .add(PARTS.STONE_OR_COBBLE)))
             .add(new DepthSelector(0, 6)
                 .add(PARTS.STONE));
-        surfacePart.add(new DepthSelector(0, 0)
+        surface.add(new DepthSelector(0, 0)
             .add(new HeightSelector(0, 62)
                 .add(new BlockPart(config.FILL_BLOCK.get())))
             .add(new Selector((x, y, z) -> chunkProvider.simplex.noise2(x / 12f, z / 12f) > 0.15f)
                 .add(new BlockPart(config.MIX_BLOCK_TOP.get())))
         );
+        surface.add(PARTS.GENERIC_SURFACE);
+        return surface;
     }
 
     @Override

@@ -7,10 +7,7 @@ import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.world.biome.surface.part.BlockPart;
-import teamrtg.rtg.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.world.biome.surface.part.DepthSelector;
-import teamrtg.rtg.world.biome.surface.part.RandomSelector;
+import teamrtg.rtg.world.biome.surface.part.*;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
@@ -89,13 +86,14 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
     }
 
     @Override
-    protected void initNewSurfaces() {
-        surfacePart.add(new DepthSelector(0, 10)
+    protected SurfacePart initSurface() {
+        return new DepthSelector(0, 10)
             .add(new CliffSelector(1.4f)
                 .add(new DepthSelector(0, 1)
                     .add(new RandomSelector(chunkProvider.rand, 3)
                         .add(new BlockPart(SurfaceBase.hcCobble()))))
-                .add(PARTS.STONE)));
+                .add(PARTS.STONE))
+            .add(PARTS.GENERIC_SURFACE);
     }
 
     @Override

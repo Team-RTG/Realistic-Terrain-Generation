@@ -31,8 +31,9 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected void initNewSurfaces() {
-        surfacePart.add(new DepthSelector(0, 6)
+    protected SurfacePart initSurface() {
+        SurfacePart surface = new SurfacePart();
+        surface.add(new DepthSelector(0, 6)
             .add(new CliffSelector(1.3f)
                 .add(new BlockPart(config.CLIFF_BLOCK_1.get())))
             .add(new DepthSelector(0, 0)
@@ -47,7 +48,8 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
                     .add(new BlockPart(Blocks.SAND.getDefaultState()))))
             .add(new Selector((x, y, z) -> simplex.noise2(x / 12f, z / 12f) <= -0.3f + ((y - 61f) / 15f))
                 .add(new BlockPart(Blocks.SANDSTONE.getDefaultState()))));
-        surfacePart.add(PARTS.GENERIC_SURFACE);
+        surface.add(PARTS.GENERIC_SURFACE);
+        return surface;
     }
 
     @Override

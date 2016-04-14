@@ -4,10 +4,7 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.part.BlockPart;
-import teamrtg.rtg.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.world.biome.surface.part.DepthSelector;
-import teamrtg.rtg.world.biome.surface.part.HeightSelector;
+import teamrtg.rtg.world.biome.surface.part.*;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.DecoTree;
@@ -40,8 +37,8 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected void initNewSurfaces() {
-        surfacePart.add(new DepthSelector(0, 6)
+    protected SurfacePart initSurface() {
+        return new DepthSelector(0, 6)
             .add(new CliffSelector(1.3f)
                 .add(new BlockPart(config.CLIFF_BLOCK_1.get())))
             .add(new DepthSelector(0, 0)
@@ -52,8 +49,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
                     .add(new BlockPart(config.TOP_BLOCK.get()))))
             .add(new HeightSelector(56, 68).setMaxNoise(PARTS.DEPTH_NOISE)
                 .add(PARTS.FILL_BLOCK))
-            .add(PARTS.GENERIC_SURFACE)
-        );
+            .add(PARTS.GENERIC_SURFACE);
     }
 
     @Override

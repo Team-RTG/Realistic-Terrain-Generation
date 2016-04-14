@@ -7,6 +7,7 @@ import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.part.BlockPart;
 import teamrtg.rtg.world.biome.surface.part.DepthSelector;
 import teamrtg.rtg.world.biome.surface.part.HeightSelector;
+import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
@@ -35,12 +36,14 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected void initNewSurfaces() {
-        surfacePart.add(PARTS.RIVER_OASIS);
-        surfacePart.add(new DepthSelector(0, 6).setMaxNoise(PARTS.DEPTH_NOISE)
+    protected SurfacePart initSurface() {
+        SurfacePart surface = new SurfacePart();
+        surface.add(PARTS.RIVER_OASIS);
+        surface.add(new DepthSelector(0, 6).setMaxNoise(PARTS.DEPTH_NOISE)
             .add(new BlockPart(Blocks.SAND.getDefaultState())));
-        surfacePart.add(new HeightSelector(60, 255).setMaxNoise(PARTS.DEPTH_NOISE2)
+        surface.add(new HeightSelector(60, 255).setMaxNoise(PARTS.DEPTH_NOISE2)
             .add(new BlockPart(Blocks.SANDSTONE.getDefaultState())));
+        return surface;
     }
 
     @Override

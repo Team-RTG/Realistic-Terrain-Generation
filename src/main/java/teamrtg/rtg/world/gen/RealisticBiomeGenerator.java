@@ -333,7 +333,7 @@ public class RealisticBiomeGenerator {
                         depth = -1;
                     } else if (b == Blocks.STONE) {
                         depth++;
-                        this.biome.surfacePart.paintWithSubparts(primer, i, y, j, depth, noise, river);
+                        this.biome.surface.paintWithSubparts(primer, i, y, j, depth, noise, river);
                     }
                 }
             }

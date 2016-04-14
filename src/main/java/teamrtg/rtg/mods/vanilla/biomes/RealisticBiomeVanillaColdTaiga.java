@@ -95,10 +95,12 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected void initNewSurfaces() {
+    protected SurfacePart initSurface() {
+        SurfacePart surface = new SurfacePart();
+
         IFloatAt cliffNoise = (x, y, z) -> simplex.noise2(x / 8f, z / 8f) * 0.5f;
 
-        surfacePart.add(new DepthSelector(0, 6)
+        surface.add(new DepthSelector(0, 6)
 
             .add(new CliffSelector((x, y, z) -> {
                 float n = 1.5f - 1.5f - ((y - 60f) / 65f) + cliffNoise.getFloatAt(x, y, z);
@@ -123,6 +125,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
                 .add(new BlockPart(Blocks.GRAVEL.getDefaultState())))
             .add(new BlockPart(Blocks.DIRT.getDefaultState()))
         );
+        return surface;
     }
 
     @Override

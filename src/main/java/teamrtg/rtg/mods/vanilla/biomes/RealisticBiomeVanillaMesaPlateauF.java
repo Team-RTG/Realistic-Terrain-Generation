@@ -10,8 +10,6 @@ import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
 
-import java.util.Random;
-
 import static teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 import static teamrtg.rtg.world.gen.deco.DecoTree.TreeType.VANILLA_OAK;
 
@@ -65,28 +63,27 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
     }
 
     @Override
-    protected void initNewSurfaces() {
-        this.surfacePart.add(new DepthSelector(0, 11)
+    protected SurfacePart initSurface() {
+        SurfacePart surface = new SurfacePart();
+        surface.add(new DepthSelector(0, 11)
                 .add(new CliffSelector(1.3f)
                         .add(new BlockPart(CanyonColour.MESA)))
                 .add(new DepthSelector(4, 256)
                         .add(new BlockPart(CanyonColour.MESA)))
-                .add(new HeightSelector(0, 62)
-                        .add(new DepthSelector(0, 0)
-                                .add(new BlockPart(Blocks.GRASS.getDefaultState())))
-                        .add(new BlockPart(Blocks.DIRT.getDefaultState())))
+            .add(new GenericPart(Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState()))
                 .add(new DepthSelector(0, 0)
-                    .add(new RandomSelector(new Random(3), 5)
+                    .add(new RandomSelector(rand, 5)
                                 .add(new BlockPart(Blocks.GRASS.getDefaultState())))
-                    .add(new RandomSelector(new Random(3), 3)
+                    .add(new RandomSelector(rand, 3)
                                 .add(new BlockPart(Blocks.DIRT.getStateFromMeta(1))))
                         .add(new BlockPart(this.config.TOP_BLOCK.get())))
                 .add(new BlockPart(this.config.FILL_BLOCK.get()))
         );
-        this.surfacePart.add(
-                new HeightSelector(64, 256)
+        surface.add(
+            new HeightSelector(64, 256).setMinNoise(PARTS.DEPTH_NOISE)
                         .add(new BlockPart(CanyonColour.MESA))
         );
+        return surface;
     }
 
     @Override

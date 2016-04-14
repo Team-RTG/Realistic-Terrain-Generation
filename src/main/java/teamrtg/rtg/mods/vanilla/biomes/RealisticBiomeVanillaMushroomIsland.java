@@ -30,10 +30,6 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMushroomIsland(this, 67, 0f);
-    }
 
     @Override
     protected void initDecos() {

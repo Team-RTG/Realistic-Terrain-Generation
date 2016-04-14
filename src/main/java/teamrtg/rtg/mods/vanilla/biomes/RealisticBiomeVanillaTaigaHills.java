@@ -35,10 +35,6 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase {
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaTaigaHills(this, true, 0.2f);
-    }
 
     @Override
     protected void initDecos() {

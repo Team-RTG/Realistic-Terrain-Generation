@@ -38,10 +38,6 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMegaSpruceTaiga(this);
-    }
 
     @Override
     protected void initDecos() {

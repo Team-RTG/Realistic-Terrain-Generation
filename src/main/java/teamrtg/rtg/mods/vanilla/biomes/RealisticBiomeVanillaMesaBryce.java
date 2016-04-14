@@ -42,10 +42,6 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMesaBryce(this, 0);
-    }
 
     @Override
     public void paintSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,

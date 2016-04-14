@@ -19,10 +19,6 @@ public class FakedRealisticBiome extends RealisticBiomeBase {
         super(mod, biome, chunkProvider);
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceBase(this);
-    }
 
     @Override
     protected TerrainBase initTerrain() {

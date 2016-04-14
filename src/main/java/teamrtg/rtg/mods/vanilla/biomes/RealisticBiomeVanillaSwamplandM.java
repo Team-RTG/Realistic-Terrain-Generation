@@ -39,10 +39,6 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSwamplandM(this);
-    }
 
     @Override
     protected void initDecos() {

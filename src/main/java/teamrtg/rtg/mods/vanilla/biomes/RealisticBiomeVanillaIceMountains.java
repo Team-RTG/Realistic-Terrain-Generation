@@ -31,10 +31,6 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaIceMountains(this, 60f, -0.14f, 14f, 0.25f);
-    }
 
     @Override
     protected void initDecos() {

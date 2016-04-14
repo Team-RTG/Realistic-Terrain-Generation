@@ -38,10 +38,6 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaJungleEdge(this);
-    }
 
     @Override
     protected void initDecos() {

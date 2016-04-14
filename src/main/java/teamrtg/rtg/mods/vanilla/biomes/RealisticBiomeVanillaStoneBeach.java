@@ -29,10 +29,6 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaStoneBeach(this, true, 1f, 1.5f, 85f, 20f, 4f);
-    }
 
     @Override
     protected void initDecos() {

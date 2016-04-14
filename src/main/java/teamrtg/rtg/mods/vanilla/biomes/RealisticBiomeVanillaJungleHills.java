@@ -36,10 +36,6 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaJungleHills(this, false, 1f, 1.5f, 60f, 65f, 1.5f);
-    }
 
     @Override
     protected void initDecos() {

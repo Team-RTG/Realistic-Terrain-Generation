@@ -35,10 +35,6 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaExtremeHillsM(this, 60f, -0.14f, 14f, 0.25f);
-    }
 
     @Override
     protected void initDecos() {

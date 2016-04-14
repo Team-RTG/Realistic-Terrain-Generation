@@ -31,10 +31,6 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaFrozenOcean(this, 20f, 0.2f);
-    }
 
     @Override
     protected void initDecos() {

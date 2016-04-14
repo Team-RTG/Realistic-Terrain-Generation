@@ -35,10 +35,6 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSunflowerPlains(this);
-    }
 
     @Override
     protected void initDecos() {

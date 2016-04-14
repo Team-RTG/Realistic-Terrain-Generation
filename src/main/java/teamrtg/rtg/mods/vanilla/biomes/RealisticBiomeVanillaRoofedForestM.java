@@ -36,10 +36,6 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaRoofedForestM(this);
-    }
 
     @Override
     protected void initDecos() {

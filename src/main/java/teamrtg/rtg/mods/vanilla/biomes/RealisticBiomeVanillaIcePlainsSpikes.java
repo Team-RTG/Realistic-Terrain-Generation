@@ -34,10 +34,6 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaIcePlainsSpikes(this);
-    }
 
     @Override
     protected void initDecos() {

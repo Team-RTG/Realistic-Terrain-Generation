@@ -2,21 +2,14 @@ package teamrtg.rtg.mods.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.chunk.ChunkPrimer;
 import teamrtg.rtg.api.util.BiomeUtils;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaDesertM;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.world.biome.surface.SurfaceRiverOasis;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
 import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG;
-
-import java.util.Random;
 
 public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.DESERT;
@@ -25,36 +18,18 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaDesertM(ChunkProviderRTG chunkProvider) {
 
         super(
-                mutationBiome,
-                Biomes.RIVER,
-                chunkProvider
+            mutationBiome,
+            Biomes.RIVER,
+            chunkProvider
         );
         this.noLakes = true;
     }
 
     @Override
-    protected TerrainBase initTerrain() {
-        return new TerrainBase() {
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 140f, 10f);
-            }
-        };
-    }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaDesertM(this);
-    }
-
-    @Override
-    public void paintSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
-                             OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
-
-        this.getSurface().paintSurface(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
-
-        SurfaceBase riverSurface = new SurfaceRiverOasis(this);
-        riverSurface.paintSurface(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+    protected void initProperties() {
+        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
+        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.DESERT_TEMPLE.name());
+        this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(0);
     }
 
     @Override
@@ -117,9 +92,12 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected void initProperties() {
-        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
-        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.DESERT_TEMPLE.name());
-        this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(0);
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 140f, 10f);
+            }
+        };
     }
 }

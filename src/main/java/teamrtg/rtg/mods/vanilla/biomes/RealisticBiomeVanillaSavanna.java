@@ -37,10 +37,6 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaSavanna(this, 13f, 0.27f);
-    }
 
     @Override
     protected void initDecos() {

@@ -30,10 +30,6 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaRiver(this);
-    }
 
     @Override
     protected void initDecos() {

@@ -43,10 +43,6 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMesaPlateauFM(this, 0);
-    }
 
     @Override
     protected void initDecos() {

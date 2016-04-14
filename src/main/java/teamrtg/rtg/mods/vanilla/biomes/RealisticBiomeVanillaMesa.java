@@ -42,10 +42,6 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMesa(this);
-    }
 
     @Override
     public void paintSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,

@@ -33,7 +33,7 @@ public class WorldGenTreeRTGSavanna extends WorldGenerator
             return false;
         }
     	
-    	if(b != Blocks.grass && b != Blocks.dirt && ((sand && b != Blocks.sand) || !sand))
+    	if(b != Blocks.grass && b != Blocks.dirt && (!sand || b != Blocks.sand))
     	{
     		return false;
     	}

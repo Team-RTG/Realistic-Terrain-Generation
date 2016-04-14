@@ -141,6 +141,8 @@ public class ConfigRTG
         return riverSizeMultiplier*riverFrequencyMultiplier;
     }
     public static float riverBendinessMultiplier = 1f;
+    public static float riverCutOffScale = 350f;
+    public static float riverCutOffAmplitude = 0.5f;
     private static float lakeSizeMultiplier = 1f; // same deal with lakes
     public static float lakeFrequencyMultiplier = 1f;
     public static float lakeSizeMultiplier() {
@@ -442,6 +444,16 @@ public class ConfigRTG
                     riversAndLakes,
                     1, 0, 2,
                     "Higher numbers make rivers bend more. Defaults to 1" + Configuration.NEW_LINE);
+            riverCutOffScale = config.getFloat(
+                    "Scale of Large-Scale River Cut Off",
+                    riversAndLakes,
+                    350, 50, 5000,
+                    "Higher numbers make grassy areas near rivers bigger, but also more rare. Defaults to 350" + Configuration.NEW_LINE);
+            riverCutOffAmplitude = config.getFloat(
+                    "Amplitude of Large-Scale River Cut Off",
+                    riversAndLakes,
+                    0.5f, 0, 2,
+                    "Higher numbers make the large-scale cut-off noise have a greater effect. Defaults to 0.5" + Configuration.NEW_LINE);
             lakeSizeMultiplier = config.getFloat(
                     "Lake Size Multipler",
                     riversAndLakes,

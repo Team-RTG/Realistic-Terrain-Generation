@@ -46,7 +46,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
 		DecoBoulder decoBoulder = new DecoBoulder();
 		decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
 		decoBoulder.chance = 16;
-		decoBoulder.maxY = 95;
+		decoBoulder.maxY = 90;
 		decoBoulder.strengthFactor = 3f;
 		this.addDeco(decoBoulder);
         
@@ -68,19 +68,20 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
 		decoFallenTree.distribution.noiseAddend = 0.8f;
 		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		decoFallenTree.logConditionNoise = 0f;
-		decoFallenTree.logConditionChance = 6;
-		decoFallenTree.maxY = 100;
+		decoFallenTree.logConditionChance = 16;
+		decoFallenTree.maxY = 90;
 		decoFallenTree.logBlock = Blocks.log;
-		decoFallenTree.logMeta = (byte)1;
+		decoFallenTree.logMeta = (byte)0;
 		decoFallenTree.leavesBlock = Blocks.leaves;
 		decoFallenTree.leavesMeta = (byte)-1;
-		decoFallenTree.minSize = 3;
-		decoFallenTree.maxSize = 6;
+		decoFallenTree.minSize = 4;
+		decoFallenTree.maxSize = 7;
 		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaExtremeHills.decorationLogsId));
         
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 100;
         decoShrub.strengthFactor = 2f;
+        decoShrub.chance = 4;
         this.addDeco(decoShrub);
         
         DecoMushrooms decoMushrooms = new DecoMushrooms();
@@ -92,7 +93,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
 		DecoPumpkin decoPumpkin = new DecoPumpkin();
 		decoPumpkin.maxY = 90;
 		decoPumpkin.randomType = rtg.world.biome.deco.DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH;
-		decoPumpkin.randomFloat = 20f;
+		decoPumpkin.randomFloat = 30f;
         this.addDeco(decoPumpkin);
         
 		DecoGrass decoGrass = new DecoGrass();

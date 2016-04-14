@@ -69,9 +69,12 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 		this.addDeco(decoTrees);
         
 		DecoFallenTree decoFallenTree = new DecoFallenTree();
-		decoFallenTree.logCondition = LogCondition.ALWAYS_GENERATE;
-		decoFallenTree.logConditionChance = 1;
-		decoFallenTree.loops = 4;
+		decoFallenTree.distribution.noiseDivisor = 80f;
+		decoFallenTree.distribution.noiseFactor = 60f;
+		decoFallenTree.distribution.noiseAddend = -15f;
+		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		decoFallenTree.logConditionChance = 12;
+		decoFallenTree.logConditionNoise = 0f;
 		decoFallenTree.maxY = 100;
 		decoFallenTree.logBlock = Blocks.log2;
 		decoFallenTree.logMeta = (byte)1;

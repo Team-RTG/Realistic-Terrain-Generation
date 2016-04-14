@@ -2,7 +2,7 @@ addons:
 # language
 language: java
  
-install: "./gradlew setupCIWorkspace"
+install: "./gradlew setupDevWorkspace"
 script: "./gradlew jar"
 before_cache:
 - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock

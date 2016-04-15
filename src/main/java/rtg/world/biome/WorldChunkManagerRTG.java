@@ -64,6 +64,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
         this.biomeIndexLayer = agenlayer[1];
+        testCellBorder();
     }
     
     public int[] getBiomesGens(int par1, int par2, int par3, int par4)
@@ -220,7 +221,8 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
     private static int [] incidences = new int[100];
     private static int references = 0;
 	private static double cellBorder(double[] results, double width, double depth) {
-		double c = (results[1] - results[0]);
+		double c = (results[1] - results[0])/results[1];
+        if (c<0) throw new RuntimeException();
         /*int slot = (int)Math.floor(c*100.0);
         incidences[slot] += 1;
         references ++;
@@ -239,7 +241,14 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
 		}
 	}
 
-    private double riverValleyLevel = 30.0 / 450.0;
+    private static void testCellBorder() {
+        double [] result = new double[2];
+        result[0] = 0.5;
+        result [1] = 1;
+        if (cellBorder(result,0.5,1)<0) throw new RuntimeException();
+    }
+
+    private double riverValleyLevel = 60.0 / 450.0;
     private double riverSeparation = 1875;
     private float largeBendSize = 140;
     private float smallBendSize = 35;

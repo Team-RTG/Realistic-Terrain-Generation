@@ -395,6 +395,7 @@ public class RealisticBiomeBase extends BiomeBase {
             }
             throw new RuntimeException(result);
         }*/
+
         if (noWaterFeatures) {
             float borderForRiver = border*2;
             if (borderForRiver >1f) borderForRiver = 1;
@@ -414,6 +415,7 @@ public class RealisticBiomeBase extends BiomeBase {
         }
         // the lakes have to have a little less flattening to avoid the rocky edges
         lakeFlattening = lakeFlattening(lakeStrength, lakeWaterLevel, lakeDepressionLevel);
+
         if ((river<1)&&(lakeFlattening<1)) {
             river = (float)((1f-river)/river+(1f-lakeFlattening)/lakeFlattening);
             river = (1f/(river+1f));
@@ -462,9 +464,9 @@ public class RealisticBiomeBase extends BiomeBase {
     public boolean noLakes = false;
     public boolean noWaterFeatures = false;
 
-    private float largeBendSize = 150;
-    private float mediumBendSize = 50;
-    private float smallBendSize = 20;
+    private float largeBendSize = 100;
+    private float mediumBendSize = 40;
+    private float smallBendSize = 15;
     public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
         if (noLakes) return 1f;
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();

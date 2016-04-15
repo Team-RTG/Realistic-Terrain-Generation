@@ -22,7 +22,7 @@ public class SurfaceHLGlacier extends SurfaceBase
 	private float sCliff = 2.5f;
 	private float sHeight = 30f;
 	private float sStrength = 65f;
-	private float cCliff = 1.5f;
+	private float cCliff = 0.8f;
 
 	public SurfaceHLGlacier(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{

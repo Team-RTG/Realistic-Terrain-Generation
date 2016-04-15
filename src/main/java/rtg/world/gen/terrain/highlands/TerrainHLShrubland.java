@@ -27,7 +27,6 @@ public class TerrainHLShrubland extends TerrainBase
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
 		float h = simplex.noise2(x / vWidth, y / vWidth) * vHeight * river;
-		h += simplex.noise2(x / 20f, y / 20f) * 2;
 
 		float m = simplex.noise2(x / hWidth, y / hWidth) * hHeight * river;
 		//m *= m / 40f;
@@ -41,8 +40,7 @@ public class TerrainHLShrubland extends TerrainBase
 		m += cm;
         m = above(m,hHeight/2);
 
-		h += simplex.noise2(x / 12f, y / 12f) * 3f;
-		h += simplex.noise2(x / 5f, y / 5f) * 1.5f;
+		h += groundNoise(x, y, 5f, simplex);
 
 		return bHeight + h + m;
 	}

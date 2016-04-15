@@ -2,14 +2,15 @@ package rtg.world.gen;
 
 import java.util.Random;
 
-import rtg.config.rtg.ConfigRTG;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.MapGenCaves;
+import rtg.api.biome.BiomeConfig;
+import rtg.config.rtg.ConfigRTG;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public class MapGenCavesRTG extends MapGenCaves
 {
@@ -210,13 +211,26 @@ public class MapGenCavesRTG extends MapGenCaves
     }
 
     @Override
-    protected void func_151538_a(World p_151538_1_, int p_151538_2_, int p_151538_3_, int p_151538_4_, int p_151538_5_, Block[] p_151538_6_)
+    protected void func_151538_a(World world, int chunkX, int chunkZ, int p_151538_4_, int p_151538_5_, Block[] p_151538_6_)
     {
+    	// Return early if caves are disabled.
         enableCaves = ConfigRTG.enableCaves;
+        if (!enableCaves) {
+            return;
+        }
+        
+        // Use the global settings by default.
         caveDensity = ConfigRTG.caveDensity;
         caveFrequency = ConfigRTG.caveFrequency;
+
+        // If the user has set biome-specific settings, let's use those instead.
+        BiomeGenBase biome = world.getBiomeGenForCoords(this.rand.nextInt(16) + chunkX * 16, this.rand.nextInt(16) + chunkZ * 16);
+        RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(biome.biomeID);
+        caveDensity = (realisticBiome.config._int(BiomeConfig.caveDensityId) > -1) ? realisticBiome.config._int(BiomeConfig.caveDensityId) : caveDensity;
+        caveFrequency = (realisticBiome.config._int(BiomeConfig.caveFrequencyId) > -1) ? realisticBiome.config._int(BiomeConfig.caveFrequencyId) : caveFrequency;
         
-        if (!enableCaves) {
+    	// Return early if caves are disabled.
+        if (caveDensity < 1 || caveFrequency < 1) {
             return;
         }
         
@@ -235,9 +249,9 @@ public class MapGenCavesRTG extends MapGenCaves
 
         for (int j1 = 0; j1 < i1; ++j1)
         {
-            double d0 = (double)(p_151538_2_ * 16 + this.rand.nextInt(16));
+            double d0 = (double)(chunkX * 16 + this.rand.nextInt(16));
             double d1 = (double)this.rand.nextInt(this.rand.nextInt(120) + 8);
-            double d2 = (double)(p_151538_3_ * 16 + this.rand.nextInt(16));
+            double d2 = (double)(chunkZ * 16 + this.rand.nextInt(16));
             int k1 = 1;
 
             if (this.rand.nextInt(4) == 0)
@@ -274,9 +288,9 @@ public class MapGenCavesRTG extends MapGenCaves
     {
         boolean booException = false;
         
-        if (biome == BiomeGenBase.mushroomIsland) booException = true;
-        if (biome == BiomeGenBase.beach) booException = true;
-        if (biome == BiomeGenBase.desert) booException = true;
+        if (biome.biomeID == BiomeGenBase.mushroomIsland.biomeID) booException = true;
+        if (biome.biomeID == BiomeGenBase.beach.biomeID) booException = true;
+        if (biome.biomeID == BiomeGenBase.desert.biomeID) booException = true;
         
         return booException;
     }

@@ -23,6 +23,5 @@ public class TerrainBOPShield extends TerrainBase
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
         return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 64f);
-        //return terrainHighland(x, y, simplex, cell, river, start, width, height, 0f);
 	}
 }

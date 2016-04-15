@@ -39,17 +39,17 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
         
 		DecoTree bigPines = new DecoTree();
 		bigPines.strengthFactorForLoops = 3f;
-		bigPines.treeType = TreeType.BIG_PINES;
+		bigPines.treeType = TreeType.TAIGA;
 		bigPines.distribution.noiseDivisor = 80f;
 		bigPines.distribution.noiseFactor = 60f;
 		bigPines.distribution.noiseAddend = -15f;
 		bigPines.treeCondition = TreeCondition.ALWAYS_GENERATE;
-		bigPines.minY = 90;
-		bigPines.maxY = 120;
+		bigPines.minY = 63;
+		bigPines.maxY = 90;
         DecoShrub decoShrub2 = new DecoShrub();
         decoShrub2.minY = 90;
-        decoShrub2.maxY = 120;
-        decoShrub2.strengthFactor = 3f;
+        decoShrub2.maxY = 150;
+        decoShrub2.strengthFactor = 6f;
         decoShrub2.minSize = 11;
         decoShrub2.maxSize = 21;
         DecoHelper5050 decoHelper5050 = new DecoHelper5050(bigPines, decoShrub2);

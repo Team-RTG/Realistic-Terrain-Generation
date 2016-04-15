@@ -1,14 +1,15 @@
-package rtg.world.gen.terrain;
+package rtg.world.gen.terrain.enhancedbiomes;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainLonelyMountain extends TerrainBase
+public class TerrainEBGrassyArchipelago extends TerrainBase
 {
 	private float width;
 	private float strength;
 
-	public TerrainLonelyMountain(float mountainWidth, float mountainStrength,float height)
+	public TerrainEBGrassyArchipelago(float mountainWidth, float mountainStrength, float height)
 	{
 		width = mountainWidth;
 		strength = mountainStrength;

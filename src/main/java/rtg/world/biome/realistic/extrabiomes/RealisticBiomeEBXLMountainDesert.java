@@ -19,7 +19,7 @@ public class RealisticBiomeEBXLMountainDesert extends RealisticBiomeEBXLBase
 	{
 		super(config, 
 			ebxlBiome, BiomeGenBase.river,
-			new TerrainEBXLMountainDesert(230f, 100f, 0f),
+			new TerrainEBXLMountainDesert(230f, 45f, 0f),
 			new SurfaceEBXLMountainDesert(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 2.4f)
 		);
 	}

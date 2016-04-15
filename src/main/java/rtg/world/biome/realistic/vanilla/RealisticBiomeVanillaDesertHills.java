@@ -33,7 +33,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
 		super(config, 
 			BiomeGenBase.desertHills,
 			BiomeGenBase.river,
-			new TerrainVanillaDesertHills(10f, 120f, 68f, 200f),
+			new TerrainVanillaDesertHills(10f, 80f, 68f, 200f),
 			new SurfaceVanillaDesertHills(config, Blocks.sand, Blocks.sandstone, false, null, 0f, 1.5f, 60f, 65f, 1.5f)
 		);
 		

@@ -286,13 +286,17 @@ public class MapGenCavesRTG extends MapGenCaves
     
     private boolean isExceptionBiome(BiomeGenBase biome)
     {
-        boolean booException = false;
+        if (biome.biomeID == BiomeGenBase.mushroomIsland.biomeID) {
+        	return true;
+        }
+        else if (biome.biomeID == BiomeGenBase.beach.biomeID) {
+        	return true;
+        }
+        else if (biome.biomeID == BiomeGenBase.desert.biomeID) {
+        	return true;
+        }
         
-        if (biome.biomeID == BiomeGenBase.mushroomIsland.biomeID) booException = true;
-        if (biome.biomeID == BiomeGenBase.beach.biomeID) booException = true;
-        if (biome.biomeID == BiomeGenBase.desert.biomeID) booException = true;
-        
-        return booException;
+        return false;
     }
 
     //Determine if the block at the specified location is the top block for the biome, we take into account

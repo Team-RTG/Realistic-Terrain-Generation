@@ -2,14 +2,15 @@ package rtg.world.gen;
 
 import java.util.Random;
 
-import rtg.config.rtg.ConfigRTG;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.MapGenRavine;
+import rtg.api.biome.BiomeConfig;
+import rtg.config.rtg.ConfigRTG;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public class MapGenRavineRTG extends MapGenRavine
 {
@@ -201,20 +202,32 @@ public class MapGenRavineRTG extends MapGenRavine
     }
 
     @Override
-    protected void func_151538_a(World p_151538_1_, int p_151538_2_, int p_151538_3_, int p_151538_4_, int p_151538_5_, Block[] p_151538_6_)
+    protected void func_151538_a(World world, int chunkX, int chunkZ, int p_151538_4_, int p_151538_5_, Block[] p_151538_6_)
     {
+    	// Return early if ravines are disabled.
         enableRavines = ConfigRTG.enableRavines;
+        if (!enableRavines) {
+            return;
+        }
+        
+        // Use the global settings by default.
         ravineFrequency = ConfigRTG.ravineFrequency;
         
-        if (!enableRavines) {
+        // If the user has set biome-specific settings, let's use those instead.
+        BiomeGenBase biome = world.getBiomeGenForCoords(this.rand.nextInt(16) + chunkX * 16, this.rand.nextInt(16) + chunkZ * 16);
+        RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(biome.biomeID);
+        ravineFrequency = (realisticBiome.config._int(BiomeConfig.ravineFrequencyId) > -1) ? realisticBiome.config._int(BiomeConfig.ravineFrequencyId) : ravineFrequency;
+        
+    	// Return early if ravines are disabled.
+        if (ravineFrequency < 1) {
             return;
         }
         
         if (this.rand.nextInt(ravineFrequency) == 0)
         {
-            double d0 = (double)(p_151538_2_ * 16 + this.rand.nextInt(16));
+            double d0 = (double)(chunkX * 16 + this.rand.nextInt(16));
             double d1 = (double)(this.rand.nextInt(this.rand.nextInt(40) + 8) + 20);
-            double d2 = (double)(p_151538_3_ * 16 + this.rand.nextInt(16));
+            double d2 = (double)(chunkZ * 16 + this.rand.nextInt(16));
             byte b0 = 1;
 
             for (int i1 = 0; i1 < b0; ++i1)
@@ -236,9 +249,16 @@ public class MapGenRavineRTG extends MapGenRavine
     //Exception biomes to make sure we generate like vanilla
     private boolean isExceptionBiome(BiomeGenBase biome)
     {
-        if (biome == BiomeGenBase.mushroomIsland) return true;
-        if (biome == BiomeGenBase.beach) return true;
-        if (biome == BiomeGenBase.desert) return true;
+        if (biome.biomeID == BiomeGenBase.mushroomIsland.biomeID) {
+        	return true;
+        }
+        else if (biome.biomeID == BiomeGenBase.beach.biomeID) {
+        	return true;
+        }
+        else if (biome.biomeID == BiomeGenBase.desert.biomeID) {
+        	return true;
+        }
+        
         return false;
     }
 

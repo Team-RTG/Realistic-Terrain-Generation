@@ -23,6 +23,7 @@ import rtg.world.biome.realistic.extrabiomes.RealisticBiomeEBXLBase;
 import rtg.world.biome.realistic.forgottennature.RealisticBiomeFNBase;
 import rtg.world.biome.realistic.growthcraft.RealisticBiomeGCBase;
 import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
+import rtg.world.biome.realistic.icmod.RealisticBiomeICBase;
 import rtg.world.biome.realistic.lotsomobs.RealisticBiomeLOMBase;
 import rtg.world.biome.realistic.ridiculousworld.RealisticBiomeRWBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
@@ -62,7 +63,7 @@ public class RTG {
     public void fmlLifeCycleEvent(FMLPreInitializationEvent event) 
     {    
         instance = this;
-        
+
         eventMgr = new EventManagerRTG();
         MinecraftForge.EVENT_BUS.register(eventMgr);
         MinecraftForge.ORE_GEN_BUS.register(eventMgr);
@@ -111,7 +112,8 @@ public class RTG {
         RealisticBiomeLOMBase.addBiomes();
         RealisticBiomeTOFUBase.addBiomes();
         RealisticBiomeFNBase.addBiomes();
-        
+        RealisticBiomeICBase.addBiomes();
+
         RealisticBiomePresenceTester.doBiomeCheck();
     }
     

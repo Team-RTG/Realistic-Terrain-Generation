@@ -342,19 +342,20 @@ public class TerrainBase
 
     public static float terrainHighland(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river, float start, float width, float height, float baseAdjust)
     {
-        float h = simplex.noise2(x / width, y / width) * height * river;
+        float h = simplex.noise2(x / width, y / width) * height * river; //-140 to 140
         h = h < start ? start + ((h - start) / 4.5f) : h;
 
+        if (h <0f) h = 0;//0 to 140
         if (h > 0f)
         {
-            float st = h * 1.5f > 15f ? 15f : h * 1.5f;
-            h += simplex.octave(4).noise(x / 70D, y / 70D, 1D) * st;
+            float st = h * 1.5f > 15f ? 15f : h * 1.5f;// 0 to 15
+            h += simplex.octave(4).noise(x / 70D, y / 70D, 1D) * st;// 0 to 155
             h = h*river;
         }
 
-        h += simplex.noise2(x / 20f, y / 20f) * 5f;
-        h += simplex.noise2(x / 12f, y / 12f) * 3f;
-        h += simplex.noise2(x / 5f, y / 5f) * 1.5f;
+        h += blendedHillHeight(simplex.noise2(x / 20f, y / 20f) , 0f) * 4f;
+        h += blendedHillHeight(simplex.noise2(x / 12f, y / 12f) , 0f) * 2f;
+        h += blendedHillHeight(simplex.noise2(x / 5f, y / 5f) , 0f) * 1f;
 
         if (h<0) h = h/2f;
 
@@ -365,11 +366,11 @@ public class TerrainBase
 
     public static float terrainLonelyMountain(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river, float strength, float width, float terrainHeight)
     {
-        float h = simplex.noise2(x / 20f, y / 20f) * 2;
-        h += simplex.noise2(x / 7f, y / 7f) * 0.8f;
+        float h = blendedHillHeight(simplex.noise2(x / 20f, y / 20f),0) * 3;
+        h += blendedHillHeight(simplex.noise2(x / 7f, y / 7f),0) * 1.3f;
 
         float m = simplex.noise2(x / width, y / width) * strength * river;
-        m *= m / 35f;
+        m *= m / 35f; 
         m = m > 70f ? 70f + (m - 70f) / 2.5f : m;
 
         float st = m * 0.7f;
@@ -382,6 +383,14 @@ public class TerrainBase
 
         m += c;
 
+        // the parameters can "blow through the ceiling" so pull more extreme values down a bit
+        // this should allow a height parameter up to about 120
+        if (m>90) {
+            m = 90f +(m-90f)*.75f;
+            if (m>110) {
+                m = 110f +(m-110f)*.75f;
+            }
+        }
         return riverized(terrainHeight+ h + m,river) ;
     }
 

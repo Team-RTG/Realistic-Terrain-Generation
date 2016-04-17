@@ -6,17 +6,16 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainVanillaTaigaHills extends TerrainBase
 {
-    private float baseHeight = 76f;
-    private float hillStrength = 45f;
+    private float hillStrength = 40f;
 
     public TerrainVanillaTaigaHills()
     {
-
+        this(76f,45f);
     }
 
     public TerrainVanillaTaigaHills(float bh, float hs)
     {
-        baseHeight = bh;
+        base= bh;
         hillStrength = hs;
     }
 

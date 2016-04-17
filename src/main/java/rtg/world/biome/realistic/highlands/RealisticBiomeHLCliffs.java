@@ -20,7 +20,7 @@ public class RealisticBiomeHLCliffs extends RealisticBiomeHLBase
     
         super(config, 
             hlBiome, BiomeGenBase.river,
-            new TerrainHLCliffs(75f, 70f, 0f),
+            new TerrainHLCliffs(75f, 70f, 78f),
             new SurfaceHLCliffs(config, topBlock, fillerBlock, false, null, 0.95f));
 		
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

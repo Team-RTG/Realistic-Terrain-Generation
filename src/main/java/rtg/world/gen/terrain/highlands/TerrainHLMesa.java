@@ -17,6 +17,6 @@ public class TerrainHLMesa extends TerrainBase
         float h = simplex.noise2(x / 80f, y / 80f) * 25f;
         h += simplex.noise2(x / 5f, y / 5f) * 1.5f;
 
-        return 120f + h;
+        return riverized(120f + h,river);
 	}
 }

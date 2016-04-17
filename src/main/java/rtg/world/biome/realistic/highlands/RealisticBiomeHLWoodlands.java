@@ -21,7 +21,7 @@ public class RealisticBiomeHLWoodlands extends RealisticBiomeHLBase
     
         super(config, 
             hlBiome, BiomeGenBase.river,
-            new TerrainHLWoodlands(230f, 40f, 0f),
+            new TerrainHLWoodlands(230f, 15f, 0f),
             new SurfaceHLWoodlands(config, topBlock, fillerBlock, false, null, 0.95f));
 		
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

@@ -22,7 +22,7 @@ public class RealisticBiomeHLDesertMountains extends RealisticBiomeHLBase
     
         super(config, 
             hlBiome, BiomeGenBase.river,
-            new TerrainHLDesertMountains(230f, 100f, 0f),
+            new TerrainHLDesertMountains(230f, 85f, 68f),
             new SurfaceHLDesertMountains(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 90f, 30f, 1.5f)
         );
         noWaterFeatures = true;

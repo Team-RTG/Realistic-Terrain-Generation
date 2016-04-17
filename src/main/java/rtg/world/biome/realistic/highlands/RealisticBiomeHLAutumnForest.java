@@ -21,6 +21,8 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
             hlBiome, BiomeGenBase.river,
             new TerrainHLAutumnForest(0f, 50f, 68f, 200f),
             new SurfaceHLAutumnForest(config, topBlock, fillerBlock));
+        
+        noWaterFeatures = false;
 		
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		this.addDeco(decoBaseBiomeDecorations);

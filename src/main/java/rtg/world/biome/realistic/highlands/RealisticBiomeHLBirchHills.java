@@ -18,7 +18,7 @@ public class RealisticBiomeHLBirchHills extends RealisticBiomeHLBase
     public RealisticBiomeHLBirchHills(BiomeConfig config)
     {
     
-        super(config, hlBiome, BiomeGenBase.river, new TerrainHLBirchHills(230f, 60f, 0f),
+        super(config, hlBiome, BiomeGenBase.river, new TerrainHLBirchHills(230f, 60f, 68f),
             new SurfaceHLBirchHills(config, topBlock, fillerBlock, false, null, 0.95f));
         noLakes = true;
 		

@@ -8,7 +8,6 @@ public class TerrainTOFUTofuExtremeHills extends TerrainBase
 {
 	private float start;
 	private float height;
-	private float base;
 	private float width;
 
 	public TerrainTOFUTofuExtremeHills(float hillStart, float landHeight, float baseHeight, float hillWidth)

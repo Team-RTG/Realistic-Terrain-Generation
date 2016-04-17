@@ -8,7 +8,6 @@ public class TerrainRWSpookyForest extends TerrainBase
 {
 	private float start;
 	private float height;
-	private float base;
 	private float width;
 
 	public TerrainRWSpookyForest(float hillStart, float landHeight, float baseHeight, float hillWidth)
@@ -22,6 +21,6 @@ public class TerrainRWSpookyForest extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainHighland(x, y, simplex, cell, river, start, width, height, 0f);
+        return terrainHighland(x, y, simplex, cell, river, start, width, height, base - 62f);
 	}
 }

@@ -12,20 +12,7 @@ public class TerrainHLGlacier extends TerrainBase
 	private float vWidth;
 	private float bHeight;
 
-	/*
-	 * hillHeight = 70f
-	 * hillWidth = 180f
-	 *
-	 * varHeight = 7f
-	 * varWidth = 100f
-	 *
-	 * lakeHeigth = 38f
-	 * lakeWidth = 260f
-	 *
-	 * baseHeight = 68f
-	 *
-	 * 70f, 180f, 7f, 100f, 38f, 260f, 68f
-	 */
+
 	public TerrainHLGlacier(float hillHeight, float hillWidth, float varHeight, float varWidth,  float baseHeight)
 	{
 		hHeight = hillHeight;
@@ -54,9 +41,11 @@ public class TerrainHLGlacier extends TerrainBase
 		cm *= m / 20f > 3.75f ? 3.75f : m / 20f;
 		m += cm;
         m = m/2f;
+        m= above(m,15);
 
-		h += simplex.noise2(x / 12f, y / 12f) * 2f;
-		h += simplex.noise2(x / 5f, y / 5f) * 1f;
+        h += this.groundNoise(x, y, 2f, simplex);
+		//h += simplex.noise2(x / 12f, y / 12f) * 2f;
+		//h += simplex.noise2(x / 5f, y / 5f) * 1f;
 
 		return bHeight + h + m ;
 	}

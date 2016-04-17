@@ -20,4 +20,5 @@ public class RealisticBiomeHLBog extends RealisticBiomeHLBase
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		this.addDeco(decoBaseBiomeDecorations);
     }
+  
 }

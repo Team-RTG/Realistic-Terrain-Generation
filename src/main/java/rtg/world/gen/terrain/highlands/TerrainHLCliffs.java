@@ -9,31 +9,14 @@ public class TerrainHLCliffs extends TerrainBase
 {
 	private float width;
 	private float strength;
-	private float lakeDepth;
-	private float lakeWidth;
-	private float terrainHeight;
     private static float startCliffsAt = 30f;
 
-	/*
-	 * width = 230f
-	 * strength = 120f
-	 * lake = 50f;
-	 *
-	 * 230f, 120f, 50f
-	 */
 
-	public TerrainHLCliffs(float mountainWidth, float mountainStrength, float depthLake)
-	{
-		this(mountainWidth, mountainStrength, depthLake, 260f, 78f);
-	}
-
-	public TerrainHLCliffs(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
+	public TerrainHLCliffs(float mountainWidth, float mountainStrength, float height)
 	{
 		width = mountainWidth;
 		strength = mountainStrength;
-		lakeDepth = depthLake;
-		lakeWidth = widthLake;
-		terrainHeight = height;
+		base = height;
 	}
 
 	@Override
@@ -69,9 +52,9 @@ public class TerrainHLCliffs extends TerrainBase
         m = above(m, startCliffsAt);
 
         // we're going to have the rivers "pierce" the cliffs so river noise won't affect the cliff parts
-        if (m> 0) return terrainHeight+h+m;
+        if (m> 0) return base+h+m;
 
-		float result = terrainHeight + h;
+		float result = base + h;
         if (river<1) return 62f+(result-62f)*river;
         return result;
 	}

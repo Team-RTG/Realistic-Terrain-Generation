@@ -11,7 +11,7 @@ import rtg.world.gen.terrain.TerrainBase;
 public class TerrainEBAlpineMountains extends TerrainBase
 {
     private HeightEffect height;
-    private float baseHeight = 95;
+    private float baseHeight = 105;
 	public TerrainEBAlpineMountains()
 	{
         LonelyMountainEffect mountain = new LonelyMountainEffect();

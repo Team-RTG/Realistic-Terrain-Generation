@@ -42,6 +42,6 @@ public class TerrainHLShrubland extends TerrainBase
 
 		h += groundNoise(x, y, 5f, simplex);
 
-		return bHeight + h + m;
+		return riverized(bHeight + h + m,river);
 	}
 }

@@ -36,7 +36,7 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
             //new SurfaceVanillaForest(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f));
             new SurfaceHLFlyingMountains(config, topBlock, fillerBlock, false, null, 0f, 2.5f, 80f, 65f, 2.5f)
         );
-        
+        {
 		DecoTree bigPines = new DecoTree();
 		bigPines.strengthFactorForLoops = 3f;
 		bigPines.treeType = TreeType.TAIGA;
@@ -54,20 +54,32 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
         decoShrub2.maxSize = 21;
         DecoHelper5050 decoHelper5050 = new DecoHelper5050(bigPines, decoShrub2);
 		this.addDeco(decoHelper5050);
+        }
+
+        DecoTree secondaryTree = new DecoTree();
+		secondaryTree.strengthFactorForLoops = 3f;
+		secondaryTree.treeType = TreeType.BIRCH_TREES_FOREST;
+		secondaryTree.distribution.noiseDivisor = 80f;
+		secondaryTree.distribution.noiseFactor = 60f;
+		secondaryTree.distribution.noiseAddend = -15f;
+		secondaryTree.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		secondaryTree.minY = 63;
+		secondaryTree.maxY = 90;
+        this.addDeco(secondaryTree);
         
-        DecoFallenTree decoFallenTreeOak = new DecoFallenTree();
-        decoFallenTreeOak.distribution.noiseDivisor = 80f;
-        decoFallenTreeOak.distribution.noiseFactor = 60f;
-        decoFallenTreeOak.distribution.noiseAddend = -15f;
-        decoFallenTreeOak.logCondition = LogCondition.X_DIVIDED_BY_STRENGTH;
-        decoFallenTreeOak.logConditionNoise = 8f;
-        decoFallenTreeOak.maxY = 100;
-        decoFallenTreeOak.logBlock = Blocks.log;
-        decoFallenTreeOak.logMeta = (byte)0;
-        decoFallenTreeOak.leavesBlock = Blocks.leaves;
-        decoFallenTreeOak.leavesMeta = (byte)-1;
-        decoFallenTreeOak.minSize = 3;
-        decoFallenTreeOak.maxSize = 6;
+        DecoFallenTree decoFallenTreeBirch = new DecoFallenTree();
+        decoFallenTreeBirch.distribution.noiseDivisor = 80f;
+        decoFallenTreeBirch.distribution.noiseFactor = 60f;
+        decoFallenTreeBirch.distribution.noiseAddend = -15f;
+        decoFallenTreeBirch.logCondition = LogCondition.X_DIVIDED_BY_STRENGTH;
+        decoFallenTreeBirch.logConditionNoise = 8f;
+        decoFallenTreeBirch.maxY = 100;
+        decoFallenTreeBirch.logBlock = Blocks.log;
+        decoFallenTreeBirch.logMeta = (byte)2;
+        decoFallenTreeBirch.leavesBlock = Blocks.leaves;
+        decoFallenTreeBirch.leavesMeta = (byte)-1;
+        decoFallenTreeBirch.minSize = 3;
+        decoFallenTreeBirch.maxSize = 6;
         
         DecoFallenTree decoFallenTreeSpruce = new DecoFallenTree();
         decoFallenTreeSpruce.distribution.noiseDivisor = 80f;
@@ -77,18 +89,18 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
         decoFallenTreeSpruce.logConditionNoise = 8f;
         decoFallenTreeSpruce.maxY = 100;
         decoFallenTreeSpruce.logBlock = Blocks.log;
-        decoFallenTreeSpruce.logMeta = (byte)0;
+        decoFallenTreeSpruce.logMeta = (byte)1;
         decoFallenTreeSpruce.leavesBlock = Blocks.leaves;
         decoFallenTreeSpruce.leavesMeta = (byte)-1;
         decoFallenTreeSpruce.minSize = 3;
         decoFallenTreeSpruce.maxSize = 6;
         
-        DecoHelper5050 DecoHelper5050 = new DecoHelper5050(decoFallenTreeOak, decoFallenTreeSpruce);
-		this.addDeco(decoFallenTreeOak, this.config._boolean(BiomeConfigHLFlyingMountains.decorationLogsId));
+        DecoHelper5050 DecoHelper5050 = new DecoHelper5050(decoFallenTreeBirch, decoFallenTreeSpruce);
+		this.addDeco(DecoHelper5050, this.config._boolean(BiomeConfigHLFlyingMountains.decorationLogsId));
         
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.maxY = 110;
-        decoShrub.strengthFactor = 3f;
+        decoShrub.maxY = 180;
+        decoShrub.strengthFactor = 8f;
 		this.addDeco(decoShrub);
         
 		DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();

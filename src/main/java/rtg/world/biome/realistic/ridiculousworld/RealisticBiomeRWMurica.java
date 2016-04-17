@@ -1,10 +1,10 @@
 package rtg.world.biome.realistic.ridiculousworld;
 
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.ridiculousworld.SurfaceRWMurica;
 import rtg.world.gen.terrain.ridiculousworld.TerrainRWMurica;
-
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeRWMurica extends RealisticBiomeRWBase
 {
@@ -16,6 +16,10 @@ public class RealisticBiomeRWMurica extends RealisticBiomeRWBase
             rwBiome,
             BiomeGenBase.river,
             new TerrainRWMurica(),
-            new SurfaceRWMurica(config, rwBiome.topBlock, rwBiome.fillerBlock));
+            new SurfaceRWMurica(config, rwBiome.topBlock, rwBiome.fillerBlock)
+        );
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 }

@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.extrabiomes.config.BiomeConfigEBXL;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -7,8 +8,6 @@ import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 import cpw.mods.fml.common.Loader;
 import extrabiomes.api.BiomeManager;
-
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLBase extends RealisticBiomeBase
 {

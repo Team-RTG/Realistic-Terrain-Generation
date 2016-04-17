@@ -6,6 +6,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.SimplexOctave;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPBayou;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPBayou;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -24,6 +25,10 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase
 			new TerrainBOPBayou(),
 			new SurfaceBOPBayou(config, topBlock, fillerBlock)
 		);
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
+		
         // turn off those dang ponds
         /*BiomeGenBayou bayou = (BiomeGenBayou)BOPCBiomes.bayou;
         BiomeDecorator decor = BOPCBiomes.bayou.theBiomeDecorator;
@@ -63,7 +68,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase
 
     }
 
-    private double lakeWaterLevel = 0.04;// the lakeStrenght below which things should be below ater
+    private double lakeWaterLevel = 0.04;// the lakeStrength below which things should be below water
     private double lakeDepressionLevel = 0.3;// the lakeStrength below which land should start to be lowered
 
     @Override

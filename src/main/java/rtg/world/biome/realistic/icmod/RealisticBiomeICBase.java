@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.icmod;
 
-import cpw.mods.fml.common.Loader;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.icmod.config.BiomeConfigIC;
@@ -8,6 +7,7 @@ import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import cpw.mods.fml.common.Loader;
 
 /**
  * Created by VelocityRa on 16/4/2016.

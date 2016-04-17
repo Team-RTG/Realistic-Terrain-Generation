@@ -1,10 +1,10 @@
 package rtg.world.biome.realistic.atg;
 
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.atg.SurfaceATGGravelBeach;
 import rtg.world.gen.terrain.atg.TerrainATGGravelBeach;
-
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeATGGravelBeach extends RealisticBiomeATGBase
 {
@@ -15,5 +15,8 @@ public class RealisticBiomeATGGravelBeach extends RealisticBiomeATGBase
 			new TerrainATGGravelBeach(),
 			new SurfaceATGGravelBeach(config, atgBiome.topBlock, atgBiome.fillerBlock, atgBiome.topBlock, atgBiome.fillerBlock, (byte)0, 1)
 		);
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

@@ -1,12 +1,12 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPSacredSprings;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPSacredSprings;
 import biomesoplenty.api.content.BOPCBiomes;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase
 {	
@@ -23,5 +23,8 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase
 			new SurfaceBOPSacredSprings(config, topBlock, fillerBlock)
 		);
         noWaterFeatures = true;
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

@@ -1,14 +1,14 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
-import rtg.api.biome.BiomeConfig;
-import rtg.world.gen.surface.highlands.SurfaceHLJungleIsland;
-import rtg.world.gen.terrain.highlands.TerrainHLJungleIsland;
-
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.gen.surface.highlands.SurfaceHLJungleIsland;
+import rtg.world.gen.terrain.highlands.TerrainHLJungleIsland;
 
 public class RealisticBiomeHLJungleIsland extends RealisticBiomeHLBase
 {
@@ -25,6 +25,9 @@ public class RealisticBiomeHLJungleIsland extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.river,
             new TerrainHLJungleIsland(0f, 140f, 68f, 200f),
             new SurfaceHLJungleIsland(config, topBlock, fillerBlock));
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override

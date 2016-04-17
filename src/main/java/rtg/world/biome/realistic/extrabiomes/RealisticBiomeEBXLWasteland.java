@@ -1,12 +1,12 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLWasteland;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLWasteland;
 import extrabiomes.api.BiomeManager;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLWasteland extends RealisticBiomeEBXLBase
 {	
@@ -22,5 +22,8 @@ public class RealisticBiomeEBXLWasteland extends RealisticBiomeEBXLBase
 			new TerrainEBXLWasteland(),
 			new SurfaceEBXLWasteland(config, topBlock, fillerBlock)
 		);
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

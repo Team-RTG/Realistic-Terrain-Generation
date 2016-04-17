@@ -1,15 +1,15 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
-import rtg.api.biome.BiomeConfig;
-import rtg.world.gen.surface.highlands.SurfaceHLLowlands;
-import rtg.world.gen.terrain.highlands.TerrainHLLowlands;
-
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.SimplexOctave;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.gen.surface.highlands.SurfaceHLLowlands;
+import rtg.world.gen.terrain.highlands.TerrainHLLowlands;
 
 public class RealisticBiomeHLLowlands extends RealisticBiomeHLBase
 {
@@ -26,6 +26,9 @@ public class RealisticBiomeHLLowlands extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.river,
             new TerrainHLLowlands(),
             new SurfaceHLLowlands(config, topBlock, fillerBlock));
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 
     // additional lakes

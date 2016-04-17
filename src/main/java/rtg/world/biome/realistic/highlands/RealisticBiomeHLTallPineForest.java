@@ -1,12 +1,12 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
-import rtg.api.biome.BiomeConfig;
-import rtg.world.gen.surface.highlands.SurfaceHLTallPineForest;
-import rtg.world.gen.terrain.highlands.TerrainHLTallPineForest;
-
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.gen.surface.highlands.SurfaceHLTallPineForest;
+import rtg.world.gen.terrain.highlands.TerrainHLTallPineForest;
 
 public class RealisticBiomeHLTallPineForest extends RealisticBiomeHLBase
 {
@@ -23,5 +23,8 @@ public class RealisticBiomeHLTallPineForest extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.frozenRiver,
             new TerrainHLTallPineForest(),
             new SurfaceHLTallPineForest(config, topBlock, fillerBlock, false, null, 1.2f));
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 }

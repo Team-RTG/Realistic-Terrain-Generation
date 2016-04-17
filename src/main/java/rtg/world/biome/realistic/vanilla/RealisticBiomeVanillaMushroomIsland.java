@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMushroomIsland;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMushroomIsland;
 
@@ -20,5 +21,8 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
 			new SurfaceVanillaMushroomIsland(config, topBlock, fillerBlock, 67, topBlock, 0f)
 		);
         this.noLakes=true;
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}	
 }

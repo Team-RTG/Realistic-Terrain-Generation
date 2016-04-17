@@ -386,9 +386,9 @@ public class TerrainBase
         // the parameters can "blow through the ceiling" so pull more extreme values down a bit
         // this should allow a height parameter up to about 120
         if (m>90) {
-            m = m - 90f +(m-90f)*.75f;
+            m = 90f +(m-90f)*.75f;
             if (m>110) {
-                m = m - 110f +(m-110f)*.75f;
+                m = 110f +(m-110f)*.75f;
             }
         }
         return riverized(terrainHeight+ h + m,river) ;

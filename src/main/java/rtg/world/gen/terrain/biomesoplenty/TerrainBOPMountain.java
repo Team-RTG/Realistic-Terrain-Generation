@@ -13,7 +13,7 @@ public class TerrainBOPMountain extends TerrainBase
 	private float strength;
 	private float terrainHeight;
     private float spikeWidth = 30;
-    private float spikeHeight = 40;
+    private float spikeHeight = 50;
     private HeightEffect heightEffect;
 
 	public TerrainBOPMountain(float mountainWidth, float mountainStrength)
@@ -31,6 +31,7 @@ public class TerrainBOPMountain extends TerrainBase
         mountainEffect.mountainWavelength = width;
         mountainEffect.spikeHeight = this.spikeHeight;
         mountainEffect.spikeWavelength = this.spikeWidth;
+
 
         heightEffect = new JitterEffect(7f,10f, mountainEffect);
         heightEffect = new JitterEffect(3f,6f,heightEffect);

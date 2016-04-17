@@ -97,6 +97,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private float[] testHeight;
     private float[] biomesGeneratedInChunk;
     private float[] borderNoise;
+    private float[] riverVals = new float[256];
     private long worldSeed;
     private RealisticBiomePatcher biomePatcher;
     private HashMap<PlaneLocation,Chunk> inGeneration = new HashMap<PlaneLocation,Chunk>();
@@ -190,32 +191,11 @@ public class ChunkProviderRTG implements IChunkProvider
         int k;
 
         generateTerrain(cmr, cx, cy, blocks, metadata, biomesForGeneration, noise);
-        // that routine can change the biome array so put it back if not
-
-                //fill with biomeData
+        // that routine can change the blocks.
+        //get standard biome Data
         int [] biomeIndices= cmr.getBiomesGens(cx *16, cy*16,16,16);
 
-        /*if (cx*16==1872&&cy*16==7712) {
-            PrintWriter writer = null;
-            try {
-                File file = new File("forestChunk.txt");
-                writer = new PrintWriter(file);
-                for (int i = 0;i <16;i++) {
-                    String output = "";
-                    for (int j = 0;j<16;j++) {
-                        output += "" + biomesForGeneration[i*16+j].biomeID + '\t';
-                    }
-                    writer.print(output+'\r');
-                }
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(ChunkProviderRTG.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                writer.close();
-            }
-
-        }*/
-
-            analyzer.newRepair(biomeIndices, biomesForGeneration, this.biomeData, this.sampleSize, noise,-cmr.getRiverStrength(cx * 16 + 7, cy * 16 + 7));
+            analyzer.newRepair(biomeIndices, biomesForGeneration, this.biomeData, this.sampleSize, noise,riverVals);//-cmr.getRiverStrength(cx * 16 + 7, cy * 16 + 7));
 
 
         for(k = 0; k < 256; k++)
@@ -375,16 +355,6 @@ public class ChunkProviderRTG implements IChunkProvider
         	}
     	}
 
-    	//MAIN BIOME CHECK
-    	RealisticBiomeBase realisticBiomeBase = null;
-    	for(i = 0; i < 256; i++)
-    	{
-    		if(hugeRender[4 * 9 + 4][i] > 0.95f)
-    		{
-    			realisticBiomeBase = RealisticBiomeBase.getBiome(i);
-    		}
-    	}
-
     	//RENDER HUGE 1
     	for(i = 0; i < 4; i++)
     	{
@@ -506,6 +476,7 @@ public class ChunkProviderRTG implements IChunkProvider
     			testHeight[i * 16 + j] = 0f;
 
     			river = cmr.getRiverStrength(x + i, y + j);
+                this.riverVals[i * 16 + j] = -river;
 
     			for(k = 0; k < 256; k++)
     			{

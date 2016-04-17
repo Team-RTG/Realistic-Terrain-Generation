@@ -24,7 +24,7 @@ public class TerrainHLTallPineForest extends TerrainBase
 		h = h > 155f ? 155f : h;
 
         // this creates "hills" which rise abruptly to relatively rounded tops
-        float hill = (simplex.noise2(x / hillWidth, y / hillWidth)*hillStrength);
+        float hill = (simplex.noise2(x / hillWidth, y / hillWidth)*hillStrength)*river;
         hill = above(hill,hillFloor);
 
 		if(h > 2f)

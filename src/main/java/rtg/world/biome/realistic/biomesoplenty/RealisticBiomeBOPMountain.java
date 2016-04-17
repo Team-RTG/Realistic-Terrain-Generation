@@ -27,7 +27,7 @@ public class RealisticBiomeBOPMountain extends RealisticBiomeBOPBase
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
-			new TerrainBOPMountain(120f, 150f),
+			new TerrainBOPMountain(120f, 100f),
 			new SurfaceBOPMountain(config,
                 topBlock, //Block top 
                 (byte)0, //byte topByte

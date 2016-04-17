@@ -50,7 +50,7 @@ public class RealisticBiomeEBPineForestArchipelago extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBGrassyArchipelago(80f, 40f, 0f),
+			new TerrainEBGrassyArchipelago(80f, 30f, 56f),
 			new SurfaceEBPineForestArchipelago(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

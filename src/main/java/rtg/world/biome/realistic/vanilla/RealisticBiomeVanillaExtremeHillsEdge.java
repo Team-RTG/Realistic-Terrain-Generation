@@ -30,7 +30,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
         super(config, 
             BiomeGenBase.extremeHillsEdge,
             BiomeGenBase.river,
-            new TerrainVanillaExtremeHillsEdge(10f, 120f, 68f, 200f),
+            new TerrainVanillaExtremeHillsEdge(10f, 60f, 68f, 200f),
             new SurfaceVanillaExtremeHillsEdge(config, topBlock, fillerBlock, Blocks.grass, Blocks.dirt, 60f, -0.14f, 14f, 0.25f)
         );
         this.generatesEmeralds = true;

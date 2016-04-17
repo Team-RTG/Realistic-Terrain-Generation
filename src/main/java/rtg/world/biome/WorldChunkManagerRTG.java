@@ -21,7 +21,9 @@ import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 import rtg.config.rtg.ConfigRTG;
+import rtg.util.SimplexCellularOctave;
 import rtg.util.SimplexOctave;
+import rtg.util.VoronoiCellNoise;
 
 public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeProvider
 {
@@ -31,7 +33,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
     private List biomesToSpawnIn;
     private OpenSimplexNoise simplex;
     private CellNoise cell;
-    private SimplexCellularNoise simplexCell;
+    //private SimplexCellularNoise simplexCell;
     private float[] borderNoise;
     private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
     private BiomeCache biomeCache;
@@ -59,11 +61,12 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
 
         simplex = new OpenSimplexNoise(seed);
         cell = new SimplexCellularNoise(seed);
-        simplexCell = new SimplexCellularNoise(seed);
+        //simplexCell = new SimplexCellularNoise(seed);
         GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType);
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
         this.biomeIndexLayer = agenlayer[1];
+        testCellBorder();
     }
     
     public int[] getBiomesGens(int par1, int par2, int par3, int par4)
@@ -220,7 +223,8 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
     private static int [] incidences = new int[100];
     private static int references = 0;
 	private static double cellBorder(double[] results, double width, double depth) {
-		double c = (results[1] - results[0]);
+		double c = (results[1] - results[0])/results[1];
+        if (c<0) throw new RuntimeException();
         /*int slot = (int)Math.floor(c*100.0);
         incidences[slot] += 1;
         references ++;
@@ -239,30 +243,41 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
 		}
 	}
 
-    private double riverValleyLevel = 30.0 / 450.0;
-    private double riverSeparation = 1875;
+    private static void testCellBorder() {
+        double [] result = new double[2];
+        result[0] = 0.5;
+        result [1] = 1;
+        if (cellBorder(result,0.5,1)<0) throw new RuntimeException();
+    }
+
+    private double riverValleyLevel = 60.0 / 450.0;
+    private float riverSeparation = 1875;
     private float largeBendSize = 140;
     private float smallBendSize = 35;
+
     public float getRiverStrength(int x, int y)
     {
+
     	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
             SimplexOctave.Disk jitter = new SimplexOctave.Disk();
             simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
             double pX = x + jitter.deltax() * largeBendSize;
             double pY = y + jitter.deltay() * largeBendSize;
 
-            simplex.riverJitter().evaluateNoise((float)x / 80.0, (float)y / 80.0, jitter);
+
+
+            simplex.octave(2).evaluateNoise((float)x / 80.0, (float)y / 80.0, jitter);
             pX += jitter.deltax() * smallBendSize;
             pY += jitter.deltay() * smallBendSize;
-            /*double[] simplexResults = new double[2];
-    	    OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
-            double pX = x + simplexResults[0] * 220f;
-            double pY = y + simplexResults[1] * 220f;*/
+
+            double xRiver = pX / riverSeparation;
+            double yRiver = pY / riverSeparation;
         
         //New cellular noise.
         //TODO move the initialization of the results in a way that's more efficient but still thread safe.
-        double[] results = simplexCell.river().eval(pX / riverSeparation, pY / riverSeparation);
+        double[] results = cell.river().eval(xRiver,yRiver );
         return (float) cellBorder(results, riverValleyLevel, 1.0);
+        //return cell.octave(1).border2(xRiver, yRiver, riverValleyLevel, 1f);
     }
     	
     public boolean isBorderlessAt(int x, int y)

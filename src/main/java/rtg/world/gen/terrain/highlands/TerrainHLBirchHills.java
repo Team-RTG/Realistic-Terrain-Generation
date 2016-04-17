@@ -8,30 +8,13 @@ public class TerrainHLBirchHills extends TerrainBase
 {
     private float width;
     private float strength;
-    private float lakeDepth;
-    private float lakeWidth;
-    private float terrainHeight;
 
-    /*
-     * width = 230f
-     * strength = 120f
-     * lake = 50f;
-     *
-     * 230f, 120f, 50f
-     */
-
-    public TerrainHLBirchHills(float mountainWidth, float mountainStrength, float depthLake)
+    public TerrainHLBirchHills(float mountainWidth, float mountainStrength, float height)
     {
-        this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
-    }
 
-    public TerrainHLBirchHills(float mountainWidth, float mountainStrength, float depthLake, float widthLake, float height)
-    {
         width = mountainWidth;
         strength = mountainStrength;
-        lakeDepth = depthLake;
-        lakeWidth = widthLake;
-        terrainHeight = height;
+        base = height;
     }
 
     @Override
@@ -54,10 +37,6 @@ public class TerrainHLBirchHills extends TerrainBase
 
         //m += c;
 
-        float l = simplex.noise2(x / lakeWidth, y / lakeWidth) * lakeDepth;
-        l *= l / 25f;
-        l = l < -8f ? -8f : l;
-
-        return terrainHeight + h + m - l;
+        return riverized(base + h + m,river) ;
     }
 }

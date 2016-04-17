@@ -182,88 +182,6 @@ public class BiomeAnalyzer {
         }
     }
 
-    public void repair(int [] genLayerBiomes, RealisticBiomeBase [] jitteredBiomes, int [] biomeNeighborhood, int neighborhoodSize, float [] noise, float riverStrength) {
-        if (neighborhoodSize != sampleSize) throw new RuntimeException("mismatch between chunk and analyzer neighborhood sizes");
-        // currently just stuffs the genLayer into the jitter;
-        boolean canBeRiver = riverStrength >0.05;
-        for (int i = 0; i < 256; i++) {
-            // save what's there since the jitter keeps changing
-            savedJittered [i]= jitteredBiomes[i];
-            //if (savedJittered[i]== null) throw new RuntimeException();
-            if (noise[i]>61.5) {
-                // replace
-                jitteredBiomes[i] =  RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]);
-            } else {
-                // check for river
-                if (canBeRiver&&!oceanBiome[genLayerBiomes[xyinverted[i]]]&&!swampBiome[genLayerBiomes[xyinverted[i]]]) {
-                    // make river
-                    int riverBiomeID = RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]).riverBiome.biomeID;
-                    jitteredBiomes[i] =  RealisticBiomeBase.getBiome(riverBiomeID);
-                } else {
-                    // replace
-                    jitteredBiomes[i] =  RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]);
-                }
-            }
-
-        }
-
-        // put beaches on shores
-        beach.absent = false;
-        beach.notHunted = true;
-        for (int i = 0; i < 256; i++) {
-            if (beach.absent) break; //no point
-            if (noise[i]<beachBottom||noise[i]>beachTop) continue;// this block isn't beach level
-            if (swampBiome[jitteredBiomes[i].biomeID]) continue;// swamps are acceptable at beach level
-            if (beach.notHunted) {
-                huntForBeaches(this.savedJittered);
-                if (!beach.absent) jitteredBiomes[i] = beach.biome;
-            } else {
-                //we already found it
-                jitteredBiomes[i] = beach.biome;
-            }
-        }
-
-        // put land higher up;
-        land.absent = false;
-        land.notHunted = true;
-        for (int i = 0; i < 256; i++) {
-            if (land.absent) break; //no point
-            if (noise[i]<beachTop) continue;// this block isn't above beach level
-            int biomeID = jitteredBiomes[i].biomeID;
-            if (landBiome[biomeID]) continue;// already land
-            if (swampBiome[jitteredBiomes[i].biomeID]) continue;// swamps are acceptable above water
-            if (land.notHunted) {
-                huntForLand(this.savedJittered);
-                if (!land.absent) {
-                    jitteredBiomes[i] = land.biome;
-                    //if (beachBiome[land.biome.biomeID]) throw new RuntimeException();
-                    //if (oceanBiome[land.biome.biomeID]) throw new RuntimeException();
-                }
-            } else {
-                //we already found it
-                jitteredBiomes[i] = land.biome;
-            }
-        }
-
-        // put ocean below sea level
-        ocean.absent = false;
-        ocean.notHunted = true;
-        for (int i = 0; i < 256; i++) {
-            if (ocean.absent) break; //no point
-            if (noise[i]>oceanTop) continue;// too hight
-            if (oceanBiome[jitteredBiomes[i].biomeID]) continue;// obviously ocean is OK
-            if (swampBiome[jitteredBiomes[i].biomeID]) continue;// swamps are acceptable
-            if (riverBiome[jitteredBiomes[i].biomeID]) continue;// rivers stay rivers
-            if (ocean.notHunted) {
-                huntForOcean(this.savedJittered);
-                if (!ocean.absent) jitteredBiomes[i] = ocean.biome;
-            } else {
-                //we already found it
-                jitteredBiomes[i] = ocean.biome;
-            }
-        }
-    }
-
     private void huntForBeaches(RealisticBiomeBase [] biomes) {
         beach.notHunted = false;
         // in case nothing found
@@ -314,11 +232,11 @@ public class BiomeAnalyzer {
      *
      */
 
-        public void newRepair(int [] genLayerBiomes, RealisticBiomeBase [] jitteredBiomes, int [] biomeNeighborhood, int neighborhoodSize, float [] noise, float riverStrength) {
+    public void newRepair(int [] genLayerBiomes, RealisticBiomeBase [] jitteredBiomes, int [] biomeNeighborhood, int neighborhoodSize, float [] noise, float [] riverStrength) {
         if (neighborhoodSize != sampleSize) throw new RuntimeException("mismatch between chunk and analyzer neighborhood sizes");
         // currently just stuffs the genLayer into the jitter;
-        boolean canBeRiver = riverStrength >0.05;
         for (int i = 0; i < 256; i++) {
+        boolean canBeRiver = riverStrength[i] >0.05;
             // save what's there since the jitter keeps changing
             savedJittered [i]= jitteredBiomes[i];
             //if (savedJittered[i]== null) throw new RuntimeException();
@@ -344,7 +262,7 @@ public class BiomeAnalyzer {
         beachSearch.absent = false;
         for (int i = 0; i < 256; i++) {
             if (beachSearch.absent) break; //no point
-            if (noise[i]<beachBottom||noise[i]>beachTop) continue;// this block isn't beach level
+            if (noise[i]<beachBottom||noise[i]>riverAdjusted(beachTop,riverStrength[i])) continue;// this block isn't beach level
             if (swampBiome[jitteredBiomes[i].biomeID]) continue;// swamps are acceptable at beach level
             if (beachSearch.notHunted) {
                 beachSearch.hunt(biomeNeighborhood);
@@ -365,7 +283,7 @@ public class BiomeAnalyzer {
         landSearch.notHunted = true;
         for (int i = 0; i < 256; i++) {
             if (landSearch.absent) break; //no point
-            if (noise[i]<beachTop) continue;// this block isn't above beach level
+            if (noise[i]<riverAdjusted(beachTop,riverStrength[i])) continue;// this block isn't above beach level
             int biomeID = jitteredBiomes[i].biomeID;
             if (landBiome[biomeID]) continue;// already land
             if (swampBiome[jitteredBiomes[i].biomeID]) continue;// swamps are acceptable above water
@@ -601,4 +519,25 @@ public class BiomeAnalyzer {
             if (chunkBiomeArray.length != 256) throw new RuntimeException();
         }
     }
+
+    private float deriverized(float height, float river) {
+        if (river >= 1) return height;
+        float erodedRiver = river/RealisticBiomeBase.actualRiverProportion;
+        if (erodedRiver <= 1f) {
+            height = ((height -58f*erodedRiver))/(1-erodedRiver);
+        }
+        height = ((height -62f*river))/(1-river);
+        return height;
+    }
+
+    private float riverAdjusted (float top, float river) {
+        if (river>=1) return top;
+        float erodedRiver = river/RealisticBiomeBase.actualRiverProportion;
+        if (erodedRiver <= 1f) {
+            top = top*(1-erodedRiver)+62f*erodedRiver;
+        }
+        top = top*(1-river)+62f*river;
+        return top;
+    }
 }
+

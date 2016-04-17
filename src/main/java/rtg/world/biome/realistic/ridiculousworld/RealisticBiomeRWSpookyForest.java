@@ -14,7 +14,7 @@ public class RealisticBiomeRWSpookyForest extends RealisticBiomeRWBase
     
         super(config,
             rwBiome, BiomeGenBase.river,
-            new TerrainRWSpookyForest(0f, 100f, 68f, 170f),
+            new TerrainRWSpookyForest(0f, 40f, 68f, 170f),
             new SurfaceRWSpookyForest(config,
                 rwBiome.topBlock, //Block top 
                 (byte)0, //byte topByte

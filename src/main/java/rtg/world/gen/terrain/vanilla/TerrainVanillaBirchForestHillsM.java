@@ -6,7 +6,7 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainVanillaBirchForestHillsM extends TerrainBase
 {
-    private float hillStrength = 65f;
+    private float hillStrength = 70f;
     public TerrainVanillaBirchForestHillsM()
     {
     }

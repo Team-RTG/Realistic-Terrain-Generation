@@ -9,7 +9,6 @@ public class TerrainVanillaDesertM extends TerrainBase
 
     private float start;
     private float height;
-    private float base;
     private float width;
 
     public TerrainVanillaDesertM(float hillStart, float landHeight, float baseHeight, float hillWidth)

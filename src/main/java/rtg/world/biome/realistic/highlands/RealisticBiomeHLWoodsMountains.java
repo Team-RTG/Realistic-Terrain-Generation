@@ -23,8 +23,10 @@ public class RealisticBiomeHLWoodsMountains extends RealisticBiomeHLBase
     
         super(config, 
             hlBiome, BiomeGenBase.river,
-            new TerrainHLWoodsMountains(230f, 120f, 68f),
+            new TerrainHLWoodsMountains(230f, 60f, 88f),
             new SurfaceHLWoodsMountains(config, topBlock, fillerBlock, false, null, 2.0f));
+        noWaterFeatures = true;
+        noLakes = true;
     }
 
     @Override

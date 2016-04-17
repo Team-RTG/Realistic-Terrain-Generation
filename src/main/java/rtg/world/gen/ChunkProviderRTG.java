@@ -97,6 +97,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private float[] testHeight;
     private float[] biomesGeneratedInChunk;
     private float[] borderNoise;
+    private float[] riverVals = new float[256];
     private long worldSeed;
     private RealisticBiomePatcher biomePatcher;
     private HashMap<PlaneLocation,Chunk> inGeneration = new HashMap<PlaneLocation,Chunk>();
@@ -194,7 +195,7 @@ public class ChunkProviderRTG implements IChunkProvider
         //get standard biome Data
         int [] biomeIndices= cmr.getBiomesGens(cx *16, cy*16,16,16);
 
-            analyzer.newRepair(biomeIndices, biomesForGeneration, this.biomeData, this.sampleSize, noise,-cmr.getRiverStrength(cx * 16 + 7, cy * 16 + 7));
+            analyzer.newRepair(biomeIndices, biomesForGeneration, this.biomeData, this.sampleSize, noise,riverVals);//-cmr.getRiverStrength(cx * 16 + 7, cy * 16 + 7));
 
 
         for(k = 0; k < 256; k++)
@@ -475,6 +476,7 @@ public class ChunkProviderRTG implements IChunkProvider
     			testHeight[i * 16 + j] = 0f;
 
     			river = cmr.getRiverStrength(x + i, y + j);
+                this.riverVals[i * 16 + j] = -river;
 
     			for(k = 0; k < 256; k++)
     			{

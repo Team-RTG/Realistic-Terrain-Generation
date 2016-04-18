@@ -43,6 +43,7 @@ import rtg.util.AICWrapper;
 import rtg.util.CanyonColour;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.PlaneLocation;
 import rtg.util.SimplexCellularNoise;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.RTGBiomeProvider;
@@ -51,12 +52,8 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
-import rtg.util.PlaneLocation;
-import rtg.util.TimeTracker;
 
-/**
- * Scattered features courtesy of Ezoteric (https://github.com/Ezoteric) and Choonster (https://github.com/Choonster)
- */
+
 public class ChunkProviderRTG implements IChunkProvider
 {
     /**
@@ -724,16 +721,10 @@ public class ChunkProviderRTG implements IChunkProvider
                  * If the biome configs don't allow it, then we try to let the base biome decorate itself.
                  * However, there are some mod biomes that crash when they try to decorate themselves,
                  * so that's what the try/catch is for. If it fails, then it falls back to RTG decoration.
-                 * TODO: Is there a more efficient way to do this? - Pink
                  */
                 if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
 
-                	if (realisticBiome.useNewDecorationSystem) {
-                		realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
-                	}
-                	else {
-                		realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
-                	}
+                	realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
                 }
                 else {
                     
@@ -743,12 +734,7 @@ public class ChunkProviderRTG implements IChunkProvider
                     }
                     catch (Exception e) {
 
-                    	if (realisticBiome.useNewDecorationSystem) {
-                    		realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
-                    	}
-                    	else {
-                    		realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
-                    	}
+                    	realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
                     }
                 }
 

@@ -1,10 +1,10 @@
 package rtg.world.biome.realistic.tofucraft;
 
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.tofucraft.SurfaceTOFULeekPlains;
 import rtg.world.gen.terrain.tofucraft.TerrainTOFULeekPlains;
-
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeTOFULeekPlains extends RealisticBiomeTOFUBase
 {	
@@ -15,5 +15,8 @@ public class RealisticBiomeTOFULeekPlains extends RealisticBiomeTOFUBase
 			new TerrainTOFULeekPlains(),
 			new SurfaceTOFULeekPlains(config, tofuBiome.topBlock, tofuBiome.fillerBlock)
 		);
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

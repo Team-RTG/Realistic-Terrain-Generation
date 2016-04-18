@@ -1,12 +1,12 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLGreenHills;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLGreenHills;
 import extrabiomes.api.BiomeManager;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLGreenHills extends RealisticBiomeEBXLBase
 {	
@@ -22,5 +22,8 @@ public class RealisticBiomeEBXLGreenHills extends RealisticBiomeEBXLBase
 			new TerrainEBXLGreenHills(),
 			new SurfaceEBXLGreenHills(config, topBlock, fillerBlock, false, null, 35f)
 		);
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

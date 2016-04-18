@@ -34,7 +34,6 @@ import rtg.util.SimplexOctave;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.deco.DecoBase;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGeneric;
@@ -71,7 +70,6 @@ public class RealisticBiomeBase extends BiomeBase {
     public byte emeraldStoneMeta;
     
     public ArrayList<DecoBase> decos;
-    public boolean useNewDecorationSystem = false;
     
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
     
@@ -114,18 +112,6 @@ public class RealisticBiomeBase extends BiomeBase {
         emeraldStoneMeta = (byte)0;
         
         decos = new ArrayList<DecoBase>();
-        
-        /**
-         * By default, it is assumed that all realistic biomes will be decorated manually and not by the biome.
-         * This includes ore generation since it's part of the decoration process.
-         * We're adding this deco here in order to avoid having to explicitly add it
-         * in every singe realistic biome.
-         * If it does get added manually to let the base biome handle some or all of the decoration process,
-         * this deco will get replaced with the new one.
-         */
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		decoBaseBiomeDecorations.allowed = false;
-		this.decos.add(decoBaseBiomeDecorations);
 
         // set the water feature constants with the config changes
         lakeInterval *= ConfigRTG.lakeFrequencyMultiplier;
@@ -257,16 +243,6 @@ public class RealisticBiomeBase extends BiomeBase {
         }
     }
     
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
-    
-        if (strength > 0.3f) {
-            baseBiome.decorate(world, rand, chunkX, chunkY);
-        }
-        else {
-            rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-        }
-    }
-    
     public void rPopulatePostDecorate(IChunkProvider ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag)
     {
         /**
@@ -279,8 +255,7 @@ public class RealisticBiomeBase extends BiomeBase {
     }
     
     /**
-     * When manually decorating biomes by overriding rDecorate(), sometimes you want the biome
-     * to partially decorate itself. That's what this method does... it calls the biome's decorate() method.
+     * This method is used by DecoBaseBiomeDecorations to allow the base biome to decorate itself.
      */
     public void rDecorateSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
         
@@ -293,10 +268,8 @@ public class RealisticBiomeBase extends BiomeBase {
     }
     
     /**
-     * This method should be called if both of the following conditions are true:
-     * 
-     * 1) You are manually decorating a biome by overrding rDecorate().
-     * 2) You are NOT calling rDecorateSeedBiome() within rDecorate().
+     * This method is used by DecoBaseBiomeDecorations to generate ores when the base biome 
+     * doesn't decorate itself.
      */
     public void rOreGenSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
 
@@ -600,21 +573,8 @@ public class RealisticBiomeBase extends BiomeBase {
     public void addDeco(DecoBase deco, boolean allowed)
     {
     	if (allowed) {
-    		
-	    	if (deco instanceof DecoBaseBiomeDecorations) {
-	    		
-	        	for (int i = 0; i < this.decos.size(); i++) {
-	        		
-	        		if (this.decos.get(i) instanceof DecoBaseBiomeDecorations) {
-	        			
-	        			this.decos.remove(i);
-	        			break;
-	        		}
-	        	}
-	    	}
 	    	
 	    	this.decos.add(deco);
-	    	this.useNewDecorationSystem = true;
     	}
     }
     

@@ -215,8 +215,15 @@ public class MapGenRavineRTG extends MapGenRavine
         
         // If the user has set biome-specific settings, let's use those instead.
         BiomeGenBase biome = world.getBiomeGenForCoords(this.rand.nextInt(16) + chunkX * 16, this.rand.nextInt(16) + chunkZ * 16);
-        RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(biome.biomeID);
-        ravineFrequency = (realisticBiome.config._int(BiomeConfig.ravineFrequencyId) > -1) ? realisticBiome.config._int(BiomeConfig.ravineFrequencyId) : ravineFrequency;
+        
+        if (biome != null) {
+            
+	        RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(biome.biomeID);
+	        
+	        if (realisticBiome != null) {
+	        	ravineFrequency = (realisticBiome.config._int(BiomeConfig.ravineFrequencyId) > -1) ? realisticBiome.config._int(BiomeConfig.ravineFrequencyId) : ravineFrequency;
+	        }
+        }
         
     	// Return early if ravines are disabled.
         if (ravineFrequency < 1) {
@@ -249,15 +256,17 @@ public class MapGenRavineRTG extends MapGenRavine
     //Exception biomes to make sure we generate like vanilla
     private boolean isExceptionBiome(BiomeGenBase biome)
     {
-        if (biome.biomeID == BiomeGenBase.mushroomIsland.biomeID) {
-        	return true;
-        }
-        else if (biome.biomeID == BiomeGenBase.beach.biomeID) {
-        	return true;
-        }
-        else if (biome.biomeID == BiomeGenBase.desert.biomeID) {
-        	return true;
-        }
+    	if (biome != null) {
+	        if (biome.biomeID == BiomeGenBase.mushroomIsland.biomeID) {
+	        	return true;
+	        }
+	        else if (biome.biomeID == BiomeGenBase.beach.biomeID) {
+	        	return true;
+	        }
+	        else if (biome.biomeID == BiomeGenBase.desert.biomeID) {
+	        	return true;
+	        }
+    	}
         
         return false;
     }

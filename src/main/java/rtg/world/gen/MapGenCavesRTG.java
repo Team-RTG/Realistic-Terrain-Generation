@@ -225,9 +225,16 @@ public class MapGenCavesRTG extends MapGenCaves
 
         // If the user has set biome-specific settings, let's use those instead.
         BiomeGenBase biome = world.getBiomeGenForCoords(this.rand.nextInt(16) + chunkX * 16, this.rand.nextInt(16) + chunkZ * 16);
-        RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(biome.biomeID);
-        caveDensity = (realisticBiome.config._int(BiomeConfig.caveDensityId) > -1) ? realisticBiome.config._int(BiomeConfig.caveDensityId) : caveDensity;
-        caveFrequency = (realisticBiome.config._int(BiomeConfig.caveFrequencyId) > -1) ? realisticBiome.config._int(BiomeConfig.caveFrequencyId) : caveFrequency;
+        
+        if (biome != null) {
+        
+	        RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(biome.biomeID);
+	        
+	        if (realisticBiome != null) {
+		        caveDensity = (realisticBiome.config._int(BiomeConfig.caveDensityId) > -1) ? realisticBiome.config._int(BiomeConfig.caveDensityId) : caveDensity;
+		        caveFrequency = (realisticBiome.config._int(BiomeConfig.caveFrequencyId) > -1) ? realisticBiome.config._int(BiomeConfig.caveFrequencyId) : caveFrequency;
+	        }
+        }
         
     	// Return early if caves are disabled.
         if (caveDensity < 1 || caveFrequency < 1) {
@@ -286,15 +293,17 @@ public class MapGenCavesRTG extends MapGenCaves
     
     private boolean isExceptionBiome(BiomeGenBase biome)
     {
-        if (biome.biomeID == BiomeGenBase.mushroomIsland.biomeID) {
-        	return true;
-        }
-        else if (biome.biomeID == BiomeGenBase.beach.biomeID) {
-        	return true;
-        }
-        else if (biome.biomeID == BiomeGenBase.desert.biomeID) {
-        	return true;
-        }
+    	if (biome != null) {
+	        if (biome.biomeID == BiomeGenBase.mushroomIsland.biomeID) {
+	        	return true;
+	        }
+	        else if (biome.biomeID == BiomeGenBase.beach.biomeID) {
+	        	return true;
+	        }
+	        else if (biome.biomeID == BiomeGenBase.desert.biomeID) {
+	        	return true;
+	        }
+    	}
         
         return false;
     }

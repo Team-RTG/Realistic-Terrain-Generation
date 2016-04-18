@@ -2,10 +2,9 @@ package rtg.config.rtg;
 
 import java.io.File;
 
+import net.minecraftforge.common.config.Configuration;
 import rtg.util.Logger;
 import cpw.mods.fml.common.Loader;
-
-import net.minecraftforge.common.config.Configuration;
 
 public class ConfigRTG
 {

@@ -14,8 +14,6 @@ import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
 import rtg.world.gen.feature.WorldGenVolcano;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBVolcano;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBVolcano;
 import enhancedbiomes.EnhancedBiomesMod;
@@ -81,12 +79,15 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
         );
-        
-        this.generatesEmeralds = true;
-        this.emeraldEmeraldBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.oreEmeraldEB, Blocks.emerald_ore);
-        this.emeraldEmeraldMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
-        this.emeraldStoneBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
-        this.emeraldStoneMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
+		this.waterSurfaceLakeChance = 0;
+		this.lavaSurfaceLakeChance = 1;
+		this.noLakes = true;
+		this.noWaterFeatures = true;
+		this.generatesEmeralds = true;
+		this.emeraldEmeraldBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.oreEmeraldEB, Blocks.emerald_ore);
+		this.emeraldEmeraldMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
+		this.emeraldStoneBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
+		this.emeraldStoneMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
         
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		this.addDeco(decoBaseBiomeDecorations, ConfigRTG.enableVolcanoEruptions);        
@@ -115,16 +116,5 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
                 WorldGenVolcano.build(blocks, metadata, world, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
             }
         }
-    }
-    
-    @Override
-    public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
-        OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
-    {
-    
-        this.getSurface().paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
-        
-        SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
-        riverSurface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

@@ -12,8 +12,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
 import rtg.world.gen.feature.WorldGenVolcano;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBVolcanoM;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBVolcanoM;
 import enhancedbiomes.EnhancedBiomesMod;
@@ -79,6 +77,10 @@ public class RealisticBiomeEBVolcanoM extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
         );
+		this.waterSurfaceLakeChance = 0;
+		this.lavaSurfaceLakeChance = 1;
+		this.noLakes = true;
+		this.noWaterFeatures = true;
         
         DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
         decoGrassDoubleTallgrass.doubleGrassChance = 3;
@@ -104,16 +106,5 @@ public class RealisticBiomeEBVolcanoM extends RealisticBiomeEBBase
                 WorldGenVolcano.build(blocks, metadata, world, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
             }
         }
-    }
-    
-    @Override
-    public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
-        OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
-    {
-    
-        this.getSurface().paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
-        
-        SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
-        riverSurface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

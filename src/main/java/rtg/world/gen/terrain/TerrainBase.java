@@ -9,6 +9,8 @@ public class TerrainBase
     protected float base; // added as most terrains have this;
     protected final float minOceanFloor; // The lowest Y coord an ocean floor is allowed to be.
     public static final float minimumOceanFloor = 30f; // The lowest Y coord an ocean floor is allowed to be.
+    protected final float minDuneHeight; // The strength factor to which the dune height config option is added.
+    public static final float minimumDuneHeight = 21f; // The strength factor to which the dune height config option is added.
     protected final float groundNoiseAmplitudeHills;
     protected float groundNoise;
     protected final float groundVariation;
@@ -21,6 +23,7 @@ public class TerrainBase
     public TerrainBase(float base) {
         this.base = base;
         this.minOceanFloor = minimumOceanFloor;
+        this.minDuneHeight = minimumDuneHeight;
         this.groundVariation = 2f;
         this.groundNoise = this.base;
         this.groundNoiseAmplitudeHills = 6f;
@@ -222,7 +225,7 @@ public class TerrainBase
 
     public static float terrainDunes(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river)
     {
-        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (ConfigRTG.duneHeight + 23f);
+        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (minimumDuneHeight + (float)ConfigRTG.duneHeight);
         st = st < 0.2f ? 0.2f : st;
 
         float h = simplex.noise2(x / 60f, y / 60f) * st * 2f;
@@ -665,7 +668,7 @@ public class TerrainBase
 
     public static float terrainPolar(int x, int y, OpenSimplexNoise simplex, float river)
     {
-        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (ConfigRTG.duneHeight + 23f) * river;
+        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (minimumDuneHeight + (float)ConfigRTG.duneHeight) * river;
         st = st < 0.2f ? 0.2f : st;
 
         float h = simplex.noise2(x / 60f, y / 60f) * st * 2f;

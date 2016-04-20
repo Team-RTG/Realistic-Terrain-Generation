@@ -6,21 +6,15 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainRWSpookyForest extends TerrainBase
 {
-	private float start;
-	private float height;
-	private float width;
 
-	public TerrainRWSpookyForest(float hillStart, float landHeight, float baseHeight, float hillWidth)
-	{
-		start = hillStart;
-		height = landHeight;
-		base = baseHeight;
-		width = hillWidth;
-	}
+    public TerrainRWSpookyForest()
+    {
 
-	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-	{
-        return terrainHighland(x, y, simplex, cell, river, start, width, height, base - 62f);
-	}
+    }
+
+    @Override
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
+    {
+        return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 66f);
+    }
 }

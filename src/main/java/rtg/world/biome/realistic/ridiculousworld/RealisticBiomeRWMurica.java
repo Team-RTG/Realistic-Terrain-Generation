@@ -15,7 +15,7 @@ public class RealisticBiomeRWMurica extends RealisticBiomeRWBase
         super(config,
             rwBiome,
             BiomeGenBase.river,
-            new TerrainRWMurica(),
+            new TerrainRWMurica(76f, 35f),
             new SurfaceRWMurica(config, rwBiome.topBlock, rwBiome.fillerBlock)
         );
 		

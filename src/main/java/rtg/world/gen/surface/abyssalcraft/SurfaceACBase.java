@@ -40,4 +40,28 @@ public class SurfaceACBase extends SurfaceBase {
     {
         return (byte)0;
     }
+    
+    @Override
+    protected Block getShadowStoneBlock(World world, int i, int j, int x, int y, int k)
+    {
+    	return ACBlocks.darkstone;
+    }
+    
+    @Override
+    protected byte getShadowStoneMeta(World world, int i, int j, int x, int y, int k)
+    {
+        return (byte)0;
+    }
+    
+    @Override
+    protected Block getShadowDesertBlock(World world, int i, int j, int x, int y, int k)
+    {
+    	return ACBlocks.darkstone;
+    }
+    
+    @Override
+    protected byte getShadowDesertMeta(World world, int i, int j, int x, int y, int k)
+    {
+        return (byte)0;
+    }
 }

@@ -13,7 +13,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class SurfaceACCoraliumInfestedSwamp extends SurfaceBase
+public class SurfaceACCoraliumInfestedSwamp extends SurfaceACBase
 {
 
 	public SurfaceACCoraliumInfestedSwamp(BiomeConfig config, Block top, Block filler)

@@ -47,6 +47,7 @@ public class ConfigRTG
     /* ==================== Dungeons ==================== */
     
     public static boolean generateDungeons = true;
+    public static int dungeonFrequency = 8;
     
     /* ==================== Lakes (Surface) ==================== */
     
@@ -255,6 +256,7 @@ public class ConfigRTG
             /* ==================== Dungeons ==================== */
             
             generateDungeons = config.getBoolean("Generate Dungeons", "Dungeons", generateDungeons, "");
+            dungeonFrequency = config.getInt("Dungeon Frequency", "Dungeons", dungeonFrequency, 1, 200, "This setting controls the number of dungeons that generate." + Configuration.NEW_LINE + "HIGHER values = MORE dungeons & MORE lag. (8 = vanilla dungeon frequency)" + Configuration.NEW_LINE);
             
             /* ==================== Lakes (Surface) ==================== */
             

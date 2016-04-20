@@ -232,13 +232,17 @@ public class RealisticBiomeBase extends BiomeBase {
         if (ConfigRTG.generateDungeons) {
             
             gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.DUNGEON);
-            for(int k1 = 0; k1 < 8 && gen; k1++)
-            {
-                int j5 = worldX + rand.nextInt(16) + 8;
-                int k8 = rand.nextInt(128);
-                int j11 = worldZ + rand.nextInt(16) + 8;
-                
-                (new WorldGenDungeons()).generate(worldObj, rand, j5, k8, j11);
+            
+            if (gen) {
+            	
+	            for(int k1 = 0; k1 < ConfigRTG.dungeonFrequency; k1++) {
+	            	
+	                int j5 = worldX + rand.nextInt(16) + 8;
+	                int k8 = rand.nextInt(128);
+	                int j11 = worldZ + rand.nextInt(16) + 8;
+	                
+	                (new WorldGenDungeons()).generate(worldObj, rand, j5, k8, j11);
+	            }
             }
         }
     }

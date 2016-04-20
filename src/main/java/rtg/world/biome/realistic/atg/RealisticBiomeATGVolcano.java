@@ -25,6 +25,10 @@ public class RealisticBiomeATGVolcano extends RealisticBiomeATGBase
 			new TerrainATGVolcano(),
 			new SurfaceATGVolcano(config, atgBiome.topBlock, atgBiome.fillerBlock, true, Blocks.gravel, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.gravel, 0.08f)
 		);
+		this.waterSurfaceLakeChance = 0;
+		this.lavaSurfaceLakeChance = 1;
+		this.noLakes = true;
+		this.noWaterFeatures = true;
 		
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		this.addDeco(decoBaseBiomeDecorations);

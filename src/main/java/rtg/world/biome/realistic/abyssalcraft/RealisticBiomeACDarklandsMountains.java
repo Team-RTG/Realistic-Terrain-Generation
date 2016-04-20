@@ -18,6 +18,8 @@ public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase
             new TerrainACDarklandsMountains(120f, 100f),
             new SurfaceACDarklandsMountains(config, acBiome.topBlock, acBiome.fillerBlock, false, null, 0.2f)
         );
+        this.noLakes=true;
+        this.noWaterFeatures=true;
         
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		this.addDeco(decoBaseBiomeDecorations);

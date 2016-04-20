@@ -684,7 +684,7 @@ public class TerrainBase
     {
         float floNoise;
         float st = (simplex.noise2(x / stPitch, y / stPitch) + 0.38f) * stFactor * river;
-        st = st < 0.2f ? 0.2f : st;
+        st = st < 0.1f ? 0.1f : st;
 
         float h = simplex.noise2(x / hPitch, y / hPitch) * st * 2f;
         h = h > 0f ? -h : h;

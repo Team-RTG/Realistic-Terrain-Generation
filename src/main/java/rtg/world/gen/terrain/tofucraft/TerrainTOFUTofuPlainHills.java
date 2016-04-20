@@ -6,28 +6,23 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainTOFUTofuPlainHills extends TerrainBase
 {
-    private float baseHeight = 76f;
-    private float hillStrength = 30f;
+    private float hillStrength = 40f;
 
     public TerrainTOFUTofuPlainHills()
     {
-
+        this(72f , 40f);
     }
 
     public TerrainTOFUTofuPlainHills(float bh, float hs)
     {
-        baseHeight = bh;
+        base = bh;
         hillStrength = hs;
     }
 
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
+        return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, base-62f);
 
-        groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
-
-        float m = hills(x, y, hillStrength, simplex, river);
-
-        return baseHeight + groundNoise + m;
     }
 }

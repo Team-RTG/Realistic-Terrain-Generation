@@ -7,6 +7,8 @@ import rtg.world.gen.terrain.TerrainBase;
 public class TerrainTOFUTofuForest extends TerrainBase
 {
 
+	private float hillStrength = 10f;
+	
     public TerrainTOFUTofuForest()
     {
 
@@ -15,6 +17,12 @@ public class TerrainTOFUTofuForest extends TerrainBase
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 68f);
+        groundNoise = groundNoise(x, y, groundVariation, simplex);
+
+        float m = hills(x, y, hillStrength, simplex, river);
+
+        float floNoise = 65f + groundNoise + m;
+
+        return riverized(floNoise,river);
     }
 }

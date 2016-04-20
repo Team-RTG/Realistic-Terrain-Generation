@@ -12,7 +12,7 @@ public class RealisticBiomeTOFUTofuExtremeHillsEdge extends RealisticBiomeTOFUBa
 	{
 		super(config, 
 			tofuBiome, BiomeGenBase.river,
-			new TerrainTOFUTofuExtremeHillsEdge(10f, 20f, 68f, 200f),
+			new TerrainTOFUTofuExtremeHillsEdge(10f, 120f, 10f, 200f),
 			new SurfaceTOFUTofuExtremeHillsEdge(config, tofuBiome.topBlock, tofuBiome.fillerBlock, tofuBiome.topBlock, tofuBiome.fillerBlock, 60f, -0.14f, 14f, 0.25f)
 		);
 		this.waterSurfaceLakeChance = 0;

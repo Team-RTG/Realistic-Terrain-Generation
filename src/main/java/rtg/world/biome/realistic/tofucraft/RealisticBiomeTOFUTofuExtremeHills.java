@@ -12,7 +12,7 @@ public class RealisticBiomeTOFUTofuExtremeHills extends RealisticBiomeTOFUBase
 	{
 		super(config, 
 			tofuBiome, BiomeGenBase.river,
-			new TerrainTOFUTofuExtremeHills(10f, 120f, 68f, 200f),
+			new TerrainTOFUTofuExtremeHills(10f, 120f, 10f, 200f),
 			new SurfaceTOFUTofuExtremeHills(config, tofuBiome.topBlock, tofuBiome.fillerBlock, tofuBiome.topBlock, tofuBiome.fillerBlock, 60f, -0.14f, 14f, 0.25f)
 		);
 		

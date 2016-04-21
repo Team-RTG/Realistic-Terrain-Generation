@@ -30,7 +30,7 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
         super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLWindyIsland(),
-            new SurfaceHLWindyIsland(config, topBlock, fillerBlock)
+            new SurfaceHLWindyIsland(config, topBlock, fillerBlock, Blocks.gravel, Blocks.dirt, 60f, -0.14f, 14f, 0.25f)
         );
         
         // These are Extreme Hills decorations, with plain boulders, smaller trees, no pumpkins and no flowers.
@@ -59,12 +59,12 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 110;
         decoShrub.chance = 10;
-        decoShrub.strengthFactor = 2f;
+        decoShrub.strengthFactor = 3f;
 		this.addDeco(decoShrub);
         
 		DecoGrass decoGrass = new DecoGrass();
 		decoGrass.maxY = 128;
-		decoGrass.strengthFactor = 10f;
+		decoGrass.strengthFactor = 6f;
         this.addDeco(decoGrass);
     }
 

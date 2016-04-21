@@ -97,10 +97,10 @@ public class SurfaceHLGlacier extends SurfaceBase
             		}
             		else if(cliff == 2)
             		{
-        				blocks[(y * 16 + x) * 256 + k] = Blocks.packed_ice;
-        				metadata[(y * 16 + x) * 256 + k] = this.fillerBlockMeta;
-        				//blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k);
-        				//metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
+        				//blocks[(y * 16 + x) * 256 + k] = Blocks.packed_ice;
+        				//metadata[(y * 16 + x) * 256 + k] = this.fillerBlockMeta;
+        				blocks[(y * 16 + x) * 256 + k] = getShadowStoneBlock(world, i, j, x, y, k);
+        				metadata[(y * 16 + x) * 256 + k] = getShadowStoneMeta(world, i, j, x, y, k);
             		}
             		else if(k < 63)
             		{

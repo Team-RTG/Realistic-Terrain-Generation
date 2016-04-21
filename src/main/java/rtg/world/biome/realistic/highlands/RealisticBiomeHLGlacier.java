@@ -23,7 +23,7 @@ public class RealisticBiomeHLGlacier extends RealisticBiomeHLBase
         super(config, 
             hlBiome, BiomeGenBase.frozenRiver,
             new TerrainHLGlacier(90f, 180f, 13f, 100f, 71f),
-            new SurfaceHLGlacier(config, Blocks.ice,Blocks.packed_ice,  false, null, 0.95f));
+            new SurfaceHLGlacier(config, Blocks.packed_ice,Blocks.packed_ice,  false, null, 0.95f));
         noWaterFeatures = true;
 		
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

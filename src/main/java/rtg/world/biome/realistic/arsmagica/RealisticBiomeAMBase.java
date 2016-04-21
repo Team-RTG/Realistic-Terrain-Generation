@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.arsmagica;
 
+import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.arsmagica.config.BiomeConfigAM;
@@ -8,10 +9,16 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.registry.GameData;
 
 public class RealisticBiomeAMBase extends RealisticBiomeBase
 {
     public static RealisticBiomeBase amWitchwoodForest;
+    
+    protected Block witchwoodLogBlock = GameData.getBlockRegistry().getObject("arsmagica2:WitchwoodLog");
+    protected byte witchwoodLogMeta = (byte)0;
+    protected Block witchwoodLeavesBlock = GameData.getBlockRegistry().getObject("arsmagica2:WitchwoodLeaves");
+    protected byte witchwoodLeavesMeta = (byte)0;
     
     public RealisticBiomeAMBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
     {

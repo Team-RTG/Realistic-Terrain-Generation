@@ -24,10 +24,14 @@ public class SurfaceBase
 	protected BiomeConfig biomeConfig;
 
 	private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
-	private final static ModPresenceTester abyssalCraftMod = new ModPresenceTester("abyssalcraft");
+	private final static ModPresenceTester harderUndergroundMod = new ModPresenceTester("HarderUnderground");
 	
     // create UBColumnCache only if UB is present
     private static UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
+    
+    // If the Harder Underground mod is installed, then let's use unstable cobble instead of vanilla cobble.
+    private static Block unstableCobbleBlock = harderUndergroundMod.present() ? GameData.getBlockRegistry().getObject("HarderUnderground:unstable_stone") : Blocks.cobblestone;
+    private static byte unstableCobbleMeta = harderUndergroundMod.present() ? (byte)3 : (byte)0;
     
     public SurfaceBase(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte)
     {
@@ -113,6 +117,10 @@ public class SurfaceBase
             
             return cobble.block;
         }
+        else if (harderUndergroundMod.present()) {
+        	
+        	return unstableCobbleBlock;
+        }
         else {
             
             return Blocks.cobblestone;
@@ -126,6 +134,10 @@ public class SurfaceBase
             BlockCodes cobble = ubColumnCache.column(worldX,worldZ).cobblestone(worldY);
             
             return (byte) cobble.metadata;
+        }
+        else if (harderUndergroundMod.present()) {
+        	
+        	return unstableCobbleMeta;
         }
         else {
             

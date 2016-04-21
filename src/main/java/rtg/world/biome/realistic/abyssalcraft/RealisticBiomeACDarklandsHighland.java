@@ -15,9 +15,11 @@ public class RealisticBiomeACDarklandsHighland extends RealisticBiomeACBase
         super(config, 
             acBiome,
             BiomeGenBase.river,
-            new TerrainACDarklandsHighland(10f, 120f, 68f, 200f),
+            new TerrainACDarklandsHighland(10f, 120f, 10f, 200f),
             new SurfaceACDarklandsHighland(config, acBiome.topBlock, acBiome.fillerBlock, acBiome.topBlock, acBiome.fillerBlock, 60f, -0.14f, 14f, 0.25f)
         );
+        this.noLakes=true;
+        this.noWaterFeatures=true;
         
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		this.addDeco(decoBaseBiomeDecorations);

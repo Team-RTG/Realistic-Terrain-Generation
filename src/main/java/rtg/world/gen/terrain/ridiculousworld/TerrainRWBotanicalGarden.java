@@ -6,15 +6,20 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainRWBotanicalGarden extends TerrainBase
 {
+    private float minHeight;
+    private float maxHeight;
+    private float hillStrength;
 
-    public TerrainRWBotanicalGarden()
+    public TerrainRWBotanicalGarden(float minHeight, float maxHeight, float hillStrength)
     {
-
+        this.minHeight = minHeight;
+        this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
+        this.hillStrength = hillStrength;
     }
 
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
+        return terrainRollingHills(x, y, simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 4f);
     }
 }

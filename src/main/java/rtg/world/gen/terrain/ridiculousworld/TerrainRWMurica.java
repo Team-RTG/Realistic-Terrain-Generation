@@ -6,15 +6,18 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainRWMurica extends TerrainBase
 {
+    private float hillStrength = 35f;
 
-    public TerrainRWMurica()
+    public TerrainRWMurica(float bh, float hs)
     {
-
+        base = bh;
+        hillStrength = hs;
     }
 
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 66f);
+        return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, base-62f);
+
     }
 }

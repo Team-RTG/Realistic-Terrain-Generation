@@ -14,7 +14,7 @@ public class RealisticBiomeRWRockCandyMountain extends RealisticBiomeRWBase
     
         super(config,
             rwBiome, BiomeGenBase.river,
-            new TerrainRWRockCandyMountain(10f, 120f, 68f, 200f),
+            new TerrainRWRockCandyMountain(10f, 120f, 10f, 200f),
             new SurfaceRWRockCandyMountain(config, rwBiome.topBlock, rwBiome.fillerBlock)
         );
 		

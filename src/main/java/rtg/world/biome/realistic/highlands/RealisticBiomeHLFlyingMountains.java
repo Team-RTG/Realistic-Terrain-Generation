@@ -39,7 +39,7 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
         {
 		DecoTree bigPines = new DecoTree();
 		bigPines.strengthFactorForLoops = 3f;
-		bigPines.treeType = TreeType.TAIGA_SPRUCE_SMALL;
+		bigPines.treeType = TreeType.TAIGA_SPRUCE_TALL;
 		bigPines.distribution.noiseDivisor = 80f;
 		bigPines.distribution.noiseFactor = 60f;
 		bigPines.distribution.noiseAddend = -15f;

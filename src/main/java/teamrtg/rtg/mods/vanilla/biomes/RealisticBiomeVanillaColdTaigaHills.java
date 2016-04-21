@@ -5,7 +5,6 @@ import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.IFloatAt;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
 import teamrtg.rtg.world.biome.surface.part.*;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
@@ -53,7 +52,7 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
                 .add(PARTS.STONE))
 
             .add(new CliffSelector(1.5f)
-                .add(new BlockPart(SurfaceBase.getShadowStoneBlock())))
+                .add(this.PARTS.SHADOW_STONE))
 
             .add(new CliffSelector((x, y, z) -> 0.3f + ((y - 100f) / 50f) + cliffNoise.getFloatAt(x, y, z))
                 .add(new Selector((x, y, z) -> y > 110 + (cliffNoise.getFloatAt(x, y, z) * 4))

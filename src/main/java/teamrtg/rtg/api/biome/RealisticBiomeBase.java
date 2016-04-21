@@ -1,16 +1,11 @@
 package teamrtg.rtg.api.biome;
 
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.chunk.ChunkPrimer;
 import org.apache.commons.lang3.ArrayUtils;
 import teamrtg.rtg.api.config.BiomeConfig;
 import teamrtg.rtg.api.mods.RTGSupport;
 import teamrtg.rtg.api.util.BiomeUtils;
-import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.world.biome.surface.SurfaceGeneric;
 import teamrtg.rtg.world.biome.surface.part.GenericPart;
 import teamrtg.rtg.world.biome.surface.part.PresetParts;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
@@ -34,7 +29,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     public final ChunkProviderRTG chunkProvider;
     public final OpenSimplexNoise simplex;
     public final Random rand;
-    public final PresetParts PARTS;
+    public PresetParts PARTS;
     public TerrainBase terrain;
     public SurfacePart surface;
     public ArrayList<DecoBase> decos;
@@ -61,29 +56,22 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         baseBiome = biome;
         riverBiome = river;
 
-        config = new BiomeConfig(getMod().getID(), this.getBiomeName());
-        config.TOP_BLOCK.setDefault(biome.topBlock);
-        config.FILL_BLOCK.setDefault(biome.fillerBlock);
+        this.config = new BiomeConfig(getMod().getID(), this.getBiomeName());
+        this.config.TOP_BLOCK.setDefault(biome.topBlock);
+        this.config.FILL_BLOCK.setDefault(biome.fillerBlock);
 
         initProperties();
+
+        init();
+        initDecos();
+    }
+
+    private void init() {
         this.PARTS = new PresetParts(this);
 
         decos = new ArrayList<>();
-
-        /**
-         * By default, it is assumed that all realistic biomes will be decorated manually and not by the biome.
-         * This includes ore generation since it's part of the decoration process.
-         * We're adding this deco here in order to avoid having to explicitly add it
-         * in every singe realistic biome.
-         * If it does get added manually to let the base biome handle some or all of the decoration process,
-         * this deco will get replaced with the new one.
-         */
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.allowed = false;
-        this.decos.add(decoBaseBiomeDecorations);
         this.surface = initSurface();
         this.terrain = initTerrain();
-        initDecos();
     }
 
     /**
@@ -91,13 +79,15 @@ public abstract class RealisticBiomeBase extends BiomeBase {
      */
     protected void initProperties() {}
 
-    protected void initDecos() {}
+    protected void initDecos() {
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.allowed = false;
+        this.decos.add(decoBaseBiomeDecorations);
+    }
 
     protected SurfacePart initSurface() {
         return new GenericPart(config.TOP_BLOCK.get(), config.FILL_BLOCK.get());
     }
-
-    protected SurfacePart initSurface() {}
 
     protected abstract TerrainBase initTerrain();
 
@@ -154,9 +144,5 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
     public RTGSupport getMod() {
         return mod;
-    }
-
-    public void paintSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
-        this.surface.paintSurface(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

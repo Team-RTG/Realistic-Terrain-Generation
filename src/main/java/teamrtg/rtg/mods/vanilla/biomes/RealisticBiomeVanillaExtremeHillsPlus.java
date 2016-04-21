@@ -2,10 +2,8 @@ package teamrtg.rtg.mods.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaExtremeHillsPlus;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
 import teamrtg.rtg.world.biome.terrain.HeightEffect;
 import teamrtg.rtg.world.biome.terrain.JitterEffect;
 import teamrtg.rtg.world.biome.terrain.MountainsWithPassesEffect;

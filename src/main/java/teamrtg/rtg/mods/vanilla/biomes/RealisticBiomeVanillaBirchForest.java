@@ -4,7 +4,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
 import teamrtg.rtg.world.biome.surface.part.*;
 import teamrtg.rtg.world.biome.terrain.GroundEffect;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
@@ -27,7 +26,7 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
     @Override
     protected void initProperties() {
         config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
-        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.DIRT.getStateFromMeta(2));
+        config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.DIRT.getStateFromMeta(2));
     }
 
     @Override
@@ -86,19 +85,14 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
     protected SurfacePart initSurface() {
         SurfacePart surface = new SurfacePart();
         surface.add(new CliffSelector(1.5f)
-            .add(new DepthSelector(0, 6)
-                .add(new BlockPart(SurfaceBase.getShadowStoneBlock()))));
+            .add(PARTS.TOP_AND_FILL_SELECTOR
+                .add(this.PARTS.SHADOW_STONE)));
         surface.add(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + chunkProvider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
-            .add(new DepthSelector(0, 0)
+            .add(PARTS.TOP_SELECTOR
                 .add(PARTS.STONE_OR_COBBLE)))
-            .add(new DepthSelector(0, 6)
+            .add(PARTS.FILL_SELECTOR
                 .add(PARTS.STONE));
-        surface.add(new DepthSelector(0, 0)
-            .add(new HeightSelector(0, 62)
-                .add(PARTS.TOP_BLOCK))
-            .add(new Selector((x, y, z) -> chunkProvider.simplex.noise2(x / 12f, z / 12f) > 0.15f)
-                .add(new BlockPart(config.MIX_BLOCK_TOP.get())))
-        );
+        surface.add(PARTS.MIX_SURFACE);
         surface.add(PARTS.GENERIC_SURFACE);
         return surface;
     }

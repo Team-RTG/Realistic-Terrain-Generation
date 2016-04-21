@@ -1,10 +1,8 @@
 package teamrtg.rtg.mods.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaFrozenRiver;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 

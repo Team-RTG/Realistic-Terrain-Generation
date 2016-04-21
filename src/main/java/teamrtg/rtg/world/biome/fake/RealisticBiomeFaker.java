@@ -9,9 +9,11 @@ import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.util.LimitedMap;
 import teamrtg.rtg.util.PlaneLocation;
-import teamrtg.rtg.util.math.MathUtils;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
+
+import static teamrtg.rtg.util.math.MathUtils.globalToChunk;
+import static teamrtg.rtg.util.math.MathUtils.globalToLocal;
 
 /**
  * @author topisani
@@ -52,7 +54,7 @@ public class RealisticBiomeFaker {
     }
 
     public int getHeightAt(int x, int z) {
-        return this.getHeightsAt(MathUtils.globalToChunk(x), MathUtils.globalToChunk(z))[MathUtils.globalToLocal(x) * 16 + MathUtils.globalToLocal(z)];
+        return this.getHeightsAt(globalToChunk(x), globalToChunk(z))[globalToLocal(x) * 16 + globalToLocal(z)];
     }
 
     public int[] getHeightsAt(int cx, int cz) {

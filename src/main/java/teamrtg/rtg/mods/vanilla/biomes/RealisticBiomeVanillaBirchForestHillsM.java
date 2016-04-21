@@ -6,7 +6,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
 import teamrtg.rtg.world.biome.surface.part.*;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
@@ -91,7 +90,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
             .add(new CliffSelector(1.4f)
                 .add(new DepthSelector(0, 1)
                     .add(new RandomSelector(chunkProvider.rand, 3)
-                        .add(new BlockPart(SurfaceBase.hcCobble()))))
+                        .add(PARTS.COBBLE)))
                 .add(PARTS.STONE))
             .add(PARTS.GENERIC_SURFACE);
     }

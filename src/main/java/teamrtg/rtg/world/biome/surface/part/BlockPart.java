@@ -25,6 +25,7 @@ public class BlockPart extends SurfacePart {
 
     @Override
     public boolean paintSurface(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise, float river) {
+        if (this.block.getAt(x, y, z) == null) return false;
         primer.setBlockState(globalToLocal(x), y, globalToLocal(z), block.getAt(x, y, z));
         return true;
     }

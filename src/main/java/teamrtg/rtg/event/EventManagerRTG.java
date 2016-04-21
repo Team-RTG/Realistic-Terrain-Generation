@@ -41,6 +41,7 @@ public class EventManagerRTG {
     @SubscribeEvent(priority = EventPriority.LOW)
     public void eventListenerRTG(InitMapGenEvent event) {
 
+
         Logger.debug("event type = %s", event.getType().toString());
         Logger.debug("event originalGen = %s", event.getOriginalGen().toString());
 

@@ -18,7 +18,7 @@ targetCompatibility = 1.8
 dependencies {
     //TODO: srs, please work your gradle magic, i dont know exactly how you want to do this.
     //TODO: Either a bop-version in build.properties, or maybe an array of dependencies is better.
-    compile 'com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.9-4.0.0.1973:deobf'
+    compile 'com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.9-4.0.2.2012:deobf'
 }
 
 ext.ref = parseprops(file('build.properties'))

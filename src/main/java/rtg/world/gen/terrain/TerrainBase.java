@@ -680,7 +680,7 @@ public class TerrainBase
         return 70f + h;
     }
     
-    public static float terrainPolar(int x, int y, OpenSimplexNoise simplex, float river, float stPitch, float stFactor, float hPitch, float hDivisor, float baseHeight)
+    public static float terrainPolar(float x, float y, OpenSimplexNoise simplex, float river, float stPitch, float stFactor, float hPitch, float hDivisor, float baseHeight)
     {
         float floNoise;
         float st = (simplex.noise2(x / stPitch, y / stPitch) + 0.38f) * stFactor * river;

@@ -70,7 +70,23 @@ public class RealisticBiomeBase extends BiomeBase {
     public byte emeraldStoneMeta;
     
     public ArrayList<DecoBase> decos;
-    
+
+    // lake calculations
+
+    private float lakeInterval = 989.0f;
+    private float lakeShoreLevel = 0.15f;
+    private float lakeWaterLevel = 0.11f;// the lakeStrength below which things should be below water
+    private float lakeDepressionLevel = 0.30f;// the lakeStrength below which land should start to be lowered
+    public boolean noLakes = false;
+    public boolean noWaterFeatures = false;
+
+    private float largeBendSize = 100;
+    private float mediumBendSize = 40;
+    private float smallBendSize = 15;
+
+    public boolean disallowStoneBeaches = false; // this is for rugged biomes that should have sand beaches
+    public boolean disallowAllBeaches = false;
+
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
     
         this(config, biome, BiomeGenBase.river);
@@ -112,6 +128,7 @@ public class RealisticBiomeBase extends BiomeBase {
         emeraldStoneMeta = (byte)0;
         
         decos = new ArrayList<DecoBase>();
+
 
         // set the water feature constants with the config changes
         lakeInterval *= ConfigRTG.lakeFrequencyMultiplier;
@@ -382,18 +399,6 @@ public class RealisticBiomeBase extends BiomeBase {
         }
     }
 
-    // lake calculations
-
-    private float lakeInterval = 989.0f;
-    private float lakeShoreLevel = 0.15f;
-    private float lakeWaterLevel = 0.11f;// the lakeStrength below which things should be below water
-    private float lakeDepressionLevel = 0.30f;// the lakeStrength below which land should start to be lowered
-    public boolean noLakes = false;
-    public boolean noWaterFeatures = false;
-
-    private float largeBendSize = 100;
-    private float mediumBendSize = 40;
-    private float smallBendSize = 15;
     public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
         if (noLakes) return 1f;
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();

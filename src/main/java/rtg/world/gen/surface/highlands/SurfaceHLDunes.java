@@ -11,6 +11,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.util.CliffCalculator;
 
 public class SurfaceHLDunes extends SurfaceBase
 {
@@ -61,8 +62,25 @@ public class SurfaceHLDunes extends SurfaceBase
             	}
         		else if(depth > -1 && depth < 9)
         		{
-        			blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
-            		if(depth == 0 && k > 61 && k < 254);
+                    if (depth > 4)  {
+                        blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone;
+                    } else {
+                        float c = CliffCalculator.calc(x, y, noise);
+                        if (c < 0.8) {
+                           blocks[(y * 16 + x) * 256 + k] = Blocks.sand;
+                        } else {
+
+                           if (c>4.4+simplex.octave(4).noise2((float)x/20f, (float)y/20f)*2f){
+                               blocks[(y * 16 + x) * 256 + k] = getShadowDesertBlock(world, i, j, x, y, k);
+                               metadata[(y * 16 + x) * 256 + k] = getShadowDesertMeta(world, i, j, x, y, k);
+                           } else if (c > 1.4) {
+                               blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone;
+                               metadata[(y * 16 + x) * 256 + k] = (byte)2;
+                           } else {
+                                blocks[(y * 16 + x) * 256 + k] = Blocks.sandstone;
+                           }
+                        }
+                    }
         		}
             }
 

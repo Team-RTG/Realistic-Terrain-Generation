@@ -282,6 +282,8 @@ import rtg.api.biome.highlands.config.BiomeConfigHLVolcanoIsland;
 import rtg.api.biome.highlands.config.BiomeConfigHLWindyIsland;
 import rtg.api.biome.highlands.config.BiomeConfigHLWoodlands;
 import rtg.api.biome.highlands.config.BiomeConfigHLWoodsMountains;
+import rtg.api.biome.icmod.config.BiomeConfigIC;
+import rtg.api.biome.icmod.config.BiomeConfigICIceCream;
 import rtg.api.biome.lotsomobs.config.BiomeConfigLOM;
 import rtg.api.biome.lotsomobs.config.BiomeConfigLOMAntartica;
 import rtg.api.biome.lotsomobs.config.BiomeConfigLOMTropicalBeach;
@@ -387,6 +389,7 @@ public class BiomeConfigManager
         initBiomeConfigsEBXL();
         initBiomeConfigsGC();
         initBiomeConfigsHL();
+        initBiomeConfigsIC();
         initBiomeConfigsRW();
         initBiomeConfigsTC();
         initBiomeConfigsVAMP();
@@ -693,7 +696,12 @@ public class BiomeConfigManager
         BiomeConfigHL.biomeConfigHLWoodlands = new BiomeConfigHLWoodlands();
         BiomeConfigHL.biomeConfigHLWoodsMountains = new BiomeConfigHLWoodsMountains();
     }
-    
+
+    public static void initBiomeConfigsIC()
+    {
+        BiomeConfigIC.biomeConfigICIceCream = new BiomeConfigICIceCream();
+    }
+
     public static void initBiomeConfigsRW()
     {  
         BiomeConfigRW.biomeConfigRWBotanicalGarden = new BiomeConfigRWBotanicalGarden();
@@ -704,7 +712,7 @@ public class BiomeConfigManager
         BiomeConfigRW.biomeConfigRWShadowFen = new BiomeConfigRWShadowFen();
         BiomeConfigRW.biomeConfigRWSpookyForest = new BiomeConfigRWSpookyForest();
     }
-    
+
     public static void initBiomeConfigsTC()
     {
         BiomeConfigTC.biomeConfigTCEerie = new BiomeConfigTCEerie();

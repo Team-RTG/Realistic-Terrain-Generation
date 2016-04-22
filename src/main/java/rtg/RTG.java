@@ -1,11 +1,7 @@
 package rtg;
 
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.*;
-import cpw.mods.fml.relauncher.Side;
+import java.util.ArrayList;
+
 import net.minecraftforge.common.MinecraftForge;
 import rtg.api.event.BiomeConfigEvent;
 import rtg.config.BiomeConfigManager;
@@ -27,16 +23,25 @@ import rtg.world.biome.realistic.extrabiomes.RealisticBiomeEBXLBase;
 import rtg.world.biome.realistic.forgottennature.RealisticBiomeFNBase;
 import rtg.world.biome.realistic.growthcraft.RealisticBiomeGCBase;
 import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
+import rtg.world.biome.realistic.icmod.RealisticBiomeICBase;
 import rtg.world.biome.realistic.lotsomobs.RealisticBiomeLOMBase;
 import rtg.world.biome.realistic.ridiculousworld.RealisticBiomeRWBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
 import rtg.world.biome.realistic.tofucraft.RealisticBiomeTOFUBase;
 import rtg.world.biome.realistic.vampirism.RealisticBiomeVAMPBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStoppedEvent;
+import cpw.mods.fml.relauncher.Side;
 
-import java.util.ArrayList;
-
-@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = "required-after:Forge@[" + ModInfo.FORGE_DEP + ",)", acceptableRemoteVersions = "*")
+//@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = "required-after:Forge@[10.13.4.1558,)", acceptableRemoteVersions = "*")
+@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = "required-after:Forge@[" + ModInfo.FORGE_DEP + ",)" + ModInfo.MOD_DEPS, acceptableRemoteVersions = "*")
 public class RTG {
 
     @Instance(ModInfo.MOD_ID)
@@ -58,7 +63,7 @@ public class RTG {
     public void fmlLifeCycleEvent(FMLPreInitializationEvent event) 
     {    
         instance = this;
-        
+
         eventMgr = new EventManagerRTG();
         MinecraftForge.EVENT_BUS.register(eventMgr);
         MinecraftForge.ORE_GEN_BUS.register(eventMgr);
@@ -107,7 +112,8 @@ public class RTG {
         RealisticBiomeLOMBase.addBiomes();
         RealisticBiomeTOFUBase.addBiomes();
         RealisticBiomeFNBase.addBiomes();
-        
+        RealisticBiomeICBase.addBiomes();
+
         RealisticBiomePresenceTester.doBiomeCheck();
     }
     

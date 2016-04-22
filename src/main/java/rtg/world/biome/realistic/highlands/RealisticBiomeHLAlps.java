@@ -4,6 +4,7 @@ import highlands.api.HighlandsBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.highlands.SurfaceHLAlps;
 import rtg.world.gen.terrain.highlands.TerrainHLAlps;
 
@@ -19,5 +20,8 @@ public class RealisticBiomeHLAlps extends RealisticBiomeHLBase {
         super(config, hlBiome, BiomeGenBase.frozenRiver, new TerrainHLAlps(),
             new SurfaceHLAlps(config, topBlock, fillerBlock, false, null, 0.45f));
         noWaterFeatures = true;
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 }

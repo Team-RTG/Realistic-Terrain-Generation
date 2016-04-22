@@ -1,10 +1,10 @@
 package rtg.world.biome.realistic.ridiculousworld;
 
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.ridiculousworld.SurfaceRWMountainOfMadness;
 import rtg.world.gen.terrain.ridiculousworld.TerrainRWMountainOfMadness;
-
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeRWMountainOfMadness extends RealisticBiomeRWBase
 {
@@ -14,7 +14,11 @@ public class RealisticBiomeRWMountainOfMadness extends RealisticBiomeRWBase
     
         super(config,
             rwBiome, BiomeGenBase.frozenRiver,
-            new TerrainRWMountainOfMadness(10f, 120f, 68f, 200f),
-            new SurfaceRWMountainOfMadness(config, rwBiome.topBlock, rwBiome.fillerBlock));
+            new TerrainRWMountainOfMadness(120f, 100f),
+            new SurfaceRWMountainOfMadness(config, rwBiome.topBlock, rwBiome.fillerBlock)
+        );
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 }

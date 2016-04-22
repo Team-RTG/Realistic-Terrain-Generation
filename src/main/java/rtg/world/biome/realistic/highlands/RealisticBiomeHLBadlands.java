@@ -1,14 +1,12 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
-import rtg.api.biome.BiomeConfig;
-import rtg.world.gen.surface.highlands.SurfaceHLBadlands;
-import rtg.world.gen.terrain.highlands.TerrainHLBadlands;
-
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.gen.surface.highlands.SurfaceHLBadlands;
+import rtg.world.gen.terrain.highlands.TerrainHLBadlands;
 
 public class RealisticBiomeHLBadlands extends RealisticBiomeHLBase
 {
@@ -25,6 +23,9 @@ public class RealisticBiomeHLBadlands extends RealisticBiomeHLBase
             new TerrainHLBadlands(40f, 140f, 13f, 70f, 76f),
             new SurfaceHLBadlands(config, topBlock, fillerBlock));
         this.noLakes = true;
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
     
 }

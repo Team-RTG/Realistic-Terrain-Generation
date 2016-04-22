@@ -1,14 +1,14 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAspenHills;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBAspenHills;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBAspenHills extends RealisticBiomeEBBase
 {
@@ -44,6 +44,8 @@ public class RealisticBiomeEBAspenHills extends RealisticBiomeEBBase
 			new TerrainEBAspenHills(76f, 40f),
 			new SurfaceEBAspenHills(config, ebTopBlock, ebTopByte, ebFillBlock, ebFillByte, false, null, 0.95f)
 		);
-        
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 }

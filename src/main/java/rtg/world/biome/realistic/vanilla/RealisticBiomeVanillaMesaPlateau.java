@@ -1,18 +1,22 @@
 package rtg.world.biome.realistic.vanilla;
 
-import static rtg.world.biome.deco.DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-import static rtg.world.biome.deco.DecoTree.TreeType.VANILLA_OAK;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
-import rtg.world.biome.deco.DecoCactus;
-import rtg.world.biome.deco.DecoDeadBush;
-import rtg.world.biome.deco.DecoReed;
-import rtg.world.biome.deco.DecoShrub;
-import rtg.world.biome.deco.DecoTree;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.deco.*;
+import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaPlateau;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateau;
+
+import java.util.Random;
+
+import static rtg.world.biome.deco.DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import static rtg.world.biome.deco.DecoTree.TreeType.VANILLA_OAK;
 
 public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase
 {
@@ -61,5 +65,16 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase
         decoTree.treeConditionNoise = 0f;
         decoTree.minY = 74;
         addDeco(decoTree);
+    }
+
+    @Override
+    public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
+                         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
+    {
+
+        this.getSurface().paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+
+        SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
+        riverSurface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

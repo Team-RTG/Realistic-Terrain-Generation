@@ -6,6 +6,8 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainVAMPVampireForest extends TerrainBase
 {
+	private float hillStrength = 10f;
+	
 	public TerrainVAMPVampireForest()
 	{
 	}
@@ -13,6 +15,12 @@ public class TerrainVAMPVampireForest extends TerrainBase
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
-        return terrainForest(x, y, simplex, river, 70f);
+        groundNoise = groundNoise(x, y, groundVariation, simplex);
+
+        float m = hills(x, y, hillStrength, simplex, river);
+
+        float floNoise = 65f + groundNoise + m;
+
+        return riverized(floNoise,river);
 	}
 }

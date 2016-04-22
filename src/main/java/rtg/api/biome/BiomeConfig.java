@@ -2,6 +2,7 @@ package rtg.api.biome;
 
 import java.util.ArrayList;
 
+import net.minecraftforge.common.config.Configuration;
 import rtg.api.biome.BiomeConfigProperty.Type;
 
 
@@ -32,6 +33,15 @@ public class BiomeConfig {
     
     public static final String surfaceFillerBlockMetaId = "surfaceFillerBlockMeta";
     public static final String surfaceFillerBlockMetaName = "RTG Surface: Filler Block Meta";
+    
+    public static final String caveDensityId = "caveDensity";
+    public static final String caveDensityName = "Cave Density";
+    
+    public static final String caveFrequencyId = "caveFrequency";
+    public static final String caveFrequencyName = "Cave Frequency";
+    
+    public static final String ravineFrequencyId = "ravineFrequency";
+    public static final String ravineFrequencyName = "Ravine Frequency";
 
     public BiomeConfig(String modSlug, String biomeSlug)
     {
@@ -49,6 +59,9 @@ public class BiomeConfig {
         this.addProperty(new BiomeConfigProperty(surfaceTopBlockMetaId, Type.STRING, surfaceTopBlockMetaName, "", ""));
         this.addProperty(new BiomeConfigProperty(surfaceFillerBlockId, Type.STRING, surfaceFillerBlockName, "", ""));
         this.addProperty(new BiomeConfigProperty(surfaceFillerBlockMetaId, Type.STRING, surfaceFillerBlockMetaName, "", ""));
+        this.addProperty(new BiomeConfigProperty(caveDensityId, Type.INTEGER, caveDensityName, "This setting controls the size of caves." + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome." + Configuration.NEW_LINE, -1, -1, 40));
+        this.addProperty(new BiomeConfigProperty(caveFrequencyId, Type.INTEGER, caveFrequencyName, "This setting controls the number of caves that generate." + Configuration.NEW_LINE + "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome." + Configuration.NEW_LINE, -1, -1, 40));
+        this.addProperty(new BiomeConfigProperty(ravineFrequencyId, Type.INTEGER, ravineFrequencyName, "This setting controls the number of ravines that generate." + Configuration.NEW_LINE + "LOWER values = MORE ravines & MORE lag. (50 = vanilla ravine frequency)" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable ravines for this biome." + Configuration.NEW_LINE, -1, -1, 100));
     }
     
     public void addProperty(BiomeConfigProperty property)

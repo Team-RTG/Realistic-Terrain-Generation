@@ -10,7 +10,7 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 /**
  * This deco replaces the cumbersome rDecorateSeedBiome & rOreGenSeedBiome logic.
  * Instead of having to remember when to use (and not use) rDecorateSeedBiome/rOreGenSeedBiome,
- * now all you have to do is add this configured deco to the biome wherever you want the base biome
+ * now all you have to do is add this configured deco to the realistic biome wherever you want the base biome
  * to decorate itself. You no longer need to worry about ore gen because that gets handled automatically.
  * 
  * @author WhichOnesPink

@@ -92,17 +92,19 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
         DecoDesertWell decoDesertWell = new DecoDesertWell();
         decoDesertWell.maxY = 80;
         decoDesertWell.strengthFactor = 1f;
-        decoDesertWell.chance = 120;
+        decoDesertWell.chance = 160;
         this.addDeco(decoDesertWell);
 
 		DecoCactus decoCactus = new DecoCactus();
 		decoCactus.maxY = 120;
-		decoCactus.strengthFactor = 5f;
+		decoCactus.strengthFactor = 3f;
+		decoCactus.chance = 2;
         this.addDeco(decoCactus);
         
         DecoDeadBush decoDeadBush = new DecoDeadBush();
 		decoDeadBush.maxY = 128;
-		decoDeadBush.strengthFactor = 4f;
+		decoDeadBush.strengthFactor = 2f;
+		decoCactus.chance = 3;
         this.addDeco(decoDeadBush);
     }
     

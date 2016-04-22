@@ -1,10 +1,10 @@
 package rtg.world.biome.realistic.thaumcraft;
 
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.thaumcraft.SurfaceTCTaintedLand;
 import rtg.world.gen.terrain.thaumcraft.TerrainTCTaintedLand;
-
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeTCTaintedLand extends RealisticBiomeTCBase
 {	
@@ -15,5 +15,8 @@ public class RealisticBiomeTCTaintedLand extends RealisticBiomeTCBase
 			new TerrainTCTaintedLand(),
 			new SurfaceTCTaintedLand(config, tcBiome.topBlock, tcBiome.fillerBlock)
 		);
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

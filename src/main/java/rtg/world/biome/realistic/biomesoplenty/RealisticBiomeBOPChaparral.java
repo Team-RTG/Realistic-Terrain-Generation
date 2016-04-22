@@ -1,13 +1,13 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.world.gen.surface.biomesoplenty.SurfaceBOPChaparral;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPChaparral;
-import biomesoplenty.api.content.BOPCBiomes;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.gen.surface.biomesoplenty.SurfaceBOPChaparral;
+import rtg.world.gen.terrain.biomesoplenty.TerrainBOPChaparral;
+import biomesoplenty.api.content.BOPCBiomes;
 
 public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase
 {	
@@ -23,5 +23,8 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase
 			new TerrainBOPChaparral(),
 			new SurfaceBOPChaparral(config, topBlock, fillerBlock, Blocks.sand, 26f, 0.35f)
 		);
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

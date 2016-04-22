@@ -1,12 +1,12 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPSteppe;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPSteppe;
 import biomesoplenty.api.content.BOPCBiomes;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPSteppe extends RealisticBiomeBOPBase
 {	
@@ -22,5 +22,8 @@ public class RealisticBiomeBOPSteppe extends RealisticBiomeBOPBase
 			new TerrainBOPSteppe(65f, 68f, 30f),
 			new SurfaceBOPSteppe(config, topBlock, fillerBlock)
 		);
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

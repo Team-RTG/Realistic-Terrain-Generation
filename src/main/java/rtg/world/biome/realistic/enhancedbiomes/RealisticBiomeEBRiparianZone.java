@@ -1,20 +1,14 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoGrass;
-import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRiparianZone;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBRiparianZone;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBRiparianZone extends RealisticBiomeEBBase
 {

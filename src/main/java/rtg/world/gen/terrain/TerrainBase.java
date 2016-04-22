@@ -9,6 +9,8 @@ public class TerrainBase
     protected float base; // added as most terrains have this;
     protected final float minOceanFloor; // The lowest Y coord an ocean floor is allowed to be.
     public static final float minimumOceanFloor = 30f; // The lowest Y coord an ocean floor is allowed to be.
+    protected final float minDuneHeight; // The strength factor to which the dune height config option is added.
+    public static final float minimumDuneHeight = 21f; // The strength factor to which the dune height config option is added.
     protected final float groundNoiseAmplitudeHills;
     protected float groundNoise;
     protected final float groundVariation;
@@ -21,6 +23,7 @@ public class TerrainBase
     public TerrainBase(float base) {
         this.base = base;
         this.minOceanFloor = minimumOceanFloor;
+        this.minDuneHeight = minimumDuneHeight;
         this.groundVariation = 2f;
         this.groundNoise = this.base;
         this.groundNoiseAmplitudeHills = 6f;
@@ -160,7 +163,7 @@ public class TerrainBase
         n += simplex.noise2(x / 64f, y / 64f) * 4f;
         n = (sn < 6) ? n : 0f;
         b += n;
-        return getTerrainBase() + b;
+        return riverized(getTerrainBase() + b, river);
     }
 
     public static float terrainCanyon(int x, int y, OpenSimplexNoise simplex, float river, float[] height, float border, float strength, int heightLength, boolean booRiver)
@@ -222,7 +225,7 @@ public class TerrainBase
 
     public static float terrainDunes(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river)
     {
-        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (ConfigRTG.duneHeight + 23f);
+        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (minimumDuneHeight + (float)ConfigRTG.duneHeight);
         st = st < 0.2f ? 0.2f : st;
 
         float h = simplex.noise2(x / 60f, y / 60f) * st * 2f;
@@ -625,8 +628,8 @@ public class TerrainBase
     
     public static float terrainPlateau(int x, int y, OpenSimplexNoise simplex, float river, float[] height, float border, float strength, int heightLength, float selectorWaveLength, boolean isM) {
         river = river > 1f ? 1f : river;
-        float border2 = border * 4;
-        border2 = border2 > 1f ? 1f : border2;
+        float border2 = border * 4 - 2.5f;
+        border2 = border2 > 1f ? 1f : (border2 < 0f)? 0f : border2;
         float b = simplex.noise2(x / 40f, y / 40f) * 1.5f;
 
         float sn = simplex.noise2(x / selectorWaveLength, y / selectorWaveLength) * 0.5f + 0.5f;
@@ -634,34 +637,38 @@ public class TerrainBase
         sn *= river;
         sn += simplex.noise2(x / 4f, y / 4f) * 0.01f + 0.01f;
         sn += simplex.noise2(x / 2f, y / 2f) * 0.01f + 0.01f;
-        float n, hn;
+        float n, hn, stepUp;
         for (int i = 0; i < heightLength; i += 2) {
             n = (sn - height[i + 1]) / (1 - height[i + 1]);
             n = n * strength;
             n = (n < 0f) ? 0f : (n > 1f) ? 1f : n;
-            hn = height[i] * 0.3f * ((sn * 3f) - 0.8f);
+            hn = height[i] * 0.5f * ((sn * 2f) - 0.4f);
             hn = (hn < 0)? 0f : hn;
+            stepUp = 0f;
             if (sn > height[i + 1]) {
-                b += (height[i] * n);
+                stepUp += (height[i] * n);
                 if (isM) {
-                    b += simplex.noise2(x / 20f, y / 20f) * 3f * n;
-                    b += simplex.noise2(x / 12f, y / 12f) * 2f * n;
-                    b += simplex.noise2(x / 5f, y / 5f) * 1f * n;
+                    stepUp += simplex.noise2(x / 20f, y / 20f) * 3f * n;
+                    stepUp += simplex.noise2(x / 12f, y / 12f) * 2f * n;
+                    stepUp += simplex.noise2(x / 5f, y / 5f) * 1f * n;
                 }
-            } else if (i == 0) {
+            }
+            if (i == 0 && stepUp < hn) {
                 b += hn;
             }
+            stepUp = (stepUp < 0) ? 0f : stepUp;
+            b += stepUp;
         }
         if (isM) b += simplex.noise2(x / 12, y / 12) * sn;
         //Counteracts smoothing
         b /= border;
 
-        return getTerrainBase() + b;
+        return riverized(getTerrainBase(), river) + b;
     }
 
     public static float terrainPolar(int x, int y, OpenSimplexNoise simplex, float river)
     {
-        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (ConfigRTG.duneHeight + 23f) * river;
+        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (minimumDuneHeight + (float)ConfigRTG.duneHeight) * river;
         st = st < 0.2f ? 0.2f : st;
 
         float h = simplex.noise2(x / 60f, y / 60f) * st * 2f;
@@ -677,7 +684,7 @@ public class TerrainBase
     {
         float floNoise;
         float st = (simplex.noise2(x / stPitch, y / stPitch) + 0.38f) * stFactor * river;
-        st = st < 0.2f ? 0.2f : st;
+        st = st < 0.1f ? 0.1f : st;
 
         float h = simplex.noise2(x / hPitch, y / hPitch) * st * 2f;
         h = h > 0f ? -h : h;

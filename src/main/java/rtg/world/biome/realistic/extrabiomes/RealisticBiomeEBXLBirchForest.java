@@ -1,12 +1,12 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLBirchForest;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLBirchForest;
 import extrabiomes.api.BiomeManager;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLBirchForest extends RealisticBiomeEBXLBase
 {	
@@ -22,5 +22,8 @@ public class RealisticBiomeEBXLBirchForest extends RealisticBiomeEBXLBase
 			new TerrainEBXLBirchForest(),
 			new SurfaceEBXLBirchForest(config, topBlock, fillerBlock, false, null,3f)
 		);
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

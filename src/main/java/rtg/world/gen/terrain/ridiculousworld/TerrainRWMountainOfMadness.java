@@ -1,26 +1,42 @@
 package rtg.world.gen.terrain.ridiculousworld;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.world.gen.terrain.FunctionalTerrainBase;
+import rtg.world.gen.terrain.HeightVariation;
+import rtg.world.gen.terrain.JitterEffect;
+import rtg.world.gen.terrain.MountainsWithPassesEffect;
 
-public class TerrainRWMountainOfMadness extends TerrainBase
+public class TerrainRWMountainOfMadness extends FunctionalTerrainBase
 {
-	private float start;
-	private float height;
 	private float width;
+	private float strength;
+    private float spikeWidth = 40;
+    private float spikeHeight = 60;
 
-	public TerrainRWMountainOfMadness(float hillStart, float landHeight, float baseHeight, float hillWidth)
+	public TerrainRWMountainOfMadness(float mountainWidth, float mountainStrength)
 	{
-		start = hillStart;
-		height = landHeight;
-		base = baseHeight;
-		width = hillWidth;
+		this(mountainWidth, mountainStrength, 90f);
 	}
 
-	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
+	public TerrainRWMountainOfMadness(float mountainWidth, float mountainStrength, float baseHeight)
 	{
-        return terrainHighland(x, y, simplex, cell, river, start, width, height, base - 62f);
+		width = mountainWidth;
+		strength = mountainStrength;
+		base = baseHeight;
+        MountainsWithPassesEffect mountainEffect = new MountainsWithPassesEffect();
+        mountainEffect.mountainHeight = strength;
+        mountainEffect.mountainWavelength = width;
+        mountainEffect.spikeHeight = this.spikeHeight;
+        mountainEffect.spikeWavelength = this.spikeWidth;
+
+        this.height = new JitterEffect(6f,10f, mountainEffect);
+        height = new JitterEffect(2f,6f,height);
+
+        HeightVariation passHeight = new HeightVariation();
+        passHeight.height = 15;
+        passHeight.octave = 4;
+        passHeight.wavelength = 70;
+
+        height = height.plus(passHeight);
+
 	}
 }

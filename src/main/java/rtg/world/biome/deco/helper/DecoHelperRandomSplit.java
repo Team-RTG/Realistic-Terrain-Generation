@@ -36,13 +36,21 @@ public class DecoHelperRandomSplit extends DecoBase
 			if (this.decos.length < 1 || this.chances.length < 1 || this.decos.length != this.chances.length) {
 				throw new RuntimeException("DecoHelperRandomSplit is confused.");
 			}
-			
+
+            int totalChances = 0;
+			for (int i = 0; i < this.decos.length; i++) {
+                totalChances += chances[i];
+			}
+			int chosen = rand.nextInt(totalChances);
+
 			for (int i = 0; i < this.decos.length; i++) {
 				
-				if (rand.nextInt(this.chances[i]) == 0) {
+				if (chosen < (this.chances[i])) {
 					
 					this.decos[i].generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river);
 				}
+                // decrement chosen for the chances missed and continue;
+                chosen -= chances[i];
 			}
 		}
 	}

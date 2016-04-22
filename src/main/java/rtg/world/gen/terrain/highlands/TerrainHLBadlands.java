@@ -73,7 +73,7 @@ public class TerrainHLBadlands extends TerrainBase
         // suppress towards borders
         channelFlattening = 1f - borderAdjusted(1f-channelFlattening, border, .8f, .5f);
         float result = riverized(bHeight + h + m +
-                groundNoise(base, base, 2f, simplex),channelFlattening);
+                groundNoise(x, y, 2f, simplex),channelFlattening);
 		return riverized(result,river);
 	}
 

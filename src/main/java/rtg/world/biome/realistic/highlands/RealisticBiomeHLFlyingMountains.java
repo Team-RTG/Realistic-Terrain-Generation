@@ -16,6 +16,7 @@ import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelper5050;
+import rtg.world.biome.deco.helper.DecoHelperBorder;
 import rtg.world.gen.surface.highlands.SurfaceHLFlyingMountains;
 import rtg.world.gen.terrain.highlands.TerrainHLFlyingMountains;
 
@@ -38,34 +39,37 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
         );
         {
 		DecoTree bigPines = new DecoTree();
-		bigPines.strengthFactorForLoops = 3f;
 		bigPines.treeType = TreeType.TAIGA_SPRUCE_TALL;
+        bigPines.loops = 2;
 		bigPines.distribution.noiseDivisor = 80f;
 		bigPines.distribution.noiseFactor = 60f;
 		bigPines.distribution.noiseAddend = -15f;
 		bigPines.treeCondition = TreeCondition.ALWAYS_GENERATE;
 		bigPines.minY = 63;
 		bigPines.maxY = 90;
+        DecoHelperBorder borderedBigPines = new DecoHelperBorder(bigPines,.55f,.45f);
+		this.addDeco(borderedBigPines);
+
         DecoShrub decoShrub2 = new DecoShrub();
         decoShrub2.minY = 90;
         decoShrub2.maxY = 150;
-        decoShrub2.strengthFactor = 6f;
+        decoShrub2.strengthFactor = 3f;
         decoShrub2.minSize = 11;
         decoShrub2.maxSize = 21;
-        DecoHelper5050 decoHelper5050 = new DecoHelper5050(bigPines, decoShrub2);
-		this.addDeco(decoHelper5050);
+		this.addDeco(decoShrub2);
         }
 
         DecoTree secondaryTree = new DecoTree();
-		secondaryTree.strengthFactorForLoops = 3f;
 		secondaryTree.treeType = TreeType.BIRCH_TREES_FOREST;
+        secondaryTree.loops = 2;
 		secondaryTree.distribution.noiseDivisor = 80f;
 		secondaryTree.distribution.noiseFactor = 60f;
 		secondaryTree.distribution.noiseAddend = -15f;
 		secondaryTree.treeCondition = TreeCondition.ALWAYS_GENERATE;
 		secondaryTree.minY = 63;
 		secondaryTree.maxY = 90;
-        this.addDeco(secondaryTree);
+        DecoHelperBorder borderedSecondaryTree = new DecoHelperBorder(secondaryTree,.55f,.45f);
+        this.addDeco(borderedSecondaryTree);
         
         DecoFallenTree decoFallenTreeBirch = new DecoFallenTree();
         decoFallenTreeBirch.distribution.noiseDivisor = 80f;
@@ -111,7 +115,7 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
         this.addDeco(decoFlowersRTG);
         
 		DecoGrass decoGrass = new DecoGrass();
-		decoGrass.maxY = 128;
+		decoGrass.maxY = 164;
 		decoGrass.strengthFactor = 12f;
         this.addDeco(decoGrass);
     }

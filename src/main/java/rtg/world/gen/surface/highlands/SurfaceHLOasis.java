@@ -15,6 +15,12 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceHLOasis extends SurfaceBase
 {
+    private Block mixBlockTop = Blocks.grass;
+    private byte mixBlockTopMeta = 0;
+    private float width = 30;
+    private float height = .5f;
+    private float smallW =5;
+    private float smallS =1;
 
 	public SurfaceHLOasis(BiomeConfig config, Block top, Block filler)
 	{
@@ -63,13 +69,27 @@ public class SurfaceHLOasis extends SurfaceBase
             	{
 	        		if(depth == 0 && k > 61)
 	        		{
-	        			blocks[(y * 16 + x) * 256 + k] = topBlock;
-	        		    metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+                        if (c < 0.8 &&simplex.noise2(i / width, j / width) + simplex.noise2(i / smallW, j / smallW) * smallS > height)
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = mixBlockTop;
+                            metadata[(y * 16 + x) * 256 + k] = mixBlockTopMeta;
+                        }
+                        else
+                        {
+                            blocks[(y * 16 + x) * 256 + k] = topBlock;
+                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+                        }
 	        		}
 	        		else if(depth < 4)
 	        		{
-	        			blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-	        		    metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+
+                        if (depth == 1 && c < 0.8 && rand.nextInt(50) == 0) {
+                            // put in occasional subsurface water blocks
+	        			    blocks[(y * 16 + x) * 256 + k] = Blocks.water;
+                        } else {
+	        			    blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+	        		        metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+                        }
 	        		}
             	}
             }

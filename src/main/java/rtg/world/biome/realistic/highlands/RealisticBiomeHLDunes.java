@@ -23,6 +23,7 @@ public class RealisticBiomeHLDunes extends RealisticBiomeHLBase
             new TerrainHLDunes(),
             new SurfaceHLDunes(config, topBlock, fillerBlock));
         noLakes = true;
+        disallowStoneBeaches = true;
 		
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		this.addDeco(decoBaseBiomeDecorations);

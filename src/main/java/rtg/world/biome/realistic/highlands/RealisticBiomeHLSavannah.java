@@ -26,5 +26,6 @@ public class RealisticBiomeHLSavannah extends RealisticBiomeHLBase
 		
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		this.addDeco(decoBaseBiomeDecorations);
+        disallowStoneBeaches = true;
     }
 }

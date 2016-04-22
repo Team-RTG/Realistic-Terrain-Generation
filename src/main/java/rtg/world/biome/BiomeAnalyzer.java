@@ -167,10 +167,23 @@ public class BiomeAnalyzer {
         for (int index = 0; index < BiomeGenBase.getBiomeGenArray().length; index++){
             if (BiomeGenBase.getBiome(index) == null) continue;
             if (BiomeGenBase.getBiome(index).biomeName == null) continue;
+            RealisticBiomeBase realisticVersion = RealisticBiomeBase.getBiome(index);
+            // no beach if set to no beach
+            if (realisticVersion != null) {
+                if (realisticVersion.disallowAllBeaches) preferredBeach[index] = index;
+            }
             if (BiomeGenBase.getBiome(index).temperature <= 0.05f) {
                 preferredBeach[index]= BiomeGenBase.coldBeach.biomeID;
                 continue;
             } // implied else;
+
+            // sand beach if set to no stone beach
+            if (realisticVersion != null) {
+                if (realisticVersion.disallowStoneBeaches) {
+                    preferredBeach[index] = BiomeGenBase.beach.biomeID;
+                    continue;
+                }
+            }// implied else;
             // this code from Climate Control and is still crude
             float height = BiomeGenBase.getBiome(index).rootHeight + BiomeGenBase.getBiome(index).heightVariation*2;
             if ((height>(1.0f+0.5))) {

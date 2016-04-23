@@ -16,6 +16,7 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.feature.tree.TreeRTG;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGBirch;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGBirchSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
@@ -30,6 +31,7 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGSprucePineBig;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGWillow;
+import rtg.world.gen.feature.tree.rtg.pinaceae.pinus.TreeRTGPinaceaePinusPonderosa;
 
 /**
  * 
@@ -38,7 +40,7 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGWillow;
  */
 public class DecoTree extends DecoBase
 {
-    
+
 	public int loops;
 	public float strengthFactorForLoops; // If set, this overrides and dynamically calculates 'loops' based on the strength parameter.
 	public boolean strengthNoiseFactorForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * strength)
@@ -56,6 +58,10 @@ public class DecoTree extends DecoBase
 	public byte leavesMeta;
 	public int minSize; // Min tree height (only used with certain tree presets)
 	public int maxSize; // Max tree height (only used with certain tree presets)
+	public int minTrunkSize; // Min tree height (only used with certain tree presets)
+	public int maxTrunkSize; // Max tree height (only used with certain tree presets)
+	public int minCrownSize; // Min tree height (only used with certain tree presets)
+	public int maxCrownSize; // Max tree height (only used with certain tree presets)
 	
 	public DecoTree()
 	{
@@ -82,8 +88,37 @@ public class DecoTree extends DecoBase
 		this.leavesMeta = (byte)-1;
 		this.minSize = 2;
 		this.maxSize = 4;
+		this.minTrunkSize = 2;
+		this.maxTrunkSize = 4;
+		this.minCrownSize = 2;
+		this.maxCrownSize = 4;
 		
 		this.addDecoTypes(DecoType.TREE);
+	}
+	
+	public DecoTree(DecoTree source) {
+		this();
+		this.loops = source.loops;
+		this.strengthFactorForLoops = source.strengthFactorForLoops;
+		this.strengthNoiseFactorForLoops = source.strengthNoiseFactorForLoops;
+		this.strengthNoiseFactorXForLoops = source.strengthNoiseFactorXForLoops;
+		this.treeType = source.treeType;
+		this.distribution = source.distribution;
+		this.treeCondition = source.treeCondition;
+		this.treeConditionNoise = source.treeConditionNoise;
+		this.treeConditionChance = source.treeConditionChance;
+		this.minY = source.minY;
+		this.maxY = source.maxY;
+		this.logBlock = source.logBlock;
+		this.logMeta = source.logMeta;
+		this.leavesBlock = source.leavesBlock;
+		this.leavesMeta = source.leavesMeta;
+		this.minSize = source.minSize;
+		this.maxSize = source.maxSize;
+		this.minTrunkSize = source.minTrunkSize;
+		this.maxTrunkSize = source.maxTrunkSize;
+		this.minCrownSize = source.minCrownSize;
+		this.maxCrownSize = source.maxCrownSize;
 	}
 	
 	@Override
@@ -270,6 +305,23 @@ public class DecoTree extends DecoBase
 			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 			                        worldgenerator.generate(world, rand, intX, intY, intZ);
 		                    	}
+		            		}
+		            		
+		            		break;
+		            		
+		            	case PINACEAE_PINUS_PONDEROSA:
+		            		
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+
+		            			TreeRTG worldgenerator = new TreeRTGPinaceaePinusPonderosa()
+		            				.setLogBlock(this.logBlock)
+		            				.setLogMeta(this.logMeta)
+		            				.setLeavesBlock(this.leavesBlock)
+		            				.setLeavesMeta(this.leavesMeta)
+		            				.setTrunkSize(RandomUtil.getRandomInt(rand, this.minTrunkSize, this.maxTrunkSize))
+		            				.setCrownSize(RandomUtil.getRandomInt(rand, this.minCrownSize, this.maxCrownSize));
+		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                        worldgenerator.generate(world, rand, intX, intY, intZ);
 		            		}
 		            		
 		            		break;
@@ -490,6 +542,7 @@ public class DecoTree extends DecoBase
 		MEGA_JUNGLE_MANGROVE,
 		MEGA_TAIGA,
 		PALM_CUSTOM,
+		PINACEAE_PINUS_PONDEROSA,
 		PINE_EURO,
 		SAVANNA,
 		SAVANNA_RIVER,

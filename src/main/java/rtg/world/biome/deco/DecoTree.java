@@ -30,6 +30,7 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGSprucePineBig;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGWillow;
+import rtg.world.gen.feature.tree.rtg.pinaceae.picea.TreeRTGPinaceaePiceaSitchensis;
 import rtg.world.gen.feature.tree.rtg.pinaceae.pinus.TreeRTGPinaceaePinusPonderosa;
 
 /**
@@ -290,6 +291,23 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
+		            	case PINACEAE_PICEA_SITCHENSIS:
+		            		
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+
+		            			TreeRTG worldgenerator = new TreeRTGPinaceaePiceaSitchensis()
+		            				.setLogBlock(this.logBlock)
+		            				.setLogMeta(this.logMeta)
+		            				.setLeavesBlock(this.leavesBlock)
+		            				.setLeavesMeta(this.leavesMeta)
+		            				.setTrunkSize(RandomUtil.getRandomInt(rand, this.minTrunkSize, this.maxTrunkSize))
+		            				.setCrownSize(RandomUtil.getRandomInt(rand, this.minCrownSize, this.maxCrownSize));
+		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                        worldgenerator.generate(world, rand, intX, intY, intZ);
+		            		}
+		            		
+		            		break;
+		            		
 		            	case PINACEAE_PINUS_PONDEROSA:
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
@@ -522,6 +540,7 @@ public class DecoTree extends DecoBase
 		MEGA_JUNGLE_MANGROVE,
 		MEGA_TAIGA,
 		PALM_CUSTOM,
+		PINACEAE_PICEA_SITCHENSIS,
 		PINACEAE_PINUS_PONDEROSA,
 		PINE_EURO,
 		SAVANNA,

@@ -40,17 +40,31 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
 		 */
 		
         // Trees first.
-		DecoTree bigPines = new DecoTree();
-		bigPines.strengthFactorForLoops = 8f;
-		bigPines.treeType = TreeType.BIG_PINES;
-		bigPines.distribution.noiseDivisor = 100f;
-		bigPines.distribution.noiseFactor = 6f;
-		bigPines.distribution.noiseAddend = 0.8f;
-		bigPines.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-		bigPines.treeConditionNoise = 0f;
-		bigPines.treeConditionChance = 1;
-		bigPines.maxY = 110;
-		this.addDeco(bigPines);
+		DecoTree oakPines = new DecoTree();
+		oakPines.logBlock = Blocks.log;
+		oakPines.logMeta = (byte)0;
+		oakPines.leavesBlock = Blocks.leaves;
+		oakPines.leavesMeta = (byte)0;
+		oakPines.minTrunkSize = 11;
+		oakPines.maxTrunkSize = 21;
+		oakPines.minCrownSize = 15;
+		oakPines.maxCrownSize = 29;
+		oakPines.strengthFactorForLoops = 8f;
+		oakPines.treeType = TreeType.PINACEAE_PINUS_PONDEROSA;
+		oakPines.distribution.noiseDivisor = 100f;
+		oakPines.distribution.noiseFactor = 6f;
+		oakPines.distribution.noiseAddend = 0.8f;
+		oakPines.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		oakPines.treeConditionNoise = 0f;
+		oakPines.treeConditionChance = 1;
+		oakPines.maxY = 110;
+		
+		DecoTree sprucePines = new DecoTree(oakPines);
+		sprucePines.logMeta = (byte)1;
+		sprucePines.leavesMeta = (byte)1;
+		
+		DecoHelper5050 decoPines = new DecoHelper5050(oakPines, sprucePines);
+		this.addDeco(decoPines);
 		
 		// More trees.
 		DecoTree smallPinesTreesForest = new DecoTree();

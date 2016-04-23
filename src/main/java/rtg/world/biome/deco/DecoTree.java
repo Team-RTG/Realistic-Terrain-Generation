@@ -22,7 +22,6 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGBirchSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalm;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPineBig;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineEuro;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
@@ -142,25 +141,7 @@ public class DecoTree extends DecoBase
 	                
 	            	switch (this.treeType)
 	            	{
-	            	
-		            	case BIG_PINES:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-	
-	                            if (rand.nextBoolean()) {
-	                                WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 1, 1);
-			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                        worldgenerator.generate(world, rand, intX, intY, intZ);
-	                            }
-	                            else {
-	                                WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 0, 0);
-			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                        worldgenerator.generate(world, rand, intX, intY, intZ);
-	                            }
-		            		}
-		            		
-		            		break;
-		            		
+
 		            	case BIRCH_TREES_FOREST:
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
@@ -532,7 +513,6 @@ public class DecoTree extends DecoBase
 	
 	public enum TreeType
 	{
-		BIG_PINES,
 		BIRCH_TREES_FOREST,
 		BOP_LAND_OF_LAKES,
 		DESERT_RIVER,

@@ -51,7 +51,7 @@ public class HighlandsBiomes {
     //public static BiomeGenBase everglades;
     
     //improved ocean biome
-    //public static BiomeGenBase ocean2; //This biome is incompatible with RTG.
+    public static BiomeGenBase ocean2; //This biome is incompatible with RTG.
     
     //Sub Biomes
     public static BiomeGenBase forestIsland;

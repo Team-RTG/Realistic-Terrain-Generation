@@ -7,8 +7,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+/**
+ * @see rtg.world.gen.feature.tree.rtg.pinaceae.pinus.TreeRTGPinaceaePinusNigra
+ */
+@Deprecated
 public class WorldGenTreeRTGPineEuro extends WorldGenerator
 {
+	@Deprecated
 	public WorldGenTreeRTGPineEuro()
 	{
 	}

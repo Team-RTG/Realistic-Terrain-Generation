@@ -4,18 +4,21 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
-import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.util.ForgeDirection;
 
+/**
+ * @see rtg.world.gen.feature.tree.rtg.pinaceae.pinus.TreeRTGPinaceaePinusMonticola
+ */
+@Deprecated
 public class WorldGenTreeRTGPine extends WorldGenerator
 {
 	private int height;
 	private int metadata;
 	
+	@Deprecated
     public WorldGenTreeRTGPine(int h, int m)
     {
         super(false);

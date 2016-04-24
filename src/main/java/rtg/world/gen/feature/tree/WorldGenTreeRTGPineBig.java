@@ -8,6 +8,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+/**
+ * @see rtg.world.gen.feature.tree.rtg.pinaceae.pinus.TreeRTGPinaceaePinusPonderosa
+ */
+@Deprecated
 public class WorldGenTreeRTGPineBig extends WorldGenerator
 {
 	private int startHeight;
@@ -16,11 +20,13 @@ public class WorldGenTreeRTGPineBig extends WorldGenerator
 	private int metadataLog;
 	private int metadataLeaves;
 	
+	@Deprecated
 	public WorldGenTreeRTGPineBig(int start, int s)
 	{
 		this(start, s, 0, 0);
 	}
 	
+	@Deprecated
 	public WorldGenTreeRTGPineBig(int start, int s, int log, int leaves)
 	{
 		startHeight = start;

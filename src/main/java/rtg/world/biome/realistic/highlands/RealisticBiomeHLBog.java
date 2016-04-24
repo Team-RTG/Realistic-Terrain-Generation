@@ -12,12 +12,13 @@ public class RealisticBiomeHLBog extends RealisticBiomeHLBase
     
     public RealisticBiomeHLBog(BiomeConfig config)
     {
-        super(config, 
-            HighlandsBiomes.bog, BiomeGenBase.river,
+        super(config,
+        	HighlandsBiomes.bog, BiomeGenBase.river,
             new TerrainHLBog(),
             new SurfaceHLBog(config, HighlandsBiomes.bog.topBlock, HighlandsBiomes.bog.fillerBlock));
 		
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		decoBaseBiomeDecorations.maxY = 72;
 		this.addDeco(decoBaseBiomeDecorations);
     }
   

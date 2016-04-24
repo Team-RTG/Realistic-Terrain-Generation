@@ -8,17 +8,23 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+/**
+ * @see rtg.world.gen.feature.tree.rtg.pinaceae.pinus.TreeRTGPinaceaePiceaSitchensis
+ */
+@Deprecated
 public class WorldGenTreeRTGPineSmall extends WorldGenerator
 {
 	private int startHeight;
 	private int treeSize;
 	private int metadata;
 
+	@Deprecated
 	public WorldGenTreeRTGPineSmall(int start, int s)
 	{
 		this(start, s, 1);
 	}
 
+	@Deprecated
 	public WorldGenTreeRTGPineSmall(int start, int s, int m)
 	{
 		startHeight = start;

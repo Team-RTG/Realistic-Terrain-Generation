@@ -16,20 +16,23 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.feature.tree.TreeRTG;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGBirch;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGBirchSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalm;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPineBig;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPineEuro;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceCustom;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSprucePineBig;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGWillow;
+import rtg.world.gen.feature.tree.rtg.pinaceae.picea.TreeRTGPinaceaePiceaPungens;
+import rtg.world.gen.feature.tree.rtg.pinaceae.picea.TreeRTGPinaceaePiceaSitchensis;
+import rtg.world.gen.feature.tree.rtg.pinaceae.pinus.TreeRTGPinaceaePinusMonticola;
+import rtg.world.gen.feature.tree.rtg.pinaceae.pinus.TreeRTGPinaceaePinusNigra;
+import rtg.world.gen.feature.tree.rtg.pinaceae.pinus.TreeRTGPinaceaePinusPonderosa;
 
 /**
  * 
@@ -38,7 +41,7 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGWillow;
  */
 public class DecoTree extends DecoBase
 {
-    
+
 	public int loops;
 	public float strengthFactorForLoops; // If set, this overrides and dynamically calculates 'loops' based on the strength parameter.
 	public boolean strengthNoiseFactorForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * strength)
@@ -56,6 +59,11 @@ public class DecoTree extends DecoBase
 	public byte leavesMeta;
 	public int minSize; // Min tree height (only used with certain tree presets)
 	public int maxSize; // Max tree height (only used with certain tree presets)
+	public int minTrunkSize; // Min tree height (only used with certain tree presets)
+	public int maxTrunkSize; // Max tree height (only used with certain tree presets)
+	public int minCrownSize; // Min tree height (only used with certain tree presets)
+	public int maxCrownSize; // Max tree height (only used with certain tree presets)
+	public boolean noLeaves;
 	
 	public DecoTree()
 	{
@@ -82,8 +90,39 @@ public class DecoTree extends DecoBase
 		this.leavesMeta = (byte)-1;
 		this.minSize = 2;
 		this.maxSize = 4;
+		this.minTrunkSize = 2;
+		this.maxTrunkSize = 4;
+		this.minCrownSize = 2;
+		this.maxCrownSize = 4;
+		this.noLeaves = false;
 		
 		this.addDecoTypes(DecoType.TREE);
+	}
+	
+	public DecoTree(DecoTree source) {
+		this();
+		this.loops = source.loops;
+		this.strengthFactorForLoops = source.strengthFactorForLoops;
+		this.strengthNoiseFactorForLoops = source.strengthNoiseFactorForLoops;
+		this.strengthNoiseFactorXForLoops = source.strengthNoiseFactorXForLoops;
+		this.treeType = source.treeType;
+		this.distribution = source.distribution;
+		this.treeCondition = source.treeCondition;
+		this.treeConditionNoise = source.treeConditionNoise;
+		this.treeConditionChance = source.treeConditionChance;
+		this.minY = source.minY;
+		this.maxY = source.maxY;
+		this.logBlock = source.logBlock;
+		this.logMeta = source.logMeta;
+		this.leavesBlock = source.leavesBlock;
+		this.leavesMeta = source.leavesMeta;
+		this.minSize = source.minSize;
+		this.maxSize = source.maxSize;
+		this.minTrunkSize = source.minTrunkSize;
+		this.maxTrunkSize = source.maxTrunkSize;
+		this.minCrownSize = source.minCrownSize;
+		this.maxCrownSize = source.maxCrownSize;
+		this.noLeaves = source.noLeaves;
 	}
 	
 	@Override
@@ -107,25 +146,7 @@ public class DecoTree extends DecoBase
 	                
 	            	switch (this.treeType)
 	            	{
-	            	
-		            	case BIG_PINES:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-	
-	                            if (rand.nextBoolean()) {
-	                                WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 1, 1);
-			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                        worldgenerator.generate(world, rand, intX, intY, intZ);
-	                            }
-	                            else {
-	                                WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 0, 0);
-			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                        worldgenerator.generate(world, rand, intX, intY, intZ);
-	                            }
-		            		}
-		            		
-		            		break;
-		            		
+
 		            	case BIRCH_TREES_FOREST:
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
@@ -146,9 +167,17 @@ public class DecoTree extends DecoBase
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 
+	                        	TreeRTGPinaceaePiceaSitchensis smallPine = new TreeRTGPinaceaePiceaSitchensis();
+	                        	smallPine.setLogBlock(Blocks.log)
+	                        		.setLogMeta((byte)1)
+	                        		.setLeavesBlock(Blocks.leaves)
+	                        		.setLeavesMeta((byte)1)
+	                        		.setTrunkSize(4 + rand.nextInt(6))
+	                        		.setCrownSize(5 + rand.nextInt(10));
+		            			
 		                        WorldGenerator worldgenerator =
 		                                rand.nextBoolean() ? new WorldGenTreeRTGBirch(4 + rand.nextInt(7), 8 + rand.nextInt(12))
-		                                : new WorldGenTreeRTGPineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
+		                                : smallPine;
 		                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 		                            worldgenerator.generate(world, rand, intX, intY, intZ);
 		            		}
@@ -244,11 +273,19 @@ public class DecoTree extends DecoBase
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 
+	                        	TreeRTGPinaceaePiceaSitchensis smallPine = new TreeRTGPinaceaePiceaSitchensis();
+	                        	smallPine.setLogBlock(Blocks.log)
+	                        		.setLogMeta((byte)1)
+	                        		.setLeavesBlock(Blocks.leaves)
+	                        		.setLeavesMeta((byte)1)
+	                        		.setTrunkSize(1 + rand.nextInt(3))
+	                        		.setCrownSize(4 + rand.nextInt(4));
+		            			
 		                        WorldGenerator worldgenerator =
 		                            rand.nextInt(4) == 0
 		                            ? new WorldGenTreeRTGSpruceSmall(1 + rand.nextInt(2))
 		                        	: rand.nextInt(6) == 0
-		                        	    ? new WorldGenTreeRTGPineSmall(1 + rand.nextInt(3), 4 + rand.nextInt(4))
+		                        	    ? smallPine
 		                                : new WorldGenTreeRTGSprucePineBig(4 + rand.nextInt(6), 12 + rand.nextInt(10));
 					            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 						        worldgenerator.generate(world, rand, intX, intY, intZ);
@@ -274,17 +311,96 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
-		            	case PINE_EURO:
+		            	case PINACEAE_PICEA_PUNGENS:
+		            		
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+	                        	
+		            			TreeRTG worldgenerator = new TreeRTGPinaceaePiceaPungens();
+		            			worldgenerator.setLogBlock(this.logBlock);
+		            			worldgenerator.setLogMeta(this.logMeta);
+		            			worldgenerator.setLeavesBlock(this.leavesBlock);
+		            			worldgenerator.setLeavesMeta(this.leavesMeta);
+		            			worldgenerator.setTrunkSize(RandomUtil.getRandomInt(rand, this.minTrunkSize, this.maxTrunkSize));
+		            			worldgenerator.setCrownSize(RandomUtil.getRandomInt(rand, this.minCrownSize, this.maxCrownSize));
+		            			worldgenerator.setNoLeaves(this.noLeaves);
+		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                        worldgenerator.generate(world, rand, intX, intY, intZ);
+	                        }
+		            		
+		            		break;
+		            		
+		            	case PINACEAE_PICEA_SITCHENSIS:
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 
-		                        WorldGenerator worldgenerator = new WorldGenTreeRTGPineEuro();
+		            			TreeRTG worldgenerator = new TreeRTGPinaceaePiceaSitchensis();
+		            			worldgenerator.setLogBlock(this.logBlock);
+		            			worldgenerator.setLogMeta(this.logMeta);
+		            			worldgenerator.setLeavesBlock(this.leavesBlock);
+		            			worldgenerator.setLeavesMeta(this.leavesMeta);
+		            			worldgenerator.setTrunkSize(RandomUtil.getRandomInt(rand, this.minTrunkSize, this.maxTrunkSize));
+		            			worldgenerator.setCrownSize(RandomUtil.getRandomInt(rand, this.minCrownSize, this.maxCrownSize));
+		            			worldgenerator.setNoLeaves(this.noLeaves);
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 		                        worldgenerator.generate(world, rand, intX, intY, intZ);
 		            		}
 		            		
 		            		break;
 		            		
+		            	case PINACEAE_PINUS_MONTICOLA:
+		            		
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+
+		            			TreeRTG worldgenerator = new TreeRTGPinaceaePinusMonticola();
+		            			worldgenerator.setLogBlock(this.logBlock);
+	            				worldgenerator.setLogMeta(this.logMeta);
+	            				worldgenerator.setLeavesBlock(this.leavesBlock);
+	            				worldgenerator.setLeavesMeta(this.leavesMeta);
+	            				worldgenerator.setTrunkSize(RandomUtil.getRandomInt(rand, this.minTrunkSize, this.maxTrunkSize));
+	            				worldgenerator.setCrownSize(RandomUtil.getRandomInt(rand, this.minCrownSize, this.maxCrownSize));
+	            				worldgenerator.setNoLeaves(this.noLeaves);
+		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                        worldgenerator.generate(world, rand, intX, intY, intZ);
+		            		}
+		            		
+		            		break;
+		            		
+		            	case PINACEAE_PINUS_NIGRA:
+		            		
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+
+		            			TreeRTG worldgenerator = new TreeRTGPinaceaePinusNigra();
+		            			worldgenerator.setLogBlock(this.logBlock);
+		            			worldgenerator.setLogMeta(this.logMeta);
+		            			worldgenerator.setLeavesBlock(this.leavesBlock);
+		            			worldgenerator.setLeavesMeta(this.leavesMeta);
+		            			worldgenerator.setTrunkSize(RandomUtil.getRandomInt(rand, this.minTrunkSize, this.maxTrunkSize));
+		            			worldgenerator.setCrownSize(RandomUtil.getRandomInt(rand, this.minCrownSize, this.maxCrownSize));
+		            			worldgenerator.setNoLeaves(this.noLeaves);
+		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                        worldgenerator.generate(world, rand, intX, intY, intZ);
+		            		}
+		            		
+		            		break;
+		            		
+		            	case PINACEAE_PINUS_PONDEROSA:
+		            		
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+
+		            			TreeRTG worldgenerator = new TreeRTGPinaceaePinusPonderosa();
+		            			worldgenerator.setLogBlock(this.logBlock);
+		            			worldgenerator.setLogMeta(this.logMeta);
+		            			worldgenerator.setLeavesBlock(this.leavesBlock);
+		            			worldgenerator.setLeavesMeta(this.leavesMeta);
+		            			worldgenerator.setTrunkSize(RandomUtil.getRandomInt(rand, this.minTrunkSize, this.maxTrunkSize));
+		            			worldgenerator.setCrownSize(RandomUtil.getRandomInt(rand, this.minCrownSize, this.maxCrownSize));
+		            			worldgenerator.setNoLeaves(this.noLeaves);
+		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                        worldgenerator.generate(world, rand, intX, intY, intZ);
+		            		}
+		            		
+		            		break;
+
 		            	case SMALL_BIRCH:
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
@@ -338,9 +454,17 @@ public class DecoTree extends DecoBase
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 
+	                        	TreeRTGPinaceaePiceaSitchensis oakPine = new TreeRTGPinaceaePiceaSitchensis();
+	                        	oakPine.setLogBlock(Blocks.log)
+	                        		.setLogMeta((byte)0)
+	                        		.setLeavesBlock(Blocks.leaves)
+	                        		.setLeavesMeta((byte)0)
+	                        		.setTrunkSize(4 + rand.nextInt(7))
+	                        		.setCrownSize(6 + rand.nextInt(9));
+	                        	
 		                        WorldGenerator worldgenerator =
 		                        rand.nextInt(4) != 0
-		                        	? new WorldGenTreeRTGPineSmall(4 + rand.nextInt(7), 6 + rand.nextInt(9), 0)
+		                        	? oakPine
 		                        	: rand.nextInt(10) != 0
 		                        		? new WorldGenTreeRTGTrees(false)
 		                        		: new WorldGenForest(false, false);
@@ -365,9 +489,15 @@ public class DecoTree extends DecoBase
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 
-		                        WorldGenerator worldgenerator = new WorldGenTreeRTGPineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
-			                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-				                worldgenerator.generate(world, rand, intX, intY, intZ);
+	                        	TreeRTGPinaceaePiceaSitchensis smallPine = new TreeRTGPinaceaePiceaSitchensis();
+	                        	smallPine.setLogBlock(Blocks.log)
+	                        		.setLogMeta((byte)1)
+	                        		.setLeavesBlock(Blocks.leaves)
+	                        		.setLeavesMeta((byte)1)
+	                        		.setTrunkSize(4 + rand.nextInt(6))
+	                        		.setCrownSize(5 + rand.nextInt(10));
+	                        	smallPine.setScale(1.0D, 1.0D, 1.0D);
+	                        	smallPine.generate(world, rand, intX, intY, intZ);
 		            		}
 		            		
 		            		break;
@@ -417,11 +547,25 @@ public class DecoTree extends DecoBase
 		            		
 	                        if (intY <= this.maxY && intY >= this.minY && (rand.nextInt((int) (4f / strength)) == 0)) {
 	                        	
-	                            WorldGenerator worldgenerator =
-	                                    rand.nextInt(4) == 0 ? new WorldGenTreeRTGSpruceSmall(1 + rand.nextInt(2)) : rand.nextInt(6) == 0 ? new WorldGenTreeRTGPineSmall(
-	                                        1 + rand.nextInt(3), 4 + rand.nextInt(4)) : new WorldGenTreeRTGPineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
-	                                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-	                                worldgenerator.generate(world, rand, intX, intY, intZ);
+	                        	TreeRTGPinaceaePiceaSitchensis smallPine = new TreeRTGPinaceaePiceaSitchensis();
+	                        	smallPine.setLogBlock(Blocks.log)
+	                        		.setLogMeta((byte)1)
+	                        		.setLeavesBlock(Blocks.leaves)
+	                        		.setLeavesMeta((byte)1)
+	                        		.setTrunkSize(4 + rand.nextInt(6))
+	                        		.setCrownSize(5 + rand.nextInt(10));
+	                        	
+	                        	TreeRTGPinaceaePiceaSitchensis smallerPine = new TreeRTGPinaceaePiceaSitchensis();
+	                        	smallerPine.setLogBlock(Blocks.log)
+	                        		.setLogMeta((byte)1)
+	                        		.setLeavesBlock(Blocks.leaves)
+	                        		.setLeavesMeta((byte)1)
+	                        		.setTrunkSize(1 + rand.nextInt(3))
+	                        		.setCrownSize(4 + rand.nextInt(4));
+	                        	
+	                            WorldGenerator worldgenerator = rand.nextInt(4) == 0 ? new WorldGenTreeRTGSpruceSmall(1 + rand.nextInt(2)) : rand.nextInt(6) == 0 ? smallerPine : smallPine;
+                                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+                                worldgenerator.generate(world, rand, intX, intY, intZ);
 	                        }
 		            		
 		            		break;
@@ -480,7 +624,6 @@ public class DecoTree extends DecoBase
 	
 	public enum TreeType
 	{
-		BIG_PINES,
 		BIRCH_TREES_FOREST,
 		BOP_LAND_OF_LAKES,
 		DESERT_RIVER,
@@ -490,7 +633,11 @@ public class DecoTree extends DecoBase
 		MEGA_JUNGLE_MANGROVE,
 		MEGA_TAIGA,
 		PALM_CUSTOM,
-		PINE_EURO,
+		PINACEAE_PICEA_PUNGENS,
+		PINACEAE_PICEA_SITCHENSIS,
+		PINACEAE_PINUS_MONTICOLA,
+		PINACEAE_PINUS_NIGRA,
+		PINACEAE_PINUS_PONDEROSA,
 		SAVANNA,
 		SAVANNA_RIVER,
 		SMALL_BIRCH,

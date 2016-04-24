@@ -27,7 +27,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
 
     @Override
     protected void initProperties() {
-        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.IGLOO.name());
+        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.FeatureType.IGLOO.name());
     }
 
     @Override

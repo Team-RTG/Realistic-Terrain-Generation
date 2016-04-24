@@ -1,7 +1,7 @@
 package teamrtg.rtg.api.config;
 
 import teamrtg.rtg.util.EnumUtils;
-import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG.Type;
+import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG.FeatureType;
 
 public class BiomeConfig extends Config {
 
@@ -41,7 +41,7 @@ public class BiomeConfig extends Config {
         USE_RTG_DECORATIONS.setComment("If false RTG will not try to decorate this biome, but instead let it handle that itself.").setDefault(true).setSection(biomeSlug);
         TOP_BLOCK.setComment("The top surface block used in this biome (Grass in plains).").setSection(biomeSlug);
         FILL_BLOCK.setComment("The block that fills between the surface block and the stone underneath (Dirt in plains).").setSection(biomeSlug);
-        SCATTERED_FEATURE.setOptions(EnumUtils.names(Type.class)).setDefault(Type.NONE.name())
+        SCATTERED_FEATURE.setOptions(EnumUtils.names(FeatureType.class)).setDefault(FeatureType.NONE.name())
                 .setComment("What scattered feature does this biome allow?").setSection(biomeSlug);
         DECORATIONS.setDefault(new String[0])
                 .setComment("What scattered feature does this biome allow?").setSection(biomeSlug);

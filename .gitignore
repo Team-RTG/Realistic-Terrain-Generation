@@ -1,37 +1,32 @@
-/libs
-/.gradle
-/run
-/out
-/.settings
-/build
-/eclipse
-/.classpath
-/.project
-/CREDITS-fml.txt
-/forge-1.7.10-10.13.4.1448-1.7.10-changelog.txt
-/LICENSE-fml.txt
-/MinecraftForge-Credits.txt
-/MinecraftForge-License.txt
-/README-fml.txt
-/bin
-/README.txt
+# eclipse
+*.launch
+.settings
+.metadata
+.classpath
+.project
+bin
+eclipse
+
+# idea
+*.ipr
+*.iws
+*.iml
+.idea
+out
+
+# gradle
+build
+.gradle
+run
+
+# other (srsly, do you need this stuff here? Add it to your IDE's ignore list! :)
 gradlew-setupDecompWorkspace.bat
 gradlew-clean.bat
 gradlew-eclipse.bat
 gradlew-build.bat
 libs/*.jar
-forge-1.7.10-10.13.4.1558-1.7.10-changelog.txt
-*.launch
-/gradlew-idea.bat
-/gradlew-jar.bat
-/logs
+gradlew-jar.bat
 gradlew-cleanCache.bat
 gradlew-setupDecompWorkspace-refresh-deps.bat
-gradlew-jar.bat
-*.iml
-*.ipr
-*.iws
-Paulscode IBXM Library License.txt
-Paulscode SoundSystem CodecIBXM License.txt
-forge-1.9-12.16.0.1805-1.9-changelog.txt
-.idea
+gradlew-idea.bat
+/gradlew-runClient.bat

@@ -134,7 +134,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
     protected void initProperties() {
         config.addBlock(config.MIX_BLOCK).setDefault(Blocks.DIRT.getStateFromMeta(2));
         config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
-        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.JUNGLE_TEMPLE.name());
+        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.FeatureType.JUNGLE_TEMPLE.name());
         this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(3);
     }
 }

@@ -37,7 +37,7 @@ import java.util.Map.Entry;
  */
 public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
 
-    public enum Type {
+    public enum FeatureType {
         DESERT_TEMPLE,
         JUNGLE_TEMPLE,
         WITCH_HUT,
@@ -64,10 +64,9 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
 
     public MapGenScatteredFeatureRTG(Map p_i2061_1_) {
         this();
-        Iterator iterator = p_i2061_1_.entrySet().iterator();
 
-        while (iterator.hasNext()) {
-            Entry entry = (Entry) iterator.next();
+        for (Object o : p_i2061_1_.entrySet()) {
+            Entry entry = (Entry) o;
 
             if (entry.getKey().equals("distance")) {
                 this.maxDistanceBetweenScatteredFeatures = MathHelper.parseIntWithDefaultAndMax((String) entry.getValue(), this.maxDistanceBetweenScatteredFeatures, this.minDistanceBetweenScatteredFeatures + 1);
@@ -96,20 +95,20 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
     }
 
     @Override
-    protected boolean canSpawnStructureAtCoords(int p_75047_1_, int p_75047_2_) {
-        int k = p_75047_1_;
-        int l = p_75047_2_;
+    protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
+        int k = chunkX;
+        int l = chunkZ;
 
-        if (p_75047_1_ < 0) {
-            p_75047_1_ -= this.maxDistanceBetweenScatteredFeatures - 1;
+        if (chunkX < 0) {
+            chunkX -= this.maxDistanceBetweenScatteredFeatures - 1;
         }
 
-        if (p_75047_2_ < 0) {
-            p_75047_2_ -= this.maxDistanceBetweenScatteredFeatures - 1;
+        if (chunkZ < 0) {
+            chunkZ -= this.maxDistanceBetweenScatteredFeatures - 1;
         }
 
-        int i1 = p_75047_1_ / this.maxDistanceBetweenScatteredFeatures;
-        int j1 = p_75047_2_ / this.maxDistanceBetweenScatteredFeatures;
+        int i1 = chunkX / this.maxDistanceBetweenScatteredFeatures;
+        int j1 = chunkZ / this.maxDistanceBetweenScatteredFeatures;
         Random random = this.worldObj.setRandomSeed(i1, j1, 14357617);
         i1 *= this.maxDistanceBetweenScatteredFeatures;
         j1 *= this.maxDistanceBetweenScatteredFeatures;
@@ -121,7 +120,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
 
             if (biomegenbase != null) {
                 RealisticBiomeBase rBiome = RealisticBiomeBase.getBiome(BiomeGenBase.getIdForBiome(biomegenbase));
-                if (rBiome.config.SCATTERED_FEATURE.get() != Type.NONE.name()) ;
+                if (!Objects.equals(rBiome.config.SCATTERED_FEATURE.get(), FeatureType.NONE.name())) ;
             }
         }
 
@@ -129,8 +128,8 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
     }
 
     @Override
-    protected StructureStart getStructureStart(int p_75049_1_, int p_75049_2_) {
-        return new MapGenScatteredFeatureRTG.Start(this.worldObj, this.rand, p_75049_1_, p_75049_2_);
+    protected StructureStart getStructureStart(int chunkX, int chunkZ) {
+        return new MapGenScatteredFeatureRTG.Start(this.worldObj, this.rand, chunkX, chunkZ);
     }
 
     /**
@@ -138,7 +137,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
      */
     @Override
     public List getScatteredFeatureSpawnList() {
-        return this.scatteredFeatureSpawnList;
+        return Collections.unmodifiableList(this.scatteredFeatureSpawnList);
     }
 
     private static boolean canSpawnDesertTemple(BiomeGenBase b) {
@@ -190,8 +189,8 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
     }
 
     @Override
-    public boolean func_175795_b(BlockPos pos) {
-        StructureStart structurestart = this.func_175797_c(pos);
+    public boolean isInsideStructure(BlockPos pos) {
+        StructureStart structurestart = this.getStructureAt(pos);
         if (structurestart != null && structurestart instanceof MapGenScatteredFeatureRTG.Start && !structurestart.getComponents().isEmpty()) {
             StructureComponent structurecomponent = structurestart.getComponents().get(0);
             return structurecomponent instanceof ComponentScatteredFeaturePieces.SwampHut;
@@ -214,7 +213,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
 
             if (biomegenbase != null) {
                 RealisticBiomeBase rBiome = RealisticBiomeBase.getBiome(BiomeGenBase.getIdForBiome(biomegenbase));
-                switch (Type.valueOf(rBiome.config.SCATTERED_FEATURE.get())) {
+                switch (FeatureType.valueOf(rBiome.config.SCATTERED_FEATURE.get())) {
                     case DESERT_TEMPLE:
                         ComponentScatteredFeaturePieces.DesertPyramid desertpyramid = new ComponentScatteredFeaturePieces.DesertPyramid(random, chunkX * 16, chunkZ * 16);
                         arrComponents.add(desertpyramid);

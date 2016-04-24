@@ -135,7 +135,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
     @Override
     protected void initProperties() {
         config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
-        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.JUNGLE_TEMPLE.name());
+        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.FeatureType.JUNGLE_TEMPLE.name());
         this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(3);
     }
 }

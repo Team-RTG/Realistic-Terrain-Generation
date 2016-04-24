@@ -99,13 +99,13 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
 
         IFloatAt cliffNoise = (x, y, z) -> simplex.noise2(x / 8f, z / 8f) * 0.5f;
 
-        surface.add(new DepthSelector(0, 6)
+        surface.add(PARTS.TOP_AND_FILL_SELECTOR
 
             .add(new CliffSelector((x, y, z) -> {
                 float n = 1.5f - 1.5f - ((y - 60f) / 65f) + cliffNoise.getFloatAt(x, y, z);
                 return (n > 0.45f) ? n : 0.45f;
             })
-                .add(new DepthSelector(0, 0)
+                .add(PARTS.TOP_SELECTOR
                     .add(PARTS.STONE_OR_COBBLE))
                 .add(PARTS.STONE))
 
@@ -116,7 +116,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
                 .add(new Selector((x, y, z) -> y > 110 + (cliffNoise.getFloatAt(x, y, z) * 4))
                     .add(new BlockPart(Blocks.SNOW.getDefaultState()))))
 
-            .add(new DepthSelector(0, 0)
+            .add(PARTS.TOP_SELECTOR
                 .add(new Selector((x, y, z) -> simplex.noise2(x / 50f, z / 50f) + cliffNoise.getFloatAt(x, y, z) * 0.6f > 0.24f)
                     .add(new BlockPart(Blocks.DIRT.getStateFromMeta(2))))
                 .add(new BlockPart(Blocks.GRASS.getDefaultState())))

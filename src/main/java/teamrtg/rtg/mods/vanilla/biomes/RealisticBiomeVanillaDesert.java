@@ -40,7 +40,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     protected SurfacePart initSurface() {
         SurfacePart surface = new SurfacePart();
         surface.add(new SurfaceRiverOasis(this));
-        surface.add(new DepthSelector(0, 6).setMaxNoise(PARTS.DEPTH_NOISE)
+        surface.add(PARTS.TOP_AND_FILL_SELECTOR.setMaxNoise(PARTS.DEPTH_NOISE)
             .add(new BlockPart(Blocks.SAND.getDefaultState())));
         surface.add(new HeightSelector(60, 255).setMaxNoise(PARTS.DEPTH_NOISE2)
             .add(new BlockPart(Blocks.SANDSTONE.getDefaultState())));

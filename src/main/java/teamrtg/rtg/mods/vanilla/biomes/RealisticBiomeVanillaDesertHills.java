@@ -4,7 +4,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.part.*;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
@@ -29,26 +28,6 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
                 return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 120f, 10f);
             }
         };
-    }
-
-    @Override
-    protected SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new CliffSelector(1.5f)
-            .add(PARTS.TOP_AND_FILL_SELECTOR
-                .add(this.PARTS.SHADOW_STONE)));
-        surface.add(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + chunkProvider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
-            .add(PARTS.TOP_SELECTOR
-                .add(PARTS.STONE_OR_COBBLE))
-            .add(PARTS.TOP_AND_FILL_SELECTOR
-                .add(PARTS.STONE)));
-        surface.add(PARTS.TOP_SELECTOR
-            .add(new HeightSelector(0, 62)
-                .add(new BlockPart(config.FILL_BLOCK.get())))
-            .add(new Selector((x, y, z) -> chunkProvider.simplex.noise2(x / 12f, z / 12f) > 0.15f)
-                .add(new BlockPart(config.MIX_BLOCK_TOP.get())))
-        );
-        return surface;
     }
 
     @Override

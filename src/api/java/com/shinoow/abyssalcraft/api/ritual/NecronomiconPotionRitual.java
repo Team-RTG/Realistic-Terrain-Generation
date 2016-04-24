@@ -87,17 +87,17 @@ public class NecronomiconPotionRitual extends NecronomiconRitual {
 	private Potion getBadEffect(Random rand){
 		switch(rand.nextInt(5)){
 		case 0:
-			return MobEffects.blindness;
+			return MobEffects.BLINDNESS;
 		case 1:
-			return MobEffects.confusion;
+			return MobEffects.NAUSEA;
 		case 2:
-			return MobEffects.digSlowdown;
+			return MobEffects.MINING_FATIGUE;
 		case 3:
-			return MobEffects.hunger;
+			return MobEffects.HUNGER;
 		case 4:
-			return MobEffects.weakness;
+			return MobEffects.WEAKNESS;
 		case 5:
-			return MobEffects.moveSlowdown;
+			return MobEffects.SLOWNESS;
 		default:
 			return getBadEffect(rand);
 		}

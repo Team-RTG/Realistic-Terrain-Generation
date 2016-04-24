@@ -43,6 +43,11 @@ public class TreeRTG extends WorldGenerator
 
     }
     
+    public void buildLeaves(World world, Random rand, int x, int y, int z, int size)
+    {
+
+    }
+    
 	public TreeRTG setLogBlock(Block logBlock)
 	{
 		this.logBlock = logBlock;

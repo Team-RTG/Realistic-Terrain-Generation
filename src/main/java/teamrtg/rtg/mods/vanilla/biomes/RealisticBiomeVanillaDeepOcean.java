@@ -33,7 +33,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
     @Override
     protected SurfacePart initSurface() {
         SurfacePart surface = new SurfacePart();
-        surface.add(new DepthSelector(0, 0)
+        surface.add(PARTS.TOP_SELECTOR
             .add(new HeightSelector(0, 63)
                 .add(new Selector((x, y, z) -> simplex.noise2(x / 20f, z / 20f) > 0.1f)
                     .add(new BlockPart(config.MIX_BLOCK_TOP.get())))));

@@ -28,7 +28,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     @Override
     protected void initProperties() {
         config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
-        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.DESERT_TEMPLE.name());
+        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.FeatureType.DESERT_TEMPLE.name());
         this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(0);
     }
 

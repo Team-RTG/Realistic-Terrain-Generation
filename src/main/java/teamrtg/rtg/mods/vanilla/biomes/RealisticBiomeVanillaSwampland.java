@@ -86,6 +86,6 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
 
     @Override
     protected void initProperties() {
-        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.WITCH_HUT.name());
+        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.FeatureType.WITCH_HUT.name());
     }
 }

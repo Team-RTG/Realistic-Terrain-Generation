@@ -70,6 +70,6 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
     protected void initProperties() {
         config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.GRASS.getDefaultState());
         config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.DIRT.getDefaultState());
-        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.Type.IGLOO.name());
+        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.FeatureType.IGLOO.name());
     }
 }

@@ -47,6 +47,10 @@ public class TreeRTGPinaceaePicea extends TreeRTGPinaceae
 	@Override
     public void buildLeaves(World world, int x, int y, int z)
     {
+		if (this.noLeaves) {
+			return;
+		}
+		
     	Block b = world.getBlock(x, y, z);
     	if(b.getMaterial() == Material.air)
     	{

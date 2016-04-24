@@ -57,10 +57,13 @@ public class TreeRTGPinaceaePinus extends TreeRTGPinaceae
 	@Override
     public void buildLeaves(World world, int x, int y, int z)
     {
-    	Block b = world.getBlock(x, y, z);
-    	if(b.getMaterial() == Material.air)
-    	{
-    		world.setBlock(x, y, z, this.leavesBlock, this.leavesMeta, 0);
-    	}
+		if (!this.noLeaves) {
+		
+	    	Block b = world.getBlock(x, y, z);
+	    	if(b.getMaterial() == Material.air)
+	    	{
+	    		world.setBlock(x, y, z, this.leavesBlock, this.leavesMeta, 0);
+	    	}
+		}
     }
 }

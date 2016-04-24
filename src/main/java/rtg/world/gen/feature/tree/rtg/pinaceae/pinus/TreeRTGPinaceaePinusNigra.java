@@ -58,6 +58,10 @@ public class TreeRTGPinaceaePinusNigra extends TreeRTGPinaceaePinus
 	@Override
     public void buildLeaves(World world, Random rand, int x, int y, int z, int size)
     {
+		if (this.noLeaves) {
+			return;
+		}
+		
     	int l;
     	int t = (int)Math.pow(size, 2);
     	for(int i = -size; i <= size; i++)

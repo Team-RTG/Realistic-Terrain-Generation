@@ -28,6 +28,7 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGSprucePineBig;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGWillow;
+import rtg.world.gen.feature.tree.rtg.pinaceae.picea.TreeRTGPinaceaePiceaPungens;
 import rtg.world.gen.feature.tree.rtg.pinaceae.picea.TreeRTGPinaceaePiceaSitchensis;
 import rtg.world.gen.feature.tree.rtg.pinaceae.pinus.TreeRTGPinaceaePinusMonticola;
 import rtg.world.gen.feature.tree.rtg.pinaceae.pinus.TreeRTGPinaceaePinusNigra;
@@ -62,6 +63,7 @@ public class DecoTree extends DecoBase
 	public int maxTrunkSize; // Max tree height (only used with certain tree presets)
 	public int minCrownSize; // Min tree height (only used with certain tree presets)
 	public int maxCrownSize; // Max tree height (only used with certain tree presets)
+	public boolean noLeaves;
 	
 	public DecoTree()
 	{
@@ -92,6 +94,7 @@ public class DecoTree extends DecoBase
 		this.maxTrunkSize = 4;
 		this.minCrownSize = 2;
 		this.maxCrownSize = 4;
+		this.noLeaves = false;
 		
 		this.addDecoTypes(DecoType.TREE);
 	}
@@ -119,6 +122,7 @@ public class DecoTree extends DecoBase
 		this.maxTrunkSize = source.maxTrunkSize;
 		this.minCrownSize = source.minCrownSize;
 		this.maxCrownSize = source.maxCrownSize;
+		this.noLeaves = source.noLeaves;
 	}
 	
 	@Override
@@ -307,6 +311,24 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
+		            	case PINACEAE_PICEA_PUNGENS:
+		            		
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+	                        	
+		            			TreeRTG worldgenerator = new TreeRTGPinaceaePiceaPungens();
+		            			worldgenerator.setLogBlock(this.logBlock);
+		            			worldgenerator.setLogMeta(this.logMeta);
+		            			worldgenerator.setLeavesBlock(this.leavesBlock);
+		            			worldgenerator.setLeavesMeta(this.leavesMeta);
+		            			worldgenerator.setTrunkSize(RandomUtil.getRandomInt(rand, this.minTrunkSize, this.maxTrunkSize));
+		            			worldgenerator.setCrownSize(RandomUtil.getRandomInt(rand, this.minCrownSize, this.maxCrownSize));
+		            			worldgenerator.setNoLeaves(this.noLeaves);
+		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                        worldgenerator.generate(world, rand, intX, intY, intZ);
+	                        }
+		            		
+		            		break;
+		            		
 		            	case PINACEAE_PICEA_SITCHENSIS:
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
@@ -318,6 +340,7 @@ public class DecoTree extends DecoBase
 		            			worldgenerator.setLeavesMeta(this.leavesMeta);
 		            			worldgenerator.setTrunkSize(RandomUtil.getRandomInt(rand, this.minTrunkSize, this.maxTrunkSize));
 		            			worldgenerator.setCrownSize(RandomUtil.getRandomInt(rand, this.minCrownSize, this.maxCrownSize));
+		            			worldgenerator.setNoLeaves(this.noLeaves);
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 		                        worldgenerator.generate(world, rand, intX, intY, intZ);
 		            		}
@@ -335,6 +358,7 @@ public class DecoTree extends DecoBase
 	            				worldgenerator.setLeavesMeta(this.leavesMeta);
 	            				worldgenerator.setTrunkSize(RandomUtil.getRandomInt(rand, this.minTrunkSize, this.maxTrunkSize));
 	            				worldgenerator.setCrownSize(RandomUtil.getRandomInt(rand, this.minCrownSize, this.maxCrownSize));
+	            				worldgenerator.setNoLeaves(this.noLeaves);
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 		                        worldgenerator.generate(world, rand, intX, intY, intZ);
 		            		}
@@ -352,6 +376,7 @@ public class DecoTree extends DecoBase
 		            			worldgenerator.setLeavesMeta(this.leavesMeta);
 		            			worldgenerator.setTrunkSize(RandomUtil.getRandomInt(rand, this.minTrunkSize, this.maxTrunkSize));
 		            			worldgenerator.setCrownSize(RandomUtil.getRandomInt(rand, this.minCrownSize, this.maxCrownSize));
+		            			worldgenerator.setNoLeaves(this.noLeaves);
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 		                        worldgenerator.generate(world, rand, intX, intY, intZ);
 		            		}
@@ -369,6 +394,7 @@ public class DecoTree extends DecoBase
 		            			worldgenerator.setLeavesMeta(this.leavesMeta);
 		            			worldgenerator.setTrunkSize(RandomUtil.getRandomInt(rand, this.minTrunkSize, this.maxTrunkSize));
 		            			worldgenerator.setCrownSize(RandomUtil.getRandomInt(rand, this.minCrownSize, this.maxCrownSize));
+		            			worldgenerator.setNoLeaves(this.noLeaves);
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 		                        worldgenerator.generate(world, rand, intX, intY, intZ);
 		            		}
@@ -607,6 +633,7 @@ public class DecoTree extends DecoBase
 		MEGA_JUNGLE_MANGROVE,
 		MEGA_TAIGA,
 		PALM_CUSTOM,
+		PINACEAE_PICEA_PUNGENS,
 		PINACEAE_PICEA_SITCHENSIS,
 		PINACEAE_PINUS_MONTICOLA,
 		PINACEAE_PINUS_NIGRA,

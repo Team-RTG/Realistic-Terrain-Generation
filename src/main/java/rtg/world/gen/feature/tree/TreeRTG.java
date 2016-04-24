@@ -3,7 +3,7 @@ package rtg.world.gen.feature.tree;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -16,10 +16,17 @@ public class TreeRTG extends WorldGenerator
 	public byte leavesMeta;
 	public int trunkSize;
 	public int crownSize;
+	public boolean noLeaves;
 	
 	public TreeRTG()
 	{
-
+		this.logBlock = Blocks.log;
+		this.logMeta = (byte)0;
+		this.leavesBlock = Blocks.leaves;
+		this.leavesMeta = (byte)0;
+		this.trunkSize = 2;
+		this.crownSize = 4;
+		this.noLeaves = false;
 	}
 
 	@Override
@@ -40,7 +47,9 @@ public class TreeRTG extends WorldGenerator
 	
     public void buildLeaves(World world, int x, int y, int z)
     {
-
+    	if (this.noLeaves) {
+    		return;
+    	}
     }
     
     public void buildLeaves(World world, Random rand, int x, int y, int z, int size)
@@ -81,6 +90,12 @@ public class TreeRTG extends WorldGenerator
 	public TreeRTG setCrownSize(int crownSize)
 	{
 		this.crownSize = crownSize;
+		return this;
+	}
+	
+	public TreeRTG setNoLeaves(boolean noLeaves)
+	{
+		this.noLeaves = noLeaves;
 		return this;
 	}
 }

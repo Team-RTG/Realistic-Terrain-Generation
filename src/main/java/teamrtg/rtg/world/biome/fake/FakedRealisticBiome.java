@@ -5,7 +5,6 @@ import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.api.mods.RTGSupport;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
@@ -15,14 +14,10 @@ import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
  */
 public class FakedRealisticBiome extends RealisticBiomeBase {
 
-    public FakedRealisticBiome(RTGSupport mod, BiomeGenBase biome) {
-        super(mod, biome);
+    public FakedRealisticBiome(RTGSupport mod, BiomeGenBase biome, ChunkProviderRTG chunkProvider) {
+        super(mod, biome, chunkProvider);
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceBase(this);
-    }
 
     @Override
     protected TerrainBase initTerrain() {

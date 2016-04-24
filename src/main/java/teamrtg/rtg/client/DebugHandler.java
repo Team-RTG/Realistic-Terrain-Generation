@@ -8,10 +8,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import teamrtg.rtg.core.ModInfo;
-import teamrtg.rtg.api.mods.Mods;
-import teamrtg.rtg.world.biome.BiomeProviderRTG;
 import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.mods.Mods;
+import teamrtg.rtg.api.util.BiomeUtils;
+import teamrtg.rtg.core.ModInfo;
+import teamrtg.rtg.world.biome.BiomeProviderRTG;
 
 public final class DebugHandler {
 
@@ -40,7 +41,7 @@ public final class DebugHandler {
 //                );
 
                 BiomeGenBase biome = world.getBiomeGenForCoords(new BlockPos(posX, 0, posZ));
-                RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(RealisticBiomeBase.getIdForBiome(biome));
+                RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(BiomeUtils.getIdForBiome(biome));
 
                 details = PREFIX;
                 details += "River Strength: " + chunkManager.getRiverStrength(posX, posZ);

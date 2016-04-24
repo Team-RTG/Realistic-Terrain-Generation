@@ -2,12 +2,13 @@ package teamrtg.rtg.util.math;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.util.IBlockAt;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public enum CanyonColour {
+public enum CanyonColour implements IBlockAt {
     MESA(new byte[] {-1, -1, -1, 1, 1, 1, 0, -1, -1, 6, 1, 1, 8, 0, -1, -1, 14, -1, -1, 6, 1, 1, 4}),
     MESA_WHITE(new byte[] {-1, -1, 0, 1, 0, 0, 0, 14, 0, 8, 0, 1, 8, 0, -1, 0, 14, 0, 0, 14, 0, 0, 8}),
     SAVANNA(new byte[] {0, 0, 0, 0, 8, 8, 12, 12, 8, 0, 8, 12, 12, 8, 12, 8, 0, 0, 8, 12, 12,});
@@ -35,7 +36,7 @@ public enum CanyonColour {
         }
     }
 
-    public IBlockState getForHeight(int x, int y, int z) {
+    public IBlockState getAt(int x, int y, int z) {
         float y1 = y + (simplex.noise3((float) x / 80f, (float) y / 6, (float) z / 80f) * 3f);
         y1 += simplex.noise2((float) x / 70f, (float) z / 70f) * 3f;
         y1 = (y1 < 0) ? 0 : (y1 > 255) ? 255 : y1;

@@ -1,27 +1,27 @@
 package teamrtg.rtg.mods.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.chunk.ChunkPrimer;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaDesert;
+import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
 import teamrtg.rtg.world.biome.surface.SurfaceRiverOasis;
+import teamrtg.rtg.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.world.biome.surface.part.DepthSelector;
+import teamrtg.rtg.world.biome.surface.part.HeightSelector;
+import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
 import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 
-import java.util.Random;
-
 public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaDesert() {
+    public RealisticBiomeVanillaDesert(ChunkProviderRTG chunkProvider) {
 
         super(
                 Biomes.DESERT,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
         this.noLakes = true;
     }
@@ -37,18 +37,14 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaDesert(this);
-    }
-
-    @Override
-    public void paintSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
-                             OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
-
-        this.getSurface().paintSurface(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
-
-        SurfaceBase riverSurface = new SurfaceRiverOasis(this);
-        riverSurface.paintSurface(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+    protected SurfacePart initSurface() {
+        SurfacePart surface = new SurfacePart();
+        surface.add(new SurfaceRiverOasis(this));
+        surface.add(new DepthSelector(0, 6).setMaxNoise(PARTS.DEPTH_NOISE)
+            .add(new BlockPart(Blocks.SAND.getDefaultState())));
+        surface.add(new HeightSelector(60, 255).setMaxNoise(PARTS.DEPTH_NOISE2)
+            .add(new BlockPart(Blocks.SANDSTONE.getDefaultState())));
+        return surface;
     }
 
     @Override

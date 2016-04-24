@@ -1,6 +1,7 @@
 package teamrtg.rtg.api.mods;
 
 import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class ModBiomes {
 
     private ArrayList<RealisticBiomeBase> biomes = new ArrayList<>();
 
-    public void initBiomes() {}
+    public void initBiomes(ChunkProviderRTG chunkProvider) {}
 
     protected RealisticBiomeBase addBiome(RealisticBiomeBase biome) {
         biomes.add(biome);

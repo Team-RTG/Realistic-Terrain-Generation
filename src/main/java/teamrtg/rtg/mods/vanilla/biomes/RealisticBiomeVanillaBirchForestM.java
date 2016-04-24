@@ -3,31 +3,28 @@ package teamrtg.rtg.mods.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.gen.deco.DecoFallenTree;
+import teamrtg.rtg.world.biome.surface.part.*;
+import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
+import teamrtg.rtg.world.gen.deco.*;
 import teamrtg.rtg.world.gen.deco.DecoFallenTree.LogCondition;
-import teamrtg.rtg.world.gen.deco.DecoGrass;
-import teamrtg.rtg.world.gen.deco.DecoLargeFernDoubleTallgrass;
-import teamrtg.rtg.world.gen.deco.DecoShrub;
-import teamrtg.rtg.world.gen.deco.DecoTree;
 import teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaBirchForestM;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase {
 
     public static BiomeGenBase standardBiome = Biomes.BIRCH_FOREST;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
-    public RealisticBiomeVanillaBirchForestM() {
+    public RealisticBiomeVanillaBirchForestM(ChunkProviderRTG chunkProvider) {
 
         super(
                 mutationBiome,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
 
         );
         this.noLakes = true;
@@ -44,8 +41,23 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaBirchForestM(this);
+    protected SurfacePart initSurface() {
+        SurfacePart surface = new SurfacePart();
+        surface.add(new CliffSelector(1.5f)
+            .add(new DepthSelector(0, 6)
+                .add(this.PARTS.SHADOW_STONE)));
+        surface.add(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + chunkProvider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
+            .add(new DepthSelector(0, 0)
+                .add(PARTS.STONE_OR_COBBLE)))
+            .add(new DepthSelector(0, 6)
+                .add(PARTS.STONE));
+        surface.add(new DepthSelector(0, 0)
+            .add(new HeightSelector(0, 62)
+                .add(new BlockPart(config.FILL_BLOCK.get())))
+            .add(new Selector((x, y, z) -> chunkProvider.simplex.noise2(x / 12f, z / 12f) > 0.15f)
+                .add(new BlockPart(config.MIX_BLOCK_TOP.get()))));
+        surface.add(PARTS.GENERIC_SURFACE);
+        return surface;
     }
 
     @Override

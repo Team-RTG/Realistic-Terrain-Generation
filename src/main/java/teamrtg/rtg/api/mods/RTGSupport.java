@@ -2,6 +2,7 @@ package teamrtg.rtg.api.mods;
 
 import teamrtg.rtg.api.config.ModConfig;
 import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 /**
  * Holds all properties that RTG would need to access for a supported mod.
@@ -43,9 +44,9 @@ public class RTGSupport {
         }
     }
 
-    public void initBiomes() {
+    public void initBiomes(ChunkProviderRTG chunkProvider) {
         if (hasBiomes) {
-            biomes.initBiomes();
+            biomes.initBiomes(chunkProvider);
         }
     }
 }

@@ -1,5 +1,7 @@
 package teamrtg.rtg.api.mods;
 
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
+
 /**
  * @author topisani
  */
@@ -10,7 +12,7 @@ public class RTGSupportAC extends RTGSupport {
     }
 
     @Override
-    public void initBiomes() {}
+    public void initBiomes(ChunkProviderRTG chunkProvider) {}
 
     @Override
     public void syncConfig() {}

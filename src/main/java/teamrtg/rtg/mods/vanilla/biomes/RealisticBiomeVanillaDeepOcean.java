@@ -4,17 +4,18 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaDeepOcean;
+import teamrtg.rtg.world.biome.surface.part.*;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaDeepOcean() {
+    public RealisticBiomeVanillaDeepOcean(ChunkProviderRTG chunkProvider) {
 
         super(
                 Biomes.DEEP_OCEAN,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
         this.noLakes = true;
     }
@@ -30,8 +31,14 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaDeepOcean(this);
+    protected SurfacePart initSurface() {
+        SurfacePart surface = new SurfacePart();
+        surface.add(new DepthSelector(0, 0)
+            .add(new HeightSelector(0, 63)
+                .add(new Selector((x, y, z) -> simplex.noise2(x / 20f, z / 20f) > 0.1f)
+                    .add(new BlockPart(config.MIX_BLOCK_TOP.get())))));
+        surface.add(PARTS.GENERIC_SURFACE);
+        return surface;
     }
 
     @Override

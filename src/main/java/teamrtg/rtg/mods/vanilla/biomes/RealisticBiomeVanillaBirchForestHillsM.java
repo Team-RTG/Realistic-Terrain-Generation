@@ -3,47 +3,33 @@ package teamrtg.rtg.mods.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.world.gen.deco.DecoFallenTree;
+import teamrtg.rtg.world.biome.surface.part.*;
+import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
+import teamrtg.rtg.world.gen.deco.*;
 import teamrtg.rtg.world.gen.deco.DecoFallenTree.LogCondition;
-import teamrtg.rtg.world.gen.deco.DecoFlowersRTG;
-import teamrtg.rtg.world.gen.deco.DecoGrass;
-import teamrtg.rtg.world.gen.deco.DecoShrub;
-import teamrtg.rtg.world.gen.deco.DecoTree;
 import teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaBirchForestHillsM;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.BIRCH_FOREST_HILLS;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(RealisticBiomeBase.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
 
-    public RealisticBiomeVanillaBirchForestHillsM() {
+    public RealisticBiomeVanillaBirchForestHillsM(ChunkProviderRTG chunkProvider) {
         super(
-                mutationBiome,
-                Biomes.RIVER
+            mutationBiome,
+            Biomes.RIVER,
+            chunkProvider
         );
         this.noLakes = true;
     }
 
     @Override
-    protected TerrainBase initTerrain() {
-        return new TerrainBase() {
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainHighland(x, y, simplex, cell, river, 10f, 68f, 65f, 10f);
-            }
-        };
-    }
+    protected void initProperties() {
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaBirchForestHillsM(this);
     }
 
     @Override
@@ -99,7 +85,23 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
     }
 
     @Override
-    protected void initProperties() {
+    protected SurfacePart initSurface() {
+        return new DepthSelector(0, 10)
+            .add(new CliffSelector(1.4f)
+                .add(new DepthSelector(0, 1)
+                    .add(new RandomSelector(chunkProvider.rand, 3)
+                        .add(PARTS.COBBLE)))
+                .add(PARTS.STONE))
+            .add(PARTS.GENERIC_SURFACE);
+    }
 
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainHighland(x, y, simplex, cell, river, 10f, 68f, 65f, 10f);
+            }
+        };
     }
 }

@@ -38,8 +38,6 @@ public class RTG {
         instance = this;
 
         configPath = event.getModConfigurationDirectory() + "/RTG/";
-        Mods.initAllBiomes();
-        RealisticBiomeFaker.initFakeBiomes();
         Mods.syncAllConfigs();
 
         eventMgr = new EventManagerRTG();

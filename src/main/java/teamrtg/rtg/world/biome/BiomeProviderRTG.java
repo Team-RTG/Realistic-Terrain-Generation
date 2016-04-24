@@ -10,6 +10,7 @@ import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.util.genlayers.GenLayerUtils;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
@@ -75,7 +76,7 @@ public class BiomeProviderRTG extends BiomeProvider {
 
         for (int i = 0; i < par3; i++) {
             for (int j = 0; j < par4; j++) {
-                d[i * par3 + j] = RealisticBiomeBase.getIdForBiome(getBiomeGenAt(par1 + i, par2 + j));
+                d[i * par3 + j] = BiomeUtils.getIdForBiome(getBiomeGenAt(par1 + i, par2 + j));
             }
         }
         return d;
@@ -141,7 +142,7 @@ public class BiomeProviderRTG extends BiomeProvider {
 
         for (bx = -2; bx <= 2; bx++) {
             for (by = -2; by <= 2; by++) {
-                borderNoise[RealisticBiomeBase.getIdForBiome(getBiomeDataAt(x + bx * 16, y + by * 16))] += 0.04f;
+                borderNoise[BiomeUtils.getIdForBiome(getBiomeDataAt(x + bx * 16, y + by * 16))] += 0.04f;
             }
         }
 

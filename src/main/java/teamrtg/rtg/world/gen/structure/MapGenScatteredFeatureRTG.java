@@ -23,12 +23,12 @@ import java.util.Map.Entry;
  * Source: https://github.com/Choonster/TestMod2/blob/1575b85ad8949381215f3aeb6ca76ea2368074de/src/main/java/com/choonster/testmod2/world/gen/structure/MapGenScatteredFeatureModBiomes.java
  * Modified by: WhichOnesPink (https://github.com/whichonespink44)
  * <p/>
- * Allows scattered features (jungle/desert temples, witch huts) to spawn in modded biomes, equivalent to the biomes biomes,
+ * Allows scattered features (jungle/desert temples, witch huts) to spawn in modded biomes, equivalent to the vanilla biomes,
  * i.e. any config registered as JUNGLE, SANDY or SWAMP
  * http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/modification-development/2471489-jungle-and-desert-temple-spawn-biome
  * <p/>
  * This class was modified by WhichOnesPink on 2015-11-05 to allow the spawning of scattered features ONLY
- * in biomes that have been registered with multiple BiomeDictionary types that are shared by their biomes counterparts.
+ * in biomes that have been registered with multiple BiomeDictionary types that are shared by their vanilla counterparts.
  * For example, desert temples don't generate in SANDY biomes - they are only allowed to generate in biomes that
  * have been registered as HOT + DRY + SANDY.
  * <p/>

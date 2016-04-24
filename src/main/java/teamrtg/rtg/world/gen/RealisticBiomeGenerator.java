@@ -1,5 +1,6 @@
 package teamrtg.rtg.world.gen;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -16,12 +17,12 @@ import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.api.mods.Mods;
+import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.util.math.RandomUtil;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.util.noise.SimplexOctave;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.world.biome.surface.SurfaceGeneric;
+import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.gen.deco.DecoBase;
 
 import java.util.Random;
@@ -32,13 +33,13 @@ import java.util.Random;
 public class RealisticBiomeGenerator {
     private static final RealisticBiomeGenerator[] biomeGenerators = new RealisticBiomeGenerator[256];
     private static float actualRiverProportion = 300f / 1600f;
-    public SurfaceBase surfaceGeneric;
+    public SurfacePart genericPart;
     public final RealisticBiomeBase biome;
 
     public RealisticBiomeGenerator(RealisticBiomeBase biome) {
         this.biome = biome;
-        biomeGenerators[RealisticBiomeBase.getIdForBiome(biome)] = this;
-        surfaceGeneric = new SurfaceGeneric(this.biome);
+        biomeGenerators[BiomeUtils.getIdForBiome(biome)] = this;
+        genericPart = this.biome.PARTS.GENERIC_SURFACE;
     }
 
     public static RealisticBiomeBase getBiome(int id) {
@@ -46,7 +47,7 @@ public class RealisticBiomeGenerator {
     }
 
     public static RealisticBiomeGenerator forBiome(BiomeGenBase biome) {
-        return biomeGenerators[RealisticBiomeBase.getIdForBiome(biome)];
+        return biomeGenerators[BiomeUtils.getIdForBiome(biome)];
     }
 
     public static RealisticBiomeGenerator forBiome(int id) {
@@ -322,12 +323,20 @@ public class RealisticBiomeGenerator {
         }
     }
 
-    public void paintSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
-        if (Mods.RTG.config.ENABLE_RTG_BIOME_DECORATIONS.get() && this.biome.config.USE_RTG_SURFACES.get()) {
-            this.biome.paintSurface(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
-        } else {
-            this.surfaceGeneric.paintSurface(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
-        }
+    public void paintSurface(ChunkPrimer primer, int i, int j, int x, int z, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+        for (int y = 255; y > -1; y--) {
+            Block b = primer.getBlockState(x, y, z).getBlock();
+            if (b == Blocks.AIR) {
+                depth = -1;
+            } else if (b == Blocks.STONE) {
+                depth++;
+                if (Mods.RTG.config.ENABLE_RTG_BIOME_DECORATIONS.get() && this.biome.config.USE_RTG_SURFACES.get()) {
+                        this.biome.surface.paintWithSubparts(primer, i, y, j, depth, noise, river);
+                } else {
+                    this.genericPart.paintWithSubparts(primer, i, y, j, depth, noise, river);
+                    }
+                }
+            }
     }
 
     public void decorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {

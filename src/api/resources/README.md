@@ -1,0 +1,1 @@
+This is just to keep the otherwise empty src/api/resources folder as part of the project.

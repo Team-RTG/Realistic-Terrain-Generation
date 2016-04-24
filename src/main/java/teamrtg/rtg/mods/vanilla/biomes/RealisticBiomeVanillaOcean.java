@@ -4,17 +4,17 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaOcean;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaOcean() {
+    public RealisticBiomeVanillaOcean(ChunkProviderRTG chunkProvider) {
 
         super(
                 Biomes.OCEAN,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
         this.noLakes = true;
     }
@@ -29,10 +29,6 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaOcean(this, 20f, 0.2f);
-    }
 
     @Override
     protected void initDecos() {

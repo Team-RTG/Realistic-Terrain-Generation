@@ -5,17 +5,21 @@ import net.minecraft.block.BlockStairs;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.terraingen.*;
+import net.minecraftforge.event.terraingen.BiomeEvent;
+import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
+import net.minecraftforge.event.terraingen.InitMapGenEvent;
+import net.minecraftforge.event.terraingen.WorldTypeEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import teamrtg.rtg.core.RTG;
-import teamrtg.rtg.api.util.debug.Logger;
+import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.api.mods.Mods;
+import teamrtg.rtg.api.util.BiomeUtils;
+import teamrtg.rtg.api.util.debug.Logger;
+import teamrtg.rtg.core.RTG;
 import teamrtg.rtg.world.WorldTypeRTG;
 import teamrtg.rtg.world.biome.BiomeProviderRTG;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.world.gen.MapGenCavesRTG;
 import teamrtg.rtg.world.gen.MapGenRavineRTG;
 import teamrtg.rtg.world.gen.genlayer.RiverRemover;
@@ -36,6 +40,7 @@ public class EventManagerRTG {
 
     @SubscribeEvent(priority = EventPriority.LOW)
     public void eventListenerRTG(InitMapGenEvent event) {
+
 
         Logger.debug("event type = %s", event.getType().toString());
         Logger.debug("event originalGen = %s", event.getOriginalGen().toString());
@@ -121,9 +126,9 @@ public class EventManagerRTG {
         } else {
             return;
         }
-        if (RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(Mods.VANILLA.biomes.desert) ||
-                RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(Mods.VANILLA.biomes.desertHills) ||
-                RealisticBiomeBase.getIdForBiome(biomeReal) == RealisticBiomeBase.getIdForBiome(Mods.VANILLA.biomes.desert)) {
+        if (BiomeUtils.getIdForBiome(biomeReal) == BiomeUtils.getIdForBiome(Mods.VANILLA.biomes.DESERT) ||
+            BiomeUtils.getIdForBiome(biomeReal) == BiomeUtils.getIdForBiome(Mods.VANILLA.biomes.DESERT_HILLS) ||
+            BiomeUtils.getIdForBiome(biomeReal) == BiomeUtils.getIdForBiome(Mods.VANILLA.biomes.DESERT)) {
             if (event.getOriginal().getBlock() == Blocks.LOG || event.getOriginal().getBlock() == Blocks.LOG2) {
                 event.setReplacement(Blocks.SANDSTONE.getDefaultState());
             }

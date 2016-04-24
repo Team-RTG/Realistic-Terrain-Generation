@@ -4,27 +4,21 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.gen.deco.DecoBoulder;
-import teamrtg.rtg.world.gen.deco.DecoFallenTree;
-import teamrtg.rtg.world.gen.deco.DecoFlowersRTG;
-import teamrtg.rtg.world.gen.deco.DecoLargeFernDoubleTallgrass;
-import teamrtg.rtg.world.gen.deco.DecoPumpkin;
-import teamrtg.rtg.world.gen.deco.DecoShrub;
-import teamrtg.rtg.world.gen.deco.DecoTree;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaExtremeHillsPlus;
 import teamrtg.rtg.world.biome.terrain.HeightEffect;
 import teamrtg.rtg.world.biome.terrain.JitterEffect;
 import teamrtg.rtg.world.biome.terrain.MountainsWithPassesEffect;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
+import teamrtg.rtg.world.gen.deco.*;
 
 public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaExtremeHillsPlus() {
+    public RealisticBiomeVanillaExtremeHillsPlus(ChunkProviderRTG chunkProvider) {
 
         super(
                 Biomes.EXTREME_HILLS_WITH_TREES,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
         this.noLakes = true;
         this.noWaterFeatures = true;
@@ -61,10 +55,6 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaExtremeHillsPlus(this, false, 0f, 1.5f, 60f, 65f, 1.5f, 0.08f);
-    }
 
     @Override
     protected void initDecos() {

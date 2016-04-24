@@ -4,34 +4,26 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.surface.part.*;
+import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.DecoTree;
 import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaBeach;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaBeach() {
+    public RealisticBiomeVanillaBeach(ChunkProviderRTG chunkProvider) {
         super(
-                Biomes.BEACH,
-                Biomes.RIVER
+            Biomes.BEACH,
+            Biomes.RIVER,
+            chunkProvider
         );
     }
 
     @Override
-    protected TerrainBase initTerrain() {
-        return new TerrainBase() {
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainBeach(x, y, simplex, river, 180f, 35f, 63f);
-            }
-        };
-    }
-
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaBeach(this);
+    protected void initProperties() {
+        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.SAND.getDefaultState());
+        config.FILL_BLOCK.setDefault(Blocks.SANDSTONE.getDefaultState());
     }
 
     @Override
@@ -45,8 +37,28 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected void initProperties() {
-        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.SAND.getDefaultState());
-        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.SAND.getDefaultState());
+    protected SurfacePart initSurface() {
+        return new DepthSelector(0, 6)
+            .add(new CliffSelector(1.3f)
+                .add(new BlockPart(config.CLIFF_BLOCK_1.get())))
+            .add(new DepthSelector(0, 0)
+                .add(new HeightSelector(61, 64)
+                    .add(new BlockPart(config.TOP_BLOCK.get()))))
+            .add(new DepthSelector(0, 4)
+                .add(new HeightSelector(61, 69)
+                    .add(new BlockPart(config.TOP_BLOCK.get()))))
+            .add(new HeightSelector(56, 68).setMaxNoise(PARTS.DEPTH_NOISE)
+                .add(PARTS.FILL_BLOCK))
+            .add(PARTS.GENERIC_SURFACE);
+    }
+
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return terrainBeach(x, y, simplex, river, 180f, 35f, 63f);
+            }
+        };
     }
 }

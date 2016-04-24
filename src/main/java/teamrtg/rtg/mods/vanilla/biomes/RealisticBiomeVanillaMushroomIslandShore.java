@@ -4,16 +4,16 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaMushroomIslandShore;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaMushroomIslandShore() {
+    public RealisticBiomeVanillaMushroomIslandShore(ChunkProviderRTG chunkProvider) {
         super(
                 Biomes.MUSHROOM_ISLAND_SHORE,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
         this.noLakes = true;
     }
@@ -28,10 +28,6 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaMushroomIslandShore(this, 67, 0f);
-    }
 
     @Override
     protected void initDecos() {

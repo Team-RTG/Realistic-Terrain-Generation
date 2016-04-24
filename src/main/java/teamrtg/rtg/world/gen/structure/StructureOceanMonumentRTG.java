@@ -20,10 +20,10 @@ import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureOceanMonument;
 import net.minecraft.world.gen.structure.StructureOceanMonumentPieces;
 import net.minecraft.world.gen.structure.StructureStart;
-import teamrtg.rtg.api.util.debug.Logger;
 import teamrtg.rtg.api.mods.Mods;
+import teamrtg.rtg.api.util.BiomeUtils;
+import teamrtg.rtg.api.util.debug.Logger;
 import teamrtg.rtg.world.biome.BiomeProviderRTG;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
 
 import java.util.*;
 
@@ -92,7 +92,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         if (i == k && j == l) {
             BiomeGenBase bg = this.worldObj.getBiomeProvider().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), null);
 
-            if (RealisticBiomeBase.getIdForBiome(bg) == Mods.VANILLA.biomes.deepOcean.getID()) {
+            if (BiomeUtils.getIdForBiome(bg) == Mods.VANILLA.biomes.DEEP_OCEAN.getID()) {
 
                 boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29);
 

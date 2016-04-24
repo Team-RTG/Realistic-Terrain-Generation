@@ -3,28 +3,24 @@ package teamrtg.rtg.mods.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
+import teamrtg.rtg.util.noise.IFloatAt;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.world.gen.deco.DecoBoulder;
-import teamrtg.rtg.world.gen.deco.DecoFallenTree;
+import teamrtg.rtg.world.biome.surface.part.*;
+import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
+import teamrtg.rtg.world.gen.deco.*;
 import teamrtg.rtg.world.gen.deco.DecoFallenTree.LogCondition;
-import teamrtg.rtg.world.gen.deco.DecoGrass;
-import teamrtg.rtg.world.gen.deco.DecoPumpkin;
-import teamrtg.rtg.world.gen.deco.DecoShrub;
-import teamrtg.rtg.world.gen.deco.DecoTree;
 import teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaColdTaigaHills;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaColdTaigaHills() {
+    public RealisticBiomeVanillaColdTaigaHills(ChunkProviderRTG chunkProvider) {
 
         super(
                 Biomes.COLD_TAIGA_HILLS,
-                Biomes.FROZEN_RIVER
+                Biomes.FROZEN_RIVER,
+                chunkProvider
         );
         this.noLakes = true;
     }
@@ -40,8 +36,37 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
     }
 
     @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaColdTaigaHills(this);
+    protected SurfacePart initSurface() {
+        SurfacePart surface = new SurfacePart();
+
+        IFloatAt cliffNoise = (x, y, z) -> simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f;
+
+        surface.add(new DepthSelector(0, 6)
+
+            .add(new CliffSelector((x, y, z) -> {
+                float n = 1.5f - ((y - 60f) / 65f) + cliffNoise.getFloatAt(x, y, z);
+                return (n > 0.2f) ? n : 0.2f;
+            })
+                .add(new DepthSelector(0, 0)
+                    .add(PARTS.STONE_OR_COBBLE))
+                .add(PARTS.STONE))
+
+            .add(new CliffSelector(1.5f)
+                .add(this.PARTS.SHADOW_STONE))
+
+            .add(new CliffSelector((x, y, z) -> 0.3f + ((y - 100f) / 50f) + cliffNoise.getFloatAt(x, y, z))
+                .add(new Selector((x, y, z) -> y > 110 + (cliffNoise.getFloatAt(x, y, z) * 4))
+                    .add(new BlockPart(Blocks.SNOW.getDefaultState()))))
+
+            .add(new DepthSelector(0, 0)
+                .add(new Selector((x, y, z) -> simplex.noise2(x / 50f, z / 50f) + cliffNoise.getFloatAt(x, y, z) * 0.6f > 0.24f)
+                    .add(new BlockPart(Blocks.DIRT.getStateFromMeta(2))))
+                .add(new BlockPart(Blocks.GRASS.getDefaultState())))
+            .add(new HeightSelector(0, 63)
+                .add(new BlockPart(Blocks.GRAVEL.getDefaultState())))
+            .add(new BlockPart(Blocks.DIRT.getDefaultState()))
+        );
+        return surface;
     }
 
     @Override

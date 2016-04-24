@@ -2,16 +2,18 @@ package teamrtg.rtg.world.biome.fake;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.ChunkProviderOverworld;
 import teamrtg.rtg.api.mods.Mods;
-import teamrtg.rtg.util.BiomeUtils;
+import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.util.LimitedMap;
 import teamrtg.rtg.util.PlaneLocation;
-import teamrtg.rtg.util.math.MathUtils;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
+
+import static teamrtg.rtg.util.math.MathUtils.globalToChunk;
+import static teamrtg.rtg.util.math.MathUtils.globalToLocal;
 
 /**
  * @author topisani
@@ -19,11 +21,13 @@ import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
 public class RealisticBiomeFaker {
 
     private final ChunkProviderOverworld fakeProvider;
-    public static boolean[] fakeBiomes = new boolean[256];
+    public boolean[] fakeBiomes = new boolean[256];
     private LimitedMap<PlaneLocation.Invariant, int[]> chunkHeights = new LimitedMap<>(64); //Keep the heights for the last 64 chunks around for a bit. We might need them
+    private ChunkProviderRTG chunkProvider;
 
-    public RealisticBiomeFaker(World world) {
-        fakeProvider = new ChunkProviderOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), world.getWorldInfo().getGeneratorOptions());
+    public RealisticBiomeFaker(ChunkProviderRTG chunkProvider) {
+        this.chunkProvider = chunkProvider;
+        fakeProvider = new ChunkProviderOverworld(chunkProvider.world, chunkProvider.world.getSeed(), chunkProvider.world.getWorldInfo().isMapFeaturesEnabled(), chunkProvider.world.getWorldInfo().getGeneratorOptions());
     }
 
     public int[] fakeTerrain(int cx, int cz) {
@@ -50,7 +54,7 @@ public class RealisticBiomeFaker {
     }
 
     public int getHeightAt(int x, int z) {
-        return this.getHeightsAt(MathUtils.globalToChunk(x), MathUtils.globalToChunk(z))[MathUtils.globalToLocal(x) * 16 + MathUtils.globalToLocal(z)];
+        return this.getHeightsAt(globalToChunk(x), globalToChunk(z))[globalToLocal(x) * 16 + globalToLocal(z)];
     }
 
     public int[] getHeightsAt(int cx, int cz) {
@@ -67,14 +71,14 @@ public class RealisticBiomeFaker {
         fakeProvider.replaceBiomeBlocks(cx, cz, primer, biomes);
     }
 
-    public static void initFakeBiomes() {
+    public void initFakeBiomes() {
         BiomeGenBase[] b = BiomeUtils.getRegisteredBiomes();
         for (BiomeGenBase biome : b) {
             if (biome != null) {
                 try {
                     RealisticBiomeGenerator.getBiome(BiomeGenBase.getIdForBiome(biome));
                 } catch (Exception e) {
-                    new RealisticBiomeGenerator(new FakedRealisticBiome(Mods.RTG, biome));
+                    new RealisticBiomeGenerator(new FakedRealisticBiome(Mods.RTG, biome, chunkProvider));
                     fakeBiomes[BiomeGenBase.getIdForBiome(biome)] = true;
                 }
             }

@@ -4,17 +4,17 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaIceMountains;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaIceMountains() {
+    public RealisticBiomeVanillaIceMountains(ChunkProviderRTG chunkProvider) {
 
         super(
                 Biomes.ICE_MOUNTAINS,
-                Biomes.FROZEN_RIVER
+                Biomes.FROZEN_RIVER,
+                chunkProvider
         );
         this.noLakes = true;
     }
@@ -29,10 +29,6 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaIceMountains(this, 60f, -0.14f, 14f, 0.25f);
-    }
 
     @Override
     protected void initDecos() {

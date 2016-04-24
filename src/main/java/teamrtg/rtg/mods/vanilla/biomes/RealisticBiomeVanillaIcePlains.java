@@ -4,21 +4,21 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 import teamrtg.rtg.world.gen.deco.DecoBoulder;
 import teamrtg.rtg.world.gen.deco.DecoFallenTree;
 import teamrtg.rtg.world.gen.deco.DecoFallenTree.LogCondition;
 import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaIcePlains;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaIcePlains() {
+    public RealisticBiomeVanillaIcePlains(ChunkProviderRTG chunkProvider) {
         super(
                 Biomes.ICE_PLAINS,
-                Biomes.FROZEN_RIVER
+                Biomes.FROZEN_RIVER,
+                chunkProvider
         );
     }
 
@@ -38,10 +38,6 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaIcePlains(this);
-    }
 
     @Override
     protected void initDecos() {

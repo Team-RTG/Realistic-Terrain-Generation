@@ -18,6 +18,7 @@ public class BiomeConfig extends Config {
 
     public final ConfigProperty.PropertyBlock CLIFF_BLOCK_1 = new ConfigProperty.PropertyBlock("Cliff block 1", "");
     public final ConfigProperty.PropertyBlock CLIFF_BLOCK_2 = new ConfigProperty.PropertyBlock("Cliff block 2", "");
+    @Deprecated //Should allways use mix top or mix fill
     public final ConfigProperty.PropertyBlock MIX_BLOCK = new ConfigProperty.PropertyBlock("Mix block", "");
     public final ConfigProperty.PropertyBlock MIX_BLOCK_TOP = new ConfigProperty.PropertyBlock("Mix top block", "");
     public final ConfigProperty.PropertyBlock MIX_BLOCK_FILL = new ConfigProperty.PropertyBlock("Mix fill block", "");

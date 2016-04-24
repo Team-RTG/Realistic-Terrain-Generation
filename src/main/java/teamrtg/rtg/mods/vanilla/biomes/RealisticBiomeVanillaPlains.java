@@ -3,18 +3,18 @@ package teamrtg.rtg.mods.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.SurfaceBase;
-import teamrtg.rtg.mods.vanilla.surfaces.SurfaceVanillaPlains;
 import teamrtg.rtg.world.biome.terrain.GroundEffect;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaPlains() {
+    public RealisticBiomeVanillaPlains(ChunkProviderRTG chunkProvider) {
 
         super(
                 Biomes.PLAINS,
-                Biomes.RIVER
+                Biomes.RIVER,
+                chunkProvider
         );
     }
 
@@ -30,10 +30,6 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         };
     }
 
-    @Override
-    protected SurfaceBase initSurface() {
-        return new SurfaceVanillaPlains(this);
-    }
 
     @Override
     protected void initDecos() {

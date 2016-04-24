@@ -24,6 +24,7 @@ public class RealisticBiomeHLEstuary extends RealisticBiomeHLBase
             new SurfaceHLEstuary(config, topBlock, fillerBlock));
 		
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		decoBaseBiomeDecorations.maxY = 63;
 		this.addDeco(decoBaseBiomeDecorations);
     }
 }

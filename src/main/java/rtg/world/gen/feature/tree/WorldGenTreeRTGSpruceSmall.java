@@ -7,10 +7,15 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+/**
+ * @see rtg.world.gen.feature.tree.rtg.pinaceae.picea.TreeRTGPinaceaePiceaPungens
+ */
+@Deprecated
 public class WorldGenTreeRTGSpruceSmall extends WorldGenerator
 {
 	private int treeSize;
 	
+	@Deprecated
 	public WorldGenTreeRTGSpruceSmall(int s)
 	{
 		treeSize = s;

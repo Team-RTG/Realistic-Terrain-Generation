@@ -1,16 +1,16 @@
-package rtg.world.gen.feature.tree.rtg.pinaceae;
+package rtg.world.gen.feature.tree.rtg.pinaceae.pinus;
 
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
-import rtg.world.gen.feature.tree.rtg.TreeRTGPinaceae;
+import rtg.world.gen.feature.tree.rtg.pinaceae.TreeRTGPinaceaeBase;
 
-public class TreeRTGPinaceaePinus extends TreeRTGPinaceae
+public class TreeRTGPinaceaePinusBase extends TreeRTGPinaceaeBase
 {
 
-	public TreeRTGPinaceaePinus()
+	public TreeRTGPinaceaePinusBase()
 	{
 		super();
 	}

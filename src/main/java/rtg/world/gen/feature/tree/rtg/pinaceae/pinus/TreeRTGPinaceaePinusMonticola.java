@@ -7,9 +7,8 @@ import net.minecraft.block.BlockSapling;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import rtg.world.gen.feature.tree.rtg.pinaceae.TreeRTGPinaceaePinus;
 
-public class TreeRTGPinaceaePinusMonticola extends TreeRTGPinaceaePinus
+public class TreeRTGPinaceaePinusMonticola extends TreeRTGPinaceaePinusBase
 {
 	private int height;
 	

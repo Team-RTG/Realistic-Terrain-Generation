@@ -5,9 +5,8 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import rtg.world.gen.feature.tree.rtg.pinaceae.TreeRTGPinaceaePicea;
 
-public class TreeRTGPinaceaePiceaPungens extends TreeRTGPinaceaePicea
+public class TreeRTGPinaceaePiceaPungens extends TreeRTGPinaceaePiceaBase
 {
 
 	public TreeRTGPinaceaePiceaPungens()

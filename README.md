@@ -8,4 +8,4 @@ Realistic Terrain Generation (RTG) is a mod that adds a new world type which gen
 
 For more information, please visit the official RTG thread on the Minecraft Forum: http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2524489-realistic-terrain-generation-rtg-realistic-biomes
 
-If you wish to contribute to RTG, please see: [CONTRIBUTING.md](../../tree/master/.github/CONTRIBUTING.md)
+If you wish to contribute to RTG, please see: [CONTRIBUTING.md](../../tree/dev/.github/CONTRIBUTING.md)

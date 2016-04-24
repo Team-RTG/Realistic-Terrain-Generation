@@ -11,15 +11,24 @@
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.logging.log4j.Level;
-
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.shinoow.abyssalcraft.api.block.ACBlocks;
+import com.shinoow.abyssalcraft.api.integration.ACPlugin;
+import com.shinoow.abyssalcraft.api.integration.IACPlugin;
+import com.shinoow.abyssalcraft.api.internal.DummyNecroDataHandler;
+import com.shinoow.abyssalcraft.api.internal.IInternalNecroDataHandler;
+import com.shinoow.abyssalcraft.api.item.ACItems;
+import com.shinoow.abyssalcraft.api.item.ItemEngraving;
+import com.shinoow.abyssalcraft.api.necronomicon.NecroData;
+import com.shinoow.abyssalcraft.api.recipe.*;
 import net.minecraft.block.Block;
-import net.minecraft.entity.*;
-import net.minecraft.entity.passive.*;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.passive.EntityAmbientCreature;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -29,23 +38,15 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.oredict.OreDictionary;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.shinoow.abyssalcraft.api.block.ACBlocks;
-import com.shinoow.abyssalcraft.api.integration.IACPlugin;
-import com.shinoow.abyssalcraft.api.integration.ACPlugin;
-import com.shinoow.abyssalcraft.api.internal.DummyNecroDataHandler;
-import com.shinoow.abyssalcraft.api.internal.IInternalNecroDataHandler;
-import com.shinoow.abyssalcraft.api.item.ACItems;
-import com.shinoow.abyssalcraft.api.item.ItemEngraving;
-import com.shinoow.abyssalcraft.api.necronomicon.NecroData;
-import com.shinoow.abyssalcraft.api.recipe.*;
-
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.IFuelHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
+import org.apache.logging.log4j.Level;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Main API class for AbyssalCraft, has child classes for most features.<br>
@@ -94,14 +95,14 @@ public class AbyssalCraftAPI {
 	 */
 	public static EnumCreatureAttribute SHADOW = EnumHelper.addCreatureAttribute("SHADOW");
 
-	public static ArmorMaterial abyssalniteArmor = EnumHelper.addArmorMaterial("Abyssalnite", "abyssalcraft:abyssalnite", 35, new int[]{3, 8, 6, 3}, 13, SoundEvents.item_armor_equip_iron);
-	public static ArmorMaterial dreadedAbyssalniteArmor = EnumHelper.addArmorMaterial("Dread", "abyssalcraft:dread", 36, new int[]{3, 8, 6, 3}, 15, SoundEvents.item_armor_equip_iron);
-	public static ArmorMaterial refinedCoraliumArmor = EnumHelper.addArmorMaterial("Coralium", "abyssalcraft:coralium", 37, new int[]{3, 8, 6, 3}, 14, SoundEvents.item_armor_equip_iron);
-	public static ArmorMaterial platedCoraliumArmor = EnumHelper.addArmorMaterial("CoraliumP", "abyssalcraft:coraliump", 55, new int[]{4, 9, 7, 4}, 14, SoundEvents.item_armor_equip_iron);
-	public static ArmorMaterial depthsArmor = EnumHelper.addArmorMaterial("Depths", "abyssalcraft:depths", 33, new int[]{3, 8, 6, 3}, 25, SoundEvents.item_armor_equip_iron);
-	public static ArmorMaterial dreadiumArmor = EnumHelper.addArmorMaterial("Dreadium", "abyssalcraft:dreadium", 40, new int[]{3, 8, 6, 3}, 15, SoundEvents.item_armor_equip_iron);
-	public static ArmorMaterial dreadiumSamuraiArmor = EnumHelper.addArmorMaterial("DreadiumS", "abyssalcraft:dreadiums", 45, new int[]{3, 8, 6, 3}, 20, SoundEvents.item_armor_equip_iron);
-	public static ArmorMaterial ethaxiumArmor = EnumHelper.addArmorMaterial("Ethaxium", "abyssalcraft:ethaxium", 50, new int[]{3, 8, 6, 3}, 25, SoundEvents.item_armor_equip_iron);
+	public static ArmorMaterial abyssalniteArmor = EnumHelper.addArmorMaterial("Abyssalnite", "abyssalcraft:abyssalnite", 35, new int[]{3, 8, 6, 3}, 13, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
+	public static ArmorMaterial dreadedAbyssalniteArmor = EnumHelper.addArmorMaterial("Dread", "abyssalcraft:dread", 36, new int[]{3, 8, 6, 3}, 15, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
+	public static ArmorMaterial refinedCoraliumArmor = EnumHelper.addArmorMaterial("Coralium", "abyssalcraft:coralium", 37, new int[]{3, 8, 6, 3}, 14, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
+	public static ArmorMaterial platedCoraliumArmor = EnumHelper.addArmorMaterial("CoraliumP", "abyssalcraft:coraliump", 55, new int[]{4, 9, 7, 4}, 14, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
+	public static ArmorMaterial depthsArmor = EnumHelper.addArmorMaterial("Depths", "abyssalcraft:depths", 33, new int[]{3, 8, 6, 3}, 25, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
+	public static ArmorMaterial dreadiumArmor = EnumHelper.addArmorMaterial("Dreadium", "abyssalcraft:dreadium", 40, new int[]{3, 8, 6, 3}, 15, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
+	public static ArmorMaterial dreadiumSamuraiArmor = EnumHelper.addArmorMaterial("DreadiumS", "abyssalcraft:dreadiums", 45, new int[]{3, 8, 6, 3}, 20, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
+	public static ArmorMaterial ethaxiumArmor = EnumHelper.addArmorMaterial("Ethaxium", "abyssalcraft:ethaxium", 50, new int[]{3, 8, 6, 3}, 25, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
 
 	public static ToolMaterial darkstoneTool = EnumHelper.addToolMaterial("DARKSTONE", 1, 180, 5.0F, 1, 5);
 	public static ToolMaterial abyssalniteTool = EnumHelper.addToolMaterial("ABYSSALNITE", 4, 1261, 13.0F, 4, 13);
@@ -502,8 +503,8 @@ public class AbyssalCraftAPI {
 	}
 
 	/**
-	 * Fuel types, also has support for the vanilla furnace.
-	 * @author shinoow
+     * Fuel types, also has support for the biomes furnace.
+     * @author shinoow
 	 *
 	 */
 	public enum FuelType{

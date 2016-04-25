@@ -1,4 +1,4 @@
-package rtg.world.gen.feature.tree;
+package rtg.world.gen.feature.tree.deprecated;
 
 import java.util.Random;
 

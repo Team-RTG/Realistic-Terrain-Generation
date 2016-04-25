@@ -1,4 +1,4 @@
-package rtg.world.gen.feature.tree;
+package rtg.world.gen.feature.tree.deprecated;
 
 import java.util.Random;
 
@@ -7,7 +7,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.world.gen.feature.tree.rtg.fagaceae.quercus.TreeRTGFagaceaeQuercusRobur;
 
+/** 
+ * @deprecated
+ * @see TreeRTGFagaceaeQuercusRobur
+ */
 public class WorldGenTreeRTGBig extends WorldGenerator
 {
     static final byte[] otherCoordPairs = new byte[] {(byte)2, (byte)0, (byte)0, (byte)1, (byte)2, (byte)1};
@@ -28,12 +33,18 @@ public class WorldGenTreeRTGBig extends WorldGenerator
 	int size;
 	int type;
 
+	/**
+	 * @deprecated
+	 */
     public WorldGenTreeRTGBig(int sizeinput, int typeinput)
     {
         size = sizeinput;
 		type = typeinput;
     }
     
+	/**
+	 * @deprecated
+	 */
     public WorldGenTreeRTGBig()
     {
     	this(7 + ((int) Math.floor(Math.random() * 7)), 0);

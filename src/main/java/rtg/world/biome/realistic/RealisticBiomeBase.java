@@ -35,6 +35,7 @@ import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.gen.feature.WorldGenClay;
+import rtg.world.gen.feature.WorldGenPond;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGeneric;
 import rtg.world.gen.terrain.TerrainBase;
@@ -164,13 +165,13 @@ public class RealisticBiomeBase extends BiomeBase {
         surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
     }
     
-    public void rPopulatePreDecorate(IChunkProvider ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag)
+    public void rPopulatePreDecorate(IChunkProvider ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean villageBuilding)
     {
         int worldX = chunkX * 16;
         int worldZ = chunkZ * 16;
         boolean gen = true;
         
-        gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.LAKE);
+        gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, villageBuilding, PopulateChunkEvent.Populate.EventType.LAKE);
         
         // Underground water lakes.
         if (ConfigRTG.enableWaterUndergroundLakes) {
@@ -189,7 +190,7 @@ public class RealisticBiomeBase extends BiomeBase {
         }
         
         // Surface water lakes.
-        if (ConfigRTG.enableWaterSurfaceLakes) {
+        if (ConfigRTG.enableWaterSurfaceLakes&&!villageBuilding) {
             
             if (gen && (waterSurfaceLakeChance > 0)) {
                 
@@ -202,13 +203,13 @@ public class RealisticBiomeBase extends BiomeBase {
 
                     if (l4 > 63) {
                         
-                        (new WorldGenLakes(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
+                        (new WorldGenPond(Blocks.water)).generate(worldObj, rand, i2, l4, i8);
                     }
                 }
             }
         }
 
-        gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.LAVA);
+        gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, villageBuilding, PopulateChunkEvent.Populate.EventType.LAVA);
         
         // Underground lava lakes.
         if (ConfigRTG.enableLavaUndergroundLakes) {
@@ -227,7 +228,7 @@ public class RealisticBiomeBase extends BiomeBase {
         }
         
         // Surface lava lakes.
-        if (ConfigRTG.enableLavaSurfaceLakes) {
+        if (ConfigRTG.enableLavaSurfaceLakes&&!villageBuilding) {
             
             if (gen && (lavaSurfaceLakeChance > 0)) {
                 
@@ -240,7 +241,7 @@ public class RealisticBiomeBase extends BiomeBase {
 
                     if (l4 > 63) {
                         
-                        (new WorldGenLakes(Blocks.lava)).generate(worldObj, rand, i2, l4, i8);
+                        (new WorldGenPond(Blocks.lava)).generate(worldObj, rand, i2, l4, i8);
                     }
                 }
             }
@@ -248,7 +249,7 @@ public class RealisticBiomeBase extends BiomeBase {
         
         if (ConfigRTG.generateDungeons) {
             
-            gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.DUNGEON);
+            gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, villageBuilding, PopulateChunkEvent.Populate.EventType.DUNGEON);
             
             if (gen) {
             	

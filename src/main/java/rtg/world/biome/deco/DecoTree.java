@@ -28,6 +28,7 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGWillow;
 import rtg.world.gen.feature.tree.deprecated.WorldGenTreeRTGSprucePineBig;
 import rtg.world.gen.feature.tree.deprecated.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.world.gen.feature.tree.rtg.fagaceae.quercus.TreeRTGFagaceaeQuercusRobur;
 import rtg.world.gen.feature.tree.rtg.pinaceae.picea.TreeRTGPinaceaePiceaPungens;
 import rtg.world.gen.feature.tree.rtg.pinaceae.picea.TreeRTGPinaceaePiceaSitchensis;
 import rtg.world.gen.feature.tree.rtg.pinaceae.pinus.TreeRTGPinaceaePinusMonticola;
@@ -189,6 +190,24 @@ public class DecoTree extends DecoBase
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
 	                        	
 		                        WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreeRTGSavanna(1, false);
+		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
+		                        worldgenerator.generate(world, rand, intX, intY, intZ);
+	                        }
+		            		
+		            		break;
+		            		
+		            	case FAGACEAE_QUERCUS_ROBUR:
+		            		
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+	                        	
+		            			TreeRTG worldgenerator = new TreeRTGFagaceaeQuercusRobur();
+		            			worldgenerator.setLogBlock(this.logBlock);
+		            			worldgenerator.setLogMeta(this.logMeta);
+		            			worldgenerator.setLeavesBlock(this.leavesBlock);
+		            			worldgenerator.setLeavesMeta(this.leavesMeta);
+		            			worldgenerator.setTrunkSize(RandomUtil.getRandomInt(rand, this.minTrunkSize, this.maxTrunkSize));
+		            			worldgenerator.setCrownSize(RandomUtil.getRandomInt(rand, this.minCrownSize, this.maxCrownSize));
+		            			worldgenerator.setNoLeaves(this.noLeaves);
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 		                        worldgenerator.generate(world, rand, intX, intY, intZ);
 	                        }
@@ -627,6 +646,7 @@ public class DecoTree extends DecoBase
 		BIRCH_TREES_FOREST,
 		BOP_LAND_OF_LAKES,
 		DESERT_RIVER,
+		FAGACEAE_QUERCUS_ROBUR,
 		HL_WINDY_ISLAND,
 		MANGROVE,
 		MEGA_JUNGLE,

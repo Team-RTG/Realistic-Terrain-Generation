@@ -417,7 +417,6 @@ public class SimplexOctave {
 
     private static final LatticePoint2D[] LOOKUP_2D;
     private static Contribution3[] LOOKUP_3D;
-
     static {
 
         //2D (KdotJPG)
@@ -613,7 +612,6 @@ public class SimplexOctave {
             this.sph2xIndex = sph2xIndex;
             this.sph2yIndex = sph2yIndex;
         }
-
         public NoiseInstance2(SimplexOctave noise, int valueIndex,
                               int ddxIndex, int ddyIndex) {
             this(noise, valueIndex, ddxIndex, ddyIndex, -1, -1);
@@ -621,7 +619,6 @@ public class SimplexOctave {
         public NoiseInstance2(SimplexOctave noise, int valueIndex) {
             this(noise, valueIndex, -1, -1, -1, -1);
         }
-
         public SimplexOctave noise;
         public int valueIndex;
         public int ddxIndex, ddyIndex;

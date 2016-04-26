@@ -243,7 +243,6 @@ public class SimplexCellularOctave implements CellOctave {
 	 */
 
     private static final LatticePoint2D[] LOOKUP_2D;
-
     static {
         LOOKUP_2D = new LatticePoint2D[18 * 9];
 
@@ -338,7 +337,6 @@ public class SimplexCellularOctave implements CellOctave {
             this.f1Index = f1Index;
             this.f2Index = f2Index;
         }
-
         public SimplexCellularOctave noise;
         public int f1Index;
         public int f2Index;

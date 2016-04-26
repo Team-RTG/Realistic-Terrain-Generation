@@ -67,7 +67,6 @@ public class OpenSimplexNoise extends SimplexOctave {
     public SimplexOctave octave(int index) {
         return octaves[index];
     }
-
     public SimplexOctave mountain() {return octaves[0];}
 
     public SimplexOctave riverJitter() {return octaves[1];}

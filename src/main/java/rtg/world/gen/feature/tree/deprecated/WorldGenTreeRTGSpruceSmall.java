@@ -8,14 +8,18 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 /**
+ * @deprecated
  * @see rtg.world.gen.feature.tree.rtg.pinaceae.picea.TreeRTGPinaceaePiceaPungens
  */
-@Deprecated
+
 public class WorldGenTreeRTGSpruceSmall extends WorldGenerator
 {
 	private int treeSize;
 	
-	@Deprecated
+	/**
+	 * @deprecated
+	 * @see rtg.world.gen.feature.tree.rtg.pinaceae.picea.TreeRTGPinaceaePiceaPungens
+	 */
 	public WorldGenTreeRTGSpruceSmall(int s)
 	{
 		treeSize = s;

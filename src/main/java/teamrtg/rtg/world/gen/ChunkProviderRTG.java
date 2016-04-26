@@ -696,7 +696,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
     public List getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
         BiomeGenBase var5 = this.world.getBiomeGenForCoords(pos);
         if (this.mapFeaturesEnabled) {
-            if (creatureType == EnumCreatureType.MONSTER && this.scatteredFeatureGenerator.isSwampHut(pos)) {
+            if (creatureType == EnumCreatureType.MONSTER && this.scatteredFeatureGenerator.func_175798_a(pos)) {
                 return this.scatteredFeatureGenerator.getScatteredFeatureSpawnList();
             }
 

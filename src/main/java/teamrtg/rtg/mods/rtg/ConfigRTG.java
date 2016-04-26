@@ -52,6 +52,12 @@ public class ConfigRTG extends ModConfig {
     public final ConfigProperty.PropertyBlock SHADOW_DESERT_BLOCK = addBlock("Desert shadow block", "terrain shadowing");
     public final ConfigProperty.PropertyBool ALLOW_TREES_ON_SAND = addBool("Allow Trees to Generate on Sand", "trees");
     public final ConfigProperty.PropertyBool ALLOW_SHRUBS_UNDERGROUND = addBool("Allow Shrubs to Generate Below Surface", "trees");
+    public final ConfigProperty.PropertyFloat RIVER_FREQUENCY_MULTIPLIER = addFloat("River frequency multiplier", "water systems");
+    public final ConfigProperty.PropertyFloat RIVER_SIZE_MULTIPLIER = addFloat("River width multiplier", "water systems");
+    public final ConfigProperty.PropertyFloat RIVER_BENDINESS_MULTIPLIER = addFloat("Multiplier to River Bending", "water systems");
+    public final ConfigProperty.PropertyFloat LAKE_FREQUENCY_MULTIPLIER = addFloat("Lake Frequency Multipler", "water systems");
+    public final ConfigProperty.PropertyFloat LAKE_SIZE_MULTIPLIER = addFloat("Lake Size Multipler", "water systems");
+    public final ConfigProperty.PropertyFloat LAKE_BENDINESS_MULTIPLIER = addFloat("Lake Shore Irregularity", "water systems");
 
     public ConfigRTG() {
         super("RTG");
@@ -109,5 +115,12 @@ public class ConfigRTG extends ModConfig {
         SHADOW_DESERT_BLOCK.setDefault(Blocks.STAINED_HARDENED_CLAY.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.WHITE));
         ALLOW_TREES_ON_SAND.setDefault(true);
         ALLOW_SHRUBS_UNDERGROUND.setDefault(true);
+        RIVER_SIZE_MULTIPLIER.setDefault(1).setRange(0, 10).setComment("Defaults to 1 (standard width)");
+        RIVER_FREQUENCY_MULTIPLIER.setDefault(1).setRange(0, 10).setComment("Defaults to 1 (standard frequency)");
+        RIVER_BENDINESS_MULTIPLIER.setDefault(1).setRange(0, 2).setComment("Higher numbers make rivers bend more. Defaults to 1");
+        LAKE_SIZE_MULTIPLIER.setDefault(1).setRange(0, 10).setComment("Defaults to 1 (standard size)");
+        LAKE_FREQUENCY_MULTIPLIER.setDefault(1).setRange(0, 10).setComment("Defaults to 1 (standard frequency)");
+        LAKE_BENDINESS_MULTIPLIER.setDefault(1).setRange(0, 2).setComment("Makes scenic lake shores bend and curve more. Defaults to 1");
+
     }
 }

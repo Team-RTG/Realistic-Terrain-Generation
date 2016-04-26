@@ -10,6 +10,7 @@ import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.util.genlayers.GenLayerUtils;
 import teamrtg.rtg.util.noise.CellNoise;
@@ -41,6 +42,11 @@ public class BiomeProviderRTG extends BiomeProvider {
     private ChunkProviderRTG chunkProvider;
     private BiomeCache biomeCache;
 
+    private double riverValleyLevel = 60.0 / 450.0;
+    private float riverSeparation = 1875;
+    private float largeBendSize = 140;
+    private float smallBendSize = 35;
+
     public BiomeProviderRTG(World par1World, WorldType worldType) {
 
         this();
@@ -61,6 +67,11 @@ public class BiomeProviderRTG extends BiomeProvider {
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
         this.biomeIndexLayer = agenlayer[1];
+
+        this.riverSeparation /= Mods.RTG.config.RIVER_FREQUENCY_MULTIPLIER.get();
+        this.riverValleyLevel *= Mods.RTG.config.RIVER_SIZE_MULTIPLIER.get();
+        this.largeBendSize *= Mods.RTG.config.RIVER_BENDINESS_MULTIPLIER.get();
+        this.smallBendSize *= Mods.RTG.config.RIVER_BENDINESS_MULTIPLIER.get();
     }
 
     protected BiomeProviderRTG() {
@@ -256,37 +267,31 @@ public class BiomeProviderRTG extends BiomeProvider {
     }
 
     public float getRiverStrength(int x, int y) {
+
         //New river curve function. No longer creates worldwide curve correlations along cardinal axes.
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-        simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
-        double pX = x + jitter.deltax() * 220f;
-        double pY = y + jitter.deltay() * 220f;
-            /*double[] simplexResults = new double[2];
-            OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
-            double pX = x + simplexResults[0] * 220f;
-            double pY = y + simplexResults[1] * 220f;*/
+        simplex.riverJitter().evaluateNoise((float) x / 240.0, (float) y / 240.0, jitter);
+        double pX = x + jitter.deltax() * largeBendSize;
+        double pY = y + jitter.deltay() * largeBendSize;
+
+
+        simplex.octave(2).evaluateNoise((float) x / 80.0, (float) y / 80.0, jitter);
+        pX += jitter.deltax() * smallBendSize;
+        pY += jitter.deltay() * smallBendSize;
+
+        double xRiver = pX / riverSeparation;
+        double yRiver = pY / riverSeparation;
 
         //New cellular noise.
         //TODO move the initialization of the results in a way that's more efficient but still thread safe.
-        double[] results = simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
-        if (x == -200 && y == -750) {
-            //throw new RuntimeException(""+ results[1]+ " " +results[0]);
-        }
-        return (float) cellBorder(results, 30.0 / 600.0, 1.0);
+        double[] results = cell.river().eval(xRiver, yRiver);
+        return (float) cellBorder(results, riverValleyLevel, 1.0);
+        //return cell.octave(1).border2(xRiver, yRiver, riverValleyLevel, 1f);
     }
 
     private static double cellBorder(double[] results, double width, double depth) {
-        double c = (results[1] - results[0]);
-        /*int slot = (int)Math.floor(c*100.0);
-        incidences[slot] += 1;
-        references ++;
-        if (references>40000) {
-            String result = "";
-            for (int i = 0; i< 100; i ++) {
-                result += " " + incidences[i];
-            }
-            throw new RuntimeException(result);
-        }*/
+        double c = (results[1] - results[0]) / results[1];
+        if (c < 0) throw new RuntimeException();
         if (c < width) {
             return ((c / width) - 1f) * depth;
         } else {

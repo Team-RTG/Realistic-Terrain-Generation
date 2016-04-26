@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 /**
- * @see rtg.world.gen.feature.tree.rtg.pinaceae.pinus.TreeRTGPinaceaePinusNigra
+ * @see rtg.world.gen.feature.tree.rtg.TreeRTGPinusNigra
  */
 @Deprecated
 public class WorldGenTreeRTGPineEuro extends WorldGenerator

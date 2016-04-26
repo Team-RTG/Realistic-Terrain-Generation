@@ -14,6 +14,7 @@ import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelper5050;
+import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaForest;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaForest;
 
@@ -40,7 +41,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
 		 */
 		
         // Trees first.
-		DecoTree oakPines = new DecoTree();
+		DecoTree oakPines = new DecoTree(new TreeRTGPinusPonderosa());
 		oakPines.logBlock = Blocks.log;
 		oakPines.logMeta = (byte)0;
 		oakPines.leavesBlock = Blocks.leaves;
@@ -50,7 +51,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase
 		oakPines.minCrownSize = 15;
 		oakPines.maxCrownSize = 29;
 		oakPines.strengthFactorForLoops = 8f;
-		oakPines.treeType = TreeType.PINACEAE_PINUS_PONDEROSA;
+		oakPines.treeType = TreeType.RTG_TREE;
 		oakPines.distribution.noiseDivisor = 100f;
 		oakPines.distribution.noiseFactor = 6f;
 		oakPines.distribution.noiseAddend = 0.8f;

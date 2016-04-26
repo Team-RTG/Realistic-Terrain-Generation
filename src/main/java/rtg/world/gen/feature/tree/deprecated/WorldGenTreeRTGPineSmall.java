@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 /**
- * @see rtg.world.gen.feature.tree.rtg.pinaceae.pinus.TreeRTGPinaceaePiceaSitchensis
+ * @see rtg.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis
  */
 @Deprecated
 public class WorldGenTreeRTGPineSmall extends WorldGenerator

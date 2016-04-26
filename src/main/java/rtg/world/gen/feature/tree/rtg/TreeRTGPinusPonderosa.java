@@ -1,4 +1,4 @@
-package rtg.world.gen.feature.tree.deprecated;
+package rtg.world.gen.feature.tree.rtg;
 
 import java.util.Random;
 
@@ -6,35 +6,16 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
-/**
- * @see rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa
- */
-@Deprecated
-public class WorldGenTreeRTGSprucePineBig extends WorldGenerator
+public class TreeRTGPinusPonderosa extends TreeRTG
 {
-	private int startHeight;
-	private int treeSize;
-	
-	private int metadataLog;
-	private int metadataLeaves;
-	
-	@Deprecated
-	public WorldGenTreeRTGSprucePineBig(int start, int s)
+
+	public TreeRTGPinusPonderosa()
 	{
-		this(start, s, 1, 1);
+		super();
 	}
 	
-	@Deprecated
-	public WorldGenTreeRTGSprucePineBig(int start, int s, int log, int leaves)
-	{
-		startHeight = start;
-		treeSize = s;
-		metadataLog = log;
-		metadataLeaves = leaves;
-	}
-	
+	@Override
     public boolean generate(World world, Random rand, int x, int y, int z)
     {
     	int startY = y;
@@ -51,9 +32,9 @@ public class WorldGenTreeRTGSprucePineBig extends WorldGenerator
     	buildTrunk(world, rand, x, y, z - 1);
     	
     	int i;
-    	for(i = 0; i < startHeight; i++)
+    	for(i = 0; i < trunkSize; i++)
     	{
-    		world.setBlock(x, y, z, Blocks.log, metadataLog, 0);
+    		world.setBlock(x, y, z, this.logBlock, this.logMeta, 0);
     		if(i > 5 && rand.nextInt(7) == 0)
     		{
     			int dX = -1 + rand.nextInt(3);
@@ -74,9 +55,9 @@ public class WorldGenTreeRTGSprucePineBig extends WorldGenerator
     	int pX = 0;
     	int pZ = 0;
     	int j;
-    	for(i = 0; i < treeSize; i++)
+    	for(i = 0; i < crownSize; i++)
     	{
-    		if(rand.nextInt(i < treeSize - 12 && i > 2 ? 2 : 1) == 0 && i < treeSize - 2)
+    		if(rand.nextInt(i < crownSize - 12 && i > 2 ? 2 : 1) == 0 && i < crownSize - 2)
     		{
     			int dX = -1 + rand.nextInt(3);
     			int dZ = -1 + rand.nextInt(3);
@@ -100,13 +81,13 @@ public class WorldGenTreeRTGSprucePineBig extends WorldGenerator
     			pZ = dZ;
 
         		buildBranch(world, rand, x, y, z, dX, dZ, 
-        			i < treeSize - 12 && i > 3 ? 3 : i < treeSize - 8 ? 2 : 1, 
-        			i < treeSize - 5 ? 2 : 1
+        			i < crownSize - 12 && i > 3 ? 3 : i < crownSize - 8 ? 2 : 1, 
+        			i < crownSize - 5 ? 2 : 1
         		);
     		}
-    		world.setBlock(x, y, z, Blocks.log, metadataLog, 0);
+    		world.setBlock(x, y, z, this.logBlock, this.logMeta, 0);
     		
-    		if(i < treeSize - 2)
+    		if(i < crownSize - 2)
 	    	{
 	    		if(rand.nextBoolean()) { buildLeaves(world, x, y, z + 1); }
 	    		if(rand.nextBoolean()) { buildLeaves(world, x, y, z - 1); }
@@ -125,7 +106,19 @@ public class WorldGenTreeRTGSprucePineBig extends WorldGenerator
     	
     	return true;
     }
-    
+	
+	@Override
+    public void buildTrunk(World world, Random rand, int x, int y, int z)
+    {
+    	int h = (int)Math.ceil(this.trunkSize / 4f);
+    	h = h + rand.nextInt(h * 2);
+    	for(int i = -1; i < h; i++)
+    	{
+    		world.setBlock(x, y + i, z, this.logBlock, this.logMeta + 12, 0);
+    	}
+    }
+	
+	@Override
     public void buildBranch(World world, Random rand, int x, int y, int z, int dX, int dZ, int logLength, int leaveSize)
     {
     	if(logLength == 3 && Math.abs(dX) + Math.abs(dZ) == 2)
@@ -149,26 +142,20 @@ public class WorldGenTreeRTGSprucePineBig extends WorldGenerator
     	
     	for(int m = 1; m <= logLength; m++)
     	{
-        	world.setBlock(x + (dX * m), y, z + (dZ * m), Blocks.log, metadataLog, 0);
+        	world.setBlock(x + (dX * m), y, z + (dZ * m), this.logBlock, this.logMeta, 0);
     	}
     }
-    
+	
+	@Override
     public void buildLeaves(World world, int x, int y, int z)
     {
-    	Block b = world.getBlock(x, y, z);
-    	if(b.getMaterial() == Material.air)
-    	{
-    		world.setBlock(x, y, z, Blocks.leaves, metadataLeaves, 0);
-    	}
-    }
-    
-    public void buildTrunk(World world, Random rand, int x, int y, int z)
-    {
-    	int h = (int)Math.ceil(startHeight / 4f);
-    	h = h + rand.nextInt(h * 2);
-    	for(int i = -1; i < h; i++)
-    	{
-    		world.setBlock(x, y + i, z, Blocks.log, metadataLog + 12, 0);
-    	}
+		if (!this.noLeaves) {
+		
+	    	Block b = world.getBlock(x, y, z);
+	    	if(b.getMaterial() == Material.air)
+	    	{
+	    		world.setBlock(x, y, z, this.leavesBlock, this.leavesMeta, 0);
+	    	}
+		}
     }
 }

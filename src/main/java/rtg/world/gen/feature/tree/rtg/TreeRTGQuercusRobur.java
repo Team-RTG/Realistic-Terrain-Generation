@@ -1,4 +1,4 @@
-package rtg.world.gen.feature.tree.rtg.fagaceae.quercus;
+package rtg.world.gen.feature.tree.rtg;
 
 import java.util.Random;
 
@@ -7,7 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class TreeRTGFagaceaeQuercusRobur extends TreeRTGFagaceaeQuercusBase
+public class TreeRTGQuercusRobur extends TreeRTG
 {
     static final byte[] otherCoordPairs = new byte[] {(byte)2, (byte)0, (byte)0, (byte)1, (byte)2, (byte)1};
     Random rand = new Random();
@@ -23,7 +23,7 @@ public class TreeRTGFagaceaeQuercusRobur extends TreeRTGFagaceaeQuercusBase
     int leafDistanceLimit = 4;
     int[][] leafNodes;
 
-    public TreeRTGFagaceaeQuercusRobur()
+    public TreeRTGQuercusRobur()
     {
     	super();
     }
@@ -473,7 +473,7 @@ public class TreeRTGFagaceaeQuercusRobur extends TreeRTGFagaceaeQuercusBase
     }
     
     @Override
-    public TreeRTGFagaceaeQuercusRobur setCrownSize(int crownSize)
+    public TreeRTGQuercusRobur setCrownSize(int crownSize)
     {
 //    	if (crownSize < 1) {
 //    		this.crownSize = 1;

@@ -10,7 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.util.ForgeDirection;
 
 /**
- * @see rtg.world.gen.feature.tree.rtg.pinaceae.pinus.TreeRTGPinaceaePinusMonticola
+ * @see rtg.world.gen.feature.tree.rtg.TreeRTGPinusMonticola
  */
 @Deprecated
 public class WorldGenTreeRTGPine extends WorldGenerator

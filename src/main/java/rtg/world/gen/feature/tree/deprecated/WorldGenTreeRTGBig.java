@@ -7,11 +7,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.world.gen.feature.tree.rtg.fagaceae.quercus.TreeRTGFagaceaeQuercusRobur;
+import rtg.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
 
 /** 
  * @deprecated
- * @see TreeRTGFagaceaeQuercusRobur
+ * @see TreeRTGQuercusRobur
  */
 public class WorldGenTreeRTGBig extends WorldGenerator
 {

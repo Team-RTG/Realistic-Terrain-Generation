@@ -1,16 +1,21 @@
-package rtg.world.gen.feature.tree;
+package rtg.world.gen.feature.tree.rtg;
 
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeRTGWillow extends WorldGenerator
+public class TreeRTGSalixMyrtilloides extends TreeRTG
 {
-	public WorldGenTreeRTGWillow()
+	public TreeRTGSalixMyrtilloides()
 	{
+		super();
+		
+		this.setLogBlock(Blocks.log)
+			.setLogMeta((byte)0)
+			.setLeavesBlock(Blocks.leaves)
+			.setLeavesMeta((byte)0);
 	}
 
     public boolean generate(World world, Random rand, int x, int y, int z)
@@ -49,7 +54,7 @@ public class WorldGenTreeRTGWillow extends WorldGenerator
     	
     	for(int i = 0; i < height; i++)
     	{
-    		world.setBlock(x, y + i, z, Blocks.log, 0, 0);
+    		world.setBlock(x, y + i, z, this.logBlock, this.logMeta, 0);
     	}
     	createLeavesAroundBranch(world, rand, x, y + height, z, 3, 2);
     	createTrunk(world, rand, x, y, z);
@@ -76,7 +81,7 @@ public class WorldGenTreeRTGWillow extends WorldGenerator
     			}
     			c++;
     			hd += 0.5f;
-    			world.setBlock(x + (int)(c * xd), y + (int)hd, z + (int)(c * yd), Blocks.log, 12, 0);
+    			world.setBlock(x + (int)(c * xd), y + (int)hd, z + (int)(c * yd), this.logBlock, this.logMeta + 12, 0);
     		}
     		createLeavesAroundBranch(world, rand, x + (int)(c * xd), y + (int)hd, z + (int)(c * yd), 2, 1);
     	}
@@ -99,7 +104,7 @@ public class WorldGenTreeRTGWillow extends WorldGenerator
     				{
     					if(world.isAirBlock(x + i, y + j, z + k) && (l < t - c || rand.nextBoolean()))
     					{
-    						world.setBlock(x + i, y + j, z + k, Blocks.leaves, 6, 0);
+    						world.setBlock(x + i, y + j, z + k, this.leavesBlock, this.leavesMeta, 0);
     						if(j < -(s - 2) && rand.nextInt(3) != 0)
     						{
     							createVine(world, rand, x + i, y + j, z + k);
@@ -120,7 +125,7 @@ public class WorldGenTreeRTGWillow extends WorldGenerator
 			{
 				break;
 			}
-			world.setBlock(x, y + i, z, Blocks.leaves, 6, 0);
+			world.setBlock(x, y + i, z, this.leavesBlock, this.leavesMeta, 0);
     	}
     }
     
@@ -133,7 +138,7 @@ public class WorldGenTreeRTGWillow extends WorldGenerator
     		sh = rand.nextInt(3) + y;
     		while(sh > y - 3)
     		{
-    			world.setBlock(x + pos[t * 2], sh, z + pos[t * 2 + 1], Blocks.log, 12, 0);
+    			world.setBlock(x + pos[t * 2], sh, z + pos[t * 2 + 1], this.logBlock, this.logMeta + 12, 0);
     			sh--;
     		}
     	}

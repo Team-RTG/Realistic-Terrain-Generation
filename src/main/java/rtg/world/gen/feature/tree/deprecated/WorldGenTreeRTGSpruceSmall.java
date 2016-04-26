@@ -9,7 +9,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 /**
  * @deprecated
- * @see rtg.world.gen.feature.tree.rtg.pinaceae.picea.TreeRTGPinaceaePiceaPungens
+ * @see rtg.world.gen.feature.tree.rtg.TreeRTGPiceaPungens
  */
 
 public class WorldGenTreeRTGSpruceSmall extends WorldGenerator
@@ -18,7 +18,7 @@ public class WorldGenTreeRTGSpruceSmall extends WorldGenerator
 	
 	/**
 	 * @deprecated
-	 * @see rtg.world.gen.feature.tree.rtg.pinaceae.picea.TreeRTGPinaceaePiceaPungens
+	 * @see rtg.world.gen.feature.tree.rtg.TreeRTGPiceaPungens
 	 */
 	public WorldGenTreeRTGSpruceSmall(int s)
 	{

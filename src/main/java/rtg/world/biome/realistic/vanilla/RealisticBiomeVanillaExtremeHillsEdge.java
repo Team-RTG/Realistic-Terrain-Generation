@@ -15,6 +15,7 @@ import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHillsEdge;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHillsEdge;
 
@@ -50,7 +51,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
 		decoBoulder.strengthFactor = 3f;
 		this.addDeco(decoBoulder);
         
-		DecoTree decoTrees = new DecoTree();
+		DecoTree decoTrees = new DecoTree(new TreeRTGPinusNigra());
 		decoTrees.logBlock = Blocks.log;
 		decoTrees.logMeta = (byte)0;
 		decoTrees.leavesBlock = Blocks.leaves;
@@ -64,7 +65,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
 		decoTrees.distribution.noiseDivisor = 100f;
 		decoTrees.distribution.noiseFactor = 6f;
 		decoTrees.distribution.noiseAddend = 0.8f;
-		decoTrees.treeType = TreeType.PINACEAE_PINUS_NIGRA;
+		decoTrees.treeType = TreeType.RTG_TREE;
 		decoTrees.treeCondition = TreeCondition.RANDOM_CHANCE;
 		decoTrees.treeConditionChance = 24;
 		decoTrees.maxY = 100;

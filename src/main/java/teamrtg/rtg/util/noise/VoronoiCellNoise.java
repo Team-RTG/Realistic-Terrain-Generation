@@ -3,7 +3,7 @@ package teamrtg.rtg.util.noise;
 /**
  * @author Zeno410
  */
-public class VoronoiCellNoise {
+public class VoronoiCellNoise implements CellNoise {
 
     public final int OCTAVE_COUNT = 5;
     private VoronoiCellOctave[] octaves = new VoronoiCellOctave[5];
@@ -18,13 +18,11 @@ public class VoronoiCellNoise {
         return river().noise(x, z, depth);
     }
 
-    public VoronoiCellOctave river() {
-        return octave(0);
-    }
-
     public VoronoiCellOctave octave(int index) {
         return octaves[index];
     }
+
+    public VoronoiCellOctave river() {return octave(0);}
 
 
 }

@@ -30,10 +30,10 @@ import java.util.Random;
  * This is a Voronoi noise generator, originally from https://github.com/TJHJava/libnoiseforjava
  * It was modified to work in a similar way to the bukkit noise generators, and to support
  * octaves and 2d noise,
- * <p/>
+ *
  * by mncat77 and jtjj222. <----------
  */
-public class VoronoiCellOctave {
+public class VoronoiCellOctave implements CellOctave {
     private static final double SQRT_2 = 1.4142135623730950488;
     private static final double SQRT_3 = 1.7320508075688772935;
 
@@ -49,6 +49,32 @@ public class VoronoiCellOctave {
         this.useDistance = useDistance;
     }
 
+    private double distance(double xDist, double zDist) {
+        return Math.sqrt(xDist * xDist + zDist * zDist);
+    }
+
+    private double getDistance2D(double xDist, double zDist) {
+        switch (distanceMethod) {
+            case 0:
+                return Math.sqrt(xDist * xDist + zDist * zDist) / SQRT_2;
+            case 1:
+                return xDist + zDist;
+            default:
+                return Double.NaN;
+        }
+    }
+
+    private double getDistance(double xDist, double yDist, double zDist) {
+        switch (distanceMethod) {
+            case 0:
+                return Math.sqrt(xDist * xDist + yDist * yDist + zDist * zDist) / SQRT_3; //Approximation (for speed) of elucidean (regular) distance
+            case 1:
+                return xDist + yDist + zDist;
+            default:
+                return Double.NaN;
+        }
+    }
+
     public boolean isUseDistance() {
         return useDistance;
     }
@@ -61,12 +87,12 @@ public class VoronoiCellOctave {
         return distanceMethod;
     }
 
-    public void setDistanceMethod(short distanceMethod) {
-        this.distanceMethod = distanceMethod;
-    }
-
     public long getSeed() {
         return seed;
+    }
+
+    public void setDistanceMethod(short distanceMethod) {
+        this.distanceMethod = distanceMethod;
     }
 
     public void setSeed(long seed) {
@@ -107,30 +133,8 @@ public class VoronoiCellOctave {
             double zDist = zCandidate - z;
             return (float) getDistance2D(xDist, zDist);
         } else return ((float) valueNoise2D(
-                (int) (Math.floor(xCandidate)),
-                (int) (Math.floor(zCandidate)), seed));
-    }
-
-    /**
-     * To avoid having to store the feature points, we use a hash function
-     * of the coordinates and the seed instead. Those big scary numbers are
-     * arbitrary primes.
-     */
-    public static double valueNoise2D(int x, int z, long seed) {
-        long n = (1619 * x + 6971 * z + 1013 * seed) & 0x7fffffff;
-        n = (n >> 13) ^ n;
-        return 1.0 - ((double) ((n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff) / 1073741824.0);
-    }
-
-    private double getDistance2D(double xDist, double zDist) {
-        switch (distanceMethod) {
-            case 0:
-                return Math.sqrt(xDist * xDist + zDist * zDist) / SQRT_2;
-            case 1:
-                return xDist + zDist;
-            default:
-                return Double.NaN;
-        }
+            (int) (Math.floor(xCandidate)),
+            (int) (Math.floor(zCandidate)), seed));
     }
 
     public float border2(double x, double z, double width, float depth) {
@@ -187,13 +191,7 @@ public class VoronoiCellOctave {
         }
     }
 
-    private double distance(double xDist, double zDist) {
-        return Math.sqrt(xDist * xDist + zDist * zDist);
-    }
-
-    public float border(double x, double z, double width, float depth) {
-        x *= 1D;
-        z *= 1D;
+    public double[] eval(double x, double z) {
 
         int xInt = (x > .0 ? (int) x : (int) x - 1);
         int zInt = (z > .0 ? (int) z : (int) z - 1);
@@ -213,8 +211,8 @@ public class VoronoiCellOctave {
                 double zPos = zCur + valueNoise2D(xCur, zCur, new Random(seed).nextLong());
                 double xDist = xPos - x;
                 double zDist = zPos - z;
-                //double dist = xDist * xDist + zDist * zDist;
-                double dist = getDistance2D(xPos - x, zPos - z);
+                double dist = xDist * xDist + zDist * zDist;
+                //double dist = getDistance2D(xPos - x, zPos - z);
 
                 if (dist < dCandidate) {
                     dNeighbour = dCandidate;
@@ -234,12 +232,10 @@ public class VoronoiCellOctave {
         }
 
         //double c = getDistance2D(xNeighbour - x, zNeighbour - z) - getDistance2D(xCandidate - x, zCandidate - z);
-        double c = dNeighbour - dCandidate;
-        if (c < width) {
-            return (((float) (c / width)) - 1f) * depth;
-        } else {
-            return 0f;
-        }
+        double[] result = new double[2];
+        result[0] = dCandidate;
+        result[1] = dNeighbour;
+        return result;
     }
 
     public double noise(double x, double y, double z, double frequency) {
@@ -294,11 +290,22 @@ public class VoronoiCellOctave {
             double zDist = zCandidate - z;
 
             return getDistance(xDist, yDist, zDist);
-        } else return valueNoise3D(
-                (int) (Math.floor(xCandidate)),
-                (int) (Math.floor(yCandidate)),
-                (int) (Math.floor(zCandidate)), seed);
+        } else return ((double) valueNoise3D(
+            (int) (Math.floor(xCandidate)),
+            (int) (Math.floor(yCandidate)),
+            (int) (Math.floor(zCandidate)), seed));
 
+    }
+
+    /**
+     * To avoid having to store the feature points, we use a hash function
+     * of the coordinates and the seed instead. Those big scary numbers are
+     * arbitrary primes.
+     */
+    public static double valueNoise2D(int x, int z, long seed) {
+        long n = (1619 * x + 6971 * z + 1013 * seed) & 0x7fffffff;
+        n = (n >> 13) ^ n;
+        return 1.0 - ((double) ((n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff) / 1073741824.0);
     }
 
     public static double valueNoise3D(int x, int y, int z, long seed) {
@@ -307,14 +314,4 @@ public class VoronoiCellOctave {
         return 1.0 - ((double) ((n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff) / 1073741824.0);
     }
 
-    private double getDistance(double xDist, double yDist, double zDist) {
-        switch (distanceMethod) {
-            case 0:
-                return Math.sqrt(xDist * xDist + yDist * yDist + zDist * zDist) / SQRT_3; //Approximation (for speed) of elucidean (regular) distance
-            case 1:
-                return xDist + yDist + zDist;
-            default:
-                return Double.NaN;
-        }
-    }
 }

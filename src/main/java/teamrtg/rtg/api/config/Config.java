@@ -65,6 +65,11 @@ public class Config {
         return property;
     }
 
+    public ConfigProperty.PropertyFloat addFloat(ConfigProperty.PropertyFloat property) {
+        this.addProperty(property);
+        return property;
+    }
+
     public ConfigProperty.PropertyBool addBool(String id, String section) {
         ConfigProperty.PropertyBool property = new ConfigProperty.PropertyBool(id, section);
         this.addProperty(property);
@@ -91,6 +96,12 @@ public class Config {
 
     public ConfigProperty.PropertyStrings addStrings(String id, String section) {
         ConfigProperty.PropertyStrings property = new ConfigProperty.PropertyStrings(id, section);
+        this.addProperty(property);
+        return property;
+    }
+
+    public ConfigProperty.PropertyFloat addFloat(String id, String section) {
+        ConfigProperty.PropertyFloat property = new ConfigProperty.PropertyFloat(id, section);
         this.addProperty(property);
         return property;
     }

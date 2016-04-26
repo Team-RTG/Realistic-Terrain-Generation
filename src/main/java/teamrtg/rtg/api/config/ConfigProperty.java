@@ -321,4 +321,57 @@ public abstract class ConfigProperty<T> {
             prop.setComment(this.getComment());
         }
     }
+
+    public static class PropertyFloat extends ConfigProperty<Float> {
+
+        private float minValue;
+        private float maxValue;
+
+        public PropertyFloat(String id, String section) {
+            super(id, section);
+        }
+
+        public ConfigProperty.PropertyFloat setDefault(float defaultValue) {
+            super.setDefault(defaultValue);
+            return this;
+        }
+
+        public ConfigProperty.PropertyFloat setRange(float minValue, float maxValue) {
+            this.minValue = minValue;
+            this.maxValue = maxValue;
+            return this;
+        }
+
+        public ConfigProperty.PropertyFloat set(float value) {
+            super.set(value);
+            return this;
+        }
+
+        public String getComment() {
+            String range = (minValue < maxValue) ? "[Range: " + minValue + " ~ " + maxValue + "]" : "";
+            String def = "[Default: " + this.getDefault().toString() + "]";
+            return comment + NEW_LINE + def + " " + range;
+        }
+
+        public ConfigProperty.PropertyFloat setComment(String comment) {
+            super.setComment(comment);
+            return this;
+        }
+
+        public ConfigProperty.PropertyFloat setSection(String section) {
+            super.setSection(section);
+            return this;
+        }
+
+        /**
+         * Needed for writing to config files
+         * @param config The configuration to read from
+         */
+        public void syncForgeProperty(Configuration config) {
+            Property prop = config.get(this.section, this.id, this.defaultVal);
+            this.value = (float) prop.getDouble();
+            prop.set(value);
+            prop.setComment(this.getComment());
+        }
+    }
 }

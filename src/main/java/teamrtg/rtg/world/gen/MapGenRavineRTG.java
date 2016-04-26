@@ -9,7 +9,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenRavine;
+import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.api.mods.Mods;
+import teamrtg.rtg.api.util.BiomeUtils;
 
 import java.util.Random;
 
@@ -20,7 +22,7 @@ public class MapGenRavineRTG extends MapGenRavine {
     private int ravineFrequency;
 
     @Override
-    protected void addTunnel(long p_180707_1_, int p_180707_3_, int p_180707_4_, ChunkPrimer p_180707_5_, double p_180707_6_, double p_180707_8_, double p_180707_10_, float p_180707_12_, float p_180707_13_, float p_180707_14_, int p_180707_15_, int p_180707_16_, double p_180707_17_) {
+    protected void func_180707_a(long p_180707_1_, int p_180707_3_, int p_180707_4_, ChunkPrimer p_180707_5_, double p_180707_6_, double p_180707_8_, double p_180707_10_, float p_180707_12_, float p_180707_13_, float p_180707_14_, int p_180707_15_, int p_180707_16_, double p_180707_17_) {
         Random random = new Random(p_180707_1_);
         double d4 = (double) (p_180707_3_ * 16 + 8);
         double d5 = (double) (p_180707_4_ * 16 + 8);
@@ -173,8 +175,15 @@ public class MapGenRavineRTG extends MapGenRavine {
     protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int p_180701_4_, int p_180701_5_, ChunkPrimer chunkPrimerIn) {
         enableRavines = Mods.RTG.config.ENABLE_RAVINES.get();
         ravineFrequency = Mods.RTG.config.RAVINE_FREQUENCY.get();
+        try {
+            // If the user has set biome-specific settings, let's use those instead.
+            BiomeGenBase biome = worldIn.getBiomeGenForCoords(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));
+            RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(BiomeUtils.getIdForBiome(biome));
+            ravineFrequency = (realisticBiome.config.RAVINE_FREQUENCY.get() > -1) ? realisticBiome.config.RAVINE_FREQUENCY.get() : ravineFrequency;
+        } catch (Exception ignored) {}
 
-        if (!enableRavines) {
+        // Return early if ravines are disabled.
+        if (ravineFrequency < 1 || !enableRavines) {
             return;
         }
 
@@ -188,7 +197,7 @@ public class MapGenRavineRTG extends MapGenRavine {
                 float f = this.rand.nextFloat() * (float) Math.PI * 2.0F;
                 float f1 = (this.rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
                 float f2 = (this.rand.nextFloat() * 2.0F + this.rand.nextFloat()) * 2.0F;
-                this.addTunnel(this.rand.nextLong(), p_180701_4_, p_180701_5_, chunkPrimerIn, d0, d1, d2, f2, f, f1, 0, 0, 3.0D);
+                this.func_180707_a(this.rand.nextLong(), p_180701_4_, p_180701_5_, chunkPrimerIn, d0, d1, d2, f2, f, f1, 0, 0, 3.0D);
             }
         }
     }

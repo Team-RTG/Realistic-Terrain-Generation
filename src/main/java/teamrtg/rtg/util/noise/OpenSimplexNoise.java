@@ -13,8 +13,8 @@ package teamrtg.rtg.util.noise;
  */
 public class OpenSimplexNoise extends SimplexOctave {
 
-    private final SimplexOctave[] octaves;
     private static final int OCTAVE_COUNT = 10;// perhaps should be a variable
+    private final SimplexOctave[] octaves;
     // but that creates coordination issues
 
 
@@ -35,6 +35,11 @@ public class OpenSimplexNoise extends SimplexOctave {
         return octaves[0].noise1(x);
     }
 
+    //2D OpenSimplex noise (KdotJPG)
+    public double noise(double x, double y) {
+        return octaves[0].noise(x, y);
+    }
+
     //Alias for 2D
     public float noise2(float x, float y) {
         return (float) octaves[0].noise(x, y);
@@ -45,28 +50,24 @@ public class OpenSimplexNoise extends SimplexOctave {
         return (float) octaves[0].noise(x, y, z);
     }
 
-    //Alias for 3D (again)
-    public double improvedNoise(double x, double y, double z) {
-        return octaves[0].noise(x, y, z);
-    }
-
 	/*
      * Standard functions
 	 */
-
-    //2D OpenSimplex noise (KdotJPG)
-    public double noise(double x, double y) {
-        return octaves[0].noise(x, y);
-    }
 
     //3D OpenSimplex Noise (DigitalShadow)
     public double noise(double x, double y, double z) {
         return octaves[0].noise(x, y, z);
     }
 
+    //Alias for 3D (again)
+    public double improvedNoise(double x, double y, double z) {
+        return octaves[0].noise(x, y, z);
+    }
+
     public SimplexOctave octave(int index) {
         return octaves[index];
     }
+
     public SimplexOctave mountain() {return octaves[0];}
 
     public SimplexOctave riverJitter() {return octaves[1];}

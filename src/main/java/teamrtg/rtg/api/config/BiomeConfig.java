@@ -15,6 +15,9 @@ public class BiomeConfig extends Config {
     public final ConfigProperty.PropertyInt SURFACE_WATER_LAKE_CHANCE = this.addInt("Surface water lake chance", "");
     public final ConfigProperty.PropertyInt SURFACE_LAVA_LAKE_CHANCE = this.addInt("Surface lava lake chance", "");
     public final ConfigProperty.PropertyBool GENERATE_EMERALDS = this.addBool("Generate Emeralds", "");
+    public final ConfigProperty.PropertyInt RAVINE_FREQUENCY = this.addInt("Ravine frequency", "");
+    public final ConfigProperty.PropertyInt CAVE_FREQUENCY = this.addInt("Cave frequency", "");
+    public final ConfigProperty.PropertyInt CAVE_DENSITY = this.addInt("Cave density", "");
 
     public final ConfigProperty.PropertyBlock CLIFF_BLOCK_1 = new ConfigProperty.PropertyBlock("Cliff block 1", "");
     public final ConfigProperty.PropertyBlock CLIFF_BLOCK_2 = new ConfigProperty.PropertyBlock("Cliff block 2", "");
@@ -48,6 +51,8 @@ public class BiomeConfig extends Config {
         SURFACE_LAVA_LAKE_CHANCE.setDefault(0).setSection(biomeSlug);
         SURFACE_WATER_LAKE_CHANCE.setDefault(1).setSection(biomeSlug);
         GENERATE_EMERALDS.setDefault(false).setSection(biomeSlug);
+        RAVINE_FREQUENCY.setDefault(-1);
+        CAVE_FREQUENCY.setDefault(-1);
 
         CLIFF_BLOCK_1.setSection(biomeSlug);
         CLIFF_BLOCK_2.setSection(biomeSlug);

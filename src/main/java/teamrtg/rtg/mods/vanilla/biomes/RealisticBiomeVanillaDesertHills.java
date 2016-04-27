@@ -93,6 +93,6 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
     protected void initProperties() {
         config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
         this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.FeatureType.DESERT_TEMPLE.name());
-        this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(0);
+        this.config.WATER_POND_CHANCE.setDefault(0);
     }
 }

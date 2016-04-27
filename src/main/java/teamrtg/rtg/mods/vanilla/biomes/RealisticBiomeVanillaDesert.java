@@ -108,6 +108,6 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     @Override
     protected void initProperties() {
         this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.FeatureType.DESERT_TEMPLE.name());
-        this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(0);
+        this.config.WATER_POND_CHANCE.setDefault(0);
     }
 }

@@ -106,7 +106,13 @@ public abstract class ConfigProperty<T> {
          * @param config The configuration to read from
          */
         public void syncForgeProperty(Configuration config) {
-            Property prop = config.get(this.section, this.id, this.defaultVal);
+            Property prop;
+            try {
+                prop = config.get(this.section, this.id, this.defaultVal);
+            } catch (Exception e) {
+                Logger.fatal(e, "Something crashed while trying to sync property '%s.%s' with default value '%s'", section, id, defaultVal);
+                return;
+            }
             this.value = prop.getBoolean();
             prop.set(value);
             prop.setComment(this.getComment());

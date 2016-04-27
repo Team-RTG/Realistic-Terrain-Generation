@@ -10,6 +10,6 @@ public abstract class RealisticBiomeVanillaBase extends RealisticBiomeBase {
 
     public RealisticBiomeVanillaBase(BiomeGenBase b, BiomeGenBase riverbiome, ChunkProviderRTG chunkProvider) {
         super(Mods.VANILLA, b, riverbiome, chunkProvider);
-        config.SURFACE_LAVA_LAKE_CHANCE.setDefault(0);
+        config.LAVA_POND_CHANCE.setDefault(0);
     }
 }

@@ -58,7 +58,7 @@ public class RTGException extends Exception {
         String s = "RTG experienced a %s error.";
         if (!this.message.isEmpty()) s += " Reason: %s";
         if (!this.identifier.isEmpty()) s += "Crash identifier: " + identifier;
-        Logger.fatal(s, this, type.name().replaceAll("_", " ").toLowerCase());
+        Logger.fatal(this, s, type.name().replaceAll("_", " ").toLowerCase());
     }
 
     public String getMessage() {

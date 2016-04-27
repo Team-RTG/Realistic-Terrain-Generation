@@ -57,6 +57,6 @@ public class PresetParts {
             .add(TOP_BLOCK));
         GENERIC_SURFACE.add(FILL_SELECTOR
             .add(FILL_BLOCK));
-        MIX_SURFACE = MIX_SELECTOR.add(TOP_SELECTOR.add(new BlockPart(biome.config.MIX_BLOCK_TOP.get()))).add(FILL_SELECTOR.add(new BlockPart(biome.config.MIX_BLOCK_TOP.get())));
+        MIX_SURFACE = MIX_SELECTOR.add(TOP_SELECTOR.add(new BlockPart(biome.config.MIX_BLOCK_TOP.get()))).add(FILL_SELECTOR.add(new BlockPart(biome.config.MIX_BLOCK_FILL.get())));
     }
 }

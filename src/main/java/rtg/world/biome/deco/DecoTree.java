@@ -484,33 +484,6 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
-		            	case VANILLA_COLD_TAIGA:
-		            		
-	                        if (intY <= this.maxY && intY >= this.minY && (rand.nextInt((int) (4f / strength)) == 0)) {
-	                        	
-	                        	TreeRTGPiceaSitchensis smallPine = new TreeRTGPiceaSitchensis();
-	                        	smallPine.setLogBlock(Blocks.log)
-	                        		.setLogMeta((byte)1)
-	                        		.setLeavesBlock(Blocks.leaves)
-	                        		.setLeavesMeta((byte)1)
-	                        		.setTrunkSize(4 + rand.nextInt(6))
-	                        		.setCrownSize(5 + rand.nextInt(10));
-	                        	
-	                        	TreeRTGPiceaSitchensis smallerPine = new TreeRTGPiceaSitchensis();
-	                        	smallerPine.setLogBlock(Blocks.log)
-	                        		.setLogMeta((byte)1)
-	                        		.setLeavesBlock(Blocks.leaves)
-	                        		.setLeavesMeta((byte)1)
-	                        		.setTrunkSize(1 + rand.nextInt(3))
-	                        		.setCrownSize(4 + rand.nextInt(4));
-	                        	
-	                            WorldGenerator worldgenerator = rand.nextInt(4) == 0 ? new WorldGenTreeRTGSpruceSmall(1 + rand.nextInt(2)) : rand.nextInt(6) == 0 ? smallerPine : smallPine;
-                                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                                worldgenerator.generate(world, rand, intX, intY, intZ);
-	                        }
-		            		
-		            		break;
-		            		
                         case WORLDGEN:
 
                             if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
@@ -574,7 +547,6 @@ public class DecoTree extends DecoBase
 		TAIGA_SPRUCE_SMALL,
 		TAIGA_SPRUCE_TALL,
 		VANILLA_BEACH_PALM,
-		VANILLA_COLD_TAIGA,
 		WORLDGEN;
 	}
 	

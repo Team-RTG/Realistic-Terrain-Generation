@@ -1,8 +1,6 @@
-package rtg.world.gen.feature.tree;
+package rtg.world.gen.feature.tree.vanilla;
 
 import java.util.Random;
-
-import rtg.config.rtg.ConfigRTG;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
@@ -10,10 +8,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenTrees;
-
 import net.minecraftforge.common.util.ForgeDirection;
+import rtg.config.rtg.ConfigRTG;
 
-public class WorldGenTreeRTGTrees extends WorldGenTrees
+public class WorldGenTreesRTG extends WorldGenTrees
 {
     /** The minimum height of a generated tree. */
     private final int minTreeHeight;
@@ -25,12 +23,17 @@ public class WorldGenTreeRTGTrees extends WorldGenTrees
     private final int metaLeaves;
     private static final String __OBFID = "CL_00000438";
 
-    public WorldGenTreeRTGTrees(boolean doBlockNotify)
+    public WorldGenTreesRTG()
+    {
+        this(false);
+    }
+    
+    public WorldGenTreesRTG(boolean doBlockNotify)
     {
         this(doBlockNotify, 4, 0, 0, false);
     }
 
-    public WorldGenTreeRTGTrees(boolean doBlockNotify, int minTreeHeight, int metaWood, int metaLeaves, boolean vinesGrow)
+    public WorldGenTreesRTG(boolean doBlockNotify, int minTreeHeight, int metaWood, int metaLeaves, boolean vinesGrow)
     {
         super(doBlockNotify);
         this.minTreeHeight = minTreeHeight;

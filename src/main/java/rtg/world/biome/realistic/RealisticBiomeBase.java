@@ -17,6 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenLakes;
@@ -178,9 +179,9 @@ public class RealisticBiomeBase extends BiomeBase {
 
             if (gen && (waterUndergroundLakeChance > 0)) {
                 
-                int i2 = worldX + rand.nextInt(16) + 8;
+                int i2 = worldX + rand.nextInt(16);// + 8;
                 int l4 = RandomUtil.getRandomInt(rand, 1, 50);
-                int i8 = worldZ + rand.nextInt(16) + 8;
+                int i8 = worldZ + rand.nextInt(16);// + 8;
                 
                 if (rand.nextInt(waterUndergroundLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterUndergroundLakeChance) == 1)) {
                     
@@ -194,8 +195,8 @@ public class RealisticBiomeBase extends BiomeBase {
             
             if (gen && (waterSurfaceLakeChance > 0)) {
                 
-                int i2 = worldX + rand.nextInt(16) + 8;
-                int i8 = worldZ + rand.nextInt(16) + 8;
+                int i2 = worldX + rand.nextInt(16);// + 8;
+                int i8 = worldZ + rand.nextInt(16);// + 8;
                 int l4 = worldObj.getHeightValue(i2, i8);
                 
                 //Surface lakes.
@@ -216,9 +217,9 @@ public class RealisticBiomeBase extends BiomeBase {
 
             if (gen && (lavaUndergroundLakeChance > 0)) {
                 
-                int i2 = worldX + rand.nextInt(16) + 8;
+                int i2 = worldX + rand.nextInt(16);// + 8;
                 int l4 = RandomUtil.getRandomInt(rand, 1, 50);
-                int i8 = worldZ + rand.nextInt(16) + 8;
+                int i8 = worldZ + rand.nextInt(16);// + 8;
                 
                 if (rand.nextInt(lavaUndergroundLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.lavaUndergroundLakeChance) == 1)) {
                     

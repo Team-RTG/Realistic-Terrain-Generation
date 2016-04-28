@@ -163,9 +163,9 @@ public class WorldGenPond {
             
             //not if anything will be left floating
 
-            for (i1 = 1; i1 < 14; ++i1)
+            for (i1 = 0; i1 < 16; ++i1)
             {
-                for (j2 = 1; j2 < 14; ++j2)
+                for (j2 = 0; j2 < 16; ++j2)
                 {
                     if (willBePond[(i1 * 16 + j2)]) {
                         int top = world.getTopSolidOrLiquidBlock(x + i1, z + j2);

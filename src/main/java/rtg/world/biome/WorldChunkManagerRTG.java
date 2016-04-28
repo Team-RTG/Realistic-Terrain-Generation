@@ -257,7 +257,6 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
 
     public float getRiverStrength(int x, int y)
     {
-
     	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
             SimplexOctave.Disk jitter = new SimplexOctave.Disk();
             simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);

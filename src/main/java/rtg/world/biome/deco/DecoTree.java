@@ -19,7 +19,6 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGBirch;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGBirchSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceCustom;
 import rtg.world.gen.feature.tree.deprecated.WorldGenTreeRTGSprucePineBig;
@@ -130,6 +129,10 @@ public class DecoTree extends DecoBase
 	{
 		this();
 		this.tree = tree;
+		this.logBlock = tree.logBlock;
+		this.logMeta = tree.logMeta;
+		this.leavesBlock = tree.leavesBlock;
+		this.leavesMeta = tree.leavesMeta;
 	}
 	
 	public DecoTree(WorldGenerator worldGen)
@@ -291,24 +294,6 @@ public class DecoTree extends DecoBase
 		                                : new WorldGenTreeRTGSprucePineBig(4 + rand.nextInt(6), 12 + rand.nextInt(10));
 					            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 						        worldgenerator.generate(world, rand, intX, intY, intZ);
-		            		}
-		            		
-		            		break;
-		            		
-		            	case PALM_CUSTOM:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-
-		                    	if (this.maxSize > this.minSize) {
-			                        WorldGenerator worldgenerator = new WorldGenTreeRTGPalmCustom((float)(this.minSize + rand.nextInt(this.maxSize - this.minSize)));
-			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                        worldgenerator.generate(world, rand, intX, intY, intZ);
-		                    	}
-		                    	else if (this.maxSize == this.minSize) {
-			                        WorldGenerator worldgenerator = new WorldGenTreeRTGPalmCustom((float)(this.minSize));
-			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                        worldgenerator.generate(world, rand, intX, intY, intZ);
-		                    	}
 		            		}
 		            		
 		            		break;
@@ -499,7 +484,6 @@ public class DecoTree extends DecoBase
 		MEGA_JUNGLE,
 		MEGA_JUNGLE_MANGROVE,
 		MEGA_TAIGA,
-		PALM_CUSTOM,
 		RTG_TREE,
 		SAVANNA,
 		SMALL_BIRCH,

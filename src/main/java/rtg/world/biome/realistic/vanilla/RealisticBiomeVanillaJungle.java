@@ -17,6 +17,7 @@ import rtg.world.biome.deco.DecoJungleLilypadVines;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungle;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaJungle;
 
@@ -52,14 +53,16 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		this.addDeco(megaJungleMangrove);
 		
 		// Add some palm trees for variety.
-		DecoTree palmCustom = new DecoTree();
+		DecoTree palmCustom = new DecoTree(new TreeRTGCocosNucifera());
 		palmCustom.loops = 1;
-		palmCustom.treeType = TreeType.PALM_CUSTOM;
+		palmCustom.treeType = TreeType.RTG_TREE;
 		palmCustom.treeCondition = TreeCondition.RANDOM_CHANCE;
 		palmCustom.treeConditionChance = 3;
 		palmCustom.maxY = 160;
-		palmCustom.minSize = 10;
-		palmCustom.maxSize = 20;
+		palmCustom.minTrunkSize = 7;
+		palmCustom.maxTrunkSize = 9;
+		palmCustom.minCrownSize = 6;
+		palmCustom.maxCrownSize = 8;
 		this.addDeco(palmCustom);
 		
 		// Another pass of the WorldGenMegaJungle collection for extra jungleness.

@@ -89,7 +89,7 @@ public class TerrainBase
 		return 70f;
 	}
 
-    public static float hills(int x, int y, float hillStrength, OpenSimplexNoise simplex, float river) {
+    public static float hills(float x, float y, float hillStrength, OpenSimplexNoise simplex, float river) {
 
         float m = simplex.noise2(x / 150f, y / 150f) ;
         m = blendedHillHeight(m,0.2f) ;

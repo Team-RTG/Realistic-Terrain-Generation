@@ -45,7 +45,16 @@ import java.util.Random;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.*;
 
 /**
- * Scattered features courtesy of Ezoteric (https://github.com/Ezoteric) and Choonster (https://github.com/Choonster)
+ * Note from the ChunkProviderRTG-gods:
+ *
+ * Any poor soul who trespass against us,
+ * whether it be beast or man
+ * will suffer the bite or be stung dead on sight
+ * by those who inhabbit this land.
+ * For theirs is the power and this is their kingdom,
+ * as sure as the sun does burn.
+ * So enter this path, but heed these four words:
+ * You shall never return
  */
 public class ChunkProviderRTG implements IChunkGenerator {
     /**

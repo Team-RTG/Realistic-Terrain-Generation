@@ -1,13 +1,12 @@
-package rtg.world.gen.feature.tree;
+package rtg.world.gen.feature.tree.rtg;
 
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeRTGJungleTall extends WorldGenerator
+public class TreeRTGCeibaPentandra extends TreeRTG
 {
 	private Block blockLog;
 	private int metadataLog;
@@ -26,7 +25,7 @@ public class WorldGenTreeRTGJungleTall extends WorldGenerator
 	 * Blocks.log, 0, Blocks.leaves, 0, 9 + rand.nextInt(5), 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
 	 */
 	
-	public WorldGenTreeRTGJungleTall(Block log, int metaLog, Block leaves, int metaLeaves, int baseHeight, int rootHeight, float branchLength, int numBranches, float verticalStart, float verticalRand)
+	public TreeRTGCeibaPentandra(Block log, int metaLog, Block leaves, int metaLeaves, int baseHeight, int rootHeight, float branchLength, int numBranches, float verticalStart, float verticalRand)
 	{
 		blockLog = log;
 		metadataLog = metaLog;

@@ -1,15 +1,13 @@
-package rtg.world.gen.feature.tree;
+package rtg.world.gen.feature.tree.rtg;
 
 import java.util.Random;
-
-import rtg.config.rtg.ConfigRTG;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.config.rtg.ConfigRTG;
 
-public class WorldGenTreeRTGJungleFat extends WorldGenerator
+public class TreeRTGCeibaRosea extends TreeRTG
 {
 	private Block blockLog;
 	private int metadataLog;
@@ -28,20 +26,22 @@ public class WorldGenTreeRTGJungleFat extends WorldGenerator
 	 * Blocks.log, 0, Blocks.leaves, 0, 18 + rand.nextInt(5), 5 + rand.nextInt(2), 16f, 5, 0.32f, 0.1f
 	 */
 	
-	public WorldGenTreeRTGJungleFat(Block log, int metaLog, Block leaves, int metaLeaves, int baseHeight, int rootHeight, float branchLength,  int numBranches, float verticalStart, float verticalRand)
+	public TreeRTGCeibaRosea()
 	{
-		blockLog = log;
-		metadataLog = metaLog;
-		blockLeaves = leaves;
-		metadataLeaves = metaLeaves;
+		super();
 		
-		base = baseHeight;
-		root = rootHeight;
-		length = branchLength;
+		blockLog = this.logBlock;
+		metadataLog = (int)this.logMeta;
+		blockLeaves = this.leavesBlock;
+		metadataLeaves = (int)this.leavesMeta;
 		
-		branch = numBranches;
-		verStart = verticalStart;
-		verRand = verticalRand;
+		base = 18;
+		root = 5;
+		length = 16f;
+		
+		branch = 5;
+		verStart = 0.32f;
+		verRand = 0.1f;
 	}
 	
 	@Override

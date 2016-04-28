@@ -58,9 +58,9 @@ public class DecoCactus extends DecoBase
                 loopCount = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : loopCount;
 	            for (int i = 0; i < loopCount; i++)
 	            {
-	                int intX = chunkX + rand.nextInt(16) + 8;
+	                int intX = chunkX + rand.nextInt(16);// + 8;
 	                int intY = rand.nextInt(this.maxY);
-	                int intZ = chunkY + rand.nextInt(16) + 8;
+	                int intZ = chunkY + rand.nextInt(16);// + 8;
 
 	                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
 	                	(new WorldGenCacti(this.sandOnly, 0, this.soilBlock, this.soilMeta)).generate(world, rand, intX, intY, intZ);

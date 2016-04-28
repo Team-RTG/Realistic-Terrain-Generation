@@ -82,9 +82,9 @@ public class DecoMushrooms extends DecoBase
 	            {
 	            	if (rand.nextInt(this.chance) == 0) {
 	            		
-		                int intX = chunkX + rand.nextInt(16) + 8;
+		                int intX = chunkX + rand.nextInt(16);// + 8;
 		                int intY = rand.nextInt(this.maxY);
-		                int intZ = chunkY + rand.nextInt(16) + 8;
+		                int intZ = chunkY + rand.nextInt(16);// + 8;
 	
 		                if (intY <= this.maxY) {
 

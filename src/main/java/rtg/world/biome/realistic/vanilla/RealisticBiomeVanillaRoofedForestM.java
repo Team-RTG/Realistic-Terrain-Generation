@@ -100,11 +100,10 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
 		decoGrass.chance = 2;
         this.addDeco(decoGrass);
         
-		DecoGrass decoFern = new DecoGrass();
+		DecoGrass decoFern = new DecoGrass(2);
 		decoFern.maxY = 128;
 		decoFern.strengthFactor = 4f;
 		decoFern.chance = 2;
-		decoFern.meta = 2;
         this.addDeco(decoFern);
 
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

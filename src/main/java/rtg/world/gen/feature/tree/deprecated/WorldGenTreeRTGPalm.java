@@ -1,14 +1,17 @@
-package rtg.world.gen.feature.tree;
+package rtg.world.gen.feature.tree.deprecated;
 
 import java.util.Random;
-
-import rtg.config.rtg.ConfigRTG;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
 
+/** 
+ * @deprecated
+ * @see TreeRTGCocosNucifera
+ */
 public class WorldGenTreeRTGPalm extends WorldGenerator
 {
 	private static int leavesLength = 133;
@@ -68,6 +71,10 @@ public class WorldGenTreeRTGPalm extends WorldGenerator
 		3, -1, -2, 0
 	};
 	
+	/** 
+	 * @deprecated
+	 * @see TreeRTGCocosNucifera
+	 */
 	public WorldGenTreeRTGPalm()
 	{
 	}

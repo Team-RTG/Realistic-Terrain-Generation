@@ -34,6 +34,7 @@ import rtg.util.SimplexOctave;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.deco.DecoBase;
+import rtg.world.biome.deco.collection.DecoCollectionBase;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.feature.WorldGenPond;
 import rtg.world.gen.surface.SurfaceBase;
@@ -596,5 +597,14 @@ public class RealisticBiomeBase extends BiomeBase {
     public void addDeco(DecoBase deco)
     {
     	this.addDeco(deco, true);
+    }
+    
+    public void addDecoCollection(DecoCollectionBase decoCollection)
+    {
+    	if (decoCollection.decos.size() > 0) {
+    		for (int i = 0; i < decoCollection.decos.size(); i++) {
+    			this.addDeco(decoCollection.decos.get(i));
+    		}
+    	}
     }
 }

@@ -7,13 +7,11 @@ import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoCactus;
 import rtg.world.biome.deco.DecoDoubleGrass;
-import rtg.world.biome.deco.DecoFlowersRTG;
 import rtg.world.biome.deco.DecoGrass;
-import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
-import rtg.world.biome.deco.DecoReed;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSavannaPlateau;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaSavannaPlateau;
 
@@ -40,6 +38,8 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
 		 * ##################################################
 		 */
     	
+        this.addDecoCollection(new DecoCollectionDesertRiver());
+        
 		DecoBoulder decoBoulder1 = new DecoBoulder();
 		decoBoulder1.boulderBlock = Blocks.cobblestone;
 		decoBoulder1.maxY = 80;
@@ -51,46 +51,6 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
 		decoBoulder1.minY = 110;
 		decoBoulder2.chance = 24;
 		this.addDeco(decoBoulder2);
-        
-		DecoTree riverTrees = new DecoTree();
-		riverTrees.checkRiver = true;
-		riverTrees.minRiver = 0.86f;
-		riverTrees.strengthFactorForLoops = 10f;
-		riverTrees.treeType = TreeType.SAVANNA_RIVER;
-		riverTrees.treeCondition = TreeCondition.RANDOM_CHANCE;
-		riverTrees.treeConditionChance = 4;
-		riverTrees.maxY = 120;
-		this.addDeco(riverTrees);
-        
-		DecoCactus decoRiverCactus = new DecoCactus();
-		decoRiverCactus.checkRiver = true;
-		decoRiverCactus.minRiver = 0.7f;
-		decoRiverCactus.maxY = 80;
-		decoRiverCactus.strengthFactor = 12f;
-        this.addDeco(decoRiverCactus);
-        
-        DecoReed decoReed = new DecoReed();
-        decoReed.checkRiver = true;
-        decoReed.minRiver = 0.7f;
-		decoReed.maxY = 68;
-		decoReed.strengthFactor = 2f;
-        this.addDeco(decoReed);            
-        
-		DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-		decoFlowersRTG.checkRiver = true;
-		decoFlowersRTG.minRiver = 0.7f;
-		decoFlowersRTG.flowers = new int[] {9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11};
-		decoFlowersRTG.maxY = 128;
-		decoFlowersRTG.loops = 3;
-        this.addDeco(decoFlowersRTG);
-        
-        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.checkRiver = true;
-        decoGrassDoubleTallgrass.minRiver = 0.7f;
-        decoGrassDoubleTallgrass.maxY = 128;
-        decoGrassDoubleTallgrass.loops = 15;
-        decoGrassDoubleTallgrass.doubleGrassChance = 3;
-        this.addDeco(decoGrassDoubleTallgrass);
         
 		DecoTree savannaTrees = new DecoTree();
 		savannaTrees.strengthFactorForLoops = 3f;

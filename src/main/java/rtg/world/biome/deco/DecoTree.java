@@ -19,7 +19,6 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGBirch;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGBirchSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPalm;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceCustom;
@@ -197,17 +196,6 @@ public class DecoTree extends DecoBase
 		            		}
 		            		
 		            		break;
-		            		
-		            	case DESERT_RIVER:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-	                        	
-		                        WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(0, 0) : new WorldGenTreeRTGSavanna(1, false);
-		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                        worldgenerator.generate(world, rand, intX, intY, intZ);
-	                        }
-		            		
-		            		break;
 	            		
 		            	case HL_WINDY_ISLAND:
 		            		
@@ -378,19 +366,6 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
-		            	case SAVANNA_RIVER:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-	                        	
-		                        WorldGenerator worldgenerator =
-		                                rand.nextInt(3) != 0 ? new WorldGenShrub(0, 0) : rand.nextInt(9) == 0 ? new WorldGenTreeRTGSavanna(1)
-		                                    : new WorldGenTreeRTGSavanna(2);
-		                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                            worldgenerator.generate(world, rand, intX, intY, intZ);
-	                        }
-		            		
-		            		break;
-		            		
 		            	case SMALL_PINES_TREES_FORESTS:
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
@@ -471,17 +446,6 @@ public class DecoTree extends DecoBase
 				                worldgenerator.generate(world, rand, intX, intY, intZ);
 		            		}
 		            		
-		            		break;		            		
-
-		            	case VANILLA_BEACH_PALM:
-		            		
-	                        if (intY <= this.maxY && intY >= this.minY && (rand.nextInt((int) (4f / strength)) == 0)) {
-	                        	
-	                            WorldGenerator worldgenerator = new WorldGenTreeRTGPalm();
-	                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-	                            worldgenerator.generate(world, rand, intX, intY, intZ);
-	                        }
-		            		
 		            		break;
 		            		
                         case WORLDGEN:
@@ -530,7 +494,6 @@ public class DecoTree extends DecoBase
 	{
 		BIRCH_TREES_FOREST,
 		BOP_LAND_OF_LAKES,
-		DESERT_RIVER,
 		HL_WINDY_ISLAND,
 		MANGROVE,
 		MEGA_JUNGLE,
@@ -539,14 +502,12 @@ public class DecoTree extends DecoBase
 		PALM_CUSTOM,
 		RTG_TREE,
 		SAVANNA,
-		SAVANNA_RIVER,
 		SMALL_BIRCH,
 		SMALL_PINES_TREES_FORESTS,
 		SUPER_TALL_BIRCH,
 		TAIGA_PINE_TALL,
 		TAIGA_SPRUCE_SMALL,
 		TAIGA_SPRUCE_TALL,
-		VANILLA_BEACH_PALM,
 		WORLDGEN;
 	}
 	
@@ -555,7 +516,7 @@ public class DecoTree extends DecoBase
 		ALWAYS_GENERATE,
 		NOISE_GREATER_AND_RANDOM_CHANCE,
 		RANDOM_CHANCE,
-		RANDOM_FLOAT_DIVIDED_BY_STRENGTH;
+		X_DIVIDED_BY_STRENGTH;
 	}
 	
 	public boolean isValidTreeCondition(float noise, Random rand, float strength)
@@ -571,7 +532,7 @@ public class DecoTree extends DecoBase
 			case RANDOM_CHANCE:
 				return rand.nextInt(this.treeConditionChance) == 0;
 				
-			case RANDOM_FLOAT_DIVIDED_BY_STRENGTH:
+			case X_DIVIDED_BY_STRENGTH:
 				return rand.nextInt((int) (this.treeConditionFloat / strength)) == 0;
 
 			default:

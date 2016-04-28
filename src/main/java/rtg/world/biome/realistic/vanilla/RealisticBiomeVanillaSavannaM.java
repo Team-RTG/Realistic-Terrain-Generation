@@ -10,10 +10,10 @@ import rtg.world.biome.deco.DecoDoubleGrass;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoGrass;
-import rtg.world.biome.deco.DecoReed;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSavannaM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaSavannaM;
 
@@ -42,6 +42,8 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase
 		 * ##################################################
 		 */
 
+        this.addDecoCollection(new DecoCollectionDesertRiver());
+        
 		DecoFallenTree decoFallenTree = new DecoFallenTree();
 		decoFallenTree.loops = 1;
 		decoFallenTree.distribution.noiseDivisor = 100f;
@@ -58,23 +60,6 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase
 		decoFallenTree.minSize = 3;
 		decoFallenTree.maxSize = 6;
 		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaSavannaM.decorationLogsId));
-        
-		DecoTree riverTrees = new DecoTree();
-		riverTrees.checkRiver = true;
-		riverTrees.minRiver = 0.8f;
-		riverTrees.strengthNoiseFactorForLoops = false;
-		riverTrees.strengthFactorForLoops = 15f;
-		riverTrees.treeType = TreeType.SAVANNA_RIVER;
-		riverTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
-		riverTrees.maxY = 100;
-		this.addDeco(riverTrees);
-        
-        DecoReed decoReed = new DecoReed();
-        decoReed.checkRiver = true;
-        decoReed.minRiver = 0.8f;
-		decoReed.maxY = 68;
-		decoReed.strengthFactor = 2f;
-        this.addDeco(decoReed);
         
 		DecoTree savannaTrees = new DecoTree();
 		savannaTrees.strengthFactorForLoops = 3f;

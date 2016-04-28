@@ -9,15 +9,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.deco.DecoCactus;
-import rtg.world.biome.deco.DecoDeadBush;
-import rtg.world.biome.deco.DecoDesertWell;
-import rtg.world.biome.deco.DecoFlowersRTG;
-import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
-import rtg.world.biome.deco.DecoReed;
-import rtg.world.biome.deco.DecoTree;
-import rtg.world.biome.deco.DecoTree.TreeCondition;
-import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.collection.DecoCollectionDesert;
+import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesertHills;
@@ -40,69 +33,8 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase
         this.waterSurfaceLakeChance = 0;
         this.noLakes=true;
         
-		/**
-		 * ##################################################
-		 * # DECORATIONS (ORDER MATTERS)
-		 * ##################################################
-		 */
-        
-		DecoTree riverTrees = new DecoTree();
-		riverTrees.checkRiver = true;
-		riverTrees.minRiver = 0.86f;
-		riverTrees.strengthNoiseFactorForLoops = false;
-		riverTrees.strengthFactorForLoops = 20f;
-		riverTrees.treeType = TreeType.DESERT_RIVER;
-		riverTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
-		riverTrees.maxY = 100;
-		this.addDeco(riverTrees);
-            
-		DecoCactus decoRiverCactus = new DecoCactus();
-		decoRiverCactus.checkRiver = true;
-		decoRiverCactus.minRiver = 0.7f;
-		decoRiverCactus.maxY = 80;
-		decoRiverCactus.strengthFactor = 12f;
-        this.addDeco(decoRiverCactus);
-        
-        DecoReed decoReed = new DecoReed();
-        decoReed.checkRiver = true;
-        decoReed.minRiver = 0.7f;
-		decoReed.maxY = 68;
-		decoReed.strengthFactor = 2f;
-        this.addDeco(decoReed);
-        
-		DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-		decoFlowersRTG.checkRiver = true;
-		decoFlowersRTG.minRiver = 0.7f;
-		decoFlowersRTG.flowers = new int[] {9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11};
-		decoFlowersRTG.maxY = 128;
-		decoFlowersRTG.loops = 3;
-        this.addDeco(decoFlowersRTG);
-        
-        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.checkRiver = true;
-        decoGrassDoubleTallgrass.minRiver = 0.7f;
-        decoGrassDoubleTallgrass.maxY = 128;
-        decoGrassDoubleTallgrass.loops = 15;
-        decoGrassDoubleTallgrass.doubleGrassChance = 3;
-        this.addDeco(decoGrassDoubleTallgrass);
-        
-        DecoDesertWell decoDesertWell = new DecoDesertWell();
-        decoDesertWell.maxY = 80;
-        decoDesertWell.strengthFactor = 1f;
-        decoDesertWell.chance = 160;
-        this.addDeco(decoDesertWell);
-
-		DecoCactus decoCactus = new DecoCactus();
-		decoCactus.maxY = 120;
-		decoCactus.strengthFactor = 3f;
-		decoCactus.chance = 2;
-        this.addDeco(decoCactus);
-        
-        DecoDeadBush decoDeadBush = new DecoDeadBush();
-		decoDeadBush.maxY = 128;
-		decoDeadBush.strengthFactor = 2f;
-		decoCactus.chance = 3;
-        this.addDeco(decoDeadBush);
+		this.addDecoCollection(new DecoCollectionDesertRiver());
+		this.addDecoCollection(new DecoCollectionDesert());
 	}
     
     public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)

@@ -19,11 +19,11 @@ public class DecoHelperOneIn extends DecoBase
 	public DecoBase deco;
 	public int chances;
 
-	public DecoHelperOneIn(DecoBase decos, int chances)
+	public DecoHelperOneIn(DecoBase deco, int chances)
 	{
 		super();
 
-		this.deco = decos;
+		this.deco = deco;
 		this.chances = chances;
 	}
 

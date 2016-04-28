@@ -12,12 +12,8 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoCactus;
 import rtg.world.biome.deco.DecoDeadBush;
-import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
-import rtg.world.biome.deco.DecoReed;
 import rtg.world.biome.deco.DecoShrub;
-import rtg.world.biome.deco.DecoTree;
-import rtg.world.biome.deco.DecoTree.TreeCondition;
-import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesa;
@@ -39,42 +35,12 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase
             new SurfaceVanillaMesa(config, Blocks.sand, (byte)1, Blocks.sand, (byte)1)
         );
         
+        this.addDecoCollection(new DecoCollectionDesertRiver());
+        
 		DecoBoulder decoBoulder = new DecoBoulder();
 		decoBoulder.boulderBlock = Blocks.cobblestone;
 		decoBoulder.maxY = 83;
 		this.addDeco(decoBoulder);
-        
-		DecoTree riverTrees = new DecoTree();
-		riverTrees.checkRiver = true;
-		riverTrees.minRiver = 0.86f;
-		riverTrees.strengthNoiseFactorForLoops = false;
-		riverTrees.strengthFactorForLoops = 30f;
-		riverTrees.treeType = TreeType.SAVANNA_RIVER;
-		riverTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
-		riverTrees.maxY = 100;
-		this.addDeco(riverTrees);
-		
-		DecoCactus decoRiverCactus = new DecoCactus();
-		decoRiverCactus.checkRiver = true;
-		decoRiverCactus.minRiver = 0.7f;
-		decoRiverCactus.maxY = 80;
-		decoRiverCactus.strengthFactor = 12f;
-        this.addDeco(decoRiverCactus);
-        
-        DecoReed decoReed = new DecoReed();
-        decoReed.checkRiver = true;
-        decoReed.minRiver = 0.7f;
-		decoReed.maxY = 68;
-		decoReed.strengthFactor = 2f;
-        this.addDeco(decoReed);
-        
-        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.checkRiver = true;
-        decoGrassDoubleTallgrass.minRiver = 0.7f;
-        decoGrassDoubleTallgrass.maxY = 128;
-        decoGrassDoubleTallgrass.loops = 15;
-        decoGrassDoubleTallgrass.doubleGrassChance = 3;
-        this.addDeco(decoGrassDoubleTallgrass);
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.loops = 3;

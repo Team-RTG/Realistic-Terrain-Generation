@@ -16,9 +16,7 @@ import rtg.world.biome.deco.DecoFlowersRTG;
 import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
 import rtg.world.biome.deco.DecoReed;
 import rtg.world.biome.deco.DecoShrub;
-import rtg.world.biome.deco.DecoTree;
-import rtg.world.biome.deco.DecoTree.TreeCondition;
-import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBClayHills;
@@ -87,22 +85,14 @@ public class RealisticBiomeEBClayHills extends RealisticBiomeEBBase
             )
         );
         
+        this.addDecoCollection(new DecoCollectionDesertRiver());
+        
 		DecoBoulder decoBoulder = new DecoBoulder();
 		decoBoulder.boulderBlock = Blocks.cobblestone;
 		decoBoulder.maxY = 83;
 		decoBoulder.strengthFactor = 1f;
 		this.addDeco(decoBoulder);
 
-		DecoTree riverTrees = new DecoTree();
-		riverTrees.checkRiver = true;
-		riverTrees.minRiver = 0.86f;
-		riverTrees.strengthNoiseFactorForLoops = false;
-		riverTrees.strengthFactorForLoops = 10f;
-		riverTrees.treeType = TreeType.DESERT_RIVER;
-		riverTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
-		riverTrees.maxY = 100;
-		this.addDeco(riverTrees);
-        
         DecoReed decoReed = new DecoReed();
         decoReed.checkRiver = true;
         decoReed.minRiver = 0.7f;

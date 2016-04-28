@@ -64,7 +64,7 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
         DecoTree decoTree = new DecoTree(new WorldGenTreesRTG());
         decoTree.loops = 20;
         decoTree.treeType = TreeType.WORLDGEN;
-        decoTree.treeCondition = TreeCondition.RANDOM_FLOAT_DIVIDED_BY_STRENGTH;
+        decoTree.treeCondition = TreeCondition.X_DIVIDED_BY_STRENGTH;
         decoTree.distribution = new DecoTree.Distribution(24f, 1f, 0f);
         decoTree.treeConditionChance = 0;
         decoTree.treeConditionFloat = 4f;

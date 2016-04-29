@@ -257,49 +257,65 @@ public class RealisticBiomeGenerator {
     }
 
     public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river, ChunkProviderRTG chunkProvider) {
-        if (this.biome.noWaterFeatures) {
-            border = border * 2;
-            if (border > 1f) border = 1;
-            river = 1f - border * (1f - river);
-            return this.biome.getTerrain().generateNoise(simplex, cell, x, y, border, river, chunkProvider);
+        // we now have both lakes and rivers lowering land
+        if (biome.noWaterFeatures) {
+            float borderForRiver = border * 2;
+            if (borderForRiver > 1f) borderForRiver = 1;
+            river = 1f - (1f - borderForRiver) * (1f - river);
+            return biome.terrain.generateNoise(simplex, cell, x, y, border, river, chunkProvider);
         }
         float lakeStrength = lakePressure(simplex, cell, x, y, border);
-        double lakeFlattening = this.lakeFlattening(lakeStrength, this.biome.lakeWaterLevel, this.biome.lakeDepressionLevel);
-        // we add some flattening to the rivers but not to the lakes. This gives the rivers flatter
-        // banks and the lakes steeper ones, which seems to be better aesthetically
+        float lakeFlattening = (float) lakeFlattening(lakeStrength, biome.lakeShoreLevel, biome.lakeDepressionLevel);
+        // we add some flattening to the rivers. The lakes are pre-flattened.
         float riverFlattening = river * 1.25f - 0.25f;
         if (riverFlattening < 0) riverFlattening = 0;
-        if (lakeFlattening < river) river = (float) lakeFlattening;
-        float terrainNoise = this.biome.getTerrain().generateNoise(simplex, cell, x, y, border, river, chunkProvider);
+        if ((river < 1) && (lakeFlattening < 1)) {
+            riverFlattening = (float) ((1f - riverFlattening) / riverFlattening + (1f - lakeFlattening) / lakeFlattening);
+            riverFlattening = (1f / (riverFlattening + 1f));
+        } else {
+            if (lakeFlattening < riverFlattening) riverFlattening = (float) lakeFlattening;
+        }
+        // the lakes have to have a little less flattening to avoid the rocky edges
+        lakeFlattening = lakeFlattening(lakeStrength, biome.lakeWaterLevel, biome.lakeDepressionLevel);
+
+        if ((river < 1) && (lakeFlattening < 1)) {
+            river = (float) ((1f - river) / river + (1f - lakeFlattening) / lakeFlattening);
+            river = (1f / (river + 1f));
+        } else {
+            if (lakeFlattening < river) river = (float) lakeFlattening;
+        }
+        // flatten terrain to set up for the water features
+        float terrainNoise = biome.terrain.generateNoise(simplex, cell, x, y, border, riverFlattening, chunkProvider);
+        // place water features
         return this.erodedNoise(simplex, cell, x, y, river, border, terrainNoise, lakeFlattening);
     }
 
     public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell, int x, int y, float border) {
-        if (this.biome.noLakes) return 1f;
+        if (biome.noLakes) return 1f;
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-        simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
-        double pX = x + jitter.deltax() * 90f;
-        double pY = y + jitter.deltay() * 90f;
-        simplex.mountain().evaluateNoise(x / 80.0, y / 80.0, jitter);
-        pX += jitter.deltax() * 25f;
-        pY += jitter.deltay() * 25f;
-        simplex.mountain().evaluateNoise(x / 30.0, y / 30.0, jitter);
-        pX += jitter.deltax() * 7f;
-        pY += jitter.deltay() * 7f;
+        simplex.riverJitter().evaluateNoise((float) x / 240.0, (float) y / 240.0, jitter);
+        double pX = x + jitter.deltax() * biome.largeBendSize;
+        double pY = y + jitter.deltay() * biome.largeBendSize;
+        simplex.mountain().evaluateNoise((float) x / 80.0, (float) y / 80.0, jitter);
+        pX += jitter.deltax() * biome.mediumBendSize;
+        pY += jitter.deltay() * biome.mediumBendSize;
+        simplex.octave(4).evaluateNoise((float) x / 30.0, (float) y / 30.0, jitter);
+        pX += jitter.deltax() * biome.smallBendSize;
+        pY += jitter.deltay() * biome.smallBendSize;
         //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
-        double[] lakeResults = simplexCell.river().eval((float) pX / this.biome.lakeInterval, (float) pY / this.biome.lakeInterval);
+        double[] lakeResults = simplexCell.river().eval((float) pX / biome.lakeInterval, (float) pY / biome.lakeInterval);
         float results = 1f - (float) ((lakeResults[1] - lakeResults[0]) / lakeResults[1]);
         if (results > 1.01) throw new RuntimeException("" + lakeResults[0] + " , " + lakeResults[1]);
         if (results < -.01) throw new RuntimeException("" + lakeResults[0] + " , " + lakeResults[1]);
-        //return simplexCell.river().noise((float)x/ this.biome.lakeInterval, (float)y/ this.biome.lakeInterval,1.0);
+        //return simplexCell.river().noise((float)x/ lakeInterval, (float)y/ lakeInterval,1.0);
         return results;
     }
 
-    public double lakeFlattening(double pressure, double bottomLevel, double topLevel) {
+    public float lakeFlattening(float pressure, float bottomLevel, float topLevel) {
         // this number indicates a multiplier to height
         if (pressure > topLevel) return 1;
         if (pressure < bottomLevel) return 0;
-        return (pressure - bottomLevel) / (topLevel - bottomLevel);
+        return (float) Math.pow((pressure - bottomLevel) / (topLevel - bottomLevel), 1.0);
     }
 
     public float erodedNoise(OpenSimplexNoise simplex, CellNoise simplexCell, int x, int y, float river, float border, float biomeHeight, double lakeFlattening) {
@@ -307,18 +323,18 @@ public class RealisticBiomeGenerator {
         float r = 1f;
 
         // put a flat spot in the middle of the river
-        float riverFlattening = river * 1.25f - 0.25f;
+        float riverFlattening = river; // moved the flattening to terrain stage
         if (riverFlattening < 0) riverFlattening = 0;
 
         // check if rivers need lowering
-        if (riverFlattening < actualRiverProportion) {
-            r = riverFlattening / actualRiverProportion;
-        }
+        //if (riverFlattening < actualRiverProportion) {
+        r = riverFlattening / actualRiverProportion;
+        //}
 
         //if (1>0) return 62f+r*10f;
         if ((r < 1f && biomeHeight > 57f)) {
             return (biomeHeight * (r))
-                    + ((57f + simplex.noise2(x / 12f, y / 12f) * 2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (1f - r));
+                + ((57f + simplex.noise2(x / 12f, y / 12f) * 2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (1f - r));
         } else {
             return biomeHeight;
         }

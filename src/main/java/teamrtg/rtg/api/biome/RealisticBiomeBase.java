@@ -22,6 +22,7 @@ import static net.minecraft.init.Biomes.RIVER;
 
 public abstract class RealisticBiomeBase extends BiomeBase {
 
+    public static final float actualRiverProportion = 300f / 1600f;
     public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;
     public final RTGSupport mod;
@@ -33,12 +34,22 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     public TerrainBase terrain;
     public SurfacePart surface;
     public ArrayList<DecoBase> decos;
+
+    // lake calculations
+
+    public final float lakeInterval = 989.0f;
+    public final float lakeShoreLevel = 0.15f;
+    public final float lakeWaterLevel = 0.11f;// the lakeStrength below which things should be below water
+    public final float lakeDepressionLevel = 0.30f;// the lakeStrength below which land should start to be lowered
     public boolean noLakes = false;
     public boolean noWaterFeatures = false;
 
-    public final float lakeInterval = 1470.0f;
-    public final double lakeWaterLevel = 0.0;// the lakeStrenght below which things should be below ater
-    public final double lakeDepressionLevel = 0.16;// the lakeStrength below which land should start to be lowered
+    public final float largeBendSize = 100;
+    public final float mediumBendSize = 40;
+    public final float smallBendSize = 15;
+
+    public final boolean disallowAllBeaches = false;
+    public final boolean disallowStoneBeaches = false;
 
     public RealisticBiomeBase(RTGSupport mod, BiomeGenBase biome, ChunkProviderRTG chunkProvider) {
         this(mod, biome, RIVER, chunkProvider);

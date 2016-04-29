@@ -6,7 +6,6 @@ import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.SurfaceRiverOasis;
 import teamrtg.rtg.world.biome.surface.part.BlockPart;
-import teamrtg.rtg.world.biome.surface.part.DepthSelector;
 import teamrtg.rtg.world.biome.surface.part.HeightSelector;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
@@ -40,7 +39,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     protected SurfacePart initSurface() {
         SurfacePart surface = new SurfacePart();
         surface.add(new SurfaceRiverOasis(this));
-        surface.add(new DepthSelector(0, 6).setMaxNoise(PARTS.DEPTH_NOISE)
+        surface.add(PARTS.TOP_AND_FILL_SELECTOR
             .add(new BlockPart(Blocks.SAND.getDefaultState())));
         surface.add(new HeightSelector(60, 255).setMaxNoise(PARTS.DEPTH_NOISE2)
             .add(new BlockPart(Blocks.SANDSTONE.getDefaultState())));
@@ -109,6 +108,6 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     @Override
     protected void initProperties() {
         this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.FeatureType.DESERT_TEMPLE.name());
-        this.config.SURFACE_WATER_LAKE_CHANCE.setDefault(0);
+        this.config.WATER_POND_CHANCE.setDefault(0);
     }
 }

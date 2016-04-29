@@ -9,7 +9,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenRavine;
+import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.api.mods.Mods;
+import teamrtg.rtg.api.util.BiomeUtils;
 
 import java.util.Random;
 
@@ -173,8 +175,15 @@ public class MapGenRavineRTG extends MapGenRavine {
     protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int p_180701_4_, int p_180701_5_, ChunkPrimer chunkPrimerIn) {
         enableRavines = Mods.RTG.config.ENABLE_RAVINES.get();
         ravineFrequency = Mods.RTG.config.RAVINE_FREQUENCY.get();
+        try {
+            // If the user has set biome-specific settings, let's use those instead.
+            BiomeGenBase biome = worldIn.getBiomeGenForCoords(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));
+            RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(BiomeUtils.getIdForBiome(biome));
+            ravineFrequency = (realisticBiome.config.RAVINE_FREQUENCY.get() > -1) ? realisticBiome.config.RAVINE_FREQUENCY.get() : ravineFrequency;
+        } catch (Exception ignored) {}
 
-        if (!enableRavines) {
+        // Return early if ravines are disabled.
+        if (ravineFrequency < 1 || !enableRavines) {
             return;
         }
 

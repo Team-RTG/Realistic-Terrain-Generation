@@ -71,7 +71,7 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
                 .add(new DepthSelector(4, 256)
                         .add(new BlockPart(CanyonColour.MESA)))
             .add(new GenericPart(Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState()))
-                .add(new DepthSelector(0, 0)
+            .add(PARTS.TOP_SELECTOR
                     .add(new RandomSelector(rand, 5)
                                 .add(new BlockPart(Blocks.GRASS.getDefaultState())))
                     .add(new RandomSelector(rand, 3)

@@ -24,6 +24,7 @@ import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.util.noise.SimplexOctave;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.gen.deco.DecoBase;
+import teamrtg.rtg.world.gen.feature.WorldGenPond;
 
 import java.util.Random;
 
@@ -80,18 +81,18 @@ public class RealisticBiomeGenerator {
         // Surface WATER lakes.
         if (Mods.RTG.config.ENABLE_SURFACE_WATER_LAKES.get()) {
 
-            if (gen && (this.biome.config.SURFACE_WATER_LAKE_CHANCE.get() > 0)) {
+            if (gen && (this.biome.config.WATER_POND_CHANCE.get() > 0)) {
 
                 int i2 = worldX + rand.nextInt(16) + 8;
                 int i8 = worldZ + rand.nextInt(16) + 8;
                 int l4 = worldObj.getHeight(new BlockPos(i2, 0, i8)).getY();
 
                 //Surface lakes.
-                if (rand.nextInt(this.biome.config.SURFACE_WATER_LAKE_CHANCE.get()) == 0 && (RandomUtil.getRandomInt(rand, 1, this.biome.config.SURFACE_WATER_LAKE_CHANCE.get()) == 1)) {
+                if (rand.nextInt(this.biome.config.WATER_POND_CHANCE.get()) == 0 && (RandomUtil.getRandomInt(rand, 1, this.biome.config.WATER_POND_CHANCE.get()) == 1)) {
 
                     if (l4 > 63) {
 
-                        (new WorldGenLakes(Blocks.WATER)).generate(worldObj, rand, new BlockPos(i2, l4, i8));
+                        (new WorldGenPond(Blocks.WATER)).generate(worldObj, rand, i2, l4, i8);
                     }
                 }
             }
@@ -118,18 +119,18 @@ public class RealisticBiomeGenerator {
         // Surface lava lakes.
         if (Mods.RTG.config.ENABLE_SURFACE_LAVA_LAKES.get()) {
 
-            if (gen && (this.biome.config.SURFACE_LAVA_LAKE_CHANCE.get() > 0)) {
+            if (gen && (this.biome.config.LAVA_POND_CHANCE.get() > 0)) {
 
                 int i2 = worldX + rand.nextInt(16) + 8;
                 int i8 = worldZ + rand.nextInt(16) + 8;
                 int l4 = worldObj.getHeight(new BlockPos(i2, 0, i8)).getY();
 
                 //Surface lakes.
-                if (rand.nextInt(this.biome.config.SURFACE_LAVA_LAKE_CHANCE.get()) == 0 && (RandomUtil.getRandomInt(rand, 1, this.biome.config.SURFACE_LAVA_LAKE_CHANCE.get()) == 1)) {
+                if (rand.nextInt(this.biome.config.LAVA_POND_CHANCE.get()) == 0 && (RandomUtil.getRandomInt(rand, 1, this.biome.config.LAVA_POND_CHANCE.get()) == 1)) {
 
                     if (l4 > 63) {
 
-                        (new WorldGenLakes(Blocks.LAVA)).generate(worldObj, rand, new BlockPos(i2, l4, i8));
+                        (new WorldGenPond(Blocks.LAVA)).generate(worldObj, rand, i2, l4, i8);
                     }
                 }
             }
@@ -330,13 +331,13 @@ public class RealisticBiomeGenerator {
                 depth = -1;
             } else if (b == Blocks.STONE) {
                 depth++;
-                if (Mods.RTG.config.ENABLE_RTG_BIOME_DECORATIONS.get() && this.biome.config.USE_RTG_SURFACES.get()) {
-                        this.biome.surface.paintWithSubparts(primer, i, y, j, depth, noise, river);
+                if (Mods.RTG.config.ENABLE_RTG_SURFACES.get() && this.biome.config.USE_RTG_SURFACES.get()) {
+                    this.biome.surface.paintWithSubparts(primer, i, y, j, depth, noise, river);
                 } else {
                     this.genericPart.paintWithSubparts(primer, i, y, j, depth, noise, river);
-                    }
                 }
             }
+        }
     }
 
     public void decorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {

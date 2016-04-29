@@ -1,10 +1,11 @@
 package teamrtg.rtg.util.noise;
 
 /**
+ *
  * @author Zeno410
  */
 public interface CellOctave {
-    float noise(double x, double z, double depth);
+    public float noise(double x, double z, double depth);
 
-    double[] eval(double x, double y);
+    public double[] eval(double x, double y);
 }

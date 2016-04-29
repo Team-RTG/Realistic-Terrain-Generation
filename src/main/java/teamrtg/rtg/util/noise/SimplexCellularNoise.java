@@ -2,24 +2,24 @@ package teamrtg.rtg.util.noise;
 
 /**
  * @author KdotJPG
- *         <p/>
+ *         <p>
  *         Generates 2D Simplex-cellular noise.
- *         <p/>
+ *         <p>
  *         Simplex-cellular noise is cellular noise implemented using the lattice
  *         of Simplex noise.
- *         <p/>
+ *         <p>
  *         In this case the point contribution determination is implemented using
  *         a lookup scheme inspired by DigitalShadow's optimized implementation of
  *         OpenSimplex noise, and a permutation table of size 1024 is used instead
  *         of the traditional 256.
- *         <p/>
+ *         <p>
  *         Each point set is defined as the directions from the center to the
  *         vertices of the normalized expanded vertex figure of the lattice for
  *         the given dimensionality. These point sets are symmetric with the
  *         lattice, but don't include directions that follow edges or facets.
- *         <p/>
+ *         <p>
  *         Supports multi-evaluation with F1 and F2 values.
- *         <p/>
+ *         <p>
  *         Version 02/05/2015
  */
 
@@ -42,8 +42,6 @@ public class SimplexCellularNoise implements CellNoise {
         return octaves[index];
     }
 
-    public SimplexCellularOctave river() {
-        return octave(0);
-    }
+    public SimplexCellularOctave river() {return octave(0);}
 
 }

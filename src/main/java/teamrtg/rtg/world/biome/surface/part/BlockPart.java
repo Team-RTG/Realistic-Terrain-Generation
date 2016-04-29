@@ -3,7 +3,6 @@ package teamrtg.rtg.world.biome.surface.part;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.chunk.ChunkPrimer;
 import teamrtg.rtg.util.IBlockAt;
-import teamrtg.rtg.util.noise.RTGNoise;
 
 import static teamrtg.rtg.util.math.MathUtils.globalToLocal;
 
@@ -13,7 +12,6 @@ import static teamrtg.rtg.util.math.MathUtils.globalToLocal;
 public class BlockPart extends SurfacePart {
 
     private final IBlockAt block;
-    private RTGNoise noise;
 
     public BlockPart(IBlockState blockState) {
         this.block = (x, y, z) -> blockState;

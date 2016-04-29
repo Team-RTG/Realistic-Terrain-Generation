@@ -385,23 +385,6 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
-		            	case TAIGA_PINE_TALL:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-
-	                        	TreeRTGPiceaSitchensis smallPine = new TreeRTGPiceaSitchensis();
-	                        	smallPine.setLogBlock(Blocks.log)
-	                        		.setLogMeta((byte)1)
-	                        		.setLeavesBlock(Blocks.leaves)
-	                        		.setLeavesMeta((byte)1)
-	                        		.setTrunkSize(4 + rand.nextInt(6))
-	                        		.setCrownSize(5 + rand.nextInt(10));
-	                        	smallPine.setScale(1.0D, 1.0D, 1.0D);
-	                        	smallPine.generate(world, rand, intX, intY, intZ);
-		            		}
-		            		
-		            		break;
-		            		
                         case WORLDGEN:
 
                             if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
@@ -458,7 +441,6 @@ public class DecoTree extends DecoBase
 		SMALL_BIRCH,
 		SMALL_PINES_TREES_FORESTS,
 		SUPER_TALL_BIRCH,
-		TAIGA_PINE_TALL,
 		WORLDGEN;
 	}
 	

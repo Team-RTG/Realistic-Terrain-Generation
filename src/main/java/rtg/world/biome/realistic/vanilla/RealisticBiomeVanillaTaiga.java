@@ -18,6 +18,7 @@ import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat.ChanceType;
 import rtg.world.gen.feature.tree.rtg.TreeRTGCupressusSempervirens;
+import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaTaiga;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaTaiga;
 
@@ -105,9 +106,17 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeVanillaBase
 		DecoHelperThisOrThat decoHelperThisOrThat3 = new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, bigSpruceTrees3, bigSpruceOakTrees3);
 		this.addDeco(decoHelperThisOrThat3);
 		
-		DecoTree decoTrees = new DecoTree();
+		DecoTree decoTrees = new DecoTree(new TreeRTGPiceaSitchensis());
+		decoTrees.logBlock = Blocks.log;
+		decoTrees.logMeta = (byte)1;
+		decoTrees.leavesBlock = Blocks.leaves;
+		decoTrees.leavesMeta = (byte)1;
+		decoTrees.minTrunkSize = 4;
+		decoTrees.maxTrunkSize = 9;
+		decoTrees.minCrownSize = 5;
+		decoTrees.maxCrownSize = 14;
 		decoTrees.strengthFactorForLoops = 4f;
-		decoTrees.treeType = TreeType.TAIGA_PINE_TALL;
+		decoTrees.treeType = TreeType.RTG_TREE;
 		decoTrees.treeCondition = TreeCondition.RANDOM_CHANCE;
 		decoTrees.treeConditionChance = 3;
 		decoTrees.maxY = 120;

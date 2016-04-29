@@ -80,7 +80,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
     private final float[] parabolicField;
     public final RealisticBiomeFaker biomeFaker;
     private BiomeProviderRTG bprv;
-    private final BiomeAnalyzer analyzer = new BiomeAnalyzer();
+    private final BiomeAnalyzer analyzer;
     private final IBlockState bedrockBlock = Mods.RTG.config.BEDROCK_BLOCK.get();
     public final Random rand;
     public final Random mapRand;
@@ -120,6 +120,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         biomeFaker = new RealisticBiomeFaker(this);
         Mods.initAllBiomes(this);
         biomeFaker.initFakeBiomes();
+        analyzer = new BiomeAnalyzer();
 
         if (Mods.RTG.config.ENABLE_CAVE_MODIFICATIONS.get()) {
             caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), CAVE);
@@ -179,15 +180,13 @@ public class ChunkProviderRTG implements IChunkGenerator {
         rand.setSeed((long) cx * 0x4f9939f508L + (long) cz * 0x1ef1565bd5L);
         ChunkPrimer primer = new ChunkPrimer();
         BiomeGenBase[] baseBiomes = new BiomeGenBase[256];
-        RealisticBiomeBase[] rtgBiomes = new RealisticBiomeBase[256];
         RealisticBiomeBase[] jitteredBiomes = new RealisticBiomeBase[256];
 
         float[] noise = bprv.getHeights(cx, cz);
 
 
         for (int k = 0; k < 256; k++) {
-            rtgBiomes[k] = RealisticBiomeBase.getBiome(bprv.getBiomes(cx, cz)[k]);
-            baseBiomes[k] = rtgBiomes[k].baseBiome;
+            baseBiomes[k] = RealisticBiomeBase.getBiome(bprv.getBiomes(cx, cz)[k]);
         }
 
         RealisticBiomeBase jittered, actual;
@@ -311,7 +310,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
         for (i = -sampleSize; i < sampleSize + 5; i++) {
             for (j = -sampleSize; j < sampleSize + 5; j++) {
-                biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = BiomeUtils.getIdForBiome(cmr.getBiomeDataAt(x + ((i * 8)), y + ((j * 8))));
+                biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = BiomeUtils.getIdForBiome(cmr.getPreRepair(x + ((i * 8)), y + ((j * 8))));
             }
         }
 
@@ -484,7 +483,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         //fill biomes array with biomeData
         for (i = 0; i < 16; i++) {
             for (j = 0; j < 16; j++) {
-                biomes[i * 16 + j] = cmr.getBiomeDataAt(x + (((i - 7) * 8 + 4)), y + (((j - 7) * 8 + 4)));
+                biomes[i * 16 + j] = RealisticBiomeBase.getBiome(BiomeUtils.getIdForBiome(cmr.getPreRepair(x + (((i - 7) * 8 + 4)), y + (((j - 7) * 8 + 4)))));
             }
         }
 

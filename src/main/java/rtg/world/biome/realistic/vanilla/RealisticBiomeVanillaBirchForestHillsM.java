@@ -45,10 +45,18 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
 		 * # DECORATIONS (ORDER MATTERS)
 		 * ##################################################
 		 */
-        
-		DecoTree smallBirch = new DecoTree();
+
+		DecoTree smallBirch = new DecoTree(new TreeRTGBetulaPapyrifera());
+		smallBirch.logBlock = Blocks.log;
+		smallBirch.logMeta = (byte)2;
+		smallBirch.leavesBlock = Blocks.leaves;
+		smallBirch.leavesMeta = (byte)2;
+		smallBirch.minTrunkSize = 4;
+		smallBirch.maxTrunkSize = 10;
+		smallBirch.minCrownSize = 8;
+		smallBirch.maxCrownSize = 19;
 		smallBirch.strengthNoiseFactorForLoops = true;
-		smallBirch.treeType = TreeType.SMALL_BIRCH;
+		smallBirch.treeType = TreeType.RTG_TREE;
 		smallBirch.distribution.noiseDivisor = 80f;
 		smallBirch.distribution.noiseFactor = 60f;
 		smallBirch.distribution.noiseAddend = -15f;

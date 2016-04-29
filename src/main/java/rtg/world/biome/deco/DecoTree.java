@@ -16,7 +16,6 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGBirchSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
 import rtg.world.gen.feature.tree.deprecated.WorldGenTreeRTGSprucePineBig;
@@ -275,17 +274,6 @@ public class DecoTree extends DecoBase
 		            		}
 		            		
 		            		break;
-
-		            	case SMALL_BIRCH:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-	                        	
-	                            WorldGenerator worldgenerator = new WorldGenTreeRTGBirchSmall(4 + rand.nextInt(7), 8 + rand.nextInt(12), 2);
-	                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-	                            worldgenerator.generate(world, rand, intX, intY, intZ);
-	                        }
-		            		
-		            		break;
 		            		
 		            	case SAVANNA:
 		            		
@@ -387,7 +375,6 @@ public class DecoTree extends DecoBase
 		MEGA_TAIGA,
 		RTG_TREE,
 		SAVANNA,
-		SMALL_BIRCH,
 		SMALL_PINES_TREES_FORESTS,
 		WORLDGEN;
 	}

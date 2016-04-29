@@ -16,7 +16,6 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
 import rtg.world.gen.feature.tree.deprecated.WorldGenTreeRTGSprucePineBig;
 import rtg.world.gen.feature.tree.deprecated.WorldGenTreeRTGSpruceSmall;
@@ -70,7 +69,7 @@ public class DecoTree extends DecoBase
 		this.strengthFactorForLoops = 0f;
 		this.strengthNoiseFactorForLoops = false;
 		this.strengthNoiseFactorXForLoops = false;
-		this.treeType = TreeType.MEGA_JUNGLE_MANGROVE;
+		this.treeType = TreeType.RTG_TREE;
 		this.tree = null;
 		this.worldGen = null;
 		this.distribution = new DecoTree.Distribution(100f, 5f, 0.8f);
@@ -192,44 +191,6 @@ public class DecoTree extends DecoBase
 			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 			                        worldgenerator.generate(world, rand, intX, intY, intZ);
 		                    	}
-		            		}
-		            		
-		            		break;
-		            		
-		            	case MANGROVE:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-
-		                    	if (this.maxSize > this.minSize) {
-		                            WorldGenerator worldgenerator = new WorldGenTreeRTGMangrove(
-		                                    Blocks.log2, 1, Blocks.leaves2, 1, 7 + rand.nextInt(6), 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
-		                                );
-		                                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                                worldgenerator.generate(world, rand, intX, intY, intZ);
-		                    	}
-		                    	else if (this.maxSize == this.minSize) {
-		                            WorldGenerator worldgenerator = new WorldGenTreeRTGMangrove(
-		                                    Blocks.log2, 1, Blocks.leaves2, 1, this.minSize, 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
-		                                );
-		                                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                                worldgenerator.generate(world, rand, intX, intY, intZ);
-		                    	}
-		            		}
-		            		
-		            		break;
-		            		
-		            	case MEGA_JUNGLE_MANGROVE:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-
-			                    WorldGenerator worldgenerator =
-			                        rand.nextInt(3) != 0
-			                        ? new WorldGenMegaJungle(false, 10 + rand.nextInt(18), 20, 3, 3)
-			                        : new WorldGenTreeRTGMangrove(Blocks.log, 3, Blocks.leaves, 3, 10 + rand.nextInt(18), 3 + rand.nextInt(2), 13f, RandomUtil.getRandomInt(rand, 4, 5),
-			                        0.32f,
-			                        0.2f);
-			                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                    worldgenerator.generate(world, rand, intX, intY, intZ);
 		            		}
 		            		
 		            		break;
@@ -369,9 +330,7 @@ public class DecoTree extends DecoBase
 	public enum TreeType
 	{
 		HL_WINDY_ISLAND,
-		MANGROVE,
 		MEGA_JUNGLE,
-		MEGA_JUNGLE_MANGROVE,
 		MEGA_TAIGA,
 		RTG_TREE,
 		SAVANNA,

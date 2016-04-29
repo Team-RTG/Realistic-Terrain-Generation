@@ -1,47 +1,30 @@
-package rtg.world.gen.feature.tree;
+package rtg.world.gen.feature.tree.rtg;
 
 import java.util.Random;
-
-import rtg.config.rtg.ConfigRTG;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.config.rtg.ConfigRTG;
 
-public class WorldGenTreeRTGMangrove extends WorldGenerator
+public class TreeRTGRhizophoraMucronata extends TreeRTG
 {
-	private Block blockLog;
-	private int metadataLog;
-	private Block blockLeaves;
-	private int metadataLeaves;
-	
-	private int base;
-	private int root;
-	private float length;
-	
-	private int branch;
-	private float verStart;
-	private float verRand;
-	
-	/*
-	 * Blocks.log, 0, Blocks.leaves, 0, 9 + rand.nextInt(5), 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
-	 */
-	
-	public WorldGenTreeRTGMangrove(Block log, int metaLog, Block leaves, int metaLeaves, int baseHeight, int rootHeight, float branchLength, int numBranches, float verticalStart, float verticalRand)
+
+	public int minBranches;
+	public int maxBranches;
+	public float branchLength;
+	public float verStart;
+	public float verRand;
+
+	public TreeRTGRhizophoraMucronata()
 	{
-		blockLog = log;
-		metadataLog = metaLog;
-		blockLeaves = leaves;
-		metadataLeaves = metaLeaves;
-		
-		base = baseHeight;
-		root = rootHeight;
-		length = branchLength;
-		
-		branch = numBranches;
-		verStart = verticalStart;
-		verRand = verticalRand;
+		super();
+
+		minBranches = 3;
+		maxBranches = 4;
+		branchLength = 13f;
+		verStart = 0.32f;
+		verRand = 0.1f;
 	}
 	
 	@Override
@@ -61,17 +44,19 @@ public class WorldGenTreeRTGMangrove extends WorldGenerator
     		}
     	}
     	
-    	if(root > 0f)
+    	int branch = this.minBranches + rand.nextInt(this.maxBranches - this.minBranches + 1);
+    	
+    	if(this.trunkSize > 0)
     	{
 	    	for(int k = 0; k < 3; k++)
 	    	{
-	    		generateBranch(world, rand, x, y + root, z, (120 * k) - 40 + rand.nextInt(80), 1.6f + rand.nextFloat() * 0.1f, root * 2f, 1f);
+	    		generateBranch(world, rand, x, y + this.trunkSize, z, (120 * k) - 40 + rand.nextInt(80), 1.6f + rand.nextFloat() * 0.1f, this.trunkSize * 2f, 1f);
 	    	}
     	}
     	
-    	for(int i = y + root; i < y + base; i++)
+    	for(int i = y + this.trunkSize; i < y + this.crownSize; i++)
     	{
-    		world.setBlock(x, i, z, blockLog, metadataLog, 2);
+    		world.setBlock(x, i, z, this.logBlock, this.logMeta, 2);
     	}
     	
     	float horDir, verDir;
@@ -80,11 +65,11 @@ public class WorldGenTreeRTGMangrove extends WorldGenerator
     	{
     		horDir = (120 * j) - 60 + rand.nextInt(120);
     		verDir = verStart + rand.nextFloat() * verRand;
-        	generateBranch(world, rand, x, y + base, z, horDir, verDir, length, 1f);
+        	generateBranch(world, rand, x, y + this.crownSize, z, horDir, verDir, branchLength, 1f);
         	
-        	eX = x + (int)(Math.cos(horDir * Math.PI / 180D) * verDir * length);
-        	eZ = z + (int)(Math.sin(horDir * Math.PI / 180D) * verDir * length);
-        	eY = y + base + (int)((1f - verDir) * length);
+        	eX = x + (int)(Math.cos(horDir * Math.PI / 180D) * verDir * branchLength);
+        	eZ = z + (int)(Math.sin(horDir * Math.PI / 180D) * verDir * branchLength);
+        	eY = y + this.crownSize + (int)((1f - verDir) * branchLength);
         	
         	for(int m = 0; m < 1; m++)
         	{
@@ -119,7 +104,7 @@ public class WorldGenTreeRTGMangrove extends WorldGenerator
 		
 		while(c < length)
 		{
-			world.setBlock((int)x, (int)y, (int)z, blockLog, metadataLog, 2);
+			world.setBlock((int)x, (int)y, (int)z, this.logBlock, this.logMeta, 2);
 			
 			x += velX;
 			y += velY;
@@ -144,11 +129,11 @@ public class WorldGenTreeRTGMangrove extends WorldGenerator
 					{
 						if(dist < 0.6f)
 						{
-							world.setBlock(x + i, y + j, z + k, blockLog, metadataLog, 2);
+							world.setBlock(x + i, y + j, z + k, this.logBlock, this.logMeta, 2);
 						}
 						if(world.isAirBlock(x + i, y + j, z + k))
 						{
-							world.setBlock(x + i, y + j, z + k, blockLeaves, metadataLeaves, 2);
+							world.setBlock(x + i, y + j, z + k, this.leavesBlock, this.leavesMeta, 2);
 						}
 					}
 				}

@@ -17,7 +17,11 @@ import rtg.world.biome.deco.DecoJungleLilypadVines;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
+import rtg.world.biome.deco.helper.DecoHelperThisOrThat.ChanceType;
 import rtg.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
+import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
+import rtg.world.gen.feature.tree.vanilla.WorldGenMegaJungleRTG;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungle;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaJungle;
 
@@ -44,13 +48,46 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		 */
 
 		// Blend of the WorldGenMegaJungle collection and some tall RTG Mangrove trees.
-		DecoTree megaJungleMangrove = new DecoTree();
-		megaJungleMangrove.loops = 3;
-		megaJungleMangrove.treeType = TreeType.MEGA_JUNGLE_MANGROVE;
-		megaJungleMangrove.treeCondition = TreeCondition.RANDOM_CHANCE;
-		megaJungleMangrove.treeConditionChance = 2;
-		megaJungleMangrove.maxY = 160;
-		this.addDeco(megaJungleMangrove);
+        
+		TreeRTGRhizophoraMucronata megaJungleMangrove = new TreeRTGRhizophoraMucronata();
+		megaJungleMangrove.minBranches = 4;
+		megaJungleMangrove.maxBranches = 5;
+		megaJungleMangrove.branchLength = 13f;
+		megaJungleMangrove.verStart = 0.32f;
+		megaJungleMangrove.verRand = 0.2f;
+		
+		DecoTree mangroves = new DecoTree(megaJungleMangrove);
+		mangroves.logBlock = Blocks.log;
+		mangroves.logMeta = (byte)3;
+		mangroves.leavesBlock = Blocks.leaves;
+		mangroves.leavesMeta = (byte)3;
+		mangroves.minTrunkSize = 3;
+		mangroves.maxTrunkSize = 4;
+		mangroves.minCrownSize = 10;
+		mangroves.maxCrownSize = 27;
+		mangroves.loops = 3;
+		mangroves.treeType = TreeType.RTG_TREE;
+		mangroves.treeCondition = TreeCondition.RANDOM_CHANCE;
+		mangroves.treeConditionChance = 2;
+		mangroves.maxY = 160;
+		
+		DecoTree megaJungle = new DecoTree(new WorldGenMegaJungleRTG(false, 10, 27, 19, 20, 3, 3));
+		megaJungle.logBlock = Blocks.log;
+		megaJungle.logMeta = (byte)3;
+		megaJungle.leavesBlock = Blocks.leaves;
+		megaJungle.leavesMeta = (byte)3;
+		megaJungle.minTrunkSize = 3;
+		megaJungle.maxTrunkSize = 4;
+		megaJungle.minCrownSize = 10;
+		megaJungle.maxCrownSize = 27;
+		megaJungle.loops = 3;
+		megaJungle.treeType = TreeType.RTG_TREE;
+		megaJungle.treeCondition = TreeCondition.RANDOM_CHANCE;
+		megaJungle.treeConditionChance = 2;
+		megaJungle.maxY = 160;
+		
+		DecoHelperThisOrThat decoHelperThisOrThat = new DecoHelperThisOrThat(3, ChanceType.NOT_EQUALS_ZERO, megaJungle, mangroves);
+		this.addDeco(decoHelperThisOrThat);
 		
 		// Add some palm trees for variety.
 		DecoTree palmCustom = new DecoTree(new TreeRTGCocosNucifera());
@@ -66,15 +103,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		this.addDeco(palmCustom);
 		
 		// Another pass of the WorldGenMegaJungle collection for extra jungleness.
-		DecoTree megaJungle = new DecoTree();
-		megaJungle.loops = 3;
-		megaJungle.treeType = TreeType.MEGA_JUNGLE;
-		megaJungle.treeCondition = TreeCondition.RANDOM_CHANCE;
-		megaJungle.treeConditionChance = 3;
-		megaJungle.maxY = 160;
-		megaJungle.minSize = 20;
-		megaJungle.maxSize = 40;
-		this.addDeco(megaJungle);
+		this.addDeco(decoHelperThisOrThat);
 		
 		// Jungle logs.
 		DecoFallenTree decoFallenTree = new DecoFallenTree();

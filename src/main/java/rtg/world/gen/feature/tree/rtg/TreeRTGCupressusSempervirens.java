@@ -1,39 +1,17 @@
-package rtg.world.gen.feature.tree;
+package rtg.world.gen.feature.tree.rtg;
 
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeRTGSpruceCustom extends WorldGenerator
+public class TreeRTGCupressusSempervirens extends TreeRTG
 {
 
-	protected Block logBlock;
-	protected byte logMeta;
-	protected Block leavesBlock;
-	protected byte leavesMeta;
-	protected int start;
-	protected int small;
-	protected int large;
-	
-	public WorldGenTreeRTGSpruceCustom()
+	public TreeRTGCupressusSempervirens()
 	{
-
-		this(Blocks.log, (byte)1, Blocks.leaves, (byte)1, 1, 2, 0);
-	}
-	
-	public WorldGenTreeRTGSpruceCustom(Block logBlock, byte logMeta, Block leavesBlock, byte leavesMeta, int start, int small, int large)
-	{
-
-		this.logBlock = logBlock;
-		this.logMeta = logMeta;
-		this.leavesBlock = leavesBlock;
-		this.leavesMeta = leavesMeta;
-		this.start = start;
-		this.small = small;
-		this.large = large;
+		super();
 	}
 
     public boolean generate(World world, Random rand, int x, int y, int z)
@@ -45,12 +23,15 @@ public class WorldGenTreeRTGSpruceCustom extends WorldGenerator
     	}
     	
     	int i, j, k;
-    	for(i = 0; i < start; i++)
+    	for(i = 0; i < this.trunkSize; i++)
     	{
     		world.setBlock(x, y, z, this.logBlock, this.logMeta, 0);
     		y++;
     	}
 
+    	int small = (int)Math.ceil((double)(this.crownSize / 2));
+    	int large = small;
+    	
     	for(i = 0; i < large; i++)
     	{
     		for(j = -2; j <= 2; j++)

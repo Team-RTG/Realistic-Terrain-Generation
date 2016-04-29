@@ -17,6 +17,7 @@ import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.biome.deco.helper.DecoHelperBorder;
+import rtg.world.gen.feature.tree.rtg.TreeRTGCupressusSempervirens;
 import rtg.world.gen.surface.highlands.SurfaceHLFlyingMountains;
 import rtg.world.gen.terrain.highlands.TerrainHLFlyingMountains;
 
@@ -37,18 +38,36 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
             //new SurfaceVanillaForest(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f));
             new SurfaceHLFlyingMountains(config, topBlock, fillerBlock, false, null, 0f, 2.5f, 80f, 65f, 2.5f)
         );
+        
         {
-		DecoTree bigPines = new DecoTree();
-		bigPines.treeType = TreeType.TAIGA_SPRUCE_TALL;
-        bigPines.loops = 2;
+		DecoTree bigPines = new DecoTree(new TreeRTGCupressusSempervirens());
+		bigPines.logBlock = Blocks.log;
+		bigPines.logMeta = (byte)1;
+		bigPines.leavesBlock = Blocks.leaves;
+		bigPines.leavesMeta = (byte)1;
+		bigPines.minTrunkSize = 3;
+		bigPines.maxTrunkSize = 7;
+		bigPines.minCrownSize = 5;
+		bigPines.maxCrownSize = 10;
+		bigPines.loops = 1;
+		bigPines.treeType = TreeType.RTG_TREE;
 		bigPines.distribution.noiseDivisor = 80f;
 		bigPines.distribution.noiseFactor = 60f;
 		bigPines.distribution.noiseAddend = -15f;
 		bigPines.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		bigPines.treeConditionNoise = 0f;
+		bigPines.treeConditionChance = 1;
 		bigPines.minY = 63;
 		bigPines.maxY = 90;
+		
+		DecoTree bigPinesOak = new DecoTree(bigPines);
+		bigPinesOak.leavesMeta = (byte)0;
+		
         DecoHelperBorder borderedBigPines = new DecoHelperBorder(bigPines,.55f,.45f);
 		this.addDeco(borderedBigPines);
+		
+        DecoHelperBorder borderedBigPinesOak = new DecoHelperBorder(bigPinesOak,.55f,.45f);
+		this.addDeco(borderedBigPinesOak);
 
         DecoShrub decoShrub2 = new DecoShrub();
         decoShrub2.minY = 90;

@@ -16,7 +16,6 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGBirch;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGBirchSmall;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
@@ -162,43 +161,6 @@ public class DecoTree extends DecoBase
 	            	switch (this.treeType)
 	            	{
 
-		            	case BIRCH_TREES_FOREST:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-	
-		                        WorldGenerator worldgenerator =
-			                        rand.nextInt(4) != 0
-			                        ? new WorldGenTreeRTGBirch(4 + rand.nextInt(7), 8 + rand.nextInt(12))
-			                        : rand.nextInt(10) != 0
-			                        	? new WorldGenTreesRTG(false)
-			                        	: new WorldGenForest(false, false);
-		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                        worldgenerator.generate(world, rand, intX, intY, intZ);
-		            		}
-		            		
-		            		break;
-		            		
-		            	case BOP_LAND_OF_LAKES:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-
-	                        	TreeRTGPiceaSitchensis smallPine = new TreeRTGPiceaSitchensis();
-	                        	smallPine.setLogBlock(Blocks.log)
-	                        		.setLogMeta((byte)1)
-	                        		.setLeavesBlock(Blocks.leaves)
-	                        		.setLeavesMeta((byte)1)
-	                        		.setTrunkSize(4 + rand.nextInt(6))
-	                        		.setCrownSize(5 + rand.nextInt(10));
-		            			
-		                        WorldGenerator worldgenerator =
-		                                rand.nextBoolean() ? new WorldGenTreeRTGBirch(4 + rand.nextInt(7), 8 + rand.nextInt(12))
-		                                : smallPine;
-		                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                            worldgenerator.generate(world, rand, intX, intY, intZ);
-		            		}
-		            		
-		            		break;
-	            		
 		            	case HL_WINDY_ISLAND:
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
@@ -374,17 +336,6 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
-		            	case SUPER_TALL_BIRCH:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-	                        	
-		                        WorldGenerator worldgenerator = new WorldGenTreeRTGBirch(16 + rand.nextInt(8), rand.nextInt(8) + 4);
-		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                        worldgenerator.generate(world, rand, intX, intY, intZ);
-	                        }
-		            		
-		            		break;
-		            		
                         case WORLDGEN:
 
                             if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
@@ -429,8 +380,6 @@ public class DecoTree extends DecoBase
 	
 	public enum TreeType
 	{
-		BIRCH_TREES_FOREST,
-		BOP_LAND_OF_LAKES,
 		HL_WINDY_ISLAND,
 		MANGROVE,
 		MEGA_JUNGLE,
@@ -440,7 +389,6 @@ public class DecoTree extends DecoBase
 		SAVANNA,
 		SMALL_BIRCH,
 		SMALL_PINES_TREES_FORESTS,
-		SUPER_TALL_BIRCH,
 		WORLDGEN;
 	}
 	

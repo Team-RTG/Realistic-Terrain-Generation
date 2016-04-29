@@ -13,6 +13,9 @@ import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.helper.DecoHelper5050;
+import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
+import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPLandOfLakes;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPLandOfLakes;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -32,18 +35,46 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 			new SurfaceBOPLandOfLakes(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.10f)
 		);
 		
-		DecoTree decoTrees = new DecoTree();
-		decoTrees.strengthFactorForLoops = 9f;
-		decoTrees.treeType = TreeType.BOP_LAND_OF_LAKES;
-		decoTrees.distribution.noiseDivisor = 100f;
-		decoTrees.distribution.noiseFactor = 6f;
-		decoTrees.distribution.noiseAddend = 0.8f;
-		decoTrees.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-		decoTrees.treeConditionChance = 1;
-		decoTrees.treeConditionNoise = 0f;
-		decoTrees.maxY = 120;
-		this.addDeco(decoTrees);
-        
+		DecoTree birchTrees = new DecoTree(new TreeRTGBetulaPapyrifera());
+		birchTrees.logBlock = Blocks.log;
+		birchTrees.logMeta = (byte)2;
+		birchTrees.leavesBlock = Blocks.leaves;
+		birchTrees.leavesMeta = (byte)2;
+		birchTrees.minTrunkSize = 4;
+		birchTrees.maxTrunkSize = 10;
+		birchTrees.minCrownSize = 8;
+		birchTrees.maxCrownSize = 19;
+		birchTrees.strengthFactorForLoops = 9f;
+		birchTrees.treeType = TreeType.RTG_TREE;
+		birchTrees.distribution.noiseDivisor = 100f;
+		birchTrees.distribution.noiseFactor = 6f;
+		birchTrees.distribution.noiseAddend = 0.8f;
+		birchTrees.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		birchTrees.treeConditionChance = 1;
+		birchTrees.treeConditionNoise = 0f;
+		birchTrees.maxY = 120;
+		
+		DecoTree smallPine = new DecoTree(new TreeRTGPiceaSitchensis());
+    	smallPine.logBlock = Blocks.log;
+    	smallPine.logMeta = (byte)1;
+    	smallPine.leavesBlock = Blocks.leaves;
+    	smallPine.leavesMeta = (byte)1;
+    	smallPine.minTrunkSize = 4;
+    	smallPine.maxTrunkSize = 9;
+    	smallPine.minCrownSize = 5;
+    	smallPine.maxCrownSize = 14;
+    	smallPine.strengthFactorForLoops = 9f;
+    	smallPine.treeType = TreeType.RTG_TREE;
+    	smallPine.distribution.noiseDivisor = 100f;
+    	smallPine.distribution.noiseFactor = 6f;
+    	smallPine.distribution.noiseAddend = 0.8f;
+    	smallPine.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+    	smallPine.treeConditionChance = 1;
+    	smallPine.treeConditionNoise = 0f;
+    	smallPine.maxY = 120;
+    	
+    	DecoHelper5050 decoHelper5050 = new DecoHelper5050(birchTrees, smallPine);
+
 		DecoFallenTree decoFallenTree = new DecoFallenTree();
 		decoFallenTree.distribution.noiseDivisor = 100f;
 		decoFallenTree.distribution.noiseFactor = 6f;

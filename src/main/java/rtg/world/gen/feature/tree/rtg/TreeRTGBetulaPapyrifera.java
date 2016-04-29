@@ -1,4 +1,4 @@
-package rtg.world.gen.feature.tree;
+package rtg.world.gen.feature.tree.rtg;
 
 import java.util.Random;
 
@@ -6,17 +6,18 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeRTGBirch extends WorldGenerator
+public class TreeRTGBetulaPapyrifera extends TreeRTG
 {
-	private int startHeight;
-	private int treeSize;
-
-	public WorldGenTreeRTGBirch(int start, int s)
+	
+	public TreeRTGBetulaPapyrifera()
 	{
-		startHeight = start;
-		treeSize = s;
+		super();
+		
+		this.logBlock = Blocks.log;
+		this.logMeta = (byte)2;
+		this.logBlock = Blocks.leaves;
+		this.logMeta = (byte)2;
 	}
 
     public boolean generate(World world, Random rand, int x, int y, int z)
@@ -28,17 +29,17 @@ public class WorldGenTreeRTGBirch extends WorldGenerator
     	}
 
     	int i;
-    	for(i = 0; i < startHeight; i++)
+    	for(i = 0; i < this.trunkSize; i++)
     	{
-    		world.setBlock(x, y, z, Blocks.log, 2, 0);
+    		world.setBlock(x, y, z, this.logBlock, this.logMeta, 0);
     		y++;
     	}
 
     	int pX = 0;
     	int pZ = 0;
-    	for(i = 0; i < treeSize; i++)
+    	for(i = 0; i < this.crownSize; i++)
     	{
-    		if(rand.nextInt(2) == 0 && i < treeSize - 2)
+    		if(rand.nextInt(2) == 0 && i < this.crownSize - 2)
     		{
     			int dX = -1 + rand.nextInt(3);
     			int dZ = -1 + rand.nextInt(3);
@@ -61,11 +62,11 @@ public class WorldGenTreeRTGBirch extends WorldGenerator
     			pX = dX;
     			pZ = dZ;
 
-        		buildBranch(world, rand, x, y, z, dX, dZ, 1, i < treeSize - 2 ? 2 : 1); //i < treeSize - 4 ? 2 : 1
+        		buildBranch(world, rand, x, y, z, dX, dZ, 1, i < this.crownSize - 2 ? 2 : 1); //i < treeSize - 4 ? 2 : 1
     		}
-    		world.setBlock(x, y, z, Blocks.log, 2, 0);
+    		world.setBlock(x, y, z, this.logBlock, this.logMeta, 0);
 
-    		if(i < treeSize - 2)
+    		if(i < this.crownSize - 2)
 	    	{
 	    		if(rand.nextBoolean()) { buildLeaves(world, x, y, z + 1); }
 	    		if(rand.nextBoolean()) { buildLeaves(world, x, y, z - 1); }
@@ -103,7 +104,7 @@ public class WorldGenTreeRTGBirch extends WorldGenerator
 
     	for(int m = 1; m <= logLength; m++)
     	{
-        	world.setBlock(x + (dX * m), y, z + (dZ * m), Blocks.log, 2, 0);
+        	world.setBlock(x + (dX * m), y, z + (dZ * m), this.logBlock, this.logMeta, 0);
     	}
     }
 
@@ -112,7 +113,7 @@ public class WorldGenTreeRTGBirch extends WorldGenerator
     	Block b = world.getBlock(x, y, z);
     	if(b.getMaterial() == Material.air)
     	{
-    		world.setBlock(x, y, z, Blocks.leaves, 2, 0);
+    		world.setBlock(x, y, z, this.leavesBlock, this.leavesMeta, 0);
     	}
     }
 }

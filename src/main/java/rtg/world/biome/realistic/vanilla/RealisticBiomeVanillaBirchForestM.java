@@ -13,6 +13,7 @@ import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForestM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestM;
 
@@ -42,10 +43,18 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
 		 * ##################################################
 		 */
         
-		DecoTree superTallBirch = new DecoTree();
+		DecoTree superTallBirch = new DecoTree(new TreeRTGBetulaPapyrifera());
+		superTallBirch.logBlock = Blocks.log;
+		superTallBirch.logMeta = (byte)2;
+		superTallBirch.leavesBlock = Blocks.leaves;
+		superTallBirch.leavesMeta = (byte)2;
+		superTallBirch.minTrunkSize = 16;
+		superTallBirch.maxTrunkSize = 23;
+		superTallBirch.minCrownSize = 4;
+		superTallBirch.maxCrownSize = 11;
 		superTallBirch.strengthFactorForLoops = 16f;
 		superTallBirch.strengthNoiseFactorForLoops = true;
-		superTallBirch.treeType = TreeType.SUPER_TALL_BIRCH;
+		superTallBirch.treeType = TreeType.RTG_TREE;
 		superTallBirch.distribution.noiseDivisor = 80f;
 		superTallBirch.distribution.noiseFactor = 60f;
 		superTallBirch.distribution.noiseAddend = -15f;

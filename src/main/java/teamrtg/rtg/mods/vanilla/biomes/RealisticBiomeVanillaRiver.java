@@ -38,5 +38,6 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
     protected void initProperties() {
         this.config.WATER_POND_CHANCE.setDefault(0);
         this.config.LAVA_POND_CHANCE.setDefault(0);
+        this.config.SURFACE_BLEED_OUT.setDefault(false);
     }
 }

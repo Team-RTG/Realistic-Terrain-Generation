@@ -12,6 +12,8 @@ import net.minecraft.world.gen.layer.IntCache;
 import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.api.util.BiomeUtils;
+import teamrtg.rtg.util.LimitedMap;
+import teamrtg.rtg.util.PlaneLocation;
 import teamrtg.rtg.util.genlayers.GenLayerUtils;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
@@ -23,6 +25,9 @@ import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static teamrtg.rtg.util.math.MathUtils.globalToChunk;
+import static teamrtg.rtg.util.math.MathUtils.globalToIndex;
 
 
 public class BiomeProviderRTG extends BiomeProvider {
@@ -39,8 +44,11 @@ public class BiomeProviderRTG extends BiomeProvider {
     private SimplexCellularNoise simplexCell;
     private float[] borderNoise;
     private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
-    private ChunkProviderRTG chunkProvider;
+    public ChunkProviderRTG chunkProvider;
     private BiomeCache biomeCache;
+
+    public final LimitedMap<PlaneLocation, int[]> biomes = new LimitedMap<>(64);
+    public final LimitedMap<PlaneLocation, float[]> heights = new LimitedMap<>(64);
 
     private double riverValleyLevel = 60.0 / 450.0;
     private float riverSeparation = 1875;
@@ -51,11 +59,7 @@ public class BiomeProviderRTG extends BiomeProvider {
 
         this();
         long seed = par1World.getSeed();
-        try {
-            this.chunkProvider = (ChunkProviderRTG) par1World.getChunkProvider();
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
+
         if (par1World.provider.getDimension() != 0) {
             throw new RuntimeException();
         }
@@ -87,91 +91,25 @@ public class BiomeProviderRTG extends BiomeProvider {
 
         for (int i = 0; i < par3; i++) {
             for (int j = 0; j < par4; j++) {
-                d[i * par3 + j] = BiomeUtils.getIdForBiome(getBiomeGenAt(par1 + i, par2 + j));
+                d[i * par3 + j] = BiomeUtils.getIdForBiome(getUnrepairedAt(par1 + i, par2 + j));
             }
         }
         return d;
     }
 
-    public BiomeGenBase getBiomeGenAt(int par1, int par2) {
+    public BiomeGenBase getBiomeGenAt(int x, int z) {
+        return BiomeGenBase.getBiomeForId(getBiomes(globalToChunk(x), globalToChunk(z))[globalToIndex(x, z)]);
+    }
+
+    public BiomeGenBase getUnrepairedAt(int x, int z) {
         BiomeGenBase result;
-        result = this.biomeCache.getBiomeCacheBlock(par1, par2).getBiomeGenAt(par1, par2);
+        result = this.biomeCache.getBiomeCacheBlock(x, z).getBiomeGenAt(x, z);
         return result;
-    }
-
-    public boolean diff(float sample1, float sample2, float base) {
-
-        return (sample1 < base && sample2 > base) || (sample1 > base && sample2 < base);
-    }
-
-    public float[] getRainfall(float[] par1ArrayOfFloat, int x, int z, int width, int length) {
-        IntCache.resetIntCache();
-
-        if (par1ArrayOfFloat == null || par1ArrayOfFloat.length < width * length) {
-            par1ArrayOfFloat = new float[width * length];
-        }
-
-        int[] aint = this.biomeIndexLayer.getInts(x, z, width, length);
-
-        for (int i1 = 0; i1 < width * length; ++i1) {
-            float f = 0;
-            f = RealisticBiomeBase.getBiome(aint[i1]).getRainfall() / 65536.0F;
-
-            if (f > 1.0F) {
-                f = 1.0F;
-            }
-            if (f > 1.0F) {
-                f = 1.0F;
-            }
-
-            par1ArrayOfFloat[i1] = f;
-        }
-
-        return par1ArrayOfFloat;
-
-    }
-
-    public RealisticBiomeBase[] getRealisticBiomesForGeneration(RealisticBiomeBase[] biomes, int x, int z, int width, int height) {
-        IntCache.resetIntCache();
-
-        if (biomes == null || biomes.length < width * height) {
-            biomes = new RealisticBiomeBase[width * height];
-        }
-
-        int[] aint = this.genBiomes.getInts(x, z, width, height);
-
-        for (int i1 = 0; i1 < width * height; ++i1) {
-            biomes[i1] = RealisticBiomeBase.getBiome(aint[i1]);
-        }
-
-        return biomes;
-    }
-
-    public boolean isBorderlessAt(int x, int y) {
-
-        int bx, by;
-
-        for (bx = -2; bx <= 2; bx++) {
-            for (by = -2; by <= 2; by++) {
-                borderNoise[BiomeUtils.getIdForBiome(getBiomeDataAt(x + bx * 16, y + by * 16))] += 0.04f;
-            }
-        }
-
-        by = 0;
-        for (bx = 0; bx < 256; bx++) {
-            if (borderNoise[bx] > 0.98f) {
-                by = 1;
-            }
-            borderNoise[bx] = 0;
-        }
-
-        return by == 1 ? true : false;
     }
 
     public RealisticBiomeBase getBiomeDataAt(int par1, int par2) {
         RealisticBiomeBase output;
-        output = (RealisticBiomeBase) (this.getBiomeGenAt(par1, par2));
-        ;
+        output = RealisticBiomeBase.getBiome(BiomeUtils.getIdForBiome(this.getBiomeGenAt(par1, par2)));
         return output;
     }
 
@@ -330,5 +268,25 @@ public class BiomeProviderRTG extends BiomeProvider {
     @Override
     public void cleanupCache() {
         this.biomeCache.cleanupCache();
+    }
+
+    public float[] getHeights(int cx, int cz) {
+        PlaneLocation loc = new PlaneLocation.Invariant(cx, cz);
+        float[] stored = this.heights.get(loc);
+        if (stored == null) {
+            chunkProvider.requestChunk(cx, cz);
+            return this.getHeights(cx, cz);
+        }
+        return stored;
+    }
+
+    public int[] getBiomes(int cx, int cz) {
+        PlaneLocation loc = new PlaneLocation.Invariant(cx, cz);
+        int[] stored = this.biomes.get(loc);
+        if (stored == null) {
+            chunkProvider.requestChunk(cx, cz);
+            return this.getBiomes(cx, cz);
+        }
+        return stored;
     }
 }

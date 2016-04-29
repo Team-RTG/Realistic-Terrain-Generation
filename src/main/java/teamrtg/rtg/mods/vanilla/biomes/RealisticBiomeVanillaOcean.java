@@ -37,8 +37,9 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.GRAVEL.getDefaultState());
+        config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.GRAVEL.getDefaultState());
         this.config.WATER_POND_CHANCE.setDefault(0);
         this.config.LAVA_POND_CHANCE.setDefault(0);
+        this.config.SURFACE_BLEED_OUT.setDefault(false);
     }
 }

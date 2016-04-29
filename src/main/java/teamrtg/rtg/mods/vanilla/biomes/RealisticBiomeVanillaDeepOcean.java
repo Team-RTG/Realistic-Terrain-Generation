@@ -48,8 +48,9 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.CLAY.getDefaultState());
+        config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.CLAY.getDefaultState());
         this.config.WATER_POND_CHANCE.setDefault(0);
         this.config.LAVA_POND_CHANCE.setDefault(0);
+        this.config.SURFACE_BLEED_OUT.setDefault(false);
     }
 }

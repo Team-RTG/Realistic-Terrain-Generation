@@ -24,4 +24,8 @@ public class MathUtils {
     public static final int globalToChunk(int x) {
         return (int) Math.floor((double) x / 16d);
     }
+
+    public static final int globalToIndex(int x, int z) {
+        return globalToLocal(x) * 16 + globalToLocal(z);
+    }
 }

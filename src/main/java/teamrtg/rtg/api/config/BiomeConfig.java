@@ -20,6 +20,8 @@ public class BiomeConfig extends Config {
     public final PropertyInt RAVINE_FREQUENCY;
     public final PropertyInt CAVE_FREQUENCY;
     public final PropertyInt CAVE_DENSITY;
+    public final PropertyBool SURFACE_BLEED_IN;
+    public final PropertyBool SURFACE_BLEED_OUT;
 
     public final PropertyBlock CLIFF_BLOCK_1 = new PropertyBlock("Cliff block 1", "");
     public final PropertyBlock CLIFF_BLOCK_2 = new PropertyBlock("Cliff block 2", "");
@@ -52,6 +54,8 @@ public class BiomeConfig extends Config {
         RAVINE_FREQUENCY = this.addInt("Ravine frequency", "");
         CAVE_FREQUENCY = this.addInt("Cave frequency", "");
         CAVE_DENSITY = this.addInt("Cave density", "");
+        SURFACE_BLEED_IN = this.addBool("Surface bleed into", "");
+        SURFACE_BLEED_OUT = this.addBool("Surface bleed out of", "");
         setDefaults();
     }
 
@@ -71,6 +75,8 @@ public class BiomeConfig extends Config {
         RAVINE_FREQUENCY.setDefault(-1);
         CAVE_FREQUENCY.setDefault(-1);
         CAVE_DENSITY.setDefault(-1);
+        SURFACE_BLEED_IN.setDefault(true);
+        SURFACE_BLEED_OUT.setDefault(true);
     }
 
     @Override

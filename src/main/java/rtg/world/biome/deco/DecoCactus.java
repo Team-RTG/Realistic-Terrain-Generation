@@ -56,7 +56,7 @@ public class DecoCactus extends DecoBase
 	            
                 int loopCount = this.loops;
                 loopCount = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : loopCount;
-	            for (int i = 0; i < loopCount; i++)
+	            for (int i = 0; i < loopCount*10; i++)
 	            {
 	                int intX = chunkX + rand.nextInt(16);// + 8;
 	                int intY = rand.nextInt(this.maxY);

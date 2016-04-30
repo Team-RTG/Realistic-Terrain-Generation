@@ -54,8 +54,15 @@ import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
+import java.util.WeakHashMap;
+import net.minecraft.world.ChunkCoordIntPair;
+import net.minecraft.world.chunk.storage.AnvilChunkLoader;
+import net.minecraft.world.gen.ChunkProviderServer;
+import rtg.util.Accessor;
 import rtg.util.Compass;
 import rtg.util.Direction;
+import rtg.util.LimitedSet;
 import rtg.util.TimeTracker;
 
 
@@ -107,6 +114,11 @@ public class ChunkProviderRTG implements IChunkProvider
     
     private AICWrapper aic;
     private boolean isAICExtendingBiomeIdsLimit;
+    private AnvilChunkLoader chunkLoader;
+    private Set<Long> serverLoadingChunks;
+
+    Accessor<ChunkProviderServer,Set<Long>> forServerLoadingChunks =
+            new Accessor<ChunkProviderServer,Set<Long>>("loadingChunks");
 
     private Compass compass = new Compass();
     ArrayList<Direction> directions = compass.directions();
@@ -185,6 +197,8 @@ public class ChunkProviderRTG implements IChunkProvider
      * Will return back a chunk, if it doesn't exist and its not a MP client it will generates all the blocks for the
      * specified chunk from the map seed and chunk seed
      */
+    private LimitedSet<PlaneLocation> chunkMade  = new LimitedSet<PlaneLocation>(10000);
+    private WeakHashMap<PlaneLocation,Chunk> availableChunks = new WeakHashMap<PlaneLocation,Chunk> ();
     public Chunk provideChunk(int cx, int cy)
     {
 
@@ -192,6 +206,12 @@ public class ChunkProviderRTG implements IChunkProvider
         if (inGeneration.containsKey(chunkLocation)) {
             return inGeneration.get(chunkLocation);
         }
+        if (chunkMade.contains(chunkLocation)) {
+            Chunk available = availableChunks.get(chunkLocation);
+            if (available != null) return available;
+            throw new RuntimeException();
+        }
+
         TimeTracker.manager.start(rtgTerrain);
         TimeTracker.manager.start("RTG chunk");
     	rand.setSeed((long)cx * 0x4f9939f508L + (long)cy * 0x1ef1565bd5L);
@@ -295,14 +315,24 @@ public class ChunkProviderRTG implements IChunkProvider
         }
         chunk.generateSkylightMap();
         // check for other chunks now needing population
+        long chunkHandle = ChunkCoordIntPair.chunkXZ2Int(cx,cy);
+        // test to make sure we've got the right loadingchunks array and nothing odd is going on
+        if (!this.serverLoadingChunks().contains(chunkHandle)) throw new RuntimeException();
+        serverLoadingChunks().remove(chunkHandle);
         for (Direction forPopulation: directions) {
             this.decorateIfOtherwiseSurrounded(worldObj.getChunkProvider(), cx, cy, forPopulation);
         }
-
         clearToDecorateList(worldObj.getChunkProvider());
+        // just on general principles restore earlier state
+        serverLoadingChunks().add(chunkHandle);
 
         // remove from in process pile
         inGeneration.remove(chunkLocation);
+        this.chunkMade.add(chunkLocation);
+        probe.setX(cx);
+        probe.setZ(cy);
+        if (!chunkMade.contains(probe)) throw new RuntimeException();
+        availableChunks.put(chunkLocation, chunk);
         TimeTracker.manager.stop(rtgTerrain);
         return chunk;
     }
@@ -311,14 +341,15 @@ public class ChunkProviderRTG implements IChunkProvider
         // see if otherwise surrounded besides the new chunk
         cx += fromNewChunk.xOffset;
         cy += fromNewChunk.zOffset;
-        if (cx == -168>>4) {
-            if (cy == 46>>4){
-                //throw new RuntimeException();
-            }
-        }
+        
+        // check to see if already decorated; shouldn't be but just in case
+        probe.setX(cx);
+        probe.setZ(cy);
+        if (this.alreadyDecorated.contains(probe)) return;
+
         for (Direction checked: directions) {
             if (checked == compass.opposite(fromNewChunk)) continue; // that's the new chunk
-            if (!world.chunkExists(cx+checked.xOffset, cy+checked.zOffset)) return;// that one's missing
+            if (!chunkExists(world,cx+checked.xOffset, cy+checked.zOffset)) return;// that one's missing
         }
         // passed all checks
         this.doPopulate(world, cx, cy);
@@ -722,6 +753,16 @@ public class ChunkProviderRTG implements IChunkProvider
     	return null;
     }
 
+    private boolean chunkExists(IChunkProvider world, int par1, int par2) {
+        if (chunkExists(par1,par2)) return true;
+        probe.setX(par1);
+        probe.setZ(par2);
+        if (this.chunkMade.contains(probe)) return true;
+        if  (world.chunkExists(par1, par2)) return true;
+        return chunkLoader.chunkExists(worldObj, par1, par2);
+    }
+
+    private PlaneLocation.Probe probe = new PlaneLocation.Probe(0, 0);
     /**
      * @see IChunkProvider
      *
@@ -729,10 +770,12 @@ public class ChunkProviderRTG implements IChunkProvider
      */
     public boolean chunkExists(int par1, int par2)
     {
+        probe.setX(par1);
+        probe.setZ(par2);
         /**
          * TODO: Write custom logic to determine whether chunk exists, instead of assuming it does.
          */
-        throw new UnsupportedOperationException();
+        return this.inGeneration.containsKey(probe);
         //return true;
     }
     /**
@@ -775,7 +818,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private boolean populating = false;
 
     private HashSet<PlaneLocation> toDecorate = new HashSet<PlaneLocation>();
-    private HashSet<PlaneLocation> alreadyDecorated = new HashSet<PlaneLocation>();
+    private LimitedSet<PlaneLocation> alreadyDecorated  = new LimitedSet<PlaneLocation>(10000);
     private void doPopulate(IChunkProvider ichunkprovider, int chunkX, int chunkZ)
     {
         // don't populate if already done
@@ -1019,15 +1062,14 @@ public class ChunkProviderRTG implements IChunkProvider
 
 
     public boolean neighborsDone(IChunkProvider world, int cx, int cz) {
-        if (!world.chunkExists(cx - 1, cz - 1)) return false;
-        if (!world.chunkExists(cx - 1, cz)) return false;
-        if (!world.chunkExists(cx - 1, cz + 1)) return false;
-        if (!world.chunkExists(cx, cz - 1)) return false;
-        if (!world.chunkExists(cx, cz)) return false;
-        if (!world.chunkExists(cx, cz + 1)) return false;
-        if (!world.chunkExists(cx + 1, cz - 1)) return false;
-        if (!world.chunkExists(cx + 1, cz)) return false;
-        if (!world.chunkExists(cx + 1, cz + 1)) return false;
+        if (!chunkExists(world,cx - 1, cz - 1)) return false;
+        if (!chunkExists(world,cx - 1, cz)) return false;
+        if (!chunkExists(world,cx - 1, cz + 1)) return false;
+        if (!chunkExists(world,cx, cz - 1)) return false;
+        if (!chunkExists(world,cx, cz + 1)) return false;
+        if (!chunkExists(world,cx + 1, cz - 1)) return false;
+        if (!chunkExists(world,cx + 1, cz)) return false;
+        if (!chunkExists(world,cx + 1, cz + 1)) return false;
         return true;
     }
     /**
@@ -1153,4 +1195,14 @@ public class ChunkProviderRTG implements IChunkProvider
      * Currently unimplemented.
      */
     public void saveExtraData() {}
+
+    public Set<Long> serverLoadingChunks() {
+        if (this.serverLoadingChunks == null) {
+            ChunkProviderServer server = (ChunkProviderServer)(worldObj.getChunkProvider());
+            chunkLoader = (AnvilChunkLoader)(server.currentChunkLoader);
+            serverLoadingChunks = forServerLoadingChunks.get(server);
+        }
+        return serverLoadingChunks;
+    }
+
 }

@@ -253,9 +253,9 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
     }
 
     private double riverValleyLevel = 60.0 / 450.0;//60.0/450.0;
-    private float riverSeparation = 1531;//1875;
+    private float riverSeparation = 1875;
     private float largeBendSize = 140;
-    private float smallBendSize = 35;
+    private float smallBendSize = 30;
 
     public float getRiverStrength(int x, int y)
     {

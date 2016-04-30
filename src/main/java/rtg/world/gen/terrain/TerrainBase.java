@@ -246,17 +246,20 @@ public class TerrainBase
         return 70f + (h * river);
     }
 
-    public static float terrainDuneValley(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river, float valley, float hFactor, float baseHeight)
+    public static float terrainDuneValley(float x, float y, OpenSimplexNoise simplex, CellNoise cell, float river, float valley, float hFactor, float baseHeight)
     {
         float h = (simplex.noise2(x / valley, y / valley) + 0.25f) * hFactor * river;
         h = h < 1f ? 1f : h;
 
-        float r = (float)simplex.noise(x / 50D, y / 50D, 1D) * h * 2;
+        float r = (float)simplex.noise(x / 50D, y / 50D, 1D);
+        r += blendedHillHeight(r);
+        r = r  * h * 2; // so, 0 to 3 times h
         h += r;
 
+        h += blendedHillHeight(simplex.noise2(x / 40f, y / 40f)) * 8;
+        h += blendedHillHeight(simplex.noise2(x / 14f, y / 14f)) * 2;
+
         h = h*river;
-        h += simplex.noise2(x / 40f, y / 40f) * 8;
-        h += simplex.noise2(x / 14f, y / 14f) * 2;
 
         if (river <1) {
             return (63f+(baseHeight-63f)*river) +h;

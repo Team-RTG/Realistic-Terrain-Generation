@@ -13,7 +13,6 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenShrubRTG;
-import rtg.world.gen.feature.tree.deprecated.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.feature.tree.vanilla.WorldGenTreesRTG;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
@@ -182,25 +181,10 @@ public class DecoEBTree extends DecoTree
 		            		
 		            		break;
 		            		
-		            	case POLAR_DESERT:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-
-		                        WorldGenerator worldgenerator = new WorldGenTreeRTGSpruceSmall(rand.nextInt(2));
-		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                        worldgenerator.generate(world, rand, intX, intY, intZ);
-		            		}
-		            		
-		            		break;
-		            		
 		            	case SCRUB:
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-
-		                        WorldGenerator worldgenerator = new WorldGenTreeRTGSpruceSmall(rand.nextInt(2));
-		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                        worldgenerator.generate(world, rand, intX, intY, intZ);
-		                        
+  
 		                        if (rand.nextInt(4) != 0) {
 		                            WorldGenerator spikedBush = new WorldGenSpikedBush(Blocks.log, 0, Blocks.leaves, 0, (EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt)));
 		                            spikedBush.generate(world, rand, intX, intY, intZ);
@@ -231,7 +215,6 @@ public class DecoEBTree extends DecoTree
 		FORESTED_VALLEY,
 		GREAT_OAK,
 		MANGROVE,
-		POLAR_DESERT,
 		SCRUB;
 	}
 }

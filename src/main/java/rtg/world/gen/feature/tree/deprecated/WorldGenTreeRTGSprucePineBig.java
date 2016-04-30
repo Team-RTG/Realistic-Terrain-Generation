@@ -9,9 +9,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 /**
+ * @deprecated
  * @see rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa
  */
-@Deprecated
 public class WorldGenTreeRTGSprucePineBig extends WorldGenerator
 {
 	private int startHeight;
@@ -20,13 +20,19 @@ public class WorldGenTreeRTGSprucePineBig extends WorldGenerator
 	private int metadataLog;
 	private int metadataLeaves;
 	
-	@Deprecated
+	/**
+	 * @deprecated
+	 * @see rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa
+	 */
 	public WorldGenTreeRTGSprucePineBig(int start, int s)
 	{
 		this(start, s, 1, 1);
 	}
 	
-	@Deprecated
+	/**
+	 * @deprecated
+	 * @see rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa
+	 */
 	public WorldGenTreeRTGSprucePineBig(int start, int s, int log, int leaves)
 	{
 		startHeight = start;

@@ -15,6 +15,7 @@ import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.collection.DecoCollectionSmallPineTreesForest;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaFlowerForest;
@@ -94,12 +95,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 		this.addDeco(decoPines);
 		
 		// More trees.
-		DecoTree smallPinesTreesForest = new DecoTree();
-		smallPinesTreesForest.strengthFactorForLoops = 3f;
-		smallPinesTreesForest.treeType = TreeType.SMALL_PINES_TREES_FORESTS;
-		smallPinesTreesForest.treeCondition = TreeCondition.ALWAYS_GENERATE;
-		smallPinesTreesForest.maxY = 120;
-		this.addDeco(smallPinesTreesForest);
+		this.addDecoCollection(new DecoCollectionSmallPineTreesForest());
 
         // Not much free space left, so let's give some space to the base biome.
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

@@ -7,7 +7,6 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenForest;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
@@ -15,8 +14,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
-import rtg.world.gen.feature.tree.vanilla.WorldGenTreesRTG;
 
 /**
  * 
@@ -171,30 +168,6 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
-		            	case SMALL_PINES_TREES_FORESTS:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-
-	                        	TreeRTGPiceaSitchensis oakPine = new TreeRTGPiceaSitchensis();
-	                        	oakPine.setLogBlock(Blocks.log)
-	                        		.setLogMeta((byte)0)
-	                        		.setLeavesBlock(Blocks.leaves)
-	                        		.setLeavesMeta((byte)0)
-	                        		.setTrunkSize(4 + rand.nextInt(7))
-	                        		.setCrownSize(6 + rand.nextInt(9));
-	                        	
-		                        WorldGenerator worldgenerator =
-		                        rand.nextInt(4) != 0
-		                        	? oakPine
-		                        	: rand.nextInt(10) != 0
-		                        		? new WorldGenTreesRTG(false)
-		                        		: new WorldGenForest(false, false);
-		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                        worldgenerator.generate(world, rand, intX, intY, intZ);
-		            		}
-		            		
-		            		break;
-		            		
                         case WORLDGEN:
 
                             if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
@@ -240,7 +213,6 @@ public class DecoTree extends DecoBase
 	public enum TreeType
 	{
 		RTG_TREE,
-		SMALL_PINES_TREES_FORESTS,
 		WORLDGEN;
 	}
 	

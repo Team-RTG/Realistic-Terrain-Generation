@@ -23,4 +23,11 @@ public class DecoCollectionBase
 	{
 		this.decos.add(deco);
 	}
+	
+	public void addDeco(DecoBase deco, boolean allowed)
+	{
+		if (allowed) {
+			this.decos.add(deco);
+		}
+	}
 }

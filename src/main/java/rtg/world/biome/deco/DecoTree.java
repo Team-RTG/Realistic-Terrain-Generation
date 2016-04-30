@@ -8,7 +8,6 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenForest;
-import net.minecraft.world.gen.feature.WorldGenMegaJungle;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
@@ -156,42 +155,6 @@ public class DecoTree extends DecoBase
 	                
 	            	switch (this.treeType)
 	            	{
-
-		            	case HL_WINDY_ISLAND:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-
-		                    	if (this.maxSize > this.minSize) {
-	                                WorldGenerator worldgenerator = new WorldGenTreeRTGSpruceSmall(this.minSize + rand.nextInt(this.maxSize - this.minSize));
-	                                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-	                                worldgenerator.generate(world, rand, intX, intY, intZ);
-		                    	}
-		                    	else if (this.maxSize == this.minSize) {
-	                                WorldGenerator worldgenerator = new WorldGenTreeRTGSpruceSmall(this.minSize);
-	                                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-	                                worldgenerator.generate(world, rand, intX, intY, intZ);
-		                    	}
-		            		}
-		            		
-		            		break;
-		            		
-		            	case MEGA_JUNGLE:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-
-		                    	if (this.maxSize > this.minSize) {
-			                        WorldGenerator worldgenerator = new WorldGenMegaJungle(false, this.minSize + rand.nextInt(this.maxSize - this.minSize), 0, 3, 3);
-			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                        worldgenerator.generate(world, rand, intX, intY, intZ);
-		                    	}
-		                    	else if (this.maxSize == this.minSize) {
-			                        WorldGenerator worldgenerator = new WorldGenMegaJungle(false, this.minSize, 0, 3, 3);
-			                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-			                        worldgenerator.generate(world, rand, intX, intY, intZ);
-		                    	}
-		            		}
-		            		
-		            		break;
 		            		
 		            	case MEGA_TAIGA:
 		            		
@@ -302,8 +265,6 @@ public class DecoTree extends DecoBase
 	
 	public enum TreeType
 	{
-		HL_WINDY_ISLAND,
-		MEGA_JUNGLE,
 		MEGA_TAIGA,
 		RTG_TREE,
 		SMALL_PINES_TREES_FORESTS,

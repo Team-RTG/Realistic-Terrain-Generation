@@ -14,8 +14,6 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.tree.deprecated.WorldGenTreeRTGSprucePineBig;
-import rtg.world.gen.feature.tree.deprecated.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
 import rtg.world.gen.feature.tree.vanilla.WorldGenTreesRTG;
@@ -156,30 +154,6 @@ public class DecoTree extends DecoBase
 	            	switch (this.treeType)
 	            	{
 		            		
-		            	case MEGA_TAIGA:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-
-	                        	TreeRTGPiceaSitchensis smallPine = new TreeRTGPiceaSitchensis();
-	                        	smallPine.setLogBlock(Blocks.log)
-	                        		.setLogMeta((byte)1)
-	                        		.setLeavesBlock(Blocks.leaves)
-	                        		.setLeavesMeta((byte)1)
-	                        		.setTrunkSize(1 + rand.nextInt(3))
-	                        		.setCrownSize(4 + rand.nextInt(4));
-		            			
-		                        WorldGenerator worldgenerator =
-		                            rand.nextInt(4) == 0
-		                            ? new WorldGenTreeRTGSpruceSmall(1 + rand.nextInt(2))
-		                        	: rand.nextInt(6) == 0
-		                        	    ? smallPine
-		                                : new WorldGenTreeRTGSprucePineBig(4 + rand.nextInt(6), 12 + rand.nextInt(10));
-					            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-						        worldgenerator.generate(world, rand, intX, intY, intZ);
-		            		}
-		            		
-		            		break;
-		            		
 		            	case RTG_TREE:
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
@@ -265,7 +239,6 @@ public class DecoTree extends DecoBase
 	
 	public enum TreeType
 	{
-		MEGA_TAIGA,
 		RTG_TREE,
 		SMALL_PINES_TREES_FORESTS,
 		WORLDGEN;

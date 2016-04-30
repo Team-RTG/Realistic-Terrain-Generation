@@ -11,7 +11,7 @@ import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoGrass;
 import rtg.world.biome.deco.DecoMushrooms;
 import rtg.world.biome.deco.DecoPumpkin;
-import rtg.world.biome.deco.DecoShrubCustom;
+import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
@@ -141,7 +141,7 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase
 		decoFallenTree.maxSize = 6;
 		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaTaigaM.decorationLogsId));
 		
-		DecoShrubCustom decoShrubSpruce = new DecoShrubCustom();
+		DecoShrub decoShrubSpruce = new DecoShrub();
 		decoShrubSpruce.logBlock = Blocks.log;
 		decoShrubSpruce.logMeta = 1;
 		decoShrubSpruce.leavesBlock = Blocks.leaves;

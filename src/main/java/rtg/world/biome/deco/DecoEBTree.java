@@ -12,7 +12,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
+import rtg.world.gen.feature.WorldGenShrubRTG;
 import rtg.world.gen.feature.tree.deprecated.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.feature.tree.vanilla.WorldGenTreesRTG;
 import enhancedbiomes.api.EBAPI;
@@ -206,7 +206,7 @@ public class DecoEBTree extends DecoTree
 		                            spikedBush.generate(world, rand, intX, intY, intZ);
 		                        }
 		                        else {
-		                            new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3)).generate(world, rand, intX, intY, intZ);
+		                            new WorldGenShrubRTG(rand.nextInt(4) + 1, Blocks.log, (byte)0, Blocks.leaves, (byte)rand.nextInt(3)).generate(world, rand, intX, intY, intZ);
 		                        }
 		            		}
 		            		

@@ -10,7 +10,7 @@ import rtg.world.biome.deco.DecoDoubleGrass;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoGrass;
-import rtg.world.biome.deco.DecoShrubCustom;
+import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
@@ -60,7 +60,7 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase
 		decoFallenTree.maxSize = 6;
 		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaSavanna.decorationLogsId));
         
-        DecoShrubCustom acaciaShrub = new DecoShrubCustom();
+        DecoShrub acaciaShrub = new DecoShrub();
         acaciaShrub.logBlock = Blocks.log2;
         acaciaShrub.logMeta = (byte)0;
         acaciaShrub.leavesBlock = Blocks.leaves2;

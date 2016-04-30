@@ -4,7 +4,7 @@ import net.minecraft.init.Blocks;
 import rtg.world.biome.deco.DecoCactus;
 import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
 import rtg.world.biome.deco.DecoReed;
-import rtg.world.biome.deco.DecoShrubCustom;
+import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
@@ -40,7 +40,7 @@ public class DecoCollectionDesertRiver extends DecoCollectionBase
 		acaciaTrees.maxY = 65;
 		this.addDeco(acaciaTrees);
 
-        DecoShrubCustom acaciaShrub = new DecoShrubCustom();
+        DecoShrub acaciaShrub = new DecoShrub();
         acaciaShrub.checkRiver = true;
         acaciaShrub.minRiver = 0.86f;
         acaciaShrub.logBlock = Blocks.log2;

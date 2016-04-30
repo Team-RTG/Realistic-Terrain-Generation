@@ -8,7 +8,7 @@ import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoCactus;
 import rtg.world.biome.deco.DecoDoubleGrass;
 import rtg.world.biome.deco.DecoGrass;
-import rtg.world.biome.deco.DecoShrubCustom;
+import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
@@ -54,7 +54,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
 		decoBoulder2.chance = 24;
 		this.addDeco(decoBoulder2);
         
-        DecoShrubCustom acaciaShrub = new DecoShrubCustom();
+        DecoShrub acaciaShrub = new DecoShrub();
         acaciaShrub.logBlock = Blocks.log2;
         acaciaShrub.logMeta = (byte)0;
         acaciaShrub.leavesBlock = Blocks.leaves2;

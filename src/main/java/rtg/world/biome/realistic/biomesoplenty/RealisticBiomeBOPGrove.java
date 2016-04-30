@@ -10,7 +10,7 @@ import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoFlowersRTG;
 import rtg.world.biome.deco.DecoGrass;
-import rtg.world.biome.deco.DecoShrubCustom;
+import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPGrove;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPGrove;
@@ -64,14 +64,14 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase
 		DecoHelper5050 decoHelperHelper5050 = new DecoHelper5050(decoFallenTree1, decoFallenTree2);
 		this.addDeco(decoHelperHelper5050, this.config._boolean(BiomeConfigBOPGrove.decorationLogsId)); 
         
-        DecoShrubCustom decoShrubCustom = new DecoShrubCustom();
+        DecoShrub decoShrubCustom = new DecoShrub();
         decoShrubCustom.logBlock = Blocks.log;
         decoShrubCustom.logMeta = (byte)2;
         decoShrubCustom.leavesBlock = Blocks.leaves;
         decoShrubCustom.leavesMeta = (byte)2;
         decoShrubCustom.maxY = 110;
         decoShrubCustom.strengthFactor = 2f;
-        DecoShrubCustom decoShrubCustom2 = new DecoShrubCustom();
+        DecoShrub decoShrubCustom2 = new DecoShrub();
         decoShrubCustom2.logBlock = Blocks.log2;
         decoShrubCustom2.logMeta = (byte)1;
         decoShrubCustom2.leavesBlock = Blocks.leaves2;

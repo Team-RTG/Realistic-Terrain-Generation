@@ -1,4 +1,4 @@
-package rtg.world.gen.feature.tree;
+package rtg.world.gen.feature;
 
 import java.util.Random;
 
@@ -10,7 +10,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenTreeRTGShrub extends WorldGenerator
+public class WorldGenShrubRTG extends WorldGenerator
 {
 	private int size;
 	private Block logBlock;
@@ -19,21 +19,21 @@ public class WorldGenTreeRTGShrub extends WorldGenerator
 	private int leaveMeta;
 	private boolean sand;
 
-	public WorldGenTreeRTGShrub(int s, int log, int leav)
+	public WorldGenShrubRTG(int s, Block log, byte logByte, Block leav, byte leavByte)
 	{
-		this(s, log, leav, false);
+		this(s, log, logByte, leav, leavByte, false);
 	}
 	
-	public WorldGenTreeRTGShrub(int s, int log, int leav, boolean sa)
+	public WorldGenShrubRTG(int s, Block log, byte logByte, Block leav, byte leavByte, boolean sa)
 	{
 		size = s;
 		sand = sa;
 
-		logBlock = log < 3 ? Blocks.log : Blocks.log2;
-		logMeta = log > 2 ? log - 3 : log;
+		logBlock = log;
+		logMeta = logByte;
 		
-		leaveBlock = leav < 4 ? Blocks.leaves : Blocks.leaves2;
-		leaveMeta = leav > 3 ? leav - 4 : leav;
+		leaveBlock = leav;
+		leaveMeta = leavByte;
 	}
 	
 	@Override
@@ -66,27 +66,27 @@ public class WorldGenTreeRTGShrub extends WorldGenerator
 	
 	public void buildLeaves(World world, int x, int y, int z, int size)
 	{
-	    Block b = world.getBlock(x, y - 2, z);
-	    Block b1 = world.getBlock(x, y - 1, z);
-		
+		Block b = world.getBlock(x, y - 2, z);
+		Block b1 = world.getBlock(x, y - 1, z);
+
         if ((b == Blocks.sand || b1 == Blocks.sand) && !ConfigRTG.allowTreesToGenerateOnSand) {
             return;
         }
 		
 		if(b.getMaterial() == Material.grass || b.getMaterial() == Material.ground || (sand && b.getMaterial() == Material.sand))
 		{
-			if (b1 != Blocks.water )
+			if (b1 != Blocks.water)
 			{
-                if (!ConfigRTG.allowShrubsToGenerateBelowSurface) {
-                    
+			    if (!ConfigRTG.allowShrubsToGenerateBelowSurface) {
+			        
                     if (b1.getMaterial() != Material.air &&
                         b1.getMaterial() != Material.vine &&
                         b1.getMaterial() != Material.plants &&
                         b1 != Blocks.snow_layer) {
                         return;
                     }
-                }
-                
+			    }
+			    
 				for(int i = -size; i <= size; i++)
 				{
 					for(int j = -1; j <= 1; j++)

@@ -7,7 +7,7 @@ import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoGrass;
-import rtg.world.biome.deco.DecoShrubCustom;
+import rtg.world.biome.deco.DecoShrub;
 import rtg.world.gen.surface.arsmagica.SurfaceAMWitchwoodForest;
 import rtg.world.gen.terrain.arsmagica.TerrainAMWitchwoodForest;
 
@@ -22,7 +22,7 @@ public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase
             new SurfaceAMWitchwoodForest(config, amBiome.topBlock, amBiome.fillerBlock)
         );
         
-        DecoShrubCustom decoShrub = new DecoShrubCustom();
+        DecoShrub decoShrub = new DecoShrub();
         decoShrub.logBlock = this.witchwoodLogBlock;
         decoShrub.logMeta = this.witchwoodLogMeta;
         decoShrub.leavesBlock = this.witchwoodLeavesBlock;

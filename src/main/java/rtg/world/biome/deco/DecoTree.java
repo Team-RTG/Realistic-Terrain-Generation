@@ -9,14 +9,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenForest;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
-import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
 import rtg.world.gen.feature.tree.deprecated.WorldGenTreeRTGSprucePineBig;
 import rtg.world.gen.feature.tree.deprecated.WorldGenTreeRTGSpruceSmall;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
@@ -236,31 +234,6 @@ public class DecoTree extends DecoBase
 		            		
 		            		break;
 		            		
-		            	case SAVANNA:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-	                        	
-		                        if (rand.nextInt(9) == 0) {
-		                            WorldGenerator worldgenerator = new WorldGenShrub(0, 0);
-		                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                            worldgenerator.generate(world, rand, intX, intY, intZ);
-		                        }
-		                        
-		                        if (rand.nextInt(9) == 0) {
-		                            WorldGenerator worldgenerator = new WorldGenTreeRTGSavanna(1);
-		                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                            worldgenerator.generate(world, rand, intX, intY, intZ);
-		                        }
-		                        
-		                        if (rand.nextInt(9) == 0) {
-		                            WorldGenerator worldgenerator = new WorldGenTreeRTGSavanna(2);
-		                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                            worldgenerator.generate(world, rand, intX, intY, intZ);
-		                        }
-	                        }
-		            		
-		            		break;
-		            		
 		            	case SMALL_PINES_TREES_FORESTS:
 		            		
 		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
@@ -333,7 +306,6 @@ public class DecoTree extends DecoBase
 		MEGA_JUNGLE,
 		MEGA_TAIGA,
 		RTG_TREE,
-		SAVANNA,
 		SMALL_PINES_TREES_FORESTS,
 		WORLDGEN;
 	}

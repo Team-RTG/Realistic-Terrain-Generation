@@ -1,18 +1,16 @@
 package rtg.world.biome.deco.collection;
 
-import net.minecraft.world.gen.feature.WorldGenShrub;
+import net.minecraft.init.Blocks;
 import rtg.world.biome.deco.DecoCactus;
-import rtg.world.biome.deco.DecoDeadBush;
-import rtg.world.biome.deco.DecoDesertWell;
-import rtg.world.biome.deco.DecoFlowersRTG;
 import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
 import rtg.world.biome.deco.DecoReed;
+import rtg.world.biome.deco.DecoShrubCustom;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat.ChanceType;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGSavanna;
+import rtg.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
 
 
 /**
@@ -26,20 +24,35 @@ public class DecoCollectionDesertRiver extends DecoCollectionBase
 	public DecoCollectionDesertRiver()
 	{
 		super();
+
+		DecoTree acaciaTrees = new DecoTree(new TreeRTGAcaciaBucheri());
+		acaciaTrees.checkRiver = true;
+		acaciaTrees.minRiver = 0.86f;
+		acaciaTrees.logBlock = Blocks.log2;
+		acaciaTrees.logMeta = (byte)0;
+		acaciaTrees.leavesBlock = Blocks.leaves2;
+		acaciaTrees.leavesMeta = (byte)0;
+		acaciaTrees.minTrunkSize = 12;
+		acaciaTrees.maxTrunkSize = 16;
+		acaciaTrees.loops = 2;
+		acaciaTrees.treeType = TreeType.RTG_TREE;
+		acaciaTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		acaciaTrees.maxY = 65;
+		this.addDeco(acaciaTrees);
+
+        DecoShrubCustom acaciaShrub = new DecoShrubCustom();
+        acaciaShrub.checkRiver = true;
+        acaciaShrub.minRiver = 0.86f;
+        acaciaShrub.logBlock = Blocks.log2;
+        acaciaShrub.logMeta = (byte)0;
+        acaciaShrub.leavesBlock = Blocks.leaves2;
+        acaciaShrub.leavesMeta = (byte)0;
+        acaciaShrub.maxY = 65;
+        acaciaShrub.loops = 2;
+        acaciaShrub.chance = 1;
+		this.addDeco(acaciaShrub);
 		
-		DecoTree riverTrees = new DecoTree(new WorldGenTreeRTGSavanna(1, false));
-		riverTrees.checkRiver = true;
-		riverTrees.minRiver = 0.86f;
-		riverTrees.loops = 2;
-		riverTrees.treeType = TreeType.WORLDGEN;
-		riverTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
-		riverTrees.maxY = 65;
-		
-		DecoTree riverShrubs = new DecoTree(riverTrees);
-		riverShrubs.worldGen = new WorldGenShrub(0, 0);
-		riverShrubs.strengthFactorForLoops = 4f;
-		
-		DecoHelperThisOrThat decoHelperThisOrThat = new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, riverShrubs, riverTrees);
+		DecoHelperThisOrThat decoHelperThisOrThat = new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, acaciaShrub, acaciaTrees);
 		this.addDeco(decoHelperThisOrThat);
             
 		DecoCactus decoRiverCactus = new DecoCactus();

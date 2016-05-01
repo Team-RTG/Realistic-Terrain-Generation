@@ -50,8 +50,8 @@ public class DecoBoulder extends DecoBase
 			
             for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1)
             {
-                int i1 = chunkX + rand.nextInt(16) + 8;
-                int j1 = chunkY + rand.nextInt(16) + 8;
+                int i1 = chunkX + rand.nextInt(16);// + 8;
+                int j1 = chunkY + rand.nextInt(16);// + 8;
                 int k1 = world.getHeightValue(i1, j1);
                 
                 if (k1 >= this.minY && k1 <= this.maxY && rand.nextInt(this.chance) == 0) {

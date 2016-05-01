@@ -47,7 +47,7 @@ public class TerrainHLFlyingMountains extends TerrainBase
 
         float secondAdded = simplex.octave(1).noise2(x / width, y / width)*10+40
                 +simplex.noise2(x / 20f, y / 20f)*2f;
-        float secondLevel = firstLevel + borderAdjusted(secondAdded, border, .65f, .6f);
+        float secondLevel = firstLevel + borderAdjusted(secondAdded, border, .68f, .65f);
         /*float secondLevel = simplex.octave(1).noise2(x / width, y / width)*15+50
                 +simplex.noise2(x / 20f, y / 20f)*3f;*/
 
@@ -56,7 +56,7 @@ public class TerrainHLFlyingMountains extends TerrainBase
         /*float thirdLevel = simplex.octave(2).noise2(x / width, y / width)*25+80
                 +simplex.noise2(x / 20f, y / 20f)*5f;*/
 
-        float thirdLevel = secondLevel + borderAdjusted(thirdAdded, border, .75f, .7f);
+        float thirdLevel = secondLevel + borderAdjusted(thirdAdded, border, .85f, .78f);
         
         float scatter = Math.abs((float)simplex.octave(1).noise(x/cragWidth, y/cragWidth,1f));
         if (river < firstJump||scatter<firstScatter) {

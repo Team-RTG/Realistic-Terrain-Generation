@@ -140,8 +140,8 @@ public class DecoTree extends DecoBase
                 loopCount = (this.strengthNoiseFactorXForLoops) ? (int)(noise * this.strengthFactorForLoops * strength) : loopCount;
 	            for (int i = 0; i < loopCount; i++)
 	            {
-	                int intX = chunkX + rand.nextInt(16) + 8;
-	                int intZ = chunkY + rand.nextInt(16) + 8;
+	                int intX = chunkX + rand.nextInt(16);// + 8;
+	                int intZ = chunkY + rand.nextInt(16);// + 8;
 	                int intY = world.getHeightValue(intX, intZ);
 	                
 	            	switch (this.treeType)

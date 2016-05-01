@@ -11,12 +11,14 @@ import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.Ev
 import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.REDSTONE;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenLakes;
@@ -29,6 +31,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.PlaneLocation;
 import rtg.util.RandomUtil;
 import rtg.util.SimplexOctave;
 import rtg.world.biome.BiomeBase;
@@ -178,9 +181,9 @@ public class RealisticBiomeBase extends BiomeBase {
 
             if (gen && (waterUndergroundLakeChance > 0)) {
                 
-                int i2 = worldX + rand.nextInt(16) + 8;
+                int i2 = worldX+ rand.nextInt(16);// + 8;
                 int l4 = RandomUtil.getRandomInt(rand, 1, 50);
-                int i8 = worldZ + rand.nextInt(16) + 8;
+                int i8 = worldZ+ rand.nextInt(16);// + 8;
                 
                 if (rand.nextInt(waterUndergroundLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterUndergroundLakeChance) == 1)) {
                     
@@ -194,8 +197,8 @@ public class RealisticBiomeBase extends BiomeBase {
             
             if (gen && (waterSurfaceLakeChance > 0)) {
                 
-                int i2 = worldX + rand.nextInt(16) + 8;
-                int i8 = worldZ + rand.nextInt(16) + 8;
+                int i2 = worldX + rand.nextInt(16);// + 8;
+                int i8 = worldZ+ rand.nextInt(16);// + 8;
                 int l4 = worldObj.getHeightValue(i2, i8);
                 
                 //Surface lakes.
@@ -216,9 +219,9 @@ public class RealisticBiomeBase extends BiomeBase {
 
             if (gen && (lavaUndergroundLakeChance > 0)) {
                 
-                int i2 = worldX + rand.nextInt(16) + 8;
+                int i2 = worldX+ rand.nextInt(16);// + 8;
                 int l4 = RandomUtil.getRandomInt(rand, 1, 50);
-                int i8 = worldZ + rand.nextInt(16) + 8;
+                int i8 = worldZ+ rand.nextInt(16);// + 8;
                 
                 if (rand.nextInt(lavaUndergroundLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.lavaUndergroundLakeChance) == 1)) {
                     
@@ -232,8 +235,8 @@ public class RealisticBiomeBase extends BiomeBase {
             
             if (gen && (lavaSurfaceLakeChance > 0)) {
                 
-                int i2 = worldX + rand.nextInt(16) + 8;
-                int i8 = worldZ + rand.nextInt(16) + 8;
+                int i2 = worldX+  rand.nextInt(16);// + 8;
+                int i8 = worldZ+  rand.nextInt(16);// + 8;
                 int l4 = worldObj.getHeightValue(i2, i8);
                 
                 //Surface lakes.
@@ -255,9 +258,9 @@ public class RealisticBiomeBase extends BiomeBase {
             	
 	            for(int k1 = 0; k1 < ConfigRTG.dungeonFrequency; k1++) {
 	            	
-	                int j5 = worldX + rand.nextInt(16) + 8;
+	                int j5 = worldX + rand.nextInt(16);// + 8;
 	                int k8 = rand.nextInt(128);
-	                int j11 = worldZ + rand.nextInt(16) + 8;
+	                int j11 = worldZ + rand.nextInt(16);// + 8;
 	                
 	                (new WorldGenDungeons()).generate(worldObj, rand, j5, k8, j11);
 	            }
@@ -402,6 +405,7 @@ public class RealisticBiomeBase extends BiomeBase {
 
     public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
         if (noLakes) return 1f;
+        if (1>0) return 1f;
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();
         simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
         double pX = x + jitter.deltax() * largeBendSize;
@@ -561,15 +565,35 @@ public class RealisticBiomeBase extends BiomeBase {
     {
         return this.surfaces;
     }
-    
+
+    private class ChunkDecoration {
+        PlaneLocation chunkLocation;
+        DecoBase decoration;
+        ChunkDecoration(PlaneLocation chunkLocation,DecoBase decoration) {
+            this.chunkLocation = chunkLocation;
+            this.decoration = decoration;
+        }
+    }
+
+    public static ArrayList<ChunkDecoration> decoStack = new ArrayList<ChunkDecoration>();
+
     public void decorateInAnOrderlyFashion(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
     {
+
     	for (int i = 0; i < this.decos.size(); i++) {
-    		
+    	    decoStack.add(new ChunkDecoration(new PlaneLocation.Invariant(chunkX,chunkY),decos.get(i)));
+            if (decoStack.size()>20) {
+                String problem = "" ;
+                for (ChunkDecoration inStack: decoStack) {
+                    problem += "" + inStack.chunkLocation.toString() + " " + inStack.decoration.getClass().getSimpleName();
+                }
+                throw new RuntimeException(problem);
+            }
     		if (this.decos.get(i).preGenerate(this, world, rand, chunkX, chunkY, simplex, cell, strength, river)) {
-    			
+
     			this.decos.get(i).generate(this, world, rand, chunkX, chunkY, simplex, cell, strength, river);
     		}
+            decoStack.remove(decoStack.size()-1);
     	}
     }
     

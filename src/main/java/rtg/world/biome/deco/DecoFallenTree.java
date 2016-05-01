@@ -96,8 +96,8 @@ public class DecoFallenTree extends DecoBase
 	            {
 	                if (isValidLogCondition(noise, strength, rand))
 	                {
-	                    int x22 = chunkX + rand.nextInt(16) + 8;
-	                    int z22 = chunkY + rand.nextInt(16) + 8;
+	                    int x22 = chunkX + rand.nextInt(16);// + 8;
+	                    int z22 = chunkY + rand.nextInt(16);// + 8;
 	                    int y22 = world.getHeightValue(x22, z22);
 	                    
 	                    if (y22 <= this.maxY) {

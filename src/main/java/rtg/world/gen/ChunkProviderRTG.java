@@ -208,7 +208,18 @@ public class ChunkProviderRTG implements IChunkProvider
         }
         if (chunkMade.contains(chunkLocation)) {
             Chunk available = availableChunks.get(chunkLocation);
-            if (available != null) return available;
+            if (available != null) {
+                // this should never be happening but it came up when Forge/MC re-requested an already
+                // made chunk for a lighting check (???)
+
+                // we are having a problem with Forge complaining about double entity registration
+                // so we'll unload any loaded entities
+                List [] entityLists = available.entityLists;
+                for (int i = 0; i< entityLists.length; i++) {
+                    worldObj.unloadEntities(entityLists[i]);
+                }
+                return available;
+            }
             throw new RuntimeException();
         }
 

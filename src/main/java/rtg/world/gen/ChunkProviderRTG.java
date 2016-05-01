@@ -485,18 +485,18 @@ public class ChunkProviderRTG implements IChunkProvider
     	{
     		for(j = 0; j < 7; j++)
     		{
-    			if (false) //if(!(i % 2 == 0 && j % 2 == 0) && !(i % 2 != 0 && j % 2 != 0))
-    			{
-    				smallRender[(i * 4) * 25 + (j * 4)] = mix4(new float[][]{
-						hugeRender[(i) * 9 + (j + 1)],
-						hugeRender[(i + 1) * 9 + (j)],
-						hugeRender[(i + 1) * 9 + (j + 2)],
-						hugeRender[(i + 2) * 9 + (j + 1)]});
-    			}
-    			else
-    			{
+//    			if (false) //if(!(i % 2 == 0 && j % 2 == 0) && !(i % 2 != 0 && j % 2 != 0))
+//    			{
+//    				smallRender[(i * 4) * 25 + (j * 4)] = mix4(new float[][]{
+//						hugeRender[(i) * 9 + (j + 1)],
+//						hugeRender[(i + 1) * 9 + (j)],
+//						hugeRender[(i + 1) * 9 + (j + 2)],
+//						hugeRender[(i + 2) * 9 + (j + 1)]});
+//    			}
+//    			else
+//    			{
     				smallRender[(i * 4) * 25 + (j * 4)] = hugeRender[(i + 1) * 9 + (j + 1)];
-    			}
+//    			}
     		}
     	}
 

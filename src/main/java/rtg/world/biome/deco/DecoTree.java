@@ -69,8 +69,8 @@ public class DecoTree extends DecoBase
 		this.treeConditionNoise = 0f;
 		this.treeConditionFloat = 0f;
 		this.treeConditionChance = 1;
-		this.minY = 1; // No lower height limit by default.
-		this.maxY = 255; // No upper height limit by default.
+		this.minY = 62; // No underwater trees by default.
+		this.maxY = 230; // Sensible upper height limit by default.
 		this.logBlock = Blocks.log;
 		this.logMeta = (byte)0;
 		this.leavesBlock = Blocks.leaves;

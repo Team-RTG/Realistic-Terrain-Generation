@@ -56,15 +56,8 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 		decoCobwebBoulder.maxY = 80;
 		decoCobwebBoulder.strengthFactor = 2f;
 		this.addDeco(decoCobwebBoulder, this.config._boolean(BiomeConfigVanillaRoofedForest.decorationCobwebsId));
-        
-		TreeRTGRhizophoraMucronata mangrove = new TreeRTGRhizophoraMucronata();
-		mangrove.minBranches = 3;
-		mangrove.maxBranches = 4;
-		mangrove.branchLength = 13f;
-		mangrove.verStart = 0.32f;
-		mangrove.verRand = 0.1f;
-		
-		DecoTree decoTrees = new DecoTree(mangrove);
+
+		DecoTree decoTrees = new DecoTree(new TreeRTGRhizophoraMucronata(3, 4, 13f, 0.32f, 0.1f));
 		decoTrees.logBlock = Blocks.log2;
 		decoTrees.logMeta = (byte)1;
 		decoTrees.leavesBlock = Blocks.leaves2;

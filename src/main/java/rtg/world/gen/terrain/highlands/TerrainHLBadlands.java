@@ -61,11 +61,11 @@ public class TerrainHLBadlands extends TerrainBase
         float channelPressure = this.channelPressure(simplex, cell, x, y, border);
 
         // suppress if moutain area
-        if (m>10) {
+        if (h+m>20) {
             channelPressure = 0;
         } else {
-            if (m>0) {
-                channelPressure = (1f -(1f-channelPressure)*(10f-m)/10f) ;
+            if (h+m>0) {
+                channelPressure = (1f -(1f-channelPressure)*(20f-m-h)/20f) ;
             }
         }
         float channelFlattening = this.channelFlattening(channelPressure, lakeWaterLevel, lakeDepressionLevel);

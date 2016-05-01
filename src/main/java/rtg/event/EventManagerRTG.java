@@ -149,6 +149,7 @@ public class EventManagerRTG
         // only handle RTG world type
         if (!event.worldType.getWorldTypeName().equalsIgnoreCase("RTG")) return;
 
+        if (event.newBiomeGens[0].getClass().getName().contains("GenLayerEB")) return;
         boolean stripRivers = true; // This used to be a config option. Hardcoding until we have a need for the option.
         
         if (stripRivers) {

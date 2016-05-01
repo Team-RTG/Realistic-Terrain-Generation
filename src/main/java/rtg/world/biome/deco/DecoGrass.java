@@ -27,11 +27,12 @@ public class DecoGrass extends DecoBase
 	public int loops;
 	public int chance;
 	public int notEqualsZerochance;
-	public Block block;
-	public int meta;
+	private Block block;
+	private int meta;
 	public Block[] randomGrassBlocks;
 	public byte[] randomGrassMetas;
 	protected boolean useRandomGrass;
+    private WorldGenGrass grassGenerator;
 	
 	public DecoGrass()
 	{
@@ -54,8 +55,30 @@ public class DecoGrass extends DecoBase
 		this.useRandomGrass = (this.randomGrassBlocks.length > 0 && this.randomGrassBlocks.length == this.randomGrassMetas.length);
 		
 		this.addDecoTypes(DecoType.GRASS);
+        grassGenerator = new WorldGenGrass(block,meta);
 	}
-	
+
+    public DecoGrass(int meta) {
+        this();
+        this.meta = meta;
+        grassGenerator = new WorldGenGrass.SingleType(block,meta);
+    }
+
+    public DecoGrass(Block block) {
+        this();
+        this.block = block;
+        grassGenerator = new WorldGenGrass.SingleType(block,meta);
+    }
+
+    public DecoGrass(Block [] randomBlocks, byte[] randomMetas) {
+        this();
+        if (randomBlocks.length != randomMetas.length) {
+            throw new RuntimeException("Mismatch in block and metadata arrays for DecoGrass");
+        }
+		this.randomGrassBlocks = randomBlocks;
+		this.randomGrassMetas = randomMetas;
+        grassGenerator = new WorldGenGrass.RandomType(randomGrassBlocks,randomGrassMetas);
+    }
 	@Override
 	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
 	{
@@ -64,29 +87,29 @@ public class DecoGrass extends DecoBase
 			if (TerrainGen.decorate(world, rand, chunkX, chunkY, GRASS)) {
 	            
 				this.loops = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : this.loops;
-	            for (int i = 0; i < this.loops; i++)
+	            for (int i = 0; i < this.loops*64; i++)
 	            {
-	                int intX = chunkX + rand.nextInt(16) + 8;
+	                int intX = chunkX + rand.nextInt(16) ;// + 8;
 	                int intY = this.minY + (rand.nextInt(this.maxY - this.minY) + 1);
-	                int intZ = chunkY + rand.nextInt(16) + 8;
+	                int intZ = chunkY + rand.nextInt(16) ;// + 8;
 
     				//Do we want to choose a random grass?
     				if (this.useRandomGrass) {
     					
-    					this.block = this.randomGrassBlocks[rand.nextInt(this.randomGrassBlocks.length)];
-    					this.meta = this.randomGrassMetas[rand.nextInt(this.randomGrassMetas.length)];
+    					//this.block = this.randomGrassBlocks[rand.nextInt(this.randomGrassBlocks.length)];
+    					//this.meta = this.randomGrassMetas[rand.nextInt(this.randomGrassMetas.length)];
     				}
     				
 	                if (this.notEqualsZerochance > 1) {
 	                	
 		                if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.notEqualsZerochance) != 0) {
-		                	(new WorldGenGrass(this.block, this.meta)).generate(world, rand, intX, intY, intZ);
+		                	grassGenerator.generate(world, rand, intX, intY, intZ);
 		                }
 	                }
 	                else {
 	                	
 		                if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-		                	(new WorldGenGrass(this.block, this.meta)).generate(world, rand, intX, intY, intZ);
+		                	grassGenerator.generate(world, rand, intX, intY, intZ);
 		                }
 	                }
 	            }

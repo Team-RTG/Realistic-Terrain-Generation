@@ -73,14 +73,14 @@ public class DecoFlowersRTG extends DecoBase
 	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
 	{
 		if (this.allowed) {
-			
+			WorldGenFlowersRTG flowerGenerator = new WorldGenFlowersRTG(this.flowers);
 	        if (TerrainGen.decorate(world, rand, chunkX, chunkY, FLOWERS)) {
 	            
 	        	this.loops = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : this.loops;
-	            for (int i = 0; i < this.loops; i++)
+	            for (int i = 0; i < this.loops*16; i++)
 	            {
-	                int intX = chunkX + rand.nextInt(16) + 8;
-	                int intZ = chunkY + rand.nextInt(16) + 8;
+	                int intX = chunkX + rand.nextInt(16);// + 8;
+	                int intZ = chunkY + rand.nextInt(16);// + 8;
 	                
 	                int intY;
 	                switch (this.heightType)
@@ -103,14 +103,14 @@ public class DecoFlowersRTG extends DecoBase
 	                	
 		                if (rand.nextInt(this.notEqualsZerochance) != 0) {
 		                    
-		                    (new WorldGenFlowersRTG(this.flowers)).generate(world, rand, intX, intY, intZ);
+		                    flowerGenerator.generate(world, rand, intX, intY, intZ);
 		                }
 	                }
 	                else {
 	                	
 		                if (rand.nextInt(this.chance) == 0) {
 		                    
-		                    (new WorldGenFlowersRTG(this.flowers)).generate(world, rand, intX, intY, intZ);
+		                    flowerGenerator.generate(world, rand, intX, intY, intZ);
 		                }
 	                }
 	            }

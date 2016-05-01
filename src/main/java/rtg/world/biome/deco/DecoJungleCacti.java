@@ -51,9 +51,9 @@ public class DecoJungleCacti extends DecoBase
                 
                 for (int i = 0; i < this.strengthFactor * strength; i++)
                 {
-                    int intX = chunkX + rand.nextInt(16) + 8;
+                    int intX = chunkX + rand.nextInt(16);// + 8;
                     int intY = rand.nextInt(160);
-                    int intZ = chunkY + rand.nextInt(16) + 8;
+                    int intZ = chunkY + rand.nextInt(16);// + 8;
                     
                     if (intY < this.maxY)
                     {

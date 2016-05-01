@@ -69,13 +69,13 @@ public class RealisticBiomeEBSteppe extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-        
-		DecoGrass decoGrass = new DecoGrass();
+
+        Block[] randomGrassBlocks = new Block[]{Blocks.double_plant, Blocks.tallgrass, Blocks.double_plant, Blocks.tallgrass};
+        byte [] randomGrassMetas = new byte[]{2, 1, 3, 2};
+		DecoGrass decoGrass = new DecoGrass(randomGrassBlocks,randomGrassMetas);
 		decoGrass.maxY = 128;
 		decoGrass.loops = 24;
 		decoGrass.chance = 12;
-		decoGrass.randomGrassBlocks = new Block[]{Blocks.double_plant, Blocks.tallgrass, Blocks.double_plant, Blocks.tallgrass};
-		decoGrass.randomGrassMetas = new byte[]{2, 1, 3, 2};
         this.addDeco(decoGrass);
     }
 }

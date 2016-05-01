@@ -127,7 +127,7 @@ public class WorldGenPond {
             }
 
             // now let's get the heights of the edges
-            int [] heightCounts = new int[256];
+            int [] heightCounts = new int[257];
             int shoreBlockCount = 0;
             for (i1 = 1; i1 < 15; ++i1)
             {
@@ -144,8 +144,8 @@ public class WorldGenPond {
             // unless it's more than 1 above the lowest shore level;
             int shoreSoFar = 0;
             int lakeLevel = 0;
-            int bottomBlock = 256;
-            for ( int height = 0; height <256; height++) {
+            int bottomBlock = 257;
+            for ( int height = 0; height <257; height++) {
                 shoreSoFar += heightCounts[height];
                 if (heightCounts[height] > 0) {
                     if (bottomBlock>height) bottomBlock = height;
@@ -163,9 +163,9 @@ public class WorldGenPond {
             
             //not if anything will be left floating
 
-            for (i1 = 1; i1 < 14; ++i1)
+            for (i1 = 0; i1 < 16; ++i1)
             {
-                for (j2 = 1; j2 < 14; ++j2)
+                for (j2 = 0; j2 < 16; ++j2)
                 {
                     if (willBePond[(i1 * 16 + j2)]) {
                         int top = world.getTopSolidOrLiquidBlock(x + i1, z + j2);

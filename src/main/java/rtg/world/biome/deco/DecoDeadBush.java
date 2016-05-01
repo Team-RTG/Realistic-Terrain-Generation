@@ -11,6 +11,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.feature.WorldGenPlantBlock;
 
 /**
  * 
@@ -24,6 +25,7 @@ public class DecoDeadBush extends DecoBase
 	public int maxY;
 	public int chance;
 	public int loops;
+    private WorldGenPlantBlock plant;
 	
 	public DecoDeadBush()
 	{
@@ -37,6 +39,7 @@ public class DecoDeadBush extends DecoBase
 		this.strengthFactor = 0f; // The higher the value, the more there will be.
 		this.chance = 1;
 		this.loops = 1;
+        plant = new WorldGenPlantBlock(Blocks.deadbush);
 		
 		this.addDecoTypes(DecoType.DEAD_BUSH);
 	}
@@ -52,12 +55,12 @@ public class DecoDeadBush extends DecoBase
 				loopCount = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : loopCount;
 	            for (int i = 0; i < loopCount; i++)
 	            {
-	                int intX = chunkX + rand.nextInt(16) + 8;
+	                int intX = chunkX + rand.nextInt(16);// + 8;
 	                int intY = rand.nextInt(this.maxY);
-	                int intZ = chunkY + rand.nextInt(16) + 8;
+	                int intZ = chunkY + rand.nextInt(16);// + 8;
 
 	                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-	                	(new WorldGenDeadBush(Blocks.deadbush)).generate(world, rand, intX, intY, intZ);
+	                	plant.generate(world, rand, intX, intY, intZ);
 	                }
 	            }
 	        }

@@ -34,7 +34,7 @@ public class DecoCollectionDesertRiver extends DecoCollectionBase
 		acaciaTrees.leavesMeta = (byte)0;
 		acaciaTrees.minTrunkSize = 12;
 		acaciaTrees.maxTrunkSize = 16;
-		acaciaTrees.loops = 2;
+		acaciaTrees.loops = 1;
 		acaciaTrees.treeType = TreeType.RTG_TREE;
 		acaciaTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
 		acaciaTrees.maxY = 65;
@@ -48,7 +48,7 @@ public class DecoCollectionDesertRiver extends DecoCollectionBase
         acaciaShrub.leavesBlock = Blocks.leaves2;
         acaciaShrub.leavesMeta = (byte)0;
         acaciaShrub.maxY = 65;
-        acaciaShrub.loops = 2;
+        acaciaShrub.loops = 1;
         acaciaShrub.chance = 1;
 		this.addDeco(acaciaShrub);
 		

@@ -12,9 +12,8 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
+import rtg.world.gen.feature.WorldGenShrubRTG;
+import rtg.world.gen.feature.tree.vanilla.WorldGenTreesRTG;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import enhancedbiomes.helpers.TreeGen;
@@ -83,7 +82,7 @@ public class DecoEBTree extends DecoTree
 		            		
 		            	case ALDER:
 		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
 		                        WorldGenerator worldgenerator = TreeGen.alder(rand);
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -94,7 +93,7 @@ public class DecoEBTree extends DecoTree
 		            		
 		            	case BIRCH:
 		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
 		                        WorldGenerator worldgenerator = TreeGen.birch();
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -105,7 +104,7 @@ public class DecoEBTree extends DecoTree
 		            		
 		            	case CYPRESS:
 		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
 		                        WorldGenerator worldgenerator = TreeGen.cypress(rand);
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -116,7 +115,7 @@ public class DecoEBTree extends DecoTree
 		            		
 		            	case DEAD:
 		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
 		                        WorldGenerator worldgenerator = TreeGen.dead(rand);
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -127,7 +126,7 @@ public class DecoEBTree extends DecoTree
 		            		
 		            	case EUCALYPTUS:
 		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
 		                        WorldGenerator worldgenerator = TreeGen.eucalyptus(rand);
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -138,7 +137,7 @@ public class DecoEBTree extends DecoTree
 		            		
 		            	case EUCALYPTUS_SHRUB:
 		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
 		                        WorldGenerator worldgenerator = TreeGen.eucalyptus_shrub(rand);
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -149,11 +148,11 @@ public class DecoEBTree extends DecoTree
 		            		
 		            	case FORESTED_VALLEY:
 		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
 		                        WorldGenerator worldgenerator =
 		                                rand.nextInt(2) == 0 ? TreeGen.birch()
-		                                    : rand.nextInt(10) != 0 ? new WorldGenTreeRTGTrees(false) : new WorldGenForest(false, false);
+		                                    : rand.nextInt(10) != 0 ? new WorldGenTreesRTG(false) : new WorldGenForest(false, false);
 		                            worldgenerator.setScale(1.0D, 1.0D, 1.0D);
 		                            worldgenerator.generate(world, rand, intX, intY, intZ);
 		            		}
@@ -162,7 +161,7 @@ public class DecoEBTree extends DecoTree
 		            		
 		            	case GREAT_OAK:
 		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
 		                        WorldGenerator worldgenerator = TreeGen.greatOak(rand);
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -173,7 +172,7 @@ public class DecoEBTree extends DecoTree
 		            		
 		            	case MANGROVE:
 		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
 		                        WorldGenerator worldgenerator = TreeGen.mangrove();
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -182,31 +181,16 @@ public class DecoEBTree extends DecoTree
 		            		
 		            		break;
 		            		
-		            	case POLAR_DESERT:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-
-		                        WorldGenerator worldgenerator = new WorldGenTreeRTGSpruceSmall(rand.nextInt(2));
-		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                        worldgenerator.generate(world, rand, intX, intY, intZ);
-		            		}
-		            		
-		            		break;
-		            		
 		            	case SCRUB:
 		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-
-		                        WorldGenerator worldgenerator = new WorldGenTreeRTGSpruceSmall(rand.nextInt(2));
-		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-		                        worldgenerator.generate(world, rand, intX, intY, intZ);
-		                        
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
+  
 		                        if (rand.nextInt(4) != 0) {
 		                            WorldGenerator spikedBush = new WorldGenSpikedBush(Blocks.log, 0, Blocks.leaves, 0, (EBAPI.ebGrassify(EnhancedBiomesBlocks.dirtEB, Blocks.dirt)));
 		                            spikedBush.generate(world, rand, intX, intY, intZ);
 		                        }
 		                        else {
-		                            new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3)).generate(world, rand, intX, intY, intZ);
+		                            new WorldGenShrubRTG(rand.nextInt(4) + 1, Blocks.log, (byte)0, Blocks.leaves, (byte)rand.nextInt(3)).generate(world, rand, intX, intY, intZ);
 		                        }
 		            		}
 		            		
@@ -231,7 +215,6 @@ public class DecoEBTree extends DecoTree
 		FORESTED_VALLEY,
 		GREAT_OAK,
 		MANGROVE,
-		POLAR_DESERT,
 		SCRUB;
 	}
 }

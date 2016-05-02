@@ -5,9 +5,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoBoulder;
-import rtg.world.biome.deco.DecoEBTree;
-import rtg.world.biome.deco.DecoEBTree.TreeType;
+import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
+import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBPolarDesert;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBPolarDesert;
 import enhancedbiomes.api.EBAPI;
@@ -84,16 +84,24 @@ public class RealisticBiomeEBPolarDesert extends RealisticBiomeEBBase
 		decoBoulder.maxY = 64;
 		this.addDeco(decoBoulder);
         
-        DecoEBTree ebTrees = new DecoEBTree();
-		ebTrees.treeType = TreeType.POLAR_DESERT;
+        DecoTree ebTrees = new DecoTree();
 		ebTrees.checkRiver = true;
 		ebTrees.minRiver = 0.86f; 
+		ebTrees.logBlock = Blocks.log;
+		ebTrees.logMeta = (byte)1;
+		ebTrees.leavesBlock = Blocks.leaves;
+		ebTrees.leavesMeta = (byte)1;
+		ebTrees.minTrunkSize = 2;
+		ebTrees.maxTrunkSize = 7;
+		ebTrees.minCrownSize = 6;
+		ebTrees.maxCrownSize = 17;
+		ebTrees.treeType = TreeType.RTG_TREE;
 		ebTrees.distribution.noiseDivisor = 80f;
 		ebTrees.distribution.noiseFactor = 60f;
 		ebTrees.distribution.noiseAddend = -15f;
 		ebTrees.treeCondition = TreeCondition.RANDOM_CHANCE;
 		ebTrees.treeConditionChance = 8;
 		ebTrees.maxY = 120;
-		this.addDeco(ebTrees);        
+		this.addDeco(ebTrees);
     }
 }

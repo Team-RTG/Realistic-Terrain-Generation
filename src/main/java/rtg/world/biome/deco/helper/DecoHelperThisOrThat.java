@@ -1,0 +1,75 @@
+
+package rtg.world.biome.deco.helper;
+
+/**
+ * This deco helper has a one in x chance of called a given deco
+ * @author Zeno410
+ */
+import java.util.Random;
+
+import net.minecraft.world.World;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.deco.DecoBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+
+public class DecoHelperThisOrThat extends DecoBase
+{
+
+	public int chance;
+	public ChanceType chanceType;
+	public DecoBase decoThis;
+	public DecoBase decoThat;
+
+	public DecoHelperThisOrThat(int chance, ChanceType chanceType, DecoBase decoThis, DecoBase decoThat)
+	{
+		super();
+
+		this.chance = chance;
+		this.chanceType = chanceType;
+		this.decoThis = decoThis;
+		this.decoThat = decoThat;
+	}
+
+	@Override
+	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
+	{
+		if (this.allowed) {
+
+			switch (this.chanceType)
+			{
+				case EQUALS_ZERO:
+					
+					if (rand.nextInt(this.chance) == 0) {
+						this.decoThis.generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river);
+		            }
+					else {
+						this.decoThat.generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river);
+					}
+			
+					break;
+				
+				case NOT_EQUALS_ZERO:
+					
+					if (rand.nextInt(this.chance) != 0) {
+						this.decoThis.generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river);
+		            }
+					else {
+						this.decoThat.generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river);
+					}
+			
+					break;
+				
+				default:
+					break;
+				
+			}
+        }
+	}
+	
+	public enum ChanceType
+	{
+		EQUALS_ZERO,
+		NOT_EQUALS_ZERO;
+	}
+}

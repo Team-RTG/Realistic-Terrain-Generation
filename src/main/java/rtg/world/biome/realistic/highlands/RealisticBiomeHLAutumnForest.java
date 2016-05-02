@@ -18,6 +18,8 @@ import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
+import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaPungens;
+import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.world.gen.surface.highlands.SurfaceHLAutumnForest;
 import rtg.world.gen.terrain.highlands.TerrainHLAutumnForest;
 
@@ -37,7 +39,7 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
         );
         this.noWaterFeatures = false;
         
-		DecoTree yellowPines = new DecoTree();
+		DecoTree yellowPines = new DecoTree(new TreeRTGPinusPonderosa());
 		yellowPines.logBlock = Blocks.log;
 		yellowPines.logMeta = (byte)0;
 		yellowPines.leavesBlock = Highlands.vanillaBlocksFlag ? Blocks.leaves : HighlandsBlocks.autumnYellowLeaves;
@@ -47,7 +49,7 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
 		yellowPines.minCrownSize = 12;
 		yellowPines.maxCrownSize = 24;
 		yellowPines.strengthFactorForLoops = 6f;
-		yellowPines.treeType = TreeType.PINACEAE_PINUS_PONDEROSA;
+		yellowPines.treeType = TreeType.RTG_TREE;
 		yellowPines.distribution.noiseDivisor = 100f;
 		yellowPines.distribution.noiseFactor = 6f;
 		yellowPines.distribution.noiseAddend = 0.8f;
@@ -60,7 +62,7 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
 		orangePines.leavesBlock = Highlands.vanillaBlocksFlag ? Blocks.leaves : HighlandsBlocks.autumnOrangeLeaves;
 		orangePines.leavesMeta = Highlands.vanillaBlocksFlag ? (byte)2 : (byte)0;
 		
-		DecoTree spruceTrees = new DecoTree();
+		DecoTree spruceTrees = new DecoTree(new TreeRTGPiceaPungens());
 		spruceTrees.logBlock = Blocks.log;
 		spruceTrees.logMeta = (byte)1;
 		spruceTrees.leavesBlock = Blocks.leaves;
@@ -70,7 +72,7 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
 		spruceTrees.minCrownSize = 6;
 		spruceTrees.maxCrownSize = 17;
 		spruceTrees.strengthFactorForLoops = 5f;
-		spruceTrees.treeType = TreeType.PINACEAE_PICEA_PUNGENS;
+		spruceTrees.treeType = TreeType.RTG_TREE;
 		spruceTrees.distribution.noiseDivisor = 100f;
 		spruceTrees.distribution.noiseFactor = 6f;
 		spruceTrees.distribution.noiseAddend = 0.8f;
@@ -84,7 +86,7 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
 		decoTrees.chances = new int[]{8, 8, 4};
 		this.addDeco(decoTrees);
 		
-		DecoTree deadPineTree = new DecoTree();
+		DecoTree deadPineTree = new DecoTree(new TreeRTGPinusPonderosa());
 		deadPineTree.logBlock = Blocks.log;
 		deadPineTree.logMeta = (byte)0;
 		deadPineTree.leavesBlock = Blocks.leaves;
@@ -93,7 +95,7 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
 		deadPineTree.maxTrunkSize = 7;
 		deadPineTree.minCrownSize = 8;
 		deadPineTree.maxCrownSize = 18;
-		deadPineTree.treeType = TreeType.PINACEAE_PINUS_PONDEROSA;
+		deadPineTree.treeType = TreeType.RTG_TREE;
 		deadPineTree.treeCondition = TreeCondition.RANDOM_CHANCE;
 		deadPineTree.treeConditionChance = 18;
 		deadPineTree.maxY = 120;

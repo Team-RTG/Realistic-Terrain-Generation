@@ -15,7 +15,9 @@ import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.collection.DecoCollectionSmallPineTreesForest;
 import rtg.world.biome.deco.helper.DecoHelper5050;
+import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaFlowerForest;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaFlowerForest;
 
@@ -66,7 +68,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         this.addDeco(decoFlowers2);
 		
         // Trees first.
-		DecoTree oakPines = new DecoTree();
+		DecoTree oakPines = new DecoTree(new TreeRTGPinusPonderosa());
 		oakPines.logBlock = Blocks.log;
 		oakPines.logMeta = (byte)0;
 		oakPines.leavesBlock = Blocks.leaves;
@@ -76,7 +78,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 		oakPines.minCrownSize = 15;
 		oakPines.maxCrownSize = 29;
 		oakPines.strengthNoiseFactorForLoops = true;
-		oakPines.treeType = TreeType.PINACEAE_PINUS_PONDEROSA;
+		oakPines.treeType = TreeType.RTG_TREE;
 		oakPines.distribution.noiseDivisor = 80f;
 		oakPines.distribution.noiseFactor = 60f;
 		oakPines.distribution.noiseAddend = -15f;
@@ -93,12 +95,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 		this.addDeco(decoPines);
 		
 		// More trees.
-		DecoTree smallPinesTreesForest = new DecoTree();
-		smallPinesTreesForest.strengthFactorForLoops = 3f;
-		smallPinesTreesForest.treeType = TreeType.SMALL_PINES_TREES_FORESTS;
-		smallPinesTreesForest.treeCondition = TreeCondition.ALWAYS_GENERATE;
-		smallPinesTreesForest.maxY = 120;
-		this.addDeco(smallPinesTreesForest);
+		this.addDecoCollection(new DecoCollectionSmallPineTreesForest());
 
         // Not much free space left, so let's give some space to the base biome.
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

@@ -10,10 +10,12 @@ import rtg.world.biome.deco.DecoDoubleGrass;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoGrass;
-import rtg.world.biome.deco.DecoReed;
+import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
+import rtg.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSavanna;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaSavanna;
 
@@ -39,6 +41,8 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase
 		 * ##################################################
 		 */
 
+        this.addDecoCollection(new DecoCollectionDesertRiver());
+        
 		DecoFallenTree decoFallenTree = new DecoFallenTree();
 		decoFallenTree.loops = 1;
 		decoFallenTree.distribution.noiseDivisor = 100f;
@@ -56,41 +60,31 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase
 		decoFallenTree.maxSize = 6;
 		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaSavanna.decorationLogsId));
         
-		DecoTree riverTrees = new DecoTree();
-		riverTrees.checkRiver = true;
-		riverTrees.minRiver = 0.8f;
-		riverTrees.strengthNoiseFactorForLoops = false;
-		riverTrees.strengthFactorForLoops = 15f;
-		riverTrees.treeType = TreeType.SAVANNA_RIVER;
-		riverTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
-		riverTrees.maxY = 100;
-		this.addDeco(riverTrees);
-        
-        DecoReed decoReed = new DecoReed();
-        decoReed.checkRiver = true;
-        decoReed.minRiver = 0.8f;
-		decoReed.maxY = 68;
-		decoReed.strengthFactor = 2f;
-        this.addDeco(decoReed);
-        
-		DecoTree savannaTrees = new DecoTree();
-		savannaTrees.strengthFactorForLoops = 3f;
-		savannaTrees.treeType = TreeType.SAVANNA;
-		savannaTrees.distribution.noiseDivisor = 180f;
-		savannaTrees.distribution.noiseFactor = 1f;
-		savannaTrees.distribution.noiseAddend = 0f;
-		savannaTrees.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-		savannaTrees.treeConditionNoise = 0.20f;
-		savannaTrees.maxY = 100;
-		this.addDeco(savannaTrees);
-        
-		DecoTree savannaTrees2 = new DecoTree();
-		savannaTrees2.strengthFactorForLoops = 2f;
-		savannaTrees2.treeType = TreeType.SAVANNA;
-		savannaTrees2.treeCondition = TreeCondition.RANDOM_CHANCE;
-		savannaTrees2.treeConditionChance = 3;
-		savannaTrees2.maxY = 100;
-		this.addDeco(savannaTrees2);
+        DecoShrub acaciaShrub = new DecoShrub();
+        acaciaShrub.logBlock = Blocks.log2;
+        acaciaShrub.logMeta = (byte)0;
+        acaciaShrub.leavesBlock = Blocks.leaves2;
+        acaciaShrub.leavesMeta = (byte)0;
+        acaciaShrub.maxY = 160;
+        acaciaShrub.strengthFactor = 3f;
+        acaciaShrub.chance = 9;
+		this.addDeco(acaciaShrub);
+		
+		DecoTree acaciaTrees = new DecoTree(new TreeRTGAcaciaBucheri());
+		acaciaTrees.logBlock = Blocks.log2;
+		acaciaTrees.logMeta = (byte)0;
+		acaciaTrees.leavesBlock = Blocks.leaves2;
+		acaciaTrees.leavesMeta = (byte)0;
+		acaciaTrees.minTrunkSize = 12;
+		acaciaTrees.maxTrunkSize = 16;
+		acaciaTrees.strengthFactorForLoops = 2f;
+		acaciaTrees.treeType = TreeType.RTG_TREE;
+		acaciaTrees.distribution.noiseDivisor = 180f;
+		acaciaTrees.distribution.noiseFactor = 1f;
+		acaciaTrees.distribution.noiseAddend = 0f;
+		acaciaTrees.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		acaciaTrees.treeConditionNoise = 0.20f;
+		this.addDeco(acaciaTrees);
 		
 		DecoBoulder decoBoulder = new DecoBoulder();
 		decoBoulder.boulderBlock = Blocks.cobblestone;

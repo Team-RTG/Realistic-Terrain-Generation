@@ -80,8 +80,6 @@ public class RealisticBiomeEBBadlands extends RealisticBiomeEBBase
         decoShrub.maxY = 74;
         decoShrub.chance = 4;
         decoShrub.strengthFactor = 4f;
-        decoShrub.log = 0;
-        decoShrub.leaves = 0;
         this.addDeco(decoShrub);
         
 		DecoGrass decoGrass = new DecoGrass();

@@ -7,13 +7,13 @@ import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoCactus;
 import rtg.world.biome.deco.DecoDoubleGrass;
-import rtg.world.biome.deco.DecoFlowersRTG;
 import rtg.world.biome.deco.DecoGrass;
-import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
-import rtg.world.biome.deco.DecoReed;
+import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
+import rtg.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSavannaPlateau;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaSavannaPlateau;
 
@@ -40,6 +40,8 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
 		 * ##################################################
 		 */
     	
+        this.addDecoCollection(new DecoCollectionDesertRiver());
+        
 		DecoBoulder decoBoulder1 = new DecoBoulder();
 		decoBoulder1.boulderBlock = Blocks.cobblestone;
 		decoBoulder1.maxY = 80;
@@ -52,53 +54,29 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
 		decoBoulder2.chance = 24;
 		this.addDeco(decoBoulder2);
         
-		DecoTree riverTrees = new DecoTree();
-		riverTrees.checkRiver = true;
-		riverTrees.minRiver = 0.86f;
-		riverTrees.strengthFactorForLoops = 10f;
-		riverTrees.treeType = TreeType.SAVANNA_RIVER;
-		riverTrees.treeCondition = TreeCondition.RANDOM_CHANCE;
-		riverTrees.treeConditionChance = 4;
-		riverTrees.maxY = 120;
-		this.addDeco(riverTrees);
-        
-		DecoCactus decoRiverCactus = new DecoCactus();
-		decoRiverCactus.checkRiver = true;
-		decoRiverCactus.minRiver = 0.7f;
-		decoRiverCactus.maxY = 80;
-		decoRiverCactus.strengthFactor = 12f;
-        this.addDeco(decoRiverCactus);
-        
-        DecoReed decoReed = new DecoReed();
-        decoReed.checkRiver = true;
-        decoReed.minRiver = 0.7f;
-		decoReed.maxY = 68;
-		decoReed.strengthFactor = 2f;
-        this.addDeco(decoReed);            
-        
-		DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-		decoFlowersRTG.checkRiver = true;
-		decoFlowersRTG.minRiver = 0.7f;
-		decoFlowersRTG.flowers = new int[] {9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11};
-		decoFlowersRTG.maxY = 128;
-		decoFlowersRTG.loops = 3;
-        this.addDeco(decoFlowersRTG);
-        
-        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.checkRiver = true;
-        decoGrassDoubleTallgrass.minRiver = 0.7f;
-        decoGrassDoubleTallgrass.maxY = 128;
-        decoGrassDoubleTallgrass.loops = 15;
-        decoGrassDoubleTallgrass.doubleGrassChance = 3;
-        this.addDeco(decoGrassDoubleTallgrass);
-        
-		DecoTree savannaTrees = new DecoTree();
-		savannaTrees.strengthFactorForLoops = 3f;
-		savannaTrees.treeType = TreeType.SAVANNA;
-		savannaTrees.treeCondition = TreeCondition.RANDOM_CHANCE;
-		savannaTrees.treeConditionChance = 3;
-		savannaTrees.maxY = 160;
-		this.addDeco(savannaTrees);
+        DecoShrub acaciaShrub = new DecoShrub();
+        acaciaShrub.logBlock = Blocks.log2;
+        acaciaShrub.logMeta = (byte)0;
+        acaciaShrub.leavesBlock = Blocks.leaves2;
+        acaciaShrub.leavesMeta = (byte)0;
+        acaciaShrub.maxY = 160;
+        acaciaShrub.strengthFactor = 3f;
+        acaciaShrub.chance = 9;
+		this.addDeco(acaciaShrub);
+		
+		DecoTree acaciaTrees = new DecoTree(new TreeRTGAcaciaBucheri());
+		acaciaTrees.logBlock = Blocks.log2;
+		acaciaTrees.logMeta = (byte)0;
+		acaciaTrees.leavesBlock = Blocks.leaves2;
+		acaciaTrees.leavesMeta = (byte)0;
+		acaciaTrees.minTrunkSize = 12;
+		acaciaTrees.maxTrunkSize = 16;
+		acaciaTrees.strengthFactorForLoops = 2f;
+		acaciaTrees.treeType = TreeType.RTG_TREE;
+		acaciaTrees.treeCondition = TreeCondition.RANDOM_CHANCE;
+		acaciaTrees.treeConditionChance = 12;
+		acaciaTrees.maxY = 160;
+		this.addDeco(acaciaTrees);
         
 		DecoCactus decoCactus = new DecoCactus();
 		decoCactus.maxY = 160;

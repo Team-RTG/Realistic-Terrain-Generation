@@ -13,9 +13,7 @@ import rtg.world.biome.deco.DecoGrass;
 import rtg.world.biome.deco.DecoMushrooms;
 import rtg.world.biome.deco.DecoPumpkin;
 import rtg.world.biome.deco.DecoShrub;
-import rtg.world.biome.deco.DecoTree;
-import rtg.world.biome.deco.DecoTree.TreeCondition;
-import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.collection.DecoCollectionMegaTaiga;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMegaTaiga;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMegaTaiga;
 
@@ -48,16 +46,7 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase
 		decoBoulder.strengthFactor = 3f;
 		this.addDeco(decoBoulder);
         
-		DecoTree decoTrees = new DecoTree();
-		decoTrees.strengthFactorForLoops = 4f;
-		decoTrees.strengthNoiseFactorXForLoops = true;
-		decoTrees.distribution.noiseDivisor = 100f;
-		decoTrees.distribution.noiseFactor = 6f;
-		decoTrees.distribution.noiseAddend = 0.8f;
-		decoTrees.treeType = TreeType.MEGA_TAIGA;
-		decoTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
-		decoTrees.maxY = 100;
-		this.addDeco(decoTrees);
+		this.addDecoCollection(new DecoCollectionMegaTaiga());
         
 		DecoFallenTree decoFallenTree = new DecoFallenTree();
 		decoFallenTree.distribution.noiseDivisor = 100f;

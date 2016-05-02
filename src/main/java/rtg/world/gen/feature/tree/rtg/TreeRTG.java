@@ -7,6 +7,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+/**
+ * The base class for all RTG trees.
+ * 
+ * @see <a href="http://imgur.com/a/uoJsU">RTG Tree Gallery</a>
+ * @author WhichOnesPink
+ *
+ */
 public class TreeRTG extends WorldGenerator
 {
 

@@ -15,6 +15,7 @@ import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.WeakHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
@@ -28,12 +29,16 @@ import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.WorldTypeEvent;
+import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
+import rtg.util.Acceptor;
 
 public class EventManagerRTG
 {
 
     public RealisticBiomeBase biome = null;
+    private WeakHashMap<Integer,Acceptor<ChunkEvent.Load>> chunkLoadEvents =
+            new WeakHashMap<Integer,Acceptor<ChunkEvent.Load>> ();
     
     public EventManagerRTG()
     {
@@ -257,5 +262,18 @@ public class EventManagerRTG
         }
 
         return false;
+    }
+
+    @SubscribeEvent
+    public void onChunkLoadEvent(ChunkEvent.Load loadEvent)  {
+        Integer dimension = loadEvent.world.provider.dimensionId;
+        Acceptor<ChunkEvent.Load> acceptor = chunkLoadEvents.get(dimension);
+        if (acceptor != null) {
+            acceptor.accept(loadEvent);
+        }
+    }
+
+    public void setDimensionChunkLoadEvent(int dimension, Acceptor<ChunkEvent.Load> action) {
+        chunkLoadEvents.put(dimension, action);
     }
 }

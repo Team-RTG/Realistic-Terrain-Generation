@@ -10,7 +10,7 @@ import rtg.world.biome.deco.DecoEBTree.TreeType;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoGrass;
-import rtg.world.biome.deco.DecoShrubCustom;
+import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBMangrove;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBMangrove;
@@ -101,7 +101,7 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
         decoFallenTree.maxSize = 5;        
 		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigEBMangroves.decorationLogsId));
         
-        DecoShrubCustom decoShrubCustom = new DecoShrubCustom();
+        DecoShrub decoShrubCustom = new DecoShrub();
         decoShrubCustom.logBlock = EnhancedBiomesBlocks.logOak;
         decoShrubCustom.logMeta = (byte)3;
         decoShrubCustom.leavesBlock = EnhancedBiomesBlocks.leavesOak;

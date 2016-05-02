@@ -17,11 +17,15 @@ public class RealisticBiomeHLAlps extends RealisticBiomeHLBase {
     
     public RealisticBiomeHLAlps(BiomeConfig config) {
     
-        super(config, hlBiome, BiomeGenBase.frozenRiver, new TerrainHLAlps(),
-            new SurfaceHLAlps(config, topBlock, fillerBlock, false, null, 0.45f));
+        super(config,
+        	hlBiome, BiomeGenBase.frozenRiver,
+        	new TerrainHLAlps(),
+            new SurfaceHLAlps(config, topBlock, fillerBlock, false, null, 0.45f)
+        );
         noWaterFeatures = true;
 		
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		decoBaseBiomeDecorations.maxY = 100;
 		this.addDeco(decoBaseBiomeDecorations);
     }
 }

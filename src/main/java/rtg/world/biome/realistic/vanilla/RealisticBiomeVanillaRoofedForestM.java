@@ -17,6 +17,7 @@ import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaRoofedForestM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForestM;
 
@@ -51,13 +52,21 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
 		decoBoulder.maxY = 80;
 		decoBoulder.strengthFactor = 2f;
 		this.addDeco(decoBoulder);
-        
-		DecoTree decoTrees = new DecoTree();
+
+		DecoTree decoTrees = new DecoTree(new TreeRTGRhizophoraMucronata(3, 4, 13f, 0.32f, 0.1f));
+		decoTrees.logBlock = Blocks.log2;
+		decoTrees.logMeta = (byte)1;
+		decoTrees.leavesBlock = Blocks.leaves2;
+		decoTrees.leavesMeta = (byte)1;
+		decoTrees.minTrunkSize = 3;
+		decoTrees.maxTrunkSize = 4;
+		decoTrees.minCrownSize = 7;
+		decoTrees.maxCrownSize = 12;
 		decoTrees.strengthFactorForLoops = 24f;
 		decoTrees.distribution.noiseDivisor = 80f;
 		decoTrees.distribution.noiseFactor = 60f;
 		decoTrees.distribution.noiseAddend = -15f;
-		decoTrees.treeType = TreeType.MANGROVE;
+		decoTrees.treeType = TreeType.RTG_TREE;
 		decoTrees.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		decoTrees.treeConditionNoise = 0f;
 		decoTrees.treeConditionChance = 1;

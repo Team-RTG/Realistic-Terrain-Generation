@@ -15,6 +15,7 @@ import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHillsPlus;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHillsPlus;
 
@@ -42,13 +43,21 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
 		 * ##################################################
 		 */
         
-		DecoTree decoTrees = new DecoTree();
+		DecoTree decoTrees = new DecoTree(new TreeRTGPinusNigra());
+		decoTrees.logBlock = Blocks.log;
+		decoTrees.logMeta = (byte)0;
+		decoTrees.leavesBlock = Blocks.leaves;
+		decoTrees.leavesMeta = (byte)0;
+		decoTrees.minTrunkSize = 18;
+		decoTrees.maxTrunkSize = 27;
+		decoTrees.minCrownSize = 7;
+		decoTrees.maxCrownSize = 10;
 		decoTrees.strengthFactorForLoops = 4f;
 		decoTrees.strengthNoiseFactorXForLoops = true;
 		decoTrees.distribution.noiseDivisor = 100f;
 		decoTrees.distribution.noiseFactor = 6f;
 		decoTrees.distribution.noiseAddend = 0.8f;
-		decoTrees.treeType = TreeType.PINE_EURO;
+		decoTrees.treeType = TreeType.RTG_TREE;
 		decoTrees.treeCondition = TreeCondition.RANDOM_CHANCE;
 		decoTrees.treeConditionChance = 24;
 		decoTrees.maxY = 100;

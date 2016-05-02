@@ -4,6 +4,7 @@ import highlands.api.HighlandsBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.feature.WorldGenForest;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.highlands.config.BiomeConfigHLFlyingMountains;
 import rtg.world.biome.deco.DecoFallenTree;
@@ -17,6 +18,9 @@ import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.biome.deco.helper.DecoHelperBorder;
+import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
+import rtg.world.gen.feature.tree.rtg.TreeRTGCupressusSempervirens;
+import rtg.world.gen.feature.tree.vanilla.WorldGenTreesRTG;
 import rtg.world.gen.surface.highlands.SurfaceHLFlyingMountains;
 import rtg.world.gen.terrain.highlands.TerrainHLFlyingMountains;
 
@@ -37,18 +41,36 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
             //new SurfaceVanillaForest(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f));
             new SurfaceHLFlyingMountains(config, topBlock, fillerBlock, false, null, 0f, 2.5f, 80f, 65f, 2.5f)
         );
+        
         {
-		DecoTree bigPines = new DecoTree();
-		bigPines.treeType = TreeType.TAIGA_SPRUCE_TALL;
-        bigPines.loops = 2;
+		DecoTree bigPines = new DecoTree(new TreeRTGCupressusSempervirens());
+		bigPines.logBlock = Blocks.log;
+		bigPines.logMeta = (byte)1;
+		bigPines.leavesBlock = Blocks.leaves;
+		bigPines.leavesMeta = (byte)1;
+		bigPines.minTrunkSize = 3;
+		bigPines.maxTrunkSize = 7;
+		bigPines.minCrownSize = 5;
+		bigPines.maxCrownSize = 10;
+		bigPines.loops = 1;
+		bigPines.treeType = TreeType.RTG_TREE;
 		bigPines.distribution.noiseDivisor = 80f;
 		bigPines.distribution.noiseFactor = 60f;
 		bigPines.distribution.noiseAddend = -15f;
 		bigPines.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		bigPines.treeConditionNoise = 0f;
+		bigPines.treeConditionChance = 1;
 		bigPines.minY = 63;
 		bigPines.maxY = 90;
+		
+		DecoTree bigPinesOak = new DecoTree(bigPines);
+		bigPinesOak.leavesMeta = (byte)0;
+		
         DecoHelperBorder borderedBigPines = new DecoHelperBorder(bigPines,.55f,.45f);
 		this.addDeco(borderedBigPines);
+		
+        DecoHelperBorder borderedBigPinesOak = new DecoHelperBorder(bigPinesOak,.55f,.45f);
+		this.addDeco(borderedBigPinesOak);
 
         DecoShrub decoShrub2 = new DecoShrub();
         decoShrub2.minY = 90;
@@ -59,17 +81,51 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
 		this.addDeco(decoShrub2);
         }
 
-        DecoTree secondaryTree = new DecoTree();
-		secondaryTree.treeType = TreeType.BIRCH_TREES_FOREST;
-        secondaryTree.loops = 2;
-		secondaryTree.distribution.noiseDivisor = 80f;
-		secondaryTree.distribution.noiseFactor = 60f;
-		secondaryTree.distribution.noiseAddend = -15f;
-		secondaryTree.treeCondition = TreeCondition.ALWAYS_GENERATE;
-		secondaryTree.minY = 63;
-		secondaryTree.maxY = 90;
-        DecoHelperBorder borderedSecondaryTree = new DecoHelperBorder(secondaryTree,.55f,.45f);
-        this.addDeco(borderedSecondaryTree);
+        {        
+		DecoTree birchTrees = new DecoTree(new TreeRTGBetulaPapyrifera());
+		birchTrees.logBlock = Blocks.log;
+		birchTrees.logMeta = (byte)2;
+		birchTrees.leavesBlock = Blocks.leaves;
+		birchTrees.leavesMeta = (byte)2;
+		birchTrees.minTrunkSize = 4;
+		birchTrees.maxTrunkSize = 10;
+		birchTrees.minCrownSize = 8;
+		birchTrees.maxCrownSize = 19;
+		birchTrees.loops = 2;
+		birchTrees.distribution.noiseDivisor = 80f;
+		birchTrees.distribution.noiseFactor = 60f;
+		birchTrees.distribution.noiseAddend = -15f;
+		birchTrees.treeType = TreeType.RTG_TREE;
+		birchTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		birchTrees.minY = 63;
+		birchTrees.maxY = 90;
+        DecoHelperBorder borderedBirchTrees = new DecoHelperBorder(birchTrees,.55f,.45f);
+        this.addDeco(borderedBirchTrees);
+		
+		DecoTree rtgTrees = new DecoTree(new WorldGenTreesRTG(false));
+		rtgTrees.treeType = TreeType.WORLDGEN;
+		rtgTrees.loops = 2;
+		rtgTrees.distribution.noiseDivisor = 80f;
+		rtgTrees.distribution.noiseFactor = 60f;
+		rtgTrees.distribution.noiseAddend = -15f;
+		rtgTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		rtgTrees.minY = 63;
+		rtgTrees.maxY = 90;
+        DecoHelperBorder borderedRTGTrees = new DecoHelperBorder(rtgTrees,.55f,.45f);
+        this.addDeco(borderedRTGTrees);
+		
+		DecoTree vanillaTrees = new DecoTree(new WorldGenForest(false, false));
+		vanillaTrees.treeType = TreeType.WORLDGEN;
+		vanillaTrees.loops = 2;
+		vanillaTrees.distribution.noiseDivisor = 80f;
+		vanillaTrees.distribution.noiseFactor = 60f;
+		vanillaTrees.distribution.noiseAddend = -15f;
+		vanillaTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		vanillaTrees.minY = 63;
+		vanillaTrees.maxY = 90;
+        DecoHelperBorder borderedVanillaTrees = new DecoHelperBorder(vanillaTrees,.55f,.45f);
+        this.addDeco(borderedVanillaTrees);
+        }
         
         DecoFallenTree decoFallenTreeBirch = new DecoFallenTree();
         decoFallenTreeBirch.distribution.noiseDivisor = 80f;

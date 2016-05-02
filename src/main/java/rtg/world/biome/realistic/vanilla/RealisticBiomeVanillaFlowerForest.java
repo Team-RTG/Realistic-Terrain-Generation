@@ -15,7 +15,9 @@ import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.collection.DecoCollectionSmallPineTreesForest;
 import rtg.world.biome.deco.helper.DecoHelper5050;
+import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaFlowerForest;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaFlowerForest;
 
@@ -64,25 +66,36 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 		decoFlowers2.chance = 3;
 		decoFlowers2.heightType = HeightType.GET_HEIGHT_VALUE; // We're only bothered about surface flowers here.
         this.addDeco(decoFlowers2);
-        
+		
         // Trees first.
-		DecoTree bigPines = new DecoTree();
-		bigPines.strengthNoiseFactorForLoops = true;
-		bigPines.treeType = TreeType.BIG_PINES;
-		bigPines.distribution.noiseDivisor = 80f;
-		bigPines.distribution.noiseFactor = 60f;
-		bigPines.distribution.noiseAddend = -15f;
-		bigPines.treeCondition = TreeCondition.ALWAYS_GENERATE;
-		bigPines.maxY = 140;
-		this.addDeco(bigPines);
+		DecoTree oakPines = new DecoTree(new TreeRTGPinusPonderosa());
+		oakPines.logBlock = Blocks.log;
+		oakPines.logMeta = (byte)0;
+		oakPines.leavesBlock = Blocks.leaves;
+		oakPines.leavesMeta = (byte)0;
+		oakPines.minTrunkSize = 11;
+		oakPines.maxTrunkSize = 21;
+		oakPines.minCrownSize = 15;
+		oakPines.maxCrownSize = 29;
+		oakPines.strengthNoiseFactorForLoops = true;
+		oakPines.treeType = TreeType.RTG_TREE;
+		oakPines.distribution.noiseDivisor = 80f;
+		oakPines.distribution.noiseFactor = 60f;
+		oakPines.distribution.noiseAddend = -15f;
+		oakPines.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		oakPines.treeConditionNoise = 0f;
+		oakPines.treeConditionChance = 1;
+		oakPines.maxY = 140;
+		
+		DecoTree sprucePines = new DecoTree(oakPines);
+		sprucePines.logMeta = (byte)1;
+		sprucePines.leavesMeta = (byte)1;
+		
+		DecoHelper5050 decoPines = new DecoHelper5050(oakPines, sprucePines);
+		this.addDeco(decoPines);
 		
 		// More trees.
-		DecoTree smallPinesTreesForest = new DecoTree();
-		smallPinesTreesForest.strengthFactorForLoops = 3f;
-		smallPinesTreesForest.treeType = TreeType.SMALL_PINES_TREES_FORESTS;
-		smallPinesTreesForest.treeCondition = TreeCondition.ALWAYS_GENERATE;
-		smallPinesTreesForest.maxY = 120;
-		this.addDeco(smallPinesTreesForest);
+		this.addDecoCollection(new DecoCollectionSmallPineTreesForest());
 
         // Not much free space left, so let's give some space to the base biome.
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

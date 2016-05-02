@@ -11,14 +11,12 @@ import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.Ev
 import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.REDSTONE;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenLakes;
@@ -33,10 +31,10 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.PlaneLocation;
 import rtg.util.RandomUtil;
-import rtg.util.SimplexOctave;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.deco.DecoBase;
+import rtg.world.biome.deco.collection.DecoCollectionBase;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.feature.WorldGenPond;
 import rtg.world.gen.surface.SurfaceBase;
@@ -404,25 +402,26 @@ public class RealisticBiomeBase extends BiomeBase {
     }
 
     public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
-        if (noLakes) return 1f;
-        if (1>0) return 1f;
-        SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-        simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
-        double pX = x + jitter.deltax() * largeBendSize;
-        double pY = y + jitter.deltay() * largeBendSize;
-        simplex.mountain().evaluateNoise((float)x / 80.0, (float)y / 80.0, jitter);
-        pX += jitter.deltax() * mediumBendSize;
-        pY += jitter.deltay() * mediumBendSize;
-        simplex.octave(4).evaluateNoise((float)x / 30.0, (float)y / 30.0, jitter);
-        pX += jitter.deltax() * smallBendSize;
-        pY += jitter.deltay() * smallBendSize;
-        //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
-        double [] lakeResults = simplexCell.river().eval((float)pX/ lakeInterval, (float)pY/ lakeInterval);
-        float results = 1f-(float)((lakeResults[1]-lakeResults[0])/lakeResults[1]);
-        if (results >1.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
-        if (results<-.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
-        //return simplexCell.river().noise((float)x/ lakeInterval, (float)y/ lakeInterval,1.0);
-        return results;
+    	return 1f;
+//        if (noLakes) return 1f;
+//        if (1>0) return 1f;
+//        SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+//        simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
+//        double pX = x + jitter.deltax() * largeBendSize;
+//        double pY = y + jitter.deltay() * largeBendSize;
+//        simplex.mountain().evaluateNoise((float)x / 80.0, (float)y / 80.0, jitter);
+//        pX += jitter.deltax() * mediumBendSize;
+//        pY += jitter.deltay() * mediumBendSize;
+//        simplex.octave(4).evaluateNoise((float)x / 30.0, (float)y / 30.0, jitter);
+//        pX += jitter.deltax() * smallBendSize;
+//        pY += jitter.deltay() * smallBendSize;
+//        //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
+//        double [] lakeResults = simplexCell.river().eval((float)pX/ lakeInterval, (float)pY/ lakeInterval);
+//        float results = 1f-(float)((lakeResults[1]-lakeResults[0])/lakeResults[1]);
+//        if (results >1.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
+//        if (results<-.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
+//        //return simplexCell.river().noise((float)x/ lakeInterval, (float)y/ lakeInterval,1.0);
+//        return results;
     }
 
     public float lakeFlattening(float pressure, float bottomLevel, float topLevel) {
@@ -620,5 +619,14 @@ public class RealisticBiomeBase extends BiomeBase {
     public void addDeco(DecoBase deco)
     {
     	this.addDeco(deco, true);
+    }
+    
+    public void addDecoCollection(DecoCollectionBase decoCollection)
+    {
+    	if (decoCollection.decos.size() > 0) {
+    		for (int i = 0; i < decoCollection.decos.size(); i++) {
+    			this.addDeco(decoCollection.decos.get(i));
+    		}
+    	}
     }
 }

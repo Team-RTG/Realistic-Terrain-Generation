@@ -20,7 +20,7 @@ import rtg.world.gen.feature.WorldGenLog;
  */
 public class DecoFallenTree extends DecoBase
 {
-    
+
 	public int loops;
 	public DecoFallenTree.Distribution distribution; // Parameter object for noise calculations.
 	public LogCondition logCondition; // Enum for the various conditions/chances for log gen.
@@ -62,6 +62,25 @@ public class DecoFallenTree extends DecoBase
 		this.useRandomLogs = (this.randomLogBlocks.length > 0 && this.randomLogBlocks.length == this.randomLogMetas.length);
 		
 		this.addDecoTypes(DecoType.FALLEN_TREE);
+	}
+	
+	public DecoFallenTree(DecoFallenTree source) {
+		this();
+		this.loops = source.loops;
+		this.distribution = source.distribution;
+		this.logCondition = source.logCondition;
+		this.logConditionNoise = source.logConditionNoise;
+		this.logConditionChance = source.logConditionChance;
+		this.maxY = source.maxY;
+		this.logBlock = source.logBlock;
+		this.logMeta = source.logMeta;
+		this.leavesBlock = source.leavesBlock;
+		this.leavesMeta = source.leavesMeta;
+		this.minSize = source.minSize;
+		this.maxSize = source.maxSize;
+		this.randomLogBlocks = source.randomLogBlocks;
+		this.randomLogMetas = source.randomLogMetas;
+		this.useRandomLogs = source.useRandomLogs;
 	}
 	
 	@Override

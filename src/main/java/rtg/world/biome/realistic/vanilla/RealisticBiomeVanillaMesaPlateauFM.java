@@ -1,5 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -7,16 +9,18 @@ import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.deco.*;
+import rtg.world.biome.deco.DecoCactus;
+import rtg.world.biome.deco.DecoDeadBush;
+import rtg.world.biome.deco.DecoReed;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.DecoTree;
+import rtg.world.biome.deco.DecoTree.TreeCondition;
+import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.gen.feature.tree.vanilla.WorldGenTreesRTG;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaPlateauFM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateauFM;
-
-import java.util.Random;
-
-import static rtg.world.biome.deco.DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-import static rtg.world.biome.deco.DecoTree.TreeType.VANILLA_OAK;
 
 public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBase
 {	
@@ -57,12 +61,13 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
         decoDeadBush.strengthFactor = 5f;
         addDeco(decoDeadBush);
 
-        DecoTree decoTree = new DecoTree();
+        DecoTree decoTree = new DecoTree(new WorldGenTreesRTG());
         decoTree.loops = 20;
-        decoTree.treeType = VANILLA_OAK;
-        decoTree.treeCondition = NOISE_GREATER_AND_RANDOM_CHANCE;
+        decoTree.treeType = TreeType.WORLDGEN;
+        decoTree.treeCondition = TreeCondition.X_DIVIDED_BY_STRENGTH;
         decoTree.distribution = new DecoTree.Distribution(24f, 1f, 0f);
         decoTree.treeConditionChance = 0;
+        decoTree.treeConditionFloat = 4f;
         decoTree.treeConditionNoise = 0f;
         decoTree.minY = 74;
         addDeco(decoTree);

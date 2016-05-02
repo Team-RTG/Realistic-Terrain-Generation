@@ -29,8 +29,8 @@ public class DecoGrass extends DecoBase
 	public int notEqualsZerochance;
 	private Block block;
 	private int meta;
-	private Block[] randomGrassBlocks;
-	private byte[] randomGrassMetas;
+	public Block[] randomGrassBlocks;
+	public byte[] randomGrassMetas;
 	protected boolean useRandomGrass;
     private WorldGenGrass grassGenerator;
 	

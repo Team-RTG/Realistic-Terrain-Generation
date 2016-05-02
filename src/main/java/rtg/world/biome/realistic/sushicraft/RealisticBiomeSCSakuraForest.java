@@ -3,11 +3,12 @@ package rtg.world.biome.realistic.sushicraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
-import rtg.world.biome.deco.*;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.growthcraft.SurfaceGCBambooForest;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoFlowersRTG;
+import rtg.world.biome.deco.DecoGrass;
+import rtg.world.biome.deco.DecoShrub;
 import rtg.world.gen.surface.sushicraft.SurfaceSCSakuraForest;
-import rtg.world.gen.terrain.growthcraft.TerrainGCBambooForest;
 import rtg.world.gen.terrain.sushicraft.TerrainSCSakuraForest;
 
 /**

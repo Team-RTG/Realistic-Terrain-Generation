@@ -54,6 +54,7 @@ import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.WeakHashMap;
 import net.minecraft.world.ChunkCoordIntPair;
@@ -216,6 +217,10 @@ public class ChunkProviderRTG implements IChunkProvider
                 // so we'll unload any loaded entities
                 List [] entityLists = available.entityLists;
                 for (int i = 0; i< entityLists.length; i++) {
+                    Iterator iterator = entityLists[i].iterator();
+                    while (iterator.hasNext()) {
+                        iterator.remove();
+                    }
                     worldObj.unloadEntities(entityLists[i]);
                 }
                 return available;
@@ -334,6 +339,19 @@ public class ChunkProviderRTG implements IChunkProvider
             this.decorateIfOtherwiseSurrounded(worldObj.getChunkProvider(), cx, cy, forPopulation);
         }
         clearToDecorateList(worldObj.getChunkProvider());
+
+        List [] entityLists = chunk.entityLists;
+        for (int i = 0; i< entityLists.length; i++) {
+            Iterator iterator = entityLists[i].iterator();
+            Set toRemoveSet = new HashSet();
+            while (iterator.hasNext()) {
+                toRemoveSet.add(iterator.next());
+            }
+            for (Object toRemove: toRemoveSet) {
+                entityLists[i].remove(toRemove);
+            }
+            worldObj.unloadEntities(entityLists[i]);
+        }
         // just on general principles restore earlier state
         serverLoadingChunks().add(chunkHandle);
 
@@ -349,6 +367,7 @@ public class ChunkProviderRTG implements IChunkProvider
     }
 
     public void decorateIfOtherwiseSurrounded(IChunkProvider world, int cx, int cy, Direction fromNewChunk) {
+
         // see if otherwise surrounded besides the new chunk
         cx += fromNewChunk.xOffset;
         cy += fromNewChunk.zOffset;
@@ -357,6 +376,8 @@ public class ChunkProviderRTG implements IChunkProvider
         probe.setX(cx);
         probe.setZ(cy);
         if (this.alreadyDecorated.contains(probe)) return;
+        // if an in-process chunk; we'll get a populate call later;
+        if (this.inGeneration.containsKey(probe)) return;
 
         for (Direction checked: directions) {
             if (checked == compass.opposite(fromNewChunk)) continue; // that's the new chunk
@@ -811,19 +832,29 @@ public class ChunkProviderRTG implements IChunkProvider
     
     private void clearToDecorateList(IChunkProvider ichunkprovider) {
         if (populating) return;// in process, do later;
-        while (toDecorate.size() >0) {
-            // we have to make a copy of the set to work on or we'll get errors
-            HashSet<PlaneLocation> toProcess = new HashSet<PlaneLocation>();
-            toProcess.addAll(toDecorate);
+        // we have to make a copy of the set to work on or we'll get errors
+        Set<PlaneLocation> toProcess = doableLocations();
+        while (toProcess.size() >0) {
             for (PlaneLocation location: toProcess) {
                 doPopulate(ichunkprovider,location.x(),location.z());
                 toDecorate.remove(location);
-                break;
             }
             // and loop because the decorating might have created other chunks to decorate;
+            toProcess = doableLocations();
         }
-        if (toDecorate.size()>0) throw new RuntimeException();
-        
+    }
+
+    private Set<PlaneLocation> doableLocations() {
+        HashSet<PlaneLocation> toProcess = new HashSet<PlaneLocation>();
+        for (PlaneLocation location: toDecorate) {
+            Chunk existing = availableChunks.get(location);
+            if (existing != null&& !existing.isTerrainPopulated) {
+                continue;
+            }
+            if (inGeneration.containsKey(location)) continue;
+            toDecorate.add(location);
+        }
+        return toProcess;
     }
 
     private boolean populating = false;
@@ -834,13 +865,14 @@ public class ChunkProviderRTG implements IChunkProvider
     {
         // don't populate if already done
         PlaneLocation location = new PlaneLocation.Invariant(chunkX, chunkZ);
-        //if (alreadyDecorated.contains(location)) return;
+        if (alreadyDecorated.contains(location)) return;
 
         if (populating) {
             // this has been created by another decoration; put in todo pile
             toDecorate.add(location);
             return;
         }
+        if (inGeneration.containsKey(location)) throw new RuntimeException();
         alreadyDecorated.add(location);
         populating = true;
 

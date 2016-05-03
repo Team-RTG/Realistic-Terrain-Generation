@@ -7,10 +7,15 @@ import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.SCAT
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.STRONGHOLD;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
+import java.util.WeakHashMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -24,6 +29,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.chunk.storage.AnvilChunkLoader;
+import net.minecraft.world.gen.ChunkProviderServer;
 import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.MapGenCaves;
 import net.minecraft.world.gen.MapGenRavine;
@@ -37,15 +44,22 @@ import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import net.minecraftforge.event.world.ChunkEvent.Load;
+import net.minecraftforge.event.world.ChunkEvent;
+import rtg.RTG;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.AICWrapper;
+import rtg.util.Acceptor;
+import rtg.util.Accessor;
 import rtg.util.CanyonColour;
 import rtg.util.CellNoise;
+import rtg.util.Compass;
+import rtg.util.Direction;
+import rtg.util.LimitedSet;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.PlaneLocation;
 import rtg.util.SimplexCellularNoise;
+import rtg.util.TimeTracker;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.WorldChunkManagerRTG;
@@ -53,23 +67,6 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.WeakHashMap;
-import net.minecraft.entity.Entity;
-import net.minecraft.world.ChunkCoordIntPair;
-import net.minecraft.world.chunk.storage.AnvilChunkLoader;
-import net.minecraft.world.gen.ChunkProviderServer;
-import net.minecraftforge.event.world.ChunkEvent;
-import rtg.RTG;
-import rtg.util.Acceptor;
-import rtg.util.Accessor;
-import rtg.util.Compass;
-import rtg.util.Direction;
-import rtg.util.LimitedSet;
-import rtg.util.TimeTracker;
 
 
 public class ChunkProviderRTG implements IChunkProvider
@@ -810,7 +807,8 @@ public class ChunkProviderRTG implements IChunkProvider
      *
      * Loads or generates the chunk at the chunk location specified.
      */
-    public Chunk loadChunk(int par1, int par2)
+    @SuppressWarnings("unused")
+	public Chunk loadChunk(int par1, int par2)
     {
         if (1>0) throw new RuntimeException();
         return provideChunk(par1, par2);

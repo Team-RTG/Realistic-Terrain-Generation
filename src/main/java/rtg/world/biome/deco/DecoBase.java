@@ -37,7 +37,12 @@ public class DecoBase
 		this.minRiver = -2f;
 		this.maxRiver = 2f;
 	}
-	
+
+    public boolean properlyDefined() {
+        // this procedure should return true if the deco can respond properly to a generate() call
+        // in particular it should not crash.
+        return true;
+    }
 	/**
 	 * Performs pre-generation checks to determine if the deco is allowed to generate.
 	 * 

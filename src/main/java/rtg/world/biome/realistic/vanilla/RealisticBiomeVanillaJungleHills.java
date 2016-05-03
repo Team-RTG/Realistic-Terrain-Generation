@@ -76,7 +76,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
 		megaJungle.minCrownSize = 10;
 		megaJungle.maxCrownSize = 27;
 		megaJungle.loops = 3;
-		megaJungle.treeType = TreeType.RTG_TREE;
+		megaJungle.treeType = TreeType.WORLDGEN;
 		megaJungle.treeCondition = TreeCondition.RANDOM_CHANCE;
 		megaJungle.treeConditionChance = 2;
 		megaJungle.maxY = 160;

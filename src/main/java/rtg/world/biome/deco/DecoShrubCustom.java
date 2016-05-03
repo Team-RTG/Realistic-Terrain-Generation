@@ -14,9 +14,8 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrubCustom;
 
 /**
- * 
- * @author WhichOnesPink
- *
+ * @deprecated
+ * @see rtg.world.biome.deco.DecoShrub
  */
 public class DecoShrubCustom extends DecoShrub
 {
@@ -26,6 +25,10 @@ public class DecoShrubCustom extends DecoShrub
 	public Block leavesBlock;
 	public byte leavesMeta;
 	
+	/**
+	 * @deprecated
+	 * @see rtg.world.biome.deco.DecoShrub
+	 */
 	public DecoShrubCustom()
 	{
 		super();

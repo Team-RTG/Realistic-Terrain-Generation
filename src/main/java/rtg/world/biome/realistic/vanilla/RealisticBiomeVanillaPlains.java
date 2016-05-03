@@ -8,7 +8,8 @@ import rtg.world.biome.deco.DecoFlowersRTG;
 import rtg.world.biome.deco.DecoGrass;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
-import rtg.world.biome.deco.helper.DecoHelper5050;
+import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
+import rtg.world.biome.deco.helper.DecoHelperThisOrThat.ChanceType;
 import rtg.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaPlains;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaPlains;
@@ -71,7 +72,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
         birchTrees.logMeta = (byte)2;
         birchTrees.leavesMeta = (byte)2;
 
-        this.addDeco(new DecoHelper5050(oakTrees, birchTrees));
+        this.addDeco(new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, oakTrees, birchTrees));
         }
 		
         // Vanilla trees look awful in this biome, so let's make sure they don't generate.

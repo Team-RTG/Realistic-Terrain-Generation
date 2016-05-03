@@ -244,6 +244,8 @@ public class ChunkProviderRTG implements IChunkProvider
                 for (int i = 0; i< entityLists.length; i++) {
                     Iterator iterator = entityLists[i].iterator();
                     while (iterator.hasNext()) {
+                    	
+                    	iterator.next();
                         iterator.remove();
                     }
                     worldObj.unloadEntities(entityLists[i]);

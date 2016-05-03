@@ -54,7 +54,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
 		decoTrees.treeType = TreeType.RTG_TREE;
 		decoTrees.treeCondition = TreeCondition.RANDOM_CHANCE;
 		decoTrees.treeConditionChance = 12;
-		decoTrees.maxY = 100;
+		decoTrees.maxY = 70;
 		this.addDeco(decoTrees);
 		
 		DecoTree deadPineTree = new DecoTree(new TreeRTGPinusPonderosa());

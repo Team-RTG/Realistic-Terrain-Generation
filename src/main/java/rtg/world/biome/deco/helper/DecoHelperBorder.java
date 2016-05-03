@@ -25,6 +25,7 @@ public class DecoHelperBorder extends DecoBase{
 		this.adjusted = toAdjust;
         this.allAbove = allAbove;
         this.noneBelow = noneBelow;
+        if (!toAdjust.properlyDefined()) throw new RuntimeException();
 	}
 
 	@Override

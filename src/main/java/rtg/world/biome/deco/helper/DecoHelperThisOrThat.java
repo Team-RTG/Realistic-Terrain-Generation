@@ -18,8 +18,8 @@ public class DecoHelperThisOrThat extends DecoBase
 
 	public int chance;
 	public ChanceType chanceType;
-	public DecoBase decoThis;
-	public DecoBase decoThat;
+	private DecoBase decoThis;
+	private DecoBase decoThat;
 
 	public DecoHelperThisOrThat(int chance, ChanceType chanceType, DecoBase decoThis, DecoBase decoThat)
 	{
@@ -29,6 +29,12 @@ public class DecoHelperThisOrThat extends DecoBase
 		this.chanceType = chanceType;
 		this.decoThis = decoThis;
 		this.decoThat = decoThat;
+        if (!decoThis.properlyDefined()) {
+            throw new RuntimeException();
+        }
+        if (!decoThat.properlyDefined()) {
+            throw new RuntimeException();
+        }
 	}
 
 	@Override

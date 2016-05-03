@@ -128,7 +128,13 @@ public class DecoTree extends DecoBase
 		this();
 		this.worldGen = worldGen;
 	}
-	
+
+    public boolean properlyDefined() {
+        if (this.treeType == TreeType.RTG_TREE) {
+            if (this.tree == null) return false;
+        }
+        return super.properlyDefined();
+    }
 	@Override
 	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
 	{

@@ -27,6 +27,13 @@ public class DecoHelperRandomSplit extends DecoBase
 		this.decos = new DecoBase[]{};
 		this.chances = new int[]{};
 	}
+
+    public boolean properlyDefined() {
+        for (int i = 0; i < decos.length; i++){
+            if (!decos[i].properlyDefined()) return false;
+        }
+        return true;
+    }
 	
 	@Override
 	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)

@@ -1,6 +1,7 @@
 package rtg.world.biome.deco.collection;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
@@ -47,7 +48,7 @@ public class DecoCollectionForest extends DecoCollectionBase
 		oakPines.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		oakPines.treeConditionNoise = 0f;
 		oakPines.treeConditionChance = 1;
-		oakPines.maxY = 110;
+		oakPines.maxY = 85;
 		
 		DecoTree sprucePines = new DecoTree(oakPines);
 		sprucePines.logMeta = (byte)1;
@@ -70,21 +71,23 @@ public class DecoCollectionForest extends DecoCollectionBase
     	oakPine.treeType = TreeType.RTG_TREE;
 		oakPine.treeCondition = TreeCondition.RANDOM_CHANCE;
 		oakPine.treeConditionChance = 4;
-		oakPine.maxY = 110;
-        
-        DecoTree vanillaTrees = new DecoTree(new WorldGenTreesRTG());
+		oakPine.maxY = 100;
+
+        WorldGenerator vanillaTreeDefinition = new WorldGenTreesRTG();
+        DecoTree vanillaTrees = new DecoTree(vanillaTreeDefinition);
 		vanillaTrees.strengthFactorForLoops = 3f;
         vanillaTrees.treeType = TreeType.WORLDGEN;
 		vanillaTrees.treeCondition = TreeCondition.RANDOM_CHANCE;
 		vanillaTrees.treeConditionChance = 4;
-		vanillaTrees.maxY = 110;
-        
-        DecoTree vanillaForest = new DecoTree(new WorldGenForestRTG());
+		vanillaTrees.maxY = 120;
+
+        WorldGenerator vanillaForestDefinition = new WorldGenForestRTG();
+        DecoTree vanillaForest = new DecoTree(vanillaForestDefinition);
 		vanillaForest.strengthFactorForLoops = 3f;
         vanillaForest.treeType = TreeType.WORLDGEN;
 		vanillaForest.treeCondition = TreeCondition.RANDOM_CHANCE;
 		vanillaForest.treeConditionChance = 4;
-		vanillaForest.maxY = 110;
+		vanillaForest.maxY = 120;
 		
 		DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
 		decoHelperRandomSplit.decos = new DecoBase[]{oakPine, vanillaTrees, vanillaForest};
@@ -95,7 +98,7 @@ public class DecoCollectionForest extends DecoCollectionBase
         DecoFallenTree decoFallenOak = new DecoFallenTree();
         decoFallenOak.logCondition = LogCondition.RANDOM_CHANCE;
         decoFallenOak.logConditionChance = 16;
-        decoFallenOak.maxY = 100;
+        decoFallenOak.maxY = 80;
         decoFallenOak.logBlock = Blocks.log;
         decoFallenOak.logMeta = (byte)0;
         decoFallenOak.leavesBlock = Blocks.leaves;
@@ -106,7 +109,7 @@ public class DecoCollectionForest extends DecoCollectionBase
         DecoFallenTree decoFallenSpruce = new DecoFallenTree();
         decoFallenSpruce.logCondition = LogCondition.RANDOM_CHANCE;
         decoFallenSpruce.logConditionChance = 24;
-        decoFallenSpruce.maxY = 100;
+        decoFallenSpruce.maxY = 80;
         decoFallenSpruce.logBlock = Blocks.log;
         decoFallenSpruce.logMeta = (byte)1;
         decoFallenSpruce.leavesBlock = Blocks.leaves;
@@ -119,7 +122,7 @@ public class DecoCollectionForest extends DecoCollectionBase
         
         // Shrubs to fill in the blanks.
         DecoShrub decoShrubOak = new DecoShrub();
-        decoShrubOak.maxY = 110;
+        decoShrubOak.maxY = 140;
         decoShrubOak.strengthFactor = 4f;
         decoShrubOak.chance = 3;
 		this.addDeco(decoShrubOak);
@@ -129,7 +132,7 @@ public class DecoCollectionForest extends DecoCollectionBase
         decoShrubSpruce.logMeta = 1;
         decoShrubSpruce.leavesBlock = Blocks.leaves;
         decoShrubSpruce.leavesMeta = 1;
-        decoShrubSpruce.maxY = 110;
+        decoShrubSpruce.maxY = 140;
         decoShrubSpruce.strengthFactor = 4f;
         decoShrubSpruce.chance = 9;
 		this.addDeco(decoShrubSpruce);

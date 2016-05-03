@@ -16,8 +16,8 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 public class DecoHelperOneIn extends DecoBase
 {
 
-	public DecoBase deco;
-	public int chances;
+	private DecoBase deco;
+	private int chances;
 
 	public DecoHelperOneIn(DecoBase deco, int chances)
 	{

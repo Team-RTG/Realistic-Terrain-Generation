@@ -606,7 +606,7 @@ public class RealisticBiomeBase extends BiomeBase {
     public void addDeco(DecoBase deco, boolean allowed)
     {
     	if (allowed) {
-	    	
+	    	if (!deco.properlyDefined()) throw new RuntimeException(deco.toString());
 	    	this.decos.add(deco);
     	}
     }
@@ -618,6 +618,7 @@ public class RealisticBiomeBase extends BiomeBase {
      */
     public void addDeco(DecoBase deco)
     {
+	    if (!deco.properlyDefined()) throw new RuntimeException(deco.toString());
     	this.addDeco(deco, true);
     }
     

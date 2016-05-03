@@ -21,12 +21,14 @@ public class DecoCollectionBase
 	
 	public void addDeco(DecoBase deco)
 	{
+        if (!deco.properlyDefined()) throw new RuntimeException();
 		this.decos.add(deco);
 	}
 	
 	public void addDeco(DecoBase deco, boolean allowed)
 	{
 		if (allowed) {
+            if (!deco.properlyDefined()) throw new RuntimeException();
 			this.decos.add(deco);
 		}
 	}

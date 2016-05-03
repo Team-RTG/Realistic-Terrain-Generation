@@ -57,7 +57,12 @@ public class DecoEBTree extends DecoTree
 		
 		this.addDecoTypes(DecoType.TREE);
 	}
-	
+    
+    @Override
+    public boolean properlyDefined() {
+        return true;
+    }
+
 	@Override
 	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
 	{

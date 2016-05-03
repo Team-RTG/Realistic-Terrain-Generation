@@ -11,10 +11,10 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class WorldGenForestRTG extends WorldGenForest
 {
-	protected Block logBlock;
-	protected byte logMeta;
-	protected Block leavesBlock;
-	protected byte leavesMeta;
+	public Block logBlock = Blocks.log;
+	public byte logMeta = 0;
+	public Block leavesBlock = Blocks.leaves;
+	public byte leavesMeta = 0;
 	
     private boolean field_150531_a;
     private static final String __OBFID = "CL_00000401";
@@ -114,7 +114,11 @@ public class WorldGenForestRTG extends WorldGenForest
 
                                     if (block1.isAir(world, l2, k2, i2) || block1.isLeaves(world, l2, k2, i2))
                                     {
+                                        try {
                                         this.setBlockAndNotifyAdequately(world, l2, k2, i2, this.leavesBlock, this.leavesMeta);
+                                        } catch (Exception e) {
+                                            throw new RuntimeException(leavesBlock.getLocalizedName() + " "+ leavesMeta);
+                                        }
                                     }
                                 }
                             }

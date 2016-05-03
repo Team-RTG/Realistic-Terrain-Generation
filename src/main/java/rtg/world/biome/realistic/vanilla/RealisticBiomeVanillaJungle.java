@@ -19,6 +19,7 @@ import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat.ChanceType;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
 import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.world.gen.feature.tree.vanilla.WorldGenMegaJungleRTG;
@@ -74,7 +75,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		megaJungle.minCrownSize = 10;
 		megaJungle.maxCrownSize = 27;
 		megaJungle.loops = 3;
-		megaJungle.treeType = TreeType.RTG_TREE;
+		megaJungle.treeType = TreeType.WORLDGEN;
 		megaJungle.treeCondition = TreeCondition.RANDOM_CHANCE;
 		megaJungle.treeConditionChance = 2;
 		megaJungle.maxY = 160;

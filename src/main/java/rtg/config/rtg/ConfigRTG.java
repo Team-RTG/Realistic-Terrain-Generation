@@ -151,6 +151,8 @@ public class ConfigRTG
         return lakeSizeMultiplier*lakeFrequencyMultiplier;
     }
     public static float lakeShoreBendinessMultiplier = 1f;
+    public static int scenicLakeBiome = 7;
+    public static int scenicFrozenLakeBiome = 11;
     private static String riversAndLakes = "Rivers and Scenic Lakes";
 
     
@@ -471,6 +473,11 @@ public class ConfigRTG
                     1, 0, 2,
                     "Makes scenic lake shores bend and curve more. Defaults to 1" + Configuration.NEW_LINE);
 
+            scenicLakeBiome = config.getInt("Biome for scenic lakes", riversAndLakes,
+                    7, 0, 254, "Biome ID for scenic lakes when not frozen (default 7 = River)" + Configuration.NEW_LINE);
+
+            scenicFrozenLakeBiome = config.getInt("Biome for frozen scenic lakes", riversAndLakes,
+                    11, 0, 254, "Biome ID for scenic lakes when not frozen (default 11 = Frozen River)" + Configuration.NEW_LINE);
             
 		}
 		catch (Exception e) 

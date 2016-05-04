@@ -21,6 +21,8 @@ import rtg.world.gen.feature.WorldGenGrass;
 public class DecoGrass extends DecoBase
 {
     
+	protected static final int MAX_LOOPS = 10;
+	
 	public float strengthFactor;
 	public int minY;
 	public int maxY;
@@ -87,6 +89,7 @@ public class DecoGrass extends DecoBase
 			if (TerrainGen.decorate(world, rand, chunkX, chunkY, GRASS)) {
 	            
 				this.loops = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : this.loops;
+				this.loops = (this.loops > this.MAX_LOOPS) ? this.MAX_LOOPS : this.loops;
 	            for (int i = 0; i < this.loops*64; i++)
 	            {
 	                int intX = chunkX + rand.nextInt(16) ;// + 8;

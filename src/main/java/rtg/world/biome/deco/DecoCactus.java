@@ -7,6 +7,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -43,7 +44,7 @@ public class DecoCactus extends DecoBase
 		this.sandOnly = false;
         this.soilBlock = Blocks.sand;
         this.soilMeta = (byte)0;
-		
+
 		this.addDecoTypes(DecoType.CACTUS);
 	}
 	
@@ -54,6 +55,8 @@ public class DecoCactus extends DecoBase
 			
 			if (TerrainGen.decorate(world, rand, chunkX, chunkY, CACTUS)) {
 	            
+				WorldGenerator worldGenerator = new WorldGenCacti(this.sandOnly, 0, this.soilBlock, this.soilMeta);
+				
                 int loopCount = this.loops;
                 loopCount = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : loopCount;
 	            for (int i = 0; i < loopCount*10; i++)
@@ -63,7 +66,7 @@ public class DecoCactus extends DecoBase
 	                int intZ = chunkY + rand.nextInt(16);// + 8;
 
 	                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-	                	(new WorldGenCacti(this.sandOnly, 0, this.soilBlock, this.soilMeta)).generate(world, rand, intX, intY, intZ);
+	                	worldGenerator.generate(world, rand, intX, intY, intZ);
 	                }
 	            }
 	        }

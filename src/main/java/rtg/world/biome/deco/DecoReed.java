@@ -6,6 +6,7 @@ import java.util.Random;
 
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenReed;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -45,6 +46,8 @@ public class DecoReed extends DecoBase
 			
 			if (TerrainGen.decorate(world, rand, chunkX, chunkY, REED)) {
 	            
+				WorldGenerator worldGenerator = new WorldGenReed();
+				
 				this.loops = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : this.loops;
 	            for (int i = 0; i < this.loops; i++)
 	            {
@@ -53,7 +56,7 @@ public class DecoReed extends DecoBase
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 
 	                if (intY <= this.maxY) {
-	                	(new WorldGenReed()).generate(world, rand, intX, intY, intZ);
+	                	worldGenerator.generate(world, rand, intX, intY, intZ);
 	                }
 	            }
 	        }

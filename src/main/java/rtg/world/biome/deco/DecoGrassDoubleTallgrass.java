@@ -6,6 +6,7 @@ import java.util.Random;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -50,6 +51,41 @@ public class DecoGrassDoubleTallgrass extends DecoBase
 			
 			if (TerrainGen.decorate(world, rand, chunkX, chunkY, GRASS)) {
 	            
+				WorldGenerator worldGenerator = null;
+            	if (this.doubleGrassChance > 0) {
+            		
+                	if (rand.nextInt(this.doubleGrassChance) == 0) {
+                		
+                		worldGenerator = new WorldGenGrass(Blocks.double_plant, 2);
+                	}
+                	else {
+                		
+                		worldGenerator = new WorldGenGrass(Blocks.tallgrass, 1);
+                	}
+            	}
+            	else if (this.grassChance > 0) {
+            		
+                	if (rand.nextInt(this.grassChance) == 0) {
+                		
+                		worldGenerator = new WorldGenGrass(Blocks.tallgrass, 1);
+                	}
+                	else {
+                		
+                		worldGenerator = new WorldGenGrass(Blocks.double_plant, 2);
+                	}
+            	}
+            	else {
+            		
+                	if (rand.nextBoolean()) {
+                		
+                		worldGenerator = new WorldGenGrass(Blocks.tallgrass, 1);
+                	}
+                	else {
+                		
+                		worldGenerator = new WorldGenGrass(Blocks.double_plant, 2);
+                	}
+            	}
+				
 				this.loops = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : this.loops;
 	            for (int i = 0; i < this.loops; i++)
 	            {
@@ -59,39 +95,7 @@ public class DecoGrassDoubleTallgrass extends DecoBase
 
 	                if (intY <= this.maxY) {
 	                	
-	                	if (this.doubleGrassChance > 0) {
-	                		
-		                	if (rand.nextInt(this.doubleGrassChance) == 0) {
-		                		
-		                		(new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, intX, intY, intZ);
-		                	}
-		                	else {
-		                		
-		                		(new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, intX, intY, intZ);
-		                	}
-	                	}
-	                	else if (this.grassChance > 0) {
-	                		
-		                	if (rand.nextInt(this.grassChance) == 0) {
-		                		
-		                		(new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, intX, intY, intZ);
-		                	}
-		                	else {
-		                		
-		                		(new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, intX, intY, intZ);
-		                	}
-	                	}
-	                	else {
-	                		
-		                	if (rand.nextBoolean()) {
-		                		
-		                		(new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, intX, intY, intZ);
-		                	}
-		                	else {
-		                		
-		                		(new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, intX, intY, intZ);
-		                	}
-	                	}
+	                	worldGenerator.generate(world, rand, intX, intY, intZ);
 	                }
 	            }
 	        }

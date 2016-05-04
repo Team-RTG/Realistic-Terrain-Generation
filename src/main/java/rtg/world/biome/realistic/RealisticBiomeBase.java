@@ -35,6 +35,7 @@ import rtg.util.SimplexOctave;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.deco.DecoBase;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.collection.DecoCollectionBase;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.feature.WorldGenPond;
@@ -131,7 +132,14 @@ public class RealisticBiomeBase extends BiomeBase {
         emeraldStoneMeta = (byte)0;
         
         decos = new ArrayList<DecoBase>();
-
+        
+        /**
+         *  Disable base biome decorations by default.
+         *  This also needs to be here so that ores get generated.
+         */
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		decoBaseBiomeDecorations.allowed = false;
+		this.addDeco(decoBaseBiomeDecorations);
 
         // set the water feature constants with the config changes
         lakeInterval *= ConfigRTG.lakeFrequencyMultiplier;
@@ -403,9 +411,14 @@ public class RealisticBiomeBase extends BiomeBase {
     }
 
     public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
+<<<<<<< HEAD
     	
         if (noLakes) return 1f;
         if (1>0) return 1f;
+=======
+        if (noLakes) return 1f;
+        //if (1>0) return 1f;
+>>>>>>> FETCH_HEAD
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();
         simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
         double pX = x + jitter.deltax() * largeBendSize;
@@ -608,6 +621,19 @@ public class RealisticBiomeBase extends BiomeBase {
     {
     	if (allowed) {
 	    	if (!deco.properlyDefined()) throw new RuntimeException(deco.toString());
+	    	
+	    	if (deco instanceof DecoBaseBiomeDecorations) {
+	    		
+	        	for (int i = 0; i < this.decos.size(); i++) {
+	        		
+	        		if (this.decos.get(i) instanceof DecoBaseBiomeDecorations) {
+	        			
+	        			this.decos.remove(i);
+	        			break;
+	        		}
+	        	}
+	    	}
+	    	
 	    	this.decos.add(deco);
     	}
     }

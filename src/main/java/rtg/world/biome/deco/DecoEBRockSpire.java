@@ -17,12 +17,12 @@ import enhancedbiomes.world.gen.WorldGenRockSpire;
  */
 public class DecoEBRockSpire extends DecoBase
 {
-    
+
 	public float strengthFactor;
 	public int maxY;
 	public int loops;
 	public int chance;
-	public int notEqualsZerochance;
+	public int notEqualsZeroChance;
 	public Block[] materials;
 	public byte[] meta;
 	public int height;
@@ -39,7 +39,7 @@ public class DecoEBRockSpire extends DecoBase
 		this.strengthFactor = 0f; // Not sure why it was done like this, but... the higher the value, the more there will be.
 		this.loops = 1;
 		this.chance = 1;
-		this.notEqualsZerochance = 1;
+		this.notEqualsZeroChance = 1;
 		this.materials = new Block[]{};
 		this.meta = new byte[]{};
 		this.height = 10;
@@ -52,6 +52,8 @@ public class DecoEBRockSpire extends DecoBase
 	{
 		if (this.allowed) {
 
+			WorldGenerator worldGenerator = new WorldGenRockSpire(this.materials, this.meta, this.height);
+			
 			this.loops = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : this.loops;
             for (int i = 0; i < this.loops; i++)
             {
@@ -59,20 +61,18 @@ public class DecoEBRockSpire extends DecoBase
                 int intZ = chunkY + rand.nextInt(16) + 8;
                 int intY = world.getTopSolidOrLiquidBlock(intX, intZ);
 				
-                if (this.notEqualsZerochance > 1) {
+                if (this.notEqualsZeroChance > 1) {
                 	
-	                if (intY <= this.maxY && rand.nextInt(this.notEqualsZerochance) != 0) {
+	                if (intY <= this.maxY && rand.nextInt(this.notEqualsZeroChance) != 0) {
 	                	
-	                    WorldGenerator generator = new WorldGenRockSpire(this.materials, this.meta, this.height);
-	                    generator.generate(world, rand, intX, intY, intZ);
+	                    worldGenerator.generate(world, rand, intX, intY, intZ);
 	                }
                 }
                 else {
                 	
 	                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
 
-	                    WorldGenerator generator = new WorldGenRockSpire(this.materials, this.meta, this.height);
-	                    generator.generate(world, rand, intX, intY, intZ);
+	                    worldGenerator.generate(world, rand, intX, intY, intZ);
 	                }
                 }
             }

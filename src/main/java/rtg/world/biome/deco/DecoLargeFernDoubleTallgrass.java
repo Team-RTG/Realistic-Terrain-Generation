@@ -6,6 +6,7 @@ import java.util.Random;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -53,6 +54,9 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase
 			
 			if (TerrainGen.decorate(world, rand, chunkX, chunkY, GRASS)) {
 	            
+				WorldGenerator worldgeneratorDoubleTallgrass = new WorldGenGrass(Blocks.double_plant, GRASS_META);
+				WorldGenerator worldgeneratorLargeFern = new WorldGenGrass(Blocks.double_plant, FERN_META);
+				
 				this.loops = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : this.loops;
 	            for (int i = 0; i < this.loops; i++)
 	            {
@@ -66,33 +70,33 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase
 	                		
 		                	if (rand.nextInt(this.fernChance) == 0) {
 		                		
-		                		(new WorldGenGrass(Blocks.double_plant, FERN_META)).generate(world, rand, intX, intY, intZ);
+		                		worldgeneratorLargeFern.generate(world, rand, intX, intY, intZ);
 		                	}
 		                	else {
 		                		
-		                		(new WorldGenGrass(Blocks.double_plant, GRASS_META)).generate(world, rand, intX, intY, intZ);
+		                		worldgeneratorDoubleTallgrass.generate(world, rand, intX, intY, intZ);
 		                	}
 	                	}
 	                	else if (this.grassChance > 0) {
 	                		
 		                	if (rand.nextInt(this.grassChance) == 0) {
 		                		
-		                		(new WorldGenGrass(Blocks.double_plant, GRASS_META)).generate(world, rand, intX, intY, intZ);
+		                		worldgeneratorDoubleTallgrass.generate(world, rand, intX, intY, intZ);
 		                	}
 		                	else {
 		                		
-		                		(new WorldGenGrass(Blocks.double_plant, FERN_META)).generate(world, rand, intX, intY, intZ);
+		                		worldgeneratorLargeFern.generate(world, rand, intX, intY, intZ);
 		                	}
 	                	}
 	                	else {
 	                		
 		                	if (rand.nextBoolean()) {
 		                		
-		                		(new WorldGenGrass(Blocks.double_plant, GRASS_META)).generate(world, rand, intX, intY, intZ);
+		                		worldgeneratorDoubleTallgrass.generate(world, rand, intX, intY, intZ);
 		                	}
 		                	else {
 		                		
-		                		(new WorldGenGrass(Blocks.double_plant, FERN_META)).generate(world, rand, intX, intY, intZ);
+		                		worldgeneratorLargeFern.generate(world, rand, intX, intY, intZ);
 		                	}
 	                	}
 	                }

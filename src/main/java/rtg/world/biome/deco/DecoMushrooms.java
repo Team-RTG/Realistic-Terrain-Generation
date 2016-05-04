@@ -7,6 +7,7 @@ import java.util.Random;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenFlowers;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -76,6 +77,9 @@ public class DecoMushrooms extends DecoBase
 					default:
 						break;
 				}
+				
+				WorldGenerator worldGeneratorBrownShrooms = new WorldGenFlowers(Blocks.brown_mushroom);
+				WorldGenerator worldGeneratorRedShrooms = new WorldGenFlowers(Blocks.red_mushroom);
 
 				this.loops = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : this.loops;
 	            for (int i = 0; i < this.loops; i++)
@@ -90,11 +94,11 @@ public class DecoMushrooms extends DecoBase
 
 		                    if (rand.nextBoolean())
 		                    {
-		                        (new WorldGenFlowers(Blocks.brown_mushroom)).generate(world, rand, intX, intY, intZ);
+		                    	worldGeneratorBrownShrooms.generate(world, rand, intX, intY, intZ);
 		                    }
 		                    else
 		                    {
-		                        (new WorldGenFlowers(Blocks.red_mushroom)).generate(world, rand, intX, intY, intZ);
+		                    	worldGeneratorRedShrooms.generate(world, rand, intX, intY, intZ);
 		                    }
 		                }
 	            	}

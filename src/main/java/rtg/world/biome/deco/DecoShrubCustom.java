@@ -7,6 +7,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -14,9 +15,8 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGShrubCustom;
 
 /**
- * 
- * @author WhichOnesPink
- *
+ * @deprecated
+ * @see rtg.world.biome.deco.DecoShrub
  */
 public class DecoShrubCustom extends DecoShrub
 {
@@ -26,6 +26,10 @@ public class DecoShrubCustom extends DecoShrub
 	public Block leavesBlock;
 	public byte leavesMeta;
 	
+	/**
+	 * @deprecated
+	 * @see rtg.world.biome.deco.DecoShrub
+	 */
 	public DecoShrubCustom()
 	{
 		super();
@@ -43,6 +47,8 @@ public class DecoShrubCustom extends DecoShrub
 			
 			if (TerrainGen.decorate(world, rand, chunkX, chunkY, TREE)) {
 
+				WorldGenerator worldGenerator = new WorldGenTreeRTGShrubCustom(rand.nextInt(4) + 1, this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta);
+				
 				int loopCount = this.loops;
 				loopCount = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : loopCount;
 	            for (int i = 0; i < loopCount; i++)
@@ -54,13 +60,13 @@ public class DecoShrubCustom extends DecoShrub
 	                if (this.notEqualsZerochance > 1) {
 	                	
 		                if (intY <= this.maxY && rand.nextInt(this.notEqualsZerochance) != 0) {
-		                	(new WorldGenTreeRTGShrubCustom(rand.nextInt(4) + 1, this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta)).generate(world, rand, intX, intY, intZ);
+		                	worldGenerator.generate(world, rand, intX, intY, intZ);
 		                }
 	                }
 	                else {
 	                	
 		                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-		                	(new WorldGenTreeRTGShrubCustom(rand.nextInt(4) + 1, this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta)).generate(world, rand, intX, intY, intZ);
+		                	worldGenerator.generate(world, rand, intX, intY, intZ);
 		                }
 	                }
 	            }

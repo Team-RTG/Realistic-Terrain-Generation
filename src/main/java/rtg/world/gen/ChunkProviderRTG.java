@@ -45,6 +45,11 @@ import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import net.minecraftforge.event.world.ChunkEvent;
+import rtg.RTG;
+>>>>>>> FETCH_HEAD
 =======
 import net.minecraftforge.event.world.ChunkEvent;
 import rtg.RTG;
@@ -71,6 +76,7 @@ import rtg.world.biome.realistic.RealisticBiomePatcher;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -86,6 +92,8 @@ import rtg.util.Compass;
 import rtg.util.Direction;
 import rtg.util.LimitedSet;
 import rtg.util.TimeTracker;
+=======
+>>>>>>> FETCH_HEAD
 =======
 >>>>>>> FETCH_HEAD
 

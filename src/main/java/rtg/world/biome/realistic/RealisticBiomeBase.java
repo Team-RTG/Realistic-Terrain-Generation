@@ -412,9 +412,14 @@ public class RealisticBiomeBase extends BiomeBase {
 
     public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     	
         if (noLakes) return 1f;
         if (1>0) return 1f;
+=======
+        if (noLakes) return 1f;
+        //if (1>0) return 1f;
+>>>>>>> FETCH_HEAD
 =======
         if (noLakes) return 1f;
         //if (1>0) return 1f;

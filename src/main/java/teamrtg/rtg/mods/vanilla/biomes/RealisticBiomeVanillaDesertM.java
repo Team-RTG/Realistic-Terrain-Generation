@@ -6,6 +6,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
@@ -30,6 +33,22 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
         config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
         this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.FeatureType.DESERT_TEMPLE.name());
         this.config.WATER_POND_CHANCE.setDefault(0);
+    }
+
+    @Override
+    protected SurfacePart initSurface() {
+        SurfacePart surface = PARTS.selectTopAndFill();
+        surface.add(new CliffSelector(1.5f)
+            .add(PARTS.SHADOW_SAND)
+        );
+        surface.add(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
+            .add(PARTS.selectFill()
+                .add(PARTS.rand(3)
+                    .add(new BlockPart(Blocks.SANDSTONE.getDefaultState()))))
+            .add(new BlockPart(Blocks.SAND.getDefaultState()))
+        );
+        surface.add(PARTS.surfaceGeneric());
+        return surface;
     }
 
     @Override

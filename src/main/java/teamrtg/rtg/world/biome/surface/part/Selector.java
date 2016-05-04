@@ -15,6 +15,6 @@ public class Selector extends SurfacePart {
 
     @Override
     public boolean applies(int x, int y, int z, int depth, float[] noise, float river) {
-        return boolAt.getBoolAt(x, y, z);
+        return boolAt.getAt(x, y, z);
     }
 }

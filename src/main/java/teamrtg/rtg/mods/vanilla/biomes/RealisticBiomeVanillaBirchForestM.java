@@ -51,7 +51,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
                 .add(PARTS.STONE_OR_COBBLE)))
             .add(PARTS.selectFill()
                 .add(PARTS.STONE));
-        surface.add(PARTS.surfaceMix());
+        surface.add(PARTS.surfaceMix(PARTS.MIX_NOISE));
         surface.add(PARTS.surfaceGeneric());
         return surface;
     }

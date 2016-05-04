@@ -19,6 +19,6 @@ public class RiverSelector extends SurfacePart {
 
     @Override
     public boolean applies(int x, int y, int z, int depth, float[] noise, float river) {
-        return river >= min.getFloatAt(x, y, z);
+        return river >= min.getAt(x, y, z);
     }
 }

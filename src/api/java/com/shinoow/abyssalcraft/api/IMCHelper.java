@@ -126,22 +126,8 @@ public class IMCHelper {
 	 * FMLInterModComms.sendMessage("abyssalcraft", "addMaterialization", <a NBTTagCompound with the aforementioned tags>);
 	 */
 
-	//INTEGRATIONS /////////////////////////////////////////////////////////////////////////////
-
-	/**
-	 * This is a IMC version of AbyssalCraftAPI#registerACIntegration
-	 * You can use the IMC message "registerACIntegration" to add your AbyssalCraft
-	 * integration into the internal handler.
-	 * The format for the message should be the string path to the integration class
-	 * 
-	 * Note: it is recommended to either send this in Pre-init or Init, as the handler will
-	 * run two checks there (where a plugin registered in Init can't do anything in Pre-init)
-	 * 
-	 * The message is sent this way:
-	 * FMLInterModComms.sendMessage("abyssalcraft", "registerACIntegration", "path.to.your.integration.plugin");
-	 */
-
 	//SHOGGOTH BLOCK BLACKLIST /////////////////////////////////////////////////////////////////
+
 	/**
 	 * This is a IMC version of AbyssalCraftAPI#addShoggothBlacklist
 	 * You can use the IMC message "shoggothBlacklist" to add a Block to the Shoggoth Block Blacklist

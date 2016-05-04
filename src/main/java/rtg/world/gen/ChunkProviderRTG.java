@@ -979,7 +979,7 @@ public class ChunkProviderRTG implements IChunkProvider
          * Answer: building a frequency table of nearby biomes - Zeno. 
          */
 
-        final int adjust = 32;// seems off? but decorations aren't matching their chunks.
+        final int adjust = 24;// seems off? but decorations aren't matching their chunks.
         for (int bx = -4; bx <= 4; bx++) {
             
         	for(int by = -4; by <= 4; by++)

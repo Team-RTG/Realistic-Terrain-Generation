@@ -25,14 +25,6 @@ public class PresetParts {
     public final SurfacePart TOP_BLOCK;
     public final SurfacePart FILL_BLOCK;
 
-    public final SurfacePart TOP_SELECTOR;
-    public final SurfacePart FILL_SELECTOR;
-    public final SurfacePart TOP_AND_FILL_SELECTOR;
-    public final SurfacePart MIX_SELECTOR;
-
-    public final SurfacePart GENERIC_SURFACE;
-    public final SurfacePart MIX_SURFACE;
-
 
     public PresetParts(RealisticBiomeBase biome) {
         this.biome = biome;
@@ -46,17 +38,38 @@ public class PresetParts {
         SHADOW_SAND = new BlockPart(Mods.RTG.config.SHADOW_DESERT_BLOCK.get());
         TOP_BLOCK = new BlockPart(biome.config.TOP_BLOCK.get());
         FILL_BLOCK = new BlockPart(biome.config.FILL_BLOCK.get());
+    }
 
-        TOP_SELECTOR = new DepthSelector(0, 0);
-        FILL_SELECTOR = new DepthSelector(1, 5).setMaxNoise(DEPTH_NOISE);
-        TOP_AND_FILL_SELECTOR = new DepthSelector(0, 5).setMaxNoise(DEPTH_NOISE);
-        MIX_SELECTOR = new Selector((x, y, z) -> MIX_NOISE.getFloatAt(x, y, z) > 0.15);
+    public final SurfacePart selectTop() {
+        return new DepthSelector(0, 0);
+    }
 
-        GENERIC_SURFACE = new SurfacePart();
-        GENERIC_SURFACE.add(TOP_SELECTOR
-            .add(TOP_BLOCK));
-        GENERIC_SURFACE.add(FILL_SELECTOR
-            .add(FILL_BLOCK));
-        MIX_SURFACE = MIX_SELECTOR.add(TOP_SELECTOR.add(new BlockPart(biome.config.MIX_BLOCK_TOP.get()))).add(FILL_SELECTOR.add(new BlockPart(biome.config.MIX_BLOCK_FILL.get())));
+    public final SurfacePart selectFill() {
+        return new DepthSelector(1, 5).setMaxNoise(DEPTH_NOISE);
+    }
+
+    public final SurfacePart selectTopAndFill() {
+        return new DepthSelector(0, 5).setMaxNoise(DEPTH_NOISE);
+    }
+
+    public final SurfacePart selectMix() {
+        return new Selector((x, y, z) -> MIX_NOISE.getFloatAt(x, y, z) > 0.15);
+    }
+
+    public final SurfacePart surfaceGeneric() {
+        return new SurfacePart() {{
+            add(selectTop()
+                .add(TOP_BLOCK));
+            add(selectFill()
+                .add(FILL_BLOCK));
+        }};
+    }
+
+    public final SurfacePart surfaceMix() {
+        return selectMix()
+            .add(selectTop()
+                .add(new BlockPart(biome.config.MIX_BLOCK_TOP.get())))
+            .add(selectFill()
+                .add(new BlockPart(biome.config.MIX_BLOCK_FILL.get())));
     }
 }

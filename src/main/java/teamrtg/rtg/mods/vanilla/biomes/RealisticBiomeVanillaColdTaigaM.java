@@ -47,7 +47,7 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
                 .add(new DepthSelector(0, 1)
                     .add(PARTS.STONE_OR_COBBLE))
                 .add(PARTS.STONE))
-            .add(PARTS.GENERIC_SURFACE);
+            .add(PARTS.surfaceGeneric());
     }
 
     @Override

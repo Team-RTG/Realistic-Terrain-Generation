@@ -38,18 +38,18 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
 
     @Override
     protected SurfacePart initSurface() {
-        return PARTS.TOP_AND_FILL_SELECTOR
+        return PARTS.selectTopAndFill()
             .add(new CliffSelector(1.3f)
                 .add(new BlockPart(config.CLIFF_BLOCK_1.get())))
-            .add(PARTS.TOP_SELECTOR
+            .add(PARTS.selectTop()
                 .add(new HeightSelector(61, 64)
                     .add(PARTS.TOP_BLOCK)))
-            .add(PARTS.FILL_SELECTOR
+            .add(PARTS.selectFill()
                 .add(new HeightSelector(61, 69)
                     .add(PARTS.TOP_BLOCK)))
             .add(new HeightSelector(56, 68).setMaxNoise(PARTS.DEPTH_NOISE)
                 .add(PARTS.FILL_BLOCK))
-            .add(PARTS.GENERIC_SURFACE);
+            .add(PARTS.surfaceGeneric());
     }
 
     @Override

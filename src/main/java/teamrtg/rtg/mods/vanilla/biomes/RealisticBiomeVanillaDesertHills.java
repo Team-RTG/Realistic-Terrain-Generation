@@ -4,6 +4,10 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.world.biome.surface.part.OrSelector;
+import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
@@ -18,6 +22,18 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
                 chunkProvider
         );
         this.noLakes = true;
+    }
+
+    @Override
+    protected SurfacePart initSurface() {
+        SurfacePart surface = PARTS.selectTopAndFill();
+        surface.add(new OrSelector(
+            new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f),
+            new CliffSelector(1.5f))
+            .add(new BlockPart(Blocks.SANDSTONE.getDefaultState()))
+        );
+        surface.add(PARTS.surfaceGeneric());
+        return surface;
     }
 
     @Override

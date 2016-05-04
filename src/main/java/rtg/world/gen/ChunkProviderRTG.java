@@ -60,6 +60,7 @@ import rtg.util.OpenSimplexNoise;
 import rtg.util.PlaneLocation;
 import rtg.util.SimplexCellularNoise;
 import rtg.util.TimeTracker;
+import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.WorldChunkManagerRTG;
@@ -83,6 +84,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private final MapGenScatteredFeature scatteredFeatureGenerator;
     private final boolean mapFeaturesEnabled;
     private final int worldHeight;
+    private final boolean isRTGWorld;
     private final int sampleSize = 8;
     private final int sampleArraySize;
     private final int parabolicSize;
@@ -161,15 +163,16 @@ public class ChunkProviderRTG implements IChunkProvider
         m.put("distance", "24");
 
         mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
+        isRTGWorld = world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG;
 
-        if (ConfigRTG.enableCaveModifications) {
+        if (isRTGWorld && ConfigRTG.enableCaveModifications) {
             caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), CAVE);
         }
         else {
             caveGenerator = TerrainGen.getModdedMapGen(new MapGenCaves(), CAVE);
         }
         
-        if (ConfigRTG.enableRavineModifications) {
+        if (isRTGWorld && ConfigRTG.enableRavineModifications) {
             ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(), RAVINE);
         }
         else {

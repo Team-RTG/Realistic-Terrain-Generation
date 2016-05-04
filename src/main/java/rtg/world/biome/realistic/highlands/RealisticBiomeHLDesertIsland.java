@@ -42,7 +42,7 @@ public class RealisticBiomeHLDesertIsland extends RealisticBiomeHLBase
          * this.addDeco(decoBaseBiomeDecorations);
          */
 
-		DecoTree highlandsPalmTrees = new DecoTree(new HLPalmTreeRTG(8, 3, false));
+		DecoTree highlandsPalmTrees = new DecoTree(new HLPalmTreeRTG(8, 7, false));
 		highlandsPalmTrees.treeType = TreeType.WORLDGEN;
 		highlandsPalmTrees.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		highlandsPalmTrees.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);

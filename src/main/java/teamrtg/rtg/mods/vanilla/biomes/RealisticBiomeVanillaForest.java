@@ -1,9 +1,12 @@
 package teamrtg.rtg.mods.vanilla.biomes;
 
+import net.minecraft.block.BlockDirt;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
@@ -37,6 +40,21 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
         };
     }
 
+    @Override
+    protected SurfacePart initSurface() {
+        SurfacePart surface = new SurfacePart();
+        surface.add(new CliffSelector(1.5f)
+            .add(PARTS.selectTopAndFill()
+                .add(this.PARTS.SHADOW_STONE)));
+        surface.add(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
+            .add(PARTS.selectTop()
+                .add(PARTS.STONE_OR_COBBLE)))
+            .add(PARTS.selectFill()
+                .add(PARTS.STONE));
+        surface.add(PARTS.surfaceMix(PARTS.MIX_NOISE));
+        surface.add(PARTS.surfaceGeneric());
+        return surface;
+    }
 
     @Override
     protected void initDecos() {
@@ -107,7 +125,8 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.DIRT.getStateFromMeta(2));
+        config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL));
+        config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.DIRT.getDefaultState());
         config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
     }
 }

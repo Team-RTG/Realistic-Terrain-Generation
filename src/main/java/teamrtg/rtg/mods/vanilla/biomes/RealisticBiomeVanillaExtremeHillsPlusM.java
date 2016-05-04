@@ -61,8 +61,7 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
     @Override
     protected void initProperties() {
         config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.GRAVEL.getDefaultState());
-        config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.GRAVEL.getDefaultState());
-        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.GRAVEL.getDefaultState());
+        config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.DIRT.getDefaultState());
         config.GENERATE_EMERALDS.setDefault(true);
     }
 }

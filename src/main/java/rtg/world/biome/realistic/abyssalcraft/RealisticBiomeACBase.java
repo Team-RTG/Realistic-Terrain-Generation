@@ -3,10 +3,12 @@ package rtg.world.biome.realistic.abyssalcraft;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.abyssalcraft.config.BiomeConfigAC;
-import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+
+import com.shinoow.abyssalcraft.api.biome.ACBiomes;
+
 import cpw.mods.fml.common.Loader;
 
 public class RealisticBiomeACBase extends RealisticBiomeBase
@@ -31,47 +33,12 @@ public class RealisticBiomeACBase extends RealisticBiomeBase
     {
         if (Loader.isModLoaded("abyssalcraft"))
         {
-            BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
-            
-            for (int i = 0; i < 256; i++)
-            {
-                if (b[i] != null)
-                {
-                    if (b[i].biomeName == null) {
-                        Logger.warn("Biome ID %d has no name.", b[i].biomeID);
-                        continue;
-                    }
-                    
-                    BiomeGenBase acBiome = b[i];
-                    String biomeName = b[i].biomeName;
-                    String biomeClass = b[i].getBiomeClass().getName();
-                    
-                    if (biomeName == "Coralium Infested Swamp" && biomeClass == "com.shinoow.abyssalcraft.common.world.biome.BiomeGenCorSwamp")
-                    {
-                        acCoraliumInfestedSwamp = new RealisticBiomeACCoraliumInfestedSwamp(acBiome, BiomeConfigAC.biomeConfigACCoraliumInfestedSwamp);
-                    }
-                    else if (biomeName == "Darklands" && biomeClass == "com.shinoow.abyssalcraft.common.world.biome.BiomeGenDarklands")
-                    {
-                        acDarklands = new RealisticBiomeACDarklands(acBiome, BiomeConfigAC.biomeConfigACDarklands);
-                    }
-                    else if (biomeName == "Darklands Forest" && biomeClass == "com.shinoow.abyssalcraft.common.world.biome.BiomeGenDarklandsForest")
-                    {
-                        acDarklandsForest = new RealisticBiomeACDarklandsForest(acBiome, BiomeConfigAC.biomeConfigACDarklandsForest);
-                    }
-                    else if (biomeName == "Darklands Highland" && biomeClass == "com.shinoow.abyssalcraft.common.world.biome.BiomeGenDarklandsHills")
-                    {
-                        acDarklandsHighland = new RealisticBiomeACDarklandsHighland(acBiome, BiomeConfigAC.biomeConfigACDarklandsHighland);
-                    }
-                    else if (biomeName == "Darklands Mountains" && biomeClass == "com.shinoow.abyssalcraft.common.world.biome.BiomeGenDarklandsMountains")
-                    {
-                        acDarklandsMountains = new RealisticBiomeACDarklandsMountains(acBiome, BiomeConfigAC.biomeConfigACDarklandsMountains);
-                    }
-                    else if (biomeName == "Darklands Plains" && biomeClass == "com.shinoow.abyssalcraft.common.world.biome.BiomeGenDarklandsPlains")
-                    {
-                        acDarklandsPlains = new RealisticBiomeACDarklandsPlains(acBiome, BiomeConfigAC.biomeConfigACDarklandsPlains);
-                    }
-                }
-            }
+        	if (ACBiomes.coralium_infested_swamp != null) acCoraliumInfestedSwamp = new RealisticBiomeACCoraliumInfestedSwamp(BiomeConfigAC.biomeConfigACCoraliumInfestedSwamp);
+        	if (ACBiomes.darklands != null) acDarklands = new RealisticBiomeACDarklands(BiomeConfigAC.biomeConfigACDarklands);
+        	if (ACBiomes.darklands_forest != null) acDarklandsForest = new RealisticBiomeACDarklandsForest(BiomeConfigAC.biomeConfigACDarklandsForest);
+        	if (ACBiomes.darklands_hills != null) acDarklandsHighland = new RealisticBiomeACDarklandsHighland(BiomeConfigAC.biomeConfigACDarklandsHighland);
+        	if (ACBiomes.darklands_mountains != null) acDarklandsMountains = new RealisticBiomeACDarklandsMountains(BiomeConfigAC.biomeConfigACDarklandsMountains);
+        	if (ACBiomes.darklands_plains != null) acDarklandsPlains = new RealisticBiomeACDarklandsPlains(BiomeConfigAC.biomeConfigACDarklandsPlains);
         }
     }
 }

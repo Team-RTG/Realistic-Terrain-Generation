@@ -38,6 +38,6 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 
     @Override
     protected void initProperties() {
-
+        config.FILL_LAYERS.setDefault(3);
     }
 }

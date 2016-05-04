@@ -12,6 +12,7 @@ public class BiomeConfig extends Config {
     public final PropertyBool USE_RTG_DECORATIONS;
     public final PropertyBlock TOP_BLOCK;
     public final PropertyBlock FILL_BLOCK;
+    public final PropertyInt FILL_LAYERS;
     public final PropertyString SCATTERED_FEATURE;
     public final PropertyStrings DECORATIONS;
     public final PropertyInt WATER_POND_CHANCE;
@@ -46,6 +47,7 @@ public class BiomeConfig extends Config {
         USE_RTG_DECORATIONS = this.addBool("Use RTG decorations", "");
         TOP_BLOCK = this.addBlock("Top block", "");
         FILL_BLOCK = this.addBlock("Fill block", "");
+        FILL_LAYERS = this.addInt("Fill layers", "");
         SCATTERED_FEATURE = this.addString("Scattered feature", "");
         DECORATIONS = this.addStrings("Decorations", "");
         WATER_POND_CHANCE = this.addInt("Surface water lake chance", "");
@@ -65,6 +67,7 @@ public class BiomeConfig extends Config {
         USE_RTG_DECORATIONS.setComment("If false RTG will not try to decorate this biome, but instead let it handle that itself.").setDefault(true);
         TOP_BLOCK.setComment("The top surface block used in this biome (Grass in plains).");
         FILL_BLOCK.setComment("The block that fills between the surface block and the stone underneath (Dirt in plains).");
+        FILL_LAYERS.setDefault(4);
         SCATTERED_FEATURE.setOptions(EnumUtils.names(FeatureType.class)).setDefault(FeatureType.NONE.name())
             .setComment("What scattered feature does this biome allow?");
         DECORATIONS.setDefault(new String[0])
@@ -82,30 +85,6 @@ public class BiomeConfig extends Config {
     @Override
     public void addProperty(ConfigProperty property) {
         super.addProperty(property.setSection(biomeSlug));
-    }
-
-    public PropertyBool addBool(String id) {
-        PropertyBool property = new PropertyBool(id, biomeSlug);
-        addProperty(property);
-        return property;
-    }
-
-    public PropertyInt addInt(String id) {
-        PropertyInt property = new PropertyInt(id, biomeSlug);
-        addProperty(property);
-        return property;
-    }
-
-    public PropertyString addString(String id) {
-        PropertyString property = new PropertyString(id, biomeSlug);
-        addProperty(property);
-        return property;
-    }
-
-    public PropertyBlock addBlock(String id) {
-        PropertyBlock property = new PropertyBlock(id, biomeSlug);
-        addProperty(property);
-        return property;
     }
 
 }

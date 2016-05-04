@@ -53,11 +53,11 @@ public class PresetParts {
     }
 
     public final SurfacePart selectFill() {
-        return new DepthSelector(1, 5).setMaxNoise(DEPTH_NOISE);
+        return new DepthSelector(1, biome.config.FILL_LAYERS.get()).setMaxNoise(DEPTH_NOISE);
     }
 
     public final SurfacePart selectTopAndFill() {
-        return new DepthSelector(0, 5).setMaxNoise(DEPTH_NOISE);
+        return new DepthSelector(0, biome.config.FILL_LAYERS.get()).setMaxNoise(DEPTH_NOISE);
     }
 
     public final SurfacePart surfaceGeneric() {

@@ -146,9 +146,9 @@ public class DecoCollectionForest extends DecoCollectionBase
         
         // Grass filler.
 		DecoGrass decoGrass = new DecoGrass();
-		decoGrass.minY = 53;
+		decoGrass.minY = 60;
 		decoGrass.maxY = 128;
-		decoGrass.loops = 12;
+		decoGrass.loops = 8;
         this.addDeco(decoGrass);
 	}
 }

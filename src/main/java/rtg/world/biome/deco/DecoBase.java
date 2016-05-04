@@ -112,6 +112,7 @@ public class DecoBase
 		REED,
 		ROCK_SPIRE,
 		SHRUB,
+		TEST,
 		TREE,
 		VINE
 	}

@@ -6,6 +6,7 @@ import java.util.Random;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -46,6 +47,8 @@ public class DecoDoubleGrass extends DecoBase
 			
 			if (TerrainGen.decorate(world, rand, chunkX, chunkY, GRASS)) {
 	            
+				WorldGenerator worldGenerator = new WorldGenGrass(Blocks.double_plant, 2);
+				
 				this.loops = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : this.loops;
 	            for (int i = 0; i < this.loops; i++)
 	            {
@@ -54,7 +57,7 @@ public class DecoDoubleGrass extends DecoBase
 	                int intZ = chunkY + rand.nextInt(16) + 8;
 
 	                if (intY <= this.maxY) {
-	                	(new WorldGenGrass(Blocks.double_plant, 2)).generate(world, rand, intX, intY, intZ);
+	                	worldGenerator.generate(world, rand, intX, intY, intZ);
 	                }
 	            }
 	        }

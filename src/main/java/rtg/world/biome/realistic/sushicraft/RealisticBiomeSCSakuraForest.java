@@ -44,7 +44,7 @@ public class RealisticBiomeSCSakuraForest extends RealisticBiomeSCBase {
             decoFlowersRTG.flowers = new int[] {6, 8};
             decoFlowersRTG.maxY = 128;
             decoFlowersRTG.heightType = DecoFlowersRTG.HeightType.NEXT_INT;
-            decoFlowersRTG.notEqualsZerochance = 4;
+            decoFlowersRTG.notEqualsZeroChance = 4;
             decoFlowersRTG.strengthFactor = 8f;
             this.addDeco(decoFlowersRTG);
 

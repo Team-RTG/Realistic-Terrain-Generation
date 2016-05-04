@@ -24,7 +24,7 @@ public class DecoJungleLilypadVines extends DecoBase
 	public DecoJungleLilypadVines()
 	{
 		super();
-		
+
 		this.addDecoTypes(DecoType.LILYPAD, DecoType.VINE);
 	}
 	
@@ -38,6 +38,9 @@ public class DecoJungleLilypadVines extends DecoBase
 			
 	        if (TerrainGen.decorate(world, rand, chunkX, chunkY, LILYPAD)) {
 	            
+	        	WorldGenerator worldgeneratorLilypads = new WorldGenWaterlily();
+	        	WorldGenerator worldgeneratorVines = new WorldGenVines();
+	        	
 	            for (int b33 = 0; b33 < 5; b33++)
 	            {
 	                int j6 = chunkX + rand.nextInt(16) + 8;
@@ -48,16 +51,12 @@ public class DecoJungleLilypadVines extends DecoBase
 	                    
 	                    if (z52 > 64) {
 	                        
-	                        WorldGenerator worldgenerator2 = new WorldGenWaterlily();
-	                        worldgenerator2.setScale(1.0D, 1.0D, 1.0D);
-	                        worldgenerator2.generate(world, rand, j6, z52, k10);
+	                    	worldgeneratorLilypads.generate(world, rand, j6, z52, k10);
 	                    }
 	                }
 	                
 	                for (int h44 = 0; h44 < 100; h44++) {
-	                    WorldGenerator worldgenerator4 = new WorldGenVines();
-	                    worldgenerator4.setScale(1.0D, 1.0D, 1.0D);
-	                    worldgenerator4.generate(world, rand, j6, z52, k10);
+	                	worldgeneratorVines.generate(world, rand, j6, z52, k10);
 	                }
 	            }
 	        }

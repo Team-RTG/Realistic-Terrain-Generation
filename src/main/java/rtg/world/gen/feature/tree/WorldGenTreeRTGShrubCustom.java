@@ -2,14 +2,17 @@ package rtg.world.gen.feature.tree;
 
 import java.util.Random;
 
-import rtg.config.rtg.ConfigRTG;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.config.rtg.ConfigRTG;
 
+/**
+ * @deprecated
+ * @see rtg.world.gen.feature.WorldGenShrubRTG
+ */
 public class WorldGenTreeRTGShrubCustom extends WorldGenerator
 {
 	private int size;
@@ -19,11 +22,19 @@ public class WorldGenTreeRTGShrubCustom extends WorldGenerator
 	private int leaveMeta;
 	private boolean sand;
 
+	/**
+	 * @deprecated
+	 * @see rtg.world.gen.feature.WorldGenShrubRTG
+	 */
 	public WorldGenTreeRTGShrubCustom(int s, Block log, byte logByte, Block leav, byte leavByte)
 	{
 		this(s, log, logByte, leav, leavByte, false);
 	}
 	
+	/**
+	 * @deprecated
+	 * @see rtg.world.gen.feature.WorldGenShrubRTG
+	 */
 	public WorldGenTreeRTGShrubCustom(int s, Block log, byte logByte, Block leav, byte leavByte, boolean sa)
 	{
 		size = s;

@@ -44,6 +44,13 @@ public class RealisticBiomeHLTropicalIslands extends RealisticBiomeHLBase
         );
         this.waterSurfaceLakeChance = 4;
 		
+        /**
+         * We can't let the base biome decorate itself because of a console spam bug with the HL Cocoa plants.
+         * 
+         * DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+         * this.addDeco(decoBaseBiomeDecorations);
+         */
+
 		DecoTree highlandsPalmTrees = new DecoTree(new HLPalmTreeRTG(8, 3, false));
 		highlandsPalmTrees.treeType = TreeType.WORLDGEN;
 		highlandsPalmTrees.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;

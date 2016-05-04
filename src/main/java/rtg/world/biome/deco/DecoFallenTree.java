@@ -151,6 +151,7 @@ public class DecoFallenTree extends DecoBase
 		ALWAYS_GENERATE,
 		RANDOM_CHANCE,
 		NOISE_GREATER_AND_RANDOM_CHANCE,
+		NOISE_LESS_AND_RANDOM_CHANCE,
 		X_DIVIDED_BY_STRENGTH;
 	}
 	
@@ -169,6 +170,10 @@ public class DecoFallenTree extends DecoBase
 			case NOISE_GREATER_AND_RANDOM_CHANCE:
 				
 				return (noise > this.logConditionNoise && rand.nextInt(this.logConditionChance) == 0);
+				
+			case NOISE_LESS_AND_RANDOM_CHANCE:
+				
+				return (noise < this.logConditionNoise && rand.nextInt(this.logConditionChance) == 0);
 				
 			case X_DIVIDED_BY_STRENGTH:
 				

@@ -128,7 +128,7 @@ public class NecroData {
 		Chapter[] newchap = new Chapter[chapters.length -1];
 		Chapter[] oldchap = chapters.clone();
 
-		for(Chapter chap : oldchap){
+		for(Chapter chap : oldchap)
 			if(chap.identifier.equals(identifier)){
 				for(Chapter chapnew : newchap)
 					for(Chapter chap2 : oldchap)
@@ -140,55 +140,12 @@ public class NecroData {
 				chapters = newchap;
 				return;
 			}
-		}
 	}
 
-//	@Override
-//	public String toString(){
-//		return "NecroData{Title: "+title + ",Information: "+(information != null ? "Yes" : "No") +",PageData: "+pageData.toString() +"}";
-//	}
-
-	/**
-	 * Deprecated: use the new format
-	 */
-	@Deprecated
-	public NecroData(String title, String info,PageData...datas){}
-
-	/**
-	 * Deprecated: use the new format
-	 */
-	@Deprecated
-	public NecroData(String title,PageData...datas){}
-	@Deprecated
-	public PageData[] getPageData(){ return null; }
-	@Deprecated
-	public String getPageTitle(int index){ return null; }
-	@Deprecated
-	public Object[] getPageIcons(int index){ return null; }
-
-	@Deprecated
-	public static class PageData{
-		/**
-		 * Deprecated: use the new format
-		 */
-		@Deprecated
-		public PageData(int num, String title, String...strings){}
-		/**
-		 * Deprecated: use the new format
-		 */
-		@Deprecated
-		public PageData(int num, String title, Object[] stuff, String...strings){}
-		@Deprecated
-		public String[] getPages(){ return null; }
-		@Deprecated
-		public int getPageAmount(){ return 0; }
-		@Deprecated
-		public String getTitle(){ return null; }
-		@Deprecated
-		public Object getIcon(int index){ return null; }
-		@Deprecated
-		public Object[] getIcons(){ return null; }
-	}
+	//	@Override
+	//	public String toString(){
+	//		return "NecroData{Title: "+title + ",Information: "+(information != null ? "Yes" : "No") +",PageData: "+pageData.toString() +"}";
+	//	}
 
 	/**
 	 * A Necronomicon Chapter (collection of pages)
@@ -219,9 +176,8 @@ public class NecroData {
 		 */
 		public Chapter(String identifier, String title, Page...pages){
 			this(identifier, title);
-			for(Page page : pages){
+			for(Page page : pages)
 				addPage(page);
-			}
 		}
 
 		/**
@@ -323,10 +279,9 @@ public class NecroData {
 		public Page(int pageNum, Object icon, String text){
 			if(pageNum == 0) throw new ArithmeticException("The Page number can't be zero");
 			this.pageNum = pageNum;
-			if(icon != null){
+			if(icon != null)
 				if(!(icon instanceof ResourceLocation) && !(icon instanceof ItemStack) && !(icon instanceof CraftingStack))
 					throw new IllegalArgumentException("Icon isn't a ResourceLocation, ItemStack or CraftingStack!");
-			}
 			this.icon = icon;
 			this.text = text;
 		}
@@ -358,9 +313,9 @@ public class NecroData {
 
 			Page page = (Page)obj;
 
-			boolean test1 = page.pageNum == this.pageNum;
-			boolean test2 = page.icon == null && this.icon == null || page.icon.equals(this.icon);
-			boolean test3 = page.text.equals(this.text);
+			boolean test1 = page.pageNum == pageNum;
+			boolean test2 = page.icon == null && icon == null || page.icon.equals(icon);
+			boolean test3 = page.text.equals(text);
 
 			return test1 && test2 && test3;
 		}

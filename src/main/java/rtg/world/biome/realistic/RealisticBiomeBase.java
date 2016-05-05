@@ -412,7 +412,6 @@ public class RealisticBiomeBase extends BiomeBase {
 
     public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
         if (noLakes) return 1f;
-        //if (1>0) return 1f;
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();
         simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
         double pX = x + jitter.deltax() * largeBendSize;

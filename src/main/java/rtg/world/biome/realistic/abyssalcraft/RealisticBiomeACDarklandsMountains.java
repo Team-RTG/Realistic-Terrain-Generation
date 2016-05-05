@@ -6,10 +6,14 @@ import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.abyssalcraft.SurfaceACDarklandsMountains;
 import rtg.world.gen.terrain.abyssalcraft.TerrainACDarklandsMountains;
 
+import com.shinoow.abyssalcraft.api.biome.ACBiomes;
+
 public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase
 {
 
-    public RealisticBiomeACDarklandsMountains(BiomeGenBase acBiome, BiomeConfig config)
+	public static BiomeGenBase acBiome = ACBiomes.darklands_mountains;
+	
+    public RealisticBiomeACDarklandsMountains(BiomeConfig config)
     {
     
         super(config, 

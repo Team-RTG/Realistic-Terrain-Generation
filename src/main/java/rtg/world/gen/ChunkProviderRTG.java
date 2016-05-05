@@ -7,10 +7,15 @@ import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.SCAT
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.STRONGHOLD;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
+import java.util.WeakHashMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -24,6 +29,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.chunk.storage.AnvilChunkLoader;
+import net.minecraft.world.gen.ChunkProviderServer;
 import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.MapGenCaves;
 import net.minecraft.world.gen.MapGenRavine;
@@ -37,14 +44,23 @@ import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import net.minecraftforge.event.world.ChunkEvent;
+import rtg.RTG;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.AICWrapper;
+import rtg.util.Acceptor;
+import rtg.util.Accessor;
 import rtg.util.CanyonColour;
 import rtg.util.CellNoise;
+import rtg.util.Compass;
+import rtg.util.Direction;
+import rtg.util.LimitedSet;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.PlaneLocation;
 import rtg.util.SimplexCellularNoise;
+import rtg.util.TimeTracker;
+import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.WorldChunkManagerRTG;
@@ -52,21 +68,6 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.WeakHashMap;
-import net.minecraft.world.chunk.storage.AnvilChunkLoader;
-import net.minecraft.world.gen.ChunkProviderServer;
-import net.minecraftforge.event.world.ChunkEvent;
-import rtg.RTG;
-import rtg.util.Acceptor;
-import rtg.util.Accessor;
-import rtg.util.Compass;
-import rtg.util.Direction;
-import rtg.util.LimitedSet;
-import rtg.util.TimeTracker;
 
 
 public class ChunkProviderRTG implements IChunkProvider
@@ -83,6 +84,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private final MapGenScatteredFeature scatteredFeatureGenerator;
     private final boolean mapFeaturesEnabled;
     private final int worldHeight;
+    private final boolean isRTGWorld;
     private final int sampleSize = 8;
     private final int sampleArraySize;
     private final int parabolicSize;
@@ -161,15 +163,16 @@ public class ChunkProviderRTG implements IChunkProvider
         m.put("distance", "24");
 
         mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
+        isRTGWorld = world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG;
 
-        if (ConfigRTG.enableCaveModifications) {
+        if (isRTGWorld && ConfigRTG.enableCaveModifications) {
             caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), CAVE);
         }
         else {
             caveGenerator = TerrainGen.getModdedMapGen(new MapGenCaves(), CAVE);
         }
         
-        if (ConfigRTG.enableRavineModifications) {
+        if (isRTGWorld && ConfigRTG.enableRavineModifications) {
             ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(), RAVINE);
         }
         else {
@@ -983,7 +986,7 @@ public class ChunkProviderRTG implements IChunkProvider
         //if (this.neighborsDone(ichunkprovider, chunkX+1, chunkZ)) this.doPopulate(ichunkprovider, chunkX + 1, chunkZ);
         //if (this.neighborsDone(ichunkprovider, chunkX+1, chunkZ+1)) this.doPopulate(ichunkprovider, chunkX + 1, chunkZ + 1);
     }
-
+    
     private Runnable clearOnServerClose() {
         return new Runnable () {
             public void run() {
@@ -1013,8 +1016,8 @@ public class ChunkProviderRTG implements IChunkProvider
         IChunkProvider ichunkprovider = worldObj.getChunkProvider();
         Set<PlaneLocation> toProcess = doableLocations(limit);
         for (PlaneLocation location: toProcess) {
-            toDecorate.remove(location);
-        }
+                toDecorate.remove(location);
+            }
         for (PlaneLocation location: toProcess) {
             doPopulate(ichunkprovider,location.x(),location.z());
         }

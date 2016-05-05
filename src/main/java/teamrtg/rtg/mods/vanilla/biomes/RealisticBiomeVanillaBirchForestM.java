@@ -44,15 +44,15 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
     protected SurfacePart initSurface() {
         SurfacePart surface = new SurfacePart();
         surface.add(new CliffSelector(1.5f)
-            .add(PARTS.TOP_AND_FILL_SELECTOR
+            .add(PARTS.selectTopAndFill()
                 .add(this.PARTS.SHADOW_STONE)));
         surface.add(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + chunkProvider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
-            .add(PARTS.TOP_SELECTOR
+            .add(PARTS.selectTop()
                 .add(PARTS.STONE_OR_COBBLE)))
-            .add(PARTS.FILL_SELECTOR
+            .add(PARTS.selectFill()
                 .add(PARTS.STONE));
-        surface.add(PARTS.MIX_SURFACE);
-        surface.add(PARTS.GENERIC_SURFACE);
+        surface.add(PARTS.surfaceMix(PARTS.MIX_NOISE));
+        surface.add(PARTS.surfaceGeneric());
         return surface;
     }
 

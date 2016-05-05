@@ -2,8 +2,10 @@ package teamrtg.rtg.mods.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.util.math.CanyonColour;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.surface.part.*;
 import teamrtg.rtg.world.biome.terrain.GroundEffect;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
@@ -16,22 +18,15 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaMesa(ChunkProviderRTG chunkProvider) {
 
         super(
-                Biomes.MESA,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.MESA,
+            Biomes.RIVER,
+            chunkProvider
         );
     }
 
     @Override
-    protected TerrainBase initTerrain() {
-        return new TerrainBase() {
-            private GroundEffect groundEffect = new GroundEffect(4f);
+    protected void initProperties() {
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return riverized(68f + groundEffect.added(simplex, cell, x, y), river);
-            }
-        };
     }
 
     @Override
@@ -91,7 +86,28 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected void initProperties() {
+    protected SurfacePart initSurface() {
+        SurfacePart surface = new SurfacePart();
+        surface.add(
+            new DepthSelector(0, 11)
+                .add(new OrSelector(
+                    new CliffSelector(1.3f),
+                    new DepthSelector(0, 4)
+                ).add(new BlockPart(CanyonColour.MESA)))
+                .add(new HeightSelector(77, 255).setMinNoise(PARTS.DEPTH_NOISE2))
+        );
+        return surface;
+    }
 
+    @Override
+    protected TerrainBase initTerrain() {
+        return new TerrainBase() {
+            private GroundEffect groundEffect = new GroundEffect(4f);
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                return riverized(68f + groundEffect.added(simplex, cell, x, y), river);
+            }
+        };
     }
 }

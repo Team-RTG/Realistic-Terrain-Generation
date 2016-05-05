@@ -6,6 +6,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.world.biome.surface.part.DepthSelector;
+import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
@@ -20,6 +24,19 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
                 chunkProvider
         );
         this.noLakes = true;
+    }
+
+    @Override
+    protected SurfacePart initSurface() {
+        SurfacePart surface = PARTS.selectTopAndFill();
+        surface.add(new CliffSelector(1.4f)
+            .add(new DepthSelector(0, 1)
+                .add(PARTS.rand(3)
+                    .add(new BlockPart(config.CLIFF_BLOCK_2.get())))))
+            .add(new BlockPart(config.CLIFF_BLOCK_1.get()));
+        surface.add(PARTS.surfaceMix((x, y, z) -> simplex.noise2(x / 60f, z / 60f) + simplex.noise2(x / 14f, z / 14f) * 0.25f > -0.14f));
+        surface.add(PARTS.surfaceGeneric());
+        return surface;
     }
 
     @Override

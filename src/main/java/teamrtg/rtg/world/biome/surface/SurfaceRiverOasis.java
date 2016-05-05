@@ -31,11 +31,11 @@ public class SurfaceRiverOasis extends SurfacePart {
             float noiseValue = (biome.simplex.octave(0).noise2(x / 21f, z / 21f) * amplitude / 1f);
             noiseValue += (biome.simplex.octave(1).noise2(x / 12f, z / 12f) * amplitude / 2f);
             noiseValue += (biome.simplex.octave(2).noise2(x / 5f, z / 5f) * amplitude / 3f);
-            return noiseValue - noiseNeg.getFloatAt(x, y, z);
+            return noiseValue - noiseNeg.getAt(x, y, z);
         };
 
         IFloatAt minRiver = (x, y, z) -> {
-            float p = (float) (0.67f - Math.pow(Math.abs(noise.getFloatAt(x, y, z)), 1.2f) * (noise.getFloatAt(x, y, z) > 0f ? 1f : -1f));
+            float p = (float) (0.67f - Math.pow(Math.abs(noise.getAt(x, y, z)), 1.2f) * (noise.getAt(x, y, z) > 0f ? 1f : -1f));
             return (p > 0.05f) ? p : 0.05f;
         };
         add(new RiverSelector(minRiver)

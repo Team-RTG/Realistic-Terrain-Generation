@@ -91,7 +91,7 @@ public class BiomeProviderRTG extends BiomeProvider {
 
         for (int i = 0; i < par3; i++) {
             for (int j = 0; j < par4; j++) {
-                d[i * par3 + j] = BiomeUtils.getIdForBiome(getUnrepairedAt(par1 + i, par2 + j));
+                d[i * par3 + j] = BiomeUtils.getIdForBiome(getPreRepair(par1 + i, par2 + j));
             }
         }
         return d;
@@ -101,7 +101,7 @@ public class BiomeProviderRTG extends BiomeProvider {
         return BiomeGenBase.getBiomeForId(getBiomes(globalToChunk(x), globalToChunk(z))[globalToIndex(x, z)]);
     }
 
-    public BiomeGenBase getUnrepairedAt(int x, int z) {
+    public BiomeGenBase getPreRepair(int x, int z) {
         BiomeGenBase result;
         result = this.biomeCache.getBiomeCacheBlock(x, z).getBiomeGenAt(x, z);
         return result;

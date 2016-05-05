@@ -4,6 +4,7 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
@@ -20,6 +21,11 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
                 Biomes.FROZEN_RIVER,
                 chunkProvider
         );
+    }
+
+    @Override
+    protected SurfacePart initSurface() {
+        return PARTS.surfaceGeneric();
     }
 
     @Override
@@ -68,8 +74,8 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.GRASS.getDefaultState());
-        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.DIRT.getDefaultState());
+        config.TOP_BLOCK.setDefault(Blocks.SNOW.getDefaultState());
+        config.FILL_BLOCK.setDefault(Blocks.DIRT.getDefaultState());
         this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.FeatureType.IGLOO.name());
     }
 }

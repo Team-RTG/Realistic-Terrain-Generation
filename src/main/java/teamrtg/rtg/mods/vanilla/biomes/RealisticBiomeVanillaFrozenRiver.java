@@ -3,6 +3,7 @@ package teamrtg.rtg.mods.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
@@ -14,6 +15,11 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase 
                 Biomes.FROZEN_RIVER,
                 chunkProvider
         );
+    }
+
+    @Override
+    protected SurfacePart initSurface() {
+        return PARTS.surfaceGeneric();
     }
 
     @Override

@@ -6,5 +6,6 @@ package teamrtg.rtg.util.noise;
 public interface IFloatAt {
 
     IFloatAt ZERO = (x, y, z) -> 0f;
-    float getFloatAt(float bx, float by, float bz);
+
+    float getAt(float bx, float by, float bz);
 }

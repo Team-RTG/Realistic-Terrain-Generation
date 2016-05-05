@@ -110,6 +110,6 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
 
     @Override
     protected void initProperties() {
-        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.GRASS.getDefaultState());
+        config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.GRASS.getDefaultState());
     }
 }

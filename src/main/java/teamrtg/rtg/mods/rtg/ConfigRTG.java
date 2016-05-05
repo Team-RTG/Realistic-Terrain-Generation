@@ -12,7 +12,6 @@ public class ConfigRTG extends ModConfig {
     public final PropertyBlock BEDROCK_BLOCK = addBlock("BEDROCK_BLOCK", "bedrock");
     public final PropertyBool ENABLE_RTG_BIOME_DECORATIONS = addBool("Enable RTG Biome Decorations", "biomes");
     public final PropertyBool ENABLE_RTG_SURFACES = addBool("Enable RTG Biome Surfaces", "biomes");
-    public final PropertyInt PATCH_BIOME_ID = addInt("Patch Biome ID", "biomes");
     public final PropertyBool USE_BOP_LAYOUT = addBool("Use BOP biome layout if avaliable", "biomes");
     public final PropertyBool ENABLE_COUBLESTONE_BOULDERS = addBool("Enable Cobblestone Boulders", "boulders");
     public final PropertyInt COBBLESTONE_BOULDER_CHANCE = addInt("1/x chance that Cobblestone Boulders will generate if given the opportunity to do so during world gen", "boulders");
@@ -71,9 +70,6 @@ public class ConfigRTG extends ModConfig {
         BEDROCK_BLOCK.setDefault(Blocks.BEDROCK.getDefaultState()).setComment("The block to use for the bottom of the Overworld");
         ENABLE_RTG_BIOME_DECORATIONS.setDefault(true).setComment("If TRUE, uses the individual biome settings in the biome forgeConfig files. If FALSE, disables all RTG decorations and uses biomes decorations instead.");
         ENABLE_RTG_SURFACES.setDefault(true).setComment("If TRUE, uses the individual biome settings in the biome forgeConfig files. If FALSE, disables all RTG surfaces and uses biomes surfaces instead.");
-        PATCH_BIOME_ID.setDefault(1).setRange(-1, 255).setComment("If RTG tries to generate an unsupported biome or a biome that has an ID conflict, it will generate this biome instead." +
-                "If set to -1, RTG will crash instead of generating the patch biome. You might want to do this if you're making a mod pack" +
-                "and want to make sure all biomes are generating correctly.");
         USE_BOP_LAYOUT.setDefault(false).setComment("If FALSE, RTG will use biomes biome layout, even if BOP is installed. This means no BOP biomes.");
         ENABLE_COUBLESTONE_BOULDERS.setDefault(true);
         COBBLESTONE_BOULDER_CHANCE.setDefault(1).setComment("1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");

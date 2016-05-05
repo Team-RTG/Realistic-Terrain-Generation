@@ -26,7 +26,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
     @Override
     protected void initProperties() {
         config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
-        config.addBlock(config.MIX_BLOCK).setDefault(Blocks.DIRT.getStateFromMeta(2));
+        config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.DIRT.getStateFromMeta(2));
     }
 
     @Override

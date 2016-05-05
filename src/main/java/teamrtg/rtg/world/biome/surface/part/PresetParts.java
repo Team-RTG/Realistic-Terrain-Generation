@@ -70,11 +70,16 @@ public class PresetParts {
     }
 
     public final SurfacePart surfaceMix(IBoolAt mixNoise) {
-        return new Selector(mixNoise)
-            .add(selectTop()
-                .add(new BlockPart(biome.config.MIX_BLOCK_TOP.get())))
-            .add(selectFill()
+        SurfacePart surf = new Selector(mixNoise);
+        if (biome.config.MIX_BLOCK_TOP.getDefault() != null) {
+            surf.add(selectTop()
+                .add(new BlockPart(biome.config.MIX_BLOCK_TOP.get())));
+        }
+        if (biome.config.MIX_BLOCK_FILL.getDefault() != null) {
+            surf.add(selectFill()
                 .add(new BlockPart(biome.config.MIX_BLOCK_FILL.get())));
+        }
+        return surf;
     }
 
     public final IFloatAt jitter(IFloatAt in) {

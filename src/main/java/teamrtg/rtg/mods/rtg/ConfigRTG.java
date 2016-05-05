@@ -12,7 +12,6 @@ public class ConfigRTG extends ModConfig {
     public final PropertyBlock BEDROCK_BLOCK = addBlock("BEDROCK_BLOCK", "bedrock");
     public final PropertyBool ENABLE_RTG_BIOME_DECORATIONS = addBool("Enable RTG Biome Decorations", "biomes");
     public final PropertyBool ENABLE_RTG_SURFACES = addBool("Enable RTG Biome Surfaces", "biomes");
-    public final PropertyInt PATCH_BIOME_ID = addInt("Patch Biome ID", "biomes");
     public final PropertyBool USE_BOP_LAYOUT = addBool("Use BOP biome layout if avaliable", "biomes");
     public final PropertyBool ENABLE_COUBLESTONE_BOULDERS = addBool("Enable Cobblestone Boulders", "boulders");
     public final PropertyInt COBBLESTONE_BOULDER_CHANCE = addInt("1/x chance that Cobblestone Boulders will generate if given the opportunity to do so during world gen", "boulders");

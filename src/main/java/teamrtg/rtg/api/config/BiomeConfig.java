@@ -26,8 +26,6 @@ public class BiomeConfig extends Config {
 
     public final PropertyBlock CLIFF_BLOCK_1 = new PropertyBlock("Cliff block 1", "");
     public final PropertyBlock CLIFF_BLOCK_2 = new PropertyBlock("Cliff block 2", "");
-    @Deprecated //Should allways use mix top or mix fill
-    public final PropertyBlock MIX_BLOCK = new PropertyBlock("Mix block", "");
     public final PropertyBlock MIX_BLOCK_TOP = new PropertyBlock("Mix top block", "");
     public final PropertyBlock MIX_BLOCK_FILL = new PropertyBlock("Mix fill block", "");
     public final PropertyBlock BEACH_BLOCK = new PropertyBlock("Beach block", "");

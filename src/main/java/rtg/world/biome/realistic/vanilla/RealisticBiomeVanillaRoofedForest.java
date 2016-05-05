@@ -60,6 +60,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         mangroveTree.minCrownSize = 10;
         mangroveTree.maxCrownSize = 18;
         mangroveTree.noLeaves = false;
+        mangroveTree.maxY = 110;
         this.addDeco(mangroveTree);
         
         DecoTree ceibaPentandraTree = new DecoTree(new TreeRTGCeibaPentandra(13f, 3, 0.32f, 0.1f));
@@ -76,6 +77,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         ceibaPentandraTree.minCrownSize = 10;
         ceibaPentandraTree.maxCrownSize = 18;
         ceibaPentandraTree.noLeaves = false;
+        ceibaPentandraTree.maxY = 110;
         this.addDeco(ceibaPentandraTree);
         
         DecoTree ceibaRoseaTree = new DecoTree(new TreeRTGCeibaRosea(16f, 5, 0.32f, 0.1f));
@@ -92,6 +94,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         ceibaRoseaTree.minCrownSize = 10;
         ceibaRoseaTree.maxCrownSize = 18;
         ceibaRoseaTree.noLeaves = false;
+        ceibaRoseaTree.maxY = 110;
         this.addDeco(ceibaRoseaTree);
         
 		DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -101,7 +104,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		decoFallenTree.logConditionChance = 16;
 		decoFallenTree.logConditionNoise = 0f;
-		decoFallenTree.maxY = 90;
+		decoFallenTree.maxY = 80;
 		decoFallenTree.logBlock = Blocks.log2;
 		decoFallenTree.logMeta = (byte)1;
 		decoFallenTree.leavesBlock = Blocks.leaves2;
@@ -145,6 +148,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		decoBaseBiomeDecorations.notEqualsZeroChance = 2;
+		decoBaseBiomeDecorations.maxY = 100;
 		this.addDeco(decoBaseBiomeDecorations);
 
 		DecoGrass decoGrass = new DecoGrass();

@@ -1,5 +1,6 @@
 package rtg.world.gen.feature.tree.highlands;
 
+import highlands.Highlands;
 import highlands.api.HighlandsBlocks;
 import highlands.worldgen.WorldGenTreePalm;
 
@@ -30,12 +31,14 @@ public class HLPalmTreeRTG extends WorldGenTreePalm
     
     public HLPalmTreeRTG(int minH, int maxH, boolean notify){
     	this(0, 0, HighlandsBlocks.palmWood, HighlandsBlocks.palmLeaves, minH, maxH, notify);
-    	//if(Highlands.vanillaBlocksFlag){
-    		this.wood = Blocks.log;
-    		this.woodMeta = 3;
+    	
+		this.wood = Blocks.log;
+		this.woodMeta = 3;
+		
+    	if(Highlands.vanillaBlocksFlag){
     		this.leaves = Blocks.leaves;
     		this.leavesMeta = 3;
-    	//}
+    	}
     }
 
     @Override

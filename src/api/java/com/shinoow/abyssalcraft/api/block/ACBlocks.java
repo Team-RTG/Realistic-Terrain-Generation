@@ -106,7 +106,6 @@ public class ACBlocks {
 	public static Block transmutator_active = getBlock("transmutator_on");
 	public static Block dreadguard_spawner = getBlock("dreadguardspawner");
 	public static Block chagaroth_spawner = getBlock("chagarothspawner");
-	public static Block fist_of_chagaroth_spawner = getBlock("chagarothfistspawner");
 	public static Block dreadlands_wood_fence = getBlock("drtfence");
 	public static Block nitre_ore = getBlock("nitreore");
 	public static Block abyssal_iron_ore = getBlock("abyiroore");
@@ -148,6 +147,7 @@ public class ACBlocks {
 	public static Block yog_sothoth_statue = getBlock("yogsothothstatue");
 	public static Block shub_niggurath_statue = getBlock("shubniggurathstatue");
 	public static Block monolith_stone = getBlock("monolithstone");
+	public static Block shoggoth_biomass = getBlock("shoggothbiomass");
 	public static Block energy_pedestal = getBlock("energypedestal");
 	public static Block monolith_pillar = getBlock("monolithpillar");
 	public static Block sacrificial_altar = getBlock("sacrificialaltar");
@@ -155,6 +155,9 @@ public class ACBlocks {
 	public static Block tiered_energy_pedestal = getBlock("tieredenergypedestal");
 	/** Metadata block, 0 = Overworld, 1 = Abyssal Wasteland, 2 = Dreadlands, 3 = Omothol */
 	public static Block tiered_sacrificial_altar = getBlock("tieredsacrificialaltar");
+	public static Block jzahar_spawner = getBlock("jzaharspawner");
+	public static Block minion_of_the_gatekeeper_spawner = getBlock("gatekeeperminionspawner");
+	public static Block mimic_fire = getBlock("fire");
 
 	private static Block getBlock(String name){
 		return GameRegistry.findBlock("abyssalcraft", name);

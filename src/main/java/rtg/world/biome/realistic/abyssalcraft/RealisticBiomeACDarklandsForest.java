@@ -14,12 +14,15 @@ import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.gen.surface.abyssalcraft.SurfaceACDarklandsForest;
 import rtg.world.gen.terrain.abyssalcraft.TerrainACDarklandsForest;
 
+import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
 public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase
 {
 
-    public RealisticBiomeACDarklandsForest(BiomeGenBase acBiome, BiomeConfig config)
+	public static BiomeGenBase acBiome = ACBiomes.darklands_forest;
+	
+    public RealisticBiomeACDarklandsForest(BiomeConfig config)
     {
     
         super(config, 

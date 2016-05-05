@@ -10,12 +10,15 @@ import rtg.world.biome.deco.DecoShrub;
 import rtg.world.gen.surface.abyssalcraft.SurfaceACDarklands;
 import rtg.world.gen.terrain.abyssalcraft.TerrainACDarklands;
 
+import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
 public class RealisticBiomeACDarklands extends RealisticBiomeACBase
 {
 
-    public RealisticBiomeACDarklands(BiomeGenBase acBiome, BiomeConfig config)
+	public static BiomeGenBase acBiome = ACBiomes.darklands;
+	
+    public RealisticBiomeACDarklands(BiomeConfig config)
     {
     
         super(config, 

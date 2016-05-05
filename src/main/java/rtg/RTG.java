@@ -40,7 +40,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.relauncher.Side;
 
-//@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = "required-after:Forge@[10.13.4.1558,)", acceptableRemoteVersions = "*")
+//@Mod(modid = "RTG", name = "Realistic Terrain Generaton", version = "0.8.0d", dependencies = "required-after:Forge@[10.13.4.1448,)", acceptableRemoteVersions = "*")
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = "required-after:Forge@[" + ModInfo.FORGE_DEP + ",)" + ModInfo.MOD_DEPS, acceptableRemoteVersions = "*")
 public class RTG {
 
@@ -79,7 +79,7 @@ public class RTG {
         configPath = event.getModConfigurationDirectory() + "/RTG/";
         ConfigManager.init(configPath);
         
-        worldtype = new WorldTypeRTG(ModInfo.MOD_ID);
+        worldtype = new WorldTypeRTG("RTG");
     }
     
     @EventHandler
@@ -135,7 +135,12 @@ public class RTG {
     public void runOnServerClose(Runnable action) {
         serverCloseActions.add(action);
     }
-    
+
+    public void runOnNextServerCloseOnly(Runnable action) {
+        serverCloseActions.add(action);
+    }
+
+    private ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<Runnable>();
     private ArrayList<Runnable> serverCloseActions = new ArrayList<Runnable>();
     @EventHandler
     public void fmlLifeCycle(FMLServerStoppedEvent event)
@@ -143,6 +148,10 @@ public class RTG {
         for (Runnable action: serverCloseActions) {
             action.run();
         }
+        for (Runnable action: oneShotServerCloseActions) {
+            action.run();
+        }
+        oneShotServerCloseActions.clear();
 
     }
 }

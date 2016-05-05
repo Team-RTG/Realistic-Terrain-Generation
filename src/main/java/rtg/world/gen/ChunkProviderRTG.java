@@ -126,6 +126,7 @@ public class ChunkProviderRTG implements IChunkProvider
 
         @Override
         public void accept(ChunkEvent.Load accepted) {
+            if (accepted.isCanceled()) return;
             int cx = accepted.getChunk().xPosition;
             int cy = accepted.getChunk().zPosition;
             PlaneLocation location = new PlaneLocation.Invariant(cx, cy);
@@ -256,7 +257,7 @@ public class ChunkProviderRTG implements IChunkProvider
                 }
                 return available;
             }
-            throw new RuntimeException();
+            //throw new RuntimeException();
         }
 
         //if (everGenerated.contains(chunkLocation)) throw new RuntimeException();

@@ -477,7 +477,7 @@ public class ConfigRTG
                     7, 0, 254, "Biome ID for scenic lakes when not frozen (default 7 = River)" + Configuration.NEW_LINE);
 
             scenicFrozenLakeBiome = config.getInt("Biome for frozen scenic lakes", riversAndLakes,
-                    11, 0, 254, "Biome ID for scenic lakes when not frozen (default 11 = Frozen River)" + Configuration.NEW_LINE);
+                    11, 0, 254, "Biome ID for scenic lakes when frozen (default 11 = Frozen River)" + Configuration.NEW_LINE);
             
 		}
 		catch (Exception e) 

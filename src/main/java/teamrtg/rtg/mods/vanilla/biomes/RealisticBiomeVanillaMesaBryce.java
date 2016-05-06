@@ -48,21 +48,19 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
                 .add(new OrSelector()
                     .or(new CliffSelector(1.3f))
                     .or(new DepthSelector(4, 255))
-                    .add(new BlockPart(CanyonColour.MESA)))
+                    .add(new BlockPart(CanyonColour.MESA_WHITE)))
                 .add(new HeightSelector(78, 255)
                     .add(PARTS.rand(5)
                         .add(new BlockPart(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT)))))
                 .add(new HeightSelector(0, 77)
                     .add(PARTS.selectTop()
                         .add(new HeightSelector(0, 71)
-                            .add(new OrSelector()
-                                .or(new Selector((x, y, z) -> rand.nextInt((int) y - 69 + 1) == 0))
-                                .or(PARTS.rand(5))
+                            .add(PARTS.rand(5)
                                 .add(new BlockPart(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT))))
                         ))));
         surface.add(PARTS.surfaceGeneric());
         surface.add(new HeightSelector(50, 255).setMinNoise(PARTS.DEPTH_NOISE2)
-            .add(new BlockPart(CanyonColour.MESA)));
+            .add(new BlockPart(CanyonColour.MESA_WHITE)));
         return surface;
     }
 

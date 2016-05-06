@@ -103,9 +103,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
                 .add(new HeightSelector(0, 77)
                     .add(PARTS.selectTop()
                         .add(new HeightSelector(0, 71)
-                            .add(new OrSelector()
-                                .or(new Selector((x, y, z) -> rand.nextInt((int) y - 69 + 1) == 0))
-                                .or(PARTS.rand(5))
+                            .add(PARTS.rand(5)
                                 .add(new BlockPart(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT))))
                         ))));
         surface.add(PARTS.surfaceGeneric());

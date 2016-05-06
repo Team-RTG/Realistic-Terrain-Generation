@@ -1,5 +1,6 @@
 package teamrtg.rtg.world.biome.surface.part;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  */
 public class OrSelector extends SurfacePart {
 
-    public List<SurfacePart> parts;
+    public List<SurfacePart> parts = new ArrayList<>();
 
     public OrSelector or(SurfacePart part) {
         parts.add(part);

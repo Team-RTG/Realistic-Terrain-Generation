@@ -43,9 +43,9 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
         SurfacePart surface = new SurfacePart();
         surface.add(new CliffSelector(1.5f)
             .add(PARTS.selectTop()
-                .add(PARTS.STONE_OR_COBBLE)))
+                .add(PARTS.STONE_OR_COBBLE))
             .add(new DepthSelector(0, 10)
-                .add(PARTS.STONE));
+                .add(PARTS.STONE)));
         surface.add(PARTS.surfaceMix(PARTS.MIX_NOISE));
         surface.add(PARTS.surfaceGeneric());
         return surface;

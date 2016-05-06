@@ -33,6 +33,8 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
             new TerrainHLWindyIsland(),
             new SurfaceHLWindyIsland(config, topBlock, fillerBlock, Blocks.gravel, Blocks.dirt, 60f, -0.14f, 14f, 0.25f)
         );
+        noLakes = true;
+        noWaterFeatures = true;
         
         // These are Extreme Hills decorations, with plain boulders, smaller trees, no pumpkins and no flowers.
         
@@ -77,9 +79,4 @@ public class RealisticBiomeHLWindyIsland extends RealisticBiomeHLBase
         this.addDeco(decoGrass);
     }
 
-    @Override
-    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-        // no rivers or lakes
-        return terrain.generateNoise(simplex, cell, x, y, border, river);
-    }
 }

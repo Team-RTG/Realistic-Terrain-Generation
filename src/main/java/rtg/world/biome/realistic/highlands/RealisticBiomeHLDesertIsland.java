@@ -84,12 +84,7 @@ public class RealisticBiomeHLDesertIsland extends RealisticBiomeHLBase
 		decoFallenTree.minSize = 4;
 		decoFallenTree.maxSize = 6;
 		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigHLDesertIsland.decorationLogsId));
+        noLakes = true;
+        noWaterFeatures = true;
     }
-
-    @Override
-    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-        // no rivers or lakes
-        return terrain.generateNoise(simplex, cell, x, y, border, river);
-    }
-
 }

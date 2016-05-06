@@ -107,11 +107,7 @@ public class RealisticBiomeHLRockMountains extends RealisticBiomeHLBase
 		decoGrass.maxY = 128;
 		decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
-    }
-    
-    @Override
-    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-        // no rivers or lakes
-        return terrain.generateNoise(simplex, cell, x, y, border, river);
+        noLakes = true;
+        noWaterFeatures = true;
     }
 }

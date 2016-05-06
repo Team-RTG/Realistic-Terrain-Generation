@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
-import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
@@ -12,17 +11,14 @@ public class RealisticBiomeHLSteppe extends RealisticBiomeHLBase
 {
     
     public static BiomeGenBase hlBiome = HighlandsBiomes.steppe;
-    
-    public static Block topBlock = hlBiome.topBlock;
-    public static Block fillerBlock = hlBiome.fillerBlock;
-    
+
     public RealisticBiomeHLSteppe(BiomeConfig config)
     {
     
         super(config, 
             hlBiome, BiomeGenBase.river,
-            new TerrainHLSteppe(50f, 180f, 9f, 100f, 71f),
-            new SurfaceHLSteppe(config, topBlock, fillerBlock));
+            new TerrainHLSteppe(50f, 180f, 8f, 100f, 72f),
+            new SurfaceHLSteppe(config, hlBiome.topBlock, hlBiome.fillerBlock));
 		
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		this.addDeco(decoBaseBiomeDecorations);

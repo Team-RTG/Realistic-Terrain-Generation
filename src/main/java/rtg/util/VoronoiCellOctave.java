@@ -208,11 +208,11 @@ public class VoronoiCellOctave implements CellOctave
 			}
 		}
 
-		double diff = distance(xCandidate - xNeighbour, zCandidate - zNeighbour);
-		double total = (dCandidate + dNeighbour) / diff;
+		//double diff = distance(xCandidate - xNeighbour, zCandidate - zNeighbour);
+		//double total = (dCandidate + dNeighbour) / diff;
 
-		dCandidate = dCandidate / total;
-		dNeighbour = dNeighbour / total;
+		//dCandidate = dCandidate / total;
+		//dNeighbour = dNeighbour / total;
 
 		//double c = (diff / 2D) - dCandidate;
         double c = (dNeighbour - dCandidate)/dNeighbour;

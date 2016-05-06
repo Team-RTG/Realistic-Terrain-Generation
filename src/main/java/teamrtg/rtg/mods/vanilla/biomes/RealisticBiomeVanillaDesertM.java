@@ -6,6 +6,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.surface.SurfaceRiverOasis;
 import teamrtg.rtg.world.biome.surface.part.BlockPart;
 import teamrtg.rtg.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
@@ -38,6 +39,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     @Override
     protected SurfacePart initSurface() {
         SurfacePart surface = PARTS.selectTopAndFill();
+        surface.add(new SurfaceRiverOasis(this));
         surface.add(new CliffSelector(1.5f)
             .add(PARTS.SHADOW_SAND)
         );

@@ -4,6 +4,8 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.GroundEffect;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
@@ -35,6 +37,21 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         };
     }
 
+    @Override
+    protected SurfacePart initSurface() {
+        SurfacePart surface = new SurfacePart();
+        surface.add(new CliffSelector(1.5f)
+            .add(PARTS.selectTopAndFill()
+                .add(this.PARTS.SHADOW_STONE)));
+        surface.add(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
+            .add(PARTS.selectTop()
+                .add(PARTS.STONE_OR_COBBLE)))
+            .add(PARTS.selectFill()
+                .add(PARTS.STONE));
+        surface.add(PARTS.surfaceMix(PARTS.MIX_NOISE));
+        surface.add(PARTS.surfaceGeneric());
+        return surface;
+    }
 
     @Override
     protected void initDecos() {
@@ -65,9 +82,12 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         this.addDeco(decoTrees);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.logCondition = LogCondition.ALWAYS_GENERATE;
-        decoFallenTree.logConditionChance = 1;
-        decoFallenTree.loops = 4;
+        decoFallenTree.distribution.noiseDivisor = 100f;
+        decoFallenTree.distribution.noiseFactor = 6f;
+        decoFallenTree.distribution.noiseAddend = 0.8f;
+        decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        decoFallenTree.logConditionNoise = 0f;
+        decoFallenTree.logConditionChance = 6;
         decoFallenTree.maxY = 100;
         decoFallenTree.logBlock = Blocks.LOG2;
         decoFallenTree.logMeta = (byte) 1;
@@ -119,6 +139,5 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
     @Override
     protected void initProperties() {
         config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.DIRT.getStateFromMeta(2));
-        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
     }
 }

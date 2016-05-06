@@ -5,6 +5,7 @@ import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.math.CanyonColour;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.surface.SurfaceRiverOasis;
 import teamrtg.rtg.world.biome.surface.part.*;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
@@ -17,9 +18,9 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
 
     public RealisticBiomeVanillaMesaPlateauF(ChunkProviderRTG chunkProvider) {
         super(
-                Biomes.MESA_ROCK,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.MESA_ROCK,
+            Biomes.RIVER,
+            chunkProvider
         );
         this.noLakes = true;
     }
@@ -65,24 +66,23 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
     @Override
     protected SurfacePart initSurface() {
         SurfacePart surface = new SurfacePart();
+        surface.add(new SurfaceRiverOasis(this));
         surface.add(new DepthSelector(0, 11)
-                .add(new CliffSelector(1.3f)
-                        .add(new BlockPart(CanyonColour.MESA)))
-                .add(new DepthSelector(4, 256)
-                        .add(new BlockPart(CanyonColour.MESA)))
-            .add(new GenericPart(Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState()))
+            .add(new OrSelector()
+                .or(new CliffSelector(1.3f))
+                .or(new DepthSelector(4, 256))
+                .add(new BlockPart(CanyonColour.MESA)))
             .add(PARTS.selectTop()
-                    .add(new RandomSelector(rand, 5)
-                                .add(new BlockPart(Blocks.GRASS.getDefaultState())))
-                    .add(new RandomSelector(rand, 3)
-                                .add(new BlockPart(Blocks.DIRT.getStateFromMeta(1))))
-                        .add(new BlockPart(this.config.TOP_BLOCK.get())))
-                .add(new BlockPart(this.config.FILL_BLOCK.get()))
+                .add(PARTS.rand(5)
+                    .add(new BlockPart(Blocks.GRASS.getDefaultState())))
+                .add(PARTS.rand(3)
+                    .add(new BlockPart(Blocks.DIRT.getStateFromMeta(1)))))
         );
         surface.add(
-            new HeightSelector(64, 256).setMinNoise(PARTS.DEPTH_NOISE)
-                        .add(new BlockPart(CanyonColour.MESA))
+            new HeightSelector(50, 256).setMinNoise(PARTS.DEPTH_NOISE)
+                .add(new BlockPart(CanyonColour.MESA))
         );
+        surface.add(PARTS.surfaceGeneric());
         return surface;
     }
 

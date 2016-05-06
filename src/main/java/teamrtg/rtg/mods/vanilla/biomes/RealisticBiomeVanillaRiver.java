@@ -4,6 +4,7 @@ import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.BiomeGenBase;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
@@ -26,6 +27,12 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
                 return terrainFlatLakes(x, y, simplex, river, 3f, 60f);
             }
         };
+    }
+
+    @Override
+    protected SurfacePart initSurface() {
+        SurfacePart surface = PARTS.surfaceGeneric();
+        return surface;
     }
 
 

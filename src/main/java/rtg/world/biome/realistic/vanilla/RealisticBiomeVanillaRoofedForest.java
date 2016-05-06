@@ -144,6 +144,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 		decoCobwebBoulder.minY = 63;
 		decoCobwebBoulder.maxY = 70;
 		decoCobwebBoulder.strengthFactor = 2f;
+		decoCobwebBoulder.water = false;
 		this.addDeco(decoCobwebBoulder, this.config._boolean(BiomeConfigVanillaRoofedForest.decorationCobwebsId));
         
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

@@ -59,6 +59,7 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
                 .add(PARTS.rand(3)
                     .add(new BlockPart(Blocks.DIRT.getStateFromMeta(1)))))
         );
+        surface.add(PARTS.surfaceGeneric());
         surface.add(
             new HeightSelector(50, 256).setMinNoise(PARTS.DEPTH_NOISE)
                 .add(new BlockPart(CanyonColour.MESA))

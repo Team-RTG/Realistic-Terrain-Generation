@@ -100,8 +100,6 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
                 .add(new HeightSelector(78, 255)
                     .add(PARTS.rand(5)
                         .add(new BlockPart(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT)))))
-                .add(new HeightSelector(0, 68)
-                    .add(new BlockPart(Blocks.DIRT.getDefaultState())))
                 .add(new HeightSelector(0, 77)
                     .add(PARTS.selectTop()
                         .add(new HeightSelector(0, 71)
@@ -110,9 +108,9 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
                                 .or(PARTS.rand(5))
                                 .add(new BlockPart(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT))))
                         ))));
+        surface.add(PARTS.surfaceGeneric());
         surface.add(new HeightSelector(50, 255).setMinNoise(PARTS.DEPTH_NOISE2)
             .add(new BlockPart(CanyonColour.MESA)));
-        surface.add(PARTS.surfaceGeneric());
         return surface;
     }
 

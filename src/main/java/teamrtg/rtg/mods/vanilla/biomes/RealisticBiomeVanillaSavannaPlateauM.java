@@ -58,11 +58,11 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
                 .add(PARTS.rand(3)
                     .add(new BlockPart(Blocks.DIRT.getStateFromMeta(1)))))
         );
+        surface.add(PARTS.surfaceGeneric());
         surface.add(
             new HeightSelector(50, 256).setMinNoise(PARTS.DEPTH_NOISE)
                 .add(new BlockPart(CanyonColour.SAVANNA))
         );
-        surface.add(PARTS.surfaceGeneric());
         return surface;
     }
 

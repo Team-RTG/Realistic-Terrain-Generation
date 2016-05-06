@@ -28,7 +28,7 @@ public class TerrainHLSteppe extends TerrainBase
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
 		float h = simplex.noise2(x / vWidth, y / vWidth) * vHeight * river;
-		h += simplex.noise2(x / 20f, y / 20f) * 2;
+		h += blendedHillHeight(simplex.noise2(x / 20f, y / 20f),-0.3f) * 2;
 
 		float m = simplex.noise2(x / hWidth, y / hWidth) * hHeight * river;
 		m *= m / 40f;
@@ -52,7 +52,7 @@ public class TerrainHLSteppe extends TerrainBase
 		l *= l / 25f;
 		l = l < 8f ? 8f : l;*/
         //put in a little roll
-		h += simplex.noise2(x / 100f, y / 100f) * 2f;
+		h += blendedHillHeight(simplex.noise2(x / 100f, y / 100f),-0.3f) * 2f;
 
         // no lakes
 		return riverized(bHeight + h + m,river);

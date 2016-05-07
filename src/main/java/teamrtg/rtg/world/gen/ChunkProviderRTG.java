@@ -28,7 +28,6 @@ import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.api.util.BiomeUtils;
-import teamrtg.rtg.api.util.debug.Logger;
 import teamrtg.rtg.util.PlaneLocation;
 import teamrtg.rtg.util.math.CanyonColour;
 import teamrtg.rtg.util.math.MathUtils;
@@ -617,7 +616,13 @@ public class ChunkProviderRTG implements IChunkGenerator {
         int k;
 
         noise = getNewerNoise(bprv, cx * 16, cz * 16, biomes, biomeData, riverVals);
-        // that routine can change the biome array so put it back if not
+
+        //fill biomes array with biomeData
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 16; j++) {
+                biomes[i * 16 + j] = RealisticBiomeBase.getBiome(BiomeUtils.getIdForBiome(bprv.getPreRepair(cx + i, cz + j)));
+            }
+        }
 
         //fill with biomeData
         int[] biomeIndices = bprv.getBiomesGens(cx * 16, cz * 16, 16, 16);
@@ -644,42 +649,42 @@ public class ChunkProviderRTG implements IChunkGenerator {
         testHeight = new float[256];
         biomesGeneratedInChunk = new float[256];
 
+        // get area biome map
         for (int i = -sampleSize; i < sampleSize + 5; i++) {
             for (int j = -sampleSize; j < sampleSize + 5; j++) {
                 biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = BiomeUtils.getIdForBiome(cmr.getPreRepair(x + ((i * 8)), y + ((j * 8))));
             }
         }
         String report = "";
-        final float kk = (float) Math.pow((56f * 56f), 0.707f);
+        float river;
+        float[] weightedBiomes = new float[256];
 
         int adjustment = 4;// this should actually vary with sampleSize
         // fill the old smallRender
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 16; j++) {
                 int locationIndex = ((int) (i + adjustment) * 25 + (j + adjustment));
-                float[] weightedBiomes = new float[256];
                 float totalWeight = 0;
 
                 boolean looking = false;
                 if (y + j == -859) {
-                    if (x + i == -1329) looking = true;
-                    if (x + i == -1328) looking = true;
+                    //if (x + i == -1329) looking = true;
+                    //if (x + i == -1328) looking = true;
                 }
                 if (looking) {
                     report = "(" + (x) + "," + (y) + ")" + "(" + (x + i) + "," + (y + j) + ")";
                 }
+                float limit = (float) Math.pow((56f * 56f), .7);
+                // float limit = 56f;
 
                 for (int mapX = 0; mapX < sampleArraySize; mapX++) {
                     for (int mapZ = 0; mapZ < sampleArraySize; mapZ++) {
                         float xDist = (i - chunkCoordinate(mapX));
-                        float zDist = (j - chunkCoordinate(mapZ));
-                        float distanceSquared = xDist * xDist + zDist * zDist;
-                        float distance = (float) Math.pow(distanceSquared, 0.5);
-                        float kfloat = (float) biomeData[mapX * sampleArraySize + mapZ] / (float) biomeData.length;
-                        distance += simplex.noise2((x + i) / 16f + kfloat, (y + j) / 16f + kfloat) * 3f;
-                        // Just a little bit of exponentiality.
-                        distance = (float) Math.pow(1.075, distance) - 1f;
-                        float weight = (float) (1f - distance / 56f);
+                        float yDist = (j - chunkCoordinate(mapZ));
+                        float distanceSquared = xDist * xDist + yDist * yDist;
+                        //float distance = (float)Math.sqrt(distanceSquared);
+                        float distance = (float) Math.pow(distanceSquared, .7);
+                        float weight = 1f - distance / limit;
                         if (weight > 0) {
                             if (looking) {
                                 //report += " " + weight + " (" + mapX + "," + mapZ+ ")" + biomeData[mapX*sampleArraySize + mapZ];
@@ -700,24 +705,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
                     }
                     firstBlock = report;
                 }
-                smallRender[locationIndex] = weightedBiomes;
-            }
-        }
-
-        //fill biomes array with biomeData
-        for (int i = 0; i < 16; i++) {
-            for (int j = 0; j < 16; j++) {
-                biomes[i * 16 + j] = RealisticBiomeBase.getBiome(BiomeUtils.getIdForBiome(bprv.getPreRepair(x + (((i - 7) * 8 + 4)), y + (((j - 7) * 8 + 4)))));
-            }
-        }
-
-        float river;
-
-        for (int i = 0; i < 16; i++) {
-            for (int j = 0; j < 16; j++) {
-
-                int locationIndex = ((int) (i + adjustment) * 25 + (j + adjustment));
-
                 testHeight[i * 16 + j] = 0f;
 
                 river = cmr.getRiverStrength(x + i, y + j);
@@ -725,24 +712,26 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 float totalBorder = 0f;
 
                 for (int k = 0; k < 256; k++) {
-                    totalBorder += smallRender[locationIndex][k];
-                }
 
-                for (int k = 0; k < 256; k++) {
-
-                    if (smallRender[locationIndex][k] > 0f) {
+                    if (weightedBiomes[k] > 0f) {
 
                         if (locationIndex == centerLocationIndex) {
-                            biomesGeneratedInChunk[k] = smallRender[centerLocationIndex][k] / totalBorder;
+                            biomesGeneratedInChunk[k] = weightedBiomes[k];
                         }
 
-                        testHeight[i * 16 + j] += RealisticBiomeGenerator.forBiome(k).rNoise(simplex, cell, x + i, y + j, smallRender[locationIndex][k] / totalBorder, river + 1f) * smallRender[locationIndex][k] / totalBorder;
+                        totalBorder += weightedBiomes[k];
+                        testHeight[i * 16 + j] += RealisticBiomeGenerator.forBiome(k).rNoise(simplex, cell, x + i, y + j, weightedBiomes[k], river + 1f) * weightedBiomes[k];
+                        // 0 for the next column
+                        weightedBiomes[k] = 0f;
+
                     }
                 }
-                if (totalBorder < .999 || totalBorder > 1.001) Logger.error("totalBorder is " + totalBorder);
+                if (totalBorder < .999 || totalBorder > 1.001) throw new RuntimeException("" + totalBorder);
             }
         }
+
         return testHeight;
+
     }
 
     private int chunkCoordinate(int biomeMapCoordinate) {

@@ -5,6 +5,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.GroundEffect;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
@@ -33,6 +35,14 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
         };
     }
 
+    @Override
+    protected SurfacePart initSurface() {
+        SurfacePart surface = new SurfacePart();
+        surface.add(new CliffSelector(1.5f)
+            .add(PARTS.STONE_OR_COBBLE));
+        surface.add(PARTS.surfaceGeneric());
+        return surface;
+    }
 
     @Override
     protected void initDecos() {

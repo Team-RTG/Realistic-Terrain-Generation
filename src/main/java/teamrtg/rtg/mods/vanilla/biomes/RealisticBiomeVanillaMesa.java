@@ -1,10 +1,12 @@
 package teamrtg.rtg.mods.vanilla.biomes;
 
+import net.minecraft.block.BlockDirt;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.math.CanyonColour;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.surface.SurfaceRiverOasis;
 import teamrtg.rtg.world.biome.surface.part.*;
 import teamrtg.rtg.world.biome.terrain.GroundEffect;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
@@ -88,14 +90,25 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     @Override
     protected SurfacePart initSurface() {
         SurfacePart surface = new SurfacePart();
+        surface.add(new SurfaceRiverOasis(this));
         surface.add(
             new DepthSelector(0, 11)
-                .add(new OrSelector(
-                    new CliffSelector(1.3f),
-                    new DepthSelector(0, 4)
-                ).add(new BlockPart(CanyonColour.MESA)))
-                .add(new HeightSelector(77, 255).setMinNoise(PARTS.DEPTH_NOISE2))
-        );
+                .add(new OrSelector()
+                    .or(new CliffSelector(1.3f))
+                    .or(new DepthSelector(4, 255))
+                    .add(new BlockPart(CanyonColour.MESA)))
+                .add(new HeightSelector(78, 255)
+                    .add(PARTS.rand(5)
+                        .add(new BlockPart(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT)))))
+                .add(new HeightSelector(0, 77)
+                    .add(PARTS.selectTop()
+                        .add(new HeightSelector(0, 71)
+                            .add(PARTS.rand(5)
+                                .add(new BlockPart(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT))))
+                        ))));
+        surface.add(PARTS.surfaceGeneric());
+        surface.add(new HeightSelector(50, 255).setMinNoise(PARTS.DEPTH_NOISE2)
+            .add(new BlockPart(CanyonColour.MESA)));
         return surface;
     }
 

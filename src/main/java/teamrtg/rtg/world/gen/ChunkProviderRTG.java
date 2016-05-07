@@ -276,7 +276,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
         int k;
 
-        noise = getNewNoise(bprv, cx * 16, cz * 16, biomes, biomeData, riverVals);
+        noise = getNewerNoise(bprv, cx * 16, cz * 16, biomes, biomeData, riverVals);
         // that routine can change the biome array so put it back if not
 
         //fill with biomeData
@@ -294,7 +294,13 @@ public class ChunkProviderRTG implements IChunkGenerator {
         bprv.heights.put(loc, noise);
     }
 
-    private float[] getNewNoise(BiomeProviderRTG cmr, int x, int y, RealisticBiomeBase biomes[], int[] biomeData, float[] riverVals) {
+    private int chunkCoordinate(int biomeMapCoordinate) {
+        return (biomeMapCoordinate - sampleSize) * 8;
+    }
+
+    public static String firstBlock;
+
+    private float[] getNewerNoise(BiomeProviderRTG cmr, int x, int y, RealisticBiomeBase biomes[], int[] biomeData, float[] riverVals) {
 
         float[][] hugeRender;
         float[][] smallRender;
@@ -306,193 +312,74 @@ public class ChunkProviderRTG implements IChunkGenerator {
         testHeight = new float[256];
         biomesGeneratedInChunk = new float[256];
 
-        int i, j, k, locationIndex, m, n, p;
-
-        for (i = -sampleSize; i < sampleSize + 5; i++) {
-            for (j = -sampleSize; j < sampleSize + 5; j++) {
+        for (int i = -sampleSize; i < sampleSize + 5; i++) {
+            for (int j = -sampleSize; j < sampleSize + 5; j++) {
                 biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = BiomeUtils.getIdForBiome(cmr.getPreRepair(x + ((i * 8)), y + ((j * 8))));
             }
         }
+        String report = "";
 
-        for (i = -1; i < 4; i++) {
-            for (j = -1; j < 4; j++) {
-                hugeRender[(i * 2 + 2) * 9 + (j * 2 + 2)] = new float[256];
-                for (k = -parabolicSize; k <= parabolicSize; k++) {
-                    for (locationIndex = -parabolicSize; locationIndex <= parabolicSize; locationIndex++) {
-                        hugeRender[(i * 2 + 2) * 9 + (j * 2 + 2)]
-                            [biomeData[(i + k + sampleSize + 1) * sampleArraySize + (j + locationIndex + sampleSize + 1)]]
-                            += parabolicField[k + parabolicSize + (locationIndex + parabolicSize) * parabolicArraySize] / parabolicFieldTotal;
+        int adjustment = 4;// this should actually vary with sampleSize
+        // fill the old smallRender
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 16; j++) {
+                int locationIndex = ((int) (i + adjustment) * 25 + (j + adjustment));
+                float[] weightedBiomes = new float[256];
+                float totalWeight = 0;
+
+                boolean looking = false;
+                if (y + j == -859) {
+                    if (x + i == -1329) looking = true;
+                    if (x + i == -1328) looking = true;
+                }
+                if (looking) {
+                    report = "(" + (x) + "," + (y) + ")" + "(" + (x + i) + "," + (y + j) + ")";
+                }
+
+                for (int mapX = 0; mapX < sampleArraySize; mapX++) {
+                    for (int mapZ = 0; mapZ < sampleArraySize; mapZ++) {
+                        float xDist = (i - chunkCoordinate(mapX));
+                        float yDist = (j - chunkCoordinate(mapZ));
+                        float distanceSquared = xDist * xDist + yDist * yDist;
+                        float distance = (float) Math.sqrt(distanceSquared);
+                        float weight = 1f - distance / 56f;
+                        if (weight > 0) {
+                            if (looking) {
+                                //report += " " + weight + " (" + mapX + "," + mapZ+ ")" + biomeData[mapX*sampleArraySize + mapZ];
+                            }
+                            totalWeight += weight;
+                            weightedBiomes[biomeData[mapX * sampleArraySize + mapZ]] += weight;
+                        }
                     }
                 }
-
-            }
-        }
-
-        //RENDER HUGE 1
-        for (i = 0; i < 4; i++) {
-            for (j = 0; j < 4; j++) {
-                hugeRender[(i * 2 + 1) * 9 + (j * 2 + 1)] = mix4(new float[][] {
-                    hugeRender[(i * 2) * 9 + (j * 2)],
-                    hugeRender[(i * 2 + 2) * 9 + (j * 2)],
-                    hugeRender[(i * 2) * 9 + (j * 2 + 2)],
-                    hugeRender[(i * 2 + 2) * 9 + (j * 2 + 2)]});
-            }
-        }
-
-        /* Trying to fix the dots problem
-         * The existing code could create spots that aren't the
-         * logical blend of their parents
-         */
-        // RENDER HUGE 2 (Zeno410)
-        for (i = -1; i < 4; i++) {
-            for (j = 0; j < 4; j++) {
-                hugeRender[(i * 2 + 2) * 9 + (j * 2 + 1)] = mix2(
-                    hugeRender[(i * 2 + 2) * 9 + (j * 2)],
-                    hugeRender[(i * 2 + 2) * 9 + (j * 2 + 2)]);
-            }
-        }
-
-        // RENDER HUGE 3 (Zeno410)
-        for (i = 0; i < 4; i++) {
-            for (j = -1; j < 4; j++) {
-                hugeRender[(i * 2 + 1) * 9 + (j * 2 + 2)] = mix2(
-                    hugeRender[(i * 2) * 9 + (j * 2 + 2)],
-                    hugeRender[(i * 2 + 2) * 9 + (j * 2 + 2)]);
-            }
-        }
-
-        //RENDER SMALL 0
-        for (i = 0; i < 7; i++) {
-            for (j = 0; j < 7; j++) {
-                if (false) //if(!(i % 2 == 0 && j % 2 == 0) && !(i % 2 != 0 && j % 2 != 0))
-                {
-                    smallRender[(i * 4) * 25 + (j * 4)] = mix4(new float[][] {
-                        hugeRender[(i) * 9 + (j + 1)],
-                        hugeRender[(i + 1) * 9 + (j)],
-                        hugeRender[(i + 1) * 9 + (j + 2)],
-                        hugeRender[(i + 2) * 9 + (j + 1)]});
-                } else {
-                    smallRender[(i * 4) * 25 + (j * 4)] = hugeRender[(i + 1) * 9 + (j + 1)];
+                // normalize biome weights
+                for (int biomeIndex = 0; biomeIndex < weightedBiomes.length; biomeIndex++) {
+                    weightedBiomes[biomeIndex] /= totalWeight;
                 }
-            }
-        }
-
-        //RENDER SMALL 1
-        for (i = 0; i < 6; i++) {
-            for (j = 0; j < 6; j++) {
-                smallRender[(i * 4 + 2) * 25 + (j * 4 + 2)] = mix4(new float[][] {
-                    smallRender[(i * 4) * 25 + (j * 4)],
-                    smallRender[(i * 4 + 4) * 25 + (j * 4)],
-                    smallRender[(i * 4) * 25 + (j * 4 + 4)],
-                    smallRender[(i * 4 + 4) * 25 + (j * 4 + 4)]});
-            }
-            //if (y==64&&)
-        }
-
-        //RENDER SMALL 2 - points with four diagonal neighbors
-        /*
-        for(i = 0; i < 11; i++)
-    	{
-    		for(j = 0; j < 11; j++)
-    		{
-    			if(!(i % 2 == 0 && j % 2 == 0))// && !(i % 2 != 0 && j % 2 != 0))
-    			{
-    				smallRender[(i * 2 + 2) * 25 + (j * 2 + 2)] = mix4(new float[][]{
-    					smallRender[(i * 2) * 25 + (j * 2)],
-    					smallRender[(i * 2 + 4) * 25 + (j * 2)],
-    					smallRender[(i * 2 ) * 25 + (j * 2 + 4)],
-    					smallRender[(i * 2 + 4) * 25 + (j * 2 + 4)]});
-    			}
-    		}
-    	}*/
-
-        //RENDER SMALL 2.1 - points vertically between 2 known spots
-        for (i = 0; i < 13; i += 2) //0,2,...20
-        {
-            for (j = 0; j < 11; j += 2)// 0,2,..18
-            {
-                smallRender[(i * 2) * 25 + (j * 2 + 2)] = mix2(
-                    smallRender[(i * 2) * 25 + (j * 2)],
-                    smallRender[(i * 2) * 25 + (j * 2 + 4)]);
-
-            }
-        }
-
-        //RENDER SMALL 2.2 - points horizontally between 2 known spots
-        for (i = 0; i < 11; i += 2) {
-            for (j = 0; j < 13; j += 2) {
-                smallRender[(i * 2 + 2) * 25 + (j * 2)] = mix2(
-                    smallRender[(i * 2) * 25 + (j * 2)],
-                    smallRender[(i * 2 + 4) * 25 + (j * 2)]);
-            }
-        }
-        /*
-    	//RENDER SMALL 3 -  points with four diagonal neighbors
-    	for(i = 0; i < 9; i++)
-    	{
-    		for(j = 0; j < 9; j++)
-    		{
-    			smallRender[(i * 2 + 3) * 25 + (j * 2 + 3)] = mix4(new float[][]{
-        				smallRender[(i * 2 + 2) * 25 + (j * 2 + 2)],
-        				smallRender[(i * 2 + 4) * 25 + (j * 2 + 2)],
-        				smallRender[(i * 2 + 2) * 25 + (j * 2 + 4)],
-        				smallRender[(i * 2 + 4) * 25 + (j * 2 + 4)]});
-    		}
-    	}
-         * */
-        //RENDER SMALL 4
-        for (i = 0; i < 12; i++) {
-            for (j = 0; j < 12; j++) {
-                //if(!(i % 2 == 0 && j % 2 == 0) && !(i % 2 != 0 && j % 2 != 0))
-                {
-                    smallRender[(i * 2 + 1) * 25 + (j * 2 + 1)] = mix4(new float[][] {
-                        smallRender[(i * 2) * 25 + (j * 2)],
-                        smallRender[(i * 2 + 2) * 25 + (j * 2)],
-                        smallRender[(i * 2) * 25 + (j * 2 + 2)],
-                        smallRender[(i * 2 + 2) * 25 + (j * 2 + 2)]});
+                if (looking) {
+                    //report = "(" + (x+i) + ","  + (y+j) + ")"+description(weightedBiomes);
+                    if (firstBlock != null) {
+                        //throw new RuntimeException(firstBlock + " " + report);
+                    }
+                    firstBlock = report;
                 }
-            }
-        }
-        //RENDER SMALL 3.1 - points vertically between 2 known spots
-        for (i = 0; i < 13; i++) //0,2,...20
-        {
-            for (j = 0; j < 12; j++)// 0,2,..18
-            {
-                smallRender[(i * 2) * 25 + (j * 2 + 1)] = mix2(
-                    smallRender[(i * 2) * 25 + (j * 2)],
-                    smallRender[(i * 2) * 25 + (j * 2 + 2)]);
-
-            }
-        }
-
-        //RENDER SMALL 3.2 - points horizontally between 2 known spots
-        for (i = 0; i < 12; i++) {
-            for (j = 0; j < 13; j++) {
-                smallRender[(i * 2 + 1) * 25 + (j * 2)] = mix2(
-                    smallRender[(i * 2) * 25 + (j * 2)],
-                    smallRender[(i * 2 + 2) * 25 + (j * 2)]);
-            }
-        }
-
-        for (i = 0; i < 25; i++) {
-            for (j = 0; j < 25; j++) {
-                if (this.totalNotOne(smallRender[i * 25 + j])) throw new RuntimeException("" + i + " " + j);
+                smallRender[locationIndex] = weightedBiomes;
             }
         }
 
         //fill biomes array with biomeData
-        for (i = 0; i < 16; i++) {
-            for (j = 0; j < 16; j++) {
-                biomes[i * 16 + j] = RealisticBiomeBase.getBiome(BiomeUtils.getIdForBiome(cmr.getPreRepair(x + (((i - 7) * 8 + 4)), y + (((j - 7) * 8 + 4)))));
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 16; j++) {
+                biomes[i * 16 + j] = RealisticBiomeBase.getBiome(BiomeUtils.getIdForBiome(bprv.getPreRepair(x + (((i - 7) * 8 + 4)), y + (((j - 7) * 8 + 4)))));
             }
         }
 
         float river;
 
-        for (i = 0; i < 16; i++) {
-            for (j = 0; j < 16; j++) {
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 16; j++) {
 
-                locationIndex = ((int) (i + 4) * 25 + (j + 4));
+                int locationIndex = ((int) (i + adjustment) * 25 + (j + adjustment));
 
                 testHeight[i * 16 + j] = 0f;
 
@@ -500,7 +387,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 riverVals[i * 16 + j] = -river;
                 float totalBorder = 0f;
 
-                for (k = 0; k < 256; k++) {
+                for (int k = 0; k < 256; k++) {
 
                     if (smallRender[locationIndex][k] > 0f) {
 
@@ -518,46 +405,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
         return testHeight;
     }
 
-    public float[] mix4(float[][] ingredients) {
-        float[] result = new float[256];
-        int i, j;
-        for (i = 0; i < 256; i++) {
-            for (j = 0; j < 4; j++) {
-                if (ingredients[j][i] > 0f) {
-                    result[i] += ingredients[j][i] / 4f;
-                }
-            }
-        }
-
-        return result;
-    }
-
-    public float[] mix2(float[] first, float[] second) {
-        float[] result = new float[256];
-        int i, j;
-        //if (this.totalNotOne(first)) throw new RuntimeException();
-        //if (this.totalNotOne(second)) throw new RuntimeException();
-        for (i = 0; i < 256; i++) {
-            if (first[i] > 0f) {
-                result[i] += first[i] / 2f;
-            }
-            if (second[i] > 0f) {
-                result[i] += second[i] / 2f;
-            }
-        }
-
-        //if (this.totalNotOne(result)) throw new RuntimeException();
-        return result;
-    }
-
-    private boolean totalNotOne(float[] tested) {
-        float total = 0;
-        for (int i = 0; i < tested.length; i++) {
-            total += tested[i];
-        }
-        if (total < .999 || total > 1.001f) return true;
-        return false;
-    }
 
     private void generateTerrain(ChunkPrimer primer, float[] heights) {
         int h;

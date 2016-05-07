@@ -4,8 +4,11 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import teamrtg.rtg.api.util.BiomeUtils;
+import teamrtg.rtg.util.math.CanyonColour;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.surface.SurfaceRiverOasis;
+import teamrtg.rtg.world.biome.surface.part.*;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
@@ -39,6 +42,30 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
                 return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 100f, false);
             }
         };
+    }
+
+    @Override
+    protected SurfacePart initSurface() {
+        SurfacePart surface = new SurfacePart();
+        surface.add(new SurfaceRiverOasis(this));
+        surface.add(new DepthSelector(0, 11)
+            .add(new OrSelector()
+                .or(new CliffSelector(1.3f))
+                .or(new DepthSelector(4, 256))
+                .add(new BlockPart(CanyonColour.MESA)))
+            .add(PARTS.selectTop()
+                .add(PARTS.rand(5)
+                    .add(new BlockPart(Blocks.GRASS.getDefaultState())))
+                .add(PARTS.rand(3)
+                    .add(new BlockPart(Blocks.DIRT.getStateFromMeta(1)))))
+        );
+        surface.add(PARTS.surfaceGeneric());
+        surface.add(
+            new HeightSelector(50, 256).setMinNoise(PARTS.DEPTH_NOISE)
+                .add(new BlockPart(CanyonColour.MESA))
+        );
+        surface.add(PARTS.surfaceGeneric());
+        return surface;
     }
 
 

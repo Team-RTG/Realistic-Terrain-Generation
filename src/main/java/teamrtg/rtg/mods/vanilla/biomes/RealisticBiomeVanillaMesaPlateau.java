@@ -5,7 +5,9 @@ import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.math.CanyonColour;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.surface.SurfaceRiverOasis;
 import teamrtg.rtg.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.world.biome.surface.part.HeightSelector;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
@@ -41,7 +43,11 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
 
     @Override
     protected SurfacePart initSurface() {
-        return new BlockPart(CanyonColour.MESA);
+        SurfacePart surface = new SurfacePart();
+        surface.add(new SurfaceRiverOasis(this));
+        surface.add(new HeightSelector(50, 255).setMinNoise(PARTS.DEPTH_NOISE)
+            .add(new BlockPart(CanyonColour.MESA)));
+        return surface;
     }
 
     @Override

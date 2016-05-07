@@ -4,6 +4,7 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.surface.SurfaceRiverOasis;
 import teamrtg.rtg.world.biome.surface.part.BlockPart;
 import teamrtg.rtg.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.world.biome.surface.part.OrSelector;
@@ -27,9 +28,10 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
     @Override
     protected SurfacePart initSurface() {
         SurfacePart surface = PARTS.selectTopAndFill();
-        surface.add(new OrSelector(
-            new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f),
-            new CliffSelector(1.5f))
+        surface.add(new SurfaceRiverOasis(this));
+        surface.add(new OrSelector()
+            .or(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f))
+            .or(new CliffSelector(1.5f))
             .add(new BlockPart(Blocks.SANDSTONE.getDefaultState()))
         );
         surface.add(PARTS.surfaceGeneric());

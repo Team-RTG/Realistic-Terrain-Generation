@@ -3,6 +3,7 @@ package teamrtg.rtg.world.gen.genlayer;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.GenLayerRiverMix;
 import net.minecraft.world.gen.layer.GenLayerVoronoiZoom;
+import teamrtg.rtg.api.util.debug.Logger;
 import teamrtg.rtg.util.Accessor;
 
 /**
@@ -10,7 +11,7 @@ import teamrtg.rtg.util.Accessor;
  */
 public class RiverRemover {
     private Accessor<GenLayerRiverMix, GenLayer> riverMixBiome =
-            new Accessor<GenLayerRiverMix, GenLayer>("field_75910_b");
+        new Accessor<GenLayerRiverMix, GenLayer>("biomePatternGeneratorChain");
 
     public GenLayer[] riverLess(GenLayer[] vanilla) {
         try {
@@ -22,6 +23,7 @@ public class RiverRemover {
             GenLayerVoronoiZoom genlayervoronoizoom = new GenLayerVoronoiZoom(10L, withoutRivers);
             return new GenLayer[] {withoutRivers, genlayervoronoizoom, withoutRivers};
         } catch (Exception e) {
+            Logger.error("RiverRemover failed");
             return vanilla;
         }
     }

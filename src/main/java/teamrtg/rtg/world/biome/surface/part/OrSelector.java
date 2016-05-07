@@ -1,15 +1,19 @@
 package teamrtg.rtg.world.biome.surface.part;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Takes a few parts as arguments and applies if any of them apply
  * @author topisani
  */
 public class OrSelector extends SurfacePart {
 
-    public SurfacePart[] parts;
+    public List<SurfacePart> parts = new ArrayList<>();
 
-    public OrSelector(SurfacePart... parts) {
-        this.parts = parts;
+    public OrSelector or(SurfacePart part) {
+        parts.add(part);
+        return this;
     }
 
     @Override

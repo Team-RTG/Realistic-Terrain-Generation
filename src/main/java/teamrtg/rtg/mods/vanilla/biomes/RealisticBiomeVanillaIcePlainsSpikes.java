@@ -32,8 +32,8 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
         surface.add(new CliffSelector(1.4f)
             .add(new DepthSelector(0, 1)
                 .add(PARTS.rand(3)
-                    .add(new BlockPart(config.CLIFF_BLOCK_2.get())))))
-            .add(new BlockPart(config.CLIFF_BLOCK_1.get()));
+                    .add(new BlockPart(config.CLIFF_BLOCK_2.get()))))
+            .add(new BlockPart(config.CLIFF_BLOCK_1.get())));
         surface.add(PARTS.surfaceMix((x, y, z) -> simplex.noise2(x / 60f, z / 60f) + simplex.noise2(x / 14f, z / 14f) * 0.25f > -0.14f));
         surface.add(PARTS.surfaceGeneric());
         return surface;

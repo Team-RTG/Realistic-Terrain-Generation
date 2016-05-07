@@ -1,7 +1,6 @@
 package teamrtg.rtg.api.config;
 
 import teamrtg.rtg.api.config.ConfigProperty.*;
-import teamrtg.rtg.api.util.debug.Logger;
 import teamrtg.rtg.util.EnumUtils;
 import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG.FeatureType;
 
@@ -38,7 +37,6 @@ public class BiomeConfig extends Config {
         super();
         this.modSlug = modSlug;
         this.biomeSlug = biomeSlug;
-        Logger.info("%s:%s", modSlug, biomeSlug);
 
         ALLOW_VILLAGES = this.addBool("Allow Villages", "");
         USE_RTG_SURFACES = this.addBool("Use RTG surfaces", "");

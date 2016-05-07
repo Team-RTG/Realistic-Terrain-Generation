@@ -4,6 +4,7 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
@@ -26,6 +27,13 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
                 return terrainMarsh(x, y, simplex, 62f);
             }
         };
+    }
+
+    @Override
+    protected SurfacePart initSurface() {
+        SurfacePart surface = new SurfacePart();
+        surface.add(PARTS.surfaceGeneric());
+        return surface;
     }
 
 

@@ -674,13 +674,16 @@ public class ChunkProviderRTG implements IChunkGenerator {
                         float xDist = (i - chunkCoordinate(mapX));
                         float zDist = (j - chunkCoordinate(mapZ));
                         float distanceSquared = xDist * xDist + zDist * zDist;
-                        float distance = (float) Math.pow(distanceSquared, 0.7);
-                        float weight = (float) (1f - distance / kk);
+                        float distance = (float) Math.pow(distanceSquared, 0.5);
+                        float kfloat = (float) biomeData[mapX * sampleArraySize + mapZ] / (float) biomeData.length;
+                        distance += simplex.noise2((x + i) / 16f + kfloat, (y + j) / 16f + kfloat) * 3f;
+                        // Just a little bit of exponentiality.
+                        distance = (float) Math.pow(1.075, distance) - 1f;
+                        float weight = (float) (1f - distance / 56f);
                         if (weight > 0) {
                             if (looking) {
                                 //report += " " + weight + " (" + mapX + "," + mapZ+ ")" + biomeData[mapX*sampleArraySize + mapZ];
                             }
-                            weight += simplex.noise3(xDist / 16f, biomeData[mapX * sampleArraySize + mapZ], zDist / 16f) * 0.3f;
                             totalWeight += weight;
                             weightedBiomes[biomeData[mapX * sampleArraySize + mapZ]] += weight;
                         }

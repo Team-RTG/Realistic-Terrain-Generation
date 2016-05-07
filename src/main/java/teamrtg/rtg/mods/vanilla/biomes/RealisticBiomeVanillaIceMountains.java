@@ -22,6 +22,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
                 chunkProvider
         );
         this.noLakes = true;
+        this.noWaterFeatures = true;
     }
 
     @Override

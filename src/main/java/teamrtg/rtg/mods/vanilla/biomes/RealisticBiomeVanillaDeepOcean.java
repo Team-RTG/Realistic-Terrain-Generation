@@ -21,7 +21,8 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
                 Biomes.RIVER,
                 chunkProvider
         );
-        this.noLakes = true;
+        this.noLakes=true;
+        this.noWaterFeatures = true;
     }
 
     @Override

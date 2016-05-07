@@ -9,8 +9,16 @@ import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.GroundEffect;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
-import teamrtg.rtg.world.gen.deco.*;
+import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
+import teamrtg.rtg.world.gen.deco.DecoBoulder;
+import teamrtg.rtg.world.gen.deco.DecoDeadBush;
+import teamrtg.rtg.world.gen.deco.DecoFallenTree;
 import teamrtg.rtg.world.gen.deco.DecoFallenTree.LogCondition;
+import teamrtg.rtg.world.gen.deco.DecoGrass;
+import teamrtg.rtg.world.gen.deco.DecoGrassDoubleTallgrass;
+import teamrtg.rtg.world.gen.deco.DecoMushrooms;
+import teamrtg.rtg.world.gen.deco.DecoShrub;
+import teamrtg.rtg.world.gen.deco.DecoTree;
 import teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
 
@@ -138,6 +146,8 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 
     @Override
     protected void initProperties() {
+        this.config.WATER_POND_CHANCE.setDefault(3);
+        this.config.LAVA_POND_CHANCE.setDefault(0);
         config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.DIRT.getStateFromMeta(2));
     }
 }

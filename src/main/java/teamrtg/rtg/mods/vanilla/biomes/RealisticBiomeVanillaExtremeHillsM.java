@@ -25,6 +25,8 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
                 Biomes.RIVER,
                 chunkProvider
         );
+        this.noLakes = true;
+        this.noWaterFeatures = true;
     }
 
     @Override

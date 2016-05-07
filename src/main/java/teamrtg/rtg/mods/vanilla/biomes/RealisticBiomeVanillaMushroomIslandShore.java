@@ -7,6 +7,7 @@ import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
+import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVanillaBase {
 
@@ -39,7 +40,8 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
 
     @Override
     protected void initDecos() {
-
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override

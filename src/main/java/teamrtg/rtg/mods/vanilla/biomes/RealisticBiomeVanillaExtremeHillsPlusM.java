@@ -10,6 +10,7 @@ import teamrtg.rtg.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
+import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.EXTREME_HILLS_WITH_TREES;
@@ -55,7 +56,8 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
 
     @Override
     protected void initDecos() {
-
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override

@@ -208,7 +208,6 @@ public class MapGenRavineRTG extends MapGenRavine {
     }
 
     //Exception biomes to make sure we generate like biomes
-    @SuppressWarnings("MethodOverridesPrivateMethodOfSuperclass")
     private static boolean isExceptionBiome(BiomeGenBase biome) {
         if (biome.equals(Biomes.MUSHROOM_ISLAND)) return true;
         if (biome.equals(Biomes.BEACH)) return true;
@@ -217,7 +216,6 @@ public class MapGenRavineRTG extends MapGenRavine {
 
     //Determine if the block at the specified location is the top block for the biome, we take into account
     //Vanilla bugs to make sure that we generate the map the same way biomes does.
-    @SuppressWarnings("MethodNamesDifferingOnlyByCase")
     private boolean istopBlock(ChunkPrimer primer, int x, int y, int z, int chunkX, int chunkZ) {
         BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
         return (isExceptionBiome(biome) ? primer.getBlockState(x, y, z).equals(Blocks.GRASS) : primer.getBlockState(x, y, z).equals(biome.topBlock));

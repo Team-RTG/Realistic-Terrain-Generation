@@ -282,7 +282,6 @@ public class MapGenCavesRTG extends MapGenCaves {
         }
     }
 
-    @SuppressWarnings("MethodOverridesPrivateMethodOfSuperclass")
     private static boolean isExceptionBiome(BiomeGenBase biome) {
         boolean booException = false;
 
@@ -295,7 +294,6 @@ public class MapGenCavesRTG extends MapGenCaves {
 
     //Determine if the block at the specified location is the top block for the biome, we take into account
     //Vanilla bugs to make sure that we generate the map the same way biomes does.
-    @SuppressWarnings("MethodOverridesPrivateMethodOfSuperclass")
     private boolean isTopBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ) {
         BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
         return (isExceptionBiome(biome) ? data.getBlockState(x, y, z).equals(Blocks.GRASS) : data.getBlockState(x, y, z).equals(biome.topBlock));

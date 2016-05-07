@@ -27,6 +27,7 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
                 Biomes.RIVER,
                 chunkProvider
         );
+        this.noLakes = true;
     }
 
     @Override

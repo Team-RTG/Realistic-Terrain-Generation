@@ -27,6 +27,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
                 Biomes.RIVER,
                 chunkProvider
         );
+        this.noLakes = true;
     }
 
     @Override

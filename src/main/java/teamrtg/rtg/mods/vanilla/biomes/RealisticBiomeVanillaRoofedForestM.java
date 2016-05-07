@@ -24,6 +24,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
                 chunkProvider
         );
         this.noLakes = true;
+        this.noWaterFeatures = true;
     }
 
     @Override

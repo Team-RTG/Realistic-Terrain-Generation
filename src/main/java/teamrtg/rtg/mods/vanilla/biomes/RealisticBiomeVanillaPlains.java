@@ -3,10 +3,12 @@ package teamrtg.rtg.mods.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.part.*;
+import teamrtg.rtg.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.GroundEffect;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
+import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 
@@ -42,7 +44,8 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 
     @Override
     protected void initDecos() {
-
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override

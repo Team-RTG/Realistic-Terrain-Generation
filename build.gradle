@@ -15,7 +15,15 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+def parseprops(File cfg) {
+    cfg.withReader {
+        def prop = new Properties()
+        prop.load(it)
+        return (new ConfigSlurper().parse(prop))
+    }
+}
 ext.ref = parseprops(file('build.properties'))
+ext.ref.mod_deps = parseprops(file('mod_deps.properties'))
 
 group = ref.package_base + '.' + ref.mod_id
 archivesBaseName = ref.mod_id
@@ -23,21 +31,20 @@ version = (System.getenv("TRAVIS") ? "1.9-DEV-" + System.getenv('TRAVIS_BUILD_NU
 def versionName = (System.getenv("TRAVIS") ? "1.9-" + ref.mod_version + "-DEV-" +  System.getenv('TRAVIS_BUILD_NUMBER') : version)
 
 minecraft {
-    version = ref.mcf_version + '-1.9' //the '-1.9' will probably be dropped in the future once Forge 1.9 is stable, or atleast this seems to be the trend.
+    version = ref.mcf_version
     runDir = ref.run_dir
     mappings = ref.mappings
     replace '@MOD_NAME@', ref.mod_name
     replace '@MOD_ID@', ref.mod_id
     replace '@MOD_VERSION@', versionName
     replace '@MCF_VERSION@', ref.mcf_version
-    if (ref.mod_deps!="") replace '@MOD_DEPS@', ";" + ref.mod_deps
+    if (ref.mod_deps!="") replace '@MOD_DEPS@', ";" + ref.mod_deps.depstring
     else replace '@MOD_DEPS@', ''
     replaceIn 'ModInfo.java'
 }
 
 dependencies {
-    //TODO: Add more deps in the future and get third-party code out of our source tree.
-    compile 'com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.9-4.0.0.1977:deobf'
+    compile 'com.github.glitchfiend.biomesoplenty:BiomesOPlenty:' + ref.mc_version + '-' + ref.mod_deps.bopver + ':deobf'
 }
 
 processResources {
@@ -58,13 +65,6 @@ processResources {
 	from(sourceSets.main.resources.srcDirs) {exclude 'mcmod.info'}
 }
 
-def parseprops(File cfg) {
-    cfg.withReader {
-        def prop = new Properties()
-        prop.load(it)
-        return (new ConfigSlurper().parse(prop))
-    }
-}
 
 runClient {
     jvmArgs "-Xmx4G", "-Xms4G"

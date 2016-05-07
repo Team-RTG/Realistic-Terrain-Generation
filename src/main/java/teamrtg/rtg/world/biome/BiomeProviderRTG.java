@@ -201,7 +201,7 @@ public class BiomeProviderRTG extends BiomeProvider {
             return 59f;
         }
 
-        return RealisticBiomeGenerator.forBiome(getBiomeDataAt(x, y)).rNoise(simplex, cell, x, y, 1f, river, chunkProvider);
+        return RealisticBiomeGenerator.forBiome(getBiomeDataAt(x, y)).rNoise(simplex, cell, x, y, 1f, river);
     }
 
     public float getRiverStrength(int x, int y) {

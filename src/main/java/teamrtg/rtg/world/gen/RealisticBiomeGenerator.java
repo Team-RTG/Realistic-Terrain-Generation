@@ -256,13 +256,13 @@ public class RealisticBiomeGenerator {
         }
     }
 
-    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river, ChunkProviderRTG chunkProvider) {
+    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
         // we now have both lakes and rivers lowering land
         if (biome.noWaterFeatures) {
             float borderForRiver = border * 2;
             if (borderForRiver > 1f) borderForRiver = 1;
             river = 1f - (1f - borderForRiver) * (1f - river);
-            return biome.terrain.generateNoise(simplex, cell, x, y, border, river, chunkProvider);
+            return biome.terrain.generateNoise(simplex, cell, x, y, border, river);
         }
         float lakeStrength = lakePressure(simplex, cell, x, y, border);
         float lakeFlattening = (float) lakeFlattening(lakeStrength, biome.lakeShoreLevel, biome.lakeDepressionLevel);
@@ -285,7 +285,7 @@ public class RealisticBiomeGenerator {
             if (lakeFlattening < river) river = (float) lakeFlattening;
         }
         // flatten terrain to set up for the water features
-        float terrainNoise = biome.terrain.generateNoise(simplex, cell, x, y, border, riverFlattening, chunkProvider);
+        float terrainNoise = biome.terrain.generateNoise(simplex, cell, x, y, border, riverFlattening);
         // place water features
         return this.erodedNoise(simplex, cell, x, y, river, border, terrainNoise, lakeFlattening);
     }

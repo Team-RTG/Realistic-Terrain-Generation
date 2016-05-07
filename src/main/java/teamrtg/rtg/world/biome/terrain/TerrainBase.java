@@ -3,7 +3,6 @@ package teamrtg.rtg.world.biome.terrain;
 import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 public abstract class TerrainBase {
     public static final float minimumOceanFloor = 30f; // The lowest z coord an ocean floor is allowed to be.
@@ -706,9 +705,5 @@ public abstract class TerrainBase {
         return baseHeight + h * border;
     }
 
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int z, float border, float river, ChunkProviderRTG chunkProvider) {
-        return this.generateNoise(simplex, cell, x, z, border, river);
-    }
-
-    protected abstract float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int z, float border, float river);
+    public abstract float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int z, float border, float river);
 }

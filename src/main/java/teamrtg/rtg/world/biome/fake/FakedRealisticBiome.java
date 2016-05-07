@@ -23,13 +23,8 @@ public class FakedRealisticBiome extends RealisticBiomeBase {
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int z, float border, float river, ChunkProviderRTG chunkProvider) {
-                return chunkProvider.biomeFaker.getHeightAt(x, z);
-            }
-
-            @Override
-            protected float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int z, float border, float river) {
-                return 0;
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int z, float border, float river) {
+                return riverized(chunkProvider.biomeFaker.getHeightAt(x, z), river);
             }
         };
     }

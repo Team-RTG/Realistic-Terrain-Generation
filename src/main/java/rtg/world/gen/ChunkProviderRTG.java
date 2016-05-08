@@ -1264,6 +1264,8 @@ public class ChunkProviderRTG implements IChunkProvider
             SpawnerAnimals.performWorldGenSpawning(this.worldObj, worldObj.getBiomeGenForCoords(worldX + 16, worldZ + 16), worldX, worldZ, 16, 16, this.rand);
         }
 
+        TimeTracker.manager.stop("Entities");
+        TimeTracker.manager.start("Ice");
         everDecorated.add(location);
         probe.setX(chunkX);
         probe.setZ(chunkZ);
@@ -1290,10 +1292,10 @@ public class ChunkProviderRTG implements IChunkProvider
         } else {
             throw new RuntimeException();
         }
+        TimeTracker.manager.stop("Ice");
 
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag));
 
-        TimeTracker.manager.stop("Entities");
         BlockFalling.fallInstantly = false;
         TimeTracker.manager.stop("RTG populate");
         populating = false;

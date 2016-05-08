@@ -41,7 +41,7 @@ public class TerrainHLGlacier extends TerrainBase
 		cm *= m / 20f > 3.75f ? 3.75f : m / 20f;
 		m += cm;
         m = m/2f;
-        m= above(m,15);
+        m= above(m,25);
 
         h += this.groundNoise(x, y, 1.5f, simplex);
 		//h += simplex.noise2(x / 12f, y / 12f) * 2f;

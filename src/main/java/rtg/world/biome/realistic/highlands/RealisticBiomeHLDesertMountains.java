@@ -25,6 +25,7 @@ public class RealisticBiomeHLDesertMountains extends RealisticBiomeHLBase
             new TerrainHLDesertMountains(230f, 85f, 68f),
             new SurfaceHLDesertMountains(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 90f, 30f, 1.5f)
         );
+        noLakes = true;
         noWaterFeatures = true;
         disallowStoneBeaches = true;
         
@@ -32,11 +33,5 @@ public class RealisticBiomeHLDesertMountains extends RealisticBiomeHLBase
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		decoBaseBiomeDecorations.allowed = false;
 		this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-        // no rivers or lakes
-        return terrain.generateNoise(simplex, cell, x, y, border, river);
     }
 }

@@ -55,7 +55,12 @@ public class DecoHLTree extends DecoTree
 		
 		this.addDecoTypes(DecoType.TREE);
 	}
-	
+
+    @Override
+    public boolean properlyDefined() {
+        return true;
+    }
+
 	@Override
 	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
 	{
@@ -80,7 +85,7 @@ public class DecoHLTree extends DecoTree
 		            		
 		            	case CANOPY:
 		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
 		                        WorldGenerator worldgenerator = new WorldGenTreeCanopy(this.minSize, (this.maxSize - this.minSize), false, this.thickTrunk);
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
@@ -91,7 +96,7 @@ public class DecoHLTree extends DecoTree
 		            		
 		            	case HIGHLANDS_SHRUB:
 		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
 		                        WorldGenerator worldgenerator = new WorldGenHighlandsShrub(this.logMeta, this.leavesMeta);
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);

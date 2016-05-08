@@ -8,9 +8,33 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderGenerate;
+import rtg.RTG;
 
 public class WorldTypeRTG extends WorldType
 {
+
+    private static WorldChunkManagerRTG chunkManager;
+    private static ChunkProviderRTG chunkProvider;
+
+    private static Runnable clearChunkManager() {
+        return new Runnable() {
+
+            public void run() {
+                chunkManager = null;
+            }
+
+        };
+    }
+
+    private static Runnable clearChunkProvider() {
+        return new Runnable() {
+
+            public void run() {
+                chunkProvider = null;
+            }
+
+        };
+    }
 
 	public WorldTypeRTG(String name)
 	{
@@ -24,7 +48,11 @@ public class WorldTypeRTG extends WorldType
     public WorldChunkManager getChunkManager(World world)
     {
         if (world.provider.dimensionId == 0) {
-        return new WorldChunkManagerRTG(world,this);
+           if (chunkManager == null) {
+               chunkManager = new WorldChunkManagerRTG(world,this);
+               RTG.instance.runOnNextServerCloseOnly(clearChunkManager());
+           }
+           return chunkManager;
         } else {
             return new WorldChunkManager(world);
         }
@@ -34,7 +62,11 @@ public class WorldTypeRTG extends WorldType
     public IChunkProvider getChunkGenerator(World world, String generatorOptions)
     {
         if (world.provider.dimensionId == 0) {
-            return new ChunkProviderRTG(world, world.getSeed());
+            if (chunkProvider == null) {
+                chunkProvider = new ChunkProviderRTG(world, world.getSeed());
+               RTG.instance.runOnNextServerCloseOnly(clearChunkProvider());
+            }
+            return chunkProvider;
         } else {
             return new ChunkProviderGenerate(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled());
         }

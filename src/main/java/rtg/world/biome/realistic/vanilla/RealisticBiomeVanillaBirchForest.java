@@ -2,8 +2,10 @@ package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.feature.WorldGenForest;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForest;
+import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
@@ -13,6 +15,9 @@ import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
+import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
+import rtg.world.gen.feature.tree.vanilla.WorldGenTreesRTG;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForest;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForest;
 
@@ -35,23 +40,55 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase
 		 * ##################################################
 		 */
         
-		DecoTree smallBirch = new DecoTree();
+		DecoTree smallBirch = new DecoTree(new TreeRTGBetulaPapyrifera());
+		smallBirch.logBlock = Blocks.log;
+		smallBirch.logMeta = (byte)2;
+		smallBirch.leavesBlock = Blocks.leaves;
+		smallBirch.leavesMeta = (byte)2;
+		smallBirch.minTrunkSize = 4;
+		smallBirch.maxTrunkSize = 10;
+		smallBirch.minCrownSize = 8;
+		smallBirch.maxCrownSize = 19;
 		smallBirch.strengthNoiseFactorForLoops = true;
-		smallBirch.treeType = TreeType.SMALL_BIRCH;
+		smallBirch.treeType = TreeType.RTG_TREE;
 		smallBirch.distribution.noiseDivisor = 80f;
 		smallBirch.distribution.noiseFactor = 60f;
 		smallBirch.distribution.noiseAddend = -15f;
 		smallBirch.treeCondition = TreeCondition.ALWAYS_GENERATE;
 		smallBirch.maxY = 120;
 		this.addDeco(smallBirch);
-        
-		DecoTree birchTreesForest = new DecoTree();
-		birchTreesForest.strengthFactorForLoops = 3f;
-		birchTreesForest.treeType = TreeType.BIRCH_TREES_FOREST;
-		birchTreesForest.treeCondition = TreeCondition.ALWAYS_GENERATE;
-		birchTreesForest.maxY = 100;
-		this.addDeco(birchTreesForest);
-        
+
+		DecoTree birchTrees = new DecoTree(new TreeRTGBetulaPapyrifera());
+		birchTrees.logBlock = Blocks.log;
+		birchTrees.logMeta = (byte)2;
+		birchTrees.leavesBlock = Blocks.leaves;
+		birchTrees.leavesMeta = (byte)2;
+		birchTrees.minTrunkSize = 4;
+		birchTrees.maxTrunkSize = 10;
+		birchTrees.minCrownSize = 8;
+		birchTrees.maxCrownSize = 19;
+		birchTrees.strengthFactorForLoops = 3f;
+		birchTrees.treeType = TreeType.RTG_TREE;
+		birchTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		birchTrees.maxY = 100;
+		
+		DecoTree rtgTrees = new DecoTree(new WorldGenTreesRTG(false));
+		rtgTrees.treeType = TreeType.WORLDGEN;
+		rtgTrees.strengthFactorForLoops = 3f;
+		rtgTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		rtgTrees.maxY = 100;
+		
+		DecoTree vanillaTrees = new DecoTree(new WorldGenForest(false, false));
+		vanillaTrees.treeType = TreeType.WORLDGEN;
+		vanillaTrees.strengthFactorForLoops = 3f;
+		vanillaTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		vanillaTrees.maxY = 100;
+		
+		DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
+		decoHelperRandomSplit.decos = new DecoBase[]{birchTrees, rtgTrees, vanillaTrees};
+		decoHelperRandomSplit.chances = new int[]{10, 4, 1};
+		this.addDeco(decoHelperRandomSplit);
+
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.logCondition = LogCondition.RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 8;

@@ -5,6 +5,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import java.util.Random;
 
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -49,15 +50,17 @@ public class DecoJungleCacti extends DecoBase
 
             if (TerrainGen.decorate(world, rand, chunkX, chunkY, CACTUS)) {
                 
+            	WorldGenerator worldGenerator = new WorldGenJungleCacti(this.sandOnly, rand.nextInt(this.extraHeight), this.sandMeta);
+            	
                 for (int i = 0; i < this.strengthFactor * strength; i++)
                 {
-                    int intX = chunkX + rand.nextInt(16) + 8;
+                    int intX = chunkX + rand.nextInt(16);// + 8;
                     int intY = rand.nextInt(160);
-                    int intZ = chunkY + rand.nextInt(16) + 8;
+                    int intZ = chunkY + rand.nextInt(16);// + 8;
                     
                     if (intY < this.maxY)
                     {
-                        (new WorldGenJungleCacti(this.sandOnly, rand.nextInt(this.extraHeight), this.sandMeta)).generate(world, rand, intX, intY, intZ);
+                    	worldGenerator.generate(world, rand, intX, intY, intZ);
                     }
                 }
             }

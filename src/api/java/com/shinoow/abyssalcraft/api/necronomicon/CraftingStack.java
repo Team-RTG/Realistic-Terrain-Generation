@@ -11,11 +11,8 @@
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api.necronomicon;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.shinoow.abyssalcraft.api.APIUtils;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -45,37 +42,9 @@ public class CraftingStack {
 		if(output != null){
 			if(recipe != null){
 				if(recipe.length == 9){
-					if(output instanceof Item){
-						this.output = new ItemStack((Item)output);
-						for(int i = 0; i < 9; i++)
-							if(recipe[i] == null || recipe[i] instanceof ItemStack)
-								this.recipe[i] = (ItemStack) recipe[i];
-							else if(recipe[i] instanceof Item)
-								this.recipe[i] = new ItemStack((Item)recipe[i]);
-							else if(recipe[i] instanceof Block)
-								this.recipe[i] = new ItemStack((Block)recipe[i]);
-							else throw new ClassCastException("Not a Item, Block or ItemStack!");
-					} else if(output instanceof Block){
-						this.output = new ItemStack((Block)output);
-						for(int i = 0; i < 9; i++)
-							if(recipe[i] == null || recipe[i] instanceof ItemStack)
-								this.recipe[i] = (ItemStack) recipe[i];
-							else if(recipe[i] instanceof Item)
-								this.recipe[i] = new ItemStack((Item)recipe[i]);
-							else if(recipe[i] instanceof Block)
-								this.recipe[i] = new ItemStack((Block)recipe[i]);
-							else throw new ClassCastException("Not a Item, Block or ItemStack!");
-					} else if(output instanceof ItemStack){
-						this.output = (ItemStack)output;
-						for(int i = 0; i < 9; i++)
-							if(recipe[i] == null || recipe[i] instanceof ItemStack)
-								this.recipe[i] = (ItemStack) recipe[i];
-							else if(recipe[i] instanceof Item)
-								this.recipe[i] = new ItemStack((Item)recipe[i]);
-							else if(recipe[i] instanceof Block)
-								this.recipe[i] = new ItemStack((Block)recipe[i]);
-							else throw new ClassCastException("Not a Item, Block or ItemStack!");
-					} else throw new ClassCastException("Not a Item, Block or ItemStack!");
+					this.output = APIUtils.convertToStack(output);
+					for(int i = 0; i < 9; i++)
+						this.recipe[i] = APIUtils.convertToStack(recipe[i]);
 				} else throw new ArrayIndexOutOfBoundsException("The array must contain preciesly 9 elements, not "+recipe.length+"!");
 			} else throw new NullPointerException("This array can't be empty!");
 		} else throw new NullPointerException("Output can't be null!");
@@ -90,54 +59,37 @@ public class CraftingStack {
 	public CraftingStack(Object output){
 		if(output != null){
 			Object[] stuff = new Object[9];
-			if(output instanceof Item)
-				this.output = new ItemStack((Item)output);
-			else if(output instanceof Block)
-				this.output = new ItemStack((Block)output);
-			else if(output instanceof ItemStack)
-				this.output = (ItemStack)output;
-			for(Object thing : CraftingManager.getInstance().getRecipeList()){
+			this.output = APIUtils.convertToStack(output);
+			for(Object thing : CraftingManager.getInstance().getRecipeList())
 				if(thing instanceof IRecipe){
 					IRecipe recipe = (IRecipe)thing;
 					if(recipe.getRecipeOutput() != null && recipe.getRecipeOutput().isItemEqual(this.output)){
-							if(recipe instanceof ShapedRecipes)
-								for(int i = 0; i < recipe.getRecipeSize(); i++){
-									stuff[i] = ((ShapedRecipes) recipe).recipeItems[i];
+						if(recipe instanceof ShapedRecipes)
+							for(int i = 0; i < recipe.getRecipeSize(); i++)
+								stuff[i] = ((ShapedRecipes) recipe).recipeItems[i];
+						if(recipe instanceof ShapelessRecipes)
+							for(int i = 0; i < recipe.getRecipeSize(); i++)
+								stuff[i] = ((ShapelessRecipes) recipe).recipeItems.get(i);
+						if(recipe instanceof ShapedOreRecipe)
+							for(int i = 0; i < recipe.getRecipeSize(); i++)
+								stuff[i] = ((ShapedOreRecipe) recipe).getInput()[i];
+						if(recipe instanceof ShapelessOreRecipe)
+							for(int i = 0; i < recipe.getRecipeSize(); i++)
+								stuff[i] = ((ShapelessOreRecipe) recipe).getInput().get(i);
+
+						if(recipe.getRecipeSize() == 4){
+							Object[] copy = stuff.clone();
+							stuff = new Object[9];
+							for(int i = 0; i < 2; i++){
+								stuff[i] = copy[i];
+								stuff[i+3] = copy[i+2];
 							}
-							if(recipe instanceof ShapelessRecipes)
-								for(int i = 0; i < recipe.getRecipeSize(); i++){
-									stuff[i] = ((ShapelessRecipes) recipe).recipeItems.get(i);
-								}
-							if(recipe instanceof ShapedOreRecipe)
-								for(int i = 0; i < recipe.getRecipeSize(); i++){
-									stuff[i] = ((ShapedOreRecipe) recipe).getInput()[i];
-								}
-							if(recipe instanceof ShapelessOreRecipe)
-								for(int i = 0; i < recipe.getRecipeSize(); i++){
-									stuff[i] = ((ShapelessOreRecipe) recipe).getInput().get(i);
-								}
-							
-							 if(recipe.getRecipeSize() == 4){
-								Object[] copy = stuff.clone();
-								stuff = new Object[9];
-								for(int i = 0; i < 2; i++){
-									stuff[i] = copy[i];
-									stuff[i+3] = copy[i+2];
-								}
-							}
+						}
+						this.output.stackSize = recipe.getRecipeOutput().stackSize;
 					}
 				}
-			}
 			for(int i = 0; i < 9; i++)
-				if(stuff[i] == null || stuff[i] instanceof ItemStack)
-					this.recipe[i] = (ItemStack) stuff[i];
-				else if(stuff[i] instanceof Item)
-					this.recipe[i] = new ItemStack((Item)stuff[i]);
-				else if(stuff[i] instanceof Block)
-					this.recipe[i] = new ItemStack((Block)stuff[i]);
-				else if(stuff[i] instanceof ArrayList)
-					this.recipe[i] = (ItemStack)((ArrayList) stuff[i]).get(0);
-				else throw new ClassCastException("Not a Item, Block or ItemStack!");
+				recipe[i] = APIUtils.convertToStack(stuff[i]);
 		}
 
 		for(ItemStack stack : recipe)

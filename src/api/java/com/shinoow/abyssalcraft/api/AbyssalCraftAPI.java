@@ -13,7 +13,6 @@ package com.shinoow.abyssalcraft.api;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.logging.log4j.Level;
@@ -35,7 +34,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
-import com.shinoow.abyssalcraft.api.integration.IACPlugin;
 import com.shinoow.abyssalcraft.api.internal.DummyNecroDataHandler;
 import com.shinoow.abyssalcraft.api.internal.IInternalNecroDataHandler;
 import com.shinoow.abyssalcraft.api.item.ACItems;
@@ -45,6 +43,8 @@ import com.shinoow.abyssalcraft.api.recipe.*;
 
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.IFuelHandler;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.LoaderState;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
@@ -59,7 +59,7 @@ public class AbyssalCraftAPI {
 	/**
 	 * String used to specify the API version in the "package-info.java" classes
 	 */
-	public static final String API_VERSION = "1.6";
+	public static final String API_VERSION = "1.7";
 
 	/**
 	 * Enchantment IDs, first one is the Coralium enchantment, second Dread enchantment,
@@ -88,8 +88,6 @@ public class AbyssalCraftAPI {
 
 	private static List<ItemStack> crystals = Lists.newArrayList();
 
-	private static List<IACPlugin> integrations = Lists.newArrayList();
-
 	private static HashMap<NecroData, Integer> necroData = Maps.newHashMap();
 
 	/**
@@ -97,28 +95,42 @@ public class AbyssalCraftAPI {
 	 */
 	public static EnumCreatureAttribute SHADOW = EnumHelper.addCreatureAttribute("SHADOW");
 
-	public static ArmorMaterial abyssalniteArmor = EnumHelper.addArmorMaterial("Abyssalnite", 35, new int[]{3, 8, 6, 3}, 13);
-	public static ArmorMaterial dreadedAbyssalniteArmor = EnumHelper.addArmorMaterial("Dread", 36, new int[]{3, 8, 6, 3}, 15);
-	public static ArmorMaterial refinedCoraliumArmor = EnumHelper.addArmorMaterial("Coralium", 37, new int[]{3, 8, 6, 3}, 14);
-	public static ArmorMaterial platedCoraliumArmor = EnumHelper.addArmorMaterial("CoraliumP", 55, new int[]{4, 9, 7, 4}, 14);
-	public static ArmorMaterial depthsArmor = EnumHelper.addArmorMaterial("Depths", 33, new int[]{3, 8, 6, 3}, 25);
-	public static ArmorMaterial dreadiumArmor = EnumHelper.addArmorMaterial("Dreadium", 40, new int[]{3, 8, 6, 3}, 15);
-	public static ArmorMaterial dreadiumSamuraiArmor = EnumHelper.addArmorMaterial("DreadiumS", 45, new int[]{3, 8, 6, 3}, 20);
-	public static ArmorMaterial ethaxiumArmor = EnumHelper.addArmorMaterial("Ethaxium", 50, new int[]{3, 8, 6, 3}, 25);
+	public static ArmorMaterial abyssalniteArmor = EnumHelper.addArmorMaterial("Abyssalnite", 35, new int[]{3, 6, 8, 3}, 13);
+	public static ArmorMaterial dreadedAbyssalniteArmor = EnumHelper.addArmorMaterial("Dread", 36, new int[]{3, 6, 8, 3}, 15);
+	public static ArmorMaterial refinedCoraliumArmor = EnumHelper.addArmorMaterial("Coralium", 37, new int[]{3, 6, 8, 3}, 14);
+	public static ArmorMaterial platedCoraliumArmor = EnumHelper.addArmorMaterial("CoraliumP", 55, new int[]{4, 7, 9, 4}, 14);
+	public static ArmorMaterial depthsArmor = EnumHelper.addArmorMaterial("Depths", 33, new int[]{3, 6, 8, 3}, 25);
+	public static ArmorMaterial dreadiumArmor = EnumHelper.addArmorMaterial("Dreadium", 40, new int[]{3, 6, 8, 3}, 15);
+	public static ArmorMaterial dreadiumSamuraiArmor = EnumHelper.addArmorMaterial("DreadiumS", 45, new int[]{3, 6, 8, 3}, 20);
+	public static ArmorMaterial ethaxiumArmor = EnumHelper.addArmorMaterial("Ethaxium", 50, new int[]{3, 6, 8, 3}, 25);
 
 	public static ToolMaterial darkstoneTool = EnumHelper.addToolMaterial("DARKSTONE", 1, 180, 5.0F, 1, 5);
-	public static ToolMaterial abyssalniteTool = EnumHelper.addToolMaterial("ABYSSALNITE", 4, 1261, 13.0F, 4, 13);
-	public static ToolMaterial refinedCoraliumTool = EnumHelper.addToolMaterial("CORALIUM", 5, 2000, 14.0F, 5, 14);
-	public static ToolMaterial dreadiumTool = EnumHelper.addToolMaterial("DREADIUM", 6, 3000, 15.0F, 6, 15);
-	public static ToolMaterial ethaxiumTool = EnumHelper.addToolMaterial("ETHAXIUM", 8, 4000, 16.0F, 8, 20);
+	public static ToolMaterial abyssalniteTool = EnumHelper.addToolMaterial("ABYSSALNITE", 4, 1261, 10.0F, 4, 13);
+	public static ToolMaterial refinedCoraliumTool = EnumHelper.addToolMaterial("CORALIUM", 5, 1800, 12.0F, 5, 14);
+	public static ToolMaterial dreadiumTool = EnumHelper.addToolMaterial("DREADIUM", 6, 2300, 14.0F, 6, 15);
+	public static ToolMaterial ethaxiumTool = EnumHelper.addToolMaterial("ETHAXIUM", 8, 2800, 16.0F, 8, 20);
+
+	private static IInternalNecroDataHandler internalNDHandler = new DummyNecroDataHandler();
+
+	/**
+	 * Used by AbyssalCraft to set the Internal NecroData Handler.<br>
+	 * If any other mod tries to use this method, nothing will happen.
+	 * @param handler Handler instance
+	 */
+	public static void setInternalNDHandler(IInternalNecroDataHandler handler){
+		if(internalNDHandler.getClass().getName().equals(DummyNecroDataHandler.class.getName())
+				&& Loader.instance().getLoaderState() == LoaderState.PREINITIALIZATION
+				&& Loader.instance().activeModContainer().getModId().equals("abyssalcraft"))
+			internalNDHandler = handler;
+	}
 
 	/**
 	 * Internal NecroData handler.<br>
-	 * Use this to alter the Internal NecroData instances.<br>
-	 * Do NOT overwrite this, as internal things won't run!<br>
-	 * Truth be told, the game will stop if this class is overridden.
+	 * Use this to alter the internal NecroData instances.
 	 */
-	public static IInternalNecroDataHandler internalNDHandler = new DummyNecroDataHandler();
+	public static IInternalNecroDataHandler getInternalNDHandler(){
+		return internalNDHandler;
+	}
 
 	/**
 	 * Initializes the reflection required for the Potion code, ignore it
@@ -318,10 +330,9 @@ public class AbyssalCraftAPI {
 	 * @since 1.0
 	 */
 	public static void addOreSmelting(String input, String output, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
 		if(!OreDictionary.getOres(output).isEmpty())
-			while(inputIter.hasNext())
-				FurnaceRecipes.smelting().func_151394_a(inputIter.next(), OreDictionary.getOres(output).iterator().next(), xp);
+			for(ItemStack stack : OreDictionary.getOres(input))
+				FurnaceRecipes.smelting().func_151394_a(stack, OreDictionary.getOres(output).get(0), xp);
 	}
 
 	/**
@@ -334,10 +345,9 @@ public class AbyssalCraftAPI {
 	 * @since 1.0
 	 */
 	public static void addCrystallization(String input, String output1, String output2, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
 		if(!OreDictionary.getOres(output1).isEmpty() && !OreDictionary.getOres(output2).isEmpty())
-			while(inputIter.hasNext())
-				addCrystallization(inputIter.next(), OreDictionary.getOres(output1).iterator().next(), OreDictionary.getOres(output2).iterator().next(), xp);
+			for(ItemStack stack : OreDictionary.getOres(input))
+				addCrystallization(stack, OreDictionary.getOres(output1).get(0), OreDictionary.getOres(output2).get(0), xp);
 	}
 
 	/**
@@ -352,30 +362,14 @@ public class AbyssalCraftAPI {
 	 * @since 1.0
 	 */
 	public static void addCrystallization(String input, String output1, int out1, String output2, int out2, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
-		if(!OreDictionary.getOres(output1).isEmpty() && !OreDictionary.getOres(output2).isEmpty())
-			while(inputIter.hasNext())
-				addCrystallization(inputIter.next(), new ItemStack(OreDictionary.getOres(output1).iterator().next().getItem(), out1), new ItemStack(OreDictionary.getOres(output2).iterator().next().getItem(), out2), xp);
-	}
-
-	/**
-	 * OreDictionary specific Crystallization
-	 * @param input The ore input
-	 * @param output1 The first ore output
-	 * @param out1 Quantity of the first output
-	 * @param meta1 Metadata for the first output
-	 * @param output2 The second ore output
-	 * @param out2 Quantity of the second output
-	 * @param meta2 Metadata for the second output
-	 * @param xp Amount of exp given
-	 * 
-	 * @since 1.0
-	 */
-	public static void addCrystallization(String input, String output1, int out1, int meta1, String output2, int out2, int meta2, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
-		if(!OreDictionary.getOres(output1).isEmpty() && !OreDictionary.getOres(output2).isEmpty())
-			while(inputIter.hasNext())
-				addCrystallization(inputIter.next(), new ItemStack(OreDictionary.getOres(output1).iterator().next().getItem(), out1, meta1), new ItemStack(OreDictionary.getOres(output2).iterator().next().getItem(), out2, meta2), xp);
+		if(!OreDictionary.getOres(output1).isEmpty() && !OreDictionary.getOres(output2).isEmpty()){
+			ItemStack o1 = OreDictionary.getOres(output1).get(0).copy();
+			o1.stackSize = out1;
+			ItemStack o2 = OreDictionary.getOres(output2).get(0).copy();
+			o2.stackSize = out2;
+			for(ItemStack stack : OreDictionary.getOres(input))
+				addCrystallization(stack, o1, o2, xp);
+		}
 	}
 
 	/**
@@ -387,10 +381,9 @@ public class AbyssalCraftAPI {
 	 * @since 1.0
 	 */
 	public static void addSingleCrystallization(String input, String output, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
 		if(!OreDictionary.getOres(output).isEmpty())
-			while(inputIter.hasNext())
-				addSingleCrystallization(inputIter.next(), OreDictionary.getOres(output).iterator().next(), xp);
+			for(ItemStack stack : OreDictionary.getOres(input))
+				addSingleCrystallization(stack, OreDictionary.getOres(output).get(0), xp);
 	}
 
 	/**
@@ -403,27 +396,12 @@ public class AbyssalCraftAPI {
 	 * @since 1.0
 	 */
 	public static void addSingleCrystallization(String input, String output, int out, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
-		if(!OreDictionary.getOres(output).isEmpty())
-			while(inputIter.hasNext())
-				addSingleCrystallization(inputIter.next(), new ItemStack(OreDictionary.getOres(output).iterator().next().getItem(), out), xp);
-	}
-
-	/**
-	 * OreDictionary specific single-output Crystallization
-	 * @param input The ore input
-	 * @param output The ore output
-	 * @param out The output quantity
-	 * @param meta The output metadata
-	 * @param xp Amount of exp given
-	 * 
-	 * @since 1.0
-	 */
-	public static void addSingleCrystallization(String input, String output, int out, int meta, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
-		if(!OreDictionary.getOres(output).isEmpty())
-			while(inputIter.hasNext())
-				addSingleCrystallization(inputIter.next(), new ItemStack(OreDictionary.getOres(output).iterator().next().getItem(), out, meta), xp);
+		if(!OreDictionary.getOres(output).isEmpty()){
+			ItemStack o = OreDictionary.getOres(output).get(0).copy();
+			o.stackSize = out;
+			for(ItemStack stack : OreDictionary.getOres(input))
+				addSingleCrystallization(stack, o, xp);
+		}
 	}
 
 	/**
@@ -435,10 +413,9 @@ public class AbyssalCraftAPI {
 	 * @since 1.0
 	 */
 	public static void addTransmutation(String input, String output, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
 		if(!OreDictionary.getOres(output).isEmpty())
-			while(inputIter.hasNext())
-				addTransmutation(inputIter.next(), OreDictionary.getOres(output).iterator().next(), xp);
+			for(ItemStack stack : OreDictionary.getOres(input))
+				addTransmutation(stack, OreDictionary.getOres(output).get(0), xp);
 	}
 
 	/**
@@ -451,27 +428,12 @@ public class AbyssalCraftAPI {
 	 * @since 1.0
 	 */
 	public static void addTransmutation(String input, String output, int out, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
-		if(!OreDictionary.getOres(output).isEmpty())
-			while(inputIter.hasNext())
-				addTransmutation(inputIter.next(), new ItemStack(OreDictionary.getOres(output).iterator().next().getItem(), out), xp);
-	}
-
-	/**
-	 * OreDictionary specific Transmutation
-	 * @param input The ore input
-	 * @param output The ore output
-	 * @param out The output quantity
-	 * @param meta The output metadata
-	 * @param xp Amount of exp given
-	 * 
-	 * @since 1.0
-	 */
-	public static void addTransmutation(String input, String output, int out, int meta, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
-		if(!OreDictionary.getOres(output).isEmpty())
-			while(inputIter.hasNext())
-				addTransmutation(inputIter.next(), new ItemStack(OreDictionary.getOres(output).iterator().next().getItem(), out, meta), xp);
+		if(!OreDictionary.getOres(output).isEmpty()){
+			ItemStack o = OreDictionary.getOres(output).get(0).copy();
+			o.stackSize = out;
+			for(ItemStack stack : OreDictionary.getOres(input))
+				addTransmutation(stack, o, xp);
+		}
 	}
 
 	/**
@@ -678,30 +640,6 @@ public class AbyssalCraftAPI {
 	 */
 	public static List<ItemStack> getCrystals(){
 		return crystals;
-	}
-
-	/**
-	 * Method used to register AbyssalCraft integrations by other mods.
-	 * This can be useful if you want to have a weak dependency (you could do all the
-	 * integration stuff in a class that's only called when AC is loaded)
-	 * NOTE: Should be registered in either Pre-init or Init
-	 * @param plugin A class that implements the {@link IACPlugin} interface
-	 * 
-	 * @since 1.3
-	 */
-	public static void registerACIntegration(IACPlugin plugin){
-		integrations.add(plugin);
-	}
-
-	/**
-	 * Used by the IntegrationHandler to fetch a list of integrations made
-	 * by other mods
-	 * @return An ArrayList of IACPlugins
-	 * 
-	 * @since 1.3
-	 */
-	public static List<IACPlugin> getIntegrations(){
-		return integrations;
 	}
 
 	/**

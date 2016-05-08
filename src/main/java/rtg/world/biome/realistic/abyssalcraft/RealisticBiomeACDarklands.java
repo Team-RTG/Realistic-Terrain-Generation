@@ -6,16 +6,19 @@ import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklands;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
-import rtg.world.biome.deco.DecoShrubCustom;
+import rtg.world.biome.deco.DecoShrub;
 import rtg.world.gen.surface.abyssalcraft.SurfaceACDarklands;
 import rtg.world.gen.terrain.abyssalcraft.TerrainACDarklands;
 
+import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
 public class RealisticBiomeACDarklands extends RealisticBiomeACBase
 {
 
-    public RealisticBiomeACDarklands(BiomeGenBase acBiome, BiomeConfig config)
+	public static BiomeGenBase acBiome = ACBiomes.darklands;
+	
+    public RealisticBiomeACDarklands(BiomeConfig config)
     {
     
         super(config, 
@@ -37,7 +40,7 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase
         decoFallenTree.maxSize = 3;
 		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigACDarklands.decorationLogsId));
         
-        DecoShrubCustom decoShrubCustom = new DecoShrubCustom();
+        DecoShrub decoShrubCustom = new DecoShrub();
         decoShrubCustom.logBlock = ACBlocks.darklands_oak_wood;
         decoShrubCustom.logMeta = (byte)0;
         decoShrubCustom.leavesBlock = ACBlocks.darklands_oak_leaves;

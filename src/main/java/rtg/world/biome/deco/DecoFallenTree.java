@@ -1,13 +1,11 @@
 package rtg.world.biome.deco;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
-
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraftforge.event.terraingen.TerrainGen;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -87,38 +85,41 @@ public class DecoFallenTree extends DecoBase
 	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
 	{
 		if (this.allowed) {
-			
-			if (TerrainGen.decorate(world, rand, chunkX, chunkY, TREE)) {
-				
-				float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkY / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
 
-	            for (int i = 0; i < this.loops; i++)
-	            {
-	                if (isValidLogCondition(noise, strength, rand))
-	                {
-	                    int x22 = chunkX + rand.nextInt(16) + 8;
-	                    int z22 = chunkY + rand.nextInt(16) + 8;
-	                    int y22 = world.getHeightValue(x22, z22);
-	                    
-	                    if (y22 <= this.maxY) {
-	                    	
-	        				//Do we want to choose a random log?
-	        				if (this.useRandomLogs) {
-	        					
-	        					this.logBlock = this.randomLogBlocks[rand.nextInt(this.randomLogBlocks.length)];
-	        					this.logMeta = this.randomLogMetas[rand.nextInt(this.randomLogMetas.length)];
-	        				}
-	        				
-	                    	if (this.maxSize > this.minSize) {
-	                    		(new WorldGenLog(this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta, this.minSize + rand.nextInt(this.maxSize - this.minSize))).generate(world, rand, x22, y22, z22);
-	                    	}
-	                    	else if (this.maxSize == this.minSize) {
-	                    		(new WorldGenLog(this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta, this.minSize)).generate(world, rand, x22, y22, z22);
-	                    	}
-	                    }
-	                }
-	            }
+			float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkY / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
+
+			//Do we want to choose a random log?
+			if (this.useRandomLogs) {
+				
+				this.logBlock = this.randomLogBlocks[rand.nextInt(this.randomLogBlocks.length)];
+				this.logMeta = this.randomLogMetas[rand.nextInt(this.randomLogMetas.length)];
 			}
+			
+			WorldGenerator worldGenerator = null;
+        	if (this.maxSize > this.minSize) {
+        		worldGenerator = new WorldGenLog(this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta, this.minSize + rand.nextInt(this.maxSize - this.minSize));
+        	}
+        	else if (this.maxSize == this.minSize) {
+        		worldGenerator = new WorldGenLog(this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta, this.minSize);
+        	}
+        	else {
+        		worldGenerator = new WorldGenLog(this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta, 4);
+        	}
+			
+            for (int i = 0; i < this.loops; i++)
+            {
+                if (isValidLogCondition(noise, strength, rand))
+                {
+                    int x22 = chunkX + rand.nextInt(16);// + 8;
+                    int z22 = chunkY + rand.nextInt(16);// + 8;
+                    int y22 = world.getHeightValue(x22, z22);
+                    
+                    if (y22 <= this.maxY) {
+                    	
+                    	worldGenerator.generate(world, rand, x22, y22, z22);
+                    }
+                }
+            }
 		}
 	}
 	
@@ -150,6 +151,7 @@ public class DecoFallenTree extends DecoBase
 		ALWAYS_GENERATE,
 		RANDOM_CHANCE,
 		NOISE_GREATER_AND_RANDOM_CHANCE,
+		NOISE_LESS_AND_RANDOM_CHANCE,
 		X_DIVIDED_BY_STRENGTH;
 	}
 	
@@ -168,6 +170,10 @@ public class DecoFallenTree extends DecoBase
 			case NOISE_GREATER_AND_RANDOM_CHANCE:
 				
 				return (noise > this.logConditionNoise && rand.nextInt(this.logConditionChance) == 0);
+				
+			case NOISE_LESS_AND_RANDOM_CHANCE:
+				
+				return (noise < this.logConditionNoise && rand.nextInt(this.logConditionChance) == 0);
 				
 			case X_DIVIDED_BY_STRENGTH:
 				

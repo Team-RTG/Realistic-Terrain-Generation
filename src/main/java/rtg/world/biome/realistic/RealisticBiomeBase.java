@@ -29,11 +29,14 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.PlaneLocation;
 import rtg.util.RandomUtil;
 import rtg.util.SimplexOctave;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.deco.DecoBase;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.collection.DecoCollectionBase;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.feature.WorldGenPond;
 import rtg.world.gen.surface.SurfaceBase;
@@ -129,7 +132,14 @@ public class RealisticBiomeBase extends BiomeBase {
         emeraldStoneMeta = (byte)0;
         
         decos = new ArrayList<DecoBase>();
-
+        
+        /**
+         *  Disable base biome decorations by default.
+         *  This also needs to be here so that ores get generated.
+         */
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		decoBaseBiomeDecorations.allowed = false;
+		this.addDeco(decoBaseBiomeDecorations);
 
         // set the water feature constants with the config changes
         lakeInterval *= ConfigRTG.lakeFrequencyMultiplier;
@@ -178,9 +188,9 @@ public class RealisticBiomeBase extends BiomeBase {
 
             if (gen && (waterUndergroundLakeChance > 0)) {
                 
-                int i2 = worldX + rand.nextInt(16) + 8;
+                int i2 = worldX+ rand.nextInt(16);// + 8;
                 int l4 = RandomUtil.getRandomInt(rand, 1, 50);
-                int i8 = worldZ + rand.nextInt(16) + 8;
+                int i8 = worldZ+ rand.nextInt(16);// + 8;
                 
                 if (rand.nextInt(waterUndergroundLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterUndergroundLakeChance) == 1)) {
                     
@@ -194,8 +204,8 @@ public class RealisticBiomeBase extends BiomeBase {
             
             if (gen && (waterSurfaceLakeChance > 0)) {
                 
-                int i2 = worldX + rand.nextInt(16) + 8;
-                int i8 = worldZ + rand.nextInt(16) + 8;
+                int i2 = worldX + rand.nextInt(16);// + 8;
+                int i8 = worldZ+ rand.nextInt(16);// + 8;
                 int l4 = worldObj.getHeightValue(i2, i8);
                 
                 //Surface lakes.
@@ -216,9 +226,9 @@ public class RealisticBiomeBase extends BiomeBase {
 
             if (gen && (lavaUndergroundLakeChance > 0)) {
                 
-                int i2 = worldX + rand.nextInt(16) + 8;
+                int i2 = worldX+ rand.nextInt(16);// + 8;
                 int l4 = RandomUtil.getRandomInt(rand, 1, 50);
-                int i8 = worldZ + rand.nextInt(16) + 8;
+                int i8 = worldZ+ rand.nextInt(16);// + 8;
                 
                 if (rand.nextInt(lavaUndergroundLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.lavaUndergroundLakeChance) == 1)) {
                     
@@ -232,8 +242,8 @@ public class RealisticBiomeBase extends BiomeBase {
             
             if (gen && (lavaSurfaceLakeChance > 0)) {
                 
-                int i2 = worldX + rand.nextInt(16) + 8;
-                int i8 = worldZ + rand.nextInt(16) + 8;
+                int i2 = worldX+  rand.nextInt(16);// + 8;
+                int i8 = worldZ+  rand.nextInt(16);// + 8;
                 int l4 = worldObj.getHeightValue(i2, i8);
                 
                 //Surface lakes.
@@ -255,9 +265,9 @@ public class RealisticBiomeBase extends BiomeBase {
             	
 	            for(int k1 = 0; k1 < ConfigRTG.dungeonFrequency; k1++) {
 	            	
-	                int j5 = worldX + rand.nextInt(16) + 8;
+	                int j5 = worldX + rand.nextInt(16);// + 8;
 	                int k8 = rand.nextInt(128);
-	                int j11 = worldZ + rand.nextInt(16) + 8;
+	                int j11 = worldZ + rand.nextInt(16);// + 8;
 	                
 	                (new WorldGenDungeons()).generate(worldObj, rand, j5, k8, j11);
 	            }
@@ -561,15 +571,35 @@ public class RealisticBiomeBase extends BiomeBase {
     {
         return this.surfaces;
     }
-    
+
+    private class ChunkDecoration {
+        PlaneLocation chunkLocation;
+        DecoBase decoration;
+        ChunkDecoration(PlaneLocation chunkLocation,DecoBase decoration) {
+            this.chunkLocation = chunkLocation;
+            this.decoration = decoration;
+        }
+    }
+
+    public static ArrayList<ChunkDecoration> decoStack = new ArrayList<ChunkDecoration>();
+
     public void decorateInAnOrderlyFashion(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
     {
+
     	for (int i = 0; i < this.decos.size(); i++) {
-    		
+    	    decoStack.add(new ChunkDecoration(new PlaneLocation.Invariant(chunkX,chunkY),decos.get(i)));
+            if (decoStack.size()>20) {
+                String problem = "" ;
+                for (ChunkDecoration inStack: decoStack) {
+                    problem += "" + inStack.chunkLocation.toString() + " " + inStack.decoration.getClass().getSimpleName();
+                }
+                throw new RuntimeException(problem);
+            }
     		if (this.decos.get(i).preGenerate(this, world, rand, chunkX, chunkY, simplex, cell, strength, river)) {
-    			
+
     			this.decos.get(i).generate(this, world, rand, chunkX, chunkY, simplex, cell, strength, river);
     		}
+            decoStack.remove(decoStack.size()-1);
     	}
     }
     
@@ -583,6 +613,19 @@ public class RealisticBiomeBase extends BiomeBase {
     public void addDeco(DecoBase deco, boolean allowed)
     {
     	if (allowed) {
+	    	if (!deco.properlyDefined()) throw new RuntimeException(deco.toString());
+	    	
+	    	if (deco instanceof DecoBaseBiomeDecorations) {
+	    		
+	        	for (int i = 0; i < this.decos.size(); i++) {
+	        		
+	        		if (this.decos.get(i) instanceof DecoBaseBiomeDecorations) {
+	        			
+	        			this.decos.remove(i);
+	        			break;
+	        		}
+	        	}
+	    	}
 	    	
 	    	this.decos.add(deco);
     	}
@@ -595,6 +638,16 @@ public class RealisticBiomeBase extends BiomeBase {
      */
     public void addDeco(DecoBase deco)
     {
+	    if (!deco.properlyDefined()) throw new RuntimeException(deco.toString());
     	this.addDeco(deco, true);
+    }
+    
+    public void addDecoCollection(DecoCollectionBase decoCollection)
+    {
+    	if (decoCollection.decos.size() > 0) {
+    		for (int i = 0; i < decoCollection.decos.size(); i++) {
+    			this.addDeco(decoCollection.decos.get(i));
+    		}
+    	}
     }
 }

@@ -1,6 +1,7 @@
 
 package rtg.world.biome;
 
+import rtg.config.rtg.ConfigRTG;
 import rtg.util.CircularSearchCreator;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
@@ -31,6 +32,9 @@ public class BiomeAnalyzer {
 
     private int sampleSize = 8;
     private int sampleArraySize = sampleSize*2+5;
+    private RealisticBiomeBase scenicLakeBiome = RealisticBiomeBase.getBiome(ConfigRTG.scenicLakeBiome);
+    private RealisticBiomeBase scenicFrozenLakeBiome =
+            RealisticBiomeBase.getBiome(ConfigRTG.scenicFrozenLakeBiome);
 
     
     public BiomeAnalyzer() {
@@ -195,52 +199,6 @@ public class BiomeAnalyzer {
         }
     }
 
-    private void huntForBeaches(RealisticBiomeBase [] biomes) {
-        beach.notHunted = false;
-        // in case nothing found
-        beach.absent = true;
-        RealisticBiomeBase considered;
-        for (int i = 0; i<256; i++) {
-            considered = biomes[searchPattern[i]];
-            if (beachBiome[considered.biomeID]) {
-                beach.absent = false;
-                beach.biome = considered;
-                break;// we're done searching
-            }
-        }
-    }
-
-    private void huntForLand(RealisticBiomeBase [] biomes) {
-        land.notHunted = false;
-        // in case nothing found
-        land.absent = true;
-        RealisticBiomeBase considered;
-        for (int i = 0; i<256; i++) {
-            considered = biomes[searchPattern[i]];
-            if (landBiome[considered.biomeID]) {
-                land.absent = false;
-                land.biome = considered;
-                break;// we're done searching
-            }
-        }
-    }
-
-    private void huntForOcean(RealisticBiomeBase [] biomes) {
-        ocean.notHunted = false;
-        // in case nothing found
-        ocean.absent = true;
-        RealisticBiomeBase considered;
-        for (int i = 0; i<256; i++) {
-            considered = biomes[searchPattern[i]];
-            if (oceanBiome[considered.biomeID]) {
-                ocean.absent = false;
-                ocean.biome = considered;
-                break;// we're done searching
-            }
-        }
-    }
-
-
     /* HUNTING
      *
      */
@@ -326,8 +284,17 @@ public class BiomeAnalyzer {
             int foundBiome = oceanSearch.biomes[i];
             if (foundBiome != NO_BIOME) {
                 jitteredBiomes[i] = RealisticBiomeBase.getBiome(foundBiome);
+            } else {
+                // put remaining below sea level land as scenic lake biome
+                int riverReplacement = jitteredBiomes[i].riverBiome.biomeID;
+                if (riverReplacement == BiomeGenBase.frozenRiver.biomeID) {
+                    jitteredBiomes[i] = scenicFrozenLakeBiome;
+                } else {
+                    jitteredBiomes[i] = scenicLakeBiome;
+                }
             }
         }
+
     }
 
     private void prepareSearchPattern() {

@@ -1,15 +1,14 @@
 package rtg.world.biome.realistic.sushicraft;
 
 
-import cpw.mods.fml.common.Loader;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTC;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
-
-import net.minecraft.world.biome.BiomeGenBase;
+import cpw.mods.fml.common.Loader;
 /**
  * Created by VelocityRa on 15/4/2016.
  */

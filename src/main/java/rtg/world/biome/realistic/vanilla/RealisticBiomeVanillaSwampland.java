@@ -14,6 +14,8 @@ import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
+import rtg.world.gen.feature.tree.rtg.TreeRTGSalixMyrtilloides;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSwampland;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaSwampland;
 
@@ -39,17 +41,37 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
 		 * ##################################################
 		 */
         
-		DecoTree decoTrees = new DecoTree();
+		DecoTree decoTrees = new DecoTree(new TreeRTGSalixMyrtilloides());
+		decoTrees.logBlock = Blocks.log;
+		decoTrees.logMeta = (byte)0;
+		decoTrees.leavesBlock = Blocks.leaves;
+		decoTrees.leavesMeta = (byte)0;
 		decoTrees.strengthNoiseFactorXForLoops = true;
 		decoTrees.strengthFactorForLoops = 1f;
 		decoTrees.distribution.noiseDivisor = 80f;
 		decoTrees.distribution.noiseFactor = 60f;
 		decoTrees.distribution.noiseAddend = -15f;
-		decoTrees.treeType = TreeType.WILLOW;
+		decoTrees.treeType = TreeType.RTG_TREE;
 		decoTrees.treeCondition = TreeCondition.RANDOM_CHANCE;
-		decoTrees.treeConditionChance = 4;
-		decoTrees.maxY = 100;
+		decoTrees.treeConditionChance = 12;
+		decoTrees.maxY = 70;
 		this.addDeco(decoTrees);
+		
+		DecoTree deadPineTree = new DecoTree(new TreeRTGPinusPonderosa());
+		deadPineTree.logBlock = Blocks.log;
+		deadPineTree.logMeta = (byte)0;
+		deadPineTree.leavesBlock = Blocks.leaves;
+		deadPineTree.leavesMeta = (byte)0;
+		deadPineTree.minTrunkSize = 3;
+		deadPineTree.maxTrunkSize = 6;
+		deadPineTree.minCrownSize = 6;
+		deadPineTree.maxCrownSize = 14;
+		deadPineTree.treeType = TreeType.RTG_TREE;
+		deadPineTree.treeCondition = TreeCondition.RANDOM_CHANCE;
+		deadPineTree.treeConditionChance = 18;
+		deadPineTree.maxY = 100;
+		deadPineTree.noLeaves = true;
+		this.addDeco(deadPineTree);
         
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 100;

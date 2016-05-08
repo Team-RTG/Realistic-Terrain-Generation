@@ -51,7 +51,12 @@ public class DecoAbyssalCraftTree extends DecoTree
 		
 		this.addDecoTypes(DecoType.TREE);
 	}
-	
+
+    @Override
+    public boolean properlyDefined() {
+        return true;
+    }
+
 	@Override
 	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
 	{
@@ -76,7 +81,7 @@ public class DecoAbyssalCraftTree extends DecoTree
 		            		
 		            	case DARKWOOD:
 		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
+		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
 		                        WorldGenerator worldgenerator = new WorldGenTreeACDarkwood(6 + rand.nextInt(6), 10 + rand.nextInt(10), 0, 0);
 		                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);

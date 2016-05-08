@@ -7,6 +7,7 @@ import java.util.Random;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenDeadBush;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -48,16 +49,18 @@ public class DecoDeadBush extends DecoBase
 			
 			if (TerrainGen.decorate(world, rand, chunkX, chunkY, DEAD_BUSH)) {
 	            
+				WorldGenerator worldGenerator = new WorldGenDeadBush(Blocks.deadbush);
+				
 				int loopCount = this.loops;
 				loopCount = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : loopCount;
 	            for (int i = 0; i < loopCount; i++)
 	            {
-	                int intX = chunkX + rand.nextInt(16) + 8;
+	                int intX = chunkX + rand.nextInt(16);// + 8;
 	                int intY = rand.nextInt(this.maxY);
-	                int intZ = chunkY + rand.nextInt(16) + 8;
+	                int intZ = chunkY + rand.nextInt(16);// + 8;
 
 	                if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-	                	(new WorldGenDeadBush(Blocks.deadbush)).generate(world, rand, intX, intY, intZ);
+	                	worldGenerator.generate(world, rand, intX, intY, intZ);
 	                }
 	            }
 	        }

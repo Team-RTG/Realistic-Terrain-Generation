@@ -5,6 +5,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import java.util.Random;
 
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -24,7 +25,7 @@ public class DecoFlowersRTG extends DecoBase
 	public int maxY; // Height restriction.
 	public HeightType heightType; // How we determine the Y coord.
 	public int chance; // Higher = more rare.
-	public int notEqualsZerochance;
+	public int notEqualsZeroChance;
 	public int loops;
 	
     /**
@@ -60,7 +61,7 @@ public class DecoFlowersRTG extends DecoBase
 		 */
 		this.flowers = new int[] {0, 9}; // Only roses and dandelions by default.
 		this.chance = 1; // 100% chance of generating by default.
-		this.notEqualsZerochance = 1;
+		this.notEqualsZeroChance = 1;
 		this.maxY = 255; // No height limit by default.
 		this.heightType = HeightType.NEXT_INT;
 		this.strengthFactor = 0f; // Not sure why it was done like this, but... the higher the value, the more there will be.
@@ -73,14 +74,16 @@ public class DecoFlowersRTG extends DecoBase
 	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
 	{
 		if (this.allowed) {
-			
+
 	        if (TerrainGen.decorate(world, rand, chunkX, chunkY, FLOWERS)) {
 	            
+	        	WorldGenerator worldGenerator = new WorldGenFlowersRTG(this.flowers);
+	        	
 	        	this.loops = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : this.loops;
-	            for (int i = 0; i < this.loops; i++)
+	            for (int i = 0; i < this.loops*16; i++)
 	            {
-	                int intX = chunkX + rand.nextInt(16) + 8;
-	                int intZ = chunkY + rand.nextInt(16) + 8;
+	                int intX = chunkX + rand.nextInt(16);// + 8;
+	                int intZ = chunkY + rand.nextInt(16);// + 8;
 	                
 	                int intY;
 	                switch (this.heightType)
@@ -99,18 +102,18 @@ public class DecoFlowersRTG extends DecoBase
 	                		
 	                }
 	                
-	                if (this.notEqualsZerochance > 1) {
+	                if (this.notEqualsZeroChance > 1) {
 	                	
-		                if (rand.nextInt(this.notEqualsZerochance) != 0) {
+		                if (rand.nextInt(this.notEqualsZeroChance) != 0) {
 		                    
-		                    (new WorldGenFlowersRTG(this.flowers)).generate(world, rand, intX, intY, intZ);
+		                	worldGenerator.generate(world, rand, intX, intY, intZ);
 		                }
 	                }
 	                else {
 	                	
 		                if (rand.nextInt(this.chance) == 0) {
 		                    
-		                    (new WorldGenFlowersRTG(this.flowers)).generate(world, rand, intX, intY, intZ);
+		                	worldGenerator.generate(world, rand, intX, intY, intZ);
 		                }
 	                }
 	            }

@@ -25,6 +25,7 @@ public class RealisticBiomeHLTallPineForest extends RealisticBiomeHLBase
             new SurfaceHLTallPineForest(config, topBlock, fillerBlock, false, null, 1.2f));
 		
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.maxY = 100;
 		this.addDeco(decoBaseBiomeDecorations);
     }
 }

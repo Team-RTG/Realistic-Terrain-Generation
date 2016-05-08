@@ -55,7 +55,7 @@ public class RealisticBiomeEBBlossomHills extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBBlossomHills(76f, 35f),
+			new TerrainEBBlossomHills(72f, 25f),
 			new SurfaceEBBlossomHills(config,
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte

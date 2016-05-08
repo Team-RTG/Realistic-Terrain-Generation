@@ -299,10 +299,10 @@ public class TerrainBase
         float h = simplex.noise2(x / 100f, y / 100f) * 7;
         h += simplex.noise2(x / 20f, y / 20f) * 2;
 
-        float m = simplex.noise2(x / 180f, y / 180f) * 70f * river;
+        float m = simplex.noise2(x / 180f, y / 180f) * 35f * river;
         m *= m / mPitch;
 
-        float sm = simplex.noise2(x / 30f, y / 30f) * 8f;
+        float sm = blendedHillHeight(simplex.noise2(x / 30f, y / 30f)) * 8f;
         sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
         m += sm;
 

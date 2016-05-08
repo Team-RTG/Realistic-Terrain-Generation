@@ -9,6 +9,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.RTGBiomeProvider;
+import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
 import rtg.world.gen.feature.WorldGenVolcano;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPVolcano;
@@ -69,9 +70,12 @@ public class RealisticBiomeBOPVolcano extends RealisticBiomeBOPBase
     public void rMapGen(Block[] blocks, byte[] metadata, World world, RTGBiomeProvider cmr, Random mapRand, int baseX, int baseY,
         int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[])
     {
-    
         if (baseX % 4 == 0 && baseY % 4 == 0 && mapRand.nextInt(6) == 0)
         {
+            if(!(((WorldChunkManagerRTG) cmr).getBiomeGenAt(baseX*16, baseY*16) instanceof RealisticBiomeBOPVolcano))
+            {
+                return;
+            }
             float river = cmr.getRiverStrength(baseX * 16, baseY * 16) + 1f;
             if (river > 0.98f && cmr.isBorderlessAt(baseX * 16, baseY * 16))
             {

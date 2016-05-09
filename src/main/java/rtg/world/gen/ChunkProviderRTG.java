@@ -87,7 +87,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private final MapGenMineshaft mineshaftGenerator;
     private final MapGenVillage villageGenerator;
     private final MapGenScatteredFeature scatteredFeatureGenerator;
-    private final boolean mapFeaturesEnabled;
+    private boolean mapFeaturesEnabled;
     private final int worldHeight;
     private final boolean isRTGWorld;
     private final int sampleSize = 8;
@@ -127,7 +127,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private boolean isAICExtendingBiomeIdsLimit;
     private Set<Long> serverLoadingChunks;
     // we have to store this callback because it's a WeakReference in the event manager
-    private final Acceptor<ChunkEvent.Load> delayedDecorator = new Acceptor<ChunkEvent.Load>() {
+    public final Acceptor<ChunkEvent.Load> delayedDecorator = new Acceptor<ChunkEvent.Load>() {
 
         @Override
         public void accept(ChunkEvent.Load accepted) {
@@ -223,11 +223,11 @@ public class ChunkProviderRTG implements IChunkProvider
         // set up the cache of available chunks
         availableChunks = new WeakHashCache<PlaneLocation,Chunk>(keyer());
 
-        // inform the event manager about the ChunkEvent.Load event
-        RTG.eventMgr.setDimensionChunkLoadEvent(world.provider.dimensionId, delayedDecorator);
-        RTG.instance.runOnNextServerCloseOnly(clearOnServerClose());
     }
 
+    public void isFakeGenerator() {
+        this.mapFeaturesEnabled = false;
+    }
 
     /**
      * @see IChunkProvider
@@ -240,7 +240,6 @@ public class ChunkProviderRTG implements IChunkProvider
     private final WeakHashCache<PlaneLocation,Chunk> availableChunks;
     public Chunk provideChunk(final int cx, final int cy)
     {
-
         final PlaneLocation chunkLocation = new PlaneLocation.Invariant(cx,cy);
         if (inGeneration.containsKey(chunkLocation)) {
             return inGeneration.get(chunkLocation);
@@ -416,6 +415,9 @@ public class ChunkProviderRTG implements IChunkProvider
     }
 
     public void decorateIfOtherwiseSurrounded(IChunkProvider world, PlaneLocation source, Direction fromNewChunk) {
+
+        // check if this is the master provider
+        if (WorldTypeRTG.chunkProvider != this) return;
 
         // see if otherwise surrounded besides the new chunk
         int cx = source.x() + fromNewChunk.xOffset;
@@ -729,21 +731,15 @@ public class ChunkProviderRTG implements IChunkProvider
      * Populates chunk with ores etc etc
      */
     public void populate(IChunkProvider ichunkprovider, int chunkX, int chunkZ){
-        //if (this.neighborsDone(ichunkprovider, chunkX-1, chunkZ-1)) this.doPopulate(ichunkprovider, chunkX - 1, chunkZ - 1);
-        //if (this.neighborsDone(ichunkprovider, chunkX-1, chunkZ)) this.doPopulate(ichunkprovider, chunkX - 1, chunkZ);
-        //if (this.neighborsDone(ichunkprovider, chunkX-1, chunkZ + 1)) this.doPopulate(ichunkprovider, chunkX - 1, chunkZ + 1);
-        //if (this.neighborsDone(ichunkprovider, chunkX, chunkZ-1)) this.doPopulate(ichunkprovider, chunkX, chunkZ - 1);
+        // check if this is the master provider
+        if (WorldTypeRTG.chunkProvider != this) return;
         if (this.neighborsDone(ichunkprovider, chunkX, chunkZ)) {
             this.doPopulate(ichunkprovider, chunkX, chunkZ);
         }
         clearDecorations(0);
-        //if (this.neighborsDone(ichunkprovider, chunkX, chunkZ+1)) this.doPopulate(ichunkprovider, chunkX, chunkZ + 1);
-        //if (this.neighborsDone(ichunkprovider, chunkX+1, chunkZ-1)) this.doPopulate(ichunkprovider, chunkX + 1, chunkZ - 1);
-        //if (this.neighborsDone(ichunkprovider, chunkX+1, chunkZ)) this.doPopulate(ichunkprovider, chunkX + 1, chunkZ);
-        //if (this.neighborsDone(ichunkprovider, chunkX+1, chunkZ+1)) this.doPopulate(ichunkprovider, chunkX + 1, chunkZ + 1);
     }
     
-    private Runnable clearOnServerClose() {
+    public Runnable clearOnServerClose() {
         return new Runnable () {
             public void run() {
                 clearToDecorateList();
@@ -752,6 +748,7 @@ public class ChunkProviderRTG implements IChunkProvider
     }
 
     private void clearToDecorateList() {
+        if (WorldTypeRTG.chunkProvider != this) return;
         if (populating) return;// in process, do later;
         // we have to make a copy of the set to work on or we'll get errors
         IChunkProvider ichunkprovider = worldObj.getChunkProvider();
@@ -769,6 +766,7 @@ public class ChunkProviderRTG implements IChunkProvider
     }
 
     private void clearDecorations(int limit) {
+        if (WorldTypeRTG.chunkProvider != this) return;
         IChunkProvider ichunkprovider = worldObj.getChunkProvider();
         Set<PlaneLocation> toProcess = doableLocations(limit);
         for (PlaneLocation location: toProcess) {

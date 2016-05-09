@@ -14,7 +14,7 @@ public class WorldTypeRTG extends WorldType
 {
 
     private static WorldChunkManagerRTG chunkManager;
-    private static ChunkProviderRTG chunkProvider;
+    public static ChunkProviderRTG chunkProvider;
 
     private static Runnable clearChunkManager() {
         return new Runnable() {
@@ -65,8 +65,17 @@ public class WorldTypeRTG extends WorldType
             if (chunkProvider == null) {
                 chunkProvider = new ChunkProviderRTG(world, world.getSeed());
                RTG.instance.runOnNextServerCloseOnly(clearChunkProvider());
+        // inform the event manager about the ChunkEvent.Load event
+               RTG.eventMgr.setDimensionChunkLoadEvent(world.provider.dimensionId, chunkProvider.delayedDecorator);
+               RTG.instance.runOnNextServerCloseOnly(chunkProvider.clearOnServerClose());
+               return chunkProvider;
             }
-            return chunkProvider;
+            // return a "fake" provider that won't decorate for Streams
+            ChunkProviderRTG result = new ChunkProviderRTG(world, world.getSeed());
+            result.isFakeGenerator();
+            return result;
+            // no server close because it's not supposed to decorate
+            //return chunkProvider;
         } else {
             return new ChunkProviderGenerate(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled());
         }

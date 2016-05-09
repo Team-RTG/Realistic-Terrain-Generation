@@ -1,5 +1,7 @@
 package rtg.world.gen;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE;
@@ -60,6 +62,7 @@ import rtg.util.OpenSimplexNoise;
 import rtg.util.PlaneLocation;
 import rtg.util.SimplexCellularNoise;
 import rtg.util.TimeTracker;
+import rtg.util.WeakHashCache.ValueMissing;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.RTGBiomeProvider;
@@ -68,6 +71,8 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
+import rtg.util.Converter;
+import rtg.util.WeakHashCache;
 
 
 public class ChunkProviderRTG implements IChunkProvider
@@ -82,7 +87,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private final MapGenMineshaft mineshaftGenerator;
     private final MapGenVillage villageGenerator;
     private final MapGenScatteredFeature scatteredFeatureGenerator;
-    private final boolean mapFeaturesEnabled;
+    private boolean mapFeaturesEnabled;
     private final int worldHeight;
     private final boolean isRTGWorld;
     private final int sampleSize = 8;
@@ -122,7 +127,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private boolean isAICExtendingBiomeIdsLimit;
     private Set<Long> serverLoadingChunks;
     // we have to store this callback because it's a WeakReference in the event manager
-    private final Acceptor<ChunkEvent.Load> delayedDecorator = new Acceptor<ChunkEvent.Load>() {
+    public final Acceptor<ChunkEvent.Load> delayedDecorator = new Acceptor<ChunkEvent.Load>() {
 
         @Override
         public void accept(ChunkEvent.Load accepted) {
@@ -215,11 +220,14 @@ public class ChunkProviderRTG implements IChunkProvider
     	aic = new AICWrapper();
     	isAICExtendingBiomeIdsLimit = aic.isAICExtendingBiomeIdsLimit();
 
-        // inform the event manager about the ChunkEvent.Load event
-        RTG.eventMgr.setDimensionChunkLoadEvent(world.provider.dimensionId, delayedDecorator);
-        RTG.instance.runOnNextServerCloseOnly(clearOnServerClose());
+        // set up the cache of available chunks
+        availableChunks = new WeakHashCache<PlaneLocation,Chunk>(keyer());
+
     }
 
+    public void isFakeGenerator() {
+        this.mapFeaturesEnabled = false;
+    }
 
     /**
      * @see IChunkProvider
@@ -229,17 +237,17 @@ public class ChunkProviderRTG implements IChunkProvider
      */
     private HashSet<PlaneLocation> everGenerated = new HashSet<PlaneLocation>();
     private LimitedSet<PlaneLocation> chunkMade  = new LimitedSet<PlaneLocation>(10000);
-    private WeakHashMap<PlaneLocation,Chunk> availableChunks = new WeakHashMap<PlaneLocation,Chunk> ();
+    private final WeakHashCache<PlaneLocation,Chunk> availableChunks;
     public Chunk provideChunk(final int cx, final int cy)
     {
-
         final PlaneLocation chunkLocation = new PlaneLocation.Invariant(cx,cy);
         if (inGeneration.containsKey(chunkLocation)) {
             return inGeneration.get(chunkLocation);
         }
         if (chunkMade.contains(chunkLocation)) {
-            Chunk available = availableChunks.get(chunkLocation);
-            if (available != null) {
+            Chunk available;
+            try {
+                available = availableChunks.get(chunkLocation);
                 // this should never be happening but it came up when Forge/MC re-requested an already
                 // made chunk for a lighting check (???)
 
@@ -249,18 +257,19 @@ public class ChunkProviderRTG implements IChunkProvider
                 for (int i = 0; i< entityLists.length; i++) {
                     Iterator iterator = entityLists[i].iterator();
                     while (iterator.hasNext()) {
-                    	
+
                     	iterator.next();
                         iterator.remove();
                     }
                     worldObj.unloadEntities(entityLists[i]);
                 }
                 return available;
+            } catch (ValueMissing ex) {
+                // we can't find the chunk so we'll just let it be remade.
             }
-            //throw new RuntimeException();
         }
 
-        //if (everGenerated.contains(chunkLocation)) throw new RuntimeException();
+        if (everGenerated.contains(chunkLocation)) throw new RuntimeException();
         
         TimeTracker.manager.start(rtgTerrain);
         TimeTracker.manager.start("RTG chunk");
@@ -400,12 +409,15 @@ public class ChunkProviderRTG implements IChunkProvider
         if (!chunkMade.contains(chunkLocation)||!everGenerated.contains(chunkLocation)) {
             throw new RuntimeException(chunkLocation.toString() +  chunkMade.size());
         }
-        availableChunks.put(chunkLocation, chunk);
+        availableChunks.cache(chunk);
         TimeTracker.manager.stop(rtgTerrain);
         return chunk;
     }
 
     public void decorateIfOtherwiseSurrounded(IChunkProvider world, PlaneLocation source, Direction fromNewChunk) {
+
+        // check if this is the master provider
+        if (WorldTypeRTG.chunkProvider != this) return;
 
         // see if otherwise surrounded besides the new chunk
         int cx = source.x() + fromNewChunk.xOffset;
@@ -496,31 +508,35 @@ public class ChunkProviderRTG implements IChunkProvider
     		}
     	}
         String report = "";
-
+    	float river;
+        float [] weightedBiomes = new float [BiomeGenBase.getBiomeGenArray().length];
+        
         int adjustment = 4;// this should actually vary with sampleSize
         // fill the old smallRender
         for (int i = 0; i < 16; i++) {
             for (int j=0; j<16; j++) {
     			int locationIndex = ((int)(i + adjustment) * 25 + (j + adjustment));
-                float [] weightedBiomes = new float [BiomeGenBase.getBiomeGenArray().length];
                 float totalWeight = 0;
 
                 boolean looking = false;
                 if (y+j == -859) {
-                    if (x + i == -1329) looking = true;
-                    if (x + i == -1328) looking = true;
+                    //if (x + i == -1329) looking = true;
+                    //if (x + i == -1328) looking = true;
                 }
                 if (looking) {
                    report = "(" + (x) + ","  + (y) + ")" + "(" + (x+i) + ","  + (y+j) + ")";
                 }
+                float limit = (float)Math.pow((56f*56f),.7);
+                // float limit = 56f;
 
                 for (int mapX = 0 ; mapX < sampleArraySize; mapX ++) {
                     for (int mapZ = 0 ; mapZ < sampleArraySize; mapZ ++) {
                         float xDist = (i - chunkCoordinate(mapX));
                         float yDist = (j - chunkCoordinate(mapZ));
                         float distanceSquared = xDist*xDist + yDist*yDist;
-                        float distance = (float)Math.sqrt(distanceSquared);
-                        float weight = 1f - distance/56f;
+                        //float distance = (float)Math.sqrt(distanceSquared);
+                        float distance = (float)Math.pow(distanceSquared,.7);
+                        float weight = 1f - distance/limit;
                         if (weight > 0) {
                             if (looking) {
                                //report += " " + weight + " (" + mapX + "," + mapZ+ ")" + biomeData[mapX*sampleArraySize + mapZ];
@@ -541,7 +557,32 @@ public class ChunkProviderRTG implements IChunkProvider
                     }
                     firstBlock = report;
                 }
-                smallRender[locationIndex] = weightedBiomes;
+    			testHeight[i * 16 + j] = 0f;
+
+    			river = cmr.getRiverStrength(x + i, y + j);
+                this.riverVals[i * 16 + j] = -river;
+                float totalBorder = 0f;
+
+    			for(int k = 0; k < 256; k++)
+    			{
+
+    				if(weightedBiomes[k] > 0f)
+    				{
+
+    	    			if(locationIndex == centerLocationIndex)
+    	    			{
+    	    				biomesGeneratedInChunk[k] = weightedBiomes[k];
+    	    			}
+
+                        totalBorder += weightedBiomes[k];
+    					testHeight[i * 16 + j] += RealisticBiomeBase.getBiome(k).
+                                rNoise(simplex, cell, x + i, y + j, weightedBiomes[k], river + 1f) * weightedBiomes[k];
+                        // 0 for the next column
+                        weightedBiomes[k] = 0f;
+
+    				}
+    			}
+                if (totalBorder <.999||totalBorder>1.001) throw new RuntimeException("" + totalBorder);
             }
         }
 
@@ -552,14 +593,13 @@ public class ChunkProviderRTG implements IChunkProvider
             }
         }
 
-    	float river;
 
     	for(int i = 0; i < 16; i++)
     	{
     		for(int j = 0; j < 16; j++)
     		{
 
-    			int locationIndex = ((int)(i + adjustment) * 25 + (j + adjustment));
+    			/*int locationIndex = ((int)(i + adjustment) * 25 + (j + adjustment));
 
     			testHeight[i * 16 + j] = 0f;
 
@@ -582,294 +622,11 @@ public class ChunkProviderRTG implements IChunkProvider
     					testHeight[i * 16 + j] += RealisticBiomeBase.getBiome(k).rNoise(simplex, cell, x + i, y + j, smallRender[locationIndex][k], river + 1f) * smallRender[locationIndex][k];
     				}
     			}
-                if (totalBorder <.999||totalBorder>1.001) throw new RuntimeException("" + totalBorder);
+                if (totalBorder <.999||totalBorder>1.001) throw new RuntimeException("" + totalBorder);*/
     		}
     	}
     	return testHeight;
 
-    }
-
-    public float[] getNewNoise(RTGBiomeProvider cmr, int x, int y, RealisticBiomeBase biomes[])
-    {
-    	int i, j, k, locationIndex, m, n, p;
-
-    	for(i = -sampleSize; i < sampleSize + 5; i++)
-    	{
-    		for(j = -sampleSize; j < sampleSize + 5; j++)
-    		{
-    			biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = cmr.getBiomeDataAt(x + ((i * 8)), y + ((j * 8))).biomeID;
-    		}
-    	}
-
-    	for(i = -1; i < 4; i++)
-    	{
-        	for(j = -1; j < 4; j++)
-        	{
-        		hugeRender[(i * 2 + 2) * 9 + (j * 2 + 2)] = new float[256];
-        		for(k = -parabolicSize; k <= parabolicSize; k++)
-        		{
-        			for(locationIndex = -parabolicSize; locationIndex <= parabolicSize; locationIndex++)
-        			{
-        				hugeRender[(i * 2 + 2) * 9 + (j * 2 + 2)]
-                                [biomeData[(i + k + sampleSize + 1) * sampleArraySize + (j + locationIndex + sampleSize + 1)]]
-                                += parabolicField[k + parabolicSize + (locationIndex + parabolicSize) * parabolicArraySize] / parabolicFieldTotal;
-        			}
-        		}
-
-        	}
-    	}
-
-    	//RENDER HUGE 1
-    	for(i = 0; i < 4; i++)
-    	{
-    		for(j = 0; j < 4; j++)
-    		{
-    			hugeRender[(i * 2 + 1) * 9 + (j * 2 + 1)] = mix4(new float[][]{
-					hugeRender[(i * 2) * 9 + (j * 2)],
-					hugeRender[(i * 2 + 2) * 9 + (j * 2)],
-					hugeRender[(i * 2) * 9 + (j * 2 + 2)],
-					hugeRender[(i * 2 + 2) * 9 + (j * 2 + 2)]});
-    		}
-    	}
-
-        /* Trying to fix the dots problem
-         * The existing code could create spots that aren't the
-         * logical blend of their parents
-         */
-        // RENDER HUGE 2 (Zeno410)
-    	for(i = -1; i < 4; i++)
-    	{
-    		for(j = 0; j < 4; j++)
-    		{
-    			hugeRender[(i * 2 + 2) * 9 + (j * 2 + 1)] = mix2(
-					hugeRender[(i * 2 + 2) * 9 + (j * 2)],
-					hugeRender[(i * 2 + 2) * 9 + (j * 2 +2)]);
-    		}
-    	}
-
-        // RENDER HUGE 3 (Zeno410)
-    	for(i = 0; i < 4; i++)
-    	{
-    		for(j = -1; j < 4; j++)
-    		{
-    			hugeRender[(i * 2 + 1) * 9 + (j * 2 + 2)] = mix2(
-					hugeRender[(i * 2 ) * 9 + (j * 2 + 2)],
-					hugeRender[(i * 2 + 2) * 9 + (j * 2 + 2)]);
-    		}
-    	}
-
-    	//RENDER SMALL 0
-    	for(i = 0; i < 7; i++)
-    	{
-    		for(j = 0; j < 7; j++)
-    		{
-//    			if (false) //if(!(i % 2 == 0 && j % 2 == 0) && !(i % 2 != 0 && j % 2 != 0))
-//    			{
-//    				smallRender[(i * 4) * 25 + (j * 4)] = mix4(new float[][]{
-//						hugeRender[(i) * 9 + (j + 1)],
-//						hugeRender[(i + 1) * 9 + (j)],
-//						hugeRender[(i + 1) * 9 + (j + 2)],
-//						hugeRender[(i + 2) * 9 + (j + 1)]});
-//    			}
-//    			else
-//    			{
-    				smallRender[(i * 4) * 25 + (j * 4)] = hugeRender[(i + 1) * 9 + (j + 1)];
-//    			}
-    		}
-    	}
-
-    	//RENDER SMALL 1
-    	for(i = 0; i < 6; i++)
-    	{
-    		for(j = 0; j < 6; j++)
-    		{
-    			smallRender[(i * 4 + 2) * 25 + (j * 4 + 2)] = mix4(new float[][]{
-    				smallRender[(i * 4) * 25 + (j * 4)],
-    				smallRender[(i * 4 + 4) * 25 + (j * 4)],
-    				smallRender[(i * 4) * 25 + (j * 4 + 4)],
-    				smallRender[(i * 4 + 4) * 25 + (j * 4 + 4)]});
-    		}
-            //if (y==64&&)
-    	}
-
-    	//RENDER SMALL 2 - points with four diagonal neighbors
-        /*
-    	for(i = 0; i < 11; i++)
-    	{
-    		for(j = 0; j < 11; j++)
-    		{
-    			if(!(i % 2 == 0 && j % 2 == 0))// && !(i % 2 != 0 && j % 2 != 0))
-    			{
-    				smallRender[(i * 2 + 2) * 25 + (j * 2 + 2)] = mix4(new float[][]{
-    					smallRender[(i * 2) * 25 + (j * 2)],
-    					smallRender[(i * 2 + 4) * 25 + (j * 2)],
-    					smallRender[(i * 2 ) * 25 + (j * 2 + 4)],
-    					smallRender[(i * 2 + 4) * 25 + (j * 2 + 4)]});
-    			}
-    		}
-    	}*/
-        
-        //RENDER SMALL 2.1 - points vertically between 2 known spots
-    	for(i = 0; i < 13; i +=2 ) //0,2,...20
-    	{
-    		for(j = 0; j < 11; j += 2)// 0,2,..18
-    		{
-                smallRender[(i * 2) * 25 + (j * 2 + 2)] = mix2(
-                    smallRender[(i * 2) * 25 + (j * 2 )],
-                    smallRender[(i * 2 ) * 25 + (j * 2 + 4)]);
-
-    		}
-    	}
-
-        //RENDER SMALL 2.2 - points horizontally between 2 known spots
-    	for(i = 0; i < 11; i += 2)
-    	{
-    		for(j = 0; j < 13; j += 2)
-    		{
-                smallRender[(i * 2 + 2) * 25 + (j * 2 )] = mix2(
-                    smallRender[(i * 2) * 25 + (j * 2 )],
-                    smallRender[(i * 2 + 4) * 25 + (j * 2)]);
-    		}
-    	}
-        /*
-    	//RENDER SMALL 3 -  points with four diagonal neighbors
-    	for(i = 0; i < 9; i++)
-    	{
-    		for(j = 0; j < 9; j++)
-    		{
-    			smallRender[(i * 2 + 3) * 25 + (j * 2 + 3)] = mix4(new float[][]{
-        				smallRender[(i * 2 + 2) * 25 + (j * 2 + 2)],
-        				smallRender[(i * 2 + 4) * 25 + (j * 2 + 2)],
-        				smallRender[(i * 2 + 2) * 25 + (j * 2 + 4)],
-        				smallRender[(i * 2 + 4) * 25 + (j * 2 + 4)]});
-    		}
-    	}
-         * */
-    	//RENDER SMALL 4
-    	for(i = 0; i < 12; i++)
-    	{
-    		for(j = 0; j < 12; j++)
-    		{
-    			//if(!(i % 2 == 0 && j % 2 == 0) && !(i % 2 != 0 && j % 2 != 0))
-    			{
-    				smallRender[(i * 2 + 1) * 25 + (j * 2 + 1)] = mix4(new float[][]{
-    					smallRender[(i * 2) * 25 + (j * 2)],
-    					smallRender[(i * 2 + 2) * 25 + (j * 2)],
-    					smallRender[(i * 2) * 25 + (j * 2 + 2)],
-    					smallRender[(i * 2 + 2) * 25 + (j * 2 + 2)]});
-    			}
-    		}
-    	}
-        //RENDER SMALL 3.1 - points vertically between 2 known spots
-    	for(i = 0; i < 13; i ++ ) //0,2,...20
-    	{
-    		for(j = 0; j < 12; j ++ )// 0,2,..18
-    		{
-                smallRender[(i * 2) * 25 + (j * 2 + 1)] = mix2(
-                    smallRender[(i * 2) * 25 + (j * 2 )],
-                    smallRender[(i * 2 ) * 25 + (j * 2 + 2)]);
-
-    		}
-    	}
-
-        //RENDER SMALL 3.2 - points horizontally between 2 known spots
-    	for(i = 0; i < 12; i ++)
-    	{
-    		for(j = 0; j < 13; j ++)
-    		{
-                smallRender[(i * 2 + 1) * 25 + (j * 2 )] = mix2(
-                    smallRender[(i * 2) * 25 + (j * 2 )],
-                    smallRender[(i * 2 + 2) * 25 + (j * 2)]);
-    		}
-    	}
-        
-        for (i = 0; i < 25; i ++) {
-            for (j = 0; j < 25; j++) {
-                if (this.totalNotOne(smallRender[i * 25 + j])) throw new RuntimeException("" + i + " " + j);
-            }
-        }
-
-        //fill biomes array with biomeData
-        for (i = 0; i < 16; i++) {
-            for (j=0; j<16; j++) {
-                biomes[i*16+j] =  cmr.getBiomeDataAt(x + (((i-7) * 8+4)), y + (((j-7) * 8+4)));
-            }
-        }
-
-    	float river;
-        
-    	for(i = 0; i < 16; i++)
-    	{
-    		for(j = 0; j < 16; j++)
-    		{
-
-    			locationIndex = ((int)(i + 4) * 25 + (j + 4));
-
-    			testHeight[i * 16 + j] = 0f;
-
-    			river = cmr.getRiverStrength(x + i, y + j);
-                this.riverVals[i * 16 + j] = -river;
-                float totalBorder = 0f;
-
-    			for(k = 0; k < 256; k++)
-    			{
-
-    				if(smallRender[locationIndex][k] > 0f)
-    				{
-
-    	    			if(locationIndex == centerLocationIndex)
-    	    			{
-    	    				biomesGeneratedInChunk[k] = smallRender[centerLocationIndex][k];
-    	    			}
-
-                        totalBorder += smallRender[locationIndex][k];
-    					testHeight[i * 16 + j] += RealisticBiomeBase.getBiome(k).rNoise(simplex, cell, x + i, y + j, smallRender[locationIndex][k], river + 1f) * smallRender[locationIndex][k];
-    				}
-    			}
-                if (totalBorder <.999||totalBorder>1.001) throw new RuntimeException("" + totalBorder);
-    		}
-    	}
-    	return testHeight;
-    }
-
-    public float[] mix4(float[][] ingredients)
-    {
-    	float[] result = new float[256];
-    	int i, j;
-    	for(i = 0; i < 256; i++)
-    	{
-    		for(j = 0; j < 4; j++)
-    		{
-    			if(ingredients[j][i] > 0f)
-    			{
-    				result[i] += ingredients[j][i] / 4f;
-    			}
-    		}
-    	}
-
-    	return result;
-    }
-
-    public float[] mix2(float[] first, float [] second )
-    {
-    	float[] result = new float[256];
-    	int i, j;
-        //if (this.totalNotOne(first)) throw new RuntimeException();
-        //if (this.totalNotOne(second)) throw new RuntimeException();
-    	for(i = 0; i < 256; i++)
-    	{
-            if(first[i] > 0f)
-            {
-                result[i] += first[i] / 2f;
-            }
-            if(second[i] > 0f)
-            {
-                result[i] += second[i] / 2f;
-            }
-    	}
-
-        //if (this.totalNotOne(result)) throw new RuntimeException();
-    	return result;
     }
 
     public void replaceBlocksForBiome(int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase[] biomes, BiomeGenBase[] base, float[] n)
@@ -974,21 +731,15 @@ public class ChunkProviderRTG implements IChunkProvider
      * Populates chunk with ores etc etc
      */
     public void populate(IChunkProvider ichunkprovider, int chunkX, int chunkZ){
-        //if (this.neighborsDone(ichunkprovider, chunkX-1, chunkZ-1)) this.doPopulate(ichunkprovider, chunkX - 1, chunkZ - 1);
-        //if (this.neighborsDone(ichunkprovider, chunkX-1, chunkZ)) this.doPopulate(ichunkprovider, chunkX - 1, chunkZ);
-        //if (this.neighborsDone(ichunkprovider, chunkX-1, chunkZ + 1)) this.doPopulate(ichunkprovider, chunkX - 1, chunkZ + 1);
-        //if (this.neighborsDone(ichunkprovider, chunkX, chunkZ-1)) this.doPopulate(ichunkprovider, chunkX, chunkZ - 1);
+        // check if this is the master provider
+        if (WorldTypeRTG.chunkProvider != this) return;
         if (this.neighborsDone(ichunkprovider, chunkX, chunkZ)) {
             this.doPopulate(ichunkprovider, chunkX, chunkZ);
         }
         clearDecorations(0);
-        //if (this.neighborsDone(ichunkprovider, chunkX, chunkZ+1)) this.doPopulate(ichunkprovider, chunkX, chunkZ + 1);
-        //if (this.neighborsDone(ichunkprovider, chunkX+1, chunkZ-1)) this.doPopulate(ichunkprovider, chunkX + 1, chunkZ - 1);
-        //if (this.neighborsDone(ichunkprovider, chunkX+1, chunkZ)) this.doPopulate(ichunkprovider, chunkX + 1, chunkZ);
-        //if (this.neighborsDone(ichunkprovider, chunkX+1, chunkZ+1)) this.doPopulate(ichunkprovider, chunkX + 1, chunkZ + 1);
     }
     
-    private Runnable clearOnServerClose() {
+    public Runnable clearOnServerClose() {
         return new Runnable () {
             public void run() {
                 clearToDecorateList();
@@ -997,6 +748,7 @@ public class ChunkProviderRTG implements IChunkProvider
     }
 
     private void clearToDecorateList() {
+        if (WorldTypeRTG.chunkProvider != this) return;
         if (populating) return;// in process, do later;
         // we have to make a copy of the set to work on or we'll get errors
         IChunkProvider ichunkprovider = worldObj.getChunkProvider();
@@ -1014,6 +766,7 @@ public class ChunkProviderRTG implements IChunkProvider
     }
 
     private void clearDecorations(int limit) {
+        if (WorldTypeRTG.chunkProvider != this) return;
         IChunkProvider ichunkprovider = worldObj.getChunkProvider();
         Set<PlaneLocation> toProcess = doableLocations(limit);
         for (PlaneLocation location: toProcess) {
@@ -1028,9 +781,14 @@ public class ChunkProviderRTG implements IChunkProvider
         HashSet<PlaneLocation> toProcess = new HashSet<PlaneLocation>();
         int found = 0;
         for (PlaneLocation location: toDecorate) {
-            Chunk existing = availableChunks.get(location);
-            if (existing != null&& !existing.isTerrainPopulated) {
-                continue;
+            Chunk existing;
+            try {
+                existing = availableChunks.get(location);
+                if (!existing.isTerrainPopulated) {
+                    continue; // not populated so let more "normal" systems handle it
+                }
+            } catch (ValueMissing ex) {
+                // legitimate to decorate so far
             }
             if (inGeneration.containsKey(location)) continue;
             toProcess.add(location);
@@ -1039,12 +797,22 @@ public class ChunkProviderRTG implements IChunkProvider
         return toProcess;
     }
 
+    private Converter<Chunk,PlaneLocation> keyer() {
+        return new Converter<Chunk,PlaneLocation>() {
+
+            @Override
+            public final PlaneLocation result(Chunk original) {
+                return new PlaneLocation.Invariant(original.xPosition, original.zPosition);
+            }
+
+        };
+    }
     private boolean populating = false;
     private static ChunkProviderRTG populatingProvider;
 
     private HashSet<PlaneLocation> toDecorate = new HashSet<PlaneLocation>();
     private LimitedSet<PlaneLocation> alreadyDecorated  = new LimitedSet<PlaneLocation>(1000);
-    private HashSet<PlaneLocation> everDecorated  = new HashSet<PlaneLocation>();
+    //private HashSet<PlaneLocation> everDecorated  = new HashSet<PlaneLocation>();
     private void doPopulate(IChunkProvider ichunkprovider, int chunkX, int chunkZ)
     {
         // don't populate if already done
@@ -1258,16 +1026,16 @@ public class ChunkProviderRTG implements IChunkProvider
         TimeTracker.manager.start("Entities");
         probe.setX(chunkX);
         probe.setZ(chunkZ);
-        if (everDecorated.contains(probe)) throw new RuntimeException();
+        //if (everDecorated.contains(probe)) throw new RuntimeException();
         if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.ANIMALS))
         {
             SpawnerAnimals.performWorldGenSpawning(this.worldObj, worldObj.getBiomeGenForCoords(worldX + 16, worldZ + 16), worldX, worldZ, 16, 16, this.rand);
         }
 
-        everDecorated.add(location);
+        //everDecorated.add(location);
         probe.setX(chunkX);
         probe.setZ(chunkZ);
-        if (!everDecorated.contains(probe)) throw new RuntimeException();
+        //if (!everDecorated.contains(probe)) throw new RuntimeException();
         if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.ICE)) {
 
             int k1, l1, i2;

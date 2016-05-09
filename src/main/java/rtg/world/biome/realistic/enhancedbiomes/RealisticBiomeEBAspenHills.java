@@ -41,7 +41,7 @@ public class RealisticBiomeEBAspenHills extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBAspenHills(76f, 40f),
+			new TerrainEBAspenHills(72f, 30f),
 			new SurfaceEBAspenHills(config, ebTopBlock, ebTopByte, ebFillBlock, ebFillByte, false, null, 0.95f)
 		);
 		

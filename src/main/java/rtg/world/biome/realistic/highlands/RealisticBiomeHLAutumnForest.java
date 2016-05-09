@@ -44,10 +44,10 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
 		yellowPines.logMeta = (byte)0;
 		yellowPines.leavesBlock = Highlands.vanillaBlocksFlag ? Blocks.leaves : HighlandsBlocks.autumnYellowLeaves;
 		yellowPines.leavesMeta = Highlands.vanillaBlocksFlag ? (byte)0 : (byte)0;
-		yellowPines.minTrunkSize = 8;
-		yellowPines.maxTrunkSize = 16;
-		yellowPines.minCrownSize = 12;
-		yellowPines.maxCrownSize = 24;
+		yellowPines.minTrunkSize = 6;
+		yellowPines.maxTrunkSize = 14;
+		yellowPines.minCrownSize = 8;
+		yellowPines.maxCrownSize = 20;
 		yellowPines.strengthFactorForLoops = 6f;
 		yellowPines.treeType = TreeType.RTG_TREE;
 		yellowPines.distribution.noiseDivisor = 100f;
@@ -67,8 +67,8 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
 		spruceTrees.logMeta = (byte)1;
 		spruceTrees.leavesBlock = Blocks.leaves;
 		spruceTrees.leavesMeta = (byte)1;
-		spruceTrees.minTrunkSize = 2;
-		spruceTrees.maxTrunkSize = 7;
+		spruceTrees.minTrunkSize = 4;
+		spruceTrees.maxTrunkSize = 10;
 		spruceTrees.minCrownSize = 6;
 		spruceTrees.maxCrownSize = 17;
 		spruceTrees.strengthFactorForLoops = 5f;

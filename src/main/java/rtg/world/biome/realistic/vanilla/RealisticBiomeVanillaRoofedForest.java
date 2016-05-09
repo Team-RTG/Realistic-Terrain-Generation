@@ -15,8 +15,10 @@ import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
 import rtg.world.biome.deco.DecoMushrooms;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
-import rtg.world.biome.deco.DecoTree.TreeCondition;
-import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
+import rtg.world.biome.deco.helper.DecoHelperThisOrThat.ChanceType;
+import rtg.world.gen.feature.tree.rtg.TreeRTGCeibaPentandra;
+import rtg.world.gen.feature.tree.rtg.TreeRTGCeibaRosea;
 import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaRoofedForest;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForest;
@@ -36,55 +38,73 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             new TerrainVanillaRoofedForest(),
             new SurfaceVanillaRoofedForest(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.08f)
         );
-        
-		/**
-		 * ##################################################
-		 * # DECORATIONS (ORDER MATTERS)
-		 * ##################################################
-		 */
-        
-		DecoBoulder decoBoulder = new DecoBoulder();
-		decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
-		decoBoulder.chance = 20;
-		decoBoulder.maxY = 80;
-		decoBoulder.strengthFactor = 2f;
-		this.addDeco(decoBoulder);
-		
-		DecoBoulder decoCobwebBoulder = new DecoBoulder();
-		decoCobwebBoulder.boulderBlock = Blocks.web;
-		decoCobwebBoulder.chance = 32;
-		decoCobwebBoulder.maxY = 80;
-		decoCobwebBoulder.strengthFactor = 2f;
-		this.addDeco(decoCobwebBoulder, this.config._boolean(BiomeConfigVanillaRoofedForest.decorationCobwebsId));
+        this.waterSurfaceLakeChance = 3;
 
-		DecoTree decoTrees = new DecoTree(new TreeRTGRhizophoraMucronata(3, 4, 13f, 0.32f, 0.1f));
-		decoTrees.logBlock = Blocks.log2;
-		decoTrees.logMeta = (byte)1;
-		decoTrees.leavesBlock = Blocks.leaves2;
-		decoTrees.leavesMeta = (byte)1;
-		decoTrees.minTrunkSize = 3;
-		decoTrees.maxTrunkSize = 4;
-		decoTrees.minCrownSize = 7;
-		decoTrees.maxCrownSize = 12;
-		decoTrees.strengthFactorForLoops = 24f;
-		decoTrees.distribution.noiseDivisor = 80f;
-		decoTrees.distribution.noiseFactor = 60f;
-		decoTrees.distribution.noiseAddend = -15f;
-		decoTrees.treeType = TreeType.RTG_TREE;
-		decoTrees.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-		decoTrees.treeConditionNoise = 0f;
-		decoTrees.treeConditionChance = 1;
-		decoTrees.maxY = 120;
-		this.addDeco(decoTrees);
+		DecoMushrooms decoMushrooms = new DecoMushrooms();
+		decoMushrooms.chance = 4;
+		decoMushrooms.maxY = 90;
+		decoMushrooms.randomType = rtg.world.biome.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE;
+		this.addDeco(decoMushrooms);
+		
+        DecoTree mangroveTree = new DecoTree(new TreeRTGRhizophoraMucronata(3, 4, 13f, 0.32f, 0.1f));
+        mangroveTree.treeType = DecoTree.TreeType.RTG_TREE;
+        mangroveTree.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
+        mangroveTree.treeConditionChance = 1;
+        mangroveTree.strengthFactorForLoops = 8f;
+        mangroveTree.logBlock = Blocks.log2;
+        mangroveTree.logMeta = (byte)1;
+        mangroveTree.leavesBlock = Blocks.leaves2;
+        mangroveTree.leavesMeta = (byte)1;
+        mangroveTree.minTrunkSize = 2;
+        mangroveTree.maxTrunkSize = 3;
+        mangroveTree.minCrownSize = 10;
+        mangroveTree.maxCrownSize = 18;
+        mangroveTree.noLeaves = false;
+        mangroveTree.maxY = 110;
+        this.addDeco(mangroveTree);
+        
+        DecoTree ceibaPentandraTree = new DecoTree(new TreeRTGCeibaPentandra(13f, 3, 0.32f, 0.1f));
+        ceibaPentandraTree.treeType = DecoTree.TreeType.RTG_TREE;
+        ceibaPentandraTree.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
+        ceibaPentandraTree.treeConditionChance = 1;
+        ceibaPentandraTree.strengthFactorForLoops = 8f;
+        ceibaPentandraTree.logBlock = Blocks.log2;
+        ceibaPentandraTree.logMeta = (byte)1;
+        ceibaPentandraTree.leavesBlock = Blocks.leaves2;
+        ceibaPentandraTree.leavesMeta = (byte)1;
+        ceibaPentandraTree.minTrunkSize = 2;
+        ceibaPentandraTree.maxTrunkSize = 3;
+        ceibaPentandraTree.minCrownSize = 10;
+        ceibaPentandraTree.maxCrownSize = 18;
+        ceibaPentandraTree.noLeaves = false;
+        ceibaPentandraTree.maxY = 110;
+        this.addDeco(ceibaPentandraTree);
+        
+        DecoTree ceibaRoseaTree = new DecoTree(new TreeRTGCeibaRosea(16f, 5, 0.32f, 0.1f));
+        ceibaRoseaTree.treeType = DecoTree.TreeType.RTG_TREE;
+        ceibaRoseaTree.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
+        ceibaRoseaTree.treeConditionChance = 1;
+        ceibaRoseaTree.strengthFactorForLoops = 8f;
+        ceibaRoseaTree.logBlock = Blocks.log2;
+        ceibaRoseaTree.logMeta = (byte)1;
+        ceibaRoseaTree.leavesBlock = Blocks.leaves2;
+        ceibaRoseaTree.leavesMeta = (byte)1;
+        ceibaRoseaTree.minTrunkSize = 2;
+        ceibaRoseaTree.maxTrunkSize = 3;
+        ceibaRoseaTree.minCrownSize = 10;
+        ceibaRoseaTree.maxCrownSize = 18;
+        ceibaRoseaTree.noLeaves = false;
+        ceibaRoseaTree.maxY = 110;
+        this.addDeco(ceibaRoseaTree);
         
 		DecoFallenTree decoFallenTree = new DecoFallenTree();
 		decoFallenTree.distribution.noiseDivisor = 80f;
 		decoFallenTree.distribution.noiseFactor = 60f;
 		decoFallenTree.distribution.noiseAddend = -15f;
 		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-		decoFallenTree.logConditionChance = 32;
+		decoFallenTree.logConditionChance = 16;
 		decoFallenTree.logConditionNoise = 0f;
-		decoFallenTree.maxY = 100;
+		decoFallenTree.maxY = 80;
 		decoFallenTree.logBlock = Blocks.log2;
 		decoFallenTree.logMeta = (byte)1;
 		decoFallenTree.leavesBlock = Blocks.leaves2;
@@ -93,41 +113,54 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 		decoFallenTree.maxSize = 9;
 		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaRoofedForest.decorationLogsId));
         
-        DecoShrub decoShrub = new DecoShrub();
-        decoShrub.maxY = 110;
-        decoShrub.strengthFactor = 1f;
-		this.addDeco(decoShrub);
+		DecoShrub darkOakShrub = new DecoShrub();
+		darkOakShrub.logBlock = Blocks.log2;
+		darkOakShrub.logMeta = (byte)1;
+		darkOakShrub.leavesBlock = Blocks.leaves2;
+		darkOakShrub.leavesMeta = (byte)1;
+		darkOakShrub.maxY = 100;
+		darkOakShrub.strengthFactor = 10f;
+		
+		DecoShrub oakShrub = new DecoShrub();
+		oakShrub.logBlock = Blocks.log;
+		oakShrub.logMeta = (byte)0;
+		oakShrub.leavesBlock = Blocks.leaves;
+		oakShrub.leavesMeta = (byte)0;
+		oakShrub.maxY = 100;
+		oakShrub.strengthFactor = 10f;		
+		
+		this.addDeco(new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, darkOakShrub, oakShrub));
+		
+		DecoBoulder decoBoulder = new DecoBoulder();
+		decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
+		decoBoulder.chance = 16;
+		decoBoulder.maxY = 80;
+		decoBoulder.strengthFactor = 2f;
+		this.addDeco(decoBoulder);
+		
+		DecoBoulder decoCobwebBoulder = new DecoBoulder();
+		decoCobwebBoulder.boulderBlock = Blocks.web;
+		decoCobwebBoulder.chance = 48;
+		decoCobwebBoulder.minY = 63;
+		decoCobwebBoulder.maxY = 70;
+		decoCobwebBoulder.strengthFactor = 2f;
+		decoCobwebBoulder.water = false;
+		this.addDeco(decoCobwebBoulder, this.config._boolean(BiomeConfigVanillaRoofedForest.decorationCobwebsId));
         
-        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.maxY = 128;
-        decoGrassDoubleTallgrass.strengthFactor = 8f;
-        decoGrassDoubleTallgrass.doubleGrassChance = 6;
-        this.addDeco(decoGrassDoubleTallgrass);
-        
-        DecoDeadBush decoDeadBush = new DecoDeadBush();
-		decoDeadBush.maxY = 128;
-		decoDeadBush.chance = 16;
-		decoDeadBush.strengthFactor = 1f;
-        this.addDeco(decoDeadBush);
-        
-		DecoGrass decoGrass = new DecoGrass();
-		decoGrass.maxY = 128;
-		decoGrass.strengthFactor = 4f;
-		decoGrass.chance = 2;
-        this.addDeco(decoGrass);
-        
-		DecoGrass decoFern = new DecoGrass(2);
-		decoFern.maxY = 128;
-		decoFern.strengthFactor = 4f;
-		decoFern.chance = 2;
-        this.addDeco(decoFern);
-
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		decoBaseBiomeDecorations.notEqualsZeroChance = 2;
+		decoBaseBiomeDecorations.maxY = 100;
 		this.addDeco(decoBaseBiomeDecorations);
-        
-        DecoMushrooms decoMushrooms = new DecoMushrooms();
-        decoMushrooms.maxY = 90;
-        decoMushrooms.randomType = rtg.world.biome.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE;
-        this.addDeco(decoMushrooms);
+
+		DecoGrass decoGrass = new DecoGrass();
+		decoGrass.maxY = 100;
+		decoGrass.strengthFactor = 20f;
+		this.addDeco(decoGrass);
+		
+		DecoDeadBush decoDeadBush = new DecoDeadBush();
+		decoDeadBush.maxY = 100;
+		decoDeadBush.chance = 2;
+		decoDeadBush.strengthFactor = 2f;
+		this.addDeco(decoDeadBush);
     }
 }

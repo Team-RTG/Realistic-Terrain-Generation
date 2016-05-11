@@ -1,60 +1,32 @@
 package enhancedbiomes.blocks;
 
-import java.io.File;
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.logging.Level;
-
-import enhancedbiomes.EnhancedBiomesMod;
-import enhancedbiomes.api.EnhancedBiomesApi;
-import enhancedbiomes.api.internal.OreGenEntry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import enhancedbiomes.blocks.renderer.BlockGrassRenderer;
 import enhancedbiomes.blocks.renderer.BlockOreRenderer;
 import enhancedbiomes.blocks.renderer.BlockRedstoneOreRenderer;
 import enhancedbiomes.blocks.tileentity.TileEntitySaguaro;
-import enhancedbiomes.blocks.tileentity.TileEntityTide;
 import enhancedbiomes.creativetab.CreativeTabEnhancedBiomes;
 import enhancedbiomes.handlers.FuelHandler;
 import enhancedbiomes.helpers.EnhancedBiomesJava;
-import enhancedbiomes.items.ItemBlockEnhancedBiomes;
-import enhancedbiomes.items.ItemBlockLogBirch;
-import enhancedbiomes.items.ItemBlockLogJungle;
-import enhancedbiomes.items.ItemBlockLogOak;
-import enhancedbiomes.items.ItemBlockLogSpruce;
-import enhancedbiomes.items.ItemSlab1;
-import enhancedbiomes.items.ItemSlab2;
-import enhancedbiomes.items.ItemSlabS;
-import enhancedbiomes.items.ItemSlabS2;
-import enhancedbiomes.items.ItemSlabSB;
-import enhancedbiomes.items.ItemSlabSB2;
-import enhancedbiomes.items.ItemSlabSC;
-import enhancedbiomes.items.ItemSlabSC2;
-
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.LoaderException;
-import cpw.mods.fml.common.LoaderState;
-import cpw.mods.fml.common.ModContainer;
-import cpw.mods.fml.common.registry.*;
-import net.minecraft.block.*;
+import enhancedbiomes.items.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemBlockWithMetadata;
+import net.minecraft.item.ItemSlab;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
+
 import static net.minecraft.block.Block.*;
+import static net.minecraft.init.Blocks.grass;
+import static net.minecraft.init.Blocks.torch;
 import static net.minecraft.init.Items.*;
-import static net.minecraft.init.Blocks.*;
 
 public class EnhancedBiomesBlocks {	
 	public static Block logOak;

@@ -13,15 +13,12 @@ public class RealisticBiomeHLEstuary extends RealisticBiomeHLBase
     
     public static BiomeGenBase hlBiome = HighlandsBiomes.estuary;
     
-    public static Block topBlock = hlBiome.topBlock;
-    public static Block fillerBlock = hlBiome.fillerBlock;
-    
     public RealisticBiomeHLEstuary(BiomeConfig config) {
     
         super(config, 
             hlBiome, BiomeGenBase.river,
             new TerrainHLEstuary(),
-            new SurfaceHLEstuary(config, topBlock, fillerBlock));
+            new SurfaceHLEstuary(config, hlBiome.topBlock, hlBiome.fillerBlock));
 		
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		decoBaseBiomeDecorations.maxY = 63;

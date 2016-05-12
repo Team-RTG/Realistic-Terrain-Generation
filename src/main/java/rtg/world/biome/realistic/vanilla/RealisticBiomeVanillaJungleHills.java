@@ -20,16 +20,13 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleHills;
 public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
 {
     
-    public static Block topBlock = BiomeGenBase.jungleHills.topBlock;
-    public static Block fillerBlock = BiomeGenBase.jungleHills.fillerBlock;
-    
     public RealisticBiomeVanillaJungleHills(BiomeConfig config)
     {
     
         super(config, 
             BiomeGenBase.jungleHills,
             BiomeGenBase.river,
-            new TerrainVanillaJungleHills(72f,55f),
+            new TerrainVanillaJungleHills(72f,40f),
             new SurfaceVanillaJungleHills(config, Blocks.grass, Blocks.dirt, false, null, 1f, 1.5f, 60f, 65f, 1.5f)
         );
 

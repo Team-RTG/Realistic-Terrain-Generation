@@ -6,7 +6,7 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBAspenHills extends TerrainBase
 {
-    private float hillStrength = 40f;
+    private float hillStrength = 30f;
 
 	public TerrainEBAspenHills(float bh, float hs)
 	{

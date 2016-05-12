@@ -5,21 +5,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungle;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.biome.deco.DecoBoulder;
-import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
-import rtg.world.biome.deco.DecoFlowersRTG;
-import rtg.world.biome.deco.DecoGrass;
-import rtg.world.biome.deco.DecoJungleCacti;
-import rtg.world.biome.deco.DecoJungleGrassVines;
-import rtg.world.biome.deco.DecoJungleLilypadVines;
-import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat.ChanceType;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
 import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.world.gen.feature.tree.vanilla.WorldGenMegaJungleRTG;
@@ -41,7 +32,8 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 		);
 		
 		this.waterSurfaceLakeChance = 3;
-        
+		this.hasVolcanoes = true;
+
 		/**
 		 * ##################################################
 		 * # DECORATIONS (ORDER MATTERS)

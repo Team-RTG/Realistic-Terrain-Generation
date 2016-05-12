@@ -1,25 +1,17 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import java.util.Random;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import rtg.api.biome.BiomeConfig;
-import rtg.config.rtg.ConfigRTG;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.RTGBiomeProvider;
-import rtg.world.biome.WorldChunkManagerRTG;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
-import rtg.world.gen.feature.WorldGenVolcano;
-import rtg.world.gen.surface.enhancedbiomes.SurfaceEBVolcano;
-import rtg.world.gen.terrain.enhancedbiomes.TerrainEBVolcano;
 import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
+import rtg.api.biome.BiomeConfig;
+import rtg.config.rtg.ConfigRTG;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
+import rtg.world.gen.surface.enhancedbiomes.SurfaceEBVolcano;
+import rtg.world.gen.terrain.enhancedbiomes.TerrainEBVolcano;
 
 public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
 {
@@ -89,6 +81,7 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
 		this.emeraldEmeraldMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
 		this.emeraldStoneBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
 		this.emeraldStoneMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
+        this.hasVolcanoes = true;
         
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		this.addDeco(decoBaseBiomeDecorations, ConfigRTG.enableVolcanoEruptions);        
@@ -98,27 +91,5 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
         decoGrassDoubleTallgrass.loops = 15;
         decoGrassDoubleTallgrass.maxY = 128;
         this.addDeco(decoGrassDoubleTallgrass);
-    }
-    
-    @Override
-    public void rMapGen(Block[] blocks, byte[] metadata, World world, RTGBiomeProvider cmr, Random mapRand, int baseX, int baseY,
-        int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[])
-    {
-        if (baseX % 4 == 0 && baseY % 4 == 0 && mapRand.nextInt(6) == 0)
-        {
-            if(!(((WorldChunkManagerRTG) cmr).getBiomeGenAt(baseX*16, baseY*16) instanceof RealisticBiomeEBVolcano))
-            {
-                return;
-            }
-            float river = cmr.getRiverStrength(baseX * 16, baseY * 16) + 1f;
-            if (river > 0.98f && cmr.isBorderlessAt(baseX * 16, baseY * 16))
-            {
-                long i1 = mapRand.nextLong() / 2L * 2L + 1L;
-                long j1 = mapRand.nextLong() / 2L * 2L + 1L;
-                mapRand.setSeed((long) chunkX * i1 + (long) chunkY * j1 ^ world.getSeed());
-                
-                WorldGenVolcano.build(blocks, metadata, world, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
-            }
-        }
     }
 }

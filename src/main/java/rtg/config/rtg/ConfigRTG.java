@@ -1,10 +1,10 @@
 package rtg.config.rtg;
 
-import java.io.File;
-
+import cpw.mods.fml.common.Loader;
 import net.minecraftforge.common.config.Configuration;
 import rtg.util.Logger;
-import cpw.mods.fml.common.Loader;
+
+import java.io.File;
 
 public class ConfigRTG
 {
@@ -131,6 +131,7 @@ public class ConfigRTG
     public static String volcanoBlockId = "minecraft:obsidian";
     public static int volcanoBlockByte = 0;
     public static boolean enableVolcanoEruptions = true;
+    public static int volcanoGenerateChance = 6;
 
     /* =================== Water System ===================== */
     private static float riverSizeMultiplier = 1f; // this is private because we want a transformed version
@@ -429,6 +430,16 @@ public class ConfigRTG
                 enableVolcanoEruptions,
                 "Set this to FALSE to prevent lava from flowing down the sides of volcanoes."
                 + Configuration.NEW_LINE
+            );
+
+            volcanoGenerateChance = config.getInt(
+                    "Volcano generate chance",
+                    "Volcanoes",
+                    volcanoGenerateChance, 1, 10000,
+                    "1/x chance that a Volcano will spawn (in Jungle variants + Mega Hills)"
+                            + Configuration.NEW_LINE +
+                    "The bigger this is, the less frequent Volcanoes will be"
+                            + Configuration.NEW_LINE
             );
 
             /* ====================== Water System ===================== */

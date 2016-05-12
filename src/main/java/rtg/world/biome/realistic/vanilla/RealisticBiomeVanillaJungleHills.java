@@ -5,16 +5,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleHills;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.biome.deco.DecoBoulder;
-import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
-import rtg.world.biome.deco.DecoFlowersRTG;
-import rtg.world.biome.deco.DecoGrass;
-import rtg.world.biome.deco.DecoJungleCacti;
-import rtg.world.biome.deco.DecoJungleGrassVines;
-import rtg.world.biome.deco.DecoJungleLilypadVines;
-import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
@@ -40,9 +32,11 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
             new TerrainVanillaJungleHills(72f,55f),
             new SurfaceVanillaJungleHills(config, Blocks.grass, Blocks.dirt, false, null, 1f, 1.5f, 60f, 65f, 1.5f)
         );
+
         this.waterSurfaceLakeChance = 3;
         this.noLakes=true;
-        
+		this.hasVolcanoes = true;
+
 		/**
 		 * ##################################################
 		 * # DECORATIONS (ORDER MATTERS)

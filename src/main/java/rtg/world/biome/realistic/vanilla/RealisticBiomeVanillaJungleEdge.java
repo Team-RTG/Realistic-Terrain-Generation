@@ -26,7 +26,9 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase
             new TerrainVanillaJungleEdge(),
             new SurfaceVanillaJungleEdge(config, topBlock, fillerBlock)
         );
-        
+
+		this.hasVolcanoes = true;
+
 		/**
 		 * ##################################################
 		 * # DECORATIONS (ORDER MATTERS)

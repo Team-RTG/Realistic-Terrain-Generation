@@ -72,6 +72,7 @@ import rtg.world.biome.realistic.RealisticBiomePatcher;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
 import rtg.util.Converter;
+import rtg.util.LimitedMap;
 import rtg.util.WeakHashCache;
 
 
@@ -221,7 +222,7 @@ public class ChunkProviderRTG implements IChunkProvider
     	isAICExtendingBiomeIdsLimit = aic.isAICExtendingBiomeIdsLimit();
 
         // set up the cache of available chunks
-        availableChunks = new WeakHashCache<PlaneLocation,Chunk>(keyer());
+        availableChunks = new LimitedMap<PlaneLocation,Chunk>(1000);
 
     }
 
@@ -235,41 +236,41 @@ public class ChunkProviderRTG implements IChunkProvider
      * Will return back a chunk, if it doesn't exist and its not a MP client it will generates all the blocks for the
      * specified chunk from the map seed and chunk seed
      */
-    private HashSet<PlaneLocation> everGenerated = new HashSet<PlaneLocation>();
+    //private HashSet<PlaneLocation> everGenerated = new HashSet<PlaneLocation>();
     private LimitedSet<PlaneLocation> chunkMade  = new LimitedSet<PlaneLocation>(10000);
-    private final WeakHashCache<PlaneLocation,Chunk> availableChunks;
+    private final LimitedMap<PlaneLocation,Chunk> availableChunks;
     public Chunk provideChunk(final int cx, final int cy)
     {
         final PlaneLocation chunkLocation = new PlaneLocation.Invariant(cx,cy);
         if (inGeneration.containsKey(chunkLocation)) {
             return inGeneration.get(chunkLocation);
         }
+        //if (availableChunks.size() > 1000) throw new RuntimeException();
         if (chunkMade.contains(chunkLocation)) {
             Chunk available;
-            try {
-                available = availableChunks.get(chunkLocation);
-                // this should never be happening but it came up when Forge/MC re-requested an already
-                // made chunk for a lighting check (???)
+            available = availableChunks.get(chunkLocation);
+            // this should never be happening but it came up when Forge/MC re-requested an already
+            // made chunk for a lighting check (???)
 
-                // we are having a problem with Forge complaining about double entity registration
-                // so we'll unload any loaded entities
+            // we are having a problem with Forge complaining about double entity registration
+            // so we'll unload any loaded entities
+            if (available != null) {
                 List [] entityLists = available.entityLists;
                 for (int i = 0; i< entityLists.length; i++) {
                     Iterator iterator = entityLists[i].iterator();
                     while (iterator.hasNext()) {
 
-                    	iterator.next();
+                        iterator.next();
                         iterator.remove();
                     }
                     worldObj.unloadEntities(entityLists[i]);
                 }
+                toCheck.add(chunkLocation);
                 return available;
-            } catch (ValueMissing ex) {
-                // we can't find the chunk so we'll just let it be remade.
             }
         }
 
-        if (everGenerated.contains(chunkLocation)) throw new RuntimeException();
+        //if (everGenerated.contains(chunkLocation)) throw new RuntimeException();
         
         TimeTracker.manager.start(rtgTerrain);
         TimeTracker.manager.start("RTG chunk");
@@ -405,11 +406,11 @@ public class ChunkProviderRTG implements IChunkProvider
         // remove from in process pile
         inGeneration.remove(chunkLocation);
         this.chunkMade.add(chunkLocation);
-        this.everGenerated.add(chunkLocation);
-        if (!chunkMade.contains(chunkLocation)||!everGenerated.contains(chunkLocation)) {
+        //this.everGenerated.add(chunkLocation);
+        /*if (!chunkMade.contains(chunkLocation)||!everGenerated.contains(chunkLocation)) {
             throw new RuntimeException(chunkLocation.toString() +  chunkMade.size());
-        }
-        availableChunks.cache(chunk);
+        }*/
+        availableChunks.put(chunkLocation,chunk);
         TimeTracker.manager.stop(rtgTerrain);
         return chunk;
     }
@@ -498,8 +499,10 @@ public class ChunkProviderRTG implements IChunkProvider
     }
 
     public static String firstBlock;
+    public static String biomeLayoutActivity = "Biome Layout";
     public float[] getNewerNoise(RTGBiomeProvider cmr, int x, int y, RealisticBiomeBase biomes[]) {
         // get area biome map
+        TimeTracker.manager.start(biomeLayoutActivity);
         for(int i = -sampleSize; i < sampleSize + 5; i++)
     	{
     		for(int j = -sampleSize; j < sampleSize + 5; j++)
@@ -507,6 +510,8 @@ public class ChunkProviderRTG implements IChunkProvider
     			biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = cmr.getBiomeDataAt(x + ((i * 8)), y + ((j * 8))).biomeID;
     		}
     	}
+
+        TimeTracker.manager.stop(biomeLayoutActivity);
         String report = "";
     	float river;
         float [] weightedBiomes = new float [BiomeGenBase.getBiomeGenArray().length];
@@ -587,12 +592,15 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
         //fill biomes array with biomeData
+
+        TimeTracker.manager.start(biomeLayoutActivity);
         for (int i = 0; i < 16; i++) {
             for (int j=0; j<16; j++) {
                 biomes[i*16+j] =  cmr.getBiomeDataAt(x + (((i-7) * 8+4)), y + (((j-7) * 8+4)));
             }
         }
 
+        TimeTracker.manager.stop(biomeLayoutActivity);
 
     	for(int i = 0; i < 16; i++)
     	{
@@ -702,11 +710,15 @@ public class ChunkProviderRTG implements IChunkProvider
     }
 
     private boolean chunkExists(IChunkProvider world, int par1, int par2) {
-        if (chunkExists(par1,par2)) return true;
+        //if (chunkExists(par1,par2)) return true;
         PlaneLocation location = new PlaneLocation.Invariant(par1,par2);
+        if (inGeneration.containsKey(location)) return true;
+        if (toCheck.contains(location)) return true;
         if (this.chunkMade.contains(location)) return true;
         if  (world.chunkExists(par1, par2)) return true;
-        return chunkLoader().chunkExists(worldObj, par1, par2);
+        if (chunkLoader().chunkExists(worldObj, par1, par2)) return true;
+        //if (this.everGenerated.contains(location)) throw new RuntimeException("somehow lost "+location.toString());
+        return false;
     }
 
     private PlaneLocation.Probe probe = new PlaneLocation.Probe(0, 0);
@@ -782,13 +794,11 @@ public class ChunkProviderRTG implements IChunkProvider
         int found = 0;
         for (PlaneLocation location: toDecorate) {
             Chunk existing;
-            try {
-                existing = availableChunks.get(location);
+            existing = availableChunks.get(location);
+            if (existing != null) {
                 if (!existing.isTerrainPopulated) {
-                    continue; // not populated so let more "normal" systems handle it
+                    //continue; // not populated so let more "normal" systems handle it
                 }
-            } catch (ValueMissing ex) {
-                // legitimate to decorate so far
             }
             if (inGeneration.containsKey(location)) continue;
             toProcess.add(location);
@@ -842,7 +852,9 @@ public class ChunkProviderRTG implements IChunkProvider
 
 		int worldX = chunkX * 16;
         int worldZ = chunkZ * 16;
+        TimeTracker.manager.start(biomeLayoutActivity);
         RealisticBiomeBase biome = cmr.getBiomeDataAt(worldX + 16, worldZ + 16);
+        TimeTracker.manager.stop(biomeLayoutActivity);
         this.rand.setSeed(this.worldObj.getSeed());
         long i1 = this.rand.nextLong() / 2L * 2L + 1L;
         long j1 = this.rand.nextLong() / 2L * 2L + 1L;
@@ -902,6 +914,8 @@ public class ChunkProviderRTG implements IChunkProvider
          */
 
         final int adjust = 24;// seems off? but decorations aren't matching their chunks.
+
+        TimeTracker.manager.start(biomeLayoutActivity);
         for (int bx = -4; bx <= 4; bx++) {
             
         	for(int by = -4; by <= 4; by++)
@@ -909,6 +923,7 @@ public class ChunkProviderRTG implements IChunkProvider
         		borderNoise[cmr.getBiomeDataAt(worldX + adjust + bx * 4, worldZ + adjust  + by * 4).biomeID] += 0.01234569f;
         	}
         }
+        TimeTracker.manager.stop(biomeLayoutActivity);
         TimeTracker.manager.stop("Features");
         /**
          * ########################################################################

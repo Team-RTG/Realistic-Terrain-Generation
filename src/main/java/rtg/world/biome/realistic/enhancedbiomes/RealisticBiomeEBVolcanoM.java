@@ -74,7 +74,6 @@ public class RealisticBiomeEBVolcanoM extends RealisticBiomeEBBase
 		this.lavaSurfaceLakeChance = 1;
 		this.noLakes = true;
 		this.noWaterFeatures = true;
-        this.hasVolcanoes = true;
         
         DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
         decoGrassDoubleTallgrass.doubleGrassChance = 3;

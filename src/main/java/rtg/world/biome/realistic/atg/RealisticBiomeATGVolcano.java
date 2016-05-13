@@ -21,7 +21,6 @@ public class RealisticBiomeATGVolcano extends RealisticBiomeATGBase
 		this.lavaSurfaceLakeChance = 1;
 		this.noLakes = true;
 		this.noWaterFeatures = true;
-        this.hasVolcanoes = true;
 		
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		this.addDeco(decoBaseBiomeDecorations);

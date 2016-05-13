@@ -27,8 +27,6 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase
             new SurfaceVanillaMegaTaiga(config, topBlock, fillerBlock)
         );
 
-		this.hasVolcanoes = true;
-
 		/**
 		 * ##################################################
 		 * # DECORATIONS (ORDER MATTERS)

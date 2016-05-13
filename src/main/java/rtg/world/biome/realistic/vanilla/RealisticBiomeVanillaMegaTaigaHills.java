@@ -28,7 +28,6 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
         );
 
         this.noLakes=true;
-		this.hasVolcanoes = true;
 
 		/**
 		 * ##################################################

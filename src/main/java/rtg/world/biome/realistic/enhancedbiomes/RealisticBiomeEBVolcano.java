@@ -81,7 +81,6 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
 		this.emeraldEmeraldMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
 		this.emeraldStoneBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
 		this.emeraldStoneMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
-        this.hasVolcanoes = true;
         
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		this.addDeco(decoBaseBiomeDecorations, ConfigRTG.enableVolcanoEruptions);        

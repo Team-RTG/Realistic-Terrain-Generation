@@ -36,7 +36,6 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase
 
 		this.waterSurfaceLakeChance = 3;
         this.noLakes=true;
-		this.hasVolcanoes = true;
         
 		/**
 		 * ##################################################

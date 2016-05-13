@@ -130,8 +130,9 @@ public class ConfigRTG
 
     public static String volcanoBlockId = "minecraft:obsidian";
     public static int volcanoBlockByte = 0;
+    public static boolean enableVolcanoes = true;
     public static boolean enableVolcanoEruptions = true;
-    public static int volcanoGenerateChance = 6;
+    public static int volcanoChance = 6;
 
     /* =================== Water System ===================== */
     private static float riverSizeMultiplier = 1f; // this is private because we want a transformed version
@@ -424,22 +425,30 @@ public class ConfigRTG
             
             volcanoBlockByte = config.getInt("Volcano block meta value", "Volcanoes", volcanoBlockByte, 0, 15, "The meta value of the volcano block." + Configuration.NEW_LINE);
             
-            enableVolcanoEruptions = config.getBoolean(
-                "Enable volcano eruptions",
+            enableVolcanoes = config.getBoolean(
+                "Enable volcanoes",
                 "Volcanoes",
-                enableVolcanoEruptions,
-                "Set this to FALSE to prevent lava from flowing down the sides of volcanoes."
+                enableVolcanoes,
+                "Set this to FALSE to prevent volcanoes from generating."
                 + Configuration.NEW_LINE
             );
-
-            volcanoGenerateChance = config.getInt(
-                    "Volcano generate chance",
+            
+            enableVolcanoEruptions = config.getBoolean(
+                    "Enable volcano eruptions",
                     "Volcanoes",
-                    volcanoGenerateChance, 1, 10000,
-                    "1/x chance that a Volcano will spawn (in Jungle variants + Mega Hills)"
-                            + Configuration.NEW_LINE +
-                    "The bigger this is, the less frequent Volcanoes will be"
-                            + Configuration.NEW_LINE
+                    enableVolcanoEruptions,
+                    "Set this to FALSE to prevent lava from flowing down the sides of volcanoes."
+                    + Configuration.NEW_LINE
+                );
+
+            volcanoChance = config.getInt(
+                "Volcano Chance",
+                "Volcanoes",
+                volcanoChance, 1, Integer.MAX_VALUE,
+                "1/x chance that a volcano will generate in a biome that has volcanoes enabled."
+                + Configuration.NEW_LINE +
+                "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+                + Configuration.NEW_LINE
             );
 
             /* ====================== Water System ===================== */

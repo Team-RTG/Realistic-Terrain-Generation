@@ -16,6 +16,12 @@ public class BiomeConfig {
     public static final String allowVillagesId = "allowVillages";
     public static final String allowVillagesName = "Allow Villages";
     
+    public static final String allowVolcanoesId = "allowVolcanoes";
+    public static final String allowVolcanoesName = "Allow Volcanoes";
+    
+    public static final String volcanoChanceId = "volcanoChance";
+    public static final String volcanoChanceName = "Volcano Chance";
+    
     public static final String useRTGDecorationsId = "useRTGDecorations";
     public static final String useRTGDecorationsName = "Use RTG Decorations";
     
@@ -50,7 +56,10 @@ public class BiomeConfig {
         
         this.properties = new ArrayList<BiomeConfigProperty>();
 
-        this.addProperty(new BiomeConfigProperty(allowVillagesId, Type.BOOLEAN, allowVillagesName, "", true));
+        this.addProperty(new BiomeConfigProperty(allowVillagesId, Type.BOOLEAN, allowVillagesName, "", false));
+        
+        this.addProperty(new BiomeConfigProperty(allowVolcanoesId, Type.BOOLEAN, allowVolcanoesName, "", false));
+        this.addProperty(new BiomeConfigProperty(volcanoChanceId, Type.INTEGER, volcanoChanceName, "1/x chance that a volcano will generate if this biome has volcanoes enabled." + Configuration.NEW_LINE + "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable volcanoes for this biome." + Configuration.NEW_LINE, -1, -1, Integer.MAX_VALUE));
         
         this.addProperty(new BiomeConfigProperty(useRTGDecorationsId, Type.BOOLEAN, useRTGDecorationsName, "", true));
 
@@ -102,6 +111,21 @@ public class BiomeConfig {
             }
         }
         return null;
+    }
+    
+    public void setPropertyValueById(String id, boolean value)
+    {
+    	getPropertyById(id).valueBoolean = value;
+    }
+    
+    public void setPropertyValueById(String id, int value)
+    {
+    	getPropertyById(id).valueInt = value;
+    }
+    
+    public void setPropertyValueById(String id, String value)
+    {
+    	getPropertyById(id).valueString = value;
     }
     
     public boolean _boolean(String id)

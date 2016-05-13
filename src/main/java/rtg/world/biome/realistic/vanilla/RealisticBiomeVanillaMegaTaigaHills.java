@@ -5,17 +5,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaMegaTaigaHills;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.biome.deco.DecoBoulder;
-import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
-import rtg.world.biome.deco.DecoGrass;
-import rtg.world.biome.deco.DecoMushrooms;
-import rtg.world.biome.deco.DecoPumpkin;
-import rtg.world.biome.deco.DecoShrub;
-import rtg.world.biome.deco.DecoTree;
-import rtg.world.biome.deco.DecoTree.TreeCondition;
-import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.collection.DecoCollectionMegaTaiga;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMegaTaigaHills;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMegaTaigaHills;
@@ -35,8 +26,9 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
             new TerrainVanillaMegaTaigaHills(),
             new SurfaceVanillaMegaTaigaHills(config, Blocks.grass, Blocks.dirt, true, Blocks.sand, 0.2f)
         );
+
         this.noLakes=true;
-        
+
 		/**
 		 * ##################################################
 		 * # DECORATIONS (ORDER MATTERS)

@@ -118,11 +118,14 @@ public class ChunkProviderRTG implements IChunkProvider
     private float[] biomesGeneratedInChunk;
     private float[] borderNoise;
     private float[] riverVals = new float[256];
+    private float[] [] weightings;
     private long worldSeed;
     private RealisticBiomePatcher biomePatcher;
     private HashMap<PlaneLocation,Chunk> inGeneration = new HashMap<PlaneLocation,Chunk>();
     private HashSet<PlaneLocation> toCheck = new HashSet<PlaneLocation>();
     private static String rtgTerrain = "RTG Terrain";
+    private static String rtgNoise = "RTG Noise";
+    private static String generateTerrain = "Generate Terrain";
     
     private AICWrapper aic;
     private boolean isAICExtendingBiomeIdsLimit;
@@ -223,9 +226,35 @@ public class ChunkProviderRTG implements IChunkProvider
 
         // set up the cache of available chunks
         availableChunks = new LimitedMap<PlaneLocation,Chunk>(1000);
-
+        setWeightings();
     }
 
+    private void setWeightings() {
+        weightings = new float [sampleArraySize * sampleArraySize][256];
+        int adjustment = 4;// this should actually vary with sampleSize
+        for (int i = 0; i < 16; i++) {
+            for (int j=0; j<16; j++) {
+    			int locationIndex = ((int)(i + adjustment) * 25 + (j + adjustment));
+                TimeTracker.manager.start("Weighting");
+                float totalWeight = 0;
+                float limit = (float)Math.pow((56f*56f),.7);
+                // float limit = 56f;
+
+                for (int mapX = 0 ; mapX < sampleArraySize; mapX ++) {
+                    for (int mapZ = 0 ; mapZ < sampleArraySize; mapZ ++) {
+                        float xDist = (i - chunkCoordinate(mapX));
+                        float yDist = (j - chunkCoordinate(mapZ));
+                        float distanceSquared = xDist*xDist + yDist*yDist;
+                        //float distance = (float)Math.sqrt(distanceSquared);
+                        float distance = (float)Math.pow(distanceSquared,.7);
+                        float weight = 1f - distance/limit;
+                        if (weight <0) weight = 0;
+                        weightings[mapX*sampleArraySize + mapZ][i * 16 + j] = weight;
+                    }
+                }
+            }
+        }
+    }
     public void isFakeGenerator() {
         this.mapFeaturesEnabled = false;
     }
@@ -273,7 +302,6 @@ public class ChunkProviderRTG implements IChunkProvider
         //if (everGenerated.contains(chunkLocation)) throw new RuntimeException();
         
         TimeTracker.manager.start(rtgTerrain);
-        TimeTracker.manager.start("RTG chunk");
     	rand.setSeed((long)cx * 0x4f9939f508L + (long)cy * 0x1ef1565bd5L);
         Block[] blocks = new Block[65536];
         byte[] metadata = new byte[65536];
@@ -502,6 +530,7 @@ public class ChunkProviderRTG implements IChunkProvider
     public static String biomeLayoutActivity = "Biome Layout";
     public float[] getNewerNoise(RTGBiomeProvider cmr, int x, int y, RealisticBiomeBase biomes[]) {
         // get area biome map
+        TimeTracker.manager.start(rtgNoise);
         TimeTracker.manager.start(biomeLayoutActivity);
         for(int i = -sampleSize; i < sampleSize + 5; i++)
     	{
@@ -521,6 +550,7 @@ public class ChunkProviderRTG implements IChunkProvider
         for (int i = 0; i < 16; i++) {
             for (int j=0; j<16; j++) {
     			int locationIndex = ((int)(i + adjustment) * 25 + (j + adjustment));
+                TimeTracker.manager.start("Weighting");
                 float totalWeight = 0;
 
                 boolean looking = false;
@@ -531,17 +561,10 @@ public class ChunkProviderRTG implements IChunkProvider
                 if (looking) {
                    report = "(" + (x) + ","  + (y) + ")" + "(" + (x+i) + ","  + (y+j) + ")";
                 }
-                float limit = (float)Math.pow((56f*56f),.7);
-                // float limit = 56f;
 
                 for (int mapX = 0 ; mapX < sampleArraySize; mapX ++) {
                     for (int mapZ = 0 ; mapZ < sampleArraySize; mapZ ++) {
-                        float xDist = (i - chunkCoordinate(mapX));
-                        float yDist = (j - chunkCoordinate(mapZ));
-                        float distanceSquared = xDist*xDist + yDist*yDist;
-                        //float distance = (float)Math.sqrt(distanceSquared);
-                        float distance = (float)Math.pow(distanceSquared,.7);
-                        float weight = 1f - distance/limit;
+                        float weight = weightings[mapX*sampleArraySize + mapZ][i * 16 +j];
                         if (weight > 0) {
                             if (looking) {
                                //report += " " + weight + " (" + mapX + "," + mapZ+ ")" + biomeData[mapX*sampleArraySize + mapZ];
@@ -564,6 +587,8 @@ public class ChunkProviderRTG implements IChunkProvider
                 }
     			testHeight[i * 16 + j] = 0f;
 
+                TimeTracker.manager.stop("Weighting");
+                TimeTracker.manager.start("Generating");
     			river = cmr.getRiverStrength(x + i, y + j);
                 this.riverVals[i * 16 + j] = -river;
                 float totalBorder = 0f;
@@ -588,6 +613,7 @@ public class ChunkProviderRTG implements IChunkProvider
     				}
     			}
                 if (totalBorder <.999||totalBorder>1.001) throw new RuntimeException("" + totalBorder);
+                TimeTracker.manager.stop("Generating");
             }
         }
 
@@ -601,38 +627,7 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
         TimeTracker.manager.stop(biomeLayoutActivity);
-
-    	for(int i = 0; i < 16; i++)
-    	{
-    		for(int j = 0; j < 16; j++)
-    		{
-
-    			/*int locationIndex = ((int)(i + adjustment) * 25 + (j + adjustment));
-
-    			testHeight[i * 16 + j] = 0f;
-
-    			river = cmr.getRiverStrength(x + i, y + j);
-                this.riverVals[i * 16 + j] = -river;
-                float totalBorder = 0f;
-
-    			for(int k = 0; k < 256; k++)
-    			{
-
-    				if(smallRender[locationIndex][k] > 0f)
-    				{
-
-    	    			if(locationIndex == centerLocationIndex)
-    	    			{
-    	    				biomesGeneratedInChunk[k] = smallRender[centerLocationIndex][k];
-    	    			}
-
-                        totalBorder += smallRender[locationIndex][k];
-    					testHeight[i * 16 + j] += RealisticBiomeBase.getBiome(k).rNoise(simplex, cell, x + i, y + j, smallRender[locationIndex][k], river + 1f) * smallRender[locationIndex][k];
-    				}
-    			}
-                if (totalBorder <.999||totalBorder>1.001) throw new RuntimeException("" + totalBorder);*/
-    		}
-    	}
+        TimeTracker.manager.stop(rtgNoise);
     	return testHeight;
 
     }
@@ -1081,7 +1076,6 @@ public class ChunkProviderRTG implements IChunkProvider
         TimeTracker.manager.stop("RTG populate");
         populating = false;
         populatingProvider = null;
-        TimeTracker.manager.stop("RTG chunk");
     }
 
 

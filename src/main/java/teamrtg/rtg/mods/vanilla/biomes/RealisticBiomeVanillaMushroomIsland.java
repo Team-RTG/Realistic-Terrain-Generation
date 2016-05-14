@@ -47,11 +47,6 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
     }
 
     @Override
-    protected void initDecos() {
-
-    }
-
-    @Override
     protected void initProperties() {
         config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.MYCELIUM.getDefaultState());
     }

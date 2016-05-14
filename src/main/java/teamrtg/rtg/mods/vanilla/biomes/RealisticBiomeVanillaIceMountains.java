@@ -48,11 +48,6 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
 
 
     @Override
-    protected void initDecos() {
-
-    }
-
-    @Override
     protected void initProperties() {
         config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.SNOW.getDefaultState());
         config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.SNOW.getDefaultState());

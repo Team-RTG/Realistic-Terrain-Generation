@@ -35,12 +35,6 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
         return surface;
     }
 
-
-    @Override
-    protected void initDecos() {
-
-    }
-
     @Override
     protected void initProperties() {
         this.config.WATER_POND_CHANCE.setDefault(0);

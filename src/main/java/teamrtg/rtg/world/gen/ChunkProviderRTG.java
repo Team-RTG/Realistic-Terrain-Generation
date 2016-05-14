@@ -65,7 +65,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
     private static final int centerLocationIndex = 312;// this is x=8, y=8 with the calcs below
     private static final int sampleSize = 8;
-    public static String firstBlock;
     public final RealisticBiomeFaker biomeFaker;
     public final Random rand;
     public final Random mapRand;
@@ -641,11 +640,9 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
     private float[] getNewerNoise(BiomeProviderRTG cmr, int x, int y, RealisticBiomeBase biomes[], int[] biomeData, float[] riverVals) {
 
-        float[][] smallRender;
         float[] testHeight;
         float[] biomesGeneratedInChunk;
 
-        smallRender = new float[625][256];
         testHeight = new float[256];
         biomesGeneratedInChunk = new float[256];
 
@@ -655,7 +652,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = BiomeUtils.getIdForBiome(cmr.getPreRepair(x + ((i * 8)), y + ((j * 8))));
             }
         }
-        String report = "";
         float river;
         float[] weightedBiomes = new float[256];
 
@@ -666,14 +662,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 int locationIndex = ((int) (i + adjustment) * 25 + (j + adjustment));
                 float totalWeight = 0;
 
-                boolean looking = false;
-                if (y + j == -859) {
-                    //if (x + i == -1329) looking = true;
-                    //if (x + i == -1328) looking = true;
-                }
-                if (looking) {
-                    report = "(" + (x) + "," + (y) + ")" + "(" + (x + i) + "," + (y + j) + ")";
-                }
                 float limit = (float) Math.pow((56f * 56f), .7);
                 // float limit = 56f;
 
@@ -686,9 +674,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
                         float distance = (float) Math.pow(distanceSquared, .7);
                         float weight = 1f - distance / limit;
                         if (weight > 0) {
-                            if (looking) {
-                                //report += " " + weight + " (" + mapX + "," + mapZ+ ")" + biomeData[mapX*sampleArraySize + mapZ];
-                            }
                             totalWeight += weight;
                             weightedBiomes[biomeData[mapX * sampleArraySize + mapZ]] += weight;
                         }
@@ -697,13 +682,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 // normalize biome weights
                 for (int biomeIndex = 0; biomeIndex < weightedBiomes.length; biomeIndex++) {
                     weightedBiomes[biomeIndex] /= totalWeight;
-                }
-                if (looking) {
-                    //report = "(" + (x+i) + ","  + (y+j) + ")"+description(weightedBiomes);
-                    if (firstBlock != null) {
-                        //throw new RuntimeException(firstBlock + " " + report);
-                    }
-                    firstBlock = report;
                 }
                 testHeight[i * 16 + j] = 0f;
 

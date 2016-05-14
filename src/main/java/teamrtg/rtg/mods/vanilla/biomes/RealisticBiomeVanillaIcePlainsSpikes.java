@@ -51,11 +51,6 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
 
 
     @Override
-    protected void initDecos() {
-
-    }
-
-    @Override
     protected void initProperties() {
         config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.PACKED_ICE.getDefaultState());
         config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.ICE.getDefaultState());

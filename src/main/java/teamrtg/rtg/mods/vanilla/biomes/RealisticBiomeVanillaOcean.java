@@ -45,11 +45,6 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected void initDecos() {
-
-    }
-
-    @Override
     protected void initProperties() {
         config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.GRAVEL.getDefaultState());
         this.config.WATER_POND_CHANCE.setDefault(0);

@@ -52,12 +52,6 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
         };
     }
 
-
-    @Override
-    protected void initDecos() {
-
-    }
-
     @Override
     protected void initProperties() {
         config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.GRAVEL.getDefaultState());

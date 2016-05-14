@@ -36,12 +36,6 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
         return surface;
     }
 
-
-    @Override
-    protected void initDecos() {
-
-    }
-
     @Override
     protected void initProperties() {
         config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.MYCELIUM.getDefaultState());

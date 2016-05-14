@@ -45,11 +45,6 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
     }
 
     @Override
-    protected void initDecos() {
-
-    }
-
-    @Override
     protected void initProperties() {
 
     }

@@ -26,10 +26,6 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
         config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.GRAVEL.getDefaultState());
     }
 
-    @Override
-    protected void initDecos() {
-
-    }
 
     @Override
     protected SurfacePart initSurface() {

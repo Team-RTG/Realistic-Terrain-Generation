@@ -63,7 +63,8 @@ public abstract class Converter<FromType,ToType> {
     }
 
 
-    public <FromType,Type2,Type3> Iterator<Type3> forEach(
+    @SuppressWarnings("hiding")
+	public <FromType,Type2,Type3> Iterator<Type3> forEach(
             Converter<FromType,Converter<Type2,Type3>> converterizer,
             Iterator<Type2> data) {
         return null;

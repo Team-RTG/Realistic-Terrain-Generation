@@ -26,7 +26,7 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase
             new TerrainVanillaJungleEdge(),
             new SurfaceVanillaJungleEdge(config, topBlock, fillerBlock)
         );
-        
+
 		/**
 		 * ##################################################
 		 * # DECORATIONS (ORDER MATTERS)

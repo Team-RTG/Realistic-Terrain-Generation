@@ -10,6 +10,7 @@ import teamrtg.rtg.world.biome.surface.part.Selector;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
+import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase {
 
@@ -42,6 +43,12 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
                     .add(new BlockPart(config.MIX_BLOCK_TOP.get())))));
         surface.add(PARTS.surfaceGeneric());
         return surface;
+    }
+
+    @Override
+    protected void initDecos() {
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override

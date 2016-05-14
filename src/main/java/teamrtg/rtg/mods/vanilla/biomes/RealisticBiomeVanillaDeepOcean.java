@@ -4,9 +4,13 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.util.noise.CellNoise;
 import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.part.*;
+import teamrtg.rtg.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.world.biome.surface.part.HeightSelector;
+import teamrtg.rtg.world.biome.surface.part.Selector;
+import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
+import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
 
@@ -17,7 +21,8 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
                 Biomes.RIVER,
                 chunkProvider
         );
-        this.noLakes = true;
+        this.noLakes=true;
+        this.noWaterFeatures = true;
     }
 
     @Override
@@ -39,6 +44,12 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
                     .add(new BlockPart(config.MIX_BLOCK_TOP.get())))));
         surface.add(PARTS.surfaceGeneric());
         return surface;
+    }
+
+    @Override
+    protected void initDecos() {
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override

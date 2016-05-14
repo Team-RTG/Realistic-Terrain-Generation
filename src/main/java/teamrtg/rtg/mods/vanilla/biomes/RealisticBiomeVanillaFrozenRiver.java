@@ -6,6 +6,7 @@ import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
+import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase {
 
@@ -30,6 +31,13 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase 
                 return terrainFlatLakes(x, y, simplex, river, 3f, 60f);
             }
         };
+    }
+
+
+    @Override
+    protected void initDecos() {
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override

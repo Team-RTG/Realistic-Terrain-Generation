@@ -8,6 +8,7 @@ import teamrtg.rtg.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
+import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBase {
 
@@ -44,6 +45,12 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
         surface.add(PARTS.surfaceMix(PARTS.MIX_NOISE));
         surface.add(PARTS.surfaceGeneric());
         return surface;
+    }
+
+    @Override
+    protected void initDecos() {
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override

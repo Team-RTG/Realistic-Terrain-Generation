@@ -5,12 +5,15 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.ChunkProviderOverworld;
+import net.minecraft.world.gen.NoiseGeneratorPerlin;
 import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.util.LimitedMap;
 import teamrtg.rtg.util.PlaneLocation;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
+
+import java.lang.reflect.Field;
 
 import static teamrtg.rtg.util.math.MathUtils.globalToChunk;
 import static teamrtg.rtg.util.math.MathUtils.globalToLocal;
@@ -24,10 +27,20 @@ public class RealisticBiomeFaker {
     public boolean[] fakeBiomes = new boolean[256];
     private LimitedMap<PlaneLocation.Invariant, int[]> chunkHeights = new LimitedMap<>(64); //Keep the heights for the last 64 chunks around for a bit. We might need them
     private ChunkProviderRTG chunkProvider;
+    private NoiseGeneratorPerlin surfaceNoise;
 
     public RealisticBiomeFaker(ChunkProviderRTG chunkProvider) {
         this.chunkProvider = chunkProvider;
         fakeProvider = new ChunkProviderOverworld(chunkProvider.world, chunkProvider.world.getSeed(), chunkProvider.world.getWorldInfo().isMapFeaturesEnabled(), chunkProvider.world.getWorldInfo().getGeneratorOptions());
+
+        Field field;
+        try {
+            field = fakeProvider.getClass().getDeclaredField("surfaceNoise");
+            field.setAccessible(true);
+            this.surfaceNoise = (NoiseGeneratorPerlin) field.get(fakeProvider);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public int[] fakeTerrain(int cx, int cz) {
@@ -67,8 +80,9 @@ public class RealisticBiomeFaker {
         return heights;
     }
 
-    public void fakeSurface(int cx, int cz, ChunkPrimer primer, BiomeGenBase[] biomes) {
-        fakeProvider.replaceBiomeBlocks(cx, cz, primer, biomes);
+    public void fakeSurface(int bx, int bz, ChunkPrimer primer, BiomeGenBase biome) {
+        //For some really messed up reason these need to be flipped... see BGB#300
+        biome.genTerrainBlocks(chunkProvider.world, chunkProvider.rand, primer, bz, bx, this.surfaceNoise.getValue(bx, bz));
     }
 
     public void initFakeBiomes() {

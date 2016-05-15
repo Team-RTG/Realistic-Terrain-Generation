@@ -74,6 +74,10 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         initProperties();
 
         init();
+        // This is the only way to make sure ores are generated every time
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.allowed = false;
+        this.decos.add(decoBaseBiomeDecorations);
         initDecos();
     }
 
@@ -92,7 +96,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
     protected void initDecos() {
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.allowed = false;
+        decoBaseBiomeDecorations.allowed = true;
         this.decos.add(decoBaseBiomeDecorations);
     }
 

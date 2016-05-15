@@ -293,57 +293,44 @@ public class ChunkProviderRTG implements IChunkGenerator {
         if (event.getResult() == Result.DENY) return;
         int i, j, h, depth;
         float river;
-        biomeFaker.fakeSurface(cx, cz, primer, base);
         for (i = 0; i < 16; i++) {
             for (j = 0; j < 16; j++) {
 
                 RealisticBiomeBase biome = biomes[i * 16 + j];
 
-                if (!biomeFaker.isFakeBiome(biome.getID())) {
-
-                    h = (int) n[i * 16 + j];
-
-                    for (int k = 0; k < 256; k++) {
-                        if (k > h) {
-                            if (k < 63) {
-                                primer.setBlockState(i, k, j, Blocks.WATER.getDefaultState());
-                            } else {
-                                primer.setBlockState(i, k, j, Blocks.AIR.getDefaultState());
-                            }
-                        } else {
-                            primer.setBlockState(i, k, j, Blocks.STONE.getDefaultState());
-                        }
-                    }
+                if (biomeFaker.isFakeBiome(biome.getID())) {
+                    biomeFaker.fakeSurface(cx * 16 + i, cz * 16 + j, primer, biome);
+                } else {
 
                     river = -bprv.getRiverStrength(cx * 16 + i, cz * 16 + j);
                     depth = -1;
 
                     RealisticBiomeGenerator.forBiome(biome).paintSurface(primer, cx * 16 + i, cz * 16 + j, i, j, depth, world, rand, simplex, cell, n, river, base);
+                }
 
-                    int rough;
-                    int flatBedrockLayers = Mods.RTG.config.FLAT_BEDROCK_LAYERS.get();
-                    flatBedrockLayers = flatBedrockLayers < 0 ? 0 : (flatBedrockLayers > 5 ? 5 : flatBedrockLayers);
+                int rough;
+                int flatBedrockLayers = Mods.RTG.config.FLAT_BEDROCK_LAYERS.get();
+                flatBedrockLayers = flatBedrockLayers < 0 ? 0 : (flatBedrockLayers > 5 ? 5 : flatBedrockLayers);
 
-                    if (flatBedrockLayers > 0) {
-                        for (int bl = 0; bl < flatBedrockLayers; bl++) {
-                            primer.setBlockState(i, bl, j, bedrockBlock);
-                        }
-                    } else {
-
-                        primer.setBlockState(i, 0, j, bedrockBlock);
-
-                        rough = rand.nextInt(2);
-                        primer.setBlockState(i, rough, j, bedrockBlock);
-
-                        rough = rand.nextInt(3);
-                        primer.setBlockState(i, rough, j, bedrockBlock);
-
-                        rough = rand.nextInt(4);
-                        primer.setBlockState(i, rough, j, bedrockBlock);
-
-                        rough = rand.nextInt(5);
-                        primer.setBlockState(i, rough, j, bedrockBlock);
+                if (flatBedrockLayers > 0) {
+                    for (int bl = 0; bl < flatBedrockLayers; bl++) {
+                        primer.setBlockState(i, bl, j, bedrockBlock);
                     }
+                } else {
+
+                    primer.setBlockState(i, 0, j, bedrockBlock);
+
+                    rough = rand.nextInt(2);
+                    primer.setBlockState(i, rough, j, bedrockBlock);
+
+                    rough = rand.nextInt(3);
+                    primer.setBlockState(i, rough, j, bedrockBlock);
+
+                    rough = rand.nextInt(4);
+                    primer.setBlockState(i, rough, j, bedrockBlock);
+
+                    rough = rand.nextInt(5);
+                    primer.setBlockState(i, rough, j, bedrockBlock);
                 }
             }
         }

@@ -21,7 +21,16 @@ public class TerrainMath
 	{
 		return Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
 	}
-	
+	public static double dis2Elliptic(double x1, double y1, double x2, double y2, double fX, double fY)
+	{
+		return Math.sqrt((x1-x2)*(x1-x2)/fX*fX + (y1-y2)*(y1-y2)/fY*fY);
+	}
+
+	public static float lerp(float a, float b, float f)
+	{
+		return (a * (1.0f - f)) + (b * f);
+	}
+
 	public static double dis3(double x1, double y1, double z1, double x2, double y2, double z2)
 	{
 		return Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) + (z1-z2)*(z1-z2));

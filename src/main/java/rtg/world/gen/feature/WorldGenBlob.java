@@ -3,12 +3,11 @@ package rtg.world.gen.feature;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import rtg.config.rtg.ConfigRTG;
-import rtg.util.Logger;
 import rtg.util.RandomUtil;
 
 public class WorldGenBlob extends WorldGenerator
@@ -18,6 +17,7 @@ public class WorldGenBlob extends WorldGenerator
     private int blobSize;
     private boolean booShouldGenerate;
     private static final String __OBFID = "CL_00000402";
+    protected boolean water;
 
     public WorldGenBlob(Block b, int s, Random rand)
     {
@@ -26,6 +26,7 @@ public class WorldGenBlob extends WorldGenerator
         this.blobMeta = 0;
         this.blobSize = s;
         booShouldGenerate = true;
+        this.water = true;
         
         if (blobBlock == Blocks.mossy_cobblestone || blobBlock == Blocks.cobblestone) {
             if (!ConfigRTG.enableCobblestoneBoulders) {
@@ -43,6 +44,13 @@ public class WorldGenBlob extends WorldGenerator
     {
         this(b, s, rand);
         this.blobMeta = m;
+    }
+    
+    public WorldGenBlob(Block b, byte m, int s, Random rand, boolean water)
+    {
+        this(b, m, s, rand);
+        this.blobMeta = m;
+        this.water = water;
     }
 
     public void generate(World world, Random rand, int x, int y, int z, boolean honourConfig)
@@ -79,6 +87,20 @@ public class WorldGenBlob extends WorldGenerator
                     {
                         Block block = world.getBlock(x, y - 1, z);
 
+                        // Water check.
+                        if (!this.water) {
+
+                    		if (block.getMaterial() == Material.water) { return false; }
+                    		if (world.getBlock(x, y - 1, z - 1).getMaterial() == Material.water) { return false; }
+                    		if (world.getBlock(x, y - 1, z + 1).getMaterial() == Material.water) { return false; }
+                    		if (world.getBlock(x - 1, y - 1, z).getMaterial() == Material.water) { return false; }
+                    		if (world.getBlock(x - 1, y - 1, z - 1).getMaterial() == Material.water) { return false; }
+                    		if (world.getBlock(x - 1, y - 1, z + 1).getMaterial() == Material.water) { return false; }
+                    		if (world.getBlock(x + 1, y - 1, z).getMaterial() == Material.water) { return false; }
+                    		if (world.getBlock(x + 1, y - 1, z - 1).getMaterial() == Material.water) { return false; }
+                    		if (world.getBlock(x + 1, y - 1, z + 1).getMaterial() == Material.water) { return false; }
+                        }
+                        
                         if (block == Blocks.grass || block == Blocks.dirt || block == Blocks.stone || block == Blocks.gravel || block == Blocks.sand)
                         {
                             break label63;

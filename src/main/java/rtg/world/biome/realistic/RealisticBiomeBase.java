@@ -34,11 +34,13 @@ import rtg.util.RandomUtil;
 import rtg.util.SimplexOctave;
 import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
+import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.collection.DecoCollectionBase;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.feature.WorldGenPond;
+import rtg.world.gen.feature.WorldGenVolcano;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGeneric;
 import rtg.world.gen.terrain.TerrainBase;
@@ -330,17 +332,55 @@ public class RealisticBiomeBase extends BiomeBase {
         
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(world, rand, chunkX, chunkY));
     }
-    
+
+    public void rMapVolcanoes(Block[] blocks, byte[] metadata, World world, RTGBiomeProvider cmr, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
+    	
+    	RealisticBiomeBase neighbourBiome = getBiome((((WorldChunkManagerRTG) cmr).getBiomeGenAt(baseX * 16, baseY * 16).biomeID));
+    	
+    	boolean allowed = !ConfigRTG.enableVolcanoes ? false : neighbourBiome.config._boolean(BiomeConfig.allowVolcanoesId);
+    	if (!allowed) {
+    		return;
+    	}
+    	
+    	int chance = neighbourBiome.config._int(BiomeConfig.volcanoChanceId) == -1 ? ConfigRTG.volcanoChance : neighbourBiome.config._int(BiomeConfig.volcanoChanceId);
+    	if (chance < 1) {
+    		return;
+    	}
+    	
+        if (baseX % 4 == 0 && baseY % 4 == 0 && mapRand.nextInt(chance) == 0) {
+
+            float river = cmr.getRiverStrength(baseX * 16, baseY * 16) + 1f;
+            if (river > 0.98f && cmr.isBorderlessAt(baseX * 16, baseY * 16)) {
+                long i1 = mapRand.nextLong() / 2L * 2L + 1L;
+                long j1 = mapRand.nextLong() / 2L * 2L + 1L;
+                mapRand.setSeed((long) chunkX * i1 + (long) chunkY * j1 ^ world.getSeed());
+
+                WorldGenVolcano.build(blocks, metadata, world, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
+            }
+        }
+    }
     public void generateMapGen(Block[] blocks, byte[] metadata, Long seed, World world, RTGBiomeProvider cmr, Random mapRand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
     
-        int k = 5;
+        final int mapGenRadius = 5;
+        final int volcanoGenRadius = 15;
+
         mapRand.setSeed(seed);
         long l = (mapRand.nextLong() / 2L) * 2L + 1L;
         long l1 = (mapRand.nextLong() / 2L) * 2L + 1L;
-        for (int baseX = chunkX - k; baseX <= chunkX + k; baseX++) {
-            for (int baseY = chunkY - k; baseY <= chunkY + k; baseY++) {
+
+        // Structures generation
+        for (int baseX = chunkX - mapGenRadius; baseX <= chunkX + mapGenRadius; baseX++) {
+            for (int baseY = chunkY - mapGenRadius; baseY <= chunkY + mapGenRadius; baseY++) {
                 mapRand.setSeed((long) baseX * l + (long) baseY * l1 ^ seed);
                 rMapGen(blocks, metadata, world, cmr, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
+            }
+        }
+
+        // Volcanoes generation
+        for (int baseX = chunkX - volcanoGenRadius; baseX <= chunkX + volcanoGenRadius; baseX++) {
+            for (int baseY = chunkY - volcanoGenRadius; baseY <= chunkY + volcanoGenRadius; baseY++) {
+                mapRand.setSeed((long) baseX * l + (long) baseY * l1 ^ seed);
+                rMapVolcanoes(blocks, metadata, world, cmr, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
             }
         }
     }

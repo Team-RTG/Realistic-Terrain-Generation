@@ -27,12 +27,8 @@ public class RealisticBiomeSCBase extends RealisticBiomeBase
 
     public static void addBiomes()
     {
-
-        System.out.println("\n\nSUSHI LOADING\n\n");
         if (Loader.isModLoaded("sushicraft"))
         {
-            System.out.println("\n\nSUSHI IS LOADED\n\n");
-
             BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
 
             for(int i = 0; i < 256; i++)
@@ -50,11 +46,8 @@ public class RealisticBiomeSCBase extends RealisticBiomeBase
 
                     if (biomeName == "Sakura Forest" && biomeClass == "fr.kingstone.sushicraft.world.biome.BiomeGenSakura")
                     {
-
-                        System.out.println("\n\nSAKURA FOREST!!!!\n\n");
                         scSakuraForest = new RealisticBiomeSCSakuraForest(scBiome, BiomeConfigTC.biomeConfigTCMagicalForest);
                     }
-
                 }
             }
         }

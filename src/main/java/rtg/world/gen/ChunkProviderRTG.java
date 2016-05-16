@@ -1,7 +1,5 @@
 package rtg.world.gen;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE;
@@ -17,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import java.util.WeakHashMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -47,7 +44,6 @@ import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.ChunkEvent;
-import rtg.RTG;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.AICWrapper;
@@ -56,12 +52,14 @@ import rtg.util.Accessor;
 import rtg.util.CanyonColour;
 import rtg.util.CellNoise;
 import rtg.util.Compass;
+import rtg.util.Converter;
 import rtg.util.Direction;
 import rtg.util.LimitedSet;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.PlaneLocation;
 import rtg.util.SimplexCellularNoise;
 import rtg.util.TimeTracker;
+import rtg.util.WeakHashCache;
 import rtg.util.WeakHashCache.ValueMissing;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeAnalyzer;
@@ -71,9 +69,12 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
+<<<<<<< HEAD
 import rtg.util.Converter;
 import rtg.util.LimitedMap;
 import rtg.util.WeakHashCache;
+=======
+>>>>>>> pr/31
 
 
 public class ChunkProviderRTG implements IChunkProvider
@@ -288,8 +289,13 @@ public class ChunkProviderRTG implements IChunkProvider
                 for (int i = 0; i< entityLists.length; i++) {
                     Iterator iterator = entityLists[i].iterator();
                     while (iterator.hasNext()) {
+<<<<<<< HEAD
 
                         iterator.next();
+=======
+                    	
+                    	iterator.next();
+>>>>>>> pr/31
                         iterator.remove();
                     }
                     worldObj.unloadEntities(entityLists[i]);
@@ -544,7 +550,7 @@ public class ChunkProviderRTG implements IChunkProvider
         String report = "";
     	float river;
         float [] weightedBiomes = new float [BiomeGenBase.getBiomeGenArray().length];
-        
+
         int adjustment = 4;// this should actually vary with sampleSize
         // fill the old smallRender
         for (int i = 0; i < 16; i++) {
@@ -613,9 +619,14 @@ public class ChunkProviderRTG implements IChunkProvider
     				}
     			}
                 if (totalBorder <.999||totalBorder>1.001) throw new RuntimeException("" + totalBorder);
+<<<<<<< HEAD
                 TimeTracker.manager.stop("Generating");
             }
         }
+=======
+    		}
+    	}
+>>>>>>> pr/31
 
         //fill biomes array with biomeData
 
@@ -626,8 +637,43 @@ public class ChunkProviderRTG implements IChunkProvider
             }
         }
 
+<<<<<<< HEAD
         TimeTracker.manager.stop(biomeLayoutActivity);
         TimeTracker.manager.stop(rtgNoise);
+=======
+        
+    	for(int i = 0; i < 16; i++)
+    	{
+    		for(int j = 0; j < 16; j++)
+    		{
+
+    			/*int locationIndex = ((int)(i + adjustment) * 25 + (j + adjustment));
+
+    			testHeight[i * 16 + j] = 0f;
+
+    			river = cmr.getRiverStrength(x + i, y + j);
+                this.riverVals[i * 16 + j] = -river;
+                float totalBorder = 0f;
+
+    			for(int k = 0; k < 256; k++)
+    			{
+
+    				if(smallRender[locationIndex][k] > 0f)
+    				{
+
+    	    			if(locationIndex == centerLocationIndex)
+    	    			{
+    	    				biomesGeneratedInChunk[k] = smallRender[centerLocationIndex][k];
+    	    			}
+
+                        totalBorder += smallRender[locationIndex][k];
+    					testHeight[i * 16 + j] += RealisticBiomeBase.getBiome(k).rNoise(simplex, cell, x + i, y + j, smallRender[locationIndex][k], river + 1f) * smallRender[locationIndex][k];
+    				}
+    			}
+                if (totalBorder <.999||totalBorder>1.001) throw new RuntimeException("" + totalBorder);*/
+    		}
+    	}
+>>>>>>> pr/31
     	return testHeight;
 
     }
@@ -1042,6 +1088,8 @@ public class ChunkProviderRTG implements IChunkProvider
             SpawnerAnimals.performWorldGenSpawning(this.worldObj, worldObj.getBiomeGenForCoords(worldX + 16, worldZ + 16), worldX, worldZ, 16, 16, this.rand);
         }
 
+        TimeTracker.manager.stop("Entities");
+        TimeTracker.manager.start("Ice");
         //everDecorated.add(location);
         probe.setX(chunkX);
         probe.setZ(chunkZ);
@@ -1068,10 +1116,10 @@ public class ChunkProviderRTG implements IChunkProvider
         } else {
             throw new RuntimeException();
         }
+        TimeTracker.manager.stop("Ice");
 
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag));
 
-        TimeTracker.manager.stop("Entities");
         BlockFalling.fallInstantly = false;
         TimeTracker.manager.stop("RTG populate");
         populating = false;

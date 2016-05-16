@@ -19,9 +19,9 @@ public class WorldGenVolcano
 
 	// How much stretched the vent/mouth is
 	private static final float ventEccentricity = 8f;
-	private static final float ventRadius = 6f;
+	private static final float ventRadius = 7f;
 
-	private static final int lavaHeight = 142 + (ConfigRTG.enableVolcanoEruptions ? 5 : 0);
+	private static final int lavaHeight = 142 + 3 + (ConfigRTG.enableVolcanoEruptions ? 5 : 0);	// + 3 to account for lava cone tip
 	private static final int baseVolcanoHeight = 142 + 8;
 
 
@@ -77,6 +77,7 @@ public class WorldGenVolcano
 						// In lava
 						else if(y < lavaHeight + 1)
 						{
+							if(distanceEll + y < lavaHeight + 3) // + 3 to cut the tip of the lava
 							blocks[cta(x, y, z)] = lavaBlock;
 						}
 						// Below obsidian
@@ -96,9 +97,9 @@ public class WorldGenVolcano
 				}
 				else
 				{
-					height = baseVolcanoHeight - (float)Math.pow(distanceEll, 0.88f);
-					height += simplex.octave(1).noise2(i / 112f, j / 112f) * 6f;
-					height += simplex.octave(2).noise2(i / 46f, j / 46f) * 5f;
+					height = baseVolcanoHeight - (float)Math.pow(distanceEll, 0.89f);
+					height += simplex.octave(1).noise2(i / 112f, j / 112f) * 5.5f;
+					height += simplex.octave(2).noise2(i / 46f, j / 46f) * 4.5f;
 					height += simplex.octave(3).noise2(i / 16f, j / 16f) * 2.5f;
 					height += simplex.octave(4).noise2(i / 5f, j / 5f) * 1f;
 

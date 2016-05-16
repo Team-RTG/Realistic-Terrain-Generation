@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.WeakHashMap;
 
 /**
+ * NOT CURRENTLY FUNCTIONAL
+ *
  * This is a complex class to achieve the goal of a HashMap where the objects are
  * held with weak references and so can be garbage collected
  *
@@ -26,7 +28,7 @@ public class WeakHashCache<Key,Value> {
 
     // this map can retrieve the values if they're still around but doesn't stop
     // the garbage collector from tossing them. It also lets the keys be GC'd, which
-    // is stopped if need by their existens in storageIndicator;
+    // is stopped if need by their existence in storageIndicator;
 
     private WeakHashMap<Key,WeakReference<Value>> mapping =
             new WeakHashMap<Key,WeakReference<Value>>();
@@ -34,6 +36,8 @@ public class WeakHashCache<Key,Value> {
     public WeakHashCache(Converter<Value,Key> keyer) {
         this.keyer = keyer;
     }
+
+    public int size() {return storageIndicator.size();}
 
     public static class ValueMissing extends Exception {
         // this class exists to force clients to pay attention to missing values;

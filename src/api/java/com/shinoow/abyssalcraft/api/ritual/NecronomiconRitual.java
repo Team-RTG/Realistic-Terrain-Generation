@@ -26,7 +26,7 @@ import net.minecraft.world.World;
 public abstract class NecronomiconRitual {
 
 	private Object[] offerings = new Object[8];
-	private boolean remnantHelp;
+	private boolean requiresSacrifice;
 	private int bookType;
 	private int dimension;
 	private String unlocalizedName;
@@ -37,17 +37,17 @@ public abstract class NecronomiconRitual {
 	 * A Necronomicon Ritual
 	 * @param unlocalizedName A string representing the ritual name
 	 * @param bookType Necronomicon book type required
-	 * @param dimension Dimension where the ritual can be peformed
+	 * @param dimension Dimension where the ritual can be performed
 	 * @param requiredEnergy Amount of Potential Energy required to perform
-	 * @param remnantHelp If Remnants can aid you when performing the ritual
+	 * @param requiresSacrifice If the ritual requires a living sacrifice
 	 * @param offerings Components used to perform the ritual, are consumed afterwards
 	 */
-	public NecronomiconRitual(String unlocalizedName, int bookType, int dimension, float requiredEnergy, boolean remnantHelp, Object...offerings){
+	public NecronomiconRitual(String unlocalizedName, int bookType, int dimension, float requiredEnergy, boolean requiresSacrifice, Object...offerings){
 		this.unlocalizedName = unlocalizedName;
 		this.bookType = bookType;
 		this.dimension = dimension;
 		this.requiredEnergy = requiredEnergy;
-		this.remnantHelp = remnantHelp;
+		this.requiresSacrifice = requiresSacrifice;
 		if(offerings.length < 8){
 			this.offerings = new Object[offerings.length];
 			for(int i = 0; i < offerings.length; i++)
@@ -90,9 +90,20 @@ public abstract class NecronomiconRitual {
 	/**
 	 * Used to see if Remnants can aid in the ritual
 	 * @return True if Remnants can aid you, false if they can't
+	 * 
+	 * @deprecated Has been replaced by a living sacrifice
 	 */
+	@Deprecated
 	public boolean canRemnantAid(){
-		return remnantHelp;
+		return false;
+	}
+
+	/**
+	 * Used to see if this ritual requires a living sacrifice
+	 * @return True if the ritual requires a living sacrifice to be present
+	 */
+	public boolean requiresSacrifice(){
+		return requiresSacrifice;
 	}
 
 	/**
@@ -147,7 +158,7 @@ public abstract class NecronomiconRitual {
 	 * Getter for the sacrifice (mainly used by Infusion Rituals)
 	 * @return An Object representing an item placed on the altar
 	 * (should be removed/replaced in both completeRitual methods, like
-	 * {@link NecronomiconCreationRitual#completeRitualClient(World, BlockPos, EntityPlayer)})
+	 * {@link NecronomiconCreationRitual#completeRitualClient(World, int, int, int, EntityPlayer)})
 	 */
 	public Object getSacrifice(){
 		return sacrifice;
@@ -156,7 +167,9 @@ public abstract class NecronomiconRitual {
 	/**
 	 * Override this to ensure that the ritual can be completed
 	 * @param world Current World
-	 * @param pos BlockPos
+	 * @param x X coordinate
+	 * @param y Y coordinate
+	 * @param z Z coordinate
 	 * @param player Player performing the ritual
 	 * @return True if all conditions are met, otherwise false
 	 */
@@ -165,7 +178,9 @@ public abstract class NecronomiconRitual {
 	/**
 	 * Called when a ritual is completed
 	 * @param world Current World
-	 * @param pos BlockPos
+	 * @param x X coordinate
+	 * @param y Y coordinate
+	 * @param z Z coordinate
 	 * @param player Player who performed the ritual
 	 */
 	public void completeRitual(World world, BlockPos pos, EntityPlayer player){
@@ -176,7 +191,9 @@ public abstract class NecronomiconRitual {
 	/**
 	 * Override this to do something client-side when the ritual is completed
 	 * @param world Current World
-	 * @param pos BlockPos
+	 * @param x X coordinate
+	 * @param y Y coordinate
+	 * @param z Z coordinate
 	 * @param player Player who performed the ritual
 	 */
 	protected abstract void completeRitualClient(World world, BlockPos pos, EntityPlayer player);
@@ -184,7 +201,9 @@ public abstract class NecronomiconRitual {
 	/**
 	 * Override this to do something server-side when the ritual is completed
 	 * @param world Current World
-	 * @param pos BlockPos
+	 * @param x X coordinate
+	 * @param y Y coordinate
+	 * @param z Z coordinate
 	 * @param player Player who performed the ritual
 	 */
 	protected abstract void completeRitualServer(World world, BlockPos pos, EntityPlayer player);

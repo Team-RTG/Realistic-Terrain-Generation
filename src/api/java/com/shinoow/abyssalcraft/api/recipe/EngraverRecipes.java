@@ -11,15 +11,18 @@
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api.recipe;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.shinoow.abyssalcraft.api.item.*;
+import com.shinoow.abyssalcraft.api.item.ACItems;
+import com.shinoow.abyssalcraft.api.item.ItemEngraving;
 
 public class EngraverRecipes {
 
@@ -112,18 +115,10 @@ public class EngraverRecipes {
 		float ret = par1ItemStack.getItem().getSmeltingExperience(par1ItemStack);
 		if (ret != -1) return ret;
 
-		Iterator<?> iterator = experienceList.entrySet().iterator();
-		Entry<?, ?> entry;
+		for (Entry<ItemStack, Float> entry : experienceList.entrySet())
+			if (areStacksEqual(par1ItemStack, entry.getKey()))
+				return entry.getValue().floatValue();
 
-		do
-		{
-			if (!iterator.hasNext())
-				return 0.0F;
-
-			entry = (Entry<?, ?>)iterator.next();
-		}
-		while (!areStacksEqual(par1ItemStack, (ItemStack)entry.getKey()));
-
-		return ((Float)entry.getValue()).floatValue();
+		return 0.0F;
 	}
 }

@@ -11,11 +11,11 @@
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api.recipe;
 
+import net.minecraft.item.ItemStack;
+
 import com.shinoow.abyssalcraft.api.APIUtils;
 import com.shinoow.abyssalcraft.api.AbyssalCraftAPI;
 import com.shinoow.abyssalcraft.api.item.ICrystal;
-
-import net.minecraft.item.ItemStack;
 
 /**
  * A Materializer recipe

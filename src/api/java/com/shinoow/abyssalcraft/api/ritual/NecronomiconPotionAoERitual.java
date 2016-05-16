@@ -24,7 +24,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import com.shinoow.abyssalcraft.api.AbyssalCraftAPI.ACPotions;
+import com.shinoow.abyssalcraft.api.AbyssalCraftAPI;
 
 /**
  * A Necronomicon Area-of-Effect Ritual
@@ -40,14 +40,14 @@ public class NecronomiconPotionAoERitual extends NecronomiconRitual {
 	 * A Necronomicon Potion Area-of-Effect Ritual
 	 * @param unlocalizedName A string representing the ritual name
 	 * @param bookType Necronomicon book type required
-	 * @param dimension Dimension where the ritual can be peformed
+	 * @param dimension Dimension where the ritual can be performed
 	 * @param requiredEnergy Amount of Potential Energy required to perform
-	 * @param remnantHelp If Remnants can aid you when performing the ritual
-	 * @param potion Either a Potion effect or a Potion ID (will last for 20 seconds)
+	 * @param requiresSacrifice If the ritual requires a living sacrifice
+	 * @param potions Either a Potion effect or a Potion ID (will last for 20 seconds)
 	 * @param offerings Components used to perform the ritual, are consumed afterwards
 	 */
-	public NecronomiconPotionAoERitual(String unlocalizedName, int bookType, int dimension, float requiredEnergy, boolean remnantHelp, Object potion, Object...offerings) {
-		super(unlocalizedName, bookType, dimension, requiredEnergy, remnantHelp, offerings);
+	public NecronomiconPotionAoERitual(String unlocalizedName, int bookType, int dimension, float requiredEnergy, boolean requiresSacrifice, Object potion, Object...offerings) {
+		super(unlocalizedName, bookType, dimension, requiredEnergy, requiresSacrifice, offerings);
 		this.potion = potion;
 	}
 
@@ -57,7 +57,7 @@ public class NecronomiconPotionAoERitual extends NecronomiconRitual {
 	 * @param bookType Necronomicon book type required
 	 * @param dimension Dimension where the ritual can be peformed
 	 * @param requiredEnergy Amount of Potential Energy required to perform
-	 * @param potion Either a Potion effect or a Potion ID (will last for 20 seconds)
+	 * @param potions Either a Potion effect or a Potion ID (will last for 20 seconds)
 	 * @param offerings Components used to perform the ritual, are consumed afterwards
 	 */
 	public NecronomiconPotionAoERitual(String unlocalizedName, int bookType, int dimension, float requiredEnergy, Object potion, Object...offerings) {
@@ -69,7 +69,7 @@ public class NecronomiconPotionAoERitual extends NecronomiconRitual {
 	 * @param unlocalizedName A string representing the ritual name
 	 * @param bookType Necronomicon book type required
 	 * @param requiredEnergy Amount of Potential Energy required to perform
-	 * @param potion Either a Potion effect or a Potion ID (will last for 20 seconds)
+	 * @param potions Either a Potion effect or a Potion ID (will last for 20 seconds)
 	 * @param offerings Components used to perform the ritual, are consumed afterwards
 	 */
 	public NecronomiconPotionAoERitual(String unlocalizedName, int bookType, float requiredEnergy, Object potion, Object...offerings) {
@@ -93,9 +93,9 @@ public class NecronomiconPotionAoERitual extends NecronomiconRitual {
 		try {
 			Class utilClass = Class.forName("com.shinoow.abyssalcraft.common.util.EntityUtil");
 
-			result = potion == ACPotions.Coralium_plague && (Boolean)utilClass.getDeclaredMethod("isEntityCoralium", EntityLivingBase.class).invoke(null, (EntityLivingBase)entity) ||
-					potion == ACPotions.Dread_plague && (Boolean)utilClass.getDeclaredMethod("isEntityDread", EntityLivingBase.class).invoke(null, (EntityLivingBase)entity) ||
-					potion == ACPotions.Antimatter && (Boolean)utilClass.getDeclaredMethod("isEntityAnti", EntityLivingBase.class).invoke(null, (EntityLivingBase)entity);
+			result = potion == AbyssalCraftAPI.coralium_plague && (Boolean)utilClass.getDeclaredMethod("isEntityCoralium", EntityLivingBase.class).invoke(null, (EntityLivingBase)entity) ||
+					potion == AbyssalCraftAPI.dread_plague && (Boolean)utilClass.getDeclaredMethod("isEntityDread", EntityLivingBase.class).invoke(null, (EntityLivingBase)entity) ||
+					potion == AbyssalCraftAPI.antimatter_potion && (Boolean)utilClass.getDeclaredMethod("isEntityAnti", EntityLivingBase.class).invoke(null, (EntityLivingBase)entity);
 
 		} catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();

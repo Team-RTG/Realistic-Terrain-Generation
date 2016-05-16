@@ -154,7 +154,9 @@ public class ACEvents {
 	 * <br>
 	 * {@link #ritual} contains the ritual being performed. <br>
 	 * {@link #world} contains the world at which this event is occurring. <br>
-	 * {@link #pos} contains the BlockPos at which this event is occurring. <br>
+	 * {@link #x} contains the x-coordinate at which this event is occurring. <br>
+	 * {@link #y} contains the y-coordinate at which this event is occurring. <br>
+	 * {@link #z} contains the z-coordinate at which this event is occurring. <br>
 	 * <br>
 	 * Any child event of this event is {@link Cancelable}.
 	 * <br>

@@ -11,7 +11,6 @@
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api.energy.disruption;
 
-import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -47,19 +46,13 @@ public class DisruptionHandler {
 	 * @since 1.5
 	 */
 	public void registerDisruption(DisruptionEntry disruption){
-		Iterator<DisruptionEntry> iter = disruptions.iterator();
-		DisruptionEntry compare;
-		do {
-			if(!iter.hasNext()){
-				disruptions.add(disruption);
-				return;
-			}
-			compare = iter.next();
-			if(disruption.getUnlocalizedName().equals(compare.getUnlocalizedName())){
+		for(DisruptionEntry entry : disruptions)
+			if(disruption.getUnlocalizedName().equals(entry.getUnlocalizedName())){
 				FMLLog.log("DisruptionHandler", Level.ERROR, "Disruption Entry already registered: %s", disruption.getUnlocalizedName());
 				return;
 			}
-		} while (!disruption.getUnlocalizedName().equals(compare.getUnlocalizedName()));
+		disruptions.add(disruption);
+		return;
 	}
 
 	/**

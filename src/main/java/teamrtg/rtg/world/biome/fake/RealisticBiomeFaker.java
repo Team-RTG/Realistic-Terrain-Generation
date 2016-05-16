@@ -8,6 +8,7 @@ import net.minecraft.world.gen.ChunkProviderOverworld;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.api.util.BiomeUtils;
+import teamrtg.rtg.api.util.debug.Logger;
 import teamrtg.rtg.util.LimitedMap;
 import teamrtg.rtg.util.PlaneLocation;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
@@ -35,11 +36,20 @@ public class RealisticBiomeFaker {
 
         Field field;
         try {
-            field = fakeProvider.getClass().getDeclaredField("surfaceNoise");
+            // Obf name
+            field = fakeProvider.getClass().getDeclaredField("field_185994_m");
             field.setAccessible(true);
             this.surfaceNoise = (NoiseGeneratorPerlin) field.get(fakeProvider);
         } catch (Exception e) {
-            e.printStackTrace();
+            // Either we are in a dev environment or something is very wrong
+            try {
+                // Deobf name
+                field = fakeProvider.getClass().getDeclaredField("surfaceNoise");
+                field.setAccessible(true);
+                this.surfaceNoise = (NoiseGeneratorPerlin) field.get(fakeProvider);
+            } catch (Exception e2) {
+                Logger.fatal(e2, "Failed to access private field 'surfaceNoise' in ChunkProviderOverworld. Are you in a deobfuscated environment with other mappings?");
+            }
         }
     }
 

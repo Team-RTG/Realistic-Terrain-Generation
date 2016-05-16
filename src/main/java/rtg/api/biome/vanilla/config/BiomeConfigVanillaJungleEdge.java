@@ -17,6 +17,6 @@ public class BiomeConfigVanillaJungleEdge extends BiomeConfigVanillaBase
         this.addProperty(new BiomeConfigProperty(decorationLogsId, Type.BOOLEAN, decorationLogsName, "", true));
         
         this.setPropertyValueById(allowVolcanoesId, true);
-        this.setPropertyValueById(volcanoChanceId, ConfigRTG.volcanoChance);
+        this.setPropertyValueById(volcanoChanceId, (ConfigRTG.volcanoChance * 2));
     }
 }

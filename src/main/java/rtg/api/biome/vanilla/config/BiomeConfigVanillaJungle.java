@@ -30,6 +30,6 @@ public class BiomeConfigVanillaJungle extends BiomeConfigVanillaBase
         this.addProperty(new BiomeConfigProperty(surfaceMixBlockMetaId, Type.STRING, surfaceMixBlockMetaName, "", ""));
         
         this.setPropertyValueById(allowVolcanoesId, true);
-        this.setPropertyValueById(volcanoChanceId, ConfigRTG.volcanoChance);
+        this.setPropertyValueById(volcanoChanceId, (ConfigRTG.volcanoChance * 2));
     }
 }

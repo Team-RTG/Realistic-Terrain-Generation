@@ -11,6 +11,6 @@ public class BiomeConfigBOPVolcano extends BiomeConfigBOPBase
         super("volcano");
         
         this.setPropertyValueById(allowVolcanoesId, true);
-        this.setPropertyValueById(volcanoChanceId, ConfigRTG.volcanoChance);
+        this.setPropertyValueById(volcanoChanceId, -1);
     }
 }

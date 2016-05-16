@@ -14,5 +14,8 @@ public class BiomeConfigVanillaMegaSpruceTaiga extends BiomeConfigVanillaBase
         super("megasprucetaiga");
         
         this.addProperty(new BiomeConfigProperty(decorationLogsId, Type.BOOLEAN, decorationLogsName, "", true));
+        
+        this.setPropertyValueById(allowVolcanoesId, true);
+        this.setPropertyValueById(volcanoChanceId, -1);
     }
 }

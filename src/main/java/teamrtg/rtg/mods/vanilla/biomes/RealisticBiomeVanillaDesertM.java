@@ -17,7 +17,7 @@ import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 
 public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.DESERT;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaDesertM(ChunkProviderRTG chunkProvider) {
 

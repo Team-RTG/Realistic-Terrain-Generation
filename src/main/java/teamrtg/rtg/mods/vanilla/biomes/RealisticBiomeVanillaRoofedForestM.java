@@ -14,7 +14,7 @@ import teamrtg.rtg.world.gen.deco.*;
 
 public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.ROOFED_FOREST;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaRoofedForestM(ChunkProviderRTG chunkProvider) {
 

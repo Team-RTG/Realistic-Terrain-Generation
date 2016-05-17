@@ -2,28 +2,23 @@ package teamrtg.rtg.world.gen.structure;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import net.minecraft.crash.CrashReport;
-import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.init.Biomes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ReportedException;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.layer.IntCache;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureOceanMonument;
 import net.minecraft.world.gen.structure.StructureOceanMonumentPieces;
 import net.minecraft.world.gen.structure.StructureStart;
-import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.debug.Logger;
-import teamrtg.rtg.world.biome.BiomeProviderRTG;
+import teamrtg.rtg.world.WorldTypeRTG;
 
 import java.util.*;
 
@@ -61,8 +56,8 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
     }
 
     public StructureOceanMonumentRTG() {
-        this.spacing = 32;
-        this.separation = 5;
+        this.spacing = 5;
+        this.separation = 1;
     }
 
     @Override
@@ -72,6 +67,8 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
 
     @Override
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
+        if (!(this.worldObj.getWorldType() instanceof WorldTypeRTG)) return false;
+
         int i = chunkX;
         int j = chunkZ;
 
@@ -94,9 +91,9 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         if (i == k && j == l) {
             BiomeGenBase bg = this.worldObj.getBiomeProvider().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), null);
 
-            if (BiomeUtils.getIdForBiome(bg) == Mods.VANILLA.biomes.DEEP_OCEAN.getID()) {
+            if (BiomeUtils.getId(bg) == BiomeUtils.getId(Biomes.DEEP_OCEAN)) {
 
-                boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29);
+                boolean flag = worldObj.getBiomeProvider().areBiomesViable(i * 16 + 8, j * 16 + 8, 29, WATER_BIOMES);
 
                 if (flag) {
                     Logger.debug("Generated Ocean Monument at %s %s", i * 16 + 8, j * 16 + 8);
@@ -106,47 +103,6 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         }
 
         return false;
-    }
-
-    /**
-     * checks given Chunk's Biomes against List of allowed ones
-     */
-    private boolean areBiomesViable(int x, int z, int radius) {
-        IntCache.resetIntCache();
-        int i = x - radius >> 2;
-        int j = z - radius >> 2;
-        int k = x + radius >> 2;
-        int l = z + radius >> 2;
-        int i1 = k - i + 1;
-        int j1 = l - j + 1;
-        BiomeProviderRTG wcm;
-        try {
-            wcm = (BiomeProviderRTG) worldObj.getBiomeProvider();
-        } catch (ClassCastException e) {
-            Logger.warn("This is not an RTG world, y u want 2 generate rtg Ocean Monuments?");
-            return false;
-        }
-        int[] aint = wcm.getBiomesGens(i, j, i1, j1);
-
-        try {
-            for (int k1 = 0; k1 < i1 * j1; ++k1) {
-                int biomeID = aint[k1];
-                boolean flag = false;
-                for (BiomeGenBase biome : WATER_BIOMES) {
-                    flag = (flag) || BiomeGenBase.getIdForBiome(biome) == biomeID;
-                }
-                if (!flag) return false;
-            }
-
-            return true;
-        } catch (Throwable throwable) {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("Layer");
-            crashreportcategory.addCrashSection("x", x);
-            crashreportcategory.addCrashSection("z", z);
-            crashreportcategory.addCrashSection("radius", radius);
-            throw new ReportedException(crashreport);
-        }
     }
 
     @Override

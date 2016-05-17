@@ -57,7 +57,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
     public RealisticBiomeBase(RTGSupport mod, BiomeGenBase biome, BiomeGenBase river, ChunkProviderRTG chunkProvider) {
 
-        super(BiomeUtils.getIdForBiome(biome));
+        super(BiomeUtils.getId(biome));
 
         this.mod = mod;
         this.chunkProvider = chunkProvider;
@@ -119,7 +119,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     }
 
     public int getID() {
-        return BiomeUtils.getIdForBiome(this);
+        return BiomeUtils.getId(this);
     }
 
     /**

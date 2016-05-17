@@ -16,7 +16,7 @@ import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.ICE_PLAINS;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaIcePlainsSpikes(ChunkProviderRTG chunkProvider) {
         super(

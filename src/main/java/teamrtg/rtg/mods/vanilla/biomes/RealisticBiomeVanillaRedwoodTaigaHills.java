@@ -17,7 +17,7 @@ import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
 
 public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.REDWOOD_TAIGA_HILLS;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaRedwoodTaigaHills(ChunkProviderRTG chunkProvider) {
 

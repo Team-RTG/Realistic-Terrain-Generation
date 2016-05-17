@@ -16,7 +16,7 @@ import teamrtg.rtg.world.gen.deco.helper.DecoHelper5050;
 public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase {
 
     public static BiomeGenBase standardBiome = Biomes.FOREST;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaFlowerForest(ChunkProviderRTG chunkProvider) {
 

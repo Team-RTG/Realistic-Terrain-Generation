@@ -16,7 +16,7 @@ import teamrtg.rtg.world.gen.deco.DecoFallenTree.LogCondition;
 
 public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.REDWOOD_TAIGA;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaMegaSpruceTaiga(ChunkProviderRTG chunkProvider) {
 

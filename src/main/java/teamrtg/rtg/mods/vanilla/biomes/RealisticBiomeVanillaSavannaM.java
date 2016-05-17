@@ -18,7 +18,7 @@ import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
 
 public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.SAVANNA;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaSavannaM(ChunkProviderRTG chunkProvider) {
 

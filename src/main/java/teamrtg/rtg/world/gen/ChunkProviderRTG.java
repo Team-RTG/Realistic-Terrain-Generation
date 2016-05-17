@@ -258,7 +258,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
             * I cannot do much on my part, so i have to do it here.
             * - Elix_x
             */
-            byte b = (byte) BiomeUtils.getIdForBiome(baseBiomes[k]);
+            byte b = (byte) BiomeUtils.getId(baseBiomes[k]);
             abyte1[k] = b;
         }
         chunk.setBiomeArray(abyte1);
@@ -403,7 +403,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         for (int bx = -4; bx <= 4; bx++) {
 
             for (int by = -4; by <= 4; by++) {
-                borderNoise[BiomeUtils.getIdForBiome(bprv.getBiomeGenAt(worldX + adjust + bx * 4, worldZ + adjust + by * 4))] += 0.01234569f;
+                borderNoise[BiomeUtils.getId(bprv.getBiomeGenAt(worldX + adjust + bx * 4, worldZ + adjust + by * 4))] += 0.01234569f;
             }
         }
 
@@ -606,7 +606,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         //fill biomes array with biomeData
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 16; j++) {
-                biomes[i * 16 + j] = RealisticBiomeBase.getBiome(BiomeUtils.getIdForBiome(bprv.getPreRepair(cx + i, cz + j)));
+                biomes[i * 16 + j] = RealisticBiomeBase.getBiome(BiomeUtils.getId(bprv.getPreRepair(cx + i, cz + j)));
             }
         }
 
@@ -617,7 +617,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         analyzer.newRepair(biomeIndices, biomes, biomeData, sampleSize, noise, riverVals);
 
         for (int i = 0; i < 256; i++) {
-            biomeIds[i] = BiomeUtils.getIdForBiome(biomes[i]);
+            biomeIds[i] = BiomeUtils.getId(biomes[i]);
         }
 
         PlaneLocation loc = new PlaneLocation.Invariant(cx, cz);
@@ -636,7 +636,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         // get area biome map
         for (int i = -sampleSize; i < sampleSize + 5; i++) {
             for (int j = -sampleSize; j < sampleSize + 5; j++) {
-                biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = BiomeUtils.getIdForBiome(cmr.getPreRepair(x + ((i * 8)), y + ((j * 8))));
+                biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = BiomeUtils.getId(cmr.getPreRepair(x + ((i * 8)), y + ((j * 8))));
             }
         }
         float river;

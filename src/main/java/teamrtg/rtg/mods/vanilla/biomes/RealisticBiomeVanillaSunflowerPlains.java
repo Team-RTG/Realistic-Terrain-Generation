@@ -14,7 +14,7 @@ import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.PLAINS;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaSunflowerPlains(ChunkProviderRTG chunkProvider) {
         super(

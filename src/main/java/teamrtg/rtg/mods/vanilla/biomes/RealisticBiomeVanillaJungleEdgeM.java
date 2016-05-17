@@ -18,7 +18,7 @@ import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 
 public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.JUNGLE_EDGE;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaJungleEdgeM(ChunkProviderRTG chunkProvider) {
 

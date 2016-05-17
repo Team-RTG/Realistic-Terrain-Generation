@@ -15,7 +15,7 @@ import teamrtg.rtg.world.gen.deco.*;
 
 public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.MESA_ROCK;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaMesaPlateauFM(ChunkProviderRTG chunkProvider) {
         super(

@@ -17,7 +17,7 @@ import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
 public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase {
 
     public static BiomeGenBase standardBiome = Biomes.BIRCH_FOREST;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaBirchForestM(ChunkProviderRTG chunkProvider) {
 

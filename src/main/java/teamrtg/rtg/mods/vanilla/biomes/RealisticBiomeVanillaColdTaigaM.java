@@ -18,7 +18,7 @@ import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
 
 public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.COLD_TAIGA;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaColdTaigaM(ChunkProviderRTG chunkProvider) {
 

@@ -14,7 +14,7 @@ import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.EXTREME_HILLS_WITH_TREES;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaExtremeHillsPlusM(ChunkProviderRTG chunkProvider) {
 

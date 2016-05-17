@@ -18,7 +18,7 @@ import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
 
 public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.MESA;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RealisticBiomeVanillaMesaBryce(ChunkProviderRTG chunkProvider) {
 

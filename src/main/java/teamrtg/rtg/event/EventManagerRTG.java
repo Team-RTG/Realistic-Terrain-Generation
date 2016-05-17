@@ -41,7 +41,6 @@ public class EventManagerRTG {
     @SubscribeEvent(priority = EventPriority.LOW)
     public void eventListenerRTG(InitMapGenEvent event) {
 
-
         Logger.debug("event type = %s", event.getType().toString());
         Logger.debug("event originalGen = %s", event.getOriginalGen().toString());
 
@@ -71,17 +70,6 @@ public class EventManagerRTG {
     }
 
     @SubscribeEvent
-    public void eventListenerRTG(WorldEvent.Load event) {
-
-        if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
-
-            MinecraftForge.TERRAIN_GEN_BUS.unregister(RTG.eventMgr);
-            MinecraftForge.ORE_GEN_BUS.unregister(RTG.eventMgr);
-            MinecraftForge.EVENT_BUS.unregister(RTG.eventMgr);
-        }
-    }
-
-    @SubscribeEvent
     public void onBiomeGenInit(WorldTypeEvent.InitBiomeGens event) {
 
         // only handle RTG world type
@@ -101,16 +89,18 @@ public class EventManagerRTG {
 
     @SubscribeEvent
     public void onWorldLoad(WorldEvent.Load event) {
-
-        if (!event.getWorld().getWorldInfo().getTerrainType().getWorldTypeName().equalsIgnoreCase("RTG")) {
-            return;
+        if ((event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
+            if (event.getWorld().provider.getDimension() == 0) {
+                Logger.info("World Seed: %d", event.getWorld().getSeed());
+                Logger.info("Reloading configs");
+                Mods.syncAllConfigs();
+            }
+        } else {
+            MinecraftForge.TERRAIN_GEN_BUS.unregister(RTG.eventMgr);
+            MinecraftForge.ORE_GEN_BUS.unregister(RTG.eventMgr);
+            MinecraftForge.EVENT_BUS.unregister(RTG.eventMgr);
         }
 
-        if (event.getWorld().provider.getDimension() == 0) {
-            Logger.info("World Seed: %d", event.getWorld().getSeed());
-            Logger.info("Reloading configs");
-            Mods.syncAllConfigs();
-        }
     }
 
     @SubscribeEvent
@@ -126,9 +116,9 @@ public class EventManagerRTG {
         } else {
             return;
         }
-        if (BiomeUtils.getIdForBiome(biomeReal) == BiomeUtils.getIdForBiome(Mods.VANILLA.biomes.DESERT) ||
-            BiomeUtils.getIdForBiome(biomeReal) == BiomeUtils.getIdForBiome(Mods.VANILLA.biomes.DESERT_HILLS) ||
-            BiomeUtils.getIdForBiome(biomeReal) == BiomeUtils.getIdForBiome(Mods.VANILLA.biomes.DESERT)) {
+        if (BiomeUtils.getId(biomeReal) == BiomeUtils.getId(Mods.VANILLA.biomes.DESERT) ||
+            BiomeUtils.getId(biomeReal) == BiomeUtils.getId(Mods.VANILLA.biomes.DESERT_HILLS) ||
+            BiomeUtils.getId(biomeReal) == BiomeUtils.getId(Mods.VANILLA.biomes.DESERT)) {
             if (event.getOriginal().getBlock() == Blocks.LOG || event.getOriginal().getBlock() == Blocks.LOG2) {
                 event.setReplacement(Blocks.SANDSTONE.getDefaultState());
             }

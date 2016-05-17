@@ -197,7 +197,7 @@ public class MapGenCavesRTG extends MapGenCaves {
         try {
             // If the user has set biome-specific settings, let's use those instead.
             BiomeGenBase biome = worldIn.getBiomeGenForCoords(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));
-            RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(BiomeUtils.getIdForBiome(biome));
+            RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(BiomeUtils.getId(biome));
             caveFrequency = (realisticBiome.config.CAVE_FREQUENCY.get() > -1) ? realisticBiome.config.CAVE_FREQUENCY.get() : caveFrequency;
             caveDensity = (realisticBiome.config.CAVE_DENSITY.get() > -1) ? realisticBiome.config.CAVE_DENSITY.get() : caveDensity;
         } catch (Exception ignored) {}

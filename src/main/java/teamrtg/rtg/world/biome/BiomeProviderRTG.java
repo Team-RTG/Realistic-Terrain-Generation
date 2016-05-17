@@ -1,6 +1,9 @@
 package teamrtg.rtg.world.biome;
 
 import gnu.trove.map.hash.TLongObjectHashMap;
+import net.minecraft.crash.CrashReport;
+import net.minecraft.crash.CrashReportCategory;
+import net.minecraft.util.ReportedException;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
@@ -33,6 +36,9 @@ import static teamrtg.rtg.util.math.MathUtils.globalToIndex;
 public class BiomeProviderRTG extends BiomeProvider {
     private static int[] incidences = new int[100];
     private static int references = 0;
+    public final LimitedMap<PlaneLocation, int[]> biomes = new LimitedMap<>(64);
+    public final LimitedMap<PlaneLocation, float[]> heights = new LimitedMap<>(64);
+    public ChunkProviderRTG chunkProvider;
     /**
      * A GenLayer containing the indices into Biomes.biomeList[]
      */
@@ -44,12 +50,7 @@ public class BiomeProviderRTG extends BiomeProvider {
     private SimplexCellularNoise simplexCell;
     private float[] borderNoise;
     private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
-    public ChunkProviderRTG chunkProvider;
     private BiomeCache biomeCache;
-
-    public final LimitedMap<PlaneLocation, int[]> biomes = new LimitedMap<>(64);
-    public final LimitedMap<PlaneLocation, float[]> heights = new LimitedMap<>(64);
-
     private double riverValleyLevel = 60.0 / 450.0;
     private float riverSeparation = 1875;
     private float largeBendSize = 140;
@@ -85,20 +86,27 @@ public class BiomeProviderRTG extends BiomeProvider {
         borderNoise = new float[256];
     }
 
+    private static double cellBorder(double[] results, double width, double depth) {
+        double c = (results[1] - results[0]) / results[1];
+        if (c < 0) throw new RuntimeException();
+        if (c < width) {
+            return ((c / width) - 1f) * depth;
+        } else {
+
+            return 0;
+        }
+    }
+
     public int[] getBiomesGens(int par1, int par2, int par3, int par4) {
 
         int[] d = new int[par3 * par4];
 
         for (int i = 0; i < par3; i++) {
             for (int j = 0; j < par4; j++) {
-                d[i * par3 + j] = BiomeUtils.getIdForBiome(getPreRepair(par1 + i, par2 + j));
+                d[i * par3 + j] = BiomeUtils.getId(getPreRepair(par1 + i, par2 + j));
             }
         }
         return d;
-    }
-
-    public BiomeGenBase getBiomeGenAt(int x, int z) {
-        return BiomeGenBase.getBiomeForId(getBiomes(globalToChunk(x), globalToChunk(z))[globalToIndex(x, z)]);
     }
 
     public BiomeGenBase getPreRepair(int x, int z) {
@@ -107,9 +115,13 @@ public class BiomeProviderRTG extends BiomeProvider {
         return result;
     }
 
+    public BiomeGenBase getBiomeGenAt(int x, int z) {
+        return BiomeGenBase.getBiomeForId(getBiomes(globalToChunk(x), globalToChunk(z))[globalToIndex(x, z)]);
+    }
+
     public RealisticBiomeBase getBiomeDataAt(int par1, int par2) {
         RealisticBiomeBase output;
-        output = RealisticBiomeBase.getBiome(BiomeUtils.getIdForBiome(this.getBiomeGenAt(par1, par2)));
+        output = RealisticBiomeBase.getBiome(BiomeUtils.getId(this.getBiomeGenAt(par1, par2)));
         return output;
     }
 
@@ -167,74 +179,38 @@ public class BiomeProviderRTG extends BiomeProvider {
         }
     }
 
-    public boolean areBiomesViable(int x, int y, int par3, List par4List) {
+    /**
+     * checks given Chunk's Biomes against List of allowed ones
+     */
+    public boolean areBiomesViable(int x, int z, int radius, List<BiomeGenBase> allowed) {
+        IntCache.resetIntCache();
+        int i = x - radius >> 2;
+        int j = z - radius >> 2;
+        int k = x + radius >> 2;
+        int l = z + radius >> 2;
+        int i1 = k - i + 1;
+        int j1 = l - j + 1;
+        int[] aint = this.genBiomes.getInts(i, j, i1, j1);
 
-        float centerNoise = getNoiseAt(x, y);
-        if (centerNoise < 62) {
-            return false;
-        }
+        try {
+            for (int k1 = 0; k1 < i1 * j1; ++k1) {
+                BiomeGenBase biomegenbase = BiomeGenBase.getBiome(aint[k1]);
 
-        float lowestNoise = centerNoise;
-        float highestNoise = centerNoise;
-        for (int i = -2; i <= 2; i++) {
-            for (int j = -2; j <= 2; j++) {
-                if (i != 0 && j != 0) {
-                    float n = getNoiseAt(x + i * 16, y + j * 16);
-                    if (n < lowestNoise) {
-                        lowestNoise = n;
-                    }
-                    if (n > highestNoise) {
-                        highestNoise = n;
-                    }
+                if (!allowed.contains(biomegenbase)) {
+                    return false;
                 }
             }
-        }
 
-        return highestNoise - lowestNoise < 22;
-
-    }
-
-    public float getNoiseAt(int x, int y) {
-
-        float river = getRiverStrength(x, y) + 1f;
-        if (river < 0.5f) {
-            return 59f;
-        }
-
-        return RealisticBiomeGenerator.forBiome(getBiomeDataAt(x, y)).rNoise(simplex, cell, x, y, 1f, river);
-    }
-
-    public float getRiverStrength(int x, int y) {
-
-        //New river curve function. No longer creates worldwide curve correlations along cardinal axes.
-        SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-        simplex.riverJitter().evaluateNoise((float) x / 240.0, (float) y / 240.0, jitter);
-        double pX = x + jitter.deltax() * largeBendSize;
-        double pY = y + jitter.deltay() * largeBendSize;
-
-
-        simplex.octave(2).evaluateNoise((float) x / 80.0, (float) y / 80.0, jitter);
-        pX += jitter.deltax() * smallBendSize;
-        pY += jitter.deltay() * smallBendSize;
-
-        double xRiver = pX / riverSeparation;
-        double yRiver = pY / riverSeparation;
-
-        //New cellular noise.
-        //TODO move the initialization of the results in a way that's more efficient but still thread safe.
-        double[] results = cell.river().eval(xRiver, yRiver);
-        return (float) cellBorder(results, riverValleyLevel, 1.0);
-        //return cell.octave(1).border2(xRiver, yRiver, riverValleyLevel, 1f);
-    }
-
-    private static double cellBorder(double[] results, double width, double depth) {
-        double c = (results[1] - results[0]) / results[1];
-        if (c < 0) throw new RuntimeException();
-        if (c < width) {
-            return ((c / width) - 1f) * depth;
-        } else {
-
-            return 0;
+            return true;
+        } catch (Throwable throwable) {
+            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
+            CrashReportCategory crashreportcategory = crashreport.makeCategory("Layer");
+            crashreportcategory.addCrashSection("Layer", this.genBiomes.toString());
+            crashreportcategory.addCrashSection("x", Integer.valueOf(x));
+            crashreportcategory.addCrashSection("z", Integer.valueOf(z));
+            crashreportcategory.addCrashSection("radius", Integer.valueOf(radius));
+            crashreportcategory.addCrashSection("allowed", allowed);
+            throw new ReportedException(crashreport);
         }
     }
 
@@ -268,6 +244,39 @@ public class BiomeProviderRTG extends BiomeProvider {
     @Override
     public void cleanupCache() {
         this.biomeCache.cleanupCache();
+    }
+
+    public float getNoiseAt(int x, int y) {
+
+        float river = getRiverStrength(x, y) + 1f;
+        if (river < 0.5f) {
+            return 59f;
+        }
+
+        return RealisticBiomeGenerator.forBiome(getBiomeDataAt(x, y)).rNoise(simplex, cell, x, y, 1f, river);
+    }
+
+    public float getRiverStrength(int x, int y) {
+
+        //New river curve function. No longer creates worldwide curve correlations along cardinal axes.
+        SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+        simplex.riverJitter().evaluateNoise((float) x / 240.0, (float) y / 240.0, jitter);
+        double pX = x + jitter.deltax() * largeBendSize;
+        double pY = y + jitter.deltay() * largeBendSize;
+
+
+        simplex.octave(2).evaluateNoise((float) x / 80.0, (float) y / 80.0, jitter);
+        pX += jitter.deltax() * smallBendSize;
+        pY += jitter.deltay() * smallBendSize;
+
+        double xRiver = pX / riverSeparation;
+        double yRiver = pY / riverSeparation;
+
+        //New cellular noise.
+        //TODO move the initialization of the results in a way that's more efficient but still thread safe.
+        double[] results = cell.river().eval(xRiver, yRiver);
+        return (float) cellBorder(results, riverValleyLevel, 1.0);
+        //return cell.octave(1).border2(xRiver, yRiver, riverValleyLevel, 1f);
     }
 
     public float[] getHeights(int cx, int cz) {

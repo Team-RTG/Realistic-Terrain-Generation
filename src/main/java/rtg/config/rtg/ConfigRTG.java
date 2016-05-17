@@ -1,10 +1,14 @@
 package rtg.config.rtg;
 
-import cpw.mods.fml.common.Loader;
-import net.minecraftforge.common.config.Configuration;
-import rtg.util.Logger;
-
 import java.io.File;
+import java.util.ArrayList;
+
+import net.minecraftforge.common.config.Configuration;
+
+import org.apache.commons.lang3.ArrayUtils;
+
+import rtg.util.Logger;
+import cpw.mods.fml.common.Loader;
 
 public class ConfigRTG
 {
@@ -78,6 +82,17 @@ public class ConfigRTG
     public static boolean generateOreLapis = true;
     public static boolean generateOreDiamond = true;
     public static boolean generateOreEmerald = true;
+    
+    /* ==================== Plateaus ==================== */
+    
+    public static String mesaClayColourString = "-1,-1,-1,1,1,1,0,-1,-1,6,1,1,8,0,-1,-1,14,-1,-1,6,1,1,4";
+    public static String mesaBryceClayColourString = "-1,-1,0,1,0,0,0,14,0,8,0,1,8,0,-1,0,14,0,0,14,0,0,8";
+    public static String savannaClayColourString = "0,0,0,0,8,8,12,12,8,0,8,12,12,8,12,8,0,0,8,12,12";
+    
+    public static byte[] mesaClayColours = getClayColourMetasFromConfigString(mesaClayColourString);
+    public static byte[] mesaBryceClayColours = getClayColourMetasFromConfigString(mesaBryceClayColourString);
+    public static byte[] savannaClayColours = getClayColourMetasFromConfigString(savannaClayColourString);
+    
     
     /* ==================== Ravines ==================== */
     
@@ -291,6 +306,32 @@ public class ConfigRTG
             generateOreLapis = config.getBoolean("Generate Lapis Lazuli Ore", "Ore Gen", generateOreLapis, "");
             generateOreDiamond = config.getBoolean("Generate Diamond Ore", "Ore Gen", generateOreDiamond, "");
             generateOreEmerald = config.getBoolean("Generate Emerald Ore", "Ore Gen", generateOreEmerald, "");
+            
+            /* ==================== Plateaus ==================== */
+
+			mesaClayColours = getClayColourMetasFromConfigString(config.getString(
+				"Mesa Clay Colours",
+				"Plateaus", 
+				mesaClayColourString,
+				"The meta values of the clay blocks used in the Mesa biome variants."
+				+ Configuration.NEW_LINE
+			));
+			
+			mesaBryceClayColours = getClayColourMetasFromConfigString(config.getString(
+				"Mesa Bryce Clay Colours",
+				"Plateaus",
+				mesaBryceClayColourString,
+				"The meta values of the clay blocks used in the Mesa biome variants."
+				+ Configuration.NEW_LINE
+			));
+			
+			savannaClayColours = getClayColourMetasFromConfigString(config.getString(
+				"Savanna Clay Colours",
+				"Plateaus",
+				savannaClayColourString,
+				"The meta values of the clay blocks used in the Mesa biome variants."
+				+ Configuration.NEW_LINE
+			));			
             
             /* ==================== Ravines ==================== */
             
@@ -521,5 +562,21 @@ public class ConfigRTG
 	    //if (Loader.isModLoaded("GalaxySpace")) { enableVillageModifications = false; }
 	    
 	    return enableVillageModifications;
+	}
+	
+	private static byte[] getClayColourMetasFromConfigString(String configString)
+	{
+		String[] strings = configString.split(",");
+		ArrayList<Byte> byteList = new ArrayList<Byte>(){};
+
+		for (int i = 0; i < strings.length; i++) {
+			strings[i] = strings[i].trim();
+			if (strings[i].matches("-1|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15")) {
+				byteList.add(Byte.valueOf(strings[i]));
+			}
+		}
+		
+		Byte[] bytes = byteList.toArray(new Byte[byteList.size()]);
+		return ArrayUtils.toPrimitive(bytes);
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import rtg.config.rtg.ConfigRTG;
 
 /**
  * 
@@ -12,9 +13,9 @@ import net.minecraft.init.Blocks;
  *
  */
 public enum CanyonColour {
-	MESA(new byte[]{-1, -1, -1, 1, 1, 1, 0, -1, -1, 6, 1, 1, 8, 0, -1, -1, 14, -1, -1, 6, 1, 1, 4}),
-	MESA_BRYCE(new byte[]{-1, -1, 0, 1, 0, 0, 0, 14, 0, 8, 0, 1, 8, 0, -1, 0, 14, 0, 0, 14, 0, 0, 8}),
-	SAVANNA(new byte[]{0, 0, 0, 0, 8, 8, 12, 12, 8, 0, 8, 12, 12, 8, 12, 8, 0, 0, 8, 12, 12,});
+	MESA(ConfigRTG.mesaClayColours),
+	MESA_BRYCE(ConfigRTG.mesaBryceClayColours),
+	SAVANNA(ConfigRTG.savannaClayColours);
 
 	private static Map<CanyonColour, Block[]> colourBlocks = new HashMap<CanyonColour, Block[]>();
 	private static Map<CanyonColour, byte[]> colourMetas = new HashMap<CanyonColour, byte[]>();

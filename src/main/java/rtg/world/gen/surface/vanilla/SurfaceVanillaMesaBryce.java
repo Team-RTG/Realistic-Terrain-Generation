@@ -37,12 +37,12 @@ public class SurfaceVanillaMesaBryce extends SurfaceBase {
 
                 if (depth > -1 && depth < 12) {
                     if (cliff) {
-	        			blocks[(y * 16 + x) * 256 + k] = CanyonColour.MESA_WHITE.getBlockForHeight(i, k,j);
-	        		    metadata[(y * 16 + x) * 256 + k] = CanyonColour.MESA_WHITE.getMetaForHeight(i, k,j);
+	        			blocks[(y * 16 + x) * 256 + k] = CanyonColour.MESA_BRYCE.getBlockForHeight(i, k,j);
+	        		    metadata[(y * 16 + x) * 256 + k] = CanyonColour.MESA_BRYCE.getMetaForHeight(i, k,j);
                     } else {
                         if (depth > 4) {
-    	        			blocks[(y * 16 + x) * 256 + k] = CanyonColour.MESA_WHITE.getBlockForHeight(i, k,j);
-    	        		    metadata[(y * 16 + x) * 256 + k] = CanyonColour.MESA_WHITE.getMetaForHeight(i, k,j);
+    	        			blocks[(y * 16 + x) * 256 + k] = CanyonColour.MESA_BRYCE.getBlockForHeight(i, k,j);
+    	        		    metadata[(y * 16 + x) * 256 + k] = CanyonColour.MESA_BRYCE.getMetaForHeight(i, k,j);
                         } else if (k > 74 + grassRaise) {
                             if (rand.nextInt(5) == 0) {
         	        			blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
@@ -95,8 +95,8 @@ public class SurfaceVanillaMesaBryce extends SurfaceBase {
                         }
                     }
                 } else if (k > 63) {
-        			blocks[(y * 16 + x) * 256 + k] = CanyonColour.MESA_WHITE.getBlockForHeight(i, k,j);
-        		    metadata[(y * 16 + x) * 256 + k] = CanyonColour.MESA_WHITE.getMetaForHeight(i, k,j);
+        			blocks[(y * 16 + x) * 256 + k] = CanyonColour.MESA_BRYCE.getBlockForHeight(i, k,j);
+        		    metadata[(y * 16 + x) * 256 + k] = CanyonColour.MESA_BRYCE.getMetaForHeight(i, k,j);
                 }
             }
         }

@@ -313,24 +313,21 @@ public class ConfigRTG
 				"Mesa Clay Colours",
 				"Plateaus", 
 				mesaClayColourString,
-				"The meta values of the clay blocks used in the Mesa biome variants."
-				+ Configuration.NEW_LINE
+				getPlateauClayColourComment("Mesa biome variants (doesn't include Mesa Bryce)")
 			));
 			
 			mesaBryceClayColours = getClayColourMetasFromConfigString(config.getString(
 				"Mesa Bryce Clay Colours",
 				"Plateaus",
 				mesaBryceClayColourString,
-				"The meta values of the clay blocks used in the Mesa biome variants."
-				+ Configuration.NEW_LINE
+				getPlateauClayColourComment("Mesa Bryce biome")
 			));
 			
 			savannaClayColours = getClayColourMetasFromConfigString(config.getString(
 				"Savanna Clay Colours",
 				"Plateaus",
 				savannaClayColourString,
-				"The meta values of the clay blocks used in the Mesa biome variants."
-				+ Configuration.NEW_LINE
+				getPlateauClayColourComment("Savanna biome variants")
 			));			
             
             /* ==================== Ravines ==================== */
@@ -578,5 +575,20 @@ public class ConfigRTG
 		
 		Byte[] bytes = byteList.toArray(new Byte[byteList.size()]);
 		return ArrayUtils.toPrimitive(bytes);
+	}
+	
+	public static String getPlateauClayColourComment(String biomeName)
+	{
+		String comment =
+			"Comma-separated list of meta values for the clay blocks used in the " + biomeName + "."
+			+ Configuration.NEW_LINE +
+			"-1 = Hardened Clay; 0-15 = Stained Clay"
+			+ Configuration.NEW_LINE +
+			"0 = White; 1 = Orange; 2 = Magenta; 3 = Light Blue; 4 = Yellow; 5 = Lime; 6 = Pink; 7 = Gray"
+			+ Configuration.NEW_LINE +
+			"8 = Light Gray; 9 = Cyan; 10 = Purple; 11 = Blue; 12 = Brown; 13 = Green; 14 = Red; 15 = Black"
+			+ Configuration.NEW_LINE;
+		
+		return comment;
 	}
 }

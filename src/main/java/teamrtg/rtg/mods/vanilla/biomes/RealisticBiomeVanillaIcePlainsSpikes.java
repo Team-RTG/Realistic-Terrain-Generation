@@ -16,13 +16,12 @@ import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.ICE_PLAINS;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
-    public RealisticBiomeVanillaIcePlainsSpikes(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaIcePlainsSpikes() {
         super(
                 mutationBiome,
-                Biomes.FROZEN_RIVER,
-                chunkProvider
+            Biomes.FROZEN_RIVER
         );
         this.noLakes = true;
     }
@@ -35,7 +34,7 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
                 .add(PARTS.rand(3)
                     .add(new BlockPart(config.CLIFF_BLOCK_2.get()))))
             .add(new BlockPart(config.CLIFF_BLOCK_1.get())));
-        surface.add(PARTS.surfaceMix((x, y, z) -> simplex.noise2(x / 60f, z / 60f) + simplex.noise2(x / 14f, z / 14f) * 0.25f > -0.14f));
+        surface.add(PARTS.surfaceMix((x, y, z, provider) -> provider.simplex.noise2(x / 60f, z / 60f) + provider.simplex.noise2(x / 14f, z / 14f) * 0.25f > -0.14f));
         surface.add(PARTS.surfaceGeneric());
         return surface;
     }
@@ -44,8 +43,8 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 65f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainPlains(x, y, provider.simplex, river, 160f, 10f, 60f, 200f, 65f);
             }
         };
     }

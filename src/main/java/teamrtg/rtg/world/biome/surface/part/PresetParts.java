@@ -3,7 +3,7 @@ package teamrtg.rtg.world.biome.surface.part;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.api.mods.Mods;
-import teamrtg.rtg.util.IBlockAt;
+import teamrtg.rtg.util.noise.IBlockAt;
 import teamrtg.rtg.util.noise.IBoolAt;
 import teamrtg.rtg.util.noise.IFloatAt;
 
@@ -31,13 +31,13 @@ public class PresetParts {
 
     public PresetParts(RealisticBiomeBase biome) {
         this.biome = biome;
-        DEPTH_NOISE = (x, y, z) -> biome.simplex.noise2(x / 2f, z / 2f) * 2f;
-        DEPTH_NOISE2 = (x, y, z) -> biome.simplex.noise2(x / 2.5f, z / 2.5f) * 3f;
-        MIX_NOISE = jitter((IBoolAt) (x, y, z) -> biome.simplex.noise2(x / 12f, z / 12f) + biome.simplex.noise2(x / 4f, z / 4f) * 0.1f > 0.15f);
-        MIX_NOISE_SMALL = jitter((IBoolAt) (x, y, z) -> biome.simplex.noise2(x / 12f, z / 12f) + biome.simplex.noise2(x / 4f, z / 4f) * 0.1f > 0.08f);
+        DEPTH_NOISE = (x, y, z, provider) -> provider.simplex.noise2(x / 2f, z / 2f) * 2f;
+        DEPTH_NOISE2 = (x, y, z, provider) -> provider.simplex.noise2(x / 2.5f, z / 2.5f) * 3f;
+        MIX_NOISE = jitter((IBoolAt) (x, y, z, provider) -> provider.simplex.noise2(x / 12f, z / 12f) + provider.simplex.noise2(x / 4f, z / 4f) * 0.1f > 0.15f);
+        MIX_NOISE_SMALL = jitter((IBoolAt) (x, y, z, provider) -> provider.simplex.noise2(x / 12f, z / 12f) + provider.simplex.noise2(x / 4f, z / 4f) * 0.1f > 0.08f);
         STONE = new BlockPart(Blocks.STONE.getDefaultState());
         COBBLE = new BlockPart(Blocks.COBBLESTONE.getDefaultState());
-        STONE_OR_COBBLE = new SurfacePart().add(STONE).add(new RandomSelector(biome.rand, 3).add(COBBLE));
+        STONE_OR_COBBLE = new SurfacePart().add(STONE).add(new RandomSelector(3).add(COBBLE));
         SHADOW_STONE = new BlockPart(Mods.RTG.config.SHADOW_STONE_BLOCK.get());
         SHADOW_SAND = new BlockPart(Mods.RTG.config.SHADOW_DESERT_BLOCK.get());
         TOP_BLOCK = new BlockPart(biome.config.TOP_BLOCK.get());
@@ -45,7 +45,7 @@ public class PresetParts {
     }
 
     public final SurfacePart rand(int r) {
-        return new RandomSelector(biome.rand, r);
+        return new RandomSelector(r);
     }
 
     public final SurfacePart selectTop() {
@@ -83,29 +83,29 @@ public class PresetParts {
     }
 
     public final IFloatAt jitter(IFloatAt in) {
-        return (x, y, z) -> {
-            biome.simplex.evaluateNoise(x, z, biome.chunkProvider.surfaceJitter);
-            int jX = (int) Math.round(x + biome.chunkProvider.surfaceJitter.deltax() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());
-            int jZ = (int) Math.round(z + biome.chunkProvider.surfaceJitter.deltay() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());
-            return in.getAt(jX, y, jZ);
+        return (x, y, z, provider) -> {
+            provider.simplex.evaluateNoise(x, z, provider.surfaceJitter);
+            int jX = (int) Math.round(x + provider.surfaceJitter.deltax() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());
+            int jZ = (int) Math.round(z + provider.surfaceJitter.deltay() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());
+            return in.getAt(jX, y, jZ, provider);
         };
     }
 
     public final IBoolAt jitter(IBoolAt in) {
-        return (x, y, z) -> {
-            biome.simplex.evaluateNoise(x, z, biome.chunkProvider.surfaceJitter);
-            int jX = (int) Math.round(x + biome.chunkProvider.surfaceJitter.deltax() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());
-            int jZ = (int) Math.round(z + biome.chunkProvider.surfaceJitter.deltay() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());
-            return in.getAt(jX, y, jZ);
+        return (x, y, z, provider) -> {
+            provider.simplex.evaluateNoise(x, z, provider.surfaceJitter);
+            int jX = (int) Math.round(x + provider.surfaceJitter.deltax() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());
+            int jZ = (int) Math.round(z + provider.surfaceJitter.deltay() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());
+            return in.getAt(jX, y, jZ, provider);
         };
     }
 
     public final IBlockAt jitter(IBlockAt in) {
-        return (x, y, z) -> {
-            biome.simplex.evaluateNoise(x, z, biome.chunkProvider.surfaceJitter);
-            int jX = (int) Math.round(x + biome.chunkProvider.surfaceJitter.deltax() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());
-            int jZ = (int) Math.round(z + biome.chunkProvider.surfaceJitter.deltay() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());
-            return in.getAt(jX, y, jZ);
+        return (x, y, z, provider) -> {
+            provider.simplex.evaluateNoise(x, z, provider.surfaceJitter);
+            int jX = (int) Math.round(x + provider.surfaceJitter.deltax() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());
+            int jZ = (int) Math.round(z + provider.surfaceJitter.deltay() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());
+            return in.getAt(jX, y, jZ, provider);
         };
     }
 }

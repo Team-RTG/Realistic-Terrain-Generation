@@ -3,8 +3,6 @@ package teamrtg.rtg.mods.vanilla.biomes;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import teamrtg.rtg.util.noise.CellNoise;
-import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
@@ -17,12 +15,11 @@ import teamrtg.rtg.world.gen.deco.helper.DecoHelper5050;
 
 public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaForest(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaForest() {
 
         super(
                 Biomes.FOREST,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
     }
 
@@ -30,9 +27,9 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                groundNoise = groundNoise(x, y, groundVariation, simplex);
-                float m = hills(x, y, 10f, simplex, river);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                groundNoise = groundNoise(x, y, groundVariation, provider.simplex);
+                float m = hills(x, y, 10f, provider.simplex, river);
                 float floNoise = 65f + groundNoise + m;
 
                 return riverized(floNoise, river);
@@ -46,7 +43,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
         surface.add(new CliffSelector(1.5f)
             .add(PARTS.selectTopAndFill()
                 .add(this.PARTS.SHADOW_STONE)));
-        surface.add(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
+        surface.add(new CliffSelector((x, y, z, provider) -> 1.5f - ((y - 60f) / 65f) + provider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
             .add(PARTS.selectTop()
                 .add(PARTS.STONE_OR_COBBLE)))
             .add(PARTS.selectFill()

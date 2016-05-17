@@ -17,14 +17,13 @@ import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
 
 public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.SAVANNA_PLATEAU;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
-    public RealisticBiomeVanillaSavannaPlateauM(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaSavannaPlateauM() {
 
         super(
                 mutationBiome,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -37,8 +36,8 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
             private float strength = 10f;
 
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 50f, true);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainPlateau(x, y, provider.simplex, river, height, border, strength, heightLength, 50f, true);
             }
         };
     }

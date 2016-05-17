@@ -16,11 +16,10 @@ import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 
 public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaDesertHills(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaDesertHills() {
         super(
                 Biomes.DESERT_HILLS,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -30,7 +29,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
         SurfacePart surface = PARTS.selectTopAndFill();
         surface.add(new SurfaceRiverOasis(this));
         surface.add(new OrSelector()
-            .or(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f))
+            .or(new CliffSelector((x, y, z, provider) -> 1.5f - ((y - 60f) / 65f) + provider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f))
             .or(new CliffSelector(1.5f))
             .add(new BlockPart(Blocks.SANDSTONE.getDefaultState()))
         );
@@ -42,8 +41,8 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 120f, 10f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainHighland(x, y, provider.simplex, provider.cell, river, 10f, 200f, 120f, 10f);
             }
         };
     }

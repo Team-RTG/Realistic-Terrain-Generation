@@ -16,14 +16,13 @@ import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBase {
 
     public static BiomeGenBase standardBiome = Biomes.EXTREME_HILLS;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
-    public RealisticBiomeVanillaExtremeHillsM(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaExtremeHillsM() {
 
         super(
                 mutationBiome,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
         this.noLakes = true;
         this.noWaterFeatures = true;
@@ -36,7 +35,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
             .add(new DepthSelector(0, 1)
                 .add(PARTS.STONE_OR_COBBLE))
         );
-        surface.add(PARTS.surfaceMix((x, y, z) -> simplex.noise2(x / 60f, z / 60f) + simplex.noise2(x / 14f, z / 14f) * 0.25f > -0.14f));
+        surface.add(PARTS.surfaceMix((x, y, z, provider) -> provider.simplex.noise2(x / 60f, z / 60f) + provider.simplex.noise2(x / 14f, z / 14f) * 0.25f > -0.14f));
         surface.add(PARTS.surfaceGeneric());
         return surface;
     }
@@ -45,8 +44,8 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 140f, 10f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainHighland(x, y, provider.simplex, provider.cell, river, 10f, 200f, 140f, 10f);
             }
         };
     }

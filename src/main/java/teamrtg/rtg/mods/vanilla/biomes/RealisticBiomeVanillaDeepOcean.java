@@ -14,12 +14,11 @@ import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaDeepOcean(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaDeepOcean() {
 
         super(
                 Biomes.DEEP_OCEAN,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
         this.noLakes=true;
         this.noWaterFeatures = true;
@@ -29,8 +28,8 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainOcean(x, y, simplex, river, 40f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainOcean(x, y, provider.simplex, river, 40f);
             }
         };
     }
@@ -40,7 +39,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
         SurfacePart surface = new SurfacePart();
         surface.add(PARTS.selectTop()
             .add(new HeightSelector(0, 63)
-                .add(new Selector((x, y, z) -> simplex.noise2(x / 20f, z / 20f) > 0.1f)
+                .add(new Selector((x, y, z, provider) -> provider.simplex.noise2(x / 20f, z / 20f) > 0.1f)
                     .add(new BlockPart(config.MIX_BLOCK_TOP.get())))));
         surface.add(PARTS.surfaceGeneric());
         return surface;

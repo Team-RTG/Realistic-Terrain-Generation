@@ -13,12 +13,11 @@ import teamrtg.rtg.world.gen.deco.*;
 
 public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaSavannaPlateau(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaSavannaPlateau() {
 
         super(
                 Biomes.SAVANNA_PLATEAU,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -31,8 +30,8 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
             private float strength = 10f;
 
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 50f, true);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainPlateau(x, y, provider.simplex, river, height, border, strength, heightLength, 50f, true);
             }
         };
     }

@@ -3,7 +3,8 @@ package teamrtg.rtg.world.biome.surface.part;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.chunk.ChunkPrimer;
 import teamrtg.rtg.api.util.debug.Logger;
-import teamrtg.rtg.util.IBlockAt;
+import teamrtg.rtg.util.noise.IBlockAt;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 import static teamrtg.rtg.util.math.MathUtils.globalToLocal;
 
@@ -15,7 +16,7 @@ public class BlockPart extends SurfacePart {
     private final IBlockAt block;
 
     public BlockPart(IBlockState blockState) {
-        this.block = (x, y, z) -> blockState;
+        this.block = (x, y, z, provider) -> blockState;
     }
 
     public BlockPart(IBlockAt block) {
@@ -23,9 +24,9 @@ public class BlockPart extends SurfacePart {
     }
 
     @Override
-    public boolean paintSurface(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise, float river) {
-        if (this.block.getAt(x, y, z) == null) return false;
-        primer.setBlockState(globalToLocal(x), y, globalToLocal(z), block.getAt(x, y, z));
+    public boolean paintSurface(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise, float river, ChunkProviderRTG provider) {
+        if (this.block.getAt(x, y, z, provider) == null) return false;
+        primer.setBlockState(globalToLocal(x), y, globalToLocal(z), block.getAt(x, y, z, provider));
         return true;
     }
 

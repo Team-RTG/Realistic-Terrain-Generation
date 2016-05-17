@@ -1,5 +1,7 @@
 package teamrtg.rtg.world.biome.surface.part;
 
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
+
 /**
  * @author topisani
  *         Select based on the height of the top block at these coords
@@ -15,7 +17,7 @@ public class TopPosSelector extends SurfacePart {
     }
 
     @Override
-    public boolean applies(int x, int y, int z, int depth, float[] noise, float river) {
+    public boolean applies(int x, int y, int z, int depth, float[] noise, float river, ChunkProviderRTG provider) {
         return (y + depth) >= min && (y + depth) <= max;
     }
 

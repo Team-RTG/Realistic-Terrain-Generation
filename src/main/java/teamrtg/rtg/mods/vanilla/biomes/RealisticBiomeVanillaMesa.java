@@ -17,12 +17,11 @@ import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
 
 public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaMesa(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaMesa() {
 
         super(
             Biomes.MESA,
-            Biomes.RIVER,
-            chunkProvider
+            Biomes.RIVER
         );
     }
 
@@ -118,8 +117,8 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
             private GroundEffect groundEffect = new GroundEffect(4f);
 
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return riverized(68f + groundEffect.added(simplex, cell, x, y), river);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return riverized(68f + groundEffect.added(provider.simplex, provider.cell, x, y), river);
             }
         };
     }

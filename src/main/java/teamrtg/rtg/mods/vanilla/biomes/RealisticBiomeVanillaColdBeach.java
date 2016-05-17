@@ -2,8 +2,6 @@ package teamrtg.rtg.mods.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import teamrtg.rtg.util.noise.CellNoise;
-import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.part.*;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
@@ -11,11 +9,10 @@ import teamrtg.rtg.world.gen.deco.DecoBoulder;
 
 public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaColdBeach(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaColdBeach() {
         super(
                 Biomes.COLD_BEACH,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
 
         );
     }
@@ -24,8 +21,8 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainBeach(x, y, simplex, river, 180f, 35f, 63f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainBeach(x, y, provider.simplex, river, 180f, 35f, 63f);
             }
         };
     }
@@ -38,15 +35,15 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
                 .add(new BlockPart(config.CLIFF_BLOCK_1.get())))
             .add(PARTS.selectTop()
                 .add(new HeightSelector(61, 255)
-                    .add(new Selector((x, y, z) -> simplex.noise2(x / 12f, z / 12f) > -0.3f + ((y - 61f) / 15f))
+                    .add(new Selector((x, y, z, provider) -> provider.simplex.noise2(x / 12f, z / 12f) > -0.3f + ((y - 61f) / 15f))
                         .add(new BlockPart(config.TOP_BLOCK.get())))
                     .add(new BlockPart(Blocks.SAND.getDefaultState()))))
             .add(new DepthSelector(0, 4)
-                .add(new Selector((x, y, z) -> simplex.noise2(x / 12f, z / 12f) > -0.3f + ((y - 61f) / 15f))
+                .add(new Selector((x, y, z, provider) -> provider.simplex.noise2(x / 12f, z / 12f) > -0.3f + ((y - 61f) / 15f))
                     .add(new BlockPart(config.FILL_BLOCK.get())))
                 .add(new HeightSelector(0, 69)
                     .add(new BlockPart(Blocks.SAND.getDefaultState()))))
-            .add(new Selector((x, y, z) -> simplex.noise2(x / 12f, z / 12f) <= -0.3f + ((y - 61f) / 15f))
+            .add(new Selector((x, y, z, provider) -> provider.simplex.noise2(x / 12f, z / 12f) <= -0.3f + ((y - 61f) / 15f))
                 .add(new BlockPart(Blocks.SANDSTONE.getDefaultState()))));
         surface.add(PARTS.surfaceGeneric());
         return surface;

@@ -16,11 +16,10 @@ import static teamrtg.rtg.world.gen.deco.DecoTree.TreeType.VANILLA_OAK;
 
 public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaMesaPlateauF(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaMesaPlateauF() {
         super(
             Biomes.MESA_ROCK,
-            Biomes.RIVER,
-            chunkProvider
+            Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -102,8 +101,8 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
             }
 
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 100f, false);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainPlateau(x, y, provider.simplex, river, height, border, strength, heightLength, 100f, false);
             }
         };
     }

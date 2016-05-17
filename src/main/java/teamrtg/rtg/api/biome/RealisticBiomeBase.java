@@ -5,18 +5,15 @@ import org.apache.commons.lang3.ArrayUtils;
 import teamrtg.rtg.api.config.BiomeConfig;
 import teamrtg.rtg.api.mods.RTGSupport;
 import teamrtg.rtg.api.util.BiomeUtils;
-import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.part.GenericPart;
 import teamrtg.rtg.world.biome.surface.part.PresetParts;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
-import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
 import teamrtg.rtg.world.gen.deco.DecoBase;
 import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import static net.minecraft.init.Biomes.RIVER;
 
@@ -27,9 +24,6 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     public final BiomeGenBase riverBiome;
     public final RTGSupport mod;
     public final BiomeConfig config;
-    public final ChunkProviderRTG chunkProvider;
-    public final OpenSimplexNoise simplex;
-    public final Random rand;
     public PresetParts PARTS;
     public TerrainBase terrain;
     public SurfacePart surface;
@@ -51,18 +45,15 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     public final boolean disallowAllBeaches = false;
     public final boolean disallowStoneBeaches = false;
 
-    public RealisticBiomeBase(RTGSupport mod, BiomeGenBase biome, ChunkProviderRTG chunkProvider) {
-        this(mod, biome, RIVER, chunkProvider);
+    public RealisticBiomeBase(RTGSupport mod, BiomeGenBase biome) {
+        this(mod, biome, RIVER);
     }
 
-    public RealisticBiomeBase(RTGSupport mod, BiomeGenBase biome, BiomeGenBase river, ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeBase(RTGSupport mod, BiomeGenBase biome, BiomeGenBase river) {
 
-        super(BiomeUtils.getIdForBiome(biome));
+        super(BiomeUtils.getId(biome));
 
         this.mod = mod;
-        this.chunkProvider = chunkProvider;
-        this.rand = chunkProvider.rand;
-        this.simplex = chunkProvider.simplex;
 
         baseBiome = biome;
         riverBiome = river;
@@ -74,11 +65,6 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         initProperties();
 
         init();
-        // This is the only way to make sure ores are generated every time
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.allowed = false;
-        this.decos.add(decoBaseBiomeDecorations);
-        initDecos();
     }
 
     private void init() {
@@ -87,6 +73,11 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         decos = new ArrayList<>();
         this.surface = initSurface();
         this.terrain = initTerrain();
+        // This is the only way to make sure ores are generated every time
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.allowed = false;
+        this.decos.add(decoBaseBiomeDecorations);
+        initDecos();
     }
 
     /**
@@ -119,7 +110,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     }
 
     public int getID() {
-        return BiomeUtils.getIdForBiome(this);
+        return BiomeUtils.getId(this);
     }
 
     /**

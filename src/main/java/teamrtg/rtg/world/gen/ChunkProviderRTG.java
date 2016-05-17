@@ -117,8 +117,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
         mapFeaturesEnabled = worldIn.getWorldInfo().isMapFeaturesEnabled();
 
         biomeFaker = new RealisticBiomeFaker(this);
-        Mods.initAllBiomes(this);
-        biomeFaker.initFakeBiomes();
         analyzer = new BiomeAnalyzer();
 
         if (Mods.RTG.config.ENABLE_CAVE_MODIFICATIONS.get()) {
@@ -139,7 +137,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(), SCATTERED_FEATURE);
         oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(), OCEAN_MONUMENT);
 
-        CanyonColour.init(l);
+        CanyonColour.init();
 
         sampleArraySize = sampleSize * 2 + 5;
 
@@ -258,7 +256,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
             * I cannot do much on my part, so i have to do it here.
             * - Elix_x
             */
-            byte b = (byte) BiomeUtils.getIdForBiome(baseBiomes[k]);
+            byte b = (byte) BiomeUtils.getId(baseBiomes[k]);
             abyte1[k] = b;
         }
         chunk.setBiomeArray(abyte1);
@@ -305,7 +303,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
                     river = -bprv.getRiverStrength(cx * 16 + i, cz * 16 + j);
                     depth = -1;
 
-                    RealisticBiomeGenerator.forBiome(biome).paintSurface(primer, cx * 16 + i, cz * 16 + j, i, j, depth, world, rand, simplex, cell, n, river, base);
+                    RealisticBiomeGenerator.forBiome(biome).paintSurface(primer, cx * 16 + i, cz * 16 + j, depth, n, river, this);
                 }
 
                 int rough;
@@ -403,7 +401,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         for (int bx = -4; bx <= 4; bx++) {
 
             for (int by = -4; by <= 4; by++) {
-                borderNoise[BiomeUtils.getIdForBiome(bprv.getBiomeGenAt(worldX + adjust + bx * 4, worldZ + adjust + by * 4))] += 0.01234569f;
+                borderNoise[BiomeUtils.getId(bprv.getBiomeGenAt(worldX + adjust + bx * 4, worldZ + adjust + by * 4))] += 0.01234569f;
             }
         }
 
@@ -606,7 +604,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         //fill biomes array with biomeData
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 16; j++) {
-                biomes[i * 16 + j] = RealisticBiomeBase.getBiome(BiomeUtils.getIdForBiome(bprv.getPreRepair(cx + i, cz + j)));
+                biomes[i * 16 + j] = RealisticBiomeBase.getBiome(BiomeUtils.getId(bprv.getPreRepair(cx + i, cz + j)));
             }
         }
 
@@ -617,7 +615,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         analyzer.newRepair(biomeIndices, biomes, biomeData, sampleSize, noise, riverVals);
 
         for (int i = 0; i < 256; i++) {
-            biomeIds[i] = BiomeUtils.getIdForBiome(biomes[i]);
+            biomeIds[i] = BiomeUtils.getId(biomes[i]);
         }
 
         PlaneLocation loc = new PlaneLocation.Invariant(cx, cz);
@@ -636,7 +634,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         // get area biome map
         for (int i = -sampleSize; i < sampleSize + 5; i++) {
             for (int j = -sampleSize; j < sampleSize + 5; j++) {
-                biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = BiomeUtils.getIdForBiome(cmr.getPreRepair(x + ((i * 8)), y + ((j * 8))));
+                biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = BiomeUtils.getId(cmr.getPreRepair(x + ((i * 8)), y + ((j * 8))));
             }
         }
         float river;
@@ -685,7 +683,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
                         }
 
                         totalBorder += weightedBiomes[k];
-                        testHeight[i * 16 + j] += RealisticBiomeGenerator.forBiome(k).rNoise(simplex, cell, x + i, y + j, weightedBiomes[k], river + 1f) * weightedBiomes[k];
+                        testHeight[i * 16 + j] += RealisticBiomeGenerator.forBiome(k).rNoise(this, x + i, y + j, weightedBiomes[k], river + 1f) * weightedBiomes[k];
                         // 0 for the next column
                         weightedBiomes[k] = 0f;
 

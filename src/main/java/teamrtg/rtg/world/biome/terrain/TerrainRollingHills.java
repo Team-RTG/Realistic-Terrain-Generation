@@ -1,7 +1,6 @@
 package teamrtg.rtg.world.biome.terrain;
 
-import teamrtg.rtg.util.noise.CellNoise;
-import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 public class TerrainRollingHills extends TerrainBase {
     private float minHeight = 63f;
@@ -17,10 +16,10 @@ public class TerrainRollingHills extends TerrainBase {
     }
 
     @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-        groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
+    public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+        groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, provider.simplex);
 
-        float m = hills(x, y, hillStrength, simplex, river);
+        float m = hills(x, y, hillStrength, provider.simplex, river);
 
         float floNoise = riverized(minHeight + groundNoise, river) + m;
 

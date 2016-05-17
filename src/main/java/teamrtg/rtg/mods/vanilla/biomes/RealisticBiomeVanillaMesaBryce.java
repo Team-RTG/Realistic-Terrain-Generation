@@ -20,12 +20,11 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.MESA;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
-    public RealisticBiomeVanillaMesaBryce(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaMesaBryce() {
 
         super(
                 mutationBiome,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
     }
 
@@ -33,8 +32,8 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainBryce(x, y, simplex, river, 20f, border);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainBryce(x, y, provider.simplex, river, 20f, border);
             }
         };
     }

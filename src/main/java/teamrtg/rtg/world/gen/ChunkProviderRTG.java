@@ -117,8 +117,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
         mapFeaturesEnabled = worldIn.getWorldInfo().isMapFeaturesEnabled();
 
         biomeFaker = new RealisticBiomeFaker(this);
-        Mods.initAllBiomes(this);
-        biomeFaker.initFakeBiomes();
         analyzer = new BiomeAnalyzer();
 
         if (Mods.RTG.config.ENABLE_CAVE_MODIFICATIONS.get()) {
@@ -139,7 +137,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(), SCATTERED_FEATURE);
         oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(), OCEAN_MONUMENT);
 
-        CanyonColour.init(l);
+        CanyonColour.init();
 
         sampleArraySize = sampleSize * 2 + 5;
 
@@ -305,7 +303,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
                     river = -bprv.getRiverStrength(cx * 16 + i, cz * 16 + j);
                     depth = -1;
 
-                    RealisticBiomeGenerator.forBiome(biome).paintSurface(primer, cx * 16 + i, cz * 16 + j, i, j, depth, world, rand, simplex, cell, n, river, base);
+                    RealisticBiomeGenerator.forBiome(biome).paintSurface(primer, cx * 16 + i, cz * 16 + j, depth, n, river, this);
                 }
 
                 int rough;
@@ -685,7 +683,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
                         }
 
                         totalBorder += weightedBiomes[k];
-                        testHeight[i * 16 + j] += RealisticBiomeGenerator.forBiome(k).rNoise(simplex, cell, x + i, y + j, weightedBiomes[k], river + 1f) * weightedBiomes[k];
+                        testHeight[i * 16 + j] += RealisticBiomeGenerator.forBiome(k).rNoise(this, x + i, y + j, weightedBiomes[k], river + 1f) * weightedBiomes[k];
                         // 0 for the next column
                         weightedBiomes[k] = 0f;
 

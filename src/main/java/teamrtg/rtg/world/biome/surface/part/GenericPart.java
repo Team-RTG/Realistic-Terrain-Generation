@@ -2,6 +2,7 @@ package teamrtg.rtg.world.biome.surface.part;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.chunk.ChunkPrimer;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 import static teamrtg.rtg.util.math.MathUtils.globalToLocal;
 
@@ -19,7 +20,7 @@ public class GenericPart extends SurfacePart {
     }
 
     @Override
-    protected boolean paintSurface(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise, float river) {
+    protected boolean paintSurface(ChunkPrimer primer, int x, int y, int z, int depth, float[] noise, float river, ChunkProviderRTG provider) {
         if (depth == 0 && y > 61) {
             primer.setBlockState(globalToLocal(x), y, globalToLocal(z), top);
             return true;

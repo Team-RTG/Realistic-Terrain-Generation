@@ -1,6 +1,7 @@
 package teamrtg.rtg.world.biome.surface.part;
 
 import teamrtg.rtg.util.noise.IFloatAt;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 /**
  * @author topisani
@@ -27,7 +28,7 @@ public class HeightSelector extends SurfacePart {
     }
 
     @Override
-    public boolean applies(int x, int y, int z, int depth, float[] noise, float river) {
-        return y >= (min + minNoise.getAt(x, y, z)) && y <= (max + maxNoise.getAt(x, y, z));
+    public boolean applies(int x, int y, int z, int depth, float[] noise, float river, ChunkProviderRTG provider) {
+        return y >= (min + minNoise.getAt(x, y, z, provider)) && y <= (max + maxNoise.getAt(x, y, z, provider));
     }
 }

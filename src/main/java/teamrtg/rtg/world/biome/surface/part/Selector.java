@@ -1,6 +1,7 @@
 package teamrtg.rtg.world.biome.surface.part;
 
 import teamrtg.rtg.util.noise.IBoolAt;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 /**
  * @author topisani
@@ -14,7 +15,7 @@ public class Selector extends SurfacePart {
     }
 
     @Override
-    public boolean applies(int x, int y, int z, int depth, float[] noise, float river) {
-        return boolAt.getAt(x, y, z);
+    public boolean applies(int x, int y, int z, int depth, float[] noise, float river, ChunkProviderRTG provider) {
+        return boolAt.getAt(x, y, z, provider);
     }
 }

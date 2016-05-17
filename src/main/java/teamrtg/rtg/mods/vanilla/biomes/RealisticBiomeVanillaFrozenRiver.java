@@ -10,11 +10,10 @@ import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaFrozenRiver(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaFrozenRiver() {
         super(
                 Biomes.FROZEN_RIVER,
-                Biomes.FROZEN_RIVER,
-                chunkProvider
+            Biomes.FROZEN_RIVER
         );
     }
 
@@ -27,8 +26,8 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase 
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainFlatLakes(x, y, simplex, river, 3f, 60f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainFlatLakes(x, y, provider.simplex, river, 3f, 60f);
             }
         };
     }

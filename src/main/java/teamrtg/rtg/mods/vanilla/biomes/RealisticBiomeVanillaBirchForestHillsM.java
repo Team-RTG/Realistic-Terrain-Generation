@@ -4,9 +4,9 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import teamrtg.rtg.api.util.BiomeUtils;
-import teamrtg.rtg.util.noise.CellNoise;
-import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.world.biome.surface.part.*;
+import teamrtg.rtg.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.world.biome.surface.part.DepthSelector;
+import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.biome.terrain.TerrainBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
 import teamrtg.rtg.world.gen.deco.*;
@@ -18,11 +18,10 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
     public static BiomeGenBase standardBiome = Biomes.BIRCH_FOREST_HILLS;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
-    public RealisticBiomeVanillaBirchForestHillsM(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaBirchForestHillsM() {
         super(
             mutationBiome,
-            Biomes.RIVER,
-            chunkProvider
+            Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -89,7 +88,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
         return new DepthSelector(0, 10)
             .add(new CliffSelector(1.4f)
                 .add(new DepthSelector(0, 1)
-                    .add(new RandomSelector(rand, 3)
+                    .add(PARTS.rand(3)
                         .add(PARTS.COBBLE)))
                 .add(PARTS.STONE))
             .add(PARTS.surfaceGeneric());
@@ -99,8 +98,8 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainHighland(x, y, simplex, cell, river, 10f, 68f, 65f, 10f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainHighland(x, y, provider.simplex, provider.cell, river, 10f, 68f, 65f, 10f);
             }
         };
     }

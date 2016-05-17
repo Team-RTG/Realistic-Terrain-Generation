@@ -16,12 +16,11 @@ import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 
 public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaSwampland(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaSwampland() {
 
         super(
                 Biomes.SWAMPLAND,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
     }
 
@@ -29,8 +28,8 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainMarsh(x, y, simplex, 62f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainMarsh(x, y, provider.simplex, 62f);
             }
         };
     }

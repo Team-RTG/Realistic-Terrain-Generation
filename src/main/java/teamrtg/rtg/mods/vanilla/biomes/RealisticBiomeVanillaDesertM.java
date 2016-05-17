@@ -19,12 +19,11 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.DESERT;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
-    public RealisticBiomeVanillaDesertM(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaDesertM() {
 
         super(
             mutationBiome,
-            Biomes.RIVER,
-            chunkProvider
+            Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -43,7 +42,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
         surface.add(new CliffSelector(1.5f)
             .add(PARTS.SHADOW_SAND)
         );
-        surface.add(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
+        surface.add(new CliffSelector((x, y, z, provider) -> 1.5f - ((y - 60f) / 65f) + provider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
             .add(PARTS.selectFill()
                 .add(PARTS.rand(3)
                     .add(new BlockPart(Blocks.SANDSTONE.getDefaultState()))))
@@ -116,8 +115,8 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 140f, 10f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainHighland(x, y, provider.simplex, provider.cell, river, 10f, 200f, 140f, 10f);
             }
         };
     }

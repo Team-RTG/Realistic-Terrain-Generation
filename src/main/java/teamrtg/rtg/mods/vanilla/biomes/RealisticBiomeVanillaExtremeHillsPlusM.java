@@ -16,12 +16,11 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
     public static BiomeGenBase standardBiome = Biomes.EXTREME_HILLS_WITH_TREES;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
-    public RealisticBiomeVanillaExtremeHillsPlusM(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaExtremeHillsPlusM() {
 
         super(
                 mutationBiome,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
         this.noLakes = true;
         this.noWaterFeatures = true;
@@ -33,7 +32,7 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
         surface.add(new CliffSelector(1.5f)
             .add(PARTS.selectTopAndFill()
                 .add(this.PARTS.SHADOW_STONE)));
-        surface.add(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
+        surface.add(new CliffSelector((x, y, z, provider) -> 1.5f - ((y - 60f) / 65f) + provider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
             .add(PARTS.selectTop()
                 .add(PARTS.STONE_OR_COBBLE)))
             .add(PARTS.selectFill()
@@ -47,8 +46,8 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainLonelyMountain(x, y, simplex, cell, river, 120f, 230f, 68f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainLonelyMountain(x, y, provider.simplex, provider.cell, river, 120f, 230f, 68f);
             }
         };
     }

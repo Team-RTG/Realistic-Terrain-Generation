@@ -16,11 +16,10 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
     public static BiomeGenBase standardBiome = Biomes.PLAINS;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
-    public RealisticBiomeVanillaSunflowerPlains(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaSunflowerPlains() {
         super(
                 mutationBiome,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
     }
 
@@ -30,8 +29,8 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
             private final GroundEffect groundEffect = new GroundEffect(4f);
 
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return riverized(65f + groundEffect.added(provider.simplex, provider.cell, x, y), river);
             }
         };
     }

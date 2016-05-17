@@ -11,11 +11,10 @@ import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaMushroomIslandShore(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaMushroomIslandShore() {
         super(
                 Biomes.MUSHROOM_ISLAND_SHORE,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -24,8 +23,8 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainMarsh(x, y, simplex, 62f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainMarsh(x, y, provider.simplex, 62f);
             }
         };
     }

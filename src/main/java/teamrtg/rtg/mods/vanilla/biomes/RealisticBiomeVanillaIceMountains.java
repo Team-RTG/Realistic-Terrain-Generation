@@ -14,12 +14,11 @@ import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaIceMountains(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaIceMountains() {
 
         super(
                 Biomes.ICE_MOUNTAINS,
-                Biomes.FROZEN_RIVER,
-                chunkProvider
+            Biomes.FROZEN_RIVER
         );
         this.noLakes = true;
         this.noWaterFeatures = true;
@@ -33,7 +32,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
                 .add(PARTS.rand(3)
                     .add(new BlockPart(config.CLIFF_BLOCK_2.get()))))
             .add(new BlockPart(config.CLIFF_BLOCK_1.get())));
-        surface.add(PARTS.surfaceMix((x, y, z) -> simplex.noise2(x / 60f, z / 60f) + simplex.noise2(x / 14f, z / 14f) * 0.25f > -0.14f));
+        surface.add(PARTS.surfaceMix((x, y, z, provider) -> provider.simplex.noise2(x / 60f, z / 60f) + provider.simplex.noise2(x / 14f, z / 14f) * 0.25f > -0.14f));
         surface.add(PARTS.surfaceGeneric());
         return surface;
     }
@@ -42,8 +41,8 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainLonelyMountain(x, y, simplex, cell, river, 80f, 230f, 68f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainLonelyMountain(x, y, provider.simplex, provider.cell, river, 80f, 230f, 68f);
             }
         };
     }

@@ -1,5 +1,7 @@
 package teamrtg.rtg.world.biome.surface.part;
 
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +19,9 @@ public class OrSelector extends SurfacePart {
     }
 
     @Override
-    public boolean applies(int x, int y, int z, int depth, float[] noise, float river) {
+    public boolean applies(int x, int y, int z, int depth, float[] noise, float river, ChunkProviderRTG provider) {
         for (SurfacePart part : parts) {
-            if (part.applies(x, y, z, depth, noise, river)) return true;
+            if (part.applies(x, y, z, depth, noise, river, provider)) return true;
         }
         return false;
     }

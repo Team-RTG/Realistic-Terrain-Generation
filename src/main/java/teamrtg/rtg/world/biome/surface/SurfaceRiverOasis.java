@@ -22,20 +22,20 @@ public class SurfaceRiverOasis extends SurfacePart {
         float cutOffAmplitude = .75f;
 
         // Large scale cut-offs
-        IFloatAt noiseNeg = (x, y, z) -> {
-            float a = (biome.simplex.octave(3).noise2(x / cutOffSize, z / cutOffSize) * cutOffAmplitude);
+        IFloatAt noiseNeg = (x, y, z, provider) -> {
+            float a = (provider.simplex.octave(3).noise2(x / cutOffSize, z / cutOffSize) * cutOffAmplitude);
             return (a < 0f) ? 0f : a;
         };
 
-        IFloatAt noise = (x, y, z) -> {
-            float noiseValue = (biome.simplex.octave(0).noise2(x / 21f, z / 21f) * amplitude / 1f);
-            noiseValue += (biome.simplex.octave(1).noise2(x / 12f, z / 12f) * amplitude / 2f);
-            noiseValue += (biome.simplex.octave(2).noise2(x / 5f, z / 5f) * amplitude / 3f);
-            return noiseValue - noiseNeg.getAt(x, y, z);
+        IFloatAt noise = (x, y, z, provider) -> {
+            float noiseValue = (provider.simplex.octave(0).noise2(x / 21f, z / 21f) * amplitude / 1f);
+            noiseValue += (provider.simplex.octave(1).noise2(x / 12f, z / 12f) * amplitude / 2f);
+            noiseValue += (provider.simplex.octave(2).noise2(x / 5f, z / 5f) * amplitude / 3f);
+            return noiseValue - noiseNeg.getAt(x, y, z, provider);
         };
 
-        IFloatAt minRiver = (x, y, z) -> {
-            float p = (float) (0.67f - Math.pow(Math.abs(noise.getAt(x, y, z)), 1.2f) * (noise.getAt(x, y, z) > 0f ? 1f : -1f));
+        IFloatAt minRiver = (x, y, z, provider) -> {
+            float p = (float) (0.67f - Math.pow(Math.abs(noise.getAt(x, y, z, provider)), 1.2f) * (noise.getAt(x, y, z, provider) > 0f ? 1f : -1f));
             return (p > 0.05f) ? p : 0.05f;
         };
         add(new RiverSelector(minRiver)

@@ -17,11 +17,10 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
     public static BiomeGenBase standardBiome = Biomes.MESA_ROCK;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
-    public RealisticBiomeVanillaMesaPlateauFM(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaMesaPlateauFM() {
         super(
                 mutationBiome,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -38,8 +37,8 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
             private final int heightLength = height.length;
 
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 100f, false);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainPlateau(x, y, provider.simplex, river, height, border, strength, heightLength, 100f, false);
             }
         };
     }

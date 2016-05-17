@@ -4,8 +4,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import teamrtg.rtg.api.util.BiomeUtils;
-import teamrtg.rtg.util.noise.CellNoise;
-import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.world.biome.surface.part.DepthSelector;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
@@ -20,12 +18,11 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.COLD_TAIGA;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
-    public RealisticBiomeVanillaColdTaigaM(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaColdTaigaM() {
 
         super(
                 mutationBiome,
-                Biomes.FROZEN_RIVER,
-                chunkProvider
+            Biomes.FROZEN_RIVER
         );
         this.noLakes = true;
     }
@@ -34,8 +31,8 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 80f, 68f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainGrasslandMountains(x, y, provider.simplex, provider.cell, river, 4f, 80f, 68f);
             }
         };
     }

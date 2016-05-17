@@ -12,11 +12,10 @@ import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaMushroomIsland(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaMushroomIsland() {
         super(
                 Biomes.MUSHROOM_ISLAND,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -25,8 +24,8 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainGrasslandFlats(x, y, simplex, river, 40f, 25f, 68f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainGrasslandFlats(x, y, provider.simplex, river, 40f, 25f, 68f);
             }
         };
     }
@@ -37,7 +36,7 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
         surface.add(new CliffSelector(1.5f)
             .add(PARTS.selectTopAndFill()
                 .add(this.PARTS.SHADOW_STONE)));
-        surface.add(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
+        surface.add(new CliffSelector((x, y, z, provider) -> 1.5f - ((y - 60f) / 65f) + provider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
             .add(PARTS.selectTop()
                 .add(PARTS.STONE_OR_COBBLE)))
             .add(PARTS.selectFill()

@@ -20,12 +20,11 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
     public static BiomeGenBase standardBiome = Biomes.JUNGLE_EDGE;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
-    public RealisticBiomeVanillaJungleEdgeM(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaJungleEdgeM() {
 
         super(
                 mutationBiome,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -34,8 +33,8 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 80f, 68f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainGrasslandMountains(x, y, provider.simplex, provider.cell, river, 4f, 80f, 68f);
             }
         };
     }

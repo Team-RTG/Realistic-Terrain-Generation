@@ -20,12 +20,11 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.SAVANNA;
     public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
-    public RealisticBiomeVanillaSavannaM(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaSavannaM() {
 
         super(
                 mutationBiome,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -34,8 +33,8 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 90f, 67f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainGrasslandMountains(x, y, provider.simplex, provider.cell, river, 4f, 90f, 67f);
             }
         };
     }

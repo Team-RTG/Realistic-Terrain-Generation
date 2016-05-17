@@ -17,12 +17,11 @@ import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 
 public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaJungleEdge(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaJungleEdge() {
 
         super(
                 Biomes.JUNGLE_EDGE,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
     }
 
@@ -33,8 +32,8 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
             private GroundEffect groundEffect = new GroundEffect(4f);
 
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return riverized(65f + groundEffect.added(provider.simplex, provider.cell, x, y), river);
             }
         };
     }

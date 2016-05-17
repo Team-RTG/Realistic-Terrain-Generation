@@ -10,10 +10,10 @@ import net.minecraft.world.gen.structure.ComponentScatteredFeaturePieces;
 import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
-import teamrtg.rtg.api.util.debug.Logger;
-import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.api.biome.RealisticBiomeBase;
-import teamrtg.rtg.mods.vanilla.biomes.*;
+import teamrtg.rtg.api.mods.Mods;
+import teamrtg.rtg.api.util.debug.Logger;
+import teamrtg.rtg.world.WorldTypeRTG;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -96,6 +96,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
 
     @Override
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
+        if (!(this.worldObj.getWorldType() instanceof WorldTypeRTG)) return false;
         int k = chunkX;
         int l = chunkZ;
 
@@ -138,54 +139,6 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
     @Override
     public List getScatteredFeatureSpawnList() {
         return Collections.unmodifiableList(this.scatteredFeatureSpawnList);
-    }
-
-    private static boolean canSpawnDesertTemple(BiomeGenBase b) {
-        boolean canSpawn = false;
-
-        //TODO: This may be a forge bug, but that doesnt work.
-        //if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.DRY) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SANDY)) {
-        if (b instanceof RealisticBiomeVanillaDesert || b instanceof RealisticBiomeVanillaDesertHills || b instanceof RealisticBiomeVanillaDesertM) {
-            canSpawn = true;
-        }
-
-        return canSpawn;
-    }
-
-    private static boolean canSpawnJungleTemple(BiomeGenBase b) {
-        boolean canSpawn = false;
-
-        //TODO: This may be a forge bug, but that doesnt work.
-        //if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.JUNGLE)) {
-        if (b instanceof RealisticBiomeVanillaJungle || b instanceof RealisticBiomeVanillaJungleEdge || b instanceof RealisticBiomeVanillaJungleEdgeM || b instanceof RealisticBiomeVanillaJungleHills || b instanceof RealisticBiomeVanillaJungleM) {
-            canSpawn = true;
-        }
-
-        return canSpawn;
-    }
-
-    private static boolean canSpawnWitchHut(BiomeGenBase b) {
-        boolean canSpawn = false;
-
-        //TODO: This may be a forge bug, but that doesnt work.
-        //if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SWAMP)) {
-        if (b instanceof RealisticBiomeVanillaSwampland || b instanceof RealisticBiomeVanillaSwamplandM) {
-            canSpawn = true;
-        }
-
-        return canSpawn;
-    }
-
-    private static boolean canSpawnIgloo(BiomeGenBase b) {
-        boolean canSpawn = false;
-
-        //TODO: This may be a forge bug, but that doesnt work.
-        //if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SNOWY) && !BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.MOUNTAIN)) {
-        if (b instanceof RealisticBiomeVanillaIcePlains || b instanceof RealisticBiomeVanillaColdTaiga) {
-            canSpawn = true;
-        }
-
-        return canSpawn;
     }
 
     @Override

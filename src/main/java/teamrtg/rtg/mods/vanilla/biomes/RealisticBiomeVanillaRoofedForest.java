@@ -24,12 +24,11 @@ import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
 
 public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaRoofedForest(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaRoofedForest() {
 
         super(
                 Biomes.ROOFED_FOREST,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
     }
 
@@ -39,8 +38,8 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             private final GroundEffect groundEffect = new GroundEffect(4f);
 
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return riverized(65f + groundEffect.added(provider.simplex, provider.cell, x, y), river);
             }
         };
     }
@@ -51,7 +50,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         surface.add(new CliffSelector(1.5f)
             .add(PARTS.selectTopAndFill()
                 .add(this.PARTS.SHADOW_STONE)));
-        surface.add(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
+        surface.add(new CliffSelector((x, y, z, provider) -> 1.5f - ((y - 60f) / 65f) + provider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
             .add(PARTS.selectTop()
                 .add(PARTS.STONE_OR_COBBLE)))
             .add(PARTS.selectFill()

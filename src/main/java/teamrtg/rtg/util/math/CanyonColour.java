@@ -2,8 +2,8 @@ package teamrtg.rtg.util.math;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import teamrtg.rtg.util.IBlockAt;
-import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.util.noise.IBlockAt;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,16 +15,13 @@ public enum CanyonColour implements IBlockAt {
 
     // If you remove that U, i will locate and dismember you.
     private static Map<CanyonColour, IBlockState[]> colours = new HashMap<>();
-    private static OpenSimplexNoise simplex;
     public byte[] bytes;
 
     CanyonColour(byte[] bytes) {
         this.bytes = bytes;
     }
 
-    public static void init(long l) {
-        simplex = new OpenSimplexNoise(l);
-
+    public static void init() {
         for (CanyonColour colour : CanyonColour.values()) {
             IBlockState[] c = new IBlockState[256];
             int j;
@@ -36,9 +33,9 @@ public enum CanyonColour implements IBlockAt {
         }
     }
 
-    public IBlockState getAt(int x, int y, int z) {
-        float y1 = y + (simplex.noise3((float) x / 80f, (float) y / 6, (float) z / 80f) * 3f);
-        y1 += simplex.noise2((float) x / 70f, (float) z / 70f) * 3f;
+    public IBlockState getAt(int x, int y, int z, ChunkProviderRTG provider) {
+        float y1 = y + (provider.simplex.noise3((float) x / 80f, (float) y / 6, (float) z / 80f) * 3f);
+        y1 += provider.simplex.noise2((float) x / 70f, (float) z / 70f) * 3f;
         y1 = (y1 < 0) ? 0 : (y1 > 255) ? 255 : y1;
         return colours.get(this)[Math.round(y1)];
     }

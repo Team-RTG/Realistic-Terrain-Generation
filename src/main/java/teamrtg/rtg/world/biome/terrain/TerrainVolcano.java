@@ -1,7 +1,6 @@
 package teamrtg.rtg.world.biome.terrain;
 
-import teamrtg.rtg.util.noise.CellNoise;
-import teamrtg.rtg.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.world.gen.ChunkProviderRTG;
 
 public class TerrainVolcano extends TerrainBase {
 
@@ -10,7 +9,7 @@ public class TerrainVolcano extends TerrainBase {
     }
 
     @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-        return terrainVolcano(x, y, simplex, cell, border, 70f);
+    public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+        return terrainVolcano(x, y, provider.simplex, provider.cell, border, 70f);
     }
 }

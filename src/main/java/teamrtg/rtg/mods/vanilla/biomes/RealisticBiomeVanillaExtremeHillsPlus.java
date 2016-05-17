@@ -15,12 +15,11 @@ import teamrtg.rtg.world.gen.deco.*;
 
 public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaExtremeHillsPlus(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaExtremeHillsPlus() {
 
         super(
                 Biomes.EXTREME_HILLS_WITH_TREES,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
         this.noLakes = true;
         this.noWaterFeatures = true;
@@ -32,7 +31,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
         surface.add(new CliffSelector(1.5f)
             .add(PARTS.selectTopAndFill()
                 .add(this.PARTS.SHADOW_STONE)));
-        surface.add(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
+        surface.add(new CliffSelector((x, y, z, provider) -> 1.5f - ((y - 60f) / 65f) + provider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
             .add(PARTS.selectTop()
                 .add(PARTS.STONE_OR_COBBLE)))
             .add(PARTS.selectFill()
@@ -68,8 +67,8 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
             }
 
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return riverized(heightEffect.added(simplex, cell, x, y) + terrainHeight, river);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return riverized(heightEffect.added(provider.simplex, provider.cell, x, y) + terrainHeight, river);
             }
         };
     }

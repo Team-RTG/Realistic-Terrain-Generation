@@ -16,12 +16,11 @@ import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 
 public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaJungleHills(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaJungleHills() {
 
         super(
                 Biomes.JUNGLE_HILLS,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -30,8 +29,8 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainHighland(x, y, simplex, cell, river, 10f, 68f, 55f, 10f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainHighland(x, y, provider.simplex, provider.cell, river, 10f, 68f, 55f, 10f);
             }
         };
     }
@@ -42,7 +41,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
         surface.add(new CliffSelector(1.5f)
             .add(PARTS.selectTopAndFill()
                 .add(this.PARTS.SHADOW_STONE)));
-        surface.add(new CliffSelector((x, y, z) -> 1.5f - ((y - 60f) / 65f) + simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
+        surface.add(new CliffSelector((x, y, z, provider) -> 1.5f - ((y - 60f) / 65f) + provider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
             .add(PARTS.selectTop()
                 .add(PARTS.STONE_OR_COBBLE)))
             .add(PARTS.selectFill()

@@ -25,7 +25,7 @@ import static teamrtg.rtg.util.math.MathUtils.globalToLocal;
 public class RealisticBiomeFaker {
 
     private final ChunkProviderOverworld fakeProvider;
-    public boolean[] fakeBiomes = new boolean[256];
+    public static boolean[] fakeBiomes = new boolean[256];
     private LimitedMap<PlaneLocation.Invariant, int[]> chunkHeights = new LimitedMap<>(64); //Keep the heights for the last 64 chunks around for a bit. We might need them
     private ChunkProviderRTG chunkProvider;
     private NoiseGeneratorPerlin surfaceNoise;
@@ -95,14 +95,14 @@ public class RealisticBiomeFaker {
         biome.genTerrainBlocks(chunkProvider.world, chunkProvider.rand, primer, bz, bx, this.surfaceNoise.getValue(bx, bz));
     }
 
-    public void initFakeBiomes() {
+    public static void initFakeBiomes() {
         BiomeGenBase[] b = BiomeUtils.getRegisteredBiomes();
         for (BiomeGenBase biome : b) {
             if (biome != null) {
                 try {
                     RealisticBiomeGenerator.getBiome(BiomeGenBase.getIdForBiome(biome));
                 } catch (Exception e) {
-                    new RealisticBiomeGenerator(new FakedRealisticBiome(Mods.RTG, biome, chunkProvider));
+                    new RealisticBiomeGenerator(new FakedRealisticBiome(Mods.RTG, biome));
                     fakeBiomes[BiomeGenBase.getIdForBiome(biome)] = true;
                 }
             }

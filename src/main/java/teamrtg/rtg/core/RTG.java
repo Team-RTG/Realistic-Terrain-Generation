@@ -26,7 +26,6 @@ public class RTG {
     public static String configPath;
     public static WorldTypeRTG worldtype;
     public static EventManagerRTG eventMgr;
-    public static RealisticBiomeFaker biomeFaker;
 
     @SidedProxy(serverSide = ModInfo.PROXY_COMMON, clientSide = ModInfo.PROXY_CLIENT)
     public static CommonProxy proxy;
@@ -57,6 +56,8 @@ public class RTG {
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+        Mods.initAllBiomes();
+        RealisticBiomeFaker.initFakeBiomes();
         RealisticBiomePresenceTester.doBiomeCheck();
     }
 }

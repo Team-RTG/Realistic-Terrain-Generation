@@ -18,14 +18,13 @@ import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 
 public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.SWAMPLAND;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getIdForBiome(standardBiome) + MUTATION_ADDEND);
+    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
-    public RealisticBiomeVanillaSwamplandM(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaSwamplandM() {
 
         super(
                 mutationBiome,
-                Biomes.RIVER,
-                chunkProvider
+            Biomes.RIVER
         );
         this.noLakes = true;
     }
@@ -34,8 +33,8 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainLonelyMountain(x, y, simplex, cell, river, 15f, 50f, 58f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainLonelyMountain(x, y, provider.simplex, provider.cell, river, 15f, 50f, 58f);
             }
         };
     }

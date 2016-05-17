@@ -2,8 +2,6 @@ package teamrtg.rtg.mods.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import teamrtg.rtg.util.noise.CellNoise;
-import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.world.biome.surface.part.DepthSelector;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
@@ -14,9 +12,9 @@ import teamrtg.rtg.world.gen.deco.*;
 
 public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase {
 
-    public RealisticBiomeVanillaExtremeHills(ChunkProviderRTG chunkProvider) {
+    public RealisticBiomeVanillaExtremeHills() {
 
-        super(Biomes.EXTREME_HILLS, Biomes.RIVER, chunkProvider);
+        super(Biomes.EXTREME_HILLS, Biomes.RIVER);
         this.noLakes = true;
         this.noWaterFeatures = true;
     }
@@ -25,8 +23,8 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
     protected TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 120, 10f);
+            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+                return terrainHighland(x, y, provider.simplex, provider.cell, river, 10f, 200f, 120, 10f);
             }
         };
     }
@@ -38,7 +36,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
             .add(new DepthSelector(0, 1)
                 .add(PARTS.STONE_OR_COBBLE))
         );
-        surface.add(PARTS.surfaceMix((x, y, z) -> simplex.noise2(x / 60f, z / 60f) + simplex.noise2(x / 14f, z / 14f) * 0.25f > -0.14f));
+        surface.add(PARTS.surfaceMix((x, y, z, provider) -> provider.simplex.noise2(x / 60f, z / 60f) + provider.simplex.noise2(x / 14f, z / 14f) * 0.25f > -0.14f));
         surface.add(PARTS.surfaceGeneric());
         return surface;
     }

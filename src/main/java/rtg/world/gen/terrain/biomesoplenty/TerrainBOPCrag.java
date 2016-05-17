@@ -34,6 +34,8 @@ public class TerrainBOPCrag extends TerrainBase
         double [] points = cell.octave(1).eval((float)pX/pointWavelength, (float)pY/pointWavelength);
         float raise = (float)((points[1]-points[0])/points[1]);
         raise = raise * 3f;
+        raise -= 0.2f;
+        if (raise<0) raise = 0;
         if (raise>1) raise = 1;
         float topHeight = (float)(pointHeight +
                 pointHeightVariation*simplex.noise((float)x/pointHeightWavelength, (float)y/pointHeightWavelength));

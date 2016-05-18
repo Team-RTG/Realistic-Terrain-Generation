@@ -627,11 +627,11 @@ public class RealisticBiomeBase extends BiomeBase {
 
     public static ArrayList<ChunkDecoration> decoStack = new ArrayList<ChunkDecoration>();
 
-    public void decorateInAnOrderlyFashion(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
+    public void decorateInAnOrderlyFashion(World world, Random rand, int worldX, int worldY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
     {
 
     	for (int i = 0; i < this.decos.size(); i++) {
-    	    decoStack.add(new ChunkDecoration(new PlaneLocation.Invariant(chunkX,chunkY),decos.get(i)));
+    	    decoStack.add(new ChunkDecoration(new PlaneLocation.Invariant(worldX,worldY),decos.get(i)));
             if (decoStack.size()>20) {
                 String problem = "" ;
                 for (ChunkDecoration inStack: decoStack) {
@@ -639,9 +639,9 @@ public class RealisticBiomeBase extends BiomeBase {
                 }
                 throw new RuntimeException(problem);
             }
-    		if (this.decos.get(i).preGenerate(this, world, rand, chunkX, chunkY, simplex, cell, strength, river)) {
+    		if (this.decos.get(i).preGenerate(this, world, rand, worldX, worldY, simplex, cell, strength, river)) {
 
-    			this.decos.get(i).generate(this, world, rand, chunkX, chunkY, simplex, cell, strength, river);
+    			this.decos.get(i).generate(this, world, rand, worldX, worldY, simplex, cell, strength, river);
     		}
             decoStack.remove(decoStack.size()-1);
     	}

@@ -3,16 +3,16 @@ package teamrtg.rtg.modules.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
+import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
+import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
 import teamrtg.rtg.api.util.BiomeUtils;
+import teamrtg.rtg.api.world.RTGWorld;
+import teamrtg.rtg.api.world.biome.TerrainBase;
+import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RealisticBiomeVanillaBase;
-import teamrtg.rtg.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
-import teamrtg.rtg.world.gen.ChunkProviderRTG;
-import teamrtg.rtg.world.gen.deco.*;
-import teamrtg.rtg.world.gen.deco.DecoFallenTree.LogCondition;
-import teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition;
-import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
 
 public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase {
 
@@ -33,8 +33,8 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
     public TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
-                return terrainPlains(x, y, provider.simplex, river, 160f, 10f, 60f, 80f, 65f);
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+                return terrainPlains(x, y, rtgWorld.simplex, river, 160f, 10f, 60f, 80f, 65f);
             }
         };
     }
@@ -45,7 +45,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         surface.add(new CliffSelector(1.5f)
             .add(PARTS.selectTopAndFill()
                 .add(this.PARTS.SHADOW_STONE)));
-        surface.add(new CliffSelector((x, y, z, provider) -> 1.5f - ((y - 60f) / 65f) + provider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
+        surface.add(new CliffSelector((x, y, z, rtgWorld) -> 1.5f - ((y - 60f) / 65f) + rtgWorld.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
             .add(PARTS.selectTop()
                 .add(PARTS.STONE_OR_COBBLE)))
             .add(PARTS.selectFill()

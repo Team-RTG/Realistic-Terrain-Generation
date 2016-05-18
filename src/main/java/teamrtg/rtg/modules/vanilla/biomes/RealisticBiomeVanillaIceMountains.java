@@ -2,14 +2,14 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.api.world.RTGWorld;
+import teamrtg.rtg.api.world.biome.TerrainBase;
+import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
+import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.api.world.biome.surface.part.DepthSelector;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RealisticBiomeVanillaBase;
-import teamrtg.rtg.world.biome.surface.part.BlockPart;
-import teamrtg.rtg.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.world.biome.surface.part.DepthSelector;
-import teamrtg.rtg.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
-import teamrtg.rtg.world.gen.ChunkProviderRTG;
-import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase {
 
@@ -31,7 +31,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
                 .add(PARTS.rand(3)
                     .add(new BlockPart(config.CLIFF_BLOCK_2.get()))))
             .add(new BlockPart(config.CLIFF_BLOCK_1.get())));
-        surface.add(PARTS.surfaceMix((x, y, z, provider) -> provider.simplex.noise2(x / 60f, z / 60f) + provider.simplex.noise2(x / 14f, z / 14f) * 0.25f > -0.14f));
+        surface.add(PARTS.surfaceMix((x, y, z, rtgWorld) -> rtgWorld.simplex.noise2(x / 60f, z / 60f) + rtgWorld.simplex.noise2(x / 14f, z / 14f) * 0.25f > -0.14f));
         surface.add(PARTS.surfaceGeneric());
         return surface;
     }
@@ -40,8 +40,8 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     public TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
-                return terrainLonelyMountain(x, y, provider.simplex, provider.cell, river, 80f, 230f, 68f);
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+                return terrainLonelyMountain(x, y, rtgWorld.simplex, rtgWorld.cell, river, 80f, 230f, 68f);
             }
         };
     }

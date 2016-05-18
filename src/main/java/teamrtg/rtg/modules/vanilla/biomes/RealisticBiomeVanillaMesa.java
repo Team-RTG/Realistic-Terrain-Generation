@@ -3,16 +3,16 @@ package teamrtg.rtg.modules.vanilla.biomes;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
+import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
+import teamrtg.rtg.api.tools.surface.SurfaceRiverOasis;
+import teamrtg.rtg.api.tools.terrain.GroundEffect;
+import teamrtg.rtg.api.util.math.CanyonColour;
+import teamrtg.rtg.api.world.RTGWorld;
+import teamrtg.rtg.api.world.biome.TerrainBase;
+import teamrtg.rtg.api.world.biome.surface.part.*;
 import teamrtg.rtg.modules.vanilla.RealisticBiomeVanillaBase;
-import teamrtg.rtg.util.math.CanyonColour;
-import teamrtg.rtg.world.biome.surface.SurfaceRiverOasis;
-import teamrtg.rtg.world.biome.surface.part.*;
-import teamrtg.rtg.world.biome.terrain.GroundEffect;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
-import teamrtg.rtg.world.gen.ChunkProviderRTG;
-import teamrtg.rtg.world.gen.deco.*;
-import teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition;
-import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
 
 public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
 
@@ -116,8 +116,8 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
             private GroundEffect groundEffect = new GroundEffect(4f);
 
             @Override
-            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
-                return riverized(68f + groundEffect.added(provider.simplex, provider.cell, x, y), river);
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+                return riverized(68f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
             }
         };
     }

@@ -8,7 +8,7 @@ import net.minecraftforge.event.terraingen.WorldTypeEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.world.biome.RealisticBiomeBase;
 import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.api.util.debug.Logger;
 import teamrtg.rtg.core.RTG;

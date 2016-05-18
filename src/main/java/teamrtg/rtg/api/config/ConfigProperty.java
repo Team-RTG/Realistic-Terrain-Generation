@@ -7,8 +7,6 @@ import teamrtg.rtg.api.util.BlockStringUtil;
 import teamrtg.rtg.api.util.debug.Logger;
 import teamrtg.rtg.api.util.debug.RTGException;
 
-import static teamrtg.rtg.api.config.Config.NEW_LINE;
-
 /**
  * Wrapper for all different kinds of config properties
  * @author topisani
@@ -51,7 +49,7 @@ public abstract class ConfigProperty<T> {
     }
 
     public String getComment() {
-        return comment + NEW_LINE + "[Default: " + this.getDefault().toString() + "]";
+        return comment + Config.NEW_LINE + "[Default: " + this.getDefault().toString() + "]";
     }
 
     public ConfigProperty<T> setComment(String comment) {
@@ -147,7 +145,7 @@ public abstract class ConfigProperty<T> {
         public String getComment() {
             String range = (minValue < maxValue) ? "[Range: " + minValue + " ~ " + maxValue + "]" : "";
             String def = "[Default: " + this.getDefault().toString() + "]";
-            return comment + NEW_LINE + def + " " + range;
+            return comment + Config.NEW_LINE + def + " " + range;
         }
 
         public ConfigProperty.PropertyInt setComment(String comment) {
@@ -202,7 +200,7 @@ public abstract class ConfigProperty<T> {
         public String getComment() {
             String options = (getOptions().length > 0) ? "[Options: " + String.join(", ", (CharSequence[]) getOptions()) + "]" : "";
             String def = "[Default: " + this.getDefault() + "]";
-            return comment + NEW_LINE + def + " " + options;
+            return comment + Config.NEW_LINE + def + " " + options;
         }
 
         public ConfigProperty.PropertyString setComment(String comment) {
@@ -247,7 +245,7 @@ public abstract class ConfigProperty<T> {
         public String getComment() {
             String syntax = "SYNTAX: 'mod:block', 'mod:block:meta' or 'mod:block[property=value,property2=value2]'";
             String def = "[Default: " + BlockStringUtil.stateToString(this.getDefault()) + "]";
-            return comment + NEW_LINE + def + NEW_LINE + syntax;
+            return comment + Config.NEW_LINE + def + Config.NEW_LINE + syntax;
         }
 
         public ConfigProperty.PropertyBlock setComment(String comment) {
@@ -302,7 +300,7 @@ public abstract class ConfigProperty<T> {
         public String getComment() {
             String options = (getOptions().length > 0) ? "[Options: " + String.join(", ", (CharSequence[]) getOptions()) + "]" : "";
             String def = "[Default: " + String.join(", ", (CharSequence[]) getDefault()) + "]";
-            return comment + NEW_LINE + def + " " + options;
+            return comment + Config.NEW_LINE + def + " " + options;
         }
 
         public ConfigProperty.PropertyStrings setComment(String comment) {
@@ -356,7 +354,7 @@ public abstract class ConfigProperty<T> {
         public String getComment() {
             String range = (minValue < maxValue) ? "[Range: " + minValue + " ~ " + maxValue + "]" : "";
             String def = "[Default: " + this.getDefault().toString() + "]";
-            return comment + NEW_LINE + def + " " + range;
+            return comment + Config.NEW_LINE + def + " " + range;
         }
 
         public ConfigProperty.PropertyFloat setComment(String comment) {

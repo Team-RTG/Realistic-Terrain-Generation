@@ -2,9 +2,9 @@ package teamrtg.rtg.world.biome;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.BiomeGenBase;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.world.biome.RealisticBiomeBase;
 import teamrtg.rtg.api.util.BiomeUtils;
-import teamrtg.rtg.util.math.CircularSearchCreator;
+import teamrtg.rtg.api.util.math.CircularSearchCreator;
 
 import static net.minecraft.world.biome.BiomeGenBase.getBiome;
 

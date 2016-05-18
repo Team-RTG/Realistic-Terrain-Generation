@@ -2,15 +2,16 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
+import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
+import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
+import teamrtg.rtg.api.util.noise.IFloatAt;
+import teamrtg.rtg.api.world.RTGWorld;
+import teamrtg.rtg.api.world.biome.TerrainBase;
+import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
+import teamrtg.rtg.api.world.biome.surface.part.*;
 import teamrtg.rtg.modules.vanilla.RealisticBiomeVanillaBase;
-import teamrtg.rtg.util.noise.IFloatAt;
-import teamrtg.rtg.world.biome.surface.part.*;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
-import teamrtg.rtg.world.gen.ChunkProviderRTG;
-import teamrtg.rtg.world.gen.deco.*;
-import teamrtg.rtg.world.gen.deco.DecoFallenTree.LogCondition;
-import teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition;
-import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
 
 public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBase {
 
@@ -27,8 +28,8 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
     public TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
-                return terrainMountainRiver(x, y, provider.simplex, provider.cell, river, 300f, 67f);
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+                return terrainMountainRiver(x, y, rtgWorld.simplex, rtgWorld.cell, river, 300f, 67f);
             }
         };
     }
@@ -37,12 +38,12 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
     public SurfacePart initSurface() {
         SurfacePart surface = new SurfacePart();
 
-        IFloatAt cliffNoise = (x, y, z, provider) -> provider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f;
+        IFloatAt cliffNoise = (x, y, z, rtgWorld) -> rtgWorld.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f;
 
         surface.add(PARTS.selectTopAndFill()
 
-            .add(new CliffSelector((x, y, z, provider) -> {
-                float n = 1.5f - ((y - 60f) / 65f) + cliffNoise.getAt(x, y, z, provider);
+            .add(new CliffSelector((x, y, z, rtgWorld) -> {
+                float n = 1.5f - ((y - 60f) / 65f) + cliffNoise.getAt(x, y, z, rtgWorld);
                 return (n > 0.2f) ? n : 0.2f;
             })
                 .add(PARTS.selectTop()
@@ -52,12 +53,12 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
             .add(new CliffSelector(1.5f)
                 .add(this.PARTS.SHADOW_STONE))
 
-            .add(new CliffSelector((x, y, z, provider) -> 0.3f + ((y - 100f) / 50f) + cliffNoise.getAt(x, y, z, provider))
-                .add(new Selector((x, y, z, provider) -> y > 110 + (cliffNoise.getAt(x, y, z, provider) * 4))
+            .add(new CliffSelector((x, y, z, rtgWorld) -> 0.3f + ((y - 100f) / 50f) + cliffNoise.getAt(x, y, z, rtgWorld))
+                .add(new Selector((x, y, z, rtgWorld) -> y > 110 + (cliffNoise.getAt(x, y, z, rtgWorld) * 4))
                     .add(new BlockPart(Blocks.SNOW.getDefaultState()))))
 
             .add(PARTS.selectTop()
-                .add(new Selector((x, y, z, provider) -> provider.simplex.noise2(x / 50f, z / 50f) + cliffNoise.getAt(x, y, z, provider) * 0.6f > 0.24f)
+                .add(new Selector((x, y, z, rtgWorld) -> rtgWorld.simplex.noise2(x / 50f, z / 50f) + cliffNoise.getAt(x, y, z, rtgWorld) * 0.6f > 0.24f)
                     .add(new BlockPart(Blocks.DIRT.getStateFromMeta(2))))
                 .add(new BlockPart(Blocks.GRASS.getDefaultState())))
             .add(new TopPosSelector(0, 63)
@@ -115,13 +116,13 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.maxY = 90;
-        decoMushrooms.randomType = teamrtg.rtg.world.gen.deco.DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH;
+        decoMushrooms.randomType = teamrtg.rtg.api.tools.deco.DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH;
         decoMushrooms.randomFloat = 3f;
         this.addDeco(decoMushrooms);
 
         DecoPumpkin decoPumpkin = new DecoPumpkin();
         decoPumpkin.maxY = 90;
-        decoPumpkin.randomType = teamrtg.rtg.world.gen.deco.DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH;
+        decoPumpkin.randomType = teamrtg.rtg.api.tools.deco.DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH;
         decoPumpkin.randomFloat = 20f;
         this.addDeco(decoPumpkin);
 

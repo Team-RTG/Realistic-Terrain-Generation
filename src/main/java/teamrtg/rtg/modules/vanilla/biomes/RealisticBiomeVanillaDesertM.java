@@ -3,16 +3,16 @@ package teamrtg.rtg.modules.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import teamrtg.rtg.api.config.BiomeConfig;
+import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.surface.SurfaceRiverOasis;
 import teamrtg.rtg.api.util.BiomeUtils;
+import teamrtg.rtg.api.world.RTGWorld;
+import teamrtg.rtg.api.world.biome.TerrainBase;
+import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RealisticBiomeVanillaBase;
-import teamrtg.rtg.world.biome.surface.SurfaceRiverOasis;
-import teamrtg.rtg.world.biome.surface.part.BlockPart;
-import teamrtg.rtg.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
-import teamrtg.rtg.world.gen.ChunkProviderRTG;
-import teamrtg.rtg.world.gen.deco.*;
-import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 
 public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.DESERT;
@@ -30,7 +30,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     @Override
     public void initConfig() {
         config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
-        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.FeatureType.DESERT_TEMPLE.name());
+        this.config.SCATTERED_FEATURE.setDefault(BiomeConfig.FeatureType.DESERT_TEMPLE.name());
         this.config.WATER_POND_CHANCE.setDefault(0);
     }
 
@@ -41,7 +41,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
         surface.add(new CliffSelector(1.5f)
             .add(PARTS.SHADOW_SAND)
         );
-        surface.add(new CliffSelector((x, y, z, provider) -> 1.5f - ((y - 60f) / 65f) + provider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
+        surface.add(new CliffSelector((x, y, z, rtgWorld) -> 1.5f - ((y - 60f) / 65f) + rtgWorld.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
             .add(PARTS.selectFill()
                 .add(PARTS.rand(3)
                     .add(new BlockPart(Blocks.SANDSTONE.getDefaultState()))))
@@ -114,8 +114,8 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     public TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
-                return terrainHighland(x, y, provider.simplex, provider.cell, river, 10f, 200f, 140f, 10f);
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+                return terrainHighland(x, y, rtgWorld.simplex, rtgWorld.cell, river, 10f, 200f, 140f, 10f);
             }
         };
     }

@@ -1,7 +1,7 @@
 package teamrtg.rtg.api.mods;
 
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.api.config.ModConfig;
+import teamrtg.rtg.api.world.biome.RealisticBiomeBase;
 
 /**
  * Holds all properties that RTG would need to access for a supported mod.

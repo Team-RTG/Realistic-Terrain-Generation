@@ -11,9 +11,8 @@
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api.energy.disruption;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-
+import com.shinoow.abyssalcraft.api.AbyssalCraftAPI;
+import com.shinoow.abyssalcraft.api.energy.EnergyEnum.DeityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,8 +22,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import com.shinoow.abyssalcraft.api.AbyssalCraftAPI;
-import com.shinoow.abyssalcraft.api.energy.EnergyEnum.DeityType;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 /**
  * A Potion Disruption Entry

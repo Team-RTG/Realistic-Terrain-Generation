@@ -11,17 +11,15 @@
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api.energy.disruption;
 
-import java.util.List;
-
+import com.google.common.collect.Lists;
+import com.shinoow.abyssalcraft.api.energy.EnergyEnum.DeityType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLLog;
-
 import org.apache.logging.log4j.Level;
 
-import com.google.common.collect.Lists;
-import com.shinoow.abyssalcraft.api.energy.EnergyEnum.DeityType;
+import java.util.List;
 
 /**
  * Handler for disruptions (when something bad happens during Potential Energy manipulation)

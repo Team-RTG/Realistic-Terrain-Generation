@@ -2,11 +2,11 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.api.world.RTGWorld;
+import teamrtg.rtg.api.world.biome.TerrainBase;
+import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RealisticBiomeVanillaBase;
-import teamrtg.rtg.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
-import teamrtg.rtg.world.gen.ChunkProviderRTG;
-import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVanillaBase {
 
@@ -22,8 +22,8 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
     public TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
-                return terrainMarsh(x, y, provider.simplex, 62f);
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+                return terrainMarsh(x, y, rtgWorld.simplex, 62f);
             }
         };
     }

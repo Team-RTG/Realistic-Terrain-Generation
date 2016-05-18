@@ -10,9 +10,10 @@ import net.minecraft.world.gen.structure.ComponentScatteredFeaturePieces;
 import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.config.BiomeConfig;
 import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.api.util.debug.Logger;
+import teamrtg.rtg.api.world.biome.RealisticBiomeBase;
 import teamrtg.rtg.world.WorldTypeRTG;
 
 import java.util.*;
@@ -36,14 +37,6 @@ import java.util.Map.Entry;
  * https://github.com/Team-RTG/Realistic-Terrain-Generation/issues/249
  */
 public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
-
-    public enum FeatureType {
-        DESERT_TEMPLE,
-        JUNGLE_TEMPLE,
-        WITCH_HUT,
-        IGLOO,
-        NONE
-    }
 
     private static List biomelist = Arrays.asList(Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.JUNGLE, Biomes.JUNGLE_HILLS, Biomes.SWAMPLAND, Biomes.COLD_TAIGA, Biomes.ICE_PLAINS);
 
@@ -121,7 +114,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
 
             if (biomegenbase != null) {
                 RealisticBiomeBase rBiome = RealisticBiomeBase.forBiome(BiomeGenBase.getIdForBiome(biomegenbase));
-                if (!Objects.equals(rBiome.getConfig().SCATTERED_FEATURE.get(), FeatureType.NONE.name())) ;
+                if (!Objects.equals(rBiome.getConfig().SCATTERED_FEATURE.get(), BiomeConfig.FeatureType.NONE.name())) ;
             }
         }
 
@@ -166,7 +159,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
 
             if (biomegenbase != null) {
                 RealisticBiomeBase rBiome = RealisticBiomeBase.forBiome(BiomeGenBase.getIdForBiome(biomegenbase));
-                switch (FeatureType.valueOf(rBiome.getConfig().SCATTERED_FEATURE.get())) {
+                switch (BiomeConfig.FeatureType.valueOf(rBiome.getConfig().SCATTERED_FEATURE.get())) {
                     case DESERT_TEMPLE:
                         ComponentScatteredFeaturePieces.DesertPyramid desertpyramid = new ComponentScatteredFeaturePieces.DesertPyramid(random, chunkX * 16, chunkZ * 16);
                         arrComponents.add(desertpyramid);

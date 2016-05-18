@@ -2,15 +2,15 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.terrain.HeightEffect;
+import teamrtg.rtg.api.tools.terrain.JitterEffect;
+import teamrtg.rtg.api.tools.terrain.MountainsWithPassesEffect;
+import teamrtg.rtg.api.world.RTGWorld;
+import teamrtg.rtg.api.world.biome.TerrainBase;
+import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RealisticBiomeVanillaBase;
-import teamrtg.rtg.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.world.biome.terrain.HeightEffect;
-import teamrtg.rtg.world.biome.terrain.JitterEffect;
-import teamrtg.rtg.world.biome.terrain.MountainsWithPassesEffect;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
-import teamrtg.rtg.world.gen.ChunkProviderRTG;
-import teamrtg.rtg.world.gen.deco.*;
 
 public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanillaBase {
 
@@ -30,7 +30,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
         surface.add(new CliffSelector(1.5f)
             .add(PARTS.selectTopAndFill()
                 .add(this.PARTS.SHADOW_STONE)));
-        surface.add(new CliffSelector((x, y, z, provider) -> 1.5f - ((y - 60f) / 65f) + provider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
+        surface.add(new CliffSelector((x, y, z, rtgWorld) -> 1.5f - ((y - 60f) / 65f) + rtgWorld.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
             .add(PARTS.selectTop()
                 .add(PARTS.STONE_OR_COBBLE)))
             .add(PARTS.selectFill()
@@ -66,8 +66,8 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
             }
 
             @Override
-            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
-                return riverized(heightEffect.added(provider.simplex, provider.cell, x, y) + terrainHeight, river);
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+                return riverized(heightEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y) + terrainHeight, river);
             }
         };
     }
@@ -117,7 +117,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
 
         DecoPumpkin decoPumpkin = new DecoPumpkin();
         decoPumpkin.maxY = 90;
-        decoPumpkin.randomType = teamrtg.rtg.world.gen.deco.DecoPumpkin.RandomType.USE_CHANCE_VALUE;
+        decoPumpkin.randomType = teamrtg.rtg.api.tools.deco.DecoPumpkin.RandomType.USE_CHANCE_VALUE;
         decoPumpkin.chance = 28;
         this.addDeco(decoPumpkin);
 

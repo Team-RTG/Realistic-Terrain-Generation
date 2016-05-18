@@ -3,17 +3,18 @@ package teamrtg.rtg.modules.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import teamrtg.rtg.api.config.BiomeConfig;
+import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
+import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
+import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
 import teamrtg.rtg.api.util.BiomeUtils;
+import teamrtg.rtg.api.world.RTGWorld;
+import teamrtg.rtg.api.world.biome.TerrainBase;
+import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
+import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RealisticBiomeVanillaBase;
-import teamrtg.rtg.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
-import teamrtg.rtg.world.gen.ChunkProviderRTG;
-import teamrtg.rtg.world.gen.deco.*;
-import teamrtg.rtg.world.gen.deco.DecoFallenTree.LogCondition;
-import teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition;
-import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
-import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 
 public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.SWAMPLAND;
@@ -32,8 +33,8 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
     public TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
-                return terrainLonelyMountain(x, y, provider.simplex, provider.cell, river, 15f, 50f, 58f);
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+                return terrainLonelyMountain(x, y, rtgWorld.simplex, rtgWorld.cell, river, 15f, 50f, 58f);
             }
         };
     }
@@ -87,7 +88,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
 
         DecoPumpkin decoPumpkin = new DecoPumpkin();
         decoPumpkin.maxY = 90;
-        decoPumpkin.randomType = teamrtg.rtg.world.gen.deco.DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH;
+        decoPumpkin.randomType = teamrtg.rtg.api.tools.deco.DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH;
         decoPumpkin.randomFloat = 50f;
         this.addDeco(decoPumpkin);
 
@@ -99,6 +100,6 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
 
     @Override
     public void initConfig() {
-        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.FeatureType.WITCH_HUT.name());
+        this.config.SCATTERED_FEATURE.setDefault(BiomeConfig.FeatureType.WITCH_HUT.name());
     }
 }

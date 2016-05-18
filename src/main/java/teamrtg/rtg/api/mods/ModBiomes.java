@@ -1,7 +1,7 @@
 package teamrtg.rtg.api.mods;
 
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
-import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
+import teamrtg.rtg.api.world.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
 
 import java.util.ArrayList;
 

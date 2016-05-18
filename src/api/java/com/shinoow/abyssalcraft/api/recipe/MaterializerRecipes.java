@@ -11,16 +11,15 @@
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api.recipe;
 
-import java.util.Iterator;
-import java.util.List;
-
+import com.google.common.collect.Lists;
+import com.shinoow.abyssalcraft.api.APIUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.oredict.OreDictionary;
 
-import com.google.common.collect.Lists;
-import com.shinoow.abyssalcraft.api.APIUtils;
+import java.util.Iterator;
+import java.util.List;
 
 public class MaterializerRecipes {
 

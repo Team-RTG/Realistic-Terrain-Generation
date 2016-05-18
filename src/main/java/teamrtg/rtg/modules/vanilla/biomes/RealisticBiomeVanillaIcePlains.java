@@ -2,15 +2,15 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.api.config.BiomeConfig;
+import teamrtg.rtg.api.tools.deco.DecoBoulder;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
+import teamrtg.rtg.api.world.RTGWorld;
+import teamrtg.rtg.api.world.biome.TerrainBase;
+import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RealisticBiomeVanillaBase;
-import teamrtg.rtg.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
-import teamrtg.rtg.world.gen.ChunkProviderRTG;
-import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.world.gen.deco.DecoBoulder;
-import teamrtg.rtg.world.gen.deco.DecoFallenTree;
-import teamrtg.rtg.world.gen.deco.DecoFallenTree.LogCondition;
-import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 
 public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 
@@ -30,11 +30,11 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
     public TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
                 float base = 62;
-                float b = provider.simplex.noise2(x / 24f, y / 24f) * 0.25f;
+                float b = rtgWorld.simplex.noise2(x / 24f, y / 24f) * 0.25f;
                 b *= river;
-                float n = provider.simplex.noise2(x / 16f, y / 16f) * 10f - 9f;
+                float n = rtgWorld.simplex.noise2(x / 16f, y / 16f) * 10f - 9f;
                 n = (n < 0) ? 0f : n;
                 b += n;
                 return base + b;
@@ -74,6 +74,6 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
     public void initConfig() {
         config.TOP_BLOCK.setDefault(Blocks.SNOW.getDefaultState());
         config.FILL_BLOCK.setDefault(Blocks.DIRT.getDefaultState());
-        this.config.SCATTERED_FEATURE.setDefault(MapGenScatteredFeatureRTG.FeatureType.IGLOO.name());
+        this.config.SCATTERED_FEATURE.setDefault(BiomeConfig.FeatureType.IGLOO.name());
     }
 }

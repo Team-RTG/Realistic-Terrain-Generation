@@ -12,7 +12,6 @@
 package com.shinoow.abyssalcraft.api.necronomicon;
 
 import com.shinoow.abyssalcraft.api.APIUtils;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;

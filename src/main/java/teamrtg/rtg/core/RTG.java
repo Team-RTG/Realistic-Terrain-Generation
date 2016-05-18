@@ -14,7 +14,7 @@ import teamrtg.rtg.api.util.RealisticBiomePresenceTester;
 import teamrtg.rtg.client.DebugHandler;
 import teamrtg.rtg.event.EventManagerRTG;
 import teamrtg.rtg.world.WorldTypeRTG;
-import teamrtg.rtg.world.biome.fake.RealisticBiomeFaker;
+import teamrtg.rtg.api.world.RealisticBiomeFaker;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
 package teamrtg.rtg.api.mods;
 
+import teamrtg.rtg.api.config.ConfigRTG;
 import teamrtg.rtg.api.util.ModPresenceTester;
-import teamrtg.rtg.modules.rtg.ConfigRTG;
 
 /**
  * @author topisani

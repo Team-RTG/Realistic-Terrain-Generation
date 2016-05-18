@@ -2,16 +2,16 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.surface.SurfaceRiverOasis;
+import teamrtg.rtg.api.util.math.CanyonColour;
+import teamrtg.rtg.api.world.RTGWorld;
+import teamrtg.rtg.api.world.biome.TerrainBase;
+import teamrtg.rtg.api.world.biome.surface.part.*;
 import teamrtg.rtg.modules.vanilla.RealisticBiomeVanillaBase;
-import teamrtg.rtg.util.math.CanyonColour;
-import teamrtg.rtg.world.biome.surface.SurfaceRiverOasis;
-import teamrtg.rtg.world.biome.surface.part.*;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
-import teamrtg.rtg.world.gen.ChunkProviderRTG;
-import teamrtg.rtg.world.gen.deco.*;
 
-import static teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-import static teamrtg.rtg.world.gen.deco.DecoTree.TreeType.VANILLA_OAK;
+import static teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import static teamrtg.rtg.api.tools.deco.DecoTree.TreeType.VANILLA_OAK;
 
 public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase {
 
@@ -100,8 +100,8 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
             }
 
             @Override
-            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
-                return terrainPlateau(x, y, provider.simplex, river, height, border, strength, heightLength, 100f, false);
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+                return terrainPlateau(x, y, rtgWorld.simplex, river, height, border, strength, heightLength, 100f, false);
             }
         };
     }

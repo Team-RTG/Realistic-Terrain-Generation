@@ -11,9 +11,7 @@
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api.ritual;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-
+import com.shinoow.abyssalcraft.api.AbyssalCraftAPI;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -24,7 +22,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import com.shinoow.abyssalcraft.api.AbyssalCraftAPI;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 /**
  * A Necronomicon Area-of-Effect Ritual

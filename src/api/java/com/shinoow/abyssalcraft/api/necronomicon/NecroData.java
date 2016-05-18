@@ -11,18 +11,16 @@
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api.necronomicon;
 
+import com.google.common.collect.Maps;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.FMLLog;
+import org.apache.logging.log4j.Level;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.NavigableMap;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.FMLLog;
-
-import org.apache.logging.log4j.Level;
-
-import com.google.common.collect.Maps;
 
 /**
  * Base data structure for Necronomicon information pages

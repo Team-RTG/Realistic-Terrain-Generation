@@ -11,9 +11,16 @@
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api;
 
-import java.util.HashMap;
-import java.util.List;
-
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.shinoow.abyssalcraft.api.block.ACBlocks;
+import com.shinoow.abyssalcraft.api.internal.DummyNecroDataHandler;
+import com.shinoow.abyssalcraft.api.internal.IInternalNecroDataHandler;
+import com.shinoow.abyssalcraft.api.item.ACItems;
+import com.shinoow.abyssalcraft.api.item.ICrystal;
+import com.shinoow.abyssalcraft.api.item.ItemEngraving;
+import com.shinoow.abyssalcraft.api.necronomicon.NecroData;
+import com.shinoow.abyssalcraft.api.recipe.*;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityLivingBase;
@@ -37,23 +44,10 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-
 import org.apache.logging.log4j.Level;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.shinoow.abyssalcraft.api.block.ACBlocks;
-import com.shinoow.abyssalcraft.api.internal.DummyNecroDataHandler;
-import com.shinoow.abyssalcraft.api.internal.IInternalNecroDataHandler;
-import com.shinoow.abyssalcraft.api.item.ACItems;
-import com.shinoow.abyssalcraft.api.item.ICrystal;
-import com.shinoow.abyssalcraft.api.item.ItemEngraving;
-import com.shinoow.abyssalcraft.api.necronomicon.NecroData;
-import com.shinoow.abyssalcraft.api.recipe.CrystallizerRecipes;
-import com.shinoow.abyssalcraft.api.recipe.EngraverRecipes;
-import com.shinoow.abyssalcraft.api.recipe.Materialization;
-import com.shinoow.abyssalcraft.api.recipe.MaterializerRecipes;
-import com.shinoow.abyssalcraft.api.recipe.TransmutatorRecipes;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Main API class for AbyssalCraft, has child classes for most features.<br>

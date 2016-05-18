@@ -2,14 +2,14 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.api.world.RTGWorld;
+import teamrtg.rtg.api.world.biome.TerrainBase;
+import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
+import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.api.world.biome.surface.part.HeightSelector;
+import teamrtg.rtg.api.world.biome.surface.part.Selector;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RealisticBiomeVanillaBase;
-import teamrtg.rtg.world.biome.surface.part.BlockPart;
-import teamrtg.rtg.world.biome.surface.part.HeightSelector;
-import teamrtg.rtg.world.biome.surface.part.Selector;
-import teamrtg.rtg.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
-import teamrtg.rtg.world.gen.ChunkProviderRTG;
-import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 
 public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
 
@@ -27,8 +27,8 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
     public TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
-                return terrainOcean(x, y, provider.simplex, river, 50f);
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+                return terrainOcean(x, y, rtgWorld.simplex, river, 50f);
             }
         };
     }
@@ -38,7 +38,7 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
         SurfacePart surface = new SurfacePart();
         surface.add(PARTS.selectTop()
             .add(new HeightSelector(0, 63)
-                .add(new Selector((x, y, z, provider) -> provider.simplex.noise2(x / 20f, z / 20f) > 0.1f)
+                .add(new Selector((x, y, z, rtgWorld) -> rtgWorld.simplex.noise2(x / 20f, z / 20f) > 0.1f)
                     .add(new BlockPart(config.MIX_BLOCK_TOP.get())))));
         surface.add(PARTS.surfaceGeneric());
         return surface;

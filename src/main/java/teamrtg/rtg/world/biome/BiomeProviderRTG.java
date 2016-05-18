@@ -12,25 +12,25 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.world.biome.RealisticBiomeBase;
 import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.api.util.BiomeUtils;
-import teamrtg.rtg.util.LimitedMap;
-import teamrtg.rtg.util.PlaneLocation;
-import teamrtg.rtg.util.genlayers.GenLayerUtils;
-import teamrtg.rtg.util.noise.CellNoise;
-import teamrtg.rtg.util.noise.OpenSimplexNoise;
-import teamrtg.rtg.util.noise.SimplexCellularNoise;
-import teamrtg.rtg.util.noise.SimplexOctave;
+import teamrtg.rtg.api.util.LimitedMap;
+import teamrtg.rtg.api.util.PlaneLocation;
+import teamrtg.rtg.api.util.genlayers.GenLayerUtils;
+import teamrtg.rtg.api.util.noise.CellNoise;
+import teamrtg.rtg.api.util.noise.OpenSimplexNoise;
+import teamrtg.rtg.api.util.noise.SimplexCellularNoise;
+import teamrtg.rtg.api.util.noise.SimplexOctave;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
-import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
+import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static teamrtg.rtg.util.math.MathUtils.globalToChunk;
-import static teamrtg.rtg.util.math.MathUtils.globalToIndex;
+import static teamrtg.rtg.api.util.math.MathUtils.globalToChunk;
+import static teamrtg.rtg.api.util.math.MathUtils.globalToIndex;
 
 
 public class BiomeProviderRTG extends BiomeProvider {
@@ -251,7 +251,7 @@ public class BiomeProviderRTG extends BiomeProvider {
             return 59f;
         }
 
-        return RealisticBiomeGenerator.forBiome(getBiomeGenAt(x, y)).rNoise(chunkProvider, x, y, 1f, river);
+        return RealisticBiomeGenerator.forBiome(getBiomeGenAt(x, y)).rNoise(chunkProvider.rtgWorld, x, y, 1f, river);
     }
 
     public float getRiverStrength(int x, int y) {

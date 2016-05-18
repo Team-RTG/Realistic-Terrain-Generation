@@ -11,6 +11,7 @@
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api.event;
 
+import com.shinoow.abyssalcraft.api.ritual.NecronomiconRitual;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -18,8 +19,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
-
-import com.shinoow.abyssalcraft.api.ritual.NecronomiconRitual;
 
 /**
  * A class containing events used by AbyssalCraft.<br>

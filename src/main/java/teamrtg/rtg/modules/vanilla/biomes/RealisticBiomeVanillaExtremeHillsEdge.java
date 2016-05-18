@@ -2,13 +2,13 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.world.RTGWorld;
+import teamrtg.rtg.api.world.biome.TerrainBase;
+import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.api.world.biome.surface.part.DepthSelector;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RealisticBiomeVanillaBase;
-import teamrtg.rtg.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.world.biome.surface.part.DepthSelector;
-import teamrtg.rtg.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
-import teamrtg.rtg.world.gen.ChunkProviderRTG;
-import teamrtg.rtg.world.gen.deco.*;
 
 public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanillaBase {
 
@@ -29,7 +29,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
             .add(new DepthSelector(0, 1)
                 .add(PARTS.STONE_OR_COBBLE))
         );
-        surface.add(PARTS.surfaceMix((x, y, z, provider) -> provider.simplex.noise2(x / 60f, z / 60f) + provider.simplex.noise2(x / 14f, z / 14f) * 0.25f > -0.14f));
+        surface.add(PARTS.surfaceMix((x, y, z, rtgWorld) -> rtgWorld.simplex.noise2(x / 60f, z / 60f) + rtgWorld.simplex.noise2(x / 14f, z / 14f) * 0.25f > -0.14f));
         surface.add(PARTS.surfaceGeneric());
         return surface;
     }
@@ -38,8 +38,8 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
     public TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
-                return terrainHighland(x, y, provider.simplex, provider.cell, river, 10f, 200f, 120f, 10f);
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+                return terrainHighland(x, y, rtgWorld.simplex, rtgWorld.cell, river, 10f, 200f, 120f, 10f);
             }
         };
     }
@@ -89,13 +89,13 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.maxY = 90;
-        decoMushrooms.randomType = teamrtg.rtg.world.gen.deco.DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH;
+        decoMushrooms.randomType = teamrtg.rtg.api.tools.deco.DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH;
         decoMushrooms.randomFloat = 3f;
         this.addDeco(decoMushrooms);
 
         DecoPumpkin decoPumpkin = new DecoPumpkin();
         decoPumpkin.maxY = 90;
-        decoPumpkin.randomType = teamrtg.rtg.world.gen.deco.DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH;
+        decoPumpkin.randomType = teamrtg.rtg.api.tools.deco.DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH;
         decoPumpkin.randomFloat = 20f;
         this.addDeco(decoPumpkin);
 

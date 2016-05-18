@@ -2,14 +2,16 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.BiomeGenBase;
+import teamrtg.rtg.api.tools.terrain.GroundEffect;
 import teamrtg.rtg.api.util.BiomeUtils;
+import teamrtg.rtg.api.world.RTGWorld;
+import teamrtg.rtg.api.world.biome.TerrainBase;
+import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
+import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RealisticBiomeVanillaBase;
-import teamrtg.rtg.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.world.biome.terrain.GroundEffect;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
-import teamrtg.rtg.world.gen.ChunkProviderRTG;
-import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
+
+import static com.ibm.icu.impl.CurrencyData.provider;
 
 public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaBase {
     public static BiomeGenBase standardBiome = Biomes.PLAINS;
@@ -28,8 +30,8 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
             private final GroundEffect groundEffect = new GroundEffect(4f);
 
             @Override
-            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
-                return riverized(65f + groundEffect.added(provider.simplex, provider.cell, x, y), river);
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+                return riverized(65f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
             }
         };
     }

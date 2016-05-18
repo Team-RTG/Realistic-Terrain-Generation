@@ -2,24 +2,17 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
+import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
+import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
+import teamrtg.rtg.api.tools.terrain.GroundEffect;
+import teamrtg.rtg.api.world.RTGWorld;
+import teamrtg.rtg.api.world.biome.TerrainBase;
+import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
+import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RealisticBiomeVanillaBase;
-import teamrtg.rtg.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.world.biome.terrain.GroundEffect;
-import teamrtg.rtg.world.biome.terrain.TerrainBase;
-import teamrtg.rtg.world.gen.ChunkProviderRTG;
-import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.world.gen.deco.DecoBoulder;
-import teamrtg.rtg.world.gen.deco.DecoDeadBush;
-import teamrtg.rtg.world.gen.deco.DecoFallenTree;
-import teamrtg.rtg.world.gen.deco.DecoFallenTree.LogCondition;
-import teamrtg.rtg.world.gen.deco.DecoGrass;
-import teamrtg.rtg.world.gen.deco.DecoGrassDoubleTallgrass;
-import teamrtg.rtg.world.gen.deco.DecoMushrooms;
-import teamrtg.rtg.world.gen.deco.DecoShrub;
-import teamrtg.rtg.world.gen.deco.DecoTree;
-import teamrtg.rtg.world.gen.deco.DecoTree.TreeCondition;
-import teamrtg.rtg.world.gen.deco.DecoTree.TreeType;
 
 public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase {
 
@@ -37,8 +30,8 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             private final GroundEffect groundEffect = new GroundEffect(4f);
 
             @Override
-            public float generateNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
-                return riverized(65f + groundEffect.added(provider.simplex, provider.cell, x, y), river);
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+                return riverized(65f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
             }
         };
     }
@@ -49,7 +42,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         surface.add(new CliffSelector(1.5f)
             .add(PARTS.selectTopAndFill()
                 .add(this.PARTS.SHADOW_STONE)));
-        surface.add(new CliffSelector((x, y, z, provider) -> 1.5f - ((y - 60f) / 65f) + provider.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
+        surface.add(new CliffSelector((x, y, z, rtgWorld) -> 1.5f - ((y - 60f) / 65f) + rtgWorld.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
             .add(PARTS.selectTop()
                 .add(PARTS.STONE_OR_COBBLE)))
             .add(PARTS.selectFill()
@@ -138,7 +131,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.maxY = 90;
-        decoMushrooms.randomType = teamrtg.rtg.world.gen.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE;
+        decoMushrooms.randomType = teamrtg.rtg.api.tools.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE;
         this.addDeco(decoMushrooms);
     }
 

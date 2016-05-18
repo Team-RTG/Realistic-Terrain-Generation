@@ -1,8 +1,8 @@
 package teamrtg.rtg.api.util;
 
 import net.minecraft.world.biome.BiomeGenBase;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
 import teamrtg.rtg.api.util.debug.Logger;
+import teamrtg.rtg.api.world.biome.RealisticBiomeBase;
 
 import static net.minecraft.world.biome.BiomeGenBase.getIdForBiome;
 

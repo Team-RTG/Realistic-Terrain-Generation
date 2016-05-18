@@ -17,26 +17,13 @@ public class RealisticBiomePresenceTester {
         for (int i = 0; i < b.length; i++) {
             if (b[i] != null) {
                 BiomeGenBase biome = b[i];
-                int biomeId = getIdForBiome(b[i]);
-                String biomeName = BiomeUtils.getLocForBiome(b[i]).toString();
-                String biomeClass = b[i].getBiomeClass().getName();
+                int biomeId = getIdForBiome(biome);
+                String biomeName = BiomeUtils.getLocForBiome(biome).toString();
+                String biomeClass = biome.getBiomeClass().getName();
 
-                switch (biomeId) {
-
-                    case 8:
-                    case 9:
-                        // Do nothing.
-                        break;
-
-                    default:
-
-                        try {
-                            RealisticBiomeBase rBiome = RealisticBiomeBase.forBiome(biomeId);
-                        } catch (Exception e) {
-                            Logger.info("RTG could not find a realistic version of %s (%d) from %s", biomeName, biomeId, biomeClass);
-                        }
-
-                        break;
+                RealisticBiomeBase rBiome = RealisticBiomeBase.forBiome(biomeId);
+                if (rBiome == null) {
+                    Logger.info("RTG could not find a realistic version of %s (%d). This is expected for non-overworld biomes", biomeName, biomeId, biomeClass);
                 }
             }
         }

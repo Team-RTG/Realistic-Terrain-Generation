@@ -48,11 +48,15 @@ public class RealisticBiomeGenerator {
     }
 
     public static RealisticBiomeBase getRealistic(int id) {
-        return biomeGenerators[id].realistic;
+        try {
+            return biomeGenerators[id].realistic;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public static RealisticBiomeBase getRealistic(BiomeGenBase biome) {
-        return biomeGenerators[BiomeUtils.getId(biome)].realistic;
+        return RealisticBiomeGenerator.getRealistic(BiomeUtils.getId(biome));
     }
 
     public static RealisticBiomeGenerator forBiome(BiomeGenBase biome) {

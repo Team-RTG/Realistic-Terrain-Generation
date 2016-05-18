@@ -120,7 +120,7 @@ public class BiomeProviderRTG extends BiomeProvider {
     }
 
     public RealisticBiomeBase getRealisticAt(int bx, int bz) {
-        return BiomeUtils.getRealistic(getBiomeGenAt(bx, bz));
+        return RealisticBiomeBase.forBiome(getBiomeGenAt(bx, bz));
     }
 
     public List getBiomesToSpawnIn() {

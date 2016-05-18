@@ -100,7 +100,7 @@ public class RealisticBiomeFaker {
         for (BiomeGenBase biome : b) {
             if (biome != null) {
                 try {
-                    RealisticBiomeGenerator.getBiome(BiomeGenBase.getIdForBiome(biome));
+                    RealisticBiomeGenerator.getRealistic(BiomeGenBase.getIdForBiome(biome));
                 } catch (Exception e) {
                     new RealisticBiomeGenerator(new FakedRealisticBiome(Mods.RTG, biome));
                     fakeBiomes[BiomeGenBase.getIdForBiome(biome)] = true;

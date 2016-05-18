@@ -40,8 +40,8 @@ public class PresetParts {
         STONE_OR_COBBLE = new SurfacePart().add(STONE).add(new RandomSelector(3).add(COBBLE));
         SHADOW_STONE = new BlockPart(Mods.RTG.config.SHADOW_STONE_BLOCK.get());
         SHADOW_SAND = new BlockPart(Mods.RTG.config.SHADOW_DESERT_BLOCK.get());
-        TOP_BLOCK = new BlockPart(biome.config.TOP_BLOCK.get());
-        FILL_BLOCK = new BlockPart(biome.config.FILL_BLOCK.get());
+        TOP_BLOCK = new BlockPart(biome.getConfig().TOP_BLOCK.get());
+        FILL_BLOCK = new BlockPart(biome.getConfig().FILL_BLOCK.get());
     }
 
     public final SurfacePart rand(int r) {
@@ -53,11 +53,11 @@ public class PresetParts {
     }
 
     public final SurfacePart selectFill() {
-        return new DepthSelector(1, biome.config.FILL_LAYERS.get()).setMaxNoise(DEPTH_NOISE);
+        return new DepthSelector(1, biome.getConfig().FILL_LAYERS.get()).setMaxNoise(DEPTH_NOISE);
     }
 
     public final SurfacePart selectTopAndFill() {
-        return new DepthSelector(0, biome.config.FILL_LAYERS.get()).setMaxNoise(DEPTH_NOISE);
+        return new DepthSelector(0, biome.getConfig().FILL_LAYERS.get()).setMaxNoise(DEPTH_NOISE);
     }
 
     public final SurfacePart surfaceGeneric() {
@@ -71,13 +71,13 @@ public class PresetParts {
 
     public final SurfacePart surfaceMix(IBoolAt mixNoise) {
         SurfacePart surf = new Selector(mixNoise);
-        if (biome.config.MIX_BLOCK_TOP.getDefault() != null) {
+        if (biome.getConfig().MIX_BLOCK_TOP.getDefault() != null) {
             surf.add(selectTop()
-                .add(new BlockPart(biome.config.MIX_BLOCK_TOP.get())));
+                .add(new BlockPart(biome.getConfig().MIX_BLOCK_TOP.get())));
         }
-        if (biome.config.MIX_BLOCK_FILL.getDefault() != null) {
+        if (biome.getConfig().MIX_BLOCK_FILL.getDefault() != null) {
             surf.add(selectFill()
-                .add(new BlockPart(biome.config.MIX_BLOCK_FILL.get())));
+                .add(new BlockPart(biome.getConfig().MIX_BLOCK_FILL.get())));
         }
         return surf;
     }

@@ -18,7 +18,7 @@ public class FakedRealisticBiome extends RealisticBiomeBase {
 
 
     @Override
-    protected TerrainBase initTerrain() {
+    public TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
             public float generateNoise(ChunkProviderRTG provider, int x, int z, float border, float river) {
@@ -28,7 +28,7 @@ public class FakedRealisticBiome extends RealisticBiomeBase {
     }
 
     @Override
-    protected void initDecos() {
+    public void initDecos() {
         addDeco(new DecoBaseBiomeDecorations());
     }
 }

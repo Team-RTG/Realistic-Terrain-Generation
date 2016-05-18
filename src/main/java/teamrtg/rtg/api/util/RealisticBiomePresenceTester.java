@@ -18,7 +18,7 @@ public class RealisticBiomePresenceTester {
             if (b[i] != null) {
                 BiomeGenBase biome = b[i];
                 int biomeId = getIdForBiome(b[i]);
-                String biomeName = b[i].getBiomeName();
+                String biomeName = BiomeUtils.getLocForBiome(b[i]).toString();
                 String biomeClass = b[i].getBiomeClass().getName();
 
                 switch (biomeId) {
@@ -32,7 +32,6 @@ public class RealisticBiomePresenceTester {
 
                         try {
                             RealisticBiomeBase rBiome = RealisticBiomeBase.forBiome(biomeId);
-                            String rBiomeName = rBiome.config.biomeSlug;
                         } catch (Exception e) {
                             Logger.info("RTG could not find a realistic version of %s (%d) from %s", biomeName, biomeId, biomeClass);
                         }

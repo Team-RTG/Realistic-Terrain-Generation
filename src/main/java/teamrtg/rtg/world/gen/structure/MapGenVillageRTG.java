@@ -85,7 +85,7 @@ public class MapGenVillageRTG extends MapGenVillage {
                 int worldZ = l * 16 + 8;
                 RealisticBiomeBase realisticBiome = cmr.getRealisticAt(worldX, worldZ);
 
-                if (realisticBiome.config.ALLOW_VILLAGES.get()) {
+                if (realisticBiome.getConfig().ALLOW_VILLAGES.get()) {
                     canSpawnVillage = true;
                 }
             } else {

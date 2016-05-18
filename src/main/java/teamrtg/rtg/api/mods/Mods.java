@@ -1,6 +1,6 @@
 package teamrtg.rtg.api.mods;
 
-import teamrtg.rtg.mods.vanilla.RTGSupportVanilla;
+import teamrtg.rtg.modules.vanilla.RTGSupportVanilla;
 
 import java.util.ArrayList;
 import java.util.List;

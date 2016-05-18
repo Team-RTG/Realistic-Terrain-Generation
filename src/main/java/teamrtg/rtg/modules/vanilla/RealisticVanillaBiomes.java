@@ -1,0 +1,133 @@
+package teamrtg.rtg.modules.vanilla;
+
+import teamrtg.rtg.api.mods.ModBiomes;
+import teamrtg.rtg.modules.vanilla.biomes.*;
+
+/**
+ * @author topisani
+ */
+public class RealisticVanillaBiomes extends ModBiomes {
+
+    public RealisticBiomeVanillaBeach BEACH;
+    public RealisticBiomeVanillaBirchForest BIRCH_FOREST;
+    public RealisticBiomeVanillaBirchForestHills BIRCH_FOREST_HILLS;
+    public RealisticBiomeVanillaBirchForestHillsM BIRCH_FOREST_HILLS_M;
+    public RealisticBiomeVanillaBirchForestM BIRCH_FOREST_M;
+    public RealisticBiomeVanillaColdBeach COLD_BEACH;
+    public RealisticBiomeVanillaColdTaiga COLD_TAIGA;
+    public RealisticBiomeVanillaColdTaigaHills COLD_TAIGA_HILLS;
+    public RealisticBiomeVanillaColdTaigaM COLD_TAIGA_M;
+    public RealisticBiomeVanillaDeepOcean DEEP_OCEAN;
+    public RealisticBiomeVanillaDesert DESERT;
+    public RealisticBiomeVanillaDesertHills DESERT_HILLS;
+    public RealisticBiomeVanillaDesertM DESERT_M;
+    public RealisticBiomeVanillaExtremeHills EXTREME_HILLS;
+    public RealisticBiomeVanillaExtremeHillsEdge EXTREME_HILLS_EDGE;
+    public RealisticBiomeVanillaExtremeHillsM EXTREME_HILLS_M;
+    public RealisticBiomeVanillaExtremeHillsPlus EXTREME_HILLS_PLUS;
+    public RealisticBiomeVanillaExtremeHillsPlusM EXTREME_HILLS_PLUS_M;
+    public RealisticBiomeVanillaFlowerForest FLOWER_FOREST;
+    public RealisticBiomeVanillaForest FOREST;
+    public RealisticBiomeVanillaForestHills FOREST_HILLS;
+    public RealisticBiomeVanillaFrozenOcean FROZEN_OCEAN;
+    public RealisticBiomeVanillaFrozenRiver FROZEN_RIVER;
+    public RealisticBiomeVanillaIceMountains ICE_MOUNTAINS;
+    public RealisticBiomeVanillaIcePlains ICE_PLAINS;
+    public RealisticBiomeVanillaIcePlainsSpikes ICE_PLAINS_SPIKES;
+    public RealisticBiomeVanillaJungle JUNGLE;
+    public RealisticBiomeVanillaJungleEdge JUNGLE_EDGE;
+    public RealisticBiomeVanillaJungleEdgeM JUNGLE_EDGE_M;
+    public RealisticBiomeVanillaJungleHills JUNGLE_HILLS;
+    public RealisticBiomeVanillaJungleM JUNGLE_M;
+    public RealisticBiomeVanillaMegaSpruceTaiga MEGA_SPRUCE_TAIGA;
+    public RealisticBiomeVanillaMegaTaiga MEGA_TAIGA;
+    public RealisticBiomeVanillaMegaTaigaHills MEGA_TAIGA_HILLS;
+    public RealisticBiomeVanillaMesa MESA;
+    public RealisticBiomeVanillaMesaBryce MESA_BRYCE;
+    public RealisticBiomeVanillaMesaPlateau MESA_PLATEAU;
+    public RealisticBiomeVanillaMesaPlateauF MESA_PLATEAU_F;
+    public RealisticBiomeVanillaMesaPlateauFM MESA_PLATEAU_F_M;
+    public RealisticBiomeVanillaMesaPlateauM MESA_PLATEAU_M;
+    public RealisticBiomeVanillaMushroomIsland MUSHROOM_ISLAND;
+    public RealisticBiomeVanillaMushroomIslandShore MUSHROOM_ISLAND_SHORE;
+    public RealisticBiomeVanillaOcean OCEAN;
+    public RealisticBiomeVanillaPlains PLAINS;
+    public RealisticBiomeVanillaRedwoodTaigaHills REDWOOD_TAIGA_HILLS;
+    public RealisticBiomeVanillaRiver RIVER;
+    public RealisticBiomeVanillaRoofedForest ROOFED_FOREST;
+    public RealisticBiomeVanillaRoofedForestM ROOFED_FOREST_M;
+    public RealisticBiomeVanillaSavanna SAVANNA;
+    public RealisticBiomeVanillaSavannaM SAVANNA_M;
+    public RealisticBiomeVanillaSavannaPlateau SAVANNA_PLATEAU;
+    public RealisticBiomeVanillaSavannaPlateauM SAVANNA_PLATEAU_M;
+    public RealisticBiomeVanillaStoneBeach STONE_BEACH;
+    public RealisticBiomeVanillaSunflowerPlains SUNFLOWER_PLAINS;
+    public RealisticBiomeVanillaSwampland SWAMPLAND;
+    public RealisticBiomeVanillaSwamplandM SWAMPLAND_M;
+    public RealisticBiomeVanillaTaiga TAIGA;
+    public RealisticBiomeVanillaTaigaHills TAIGA_HILLS;
+    public RealisticBiomeVanillaTaigaM TAIGA_M;
+
+    @Override
+    public void initBiomes() {
+        addBiome(BEACH = new RealisticBiomeVanillaBeach());
+        addBiome(BIRCH_FOREST = new RealisticBiomeVanillaBirchForest());
+        addBiome(BIRCH_FOREST_HILLS = new RealisticBiomeVanillaBirchForestHills());
+        addBiome(BIRCH_FOREST_HILLS_M = new RealisticBiomeVanillaBirchForestHillsM());
+        addBiome(BIRCH_FOREST_M = new RealisticBiomeVanillaBirchForestM());
+        addBiome(COLD_BEACH = new RealisticBiomeVanillaColdBeach());
+        addBiome(COLD_TAIGA = new RealisticBiomeVanillaColdTaiga());
+        addBiome(COLD_TAIGA_HILLS = new RealisticBiomeVanillaColdTaigaHills());
+        addBiome(COLD_TAIGA_M = new RealisticBiomeVanillaColdTaigaM());
+        addBiome(DEEP_OCEAN = new RealisticBiomeVanillaDeepOcean());
+        addBiome(DESERT = new RealisticBiomeVanillaDesert());
+        addBiome(DESERT_HILLS = new RealisticBiomeVanillaDesertHills());
+        addBiome(DESERT_M = new RealisticBiomeVanillaDesertM());
+        addBiome(EXTREME_HILLS = new RealisticBiomeVanillaExtremeHills());
+        addBiome(EXTREME_HILLS_EDGE = new RealisticBiomeVanillaExtremeHillsEdge());
+        addBiome(EXTREME_HILLS_M = new RealisticBiomeVanillaExtremeHillsM());
+        addBiome(EXTREME_HILLS_PLUS = new RealisticBiomeVanillaExtremeHillsPlus());
+        addBiome(EXTREME_HILLS_PLUS_M = new RealisticBiomeVanillaExtremeHillsPlusM());
+        addBiome(FLOWER_FOREST = new RealisticBiomeVanillaFlowerForest());
+        addBiome(FOREST = new RealisticBiomeVanillaForest());
+        addBiome(FOREST_HILLS = new RealisticBiomeVanillaForestHills());
+        addBiome(FROZEN_OCEAN = new RealisticBiomeVanillaFrozenOcean());
+        addBiome(FROZEN_RIVER = new RealisticBiomeVanillaFrozenRiver());
+        addBiome(ICE_MOUNTAINS = new RealisticBiomeVanillaIceMountains());
+        addBiome(ICE_PLAINS = new RealisticBiomeVanillaIcePlains());
+        addBiome(ICE_PLAINS_SPIKES = new RealisticBiomeVanillaIcePlainsSpikes());
+        addBiome(JUNGLE = new RealisticBiomeVanillaJungle());
+        addBiome(JUNGLE_EDGE = new RealisticBiomeVanillaJungleEdge());
+        addBiome(JUNGLE_EDGE_M = new RealisticBiomeVanillaJungleEdgeM());
+        addBiome(JUNGLE_HILLS = new RealisticBiomeVanillaJungleHills());
+        addBiome(JUNGLE_M = new RealisticBiomeVanillaJungleM());
+        addBiome(MEGA_SPRUCE_TAIGA = new RealisticBiomeVanillaMegaSpruceTaiga());
+        addBiome(MEGA_TAIGA = new RealisticBiomeVanillaMegaTaiga());
+        addBiome(MEGA_TAIGA_HILLS = new RealisticBiomeVanillaMegaTaigaHills());
+        addBiome(MESA = new RealisticBiomeVanillaMesa());
+        addBiome(MESA_BRYCE = new RealisticBiomeVanillaMesaBryce());
+        addBiome(MESA_PLATEAU = new RealisticBiomeVanillaMesaPlateau());
+        addBiome(MESA_PLATEAU_F = new RealisticBiomeVanillaMesaPlateauF());
+        addBiome(MESA_PLATEAU_F_M = new RealisticBiomeVanillaMesaPlateauFM());
+        addBiome(MESA_PLATEAU_M = new RealisticBiomeVanillaMesaPlateauM());
+        addBiome(MUSHROOM_ISLAND = new RealisticBiomeVanillaMushroomIsland());
+        addBiome(MUSHROOM_ISLAND_SHORE = new RealisticBiomeVanillaMushroomIslandShore());
+        addBiome(OCEAN = new RealisticBiomeVanillaOcean());
+        addBiome(PLAINS = new RealisticBiomeVanillaPlains());
+        addBiome(REDWOOD_TAIGA_HILLS = new RealisticBiomeVanillaRedwoodTaigaHills());
+        addBiome(RIVER = new RealisticBiomeVanillaRiver());
+        addBiome(ROOFED_FOREST = new RealisticBiomeVanillaRoofedForest());
+        addBiome(ROOFED_FOREST_M = new RealisticBiomeVanillaRoofedForestM());
+        addBiome(SAVANNA = new RealisticBiomeVanillaSavanna());
+        addBiome(SAVANNA_M = new RealisticBiomeVanillaSavannaM());
+        addBiome(SAVANNA_PLATEAU = new RealisticBiomeVanillaSavannaPlateau());
+        addBiome(SAVANNA_PLATEAU_M = new RealisticBiomeVanillaSavannaPlateauM());
+        addBiome(STONE_BEACH = new RealisticBiomeVanillaStoneBeach());
+        addBiome(SUNFLOWER_PLAINS = new RealisticBiomeVanillaSunflowerPlains());
+        addBiome(SWAMPLAND = new RealisticBiomeVanillaSwampland());
+        addBiome(SWAMPLAND_M = new RealisticBiomeVanillaSwamplandM());
+        addBiome(TAIGA = new RealisticBiomeVanillaTaiga());
+        addBiome(TAIGA_HILLS = new RealisticBiomeVanillaTaigaHills());
+        addBiome(TAIGA_M = new RealisticBiomeVanillaTaigaM());
+    }
+}

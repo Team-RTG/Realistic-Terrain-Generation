@@ -37,7 +37,7 @@ public class RTGSupport {
             config.syncConfiguration(config.forgeConfig);
             if (hasBiomes) {
                 for (RealisticBiomeBase biome : biomes.getBiomes()) {
-                    biome.config.syncConfiguration(config.biomeConfig);
+                    biome.getConfig().syncConfiguration(config.biomeConfig);
                 }
             }
         }

@@ -2,8 +2,6 @@ package teamrtg.rtg.api.util;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.BiomeGenBase;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
-import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
 
 import static net.minecraft.world.biome.BiomeGenBase.REGISTRY;
 
@@ -35,13 +33,5 @@ public class BiomeUtils {
 
     public static int getId(BiomeGenBase biome) {
         return BiomeGenBase.getIdForBiome(biome);
-    }
-
-    public static RealisticBiomeBase getRealistic(BiomeGenBase biome) {
-        return RealisticBiomeGenerator.getBiome(BiomeUtils.getId(biome));
-    }
-
-    public static BiomeGenBase getBGB(RealisticBiomeBase biome) {
-        return biome.baseBiome;
     }
 }

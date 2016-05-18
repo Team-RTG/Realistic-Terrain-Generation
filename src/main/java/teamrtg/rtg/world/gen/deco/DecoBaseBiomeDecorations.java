@@ -69,27 +69,27 @@ public class DecoBaseBiomeDecorations extends DecoBase {
                     if (this.equalsZeroChance > 0) {
 
                         if (rand.nextInt(this.equalsZeroChance) == 0) {
-                            biomeGenerator.decorateBaseBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biomeGenerator.biome.baseBiome);
+                            biomeGenerator.decorateBaseBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biomeGenerator.realistic.getBiome());
                         } else {
-                            biomeGenerator.generateOres(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biomeGenerator.biome.baseBiome);
+                            biomeGenerator.generateOres(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biomeGenerator.realistic.getBiome());
                         }
                     } else if (this.notEqualsZeroChance > 0) {
 
                         if (rand.nextInt(this.notEqualsZeroChance) != 0) {
-                            biomeGenerator.decorateBaseBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biomeGenerator.biome.baseBiome);
+                            biomeGenerator.decorateBaseBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biomeGenerator.realistic.getBiome());
                         } else {
-                            biomeGenerator.generateOres(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biomeGenerator.biome.baseBiome);
+                            biomeGenerator.generateOres(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biomeGenerator.realistic.getBiome());
                         }
                     } else {
 
-                        biomeGenerator.decorateBaseBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biomeGenerator.biome.baseBiome);
+                        biomeGenerator.decorateBaseBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biomeGenerator.realistic.getBiome());
                     }
                 } else {
-                    biomeGenerator.generateOres(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biomeGenerator.biome.baseBiome);
+                    biomeGenerator.generateOres(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biomeGenerator.realistic.getBiome());
                 }
             }
         } else {
-            biomeGenerator.generateOres(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biomeGenerator.biome.baseBiome);
+            biomeGenerator.generateOres(world, rand, new BlockPos(chunkX, 1, chunkY), simplex, cell, strength, river, biomeGenerator.realistic.getBiome());
         }
     }
 }

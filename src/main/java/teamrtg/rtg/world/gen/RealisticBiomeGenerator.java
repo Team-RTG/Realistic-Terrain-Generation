@@ -25,8 +25,10 @@ import teamrtg.rtg.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.util.noise.SimplexOctave;
 import teamrtg.rtg.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.world.gen.deco.DecoBase;
+import teamrtg.rtg.world.gen.deco.DecoBaseBiomeDecorations;
 import teamrtg.rtg.world.gen.feature.WorldGenPond;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -37,16 +39,20 @@ public class RealisticBiomeGenerator {
     private static float actualRiverProportion = 300f / 1600f;
 
     public SurfacePart genericPart;
-    public final RealisticBiomeBase biome;
+    public final RealisticBiomeBase realistic;
 
-    public RealisticBiomeGenerator(RealisticBiomeBase biome) {
-        this.biome = biome;
-        biomeGenerators[biome.getID()] = this;
-        genericPart = this.biome.PARTS.surfaceGeneric();
+    public RealisticBiomeGenerator(RealisticBiomeBase realistic) {
+        this.realistic = realistic;
+        biomeGenerators[realistic.getID()] = this;
+        genericPart = this.realistic.PARTS.surfaceGeneric();
     }
 
-    public static RealisticBiomeBase getBiome(int id) {
-        return biomeGenerators[id].biome;
+    public static RealisticBiomeBase getRealistic(int id) {
+        return biomeGenerators[id].realistic;
+    }
+
+    public static RealisticBiomeBase getRealistic(BiomeGenBase biome) {
+        return biomeGenerators[BiomeUtils.getId(biome)].realistic;
     }
 
     public static RealisticBiomeGenerator forBiome(BiomeGenBase biome) {
@@ -83,14 +89,14 @@ public class RealisticBiomeGenerator {
         // Surface WATER lakes.
         if (Mods.RTG.config.ENABLE_SURFACE_WATER_LAKES.get()) {
 
-            if (gen && (this.biome.config.WATER_POND_CHANCE.get() > 0)) {
+            if (gen && (this.realistic.getConfig().WATER_POND_CHANCE.get() > 0)) {
 
                 int i2 = worldX + rand.nextInt(16) + 8;
                 int i8 = worldZ + rand.nextInt(16) + 8;
                 int l4 = worldObj.getHeight(new BlockPos(i2, 0, i8)).getY();
 
                 //Surface lakes.
-                if (rand.nextInt(this.biome.config.WATER_POND_CHANCE.get()) == 0 && (RandomUtil.getRandomInt(rand, 1, this.biome.config.WATER_POND_CHANCE.get()) == 1)) {
+                if (rand.nextInt(this.realistic.getConfig().WATER_POND_CHANCE.get()) == 0 && (RandomUtil.getRandomInt(rand, 1, this.realistic.getConfig().WATER_POND_CHANCE.get()) == 1)) {
 
                     if (l4 > 63) {
 
@@ -121,14 +127,14 @@ public class RealisticBiomeGenerator {
         // Surface lava lakes.
         if (Mods.RTG.config.ENABLE_SURFACE_LAVA_LAKES.get()) {
 
-            if (gen && (this.biome.config.LAVA_POND_CHANCE.get() > 0)) {
+            if (gen && (this.realistic.getConfig().LAVA_POND_CHANCE.get() > 0)) {
 
                 int i2 = worldX + rand.nextInt(16) + 8;
                 int i8 = worldZ + rand.nextInt(16) + 8;
                 int l4 = worldObj.getHeight(new BlockPos(i2, 0, i8)).getY();
 
                 //Surface lakes.
-                if (rand.nextInt(this.biome.config.LAVA_POND_CHANCE.get()) == 0 && (RandomUtil.getRandomInt(rand, 1, this.biome.config.LAVA_POND_CHANCE.get()) == 1)) {
+                if (rand.nextInt(this.realistic.getConfig().LAVA_POND_CHANCE.get()) == 0 && (RandomUtil.getRandomInt(rand, 1, this.realistic.getConfig().LAVA_POND_CHANCE.get()) == 1)) {
 
                     if (l4 > 63) {
 
@@ -260,14 +266,14 @@ public class RealisticBiomeGenerator {
 
     public float rNoise(ChunkProviderRTG provider, int x, int y, float border, float river) {
         // we now have both lakes and rivers lowering land
-        if (biome.noWaterFeatures) {
+        if (realistic.noWaterFeatures) {
             float borderForRiver = border * 2;
             if (borderForRiver > 1f) borderForRiver = 1;
             river = 1f - (1f - borderForRiver) * (1f - river);
-            return biome.terrain.generateNoise(provider, x, y, border, river);
+            return realistic.terrain.generateNoise(provider, x, y, border, river);
         }
         float lakeStrength = lakePressure(provider, x, y, border);
-        float lakeFlattening = (float) lakeFlattening(lakeStrength, biome.lakeShoreLevel, biome.lakeDepressionLevel);
+        float lakeFlattening = (float) lakeFlattening(lakeStrength, realistic.lakeShoreLevel, realistic.lakeDepressionLevel);
         // we add some flattening to the rivers. The lakes are pre-flattened.
         float riverFlattening = river * 1.25f - 0.25f;
         if (riverFlattening < 0) riverFlattening = 0;
@@ -278,7 +284,7 @@ public class RealisticBiomeGenerator {
             if (lakeFlattening < riverFlattening) riverFlattening = (float) lakeFlattening;
         }
         // the lakes have to have a little less flattening to avoid the rocky edges
-        lakeFlattening = lakeFlattening(lakeStrength, biome.lakeWaterLevel, biome.lakeDepressionLevel);
+        lakeFlattening = lakeFlattening(lakeStrength, realistic.lakeWaterLevel, realistic.lakeDepressionLevel);
 
         if ((river < 1) && (lakeFlattening < 1)) {
             river = (float) ((1f - river) / river + (1f - lakeFlattening) / lakeFlattening);
@@ -287,25 +293,25 @@ public class RealisticBiomeGenerator {
             if (lakeFlattening < river) river = (float) lakeFlattening;
         }
         // flatten terrain to set up for the water features
-        float terrainNoise = biome.terrain.generateNoise(provider, x, y, border, riverFlattening);
+        float terrainNoise = realistic.terrain.generateNoise(provider, x, y, border, riverFlattening);
         // place water features
         return this.erodedNoise(provider, x, y, river, border, terrainNoise, lakeFlattening);
     }
 
     public float lakePressure(ChunkProviderRTG provider, int x, int y, float border) {
-        if (biome.noLakes) return 1f;
+        if (realistic.noLakes) return 1f;
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();
         provider.simplex.riverJitter().evaluateNoise((float) x / 240.0, (float) y / 240.0, jitter);
-        double pX = x + jitter.deltax() * biome.largeBendSize;
-        double pY = y + jitter.deltay() * biome.largeBendSize;
+        double pX = x + jitter.deltax() * realistic.largeBendSize;
+        double pY = y + jitter.deltay() * realistic.largeBendSize;
         provider.simplex.mountain().evaluateNoise((float) x / 80.0, (float) y / 80.0, jitter);
-        pX += jitter.deltax() * biome.mediumBendSize;
-        pY += jitter.deltay() * biome.mediumBendSize;
+        pX += jitter.deltax() * realistic.mediumBendSize;
+        pY += jitter.deltay() * realistic.mediumBendSize;
         provider.simplex.octave(4).evaluateNoise((float) x / 30.0, (float) y / 30.0, jitter);
-        pX += jitter.deltax() * biome.smallBendSize;
-        pY += jitter.deltay() * biome.smallBendSize;
+        pX += jitter.deltax() * realistic.smallBendSize;
+        pY += jitter.deltay() * realistic.smallBendSize;
         //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
-        double[] lakeResults = provider.cell.river().eval((float) pX / biome.lakeInterval, (float) pY / biome.lakeInterval);
+        double[] lakeResults = provider.cell.river().eval((float) pX / realistic.lakeInterval, (float) pY / realistic.lakeInterval);
         float results = 1f - (float) ((lakeResults[1] - lakeResults[0]) / lakeResults[1]);
         if (results > 1.01) throw new RuntimeException("" + lakeResults[0] + " , " + lakeResults[1]);
         if (results < -.01) throw new RuntimeException("" + lakeResults[0] + " , " + lakeResults[1]);
@@ -344,8 +350,8 @@ public class RealisticBiomeGenerator {
                 depth = -1;
             } else if (b == Blocks.STONE) {
                 depth++;
-                if (Mods.RTG.config.ENABLE_RTG_SURFACES.get() && this.biome.config.USE_RTG_SURFACES.get()) {
-                    this.biome.surface.paintWithSubparts(primer, bx, by, bz, depth, noise, river, provider);
+                if (Mods.RTG.config.ENABLE_RTG_SURFACES.get() && this.realistic.getConfig().USE_RTG_SURFACES.get()) {
+                    this.realistic.surface.paintWithSubparts(primer, bx, by, bz, depth, noise, river, provider);
                 } else {
                     this.genericPart.paintWithSubparts(primer, bx, by, bz, depth, noise, river, provider);
                 }
@@ -354,8 +360,23 @@ public class RealisticBiomeGenerator {
     }
 
     public void decorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
-        for (DecoBase deco : this.biome.decos) {
-            if (deco.preGenerate(this.biome, world, rand, chunkX, chunkY, simplex, cell, strength, river)) {
+        boolean baseDecorated = false;
+        ArrayList<DecoBase> decos = this.realistic.decos;
+        for (int i = decos.size() - 1; i >= 0; i--) {
+            DecoBase deco = decos.get(i);
+            if (deco instanceof DecoBaseBiomeDecorations) {
+                if (baseDecorated) continue;
+                baseDecorated = true;
+            }
+            if (deco.preGenerate(this.realistic, world, rand, chunkX, chunkY, simplex, cell, strength, river)) {
+                deco.generate(this, world, rand, chunkX, chunkY, simplex, cell, strength, river);
+            }
+        }
+        // Generate ores
+        if (!baseDecorated) {
+            DecoBaseBiomeDecorations deco = new DecoBaseBiomeDecorations();
+            deco.allowed = false;
+            if (deco.preGenerate(this.realistic, world, rand, chunkX, chunkY, simplex, cell, strength, river)) {
                 deco.generate(this, world, rand, chunkX, chunkY, simplex, cell, strength, river);
             }
         }

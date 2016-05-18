@@ -17,39 +17,29 @@ import java.util.ArrayList;
 
 import static net.minecraft.init.Biomes.RIVER;
 
-public abstract class RealisticBiomeBase {
+public abstract class RealisticBiomeBase implements IGenArea {
 
     public static final float actualRiverProportion = 300f / 1600f;
-
-    public BiomeGenBase forBiome() {
-        return baseBiome;
-    }
-
-    public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;
     public final RTGSupport mod;
-    public final BiomeConfig config;
-    public PresetParts PARTS;
-    public TerrainBase terrain;
-    public SurfacePart surface;
-    public ArrayList<DecoBase> decos;
-
-    // lake calculations
-
     public final float lakeInterval = 989.0f;
     public final float lakeShoreLevel = 0.15f;
     public final float lakeWaterLevel = 0.11f;// the lakeStrength below which things should be below water
     public final float lakeDepressionLevel = 0.30f;// the lakeStrength below which land should start to be lowered
-    public boolean noLakes = false;
-    public boolean noWaterFeatures = false;
-
     public final float largeBendSize = 100;
+    // lake calculations
     public final float mediumBendSize = 40;
     public final float smallBendSize = 15;
-
     public final boolean disallowAllBeaches = false;
     public final boolean disallowStoneBeaches = false;
-
+    protected final BiomeGenBase baseBiome;
+    protected final BiomeConfig config;
+    public PresetParts PARTS;
+    public TerrainBase terrain;
+    public SurfacePart surface;
+    public ArrayList<DecoBase> decos = new ArrayList<>();
+    public boolean noLakes = false;
+    public boolean noWaterFeatures = false;
     public RealisticBiomeBase(RTGSupport mod, BiomeGenBase biome) {
         this(mod, biome, RIVER);
     }
@@ -62,51 +52,48 @@ public abstract class RealisticBiomeBase {
         baseBiome = biome;
         riverBiome = river;
 
-        this.config = new BiomeConfig(getMod().getID(), this.getBiomeName());
+        this.config = new BiomeConfig(getMod().getID(), this.getName());
         this.config.TOP_BLOCK.setDefault(biome.topBlock);
         this.config.FILL_BLOCK.setDefault(biome.fillerBlock);
-
-        initProperties();
-
         init();
-    }
-
-    private String getBiomeName() {
-        return baseBiome.getBiomeName();
-    }
-
-    private void init() {
-        this.PARTS = new PresetParts(this);
-
-        decos = new ArrayList<>();
-        this.surface = initSurface();
-        this.terrain = initTerrain();
-        // This is the only way to make sure ores are generated every time
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.allowed = false;
-        this.decos.add(decoBaseBiomeDecorations);
-        initDecos();
     }
 
     /**
      * This should set the defaults for all properties
      */
-    protected void initProperties() {}
+    public void initConfig() {}
 
-    protected void initDecos() {
+    private void init() {
+        initConfig();
+        this.PARTS = new PresetParts(this);
+        this.surface = initSurface();
+        this.terrain = initTerrain();
+        initDecos();
+    }
+
+    @Override
+    public SurfacePart initSurface() {
+        return new GenericPart(config.TOP_BLOCK.get(), config.FILL_BLOCK.get());
+    }
+
+    @Override
+    public abstract TerrainBase initTerrain();
+
+    @Override
+    public void initDecos() {
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.allowed = true;
         this.decos.add(decoBaseBiomeDecorations);
     }
 
-    protected SurfacePart initSurface() {
-        return new GenericPart(config.TOP_BLOCK.get(), config.FILL_BLOCK.get());
-    }
-
-    protected abstract TerrainBase initTerrain();
-
-    public static RealisticBiomeBase forBiome(int id) {
-        return RealisticBiomeGenerator.getBiome(id);
+    /**
+     * Adds a deco object to the list of biome decos.
+     * @param deco
+     */
+    public void addDeco(DecoBase deco) {
+        this.decos.add(deco);
+        this.config.DECORATIONS.setOptions(ArrayUtils.add(this.config.DECORATIONS.getOptions(), deco.getName()));
+        this.config.DECORATIONS.setDefault(ArrayUtils.add(this.config.DECORATIONS.getDefault(), deco.getName()));
     }
 
     public TerrainBase getTerrain() {
@@ -117,46 +104,34 @@ public abstract class RealisticBiomeBase {
         return this.surface;
     }
 
-    public int getID() {
-        return BiomeUtils.getId(baseBiome);
+    public static RealisticBiomeBase forBiome(BiomeGenBase biome) {
+        return RealisticBiomeBase.forBiome(BiomeUtils.getId(biome));
     }
 
-    /**
-     * Convenience method for addDeco() where 'allowed' is assumed to be true.
-     * @param deco
-     */
-    public void addDeco(DecoBase deco) {
-        this.addDeco(deco, true);
+    public static RealisticBiomeBase forBiome(int id) {
+        return RealisticBiomeGenerator.getRealistic(id);
     }
 
-    /**
-     * Adds a deco object to the list of biome decos.
-     * The 'allowed' parameter allows us to pass biome forgeConfig booleans dynamically when configuring the decos in the biome.
-     * @param deco
-     * @param allowed
-     */
-    public void addDeco(DecoBase deco, boolean allowed) {
-        if (allowed) {
-
-            if (deco instanceof DecoBaseBiomeDecorations) {
-
-                for (int i = 0; i < this.decos.size(); i++) {
-
-                    if (this.decos.get(i) instanceof DecoBaseBiomeDecorations) {
-
-                        this.decos.remove(i);
-                        break;
-                    }
-                }
-            }
-
-            this.decos.add(deco);
-            this.config.DECORATIONS.setOptions(ArrayUtils.add(this.config.DECORATIONS.getOptions(), deco.getName()));
-            this.config.DECORATIONS.setDefault(ArrayUtils.add(this.config.DECORATIONS.getDefault(), deco.getName()));
-        }
+    @Override
+    public BiomeConfig getConfig() {
+        return config;
     }
 
+    @Override
     public RTGSupport getMod() {
         return mod;
+    }
+
+    @Override
+    public String getName() {
+        return baseBiome.getBiomeName();
+    }
+
+    public BiomeGenBase getBiome() {
+        return baseBiome;
+    }
+
+    public int getID() {
+        return BiomeUtils.getId(baseBiome);
     }
 }

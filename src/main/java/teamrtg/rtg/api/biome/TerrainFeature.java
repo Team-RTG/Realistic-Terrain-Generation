@@ -45,7 +45,7 @@ public abstract class TerrainFeature implements IGenArea {
         //this.PARTS = new PresetParts(this);
 
         this.surface = initSurface();
-        this.decos = initDecos();
+        initDecos();
         this.terrain = initTerrain();
         initDecos();
     }
@@ -55,20 +55,9 @@ public abstract class TerrainFeature implements IGenArea {
      */
     public void initConfig() {}
 
-    public ArrayList<DecoBase> initDecos() {
+    public void initDecos() {
         ArrayList<DecoBase> decos = new ArrayList<>();
-        /**
-         * By default, it is assumed that all realistic biomes will be decorated manually and not by the biome.
-         * This includes ore generation since it's part of the decoration process.
-         * We're adding this deco here in order to avoid having to explicitly add it
-         * in every singe realistic biome.
-         * If it does get added manually to let the base biome handle some or all of the decoration process,
-         * this deco will get replaced with the new one.
-         */
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.allowed = false;
-        decos.add(decoBaseBiomeDecorations);
-        return decos;
+        this.decos = decos;
     }
 
     ;

@@ -221,9 +221,6 @@ public class ChunkProviderRTG implements IChunkProvider
         // set up the cache of available chunks
         availableChunks = new LimitedMap<PlaneLocation,Chunk>(1000);
         setWeightings();
-
-        // check for bogus world
-        if (worldObj == null) throw new RuntimeException("Attempt to create chunk provider without a world");
     }
 
     private void setWeightings() {

@@ -119,10 +119,8 @@ public class BiomeProviderRTG extends BiomeProvider {
         return BiomeGenBase.getBiomeForId(getBiomes(globalToChunk(x), globalToChunk(z))[globalToIndex(x, z)]);
     }
 
-    public RealisticBiomeBase getBiomeDataAt(int par1, int par2) {
-        RealisticBiomeBase output;
-        output = RealisticBiomeBase.getBiome(BiomeUtils.getId(this.getBiomeGenAt(par1, par2)));
-        return output;
+    public RealisticBiomeBase getRealisticAt(int bx, int bz) {
+        return BiomeUtils.getRealistic(getBiomeGenAt(bx, bz));
     }
 
     public List getBiomesToSpawnIn() {
@@ -145,7 +143,7 @@ public class BiomeProviderRTG extends BiomeProvider {
         int[] aint = this.genBiomes.getInts(x, z, width, height);
 
         for (int i1 = 0; i1 < width * height; ++i1) {
-            biomes[i1] = RealisticBiomeBase.getBiome(aint[i1]);
+            biomes[i1] = BiomeGenBase.getBiomeForId(aint[i1]);
         }
 
         return biomes;
@@ -172,7 +170,7 @@ public class BiomeProviderRTG extends BiomeProvider {
             int[] aint = this.biomeIndexLayer.getInts(x, z, width, length);
 
             for (int i1 = 0; i1 < width * length; ++i1) {
-                listToReuse[i1] = RealisticBiomeBase.getBiome(aint[i1]);
+                listToReuse[i1] = BiomeGenBase.getBiomeForId(aint[i1]);
             }
 
             return listToReuse;
@@ -253,7 +251,7 @@ public class BiomeProviderRTG extends BiomeProvider {
             return 59f;
         }
 
-        return RealisticBiomeGenerator.forBiome(getBiomeDataAt(x, y)).rNoise(chunkProvider, x, y, 1f, river);
+        return RealisticBiomeGenerator.forBiome(getBiomeGenAt(x, y)).rNoise(chunkProvider, x, y, 1f, river);
     }
 
     public float getRiverStrength(int x, int y) {

@@ -120,7 +120,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
             BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(new BlockPos(k * 16 + 8, 0, l * 16 + 8));
 
             if (biomegenbase != null) {
-                RealisticBiomeBase rBiome = RealisticBiomeBase.getBiome(BiomeGenBase.getIdForBiome(biomegenbase));
+                RealisticBiomeBase rBiome = RealisticBiomeBase.forBiome(BiomeGenBase.getIdForBiome(biomegenbase));
                 if (!Objects.equals(rBiome.config.SCATTERED_FEATURE.get(), FeatureType.NONE.name())) ;
             }
         }
@@ -165,7 +165,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
             BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8));
 
             if (biomegenbase != null) {
-                RealisticBiomeBase rBiome = RealisticBiomeBase.getBiome(BiomeGenBase.getIdForBiome(biomegenbase));
+                RealisticBiomeBase rBiome = RealisticBiomeBase.forBiome(BiomeGenBase.getIdForBiome(biomegenbase));
                 switch (FeatureType.valueOf(rBiome.config.SCATTERED_FEATURE.get())) {
                     case DESERT_TEMPLE:
                         ComponentScatteredFeaturePieces.DesertPyramid desertpyramid = new ComponentScatteredFeaturePieces.DesertPyramid(random, chunkX * 16, chunkZ * 16);

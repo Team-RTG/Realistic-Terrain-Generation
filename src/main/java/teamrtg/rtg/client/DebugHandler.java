@@ -35,13 +35,13 @@ public final class DebugHandler {
                 int posX = (int) player.posX;
                 int posZ = (int) player.posZ;
 
-//                RealisticBiomeBase realisticBiome = chunkManager.getBiomeDataAt(
+//                RealisticBiomeBase realisticBiome = chunkManager.getRealisticAt(
 //                    (int)Math.floor(posX / 16), 
 //                    (int)Math.floor(posZ / 16)
 //                );
 
                 BiomeGenBase biome = world.getBiomeGenForCoords(new BlockPos(posX, 0, posZ));
-                RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(BiomeUtils.getId(biome));
+                RealisticBiomeBase realisticBiome = RealisticBiomeBase.forBiome(BiomeUtils.getId(biome));
 
                 details = PREFIX;
                 details += "River Strength: " + chunkManager.getRiverStrength(posX, posZ);

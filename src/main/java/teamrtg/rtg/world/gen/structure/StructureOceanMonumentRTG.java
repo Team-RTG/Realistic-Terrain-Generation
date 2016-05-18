@@ -22,8 +22,6 @@ import teamrtg.rtg.world.WorldTypeRTG;
 
 import java.util.*;
 
-import static teamrtg.rtg.mods.vanilla.biomes.RealisticBiomeVanillaBase.SpawnListEntry;
-
 /**
  * @author topisani
  */
@@ -36,7 +34,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         WATER_BIOMES = Arrays.asList(Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.RIVER, Biomes.FROZEN_OCEAN, Biomes.FROZEN_RIVER);
         SPAWN_BIOMES = Collections.singletonList(Biomes.DEEP_OCEAN);
         MONUMENT_ENEMIES = Lists.newArrayList();
-        MONUMENT_ENEMIES.add(new SpawnListEntry(EntityGuardian.class, 1, 2, 4));
+        MONUMENT_ENEMIES.add(new BiomeGenBase.SpawnListEntry(EntityGuardian.class, 1, 2, 4));
     }
 
     private int spacing;
@@ -111,7 +109,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
     }
 
     @Override
-    public List<SpawnListEntry> getScatteredFeatureSpawnList() {
+    public List<BiomeGenBase.SpawnListEntry> getScatteredFeatureSpawnList() {
         return Collections.unmodifiableList(MONUMENT_ENEMIES);
     }
 

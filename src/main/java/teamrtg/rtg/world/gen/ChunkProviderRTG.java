@@ -183,7 +183,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
 
         for (int k = 0; k < 256; k++) {
-            baseBiomes[k] = RealisticBiomeBase.getBiome(bprv.getBiomes(cx, cz)[k]);
+            baseBiomes[k] = BiomeGenBase.getBiomeForId(bprv.getBiomes(cx, cz)[k]);
         }
 
         RealisticBiomeBase jittered, actual;
@@ -192,8 +192,8 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 simplex.evaluateNoise(cx * 16 + i, cz * 16 + j, surfaceJitter);
                 int pX = (int) Math.round(cx * 16 + i + surfaceJitter.deltax() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());
                 int pZ = (int) Math.round(cz * 16 + j + surfaceJitter.deltay() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());
-                actual = bprv.getBiomeDataAt(cx * 16 + i, cz * 16 + j);
-                jittered = bprv.getBiomeDataAt(pX, pZ);
+                actual = bprv.getRealisticAt(cx * 16 + i, cz * 16 + j);
+                jittered = bprv.getRealisticAt(pX, pZ);
                 jitteredBiomes[i * 16 + j] = (actual.config.SURFACE_BLEED_IN.get() && jittered.config.SURFACE_BLEED_OUT.get()) ? jittered : actual;
             }
         }
@@ -297,13 +297,13 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 RealisticBiomeBase biome = biomes[i * 16 + j];
 
                 if (biomeFaker.isFakeBiome(biome.getID())) {
-                    biomeFaker.fakeSurface(cx * 16 + i, cz * 16 + j, primer, biome);
+                    biomeFaker.fakeSurface(cx * 16 + i, cz * 16 + j, primer, biome.forBiome());
                 } else {
 
                     river = -bprv.getRiverStrength(cx * 16 + i, cz * 16 + j);
                     depth = -1;
 
-                    RealisticBiomeGenerator.forBiome(biome).paintSurface(primer, cx * 16 + i, cz * 16 + j, depth, n, river, this);
+                    RealisticBiomeGenerator.forBiome(biome.forBiome()).paintSurface(primer, cx * 16 + i, cz * 16 + j, depth, n, river, this);
                 }
 
                 int rough;
@@ -345,7 +345,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
         int worldX = x * 16;
         int worldZ = z * 16;
-        RealisticBiomeBase biome = bprv.getBiomeDataAt(worldX + 16, worldZ + 16);
+        RealisticBiomeBase biome = bprv.getRealisticAt(worldX + 16, worldZ + 16);
         this.rand.setSeed(this.world.getSeed());
         long i1 = this.rand.nextLong() / 2L * 2L + 1L;
         long j1 = this.rand.nextLong() / 2L * 2L + 1L;
@@ -425,7 +425,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 if (borderNoise[bn] >= 1f) {
                     borderNoise[bn] = 1f;
                 }
-                realisticBiome = RealisticBiomeBase.getBiome(bn);
+                realisticBiome = RealisticBiomeBase.forBiome(bn);
 
                 /*
                  * When decorating the biome, we need to look at the biome configs to see if RTG is allowed to decorate it.
@@ -435,12 +435,12 @@ public class ChunkProviderRTG implements IChunkGenerator {
                  * TODO: Is there a more efficient way to do this? - Pink
                  */
                 if (Mods.RTG.config.ENABLE_RTG_BIOME_DECORATIONS.get() && realisticBiome.config.USE_RTG_DECORATIONS.get()) {
-                    RealisticBiomeGenerator.forBiome(realisticBiome).decorate(this.world, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                    RealisticBiomeGenerator.forBiome(realisticBiome.forBiome()).decorate(this.world, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
                 } else {
                     try {
                         realisticBiome.baseBiome.decorate(this.world, rand, worldCoords);
                     } catch (Exception e) {
-                        RealisticBiomeGenerator.forBiome(realisticBiome).decorate(this.world, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                        RealisticBiomeGenerator.forBiome(realisticBiome.forBiome()).decorate(this.world, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
                     }
                 }
 
@@ -604,7 +604,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         //fill biomes array with biomeData
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 16; j++) {
-                biomes[i * 16 + j] = RealisticBiomeBase.getBiome(BiomeUtils.getId(bprv.getPreRepair(cx + i, cz + j)));
+                biomes[i * 16 + j] = RealisticBiomeBase.forBiome(BiomeUtils.getId(bprv.getPreRepair(cx + i, cz + j)));
             }
         }
 
@@ -615,7 +615,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         analyzer.newRepair(biomeIndices, biomes, biomeData, sampleSize, noise, riverVals);
 
         for (int i = 0; i < 256; i++) {
-            biomeIds[i] = BiomeUtils.getId(biomes[i]);
+            biomeIds[i] = biomes[i].getID();
         }
 
         PlaneLocation loc = new PlaneLocation.Invariant(cx, cz);

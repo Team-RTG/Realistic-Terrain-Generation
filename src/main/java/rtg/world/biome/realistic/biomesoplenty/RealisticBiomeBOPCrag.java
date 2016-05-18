@@ -7,7 +7,6 @@ import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPCrag;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPCrag;
 import biomesoplenty.api.content.BOPCBiomes;
-import rtg.world.biome.deco.DecoPond;
 
 public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase
 {	
@@ -26,11 +25,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase
 		this.generatesEmeralds = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
-
-        DecoPond decoPond = new DecoPond();
-        decoPond.chunksPerPond = 3;// very high because most are blocked by topography
-        this.addDeco(decoPond);
-
+		
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		this.addDeco(decoBaseBiomeDecorations);
 	}

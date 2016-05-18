@@ -8,32 +8,18 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
 /**
  *
  * @author Zeno410
  */
-public class WorldGenPond extends WorldGenerator {
+public class WorldGenPond {
     private Block fill;
 
-    /**
-     *
-     * @param fill
-     */
     public WorldGenPond(Block fill) {
         this.fill = fill;
     }
 
-    /**
-     * 
-     * @param world
-     * @param random
-     * @param x
-     * @param y
-     * @param z
-     * @return
-     */
     public boolean generate(World world, Random random, int x, int y, int z)
     {
         x -= 8;

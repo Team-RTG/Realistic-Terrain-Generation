@@ -13,7 +13,7 @@ import net.minecraft.world.gen.structure.StructureStart;
 import teamrtg.rtg.api.config.BiomeConfig;
 import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.api.util.debug.Logger;
-import teamrtg.rtg.api.world.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.world.biome.RTGBiomeBase;
 import teamrtg.rtg.world.WorldTypeRTG;
 
 import java.util.*;
@@ -113,7 +113,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
             BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(new BlockPos(k * 16 + 8, 0, l * 16 + 8));
 
             if (biomegenbase != null) {
-                RealisticBiomeBase rBiome = RealisticBiomeBase.forBiome(BiomeGenBase.getIdForBiome(biomegenbase));
+                RTGBiomeBase rBiome = RTGBiomeBase.forBiome(BiomeGenBase.getIdForBiome(biomegenbase));
                 if (!Objects.equals(rBiome.getConfig().SCATTERED_FEATURE.get(), BiomeConfig.FeatureType.NONE.name())) ;
             }
         }
@@ -158,7 +158,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
             BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8));
 
             if (biomegenbase != null) {
-                RealisticBiomeBase rBiome = RealisticBiomeBase.forBiome(BiomeGenBase.getIdForBiome(biomegenbase));
+                RTGBiomeBase rBiome = RTGBiomeBase.forBiome(BiomeGenBase.getIdForBiome(biomegenbase));
                 switch (BiomeConfig.FeatureType.valueOf(rBiome.getConfig().SCATTERED_FEATURE.get())) {
                     case DESERT_TEMPLE:
                         ComponentScatteredFeaturePieces.DesertPyramid desertpyramid = new ComponentScatteredFeaturePieces.DesertPyramid(random, chunkX * 16, chunkZ * 16);

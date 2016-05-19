@@ -13,6 +13,7 @@ public class BiomeConfig extends Config {
     public final ConfigProperty.PropertyInt FILL_LAYERS;
     public final ConfigProperty.PropertyString SCATTERED_FEATURE;
     public final ConfigProperty.PropertyStrings DECORATIONS;
+    public final ConfigProperty.PropertyStrings WORLD_FEATURES;
     public final ConfigProperty.PropertyInt WATER_POND_CHANCE;
     public final ConfigProperty.PropertyInt LAVA_POND_CHANCE;
     public final ConfigProperty.PropertyBool GENERATE_EMERALDS;
@@ -26,7 +27,7 @@ public class BiomeConfig extends Config {
     public final ConfigProperty.PropertyBlock MIX_BLOCK_TOP = new ConfigProperty.PropertyBlock("Mix top block", "");
     public final ConfigProperty.PropertyBlock MIX_BLOCK_FILL = new ConfigProperty.PropertyBlock("Mix fill block", "");
     public final ConfigProperty.PropertyBlock BEACH_BLOCK = new ConfigProperty.PropertyBlock("Beach block", "");
-    public final ConfigProperty.PropertyBlock BOTTOM_BLOCK = new ConfigProperty.PropertyBlock("Bottom block", "");
+
     public String modSlug;
     public String biomeSlug;
     public BiomeConfig(String modSlug, String biomeSlug) {
@@ -42,6 +43,7 @@ public class BiomeConfig extends Config {
         FILL_LAYERS = this.addInt("Fill layers", "");
         SCATTERED_FEATURE = this.addString("Scattered feature", "");
         DECORATIONS = this.addStrings("Decorations", "");
+        WORLD_FEATURES = this.addStrings("World features", "");
         WATER_POND_CHANCE = this.addInt("Surface water lake chance", "");
         LAVA_POND_CHANCE = this.addInt("Surface lava lake chance", "");
         GENERATE_EMERALDS = this.addBool("Generate Emeralds", "");

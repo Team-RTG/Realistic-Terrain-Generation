@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenRavine;
-import teamrtg.rtg.api.world.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.world.biome.RTGBiomeBase;
 import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.api.util.BiomeUtils;
 
@@ -178,7 +178,7 @@ public class MapGenRavineRTG extends MapGenRavine {
         try {
             // If the user has set biome-specific settings, let's use those instead.
             BiomeGenBase biome = worldIn.getBiomeGenForCoords(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));
-            RealisticBiomeBase realisticBiome = RealisticBiomeBase.forBiome(BiomeUtils.getId(biome));
+            RTGBiomeBase realisticBiome = RTGBiomeBase.forBiome(BiomeUtils.getId(biome));
             ravineFrequency = (realisticBiome.getConfig().RAVINE_FREQUENCY.get() > -1) ? realisticBiome.getConfig().RAVINE_FREQUENCY.get() : ravineFrequency;
         } catch (Exception ignored) {}
 

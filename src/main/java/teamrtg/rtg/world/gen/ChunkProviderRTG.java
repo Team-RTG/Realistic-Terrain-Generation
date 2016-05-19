@@ -31,7 +31,7 @@ import teamrtg.rtg.api.util.PlaneLocation;
 import teamrtg.rtg.api.util.math.CanyonColour;
 import teamrtg.rtg.api.util.math.MathUtils;
 import teamrtg.rtg.api.world.RTGWorld;
-import teamrtg.rtg.api.world.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.world.biome.RTGBiomeBase;
 import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
 import teamrtg.rtg.world.biome.BiomeAnalyzer;
 import teamrtg.rtg.world.biome.BiomeProviderRTG;
@@ -82,7 +82,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
     private final BiomeAnalyzer analyzer;
     private final IBlockState bedrockBlock = Mods.RTG.config.BEDROCK_BLOCK.get();
     private BiomeProviderRTG bprv;
-    private RealisticBiomeBase[] biomesForGeneration;
+    private RTGBiomeBase[] biomesForGeneration;
     private BiomeGenBase[] baseBiomesList;
     private int[] biomeData;
     private float parabolicFieldTotal;
@@ -169,7 +169,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         rand.setSeed((long) cx * 0x4f9939f508L + (long) cz * 0x1ef1565bd5L);
         ChunkPrimer primer = new ChunkPrimer();
         BiomeGenBase[] baseBiomes = new BiomeGenBase[256];
-        RealisticBiomeBase[] jitteredBiomes = new RealisticBiomeBase[256];
+        RTGBiomeBase[] jitteredBiomes = new RTGBiomeBase[256];
 
         float[] noise = bprv.getHeights(cx, cz);
 
@@ -178,7 +178,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
             baseBiomes[k] = BiomeGenBase.getBiomeForId(bprv.getBiomes(cx, cz)[k]);
         }
 
-        RealisticBiomeBase jittered, actual;
+        RTGBiomeBase jittered, actual;
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 16; j++) {
                 rtgWorld.simplex.evaluateNoise(cx * 16 + i, cz * 16 + j, rtgWorld.surfaceJitter);
@@ -277,7 +277,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         }
     }
 
-    private void replaceBlocksForBiome(int cx, int cz, ChunkPrimer primer, RealisticBiomeBase[] biomes, BiomeGenBase[] base, float[] n) {
+    private void replaceBlocksForBiome(int cx, int cz, ChunkPrimer primer, RTGBiomeBase[] biomes, BiomeGenBase[] base, float[] n) {
         ChunkGeneratorEvent.ReplaceBiomeBlocks event = new ChunkGeneratorEvent.ReplaceBiomeBlocks(this, cx, cz, primer, world);
         MinecraftForge.EVENT_BUS.post(event);
         if (event.getResult() == Result.DENY) return;
@@ -287,7 +287,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         for (i = 0; i < 16; i++) {
             for (j = 0; j < 16; j++) {
 
-                RealisticBiomeBase biome = biomes[i * 16 + j];
+                RTGBiomeBase biome = biomes[i * 16 + j];
 
                 if (rtgWorld.biomeFaker.isFakeBiome(biome.getID())) {
                     rtgWorld.biomeFaker.fakeSurface(cx * 16 + i, cz * 16 + j, primer, biome.getBiome());
@@ -340,7 +340,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
         int worldX = x * 16;
         int worldZ = z * 16;
-        RealisticBiomeBase biome = bprv.getRealisticAt(worldX + 16, worldZ + 16);
+        RTGBiomeBase biome = bprv.getRealisticAt(worldX + 16, worldZ + 16);
         this.rand.setSeed(this.world.getSeed());
         long i1 = this.rand.nextLong() / 2L * 2L + 1L;
         long j1 = this.rand.nextLong() / 2L * 2L + 1L;
@@ -412,7 +412,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         float river = -bprv.getRiverStrength(worldX + 16, worldZ + 16);
 
         //Border noise. (Does this have to be done here? - Pink)
-        RealisticBiomeBase realisticBiome;
+        RTGBiomeBase realisticBiome;
         float snow = 0f;
 
         for (int bn = 0; bn < 256; bn++) {
@@ -420,7 +420,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 if (borderNoise[bn] >= 1f) {
                     borderNoise[bn] = 1f;
                 }
-                realisticBiome = RealisticBiomeBase.forBiome(bn);
+                realisticBiome = RTGBiomeBase.forBiome(bn);
 
                 /*
                  * When decorating the biome, we need to look at the biome configs to see if RTG is allowed to decorate it.
@@ -587,7 +587,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
     public void requestChunk(int cx, int cz) {
         float[] noise;
-        RealisticBiomeBase[] biomes = new RealisticBiomeBase[256];
+        RTGBiomeBase[] biomes = new RTGBiomeBase[256];
         int[] biomeIds = new int[256];
         int[] biomeData = new int[sampleArraySize * sampleArraySize];
         float[] riverVals = new float[256];
@@ -599,7 +599,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         //fill biomes array with biomeData
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 16; j++) {
-                biomes[i * 16 + j] = RealisticBiomeBase.forBiome(BiomeUtils.getId(bprv.getPreRepair(cx + i, cz + j)));
+                biomes[i * 16 + j] = RTGBiomeBase.forBiome(BiomeUtils.getId(bprv.getPreRepair(cx + i, cz + j)));
             }
         }
 
@@ -618,7 +618,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         bprv.heights.put(loc, noise);
     }
 
-    private float[] getNewerNoise(BiomeProviderRTG cmr, int x, int y, RealisticBiomeBase biomes[], int[] biomeData, float[] riverVals) {
+    private float[] getNewerNoise(BiomeProviderRTG cmr, int x, int y, RTGBiomeBase biomes[], int[] biomeData, float[] riverVals) {
 
         float[] testHeight;
         float[] biomesGeneratedInChunk;
@@ -678,7 +678,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
                         }
 
                         totalBorder += weightedBiomes[k];
-                        testHeight[i * 16 + j] += RealisticBiomeGenerator.forBiome(k).rNoise(rtgWorld, x + i, y + j, weightedBiomes[k], river + 1f) * weightedBiomes[k];
+                        testHeight[i * 16 + j] += RealisticBiomeGenerator.forBiome(k).terrainHeight(rtgWorld, x + i, y + j, weightedBiomes[k], river + 1f) * weightedBiomes[k];
                         // 0 for the next column
                         weightedBiomes[k] = 0f;
 

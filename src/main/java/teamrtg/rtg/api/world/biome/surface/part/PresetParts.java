@@ -5,14 +5,14 @@ import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.api.util.noise.IBlockAt;
 import teamrtg.rtg.api.util.noise.IBoolAt;
 import teamrtg.rtg.api.util.noise.IFloatAt;
-import teamrtg.rtg.api.world.biome.IMapGen;
+import teamrtg.rtg.api.world.biome.IWorldFeature;
 
 /**
  * @author topisani
  */
 public class PresetParts {
 
-    public final IMapGen biome;
+    public final IWorldFeature biome;
 
     public final IFloatAt DEPTH_NOISE;
     public final IFloatAt DEPTH_NOISE2;
@@ -29,7 +29,7 @@ public class PresetParts {
     public final SurfacePart FILL_BLOCK;
 
 
-    public PresetParts(IMapGen biome) {
+    public PresetParts(IWorldFeature biome) {
         this.biome = biome;
         DEPTH_NOISE = (x, y, z, rtgWorld) -> rtgWorld.simplex.noise2(x / 2f, z / 2f) * 2f;
         DEPTH_NOISE2 = (x, y, z, rtgWorld) -> rtgWorld.simplex.noise2(x / 2.5f, z / 2.5f) * 3f;

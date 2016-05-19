@@ -2,7 +2,7 @@ package teamrtg.rtg.api.util;
 
 import net.minecraft.world.biome.BiomeGenBase;
 import teamrtg.rtg.api.util.debug.Logger;
-import teamrtg.rtg.api.world.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.world.biome.RTGBiomeBase;
 
 import static net.minecraft.world.biome.BiomeGenBase.getIdForBiome;
 
@@ -21,7 +21,7 @@ public class RealisticBiomePresenceTester {
                 String biomeName = BiomeUtils.getLocForBiome(biome).toString();
                 String biomeClass = biome.getBiomeClass().getName();
 
-                RealisticBiomeBase rBiome = RealisticBiomeBase.forBiome(biomeId);
+                RTGBiomeBase rBiome = RTGBiomeBase.forBiome(biomeId);
                 if (rBiome == null) {
                     Logger.info("RTG could not find a realistic version of %s (%d). This is expected for non-overworld biomes", biomeName, biomeId, biomeClass);
                 }

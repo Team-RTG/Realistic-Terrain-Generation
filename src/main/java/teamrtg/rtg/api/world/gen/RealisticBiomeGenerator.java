@@ -20,9 +20,9 @@ import teamrtg.rtg.api.tools.feature.WorldGenPond;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.math.MathUtils;
 import teamrtg.rtg.api.util.math.RandomUtil;
-import teamrtg.rtg.api.util.noise.SimplexOctave;
 import teamrtg.rtg.api.world.RTGWorld;
-import teamrtg.rtg.api.world.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.world.biome.RTGBiomeBase;
+import teamrtg.rtg.api.world.biome.WorldFeature;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 
 import java.util.Random;
@@ -35,15 +35,15 @@ public class RealisticBiomeGenerator implements IMapGenGenerator {
     private static float actualRiverProportion = 300f / 1600f;
 
     public SurfacePart genericPart;
-    public final RealisticBiomeBase realistic;
+    public final RTGBiomeBase realistic;
 
-    public RealisticBiomeGenerator(RealisticBiomeBase realistic) {
+    public RealisticBiomeGenerator(RTGBiomeBase realistic) {
         this.realistic = realistic;
         biomeGenerators[realistic.getID()] = this;
         genericPart = this.realistic.PARTS.surfaceGeneric();
     }
 
-    public static RealisticBiomeBase getRealistic(int id) {
+    public static RTGBiomeBase getRealistic(int id) {
         try {
             return biomeGenerators[id].realistic;
         } catch (Exception e) {
@@ -51,7 +51,7 @@ public class RealisticBiomeGenerator implements IMapGenGenerator {
         }
     }
 
-    public static RealisticBiomeBase getRealistic(BiomeGenBase biome) {
+    public static RTGBiomeBase getRealistic(BiomeGenBase biome) {
         return RealisticBiomeGenerator.getRealistic(BiomeUtils.getId(biome));
     }
 
@@ -266,87 +266,22 @@ public class RealisticBiomeGenerator implements IMapGenGenerator {
         }
     }
 
-    public float rNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+    public float terrainHeight(RTGWorld rtgWorld, int x, int z, float border, float river) {
         // we now have both lakes and rivers lowering land
         if (realistic.noWaterFeatures) {
             float borderForRiver = border * 2;
             if (borderForRiver > 1f) borderForRiver = 1;
             river = 1f - (1f - borderForRiver) * (1f - river);
-            return realistic.terrain.generateNoise(rtgWorld, x, y, border, river);
         }
-        float lakeStrength = lakePressure(rtgWorld, x, y, border);
-        float lakeFlattening = (float) lakeFlattening(lakeStrength, realistic.lakeShoreLevel, realistic.lakeDepressionLevel);
-        // we add some flattening to the rivers. The lakes are pre-flattened.
-        float riverFlattening = river * 1.25f - 0.25f;
-        if (riverFlattening < 0) riverFlattening = 0;
-        if ((river < 1) && (lakeFlattening < 1)) {
-            riverFlattening = (float) ((1f - riverFlattening) / riverFlattening + (1f - lakeFlattening) / lakeFlattening);
-            riverFlattening = (1f / (riverFlattening + 1f));
-        } else {
-            if (lakeFlattening < riverFlattening) riverFlattening = (float) lakeFlattening;
+        float height = realistic.terrain.generateNoise(rtgWorld, x, z, border, river);
+        for (WorldFeature feature : realistic.getWorldFeatures()) {
+            height = feature.modifyTerrain(rtgWorld, realistic, height, x, z, border, river);
         }
-        // the lakes have to have a little less flattening to avoid the rocky edges
-        lakeFlattening = lakeFlattening(lakeStrength, realistic.lakeWaterLevel, realistic.lakeDepressionLevel);
-
-        if ((river < 1) && (lakeFlattening < 1)) {
-            river = (float) ((1f - river) / river + (1f - lakeFlattening) / lakeFlattening);
-            river = (1f / (river + 1f));
-        } else {
-            if (lakeFlattening < river) river = (float) lakeFlattening;
-        }
-        // flatten terrain to set up for the water features
-        float terrainNoise = realistic.terrain.generateNoise(rtgWorld, x, y, border, riverFlattening);
-        // place water features
-        return this.erodedNoise(rtgWorld, x, y, river, border, terrainNoise, lakeFlattening);
-    }
-
-    public float lakePressure(RTGWorld rtgWorld, int x, int y, float border) {
-        if (realistic.noLakes) return 1f;
-        SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-        rtgWorld.simplex.riverJitter().evaluateNoise((float) x / 240.0, (float) y / 240.0, jitter);
-        double pX = x + jitter.deltax() * realistic.largeBendSize;
-        double pY = y + jitter.deltay() * realistic.largeBendSize;
-        rtgWorld.simplex.mountain().evaluateNoise((float) x / 80.0, (float) y / 80.0, jitter);
-        pX += jitter.deltax() * realistic.mediumBendSize;
-        pY += jitter.deltay() * realistic.mediumBendSize;
-        rtgWorld.simplex.octave(4).evaluateNoise((float) x / 30.0, (float) y / 30.0, jitter);
-        pX += jitter.deltax() * realistic.smallBendSize;
-        pY += jitter.deltay() * realistic.smallBendSize;
-        //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
-        double[] lakeResults = rtgWorld.cell.river().eval((float) pX / realistic.lakeInterval, (float) pY / realistic.lakeInterval);
-        float results = 1f - (float) ((lakeResults[1] - lakeResults[0]) / lakeResults[1]);
-        if (results > 1.01) throw new RuntimeException("" + lakeResults[0] + " , " + lakeResults[1]);
-        if (results < -.01) throw new RuntimeException("" + lakeResults[0] + " , " + lakeResults[1]);
-        //return simplexCell.river().noise((float)x/ lakeInterval, (float)y/ lakeInterval,1.0);
-        return results;
-    }
-
-    public float lakeFlattening(float pressure, float bottomLevel, float topLevel) {
-        // this number indicates a multiplier to height
-        if (pressure > topLevel) return 1;
-        if (pressure < bottomLevel) return 0;
-        return (float) Math.pow((pressure - bottomLevel) / (topLevel - bottomLevel), 1.0);
-    }
-
-    public float erodedNoise(RTGWorld rtgWorld, int x, int y, float river, float border, float biomeHeight, double lakeFlattening) {
-
-        float r = 1f;
-
-        // put a flat spot in the middle of the river
-        float riverFlattening = river; // moved the flattening to terrain stage
-        if (riverFlattening < 0) riverFlattening = 0;
-
-        r = riverFlattening / actualRiverProportion;
-        if ((r < 1f && biomeHeight > 57f)) {
-            return (biomeHeight * (r))
-                + ((57f + rtgWorld.simplex.noise2(x / 12f, y / 12f) * 2f + rtgWorld.simplex.noise2(x / 8f, y / 8f) * 1.5f) * (1f - r));
-        } else {
-            return biomeHeight;
-        }
+        return height;
     }
 
     @Override
-    public RealisticBiomeBase get() {
+    public RTGBiomeBase get() {
         return this.realistic;
     }
 

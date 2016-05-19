@@ -8,7 +8,7 @@ import net.minecraftforge.event.terraingen.WorldTypeEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import teamrtg.rtg.api.world.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.world.biome.RTGBiomeBase;
 import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.api.util.debug.Logger;
 import teamrtg.rtg.core.RTG;
@@ -23,7 +23,7 @@ import teamrtg.rtg.world.gen.structure.StructureOceanMonumentRTG;
 
 public class EventManagerRTG {
 
-    public RealisticBiomeBase biome = null;
+    public RTGBiomeBase biome = null;
 
     public EventManagerRTG() {
         MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");

@@ -2,7 +2,7 @@ package teamrtg.rtg.api.world.gen;
 
 import net.minecraft.world.chunk.ChunkPrimer;
 import teamrtg.rtg.api.world.RTGWorld;
-import teamrtg.rtg.api.world.biome.IMapGen;
+import teamrtg.rtg.api.world.biome.IWorldFeature;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
 
@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public interface IMapGenGenerator {
 
-    IMapGen get();
+    IWorldFeature get();
 
     void paintSurface(ChunkPrimer primer, int bx, int by, int bz, int depth, float[] noise, float river, RTGWorld rtgWorld);
 

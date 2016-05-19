@@ -2,7 +2,7 @@ package teamrtg.rtg.api.tools.surface;
 
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.api.util.noise.IFloatAt;
-import teamrtg.rtg.api.world.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.world.biome.RTGBiomeBase;
 import teamrtg.rtg.api.world.biome.surface.part.GenericPart;
 import teamrtg.rtg.api.world.biome.surface.part.RiverSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
@@ -12,7 +12,7 @@ import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
  */
 public class SurfaceRiverOasis extends SurfacePart {
 
-    public SurfaceRiverOasis(RealisticBiomeBase biome) {
+    public SurfaceRiverOasis(RTGBiomeBase biome) {
 
         float amplitude = 0.25f;
 

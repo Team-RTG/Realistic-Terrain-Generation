@@ -12,7 +12,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
-import teamrtg.rtg.api.world.biome.RealisticBiomeBase;
+import teamrtg.rtg.api.world.biome.RTGBiomeBase;
 import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.LimitedMap;
@@ -49,7 +49,7 @@ public class BiomeProviderRTG extends BiomeProvider {
     private CellNoise cell;
     private SimplexCellularNoise simplexCell;
     private float[] borderNoise;
-    private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
+    private TLongObjectHashMap<RTGBiomeBase> biomeDataMap = new TLongObjectHashMap<RTGBiomeBase>();
     private BiomeCache biomeCache;
     private double riverValleyLevel = 60.0 / 450.0;
     private float riverSeparation = 1875;
@@ -119,8 +119,8 @@ public class BiomeProviderRTG extends BiomeProvider {
         return BiomeGenBase.getBiomeForId(getBiomes(globalToChunk(x), globalToChunk(z))[globalToIndex(x, z)]);
     }
 
-    public RealisticBiomeBase getRealisticAt(int bx, int bz) {
-        return RealisticBiomeBase.forBiome(getBiomeGenAt(bx, bz));
+    public RTGBiomeBase getRealisticAt(int bx, int bz) {
+        return RTGBiomeBase.forBiome(getBiomeGenAt(bx, bz));
     }
 
     public List getBiomesToSpawnIn() {
@@ -251,7 +251,7 @@ public class BiomeProviderRTG extends BiomeProvider {
             return 59f;
         }
 
-        return RealisticBiomeGenerator.forBiome(getBiomeGenAt(x, y)).rNoise(chunkProvider.rtgWorld, x, y, 1f, river);
+        return RealisticBiomeGenerator.forBiome(getBiomeGenAt(x, y)).terrainHeight(chunkProvider.rtgWorld, x, y, 1f, river);
     }
 
     public float getRiverStrength(int x, int y) {

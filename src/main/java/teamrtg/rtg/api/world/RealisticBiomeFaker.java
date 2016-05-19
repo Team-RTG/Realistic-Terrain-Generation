@@ -101,7 +101,7 @@ public class RealisticBiomeFaker {
                 try {
                     RealisticBiomeGenerator.getRealistic(BiomeGenBase.getIdForBiome(biome));
                 } catch (Exception e) {
-                    new RealisticBiomeGenerator(new FakedRealisticBiome(Mods.RTG, biome));
+                    new RealisticBiomeGenerator(new FakedRTGBiome(Mods.RTG, biome));
                     fakeBiomes[BiomeGenBase.getIdForBiome(biome)] = true;
                 }
             }

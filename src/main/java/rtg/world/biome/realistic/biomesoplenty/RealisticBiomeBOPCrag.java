@@ -8,6 +8,7 @@ import rtg.world.gen.surface.biomesoplenty.SurfaceBOPCrag;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPCrag;
 import biomesoplenty.api.content.BOPCBiomes;
 import rtg.world.biome.deco.DecoPond;
+import rtg.world.biome.deco.helper.DecoHelperBorder;
 
 public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase
 {	
@@ -29,7 +30,8 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase
 
         DecoPond decoPond = new DecoPond();
         decoPond.chunksPerPond = 3;// very high because most are blocked by topography
-        this.addDeco(decoPond);
+        DecoHelperBorder borderedPond = new DecoHelperBorder(decoPond,0.8f,0.7f);
+        this.addDeco(borderedPond);
 
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		this.addDeco(decoBaseBiomeDecorations);

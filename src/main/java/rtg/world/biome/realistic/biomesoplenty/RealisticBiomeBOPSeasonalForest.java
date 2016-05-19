@@ -57,7 +57,6 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase
 		decoFallenTree.distribution.noiseAddend = -15f;
 		decoFallenTree.logCondition = LogCondition.RANDOM_CHANCE;
 		decoFallenTree.logConditionChance = 6;
-		decoFallenTree.maxY = 100;
 		decoFallenTree.randomLogBlocks = new Block[]{Blocks.log2, Blocks.log, Blocks.log};
 		decoFallenTree.randomLogMetas = new byte[]{1, 0, 2};
 		decoFallenTree.minSize = 3;

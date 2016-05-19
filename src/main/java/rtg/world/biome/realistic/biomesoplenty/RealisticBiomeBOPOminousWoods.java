@@ -36,7 +36,6 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase
 		decoFallenTree.distribution.noiseAddend = -15f;
 		decoFallenTree.logCondition = LogCondition.RANDOM_CHANCE;
 		decoFallenTree.logConditionChance = 6;
-		decoFallenTree.maxY = 100;
 		decoFallenTree.randomLogBlocks = new Block[]{BOPCBlocks.logs1, BOPCBlocks.logs3};
 		decoFallenTree.randomLogMetas = new byte[]{2, 2};
 		decoFallenTree.minSize = 3;

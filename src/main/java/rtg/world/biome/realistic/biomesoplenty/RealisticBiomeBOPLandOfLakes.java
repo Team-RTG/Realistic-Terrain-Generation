@@ -82,7 +82,6 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		decoFallenTree.logConditionNoise = 0f;
 		decoFallenTree.logConditionChance = 12;
-		decoFallenTree.maxY = 100;
 		decoFallenTree.randomLogBlocks = new Block[]{Blocks.log, Blocks.log, Blocks.log};
 		decoFallenTree.randomLogMetas = new byte[]{0, 1, 2};
 		decoFallenTree.minSize = 8;

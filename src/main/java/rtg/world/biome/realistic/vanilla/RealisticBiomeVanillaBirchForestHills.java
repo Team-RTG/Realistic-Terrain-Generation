@@ -95,7 +95,6 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.logCondition = LogCondition.RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 8;
-        decoFallenTree.maxY = 100;
         decoFallenTree.logBlock = Blocks.log;
         decoFallenTree.logMeta = (byte)2;
         decoFallenTree.leavesBlock = Blocks.leaves;

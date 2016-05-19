@@ -36,7 +36,6 @@ public class RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase
 		decoFallenTree.distribution.noiseAddend = -15f;
 		decoFallenTree.logCondition = LogCondition.RANDOM_CHANCE;
 		decoFallenTree.logConditionChance = 10;
-		decoFallenTree.maxY = 100;
 		decoFallenTree.logBlock = Blocks.log;
 		decoFallenTree.logMeta = (byte)0;
 		decoFallenTree.leavesBlock = Blocks.leaves;

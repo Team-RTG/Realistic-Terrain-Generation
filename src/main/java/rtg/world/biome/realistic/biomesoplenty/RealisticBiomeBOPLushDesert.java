@@ -60,7 +60,6 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase
 		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		decoFallenTree.logConditionNoise = 0f;
 		decoFallenTree.logConditionChance = 12;
-		decoFallenTree.maxY = 100;
 		decoFallenTree.randomLogBlocks = new Block[]{Blocks.log2, BOPCBlocks.logs3, Blocks.log};
 		decoFallenTree.randomLogMetas = new byte[]{1, 2, 0};
 		decoFallenTree.minSize = 3;

@@ -62,7 +62,6 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase
 		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		decoFallenTree.logConditionNoise = 0f;
 		decoFallenTree.logConditionChance = 16;
-		decoFallenTree.maxY = 100;
 		decoFallenTree.logBlock = Blocks.log;
 		decoFallenTree.logMeta = (byte)3;
 		decoFallenTree.leavesBlock = Blocks.leaves;

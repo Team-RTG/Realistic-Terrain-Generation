@@ -87,7 +87,6 @@ public class RealisticBiomeEBBlossomHills extends RealisticBiomeEBBase
 		decoFallenTree.logCondition = LogCondition.X_DIVIDED_BY_STRENGTH;
 		decoFallenTree.logConditionNoise = 6f;
 		decoFallenTree.logConditionChance = 1;
-		decoFallenTree.maxY = 100;
 		decoFallenTree.logBlock = EnhancedBiomesBlocks.logJungle;
 		decoFallenTree.logMeta = (byte)2;
 		decoFallenTree.leavesBlock = EnhancedBiomesBlocks.leavesJungle;

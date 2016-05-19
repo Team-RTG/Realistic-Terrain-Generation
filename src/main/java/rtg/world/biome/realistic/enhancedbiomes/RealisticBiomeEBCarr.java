@@ -146,7 +146,6 @@ public class RealisticBiomeEBCarr extends RealisticBiomeEBBase
         decoFallenTree.logCondition = LogCondition.X_DIVIDED_BY_STRENGTH;
         decoFallenTree.logConditionNoise = 8f;
         decoFallenTree.logConditionChance = 8;
-        decoFallenTree.maxY = 100;
         decoFallenTree.randomLogBlocks = new Block[]{EnhancedBiomesBlocks.logBirch, Blocks.log};
         decoFallenTree.randomLogMetas = new byte[]{0, 1};
         decoFallenTree.minSize = 3;

@@ -91,7 +91,6 @@ public class RealisticBiomeEBEphemeralLake extends RealisticBiomeEBBase
         decoFallenTree.logCondition = LogCondition.X_DIVIDED_BY_STRENGTH;
         decoFallenTree.logConditionNoise = 8f;
         decoFallenTree.logConditionChance = 3;
-        decoFallenTree.maxY = 100;
         decoFallenTree.logBlock = EnhancedBiomesBlocks.logJungle;
         decoFallenTree.logMeta = (byte)1;
         decoFallenTree.leavesBlock = EnhancedBiomesBlocks.leavesJungle;

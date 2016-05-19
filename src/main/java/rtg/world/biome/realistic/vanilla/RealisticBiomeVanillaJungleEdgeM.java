@@ -46,7 +46,6 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase
 		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		decoFallenTree.logConditionNoise = 0f;
 		decoFallenTree.logConditionChance = 6;
-		decoFallenTree.maxY = 110;
 		decoFallenTree.logBlock = Blocks.log;
 		decoFallenTree.logMeta = (byte)3;
 		decoFallenTree.leavesBlock = Blocks.leaves;

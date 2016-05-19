@@ -50,7 +50,6 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase
 		decoFallenTree.distribution.noiseAddend = -15f;
 		decoFallenTree.logCondition = LogCondition.RANDOM_CHANCE;
 		decoFallenTree.logConditionChance = 16;
-		decoFallenTree.maxY = 100;
 		decoFallenTree.logBlock = BOPCBlocks.logs2;
 		decoFallenTree.logMeta = (byte)3;
 		decoFallenTree.leavesBlock = Blocks.leaves;

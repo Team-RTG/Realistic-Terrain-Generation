@@ -57,7 +57,6 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase
 		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		decoFallenTree.logConditionNoise = 0f;
 		decoFallenTree.logConditionChance = 16;
-		decoFallenTree.maxY = 100;
 		decoFallenTree.logBlock = BOPCBlocks.logs1;
 		decoFallenTree.logMeta = (byte)3;
 		decoFallenTree.leavesBlock = Blocks.leaves;

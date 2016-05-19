@@ -47,7 +47,6 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase
         decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 12;
-        decoFallenTree.maxY = 100;
         decoFallenTree.logBlock = ACBlocks.darklands_oak_wood;
         decoFallenTree.logMeta = (byte)0;
         decoFallenTree.leavesBlock = ACBlocks.darklands_oak_leaves;

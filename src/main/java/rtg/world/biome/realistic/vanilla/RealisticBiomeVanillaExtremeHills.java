@@ -78,7 +78,6 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
 		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		decoFallenTree.logConditionNoise = 0f;
 		decoFallenTree.logConditionChance = 16;
-		decoFallenTree.maxY = 90;
 		decoFallenTree.logBlock = Blocks.log;
 		decoFallenTree.logMeta = (byte)0;
 		decoFallenTree.leavesBlock = Blocks.leaves;

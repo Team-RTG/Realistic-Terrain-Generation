@@ -92,7 +92,6 @@ public class RealisticBiomeEBMangrove extends RealisticBiomeEBBase
         decoFallenTree.logCondition = LogCondition.X_DIVIDED_BY_STRENGTH;
         decoFallenTree.logConditionNoise = 8f;
         decoFallenTree.logConditionChance = 3;
-        decoFallenTree.maxY = 100;
         decoFallenTree.logBlock = EnhancedBiomesBlocks.logOak;
         decoFallenTree.logMeta = (byte)3;
         decoFallenTree.leavesBlock = EnhancedBiomesBlocks.leavesOak;

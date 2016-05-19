@@ -77,7 +77,6 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
 		decoFallenTree.logCondition = LogCondition.ALWAYS_GENERATE;
 		decoFallenTree.logConditionChance = 1;
 		decoFallenTree.loops = 4;
-		decoFallenTree.maxY = 100;
 		decoFallenTree.logBlock = Blocks.log2;
 		decoFallenTree.logMeta = (byte)1;
 		decoFallenTree.leavesBlock = Blocks.leaves2;

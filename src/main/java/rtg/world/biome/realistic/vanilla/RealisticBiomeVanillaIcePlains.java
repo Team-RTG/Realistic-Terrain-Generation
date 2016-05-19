@@ -47,7 +47,6 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 24;
-        decoFallenTree.maxY = 90;
         decoFallenTree.logBlock = Blocks.log;
         decoFallenTree.logMeta = (byte)1;
         decoFallenTree.leavesBlock = Blocks.leaves;

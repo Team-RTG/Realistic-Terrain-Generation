@@ -34,7 +34,6 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase
 		decoFallenTree.logCondition = LogCondition.X_DIVIDED_BY_STRENGTH;
 		decoFallenTree.logConditionNoise = 8f;
 		decoFallenTree.logConditionChance = 1;
-		decoFallenTree.maxY = 100;
 		decoFallenTree.logBlock = Blocks.log;
 		decoFallenTree.logMeta = (byte)0;
 		decoFallenTree.leavesBlock = Blocks.leaves;

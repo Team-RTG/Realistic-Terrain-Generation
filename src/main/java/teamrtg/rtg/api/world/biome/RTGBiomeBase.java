@@ -39,7 +39,7 @@ public abstract class RTGBiomeBase implements IWorldFeature {
     public TerrainBase terrain;
     public SurfacePart surface;
     public ArrayList<DecoBase> decos = new ArrayList<>();
-    private List<WorldFeature> worldFeatures;
+    private List<WorldFeature> worldFeatures = new ArrayList<>();
     public boolean noLakes = false;
     public boolean noWaterFeatures = false;
 
@@ -64,7 +64,7 @@ public abstract class RTGBiomeBase implements IWorldFeature {
         this.PARTS = new PresetParts(this);
         this.terrain = initTerrain();
         initDecos();
-        this.worldFeatures = initWorldFeatures();
+        initWorldFeatures();
         this.surface = new SurfacePart();
         // WorldFeature surfaces take precedence
         for (WorldFeature feature : worldFeatures) {
@@ -88,10 +88,8 @@ public abstract class RTGBiomeBase implements IWorldFeature {
         this.decos.add(decoBaseBiomeDecorations);
     }
 
-    public List<WorldFeature> initWorldFeatures() {
-        List<WorldFeature> worldFeatures = new ArrayList<>();
+    public void initWorldFeatures() {
         addWorldFeature(new WaterFeatures());
-        return worldFeatures;
     }
 
     @Override

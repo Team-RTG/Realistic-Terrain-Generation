@@ -20,10 +20,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
+import rtg.config.rtg.ConfigRTG;
 import rtg.util.SimplexCellularOctave;
 import rtg.util.SimplexOctave;
 import rtg.util.VoronoiCellNoise;
-import rtg.util.VoronoiCellOctave;
 
 public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeProvider
 {
@@ -33,7 +33,8 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
     private List biomesToSpawnIn;
     private OpenSimplexNoise simplex;
     private CellNoise cell;
-    private SimplexCellularNoise simplexCell;
+    //private SimplexCellularNoise simplexCell;
+    private VoronoiCellNoise river;
     private float[] borderNoise;
     private TLongObjectHashMap<RealisticBiomeBase> biomeDataMap = new TLongObjectHashMap<RealisticBiomeBase>();
     private BiomeCache biomeCache;
@@ -46,6 +47,10 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         this.biomesToSpawnIn = new ArrayList();
         borderNoise = new float[256];
         biomePatcher = new RealisticBiomePatcher();
+        this.riverSeparation /= ConfigRTG.riverFrequencyMultiplier;
+        this.riverValleyLevel *= ConfigRTG.riverSizeMultiplier();
+        this.largeBendSize *= ConfigRTG.riverBendinessMultiplier;
+        this.smallBendSize *= ConfigRTG.riverBendinessMultiplier;
     }
     
     public WorldChunkManagerRTG(World par1World,WorldType worldType)
@@ -56,12 +61,14 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         if (par1World.provider.dimensionId !=0) throw new RuntimeException();
 
         simplex = new OpenSimplexNoise(seed);
-        cell = new VoronoiCellNoise(seed);
-        simplexCell = new SimplexCellularNoise(seed);
+        cell = new SimplexCellularNoise(seed);
+        //simplexCell = new SimplexCellularNoise(seed);
+        river = new VoronoiCellNoise(seed);
         GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType);
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
         this.biomeIndexLayer = agenlayer[1];
+        testCellBorder();
     }
     
     public int[] getBiomesGens(int par1, int par2, int par3, int par4)
@@ -108,11 +115,14 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
             {
                 f = (float) biomePatcher.getSingleRealisticBiome().getIntRainfall() / 65536.0F;
             } else {
+                int biome = aint[i1];
                 try {
-                    f = (float) RealisticBiomeBase.getBiome(aint[i1]).getIntRainfall() / 65536.0F;
+                    if (biome>255) throw new RuntimeException(biomeIndexLayer.toString());
+                    f = (float) RealisticBiomeBase.getBiome(biome).getIntRainfall() / 65536.0F;
                 } catch (Exception e) {
-                    if (RealisticBiomeBase.getBiome(aint[i1])== null) {
-                        f = (float) biomePatcher.getPatchedRealisticBiome("Problem with biome "+aint[i1]+" from "+e.getMessage()).getIntRainfall() / 65536.0F;
+                    if (biome>255) throw new RuntimeException(biomeIndexLayer.toString());
+                    if (RealisticBiomeBase.getBiome(biome)== null) {
+                        f = (float) biomePatcher.getPatchedRealisticBiome("Problem with biome "+biome+" from "+e.getMessage()).getIntRainfall() / 65536.0F;
                     }
                 }
             }
@@ -211,61 +221,64 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         
         return getBiomeDataAt(x, y).rNoise(simplex, cell, x, y, 1f, river);
     }
-    
+
+    private static int [] incidences = new int[100];
+    private static int references = 0;
 	private static double cellBorder(double[] results, double width, double depth) {
-		double c = results[1] - results[0];
+		double c = (results[1] - results[0])/results[1];
+        if (c<0) throw new RuntimeException();
+        /*int slot = (int)Math.floor(c*100.0);
+        incidences[slot] += 1;
+        references ++;
+        if (references>40000) {
+            String result = "";
+            for (int i = 0; i< 100; i ++) {
+                result += " " + incidences[i];
+            }
+            throw new RuntimeException(result);
+        }*/
 		if (c < width) {
-			return ((c / width) - 1) * depth;
+			return ((c / width) - 1f) * depth;
 		} else {
+
 			return 0;
 		}
 	}
-    
-    public float calculateRiver(int x, int y, float st, float biomeHeight)
-    {
-        
-        if (st < 0f && biomeHeight > 59f)
-        {
-        	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
-            SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-            simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
-            double pX = x + jitter.deltax() * 220f;
-            double pY = y + jitter.deltay() * 220f;
-            /*double[] simplexResults = new double[2];
-    	    OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
-            double pX = x + simplexResults[0] * 220f;
-            double pY = y + simplexResults[1] * 220f;*/
 
-            //New cellular noise.
-            //TODO move the initialization of the results in a way that's more efficient but still thread safe.
-            double[] results =simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
-            float r = (float) cellBorder(results, 30.0 / 1300.0, 1.0);
-            
-            return (biomeHeight * (r + 1f))
-                + ((59f + simplex.noise2(x / 12f, y / 12f) * 2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (-r));
-        }
-        else
-        {
-            return biomeHeight;
-        }
+    private static void testCellBorder() {
+        double [] result = new double[2];
+        result[0] = 0.5;
+        result [1] = 1;
+        if (cellBorder(result,0.5,1)<0) throw new RuntimeException();
     }
+
+    private double riverValleyLevel = 60.0 / 450.0;//60.0/450.0;
+    private float riverSeparation = 1875;
+    private float largeBendSize = 140;
+    private float smallBendSize = 30;
 
     public float getRiverStrength(int x, int y)
     {
     	//New river curve function. No longer creates worldwide curve correlations along cardinal axes.
             SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-            simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
-            double pX = x + jitter.deltax() * 220f;
-            double pY = y + jitter.deltay() * 220f;
-            /*double[] simplexResults = new double[2];
-    	    OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
-            double pX = x + simplexResults[0] * 220f;
-            double pY = y + simplexResults[1] * 220f;*/
+            simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
+            double pX = x + jitter.deltax() * largeBendSize;
+            double pY = y + jitter.deltay() * largeBendSize;
+
+
+
+            simplex.octave(2).evaluateNoise((float)x / 80.0, (float)y / 80.0, jitter);
+            pX += jitter.deltax() * smallBendSize;
+            pY += jitter.deltay() * smallBendSize;
+
+            double xRiver = pX / riverSeparation;
+            double yRiver = pY / riverSeparation;
         
         //New cellular noise.
         //TODO move the initialization of the results in a way that's more efficient but still thread safe.
-        double[] results = simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
-        return (float) cellBorder(results, 30.0 / 300.0, 1.0);
+        //double[] results = cell.river().eval(xRiver,yRiver );
+        //return (float) cellBorder(results, riverValleyLevel, 1.0);
+        return river.octave(0).border2(xRiver, yRiver, riverValleyLevel, 1f);
     }
     	
     public boolean isBorderlessAt(int x, int y)

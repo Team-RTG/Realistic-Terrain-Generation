@@ -1,45 +1,36 @@
 package rtg.world.gen.terrain.extrabiomes;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.world.gen.terrain.FunctionalTerrainBase;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.HeightVariation;
+import rtg.world.gen.terrain.JitterEffect;
+import rtg.world.gen.terrain.PlateauEffect;
 
-public class TerrainEBXLShrubland extends TerrainBase
+public class TerrainEBXLShrubland extends FunctionalTerrainBase
 {
-	 private float minHeight;
-	    private float maxHeight;
-	    private float hillStrength;
-	    
-	    // 63f, 80f, 30f
-	    
-	    public TerrainEBXLShrubland(float minHeight, float maxHeight, float hillStrength)
-	    {
-	        this.minHeight = minHeight;
-	        this.maxHeight = (maxHeight > 80f) ? 80f : ((maxHeight < this.minHeight) ? 80f : maxHeight);
-	        this.hillStrength = hillStrength;
-	    }
-	    
-	    @Override
-	    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-	    {
-	    
-	        float h = simplex.noise2(x / 200f, y / 200f) * 4;
-	        h += simplex.noise2(x / 100f, y / 100f) * 2;
-	        
-	        float m = simplex.noise2(x / 200f, y / 200f) * hillStrength * river;
-	        m *= m / ((hillStrength * 0.1f) + hillStrength);
-	        
-	        float sm = simplex.noise2(x / hillStrength, y / hillStrength) * 8f;
-	        sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
-	        m += sm;
-	        
-	        float l = simplex.noise2(x / 260f, y / 260f) * 38f;
-	        l *= l / 25f;
-	        l = l < -8f ? -8f : l;
-	        
-	        float floNoise = maxHeight + h + m - l;
-	        floNoise = (floNoise < minHeight) ? minHeight : floNoise;
-	        
-	        return floNoise;
-	    }
-	}
+
+    public TerrainEBXLShrubland()
+    {
+        base = 66;
+        HeightVariation tops = new HeightVariation();
+        tops.height = 3;
+        tops.wavelength = 40;
+        tops.octave = 0;
+
+        PlateauEffect flatHills = new PlateauEffect();
+        flatHills.height = 5f;
+        flatHills.bottomSimplexValue = 0.1f;
+        flatHills.topSimplexValue = 0.5f;
+        flatHills.octave = 1;
+        flatHills.wavelength = 40;
+        flatHills.subordinate = tops;
+
+        JitterEffect jitteredHills = new JitterEffect();
+        jitteredHills.amplitude = 3f;
+        jitteredHills.wavelength = 15f;
+        jitteredHills.jittered = flatHills;
+
+        height = jitteredHills.plus(new GroundEffect(4));
+
+    }
+}

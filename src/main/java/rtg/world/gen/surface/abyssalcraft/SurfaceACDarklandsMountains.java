@@ -15,7 +15,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class SurfaceACDarklandsMountains extends SurfaceBase
+public class SurfaceACDarklandsMountains extends SurfaceACBase
 {
     
     private boolean beach;

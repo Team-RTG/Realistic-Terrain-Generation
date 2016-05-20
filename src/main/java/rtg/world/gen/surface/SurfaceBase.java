@@ -2,22 +2,18 @@ package rtg.world.gen.surface;
 
 import java.util.Random;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.ModPresenceTester;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.UBColumnCache;
-
-import com.shinoow.abyssalcraft.api.block.ACBlocks;
-
 import cpw.mods.fml.common.registry.GameData;
 import exterminatorJeff.undergroundBiomes.api.BlockCodes;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceBase
 {
@@ -28,10 +24,14 @@ public class SurfaceBase
 	protected BiomeConfig biomeConfig;
 
 	private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
-	private final static ModPresenceTester abyssalCraftMod = new ModPresenceTester("abyssalcraft");
+	private final static ModPresenceTester harderUndergroundMod = new ModPresenceTester("HarderUnderground");
 	
     // create UBColumnCache only if UB is present
     private static UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
+    
+    // If the Harder Underground mod is installed, then let's use unstable cobble instead of vanilla cobble.
+    private static Block unstableCobbleBlock = harderUndergroundMod.present() ? GameData.getBlockRegistry().getObject("HarderUnderground:unstable_stone") : Blocks.cobblestone;
+    private static byte unstableCobbleMeta = harderUndergroundMod.present() ? (byte)3 : (byte)0;
     
     public SurfaceBase(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte)
     {
@@ -101,14 +101,7 @@ public class SurfaceBase
     
     protected Block hcStone(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY)
     {
-        if (abyssalCraftMod.present()) {
-            
-            return ACBlocks.darkstone;
-        }
-        else {
-            
-            return Blocks.stone;
-        }
+        return Blocks.stone;
     }
     
     protected byte hcStoneMeta(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY)
@@ -117,23 +110,20 @@ public class SurfaceBase
     }
     
     protected Block hcCobble(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY)
-    {
-        if (abyssalCraftMod.present()) {
+    { 
+        if ((undergroundBiomesMod.present())) {
             
-            return ACBlocks.darkstone_cobblestone;
+            BlockCodes cobble = ubColumnCache.column(worldX,worldZ).cobblestone(worldY);
+            
+            return cobble.block;
+        }
+        else if (harderUndergroundMod.present()) {
+        	
+        	return unstableCobbleBlock;
         }
         else {
             
-            if ((undergroundBiomesMod.present())) {
-                
-                BlockCodes cobble = ubColumnCache.column(worldX,worldZ).cobblestone(worldY);
-                
-                return cobble.block;
-            }
-            else {
-                
-                return Blocks.cobblestone;
-            }
+            return Blocks.cobblestone;
         }
     }
     
@@ -144,6 +134,10 @@ public class SurfaceBase
             BlockCodes cobble = ubColumnCache.column(worldX,worldZ).cobblestone(worldY);
             
             return (byte) cobble.metadata;
+        }
+        else if (harderUndergroundMod.present()) {
+        	
+        	return unstableCobbleMeta;
         }
         else {
             

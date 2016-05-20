@@ -15,9 +15,11 @@ import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.WeakHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
+import net.minecraft.world.biome.BiomeGenBase;
 
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -27,12 +29,16 @@ import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.WorldTypeEvent;
+import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
+import rtg.util.Acceptor;
 
 public class EventManagerRTG
 {
 
     public RealisticBiomeBase biome = null;
+    private WeakHashMap<Integer,Acceptor<ChunkEvent.Load>> chunkLoadEvents =
+            new WeakHashMap<Integer,Acceptor<ChunkEvent.Load>> ();
     
     public EventManagerRTG()
     {
@@ -148,6 +154,7 @@ public class EventManagerRTG
         // only handle RTG world type
         if (!event.worldType.getWorldTypeName().equalsIgnoreCase("RTG")) return;
 
+        if (event.newBiomeGens[0].getClass().getName().contains("GenLayerEB")) return;
         boolean stripRivers = true; // This used to be a config option. Hardcoding until we have a need for the option.
         
         if (stripRivers) {
@@ -177,25 +184,23 @@ public class EventManagerRTG
     public void onGetVillageBlockID(BiomeEvent.GetVillageBlockID event)
     {
 
-        if (this.biome != null) {
-            
-            if (this.isDesertVillageBiome()) {
-                
-                Block originalBlock = event.original;
-                
-                if (originalBlock == Blocks.cobblestone || originalBlock == Blocks.planks || originalBlock == Blocks.log) {
-                    
-                    event.replacement = Blocks.sandstone;
-                }
-                else if (originalBlock == Blocks.oak_stairs || originalBlock == Blocks.stone_stairs) {
-                    
-                    event.replacement = Blocks.sandstone_stairs;
-                }
+        // Use event.biome, if that's null, fall back to our own copy
+        if (this.isDesertVillageBiome((event.biome == null) ? this.biome : event.biome)) {
+
+            Block originalBlock = event.original;
+
+            if (originalBlock == Blocks.cobblestone || originalBlock == Blocks.planks || originalBlock == Blocks.log
+                    || originalBlock == Blocks.log2 || originalBlock == Blocks.gravel) {
+
+                event.replacement = Blocks.sandstone;
+            } else if (originalBlock == Blocks.oak_stairs || originalBlock == Blocks.stone_stairs) {
+
+                event.replacement = Blocks.sandstone_stairs;
             }
-            
+
             // The event has to be cancelled in order to override the original block.
             if (event.replacement != null) {
-                
+
                 event.setResult(Result.DENY);
             }
         }
@@ -204,27 +209,30 @@ public class EventManagerRTG
     @SubscribeEvent
     public void onGetVillageBlockMeta(BiomeEvent.GetVillageBlockMeta event)
     {
+        boolean replaced = false;
 
-        if (this.biome != null) {
-            
-            boolean replaced = false;
-            
-            if (this.isDesertVillageBiome()) {
-                
-                Block originalBlock = event.original;
-                
-                if (originalBlock == Blocks.planks) {
-                    
-                    event.replacement = 2;
-                    replaced = true;
-                }
+        // Use event.biome, if that's null, fall back to our own copy
+        if (this.isDesertVillageBiome((event.biome == null) ? this.biome : event.biome)) {
+
+            Block originalBlock = event.original;
+
+            if (originalBlock == Blocks.log || originalBlock == Blocks.log2 || originalBlock == Blocks.cobblestone) {
+
+                event.replacement = 0;
+                replaced = true;
             }
-            
-            // The event has to be cancelled in order to override the original block.
-            if (replaced) {
-                
-                event.setResult(Result.DENY);
+
+            if (originalBlock == Blocks.planks) {
+
+                event.replacement = 2;
+                replaced = true;
             }
+        }
+
+        // The event has to be cancelled in order to override the original block.
+        if (replaced) {
+
+            event.setResult(Result.DENY);
         }
     }
     
@@ -240,18 +248,32 @@ public class EventManagerRTG
         }
     }
     
-    private boolean isDesertVillageBiome()
+    private boolean isDesertVillageBiome(BiomeGenBase biome)
     {
+        if(biome == null) return false;
         if (
-            BiomeDictionary.isBiomeOfType(this.biome, Type.HOT)
+            BiomeDictionary.isBiomeOfType(biome, Type.HOT)
             &&
-            BiomeDictionary.isBiomeOfType(this.biome, Type.DRY)
+            BiomeDictionary.isBiomeOfType(biome, Type.DRY)
             &&
-            BiomeDictionary.isBiomeOfType(this.biome, Type.SANDY)
+            BiomeDictionary.isBiomeOfType(biome, Type.SANDY)
         ) {
             return true;
         }
-        
+
         return false;
+    }
+
+    @SubscribeEvent
+    public void onChunkLoadEvent(ChunkEvent.Load loadEvent)  {
+        Integer dimension = loadEvent.world.provider.dimensionId;
+        Acceptor<ChunkEvent.Load> acceptor = chunkLoadEvents.get(dimension);
+        if (acceptor != null) {
+            acceptor.accept(loadEvent);
+        }
+    }
+
+    public void setDimensionChunkLoadEvent(int dimension, Acceptor<ChunkEvent.Load> action) {
+        chunkLoadEvents.put(dimension, action);
     }
 }

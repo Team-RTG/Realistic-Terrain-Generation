@@ -6,18 +6,21 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainAMWitchwoodForest extends TerrainBase
 {
-	public TerrainAMWitchwoodForest()
-	{
-	}
-	
-	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-	{
-		float h = simplex.noise2(x / 100f, y / 100f) * 8;
-		h += simplex.noise2(x / 30f, y / 30f) * 4;
-		h += simplex.noise2(x / 15f, y / 15f) * 2;
-		h += simplex.noise2(x / 7f, y / 7f);
-		
-    	return 70f + (20f * river) + h;
-	}
+    private float hillStrength = 10f;// this needs to be linked to the
+    public TerrainAMWitchwoodForest()
+    {
+
+    }
+
+    @Override
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
+    {
+        groundNoise = groundNoise(x, y, groundVariation, simplex);
+
+        float m = hills(x, y, hillStrength, simplex, river);
+
+        float floNoise = 65f + groundNoise + m;
+
+        return riverized(floNoise,river);
+    }
 }

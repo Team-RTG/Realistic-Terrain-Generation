@@ -1,21 +1,17 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMysticGrove;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenLog;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMysticGrove;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMysticGrove;
 import biomesoplenty.api.content.BOPCBiomes;
 import biomesoplenty.api.content.BOPCBlocks;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
 {	
@@ -31,76 +27,20 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
 			new TerrainBOPMysticGrove(),
 			new SurfaceBOPMysticGrove(config, topBlock, fillerBlock)
 		);
-	}
-	
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
-        
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-    
-        float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
-        
-        if (this.config.getPropertyById(BiomeConfigBOPMysticGrove.decorationLogsId).valueBoolean) {
-        
-            if (rand.nextInt(8) == 0) {
-                
-                int x22 = chunkX + rand.nextInt(16) + 8;
-                int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
-                            
-                Block logBlock;
-                byte logByte;
-                int logLength;
-                
-                if (rand.nextInt(5) == 0) {
-                    
-                    logBlock = Blocks.log;
-                    logByte = (byte)0;
-                    logLength = 3 + rand.nextInt(4);
-                }
-                else {
-                    
-                    if (rand.nextInt(3) == 0) {
-                        
-                        logBlock = Blocks.log;
-                        logByte = (byte)0;
-                        logLength = 3 + rand.nextInt(2);
-                    }
-                    else {
-                        if (rand.nextInt(3) == 0) {
-                            
-                            logBlock = BOPCBlocks.logs4;
-                            logByte = (byte)2;
-                            logLength = 3 + rand.nextInt(2);
-                        }
-                        else {
-                            if (rand.nextInt(4) == 0) {
-                                
-                                logBlock = BOPCBlocks.logs2;
-                                logByte = (byte)1;
-                                logLength = 3 + rand.nextInt(2);
-                            }
-                            else {                            
-                                
-                                logBlock = Blocks.log;
-                                logByte = (byte)0;
-                                logLength = 3 + rand.nextInt(3);
-                            }
-                        }
-                    }
-                }
-                
-                if (y22 < 100)
-                {
-                    (new WorldGenLog(logBlock, logByte, Blocks.leaves, -1, logLength)).generate(world, rand, x22, y22, z22);
-                }
-            }
-        }
+		
+		DecoFallenTree decoFallenTree = new DecoFallenTree();
+		decoFallenTree.distribution.noiseDivisor = 80f;
+		decoFallenTree.distribution.noiseFactor = 60f;
+		decoFallenTree.distribution.noiseAddend = -15f;
+		decoFallenTree.logCondition = LogCondition.RANDOM_CHANCE;
+		decoFallenTree.logConditionChance = 12;
+		decoFallenTree.randomLogBlocks = new Block[]{Blocks.log, BOPCBlocks.logs4, BOPCBlocks.logs2};
+		decoFallenTree.randomLogMetas = new byte[]{0, 2, 1};
+		decoFallenTree.minSize = 3;
+		decoFallenTree.maxSize = 5;
+		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPMysticGrove.decorationLogsId));
 
-        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-    }
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
+	}
 }

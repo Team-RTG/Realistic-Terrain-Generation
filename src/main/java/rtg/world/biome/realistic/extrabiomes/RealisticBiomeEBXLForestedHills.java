@@ -1,12 +1,12 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLForestedHills;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLForestedHills;
 import extrabiomes.api.BiomeManager;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLForestedHills extends RealisticBiomeEBXLBase
 {	
@@ -19,8 +19,11 @@ public class RealisticBiomeEBXLForestedHills extends RealisticBiomeEBXLBase
 	{
 		super(config, 
 			ebxlBiome, BiomeGenBase.river,
-			new TerrainEBXLForestedHills(300f, 100f, 0f),
-			new SurfaceEBXLForestedHills(config, topBlock, fillerBlock, false, null, 0.95f)
+			new TerrainEBXLForestedHills(240f, 80f, 68f),
+			new SurfaceEBXLForestedHills(config, topBlock, fillerBlock, false, null,3f)
 		);
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

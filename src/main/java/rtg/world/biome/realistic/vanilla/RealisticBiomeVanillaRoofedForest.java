@@ -1,30 +1,27 @@
 package rtg.world.biome.realistic.vanilla;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
-
-import java.util.Random;
-
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForest;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.RandomUtil;
-import rtg.world.gen.feature.WorldGenBlob;
-import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaRoofedForest;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForest;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenFlowers;
-import net.minecraft.world.gen.feature.WorldGenerator;
-
-import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForest;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoDeadBush;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.DecoFallenTree.LogCondition;
+import rtg.world.biome.deco.DecoGrass;
+import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
+import rtg.world.biome.deco.DecoMushrooms;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.DecoTree;
+import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
+import rtg.world.biome.deco.helper.DecoHelperThisOrThat.ChanceType;
+import rtg.world.gen.feature.tree.rtg.TreeRTGCeibaPentandra;
+import rtg.world.gen.feature.tree.rtg.TreeRTGCeibaRosea;
+import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaRoofedForest;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForest;
 
 public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 {
@@ -39,144 +36,130 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             BiomeGenBase.roofedForest,
             BiomeGenBase.river,
             new TerrainVanillaRoofedForest(),
-            new SurfaceVanillaRoofedForest(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.08f));
-    }
-    
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
-        
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-    
-        float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
-        //float l = simplex.noise3(chunkX / 80f, chunkY / 80f, simplex.noise2(chunkX / 60f, chunkY / 60f)) * 60f - 15f;
+            new SurfaceVanillaRoofedForest(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.08f)
+        );
+        this.waterSurfaceLakeChance = 3;
 
-        for (int l1 = 0; l1 < 2f * strength; ++l1)
-        {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
-            
-            if (k1 < 80 && rand.nextInt(20) == 0) {
-                if (rand.nextInt(8) != 0) {
-                    (new WorldGenBlob(Blocks.mossy_cobblestone, 0, rand)).generate(world, rand, i1, k1, j1);
-                }
-                else {
-                    if (config._boolean(BiomeConfigVanillaRoofedForest.decorationCobwebsId)) {
-                        (new WorldGenBlob(Blocks.web, 0, rand)).generate(world, rand, i1, k1, j1);
-                    }
-                }
-            }
-        }
+		DecoMushrooms decoMushrooms = new DecoMushrooms();
+		decoMushrooms.chance = 4;
+		decoMushrooms.maxY = 90;
+		decoMushrooms.randomType = rtg.world.biome.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE;
+		this.addDeco(decoMushrooms);
+		
+        DecoTree mangroveTree = new DecoTree(new TreeRTGRhizophoraMucronata(3, 4, 13f, 0.32f, 0.1f));
+        mangroveTree.treeType = DecoTree.TreeType.RTG_TREE;
+        mangroveTree.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
+        mangroveTree.treeConditionChance = 1;
+        mangroveTree.strengthFactorForLoops = 8f;
+        mangroveTree.logBlock = Blocks.log2;
+        mangroveTree.logMeta = (byte)1;
+        mangroveTree.leavesBlock = Blocks.leaves2;
+        mangroveTree.leavesMeta = (byte)1;
+        mangroveTree.minTrunkSize = 2;
+        mangroveTree.maxTrunkSize = 3;
+        mangroveTree.minCrownSize = 10;
+        mangroveTree.maxCrownSize = 18;
+        mangroveTree.noLeaves = false;
+        mangroveTree.maxY = 110;
+        this.addDeco(mangroveTree);
         
-        if (l > 0f)
-        {
-            for (int b2 = 0; b2 < 24f * strength; b2++)
-            {
-                int j6 = chunkX + rand.nextInt(16) + 8;
-                int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeightValue(j6, k10);
-                
-                if (z52 < 120)
-                {
-                    WorldGenerator worldgenerator = new WorldGenTreeRTGMangrove(
-                        Blocks.log2, 1, Blocks.leaves2, 1, 9 + rand.nextInt(5), 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
-                    );
-                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                    worldgenerator.generate(world, rand, j6, z52, k10);
-                }
-            }
-        }
+        DecoTree ceibaPentandraTree = new DecoTree(new TreeRTGCeibaPentandra(13f, 3, 0.32f, 0.1f));
+        ceibaPentandraTree.treeType = DecoTree.TreeType.RTG_TREE;
+        ceibaPentandraTree.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
+        ceibaPentandraTree.treeConditionChance = 1;
+        ceibaPentandraTree.strengthFactorForLoops = 8f;
+        ceibaPentandraTree.logBlock = Blocks.log2;
+        ceibaPentandraTree.logMeta = (byte)1;
+        ceibaPentandraTree.leavesBlock = Blocks.leaves2;
+        ceibaPentandraTree.leavesMeta = (byte)1;
+        ceibaPentandraTree.minTrunkSize = 2;
+        ceibaPentandraTree.maxTrunkSize = 3;
+        ceibaPentandraTree.minCrownSize = 10;
+        ceibaPentandraTree.maxCrownSize = 18;
+        ceibaPentandraTree.noLeaves = false;
+        ceibaPentandraTree.maxY = 110;
+        this.addDeco(ceibaPentandraTree);
         
-        if (this.config.getPropertyById(BiomeConfigVanillaRoofedForest.decorationLogsId).valueBoolean) {
+        DecoTree ceibaRoseaTree = new DecoTree(new TreeRTGCeibaRosea(16f, 5, 0.32f, 0.1f));
+        ceibaRoseaTree.treeType = DecoTree.TreeType.RTG_TREE;
+        ceibaRoseaTree.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
+        ceibaRoseaTree.treeConditionChance = 1;
+        ceibaRoseaTree.strengthFactorForLoops = 8f;
+        ceibaRoseaTree.logBlock = Blocks.log2;
+        ceibaRoseaTree.logMeta = (byte)1;
+        ceibaRoseaTree.leavesBlock = Blocks.leaves2;
+        ceibaRoseaTree.leavesMeta = (byte)1;
+        ceibaRoseaTree.minTrunkSize = 2;
+        ceibaRoseaTree.maxTrunkSize = 3;
+        ceibaRoseaTree.minCrownSize = 10;
+        ceibaRoseaTree.maxCrownSize = 18;
+        ceibaRoseaTree.noLeaves = false;
+        ceibaRoseaTree.maxY = 110;
+        this.addDeco(ceibaRoseaTree);
         
-            if (rand.nextInt((int) (10f / strength)) == 0)
-            {
-                int x22 = chunkX + rand.nextInt(16) + 8;
-                int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
-                if (y22 < 100)
-                {
-                    (new WorldGenLog(Blocks.log2, 1, Blocks.leaves2, -1, 9 + rand.nextInt(5))).generate(world, rand, x22, y22, z22);
-                }
-            }
-        }
+		DecoFallenTree decoFallenTree = new DecoFallenTree();
+		decoFallenTree.distribution.noiseDivisor = 80f;
+		decoFallenTree.distribution.noiseFactor = 60f;
+		decoFallenTree.distribution.noiseAddend = -15f;
+		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		decoFallenTree.logConditionChance = 16;
+		decoFallenTree.logConditionNoise = 0f;
+		decoFallenTree.logBlock = Blocks.log2;
+		decoFallenTree.logMeta = (byte)1;
+		decoFallenTree.leavesBlock = Blocks.leaves2;
+		decoFallenTree.leavesMeta = (byte)-1;
+		decoFallenTree.minSize = 4;
+		decoFallenTree.maxSize = 9;
+		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaRoofedForest.decorationLogsId));
         
-        for (int f24 = 0; f24 < strength; f24++)
-        {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
-            if (k1 < 110)
-            {
-                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
-            }
-        }
+		DecoShrub darkOakShrub = new DecoShrub();
+		darkOakShrub.logBlock = Blocks.log2;
+		darkOakShrub.logMeta = (byte)1;
+		darkOakShrub.leavesBlock = Blocks.leaves2;
+		darkOakShrub.leavesMeta = (byte)1;
+		darkOakShrub.maxY = 100;
+		darkOakShrub.strengthFactor = 10f;
+		
+		DecoShrub oakShrub = new DecoShrub();
+		oakShrub.logBlock = Blocks.log;
+		oakShrub.logMeta = (byte)0;
+		oakShrub.leavesBlock = Blocks.leaves;
+		oakShrub.leavesMeta = (byte)0;
+		oakShrub.maxY = 100;
+		oakShrub.strengthFactor = 10f;		
+		
+		this.addDeco(new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, darkOakShrub, oakShrub));
+		
+		DecoBoulder decoBoulder = new DecoBoulder();
+		decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
+		decoBoulder.chance = 16;
+		decoBoulder.maxY = 80;
+		decoBoulder.strengthFactor = 2f;
+		this.addDeco(decoBoulder);
+		
+		DecoBoulder decoCobwebBoulder = new DecoBoulder();
+		decoCobwebBoulder.boulderBlock = Blocks.web;
+		decoCobwebBoulder.chance = 48;
+		decoCobwebBoulder.minY = 63;
+		decoCobwebBoulder.maxY = 70;
+		decoCobwebBoulder.strengthFactor = 2f;
+		decoCobwebBoulder.water = false;
+		this.addDeco(decoCobwebBoulder, this.config._boolean(BiomeConfigVanillaRoofedForest.decorationCobwebsId));
         
-        if (TerrainGen.decorate(world, rand, chunkX, chunkY, GRASS)) {
-            
-            for (int l14 = 0; l14 < 10f * strength; l14++)
-            {
-                int l19 = chunkX + rand.nextInt(16) + 8;
-                int k22 = rand.nextInt(128);
-                int j24 = chunkY + rand.nextInt(16) + 8;
-                int grassMeta;
-                
-                if (rand.nextInt(16) == 0) {
-                    grassMeta = 0;
-                }
-                else {
-                    grassMeta = 1;
-                }
-                
-                (new WorldGenGrass(Blocks.tallgrass, grassMeta)).generate(world, rand, l19, k22, j24);
-            }
-            
-            for (int l14 = 0; l14 < 8f * strength; l14++)
-            {
-                int l19 = chunkX + rand.nextInt(16) + 8;
-                int k22 = rand.nextInt(128);
-                int j24 = chunkY + rand.nextInt(16) + 8;
-                
-                if (rand.nextInt(6) == 0) {
-                    (new WorldGenGrass(Blocks.double_plant, RandomUtil.getRandomInt(rand, 2, 3))).generate(world, rand, l19, k22, j24);
-                }
-            }
-            
-            for (int l14 = 0; l14 < 4f * strength; l14++)
-            {
-                int l19 = chunkX + rand.nextInt(16) + 8;
-                int k22 = rand.nextInt(128);
-                int j24 = chunkY + rand.nextInt(16) + 8;
-                int grassMeta;
-                
-                if (rand.nextInt(16) == 0) {
-                    grassMeta = 0;
-                }
-                else {
-                    grassMeta = RandomUtil.getRandomInt(rand, 1, 2);
-                }
-                
-                (new WorldGenGrass(Blocks.tallgrass, grassMeta)).generate(world, rand, l19, k22, j24);
-            }
-        }
-        
-        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		decoBaseBiomeDecorations.notEqualsZeroChance = 2;
+		decoBaseBiomeDecorations.maxY = 100;
+		this.addDeco(decoBaseBiomeDecorations);
 
-        int k15 = chunkX + rand.nextInt(16) + 8;
-        int k20 = chunkY + rand.nextInt(16) + 8;
-        int k17 = world.getHeightValue(k15, k20);
-        
-        if (rand.nextBoolean())
-        {
-            (new WorldGenFlowers(Blocks.brown_mushroom)).generate(world, rand, k15, k17, k20);
-        }
-        else
-        {
-            (new WorldGenFlowers(Blocks.red_mushroom)).generate(world, rand, k15, k17, k20);
-        }
+		DecoGrass decoGrass = new DecoGrass();
+		decoGrass.maxY = 100;
+		decoGrass.strengthFactor = 20f;
+		this.addDeco(decoGrass);
+		
+		DecoDeadBush decoDeadBush = new DecoDeadBush();
+		decoDeadBush.maxY = 100;
+		decoDeadBush.chance = 2;
+		decoDeadBush.strengthFactor = 2f;
+		this.addDeco(decoDeadBush);
     }
 }

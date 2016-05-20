@@ -1,18 +1,14 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
-
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.highlands.SurfaceHLDesertMountains;
 import rtg.world.gen.terrain.highlands.TerrainHLDesertMountains;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeHLDesertMountains extends RealisticBiomeHLBase
 {
@@ -26,18 +22,16 @@ public class RealisticBiomeHLDesertMountains extends RealisticBiomeHLBase
     
         super(config, 
             hlBiome, BiomeGenBase.river,
-            new TerrainHLDesertMountains(230f, 100f, 0f),
-            new SurfaceHLDesertMountains(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 90f, 30f, 1.5f));
-    }
-
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
+            new TerrainHLDesertMountains(230f, 85f, 68f),
+            new SurfaceHLDesertMountains(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 90f, 30f, 1.5f)
+        );
+        noLakes = true;
+        noWaterFeatures = true;
+        disallowStoneBeaches = true;
         
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
         // nothing to suppress the highlands inverted sandstone parabolas
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		decoBaseBiomeDecorations.allowed = false;
+		this.addDeco(decoBaseBiomeDecorations);
     }
 }

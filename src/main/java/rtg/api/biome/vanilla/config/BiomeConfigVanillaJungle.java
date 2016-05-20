@@ -2,6 +2,7 @@ package rtg.api.biome.vanilla.config;
 
 import rtg.api.biome.BiomeConfigProperty;
 import rtg.api.biome.BiomeConfigProperty.Type;
+import rtg.config.rtg.ConfigRTG;
 
 
 public class BiomeConfigVanillaJungle extends BiomeConfigVanillaBase
@@ -27,5 +28,8 @@ public class BiomeConfigVanillaJungle extends BiomeConfigVanillaBase
         
         this.addProperty(new BiomeConfigProperty(surfaceMixBlockId, Type.STRING, surfaceMixBlockName, "", ""));
         this.addProperty(new BiomeConfigProperty(surfaceMixBlockMetaId, Type.STRING, surfaceMixBlockMetaName, "", ""));
+        
+        this.setPropertyValueById(allowVolcanoesId, true);
+        this.setPropertyValueById(volcanoChanceId, (ConfigRTG.volcanoChance * 2));
     }
 }

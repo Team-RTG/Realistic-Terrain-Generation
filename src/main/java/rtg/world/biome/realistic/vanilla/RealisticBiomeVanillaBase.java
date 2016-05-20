@@ -1,12 +1,11 @@
 package rtg.world.biome.realistic.vanilla;
 
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanilla;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
-
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeVanillaBase extends RealisticBiomeBase
 {

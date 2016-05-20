@@ -19,10 +19,10 @@ public class SurfaceEBXLMountainDesert extends SurfaceBase
 	private Block beachBlock;
 	private float min;
 	
-	private float sCliff = 1.5f;
+	private float sCliff = 3.0f;
 	private float sHeight = 60f;
 	private float sStrength = 65f;
-	private float cCliff = 1.5f;
+	private float cCliff = 3.5f;
 	
 	public SurfaceEBXLMountainDesert(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{
@@ -71,7 +71,7 @@ public class SurfaceEBXLMountainDesert extends SurfaceBase
             			}
             		}
 
-					float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+					float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.2f;
 					if(c > min && c > sCliff - ((k - sHeight) / sStrength) + p)
         			{
         				cliff = 1;

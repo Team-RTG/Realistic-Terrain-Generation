@@ -1,13 +1,13 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMoor;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMoor;
 import biomesoplenty.api.content.BOPCBiomes;
 import biomesoplenty.api.content.BOPCBlocks;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase
 {	
@@ -20,8 +20,12 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
-			new TerrainBOPMoor(63f, 69f, 32f),
+			new TerrainBOPMoor(68f, 75f, 16f),
 			new SurfaceBOPMoor(config, topBlock, fillerBlock)
 		);
+        this.noWaterFeatures = true;
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

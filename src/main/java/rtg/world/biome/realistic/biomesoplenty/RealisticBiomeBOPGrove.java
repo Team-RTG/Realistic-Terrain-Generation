@@ -1,23 +1,20 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPGrove;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenFlowers;
-import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGShrubCustom;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.DecoFallenTree.LogCondition;
+import rtg.world.biome.deco.DecoFlowersRTG;
+import rtg.world.biome.deco.DecoGrass;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPGrove;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPGrove;
 import biomesoplenty.api.content.BOPCBiomes;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase
 {	
@@ -33,74 +30,69 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase
 			new TerrainBOPGrove(),
 			new SurfaceBOPGrove(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.15f)
 		);
+		
+		DecoFallenTree decoFallenTree1 = new DecoFallenTree();
+		decoFallenTree1.distribution.noiseDivisor = 80f;
+		decoFallenTree1.distribution.noiseFactor = 60f;
+		decoFallenTree1.distribution.noiseAddend = -15f;
+		decoFallenTree1.logCondition = LogCondition.X_DIVIDED_BY_STRENGTH;
+		decoFallenTree1.logConditionNoise = 8f;
+		decoFallenTree1.logConditionChance = 1;
+		decoFallenTree1.maxY = 100;
+		decoFallenTree1.logBlock = Blocks.log;
+		decoFallenTree1.logMeta = (byte)2;
+		decoFallenTree1.leavesBlock = Blocks.leaves;
+		decoFallenTree1.leavesMeta = (byte)-1;
+		decoFallenTree1.minSize = 3;
+		decoFallenTree1.maxSize = 6;
+		
+		DecoFallenTree decoFallenTree2 = new DecoFallenTree();
+		decoFallenTree2.distribution.noiseDivisor = 80f;
+		decoFallenTree2.distribution.noiseFactor = 60f;
+		decoFallenTree2.distribution.noiseAddend = -15f;
+		decoFallenTree2.logCondition = LogCondition.X_DIVIDED_BY_STRENGTH;
+		decoFallenTree2.logConditionNoise = 8f;
+		decoFallenTree2.logConditionChance = 1;
+		decoFallenTree2.maxY = 100;
+		decoFallenTree2.logBlock = Blocks.log2;
+		decoFallenTree2.logMeta = (byte)1;
+		decoFallenTree2.leavesBlock = Blocks.leaves;
+		decoFallenTree2.leavesMeta = (byte)-1;
+		decoFallenTree2.minSize = 3;
+		decoFallenTree2.maxSize = 6;
+		
+		DecoHelper5050 decoHelperHelper5050 = new DecoHelper5050(decoFallenTree1, decoFallenTree2);
+		this.addDeco(decoHelperHelper5050, this.config._boolean(BiomeConfigBOPGrove.decorationLogsId)); 
+        
+        DecoShrub decoShrubCustom = new DecoShrub();
+        decoShrubCustom.logBlock = Blocks.log;
+        decoShrubCustom.logMeta = (byte)2;
+        decoShrubCustom.leavesBlock = Blocks.leaves;
+        decoShrubCustom.leavesMeta = (byte)2;
+        decoShrubCustom.maxY = 110;
+        decoShrubCustom.strengthFactor = 2f;
+        DecoShrub decoShrubCustom2 = new DecoShrub();
+        decoShrubCustom2.logBlock = Blocks.log2;
+        decoShrubCustom2.logMeta = (byte)1;
+        decoShrubCustom2.leavesBlock = Blocks.leaves2;
+        decoShrubCustom2.leavesMeta = (byte)1;
+        decoShrubCustom2.maxY = 110;
+        decoShrubCustom2.strengthFactor = 2f;
+		DecoHelper5050 decoHelperHelper50502 = new DecoHelper5050(decoShrubCustom, decoShrubCustom2);
+		this.addDeco(decoHelperHelper50502); 
+        
+		DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
+		decoFlowersRTG.flowers = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+		decoFlowersRTG.maxY = 128;
+		decoFlowersRTG.strengthFactor = 2f;
+        this.addDeco(decoFlowersRTG);        
+        
+		DecoGrass decoGrass = new DecoGrass();
+		decoGrass.maxY = 128;
+		decoGrass.strengthFactor = 12f;
+        this.addDeco(decoGrass);
+        
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
-	
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
-        
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-    
-        float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
-        
-        if (this.config.getPropertyById(BiomeConfigBOPGrove.decorationLogsId).valueBoolean) {
-        
-            if (rand.nextInt((int) (8f / strength)) == 0)
-            {
-                int x22 = chunkX + rand.nextInt(16) + 8;
-                int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
-                
-                if (y22 < 100)
-                {
-                    if (rand.nextBoolean()) {
-                        (new WorldGenLog(Blocks.log, (byte)2, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
-                    }
-                    else {
-                        (new WorldGenLog(Blocks.log2, (byte)1, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
-                    }
-                }
-            }
-        }
-        
-        for (int f24 = 0; f24 < 2f * strength; f24++)
-        {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
-            
-            if (k1 < 110)
-            {
-                if (rand.nextBoolean()) {
-                    
-                    (new WorldGenTreeRTGShrubCustom(rand.nextInt(4) + 1, Blocks.log, (byte)2, Blocks.leaves, (byte)2)).generate(world, rand, i1, k1, j1);
-                }
-                else {
-                    
-                    (new WorldGenTreeRTGShrubCustom(rand.nextInt(4) + 1, Blocks.log2, (byte)1, Blocks.leaves2, (byte)1)).generate(world, rand, i1, k1, j1);
-                }
-            }
-        }
-        
-        for (int f23 = 0; f23 < 2f * strength; f23++)
-        {
-            int j15 = chunkX + rand.nextInt(16) + 8;
-            int j17 = rand.nextInt(128);
-            int j20 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenFlowers(new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11})).generate(world, rand, j15, j17, j20);
-        }
-        
-        for (int l14 = 0; l14 < 12f * strength; l14++)
-        {
-            int l19 = chunkX + rand.nextInt(16) + 8;
-            int k22 = rand.nextInt(128);
-            int j24 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
-        }
-        
-        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-    }
 }

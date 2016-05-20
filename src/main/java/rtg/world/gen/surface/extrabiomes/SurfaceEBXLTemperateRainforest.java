@@ -19,10 +19,10 @@ public class SurfaceEBXLTemperateRainforest extends SurfaceBase
 	private Block beachBlock;
 	private float min;
 	
-	private float sCliff = 1.5f;
+	private float sCliff = 1.0f;
 	private float sHeight = 60f;
 	private float sStrength = 65f;
-	private float cCliff = 1.5f;
+	private float cCliff = 2.0f;
 	
 	public SurfaceEBXLTemperateRainforest(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff) 
 	{

@@ -2,18 +2,8 @@ addons:
 # language
 language: java
  
-# version numbers
-jdk:
-    - oraclejdk8
- 
-# Use JDK 8u45. The above line just causes the use of a minor version of Java 8.
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
-
-install: "./gradlew setupCIWorkspace"
-script: "./gradlew jar"
+install: "./gradlew setupDevWorkspace"
+script: "./gradlew build"
 before_cache:
 - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:

@@ -2,42 +2,69 @@ package rtg.world.gen.terrain.growthcraft;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.gen.terrain.BumpyHillsEffect;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.HeightEffect;
+import rtg.world.gen.terrain.JitterEffect;
+import rtg.world.gen.terrain.RaiseEffect;
 import rtg.world.gen.terrain.TerrainBase;
+import rtg.world.gen.terrain.VariableRuggednessEffect;
 
 public class TerrainGCBambooForest extends TerrainBase
 {
-    private float baseHeight = 76f;
-    private float hillStrength = 30f;
-    
+
+    /* Basic idea: High hilly terrain mixed with ground-noisy flats
+     * using a transition that also generates the hills
+     */
+
+    private float hillockWavelength = 30;
+    private float hillockBoost = 5;
+    private float hillockVariance = 10;
+    private float hillockSpikeWidth = 8;
+    private float hillockSpikeHeight = 4;
+    private float terrainBase = 68;
+
+    private JitterEffect biomeHeight;// this includes the base
+
+
     public TerrainGCBambooForest()
     {
-    
+        // bumpy hills on top
+        BumpyHillsEffect onTop = new BumpyHillsEffect();
+        onTop.hillHeight = hillockVariance ;
+        onTop.hillWavelength = hillockWavelength;
+        onTop.spikeHeight = hillockSpikeHeight;
+        onTop.spikeWavelength = hillockSpikeWidth;
+        onTop.hillOctave = 1;// same octave as variableRuggedness
+
+        // plus raised a bit
+        HeightEffect hillLevel = onTop.plus(new RaiseEffect(hillockBoost+terrainBase));
+
+        // but only
+        VariableRuggednessEffect hills = new VariableRuggednessEffect();
+        hills.ruggedTerrain = hillLevel;
+        hills.smoothTerrain = new RaiseEffect(terrainBase);
+        hills.octave =1;// just to make it clear;
+        hills.startTransition = 0.1f;
+        hills.transitionWidth = 0.35f;
+        hills.wavelength = hillockWavelength;
+
+        HeightEffect unJittered = hills.plus(new GroundEffect(6f));
+
+        // and lets scramble it a bit
+
+        biomeHeight = new JitterEffect();
+        biomeHeight.amplitude = 2;
+        biomeHeight.wavelength = 5;
+        biomeHeight.jittered = unJittered;
     }
-    
-    public TerrainGCBambooForest(float bh, float hs)
-    {
-        baseHeight = bh;
-        hillStrength = hs;
-    }
-    
+
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-    
-        float h = simplex.noise2(x / 200f, y / 200f) * 4;
-        h += simplex.noise2(x / 100f, y / 100f) * 2;
-        
-        float m = simplex.noise2(x / 200f, y / 200f) * hillStrength * river;
-        m *= m / ((hillStrength * 0.1f) + hillStrength);
-        
-        float sm = simplex.noise2(x / hillStrength, y / hillStrength) * 8f;
-        sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
-        m += sm;
-        
-        float l = simplex.noise2(x / 260f, y / 260f) * 38f;
-        l *= l / 25f;
-        l = l < -8f ? -8f : l;
-        
-        return baseHeight + h + m - l;
+        float result = biomeHeight.added(simplex, cell, x, y);
+        if (result < 60) throw new RuntimeException();
+        return result;
+        //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
     }
 }

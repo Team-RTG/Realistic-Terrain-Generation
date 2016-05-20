@@ -1,34 +1,26 @@
 package rtg.world.biome.realistic.vanilla;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.PUMPKIN;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.SHROOM;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
-
-import java.util.Random;
-
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaColdTaiga;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenBlob;
-import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGSpruceSmall;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaColdTaiga;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaColdTaiga;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenFlowers;
-import net.minecraft.world.gen.feature.WorldGenPumpkin;
-import net.minecraft.world.gen.feature.WorldGenerator;
-
-import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaColdTaiga;
+import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.DecoFallenTree.LogCondition;
+import rtg.world.biome.deco.DecoGrass;
+import rtg.world.biome.deco.DecoMushrooms;
+import rtg.world.biome.deco.DecoPumpkin;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.DecoTree;
+import rtg.world.biome.deco.DecoTree.TreeCondition;
+import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
+import rtg.world.biome.deco.helper.DecoHelperThisOrThat.ChanceType;
+import rtg.world.gen.feature.tree.rtg.TreeRTGCupressusSempervirens;
+import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaColdTaiga;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaColdTaiga;
 
 public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
 {
@@ -43,113 +35,144 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
             BiomeGenBase.coldTaiga,
             BiomeGenBase.frozenRiver,
             new TerrainVanillaColdTaiga(),
-            new SurfaceVanillaColdTaiga(config, topBlock, fillerBlock));
-    }
-    
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
+            new SurfaceVanillaColdTaiga(config, topBlock, fillerBlock)
+        );
         
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-        
-        // boulders
-        for (int l = 0; l < 3f * strength; ++l)
-        {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
-            
-            if (k1 < 95 && rand.nextInt(16) == 0) {
-                (new WorldGenBlob(Blocks.mossy_cobblestone, 0, rand)).generate(world, rand, i1, k1, j1);
-            }
-        }
-        
-        float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
-        
-        if (TerrainGen.decorate(world, rand, chunkX, chunkY, TREE)) {
+		DecoTree bigSpruceTrees1 = new DecoTree(new TreeRTGCupressusSempervirens());
+		bigSpruceTrees1.logBlock = Blocks.log;
+		bigSpruceTrees1.logMeta = (byte)1;
+		bigSpruceTrees1.leavesBlock = Blocks.leaves;
+		bigSpruceTrees1.leavesMeta = (byte)1;
+		bigSpruceTrees1.minTrunkSize = 3;
+		bigSpruceTrees1.maxTrunkSize = 7;
+		bigSpruceTrees1.minCrownSize = 5;
+		bigSpruceTrees1.maxCrownSize = 10;
+		bigSpruceTrees1.strengthFactorForLoops = 4f;
+		bigSpruceTrees1.treeType = TreeType.RTG_TREE;
+		bigSpruceTrees1.distribution.noiseDivisor = 100f;
+		bigSpruceTrees1.distribution.noiseFactor = 6f;
+		bigSpruceTrees1.distribution.noiseAddend = 0.8f;
+		bigSpruceTrees1.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		bigSpruceTrees1.treeConditionNoise = 0f;
+		bigSpruceTrees1.treeConditionChance = 1;
+		bigSpruceTrees1.maxY = 110;
+		DecoTree bigSpruceOakTrees1 = new DecoTree(bigSpruceTrees1);
+		bigSpruceOakTrees1.leavesMeta = (byte)0;
+		DecoHelperThisOrThat decoHelperThisOrThat1 = new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, bigSpruceTrees1, bigSpruceOakTrees1);
+		this.addDeco(decoHelperThisOrThat1);
+		
+		DecoTree bigSpruceTrees2 = new DecoTree(new TreeRTGCupressusSempervirens());
+		bigSpruceTrees2.logBlock = Blocks.log;
+		bigSpruceTrees2.logMeta = (byte)1;
+		bigSpruceTrees2.leavesBlock = Blocks.leaves;
+		bigSpruceTrees2.leavesMeta = (byte)1;
+		bigSpruceTrees2.minTrunkSize = 3;
+		bigSpruceTrees2.maxTrunkSize = 7;
+		bigSpruceTrees2.minCrownSize = 5;
+		bigSpruceTrees2.maxCrownSize = 10;
+		bigSpruceTrees2.strengthFactorForLoops = 4f;
+		bigSpruceTrees2.treeType = TreeType.RTG_TREE;
+		bigSpruceTrees2.distribution.noiseDivisor = 80f;
+		bigSpruceTrees2.distribution.noiseFactor = 60f;
+		bigSpruceTrees2.distribution.noiseAddend = -15f;
+		bigSpruceTrees2.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		bigSpruceTrees2.treeConditionNoise = 0f;
+		bigSpruceTrees2.treeConditionChance = 1;
+		bigSpruceTrees2.maxY = 110;
+		DecoTree bigSpruceOakTrees2 = new DecoTree(bigSpruceTrees2);
+		bigSpruceOakTrees2.leavesMeta = (byte)0;
+		DecoHelperThisOrThat decoHelperThisOrThat2 = new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, bigSpruceTrees2, bigSpruceOakTrees2);
+		this.addDeco(decoHelperThisOrThat2);
+		
+		DecoTree bigSpruceTrees3 = new DecoTree(new TreeRTGCupressusSempervirens());
+		bigSpruceTrees3.logBlock = Blocks.log;
+		bigSpruceTrees3.logMeta = (byte)1;
+		bigSpruceTrees3.leavesBlock = Blocks.leaves;
+		bigSpruceTrees3.leavesMeta = (byte)1;
+		bigSpruceTrees3.minTrunkSize = 3;
+		bigSpruceTrees3.maxTrunkSize = 7;
+		bigSpruceTrees3.minCrownSize = 5;
+		bigSpruceTrees3.maxCrownSize = 10;
+		bigSpruceTrees3.strengthFactorForLoops = 3f;
+		bigSpruceTrees3.treeType = TreeType.RTG_TREE;
+		bigSpruceTrees3.distribution.noiseDivisor = 80f;
+		bigSpruceTrees3.distribution.noiseFactor = 60f;
+		bigSpruceTrees3.distribution.noiseAddend = -15f;
+		bigSpruceTrees3.treeCondition = TreeCondition.RANDOM_CHANCE;
+		bigSpruceTrees3.treeConditionChance = 2;
+		bigSpruceTrees3.maxY = 120;
+		DecoTree bigSpruceOakTrees3 = new DecoTree(bigSpruceTrees3);
+		bigSpruceOakTrees3.leavesMeta = (byte)0;
+		DecoHelperThisOrThat decoHelperThisOrThat3 = new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, bigSpruceTrees3, bigSpruceOakTrees3);
+		this.addDeco(decoHelperThisOrThat3);
+		
+		DecoTree decoTrees = new DecoTree(new TreeRTGPiceaSitchensis());
+		decoTrees.logBlock = Blocks.log;
+		decoTrees.logMeta = (byte)1;
+		decoTrees.leavesBlock = Blocks.leaves;
+		decoTrees.leavesMeta = (byte)1;
+		decoTrees.minTrunkSize = 4;
+		decoTrees.maxTrunkSize = 9;
+		decoTrees.minCrownSize = 5;
+		decoTrees.maxCrownSize = 14;
+		decoTrees.strengthFactorForLoops = 4f;
+		decoTrees.treeType = TreeType.RTG_TREE;
+		decoTrees.treeCondition = TreeCondition.RANDOM_CHANCE;
+		decoTrees.treeConditionChance = 3;
+		decoTrees.maxY = 120;
+		this.addDeco(decoTrees);
 
-            for (int b1 = 0; b1 < l * 4f * strength; b1++)
-            {
-                int j6 = chunkX + rand.nextInt(16) + 8;
-                int k10 = chunkY + rand.nextInt(16) + 8;
-                int z52 = world.getHeightValue(j6, k10);
-                
-                WorldGenerator worldgenerator =
-                    rand.nextInt(4) == 0 ? new WorldGenTreeRTGSpruceSmall(1 + rand.nextInt(2)) : rand.nextInt(6) == 0 ? new WorldGenTreeRTGPineSmall(
-                        1 + rand.nextInt(3), 4 + rand.nextInt(4)) : new WorldGenTreeRTGPineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
-                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                worldgenerator.generate(world, rand, j6, z52, k10);
-            }
-            
-            if (this.config.getPropertyById(BiomeConfigVanillaColdTaiga.decorationLogsId).valueBoolean) {
-            
-                if (l > 0f && rand.nextInt(6) == 0)
-                {
-                    int x22 = chunkX + rand.nextInt(16) + 8;
-                    int z22 = chunkY + rand.nextInt(16) + 8;
-                    int y22 = world.getHeightValue(x22, z22);
-                    (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
-                }
-            }
-            
-            for (int b = 0; b < 2f * strength; b++)
-            {
-                int i1 = chunkX + rand.nextInt(16) + 8;
-                int j1 = chunkY + rand.nextInt(16) + 8;
-                int k1 = world.getHeightValue(i1, j1);
-                if (rand.nextInt(10) == 0)
-                {
-                    (new WorldGenTreeRTGShrub(rand.nextInt(5) + 4, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
-                }
-                else
-                {
-                    (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, rand.nextInt(2), rand.nextInt(2))).generate(world, rand, i1, k1, j1);
-                }
-            }
-        }
-        
-        if (TerrainGen.decorate(world, rand, chunkX, chunkY, SHROOM)) {
+		DecoFallenTree decoFallenTree = new DecoFallenTree();
+		decoFallenTree.distribution.noiseDivisor = 100f;
+		decoFallenTree.distribution.noiseFactor = 6f;
+		decoFallenTree.distribution.noiseAddend = 0.8f;
+		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		decoFallenTree.logConditionNoise = 0f;
+		decoFallenTree.logConditionChance = 12;
+		decoFallenTree.logBlock = Blocks.log;
+		decoFallenTree.logMeta = (byte)1;
+		decoFallenTree.leavesBlock = Blocks.leaves;
+		decoFallenTree.leavesMeta = (byte)-1;
+		decoFallenTree.minSize = 3;
+		decoFallenTree.maxSize = 6;
+		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaColdTaiga.decorationLogsId));
+		
+		DecoShrub decoShrubSpruce = new DecoShrub();
+		decoShrubSpruce.logBlock = Blocks.log;
+		decoShrubSpruce.logMeta = 1;
+		decoShrubSpruce.leavesBlock = Blocks.leaves;
+		decoShrubSpruce.leavesMeta = 1;
+		decoShrubSpruce.maxY = 100;
+		decoShrubSpruce.strengthFactor = 3f;
+		decoShrubSpruce.chance = 6;
+		this.addDeco(decoShrubSpruce);
 
-            if (rand.nextInt((int) (3f / strength)) == 0)
-            {
-                int k15 = chunkX + rand.nextInt(16) + 8;
-                int k17 = rand.nextInt(64) + 64;
-                int k20 = chunkY + rand.nextInt(16) + 8;
-                
-                if (rand.nextBoolean())
-                {
-                    (new WorldGenFlowers(Blocks.brown_mushroom)).generate(world, rand, k15, k17, k20);
-                }
-                else
-                {
-                    (new WorldGenFlowers(Blocks.red_mushroom)).generate(world, rand, k15, k17, k20);
-                }
-            }
-        }
-        
-        if (TerrainGen.decorate(world, rand, chunkX, chunkY, PUMPKIN)) {
-
-            if (rand.nextInt((int) (20f / strength)) == 0)
-            {
-                int j16 = chunkX + rand.nextInt(16) + 8;
-                int j18 = rand.nextInt(128);
-                int j21 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenPumpkin()).generate(world, rand, j16, j18, j21);
-            }
-        }
-        
-        if (TerrainGen.decorate(world, rand, chunkX, chunkY, GRASS)) {
-
-            for (int l14 = 0; l14 < 10f * strength; l14++)
-            {
-                int l19 = chunkX + rand.nextInt(16) + 8;
-                int k22 = rand.nextInt(128);
-                int j24 = chunkY + rand.nextInt(16) + 8;
-                (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
-            }
-        }
+//		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+//		decoBaseBiomeDecorations.equalsZeroChance = 3;
+//		this.addDeco(decoBaseBiomeDecorations);
+  
+		DecoBoulder decoBoulder = new DecoBoulder();
+		decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
+		decoBoulder.chance = 20;
+		decoBoulder.maxY = 95;
+		decoBoulder.strengthFactor = 2f;
+		this.addDeco(decoBoulder);
+		
+		DecoPumpkin decoPumpkin = new DecoPumpkin();
+		decoPumpkin.maxY = 90;
+		decoPumpkin.randomType = rtg.world.biome.deco.DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH;
+		decoPumpkin.randomFloat = 32f;
+		this.addDeco(decoPumpkin);
+		
+		DecoMushrooms decoMushrooms = new DecoMushrooms();
+		decoMushrooms.maxY = 90;
+		decoMushrooms.randomType = rtg.world.biome.deco.DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH;
+		decoMushrooms.randomFloat = 24f;
+		this.addDeco(decoMushrooms);
+		
+		DecoGrass decoGrass = new DecoGrass();
+		decoGrass.maxY = 128;
+		decoGrass.strengthFactor = 8f;
+		this.addDeco(decoGrass);
     }
 }

@@ -13,7 +13,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class SurfaceACDarklandsPlains extends SurfaceBase
+public class SurfaceACDarklandsPlains extends SurfaceACBase
 {
     
 	public SurfaceACDarklandsPlains(BiomeConfig config, Block top, Block filler)

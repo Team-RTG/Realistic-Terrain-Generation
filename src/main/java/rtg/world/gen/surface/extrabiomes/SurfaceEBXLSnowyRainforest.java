@@ -25,7 +25,7 @@ public class SurfaceEBXLSnowyRainforest extends SurfaceBase
 	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		float c = CliffCalculator.calc(x, y, noise);
-		boolean cliff = c > 1.4f ? true : false;
+		boolean cliff = c > 1.2f ? true : false;
 		
 		for(int k = 255; k > -1; k--)
 		{

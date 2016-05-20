@@ -1,10 +1,10 @@
 package rtg.world.biome.realistic.ridiculousworld;
 
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.ridiculousworld.SurfaceRWShadowFen;
 import rtg.world.gen.terrain.ridiculousworld.TerrainRWShadowFen;
-
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeRWShadowFen extends RealisticBiomeRWBase
 {
@@ -30,5 +30,8 @@ public class RealisticBiomeRWShadowFen extends RealisticBiomeRWBase
                 0.5f //float smallStrength
             )
         );
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 }

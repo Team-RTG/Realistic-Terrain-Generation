@@ -1,12 +1,12 @@
 package rtg.world.biome.realistic.vanilla;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaFrozenOcean;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaFrozenOcean;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaFrozenOcean;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaFrozenOcean;
 
 public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase
 {
@@ -25,5 +25,9 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase
         
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;
+        this.noLakes=true;
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 }

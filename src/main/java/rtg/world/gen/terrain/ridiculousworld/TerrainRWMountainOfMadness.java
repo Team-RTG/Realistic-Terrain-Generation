@@ -1,40 +1,42 @@
 package rtg.world.gen.terrain.ridiculousworld;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.world.gen.terrain.FunctionalTerrainBase;
+import rtg.world.gen.terrain.HeightVariation;
+import rtg.world.gen.terrain.JitterEffect;
+import rtg.world.gen.terrain.MountainsWithPassesEffect;
 
-public class TerrainRWMountainOfMadness extends TerrainBase
+public class TerrainRWMountainOfMadness extends FunctionalTerrainBase
 {
-	private float start;
-	private float height;
-	private float base;
 	private float width;
-	
-	public TerrainRWMountainOfMadness(float hillStart, float landHeight, float baseHeight, float hillWidth)
+	private float strength;
+    private float spikeWidth = 40;
+    private float spikeHeight = 60;
+
+	public TerrainRWMountainOfMadness(float mountainWidth, float mountainStrength)
 	{
-		start = hillStart;
-		height = landHeight;
-		base = baseHeight;
-		width = hillWidth;
+		this(mountainWidth, mountainStrength, 90f);
 	}
-	
-	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
+
+	public TerrainRWMountainOfMadness(float mountainWidth, float mountainStrength, float baseHeight)
 	{
-		float h = simplex.noise2(x / width, y / width) * height * river;
-		h = h < start ? start + ((h - start) / 4.5f) : h;
-		
-		if(h > 0f)
-		{
-			float st = h * 1.5f > 15f ? 15f : h * 1.5f;
-			h += cell.noise(x / 70D, y / 70D, 1D) * st;
-		}
-		
-		h += simplex.noise2(x / 20f, y / 20f) * 5f;
-		h += simplex.noise2(x / 12f, y / 12f) * 3f;
-		h += simplex.noise2(x / 5f, y / 5f) * 1.5f;
-		
-    	return base + h + 10f;
+		width = mountainWidth;
+		strength = mountainStrength;
+		base = baseHeight;
+        MountainsWithPassesEffect mountainEffect = new MountainsWithPassesEffect();
+        mountainEffect.mountainHeight = strength;
+        mountainEffect.mountainWavelength = width;
+        mountainEffect.spikeHeight = this.spikeHeight;
+        mountainEffect.spikeWavelength = this.spikeWidth;
+
+        this.height = new JitterEffect(6f,10f, mountainEffect);
+        height = new JitterEffect(2f,6f,height);
+
+        HeightVariation passHeight = new HeightVariation();
+        passHeight.height = 15;
+        passHeight.octave = 4;
+        passHeight.wavelength = 70;
+
+        height = height.plus(passHeight);
+
 	}
 }

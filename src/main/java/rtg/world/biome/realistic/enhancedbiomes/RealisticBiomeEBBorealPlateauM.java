@@ -1,15 +1,15 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBBorealPlateauM;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBBorealPlateauM;
 import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBBorealPlateauM extends RealisticBiomeEBBase
 {
@@ -50,7 +50,7 @@ public class RealisticBiomeEBBorealPlateauM extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBBorealPlateauM(70f, 180f, 7f, 100f, 38f, 260f, 74f),
+			new TerrainEBBorealPlateauM(30f),
 			new SurfaceEBBorealPlateauM(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
@@ -70,6 +70,9 @@ public class RealisticBiomeEBBorealPlateauM extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-        
+        noWaterFeatures= true;
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 }

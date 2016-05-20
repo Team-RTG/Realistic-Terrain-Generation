@@ -1,13 +1,13 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.world.gen.surface.extrabiomes.SurfaceEBXLTemperateRainforest;
-import rtg.world.gen.terrain.extrabiomes.TerrainEBXLTemperateRainforest;
-import extrabiomes.api.BiomeManager;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.gen.surface.extrabiomes.SurfaceEBXLTemperateRainforest;
+import rtg.world.gen.terrain.extrabiomes.TerrainEBXLTemperateRainforest;
+import extrabiomes.api.BiomeManager;
 
 public class RealisticBiomeEBXLTemperateRainforest extends RealisticBiomeEBXLBase
 {	
@@ -20,8 +20,11 @@ public class RealisticBiomeEBXLTemperateRainforest extends RealisticBiomeEBXLBas
 	{
 		super(config, 
 			ebxlBiome, BiomeGenBase.river,
-			new TerrainEBXLTemperateRainforest(300f, 70f, 0f),
-			new SurfaceEBXLTemperateRainforest(config, topBlock, fillerBlock, true, Blocks.sand, 0.2f)
+			new TerrainEBXLTemperateRainforest(130f, 100f),
+			new SurfaceEBXLTemperateRainforest(config, topBlock, fillerBlock, true, Blocks.sand, 0.8f)
 		);
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

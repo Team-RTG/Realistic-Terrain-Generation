@@ -1,12 +1,14 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPCrag;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPCrag;
 import biomesoplenty.api.content.BOPCBiomes;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
+import rtg.world.biome.deco.DecoPond;
+import rtg.world.biome.deco.helper.DecoHelperBorder;
 
 public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase
 {	
@@ -19,9 +21,19 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
-			new TerrainBOPCrag(false, new float[]{2.0f, 0.5f, 6.0f, 0.5f, 10.0f, 0.5f, 14.0f, 0.5f, 18.0f, 0.5f, 22.0f, 0.5f, 26.0f, 0.5f, 30.0f, 0.5f, 34.0f, 0.5f}, 40f, 1f, 1f, 0.5f, 69f),
+			new TerrainBOPCrag(90f),
 			new SurfaceBOPCrag(config, topBlock, fillerBlock, topBlock)
 		);
 		this.generatesEmeralds = true;
+        this.noLakes = true;
+        this.noWaterFeatures = true;
+
+        DecoPond decoPond = new DecoPond();
+        decoPond.chunksPerPond = 3;// very high because most are blocked by topography
+        DecoHelperBorder borderedPond = new DecoHelperBorder(decoPond,0.8f,0.7f);
+        this.addDeco(borderedPond);
+
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

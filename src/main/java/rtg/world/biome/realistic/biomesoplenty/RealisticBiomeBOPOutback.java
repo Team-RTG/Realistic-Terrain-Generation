@@ -1,13 +1,13 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.world.gen.surface.biomesoplenty.SurfaceBOPOutback;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPOutback;
-import biomesoplenty.api.content.BOPCBiomes;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.gen.surface.biomesoplenty.SurfaceBOPOutback;
+import rtg.world.gen.terrain.biomesoplenty.TerrainBOPOutback;
+import biomesoplenty.api.content.BOPCBiomes;
 
 public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
 {	
@@ -20,7 +20,7 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
-			new TerrainBOPOutback(300f),
+			new TerrainBOPOutback(65f,50f,10f),
 			new SurfaceBOPOutback(config, 
                 Blocks.grass, //Block top 
                 (byte)0, //byte topByte
@@ -31,10 +31,13 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
                 fillerBlock, //Block mixFill, 
                 (byte)0, //byte mixFillByte,
                 40f, //float mixWidth, 
-                -0.15f, //float mixHeight, 
+                -0.15f, //float mixHeight,
                 10f, //float smallWidth, 
                 0.5f //float smallStrength
             )
 		);
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.growthcraft;
 
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.growthcraft.config.BiomeConfigGC;
 import rtg.util.Logger;
@@ -7,8 +8,6 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 import cpw.mods.fml.common.Loader;
-
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeGCBase extends RealisticBiomeBase
 {

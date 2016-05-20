@@ -9,7 +9,7 @@ import teamrtg.rtg.api.tools.feature.WorldGenVinesRTG;
 import teamrtg.rtg.api.util.math.RandomUtil;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;
-import teamrtg.rtg.api.world.gen.IMapGenGenerator;
+import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
 
 import java.util.Random;
 
@@ -30,7 +30,7 @@ public class DecoJungleGrassVines extends DecoBase {
      * No config options for this one yet. Just ripped it directly from the old code.
      */
     @Override
-    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, IMapGenGenerator mapGenGenerator) {
+    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator biomeGenerator) {
         if (this.allowed) {
 
             if (TerrainGen.decorate(rtgWorld.world, rand, new BlockPos(chunkX, 0, chunkY), GRASS)) {

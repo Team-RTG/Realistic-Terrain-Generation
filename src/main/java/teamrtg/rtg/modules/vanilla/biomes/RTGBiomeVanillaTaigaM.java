@@ -33,7 +33,7 @@ public class RTGBiomeVanillaTaigaM extends RTGBiomeVanillaBase {
     public TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
                 return terrainGrasslandHills(x, y, rtgWorld.simplex, rtgWorld.cell, river, 100f, 7f, 180f, 70f, 68f);
             }
         };

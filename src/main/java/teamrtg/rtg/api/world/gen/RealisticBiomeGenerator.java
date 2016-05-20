@@ -23,14 +23,17 @@ import teamrtg.rtg.api.util.math.RandomUtil;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.RTGBiomeBase;
 import teamrtg.rtg.api.world.biome.WorldFeature;
+import teamrtg.rtg.api.world.biome.deco.DecoBase;
+import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
  * @author topisani
  */
-public class RealisticBiomeGenerator implements IMapGenGenerator {
+public class RealisticBiomeGenerator {
     private static final RealisticBiomeGenerator[] biomeGenerators = new RealisticBiomeGenerator[256];
     private static float actualRiverProportion = 300f / 1600f;
 
@@ -266,22 +269,21 @@ public class RealisticBiomeGenerator implements IMapGenGenerator {
         }
     }
 
-    public float terrainHeight(RTGWorld rtgWorld, int x, int z, float border, float river) {
+    public float terrainHeight(RTGWorld rtgWorld, int x, int z, float biomeWeight, float border, float river) {
         // we now have both lakes and rivers lowering land
         if (realistic.noWaterFeatures) {
-            float borderForRiver = border * 2;
+            float borderForRiver = biomeWeight * 2;
             if (borderForRiver > 1f) borderForRiver = 1;
             river = 1f - (1f - borderForRiver) * (1f - river);
         }
-        float height = realistic.terrain.generateNoise(rtgWorld, x, z, border, river);
+        float height = realistic.terrain.generateNoise(rtgWorld, x, z, biomeWeight, border, river);
         for (WorldFeature feature : realistic.getWorldFeatures()) {
-            height = feature.modifyTerrain(rtgWorld, realistic, height, x, z, border, river);
+            height = feature.modifyTerrain(rtgWorld, realistic, height, x, z, biomeWeight, river);
         }
         return height;
     }
 
-    @Override
-    public RTGBiomeBase get() {
+    public RTGBiomeBase getBiome() {
         return this.realistic;
     }
 
@@ -295,6 +297,29 @@ public class RealisticBiomeGenerator implements IMapGenGenerator {
                 this.realistic.surface.paintWithSubparts(primer, bx, by, bz, depth, noise, river, rtgWorld);
             } else {
                 this.genericPart.paintWithSubparts(primer, bx, by, bz, depth, noise, river, rtgWorld);
+            }
+        }
+    }
+
+    public void decorate(RTGWorld rtgWorld, Random rand, int chunkY, int chunkX, float strength, float river) {
+        boolean baseDecorated = false;
+        ArrayList<DecoBase> decos = this.realistic.getDecos();
+        for (int i = decos.size() - 1; i >= 0; i--) {
+            DecoBase deco = decos.get(i);
+            if (deco instanceof DecoBaseBiomeDecorations) {
+                if (baseDecorated) continue;
+                baseDecorated = true;
+            }
+            if (deco.preGenerate(rtgWorld, rand, chunkX, chunkY, strength, river, this)) {
+                deco.generate(rtgWorld, rand, chunkX, chunkY, strength, river, this);
+            }
+        }
+        // Generate ores
+        if (!baseDecorated) {
+            DecoBaseBiomeDecorations deco = new DecoBaseBiomeDecorations();
+            deco.allowed = false;
+            if (deco.preGenerate(rtgWorld, rand, chunkX, chunkY, strength, river, this)) {
+                deco.generate(rtgWorld, rand, chunkX, chunkY, strength, river, this);
             }
         }
     }

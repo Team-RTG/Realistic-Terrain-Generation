@@ -27,7 +27,7 @@ public class RTGBiomeVanillaTaiga extends RTGBiomeVanillaBase {
     public TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
                 return terrainFlatLakes(x, y, rtgWorld.simplex, river, 8f, 68f);
             }
         };

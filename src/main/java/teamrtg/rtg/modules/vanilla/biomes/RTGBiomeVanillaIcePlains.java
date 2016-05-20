@@ -30,7 +30,7 @@ public class RTGBiomeVanillaIcePlains extends RTGBiomeVanillaBase {
     public TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
                 float base = 62;
                 float b = rtgWorld.simplex.noise2(x / 24f, y / 24f) * 0.25f;
                 b *= river;

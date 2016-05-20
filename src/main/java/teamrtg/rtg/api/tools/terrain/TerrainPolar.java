@@ -9,7 +9,7 @@ public class TerrainPolar extends TerrainBase {
     }
 
     @Override
-    public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+    public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
         float st = (rtgWorld.simplex.noise2(x / 160f, y / 160f) + 0.38f) * (Mods.RTG.config.DUNE_HEIGHT.get() + 23f) * river;
         st = st < 0.2f ? 0.2f : st;
 

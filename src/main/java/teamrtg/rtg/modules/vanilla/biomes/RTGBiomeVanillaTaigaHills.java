@@ -28,7 +28,7 @@ public class RTGBiomeVanillaTaigaHills extends RTGBiomeVanillaBase {
     public TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
                 return terrainHighland(x, y, rtgWorld.simplex, rtgWorld.cell, river, 10f, 68f, 45f, 10f);
             }
         };

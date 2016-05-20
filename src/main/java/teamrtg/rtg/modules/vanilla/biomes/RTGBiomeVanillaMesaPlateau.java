@@ -33,8 +33,8 @@ public class RTGBiomeVanillaMesaPlateau extends RTGBiomeVanillaBase {
             private final float strength = 10f;
 
             @Override
-            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
-                return terrainPlateau(x, y, rtgWorld.simplex, river, height, border, strength, heightLength, 100f, false);
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+                return terrainPlateau(x, y, rtgWorld.simplex, river, height, biomeWeight, border, strength, heightLength, 100f, false);
             }
         };
     }

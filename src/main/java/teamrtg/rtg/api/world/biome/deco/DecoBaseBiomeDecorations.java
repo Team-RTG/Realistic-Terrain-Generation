@@ -2,7 +2,6 @@ package teamrtg.rtg.api.world.biome.deco;
 
 import net.minecraft.util.math.BlockPos;
 import teamrtg.rtg.api.world.RTGWorld;
-import teamrtg.rtg.api.world.gen.IMapGenGenerator;
 import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
 
 import java.util.Random;
@@ -54,14 +53,7 @@ public class DecoBaseBiomeDecorations extends DecoBase {
     }
 
     @Override
-    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, IMapGenGenerator mapGenGenerator) {
-        RealisticBiomeGenerator biomeGenerator;
-        try {
-            biomeGenerator = (RealisticBiomeGenerator) mapGenGenerator;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
+    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator biomeGenerator) {
         if (this.allowed) {
 
             for (int i = 0; i < loops; i++) {

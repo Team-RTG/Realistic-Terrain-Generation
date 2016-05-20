@@ -40,7 +40,7 @@ public class RTGBiomeVanillaIceMountains extends RTGBiomeVanillaBase {
     public TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
                 return terrainLonelyMountain(x, y, rtgWorld.simplex, rtgWorld.cell, river, 80f, 230f, 68f);
             }
         };

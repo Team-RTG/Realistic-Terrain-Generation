@@ -8,7 +8,7 @@ public class TerrainMountain extends TerrainBase {
     }
 
     @Override
-    public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+    public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
         float h = rtgWorld.simplex.noise2(x / 300f, y / 300f) * 135f * river;
         h *= h / 32f;
         h = h > 150f ? 150f : h;

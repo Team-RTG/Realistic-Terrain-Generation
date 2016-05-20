@@ -10,7 +10,7 @@ public class TerrainVolcano extends TerrainBase {
     }
 
     @Override
-    public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
-        return terrainVolcano(x, y, rtgWorld.simplex, rtgWorld.cell, border, 70f);
+    public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+        return terrainVolcano(x, y, rtgWorld.simplex, rtgWorld.cell, biomeWeight, 70f);
     }
 }

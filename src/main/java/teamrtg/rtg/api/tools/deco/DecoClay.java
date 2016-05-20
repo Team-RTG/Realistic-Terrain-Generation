@@ -6,7 +6,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import teamrtg.rtg.api.tools.feature.WorldGenClay;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;
-import teamrtg.rtg.api.world.gen.IMapGenGenerator;
+import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
 
 import java.util.Random;
 
@@ -23,19 +23,15 @@ public class DecoClay extends DecoBase {
      * Generates the decoration.
      * The parameters are virtually the same as the ones passed to the legacy rDecorate() method.
      * This method should be overridden in the individual deco objects.
-     * @param biome
-     * @param world
-     * @param simplex
-     * @param cell
      * @param rand
      * @param chunkX
      * @param chunkY
      * @param strength
      * @param river
-     * @param mapGenGenerator
+     * @param realisticBiomeGenerator
      */
     @Override
-    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, IMapGenGenerator mapGenGenerator) {
+    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator realisticBiomeGenerator) {
         if (TerrainGen.decorate(rtgWorld.world, rand, new BlockPos(chunkX * 16, 0, chunkY * 16), CLAY)) {
 
             if (river > 0.85f) {

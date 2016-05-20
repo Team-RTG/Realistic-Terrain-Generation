@@ -43,10 +43,8 @@ public class WaterFeatures extends WorldFeature {
         } else {
             if (lakeFlattening < river) river = (float) lakeFlattening;
         }
-        // flatten terrain to set up for the water features
-        float terrainNoise = biome.terrain.generateNoise(rtgWorld, x, z, border, riverFlattening);
         // place water features
-        return this.erodedNoise(rtgWorld, x, z, river, border, terrainNoise, lakeFlattening);
+        return this.erodedNoise(rtgWorld, x, z, river, border, heightIn, lakeFlattening);
     }
 
     public float lakePressure(RTGWorld rtgWorld, RTGBiomeBase biome, int x, int z, float border) {

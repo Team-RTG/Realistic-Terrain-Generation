@@ -30,7 +30,7 @@ public class RTGBiomeVanillaSavanna extends RTGBiomeVanillaBase {
             private final GroundEffect groundEffect = new GroundEffect(4f);
 
             @Override
-            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
                 return riverized(65f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
             }
         };

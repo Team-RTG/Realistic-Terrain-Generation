@@ -23,7 +23,7 @@ public class RTGBiomeVanillaMushroomIsland extends RTGBiomeVanillaBase {
     public TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
                 return terrainGrasslandFlats(x, y, rtgWorld.simplex, river, 40f, 25f, 68f);
             }
         };

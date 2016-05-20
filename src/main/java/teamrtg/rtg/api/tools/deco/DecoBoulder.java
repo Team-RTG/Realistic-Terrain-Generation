@@ -6,7 +6,7 @@ import net.minecraft.util.math.BlockPos;
 import teamrtg.rtg.api.tools.feature.WorldGenBlob;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;
-import teamrtg.rtg.api.world.gen.IMapGenGenerator;
+import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
 
 import java.util.Random;
 
@@ -38,7 +38,7 @@ public class DecoBoulder extends DecoBase {
     }
 
     @Override
-    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, IMapGenGenerator mapGenGenerator) {
+    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator realisticBiomeGenerator) {
         if (this.allowed) {
 
             for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1) {

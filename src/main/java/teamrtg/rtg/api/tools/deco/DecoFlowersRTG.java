@@ -5,7 +5,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import teamrtg.rtg.api.tools.feature.WorldGenFlowersRTG;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;
-import teamrtg.rtg.api.world.gen.IMapGenGenerator;
+import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
 
 import java.util.Random;
 
@@ -63,7 +63,7 @@ public class DecoFlowersRTG extends DecoBase {
     }
 
     @Override
-    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, IMapGenGenerator mapGenGenerator) {
+    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator mapGenGenerator) {
         if (this.allowed) {
 
             if (TerrainGen.decorate(rtgWorld.world, rand, new BlockPos(chunkX, 0, chunkY), FLOWERS)) {

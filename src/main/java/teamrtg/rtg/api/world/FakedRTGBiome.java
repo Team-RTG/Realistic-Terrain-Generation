@@ -20,7 +20,7 @@ public class FakedRTGBiome extends RTGBiomeBase {
     public TerrainBase initTerrain() {
         return new TerrainBase() {
             @Override
-            public float generateNoise(RTGWorld rtgWorld, int x, int z, float border, float river) {
+            public float generateNoise(RTGWorld rtgWorld, int x, int z, float biomeWeight, float border, float river) {
                 return riverized(rtgWorld.biomeFaker.getHeightAt(x, z), river);
             }
         };

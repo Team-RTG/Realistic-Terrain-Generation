@@ -8,7 +8,7 @@ public class TerrainFlatLakes extends TerrainBase {
 
     }
 
-    public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+    public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
         return terrainFlatLakes(x, y, rtgWorld.simplex, river, 3f, 62f);
     }
 }

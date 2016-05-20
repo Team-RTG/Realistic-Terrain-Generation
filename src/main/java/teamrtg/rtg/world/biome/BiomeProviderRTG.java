@@ -12,7 +12,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
-import teamrtg.rtg.api.world.biome.RTGBiomeBase;
 import teamrtg.rtg.api.mods.Mods;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.LimitedMap;
@@ -22,8 +21,8 @@ import teamrtg.rtg.api.util.noise.CellNoise;
 import teamrtg.rtg.api.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.api.util.noise.SimplexCellularNoise;
 import teamrtg.rtg.api.util.noise.SimplexOctave;
+import teamrtg.rtg.api.world.biome.RTGBiomeBase;
 import teamrtg.rtg.world.gen.ChunkProviderRTG;
-import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -242,16 +241,6 @@ public class BiomeProviderRTG extends BiomeProvider {
     @Override
     public void cleanupCache() {
         this.biomeCache.cleanupCache();
-    }
-
-    public float getNoiseAt(int x, int y) {
-
-        float river = getRiverStrength(x, y) + 1f;
-        if (river < 0.5f) {
-            return 59f;
-        }
-
-        return RealisticBiomeGenerator.forBiome(getBiomeGenAt(x, y)).terrainHeight(chunkProvider.rtgWorld, x, y, 1f, river);
     }
 
     public float getRiverStrength(int x, int y) {

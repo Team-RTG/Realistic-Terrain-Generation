@@ -47,7 +47,7 @@ public class TerrainOceanCanyon extends TerrainBase {
     }
 
     @Override
-    public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+    public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
         //float b = simplex.noise2(x / cWidth, y / cWidth) * cHeigth * river;
         //b *= b / cStrength;
         river *= 1.3f;
@@ -70,7 +70,7 @@ public class TerrainOceanCanyon extends TerrainBase {
 
         for (int i = 0; i < heightLength; i += 2) {
             cTemp = 0;
-            if (b > height[i] && border > 0.6f + (height[i] * 0.015f) + hn * 0.2f) {
+            if (b > height[i] && biomeWeight > 0.6f + (height[i] * 0.015f) + hn * 0.2f) {
                 cTemp = b > height[i] + height[i + 1] ? height[i + 1] : b - height[i];
                 cTemp *= strength;
             }

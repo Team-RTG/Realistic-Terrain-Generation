@@ -66,7 +66,7 @@ public class RTGBiomeVanillaExtremeHillsPlus extends RTGBiomeVanillaBase {
             }
 
             @Override
-            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
                 return riverized(heightEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y) + terrainHeight, river);
             }
         };

@@ -1,29 +1,28 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
-
-import java.util.Random;
-
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.highlands.config.BiomeConfigHLFlyingMountains;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenFlowers;
-import rtg.world.gen.feature.WorldGenGrass;
-import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPineBig;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGTrees;
-import rtg.world.gen.surface.highlands.SurfaceHLFlyingMountains;
-import rtg.world.gen.terrain.highlands.TerrainHLFlyingMountains;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenForest;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.highlands.config.BiomeConfigHLFlyingMountains;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.DecoFallenTree.LogCondition;
+import rtg.world.biome.deco.DecoFlowersRTG;
+import rtg.world.biome.deco.DecoFlowersRTG.HeightType;
+import rtg.world.biome.deco.DecoGrass;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.DecoTree;
+import rtg.world.biome.deco.DecoTree.TreeCondition;
+import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.helper.DecoHelper5050;
+import rtg.world.biome.deco.helper.DecoHelperBorder;
+import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
+import rtg.world.gen.feature.tree.rtg.TreeRTGCupressusSempervirens;
+import rtg.world.gen.feature.tree.vanilla.WorldGenTreesRTG;
+import rtg.world.gen.surface.highlands.SurfaceHLFlyingMountains;
+import rtg.world.gen.terrain.highlands.TerrainHLFlyingMountains;
 
 public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
 {
@@ -38,104 +37,142 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
     
         super(config, 
             hlBiome, BiomeGenBase.river,
-            new TerrainHLFlyingMountains(230f, 100f, 0f),
+            new TerrainHLFlyingMountains(350f, 100f, 63f,70f),
             //new SurfaceVanillaForest(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f));
-            new SurfaceHLFlyingMountains(config, topBlock, fillerBlock, false, null, 0f, 2.5f, 80f, 65f, 2.5f));
-    }
-
-    //copied from vanilla forest
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
-
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-
-        float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
-
-        for (int b1 = 0; b1 <0; b1++)// big trees aren't working
-        {
-            int j6 = chunkX + rand.nextInt(16) + 8;
-            int k10 = chunkY + rand.nextInt(16) + 8;
-            int z52 = world.getHeightValue(j6, k10);
-
-            // trees only mid level for looks
-            if (z52>80&&z52<150) {
-                if (rand.nextBoolean()) {
-                    WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 1, 1);
-                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                    worldgenerator.generate(world, rand, j6, z52, k10);
-                }
-                else {
-                    WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 0, 0);
-                    worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                    worldgenerator.generate(world, rand, j6, z52, k10);
-                }
-            }
-        }
-
-        for (int b2 = 0; b2 < 3f * strength; b2++)
-        {
-            int j6 = chunkX + rand.nextInt(16) + 8;
-            int k10 = chunkY + rand.nextInt(16) + 8;
-            int z52 = world.getHeightValue(j6, k10);
-
-            if (z52>80&&z52<150)
-            {
-                WorldGenerator worldgenerator =
-                    rand.nextInt(4) != 0 ? new WorldGenTreeRTGPineSmall(4 + rand.nextInt(7), 6 + rand.nextInt(9), 0)
-                        : rand.nextInt(10) != 0 ? new WorldGenTreeRTGTrees(false) : new WorldGenForest(false, false);
-                worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                worldgenerator.generate(world, rand, j6, z52, k10);
-            }
-        }
-
-        if (this.config.getPropertyById(BiomeConfigHLFlyingMountains.decorationLogsId).valueBoolean) {
+            new SurfaceHLFlyingMountains(config, topBlock, fillerBlock, false, null, 0f, 2.5f, 80f, 65f, 2.5f)
+        );
         
-            if (rand.nextInt((int) (8f / strength)) == 0)
-            {
-                int x22 = chunkX + rand.nextInt(16) + 8;
-                int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeightValue(x22, z22);
-                if (y22 < 100)
-                {
-                    if (rand.nextBoolean()) {
-                        (new WorldGenLog(Blocks.log, 0, Blocks.leaves, -1, 3 + rand.nextInt(4))).generate(world, rand, x22, y22, z22);
-                    }
-                    else {
-                        (new WorldGenLog(1, 3 + rand.nextInt(4), false)).generate(world, rand, x22, y22, z22);
-                    }
-                }
-            }
+        {
+		DecoTree bigPines = new DecoTree(new TreeRTGCupressusSempervirens());
+		bigPines.logBlock = Blocks.log;
+		bigPines.logMeta = (byte)1;
+		bigPines.leavesBlock = Blocks.leaves;
+		bigPines.leavesMeta = (byte)1;
+		bigPines.minTrunkSize = 3;
+		bigPines.maxTrunkSize = 7;
+		bigPines.minCrownSize = 5;
+		bigPines.maxCrownSize = 10;
+		bigPines.loops = 1;
+		bigPines.treeType = TreeType.RTG_TREE;
+		bigPines.distribution.noiseDivisor = 80f;
+		bigPines.distribution.noiseFactor = 60f;
+		bigPines.distribution.noiseAddend = -15f;
+		bigPines.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		bigPines.treeConditionNoise = 0f;
+		bigPines.treeConditionChance = 1;
+		bigPines.minY = 63;
+		bigPines.maxY = 90;
+		
+		DecoTree bigPinesOak = new DecoTree(bigPines);
+		bigPinesOak.leavesMeta = (byte)0;
+		
+        DecoHelperBorder borderedBigPines = new DecoHelperBorder(bigPines,.55f,.45f);
+		this.addDeco(borderedBigPines);
+		
+        DecoHelperBorder borderedBigPinesOak = new DecoHelperBorder(bigPinesOak,.55f,.45f);
+		this.addDeco(borderedBigPinesOak);
+
+        DecoShrub decoShrub2 = new DecoShrub();
+        decoShrub2.minY = 90;
+        decoShrub2.maxY = 150;
+        decoShrub2.strengthFactor = 3f;
+        decoShrub2.minSize = 11;
+        decoShrub2.maxSize = 21;
+		this.addDeco(decoShrub2);
         }
 
-        for (int f24 = 0; f24 < 3f * strength; f24++)
-        {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
-            if (k1 < 110)
-            {
-                (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
-            }
+        {        
+		DecoTree birchTrees = new DecoTree(new TreeRTGBetulaPapyrifera());
+		birchTrees.logBlock = Blocks.log;
+		birchTrees.logMeta = (byte)2;
+		birchTrees.leavesBlock = Blocks.leaves;
+		birchTrees.leavesMeta = (byte)2;
+		birchTrees.minTrunkSize = 4;
+		birchTrees.maxTrunkSize = 10;
+		birchTrees.minCrownSize = 8;
+		birchTrees.maxCrownSize = 19;
+		birchTrees.loops = 2;
+		birchTrees.distribution.noiseDivisor = 80f;
+		birchTrees.distribution.noiseFactor = 60f;
+		birchTrees.distribution.noiseAddend = -15f;
+		birchTrees.treeType = TreeType.RTG_TREE;
+		birchTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		birchTrees.minY = 63;
+		birchTrees.maxY = 90;
+        DecoHelperBorder borderedBirchTrees = new DecoHelperBorder(birchTrees,.55f,.45f);
+        this.addDeco(borderedBirchTrees);
+		
+		DecoTree rtgTrees = new DecoTree(new WorldGenTreesRTG(false));
+		rtgTrees.treeType = TreeType.WORLDGEN;
+		rtgTrees.loops = 2;
+		rtgTrees.distribution.noiseDivisor = 80f;
+		rtgTrees.distribution.noiseFactor = 60f;
+		rtgTrees.distribution.noiseAddend = -15f;
+		rtgTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		rtgTrees.minY = 63;
+		rtgTrees.maxY = 90;
+        DecoHelperBorder borderedRTGTrees = new DecoHelperBorder(rtgTrees,.55f,.45f);
+        this.addDeco(borderedRTGTrees);
+		
+		DecoTree vanillaTrees = new DecoTree(new WorldGenForest(false, false));
+		vanillaTrees.treeType = TreeType.WORLDGEN;
+		vanillaTrees.loops = 2;
+		vanillaTrees.distribution.noiseDivisor = 80f;
+		vanillaTrees.distribution.noiseFactor = 60f;
+		vanillaTrees.distribution.noiseAddend = -15f;
+		vanillaTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		vanillaTrees.minY = 63;
+		vanillaTrees.maxY = 90;
+        DecoHelperBorder borderedVanillaTrees = new DecoHelperBorder(vanillaTrees,.55f,.45f);
+        this.addDeco(borderedVanillaTrees);
         }
-
-        for (int f23 = 0; f23 < 8f * strength; f23++)
-        {
-            int j15 = chunkX + rand.nextInt(16) + 8;
-            int j17 = rand.nextInt(128);
-            int j20 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenFlowers(new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11})).generate(world, rand, j15, j17, j20);
-        }
-
-        for (int l14 = 0; l14 < 12f * strength; l14++)
-        {
-            int l19 = chunkX + rand.nextInt(16) + 8;
-            int k22 = rand.nextInt(128);
-            int j24 = chunkY + rand.nextInt(16) + 8;
-            (new WorldGenGrass(Blocks.tallgrass, 1)).generate(world, rand, l19, k22, j24);
-        }
+        
+        DecoFallenTree decoFallenTreeBirch = new DecoFallenTree();
+        decoFallenTreeBirch.distribution.noiseDivisor = 80f;
+        decoFallenTreeBirch.distribution.noiseFactor = 60f;
+        decoFallenTreeBirch.distribution.noiseAddend = -15f;
+        decoFallenTreeBirch.logCondition = LogCondition.X_DIVIDED_BY_STRENGTH;
+        decoFallenTreeBirch.logConditionNoise = 8f;
+        decoFallenTreeBirch.maxY = 100;
+        decoFallenTreeBirch.logBlock = Blocks.log;
+        decoFallenTreeBirch.logMeta = (byte)2;
+        decoFallenTreeBirch.leavesBlock = Blocks.leaves;
+        decoFallenTreeBirch.leavesMeta = (byte)-1;
+        decoFallenTreeBirch.minSize = 3;
+        decoFallenTreeBirch.maxSize = 6;
+        
+        DecoFallenTree decoFallenTreeSpruce = new DecoFallenTree();
+        decoFallenTreeSpruce.distribution.noiseDivisor = 80f;
+        decoFallenTreeSpruce.distribution.noiseFactor = 60f;
+        decoFallenTreeSpruce.distribution.noiseAddend = -15f;
+        decoFallenTreeSpruce.logCondition = LogCondition.X_DIVIDED_BY_STRENGTH;
+        decoFallenTreeSpruce.logConditionNoise = 8f;
+        decoFallenTreeSpruce.maxY = 100;
+        decoFallenTreeSpruce.logBlock = Blocks.log;
+        decoFallenTreeSpruce.logMeta = (byte)1;
+        decoFallenTreeSpruce.leavesBlock = Blocks.leaves;
+        decoFallenTreeSpruce.leavesMeta = (byte)-1;
+        decoFallenTreeSpruce.minSize = 3;
+        decoFallenTreeSpruce.maxSize = 6;
+        
+        DecoHelper5050 DecoHelper5050 = new DecoHelper5050(decoFallenTreeBirch, decoFallenTreeSpruce);
+		this.addDeco(DecoHelper5050, this.config._boolean(BiomeConfigHLFlyingMountains.decorationLogsId));
+        
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.maxY = 180;
+        decoShrub.strengthFactor = 8f;
+		this.addDeco(decoShrub);
+        
+		DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
+		decoFlowersRTG.flowers = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+		decoFlowersRTG.maxY = 128;
+		decoFlowersRTG.heightType = HeightType.NEXT_INT;
+		decoFlowersRTG.strengthFactor = 8f;
+        this.addDeco(decoFlowersRTG);
+        
+		DecoGrass decoGrass = new DecoGrass();
+		decoGrass.maxY = 164;
+		decoGrass.strengthFactor = 12f;
+        this.addDeco(decoGrass);
     }
 }

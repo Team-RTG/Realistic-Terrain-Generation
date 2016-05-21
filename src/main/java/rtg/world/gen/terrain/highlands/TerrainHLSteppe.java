@@ -10,51 +10,33 @@ public class TerrainHLSteppe extends TerrainBase
 	private float hWidth;
 	private float vHeight;
 	private float vWidth;
-	private float lHeight;
-	private float lWidth;
 	private float bHeight;
 	public static float mountainStart = 30;
-	/*
-	 * hillHeight = 70f
-	 * hillWidth = 180f
-	 * 
-	 * varHeight = 7f
-	 * varWidth = 100f
-	 * 
-	 * lakeHeigth = 38f
-	 * lakeWidth = 260f
-	 * 
-	 * baseHeight = 68f
-	 * 
-	 * 70f, 180f, 7f, 100f, 38f, 260f, 68f
-	 */
-	public TerrainHLSteppe(float hillHeight, float hillWidth, float varHeight, float varWidth, float lakeHeight, float lakeWidth, float baseHeight)
+
+	public TerrainHLSteppe(float hillHeight, float hillWidth, float varHeight, float varWidth, float baseHeight)
 	{
 		hHeight = hillHeight;
 		hWidth = hillWidth;
-		
+
 		vHeight = varHeight;
 		vWidth = varWidth;
-		
-		lHeight = lakeHeight;
-		lWidth = lakeWidth;
-		
+
 		bHeight = baseHeight;
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
 		float h = simplex.noise2(x / vWidth, y / vWidth) * vHeight * river;
-		h += simplex.noise2(x / 20f, y / 20f) * 2;
-		
+		h += blendedHillHeight(simplex.noise2(x / 20f, y / 20f),-0.3f) * 2;
+
 		float m = simplex.noise2(x / hWidth, y / hWidth) * hHeight * river;
 		m *= m / 40f;
-		
+
 		float sm = simplex.noise2(x / 30f, y / 30f) * 8f;
 		sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
 		m += sm;
-		
+
 		float cm = cell.noise(x / 25D, y / 25D, 1D) * 12f;
 		cm *= m / 20f > 3.75f ? 3.75f : m / 20f;
 		m += cm;
@@ -65,14 +47,14 @@ public class TerrainHLSteppe extends TerrainBase
 
         // make mountains less common
         m = above(m, mountainStart);
-		
+
 		/*float l = simplex.noise2(x / lWidth, y / lWidth) * lHeight;
 		l *= l / 25f;
 		l = l < 8f ? 8f : l;*/
         //put in a little roll
-		h += simplex.noise2(x / 100f, y / 100f) * 2f;
+		h += blendedHillHeight(simplex.noise2(x / 100f, y / 100f),-0.3f) * 2f;
 
         // no lakes
-		return bHeight + h + m;
+		return riverized(bHeight + h + m,river);
 	}
 }

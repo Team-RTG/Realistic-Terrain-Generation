@@ -1,10 +1,10 @@
 package rtg.world.biome.realistic.ridiculousworld;
 
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.ridiculousworld.SurfaceRWSpookyForest;
 import rtg.world.gen.terrain.ridiculousworld.TerrainRWSpookyForest;
-
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeRWSpookyForest extends RealisticBiomeRWBase
 {
@@ -14,7 +14,7 @@ public class RealisticBiomeRWSpookyForest extends RealisticBiomeRWBase
     
         super(config,
             rwBiome, BiomeGenBase.river,
-            new TerrainRWSpookyForest(0f, 100f, 68f, 170f),
+            new TerrainRWSpookyForest(),
             new SurfaceRWSpookyForest(config,
                 rwBiome.topBlock, //Block top 
                 (byte)0, //byte topByte
@@ -30,5 +30,8 @@ public class RealisticBiomeRWSpookyForest extends RealisticBiomeRWBase
                 0.5f //float smallStrength
             )
         );
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 }

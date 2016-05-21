@@ -14,7 +14,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class SurfaceACDarklandsHighland extends SurfaceBase
+public class SurfaceACDarklandsHighland extends SurfaceACBase
 {
     
     private Block mixBlockTop;

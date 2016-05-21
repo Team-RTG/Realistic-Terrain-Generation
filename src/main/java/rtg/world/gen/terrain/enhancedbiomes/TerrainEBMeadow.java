@@ -2,32 +2,31 @@ package rtg.world.gen.terrain.enhancedbiomes;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.HeightEffect;
+import rtg.world.gen.terrain.HillockEffect;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainEBMeadow extends TerrainBase
 {
-    
+    private float hillHeight = 15;
+    private float hillWavelength = 70;
+    private float baseHeight = 66;
+    private HeightEffect height;
     public TerrainEBMeadow()
     {
-    
+
+        HillockEffect hills = new HillockEffect();
+        hills.height = hillHeight;
+        hills.minimumSimplex = 0.4f;
+        hills.wavelength = hillWavelength;
+
+        height = hills.plus(new GroundEffect(2f));
     }
-    
+
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-    
-        float floNoise;
-        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * 18f * river;
-        st = st < 0.2f ? 0.2f : st;
-        
-        float h = simplex.noise2(x / 60f, y / 60f) * st * 2f;
-        h = h > 0f ? -h : h;
-        h += st;
-        h *= h / 180f;
-        h += st;
-        
-        floNoise = 63f + h;
-        
-        return floNoise;
+        return riverized(height.added(simplex, cell, x, y)+baseHeight,river);
     }
 }

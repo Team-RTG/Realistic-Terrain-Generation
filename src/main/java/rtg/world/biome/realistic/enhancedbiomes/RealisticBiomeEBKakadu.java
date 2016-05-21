@@ -1,15 +1,15 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBKakadu;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBKakadu;
 import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBKakadu extends RealisticBiomeEBBase
 {
@@ -50,7 +50,7 @@ public class RealisticBiomeEBKakadu extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBKakadu(30f, 480f, 8f, 100f, 68f, 60f, 69f),
+			new TerrainEBKakadu(),
 			new SurfaceEBKakadu(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
@@ -70,6 +70,8 @@ public class RealisticBiomeEBKakadu extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-        
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 }

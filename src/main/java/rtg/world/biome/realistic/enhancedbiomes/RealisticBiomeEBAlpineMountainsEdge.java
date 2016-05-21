@@ -1,14 +1,14 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBAlpineMountainsEdge;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBAlpineMountainsEdge;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBAlpineMountainsEdge extends RealisticBiomeEBBase
 {
@@ -41,9 +41,11 @@ public class RealisticBiomeEBAlpineMountainsEdge extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBAlpineMountainsEdge(300f, 80f, 30f),
+			new TerrainEBAlpineMountainsEdge(),
 			new SurfaceEBAlpineMountainsEdge(config, ebTopBlock, ebFillBlock, false, null, 0.45f)
 		);
-        
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 }

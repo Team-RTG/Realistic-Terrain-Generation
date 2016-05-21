@@ -1,12 +1,12 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPOriginValley;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPOriginValley;
 import biomesoplenty.api.content.BOPCBiomes;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPOriginValley extends RealisticBiomeBOPBase
 {	
@@ -19,8 +19,11 @@ public class RealisticBiomeBOPOriginValley extends RealisticBiomeBOPBase
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
-			new TerrainBOPOriginValley(65f, 80f, 38f),
+			new TerrainBOPOriginValley(65f, 80f, 30f),
 			new SurfaceBOPOriginValley(config, topBlock, fillerBlock)
 		);
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

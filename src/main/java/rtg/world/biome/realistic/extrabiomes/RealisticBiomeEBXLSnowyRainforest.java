@@ -1,12 +1,12 @@
 package rtg.world.biome.realistic.extrabiomes;
 
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.extrabiomes.SurfaceEBXLSnowyRainforest;
 import rtg.world.gen.terrain.extrabiomes.TerrainEBXLSnowyRainforest;
 import extrabiomes.api.BiomeManager;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBXLSnowyRainforest extends RealisticBiomeEBXLBase
 {	
@@ -19,10 +19,13 @@ public class RealisticBiomeEBXLSnowyRainforest extends RealisticBiomeEBXLBase
 	{
 		super(config, 
 			ebxlBiome, BiomeGenBase.frozenRiver,
-			new TerrainEBXLSnowyRainforest(300f, 70f, 0f),
+			new TerrainEBXLSnowyRainforest(130,120),
 			new SurfaceEBXLSnowyRainforest(config, topBlock, fillerBlock)
 		);
 		
 		ebxlBiome.setTemperatureRainfall(-2f, ebxlBiome.rainfall);
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

@@ -1,23 +1,15 @@
 package rtg.world.biome.realistic.vanilla;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
-
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBeach;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPalm;
+import rtg.world.biome.deco.DecoTree;
+import rtg.world.biome.deco.DecoTree.TreeCondition;
+import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBeach;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaBeach;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenerator;
-
-import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
     
@@ -30,36 +22,26 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
             BiomeGenBase.beach,
             BiomeGenBase.river,
             new TerrainVanillaBeach(),
-            new SurfaceVanillaBeach(config, topBlock, fillerBlock, topBlock, fillerBlock, (byte) 0, 1));
-    }
-    
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
+            new SurfaceVanillaBeach(config, topBlock, fillerBlock, topBlock, fillerBlock, (byte) 0, 1)
+        );
         
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+		/**
+		 * ##################################################
+		 * # DECORATIONS (ORDER MATTERS)
+		 * ##################################################
+		 */
         
-        if (this.config.getPropertyById(BiomeConfigVanillaBeach.decorationPalmTreesId).valueBoolean) {
-            
-            if (TerrainGen.decorate(world, rand, chunkX, chunkY, TREE)) {
-                
-                if (rand.nextInt((int) (4f / strength)) == 0) {
-                    
-                    int j6 = chunkX + rand.nextInt(16) + 8;
-                    int k10 = chunkY + rand.nextInt(16) + 8;
-                    int z52 = world.getHeightValue(j6, k10);
-                    
-                    if (z52 < 80) {
-                        WorldGenerator worldgenerator = new WorldGenTreeRTGPalm();
-                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                        worldgenerator.generate(world, rand, j6, z52, k10);
-                    }
-                }
-            }
-        }
+		// Scattered palm trees.
+		DecoTree palmTrees = new DecoTree(new TreeRTGCocosNucifera());
+		palmTrees.loops = 1;
+		palmTrees.treeType = TreeType.RTG_TREE;
+		palmTrees.treeCondition = TreeCondition.X_DIVIDED_BY_STRENGTH;
+		palmTrees.treeConditionFloat = 4f;
+		palmTrees.maxY = 80;
+		palmTrees.minTrunkSize = 7;
+		palmTrees.maxTrunkSize = 9;
+		palmTrees.minCrownSize = 6;
+		palmTrees.maxCrownSize = 8;
+		this.addDeco(palmTrees, this.config._boolean(BiomeConfigVanillaBeach.decorationPalmTreesId));
     }
-    
 }

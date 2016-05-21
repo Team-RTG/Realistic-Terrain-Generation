@@ -1,11 +1,11 @@
 package rtg.world.biome.realistic.lotsomobs;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.world.gen.surface.lotsomobs.SurfaceLOMAntartica;
-import rtg.world.gen.terrain.lotsomobs.TerrainLOMAntartica;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.gen.surface.lotsomobs.SurfaceLOMAntartica;
+import rtg.world.gen.terrain.lotsomobs.TerrainLOMAntartica;
 
 public class RealisticBiomeLOMAntartica extends RealisticBiomeLOMBase
 {
@@ -31,5 +31,8 @@ public class RealisticBiomeLOMAntartica extends RealisticBiomeLOMBase
                 0.5f //float smallStrength
             )
         );
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 }

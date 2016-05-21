@@ -1,15 +1,15 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBSnowyPlateau;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBSnowyPlateau;
 import enhancedbiomes.EnhancedBiomesMod;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBSnowyPlateau extends RealisticBiomeEBBase
 {
@@ -50,7 +50,7 @@ public class RealisticBiomeEBSnowyPlateau extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBSnowyPlateau(false, new float[]{2.0f, 0.5f}, 40f, 1f, 1f, 0.5f, 69f),
+			new TerrainEBSnowyPlateau(30f,68f),
 			new SurfaceEBSnowyPlateau(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
@@ -70,11 +70,15 @@ public class RealisticBiomeEBSnowyPlateau extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-		
+
+        noWaterFeatures= true;
         this.generatesEmeralds = true;
         this.emeraldEmeraldBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.oreEmeraldEB, Blocks.emerald_ore);
         this.emeraldEmeraldMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
         this.emeraldStoneBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
         this.emeraldStoneMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 }

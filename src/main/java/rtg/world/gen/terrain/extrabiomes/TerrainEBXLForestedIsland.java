@@ -1,71 +1,36 @@
 package rtg.world.gen.terrain.extrabiomes;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.world.gen.terrain.FunctionalTerrainBase;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.HillsEverywhereEffect;
+import rtg.world.gen.terrain.JitterEffect;
 
-public class TerrainEBXLForestedIsland extends TerrainBase
+
+public class TerrainEBXLForestedIsland extends FunctionalTerrainBase
 {
-	private float hHeight;
-	private float hWidth;
-	private float vHeight;
-	private float vWidth;
-	private float lHeight;
-	private float lWidth;
-	private float bHeight;
-	
-	/*
-	 * hillHeight = 70f
-	 * hillWidth = 180f
-	 * 
-	 * varHeight = 7f
-	 * varWidth = 100f
-	 * 
-	 * lakeHeigth = 38f
-	 * lakeWidth = 260f
-	 * 
-	 * baseHeight = 68f
-	 * 
-	 * 70f, 180f, 7f, 100f, 38f, 260f, 68f
-	 */
-	public TerrainEBXLForestedIsland(float hillHeight, float hillWidth, float varHeight, float varWidth, float lakeHeight, float lakeWidth, float baseHeight)
+
+	public TerrainEBXLForestedIsland()
 	{
-		hHeight = hillHeight;
-		hWidth = hillWidth;
-		
-		vHeight = varHeight;
-		vWidth = varWidth;
-		
-		lHeight = lakeHeight;
-		lWidth = lakeWidth;
-		
-		bHeight = baseHeight;
+        base = 66;
+
+        HillsEverywhereEffect smallHills = new HillsEverywhereEffect();
+        smallHills.height = 4;
+        smallHills.hillBottomSimplexValue = .2f;
+        smallHills.wavelength = 8;
+
+        HillsEverywhereEffect largerHills = new HillsEverywhereEffect();
+        largerHills.height = 8;
+        largerHills.octave =1;
+        largerHills.wavelength = 20;
+        largerHills.modified = smallHills;
+
+        JitterEffect disguising = new JitterEffect();
+        disguising.amplitude = 3;
+        disguising.wavelength = 10;
+        disguising.jittered = largerHills;
+
+        height = disguising.plus(new GroundEffect(4));
+
 	}
-	
-	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-	{
-		float h = simplex.noise2(x / vWidth, y / vWidth) * vHeight * river;
-		h += simplex.noise2(x / 20f, y / 20f) * 2;
-		
-		float m = simplex.noise2(x / hWidth, y / hWidth) * hHeight * river;
-		m *= m / 40f;
-		
-		float sm = simplex.noise2(x / 30f, y / 30f) * 8f;
-		sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
-		m += sm;
-		
-		float cm = cell.noise(x / 25D, y / 25D, 1D) * 12f;
-		cm *= m / 20f > 3.75f ? 3.75f : m / 20f;
-		m += cm;
-		
-		float l = simplex.noise2(x / lWidth, y / lWidth) * lHeight;
-		l *= l / 25f;
-		l = l < 8f ? 8f : l;
-		
-		h += simplex.noise2(x / 12f, y / 12f) * 3f;
-		h += simplex.noise2(x / 5f, y / 5f) * 1.5f;
-		
-		return bHeight + h + m - l;
-	}
+
 }

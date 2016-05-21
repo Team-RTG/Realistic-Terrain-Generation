@@ -1,67 +1,54 @@
 package enhancedbiomes;
 
+import static enhancedbiomes.blocks.BlockWithMeta.alfisol;
+import static enhancedbiomes.blocks.BlockWithMeta.andisol;
+import static enhancedbiomes.blocks.BlockWithMeta.gelisol;
+import static enhancedbiomes.blocks.BlockWithMeta.histosol;
+import static enhancedbiomes.blocks.BlockWithMeta.inceptisol;
+import static enhancedbiomes.blocks.BlockWithMeta.mollisol;
+import static enhancedbiomes.blocks.BlockWithMeta.oxisol;
+import static enhancedbiomes.blocks.EnhancedBiomesBlocks.grassEB;
+import static enhancedbiomes.blocks.LandTypes.typeGeoDefault;
+import static enhancedbiomes.blocks.LandTypes.typeGeoGrass;
+import static enhancedbiomes.blocks.LandTypes.typeGeoIce;
+import static enhancedbiomes.blocks.LandTypes.typeGeoMountains;
+import static enhancedbiomes.blocks.LandTypes.typeGeoSandCanyons;
+import static enhancedbiomes.blocks.LandTypes.typeGeoVolcanoSea;
+import static enhancedbiomes.blocks.LandTypes.typeGeoWetland;
+import static enhancedbiomes.blocks.LandTypes.typeGeoWoodland;
+import static enhancedbiomes.world.biome.EnhancedBiomesRock.biomeBasin;
+import static enhancedbiomes.world.biomestats.BiomeCategorisation.getCatForBiome;
+import static net.minecraft.init.Blocks.grass;
+import static net.minecraftforge.common.BiomeDictionary.Type.SWAMP;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import enhancedbiomes.api.EnhancedBiomesApi;
-import enhancedbiomes.api.internal.OreGenEntry;
-import enhancedbiomes.api.internal.OreRegisteringHandler;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
-import enhancedbiomes.blocks.BlockWithMeta;
-import enhancedbiomes.blocks.LandTypes;
-import enhancedbiomes.handlers.*;
-import enhancedbiomes.items.EnhancedBiomesItems;
-import enhancedbiomes.proxy.CommonProxy;
-import enhancedbiomes.village.MapGenVillageEB;
-import enhancedbiomes.village.StructureVillagePiecesEB;
-import enhancedbiomes.village.VillagePieceSelection;
-import enhancedbiomes.world.WorldTypeEnhancedBiomes;
-import enhancedbiomes.world.WorldTypeSingleBiome;
-import enhancedbiomes.world.biome.EnhancedBiomesBiome;
-import enhancedbiomes.world.biome.base.BiomeGenEBBase;
-import enhancedbiomes.world.biomestats.BiomeTypes;
-import static enhancedbiomes.world.biome.EnhancedBiomesArchipelago.*;
-import static enhancedbiomes.world.biome.EnhancedBiomesBiome.*;
-import static enhancedbiomes.world.biome.EnhancedBiomesGrass.*;
-import static enhancedbiomes.world.biome.EnhancedBiomesPlains.*;
-import static enhancedbiomes.world.biome.EnhancedBiomesRock.*;
-import static enhancedbiomes.world.biome.EnhancedBiomesSand.*;
-import static enhancedbiomes.world.biome.EnhancedBiomesSandstone.*;
-import static enhancedbiomes.world.biome.EnhancedBiomesSnow.*;
-import static enhancedbiomes.world.biome.EnhancedBiomesSnowForest.*;
-import static enhancedbiomes.world.biome.EnhancedBiomesTropical.*;
-import static enhancedbiomes.world.biome.EnhancedBiomesWetland.*;
-import static enhancedbiomes.world.biome.EnhancedBiomesWoodland.*;
-import static net.minecraft.world.biome.BiomeGenBase.*;
-import static enhancedbiomes.world.biomestats.BiomeCategorisation.*;
-import static enhancedbiomes.world.biomestats.BiomeTypes.*;
-import static enhancedbiomes.blocks.EnhancedBiomesBlocks.*;
-import static enhancedbiomes.blocks.BlockWithMeta.*;
-import static enhancedbiomes.blocks.LandTypes.*;
-import cpw.mods.fml.common.*;
-import cpw.mods.fml.common.Mod.*;
-import cpw.mods.fml.common.event.*;
-import cpw.mods.fml.common.network.*;
-import cpw.mods.fml.common.registry.*;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import static net.minecraft.init.Blocks.*;
-import net.minecraft.util.StringTranslate;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.structure.MapGenStructureIO;
-import net.minecraftforge.common.*;
-import static net.minecraftforge.common.BiomeDictionary.Type.*;
-import static net.minecraftforge.common.BiomeDictionary.*;
-import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.BiomeDictionary;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import enhancedbiomes.api.internal.OreGenEntry;
+import enhancedbiomes.blocks.BlockWithMeta;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
+import enhancedbiomes.proxy.CommonProxy;
+import enhancedbiomes.world.biome.base.BiomeGenEBBase;
 
-@Mod(modid = "enhancedbiomes", name = "Enhanced Biomes", version = "2.5 for MC 1.7.10", useMetadata = true) //TODO Update version for release
+//@Mod(modid = "enhancedbiomes", name = "Enhanced Biomes", version = "2.5 for MC 1.7.10", useMetadata = true) //TODO Update version for release
 public class EnhancedBiomesMod {		
 	@SidedProxy(clientSide = "enhancedbiomes.proxy.ClientProxy", serverSide = "enhancedbiomes.proxy.CommonProxy")
 	public static CommonProxy proxy; 
@@ -127,147 +114,147 @@ public class EnhancedBiomesMod {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		EnhancedBiomesApi.orh = new OreRegisteringHandler();
-		
-		File configFile = new File("config/Enhanced Biomes/General.cfg");
-		Configuration config = new Configuration(configFile);
-		config.load();
-		
-		worldType = config.get(config.CATEGORY_GENERAL, "Allow world type module", true).getBoolean(true);
-		vanilla = config.get(config.CATEGORY_GENERAL, "Allow vanilla module", true).getBoolean(true);
-		//achievement = config.get(config.CATEGORY_GENERAL, "Allow achievement module", true).getBoolean(true);
-		seasons = config.get(config.CATEGORY_GENERAL, "Allow seasons module", true).getBoolean(true);
-		//tides = config.get(config.CATEGORY_GENERAL, "Allow tides module", true).getBoolean(true);
-		
-		worldTypeSB = config.get(config.CATEGORY_GENERAL, "Allow single biome world type", false, "Only a single biome (plus sub-biomes) will generate in this world type").getBoolean(false);
-		biomeIDSB = config.get(config.CATEGORY_GENERAL, "Biome ID to generate in single biome world type", 1, "Check the Biomes config for biome IDs").getInt();
-		
-		biomeSize = config.get(config.CATEGORY_GENERAL, "Size of biomes", 4, "Normal is 4, large biomes is 6, but other sizes can be chosen").getInt();
-		//TODO Revert for release
-		villageDistance = config.get(config.CATEGORY_GENERAL, "Distance between villages", 32, "Normal is 32").getInt();
-		villageSize = config.get(config.CATEGORY_GENERAL, "Size of villages", 0, "Normal is 0").getInt();
-		
-		useNewStone = config.get(config.CATEGORY_GENERAL, "Use new stone", 1, "If 0, the new stones will not generate, if 2 they will generate as pockets").getInt();
-		useNewOres = config.get(config.CATEGORY_GENERAL, "Use new ores - only relevant if the new stones are generating", 1, "If 0, the new ores will not generate, if 2, the new ores that drop themselves will instead drop standard ores").getInt();
-		useNewGrass = config.get(config.CATEGORY_GENERAL, "Use new grass", true, "If false, the new grass will not generate").getBoolean(true);
-		useVillageMods = config.get(config.CATEGORY_GENERAL, "Enable the modifications to villages", true, "Disabling this will solve issues with other mods which edit the way villages generate").getBoolean(true);
-		useListedRareBiomes = config.get(config.CATEGORY_GENERAL, "Use EB's rare biome code (Rare biomes have to be registered with EB to work)", true, "If true, rare biomes can have any ID, if false, their ID must be 128 more than their standard biome's ID").getBoolean(true);
-		
-		seasonLength = config.get(config.CATEGORY_GENERAL, "Days in each season", 4, "Default is 4").getInt();
-		
-		obsidianVolcano = config.get(config.CATEGORY_GENERAL, "Create volcanoes out of obsidian", true, "If false, volcanoes will instead be made from basalt").getBoolean(true);
-		config.save();
-
-		/*configFile = new File("config/Enhanced Biomes/Oceans.cfg");
-		config = new Configuration(configFile);
-		config.load();
-
-		ratioIsland = config.get(config.CATEGORY_GENERAL, "Ratio of Islands", 3, "Default is 3. This determines the ratio of islands to ocean in the 1/3 of the ocean that they generate in").getInt();
-		ratioOcean = config.get(config.CATEGORY_GENERAL, "Ratio of Ocean", 5, "Default is 5").getInt();
-
-		config.save();*/
-		
-		//Configs
-		if(vanilla) VanillaHandler.config();
-		EnhancedBiomesBiome.config();
-		
-		//Content
-		if(worldType) enhancedBiomesWorldType = new WorldTypeEnhancedBiomes("typeEB");	
-		if(worldTypeSB) singleBiomeWorldType = new WorldTypeSingleBiome("typeOneBiome");	
-		if(vanilla) VanillaHandler.load();
-		EnhancedBiomesBlocks.load();
-		EnhancedBiomesItems.load();
-
-		BlockWithMeta.createList();
-		LandTypes.createLandTypes();
+//		EnhancedBiomesApi.orh = new OreRegisteringHandler();
+//		
+//		File configFile = new File("config/Enhanced Biomes/General.cfg");
+//		Configuration config = new Configuration(configFile);
+//		config.load();
+//		
+//		worldType = config.get(config.CATEGORY_GENERAL, "Allow world type module", true).getBoolean(true);
+//		vanilla = config.get(config.CATEGORY_GENERAL, "Allow vanilla module", true).getBoolean(true);
+//		//achievement = config.get(config.CATEGORY_GENERAL, "Allow achievement module", true).getBoolean(true);
+//		seasons = config.get(config.CATEGORY_GENERAL, "Allow seasons module", true).getBoolean(true);
+//		//tides = config.get(config.CATEGORY_GENERAL, "Allow tides module", true).getBoolean(true);
+//		
+//		worldTypeSB = config.get(config.CATEGORY_GENERAL, "Allow single biome world type", false, "Only a single biome (plus sub-biomes) will generate in this world type").getBoolean(false);
+//		biomeIDSB = config.get(config.CATEGORY_GENERAL, "Biome ID to generate in single biome world type", 1, "Check the Biomes config for biome IDs").getInt();
+//		
+//		biomeSize = config.get(config.CATEGORY_GENERAL, "Size of biomes", 4, "Normal is 4, large biomes is 6, but other sizes can be chosen").getInt();
+//		//TODO Revert for release
+//		villageDistance = config.get(config.CATEGORY_GENERAL, "Distance between villages", 32, "Normal is 32").getInt();
+//		villageSize = config.get(config.CATEGORY_GENERAL, "Size of villages", 0, "Normal is 0").getInt();
+//		
+//		useNewStone = config.get(config.CATEGORY_GENERAL, "Use new stone", 1, "If 0, the new stones will not generate, if 2 they will generate as pockets").getInt();
+//		useNewOres = config.get(config.CATEGORY_GENERAL, "Use new ores - only relevant if the new stones are generating", 1, "If 0, the new ores will not generate, if 2, the new ores that drop themselves will instead drop standard ores").getInt();
+//		useNewGrass = config.get(config.CATEGORY_GENERAL, "Use new grass", true, "If false, the new grass will not generate").getBoolean(true);
+//		useVillageMods = config.get(config.CATEGORY_GENERAL, "Enable the modifications to villages", true, "Disabling this will solve issues with other mods which edit the way villages generate").getBoolean(true);
+//		useListedRareBiomes = config.get(config.CATEGORY_GENERAL, "Use EB's rare biome code (Rare biomes have to be registered with EB to work)", true, "If true, rare biomes can have any ID, if false, their ID must be 128 more than their standard biome's ID").getBoolean(true);
+//		
+//		seasonLength = config.get(config.CATEGORY_GENERAL, "Days in each season", 4, "Default is 4").getInt();
+//		
+//		obsidianVolcano = config.get(config.CATEGORY_GENERAL, "Create volcanoes out of obsidian", true, "If false, volcanoes will instead be made from basalt").getBoolean(true);
+//		config.save();
+//
+//		/*configFile = new File("config/Enhanced Biomes/Oceans.cfg");
+//		config = new Configuration(configFile);
+//		config.load();
+//
+//		ratioIsland = config.get(config.CATEGORY_GENERAL, "Ratio of Islands", 3, "Default is 3. This determines the ratio of islands to ocean in the 1/3 of the ocean that they generate in").getInt();
+//		ratioOcean = config.get(config.CATEGORY_GENERAL, "Ratio of Ocean", 5, "Default is 5").getInt();
+//
+//		config.save();*/
+//		
+//		//Configs
+//		if(vanilla) VanillaHandler.config();
+//		EnhancedBiomesBiome.config();
+//		
+//		//Content
+//		if(worldType) enhancedBiomesWorldType = new WorldTypeEnhancedBiomes("typeEB");	
+//		if(worldTypeSB) singleBiomeWorldType = new WorldTypeSingleBiome("typeOneBiome");	
+//		if(vanilla) VanillaHandler.load();
+//		EnhancedBiomesBlocks.load();
+//		EnhancedBiomesItems.load();
+//
+//		BlockWithMeta.createList();
+//		LandTypes.createLandTypes();
 	}
 	
 	@EventHandler
 	public void load(FMLInitializationEvent event) {  		
-		EnhancedBiomesBiome.load();	    
-		BiomeTypes.registerAllBiomeTypes();
-		RareBiomeHandler.registerRareBiomes();
-		for(int a = 0; a < BiomeGenBase.getBiomeGenArray().length; a++) {
-			if(rockList[a] == null) rockList[a] = getRocksForBiome(a)[0].block;			
-			if(rockMetaList[a] == 0) rockMetaList[a] = getRocksForBiome(a)[0].meta;
-
-			if(rockList2[a] == null) rockList2[a] = getRocksForBiome(a)[1].block;			
-			if(rockMetaList2[a] == 0) rockMetaList2[a] = getRocksForBiome(a)[1].meta;
-
-			if(soilList[a] == null) soilList[a] = getSoilForBiome(a).block;
-			if(soilMetaList[a] == 0) soilMetaList[a] = getSoilForBiome(a).meta;
-
-			if(grassList[a] == null) grassList[a] = getGrassForBiome(a);			
-			if(grassMetaList[a] == 0) grassMetaList[a] = soilMetaList[a];
-
-			if(woodList[a] == null) woodList[a] = planks;
-			if(BiomeGenBase.getBiomeGenArray()[a] != null) biomeTempsList[a] = BiomeGenBase.getBiomeGenArray()[a].temperature;
-			else biomeTempsList[a] = 0.5F;
-		}
-        //TODO Achievements
-		//if(achievement) EnhancedBiomesAchievements.load();
-		
-		//Events
-		if(useVillageMods) {
-			MinecraftForge.TERRAIN_GEN_BUS.register(new MapGenHandler());
-			MapGenStructureIO.registerStructure(MapGenVillageEB.Start.class, "VillageEB");
-			VillagePieceSelection.registerVillagePieces();
-			MinecraftForge.TERRAIN_GEN_BUS.register(new VillageBlocksHandler());
-			//TODO New scattered features
-			//MapGenStructureIO.registerStructure(StructureScatteredFeatureEnhancedBiomesStart.class, "ScatteredFeatureEB");
-		}
-		
-		if(useNewStone == 2) {
-			MinecraftForge.EVENT_BUS.register(new StoneHandler());
-		}
-		
-		MinecraftForge.TERRAIN_GEN_BUS.register(new SubBiomeEventHandler());			
-		MinecraftForge.EVENT_BUS.register(new ReplaceBiomeBlocksHandler());				
-		MinecraftForge.TERRAIN_GEN_BUS.register(new ReplaceBiomeBlocksHandler());			
-		MinecraftForge.TERRAIN_GEN_BUS.register(new CaveHandler());	
-		MinecraftForge.EVENT_BUS.register(new PreDecorationHandler());
-		
-		MinecraftForge.ORE_GEN_BUS.register(new OreHandler());	
-		MinecraftForge.EVENT_BUS.register(new ModOreHandler());
-		
-		MinecraftForge.EVENT_BUS.register(new BonemealHandler());
-		MinecraftForge.EVENT_BUS.register(new UseHoeEventHandler());
-				
-		if(seasons) FMLCommonHandler.instance().bus().register(new SeasonTickHandler());
-        
-        if(runBiomeCheck) { 
-            try {
-				createBiomeImage();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-        	for(int x = 0; x < BiomeGenBase.getBiomeGenArray().length; x++) {
-            	if(BiomeGenBase.getBiomeGenArray()[x] != null) {
-            		BiomeGenBase biome = BiomeGenBase.getBiomeGenArray()[x];
-            		//System.out.println("public static final int " + biome.biomeName.substring(0, 1).toLowerCase() + biome.biomeName.substring(1).replaceAll(" ", "") + " = " + biome.biomeID + ";");
-            		Block top = null;
-            		if(biome.topBlock != null)top = biome.topBlock;
-            		
-            		Block filler = null;
-            		if(biome.fillerBlock != null)filler = biome.fillerBlock;
-            		
-            		System.out.println(x + ": " + biome.biomeName);
-            		System.out.println("Height: " + biome.rootHeight + ", " + biome.heightVariation);
-            		System.out.println("Temperature: " + biome.temperature);
-            		System.out.println("Rainfall: " + biome.rainfall);
-            		if(top != null)System.out.println("Top block: " + top.getLocalizedName());
-            		if(filler != null)System.out.println("Filler block: " + filler.getLocalizedName());
-            		System.out.print("Biome Types: ");
-            		for(int a = 0; a < BiomeDictionary.getTypesForBiome(biome).length; a++) {
-            			System.out.print(BiomeDictionary.getTypesForBiome(biome)[a].toString() + ", ");
-            		}
-            		System.out.println();
-            	}
-    		}
-            FMLCommonHandler.instance().handleExit(0);
-        }
-		
-		proxy.init();		   
+//		EnhancedBiomesBiome.load();	    
+//		BiomeTypes.registerAllBiomeTypes();
+//		RareBiomeHandler.registerRareBiomes();
+//		for(int a = 0; a < BiomeGenBase.getBiomeGenArray().length; a++) {
+//			if(rockList[a] == null) rockList[a] = getRocksForBiome(a)[0].block;			
+//			if(rockMetaList[a] == 0) rockMetaList[a] = getRocksForBiome(a)[0].meta;
+//
+//			if(rockList2[a] == null) rockList2[a] = getRocksForBiome(a)[1].block;			
+//			if(rockMetaList2[a] == 0) rockMetaList2[a] = getRocksForBiome(a)[1].meta;
+//
+//			if(soilList[a] == null) soilList[a] = getSoilForBiome(a).block;
+//			if(soilMetaList[a] == 0) soilMetaList[a] = getSoilForBiome(a).meta;
+//
+//			if(grassList[a] == null) grassList[a] = getGrassForBiome(a);			
+//			if(grassMetaList[a] == 0) grassMetaList[a] = soilMetaList[a];
+//
+//			if(woodList[a] == null) woodList[a] = planks;
+//			if(BiomeGenBase.getBiomeGenArray()[a] != null) biomeTempsList[a] = BiomeGenBase.getBiomeGenArray()[a].temperature;
+//			else biomeTempsList[a] = 0.5F;
+//		}
+//        //TODO Achievements
+//		//if(achievement) EnhancedBiomesAchievements.load();
+//		
+//		//Events
+//		if(useVillageMods) {
+//			MinecraftForge.TERRAIN_GEN_BUS.register(new MapGenHandler());
+//			MapGenStructureIO.registerStructure(MapGenVillageEB.Start.class, "VillageEB");
+//			VillagePieceSelection.registerVillagePieces();
+//			MinecraftForge.TERRAIN_GEN_BUS.register(new VillageBlocksHandler());
+//			//TODO New scattered features
+//			//MapGenStructureIO.registerStructure(StructureScatteredFeatureEnhancedBiomesStart.class, "ScatteredFeatureEB");
+//		}
+//		
+//		if(useNewStone == 2) {
+//			MinecraftForge.EVENT_BUS.register(new StoneHandler());
+//		}
+//		
+//		MinecraftForge.TERRAIN_GEN_BUS.register(new SubBiomeEventHandler());			
+//		MinecraftForge.EVENT_BUS.register(new ReplaceBiomeBlocksHandler());				
+//		MinecraftForge.TERRAIN_GEN_BUS.register(new ReplaceBiomeBlocksHandler());			
+//		MinecraftForge.TERRAIN_GEN_BUS.register(new CaveHandler());	
+//		MinecraftForge.EVENT_BUS.register(new PreDecorationHandler());
+//		
+//		MinecraftForge.ORE_GEN_BUS.register(new OreHandler());	
+//		MinecraftForge.EVENT_BUS.register(new ModOreHandler());
+//		
+//		MinecraftForge.EVENT_BUS.register(new BonemealHandler());
+//		MinecraftForge.EVENT_BUS.register(new UseHoeEventHandler());
+//				
+//		if(seasons) FMLCommonHandler.instance().bus().register(new SeasonTickHandler());
+//        
+//        if(runBiomeCheck) { 
+//            try {
+//				createBiomeImage();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//        	for(int x = 0; x < BiomeGenBase.getBiomeGenArray().length; x++) {
+//            	if(BiomeGenBase.getBiomeGenArray()[x] != null) {
+//            		BiomeGenBase biome = BiomeGenBase.getBiomeGenArray()[x];
+//            		//System.out.println("public static final int " + biome.biomeName.substring(0, 1).toLowerCase() + biome.biomeName.substring(1).replaceAll(" ", "") + " = " + biome.biomeID + ";");
+//            		Block top = null;
+//            		if(biome.topBlock != null)top = biome.topBlock;
+//            		
+//            		Block filler = null;
+//            		if(biome.fillerBlock != null)filler = biome.fillerBlock;
+//            		
+//            		System.out.println(x + ": " + biome.biomeName);
+//            		System.out.println("Height: " + biome.rootHeight + ", " + biome.heightVariation);
+//            		System.out.println("Temperature: " + biome.temperature);
+//            		System.out.println("Rainfall: " + biome.rainfall);
+//            		if(top != null)System.out.println("Top block: " + top.getLocalizedName());
+//            		if(filler != null)System.out.println("Filler block: " + filler.getLocalizedName());
+//            		System.out.print("Biome Types: ");
+//            		for(int a = 0; a < BiomeDictionary.getTypesForBiome(biome).length; a++) {
+//            			System.out.print(BiomeDictionary.getTypesForBiome(biome)[a].toString() + ", ");
+//            		}
+//            		System.out.println();
+//            	}
+//    		}
+//            FMLCommonHandler.instance().handleExit(0);
+//        }
+//		
+//		proxy.init();		   
 	}
 	  
 	@EventHandler

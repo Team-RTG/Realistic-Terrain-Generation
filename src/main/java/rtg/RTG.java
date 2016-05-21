@@ -2,6 +2,7 @@ package rtg;
 
 import java.util.ArrayList;
 
+import net.minecraftforge.common.MinecraftForge;
 import rtg.api.event.BiomeConfigEvent;
 import rtg.config.BiomeConfigManager;
 import rtg.config.ConfigManager;
@@ -22,6 +23,7 @@ import rtg.world.biome.realistic.extrabiomes.RealisticBiomeEBXLBase;
 import rtg.world.biome.realistic.forgottennature.RealisticBiomeFNBase;
 import rtg.world.biome.realistic.growthcraft.RealisticBiomeGCBase;
 import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
+import rtg.world.biome.realistic.icmod.RealisticBiomeICBase;
 import rtg.world.biome.realistic.lotsomobs.RealisticBiomeLOMBase;
 import rtg.world.biome.realistic.ridiculousworld.RealisticBiomeRWBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
@@ -35,19 +37,14 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
-import cpw.mods.fml.common.event.FMLServerStartedEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppedEvent;
-import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.relauncher.Side;
 
-import net.minecraftforge.common.MinecraftForge;
-
-@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, acceptableRemoteVersions = "*")
+//@Mod(modid = "RTG", name = "Realistic Terrain Generaton", version = "0.8.0d", dependencies = "required-after:Forge@[10.13.4.1448,)", acceptableRemoteVersions = "*")
+@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = "required-after:Forge@[" + ModInfo.FORGE_DEP + ",)" + ModInfo.MOD_DEPS, acceptableRemoteVersions = "*")
 public class RTG {
-    
-    @Instance("RTG")
+
+    @Instance(ModInfo.MOD_ID)
     public static RTG instance;
     public static String configPath;
     public static WorldTypeRTG worldtype;
@@ -66,7 +63,7 @@ public class RTG {
     public void fmlLifeCycleEvent(FMLPreInitializationEvent event) 
     {    
         instance = this;
-        
+
         eventMgr = new EventManagerRTG();
         MinecraftForge.EVENT_BUS.register(eventMgr);
         MinecraftForge.ORE_GEN_BUS.register(eventMgr);
@@ -115,38 +112,35 @@ public class RTG {
         RealisticBiomeLOMBase.addBiomes();
         RealisticBiomeTOFUBase.addBiomes();
         RealisticBiomeFNBase.addBiomes();
-        
+        RealisticBiomeICBase.addBiomes();
+
         RealisticBiomePresenceTester.doBiomeCheck();
     }
     
+/* FIXME: Why are we subscribing to events we don't do anything with? -srs_bsns
     @EventHandler
-    public void fmlLifeCycle(FMLServerAboutToStartEvent event)
-    {
-
-    }
+    public void fmlLifeCycle(FMLServerAboutToStartEvent event) {}
     
     @EventHandler
-    public void fmlLifeCycle(FMLServerStartingEvent event)
-    {
-
-    }
+    public void fmlLifeCycle(FMLServerStartingEvent event) {}
     
     @EventHandler
-    public void fmlLifeCycle(FMLServerStartedEvent event)
-    {
-
-    }
+    public void fmlLifeCycle(FMLServerStartedEvent event) {}
 
     @EventHandler
-    public void fmlLifeCycle(FMLServerStoppingEvent event)
-    {
+    public void fmlLifeCycle(FMLServerStoppingEvent event) {}
+*/
 
-    }
 
     public void runOnServerClose(Runnable action) {
         serverCloseActions.add(action);
     }
-    
+
+    public void runOnNextServerCloseOnly(Runnable action) {
+        serverCloseActions.add(action);
+    }
+
+    private ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<Runnable>();
     private ArrayList<Runnable> serverCloseActions = new ArrayList<Runnable>();
     @EventHandler
     public void fmlLifeCycle(FMLServerStoppedEvent event)
@@ -154,6 +148,10 @@ public class RTG {
         for (Runnable action: serverCloseActions) {
             action.run();
         }
+        for (Runnable action: oneShotServerCloseActions) {
+            action.run();
+        }
+        oneShotServerCloseActions.clear();
 
     }
 }

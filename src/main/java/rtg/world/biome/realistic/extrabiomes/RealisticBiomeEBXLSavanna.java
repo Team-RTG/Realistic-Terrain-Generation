@@ -1,13 +1,13 @@
 package rtg.world.biome.realistic.extrabiomes;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.world.gen.surface.extrabiomes.SurfaceEBXLSavanna;
-import rtg.world.gen.terrain.extrabiomes.TerrainEBXLSavanna;
-import extrabiomes.api.BiomeManager;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.gen.surface.extrabiomes.SurfaceEBXLSavanna;
+import rtg.world.gen.terrain.extrabiomes.TerrainEBXLSavanna;
+import extrabiomes.api.BiomeManager;
 
 public class RealisticBiomeEBXLSavanna extends RealisticBiomeEBXLBase
 {	
@@ -23,5 +23,8 @@ public class RealisticBiomeEBXLSavanna extends RealisticBiomeEBXLBase
 			new TerrainEBXLSavanna(),
 			new SurfaceEBXLSavanna(config, topBlock, fillerBlock, Blocks.sand, 13f, 0.27f)
 		);
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

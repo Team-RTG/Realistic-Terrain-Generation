@@ -6,4 +6,5 @@ package rtg.util;
  */
 public interface CellOctave {
     public float noise(double x, double z,double depth) ;
+    public double [] eval(double x, double y);
 }

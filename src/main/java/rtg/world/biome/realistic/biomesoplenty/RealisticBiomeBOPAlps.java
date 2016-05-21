@@ -1,12 +1,12 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPAlps;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPAlps;
 import biomesoplenty.api.content.BOPCBiomes;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase
 {	
@@ -23,5 +23,9 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase
 			new SurfaceBOPAlps(config, topBlock, fillerBlock, false, null, 0.45f)
 		);
 		this.generatesEmeralds = true;
+        this.noLakes = true;
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

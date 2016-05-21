@@ -1,11 +1,14 @@
 package rtg.config.rtg;
 
 import java.io.File;
+import java.util.ArrayList;
+
+import net.minecraftforge.common.config.Configuration;
+
+import org.apache.commons.lang3.ArrayUtils;
 
 import rtg.util.Logger;
 import cpw.mods.fml.common.Loader;
-
-import net.minecraftforge.common.config.Configuration;
 
 public class ConfigRTG
 {
@@ -48,6 +51,7 @@ public class ConfigRTG
     /* ==================== Dungeons ==================== */
     
     public static boolean generateDungeons = true;
+    public static int dungeonFrequency = 8;
     
     /* ==================== Lakes (Surface) ==================== */
     
@@ -78,6 +82,17 @@ public class ConfigRTG
     public static boolean generateOreLapis = true;
     public static boolean generateOreDiamond = true;
     public static boolean generateOreEmerald = true;
+    
+    /* ==================== Plateaus ==================== */
+    
+    public static String mesaClayColourString = "-1,-1,-1,1,1,1,0,-1,-1,6,1,1,8,0,-1,-1,14,-1,-1,6,1,1,4";
+    public static String mesaBryceClayColourString = "-1,-1,0,1,0,0,0,14,0,8,0,1,8,0,-1,0,14,0,0,14,0,0,8";
+    public static String savannaClayColourString = "0,0,0,0,8,8,12,12,8,0,8,12,12,8,12,8,0,0,8,12,12";
+    
+    public static byte[] mesaClayColours = getClayColourMetasFromConfigString(mesaClayColourString);
+    public static byte[] mesaBryceClayColours = getClayColourMetasFromConfigString(mesaBryceClayColourString);
+    public static byte[] savannaClayColours = getClayColourMetasFromConfigString(savannaClayColourString);
+    
     
     /* ==================== Ravines ==================== */
     
@@ -130,7 +145,32 @@ public class ConfigRTG
 
     public static String volcanoBlockId = "minecraft:obsidian";
     public static int volcanoBlockByte = 0;
+    public static boolean enableVolcanoes = true;
     public static boolean enableVolcanoEruptions = true;
+    public static int volcanoChance = 32;
+
+    /* =================== Water System ===================== */
+    private static float riverSizeMultiplier = 1f; // this is private because we want a transformed version
+    public static float riverFrequencyMultiplier = 1f;
+    public static float riverSizeMultiplier() {
+        // with the river system changing frequency also shinks size and that will
+        // confuse the heck out of users.
+        return riverSizeMultiplier*riverFrequencyMultiplier;
+    }
+    public static float riverBendinessMultiplier = 1f;
+    public static float riverCutOffScale = 350f;
+    public static float riverCutOffAmplitude = 0.5f;
+    private static float lakeSizeMultiplier = 1f; // same deal with lakes
+    public static float lakeFrequencyMultiplier = 1f;
+    public static float lakeSizeMultiplier() {
+        // with the river system changing frequency also shinks size and that will
+        // confuse the heck out of users.
+        return lakeSizeMultiplier*lakeFrequencyMultiplier;
+    }
+    public static float lakeShoreBendinessMultiplier = 1f;
+    public static int scenicLakeBiome = 7;
+    public static int scenicFrozenLakeBiome = 11;
+    private static String riversAndLakes = "Rivers and Scenic Lakes";
 
     
 	public static void init(File configFile)
@@ -235,6 +275,7 @@ public class ConfigRTG
             /* ==================== Dungeons ==================== */
             
             generateDungeons = config.getBoolean("Generate Dungeons", "Dungeons", generateDungeons, "");
+            dungeonFrequency = config.getInt("Dungeon Frequency", "Dungeons", dungeonFrequency, 1, 200, "This setting controls the number of dungeons that generate." + Configuration.NEW_LINE + "HIGHER values = MORE dungeons & MORE lag. (8 = vanilla dungeon frequency)" + Configuration.NEW_LINE);
             
             /* ==================== Lakes (Surface) ==================== */
             
@@ -265,6 +306,29 @@ public class ConfigRTG
             generateOreLapis = config.getBoolean("Generate Lapis Lazuli Ore", "Ore Gen", generateOreLapis, "");
             generateOreDiamond = config.getBoolean("Generate Diamond Ore", "Ore Gen", generateOreDiamond, "");
             generateOreEmerald = config.getBoolean("Generate Emerald Ore", "Ore Gen", generateOreEmerald, "");
+            
+            /* ==================== Plateaus ==================== */
+
+			mesaClayColours = getClayColourMetasFromConfigString(config.getString(
+				"Mesa Clay Colours",
+				"Plateaus", 
+				mesaClayColourString,
+				getPlateauClayColourComment("Mesa biome variants (doesn't include Mesa Bryce)")
+			));
+			
+			mesaBryceClayColours = getClayColourMetasFromConfigString(config.getString(
+				"Mesa Bryce Clay Colours",
+				"Plateaus",
+				mesaBryceClayColourString,
+				getPlateauClayColourComment("Mesa Bryce biome")
+			));
+			
+			savannaClayColours = getClayColourMetasFromConfigString(config.getString(
+				"Savanna Clay Colours",
+				"Plateaus",
+				savannaClayColourString,
+				getPlateauClayColourComment("Savanna biome variants")
+			));			
             
             /* ==================== Ravines ==================== */
             
@@ -399,13 +463,79 @@ public class ConfigRTG
             
             volcanoBlockByte = config.getInt("Volcano block meta value", "Volcanoes", volcanoBlockByte, 0, 15, "The meta value of the volcano block." + Configuration.NEW_LINE);
             
-            enableVolcanoEruptions = config.getBoolean(
-                "Enable volcano eruptions",
+            enableVolcanoes = config.getBoolean(
+                "Enable volcanoes",
                 "Volcanoes",
-                enableVolcanoEruptions,
-                "Set this to FALSE to prevent lava from flowing down the sides of volcanoes."
+                enableVolcanoes,
+                "Set this to FALSE to prevent volcanoes from generating."
                 + Configuration.NEW_LINE
             );
+            
+            enableVolcanoEruptions = config.getBoolean(
+                    "Enable volcano eruptions",
+                    "Volcanoes",
+                    enableVolcanoEruptions,
+                    "Set this to FALSE to prevent lava from flowing down the sides of volcanoes."
+                    + Configuration.NEW_LINE
+                );
+
+            volcanoChance = config.getInt(
+                "Volcano Chance",
+                "Volcanoes",
+                volcanoChance, 1, Integer.MAX_VALUE,
+                "1/x chance that a volcano will generate in a biome that has volcanoes enabled."
+                + Configuration.NEW_LINE +
+                "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+                + Configuration.NEW_LINE
+            );
+
+            /* ====================== Water System ===================== */
+            riverSizeMultiplier = config.getFloat(
+                    "River Width Multipler",
+                    riversAndLakes,
+                    1, 0, 10,
+                    "Defaults to 1 (standard width)" + Configuration.NEW_LINE);
+            riverFrequencyMultiplier = config.getFloat(
+                    "River Frequency Multiplier",
+                    riversAndLakes,
+                    1, 0, 10,
+                    "Multiplier to river widths. Defaults to 1" + Configuration.NEW_LINE);
+            riverBendinessMultiplier = config.getFloat(
+                    "Multiplier to River Bending",
+                    riversAndLakes,
+                    1, 0, 2,
+                    "Higher numbers make rivers bend more. Defaults to 1" + Configuration.NEW_LINE);
+            riverCutOffScale = config.getFloat(
+                    "Scale of Large-Scale River Cut Off",
+                    riversAndLakes,
+                    350, 50, 5000,
+                    "Higher numbers make grassy areas near rivers bigger, but also more rare. Defaults to 350" + Configuration.NEW_LINE);
+            riverCutOffAmplitude = config.getFloat(
+                    "Amplitude of Large-Scale River Cut Off",
+                    riversAndLakes,
+                    0.5f, 0, 2,
+                    "Higher numbers make the large-scale cut-off noise have a greater effect. Defaults to 0.5" + Configuration.NEW_LINE);
+            lakeSizeMultiplier = config.getFloat(
+                    "Lake Size Multipler",
+                    riversAndLakes,
+                    1, 0, 10,
+                    "Defaults to 1 (standard size)" + Configuration.NEW_LINE);
+            lakeFrequencyMultiplier = config.getFloat(
+                    "Lake Frequency Multipler",
+                    riversAndLakes,
+                    1, 0, 10,
+                    "Defaults to 1 (standard frequency)" + Configuration.NEW_LINE);
+            lakeShoreBendinessMultiplier = config.getFloat(
+                    "Lake Shore Irregularity",
+                    riversAndLakes,
+                    1, 0, 2,
+                    "Makes scenic lake shores bend and curve more. Defaults to 1" + Configuration.NEW_LINE);
+
+            scenicLakeBiome = config.getInt("Biome for scenic lakes", riversAndLakes,
+                    7, 0, 254, "Biome ID for scenic lakes when not frozen (default 7 = River)" + Configuration.NEW_LINE);
+
+            scenicFrozenLakeBiome = config.getInt("Biome for frozen scenic lakes", riversAndLakes,
+                    11, 0, 254, "Biome ID for scenic lakes when frozen (default 11 = Frozen River)" + Configuration.NEW_LINE);
             
 		}
 		catch (Exception e) 
@@ -429,5 +559,36 @@ public class ConfigRTG
 	    //if (Loader.isModLoaded("GalaxySpace")) { enableVillageModifications = false; }
 	    
 	    return enableVillageModifications;
+	}
+	
+	private static byte[] getClayColourMetasFromConfigString(String configString)
+	{
+		String[] strings = configString.split(",");
+		ArrayList<Byte> byteList = new ArrayList<Byte>(){};
+
+		for (int i = 0; i < strings.length; i++) {
+			strings[i] = strings[i].trim();
+			if (strings[i].matches("-1|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15")) {
+				byteList.add(Byte.valueOf(strings[i]));
+			}
+		}
+		
+		Byte[] bytes = byteList.toArray(new Byte[byteList.size()]);
+		return ArrayUtils.toPrimitive(bytes);
+	}
+	
+	public static String getPlateauClayColourComment(String biomeName)
+	{
+		String comment =
+			"Comma-separated list of meta values for the clay blocks used in the " + biomeName + "."
+			+ Configuration.NEW_LINE +
+			"-1 = Hardened Clay; 0-15 = Stained Clay"
+			+ Configuration.NEW_LINE +
+			"0 = White; 1 = Orange; 2 = Magenta; 3 = Light Blue; 4 = Yellow; 5 = Lime; 6 = Pink; 7 = Gray"
+			+ Configuration.NEW_LINE +
+			"8 = Light Gray; 9 = Cyan; 10 = Purple; 11 = Blue; 12 = Brown; 13 = Green; 14 = Red; 15 = Black"
+			+ Configuration.NEW_LINE;
+		
+		return comment;
 	}
 }

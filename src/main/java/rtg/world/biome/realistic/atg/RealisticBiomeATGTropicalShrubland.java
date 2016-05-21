@@ -1,10 +1,10 @@
 package rtg.world.biome.realistic.atg;
 
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.atg.SurfaceATGTropicalShrubland;
 import rtg.world.gen.terrain.atg.TerrainATGTropicalShrubland;
-
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeATGTropicalShrubland extends RealisticBiomeATGBase
 {	
@@ -15,5 +15,8 @@ public class RealisticBiomeATGTropicalShrubland extends RealisticBiomeATGBase
 			new TerrainATGTropicalShrubland(),
 			new SurfaceATGTropicalShrubland(config, atgBiome.topBlock, atgBiome.fillerBlock)
 		);
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

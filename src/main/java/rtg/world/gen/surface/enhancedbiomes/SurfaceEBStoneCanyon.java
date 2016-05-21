@@ -77,7 +77,7 @@ public class SurfaceEBStoneCanyon extends SurfaceEBBase
 
                 if (shouldReplaceStone()) {
                     blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, hcStone(world, i, j, x, y, k));
-                    metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, hcStoneMeta(world, i, j, x, y, k));
+                    metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.GABBRO, hcStoneMeta(world, i, j, x, y, k));
                 }
                 
                 if (cliff)

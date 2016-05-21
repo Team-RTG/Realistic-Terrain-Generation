@@ -23,5 +23,7 @@ public class BiomeBase extends BiomeGenBase
 		 */
 		this.rainfall = getBiome(intBiomeId).rainfall;
 		this.temperature = getBiome(intBiomeId).temperature;
+        this.topBlock = getBiome(intBiomeId).topBlock;
+        this.fillerBlock = getBiome(intBiomeId).fillerBlock;
 	}
 }

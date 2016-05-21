@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOP;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -7,8 +8,6 @@ import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 import biomesoplenty.api.content.BOPCBiomes;
 import cpw.mods.fml.common.Loader;
-
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPBase extends RealisticBiomeBase
 {

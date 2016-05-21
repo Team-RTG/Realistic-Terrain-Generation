@@ -9,13 +9,13 @@ public class TerrainHLAlps extends TerrainBase
     public TerrainHLAlps()
     {
     }
-    
+
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        float h = simplex.noise2(x / 300f, y / 300f) * 135f * river;
+        float h = simplex.noise2(x / 300f, y / 300f) * 100f * river;
         h *= h / 32f;
-        h = h > 150f ? 150f : h;
+        h = h > 100f ? 100f : h;
 
         /*float bn = 0f;
         if(h < 1f)
@@ -25,7 +25,7 @@ public class TerrainHLAlps extends TerrainBase
             {
                 bn *= bn * 1.25f;
             }
-            
+
             bn = bn > 3f ? 3f : bn;
         }*/
 
@@ -33,7 +33,7 @@ public class TerrainHLAlps extends TerrainBase
         {
             h += simplex.noise2(x / 14f, y / 14f) * (10f - h) * 0.2f;
         }
-        
+
         if(h > 10f)
         {
             float d = (h - 10f) / 2f > 8f ? 8f : (h - 10f) / 2f;
@@ -54,7 +54,7 @@ public class TerrainHLAlps extends TerrainBase
             h += simplex.noise2(x / 18f, y / 18f) * (d / 2f);
             h += simplex.noise2(x / 8f, y / 8f) * (d / 2f);
         }
-        
-        return h + 67f;// - bn;
+
+        return h + 87f;// - bn;
     }
 }

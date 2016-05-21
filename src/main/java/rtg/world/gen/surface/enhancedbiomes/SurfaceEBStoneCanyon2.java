@@ -54,16 +54,16 @@ public class SurfaceEBStoneCanyon2 extends SurfaceEBBase
         floSmallWidth = smallWidth;
         floSmallStrength = smallStrength;
     }
-    
+
     @Override
     public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
     {
-    
+
         float c = CliffCalculator.calc(x, y, noise);
         boolean cliff = c > 1.4f ? true : false;
         boolean mix = false;
-        
+
         for (int k = 255; k > -1; k--)
         {
             Block b = blocks[(y * 16 + x) * 256 + k];
@@ -77,9 +77,9 @@ public class SurfaceEBStoneCanyon2 extends SurfaceEBBase
 
                 if (shouldReplaceStone()) {
                     blocks[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, hcStone(world, i, j, x, y, k));
-                    metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.HARDENED_SANDSTONE, hcStoneMeta(world, i, j, x, y, k));
+                    metadata[(y * 16 + x) * 256 + k] = EBAPI.ebStonify(EBAPI.GABBRO, hcStoneMeta(world, i, j, x, y, k));
                 }
-                
+
                 if (cliff)
                 {
                     if (depth > -1 && depth < 2)
@@ -92,7 +92,7 @@ public class SurfaceEBStoneCanyon2 extends SurfaceEBBase
                             blocks[(y * 16 + x) * 256 + k] = blockCliff1;
                             metadata[(y * 16 + x) * 256 + k] = byteCliff1;
                         }
-                        
+
                     }
                     else if (depth < 10)
                     {
@@ -109,7 +109,7 @@ public class SurfaceEBStoneCanyon2 extends SurfaceEBBase
                         {
                             blocks[(y * 16 + x) * 256 + k] = blockMixTop;
                             metadata[(y * 16 + x) * 256 + k] = byteMixTop;
-                            
+
                             mix = true;
                         }
                         else

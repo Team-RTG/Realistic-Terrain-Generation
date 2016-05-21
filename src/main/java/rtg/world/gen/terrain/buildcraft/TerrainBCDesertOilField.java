@@ -7,24 +7,25 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBCDesertOilField extends TerrainBase
 {
-    
-    public TerrainBCDesertOilField()
-    {
-    
-    }
-    
-    @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-    {
-        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (ConfigRTG.duneHeight + 23f) * river;
-        st = st < 0.2f ? 0.2f : st;
-        
-        float h = simplex.noise2(x / 60f, y / 60f) * st * 2f;
-        h = h > 0f ? -h : h;
-        h += st;
-        h *= h / 50f;
-        h += st;
-        
-        return 70f + h;
-    }
+	public TerrainBCDesertOilField()
+	{
+		super(64);
+	}
+
+	@Override
+	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
+	{
+        //return terrainPolar(x, y, simplex, river);
+		float duneHeight = (minDuneHeight + (float) ConfigRTG.duneHeight);
+
+		duneHeight *= (1f + simplex.octave(2).noise2((float)x / 330f, (float)y / 330f)) / 2f;
+
+		float stPitch = 200f;	// The higher this is, the more smoothly dunes blend with the terrain
+		float stFactor = duneHeight;
+		float hPitch = 70;	// Dune scale
+		float hDivisor = 40;
+
+		return terrainPolar(x, y, simplex, river, stPitch, stFactor, hPitch, hDivisor, base) +
+				groundNoise(x,y, 1f, simplex);
+	}
 }

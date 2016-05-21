@@ -1,72 +1,58 @@
-evaluationDependsOn(':version')
-
 buildscript {
     repositories {
         mavenCentral()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
+        maven {url = "http://files.minecraftforge.net/maven"}
+        maven {url = "https://oss.sonatype.org/content/repositories/snapshots/"}
     }
-    dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
-    }
+    dependencies {classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'}
 }
-
-apply plugin: 'java'
 apply plugin: 'forge'
-
-
-version = (System.getenv("TRAVIS") ? "DEV-" + System.getenv('TRAVIS_BUILD_NUMBER') : '0.7.0')
-group = "org.teamrtg.rtg" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "RTG-" + project.mcversion
-
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
+ext.ref = parseprops(file('build.properties'))
+
+group = ref.package_base + '.' + ref.mod_id
+archivesBaseName = ref.mod_id
+version = (System.getenv("TRAVIS") ? "1.7.10-DEV-" + System.getenv('TRAVIS_BUILD_NUMBER') : ref.mc_version + '-' + ref.mod_version)
+def versionName = (System.getenv("TRAVIS") ? "1.7.10-" + ref.mod_version + "-DEV-" +  System.getenv('TRAVIS_BUILD_NUMBER') : version)
+
 minecraft {
-    version = "1.7.10-10.13.4.1558-1.7.10"
-    runDir = "eclipse"
-    
-    replace '@VERSION@', project.version
+    version = ref.mcf_version + '-1.7.10'
+    runDir = ref.run_dir
+    replace '@MOD_NAME@', ref.mod_name
+    replace '@MOD_ID@', ref.mod_id
+    replace '@MOD_VERSION@', versionName
+    replace '@MCF_VERSION@', ref.mcf_version
+    if (ref.mod_deps != "") replace '@MOD_DEPS@', ";" + ref.mod_deps
+    else replace '@MOD_DEPS@', ''
+    replaceIn 'ModInfo.java'
 }
 
-dependencies {
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-      
-    // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
+dependencies {}
 
-    // for more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
-}
-
-processResources
-{
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    // replace stuff in mcmod.info, nothing else
+processResources {
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-        
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+		expand ([
+			'modid':ref.mod_id,
+			'name':ref.mod_name,
+			'description':ref.mod_desc,
+			'version':ref.mod_version,
+			'mcversion':ref.mc_version,
+			'url':ref.mod_url,
+			'authorList':ref.mod_author,
+			'credits':ref.mod_creds,
+			'logoFile':ref.mod_logo,
+		])
+	}
+	from(sourceSets.main.resources.srcDirs) {exclude 'mcmod.info'}
+}
+
+def parseprops(File cfg) {
+    cfg.withReader {
+        def prop = new Properties()
+        prop.load(it)
+        return (new ConfigSlurper().parse(prop))
     }
 }

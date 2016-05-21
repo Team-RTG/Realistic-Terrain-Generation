@@ -14,7 +14,7 @@ public class TerrainHLTallPineForest extends TerrainBase
 	public TerrainHLTallPineForest()
 	{
 	}
-	
+
 	@Override
 	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
 	{
@@ -24,7 +24,7 @@ public class TerrainHLTallPineForest extends TerrainBase
 		h = h > 155f ? 155f : h;
 
         // this creates "hills" which rise abruptly to relatively rounded tops
-        float hill = (simplex.noise2(x / hillWidth, y / hillWidth)*hillStrength);
+        float hill = (simplex.noise2(x / hillWidth, y / hillWidth)*hillStrength)*river;
         hill = above(hill,hillFloor);
 
 		if(h > 2f)
@@ -39,10 +39,14 @@ public class TerrainHLTallPineForest extends TerrainBase
 				h += cell.noise(x / 25D, y / 25D, 1D) * d2;
 			}
 		}
-		
+
 		h += simplex.noise2(x / 18f, y / 18f) * 3;
 		h += simplex.noise2(x / 8f, y / 8f) * 2;
-				
-		return 45f + h + (b * 2) + hill;
+
+		if (river<1)  {
+            float result = 45f + h + (b * 2) + hill;
+            return 62f+(result-62f)*river;
+        }
+        return 45f + h + (b * 2) + hill;
 	}
 }

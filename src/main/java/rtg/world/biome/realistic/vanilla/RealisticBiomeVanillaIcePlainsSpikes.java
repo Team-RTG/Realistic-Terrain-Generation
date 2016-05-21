@@ -1,11 +1,11 @@
 package rtg.world.biome.realistic.vanilla;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaIcePlainsSpikes;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaIcePlainsSpikes;
-
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.gen.surface.vanilla.SurfaceVanillaIcePlainsSpikes;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaIcePlainsSpikes;
 
 public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaBase
 {	
@@ -23,5 +23,9 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
 			new TerrainVanillaIcePlainsSpikes(),
 			new SurfaceVanillaIcePlainsSpikes(config, topBlock, fillerBlock, topBlock, topBlock)
 		);
+        this.noLakes=true;
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

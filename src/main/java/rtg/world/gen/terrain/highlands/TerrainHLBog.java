@@ -1,32 +1,37 @@
 package rtg.world.gen.terrain.highlands;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.world.gen.terrain.FunctionalTerrainBase;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.HillockEffect;
+import rtg.world.gen.terrain.HillsEverywhereEffect;
+import rtg.world.gen.terrain.JitterEffect;
 
-public class TerrainHLBog extends TerrainBase
+
+
+public class TerrainHLBog extends FunctionalTerrainBase
 {
+
     public TerrainHLBog()
     {
-    
+        this.base = 59f;
+        HillsEverywhereEffect small = new HillsEverywhereEffect();
+        small.height = 7;
+        small.hillBottomSimplexValue = 0.25f;
+        small.wavelength = 40;
+        small.octave = 2;
+
+        HillockEffect large = new HillockEffect();
+        large.height = 11;
+        large.minimumSimplex = .4f;
+        large.wavelength = 80;
+        large.octave = 3;
+
+        height = small.plus(large);
+
+        height = new JitterEffect(30,40,height);
+        height = new JitterEffect(10,15,height);
+        height = height.plus(new GroundEffect(2));
+
     }
-    
-    @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-    {
-    
-        float h = simplex.noise2(x / 130f, y / 130f) * 30f;
-        
-        h += simplex.noise2(x / 12f, y / 12f) * 2f;
-        h += simplex.noise2(x / 18f, y / 18f) * 4f;
-        
-        h = h < 4f ? 0f : h - 4f;
-        
-        if (h == 0f)
-        {
-            h += simplex.noise2(x / 20f, y / 20f) + simplex.noise2(x / 5f, y / 5f);
-        }
-        
-        return 62f + h;
-    }
+
 }

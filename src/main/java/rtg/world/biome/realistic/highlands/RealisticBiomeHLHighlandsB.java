@@ -1,12 +1,12 @@
 package rtg.world.biome.realistic.highlands;
 
 import highlands.api.HighlandsBiomes;
-import rtg.api.biome.BiomeConfig;
-import rtg.world.gen.surface.highlands.SurfaceHLHighlandsB;
-import rtg.world.gen.terrain.highlands.TerrainHLHighlandsB;
-
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.gen.surface.highlands.SurfaceHLHighlandsB;
+import rtg.world.gen.terrain.highlands.TerrainHLHighlandsB;
 
 public class RealisticBiomeHLHighlandsB extends RealisticBiomeHLBase
 {
@@ -21,7 +21,11 @@ public class RealisticBiomeHLHighlandsB extends RealisticBiomeHLBase
     
         super(config, 
             hlBiome, BiomeGenBase.river,
-            new TerrainHLHighlandsB(15f, 60f, 68f, 150f),
+            new TerrainHLHighlandsB(),
             new SurfaceHLHighlandsB(config, topBlock, fillerBlock, false, null, 1f, 1.5f, 85f, 20f, 4f));
+        noLakes = true;
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 }

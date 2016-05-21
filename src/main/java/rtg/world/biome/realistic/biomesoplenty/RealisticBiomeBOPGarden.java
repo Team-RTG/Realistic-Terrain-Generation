@@ -1,12 +1,14 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoFlowersRTG;
+import rtg.world.biome.deco.DecoFlowersRTG.HeightType;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPGarden;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPGarden;
 import biomesoplenty.api.content.BOPCBiomes;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeBOPGarden extends RealisticBiomeBOPBase
 {	
@@ -19,7 +21,7 @@ public class RealisticBiomeBOPGarden extends RealisticBiomeBOPBase
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
-			new TerrainBOPGarden(65f, 68f, 22f),
+			new TerrainBOPGarden(65f, 68f, 10f),
 			new SurfaceBOPGarden(config, 
                 topBlock, //Block top 
                 (byte)0, //byte topByte
@@ -35,5 +37,14 @@ public class RealisticBiomeBOPGarden extends RealisticBiomeBOPBase
                 0.5f //float smallStrength
             )
 		);
+		
+		DecoFlowersRTG decoFlowers1 = new DecoFlowersRTG();
+		decoFlowers1.flowers = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}; //Only 1-block-tall flowers.
+		decoFlowers1.strengthFactor = 2f;
+		decoFlowers1.heightType = HeightType.GET_HEIGHT_VALUE;
+        this.addDeco(decoFlowers1);
+        
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

@@ -1,14 +1,14 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBDesertArchipelago;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBDesertArchipelago;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBDesertArchipelago extends RealisticBiomeEBBase
 {
@@ -49,7 +49,7 @@ public class RealisticBiomeEBDesertArchipelago extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.river,
-			new TerrainEBDesertArchipelago(80f, 30f, 0f),
+			new TerrainEBDesertArchipelago(80f, 30f, 56f),
 			new SurfaceEBDesertArchipelago(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
@@ -69,6 +69,8 @@ public class RealisticBiomeEBDesertArchipelago extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-        
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 }

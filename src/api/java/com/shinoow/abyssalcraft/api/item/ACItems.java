@@ -222,6 +222,7 @@ public class ACItems {
 	public static Item nyarlathotep_engraving = getItem("engraving_nyarlathotep");
 	public static Item yog_sothoth_engraving = getItem("engraving_yogsothoth");
 	public static Item shub_niggurath_engraving = getItem("engraving_shubniggurath");
+	public static Item essence_of_the_gatekeeper = getItem("gatekeeperessence");
 	//	public static Item shadow_titan_armor_plate = getItem("shadowplate");
 
 	private static Item getItem(String name){

@@ -6,38 +6,18 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainVanillaJungleHills extends TerrainBase
 {
-    private float baseHeight = 76f;
-    private float hillStrength = 30f;
-    
-    public TerrainVanillaJungleHills()
-    {
-    
-    }
-    
+    private float hillStrength = 40f;
+
     public TerrainVanillaJungleHills(float bh, float hs)
     {
-        baseHeight = bh;
+        base = bh;
         hillStrength = hs;
     }
-    
+
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-    
-        float h = simplex.noise2(x / 200f, y / 200f) * 4;
-        h += simplex.noise2(x / 100f, y / 100f) * 2;
-        
-        float m = simplex.noise2(x / 200f, y / 200f) * hillStrength * river;
-        m *= m / ((hillStrength * 0.1f) + hillStrength);
-        
-        float sm = simplex.noise2(x / hillStrength, y / hillStrength) * 8f;
-        sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
-        m += sm;
-        
-        float l = simplex.noise2(x / 260f, y / 260f) * 38f;
-        l *= l / 25f;
-        l = l < -8f ? -8f : l;
-        
-        return baseHeight + h + m - l;
+
+        return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, base - 62f);
     }
 }

@@ -1,29 +1,24 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
-
-import java.util.Random;
-
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPLandOfLakes;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenLog;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGBirch;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGPineSmall;
-import rtg.world.gen.feature.tree.WorldGenTreeRTGShrub;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.DecoFallenTree.LogCondition;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.DecoTree;
+import rtg.world.biome.deco.DecoTree.TreeCondition;
+import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.biome.deco.helper.DecoHelper5050;
+import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
+import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPLandOfLakes;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPLandOfLakes;
 import biomesoplenty.api.content.BOPCBiomes;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenBlockBlob;
-import net.minecraft.world.gen.feature.WorldGenerator;
-
-import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 {	
@@ -39,82 +34,73 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 			new TerrainBOPLandOfLakes(58f, 76f, 36f),
 			new SurfaceBOPLandOfLakes(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.10f)
 		);
-	}
-	
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
-        
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        //rOreGenSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+		
+		DecoTree birchTrees = new DecoTree(new TreeRTGBetulaPapyrifera());
+		birchTrees.logBlock = Blocks.log;
+		birchTrees.logMeta = (byte)2;
+		birchTrees.leavesBlock = Blocks.leaves;
+		birchTrees.leavesMeta = (byte)2;
+		birchTrees.minTrunkSize = 4;
+		birchTrees.maxTrunkSize = 10;
+		birchTrees.minCrownSize = 8;
+		birchTrees.maxCrownSize = 19;
+		birchTrees.strengthFactorForLoops = 9f;
+		birchTrees.treeType = TreeType.RTG_TREE;
+		birchTrees.distribution.noiseDivisor = 100f;
+		birchTrees.distribution.noiseFactor = 6f;
+		birchTrees.distribution.noiseAddend = 0.8f;
+		birchTrees.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		birchTrees.treeConditionChance = 1;
+		birchTrees.treeConditionNoise = 0f;
+		birchTrees.maxY = 120;
+		
+		DecoTree smallPine = new DecoTree(new TreeRTGPiceaSitchensis());
+    	smallPine.logBlock = Blocks.log;
+    	smallPine.logMeta = (byte)1;
+    	smallPine.leavesBlock = Blocks.leaves;
+    	smallPine.leavesMeta = (byte)1;
+    	smallPine.minTrunkSize = 4;
+    	smallPine.maxTrunkSize = 9;
+    	smallPine.minCrownSize = 5;
+    	smallPine.maxCrownSize = 14;
+    	smallPine.strengthFactorForLoops = 9f;
+    	smallPine.treeType = TreeType.RTG_TREE;
+    	smallPine.distribution.noiseDivisor = 100f;
+    	smallPine.distribution.noiseFactor = 6f;
+    	smallPine.distribution.noiseAddend = 0.8f;
+    	smallPine.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+    	smallPine.treeConditionChance = 1;
+    	smallPine.treeConditionNoise = 0f;
+    	smallPine.maxY = 120;
+    	
+    	DecoHelper5050 decoHelper5050 = new DecoHelper5050(birchTrees, smallPine);
 
-        float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
+		DecoFallenTree decoFallenTree = new DecoFallenTree();
+		decoFallenTree.distribution.noiseDivisor = 100f;
+		decoFallenTree.distribution.noiseFactor = 6f;
+		decoFallenTree.distribution.noiseAddend = 0.8f;
+		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		decoFallenTree.logConditionNoise = 0f;
+		decoFallenTree.logConditionChance = 12;
+		decoFallenTree.randomLogBlocks = new Block[]{Blocks.log, Blocks.log, Blocks.log};
+		decoFallenTree.randomLogMetas = new byte[]{0, 1, 2};
+		decoFallenTree.minSize = 8;
+		decoFallenTree.maxSize = 12;
+		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPLandOfLakes.decorationLogsId));
         
-        if (TerrainGen.decorate(world, rand, chunkX, chunkY, TREE)) {
-            
-            if (l > 0f) {
-                
-                for (int b2 = 0; b2 < 9f * strength; b2++) {
-                    
-                    int j6 = chunkX + rand.nextInt(16) + 8;
-                    int k10 = chunkY + rand.nextInt(16) + 8;
-                    int z52 = world.getHeightValue(j6, k10);
-                    
-                    if (z52 < 120) {
-                        
-                        WorldGenerator worldgenerator =
-                            rand.nextBoolean() ? new WorldGenTreeRTGBirch(4 + rand.nextInt(7), 8 + rand.nextInt(12))
-                            : new WorldGenTreeRTGPineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
-                        worldgenerator.setScale(1.0D, 1.0D, 1.0D);
-                        worldgenerator.generate(world, rand, j6, z52, k10);
-                    }
-                }
-            }
-            
-            if (this.config.getPropertyById(BiomeConfigBOPLandOfLakes.decorationLogsId).valueBoolean) {
-            
-                if (l > 0f && rand.nextInt(12) == 0)
-                {
-                    int x22 = chunkX + rand.nextInt(16) + 8;
-                    int z22 = chunkY + rand.nextInt(16) + 8;
-                    int y22 = world.getHeightValue(x22, z22);
-                    
-                    Block log;
-                    byte logMeta;
-                    
-                    log = Blocks.log;
-                    logMeta = (byte)rand.nextInt(3);
-                    
-                    (new WorldGenLog(log, logMeta, Blocks.leaves, -1, 10 + rand.nextInt(14))).generate(world, rand, x22, y22, z22);
-                }
-            }
-            
-            for (int f24 = 0; f24 < 3f * strength; f24++)
-            {
-                int i1 = chunkX + rand.nextInt(16) + 8;
-                int j1 = chunkY + rand.nextInt(16) + 8;
-                int k1 = world.getHeightValue(i1, j1);
-                if (k1 < 110)
-                {
-                    (new WorldGenTreeRTGShrub(rand.nextInt(4) + 1, 0, rand.nextInt(3))).generate(world, rand, i1, k1, j1);
-                }
-            }
-        }
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.maxY = 110;
+        decoShrub.strengthFactor = 3f;
+		this.addDeco(decoShrub);
         
-        for (int i23 = 0; i23 < 1; i23++)
-        {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeightValue(i1, j1);
-            
-            if (rand.nextInt(12) == 0) {
-                
-                (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, i1, k1, j1);
-            }
-        }
+		DecoBoulder decoBoulder = new DecoBoulder();
+		decoBoulder.boulderBlock = Blocks.cobblestone;
+		decoBoulder.maxY = 80;
+		decoBoulder.chance = 12;
+		decoBoulder.strengthFactor = 1f;
+		this.addDeco(decoBoulder);
         
-        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-    }
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
+	}
 }

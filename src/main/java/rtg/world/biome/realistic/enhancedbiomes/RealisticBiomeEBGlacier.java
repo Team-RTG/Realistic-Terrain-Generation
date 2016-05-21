@@ -1,14 +1,14 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBGlacier;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBGlacier;
 import enhancedbiomes.api.EBAPI;
 import enhancedbiomes.blocks.EnhancedBiomesBlocks;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class RealisticBiomeEBGlacier extends RealisticBiomeEBBase
 {
@@ -49,7 +49,7 @@ public class RealisticBiomeEBGlacier extends RealisticBiomeEBBase
 	{
 		super(config, 
 			ebBiome, BiomeGenBase.frozenRiver,
-			new TerrainEBGlacier(240f, 140f, 0f),
+			new TerrainEBGlacier(),
 			new SurfaceEBGlacier(config, 
                 ebTopBlock, //Block top 
                 ebTopByte, //byte topByte
@@ -69,6 +69,8 @@ public class RealisticBiomeEBGlacier extends RealisticBiomeEBBase
                 0.5f //float smallStrength
             )
 		);
-        
+		
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
     }
 }

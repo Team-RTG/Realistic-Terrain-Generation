@@ -1,7 +1,12 @@
 package teamrtg.rtg.world.gen.structure;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.init.Biomes;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,7 +25,8 @@ import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.debug.Logger;
 import teamrtg.rtg.world.WorldTypeRTG;
 
-import java.util.*;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 /**
  * @author topisani
@@ -54,8 +60,8 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
     }
 
     public StructureOceanMonumentRTG() {
-        this.spacing = 5;
-        this.separation = 1;
+        this.spacing = 32;
+        this.separation = 5;
     }
 
     @Override

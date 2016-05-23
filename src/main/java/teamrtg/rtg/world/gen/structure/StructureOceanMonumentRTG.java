@@ -1,7 +1,12 @@
 package teamrtg.rtg.world.gen.structure;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.init.Biomes;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,9 +25,8 @@ import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.debug.Logger;
 import teamrtg.rtg.world.WorldTypeRTG;
 
-import java.util.*;
-
-import static teamrtg.rtg.mods.vanilla.biomes.RealisticBiomeVanillaBase.SpawnListEntry;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 /**
  * @author topisani
@@ -36,7 +40,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         WATER_BIOMES = Arrays.asList(Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.RIVER, Biomes.FROZEN_OCEAN, Biomes.FROZEN_RIVER);
         SPAWN_BIOMES = Collections.singletonList(Biomes.DEEP_OCEAN);
         MONUMENT_ENEMIES = Lists.newArrayList();
-        MONUMENT_ENEMIES.add(new SpawnListEntry(EntityGuardian.class, 1, 2, 4));
+        MONUMENT_ENEMIES.add(new BiomeGenBase.SpawnListEntry(EntityGuardian.class, 1, 2, 4));
     }
 
     private int spacing;
@@ -56,8 +60,8 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
     }
 
     public StructureOceanMonumentRTG() {
-        this.spacing = 5;
-        this.separation = 1;
+        this.spacing = 32;
+        this.separation = 5;
     }
 
     @Override
@@ -111,7 +115,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
     }
 
     @Override
-    public List<SpawnListEntry> getScatteredFeatureSpawnList() {
+    public List<BiomeGenBase.SpawnListEntry> getScatteredFeatureSpawnList() {
         return Collections.unmodifiableList(MONUMENT_ENEMIES);
     }
 

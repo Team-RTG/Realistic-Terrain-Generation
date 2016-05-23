@@ -17,9 +17,14 @@ import java.util.ArrayList;
 
 import static net.minecraft.init.Biomes.RIVER;
 
-public abstract class RealisticBiomeBase extends BiomeBase {
+public abstract class RealisticBiomeBase {
 
     public static final float actualRiverProportion = 300f / 1600f;
+
+    public BiomeGenBase forBiome() {
+        return baseBiome;
+    }
+
     public final BiomeGenBase baseBiome;
     public final BiomeGenBase riverBiome;
     public final RTGSupport mod;
@@ -51,7 +56,6 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
     public RealisticBiomeBase(RTGSupport mod, BiomeGenBase biome, BiomeGenBase river) {
 
-        super(BiomeUtils.getId(biome));
 
         this.mod = mod;
 
@@ -65,6 +69,10 @@ public abstract class RealisticBiomeBase extends BiomeBase {
         initProperties();
 
         init();
+    }
+
+    private String getBiomeName() {
+        return baseBiome.getBiomeName();
     }
 
     private void init() {
@@ -97,7 +105,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
 
     protected abstract TerrainBase initTerrain();
 
-    public static RealisticBiomeBase getBiome(int id) {
+    public static RealisticBiomeBase forBiome(int id) {
         return RealisticBiomeGenerator.getBiome(id);
     }
 
@@ -110,7 +118,7 @@ public abstract class RealisticBiomeBase extends BiomeBase {
     }
 
     public int getID() {
-        return BiomeUtils.getId(this);
+        return BiomeUtils.getId(baseBiome);
     }
 
     /**

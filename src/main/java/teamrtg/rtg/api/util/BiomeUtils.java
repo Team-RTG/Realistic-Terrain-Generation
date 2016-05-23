@@ -34,8 +34,6 @@ public class BiomeUtils {
     }
 
     public static int getId(BiomeGenBase biome) {
-        if (biome instanceof RealisticBiomeBase)
-            return BiomeGenBase.getIdForBiome(((RealisticBiomeBase) biome).baseBiome);
         return BiomeGenBase.getIdForBiome(biome);
     }
 

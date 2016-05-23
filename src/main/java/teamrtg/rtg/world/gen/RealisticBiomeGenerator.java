@@ -41,7 +41,7 @@ public class RealisticBiomeGenerator {
 
     public RealisticBiomeGenerator(RealisticBiomeBase biome) {
         this.biome = biome;
-        biomeGenerators[BiomeUtils.getId(biome)] = this;
+        biomeGenerators[biome.getID()] = this;
         genericPart = this.biome.PARTS.surfaceGeneric();
     }
 

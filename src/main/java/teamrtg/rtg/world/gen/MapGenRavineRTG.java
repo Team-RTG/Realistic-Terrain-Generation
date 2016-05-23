@@ -178,7 +178,7 @@ public class MapGenRavineRTG extends MapGenRavine {
         try {
             // If the user has set biome-specific settings, let's use those instead.
             BiomeGenBase biome = worldIn.getBiomeGenForCoords(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));
-            RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(BiomeUtils.getId(biome));
+            RealisticBiomeBase realisticBiome = RealisticBiomeBase.forBiome(BiomeUtils.getId(biome));
             ravineFrequency = (realisticBiome.config.RAVINE_FREQUENCY.get() > -1) ? realisticBiome.config.RAVINE_FREQUENCY.get() : ravineFrequency;
         } catch (Exception ignored) {}
 

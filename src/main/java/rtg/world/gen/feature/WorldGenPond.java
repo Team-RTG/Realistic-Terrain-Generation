@@ -279,7 +279,7 @@ public class WorldGenPond extends WorldGenerator {
                             }
                             else
                             {
-                                world.setBlock(x + i1, y + j1 - 1, z + j2, Blocks.grass, 0, 2);
+                                world.setBlock(x + i1, y + j1 - 1, z + j2, biomegenbase.topBlock, 0, 2);
                             }
                         }
                     }
@@ -340,7 +340,7 @@ public class WorldGenPond extends WorldGenerator {
                             }
                             else
                             {
-                                world.setBlock(x + i1, shoreHeight, z + j2, Blocks.grass, 0, 2);
+                                world.setBlock(x + i1, shoreHeight, z + j2, biomegenbase.topBlock, 0, 2);
                             }
                         }
                     }

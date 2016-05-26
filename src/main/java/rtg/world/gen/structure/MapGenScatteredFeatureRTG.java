@@ -1,6 +1,4 @@
-    package rtg.world.gen.structure;
-
-import gcewing.sg.FeatureUnderDesertPyramid;
+package rtg.world.gen.structure;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +21,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.Logger;
 import rtg.util.ModPresenceTester;
+import sgcraft.api.SGCraftAPI;
 
 /**
  * Author: Choonster (https://github.com/Choonster)
@@ -187,6 +186,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
             LinkedList desertTempleComponents = new LinkedList();
             LinkedList jungleTempleComponents = new LinkedList();
             LinkedList witchHutComponents = new LinkedList();
+            
             BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(chunkX * 16 + 8, chunkZ * 16 + 8);
 
             //this.components.clear();
@@ -197,25 +197,27 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
                 desertTempleComponents.add(desertpyramid);
                 
                 if (sgCraft.present()) {
-                	FeatureUnderDesertPyramid stargate = new FeatureUnderDesertPyramid(desertpyramid);
-                	desertTempleComponents.add(stargate);
+                	
+                	SGCraftAPI sgCraftAPI = new SGCraftAPI();
+                	sgCraftAPI.addStargateToDesertTempleComponents(desertpyramid, desertTempleComponents);
                 }
                 
                 this.components.addAll(desertTempleComponents);
-                this.updateBoundingBox();
             }
             else if (canSpawnJungleTemple(biomegenbase)) {
+            	
                 ComponentScatteredFeaturePieces.JunglePyramid junglepyramid = new ComponentScatteredFeaturePieces.JunglePyramid(random, chunkX * 16, chunkZ * 16);
                 jungleTempleComponents.add(junglepyramid);
                 this.components.addAll(jungleTempleComponents);
-                this.updateBoundingBox();
             }
             else if (canSpawnWitchHut(biomegenbase)) {
+            	
                 ComponentScatteredFeaturePieces.SwampHut swamphut = new ComponentScatteredFeaturePieces.SwampHut(random, chunkX * 16, chunkZ * 16);
                 witchHutComponents.add(swamphut);
                 this.components.addAll(witchHutComponents);
-                this.updateBoundingBox();
             }
+            
+            this.updateBoundingBox();
             
             Logger.debug("Scattered feature candidate at %d, %d", chunkX * 16, chunkZ * 16);
         }

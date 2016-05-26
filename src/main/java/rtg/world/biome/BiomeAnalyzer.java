@@ -31,7 +31,6 @@ public class BiomeAnalyzer {
     SearchStatus ocean = new SearchStatus();
 
     private int sampleSize = 8;
-    private int sampleArraySize = sampleSize*2+5;
     private RealisticBiomeBase scenicLakeBiome = RealisticBiomeBase.getBiome(ConfigRTG.scenicLakeBiome);
     private RealisticBiomeBase scenicFrozenLakeBiome =
             RealisticBiomeBase.getBiome(ConfigRTG.scenicFrozenLakeBiome);
@@ -207,7 +206,7 @@ public class BiomeAnalyzer {
         if (neighborhoodSize != sampleSize) throw new RuntimeException("mismatch between chunk and analyzer neighborhood sizes");
         // currently just stuffs the genLayer into the jitter;
         for (int i = 0; i < 256; i++) {
-        boolean canBeRiver = riverStrength[i] >0.05;
+        boolean canBeRiver = riverStrength[i] >0.7;
             // save what's there since the jitter keeps changing
             savedJittered [i]= jitteredBiomes[i];
             //if (savedJittered[i]== null) throw new RuntimeException();
@@ -284,17 +283,24 @@ public class BiomeAnalyzer {
             int foundBiome = oceanSearch.biomes[i];
             if (foundBiome != NO_BIOME) {
                 jitteredBiomes[i] = RealisticBiomeBase.getBiome(foundBiome);
-            } else {
-                // put remaining below sea level land as scenic lake biome
-                int riverReplacement = jitteredBiomes[i].riverBiome.biomeID;
-                if (riverReplacement == BiomeGenBase.frozenRiver.biomeID) {
-                    jitteredBiomes[i] = scenicFrozenLakeBiome;
-                } else {
-                    jitteredBiomes[i] = scenicLakeBiome;
-                }
             }
         }
+        // convert remainder below sea level to lake biome
+        for (int i = 0; i < 256; i++) {
+            if (noise[i]<=61.5&&!riverBiome[jitteredBiomes[i].biomeID]) {
+                // check for river
+                if (!oceanBiome[jitteredBiomes[i].biomeID]&&!swampBiome[jitteredBiomes[i].biomeID]&&!beachBiome[jitteredBiomes[i].biomeID]) {
+                    // make river
+                    int riverReplacement = jitteredBiomes[i].riverBiome.biomeID;
+                    if (riverReplacement == BiomeGenBase.frozenRiver.biomeID) {
+                        jitteredBiomes[i] = scenicFrozenLakeBiome;
+                    } else {
+                        jitteredBiomes[i] = scenicLakeBiome;
+                    }
+                }
+            }
 
+        }
     }
 
     private void prepareSearchPattern() {

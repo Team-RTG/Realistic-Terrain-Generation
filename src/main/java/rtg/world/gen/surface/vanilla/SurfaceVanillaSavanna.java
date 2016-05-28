@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaSavanna;
+import rtg.config.rtg.ConfigRTG;
 import rtg.util.CanyonColour;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -48,8 +49,10 @@ public class SurfaceVanillaSavanna extends SurfaceBase {
                 depth++;
 
                 if (cliff) {
-        			blocks[(y * 16 + x) * 256 + k] = CanyonColour.SAVANNA.getBlockForHeight(i, k,j);
-        		    metadata[(y * 16 + x) * 256 + k] = CanyonColour.SAVANNA.getMetaForHeight(i, k,j);
+                    if (!ConfigRTG.stoneSavannas) {
+        			    blocks[(y * 16 + x) * 256 + k] = CanyonColour.SAVANNA.getBlockForHeight(i, k,j);
+        		        metadata[(y * 16 + x) * 256 + k] = CanyonColour.SAVANNA.getMetaForHeight(i, k,j);
+                    }
                 } else {
                     if (depth == 0 && k > 61) {
                         if (simplex.noise2(i / width, j / width) > height) // > 0.27f, i / 12f

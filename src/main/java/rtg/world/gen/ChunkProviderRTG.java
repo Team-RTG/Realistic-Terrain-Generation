@@ -580,6 +580,7 @@ public class ChunkProviderRTG implements IChunkProvider
     public void populate(IChunkProvider ichunkprovider, int chunkX, int chunkZ){
         // check if this is the master provider
         if (WorldTypeRTG.chunkProvider != this) return;
+        //if (this.alreadyDecorated.contains(new PlaneLocation.Invariant(chunkX, chunkZ))) return;
         if (this.neighborsDone(ichunkprovider, chunkX, chunkZ)) {
             this.doPopulate(ichunkprovider, chunkX, chunkZ);
         }
@@ -661,7 +662,9 @@ public class ChunkProviderRTG implements IChunkProvider
     private void doPopulate(IChunkProvider ichunkprovider, int chunkX, int chunkZ)
     {
         // don't populate if already done
+
         PlaneLocation location = new PlaneLocation.Invariant(chunkX, chunkZ);
+        //Logger.warn("trying to decorate "+location.toString());
         if (alreadyDecorated.contains(location)) return;
 
         if (populating) {
@@ -677,6 +680,7 @@ public class ChunkProviderRTG implements IChunkProvider
             toDecorate.add(location);
             return;
         }
+        //Logger.warn("decorating");
         alreadyDecorated.add(location);
         populating = true;
         populatingProvider = this;

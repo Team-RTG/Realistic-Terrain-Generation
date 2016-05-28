@@ -93,6 +93,7 @@ public class RealisticBiomeEBStoneCanyon extends RealisticBiomeEBBase
         decoFallenTree.logCondition = LogCondition.X_DIVIDED_BY_STRENGTH;
         decoFallenTree.logConditionNoise = 16f;
         decoFallenTree.logConditionChance = 8;
+        decoFallenTree.maxY = 100;
         decoFallenTree.logBlock = Blocks.log;
         decoFallenTree.logMeta = (byte)2;
         decoFallenTree.leavesBlock = Blocks.leaves;

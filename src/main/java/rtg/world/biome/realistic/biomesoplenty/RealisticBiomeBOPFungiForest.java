@@ -47,6 +47,7 @@ public class RealisticBiomeBOPFungiForest extends RealisticBiomeBOPBase
 		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		decoFallenTree.logConditionNoise = 0f;
 		decoFallenTree.logConditionChance = 6;
+		decoFallenTree.maxY = 100;
 		decoFallenTree.logBlock = Blocks.log;
 		decoFallenTree.logMeta = (byte)0;
 		decoFallenTree.leavesBlock = Blocks.leaves;

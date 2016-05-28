@@ -7,6 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
+import rtg.config.rtg.ConfigRTG;
 import rtg.util.CanyonColour;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -37,12 +38,16 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase {
 
                 if (depth > -1 && depth < 12) {
                     if (cliff) {
-	        			blocks[(y * 16 + x) * 256 + k] = CanyonColour.SAVANNA.getBlockForHeight(i, k,j);
-	        		    metadata[(y * 16 + x) * 256 + k] = CanyonColour.SAVANNA.getMetaForHeight(i, k,j);
+                        if (!ConfigRTG.stoneSavannas) {
+	        			    blocks[(y * 16 + x) * 256 + k] = CanyonColour.SAVANNA.getBlockForHeight(i, k,j);
+	        		        metadata[(y * 16 + x) * 256 + k] = CanyonColour.SAVANNA.getMetaForHeight(i, k,j);
+                        }
                     } else {
                         if (depth > 4) {
-    	        			blocks[(y * 16 + x) * 256 + k] = CanyonColour.SAVANNA.getBlockForHeight(i, k,j);
-    	        		    metadata[(y * 16 + x) * 256 + k] = CanyonColour.SAVANNA.getMetaForHeight(i, k,j);
+                            if (!ConfigRTG.stoneSavannas) {
+    	        			    blocks[(y * 16 + x) * 256 + k] = CanyonColour.SAVANNA.getBlockForHeight(i, k,j);
+    	        		        metadata[(y * 16 + x) * 256 + k] = CanyonColour.SAVANNA.getMetaForHeight(i, k,j);
+                            }
                         } else if (k > 74 + grassRaise) {
                             if (rand.nextInt(5) == 0) {
         	        			blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
@@ -95,8 +100,8 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase {
                         }
                     }
                 } else if (k > 63) {
-        			blocks[(y * 16 + x) * 256 + k] = CanyonColour.SAVANNA.getBlockForHeight(i, k,j);
-        		    metadata[(y * 16 + x) * 256 + k] = CanyonColour.SAVANNA.getMetaForHeight(i, k,j);
+        			//blocks[(y * 16 + x) * 256 + k] = CanyonColour.SAVANNA.getBlockForHeight(i, k,j);
+        		    //metadata[(y * 16 + x) * 256 + k] = CanyonColour.SAVANNA.getMetaForHeight(i, k,j);
                 }
             }
         }

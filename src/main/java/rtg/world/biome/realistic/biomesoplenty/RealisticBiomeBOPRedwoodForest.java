@@ -52,6 +52,7 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase
 		decoFallenTree.distribution.noiseAddend = -15f;
 		decoFallenTree.logCondition = LogCondition.RANDOM_CHANCE;
 		decoFallenTree.logConditionChance = 12;
+		decoFallenTree.maxY = 100;
 		decoFallenTree.logBlock = BOPCBlocks.logs3;
 		decoFallenTree.logMeta = (byte)0;
 		decoFallenTree.leavesBlock = Blocks.leaves;

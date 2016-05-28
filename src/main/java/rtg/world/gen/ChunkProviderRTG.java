@@ -104,7 +104,7 @@ public class ChunkProviderRTG implements IChunkProvider
 	private BiomeGenBase[] baseBiomesList;
     private int[] biomeData;
     private float[] testHeight;
-    private float[] biomesGeneratedInChunk;
+    private boolean[] biomesGeneratedInChunk;
     private float[] borderNoise;
     private float[] [] weightings;
     private long worldSeed;
@@ -190,7 +190,7 @@ public class ChunkProviderRTG implements IChunkProvider
         baseBiomesList = new BiomeGenBase[256];
         biomeData = new int[sampleArraySize * sampleArraySize];
     	testHeight = new float[256];
-    	biomesGeneratedInChunk = new float[256];
+    	biomesGeneratedInChunk = new boolean[256];
     	borderNoise = new float[256];
     	biomePatcher = new RealisticBiomePatcher();
     	
@@ -289,6 +289,10 @@ public class ChunkProviderRTG implements IChunkProvider
         // that routine can change the blocks.
         //get standard biome Data
 
+        for (int ci = 0; ci < 256; ci++) {
+            biomesGeneratedInChunk[landscape.biome[ci].biomeID] = true;
+        }
+
         for(k = 0; k < 256; k++)
         {
             // Is this a single biome world?
@@ -298,10 +302,10 @@ public class ChunkProviderRTG implements IChunkProvider
             }
             else
             {
-                if(biomesGeneratedInChunk[k] > 0f)
+                if(biomesGeneratedInChunk[k] )
                 {
                     RealisticBiomeBase.getBiome(k).generateMapGen(blocks, metadata, worldSeed, worldObj, cmr, mapRand, cx, cy, simplex, cell, landscape.noise);
-                    biomesGeneratedInChunk[k] = 0f;
+                    biomesGeneratedInChunk[k] = false;
                 }
                 try {
                     baseBiomesList[k] = landscape.biome[k].baseBiome;
@@ -580,6 +584,7 @@ public class ChunkProviderRTG implements IChunkProvider
     public void populate(IChunkProvider ichunkprovider, int chunkX, int chunkZ){
         // check if this is the master provider
         if (WorldTypeRTG.chunkProvider != this) return;
+        //if (this.alreadyDecorated.contains(new PlaneLocation.Invariant(chunkX, chunkZ))) return;
         if (this.neighborsDone(ichunkprovider, chunkX, chunkZ)) {
             this.doPopulate(ichunkprovider, chunkX, chunkZ);
         }
@@ -661,7 +666,9 @@ public class ChunkProviderRTG implements IChunkProvider
     private void doPopulate(IChunkProvider ichunkprovider, int chunkX, int chunkZ)
     {
         // don't populate if already done
+
         PlaneLocation location = new PlaneLocation.Invariant(chunkX, chunkZ);
+        //Logger.warn("trying to decorate "+location.toString());
         if (alreadyDecorated.contains(location)) return;
 
         if (populating) {
@@ -677,6 +684,7 @@ public class ChunkProviderRTG implements IChunkProvider
             toDecorate.add(location);
             return;
         }
+        //Logger.warn("decorating");
         alreadyDecorated.add(location);
         populating = true;
         populatingProvider = this;

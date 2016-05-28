@@ -27,6 +27,7 @@ public class SurfaceVanillaMesaBryce extends SurfaceBase {
     {
         float c = CliffCalculator.calc(x, y, noise);
         boolean cliff = c > 1.3f;
+        float noiseHeight = noise[y*16+x];
 
         for (int k = 255; k > -1; k--) {
         	Block b = blocks[(y * 16 + x) * 256 + k];
@@ -34,15 +35,15 @@ public class SurfaceVanillaMesaBryce extends SurfaceBase {
                 depth = -1;
             } else if (b == Blocks.stone) {
                 depth++;
-
+                float effectiveHeight = noiseHeight-(float)depth;
                 if (depth > -1 && depth < 12) {
                     if (cliff) {
-	        			blocks[(y * 16 + x) * 256 + k] = CanyonColour.MESA_BRYCE.getBlockForHeight(i, k,j);
-	        		    metadata[(y * 16 + x) * 256 + k] = CanyonColour.MESA_BRYCE.getMetaForHeight(i, k,j);
+	        			blocks[(y * 16 + x) * 256 + k] = CanyonColour.MESA_BRYCE.getBlockForHeight(i, effectiveHeight,j);
+	        		    metadata[(y * 16 + x) * 256 + k] = CanyonColour.MESA_BRYCE.getMetaForHeight(i, effectiveHeight,j);
                     } else {
                         if (depth > 4) {
-    	        			blocks[(y * 16 + x) * 256 + k] = CanyonColour.MESA_BRYCE.getBlockForHeight(i, k,j);
-    	        		    metadata[(y * 16 + x) * 256 + k] = CanyonColour.MESA_BRYCE.getMetaForHeight(i, k,j);
+    	        			blocks[(y * 16 + x) * 256 + k] = CanyonColour.MESA_BRYCE.getBlockForHeight(i, effectiveHeight,j);
+    	        		    metadata[(y * 16 + x) * 256 + k] = CanyonColour.MESA_BRYCE.getMetaForHeight(i, effectiveHeight,j);
                         } else if (k > 74 + grassRaise) {
                             if (rand.nextInt(5) == 0) {
         	        			blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
@@ -95,8 +96,8 @@ public class SurfaceVanillaMesaBryce extends SurfaceBase {
                         }
                     }
                 } else if (k > 63) {
-        			blocks[(y * 16 + x) * 256 + k] = CanyonColour.MESA_BRYCE.getBlockForHeight(i, k,j);
-        		    metadata[(y * 16 + x) * 256 + k] = CanyonColour.MESA_BRYCE.getMetaForHeight(i, k,j);
+        			blocks[(y * 16 + x) * 256 + k] = CanyonColour.MESA_BRYCE.getBlockForHeight(i, effectiveHeight,j);
+        		    metadata[(y * 16 + x) * 256 + k] = CanyonColour.MESA_BRYCE.getMetaForHeight(i, effectiveHeight,j);
                 }
             }
         }

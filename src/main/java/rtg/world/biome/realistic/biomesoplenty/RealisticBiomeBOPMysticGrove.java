@@ -34,6 +34,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase
 		decoFallenTree.distribution.noiseAddend = -15f;
 		decoFallenTree.logCondition = LogCondition.RANDOM_CHANCE;
 		decoFallenTree.logConditionChance = 12;
+		decoFallenTree.maxY = 100;
 		decoFallenTree.randomLogBlocks = new Block[]{Blocks.log, BOPCBlocks.logs4, BOPCBlocks.logs2};
 		decoFallenTree.randomLogMetas = new byte[]{0, 2, 1};
 		decoFallenTree.minSize = 3;

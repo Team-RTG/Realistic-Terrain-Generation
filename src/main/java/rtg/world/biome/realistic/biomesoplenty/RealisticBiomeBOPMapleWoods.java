@@ -34,6 +34,7 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase
 		decoFallenTree.logCondition = LogCondition.X_DIVIDED_BY_STRENGTH;
 		decoFallenTree.logConditionNoise = 8f;
 		decoFallenTree.logConditionChance = 1;
+		decoFallenTree.maxY = 100;
 		decoFallenTree.randomLogBlocks = new Block[]{Blocks.log, Blocks.log};
 		decoFallenTree.randomLogMetas = new byte[]{0, 1};
 		decoFallenTree.minSize = 3;

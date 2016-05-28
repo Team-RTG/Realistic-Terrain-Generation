@@ -36,6 +36,7 @@ public class RealisticBiomeBOPJadeCliffs extends RealisticBiomeBOPBase
 		decoFallenTree.logCondition = LogCondition.X_DIVIDED_BY_STRENGTH;
 		decoFallenTree.logConditionNoise = 12f;
 		decoFallenTree.logConditionChance = 1;
+		decoFallenTree.maxY = 100;
 		decoFallenTree.logBlock = BOPCBlocks.logs4;
 		decoFallenTree.logMeta = (byte)0;
 		decoFallenTree.leavesBlock = Blocks.leaves;

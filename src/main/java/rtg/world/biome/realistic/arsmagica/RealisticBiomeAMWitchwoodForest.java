@@ -39,6 +39,7 @@ public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase
 		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		decoFallenTree.logConditionChance = 6;
 		decoFallenTree.logConditionNoise = 0f;
+		decoFallenTree.maxY = 100;
 		decoFallenTree.logBlock = this.witchwoodLogBlock;
 		decoFallenTree.logMeta = this.witchwoodLogMeta;
 		decoFallenTree.leavesBlock = this.witchwoodLeavesBlock;

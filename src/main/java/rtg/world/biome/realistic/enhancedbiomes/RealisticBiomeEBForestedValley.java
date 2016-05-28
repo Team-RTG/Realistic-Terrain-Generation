@@ -121,6 +121,7 @@ public class RealisticBiomeEBForestedValley extends RealisticBiomeEBBase
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.logCondition = LogCondition.X_DIVIDED_BY_STRENGTH;
         decoFallenTree.logConditionNoise = 32f;
+        decoFallenTree.maxY = 100;
         decoFallenTree.randomLogBlocks = new Block[]{Blocks.log, Blocks.log};
         decoFallenTree.randomLogMetas = new byte[]{0, 2};
         decoFallenTree.leavesBlock = Blocks.leaves;

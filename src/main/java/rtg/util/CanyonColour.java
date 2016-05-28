@@ -44,13 +44,21 @@ public enum CanyonColour {
 	}
 
 	public Block getBlockForHeight(int x, int y, int z) {
-		float y1 = y + (simplex.noise3((float)x / 80f, (float)y / 6, (float) z / 80f) * 3f);
+        return getBlockForHeight(x,(float)y,z);
+	}
+
+    public Block getBlockForHeight(int x, float y, int z) {
+		float y1 = y + (simplex.noise3((float)x / 80f, (float)y / 6, z / 80f) * 3f);
 		y1 += simplex.noise2((float) x / 70f, (float) z / 70f) * 3f;
 		y1 = (y1 < 0)? 0 : (y1 > 255)? 255 : y1;
 		return colourBlocks.get(this)[Math.round(y1)];
 	}
 	
 	public byte getMetaForHeight(int x, int y, int z) {
+		return getMetaForHeight(x,(float)y,z);
+	}
+
+    public byte getMetaForHeight(int x, float y, int z) {
 		float y1 = y + (simplex.noise3((float)x / 80f, (float)y / 6, (float) z / 80f) * 3f);
 		y1 += simplex.noise2((float) x / 70f, (float) z / 70f) * 3f;
 		y1 = (y1 < 0)? 0 : (y1 > 255)? 255 : y1;

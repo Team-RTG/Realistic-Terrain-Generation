@@ -92,6 +92,8 @@ public class ConfigRTG
     public static byte[] mesaClayColours = getClayColourMetasFromConfigString(mesaClayColourString);
     public static byte[] mesaBryceClayColours = getClayColourMetasFromConfigString(mesaBryceClayColourString);
     public static byte[] savannaClayColours = getClayColourMetasFromConfigString(savannaClayColourString);
+
+    public static boolean stoneSavannas = true;
     
     
     /* ==================== Ravines ==================== */
@@ -329,7 +331,14 @@ public class ConfigRTG
 				savannaClayColourString,
 				getPlateauClayColourComment("Savanna biome variants")
 			));			
-            
+
+
+            stoneSavannas = config.getBoolean(
+                    "Savanna Plateaus Usually in Stong",
+                    "Plateaus",
+                    stoneSavannas,
+                    "");
+
             /* ==================== Ravines ==================== */
             
             enableRavineModifications = config.getBoolean(

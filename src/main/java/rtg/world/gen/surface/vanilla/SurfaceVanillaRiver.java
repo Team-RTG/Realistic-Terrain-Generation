@@ -32,7 +32,7 @@ public class SurfaceVanillaRiver extends SurfaceBase
 	            {
 	            	depth = -1;
 	            }
-	            else if(b != Blocks.water)
+	            else if(b != Blocks.water&&b != Blocks.obsidian)
 	            {
 	            	depth++;
 	            	

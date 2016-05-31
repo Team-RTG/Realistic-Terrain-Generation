@@ -189,7 +189,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
             
             BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(chunkX * 16 + 8, chunkZ * 16 + 8);
 
-            //this.components.clear();
+            this.components.clear();
             
             if (canSpawnDesertTemple(biomegenbase)) {
             	

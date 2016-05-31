@@ -330,14 +330,17 @@ public class ConfigRTG
 				"Plateaus",
 				savannaClayColourString,
 				getPlateauClayColourComment("Savanna biome variants")
-			));			
-
-
+			));
+            
             stoneSavannas = config.getBoolean(
-                    "Savanna Plateaus Usually in Stong",
-                    "Plateaus",
-                    stoneSavannas,
-                    "");
+                "Use stone instead of clay for most Savanna biome variants",
+                "Plateaus",
+                stoneSavannas,
+                "If set to TRUE, Savanna biome variants will mostly use stone/cobblestone instead of stained hardened clay for cliffs and plateaus."
+                + Configuration.NEW_LINE +
+                "Savanna Plateau M will always use stained hardened clay."
+                + Configuration.NEW_LINE
+            );
 
             /* ==================== Ravines ==================== */
             

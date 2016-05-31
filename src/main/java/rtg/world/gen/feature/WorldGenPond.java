@@ -148,7 +148,9 @@ public class WorldGenPond extends WorldGenerator {
                 for (j2 = 1; j2 < 15; ++j2)
                 {
                     if (willBeShore[(i1 * 16 + j2)]) {
-                        heightCounts[world.getTopSolidOrLiquidBlock(x + i1, z + j2)] += 1;
+                        int topHeight = world.getTopSolidOrLiquidBlock(x + i1, z + j2);
+                        if (topHeight <1||topHeight>255) return false;//empty or too high column
+                        heightCounts[topHeight] += 1;
                         shoreBlockCount++;
                     }
                 }

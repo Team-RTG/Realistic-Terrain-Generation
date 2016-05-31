@@ -1,14 +1,12 @@
 package rtg.config.rtg;
 
+import cpw.mods.fml.common.Loader;
+import net.minecraftforge.common.config.Configuration;
+import org.apache.commons.lang3.ArrayUtils;
+import rtg.util.Logger;
+
 import java.io.File;
 import java.util.ArrayList;
-
-import net.minecraftforge.common.config.Configuration;
-
-import org.apache.commons.lang3.ArrayUtils;
-
-import rtg.util.Logger;
-import cpw.mods.fml.common.Loader;
 
 public class ConfigRTG
 {
@@ -146,7 +144,11 @@ public class ConfigRTG
     /* ==================== Volcanoes ==================== */
 
     public static String volcanoBlockId = "minecraft:obsidian";
-    public static int volcanoBlockByte = 0;
+    public static int volcanoBlockMeta = 0;
+    public static String volcanoMixBlockId = "minecraft:cobblestone";
+    public static int volcanoMixBlockMeta = 0;
+    public static String volcanoMixBlockId2 = "minecraft:dirt";
+    public static int volcanoMixBlockMeta2 = 0;
     public static boolean enableVolcanoes = true;
     public static boolean enableVolcanoEruptions = true;
     public static int volcanoChance = 32;
@@ -473,7 +475,7 @@ public class ConfigRTG
                 Configuration.NEW_LINE
             );
             
-            volcanoBlockByte = config.getInt("Volcano block meta value", "Volcanoes", volcanoBlockByte, 0, 15, "The meta value of the volcano block." + Configuration.NEW_LINE);
+            volcanoBlockMeta = config.getInt("Volcano block meta value", "Volcanoes", volcanoBlockMeta, 0, 15, "The meta value of the volcano block." + Configuration.NEW_LINE);
             
             enableVolcanoes = config.getBoolean(
                 "Enable volcanoes",

@@ -22,6 +22,7 @@ public class RealisticBiomeHLSnowMountains extends RealisticBiomeHLBase
 
         topBlock  = hlBiome.topBlock;
 	    fillerBlock = hlBiome.fillerBlock;
+		this.generatesEmeralds = true;
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		this.addDeco(decoBaseBiomeDecorations);
         this.noLakes = true;

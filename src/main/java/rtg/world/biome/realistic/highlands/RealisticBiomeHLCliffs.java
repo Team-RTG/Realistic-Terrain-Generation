@@ -22,7 +22,7 @@ public class RealisticBiomeHLCliffs extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.river,
             new TerrainHLCliffs(75f, 70f, 78f),
             new SurfaceHLCliffs(config, topBlock, fillerBlock, false, null, 0.95f));
-		
+		this.generatesEmeralds = true;
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		this.addDeco(decoBaseBiomeDecorations);
     }

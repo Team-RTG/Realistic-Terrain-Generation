@@ -148,7 +148,9 @@ public class WorldGenPond extends WorldGenerator {
                 for (j2 = 1; j2 < 15; ++j2)
                 {
                     if (willBeShore[(i1 * 16 + j2)]) {
-                        heightCounts[world.getTopSolidOrLiquidBlock(x + i1, z + j2)] += 1;
+                        int topHeight = world.getTopSolidOrLiquidBlock(x + i1, z + j2);
+                        if (topHeight <1||topHeight>255) return false;//empty or too high column
+                        heightCounts[topHeight] += 1;
                         shoreBlockCount++;
                     }
                 }
@@ -279,7 +281,7 @@ public class WorldGenPond extends WorldGenerator {
                             }
                             else
                             {
-                                world.setBlock(x + i1, y + j1 - 1, z + j2, Blocks.grass, 0, 2);
+                                world.setBlock(x + i1, y + j1 - 1, z + j2, biomegenbase.topBlock, 0, 2);
                             }
                         }
                     }
@@ -340,7 +342,7 @@ public class WorldGenPond extends WorldGenerator {
                             }
                             else
                             {
-                                world.setBlock(x + i1, shoreHeight, z + j2, Blocks.grass, 0, 2);
+                                world.setBlock(x + i1, shoreHeight, z + j2, biomegenbase.topBlock, 0, 2);
                             }
                         }
                     }

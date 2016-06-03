@@ -54,8 +54,8 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
     }
 
     public StructureOceanMonumentRTG() {
-        this.spacing = 5;
-        this.separation = 1;
+        this.spacing = 32;
+        this.separation = 5;
     }
 
     @Override

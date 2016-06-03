@@ -2,7 +2,7 @@ package teamrtg.rtg.api.world.biome;
 
 import org.apache.commons.lang3.ArrayUtils;
 import teamrtg.rtg.api.config.BiomeConfig;
-import teamrtg.rtg.api.mods.RTGSupport;
+import teamrtg.rtg.api.module.RTGModule;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;
 import teamrtg.rtg.api.world.biome.surface.part.PresetParts;
@@ -15,14 +15,14 @@ import java.util.ArrayList;
  */
 public class WorldFeature implements IWorldFeature {
 
-    public final RTGSupport mod;
+    public final RTGModule mod;
     public final String name;
     protected final BiomeConfig config;
     public PresetParts PARTS;
     public SurfacePart surface;
     public ArrayList<DecoBase> decos = new ArrayList<>();
 
-    public WorldFeature(RTGSupport mod, String name) {
+    public WorldFeature(RTGModule mod, String name) {
         this.mod = mod;
         this.name = name;
         this.config = new BiomeConfig(getMod().getID(), "worldFeature." + this.getName());
@@ -79,7 +79,7 @@ public class WorldFeature implements IWorldFeature {
     }
 
     @Override
-    public RTGSupport getMod() {
+    public RTGModule getMod() {
         return mod;
     }
 

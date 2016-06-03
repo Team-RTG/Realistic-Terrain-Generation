@@ -1,7 +1,7 @@
 package teamrtg.rtg.api.world.biome.surface.part;
 
 import net.minecraft.init.Blocks;
-import teamrtg.rtg.api.mods.Mods;
+import teamrtg.rtg.api.module.Mods;
 import teamrtg.rtg.api.util.noise.IBlockAt;
 import teamrtg.rtg.api.util.noise.IBoolAt;
 import teamrtg.rtg.api.util.noise.IFloatAt;

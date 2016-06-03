@@ -2,16 +2,19 @@ package teamrtg.rtg.api.util;
 
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 
 /**
  * @author Zeno410
+ * Modified by topisani to allow for multiple possible field names.
+ * This is useful for catching both the obfuscated and the deobfuscated field.
  */
 public class Accessor<ObjectType, FieldType> {
-    private final String fieldName;
+    private final String[] fieldNames;
     private Field field;
 
-    public Accessor(String _fieldName) {
-        fieldName = _fieldName;
+    public Accessor(String... _fieldName) {
+        fieldNames = _fieldName;
     }
 
     public FieldType get(ObjectType object) {
@@ -42,15 +45,17 @@ public class Accessor<ObjectType, FieldType> {
         do {
             fields = classObject.getDeclaredFields();
             for (int i = 0; i < fields.length; i++) {
-                if (fields[i].getName().contains(fieldName)) {
-                    field = fields[i];
-                    field.setAccessible(true);
-                    return;
+                for (String fieldName : fieldNames) {
+                    if (fields[i].getName().contains(fieldName)) {
+                        field = fields[i];
+                        field.setAccessible(true);
+                        return;
+                    }
                 }
             }
             classObject = classObject.getSuperclass();
         } while (classObject != Object.class);
-        throw new RuntimeException(fieldName + " not found in class " + classObject.getName());
+        throw new RuntimeException("None of " + Arrays.toString(fieldNames) + " found in class " + classObject.getName());
     }
 
     public void setField(ObjectType object, FieldType fieldValue) {

@@ -5,7 +5,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import teamrtg.rtg.api.mods.Mods;
+import teamrtg.rtg.api.module.Mods;
 
 import java.util.Random;
 

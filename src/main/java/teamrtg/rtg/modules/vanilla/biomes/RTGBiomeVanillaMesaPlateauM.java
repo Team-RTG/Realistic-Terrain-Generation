@@ -2,7 +2,7 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import teamrtg.rtg.api.tools.deco.*;
 import teamrtg.rtg.api.tools.surface.SurfaceRiverOasis;
 import teamrtg.rtg.api.util.BiomeUtils;
@@ -15,8 +15,8 @@ import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
 
 public class RTGBiomeVanillaMesaPlateauM extends RTGBiomeVanillaBase {
-    public static BiomeGenBase standardBiome = Biomes.MESA_CLEAR_ROCK;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
+    public static Biome standardBiome = Biomes.MESA_CLEAR_ROCK;
+    public static Biome mutationBiome = Biome.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RTGBiomeVanillaMesaPlateauM() {
 

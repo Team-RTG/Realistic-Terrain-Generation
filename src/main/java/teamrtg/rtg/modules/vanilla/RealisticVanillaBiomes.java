@@ -1,6 +1,6 @@
 package teamrtg.rtg.modules.vanilla;
 
-import teamrtg.rtg.api.mods.ModBiomes;
+import teamrtg.rtg.api.module.ModBiomes;
 import teamrtg.rtg.modules.vanilla.biomes.*;
 
 /**

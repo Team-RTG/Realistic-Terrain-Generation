@@ -1,10 +1,10 @@
 package teamrtg.rtg.api.util;
 
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import teamrtg.rtg.api.util.debug.Logger;
 import teamrtg.rtg.api.world.biome.RTGBiomeBase;
 
-import static net.minecraft.world.biome.BiomeGenBase.getIdForBiome;
+import static net.minecraft.world.biome.Biome.getIdForBiome;
 
 /**
  * @author WhichOnesPink
@@ -12,11 +12,11 @@ import static net.minecraft.world.biome.BiomeGenBase.getIdForBiome;
 public class RealisticBiomePresenceTester {
 
     public static void doBiomeCheck() {
-        BiomeGenBase[] b = BiomeUtils.getRegisteredBiomes();
+        Biome[] b = BiomeUtils.getRegisteredBiomes();
 
         for (int i = 0; i < b.length; i++) {
             if (b[i] != null) {
-                BiomeGenBase biome = b[i];
+                Biome biome = b[i];
                 int biomeId = getIdForBiome(biome);
                 String biomeName = BiomeUtils.getLocForBiome(biome).toString();
                 String biomeClass = biome.getBiomeClass().getName();

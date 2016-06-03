@@ -2,7 +2,7 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import teamrtg.rtg.api.config.BiomeConfig;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
@@ -16,8 +16,8 @@ import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
 
 public class RTGBiomeVanillaJungleEdgeM extends RTGBiomeVanillaBase {
-    public static BiomeGenBase standardBiome = Biomes.JUNGLE_EDGE;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
+    public static Biome standardBiome = Biomes.JUNGLE_EDGE;
+    public static Biome mutationBiome = Biome.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RTGBiomeVanillaJungleEdgeM() {
 

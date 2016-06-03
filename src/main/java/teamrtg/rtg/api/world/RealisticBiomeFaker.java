@@ -2,11 +2,11 @@ package teamrtg.rtg.api.world;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.ChunkProviderOverworld;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
-import teamrtg.rtg.api.mods.Mods;
+import teamrtg.rtg.api.module.Mods;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.LimitedMap;
 import teamrtg.rtg.api.util.PlaneLocation;
@@ -89,20 +89,20 @@ public class RealisticBiomeFaker {
         return heights;
     }
 
-    public void fakeSurface(int bx, int bz, ChunkPrimer primer, BiomeGenBase biome) {
+    public void fakeSurface(int bx, int bz, ChunkPrimer primer, Biome biome) {
         //For some really messed up reason these need to be flipped... see BGB#300
         biome.genTerrainBlocks(rtgWorld.world, rtgWorld.rand, primer, bz, bx, this.surfaceNoise.getValue(bx, bz));
     }
 
     public static void initFakeBiomes() {
-        BiomeGenBase[] b = BiomeUtils.getRegisteredBiomes();
-        for (BiomeGenBase biome : b) {
+        Biome[] b = BiomeUtils.getRegisteredBiomes();
+        for (Biome biome : b) {
             if (biome != null) {
                 try {
-                    RealisticBiomeGenerator.getRealistic(BiomeGenBase.getIdForBiome(biome));
+                    RealisticBiomeGenerator.getRealistic(Biome.getIdForBiome(biome));
                 } catch (Exception e) {
                     new RealisticBiomeGenerator(new FakedRTGBiome(Mods.RTG, biome));
-                    fakeBiomes[BiomeGenBase.getIdForBiome(biome)] = true;
+                    fakeBiomes[Biome.getIdForBiome(biome)] = true;
                 }
             }
         }

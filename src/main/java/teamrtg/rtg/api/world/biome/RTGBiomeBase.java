@@ -1,9 +1,9 @@
 package teamrtg.rtg.api.world.biome;
 
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import org.apache.commons.lang3.ArrayUtils;
 import teamrtg.rtg.api.config.BiomeConfig;
-import teamrtg.rtg.api.mods.RTGSupport;
+import teamrtg.rtg.api.module.RTGModule;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
@@ -21,8 +21,8 @@ import static net.minecraft.init.Biomes.RIVER;
 public abstract class RTGBiomeBase implements IWorldFeature {
 
     public static final float actualRiverProportion = 300f / 1600f;
-    public final BiomeGenBase riverBiome;
-    public final RTGSupport mod;
+    public final Biome riverBiome;
+    public final RTGModule mod;
     public final float lakeInterval = 989.0f;
     public final float lakeShoreLevel = 0.15f;
     public final float lakeWaterLevel = 0.11f;// the lakeStrength below which things should be below water
@@ -33,7 +33,7 @@ public abstract class RTGBiomeBase implements IWorldFeature {
     public final float smallBendSize = 15;
     public final boolean disallowAllBeaches = false;
     public final boolean disallowStoneBeaches = false;
-    protected final BiomeGenBase baseBiome;
+    protected final Biome baseBiome;
     protected final BiomeConfig config;
     public PresetParts PARTS;
     public TerrainBase terrain;
@@ -43,11 +43,11 @@ public abstract class RTGBiomeBase implements IWorldFeature {
     public boolean noLakes = false;
     public boolean noWaterFeatures = false;
 
-    public RTGBiomeBase(RTGSupport mod, BiomeGenBase biome) {
+    public RTGBiomeBase(RTGModule mod, Biome biome) {
         this(mod, biome, RIVER);
     }
 
-    public RTGBiomeBase(RTGSupport mod, BiomeGenBase biome, BiomeGenBase river) {
+    public RTGBiomeBase(RTGModule mod, Biome biome, Biome river) {
         this.mod = mod;
 
         baseBiome = biome;
@@ -133,7 +133,7 @@ public abstract class RTGBiomeBase implements IWorldFeature {
     }
 
     @Override
-    public RTGSupport getMod() {
+    public RTGModule getMod() {
         return mod;
     }
 
@@ -142,7 +142,7 @@ public abstract class RTGBiomeBase implements IWorldFeature {
         return baseBiome.getBiomeName();
     }
 
-    public static RTGBiomeBase forBiome(BiomeGenBase biome) {
+    public static RTGBiomeBase forBiome(Biome biome) {
         return RTGBiomeBase.forBiome(BiomeUtils.getId(biome));
     }
 
@@ -158,7 +158,7 @@ public abstract class RTGBiomeBase implements IWorldFeature {
         return this.terrain;
     }
 
-    public BiomeGenBase getBiome() {
+    public Biome getBiome() {
         return baseBiome;
     }
 

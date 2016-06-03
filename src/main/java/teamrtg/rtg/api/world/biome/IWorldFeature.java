@@ -1,7 +1,7 @@
 package teamrtg.rtg.api.world.biome;
 
 import teamrtg.rtg.api.config.BiomeConfig;
-import teamrtg.rtg.api.mods.RTGSupport;
+import teamrtg.rtg.api.module.RTGModule;
 
 /**
  * Collective wrapper for Biomes and TerrainFeatures
@@ -13,7 +13,7 @@ public interface IWorldFeature extends IHasDecos, IHasSurface {
 
     BiomeConfig getConfig();
 
-    RTGSupport getMod();
+    RTGModule getMod();
 
     String getName();
 }

@@ -1,7 +1,7 @@
 package teamrtg.rtg.api.world;
 
-import net.minecraft.world.biome.BiomeGenBase;
-import teamrtg.rtg.api.mods.RTGSupport;
+import net.minecraft.world.biome.Biome;
+import teamrtg.rtg.api.module.RTGModule;
 import teamrtg.rtg.api.world.biome.RTGBiomeBase;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
@@ -11,7 +11,7 @@ import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
  */
 public class FakedRTGBiome extends RTGBiomeBase {
 
-    public FakedRTGBiome(RTGSupport mod, BiomeGenBase biome) {
+    public FakedRTGBiome(RTGModule mod, Biome biome) {
         super(mod, biome);
     }
 

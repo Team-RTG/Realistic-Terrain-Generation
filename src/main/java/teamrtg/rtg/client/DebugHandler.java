@@ -5,14 +5,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import teamrtg.rtg.api.world.biome.RTGBiomeBase;
-import teamrtg.rtg.api.mods.Mods;
+import teamrtg.rtg.api.module.Mods;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.core.ModInfo;
-import teamrtg.rtg.world.biome.BiomeProviderRTG;
+import teamrtg.rtg.core.world.BiomeProviderRTG;
 
 public final class DebugHandler {
 
@@ -40,7 +40,7 @@ public final class DebugHandler {
 //                    (int)Math.floor(posZ / 16)
 //                );
 
-                BiomeGenBase biome = world.getBiomeGenForCoords(new BlockPos(posX, 0, posZ));
+                Biome biome = world.getBiomeGenForCoords(new BlockPos(posX, 0, posZ));
                 RTGBiomeBase realisticBiome = RTGBiomeBase.forBiome(BiomeUtils.getId(biome));
 
                 details = PREFIX;

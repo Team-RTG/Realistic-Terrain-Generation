@@ -1,6 +1,6 @@
 package teamrtg.rtg.modules.rtg.terrainfeature;
 
-import teamrtg.rtg.api.mods.Mods;
+import teamrtg.rtg.api.module.Mods;
 import teamrtg.rtg.api.util.noise.SimplexOctave;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.RTGBiomeBase;

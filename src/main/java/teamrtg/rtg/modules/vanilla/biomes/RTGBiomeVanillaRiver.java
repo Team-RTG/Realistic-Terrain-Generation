@@ -1,7 +1,7 @@
 package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
@@ -9,7 +9,7 @@ import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
 
 public class RTGBiomeVanillaRiver extends RTGBiomeVanillaBase {
-    public static BiomeGenBase vanillaBiome = Biomes.RIVER;
+    public static Biome vanillaBiome = Biomes.RIVER;
 
     public RTGBiomeVanillaRiver() {
         super(

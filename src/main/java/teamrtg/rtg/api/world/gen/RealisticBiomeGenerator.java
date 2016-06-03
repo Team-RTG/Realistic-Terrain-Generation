@@ -5,7 +5,7 @@ import net.minecraft.block.BlockStone;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.gen.ChunkProviderSettings;
@@ -15,7 +15,7 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import teamrtg.rtg.api.mods.Mods;
+import teamrtg.rtg.api.module.Mods;
 import teamrtg.rtg.api.tools.feature.WorldGenPond;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.math.MathUtils;
@@ -54,11 +54,11 @@ public class RealisticBiomeGenerator {
         }
     }
 
-    public static RTGBiomeBase getRealistic(BiomeGenBase biome) {
+    public static RTGBiomeBase getRealistic(Biome biome) {
         return RealisticBiomeGenerator.getRealistic(BiomeUtils.getId(biome));
     }
 
-    public static RealisticBiomeGenerator forBiome(BiomeGenBase biome) {
+    public static RealisticBiomeGenerator forBiome(Biome biome) {
         return biomeGenerators[BiomeUtils.getId(biome)];
     }
 
@@ -167,7 +167,7 @@ public class RealisticBiomeGenerator {
      * 2) You are NOT calling decorateBaseBiome() within rDecorate().
      */
     public void generateOres(RTGWorld rtgWorld, BlockPos blockPos, float strength, float river) {
-        BiomeGenBase seedBiome = this.realistic.getBiome();
+        Biome seedBiome = this.realistic.getBiome();
         Random rand = rtgWorld.rand;
 
         if (seedBiome.theBiomeDecorator.chunkProviderSettings == null) {

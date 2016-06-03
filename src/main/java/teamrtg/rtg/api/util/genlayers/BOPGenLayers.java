@@ -1,5 +1,7 @@
 package teamrtg.rtg.api.util.genlayers;
 
+import biomesoplenty.common.world.BOPWorldSettings;
+import biomesoplenty.common.world.BiomeProviderBOP;
 import net.minecraft.world.gen.layer.GenLayer;
 
 /**
@@ -9,8 +11,7 @@ import net.minecraft.world.gen.layer.GenLayer;
 public class BOPGenLayers {
 
     public static GenLayer[] setupBOPGenLayers(long worldSeed) {
-        //BOPWorldSettings settings = new BOPWorldSettings();
-        //return BiomeProviderBOP.setupBOPGenLayers(worldSeed, settings);
-        return null;
+        BOPWorldSettings settings = new BOPWorldSettings();
+        return BiomeProviderBOP.setupBOPGenLayers(worldSeed, settings);
     }
 }

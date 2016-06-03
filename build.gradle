@@ -50,7 +50,7 @@ repositories {
 }
 
 dependencies {
-    //compile 'com.github.glitchfiend.biomesoplenty:BiomesOPlenty:' + ref.mc_version + '-' + ref.mod_deps.bopver + ':deobf'
+    compile 'com.github.glitchfiend.biomesoplenty:BiomesOPlenty:' + ref.mc_version + '-' + ref.mod_deps.bopver + ':deobf'
 }
 
 processResources {

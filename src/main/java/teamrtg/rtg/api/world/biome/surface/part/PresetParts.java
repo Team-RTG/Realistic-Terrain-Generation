@@ -44,16 +44,17 @@ public class PresetParts {
         FILL_BLOCK = new BlockPart(biome.getConfig().FILL_BLOCK.get());
     }
 
+    public final IBoolAt jitter(IBoolAt in) {
+        return (x, y, z, rtgWorld) -> {
+            rtgWorld.simplex.evaluateNoise(x, z, rtgWorld.surfaceJitter);
+            int jX = (int) Math.round(x + rtgWorld.surfaceJitter.deltax() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());
+            int jZ = (int) Math.round(z + rtgWorld.surfaceJitter.deltay() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());
+            return in.getAt(jX, y, jZ, rtgWorld);
+        };
+    }
+
     public final SurfacePart rand(int r) {
         return new RandomSelector(r);
-    }
-
-    public final SurfacePart selectTop() {
-        return new DepthSelector(0, 0);
-    }
-
-    public final SurfacePart selectFill() {
-        return new DepthSelector(1, biome.getConfig().FILL_LAYERS.get()).setMaxNoise(DEPTH_NOISE);
     }
 
     public final SurfacePart selectTopAndFill() {
@@ -63,10 +64,19 @@ public class PresetParts {
     public final SurfacePart surfaceGeneric() {
         return new SurfacePart() {{
             add(selectTop()
-                .add(TOP_BLOCK));
+                .add(new HeightSelector(63, 255)
+                    .add(TOP_BLOCK)));
             add(selectFill()
                 .add(FILL_BLOCK));
         }};
+    }
+
+    public final SurfacePart selectTop() {
+        return new DepthSelector(0, 0);
+    }
+
+    public final SurfacePart selectFill() {
+        return new DepthSelector(1, biome.getConfig().FILL_LAYERS.get()).setMaxNoise(DEPTH_NOISE);
     }
 
     public final SurfacePart surfaceMix(IBoolAt mixNoise) {
@@ -91,16 +101,7 @@ public class PresetParts {
         };
     }
 
-    public final IBoolAt jitter(IBoolAt in) {
-        return (x, y, z, rtgWorld) -> {
-            rtgWorld.simplex.evaluateNoise(x, z, rtgWorld.surfaceJitter);
-            int jX = (int) Math.round(x + rtgWorld.surfaceJitter.deltax() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());
-            int jZ = (int) Math.round(z + rtgWorld.surfaceJitter.deltay() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());
-            return in.getAt(jX, y, jZ, rtgWorld);
-        };
-    }
-
-    public final IBlockAt jitter(IBlockAt in) {     
+    public final IBlockAt jitter(IBlockAt in) {
         return (x, y, z, rtgWorld) -> {
             rtgWorld.simplex.evaluateNoise(x, z, rtgWorld.surfaceJitter);
             int jX = (int) Math.round(x + rtgWorld.surfaceJitter.deltax() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());

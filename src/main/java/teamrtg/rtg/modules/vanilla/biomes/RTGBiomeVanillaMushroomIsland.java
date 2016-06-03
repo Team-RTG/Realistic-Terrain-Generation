@@ -7,9 +7,9 @@ import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
 import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
+import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
-public class RTGBiomeVanillaMushroomIsland extends RTGBiomeVanillaBase {
+public class RTGBiomeVanillaMushroomIsland extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaMushroomIsland() {
         super(

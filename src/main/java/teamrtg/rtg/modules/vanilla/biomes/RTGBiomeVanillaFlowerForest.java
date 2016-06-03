@@ -11,9 +11,9 @@ import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
 import teamrtg.rtg.api.world.biome.deco.helper.DecoHelper5050;
 import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
+import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
-public class RTGBiomeVanillaFlowerForest extends RTGBiomeVanillaBase {
+public class RTGBiomeVanillaFlowerForest extends RTGBiomeVanilla {
 
     public static Biome standardBiome = Biomes.FOREST;
     public static Biome mutationBiome = Biome.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);

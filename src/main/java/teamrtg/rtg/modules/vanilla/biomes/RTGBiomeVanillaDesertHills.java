@@ -11,9 +11,9 @@ import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
 import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.OrSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
+import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
-public class RTGBiomeVanillaDesertHills extends RTGBiomeVanillaBase {
+public class RTGBiomeVanillaDesertHills extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaDesertHills() {
         super(

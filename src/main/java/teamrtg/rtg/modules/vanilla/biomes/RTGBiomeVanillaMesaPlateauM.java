@@ -12,9 +12,9 @@ import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
 import teamrtg.rtg.api.world.biome.surface.part.HeightSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
+import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
-public class RTGBiomeVanillaMesaPlateauM extends RTGBiomeVanillaBase {
+public class RTGBiomeVanillaMesaPlateauM extends RTGBiomeVanilla {
     public static Biome standardBiome = Biomes.MESA_CLEAR_ROCK;
     public static Biome mutationBiome = Biome.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 

@@ -12,9 +12,9 @@ import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
+import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
-public class RTGBiomeVanillaBirchForestM extends RTGBiomeVanillaBase {
+public class RTGBiomeVanillaBirchForestM extends RTGBiomeVanilla {
 
     public static Biome standardBiome = Biomes.BIRCH_FOREST;
     public static Biome mutationBiome = Biome.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);

@@ -8,9 +8,9 @@ import teamrtg.rtg.api.util.math.CanyonColour;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.surface.part.*;
-import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
+import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
-public class RTGBiomeVanillaSavannaPlateau extends RTGBiomeVanillaBase {
+public class RTGBiomeVanillaSavannaPlateau extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaSavannaPlateau() {
 

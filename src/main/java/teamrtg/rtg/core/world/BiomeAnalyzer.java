@@ -2,7 +2,7 @@ package teamrtg.rtg.core.world;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
-import teamrtg.rtg.api.world.biome.RTGBiomeBase;
+import teamrtg.rtg.api.world.biome.RTGBiome;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.math.CircularSearchCreator;
 
@@ -19,7 +19,7 @@ public class BiomeAnalyzer {
     private boolean[] landBiome;
     private int[] preferredBeach;
     private int[] searchPattern;
-    private RTGBiomeBase[] savedJittered = new RTGBiomeBase[256];
+    private RTGBiome[] savedJittered = new RTGBiome[256];
 
     // beach fixing
     float beachTop = 64.5f;
@@ -168,7 +168,7 @@ public class BiomeAnalyzer {
         for (int index = 0; index < BiomeUtils.biomeIds(); index++) {
             if (Biome.getBiome(index) == null) continue;
             if (Biome.getBiome(index).getBiomeName() == null) continue;
-            RTGBiomeBase realisticVersion = RTGBiomeBase.forBiome(index);
+            RTGBiome realisticVersion = RTGBiome.forBiome(index);
             // no beach if set to no beach
             if (realisticVersion != null) {
                 if (realisticVersion.disallowAllBeaches) preferredBeach[index] = index;
@@ -196,11 +196,11 @@ public class BiomeAnalyzer {
         }
     }
 
-    private void huntForBeaches(RTGBiomeBase[] biomes) {
+    private void huntForBeaches(RTGBiome[] biomes) {
         beach.notHunted = false;
         // in case nothing found
         beach.absent = true;
-        RTGBiomeBase considered;
+        RTGBiome considered;
         for (int i = 0; i < 256; i++) {
             considered = biomes[searchPattern[i]];
             if (beachBiome[considered.getID()]) {
@@ -211,11 +211,11 @@ public class BiomeAnalyzer {
         }
     }
 
-    private void huntForLand(RTGBiomeBase[] biomes) {
+    private void huntForLand(RTGBiome[] biomes) {
         land.notHunted = false;
         // in case nothing found
         land.absent = true;
-        RTGBiomeBase considered;
+        RTGBiome considered;
         for (int i = 0; i < 256; i++) {
             considered = biomes[searchPattern[i]];
             if (landBiome[considered.getID()]) {
@@ -226,11 +226,11 @@ public class BiomeAnalyzer {
         }
     }
 
-    private void huntForOcean(RTGBiomeBase[] biomes) {
+    private void huntForOcean(RTGBiome[] biomes) {
         ocean.notHunted = false;
         // in case nothing found
         ocean.absent = true;
-        RTGBiomeBase considered;
+        RTGBiome considered;
         for (int i = 0; i < 256; i++) {
             considered = biomes[searchPattern[i]];
             if (oceanBiome[considered.getID()]) {
@@ -246,7 +246,7 @@ public class BiomeAnalyzer {
      *
      */
 
-    public void newRepair(int[] genLayerBiomes, RTGBiomeBase[] jitteredBiomes, int[] biomeNeighborhood, int neighborhoodSize, float[] noise, float[] riverStrength) {
+    public void newRepair(int[] genLayerBiomes, RTGBiome[] jitteredBiomes, int[] biomeNeighborhood, int neighborhoodSize, float[] noise, float[] riverStrength) {
         if (neighborhoodSize != sampleSize)
             throw new RuntimeException("mismatch between chunk and analyzer neighborhood sizes");
         // currently just stuffs the genLayer into the jitter;
@@ -257,16 +257,16 @@ public class BiomeAnalyzer {
             //if (savedJittered[i]== null) throw new RuntimeException();
             if (noise[i] > 61.5) {
                 // replace
-                jitteredBiomes[i] = RTGBiomeBase.forBiome(genLayerBiomes[i]);
+                jitteredBiomes[i] = RTGBiome.forBiome(genLayerBiomes[i]);
             } else {
                 // check for river
                 if (canBeRiver && !oceanBiome[genLayerBiomes[i]] && !swampBiome[genLayerBiomes[i]]) {
                     // make river
-                    int riverBiomeID = BiomeUtils.getId(RTGBiomeBase.forBiome(genLayerBiomes[i]).riverBiome);
-                    jitteredBiomes[i] = RTGBiomeBase.forBiome(riverBiomeID);
+                    int riverBiomeID = BiomeUtils.getId(RTGBiome.forBiome(genLayerBiomes[i]).riverBiome);
+                    jitteredBiomes[i] = RTGBiome.forBiome(riverBiomeID);
                 } else {
                     // replace
-                    jitteredBiomes[i] = RTGBiomeBase.forBiome(genLayerBiomes[i]);
+                    jitteredBiomes[i] = RTGBiome.forBiome(genLayerBiomes[i]);
                 }
             }
 
@@ -291,7 +291,7 @@ public class BiomeAnalyzer {
                 if (nearestLandBiome > -1) {
                     foundBiome = preferredBeach[nearestLandBiome];
                 }
-                jitteredBiomes[i] = RTGBiomeBase.forBiome(foundBiome);
+                jitteredBiomes[i] = RTGBiome.forBiome(foundBiome);
             }
         }
 
@@ -310,7 +310,7 @@ public class BiomeAnalyzer {
 
             int foundBiome = landSearch.biomes[i];
             if (foundBiome != NO_BIOME) {
-                jitteredBiomes[i] = RTGBiomeBase.forBiome(foundBiome);
+                jitteredBiomes[i] = RTGBiome.forBiome(foundBiome);
             }
         }
 
@@ -329,7 +329,7 @@ public class BiomeAnalyzer {
 
             int foundBiome = oceanSearch.biomes[i];
             if (foundBiome != NO_BIOME) {
-                jitteredBiomes[i] = RTGBiomeBase.forBiome(foundBiome);
+                jitteredBiomes[i] = RTGBiome.forBiome(foundBiome);
             }
         }
     }
@@ -354,7 +354,7 @@ public class BiomeAnalyzer {
     private class SearchStatus {
         boolean absent = false;
         boolean notHunted = true;
-        RTGBiomeBase biome;
+        RTGBiome biome;
     }
 
 
@@ -542,7 +542,7 @@ public class BiomeAnalyzer {
 
     private float deriverized(float height, float river) {
         if (river >= 1) return height;
-        float erodedRiver = river / RTGBiomeBase.actualRiverProportion;
+        float erodedRiver = river / RTGBiome.actualRiverProportion;
         if (erodedRiver <= 1f) {
             height = ((height - 58f * erodedRiver)) / (1 - erodedRiver);
         }
@@ -552,7 +552,7 @@ public class BiomeAnalyzer {
 
     private float riverAdjusted(float top, float river) {
         if (river >= 1) return top;
-        float erodedRiver = river / RTGBiomeBase.actualRiverProportion;
+        float erodedRiver = river / RTGBiome.actualRiverProportion;
         if (erodedRiver <= 1f) {
             top = top * (1 - erodedRiver) + 62f * erodedRiver;
         }

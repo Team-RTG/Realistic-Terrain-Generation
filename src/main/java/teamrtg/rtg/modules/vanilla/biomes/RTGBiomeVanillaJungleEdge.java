@@ -12,9 +12,9 @@ import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
 import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.DepthSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
+import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
-public class RTGBiomeVanillaJungleEdge extends RTGBiomeVanillaBase {
+public class RTGBiomeVanillaJungleEdge extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaJungleEdge() {
 

@@ -11,9 +11,9 @@ import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
 import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.DepthSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
+import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
-public class RTGBiomeVanillaIcePlainsSpikes extends RTGBiomeVanillaBase {
+public class RTGBiomeVanillaIcePlainsSpikes extends RTGBiomeVanilla {
     public static Biome standardBiome = Biomes.ICE_PLAINS;
     public static Biome mutationBiome = Biome.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 

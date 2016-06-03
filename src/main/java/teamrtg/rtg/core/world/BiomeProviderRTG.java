@@ -1,14 +1,14 @@
 package teamrtg.rtg.core.world;
 
-import gnu.trove.map.hash.TLongObjectHashMap;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
-import net.minecraft.world.biome.BiomeCache;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeCache;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
@@ -21,8 +21,9 @@ import teamrtg.rtg.api.util.noise.CellNoise;
 import teamrtg.rtg.api.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.api.util.noise.SimplexCellularNoise;
 import teamrtg.rtg.api.util.noise.SimplexOctave;
-import teamrtg.rtg.api.world.biome.RTGBiomeBase;
+import teamrtg.rtg.api.world.biome.RTGBiome;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -42,12 +43,9 @@ public class BiomeProviderRTG extends BiomeProvider {
      */
     private GenLayer genBiomes;
     private GenLayer biomeIndexLayer;
-    private List biomesToSpawnIn;
+    private List<Biome> biomesToSpawnIn;
     private OpenSimplexNoise simplex;
     private CellNoise cell;
-    private SimplexCellularNoise simplexCell;
-    private float[] borderNoise;
-    private TLongObjectHashMap<RTGBiomeBase> biomeDataMap = new TLongObjectHashMap<RTGBiomeBase>();
     private BiomeCache biomeCache;
     private double riverValleyLevel = 60.0 / 450.0;
     private float riverSeparation = 1875;
@@ -65,7 +63,6 @@ public class BiomeProviderRTG extends BiomeProvider {
 
         simplex = new OpenSimplexNoise(seed);
         cell = new SimplexCellularNoise(seed);
-        simplexCell = new SimplexCellularNoise(seed);
         GenLayer[] agenlayer = GenLayerUtils.initializeAllBiomeGenerators(seed, worldType, par1World.getWorldInfo().getGeneratorOptions());
         agenlayer = getModdedBiomeerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
@@ -81,7 +78,6 @@ public class BiomeProviderRTG extends BiomeProvider {
 
         this.biomeCache = new BiomeCache(this);
         this.biomesToSpawnIn = new ArrayList();
-        borderNoise = new float[256];
     }
 
     private static double cellBorder(double[] results, double width, double depth) {
@@ -109,7 +105,7 @@ public class BiomeProviderRTG extends BiomeProvider {
 
     public Biome getPreRepair(int x, int z) {
         Biome result;
-        result = this.biomeCache.getBiomeCacheBlock(x, z).getBiomeGenAt(x, z);
+        result = this.biomeCache.getBiomeCacheBlock(x, z).getBiome(x, z);
         return result;
     }
 
@@ -117,11 +113,12 @@ public class BiomeProviderRTG extends BiomeProvider {
         return Biome.getBiomeForId(getBiomes(globalToChunk(x), globalToChunk(z))[globalToIndex(x, z)]);
     }
 
-    public RTGBiomeBase getRealisticAt(int bx, int bz) {
-        return RTGBiomeBase.forBiome(getBiomeGenAt(bx, bz));
+    public RTGBiome getRealisticAt(int bx, int bz) {
+        return RTGBiome.forBiome(getBiomeGenAt(bx, bz));
     }
 
-    public List getBiomesToSpawnIn() {
+    @Override
+    public List<Biome> getBiomesToSpawnIn() {
 
         return this.biomesToSpawnIn;
     }
@@ -131,6 +128,7 @@ public class BiomeProviderRTG extends BiomeProvider {
         return par1;
     }
 
+    @Override
     public Biome[] getBiomesForGeneration(Biome[] biomes, int x, int z, int width, int height) {
         IntCache.resetIntCache();
 
@@ -148,12 +146,8 @@ public class BiomeProviderRTG extends BiomeProvider {
     }
 
     @Override
-    public Biome[] loadBlockGeneratorData(Biome[] par1ArrayOfBiome, int par2, int par3, int par4, int par5) {
-
-        return this.getBiomeGenAt(par1ArrayOfBiome, par2, par3, par4, par5, true);
-    }
-
-    public Biome[] getBiomeGenAt(Biome[] listToReuse, int x, int z, int width, int length, boolean cacheFlag) {
+    @MethodsReturnNonnullByDefault
+    public Biome[] getBiomes(Biome[] listToReuse, int x, int z, int width, int length, boolean cacheFlag) {
         IntCache.resetIntCache();
 
         if (listToReuse == null || listToReuse.length < width * length) {
@@ -178,6 +172,8 @@ public class BiomeProviderRTG extends BiomeProvider {
     /**
      * checks given Chunk's Biomes against List of allowed ones
      */
+    @Override
+    @ParametersAreNonnullByDefault
     public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed) {
         IntCache.resetIntCache();
         int i = x - radius >> 2;
@@ -211,6 +207,7 @@ public class BiomeProviderRTG extends BiomeProvider {
     }
 
     @Override
+    @ParametersAreNonnullByDefault
     public BlockPos findBiomePosition(int p_150795_1_, int p_150795_2_, int p_150795_3_, List p_150795_4_, Random p_150795_5_) {
         IntCache.resetIntCache();
         int l = p_150795_1_ - p_150795_3_ >> 2;

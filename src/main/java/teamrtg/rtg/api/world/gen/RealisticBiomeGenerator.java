@@ -21,7 +21,7 @@ import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.math.MathUtils;
 import teamrtg.rtg.api.util.math.RandomUtil;
 import teamrtg.rtg.api.world.RTGWorld;
-import teamrtg.rtg.api.world.biome.RTGBiomeBase;
+import teamrtg.rtg.api.world.biome.RTGBiome;
 import teamrtg.rtg.api.world.biome.WorldFeature;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
@@ -36,26 +36,25 @@ import java.util.Random;
 public class RealisticBiomeGenerator {
     private static final RealisticBiomeGenerator[] biomeGenerators = new RealisticBiomeGenerator[256];
     private static float actualRiverProportion = 300f / 1600f;
-
+    public final RTGBiome realistic;
     public SurfacePart genericPart;
-    public final RTGBiomeBase realistic;
 
-    public RealisticBiomeGenerator(RTGBiomeBase realistic) {
+    public RealisticBiomeGenerator(RTGBiome realistic) {
         this.realistic = realistic;
         biomeGenerators[realistic.getID()] = this;
         genericPart = this.realistic.PARTS.surfaceGeneric();
     }
 
-    public static RTGBiomeBase getRealistic(int id) {
+    public static RTGBiome getRealistic(Biome biome) {
+        return RealisticBiomeGenerator.getRealistic(BiomeUtils.getId(biome));
+    }
+
+    public static RTGBiome getRealistic(int id) {
         try {
             return biomeGenerators[id].realistic;
         } catch (Exception e) {
             return null;
         }
-    }
-
-    public static RTGBiomeBase getRealistic(Biome biome) {
-        return RealisticBiomeGenerator.getRealistic(BiomeUtils.getId(biome));
     }
 
     public static RealisticBiomeGenerator forBiome(Biome biome) {
@@ -161,6 +160,20 @@ public class RealisticBiomeGenerator {
     }
 
     /**
+     * When manually decorating biomes by overriding rDecorate(), sometimes you want the biome
+     * to partially decorate itself. That's what this method does... it calls the biome's decorate() method.
+     */
+    public void decorateBaseBiome(RTGWorld rtgWorld, int chunkX, int chunkY, float strength, float river) {
+        if (strength > 0.3f) {
+            this.realistic.getBiome().decorate(rtgWorld.world, rtgWorld.rand, new BlockPos(chunkX, 0, chunkY));
+        } else {
+            generateOres(rtgWorld, new BlockPos(chunkX, 0, chunkY), strength, river);
+        }
+    }
+
+    // lake calculations
+
+    /**
      * This method should be called if both of the following conditions are true:
      * <p/>
      * 1) You are manually decorating a biome by overrding rDecorate().
@@ -221,8 +234,6 @@ public class RealisticBiomeGenerator {
         }
     }
 
-    // lake calculations
-
     /**
      * Standard ore generation helper. Generates most ores.
      * @see net.minecraft.world.biome.BiomeDecorator
@@ -257,18 +268,6 @@ public class RealisticBiomeGenerator {
         }
     }
 
-    /**
-     * When manually decorating biomes by overriding rDecorate(), sometimes you want the biome
-     * to partially decorate itself. That's what this method does... it calls the biome's decorate() method.
-     */
-    public void decorateBaseBiome(RTGWorld rtgWorld, int chunkX, int chunkY, float strength, float river) {
-        if (strength > 0.3f) {
-            this.realistic.getBiome().decorate(rtgWorld.world, rtgWorld.rand, new BlockPos(chunkX, 0, chunkY));
-        } else {
-            generateOres(rtgWorld, new BlockPos(chunkX, 0, chunkY), strength, river);
-        }
-    }
-
     public float terrainHeight(RTGWorld rtgWorld, int x, int z, float biomeWeight, float border, float river) {
         // we now have both lakes and rivers lowering land
         if (realistic.noWaterFeatures) {
@@ -283,21 +282,17 @@ public class RealisticBiomeGenerator {
         return height;
     }
 
-    public RTGBiomeBase getBiome() {
+    public RTGBiome getBiome() {
         return this.realistic;
     }
 
     public void paintSurface(ChunkPrimer primer, int bx, int by, int bz, int depth, float[] noise, float river, RTGWorld rtgWorld) {
         Block b = primer.getBlockState(MathUtils.globalToLocal(bx), by, MathUtils.globalToLocal(bz)).getBlock();
-        if (b == Blocks.AIR) {
-            depth = -1;
-        } else if (b == Blocks.STONE) {
-            depth++;
-            if (Mods.RTG.config.ENABLE_RTG_SURFACES.get() && this.realistic.getConfig().USE_RTG_SURFACES.get()) {
-                this.realistic.surface.paintWithSubparts(primer, bx, by, bz, depth, noise, river, rtgWorld);
-            } else {
-                this.genericPart.paintWithSubparts(primer, bx, by, bz, depth, noise, river, rtgWorld);
-            }
+
+        if (Mods.RTG.config.ENABLE_RTG_SURFACES.get() && this.realistic.getConfig().USE_RTG_SURFACES.get()) {
+            this.realistic.surface.paintWithSubparts(primer, bx, by, bz, depth, noise, river, rtgWorld);
+        } else {
+            this.genericPart.paintWithSubparts(primer, bx, by, bz, depth, noise, river, rtgWorld);
         }
     }
 

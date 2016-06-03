@@ -8,12 +8,12 @@ import teamrtg.rtg.api.util.math.CanyonColour;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.surface.part.*;
-import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
+import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 import static teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 import static teamrtg.rtg.api.tools.deco.DecoTree.TreeType.VANILLA_OAK;
 
-public class RTGBiomeVanillaMesaPlateauF extends RTGBiomeVanillaBase {
+public class RTGBiomeVanillaMesaPlateauF extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaMesaPlateauF() {
         super(

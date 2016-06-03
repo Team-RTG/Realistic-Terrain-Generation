@@ -46,7 +46,7 @@ public class WorldFeature implements IWorldFeature {
         return new SurfacePart();
     }
 
-    public float modifyTerrain(RTGWorld rtgWorld, RTGBiomeBase biome, float heightIn, int x, int z, float border, float river) {
+    public float modifyTerrain(RTGWorld rtgWorld, RTGBiome biome, float heightIn, int x, int z, float border, float river) {
         return heightIn;
     }
 

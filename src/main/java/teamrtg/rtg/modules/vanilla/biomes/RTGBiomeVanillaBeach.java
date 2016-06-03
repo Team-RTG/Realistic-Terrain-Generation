@@ -10,9 +10,9 @@ import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
 import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.HeightSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
+import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
-public class RTGBiomeVanillaBeach extends RTGBiomeVanillaBase {
+public class RTGBiomeVanillaBeach extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaBeach() {
         super(

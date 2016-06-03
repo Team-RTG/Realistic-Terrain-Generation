@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenCaves;
-import teamrtg.rtg.api.world.biome.RTGBiomeBase;
+import teamrtg.rtg.api.world.biome.RTGBiome;
 import teamrtg.rtg.api.module.Mods;
 import teamrtg.rtg.api.util.BiomeUtils;
 
@@ -196,8 +196,8 @@ public class MapGenCavesRTG extends MapGenCaves {
 
         try {
             // If the user has set biome-specific settings, let's use those instead.
-            Biome biome = worldIn.getBiomeGenForCoords(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));
-            RTGBiomeBase realisticBiome = RTGBiomeBase.forBiome(BiomeUtils.getId(biome));
+            Biome biome = worldIn.getBiome(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));
+            RTGBiome realisticBiome = RTGBiome.forBiome(BiomeUtils.getId(biome));
             caveFrequency = (realisticBiome.getConfig().CAVE_FREQUENCY.get() > -1) ? realisticBiome.getConfig().CAVE_FREQUENCY.get() : caveFrequency;
             caveDensity = (realisticBiome.getConfig().CAVE_DENSITY.get() > -1) ? realisticBiome.getConfig().CAVE_DENSITY.get() : caveDensity;
         } catch (Exception ignored) {}
@@ -262,7 +262,7 @@ public class MapGenCavesRTG extends MapGenCaves {
 
     @Override
     protected void digBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop, IBlockState state, IBlockState up) {
-        Biome biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
+        Biome biome = worldObj.getBiome(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
         Block top = isExceptionBiome(biome) ? Blocks.GRASS : biome.topBlock.getBlock();
         Block filler = isExceptionBiome(biome) ? Blocks.DIRT : biome.fillerBlock.getBlock();
         Block block = data.getBlockState(x, y, z).getBlock();
@@ -295,7 +295,7 @@ public class MapGenCavesRTG extends MapGenCaves {
     //Determine if the block at the specified location is the top block for the biome, we take into account
     //Vanilla bugs to make sure that we generate the map the same way biomes does.
     private boolean isTopBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ) {
-        Biome biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
+        Biome biome = worldObj.getBiome(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
         return (isExceptionBiome(biome) ? data.getBlockState(x, y, z).equals(Blocks.GRASS) : data.getBlockState(x, y, z).equals(biome.topBlock));
     }
 }

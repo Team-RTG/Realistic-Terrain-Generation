@@ -12,9 +12,9 @@ import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
 import teamrtg.rtg.api.world.biome.surface.part.*;
-import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
+import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
-public class RTGBiomeVanillaColdTaiga extends RTGBiomeVanillaBase {
+public class RTGBiomeVanillaColdTaiga extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaColdTaiga() {
 

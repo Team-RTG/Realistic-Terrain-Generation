@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import teamrtg.rtg.api.world.biome.RTGBiomeBase;
+import teamrtg.rtg.api.world.biome.RTGBiome;
 import teamrtg.rtg.api.module.Mods;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.core.ModInfo;
@@ -35,13 +35,13 @@ public final class DebugHandler {
                 int posX = (int) player.posX;
                 int posZ = (int) player.posZ;
 
-//                RTGBiomeBase realisticBiome = chunkManager.getRealisticAt(
+//                RTGBiome realisticBiome = chunkManager.getRealisticAt(
 //                    (int)Math.floor(posX / 16), 
 //                    (int)Math.floor(posZ / 16)
 //                );
 
-                Biome biome = world.getBiomeGenForCoords(new BlockPos(posX, 0, posZ));
-                RTGBiomeBase realisticBiome = RTGBiomeBase.forBiome(BiomeUtils.getId(biome));
+                Biome biome = world.getBiome(new BlockPos(posX, 0, posZ));
+                RTGBiome realisticBiome = RTGBiome.forBiome(BiomeUtils.getId(biome));
 
                 details = PREFIX;
                 details += "River Strength: " + chunkManager.getRiverStrength(posX, posZ);

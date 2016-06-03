@@ -13,9 +13,9 @@ import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
 import teamrtg.rtg.api.world.biome.surface.part.*;
-import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
+import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
-public class RTGBiomeVanillaRedwoodTaigaHills extends RTGBiomeVanillaBase {
+public class RTGBiomeVanillaRedwoodTaigaHills extends RTGBiomeVanilla {
     public static Biome standardBiome = Biomes.REDWOOD_TAIGA_HILLS;
     public static Biome mutationBiome = Biome.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 

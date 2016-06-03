@@ -8,7 +8,7 @@ import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraft.world.gen.structure.StructureVillagePieces.Road;
-import teamrtg.rtg.api.world.biome.RTGBiomeBase;
+import teamrtg.rtg.api.world.biome.RTGBiome;
 import teamrtg.rtg.api.module.Mods;
 import teamrtg.rtg.core.world.WorldTypeRTG;
 import teamrtg.rtg.core.world.BiomeProviderRTG;
@@ -83,7 +83,7 @@ public class MapGenVillageRTG extends MapGenVillage {
                 BiomeProviderRTG cmr = (BiomeProviderRTG) worldObj.getBiomeProvider();
                 int worldX = k * 16 + 8;
                 int worldZ = l * 16 + 8;
-                RTGBiomeBase realisticBiome = cmr.getRealisticAt(worldX, worldZ);
+                RTGBiome realisticBiome = cmr.getRealisticAt(worldX, worldZ);
 
                 if (realisticBiome.getConfig().ALLOW_VILLAGES.get()) {
                     canSpawnVillage = true;

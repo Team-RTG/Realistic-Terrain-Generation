@@ -6,9 +6,9 @@ import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
+import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
-public class RTGBiomeVanillaRiver extends RTGBiomeVanillaBase {
+public class RTGBiomeVanillaRiver extends RTGBiomeVanilla {
     public static Biome vanillaBiome = Biomes.RIVER;
 
     public RTGBiomeVanillaRiver() {

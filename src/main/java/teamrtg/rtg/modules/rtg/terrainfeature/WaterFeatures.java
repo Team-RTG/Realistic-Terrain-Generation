@@ -3,10 +3,10 @@ package teamrtg.rtg.modules.rtg.terrainfeature;
 import teamrtg.rtg.api.module.Mods;
 import teamrtg.rtg.api.util.noise.SimplexOctave;
 import teamrtg.rtg.api.world.RTGWorld;
-import teamrtg.rtg.api.world.biome.RTGBiomeBase;
+import teamrtg.rtg.api.world.biome.RTGBiome;
 import teamrtg.rtg.api.world.biome.WorldFeature;
 
-import static teamrtg.rtg.api.world.biome.RTGBiomeBase.actualRiverProportion;
+import static teamrtg.rtg.api.world.biome.RTGBiome.actualRiverProportion;
 
 /**
  * @author topisani
@@ -18,7 +18,7 @@ public class WaterFeatures extends WorldFeature {
     }
 
     @Override
-    public float modifyTerrain(RTGWorld rtgWorld, RTGBiomeBase biome, float heightIn, int x, int z, float border, float river) {
+    public float modifyTerrain(RTGWorld rtgWorld, RTGBiome biome, float heightIn, int x, int z, float border, float river) {
         // we now have both lakes and rivers lowering land
         if (biome.noWaterFeatures) {
             return heightIn;
@@ -47,7 +47,7 @@ public class WaterFeatures extends WorldFeature {
         return this.erodedNoise(rtgWorld, x, z, river, border, heightIn, lakeFlattening);
     }
 
-    public float lakePressure(RTGWorld rtgWorld, RTGBiomeBase biome, int x, int z, float border) {
+    public float lakePressure(RTGWorld rtgWorld, RTGBiome biome, int x, int z, float border) {
         if (biome.noLakes) return 1f;
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();
         rtgWorld.simplex.riverJitter().evaluateNoise((float) x / 240.0, (float) z / 240.0, jitter);

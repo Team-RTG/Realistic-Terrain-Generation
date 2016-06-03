@@ -10,9 +10,9 @@ import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
+import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
-public class RTGBiomeVanillaExtremeHillsPlus extends RTGBiomeVanillaBase {
+public class RTGBiomeVanillaExtremeHillsPlus extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaExtremeHillsPlus() {
 

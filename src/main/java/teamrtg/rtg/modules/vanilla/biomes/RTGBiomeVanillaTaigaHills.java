@@ -11,9 +11,9 @@ import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
 import teamrtg.rtg.api.world.biome.surface.part.*;
-import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
+import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
-public class RTGBiomeVanillaTaigaHills extends RTGBiomeVanillaBase {
+public class RTGBiomeVanillaTaigaHills extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaTaigaHills() {
 

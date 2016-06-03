@@ -6,9 +6,9 @@ import teamrtg.rtg.api.tools.deco.DecoBoulder;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.surface.part.*;
-import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
+import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
-public class RTGBiomeVanillaColdBeach extends RTGBiomeVanillaBase {
+public class RTGBiomeVanillaColdBeach extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaColdBeach() {
         super(

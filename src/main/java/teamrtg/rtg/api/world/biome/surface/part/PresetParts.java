@@ -100,7 +100,7 @@ public class PresetParts {
         };
     }
 
-    public final IBlockAt jitter(IBlockAt in) {
+    public final IBlockAt jitter(IBlockAt in) {     
         return (x, y, z, rtgWorld) -> {
             rtgWorld.simplex.evaluateNoise(x, z, rtgWorld.surfaceJitter);
             int jX = (int) Math.round(x + rtgWorld.surfaceJitter.deltax() * Mods.RTG.config.SURFACE_BLEED_RADIUS.get());

@@ -12,9 +12,9 @@ import teamrtg.rtg.api.util.math.CanyonColour;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.surface.part.*;
-import teamrtg.rtg.modules.vanilla.RTGBiomeVanillaBase;
+import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
-public class RTGBiomeVanillaSavannaPlateauM extends RTGBiomeVanillaBase {
+public class RTGBiomeVanillaSavannaPlateauM extends RTGBiomeVanilla {
     public static Biome standardBiome = Biomes.SAVANNA_PLATEAU;
     public static Biome mutationBiome = Biome.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 

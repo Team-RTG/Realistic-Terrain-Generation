@@ -18,7 +18,7 @@ import java.util.List;
 
 import static net.minecraft.init.Biomes.RIVER;
 
-public abstract class RTGBiomeBase implements IWorldFeature {
+public abstract class RTGBiome implements IWorldFeature {
 
     public static final float actualRiverProportion = 300f / 1600f;
     public final Biome riverBiome;
@@ -43,11 +43,11 @@ public abstract class RTGBiomeBase implements IWorldFeature {
     public boolean noLakes = false;
     public boolean noWaterFeatures = false;
 
-    public RTGBiomeBase(RTGModule mod, Biome biome) {
+    public RTGBiome(RTGModule mod, Biome biome) {
         this(mod, biome, RIVER);
     }
 
-    public RTGBiomeBase(RTGModule mod, Biome biome, Biome river) {
+    public RTGBiome(RTGModule mod, Biome biome, Biome river) {
         this.mod = mod;
 
         baseBiome = biome;
@@ -142,11 +142,11 @@ public abstract class RTGBiomeBase implements IWorldFeature {
         return baseBiome.getBiomeName();
     }
 
-    public static RTGBiomeBase forBiome(Biome biome) {
-        return RTGBiomeBase.forBiome(BiomeUtils.getId(biome));
+    public static RTGBiome forBiome(Biome biome) {
+        return RTGBiome.forBiome(BiomeUtils.getId(biome));
     }
 
-    public static RTGBiomeBase forBiome(int id) {
+    public static RTGBiome forBiome(int id) {
         return RealisticBiomeGenerator.getRealistic(id);
     }
 

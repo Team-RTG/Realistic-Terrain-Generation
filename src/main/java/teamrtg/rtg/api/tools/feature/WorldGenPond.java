@@ -163,7 +163,7 @@ public class WorldGenPond {
                     if (willBeShore[(i1 * 16 + j2)]) {
                         int shoreHeight = world.getTopSolidOrLiquidBlock(new BlockPos(x + i1, 0, z + j2)).getY();
                         if (shoreHeight < lakeLevel) {
-                            Biome biomegenbase = world.getBiomeGenForCoords(new BlockPos(x + i1, 0, z + j2));
+                            Biome biomegenbase = world.getBiome(new BlockPos(x + i1, 0, z + j2));
                             for (int height = shoreHeight; height < lakeLevel; height++) {
 
 
@@ -221,7 +221,7 @@ public class WorldGenPond {
                 for (j2 = 0; j2 < 16; ++j2) {
                     for (j1 = 4; j1 < 8; ++j1) {
                         if (aboolean[(i1 * 16 + j2) * 8 + j1] && world.getBlockState(new BlockPos(x + i1, y + j1 - 1, z + j2)) == Blocks.DIRT && world.getLightFor(EnumSkyBlock.SKY, new BlockPos(x + i1, y + j1, z + j2)) > 0) {
-                            Biome biomegenbase = world.getBiomeGenForCoords(new BlockPos(x + i1, 0, z + j2));
+                            Biome biomegenbase = world.getBiome(new BlockPos(x + i1, 0, z + j2));
 
                             if (biomegenbase.topBlock == Blocks.MYCELIUM) {
                                 world.setBlockState(new BlockPos(x + i1, y + j1 - 1, z + j2), Blocks.MYCELIUM.getDefaultState(), 2);
@@ -266,7 +266,7 @@ public class WorldGenPond {
                         int shoreHeight = world.getTopSolidOrLiquidBlock(new BlockPos(x + i1, 0, z + j2)).getY();
                         if (shoreHeight > lakeLevel) {
                             shoreHeight--;
-                            Biome biomegenbase = world.getBiomeGenForCoords(new BlockPos(x + i1, 0, z + j2));
+                            Biome biomegenbase = world.getBiome(new BlockPos(x + i1, 0, z + j2));
                             world.setBlockState(new BlockPos(x + i1, shoreHeight, z + j2), Blocks.AIR.getDefaultState(), 2);
                             shoreHeight--;
 

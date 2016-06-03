@@ -87,7 +87,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         l = l + (random.nextInt(this.spacing - this.separation) + random.nextInt(this.spacing - this.separation)) / 2;
 
         if (i == k && j == l) {
-            Biome bg = this.worldObj.getBiomeProvider().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), null);
+            Biome bg = this.worldObj.getBiomeProvider().getBiome(new BlockPos(i * 16 + 8, 64, j * 16 + 8), null);
 
             if (BiomeUtils.getId(bg) == BiomeUtils.getId(Biomes.DEEP_OCEAN)) {
 

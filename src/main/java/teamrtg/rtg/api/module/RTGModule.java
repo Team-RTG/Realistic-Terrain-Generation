@@ -1,7 +1,7 @@
 package teamrtg.rtg.api.module;
 
 import teamrtg.rtg.api.config.ModConfig;
-import teamrtg.rtg.api.world.biome.RTGBiomeBase;
+import teamrtg.rtg.api.world.biome.RTGBiome;
 
 /**
  * Holds all properties that RTG would need to access for a supported mod.
@@ -36,7 +36,7 @@ public class RTGModule {
         if (hasConfig) {
             config.syncConfiguration(config.forgeConfig);
             if (hasBiomes) {
-                for (RTGBiomeBase biome : biomes.getBiomes()) {
+                for (RTGBiome biome : biomes.getBiomes()) {
                     biome.getConfig().syncConfiguration(config.biomeConfig);
                 }
             }

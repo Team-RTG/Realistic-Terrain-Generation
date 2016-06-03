@@ -13,7 +13,7 @@ import net.minecraft.world.gen.structure.StructureStart;
 import teamrtg.rtg.api.config.BiomeConfig;
 import teamrtg.rtg.api.module.Mods;
 import teamrtg.rtg.api.util.debug.Logger;
-import teamrtg.rtg.api.world.biome.RTGBiomeBase;
+import teamrtg.rtg.api.world.biome.RTGBiome;
 import teamrtg.rtg.core.world.WorldTypeRTG;
 
 import java.util.*;
@@ -110,10 +110,10 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
         j1 += random.nextInt(this.maxDistanceBetweenScatteredFeatures - this.minDistanceBetweenScatteredFeatures);
 
         if (k == i1 && l == j1) {
-            Biome biomegenbase = this.worldObj.getBiomeGenForCoords(new BlockPos(k * 16 + 8, 0, l * 16 + 8));
+            Biome biomegenbase = this.worldObj.getBiome(new BlockPos(k * 16 + 8, 0, l * 16 + 8));
 
             if (biomegenbase != null) {
-                RTGBiomeBase rBiome = RTGBiomeBase.forBiome(Biome.getIdForBiome(biomegenbase));
+                RTGBiome rBiome = RTGBiome.forBiome(Biome.getIdForBiome(biomegenbase));
                 if (!Objects.equals(rBiome.getConfig().SCATTERED_FEATURE.get(), BiomeConfig.FeatureType.NONE.name())) ;
             }
         }
@@ -155,10 +155,10 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
 
             LinkedList arrComponents = new LinkedList();
 
-            Biome biomegenbase = worldIn.getBiomeGenForCoords(new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8));
+            Biome biomegenbase = worldIn.getBiome(new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8));
 
             if (biomegenbase != null) {
-                RTGBiomeBase rBiome = RTGBiomeBase.forBiome(Biome.getIdForBiome(biomegenbase));
+                RTGBiome rBiome = RTGBiome.forBiome(Biome.getIdForBiome(biomegenbase));
                 switch (BiomeConfig.FeatureType.valueOf(rBiome.getConfig().SCATTERED_FEATURE.get())) {
                     case DESERT_TEMPLE:
                         ComponentScatteredFeaturePieces.DesertPyramid desertpyramid = new ComponentScatteredFeaturePieces.DesertPyramid(random, chunkX * 16, chunkZ * 16);

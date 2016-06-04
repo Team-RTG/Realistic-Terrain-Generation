@@ -113,7 +113,8 @@ public class TimedHashMap<Key,Value> implements Map<Key,Value> {
         }
     }
 
-    class Timed<Key> extends LinkEntry {
+    @SuppressWarnings("hiding")
+	class Timed<Key> extends LinkEntry {
         final long time;
         final Key timed;
         Timed(Key timed) {

@@ -64,7 +64,7 @@ public class BiomeProviderRTG extends BiomeProvider {
         simplex = new OpenSimplexNoise(seed);
         cell = new SimplexCellularNoise(seed);
         GenLayer[] agenlayer = GenLayerUtils.initializeAllBiomeGenerators(seed, worldType, par1World.getWorldInfo().getGeneratorOptions());
-        agenlayer = getModdedBiomeerators(worldType, seed, agenlayer);
+        agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
         this.biomeIndexLayer = agenlayer[1];
 

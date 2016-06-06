@@ -1,6 +1,7 @@
 package teamrtg.rtg.api.config;
 
 import net.minecraftforge.common.config.Configuration;
+import teamrtg.rtg.core.RTG;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public class Config {
 
     public static final String NEW_LINE = Configuration.NEW_LINE;
-    public static final String RTG_CONFIG_DIR = "/rtg/";
+    public static final String RTG_CONFIG_DIR = RTG.configPath;
 
     private ArrayList<ConfigProperty> properties;
 

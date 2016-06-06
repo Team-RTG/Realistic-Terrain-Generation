@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Config {
 
     public static final String NEW_LINE = Configuration.NEW_LINE;
+    public static final String RTG_CONFIG_DIR = "/rtg/";
 
     private ArrayList<ConfigProperty> properties;
 

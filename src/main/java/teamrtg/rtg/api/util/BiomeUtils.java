@@ -1,23 +1,21 @@
 package teamrtg.rtg.api.util;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.BiomeGenBase;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
-import teamrtg.rtg.world.gen.RealisticBiomeGenerator;
+import net.minecraft.world.biome.Biome;
 
-import static net.minecraft.world.biome.BiomeGenBase.REGISTRY;
+import static net.minecraft.world.biome.Biome.REGISTRY;
 
 public class BiomeUtils {
 
-    private static BiomeGenBase[] registeredBiomes = new BiomeGenBase[256];
+    private static Biome[] registeredBiomes = new Biome[256];
 
     static {
-        for (BiomeGenBase b : BiomeGenBase.REGISTRY) {
+        for (Biome b : Biome.REGISTRY) {
             registeredBiomes[getId(b)] = b;
         }
     }
 
-    public static BiomeGenBase[] getRegisteredBiomes() {
+    public static Biome[] getRegisteredBiomes() {
         return registeredBiomes;
     }
 
@@ -25,23 +23,15 @@ public class BiomeUtils {
         return 256;
     }
 
-    public static ResourceLocation getLocForBiome(BiomeGenBase biome) {
+    public static ResourceLocation getLocForBiome(Biome biome) {
         return REGISTRY.getNameForObject(biome);
     }
 
-    public static BiomeGenBase getBiomeForLoc(ResourceLocation location) {
+    public static Biome getBiomeForLoc(ResourceLocation location) {
         return REGISTRY.getObject(location);
     }
 
-    public static int getId(BiomeGenBase biome) {
-        return BiomeGenBase.getIdForBiome(biome);
-    }
-
-    public static RealisticBiomeBase getRealistic(BiomeGenBase biome) {
-        return RealisticBiomeGenerator.getBiome(BiomeUtils.getId(biome));
-    }
-
-    public static BiomeGenBase getBGB(RealisticBiomeBase biome) {
-        return biome.baseBiome;
+    public static int getId(Biome biome) {
+        return Biome.getIdForBiome(biome);
     }
 }

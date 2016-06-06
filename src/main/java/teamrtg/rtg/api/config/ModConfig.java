@@ -5,8 +5,6 @@ import teamrtg.rtg.api.util.debug.Logger;
 
 import java.io.File;
 
-import static teamrtg.rtg.core.RTG.configPath;
-
 /**
  * A configuration file for a mod
  * Holds a main Config object and all biome configs
@@ -21,9 +19,9 @@ public class ModConfig extends Config {
         super();
         this.modID = modID;
         this.forgeConfig = new Configuration(
-            new File(configPath + modID + ".cfg"));
+            new File(RTG_CONFIG_DIR, modID + ".cfg"));
         this.biomeConfig = new Configuration(
-            new File(configPath + "biomes/" + modID + ".cfg"));
+            new File(RTG_CONFIG_DIR, "biomes/" + modID + ".cfg"));
 
         try {
             forgeConfig.load();

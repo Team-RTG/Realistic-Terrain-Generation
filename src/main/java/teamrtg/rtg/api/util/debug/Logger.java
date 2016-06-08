@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.crash.CrashReport;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
-import teamrtg.rtg.api.mods.Mods;
+import teamrtg.rtg.api.module.Mods;
 
 public class Logger {
 

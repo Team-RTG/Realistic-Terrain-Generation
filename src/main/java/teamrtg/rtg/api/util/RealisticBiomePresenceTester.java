@@ -1,10 +1,10 @@
 package teamrtg.rtg.api.util;
 
-import net.minecraft.world.biome.BiomeGenBase;
-import teamrtg.rtg.api.biome.RealisticBiomeBase;
+import net.minecraft.world.biome.Biome;
 import teamrtg.rtg.api.util.debug.Logger;
+import teamrtg.rtg.api.world.biome.RTGBiome;
 
-import static net.minecraft.world.biome.BiomeGenBase.getIdForBiome;
+import static net.minecraft.world.biome.Biome.getIdForBiome;
 
 /**
  * @author WhichOnesPink
@@ -12,32 +12,18 @@ import static net.minecraft.world.biome.BiomeGenBase.getIdForBiome;
 public class RealisticBiomePresenceTester {
 
     public static void doBiomeCheck() {
-        BiomeGenBase[] b = BiomeUtils.getRegisteredBiomes();
+        Biome[] b = BiomeUtils.getRegisteredBiomes();
 
         for (int i = 0; i < b.length; i++) {
             if (b[i] != null) {
-                BiomeGenBase biome = b[i];
-                int biomeId = getIdForBiome(b[i]);
-                String biomeName = b[i].getBiomeName();
-                String biomeClass = b[i].getBiomeClass().getName();
+                Biome biome = b[i];
+                int biomeId = getIdForBiome(biome);
+                String biomeName = BiomeUtils.getLocForBiome(biome).toString();
+                String biomeClass = biome.getBiomeClass().getName();
 
-                switch (biomeId) {
-
-                    case 8:
-                    case 9:
-                        // Do nothing.
-                        break;
-
-                    default:
-
-                        try {
-                            RealisticBiomeBase rBiome = RealisticBiomeBase.forBiome(biomeId);
-                            String rBiomeName = rBiome.config.biomeSlug;
-                        } catch (Exception e) {
-                            Logger.info("RTG could not find a realistic version of %s (%d) from %s", biomeName, biomeId, biomeClass);
-                        }
-
-                        break;
+                RTGBiome rBiome = RTGBiome.forBiome(biomeId);
+                if (rBiome == null) {
+                    Logger.info("RTG could not find a realistic version of %s (%d). This is expected for non-overworld biomes", biomeName, biomeId, biomeClass);
                 }
             }
         }

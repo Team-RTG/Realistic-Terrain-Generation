@@ -9,12 +9,12 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import teamrtg.rtg.api.mods.Mods;
+import teamrtg.rtg.api.module.Mods;
 import teamrtg.rtg.api.util.RealisticBiomePresenceTester;
 import teamrtg.rtg.client.DebugHandler;
-import teamrtg.rtg.event.EventManagerRTG;
-import teamrtg.rtg.world.WorldTypeRTG;
-import teamrtg.rtg.world.biome.fake.RealisticBiomeFaker;
+import teamrtg.rtg.core.event.EventManagerRTG;
+import teamrtg.rtg.core.world.WorldTypeRTG;
+import teamrtg.rtg.api.world.RealisticBiomeFaker;
 
 import java.util.ArrayList;
 

@@ -1,38 +1,35 @@
 package teamrtg.rtg.api.config;
 
-import teamrtg.rtg.api.config.ConfigProperty.*;
-import teamrtg.rtg.util.EnumUtils;
-import teamrtg.rtg.world.gen.structure.MapGenScatteredFeatureRTG.FeatureType;
+
+import teamrtg.rtg.api.util.EnumUtils;
 
 public class BiomeConfig extends Config {
 
-    public final PropertyBool ALLOW_VILLAGES;
-    public final PropertyBool USE_RTG_SURFACES;
-    public final PropertyBool USE_RTG_DECORATIONS;
-    public final PropertyBlock TOP_BLOCK;
-    public final PropertyBlock FILL_BLOCK;
-    public final PropertyInt FILL_LAYERS;
-    public final PropertyString SCATTERED_FEATURE;
-    public final PropertyStrings DECORATIONS;
-    public final PropertyInt WATER_POND_CHANCE;
-    public final PropertyInt LAVA_POND_CHANCE;
-    public final PropertyBool GENERATE_EMERALDS;
-    public final PropertyInt RAVINE_FREQUENCY;
-    public final PropertyInt CAVE_FREQUENCY;
-    public final PropertyInt CAVE_DENSITY;
-    public final PropertyBool SURFACE_BLEED_IN;
-    public final PropertyBool SURFACE_BLEED_OUT;
-
-    public final PropertyBlock CLIFF_BLOCK_1 = new PropertyBlock("Cliff block 1", "");
-    public final PropertyBlock CLIFF_BLOCK_2 = new PropertyBlock("Cliff block 2", "");
-    public final PropertyBlock MIX_BLOCK_TOP = new PropertyBlock("Mix top block", "");
-    public final PropertyBlock MIX_BLOCK_FILL = new PropertyBlock("Mix fill block", "");
-    public final PropertyBlock BEACH_BLOCK = new PropertyBlock("Beach block", "");
-    public final PropertyBlock BOTTOM_BLOCK = new PropertyBlock("Bottom block", "");
+    public final ConfigProperty.PropertyBool ALLOW_VILLAGES;
+    public final ConfigProperty.PropertyBool USE_RTG_SURFACES;
+    public final ConfigProperty.PropertyBool USE_RTG_DECORATIONS;
+    public final ConfigProperty.PropertyBlock TOP_BLOCK;
+    public final ConfigProperty.PropertyBlock FILL_BLOCK;
+    public final ConfigProperty.PropertyInt FILL_LAYERS;
+    public final ConfigProperty.PropertyString SCATTERED_FEATURE;
+    public final ConfigProperty.PropertyStrings DECORATIONS;
+    public final ConfigProperty.PropertyStrings WORLD_FEATURES;
+    public final ConfigProperty.PropertyInt WATER_POND_CHANCE;
+    public final ConfigProperty.PropertyInt LAVA_POND_CHANCE;
+    public final ConfigProperty.PropertyBool GENERATE_EMERALDS;
+    public final ConfigProperty.PropertyInt RAVINE_FREQUENCY;
+    public final ConfigProperty.PropertyInt CAVE_FREQUENCY;
+    public final ConfigProperty.PropertyInt CAVE_DENSITY;
+    public final ConfigProperty.PropertyBool SURFACE_BLEED_IN;
+    public final ConfigProperty.PropertyBool SURFACE_BLEED_OUT;
+    public final ConfigProperty.PropertyBlock CLIFF_BLOCK_1 = new ConfigProperty.PropertyBlock("Cliff block 1", "");
+    public final ConfigProperty.PropertyBlock CLIFF_BLOCK_2 = new ConfigProperty.PropertyBlock("Cliff block 2", "");
+    public final ConfigProperty.PropertyBlock MIX_BLOCK_TOP = new ConfigProperty.PropertyBlock("Mix top block", "");
+    public final ConfigProperty.PropertyBlock MIX_BLOCK_FILL = new ConfigProperty.PropertyBlock("Mix fill block", "");
+    public final ConfigProperty.PropertyBlock BEACH_BLOCK = new ConfigProperty.PropertyBlock("Beach block", "");
 
     public String modSlug;
     public String biomeSlug;
-
     public BiomeConfig(String modSlug, String biomeSlug) {
         super();
         this.modSlug = modSlug;
@@ -46,6 +43,7 @@ public class BiomeConfig extends Config {
         FILL_LAYERS = this.addInt("Fill layers", "");
         SCATTERED_FEATURE = this.addString("Scattered feature", "");
         DECORATIONS = this.addStrings("Decorations", "");
+        WORLD_FEATURES = this.addStrings("World features", "");
         WATER_POND_CHANCE = this.addInt("Surface water lake chance", "");
         LAVA_POND_CHANCE = this.addInt("Surface lava lake chance", "");
         GENERATE_EMERALDS = this.addBool("Generate Emeralds", "");
@@ -81,6 +79,14 @@ public class BiomeConfig extends Config {
     @Override
     public void addProperty(ConfigProperty property) {
         super.addProperty(property.setSection(biomeSlug));
+    }
+
+    public enum FeatureType {
+        DESERT_TEMPLE,
+        JUNGLE_TEMPLE,
+        WITCH_HUT,
+        IGLOO,
+        NONE
     }
 
 }

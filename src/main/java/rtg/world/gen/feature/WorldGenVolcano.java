@@ -13,12 +13,14 @@ import java.util.Random;
 
 public class WorldGenVolcano 
 {
-    protected static Block volcanoBlock = GameData.getBlockRegistry().getObject("minecraft:obsidian");
-    protected static byte volcanoBlockMeta = (byte) 6;
-    protected static Block volcanoMixBlock = GameData.getBlockRegistry().getObject("minecraft:cobblestone");
-    protected static byte volcanoMixBlockMeta = (byte) ConfigRTG.volcanoMixBlockMeta;
-    protected static Block volcanoMixBlock2 = GameData.getBlockRegistry().getObject("minecraft:dirt");
-    protected static byte volcanoMixBlockMeta2 = (byte) ConfigRTG.volcanoMixBlockMeta2;
+    protected static Block volcanoBlock = GameData.getBlockRegistry().getObject(ConfigRTG.volcanoBlockId);
+    protected static byte volcanoBlockMeta = (byte) ConfigRTG.volcanoBlockMeta;
+	protected static Block volcanoPatchBlock = GameData.getBlockRegistry().getObject(ConfigRTG.volcanoPatchBlock);
+	protected static byte volcanoPatchBlockMeta = (byte) ConfigRTG.volcanoPatchBlockMeta;
+	protected static Block volcanoPatchBlock2 = GameData.getBlockRegistry().getObject(ConfigRTG.volcanoPatchBlock2);
+	protected static byte volcanoPatchBlockMeta2 = (byte) ConfigRTG.volcanoPatchBlockMeta2;
+	protected static Block volcanoPatchBlock3 = GameData.getBlockRegistry().getObject(ConfigRTG.volcanoPatchBlock3);
+	protected static byte volcanoPatchBlockMeta3 = (byte) ConfigRTG.volcanoPatchBlockMeta3;
     protected static Block lavaBlock = ConfigRTG.enableVolcanoEruptions ? Blocks.flowing_lava : Blocks.lava;
 
 	// How much stretched the vent/mouth is
@@ -127,55 +129,55 @@ public class WorldGenVolcano
 
 								if(y > obsidian)
 								{
-                                    // Patches of Netherrack
-                                    if(distanceEll < 70 && isOnSurface(x, y, z, blocks))
-                                    {
-                                        float patchNoise = simplex.noise2(i / 10f, j / 10f) * 1.2f;
-										patchNoise += simplex.octave(2).noise2(i / 30f, j / 30f) * .3;
-										patchNoise += simplex.octave(2).noise2(i / 5f, j / 5f) * .5;
-                                        if(patchNoise > .9)
-                                        {
-                                            blocks[cta(x, y, z)] = Blocks.coal_block;
-                                            metadata[cta(x, y, z)] = meta;
-                                            continue;
+                                    if(distanceEll > 10) {
+
+                                        // Patches
+                                        if (distanceEll < 50 && isOnSurface(x, y, z, blocks)) {
+                                            float patchNoise = simplex.noise2(i / 10f, j / 10f) * 1.3f;
+                                            patchNoise += simplex.octave(2).noise2(i / 30f, j / 30f) * .9;
+                                            patchNoise += simplex.octave(3).noise2(i / 5f, j / 5f) * .6;
+                                            if (patchNoise > .85) {
+                                                blocks[cta(x, y, z)] = volcanoPatchBlock;   // Cobble
+                                                metadata[cta(x, y, z)] = volcanoPatchBlockMeta;
+                                                continue;
+                                            }
+                                        }
+
+                                        if (distanceEll < 75 && isOnSurface(x, y, z, blocks)) {
+                                            float patchNoise = simplex.noise2(i / 10f, j / 10f) * 1.3f;
+                                            patchNoise += simplex.octave(4).noise2(i / 30f, j / 30f) * .9;
+                                            patchNoise += simplex.octave(5).noise2(i / 5f, j / 5f) * .5;
+                                            if (patchNoise > .92) {
+                                                blocks[cta(x, y, z)] = volcanoPatchBlock2;  // Gravel
+                                                metadata[cta(x, y, z)] = volcanoPatchBlockMeta2;
+                                                continue;
+                                            }
+                                        }
+                                        if (distanceEll < 75 && isOnSurface(x, y, z, blocks)) {
+                                            float patchNoise = simplex.noise2(i / 10f, j / 10f) * 1.3f;
+                                            patchNoise += simplex.octave(6).noise2(i / 30f, j / 30f) * .7;
+                                            patchNoise += simplex.octave(7).noise2(i / 5f, j / 5f) * .7;
+                                            if (patchNoise > .93) {
+                                                blocks[cta(x, y, z)] = volcanoPatchBlock3;  // Coal block
+                                                metadata[cta(x, y, z)] = volcanoPatchBlockMeta3;
+                                                continue;
+                                            }
                                         }
                                     }
 
                                     // Surfacing
-                                    if(distanceEll < 25)
+                                    if(distanceEll < 70 + simplex.noise2(x/26f, y/26f) * 5)
                                     {
-                                        if(mapRand.nextInt(40) == 0)
-                                        {
-                                            b = Blocks.coal_block;
-                                            meta = (byte)0;
-                                        }
-                                        else {
-                                            b = Blocks.obsidian;
-                                            meta = (byte)0;
-                                        }
+                                            b = mapRand.nextInt(20)==0 ? Blocks.coal_block : Blocks.obsidian;
                                     }
-                                    else if(distanceEll < 60)
+                                    else if(distanceEll < 75 + simplex.noise2(x/26f, y/26f) * 5)
                                     {
-                                        float jitterNoise = simplex.noise2(i / 40, j / 40f) * 10f;
-                                        float powerNoise = simplex.octave(1).noise2(i / 30, j / 30f) * 2;
-                                        if(mapRand.nextInt(10+(int)Math.pow(Math.abs((distanceEll+jitterNoise)-55),1.5+powerNoise)+1) == 0)
-                                        {
-                                            b = mapRand.nextInt(7) == 0 ? Blocks.netherrack : mapRand.nextInt(5) == 0 ? Blocks.stone : volcanoMixBlock;
-                                            meta = volcanoMixBlockMeta;
-                                        }
-                                        else {
-                                            b = volcanoBlock;
-                                            meta = volcanoBlockMeta;
-                                        }
-                                    }
-                                    else if(distanceEll < 80)
-                                    {
-                                        float jitterNoise = simplex.octave(2).noise2(i / 40, j / 40f) * 10f;
+                                        // Jittering in the base, to smooth the transition
                                         float powerNoise = simplex.octave(3).noise2(i / 40, j / 40f) * 2;
-                                        if(mapRand.nextInt(5+(int)Math.pow(Math.abs(distanceEll+jitterNoise-75),1.5+powerNoise)+1) == 0)
+                                        if(mapRand.nextInt(1+(int)Math.pow(Math.abs(distanceEll-(75 + simplex.noise2(x/26f, y/26f) * 5)),1.5+powerNoise)+1) == 0)
                                         {
-                                            b = mapRand.nextInt(4) == 0 ? Blocks.gravel : volcanoMixBlock2;
-                                            meta = volcanoMixBlockMeta2;
+                                            b = mapRand.nextInt(20) == 0 ? Blocks.gravel : Blocks.stone;  // Stone so that surfacing will run (so this usually becomes grass)
+                                            meta = (byte) 0;
                                         }
                                         else
                                         {

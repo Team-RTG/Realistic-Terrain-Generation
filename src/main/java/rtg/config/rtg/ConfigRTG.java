@@ -479,7 +479,6 @@ public class ConfigRTG
 
             volcanoBlockMeta = config.getInt("Volcano block meta value", "Volcanoes", volcanoBlockMeta, 0, 15, "The meta value of the volcano block." + Configuration.NEW_LINE);
 
-
             volcanoPatchBlock = config.getString(
                     "Volcano patch block block ID",
                     "Volcanoes",

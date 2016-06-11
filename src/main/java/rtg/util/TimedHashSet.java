@@ -2,25 +2,22 @@
 package rtg.util;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
  *
  * @author Zeno410
  */
-public class TimedHashMap<Key,Value> implements Map<Key,Value> {
+public class TimedHashSet<Type> implements Set<Type> {
     private final int holdMillis;
-    private  Map<Key,Value> map = new HashMap<Key,Value>();
+    private  Set<Type> map = new HashSet<Type>();
     private LinkTail link = new LinkTail();
 
-
-    public TimedHashMap(int holdTicks) {
+    public TimedHashSet(int holdTicks) {
         this.holdMillis = holdTicks;
     }
-
     public int size() {
         return map.size();
     }
@@ -29,34 +26,46 @@ public class TimedHashMap<Key,Value> implements Map<Key,Value> {
         return map.isEmpty();
     }
 
-    public boolean containsKey(Object arg0) {
+    public boolean contains(Object arg0) {
         clearEntries();
-        return map.containsKey(arg0);
+        return map.contains(arg0);
     }
 
-    public boolean containsValue(Object arg0) {
-        clearEntries();
-        return map.containsValue(arg0);
-    }
-
-    public Value get(Object arg0) {
-        clearEntries();
-        return map.get(arg0);
-    }
-
-    public Value put(Key arg0, Value arg1) {
-        clearEntries();
-        // if we already have the key replace value;
-        if (map.containsKey(arg0)) return map.put(arg0, arg1);
-        this.link.add(arg0);
-        return map.put(arg0, arg1);
-    }
-
-    public Value remove(Object arg0) {
+    public Iterator<Type> iterator() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void putAll(Map<? extends Key, ? extends Value> arg0) {
+    public Object[] toArray() {
+        return map.toArray();
+    }
+
+    public <T> T[] toArray(T[] arg0) {
+        return map.toArray(arg0);
+    }
+
+    public boolean add(Type arg0) {
+        clearEntries();
+        // if we already have the key replace value;
+        return map.add(arg0);
+    }
+
+    public boolean remove(Object arg0) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean containsAll(Collection<?> arg0) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean addAll(Collection<? extends Type> arg0) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean retainAll(Collection<?> arg0) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean removeAll(Collection<?> arg0) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -64,33 +73,17 @@ public class TimedHashMap<Key,Value> implements Map<Key,Value> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Set<Key> keySet() {
-        clearEntries();
-        return map.keySet();
-    }
-
-    public Collection<Value> values() {
-        clearEntries();
-        return map.values();
-    }
-
-    public Set<Entry<Key, Value>> entrySet() {
-        clearEntries();
-        return map.entrySet();
-    }
-
     private synchronized void clearEntries() {
         link.clear();;
     }
 
-    abstract class LinkEntry {
+    private abstract class LinkEntry {
         LinkEntry next;
         abstract boolean old();
         abstract void remove();
     }
 
-
-    class LinkTail extends LinkEntry {
+    private class LinkTail extends LinkEntry {
         LinkEntry latest;
         LinkTail() {
             this.latest = this;
@@ -104,7 +97,7 @@ public class TimedHashMap<Key,Value> implements Map<Key,Value> {
                 next = next.next;
             }
         }
-        void add(Key added) {
+        void add(Type added) {
             LinkEntry toAdd = new Timed(added);
             toAdd.next = this;
             latest.next = toAdd;
@@ -113,7 +106,7 @@ public class TimedHashMap<Key,Value> implements Map<Key,Value> {
     }
 
     @SuppressWarnings("hiding")
-	class Timed<Key> extends LinkEntry {
+	private class Timed<Key> extends LinkEntry {
         final long time;
         final Key timed;
         Timed(Key timed) {
@@ -129,9 +122,5 @@ public class TimedHashMap<Key,Value> implements Map<Key,Value> {
         boolean old() {
             return (time + holdMillis<System.currentTimeMillis());
         }
-
-
     }
-
 }
-

@@ -1,6 +1,7 @@
 package rtg.world.gen.feature;
 
-import cpw.mods.fml.common.registry.GameData;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -8,8 +9,7 @@ import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.TerrainMath;
-
-import java.util.Random;
+import cpw.mods.fml.common.registry.GameData;
 
 public class WorldGenVolcano 
 {
@@ -168,7 +168,16 @@ public class WorldGenVolcano
                                     // Surfacing
                                     if(distanceEll < 70 + simplex.noise2(x/26f, y/26f) * 5)
                                     {
-                                            b = mapRand.nextInt(20)==0 ? Blocks.coal_block : Blocks.obsidian;
+                                    	if (mapRand.nextInt(20) == 0) {
+                                    		
+                                            b = volcanoPatchBlock3;
+                                            meta = volcanoPatchBlockMeta3;
+                                    	}
+                                    	else {
+                                    		
+                                            b = volcanoBlock;
+                                            meta = volcanoBlockMeta;
+                                    	}
                                     }
                                     else if(distanceEll < 75 + simplex.noise2(x/26f, y/26f) * 5)
                                     {
@@ -176,8 +185,16 @@ public class WorldGenVolcano
                                         float powerNoise = simplex.octave(3).noise2(i / 40, j / 40f) * 2;
                                         if(mapRand.nextInt(1+(int)Math.pow(Math.abs(distanceEll-(75 + simplex.noise2(x/26f, y/26f) * 5)),1.5+powerNoise)+1) == 0)
                                         {
-                                            b = mapRand.nextInt(20) == 0 ? Blocks.gravel : Blocks.stone;  // Stone so that surfacing will run (so this usually becomes grass)
-                                            meta = (byte) 0;
+                                        	if (mapRand.nextInt(20) == 0) {
+                                        		
+                                                b = volcanoPatchBlock2;
+                                                meta = volcanoPatchBlockMeta2;
+                                        	}
+                                        	else {
+                                        		
+                                                b = Blocks.stone; // Stone so that surfacing will run (so this usually becomes grass)
+                                                meta = (byte)0;
+                                        	}
                                         }
                                         else
                                         {

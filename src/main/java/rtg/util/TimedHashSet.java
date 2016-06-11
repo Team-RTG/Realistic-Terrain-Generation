@@ -105,7 +105,6 @@ public class TimedHashSet<Type> implements Set<Type> {
         }
     }
 
-    @SuppressWarnings("hiding")
 	private class Timed<Key> extends LinkEntry {
         final long time;
         final Key timed;

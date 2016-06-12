@@ -13,14 +13,14 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
 {
     public static BiomeGenBase hlBiome = HighlandsBiomes.volcanoIsland;
     
-    private static Block bopTopBlock = Blocks.grass;
-    private static byte bopTopByte = (byte)0;
-    private static Block bopFillBlock = Blocks.dirt;
-    private static byte bopFillByte = (byte)0;
-    private static Block bopMixTopBlock = Blocks.stone;
-    private static byte bopMixTopByte = (byte)0;
-    private static Block bopMixFillBlock = Blocks.dirt;
-    private static byte bopMixFillByte = (byte)0;
+    private static Block hlTopBlock = Blocks.grass;
+    private static byte hlTopByte = (byte)0;
+    private static Block hlFillBlock = Blocks.dirt;
+    private static byte hlFillByte = (byte)0;
+    private static Block hlMixTopBlock = Blocks.stone;
+    private static byte hlMixTopByte = (byte)0;
+    private static Block hlMixFillBlock = Blocks.dirt;
+    private static byte hlMixFillByte = (byte)0;
 
     public RealisticBiomeHLVolcanoIsland(BiomeConfig config)
     {
@@ -29,14 +29,14 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
             hlBiome, BiomeGenBase.river,
             new TerrainHLVolcanoIsland(),
             new SurfaceHLVolcanoIsland(config, 
-                bopTopBlock, //Block top 
-                bopTopByte, //byte topByte
-                bopFillBlock, //Block filler, 
-                bopFillByte, //byte fillerByte
-                bopMixTopBlock, //Block mixTop, 
-                bopMixTopByte, //byte mixTopByte, 
-                bopMixFillBlock, //Block mixFill, 
-                bopMixFillByte, //byte mixFillByte, 
+                hlTopBlock, //Block top 
+                hlTopByte, //byte topByte
+                hlFillBlock, //Block filler, 
+                hlFillByte, //byte fillerByte
+                hlMixTopBlock, //Block mixTop, 
+                hlMixTopByte, //byte mixTopByte, 
+                hlMixFillBlock, //Block mixFill, 
+                hlMixFillByte, //byte mixFillByte, 
                 80f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 
@@ -53,7 +53,5 @@ public class RealisticBiomeHLVolcanoIsland extends RealisticBiomeHLBase
         decoGrassDoubleTallgrass.loops = 15;
         decoGrassDoubleTallgrass.maxY = 128;
         this.addDeco(decoGrassDoubleTallgrass);
-        noLakes = true;
-        noWaterFeatures = true;
     }
 }

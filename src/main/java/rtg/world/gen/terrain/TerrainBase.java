@@ -128,8 +128,8 @@ public class TerrainBase
     }
     
     public static float riverized(float height, float river) {
-        if (height < 63f) return height;
-        return 63f+(height-63f)*river;
+        if (height < 62.95f) return height;
+        return 62.95f+(height-62.95f)*river;
     }
 
 

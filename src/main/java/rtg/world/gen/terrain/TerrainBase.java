@@ -8,7 +8,7 @@ public class TerrainBase
 {
     protected float base; // added as most terrains have this;
     protected final float minOceanFloor; // The lowest Y coord an ocean floor is allowed to be.
-    public static final float minimumOceanFloor = 30f; // The lowest Y coord an ocean floor is allowed to be.
+    public static final float minimumOceanFloor = 30.01f; // The lowest Y coord an ocean floor is allowed to be.
     protected final float minDuneHeight; // The strength factor to which the dune height config option is added.
     public static final float minimumDuneHeight = 21f; // The strength factor to which the dune height config option is added.
     protected final float groundNoiseAmplitudeHills;

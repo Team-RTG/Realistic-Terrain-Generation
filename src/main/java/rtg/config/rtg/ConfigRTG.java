@@ -647,7 +647,8 @@ public class ConfigRTG
 	private static void setVolcanoBlockDefaults()
 	{
 		ModPresenceTester bopMod = new ModPresenceTester("BiomesOPlenty");
-		
+		ModPresenceTester ebMod = new ModPresenceTester("enhancedbiomes");
+
 	    volcanoBlockId = "minecraft:obsidian";
 	    volcanoBlockMeta = 0;
 	    volcanoPatchBlock = "minecraft:cobblestone";
@@ -664,6 +665,17 @@ public class ConfigRTG
 		    volcanoPatchBlock = "BiomesOPlenty:ashStone";
 		    volcanoPatchBlockMeta = 0;
 		    volcanoPatchBlock2 = "BiomesOPlenty:ash";
+		    volcanoPatchBlockMeta2 = 0;
+		    volcanoPatchBlock3 = "minecraft:coal_block";
+		    volcanoPatchBlockMeta3 = 0;
+	    }
+	    else if (ebMod.present()) {
+	    	
+		    volcanoBlockId = "minecraft:obsidian";
+		    volcanoBlockMeta = 0;
+		    volcanoPatchBlock = "enhancedbiomes:enhancedbiomes.tile.stoneCobbleEB";
+		    volcanoPatchBlockMeta = 0;
+		    volcanoPatchBlock2 = "enhancedbiomes:enhancedbiomes.tile.stoneEB";
 		    volcanoPatchBlockMeta2 = 0;
 		    volcanoPatchBlock3 = "minecraft:coal_block";
 		    volcanoPatchBlockMeta3 = 0;

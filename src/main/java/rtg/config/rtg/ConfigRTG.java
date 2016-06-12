@@ -1,12 +1,15 @@
 package rtg.config.rtg;
 
-import cpw.mods.fml.common.Loader;
-import net.minecraftforge.common.config.Configuration;
-import org.apache.commons.lang3.ArrayUtils;
-import rtg.util.Logger;
-
 import java.io.File;
 import java.util.ArrayList;
+
+import net.minecraftforge.common.config.Configuration;
+
+import org.apache.commons.lang3.ArrayUtils;
+
+import rtg.util.Logger;
+import rtg.util.ModPresenceTester;
+import cpw.mods.fml.common.Loader;
 
 public class ConfigRTG
 {
@@ -143,14 +146,15 @@ public class ConfigRTG
     
     /* ==================== Volcanoes ==================== */
 
-    public static String volcanoBlockId = "minecraft:obsidian";
-    public static int volcanoBlockMeta = 0;
-    public static String volcanoPatchBlock = "minecraft:cobblestone";
-    public static int volcanoPatchBlockMeta = 0;
-    public static String volcanoPatchBlock2 = "minecraft:gravel";
-    public static int volcanoPatchBlockMeta2 = 0;
-    public static String volcanoPatchBlock3 = "minecraft:coal_block";
-    public static int volcanoPatchBlockMeta3 = 0;
+    public static String volcanoBlockId;
+    public static int volcanoBlockMeta;
+    public static String volcanoPatchBlock;
+    public static int volcanoPatchBlockMeta;
+    public static String volcanoPatchBlock2;
+    public static int volcanoPatchBlockMeta2;
+    public static String volcanoPatchBlock3;
+    public static int volcanoPatchBlockMeta3;
+
     public static boolean enableVolcanoes = true;
     public static boolean enableVolcanoEruptions = true;
     public static int volcanoChance = 32;
@@ -469,6 +473,8 @@ public class ConfigRTG
             
             /* ==================== Volcanoes ==================== */
 
+            setVolcanoBlockDefaults();
+            
             volcanoBlockId = config.getString(
                 "Volcano block ID",
                 "Volcanoes",
@@ -623,7 +629,7 @@ public class ConfigRTG
 		return ArrayUtils.toPrimitive(bytes);
 	}
 	
-	public static String getPlateauClayColourComment(String biomeName)
+	private static String getPlateauClayColourComment(String biomeName)
 	{
 		String comment =
 			"Comma-separated list of meta values for the clay blocks used in the " + biomeName + "."
@@ -636,5 +642,31 @@ public class ConfigRTG
 			+ Configuration.NEW_LINE;
 		
 		return comment;
+	}
+	
+	private static void setVolcanoBlockDefaults()
+	{
+		ModPresenceTester bopMod = new ModPresenceTester("BiomesOPlenty");
+		
+	    volcanoBlockId = "minecraft:obsidian";
+	    volcanoBlockMeta = 0;
+	    volcanoPatchBlock = "minecraft:cobblestone";
+	    volcanoPatchBlockMeta = 0;
+	    volcanoPatchBlock2 = "minecraft:gravel";
+	    volcanoPatchBlockMeta2 = 0;
+	    volcanoPatchBlock3 = "minecraft:coal_block";
+	    volcanoPatchBlockMeta3 = 0;
+	    
+	    if (bopMod.present()) {
+	    	
+		    volcanoBlockId = "minecraft:obsidian";
+		    volcanoBlockMeta = 0;
+		    volcanoPatchBlock = "BiomesOPlenty:ashStone";
+		    volcanoPatchBlockMeta = 0;
+		    volcanoPatchBlock2 = "BiomesOPlenty:ash";
+		    volcanoPatchBlockMeta2 = 0;
+		    volcanoPatchBlock3 = "minecraft:coal_block";
+		    volcanoPatchBlockMeta3 = 0;
+	    }
 	}
 }

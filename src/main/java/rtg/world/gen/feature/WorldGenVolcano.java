@@ -121,7 +121,7 @@ public class WorldGenVolcano
 							b = blocks[cta(x, y, z)];
 							meta = metadata[cta(x, y, z)];
 
-							if(b == Blocks.air)
+							if(b == Blocks.air||b == Blocks.water)
 							{
                                 /*************************************
                                  * WARNING: Spaghetti surfacing code *

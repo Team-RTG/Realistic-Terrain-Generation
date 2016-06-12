@@ -204,7 +204,7 @@ public class WorldGenVolcano
                                     }
                                     else
                                     {
-                                        b = Blocks.grass;
+                                        b = Blocks.stone; // Stone so that surfacing will run (so this usually becomes grass)
                                         meta = (byte)0;
                                     }
 								}

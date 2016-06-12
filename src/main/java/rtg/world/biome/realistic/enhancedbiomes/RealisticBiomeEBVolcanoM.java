@@ -1,15 +1,16 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import enhancedbiomes.EnhancedBiomesMod;
-import enhancedbiomes.api.EBAPI;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.feature.WorldGenMinable;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBVolcanoM;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBVolcanoM;
+import enhancedbiomes.EnhancedBiomesMod;
+import enhancedbiomes.api.EBAPI;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 public class RealisticBiomeEBVolcanoM extends RealisticBiomeEBBase
 {
@@ -74,6 +75,17 @@ public class RealisticBiomeEBVolcanoM extends RealisticBiomeEBBase
 		this.lavaSurfaceLakeChance = 1;
 		this.noLakes = true;
 		this.noWaterFeatures = true;
+		
+		// Prevent dirt and gravel from messing up the surface.
+        this.baseBiome.theBiomeDecorator.dirtGen = new WorldGenMinable(Blocks.dirt, 0);
+        this.baseBiome.theBiomeDecorator.gravelGen = new WorldGenMinable(Blocks.gravel, 0);
+		
+		/**
+		 * EB's volcanic eruptions are no longer aesthetically-compatible with RTG's new volcano surfaces.
+		 * 
+		 * DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		 * this.addDeco(decoBaseBiomeDecorations, ConfigRTG.enableVolcanoEruptions); 
+		 */
         
         DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
         decoGrassDoubleTallgrass.doubleGrassChance = 3;

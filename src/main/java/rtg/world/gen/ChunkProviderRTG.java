@@ -68,6 +68,7 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
+import rtg.util.TimedHashSet;
 
 
 public class ChunkProviderRTG implements IChunkProvider
@@ -131,7 +132,7 @@ public class ChunkProviderRTG implements IChunkProvider
             for (Direction forPopulation: directions) {
                 decorateIfOtherwiseSurrounded(worldObj.getChunkProvider(), location, forPopulation);
             }
-            clearDecorations(0);
+            //clearDecorations(0);
         }
 
     };
@@ -242,7 +243,7 @@ public class ChunkProviderRTG implements IChunkProvider
      * specified chunk from the map seed and chunk seed
      */
     //private HashSet<PlaneLocation> everGenerated = new HashSet<PlaneLocation>();
-    private LimitedSet<PlaneLocation> chunkMade  = new LimitedSet<PlaneLocation>(10000);
+    private TimedHashSet<PlaneLocation> chunkMade  = new TimedHashSet<PlaneLocation>(5*1000);
     private final LimitedMap<PlaneLocation,Chunk> availableChunks;
     public Chunk provideChunk(final int cx, final int cy)
     {
@@ -413,7 +414,8 @@ public class ChunkProviderRTG implements IChunkProvider
             if (!chunkExists(world,cx+checked.xOffset, cy+checked.zOffset)) return;// that one's missing
         }
         // passed all checks
-        this.doPopulate(world, cx, cy);
+        addToDecorationList(new PlaneLocation.Invariant(cx,cy));
+        //this.doPopulate(world, cx, cy);
     }
 
     public void generateTerrain(RTGBiomeProvider cmr, int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase biomes[], float[] noise)
@@ -607,7 +609,7 @@ public class ChunkProviderRTG implements IChunkProvider
         Set<PlaneLocation> toProcess = doableLocations(0);
         while (toProcess.size() >0) {
             for (PlaneLocation location: toProcess) {
-                toDecorate.remove(location);
+                removeFromDecorationList(location);
             }
             for (PlaneLocation location: toProcess) {
                 doPopulate(ichunkprovider,location.x(),location.z());
@@ -622,7 +624,7 @@ public class ChunkProviderRTG implements IChunkProvider
         IChunkProvider ichunkprovider = worldObj.getChunkProvider();
         Set<PlaneLocation> toProcess = doableLocations(limit);
         for (PlaneLocation location: toProcess) {
-                toDecorate.remove(location);
+                removeFromDecorationList(location);
             }
         for (PlaneLocation location: toProcess) {
             doPopulate(ichunkprovider,location.x(),location.z());
@@ -632,17 +634,19 @@ public class ChunkProviderRTG implements IChunkProvider
     private Set<PlaneLocation> doableLocations(int limit) {
         HashSet<PlaneLocation> toProcess = new HashSet<PlaneLocation>();
         int found = 0;
-        for (PlaneLocation location: toDecorate) {
-            Chunk existing;
-            existing = availableChunks.get(location);
-            if (existing != null) {
-                if (!existing.isTerrainPopulated) {
-                    //continue; // not populated so let more "normal" systems handle it
+        synchronized(toDecorate) {
+            for (PlaneLocation location: toDecorate) {
+                Chunk existing;
+                existing = availableChunks.get(location);
+                if (existing != null) {
+                    if (!existing.isTerrainPopulated) {
+                        //continue; // not populated so let more "normal" systems handle it
+                    }
                 }
+                if (inGeneration.containsKey(location)) continue;
+                toProcess.add(location);
+                if (++found == limit) return toProcess;
             }
-            if (inGeneration.containsKey(location)) continue;
-            toProcess.add(location);
-            if (++found == limit) return toProcess;
         }
         return toProcess;
     }
@@ -660,9 +664,22 @@ public class ChunkProviderRTG implements IChunkProvider
     private boolean populating = false;
     private static ChunkProviderRTG populatingProvider;
 
-    private HashSet<PlaneLocation> toDecorate = new HashSet<PlaneLocation>();
+    private final HashSet<PlaneLocation> toDecorate = new HashSet<PlaneLocation>();
     private LimitedSet<PlaneLocation> alreadyDecorated  = new LimitedSet<PlaneLocation>(1000);
     //private HashSet<PlaneLocation> everDecorated  = new HashSet<PlaneLocation>();
+
+    private final void addToDecorationList(PlaneLocation toAdd) {
+        synchronized(toDecorate) {
+            toDecorate.add(toAdd);
+        }
+    }
+
+    private final void removeFromDecorationList(PlaneLocation toAdd) {
+        synchronized(toDecorate) {
+            toDecorate.remove(toAdd);
+        }
+    }
+
     private void doPopulate(IChunkProvider ichunkprovider, int chunkX, int chunkZ)
     {
         // don't populate if already done
@@ -673,7 +690,7 @@ public class ChunkProviderRTG implements IChunkProvider
 
         if (populating) {
             // this has been created by another decoration; put in todo pile
-            toDecorate.add(location);
+            addToDecorationList(location);
             return;
         }
 
@@ -681,7 +698,7 @@ public class ChunkProviderRTG implements IChunkProvider
             throw new RuntimeException(toString() + " " + populatingProvider.toString());
         }
         if (inGeneration.containsKey(location)) {
-            toDecorate.add(location);
+            addToDecorationList(location);
             return;
         }
         //Logger.warn("decorating");

@@ -1,5 +1,9 @@
 package rtg.world.biome.deco;
 
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LILYPAD;
+
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenWaterlily;
@@ -11,10 +15,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenVines;
 
-import java.util.Random;
-
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LILYPAD;
-
 /**
  * 
  * @author WhichOnesPink
@@ -22,7 +22,11 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
  */
 public class DecoJungleLilypadVines extends DecoBase
 {
-	final static Block noPlaceBlock = Block.getBlockFromName(ConfigRTG.volcanoBlockId);
+	private static final Block volcanoBlockId = Block.getBlockFromName(ConfigRTG.volcanoBlockId);
+	private static final Block volcanoMix1BlockId = Block.getBlockFromName(ConfigRTG.volcanoMix1BlockId);
+	private static final Block volcanoMix2BlockId = Block.getBlockFromName(ConfigRTG.volcanoMix2BlockId);
+	private static final Block volcanoMix3BlockId = Block.getBlockFromName(ConfigRTG.volcanoMix3BlockId);
+	
 	public DecoJungleLilypadVines()
 	{
 		super();
@@ -44,6 +48,7 @@ public class DecoJungleLilypadVines extends DecoBase
 	            
 	        	WorldGenerator worldgeneratorLilypads = new WorldGenWaterlily();
 	        	WorldGenerator worldgeneratorVines = new WorldGenVines();
+	        	Block vb;
 	        	
 	            for (int b33 = 0; b33 < 5; b33++)
 	            {
@@ -57,9 +62,15 @@ public class DecoJungleLilypadVines extends DecoBase
 	                    	worldgeneratorLilypads.generate(world, rand, j6, z52, k10);
 	                    }
 	                }
-	                
+
 	                for (int h44 = 100; h44 > 0; h44--) {
-						if(world.getBlock(j6, h44, k10) == noPlaceBlock) return;
+	                	
+	                	vb = world.getBlock(j6, h44, k10);
+	                	
+						if (vb == volcanoBlockId || vb == volcanoMix1BlockId || vb == volcanoMix2BlockId || vb == volcanoMix3BlockId) {
+							return;
+						}
+						
 	                	worldgeneratorVines.generate(world, rand, j6, z52, k10);
 	                }
 	            }

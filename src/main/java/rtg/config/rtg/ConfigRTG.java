@@ -648,6 +648,7 @@ public class ConfigRTG
 	{
 		ModPresenceTester bopMod = new ModPresenceTester("BiomesOPlenty");
 		ModPresenceTester ebMod = new ModPresenceTester("enhancedbiomes");
+		ModPresenceTester ubcMod = new ModPresenceTester("UndergroundBiomes");
 
 	    volcanoBlockId = "minecraft:obsidian";
 	    volcanoBlockMeta = 0;
@@ -659,26 +660,25 @@ public class ConfigRTG
 	    volcanoPatchBlockMeta3 = 0;
 	    
 	    if (bopMod.present()) {
-	    	
-		    volcanoBlockId = "minecraft:obsidian";
-		    volcanoBlockMeta = 0;
+
 		    volcanoPatchBlock = "BiomesOPlenty:ashStone";
 		    volcanoPatchBlockMeta = 0;
 		    volcanoPatchBlock2 = "BiomesOPlenty:ash";
 		    volcanoPatchBlockMeta2 = 0;
-		    volcanoPatchBlock3 = "minecraft:coal_block";
-		    volcanoPatchBlockMeta3 = 0;
 	    }
 	    else if (ebMod.present()) {
-	    	
-		    volcanoBlockId = "minecraft:obsidian";
-		    volcanoBlockMeta = 0;
+
 		    volcanoPatchBlock = "enhancedbiomes:enhancedbiomes.tile.stoneCobbleEB";
 		    volcanoPatchBlockMeta = 0;
 		    volcanoPatchBlock2 = "enhancedbiomes:enhancedbiomes.tile.stoneEB";
 		    volcanoPatchBlockMeta2 = 0;
-		    volcanoPatchBlock3 = "minecraft:coal_block";
-		    volcanoPatchBlockMeta3 = 0;
+	    }
+	    else if (ubcMod.present()) {
+
+		    volcanoPatchBlock = "UndergroundBiomes:igneousCobblestone";
+		    volcanoPatchBlockMeta = 5;
+		    volcanoPatchBlock2 = "UndergroundBiomes:igneousStone";
+		    volcanoPatchBlockMeta2 = 5;
 	    }
 	}
 }

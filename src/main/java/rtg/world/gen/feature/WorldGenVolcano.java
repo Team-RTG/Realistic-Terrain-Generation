@@ -15,12 +15,12 @@ public class WorldGenVolcano
 {
     protected static Block volcanoBlock = GameData.getBlockRegistry().getObject(ConfigRTG.volcanoBlockId);
     protected static byte volcanoBlockMeta = (byte) ConfigRTG.volcanoBlockMeta;
-	protected static Block volcanoPatchBlock = GameData.getBlockRegistry().getObject(ConfigRTG.volcanoPatchBlock);
-	protected static byte volcanoPatchBlockMeta = (byte) ConfigRTG.volcanoPatchBlockMeta;
-	protected static Block volcanoPatchBlock2 = GameData.getBlockRegistry().getObject(ConfigRTG.volcanoPatchBlock2);
-	protected static byte volcanoPatchBlockMeta2 = (byte) ConfigRTG.volcanoPatchBlockMeta2;
-	protected static Block volcanoPatchBlock3 = GameData.getBlockRegistry().getObject(ConfigRTG.volcanoPatchBlock3);
-	protected static byte volcanoPatchBlockMeta3 = (byte) ConfigRTG.volcanoPatchBlockMeta3;
+	protected static Block volcanoPatchBlock = GameData.getBlockRegistry().getObject(ConfigRTG.volcanoMix1BlockId);
+	protected static byte volcanoPatchBlockMeta = (byte) ConfigRTG.volcanoMix1BlockMeta;
+	protected static Block volcanoPatchBlock2 = GameData.getBlockRegistry().getObject(ConfigRTG.volcanoMix2BlockId);
+	protected static byte volcanoPatchBlockMeta2 = (byte) ConfigRTG.volcanoMix2BlockMeta;
+	protected static Block volcanoPatchBlock3 = GameData.getBlockRegistry().getObject(ConfigRTG.volcanoMix3BlockId);
+	protected static byte volcanoPatchBlockMeta3 = (byte) ConfigRTG.volcanoMix3BlockMeta;
     protected static Block lavaBlock = ConfigRTG.enableVolcanoEruptions ? Blocks.flowing_lava : Blocks.lava;
 
 	// How much stretched the vent/mouth is
@@ -204,7 +204,7 @@ public class WorldGenVolcano
                                     }
                                     else
                                     {
-                                        b = Blocks.grass;
+                                        b = Blocks.stone; // Stone so that surfacing will run (so this usually becomes grass)
                                         meta = (byte)0;
                                     }
 								}

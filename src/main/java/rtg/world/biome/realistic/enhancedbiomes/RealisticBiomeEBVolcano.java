@@ -1,17 +1,16 @@
 package rtg.world.biome.realistic.enhancedbiomes;
 
-import enhancedbiomes.EnhancedBiomesMod;
-import enhancedbiomes.api.EBAPI;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.feature.WorldGenMinable;
 import rtg.api.biome.BiomeConfig;
-import rtg.config.rtg.ConfigRTG;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBVolcano;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBVolcano;
+import enhancedbiomes.EnhancedBiomesMod;
+import enhancedbiomes.api.EBAPI;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
 {
@@ -81,10 +80,18 @@ public class RealisticBiomeEBVolcano extends RealisticBiomeEBBase
 		this.emeraldEmeraldMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
 		this.emeraldStoneBlock = EBAPI.ebStonify(EnhancedBiomesBlocks.stoneEB, Blocks.stone);
 		this.emeraldStoneMeta = EBAPI.ebStonify(EBAPI.CHERT, (byte)0);
+		
+		// Prevent dirt and gravel from messing up the surface.
+        this.baseBiome.theBiomeDecorator.dirtGen = new WorldGenMinable(Blocks.dirt, 0);
+        this.baseBiome.theBiomeDecorator.gravelGen = new WorldGenMinable(Blocks.gravel, 0);
         
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations, ConfigRTG.enableVolcanoEruptions);        
-    
+		/**
+		 * EB's volcanic eruptions are no longer aesthetically-compatible with RTG's new volcano surfaces.
+		 * 
+		 * DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		 * this.addDeco(decoBaseBiomeDecorations, ConfigRTG.enableVolcanoEruptions); 
+		 */
+		
         DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
         decoGrassDoubleTallgrass.doubleGrassChance = 3;
         decoGrassDoubleTallgrass.loops = 15;

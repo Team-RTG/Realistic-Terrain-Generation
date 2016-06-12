@@ -1,12 +1,15 @@
 package rtg.config.rtg;
 
-import cpw.mods.fml.common.Loader;
-import net.minecraftforge.common.config.Configuration;
-import org.apache.commons.lang3.ArrayUtils;
-import rtg.util.Logger;
-
 import java.io.File;
 import java.util.ArrayList;
+
+import net.minecraftforge.common.config.Configuration;
+
+import org.apache.commons.lang3.ArrayUtils;
+
+import rtg.util.Logger;
+import rtg.util.ModPresenceTester;
+import cpw.mods.fml.common.Loader;
 
 public class ConfigRTG
 {
@@ -143,17 +146,18 @@ public class ConfigRTG
     
     /* ==================== Volcanoes ==================== */
 
-    public static String volcanoBlockId = "minecraft:obsidian";
-    public static int volcanoBlockMeta = 0;
-    public static String volcanoPatchBlock = "minecraft:cobblestone";
-    public static int volcanoPatchBlockMeta = 0;
-    public static String volcanoPatchBlock2 = "minecraft:gravel";
-    public static int volcanoPatchBlockMeta2 = 0;
-    public static String volcanoPatchBlock3 = "minecraft:coal_block";
-    public static int volcanoPatchBlockMeta3 = 0;
+    public static String volcanoBlockId;
+    public static int volcanoBlockMeta;
+    public static String volcanoMix1BlockId;
+    public static int volcanoMix1BlockMeta;
+    public static String volcanoMix2BlockId;
+    public static int volcanoMix2BlockMeta;
+    public static String volcanoMix3BlockId;
+    public static int volcanoMix3BlockMeta;
+
     public static boolean enableVolcanoes = true;
     public static boolean enableVolcanoEruptions = true;
-    public static int volcanoChance = 32;
+    public static int volcanoChance = 36;
 
     /* =================== Water System ===================== */
     private static float riverSizeMultiplier = 1f; // this is private because we want a transformed version
@@ -469,45 +473,47 @@ public class ConfigRTG
             
             /* ==================== Volcanoes ==================== */
 
+            setVolcanoBlockDefaults();
+            
             volcanoBlockId = config.getString(
                 "Volcano block ID",
                 "Volcanoes",
                 volcanoBlockId,
-                "The block to use for the top of the volcano. Defaults to Obsidian." +
+                "The main block to use for the surface of the volcano." +
                 Configuration.NEW_LINE
             );
 
             volcanoBlockMeta = config.getInt("Volcano block meta value", "Volcanoes", volcanoBlockMeta, 0, 15, "The meta value of the volcano block." + Configuration.NEW_LINE);
 
-            volcanoPatchBlock = config.getString(
-                    "Volcano patch block block ID",
-                    "Volcanoes",
-                    volcanoPatchBlock,
-                    "The block to use for the patches on the volcano. Defaults to Cobblestone." +
-                            Configuration.NEW_LINE
+            volcanoMix1BlockId = config.getString(
+                "Volcano mix 1 block ID",
+                "Volcanoes",
+                volcanoMix1BlockId,
+                "The block ID of the 1st volcano mix block." +
+                Configuration.NEW_LINE
             );
 
-            volcanoPatchBlockMeta = config.getInt("Volcano patch block meta value", "Volcanoes", volcanoPatchBlockMeta, 0, 15, "The meta value of the volcano patch block." + Configuration.NEW_LINE);
+            volcanoMix1BlockMeta = config.getInt("Volcano mix 1 block meta value", "Volcanoes", volcanoMix1BlockMeta, 0, 15, "The meta value of the 1st volcano mix block." + Configuration.NEW_LINE);
 
-            volcanoPatchBlock2 = config.getString(
-                    "Volcano 2nd patch block block ID",
-                    "Volcanoes",
-                    volcanoPatchBlock2,
-                    "The block to use for the patches on the volcano. Defaults to Gravel." +
-                            Configuration.NEW_LINE
+            volcanoMix2BlockId = config.getString(
+        		"Volcano mix 2 block ID",
+                "Volcanoes",
+                volcanoMix2BlockId,
+                "The block ID of the 2nd volcano mix block." +
+                Configuration.NEW_LINE
             );
 
-            volcanoPatchBlockMeta2 = config.getInt("Volcano 2nd patch block meta value", "Volcanoes", volcanoPatchBlockMeta2, 0, 15, "The meta value of the 2nd volcano patch block." + Configuration.NEW_LINE);
+            volcanoMix2BlockMeta = config.getInt("Volcano mix 2 block meta value", "Volcanoes", volcanoMix2BlockMeta, 0, 15, "The meta value of the 2nd volcano mix block." + Configuration.NEW_LINE);
 
-            volcanoPatchBlock3 = config.getString(
-                    "Volcano 3rd patch block ID",
-                    "Volcanoes",
-                    volcanoPatchBlock3,
-                    "The block to use for the patches on the volcano. Defaults to Coal Blocks." +
-                            Configuration.NEW_LINE
+            volcanoMix3BlockId = config.getString(
+        		"Volcano mix 3 block ID",
+                "Volcanoes",
+                volcanoMix3BlockId,
+                "The block ID of the 3rd volcano mix block." +
+                Configuration.NEW_LINE
             );
 
-            volcanoPatchBlockMeta3 = config.getInt("Volcano 3rd patch block meta value", "Volcanoes", volcanoPatchBlockMeta3, 0, 15, "The meta value of the 3rd volcano patch block." + Configuration.NEW_LINE);
+            volcanoMix3BlockMeta = config.getInt("Volcano mix 3 block meta value", "Volcanoes", volcanoMix3BlockMeta, 0, 15, "The meta value of the 3rd volcano mix block." + Configuration.NEW_LINE);
 
             enableVolcanoes = config.getBoolean(
                 "Enable volcanoes",
@@ -623,7 +629,7 @@ public class ConfigRTG
 		return ArrayUtils.toPrimitive(bytes);
 	}
 	
-	public static String getPlateauClayColourComment(String biomeName)
+	private static String getPlateauClayColourComment(String biomeName)
 	{
 		String comment =
 			"Comma-separated list of meta values for the clay blocks used in the " + biomeName + "."
@@ -636,5 +642,43 @@ public class ConfigRTG
 			+ Configuration.NEW_LINE;
 		
 		return comment;
+	}
+	
+	private static void setVolcanoBlockDefaults()
+	{
+		ModPresenceTester bopMod = new ModPresenceTester("BiomesOPlenty");
+		ModPresenceTester ebMod = new ModPresenceTester("enhancedbiomes");
+		ModPresenceTester ubcMod = new ModPresenceTester("UndergroundBiomes");
+
+	    volcanoBlockId = "minecraft:obsidian";
+	    volcanoBlockMeta = 0;
+	    volcanoMix1BlockId = "minecraft:cobblestone";
+	    volcanoMix1BlockMeta = 0;
+	    volcanoMix2BlockId = "minecraft:gravel";
+	    volcanoMix2BlockMeta = 0;
+	    volcanoMix3BlockId = "minecraft:coal_block";
+	    volcanoMix3BlockMeta = 0;
+	    
+	    if (bopMod.present()) {
+
+		    volcanoMix1BlockId = "BiomesOPlenty:ashStone";
+		    volcanoMix1BlockMeta = 0;
+		    volcanoMix2BlockId = "BiomesOPlenty:ash";
+		    volcanoMix2BlockMeta = 0;
+	    }
+	    else if (ebMod.present()) {
+
+		    volcanoMix1BlockId = "enhancedbiomes:enhancedbiomes.tile.stoneCobbleEB";
+		    volcanoMix1BlockMeta = 0;
+		    volcanoMix2BlockId = "enhancedbiomes:enhancedbiomes.tile.stoneEB";
+		    volcanoMix2BlockMeta = 0;
+	    }
+	    else if (ubcMod.present()) {
+
+		    volcanoMix1BlockId = "UndergroundBiomes:igneousCobblestone";
+		    volcanoMix1BlockMeta = 5;
+		    volcanoMix2BlockId = "UndergroundBiomes:igneousStone";
+		    volcanoMix2BlockMeta = 5;
+	    }
 	}
 }

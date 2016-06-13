@@ -1,9 +1,12 @@
 package rtg.event;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.WeakHashMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.BiomeDictionary;
@@ -13,6 +16,7 @@ import net.minecraftforge.event.terraingen.BiomeEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
+import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.terraingen.WorldTypeEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -22,9 +26,12 @@ import rtg.util.Acceptor;
 import rtg.util.Logger;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.deco.DecoBase;
+import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.MapGenCavesRTG;
 import rtg.world.gen.MapGenRavineRTG;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.genlayer.RiverRemover;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
@@ -244,6 +251,55 @@ public class EventManagerRTG
             
             WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) event.world.getWorldChunkManager();
             this.biome = cmr.getBiomeDataAt(event.chunkX, event.chunkZ);
+        }
+    }
+    
+    @SubscribeEvent
+    public void onSaplingGrowTree(SaplingGrowTreeEvent event)
+    {
+    	boolean enableRTGSaplings = true;
+    	
+    	if (!enableRTGSaplings) {
+    		return;
+    	}
+    	
+        //Are we in an RTG world? Do we have RTG's chunk manager?
+        if (event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG && event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG) {
+
+        	World world = event.world;
+        	Random rand = event.rand;
+        	int x = event.x;
+        	int y = event.y;
+        	int z = event.z;
+        	
+            WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) world.getWorldChunkManager();
+            BiomeGenBase bgg = cmr.getBiomeGenAt(x, z);
+            RealisticBiomeBase rb = RealisticBiomeBase.getBiome(bgg.biomeID);
+            
+            Logger.info("Biome = %s", rb.baseBiome.biomeName);
+            
+            ArrayList<DecoBase> decos = rb.decos;
+            Block sapling = world.getBlock(x, y, z);
+            
+            Logger.info("Event Sapling = %s", sapling.getLocalizedName());
+            
+            world.setBlock(x, y, z, Blocks.air, (byte)0, 2);
+            
+            for (int i = 0; i < decos.size(); i++) {
+            	
+            	if (decos.get(i) instanceof DecoTree)
+            	{
+            		DecoTree decoTree = (DecoTree)decos.get(i);
+            		TreeRTG tree = decoTree.tree;
+            		
+            		Logger.info("Tree = %s", tree.getClass().getName());
+            		
+            		event.setResult(Result.DENY);
+            		
+            		tree.generate(world, rand, x, y, z);
+            		break;
+            	}
+            }
         }
     }
     

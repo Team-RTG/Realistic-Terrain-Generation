@@ -24,6 +24,8 @@ public class TreeRTG extends WorldGenerator
 	public int trunkSize;
 	public int crownSize;
 	public boolean noLeaves;
+	public Block saplingBlock;
+	public byte saplingMeta;
 	
 	public TreeRTG()
 	{
@@ -34,6 +36,8 @@ public class TreeRTG extends WorldGenerator
 		this.trunkSize = 2;
 		this.crownSize = 4;
 		this.noLeaves = false;
+		this.saplingBlock = Blocks.sapling;
+		this.saplingMeta = (byte)0;
 	}
 
 	@Override

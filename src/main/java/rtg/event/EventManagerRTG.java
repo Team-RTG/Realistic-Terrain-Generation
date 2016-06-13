@@ -254,54 +254,63 @@ public class EventManagerRTG
         }
     }
     
-    @SubscribeEvent
-    public void onSaplingGrowTree(SaplingGrowTreeEvent event)
-    {
-    	boolean enableRTGSaplings = true;
-    	
-    	if (!enableRTGSaplings) {
-    		return;
-    	}
-    	
-        //Are we in an RTG world? Do we have RTG's chunk manager?
-        if (event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG && event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG) {
-
-        	World world = event.world;
-        	Random rand = event.rand;
-        	int x = event.x;
-        	int y = event.y;
-        	int z = event.z;
-        	
-            WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) world.getWorldChunkManager();
-            BiomeGenBase bgg = cmr.getBiomeGenAt(x, z);
-            RealisticBiomeBase rb = RealisticBiomeBase.getBiome(bgg.biomeID);
-            
-            Logger.info("Biome = %s", rb.baseBiome.biomeName);
-            
-            ArrayList<DecoBase> decos = rb.decos;
-            Block sapling = world.getBlock(x, y, z);
-            
-            Logger.info("Event Sapling = %s", sapling.getLocalizedName());
-            
-            world.setBlock(x, y, z, Blocks.air, (byte)0, 2);
-            
-            for (int i = 0; i < decos.size(); i++) {
-            	
-            	if (decos.get(i) instanceof DecoTree)
-            	{
-            		DecoTree decoTree = (DecoTree)decos.get(i);
-            		TreeRTG tree = decoTree.tree;
-            		
-            		Logger.info("Tree = %s", tree.getClass().getName());
-            		
-            		event.setResult(Result.DENY);
-            		
-            		tree.generate(world, rand, x, y, z);
-            		break;
-            	}
-            }
-        }
-    }
+	@SubscribeEvent
+	public void onSaplingGrowTree(SaplingGrowTreeEvent event)
+	{
+		// This will be a config option.
+		boolean enableRTGSaplings = true;
+		
+		// Are RTG saplings enabled?
+		if (!enableRTGSaplings) {
+			return;
+		}
+		
+		//Are we in an RTG world? Do we have RTG's chunk manager?
+		if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG) && !(event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG)) {
+			return;
+		}
+		
+		World world = event.world;
+		Random rand = event.rand;
+		int x = event.x;
+		int y = event.y;
+		int z = event.z;
+		Block sapling = world.getBlock(x, y, z);
+		
+		Logger.info("Ground Sapling = %s", sapling.getLocalizedName());
+		
+		WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) world.getWorldChunkManager();
+		BiomeGenBase bgg = cmr.getBiomeGenAt(x, z);
+		RealisticBiomeBase rb = RealisticBiomeBase.getBiome(bgg.biomeID);
+		
+		Logger.info("Biome = %s", rb.baseBiome.biomeName);
+		
+		ArrayList<DecoBase> decos = rb.decos;
+		
+		for (int i = 0; i < decos.size(); i++) {
+			
+			// For now, let's just try to generate the first RTG tree we find.
+			if (decos.get(i) instanceof DecoTree)
+			{
+				DecoTree decoTree = (DecoTree)decos.get(i);
+				TreeRTG tree = decoTree.tree;
+				
+				Logger.info("Tree = %s", tree.getClass().getName());
+				
+				// Is the sapling on the ground the same as this tree's registered sapling?
+				// TODO: How can we check the meta value of the sapling on the ground?
+				if (sapling == tree.saplingBlock) {
+				
+					//event.setResult(Result.DENY); // Do we need this?
+					//world.setBlock(x, y, z, Blocks.air, (byte)0, 2); // Do we need this?
+					    		
+					tree.generate(world, rand, x, y, z);
+					
+					break;
+				}
+			}
+		}
+	}
     
     private boolean isDesertVillageBiome(BiomeGenBase biome)
     {

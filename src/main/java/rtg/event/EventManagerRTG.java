@@ -274,9 +274,11 @@ public class EventManagerRTG
 		int x = event.x;
 		int y = event.y;
 		int z = event.z;
-		Block sapling = world.getBlock(x, y, z);
+		Block saplingBlock = world.getBlock(x, y, z);
+		byte saplingMeta = (byte)world.getBlockMetadata(x, y, z);
 		
-		Logger.info("Ground Sapling = %s", sapling.getLocalizedName());
+		Logger.info("Ground Sapling Block = %s", saplingBlock.getLocalizedName());
+		Logger.info("Ground Sapling Meta = %d", saplingMeta);
 		
 		WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) world.getWorldChunkManager();
 		BiomeGenBase bgg = cmr.getBiomeGenAt(x, z);
@@ -294,8 +296,7 @@ public class EventManagerRTG
 			Logger.info("Tree = %s", tree.getClass().getName());
 			
 			// Is the sapling on the ground the same as this tree's registered sapling?
-			// TODO: How can we check the meta value of the sapling on the ground?
-			if (sapling == tree.saplingBlock) {
+			if (saplingBlock == tree.saplingBlock && saplingMeta == tree.saplingMeta) {
 
 				if (tree.minCrownSize > 0 && tree.maxCrownSize > tree.minCrownSize) {
 					tree.crownSize = RandomUtil.getRandomInt(rand, tree.minCrownSize, tree.maxCrownSize);
@@ -305,6 +306,12 @@ public class EventManagerRTG
 					tree.trunkSize = RandomUtil.getRandomInt(rand, tree.minTrunkSize, tree.maxTrunkSize);
 				}
 				
+				/**
+				 * Set the generateFlag to what it needs to be for growing trees from saplings,
+				 * generate the tree, and then set it back to what it was before.
+				 * 
+				 * TODO: Does this affect the generation of normal RTG trees?
+				 */
 				int oldFlag = tree.generateFlag;
 				tree.generateFlag = 3;
 				tree.generate(world, rand, x, y, z);

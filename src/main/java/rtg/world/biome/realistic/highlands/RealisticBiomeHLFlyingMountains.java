@@ -18,6 +18,7 @@ import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.biome.deco.helper.DecoHelperBorder;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.world.gen.feature.tree.rtg.TreeRTGCupressusSempervirens;
 import rtg.world.gen.feature.tree.vanilla.WorldGenTreesRTG;
@@ -81,16 +82,19 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
 		this.addDeco(decoShrub2);
         }
 
-        {        
-		DecoTree birchTrees = new DecoTree(new TreeRTGBetulaPapyrifera());
-		birchTrees.logBlock = Blocks.log;
-		birchTrees.logMeta = (byte)2;
-		birchTrees.leavesBlock = Blocks.leaves;
-		birchTrees.leavesMeta = (byte)2;
-		birchTrees.minTrunkSize = 4;
-		birchTrees.maxTrunkSize = 10;
-		birchTrees.minCrownSize = 8;
-		birchTrees.maxCrownSize = 19;
+        {
+        TreeRTG birchTree = new TreeRTGBetulaPapyrifera();
+		birchTree.logBlock = Blocks.log;
+		birchTree.logMeta = (byte)2;
+		birchTree.leavesBlock = Blocks.leaves;
+		birchTree.leavesMeta = (byte)2;
+		birchTree.minTrunkSize = 4;
+		birchTree.maxTrunkSize = 10;
+		birchTree.minCrownSize = 8;
+		birchTree.maxCrownSize = 19;
+		this.addTree(birchTree);
+    		
+		DecoTree birchTrees = new DecoTree(birchTree);
 		birchTrees.loops = 2;
 		birchTrees.distribution.noiseDivisor = 80f;
 		birchTrees.distribution.noiseFactor = 60f;

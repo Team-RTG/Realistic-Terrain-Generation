@@ -6,6 +6,7 @@ import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaPungens;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
@@ -39,15 +40,18 @@ public class DecoCollectionMegaTaiga extends DecoCollectionBase
 		smallPines.treeConditionChance = 3;
 		smallPines.maxY = 100;
 		
-		DecoTree spruceTrees = new DecoTree(new TreeRTGPiceaPungens());
-		spruceTrees.logBlock = Blocks.log;
-		spruceTrees.logMeta = (byte)1;
-		spruceTrees.leavesBlock = Blocks.leaves;
-		spruceTrees.leavesMeta = (byte)1;
-		spruceTrees.minTrunkSize = 2;
-		spruceTrees.maxTrunkSize = 7;
-		spruceTrees.minCrownSize = 6;
-		spruceTrees.maxCrownSize = 17;
+		TreeRTG pungensTree = new TreeRTGPiceaPungens();
+		pungensTree.logBlock = Blocks.log;
+		pungensTree.logMeta = (byte)1;
+		pungensTree.leavesBlock = Blocks.leaves;
+		pungensTree.leavesMeta = (byte)1;
+		pungensTree.minTrunkSize = 2;
+		pungensTree.maxTrunkSize = 7;
+		pungensTree.minCrownSize = 6;
+		pungensTree.maxCrownSize = 17;
+		this.addTree(pungensTree);
+		
+		DecoTree spruceTrees = new DecoTree(pungensTree);
 		spruceTrees.strengthNoiseFactorXForLoops = true;
 		spruceTrees.strengthFactorForLoops = 4f;
 		spruceTrees.treeType = TreeType.RTG_TREE;

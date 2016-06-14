@@ -18,6 +18,7 @@ import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaPungens;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.world.gen.surface.highlands.SurfaceHLAutumnForest;
@@ -62,15 +63,18 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
 		orangePines.leavesBlock = Highlands.vanillaBlocksFlag ? Blocks.leaves : HighlandsBlocks.autumnOrangeLeaves;
 		orangePines.leavesMeta = Highlands.vanillaBlocksFlag ? (byte)2 : (byte)0;
 		
-		DecoTree spruceTrees = new DecoTree(new TreeRTGPiceaPungens());
-		spruceTrees.logBlock = Blocks.log;
-		spruceTrees.logMeta = (byte)1;
-		spruceTrees.leavesBlock = Blocks.leaves;
-		spruceTrees.leavesMeta = (byte)1;
-		spruceTrees.minTrunkSize = 4;
-		spruceTrees.maxTrunkSize = 10;
-		spruceTrees.minCrownSize = 6;
-		spruceTrees.maxCrownSize = 17;
+		TreeRTG pungensTree = new TreeRTGPiceaPungens();
+		pungensTree.logBlock = Blocks.log;
+		pungensTree.logMeta = (byte)1;
+		pungensTree.leavesBlock = Blocks.leaves;
+		pungensTree.leavesMeta = (byte)1;
+		pungensTree.minTrunkSize = 4;
+		pungensTree.maxTrunkSize = 10;
+		pungensTree.minCrownSize = 6;
+		pungensTree.maxCrownSize = 17;
+		this.addTree(pungensTree);
+		
+		DecoTree spruceTrees = new DecoTree(pungensTree);
 		spruceTrees.strengthFactorForLoops = 5f;
 		spruceTrees.treeType = TreeType.RTG_TREE;
 		spruceTrees.distribution.noiseDivisor = 100f;

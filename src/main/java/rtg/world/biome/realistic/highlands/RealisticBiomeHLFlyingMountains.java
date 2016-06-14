@@ -44,15 +44,18 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
         );
         
         {
-		DecoTree bigPines = new DecoTree(new TreeRTGCupressusSempervirens());
-		bigPines.logBlock = Blocks.log;
-		bigPines.logMeta = (byte)1;
-		bigPines.leavesBlock = Blocks.leaves;
-		bigPines.leavesMeta = (byte)1;
-		bigPines.minTrunkSize = 3;
-		bigPines.maxTrunkSize = 7;
-		bigPines.minCrownSize = 5;
-		bigPines.maxCrownSize = 10;
+		TreeRTG sempervirensTree = new TreeRTGCupressusSempervirens();
+		sempervirensTree.logBlock = Blocks.log;
+		sempervirensTree.logMeta = (byte)1;
+		sempervirensTree.leavesBlock = Blocks.leaves;
+		sempervirensTree.leavesMeta = (byte)1;
+		sempervirensTree.minTrunkSize = 3;
+		sempervirensTree.maxTrunkSize = 7;
+		sempervirensTree.minCrownSize = 5;
+		sempervirensTree.maxCrownSize = 10;
+		this.addTree(sempervirensTree);
+        	
+		DecoTree bigPines = new DecoTree(sempervirensTree);
 		bigPines.loops = 1;
 		bigPines.treeType = TreeType.RTG_TREE;
 		bigPines.distribution.noiseDivisor = 80f;

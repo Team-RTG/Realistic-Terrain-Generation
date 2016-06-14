@@ -17,6 +17,7 @@ import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat.ChanceType;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGCupressusSempervirens;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdTaiga;
@@ -38,15 +39,18 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
             new SurfaceVanillaColdTaiga(config, topBlock, fillerBlock)
         );
         
-		DecoTree bigSpruceTrees1 = new DecoTree(new TreeRTGCupressusSempervirens());
-		bigSpruceTrees1.logBlock = Blocks.log;
-		bigSpruceTrees1.logMeta = (byte)1;
-		bigSpruceTrees1.leavesBlock = Blocks.leaves;
-		bigSpruceTrees1.leavesMeta = (byte)1;
-		bigSpruceTrees1.minTrunkSize = 3;
-		bigSpruceTrees1.maxTrunkSize = 7;
-		bigSpruceTrees1.minCrownSize = 5;
-		bigSpruceTrees1.maxCrownSize = 10;
+		TreeRTG sempervirensTree1 = new TreeRTGCupressusSempervirens();
+		sempervirensTree1.logBlock = Blocks.log;
+		sempervirensTree1.logMeta = (byte)1;
+		sempervirensTree1.leavesBlock = Blocks.leaves;
+		sempervirensTree1.leavesMeta = (byte)1;
+		sempervirensTree1.minTrunkSize = 3;
+		sempervirensTree1.maxTrunkSize = 7;
+		sempervirensTree1.minCrownSize = 5;
+		sempervirensTree1.maxCrownSize = 10;
+		this.addTree(sempervirensTree1);
+        
+		DecoTree bigSpruceTrees1 = new DecoTree(sempervirensTree1);
 		bigSpruceTrees1.strengthFactorForLoops = 4f;
 		bigSpruceTrees1.treeType = TreeType.RTG_TREE;
 		bigSpruceTrees1.distribution.noiseDivisor = 100f;
@@ -61,15 +65,18 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
 		DecoHelperThisOrThat decoHelperThisOrThat1 = new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, bigSpruceTrees1, bigSpruceOakTrees1);
 		this.addDeco(decoHelperThisOrThat1);
 		
-		DecoTree bigSpruceTrees2 = new DecoTree(new TreeRTGCupressusSempervirens());
-		bigSpruceTrees2.logBlock = Blocks.log;
-		bigSpruceTrees2.logMeta = (byte)1;
-		bigSpruceTrees2.leavesBlock = Blocks.leaves;
-		bigSpruceTrees2.leavesMeta = (byte)1;
-		bigSpruceTrees2.minTrunkSize = 3;
-		bigSpruceTrees2.maxTrunkSize = 7;
-		bigSpruceTrees2.minCrownSize = 5;
-		bigSpruceTrees2.maxCrownSize = 10;
+		TreeRTG sempervirensTree2 = new TreeRTGCupressusSempervirens();
+		sempervirensTree2.logBlock = Blocks.log;
+		sempervirensTree2.logMeta = (byte)1;
+		sempervirensTree2.leavesBlock = Blocks.leaves;
+		sempervirensTree2.leavesMeta = (byte)1;
+		sempervirensTree2.minTrunkSize = 3;
+		sempervirensTree2.maxTrunkSize = 7;
+		sempervirensTree2.minCrownSize = 5;
+		sempervirensTree2.maxCrownSize = 10;
+		this.addTree(sempervirensTree2);
+		
+		DecoTree bigSpruceTrees2 = new DecoTree(sempervirensTree2);
 		bigSpruceTrees2.strengthFactorForLoops = 4f;
 		bigSpruceTrees2.treeType = TreeType.RTG_TREE;
 		bigSpruceTrees2.distribution.noiseDivisor = 80f;
@@ -84,15 +91,18 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
 		DecoHelperThisOrThat decoHelperThisOrThat2 = new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, bigSpruceTrees2, bigSpruceOakTrees2);
 		this.addDeco(decoHelperThisOrThat2);
 		
-		DecoTree bigSpruceTrees3 = new DecoTree(new TreeRTGCupressusSempervirens());
-		bigSpruceTrees3.logBlock = Blocks.log;
-		bigSpruceTrees3.logMeta = (byte)1;
-		bigSpruceTrees3.leavesBlock = Blocks.leaves;
-		bigSpruceTrees3.leavesMeta = (byte)1;
-		bigSpruceTrees3.minTrunkSize = 3;
-		bigSpruceTrees3.maxTrunkSize = 7;
-		bigSpruceTrees3.minCrownSize = 5;
-		bigSpruceTrees3.maxCrownSize = 10;
+		TreeRTG sempervirensTree3 = new TreeRTGCupressusSempervirens();
+		sempervirensTree3.logBlock = Blocks.log;
+		sempervirensTree3.logMeta = (byte)1;
+		sempervirensTree3.leavesBlock = Blocks.leaves;
+		sempervirensTree3.leavesMeta = (byte)1;
+		sempervirensTree3.minTrunkSize = 3;
+		sempervirensTree3.maxTrunkSize = 7;
+		sempervirensTree3.minCrownSize = 5;
+		sempervirensTree3.maxCrownSize = 10;
+		this.addTree(sempervirensTree3);
+		
+		DecoTree bigSpruceTrees3 = new DecoTree(sempervirensTree3);
 		bigSpruceTrees3.strengthFactorForLoops = 3f;
 		bigSpruceTrees3.treeType = TreeType.RTG_TREE;
 		bigSpruceTrees3.distribution.noiseDivisor = 80f;

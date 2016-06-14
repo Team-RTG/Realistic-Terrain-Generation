@@ -24,8 +24,10 @@ public class TreeRTG extends WorldGenerator
 	public int trunkSize;
 	public int crownSize;
 	public boolean noLeaves;
+	
 	public Block saplingBlock;
 	public byte saplingMeta;
+	
 	public int generateFlag;
 	
 	public int minTrunkSize;

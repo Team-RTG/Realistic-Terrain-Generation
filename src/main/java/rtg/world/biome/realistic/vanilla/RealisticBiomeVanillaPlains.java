@@ -56,7 +56,6 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
 		decoGrass.loops = 6;
         this.addDeco(decoGrass);
         
-        {
         // Very rare fat oak/birch trees.
         	
 		TreeRTG roburTree1 = new TreeRTGQuercusRobur();
@@ -90,7 +89,6 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
         birchTrees.treeConditionChance = 48;
 
         this.addDeco(new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, oakTrees, birchTrees));
-        }
 		
         // Vanilla trees look awful in this biome, so let's make sure they don't generate.
         

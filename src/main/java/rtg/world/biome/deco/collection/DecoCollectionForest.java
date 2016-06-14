@@ -33,18 +33,18 @@ public class DecoCollectionForest extends DecoCollectionBase
 
         // Trees first.
 		
-		TreeRTG ponderosaTree = new TreeRTGPinusPonderosa();
-		ponderosaTree.logBlock = Blocks.log;
-		ponderosaTree.logMeta = (byte)0;
-		ponderosaTree.leavesBlock = Blocks.leaves;
-		ponderosaTree.leavesMeta = (byte)0;
-		ponderosaTree.minTrunkSize = 11;
-		ponderosaTree.maxTrunkSize = 21;
-		ponderosaTree.minCrownSize = 15;
-		ponderosaTree.maxCrownSize = 29;
-		this.addTree(ponderosaTree);
+		TreeRTG ponderosaOakTree = new TreeRTGPinusPonderosa();
+		ponderosaOakTree.logBlock = Blocks.log;
+		ponderosaOakTree.logMeta = (byte)0;
+		ponderosaOakTree.leavesBlock = Blocks.leaves;
+		ponderosaOakTree.leavesMeta = (byte)0;
+		ponderosaOakTree.minTrunkSize = 11;
+		ponderosaOakTree.maxTrunkSize = 21;
+		ponderosaOakTree.minCrownSize = 15;
+		ponderosaOakTree.maxCrownSize = 29;
+		this.addTree(ponderosaOakTree);
 		
-		DecoTree oakPines = new DecoTree(ponderosaTree);
+		DecoTree oakPines = new DecoTree(ponderosaOakTree);
 		oakPines.strengthFactorForLoops = 8f;
 		oakPines.treeType = TreeType.RTG_TREE;
 		oakPines.distribution.noiseDivisor = 100f;
@@ -55,9 +55,27 @@ public class DecoCollectionForest extends DecoCollectionBase
 		oakPines.treeConditionChance = 1;
 		oakPines.maxY = 85;
 		
-		DecoTree sprucePines = new DecoTree(oakPines);
-		sprucePines.logMeta = (byte)1;
-		sprucePines.leavesMeta = (byte)1;
+		TreeRTG ponderosaSpruceTree = new TreeRTGPinusPonderosa();
+		ponderosaSpruceTree.logBlock = Blocks.log;
+		ponderosaSpruceTree.logMeta = (byte)1;
+		ponderosaSpruceTree.leavesBlock = Blocks.leaves;
+		ponderosaSpruceTree.leavesMeta = (byte)1;
+		ponderosaSpruceTree.minTrunkSize = 11;
+		ponderosaSpruceTree.maxTrunkSize = 21;
+		ponderosaSpruceTree.minCrownSize = 15;
+		ponderosaSpruceTree.maxCrownSize = 29;
+		this.addTree(ponderosaSpruceTree);
+		
+		DecoTree sprucePines = new DecoTree(ponderosaSpruceTree);
+		sprucePines.strengthFactorForLoops = 8f;
+		sprucePines.treeType = TreeType.RTG_TREE;
+		sprucePines.distribution.noiseDivisor = 100f;
+		sprucePines.distribution.noiseFactor = 6f;
+		sprucePines.distribution.noiseAddend = 0.8f;
+		sprucePines.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		sprucePines.treeConditionNoise = 0f;
+		sprucePines.treeConditionChance = 1;
+		sprucePines.maxY = 85;
 		
 		DecoHelper5050 decoPines = new DecoHelper5050(oakPines, sprucePines);
 		this.addDeco(decoPines);

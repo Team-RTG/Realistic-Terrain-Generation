@@ -256,15 +256,13 @@ public class EventManagerRTG
 	@SubscribeEvent
 	public void onSaplingGrowTree(SaplingGrowTreeEvent event)
 	{
-		// This will be a config option.
-		boolean enableRTGSaplings = true;
 		
 		// Are RTG saplings enabled?
-		if (!enableRTGSaplings) {
+		if (!ConfigRTG.enableRTGSaplings) {
 			return;
 		}
 		
-		//Are we in an RTG world? Do we have RTG's chunk manager?
+		// Are we in an RTG world? Do we have RTG's chunk manager?
 		if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG) && !(event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG)) {
 			return;
 		}
@@ -277,14 +275,20 @@ public class EventManagerRTG
 		Block saplingBlock = world.getBlock(x, y, z);
 		byte saplingMeta = (byte) saplingBlock.getDamageValue(world, x, y, z);
 		
-		Logger.info("Ground Sapling Block = %s", saplingBlock.getLocalizedName());
-		Logger.info("Ground Sapling Meta = %d", saplingMeta);
+		Logger.debug("Ground Sapling Block = %s", saplingBlock.getLocalizedName());
+		Logger.debug("Ground Sapling Meta = %d", saplingMeta);
+		
+		// Should we generate a vanilla tree instead?
+		if (rand.nextInt(ConfigRTG.rtgTreeChance) != 0) {
+			Logger.debug("Skipping RTG tree generation.");
+			return;
+		}
 		
 		WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) world.getWorldChunkManager();
 		BiomeGenBase bgg = cmr.getBiomeGenAt(x, z);
 		RealisticBiomeBase rb = RealisticBiomeBase.getBiome(bgg.biomeID);
 		
-		Logger.info("Biome = %s", rb.baseBiome.biomeName);
+		Logger.debug("Biome = %s", rb.baseBiome.biomeName);
 		
 		ArrayList<TreeRTG> biomeTrees = rb.rtgTrees;
 		
@@ -295,13 +299,13 @@ public class EventManagerRTG
 			
 			for (int i = 0; i < biomeTrees.size(); i++) {
 				
-				Logger.info("Biome Tree #%d = %s", i, biomeTrees.get(i).getClass().getName());
-				Logger.info("Biome Tree #%d Sapling Block = %s", i, biomeTrees.get(i).saplingBlock.getClass().getName());
-				Logger.info("Biome Tree #%d Sapling Meta = %d", i, biomeTrees.get(i).saplingMeta);
+				Logger.debug("Biome Tree #%d = %s", i, biomeTrees.get(i).getClass().getName());
+				Logger.debug("Biome Tree #%d Sapling Block = %s", i, biomeTrees.get(i).saplingBlock.getClass().getName());
+				Logger.debug("Biome Tree #%d Sapling Meta = %d", i, biomeTrees.get(i).saplingMeta);
 				
 				if (saplingBlock == biomeTrees.get(i).saplingBlock && saplingMeta == biomeTrees.get(i).saplingMeta) {
 					validTrees.add(biomeTrees.get(i));
-					Logger.info("Valid tree found!");
+					Logger.debug("Valid tree found!");
 				}
 			}
 			
@@ -311,7 +315,7 @@ public class EventManagerRTG
 				// Get a random tree from the list of valid trees.
 				TreeRTG tree = validTrees.get(rand.nextInt(validTrees.size()));
 				
-				Logger.info("Tree = %s", tree.getClass().getName());
+				Logger.debug("Tree = %s", tree.getClass().getName());
 
 				if (tree.minCrownSize > 0 && tree.maxCrownSize > tree.minCrownSize) {
 					tree.crownSize = RandomUtil.getRandomInt(rand, tree.minCrownSize, tree.maxCrownSize);
@@ -337,7 +341,7 @@ public class EventManagerRTG
 			}
 			else {
 				
-				Logger.info("There are no RTG trees associated with the sapling on the ground. Generating a vanilla tree instead.");
+				Logger.debug("There are no RTG trees associated with the sapling on the ground. Generating a vanilla tree instead.");
 			}
 		}
 	}

@@ -103,6 +103,11 @@ public class ConfigRTG
     public static boolean enableRavines = false;
     public static int ravineFrequency = 50;
     
+    /* ======================= Saplings ======================= */
+    
+	public static boolean enableRTGSaplings = true;
+	public static int rtgTreeChance = 2;
+    
     /* ==================== Scattered Features ==================== */
     
     public static boolean generateScatteredFeatures = true;
@@ -364,6 +369,30 @@ public class ConfigRTG
             
             enableRavines = config.getBoolean("Enable Ravines", "Ravines", enableRavines, "");
             ravineFrequency = config.getInt("Ravine Frequency", "Ravines", ravineFrequency, 1, 100, "This setting controls the number of ravines that generate." + Configuration.NEW_LINE + "LOWER values = MORE ravines & MORE lag. (50 = vanilla ravine frequency)" + Configuration.NEW_LINE);
+            
+            /* ======================= Saplings ======================= */
+
+        	enableRTGSaplings = config.getBoolean(
+                "Enable RTG Saplings",
+                "Saplings",
+                enableRTGSaplings,
+                "Set this to TRUE to allow RTG's custom trees to generate from vanilla saplings."
+                + Configuration.NEW_LINE +
+                "RTG's custom trees require a sapling that their leaves drop."
+                + Configuration.NEW_LINE +
+                "RTG's custom trees can only be generated in biomes where they naturally generate."
+                + Configuration.NEW_LINE
+            );
+        	
+        	rtgTreeChance = config.getInt(
+                "RTG Tree from Vanilla Sapling Chance",
+                "Saplings",
+                rtgTreeChance, 1, Integer.MAX_VALUE,
+                "1/x chance that a vanilla sapling will generate one of RTG's custom trees."
+                + Configuration.NEW_LINE +
+                "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+                + Configuration.NEW_LINE
+            );
             
             /* ==================== Scattered Features ==================== */
             

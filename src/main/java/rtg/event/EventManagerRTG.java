@@ -285,34 +285,28 @@ public class EventManagerRTG
 		
 		Logger.info("Biome = %s", rb.baseBiome.biomeName);
 		
-		ArrayList<DecoBase> decos = rb.decos;
+		ArrayList<TreeRTG> rtgTrees = rb.rtgTrees;
 		
-		for (int i = 0; i < decos.size(); i++) {
+		for (int i = 0; i < rtgTrees.size(); i++) {
 			
-			Logger.info("Deco = %s", decos.get(i).getClass().getName());
+			TreeRTG tree = rtgTrees.get(i);
 			
-			// For now, let's just try to generate the first RTG tree we find.
-			if (decos.get(i) instanceof DecoTree)
-			{
-				DecoTree decoTree = (DecoTree)decos.get(i);
-				TreeRTG tree = decoTree.tree;
+			Logger.info("Tree = %s", tree.getClass().getName());
+
+			// Is the sapling on the ground the same as this tree's registered sapling?
+			// TODO: How can we check the meta value of the sapling on the ground?
+			if (sapling == tree.saplingBlock) {
+			
+				event.setResult(Result.DENY); // Do we need this?
 				
-				Logger.info("Tree = %s", tree.getClass().getName());
+				//world.setBlock(x, y, z, Blocks.air, (byte)0, 2); // Do we need this?
 				
-				// Is the sapling on the ground the same as this tree's registered sapling?
-				// TODO: How can we check the meta value of the sapling on the ground?
-				if (sapling == tree.saplingBlock) {
+				int oldFlag = tree.generateFlag;
+				tree.generateFlag = 3;
+				tree.generate(world, rand, x, y, z);
+				tree.generateFlag = oldFlag;
 				
-					//event.setResult(Result.DENY); // Do we need this?
-					//world.setBlock(x, y, z, Blocks.air, (byte)0, 2); // Do we need this?
-					
-					int oldFlag = tree.generateFlag;
-					tree.generateFlag = 3;
-					tree.generate(world, rand, x, y, z);
-					tree.generateFlag = oldFlag;
-					
-					break;
-				}
+				break;
 			}
 		}
 	}

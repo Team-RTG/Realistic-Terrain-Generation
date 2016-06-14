@@ -116,15 +116,18 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase
 		DecoHelperThisOrThat decoHelperThisOrThat3 = new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, bigSpruceTrees3, bigSpruceOakTrees3);
 		this.addDeco(decoHelperThisOrThat3);
 		
-		DecoTree decoTrees = new DecoTree(new TreeRTGPiceaSitchensis());
-		decoTrees.logBlock = Blocks.log;
-		decoTrees.logMeta = (byte)1;
-		decoTrees.leavesBlock = Blocks.leaves;
-		decoTrees.leavesMeta = (byte)1;
-		decoTrees.minTrunkSize = 4;
-		decoTrees.maxTrunkSize = 9;
-		decoTrees.minCrownSize = 5;
-		decoTrees.maxCrownSize = 14;
+		TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
+		sitchensisTree.logBlock = Blocks.log;
+		sitchensisTree.logMeta = (byte)1;
+		sitchensisTree.leavesBlock = Blocks.leaves;
+		sitchensisTree.leavesMeta = (byte)1;
+		sitchensisTree.minTrunkSize = 4;
+		sitchensisTree.maxTrunkSize = 9;
+		sitchensisTree.minCrownSize = 5;
+		sitchensisTree.maxCrownSize = 14;
+		this.addTree(sitchensisTree);
+		
+		DecoTree decoTrees = new DecoTree(sitchensisTree);
 		decoTrees.strengthFactorForLoops = 4f;
 		decoTrees.treeType = TreeType.RTG_TREE;
 		decoTrees.treeCondition = TreeCondition.RANDOM_CHANCE;

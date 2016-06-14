@@ -58,15 +58,18 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 		birchTrees.treeConditionNoise = 0f;
 		birchTrees.maxY = 120;
 		
-		DecoTree smallPine = new DecoTree(new TreeRTGPiceaSitchensis());
-    	smallPine.logBlock = Blocks.log;
-    	smallPine.logMeta = (byte)1;
-    	smallPine.leavesBlock = Blocks.leaves;
-    	smallPine.leavesMeta = (byte)1;
-    	smallPine.minTrunkSize = 4;
-    	smallPine.maxTrunkSize = 9;
-    	smallPine.minCrownSize = 5;
-    	smallPine.maxCrownSize = 14;
+		TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
+    	sitchensisTree.logBlock = Blocks.log;
+    	sitchensisTree.logMeta = (byte)1;
+    	sitchensisTree.leavesBlock = Blocks.leaves;
+    	sitchensisTree.leavesMeta = (byte)1;
+    	sitchensisTree.minTrunkSize = 4;
+    	sitchensisTree.maxTrunkSize = 9;
+    	sitchensisTree.minCrownSize = 5;
+    	sitchensisTree.maxCrownSize = 14;
+		this.addTree(sitchensisTree);
+		
+		DecoTree smallPine = new DecoTree(sitchensisTree);
     	smallPine.strengthFactorForLoops = 9f;
     	smallPine.treeType = TreeType.RTG_TREE;
     	smallPine.distribution.noiseDivisor = 100f;

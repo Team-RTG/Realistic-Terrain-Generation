@@ -24,15 +24,18 @@ public class DecoCollectionMegaTaiga extends DecoCollectionBase
 	{
 		super();
 		
-		DecoTree smallPines = new DecoTree(new TreeRTGPiceaSitchensis());
-		smallPines.logBlock = Blocks.log;
-		smallPines.logMeta = (byte)1;
-		smallPines.leavesBlock = Blocks.leaves;
-		smallPines.leavesMeta = (byte)1;
-		smallPines.minTrunkSize = 4;
-		smallPines.maxTrunkSize = 9;
-		smallPines.minCrownSize = 5;
-		smallPines.maxCrownSize = 14;
+		TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
+		sitchensisTree.logBlock = Blocks.log;
+		sitchensisTree.logMeta = (byte)1;
+		sitchensisTree.leavesBlock = Blocks.leaves;
+		sitchensisTree.leavesMeta = (byte)1;
+		sitchensisTree.minTrunkSize = 4;
+		sitchensisTree.maxTrunkSize = 9;
+		sitchensisTree.minCrownSize = 5;
+		sitchensisTree.maxCrownSize = 14;
+		this.addTree(sitchensisTree);
+		
+		DecoTree smallPines = new DecoTree(sitchensisTree);
 		smallPines.strengthNoiseFactorXForLoops = true;
 		smallPines.strengthFactorForLoops = 4f;
 		smallPines.treeType = TreeType.RTG_TREE;

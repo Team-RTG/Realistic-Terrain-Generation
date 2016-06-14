@@ -24,10 +24,9 @@ import rtg.RTG;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.Acceptor;
 import rtg.util.Logger;
+import rtg.util.RandomUtil;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.WorldChunkManagerRTG;
-import rtg.world.biome.deco.DecoBase;
-import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.MapGenCavesRTG;
 import rtg.world.gen.MapGenRavineRTG;
@@ -287,26 +286,32 @@ public class EventManagerRTG
 		
 		ArrayList<TreeRTG> rtgTrees = rb.rtgTrees;
 		
-		for (int i = 0; i < rtgTrees.size(); i++) {
+		if (rtgTrees.size() > 0) {
 			
-			TreeRTG tree = rtgTrees.get(i);
+			// Get a random tree from the list.
+			TreeRTG tree = rtgTrees.get(rand.nextInt(rtgTrees.size()));
 			
 			Logger.info("Tree = %s", tree.getClass().getName());
-
+			
 			// Is the sapling on the ground the same as this tree's registered sapling?
 			// TODO: How can we check the meta value of the sapling on the ground?
 			if (sapling == tree.saplingBlock) {
-			
-				event.setResult(Result.DENY); // Do we need this?
+
+				if (tree.minCrownSize > 0 && tree.maxCrownSize > tree.minCrownSize) {
+					tree.crownSize = RandomUtil.getRandomInt(rand, tree.minCrownSize, tree.maxCrownSize);
+				}
 				
-				//world.setBlock(x, y, z, Blocks.air, (byte)0, 2); // Do we need this?
+				if (tree.minTrunkSize > 0 && tree.maxTrunkSize > tree.minTrunkSize) {
+					tree.trunkSize = RandomUtil.getRandomInt(rand, tree.minTrunkSize, tree.maxTrunkSize);
+				}
 				
 				int oldFlag = tree.generateFlag;
 				tree.generateFlag = 3;
 				tree.generate(world, rand, x, y, z);
 				tree.generateFlag = oldFlag;
 				
-				break;
+				// Prevent the original tree from generating.
+				event.setResult(Result.DENY);
 			}
 		}
 	}

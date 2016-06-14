@@ -11,12 +11,12 @@ import rtg.world.biome.deco.DecoDeadBush;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoGrass;
-import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
 import rtg.world.biome.deco.DecoMushrooms;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat.ChanceType;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGCeibaPentandra;
 import rtg.world.gen.feature.tree.rtg.TreeRTGCeibaRosea;
 import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
@@ -63,20 +63,23 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         mangroveTree.maxY = 110;
         this.addDeco(mangroveTree);
         
-        DecoTree ceibaPentandraTree = new DecoTree(new TreeRTGCeibaPentandra(13f, 3, 0.32f, 0.1f));
+        TreeRTG pentandraTree = new TreeRTGCeibaPentandra(13f, 3, 0.32f, 0.1f);
+        pentandraTree.logBlock = Blocks.log2;
+        pentandraTree.logMeta = (byte)1;
+        pentandraTree.leavesBlock = Blocks.leaves2;
+        pentandraTree.leavesMeta = (byte)1;
+        pentandraTree.minTrunkSize = 2;
+        pentandraTree.maxTrunkSize = 3;
+        pentandraTree.minCrownSize = 10;
+        pentandraTree.maxCrownSize = 18;
+        pentandraTree.noLeaves = false;
+        this.addTree(pentandraTree);
+        
+        DecoTree ceibaPentandraTree = new DecoTree(pentandraTree);
         ceibaPentandraTree.treeType = DecoTree.TreeType.RTG_TREE;
         ceibaPentandraTree.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
         ceibaPentandraTree.treeConditionChance = 1;
         ceibaPentandraTree.strengthFactorForLoops = 8f;
-        ceibaPentandraTree.logBlock = Blocks.log2;
-        ceibaPentandraTree.logMeta = (byte)1;
-        ceibaPentandraTree.leavesBlock = Blocks.leaves2;
-        ceibaPentandraTree.leavesMeta = (byte)1;
-        ceibaPentandraTree.minTrunkSize = 2;
-        ceibaPentandraTree.maxTrunkSize = 3;
-        ceibaPentandraTree.minCrownSize = 10;
-        ceibaPentandraTree.maxCrownSize = 18;
-        ceibaPentandraTree.noLeaves = false;
         ceibaPentandraTree.maxY = 110;
         this.addDeco(ceibaPentandraTree);
         

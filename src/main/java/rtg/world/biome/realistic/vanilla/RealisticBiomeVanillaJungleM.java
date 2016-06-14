@@ -5,12 +5,21 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleM;
-import rtg.world.biome.deco.*;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
+import rtg.world.biome.deco.DecoFlowersRTG;
+import rtg.world.biome.deco.DecoGrass;
+import rtg.world.biome.deco.DecoJungleCacti;
+import rtg.world.biome.deco.DecoJungleGrassVines;
+import rtg.world.biome.deco.DecoJungleLilypadVines;
+import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat.ChanceType;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
 import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.world.gen.feature.tree.vanilla.WorldGenMegaJungleRTG;
@@ -79,16 +88,20 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase
 		this.addDeco(decoHelperThisOrThat);
 		
 		// Add some palm trees for variety.
-		DecoTree palmCustom = new DecoTree(new TreeRTGCocosNucifera());
+		
+		TreeRTG nuciferaTree = new TreeRTGCocosNucifera();
+		nuciferaTree.minTrunkSize = 7;
+		nuciferaTree.maxTrunkSize = 9;
+		nuciferaTree.minCrownSize = 6;
+		nuciferaTree.maxCrownSize = 8;
+		this.addTree(nuciferaTree);
+		
+		DecoTree palmCustom = new DecoTree(nuciferaTree);
 		palmCustom.loops = 1;
 		palmCustom.treeType = TreeType.RTG_TREE;
 		palmCustom.treeCondition = TreeCondition.RANDOM_CHANCE;
 		palmCustom.treeConditionChance = 3;
 		palmCustom.maxY = 160;
-		palmCustom.minTrunkSize = 7;
-		palmCustom.maxTrunkSize = 9;
-		palmCustom.minCrownSize = 6;
-		palmCustom.maxCrownSize = 8;
 		this.addDeco(palmCustom);
 		
 		// Another pass of the WorldGenMegaJungle collection for extra jungleness.

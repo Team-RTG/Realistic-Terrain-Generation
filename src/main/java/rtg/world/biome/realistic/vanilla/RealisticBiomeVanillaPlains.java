@@ -10,6 +10,7 @@ import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat.ChanceType;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaPlains;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaPlains;
@@ -57,20 +58,36 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
         
         {
         // Very rare fat oak/birch trees.
-        DecoTree oakTrees = new DecoTree(new TreeRTGQuercusRobur());
+        	
+		TreeRTG roburTree1 = new TreeRTGQuercusRobur();
+		roburTree1.logBlock = Blocks.log;
+		roburTree1.logMeta = (byte)0;
+		roburTree1.leavesBlock = Blocks.leaves;
+		roburTree1.leavesMeta = (byte)0;
+		roburTree1.noLeaves = false;
+		this.addTree(roburTree1);
+        	
+        DecoTree oakTrees = new DecoTree(roburTree1);
         oakTrees.treeType = DecoTree.TreeType.RTG_TREE;
         oakTrees.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         oakTrees.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);
         oakTrees.treeConditionNoise = 0.4f;
         oakTrees.treeConditionChance = 48;
-        oakTrees.logBlock = Blocks.log;
-        oakTrees.logMeta = (byte)0;
-        oakTrees.leavesBlock = Blocks.leaves;
-        oakTrees.leavesMeta = (byte)0;
-        oakTrees.noLeaves = false;
-        DecoTree birchTrees = new DecoTree(oakTrees);
-        birchTrees.logMeta = (byte)2;
-        birchTrees.leavesMeta = (byte)2;
+        
+		TreeRTG roburTree2 = new TreeRTGQuercusRobur();
+		roburTree2.logBlock = Blocks.log;
+		roburTree2.logMeta = (byte)2;
+		roburTree2.leavesBlock = Blocks.leaves;
+		roburTree2.leavesMeta = (byte)2;
+		roburTree2.noLeaves = false;
+		this.addTree(roburTree2);
+        
+        DecoTree birchTrees = new DecoTree(roburTree2);
+        birchTrees.treeType = DecoTree.TreeType.RTG_TREE;
+        birchTrees.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        birchTrees.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);
+        birchTrees.treeConditionNoise = 0.4f;
+        birchTrees.treeConditionChance = 48;
 
         this.addDeco(new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, oakTrees, birchTrees));
         }

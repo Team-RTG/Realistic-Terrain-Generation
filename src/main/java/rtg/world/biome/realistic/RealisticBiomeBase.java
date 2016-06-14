@@ -726,6 +726,18 @@ public class RealisticBiomeBase extends BiomeBase {
      */
     public void addTree(TreeRTG tree)
     {
+    	// Set the sapling data for this tree before we add it to the list.
+    	tree.saplingBlock = Blocks.sapling;
+    	
+    	if (tree.leavesBlock == Blocks.leaves) {
+    		
+    		tree.saplingMeta = tree.leavesMeta;
+    	}
+    	else if (tree.leavesBlock == Blocks.leaves2) {
+    		
+    		tree.saplingMeta = (byte) (tree.leavesMeta + 4);
+    	}
+    	
     	this.addTree(tree, true);
     }
 }

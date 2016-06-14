@@ -275,7 +275,7 @@ public class EventManagerRTG
 		int y = event.y;
 		int z = event.z;
 		Block saplingBlock = world.getBlock(x, y, z);
-		byte saplingMeta = (byte)world.getBlockMetadata(x, y, z);
+		byte saplingMeta = (byte) saplingBlock.getDamageValue(world, x, y, z);
 		
 		Logger.info("Ground Sapling Block = %s", saplingBlock.getLocalizedName());
 		Logger.info("Ground Sapling Meta = %d", saplingMeta);
@@ -286,17 +286,32 @@ public class EventManagerRTG
 		
 		Logger.info("Biome = %s", rb.baseBiome.biomeName);
 		
-		ArrayList<TreeRTG> rtgTrees = rb.rtgTrees;
+		ArrayList<TreeRTG> biomeTrees = rb.rtgTrees;
 		
-		if (rtgTrees.size() > 0) {
+		if (biomeTrees.size() > 0) {
 			
-			// Get a random tree from the list.
-			TreeRTG tree = rtgTrees.get(rand.nextInt(rtgTrees.size()));
+			// First, let's get all of the trees in this biome that match the sapling on the ground.
+			ArrayList<TreeRTG> validTrees = new ArrayList<TreeRTG>();
 			
-			Logger.info("Tree = %s", tree.getClass().getName());
+			for (int i = 0; i < biomeTrees.size(); i++) {
+				
+				Logger.info("Biome Tree #%d = %s", i, biomeTrees.get(i).getClass().getName());
+				Logger.info("Biome Tree #%d Sapling Block = %s", i, biomeTrees.get(i).saplingBlock.getClass().getName());
+				Logger.info("Biome Tree #%d Sapling Meta = %d", i, biomeTrees.get(i).saplingMeta);
+				
+				if (saplingBlock == biomeTrees.get(i).saplingBlock && saplingMeta == biomeTrees.get(i).saplingMeta) {
+					validTrees.add(biomeTrees.get(i));
+					Logger.info("Valid tree found!");
+				}
+			}
 			
-			// Is the sapling on the ground the same as this tree's registered sapling?
-			if (saplingBlock == tree.saplingBlock && saplingMeta == tree.saplingMeta) {
+			// If there are valid trees, then proceed; otherwise, let's get out here.
+			if (validTrees.size() > 0) {
+				
+				// Get a random tree from the list of valid trees.
+				TreeRTG tree = validTrees.get(rand.nextInt(validTrees.size()));
+				
+				Logger.info("Tree = %s", tree.getClass().getName());
 
 				if (tree.minCrownSize > 0 && tree.maxCrownSize > tree.minCrownSize) {
 					tree.crownSize = RandomUtil.getRandomInt(rand, tree.minCrownSize, tree.maxCrownSize);
@@ -319,6 +334,10 @@ public class EventManagerRTG
 				
 				// Prevent the original tree from generating.
 				event.setResult(Result.DENY);
+			}
+			else {
+				
+				Logger.info("There are no RTG trees associated with the sapling on the ground. Generating a vanilla tree instead.");
 			}
 		}
 	}

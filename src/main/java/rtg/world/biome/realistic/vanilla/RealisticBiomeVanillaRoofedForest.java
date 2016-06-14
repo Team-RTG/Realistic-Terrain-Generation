@@ -83,20 +83,23 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         ceibaPentandraTree.maxY = 110;
         this.addDeco(ceibaPentandraTree);
         
-        DecoTree ceibaRoseaTree = new DecoTree(new TreeRTGCeibaRosea(16f, 5, 0.32f, 0.1f));
+        TreeRTG roseaTree = new TreeRTGCeibaRosea(16f, 5, 0.32f, 0.1f);
+        roseaTree.logBlock = Blocks.log2;
+        roseaTree.logMeta = (byte)1;
+        roseaTree.leavesBlock = Blocks.leaves2;
+        roseaTree.leavesMeta = (byte)1;
+        roseaTree.minTrunkSize = 2;
+        roseaTree.maxTrunkSize = 3;
+        roseaTree.minCrownSize = 10;
+        roseaTree.maxCrownSize = 18;
+        roseaTree.noLeaves = false;
+        this.addTree(roseaTree);
+        
+        DecoTree ceibaRoseaTree = new DecoTree(roseaTree);
         ceibaRoseaTree.treeType = DecoTree.TreeType.RTG_TREE;
         ceibaRoseaTree.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
         ceibaRoseaTree.treeConditionChance = 1;
         ceibaRoseaTree.strengthFactorForLoops = 8f;
-        ceibaRoseaTree.logBlock = Blocks.log2;
-        ceibaRoseaTree.logMeta = (byte)1;
-        ceibaRoseaTree.leavesBlock = Blocks.leaves2;
-        ceibaRoseaTree.leavesMeta = (byte)1;
-        ceibaRoseaTree.minTrunkSize = 2;
-        ceibaRoseaTree.maxTrunkSize = 3;
-        ceibaRoseaTree.minCrownSize = 10;
-        ceibaRoseaTree.maxCrownSize = 18;
-        ceibaRoseaTree.noLeaves = false;
         ceibaRoseaTree.maxY = 110;
         this.addDeco(ceibaRoseaTree);
         

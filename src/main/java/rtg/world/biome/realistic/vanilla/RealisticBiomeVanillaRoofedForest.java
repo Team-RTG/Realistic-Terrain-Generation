@@ -46,20 +46,23 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 		decoMushrooms.randomType = rtg.world.biome.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE;
 		this.addDeco(decoMushrooms);
 		
-        DecoTree mangroveTree = new DecoTree(new TreeRTGRhizophoraMucronata(3, 4, 13f, 0.32f, 0.1f));
+		TreeRTG mucronataTree = new TreeRTGRhizophoraMucronata(3, 4, 13f, 0.32f, 0.1f);
+        mucronataTree.logBlock = Blocks.log2;
+        mucronataTree.logMeta = (byte)1;
+        mucronataTree.leavesBlock = Blocks.leaves2;
+        mucronataTree.leavesMeta = (byte)1;
+        mucronataTree.minTrunkSize = 2;
+        mucronataTree.maxTrunkSize = 3;
+        mucronataTree.minCrownSize = 10;
+        mucronataTree.maxCrownSize = 18;
+        mucronataTree.noLeaves = false;
+		this.addTree(mucronataTree);
+		
+        DecoTree mangroveTree = new DecoTree(mucronataTree);
         mangroveTree.treeType = DecoTree.TreeType.RTG_TREE;
         mangroveTree.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
         mangroveTree.treeConditionChance = 1;
         mangroveTree.strengthFactorForLoops = 8f;
-        mangroveTree.logBlock = Blocks.log2;
-        mangroveTree.logMeta = (byte)1;
-        mangroveTree.leavesBlock = Blocks.leaves2;
-        mangroveTree.leavesMeta = (byte)1;
-        mangroveTree.minTrunkSize = 2;
-        mangroveTree.maxTrunkSize = 3;
-        mangroveTree.minCrownSize = 10;
-        mangroveTree.maxCrownSize = 18;
-        mangroveTree.noLeaves = false;
         mangroveTree.maxY = 110;
         this.addDeco(mangroveTree);
         

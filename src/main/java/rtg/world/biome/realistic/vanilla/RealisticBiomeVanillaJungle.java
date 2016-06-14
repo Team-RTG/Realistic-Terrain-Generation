@@ -42,15 +42,18 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase
 
 		// Blend of the WorldGenMegaJungle collection and some tall RTG Mangrove trees.
 
+		TreeRTG mucronataTree = new TreeRTGRhizophoraMucronata(4, 5, 13f, 0.32f, 0.2f);
+		mucronataTree.logBlock = Blocks.log;
+		mucronataTree.logMeta = (byte)3;
+		mucronataTree.leavesBlock = Blocks.leaves;
+		mucronataTree.leavesMeta = (byte)3;
+		mucronataTree.minTrunkSize = 3;
+		mucronataTree.maxTrunkSize = 4;
+		mucronataTree.minCrownSize = 10;
+		mucronataTree.maxCrownSize = 27;
+		this.addTree(mucronataTree);
+		
 		DecoTree mangroves = new DecoTree(new TreeRTGRhizophoraMucronata(4, 5, 13f, 0.32f, 0.2f));
-		mangroves.logBlock = Blocks.log;
-		mangroves.logMeta = (byte)3;
-		mangroves.leavesBlock = Blocks.leaves;
-		mangroves.leavesMeta = (byte)3;
-		mangroves.minTrunkSize = 3;
-		mangroves.maxTrunkSize = 4;
-		mangroves.minCrownSize = 10;
-		mangroves.maxCrownSize = 27;
 		mangroves.loops = 3;
 		mangroves.treeType = TreeType.RTG_TREE;
 		mangroves.treeCondition = TreeCondition.RANDOM_CHANCE;

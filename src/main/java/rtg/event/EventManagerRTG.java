@@ -289,6 +289,8 @@ public class EventManagerRTG
 		
 		for (int i = 0; i < decos.size(); i++) {
 			
+			Logger.info("Deco = %s", decos.get(i).getClass().getName());
+			
 			// For now, let's just try to generate the first RTG tree we find.
 			if (decos.get(i) instanceof DecoTree)
 			{
@@ -303,8 +305,11 @@ public class EventManagerRTG
 				
 					//event.setResult(Result.DENY); // Do we need this?
 					//world.setBlock(x, y, z, Blocks.air, (byte)0, 2); // Do we need this?
-					    		
+					
+					int oldFlag = tree.generateFlag;
+					tree.generateFlag = 3;
 					tree.generate(world, rand, x, y, z);
+					tree.generateFlag = oldFlag;
 					
 					break;
 				}

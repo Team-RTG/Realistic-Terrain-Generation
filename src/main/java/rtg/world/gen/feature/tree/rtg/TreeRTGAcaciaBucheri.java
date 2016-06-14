@@ -66,7 +66,7 @@ public class TreeRTGAcaciaBucheri extends TreeRTG
     	
     	for(int i = 0; i < h; i++)
     	{
-    		world.setBlock(x, y + i, z, this.logBlock, this.logMeta, 0);
+    		world.setBlock(x, y + i, z, this.logBlock, this.logMeta, this.generateFlag);
     	}
 		genLeaves(world, rand, x, y + h, z);
 		
@@ -84,7 +84,7 @@ public class TreeRTGAcaciaBucheri extends TreeRTG
 			
 			while(sh < h)
 			{
-				world.setBlock(x + (int)(xd * c), y + sh, z + (int)(yd * c), this.logBlock, this.logMeta, 0);
+				world.setBlock(x + (int)(xd * c), y + sh, z + (int)(yd * c), this.logBlock, this.logMeta, this.generateFlag);
 				sh++;
 				c += 0.5f;
 			}
@@ -106,7 +106,7 @@ public class TreeRTGAcaciaBucheri extends TreeRTG
 	    		{
 	    			if(world.isAirBlock(x + i, y + 1, z + j))
 	    			{
-	    				world.setBlock(x + i, y + 1, z + j, this.leavesBlock, this.leavesMeta, 0);
+	    				world.setBlock(x + i, y + 1, z + j, this.leavesBlock, this.leavesMeta, this.generateFlag);
 	    			}
 	    		}
 	    	}
@@ -117,12 +117,12 @@ public class TreeRTGAcaciaBucheri extends TreeRTG
 	    		{
 	    			if(world.isAirBlock(x + i, y, z + j) && Math.abs(i) + Math.abs(j) < 4)
 	    			{
-	    				world.setBlock(x + i, y, z + j, this.leavesBlock, this.leavesMeta, 0);
+	    				world.setBlock(x + i, y, z + j, this.leavesBlock, this.leavesMeta, this.generateFlag);
 	    			}
 	    		}
 	    	}
     	}
     	
-    	world.setBlock(x, y, z, this.logBlock, this.logMeta, 0);
+    	world.setBlock(x, y, z, this.logBlock, this.logMeta, this.generateFlag);
     }
 }

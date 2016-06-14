@@ -26,6 +26,7 @@ public class TreeRTG extends WorldGenerator
 	public boolean noLeaves;
 	public Block saplingBlock;
 	public byte saplingMeta;
+	public int generateFlag;
 	
 	public TreeRTG()
 	{
@@ -38,6 +39,7 @@ public class TreeRTG extends WorldGenerator
 		this.noLeaves = false;
 		this.saplingBlock = Blocks.sapling;
 		this.saplingMeta = (byte)0;
+		this.generateFlag = 2;
 	}
 
 	@Override

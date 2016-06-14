@@ -200,7 +200,7 @@ public class TreeRTGQuercusRobur extends TreeRTG
                     else
                     {
                     	if (!this.noLeaves) {
-                    		worldObj.setBlock(var11[0], var11[1], var11[2], par6, this.leavesMeta, 0);
+                    		worldObj.setBlock(var11[0], var11[1], var11[2], par6, this.leavesMeta, this.generateFlag);
                     	}
                     	
                         ++var13;
@@ -323,7 +323,7 @@ public class TreeRTGQuercusRobur extends TreeRTG
                     }
                 }
 
-                worldObj.setBlock(var14[0], var14[1], var14[2], par3, this.logMeta, 0);
+                worldObj.setBlock(var14[0], var14[1], var14[2], par3, this.logMeta, this.generateFlag);
             }
         }
     }

@@ -50,10 +50,11 @@ public class TreeRTG extends WorldGenerator
 		
 		this.generateFlag = 2;
 		
-		this.minTrunkSize = this.trunkSize;
-		this.maxTrunkSize = this.trunkSize;
-		this.minCrownSize = this.crownSize;
-		this.maxCrownSize = this.crownSize;
+		// These need to default to zero as they're only used when generating trees from saplings.
+		this.minTrunkSize = 0;
+		this.maxTrunkSize = 0;
+		this.minCrownSize = 0;
+		this.maxCrownSize = 0;
 	}
 
 	@Override

@@ -42,11 +42,14 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase
 		 * ##################################################
 		 */
         
-		DecoTree decoTrees = new DecoTree(new TreeRTGSalixMyrtilloides());
-		decoTrees.logBlock = Blocks.log;
-		decoTrees.logMeta = (byte)0;
-		decoTrees.leavesBlock = Blocks.leaves;
-		decoTrees.leavesMeta = (byte)0;
+		TreeRTG myrtilloidesTree = new TreeRTGSalixMyrtilloides();
+		myrtilloidesTree.logBlock = Blocks.log;
+		myrtilloidesTree.logMeta = (byte)0;
+		myrtilloidesTree.leavesBlock = Blocks.leaves;
+		myrtilloidesTree.leavesMeta = (byte)0;
+		this.addTree(myrtilloidesTree);
+        
+		DecoTree decoTrees = new DecoTree(myrtilloidesTree);
 		decoTrees.strengthNoiseFactorXForLoops = true;
 		decoTrees.strengthFactorForLoops = 1f;
 		decoTrees.distribution.noiseDivisor = 80f;

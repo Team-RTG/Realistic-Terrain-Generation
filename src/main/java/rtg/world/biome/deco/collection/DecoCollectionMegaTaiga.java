@@ -62,15 +62,18 @@ public class DecoCollectionMegaTaiga extends DecoCollectionBase
 		spruceTrees.treeConditionChance = 1;
 		spruceTrees.maxY = 100;
 		
-		DecoTree oakPines = new DecoTree(new TreeRTGPinusPonderosa());
-		oakPines.logBlock = Blocks.log;
-		oakPines.logMeta = (byte)0;
-		oakPines.leavesBlock = Blocks.leaves;
-		oakPines.leavesMeta = (byte)0;
-		oakPines.minTrunkSize = 11;
-		oakPines.maxTrunkSize = 21;
-		oakPines.minCrownSize = 15;
-		oakPines.maxCrownSize = 29;
+		TreeRTG ponderosaTree = new TreeRTGPinusPonderosa();
+		ponderosaTree.logBlock = Blocks.log;
+		ponderosaTree.logMeta = (byte)0;
+		ponderosaTree.leavesBlock = Blocks.leaves;
+		ponderosaTree.leavesMeta = (byte)0;
+		ponderosaTree.minTrunkSize = 11;
+		ponderosaTree.maxTrunkSize = 21;
+		ponderosaTree.minCrownSize = 15;
+		ponderosaTree.maxCrownSize = 29;
+		this.addTree(ponderosaTree);
+		
+		DecoTree oakPines = new DecoTree(ponderosaTree);
 		oakPines.strengthNoiseFactorXForLoops = true;
 		oakPines.strengthFactorForLoops = 4f;
 		oakPines.treeType = TreeType.RTG_TREE;

@@ -17,6 +17,7 @@ import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.collection.DecoCollectionSmallPineTreesForest;
 import rtg.world.biome.deco.helper.DecoHelper5050;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaFlowerForest;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaFlowerForest;
@@ -68,15 +69,19 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         this.addDeco(decoFlowers2);
 		
         // Trees first.
-		DecoTree oakPines = new DecoTree(new TreeRTGPinusPonderosa());
-		oakPines.logBlock = Blocks.log;
-		oakPines.logMeta = (byte)0;
-		oakPines.leavesBlock = Blocks.leaves;
-		oakPines.leavesMeta = (byte)0;
-		oakPines.minTrunkSize = 11;
-		oakPines.maxTrunkSize = 21;
-		oakPines.minCrownSize = 15;
-		oakPines.maxCrownSize = 29;
+        
+		TreeRTG ponderosaTree = new TreeRTGPinusPonderosa();
+		ponderosaTree.logBlock = Blocks.log;
+		ponderosaTree.logMeta = (byte)0;
+		ponderosaTree.leavesBlock = Blocks.leaves;
+		ponderosaTree.leavesMeta = (byte)0;
+		ponderosaTree.minTrunkSize = 11;
+		ponderosaTree.maxTrunkSize = 21;
+		ponderosaTree.minCrownSize = 15;
+		ponderosaTree.maxCrownSize = 29;
+		this.addTree(ponderosaTree);
+        
+		DecoTree oakPines = new DecoTree(ponderosaTree);
 		oakPines.strengthNoiseFactorForLoops = true;
 		oakPines.treeType = TreeType.RTG_TREE;
 		oakPines.distribution.noiseDivisor = 80f;

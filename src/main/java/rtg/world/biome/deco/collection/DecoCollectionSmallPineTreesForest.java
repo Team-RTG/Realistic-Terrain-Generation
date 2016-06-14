@@ -5,11 +5,9 @@ import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
-import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
-import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.world.gen.feature.tree.vanilla.WorldGenForestRTG;
 import rtg.world.gen.feature.tree.vanilla.WorldGenTreesRTG;
 

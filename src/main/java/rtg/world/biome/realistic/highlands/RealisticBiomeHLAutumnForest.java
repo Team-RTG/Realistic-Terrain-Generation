@@ -40,15 +40,18 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
         );
         this.noWaterFeatures = false;
         
-		DecoTree yellowPines = new DecoTree(new TreeRTGPinusPonderosa());
-		yellowPines.logBlock = Blocks.log;
-		yellowPines.logMeta = (byte)0;
-		yellowPines.leavesBlock = Highlands.vanillaBlocksFlag ? Blocks.leaves : HighlandsBlocks.autumnYellowLeaves;
-		yellowPines.leavesMeta = Highlands.vanillaBlocksFlag ? (byte)0 : (byte)0;
-		yellowPines.minTrunkSize = 6;
-		yellowPines.maxTrunkSize = 14;
-		yellowPines.minCrownSize = 8;
-		yellowPines.maxCrownSize = 20;
+		TreeRTG ponderosaYellowTree = new TreeRTGPinusPonderosa();
+		ponderosaYellowTree.logBlock = Blocks.log;
+		ponderosaYellowTree.logMeta = (byte)0;
+		ponderosaYellowTree.leavesBlock = Highlands.vanillaBlocksFlag ? Blocks.leaves : HighlandsBlocks.autumnYellowLeaves;
+		ponderosaYellowTree.leavesMeta = Highlands.vanillaBlocksFlag ? (byte)0 : (byte)0;
+		ponderosaYellowTree.minTrunkSize = 6;
+		ponderosaYellowTree.maxTrunkSize = 14;
+		ponderosaYellowTree.minCrownSize = 8;
+		ponderosaYellowTree.maxCrownSize = 20;
+		this.addTree(ponderosaYellowTree);
+        
+		DecoTree yellowPines = new DecoTree(ponderosaYellowTree);
 		yellowPines.strengthFactorForLoops = 6f;
 		yellowPines.treeType = TreeType.RTG_TREE;
 		yellowPines.distribution.noiseDivisor = 100f;
@@ -90,20 +93,23 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
 		decoTrees.chances = new int[]{8, 8, 4};
 		this.addDeco(decoTrees);
 		
-		DecoTree deadPineTree = new DecoTree(new TreeRTGPinusPonderosa());
-		deadPineTree.logBlock = Blocks.log;
-		deadPineTree.logMeta = (byte)0;
-		deadPineTree.leavesBlock = Blocks.leaves;
-		deadPineTree.leavesMeta = (byte)0;
-		deadPineTree.minTrunkSize = 4;
-		deadPineTree.maxTrunkSize = 7;
-		deadPineTree.minCrownSize = 8;
-		deadPineTree.maxCrownSize = 18;
+		TreeRTG ponderosaTree = new TreeRTGPinusPonderosa();
+		ponderosaTree.logBlock = Blocks.log;
+		ponderosaTree.logMeta = (byte)0;
+		ponderosaTree.leavesBlock = Blocks.leaves;
+		ponderosaTree.leavesMeta = (byte)0;
+		ponderosaTree.minTrunkSize = 4;
+		ponderosaTree.maxTrunkSize = 7;
+		ponderosaTree.minCrownSize = 8;
+		ponderosaTree.maxCrownSize = 18;
+		ponderosaTree.noLeaves = true;
+		this.addTree(ponderosaTree);
+		
+		DecoTree deadPineTree = new DecoTree(ponderosaTree);
 		deadPineTree.treeType = TreeType.RTG_TREE;
 		deadPineTree.treeCondition = TreeCondition.RANDOM_CHANCE;
 		deadPineTree.treeConditionChance = 18;
 		deadPineTree.maxY = 120;
-		deadPineTree.noLeaves = true;
 		this.addDeco(deadPineTree);
 		
         DecoFallenTree decoFallenOak = new DecoFallenTree();

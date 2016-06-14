@@ -28,6 +28,11 @@ public class TreeRTG extends WorldGenerator
 	public byte saplingMeta;
 	public int generateFlag;
 	
+	public int minTrunkSize;
+	public int maxTrunkSize;
+	public int minCrownSize;
+	public int maxCrownSize;
+	
 	public TreeRTG()
 	{
 		this.logBlock = Blocks.log;
@@ -37,9 +42,16 @@ public class TreeRTG extends WorldGenerator
 		this.trunkSize = 2;
 		this.crownSize = 4;
 		this.noLeaves = false;
+		
 		this.saplingBlock = Blocks.sapling;
 		this.saplingMeta = (byte)0;
+		
 		this.generateFlag = 2;
+		
+		this.minTrunkSize = this.trunkSize;
+		this.maxTrunkSize = this.trunkSize;
+		this.minCrownSize = this.crownSize;
+		this.maxCrownSize = this.crownSize;
 	}
 
 	@Override

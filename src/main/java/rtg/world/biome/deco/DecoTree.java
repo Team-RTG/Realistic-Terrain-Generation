@@ -121,6 +121,11 @@ public class DecoTree extends DecoBase
 		this.logMeta = tree.logMeta;
 		this.leavesBlock = tree.leavesBlock;
 		this.leavesMeta = tree.leavesMeta;
+		this.minTrunkSize = tree.minTrunkSize;
+		this.maxTrunkSize = tree.maxTrunkSize;
+		this.minCrownSize = tree.minCrownSize;
+		this.maxCrownSize = tree.maxCrownSize;
+		this.noLeaves = tree.noLeaves;
 	}
 	
 	public DecoTree(WorldGenerator worldGen)

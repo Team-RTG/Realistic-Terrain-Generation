@@ -58,7 +58,6 @@ public class DecoCollectionSavanna extends DecoCollectionBase
 		bucheriTree.leavesMeta = (byte)0;
 		bucheriTree.minTrunkSize = 4;
 		bucheriTree.maxTrunkSize = 9;
-		
 		this.addTree(bucheriTree);
 
 		DecoTree bucheriTrees = new DecoTree(bucheriTree);

@@ -72,7 +72,6 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
 		acaciaTree.leavesMeta = (byte)0;
 		acaciaTree.minTrunkSize = 12;
 		acaciaTree.maxTrunkSize = 16;
-		
 		this.addTree(acaciaTree);
 		
 		DecoTree acaciaTrees = new DecoTree(acaciaTree);

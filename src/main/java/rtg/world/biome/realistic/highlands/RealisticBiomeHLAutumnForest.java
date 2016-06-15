@@ -62,9 +62,27 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
 		yellowPines.treeConditionChance = 1;
 		yellowPines.maxY = 110;
 		
+		TreeRTG ponderosaOrangeTree = new TreeRTGPinusPonderosa();
+		ponderosaOrangeTree.logBlock = Blocks.log;
+		ponderosaOrangeTree.logMeta = (byte)0;
+		ponderosaOrangeTree.leavesBlock = Highlands.vanillaBlocksFlag ? Blocks.leaves : HighlandsBlocks.autumnOrangeLeaves;
+		ponderosaOrangeTree.leavesMeta = Highlands.vanillaBlocksFlag ? (byte)2 : (byte)0;
+		ponderosaOrangeTree.minTrunkSize = 6;
+		ponderosaOrangeTree.maxTrunkSize = 14;
+		ponderosaOrangeTree.minCrownSize = 8;
+		ponderosaOrangeTree.maxCrownSize = 20;
+		this.addTree(ponderosaOrangeTree);
+		
 		DecoTree orangePines = new DecoTree(yellowPines);
-		orangePines.leavesBlock = Highlands.vanillaBlocksFlag ? Blocks.leaves : HighlandsBlocks.autumnOrangeLeaves;
-		orangePines.leavesMeta = Highlands.vanillaBlocksFlag ? (byte)2 : (byte)0;
+		orangePines.strengthFactorForLoops = 6f;
+		orangePines.treeType = TreeType.RTG_TREE;
+		orangePines.distribution.noiseDivisor = 100f;
+		orangePines.distribution.noiseFactor = 6f;
+		orangePines.distribution.noiseAddend = 0.8f;
+		orangePines.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		orangePines.treeConditionNoise = -0.4f;
+		orangePines.treeConditionChance = 1;
+		orangePines.maxY = 110;
 		
 		TreeRTG pungensTree = new TreeRTGPiceaPungens();
 		pungensTree.logBlock = Blocks.log;

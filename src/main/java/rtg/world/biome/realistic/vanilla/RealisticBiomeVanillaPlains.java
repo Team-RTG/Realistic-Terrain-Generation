@@ -63,7 +63,10 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
 		roburTree1.logMeta = (byte)0;
 		roburTree1.leavesBlock = Blocks.leaves;
 		roburTree1.leavesMeta = (byte)0;
-		roburTree1.noLeaves = false;
+		roburTree1.minTrunkSize = 2;
+		roburTree1.maxTrunkSize = 4;
+		roburTree1.minCrownSize = 6;
+		roburTree1.maxCrownSize = 8;
 		this.addTree(roburTree1);
         	
         DecoTree oakTrees = new DecoTree(roburTree1);
@@ -78,7 +81,10 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase
 		roburTree2.logMeta = (byte)2;
 		roburTree2.leavesBlock = Blocks.leaves;
 		roburTree2.leavesMeta = (byte)2;
-		roburTree2.noLeaves = false;
+		roburTree2.minTrunkSize = 2;
+		roburTree2.maxTrunkSize = 4;
+		roburTree2.minCrownSize = 6;
+		roburTree2.maxCrownSize = 8;
 		this.addTree(roburTree2);
         
         DecoTree birchTrees = new DecoTree(roburTree2);

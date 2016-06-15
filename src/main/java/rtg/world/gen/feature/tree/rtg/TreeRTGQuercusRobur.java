@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import rtg.util.Logger;
 
 /**
  * Quercus Robur (Pedunculate Oak)
@@ -14,10 +15,11 @@ public class TreeRTGQuercusRobur extends TreeRTG
 {
 
     static final byte[] otherCoordPairs = new byte[] {(byte)2, (byte)0, (byte)0, (byte)1, (byte)2, (byte)1};
-    Random rand = new Random();
-    World worldObj;
+    
+    World world;
+    Random rand;
     int[] basePos = new int[] {0, 0, 0};
-    int heightLimit = 0;
+    int heightLimit;
     int height;
     double heightAttenuation = 0.618D;
     double branchDensity = 1.0D;
@@ -51,22 +53,24 @@ public class TreeRTGQuercusRobur extends TreeRTG
     public TreeRTGQuercusRobur()
     {
     	super();
+    	
+		this.logBlock = Blocks.log;
+		this.logMeta = (byte)0;
+		this.leavesBlock = Blocks.leaves;
+		this.leavesMeta = (byte)0;
+		this.trunkSize = 4;
+		this.crownSize = 8;
     }
     
     @Override
-    public boolean generate(World par1World, Random par2Random, int par3, int par4, int par5)
+    public boolean generate(World world, Random rand, int x, int y, int z)
     {
-        this.worldObj = par1World;
-        long var6 = par2Random.nextLong();
-        this.rand.setSeed(var6);
-        this.basePos[0] = par3;
-        this.basePos[1] = par4;
-        this.basePos[2] = par5;
-
-        if (this.heightLimit == 0)
-        {
-            this.heightLimit = this.crownSize;
-        }
+        this.world = world;
+        this.rand = rand;
+        this.basePos[0] = x;
+        this.basePos[1] = y;
+        this.basePos[2] = z;
+        this.heightLimit = this.trunkSize + this.crownSize;
 
         if (!this.validTreeLocation())
         {
@@ -78,6 +82,7 @@ public class TreeRTGQuercusRobur extends TreeRTG
             this.generateLeaves();
             this.generateTrunk();
             this.generateLeafNodeBases();
+            
             return true;
         }
     }
@@ -191,7 +196,7 @@ public class TreeRTGQuercusRobur extends TreeRTG
                 else
                 {
                     var11[var9] = var10[var9] + var13;
-                    Block var14 = worldObj.getBlock(var11[0], var11[1], var11[2]);
+                    Block var14 = this.world.getBlock(var11[0], var11[1], var11[2]);
 
                     if (var14 != Blocks.air && var14 != this.leavesBlock)
                     {
@@ -200,7 +205,7 @@ public class TreeRTGQuercusRobur extends TreeRTG
                     else
                     {
                     	if (!this.noLeaves) {
-                    		worldObj.setBlock(var11[0], var11[1], var11[2], par6, this.leavesMeta, this.generateFlag);
+                    		this.world.setBlock(var11[0], var11[1], var11[2], par6, this.leavesMeta, this.generateFlag);
                     	}
                     	
                         ++var13;
@@ -323,7 +328,7 @@ public class TreeRTGQuercusRobur extends TreeRTG
                     }
                 }
 
-                worldObj.setBlock(var14[0], var14[1], var14[2], par3, this.logMeta, this.generateFlag);
+                this.world.setBlock(var14[0], var14[1], var14[2], par3, this.logMeta, this.generateFlag);
             }
         }
     }
@@ -439,7 +444,7 @@ public class TreeRTGQuercusRobur extends TreeRTG
                 var13[var5] = par1ArrayOfInteger[var5] + var14;
                 var13[var6] = MathHelper.floor_double((double)par1ArrayOfInteger[var6] + (double)var14 * var9);
                 var13[var7] = MathHelper.floor_double((double)par1ArrayOfInteger[var7] + (double)var14 * var11);
-                Block var16 = this.worldObj.getBlock(var13[0], var13[1], var13[2]);
+                Block var16 = this.world.getBlock(var13[0], var13[1], var13[2]);
 
                 if (var16 != Blocks.air && var16 != this.leavesBlock)
                 {
@@ -459,29 +464,46 @@ public class TreeRTGQuercusRobur extends TreeRTG
     {
         int[] var1 = new int[] {this.basePos[0], this.basePos[1], this.basePos[2]};
         int[] var2 = new int[] {this.basePos[0], this.basePos[1] + this.heightLimit - 1, this.basePos[2]};
-        Block var3 = this.worldObj.getBlock(this.basePos[0], this.basePos[1] - 1, this.basePos[2]);
+        Block groundBlock = this.world.getBlock(this.basePos[0], this.basePos[1] - 1, this.basePos[2]);
 
-        if (var3 != Blocks.grass && var3 != Blocks.dirt)
+        if (groundBlock != Blocks.grass && groundBlock != Blocks.dirt)
         {
+        	Logger.debug("Invalid location. Ground block (%s) is not grass or dirt.", groundBlock.getLocalizedName());
             return false;
         }
         else
         {
-            int var4 = this.checkBlockLine(var1, var2);
-
-            if (var4 == -1)
-            {
-                return true;
-            }
-            else if (var4 < 6)
-            {
-                return false;
-            }
-            else
-            {
-                this.heightLimit = var4;
-                return true;
-            }
+        	Block checkBlock;
+        	for (int h = this.basePos[1] + 1; h < (this.basePos[1] + this.heightLimit); h++) {
+        		checkBlock = this.world.getBlock(this.basePos[0], h, this.basePos[2]);
+        		
+        		if (checkBlock != Blocks.air && checkBlock != this.leavesBlock) {
+        			Logger.debug("Invalid location (%d/%d/%d). Check block (%s) is not air or %s.", this.basePos[0], h, this.basePos[2], checkBlock.getLocalizedName(), this.leavesBlock.getLocalizedName());
+        			return false;
+        		}
+        	}
+        	
+        	return true;
+        	
+//            int blockLine = this.checkBlockLine(var1, var2);
+//
+//            if (blockLine == -1)
+//            {
+//            	Logger.debug("Valid location! Block line = -1.");
+//                return true;
+//            }
+//            else if (blockLine < 6)
+//            {
+//            	Logger.debug("Invalid location. Block line (%d) is less than 6.", blockLine);
+//                return false;
+//            }
+//            else
+//            {
+//                Logger.debug("Valid location! Height limit has been changed from %d to %d.", this.heightLimit, blockLine);
+//                this.heightLimit = blockLine;
+//                
+//                return true;
+//            }
         }
     }
 

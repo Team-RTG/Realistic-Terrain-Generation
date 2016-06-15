@@ -325,6 +325,9 @@ public class EventManagerRTG
 					tree.trunkSize = RandomUtil.getRandomInt(rand, tree.minTrunkSize, tree.maxTrunkSize);
 				}
 				
+				// We have to remove the sapling manually because some trees grow around it, leaving the original sapling.
+				world.setBlock(x, y, z, Blocks.air, (byte)0, 2);
+				
 				/**
 				 * Set the generateFlag to what it needs to be for growing trees from saplings,
 				 * generate the tree, and then set it back to what it was before.

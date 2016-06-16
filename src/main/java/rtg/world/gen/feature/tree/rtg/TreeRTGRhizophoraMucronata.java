@@ -96,7 +96,7 @@ public class TreeRTGRhizophoraMucronata extends TreeRTG
     	
     	for(int i = y + this.trunkSize; i < y + this.crownSize; i++)
     	{
-    		world.setBlock(x, i, z, this.logBlock, this.logMeta, 2);
+    		world.setBlock(x, i, z, this.logBlock, this.logMeta, this.generateFlag);
     	}
     	
     	float horDir, verDir;
@@ -144,7 +144,7 @@ public class TreeRTGRhizophoraMucronata extends TreeRTG
 		
 		while(c < length)
 		{
-			world.setBlock((int)x, (int)y, (int)z, this.logBlock, this.logMeta, 2);
+			world.setBlock((int)x, (int)y, (int)z, this.logBlock, this.logMeta, this.generateFlag);
 			
 			x += velX;
 			y += velY;
@@ -169,14 +169,14 @@ public class TreeRTGRhizophoraMucronata extends TreeRTG
 					{
 						if(dist < 0.6f)
 						{
-							world.setBlock(x + i, y + j, z + k, this.logBlock, this.logMeta, 2);
+							world.setBlock(x + i, y + j, z + k, this.logBlock, this.logMeta, this.generateFlag);
 						}
 						
 						if (!this.noLeaves) {
 							
 							if(world.isAirBlock(x + i, y + j, z + k))
 							{
-								world.setBlock(x + i, y + j, z + k, this.leavesBlock, this.leavesMeta, 2);
+								world.setBlock(x + i, y + j, z + k, this.leavesBlock, this.leavesMeta, this.generateFlag);
 							}
 						}
 					}

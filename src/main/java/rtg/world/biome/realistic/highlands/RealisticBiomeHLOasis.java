@@ -14,6 +14,7 @@ import rtg.world.biome.deco.DecoGrass;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.gen.feature.tree.highlands.HLPalmTreeRTG;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
 import rtg.world.gen.surface.highlands.SurfaceHLOasis;
 import rtg.world.gen.terrain.highlands.TerrainHLOasis;
@@ -51,22 +52,25 @@ public class RealisticBiomeHLOasis extends RealisticBiomeHLBase
 		highlandsPalmTrees.maxY = 75;
 		this.addDeco(highlandsPalmTrees);
 		
-		DecoTree vanillaPalmTrees = new DecoTree(new TreeRTGCocosNucifera());
+		TreeRTG nuciferaTree = new TreeRTGCocosNucifera();
+		nuciferaTree.logBlock = Blocks.log;
+		nuciferaTree.logMeta = (byte)3;
+		nuciferaTree.leavesBlock = Blocks.leaves;
+		nuciferaTree.leavesMeta = (byte)3;
+		nuciferaTree.minTrunkSize = 7;
+		nuciferaTree.maxTrunkSize = 8;
+		nuciferaTree.minCrownSize = 8;
+		nuciferaTree.maxCrownSize = 12;
+		nuciferaTree.noLeaves = false;
+		this.addTree(nuciferaTree);
+		
+		DecoTree vanillaPalmTrees = new DecoTree(nuciferaTree);
 		vanillaPalmTrees.treeType = DecoTree.TreeType.RTG_TREE;
 		vanillaPalmTrees.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		vanillaPalmTrees.distribution = new DecoTree.Distribution(80f, 60f, -15f);
 		vanillaPalmTrees.treeConditionNoise = 0f;
 		vanillaPalmTrees.treeConditionChance = 6;
 		vanillaPalmTrees.maxY = 75;
-		vanillaPalmTrees.logBlock = Blocks.log;
-		vanillaPalmTrees.logMeta = (byte)3;
-		vanillaPalmTrees.leavesBlock = Blocks.leaves;
-		vanillaPalmTrees.leavesMeta = (byte)3;
-		vanillaPalmTrees.minTrunkSize = 7;
-		vanillaPalmTrees.maxTrunkSize = 8;
-		vanillaPalmTrees.minCrownSize = 8;
-		vanillaPalmTrees.maxCrownSize = 12;
-		vanillaPalmTrees.noLeaves = false;
 		this.addDeco(vanillaPalmTrees); 
 		
 		// Jungle logs.

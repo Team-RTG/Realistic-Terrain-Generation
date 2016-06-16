@@ -17,6 +17,7 @@ import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.world.gen.feature.tree.vanilla.WorldGenTreesRTG;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForestHills;
@@ -43,15 +44,18 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
 		 * ##################################################
 		 */
         
-		DecoTree smallBirch = new DecoTree(new TreeRTGBetulaPapyrifera());
-		smallBirch.logBlock = Blocks.log;
-		smallBirch.logMeta = (byte)2;
-		smallBirch.leavesBlock = Blocks.leaves;
-		smallBirch.leavesMeta = (byte)2;
-		smallBirch.minTrunkSize = 4;
-		smallBirch.maxTrunkSize = 10;
-		smallBirch.minCrownSize = 8;
-		smallBirch.maxCrownSize = 19;
+        TreeRTG birchSmall = new TreeRTGBetulaPapyrifera();
+		birchSmall.logBlock = Blocks.log;
+		birchSmall.logMeta = (byte)2;
+		birchSmall.leavesBlock = Blocks.leaves;
+		birchSmall.leavesMeta = (byte)2;
+		birchSmall.minTrunkSize = 4;
+		birchSmall.maxTrunkSize = 10;
+		birchSmall.minCrownSize = 8;
+		birchSmall.maxCrownSize = 19;
+		this.addTree(birchSmall);
+        
+		DecoTree smallBirch = new DecoTree(birchSmall);
 		smallBirch.strengthNoiseFactorForLoops = true;
 		smallBirch.treeType = TreeType.RTG_TREE;
 		smallBirch.distribution.noiseDivisor = 80f;
@@ -60,16 +64,19 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
 		smallBirch.treeCondition = TreeCondition.ALWAYS_GENERATE;
 		smallBirch.maxY = 120;
 		this.addDeco(smallBirch);
+		
+        TreeRTG birchTree = new TreeRTGBetulaPapyrifera();
+		birchTree.logBlock = Blocks.log;
+		birchTree.logMeta = (byte)2;
+		birchTree.leavesBlock = Blocks.leaves;
+		birchTree.leavesMeta = (byte)2;
+		birchTree.minTrunkSize = 4;
+		birchTree.maxTrunkSize = 10;
+		birchTree.minCrownSize = 8;
+		birchTree.maxCrownSize = 19;
+		this.addTree(birchTree);
         
-		DecoTree birchTrees = new DecoTree(new TreeRTGBetulaPapyrifera());
-		birchTrees.logBlock = Blocks.log;
-		birchTrees.logMeta = (byte)2;
-		birchTrees.leavesBlock = Blocks.leaves;
-		birchTrees.leavesMeta = (byte)2;
-		birchTrees.minTrunkSize = 4;
-		birchTrees.maxTrunkSize = 10;
-		birchTrees.minCrownSize = 8;
-		birchTrees.maxCrownSize = 19;
+		DecoTree birchTrees = new DecoTree(birchTree);
 		birchTrees.strengthFactorForLoops = 3f;
 		birchTrees.treeType = TreeType.RTG_TREE;
 		birchTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;

@@ -15,6 +15,7 @@ import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHillsPlus;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHillsPlus;
@@ -43,15 +44,18 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
 		 * ##################################################
 		 */
         
-		DecoTree decoTrees = new DecoTree(new TreeRTGPinusNigra());
-		decoTrees.logBlock = Blocks.log;
-		decoTrees.logMeta = (byte)0;
-		decoTrees.leavesBlock = Blocks.leaves;
-		decoTrees.leavesMeta = (byte)0;
-		decoTrees.minTrunkSize = 18;
-		decoTrees.maxTrunkSize = 27;
-		decoTrees.minCrownSize = 7;
-		decoTrees.maxCrownSize = 10;
+		TreeRTG nigraTree = new TreeRTGPinusNigra();
+		nigraTree.logBlock = Blocks.log;
+		nigraTree.logMeta = (byte)0;
+		nigraTree.leavesBlock = Blocks.leaves;
+		nigraTree.leavesMeta = (byte)0;
+		nigraTree.minTrunkSize = 18;
+		nigraTree.maxTrunkSize = 27;
+		nigraTree.minCrownSize = 7;
+		nigraTree.maxCrownSize = 10;
+		this.addTree(nigraTree);
+        
+		DecoTree decoTrees = new DecoTree(nigraTree);
 		decoTrees.strengthFactorForLoops = 4f;
 		decoTrees.strengthNoiseFactorXForLoops = true;
 		decoTrees.distribution.noiseDivisor = 100f;

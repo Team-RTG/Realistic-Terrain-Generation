@@ -63,7 +63,7 @@ public class TreeRTGPiceaSitchensis extends TreeRTG
     	int i;
     	for(i = 0; i < this.trunkSize; i++)
     	{
-    		world.setBlock(x, y, z, this.logBlock, this.logMeta, 0);
+    		world.setBlock(x, y, z, this.logBlock, this.logMeta, this.generateFlag);
     		y++;
     	}
 
@@ -96,7 +96,7 @@ public class TreeRTGPiceaSitchensis extends TreeRTG
 
         		buildBranch(world, rand, x, y, z, dX, dZ, i < this.crownSize - 10 ? 2 : 1, i < this.crownSize - 6 ? 2 : 1);
     		}
-    		world.setBlock(x, y, z, this.logBlock, this.logMeta, 0);
+    		world.setBlock(x, y, z, this.logBlock, this.logMeta, this.generateFlag);
 
     		if(i < this.crownSize - 2)
 	    	{
@@ -137,7 +137,7 @@ public class TreeRTGPiceaSitchensis extends TreeRTG
 
     	for(int m = 1; m <= logLength; m++)
     	{
-        	world.setBlock(x + (dX * m), y, z + (dZ * m), this.logBlock, this.logMeta, 0);
+        	world.setBlock(x + (dX * m), y, z + (dZ * m), this.logBlock, this.logMeta, this.generateFlag);
     	}
     }
 	
@@ -149,7 +149,7 @@ public class TreeRTGPiceaSitchensis extends TreeRTG
 	    	Block b = world.getBlock(x, y, z);
 	    	if(b.getMaterial() == Material.air)
 	    	{
-	    		world.setBlock(x, y, z, this.leavesBlock, this.leavesMeta, 0);
+	    		world.setBlock(x, y, z, this.leavesBlock, this.leavesMeta, this.generateFlag);
 	    	}
 		}
     }

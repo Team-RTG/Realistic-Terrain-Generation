@@ -18,6 +18,7 @@ import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.biome.deco.helper.DecoHelperBorder;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.world.gen.feature.tree.rtg.TreeRTGCupressusSempervirens;
 import rtg.world.gen.feature.tree.vanilla.WorldGenTreesRTG;
@@ -41,17 +42,19 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
             //new SurfaceVanillaForest(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt, (byte)2, 0.10f));
             new SurfaceHLFlyingMountains(config, topBlock, fillerBlock, false, null, 0f, 2.5f, 80f, 65f, 2.5f)
         );
-        
-        {
-		DecoTree bigPines = new DecoTree(new TreeRTGCupressusSempervirens());
-		bigPines.logBlock = Blocks.log;
-		bigPines.logMeta = (byte)1;
-		bigPines.leavesBlock = Blocks.leaves;
-		bigPines.leavesMeta = (byte)1;
-		bigPines.minTrunkSize = 3;
-		bigPines.maxTrunkSize = 7;
-		bigPines.minCrownSize = 5;
-		bigPines.maxCrownSize = 10;
+
+		TreeRTG sempervirensSpruceTree = new TreeRTGCupressusSempervirens();
+		sempervirensSpruceTree.logBlock = Blocks.log;
+		sempervirensSpruceTree.logMeta = (byte)1;
+		sempervirensSpruceTree.leavesBlock = Blocks.leaves;
+		sempervirensSpruceTree.leavesMeta = (byte)1;
+		sempervirensSpruceTree.minTrunkSize = 3;
+		sempervirensSpruceTree.maxTrunkSize = 7;
+		sempervirensSpruceTree.minCrownSize = 5;
+		sempervirensSpruceTree.maxCrownSize = 10;
+		this.addTree(sempervirensSpruceTree);
+        	
+		DecoTree bigPines = new DecoTree(sempervirensSpruceTree);
 		bigPines.loops = 1;
 		bigPines.treeType = TreeType.RTG_TREE;
 		bigPines.distribution.noiseDivisor = 80f;
@@ -63,8 +66,28 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
 		bigPines.minY = 63;
 		bigPines.maxY = 90;
 		
-		DecoTree bigPinesOak = new DecoTree(bigPines);
-		bigPinesOak.leavesMeta = (byte)0;
+		TreeRTG sempervirensOakTree = new TreeRTGCupressusSempervirens();
+		sempervirensOakTree.logBlock = Blocks.log;
+		sempervirensOakTree.logMeta = (byte)1;
+		sempervirensOakTree.leavesBlock = Blocks.leaves;
+		sempervirensOakTree.leavesMeta = (byte)0;
+		sempervirensOakTree.minTrunkSize = 3;
+		sempervirensOakTree.maxTrunkSize = 7;
+		sempervirensOakTree.minCrownSize = 5;
+		sempervirensOakTree.maxCrownSize = 10;
+		this.addTree(sempervirensOakTree);
+		
+		DecoTree bigPinesOak = new DecoTree(sempervirensOakTree);
+		bigPinesOak.loops = 1;
+		bigPinesOak.treeType = TreeType.RTG_TREE;
+		bigPinesOak.distribution.noiseDivisor = 80f;
+		bigPinesOak.distribution.noiseFactor = 60f;
+		bigPinesOak.distribution.noiseAddend = -15f;
+		bigPinesOak.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		bigPinesOak.treeConditionNoise = 0f;
+		bigPinesOak.treeConditionChance = 1;
+		bigPinesOak.minY = 63;
+		bigPinesOak.maxY = 90;
 		
         DecoHelperBorder borderedBigPines = new DecoHelperBorder(bigPines,.55f,.45f);
 		this.addDeco(borderedBigPines);
@@ -79,18 +102,19 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
         decoShrub2.minSize = 11;
         decoShrub2.maxSize = 21;
 		this.addDeco(decoShrub2);
-        }
 
-        {        
-		DecoTree birchTrees = new DecoTree(new TreeRTGBetulaPapyrifera());
-		birchTrees.logBlock = Blocks.log;
-		birchTrees.logMeta = (byte)2;
-		birchTrees.leavesBlock = Blocks.leaves;
-		birchTrees.leavesMeta = (byte)2;
-		birchTrees.minTrunkSize = 4;
-		birchTrees.maxTrunkSize = 10;
-		birchTrees.minCrownSize = 8;
-		birchTrees.maxCrownSize = 19;
+        TreeRTG birchTree = new TreeRTGBetulaPapyrifera();
+		birchTree.logBlock = Blocks.log;
+		birchTree.logMeta = (byte)2;
+		birchTree.leavesBlock = Blocks.leaves;
+		birchTree.leavesMeta = (byte)2;
+		birchTree.minTrunkSize = 4;
+		birchTree.maxTrunkSize = 10;
+		birchTree.minCrownSize = 8;
+		birchTree.maxCrownSize = 19;
+		this.addTree(birchTree);
+    		
+		DecoTree birchTrees = new DecoTree(birchTree);
 		birchTrees.loops = 2;
 		birchTrees.distribution.noiseDivisor = 80f;
 		birchTrees.distribution.noiseFactor = 60f;
@@ -125,7 +149,6 @@ public class RealisticBiomeHLFlyingMountains extends RealisticBiomeHLBase
 		vanillaTrees.maxY = 90;
         DecoHelperBorder borderedVanillaTrees = new DecoHelperBorder(vanillaTrees,.55f,.45f);
         this.addDeco(borderedVanillaTrees);
-        }
         
         DecoFallenTree decoFallenTreeBirch = new DecoFallenTree();
         decoFallenTreeBirch.distribution.noiseDivisor = 80f;

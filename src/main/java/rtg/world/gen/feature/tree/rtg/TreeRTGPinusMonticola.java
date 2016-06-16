@@ -130,7 +130,7 @@ public class TreeRTGPinusMonticola extends TreeRTG
                                 if ((Math.abs(i3) != l3 || Math.abs(k3) != l3 || l3 <= 0) && p_76484_1_.getBlock(l2, k2, j3).canBeReplacedByLeaves(p_76484_1_, l2, k2, j3))
                                 {
                                 	if (!this.noLeaves) {
-                                		p_76484_1_.setBlock(l2, k2, j3, this.leavesBlock, this.leavesMeta, 0);
+                                		p_76484_1_.setBlock(l2, k2, j3, this.leavesBlock, this.leavesMeta, this.generateFlag);
                                 	}
                                 }
                             }
@@ -161,7 +161,7 @@ public class TreeRTGPinusMonticola extends TreeRTG
 
                         if (block2.isAir(p_76484_1_, p_76484_3_, p_76484_4_ + k2, p_76484_5_) || block2.isLeaves(p_76484_1_, p_76484_3_, p_76484_4_ + k2, p_76484_5_) || block2 == Blocks.snow_layer)
                         {
-                        	p_76484_1_.setBlock(p_76484_3_, p_76484_4_ + k2, p_76484_5_, this.logBlock, this.logMeta, 0);
+                        	p_76484_1_.setBlock(p_76484_3_, p_76484_4_ + k2, p_76484_5_, this.logBlock, this.logMeta, this.generateFlag);
                         }
                     }
                     
@@ -199,7 +199,7 @@ public class TreeRTGPinusMonticola extends TreeRTG
     			{
     				break;
     			}
-    			world.setBlock(x + pos[t * 2], sh, z + pos[t * 2 + 1], this.logBlock, this.logMeta + 12, 0);
+    			world.setBlock(x + pos[t * 2], sh, z + pos[t * 2 + 1], this.logBlock, this.logMeta + 12, this.generateFlag);
     			sh--;
     		}
     	}
@@ -229,7 +229,7 @@ public class TreeRTGPinusMonticola extends TreeRTG
     	
     	for(int m = 1; m <= logLength; m++)
     	{
-        	world.setBlock(x + (dX * m), y, z + (dZ * m), this.logBlock, this.logMeta, 0);
+        	world.setBlock(x + (dX * m), y, z + (dZ * m), this.logBlock, this.logMeta, this.generateFlag);
     	}
     }
 	
@@ -241,7 +241,7 @@ public class TreeRTGPinusMonticola extends TreeRTG
 	    	Block b = world.getBlock(x, y, z);
 	    	if(b.getMaterial() == Material.air)
 	    	{
-	    		world.setBlock(x, y, z, this.leavesBlock, this.leavesMeta, 0);
+	    		world.setBlock(x, y, z, this.leavesBlock, this.leavesMeta, this.generateFlag);
 	    	}
 		}
     }

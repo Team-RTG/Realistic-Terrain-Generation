@@ -115,8 +115,8 @@ public class TreeRTGCeibaRosea extends TreeRTG
     	
     	for(int i = y + this.trunkSize - 2; i < y + this.crownSize + 2; i++)
     	{
-    		world.setBlock(x, i, z, this.logBlock, this.logMeta, 2);
-    		world.setBlock(x + 1, i, z + 1, this.logBlock, this.logMeta, 2);
+    		world.setBlock(x, i, z, this.logBlock, this.logMeta, this.generateFlag);
+    		world.setBlock(x + 1, i, z + 1, this.logBlock, this.logMeta, this.generateFlag);
     	}
     	
     	float horDir, verDir;
@@ -170,7 +170,7 @@ public class TreeRTGCeibaRosea extends TreeRTG
 		
 		while(c < length)
 		{
-			world.setBlock((int)x, (int)y, (int)z, this.logBlock, this.logMeta, 2);
+			world.setBlock((int)x, (int)y, (int)z, this.logBlock, this.logMeta, this.generateFlag);
 			
 			x += velX;
 			y += velY;
@@ -195,14 +195,14 @@ public class TreeRTGCeibaRosea extends TreeRTG
 					{
 						if(dist < 1.3f)
 						{
-							world.setBlock((int)x + i, (int)y + j, (int)z + k, this.logBlock, this.logMeta, 2);
+							world.setBlock((int)x + i, (int)y + j, (int)z + k, this.logBlock, this.logMeta, this.generateFlag);
 						}
 						
 						if (!this.noLeaves) {
 							
 							if(world.isAirBlock((int)x + i, (int)y + j, (int)z + k))
 							{
-								world.setBlock((int)x + i, (int)y + j, (int)z + k, this.leavesBlock, this.leavesMeta, 2);
+								world.setBlock((int)x + i, (int)y + j, (int)z + k, this.leavesBlock, this.leavesMeta, this.generateFlag);
 							}
 						}
 					}

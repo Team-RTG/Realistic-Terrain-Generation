@@ -13,6 +13,7 @@ import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSavannaPlateauM;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaSavannaPlateauM;
@@ -66,13 +67,16 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
         acaciaShrub.chance = 9;
 		this.addDeco(acaciaShrub);
 		
-		DecoTree acaciaTrees = new DecoTree(new TreeRTGAcaciaBucheri());
-		acaciaTrees.logBlock = Blocks.log2;
-		acaciaTrees.logMeta = (byte)0;
-		acaciaTrees.leavesBlock = Blocks.leaves2;
-		acaciaTrees.leavesMeta = (byte)0;
-		acaciaTrees.minTrunkSize = 12;
-		acaciaTrees.maxTrunkSize = 16;
+		TreeRTG acaciaTree = new TreeRTGAcaciaBucheri();
+		acaciaTree.logBlock = Blocks.log2;
+		acaciaTree.logMeta = (byte)0;
+		acaciaTree.leavesBlock = Blocks.leaves2;
+		acaciaTree.leavesMeta = (byte)0;
+		acaciaTree.minTrunkSize = 12;
+		acaciaTree.maxTrunkSize = 16;
+		this.addTree(acaciaTree);
+		
+		DecoTree acaciaTrees = new DecoTree(acaciaTree);
 		acaciaTrees.strengthFactorForLoops = 2f;
 		acaciaTrees.treeType = TreeType.RTG_TREE;
 		acaciaTrees.treeCondition = TreeCondition.RANDOM_CHANCE;

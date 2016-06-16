@@ -58,7 +58,7 @@ public class TreeRTGPiceaPungens extends TreeRTG
     	int i, j, k;
     	for(i = 0; i < this.trunkSize; i++)
     	{
-    		world.setBlock(x, y, z, this.logBlock, this.logMeta, 0);
+    		world.setBlock(x, y, z, this.logBlock, this.logMeta, this.generateFlag);
     		y++;
     	}
 
@@ -72,12 +72,12 @@ public class TreeRTGPiceaPungens extends TreeRTG
 	    			{
 	    				if(Math.abs(j) + Math.abs(k) != 4 && ((j > -2 && k > -2 && j < 2 && k < 2) || rand.nextInt(4) != 0))
 	    				{
-	    					world.setBlock(x + j, y, z + k, this.leavesBlock, this.leavesMeta, 0);
+	    					world.setBlock(x + j, y, z + k, this.leavesBlock, this.leavesMeta, this.generateFlag);
 	    				}
 	    			}
 	    		}
     		}
-    		world.setBlock(x, y, z, this.logBlock, this.logMeta, 0);
+    		world.setBlock(x, y, z, this.logBlock, this.logMeta, this.generateFlag);
     		y++;
     	}
     	
@@ -91,39 +91,39 @@ public class TreeRTGPiceaPungens extends TreeRTG
 	    			{
 	    				if(Math.abs(j) + Math.abs(k) < 2 || (rand.nextInt(4) != 0))
 	    				{
-	    					world.setBlock(x + j, y, z + k, this.leavesBlock, this.leavesMeta, 0);
+	    					world.setBlock(x + j, y, z + k, this.leavesBlock, this.leavesMeta, this.generateFlag);
 	    				}
 	    			}
 	    		}
 	    		
 	    		if(i == 0)
 	    		{
-	    	    	world.setBlock(x + 1, y, z, this.leavesBlock, this.leavesMeta, 0);
-	    	    	world.setBlock(x - 1, y, z, this.leavesBlock, this.leavesMeta, 0);
-	    	    	world.setBlock(x, y, z + 1, this.leavesBlock, this.leavesMeta, 0);
-	    	    	world.setBlock(x, y, z - 1, this.leavesBlock, this.leavesMeta, 0);
-	    	    	world.setBlock(x + 2, y, z, this.leavesBlock, this.leavesMeta, 0);
-	    	    	world.setBlock(x - 2, y, z, this.leavesBlock, this.leavesMeta, 0);
-	    	    	world.setBlock(x, y, z + 2, this.leavesBlock, this.leavesMeta, 0);
-	    	    	world.setBlock(x, y, z - 2, this.leavesBlock, this.leavesMeta, 0);
+	    	    	world.setBlock(x + 1, y, z, this.leavesBlock, this.leavesMeta, this.generateFlag);
+	    	    	world.setBlock(x - 1, y, z, this.leavesBlock, this.leavesMeta, this.generateFlag);
+	    	    	world.setBlock(x, y, z + 1, this.leavesBlock, this.leavesMeta, this.generateFlag);
+	    	    	world.setBlock(x, y, z - 1, this.leavesBlock, this.leavesMeta, this.generateFlag);
+	    	    	world.setBlock(x + 2, y, z, this.leavesBlock, this.leavesMeta, this.generateFlag);
+	    	    	world.setBlock(x - 2, y, z, this.leavesBlock, this.leavesMeta, this.generateFlag);
+	    	    	world.setBlock(x, y, z + 2, this.leavesBlock, this.leavesMeta, this.generateFlag);
+	    	    	world.setBlock(x, y, z - 2, this.leavesBlock, this.leavesMeta, this.generateFlag);
 	    		}
     		}
     		
-    		world.setBlock(x, y, z, this.logBlock, this.logMeta, 0);
+    		world.setBlock(x, y, z, this.logBlock, this.logMeta, this.generateFlag);
     		y++;
     	}
     	
-		world.setBlock(x, y, z, this.logBlock, this.logMeta, 0);
+		world.setBlock(x, y, z, this.logBlock, this.logMeta, this.generateFlag);
 		
 		if (!this.noLeaves) {
 			
-	    	world.setBlock(x + 1, y, z, this.leavesBlock, this.leavesMeta, 0);
-	    	world.setBlock(x - 1, y, z, this.leavesBlock, this.leavesMeta, 0);
-	    	world.setBlock(x, y, z + 1, this.leavesBlock, this.leavesMeta, 0);
-	    	world.setBlock(x, y, z - 1, this.leavesBlock, this.leavesMeta, 0);
+	    	world.setBlock(x + 1, y, z, this.leavesBlock, this.leavesMeta, this.generateFlag);
+	    	world.setBlock(x - 1, y, z, this.leavesBlock, this.leavesMeta, this.generateFlag);
+	    	world.setBlock(x, y, z + 1, this.leavesBlock, this.leavesMeta, this.generateFlag);
+	    	world.setBlock(x, y, z - 1, this.leavesBlock, this.leavesMeta, this.generateFlag);
 	    	
-	    	world.setBlock(x, y + 1, z, this.leavesBlock, this.leavesMeta, 0);
-	    	world.setBlock(x, y + 2, z, this.leavesBlock, this.leavesMeta, 0);
+	    	world.setBlock(x, y + 1, z, this.leavesBlock, this.leavesMeta, this.generateFlag);
+	    	world.setBlock(x, y + 2, z, this.leavesBlock, this.leavesMeta, this.generateFlag);
 		}
 		
 		return true;
@@ -148,7 +148,7 @@ public class TreeRTGPiceaPungens extends TreeRTG
 
     	for(int m = 1; m <= logLength; m++)
     	{
-        	world.setBlock(x + (dX * m), y, z + (dZ * m), this.logBlock, this.logMeta, 0);
+        	world.setBlock(x + (dX * m), y, z + (dZ * m), this.logBlock, this.logMeta, this.generateFlag);
     	}
     }
 	
@@ -160,7 +160,7 @@ public class TreeRTGPiceaPungens extends TreeRTG
 	    	Block b = world.getBlock(x, y, z);
 	    	if(b.getMaterial() == Material.air)
 	    	{
-	    		world.setBlock(x, y, z, this.leavesBlock, this.leavesMeta, 0);
+	    		world.setBlock(x, y, z, this.leavesBlock, this.leavesMeta, this.generateFlag);
 	    	}
     	}
     }

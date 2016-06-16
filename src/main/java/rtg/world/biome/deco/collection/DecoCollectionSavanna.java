@@ -10,6 +10,7 @@ import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
 
 
@@ -50,13 +51,16 @@ public class DecoCollectionSavanna extends DecoCollectionBase
 		decoFallenTree.maxSize = 6;
 		this.addDeco(decoFallenTree, fallenTrees);
 
-		DecoTree bucheriTrees = new DecoTree(new TreeRTGAcaciaBucheri());
-		bucheriTrees.logBlock = Blocks.log2;
-		bucheriTrees.logMeta = (byte)0;
-		bucheriTrees.leavesBlock = Blocks.leaves2;
-		bucheriTrees.leavesMeta = (byte)0;
-		bucheriTrees.minTrunkSize = 4;
-		bucheriTrees.maxTrunkSize = 9;
+		TreeRTG bucheriTree = new TreeRTGAcaciaBucheri();
+		bucheriTree.logBlock = Blocks.log2;
+		bucheriTree.logMeta = (byte)0;
+		bucheriTree.leavesBlock = Blocks.leaves2;
+		bucheriTree.leavesMeta = (byte)0;
+		bucheriTree.minTrunkSize = 4;
+		bucheriTree.maxTrunkSize = 9;
+		this.addTree(bucheriTree);
+
+		DecoTree bucheriTrees = new DecoTree(bucheriTree);
 		bucheriTrees.loops = 1;
 		bucheriTrees.treeType = TreeType.RTG_TREE;
 		bucheriTrees.distribution.noiseDivisor = 80f;
@@ -66,7 +70,7 @@ public class DecoCollectionSavanna extends DecoCollectionBase
 		bucheriTrees.treeConditionNoise = -0.4f;
 		bucheriTrees.treeConditionChance = 28;
 		this.addDeco(bucheriTrees);
-		
+
 		DecoBoulder decoBoulder = new DecoBoulder();
 		decoBoulder.boulderBlock = Blocks.cobblestone;
 		decoBoulder.chance = 32;

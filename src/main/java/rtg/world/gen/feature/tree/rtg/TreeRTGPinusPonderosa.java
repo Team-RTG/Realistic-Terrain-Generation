@@ -62,7 +62,7 @@ public class TreeRTGPinusPonderosa extends TreeRTG
     	int i;
     	for(i = 0; i < trunkSize; i++)
     	{
-    		world.setBlock(x, y, z, this.logBlock, this.logMeta, 0);
+    		world.setBlock(x, y, z, this.logBlock, this.logMeta, this.generateFlag);
     		if(i > 5 && rand.nextInt(7) == 0)
     		{
     			int dX = -1 + rand.nextInt(3);
@@ -113,7 +113,7 @@ public class TreeRTGPinusPonderosa extends TreeRTG
         			i < crownSize - 5 ? 2 : 1
         		);
     		}
-    		world.setBlock(x, y, z, this.logBlock, this.logMeta, 0);
+    		world.setBlock(x, y, z, this.logBlock, this.logMeta, this.generateFlag);
     		
     		if(i < crownSize - 2)
 	    	{
@@ -142,7 +142,7 @@ public class TreeRTGPinusPonderosa extends TreeRTG
     	h = h + rand.nextInt(h * 2);
     	for(int i = -1; i < h; i++)
     	{
-    		world.setBlock(x, y + i, z, this.logBlock, this.logMeta + 12, 0);
+    		world.setBlock(x, y + i, z, this.logBlock, this.logMeta + 12, this.generateFlag);
     	}
     }
 	
@@ -170,7 +170,7 @@ public class TreeRTGPinusPonderosa extends TreeRTG
     	
     	for(int m = 1; m <= logLength; m++)
     	{
-        	world.setBlock(x + (dX * m), y, z + (dZ * m), this.logBlock, this.logMeta, 0);
+        	world.setBlock(x + (dX * m), y, z + (dZ * m), this.logBlock, this.logMeta, this.generateFlag);
     	}
     }
 	
@@ -182,7 +182,7 @@ public class TreeRTGPinusPonderosa extends TreeRTG
 	    	Block b = world.getBlock(x, y, z);
 	    	if(b.getMaterial() == Material.air)
 	    	{
-	    		world.setBlock(x, y, z, this.leavesBlock, this.leavesMeta, 0);
+	    		world.setBlock(x, y, z, this.leavesBlock, this.leavesMeta, this.generateFlag);
 	    	}
 		}
     }

@@ -14,6 +14,7 @@ import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelper5050;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPLandOfLakes;
@@ -35,15 +36,18 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 			new SurfaceBOPLandOfLakes(config, Blocks.grass, Blocks.dirt, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone, 0.10f)
 		);
 		
-		DecoTree birchTrees = new DecoTree(new TreeRTGBetulaPapyrifera());
-		birchTrees.logBlock = Blocks.log;
-		birchTrees.logMeta = (byte)2;
-		birchTrees.leavesBlock = Blocks.leaves;
-		birchTrees.leavesMeta = (byte)2;
-		birchTrees.minTrunkSize = 4;
-		birchTrees.maxTrunkSize = 10;
-		birchTrees.minCrownSize = 8;
-		birchTrees.maxCrownSize = 19;
+        TreeRTG birchTree = new TreeRTGBetulaPapyrifera();
+		birchTree.logBlock = Blocks.log;
+		birchTree.logMeta = (byte)2;
+		birchTree.leavesBlock = Blocks.leaves;
+		birchTree.leavesMeta = (byte)2;
+		birchTree.minTrunkSize = 4;
+		birchTree.maxTrunkSize = 10;
+		birchTree.minCrownSize = 8;
+		birchTree.maxCrownSize = 19;
+		this.addTree(birchTree);
+		
+		DecoTree birchTrees = new DecoTree(birchTree);
 		birchTrees.strengthFactorForLoops = 9f;
 		birchTrees.treeType = TreeType.RTG_TREE;
 		birchTrees.distribution.noiseDivisor = 100f;
@@ -54,15 +58,18 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase
 		birchTrees.treeConditionNoise = 0f;
 		birchTrees.maxY = 120;
 		
-		DecoTree smallPine = new DecoTree(new TreeRTGPiceaSitchensis());
-    	smallPine.logBlock = Blocks.log;
-    	smallPine.logMeta = (byte)1;
-    	smallPine.leavesBlock = Blocks.leaves;
-    	smallPine.leavesMeta = (byte)1;
-    	smallPine.minTrunkSize = 4;
-    	smallPine.maxTrunkSize = 9;
-    	smallPine.minCrownSize = 5;
-    	smallPine.maxCrownSize = 14;
+		TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
+    	sitchensisTree.logBlock = Blocks.log;
+    	sitchensisTree.logMeta = (byte)1;
+    	sitchensisTree.leavesBlock = Blocks.leaves;
+    	sitchensisTree.leavesMeta = (byte)1;
+    	sitchensisTree.minTrunkSize = 4;
+    	sitchensisTree.maxTrunkSize = 9;
+    	sitchensisTree.minCrownSize = 5;
+    	sitchensisTree.maxCrownSize = 14;
+		this.addTree(sitchensisTree);
+		
+		DecoTree smallPine = new DecoTree(sitchensisTree);
     	smallPine.strengthFactorForLoops = 9f;
     	smallPine.treeType = TreeType.RTG_TREE;
     	smallPine.distribution.noiseDivisor = 100f;

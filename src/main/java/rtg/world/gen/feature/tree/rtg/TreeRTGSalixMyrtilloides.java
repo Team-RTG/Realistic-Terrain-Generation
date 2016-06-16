@@ -81,7 +81,7 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG
     	
     	for(int i = 0; i < height; i++)
     	{
-    		world.setBlock(x, y + i, z, this.logBlock, this.logMeta, 0);
+    		world.setBlock(x, y + i, z, this.logBlock, this.logMeta, this.generateFlag);
     	}
     	createLeavesAroundBranch(world, rand, x, y + height, z, 3, 2);
     	createTrunk(world, rand, x, y, z);
@@ -108,7 +108,7 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG
     			}
     			c++;
     			hd += 0.5f;
-    			world.setBlock(x + (int)(c * xd), y + (int)hd, z + (int)(c * yd), this.logBlock, this.logMeta + 12, 0);
+    			world.setBlock(x + (int)(c * xd), y + (int)hd, z + (int)(c * yd), this.logBlock, this.logMeta + 12, this.generateFlag);
     		}
     		createLeavesAroundBranch(world, rand, x + (int)(c * xd), y + (int)hd, z + (int)(c * yd), 2, 1);
     	}
@@ -133,7 +133,7 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG
     					{
     						if (!this.noLeaves) {
     							
-	    						world.setBlock(x + i, y + j, z + k, this.leavesBlock, this.leavesMeta, 0);
+	    						world.setBlock(x + i, y + j, z + k, this.leavesBlock, this.leavesMeta, this.generateFlag);
 	    						if(j < -(s - 2) && rand.nextInt(3) != 0)
 	    						{
 	    							createVine(world, rand, x + i, y + j, z + k);
@@ -155,7 +155,7 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG
 			{
 				break;
 			}
-			world.setBlock(x, y + i, z, this.leavesBlock, this.leavesMeta, 0);
+			world.setBlock(x, y + i, z, this.leavesBlock, this.leavesMeta, this.generateFlag);
     	}
     }
     
@@ -168,7 +168,7 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG
     		sh = rand.nextInt(3) + y;
     		while(sh > y - 3)
     		{
-    			world.setBlock(x + pos[t * 2], sh, z + pos[t * 2 + 1], this.logBlock, this.logMeta + 12, 0);
+    			world.setBlock(x + pos[t * 2], sh, z + pos[t * 2 + 1], this.logBlock, this.logMeta + 12, this.generateFlag);
     			sh--;
     		}
     	}

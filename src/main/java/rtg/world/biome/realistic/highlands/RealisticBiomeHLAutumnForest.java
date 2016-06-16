@@ -18,6 +18,7 @@ import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaPungens;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.world.gen.surface.highlands.SurfaceHLAutumnForest;
@@ -39,15 +40,18 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
         );
         this.noWaterFeatures = false;
         
-		DecoTree yellowPines = new DecoTree(new TreeRTGPinusPonderosa());
-		yellowPines.logBlock = Blocks.log;
-		yellowPines.logMeta = (byte)0;
-		yellowPines.leavesBlock = Highlands.vanillaBlocksFlag ? Blocks.leaves : HighlandsBlocks.autumnYellowLeaves;
-		yellowPines.leavesMeta = Highlands.vanillaBlocksFlag ? (byte)0 : (byte)0;
-		yellowPines.minTrunkSize = 6;
-		yellowPines.maxTrunkSize = 14;
-		yellowPines.minCrownSize = 8;
-		yellowPines.maxCrownSize = 20;
+		TreeRTG ponderosaYellowTree = new TreeRTGPinusPonderosa();
+		ponderosaYellowTree.logBlock = Blocks.log;
+		ponderosaYellowTree.logMeta = (byte)0;
+		ponderosaYellowTree.leavesBlock = Highlands.vanillaBlocksFlag ? Blocks.leaves : HighlandsBlocks.autumnYellowLeaves;
+		ponderosaYellowTree.leavesMeta = Highlands.vanillaBlocksFlag ? (byte)0 : (byte)0;
+		ponderosaYellowTree.minTrunkSize = 6;
+		ponderosaYellowTree.maxTrunkSize = 14;
+		ponderosaYellowTree.minCrownSize = 8;
+		ponderosaYellowTree.maxCrownSize = 20;
+		this.addTree(ponderosaYellowTree);
+        
+		DecoTree yellowPines = new DecoTree(ponderosaYellowTree);
 		yellowPines.strengthFactorForLoops = 6f;
 		yellowPines.treeType = TreeType.RTG_TREE;
 		yellowPines.distribution.noiseDivisor = 100f;
@@ -58,19 +62,40 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
 		yellowPines.treeConditionChance = 1;
 		yellowPines.maxY = 110;
 		
-		DecoTree orangePines = new DecoTree(yellowPines);
-		orangePines.leavesBlock = Highlands.vanillaBlocksFlag ? Blocks.leaves : HighlandsBlocks.autumnOrangeLeaves;
-		orangePines.leavesMeta = Highlands.vanillaBlocksFlag ? (byte)2 : (byte)0;
+		TreeRTG ponderosaOrangeTree = new TreeRTGPinusPonderosa();
+		ponderosaOrangeTree.logBlock = Blocks.log;
+		ponderosaOrangeTree.logMeta = (byte)0;
+		ponderosaOrangeTree.leavesBlock = Highlands.vanillaBlocksFlag ? Blocks.leaves : HighlandsBlocks.autumnOrangeLeaves;
+		ponderosaOrangeTree.leavesMeta = Highlands.vanillaBlocksFlag ? (byte)2 : (byte)0;
+		ponderosaOrangeTree.minTrunkSize = 6;
+		ponderosaOrangeTree.maxTrunkSize = 14;
+		ponderosaOrangeTree.minCrownSize = 8;
+		ponderosaOrangeTree.maxCrownSize = 20;
+		this.addTree(ponderosaOrangeTree);
 		
-		DecoTree spruceTrees = new DecoTree(new TreeRTGPiceaPungens());
-		spruceTrees.logBlock = Blocks.log;
-		spruceTrees.logMeta = (byte)1;
-		spruceTrees.leavesBlock = Blocks.leaves;
-		spruceTrees.leavesMeta = (byte)1;
-		spruceTrees.minTrunkSize = 4;
-		spruceTrees.maxTrunkSize = 10;
-		spruceTrees.minCrownSize = 6;
-		spruceTrees.maxCrownSize = 17;
+		DecoTree orangePines = new DecoTree(yellowPines);
+		orangePines.strengthFactorForLoops = 6f;
+		orangePines.treeType = TreeType.RTG_TREE;
+		orangePines.distribution.noiseDivisor = 100f;
+		orangePines.distribution.noiseFactor = 6f;
+		orangePines.distribution.noiseAddend = 0.8f;
+		orangePines.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		orangePines.treeConditionNoise = -0.4f;
+		orangePines.treeConditionChance = 1;
+		orangePines.maxY = 110;
+		
+		TreeRTG pungensTree = new TreeRTGPiceaPungens();
+		pungensTree.logBlock = Blocks.log;
+		pungensTree.logMeta = (byte)1;
+		pungensTree.leavesBlock = Blocks.leaves;
+		pungensTree.leavesMeta = (byte)1;
+		pungensTree.minTrunkSize = 4;
+		pungensTree.maxTrunkSize = 10;
+		pungensTree.minCrownSize = 6;
+		pungensTree.maxCrownSize = 17;
+		this.addTree(pungensTree);
+		
+		DecoTree spruceTrees = new DecoTree(pungensTree);
 		spruceTrees.strengthFactorForLoops = 5f;
 		spruceTrees.treeType = TreeType.RTG_TREE;
 		spruceTrees.distribution.noiseDivisor = 100f;
@@ -86,20 +111,23 @@ public class RealisticBiomeHLAutumnForest extends RealisticBiomeHLBase {
 		decoTrees.chances = new int[]{8, 8, 4};
 		this.addDeco(decoTrees);
 		
-		DecoTree deadPineTree = new DecoTree(new TreeRTGPinusPonderosa());
-		deadPineTree.logBlock = Blocks.log;
-		deadPineTree.logMeta = (byte)0;
-		deadPineTree.leavesBlock = Blocks.leaves;
-		deadPineTree.leavesMeta = (byte)0;
-		deadPineTree.minTrunkSize = 4;
-		deadPineTree.maxTrunkSize = 7;
-		deadPineTree.minCrownSize = 8;
-		deadPineTree.maxCrownSize = 18;
+		TreeRTG ponderosaTree = new TreeRTGPinusPonderosa();
+		ponderosaTree.logBlock = Blocks.log;
+		ponderosaTree.logMeta = (byte)0;
+		ponderosaTree.leavesBlock = Blocks.leaves;
+		ponderosaTree.leavesMeta = (byte)0;
+		ponderosaTree.minTrunkSize = 4;
+		ponderosaTree.maxTrunkSize = 7;
+		ponderosaTree.minCrownSize = 8;
+		ponderosaTree.maxCrownSize = 18;
+		ponderosaTree.noLeaves = true;
+		this.addTree(ponderosaTree);
+		
+		DecoTree deadPineTree = new DecoTree(ponderosaTree);
 		deadPineTree.treeType = TreeType.RTG_TREE;
 		deadPineTree.treeCondition = TreeCondition.RANDOM_CHANCE;
 		deadPineTree.treeConditionChance = 18;
 		deadPineTree.maxY = 120;
-		deadPineTree.noLeaves = true;
 		this.addDeco(deadPineTree);
 		
         DecoFallenTree decoFallenOak = new DecoFallenTree();

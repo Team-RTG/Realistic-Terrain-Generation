@@ -41,6 +41,7 @@ import rtg.world.biome.deco.collection.DecoCollectionBase;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.feature.WorldGenPond;
 import rtg.world.gen.feature.WorldGenVolcano;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGeneric;
 import rtg.world.gen.terrain.TerrainBase;
@@ -76,6 +77,7 @@ public class RealisticBiomeBase extends BiomeBase {
     public byte emeraldStoneMeta;
     
     public ArrayList<DecoBase> decos;
+    public ArrayList<TreeRTG> rtgTrees;
 
     // lake calculations
 
@@ -134,6 +136,7 @@ public class RealisticBiomeBase extends BiomeBase {
         emeraldStoneMeta = (byte)0;
         
         decos = new ArrayList<DecoBase>();
+        rtgTrees = new ArrayList<TreeRTG>();
         
         /**
          *  Disable base biome decorations by default.
@@ -693,5 +696,48 @@ public class RealisticBiomeBase extends BiomeBase {
     			this.addDeco(decoCollection.decos.get(i));
     		}
     	}
+    	
+    	if (decoCollection.rtgTrees.size() > 0) {
+    		for (int i = 0; i < decoCollection.rtgTrees.size(); i++) {
+    			this.addTree(decoCollection.rtgTrees.get(i));
+    		}
+    	}
+    }
+    
+    /**
+     * Adds a tree to the list of RTG trees associated with this biome.
+     * The 'allowed' parameter allows us to pass biome config booleans dynamically when configuring the trees in the biome.
+     * 
+     * @param tree
+     * @param allowed
+     */
+    public void addTree(TreeRTG tree, boolean allowed)
+    {
+    	if (allowed) {
+
+	    	this.rtgTrees.add(tree);
+    	}
+    }
+    
+    /**
+     * Convenience method for addTree() where 'allowed' is assumed to be true.
+     * 
+     * @param tree
+     */
+    public void addTree(TreeRTG tree)
+    {
+    	// Set the sapling data for this tree before we add it to the list.
+    	tree.saplingBlock = Blocks.sapling;
+    	
+    	if (tree.leavesBlock == Blocks.leaves) {
+    		
+    		tree.saplingMeta = tree.leavesMeta;
+    	}
+    	else if (tree.leavesBlock == Blocks.leaves2) {
+    		
+    		tree.saplingMeta = (byte) (tree.leavesMeta + 4);
+    	}
+    	
+    	this.addTree(tree, true);
     }
 }

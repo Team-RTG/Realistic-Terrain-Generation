@@ -142,7 +142,7 @@ public class TreeRTGCocosNucifera extends TreeRTG
 		
 		while(c < length)
 		{
-			world.setBlock((int)posX, (int)posY, (int)posZ, this.logBlock, this.logMeta + 12, 2);
+			world.setBlock((int)posX, (int)posY, (int)posZ, this.logBlock, this.logMeta + 12, this.generateFlag);
 			
 			if(c < length - 3)
 			{
@@ -168,7 +168,7 @@ public class TreeRTGCocosNucifera extends TreeRTG
 			
 	    	for(int j = 0; j < leavesLength; j+=3)
 	    	{
-	    		world.setBlock(x + leaves[j], y + leaves[j + 1], z + leaves[j + 2], this.leavesBlock, this.leavesMeta, 2);
+	    		world.setBlock(x + leaves[j], y + leaves[j + 1], z + leaves[j + 2], this.leavesBlock, this.leavesMeta, this.generateFlag);
 	    	}
 		}
     	
@@ -176,7 +176,7 @@ public class TreeRTGCocosNucifera extends TreeRTG
     	{
     		if(rand.nextInt(20) == 0)
     		{
-    			world.setBlock(x + cocoas[k + 1], y + cocoas[k + 2], z + cocoas[k + 3], Blocks.cocoa, cocoas[k + 0] + 8, 2);
+    			world.setBlock(x + cocoas[k + 1], y + cocoas[k + 2], z + cocoas[k + 3], Blocks.cocoa, cocoas[k + 0] + 8, this.generateFlag);
     		}
     	}
     	

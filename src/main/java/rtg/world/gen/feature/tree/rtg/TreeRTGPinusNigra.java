@@ -57,7 +57,7 @@ public class TreeRTGPinusNigra extends TreeRTG
     	
     	for(int i = 0; i <= height; i++)
     	{
-    		world.setBlock(x, y + i, z, this.logBlock, this.logMeta, 0);
+    		world.setBlock(x, y + i, z, this.logBlock, this.logMeta, this.generateFlag);
     	}
     	buildLeaves(world, rand, x, y + height, z, 2);
     	buildTrunk(world, rand, x, y, z);
@@ -74,7 +74,7 @@ public class TreeRTGPinusNigra extends TreeRTG
 			
 			for(b = 0; b <= bl; b++)
 			{
-				world.setBlock(x + (int)(b * xd), y + j, z + (int)(b * yd), this.logBlock, this.logMeta + 12, 0);
+				world.setBlock(x + (int)(b * xd), y + j, z + (int)(b * yd), this.logBlock, this.logMeta + 12, this.generateFlag);
 			}
 	    	buildLeaves(world, rand, x, y + j, z, 2);
 	    	buildLeaves(world, rand, x + (int)(b * xd), y + j, z + (int)(b * yd), 2);
@@ -101,7 +101,7 @@ public class TreeRTGPinusNigra extends TreeRTG
 	    				{
 	    					if(world.isAirBlock(x + i, y + j, z + k) && (l < t / 2 || rand.nextBoolean()))
 	    					{
-	    						world.setBlock(x + i, y + j, z + k, this.leavesBlock, this.leavesMeta, 0);
+	    						world.setBlock(x + i, y + j, z + k, this.leavesBlock, this.leavesMeta, this.generateFlag);
 	    					}
 	    				}
 	    			}
@@ -124,7 +124,7 @@ public class TreeRTGPinusNigra extends TreeRTG
     			{
     				break;
     			}
-    			world.setBlock(x + pos[t * 2], sh, z + pos[t * 2 + 1], this.logBlock, this.logMeta + 12, 0);
+    			world.setBlock(x + pos[t * 2], sh, z + pos[t * 2 + 1], this.logBlock, this.logMeta + 12, this.generateFlag);
     			sh--;
     		}
     	}

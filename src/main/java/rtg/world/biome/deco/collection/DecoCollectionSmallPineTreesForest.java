@@ -5,10 +5,9 @@ import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
-import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
-import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.world.gen.feature.tree.vanilla.WorldGenForestRTG;
 import rtg.world.gen.feature.tree.vanilla.WorldGenTreesRTG;
 
@@ -24,15 +23,18 @@ public class DecoCollectionSmallPineTreesForest extends DecoCollectionBase
 	public DecoCollectionSmallPineTreesForest()
 	{
 
-		DecoTree oakPine = new DecoTree(new TreeRTGPiceaSitchensis());
-    	oakPine.logBlock = Blocks.log;
-    	oakPine.logMeta = (byte)0;
-    	oakPine.leavesBlock = Blocks.leaves;
-    	oakPine.leavesMeta = (byte)0;
-    	oakPine.minTrunkSize = 4;
-    	oakPine.maxTrunkSize = 10;
-    	oakPine.minCrownSize = 6;
-    	oakPine.maxCrownSize = 14;
+		TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
+    	sitchensisTree.logBlock = Blocks.log;
+    	sitchensisTree.logMeta = (byte)0;
+    	sitchensisTree.leavesBlock = Blocks.leaves;
+    	sitchensisTree.leavesMeta = (byte)0;
+    	sitchensisTree.minTrunkSize = 4;
+    	sitchensisTree.maxTrunkSize = 10;
+    	sitchensisTree.minCrownSize = 6;
+    	sitchensisTree.maxCrownSize = 14;
+		this.addTree(sitchensisTree);
+		
+		DecoTree oakPine = new DecoTree(sitchensisTree);
 		oakPine.strengthFactorForLoops = 3f;
     	oakPine.treeType = TreeType.RTG_TREE;
 		oakPine.treeCondition = TreeCondition.RANDOM_CHANCE;

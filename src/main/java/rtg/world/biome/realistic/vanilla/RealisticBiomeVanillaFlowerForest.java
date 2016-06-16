@@ -17,6 +17,7 @@ import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.collection.DecoCollectionSmallPineTreesForest;
 import rtg.world.biome.deco.helper.DecoHelper5050;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaFlowerForest;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaFlowerForest;
@@ -68,15 +69,19 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         this.addDeco(decoFlowers2);
 		
         // Trees first.
-		DecoTree oakPines = new DecoTree(new TreeRTGPinusPonderosa());
-		oakPines.logBlock = Blocks.log;
-		oakPines.logMeta = (byte)0;
-		oakPines.leavesBlock = Blocks.leaves;
-		oakPines.leavesMeta = (byte)0;
-		oakPines.minTrunkSize = 11;
-		oakPines.maxTrunkSize = 21;
-		oakPines.minCrownSize = 15;
-		oakPines.maxCrownSize = 29;
+        
+		TreeRTG ponderosaOakTree = new TreeRTGPinusPonderosa();
+		ponderosaOakTree.logBlock = Blocks.log;
+		ponderosaOakTree.logMeta = (byte)0;
+		ponderosaOakTree.leavesBlock = Blocks.leaves;
+		ponderosaOakTree.leavesMeta = (byte)0;
+		ponderosaOakTree.minTrunkSize = 11;
+		ponderosaOakTree.maxTrunkSize = 21;
+		ponderosaOakTree.minCrownSize = 15;
+		ponderosaOakTree.maxCrownSize = 29;
+		this.addTree(ponderosaOakTree);
+        
+		DecoTree oakPines = new DecoTree(ponderosaOakTree);
 		oakPines.strengthNoiseFactorForLoops = true;
 		oakPines.treeType = TreeType.RTG_TREE;
 		oakPines.distribution.noiseDivisor = 80f;
@@ -87,9 +92,27 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 		oakPines.treeConditionChance = 1;
 		oakPines.maxY = 140;
 		
-		DecoTree sprucePines = new DecoTree(oakPines);
-		sprucePines.logMeta = (byte)1;
-		sprucePines.leavesMeta = (byte)1;
+		TreeRTG ponderosaSpruceTree = new TreeRTGPinusPonderosa();
+		ponderosaSpruceTree.logBlock = Blocks.log;
+		ponderosaSpruceTree.logMeta = (byte)1;
+		ponderosaSpruceTree.leavesBlock = Blocks.leaves;
+		ponderosaSpruceTree.leavesMeta = (byte)1;
+		ponderosaSpruceTree.minTrunkSize = 11;
+		ponderosaSpruceTree.maxTrunkSize = 21;
+		ponderosaSpruceTree.minCrownSize = 15;
+		ponderosaSpruceTree.maxCrownSize = 29;
+		this.addTree(ponderosaSpruceTree);
+		
+		DecoTree sprucePines = new DecoTree(ponderosaSpruceTree);
+		sprucePines.strengthNoiseFactorForLoops = true;
+		sprucePines.treeType = TreeType.RTG_TREE;
+		sprucePines.distribution.noiseDivisor = 80f;
+		sprucePines.distribution.noiseFactor = 60f;
+		sprucePines.distribution.noiseAddend = -15f;
+		sprucePines.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		sprucePines.treeConditionNoise = 0f;
+		sprucePines.treeConditionChance = 1;
+		sprucePines.maxY = 140;
 		
 		DecoHelper5050 decoPines = new DecoHelper5050(oakPines, sprucePines);
 		this.addDeco(decoPines);

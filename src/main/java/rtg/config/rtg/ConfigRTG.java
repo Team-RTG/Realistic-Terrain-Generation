@@ -376,11 +376,11 @@ public class ConfigRTG
                 "Enable RTG Saplings",
                 "Saplings",
                 enableRTGSaplings,
-                "Set this to TRUE to allow RTG's custom trees to generate from vanilla saplings."
+                "Set this to TRUE to allow RTG's custom trees to grow from vanilla saplings."
                 + Configuration.NEW_LINE +
-                "RTG's custom trees require a sapling that their leaves drop."
+                "RTG's custom trees can be grown only from the saplings that their leaves would drop naturally, and only in the biomes where they naturally generate."
                 + Configuration.NEW_LINE +
-                "RTG's custom trees can only be generated in biomes where they naturally generate."
+                "For example, you can only grow a Swamp Willow in a Swamp biome, and only with an Oak sapling (because Swamp Willows have Oak leaves)."
                 + Configuration.NEW_LINE
             );
         	
@@ -388,7 +388,7 @@ public class ConfigRTG
                 "RTG Tree from Vanilla Sapling Chance",
                 "Saplings",
                 rtgTreeChance, 1, Integer.MAX_VALUE,
-                "1/x chance that a vanilla sapling will generate one of RTG's custom trees."
+                "1/x chance that a vanilla sapling will grow one of RTG's custom trees."
                 + Configuration.NEW_LINE +
                 "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
                 + Configuration.NEW_LINE

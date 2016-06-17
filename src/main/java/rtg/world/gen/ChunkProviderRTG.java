@@ -21,7 +21,6 @@ import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IProgressUpdate;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.SpawnerAnimals;
 import net.minecraft.world.World;
@@ -60,6 +59,7 @@ import rtg.util.OpenSimplexNoise;
 import rtg.util.PlaneLocation;
 import rtg.util.SimplexCellularNoise;
 import rtg.util.TimeTracker;
+import rtg.util.TimedHashSet;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.RTGBiomeProvider;
@@ -68,7 +68,6 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
-import rtg.util.TimedHashSet;
 
 
 public class ChunkProviderRTG implements IChunkProvider
@@ -296,31 +295,19 @@ public class ChunkProviderRTG implements IChunkProvider
 
         for(k = 0; k < 256; k++)
         {
-            // Is this a single biome world?
-            if (biomePatcher.isSingleBiomeWorld())
+            if(biomesGeneratedInChunk[k] )
             {
-                baseBiomesList[k] = biomePatcher.getSingleBaseBiome();
+                RealisticBiomeBase.getBiome(k).generateMapGen(blocks, metadata, worldSeed, worldObj, cmr, mapRand, cx, cy, simplex, cell, landscape.noise);
+                biomesGeneratedInChunk[k] = false;
             }
-            else
-            {
-                if(biomesGeneratedInChunk[k] )
-                {
-                    RealisticBiomeBase.getBiome(k).generateMapGen(blocks, metadata, worldSeed, worldObj, cmr, mapRand, cx, cy, simplex, cell, landscape.noise);
-                    biomesGeneratedInChunk[k] = false;
-                }
-                try {
-                    baseBiomesList[k] = landscape.biome[k].baseBiome;
-                } catch (Exception e) {
-                    baseBiomesList[k] = biomePatcher.getPatchedBaseBiome(""+landscape.biome[k].biomeID);
-                }
+            try {
+                baseBiomesList[k] = landscape.biome[k].baseBiome;
+            } catch (Exception e) {
+                baseBiomesList[k] = biomePatcher.getPatchedBaseBiome(""+landscape.biome[k].biomeID);
             }
         }
 
-
-
         replaceBlocksForBiome(cx, cy, blocks, metadata, landscape.biome, baseBiomesList, landscape.noise);
-        
-
 
         caveGenerator.func_151539_a(this, worldObj, cx, cy, blocks);
         ravineGenerator.func_151539_a(this, worldObj, cx, cy, blocks);
@@ -813,20 +800,12 @@ public class ChunkProviderRTG implements IChunkProvider
         			borderNoise[bn] = 1f;
         		}
 
-                // Is this a single biome world?
-                if (biomePatcher.isSingleBiomeWorld())
+                realisticBiome = RealisticBiomeBase.getBiome(bn);
+                
+                // Do we need to patch the biome?
+                if (realisticBiome == null)
                 {
-                    realisticBiome = biomePatcher.getSingleRealisticBiome();
-                }
-                else
-                {
-                    realisticBiome = RealisticBiomeBase.getBiome(bn);
-                    
-                    // Do we need to patch the biome?
-                    if (realisticBiome == null)
-                    {
-                        realisticBiome = biomePatcher.getPatchedRealisticBiome("NULL biome (" + bn + ") found when generating border noise.");
-                    }
+                    realisticBiome = biomePatcher.getPatchedRealisticBiome("NULL biome (" + bn + ") found when generating border noise.");
                 }
                 
                 /**

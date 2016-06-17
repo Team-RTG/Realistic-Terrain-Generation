@@ -8,6 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.config.rtg.ConfigRTG;
+import rtg.util.BoulderUtil;
 import rtg.util.RandomUtil;
 
 public class WorldGenBlob extends WorldGenerator
@@ -18,6 +19,7 @@ public class WorldGenBlob extends WorldGenerator
     private boolean booShouldGenerate;
     private static final String __OBFID = "CL_00000402";
     protected boolean water;
+    protected BoulderUtil boulderUtil;
 
     public WorldGenBlob(Block b, int s, Random rand)
     {
@@ -27,6 +29,7 @@ public class WorldGenBlob extends WorldGenerator
         this.blobSize = s;
         booShouldGenerate = true;
         this.water = true;
+        this.boulderUtil = new BoulderUtil();
         
         if (blobBlock == Blocks.mossy_cobblestone || blobBlock == Blocks.cobblestone) {
             if (!ConfigRTG.enableCobblestoneBoulders) {
@@ -67,7 +70,7 @@ public class WorldGenBlob extends WorldGenerator
                 }
             }
         }
-        
+
         generate(world, rand, x, y, z);
     }
     
@@ -77,6 +80,9 @@ public class WorldGenBlob extends WorldGenerator
             return false;
         }
 
+        Block boulderBlock = this.boulderUtil.getBoulderBlock(this.blobBlock, x, y, z);
+        byte boulderMeta = this.boulderUtil.getBoulderMeta(this.blobBlock, this.blobMeta, x, y, z);
+        
         while (true)
         {
             if (y > 3)
@@ -138,7 +144,7 @@ public class WorldGenBlob extends WorldGenerator
 
                             if (f1 * f1 + f2 * f2 + f3 * f3 <= f * f)
                             {
-                                world.setBlock(l1, j2, i2, this.blobBlock, this.blobMeta, 2);
+                                world.setBlock(l1, j2, i2, boulderBlock, boulderMeta, 2);
                             }
                         }
                     }

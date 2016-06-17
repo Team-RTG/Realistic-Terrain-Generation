@@ -32,6 +32,7 @@ public class ConfigRTG
     
     public static boolean enableCobblestoneBoulders = true;
     public static int cobblestoneBoulderChance = 1;
+    public static boolean enableUBCBoulders = true;
     
     /* ==================== Caves ==================== */
     
@@ -261,6 +262,16 @@ public class ConfigRTG
             
             enableCobblestoneBoulders = config.getBoolean("Enable Cobblestone Boulders", "Boulders", enableCobblestoneBoulders, "");
             cobblestoneBoulderChance = config.getInt("1/x chance that Cobblestone Boulders will generate if given the opportunity to do so during world gen", "Boulders", cobblestoneBoulderChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
+            
+            enableUBCBoulders = config.getBoolean(
+                "UBC Boulders",
+                "Boulders",
+                enableUBCStoneShadowing,
+                "Set this to TRUE to allow UBC to override cobblestone boulders."
+                + Configuration.NEW_LINE +
+                "This setting doesn't have any effect if UBC is not installed."
+                + Configuration.NEW_LINE
+            );
             
             /* ==================== Caves ==================== */
             

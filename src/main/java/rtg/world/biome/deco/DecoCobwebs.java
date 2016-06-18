@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenBlock;
 
@@ -57,9 +58,9 @@ public class DecoCobwebs extends DecoBase
             {
                 int i1 = chunkX + rand.nextInt(16);// + 8;
                 int j1 = chunkY + rand.nextInt(16);// + 8;
-                int k1 = world.getHeightValue(i1, j1);
+                int k1 = RandomUtil.getRandomInt(rand, this.minY, this.maxY);
                 
-                if (k1 >= this.minY && k1 <= this.maxY && rand.nextInt(this.chance) == 0) {
+                if (rand.nextInt(this.chance) == 0) {
                 	worldGenerator.generate(world, rand, i1, k1, j1);
                 }
             }

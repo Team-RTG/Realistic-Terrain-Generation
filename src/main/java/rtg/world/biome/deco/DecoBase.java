@@ -97,6 +97,7 @@ public class DecoBase
 	{
 		BASE_BIOME_DECORATION,
 		BOULDER,
+		COBWEB,
 		CACTUS,
 		DEAD_BUSH,
 		DESERT_WELL,

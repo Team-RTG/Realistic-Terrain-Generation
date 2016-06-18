@@ -7,6 +7,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForest;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoCobwebs;
 import rtg.world.biome.deco.DecoDeadBush;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
@@ -146,14 +147,15 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 		decoBoulder.strengthFactor = 2f;
 		this.addDeco(decoBoulder);
 		
-		DecoBoulder decoCobwebBoulder = new DecoBoulder();
-		decoCobwebBoulder.boulderBlock = Blocks.web;
-		decoCobwebBoulder.chance = 48;
-		decoCobwebBoulder.minY = 63;
-		decoCobwebBoulder.maxY = 70;
-		decoCobwebBoulder.strengthFactor = 2f;
-		decoCobwebBoulder.water = false;
-		this.addDeco(decoCobwebBoulder, this.config._boolean(BiomeConfigVanillaRoofedForest.decorationCobwebsId));
+		DecoCobwebs decoCobwebs = new DecoCobwebs();
+		decoCobwebs.chance = 2;
+		decoCobwebs.minY = 63;
+		decoCobwebs.maxY = 110;
+		decoCobwebs.strengthFactor = 16f;
+		decoCobwebs.adjacentBlock = Blocks.log2;
+		decoCobwebs.adjacentBlockMeta = (byte)1;
+		decoCobwebs.minAdjacents = 2;
+		this.addDeco(decoCobwebs, this.config._boolean(BiomeConfigVanillaRoofedForest.decorationCobwebsId));
         
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		decoBaseBiomeDecorations.notEqualsZeroChance = 2;

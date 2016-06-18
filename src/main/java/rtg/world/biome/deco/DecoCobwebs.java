@@ -8,26 +8,27 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenBlob;
+import rtg.world.gen.feature.WorldGenBlock;
 
 /**
  * 
  * @author WhichOnesPink
  *
  */
-public class DecoBoulder extends DecoBase
+public class DecoCobwebs extends DecoBase
 {
     
-	public Block boulderBlock; // This can be any block.
-	public byte boulderMeta;
 	public float strengthFactor; // Higher = more/bigger boulders.
 	public int minY; // Lower height restriction.
 	public int maxY; // Upper height restriction.
 	public int chance; // Higher = more rare.
-	public boolean water;
+	public Block adjacentBlock;
+	public byte adjacentBlockMeta;
+	public int minAdjacents;
 	
-	public DecoBoulder()
+	public DecoCobwebs()
 	{
 		super();
 		
@@ -35,15 +36,15 @@ public class DecoBoulder extends DecoBase
 		 * Default values.
 		 * These can be overridden when configuring the Deco object in the realistic biome.
 		 */
-		this.boulderBlock = Blocks.cobblestone;
-		this.boulderMeta = (byte)0;
 		this.strengthFactor = 2f;
-		this.minY = 60; // Sensible lower height limit by default.
+		this.minY = 1; // No lower height limit by default.
 		this.maxY = 255; // No upper height limit by default.
 		this.chance = 10;
-		this.water = true;
+		this.adjacentBlock = Blocks.air;
+		this.adjacentBlockMeta = (byte)0;
+		this.minAdjacents = 1;
 		
-		this.addDecoTypes(DecoType.BOULDER);
+		this.addDecoTypes(DecoType.COBWEB);
 	}
 	
 	@Override
@@ -51,15 +52,15 @@ public class DecoBoulder extends DecoBase
 	{
 		if (this.allowed) {
 			
-			WorldGenerator worldGenerator = new WorldGenBlob(boulderBlock, this.boulderMeta, 0, rand, this.water);
+			WorldGenerator worldGenerator = new WorldGenBlock(Blocks.web, (byte)0, Blocks.air, (byte)0, this.adjacentBlock, this.adjacentBlockMeta, this.minAdjacents);
 			
             for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1)
             {
                 int i1 = chunkX + rand.nextInt(16);// + 8;
                 int j1 = chunkY + rand.nextInt(16);// + 8;
-                int k1 = world.getHeightValue(i1, j1);
+                int k1 = RandomUtil.getRandomInt(rand, this.minY, this.maxY);
                 
-                if (k1 >= this.minY && k1 <= this.maxY && rand.nextInt(this.chance) == 0) {
+                if (rand.nextInt(this.chance) == 0) {
                 	worldGenerator.generate(world, rand, i1, k1, j1);
                 }
             }

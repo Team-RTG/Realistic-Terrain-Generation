@@ -53,27 +53,32 @@ public class WorldGenBlock extends WorldGenerator
 	
 	protected boolean isAdjacent(World world, int x, int y, int z)
 	{
-		boolean adjacent = false;
+		int adjacentCount = 0;
 		
 		if (world.getBlock(x + 1, y, z) == this.adjacentBlock) {
-			adjacent = true;
-		}
-		else if (world.getBlock(x - 1, y, z) == this.adjacentBlock) {
-			adjacent = true;
-		}
-		else if (world.getBlock(x, y + 1, z) == this.adjacentBlock) {
-			adjacent = true;
-		}
-		else if (world.getBlock(x, y - 1, z) == this.adjacentBlock) {
-			adjacent = true;
-		}
-		else if (world.getBlock(x, y, z + 1) == this.adjacentBlock) {
-			adjacent = true;
-		}
-		else if (world.getBlock(x, y, z - 1) == this.adjacentBlock) {
-			adjacent = true;
+			adjacentCount++;
 		}
 
-		return adjacent;
+		if (world.getBlock(x - 1, y, z) == this.adjacentBlock) {
+			adjacentCount++;
+		}
+		
+		if (world.getBlock(x, y + 1, z) == this.adjacentBlock) {
+			adjacentCount++;
+		}
+		
+		if (world.getBlock(x, y - 1, z) == this.adjacentBlock) {
+			adjacentCount++;
+		}
+		
+		if (world.getBlock(x, y, z + 1) == this.adjacentBlock) {
+			adjacentCount++;
+		}
+		
+		if (world.getBlock(x, y, z - 1) == this.adjacentBlock) {
+			adjacentCount++;
+		}
+
+		return (adjacentCount > 0 && adjacentCount >= this.minAdjacents);
 	}
 }

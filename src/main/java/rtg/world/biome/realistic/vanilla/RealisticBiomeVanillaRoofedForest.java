@@ -148,10 +148,10 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 		this.addDeco(decoBoulder);
 		
 		DecoCobwebs decoCobwebs = new DecoCobwebs();
-		decoCobwebs.chance = 2;
+		decoCobwebs.chance = 1;
 		decoCobwebs.minY = 63;
-		decoCobwebs.maxY = 110;
-		decoCobwebs.strengthFactor = 16f;
+		decoCobwebs.maxY = 76;
+		decoCobwebs.strengthFactor = 30f;
 		decoCobwebs.adjacentBlock = Blocks.log2;
 		decoCobwebs.adjacentBlockMeta = (byte)1;
 		decoCobwebs.minAdjacents = 2;

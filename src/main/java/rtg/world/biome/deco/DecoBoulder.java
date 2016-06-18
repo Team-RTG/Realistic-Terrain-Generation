@@ -38,7 +38,7 @@ public class DecoBoulder extends DecoBase
 		this.boulderBlock = Blocks.cobblestone;
 		this.boulderMeta = (byte)0;
 		this.strengthFactor = 2f;
-		this.minY = 1; // No lower height limit by default.
+		this.minY = 60; // Sensible lower height limit by default.
 		this.maxY = 255; // No upper height limit by default.
 		this.chance = 10;
 		this.water = true;

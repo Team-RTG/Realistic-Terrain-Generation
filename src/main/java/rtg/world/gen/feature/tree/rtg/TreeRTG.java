@@ -1,5 +1,7 @@
 package rtg.world.gen.feature.tree.rtg;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import net.minecraft.block.Block;
@@ -35,6 +37,8 @@ public class TreeRTG extends WorldGenerator
 	public int minCrownSize;
 	public int maxCrownSize;
 	
+	public ArrayList<Block> validGroundBlocks;
+	
 	public TreeRTG()
 	{
 		this.logBlock = Blocks.log;
@@ -55,6 +59,9 @@ public class TreeRTG extends WorldGenerator
 		this.maxTrunkSize = 0;
 		this.minCrownSize = 0;
 		this.maxCrownSize = 0;
+		
+		// Each tree sub-class is responsible for using (or not using) this list as part of its generation logic.
+		this.validGroundBlocks = new ArrayList<Block>(Arrays.asList(Blocks.grass, Blocks.dirt, Blocks.sand));
 	}
 
 	@Override

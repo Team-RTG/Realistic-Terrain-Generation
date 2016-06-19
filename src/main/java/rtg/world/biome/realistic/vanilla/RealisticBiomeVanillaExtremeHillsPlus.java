@@ -89,9 +89,9 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
         
 		DecoBoulder decoBoulder = new DecoBoulder();
 		decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
-		decoBoulder.chance = 16;
+		decoBoulder.chance = 12;
 		decoBoulder.maxY = 95;
-		decoBoulder.strengthFactor = 3f;
+		decoBoulder.strengthFactor = 2f;
 		this.addDeco(decoBoulder);
 		
 		DecoPumpkin decoPumpkin = new DecoPumpkin();

@@ -854,26 +854,29 @@ public class ChunkProviderRTG implements IChunkProvider
         biome.rPopulatePostDecorate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag);
         
         //Flowing water.
-        if (rand.nextInt(100) == 0) {
-    		for(int l18 = 0; l18 < 50; l18++)
-    		{
-    			int l21 = worldX + rand.nextInt(16);// + 8;
-    			int k23 = rand.nextInt(rand.nextInt(worldHeight - 16) + 10);
-    			int l24 = worldZ + rand.nextInt(16);// + 8;
-                
-    			(new WorldGenLiquids(Blocks.flowing_water)).generate(worldObj, rand, l21, k23, l24);
-    		}
+        if (ConfigRTG.flowingWaterChance > 0) {
+	        if (rand.nextInt(ConfigRTG.flowingWaterChance) == 0) {
+	    		for(int l18 = 0; l18 < 50; l18++)
+	    		{
+	    			int l21 = worldX + rand.nextInt(16);// + 8;
+	    			int k23 = rand.nextInt(rand.nextInt(worldHeight - 16) + 10);
+	    			int l24 = worldZ + rand.nextInt(16);// + 8;
+	    			(new WorldGenLiquids(Blocks.flowing_water)).generate(worldObj, rand, l21, k23, l24);
+	    		}
+	        }
         }
 
         //Flowing lava.
-        if (rand.nextInt(100) == 0) {
-    		for(int i19 = 0; i19 < 20; i19++)
-    		{
-    			int i22 = worldX + rand.nextInt(16);// + 8;
-    			int l23 = rand.nextInt(worldHeight / 2);
-    			int i25 = worldZ + rand.nextInt(16);// + 8;
-    			(new WorldGenLiquids(Blocks.flowing_lava)).generate(worldObj, rand, i22, l23, i25);
-    		}
+        if (ConfigRTG.flowingLavaChance > 0) {
+	        if (rand.nextInt(ConfigRTG.flowingLavaChance) == 0) {
+	    		for(int i19 = 0; i19 < 20; i19++)
+	    		{
+	    			int i22 = worldX + rand.nextInt(16);// + 8;
+	    			int l23 = rand.nextInt(worldHeight / 2);
+	    			int i25 = worldZ + rand.nextInt(16);// + 8;
+	    			(new WorldGenLiquids(Blocks.flowing_lava)).generate(worldObj, rand, i22, l23, i25);
+	    		}
+	        }
         }
 
         TimeTracker.manager.stop("Post-decorations");
@@ -1079,5 +1082,4 @@ public class ChunkProviderRTG implements IChunkProvider
         }
         return serverLoadingChunks;
     }
-
 }

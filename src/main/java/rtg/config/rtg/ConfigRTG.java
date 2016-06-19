@@ -53,6 +53,11 @@ public class ConfigRTG
     public static boolean generateDungeons = true;
     public static int dungeonFrequency = 8;
     
+    /* ==================== Flowing Liquids ==================== */
+
+    public static int flowingWaterChance = 200;
+    public static int flowingLavaChance = 200;
+    
     /* ==================== Lakes (Surface) ==================== */
     
     public static boolean enableWaterSurfaceLakes = true;
@@ -286,6 +291,28 @@ public class ConfigRTG
             
             generateDungeons = config.getBoolean("Generate Dungeons", "Dungeons", generateDungeons, "");
             dungeonFrequency = config.getInt("Dungeon Frequency", "Dungeons", dungeonFrequency, 1, 200, "This setting controls the number of dungeons that generate." + Configuration.NEW_LINE + "HIGHER values = MORE dungeons & MORE lag. (8 = vanilla dungeon frequency)" + Configuration.NEW_LINE);
+            
+            /* ==================== Flowing Liquids ==================== */
+
+            flowingLavaChance = config.getInt(
+                "Flowing Lava Chance",
+                "Flowing Liquids",
+                flowingLavaChance, 0, Integer.MAX_VALUE,
+                "1/x chance that a lava stream will generate on the side of a hill or mountain."
+                + Configuration.NEW_LINE +
+                "0 = Never generate; 1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+                + Configuration.NEW_LINE
+            );
+            
+            flowingWaterChance = config.getInt(
+                "Flowing Water Chance",
+                "Flowing Liquids",
+                flowingWaterChance, 0, Integer.MAX_VALUE,
+                "1/x chance that a water stream will generate on the side of a hill or mountain."
+                + Configuration.NEW_LINE +
+                "0 = Never generate; 1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+                + Configuration.NEW_LINE
+            );
             
             /* ==================== Lakes (Surface) ==================== */
             

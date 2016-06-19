@@ -11,7 +11,7 @@ import net.minecraft.world.World;
  */
 public class TreeRTGCocosNucifera extends TreeRTG
 {
-
+	
 	private static int leavesLength = 133;
 	private static int[] leaves = new int[]{
 		1, 0, 0,
@@ -110,9 +110,16 @@ public class TreeRTGCocosNucifera extends TreeRTG
 	public boolean generate(World world, Random rand, int x, int y, int z) 
 	{
     	Block b = world.getBlock(x, y - 1, z);
+    	boolean validGroundBlock = false;
     	
-    	if(b != Blocks.grass && b != Blocks.dirt && b != Blocks.sand)
-    	{
+    	for (int i = 0; i < this.validGroundBlocks.size(); i++) {
+    		if (b == this.validGroundBlocks.get(i)) {
+    			validGroundBlock = true;
+    			break;
+    		}
+    	}
+    	
+    	if (!validGroundBlock) {
     		return false;
     	}
     	

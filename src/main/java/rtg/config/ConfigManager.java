@@ -14,6 +14,7 @@ import rtg.config.forgottennature.ConfigFN;
 import rtg.config.growthcraft.ConfigGC;
 import rtg.config.highlands.ConfigHL;
 import rtg.config.icmod.ConfigIC;
+import rtg.config.idt.ConfigIDT;
 import rtg.config.ridiculousworld.ConfigRW;
 import rtg.config.rtg.ConfigRTG;
 import rtg.config.thaumcraft.ConfigTC;
@@ -42,6 +43,7 @@ public class ConfigManager
     public static File tofuConfigFile;
     public static File fnConfigFile;
     public static File icConfigFile;
+    public static File idtConfigFile;
 
     private ConfigRTG configRTG = new ConfigRTG();
     public ConfigRTG rtg() {
@@ -69,6 +71,7 @@ public class ConfigManager
         tofuConfigFile = new File(configpath + "biomes/tofucraft.cfg");
         fnConfigFile = new File(configpath + "biomes/forgottennature.cfg");
         icConfigFile = new File(configpath + "biomes/icecreammod.cfg");
+        idtConfigFile = new File(configpath + "biomes/industrialtechnologies.cfg");
         
         ConfigRTG.init(rtgConfigFile);
         
@@ -90,5 +93,6 @@ public class ConfigManager
         ConfigTOFU.init(tofuConfigFile);
         ConfigFN.init(fnConfigFile);
         ConfigIC.init(icConfigFile);
+        ConfigIDT.init(idtConfigFile);
     }
 }

@@ -2,6 +2,7 @@ package rtg.config;
 
 import java.util.ArrayList;
 
+import net.minecraftforge.common.config.Configuration;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.BiomeConfigProperty;
 import rtg.api.biome.abyssalcraft.config.BiomeConfigAC;
@@ -284,6 +285,10 @@ import rtg.api.biome.highlands.config.BiomeConfigHLWoodlands;
 import rtg.api.biome.highlands.config.BiomeConfigHLWoodsMountains;
 import rtg.api.biome.icmod.config.BiomeConfigIC;
 import rtg.api.biome.icmod.config.BiomeConfigICIceCream;
+import rtg.api.biome.idt.config.BiomeConfigIDT;
+import rtg.api.biome.idt.config.BiomeConfigIDTEbonyForest;
+import rtg.api.biome.idt.config.BiomeConfigIDTSilkwoodForest;
+import rtg.api.biome.idt.config.BiomeConfigIDTWillowForest;
 import rtg.api.biome.lotsomobs.config.BiomeConfigLOM;
 import rtg.api.biome.lotsomobs.config.BiomeConfigLOMAntartica;
 import rtg.api.biome.lotsomobs.config.BiomeConfigLOMTropicalBeach;
@@ -372,8 +377,6 @@ import rtg.api.biome.vanilla.config.BiomeConfigVanillaTaiga;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaTaigaHills;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaTaigaM;
 
-import net.minecraftforge.common.config.Configuration;
-
 public class BiomeConfigManager
 {
     
@@ -390,6 +393,7 @@ public class BiomeConfigManager
         initBiomeConfigsGC();
         initBiomeConfigsHL();
         initBiomeConfigsIC();
+        initBiomeConfigsIDT();
         initBiomeConfigsRW();
         initBiomeConfigsTC();
         initBiomeConfigsVAMP();
@@ -700,6 +704,13 @@ public class BiomeConfigManager
     public static void initBiomeConfigsIC()
     {
         BiomeConfigIC.biomeConfigICIceCream = new BiomeConfigICIceCream();
+    }
+    
+    public static void initBiomeConfigsIDT()
+    {
+    	BiomeConfigIDT.biomeConfigIDTEbonyForest = new BiomeConfigIDTEbonyForest();
+    	BiomeConfigIDT.biomeConfigIDTSilkwoodForest = new BiomeConfigIDTSilkwoodForest();
+    	BiomeConfigIDT.biomeConfigIDTWillowForest = new BiomeConfigIDTWillowForest();
     }
 
     public static void initBiomeConfigsRW()

@@ -6,12 +6,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.config.rtg.ConfigRTG;
-import rtg.world.WorldTypeRTG;
-import rtg.world.biome.WorldChunkManagerRTG;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -20,6 +14,12 @@ import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraft.world.gen.structure.StructureVillagePieces.Road;
+import rtg.api.biome.BiomeConfig;
+import rtg.config.rtg.ConfigRTG;
+import rtg.util.Logger;
+import rtg.world.WorldTypeRTG;
+import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public class MapGenVillageRTG extends MapGenVillage
 {
@@ -33,7 +33,30 @@ public class MapGenVillageRTG extends MapGenVillage
         int minDistanceVillages = ConfigRTG.minDistanceVillages;
         int maxDistanceVillages = ConfigRTG.maxDistanceVillages;
         
-        minDistanceVillages = (minDistanceVillages > maxDistanceVillages) ? maxDistanceVillages : minDistanceVillages;
+        // Make sure these values are always greater than 0.
+        if (minDistanceVillages < 1) {
+        	minDistanceVillages = 8;
+        	Logger.warn("Config warning: Minimum distance between villages must be greater than 0. Reverting to vanilla value (%d).", minDistanceVillages);
+        }
+        if (maxDistanceVillages < 1) {
+        	maxDistanceVillages = 32;
+        	Logger.warn("Config warning: Maximum distance between villages must be greater than 0. Reverting to vanilla value (%d).", maxDistanceVillages);
+        }
+                
+        // If the min is greater than the max, then revert to vanilla values.
+        if (minDistanceVillages > maxDistanceVillages) {
+        	minDistanceVillages = 8;
+        	maxDistanceVillages = 32;
+        	Logger.warn("Config warning: Minimum distance between villages must be less than maximum distance between villages. Reverting to vanilla values.");
+        }
+        // Bad things happen when min & max are the same.
+        else if (minDistanceVillages == maxDistanceVillages) {
+        	maxDistanceVillages++;
+        	Logger.warn("Config warning: Maximum distance between villages must be greater than minimum distance between villages. Increasing maximum to %d.", maxDistanceVillages);
+        }
+        
+        Logger.debug("minDistanceVillages = %d", minDistanceVillages);
+        Logger.debug("maxDistanceVillages = %d", maxDistanceVillages);
         
         this.field_82665_g = maxDistanceVillages;
         this.field_82666_h = minDistanceVillages;

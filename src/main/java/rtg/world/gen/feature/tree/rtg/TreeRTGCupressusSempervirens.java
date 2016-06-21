@@ -1,5 +1,7 @@
 package rtg.world.gen.feature.tree.rtg;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import net.minecraft.block.Block;
@@ -40,14 +42,25 @@ public class TreeRTGCupressusSempervirens extends TreeRTG
 	public TreeRTGCupressusSempervirens()
 	{
 		super();
+		
+		this.validGroundBlocks = new ArrayList<Block>(Arrays.asList(Blocks.grass, Blocks.dirt));
 	}
 
 	@Override
     public boolean generate(World world, Random rand, int x, int y, int z)
     {
+
     	Block g = world.getBlock(x, y - 1, z);
-    	if(g != Blocks.grass && g != Blocks.dirt)
-    	{
+    	boolean validGroundBlock = false;
+    	
+    	for (int i = 0; i < this.validGroundBlocks.size(); i++) {
+    		if (g == this.validGroundBlocks.get(i)) {
+    			validGroundBlock = true;
+    			break;
+    		}
+    	}
+    	
+    	if (!validGroundBlock) {
     		return false;
     	}
     	

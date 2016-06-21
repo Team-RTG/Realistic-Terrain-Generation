@@ -263,7 +263,7 @@ public class EventManagerRTG
 		}
 		
 		// Are we in an RTG world? Do we have RTG's chunk manager?
-		if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG) && !(event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG)) {
+		if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG) || !(event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG)) {
 			return;
 		}
 		
@@ -279,9 +279,7 @@ public class EventManagerRTG
 		int x = event.x;
 		int y = event.y;
 		int z = event.z;
-		
-		
-		
+
 		Block saplingBlock = world.getBlock(x, y, z);
 		byte saplingMeta = (byte) saplingBlock.getDamageValue(world, x, y, z);
 

@@ -45,13 +45,6 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
 		 * ##################################################
 		 */
         
-		DecoBoulder decoBoulder = new DecoBoulder();
-		decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
-		decoBoulder.chance = 16;
-		decoBoulder.maxY = 90;
-		decoBoulder.strengthFactor = 3f;
-		this.addDeco(decoBoulder);
-        
 		TreeRTG nigraTree = new TreeRTGPinusNigra();
 		nigraTree.logBlock = Blocks.log;
 		nigraTree.logMeta = (byte)0;
@@ -95,6 +88,13 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
         decoShrub.strengthFactor = 2f;
         decoShrub.chance = 4;
         this.addDeco(decoShrub);
+        
+		DecoBoulder decoBoulder = new DecoBoulder();
+		decoBoulder.boulderBlock = Blocks.mossy_cobblestone;
+		decoBoulder.chance = 12;
+		decoBoulder.maxY = 90;
+		decoBoulder.strengthFactor = 2f;
+		this.addDeco(decoBoulder);
         
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.maxY = 90;

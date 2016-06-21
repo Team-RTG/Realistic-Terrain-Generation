@@ -21,7 +21,6 @@ import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IProgressUpdate;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.SpawnerAnimals;
 import net.minecraft.world.World;
@@ -60,6 +59,7 @@ import rtg.util.OpenSimplexNoise;
 import rtg.util.PlaneLocation;
 import rtg.util.SimplexCellularNoise;
 import rtg.util.TimeTracker;
+import rtg.util.TimedHashSet;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.RTGBiomeProvider;
@@ -68,7 +68,6 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.registry.GameData;
-import rtg.util.TimedHashSet;
 
 
 public class ChunkProviderRTG implements IChunkProvider
@@ -296,31 +295,19 @@ public class ChunkProviderRTG implements IChunkProvider
 
         for(k = 0; k < 256; k++)
         {
-            // Is this a single biome world?
-            if (biomePatcher.isSingleBiomeWorld())
+            if(biomesGeneratedInChunk[k] )
             {
-                baseBiomesList[k] = biomePatcher.getSingleBaseBiome();
+                RealisticBiomeBase.getBiome(k).generateMapGen(blocks, metadata, worldSeed, worldObj, cmr, mapRand, cx, cy, simplex, cell, landscape.noise);
+                biomesGeneratedInChunk[k] = false;
             }
-            else
-            {
-                if(biomesGeneratedInChunk[k] )
-                {
-                    RealisticBiomeBase.getBiome(k).generateMapGen(blocks, metadata, worldSeed, worldObj, cmr, mapRand, cx, cy, simplex, cell, landscape.noise);
-                    biomesGeneratedInChunk[k] = false;
-                }
-                try {
-                    baseBiomesList[k] = landscape.biome[k].baseBiome;
-                } catch (Exception e) {
-                    baseBiomesList[k] = biomePatcher.getPatchedBaseBiome(""+landscape.biome[k].biomeID);
-                }
+            try {
+                baseBiomesList[k] = landscape.biome[k].baseBiome;
+            } catch (Exception e) {
+                baseBiomesList[k] = biomePatcher.getPatchedBaseBiome(""+landscape.biome[k].biomeID);
             }
         }
 
-
-
         replaceBlocksForBiome(cx, cy, blocks, metadata, landscape.biome, baseBiomesList, landscape.noise);
-        
-
 
         caveGenerator.func_151539_a(this, worldObj, cx, cy, blocks);
         ravineGenerator.func_151539_a(this, worldObj, cx, cy, blocks);
@@ -813,20 +800,12 @@ public class ChunkProviderRTG implements IChunkProvider
         			borderNoise[bn] = 1f;
         		}
 
-                // Is this a single biome world?
-                if (biomePatcher.isSingleBiomeWorld())
+                realisticBiome = RealisticBiomeBase.getBiome(bn);
+                
+                // Do we need to patch the biome?
+                if (realisticBiome == null)
                 {
-                    realisticBiome = biomePatcher.getSingleRealisticBiome();
-                }
-                else
-                {
-                    realisticBiome = RealisticBiomeBase.getBiome(bn);
-                    
-                    // Do we need to patch the biome?
-                    if (realisticBiome == null)
-                    {
-                        realisticBiome = biomePatcher.getPatchedRealisticBiome("NULL biome (" + bn + ") found when generating border noise.");
-                    }
+                    realisticBiome = biomePatcher.getPatchedRealisticBiome("NULL biome (" + bn + ") found when generating border noise.");
                 }
                 
                 /**
@@ -875,26 +854,29 @@ public class ChunkProviderRTG implements IChunkProvider
         biome.rPopulatePostDecorate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag);
         
         //Flowing water.
-        if (rand.nextInt(100) == 0) {
-    		for(int l18 = 0; l18 < 50; l18++)
-    		{
-    			int l21 = worldX + rand.nextInt(16);// + 8;
-    			int k23 = rand.nextInt(rand.nextInt(worldHeight - 16) + 10);
-    			int l24 = worldZ + rand.nextInt(16);// + 8;
-                
-    			(new WorldGenLiquids(Blocks.flowing_water)).generate(worldObj, rand, l21, k23, l24);
-    		}
+        if (ConfigRTG.flowingWaterChance > 0) {
+	        if (rand.nextInt(ConfigRTG.flowingWaterChance) == 0) {
+	    		for(int l18 = 0; l18 < 50; l18++)
+	    		{
+	    			int l21 = worldX + rand.nextInt(16);// + 8;
+	    			int k23 = rand.nextInt(rand.nextInt(worldHeight - 16) + 10);
+	    			int l24 = worldZ + rand.nextInt(16);// + 8;
+	    			(new WorldGenLiquids(Blocks.flowing_water)).generate(worldObj, rand, l21, k23, l24);
+	    		}
+	        }
         }
 
         //Flowing lava.
-        if (rand.nextInt(100) == 0) {
-    		for(int i19 = 0; i19 < 20; i19++)
-    		{
-    			int i22 = worldX + rand.nextInt(16);// + 8;
-    			int l23 = rand.nextInt(worldHeight / 2);
-    			int i25 = worldZ + rand.nextInt(16);// + 8;
-    			(new WorldGenLiquids(Blocks.flowing_lava)).generate(worldObj, rand, i22, l23, i25);
-    		}
+        if (ConfigRTG.flowingLavaChance > 0) {
+	        if (rand.nextInt(ConfigRTG.flowingLavaChance) == 0) {
+	    		for(int i19 = 0; i19 < 20; i19++)
+	    		{
+	    			int i22 = worldX + rand.nextInt(16);// + 8;
+	    			int l23 = rand.nextInt(worldHeight / 2);
+	    			int i25 = worldZ + rand.nextInt(16);// + 8;
+	    			(new WorldGenLiquids(Blocks.flowing_lava)).generate(worldObj, rand, i22, l23, i25);
+	    		}
+	        }
         }
 
         TimeTracker.manager.stop("Post-decorations");
@@ -1100,5 +1082,4 @@ public class ChunkProviderRTG implements IChunkProvider
         }
         return serverLoadingChunks;
     }
-
 }

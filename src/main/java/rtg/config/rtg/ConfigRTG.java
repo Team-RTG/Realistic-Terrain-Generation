@@ -26,7 +26,6 @@ public class ConfigRTG
 	public static boolean enableRTGBiomeDecorations = true;
 	public static boolean enableRTGBiomeSurfaces = true;
 	public static int patchBiomeId = 1;
-	public static int singleBiomeId = -1;
     
     /* ==================== Boulders ==================== */
     
@@ -47,13 +46,17 @@ public class ConfigRTG
     
     /* ==================== Debugging ==================== */
     
-    public static boolean showDebugInfo = false;
     public static boolean enableDebugging = false;
     
     /* ==================== Dungeons ==================== */
     
     public static boolean generateDungeons = true;
     public static int dungeonFrequency = 8;
+    
+    /* ==================== Flowing Liquids ==================== */
+
+    public static int flowingWaterChance = 200;
+    public static int flowingLavaChance = 200;
     
     /* ==================== Lakes (Surface) ==================== */
     
@@ -245,19 +248,6 @@ public class ConfigRTG
                 + Configuration.NEW_LINE
             );
             
-            singleBiomeId = config.getInt(
-                "Generate only this biome ID", 
-                "Biomes", 
-                singleBiomeId, 
-                -1, 255, 
-                "If you enter a biome ID here, the whole world will consist of only that biome (and rivers). Set to -1 to generate the world normally." +
-                Configuration.NEW_LINE +
-                "Vanilla biome IDs can be found here: http://goo.gl/WqlAfV" +
-                Configuration.NEW_LINE +
-                "For modded biome IDs, use NEI and go [Options] > [Tools] > [Data Dumps] > Biomes > [Dump], and then refer to the 'biome.csv' file which can be found in your '/.minecraft/dumps' folder." +
-                Configuration.NEW_LINE
-            );
-            
             /* ==================== Boulders ==================== */
             
             enableCobblestoneBoulders = config.getBoolean("Enable Cobblestone Boulders", "Boulders", enableCobblestoneBoulders, "");
@@ -295,13 +285,34 @@ public class ConfigRTG
             
             /* ==================== Debugging ==================== */
             
-            showDebugInfo = config.getBoolean("Show Debug Info in F3 Screen", "Debugging", showDebugInfo, "");
             enableDebugging = config.getBoolean("Enable Debugging", "Debugging", enableDebugging, "WARNING: This should only be enabled if you know what you're doing." + Configuration.NEW_LINE);
             
             /* ==================== Dungeons ==================== */
             
             generateDungeons = config.getBoolean("Generate Dungeons", "Dungeons", generateDungeons, "");
             dungeonFrequency = config.getInt("Dungeon Frequency", "Dungeons", dungeonFrequency, 1, 200, "This setting controls the number of dungeons that generate." + Configuration.NEW_LINE + "HIGHER values = MORE dungeons & MORE lag. (8 = vanilla dungeon frequency)" + Configuration.NEW_LINE);
+            
+            /* ==================== Flowing Liquids ==================== */
+
+            flowingLavaChance = config.getInt(
+                "Flowing Lava Chance",
+                "Flowing Liquids",
+                flowingLavaChance, 0, Integer.MAX_VALUE,
+                "1/x chance that a lava stream will generate on the side of a hill or mountain."
+                + Configuration.NEW_LINE +
+                "0 = Never generate; 1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+                + Configuration.NEW_LINE
+            );
+            
+            flowingWaterChance = config.getInt(
+                "Flowing Water Chance",
+                "Flowing Liquids",
+                flowingWaterChance, 0, Integer.MAX_VALUE,
+                "1/x chance that a water stream will generate on the side of a hill or mountain."
+                + Configuration.NEW_LINE +
+                "0 = Never generate; 1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+                + Configuration.NEW_LINE
+            );
             
             /* ==================== Lakes (Surface) ==================== */
             

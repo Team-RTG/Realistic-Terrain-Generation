@@ -6,12 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.SimplexCellularNoise;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.biome.realistic.RealisticBiomePatcher;
-
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
@@ -21,9 +15,13 @@ import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 import rtg.config.rtg.ConfigRTG;
-import rtg.util.SimplexCellularOctave;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.util.SimplexCellularNoise;
 import rtg.util.SimplexOctave;
 import rtg.util.VoronoiCellNoise;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.biome.realistic.RealisticBiomePatcher;
 
 public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeProvider
 {
@@ -110,22 +108,18 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         for (int i1 = 0; i1 < par4 * par5; ++i1)
         {
             float f = 0;
-            // Is this a single biome world?
-            if (biomePatcher.isSingleBiomeWorld())
-            {
-                f = (float) biomePatcher.getSingleRealisticBiome().getIntRainfall() / 65536.0F;
-            } else {
-                int biome = aint[i1];
-                try {
-                    if (biome>255) throw new RuntimeException(biomeIndexLayer.toString());
-                    f = (float) RealisticBiomeBase.getBiome(biome).getIntRainfall() / 65536.0F;
-                } catch (Exception e) {
-                    if (biome>255) throw new RuntimeException(biomeIndexLayer.toString());
-                    if (RealisticBiomeBase.getBiome(biome)== null) {
-                        f = (float) biomePatcher.getPatchedRealisticBiome("Problem with biome "+biome+" from "+e.getMessage()).getIntRainfall() / 65536.0F;
-                    }
+            int biome = aint[i1];
+            
+            try {
+                if (biome>255) throw new RuntimeException(biomeIndexLayer.toString());
+                f = (float) RealisticBiomeBase.getBiome(biome).getIntRainfall() / 65536.0F;
+            } catch (Exception e) {
+                if (biome>255) throw new RuntimeException(biomeIndexLayer.toString());
+                if (RealisticBiomeBase.getBiome(biome)== null) {
+                    f = (float) biomePatcher.getPatchedRealisticBiome("Problem with biome "+biome+" from "+e.getMessage()).getIntRainfall() / 65536.0F;
                 }
             }
+
             if (f > 1.0F) { f = 1.0F;}
 
             par1ArrayOfFloat[i1] = f;
@@ -145,16 +139,13 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
     @Override
     public BiomeGenBase getBiomeGenAt(int par1, int par2) {
         BiomeGenBase result;
-        // Is this a single biome world?
-        if (biomePatcher.isSingleBiomeWorld()){
-            result = biomePatcher.getSingleBaseBiome();
-        } else {
-            result = this.biomeCache.getBiomeGenAt(par1, par2);
 
-            if (result == null) {
-                result = biomePatcher.getPatchedBaseBiome("Biome cache contains NULL biome at " + par1 + "," + par2);
-            }
+        result = this.biomeCache.getBiomeGenAt(par1, par2);
+
+        if (result == null) {
+            result = biomePatcher.getPatchedBaseBiome("Biome cache contains NULL biome at " + par1 + "," + par2);
         }
+
         return result;
     }
 
@@ -185,16 +176,9 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         }*/
         RealisticBiomeBase output;
 
-        // Is this a single biome world?
-        if (biomePatcher.isSingleBiomeWorld())
-        {
-            output = biomePatcher.getSingleRealisticBiome();
-        }
-        else
-        {
-            output = (RealisticBiomeBase)(this.getBiomeGenAt(par1, par2));
-            if (output == null) output = biomePatcher.getPatchedRealisticBiome("No biome " + par1 + " " + par2);
-        }
+        output = (RealisticBiomeBase)(this.getBiomeGenAt(par1, par2));
+        if (output == null) output = biomePatcher.getPatchedRealisticBiome("No biome " + par1 + " " + par2);
+
         /*if (biomeDataMap.size() > 4096) {
             biomeDataMap.clear();
         }
@@ -340,19 +324,13 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
 
             for (int i1 = 0; i1 < par4 * par5; ++i1)
             {
-                // Is this a single biome world?
-                if (biomePatcher.isSingleBiomeWorld())
-                {
-                    par1ArrayOfBiomeGenBase[i1] = biomePatcher.getSingleRealisticBiome();
-                } else {
-                    try {
-                        par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]);
-                    } catch (Exception e) {
-                        par1ArrayOfBiomeGenBase[i1] = biomePatcher.getPatchedRealisticBiome(genBiomes.toString()+ " " + this.biomeIndexLayer.toString());
-                    }
-                    if (par1ArrayOfBiomeGenBase[i1] == null) {
-                        par1ArrayOfBiomeGenBase[i1] = biomePatcher.getPatchedRealisticBiome("Missing biome "+aint[i1]);
-                    }
+                try {
+                    par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]);
+                } catch (Exception e) {
+                    par1ArrayOfBiomeGenBase[i1] = biomePatcher.getPatchedRealisticBiome(genBiomes.toString()+ " " + this.biomeIndexLayer.toString());
+                }
+                if (par1ArrayOfBiomeGenBase[i1] == null) {
+                    par1ArrayOfBiomeGenBase[i1] = biomePatcher.getPatchedRealisticBiome("Missing biome "+aint[i1]);
                 }
             }
 

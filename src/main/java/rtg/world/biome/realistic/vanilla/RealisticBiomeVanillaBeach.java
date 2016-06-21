@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBeach;
@@ -39,6 +40,8 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
 		nuciferaTree.maxTrunkSize = 9;
 		nuciferaTree.minCrownSize = 6;
 		nuciferaTree.maxCrownSize = 8;
+		nuciferaTree.validGroundBlocks.clear();
+		nuciferaTree.validGroundBlocks.add(Blocks.sand);
 		this.addTree(nuciferaTree);
         
 		DecoTree palmTrees = new DecoTree(nuciferaTree);

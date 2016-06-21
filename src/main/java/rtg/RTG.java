@@ -6,9 +6,7 @@ import net.minecraftforge.common.MinecraftForge;
 import rtg.api.event.BiomeConfigEvent;
 import rtg.config.BiomeConfigManager;
 import rtg.config.ConfigManager;
-import rtg.debug.DebugHandler;
 import rtg.event.EventManagerRTG;
-import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
@@ -24,6 +22,7 @@ import rtg.world.biome.realistic.forgottennature.RealisticBiomeFNBase;
 import rtg.world.biome.realistic.growthcraft.RealisticBiomeGCBase;
 import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
 import rtg.world.biome.realistic.icmod.RealisticBiomeICBase;
+import rtg.world.biome.realistic.idt.RealisticBiomeIDTBase;
 import rtg.world.biome.realistic.lotsomobs.RealisticBiomeLOMBase;
 import rtg.world.biome.realistic.ridiculousworld.RealisticBiomeRWBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
@@ -33,12 +32,10 @@ import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStoppedEvent;
-import cpw.mods.fml.relauncher.Side;
 
 //@Mod(modid = "RTG", name = "Realistic Terrain Generaton", version = "0.8.0d", dependencies = "required-after:Forge@[10.13.4.1448,)", acceptableRemoteVersions = "*")
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = "required-after:Forge@[" + ModInfo.FORGE_DEP + ",)" + ModInfo.MOD_DEPS, acceptableRemoteVersions = "*")
@@ -49,9 +46,6 @@ public class RTG {
     public static String configPath;
     public static WorldTypeRTG worldtype;
     public static EventManagerRTG eventMgr;
-    
-    @SidedProxy(serverSide = ModInfo.PROXY_COMMON, clientSide = ModInfo.PROXY_CLIENT)
-    public static CommonProxy proxy;
 
     private ConfigManager configManager = new ConfigManager();
 
@@ -83,11 +77,9 @@ public class RTG {
     }
     
     @EventHandler
-    public void fmlLifeCycleEvent(FMLInitializationEvent event) 
+    public void fmlLifeCycleEvent(FMLInitializationEvent event)
     {
-        if (event.getSide() == Side.CLIENT) {
-            MinecraftForge.EVENT_BUS.register(new DebugHandler());
-        }
+
     }
     
     @EventHandler
@@ -113,6 +105,7 @@ public class RTG {
         RealisticBiomeTOFUBase.addBiomes();
         RealisticBiomeFNBase.addBiomes();
         RealisticBiomeICBase.addBiomes();
+        RealisticBiomeIDTBase.addBiomes();
 
         RealisticBiomePresenceTester.doBiomeCheck();
     }

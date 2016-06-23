@@ -630,7 +630,7 @@ public class RealisticBiomeBase extends BiomeBase {
 
     public static ArrayList<ChunkDecoration> decoStack = new ArrayList<ChunkDecoration>();
 
-    public void decorateInAnOrderlyFashion(World world, Random rand, int worldX, int worldY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
+    public void decorateInAnOrderlyFashion(World world, Random rand, int worldX, int worldY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks)
     {
 
     	for (int i = 0; i < this.decos.size(); i++) {
@@ -642,9 +642,9 @@ public class RealisticBiomeBase extends BiomeBase {
                 }
                 throw new RuntimeException(problem);
             }
-    		if (this.decos.get(i).preGenerate(this, world, rand, worldX, worldY, simplex, cell, strength, river)) {
+    		if (this.decos.get(i).preGenerate(this, world, rand, worldX, worldY, simplex, cell, strength, river, hasPlacedVillageBlocks)) {
 
-    			this.decos.get(i).generate(this, world, rand, worldX, worldY, simplex, cell, strength, river);
+    			this.decos.get(i).generate(this, world, rand, worldX, worldY, simplex, cell, strength, river, hasPlacedVillageBlocks);
     		}
             decoStack.remove(decoStack.size()-1);
     	}

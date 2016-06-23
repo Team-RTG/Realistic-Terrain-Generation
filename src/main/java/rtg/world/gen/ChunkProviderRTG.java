@@ -706,10 +706,10 @@ public class ChunkProviderRTG implements IChunkProvider
         long i1 = this.rand.nextLong() / 2L * 2L + 1L;
         long j1 = this.rand.nextLong() / 2L * 2L + 1L;
         this.rand.setSeed((long)chunkX * i1 + (long)chunkZ * j1 ^ this.worldObj.getSeed());
-        boolean flag = false;
+        boolean hasPlacedVillageBlocks = false;
         boolean gen = false;
 
-        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag));
+        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(ichunkprovider, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks));
 
         if (mapFeaturesEnabled) {
 
@@ -731,15 +731,15 @@ public class ChunkProviderRTG implements IChunkProvider
                 if (ConfigRTG.villageCrashFix) {
                     
                     try {
-                        flag = villageGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+                        hasPlacedVillageBlocks = villageGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
                     }
                     catch (Exception e) {
-                        flag = false;
+                        hasPlacedVillageBlocks = false;
                     }
                 }
                 else {
                     
-                    flag = villageGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+                    hasPlacedVillageBlocks = villageGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
                 }
             }
 
@@ -752,7 +752,7 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
                 TimeTracker.manager.start("Pools");
-        biome.rPopulatePreDecorate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag);
+        biome.rPopulatePreDecorate(ichunkprovider, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
                 TimeTracker.manager.stop("Pools");
 
         /**
@@ -816,7 +816,7 @@ public class ChunkProviderRTG implements IChunkProvider
                  */
                 if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
 
-                	realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                	realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
                 }
                 else {
                     
@@ -826,7 +826,7 @@ public class ChunkProviderRTG implements IChunkProvider
                     }
                     catch (Exception e) {
 
-                    	realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river);
+                    	realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
                     }
                 }
 
@@ -851,7 +851,7 @@ public class ChunkProviderRTG implements IChunkProvider
          * ########################################################################
          */
         TimeTracker.manager.start("Post-decorations");
-        biome.rPopulatePostDecorate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag);
+        biome.rPopulatePostDecorate(ichunkprovider, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
         
         //Flowing water.
         if (ConfigRTG.flowingWaterChance > 0) {
@@ -884,7 +884,7 @@ public class ChunkProviderRTG implements IChunkProvider
         probe.setX(chunkX);
         probe.setZ(chunkZ);
         //if (everDecorated.contains(probe)) throw new RuntimeException();
-        if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.ANIMALS))
+        if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ANIMALS))
         {
             SpawnerAnimals.performWorldGenSpawning(this.worldObj, worldObj.getBiomeGenForCoords(worldX + 16, worldZ + 16), worldX, worldZ, 16, 16, this.rand);
         }
@@ -895,7 +895,7 @@ public class ChunkProviderRTG implements IChunkProvider
         probe.setX(chunkX);
         probe.setZ(chunkZ);
         //if (!everDecorated.contains(probe)) throw new RuntimeException();
-        if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.ICE)) {
+        if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ICE)) {
 
             int k1, l1, i2;
             
@@ -919,7 +919,7 @@ public class ChunkProviderRTG implements IChunkProvider
         }
         TimeTracker.manager.stop("Ice");
 
-        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag));
+        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(ichunkprovider, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks));
 
         BlockFalling.fallInstantly = false;
         TimeTracker.manager.stop("RTG populate");

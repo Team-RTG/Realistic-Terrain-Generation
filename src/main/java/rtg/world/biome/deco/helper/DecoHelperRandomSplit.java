@@ -36,7 +36,7 @@ public class DecoHelperRandomSplit extends DecoBase
     }
 	
 	@Override
-	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
+	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks)
 	{
 		if (this.allowed) {
 			
@@ -54,7 +54,7 @@ public class DecoHelperRandomSplit extends DecoBase
 				
 				if (chosen < (this.chances[i])) {
 					
-					this.decos[i].generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river);
+					this.decos[i].generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river, hasPlacedVillageBlocks);
 				}
                 // decrement chosen for the chances missed and continue;
                 chosen -= chances[i];

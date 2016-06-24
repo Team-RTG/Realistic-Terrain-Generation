@@ -8,6 +8,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.WorldUtil;
+import rtg.util.WorldUtil.SurroundCheckType;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenShrubRTG;
 
@@ -64,7 +66,7 @@ public class DecoShrub extends DecoBase
 		this.logMeta = (byte)0;
 		this.leavesBlock = Blocks.leaves;
 		this.leavesMeta = (byte)0;
-		
+
 		this.addDecoTypes(DecoType.SHRUB);
 	}
 	
@@ -100,6 +102,7 @@ public class DecoShrub extends DecoBase
         		this.leavesMeta = this.randomLeavesMetas[rnd];
             }
 
+            WorldUtil worldUtil = new WorldUtil(world);
             WorldGenerator worldGenerator = new WorldGenShrubRTG(this.size, this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta);
             
 			int loopCount = this.loops;
@@ -113,16 +116,28 @@ public class DecoShrub extends DecoBase
                 if (this.notEqualsZerochance > 1) {
                 	
 	                if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.notEqualsZerochance) != 0) {
-	                	worldGenerator.generate(world, rand, intX, intY, intZ);
+	                	generateWorldGenerator(worldGenerator, worldUtil, world, rand, intX, intY, intZ, hasPlacedVillageBlocks);
 	                }
                 }
                 else {
                 	
 	                if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-	                	worldGenerator.generate(world, rand, intX, intY, intZ);
+	                	generateWorldGenerator(worldGenerator, worldUtil, world, rand, intX, intY, intZ, hasPlacedVillageBlocks);
 	                }
                 }
             }
 		}
+	}
+	
+	private boolean generateWorldGenerator(WorldGenerator worldGenerator, WorldUtil worldUtil, World world, Random rand, int x, int y, int z, boolean hasPlacedVillageBlocks)
+	{
+        // If we're in a village, check to make sure the shrub has extra room to grow to avoid corrupting the village.
+        if (hasPlacedVillageBlocks) {
+            if (!worldUtil.isSurroundedByBlock(Blocks.air, 2, SurroundCheckType.CARDINAL, rand, x, y, z)) {
+            	return false;
+            }
+        }
+        
+		return worldGenerator.generate(world, rand, x, y, z);
 	}
 }

@@ -8,6 +8,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.WorldUtil;
+import rtg.util.WorldUtil.SurroundCheckType;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 
@@ -82,12 +84,13 @@ public class DecoFallenTree extends DecoBase
 	}
 	
 	@Override
-	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
+	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks)
 	{
 		if (this.allowed) {
 
 			float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkY / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
-
+			WorldUtil worldUtil = new WorldUtil(world);
+			
 			//Do we want to choose a random log?
 			if (this.useRandomLogs) {
 				
@@ -96,14 +99,17 @@ public class DecoFallenTree extends DecoBase
 			}
 			
 			WorldGenerator worldGenerator = null;
+			int finalSize = 4;
         	if (this.maxSize > this.minSize) {
-        		worldGenerator = new WorldGenLog(this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta, this.minSize + rand.nextInt(this.maxSize - this.minSize));
+        		finalSize = this.minSize + rand.nextInt(this.maxSize - this.minSize);
+        		worldGenerator = new WorldGenLog(this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta, finalSize);
         	}
         	else if (this.maxSize == this.minSize) {
-        		worldGenerator = new WorldGenLog(this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta, this.minSize);
+        		finalSize = this.minSize;
+        		worldGenerator = new WorldGenLog(this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta, finalSize);
         	}
         	else {
-        		worldGenerator = new WorldGenLog(this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta, 4);
+        		worldGenerator = new WorldGenLog(this.logBlock, this.logMeta, this.leavesBlock, this.leavesMeta, finalSize);
         	}
 			
             for (int i = 0; i < this.loops; i++)
@@ -116,6 +122,13 @@ public class DecoFallenTree extends DecoBase
                     
                     if (y22 <= this.maxY) {
                     	
+		                // If we're in a village, check to make sure the log has extra room to grow to avoid corrupting the village.
+		                if (hasPlacedVillageBlocks) {
+			                if (!worldUtil.isSurroundedByBlock(Blocks.air, finalSize, SurroundCheckType.CARDINAL, rand, x22, y22, z22)) {
+			                	return;
+			                }
+		                }
+		                
                     	worldGenerator.generate(world, rand, x22, y22, z22);
                     }
                 }

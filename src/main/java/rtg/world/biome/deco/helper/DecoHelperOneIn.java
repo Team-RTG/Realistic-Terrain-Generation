@@ -28,13 +28,13 @@ public class DecoHelperOneIn extends DecoBase
 	}
 
 	@Override
-	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
+	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks)
 	{
 		if (this.allowed) {
 
             if (rand.nextInt(this.chances) == 0) {
 
-                this.deco.generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river);
+                this.deco.generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river, hasPlacedVillageBlocks);
             }
         }
 	}

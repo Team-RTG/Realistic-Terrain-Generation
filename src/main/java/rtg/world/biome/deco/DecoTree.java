@@ -12,6 +12,8 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
+import rtg.util.WorldUtil;
+import rtg.util.WorldUtil.SurroundCheckType;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 
@@ -140,13 +142,15 @@ public class DecoTree extends DecoBase
         }
         return super.properlyDefined();
     }
+    
 	@Override
-	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
+	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks)
 	{
 		if (this.allowed) {
 			
 			if (TerrainGen.decorate(world, rand, chunkX, chunkY, TREE)) {
 				
+				WorldUtil worldUtil = new WorldUtil(world);
 				float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkY / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
 
                 int loopCount = this.loops;
@@ -159,12 +163,19 @@ public class DecoTree extends DecoBase
 	                int intZ = chunkY + rand.nextInt(16);// + 8;
 	                int intY = world.getHeightValue(intX, intZ);
 	                
-	            	switch (this.treeType)
-	            	{
-		            		
-		            	case RTG_TREE:
-		            		
-		            		if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
+	                if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
+	                
+		                // If we're in a village, check to make sure the tree has extra room to grow to avoid corrupting the village.
+		                if (hasPlacedVillageBlocks) {
+			                if (!worldUtil.isSurroundedByBlock(Blocks.air, 2, SurroundCheckType.CARDINAL, rand, intX, intY, intZ)) {
+			                	return;
+			                }
+		                }
+		                
+		            	switch (this.treeType)
+		            	{
+			            		
+			            	case RTG_TREE:
 
 		            			this.tree.setLogBlock(this.logBlock);
 	            				this.tree.setLogMeta(this.logMeta);
@@ -175,24 +186,21 @@ public class DecoTree extends DecoBase
 	            				this.tree.setNoLeaves(this.noLeaves);
 		                        this.tree.setScale(1.0D, 1.0D, 1.0D);
 		                        this.tree.generate(world, rand, intX, intY, intZ);
-		            		}
-		            		
-		            		break;
-		            		
-                        case WORLDGEN:
+			            		
+			            		break;
+			            		
+	                        case WORLDGEN:
 
-                            if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-                            	
                                 WorldGenerator worldgenerator = this.worldGen;
                                 worldgenerator.setScale(1.0D, 1.0D, 1.0D);
                                 worldgenerator.generate(world, rand, intX, intY, intZ);
-                            }
-
-                            break;
-
-		            	default:
-		            		break;
-	            	}
+	
+	                            break;
+	
+			            	default:
+			            		break;
+		            	}
+	                }
 	            }
 			}
 		}

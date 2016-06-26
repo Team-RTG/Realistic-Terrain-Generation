@@ -55,8 +55,9 @@ public class DecoBase
 	 * @param cell
 	 * @param strength
 	 * @param river
+	 * @param hasPlacedVillageBlocks
 	 */
-	public boolean preGenerate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
+	public boolean preGenerate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks)
 	{
 		if (this.checkRiver) {
 			
@@ -81,8 +82,9 @@ public class DecoBase
 	 * @param cell
 	 * @param strength
 	 * @param river
+	 * @param hasPlacedVillageBlocks
 	 */
-	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
+	public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks)
 	{
 		
     }

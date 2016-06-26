@@ -10,8 +10,7 @@ import rtg.world.gen.terrain.highlands.TerrainHLSnowMountains;
 public class RealisticBiomeHLSnowMountains extends RealisticBiomeHLBase
 {	
 	public static BiomeGenBase hlBiome = HighlandsBiomes.snowMountains;
-	
-	
+
 	public RealisticBiomeHLSnowMountains(BiomeConfig config)
 	{
 		super(config, 
@@ -20,8 +19,6 @@ public class RealisticBiomeHLSnowMountains extends RealisticBiomeHLBase
 			new SurfaceHLSnowMountains(config, hlBiome.topBlock, hlBiome.fillerBlock, false, null, 1.2f)
 		);
 
-        topBlock  = hlBiome.topBlock;
-	    fillerBlock = hlBiome.fillerBlock;
 		this.generatesEmeralds = true;
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		this.addDeco(decoBaseBiomeDecorations);

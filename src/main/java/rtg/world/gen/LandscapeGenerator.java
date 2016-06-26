@@ -1,8 +1,6 @@
 
 package rtg.world.gen;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -75,7 +73,7 @@ public class LandscapeGenerator {
         int chunkX = worldX&15;
         int chunkY = worldY&15;
         ChunkLandscape target = this.landscape(cmr, worldX-chunkX, worldY-chunkY);
-        return target.biome[chunkX*16+chunkY].biomeID;
+        return target.biome[chunkX*16+chunkY].baseBiome.biomeID;
     }
     
     public synchronized ChunkLandscape landscape(RTGBiomeProvider cmr, int worldX, int worldY) {
@@ -98,7 +96,7 @@ public class LandscapeGenerator {
     	{
     		for(int j = -sampleSize; j < sampleSize + 5; j++)
     		{
-    			biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = cmr.getBiomeDataAt(x + ((i * 8)), y + ((j * 8))).biomeID;
+    			biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] = cmr.getBiomeDataAt(x + ((i * 8)), y + ((j * 8))).baseBiome.biomeID;
     		}
     	}
 

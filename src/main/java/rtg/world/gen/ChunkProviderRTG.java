@@ -290,7 +290,7 @@ public class ChunkProviderRTG implements IChunkProvider
         //get standard biome Data
 
         for (int ci = 0; ci < 256; ci++) {
-            biomesGeneratedInChunk[landscape.biome[ci].biomeID] = true;
+            biomesGeneratedInChunk[landscape.biome[ci].baseBiome.biomeID] = true;
         }
 
         for(k = 0; k < 256; k++)
@@ -303,7 +303,7 @@ public class ChunkProviderRTG implements IChunkProvider
             try {
                 baseBiomesList[k] = landscape.biome[k].baseBiome;
             } catch (Exception e) {
-                baseBiomesList[k] = biomePatcher.getPatchedBaseBiome(""+landscape.biome[k].biomeID);
+                baseBiomesList[k] = biomePatcher.getPatchedBaseBiome(""+landscape.biome[k].baseBiome.biomeID);
             }
         }
 

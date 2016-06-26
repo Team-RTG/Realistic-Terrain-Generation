@@ -32,7 +32,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.util.PlaneLocation;
 import rtg.util.RandomUtil;
 import rtg.util.SimplexOctave;
-import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.deco.DecoBase;
@@ -46,8 +45,8 @@ import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGeneric;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class RealisticBiomeBase extends BiomeBase {
-    
+public class RealisticBiomeBase
+{
     private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[BiomeGenBase.getBiomeGenArray().length];
     
     public final BiomeGenBase baseBiome;
@@ -101,15 +100,12 @@ public class RealisticBiomeBase extends BiomeBase {
     }
     
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome, BiomeGenBase river) {
-    
-        super(biome.biomeID);
-        
+
         this.config = config;
 
     	if (biome.biomeID == 160 && this instanceof rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaRedwoodTaigaHills) {
 
         	arrRealisticBiomeIds[161] = this;
-        	this.biomeName = "Redwood Taiga Hills";
 
 		} else {
 

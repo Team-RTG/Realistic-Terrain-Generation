@@ -190,7 +190,7 @@ public class EventManagerRTG
     {
 
         // Use event.biome, if that's null, fall back to our own copy
-        if (this.isDesertVillageBiome((event.biome == null) ? this.biome : event.biome)) {
+        if (this.isDesertVillageBiome((event.biome == null) ? this.biome.baseBiome : event.biome)) {
 
             Block originalBlock = event.original;
 
@@ -217,7 +217,7 @@ public class EventManagerRTG
         boolean replaced = false;
 
         // Use event.biome, if that's null, fall back to our own copy
-        if (this.isDesertVillageBiome((event.biome == null) ? this.biome : event.biome)) {
+        if (this.isDesertVillageBiome((event.biome == null) ? this.biome.baseBiome : event.biome)) {
 
             Block originalBlock = event.original;
 

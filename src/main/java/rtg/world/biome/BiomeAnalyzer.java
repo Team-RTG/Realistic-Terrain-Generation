@@ -1,11 +1,10 @@
 
 package rtg.world.biome;
 
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CircularSearchCreator;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-
-import net.minecraft.world.biome.BiomeGenBase;
 
 /**
  *
@@ -233,7 +232,7 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             if (beachSearch.absent) break; //no point
             if (noise[i]<beachBottom||noise[i]>riverAdjusted(beachTop,riverStrength[i])) continue;// this block isn't beach level
-            if (swampBiome[jitteredBiomes[i].biomeID]) continue;// swamps are acceptable at beach level
+            if (swampBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// swamps are acceptable at beach level
             if (beachSearch.notHunted) {
                 beachSearch.hunt(biomeNeighborhood);
                 landSearch.hunt(biomeNeighborhood);
@@ -254,9 +253,9 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             if (landSearch.absent) break; //no point
             if (noise[i]<riverAdjusted(beachTop,riverStrength[i])) continue;// this block isn't above beach level
-            int biomeID = jitteredBiomes[i].biomeID;
+            int biomeID = jitteredBiomes[i].baseBiome.biomeID;
             if (landBiome[biomeID]) continue;// already land
-            if (swampBiome[jitteredBiomes[i].biomeID]) continue;// swamps are acceptable above water
+            if (swampBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// swamps are acceptable above water
             if (landSearch.notHunted) {
                 landSearch.hunt(biomeNeighborhood);
             }
@@ -273,9 +272,9 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             if (oceanSearch.absent) break; //no point
             if (noise[i]>oceanTop) continue;// too hight
-            if (oceanBiome[jitteredBiomes[i].biomeID]) continue;// obviously ocean is OK
-            if (swampBiome[jitteredBiomes[i].biomeID]) continue;// swamps are acceptable
-            if (riverBiome[jitteredBiomes[i].biomeID]) continue;// rivers stay rivers
+            if (oceanBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// obviously ocean is OK
+            if (swampBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// swamps are acceptable
+            if (riverBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// rivers stay rivers
             if (oceanSearch.notHunted) {
                 oceanSearch.hunt(biomeNeighborhood);
             }
@@ -287,9 +286,9 @@ public class BiomeAnalyzer {
         }
         // convert remainder below sea level to lake biome
         for (int i = 0; i < 256; i++) {
-            if (noise[i]<=61.5&&!riverBiome[jitteredBiomes[i].biomeID]) {
+            if (noise[i]<=61.5&&!riverBiome[jitteredBiomes[i].baseBiome.biomeID]) {
                 // check for river
-                if (!oceanBiome[jitteredBiomes[i].biomeID]&&!swampBiome[jitteredBiomes[i].biomeID]&&!beachBiome[jitteredBiomes[i].biomeID]) {
+                if (!oceanBiome[jitteredBiomes[i].baseBiome.biomeID]&&!swampBiome[jitteredBiomes[i].baseBiome.biomeID]&&!beachBiome[jitteredBiomes[i].baseBiome.biomeID]) {
                     // make river
                     int riverReplacement = jitteredBiomes[i].riverBiome.biomeID;
                     if (riverReplacement == BiomeGenBase.frozenRiver.biomeID) {

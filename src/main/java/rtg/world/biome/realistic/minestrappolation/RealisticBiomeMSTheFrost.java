@@ -13,7 +13,7 @@ public class RealisticBiomeMSTheFrost extends RealisticBiomeMSBase
     
         super(config, 
             msBiome,
-            BiomeGenBase.river,
+            BiomeGenBase.frozenRiver,
             new TerrainMSTheFrost(),
             new SurfaceMSTheFrost(config, msBiome.topBlock, msBiome.fillerBlock));
     }

@@ -5,6 +5,7 @@ import java.io.File;
 import rtg.config.abyssalcraft.ConfigAC;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.config.buildcraft.ConfigBC;
+import rtg.config.minestrappolation.ConfigMS;
 import rtg.config.rtg.ConfigRTG;
 import rtg.config.thaumcraft.ConfigTC;
 import rtg.config.vanilla.ConfigVanilla;
@@ -18,6 +19,7 @@ public class ConfigManager
     public static File tcConfigFile;
     public static File bcConfigFile;
     public static File acConfigFile;
+    public static File msConfigFile;
 
     private ConfigRTG configRTG = new ConfigRTG();
     public ConfigRTG rtg() {
@@ -33,6 +35,7 @@ public class ConfigManager
         tcConfigFile = new File(configpath + "biomes/thaumcraft.cfg");
         bcConfigFile = new File(configpath + "biomes/buildcraft.cfg");
         acConfigFile = new File(configpath + "biomes/abyssalcraft.cfg");
+        msConfigFile = new File(configpath + "biomes/minestrappolation.cfg");
         
         ConfigRTG.init(rtgConfigFile);
 
@@ -42,5 +45,6 @@ public class ConfigManager
         ConfigTC.init(tcConfigFile);
         ConfigBC.init(bcConfigFile);
         ConfigAC.init(acConfigFile);
+        ConfigMS.init(msConfigFile);
     }
 }

@@ -78,6 +78,9 @@ import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPXericShrubland;
 import rtg.api.biome.buildcraft.config.BiomeConfigBC;
 import rtg.api.biome.buildcraft.config.BiomeConfigBCDesertOilField;
 import rtg.api.biome.buildcraft.config.BiomeConfigBCOceanOilField;
+import rtg.api.biome.minestrappolation.config.BiomeConfigMS;
+import rtg.api.biome.minestrappolation.config.BiomeConfigMSRedwoodForest;
+import rtg.api.biome.minestrappolation.config.BiomeConfigMSTheFrost;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTC;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCEerie;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCMagicalForest;
@@ -151,6 +154,7 @@ public class BiomeConfigManager
         initBiomeConfigsAC();
         initBiomeConfigsBOP();
         initBiomeConfigsBC();
+        initBiomeConfigsMS();
         initBiomeConfigsTC();
         initBiomeConfigsVanilla();
     }
@@ -235,6 +239,12 @@ public class BiomeConfigManager
     {
         BiomeConfigBC.biomeConfigBCDesertOilField = new BiomeConfigBCDesertOilField();
         BiomeConfigBC.biomeConfigBCOceanOilField = new BiomeConfigBCOceanOilField();
+    }
+    
+    public static void initBiomeConfigsMS()
+    {
+        BiomeConfigMS.biomeConfigMSRedwoodForest = new BiomeConfigMSRedwoodForest();
+        BiomeConfigMS.biomeConfigMSTheFrost = new BiomeConfigMSTheFrost();
     }
 
     public static void initBiomeConfigsTC()

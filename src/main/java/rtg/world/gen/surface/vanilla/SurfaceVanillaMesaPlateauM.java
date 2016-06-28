@@ -60,7 +60,7 @@ public class SurfaceVanillaMesaPlateauM extends SurfaceBase
 	        				if(rand.nextInt(5) == 0)
 	        				{
         	        			blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
-        	        		    metadata[(y * 16 + x) * 256 + k] = (byte)0;
+        	        		    metadata[(y * 16 + x) * 256 + k] = (byte)1;
 	        				}
 	        				else
 	        				{
@@ -107,7 +107,7 @@ public class SurfaceVanillaMesaPlateauM extends SurfaceBase
 		        				else if(rand.nextInt((int)(r / 2f) + 1) == 0)
 		        				{
             	        			blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
-            	        		    metadata[(y * 16 + x) * 256 + k] = (byte)0;
+            	        		    metadata[(y * 16 + x) * 256 + k] = (byte)1;
 		        				}
 		        				else
 		        				{

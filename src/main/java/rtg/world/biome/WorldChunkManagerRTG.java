@@ -1,6 +1,11 @@
 package rtg.world.biome;
 
 import gnu.trove.map.hash.TLongObjectHashMap;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
@@ -9,13 +14,12 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
-import rtg.util.*;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.util.SimplexCellularNoise;
+import rtg.util.SimplexOctave;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 
 public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeProvider
@@ -93,10 +97,10 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         {
             float f = 0;
             try {
-                f = (float) RealisticBiomeBase.getBiome(aint[i1]).getIntRainfall() / 65536.0F;
+                f = (float) RealisticBiomeBase.getBiome(aint[i1]).baseBiome.getIntRainfall() / 65536.0F;
             } catch (Exception e) {
                 if (RealisticBiomeBase.getBiome(aint[i1])== null) {
-                    f = (float) biomePatcher.getPatchedRealisticBiome("Problem with biome "+aint[i1]+" from "+e.getMessage()).getIntRainfall() / 65536.0F;
+                    f = (float) biomePatcher.getPatchedRealisticBiome("Problem with biome "+aint[i1]+" from "+e.getMessage()).baseBiome.getIntRainfall() / 65536.0F;
                 }
             }
 
@@ -151,7 +155,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
 
         for (int i1 = 0; i1 < par4 * par5; ++i1)
         {
-            par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]);
+            par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]).baseBiome;
         }
 
         return par1ArrayOfBiomeGenBase;
@@ -172,7 +176,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         }
         else
         {
-            output = (RealisticBiomeBase)(this.getBiomeGenAt(par1, par2));
+            output = RealisticBiomeBase.getBiome(this.getBiomeGenAt(par1, par2).biomeID);
             if (output == null) output = biomePatcher.getPatchedRealisticBiome("No biome " + par1 + " " + par2);
         }
         /*if (biomeDataMap.size() > 4096) {
@@ -238,7 +242,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         {
             for (by = -2; by <= 2; by++)
             {
-                borderNoise[getBiomeDataAt(x + bx * 16, y + by * 16).biomeID] += 0.04f;
+                borderNoise[getBiomeDataAt(x + bx * 16, y + by * 16).baseBiome.biomeID] += 0.04f;
             }
         }
         
@@ -291,15 +295,15 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
                 // Is this a single biome world?
                 if (biomePatcher.isSingleBiomeWorld())
                 {
-                    par1ArrayOfBiomeGenBase[i1] = biomePatcher.getSingleRealisticBiome();
+                    par1ArrayOfBiomeGenBase[i1] = biomePatcher.getSingleBaseBiome();
                 } else {
                     try {
-                        par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]);
+                        par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]).baseBiome;
                     } catch (Exception e) {
-                        par1ArrayOfBiomeGenBase[i1] = biomePatcher.getPatchedRealisticBiome(genBiomes.toString()+ " " + this.biomeIndexLayer.toString());
+                        par1ArrayOfBiomeGenBase[i1] = biomePatcher.getPatchedBaseBiome(genBiomes.toString()+ " " + this.biomeIndexLayer.toString());
                     }
                     if (par1ArrayOfBiomeGenBase[i1] == null) {
-                        par1ArrayOfBiomeGenBase[i1] = biomePatcher.getPatchedRealisticBiome("Missing biome "+aint[i1]);
+                        par1ArrayOfBiomeGenBase[i1] = biomePatcher.getPatchedBaseBiome("Missing biome "+aint[i1]);
                     }
                 }
             }

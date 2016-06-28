@@ -1,7 +1,11 @@
 package rtg.world.gen.structure;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.monster.EntityGuardian;
@@ -20,13 +24,16 @@ import net.minecraft.world.gen.structure.StructureOceanMonument;
 import net.minecraft.world.gen.structure.StructureOceanMonumentPieces;
 import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraftforge.fml.common.FMLLog;
+
 import org.apache.logging.log4j.Level;
+
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.Logger;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 
-import java.util.*;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 /**
  * Created by topisani on 2/20/16.
@@ -34,7 +41,13 @@ import java.util.*;
 public class StructureOceanMonumentRTG extends StructureOceanMonument {
     private int field_175800_f;
     private int field_175801_g;
-    public static final List<BiomeGenBase> biomes = Arrays.<BiomeGenBase>asList(new BiomeGenBase[]{RealisticBiomeVanillaBase.ocean, RealisticBiomeVanillaBase.deepOcean, RealisticBiomeVanillaBase.river, RealisticBiomeVanillaBase.frozenOcean, RealisticBiomeVanillaBase.frozenRiver});
+    public static final List<BiomeGenBase> biomes = Arrays.<BiomeGenBase>asList(new BiomeGenBase[]{
+		RealisticBiomeVanillaBase.vanillaOcean.baseBiome,
+		RealisticBiomeVanillaBase.vanillaDeepOcean.baseBiome,
+		RealisticBiomeVanillaBase.vanillaRiver.baseBiome,
+		RealisticBiomeVanillaBase.vanillaFrozenOcean.baseBiome,
+		RealisticBiomeVanillaBase.vanillaFrozenRiver.baseBiome
+    });
     private static final List<BiomeGenBase.SpawnListEntry> field_175803_h = Lists.<BiomeGenBase.SpawnListEntry>newArrayList();
 
     public StructureOceanMonumentRTG() {
@@ -81,7 +94,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         if (i == k && j == l) {
             BiomeGenBase bg = this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), (BiomeGenBase) null);
 
-            if (bg.biomeID == RealisticBiomeVanillaBase.deepOcean.biomeID ) {
+            if (bg.biomeID == RealisticBiomeVanillaBase.vanillaDeepOcean.baseBiome.biomeID ) {
 
                 boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29, biomes);
 

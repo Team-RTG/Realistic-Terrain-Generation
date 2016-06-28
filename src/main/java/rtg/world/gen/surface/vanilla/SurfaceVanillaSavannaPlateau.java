@@ -51,7 +51,7 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase {
                         } else if (k > 74 + grassRaise) {
                             if (rand.nextInt(5) == 0) {
         	        			blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
-        	        		    metadata[(y * 16 + x) * 256 + k] = (byte)0;
+        	        		    metadata[(y * 16 + x) * 256 + k] = (byte)1;
                             } else {
                                 if (depth == 0) {
 		                            blocks[(y * 16 + x) * 256 + k] = topBlock;
@@ -80,7 +80,7 @@ public class SurfaceVanillaSavannaPlateau extends SurfaceBase {
             	        		    metadata[(y * 16 + x) * 256 + k] = (byte)0;
                                 } else if (rand.nextInt((int) (r / 2f) + 1) == 0) {
             	        			blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
-            	        		    metadata[(y * 16 + x) * 256 + k] = (byte)0;
+            	        		    metadata[(y * 16 + x) * 256 + k] = (byte)1;
                                 } else {
 		                            blocks[(y * 16 + x) * 256 + k] = topBlock;
 		                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;

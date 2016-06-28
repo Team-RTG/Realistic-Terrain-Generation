@@ -1,5 +1,7 @@
 package rtg.world.gen.surface.vanilla;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -12,8 +14,6 @@ import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
-
-import java.util.Random;
 
 public class SurfaceVanillaSavannaPlateauM extends SurfaceBase
 {
@@ -58,7 +58,7 @@ public class SurfaceVanillaSavannaPlateauM extends SurfaceBase
 	        			{
 	        				if(rand.nextInt(5) == 0)
 	        				{
-		        				primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
+		        				primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getStateFromMeta(1));
 	        				}
 	        				else
 	        				{
@@ -98,7 +98,7 @@ public class SurfaceVanillaSavannaPlateauM extends SurfaceBase
 		        				}
 		        				else if(rand.nextInt((int)(r / 2f) + 1) == 0)
 		        				{
-			        				primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
+			        				primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getStateFromMeta(1));
 		        				}
 		        				else
 		        				{

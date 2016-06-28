@@ -1,10 +1,9 @@
 
 package rtg.world.biome;
 
+import net.minecraft.world.biome.BiomeGenBase;
 import rtg.util.CircularSearchCreator;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-
-import net.minecraft.world.biome.BiomeGenBase;
 
 /**
  *
@@ -210,7 +209,7 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             if (beach.absent) break; //no point
             if (noise[i]<beachBottom||noise[i]>beachTop) continue;// this block isn't beach level
-            if (swampBiome[jitteredBiomes[i].biomeID]) continue;// swamps are acceptable at beach level
+            if (swampBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// swamps are acceptable at beach level
             if (beach.notHunted) {
                 huntForBeaches(this.savedJittered);
                 if (!beach.absent) jitteredBiomes[i] = beach.biome;
@@ -226,15 +225,15 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             if (land.absent) break; //no point
             if (noise[i]<beachTop) continue;// this block isn't above beach level
-            int biomeID = jitteredBiomes[i].biomeID;
+            int biomeID = jitteredBiomes[i].baseBiome.biomeID;
             if (landBiome[biomeID]) continue;// already land
-            if (swampBiome[jitteredBiomes[i].biomeID]) continue;// swamps are acceptable above water
+            if (swampBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// swamps are acceptable above water
             if (land.notHunted) {
                 huntForLand(this.savedJittered);
                 if (!land.absent) {
                     jitteredBiomes[i] = land.biome;
-                    //if (beachBiome[land.biome.biomeID]) throw new RuntimeException();
-                    //if (oceanBiome[land.biome.biomeID]) throw new RuntimeException();
+                    //if (beachBiome[land.biome.baseBiome.biomeID]) throw new RuntimeException();
+                    //if (oceanBiome[land.biome.baseBiome.biomeID]) throw new RuntimeException();
                 }
             } else {
                 //we already found it
@@ -248,9 +247,9 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             if (ocean.absent) break; //no point
             if (noise[i]>oceanTop) continue;// too hight
-            if (oceanBiome[jitteredBiomes[i].biomeID]) continue;// obviously ocean is OK
-            if (swampBiome[jitteredBiomes[i].biomeID]) continue;// swamps are acceptable
-            if (riverBiome[jitteredBiomes[i].biomeID]) continue;// rivers stay rivers
+            if (oceanBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// obviously ocean is OK
+            if (swampBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// swamps are acceptable
+            if (riverBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// rivers stay rivers
             if (ocean.notHunted) {
                 huntForOcean(this.savedJittered);
                 if (!ocean.absent) jitteredBiomes[i] = ocean.biome;
@@ -268,7 +267,7 @@ public class BiomeAnalyzer {
         RealisticBiomeBase considered;
         for (int i = 0; i<256; i++) {
             considered = biomes[searchPattern[i]];
-            if (beachBiome[considered.biomeID]) {
+            if (beachBiome[considered.baseBiome.biomeID]) {
                 beach.absent = false;
                 beach.biome = considered;
                 break;// we're done searching
@@ -283,7 +282,7 @@ public class BiomeAnalyzer {
         RealisticBiomeBase considered;
         for (int i = 0; i<256; i++) {
             considered = biomes[searchPattern[i]];
-            if (landBiome[considered.biomeID]) {
+            if (landBiome[considered.baseBiome.biomeID]) {
                 land.absent = false;
                 land.biome = considered;
                 break;// we're done searching
@@ -298,7 +297,7 @@ public class BiomeAnalyzer {
         RealisticBiomeBase considered;
         for (int i = 0; i<256; i++) {
             considered = biomes[searchPattern[i]];
-            if (oceanBiome[considered.biomeID]) {
+            if (oceanBiome[considered.baseBiome.biomeID]) {
                 ocean.absent = false;
                 ocean.biome = considered;
                 break;// we're done searching
@@ -342,7 +341,7 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             if (beachSearch.absent) break; //no point
             if (noise[i]<beachBottom||noise[i]>beachTop) continue;// this block isn't beach level
-            if (swampBiome[jitteredBiomes[i].biomeID]) continue;// swamps are acceptable at beach level
+            if (swampBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// swamps are acceptable at beach level
             if (beachSearch.notHunted) {
                 beachSearch.hunt(biomeNeighborhood);
                 landSearch.hunt(biomeNeighborhood);
@@ -363,9 +362,9 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             if (landSearch.absent) break; //no point
             if (noise[i]<beachTop) continue;// this block isn't above beach level
-            int biomeID = jitteredBiomes[i].biomeID;
+            int biomeID = jitteredBiomes[i].baseBiome.biomeID;
             if (landBiome[biomeID]) continue;// already land
-            if (swampBiome[jitteredBiomes[i].biomeID]) continue;// swamps are acceptable above water
+            if (swampBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// swamps are acceptable above water
             if (landSearch.notHunted) {
                 landSearch.hunt(biomeNeighborhood);
             }
@@ -382,9 +381,9 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             if (oceanSearch.absent) break; //no point
             if (noise[i]>oceanTop) continue;// too hight
-            if (oceanBiome[jitteredBiomes[i].biomeID]) continue;// obviously ocean is OK
-            if (swampBiome[jitteredBiomes[i].biomeID]) continue;// swamps are acceptable
-            if (riverBiome[jitteredBiomes[i].biomeID]) continue;// rivers stay rivers
+            if (oceanBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// obviously ocean is OK
+            if (swampBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// swamps are acceptable
+            if (riverBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// rivers stay rivers
             if (oceanSearch.notHunted) {
                 oceanSearch.hunt(biomeNeighborhood);
             }

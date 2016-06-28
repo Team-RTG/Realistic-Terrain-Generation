@@ -5,7 +5,11 @@ import net.minecraft.block.BlockStairs;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.terraingen.*;
+import net.minecraftforge.event.terraingen.BiomeEvent;
+import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
+import net.minecraftforge.event.terraingen.InitMapGenEvent;
+import net.minecraftforge.event.terraingen.OreGenEvent;
+import net.minecraftforge.event.terraingen.WorldTypeEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -178,18 +182,15 @@ public class EventManagerRTG
         if (!ConfigRTG.enableVillageModifications) {
             return;
         }
-        if (event.biome instanceof RealisticBiomeBase) {
-            biomeReal = (RealisticBiomeBase) event.biome;
-        }
-        else if (event.biome == null && this.biome != null) {
+        if (event.biome == null && this.biome != null) {
             biomeReal = this.biome;
         }
         else {
             return;
         }
-        if (biomeReal.biomeID == RealisticBiomeVanillaBase.vanillaDesert.biomeID ||
-                biomeReal.biomeID == RealisticBiomeVanillaBase.vanillaDesertHills.biomeID ||
-                biomeReal.biomeID == RealisticBiomeVanillaBase.vanillaDesertM.biomeID
+        if (biomeReal.baseBiome.biomeID == RealisticBiomeVanillaBase.vanillaDesert.baseBiome.biomeID ||
+                biomeReal.baseBiome.biomeID == RealisticBiomeVanillaBase.vanillaDesertHills.baseBiome.biomeID ||
+                biomeReal.baseBiome.biomeID == RealisticBiomeVanillaBase.vanillaDesertM.baseBiome.biomeID
                 )
         {
             if (event.original.getBlock() == Blocks.log || event.original.getBlock() == Blocks.log2)

@@ -40,7 +40,7 @@ public class DecoJungleLilypadVines extends DecoBase
 	 * No config options for this one yet. Just ripped it directly from the old code.
 	 */
 	@Override
-	public void generate(RealisticBiomeBase biome, World world, Random rand, int blockX, int blockY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
+	public void generate(RealisticBiomeBase biome, World world, Random rand, int blockX, int blockY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks)
 	{
 		if (this.allowed) {
 			

@@ -63,10 +63,10 @@ public class SurfaceVanillaMesa extends SurfaceBase {
                             if (depth == 0) {
                                 if (k < 72 && rand.nextInt(k - 62 + 1) == 0) {
             	        			blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
-            	        		    metadata[(y * 16 + x) * 256 + k] = (byte)0;
+            	        		    metadata[(y * 16 + x) * 256 + k] = (byte)1;
                                 } else if (rand.nextInt(5) == 0) {
             	        			blocks[(y * 16 + x) * 256 + k] = Blocks.dirt;
-            	        		    metadata[(y * 16 + x) * 256 + k] = (byte)0;
+            	        		    metadata[(y * 16 + x) * 256 + k] = (byte)1;
                                 } else {
 		                            blocks[(y * 16 + x) * 256 + k] = topBlock;
 		                            metadata[(y * 16 + x) * 256 + k] = topBlockMeta;

@@ -71,7 +71,7 @@ public class SurfaceVanillaMesaPlateauF extends SurfaceBase
 							else {
 								if(rand.nextInt(5) == 0)
 								{
-									primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
+									primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getStateFromMeta(1));
 								}
 								else
 								{

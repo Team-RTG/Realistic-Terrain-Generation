@@ -4,9 +4,8 @@
 
 package rtg.world.biome;
 
-import rtg.world.biome.realistic.RealisticBiomeBase;
-
 import net.minecraft.world.biome.BiomeGenBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 /**
  *

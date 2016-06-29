@@ -1,6 +1,7 @@
 package rtg.world.gen;
 
-import com.google.common.base.Objects;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.state.IBlockState;
@@ -13,7 +14,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenCaves;
 import rtg.config.rtg.ConfigRTG;
 
-import java.util.Random;
+import com.google.common.base.Objects;
 
 public class MapGenCavesRTG extends MapGenCaves
 {

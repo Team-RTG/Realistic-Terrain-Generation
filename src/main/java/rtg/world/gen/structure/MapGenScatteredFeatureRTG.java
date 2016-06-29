@@ -1,20 +1,26 @@
     package rtg.world.gen.structure;
 
-    import net.minecraft.entity.monster.EntityWitch;
-    import net.minecraft.util.BlockPos;
-    import net.minecraft.util.MathHelper;
-    import net.minecraft.world.World;
-    import net.minecraft.world.biome.BiomeGenBase;
-    import net.minecraft.world.gen.structure.ComponentScatteredFeaturePieces;
-    import net.minecraft.world.gen.structure.MapGenScatteredFeature;
-    import net.minecraft.world.gen.structure.StructureComponent;
-    import net.minecraft.world.gen.structure.StructureStart;
-    import net.minecraftforge.common.BiomeDictionary;
-    import rtg.config.rtg.ConfigRTG;
-    import rtg.util.Logger;
+    import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Random;
 
-    import java.util.*;
-    import java.util.Map.Entry;
+import net.minecraft.entity.monster.EntityWitch;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.structure.ComponentScatteredFeaturePieces;
+import net.minecraft.world.gen.structure.MapGenScatteredFeature;
+import net.minecraft.world.gen.structure.StructureComponent;
+import net.minecraft.world.gen.structure.StructureStart;
+import net.minecraftforge.common.BiomeDictionary;
+import rtg.config.rtg.ConfigRTG;
+import rtg.util.Logger;
 
 /**
  * Author: Choonster (https://github.com/Choonster)

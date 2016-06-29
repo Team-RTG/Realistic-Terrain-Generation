@@ -1,5 +1,9 @@
 package rtg.world.biome.realistic;
 
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CLAY;
+
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.state.pattern.BlockHelper;
@@ -22,18 +26,14 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.util.SimplexOctave;
-import rtg.world.biome.BiomeBase;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.gen.feature.WorldGenClay;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGeneric;
 import rtg.world.gen.terrain.TerrainBase;
 
-import java.util.Random;
-
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CLAY;
-
-public class RealisticBiomeBase extends BiomeBase {
+public class RealisticBiomeBase
+{
     
     private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[BiomeGenBase.getBiomeGenArray().length];
     
@@ -69,9 +69,7 @@ public class RealisticBiomeBase extends BiomeBase {
     }
     
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome, BiomeGenBase river) {
-    
-        super(biome.biomeID);
-        
+
         if (config == null) throw new RuntimeException("Biome config cannot be NULL when instantiating a realistic biome.");
 
         this.config = config;
@@ -79,7 +77,6 @@ public class RealisticBiomeBase extends BiomeBase {
     	if (biome.biomeID == 160 && this instanceof rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaRedwoodTaigaHills) {
 
         	arrRealisticBiomeIds[161] = this;
-        	this.biomeName = "Redwood Taiga Hills";
 
 		} else {
 

@@ -1,5 +1,7 @@
 package rtg.world.gen.surface.vanilla;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -12,8 +14,6 @@ import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
-
-import java.util.Random;
 
 public class SurfaceVanillaMesa extends SurfaceBase
 {
@@ -57,7 +57,7 @@ public class SurfaceVanillaMesa extends SurfaceBase
                         {
                             if (rand.nextInt(5) == 0)
                             {
-                                primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
+                                primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getStateFromMeta(1));
                             }
                             else
                             {
@@ -73,7 +73,7 @@ public class SurfaceVanillaMesa extends SurfaceBase
                         }
                         else if (k < 69)
                         {
-                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
+                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getStateFromMeta(1));
                         }
                         else if (k < 78)
                         {
@@ -81,11 +81,11 @@ public class SurfaceVanillaMesa extends SurfaceBase
                             {
                                 if (k < 72 && rand.nextInt(k - 69 + 1) == 0)
                                 {
-                                    primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
+                                    primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getStateFromMeta(1));
                                 }
                                 else if (rand.nextInt(5) == 0)
                                 {
-                                    primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
+                                    primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getStateFromMeta(1));
                                 }
                                 else
                                 {

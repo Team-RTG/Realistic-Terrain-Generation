@@ -308,7 +308,7 @@ public class RealisticBiomeGenerator {
         }
     }
 
-    public void decorate(RTGWorld rtgWorld, Random rand, int chunkY, int chunkX, float strength, float river) {
+    public void decorate(RTGWorld rtgWorld, Random rand, int chunkY, int chunkX, float strength, float river, boolean hasPlacedVillageBlocks) {
         boolean baseDecorated = false;
         ArrayList<DecoBase> decos = this.realistic.getDecos();
         for (int i = decos.size() - 1; i >= 0; i--) {

@@ -1,5 +1,8 @@
 package teamrtg.rtg.api.world.gen;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
 import net.minecraft.init.Blocks;
@@ -26,9 +29,6 @@ import teamrtg.rtg.api.world.biome.WorldFeature;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * @author topisani
@@ -156,6 +156,18 @@ public class RealisticBiomeGenerator {
 
                 (new WorldGenDungeons()).generate(worldObj, rand, new BlockPos(j5, k8, j11));
             }
+        }
+    }
+    
+    public void populatePostDecorate(IChunkGenerator iChunkGenerator, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag)
+    {
+        /**
+         * Has emerald gen been disabled in the configs?
+         * If so, check to see if this biome generated emeralds & remove them if necessary.
+         */
+        if (!Mods.RTG.config.GENERATE_ORES_EMERALD.get() && (this.realistic.getConfig().GENERATE_EMERALDS.get())) {
+            // TODO: Remove emeralds
+        	//rRemoveEmeralds(worldObj, rand, chunkX, chunkZ);
         }
     }
 

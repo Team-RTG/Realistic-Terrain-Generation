@@ -457,6 +457,8 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 borderNoise[bn] = 0f;
             }
         }
+        
+        RealisticBiomeGenerator.forBiome(biome.getBiome()).populatePostDecorate(this, world, rand, x, z, hasPlacedVillageBlocks);
 
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(world, rand, worldCoords));
 

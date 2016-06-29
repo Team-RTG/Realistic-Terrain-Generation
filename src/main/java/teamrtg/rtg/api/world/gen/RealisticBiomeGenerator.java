@@ -317,16 +317,16 @@ public class RealisticBiomeGenerator {
                 if (baseDecorated) continue;
                 baseDecorated = true;
             }
-            if (deco.preGenerate(rtgWorld, rand, chunkX, chunkY, strength, river, this)) {
-                deco.generate(rtgWorld, rand, chunkX, chunkY, strength, river, this);
+            if (deco.preGenerate(rtgWorld, rand, chunkX, chunkY, strength, river, this, hasPlacedVillageBlocks)) {
+                deco.generate(rtgWorld, rand, chunkX, chunkY, strength, river, this, hasPlacedVillageBlocks);
             }
         }
         // Generate ores
         if (!baseDecorated) {
             DecoBaseBiomeDecorations deco = new DecoBaseBiomeDecorations();
             deco.allowed = false;
-            if (deco.preGenerate(rtgWorld, rand, chunkX, chunkY, strength, river, this)) {
-                deco.generate(rtgWorld, rand, chunkX, chunkY, strength, river, this);
+            if (deco.preGenerate(rtgWorld, rand, chunkX, chunkY, strength, river, this, hasPlacedVillageBlocks)) {
+                deco.generate(rtgWorld, rand, chunkX, chunkY, strength, river, this, hasPlacedVillageBlocks);
             }
         }
     }

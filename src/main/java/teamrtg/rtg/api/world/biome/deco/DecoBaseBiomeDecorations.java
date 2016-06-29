@@ -1,10 +1,10 @@
 package teamrtg.rtg.api.world.biome.deco;
 
+import java.util.Random;
+
 import net.minecraft.util.math.BlockPos;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
-
-import java.util.Random;
 
 /**
  * This deco replaces the cumbersome decorateBaseBiome & generateOres logic.
@@ -53,7 +53,7 @@ public class DecoBaseBiomeDecorations extends DecoBase {
     }
 
     @Override
-    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator biomeGenerator) {
+    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator biomeGenerator, boolean hasPlacedVillageBlocks) {
         if (this.allowed) {
 
             for (int i = 0; i < loops; i++) {

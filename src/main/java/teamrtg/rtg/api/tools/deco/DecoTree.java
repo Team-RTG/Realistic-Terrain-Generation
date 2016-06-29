@@ -1,5 +1,9 @@
 package teamrtg.rtg.api.tools.deco;
 
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
+
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -8,15 +12,23 @@ import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import teamrtg.rtg.api.tools.feature.tree.*;
+import teamrtg.rtg.api.tools.feature.tree.WorldGenTreeRTGBirch;
+import teamrtg.rtg.api.tools.feature.tree.WorldGenTreeRTGBirchSmall;
+import teamrtg.rtg.api.tools.feature.tree.WorldGenTreeRTGMangrove;
+import teamrtg.rtg.api.tools.feature.tree.WorldGenTreeRTGPalm;
+import teamrtg.rtg.api.tools.feature.tree.WorldGenTreeRTGPalmCustom;
+import teamrtg.rtg.api.tools.feature.tree.WorldGenTreeRTGPineBig;
+import teamrtg.rtg.api.tools.feature.tree.WorldGenTreeRTGPineEuro;
+import teamrtg.rtg.api.tools.feature.tree.WorldGenTreeRTGPineSmall;
+import teamrtg.rtg.api.tools.feature.tree.WorldGenTreeRTGSavanna;
+import teamrtg.rtg.api.tools.feature.tree.WorldGenTreeRTGSprucePineBig;
+import teamrtg.rtg.api.tools.feature.tree.WorldGenTreeRTGSpruceSmall;
+import teamrtg.rtg.api.tools.feature.tree.WorldGenTreeRTGTrees;
+import teamrtg.rtg.api.tools.feature.tree.WorldGenTreeRTGWillow;
 import teamrtg.rtg.api.util.math.RandomUtil;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;
 import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
-
-import java.util.Random;
-
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 
 /**
  * @author WhichOnesPink
@@ -70,7 +82,7 @@ public class DecoTree extends DecoBase {
     }
 
     @Override
-    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator mapGenGenerator) {
+    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator realisticBiomeGenerator, boolean hasPlacedVillageBlocks) {
         if (this.allowed) {
 
             if (TerrainGen.decorate(rtgWorld.world, rand, new BlockPos(chunkX, 1, chunkY), TREE)) {

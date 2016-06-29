@@ -1,12 +1,12 @@
 package teamrtg.rtg.api.tools.deco;
 
+import java.util.Random;
+
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenDesertWells;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;
 import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
-
-import java.util.Random;
 
 /**
  * @author WhichOnesPink
@@ -34,7 +34,7 @@ public class DecoDesertWell extends DecoBase {
     }
 
     @Override
-    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator mapGenGenerator) {
+    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator realisticBiomeGenerator, boolean hasPlacedVillageBlocks) {
         if (this.allowed) {
 
             this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;

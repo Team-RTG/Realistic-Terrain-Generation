@@ -1,15 +1,15 @@
 package teamrtg.rtg.api.tools.deco;
 
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.DEAD_BUSH;
+
+import java.util.Random;
+
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenDeadBush;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;
 import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
-
-import java.util.Random;
-
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.DEAD_BUSH;
 
 /**
  * @author WhichOnesPink
@@ -37,7 +37,7 @@ public class DecoDeadBush extends DecoBase {
     }
 
     @Override
-    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator mapGenGenerator) {
+    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator realisticBiomeGenerator, boolean hasPlacedVillageBlocks) {
         if (this.allowed) {
 
             if (TerrainGen.decorate(rtgWorld.world, rand, new BlockPos(chunkX, 0, chunkY), DEAD_BUSH)) {

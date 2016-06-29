@@ -1,10 +1,10 @@
 package teamrtg.rtg.api.tools.deco.helper;
 
+import java.util.Random;
+
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;
 import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
-
-import java.util.Random;
 
 /**
  * This deco helper takes two deco objects and generates one of them at random.
@@ -27,13 +27,13 @@ public class DecoHelper5050 extends DecoBase {
     }
 
     @Override
-    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator mapGenGenerator) {
+    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator realisticBiomeGenerator, boolean hasPlacedVillageBlocks) {
         if (this.allowed) {
 
             if (rand.nextBoolean()) {
-                this.deco1.generate(rtgWorld, rand, chunkX, chunkY, strength, river, mapGenGenerator);
+                this.deco1.generate(rtgWorld, rand, chunkX, chunkY, strength, river, realisticBiomeGenerator, hasPlacedVillageBlocks);
             } else {
-                this.deco2.generate(rtgWorld, rand, chunkX, chunkY, strength, river, mapGenGenerator);
+                this.deco2.generate(rtgWorld, rand, chunkX, chunkY, strength, river, realisticBiomeGenerator, hasPlacedVillageBlocks);
             }
         }
     }

@@ -1,5 +1,9 @@
 package teamrtg.rtg.api.tools.deco;
 
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
+
+import java.util.Random;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -10,10 +14,6 @@ import teamrtg.rtg.api.util.math.RandomUtil;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;
 import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
-
-import java.util.Random;
-
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
 
 /**
  * @author WhichOnesPink
@@ -30,7 +30,7 @@ public class DecoJungleGrassVines extends DecoBase {
      * No config options for this one yet. Just ripped it directly from the old code.
      */
     @Override
-    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator biomeGenerator) {
+    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator biomeGenerator, boolean hasPlacedVillageBlocks) {
         if (this.allowed) {
 
             if (TerrainGen.decorate(rtgWorld.world, rand, new BlockPos(chunkX, 0, chunkY), GRASS)) {

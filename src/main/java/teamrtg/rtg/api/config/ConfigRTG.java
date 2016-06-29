@@ -34,6 +34,13 @@ public class ConfigRTG extends ModConfig {
     public final PropertyInt UNDERGROUND_LAVA_LAKE_CHANCE = addInt("1/x chance that Lava Underground Lakes will generate if given the opportunity to do so during world gen", "underground lakes");
     public final PropertyBool GENERATE_MINESHAFTS = addBool("Generate Mineshafts", "mineshafts");
     public final PropertyBool GENERATE_ORES = addBool("Generate ores", "ores");
+    public final PropertyBool GENERATE_ORES_COAL = addBool("Generate coal", "ores");
+    public final PropertyBool GENERATE_ORES_IRON = addBool("Generate iron", "ores");
+    public final PropertyBool GENERATE_ORES_GOLD = addBool("Generate gold", "ores");
+    public final PropertyBool GENERATE_ORES_REDSTONE = addBool("Generate redstone", "ores");
+    public final PropertyBool GENERATE_ORES_LAPIS = addBool("Generate lapis", "ores");
+    public final PropertyBool GENERATE_ORES_DIAMOND = addBool("Generate diamond", "ores");
+    public final PropertyBool GENERATE_ORES_EMERALD = addBool("Generate emerald", "ores");
     public final PropertyBool ENABLE_RAVINE_MODIFICATIONS = addBool("Enable Ravine Modifications", "ravines");
     public final PropertyBool ENABLE_RAVINES = addBool("Enable Ravines", "ravines");
     public final PropertyInt RAVINE_FREQUENCY = addInt("Ravine Frequency", "ravines");
@@ -95,6 +102,13 @@ public class ConfigRTG extends ModConfig {
         UNDERGROUND_LAVA_LAKE_CHANCE.setDefault(10);
         GENERATE_MINESHAFTS.setDefault(true);
         GENERATE_ORES.setDefault(true).setComment("If FALSE, RTG will not generate ores. This may be required for some mod compatibility, as you would otherwise get double the ores");
+        GENERATE_ORES_COAL.setDefault(true).setComment("");
+        GENERATE_ORES_IRON.setDefault(true).setComment("");
+        GENERATE_ORES_GOLD.setDefault(true).setComment("");
+        GENERATE_ORES_REDSTONE.setDefault(true).setComment("");
+        GENERATE_ORES_LAPIS.setDefault(true).setComment("");
+        GENERATE_ORES_DIAMOND.setDefault(true).setComment("");
+        GENERATE_ORES_EMERALD.setDefault(true).setComment("");
         ENABLE_RAVINE_MODIFICATIONS.setDefault(true);
         ENABLE_RAVINES.setDefault(false);
         RAVINE_FREQUENCY.setDefault(2);

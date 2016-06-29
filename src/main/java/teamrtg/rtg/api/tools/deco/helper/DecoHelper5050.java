@@ -1,4 +1,4 @@
-package teamrtg.rtg.api.world.biome.deco.helper;
+package teamrtg.rtg.api.tools.deco.helper;
 
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;

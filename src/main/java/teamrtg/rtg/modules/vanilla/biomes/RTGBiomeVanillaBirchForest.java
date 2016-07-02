@@ -2,8 +2,12 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
+import teamrtg.rtg.api.tools.deco.DecoFlowersRTG;
+import teamrtg.rtg.api.tools.deco.DecoGrass;
+import teamrtg.rtg.api.tools.deco.DecoShrub;
+import teamrtg.rtg.api.tools.deco.DecoTree;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
 import teamrtg.rtg.api.tools.terrain.GroundEffect;
@@ -33,7 +37,7 @@ public class RTGBiomeVanillaBirchForest extends RTGBiomeVanilla {
     public void initDecos() {
         DecoTree smallBirch = new DecoTree();
         smallBirch.strengthNoiseFactorForLoops = true;
-        smallBirch.treeType = TreeType.SMALL_BIRCH;
+        smallBirch.treeType = TreeType.RTG_TREE;
         smallBirch.distribution.noiseDivisor = 80f;
         smallBirch.distribution.noiseFactor = 60f;
         smallBirch.distribution.noiseAddend = -15f;
@@ -43,7 +47,7 @@ public class RTGBiomeVanillaBirchForest extends RTGBiomeVanilla {
 
         DecoTree birchTreesForest = new DecoTree();
         birchTreesForest.strengthFactorForLoops = 3f;
-        birchTreesForest.treeType = TreeType.BIRCH_TREES_FOREST;
+        birchTreesForest.treeType = TreeType.WORLDGEN;
         birchTreesForest.treeCondition = TreeCondition.ALWAYS_GENERATE;
         birchTreesForest.maxY = 100;
         this.addDeco(birchTreesForest);

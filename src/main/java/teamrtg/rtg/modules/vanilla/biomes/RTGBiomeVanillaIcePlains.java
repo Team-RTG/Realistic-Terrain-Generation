@@ -51,7 +51,7 @@ public class RTGBiomeVanillaIcePlains extends RTGBiomeVanilla {
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.checkRiver = true;
         decoBoulder.minRiver = 0.87f;
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE;
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
         decoBoulder.chance = 16;
         decoBoulder.maxY = 95;
         decoBoulder.strengthFactor = 5f;

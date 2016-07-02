@@ -10,7 +10,11 @@ import teamrtg.rtg.api.util.noise.IFloatAt;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.*;
+import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.api.world.biome.surface.part.Selector;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
+import teamrtg.rtg.api.world.biome.surface.part.TopPosSelector;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaMegaSpruceTaiga extends RTGBiomeVanilla {

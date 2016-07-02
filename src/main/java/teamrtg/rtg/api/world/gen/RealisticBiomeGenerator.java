@@ -102,7 +102,7 @@ public class RealisticBiomeGenerator {
 
                     if (l4 > 63) {
 
-                        (new WorldGenPond(Blocks.WATER)).generate(worldObj, rand, i2, l4, i8);
+                        (new WorldGenPond(Blocks.WATER.getDefaultState())).generate(worldObj, rand, new BlockPos(i2, l4, i8));
                     }
                 }
             }
@@ -140,7 +140,7 @@ public class RealisticBiomeGenerator {
 
                     if (l4 > 63) {
 
-                        (new WorldGenPond(Blocks.LAVA)).generate(worldObj, rand, i2, l4, i8);
+                        (new WorldGenPond(Blocks.LAVA.getDefaultState())).generate(worldObj, rand, new BlockPos(i2, l4, i8));
                     }
                 }
             }

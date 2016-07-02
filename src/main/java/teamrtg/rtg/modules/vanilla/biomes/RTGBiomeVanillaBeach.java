@@ -32,7 +32,7 @@ public class RTGBiomeVanillaBeach extends RTGBiomeVanilla {
         // Scattered palm trees.
         DecoTree palmTrees = new DecoTree();
         palmTrees.loops = 1;
-        palmTrees.treeType = TreeType.VANILLA_BEACH_PALM;
+        palmTrees.treeType = TreeType.RTG_TREE;
         palmTrees.maxY = 80;
         this.addDeco(palmTrees);
     }

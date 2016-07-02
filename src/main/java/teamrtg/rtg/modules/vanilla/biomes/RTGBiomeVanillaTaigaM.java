@@ -3,8 +3,14 @@ package teamrtg.rtg.modules.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoBoulder;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
+import teamrtg.rtg.api.tools.deco.DecoGrass;
+import teamrtg.rtg.api.tools.deco.DecoMushrooms;
+import teamrtg.rtg.api.tools.deco.DecoPumpkin;
+import teamrtg.rtg.api.tools.deco.DecoShrub;
+import teamrtg.rtg.api.tools.deco.DecoTree;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
 import teamrtg.rtg.api.util.BiomeUtils;
@@ -12,7 +18,11 @@ import teamrtg.rtg.api.util.noise.IFloatAt;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.*;
+import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.api.world.biome.surface.part.Selector;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
+import teamrtg.rtg.api.world.biome.surface.part.TopPosSelector;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaTaigaM extends RTGBiomeVanilla {
@@ -76,7 +86,7 @@ public class RTGBiomeVanillaTaigaM extends RTGBiomeVanilla {
     @Override
     public void initDecos() {
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE;
+        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE.getDefaultState();
         decoBoulder.chance = 16;
         decoBoulder.maxY = 95;
         decoBoulder.strengthFactor = 3f;
@@ -88,7 +98,7 @@ public class RTGBiomeVanillaTaigaM extends RTGBiomeVanilla {
         decoTrees.distribution.noiseDivisor = 100f;
         decoTrees.distribution.noiseFactor = 6f;
         decoTrees.distribution.noiseAddend = 0.8f;
-        decoTrees.treeType = TreeType.TAIGA;
+        decoTrees.treeType = TreeType.RTG_TREE;
         decoTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
         decoTrees.maxY = 100;
         this.addDeco(decoTrees);

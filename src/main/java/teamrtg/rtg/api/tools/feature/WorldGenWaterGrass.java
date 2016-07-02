@@ -1,14 +1,19 @@
 package teamrtg.rtg.api.tools.feature;
 
+import static net.minecraft.init.Blocks.AIR;
+import static net.minecraft.init.Blocks.DOUBLE_PLANT;
+import static net.minecraft.init.Blocks.GRASS;
+import static net.minecraft.init.Blocks.LEAVES;
+import static net.minecraft.init.Blocks.SAND;
+import static net.minecraft.init.Blocks.WATER;
+
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
-import java.util.Random;
-
-import static net.minecraft.init.Blocks.*;
 
 public class WorldGenWaterGrass extends WorldGenerator {
     private Block block;

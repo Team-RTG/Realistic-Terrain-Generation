@@ -3,8 +3,15 @@ package teamrtg.rtg.modules.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.api.config.BiomeConfig;
-import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoBoulder;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
+import teamrtg.rtg.api.tools.deco.DecoFlowersRTG;
+import teamrtg.rtg.api.tools.deco.DecoGrass;
+import teamrtg.rtg.api.tools.deco.DecoJungleCacti;
+import teamrtg.rtg.api.tools.deco.DecoJungleGrassVines;
+import teamrtg.rtg.api.tools.deco.DecoJungleLilypadVines;
+import teamrtg.rtg.api.tools.deco.DecoTree;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
 import teamrtg.rtg.api.world.RTGWorld;
@@ -54,7 +61,7 @@ public class RTGBiomeVanillaJungle extends RTGBiomeVanilla {
         // Blend of the WorldGenMegaJungle collection and some tall RTG Mangrove trees.
         DecoTree megaJungleMangrove = new DecoTree();
         megaJungleMangrove.loops = 3;
-        megaJungleMangrove.treeType = TreeType.MEGA_JUNGLE_MANGROVE;
+        megaJungleMangrove.treeType = TreeType.WORLDGEN;
         megaJungleMangrove.treeCondition = TreeCondition.RANDOM_CHANCE;
         megaJungleMangrove.treeConditionChance = 2;
         megaJungleMangrove.maxY = 160;
@@ -63,7 +70,7 @@ public class RTGBiomeVanillaJungle extends RTGBiomeVanilla {
         // Add some palm trees for variety.
         DecoTree palmCustom = new DecoTree();
         palmCustom.loops = 1;
-        palmCustom.treeType = TreeType.PALM_CUSTOM;
+        palmCustom.treeType = TreeType.RTG_TREE;
         palmCustom.treeCondition = TreeCondition.RANDOM_CHANCE;
         palmCustom.treeConditionChance = 3;
         palmCustom.maxY = 160;
@@ -74,7 +81,7 @@ public class RTGBiomeVanillaJungle extends RTGBiomeVanilla {
         // Another pass of the WorldGenMegaJungle collection for extra jungleness.
         DecoTree megaJungle = new DecoTree();
         megaJungle.loops = 3;
-        megaJungle.treeType = TreeType.MEGA_JUNGLE;
+        megaJungle.treeType = TreeType.RTG_TREE;
         megaJungle.treeCondition = TreeCondition.RANDOM_CHANCE;
         megaJungle.treeConditionChance = 3;
         megaJungle.maxY = 160;
@@ -133,7 +140,7 @@ public class RTGBiomeVanillaJungle extends RTGBiomeVanilla {
 
         // Mossy boulders for the green.
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE;
+        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE.getDefaultState();
         decoBoulder.chance = 16;
         decoBoulder.maxY = 95;
         decoBoulder.strengthFactor = 2f;

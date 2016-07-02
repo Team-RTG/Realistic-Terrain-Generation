@@ -3,7 +3,14 @@ package teamrtg.rtg.modules.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoBoulder;
+import teamrtg.rtg.api.tools.deco.DecoCactus;
+import teamrtg.rtg.api.tools.deco.DecoDoubleGrass;
+import teamrtg.rtg.api.tools.deco.DecoFlowersRTG;
+import teamrtg.rtg.api.tools.deco.DecoGrass;
+import teamrtg.rtg.api.tools.deco.DecoGrassDoubleTallgrass;
+import teamrtg.rtg.api.tools.deco.DecoReed;
+import teamrtg.rtg.api.tools.deco.DecoTree;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
 import teamrtg.rtg.api.tools.surface.SurfaceRiverOasis;
@@ -11,7 +18,12 @@ import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.math.CanyonColour;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
-import teamrtg.rtg.api.world.biome.surface.part.*;
+import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.api.world.biome.surface.part.DepthSelector;
+import teamrtg.rtg.api.world.biome.surface.part.HeightSelector;
+import teamrtg.rtg.api.world.biome.surface.part.OrSelector;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaSavannaPlateauM extends RTGBiomeVanilla {
@@ -67,13 +79,13 @@ public class RTGBiomeVanillaSavannaPlateauM extends RTGBiomeVanilla {
     @Override
     public void initDecos() {
         DecoBoulder decoBoulder1 = new DecoBoulder();
-        decoBoulder1.boulderBlock = Blocks.COBBLESTONE;
+        decoBoulder1.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
         decoBoulder1.maxY = 80;
         decoBoulder1.chance = 24;
         this.addDeco(decoBoulder1);
 
         DecoBoulder decoBoulder2 = new DecoBoulder();
-        decoBoulder2.boulderBlock = Blocks.COBBLESTONE;
+        decoBoulder2.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
         decoBoulder1.minY = 110;
         decoBoulder2.chance = 24;
         this.addDeco(decoBoulder2);
@@ -82,7 +94,7 @@ public class RTGBiomeVanillaSavannaPlateauM extends RTGBiomeVanilla {
         riverTrees.checkRiver = true;
         riverTrees.minRiver = 0.86f;
         riverTrees.strengthFactorForLoops = 10f;
-        riverTrees.treeType = TreeType.SAVANNA_RIVER;
+        riverTrees.treeType = TreeType.RTG_TREE;
         riverTrees.treeCondition = TreeCondition.RANDOM_CHANCE;
         riverTrees.treeConditionChance = 4;
         riverTrees.maxY = 120;
@@ -120,7 +132,7 @@ public class RTGBiomeVanillaSavannaPlateauM extends RTGBiomeVanilla {
 
         DecoTree savannaTrees = new DecoTree();
         savannaTrees.strengthFactorForLoops = 3f;
-        savannaTrees.treeType = TreeType.SAVANNA;
+        savannaTrees.treeType = TreeType.RTG_TREE;
         savannaTrees.treeCondition = TreeCondition.RANDOM_CHANCE;
         savannaTrees.treeConditionChance = 3;
         savannaTrees.maxY = 160;

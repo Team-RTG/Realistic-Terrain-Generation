@@ -2,7 +2,13 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoBoulder;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree;
+import teamrtg.rtg.api.tools.deco.DecoGrass;
+import teamrtg.rtg.api.tools.deco.DecoMushrooms;
+import teamrtg.rtg.api.tools.deco.DecoPumpkin;
+import teamrtg.rtg.api.tools.deco.DecoShrub;
+import teamrtg.rtg.api.tools.deco.DecoTree;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
@@ -46,7 +52,7 @@ public class RTGBiomeVanillaExtremeHills extends RTGBiomeVanilla {
     @Override
     public void initDecos() {
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE;
+        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE.getDefaultState();
         decoBoulder.chance = 16;
         decoBoulder.maxY = 95;
         decoBoulder.strengthFactor = 3f;
@@ -58,7 +64,7 @@ public class RTGBiomeVanillaExtremeHills extends RTGBiomeVanilla {
         decoTrees.distribution.noiseDivisor = 100f;
         decoTrees.distribution.noiseFactor = 6f;
         decoTrees.distribution.noiseAddend = 0.8f;
-        decoTrees.treeType = DecoTree.TreeType.PINE_EURO;
+        decoTrees.treeType = DecoTree.TreeType.RTG_TREE;
         decoTrees.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
         decoTrees.treeConditionChance = 24;
         decoTrees.maxY = 100;

@@ -3,13 +3,22 @@ package teamrtg.rtg.modules.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoCactus;
+import teamrtg.rtg.api.tools.deco.DecoDeadBush;
+import teamrtg.rtg.api.tools.deco.DecoReed;
+import teamrtg.rtg.api.tools.deco.DecoShrub;
+import teamrtg.rtg.api.tools.deco.DecoTree;
 import teamrtg.rtg.api.tools.surface.SurfaceRiverOasis;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.math.CanyonColour;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
-import teamrtg.rtg.api.world.biome.surface.part.*;
+import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.api.world.biome.surface.part.DepthSelector;
+import teamrtg.rtg.api.world.biome.surface.part.HeightSelector;
+import teamrtg.rtg.api.world.biome.surface.part.OrSelector;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaMesaPlateauFM extends RTGBiomeVanilla {
@@ -75,7 +84,7 @@ public class RTGBiomeVanillaMesaPlateauFM extends RTGBiomeVanilla {
 
         DecoCactus decoCactus = new DecoCactus();
         decoCactus.strengthFactor = 25f;
-        decoCactus.soil = Blocks.SAND.getStateFromMeta(1);
+        decoCactus.soilBlock = Blocks.SAND.getStateFromMeta(1);
         decoCactus.sandOnly = false;
         decoCactus.maxRiver = 0.8f;
         addDeco(decoCactus);
@@ -91,7 +100,7 @@ public class RTGBiomeVanillaMesaPlateauFM extends RTGBiomeVanilla {
 
         DecoTree decoTree = new DecoTree();
         decoTree.loops = 20;
-        decoTree.treeType = DecoTree.TreeType.VANILLA_OAK;
+        decoTree.treeType = DecoTree.TreeType.RTG_TREE;
         decoTree.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoTree.distribution = new DecoTree.Distribution(24f, 1f, 0f);
         decoTree.treeConditionChance = 0;

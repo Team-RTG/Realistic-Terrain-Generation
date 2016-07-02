@@ -4,7 +4,13 @@ import net.minecraft.block.BlockDirt;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoBoulder;
+import teamrtg.rtg.api.tools.deco.DecoCactus;
+import teamrtg.rtg.api.tools.deco.DecoDeadBush;
+import teamrtg.rtg.api.tools.deco.DecoGrassDoubleTallgrass;
+import teamrtg.rtg.api.tools.deco.DecoReed;
+import teamrtg.rtg.api.tools.deco.DecoShrub;
+import teamrtg.rtg.api.tools.deco.DecoTree;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
 import teamrtg.rtg.api.tools.surface.SurfaceRiverOasis;
@@ -12,7 +18,12 @@ import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.math.CanyonColour;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
-import teamrtg.rtg.api.world.biome.surface.part.*;
+import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.api.world.biome.surface.part.DepthSelector;
+import teamrtg.rtg.api.world.biome.surface.part.HeightSelector;
+import teamrtg.rtg.api.world.biome.surface.part.OrSelector;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaMesaBryce extends RTGBiomeVanilla {
@@ -65,7 +76,7 @@ public class RTGBiomeVanillaMesaBryce extends RTGBiomeVanilla {
     @Override
     public void initDecos() {
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE;
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
         decoBoulder.maxY = 83;
         this.addDeco(decoBoulder);
 
@@ -74,7 +85,7 @@ public class RTGBiomeVanillaMesaBryce extends RTGBiomeVanilla {
         riverTrees.minRiver = 0.86f;
         riverTrees.strengthNoiseFactorForLoops = false;
         riverTrees.strengthFactorForLoops = 10f;
-        riverTrees.treeType = TreeType.SAVANNA_RIVER;
+        riverTrees.treeType = TreeType.RTG_TREE;
         riverTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
         riverTrees.maxY = 100;
         this.addDeco(riverTrees);
@@ -112,7 +123,7 @@ public class RTGBiomeVanillaMesaBryce extends RTGBiomeVanilla {
         this.addDeco(decoDeadBush);
 
         DecoCactus decoCactus = new DecoCactus();
-        decoCactus.soil = Blocks.SAND.getStateFromMeta(1);
+        decoCactus.soilBlock = Blocks.SAND.getStateFromMeta(1);
         decoCactus.loops = 18;
         decoCactus.maxY = 100;
         this.addDeco(decoCactus);

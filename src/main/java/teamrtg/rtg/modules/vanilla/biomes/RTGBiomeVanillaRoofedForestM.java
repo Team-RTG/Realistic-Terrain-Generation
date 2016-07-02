@@ -3,7 +3,14 @@ package teamrtg.rtg.modules.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoBoulder;
+import teamrtg.rtg.api.tools.deco.DecoDeadBush;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree;
+import teamrtg.rtg.api.tools.deco.DecoGrass;
+import teamrtg.rtg.api.tools.deco.DecoGrassDoubleTallgrass;
+import teamrtg.rtg.api.tools.deco.DecoMushrooms;
+import teamrtg.rtg.api.tools.deco.DecoShrub;
+import teamrtg.rtg.api.tools.deco.DecoTree;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
@@ -55,7 +62,7 @@ public class RTGBiomeVanillaRoofedForestM extends RTGBiomeVanilla {
     @Override
     public void initDecos() {
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE;
+        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE.getDefaultState();
         decoBoulder.chance = 20;
         decoBoulder.maxY = 80;
         decoBoulder.strengthFactor = 2f;
@@ -66,7 +73,7 @@ public class RTGBiomeVanillaRoofedForestM extends RTGBiomeVanilla {
         decoTrees.distribution.noiseDivisor = 80f;
         decoTrees.distribution.noiseFactor = 60f;
         decoTrees.distribution.noiseAddend = -15f;
-        decoTrees.treeType = DecoTree.TreeType.MANGROVE;
+        decoTrees.treeType = DecoTree.TreeType.RTG_TREE;
         decoTrees.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoTrees.treeConditionNoise = 0f;
         decoTrees.treeConditionChance = 1;
@@ -113,7 +120,6 @@ public class RTGBiomeVanillaRoofedForestM extends RTGBiomeVanilla {
         decoFern.maxY = 128;
         decoFern.strengthFactor = 4f;
         decoFern.chance = 2;
-        decoFern.meta = 2;
         this.addDeco(decoFern);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

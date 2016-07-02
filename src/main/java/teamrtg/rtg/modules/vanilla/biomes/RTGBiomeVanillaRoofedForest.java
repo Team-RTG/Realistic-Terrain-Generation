@@ -2,8 +2,15 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoBoulder;
+import teamrtg.rtg.api.tools.deco.DecoDeadBush;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
+import teamrtg.rtg.api.tools.deco.DecoGrass;
+import teamrtg.rtg.api.tools.deco.DecoGrassDoubleTallgrass;
+import teamrtg.rtg.api.tools.deco.DecoMushrooms;
+import teamrtg.rtg.api.tools.deco.DecoShrub;
+import teamrtg.rtg.api.tools.deco.DecoTree;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
 import teamrtg.rtg.api.tools.terrain.GroundEffect;
@@ -55,14 +62,14 @@ public class RTGBiomeVanillaRoofedForest extends RTGBiomeVanilla {
     @Override
     public void initDecos() {
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE;
+        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE.getDefaultState();
         decoBoulder.chance = 20;
         decoBoulder.maxY = 80;
         decoBoulder.strengthFactor = 2f;
         this.addDeco(decoBoulder);
 
         DecoBoulder decoCobwebBoulder = new DecoBoulder();
-        decoCobwebBoulder.boulderBlock = Blocks.WEB;
+        decoCobwebBoulder.boulderBlock = Blocks.WEB.getDefaultState();
         decoCobwebBoulder.chance = 32;
         decoCobwebBoulder.maxY = 80;
         decoCobwebBoulder.strengthFactor = 2f;
@@ -73,7 +80,7 @@ public class RTGBiomeVanillaRoofedForest extends RTGBiomeVanilla {
         decoTrees.distribution.noiseDivisor = 80f;
         decoTrees.distribution.noiseFactor = 60f;
         decoTrees.distribution.noiseAddend = -15f;
-        decoTrees.treeType = TreeType.MANGROVE;
+        decoTrees.treeType = TreeType.RTG_TREE;
         decoTrees.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoTrees.treeConditionNoise = 0f;
         decoTrees.treeConditionChance = 1;
@@ -123,7 +130,6 @@ public class RTGBiomeVanillaRoofedForest extends RTGBiomeVanilla {
         decoFern.maxY = 128;
         decoFern.strengthFactor = 4f;
         decoFern.chance = 2;
-        decoFern.meta = 2;
         this.addDeco(decoFern);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

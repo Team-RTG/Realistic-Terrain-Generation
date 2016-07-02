@@ -3,7 +3,11 @@ package teamrtg.rtg.modules.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree;
+import teamrtg.rtg.api.tools.deco.DecoFlowersRTG;
+import teamrtg.rtg.api.tools.deco.DecoGrass;
+import teamrtg.rtg.api.tools.deco.DecoShrub;
+import teamrtg.rtg.api.tools.deco.DecoTree;
 import teamrtg.rtg.api.tools.deco.helper.DecoHelper5050;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
@@ -79,7 +83,7 @@ public class RTGBiomeVanillaFlowerForest extends RTGBiomeVanilla {
         // Trees first.
         DecoTree bigPines = new DecoTree();
         bigPines.strengthNoiseFactorForLoops = true;
-        bigPines.treeType = DecoTree.TreeType.BIG_PINES;
+        bigPines.treeType = DecoTree.TreeType.RTG_TREE;
         bigPines.distribution.noiseDivisor = 80f;
         bigPines.distribution.noiseFactor = 60f;
         bigPines.distribution.noiseAddend = -15f;
@@ -90,7 +94,7 @@ public class RTGBiomeVanillaFlowerForest extends RTGBiomeVanilla {
         // More trees.
         DecoTree smallPinesTreesForest = new DecoTree();
         smallPinesTreesForest.strengthFactorForLoops = 3f;
-        smallPinesTreesForest.treeType = DecoTree.TreeType.SMALL_PINES_TREES_FORESTS;
+        smallPinesTreesForest.treeType = DecoTree.TreeType.RTG_TREE;
         smallPinesTreesForest.treeCondition = DecoTree.TreeCondition.ALWAYS_GENERATE;
         smallPinesTreesForest.maxY = 120;
         this.addDeco(smallPinesTreesForest);

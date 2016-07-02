@@ -3,8 +3,13 @@ package teamrtg.rtg.modules.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoBoulder;
+import teamrtg.rtg.api.tools.deco.DecoDoubleGrass;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
+import teamrtg.rtg.api.tools.deco.DecoGrass;
+import teamrtg.rtg.api.tools.deco.DecoReed;
+import teamrtg.rtg.api.tools.deco.DecoTree;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
 import teamrtg.rtg.api.util.BiomeUtils;
@@ -75,7 +80,7 @@ public class RTGBiomeVanillaSavannaM extends RTGBiomeVanilla {
         riverTrees.minRiver = 0.8f;
         riverTrees.strengthNoiseFactorForLoops = false;
         riverTrees.strengthFactorForLoops = 15f;
-        riverTrees.treeType = TreeType.SAVANNA_RIVER;
+        riverTrees.treeType = TreeType.RTG_TREE;
         riverTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
         riverTrees.maxY = 100;
         this.addDeco(riverTrees);
@@ -89,7 +94,7 @@ public class RTGBiomeVanillaSavannaM extends RTGBiomeVanilla {
 
         DecoTree savannaTrees = new DecoTree();
         savannaTrees.strengthFactorForLoops = 3f;
-        savannaTrees.treeType = TreeType.SAVANNA;
+        savannaTrees.treeType = TreeType.RTG_TREE;
         savannaTrees.distribution.noiseDivisor = 180f;
         savannaTrees.distribution.noiseFactor = 1f;
         savannaTrees.distribution.noiseAddend = 0f;
@@ -100,14 +105,14 @@ public class RTGBiomeVanillaSavannaM extends RTGBiomeVanilla {
 
         DecoTree savannaTrees2 = new DecoTree();
         savannaTrees2.strengthFactorForLoops = 2f;
-        savannaTrees2.treeType = TreeType.SAVANNA;
+        savannaTrees2.treeType = TreeType.RTG_TREE;
         savannaTrees2.treeCondition = TreeCondition.RANDOM_CHANCE;
         savannaTrees2.treeConditionChance = 3;
         savannaTrees2.maxY = 100;
         this.addDeco(savannaTrees2);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE;
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
         decoBoulder.chance = 24;
         decoBoulder.maxY = 95;
         this.addDeco(decoBoulder);

@@ -1,9 +1,19 @@
 package teamrtg.rtg.api.world.biome;
 
+import static net.minecraft.init.Biomes.RIVER;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
 import org.apache.commons.lang3.ArrayUtils;
+
 import teamrtg.rtg.api.config.BiomeConfig;
 import teamrtg.rtg.api.module.RTGModule;
+import teamrtg.rtg.api.tools.deco.collection.DecoCollectionBase;
+import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTG;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
@@ -12,11 +22,6 @@ import teamrtg.rtg.api.world.biome.surface.part.PresetParts;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
 import teamrtg.rtg.modules.rtg.terrainfeature.WaterFeatures;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static net.minecraft.init.Biomes.RIVER;
 
 public abstract class RTGBiome implements IWorldFeature {
 
@@ -39,6 +44,7 @@ public abstract class RTGBiome implements IWorldFeature {
     public TerrainBase terrain;
     public SurfacePart surface;
     public ArrayList<DecoBase> decos = new ArrayList<>();
+    public ArrayList<TreeRTG> rtgTrees;
     private List<WorldFeature> worldFeatures = new ArrayList<>();
     public boolean noLakes = false;
     public boolean noWaterFeatures = false;
@@ -64,6 +70,7 @@ public abstract class RTGBiome implements IWorldFeature {
         this.PARTS = new PresetParts(this);
         this.terrain = initTerrain();
         initDecos();
+        rtgTrees = new ArrayList<TreeRTG>();
         initWorldFeatures();
         this.surface = new SurfacePart();
         // WorldFeature surfaces take precedence
@@ -116,6 +123,62 @@ public abstract class RTGBiome implements IWorldFeature {
         this.decos.add(deco);
         this.config.DECORATIONS.setOptions(ArrayUtils.add(this.config.DECORATIONS.getOptions(), deco.getName()));
         this.config.DECORATIONS.setDefault(ArrayUtils.add(this.config.DECORATIONS.getDefault(), deco.getName()));
+    }
+    
+    /**
+     * Adds a collection of deco objects to the biome.
+     * @param decoCollection
+     */
+    public void addDecoCollection(DecoCollectionBase decoCollection)
+    {
+    	if (decoCollection.decos.size() > 0) {
+    		for (int i = 0; i < decoCollection.decos.size(); i++) {
+    			this.addDeco(decoCollection.decos.get(i));
+    		}
+    	}
+    	
+    	if (decoCollection.rtgTrees.size() > 0) {
+    		for (int i = 0; i < decoCollection.rtgTrees.size(); i++) {
+    			this.addTree(decoCollection.rtgTrees.get(i));
+    		}
+    	}
+    }
+    
+    /**
+     * Adds a tree to the list of RTG trees associated with this biome.
+     * The 'allowed' parameter allows us to pass biome config booleans dynamically when configuring the trees in the biome.
+     * 
+     * @param tree
+     * @param allowed
+     */
+    public void addTree(TreeRTG tree, boolean allowed)
+    {
+    	if (allowed) {
+
+	    	this.rtgTrees.add(tree);
+    	}
+    }
+    
+    /**
+     * Convenience method for addTree() where 'allowed' is assumed to be true.
+     * 
+     * @param tree
+     */
+    public void addTree(TreeRTG tree)
+    {
+    	// Set the sapling data for this tree before we add it to the list.
+    	tree.saplingBlock = Blocks.SAPLING.getDefaultState();
+    	
+    	if (tree.leavesBlock.getBlock() == Blocks.LEAVES) {
+    		
+    		tree.saplingBlock = tree.saplingBlock.getBlock().getStateFromMeta(tree.leavesBlock.getBlock().getMetaFromState(tree.leavesBlock));
+    	}
+    	else if (tree.leavesBlock.getBlock() == Blocks.LEAVES2) {
+    		
+    		tree.saplingBlock = tree.saplingBlock.getBlock().getStateFromMeta(tree.leavesBlock.getBlock().getMetaFromState(tree.leavesBlock) + 4);
+    	}
+    	
+    	this.addTree(tree, true);
     }
 
     /**

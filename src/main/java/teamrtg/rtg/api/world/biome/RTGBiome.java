@@ -154,6 +154,22 @@ public abstract class RTGBiome implements IWorldFeature {
     {
     	if (allowed) {
 
+        	// Set the sapling data for this tree before we add it to the list.
+        	
+        	for (int i = 0; i < 4; i++) {
+            	if (tree.leavesBlock == Blocks.LEAVES.getStateFromMeta(i)) {
+            		tree.saplingBlock = Blocks.SAPLING.getStateFromMeta(i);
+            		break;
+            	}
+        	}
+        	
+        	for (int i2 = 0; i2 < 2; i2++) {
+            	if (tree.leavesBlock == Blocks.LEAVES2.getStateFromMeta(i2)) {
+            		tree.saplingBlock = Blocks.SAPLING.getStateFromMeta(i2 + 4);
+            		break;
+            	}
+        	}
+        	
 	    	this.rtgTrees.add(tree);
     	}
     }
@@ -164,19 +180,7 @@ public abstract class RTGBiome implements IWorldFeature {
      * @param tree
      */
     public void addTree(TreeRTG tree)
-    {
-    	// Set the sapling data for this tree before we add it to the list.
-    	tree.saplingBlock = Blocks.SAPLING.getDefaultState();
-    	
-    	if (tree.leavesBlock.getBlock() == Blocks.LEAVES) {
-    		
-    		tree.saplingBlock = tree.saplingBlock.getBlock().getStateFromMeta(tree.leavesBlock.getBlock().getMetaFromState(tree.leavesBlock));
-    	}
-    	else if (tree.leavesBlock.getBlock() == Blocks.LEAVES2) {
-    		
-    		tree.saplingBlock = tree.saplingBlock.getBlock().getStateFromMeta(tree.leavesBlock.getBlock().getMetaFromState(tree.leavesBlock) + 4);
-    	}
-    	
+    {    	
     	this.addTree(tree, true);
     }
 

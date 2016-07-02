@@ -39,13 +39,13 @@ public class TreeRTG extends WorldGenerator
 	
 	public TreeRTG()
 	{
-		this.logBlock = Blocks.LOG.getStateFromMeta(0);
-		this.leavesBlock = Blocks.LEAVES.getStateFromMeta(0);
+		this.logBlock = Blocks.LOG.getDefaultState();
+		this.leavesBlock = Blocks.LEAVES.getDefaultState();
 		this.trunkSize = 2;
 		this.crownSize = 4;
 		this.noLeaves = false;
 		
-		this.saplingBlock = Blocks.SAPLING.getStateFromMeta(0);
+		this.saplingBlock = Blocks.SAPLING.getDefaultState();
 		
 		this.generateFlag = 2;
 		

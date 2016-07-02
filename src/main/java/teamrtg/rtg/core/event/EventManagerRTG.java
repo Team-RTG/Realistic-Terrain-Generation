@@ -144,10 +144,6 @@ public class EventManagerRTG {
 		
 		World world = event.getWorld();
 		BlockPos pos = event.getPos();
-		int x = pos.getX();
-		int y = pos.getY();
-		int z = pos.getZ();
-
 		IBlockState saplingBlock = world.getBlockState(pos);
 
 		BiomeProviderRTG cmr = (BiomeProviderRTG) event.getWorld().getBiomeProvider();
@@ -167,7 +163,7 @@ public class EventManagerRTG {
 			for (int i = 0; i < biomeTrees.size(); i++) {
 				
 				Logger.debug("Biome Tree #%d = %s", i, biomeTrees.get(i).getClass().getName());
-				Logger.debug("Biome Tree #%d Sapling Block = %s", i, biomeTrees.get(i).saplingBlock.getClass().getName());
+				Logger.debug("Biome Tree #%d Sapling Block = %s", i, biomeTrees.get(i).saplingBlock.getBlock().getLocalizedName());
 				Logger.debug("Biome Tree #%d Sapling Meta = %d", i, biomeTrees.get(i).saplingBlock.getBlock().getMetaFromState(biomeTrees.get(i).saplingBlock));
 				
 				if (saplingBlock == biomeTrees.get(i).saplingBlock) {

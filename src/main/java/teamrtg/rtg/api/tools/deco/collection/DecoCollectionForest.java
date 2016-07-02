@@ -27,7 +27,7 @@ import teamrtg.rtg.api.world.biome.deco.DecoBase;
 public class DecoCollectionForest extends DecoCollectionBase
 {
 
-	public DecoCollectionForest(boolean fallenTrees)
+	public DecoCollectionForest()
 	{
 
         // Trees first.
@@ -130,7 +130,7 @@ public class DecoCollectionForest extends DecoCollectionBase
         decoFallenSpruce.maxSize = 6;
         
         DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenOak, decoFallenSpruce);
-		this.addDeco(decoFallenTree, fallenTrees);
+		this.addDeco(decoFallenTree);
         
         // Shrubs to fill in the blanks.
         DecoShrub decoShrubOak = new DecoShrub();

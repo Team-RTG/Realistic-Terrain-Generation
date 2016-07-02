@@ -7,12 +7,8 @@ import net.minecraft.world.biome.Biome;
 import teamrtg.rtg.api.tools.deco.DecoBoulder;
 import teamrtg.rtg.api.tools.deco.DecoCactus;
 import teamrtg.rtg.api.tools.deco.DecoDeadBush;
-import teamrtg.rtg.api.tools.deco.DecoGrassDoubleTallgrass;
-import teamrtg.rtg.api.tools.deco.DecoReed;
 import teamrtg.rtg.api.tools.deco.DecoShrub;
-import teamrtg.rtg.api.tools.deco.DecoTree;
-import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
-import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
+import teamrtg.rtg.api.tools.deco.collection.DecoCollectionDesertRiver;
 import teamrtg.rtg.api.tools.surface.SurfaceRiverOasis;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.math.CanyonColour;
@@ -75,55 +71,26 @@ public class RTGBiomeVanillaMesaBryce extends RTGBiomeVanilla {
 
     @Override
     public void initDecos() {
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder.maxY = 83;
-        this.addDeco(decoBoulder);
-
-        DecoTree riverTrees = new DecoTree();
-        riverTrees.checkRiver = true;
-        riverTrees.minRiver = 0.86f;
-        riverTrees.strengthNoiseFactorForLoops = false;
-        riverTrees.strengthFactorForLoops = 10f;
-        riverTrees.treeType = TreeType.RTG_TREE;
-        riverTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
-        riverTrees.maxY = 100;
-        this.addDeco(riverTrees);
-
-        DecoCactus decoRiverCactus = new DecoCactus();
-        decoRiverCactus.checkRiver = true;
-        decoRiverCactus.minRiver = 0.7f;
-        decoRiverCactus.maxY = 80;
-        decoRiverCactus.strengthFactor = 12f;
-        this.addDeco(decoRiverCactus);
-
-        DecoReed decoReed = new DecoReed();
-        decoReed.checkRiver = true;
-        decoReed.minRiver = 0.7f;
-        decoReed.maxY = 68;
-        decoReed.strengthFactor = 2f;
-        this.addDeco(decoReed);
-
-        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.checkRiver = true;
-        decoGrassDoubleTallgrass.minRiver = 0.7f;
-        decoGrassDoubleTallgrass.maxY = 128;
-        decoGrassDoubleTallgrass.loops = 15;
-        decoGrassDoubleTallgrass.doubleGrassChance = 3;
-        this.addDeco(decoGrassDoubleTallgrass);
+        this.addDecoCollection(new DecoCollectionDesertRiver());
+        
+		DecoBoulder decoBoulder = new DecoBoulder();
+		decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+		decoBoulder.maxY = 83;
+		this.addDeco(decoBoulder);
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.loops = 3;
         decoShrub.maxY = 90;
         addDeco(decoShrub);
-
+        
         DecoDeadBush decoDeadBush = new DecoDeadBush();
-        decoDeadBush.maxY = 100;
-        decoDeadBush.loops = 3;
+		decoDeadBush.maxY = 100;
+		decoDeadBush.loops = 3;
         this.addDeco(decoDeadBush);
-
+        
         DecoCactus decoCactus = new DecoCactus();
         decoCactus.soilBlock = Blocks.SAND.getStateFromMeta(1);
+        decoCactus.soilMeta = (byte)1;
         decoCactus.loops = 18;
         decoCactus.maxY = 100;
         this.addDeco(decoCactus);

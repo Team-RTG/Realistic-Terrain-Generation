@@ -57,12 +57,12 @@ public class RTGBiomeVanillaColdBeach extends RTGBiomeVanilla {
 
     @Override
     public void initDecos() {
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder.chance = 16;
-        decoBoulder.maxY = 95;
-        decoBoulder.strengthFactor = 3f;
-        this.addDeco(decoBoulder);
+		DecoBoulder decoBoulder = new DecoBoulder();
+		decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+		decoBoulder.chance = 16;
+		decoBoulder.maxY = 95;
+		decoBoulder.strengthFactor = 3f;
+		this.addDeco(decoBoulder);
     }
 
     @Override

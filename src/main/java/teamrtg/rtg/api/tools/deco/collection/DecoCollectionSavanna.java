@@ -22,7 +22,7 @@ import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTGAcaciaBucheri;
 public class DecoCollectionSavanna extends DecoCollectionBase
 {
 
-	public DecoCollectionSavanna(boolean fallenTrees)
+	public DecoCollectionSavanna()
 	{
 
         DecoShrub acaciaShrub = new DecoShrub();
@@ -47,7 +47,7 @@ public class DecoCollectionSavanna extends DecoCollectionBase
 		decoFallenTree.leavesMeta = (byte)-1;
 		decoFallenTree.minSize = 3;
 		decoFallenTree.maxSize = 6;
-		this.addDeco(decoFallenTree, fallenTrees);
+		this.addDeco(decoFallenTree);
 
 		TreeRTG bucheriTree = new TreeRTGAcaciaBucheri();
 		bucheriTree.logBlock = Blocks.LOG2.getDefaultState();

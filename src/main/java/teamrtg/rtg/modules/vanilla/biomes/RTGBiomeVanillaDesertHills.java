@@ -3,13 +3,8 @@ package teamrtg.rtg.modules.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.api.config.BiomeConfig;
-import teamrtg.rtg.api.tools.deco.DecoCactus;
-import teamrtg.rtg.api.tools.deco.DecoDeadBush;
-import teamrtg.rtg.api.tools.deco.DecoDesertWell;
-import teamrtg.rtg.api.tools.deco.DecoFlowersRTG;
-import teamrtg.rtg.api.tools.deco.DecoGrassDoubleTallgrass;
-import teamrtg.rtg.api.tools.deco.DecoReed;
-import teamrtg.rtg.api.tools.deco.DecoTree;
+import teamrtg.rtg.api.tools.deco.collection.DecoCollectionDesert;
+import teamrtg.rtg.api.tools.deco.collection.DecoCollectionDesertRiver;
 import teamrtg.rtg.api.tools.surface.SurfaceRiverOasis;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
@@ -54,61 +49,8 @@ public class RTGBiomeVanillaDesertHills extends RTGBiomeVanilla {
 
     @Override
     public void initDecos() {
-        DecoTree riverTrees = new DecoTree();
-        riverTrees.checkRiver = true;
-        riverTrees.minRiver = 0.86f;
-        riverTrees.strengthNoiseFactorForLoops = false;
-        riverTrees.strengthFactorForLoops = 10f;
-        riverTrees.treeType = DecoTree.TreeType.RTG_TREE;
-        riverTrees.treeCondition = DecoTree.TreeCondition.ALWAYS_GENERATE;
-        riverTrees.maxY = 100;
-        this.addDeco(riverTrees);
-
-        DecoCactus decoRiverCactus = new DecoCactus();
-        decoRiverCactus.checkRiver = true;
-        decoRiverCactus.minRiver = 0.7f;
-        decoRiverCactus.maxY = 80;
-        decoRiverCactus.strengthFactor = 12f;
-        this.addDeco(decoRiverCactus);
-
-        DecoReed decoReed = new DecoReed();
-        decoReed.checkRiver = true;
-        decoReed.minRiver = 0.7f;
-        decoReed.maxY = 68;
-        decoReed.strengthFactor = 2f;
-        this.addDeco(decoReed);
-
-        DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-        decoFlowersRTG.checkRiver = true;
-        decoFlowersRTG.minRiver = 0.7f;
-        decoFlowersRTG.flowers = new int[] {9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11};
-        decoFlowersRTG.maxY = 128;
-        decoFlowersRTG.loops = 3;
-        this.addDeco(decoFlowersRTG);
-
-        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.checkRiver = true;
-        decoGrassDoubleTallgrass.minRiver = 0.7f;
-        decoGrassDoubleTallgrass.maxY = 128;
-        decoGrassDoubleTallgrass.loops = 15;
-        decoGrassDoubleTallgrass.doubleGrassChance = 3;
-        this.addDeco(decoGrassDoubleTallgrass);
-
-        DecoDesertWell decoDesertWell = new DecoDesertWell();
-        decoDesertWell.maxY = 80;
-        decoDesertWell.strengthFactor = 1f;
-        decoDesertWell.chance = 120;
-        this.addDeco(decoDesertWell);
-
-        DecoCactus decoCactus = new DecoCactus();
-        decoCactus.maxY = 120;
-        decoCactus.strengthFactor = 5f;
-        this.addDeco(decoCactus);
-
-        DecoDeadBush decoDeadBush = new DecoDeadBush();
-        decoDeadBush.maxY = 128;
-        decoDeadBush.strengthFactor = 1f;
-        this.addDeco(decoDeadBush);
+		this.addDecoCollection(new DecoCollectionDesertRiver());
+		this.addDecoCollection(new DecoCollectionDesert());
     }
 
     @Override

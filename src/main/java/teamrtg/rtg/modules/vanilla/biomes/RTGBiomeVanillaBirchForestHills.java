@@ -10,8 +10,13 @@ import teamrtg.rtg.api.tools.deco.DecoShrub;
 import teamrtg.rtg.api.tools.deco.DecoTree;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
+import teamrtg.rtg.api.tools.deco.helper.DecoHelperRandomSplit;
+import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTG;
+import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTGBetulaPapyrifera;
+import teamrtg.rtg.api.tools.feature.tree.vanilla.WorldGenTreesRTG;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
+import teamrtg.rtg.api.world.biome.deco.DecoBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
 import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
@@ -35,53 +40,80 @@ public class RTGBiomeVanillaBirchForestHills extends RTGBiomeVanilla {
 
     @Override
     public void initDecos() {
-        DecoTree smallBirch = new DecoTree();
-        smallBirch.strengthNoiseFactorForLoops = true;
-        smallBirch.treeType = TreeType.RTG_TREE;
-        smallBirch.distribution.noiseDivisor = 80f;
-        smallBirch.distribution.noiseFactor = 60f;
-        smallBirch.distribution.noiseAddend = -15f;
-        smallBirch.treeCondition = TreeCondition.ALWAYS_GENERATE;
-        smallBirch.maxY = 120;
-        this.addDeco(smallBirch);
-
-        DecoTree birchTreesForest = new DecoTree();
-        birchTreesForest.strengthFactorForLoops = 3f;
-        birchTreesForest.treeType = TreeType.WORLDGEN;
-        birchTreesForest.treeCondition = TreeCondition.ALWAYS_GENERATE;
-        birchTreesForest.maxY = 100;
-        this.addDeco(birchTreesForest);
-
+        TreeRTG birchSmall = new TreeRTGBetulaPapyrifera();
+		birchSmall.logBlock = Blocks.LOG.getStateFromMeta(2);;
+		birchSmall.leavesBlock = Blocks.LEAVES.getStateFromMeta(2);;
+		birchSmall.minTrunkSize = 4;
+		birchSmall.maxTrunkSize = 10;
+		birchSmall.minCrownSize = 8;
+		birchSmall.maxCrownSize = 19;
+		this.addTree(birchSmall);
+        
+		DecoTree smallBirch = new DecoTree(birchSmall);
+		smallBirch.strengthNoiseFactorForLoops = true;
+		smallBirch.treeType = TreeType.RTG_TREE;
+		smallBirch.distribution.noiseDivisor = 80f;
+		smallBirch.distribution.noiseFactor = 60f;
+		smallBirch.distribution.noiseAddend = -15f;
+		smallBirch.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		smallBirch.maxY = 120;
+		this.addDeco(smallBirch);
+		
+        TreeRTG birchTree = new TreeRTGBetulaPapyrifera();
+		birchTree.logBlock = Blocks.LOG.getStateFromMeta(2);
+		birchTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(2);;
+		birchTree.minTrunkSize = 4;
+		birchTree.maxTrunkSize = 10;
+		birchTree.minCrownSize = 8;
+		birchTree.maxCrownSize = 19;
+		this.addTree(birchTree);
+        
+		DecoTree birchTrees = new DecoTree(birchTree);
+		birchTrees.strengthFactorForLoops = 3f;
+		birchTrees.treeType = TreeType.RTG_TREE;
+		birchTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		birchTrees.maxY = 100;
+		
+		DecoTree rtgTrees = new DecoTree(new WorldGenTreesRTG(false));
+		rtgTrees.treeType = TreeType.WORLDGEN;
+		rtgTrees.strengthFactorForLoops = 3f;
+		rtgTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		rtgTrees.maxY = 100;
+		
+		DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
+		decoHelperRandomSplit.decos = new DecoBase[]{birchTrees, rtgTrees};
+		decoHelperRandomSplit.chances = new int[]{10, 4};
+		this.addDeco(decoHelperRandomSplit);
+        
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.logCondition = LogCondition.RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 8;
-        decoFallenTree.maxY = 100;
         decoFallenTree.logBlock = Blocks.LOG;
-        decoFallenTree.logMeta = (byte) 2;
+        decoFallenTree.logMeta = (byte)2;
         decoFallenTree.leavesBlock = Blocks.LEAVES;
-        decoFallenTree.leavesMeta = (byte) -1;
+        decoFallenTree.leavesMeta = (byte)-1;
         decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree);
-
+        decoFallenTree.maxSize = 6;        
+		this.addDeco(decoFallenTree);
+        
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 120;
         decoShrub.strengthFactor = 3f;
-        this.addDeco(decoShrub);
+		this.addDeco(decoShrub);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.notEqualsZeroChance = 3;
-        this.addDeco(decoBaseBiomeDecorations);
-
-        DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-        decoFlowersRTG.flowers = new int[] {3, 6};
-        decoFlowersRTG.maxY = 128;
-        decoFlowersRTG.strengthFactor = 12f;
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		decoBaseBiomeDecorations.notEqualsZeroChance = 3;
+		this.addDeco(decoBaseBiomeDecorations);
+		
+		DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
+		decoFlowersRTG.flowers = new int[] {3, 6};
+		decoFlowersRTG.maxY = 128;
+		decoFlowersRTG.strengthFactor = 12f;
         this.addDeco(decoFlowersRTG);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 128;
-        decoGrass.strengthFactor = 20f;
+        
+		DecoGrass decoGrass = new DecoGrass();
+		decoGrass.maxY = 128;
+		decoGrass.strengthFactor = 20f;
         this.addDeco(decoGrass);
     }
 

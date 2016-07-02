@@ -26,7 +26,7 @@ import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTGPiceaSitchensis;
 public class DecoCollectionTaiga extends DecoCollectionBase
 {
 
-	public DecoCollectionTaiga(boolean fallenTrees, float grassStrengthFactor)
+	public DecoCollectionTaiga(float grassStrengthFactor)
 	{
 		super();
 		
@@ -187,7 +187,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase
 		decoFallenTree.leavesMeta = (byte)-1;
 		decoFallenTree.minSize = 3;
 		decoFallenTree.maxSize = 6;
-		this.addDeco(decoFallenTree, fallenTrees);
+		this.addDeco(decoFallenTree);
 		
 		DecoShrub decoShrubSpruce = new DecoShrub();
 		decoShrubSpruce.logBlock = Blocks.LOG.getStateFromMeta(1);

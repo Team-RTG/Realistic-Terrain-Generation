@@ -44,7 +44,7 @@ public abstract class RTGBiome implements IWorldFeature {
     public TerrainBase terrain;
     public SurfacePart surface;
     public ArrayList<DecoBase> decos = new ArrayList<>();
-    public ArrayList<TreeRTG> rtgTrees;
+    public ArrayList<TreeRTG> rtgTrees = new ArrayList<>();
     private List<WorldFeature> worldFeatures = new ArrayList<>();
     public boolean noLakes = false;
     public boolean noWaterFeatures = false;
@@ -70,7 +70,6 @@ public abstract class RTGBiome implements IWorldFeature {
         this.PARTS = new PresetParts(this);
         this.terrain = initTerrain();
         initDecos();
-        rtgTrees = new ArrayList<TreeRTG>();
         initWorldFeatures();
         this.surface = new SurfacePart();
         // WorldFeature surfaces take precedence

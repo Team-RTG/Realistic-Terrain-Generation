@@ -26,6 +26,11 @@ public class WorldGenTreesRTG extends WorldGenTrees
     private final IBlockState metaWood;
     private final IBlockState metaLeaves;
 
+    public WorldGenTreesRTG()
+    {
+        this(false, 4, DEFAULT_TRUNK, DEFAULT_LEAF, false);
+    }
+    
     public WorldGenTreesRTG(boolean p_i2027_1_)
     {
         this(p_i2027_1_, 4, DEFAULT_TRUNK, DEFAULT_LEAF, false);

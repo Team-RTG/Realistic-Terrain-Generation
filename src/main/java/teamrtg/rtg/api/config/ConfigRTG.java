@@ -132,6 +132,13 @@ public class ConfigRTG extends ModConfig {
     public final PropertyInt SURFACE_BLEED_RADIUS = addInt("Surface bleeding radius", "surface bleeding");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Saplings
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    
+    public final PropertyBool ENABLE_SAPLINGS = addBool("Enable RTG Saplings", "Saplings");
+    public final PropertyInt RTG_TREE_CHANCE = addInt("RTG Tree from Vanilla Sapling Chance", "Saplings");
+    
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Scattered features
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -321,6 +328,26 @@ public class ConfigRTG extends ModConfig {
         SURFACE_BLEED_RADIUS.setDefault(16).setRange(0, 32).setComment("The maximum number of blocks a surface can bleed away from its biome." + NEW_LINE +
         	"Set to 0 to disable");
         
+    	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    	// Saplings
+    	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        
+        ENABLE_SAPLINGS.setDefault(true).setComment(
+			"Set this to TRUE to allow RTG's custom trees to grow from vanilla saplings."
+			+ NEW_LINE +
+			"RTG's custom trees can be grown only from the saplings that their leaves would drop naturally, and only in the biomes where they naturally generate."
+			+ NEW_LINE +
+			"For example, you can only grow a Swamp Willow in a Swamp biome, and only with an Oak sapling (because Swamp Willows have Oak leaves)."
+			+ NEW_LINE
+        );
+        
+        RTG_TREE_CHANCE.setDefault(2).setComment(
+        	"1/x chance that a vanilla sapling will grow one of RTG's custom trees."
+			+ NEW_LINE +
+			"1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+			+ NEW_LINE
+        );
+
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Scattered features
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

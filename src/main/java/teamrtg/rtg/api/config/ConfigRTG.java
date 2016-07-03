@@ -1,12 +1,18 @@
 package teamrtg.rtg.api.config;
 
+import java.util.ArrayList;
+
 import net.minecraft.block.BlockColored;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
+
+import org.apache.commons.lang3.ArrayUtils;
+
 import teamrtg.rtg.api.config.ConfigProperty.PropertyBlock;
 import teamrtg.rtg.api.config.ConfigProperty.PropertyBool;
 import teamrtg.rtg.api.config.ConfigProperty.PropertyFloat;
 import teamrtg.rtg.api.config.ConfigProperty.PropertyInt;
+import teamrtg.rtg.api.config.ConfigProperty.PropertyString;
 
 public class ConfigRTG extends ModConfig {
 	
@@ -15,67 +21,78 @@ public class ConfigRTG extends ModConfig {
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public final PropertyInt FLAT_BEDROCK_LAYERS = addInt("Number of flat bedrock layers", "bedrock");
-    public final PropertyBlock BEDROCK_BLOCK = addBlock("BEDROCK_BLOCK", "bedrock");
+    public final PropertyBlock BEDROCK_BLOCK = addBlock("Bedrock block", "bedrock");
 	
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Biomes
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyBool ENABLE_RTG_BIOME_DECORATIONS = addBool("Enable RTG Biome Decorations", "biomes");
-    public final PropertyBool ENABLE_RTG_SURFACES = addBool("Enable RTG Biome Surfaces", "biomes");
-    public final PropertyBool USE_BOP_LAYOUT = addBool("Use BOP biome layout if avaliable", "biomes");
+    public final PropertyBool ENABLE_RTG_BIOME_DECORATIONS = addBool("Enable RTG biome decorations", "biomes");
+    public final PropertyBool ENABLE_RTG_SURFACES = addBool("Enable RTG biome surfaces", "biomes");
+    public final PropertyBool USE_BOP_LAYOUT = addBool("Use BOP biome layout if available", "biomes");
+    public final PropertyInt SURFACE_BLEED_RADIUS = addInt("Surface bleeding radius", "biomes");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Boulders
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyBool ENABLE_COUBLESTONE_BOULDERS = addBool("Enable Cobblestone Boulders", "boulders");
-    public final PropertyInt COBBLESTONE_BOULDER_CHANCE = addInt("1/x chance that Cobblestone Boulders will generate if given the opportunity to do so during world gen", "boulders");
+    public final PropertyBool ENABLE_COUBLESTONE_BOULDERS = addBool("Enable cobblestone boulders", "boulders");
+    public final PropertyInt COBBLESTONE_BOULDER_CHANCE = addInt("Cobblestone boulder chance", "boulders");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Caves
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyBool ENABLE_CAVE_MODIFICATIONS = addBool("Enable Cave Modifications", "caves");
-    public final PropertyBool ENABLE_CAVES = addBool("Enable Caves", "caves");
-    public final PropertyInt CAVE_DENSITY = addInt("Cave Density", "caves");
-    public final PropertyInt CAVE_FREQUENCY = addInt("Cave Frequency", "caves");
+    public final PropertyBool ENABLE_CAVE_MODIFICATIONS = addBool("Enable cave modifications", "caves");
+    public final PropertyBool ENABLE_CAVES = addBool("Enable caves", "caves");
+    public final PropertyInt CAVE_DENSITY = addInt("Cave density", "caves");
+    public final PropertyInt CAVE_FREQUENCY = addInt("Cave frequency", "caves");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Debugging
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyBool SHOW_DEBUG_INFO = addBool("Show Debug Info in F3 Screen", "debug");
-    public final PropertyBool DEBUG_LOGGING = addBool("Enable Debug logging", "debug");
+    public final PropertyBool SHOW_DEBUG_INFO = addBool("Show debug info in F3 screen", "debug");
+    public final PropertyBool DEBUG_LOGGING = addBool("Enable debug logging", "debug");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Dunes
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyInt DUNE_HEIGHT = addInt("Height of Dunes", "dunes");
+    public final PropertyInt DUNE_HEIGHT = addInt("Height of dunes", "dunes");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Dungeons
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyBool GENERATE_DUNGEONS = addBool("Generate Dungeons", "dungeons");
+    public final PropertyBool GENERATE_DUNGEONS = addBool("Generate dungeons", "dungeons");
+    public final PropertyInt DUNGEON_FREQUENCY = addInt("Dungeon frequency", "dungeons");
+    
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Flowing liquids
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    
+    public final PropertyInt FLOWING_LAVA_CHANCE = addInt("Flowing lava chance", "flowing liquids");
+    public final PropertyInt FLOWING_WATER_CHANCE = addInt("Flowing water chance", "flowing liquids");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Lakes (Scenic)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyFloat LAKE_FREQUENCY_MULTIPLIER = addFloat("Lake Frequency Multipler", "water systems");
-    public final PropertyFloat LAKE_SIZE_MULTIPLIER = addFloat("Lake Size Multipler", "water systems");
-    public final PropertyFloat LAKE_BENDINESS_MULTIPLIER = addFloat("Lake Shore Irregularity", "water systems");
+    public final PropertyFloat SCENIC_LAKE_FREQUENCY_MULTIPLIER = addFloat("Lake Frequency Multipler", "scenic lakes");
+    public final PropertyFloat SCENIC_LAKE_SIZE_MULTIPLIER = addFloat("Lake Size Multipler", "scenic lakes");
+    public final PropertyFloat SCENIC_LAKE_BENDINESS_MULTIPLIER = addFloat("Lake Shore Irregularity", "scenic lakes");
+    public final PropertyInt SCENIC_LAKE_BIOME = addInt("Biome for scenic lakes", "scenic lakes");
+    public final PropertyInt SCENIC_LAKE_FROZEN_BIOME = addInt("Biome for frozen scenic lakes", "scenic lakes");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Lakes (Surface)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyBool ENABLE_SURFACE_WATER_LAKES = addBool("Enable Water Surface Lakes", "surface lakes");
+    public final PropertyBool ENABLE_SURFACE_WATER_LAKES = addBool("Enable water surface lakes", "surface lakes");
     public final PropertyInt SURFACE_WATER_LAKE_CHANCE = addInt("1/x chance that Water Surface Lakes will generate if given the opportunity to do so during world gen", "surface lakes");
     
-    public final PropertyBool ENABLE_SURFACE_LAVA_LAKES = addBool("Enable Lava Surface Lakes", "surface lakes");
+    public final PropertyBool ENABLE_SURFACE_LAVA_LAKES = addBool("Enable lava surface lakes", "surface lakes");
     public final PropertyInt SURFACE_LAVA_LAKE_CHANCE = addInt("1/x chance that Lava Surface Lakes will generate if given the opportunity to do so during world gen", "surface lakes");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -92,7 +109,7 @@ public class ConfigRTG extends ModConfig {
 	// Mineshafts
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyBool GENERATE_MINESHAFTS = addBool("Generate Mineshafts", "mineshafts");
+    public final PropertyBool GENERATE_MINESHAFTS = addBool("Generate mineshafts", "mineshafts");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Ocean monuments
@@ -115,6 +132,15 @@ public class ConfigRTG extends ModConfig {
     public final PropertyBool GENERATE_ORES_EMERALD = addBool("Generate emerald", "ores");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Plateaus
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    public final PropertyString MESA_CLAY_COLOURS = addString("Mesa Clay Colours", "plateaus");
+    public final PropertyString MESA_BRYCE_CLAY_COLOURS = addString("Mesa Bryce Clay Colours", "plateaus");
+    public final PropertyString SAVANNA_CLAY_COLOURS = addString("Savanna Clay Colours", "plateaus");
+    public final PropertyBool STONE_SAVANNAS = addBool("Use stone instead of clay for most Savanna biome variants", "plateaus");
+    
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Ravines
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -126,11 +152,12 @@ public class ConfigRTG extends ModConfig {
 	// Rivers
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyFloat RIVER_FREQUENCY_MULTIPLIER = addFloat("River frequency multiplier", "water systems");
-    public final PropertyFloat RIVER_SIZE_MULTIPLIER = addFloat("River width multiplier", "water systems");
-    public final PropertyFloat RIVER_BENDINESS_MULTIPLIER = addFloat("Multiplier to River Bending", "water systems");
-    public final PropertyInt SURFACE_BLEED_RADIUS = addInt("Surface bleeding radius", "surface bleeding");
-    
+    public final PropertyFloat RIVER_FREQUENCY_MULTIPLIER = addFloat("River frequency multiplier", "rivers");
+    public final PropertyFloat RIVER_SIZE_MULTIPLIER = addFloat("River width multiplier", "rivers");
+    public final PropertyFloat RIVER_BENDINESS_MULTIPLIER = addFloat("Multiplier to River Bending", "rivers");
+    public final PropertyFloat RIVER_CUTOFF_SCALE = addFloat("Scale of Large-Scale River Cut Off", "rivers");
+    public final PropertyFloat RIVER_CUTOFF_AMPLITUDE = addFloat("Amplitude of Large-Scale River Cut Off", "rivers");
+
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Saplings
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -208,23 +235,29 @@ public class ConfigRTG extends ModConfig {
     	// Bedrock
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	
-        FLAT_BEDROCK_LAYERS.setDefault(0).setComment("0 = Normal bedrock (rough pattern); 1-5 = Number of flat bedrock layers to generate");
-        BEDROCK_BLOCK.setDefault(Blocks.BEDROCK.getDefaultState()).setComment("The block to use for the bottom of the Overworld");
+        FLAT_BEDROCK_LAYERS.setDefault(0).setComment("0 = Normal bedrock (rough pattern);" + NEW_LINE + "1-5 = Number of flat bedrock layers to generate");
+        BEDROCK_BLOCK.setDefault(Blocks.BEDROCK.getDefaultState()).setComment("The block to use for the bottom of the Overworld.");
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Biomes
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        ENABLE_RTG_BIOME_DECORATIONS.setDefault(true).setComment("If TRUE, uses the individual biome settings in the biome forgeConfig files. If FALSE, disables all RTG decorations and uses biomes decorations instead.");
-        ENABLE_RTG_SURFACES.setDefault(true).setComment("If TRUE, uses the individual biome settings in the biome forgeConfig files. If FALSE, disables all RTG surfaces and uses biomes surfaces instead.");
-        USE_BOP_LAYOUT.setDefault(false).setComment("If FALSE, RTG will use biomes biome layout, even if BOP is installed. This means no BOP biomes.");
+        ENABLE_RTG_BIOME_DECORATIONS.setDefault(true).setComment("If TRUE, uses the individual biome settings in the biome config files." + NEW_LINE + "If FALSE, disables all RTG decorations and uses biomes decorations instead.");
+        ENABLE_RTG_SURFACES.setDefault(true).setComment("If TRUE, uses the individual biome settings in the biome config files." + NEW_LINE + "If FALSE, disables all RTG surfaces and uses biomes surfaces instead.");
+        USE_BOP_LAYOUT.setDefault(false).setComment("If FALSE, RTG will use vanilla Minecraft's biome layout, even if BOP is installed. This means no BOP biomes.");
+        SURFACE_BLEED_RADIUS.setDefault(16).setRange(0, 32).setComment("The maximum number of blocks that surfaces can bleed into other biomes." + NEW_LINE +
+            	"Set to 0 to disable");
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Boulders
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
         ENABLE_COUBLESTONE_BOULDERS.setDefault(true);
-        COBBLESTONE_BOULDER_CHANCE.setDefault(1).setComment("1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
+        COBBLESTONE_BOULDER_CHANCE.setDefault(1).setComment(
+        	"1/x chance that Cobblestone Boulders will generate if given the opportunity to do so during world gen."
+        	+ NEW_LINE +
+        	"1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+        );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Caves
@@ -256,15 +289,35 @@ public class ConfigRTG extends ModConfig {
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
         GENERATE_DUNGEONS.setDefault(true);
+        DUNGEON_FREQUENCY.setDefault(8).setRange(1, 200).setComment("This setting controls the number of dungeons that generate." + NEW_LINE +
+                "HIGHER values = MORE dungeons & MORE lag. (8 = vanilla dungeon frequency)");
+        
+    	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    	// Flowing liquids
+    	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        FLOWING_LAVA_CHANCE.setDefault(200).setComment(
+        	"1/x chance that a lava stream will generate on the side of a hill or mountain."
+        	+ NEW_LINE +
+        	"1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+        );
+        
+        FLOWING_WATER_CHANCE.setDefault(200).setComment(
+        	"1/x chance that a water stream will generate on the side of a hill or mountain."
+        	+ NEW_LINE +
+        	"1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+        );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Lakes (Scenic)
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        LAKE_SIZE_MULTIPLIER.setDefault(1).setRange(0, 10).setComment("Defaults to 1 (standard size)");
-        LAKE_FREQUENCY_MULTIPLIER.setDefault(1).setRange(0, 10).setComment("Defaults to 1 (standard frequency)");
-        LAKE_BENDINESS_MULTIPLIER.setDefault(1).setRange(0, 2).setComment("Makes scenic lake shores bend and curve more. Defaults to 1");
-        
+        SCENIC_LAKE_SIZE_MULTIPLIER.setDefault(1).setRange(0, 10).setComment("Defaults to 1 (standard size)");
+        SCENIC_LAKE_FREQUENCY_MULTIPLIER.setDefault(1).setRange(0, 10).setComment("Defaults to 1 (standard frequency)");
+        SCENIC_LAKE_BENDINESS_MULTIPLIER.setDefault(1).setRange(0, 2).setComment("Makes scenic lake shores bend and curve more. Defaults to 1");
+        SCENIC_LAKE_BIOME.setDefault(7).setRange(0, 254).setComment("Biome ID for scenic lakes when not frozen (default 7 = River)");
+        SCENIC_LAKE_FROZEN_BIOME.setDefault(11).setRange(0, 254).setComment("Biome ID for scenic lakes when frozen (default 11 = Frozen River)");
+
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Lakes (Surface)
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -301,7 +354,7 @@ public class ConfigRTG extends ModConfig {
     	// Ore gen
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        GENERATE_ORES.setDefault(true).setComment("If FALSE, RTG will not generate ores. This may be required for some mod compatibility, as you would otherwise get double the ores");
+        GENERATE_ORES.setDefault(true).setComment("If FALSE, RTG will not handle ore generation." + NEW_LINE + "This should probably be disabled if you're using another mod that handles ore generation.");
         GENERATE_ORES_COAL.setDefault(true).setComment("");
         GENERATE_ORES_IRON.setDefault(true).setComment("");
         GENERATE_ORES_GOLD.setDefault(true).setComment("");
@@ -311,12 +364,28 @@ public class ConfigRTG extends ModConfig {
         GENERATE_ORES_EMERALD.setDefault(true).setComment("");
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    	// Plateaus
+    	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        
+        MESA_CLAY_COLOURS.setDefault("-1,-1,-1,1,1,1,0,-1,-1,6,1,1,8,0,-1,-1,14,-1,-1,6,1,1,4")
+        	.setComment(getPlateauClayColourComment("Mesa biome variants (doesn't include Mesa Bryce)"));
+        MESA_BRYCE_CLAY_COLOURS.setDefault("-1,-1,0,1,0,0,0,14,0,8,0,1,8,0,-1,0,14,0,0,14,0,0,8")
+        	.setComment(getPlateauClayColourComment("Mesa Bryce biome"));
+        SAVANNA_CLAY_COLOURS.setDefault("0,0,0,0,8,8,12,12,8,0,8,12,12,8,12,8,0,0,8,12,12")
+        	.setComment(getPlateauClayColourComment("Savanna biome variants"));
+        STONE_SAVANNAS.setDefault(true)
+        	.setComment("If set to TRUE, Savanna biome variants will mostly use stone/cobblestone instead of stained hardened clay for cliffs and plateaus."
+	            + NEW_LINE +
+	            "Savanna Plateau M will always use stained hardened clay."
+	            + NEW_LINE);
+
+    	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Ravines
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
         ENABLE_RAVINE_MODIFICATIONS.setDefault(true);
         ENABLE_RAVINES.setDefault(false);
-        RAVINE_FREQUENCY.setDefault(2);
+        RAVINE_FREQUENCY.setDefault(50);
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Rivers
@@ -325,8 +394,8 @@ public class ConfigRTG extends ModConfig {
         RIVER_SIZE_MULTIPLIER.setDefault(1).setRange(0, 10).setComment("Defaults to 1 (standard width)");
         RIVER_FREQUENCY_MULTIPLIER.setDefault(1).setRange(0, 10).setComment("Defaults to 1 (standard frequency)");
         RIVER_BENDINESS_MULTIPLIER.setDefault(1).setRange(0, 2).setComment("Higher numbers make rivers bend more. Defaults to 1");
-        SURFACE_BLEED_RADIUS.setDefault(16).setRange(0, 32).setComment("The maximum number of blocks a surface can bleed away from its biome." + NEW_LINE +
-        	"Set to 0 to disable");
+        RIVER_CUTOFF_SCALE.setDefault(350f).setRange(50f, 5000f).setComment("Higher numbers make grassy areas near rivers bigger, but also more rare. Defaults to 350" + NEW_LINE);
+        RIVER_CUTOFF_AMPLITUDE.setDefault(0.5f).setRange(0f, 2f).setComment("Higher numbers make the large-scale cut-off noise have a greater effect. Defaults to 0.5" + NEW_LINE);
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Saplings
@@ -357,16 +426,16 @@ public class ConfigRTG extends ModConfig {
         MAX_DISTANCE_SCATTERED_FEATURES.setDefault(48);
 
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    	// Strongholds
-    	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        
-        GENERATE_STRONGHOLDS.setDefault(true);
-
-    	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Snow
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
         ENABLE_SNOW_LAYERS.setDefault(true);
+        
+    	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    	// Strongholds
+    	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        
+        GENERATE_STRONGHOLDS.setDefault(true);
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Terrain shadowing
@@ -406,4 +475,35 @@ public class ConfigRTG extends ModConfig {
         VOLCANO_BLOCK_MIX_3.setDefault(Blocks.COAL_BLOCK.getDefaultState());
 
     }
+    
+	public byte[] getClayColourMetasFromConfigString(String configString)
+	{
+		String[] strings = configString.split(",");
+		ArrayList<Byte> byteList = new ArrayList<Byte>(){};
+
+		for (int i = 0; i < strings.length; i++) {
+			strings[i] = strings[i].trim();
+			if (strings[i].matches("-1|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15")) {
+				byteList.add(Byte.valueOf(strings[i]));
+			}
+		}
+		
+		Byte[] bytes = byteList.toArray(new Byte[byteList.size()]);
+		return ArrayUtils.toPrimitive(bytes);
+	}
+	
+	private String getPlateauClayColourComment(String biomeName)
+	{
+		String comment =
+			"Comma-separated list of meta values for the clay blocks used in the " + biomeName + "."
+			+ NEW_LINE +
+			"-1 = Hardened Clay; 0-15 = Stained Clay"
+			+ NEW_LINE +
+			"0 = White; 1 = Orange; 2 = Magenta; 3 = Light Blue; 4 = Yellow; 5 = Lime; 6 = Pink; 7 = Gray"
+			+ NEW_LINE +
+			"8 = Light Gray; 9 = Cyan; 10 = Purple; 11 = Blue; 12 = Brown; 13 = Green; 14 = Red; 15 = Black"
+			+ NEW_LINE;
+		
+		return comment;
+	}
 }

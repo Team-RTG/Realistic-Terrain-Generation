@@ -1,9 +1,9 @@
 package teamrtg.rtg.api.config;
 
+import java.util.ArrayList;
+
 import net.minecraftforge.common.config.Configuration;
 import teamrtg.rtg.core.RTG;
-
-import java.util.ArrayList;
 
 /**
  * An object that holds config properties
@@ -13,7 +13,8 @@ import java.util.ArrayList;
  */
 public class Config {
 
-    public static final String NEW_LINE = Configuration.NEW_LINE;
+	public static final String NEW_LINE = Configuration.NEW_LINE;
+	public static final String COMMENT_SEPARATOR = "==========================================================================================================";
     public static final String RTG_CONFIG_DIR = RTG.configPath;
 
     private ArrayList<ConfigProperty> properties;

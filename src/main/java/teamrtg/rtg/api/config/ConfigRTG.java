@@ -69,6 +69,12 @@ public class ConfigRTG extends ModConfig {
     public final PropertyInt DUNGEON_FREQUENCY = addInt("Dungeon frequency", "dungeons");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Emeralds
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    public final PropertyBool GENERATE_EMERALDS = addBool("Generate emeralds", "emeralds");
+    
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Flowing liquids
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
@@ -115,38 +121,42 @@ public class ConfigRTG extends ModConfig {
 	// Ocean monuments
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyBool GENERATE_OCEAN_MONUMENTS = addBool("Generate Ocean Monuments", "ocean monuments");
+    public final PropertyBool GENERATE_OCEAN_MONUMENTS = addBool("Generate ocean monuments", "ocean monuments");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Ore gen
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyBool GENERATE_ORES = addBool("Generate ores", "ores");
+    public final PropertyBool GENERATE_ORES = addBool("Enable ore generation", "ores");
     
+    public final PropertyBool GENERATE_ORES_DIRT = addBool("Generate dirt", "ores");
+    public final PropertyBool GENERATE_ORES_GRAVEL = addBool("Generate gravel", "ores");
+    public final PropertyBool GENERATE_ORES_GRANITE = addBool("Generate granite", "ores");
+    public final PropertyBool GENERATE_ORES_DIORITE = addBool("Generate diorite", "ores");
+    public final PropertyBool GENERATE_ORES_ANDESITE = addBool("Generate andesite", "ores");
     public final PropertyBool GENERATE_ORES_COAL = addBool("Generate coal", "ores");
     public final PropertyBool GENERATE_ORES_IRON = addBool("Generate iron", "ores");
     public final PropertyBool GENERATE_ORES_GOLD = addBool("Generate gold", "ores");
+    public final PropertyBool GENERATE_ORES_DIAMOND = addBool("Generate diamond", "ores");
     public final PropertyBool GENERATE_ORES_REDSTONE = addBool("Generate redstone", "ores");
     public final PropertyBool GENERATE_ORES_LAPIS = addBool("Generate lapis", "ores");
-    public final PropertyBool GENERATE_ORES_DIAMOND = addBool("Generate diamond", "ores");
-    public final PropertyBool GENERATE_ORES_EMERALD = addBool("Generate emerald", "ores");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Plateaus
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyString MESA_CLAY_COLOURS = addString("Mesa Clay Colours", "plateaus");
-    public final PropertyString MESA_BRYCE_CLAY_COLOURS = addString("Mesa Bryce Clay Colours", "plateaus");
-    public final PropertyString SAVANNA_CLAY_COLOURS = addString("Savanna Clay Colours", "plateaus");
+    public final PropertyString MESA_CLAY_COLOURS = addString("Mesa clay colours", "plateaus");
+    public final PropertyString MESA_BRYCE_CLAY_COLOURS = addString("Mesa Bryce clay colours", "plateaus");
+    public final PropertyString SAVANNA_CLAY_COLOURS = addString("Savanna clay colours", "plateaus");
     public final PropertyBool STONE_SAVANNAS = addBool("Use stone instead of clay for most Savanna biome variants", "plateaus");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Ravines
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyBool ENABLE_RAVINE_MODIFICATIONS = addBool("Enable Ravine Modifications", "ravines");
-    public final PropertyBool ENABLE_RAVINES = addBool("Enable Ravines", "ravines");
-    public final PropertyInt RAVINE_FREQUENCY = addInt("Ravine Frequency", "ravines");
+    public final PropertyBool ENABLE_RAVINE_MODIFICATIONS = addBool("Enable ravine modifications", "ravines");
+    public final PropertyBool ENABLE_RAVINES = addBool("Enable ravines", "ravines");
+    public final PropertyInt RAVINE_FREQUENCY = addInt("Ravine frequency", "ravines");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Rivers
@@ -154,22 +164,22 @@ public class ConfigRTG extends ModConfig {
 
     public final PropertyFloat RIVER_FREQUENCY_MULTIPLIER = addFloat("River frequency multiplier", "rivers");
     public final PropertyFloat RIVER_SIZE_MULTIPLIER = addFloat("River width multiplier", "rivers");
-    public final PropertyFloat RIVER_BENDINESS_MULTIPLIER = addFloat("Multiplier to River Bending", "rivers");
-    public final PropertyFloat RIVER_CUTOFF_SCALE = addFloat("Scale of Large-Scale River Cut Off", "rivers");
-    public final PropertyFloat RIVER_CUTOFF_AMPLITUDE = addFloat("Amplitude of Large-Scale River Cut Off", "rivers");
+    public final PropertyFloat RIVER_BENDINESS_MULTIPLIER = addFloat("River bending multiplier", "rivers");
+    public final PropertyFloat RIVER_CUTOFF_SCALE = addFloat("Scale of large-scale river cut-off", "rivers");
+    public final PropertyFloat RIVER_CUTOFF_AMPLITUDE = addFloat("Amplitude of large-scale river cut-off", "rivers");
 
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Saplings
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
-    public final PropertyBool ENABLE_SAPLINGS = addBool("Enable RTG Saplings", "Saplings");
-    public final PropertyInt RTG_TREE_CHANCE = addInt("RTG Tree from Vanilla Sapling Chance", "Saplings");
+    public final PropertyBool ENABLE_SAPLINGS = addBool("Enable RTG saplings", "Saplings");
+    public final PropertyInt RTG_TREE_CHANCE = addInt("RTG tree from vanilla sapling chance", "Saplings");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Scattered features
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyBool GENERATE_SCATTERED_FEATURES = addBool("Generate Scattered Features", "scattered features");
+    public final PropertyBool GENERATE_SCATTERED_FEATURES = addBool("Generate scattered features", "scattered features");
     public final PropertyInt MIN_DISTANCE_SCATTERED_FEATURES = addInt("Minimum distance between scattered features", "scattered features");
     public final PropertyInt MAX_DISTANCE_SCATTERED_FEATURES = addInt("Maximum distance between scattered features", "scattered features");
     
@@ -177,13 +187,13 @@ public class ConfigRTG extends ModConfig {
 	// Strongholds
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyBool GENERATE_STRONGHOLDS = addBool("Generate Strongholds", "strongholds");
+    public final PropertyBool GENERATE_STRONGHOLDS = addBool("Generate strongholds", "strongholds");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Snow
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyBool ENABLE_SNOW_LAYERS = addBool("Enable Snow Layers", "snow");
+    public final PropertyBool ENABLE_SNOW_LAYERS = addBool("Enable snow layers", "snow");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Terrain shadowing
@@ -196,19 +206,19 @@ public class ConfigRTG extends ModConfig {
 	// Trees
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyBool ALLOW_TREES_ON_SAND = addBool("Allow Trees to Generate on Sand", "trees");
-    public final PropertyBool ALLOW_SHRUBS_UNDERGROUND = addBool("Allow Shrubs to Generate Below Surface", "trees");
+    public final PropertyBool ALLOW_TREES_ON_SAND = addBool("Allow trees to generate on sand", "trees");
+    public final PropertyBool ALLOW_SHRUBS_UNDERGROUND = addBool("Allow shrubs to generate below the surface", "trees");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Villages
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-    public final PropertyBool GENERATE_VILLAGES = addBool("Generate Villages", "villages");
+    public final PropertyBool GENERATE_VILLAGES = addBool("Generate villages", "villages");
     public final PropertyBool ENABLE_VILLAGE_MODIFICATIONS = addBool("Enable village modifications", "villages");
     public final PropertyInt VILLAGE_SIZE = addInt("Size of villages", "villages");
     public final PropertyInt MIN_DISTANCE_VILLAGES = addInt("Minimum distance between villages", "villages");
     public final PropertyInt MAX_DISTANCE_VILLAGES = addInt("Maximum distance between villages", "villages");
-    public final PropertyBool VILLAGE_CRASH_FIX = addBool("Village Crash Fix", "villages");
+    public final PropertyBool VILLAGE_CRASH_FIX = addBool("Village crash fix", "villages");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Volcanoes
@@ -350,6 +360,24 @@ public class ConfigRTG extends ModConfig {
         );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    	// Emeralds
+    	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        
+        GENERATE_EMERALDS.setDefault(true).setComment(
+        	"Set to false to disable emerald generation in all vanilla biomes."
+        	+ NEW_LINE +
+        	"If you only want to prevent emeralds from generating in specific vanilla biomes,"
+        	+ NEW_LINE +
+        	"you can do so in the biome configs on a per-biome basis."
+        	+ NEW_LINE +
+        	"If you want to prevent emeralds from generating in mod biomes,"
+        	+ NEW_LINE +
+        	"you'll have to either disable them in the configs of the mod to which the emerald-generating biomes belong,"
+        	+ NEW_LINE +
+        	"or you'll have to use another mod to disable them."
+        );
+        
+    	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Flowing liquids
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -449,14 +477,25 @@ public class ConfigRTG extends ModConfig {
     	// Ore gen
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        GENERATE_ORES.setDefault(true).setComment("If false, RTG will not handle ore generation." + NEW_LINE + "This should probably be disabled if you're using another mod that handles ore generation.");
-        GENERATE_ORES_COAL.setDefault(true).setComment("");
-        GENERATE_ORES_IRON.setDefault(true).setComment("");
-        GENERATE_ORES_GOLD.setDefault(true).setComment("");
-        GENERATE_ORES_REDSTONE.setDefault(true).setComment("");
-        GENERATE_ORES_LAPIS.setDefault(true).setComment("");
-        GENERATE_ORES_DIAMOND.setDefault(true).setComment("");
-        GENERATE_ORES_EMERALD.setDefault(true).setComment("");
+        GENERATE_ORES.setDefault(true).setComment(
+        	"If false, RTG will not generate ores, even if individual ores have been enabled below."
+        	+ NEW_LINE +
+        	"This does not prevent emerald generation because emerald isn't technically an 'ore' according to Minecraft."
+        	+ NEW_LINE +
+        	"If you want to prevent emeralds from generating in your world, you'll have to use another mod to do it."
+        );
+        
+        GENERATE_ORES_DIRT.setDefault(true).setComment("If false, RTG will not generate dirt ore.");
+        GENERATE_ORES_GRAVEL.setDefault(true).setComment("If false, RTG will not generate gravel ore.");
+        GENERATE_ORES_GRANITE.setDefault(true).setComment("If false, RTG will not generate granite ore.");
+        GENERATE_ORES_DIORITE.setDefault(true).setComment("If false, RTG will not generate diorite ore.");
+        GENERATE_ORES_ANDESITE.setDefault(true).setComment("If false, RTG will not generate andesite ore.");
+        GENERATE_ORES_COAL.setDefault(true).setComment("If false, RTG will not generate coal ore.");
+        GENERATE_ORES_IRON.setDefault(true).setComment("If false, RTG will not generate iron ore.");
+        GENERATE_ORES_GOLD.setDefault(true).setComment("If false, RTG will not generate gold ore.");
+        GENERATE_ORES_DIAMOND.setDefault(true).setComment("If false, RTG will not generate diamond ore.");
+        GENERATE_ORES_REDSTONE.setDefault(true).setComment("If false, RTG will not generate redstone ore.");
+        GENERATE_ORES_LAPIS.setDefault(true).setComment("If false, RTG will not generate lapis lazuli ore.");
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Plateaus
@@ -464,23 +503,38 @@ public class ConfigRTG extends ModConfig {
         
         MESA_CLAY_COLOURS.setDefault("-1,-1,-1,1,1,1,0,-1,-1,6,1,1,8,0,-1,-1,14,-1,-1,6,1,1,4")
         	.setComment(getPlateauClayColourComment("Mesa biome variants (doesn't include Mesa Bryce)"));
+        
         MESA_BRYCE_CLAY_COLOURS.setDefault("-1,-1,0,1,0,0,0,14,0,8,0,1,8,0,-1,0,14,0,0,14,0,0,8")
         	.setComment(getPlateauClayColourComment("Mesa Bryce biome"));
+        
         SAVANNA_CLAY_COLOURS.setDefault("0,0,0,0,8,8,12,12,8,0,8,12,12,8,12,8,0,0,8,12,12")
         	.setComment(getPlateauClayColourComment("Savanna biome variants"));
-        STONE_SAVANNAS.setDefault(true)
-        	.setComment("If set to true, Savanna biome variants will mostly use stone/cobblestone instead of stained hardened clay for cliffs and plateaus."
-	            + NEW_LINE +
-	            "Savanna Plateau M will always use stained hardened clay."
-	            + NEW_LINE);
+        
+        STONE_SAVANNAS.setDefault(true).setComment(
+	    	"If set to true, Savanna biome variants will mostly use stone/cobblestone instead of stained hardened clay for cliffs and plateaus."
+            + NEW_LINE +
+            "Savanna Plateau M will always use stained hardened clay."
+	    );
 
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Ravines
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        ENABLE_RAVINE_MODIFICATIONS.setDefault(true);
-        ENABLE_RAVINES.setDefault(false);
-        RAVINE_FREQUENCY.setDefault(50);
+        ENABLE_RAVINE_MODIFICATIONS.setDefault(true).setDefault(true).setComment(
+        	"Must be set to true for the other ravine settings to have any effect."
+            + NEW_LINE +
+            "If false, RTG won't interfere with ravine generation at all."
+        );
+        
+        ENABLE_RAVINES.setDefault(false).setComment(
+        	"Set to false to disable ravine generation."
+        );
+        
+        RAVINE_FREQUENCY.setDefault(50).setRange(1, 200).setComment(
+        	"This setting controls the number of ravines that generate."
+        	+ NEW_LINE +
+            "LOWER values = MORE ravines & more lag. (50 = vanilla ravine frequency)"
+        );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Rivers
@@ -502,72 +556,132 @@ public class ConfigRTG extends ModConfig {
 			"RTG's custom trees can be grown only from the saplings that their leaves would drop naturally, and only in the biomes where they naturally generate."
 			+ NEW_LINE +
 			"For example, you can only grow a Swamp Willow in a Swamp biome, and only with an Oak sapling (because Swamp Willows have Oak leaves)."
-			+ NEW_LINE
         );
         
-        RTG_TREE_CHANCE.setDefault(2).setComment(
+        RTG_TREE_CHANCE.setDefault(2).setRange(1, Integer.MAX_VALUE).setComment(
         	"1/x chance that a vanilla sapling will grow one of RTG's custom trees."
 			+ NEW_LINE +
 			"1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
-			+ NEW_LINE
         );
 
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Scattered features
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        GENERATE_SCATTERED_FEATURES.setDefault(true);
-        MIN_DISTANCE_SCATTERED_FEATURES.setDefault(12);
-        MAX_DISTANCE_SCATTERED_FEATURES.setDefault(48);
+        GENERATE_SCATTERED_FEATURES.setDefault(true).setComment(
+        	"Set to false to disable scattered feature generation."
+        	+ NEW_LINE +
+        	"Scattered features include desert temples, jungle temples, and witch huts."
+        );
+        
+        MIN_DISTANCE_SCATTERED_FEATURES.setDefault(12).setRange(1, Integer.MAX_VALUE).setComment(
+        	"LOWER values = MORE scattered features & more lag (8 = Vanilla)"
+        );
+        
+        MAX_DISTANCE_SCATTERED_FEATURES.setDefault(48).setRange(1, Integer.MAX_VALUE).setComment(
+        	"LOWER values = MORE scattered features & more lag (32 = Vanilla)"
+        );
 
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Snow
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        ENABLE_SNOW_LAYERS.setDefault(true);
+        ENABLE_SNOW_LAYERS.setDefault(true).setComment(
+        	"Set to false to prevent most (but not all) snow layers from generating."
+        	+ NEW_LINE +
+        	"This applies to newly-generated chunks only. Snow layers will still appear in cold/snowy biomes after it snows."
+        );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Strongholds
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        GENERATE_STRONGHOLDS.setDefault(true);
+        GENERATE_STRONGHOLDS.setDefault(true).setComment(
+        	"Set to false to disable stronghold generation."
+        );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Terrain shadowing
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        SHADOW_STONE_BLOCK.setDefault(Blocks.STAINED_HARDENED_CLAY.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.CYAN));
-        SHADOW_DESERT_BLOCK.setDefault(Blocks.STAINED_HARDENED_CLAY.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.WHITE));
+        SHADOW_STONE_BLOCK.setDefault(Blocks.STAINED_HARDENED_CLAY.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.CYAN)).setComment(
+        	"The block to use for stone terrain shadowing, typically seen on the cliffs of stone mountains."
+        );
+        
+        SHADOW_DESERT_BLOCK.setDefault(Blocks.STAINED_HARDENED_CLAY.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.WHITE)).setComment(
+        	"The block to use for desert terrain shadowing, typically seen on the cliffs of desert mountains."
+        );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Trees
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        ALLOW_TREES_ON_SAND.setDefault(true);
-        ALLOW_SHRUBS_UNDERGROUND.setDefault(true);
+        ALLOW_TREES_ON_SAND.setDefault(true).setComment(
+            "Set to false to prevent trees from generating on sand."
+            + NEW_LINE +
+            "This setting only affects trees generated by RTG. Trees generated by a biome's decorator will adhere to their own generation rules."
+            + NEW_LINE +
+            "(RTG's beach palm trees ignore this setting.)"
+        );
+        
+        ALLOW_SHRUBS_UNDERGROUND.setDefault(true).setComment(
+	        "Set to false to prevent shrub trunks from generating below the surface."
+        );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Villages
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        GENERATE_VILLAGES.setDefault(true);
-        ENABLE_VILLAGE_MODIFICATIONS.setDefault(true);
-        VILLAGE_SIZE.setDefault(3);
-        MIN_DISTANCE_VILLAGES.setDefault(12);
-        MAX_DISTANCE_VILLAGES.setDefault(48);
-        VILLAGE_CRASH_FIX.setDefault(true);
+        ENABLE_VILLAGE_MODIFICATIONS.setDefault(true).setComment(
+            "Set to false to resolve issues with mods that also modify villages."
+            + NEW_LINE +
+            "If set to false, RTG will not interfere with village generation at all, and"
+            + NEW_LINE +
+            "the '" + MIN_DISTANCE_VILLAGES.getID() + "', '" + MAX_DISTANCE_VILLAGES.getID() + "' & '" + VILLAGE_SIZE.getID() + "' settings will have no effect."
+        );
+        
+        GENERATE_VILLAGES.setDefault(true).setComment(
+        	"Set to false to disable village generation."
+        );
+        
+        VILLAGE_SIZE.setDefault(3).setRange(0, 10).setComment(
+        	"Higher values = bigger villages (0 = Vanilla)"
+        );
+        
+        MIN_DISTANCE_VILLAGES.setDefault(12).setRange(1, Integer.MAX_VALUE).setComment(
+        	"Higher values = villages further apart (8 = Vanilla)"
+        );
+        
+        MAX_DISTANCE_VILLAGES.setDefault(48).setRange(1, Integer.MAX_VALUE).setComment(
+        	"Lower values = villages closer together (32 = Vanilla)"
+        );
+        
+        VILLAGE_CRASH_FIX.setDefault(true).setComment(
+            "Set to true to if you are experiencing 'java.util.ConcurrentModificationException' crashes related to village generation."
+        );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Volcanoes
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        ENABLE_VOLCANOES.setDefault(true);
-        ENABLE_VOLCANO_ERUPTIONS.setDefault(true);
-        VOLCANO_CHANCE.setDefault(36);
-        VOLCANO_BLOCK.setDefault(Blocks.OBSIDIAN.getDefaultState());
-        VOLCANO_BLOCK_MIX_1.setDefault(Blocks.COBBLESTONE.getDefaultState());
-        VOLCANO_BLOCK_MIX_2.setDefault(Blocks.GRAVEL.getDefaultState());
-        VOLCANO_BLOCK_MIX_3.setDefault(Blocks.COAL_BLOCK.getDefaultState());
+        ENABLE_VOLCANOES.setDefault(true).setComment(
+        	"Set to false to prevent volcanoes from generating."
+        );
+        
+        ENABLE_VOLCANO_ERUPTIONS.setDefault(true).setComment(
+        	"Set to false to prevent lava from flowing down the sides of volcanoes."
+        );
+        
+        VOLCANO_CHANCE.setDefault(36).setRange(1, Integer.MAX_VALUE).setComment(
+			"1/x chance that a volcano will generate in a biome that has volcanoes enabled."
+	        + NEW_LINE +
+	        "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+        );
+        
+        VOLCANO_BLOCK.setDefault(Blocks.OBSIDIAN.getDefaultState()).setComment("The main block to use for the surface of the volcano.");
+        VOLCANO_BLOCK_MIX_1.setDefault(Blocks.COBBLESTONE.getDefaultState()).setComment("The block ID of the 1st volcano mix block.");
+        VOLCANO_BLOCK_MIX_2.setDefault(Blocks.GRAVEL.getDefaultState()).setComment("The block ID of the 2nd volcano mix block.");
+        VOLCANO_BLOCK_MIX_3.setDefault(Blocks.COAL_BLOCK.getDefaultState()).setComment("The block ID of the 3rd volcano mix block.");
 
     }
     
@@ -596,8 +710,7 @@ public class ConfigRTG extends ModConfig {
 			+ NEW_LINE +
 			"0 = White; 1 = Orange; 2 = Magenta; 3 = Light Blue; 4 = Yellow; 5 = Lime; 6 = Pink; 7 = Gray"
 			+ NEW_LINE +
-			"8 = Light Gray; 9 = Cyan; 10 = Purple; 11 = Blue; 12 = Brown; 13 = Green; 14 = Red; 15 = Black"
-			+ NEW_LINE;
+			"8 = Light Gray; 9 = Cyan; 10 = Purple; 11 = Blue; 12 = Brown; 13 = Green; 14 = Red; 15 = Black";
 		
 		return comment;
 	}

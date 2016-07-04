@@ -52,7 +52,7 @@ public class ConfigRTG extends ModConfig {
 	// Debugging
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final PropertyBool SHOW_DEBUG_INFO = addBool("Show debug info in F3 screen", "debug");
+    public final PropertyBool SHOW_DEBUG_INFO = addBool("Show debug info on F3 screen", "debug");
     public final PropertyBool DEBUG_LOGGING = addBool("Enable debug logging", "debug");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -235,25 +235,51 @@ public class ConfigRTG extends ModConfig {
     	// Bedrock
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	
-        FLAT_BEDROCK_LAYERS.setDefault(0).setComment("0 = Normal bedrock (rough pattern);" + NEW_LINE + "1-5 = Number of flat bedrock layers to generate");
-        BEDROCK_BLOCK.setDefault(Blocks.BEDROCK.getDefaultState()).setComment("The block to use for the bottom of the Overworld.");
+        FLAT_BEDROCK_LAYERS.setDefault(0).setRange(0, 5).setComment(
+    		"0 = Normal bedrock (rough pattern);"
+    		+ NEW_LINE +
+    		"1-5 = Number of flat bedrock layers to generate."
+        );
+        
+        BEDROCK_BLOCK.setDefault(Blocks.BEDROCK.getDefaultState()).setComment(
+        	"The block to use for the bottom of the Overworld."
+        );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Biomes
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        ENABLE_RTG_BIOME_DECORATIONS.setDefault(true).setComment("If TRUE, uses the individual biome settings in the biome config files." + NEW_LINE + "If FALSE, disables all RTG decorations and uses biomes decorations instead.");
-        ENABLE_RTG_SURFACES.setDefault(true).setComment("If TRUE, uses the individual biome settings in the biome config files." + NEW_LINE + "If FALSE, disables all RTG surfaces and uses biomes surfaces instead.");
-        USE_BOP_LAYOUT.setDefault(false).setComment("If FALSE, RTG will use vanilla Minecraft's biome layout, even if BOP is installed. This means no BOP biomes.");
-        SURFACE_BLEED_RADIUS.setDefault(16).setRange(0, 32).setComment("The maximum number of blocks that surfaces can bleed into other biomes." + NEW_LINE +
-            	"Set to 0 to disable");
+        ENABLE_RTG_BIOME_DECORATIONS.setDefault(true).setComment(
+        	"If true, uses the individual biome settings in the biome config files."
+        	+ NEW_LINE +
+        	"If false, disables all RTG decorations and uses vanilla decorations instead."
+        );
+        
+        ENABLE_RTG_SURFACES.setDefault(true).setComment(
+        	"If true, uses the individual biome settings in the biome config files."
+        	+ NEW_LINE +
+        	"If false, disables all RTG surfaces and uses vanilla surfaces instead."
+        );
+        
+        USE_BOP_LAYOUT.setDefault(false).setComment(
+        	"If false, RTG will use the same biome layout that vanilla Minecraft uses, even if BOP is installed."
+        );
+        
+        SURFACE_BLEED_RADIUS.setDefault(16).setRange(0, 32).setComment(
+        	"The maximum number of blocks that surfaces can bleed into other biomes."
+        	+ NEW_LINE +
+            "Set to 0 to disable."
+        );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Boulders
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        ENABLE_COUBLESTONE_BOULDERS.setDefault(true);
-        COBBLESTONE_BOULDER_CHANCE.setDefault(1).setComment(
+        ENABLE_COUBLESTONE_BOULDERS.setDefault(true).setComment(
+        	"Set to false to prevent cobblestone boulders from generating."
+        );
+        
+        COBBLESTONE_BOULDER_CHANCE.setDefault(1).setRange(1, Integer.MAX_VALUE).setComment(
         	"1/x chance that Cobblestone Boulders will generate if given the opportunity to do so during world gen."
         	+ NEW_LINE +
         	"1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
@@ -263,98 +289,167 @@ public class ConfigRTG extends ModConfig {
     	// Caves
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        ENABLE_CAVE_MODIFICATIONS.setDefault(true).setComment("Must be set to TRUE for the other cave settings to have any effect." +
-                "If FALSE, RTG won't interfere with cave generation at all.");
-        ENABLE_CAVES.setDefault(true);
-        CAVE_DENSITY.setDefault(8).setRange(1, 40).setComment("This setting controls the size of caves." + NEW_LINE +
-                "HIGHER values = BIGGER caves & MORE lag. (14 = biomes cave density)");
-        CAVE_FREQUENCY.setDefault(16).setRange(1, 40).setComment("This setting controls the number of caves that generate." + NEW_LINE +
-                "LOWER values = MORE caves & MORE lag. (6 = biomes cave frequency)");
+        ENABLE_CAVE_MODIFICATIONS.setDefault(true).setComment(
+        	"Must be set to true for the other cave settings to have any effect."
+            + NEW_LINE +
+            "If false, RTG won't interfere with cave generation at all."
+        );
+        
+        ENABLE_CAVES.setDefault(true).setComment(
+        	"Set to false to disable cave generation."
+        	+ NEW_LINE +
+        	"For this setting to have any effect, \"" + ENABLE_CAVE_MODIFICATIONS.getID() + "\" must be set to true."
+        );
+        
+        CAVE_DENSITY.setDefault(7).setRange(1, 40).setComment(
+        	"This setting controls the size of caves."
+        	+ NEW_LINE +
+            "Higher values = bigger caves & more lag. (14 = vanilla cave density)"
+        );
+        
+        CAVE_FREQUENCY.setDefault(12).setRange(1, 40).setComment(
+        	"This setting controls the number of caves that generate."
+        	+ NEW_LINE +
+            "LOWER values = MORE caves & more lag. (6 = vanilla cave frequency)"
+        );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Debugging
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        SHOW_DEBUG_INFO.setDefault(false);
-        DEBUG_LOGGING.setDefault(false).setComment("WARNING: This should only be enabled if you know what you're doing.");
+        SHOW_DEBUG_INFO.setDefault(false).setComment(
+        	"Set to true to display helpful debug information on the F3 screen."
+        );
+        
+        DEBUG_LOGGING.setDefault(false).setComment(
+        	"Logs advanced debug information."
+        	+ NEW_LINE +
+        	"WARNING: This should only be enabled if you know what you're doing."
+        );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Dunes
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        DUNE_HEIGHT.setDefault(4).setRange(1, 12).setComment("This setting controls the height of both sand dunes and snow dunes.");
+        DUNE_HEIGHT.setDefault(4).setRange(1, 12).setComment(
+        	"This setting controls the height of both sand dunes and snow dunes."
+        );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Dungeons
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        GENERATE_DUNGEONS.setDefault(true);
-        DUNGEON_FREQUENCY.setDefault(8).setRange(1, 200).setComment("This setting controls the number of dungeons that generate." + NEW_LINE +
-                "HIGHER values = MORE dungeons & MORE lag. (8 = vanilla dungeon frequency)");
+        GENERATE_DUNGEONS.setDefault(true).setComment(
+        	"Set to false to disable dungeon generation."
+        );
+        
+        DUNGEON_FREQUENCY.setDefault(8).setRange(1, 200).setComment(
+        	"This setting controls the number of dungeons that generate."
+        	+ NEW_LINE +
+            "Higher values = more dungeons & more lag. (8 = vanilla dungeon frequency)"
+        );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Flowing liquids
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        FLOWING_LAVA_CHANCE.setDefault(200).setComment(
+        FLOWING_LAVA_CHANCE.setDefault(200).setRange(0, Integer.MAX_VALUE).setComment(
         	"1/x chance that a lava stream will generate on the side of a hill or mountain."
         	+ NEW_LINE +
-        	"1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+        	"0 = Never generate; 1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
         );
         
-        FLOWING_WATER_CHANCE.setDefault(200).setComment(
+        FLOWING_WATER_CHANCE.setDefault(200).setRange(0, Integer.MAX_VALUE).setComment(
         	"1/x chance that a water stream will generate on the side of a hill or mountain."
         	+ NEW_LINE +
-        	"1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+        	"0 = Never generate; 1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
         );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Lakes (Scenic)
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        SCENIC_LAKE_SIZE_MULTIPLIER.setDefault(1).setRange(0, 10).setComment("Defaults to 1 (standard size)");
-        SCENIC_LAKE_FREQUENCY_MULTIPLIER.setDefault(1).setRange(0, 10).setComment("Defaults to 1 (standard frequency)");
-        SCENIC_LAKE_BENDINESS_MULTIPLIER.setDefault(1).setRange(0, 2).setComment("Makes scenic lake shores bend and curve more. Defaults to 1");
-        SCENIC_LAKE_BIOME.setDefault(7).setRange(0, 254).setComment("Biome ID for scenic lakes when not frozen (default 7 = River)");
-        SCENIC_LAKE_FROZEN_BIOME.setDefault(11).setRange(0, 254).setComment("Biome ID for scenic lakes when frozen (default 11 = Frozen River)");
+        SCENIC_LAKE_SIZE_MULTIPLIER.setDefault(1f).setRange(0f, 10f).setComment(
+        	"Higher values = bigger lakes; 1 = normal size"
+        );
+        
+        SCENIC_LAKE_FREQUENCY_MULTIPLIER.setDefault(1f).setRange(0f, 10f).setComment(
+        	"Higher values = more lakes; 1 = normal frequency"
+        );
+        
+        SCENIC_LAKE_BENDINESS_MULTIPLIER.setDefault(1f).setRange(0f, 2f).setComment(
+        	"Higher values make scenic lakes bend and curve more; Lower values produce smoother, rounder lakes."
+        );
+        
+        SCENIC_LAKE_BIOME.setDefault(7).setRange(0, 254).setComment(
+        	"Biome ID to use for scenic lakes when not frozen; Defaults to the vanilla River biome (7)"
+        );
+        
+        SCENIC_LAKE_FROZEN_BIOME.setDefault(11).setRange(0, 254).setComment(
+        	"Biome ID to use for scenic lakes when frozen; Defaults to the vanilla Frozen River biome (11)"
+        );
 
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Lakes (Surface)
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        ENABLE_SURFACE_WATER_LAKES.setDefault(true);
-        SURFACE_WATER_LAKE_CHANCE.setDefault(10).setRange(1, 100).setComment("1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
+        ENABLE_SURFACE_WATER_LAKES.setDefault(true).setComment(
+        	"Set to false to disable water ponds on the surface."
+        );
         
-        ENABLE_SURFACE_LAVA_LAKES.setDefault(true);
-        SURFACE_LAVA_LAKE_CHANCE.setDefault(10).setRange(1, 100).setComment("1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
+        SURFACE_WATER_LAKE_CHANCE.setDefault(10).setRange(0, Integer.MAX_VALUE).setComment(
+        	"0 = Never generate; 1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+        );
+        
+        ENABLE_SURFACE_LAVA_LAKES.setDefault(true).setComment(
+        	"Set to false to disable lava ponds on the surface."
+        );
+        
+        SURFACE_LAVA_LAKE_CHANCE.setDefault(10).setRange(0, Integer.MAX_VALUE).setComment(
+        	"0 = Never generate; 1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+        );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Lakes (Underground)
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        ENABLE_UNDERGROUND_WATER_LAKES.setDefault(true);
-        UNDERGROUND_WATER_LAKE_CHANCE.setDefault(10).setRange(1, 100).setComment("1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance");
+        ENABLE_UNDERGROUND_WATER_LAKES.setDefault(true).setComment(
+        	"Set to false to disable underground water ponds."
+        );
         
-        ENABLE_UNDERGROUND_LAVA_LAKES.setDefault(true);
-        UNDERGROUND_LAVA_LAKE_CHANCE.setDefault(10);
+        UNDERGROUND_WATER_LAKE_CHANCE.setDefault(10).setRange(0, Integer.MAX_VALUE).setComment(
+        	"0 = Never generate; 1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+        );
+        
+        ENABLE_UNDERGROUND_LAVA_LAKES.setDefault(true).setComment(
+        	"Set to false to disable underground lava ponds."
+        );
+        
+        UNDERGROUND_LAVA_LAKE_CHANCE.setDefault(10).setRange(0, Integer.MAX_VALUE).setComment(
+        	"0 = Never generate; 1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+        );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Mineshafts
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        GENERATE_MINESHAFTS.setDefault(true);
+        GENERATE_MINESHAFTS.setDefault(true).setComment(
+        	"Set to false to disable mineshaft generation."
+        );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Ocean monuments
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        GENERATE_OCEAN_MONUMENTS.setDefault(true);
+        GENERATE_OCEAN_MONUMENTS.setDefault(true).setComment(
+        	"Set to false to disable ocean monument generation."
+        );
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Ore gen
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        GENERATE_ORES.setDefault(true).setComment("If FALSE, RTG will not handle ore generation." + NEW_LINE + "This should probably be disabled if you're using another mod that handles ore generation.");
+        GENERATE_ORES.setDefault(true).setComment("If false, RTG will not handle ore generation." + NEW_LINE + "This should probably be disabled if you're using another mod that handles ore generation.");
         GENERATE_ORES_COAL.setDefault(true).setComment("");
         GENERATE_ORES_IRON.setDefault(true).setComment("");
         GENERATE_ORES_GOLD.setDefault(true).setComment("");
@@ -374,7 +469,7 @@ public class ConfigRTG extends ModConfig {
         SAVANNA_CLAY_COLOURS.setDefault("0,0,0,0,8,8,12,12,8,0,8,12,12,8,12,8,0,0,8,12,12")
         	.setComment(getPlateauClayColourComment("Savanna biome variants"));
         STONE_SAVANNAS.setDefault(true)
-        	.setComment("If set to TRUE, Savanna biome variants will mostly use stone/cobblestone instead of stained hardened clay for cliffs and plateaus."
+        	.setComment("If set to true, Savanna biome variants will mostly use stone/cobblestone instead of stained hardened clay for cliffs and plateaus."
 	            + NEW_LINE +
 	            "Savanna Plateau M will always use stained hardened clay."
 	            + NEW_LINE);
@@ -402,7 +497,7 @@ public class ConfigRTG extends ModConfig {
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
         ENABLE_SAPLINGS.setDefault(true).setComment(
-			"Set this to TRUE to allow RTG's custom trees to grow from vanilla saplings."
+			"Set this to true to allow RTG's custom trees to grow from vanilla saplings."
 			+ NEW_LINE +
 			"RTG's custom trees can be grown only from the saplings that their leaves would drop naturally, and only in the biomes where they naturally generate."
 			+ NEW_LINE +

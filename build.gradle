@@ -71,6 +71,14 @@ processResources {
 	from(sourceSets.main.resources.srcDirs) {exclude 'mcmod.info'}
 }
 
+// Run runClient and runServer with the -DDEBUG option to start them with a debug session
+allprojects {
+    tasks.withType(JavaExec) {
+        if (System.getProperty('DEBUG', 'false') == 'true') {
+            jvmArgs '-agentlib:jdwp=transport=dt_socket,address=localhost:5005,server=y,suspend=y'
+        }
+    }
+}
 
 runClient {
     jvmArgs "-Xmx4G", "-Xms4G"

@@ -161,14 +161,7 @@ public class RealisticBiomeGenerator {
     
     public void populatePostDecorate(IChunkGenerator iChunkGenerator, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag)
     {
-        /**
-         * Has emerald gen been disabled in the configs?
-         * If so, check to see if this biome generated emeralds & remove them if necessary.
-         */
-        if (!Mods.RTG.config.GENERATE_ORES_EMERALD.get() && (this.realistic.getConfig().GENERATE_EMERALDS.get())) {
-            // TODO: Remove emeralds
-        	//rRemoveEmeralds(worldObj, rand, chunkX, chunkZ);
-        }
+
     }
 
     /**

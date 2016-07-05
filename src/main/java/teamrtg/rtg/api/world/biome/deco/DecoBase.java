@@ -45,7 +45,6 @@ public abstract class DecoBase {
 
     /**
      * Performs pre-generation checks to determine if the deco is allowed to generate.
-     * The parameters are virtually the same as the ones passed to the legacy rDecorate() method.
      * This method should NOT be overridden in the individual deco objects.
      * @param rand
      * @param chunkX
@@ -66,7 +65,6 @@ public abstract class DecoBase {
 
     /**
      * Generates the decoration.
-     * The parameters are virtually the same as the ones passed to the legacy rDecorate() method.
      * This method should be overridden in the individual deco objects.
      * @param rtgWorld
      * @param rand

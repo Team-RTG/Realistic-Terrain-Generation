@@ -165,8 +165,8 @@ public class RealisticBiomeGenerator {
     }
 
     /**
-     * When manually decorating biomes by overriding rDecorate(), sometimes you want the biome
-     * to partially decorate itself. That's what this method does... it calls the biome's decorate() method.
+     * When realistically decorating biomes, sometimes you want the biome to partially decorate itself.
+     * That's what this method does... it calls the biome's decorate() method.
      */
     public void decorateBaseBiome(RTGWorld rtgWorld, int chunkX, int chunkY, float strength, float river) {
         if (strength > 0.3f) {
@@ -176,13 +176,8 @@ public class RealisticBiomeGenerator {
         }
     }
 
-    // lake calculations
-
     /**
-     * This method should be called if both of the following conditions are true:
-     * <p/>
-     * 1) You are manually decorating a biome by overrding rDecorate().
-     * 2) You are NOT calling decorateBaseBiome() within rDecorate().
+     * This method generates ores in realistically-decorated biomes.
      */
     public void generateOres(RTGWorld rtgWorld, BlockPos blockPos, float strength, float river) {
         Biome seedBiome = this.realistic.getBiome();
@@ -301,7 +296,7 @@ public class RealisticBiomeGenerator {
         }
     }
 
-    public void decorate(RTGWorld rtgWorld, Random rand, int chunkY, int chunkX, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void rDecorate(RTGWorld rtgWorld, Random rand, int chunkY, int chunkX, float strength, float river, boolean hasPlacedVillageBlocks) {
         boolean baseDecorated = false;
         ArrayList<DecoBase> decos = this.realistic.getDecos();
         for (int i = decos.size() - 1; i >= 0; i--) {

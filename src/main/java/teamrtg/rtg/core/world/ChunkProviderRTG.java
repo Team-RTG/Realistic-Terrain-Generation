@@ -440,12 +440,12 @@ public class ChunkProviderRTG implements IChunkGenerator {
                  * TODO: Is there a more efficient way to do this? - Pink
                  */
                 if (Mods.RTG.config.ENABLE_RTG_BIOME_DECORATIONS.get() && realisticBiome.getConfig().USE_RTG_DECORATIONS.get()) {
-                    RealisticBiomeGenerator.forBiome(realisticBiome.getBiome()).decorate(rtgWorld, rand, worldX, worldZ, borderNoise[bn], river, hasPlacedVillageBlocks);
+                    RealisticBiomeGenerator.forBiome(realisticBiome.getBiome()).rDecorate(rtgWorld, rand, worldX, worldZ, borderNoise[bn], river, hasPlacedVillageBlocks);
                 } else {
                     try {
                         realisticBiome.getBiome().decorate(this.world, rand, worldCoords);
                     } catch (Exception e) {
-                        RealisticBiomeGenerator.forBiome(realisticBiome.getBiome()).decorate(rtgWorld, rand, worldX, worldZ, borderNoise[bn], river, hasPlacedVillageBlocks);
+                        RealisticBiomeGenerator.forBiome(realisticBiome.getBiome()).rDecorate(rtgWorld, rand, worldX, worldZ, borderNoise[bn], river, hasPlacedVillageBlocks);
                     }
                 }
 

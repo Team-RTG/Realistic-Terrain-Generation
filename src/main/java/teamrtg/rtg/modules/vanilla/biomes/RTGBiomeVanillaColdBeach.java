@@ -5,7 +5,12 @@ import net.minecraft.init.Blocks;
 import teamrtg.rtg.api.tools.deco.DecoBoulder;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
-import teamrtg.rtg.api.world.biome.surface.part.*;
+import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.api.world.biome.surface.part.DepthSelector;
+import teamrtg.rtg.api.world.biome.surface.part.HeightSelector;
+import teamrtg.rtg.api.world.biome.surface.part.Selector;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaColdBeach extends RTGBiomeVanilla {
@@ -52,12 +57,12 @@ public class RTGBiomeVanillaColdBeach extends RTGBiomeVanilla {
 
     @Override
     public void initDecos() {
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE;
-        decoBoulder.chance = 16;
-        decoBoulder.maxY = 95;
-        decoBoulder.strengthFactor = 3f;
-        this.addDeco(decoBoulder);
+		DecoBoulder decoBoulder = new DecoBoulder();
+		decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+		decoBoulder.chance = 16;
+		decoBoulder.maxY = 95;
+		decoBoulder.strengthFactor = 3f;
+		this.addDeco(decoBoulder);
     }
 
     @Override

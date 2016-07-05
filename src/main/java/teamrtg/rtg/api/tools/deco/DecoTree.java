@@ -1,420 +1,247 @@
 package teamrtg.rtg.api.tools.deco;
 
-import net.minecraft.block.Block;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
+
+import java.util.Random;
+
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.gen.feature.WorldGenMegaJungle;
-import net.minecraft.world.gen.feature.WorldGenShrub;
-import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import teamrtg.rtg.api.tools.feature.tree.*;
+import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTG;
+import teamrtg.rtg.api.util.WorldUtil;
+import teamrtg.rtg.api.util.WorldUtil.SurroundCheckType;
 import teamrtg.rtg.api.util.math.RandomUtil;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;
 import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
 
-import java.util.Random;
-
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
-
 /**
+ * 
  * @author WhichOnesPink
+ *
  */
-public class DecoTree extends DecoBase {
+public class DecoTree extends DecoBase
+{
 
-    public int loops;
-    public float strengthFactorForLoops; // If set, this overrides and dynamically calculates 'loops' based on the strength parameter.
-    public boolean strengthNoiseFactorForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * strength)
-    public boolean strengthNoiseFactorXForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * X * strength)
-    public TreeType treeType; // Enum for the various tree presets.
-    public DecoTree.Distribution distribution; // Parameter object for noise calculations.
-    public TreeCondition treeCondition; // Enum for the various conditions/chances for tree gen.
-    public float treeConditionNoise; // Only applies to a noise-related TreeCondition.
-    public int treeConditionChance; // Only applies to a chance-related TreeCondition.
-    public int minY; // Lower height restriction.
-    public int maxY; // Upper height restriction.
-    public Block logBlock;
-    public byte logMeta;
-    public Block leavesBlock;
-    public byte leavesMeta;
-    public int minSize; // Min tree height (only used with certain tree presets)
-    public int maxSize; // Max tree height (only used with certain tree presets)
-
-    public DecoTree() {
-        super();
-
-        /**
-         * Default values.
-         * These can be overridden when configuring the Deco object in the realistic biome.
-         */
-        this.loops = 1;
-        this.strengthFactorForLoops = 0f;
-        this.strengthNoiseFactorForLoops = false;
-        this.strengthNoiseFactorXForLoops = false;
-        this.treeType = TreeType.MEGA_JUNGLE_MANGROVE;
-        this.distribution = new DecoTree.Distribution(100f, 5f, 0.8f);
-        this.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        this.treeConditionNoise = 0f;
-        this.treeConditionChance = 1;
-        this.minY = 1; // No lower height limit by default.
-        this.maxY = 255; // No upper height limit by default.
-        this.logBlock = Blocks.LOG;
-        this.logMeta = (byte) 0;
-        this.leavesBlock = Blocks.LEAVES;
-        this.leavesMeta = (byte) -1;
-        this.minSize = 2;
-        this.maxSize = 4;
-
-        this.addDecoTypes(DecoType.TREE);
-    }
-
-    @Override
-    public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator mapGenGenerator) {
-        if (this.allowed) {
-
-            if (TerrainGen.decorate(rtgWorld.world, rand, new BlockPos(chunkX, 1, chunkY), TREE)) {
-
-                float noise = rtgWorld.simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkY / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
+	public int loops;
+	public float strengthFactorForLoops; // If set, this overrides and dynamically calculates 'loops' based on the strength parameter.
+	public boolean strengthNoiseFactorForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * strength)
+	public boolean strengthNoiseFactorXForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * X * strength)
+	public TreeType treeType; // Enum for the various tree presets.
+	public TreeRTG tree;
+	public WorldGenerator worldGen;
+	public DecoTree.Distribution distribution; // Parameter object for noise calculations.
+	public TreeCondition treeCondition; // Enum for the various conditions/chances for tree gen.
+	public float treeConditionNoise; // Only applies to a noise-related TreeCondition.
+	public int treeConditionChance; // Only applies to a chance-related TreeCondition.
+	public float treeConditionFloat; // Multi-purpose float.
+	public int minY; // Lower height restriction.
+	public int maxY; // Upper height restriction.
+	public IBlockState logBlock;
+	public IBlockState leavesBlock;
+	public int minSize; // Min tree height (only used with certain tree presets)
+	public int maxSize; // Max tree height (only used with certain tree presets)
+	public int minTrunkSize; // Min tree height (only used with certain tree presets)
+	public int maxTrunkSize; // Max tree height (only used with certain tree presets)
+	public int minCrownSize; // Min tree height (only used with certain tree presets)
+	public int maxCrownSize; // Max tree height (only used with certain tree presets)
+	public boolean noLeaves;
+	
+	public DecoTree()
+	{
+		super();
+		
+		/**
+		 * Default values.
+		 * These can be overridden when configuring the Deco object in the realistic biome.
+		 */
+		this.loops = 1;
+		this.strengthFactorForLoops = 0f;
+		this.strengthNoiseFactorForLoops = false;
+		this.strengthNoiseFactorXForLoops = false;
+		this.treeType = TreeType.RTG_TREE;
+		this.tree = null;
+		this.worldGen = null;
+		this.distribution = new DecoTree.Distribution(100f, 5f, 0.8f);
+		this.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		this.treeConditionNoise = 0f;
+		this.treeConditionFloat = 0f;
+		this.treeConditionChance = 1;
+		this.minY = 62; // No underwater trees by default.
+		this.maxY = 230; // Sensible upper height limit by default.
+		this.logBlock = Blocks.LOG.getDefaultState();
+		this.leavesBlock = Blocks.LEAVES.getDefaultState();
+		this.minSize = 2;
+		this.maxSize = 4;
+		this.minTrunkSize = 2;
+		this.maxTrunkSize = 4;
+		this.minCrownSize = 2;
+		this.maxCrownSize = 4;
+		this.noLeaves = false;
+		
+		this.addDecoTypes(DecoType.TREE);
+	}
+	
+	public DecoTree(DecoTree source) {
+		this();
+		this.loops = source.loops;
+		this.strengthFactorForLoops = source.strengthFactorForLoops;
+		this.strengthNoiseFactorForLoops = source.strengthNoiseFactorForLoops;
+		this.strengthNoiseFactorXForLoops = source.strengthNoiseFactorXForLoops;
+		this.treeType = source.treeType;
+		this.tree = source.tree;
+		this.distribution = source.distribution;
+		this.treeCondition = source.treeCondition;
+		this.treeConditionNoise = source.treeConditionNoise;
+		this.treeConditionChance = source.treeConditionChance;
+		this.minY = source.minY;
+		this.maxY = source.maxY;
+		this.logBlock = source.logBlock;
+		this.leavesBlock = source.leavesBlock;
+		this.minSize = source.minSize;
+		this.maxSize = source.maxSize;
+		this.minTrunkSize = source.minTrunkSize;
+		this.maxTrunkSize = source.maxTrunkSize;
+		this.minCrownSize = source.minCrownSize;
+		this.maxCrownSize = source.maxCrownSize;
+		this.noLeaves = source.noLeaves;
+	}
+	
+	public DecoTree(TreeRTG tree)
+	{
+		this();
+		this.tree = tree;
+		this.logBlock = tree.logBlock;
+		this.leavesBlock = tree.leavesBlock;
+		this.minTrunkSize = tree.minTrunkSize;
+		this.maxTrunkSize = tree.maxTrunkSize;
+		this.minCrownSize = tree.minCrownSize;
+		this.maxCrownSize = tree.maxCrownSize;
+		this.noLeaves = tree.noLeaves;
+	}
+	
+	public DecoTree(WorldGenerator worldGen)
+	{
+		this();
+		this.worldGen = worldGen;
+	}
+    
+	@Override
+	public void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator realisticBiomeGenerator, boolean hasPlacedVillageBlocks)
+	{
+		if (this.allowed) {
+			
+			if (TerrainGen.decorate(rtgWorld.world, rand, new BlockPos(chunkX, 0, chunkY), TREE)) {
+				
+				WorldUtil worldUtil = new WorldUtil(rtgWorld);
+				float noise = rtgWorld.simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkY / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
 
                 int loopCount = this.loops;
-                loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : loopCount;
-                loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;
-                loopCount = (this.strengthNoiseFactorXForLoops) ? (int) (noise * this.strengthFactorForLoops * strength) : loopCount;
-                for (int i = 0; i < loopCount; i++) {
-                    int intX = chunkX + rand.nextInt(16) + 8;
-                    int intZ = chunkY + rand.nextInt(16) + 8;
-                    int intY = rtgWorld.world.getHeight(new BlockPos(intX, 1, intZ)).getY();
+                loopCount = (this.strengthFactorForLoops > 0f) ? (int)(this.strengthFactorForLoops * strength) : loopCount;
+                loopCount = (this.strengthNoiseFactorForLoops) ? (int)(noise * strength) : loopCount;
+                loopCount = (this.strengthNoiseFactorXForLoops) ? (int)(noise * this.strengthFactorForLoops * strength) : loopCount;
+	            for (int i = 0; i < loopCount; i++)
+	            {
+	                int intX = chunkX + rand.nextInt(16);// + 8;
+	                int intZ = chunkY + rand.nextInt(16);// + 8;
+	                int intY = rtgWorld.world.getHeight(new BlockPos(intX, 0, intZ)).getY();
+	                
+	                if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
+	                
+		                // If we're in a village, check to make sure the tree has extra room to grow to avoid corrupting the village.
+		                if (hasPlacedVillageBlocks) {
+			                if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), 2, SurroundCheckType.CARDINAL, rand, intX, intY, intZ)) {
+			                	return;
+			                }
+		                }
+		                
+		            	switch (this.treeType)
+		            	{
+			            		
+			            	case RTG_TREE:
 
-                    switch (this.treeType) {
+		            			this.tree.setLogBlock(this.logBlock);
+	            				this.tree.setLeavesBlock(this.leavesBlock);
+	            				this.tree.setTrunkSize(RandomUtil.getRandomInt(rand, this.minTrunkSize, this.maxTrunkSize));
+	            				this.tree.setCrownSize(RandomUtil.getRandomInt(rand, this.minCrownSize, this.maxCrownSize));
+	            				this.tree.setNoLeaves(this.noLeaves);
+		                        this.tree.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
+			            		
+			            		break;
+			            		
+	                        case WORLDGEN:
 
-                        case BIG_PINES:
-
-                            if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-
-                                if (rand.nextBoolean()) {
-                                    WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 1, 1);
-                                    worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                                } else {
-                                    WorldGenerator worldgenerator = new WorldGenTreeRTGPineBig(11 + rand.nextInt(11), 15 + rand.nextInt(15), 0, 0);
-                                    worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                                }
-                            }
-
-                            break;
-
-                        case BIRCH_TREES_FOREST:
-
-                            if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-
-                                WorldGenerator worldgenerator =
-                                        rand.nextInt(4) != 0
-                                                ? new WorldGenTreeRTGBirch(4 + rand.nextInt(7), 8 + rand.nextInt(12))
-                                                : rand.nextInt(10) != 0
-                                                ? new WorldGenTreeRTGTrees(false)
-                                                : new WorldGenTrees(false);
+                                WorldGenerator worldgenerator = this.worldGen;
                                 worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                            }
-
-                            break;
-
-                        case DESERT_RIVER:
-
-                            if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-
-                                WorldGenerator worldgenerator = rand.nextInt(4) != 0 ? new WorldGenShrub(Blocks.LOG.getStateFromMeta(0), Blocks.LEAVES.getStateFromMeta(0)) : new WorldGenTreeRTGSavanna(1);
-                                worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                            }
-
-                            break;
-
-                        case MEGA_JUNGLE:
-
-                            if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-
-                                if (this.maxSize > this.minSize) {
-                                    WorldGenerator worldgenerator = new WorldGenMegaJungle(false, this.minSize + rand.nextInt(this.maxSize - this.minSize), 0, Blocks.LOG.getStateFromMeta(3), Blocks.LEAVES.getStateFromMeta(3));
-                                    worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                                } else if (this.maxSize == this.minSize) {
-                                    WorldGenerator worldgenerator = new WorldGenMegaJungle(false, this.minSize, 0, Blocks.LOG.getStateFromMeta(3), Blocks.LEAVES.getStateFromMeta(3));
-                                    worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                                }
-                            }
-
-                            break;
-
-                        case MANGROVE:
-
-                            if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-
-                                if (this.maxSize > this.minSize) {
-                                    WorldGenerator worldgenerator = new WorldGenTreeRTGMangrove(
-                                            Blocks.LOG2, 1, Blocks.LEAVES2, 1, this.minSize + rand.nextInt(this.maxSize - this.minSize), 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
-                                    );
-                                    worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                                } else if (this.maxSize == this.minSize) {
-                                    WorldGenerator worldgenerator = new WorldGenTreeRTGMangrove(
-                                            Blocks.LOG2, 1, Blocks.LEAVES2, 1, this.minSize, 3 + rand.nextInt(2), 13f, 3, 0.32f, 0.1f
-                                    );
-                                    worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                                }
-                            }
-
-                            break;
-
-                        case MEGA_JUNGLE_MANGROVE:
-
-                            if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-
-                                WorldGenerator worldgenerator =
-                                        rand.nextInt(3) != 0
-                                                ? new WorldGenMegaJungle(false, 10 + rand.nextInt(18), 20, Blocks.LOG.getStateFromMeta(3), Blocks.LEAVES.getStateFromMeta(3))
-                                                : new WorldGenTreeRTGMangrove(Blocks.LOG, 3, Blocks.LEAVES, 3, 10 + rand.nextInt(18), 3 + rand.nextInt(2), 13f, RandomUtil.getRandomInt(rand, 4, 5),
-                                                0.32f,
-                                                0.2f);
-                                worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                            }
-
-                            break;
-
-                        case MEGA_TAIGA:
-
-                            if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-
-                                WorldGenerator worldgenerator =
-                                        rand.nextInt(4) == 0
-                                                ? new WorldGenTreeRTGSpruceSmall(1 + rand.nextInt(2))
-                                                : rand.nextInt(6) == 0
-                                                ? new WorldGenTreeRTGPineSmall(1 + rand.nextInt(3), 4 + rand.nextInt(4))
-                                                : new WorldGenTreeRTGSprucePineBig(4 + rand.nextInt(6), 12 + rand.nextInt(10));
-                                worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                            }
-
-                            break;
-
-                        case PALM_CUSTOM:
-
-                            if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-
-                                if (this.maxSize > this.minSize) {
-                                    WorldGenerator worldgenerator = new WorldGenTreeRTGPalmCustom((float) (this.minSize + rand.nextInt(this.maxSize - this.minSize)));
-                                    worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                                } else if (this.maxSize == this.minSize) {
-                                    WorldGenerator worldgenerator = new WorldGenTreeRTGPalmCustom((float) (this.minSize));
-                                    worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                                }
-                            }
-
-                            break;
-
-                        case PINE_EURO:
-
-                            if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-
-                                WorldGenerator worldgenerator = new WorldGenTreeRTGPineEuro();
-                                worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                            }
-
-                            break;
-
-                        case SMALL_BIRCH:
-
-                            if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-
-                                WorldGenerator worldgenerator = new WorldGenTreeRTGBirchSmall(4 + rand.nextInt(7), 8 + rand.nextInt(12), 2);
-                                worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                            }
-
-                            break;
-
-                        case SAVANNA:
-
-                            if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-
-                                if (rand.nextInt(9) == 0) {
-                                    WorldGenerator worldgenerator = new WorldGenShrub(Blocks.LOG.getStateFromMeta(0), Blocks.LEAVES.getStateFromMeta(0));
-                                    worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                                }
-
-                                if (rand.nextInt(9) == 0) {
-                                    WorldGenerator worldgenerator = new WorldGenTreeRTGSavanna(1);
-                                    worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                                }
-
-                                if (rand.nextInt(9) == 0) {
-                                    WorldGenerator worldgenerator = new WorldGenTreeRTGSavanna(2);
-                                    worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                                }
-                            }
-
-                            break;
-
-                        case SAVANNA_RIVER:
-
-                            if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-
-                                WorldGenerator worldgenerator =
-                                        rand.nextInt(3) != 0 ? new WorldGenShrub(Blocks.LOG.getStateFromMeta(0), Blocks.LEAVES.getStateFromMeta(0)) : rand.nextInt(9) == 0 ? new WorldGenTreeRTGSavanna(1)
-                                                : new WorldGenTreeRTGSavanna(2);
-                                worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                            }
-
-                            break;
-
-                        case SMALL_PINES_TREES_FORESTS:
-
-                            if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-
-                                WorldGenerator worldgenerator =
-                                        rand.nextInt(4) != 0
-                                                ? new WorldGenTreeRTGPineSmall(4 + rand.nextInt(7), 6 + rand.nextInt(9), 0)
-                                                : rand.nextInt(10) != 0
-                                                ? new WorldGenTreeRTGTrees(false)
-                                                : new WorldGenTrees(false);
-                                worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                            }
-
-                            break;
-
-                        case SUPER_TALL_BIRCH:
-
-                            if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-
-                                WorldGenerator worldgenerator = new WorldGenTreeRTGBirch(16 + rand.nextInt(8), rand.nextInt(8) + 4);
-                                worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                            }
-
-                            break;
-
-                        case TAIGA:
-
-                            if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-
-                                WorldGenerator worldgenerator =
-                                        rand.nextInt(4) == 0
-                                                ? new WorldGenTreeRTGSpruceSmall(1 + rand.nextInt(2))
-                                                : rand.nextInt(6) == 0
-                                                ? new WorldGenTreeRTGPineSmall(1 + rand.nextInt(3), 4 + rand.nextInt(4))
-                                                : new WorldGenTreeRTGPineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
-                                worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                            }
-
-                            break;
-
-                        case VANILLA_BEACH_PALM:
-
-                            if (intY <= this.maxY && intY >= this.minY && (rand.nextInt((int) (4f / strength)) == 0)) {
-
-                                WorldGenerator worldgenerator = new WorldGenTreeRTGPalm();
-                                worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                            }
-
-                            break;
-
-                        case VANILLA_COLD_TAIGA:
-
-                            if (intY <= this.maxY && intY >= this.minY && (rand.nextInt((int) (4f / strength)) == 0)) {
-
-                                WorldGenerator worldgenerator =
-                                        rand.nextInt(4) == 0 ? new WorldGenTreeRTGSpruceSmall(1 + rand.nextInt(2)) : rand.nextInt(6) == 0 ? new WorldGenTreeRTGPineSmall(
-                                                1 + rand.nextInt(3), 4 + rand.nextInt(4)) : new WorldGenTreeRTGPineSmall(4 + rand.nextInt(6), 5 + rand.nextInt(10));
-
-                                worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                            }
-
-                            break;
-
-                        case VANILLA_OAK:
-
-                            if (intY <= this.maxY && intY >= this.minY && (rand.nextInt((int) (4f / strength)) == 0)) {
-                                WorldGenerator worldgenerator = new WorldGenTreeRTGTrees(false);
-                                worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                            }
-
-                            break;
-
-                        case WILLOW:
-
-                            if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand)) {
-
-                                WorldGenerator worldgenerator = new WorldGenTreeRTGWillow();
-                                worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
-                            }
-
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
-            }
-        }
-    }
-
-    public boolean isValidTreeCondition(float noise, Random rand) {
-        switch (this.treeCondition) {
-            case NOISE_GREATER_AND_RANDOM_CHANCE:
-
-                return (noise > this.treeConditionNoise && rand.nextInt(this.treeConditionChance) == 0);
-
-            case RANDOM_CHANCE:
-
-                return rand.nextInt(this.treeConditionChance) == 0;
-
-            case ALWAYS_GENERATE:
-
-                return true;
-
-            default:
-
-                return false;
-        }
-    }
-
-    public enum TreeType {
-        BIG_PINES,
-        BIRCH_TREES_FOREST,
-        DESERT_RIVER,
-        MANGROVE,
-        MEGA_JUNGLE,
-        MEGA_JUNGLE_MANGROVE,
-        MEGA_TAIGA,
-        PALM_CUSTOM,
-        PINE_EURO,
-        SAVANNA,
-        SAVANNA_RIVER,
-        SMALL_BIRCH,
-        SMALL_PINES_TREES_FORESTS,
-        SUPER_TALL_BIRCH,
-        TAIGA,
-        VANILLA_BEACH_PALM,
-        VANILLA_COLD_TAIGA,
-        VANILLA_OAK,
-        WILLOW;
-    }
-
-    public enum TreeCondition {
-        ALWAYS_GENERATE,
-        NOISE_GREATER_AND_RANDOM_CHANCE,
-        RANDOM_CHANCE;
-    }
-
-    /**
-     * Parameter object for noise calculations.
-     * <p>
-     * simplex.noise2(chunkX / noiseDivisor, chunkY / noiseDivisor) * noiseFactor + noiseAddend;
-     * @author WhichOnesPink
-     * @author Zeno410
-     */
-    public static class Distribution {
-        public float noiseDivisor;
-        public float noiseFactor;
-        public float noiseAddend;
-
-        public Distribution(float noiseDivisor, float noiseFactor, float noiseAddend) {
-            this.noiseDivisor = noiseDivisor;
-            this.noiseFactor = noiseFactor;
-            this.noiseAddend = noiseAddend;
-        }
-    }
+	
+	                            break;
+	
+			            	default:
+			            		break;
+		            	}
+	                }
+	            }
+			}
+		}
+	}
+	
+	/**
+	 * Parameter object for noise calculations.
+	 * 
+	 * simplex.noise2(chunkX / noiseDivisor, chunkY / noiseDivisor) * noiseFactor + noiseAddend;
+	 * 
+	 * @author WhichOnesPink
+	 * @author Zeno410
+	 *
+	 */
+	public static class Distribution
+	{
+	    public float noiseDivisor;
+	    public float noiseFactor;
+	    public float noiseAddend;
+	    
+	    public Distribution(float noiseDivisor, float noiseFactor, float noiseAddend)
+	    {
+	    	this.noiseDivisor = noiseDivisor;
+	    	this.noiseFactor = noiseFactor;
+	    	this.noiseAddend = noiseAddend;
+	    }
+	}
+	
+	public enum TreeType
+	{
+		RTG_TREE,
+		WORLDGEN;
+	}
+	
+	public enum TreeCondition
+	{
+		ALWAYS_GENERATE,
+		NOISE_GREATER_AND_RANDOM_CHANCE,
+		RANDOM_CHANCE,
+		X_DIVIDED_BY_STRENGTH;
+	}
+	
+	public boolean isValidTreeCondition(float noise, Random rand, float strength)
+	{
+		switch (this.treeCondition)
+		{
+			case ALWAYS_GENERATE:
+				return true;
+			
+			case NOISE_GREATER_AND_RANDOM_CHANCE:
+				return (noise > this.treeConditionNoise && rand.nextInt(this.treeConditionChance) == 0);
+				
+			case RANDOM_CHANCE:
+				return rand.nextInt(this.treeConditionChance) == 0;
+				
+			case X_DIVIDED_BY_STRENGTH:
+				return rand.nextInt((int) (this.treeConditionFloat / strength)) == 0;
+
+			default:
+				return false;
+		}
+	}
 }

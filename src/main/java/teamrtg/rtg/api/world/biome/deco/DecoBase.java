@@ -1,10 +1,10 @@
 package teamrtg.rtg.api.world.biome.deco;
 
-import teamrtg.rtg.api.world.RTGWorld;
-import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
-
 import java.util.ArrayList;
 import java.util.Random;
+
+import teamrtg.rtg.api.world.RTGWorld;
+import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
 
 /**
  * Documentation for the new biome system can be found here:
@@ -45,7 +45,6 @@ public abstract class DecoBase {
 
     /**
      * Performs pre-generation checks to determine if the deco is allowed to generate.
-     * The parameters are virtually the same as the ones passed to the legacy rDecorate() method.
      * This method should NOT be overridden in the individual deco objects.
      * @param rand
      * @param chunkX
@@ -53,7 +52,7 @@ public abstract class DecoBase {
      * @param strength
      * @param river
      */
-    public final boolean preGenerate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator mapGenGenerator) {
+    public final boolean preGenerate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator realisticBiomeGenerator, boolean hasPlacedVillageBlocks) {
         if (this.checkRiver) {
 
             if (river > this.maxRiver || river < this.minRiver) {
@@ -66,7 +65,6 @@ public abstract class DecoBase {
 
     /**
      * Generates the decoration.
-     * The parameters are virtually the same as the ones passed to the legacy rDecorate() method.
      * This method should be overridden in the individual deco objects.
      * @param rtgWorld
      * @param rand
@@ -76,7 +74,7 @@ public abstract class DecoBase {
      * @param river
      * @param realisticBiomeGenerator
      */
-    public abstract void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator realisticBiomeGenerator);
+    public abstract void generate(RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, RealisticBiomeGenerator realisticBiomeGenerator, boolean hasPlacedVillageBlocks);
 
     /**
      * Adds one or more deco types.
@@ -93,23 +91,26 @@ public abstract class DecoBase {
      * @author WhichOnesPink
      */
     public enum DecoType {
-        BASE_BIOME_DECORATION,
-        BOULDER,
-        CACTUS,
-        DEAD_BUSH,
-        DESERT_WELL,
-        FALLEN_TREE,
-        FERN,
-        FERN_DOUBLE,
-        FLOWER,
-        GRASS,
-        GRASS_DOUBLE,
-        LILYPAD,
-        MUSHROOM,
-        PUMPKIN,
-        REED,
-        SHRUB,
-        TREE,
-        VINE
+		BASE_BIOME_DECORATION,
+		BOULDER,
+		COBWEB,
+		CACTUS,
+		DEAD_BUSH,
+		DESERT_WELL,
+		FALLEN_TREE,
+		FERN,
+		FERN_DOUBLE,
+		FLOWER,
+		GRASS,
+		GRASS_DOUBLE,
+		LILYPAD,
+		MUSHROOM,
+		PUMPKIN,
+		REED,
+		ROCK_SPIRE,
+		SHRUB,
+		TEST,
+		TREE,
+		VINE
     }
 }

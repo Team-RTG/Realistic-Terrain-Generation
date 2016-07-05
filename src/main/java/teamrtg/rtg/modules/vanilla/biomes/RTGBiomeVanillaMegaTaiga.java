@@ -2,15 +2,23 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoBoulder;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
-import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
-import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
+import teamrtg.rtg.api.tools.deco.DecoGrass;
+import teamrtg.rtg.api.tools.deco.DecoMushrooms;
+import teamrtg.rtg.api.tools.deco.DecoPumpkin;
+import teamrtg.rtg.api.tools.deco.DecoShrub;
+import teamrtg.rtg.api.tools.deco.collection.DecoCollectionMegaTaiga;
 import teamrtg.rtg.api.util.noise.IFloatAt;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.*;
+import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.api.world.biome.surface.part.Selector;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
+import teamrtg.rtg.api.world.biome.surface.part.TopPosSelector;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaMegaTaiga extends RTGBiomeVanilla {
@@ -69,65 +77,55 @@ public class RTGBiomeVanillaMegaTaiga extends RTGBiomeVanilla {
 
     @Override
     public void initDecos() {
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE;
-        decoBoulder.chance = 16;
-        decoBoulder.maxY = 95;
-        decoBoulder.strengthFactor = 3f;
-        this.addDeco(decoBoulder);
-
-        DecoTree decoTrees = new DecoTree();
-        decoTrees.strengthFactorForLoops = 4f;
-        decoTrees.strengthNoiseFactorXForLoops = true;
-        decoTrees.distribution.noiseDivisor = 100f;
-        decoTrees.distribution.noiseFactor = 6f;
-        decoTrees.distribution.noiseAddend = 0.8f;
-        decoTrees.treeType = TreeType.MEGA_TAIGA;
-        decoTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
-        decoTrees.maxY = 100;
-        this.addDeco(decoTrees);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 100f;
-        decoFallenTree.distribution.noiseFactor = 6f;
-        decoFallenTree.distribution.noiseAddend = 0.8f;
-        decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree.logConditionNoise = 0f;
-        decoFallenTree.logConditionChance = 6;
-        decoFallenTree.maxY = 100;
-        decoFallenTree.logBlock = Blocks.LOG;
-        decoFallenTree.logMeta = (byte) 1;
-        decoFallenTree.leavesBlock = Blocks.LEAVES;
-        decoFallenTree.leavesMeta = (byte) -1;
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree);
-
+		DecoBoulder decoBoulder = new DecoBoulder();
+		decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE.getDefaultState();
+		decoBoulder.chance = 16;
+		decoBoulder.maxY = 95;
+		decoBoulder.strengthFactor = 3f;
+		this.addDeco(decoBoulder);
+        
+		this.addDecoCollection(new DecoCollectionMegaTaiga());
+        
+		DecoFallenTree decoFallenTree = new DecoFallenTree();
+		decoFallenTree.distribution.noiseDivisor = 100f;
+		decoFallenTree.distribution.noiseFactor = 6f;
+		decoFallenTree.distribution.noiseAddend = 0.8f;
+		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		decoFallenTree.logConditionNoise = 0f;
+		decoFallenTree.logConditionChance = 6;
+		decoFallenTree.logBlock = Blocks.LOG;
+		decoFallenTree.logMeta = (byte)1;
+		decoFallenTree.leavesBlock = Blocks.LEAVES;
+		decoFallenTree.leavesMeta = (byte)-1;
+		decoFallenTree.minSize = 3;
+		decoFallenTree.maxSize = 6;
+		this.addDeco(decoFallenTree);        
+        
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 100;
         decoShrub.strengthFactor = 2f;
         decoShrub.chance = 10;
-        this.addDeco(decoShrub);
+		this.addDeco(decoShrub);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.equalsZeroChance = 3;
-        this.addDeco(decoBaseBiomeDecorations);
-
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		decoBaseBiomeDecorations.equalsZeroChance = 3;
+		this.addDeco(decoBaseBiomeDecorations);
+        
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.maxY = 90;
-        decoMushrooms.randomType = teamrtg.rtg.api.tools.deco.DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH;
+        decoMushrooms.randomType = DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH;
         decoMushrooms.randomFloat = 3f;
         this.addDeco(decoMushrooms);
-
-        DecoPumpkin decoPumpkin = new DecoPumpkin();
-        decoPumpkin.maxY = 90;
-        decoPumpkin.randomType = teamrtg.rtg.api.tools.deco.DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH;
-        decoPumpkin.randomFloat = 20f;
+        
+		DecoPumpkin decoPumpkin = new DecoPumpkin();
+		decoPumpkin.maxY = 90;
+		decoPumpkin.randomType = DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH;
+		decoPumpkin.randomFloat = 20f;
         this.addDeco(decoPumpkin);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 128;
-        decoGrass.strengthFactor = 10f;
+        
+		DecoGrass decoGrass = new DecoGrass();
+		decoGrass.maxY = 128;
+		decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
     }
 

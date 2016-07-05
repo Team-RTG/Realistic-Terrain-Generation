@@ -1,16 +1,23 @@
 package teamrtg.rtg.api.tools.feature;
 
+import static net.minecraft.block.material.Material.AIR;
+import static net.minecraft.block.material.Material.GRASS;
+import static net.minecraft.block.material.Material.GROUND;
+import static net.minecraft.block.material.Material.PLANTS;
+import static net.minecraft.block.material.Material.ROCK;
+import static net.minecraft.block.material.Material.SAND;
+import static net.minecraft.block.material.Material.VINE;
+import static net.minecraft.block.material.Material.WATER;
+import static net.minecraft.init.Blocks.LOG2;
+
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
-import java.util.Random;
-
-import static net.minecraft.block.material.Material.*;
-import static net.minecraft.init.Blocks.LOG2;
 
 public class WorldGenLog extends WorldGenerator {
     private int logMeta;

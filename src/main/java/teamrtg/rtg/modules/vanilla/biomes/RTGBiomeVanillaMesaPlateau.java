@@ -2,9 +2,14 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoCactus;
+import teamrtg.rtg.api.tools.deco.DecoDeadBush;
+import teamrtg.rtg.api.tools.deco.DecoReed;
+import teamrtg.rtg.api.tools.deco.DecoShrub;
+import teamrtg.rtg.api.tools.deco.DecoTree;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
+import teamrtg.rtg.api.tools.feature.tree.vanilla.WorldGenTreesRTG;
 import teamrtg.rtg.api.tools.surface.SurfaceRiverOasis;
 import teamrtg.rtg.api.util.math.CanyonColour;
 import teamrtg.rtg.api.world.RTGWorld;
@@ -56,7 +61,8 @@ public class RTGBiomeVanillaMesaPlateau extends RTGBiomeVanilla {
 
         DecoCactus decoCactus = new DecoCactus();
         decoCactus.strengthFactor = 25f;
-        decoCactus.soil = Blocks.SAND.getStateFromMeta(1);
+        decoCactus.soilBlock = Blocks.SAND.getStateFromMeta(1);
+        decoCactus.soilMeta = (byte)1;
         decoCactus.sandOnly = false;
         decoCactus.maxRiver = 0.8f;
         addDeco(decoCactus);
@@ -70,12 +76,13 @@ public class RTGBiomeVanillaMesaPlateau extends RTGBiomeVanilla {
         decoDeadBush.strengthFactor = 5f;
         addDeco(decoDeadBush);
 
-        DecoTree decoTree = new DecoTree();
+        DecoTree decoTree = new DecoTree(new WorldGenTreesRTG());
         decoTree.loops = 20;
-        decoTree.treeType = TreeType.VANILLA_OAK;
-        decoTree.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        decoTree.treeType = TreeType.WORLDGEN;
+        decoTree.treeCondition = TreeCondition.X_DIVIDED_BY_STRENGTH;
         decoTree.distribution = new DecoTree.Distribution(24f, 1f, 0f);
         decoTree.treeConditionChance = 0;
+        decoTree.treeConditionFloat = 4f;
         decoTree.treeConditionNoise = 0f;
         decoTree.minY = 74;
         addDeco(decoTree);

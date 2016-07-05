@@ -3,7 +3,10 @@ package teamrtg.rtg.modules.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.api.tools.deco.DecoTree;
+import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
+import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTG;
+import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTGCocosNucifera;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
@@ -29,12 +32,25 @@ public class RTGBiomeVanillaBeach extends RTGBiomeVanilla {
 
     @Override
     public void initDecos() {
-        // Scattered palm trees.
-        DecoTree palmTrees = new DecoTree();
-        palmTrees.loops = 1;
-        palmTrees.treeType = TreeType.VANILLA_BEACH_PALM;
-        palmTrees.maxY = 80;
-        this.addDeco(palmTrees);
+    	
+		// Scattered palm trees.
+        
+		TreeRTG nuciferaTree = new TreeRTGCocosNucifera();
+		nuciferaTree.minTrunkSize = 7;
+		nuciferaTree.maxTrunkSize = 9;
+		nuciferaTree.minCrownSize = 6;
+		nuciferaTree.maxCrownSize = 8;
+		nuciferaTree.validGroundBlocks.clear();
+		nuciferaTree.validGroundBlocks.add(Blocks.SAND.getDefaultState());
+		this.addTree(nuciferaTree);
+        
+		DecoTree palmTrees = new DecoTree(nuciferaTree);
+		palmTrees.loops = 1;
+		palmTrees.treeType = TreeType.RTG_TREE;
+		palmTrees.treeCondition = TreeCondition.X_DIVIDED_BY_STRENGTH;
+		palmTrees.treeConditionFloat = 4f;
+		palmTrees.maxY = 80;
+		this.addDeco(palmTrees);
     }
 
     @Override

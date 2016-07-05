@@ -1,5 +1,18 @@
 package teamrtg.rtg.core.world;
 
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.OCEAN_MONUMENT;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.SCATTERED_FEATURE;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.STRONGHOLD;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -20,7 +33,11 @@ import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.MapGenCaves;
 import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.feature.WorldGenLiquids;
-import net.minecraft.world.gen.structure.*;
+import net.minecraft.world.gen.structure.MapGenMineshaft;
+import net.minecraft.world.gen.structure.MapGenScatteredFeature;
+import net.minecraft.world.gen.structure.MapGenStronghold;
+import net.minecraft.world.gen.structure.MapGenVillage;
+import net.minecraft.world.gen.structure.StructureOceanMonument;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.ChunkGeneratorEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
@@ -37,13 +54,6 @@ import teamrtg.rtg.api.world.biome.RTGBiome;
 import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
 import teamrtg.rtg.core.world.gen.MapGenCavesRTG;
 import teamrtg.rtg.core.world.gen.MapGenRavineRTG;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.*;
 
 /**
  * Note from the ChunkProviderRTG-gods:
@@ -345,11 +355,11 @@ public class ChunkProviderRTG implements IChunkGenerator {
         long i1 = this.rand.nextLong() / 2L * 2L + 1L;
         long j1 = this.rand.nextLong() / 2L * 2L + 1L;
         this.rand.setSeed((long) x * i1 + (long) z * j1 ^ this.world.getSeed());
-        boolean flag = false;
+        boolean hasPlacedVillageBlocks = false;
         ChunkPos chunkCoords = new ChunkPos(x, z);
         BlockPos worldCoords = new BlockPos(worldX, 0, worldZ);
 
-        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(this, world, rand, x, z, flag));
+        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(this, world, rand, x, z, hasPlacedVillageBlocks));
 
         if (mapFeaturesEnabled) {
 
@@ -366,13 +376,13 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 if (Mods.RTG.config.VILLAGE_CRASH_FIX.get()) {
 
                     try {
-                        flag = villageGenerator.generateStructure(world, rand, chunkCoords);
+                        hasPlacedVillageBlocks = villageGenerator.generateStructure(world, rand, chunkCoords);
                     } catch (Exception e) {
-                        flag = false;
+                        hasPlacedVillageBlocks = false;
                     }
                 } else {
 
-                    flag = villageGenerator.generateStructure(world, rand, chunkCoords);
+                    hasPlacedVillageBlocks = villageGenerator.generateStructure(world, rand, chunkCoords);
                 }
             }
 
@@ -385,7 +395,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
             }
         }
 
-        RealisticBiomeGenerator.forBiome(biome.getBiome()).populatePreDecorate(this, world, rand, x, z, flag);
+        RealisticBiomeGenerator.forBiome(biome.getBiome()).populatePreDecorate(this, world, rand, x, z, hasPlacedVillageBlocks);
 
         /*
          * What is this doing? And why does it need to be done here? - Pink
@@ -430,12 +440,12 @@ public class ChunkProviderRTG implements IChunkGenerator {
                  * TODO: Is there a more efficient way to do this? - Pink
                  */
                 if (Mods.RTG.config.ENABLE_RTG_BIOME_DECORATIONS.get() && realisticBiome.getConfig().USE_RTG_DECORATIONS.get()) {
-                    RealisticBiomeGenerator.forBiome(realisticBiome.getBiome()).decorate(rtgWorld, rand, worldX, worldZ, borderNoise[bn], river);
+                    RealisticBiomeGenerator.forBiome(realisticBiome.getBiome()).rDecorate(rtgWorld, rand, worldX, worldZ, borderNoise[bn], river, hasPlacedVillageBlocks);
                 } else {
                     try {
                         realisticBiome.getBiome().decorate(this.world, rand, worldCoords);
                     } catch (Exception e) {
-                        RealisticBiomeGenerator.forBiome(realisticBiome.getBiome()).decorate(rtgWorld, rand, worldX, worldZ, borderNoise[bn], river);
+                        RealisticBiomeGenerator.forBiome(realisticBiome.getBiome()).rDecorate(rtgWorld, rand, worldX, worldZ, borderNoise[bn], river, hasPlacedVillageBlocks);
                     }
                 }
 
@@ -447,6 +457,8 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 borderNoise[bn] = 0f;
             }
         }
+        
+        RealisticBiomeGenerator.forBiome(biome.getBiome()).populatePostDecorate(this, world, rand, x, z, hasPlacedVillageBlocks);
 
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(world, rand, worldCoords));
 
@@ -477,11 +489,11 @@ public class ChunkProviderRTG implements IChunkGenerator {
             }
         }
 
-        if (TerrainGen.populate(this, world, rand, x, z, flag, PopulateChunkEvent.Populate.EventType.ANIMALS)) {
+        if (TerrainGen.populate(this, world, rand, x, z, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ANIMALS)) {
             WorldEntitySpawner.performWorldGenSpawning(this.world, world.getBiome(new BlockPos(worldX + 16, 0, worldZ + 16)), worldX + 8, worldZ + 8, 16, 16, this.rand);
         }
 
-        if (TerrainGen.populate(this, world, rand, x, z, flag, PopulateChunkEvent.Populate.EventType.ICE)) {
+        if (TerrainGen.populate(this, world, rand, x, z, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ICE)) {
 
             int k1, l1, i2;
             BlockPos.MutableBlockPos bp = new BlockPos.MutableBlockPos(0, 0, 0);
@@ -502,7 +514,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
             }
         }
 
-        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(this, world, rand, x, z, flag));
+        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(this, world, rand, x, z, hasPlacedVillageBlocks));
 
         BlockFalling.fallInstantly = false;
     }

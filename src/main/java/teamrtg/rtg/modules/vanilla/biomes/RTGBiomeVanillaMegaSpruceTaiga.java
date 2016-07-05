@@ -10,7 +10,11 @@ import teamrtg.rtg.api.util.noise.IFloatAt;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.*;
+import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
+import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
+import teamrtg.rtg.api.world.biome.surface.part.Selector;
+import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
+import teamrtg.rtg.api.world.biome.surface.part.TopPosSelector;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaMegaSpruceTaiga extends RTGBiomeVanilla {
@@ -72,25 +76,24 @@ public class RTGBiomeVanillaMegaSpruceTaiga extends RTGBiomeVanilla {
 
     @Override
     public void initDecos() {
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.loops = 1;
-        decoFallenTree.distribution.noiseDivisor = 100f;
-        decoFallenTree.distribution.noiseFactor = 6f;
-        decoFallenTree.distribution.noiseAddend = 0.8f;
-        decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree.logConditionNoise = 0f;
-        decoFallenTree.logConditionChance = 6;
-        decoFallenTree.maxY = 110;
-        decoFallenTree.logBlock = Blocks.LOG;
-        decoFallenTree.logMeta = (byte) 1;
-        decoFallenTree.leavesBlock = Blocks.LEAVES;
-        decoFallenTree.leavesMeta = (byte) -1;
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree);
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
+        
+		DecoFallenTree decoFallenTree = new DecoFallenTree();
+		decoFallenTree.loops = 1;
+		decoFallenTree.distribution.noiseDivisor = 100f;
+		decoFallenTree.distribution.noiseFactor = 6f;
+		decoFallenTree.distribution.noiseAddend = 0.8f;
+		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		decoFallenTree.logConditionNoise = 0f;
+		decoFallenTree.logConditionChance = 6;
+		decoFallenTree.logBlock = Blocks.LOG;
+		decoFallenTree.logMeta = (byte)1;
+		decoFallenTree.leavesBlock = Blocks.LEAVES;
+		decoFallenTree.leavesMeta = (byte)-1;
+		decoFallenTree.minSize = 3;
+		decoFallenTree.maxSize = 6;
+		this.addDeco(decoFallenTree);
     }
 
     @Override

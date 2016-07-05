@@ -38,7 +38,7 @@ public class RTGBiomeVanillaMushroomIslandShore extends RTGBiomeVanilla {
 
     @Override
     public void initDecos() {
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 		this.addDeco(decoBaseBiomeDecorations);
     }
 

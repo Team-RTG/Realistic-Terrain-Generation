@@ -1,16 +1,18 @@
 package teamrtg.rtg.api.tools.feature;
 
+import static java.lang.Math.PI;
+import static net.minecraft.init.Blocks.STONE;
+import static net.minecraft.util.math.MathHelper.cos;
+import static net.minecraft.util.math.MathHelper.floor_double;
+import static net.minecraft.util.math.MathHelper.sin;
+
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
-import java.util.Random;
-
-import static java.lang.Math.PI;
-import static net.minecraft.init.Blocks.STONE;
-import static net.minecraft.util.math.MathHelper.*;
 
 public class WorldGenMinableRTG extends WorldGenerator {
     private Block field_150519_a;

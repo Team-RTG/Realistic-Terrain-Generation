@@ -90,7 +90,7 @@ public class DecoShrub extends DecoBase
         		this.leavesBlock = this.randomLeavesBlocks[rnd];
             }
 
-            WorldUtil worldUtil = new WorldUtil(rtgWorld);
+            WorldUtil worldUtil = new WorldUtil(rtgWorld.world);
             WorldGenerator worldGenerator = new WorldGenShrubRTG(this.size, this.logBlock, this.leavesBlock);
             
 			int loopCount = this.loops;

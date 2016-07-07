@@ -89,7 +89,7 @@ public class DecoFallenTree extends DecoBase
 		if (this.allowed) {
 
 			float noise = rtgWorld.simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkY / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
-			WorldUtil worldUtil = new WorldUtil(rtgWorld);
+			WorldUtil worldUtil = new WorldUtil(rtgWorld.world);
 			
 			//Do we want to choose a random log?
 			if (this.useRandomLogs) {

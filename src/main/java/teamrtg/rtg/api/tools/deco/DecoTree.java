@@ -135,7 +135,7 @@ public class DecoTree extends DecoBase
 			
 			if (TerrainGen.decorate(rtgWorld.world, rand, new BlockPos(chunkX, 0, chunkY), TREE)) {
 				
-				WorldUtil worldUtil = new WorldUtil(rtgWorld);
+				WorldUtil worldUtil = new WorldUtil(rtgWorld.world);
 				float noise = rtgWorld.simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkY / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
 
                 int loopCount = this.loops;

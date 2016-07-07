@@ -2,17 +2,18 @@ package teamrtg.rtg.api.util;
 
 import java.util.Random;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
-import teamrtg.rtg.api.world.RTGWorld;
+import net.minecraft.world.World;
 
 public class WorldUtil
 {
-	private RTGWorld rtgWorld;
+	private World world;
 	
-	public WorldUtil(RTGWorld rtgWorld)
+	public WorldUtil(World world)
 	{
-		this.rtgWorld = rtgWorld;
+		this.world = world;
 	}
 	
 	/**
@@ -30,7 +31,7 @@ public class WorldUtil
 						
 						if (x == ix && z == iz) continue;
 						
-						if (this.rtgWorld.world.getBlockState(new BlockPos(x + ix, y, z + iz)) != checkBlock) return false;
+						if (this.world.getBlockState(new BlockPos(x + ix, y, z + iz)) != checkBlock) return false;
 					}
 				}
 
@@ -40,10 +41,10 @@ public class WorldUtil
 				
 				for (int i = checkDistance; i > 0; i--) {
 					
-					if (this.rtgWorld.world.getBlockState(new BlockPos(x, y, z + i)) != checkBlock) return false;
-					if (this.rtgWorld.world.getBlockState(new BlockPos(x, y, z - i)) != checkBlock) return false;
-					if (this.rtgWorld.world.getBlockState(new BlockPos(x + i, y, z)) != checkBlock) return false;
-					if (this.rtgWorld.world.getBlockState(new BlockPos(x - i, y, z)) != checkBlock) return false;
+					if (this.world.getBlockState(new BlockPos(x, y, z + i)) != checkBlock) return false;
+					if (this.world.getBlockState(new BlockPos(x, y, z - i)) != checkBlock) return false;
+					if (this.world.getBlockState(new BlockPos(x + i, y, z)) != checkBlock) return false;
+					if (this.world.getBlockState(new BlockPos(x - i, y, z)) != checkBlock) return false;
 				}
 				
 				break;
@@ -52,10 +53,10 @@ public class WorldUtil
 				
 				for (int i = checkDistance; i > 0; i--) {
 					
-					if (this.rtgWorld.world.getBlockState(new BlockPos(x + i, y, z + i)) != checkBlock) return false;
-					if (this.rtgWorld.world.getBlockState(new BlockPos(x + i, y, z - i)) != checkBlock) return false;
-					if (this.rtgWorld.world.getBlockState(new BlockPos(x - i, y, z + i)) != checkBlock) return false;
-					if (this.rtgWorld.world.getBlockState(new BlockPos(x - i, y, z - i)) != checkBlock) return false;
+					if (this.world.getBlockState(new BlockPos(x + i, y, z + i)) != checkBlock) return false;
+					if (this.world.getBlockState(new BlockPos(x + i, y, z - i)) != checkBlock) return false;
+					if (this.world.getBlockState(new BlockPos(x - i, y, z + i)) != checkBlock) return false;
+					if (this.world.getBlockState(new BlockPos(x - i, y, z - i)) != checkBlock) return false;
 				}
 				
 				break;
@@ -66,6 +67,33 @@ public class WorldUtil
 		
 		return true;
 	}
+	
+	/**
+	 * Checks to see if a given block is above a given coordinate.
+	 */
+    public boolean isBlockAbove(IBlockState checkBlock, int checkDistance, World world, int x, int y, int z, boolean materialCheck)
+    {
+    	Material checkBlockMaterial = checkBlock.getBlock().getMaterial(checkBlock);
+    	IBlockState blockAbove;
+    	Material m;
+    	
+    	for (int i = 1; i <= checkDistance; i++) {
+    		
+	    	blockAbove = world.getBlockState(new BlockPos(x, y + checkDistance, z));
+	    	
+	    	if (materialCheck) {
+	    		m = blockAbove.getBlock().getMaterial(blockAbove);
+	    		if (m != checkBlockMaterial) {
+	    			return false;
+	    		}
+	    	}
+	    	else if (blockAbove != checkBlock) {
+	    		return false;
+	    	}
+    	}
+    	
+    	return true;
+    }
 	
 	public enum SurroundCheckType
 	{

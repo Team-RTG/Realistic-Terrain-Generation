@@ -53,7 +53,7 @@ public class DecoBoulder extends DecoBase
 	{
 		if (this.allowed) {
 			
-			WorldUtil worldUtil = new WorldUtil(rtgWorld);
+			WorldUtil worldUtil = new WorldUtil(rtgWorld.world);
 			WorldGenerator worldGenerator = new WorldGenBlob(boulderBlock, 0, rand, this.water);
 			
             for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1)

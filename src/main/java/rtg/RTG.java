@@ -3,10 +3,7 @@ package rtg;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.event.FMLServerStoppedEvent;
+import cpw.mods.fml.common.event.*;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import rtg.api.event.BiomeConfigEvent;
@@ -14,7 +11,6 @@ import rtg.config.BiomeConfigManager;
 import rtg.config.ConfigManagerRTG;
 import rtg.event.EventManagerRTG;
 import rtg.reference.ModInfo;
-import rtg.util.Logger;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
@@ -41,7 +37,7 @@ import rtg.world.gen.structure.MapGenVillageRTG;
 
 import java.util.ArrayList;
 
-@SuppressWarnings({"unused", "WeakerAccess"})
+@SuppressWarnings("unused")
 //@Mod(modid = "RTG", name = "Realistic Terrain Generaton", version = "1.0.0-dev", dependencies = "required-after:Forge@[10.13.4.1448,)", acceptableRemoteVersions = "*")
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = "required-after:Forge@[" + ModInfo.FORGE_DEP + ",)" + ModInfo.MOD_DEPS, acceptableRemoteVersions = "*")
 public class RTG {
@@ -49,7 +45,7 @@ public class RTG {
     @Instance(ModInfo.MOD_ID)
     public static RTG instance;
     public static WorldTypeRTG WORLD = new WorldTypeRTG(ModInfo.MOD_ID);
-    public static EventManagerRTG EVENTMGR = new EventManagerRTG();
+    private static EventManagerRTG EVENTMGR = new EventManagerRTG();
     private ArrayList<Runnable> serverCloseActions = new ArrayList<>();
     private ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<>();
 
@@ -92,33 +88,29 @@ public class RTG {
         MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
     }
 
-//  @EventHandler public void serverAboutToStart(FMLServerAboutToStartEvent event) {}
+    @EventHandler
+    public void serverAboutToStart(FMLServerAboutToStartEvent event) { eventmgr().register(); }
 
     @EventHandler
     public void serverStarting(FMLServerStartingEvent event) {
-        if (RTG.WORLD.isWorldTypeRTG()) {
-            Logger.info("FMLServerStartingEvent: WorldType is 'RTG' so registering RTG Event Manager");
-            MinecraftForge.EVENT_BUS.register(EVENTMGR);
-            MinecraftForge.ORE_GEN_BUS.register(EVENTMGR);
-            MinecraftForge.TERRAIN_GEN_BUS.register(EVENTMGR);
-        } else Logger.info("FMLServerStartingEvent: WorldType is not RTG, Skipping Event Manager Registration");
+        if (!(event.getServer().getEntityWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
+            eventmgr().unregister("WorldType is not RTG");
+        }
     }
 
 //  @EventHandler public void serverStopping(FMLServerStoppingEvent event) {}
 
     @EventHandler
     public void serverStopped(FMLServerStoppedEvent event) {
-        Logger.info("FMLServerStoppedEvent: Unregistering RTG Event Manager");
-        MinecraftForge.EVENT_BUS.unregister(EVENTMGR);
-        MinecraftForge.ORE_GEN_BUS.unregister(EVENTMGR);
-        MinecraftForge.TERRAIN_GEN_BUS.unregister(EVENTMGR);
-
         for (Runnable action : serverCloseActions) { action.run(); }
         for (Runnable action : oneShotServerCloseActions) { action.run(); }
         oneShotServerCloseActions.clear();
+        eventmgr().unregister("Server Stopped");
     }
 
     public void runOnServerClose(Runnable action) { serverCloseActions.add(action); }
 
     public void runOnNextServerCloseOnly(Runnable action) { serverCloseActions.add(action); }
+
+    public static EventManagerRTG eventmgr() { return EVENTMGR; }
 }

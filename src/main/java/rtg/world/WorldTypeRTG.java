@@ -1,6 +1,5 @@
 package rtg.world;
 
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.WorldChunkManager;
@@ -39,7 +38,7 @@ public class WorldTypeRTG extends WorldType {
                 chunkProvider = new ChunkProviderRTG(world, world.getSeed());
                 RTG.instance.runOnNextServerCloseOnly(clearChunkProvider());
                 // inform the event manager about the ChunkEvent.Load event
-                RTG.EVENTMGR.setDimensionChunkLoadEvent(world.provider.dimensionId, chunkProvider.delayedDecorator);
+                RTG.eventmgr().setDimensionChunkLoadEvent(world.provider.dimensionId, chunkProvider.delayedDecorator);
                 RTG.instance.runOnNextServerCloseOnly(chunkProvider.clearOnServerClose());
                 return chunkProvider;
             }
@@ -74,9 +73,4 @@ public class WorldTypeRTG extends WorldType {
             }
         };
     }
-
-    public boolean isWorldTypeRTG() {
-        return this == MinecraftServer.getServer().getEntityWorld().getWorldInfo().getTerrainType();
-    }
-
 }

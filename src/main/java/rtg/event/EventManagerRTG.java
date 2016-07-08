@@ -5,13 +5,13 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.MapGenStronghold;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.*;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -53,28 +53,22 @@ public class EventManagerRTG {
 
         switch (event.type) {
             case SCATTERED_FEATURE:
-                if (ConfigRTG.generateScatteredFeatures)
-                    event.newGen = new MapGenScatteredFeatureRTG();
+                if (ConfigRTG.generateScatteredFeatures) event.newGen = new MapGenScatteredFeatureRTG();
                 break;
             case CAVE:
-                if (ConfigRTG.enableCaveModifications)
-                    event.newGen = new MapGenCavesRTG();
+                if (ConfigRTG.enableCaveModifications) event.newGen = new MapGenCavesRTG();
                 break;
             case RAVINE:
-                if (ConfigRTG.enableRavineModifications)
-                    event.newGen = new MapGenRavineRTG();
+                if (ConfigRTG.enableRavineModifications) event.newGen = new MapGenRavineRTG();
                 break;
             case VILLAGE:
-                if (ConfigRTG.enableVillageModifications)
-                    event.newGen = new MapGenVillageRTG();
+                if (ConfigRTG.enableVillageModifications) event.newGen = new MapGenVillageRTG();
                 break;
             case MINESHAFT:
-                if (ConfigRTG.generateMineshafts)
-                    event.newGen = new MapGenMineshaft();
+                if (ConfigRTG.generateMineshafts) event.newGen = new MapGenMineshaft();
                 break;
             case STRONGHOLD:
-                if (ConfigRTG.generateStrongholds)
-                    event.newGen = new MapGenStronghold();
+                if (ConfigRTG.generateStrongholds) event.newGen = new MapGenStronghold();
                 break;
             default:
                 break;
@@ -85,28 +79,22 @@ public class EventManagerRTG {
     public void onGenerateMinable(OreGenEvent.GenerateMinable event) {
         switch (event.type) {
             case COAL:
-                if (!ConfigRTG.generateOreCoal)
-                    event.setResult(Result.DENY);
+                if (!ConfigRTG.generateOreCoal) event.setResult(Result.DENY);
                 break;
             case IRON:
-                if (!ConfigRTG.generateOreIron)
-                    event.setResult(Result.DENY);
+                if (!ConfigRTG.generateOreIron) event.setResult(Result.DENY);
                 break;
             case GOLD:
-                if (!ConfigRTG.generateOreGold)
-                    event.setResult(Result.DENY);
+                if (!ConfigRTG.generateOreGold) event.setResult(Result.DENY);
                 break;
             case DIAMOND:
-                if (!ConfigRTG.generateOreDiamond)
-                    event.setResult(Result.DENY);
+                if (!ConfigRTG.generateOreDiamond) event.setResult(Result.DENY);
                 break;
             case REDSTONE:
-                if (!ConfigRTG.generateOreRedstone)
-                    event.setResult(Result.DENY);
+                if (!ConfigRTG.generateOreRedstone) event.setResult(Result.DENY);
                 break;
             case LAPIS:
-                if (!ConfigRTG.generateOreLapis)
-                    event.setResult(Result.DENY);
+                if (!ConfigRTG.generateOreLapis) event.setResult(Result.DENY);
                 break;
             default:
                 break;
@@ -115,10 +103,10 @@ public class EventManagerRTG {
 
     @SubscribeEvent
     public void onBiomeGenInit(WorldTypeEvent.InitBiomeGens event) {
-        // only handle RTG world type
-        if (!RTG.WORLD.isWorldTypeRTG()) return;
 
-        if (event.newBiomeGens[0].getClass().getName().contains("GenLayerEB")) return;
+        if (!(event.worldType instanceof rtg.world.WorldTypeRTG) || event.newBiomeGens[0].getClass().getName().contains("GenLayerEB")) {
+            return;
+        }
 
         // FIXME: I'm removing this, but leaving it commented out for posterity, in case.
         // This used to be a config option. Hardcoding until we have a need for the option.
@@ -134,11 +122,9 @@ public class EventManagerRTG {
     }
 
     @SubscribeEvent
-    public void onWorldLoad(WorldEvent.Load event) {
-        if (RTG.WORLD.isWorldTypeRTG()) {
-            Logger.info("WorldEvent.Load: RTG World Started with seed: " +
-            MinecraftServer.getServer().getEntityWorld().getSeed());
-        }
+    public void onCreateSpawn(WorldEvent.CreateSpawnPosition event) {
+        Logger.info("Server Starting with seed: " + event.world.getSeed());
+        Logger.info("Creating Spawn Point...");
     }
 
     @SubscribeEvent
@@ -148,8 +134,7 @@ public class EventManagerRTG {
 
             Block originalBlock = event.original;
 
-            if (originalBlock == Blocks.cobblestone || originalBlock == Blocks.planks || originalBlock == Blocks.log
-                    || originalBlock == Blocks.log2 || originalBlock == Blocks.gravel) {
+            if (originalBlock == Blocks.cobblestone || originalBlock == Blocks.planks || originalBlock == Blocks.log || originalBlock == Blocks.log2 || originalBlock == Blocks.gravel) {
 
                 event.replacement = Blocks.sandstone;
             } else if (originalBlock == Blocks.oak_stairs || originalBlock == Blocks.stone_stairs) {
@@ -203,16 +188,16 @@ public class EventManagerRTG {
 
     @SubscribeEvent
     public void preBiomeDecorate(DecorateBiomeEvent.Pre event) {
-    /**
-     *  FIXME:  We shouldn't have to check for this, if WorldType!=RTG this Event Manager
-     *          shouldn't even be registered, and if it is, then something is broken. -srs
-    */
-    // Are we in an RTG world? Do we have RTG's chunk manager?
-    //  if (RTG.WORLD.isWorldTypeRTG() && event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG)
-    //  {
+        /**
+         *  FIXME:  We shouldn't have to check for this, if WorldType!=RTG this Event Manager
+         *          shouldn't even be registered, and if it is, then something is broken. -srs
+         */
+        // Are we in an RTG world? Do we have RTG's chunk manager?
+//        &&
+        if ((event.world.getWorldInfo().getTerrainType() instanceof rtg.world.WorldTypeRTG) || (event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG)) {
             WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) event.world.getWorldChunkManager();
             this.biome = cmr.getBiomeDataAt(event.chunkX, event.chunkZ);
-    //  }
+        }
     }
 
     @SubscribeEvent
@@ -226,8 +211,8 @@ public class EventManagerRTG {
          *          shouldn't even be registered, and if it is, then something is broken. -srs
          */
 /*
-        Are we in an RTG world? Do we have RTG's chunk manager?
-        if (!RTG.WORLD.isWorldTypeRTG() || !(event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG))
+//        Are we in an RTG world? Do we have RTG's chunk manager?
+        if (!(yadayada instanceof rtg.world.WorldTypeRTG) || !(event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG))
         {
 			return;
 		}
@@ -328,4 +313,21 @@ public class EventManagerRTG {
     public void setDimensionChunkLoadEvent(int dimension, Acceptor<ChunkEvent.Load> action) {
         chunkLoadEvents.put(dimension, action);
     }
+
+    public void register() {
+        Logger.info("Registering RTG Event Manager");
+        MinecraftForge.EVENT_BUS.register(RTG.eventmgr());
+        MinecraftForge.ORE_GEN_BUS.register(RTG.eventmgr());
+        MinecraftForge.TERRAIN_GEN_BUS.register(RTG.eventmgr());
+    }
+
+    public void unregister() { unregister("Stopping"); }
+
+    public void unregister(String reason) {
+        Logger.info("Unregistering RTG Event Manager: " + reason);
+        MinecraftForge.EVENT_BUS.unregister(RTG.eventmgr());
+        MinecraftForge.ORE_GEN_BUS.unregister(RTG.eventmgr());
+        MinecraftForge.TERRAIN_GEN_BUS.unregister(RTG.eventmgr());
+    }
+
 }

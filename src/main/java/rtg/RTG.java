@@ -2,6 +2,7 @@ package rtg;
 
 import java.util.ArrayList;
 
+import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import rtg.api.event.BiomeConfigEvent;
 import rtg.config.BiomeConfigManager;
@@ -29,6 +30,8 @@ import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
 import rtg.world.biome.realistic.tofucraft.RealisticBiomeTOFUBase;
 import rtg.world.biome.realistic.vampirism.RealisticBiomeVAMPBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
+import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
+import rtg.world.gen.structure.MapGenVillageRTG;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -54,14 +57,15 @@ public class RTG {
     }
 
     @EventHandler
-    public void fmlLifeCycleEvent(FMLPreInitializationEvent event) 
+    public void fmlLifeCycleEvent(FMLPreInitializationEvent event)
     {    
         instance = this;
-
+        
+        MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
+        MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
+        
         eventMgr = new EventManagerRTG();
-        MinecraftForge.EVENT_BUS.register(eventMgr);
-        MinecraftForge.ORE_GEN_BUS.register(eventMgr);
-        MinecraftForge.TERRAIN_GEN_BUS.register(eventMgr);
+        eventMgr.registerEventHandlers();
         
         MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Pre());
         
@@ -110,7 +114,7 @@ public class RTG {
         RealisticBiomePresenceTester.doBiomeCheck();
     }
     
-/* FIXME: Why are we subscribing to events we don't do anything with? -srs_bsns
+/*
     @EventHandler
     public void fmlLifeCycle(FMLServerAboutToStartEvent event) {}
     

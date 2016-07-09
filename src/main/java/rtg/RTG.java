@@ -9,6 +9,7 @@ import rtg.config.BiomeConfigManager;
 import rtg.config.ConfigManager;
 import rtg.event.EventManagerRTG;
 import rtg.reference.ModInfo;
+import rtg.util.Logger;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
@@ -65,8 +66,10 @@ public class RTG {
         MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
         
         eventMgr = new EventManagerRTG();
-        eventMgr.registerEventHandlers();
-        
+    	Logger.info("[FMLPreInitializationEvent] Registering RTG's event handlers...");
+    	eventMgr.registerEventHandlers();
+    	Logger.info("[FMLPreInitializationEvent] RTG's event handlers have been registered successfully.");
+
         MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Pre());
         
         // This MUST get called before the config is initialised.

@@ -2,6 +2,12 @@ package rtg;
 
 import java.util.ArrayList;
 
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import rtg.api.event.BiomeConfigEvent;
@@ -33,14 +39,9 @@ import rtg.world.biome.realistic.vampirism.RealisticBiomeVAMPBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 
+
+@SuppressWarnings({"WeakerAccess", "unused"})
 //@Mod(modid = "RTG", name = "Realistic Terrain Generaton", version = "0.8.0d", dependencies = "required-after:Forge@[10.13.4.1448,)", acceptableRemoteVersions = "*")
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = "required-after:Forge@[" + ModInfo.FORGE_DEP + ",)" + ModInfo.MOD_DEPS, acceptableRemoteVersions = "*")
 public class RTG {
@@ -58,17 +59,15 @@ public class RTG {
     }
 
     @EventHandler
-    public void fmlLifeCycleEvent(FMLPreInitializationEvent event)
+    public void preInit(FMLPreInitializationEvent event)
     {    
         instance = this;
         
         MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
         MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
-        
+
+        Logger.info("[FMLPreInitializationEvent] Creating RTG's EventManager");
         eventMgr = new EventManagerRTG();
-    	Logger.info("[FMLPreInitializationEvent] Registering RTG's event handlers...");
-    	eventMgr.registerEventHandlers();
-    	Logger.info("[FMLPreInitializationEvent] RTG's event handlers have been registered successfully.");
 
         MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Pre());
         
@@ -83,14 +82,10 @@ public class RTG {
         worldtype = new WorldTypeRTG("RTG");
     }
     
-    @EventHandler
-    public void fmlLifeCycleEvent(FMLInitializationEvent event)
-    {
+//  @EventHandler public void init(FMLInitializationEvent event) {}
 
-    }
-    
     @EventHandler
-    public void fmlLifeCycle(FMLPostInitializationEvent event)
+    public void postInit(FMLPostInitializationEvent event)
     {
 
         RealisticBiomeVanillaBase.addBiomes();
@@ -119,16 +114,16 @@ public class RTG {
     
 /*
     @EventHandler
-    public void fmlLifeCycle(FMLServerAboutToStartEvent event) {}
+    public void serverAboutToStart(FMLServerAboutToStartEvent event) {}
     
     @EventHandler
-    public void fmlLifeCycle(FMLServerStartingEvent event) {}
+    public void serverStarting(FMLServerStartingEvent event) {}
     
     @EventHandler
-    public void fmlLifeCycle(FMLServerStartedEvent event) {}
+    public void serverStarted(FMLServerStartedEvent event) {}
 
     @EventHandler
-    public void fmlLifeCycle(FMLServerStoppingEvent event) {}
+    public void serverStopping(FMLServerStoppingEvent event) {}
 */
 
 
@@ -140,10 +135,10 @@ public class RTG {
         serverCloseActions.add(action);
     }
 
-    private ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<Runnable>();
-    private ArrayList<Runnable> serverCloseActions = new ArrayList<Runnable>();
+    private ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<>();
+    private ArrayList<Runnable> serverCloseActions = new ArrayList<>();
     @EventHandler
-    public void fmlLifeCycle(FMLServerStoppedEvent event)
+    public void serverStopped(FMLServerStoppedEvent event)
     {
         for (Runnable action: serverCloseActions) {
             action.run();

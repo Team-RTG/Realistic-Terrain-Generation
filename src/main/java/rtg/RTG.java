@@ -148,5 +148,11 @@ public class RTG {
         }
         oneShotServerCloseActions.clear();
 
+        if (eventMgr.isRegistered()) {
+            Logger.info("Unregistering RTG's Terrain Event Handlers...");
+            RTG.eventMgr.unRegisterEventHandlers();
+            if (!eventMgr.isRegistered()) Logger.info("RTG's Terrain Event Handlers have been unregistered successfully.");
+        }
+
     }
 }

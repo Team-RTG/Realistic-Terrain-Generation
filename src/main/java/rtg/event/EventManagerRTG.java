@@ -44,7 +44,6 @@ public class EventManagerRTG
 
     public final WorldEventsRTG         DISPLAY_SEED_RTG        = new WorldEventsRTG();
     public final RTGEventRegister       RTG_EVENTS_ENABLER      = new RTGEventRegister();
-    public final RTGEventUnregister     RTG_EVENTS_DISABLER     = new RTGEventUnregister();
 
     private WeakHashMap<Integer, Acceptor<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
     private RealisticBiomeBase biome = null;
@@ -54,7 +53,6 @@ public class EventManagerRTG
     public EventManagerRTG() {
         // These should be registered once, and stay registered -srs
         MinecraftForge.TERRAIN_GEN_BUS.register(RTG_EVENTS_ENABLER);
-        MinecraftForge.EVENT_BUS.register(RTG_EVENTS_DISABLER);
         MinecraftForge.EVENT_BUS.register(DISPLAY_SEED_RTG);
         Logger.info("RTG EventManager Initialised");
     }
@@ -321,22 +319,6 @@ public class EventManagerRTG
         }
     }
 
-    public class RTGEventUnregister
-    {
-        RTGEventUnregister() {
-            Logger.debug("RTG Event System: Initialising RTGEventUnregister");
-        }
-
-        @SubscribeEvent
-        public void unregisterRTGEventHandlers(WorldEvent.Unload event) {
-            if (REGISTERED) {
-                Logger.info("Unregistering RTG's Terrain Event Handlers...");
-                RTG.eventMgr.unRegisterEventHandlers();
-                if (!REGISTERED) Logger.info("RTG's Terrain Event Handlers have been unregistered successfully.");
-            }
-        }
-    }
-
     public void registerEventHandlers() {
         MinecraftForge.EVENT_BUS        .register(LOAD_CHUNK_RTG);
         MinecraftForge.ORE_GEN_BUS      .register(GENERATE_ORE_RTG);
@@ -357,5 +339,9 @@ public class EventManagerRTG
 
     public void setDimensionChunkLoadEvent(int dimension, Acceptor<ChunkEvent.Load> action) {
         chunkLoadEvents.put(dimension, action);
+    }
+
+    public boolean isRegistered() {
+        return REGISTERED;
     }
 }

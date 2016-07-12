@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.WeakHashMap;
 
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -32,19 +29,22 @@ import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.genlayer.RiverRemover;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
+import cpw.mods.fml.common.eventhandler.Event;
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.eventhandler.EventPriority;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-@SuppressWarnings({"WeakerAccess","unused"})
 public class EventManagerRTG
 {
-    private final LoadChunkRTG           LOAD_CHUNK_RTG          = new LoadChunkRTG();
-    private final GenerateOreRTG         GENERATE_ORE_RTG        = new GenerateOreRTG();
-    private final InitBiomeGensRTG       INIT_BIOME_GENS_RTG     = new InitBiomeGensRTG();
-    private final BiomeFeaturesRTG       BIOME_FEATURES_RTG      = new BiomeFeaturesRTG();
-    private final CustomTreesRTG         CUSTOM_TREES_RTG        = new CustomTreesRTG();
+    private final LoadChunkRTG LOAD_CHUNK_RTG = new LoadChunkRTG();
+    private final GenerateOreRTG GENERATE_ORE_RTG = new GenerateOreRTG();
+    private final InitBiomeGensRTG INIT_BIOME_GENS_RTG = new InitBiomeGensRTG();
+    private final BiomeFeaturesRTG BIOME_FEATURES_RTG = new BiomeFeaturesRTG();
+    private final CustomTreesRTG CUSTOM_TREES_RTG = new CustomTreesRTG();
 
-    public final WorldEventsRTG         DISPLAY_SEED_RTG        = new WorldEventsRTG();
-    public final RTGEventRegister       RTG_EVENTS_ENABLER      = new RTGEventRegister();
-    public final RTGEventUnregister     RTG_EVENTS_DISABLER     = new RTGEventUnregister();
+    public final WorldEventsRTG DISPLAY_SEED_RTG = new WorldEventsRTG();
+    public final RTGEventRegister RTG_EVENTS_ENABLER = new RTGEventRegister();
+    public final RTGEventUnregister RTG_EVENTS_DISABLER = new RTGEventUnregister();
 
     private WeakHashMap<Integer, Acceptor<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
     private RealisticBiomeBase biome = null;
@@ -65,8 +65,10 @@ public class EventManagerRTG
             Logger.debug("RTG Event System: Initialising LoadChunkRTG");
         }
 
-        @SubscribeEvent
+        @SubscribeEvent(receiveCanceled = true)
         public void loadChunkRTG(ChunkEvent.Load event) {
+        	if (event.isCanceled()) { RTG.eventMgr.logCancelledEvent(event); }
+        	
             Acceptor<ChunkEvent.Load> acceptor = chunkLoadEvents.get(event.world.provider.dimensionId);
             if (acceptor != null) {
                 acceptor.accept(event);
@@ -80,8 +82,9 @@ public class EventManagerRTG
             Logger.debug("RTG Event System: Initialising GenerateOresRTG");
         }
 
-        @SubscribeEvent
+        @SubscribeEvent(receiveCanceled = true)
         public void onGenerateMinable(OreGenEvent.GenerateMinable event) {
+        	if (event.isCanceled()) { RTG.eventMgr.logCancelledEvent(event); }
 
             switch (event.type) {
 
@@ -110,6 +113,7 @@ public class EventManagerRTG
                     return;
 
                 default:
+                	return;
             }
         }
     }
@@ -121,8 +125,9 @@ public class EventManagerRTG
             Logger.debug("RTG Event System: Initialising InitBiomeGensRTG");
         }
 
-        @SubscribeEvent
+        @SubscribeEvent(receiveCanceled = true)
         public void initBiomeGensRTG(WorldTypeEvent.InitBiomeGens event) {
+        	if (event.isCanceled()) { RTG.eventMgr.logCancelledEvent(event); }
 
             if (event.newBiomeGens[0].getClass().getName().contains("GenLayerEB")) return;
 
@@ -141,8 +146,9 @@ public class EventManagerRTG
             Logger.debug("RTG Event System: Initialising BiomeFeaturesRTG");
         }
 
-        @SubscribeEvent(priority = EventPriority.LOW)
+        @SubscribeEvent(priority = EventPriority.LOW, receiveCanceled = true)
         public void doBiomeFeatures(InitMapGenEvent event) {
+        	if (event.isCanceled()) { RTG.eventMgr.logCancelledEvent(event); }
 
             Logger.debug("event type = %s", event.type.toString());
             Logger.debug("event originalGen = %s", event.originalGen.toString());
@@ -182,8 +188,10 @@ public class EventManagerRTG
             Logger.debug("RTG Event System: Initialising CustomTreesRTG");
         }
 
-        @SubscribeEvent
+        @SubscribeEvent(receiveCanceled = true)
         public void onSaplingGrowTree(SaplingGrowTreeEvent event) {
+        	if (event.isCanceled()) { RTG.eventMgr.logCancelledEvent(event); }
+        	
             // Are RTG saplings enabled?
             if (!ConfigRTG.enableRTGSaplings) { return; }
 
@@ -282,8 +290,10 @@ public class EventManagerRTG
             Logger.debug("RTG Event System: Initialising WorldEventsRTG");
         }
 
-        @SubscribeEvent
+        @SubscribeEvent(receiveCanceled = true)
         public void logWorldSeed(WorldEvent.Load event) {
+        	if (event.isCanceled()) { RTG.eventMgr.logCancelledEvent(event); }
+        	
             // This event fires for each dimension loaded (and then one last time in which it returns 0?),
             // so initialise a field to 0 and set it to the world seed and only display it in the log once.
             if (WORLD_SEED != event.world.getSeed() && event.world.getSeed() != 0) {
@@ -293,8 +303,10 @@ public class EventManagerRTG
             }
         }
 
-        @SubscribeEvent
+        @SubscribeEvent(receiveCanceled = true)
         public void resetWorldSeed(WorldEvent.Unload event) {
+        	if (event.isCanceled()) { RTG.eventMgr.logCancelledEvent(event); }
+        	
             // reset WORLD_SEED so that it logs on the next server start if the seed is the same as the last load.
             WORLD_SEED = 0;
         }
@@ -306,8 +318,10 @@ public class EventManagerRTG
             Logger.debug("RTG Event System: Initialising RTGEventRegister");
         }
 
-        @SubscribeEvent
+        @SubscribeEvent(receiveCanceled = true)
         public void registerRTGEventHandlers(WorldTypeEvent.InitBiomeGens event) {
+        	if (event.isCanceled()) { RTG.eventMgr.logCancelledEvent(event); }
+        	
             if (event.worldType instanceof WorldTypeRTG) {
                 if (!REGISTERED) {
                     Logger.info("Registering RTG's Terrain Event Handlers...");
@@ -327,8 +341,10 @@ public class EventManagerRTG
             Logger.debug("RTG Event System: Initialising RTGEventUnregister");
         }
 
-        @SubscribeEvent
+        @SubscribeEvent(receiveCanceled = true)
         public void unregisterRTGEventHandlers(WorldEvent.Unload event) {
+        	if (event.isCanceled()) { RTG.eventMgr.logCancelledEvent(event); }
+        	
             if (REGISTERED) {
                 Logger.info("Unregistering RTG's Terrain Event Handlers...");
                 RTG.eventMgr.unRegisterEventHandlers();
@@ -357,5 +373,11 @@ public class EventManagerRTG
 
     public void setDimensionChunkLoadEvent(int dimension, Acceptor<ChunkEvent.Load> action) {
         chunkLoadEvents.put(dimension, action);
+    }
+    
+    public void logCancelledEvent(Event event)
+    {
+    	// TODO: Chnage this from info() to debug() before release.
+    	Logger.info("EVENT CANCELLED! (%s) One of the following listeners cancelled the event: %s", event.toString(), event.getListenerList().toString());
     }
 }

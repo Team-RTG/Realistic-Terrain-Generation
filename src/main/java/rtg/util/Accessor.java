@@ -58,7 +58,6 @@ public class Accessor<ObjectType, FieldType> {
         throw new RuntimeException("None of " + Arrays.toString(fieldNames) + " found in class " + classObject.getName());
     }
 
-    @SuppressWarnings("unused")
     public void setField(ObjectType object, FieldType fieldValue) {
         try {
             field(object).set(object, fieldValue);

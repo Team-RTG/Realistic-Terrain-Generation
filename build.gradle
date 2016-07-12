@@ -56,3 +56,13 @@ def parseprops(File cfg) {
         return (new ConfigSlurper().parse(prop))
     }
 }
+
+// run 'gradle -DEBUG [runClient|runServer]' for a debug session
+allprojects {
+    tasks.withType(JavaExec) {
+        jvmArgs "-Xms2G", "-Xmx4G"
+        if (System.getProperty('EBUG', 'false') == 'true') {
+            jvmArgs '-agentlib:jdwp=transport=dt_socket,address=localhost:5005,server=y,suspend=y'
+        }
+    }
+}

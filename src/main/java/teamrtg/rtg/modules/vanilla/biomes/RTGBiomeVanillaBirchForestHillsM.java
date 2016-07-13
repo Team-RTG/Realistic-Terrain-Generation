@@ -92,10 +92,8 @@ public class RTGBiomeVanillaBirchForestHillsM extends RTGBiomeVanilla {
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.logCondition = LogCondition.RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 8;
-        decoFallenTree.logBlock = Blocks.LOG;
-        decoFallenTree.logMeta = (byte)2;
-        decoFallenTree.leavesBlock = Blocks.LEAVES;
-        decoFallenTree.leavesMeta = (byte)-1;
+        decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(2);
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(2);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;        
 		this.addDeco(decoFallenTree);

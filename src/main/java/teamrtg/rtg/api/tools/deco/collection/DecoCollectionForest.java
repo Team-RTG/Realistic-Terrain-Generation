@@ -111,10 +111,8 @@ public class DecoCollectionForest extends DecoCollectionBase
         decoFallenOak.logCondition = LogCondition.RANDOM_CHANCE;
         decoFallenOak.logConditionChance = 16;
         decoFallenOak.maxY = 80;
-        decoFallenOak.logBlock = Blocks.LOG;
-        decoFallenOak.logMeta = (byte)0;
-        decoFallenOak.leavesBlock = Blocks.LEAVES;
-        decoFallenOak.leavesMeta = (byte)-1;
+        decoFallenOak.logBlock = Blocks.LOG.getDefaultState();
+        decoFallenOak.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenOak.minSize = 3;
         decoFallenOak.maxSize = 6;
 		
@@ -122,10 +120,8 @@ public class DecoCollectionForest extends DecoCollectionBase
         decoFallenSpruce.logCondition = LogCondition.RANDOM_CHANCE;
         decoFallenSpruce.logConditionChance = 24;
         decoFallenSpruce.maxY = 80;
-        decoFallenSpruce.logBlock = Blocks.LOG;
-        decoFallenSpruce.logMeta = (byte)1;
-        decoFallenSpruce.leavesBlock = Blocks.LEAVES;
-        decoFallenSpruce.leavesMeta = (byte)-1;
+        decoFallenSpruce.logBlock = Blocks.LOG.getStateFromMeta(1);
+        decoFallenSpruce.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
         decoFallenSpruce.minSize = 3;
         decoFallenSpruce.maxSize = 6;
         

@@ -98,10 +98,8 @@ public class RTGBiomeVanillaRoofedForestM extends RTGBiomeVanilla {
 		decoFallenTree.logCondition = LogCondition.ALWAYS_GENERATE;
 		decoFallenTree.logConditionChance = 1;
 		decoFallenTree.loops = 4;
-		decoFallenTree.logBlock = Blocks.LOG2;
-		decoFallenTree.logMeta = (byte)1;
-		decoFallenTree.leavesBlock = Blocks.LEAVES2;
-		decoFallenTree.leavesMeta = (byte)-1;
+		decoFallenTree.logBlock = Blocks.LOG2.getStateFromMeta(1);
+		decoFallenTree.leavesBlock = Blocks.LEAVES2.getStateFromMeta(1);
 		decoFallenTree.minSize = 4;
 		decoFallenTree.maxSize = 9;
 		this.addDeco(decoFallenTree);

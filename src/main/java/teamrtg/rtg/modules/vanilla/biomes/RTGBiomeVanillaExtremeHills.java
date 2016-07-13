@@ -84,10 +84,8 @@ public class RTGBiomeVanillaExtremeHills extends RTGBiomeVanilla {
 		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		decoFallenTree.logConditionNoise = 0f;
 		decoFallenTree.logConditionChance = 16;
-		decoFallenTree.logBlock = Blocks.LOG;
-		decoFallenTree.logMeta = (byte)0;
-		decoFallenTree.leavesBlock = Blocks.LEAVES;
-		decoFallenTree.leavesMeta = (byte)-1;
+		decoFallenTree.logBlock = Blocks.LOG.getDefaultState();
+		decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
 		decoFallenTree.minSize = 4;
 		decoFallenTree.maxSize = 7;
 		this.addDeco(decoFallenTree);

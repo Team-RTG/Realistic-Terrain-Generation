@@ -87,10 +87,8 @@ public class RTGBiomeVanillaMegaSpruceTaiga extends RTGBiomeVanilla {
 		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		decoFallenTree.logConditionNoise = 0f;
 		decoFallenTree.logConditionChance = 6;
-		decoFallenTree.logBlock = Blocks.LOG;
-		decoFallenTree.logMeta = (byte)1;
-		decoFallenTree.leavesBlock = Blocks.LEAVES;
-		decoFallenTree.leavesMeta = (byte)-1;
+		decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(1);
+		decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
 		decoFallenTree.minSize = 3;
 		decoFallenTree.maxSize = 6;
 		this.addDeco(decoFallenTree);

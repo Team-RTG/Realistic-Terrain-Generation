@@ -41,10 +41,8 @@ public class DecoCollectionSavanna extends DecoCollectionBase
 		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 		decoFallenTree.logConditionNoise = 0f;
 		decoFallenTree.logConditionChance = 36;
-		decoFallenTree.logBlock = Blocks.LOG2;
-		decoFallenTree.logMeta = (byte)0;
-		decoFallenTree.leavesBlock = Blocks.LEAVES2;
-		decoFallenTree.leavesMeta = (byte)-1;
+		decoFallenTree.logBlock = Blocks.LOG2.getDefaultState();
+		decoFallenTree.leavesBlock = Blocks.LEAVES2.getDefaultState();
 		decoFallenTree.minSize = 3;
 		decoFallenTree.maxSize = 6;
 		this.addDeco(decoFallenTree);

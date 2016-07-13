@@ -60,10 +60,8 @@ public class RTGBiomeVanillaIcePlains extends RTGBiomeVanilla {
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 24;
-        decoFallenTree.logBlock = Blocks.LOG;
-        decoFallenTree.logMeta = (byte)1;
-        decoFallenTree.leavesBlock = Blocks.LEAVES;
-        decoFallenTree.leavesMeta = (byte)-1;
+        decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(1);
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
         decoFallenTree.minSize = 1;
         decoFallenTree.maxSize = 5;        
 		this.addDeco(decoFallenTree);

@@ -140,6 +140,7 @@ public class ConfigRTG extends ModConfig {
     public final PropertyBool GENERATE_ORES_DIAMOND = addBool("Generate diamond", "ores");
     public final PropertyBool GENERATE_ORES_REDSTONE = addBool("Generate redstone", "ores");
     public final PropertyBool GENERATE_ORES_LAPIS = addBool("Generate lapis", "ores");
+    public final PropertyBool GENERATE_ORES_EMERALD = addBool("Generate emerald", "ores");
     
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Plateaus
@@ -479,10 +480,6 @@ public class ConfigRTG extends ModConfig {
         
         GENERATE_ORES.setDefault(true).setComment(
         	"If false, RTG will not generate ores, even if individual ores have been enabled below."
-        	+ NEW_LINE +
-        	"This does not prevent emerald generation because emerald isn't technically an 'ore' according to Minecraft."
-        	+ NEW_LINE +
-        	"If you want to prevent emeralds from generating in your world, you'll have to use another mod to do it."
         );
         
         GENERATE_ORES_DIRT.setDefault(true).setComment("If false, RTG will not generate dirt ore.");
@@ -496,6 +493,7 @@ public class ConfigRTG extends ModConfig {
         GENERATE_ORES_DIAMOND.setDefault(true).setComment("If false, RTG will not generate diamond ore.");
         GENERATE_ORES_REDSTONE.setDefault(true).setComment("If false, RTG will not generate redstone ore.");
         GENERATE_ORES_LAPIS.setDefault(true).setComment("If false, RTG will not generate lapis lazuli ore.");
+        GENERATE_ORES_EMERALD.setDefault(true).setComment("If false, RTG will not generate emerald ore.");
         
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Plateaus

@@ -46,7 +46,7 @@ public class RTGBiomeVanillaSwampland extends RTGBiomeVanilla {
         SurfacePart surface = new SurfacePart();
         surface.add(new CliffSelector(1.5f)
             .add(PARTS.STONE_OR_COBBLE));
-        surface.add(PARTS.surfaceGeneric());
+        surface.add(PARTS.surfaceSwamp());
         return surface;
     }
 

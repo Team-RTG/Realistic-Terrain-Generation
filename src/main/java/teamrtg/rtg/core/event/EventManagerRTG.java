@@ -10,8 +10,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
+import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.terraingen.WorldTypeEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -34,8 +34,6 @@ import teamrtg.rtg.core.world.gen.structure.MapGenVillageRTG;
 import teamrtg.rtg.core.world.gen.structure.StructureOceanMonumentRTG;
 
 public class EventManagerRTG {
-
-    public RTGBiome biome = null;
 
     public EventManagerRTG() {
         MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
@@ -107,17 +105,6 @@ public class EventManagerRTG {
             MinecraftForge.EVENT_BUS.unregister(RTG.eventMgr);
         }
 
-    }
-
-    @SubscribeEvent
-    public void preBiomeDecorate(DecorateBiomeEvent.Pre event) {
-
-        //Are we in an RTG world? Do we have RTG's chunk manager?
-        if (event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG && event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG) {
-
-            BiomeProviderRTG cmr = (BiomeProviderRTG) event.getWorld().getBiomeProvider();
-            this.biome = cmr.getRealisticAt(event.getPos().getX(), event.getPos().getZ());
-        }
     }
     
 	@SubscribeEvent
@@ -218,4 +205,66 @@ public class EventManagerRTG {
 			}
 		}
 	}
+	
+    @SubscribeEvent
+    public void onGenerateMinable(OreGenEvent.GenerateMinable event) {
+
+    	if (Mods.RTG.config.GENERATE_ORES.get()) {
+    	
+	    	// COAL, DIAMOND, DIRT, GOLD, GRAVEL, IRON, LAPIS, REDSTONE, QUARTZ, DIORITE, GRANITE, ANDESITE, EMERALD, SILVERFISH, CUSTOM
+	        switch (event.getType()) {
+	            
+		        case COAL:
+		            if (!Mods.RTG.config.GENERATE_ORES_COAL.get()) { event.setResult(Result.DENY); }
+		            return;
+		            
+		        case DIAMOND:
+		            if (!Mods.RTG.config.GENERATE_ORES_DIAMOND.get()) { event.setResult(Result.DENY); }
+		            return;
+	            
+		        case DIRT:
+		            if (!Mods.RTG.config.GENERATE_ORES_DIRT.get()) { event.setResult(Result.DENY); }
+		            return;
+		            
+	            case GOLD:
+	                if (!Mods.RTG.config.GENERATE_ORES_GOLD.get()) { event.setResult(Result.DENY); }
+	                return;
+		            
+		        case GRAVEL:
+		            if (!Mods.RTG.config.GENERATE_ORES_GRAVEL.get()) { event.setResult(Result.DENY); }
+		            return;
+	
+	            case IRON:
+	                if (!Mods.RTG.config.GENERATE_ORES_IRON.get()) { event.setResult(Result.DENY); }
+	                return;
+	                
+	            case LAPIS:
+	                if (!Mods.RTG.config.GENERATE_ORES_LAPIS.get()) { event.setResult(Result.DENY); }
+	                return;
+	                
+	            case REDSTONE:
+	                if (!Mods.RTG.config.GENERATE_ORES_REDSTONE.get()) { event.setResult(Result.DENY); }
+	                return;
+	                
+	            case DIORITE:
+	                if (!Mods.RTG.config.GENERATE_ORES_DIORITE.get()) { event.setResult(Result.DENY); }
+	                return;                
+	
+	            case GRANITE:
+	                if (!Mods.RTG.config.GENERATE_ORES_GRANITE.get()) { event.setResult(Result.DENY); }
+	                return;
+	                
+	            case ANDESITE:
+	                if (!Mods.RTG.config.GENERATE_ORES_ANDESITE.get()) { event.setResult(Result.DENY); }
+	                return;
+	                
+	            case EMERALD:
+	                if (!Mods.RTG.config.GENERATE_ORES_EMERALD.get()) { event.setResult(Result.DENY); }
+	                return;
+	
+	            default:
+	            	return;
+	        }
+    	}
+    }
 }

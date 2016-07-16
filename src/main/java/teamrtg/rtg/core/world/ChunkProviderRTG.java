@@ -60,10 +60,9 @@ public class ChunkProviderRTG implements IChunkGenerator {
      * Declare variables.
      */
 
-    private static final int centerLocationIndex = 312;// this is x=8, y=8 with the calcs below
     private static final int sampleSize = 8;
+    public static String biomeLayoutActivity = "Biome Layout";
     private static String rtgTerrain = "RTG Terrain";
-    private static String rtgNoise = "RTG Noise";
     private static ChunkProviderRTG populatingProvider;
     public final Random rand;
     public final Random mapRand;
@@ -80,12 +79,10 @@ public class ChunkProviderRTG implements IChunkGenerator {
     private final boolean mapFeaturesEnabled;
     private final int worldHeight;
     private final int sampleArraySize;
-    private final BiomeAnalyzer analyzer;
     private final IBlockState bedrockBlock = Mods.RTG.config.BEDROCK_BLOCK.get();
     private final LimitedMap<PlaneLocation, Chunk> availableChunks;
-    private final HashSet<PlaneLocation> toDecorate = new HashSet<PlaneLocation>();
-    Accessor<ChunkProviderServer, Set<Long>> forServerLoadingChunks =
-            new Accessor<ChunkProviderServer, Set<Long>>("loadingChunks");
+    private final HashSet<PlaneLocation> toDecorate = new HashSet<>();
+    private Accessor<ChunkProviderServer, Set<Long>> forServerLoadingChunks = new Accessor<>("loadingChunks");
     private BiomeProviderRTG bprv;
     private float[] borderNoise;
     private float[][] weightings;
@@ -97,7 +94,8 @@ public class ChunkProviderRTG implements IChunkGenerator {
     private Compass compass = new Compass();
     ArrayList<Direction> directions = compass.directions();
     private boolean populating = false;
-    private LimitedSet<PlaneLocation> alreadyDecorated = new LimitedSet<PlaneLocation>(1000);
+    private LimitedSet<PlaneLocation> alreadyDecorated = new LimitedSet<>(1000);
+    private AnvilChunkLoader chunkLoader;
     // we have to store this callback because it's a WeakReference in the event manager
     public final Acceptor<ChunkEvent.Load> delayedDecorator = new Acceptor<ChunkEvent.Load>() {
 
@@ -134,8 +132,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
         m.put("distance", "24");
 
         mapFeaturesEnabled = worldIn.getWorldInfo().isMapFeaturesEnabled();
-
-        analyzer = new BiomeAnalyzer();
 
         if (Mods.RTG.config.ENABLE_CAVE_MODIFICATIONS.get()) {
             caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), CAVE);
@@ -298,7 +294,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         /*if (!chunkMade.contains(chunkLocation)||!everGenerated.contains(chunkLocation)) {
             throw new RuntimeException(chunkLocation.toString() +  chunkMade.size());
         }*/
-        availableChunks.put(chunkLocation,chunk);
+        availableChunks.put(chunkLocation, chunk);
         TimeTracker.manager.stop(rtgTerrain);
         return chunk;
     }
@@ -419,11 +415,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
     }
 
     public Runnable clearOnServerClose() {
-        return new Runnable() {
-            public void run() {
-                clearToDecorateList();
-            }
-        };
+        return this::clearToDecorateList;
     }
 
     private void clearToDecorateList() {
@@ -507,19 +499,18 @@ public class ChunkProviderRTG implements IChunkGenerator {
         return true;
     }
 
-    private AnvilChunkLoader chunkLoader;
     private AnvilChunkLoader chunkLoader() {
         if (chunkLoader == null) {
-            ChunkProviderServer server = (ChunkProviderServer)(world.getChunkProvider());
-            chunkLoader = (AnvilChunkLoader)(server.chunkLoader);
+            ChunkProviderServer server = (ChunkProviderServer) (world.getChunkProvider());
+            chunkLoader = (AnvilChunkLoader) (server.chunkLoader);
         }
         return chunkLoader;
     }
 
     public Set<Long> serverLoadingChunks() {
         if (this.serverLoadingChunks == null) {
-            ChunkProviderServer server = (ChunkProviderServer)(world.getChunkProvider());
-            chunkLoader = (AnvilChunkLoader)(server.chunkLoader);
+            ChunkProviderServer server = (ChunkProviderServer) (world.getChunkProvider());
+            chunkLoader = (AnvilChunkLoader) (server.chunkLoader);
             serverLoadingChunks = forServerLoadingChunks.get(server);
         }
         return serverLoadingChunks;
@@ -531,36 +522,34 @@ public class ChunkProviderRTG implements IChunkGenerator {
      * Populates chunk with ores etc etc
      */
     @Override
-    public void populate(int chunkX, int chunkZ){
-        //if (this.alreadyDecorated.contains(new PlaneLocation.Invariant(chunkX, chunkZ))) return;
-        //if (this.neighborsDone(chunkX, chunkZ)) {
+    public void populate(int chunkX, int chunkZ) {
+        if (this.alreadyDecorated.contains(new PlaneLocation.Invariant(chunkX, chunkZ))) return;
+        if (this.neighborsDone(chunkX, chunkZ)) {
             this.doPopulate(chunkX, chunkZ);
-        //}
+        }
         clearDecorations(0);
     }
-
-    public static String biomeLayoutActivity = "Biome Layout";
 
     private void doPopulate(int x, int z) {
         // don't populate if already done
 
         PlaneLocation location = new PlaneLocation.Invariant(x, z);
         //Logger.warn("trying to decorate "+location.toString());
-//        if (alreadyDecorated.contains(location)) return;
-//
-//        if (populating) {
-//            // this has been created by another decoration; put in todo pile
-//            addToDecorationList(location);
-//            return;
-//        }
-//
-//        if (populatingProvider != null) {
-//            throw new RuntimeException(toString() + " " + populatingProvider.toString());
-//        }
-//        if (inGeneration.containsKey(location)) {
-//            addToDecorationList(location);
-//            return;
-//        }
+        if (alreadyDecorated.contains(location)) return;
+
+        if (populating) {
+            // this has been created by another decoration; put in todo pile
+            addToDecorationList(location);
+            return;
+        }
+
+        if (populatingProvider != null) {
+            throw new RuntimeException(toString() + " " + populatingProvider.toString());
+        }
+        if (inGeneration.containsKey(location)) {
+            addToDecorationList(location);
+            return;
+        }
         //Logger.warn("decorating");
         alreadyDecorated.add(location);
         populating = true;

@@ -23,13 +23,9 @@ import teamrtg.rtg.api.util.noise.SimplexCellularNoise;
 import teamrtg.rtg.api.util.noise.SimplexOctave;
 import teamrtg.rtg.api.world.biome.RTGBiome;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import static teamrtg.rtg.api.util.math.MathUtils.globalToChunk;
-import static teamrtg.rtg.api.util.math.MathUtils.globalToIndex;
 
 
 public class BiomeProviderRTG extends BiomeProvider {
@@ -91,18 +87,32 @@ public class BiomeProviderRTG extends BiomeProvider {
         }
     }
 
-    public int[] getBiomesGens(int par1, int par2, int par3, int par4) {
+    /**
+     * Get the biome ids in a rectangle pre repair.
+     * @param bx starting point x coord
+     * @param bz starting point z coord
+     * @param xSize size along x axis
+     * @param zSize size along z axis
+     * @return an array of IDs for that square, indexed by x * xSize + z
+     */
+    public int[] getBiomesGens(int bx, int bz, int xSize, int zSize) {
 
-        int[] d = new int[par3 * par4];
+        int[] d = new int[xSize * zSize];
 
-        for (int i = 0; i < par3; i++) {
-            for (int j = 0; j < par4; j++) {
-                d[i * par3 + j] = BiomeUtils.getId(getPreRepair(par1 + i, par2 + j));
+        for (int i = 0; i < xSize; i++) {
+            for (int j = 0; j < zSize; j++) {
+                d[i * xSize + j] = BiomeUtils.getId(getPreRepair(bx + i, bz + j));
             }
         }
         return d;
     }
 
+    /**
+     * Get biome at coordinate before biome repair
+     * @param x x coordinate
+     * @param z z coordinate
+     * @return biome at coordinate
+     */
     public Biome getPreRepair(int x, int z) {
         Biome result;
         result = this.biomeCache.getBiomeCacheBlock(x, z).getBiome(x, z);
@@ -110,10 +120,10 @@ public class BiomeProviderRTG extends BiomeProvider {
     }
 
     public Biome getBiomeGenAt(int x, int z) {
-        return Biome.getBiomeForId(getBiomes(globalToChunk(x), globalToChunk(z))[globalToIndex(x, z)]);
+        return Biome.getBiomeForId(chunkProvider.landscapeGenerator.getBiomeDataAt(this, x, z));
     }
 
-    public RTGBiome getRealisticAt(int bx, int bz) {
+    public RTGBiome getRTGBiomeAt(int bx, int bz) {
         return RTGBiome.forBiome(getBiomeGenAt(bx, bz));
     }
 
@@ -173,7 +183,6 @@ public class BiomeProviderRTG extends BiomeProvider {
      * checks given Chunk's Biomes against List of allowed ones
      */
     @Override
-    @ParametersAreNonnullByDefault
     public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed) {
         IntCache.resetIntCache();
         int i = x - radius >> 2;
@@ -207,7 +216,6 @@ public class BiomeProviderRTG extends BiomeProvider {
     }
 
     @Override
-    @ParametersAreNonnullByDefault
     public BlockPos findBiomePosition(int p_150795_1_, int p_150795_2_, int p_150795_3_, List p_150795_4_, Random p_150795_5_) {
         IntCache.resetIntCache();
         int l = p_150795_1_ - p_150795_3_ >> 2;
@@ -260,25 +268,5 @@ public class BiomeProviderRTG extends BiomeProvider {
         double[] results = cell.river().eval(xRiver, yRiver);
         return (float) cellBorder(results, riverValleyLevel, 1.0);
         //return cell.octave(1).border2(xRiver, yRiver, riverValleyLevel, 1f);
-    }
-
-    public float[] getHeights(int cx, int cz) {
-        PlaneLocation loc = new PlaneLocation.Invariant(cx, cz);
-        float[] stored = this.heights.get(loc);
-        if (stored == null) {
-            chunkProvider.requestChunk(cx, cz);
-            return this.getHeights(cx, cz);
-        }
-        return stored;
-    }
-
-    public int[] getBiomes(int cx, int cz) {
-        PlaneLocation loc = new PlaneLocation.Invariant(cx, cz);
-        int[] stored = this.biomes.get(loc);
-        if (stored == null) {
-            chunkProvider.requestChunk(cx, cz);
-            return this.getBiomes(cx, cz);
-        }
-        return stored;
     }
 }

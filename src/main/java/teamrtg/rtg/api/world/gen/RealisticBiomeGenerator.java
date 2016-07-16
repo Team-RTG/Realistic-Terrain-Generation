@@ -102,7 +102,7 @@ public class RealisticBiomeGenerator {
 
                     if (l4 > 63) {
 
-                        (new WorldGenPond(Blocks.WATER)).generate(worldObj, rand, i2, l4, i8);
+                        (new WorldGenPond(Blocks.WATER.getDefaultState())).generate(worldObj, rand, new BlockPos(i2, l4, i8));
                     }
                 }
             }
@@ -140,7 +140,7 @@ public class RealisticBiomeGenerator {
 
                     if (l4 > 63) {
 
-                        (new WorldGenPond(Blocks.LAVA)).generate(worldObj, rand, i2, l4, i8);
+                        (new WorldGenPond(Blocks.LAVA.getDefaultState())).generate(worldObj, rand, new BlockPos(i2, l4, i8));
                     }
                 }
             }
@@ -158,10 +158,15 @@ public class RealisticBiomeGenerator {
             }
         }
     }
+    
+    public void populatePostDecorate(IChunkGenerator iChunkGenerator, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag)
+    {
+
+    }
 
     /**
-     * When manually decorating biomes by overriding rDecorate(), sometimes you want the biome
-     * to partially decorate itself. That's what this method does... it calls the biome's decorate() method.
+     * When realistically decorating biomes, sometimes you want the biome to partially decorate itself.
+     * That's what this method does... it calls the biome's decorate() method.
      */
     public void decorateBaseBiome(RTGWorld rtgWorld, int chunkX, int chunkY, float strength, float river) {
         if (strength > 0.3f) {
@@ -171,13 +176,8 @@ public class RealisticBiomeGenerator {
         }
     }
 
-    // lake calculations
-
     /**
-     * This method should be called if both of the following conditions are true:
-     * <p/>
-     * 1) You are manually decorating a biome by overrding rDecorate().
-     * 2) You are NOT calling decorateBaseBiome() within rDecorate().
+     * This method generates ores in realistically-decorated biomes.
      */
     public void generateOres(RTGWorld rtgWorld, BlockPos blockPos, float strength, float river) {
         Biome seedBiome = this.realistic.getBiome();
@@ -268,14 +268,15 @@ public class RealisticBiomeGenerator {
         }
     }
 
-    public float terrainHeight(RTGWorld rtgWorld, int x, int z, float biomeWeight, float border, float river) {
+    public float terrainHeight(RTGWorld rtgWorld, int x, int z, float biomeWeight, float river) {
         // we now have both lakes and rivers lowering land
         if (realistic.noWaterFeatures) {
             float borderForRiver = biomeWeight * 2;
             if (borderForRiver > 1f) borderForRiver = 1;
             river = 1f - (1f - borderForRiver) * (1f - river);
         }
-        float height = realistic.terrain.generateNoise(rtgWorld, x, z, biomeWeight, border, river);
+        // Border is temporarily disabled
+        float height = realistic.terrain.generateNoise(rtgWorld, x, z, biomeWeight, 0f, river);
         for (WorldFeature feature : realistic.getWorldFeatures()) {
             height = feature.modifyTerrain(rtgWorld, realistic, height, x, z, biomeWeight, river);
         }
@@ -296,7 +297,7 @@ public class RealisticBiomeGenerator {
         }
     }
 
-    public void decorate(RTGWorld rtgWorld, Random rand, int chunkY, int chunkX, float strength, float river) {
+    public void rDecorate(RTGWorld rtgWorld, Random rand, int chunkY, int chunkX, float strength, float river, boolean hasPlacedVillageBlocks) {
         boolean baseDecorated = false;
         ArrayList<DecoBase> decos = this.realistic.getDecos();
         for (int i = decos.size() - 1; i >= 0; i--) {
@@ -305,16 +306,16 @@ public class RealisticBiomeGenerator {
                 if (baseDecorated) continue;
                 baseDecorated = true;
             }
-            if (deco.preGenerate(rtgWorld, rand, chunkX, chunkY, strength, river, this)) {
-                deco.generate(rtgWorld, rand, chunkX, chunkY, strength, river, this);
+            if (deco.preGenerate(rtgWorld, rand, chunkX, chunkY, strength, river, this, hasPlacedVillageBlocks)) {
+                deco.generate(rtgWorld, rand, chunkX, chunkY, strength, river, this, hasPlacedVillageBlocks);
             }
         }
         // Generate ores
         if (!baseDecorated) {
             DecoBaseBiomeDecorations deco = new DecoBaseBiomeDecorations();
             deco.allowed = false;
-            if (deco.preGenerate(rtgWorld, rand, chunkX, chunkY, strength, river, this)) {
-                deco.generate(rtgWorld, rand, chunkX, chunkY, strength, river, this);
+            if (deco.preGenerate(rtgWorld, rand, chunkX, chunkY, strength, river, this, hasPlacedVillageBlocks)) {
+                deco.generate(rtgWorld, rand, chunkX, chunkY, strength, river, this, hasPlacedVillageBlocks);
             }
         }
     }

@@ -70,6 +70,16 @@ public class PresetParts {
                 .add(FILL_BLOCK));
         }};
     }
+    
+    public final SurfacePart surfaceSwamp() {
+        return new SurfacePart() {{
+            add(selectTop()
+                .add(new HeightSelector(62, 255)
+                    .add(TOP_BLOCK)));
+            add(selectFill()
+                .add(FILL_BLOCK));
+        }};
+    }
 
     public final SurfacePart selectTop() {
         return new DepthSelector(0, 0);

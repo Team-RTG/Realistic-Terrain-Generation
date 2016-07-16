@@ -45,29 +45,26 @@ public class RTGBiomeVanillaIcePlains extends RTGBiomeVanilla {
 
     @Override
     public void initDecos() {
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.checkRiver = true;
-        decoBoulder.minRiver = 0.87f;
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE;
-        decoBoulder.chance = 16;
-        decoBoulder.maxY = 95;
-        decoBoulder.strengthFactor = 5f;
-        this.addDeco(decoBoulder);
-
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
+        
+		DecoBoulder decoBoulder = new DecoBoulder();
+		decoBoulder.checkRiver = true;
+		decoBoulder.minRiver = 0.87f;
+		decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+		decoBoulder.chance = 16;
+		decoBoulder.maxY = 95;
+		decoBoulder.strengthFactor = 5f;
+		this.addDeco(decoBoulder);
+        
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 24;
-        decoFallenTree.maxY = 90;
-        decoFallenTree.logBlock = Blocks.LOG;
-        decoFallenTree.logMeta = (byte) 1;
-        decoFallenTree.leavesBlock = Blocks.LEAVES;
-        decoFallenTree.leavesMeta = (byte) -1;
+        decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(1);
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
         decoFallenTree.minSize = 1;
-        decoFallenTree.maxSize = 5;
-        this.addDeco(decoFallenTree);
+        decoFallenTree.maxSize = 5;        
+		this.addDeco(decoFallenTree);
     }
 
     @Override

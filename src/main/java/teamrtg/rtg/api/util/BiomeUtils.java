@@ -7,6 +7,7 @@ import static net.minecraft.world.biome.Biome.REGISTRY;
 
 public class BiomeUtils {
 
+    //TODO: Read this from somewhere
     private static Biome[] registeredBiomes = new Biome[256];
 
     static {

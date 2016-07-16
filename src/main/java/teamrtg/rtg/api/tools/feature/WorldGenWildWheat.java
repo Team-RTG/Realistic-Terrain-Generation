@@ -1,15 +1,21 @@
 package teamrtg.rtg.api.tools.feature;
 
+import static net.minecraft.block.material.Material.GROUND;
+import static net.minecraft.init.Blocks.CARROTS;
+import static net.minecraft.init.Blocks.DIRT;
+import static net.minecraft.init.Blocks.FARMLAND;
+import static net.minecraft.init.Blocks.GRASS;
+import static net.minecraft.init.Blocks.POTATOES;
+import static net.minecraft.init.Blocks.WATER;
+import static net.minecraft.init.Blocks.WHEAT;
+
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
-import java.util.Random;
-
-import static net.minecraft.block.material.Material.GROUND;
-import static net.minecraft.init.Blocks.*;
 
 class WorldGenWildWheat extends WorldGenerator {
     private Block farmtype;

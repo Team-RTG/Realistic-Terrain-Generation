@@ -3,10 +3,16 @@ package teamrtg.rtg.modules.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
+import teamrtg.rtg.api.tools.deco.DecoGrass;
+import teamrtg.rtg.api.tools.deco.DecoLargeFernDoubleTallgrass;
+import teamrtg.rtg.api.tools.deco.DecoShrub;
+import teamrtg.rtg.api.tools.deco.DecoTree;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
+import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTG;
+import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
@@ -57,43 +63,49 @@ public class RTGBiomeVanillaBirchForestM extends RTGBiomeVanilla {
 
     @Override
     public void initDecos() {
-        DecoTree superTallBirch = new DecoTree();
-        superTallBirch.strengthFactorForLoops = 16f;
-        superTallBirch.strengthNoiseFactorForLoops = true;
-        superTallBirch.treeType = TreeType.SUPER_TALL_BIRCH;
-        superTallBirch.distribution.noiseDivisor = 80f;
-        superTallBirch.distribution.noiseFactor = 60f;
-        superTallBirch.distribution.noiseAddend = -15f;
-        superTallBirch.treeCondition = TreeCondition.ALWAYS_GENERATE;
-        superTallBirch.maxY = 100;
-        this.addDeco(superTallBirch);
-
+        TreeRTG tallBirch = new TreeRTGBetulaPapyrifera();
+		tallBirch.logBlock = Blocks.LOG.getStateFromMeta(2);
+		tallBirch.leavesBlock = Blocks.LEAVES.getStateFromMeta(2);;
+		tallBirch.minTrunkSize = 16;
+		tallBirch.maxTrunkSize = 23;
+		tallBirch.minCrownSize = 4;
+		tallBirch.maxCrownSize = 11;
+		this.addTree(tallBirch);
+        
+		DecoTree superTallBirch = new DecoTree(tallBirch);
+		superTallBirch.strengthFactorForLoops = 16f;
+		superTallBirch.strengthNoiseFactorForLoops = true;
+		superTallBirch.treeType = TreeType.RTG_TREE;
+		superTallBirch.distribution.noiseDivisor = 80f;
+		superTallBirch.distribution.noiseFactor = 60f;
+		superTallBirch.distribution.noiseAddend = -15f;
+		superTallBirch.treeCondition = TreeCondition.ALWAYS_GENERATE;
+		superTallBirch.maxY = 100;
+		this.addDeco(superTallBirch);
+        
         DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
         decoDoublePlants.maxY = 128;
         decoDoublePlants.strengthFactor = 8f;
         this.addDeco(decoDoublePlants);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 128;
-        decoGrass.strengthFactor = 24f;
+        
+		DecoGrass decoGrass = new DecoGrass();
+		decoGrass.maxY = 128;
+		decoGrass.strengthFactor = 24f;
         this.addDeco(decoGrass);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.logCondition = LogCondition.RANDOM_CHANCE;
-        decoFallenTree.logConditionChance = 20;
-        decoFallenTree.maxY = 100;
-        decoFallenTree.logBlock = Blocks.LOG;
-        decoFallenTree.logMeta = (byte) 2;
-        decoFallenTree.leavesBlock = Blocks.LEAVES;
-        decoFallenTree.leavesMeta = (byte) -1;
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree);
-
-        DecoShrub decoShrub = new DecoShrub();
-        decoShrub.maxY = 110;
-        decoShrub.strengthFactor = 2f;
-        this.addDeco(decoShrub);
+        
+		DecoFallenTree decoFallenTree = new DecoFallenTree();
+		decoFallenTree.logCondition = LogCondition.RANDOM_CHANCE;
+		decoFallenTree.logConditionChance = 20;
+		decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(2);
+		decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(2);
+		decoFallenTree.minSize = 3;
+		decoFallenTree.maxSize = 6;        
+		this.addDeco(decoFallenTree);
+		
+		DecoShrub decoShrub = new DecoShrub();
+		decoShrub.maxY = 110;
+		decoShrub.strengthFactor = 2f;
+		this.addDeco(decoShrub);
     }
 
     @Override

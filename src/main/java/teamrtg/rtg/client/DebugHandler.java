@@ -35,7 +35,7 @@ public final class DebugHandler {
                 int posX = (int) player.posX;
                 int posZ = (int) player.posZ;
 
-//                RTGBiome realisticBiome = chunkManager.getRealisticAt(
+//                RTGBiome realisticBiome = chunkManager.getRTGBiomeAt(
 //                    (int)Math.floor(posX / 16), 
 //                    (int)Math.floor(posZ / 16)
 //                );

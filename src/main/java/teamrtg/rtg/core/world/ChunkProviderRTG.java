@@ -1,14 +1,5 @@
 package teamrtg.rtg.core.world;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -30,11 +21,7 @@ import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.MapGenCaves;
 import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.feature.WorldGenLiquids;
-import net.minecraft.world.gen.structure.MapGenMineshaft;
-import net.minecraft.world.gen.structure.MapGenScatteredFeature;
-import net.minecraft.world.gen.structure.MapGenStronghold;
-import net.minecraft.world.gen.structure.MapGenVillage;
-import net.minecraft.world.gen.structure.StructureOceanMonument;
+import net.minecraft.world.gen.structure.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.ChunkGeneratorEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
@@ -43,33 +30,18 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import teamrtg.rtg.api.module.Mods;
-import teamrtg.rtg.api.util.Acceptor;
-import teamrtg.rtg.api.util.Accessor;
-import teamrtg.rtg.api.util.BiomeUtils;
-import teamrtg.rtg.api.util.Compass;
-import teamrtg.rtg.api.util.Converter;
-import teamrtg.rtg.api.util.Direction;
-import teamrtg.rtg.api.util.LimitedMap;
-import teamrtg.rtg.api.util.LimitedSet;
-import teamrtg.rtg.api.util.PlaneLocation;
-import teamrtg.rtg.api.util.TimeTracker;
-import teamrtg.rtg.api.util.TimedHashSet;
+import teamrtg.rtg.api.util.*;
 import teamrtg.rtg.api.util.math.CanyonColour;
 import teamrtg.rtg.api.util.math.MathUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.RTGBiome;
 import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
-import teamrtg.rtg.core.util.TimeTrackers;
 import teamrtg.rtg.core.world.gen.MapGenCavesRTG;
 import teamrtg.rtg.core.world.gen.MapGenRavineRTG;
 
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.OCEAN_MONUMENT;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.SCATTERED_FEATURE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.STRONGHOLD;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE;
+import java.util.*;
+
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.*;
 
 /**
  * Note from the ChunkProviderRTG-gods:
@@ -89,8 +61,11 @@ public class ChunkProviderRTG implements IChunkGenerator {
      */
 
     private static final int sampleSize = 8;
+    public static String biomeLayoutActivity = "Biome Layout";
+    private static String rtgTerrain = "RTG Terrain";
     private static ChunkProviderRTG populatingProvider;
     public final Random rand;
+    public final Random mapRand;
     public final World world;
     public final RTGWorld rtgWorld;
     public final LandscapeGenerator landscapeGenerator;
@@ -148,7 +123,9 @@ public class ChunkProviderRTG implements IChunkGenerator {
         rand = new Random(l);
         rtgWorld = new RTGWorld(worldIn);
 
-        landscapeGenerator = new LandscapeGenerator();
+        mapRand = new Random(l);
+
+        landscapeGenerator = new LandscapeGenerator(rtgWorld.simplex, rtgWorld.cell);
 
         Map m = new HashMap();
         m.put("size", "0");
@@ -189,7 +166,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         int adjustment = 4;// this should actually vary with sampleSize
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 16; j++) {
-                int locationIndex = ((i + adjustment) * 25 + (j + adjustment));
+                int locationIndex = ((int) (i + adjustment) * 25 + (j + adjustment));
                 TimeTracker.manager.start("Weighting");
                 float totalWeight = 0;
                 float limit = (float) Math.pow((56f * 56f), .7);
@@ -211,10 +188,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
         }
     }
 
-    private int chunkCoordinate(int biomeMapCoordinate) {
-        return (biomeMapCoordinate - sampleSize) * 8;
-    }
-
     @Override
     @MethodsReturnNonnullByDefault
     public Chunk provideChunk(int cx, int cz) {
@@ -225,7 +198,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
         //if (everGenerated.contains(chunkLocation)) throw new RuntimeException();
 
-        TimeTrackers.RTG_TERRAIN.start();
+        TimeTracker.manager.start(rtgTerrain);
         rand.setSeed((long) cx * 0x4f9939f508L + (long) cz * 0x1ef1565bd5L);
 
         ChunkLandscape landscape = landscapeGenerator.landscape(bprv, cx * 16, cz * 16);
@@ -322,7 +295,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
             throw new RuntimeException(chunkLocation.toString() +  chunkMade.size());
         }*/
         availableChunks.put(chunkLocation, chunk);
-        TimeTrackers.RTG_TERRAIN.stop();
+        TimeTracker.manager.stop(rtgTerrain);
         return chunk;
     }
 
@@ -405,6 +378,144 @@ public class ChunkProviderRTG implements IChunkGenerator {
         }
     }
 
+    public void decorateIfOtherwiseSurrounded(PlaneLocation source, Direction fromNewChunk) {
+
+        // check if this is the master provider
+        //if (WorldTypeRTG.chunkProvider != this) return; // nope, not doing that! (the whole multiple dims thing and such)
+
+        // see if otherwise surrounded besides the new chunk
+        int cx = source.x() + fromNewChunk.xOffset;
+        int cy = source.z() + fromNewChunk.zOffset;
+
+        // check to see if already decorated; shouldn't be but just in case
+        probe.setX(cx);
+        probe.setZ(cy);
+        if (this.alreadyDecorated.contains(probe)) return;
+        // if an in-process chunk; we'll get a populate call later;
+        // if (this.inGeneration.containsKey(probe)) return;
+
+        for (Direction checked : directions) {
+            if (checked == compass.opposite(fromNewChunk)) continue; // that's the new chunk
+            if (!chunkExists(cx + checked.xOffset, cy + checked.zOffset)) return;// that one's missing
+        }
+        // passed all checks
+        addToDecorationList(new PlaneLocation.Invariant(cx, cy));
+        //this.doPopulate(world, cx, cy);
+    }
+
+    private boolean chunkExists(int par1, int par2) {
+        //if (chunkExists(par1,par2)) return true;
+        PlaneLocation location = new PlaneLocation.Invariant(par1, par2);
+        if (inGeneration.containsKey(location)) return true;
+        if (toCheck.contains(location)) return true;
+        if (this.chunkMade.contains(location)) return true;
+        if (chunkLoader().chunkExists(world, par1, par2)) return true;
+        //if (this.everGenerated.contains(location)) throw new RuntimeException("somehow lost "+location.toString());
+        return false;
+    }
+
+    public Runnable clearOnServerClose() {
+        return this::clearToDecorateList;
+    }
+
+    private void clearToDecorateList() {
+        if (populating) return;// in process, do later;
+        // we have to make a copy of the set to work on or we'll get errors
+        Set<PlaneLocation> toProcess = doableLocations(0);
+        while (toProcess.size() > 0) {
+            for (PlaneLocation location : toProcess) {
+                removeFromDecorationList(location);
+            }
+            for (PlaneLocation location : toProcess) {
+                doPopulate(location.x(), location.z());
+            }
+            // and loop because the decorating might have created other chunks to decorate;
+            toProcess = doableLocations(0);
+        }
+    }
+
+    private void clearDecorations(int limit) {
+        Set<PlaneLocation> toProcess = doableLocations(limit);
+        for (PlaneLocation location : toProcess) {
+            removeFromDecorationList(location);
+        }
+        for (PlaneLocation location : toProcess) {
+            doPopulate(location.x(), location.z());
+        }
+    }
+
+    private Set<PlaneLocation> doableLocations(int limit) {
+        HashSet<PlaneLocation> toProcess = new HashSet<PlaneLocation>();
+        int found = 0;
+        synchronized (toDecorate) {
+            for (PlaneLocation location : toDecorate) {
+                Chunk existing;
+                existing = availableChunks.get(location);
+                if (existing != null) {
+                    if (!existing.isTerrainPopulated()) {
+                        //continue; // not populated so let more "normal" systems handle it
+                    }
+                }
+                if (inGeneration.containsKey(location)) continue;
+                toProcess.add(location);
+                if (++found == limit) return toProcess;
+            }
+        }
+        return toProcess;
+    }
+
+    private Converter<Chunk, PlaneLocation> keyer() {
+        return new Converter<Chunk, PlaneLocation>() {
+
+            @Override
+            public final PlaneLocation result(Chunk original) {
+                return new PlaneLocation.Invariant(original.xPosition, original.zPosition);
+            }
+
+        };
+    }
+
+    private final void addToDecorationList(PlaneLocation toAdd) {
+        synchronized (toDecorate) {
+            toDecorate.add(toAdd);
+        }
+    }
+
+    private final void removeFromDecorationList(PlaneLocation toAdd) {
+        synchronized (toDecorate) {
+            toDecorate.remove(toAdd);
+        }
+    }
+
+    public boolean neighborsDone(int cx, int cz) {
+        if (!chunkExists(cx - 1, cz - 1)) return false;
+        if (!chunkExists(cx - 1, cz)) return false;
+        if (!chunkExists(cx - 1, cz + 1)) return false;
+        if (!chunkExists(cx, cz - 1)) return false;
+        if (!chunkExists(cx, cz + 1)) return false;
+        if (!chunkExists(cx + 1, cz - 1)) return false;
+        if (!chunkExists(cx + 1, cz)) return false;
+        if (!chunkExists(cx + 1, cz + 1)) return false;
+        return true;
+    }
+
+    private AnvilChunkLoader chunkLoader() {
+        if (chunkLoader == null) {
+            ChunkProviderServer server = (ChunkProviderServer) (world.getChunkProvider());
+            chunkLoader = (AnvilChunkLoader) (server.chunkLoader);
+        }
+        return chunkLoader;
+    }
+
+    public Set<Long> serverLoadingChunks() {
+        if (this.serverLoadingChunks == null) {
+            ChunkProviderServer server = (ChunkProviderServer) (world.getChunkProvider());
+            chunkLoader = (AnvilChunkLoader) (server.chunkLoader);
+            serverLoadingChunks = forServerLoadingChunks.get(server);
+        }
+        return serverLoadingChunks;
+    }
+
     /**
      * @see IChunkProvider
      * <p/>
@@ -412,10 +523,10 @@ public class ChunkProviderRTG implements IChunkGenerator {
      */
     @Override
     public void populate(int chunkX, int chunkZ) {
-        //if (this.alreadyDecorated.contains(new PlaneLocation.Invariant(chunkX, chunkZ))) return;
-        //if (this.neighborsDone(chunkX, chunkZ)) {
-        this.doPopulate(chunkX, chunkZ);
-        //}
+        if (this.alreadyDecorated.contains(new PlaneLocation.Invariant(chunkX, chunkZ))) return;
+        if (this.neighborsDone(chunkX, chunkZ)) {
+            this.doPopulate(chunkX, chunkZ);
+        }
         clearDecorations(0);
     }
 
@@ -424,21 +535,21 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
         PlaneLocation location = new PlaneLocation.Invariant(x, z);
         //Logger.warn("trying to decorate "+location.toString());
-//        if (alreadyDecorated.contains(location)) return;
-//
-//        if (populating) {
-//            // this has been created by another decoration; put in todo pile
-//            addToDecorationList(location);
-//            return;
-//        }
-//
-//        if (populatingProvider != null) {
-//            throw new RuntimeException(toString() + " " + populatingProvider.toString());
-//        }
-//        if (inGeneration.containsKey(location)) {
-//            addToDecorationList(location);
-//            return;
-//        }
+        if (alreadyDecorated.contains(location)) return;
+
+        if (populating) {
+            // this has been created by another decoration; put in todo pile
+            addToDecorationList(location);
+            return;
+        }
+
+        if (populatingProvider != null) {
+            throw new RuntimeException(toString() + " " + populatingProvider.toString());
+        }
+        if (inGeneration.containsKey(location)) {
+            addToDecorationList(location);
+            return;
+        }
         //Logger.warn("decorating");
         alreadyDecorated.add(location);
         populating = true;
@@ -451,9 +562,9 @@ public class ChunkProviderRTG implements IChunkGenerator {
         int worldX = x * 16;
         int worldZ = z * 16;
 
-        TimeTrackers.BIOME_LAYOUT_ACTIVITY.start();
+        TimeTracker.manager.start(biomeLayoutActivity);
         RTGBiome biome = bprv.getRTGBiomeAt(worldX + 16, worldZ + 16);
-        TimeTrackers.BIOME_LAYOUT_ACTIVITY.stop();
+        TimeTracker.manager.stop(biomeLayoutActivity);
         this.rand.setSeed(this.world.getSeed());
         long i1 = this.rand.nextLong() / 2L * 2L + 1L;
         long j1 = this.rand.nextLong() / 2L * 2L + 1L;
@@ -514,7 +625,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
          * Answer: building a frequency table of nearby biomes - Zeno.
          */
 
-        TimeTrackers.BIOME_LAYOUT_ACTIVITY.start();
+        TimeTracker.manager.start(biomeLayoutActivity);
         final int adjust = 32;// seems off? but decorations aren't matching their chunks.
         for (int bx = -4; bx <= 4; bx++) {
 
@@ -523,7 +634,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
             }
         }
 
-        TimeTrackers.BIOME_LAYOUT_ACTIVITY.stop();
+        TimeTracker.manager.stop(biomeLayoutActivity);
         TimeTracker.manager.stop("Features");
         /*
          * ########################################################################
@@ -652,42 +763,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
         populatingProvider = null;
     }
 
-    private void clearDecorations(int limit) {
-        Set<PlaneLocation> toProcess = doableLocations(limit);
-        for (PlaneLocation location : toProcess) {
-            removeFromDecorationList(location);
-        }
-        for (PlaneLocation location : toProcess) {
-            doPopulate(location.x(), location.z());
-        }
-    }
-
-    private Set<PlaneLocation> doableLocations(int limit) {
-        HashSet<PlaneLocation> toProcess = new HashSet<PlaneLocation>();
-        int found = 0;
-        synchronized (toDecorate) {
-            for (PlaneLocation location : toDecorate) {
-                Chunk existing;
-                existing = availableChunks.get(location);
-                if (existing != null) {
-                    if (!existing.isTerrainPopulated()) {
-                        //continue; // not populated so let more "normal" systems handle it
-                    }
-                }
-                if (inGeneration.containsKey(location)) continue;
-                toProcess.add(location);
-                if (++found == limit) return toProcess;
-            }
-        }
-        return toProcess;
-    }
-
-    private final void removeFromDecorationList(PlaneLocation toAdd) {
-        synchronized (toDecorate) {
-            toDecorate.remove(toAdd);
-        }
-    }
-
     @Override
     public boolean generateStructures(Chunk chunkIn, int x, int z) {
         return false;
@@ -766,104 +841,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         }
     }
 
-    public boolean neighborsDone(int cx, int cz) {
-        if (!chunkExists(cx - 1, cz - 1)) return false;
-        if (!chunkExists(cx - 1, cz)) return false;
-        if (!chunkExists(cx - 1, cz + 1)) return false;
-        if (!chunkExists(cx, cz - 1)) return false;
-        if (!chunkExists(cx, cz + 1)) return false;
-        if (!chunkExists(cx + 1, cz - 1)) return false;
-        if (!chunkExists(cx + 1, cz)) return false;
-        return chunkExists(cx + 1, cz + 1);
-    }
-
-    private boolean chunkExists(int par1, int par2) {
-        //if (chunkExists(par1,par2)) return true;
-        PlaneLocation location = new PlaneLocation.Invariant(par1, par2);
-        if (inGeneration.containsKey(location)) return true;
-        if (toCheck.contains(location)) return true;
-        if (this.chunkMade.contains(location)) return true;
-        if (chunkLoader().chunkExists(world, par1, par2)) return true;
-        //if (this.everGenerated.contains(location)) throw new RuntimeException("somehow lost "+location.toString());
-        return false;
-    }
-
-    private AnvilChunkLoader chunkLoader() {
-        if (chunkLoader == null) {
-            ChunkProviderServer server = (ChunkProviderServer) (world.getChunkProvider());
-            chunkLoader = (AnvilChunkLoader) (server.chunkLoader);
-        }
-        return chunkLoader;
-    }
-
-    public void decorateIfOtherwiseSurrounded(PlaneLocation source, Direction fromNewChunk) {
-
-        // check if this is the master provider
-        //if (WorldTypeRTG.chunkProvider != this) return; // nope, not doing that! (the whole multiple dims thing and such)
-
-        // see if otherwise surrounded besides the new chunk
-        int cx = source.x() + fromNewChunk.xOffset;
-        int cy = source.z() + fromNewChunk.zOffset;
-
-        // check to see if already decorated; shouldn't be but just in case
-        probe.setX(cx);
-        probe.setZ(cy);
-        if (this.alreadyDecorated.contains(probe)) return;
-        // if an in-process chunk; we'll get a populate call later;
-        // if (this.inGeneration.containsKey(probe)) return;
-
-        for (Direction checked : directions) {
-            if (checked == compass.opposite(fromNewChunk)) continue; // that's the new chunk
-            if (!chunkExists(cx + checked.xOffset, cy + checked.zOffset)) return;// that one's missing
-        }
-        // passed all checks
-        addToDecorationList(new PlaneLocation.Invariant(cx, cy));
-        //this.doPopulate(world, cx, cy);
-    }
-
-    private final void addToDecorationList(PlaneLocation toAdd) {
-        synchronized (toDecorate) {
-            toDecorate.add(toAdd);
-        }
-    }
-
-    public Runnable clearOnServerClose() {
-        return this::clearToDecorateList;
-    }
-
-    private void clearToDecorateList() {
-        if (populating) return;// in process, do later;
-        // we have to make a copy of the set to work on or we'll get errors
-        Set<PlaneLocation> toProcess = doableLocations(0);
-        while (toProcess.size() > 0) {
-            for (PlaneLocation location : toProcess) {
-                removeFromDecorationList(location);
-            }
-            for (PlaneLocation location : toProcess) {
-                doPopulate(location.x(), location.z());
-            }
-            // and loop because the decorating might have created other chunks to decorate;
-            toProcess = doableLocations(0);
-        }
-    }
-
-    private Converter<Chunk, PlaneLocation> keyer() {
-        return new Converter<Chunk, PlaneLocation>() {
-
-            @Override
-            public final PlaneLocation result(Chunk original) {
-                return new PlaneLocation.Invariant(original.xPosition, original.zPosition);
-            }
-
-        };
-    }
-
-    public Set<Long> serverLoadingChunks() {
-        if (this.serverLoadingChunks == null) {
-            ChunkProviderServer server = (ChunkProviderServer) (world.getChunkProvider());
-            chunkLoader = (AnvilChunkLoader) (server.chunkLoader);
-            serverLoadingChunks = forServerLoadingChunks.get(server);
-        }
-        return serverLoadingChunks;
+    private int chunkCoordinate(int biomeMapCoordinate) {
+        return (biomeMapCoordinate - sampleSize) * 8;
     }
 }

@@ -1,12 +1,12 @@
 package teamrtg.rtg.api.util;
 
+import teamrtg.rtg.core.RTG;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
-
-import teamrtg.rtg.core.RTG;
 
 /**
  * A simple utility to track time spent in various procedures.
@@ -16,7 +16,6 @@ import teamrtg.rtg.core.RTG;
  */
 public class TimeTracker {
 
-    public static final Manager manager = new Manager();
     //private boolean started;
     private boolean stopped;
     private int depth;
@@ -25,6 +24,7 @@ public class TimeTracker {
     private long stopTime;
     private long totalOn = 0;
     private long totalOff = 0;
+    public static final Manager manager = new Manager();
 
     public String report () {
         return new String(" on proportion "+((float)totalOn/(float)(totalOn+totalOff+1))+ " max depth " +
@@ -64,17 +64,17 @@ public class TimeTracker {
             return this::report;
         }
 
-        public void start(String name) {
-            tracker(name).start();
-        }
-
-        public TimeTracker tracker(String name) {
+        private TimeTracker tracker(String name) {
             TimeTracker result = trackers.get(name);
             if (result == null){
                 result = new TimeTracker();
                 trackers.put(name, result);
             }
             return result;
+        }
+
+        public void start(String name) {
+            tracker(name).start();
         }
 
         public void stop(String name) {
@@ -103,13 +103,13 @@ class StringWriter {
         output = new BufferedWriter(new FileWriter(file));
     }
 
-    public static StringWriter from(String fileName) {
-        return StringWriter.from(new File(fileName));
-    }
-
     public static StringWriter from(File file) {
         try{ return new StringWriter(file);}
         catch (IOException e) {throw new RuntimeException();}
+    }
+
+    public static StringWriter from(String fileName) {
+        return StringWriter.from(new File(fileName));
     }
 
     public void accept(String written) {

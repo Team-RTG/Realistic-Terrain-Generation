@@ -30,7 +30,6 @@ public class RTG {
     @Instance(ModInfo.MOD_ID)
     public static RTG instance;
     public static String configPath;
-    @SuppressWarnings("WeakerAccess")
     public static WorldTypeRTG worldtype;
     public static EventManagerRTG eventMgr;
 
@@ -53,19 +52,7 @@ public class RTG {
         Logger.info("[FMLPreInitializationEvent] Creating RTG's EventManager");
         eventMgr = new EventManagerRTG();
 
-        worldtype = new WorldTypeRTG();
-    }
-
-    private void registerStructures() {
-        // Scattered features
-        MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
-
-        // Villages
-        if (Mods.RTG.config.ENABLE_VILLAGE_MODIFICATIONS.get())
-            MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
-
-        // Ocean monuments
-        MapGenStructureIO.registerStructure(StructureOceanMonumentRTG.StartMonument.class, "rtg_MapGenOceanMonumentRTG");
+        worldtype = new WorldTypeRTG(ModInfo.MOD_ID);
     }
 
     @EventHandler
@@ -93,6 +80,20 @@ public class RTG {
         }
 
     }
+    
+    private void registerStructures()
+    {
+    	// Scattered features
+        MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
+        
+        // Villages
+        if (Mods.RTG.config.ENABLE_VILLAGE_MODIFICATIONS.get())
+            MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
+        
+        // Ocean monuments
+        MapGenStructureIO.registerStructure(StructureOceanMonumentRTG.StartMonument.class, "rtg_MapGenOceanMonumentRTG");
+    }
+
 
     public void runOnServerClose(Runnable action) {
         serverCloseActions.add(action);

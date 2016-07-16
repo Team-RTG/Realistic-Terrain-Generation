@@ -14,11 +14,12 @@ public class RealisticBiomePresenceTester {
     public static void doBiomeCheck() {
         Biome[] b = BiomeUtils.getRegisteredBiomes();
 
-        for (Biome aB : b) {
-            if (aB != null) {
-                int biomeId = getIdForBiome(aB);
-                String biomeName = BiomeUtils.getLocForBiome(aB).toString();
-                String biomeClass = aB.getBiomeClass().getName();
+        for (int i = 0; i < b.length; i++) {
+            if (b[i] != null) {
+                Biome biome = b[i];
+                int biomeId = getIdForBiome(biome);
+                String biomeName = BiomeUtils.getLocForBiome(biome).toString();
+                String biomeClass = biome.getBiomeClass().getName();
 
                 RTGBiome rBiome = RTGBiome.forBiome(biomeId);
                 if (rBiome == null) {

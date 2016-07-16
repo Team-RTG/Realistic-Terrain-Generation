@@ -52,7 +52,7 @@ public class RTG {
         Logger.info("[FMLPreInitializationEvent] Creating RTG's EventManager");
         eventMgr = new EventManagerRTG();
 
-        worldtype = new WorldTypeRTG("RTG");
+        worldtype = new WorldTypeRTG(ModInfo.MOD_ID);
     }
 
     @EventHandler

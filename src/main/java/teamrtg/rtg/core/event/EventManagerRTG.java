@@ -43,9 +43,8 @@ public class EventManagerRTG
     private final InitBiomeGensRTG INIT_BIOME_GENS_RTG = new InitBiomeGensRTG();
     private final InitMapGenRTG INIT_MAP_GEN_RTG = new InitMapGenRTG();
     private final SaplingGrowTreeRTG SAPLING_GROW_TREE_RTG = new SaplingGrowTreeRTG();
-    
-    public final WorldEventRTG WORLD_EVENT_RTG = new WorldEventRTG();
-    public final RTGEventRegister RTG_EVENT_REGISTER = new RTGEventRegister();
+    private final WorldEventRTG WORLD_EVENT_RTG = new WorldEventRTG();
+    private final RTGEventRegister RTG_EVENT_REGISTER = new RTGEventRegister();
 
     private WeakHashMap<Integer, Acceptor<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
     private boolean registered = false;
@@ -177,28 +176,38 @@ public class EventManagerRTG
             Logger.debug("event type = %s", event.getType().toString());
             Logger.debug("event originalGen = %s", event.getOriginalGen().toString());
 
-            if (event.getType() == InitMapGenEvent.EventType.SCATTERED_FEATURE) {
-                event.setNewGen(new MapGenScatteredFeatureRTG());
-            } else if (event.getType() == InitMapGenEvent.EventType.VILLAGE) {
-
-                if (Mods.RTG.config.ENABLE_VILLAGE_MODIFICATIONS.get()) {
-                    event.setNewGen(new MapGenVillageRTG());
-                }
-            } else if (event.getType() == InitMapGenEvent.EventType.CAVE) {
-
-                if (Mods.RTG.config.ENABLE_CAVE_MODIFICATIONS.get()) {
-
-                    event.setNewGen(new MapGenCavesRTG());
-                }
-            } else if (event.getType() == InitMapGenEvent.EventType.RAVINE) {
-
-                if (Mods.RTG.config.ENABLE_RAVINE_MODIFICATIONS.get()) {
-
-                    event.setNewGen(new MapGenRavineRTG());
-                }
-            } else if (event.getType() == InitMapGenEvent.EventType.OCEAN_MONUMENT) {
-                event.setNewGen(new StructureOceanMonumentRTG());
+            switch (event.getType()) {
+            
+	            case SCATTERED_FEATURE:
+	            	event.setNewGen(new MapGenScatteredFeatureRTG());
+	            	break;
+	            
+	            case VILLAGE:
+	                if (Mods.RTG.config.ENABLE_VILLAGE_MODIFICATIONS.get()) {
+	                    event.setNewGen(new MapGenVillageRTG());
+	                }
+	                break;
+	            
+	            case CAVE:
+	                if (Mods.RTG.config.ENABLE_CAVE_MODIFICATIONS.get()) {
+	                    event.setNewGen(new MapGenCavesRTG());
+	                }
+	                break;
+	            
+	            case RAVINE:
+	                if (Mods.RTG.config.ENABLE_RAVINE_MODIFICATIONS.get()) {
+	                    event.setNewGen(new MapGenRavineRTG());
+	                }
+	                break;
+	                
+	            case OCEAN_MONUMENT:
+	            	event.setNewGen(new StructureOceanMonumentRTG());
+	            	break;
+	            	
+	            default:
+	            	break;
             }
+
             Logger.debug("event newGen = %s", event.getNewGen().toString());
         }
     }

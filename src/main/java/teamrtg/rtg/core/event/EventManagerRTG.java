@@ -65,13 +65,14 @@ public class EventManagerRTG
             Logger.debug(EVENT_SYSTEM + "Initialising LoadChunkRTG");
         }
 
-        @SubscribeEvent
-        public void loadChunkRTG(ChunkEvent.Load event) {
-            Acceptor<ChunkEvent.Load> acceptor = chunkLoadEvents.get(event.getWorld().provider.getDimension());
-            if (acceptor != null) {
-                acceptor.accept(event);
-            }
-        }
+		@SubscribeEvent
+		public void loadChunkRTG(ChunkEvent.Load loadEvent)  {
+			Integer dimension = loadEvent.getWorld().provider.getDimension();
+			Acceptor<ChunkEvent.Load> acceptor = chunkLoadEvents.get(dimension);
+			if (acceptor != null) {
+				acceptor.accept(loadEvent);
+			}
+		}
     }
     
     public class GenerateMinableRTG
@@ -373,9 +374,9 @@ public class EventManagerRTG
         registered = false;
     }
     
-    public void setDimensionChunkLoadEvent(int dimension, Acceptor<ChunkEvent.Load> action) {
-        chunkLoadEvents.put(dimension, action);
-    }
+	public void setDimensionChunkLoadEvent(int dimension, Acceptor<ChunkEvent.Load> action) {
+		chunkLoadEvents.put(dimension, action);
+	}
     
     public boolean isRegistered() {
         return registered;

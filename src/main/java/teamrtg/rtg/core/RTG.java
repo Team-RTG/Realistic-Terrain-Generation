@@ -36,6 +36,7 @@ public class RTG {
     @SidedProxy(serverSide = ModInfo.PROXY_COMMON, clientSide = ModInfo.PROXY_CLIENT)
     public static CommonProxy proxy;
 
+    private ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<>();
     private ArrayList<Runnable> serverCloseActions = new ArrayList<>();
 
     @EventHandler
@@ -91,5 +92,26 @@ public class RTG {
         
         // Ocean monuments
         MapGenStructureIO.registerStructure(StructureOceanMonumentRTG.StartMonument.class, "rtg_MapGenOceanMonumentRTG");
+    }
+
+
+    public void runOnServerClose(Runnable action) {
+        serverCloseActions.add(action);
+    }
+
+    public void runOnNextServerCloseOnly(Runnable action) {
+        serverCloseActions.add(action);
+    }
+
+    @EventHandler
+    public void fmlLifeCycle(FMLServerStoppedEvent event) {
+        for (Runnable action : serverCloseActions) {
+            action.run();
+        }
+        for (Runnable action : oneShotServerCloseActions) {
+            action.run();
+        }
+        oneShotServerCloseActions.clear();
+
     }
 }

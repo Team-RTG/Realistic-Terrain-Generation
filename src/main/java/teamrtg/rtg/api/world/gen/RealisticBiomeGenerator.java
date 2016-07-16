@@ -1,8 +1,5 @@
 package teamrtg.rtg.api.world.gen;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
 import net.minecraft.init.Blocks;
@@ -29,6 +26,9 @@ import teamrtg.rtg.api.world.biome.WorldFeature;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * @author topisani
@@ -268,14 +268,15 @@ public class RealisticBiomeGenerator {
         }
     }
 
-    public float terrainHeight(RTGWorld rtgWorld, int x, int z, float biomeWeight, float border, float river) {
+    public float terrainHeight(RTGWorld rtgWorld, int x, int z, float biomeWeight, float river) {
         // we now have both lakes and rivers lowering land
         if (realistic.noWaterFeatures) {
             float borderForRiver = biomeWeight * 2;
             if (borderForRiver > 1f) borderForRiver = 1;
             river = 1f - (1f - borderForRiver) * (1f - river);
         }
-        float height = realistic.terrain.generateNoise(rtgWorld, x, z, biomeWeight, border, river);
+        // Border is temporarily disabled
+        float height = realistic.terrain.generateNoise(rtgWorld, x, z, biomeWeight, 0f, river);
         for (WorldFeature feature : realistic.getWorldFeatures()) {
             height = feature.modifyTerrain(rtgWorld, realistic, height, x, z, biomeWeight, river);
         }

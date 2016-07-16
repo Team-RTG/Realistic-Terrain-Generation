@@ -1,6 +1,4 @@
-
 package teamrtg.rtg.api.util;
-
 
 /**
  *

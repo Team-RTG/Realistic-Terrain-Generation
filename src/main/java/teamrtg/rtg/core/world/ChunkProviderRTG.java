@@ -1,5 +1,14 @@
 package teamrtg.rtg.core.world;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -21,7 +30,11 @@ import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.MapGenCaves;
 import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.feature.WorldGenLiquids;
-import net.minecraft.world.gen.structure.*;
+import net.minecraft.world.gen.structure.MapGenMineshaft;
+import net.minecraft.world.gen.structure.MapGenScatteredFeature;
+import net.minecraft.world.gen.structure.MapGenStronghold;
+import net.minecraft.world.gen.structure.MapGenVillage;
+import net.minecraft.world.gen.structure.StructureOceanMonument;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.ChunkGeneratorEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
@@ -30,7 +43,17 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import teamrtg.rtg.api.module.Mods;
-import teamrtg.rtg.api.util.*;
+import teamrtg.rtg.api.util.Acceptor;
+import teamrtg.rtg.api.util.Accessor;
+import teamrtg.rtg.api.util.BiomeUtils;
+import teamrtg.rtg.api.util.Compass;
+import teamrtg.rtg.api.util.Converter;
+import teamrtg.rtg.api.util.Direction;
+import teamrtg.rtg.api.util.LimitedMap;
+import teamrtg.rtg.api.util.LimitedSet;
+import teamrtg.rtg.api.util.PlaneLocation;
+import teamrtg.rtg.api.util.TimeTracker;
+import teamrtg.rtg.api.util.TimedHashSet;
 import teamrtg.rtg.api.util.math.CanyonColour;
 import teamrtg.rtg.api.util.math.MathUtils;
 import teamrtg.rtg.api.world.RTGWorld;
@@ -39,9 +62,13 @@ import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
 import teamrtg.rtg.core.world.gen.MapGenCavesRTG;
 import teamrtg.rtg.core.world.gen.MapGenRavineRTG;
 
-import java.util.*;
-
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.*;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.OCEAN_MONUMENT;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.SCATTERED_FEATURE;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.STRONGHOLD;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE;
 
 /**
  * Note from the ChunkProviderRTG-gods:
@@ -166,7 +193,7 @@ public class ChunkProviderRTG implements IChunkGenerator {
         int adjustment = 4;// this should actually vary with sampleSize
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 16; j++) {
-                int locationIndex = ((int) (i + adjustment) * 25 + (j + adjustment));
+                int locationIndex = ((i + adjustment) * 25 + (j + adjustment));
                 TimeTracker.manager.start("Weighting");
                 float totalWeight = 0;
                 float limit = (float) Math.pow((56f * 56f), .7);
@@ -186,6 +213,10 @@ public class ChunkProviderRTG implements IChunkGenerator {
                 }
             }
         }
+    }
+
+    private int chunkCoordinate(int biomeMapCoordinate) {
+        return (biomeMapCoordinate - sampleSize) * 8;
     }
 
     @Override
@@ -378,6 +409,108 @@ public class ChunkProviderRTG implements IChunkGenerator {
         }
     }
 
+    /**
+     * @see IChunkProvider
+     * <p/>
+     * Populates chunk with ores etc etc
+     */
+    @Override
+    public void populate(int chunkX, int chunkZ) {
+//        if (this.alreadyDecorated.contains(new PlaneLocation.Invariant(chunkX, chunkZ))) return;
+//        if (this.neighborsDone(chunkX, chunkZ)) {
+        this.doPopulate(chunkX, chunkZ);
+//        }
+        clearDecorations(0);
+    }
+
+    private void clearDecorations(int limit) {
+        Set<PlaneLocation> toProcess = doableLocations(limit);
+        for (PlaneLocation location : toProcess) {
+            removeFromDecorationList(location);
+        }
+        for (PlaneLocation location : toProcess) {
+            doPopulate(location.x(), location.z());
+        }
+    }
+
+    @Override
+    public boolean generateStructures(Chunk chunkIn, int x, int z) {
+        return false;
+    }
+
+    /**
+     * @see IChunkProvider
+     * <p/>
+     * Returns a list of creatures of the specified type that can spawn at the given location.
+     */
+    @Override
+    public List getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
+        Biome var5 = this.world.getBiome(pos);
+        if (this.mapFeaturesEnabled) {
+            if (creatureType == EnumCreatureType.MONSTER && this.scatteredFeatureGenerator.isSwampHut(pos)) {
+                return this.scatteredFeatureGenerator.getScatteredFeatureSpawnList();
+            }
+
+            if (creatureType == EnumCreatureType.MONSTER && Mods.RTG.config.GENERATE_OCEAN_MONUMENTS.get() && this.oceanMonumentGenerator.isPositionInStructure(this.world, pos)) {
+                return this.oceanMonumentGenerator.getScatteredFeatureSpawnList();
+            }
+        }
+        return var5 == null ? null : var5.getSpawnableList(creatureType);
+    }
+
+    /**
+     * @see IChunkProvider
+     */
+    @Override
+    public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position) {
+        if (!Mods.RTG.config.GENERATE_STRONGHOLDS.get()) {
+            return null;
+        }
+
+        return "Stronghold".equals(structureName) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(worldIn, position) : null;
+    }
+
+    /**
+     * @see IChunkProvider
+     */
+    @Override
+    public void recreateStructures(Chunk chunkIn, int x, int z) {
+
+        if (mapFeaturesEnabled) {
+
+            if (Mods.RTG.config.GENERATE_MINESHAFTS.get()) {
+                mineshaftGenerator.generate(world, x, z, null);
+            }
+
+            if (Mods.RTG.config.GENERATE_STRONGHOLDS.get()) {
+                strongholdGenerator.generate(world, x, z, null);
+            }
+
+            if (Mods.RTG.config.GENERATE_VILLAGES.get()) {
+
+                if (Mods.RTG.config.VILLAGE_CRASH_FIX.get()) {
+
+                    try {
+                        villageGenerator.generate(this.world, x, z, null);
+                    } catch (Exception e) {
+                        // Do nothing.
+                    }
+
+                } else {
+                    villageGenerator.generate(this.world, x, z, null);
+                }
+            }
+
+            if (Mods.RTG.config.GENERATE_SCATTERED_FEATURES.get()) {
+                scatteredFeatureGenerator.generate(this.world, x, z, null);
+            }
+
+            if (Mods.RTG.config.GENERATE_OCEAN_MONUMENTS.get()) {
+                oceanMonumentGenerator.generate(this.world, x, z, null);
+            }
+        }
+    }
+
     public void decorateIfOtherwiseSurrounded(PlaneLocation source, Direction fromNewChunk) {
 
         // check if this is the master provider
@@ -414,6 +547,20 @@ public class ChunkProviderRTG implements IChunkGenerator {
         return false;
     }
 
+    private final void addToDecorationList(PlaneLocation toAdd) {
+        synchronized (toDecorate) {
+            toDecorate.add(toAdd);
+        }
+    }
+
+    private AnvilChunkLoader chunkLoader() {
+        if (chunkLoader == null) {
+            ChunkProviderServer server = (ChunkProviderServer) (world.getChunkProvider());
+            chunkLoader = (AnvilChunkLoader) (server.chunkLoader);
+        }
+        return chunkLoader;
+    }
+
     public Runnable clearOnServerClose() {
         return this::clearToDecorateList;
     }
@@ -431,16 +578,6 @@ public class ChunkProviderRTG implements IChunkGenerator {
             }
             // and loop because the decorating might have created other chunks to decorate;
             toProcess = doableLocations(0);
-        }
-    }
-
-    private void clearDecorations(int limit) {
-        Set<PlaneLocation> toProcess = doableLocations(limit);
-        for (PlaneLocation location : toProcess) {
-            removeFromDecorationList(location);
-        }
-        for (PlaneLocation location : toProcess) {
-            doPopulate(location.x(), location.z());
         }
     }
 
@@ -464,70 +601,10 @@ public class ChunkProviderRTG implements IChunkGenerator {
         return toProcess;
     }
 
-    private Converter<Chunk, PlaneLocation> keyer() {
-        return new Converter<Chunk, PlaneLocation>() {
-
-            @Override
-            public final PlaneLocation result(Chunk original) {
-                return new PlaneLocation.Invariant(original.xPosition, original.zPosition);
-            }
-
-        };
-    }
-
-    private final void addToDecorationList(PlaneLocation toAdd) {
-        synchronized (toDecorate) {
-            toDecorate.add(toAdd);
-        }
-    }
-
     private final void removeFromDecorationList(PlaneLocation toAdd) {
         synchronized (toDecorate) {
             toDecorate.remove(toAdd);
         }
-    }
-
-    public boolean neighborsDone(int cx, int cz) {
-        if (!chunkExists(cx - 1, cz - 1)) return false;
-        if (!chunkExists(cx - 1, cz)) return false;
-        if (!chunkExists(cx - 1, cz + 1)) return false;
-        if (!chunkExists(cx, cz - 1)) return false;
-        if (!chunkExists(cx, cz + 1)) return false;
-        if (!chunkExists(cx + 1, cz - 1)) return false;
-        if (!chunkExists(cx + 1, cz)) return false;
-        if (!chunkExists(cx + 1, cz + 1)) return false;
-        return true;
-    }
-
-    private AnvilChunkLoader chunkLoader() {
-        if (chunkLoader == null) {
-            ChunkProviderServer server = (ChunkProviderServer) (world.getChunkProvider());
-            chunkLoader = (AnvilChunkLoader) (server.chunkLoader);
-        }
-        return chunkLoader;
-    }
-
-    public Set<Long> serverLoadingChunks() {
-        if (this.serverLoadingChunks == null) {
-            ChunkProviderServer server = (ChunkProviderServer) (world.getChunkProvider());
-            chunkLoader = (AnvilChunkLoader) (server.chunkLoader);
-            serverLoadingChunks = forServerLoadingChunks.get(server);
-        }
-        return serverLoadingChunks;
-    }
-
-    /**
-     * @see IChunkProvider
-     * <p/>
-     * Populates chunk with ores etc etc
-     */
-    @Override
-    public void populate(int chunkX, int chunkZ) {
-        if (this.alreadyDecorated.contains(new PlaneLocation.Invariant(chunkX, chunkZ))) return;
-        if (this.neighborsDone(chunkX, chunkZ)) {
-            this.doPopulate(chunkX, chunkZ);
-        }
-        clearDecorations(0);
     }
 
     private void doPopulate(int x, int z) {
@@ -535,21 +612,21 @@ public class ChunkProviderRTG implements IChunkGenerator {
 
         PlaneLocation location = new PlaneLocation.Invariant(x, z);
         //Logger.warn("trying to decorate "+location.toString());
-        if (alreadyDecorated.contains(location)) return;
-
-        if (populating) {
-            // this has been created by another decoration; put in todo pile
-            addToDecorationList(location);
-            return;
-        }
-
-        if (populatingProvider != null) {
-            throw new RuntimeException(toString() + " " + populatingProvider.toString());
-        }
-        if (inGeneration.containsKey(location)) {
-            addToDecorationList(location);
-            return;
-        }
+//        if (alreadyDecorated.contains(location)) return;
+//
+//        if (populating) {
+//            // this has been created by another decoration; put in todo pile
+//            addToDecorationList(location);
+//            return;
+//        }
+//
+//        if (populatingProvider != null) {
+//            throw new RuntimeException(toString() + " " + populatingProvider.toString());
+//        }
+//        if (inGeneration.containsKey(location)) {
+//            addToDecorationList(location);
+//            return;
+//        }
         //Logger.warn("decorating");
         alreadyDecorated.add(location);
         populating = true;
@@ -763,85 +840,34 @@ public class ChunkProviderRTG implements IChunkGenerator {
         populatingProvider = null;
     }
 
-    @Override
-    public boolean generateStructures(Chunk chunkIn, int x, int z) {
-        return false;
+    private Converter<Chunk, PlaneLocation> keyer() {
+        return new Converter<Chunk, PlaneLocation>() {
+
+            @Override
+            public final PlaneLocation result(Chunk original) {
+                return new PlaneLocation.Invariant(original.xPosition, original.zPosition);
+            }
+
+        };
     }
 
-    /**
-     * @see IChunkProvider
-     * <p/>
-     * Returns a list of creatures of the specified type that can spawn at the given location.
-     */
-    @Override
-    public List getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
-        Biome var5 = this.world.getBiome(pos);
-        if (this.mapFeaturesEnabled) {
-            if (creatureType == EnumCreatureType.MONSTER && this.scatteredFeatureGenerator.isSwampHut(pos)) {
-                return this.scatteredFeatureGenerator.getScatteredFeatureSpawnList();
-            }
+    public boolean neighborsDone(int cx, int cz) {
+        if (!chunkExists(cx - 1, cz - 1)) return false;
+        if (!chunkExists(cx - 1, cz)) return false;
+        if (!chunkExists(cx - 1, cz + 1)) return false;
+        if (!chunkExists(cx, cz - 1)) return false;
+        if (!chunkExists(cx, cz + 1)) return false;
+        if (!chunkExists(cx + 1, cz - 1)) return false;
+        if (!chunkExists(cx + 1, cz)) return false;
+        return chunkExists(cx + 1, cz + 1);
+    }
 
-            if (creatureType == EnumCreatureType.MONSTER && Mods.RTG.config.GENERATE_OCEAN_MONUMENTS.get() && this.oceanMonumentGenerator.isPositionInStructure(this.world, pos)) {
-                return this.oceanMonumentGenerator.getScatteredFeatureSpawnList();
-            }
+    public Set<Long> serverLoadingChunks() {
+        if (this.serverLoadingChunks == null) {
+            ChunkProviderServer server = (ChunkProviderServer) (world.getChunkProvider());
+            chunkLoader = (AnvilChunkLoader) (server.chunkLoader);
+            serverLoadingChunks = forServerLoadingChunks.get(server);
         }
-        return var5 == null ? null : var5.getSpawnableList(creatureType);
-    }
-
-    /**
-     * @see IChunkProvider
-     */
-    @Override
-    public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position) {
-        if (!Mods.RTG.config.GENERATE_STRONGHOLDS.get()) {
-            return null;
-        }
-
-        return "Stronghold".equals(structureName) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(worldIn, position) : null;
-    }
-
-    /**
-     * @see IChunkProvider
-     */
-    @Override
-    public void recreateStructures(Chunk chunkIn, int x, int z) {
-
-        if (mapFeaturesEnabled) {
-
-            if (Mods.RTG.config.GENERATE_MINESHAFTS.get()) {
-                mineshaftGenerator.generate(world, x, z, null);
-            }
-
-            if (Mods.RTG.config.GENERATE_STRONGHOLDS.get()) {
-                strongholdGenerator.generate(world, x, z, null);
-            }
-
-            if (Mods.RTG.config.GENERATE_VILLAGES.get()) {
-
-                if (Mods.RTG.config.VILLAGE_CRASH_FIX.get()) {
-
-                    try {
-                        villageGenerator.generate(this.world, x, z, null);
-                    } catch (Exception e) {
-                        // Do nothing.
-                    }
-
-                } else {
-                    villageGenerator.generate(this.world, x, z, null);
-                }
-            }
-
-            if (Mods.RTG.config.GENERATE_SCATTERED_FEATURES.get()) {
-                scatteredFeatureGenerator.generate(this.world, x, z, null);
-            }
-
-            if (Mods.RTG.config.GENERATE_OCEAN_MONUMENTS.get()) {
-                oceanMonumentGenerator.generate(this.world, x, z, null);
-            }
-        }
-    }
-
-    private int chunkCoordinate(int biomeMapCoordinate) {
-        return (biomeMapCoordinate - sampleSize) * 8;
+        return serverLoadingChunks;
     }
 }

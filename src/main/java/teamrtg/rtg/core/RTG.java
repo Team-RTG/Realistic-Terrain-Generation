@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import teamrtg.rtg.api.module.Mods;
 import teamrtg.rtg.api.util.RealisticBiomePresenceTester;
@@ -30,6 +31,7 @@ public class RTG {
     @SidedProxy(serverSide = ModInfo.PROXY_COMMON, clientSide = ModInfo.PROXY_CLIENT)
     public static CommonProxy proxy;
 
+    private ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<>();
     private ArrayList<Runnable> serverCloseActions = new ArrayList<>();
 
     @EventHandler
@@ -59,5 +61,26 @@ public class RTG {
         Mods.initAllBiomes();
         RealisticBiomeFaker.initFakeBiomes();
         RealisticBiomePresenceTester.doBiomeCheck();
+    }
+
+
+    public void runOnServerClose(Runnable action) {
+        serverCloseActions.add(action);
+    }
+
+    public void runOnNextServerCloseOnly(Runnable action) {
+        serverCloseActions.add(action);
+    }
+
+    @EventHandler
+    public void fmlLifeCycle(FMLServerStoppedEvent event) {
+        for (Runnable action : serverCloseActions) {
+            action.run();
+        }
+        for (Runnable action : oneShotServerCloseActions) {
+            action.run();
+        }
+        oneShotServerCloseActions.clear();
+
     }
 }

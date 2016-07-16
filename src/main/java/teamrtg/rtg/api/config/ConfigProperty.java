@@ -27,8 +27,25 @@ public abstract class ConfigProperty<T> {
 
     public T get() {
         if (defaultVal == null)
-            Logger.error("No default value set for option '" + getID() + "' in section '" + getSection() + "'. That's not good");
+            Logger.debug("No default value set for option '" + getID() + "' in section '" + getSection() + "'. That's not good");
         return (this.value == null) ? this.defaultVal : this.value;
+    }
+
+    public String getID() {
+        return this.id;
+    }
+
+    public String getSection() {
+        return this.section;
+    }
+
+    public ConfigProperty<T> setSection(String section) {
+        this.section = section;
+        return this;
+    }
+
+    public String getComment() {
+        return Config.COMMENT_SEPARATOR + Config.NEW_LINE + comment + Config.NEW_LINE + "[Default: " + this.getDefault().toString() + "]" + Config.NEW_LINE + Config.COMMENT_SEPARATOR;
     }
 
     public T getDefault() {
@@ -40,25 +57,8 @@ public abstract class ConfigProperty<T> {
         return this;
     }
 
-    public String getID() {
-        return this.id;
-    }
-
-    public String getSection() {
-        return this.section;
-    }
-
-    public String getComment() {
-        return Config.COMMENT_SEPARATOR + Config.NEW_LINE + comment + Config.NEW_LINE + "[Default: " + this.getDefault().toString() + "]" + Config.NEW_LINE + Config.COMMENT_SEPARATOR;
-    }
-
     public ConfigProperty<T> setComment(String comment) {
         this.comment = comment;
-        return this;
-    }
-
-    public ConfigProperty<T> setSection(String section) {
-        this.section = section;
         return this;
     }
 

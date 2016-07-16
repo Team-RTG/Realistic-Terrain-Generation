@@ -9,7 +9,7 @@ import teamrtg.rtg.core.RTG;
 
 public class WorldTypeRTG extends WorldType {
 
-    public WorldTypeRTG(String name) {
+    public WorldTypeRTG() {
         super("RTG");
     }
 

@@ -1,25 +1,19 @@
 package teamrtg.rtg.modules.bop.biomes;
 
+import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.init.Biomes;
-import net.minecraft.world.biome.Biome;
 import teamrtg.rtg.api.tools.terrain.*;
-import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
 import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
-import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
+import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 
-public class RTGBiomeBOPOutback extends RTGBiomeVanilla {
-    public static Biome standardBiome = Biomes.PLAINS;
-    public static Biome mutationBiome = Biome.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
+public class RTGBiomeBOPOutback extends RTGBiomeBOP {
 
     public RTGBiomeBOPOutback() {
-        super(
-                mutationBiome,
-            Biomes.RIVER
-        );
+        super(BOPBiomes.alps.get(), Biomes.RIVER);
     }
 
     @Override

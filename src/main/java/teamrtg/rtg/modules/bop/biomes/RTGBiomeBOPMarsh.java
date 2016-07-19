@@ -47,8 +47,8 @@ public class RTGBiomeBOPMarsh extends RTGBiomeBOP {
     public SurfacePart initSurface() {
         SurfacePart surface = new SurfacePart();
         surface.add(new CliffSelector(1.5f)
-            .add(PARTS.STONE_OR_COBBLE));
-        surface.add(PARTS.surfaceGeneric());
+                .add(PARTS.STONE_OR_COBBLE));
+        surface.add(PARTS.surfaceSwamp());
         return surface;
     }
 

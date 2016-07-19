@@ -12,7 +12,7 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPVolcanicIsland extends RTGBiomeBOP {
 
     public RTGBiomeBOPVolcanicIsland() {
-        super(BOPBiomes.alps.get(), Biomes.RIVER);
+        super(BOPBiomes.volcanic_island.get(), Biomes.RIVER);
     }
 
     @Override

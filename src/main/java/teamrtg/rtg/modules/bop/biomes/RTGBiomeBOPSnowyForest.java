@@ -12,26 +12,19 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPSnowyForest extends RTGBiomeBOP {
 
     public RTGBiomeBOPSnowyForest() {
-        super(BOPBiomes.alps.get(), Biomes.RIVER);
+        super(BOPBiomes.snowy_forest.get(), Biomes.RIVER);
     }
 
     @Override
     public TerrainBase initTerrain() {
         return new TerrainBase() {
-
-            private float minHeight = 58f;
-            private float maxHeight = 69f;
-            private float hillStrength = 28f;
-
-            {
-                this.minHeight = minHeight;
-                this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
-                this.hillStrength = hillStrength;
-            }
-
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return terrainRollingHills(x, y, rtgWorld.simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 4f);
+                groundNoise = groundNoise(x, y, groundVariation, rtgWorld.simplex);
+                float m = hills(x, y, 10f, rtgWorld.simplex, river);
+                float floNoise = 65f + groundNoise + m;
+
+                return riverized(floNoise, river);
             }
         };
     }

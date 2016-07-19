@@ -12,7 +12,7 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPLushSwamp extends RTGBiomeBOP {
 
     public RTGBiomeBOPLushSwamp() {
-        super(BOPBiomes.alps.get(), Biomes.RIVER);
+        super(BOPBiomes.lush_swamp.get(), Biomes.RIVER);
     }
 
     @Override

@@ -15,7 +15,7 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPMountain extends RTGBiomeBOP {
 
     public RTGBiomeBOPMountain() {
-        super(BOPBiomes.alps.get(), Biomes.RIVER);
+        super(BOPBiomes.mountain.get(), Biomes.RIVER);
     }
 
     @Override

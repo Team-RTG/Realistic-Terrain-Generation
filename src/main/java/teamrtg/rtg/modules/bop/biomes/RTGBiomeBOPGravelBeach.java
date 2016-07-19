@@ -12,7 +12,7 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPGravelBeach extends RTGBiomeBOP {
 
     public RTGBiomeBOPGravelBeach() {
-        super(BOPBiomes.alps.get(), Biomes.RIVER);
+        super(BOPBiomes.gravel_beach.get(), Biomes.RIVER);
     }
 
     @Override

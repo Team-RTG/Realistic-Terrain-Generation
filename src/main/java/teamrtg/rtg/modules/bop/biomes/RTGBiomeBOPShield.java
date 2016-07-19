@@ -12,7 +12,7 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPShield extends RTGBiomeBOP {
 
     public RTGBiomeBOPShield() {
-        super(BOPBiomes.alps.get(), Biomes.RIVER);
+        super(BOPBiomes.shield.get(), Biomes.RIVER);
     }
 
     @Override

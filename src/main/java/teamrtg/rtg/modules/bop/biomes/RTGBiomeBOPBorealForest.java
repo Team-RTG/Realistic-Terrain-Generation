@@ -13,7 +13,7 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPBorealForest extends RTGBiomeBOP {
 
     public RTGBiomeBOPBorealForest() {
-        super(BOPBiomes.alps.get(), Biomes.RIVER);
+        super(BOPBiomes.boreal_forest.get(), Biomes.RIVER);
     }
 
     @Override

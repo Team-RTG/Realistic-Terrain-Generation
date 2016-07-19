@@ -12,7 +12,7 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPMangrove extends RTGBiomeBOP {
 
     public RTGBiomeBOPMangrove() {
-        super(BOPBiomes.alps.get(), Biomes.RIVER);
+        super(BOPBiomes.mangrove.get(), Biomes.RIVER);
     }
 
     @Override

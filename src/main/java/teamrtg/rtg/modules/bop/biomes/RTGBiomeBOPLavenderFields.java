@@ -12,7 +12,7 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPLavenderFields extends RTGBiomeBOP {
 
     public RTGBiomeBOPLavenderFields() {
-        super(BOPBiomes.alps.get(), Biomes.RIVER);
+        super(BOPBiomes.lavender_fields.get(), Biomes.RIVER);
     }
 
     @Override

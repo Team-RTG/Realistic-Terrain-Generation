@@ -12,7 +12,7 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPSeasonalForest extends RTGBiomeBOP {
 
     public RTGBiomeBOPSeasonalForest() {
-        super(BOPBiomes.alps.get(), Biomes.RIVER);
+        super(BOPBiomes.seasonal_forest.get(), Biomes.RIVER);
     }
 
     @Override

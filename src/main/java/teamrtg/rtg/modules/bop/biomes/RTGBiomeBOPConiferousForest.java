@@ -12,7 +12,7 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPConiferousForest extends RTGBiomeBOP {
 
     public RTGBiomeBOPConiferousForest() {
-        super(BOPBiomes.alps.get(), Biomes.RIVER);
+        super(BOPBiomes.coniferous_forest.get(), Biomes.RIVER);
     }
 
     @Override

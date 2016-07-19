@@ -12,7 +12,7 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPOvergrownCliffs extends RTGBiomeBOP {
 
     public RTGBiomeBOPOvergrownCliffs() {
-        super(BOPBiomes.alps.get(), Biomes.RIVER);
+        super(BOPBiomes.overgrown_cliffs.get(), Biomes.RIVER);
     }
 
     @Override

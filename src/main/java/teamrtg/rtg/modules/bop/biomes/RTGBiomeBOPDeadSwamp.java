@@ -15,7 +15,7 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPDeadSwamp extends RTGBiomeBOP {
 
     public RTGBiomeBOPDeadSwamp() {
-        super(BOPBiomes.alps.get(), Biomes.RIVER);
+        super(BOPBiomes.dead_swamp.get(), Biomes.RIVER);
     }
 
     @Override

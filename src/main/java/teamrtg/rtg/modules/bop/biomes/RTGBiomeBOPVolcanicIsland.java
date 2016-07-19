@@ -84,6 +84,6 @@ public class RTGBiomeBOPVolcanicIsland extends RTGBiomeBOP {
 
     @Override
     public void initConfig() {
-
+        config.GENERATE_EMERALDS.setDefault(true);
     }
 }

@@ -2,8 +2,6 @@ package teamrtg.rtg.modules.bop.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
-
-import teamrtg.rtg.api.tools.terrain.GroundEffect;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
@@ -25,12 +23,16 @@ public class RTGBiomeBOPAlps extends RTGBiomeVanilla {
 
     @Override
     public TerrainBase initTerrain() {
-        return new TerrainBase() {
-            private final GroundEffect groundEffect = new GroundEffect(4f);
+        return new TerrainBase(120f) {
+
+            // the BoP version has steep slopes and a flat area on top. The RTG version will
+            private float start = 0f;// this puts a minimum on "ruggedness" on the top. We want to allow flats
+            private float height = 40f; // sets the variability range
+            private float width = 80f; // width of irregularity noise on top. We want low, for a lot of features.
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return riverized(65f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
+                return terrainHighland(x, y, rtgWorld.simplex, rtgWorld.cell, river, start, width, height, base - 62f);
             }
         };
     }

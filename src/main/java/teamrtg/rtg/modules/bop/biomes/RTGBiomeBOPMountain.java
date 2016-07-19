@@ -2,8 +2,9 @@ package teamrtg.rtg.modules.bop.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
-
-import teamrtg.rtg.api.tools.terrain.GroundEffect;
+import teamrtg.rtg.api.tools.terrain.HeightEffect;
+import teamrtg.rtg.api.tools.terrain.JitterEffect;
+import teamrtg.rtg.api.tools.terrain.MountainsWithPassesEffect;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
@@ -26,11 +27,28 @@ public class RTGBiomeBOPMountain extends RTGBiomeVanilla {
     @Override
     public TerrainBase initTerrain() {
         return new TerrainBase() {
-            private final GroundEffect groundEffect = new GroundEffect(4f);
+
+            private float width = 120f;
+            private float strength = 100f;
+            private float terrainHeight = 90f;
+            private float spikeWidth = 30;
+            private float spikeHeight = 50;
+            private HeightEffect heightEffect;
+
+            {
+                MountainsWithPassesEffect mountainEffect = new MountainsWithPassesEffect();
+                mountainEffect.mountainHeight = strength;
+                mountainEffect.mountainWavelength = width;
+                mountainEffect.spikeHeight = this.spikeHeight;
+                mountainEffect.spikeWavelength = this.spikeWidth;
+
+                heightEffect = new JitterEffect(7f,10f, mountainEffect);
+                heightEffect = new JitterEffect(3f,6f,heightEffect);
+            }
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return riverized(65f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
+                return riverized(heightEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y)+terrainHeight,river);
             }
         };
     }

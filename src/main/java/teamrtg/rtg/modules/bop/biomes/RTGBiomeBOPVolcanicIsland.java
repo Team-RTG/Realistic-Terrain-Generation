@@ -2,8 +2,6 @@ package teamrtg.rtg.modules.bop.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
-
-import teamrtg.rtg.api.tools.terrain.GroundEffect;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
@@ -26,11 +24,47 @@ public class RTGBiomeBOPVolcanicIsland extends RTGBiomeVanilla {
     @Override
     public TerrainBase initTerrain() {
         return new TerrainBase() {
-            private final GroundEffect groundEffect = new GroundEffect(4f);
+
+            private float hHeight;
+            private float hWidth;
+            private float vHeight;
+            private float vWidth;
+            private float lHeight;
+            private float lWidth;
+            private float bHeight;
+
+            /*
+             * hillHeight = 70f
+             * hillWidth = 180f
+             *
+             * varHeight = 7f
+             * varWidth = 100f
+             *
+             * lakeHeigth = 38f
+             * lakeWidth = 260f
+             *
+             * baseHeight = 68f
+             *
+             * 70f, 180f, 7f, 100f, 38f, 260f, 68f
+             */
+
+            {
+
+                hHeight = 90f;
+                hWidth = 180f;
+
+                vHeight = 13f;
+                vWidth = 100f;
+
+                lHeight = 1f;
+                lWidth = 260f;
+
+                bHeight = 59f;
+            }
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return riverized(65f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
+                return terrainGrasslandHills(x, y, rtgWorld.simplex, rtgWorld.cell, river, vWidth, vHeight, hWidth, hHeight, bHeight);
             }
         };
     }

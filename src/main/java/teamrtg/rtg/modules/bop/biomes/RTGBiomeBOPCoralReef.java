@@ -2,8 +2,6 @@ package teamrtg.rtg.modules.bop.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
-
-import teamrtg.rtg.api.tools.terrain.GroundEffect;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
@@ -26,11 +24,52 @@ public class RTGBiomeBOPCoralReef extends RTGBiomeVanilla {
     @Override
     public TerrainBase initTerrain() {
         return new TerrainBase() {
-            private final GroundEffect groundEffect = new GroundEffect(4f);
+
+            private boolean booRiver;
+            private float[] height;
+            private int heightLength;
+            private float strength;
+            private float cWidth;
+            private float cHeigth;
+            private float cStrength;
+            private float base;
+
+            /*
+             * Example parameters:
+             *
+             * allowed to generate rivers?
+             * riverGen = true
+             *
+             * canyon jump heights
+             * heightArray = new float[]{2.0f, 0.5f, 6.5f, 0.5f, 14.0f, 0.5f, 19.0f, 0.5f}
+             *
+             * strength of canyon jump heights
+             * heightStrength = 35f
+             *
+             * canyon width (cliff to cliff)
+             * canyonWidth = 160f
+             *
+             * canyon heigth (total heigth)
+             * canyonHeight = 60f
+             *
+             * canyon strength
+             * canyonStrength = 40f
+             *
+             */
+            {
+                booRiver = false;
+                height = new float[]{5.0f, 0.5f, 12.5f, 0.5f};
+                strength = -10f;
+                heightLength = height.length;
+                cWidth = 0f;
+                cHeigth = 0f;
+                cStrength = 0f;
+                base = 30f;
+            }
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return riverized(65f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
+                return terrainOceanCanyon(x, y, rtgWorld.simplex, river, height, border, strength, heightLength, booRiver);
             }
         };
     }

@@ -2,8 +2,8 @@ package teamrtg.rtg.modules.bop.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
-
-import teamrtg.rtg.api.tools.terrain.GroundEffect;
+import teamrtg.rtg.api.tools.terrain.BumpyHillsEffect;
+import teamrtg.rtg.api.tools.terrain.JitterEffect;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
@@ -26,11 +26,28 @@ public class RTGBiomeBOPHighland extends RTGBiomeVanilla {
     @Override
     public TerrainBase initTerrain() {
         return new TerrainBase() {
-            private final GroundEffect groundEffect = new GroundEffect(4f);
+
+            private float baseHeight = 90f;
+            private BumpyHillsEffect onTop = new BumpyHillsEffect();
+            private JitterEffect withJitter;
+
+            {
+                onTop.hillHeight = 30;
+                onTop.hillWavelength = 60;
+                onTop.spikeHeight = 20;
+                onTop.spikeWavelength = 10;
+
+                withJitter = new JitterEffect();
+                withJitter.amplitude=2;
+                withJitter.wavelength=5;
+                withJitter.jittered = onTop;
+            }
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return riverized(65f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
+
+                return riverized(baseHeight + withJitter.added(rtgWorld.simplex, rtgWorld.cell,x, y)+ this.groundNoise(x, y, 6, rtgWorld.simplex),river);
+                //return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 80f, 68f);
             }
         };
     }

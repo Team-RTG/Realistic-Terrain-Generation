@@ -2,8 +2,8 @@ package teamrtg.rtg.modules.bop.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
-
-import teamrtg.rtg.api.tools.terrain.GroundEffect;
+import teamrtg.rtg.api.tools.terrain.HeightVariation;
+import teamrtg.rtg.api.tools.terrain.HillockEffect;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
@@ -26,11 +26,37 @@ public class RTGBiomeBOPBog extends RTGBiomeVanilla {
     @Override
     public TerrainBase initTerrain() {
         return new TerrainBase() {
-            private final GroundEffect groundEffect = new GroundEffect(4f);
+
+            private final float bottom = 58f;
+            private final HeightVariation bottomVariation;
+            private final HillockEffect smallHills;
+            private final HillockEffect mediumHills;
+
+            {
+                bottomVariation = new HeightVariation();
+                bottomVariation.height = 2;
+                bottomVariation.octave = 0;
+                bottomVariation.wavelength = 40;
+
+                smallHills = new HillockEffect();
+                smallHills.height = 6;
+                smallHills.wavelength = 15;
+                smallHills.minimumSimplex = 0.2f;
+                smallHills.octave = 1;
+
+                mediumHills = new HillockEffect();
+                mediumHills.height = 12;
+                mediumHills.wavelength = 25;
+                mediumHills.minimumSimplex = 0.2f;
+                mediumHills.octave = 2;
+
+            }
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return riverized(65f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
+                float increment = bottomVariation.added(rtgWorld.simplex,rtgWorld.cell, x, y) + smallHills.added(rtgWorld.simplex, rtgWorld.cell,x, y) ;
+                increment += mediumHills.added(rtgWorld.simplex, rtgWorld.cell,x, y);
+                return riverized(bottom + increment,river);
             }
         };
     }

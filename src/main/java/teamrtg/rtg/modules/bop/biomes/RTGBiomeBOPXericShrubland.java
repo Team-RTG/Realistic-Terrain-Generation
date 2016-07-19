@@ -2,8 +2,7 @@ package teamrtg.rtg.modules.bop.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
-
-import teamrtg.rtg.api.tools.terrain.GroundEffect;
+import teamrtg.rtg.api.tools.terrain.*;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
@@ -26,11 +25,49 @@ public class RTGBiomeBOPXericShrubland extends RTGBiomeVanilla {
     @Override
     public TerrainBase initTerrain() {
         return new TerrainBase() {
-            private final GroundEffect groundEffect = new GroundEffect(4f);
+
+            private float minHeight;
+            private float mesaWavelength;
+            private float hillStrength;
+            private float topBumpinessHeight=3;
+            private float topBumpinessWavelength = 10;
+            private HeightEffect height;
+            private HeightEffect groundEffect;
+
+            private float jitterAmplitude = 4f;
+            private float jitterWavelength = 15f;
+
+            {
+                this.minHeight = 65f;
+                this.mesaWavelength = 24f;
+                this.hillStrength = 5f;
+
+                groundEffect = new GroundEffect(3f);
+
+                // this is variation in what's added to the top. Set to vary with the "standard" ruggedness
+                HeightVariation topVariation = new HeightVariation();
+                topVariation.height = hillStrength;
+                topVariation.octave = 1;
+                topVariation.wavelength = VariableRuggednessEffect.STANDARD_RUGGEDNESS_WAVELENGTH;
+
+
+                // create some bumpiness to disguise the cliff heights
+                HeightVariation topBumpiness = new HeightVariation();
+                topBumpiness.height = topBumpinessHeight;
+                topBumpiness.wavelength = topBumpinessWavelength;
+                topBumpiness.octave = 3;
+
+                // now make the top only show up on mesa
+                height = new VariableRuggednessEffect(new RaiseEffect(0f),topVariation.plus(topBumpiness).plus(new RaiseEffect(hillStrength))
+                        ,0.4f,0.3f,mesaWavelength);
+
+                height = new JitterEffect(jitterAmplitude,jitterWavelength,height);
+
+            }
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return riverized(65f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
+                return riverized(minHeight+groundEffect.added(rtgWorld.simplex, rtgWorld.cell,x, y),river)+height.added(rtgWorld.simplex,rtgWorld.cell, x, y);
             }
         };
     }

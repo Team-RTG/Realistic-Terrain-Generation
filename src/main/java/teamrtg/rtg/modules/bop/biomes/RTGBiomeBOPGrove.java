@@ -2,8 +2,6 @@ package teamrtg.rtg.modules.bop.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
-
-import teamrtg.rtg.api.tools.terrain.GroundEffect;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
@@ -26,11 +24,21 @@ public class RTGBiomeBOPGrove extends RTGBiomeVanilla {
     @Override
     public TerrainBase initTerrain() {
         return new TerrainBase() {
-            private final GroundEffect groundEffect = new GroundEffect(4f);
+
+            private float baseHeight = 64f;
+            private float peakyHillWavelength = 40f;
+            private float peakyHillStrength = 5f;
+            private float smoothHillWavelength = 20f;
+            private float smoothHillStrength = 10f;
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return riverized(65f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
+
+                // no ground noise
+
+                float h = this.terrainGrasslandHills(x, y, rtgWorld.simplex, rtgWorld.cell, river,  smoothHillWavelength, smoothHillStrength, peakyHillWavelength, peakyHillStrength,baseHeight);
+
+                return h;
             }
         };
     }

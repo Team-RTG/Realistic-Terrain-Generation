@@ -2,9 +2,8 @@ package teamrtg.rtg.modules.bop.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
-
-import teamrtg.rtg.api.tools.terrain.GroundEffect;
 import teamrtg.rtg.api.util.BiomeUtils;
+import teamrtg.rtg.api.util.noise.SimplexOctave;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
@@ -26,11 +25,30 @@ public class RTGBiomeBOPChaparral extends RTGBiomeVanilla {
     @Override
     public TerrainBase initTerrain() {
         return new TerrainBase() {
-            private final GroundEffect groundEffect = new GroundEffect(4f);
+
+            private float baseHeight = 76f;
+            private float peakyHillWavelength = 40f;
+            private float peakyHillStrength = 40f;
+            private float smoothHillWavelength = 60f;
+            private float smoothHillStrength = 30f;
+
+            private SimplexOctave.Derivative jitter = new SimplexOctave.Derivative();
+            private float wavelength = 10f;// of jitter
+            private float amplitude = 2f;// of jitter
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return riverized(65f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
+
+                groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld.simplex);
+
+                //float m = hills(x, y, peakyHillStrength, simplex, river);
+
+                rtgWorld.simplex.riverJitter().evaluateNoise((float)x / wavelength, (float)y / wavelength, jitter);
+                int pX = (int)Math.round(x + jitter.deltax() * amplitude);
+                int pY = (int)Math.round(y + jitter.deltay() * amplitude);
+                float h = this.terrainGrasslandHills(pX, pY, rtgWorld.simplex, rtgWorld.cell, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
+
+                return groundNoise+ h;
             }
         };
     }

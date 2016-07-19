@@ -2,8 +2,7 @@ package teamrtg.rtg.modules.bop.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
-
-import teamrtg.rtg.api.tools.terrain.GroundEffect;
+import teamrtg.rtg.api.tools.terrain.BumpyHillsEffect;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
@@ -26,11 +25,28 @@ public class RTGBiomeBOPBorealForest extends RTGBiomeVanilla {
     @Override
     public TerrainBase initTerrain() {
         return new TerrainBase() {
-            private final GroundEffect groundEffect = new GroundEffect(4f);
+
+            private float baseHeight = 64f;
+            private float hillStrength = 50f;
+            private BumpyHillsEffect hillEffect;
+            private float hillWidth = 60f;
+            private float hillBumpyness = 10f;
+            private float hillBumpynessWidth = 20f;
+
+            {
+                hillEffect = new BumpyHillsEffect();
+                hillEffect.hillHeight = hillStrength;
+                hillEffect.hillWavelength = hillWidth;
+                hillEffect.spikeHeight = hillBumpyness;
+                hillEffect.spikeWavelength = this.hillBumpynessWidth;
+            }
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return riverized(65f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
+
+                groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld.simplex);
+                float m = hillEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y);
+                return riverized(baseHeight,river) + (groundNoise + m)*river;
             }
         };
     }

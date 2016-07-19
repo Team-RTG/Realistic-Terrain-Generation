@@ -2,8 +2,7 @@ package teamrtg.rtg.modules.bop.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
-
-import teamrtg.rtg.api.tools.terrain.GroundEffect;
+import teamrtg.rtg.api.tools.terrain.HillockEffect;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
@@ -26,11 +25,23 @@ public class RTGBiomeBOPHeathland extends RTGBiomeVanilla {
     @Override
     public TerrainBase initTerrain() {
         return new TerrainBase() {
-            private final GroundEffect groundEffect = new GroundEffect(4f);
+
+            private float baseHeight = 66f;
+            private HillockEffect hills;
+
+            {
+                hills = new HillockEffect();
+                hills.height = 25;
+                hills.minimumSimplex = 0.3f;
+                hills.octave = 0;
+                hills.wavelength = 50f;
+            }
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return riverized(65f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
+                float added = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld.simplex);
+                added += hills.added(rtgWorld.simplex, rtgWorld.cell,x, y);
+                return riverized(baseHeight + added,river);
             }
         };
     }

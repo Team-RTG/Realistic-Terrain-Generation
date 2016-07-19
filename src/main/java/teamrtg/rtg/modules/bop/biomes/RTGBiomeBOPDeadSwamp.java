@@ -2,8 +2,9 @@ package teamrtg.rtg.modules.bop.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
-
-import teamrtg.rtg.api.tools.terrain.GroundEffect;
+import teamrtg.rtg.api.tools.terrain.HeightEffect;
+import teamrtg.rtg.api.tools.terrain.HeightVariation;
+import teamrtg.rtg.api.tools.terrain.JitterEffect;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
@@ -26,11 +27,21 @@ public class RTGBiomeBOPDeadSwamp extends RTGBiomeVanilla {
     @Override
     public TerrainBase initTerrain() {
         return new TerrainBase() {
-            private final GroundEffect groundEffect = new GroundEffect(4f);
+
+            private HeightEffect height;
+
+            {
+                HeightVariation waterLand = new HeightVariation();
+                waterLand.height = 2f;
+                waterLand.wavelength = 40f;
+                waterLand.octave =0;
+
+                height = new JitterEffect(5f,10f,waterLand);
+            }
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return riverized(65f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
+                return 62f+ height.added(rtgWorld.simplex, rtgWorld.cell,x, y);
             }
         };
     }

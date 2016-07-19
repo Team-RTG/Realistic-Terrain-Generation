@@ -13,6 +13,7 @@ public class RTGBiomeBOPSacredSprings extends RTGBiomeBOP {
 
     public RTGBiomeBOPSacredSprings() {
         super(BOPBiomes.sacred_springs.get(), Biomes.RIVER);
+        this.noWaterFeatures = true;
     }
 
     @Override
@@ -55,6 +56,6 @@ public class RTGBiomeBOPSacredSprings extends RTGBiomeBOP {
 
     @Override
     public void initConfig() {
-
+        config.WATER_POND_CHANCE.set(2);
     }
 }

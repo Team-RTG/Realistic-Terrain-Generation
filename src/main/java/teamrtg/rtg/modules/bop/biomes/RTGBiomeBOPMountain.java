@@ -25,6 +25,8 @@ public class RTGBiomeBOPMountain extends RTGBiomeBOP {
 
     public RTGBiomeBOPMountain() {
         super(BOPBiomes.mountain.get(), Biomes.RIVER);
+        this.noLakes = true;
+        this.noWaterFeatures = true;
     }
 
     @Override

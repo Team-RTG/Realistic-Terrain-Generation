@@ -13,6 +13,8 @@ public class RTGBiomeBOPVolcanicIsland extends RTGBiomeBOP {
 
     public RTGBiomeBOPVolcanicIsland() {
         super(BOPBiomes.volcanic_island.get(), Biomes.RIVER);
+        this.noLakes = true;
+        this.noWaterFeatures = true;
     }
 
     @Override
@@ -85,5 +87,7 @@ public class RTGBiomeBOPVolcanicIsland extends RTGBiomeBOP {
     @Override
     public void initConfig() {
         config.GENERATE_EMERALDS.setDefault(true);
+        config.WATER_POND_CHANCE.set(0);
+        config.LAVA_POND_CHANCE.set(1);
     }
 }

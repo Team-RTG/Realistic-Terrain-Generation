@@ -13,6 +13,7 @@ public class RTGBiomeBOPMoor extends RTGBiomeBOP {
 
     public RTGBiomeBOPMoor() {
         super(BOPBiomes.moor.get(), Biomes.RIVER);
+        this.noWaterFeatures = true;
     }
 
     @Override

@@ -15,6 +15,7 @@ public class RTGBiomeBOPHighland extends RTGBiomeBOP {
 
     public RTGBiomeBOPHighland() {
         super(BOPBiomes.highland.get(), Biomes.RIVER);
+        this.noWaterFeatures = true;
     }
 
     @Override

@@ -13,6 +13,7 @@ public class RTGBiomeBOPAlps extends RTGBiomeBOP {
 
     public RTGBiomeBOPAlps() {
         super(BOPBiomes.alps.get(), Biomes.FROZEN_RIVER);
+        this.noLakes = true;
     }
 
     @Override

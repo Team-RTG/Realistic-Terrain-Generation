@@ -1,7 +1,11 @@
 package teamrtg.rtg.modules.bop.biomes;
 
 import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.common.block.BlockBOPLog;
+import biomesoplenty.common.enums.BOPWoods;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
@@ -47,8 +51,20 @@ public class RTGBiomeBOPOminousWoods extends RTGBiomeBOP {
 
     @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.distribution.noiseDivisor = 80f;
+        decoFallenTree.distribution.noiseFactor = 60f;
+        decoFallenTree.distribution.noiseAddend = -15f;
+        decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
+        decoFallenTree.logConditionChance = 6;
+        decoFallenTree.randomLogBlocks = new IBlockState[]{BlockBOPLog.paging.getVariantState(BOPWoods.UMBRAN), BlockBOPLog.paging.getVariantState(BOPWoods.DEAD)};
+        decoFallenTree.minSize = 3;
+        decoFallenTree.maxSize = 6;
+        this.addDeco(decoFallenTree);
     }
 
     @Override

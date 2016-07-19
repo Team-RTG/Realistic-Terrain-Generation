@@ -2,6 +2,8 @@ package teamrtg.rtg.modules.bop.biomes;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.init.Biomes;
+import teamrtg.rtg.api.tools.deco.DecoGrass;
+import teamrtg.rtg.api.tools.deco.DecoShrub;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
@@ -37,8 +39,20 @@ public class RTGBiomeBOPLavenderFields extends RTGBiomeBOP {
 
     @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
+
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.maxY = 110;
+        decoShrub.chance = 10;
+        decoShrub.strengthFactor = 4f;
+        this.addDeco(decoShrub);
+
+        DecoGrass decoGrass = new DecoGrass();
+        decoGrass.maxY = 128;
+        decoGrass.strengthFactor = 6f;
+        this.addDeco(decoGrass);
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override

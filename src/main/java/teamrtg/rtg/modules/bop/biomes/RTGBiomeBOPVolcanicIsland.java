@@ -2,9 +2,9 @@ package teamrtg.rtg.modules.bop.biomes;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.init.Biomes;
+import teamrtg.rtg.api.tools.deco.DecoGrassDoubleTallgrass;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
-import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
 import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.bop.RTGBiomeBOP;
@@ -74,8 +74,12 @@ public class RTGBiomeBOPVolcanicIsland extends RTGBiomeBOP {
 
     @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
+
+        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
+        decoGrassDoubleTallgrass.doubleGrassChance = 3;
+        decoGrassDoubleTallgrass.loops = 15;
+        decoGrassDoubleTallgrass.maxY = 128;
+        this.addDeco(decoGrassDoubleTallgrass);
     }
 
     @Override

@@ -1,7 +1,16 @@
 package teamrtg.rtg.modules.bop.biomes;
 
 import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.common.block.BlockBOPLeaves;
+import biomesoplenty.common.block.BlockBOPLog;
+import biomesoplenty.common.enums.BOPTrees;
+import biomesoplenty.common.enums.BOPWoods;
 import net.minecraft.init.Biomes;
+import net.minecraft.init.Blocks;
+import teamrtg.rtg.api.tools.deco.DecoBoulder;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree;
+import teamrtg.rtg.api.tools.deco.DecoGrass;
+import teamrtg.rtg.api.tools.deco.DecoShrub;
 import teamrtg.rtg.api.tools.terrain.HeightEffect;
 import teamrtg.rtg.api.tools.terrain.JitterEffect;
 import teamrtg.rtg.api.tools.terrain.MountainsWithPassesEffect;
@@ -58,8 +67,40 @@ public class RTGBiomeBOPMountain extends RTGBiomeBOP {
 
     @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+        decoBoulder.maxY = 90;
+        decoBoulder.chance = 16;
+        decoBoulder.strengthFactor = 3f;
+        this.addDeco(decoBoulder);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.distribution.noiseDivisor = 100f;
+        decoFallenTree.distribution.noiseFactor = 6f;
+        decoFallenTree.distribution.noiseAddend = 0.8f;
+        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        decoFallenTree.logConditionNoise = 0f;
+        decoFallenTree.logConditionChance = 6;
+        decoFallenTree.logBlock = BlockBOPLog.paging.getVariantState(BOPWoods.PINE);
+        decoFallenTree.leavesBlock = BlockBOPLeaves.paging.getVariantState(BOPTrees.PINE);
+        decoFallenTree.minSize = 3;
+        decoFallenTree.maxSize = 6;
+        this.addDeco(decoFallenTree);
+
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.maxY = 110;
+        decoShrub.strengthFactor = 2f;
+        decoShrub.chance = 10;
+        this.addDeco(decoShrub);
+
+        DecoGrass decoGrass = new DecoGrass();
+        decoGrass.maxY = 128;
+        decoGrass.strengthFactor = 3f;
+        this.addDeco(decoGrass);
     }
 
     @Override

@@ -1,7 +1,15 @@
 package teamrtg.rtg.modules.bop.biomes;
 
 import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.common.block.BlockBOPLeaves;
+import biomesoplenty.common.block.BlockBOPLog;
+import biomesoplenty.common.enums.BOPTrees;
+import biomesoplenty.common.enums.BOPWoods;
 import net.minecraft.init.Biomes;
+import net.minecraft.init.Blocks;
+import teamrtg.rtg.api.tools.deco.DecoBoulder;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree;
+import teamrtg.rtg.api.tools.deco.helper.DecoHelper5050;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
@@ -49,8 +57,34 @@ public class RTGBiomeBOPRedwoodForest extends RTGBiomeBOP {
 
     @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+
+        DecoBoulder decoBoulder1 = new DecoBoulder();
+        decoBoulder1.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+        decoBoulder1.maxY = 80;
+        decoBoulder1.chance = 16;
+        decoBoulder1.strengthFactor = 1f;
+        DecoBoulder decoBoulder2 = new DecoBoulder();
+        decoBoulder2.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+        decoBoulder2.maxY = 80;
+        decoBoulder2.chance = 16;
+        decoBoulder2.strengthFactor = 1f;
+        DecoHelper5050 decoHelper5050 = new DecoHelper5050(decoBoulder1, decoBoulder2);
+        this.addDeco(decoHelper5050);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.distribution.noiseDivisor = 80f;
+        decoFallenTree.distribution.noiseFactor = 60f;
+        decoFallenTree.distribution.noiseAddend = -15f;
+        decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
+        decoFallenTree.logConditionChance = 12;
+        decoFallenTree.logBlock = BlockBOPLog.paging.getVariantState(BOPWoods.REDWOOD);
+        decoFallenTree.leavesBlock = BlockBOPLeaves.paging.getVariantState(BOPTrees.REDWOOD);
+        decoFallenTree.minSize = 3;
+        decoFallenTree.maxSize = 9;
+        this.addDeco(decoFallenTree);
     }
 
     @Override

@@ -2,6 +2,8 @@ package teamrtg.rtg.modules.bop.biomes;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.init.Biomes;
+import teamrtg.rtg.api.tools.deco.DecoPond;
+import teamrtg.rtg.api.tools.deco.helper.DecoHelperBorder;
 import teamrtg.rtg.api.util.noise.SimplexOctave;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
@@ -75,8 +77,14 @@ public class RTGBiomeBOPCrag extends RTGBiomeBOP {
 
     @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
+
+        DecoPond decoPond = new DecoPond();
+        decoPond.chunksPerPond = 3;// very high because most are blocked by topography
+        DecoHelperBorder borderedPond = new DecoHelperBorder(decoPond,0.8f,0.7f);
+        this.addDeco(borderedPond);
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override

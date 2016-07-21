@@ -1,11 +1,12 @@
-package teamrtg.rtg.api.tools.deco;
+package teamrtg.rtg.modules.abyssalcraft.decos;
 
 
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import teamrtg.rtg.api.tools.feature.tree.abyssalcraft.WorldGenTreeACDarkwood;
+import teamrtg.rtg.api.tools.deco.DecoTree;
+import teamrtg.rtg.modules.abyssalcraft.feature.tree.WorldGenTreeACDarkwood;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.gen.RealisticBiomeGenerator;
 

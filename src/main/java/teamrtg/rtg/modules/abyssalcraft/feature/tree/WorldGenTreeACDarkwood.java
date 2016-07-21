@@ -1,4 +1,4 @@
-package teamrtg.rtg.api.tools.feature.tree.abyssalcraft;
+package teamrtg.rtg.modules.abyssalcraft.feature.tree;
 
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 import net.minecraft.block.material.Material;

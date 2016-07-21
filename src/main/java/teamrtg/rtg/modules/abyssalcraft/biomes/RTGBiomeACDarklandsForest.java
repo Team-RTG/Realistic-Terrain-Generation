@@ -10,8 +10,9 @@ import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
 import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.abyssalcraft.RTGBiomeAC;
+import teamrtg.rtg.modules.abyssalcraft.decos.DecoAbyssalCraftTree;
 
-import static teamrtg.rtg.api.tools.deco.DecoAbyssalCraftTree.TreeType.DARKWOOD;
+import static teamrtg.rtg.modules.abyssalcraft.decos.DecoAbyssalCraftTree.TreeType.DARKWOOD;
 
 public class RTGBiomeACDarklandsForest extends RTGBiomeAC {
 

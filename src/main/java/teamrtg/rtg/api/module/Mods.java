@@ -1,6 +1,7 @@
 package teamrtg.rtg.api.module;
 
 import teamrtg.rtg.modules.bop.RTGModuleBOP;
+import teamrtg.rtg.modules.abyssalcraft.RTGModuleAC;
 import teamrtg.rtg.modules.vanilla.RTGModuleVanilla;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class Mods {
     public static final RTGSupportRTG RTG = new RTGSupportRTG();
     public static final RTGModuleVanilla VANILLA = new RTGModuleVanilla();
     public static final RTGModuleBOP BOP = new RTGModuleBOP();
-    public static final RTGModule ABYSSALCRAFT = new RTGModule("Abyssalcraft", false, false);
+    public static final RTGModuleAC ABYSSALCRAFT = new RTGModuleAC();
 
     private static final List<RTGModule> mods = new ArrayList<>();
 

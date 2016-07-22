@@ -1,5 +1,9 @@
 package teamrtg.rtg.core.world;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
@@ -16,16 +20,13 @@ import teamrtg.rtg.api.module.Mods;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.LimitedMap;
 import teamrtg.rtg.api.util.PlaneLocation;
+import teamrtg.rtg.api.util.debug.Logger;
 import teamrtg.rtg.api.util.genlayers.GenLayerUtils;
 import teamrtg.rtg.api.util.noise.CellNoise;
 import teamrtg.rtg.api.util.noise.OpenSimplexNoise;
 import teamrtg.rtg.api.util.noise.SimplexCellularNoise;
 import teamrtg.rtg.api.util.noise.SimplexOctave;
 import teamrtg.rtg.api.world.biome.RTGBiome;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 
 public class BiomeProviderRTG extends BiomeProvider {
@@ -59,6 +60,7 @@ public class BiomeProviderRTG extends BiomeProvider {
 
         simplex = new OpenSimplexNoise(seed);
         cell = new SimplexCellularNoise(seed);
+        Logger.info(par1World.getWorldInfo().getGeneratorOptions());
         GenLayer[] agenlayer = GenLayerUtils.initializeAllBiomeGenerators(seed, worldType, par1World.getWorldInfo().getGeneratorOptions());
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
@@ -74,17 +76,6 @@ public class BiomeProviderRTG extends BiomeProvider {
 
         this.biomeCache = new BiomeCache(this);
         this.biomesToSpawnIn = new ArrayList();
-    }
-
-    private static double cellBorder(double[] results, double width, double depth) {
-        double c = (results[1] - results[0]) / results[1];
-        if (c < 0) throw new RuntimeException();
-        if (c < width) {
-            return ((c / width) - 1f) * depth;
-        } else {
-
-            return 0;
-        }
     }
 
     /**
@@ -119,12 +110,12 @@ public class BiomeProviderRTG extends BiomeProvider {
         return result;
     }
 
-    public Biome getBiomeGenAt(int x, int z) {
-        return Biome.getBiomeForId(chunkProvider.landscapeGenerator.getBiomeDataAt(this, x, z));
-    }
-
     public RTGBiome getRTGBiomeAt(int bx, int bz) {
         return RTGBiome.forBiome(getBiomeGenAt(bx, bz));
+    }
+
+    public Biome getBiomeGenAt(int x, int z) {
+        return Biome.getBiomeForId(chunkProvider.landscapeGenerator.getBiomeDataAt(this, x, z));
     }
 
     @Override
@@ -268,5 +259,16 @@ public class BiomeProviderRTG extends BiomeProvider {
         double[] results = cell.river().eval(xRiver, yRiver);
         return (float) cellBorder(results, riverValleyLevel, 1.0);
         //return cell.octave(1).border2(xRiver, yRiver, riverValleyLevel, 1f);
+    }
+
+    private static double cellBorder(double[] results, double width, double depth) {
+        double c = (results[1] - results[0]) / results[1];
+        if (c < 0) throw new RuntimeException();
+        if (c < width) {
+            return ((c / width) - 1f) * depth;
+        } else {
+
+            return 0;
+        }
     }
 }

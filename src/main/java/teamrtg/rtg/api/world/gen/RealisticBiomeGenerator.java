@@ -1,5 +1,8 @@
 package teamrtg.rtg.api.world.gen;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
 import net.minecraft.init.Blocks;
@@ -27,9 +30,6 @@ import teamrtg.rtg.api.world.biome.deco.DecoBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 /**
  * @author topisani
  */
@@ -38,11 +38,13 @@ public class RealisticBiomeGenerator {
     private static float actualRiverProportion = 300f / 1600f;
     public final RTGBiome realistic;
     public SurfacePart genericPart;
+    public DecoBaseBiomeDecorations baseBiomeDecorations;
 
     public RealisticBiomeGenerator(RTGBiome realistic) {
         this.realistic = realistic;
         biomeGenerators[realistic.getID()] = this;
         genericPart = this.realistic.PARTS.surfaceGeneric();
+        baseBiomeDecorations = new DecoBaseBiomeDecorations();
     }
 
     public static RTGBiome getRealistic(Biome biome) {
@@ -158,11 +160,6 @@ public class RealisticBiomeGenerator {
             }
         }
     }
-    
-    public void populatePostDecorate(IChunkGenerator iChunkGenerator, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag)
-    {
-
-    }
 
     /**
      * When realistically decorating biomes, sometimes you want the biome to partially decorate itself.
@@ -180,6 +177,7 @@ public class RealisticBiomeGenerator {
      * This method generates ores in realistically-decorated biomes.
      */
     public void generateOres(RTGWorld rtgWorld, BlockPos blockPos, float strength, float river) {
+        if (true) return;
         Biome seedBiome = this.realistic.getBiome();
         Random rand = rtgWorld.rand;
 
@@ -312,10 +310,9 @@ public class RealisticBiomeGenerator {
         }
         // Generate ores
         if (!baseDecorated) {
-            DecoBaseBiomeDecorations deco = new DecoBaseBiomeDecorations();
-            deco.allowed = false;
-            if (deco.preGenerate(rtgWorld, rand, chunkX, chunkY, strength, river, this, hasPlacedVillageBlocks)) {
-                deco.generate(rtgWorld, rand, chunkX, chunkY, strength, river, this, hasPlacedVillageBlocks);
+            baseBiomeDecorations.allowed = false;
+            if (baseBiomeDecorations.preGenerate(rtgWorld, rand, chunkX, chunkY, strength, river, this, hasPlacedVillageBlocks)) {
+                baseBiomeDecorations.generate(rtgWorld, rand, chunkX, chunkY, strength, river, this, hasPlacedVillageBlocks);
             }
         }
     }

@@ -2,6 +2,7 @@ package teamrtg.rtg.modules.abyssalcraft.biomes;
 
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import net.minecraft.init.Biomes;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.tools.terrain.HeightEffect;
 import teamrtg.rtg.api.tools.terrain.HeightVariation;
 import teamrtg.rtg.api.tools.terrain.JitterEffect;
@@ -9,7 +10,6 @@ import teamrtg.rtg.api.tools.terrain.MountainsWithPassesEffect;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.abyssalcraft.RTGBiomeAC;
 
@@ -62,11 +62,7 @@ public class RTGBiomeACDarklandsMountains extends RTGBiomeAC {
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new CliffSelector(1.5f)
-                .add(PARTS.STONE_OR_COBBLE));
-        surface.add(PARTS.surfaceGeneric());
-        return surface;
+        return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override

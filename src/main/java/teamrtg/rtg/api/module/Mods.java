@@ -1,5 +1,6 @@
 package teamrtg.rtg.api.module;
 
+import teamrtg.rtg.modules.bop.RTGModuleBOP;
 import teamrtg.rtg.modules.abyssalcraft.RTGModuleAC;
 import teamrtg.rtg.modules.vanilla.RTGModuleVanilla;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class Mods {
     public static final RTGSupportRTG RTG = new RTGSupportRTG();
     public static final RTGModuleVanilla VANILLA = new RTGModuleVanilla();
+    public static final RTGModuleBOP BOP = new RTGModuleBOP();
     public static final RTGModuleAC ABYSSALCRAFT = new RTGModuleAC();
 
     private static final List<RTGModule> mods = new ArrayList<>();
@@ -19,6 +21,7 @@ public class Mods {
     static {
         registerMod(RTG);
         registerMod(VANILLA);
+        registerMod(BOP);
         registerMod(ABYSSALCRAFT);
     }
 

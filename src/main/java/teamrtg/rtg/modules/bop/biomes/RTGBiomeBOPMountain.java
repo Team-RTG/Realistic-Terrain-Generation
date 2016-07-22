@@ -11,13 +11,13 @@ import teamrtg.rtg.api.tools.deco.DecoBoulder;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree;
 import teamrtg.rtg.api.tools.deco.DecoGrass;
 import teamrtg.rtg.api.tools.deco.DecoShrub;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.tools.terrain.HeightEffect;
 import teamrtg.rtg.api.tools.terrain.JitterEffect;
 import teamrtg.rtg.api.tools.terrain.MountainsWithPassesEffect;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 
@@ -60,11 +60,7 @@ public class RTGBiomeBOPMountain extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new CliffSelector(1.5f)
-            .add(PARTS.STONE_OR_COBBLE));
-        surface.add(PARTS.surfaceGeneric());
-        return surface;
+        return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override

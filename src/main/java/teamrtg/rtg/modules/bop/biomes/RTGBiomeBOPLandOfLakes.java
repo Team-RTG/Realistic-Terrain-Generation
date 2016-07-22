@@ -12,10 +12,10 @@ import teamrtg.rtg.api.tools.deco.helper.DecoHelper5050;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTG;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTGPiceaSitchensis;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 
@@ -48,11 +48,7 @@ public class RTGBiomeBOPLandOfLakes extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new CliffSelector(1.5f)
-            .add(PARTS.STONE_OR_COBBLE));
-        surface.add(PARTS.surfaceGeneric());
-        return surface;
+        return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override

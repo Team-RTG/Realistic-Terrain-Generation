@@ -7,11 +7,9 @@ import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTG;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTGCocosNucifera;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
-import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.api.world.biome.surface.part.HeightSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
@@ -55,18 +53,7 @@ public class RTGBiomeVanillaBeach extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
-        return PARTS.selectTopAndFill()
-            .add(new CliffSelector(1.3f)
-                .add(new BlockPart(config.CLIFF_BLOCK_1.get())))
-            .add(PARTS.selectTop()
-                .add(new HeightSelector(61, 64)
-                    .add(PARTS.TOP_BLOCK)))
-            .add(PARTS.selectFill()
-                .add(new HeightSelector(61, 69)
-                    .add(PARTS.TOP_BLOCK)))
-            .add(new HeightSelector(56, 68).setMaxNoise(PARTS.DEPTH_NOISE)
-                .add(PARTS.FILL_BLOCK))
-            .add(PARTS.surfaceGeneric());
+        return SurfaceBase.surfaceBeach(this);
     }
 
     @Override

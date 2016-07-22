@@ -2,12 +2,10 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
-import teamrtg.rtg.api.world.biome.surface.part.HeightSelector;
-import teamrtg.rtg.api.world.biome.surface.part.Selector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
@@ -35,13 +33,7 @@ public class RTGBiomeVanillaDeepOcean extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(PARTS.selectTop()
-            .add(new HeightSelector(0, 63)
-                .add(new Selector((x, y, z, rtgWorld) -> rtgWorld.simplex.noise2(x / 20f, z / 20f) > 0.1f)
-                    .add(new BlockPart(config.MIX_BLOCK_TOP.get())))));
-        surface.add(PARTS.surfaceGeneric());
-        return surface;
+        return SurfaceBase.surfaceOcean(this);
     }
 
     @Override

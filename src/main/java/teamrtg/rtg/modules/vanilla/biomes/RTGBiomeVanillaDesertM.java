@@ -6,12 +6,10 @@ import net.minecraft.world.biome.Biome;
 import teamrtg.rtg.api.config.BiomeConfig;
 import teamrtg.rtg.api.tools.deco.collection.DecoCollectionDesert;
 import teamrtg.rtg.api.tools.deco.collection.DecoCollectionDesertRiver;
-import teamrtg.rtg.api.tools.surface.SurfaceRiverOasis;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
-import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
@@ -37,19 +35,7 @@ public class RTGBiomeVanillaDesertM extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = PARTS.selectTopAndFill();
-        surface.add(new SurfaceRiverOasis(this));
-        surface.add(new CliffSelector(1.5f)
-            .add(PARTS.SHADOW_SAND)
-        );
-        surface.add(new CliffSelector((x, y, z, rtgWorld) -> 1.5f - ((y - 60f) / 65f) + rtgWorld.simplex.noise3(x / 8f, y / 8f, z / 8f) * 0.5f)
-            .add(PARTS.selectFill()
-                .add(PARTS.rand(3)
-                    .add(new BlockPart(Blocks.SANDSTONE.getDefaultState()))))
-            .add(new BlockPart(Blocks.SAND.getDefaultState()))
-        );
-        surface.add(PARTS.surfaceGeneric());
-        return surface;
+        return SurfaceBase.surfaceDesertM(this);
     }
 
     @Override

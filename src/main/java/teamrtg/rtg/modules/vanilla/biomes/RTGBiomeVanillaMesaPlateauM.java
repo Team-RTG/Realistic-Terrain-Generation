@@ -3,21 +3,15 @@ package teamrtg.rtg.modules.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-import teamrtg.rtg.api.tools.deco.DecoCactus;
-import teamrtg.rtg.api.tools.deco.DecoDeadBush;
-import teamrtg.rtg.api.tools.deco.DecoReed;
-import teamrtg.rtg.api.tools.deco.DecoShrub;
-import teamrtg.rtg.api.tools.deco.DecoTree;
+import teamrtg.rtg.api.tools.deco.*;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
 import teamrtg.rtg.api.tools.feature.tree.vanilla.WorldGenTreesRTG;
-import teamrtg.rtg.api.tools.surface.SurfaceRiverOasis;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.math.CanyonColour;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
-import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
-import teamrtg.rtg.api.world.biome.surface.part.HeightSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
@@ -51,13 +45,8 @@ public class RTGBiomeVanillaMesaPlateauM extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new SurfaceRiverOasis(this));
-        surface.add(new HeightSelector(50, 255).setMinNoise(PARTS.DEPTH_NOISE)
-            .add(new BlockPart(CanyonColour.MESA)));
-        return surface;
+        return SurfaceBase.surfacePlateau1(this, CanyonColour.MESA);
     }
-
 
     @Override
     public void initDecos() {

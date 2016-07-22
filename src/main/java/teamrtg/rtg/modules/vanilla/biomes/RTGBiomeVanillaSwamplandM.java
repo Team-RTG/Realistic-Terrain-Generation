@@ -4,22 +4,18 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import teamrtg.rtg.api.config.BiomeConfig;
-import teamrtg.rtg.api.tools.deco.DecoFallenTree;
+import teamrtg.rtg.api.tools.deco.*;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
-import teamrtg.rtg.api.tools.deco.DecoGrass;
-import teamrtg.rtg.api.tools.deco.DecoPumpkin;
-import teamrtg.rtg.api.tools.deco.DecoShrub;
-import teamrtg.rtg.api.tools.deco.DecoTree;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTG;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTGPinusPonderosa;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTGSalixMyrtilloides;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
@@ -46,14 +42,10 @@ public class RTGBiomeVanillaSwamplandM extends RTGBiomeVanilla {
         };
     }
 
-    @Override
-    public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new CliffSelector(1.5f)
-            .add(PARTS.STONE_OR_COBBLE));
-        surface.add(PARTS.surfaceSwamp());
-        return surface;
-    }
+	@Override
+	public SurfacePart initSurface() {
+		return SurfaceBase.surfaceSwamp(this);
+	}
 
     @Override
     public void initDecos() {

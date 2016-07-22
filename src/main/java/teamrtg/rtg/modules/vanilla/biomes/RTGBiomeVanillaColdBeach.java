@@ -3,13 +3,9 @@ package teamrtg.rtg.modules.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.api.tools.deco.DecoBoulder;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
-import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.api.world.biome.surface.part.DepthSelector;
-import teamrtg.rtg.api.world.biome.surface.part.HeightSelector;
-import teamrtg.rtg.api.world.biome.surface.part.Selector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
@@ -35,24 +31,7 @@ public class RTGBiomeVanillaColdBeach extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(PARTS.selectTopAndFill()
-            .add(new CliffSelector(1.3f)
-                .add(new BlockPart(config.CLIFF_BLOCK_1.get())))
-            .add(PARTS.selectTop()
-                .add(new HeightSelector(61, 255)
-                    .add(new Selector((x, y, z, rtgWorld) -> rtgWorld.simplex.noise2(x / 12f, z / 12f) > -0.3f + ((y - 61f) / 15f))
-                        .add(new BlockPart(config.TOP_BLOCK.get())))
-                    .add(new BlockPart(Blocks.SAND.getDefaultState()))))
-            .add(new DepthSelector(0, 4)
-                .add(new Selector((x, y, z, rtgWorld) -> rtgWorld.simplex.noise2(x / 12f, z / 12f) > -0.3f + ((y - 61f) / 15f))
-                    .add(new BlockPart(config.FILL_BLOCK.get())))
-                .add(new HeightSelector(0, 69)
-                    .add(new BlockPart(Blocks.SAND.getDefaultState()))))
-            .add(new Selector((x, y, z, rtgWorld) -> rtgWorld.simplex.noise2(x / 12f, z / 12f) <= -0.3f + ((y - 61f) / 15f))
-                .add(new BlockPart(Blocks.SANDSTONE.getDefaultState()))));
-        surface.add(PARTS.surfaceGeneric());
-        return surface;
+        return SurfaceBase.surfaceColdBeach(this);
     }
 
     @Override

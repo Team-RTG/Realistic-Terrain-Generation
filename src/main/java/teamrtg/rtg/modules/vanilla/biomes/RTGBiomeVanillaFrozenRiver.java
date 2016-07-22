@@ -1,6 +1,7 @@
 package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
@@ -18,7 +19,7 @@ public class RTGBiomeVanillaFrozenRiver extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
-        return PARTS.surfaceGeneric();
+        return SurfaceBase.surfaceGeneric(this);
     }
 
     @Override

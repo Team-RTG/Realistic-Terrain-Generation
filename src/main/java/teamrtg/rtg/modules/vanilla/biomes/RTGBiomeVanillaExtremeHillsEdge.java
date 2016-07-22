@@ -2,22 +2,15 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import teamrtg.rtg.api.tools.deco.DecoBoulder;
-import teamrtg.rtg.api.tools.deco.DecoFallenTree;
+import teamrtg.rtg.api.tools.deco.*;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
-import teamrtg.rtg.api.tools.deco.DecoGrass;
-import teamrtg.rtg.api.tools.deco.DecoMushrooms;
-import teamrtg.rtg.api.tools.deco.DecoPumpkin;
-import teamrtg.rtg.api.tools.deco.DecoShrub;
-import teamrtg.rtg.api.tools.deco.DecoTree;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTG;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTGPinusNigra;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.api.world.biome.surface.part.DepthSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
@@ -35,14 +28,7 @@ public class RTGBiomeVanillaExtremeHillsEdge extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = PARTS.selectTopAndFill();
-        surface.add(new CliffSelector(1.4f)
-            .add(new DepthSelector(0, 1)
-                .add(PARTS.STONE_OR_COBBLE))
-        );
-        surface.add(PARTS.surfaceMix((x, y, z, rtgWorld) -> rtgWorld.simplex.noise2(x / 60f, z / 60f) + rtgWorld.simplex.noise2(x / 14f, z / 14f) * 0.25f > -0.14f));
-        surface.add(PARTS.surfaceGeneric());
-        return surface;
+        return SurfaceBase.surfaceExtremeHills(this);
     }
 
     @Override

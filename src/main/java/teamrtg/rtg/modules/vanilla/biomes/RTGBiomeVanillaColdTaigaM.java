@@ -3,11 +3,10 @@ package teamrtg.rtg.modules.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 import teamrtg.rtg.api.tools.deco.collection.DecoCollectionTaiga;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.api.world.biome.surface.part.DepthSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
@@ -36,12 +35,7 @@ public class RTGBiomeVanillaColdTaigaM extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
-        return new DepthSelector(0, 10)
-            .add(new CliffSelector(1.4f)
-                .add(new DepthSelector(0, 1)
-                    .add(PARTS.STONE_OR_COBBLE))
-                .add(PARTS.STONE))
-            .add(PARTS.surfaceGeneric());
+        return SurfaceBase.surfaceColdTaigaM(this);
     }
 
     @Override

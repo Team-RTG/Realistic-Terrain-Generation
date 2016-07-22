@@ -4,15 +4,8 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import teamrtg.rtg.api.config.BiomeConfig;
-import teamrtg.rtg.api.tools.deco.DecoBoulder;
-import teamrtg.rtg.api.tools.deco.DecoFallenTree;
+import teamrtg.rtg.api.tools.deco.*;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
-import teamrtg.rtg.api.tools.deco.DecoFlowersRTG;
-import teamrtg.rtg.api.tools.deco.DecoGrass;
-import teamrtg.rtg.api.tools.deco.DecoJungleCacti;
-import teamrtg.rtg.api.tools.deco.DecoJungleGrassVines;
-import teamrtg.rtg.api.tools.deco.DecoJungleLilypadVines;
-import teamrtg.rtg.api.tools.deco.DecoTree;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
 import teamrtg.rtg.api.tools.deco.helper.DecoHelperThisOrThat;
@@ -21,12 +14,11 @@ import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTG;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTGCocosNucifera;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import teamrtg.rtg.api.tools.feature.tree.vanilla.WorldGenMegaJungleRTG;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.api.world.biome.surface.part.DepthSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
@@ -53,16 +45,10 @@ public class RTGBiomeVanillaJungleM extends RTGBiomeVanilla {
         };
     }
 
-    @Override
-    public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new CliffSelector(1.4f)
-            .add(new DepthSelector(0, 1)
-                .add(PARTS.STONE_OR_COBBLE)))
-            .add(PARTS.STONE);
-        surface.add(PARTS.surfaceGeneric());
-        return surface;
-    }
+	@Override
+	public SurfacePart initSurface() {
+		return SurfaceBase.surfaceJungle(this);
+	}
 
     @Override
     public void initDecos() {

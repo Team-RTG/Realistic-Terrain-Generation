@@ -2,23 +2,14 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import teamrtg.rtg.api.tools.deco.DecoCactus;
-import teamrtg.rtg.api.tools.deco.DecoDeadBush;
-import teamrtg.rtg.api.tools.deco.DecoReed;
-import teamrtg.rtg.api.tools.deco.DecoShrub;
-import teamrtg.rtg.api.tools.deco.DecoTree;
+import teamrtg.rtg.api.tools.deco.*;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
 import teamrtg.rtg.api.tools.feature.tree.vanilla.WorldGenTreesRTG;
-import teamrtg.rtg.api.tools.surface.SurfaceRiverOasis;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.util.math.CanyonColour;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
-import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.api.world.biome.surface.part.DepthSelector;
-import teamrtg.rtg.api.world.biome.surface.part.HeightSelector;
-import teamrtg.rtg.api.world.biome.surface.part.OrSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
@@ -74,25 +65,7 @@ public class RTGBiomeVanillaMesaPlateauF extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new SurfaceRiverOasis(this));
-        surface.add(new DepthSelector(0, 11)
-            .add(new OrSelector()
-                .or(new CliffSelector(1.3f))
-                .or(new DepthSelector(4, 256))
-                .add(new BlockPart(CanyonColour.MESA)))
-            .add(PARTS.selectTop()
-                .add(PARTS.rand(5)
-                    .add(new BlockPart(Blocks.GRASS.getDefaultState())))
-                .add(PARTS.rand(3)
-                    .add(new BlockPart(Blocks.DIRT.getStateFromMeta(1)))))
-        );
-        surface.add(PARTS.surfaceGeneric());
-        surface.add(
-            new HeightSelector(50, 256).setMinNoise(PARTS.DEPTH_NOISE)
-                .add(new BlockPart(CanyonColour.MESA))
-        );
-        return surface;
+        return SurfaceBase.surfacePlateau2(this, CanyonColour.MESA);
     }
 
     @Override

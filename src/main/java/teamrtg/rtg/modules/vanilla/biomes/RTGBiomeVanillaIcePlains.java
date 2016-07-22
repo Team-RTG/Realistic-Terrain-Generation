@@ -6,6 +6,7 @@ import teamrtg.rtg.api.config.BiomeConfig;
 import teamrtg.rtg.api.tools.deco.DecoBoulder;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
@@ -23,7 +24,7 @@ public class RTGBiomeVanillaIcePlains extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
-        return PARTS.surfaceGeneric();
+        return SurfaceBase.surfaceGeneric(this);
     }
 
     @Override

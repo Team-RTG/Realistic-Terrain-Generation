@@ -4,11 +4,10 @@ import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 import teamrtg.rtg.api.tools.deco.collection.DecoCollectionDesertRiver;
 import teamrtg.rtg.api.tools.deco.collection.DecoCollectionSavanna;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.api.world.biome.surface.part.DepthSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
@@ -37,15 +36,7 @@ public class RTGBiomeVanillaSavannaM extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new CliffSelector(1.5f)
-            .add(PARTS.selectTop()
-                .add(PARTS.STONE_OR_COBBLE))
-            .add(new DepthSelector(0, 10)
-                .add(PARTS.STONE)));
-        surface.add(PARTS.surfaceMix(PARTS.MIX_NOISE));
-        surface.add(PARTS.surfaceGeneric());
-        return surface;
+        return SurfaceBase.surfaceSavanna(this);
     }
 
     @Override

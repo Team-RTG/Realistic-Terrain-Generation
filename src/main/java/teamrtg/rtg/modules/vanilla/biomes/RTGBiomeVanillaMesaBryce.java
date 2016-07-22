@@ -1,6 +1,5 @@
 package teamrtg.rtg.modules.vanilla.biomes;
 
-import net.minecraft.block.BlockDirt;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -9,16 +8,11 @@ import teamrtg.rtg.api.tools.deco.DecoCactus;
 import teamrtg.rtg.api.tools.deco.DecoDeadBush;
 import teamrtg.rtg.api.tools.deco.DecoShrub;
 import teamrtg.rtg.api.tools.deco.collection.DecoCollectionDesertRiver;
-import teamrtg.rtg.api.tools.surface.SurfaceRiverOasis;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.math.CanyonColour;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
-import teamrtg.rtg.api.world.biome.surface.part.BlockPart;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.api.world.biome.surface.part.DepthSelector;
-import teamrtg.rtg.api.world.biome.surface.part.HeightSelector;
-import teamrtg.rtg.api.world.biome.surface.part.OrSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
@@ -46,27 +40,7 @@ public class RTGBiomeVanillaMesaBryce extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new SurfaceRiverOasis(this));
-        surface.add(
-            new DepthSelector(0, 11)
-                .add(new OrSelector()
-                    .or(new CliffSelector(1.3f))
-                    .or(new DepthSelector(4, 255))
-                    .add(new BlockPart(CanyonColour.MESA_WHITE)))
-                .add(new HeightSelector(78, 255)
-                    .add(PARTS.rand(5)
-                        .add(new BlockPart(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT)))))
-                .add(new HeightSelector(0, 77)
-                    .add(PARTS.selectTop()
-                        .add(new HeightSelector(0, 71)
-                            .add(PARTS.rand(5)
-                                .add(new BlockPart(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT))))
-                        ))));
-        surface.add(PARTS.surfaceGeneric());
-        surface.add(new HeightSelector(50, 255).setMinNoise(PARTS.DEPTH_NOISE2)
-            .add(new BlockPart(CanyonColour.MESA_WHITE)));
-        return surface;
+        return SurfaceBase.surfaceMesa(this, CanyonColour.MESA_WHITE);
     }
 
     @Override

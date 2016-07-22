@@ -3,25 +3,20 @@ package teamrtg.rtg.modules.vanilla.biomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-import teamrtg.rtg.api.tools.deco.DecoFallenTree;
+import teamrtg.rtg.api.tools.deco.*;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
-import teamrtg.rtg.api.tools.deco.DecoFlowersRTG;
-import teamrtg.rtg.api.tools.deco.DecoGrass;
-import teamrtg.rtg.api.tools.deco.DecoShrub;
-import teamrtg.rtg.api.tools.deco.DecoTree;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
 import teamrtg.rtg.api.tools.deco.helper.DecoHelperRandomSplit;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTG;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import teamrtg.rtg.api.tools.feature.tree.vanilla.WorldGenTreesRTG;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
-import teamrtg.rtg.api.world.biome.surface.part.DepthSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
@@ -121,13 +116,7 @@ public class RTGBiomeVanillaBirchForestHillsM extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
-        return new DepthSelector(0, 10)
-            .add(new CliffSelector(1.4f)
-                .add(new DepthSelector(0, 1)
-                    .add(PARTS.rand(3)
-                        .add(PARTS.COBBLE)))
-                .add(PARTS.STONE))
-            .add(PARTS.surfaceGeneric());
+        return SurfaceBase.surfaceBirchForestHillsM(this);
     }
 
     @Override

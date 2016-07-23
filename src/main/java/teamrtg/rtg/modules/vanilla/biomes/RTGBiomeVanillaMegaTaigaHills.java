@@ -16,10 +16,8 @@ public class RTGBiomeVanillaMegaTaigaHills extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaMegaTaigaHills() {
 
-        super(
-                Biomes.REDWOOD_TAIGA_HILLS,
-            Biomes.RIVER
-        );
+        super(Biomes.REDWOOD_TAIGA_HILLS, Biomes.RIVER);
+
         this.noLakes = true;
     }
 

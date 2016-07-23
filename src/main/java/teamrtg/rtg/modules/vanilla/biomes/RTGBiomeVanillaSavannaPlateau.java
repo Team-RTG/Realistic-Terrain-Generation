@@ -19,10 +19,8 @@ public class RTGBiomeVanillaSavannaPlateau extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaSavannaPlateau() {
 
-        super(
-                Biomes.SAVANNA_PLATEAU,
-            Biomes.RIVER
-        );
+        super(Biomes.SAVANNA_PLATEAU, Biomes.RIVER);
+
         this.noLakes = true;
     }
 

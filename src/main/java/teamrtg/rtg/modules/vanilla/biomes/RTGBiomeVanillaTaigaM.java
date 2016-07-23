@@ -1,25 +1,19 @@
 package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
-import net.minecraft.world.biome.Biome;
 import teamrtg.rtg.api.tools.deco.collection.DecoCollectionTaiga;
 import teamrtg.rtg.api.tools.surface.SurfaceBase;
-import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaTaigaM extends RTGBiomeVanilla {
-    public static Biome standardBiome = Biomes.TAIGA;
-    public static Biome mutationBiome = Biome.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RTGBiomeVanillaTaigaM() {
 
-        super(
-                mutationBiome,
-            Biomes.RIVER
-        );
+        super(Biomes.MUTATED_TAIGA, Biomes.RIVER);
+
         this.noLakes = true;
         this.noWaterFeatures = true;
     }

@@ -16,12 +16,10 @@ import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaExtremeHillsEdge extends RTGBiomeVanilla {
 
-    public RTGBiomeVanillaExtremeHillsEdge() {
+	public RTGBiomeVanillaExtremeHillsEdge() {
 
-        super(
-                Biomes.EXTREME_HILLS_EDGE,
-            Biomes.RIVER
-        );
+        super(Biomes.EXTREME_HILLS_EDGE, Biomes.RIVER);
+
         this.noLakes = true;
         this.noWaterFeatures = true;
     }

@@ -2,7 +2,6 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.Biome;
 import teamrtg.rtg.api.tools.deco.*;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
@@ -10,7 +9,6 @@ import teamrtg.rtg.api.tools.deco.collection.DecoCollectionDesertRiver;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTG;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTGAcaciaBucheri;
 import teamrtg.rtg.api.tools.surface.SurfaceBase;
-import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.math.CanyonColour;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
@@ -18,15 +16,11 @@ import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaSavannaPlateauM extends RTGBiomeVanilla {
-    public static Biome standardBiome = Biomes.SAVANNA_PLATEAU;
-    public static Biome mutationBiome = Biome.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RTGBiomeVanillaSavannaPlateauM() {
 
-        super(
-                mutationBiome,
-            Biomes.RIVER
-        );
+        super(Biomes.MUTATED_SAVANNA_ROCK, Biomes.RIVER);
+
         this.noLakes = true;
     }
 

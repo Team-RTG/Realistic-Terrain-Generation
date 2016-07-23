@@ -15,10 +15,7 @@ public class RTGBiomeVanillaSavanna extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaSavanna() {
 
-        super(
-                Biomes.SAVANNA,
-            Biomes.RIVER
-        );
+        super(Biomes.SAVANNA, Biomes.RIVER);
     }
 
     @Override

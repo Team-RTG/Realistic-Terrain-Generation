@@ -16,10 +16,9 @@ import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 public class RTGBiomeVanillaMesaPlateauF extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaMesaPlateauF() {
-        super(
-            Biomes.MESA_ROCK,
-            Biomes.RIVER
-        );
+
+        super(Biomes.MESA_ROCK, Biomes.RIVER);
+
         this.noLakes = true;
     }
 

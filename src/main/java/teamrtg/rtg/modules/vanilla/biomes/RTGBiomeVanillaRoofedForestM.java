@@ -2,7 +2,6 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.Biome;
 import teamrtg.rtg.api.tools.deco.*;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
@@ -10,7 +9,6 @@ import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTG;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import teamrtg.rtg.api.tools.surface.SurfaceBase;
-import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
@@ -18,15 +16,11 @@ import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaRoofedForestM extends RTGBiomeVanilla {
-    public static Biome standardBiome = Biomes.ROOFED_FOREST;
-    public static Biome mutationBiome = Biome.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
-    public RTGBiomeVanillaRoofedForestM() {
+	public RTGBiomeVanillaRoofedForestM() {
 
-        super(
-                mutationBiome,
-            Biomes.RIVER
-        );
+        super(Biomes.MUTATED_ROOFED_FOREST, Biomes.RIVER);
+
         this.noLakes = true;
         this.noWaterFeatures = true;
     }

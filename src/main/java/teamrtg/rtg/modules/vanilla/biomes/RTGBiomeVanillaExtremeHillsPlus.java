@@ -21,10 +21,8 @@ public class RTGBiomeVanillaExtremeHillsPlus extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaExtremeHillsPlus() {
 
-        super(
-                Biomes.EXTREME_HILLS_WITH_TREES,
-            Biomes.RIVER
-        );
+        super(Biomes.EXTREME_HILLS_WITH_TREES, Biomes.RIVER);
+
         this.noLakes = true;
         this.noWaterFeatures = true;
     }

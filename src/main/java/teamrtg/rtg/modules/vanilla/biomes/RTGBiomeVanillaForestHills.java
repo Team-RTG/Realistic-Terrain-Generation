@@ -13,10 +13,8 @@ public class RTGBiomeVanillaForestHills extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaForestHills() {
 
-        super(
-                Biomes.FOREST_HILLS,
-            Biomes.RIVER
-        );
+        super(Biomes.FOREST_HILLS, Biomes.RIVER);
+
         this.noLakes = true;
     }
 

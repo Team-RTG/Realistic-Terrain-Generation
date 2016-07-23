@@ -17,10 +17,8 @@ public class RTGBiomeVanillaMesaPlateau extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaMesaPlateau() {
 
-        super(
-                Biomes.MESA_CLEAR_ROCK,
-            Biomes.RIVER
-        );
+        super(Biomes.MESA_CLEAR_ROCK, Biomes.RIVER);
+
         this.noLakes = true;
     }
 

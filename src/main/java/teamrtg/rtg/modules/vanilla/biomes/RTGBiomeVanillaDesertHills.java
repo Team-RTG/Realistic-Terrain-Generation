@@ -14,10 +14,9 @@ import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 public class RTGBiomeVanillaDesertHills extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaDesertHills() {
-        super(
-                Biomes.DESERT_HILLS,
-            Biomes.RIVER
-        );
+
+        super(Biomes.DESERT_HILLS, Biomes.RIVER);
+
         this.noLakes = true;
     }
 

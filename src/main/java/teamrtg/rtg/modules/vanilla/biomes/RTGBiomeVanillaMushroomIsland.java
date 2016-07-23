@@ -12,10 +12,9 @@ import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 public class RTGBiomeVanillaMushroomIsland extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaMushroomIsland() {
-        super(
-                Biomes.MUSHROOM_ISLAND,
-            Biomes.RIVER
-        );
+
+        super(Biomes.MUSHROOM_ISLAND, Biomes.RIVER);
+
         this.noLakes = true;
     }
 

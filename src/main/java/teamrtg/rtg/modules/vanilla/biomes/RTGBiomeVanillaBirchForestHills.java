@@ -20,11 +20,10 @@ import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaBirchForestHills extends RTGBiomeVanilla {
 
-    public RTGBiomeVanillaBirchForestHills() {
-        super(
-            Biomes.BIRCH_FOREST_HILLS,
-            Biomes.RIVER
-        );
+	public RTGBiomeVanillaBirchForestHills() {
+
+        super(Biomes.BIRCH_FOREST_HILLS, Biomes.RIVER);
+
         this.noLakes = true;
     }
 

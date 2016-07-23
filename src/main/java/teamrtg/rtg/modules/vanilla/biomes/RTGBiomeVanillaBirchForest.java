@@ -21,11 +21,9 @@ import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaBirchForest extends RTGBiomeVanilla {
 
-    public RTGBiomeVanillaBirchForest() {
-        super(
-            Biomes.BIRCH_FOREST,
-            Biomes.RIVER
-        );
+	public RTGBiomeVanillaBirchForest() {
+
+		super(Biomes.BIRCH_FOREST, Biomes.RIVER);
     }
 
     @Override

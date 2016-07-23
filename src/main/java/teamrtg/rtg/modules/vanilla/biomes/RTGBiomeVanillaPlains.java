@@ -21,10 +21,7 @@ public class RTGBiomeVanillaPlains extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaPlains() {
 
-        super(
-                Biomes.PLAINS,
-            Biomes.RIVER
-        );
+        super(Biomes.PLAINS, Biomes.RIVER);
     }
 
     @Override

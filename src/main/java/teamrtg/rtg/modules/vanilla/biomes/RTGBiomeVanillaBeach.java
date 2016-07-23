@@ -16,10 +16,8 @@ import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 public class RTGBiomeVanillaBeach extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaBeach() {
-        super(
-            Biomes.BEACH,
-            Biomes.RIVER
-        );
+
+        super(Biomes.BEACH, Biomes.RIVER);
     }
 
     @Override

@@ -22,12 +22,10 @@ import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaJungleHills extends RTGBiomeVanilla {
 
-    public RTGBiomeVanillaJungleHills() {
+	public RTGBiomeVanillaJungleHills() {
 
-        super(
-                Biomes.JUNGLE_HILLS,
-            Biomes.RIVER
-        );
+        super(Biomes.JUNGLE_HILLS, Biomes.RIVER);
+
         this.noLakes = true;
     }
 

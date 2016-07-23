@@ -2,13 +2,11 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.Biome;
 import teamrtg.rtg.api.tools.deco.*;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeCondition;
 import teamrtg.rtg.api.tools.deco.DecoTree.TreeType;
 import teamrtg.rtg.api.tools.feature.tree.vanilla.WorldGenTreesRTG;
 import teamrtg.rtg.api.tools.surface.SurfaceBase;
-import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.util.math.CanyonColour;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
@@ -16,15 +14,11 @@ import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaMesaPlateauM extends RTGBiomeVanilla {
-    public static Biome standardBiome = Biomes.MESA_CLEAR_ROCK;
-    public static Biome mutationBiome = Biome.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RTGBiomeVanillaMesaPlateauM() {
 
-        super(
-                mutationBiome,
-            Biomes.RIVER
-        );
+        super(Biomes.MUTATED_MESA_ROCK, Biomes.RIVER);
+
         this.noLakes = true;
     }
 

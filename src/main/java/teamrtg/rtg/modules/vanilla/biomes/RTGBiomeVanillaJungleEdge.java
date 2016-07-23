@@ -17,10 +17,7 @@ public class RTGBiomeVanillaJungleEdge extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaJungleEdge() {
 
-        super(
-                Biomes.JUNGLE_EDGE,
-            Biomes.RIVER
-        );
+        super(Biomes.JUNGLE_EDGE, Biomes.RIVER);
     }
 
     @Override

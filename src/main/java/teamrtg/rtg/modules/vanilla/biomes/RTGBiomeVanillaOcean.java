@@ -13,10 +13,8 @@ public class RTGBiomeVanillaOcean extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaOcean() {
 
-        super(
-                Biomes.OCEAN,
-            Biomes.RIVER
-        );
+        super(Biomes.OCEAN, Biomes.RIVER);
+
         this.noLakes=true;
         this.noWaterFeatures = true;
     }

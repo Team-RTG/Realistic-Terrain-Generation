@@ -2,12 +2,10 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.Biome;
 import teamrtg.rtg.api.tools.deco.*;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
 import teamrtg.rtg.api.tools.deco.collection.DecoCollectionMegaTaiga;
 import teamrtg.rtg.api.tools.surface.SurfaceBase;
-import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
@@ -15,15 +13,11 @@ import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaRedwoodTaigaHills extends RTGBiomeVanilla {
-    public static Biome standardBiome = Biomes.REDWOOD_TAIGA_HILLS;
-    public static Biome mutationBiome = Biome.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
 
     public RTGBiomeVanillaRedwoodTaigaHills() {
 
-        super(
-                mutationBiome,
-            Biomes.RIVER
-        );
+        super(Biomes.MUTATED_REDWOOD_TAIGA_HILLS, Biomes.RIVER);
+
         this.noLakes = true;
     }
 

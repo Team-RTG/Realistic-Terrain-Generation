@@ -2,7 +2,6 @@ package teamrtg.rtg.modules.vanilla.biomes;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.Biome;
 import teamrtg.rtg.api.tools.deco.*;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
 import teamrtg.rtg.api.tools.deco.DecoFlowersRTG.HeightType;
@@ -13,7 +12,6 @@ import teamrtg.rtg.api.tools.deco.helper.DecoHelper5050;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTG;
 import teamrtg.rtg.api.tools.feature.tree.rtg.TreeRTGPinusPonderosa;
 import teamrtg.rtg.api.tools.surface.SurfaceBase;
-import teamrtg.rtg.api.util.BiomeUtils;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
@@ -22,15 +20,9 @@ import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaFlowerForest extends RTGBiomeVanilla {
 
-    public static Biome standardBiome = Biomes.FOREST;
-    public static Biome mutationBiome = Biome.getBiome(BiomeUtils.getId(standardBiome) + MUTATION_ADDEND);
+	public RTGBiomeVanillaFlowerForest() {
 
-    public RTGBiomeVanillaFlowerForest() {
-
-        super(
-                mutationBiome,
-            Biomes.RIVER
-        );
+		super(Biomes.MUTATED_FOREST, Biomes.RIVER);
     }
 
     @Override

@@ -13,10 +13,8 @@ public class RTGBiomeVanillaIceMountains extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaIceMountains() {
 
-        super(
-                Biomes.ICE_MOUNTAINS,
-            Biomes.FROZEN_RIVER
-        );
+        super(Biomes.ICE_MOUNTAINS, Biomes.FROZEN_RIVER);
+
         this.noLakes = true;
         this.noWaterFeatures = true;
     }

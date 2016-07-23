@@ -14,10 +14,8 @@ public class RTGBiomeVanillaDesert extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaDesert() {
 
-        super(
-                Biomes.DESERT,
-            Biomes.RIVER
-        );
+        super(Biomes.DESERT, Biomes.RIVER);
+
         this.noLakes = true;
     }
 

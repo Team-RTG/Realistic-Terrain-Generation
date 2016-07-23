@@ -22,10 +22,7 @@ public class RTGBiomeVanillaRoofedForest extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaRoofedForest() {
 
-        super(
-                Biomes.ROOFED_FOREST,
-            Biomes.RIVER
-        );
+        super(Biomes.ROOFED_FOREST, Biomes.RIVER);
     }
 
     @Override

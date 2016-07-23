@@ -22,11 +22,9 @@ import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaJungle extends RTGBiomeVanilla {
 
-    public RTGBiomeVanillaJungle() {
-        super(
-                Biomes.JUNGLE,
-            Biomes.RIVER
-        );
+	public RTGBiomeVanillaJungle() {
+
+		super(Biomes.JUNGLE, Biomes.RIVER);
     }
 
     @Override

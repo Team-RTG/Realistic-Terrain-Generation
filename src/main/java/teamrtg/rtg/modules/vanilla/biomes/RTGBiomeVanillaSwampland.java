@@ -19,12 +19,9 @@ import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 
 public class RTGBiomeVanillaSwampland extends RTGBiomeVanilla {
 
-    public RTGBiomeVanillaSwampland() {
+	public RTGBiomeVanillaSwampland() {
 
-        super(
-                Biomes.SWAMPLAND,
-            Biomes.RIVER
-        );
+		super(Biomes.SWAMPLAND, Biomes.RIVER);
     }
 
     @Override

@@ -1,7 +1,5 @@
 package rtg;
 
-import java.util.ArrayList;
-
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -26,6 +24,7 @@ import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
 import rtg.world.biome.realistic.chromaticraft.RealisticBiomeCCBase;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBase;
 import rtg.world.biome.realistic.extrabiomes.RealisticBiomeEBXLBase;
+import rtg.world.biome.realistic.flowercraft.RealisticBiomeFCBase;
 import rtg.world.biome.realistic.forgottennature.RealisticBiomeFNBase;
 import rtg.world.biome.realistic.growthcraft.RealisticBiomeGCBase;
 import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
@@ -39,6 +38,8 @@ import rtg.world.biome.realistic.vampirism.RealisticBiomeVAMPBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
+
+import java.util.ArrayList;
 
 
 //@Mod(modid = "RTG", name = "Realistic Terrain Generaton", version = "0.8.0d", dependencies = "required-after:Forge@[10.13.4.1448,)", acceptableRemoteVersions = "*")
@@ -107,6 +108,7 @@ public class RTG {
         RealisticBiomeFNBase.addBiomes();
         RealisticBiomeICBase.addBiomes();
         RealisticBiomeIDTBase.addBiomes();
+        RealisticBiomeFCBase.addBiomes();
 
         RealisticBiomePresenceTester.doBiomeCheck();
     }

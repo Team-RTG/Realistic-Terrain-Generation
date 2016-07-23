@@ -1,9 +1,8 @@
 package rtg.event;
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.WeakHashMap;
-
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.eventhandler.EventPriority;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -29,9 +28,10 @@ import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.genlayer.RiverRemover;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.WeakHashMap;
 
 public class EventManagerRTG
 {
@@ -184,11 +184,19 @@ public class EventManagerRTG
 
         @SubscribeEvent
         public void saplingGrowTreeRTG(SaplingGrowTreeEvent event) {
-        	
+
             // Are RTG saplings enabled?
-            if (!ConfigRTG.enableRTGSaplings) { return; }
+            if (!ConfigRTG.enableRTGSaplings) {
+                return;
+            }
+
+            // Are we in an RTG world? Do we have RTG's chunk manager?
+            if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG) || !(event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG)) {
+                return;
+            }
 
             Random rand = event.rand;
+
             // Should we generate a vanilla tree instead?
             if (rand.nextInt(ConfigRTG.rtgTreeChance) != 0) {
 
@@ -215,6 +223,7 @@ public class EventManagerRTG
             Logger.debug("Ground Sapling Meta = %d", saplingMeta);
 
             if (biomeTrees.size() > 0) {
+
                 // First, let's get all of the trees in this biome that match the sapling on the ground.
                 ArrayList<TreeRTG> validTrees = new ArrayList<>();
 
@@ -230,8 +239,10 @@ public class EventManagerRTG
                         Logger.debug("Valid tree found!");
                     }
                 }
+
                 // If there are valid trees, then proceed; otherwise, let's get out here.
                 if (validTrees.size() > 0) {
+
                     // Get a random tree from the list of valid trees.
                     TreeRTG tree = validTrees.get(rand.nextInt(validTrees.size()));
 
@@ -253,7 +264,7 @@ public class EventManagerRTG
                      * Set the generateFlag to what it needs to be for growing trees from saplings,
                      * generate the tree, and then set it back to what it was before.
                      *
-                     * TODO: Does this affect the generation of normal RTG trees?
+                     * TODO: Does this affect the generation of normal RTG trees? - Pink
                      */
                     int oldFlag = tree.generateFlag;
                     tree.generateFlag = 3;
@@ -271,8 +282,11 @@ public class EventManagerRTG
                         }
                     }
                 }
-                else Logger.debug("There are no RTG trees associated with the sapling on the ground." +
-                        " Generating a vanilla tree instead.");
+                else {
+
+                    Logger.debug("There are no RTG trees associated with the sapling on the ground." +
+                            " Generating a vanilla tree instead.");
+                }
             }
         }
     }
